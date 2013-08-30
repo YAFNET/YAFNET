@@ -29,7 +29,10 @@ namespace YAF.Core.Data
     using YAF.Classes.Data;
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+
+    using QueryCounter = YAF.Core.Data.Profiling.QueryCounter;
 
     #endregion
 
@@ -39,6 +42,8 @@ namespace YAF.Core.Data
     public abstract class DbAccessBase : IDbAccessV2
     {
         #region Fields
+
+        private readonly IProfileQuery _profiler;
 
         /// <summary>
         ///     The _provider name.
@@ -61,9 +66,10 @@ namespace YAF.Core.Data
         /// <param name="connectionString">
         /// The connection String. 
         /// </param>
-        public DbAccessBase(
-            [NotNull] Func<string, DbProviderFactory> dbProviderFactory, [NotNull] string providerName, [NotNull] string connectionString)
+        protected DbAccessBase(
+            [NotNull] Func<string, DbProviderFactory> dbProviderFactory, IProfileQuery profiler, [NotNull] string providerName, [NotNull] string connectionString)
         {
+            this._profiler = profiler;
             this._providerName = providerName;
             this.DbProviderFactory = dbProviderFactory(providerName);
             this.ConnectionString = connectionString;
@@ -134,7 +140,7 @@ namespace YAF.Core.Data
         {
             var command = cmd ?? this.GetCommand(string.Empty, false);
 
-            using (var qc = new QueryCounter(command.CommandText))
+            using (var p = this._profiler.Start(command.CommandText))
             {
                 T result = default(T);
 
@@ -164,9 +170,6 @@ namespace YAF.Core.Data
                     result = execFunc(command);
                 }
 
-#if DEBUG
-                qc.CurrentSql = command.CommandText;
-#endif
                 return result;
             }
         }

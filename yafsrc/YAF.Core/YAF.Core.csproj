@@ -97,6 +97,9 @@
     <Compile Include="Data\Filters\StyleFilter.cs" />
     <Compile Include="Data\BasicRepository.cs" />
     <Compile Include="Data\MappingHelper.cs" />
+    <Compile Include="Data\Profiling\QueryCounter.cs" />
+    <Compile Include="Data\Profiling\QueryProfile.cs" />
+    <Compile Include="Data\Profiling\QueryWatcher.cs" />
     <Compile Include="Events\AttachmentEventHandleFileDelete.cs" />
     <Compile Include="Events\BannedIPEventCacheInvalidate.cs" />
     <Compile Include="Events\CategoryEventHandleCacheInvalidate.cs" />

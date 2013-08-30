@@ -39,6 +39,8 @@ namespace YAF.Core
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
+    using QueryCounter = YAF.Core.Data.Profiling.QueryCounter;
+
     #endregion
 
     /// <summary>

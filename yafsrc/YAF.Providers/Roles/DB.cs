@@ -26,7 +26,9 @@ namespace YAF.Providers.Roles
 
   using YAF.Classes;
   using YAF.Classes.Pattern;
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Core;
+  using YAF.Core.Data.Profiling;
+  using YAF.Types.Interfaces; using YAF.Types.Constants;
   using YAF.Classes.Data;
   using YAF.Types;
   using YAF.Types.Interfaces.Data;
@@ -69,7 +71,7 @@ namespace YAF.Providers.Roles
     /// <summary>
     ///   The _db access.
     /// </summary>
-    private readonly MsSqlDbAccess _msSqlDbAccess = new MsSqlDbAccess();
+    private readonly MsSqlDbAccess _msSqlDbAccess = new MsSqlDbAccess(new QueryProfile());
 
     #endregion
 

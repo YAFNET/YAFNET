@@ -24,8 +24,10 @@ namespace YAF.Utils
 
     using Autofac;
 
+    using YAF.Core.Data.Profiling;
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Interfaces;
 
     #endregion
 
@@ -44,6 +46,8 @@ namespace YAF.Utils
         /// </param>
         protected override void Load([NotNull] ContainerBuilder builder)
         {
+            builder.RegisterType<QueryProfile>().As<IProfileQuery>().SingleInstance().PreserveExistingDefaults();
+
             this.RegisterWebAbstractions(builder);
         }
 

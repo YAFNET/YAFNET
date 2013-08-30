@@ -31,6 +31,7 @@ namespace YAF.Data.MsSql
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     #endregion
@@ -78,8 +79,8 @@ namespace YAF.Data.MsSql
         /// <param name="dbProviderFactory">
         /// The db provider factory. 
         /// </param>
-        public MsSqlDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
-            : base(dbProviderFactory, SqlServerClientProviderTypeName, Config.ConnectionString)
+        public MsSqlDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory, IProfileQuery profiler)
+            : base(dbProviderFactory, profiler, SqlServerClientProviderTypeName, Config.ConnectionString)
         {
         }
 

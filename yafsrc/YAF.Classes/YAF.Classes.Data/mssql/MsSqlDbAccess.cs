@@ -41,6 +41,13 @@ namespace YAF.Classes.Data
     /// </summary>
     public class MsSqlDbAccess : IDbAccess
     {
+        public IProfileQuery Profiler { get; internal set; }
+
+        public MsSqlDbAccess(IProfileQuery profiler)
+        {
+            this.Profiler = profiler;
+        }
+
         #region Constants and Fields
 
         /// <summary>
@@ -432,7 +439,7 @@ namespace YAF.Classes.Data
         /// </param>
         public void ExecuteNonQuery([NotNull] IDbCommand cmd, bool transaction)
         {
-            using (var qc = new QueryCounter(cmd.CommandText))
+            using (var p = this.Profiler.Start(cmd.CommandText))
             {
                 using (var connectionManager = this.GetConnectionManager())
                 {
@@ -474,7 +481,7 @@ namespace YAF.Classes.Data
         /// </returns>
         public object ExecuteScalar([NotNull] IDbCommand cmd, bool transaction)
         {
-            using (var qc = new QueryCounter(cmd.CommandText))
+            using (var p = this.Profiler.Start(cmd.CommandText))
             {
                 using (var connectionManager = this.GetConnectionManager())
                 {
@@ -551,7 +558,7 @@ namespace YAF.Classes.Data
         /// </returns>
         public DataTable GetData([NotNull] IDbCommand cmd, bool transaction)
         {
-            using (var qc = new QueryCounter(cmd.CommandText))
+            using (var p = this.Profiler.Start(cmd.CommandText))
             {
                 return this.ProcessUsingResultFilters(this.GetDatasetBasic(cmd, transaction).Tables[0], cmd.CommandText);
             }
@@ -570,7 +577,7 @@ namespace YAF.Classes.Data
         /// </returns>
         public DataTable GetData([NotNull] string commandText, bool transaction)
         {
-            using (var qc = new QueryCounter(commandText))
+            using (var p = this.Profiler.Start(commandText))
             {
                 using (var cmd = new SqlCommand())
                 {
@@ -595,7 +602,7 @@ namespace YAF.Classes.Data
         [NotNull]
         public DataSet GetDataset([NotNull] IDbCommand cmd, bool transaction)
         {
-            using (var qc = new QueryCounter(cmd.CommandText))
+            using (var p = this.Profiler.Start(cmd.CommandText))
             {
                 return this.GetDatasetBasic(cmd, transaction);
             }

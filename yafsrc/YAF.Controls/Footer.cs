@@ -32,6 +32,7 @@ namespace YAF.Controls
 	using YAF.Classes;
 	using YAF.Classes.Data;
 	using YAF.Core;
+	using YAF.Core.Data.Profiling;
 	using YAF.Types;
 	using YAF.Types.Constants;
 	using YAF.Types.Extensions;

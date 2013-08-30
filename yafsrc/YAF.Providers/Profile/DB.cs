@@ -30,6 +30,7 @@ namespace YAF.Providers.Profile
   using YAF.Classes;
   using YAF.Classes.Pattern;
   using YAF.Core;
+  using YAF.Core.Data.Profiling;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces; 
   using YAF.Classes.Data;
@@ -75,7 +76,7 @@ namespace YAF.Providers.Profile
     /// <summary>
     ///   The _db access.
     /// </summary>
-    private readonly MsSqlDbAccess _msSqlDbAccess = new MsSqlDbAccess();
+    private readonly MsSqlDbAccess _msSqlDbAccess = new MsSqlDbAccess(new QueryProfile());
 
     #endregion
 

@@ -88,7 +88,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="common\BaseDataTableResultFilter.cs" />
     <Compile Include="common\DataModule.cs" />
     <Compile Include="common\DataRowConvert.cs" />
     <Compile Include="mssql\LegacyDb.cs" />
@@ -99,7 +98,6 @@
     <Compile Include="mssql\MsSqlDbAccess.cs" />
     <Compile Include="mssql\SettingsProfilePropertyColumn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="common\QueryCounter.cs" />
     <Compile Include="mssql\MsSqlDbConnectionManager.cs" />
     <Compile Include="common\TypedUserFind.cs" />
   </ItemGroup>
