@@ -59,6 +59,12 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            // Disable Avatar edit in dnn because it is already handled in the dnn profile page.
+            if (Config.IsDotNetNuke)
+            {
+                this.RedirectNoAccess();
+            }
+
             if (this.IsPostBack)
             {
                 return;

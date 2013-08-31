@@ -6410,7 +6410,8 @@ BEGIN
         t.LastMessageFlags,
         t.LastUserID,
         t.NumPosts,
-        t.Posted,		
+        t.Posted,	
+		LastMessage = (select m.Message from [{databaseOwner}].[{objectQualifier}Message] m where m.MessageID = t.LastMessageID),
         LastUserName = IsNull(t.LastUserName,(select x.[Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
         LastUserDisplayName = IsNull(t.LastUserDisplayName,(select x.[DisplayName] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
         LastUserStyle = case(@StyledNicks)

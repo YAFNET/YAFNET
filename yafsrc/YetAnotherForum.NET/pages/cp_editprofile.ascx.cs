@@ -10,7 +10,7 @@
  * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABIBILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
@@ -22,6 +22,7 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Web;
 
     using YAF.Classes;
     using YAF.Core;
@@ -33,7 +34,7 @@ namespace YAF.Pages
     #endregion
 
     /// <summary>
-    /// The editprofile page
+    /// The edit profile page
     /// </summary>
     public partial class cp_editprofile : ForumPageRegistered
     {
@@ -58,10 +59,17 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            // Redirect the dnn user to the dnn profile page.
+            if (Config.IsDotNetNuke)
+            {
+                this.Get<HttpResponseBase>().Redirect(YafBuildLink.GetLink(ForumPages.cp_editprofile));
+            } 
+            
             if (this.IsPostBack)
             {
                 return;
             }
+
             this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(
                 this.Get<YafBoardSettings>().EnableDisplayName

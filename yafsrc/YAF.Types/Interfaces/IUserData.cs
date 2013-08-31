@@ -18,147 +18,158 @@
  */
 namespace YAF.Types.Interfaces
 {
-  using System;
-  using System.Data;
-  using System.Web.Security;
+    using System;
+    using System.Data;
+    using System.Web.Security;
 
-  using YAF.Types.Constants;
-
-  public interface IUserData
-  {
-    /// <summary>
-    ///   Gets a value indicating whether AutoWatchTopics.
-    /// </summary>
-    bool AutoWatchTopics { get; }
+    using YAF.Types.Constants;
 
     /// <summary>
-    ///   Gets Avatar.
+    /// The UserData Interface
     /// </summary>
-    string Avatar { get; }
+    public interface IUserData
+    {
+        /// <summary>
+        ///   Gets a value indicating whether AutoWatchTopics.
+        /// </summary>
+        bool AutoWatchTopics { get; }
 
-    /// <summary>
-    ///   Gets Culture.
-    /// </summary>
-    string CultureUser { get; }
+        /// <summary>
+        ///   Gets Avatar.
+        /// </summary>
+        string Avatar { get; }
 
-    /// <summary>
-    ///   Gets DBRow.
-    /// </summary>
-    DataRow DBRow { get; }
+        /// <summary>
+        ///   Gets Culture.
+        /// </summary>
+        string CultureUser { get; }
 
-    /// <summary>
-    ///   Gets a value indicating whether  DST is Enabled.
-    /// </summary>
-    bool DSTUser { get; }
+        /// <summary>
+        ///   Gets DBRow.
+        /// </summary>
+        DataRow DBRow { get; }
 
-    /// <summary>
-    /// Gets a value indicating whether DailyDigest.
-    /// </summary>
-    bool DailyDigest { get; }
+        /// <summary>
+        ///   Gets a value indicating whether  DST is Enabled.
+        /// </summary>
+        bool DSTUser { get; }
 
-    /// <summary>
-    ///   Gets DisplayName.
-    /// </summary>
-    string DisplayName { get; }
+        /// <summary>
+        /// Gets a value indicating whether DailyDigest.
+        /// </summary>
+        bool DailyDigest { get; }
 
-    /// <summary>
-    ///   Gets Email.
-    /// </summary>
-    string Email { get; }
+        /// <summary>
+        ///   Gets DisplayName.
+        /// </summary>
+        string DisplayName { get; }
 
-    /// <summary>
-    ///   Gets a value indicating whether HasAvatarImage.
-    /// </summary>
-    bool HasAvatarImage { get; }
+        /// <summary>
+        ///   Gets Email.
+        /// </summary>
+        string Email { get; }
 
-    /// <summary>
-    ///   Gets a value indicating whether IsActiveExcluded.
-    /// </summary>
-    bool IsActiveExcluded { get; }
+        /// <summary>
+        ///   Gets a value indicating whether HasAvatarImage.
+        /// </summary>
+        bool HasAvatarImage { get; }
 
-    /// <summary>
-    ///   Gets a value indicating whether IsGuest.
-    /// </summary>
-    bool IsGuest { get; }
+        /// <summary>
+        ///   Gets a value indicating whether IsActiveExcluded.
+        /// </summary>
+        bool IsActiveExcluded { get; }
 
-    /// <summary>
-    ///   Gets Joined.
-    /// </summary>
-    DateTime? Joined { get; }
+        /// <summary>
+        ///   Gets a value indicating whether IsGuest.
+        /// </summary>
+        bool IsGuest { get; }
 
-    /// <summary>
-    ///   Gets LanguageFile.
-    /// </summary>
-    string LanguageFile { get; }
+        /// <summary>
+        ///   Gets Joined.
+        /// </summary>
+        DateTime? Joined { get; }
 
-    /// <summary>
-    ///   Gets LastVisit.
-    /// </summary>
-    DateTime? LastVisit { get; }
+        /// <summary>
+        ///   Gets LanguageFile.
+        /// </summary>
+        string LanguageFile { get; }
 
-    /// <summary>
-    ///   Gets Membership.
-    /// </summary>
-    MembershipUser Membership { get; }
+        /// <summary>
+        ///   Gets LastVisit.
+        /// </summary>
+        DateTime? LastVisit { get; }
 
-    /// <summary>
-    /// Gets NotificationSetting.
-    /// </summary>
-    UserNotificationSetting NotificationSetting { get; }
+        /// <summary>
+        ///   Gets Membership.
+        /// </summary>
+        MembershipUser Membership { get; }
 
-    /// <summary>
-    ///   Gets NumPosts.
-    /// </summary>
-    int? NumPosts { get; }
+        /// <summary>
+        /// Gets NotificationSetting.
+        /// </summary>
+        UserNotificationSetting NotificationSetting { get; }
 
-    /// <summary>
-    ///   Gets a value indicating whether UseMobileTheme.
-    /// </summary>
-    bool UseMobileTheme { get; }
+        /// <summary>
+        ///   Gets Number of Posts.
+        /// </summary>
+        int? NumPosts { get; }
 
-    /// <summary>
-    ///   Gets a value indicating whether PMNotification.
-    /// </summary>
-    bool PMNotification { get; }
+        /// <summary>
+        ///   Gets a value indicating whether UseMobileTheme.
+        /// </summary>
+        bool UseMobileTheme { get; }
 
-    /// <summary>
-    ///   Gets Points.
-    /// </summary>
-    int? Points { get; }
+        /// <summary>
+        ///   Gets a value indicating whether PMNotification.
+        /// </summary>
+        bool PMNotification { get; }
 
-    /// <summary>
-    ///   Gets Profile.
-    /// </summary>
-    IYafUserProfile Profile { get; }
+        /// <summary>
+        ///   Gets Points.
+        /// </summary>
+        int? Points { get; }
 
-    /// <summary>
-    ///   Gets RankName.
-    /// </summary>
-    string RankName { get; }
+        /// <summary>
+        ///   Gets Profile.
+        /// </summary>
+        IYafUserProfile Profile { get; }
 
-    /// <summary>
-    ///   Gets Signature.
-    /// </summary>
-    string Signature { get; }
+        /// <summary>
+        ///   Gets RankName.
+        /// </summary>
+        string RankName { get; }
 
-    /// <summary>
-    ///   Gets ThemeFile.
-    /// </summary>
-    string ThemeFile { get; }
+        /// <summary>
+        ///   Gets Signature.
+        /// </summary>
+        string Signature { get; }
 
-    /// <summary>
-    ///   Gets TimeZone.
-    /// </summary>
-    int? TimeZone { get; }
+        /// <summary>
+        ///   Gets ThemeFile.
+        /// </summary>
+        string ThemeFile { get; }
 
-    /// <summary>
-    ///   Gets UserID.
-    /// </summary>
-    int UserID { get; }
+        /// <summary>
+        ///   Gets TimeZone.
+        /// </summary>
+        int? TimeZone { get; }
 
-    /// <summary>
-    ///   Gets UserName.
-    /// </summary>
-    string UserName { get; }
-  }
+        /// <summary>
+        ///   Gets UserID.
+        /// </summary>
+        int UserID { get; }
+
+        /// <summary>
+        ///   Gets UserName.
+        /// </summary>
+        string UserName { get; }
+
+        /// <summary>
+        /// Gets the text editor.
+        /// </summary>
+        /// <value>
+        /// The text editor.
+        /// </value>
+        string TextEditor { get; }
+    }
 }
