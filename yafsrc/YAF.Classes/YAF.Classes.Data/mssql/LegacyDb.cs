@@ -3182,8 +3182,8 @@ namespace YAF.Classes.Data
                             ds.Tables[MsSqlDbAccess.GetObjectName("Forum")].AcceptChanges();
                             foreach (DataRow dr in ds.Tables[MsSqlDbAccess.GetObjectName("Forum")].Rows)
                             {
-                                categories[cntr] = Convert.ToInt32(dr["CategoryID"]);
-                                if (Convert.ToInt32(dr["ReportedCount"]) == 0 && Convert.ToInt32(dr["MessageCount"]) == 0)
+                                categories[cntr] = dr["CategoryID"].ToType<int>();
+                                if (dr["ReportedCount"].ToType<int>() == 0 && dr["MessageCount"].ToType<int>() == 0)
                                 {
                                     dr.Delete();
                                     categories[cntr] = 0;
@@ -3194,23 +3194,15 @@ namespace YAF.Classes.Data
 
                             ds.Tables[MsSqlDbAccess.GetObjectName("Forum")].AcceptChanges();
 
-                            foreach (DataRow dr in ds.Tables[MsSqlDbAccess.GetObjectName("Category")].Rows)
+                            foreach (
+                                DataRow dr in from DataRow dr in ds.Tables[MsSqlDbAccess.GetObjectName("Category")].Rows
+                                              let dr1 = dr
+                                              where
+                                                  !categories.Where(
+                                                      category => category == dr1["CategoryID"].ToType<int>()).Any()
+                                              select dr)
                             {
-                                bool deleteMe = true;
-                                for (int i = 0; i < categories.Length; i++)
-                                {
-                                    // We check here if the Category is missing in the array where 
-                                    // we've written categories number for each forum
-                                    if (categories[i] == Convert.ToInt32(dr["CategoryID"]))
-                                    {
-                                        deleteMe = false;
-                                    }
-                                }
-
-                                if (deleteMe)
-                                {
-                                    dr.Delete();
-                                }
+                                dr.Delete();
                             }
 
                             ds.Tables[MsSqlDbAccess.GetObjectName("Category")].AcceptChanges();
@@ -3534,7 +3526,8 @@ namespace YAF.Classes.Data
         /// </returns>
         public static string forumpage_validateversion(int appVersion)
         {
-            string redirect = string.Empty;
+            var redirect = string.Empty;
+
             try
             {
                 DataTable registry = registry_list("Version");
@@ -3542,13 +3535,13 @@ namespace YAF.Classes.Data
                 if ((registry.Rows.Count == 0) || (registry.Rows[0]["Value"].ToType<int>() < appVersion))
                 {
                     // needs upgrading...
-                    redirect = "install/default.aspx?upgrade=" + registry.Rows[0]["Value"].ToType<int>();
+                    redirect = "install/default.aspx?upgrade={0}".FormatWith(registry.Rows[0]["Value"].ToType<int>());
                 }
             }
             catch (SqlException)
             {
                 // needs to be setup...
-                redirect = "install/";
+                redirect = "install/default.aspx";
             }
 
             return redirect;
@@ -5168,14 +5161,10 @@ namespace YAF.Classes.Data
                 sb.Append("INSERT INTO ");
                 sb.Append(MsSqlDbAccess.GetObjectName("Poll"));
 
-                if (question.Closes > DateTime.MinValue)
-                {
-                    sb.Append("(Question,Closes, UserID,PollGroupID,ObjectPath,MimeType,Flags) ");
-                }
-                else
-                {
-                    sb.Append("(Question,UserID, PollGroupID, ObjectPath, MimeType,Flags) ");
-                }
+                sb.Append(
+                    question.Closes > DateTime.MinValue
+                        ? "(Question,Closes, UserID,PollGroupID,ObjectPath,MimeType,Flags) "
+                        : "(Question,UserID, PollGroupID, ObjectPath, MimeType,Flags) ");
 
                 sb.Append(" VALUES(");
                 sb.Append("@Question");
@@ -5193,14 +5182,16 @@ namespace YAF.Classes.Data
                 // The cycle through question reply choices
                 for (uint choiceCount = 0; choiceCount < question.Choice.GetUpperBound(1) + 1; choiceCount++)
                 {
-                    if (!string.IsNullOrEmpty(question.Choice[0, choiceCount]))
+                    if (string.IsNullOrEmpty(question.Choice[0, choiceCount]))
                     {
-                        sb.Append("INSERT INTO ");
-                        sb.Append(MsSqlDbAccess.GetObjectName("Choice"));
-                        sb.Append("(PollID,Choice,Votes,ObjectPath,MimeType) VALUES (");
-                        sb.AppendFormat("@PollID,@Choice{0},@Votes{0},@ChoiceObjectPath{0}, @ChoiceMimeType{0}", choiceCount);
-                        sb.Append("); ");
+                        continue;
                     }
+
+                    sb.Append("INSERT INTO ");
+                    sb.Append(MsSqlDbAccess.GetObjectName("Choice"));
+                    sb.Append("(PollID,Choice,Votes,ObjectPath,MimeType) VALUES (");
+                    sb.AppendFormat("@PollID,@Choice{0},@Votes{0},@ChoiceObjectPath{0}, @ChoiceMimeType{0}", choiceCount);
+                    sb.Append("); ");
                 }
 
                 // we don't update if no new group is created 
@@ -5235,22 +5226,28 @@ namespace YAF.Classes.Data
 
                 using (var cmd = MsSqlDbAccess.GetCommand(sb.ToString(), true))
                 {
-                    var ret = new SqlParameter();
-                    ret.ParameterName = "@PollID";
-                    ret.SqlDbType = SqlDbType.Int;
-                    ret.Direction = ParameterDirection.Output;
+                    var ret = new SqlParameter
+                                  {
+                                      ParameterName = "@PollID",
+                                      SqlDbType = SqlDbType.Int,
+                                      Direction = ParameterDirection.Output
+                                  };
                     cmd.Parameters.Add(ret);
 
-                    var ret2 = new SqlParameter();
-                    ret2.ParameterName = "@PollGroupID";
-                    ret2.SqlDbType = SqlDbType.Int;
-                    ret2.Direction = ParameterDirection.Output;
+                    var ret2 = new SqlParameter
+                                   {
+                                       ParameterName = "@PollGroupID",
+                                       SqlDbType = SqlDbType.Int,
+                                       Direction = ParameterDirection.Output
+                                   };
                     cmd.Parameters.Add(ret2);
 
-                    var ret3 = new SqlParameter();
-                    ret3.ParameterName = "@NewPollGroupID";
-                    ret3.SqlDbType = SqlDbType.Int;
-                    ret3.Direction = ParameterDirection.Output;
+                    var ret3 = new SqlParameter
+                                   {
+                                       ParameterName = "@NewPollGroupID",
+                                       SqlDbType = SqlDbType.Int,
+                                       Direction = ParameterDirection.Output
+                                   };
                     cmd.Parameters.Add(ret3);
 
                     cmd.Parameters.AddWithValue("@Question", question.Question);
@@ -6373,13 +6370,13 @@ namespace YAF.Classes.Data
                                     cmd.CommandType = CommandType.Text;
                                     foreach (DataRow row in dt.Select("IsProcedure=1 or IsScalarFunction=1"))
                                     {
-                                        cmd.CommandText = string.Format("grant execute on \"{0}\" to \"{1}\"", row["Name"], userName);
+                                        cmd.CommandText = "grant execute on \"{0}\" to \"{1}\"".FormatWith(row["Name"], userName);
                                         cmd.ExecuteNonQuery();
                                     }
 
                                     foreach (DataRow row in dt.Select("IsUserTable=1 or IsView=1"))
                                     {
-                                        cmd.CommandText = string.Format("grant select,update on \"{0}\" to \"{1}\"", row["Name"], userName);
+                                        cmd.CommandText = "grant select,update on \"{0}\" to \"{1}\"".FormatWith(row["Name"], userName);
                                         cmd.ExecuteNonQuery();
                                     }
                                 }
