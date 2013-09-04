@@ -25,10 +25,9 @@ namespace YAF.Editors
   using YAF.Types;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
-  using YAF.Utils;
 
     /// <summary>
-  /// The tiny mce bb code editor.
+    /// The tinyMCE bb code editor.
   /// </summary>
   public class TinyMceBBCodeEditor : TinyMceEditor
   {
@@ -84,7 +83,7 @@ namespace YAF.Editors
     #region Methods
 
     /// <summary>
-    /// The register smiliey script.
+    /// The register Smiley script.
     /// </summary>
     protected override void RegisterSmilieyScript()
     {

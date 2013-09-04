@@ -18,17 +18,14 @@
  */
 namespace YAF.Editors
 {
-    using System.Web.UI;
-
     using YAF.Classes;
     using YAF.Core;
   using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     /// <summary>
-  /// The tiny mce html editor.
+  /// The TinyMCE html editor.
   /// </summary>
   public class TinyMceHtmlEditor : TinyMceEditor
   {
@@ -85,7 +82,7 @@ namespace YAF.Editors
     #region Methods
 
     /// <summary>
-    /// The register smiliey script.
+    /// The register Smiley script.
     /// </summary>
     protected override void RegisterSmilieyScript()
     {

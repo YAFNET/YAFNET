@@ -18,92 +18,89 @@
  */
 namespace YAF.Editors
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Web.UI;
+    using System;
+    using System.Web.UI;
 
-  using YAF.Types;
-
-  #endregion
-
-  /// <summary>
-  /// The tiny mce editor.
-  /// </summary>
-  public abstract class TinyMceEditor : TextEditor
-  {
-    #region Properties
-
-    /// <summary>
-    ///   Gets or sets Text.
-    /// </summary>
-    public override string Text
-    {
-      get
-      {
-        return this._textCtl.InnerText;
-      }
-
-      set
-      {
-        this._textCtl.InnerText = value;
-      }
-    }
-
-    /// <summary>
-    ///   Gets SafeID.
-    /// </summary>
-    [NotNull]
-    protected new string SafeID
-    {
-      get
-      {
-        return this._textCtl.ClientID.Replace("$", "_");
-      }
-    }
+    using YAF.Types;
 
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// The editor_ PreRender.
+    /// The TinyMCE editor.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+    public abstract class TinyMceEditor : TextEditor
     {
-      ScriptManager.RegisterClientScriptInclude(
-        this.Page, this.Page.GetType(), "tinymce", this.ResolveUrl("tiny_mce/tiny_mce.js"));
-      this.RegisterTinyMceCustomJS();
-      this.RegisterSmilieyScript();
+        #region Properties
+
+        /// <summary>
+        ///   Gets or sets Text.
+        /// </summary>
+        public override string Text
+        {
+            get
+            {
+                return this._textCtl.InnerText;
+            }
+
+            set
+            {
+                this._textCtl.InnerText = value;
+            }
+        }
+
+        /// <summary>
+        ///   Gets SafeID.
+        /// </summary>
+        [NotNull]
+        protected new string SafeID
+        {
+            get
+            {
+                return this._textCtl.ClientID.Replace("$", "_");
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Load Editor Java Scripts
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        protected override void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptInclude(
+                this.Page,
+                this.Page.GetType(),
+                "tinymce",
+                this.ResolveUrl("tiny_mce/tinymce.min.js"));
+
+            this.RegisterTinyMceCustomJS();
+            this.RegisterSmilieyScript();
+        }
+
+        /// <summary>
+        /// // TODO : Move to CSS
+        /// Adds Width and Height to the Editor
+        /// </summary>
+        /// <param name="e">The e.</param>
+        protected override void OnInit([NotNull] EventArgs e)
+        {
+            base.OnInit(e);
+
+            this._textCtl.Attributes.CssStyle.Add("width", "100%");
+            this._textCtl.Attributes.CssStyle.Add("height", "350px");
+        }
+
+        /// <summary>
+        /// Registers the TinyMCE custom JS.
+        /// </summary>
+        protected abstract void RegisterTinyMceCustomJS();
+
+        #endregion
     }
-
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit([NotNull] EventArgs e)
-    {
-      // TODO: Adding another Event when already added to the base, and overrided??? Don't think the below is needed
-      // PreRender += new EventHandler(Editor_PreRender); 
-      base.OnInit(e);
-
-      this._textCtl.Attributes.CssStyle.Add("width", "100%");
-      this._textCtl.Attributes.CssStyle.Add("height", "350px");
-    }
-
-    /// <summary>
-    /// The register tiny mce custom js.
-    /// </summary>
-    protected abstract void RegisterTinyMceCustomJS();
-
-    #endregion
-  }
 }
