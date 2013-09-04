@@ -617,7 +617,9 @@ namespace YAF.Utilities
         public static string LoadSpinnerWidget()
         {
             return @"{0}(document).ready(function() {{
-                        {0}('.Numeric').spinner();
+                        if (typeof (jQuery.fn.spinner) !== 'undefined') {{
+                            {0}('.Numeric').spinner();
+                        }}
                     }});".FormatWith(Config.JQueryAlias);
         }
 
