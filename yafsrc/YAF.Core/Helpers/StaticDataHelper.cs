@@ -28,6 +28,7 @@ namespace YAF.Core
     using System.Web;
     using System.Xml;
     using YAF.Classes;
+    using YAF.Core.Services.Localization;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

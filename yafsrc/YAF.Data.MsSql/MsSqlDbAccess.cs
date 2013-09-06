@@ -50,11 +50,18 @@ namespace YAF.Data.MsSql
         ///     The _script list.
         /// </summary>
         private static readonly string[] _scriptList =
-            {
-                "mssql/tables.sql", "mssql/indexes.sql", "mssql/views.sql", "mssql/constraints.sql", 
-                "mssql/triggers.sql", "mssql/functions.sql", "mssql/procedures.sql", 
-                "mssql/providers/tables.sql", "mssql/providers/indexes.sql", "mssql/providers/procedures.sql"
-            };
+        {
+            "mssql/tables.sql",
+            "mssql/indexes.sql",
+            "mssql/views.sql", 
+            "mssql/constraints.sql",
+            "mssql/triggers.sql", 
+            "mssql/functions.sql", 
+            "mssql/procedures.sql",
+            "mssql/providers/tables.sql", 
+            "mssql/providers/indexes.sql", 
+            "mssql/providers/procedures.sql"
+        };
 
         #endregion
 

@@ -29,7 +29,6 @@ namespace YAF.Pages.Admin
 
     using YAF.Classes.Data;
     using YAF.Core;
-    using YAF.Core.BBCode;
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;

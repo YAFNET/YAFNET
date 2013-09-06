@@ -18,8 +18,8 @@
  */
 namespace YAF.Core
 {
-  using YAF.Core.BBCode;
-  using YAF.Types;
+    using YAF.Core.BBCode;
+    using YAF.Types;
   using YAF.Types.Interfaces;
 
   /// <summary>

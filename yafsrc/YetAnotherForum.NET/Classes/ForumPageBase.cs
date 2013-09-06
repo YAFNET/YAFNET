@@ -24,10 +24,9 @@ namespace YAF
     using System.Web;
     using System.Web.UI;
 
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Extensions;
-    using YAF.Core.Services;
+    using YAF.Core.Services.Startup;
     using YAF.Types;
     using YAF.Types.Interfaces;
 

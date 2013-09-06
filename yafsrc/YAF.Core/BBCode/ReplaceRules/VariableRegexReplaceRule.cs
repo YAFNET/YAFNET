@@ -18,18 +18,15 @@
  */
 namespace YAF.Core.BBCode.ReplaceRules
 {
-  using System;
-  using System.Text;
-  using System.Text.RegularExpressions;
-  using System.Web;
+    using System;
+    using System.Text;
+    using System.Text.RegularExpressions;
+    using System.Web;
 
-  using YAF.Core;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
 
-  /// <summary>
+    /// <summary>
   /// For complex regex with variable/default and truncate support
   /// </summary>
   public class VariableRegexReplaceRule : SimpleRegexReplaceRule

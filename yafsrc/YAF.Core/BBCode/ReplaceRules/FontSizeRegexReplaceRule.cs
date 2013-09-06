@@ -18,9 +18,9 @@
  */
 namespace YAF.Core.BBCode.ReplaceRules
 {
-  using System.Text.RegularExpressions;
+    using System.Text.RegularExpressions;
 
-  /// <summary>
+    /// <summary>
   /// For the font size with replace
   /// </summary>
   public class FontSizeRegexReplaceRule : VariableRegexReplaceRule

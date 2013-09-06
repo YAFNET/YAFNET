@@ -607,11 +607,7 @@ namespace YAF.Controls
                 this.OnlineStatusImage.Visible = false;
             }
 
-            var asynchCallFailedJs =
-                this.Get<IScriptBuilder>().CreateStatement().AddFunc(
-                    f => f.Name("CallFailed").WithParams("res").Func(s => s.Add("alert('Error Occurred');")));
-
-            YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", asynchCallFailedJs);
+            YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", "function CallFailed(res){ alert('Error Occurred'); }");
             
             this.FormatThanksRow();
 
@@ -671,8 +667,7 @@ namespace YAF.Controls
             const string RemoveThankBoxHTML =
                 "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span>' + res.d.Text + '</span></a>'";
 
-            var thanksJs =
-                this.Get<IScriptBuilder>().CreateStatement().Add(JavaScriptBlocks.AddThanksJs(RemoveThankBoxHTML)).AddLine().Add(JavaScriptBlocks.RemoveThanksJs(AddThankBoxHTML));
+            var thanksJs = JavaScriptBlocks.AddThanksJs(RemoveThankBoxHTML) + Environment.NewLine + JavaScriptBlocks.RemoveThanksJs(AddThankBoxHTML);
 
             YafContext.Current.PageElements.RegisterJsBlockStartup("ThanksJs", thanksJs);
 

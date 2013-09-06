@@ -36,6 +36,8 @@ namespace YAF.Core
     using YAF.Core.Extensions;
     using YAF.Core.Nntp;
     using YAF.Core.Services;
+    using YAF.Core.Services.Cache;
+    using YAF.Core.Services.Startup;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Extensions;
@@ -375,9 +377,6 @@ namespace YAF.Core
             builder.RegisterType<YafBuddy>().As<IBuddy>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
             builder.RegisterType<InstallUpgradeService>().AsSelf().PreserveExistingDefaults();
-
-            // needs to be "instance per dependancy" so that each new request gets a new ScripBuilder.
-            builder.RegisterType<JavaScriptBuilder>().As<IScriptBuilder>().InstancePerDependency().PreserveExistingDefaults();
 
             // builder.RegisterType<RewriteUrlBuilder>().Named<IUrlBuilder>("rewriter").InstancePerLifetimeScope();
             builder.RegisterType<YafStopWatch>()

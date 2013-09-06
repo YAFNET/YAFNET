@@ -18,11 +18,11 @@
  */
 namespace YAF.Core.BBCode.ReplaceRules
 {
-  using System.Text.RegularExpressions;
+    using System.Text.RegularExpressions;
 
-  using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces;
 
-  /// <summary>
+    /// <summary>
   /// Simple code block regular express replace
   /// </summary>
   public class CodeRegexReplaceRule : SimpleRegexReplaceRule

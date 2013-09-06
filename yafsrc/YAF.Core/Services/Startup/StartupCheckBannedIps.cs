@@ -16,16 +16,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core.Services
+namespace YAF.Core.Services.Startup
 {
     #region Using
 
-    using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using System.Web;
 
-    using YAF.Classes.Data;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -77,7 +74,7 @@ namespace YAF.Core.Services
             this.DataCache = dataCache;
             this.HttpResponseBase = httpResponseBase;
             this.HttpRequestBase = httpRequestBase;
-            BannedIpRepository = bannedIpRepository;
+            this.BannedIpRepository = bannedIpRepository;
             this.Logger = logger;
         }
 

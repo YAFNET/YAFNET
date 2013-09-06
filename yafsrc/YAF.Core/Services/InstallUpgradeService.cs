@@ -381,6 +381,8 @@ namespace YAF.Core.Services
                         }
                     });
 
+            this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(this.PageBoardID));
+
             // load default bbcode if available...
             loadWrapper(_BbcodeImport, s => DataImport.BBCodeExtensionImport(this.PageBoardID, s));
 

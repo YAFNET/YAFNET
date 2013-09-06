@@ -25,7 +25,6 @@ namespace YAF.Core.BBCode
     using System.Text;
 
     using YAF.Types.Extensions;
-    using YAF.Utils;
 
     #endregion
 

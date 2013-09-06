@@ -34,10 +34,9 @@ namespace YAF.Core.BBCode
     using YAF.Core.BBCode.ReplaceRules;
     using YAF.Core.Services;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -979,12 +978,12 @@ namespace YAF.Core.BBCode
                 string displayScript = null;
                 string editScript = null;
 
-                if (row.DisplayJS.IsSet())
+                if (StringExtensions.IsSet(row.DisplayJS))
                 {
                     displayScript = this.LocalizeCustomBBCodeElement(row.DisplayJS.Trim());
                 }
 
-                if (editorID.IsSet() && row.EditJS.IsSet())
+                if (editorID.IsSet() && StringExtensions.IsSet(row.EditJS))
                 {
                     editScript = this.LocalizeCustomBBCodeElement(row.EditJS.Trim());
 
@@ -998,7 +997,7 @@ namespace YAF.Core.BBCode
                 }
 
                 // see if there is any CSS associated with this YafBBCode
-                if (row.DisplayCSS.IsSet() && row.DisplayCSS.IsSet())
+                if (StringExtensions.IsSet(row.DisplayCSS) && StringExtensions.IsSet(row.DisplayCSS))
                 {
                     // yes, add it into the builder
                     cssBuilder.AppendLine(this.LocalizeCustomBBCodeElement(row.DisplayCSS.Trim()));
@@ -1036,7 +1035,7 @@ namespace YAF.Core.BBCode
 
             // handle custom bbcodes row by row...
             foreach (var codeRow in
-                bbcodeTable.Where(codeRow => !(codeRow.UseModule ?? false) && codeRow.SearchRegex.IsSet()))
+                bbcodeTable.Where<BBCode>(codeRow => !(codeRow.UseModule ?? false) && StringExtensions.IsSet(codeRow.SearchRegex)))
             {
                 if (codeRow.Variables.IsSet())
                 {

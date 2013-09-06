@@ -62,6 +62,7 @@
     <Compile Include="Attributes\YafModule.cs" />
     <Compile Include="BadWordReplaceItem.cs" />
     <Compile Include="EventProxies\AfterUpgradeDatabaseEvent.cs" />
+    <Compile Include="EventProxies\ImportStaticDataEvent.cs" />
     <Compile Include="EventProxies\RepositoryEvent.cs" />
     <Compile Include="Extensions\ArrayExtensions.cs" />
     <Compile Include="Extensions\DataContainerExtensions.cs" />
@@ -213,11 +214,6 @@
     <Compile Include="Interfaces\IRemoveValue.cs" />
     <Compile Include="Interfaces\IReplaceBlocks.cs" />
     <Compile Include="Interfaces\IReplaceRule.cs" />
-    <Compile Include="Interfaces\IScriptBuilder.cs" />
-    <Compile Include="Interfaces\IScriptFunction.cs" />
-    <Compile Include="Interfaces\IScriptFunctionContext.cs" />
-    <Compile Include="Interfaces\IScriptStatement.cs" />
-    <Compile Include="Interfaces\IScriptStatementContext.cs" />
     <Compile Include="Interfaces\ISendMail.cs" />
     <Compile Include="Interfaces\ISendMailThreaded.cs" />
     <Compile Include="Interfaces\ISendNotification.cs" />

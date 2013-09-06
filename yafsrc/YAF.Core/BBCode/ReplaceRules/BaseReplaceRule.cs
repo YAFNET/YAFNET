@@ -18,11 +18,11 @@
  */
 namespace YAF.Core.BBCode.ReplaceRules
 {
-  using System;
+    using System;
 
-  using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces;
 
-  /// <summary>
+    /// <summary>
   /// Base class for all replacement rules.
   ///   Provides compare functionality based on the rule rank.
   ///   Override replace to handle replacement differently.

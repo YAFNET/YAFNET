@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2006-2013 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -17,24 +17,24 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace YAF.Core.BBCode
+namespace YAF.Types.EventProxies
 {
-    /// <summary>
-    /// SyntaxHighlighter List of Supported Code Languages
-    /// </summary>
-    public class HighLightList
+    using YAF.Types.Interfaces;
+
+    public class ImportStaticDataEvent : IAmEvent, IHaveBoardID
     {
-        #region Properties
+        #region Constructors and Destructors
 
-        /// <summary>
-        ///   Gets or sets BrushName
-        /// </summary>
-        public string BrushName { get; set; }
+        public ImportStaticDataEvent(int boardId)
+        {
+            this.BoardID = boardId;
+        }
 
-        /// <summary>
-        ///   Gets or sets BrushAlias (User ID)
-        /// </summary>
-        public string BrushAlias { get; set; }
+        #endregion
+
+        #region Public Properties
+
+        public int BoardID { get; private set; }
 
         #endregion
     }

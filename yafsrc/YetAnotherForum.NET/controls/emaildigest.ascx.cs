@@ -32,6 +32,8 @@ namespace YAF.Controls
     using YAF.Core;
     using YAF.Core.Data.Profiling;
     using YAF.Core.Services;
+    using YAF.Core.Services.Localization;
+    using YAF.Core.Services.Startup;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

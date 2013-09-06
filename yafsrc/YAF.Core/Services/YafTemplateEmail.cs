@@ -24,6 +24,7 @@ namespace YAF.Core.Services
 
     using YAF.Classes;
     using YAF.Core.Model;
+    using YAF.Core.Services.Localization;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;

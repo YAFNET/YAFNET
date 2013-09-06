@@ -16,21 +16,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core.Services
+namespace YAF.Core.Services.Startup
 {
   #region Using
 
-  using System;
-  using System.Web.UI;
+    using System;
+    using System.Web.UI;
 
-  using YAF.Types;
-  using YAF.Types.Attributes;
-  using YAF.Types.EventProxies;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
+    using YAF.Types;
+    using YAF.Types.Attributes;
+    using YAF.Types.EventProxies;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// The page request load services.

@@ -20,8 +20,7 @@ namespace YAF.Modules
 {
   #region Using
 
-  using YAF.Core.BBCode;
-  using YAF.Types.Attributes;
+    using YAF.Types.Attributes;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
 

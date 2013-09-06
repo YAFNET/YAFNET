@@ -24,6 +24,7 @@ namespace YAF.Core
     using System.Globalization;
     using System.Threading;
 
+    using YAF.Core.Services.Localization;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Classes.Data;

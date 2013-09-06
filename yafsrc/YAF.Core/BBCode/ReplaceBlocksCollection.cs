@@ -18,17 +18,14 @@
  */
 namespace YAF.Core.BBCode
 {
-  using System;
-  using System.Collections.Generic;
-  using System.Text;
-  using System.Text.RegularExpressions;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
 
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
 
-  /// <summary>
+    /// <summary>
   /// Handles the collection of replacement tags and can also pull the HTML out of the text making a new replacement tag
   /// </summary>
   public class ReplaceBlocksCollection : IReplaceBlocks

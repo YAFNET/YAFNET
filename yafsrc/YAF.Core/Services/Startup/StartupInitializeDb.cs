@@ -16,20 +16,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core.Services
+namespace YAF.Core.Services.Startup
 {
   #region Using
 
-  using System.Web;
+    using System.Web;
 
-  using YAF.Classes.Data;
-  using YAF.Types.Extensions;
-  using YAF.Utils;
-  using YAF.Core.Tasks;
-  using YAF.Types;
-  using YAF.Types.Interfaces;
+    using YAF.Classes.Data;
+    using YAF.Core.Tasks;
+    using YAF.Types;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// The yaf initialize db.

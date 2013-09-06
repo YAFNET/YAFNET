@@ -41,6 +41,8 @@ namespace YAF
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services;
+    using YAF.Core.Services.Localization;
+    using YAF.Core.Services.Startup;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

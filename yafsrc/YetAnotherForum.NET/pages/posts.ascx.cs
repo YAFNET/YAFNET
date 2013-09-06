@@ -492,18 +492,11 @@ namespace YAF.Pages
                         .FormatWith(this.GetText("BUTTON_UNTAGFAVORITE_TT"), this.GetText("BUTTON_UNTAGFAVORITE"));
 
                 // Register the client side script for the "Favorite Topic".
-                var favoriteTopicJs =
-                    this.Get<IScriptBuilder>().CreateStatement().Add(
-                        JavaScriptBlocks.AddFavoriteTopicJs(untagButtonHTML)).AddLine().Add(
-                            JavaScriptBlocks.RemoveFavoriteTopicJs(tagButtonHTML));
+                var favoriteTopicJs = JavaScriptBlocks.AddFavoriteTopicJs(untagButtonHTML) + Environment.NewLine +
+                                      JavaScriptBlocks.RemoveFavoriteTopicJs(tagButtonHTML);
 
                 YafContext.Current.PageElements.RegisterJsBlockStartup("favoriteTopicJs", favoriteTopicJs);
-
-                var asynchCallFailedJs =
-                    this.Get<IScriptBuilder>().CreateStatement().AddFunc(
-                        f => f.Name("CallFailed").WithParams("res").Func(s => s.Add("alert('Error Occurred');")));
-
-                YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", asynchCallFailedJs);
+                YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", "function CallFailed(res){ alert('Error Occurred'); }");
 
                 // Has the user already tagged this topic as favorite?
                 if (this.Get<IFavoriteTopic>().IsFavoriteTopic(this.PageContext.PageTopicID))

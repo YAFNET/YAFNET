@@ -23,6 +23,7 @@ namespace YAF.Core
     using Autofac;
 
     using YAF.Core.Helpers;
+    using YAF.Core.Services.Logger;
     using YAF.Types;
     using YAF.Types.Interfaces;
 

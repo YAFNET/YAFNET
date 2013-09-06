@@ -20,15 +20,14 @@ namespace YAF.Core.BBCode
 {
   #region Using
 
-  using System.Collections.Generic;
+    using System.Collections.Generic;
 
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Gets an instance of replace rules and uses
