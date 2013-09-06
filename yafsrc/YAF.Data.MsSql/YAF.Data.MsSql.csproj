@@ -48,6 +48,12 @@
     <Compile Include="MsSqlDbAccess.cs" />
     <Compile Include="Functions\MsSqlGetStatsFunction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Search\MsSqlSearch.cs" />
+    <Compile Include="Functions\MsSqlSearchFunction.cs" />
+    <Compile Include="Search\SearchBuilder.cs" />
+    <Compile Include="Search\SearchBuilderExtensions.cs" />
+    <Compile Include="Search\SearchCondition.cs" />
+    <Compile Include="Search\SearchConditionType.cs" />
     <Compile Include="SetMsSqlDialectEvent.cs" />
   </ItemGroup>
   <ItemGroup>

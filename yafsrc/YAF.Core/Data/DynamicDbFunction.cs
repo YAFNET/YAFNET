@@ -304,7 +304,18 @@ namespace YAF.Core.Data
                 .WhereOperationSupported(operationName)
                 .FirstOrDefault();
 
-            if (specificFunction == null || !specificFunction.Execute(functionType, operationName, parameters, out result))
+            result = null;
+
+            if (specificFunction != null)
+            {
+                if (!specificFunction.Execute(functionType, operationName, parameters, out result, this.DbTransaction))
+                {
+                    // unsuccessful -- execute command below
+                    specificFunction = null;
+                }
+            }
+
+            if (specificFunction == null)
             {
                 using (var cmd = this._dbAccessProvider.Instance.GetCommand(operationName.ToLower(), true, parameters))
                 {

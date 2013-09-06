@@ -20,6 +20,7 @@ namespace YAF.Data.MsSql
 {
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Linq;
     using System.Reflection;
 
@@ -103,7 +104,7 @@ namespace YAF.Data.MsSql
         /// <returns>
         /// The <see cref="bool"/> . 
         /// </returns>
-        public bool Execute(DbFunctionType dbfunctionType, string operationName, IEnumerable<KeyValuePair<string, object>> parameters, out object result)
+        public bool Execute(DbFunctionType dbfunctionType, string operationName, IEnumerable<KeyValuePair<string, object>> parameters, out object result, IDbTransaction dbTransaction = null)
         {
             // find operation...
             var method = this._methods.FirstOrDefault(x => string.Equals(x.Key.Name, operationName, StringComparison.OrdinalIgnoreCase));
@@ -127,6 +128,14 @@ namespace YAF.Data.MsSql
                 {
                     // put the db function in...
                     mappedParameters.Add(this.DbFunction);
+
+                    continue;
+                }
+
+                if (param.ParameterType == typeof(IDbTransaction))
+                {
+                    // put the db transaction in...
+                    mappedParameters.Add(dbTransaction);
 
                     continue;
                 }

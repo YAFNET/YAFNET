@@ -4,6 +4,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Types.Models" %>
 <%@ Register TagPrefix="YAF" TagName="DialogBox" Src="../controls/DialogBox.ascx" %>
 <%@ Register Namespace="nStuff.UpdateControls" Assembly="nStuff.UpdateControls" TagPrefix="nStuff" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
@@ -79,33 +80,33 @@
                     <td colspan="2">
                         <strong>
                             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="topic" />
-                        </strong><a title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}", Container.DataItemToField<int>("TopicID")) %>">
-                            <%# HtmlEncode(Container.DataItemToField<string>("Topic")) %>
+                        </strong><a title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}", Container.DataItem.ToType<SearchResult>().TopicID) %>">
+                            <%# HtmlEncode(Container.DataItem.ToType<SearchResult>().Topic) %>
                         </a>
-                        <a id="AncPost"  href="<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}", Container.DataItemToField<int>("MessageID")) %>" runat="server">&nbsp;
+                        <a id="AncPost"  href="<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}",Container.DataItem.ToType<SearchResult>().MessageID) %>" runat="server">&nbsp;
                            <img id="ImgPost" runat="server" title='<%#  this.GetText("GO_LAST_POST") %>' alt='<%#  this.GetText("GO_TO_LASTPOST") %>' src='<%#  GetThemeContents("ICONS", "ICON_LATEST") %>' />
                         </a>
                     </td>
                 </tr>
                 <tr class="postheader">
                     <td width="140px" id="NameCell" valign="top">
-                        <a name="<%# Container.DataItemToField<int>("MessageID") %>" /><strong>
-                            <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
+                        <a name="<%# Container.DataItem.ToType<SearchResult>().MessageID %>" /><strong>
+                            <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Container.DataItem.ToType<SearchResult>().UserID %>' />
                         </strong>
-                        <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# this.Get<YafBoardSettings>().ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( Container.DataItemToField<int>("UserID") )%>'
-                            Style="vertical-align: bottom" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
+                        <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# this.Get<YafBoardSettings>().ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( Container.DataItem.ToType<SearchResult>().UserID )%>'
+                            Style="vertical-align: bottom" UserID='<%# Container.DataItem.ToType<SearchResult>().UserID %>' />
                     </td>
                     <td width="80%" class="postheader">
                         <strong>
                             <YAF:LocalizedLabel runat="server" LocalizedTag="POSTED" />
                         </strong>
-                        <YAF:DisplayDateTime id="LastVisitDateTime" runat="server" DateTime='<%# Container.DataItemToField<DateTime>("Posted") %>'></YAF:DisplayDateTime>
+                        <YAF:DisplayDateTime id="LastVisitDateTime" runat="server" DateTime='<%# Container.DataItem.ToType<SearchResult>().Posted %>'></YAF:DisplayDateTime>
                     </td>
                 </tr>
                 <tr class="post">
                     <td colspan="2">
                         <YAF:MessagePostData ID="MessagePostPrimary" runat="server" ShowAttachments="false"
-                            ShowSignature="false" HighlightWords="<%# this.HighlightSearchWords %>" DataRow="<%# Container.DataItem %>">
+                            ShowSignature="false" HighlightWords="<%# this.HighlightSearchWords %>" SearchResult="<%# Container.DataItem.ToType<SearchResult>() %>">
                         </YAF:MessagePostData>
                     </td>
                 </tr>
@@ -115,33 +116,33 @@
                     <td colspan="2">
                         <strong>
                             <YAF:LocalizedLabel runat="server" LocalizedTag="topic" />
-                        </strong><a title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' alt='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}", Container.DataItemToField<int>("TopicID")) %>">
-                            <%# HtmlEncode(Container.DataItemToField<string>("Topic"))%>
+                        </strong><a title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' alt='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}", Container.DataItem.ToType<SearchResult>().TopicID) %>">
+                            <%# HtmlEncode(Container.DataItem.ToType<SearchResult>().Topic)%>
                         </a>
-                         <a id="AncAltPost"    href="<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}", Container.DataItemToField<int>("MessageID")) %>" >&nbsp;
+                         <a id="AncAltPost"    href="<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}", Container.DataItem.ToType<SearchResult>().MessageID) %>" >&nbsp;
                            <img id="ImgAltPost" title='<%#  this.GetText("GO_LAST_POST") %>' alt='<%#  this.GetText("GO_TO_LASTPOST") %>' src='<%#  GetThemeContents("ICONS", "ICON_LATEST") %>' />
                         </a>
                     </td>
                 </tr>
                 <tr class="postheader">
                     <td width="140px" id="NameCell" valign="top">
-                        <a name="<%# Container.DataItemToField<int>("MessageID") %>" /><strong>
-                            <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
+                        <a name="<%# Container.DataItem.ToType<SearchResult>().MessageID %>" /><strong>
+                            <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Container.DataItem.ToType<SearchResult>().UserID %>' />
                         </strong>
-                        <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# this.Get<YafBoardSettings>().ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( Container.DataItemToField<int>("UserID") )%>'
-                            Style="vertical-align: bottom" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
+                        <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# this.Get<YafBoardSettings>().ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( Container.DataItem.ToType<SearchResult>().UserID )%>'
+                            Style="vertical-align: bottom" UserID='<%# Container.DataItem.ToType<SearchResult>().UserID %>' />
                     </td>
                     <td width="80%" class="postheader">
                         <strong>
                             <YAF:LocalizedLabel runat="server" LocalizedTag="POSTED" />
                         </strong>
-                        <YAF:DisplayDateTime id="LastVisitDateTime" runat="server" DateTime='<%# Container.DataItemToField<DateTime>("Posted") %>'></YAF:DisplayDateTime>
+                        <YAF:DisplayDateTime id="LastVisitDateTime" runat="server" DateTime='<%# Container.DataItem.ToType<SearchResult>().Posted %>'></YAF:DisplayDateTime>
                     </td>
                 </tr>
                 <tr class="post_alt">
                     <td colspan="2">
                         <YAF:MessagePostData ID="MessagePostAlt" runat="server" ShowAttachments="false" ShowSignature="false"
-                            HighlightWords="<%# this.HighlightSearchWords %>" DataRow="<%# Container.DataItem %>">
+                            HighlightWords="<%# this.HighlightSearchWords %>" SearchResult="<%# Container.DataItem.ToType<SearchResult>() %>">
                         </YAF:MessagePostData>
                     </td>
                 </tr>

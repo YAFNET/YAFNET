@@ -31,6 +31,7 @@ namespace YAF.Pages
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
+    using YAF.Core.Data;
     using YAF.Core.Extensions;
     using YAF.Core.Services;
     using YAF.Types.Extensions;
@@ -637,17 +638,19 @@ namespace YAF.Pages
                 var sfw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchFromWho.SelectedValue);
                 int forumId = int.Parse(this.listForum.SelectedValue);
 
-                var searchResults = LegacyDb.GetSearchResult(
+                var context = new CompleteSearchContext(
                     this.SearchWhatCleaned,
                     this.SearchWhoCleaned,
                     sfw,
                     sw,
-                    forumId,
                     this.PageContext.PageUserID,
                     this.PageContext.PageBoardID,
                     this.Get<YafBoardSettings>().ReturnSearchMax,
                     this.Get<YafBoardSettings>().UseFullTextSearch,
-                    this.Get<YafBoardSettings>().EnableDisplayName);
+                    this.Get<YafBoardSettings>().EnableDisplayName,
+                    forumId);
+
+                var searchResults = this.Get<ISearch>().Execute(context).ToArray();
 
                 if (newSearch)
                 {
@@ -669,7 +672,7 @@ namespace YAF.Pages
 
             this.UpdateHistory.AddEntry("{0}|{1}".FormatWith(this.Pager.CurrentPageIndex, this.Pager.PageSize));
 
-            var pagedData = this.Get<IYafSession>().SearchData.AsEnumerable().ToList().GetPaged(this.Pager);
+            var pagedData = this.Get<IYafSession>().SearchData.GetPaged(this.Pager);
 
             // only load required messages
             this.Get<YafDbBroker>().LoadMessageText(pagedData);

@@ -23,11 +23,13 @@ namespace YAF.Core.Services
 
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Data;
     using System.Web;
 
     using YAF.Types;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils.Helpers;
 
     #endregion
@@ -125,13 +127,13 @@ namespace YAF.Core.Services
         /// <value>
         /// The multi quote ids.
         /// </value>
-        public ArrayList MultiQuoteIds
+        public List<int> MultiQuoteIds
         {
             get
             {
                 if (this.SessionState["MultiQuoteIds"] != null)
                 {
-                    return (ArrayList)this.SessionState["MultiQuoteIds"];
+                    return this.SessionState["MultiQuoteIds"] as List<int>;
                 }
 
                 return null;
@@ -351,13 +353,13 @@ namespace YAF.Core.Services
         ///   Gets or sets SearchData.
         /// </summary>
         [CanBeNull]
-        public DataTable SearchData
+        public SearchResult[] SearchData
         {
             get
             {
-                if (this.SessionState["SearchDataTable"] != null)
+                if (this.SessionState["SearchResults"] != null)
                 {
-                    return this.SessionState["SearchDataTable"] as DataTable;
+                    return this.SessionState["SearchResults"] as SearchResult[];
                 }
 
                 return null;
@@ -365,7 +367,7 @@ namespace YAF.Core.Services
 
             set
             {
-                this.SessionState["SearchDataTable"] = value;
+                this.SessionState["SearchResults"] = value;
             }
         }
 

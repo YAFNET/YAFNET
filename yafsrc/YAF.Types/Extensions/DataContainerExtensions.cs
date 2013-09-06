@@ -62,7 +62,7 @@ namespace YAF.Types.Extensions
       }
 
       // not sure about this "fall-through"
-      return container.DataItem.ToType<T>();
+        return container.DataItem.ToType<T>();
     }
 
     /// <summary>

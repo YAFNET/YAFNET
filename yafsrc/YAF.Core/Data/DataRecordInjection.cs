@@ -16,6 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 namespace YAF.Core.Data
 {
     using System;
@@ -30,20 +31,20 @@ namespace YAF.Core.Data
     using YAF.Types;
 
     /// <summary>
-    /// The data record injection.
+    ///     The data record injection.
     /// </summary>
     public class DataRecordInjection : KnownSourceValueInjection<IDataRecord>
     {
         #region Methods
 
         /// <summary>
-        /// Handles injection of an IDataRecord
+        ///     Handles injection of an IDataRecord
         /// </summary>
         /// <param name="source">
-        /// The source.
+        ///     The source.
         /// </param>
         /// <param name="target">
-        /// The target.
+        ///     The target.
         /// </param>
         protected override void Inject([NotNull] IDataRecord source, object target)
         {
@@ -52,8 +53,8 @@ namespace YAF.Core.Data
             var props = target.GetProps();
 
             var aliasMapping = props.OfType<PropertyDescriptor>()
-                                    .Where(p => p.Attributes.OfType<AliasAttribute>().Any())
-                                    .ToDictionary(k => k.Attributes.OfType<AliasAttribute>().FirstOrDefault().Name, v => v.Name);
+                .Where(p => p.Attributes.OfType<AliasAttribute>().Any())
+                .ToDictionary(k => k.Attributes.OfType<AliasAttribute>().FirstOrDefault().Name, v => v.Name);
 
             var nameMap = new Func<string, string>(inputName => aliasMapping.ContainsKey(inputName) ? aliasMapping[inputName] : inputName);
 

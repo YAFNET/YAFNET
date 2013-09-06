@@ -77,6 +77,8 @@
     <Compile Include="Interfaces\Data\IDbAccessV2Extensions.cs" />
     <Compile Include="Interfaces\Data\IDbSortableOperationExtensions.cs" />
     <Compile Include="Interfaces\Data\IHaveID.cs" />
+    <Compile Include="Interfaces\Data\ISearch.cs" />
+    <Compile Include="Interfaces\Data\ISearchContext.cs" />
     <Compile Include="Interfaces\IPagerExtensions.cs" />
     <Compile Include="Interfaces\IProfileQuery.cs" />
     <Compile Include="Interfaces\IRepositoryExtensions.cs" />
@@ -118,6 +120,8 @@
     <Compile Include="Models\IgnoreUser.cs" />
     <Compile Include="Models\Mail.cs" />
     <Compile Include="Models\Medal.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\SearchResult.cs" />
     <Compile Include="Models\ShoutboxMessage.cs" />
     <Compile Include="Models\Smiley.cs" />
     <Compile Include="Models\TopicReadTracking.cs" />

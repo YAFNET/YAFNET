@@ -91,10 +91,6 @@
     <Compile Include="common\DataModule.cs" />
     <Compile Include="common\DataRowConvert.cs" />
     <Compile Include="mssql\LegacyDb.cs" />
-    <Compile Include="mssql\Search\SearchBuilder.cs" />
-    <Compile Include="mssql\Search\SearchBuilderExtensions.cs" />
-    <Compile Include="mssql\Search\SearchCondition.cs" />
-    <Compile Include="mssql\Search\SearchConditionType.cs" />
     <Compile Include="mssql\MsSqlDbAccess.cs" />
     <Compile Include="mssql\SettingsProfilePropertyColumn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

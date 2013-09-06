@@ -523,12 +523,12 @@ namespace YAF.Core.Services
         ///     Loads the message text into the paged data if "Message" and
         ///     "MessageID" exists.
         /// </summary>
-        /// <param name="dataRows"> The data Rows. </param>
-        public void LoadMessageText(IEnumerable<DataRow> dataRows)
+        /// <param name="searchResults"> The data Rows. </param>
+        public void LoadMessageText(IEnumerable<SearchResult> searchResults)
         {
-            var messageIds =
-                dataRows.AsEnumerable().Where(x => x.Field<string>("Message").IsNotSet()).Select(
-                    x => x.Field<int>("MessageID"));
+            var results = searchResults as SearchResult[] ?? searchResults.ToArray();
+
+            var messageIds = results.Where(x => x.Message.IsNotSet()).Select(x => x.MessageID);
 
             var messageTextTable = this.DbFunction.GetAsDataTable(cdb => cdb.message_GetTextByIds(messageIds.ToDelimitedString(",")));
 
@@ -538,22 +538,18 @@ namespace YAF.Core.Services
             }
 
             // load them into the page data...
-            foreach (var dataRow in dataRows)
+            foreach (var r in results)
             {
                 // find the message id in the results...
-                DataRow row = dataRow;
-
                 var message =
-                    messageTextTable.AsEnumerable().FirstOrDefault(x => x.Field<int>("MessageID") == row.Field<int>("MessageID"));
+                    messageTextTable.AsEnumerable().FirstOrDefault(x => x.Field<int>("MessageID") == r.MessageID);
 
                 if (message == null)
                 {
                     continue;
                 }
-
-                dataRow.BeginEdit();
-                dataRow["Message"] = message.Field<string>("Message");
-                dataRow.EndEdit();
+                
+                r.Message = message.Field<string>("Message");
             }
         }
 

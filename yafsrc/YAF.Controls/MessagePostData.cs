@@ -27,10 +27,12 @@ namespace YAF.Controls
 
     using YAF.Classes;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -45,7 +47,7 @@ namespace YAF.Controls
         /// <summary>
         ///   The _row.
         /// </summary>
-        private DataRow _row;
+        private Message _message;
 
         /// <summary>
         ///   The _show attachments.
@@ -76,18 +78,31 @@ namespace YAF.Controls
         /// </summary>
         public DataRow DataRow
         {
+            set
+            {
+                this.CurrentMessage = value != null ? value.ToTyped<Message>() : null;
+            }
+        }
+
+        public Message CurrentMessage
+        {
             get
             {
-                return this._row;
+                return this._message;
             }
 
             set
             {
-                this._row = value;
-                if (this._row != null)
-                {
-                    this.MessageFlags = new MessageFlags(this._row["Flags"]);
-                }
+                this._message = value ?? new Message();
+                this.MessageFlags = new MessageFlags(this._message.Flags);
+            }
+        }
+
+        public SearchResult SearchResult
+        {
+            set
+            {
+                this.CurrentMessage = value != null ? value.ToTyped<Message>() : null;
             }
         }
 
@@ -98,7 +113,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this.DataRow != null ? Convert.ToDateTime(this.DataRow["Edited"]) : DateTime.UtcNow;
+                return this.CurrentMessage.Edited ?? DateTime.UtcNow;
             }
         }
 
@@ -109,12 +124,8 @@ namespace YAF.Controls
         {
             get
             {
-                if (this.DataRow != null)
-                {
-                    string message = this.DataRow["Message"].ToString();
-
-                    return TruncateMessage(message);
-                }
+                return TruncateMessage(this.CurrentMessage.MessageText);
+                
 
                 return string.Empty;
             }
@@ -127,12 +138,7 @@ namespace YAF.Controls
         {
             get
             {
-                if (this.DataRow != null)
-                {
-                    return this.DataRow["MessageID"].ToType<int>();
-                }
-
-                return null;
+                return this.CurrentMessage.ID == 0 ? null : (int?)this.CurrentMessage.ID;
             }
         }
 
@@ -143,7 +149,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this.DataRow != null ? Convert.ToDateTime(this.DataRow["Posted"]) : DateTime.UtcNow;
+                return this.CurrentMessage.Posted;
             }
         }
 
@@ -192,12 +198,11 @@ namespace YAF.Controls
         {
             get
             {
-                if (this.DataRow != null && this.ShowSignature && this.Get<YafBoardSettings>().AllowSignatures
-                    && this.DataRow["Signature"] != DBNull.Value
-                    && this.DataRow["Signature"].ToString().ToLower() != "<p>&nbsp;</p>"
-                    && this.DataRow["Signature"].ToString().Trim().Length > 0)
+                if (this.ShowSignature && this.Get<YafBoardSettings>().AllowSignatures
+                    && this.CurrentMessage.Signature.IsSet()
+                    && this.CurrentMessage.Signature.ToLower() != "<p>&nbsp;</p>")
                 {
-                    return this.DataRow["Signature"].ToString();
+                    return this.CurrentMessage.Signature;
                 }
 
                 return null;
@@ -233,32 +238,31 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            if (this.DataRow != null && !this.MessageFlags.IsDeleted)
+            if (!this.MessageFlags.IsDeleted)
             {
                 // populate DisplayUserID
-                if (!UserMembershipHelper.IsGuestUser(this.DataRow["UserID"]))
+                if (!UserMembershipHelper.IsGuestUser(this.CurrentMessage.UserID))
                 {
-                    this.DisplayUserID = this.DataRow["UserID"].ToType<int>();
+                    this.DisplayUserID = this.CurrentMessage.UserID;
                 }
 
                 this.IsAlt = this.IsAltMessage;
 
                 this.RowColSpan = this.ColSpan;
 
-                if (this.ShowAttachments && long.Parse(this.DataRow["HasAttachments"].ToString()) > 0)
+                if (this.ShowAttachments && (this.CurrentMessage.HasAttachments ?? false))
                 {
                     // add attached files control...
-                    var attached = new MessageAttached { MessageID = this.DataRow["MessageID"].ToType<int>() };
+                    var attached = new MessageAttached { MessageID = this.CurrentMessage.ID };
 
-                    if (this.DataRow["UserID"] != DBNull.Value
-                        && YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
+                    if (this.CurrentMessage.UserID > 0 && YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
                     {
                         attached.UserName =
-                            UserMembershipHelper.GetDisplayNameFromID(this.DataRow["UserID"].ToType<long>());
+                            UserMembershipHelper.GetDisplayNameFromID(this.CurrentMessage.UserID);
                     }
                     else
                     {
-                        attached.UserName = this.DataRow["UserName"].ToString();
+                        attached.UserName = this.CurrentMessage.UserName;
                     }
 
                     this.Controls.Add(attached);
@@ -276,22 +280,14 @@ namespace YAF.Controls
         /// </param>
         protected override void RenderMessage([NotNull] HtmlTextWriter writer)
         {
-            if (this.DataRow == null)
-            {
-                return;
-            }
-
             if (this.MessageFlags.IsDeleted)
             {
-                if (this.DataRow.Table.Columns.Contains("IsModeratorChanged"))
-                {
-                    this.IsModeratorChanged = Convert.ToBoolean(this.DataRow["IsModeratorChanged"]);
-                }
+                    this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;
 
                 var deleteText =
                     !string.IsNullOrEmpty(
-                        this.Get<HttpContextBase>().Server.HtmlDecode(Convert.ToString(this.DataRow["DeleteReason"])))
-                        ? this.Get<IFormatMessage>().RepairHtml((string)this.DataRow["DeleteReason"], true)
+                        this.Get<HttpContextBase>().Server.HtmlDecode(this.CurrentMessage.DeleteReason))
+                        ? this.Get<IFormatMessage>().RepairHtml(this.CurrentMessage.DeleteReason, true)
                         : this.GetText("EDIT_REASON_NA");
 
                 // deleted message text...
@@ -302,12 +298,9 @@ namespace YAF.Controls
                 // just write out the message with no formatting...
                 writer.Write(this.Message);
             }
-            else if (this.DataRow.Table.Columns.Contains("Edited"))
+            else if (this.CurrentMessage.Edited.HasValue)
             {
-                if (this.DataRow.Table.Columns.Contains("IsModeratorChanged"))
-                {
-                    this.IsModeratorChanged = Convert.ToBoolean(this.DataRow["IsModeratorChanged"]);
-                }
+                this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;
 
                 // handle a message that's been edited...
                 var editedMessageDateTime = this.Posted;
@@ -332,8 +325,7 @@ namespace YAF.Controls
                 // Render Edit Message
                 if (this.ShowEditMessage && this.Edited > this.Posted.AddSeconds(this.Get<YafBoardSettings>().EditTimeOut))
                 {
-                    this.RenderEditedMessage(
-                        writer, this.Edited, Convert.ToString(this.DataRow["EditReason"]), this.MessageId);
+                    this.RenderEditedMessage(writer, this.Edited, this.CurrentMessage.EditReason, this.MessageId);
                 }
             }
             else

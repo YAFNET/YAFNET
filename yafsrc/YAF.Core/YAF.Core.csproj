@@ -88,8 +88,10 @@
     <Compile Include="Context\LoadPageRequestInformation.cs" />
     <Compile Include="Context\LoadPageVariablesFromQuery.cs" />
     <Compile Include="Context\YafContextPageProvider.cs" />
+    <Compile Include="Data\AliasInjection.cs" />
     <Compile Include="Data\DataReaderFilter.cs" />
     <Compile Include="Data\DataRecordInjection.cs" />
+    <Compile Include="Data\DataRowInjection.cs" />
     <Compile Include="Data\DbAccessBase.cs" />
     <Compile Include="Data\DbAccessProvider.cs" />
     <Compile Include="Data\DbConnectionParam.cs" />
@@ -100,7 +102,9 @@
     <Compile Include="Data\Profiling\QueryCounter.cs" />
     <Compile Include="Data\Profiling\QueryProfile.cs" />
     <Compile Include="Data\Profiling\QueryWatcher.cs" />
+    <Compile Include="Data\CompleteSearchContext.cs" />
     <Compile Include="Events\AttachmentEventHandleFileDelete.cs" />
+    <Compile Include="Extensions\InjectionExtensions.cs" />
     <Compile Include="Services\Cache\BannedIPEventCacheInvalidate.cs" />
     <Compile Include="Services\Cache\CategoryEventHandleCacheInvalidate.cs" />
     <Compile Include="Events\InitDatabaseProviderEvent.cs" />

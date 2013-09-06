@@ -22,8 +22,9 @@ namespace YAF.Types.Interfaces.Data
 
     using System;
     using System.Collections.Generic;
+    using System.Data;
 
-	#endregion
+    #endregion
 
     /// <summary>
 	/// The db specific function.
@@ -41,29 +42,31 @@ namespace YAF.Types.Interfaces.Data
 
 		#region Public Methods
 
-	    /// <summary>
-	    /// The execute.
-	    /// </summary>
-	    /// <param name="dbfunctionType">
-	    /// The dbfunction type.
-	    /// </param>
-	    /// <param name="operationName">
-	    /// The operation name.
-	    /// </param>
-	    /// <param name="parameters">
-	    /// The parameters.
-	    /// </param>
-	    /// <param name="result">
-	    /// The result.
-	    /// </param>
-	    /// <returns>
-	    /// The execute.
-	    /// </returns>
-	    bool Execute(
+        /// <summary>
+        /// The execute.
+        /// </summary>
+        /// <param name="dbfunctionType">
+        /// The dbfunction type.
+        /// </param>
+        /// <param name="operationName">
+        /// The operation name.
+        /// </param>
+        /// <param name="parameters">
+        /// The parameters.
+        /// </param>
+        /// <param name="transaction"></param>
+        /// <param name="result">
+        /// The result.
+        /// </param>
+        /// <returns>
+        /// The execute.
+        /// </returns>
+        bool Execute(
 	        DbFunctionType dbfunctionType,
 	        string operationName,
 	        IEnumerable<KeyValuePair<string, object>> parameters,
-	        out object result);
+	        out object result,
+            IDbTransaction transaction = null);
 
 		#endregion
 	}

@@ -92,7 +92,7 @@ namespace YAF.Classes
                 }
                 else
                 {
-                    yafSession.MultiQuoteIds = new ArrayList { messageId };
+                    yafSession.MultiQuoteIds = new List<int>() { messageId };
                 }
 
                 buttonCssClass += " Checked";

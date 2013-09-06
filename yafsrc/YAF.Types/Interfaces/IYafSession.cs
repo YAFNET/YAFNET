@@ -20,7 +20,10 @@ namespace YAF.Types.Interfaces
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Data;
+
+    using YAF.Types.Models;
 
     /// <summary>
     /// The Yaf Session Interface
@@ -43,7 +46,7 @@ namespace YAF.Types.Interfaces
         /// <value>
         /// The multi quote ids.
         /// </value>
-        ArrayList MultiQuoteIds { get; set; }
+        List<int> MultiQuoteIds { get; set; }
 
         /// <summary>
         ///   Gets or sets Unread Topic Since.
@@ -110,7 +113,7 @@ namespace YAF.Types.Interfaces
         ///   Gets or sets SearchData.
         /// </summary>
         [CanBeNull]
-        DataTable SearchData { get; set; }
+        SearchResult[] SearchData { get; set; }
 
         /// <summary>
         ///   Gets or sets ShowList.

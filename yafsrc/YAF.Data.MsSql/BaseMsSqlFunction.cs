@@ -109,45 +109,68 @@ namespace YAF.Data.MsSql
 
 		#region Public Methods
 
-		/// <summary>
-		/// The execute.
-		/// </summary>
-		/// <param name="dbfunctionType">
-		/// The dbfunction type.
-		/// </param>
-		/// <param name="operationName">
-		/// The operation name.
-		/// </param>
-		/// <param name="parameters">
-		/// The parameters.
-		/// </param>
-		/// <param name="result">
-		/// The result.
-		/// </param>
-		/// <returns>
-		/// The execute.
-		/// </returns>
-		public virtual bool Execute(
+	    /// <summary>
+	    /// The execute.
+	    /// </summary>
+	    /// <param name="dbfunctionType">
+	    /// The dbfunction type.
+	    /// </param>
+	    /// <param name="operationName">
+	    /// The operation name.
+	    /// </param>
+	    /// <param name="parameters">
+	    /// The parameters.
+	    /// </param>
+	    /// <param name="result">
+	    /// The result.
+	    /// </param>
+	    /// <param name="transaction"></param>
+	    /// <returns>
+	    /// The execute.
+	    /// </returns>
+	    public virtual bool Execute(
 			DbFunctionType dbfunctionType, 
 			[NotNull] string operationName, 
 			[NotNull] IEnumerable<KeyValuePair<string, object>> parameters, 
-			[CanBeNull] out object result)
+			[CanBeNull] out object result,
+            IDbTransaction transaction = null)
 		{
 			if (this.IsSupportedOperation(operationName))
 			{
 				this._sqlMessages.Clear();
 
-				using (var dbTransaction = this.DbAccess.BeginTransaction())
-				{
-					if (dbTransaction.Connection is SqlConnection)
-					{
-						var sqlConnection = dbTransaction.Connection as SqlConnection;
-						sqlConnection.FireInfoMessageEventOnUserErrors = true;
-						sqlConnection.InfoMessage += new SqlInfoMessageEventHandler(this.sqlConnection_InfoMessage);
+			    bool createdTransaction = transaction == null;
 
-						return this.RunOperation(sqlConnection, dbTransaction, dbfunctionType, operationName, parameters, out result);
-					}
-				}
+			    try
+			    {
+                    if (transaction == null)
+                    {
+                        transaction = this.DbAccess.BeginTransaction();
+                    }
+
+                    if (transaction.Connection is SqlConnection)
+                    {
+                        var sqlConnection = transaction.Connection as SqlConnection;
+                        sqlConnection.FireInfoMessageEventOnUserErrors = true;
+                        sqlConnection.InfoMessage += new SqlInfoMessageEventHandler(this.sqlConnection_InfoMessage);
+
+                        var operationSuccessful = this.RunOperation(sqlConnection, transaction, dbfunctionType, operationName, parameters, out result);
+
+                        if (createdTransaction && operationSuccessful)
+                        {
+                            transaction.Commit();
+                        }
+
+                        return operationSuccessful;
+                    }
+			    }
+			    finally
+			    {
+                    if (createdTransaction && transaction != null)
+			        {
+                        transaction.Dispose();
+			        }
+			    }
 			}
 
 			result = null;
