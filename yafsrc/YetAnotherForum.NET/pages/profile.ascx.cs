@@ -105,32 +105,31 @@ namespace YAF.Pages
             }
 
             // Add check if Albums Tab is visible 
-            if (!this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableAlbum)
+            if (this.PageContext.IsGuest || !this.Get<YafBoardSettings>().EnableAlbum)
             {
-                int albumCount = LegacyDb.album_getstats(albumUser, null)[0];
-
-                // Check if the user already has albums.
-                if (albumCount > 0)
-                {
-                    return true;
-                }
-
-                // If this is the album owner we show him the tab, else it should be hidden 
-                if ((albumUser == this.PageContext.PageUserID) || this.PageContext.IsAdmin)
-                {
-                    // Check if a user have permissions to have albums, even if he has no albums at all.
-                    var usrAlbums =
-                        LegacyDb.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID)
-                                .GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
-
-                    if (usrAlbums.HasValue && usrAlbums > 0)
-                    {
-                        return true;
-                    }
-                }
+                return false;
             }
 
-            return false;
+            int albumCount = LegacyDb.album_getstats(albumUser, null)[0];
+
+            // Check if the user already has albums.
+            if (albumCount > 0)
+            {
+                return true;
+            }
+
+            // If this is the album owner we show him the tab, else it should be hidden 
+            if ((albumUser != this.PageContext.PageUserID) && !this.PageContext.IsAdmin)
+            {
+                return false;
+            }
+
+            // Check if a user have permissions to have albums, even if he has no albums at all.
+            var usrAlbums =
+                LegacyDb.user_getalbumsdata(albumUser, YafContext.Current.PageBoardID)
+                    .GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
+
+            return usrAlbums.HasValue && usrAlbums > 0;
         }
 
         /// <summary>
@@ -332,6 +331,8 @@ namespace YAF.Pages
             else
             {
                 // BuddyList feature is disabled. don't show any link.
+                this.BuddyLi.Visible = false;
+                this.BuddyListTab.Visible = false;
                 this.lnkBuddy.Visible = false;
                 this.ltrApproval.Visible = false;
             }

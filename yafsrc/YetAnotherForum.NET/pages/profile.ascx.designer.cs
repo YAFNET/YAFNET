@@ -211,6 +211,15 @@ namespace YAF.Pages {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel43;
         
         /// <summary>
+        /// BuddyLi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl BuddyLi;
+        
+        /// <summary>
         /// LocalizedLabel44 control.
         /// </summary>
         /// <remarks>
@@ -1037,6 +1046,15 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater LastPosts;
+        
+        /// <summary>
+        /// BuddyListTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl BuddyListTab;
         
         /// <summary>
         /// BuddyList control.

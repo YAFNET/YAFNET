@@ -59,7 +59,7 @@
 		 <li><a href="#StatisticsTab"><YAF:LocalizedLabel ID="LocalizedLabel41" runat="server" LocalizedTag="STATISTICS" /></a></li>
 		 <li runat="server" id="AvatarLi"><a href='#<%# this.AvatarTab.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel42" runat="server" LocalizedTag="AVATAR" /></a></li>
 		 <li><a href="#Last10PostsTab"><YAF:LocalizedLabel ID="LocalizedLabel43" runat="server" LocalizedTag="LAST10" /></a></li>
-		 <li><a href="#BuddyListTab"><YAF:LocalizedLabel ID="LocalizedLabel44" runat="server" LocalizedTag='<%# this.UserId == this.PageContext.PageUserID ? "BUDDIES" : "BUDDIESTITLE"%>' /></a></li>		        
+		 <li runat="server" id="BuddyLi"><a href="#BuddyListTab"><YAF:LocalizedLabel ID="LocalizedLabel44" runat="server" LocalizedTag='<%# this.UserId == this.PageContext.PageUserID ? "BUDDIES" : "BUDDIESTITLE"%>' /></a></li>		        
 		 <li runat="server" id="AlbumListLi"><a href='#<%# this.AlbumListTab.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel45" runat="server" LocalizedTag="ALBUMS" /></a></li>	
 		 <li runat="server" id="ModerateLi"><a href='#<%# this.ModerateTab.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel46" runat="server" LocalizedTag="MODERATION" /></a></li>	
                </ul>
@@ -338,7 +338,7 @@
 							</asp:Repeater>
 						</table>
                 </div>
-                <div id="BuddyListTab">
+                <div runat="server" id="BuddyListTab">
                   <YAF:BuddyList runat="server" ID="BuddyList" />
                 </div>
                 <div runat="server" id="AlbumListTab">
