@@ -17,6 +17,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+using YAF.Types.Interfaces.Data;
+
 namespace YAF.Install
 {
     #region Using
@@ -172,7 +175,7 @@ namespace YAF.Install
                                : string.Empty;
                 }
 
-                return MsSqlDbAccess.GetConnectionString(
+                return DbHelpers.GetConnectionString(
                     this.Parameter1_Value.Text.Trim(), 
                     this.Parameter2_Value.Text.Trim(), 
                     this.Parameter3_Value.Text.Trim(), 
@@ -315,8 +318,20 @@ namespace YAF.Install
         /// </param>
         protected void Page_Init([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // set the connection manager to the dynamic...
-            MsSqlDbAccess.Current.SetConnectionManagerAdapter<MsSqlDynamicDbConnectionManager>();
+            // set the connection string provider...
+            var previousProvider = this.Get<IDbAccessV2>().Information.ConnectionString;
+
+            Func<string> dynamicConnectionString = () =>
+            {
+                if (YafContext.Current.Vars.ContainsKey("ConnectionString"))
+                {
+                    return YafContext.Current.Vars["ConnectionString"] as string;
+                }
+
+                return previousProvider();
+            };
+
+            this.Get<IDbAccessV2>().Information.ConnectionString = dynamicConnectionString;
         }
 
         /// <summary>

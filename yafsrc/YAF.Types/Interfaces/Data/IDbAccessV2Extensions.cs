@@ -65,7 +65,7 @@ namespace YAF.Types.Interfaces.Data
             CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
 
             var connection = dbAccess.DbProviderFactory.CreateConnection();
-            connection.ConnectionString = dbAccess.ConnectionString;
+            connection.ConnectionString = dbAccess.Information.ConnectionString();
 
             return connection;
         }
@@ -117,6 +117,31 @@ namespace YAF.Types.Interfaces.Data
             CodeContracts.ArgumentNotNull(cmd, "cmd");
 
             return dbAccess.Execute((c) => c.ExecuteNonQuery(), cmd, dbTransaction);
+        }
+
+        /// <summary>
+        /// Executes a non query in a transaction
+        /// </summary>
+        /// <param name="dbAccess"></param>
+        /// <param name="cmd"></param>
+        /// <param name="useTransaction"></param>
+        /// <param name="isolationLevel"></param>
+        /// <returns></returns>
+        public static int ExecuteNonQuery(
+            [NotNull] this IDbAccessV2 dbAccess, [NotNull] IDbCommand cmd, bool useTransaction, IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
+        {
+            CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
+            CodeContracts.ArgumentNotNull(cmd, "cmd");
+
+            if (!useTransaction) return dbAccess.ExecuteNonQuery(cmd);
+
+            using (var dbTransaction = dbAccess.BeginTransaction(isolationLevel))
+            {
+                var result = dbAccess.Execute((c) => c.ExecuteNonQuery(), cmd, dbTransaction);
+                dbTransaction.Commit();
+
+                return result;
+            }
         }
 
         /// <summary>

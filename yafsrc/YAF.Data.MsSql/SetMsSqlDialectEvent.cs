@@ -104,7 +104,7 @@ namespace YAF.Data.MsSql
         /// </param>
         public void Handle(InitDatabaseProviderEvent @event)
         {
-            if (@event.ProviderName == MsSqlDbAccess.SqlServerClientProviderTypeName)
+            if (@event.ProviderName == MsSqlDbAccess.ProviderTypeName)
             {
                 // set the OrmLite dialect provider...
                 OrmLiteConfig.DialectProvider = YafSqlServerOrmLiteDialectProvider.Instance;

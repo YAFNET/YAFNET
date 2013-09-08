@@ -119,7 +119,7 @@ namespace YAF.Pages.moderate
             // get list of forums and their moderating data
             using (DataSet ds = LegacyDb.forum_moderatelist(this.PageContext.PageUserID, this.PageContext.PageBoardID))
             {
-                this.CategoryList.DataSource = ds.Tables[MsSqlDbAccess.GetObjectName("Category")];
+                this.CategoryList.DataSource = ds.Tables[DbHelpers.GetObjectName("Category")];
             }
 
             // bind data to controls

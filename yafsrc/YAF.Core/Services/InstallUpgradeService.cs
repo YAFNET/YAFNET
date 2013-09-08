@@ -16,6 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+using YAF.Types.Interfaces.Data;
+
 namespace YAF.Core.Services
 {
     using System;
@@ -229,7 +232,7 @@ namespace YAF.Core.Services
         /// </returns>
         public bool TestDatabaseConnection([NotNull] out string exceptionMessage)
         {
-            return MsSqlDbAccess.TestConnection(out exceptionMessage);
+            return this.Get<IDbAccessV2>().TestConnection(out exceptionMessage);
         }
 
         /// <summary>

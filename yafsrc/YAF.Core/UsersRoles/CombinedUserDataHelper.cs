@@ -16,9 +16,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 namespace YAF.Core
 {
-  #region Using
+    #region Using
 
     using System;
     using System.Data;
@@ -32,534 +33,432 @@ namespace YAF.Core
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
-  #endregion
-
-  /// <summary>
-  /// Helps get a complete user profile from various locations
-  /// </summary>
-  public class CombinedUserDataHelper : IUserData
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _membership user.
-    /// </summary>
-    private MembershipUser _membershipUser;
-
-    /// <summary>
-    ///   The _row convert.
-    /// </summary>
-    private DataRowConvert _rowConvert;
-
-    /// <summary>
-    ///   The _user db row.
-    /// </summary>
-    private DataRow _userDBRow;
-
-    /// <summary>
-    ///   The _user id.
-    /// </summary>
-    private int? _userID;
-
-    /// <summary>
-    ///   The _user profile.
-    /// </summary>
-    private YafUserProfile _userProfile;
-
     #endregion
 
-    #region Constructors and Destructors
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="CombinedUserDataHelper"/> class.
+    /// Helps get a complete user profile from various locations
     /// </summary>
-    /// <param name="membershipUser">
-    /// The membership user.
-    /// </param>
-    /// <param name="userID">
-    /// The user id.
-    /// </param>
-    public CombinedUserDataHelper(MembershipUser membershipUser, int userID)
+    public class CombinedUserDataHelper : IUserData
     {
-      this._userID = userID;
-      this.MembershipUser = membershipUser;
-      this.InitUserData();
-    }
+        #region Constants and Fields
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CombinedUserDataHelper"/> class.
-    /// </summary>
-    /// <param name="membershipUser">
-    /// The membership user.
-    /// </param>
-    public CombinedUserDataHelper(MembershipUser membershipUser)
-      : this(membershipUser, UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey))
-    {
-    }
+        /// <summary>
+        ///   The _membership user.
+        /// </summary>
+        private MembershipUser _membershipUser;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CombinedUserDataHelper"/> class.
-    /// </summary>
-    /// <param name="userID">
-    /// The user id.
-    /// </param>
-    public CombinedUserDataHelper(int userID)
-    {
-      this._userID = userID;
-    }
+        /// <summary>
+        ///   The _user db row.
+        /// </summary>
+        private DataRow _userDBRow;
 
-    /// <summary>
-    ///   Initializes a new instance of the <see cref = "CombinedUserDataHelper" /> class.
-    /// </summary>
-    public CombinedUserDataHelper()
-      : this(YafContext.Current.PageUserID)
-    {
-    }
+        /// <summary>
+        ///   The _user id.
+        /// </summary>
+        private int? _userId;
 
-    #endregion
+        /// <summary>
+        ///   The _user profile.
+        /// </summary>
+        private YafUserProfile _userProfile;
 
-    #region Properties
+        #endregion
 
-    /// <summary>
-    ///   Gets a value indicating whether AutoWatchTopics.
-    /// </summary>
-    public bool AutoWatchTopics
-    {
-      get
-      {
-          int value = this.RowConvert.AsInt32("NotificationType") ?? 0;
+        #region Constructors and Destructors
 
-          return (this.RowConvert.AsBool("AutoWatchTopics") ?? false)
-                 || value.ToEnum<UserNotificationSetting>() == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
-      }
-    }
-
-    /// <summary>
-    ///   Gets Avatar.
-    /// </summary>
-    public string Avatar
-    {
-      get
-      {
-        return this.RowConvert.AsString("Avatar");
-      }
-    }
-
-    /// <summary>
-    ///   Gets Culture.
-    /// </summary>
-    public string CultureUser
-    {
-      get
-      {
-        return this.RowConvert.AsString("CultureUser");
-      }
-    }
-
-    /// <summary>
-    ///   Gets User's Text Editor.
-    /// </summary>
-    public string TextEditor
-    {
-        get
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CombinedUserDataHelper"/> class.
+        /// </summary>
+        /// <param name="membershipUser">
+        /// The membership user.
+        /// </param>
+        /// <param name="userID">
+        /// The user id.
+        /// </param>
+        public CombinedUserDataHelper(MembershipUser membershipUser, int userID)
         {
-            return this.RowConvert.AsString("TextEditor");
-        }
-    }
-
-    /// <summary>
-    ///   Gets DBRow.
-    /// </summary>
-    public DataRow DBRow
-    {
-      get
-      {
-        if (this._userDBRow == null && this._userID.HasValue)
-        {
-          this._userDBRow = UserMembershipHelper.GetUserRowForID(
-            this._userID.Value, YafContext.Current.Get<YafBoardSettings>().AllowUserInfoCaching);
+            this._userId = userID;
+            this.MembershipUser = membershipUser;
+            this.InitUserData();
         }
 
-        return this._userDBRow;
-      }
-    }
-
-    /// <summary>
-    ///   Gets a value indicating whether  DST is Enabled.
-    /// </summary>
-    public bool DSTUser
-    {
-      get
-      {
-        if (this.DBRow != null)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CombinedUserDataHelper"/> class.
+        /// </summary>
+        /// <param name="membershipUser">
+        /// The membership user.
+        /// </param>
+        public CombinedUserDataHelper(MembershipUser membershipUser)
+            : this(membershipUser, UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey))
         {
-          if (new UserFlags(this.DBRow["Flags"]).IsDST)
-          {
-            return true;
-          }
         }
 
-        return false;
-      }
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CombinedUserDataHelper"/> class.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        public CombinedUserDataHelper(int userId)
+        {
+            this._userId = userId;
+        }
 
-    /// <summary>
-    /// Gets a value indicating whether DailyDigest.
-    /// </summary>
-    public bool DailyDigest
-    {
-      get
-      {
-          return this.RowConvert.AsBool("DailyDigest") ?? YafContext.Current.Get<YafBoardSettings>().DefaultSendDigestEmail;
-      }
-    }
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "CombinedUserDataHelper" /> class.
+        /// </summary>
+        public CombinedUserDataHelper()
+            : this(YafContext.Current.PageUserID)
+        {
+        }
 
-    /// <summary>
-    ///   Gets DisplayName.
-    /// </summary>
-    public string DisplayName
-    {
-      get
-      {
-          return this._userID.HasValue ? this.RowConvert.AsString("DisplayName") : this.UserName;
-      }
-    }
+        #endregion
 
-    /// <summary>
-    ///   Gets Email.
-    /// </summary>
-    public string Email
-    {
-      get
-      {
-          if (this.Membership == null && !this.IsGuest)
-          {
-              YafContext.Current.Get<ILogger>()
+        #region Properties
+
+        /// <summary>
+        ///   Gets a value indicating whether AutoWatchTopics.
+        /// </summary>
+        public bool AutoWatchTopics
+        {
+            get
+            {
+                int value = this.DBRow.Field<int?>("NotificationType") ?? 0;
+
+                return (this.DBRow.Field<bool?>("AutoWatchTopics") ?? false)
+                       || value.ToEnum<UserNotificationSetting>() == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
+            }
+        }
+
+        /// <summary>
+        ///   Gets Avatar.
+        /// </summary>
+        public string Avatar
+        {
+            get { return this.DBRow.Field<string>("Avatar"); }
+        }
+
+        /// <summary>
+        ///   Gets Culture.
+        /// </summary>
+        public string CultureUser
+        {
+            get { return this.DBRow.Field<string>("CultureUser"); }
+        }
+
+        /// <summary>
+        ///   Gets User's Text Editor.
+        /// </summary>
+        public string TextEditor
+        {
+            get { return this.DBRow.Field<string>("TextEditor"); }
+        }
+
+        /// <summary>
+        ///   Gets DBRow.
+        /// </summary>
+        public DataRow DBRow
+        {
+            get
+            {
+                if (this._userDBRow == null && this._userId.HasValue)
+                {
+                    this._userDBRow = UserMembershipHelper.GetUserRowForID(this._userId.Value,
+                        YafContext.Current.Get<YafBoardSettings>().AllowUserInfoCaching);
+                }
+
+                return this._userDBRow;
+            }
+        }
+
+        /// <summary>
+        ///   Gets a value indicating whether  DST is Enabled.
+        /// </summary>
+        public bool DSTUser
+        {
+            get
+            {
+                return this.DBRow != null && new UserFlags(this.DBRow["Flags"]).IsDST;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether DailyDigest.
+        /// </summary>
+        public bool DailyDigest
+        {
+            get
+            {
+                return this.DBRow.Field<bool?>("DailyDigest") ??
+                       YafContext.Current.Get<YafBoardSettings>().DefaultSendDigestEmail;
+            }
+        }
+
+        /// <summary>
+        ///   Gets DisplayName.
+        /// </summary>
+        public string DisplayName
+        {
+            get { return this._userId.HasValue ? this.DBRow.Field<string>("DisplayName") : this.UserName; }
+        }
+
+        /// <summary>
+        ///   Gets Email.
+        /// </summary>
+        public string Email
+        {
+            get
+            {
+                if (this.Membership == null && !this.IsGuest)
+                {
+                    YafContext.Current.Get<ILogger>()
                         .Log(
-                            (int)this.UserID,
+                            (int) this.UserID,
                             "CombinedUserDataHelper.get_Email",
-                            "ATTENTION! The user with id {0} and name {1} is very possibly is not in your Membership \r\n ".FormatWith(
-                                this.UserID, this.UserName)
-                            + "data but it's still in you YAF user table. The situation should not normally happen. \r\n "
-                            + "You should create a Membership data for the user first and " + "then delete him from YAF user table or leave him.");
-          }
+                            "ATTENTION! The user with id {0} and name {1} is very possibly is not in your Membership \r\n "
+                                .FormatWith(
+                                    this.UserID, this.UserName)
+                            +
+                            "data but it's still in you YAF user table. The situation should not normally happen. \r\n "
+                            + "You should create a Membership data for the user first and " +
+                            "then delete him from YAF user table or leave him.");
+                }
 
-          return this.IsGuest ? this.RowConvert.AsString("Email") : this.Membership.Email;
-      }
-    }
-
-    /// <summary>
-    ///   Gets a value indicating whether HasAvatarImage.
-    /// </summary>
-    public bool HasAvatarImage
-    {
-      get
-      {
-        bool hasImage = false;
-
-        if (this.DBRow["HasAvatarImage"] != null && this.DBRow["HasAvatarImage"] != DBNull.Value)
-        {
-          hasImage = this.RowConvert.AsInt64("HasAvatarImage") > 0;
+                return this.IsGuest ? this.DBRow.Field<string>("Email") : this.Membership.Email;
+            }
         }
 
-        return hasImage;
-      }
-    }
-
-    /// <summary>
-    ///   Gets a value indicating whether IsActiveExcluded.
-    /// </summary>
-    public bool IsActiveExcluded
-    {
-      get
-      {
-        if (this.DBRow != null)
+        /// <summary>
+        ///   Gets a value indicating whether HasAvatarImage.
+        /// </summary>
+        public bool HasAvatarImage
         {
-          if (new UserFlags(this.DBRow["Flags"]).IsActiveExcluded)
-          {
-            return true;
-          }
+            get
+            {
+                return this.DBRow != null && (this.DBRow["HasAvatarImage"].ToType<bool?>() ?? false);
+            }
         }
 
-        return false;
-      }
-    }
-
-    /// <summary>
-    ///   Gets a value indicating whether IsGuest.
-    /// </summary>
-    public bool IsGuest
-    {
-      get
-      {
-        if (this.DBRow != null)
+        /// <summary>
+        ///   Gets a value indicating whether IsActiveExcluded.
+        /// </summary>
+        public bool IsActiveExcluded
         {
-          if (this.DBRow["IsGuest"].ToType<int>() > 0)
-          {
-            return true;
-          }
+            get
+            {
+                return this.DBRow != null && new UserFlags(this.DBRow["Flags"]).IsActiveExcluded;
+            }
         }
 
-        return false;
-      }
-    }
-
-    /// <summary>
-    ///   Gets Joined.
-    /// </summary>
-    public DateTime? Joined
-    {
-      get
-      {
-        return this.RowConvert.AsDateTime("Joined");
-      }
-    }
-
-    /// <summary>
-    ///   Gets LanguageFile.
-    /// </summary>
-    public string LanguageFile
-    {
-      get
-      {
-        return this.RowConvert.AsString("LanguageFile");
-      }
-    }
-
-    /// <summary>
-    ///   Gets LastVisit.
-    /// </summary>
-    public DateTime? LastVisit
-    {
-      get
-      {
-        return this.RowConvert.AsDateTime("LastVisit");
-      }
-    }
-
-    /// <summary>
-    ///   Gets Membership.
-    /// </summary>
-    public MembershipUser Membership
-    {
-      get
-      {
-        return this.MembershipUser;
-      }
-    }
-
-    /// <summary>
-    /// Gets NotificationSetting.
-    /// </summary>
-    public UserNotificationSetting NotificationSetting
-    {
-      get
-      {
-        int value = this.RowConvert.AsInt32("NotificationType") ?? 0;
-
-        return value.ToEnum<UserNotificationSetting>();
-      }
-    }
-
-    /// <summary>
-    ///   Gets NumPosts.
-    /// </summary>
-    public int? NumPosts
-    {
-      get
-      {
-        return this.RowConvert.AsInt32("NumPosts");
-      }
-    }
-
-    /// <summary>
-    ///   Gets a value indicating whether UseMobileTheme.
-    /// </summary>
-    public bool UseMobileTheme
-    {
-      get
-      {
-        return this.RowConvert.AsBool("OverrideDefaultThemes") ?? true;
-      }
-    }
-
-    /// <summary>
-    ///   Gets a value indicating whether PMNotification.
-    /// </summary>
-    public bool PMNotification
-    {
-      get
-      {
-        return this.RowConvert.AsBool("PMNotification") ?? true;
-      }
-    }
-
-    /// <summary>
-    ///   Gets Points.
-    /// </summary>
-    public int? Points
-    {
-      get
-      {
-        return this.RowConvert.AsInt32("Points");
-      }
-    }
-
-    /// <summary>
-    ///   Gets Profile.
-    /// </summary>
-    public IYafUserProfile Profile
-    {
-      get
-      {
-        if (this._userProfile == null && this.UserName.IsSet())
+        /// <summary>
+        ///   Gets a value indicating whether IsGuest.
+        /// </summary>
+        public bool IsGuest
         {
-          // init the profile...
-          this._userProfile = YafUserProfile.GetProfile(this.UserName);
+            get { return this.DBRow != null && (this.DBRow["IsGuest"].ToType<bool?>() ?? false); }
         }
 
-        return this._userProfile;
-      }
-    }
-
-    /// <summary>
-    ///   Gets RankName.
-    /// </summary>
-    public string RankName
-    {
-      get
-      {
-        return this.RowConvert.AsString("RankName");
-      }
-    }
-
-    /// <summary>
-    ///   Gets Signature.
-    /// </summary>
-    public string Signature
-    {
-      get
-      {
-        return this.RowConvert.AsString("Signature");
-      }
-    }
-
-    /// <summary>
-    ///   Gets ThemeFile.
-    /// </summary>
-    public string ThemeFile
-    {
-      get
-      {
-        return this.RowConvert.AsString("ThemeFile");
-      }
-    }
-
-    /// <summary>
-    ///   Gets TimeZone.
-    /// </summary>
-    public int? TimeZone
-    {
-      get
-      {
-        return this.RowConvert.AsInt32("TimeZone");
-      }
-    }
-
-    /// <summary>
-    ///   Gets UserID.
-    /// </summary>
-    public int UserID
-    {
-      get
-      {
-        if (this._userID != null)
+        /// <summary>
+        ///   Gets Joined.
+        /// </summary>
+        public DateTime? Joined
         {
-          return (int)this._userID;
+            get { return this.DBRow.Field<DateTime>("Joined"); }
         }
 
-        return 0;
-      }
-    }
-
-    /// <summary>
-    ///   Gets UserName.
-    /// </summary>
-    public string UserName
-    {
-      get
-      {
-        if (this.MembershipUser != null)
+        /// <summary>
+        ///   Gets LanguageFile.
+        /// </summary>
+        public string LanguageFile
         {
-          return this.MembershipUser.UserName;
+            get { return this.DBRow.Field<string>("LanguageFile"); }
         }
 
-          return this._userID.HasValue ? this.RowConvert.AsString("Name") : null;
-      }
-    }
-
-    /// <summary>
-    ///   Gets or sets the membership user.
-    /// </summary>
-    protected MembershipUser MembershipUser
-    {
-      get
-      {
-        if (this._membershipUser == null && this._userID.HasValue)
+        /// <summary>
+        ///   Gets LastVisit.
+        /// </summary>
+        public DateTime? LastVisit
         {
-          this._membershipUser = UserMembershipHelper.GetMembershipUserById(this._userID.Value);
+            get { return this.DBRow.Field<DateTime>("LastVisit"); }
         }
 
-        return this._membershipUser;
-      }
-
-      set
-      {
-        this._membershipUser = value;
-      }
-    }
-
-    /// <summary>
-    ///   Gets RowConvert.
-    /// </summary>
-    protected DataRowConvert RowConvert
-    {
-      get
-      {
-        if (this._rowConvert == null && this.DBRow != null)
+        /// <summary>
+        ///   Gets Membership.
+        /// </summary>
+        public MembershipUser Membership
         {
-          this._rowConvert = new DataRowConvert(this.DBRow);
+            get { return this.MembershipUser; }
         }
 
-        return this._rowConvert;
-      }
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The init user data.
-    /// </summary>
-    /// <exception cref="Exception">Cannot locate user information.</exception>
-    private void InitUserData()
-    {
-      if (this.MembershipUser != null && !this._userID.HasValue)
-      {
-        if (this._userID == null)
+        /// <summary>
+        /// Gets NotificationSetting.
+        /// </summary>
+        public UserNotificationSetting NotificationSetting
         {
-          // get the user id
-          this._userID = UserMembershipHelper.GetUserIDFromProviderUserKey(this.MembershipUser.ProviderUserKey);
+            get
+            {
+                int value = this.DBRow.Field<int?>("NotificationType") ?? 0;
+
+                return value.ToEnum<UserNotificationSetting>();
+            }
         }
-      }
 
-      if (!this._userID.HasValue)
-      {
-        throw new Exception("Cannot locate user information.");
-      }
+        /// <summary>
+        ///   Gets NumPosts.
+        /// </summary>
+        public int? NumPosts
+        {
+            get { return this.DBRow.Field<int>("NumPosts"); }
+        }
+
+        /// <summary>
+        ///   Gets a value indicating whether UseMobileTheme.
+        /// </summary>
+        public bool UseMobileTheme
+        {
+            get { return this.DBRow.Field<bool?>("OverrideDefaultThemes") ?? true; }
+        }
+
+        /// <summary>
+        ///   Gets a value indicating whether PMNotification.
+        /// </summary>
+        public bool PMNotification
+        {
+            get { return this.DBRow.Field<bool?>("PMNotification") ?? true; }
+        }
+
+        /// <summary>
+        ///   Gets Points.
+        /// </summary>
+        public int? Points
+        {
+            get { return this.DBRow.Field<int>("Points"); }
+        }
+
+        /// <summary>
+        ///   Gets Profile.
+        /// </summary>
+        public IYafUserProfile Profile
+        {
+            get
+            {
+                if (this._userProfile == null && this.UserName.IsSet())
+                {
+                    // init the profile...
+                    this._userProfile = YafUserProfile.GetProfile(this.UserName);
+                }
+
+                return this._userProfile;
+            }
+        }
+
+        /// <summary>
+        ///   Gets RankName.
+        /// </summary>
+        public string RankName
+        {
+            get { return this.DBRow.Field<string>("RankName"); }
+        }
+
+        /// <summary>
+        ///   Gets Signature.
+        /// </summary>
+        public string Signature
+        {
+            get { return this.DBRow.Field<string>("Signature"); }
+        }
+
+        /// <summary>
+        ///   Gets ThemeFile.
+        /// </summary>
+        public string ThemeFile
+        {
+            get { return this.DBRow.Field<string>("ThemeFile"); }
+        }
+
+        /// <summary>
+        ///   Gets TimeZone.
+        /// </summary>
+        public int? TimeZone
+        {
+            get { return this.DBRow.Field<int>("TimeZone"); }
+        }
+
+        /// <summary>
+        ///   Gets UserID.
+        /// </summary>
+        public int UserID
+        {
+            get
+            {
+                if (this._userId != null)
+                {
+                    return (int) this._userId;
+                }
+
+                return 0;
+            }
+        }
+
+        /// <summary>
+        ///   Gets UserName.
+        /// </summary>
+        public string UserName
+        {
+            get
+            {
+                if (this.MembershipUser != null)
+                {
+                    return this.MembershipUser.UserName;
+                }
+
+                return this._userId.HasValue ? this.DBRow.Field<string>("Name") : null;
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets the membership user.
+        /// </summary>
+        protected MembershipUser MembershipUser
+        {
+            get
+            {
+                if (this._membershipUser == null && this._userId.HasValue)
+                {
+                    this._membershipUser = UserMembershipHelper.GetMembershipUserById(this._userId.Value);
+                }
+
+                return this._membershipUser;
+            }
+
+            set { this._membershipUser = value; }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The init user data.
+        /// </summary>
+        /// <exception cref="Exception">Cannot locate user information.</exception>
+        private void InitUserData()
+        {
+            if (this.MembershipUser != null && !this._userId.HasValue)
+            {
+                if (this._userId == null)
+                {
+                    // get the user id
+                    this._userId = UserMembershipHelper.GetUserIDFromProviderUserKey(this.MembershipUser.ProviderUserKey);
+                }
+            }
+
+            if (!this._userId.HasValue)
+            {
+                throw new Exception("Cannot locate user information.");
+            }
+        }
+
+        #endregion
     }
-
-    #endregion
-  }
 }

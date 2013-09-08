@@ -35,35 +35,15 @@ namespace YAF.Types.Interfaces.Data
         #region Public Properties
 
         /// <summary>
-        ///     Gets or sets ConnectionString.
+        ///     Gets the database information
         /// </summary>
-        string ConnectionString { get; set; }
-
-        /// <summary>
-        ///     Gets DbConnectionParameters.
-        /// </summary>
-        IEnumerable<IDbConnectionParam> DbConnectionParameters { get; }
+        IDbInformation Information { get; }
 
         /// <summary>
         ///     Gets the current db provider factory
         /// </summary>
         /// <returns> </returns>
         DbProviderFactory DbProviderFactory { get; }
-
-        /// <summary>
-        ///     Gets FullTextScript.
-        /// </summary>
-        string FullTextScript { get; }
-
-        /// <summary>
-        ///     Gets ProviderName.
-        /// </summary>
-        string ProviderName { get; }
-
-        /// <summary>
-        ///     Gets Scripts.
-        /// </summary>
-        IEnumerable<string> Scripts { get; }
 
         #endregion
 

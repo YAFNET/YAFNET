@@ -16,6 +16,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+using System.Linq;
+using YAF.Types.Extensions;
+
 namespace YAF.Data.MsSql
 {
 	using System.Collections.Generic;
@@ -137,8 +141,7 @@ namespace YAF.Data.MsSql
 				this.DbAccess.ExecuteNonQuery(cmd, dbTransaction);
 			}
 
-			// no result...
-			result = null;
+		    result = this._sqlMessages.Select(s => s.Message).ToDelimitedString("\r\n");
 
 			return true;
 		}

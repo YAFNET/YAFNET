@@ -75,6 +75,7 @@
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\PropertyInfoExtensions.cs" />
     <Compile Include="Interfaces\Data\IDbAccessV2Extensions.cs" />
+    <Compile Include="Interfaces\Data\IDbInformation.cs" />
     <Compile Include="Interfaces\Data\IDbSortableOperationExtensions.cs" />
     <Compile Include="Interfaces\Data\IHaveID.cs" />
     <Compile Include="Interfaces\Data\ISearch.cs" />
@@ -125,11 +126,13 @@
     <Compile Include="Models\ShoutboxMessage.cs" />
     <Compile Include="Models\Smiley.cs" />
     <Compile Include="Models\TopicReadTracking.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\WatchForum.cs" />
     <Compile Include="Models\WatchTopic.cs" />
     <Compile Include="Objects\FacebookUser.cs" />
     <Compile Include="Objects\GoogleUser.cs" />
     <Compile Include="Objects\MessageNotification.cs" />
+    <Compile Include="Objects\SettingsProfilePropertyColumn.cs" />
     <Compile Include="ThemeResources.cs" />
     <Compile Include="CodeContracts.cs" />
     <Compile Include="Constants\CollapsiblePanelState.cs" />

@@ -115,7 +115,7 @@ namespace YAF.Core.Data
                 this._dbAccessSafe.Instance = value;
                 if (value != null)
                 {
-                    this.ProviderName = value.ProviderName;
+                    this.ProviderName = value.Information.ProviderName;
                 }
             }
         }

@@ -31,7 +31,7 @@ namespace YAF.Data.MsSql
     /// <summary>
     ///     The base reflected specific functions.
     /// </summary>
-    public abstract class BaseReflectedSpecificFunctions : IDbSpecificFunction
+    public abstract class BaseReflectedSpecificFunctions : BaseMsSqlFunction
     {
         #region Fields
 
@@ -55,32 +55,14 @@ namespace YAF.Data.MsSql
         /// <param name="staticReflectedClass">
         /// The static reflected class. 
         /// </param>
-        protected BaseReflectedSpecificFunctions(Type staticReflectedClass)
+        protected BaseReflectedSpecificFunctions(Type staticReflectedClass, IDbAccessV2 dbAccessV2)
+            :base(dbAccessV2)
         {
             this._methods = staticReflectedClass
                 .GetMethods(BindingFlags.Static | BindingFlags.Public)
                 .ToDictionary(k => k, k => k.GetParameters());
             this._supportedOperations = this._methods.Select(x => x.Key.Name).ToList();
         }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        /// Gets or sets the db function.
-        /// </summary>
-        public abstract IDbFunction DbFunction { get; protected set; }
-
-        /// <summary>
-        ///     Gets or sets the provider name.
-        /// </summary>
-        public abstract string ProviderName { get; protected set; }
-
-        /// <summary>
-        ///     Gets or sets the sort order.
-        /// </summary>
-        public abstract int SortOrder { get; protected set; }
 
         #endregion
 
@@ -124,13 +106,13 @@ namespace YAF.Data.MsSql
             // match up parameters...
             foreach (var param in method.Value)
             {
-                if (param.ParameterType == typeof(IDbFunction))
-                {
-                    // put the db function in...
-                    mappedParameters.Add(this.DbFunction);
+                //if (param.ParameterType == typeof(IDbFunction))
+                //{
+                //    // put the db function in...
+                //    mappedParameters.Add(this.DbFunction);
 
-                    continue;
-                }
+                //    continue;
+                //}
 
                 if (param.ParameterType == typeof(IDbTransaction))
                 {
@@ -170,7 +152,7 @@ namespace YAF.Data.MsSql
         /// <returns>
         /// The <see cref="bool"/> . 
         /// </returns>
-        public bool IsSupportedOperation(string operationName)
+        public override bool IsSupportedOperation(string operationName)
         {
             return this._supportedOperations.Any(x => string.Compare(x, operationName, StringComparison.OrdinalIgnoreCase) == 0);
         }

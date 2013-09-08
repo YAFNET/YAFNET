@@ -61,22 +61,6 @@ namespace YAF.Data.MsSql
 		public IDbAccessV2 DbAccess { get; set; }
 
 		/// <summary>
-		///   Gets or sets Message.
-		/// </summary>
-		public IList<string> Message
-		{
-			get
-			{
-				return this._message;
-			}
-
-			protected set
-			{
-				this._message = value;
-			}
-		}
-
-		/// <summary>
 		///   Gets ProviderName.
 		/// </summary>
 		[NotNull]

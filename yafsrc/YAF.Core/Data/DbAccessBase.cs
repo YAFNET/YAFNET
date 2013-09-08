@@ -67,12 +67,11 @@ namespace YAF.Core.Data
         /// The connection String. 
         /// </param>
         protected DbAccessBase(
-            [NotNull] Func<string, DbProviderFactory> dbProviderFactory, IProfileQuery profiler, [NotNull] string providerName, [NotNull] string connectionString)
+            [NotNull] Func<string, DbProviderFactory> dbProviderFactory, IProfileQuery profiler, IDbInformation information)
         {
+            this.Information = information;
             this._profiler = profiler;
-            this._providerName = providerName;
-            this.DbProviderFactory = dbProviderFactory(providerName);
-            this.ConnectionString = connectionString;
+            this.DbProviderFactory = dbProviderFactory(information.ProviderName);
         }
 
         #endregion
@@ -82,38 +81,12 @@ namespace YAF.Core.Data
         /// <summary>
         ///     Gets or sets ConnectionString.
         /// </summary>
-        public virtual string ConnectionString { get; set; }
-
-        /// <summary>
-        ///     Gets DbConnectionParameters.
-        /// </summary>
-        public abstract IEnumerable<IDbConnectionParam> DbConnectionParameters { get; }
+        public virtual IDbInformation Information { get; protected set; }
 
         /// <summary>
         ///     Gets or sets DbProviderFactory.
         /// </summary>
         public virtual DbProviderFactory DbProviderFactory { get; protected set; }
-
-        /// <summary>
-        ///     Gets FullTextScript.
-        /// </summary>
-        public abstract string FullTextScript { get; }
-
-        /// <summary>
-        ///     Gets ProviderName.
-        /// </summary>
-        public virtual string ProviderName
-        {
-            get
-            {
-                return this._providerName;
-            }
-        }
-
-        /// <summary>
-        ///     Gets Scripts.
-        /// </summary>
-        public abstract IEnumerable<string> Scripts { get; }
 
         #endregion
 

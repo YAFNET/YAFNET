@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Utils\BaseProviderDb.cs" />
     <Compile Include="Utils\ExceptionReporter.cs" />
     <Compile Include="Membership\UserPasswordInfo.cs" />
     <Compile Include="Membership\YafMembershipProvider.cs" />
@@ -98,6 +99,10 @@
     <ProjectReference Include="..\YAF.Core\YAF.Core.csproj">
       <Project>{BCEFE9BE-7417-47FB-A0E8-75E0201E88E8}</Project>
       <Name>YAF.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YAF.Data.MsSql\YAF.Data.MsSql.csproj">
+      <Project>{900b3fcf-bd78-4718-a34d-2662576565c8}</Project>
+      <Name>YAF.Data.MsSql</Name>
     </ProjectReference>
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj">
       <Project>{B9CF38B0-39CF-43C7-9589-166DCC665652}</Project>

@@ -25,8 +25,6 @@ namespace YAF.Data.MsSql
     using System.Data;
     using System.Data.Common;
     using System.Linq;
-
-    using YAF.Classes;
     using YAF.Core.Data;
     using YAF.Types;
     using YAF.Types.Attributes;
@@ -39,42 +37,12 @@ namespace YAF.Data.MsSql
     /// <summary>
     ///     The i db setup.
     /// </summary>
-    [ExportService(ServiceLifetimeScope.InstancePerDependancy, SqlServerClientProviderTypeName, new[] { typeof(IDbAccessV2) })]
+    [ExportService(ServiceLifetimeScope.InstancePerScope, ProviderTypeName, new[] { typeof(IDbAccessV2) })]
     public class MsSqlDbAccess : DbAccessBase
     {
-        internal const string SqlServerClientProviderTypeName = "System.Data.SqlClient";
+        public const string ProviderTypeName = "System.Data.SqlClient";
 
         #region Static Fields
-
-        /// <summary>
-        ///     The _script list.
-        /// </summary>
-        private static readonly string[] _scriptList =
-        {
-            "mssql/tables.sql",
-            "mssql/indexes.sql",
-            "mssql/views.sql", 
-            "mssql/constraints.sql",
-            "mssql/triggers.sql", 
-            "mssql/functions.sql", 
-            "mssql/procedures.sql",
-            "mssql/providers/tables.sql", 
-            "mssql/providers/indexes.sql", 
-            "mssql/providers/procedures.sql"
-        };
-
-        #endregion
-
-        #region Fields
-
-        /// <summary>
-        ///     Lists the UI parameters...
-        /// </summary>
-        protected DbConnectionParam[] DbParameters = new[]
-            {
-                new DbConnectionParam(0, "Password", string.Empty, true), new DbConnectionParam(1, "Data Source", "(local)", true), 
-                new DbConnectionParam(2, "Initial Catalog", string.Empty, true), new DbConnectionParam(11, "Use Integrated Security", "true", true)
-            };
 
         #endregion
 
@@ -87,101 +55,8 @@ namespace YAF.Data.MsSql
         /// The db provider factory. 
         /// </param>
         public MsSqlDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory, IProfileQuery profiler)
-            : base(dbProviderFactory, profiler, SqlServerClientProviderTypeName, Config.ConnectionString)
+            : base(dbProviderFactory, profiler, new MsSqlDbInformation())
         {
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        ///     Gets a value indicating whether PanelGetStats.
-        /// </summary>
-        public static bool PanelGetStats
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        /// <summary>
-        ///     Gets a value indicating whether PanelRecoveryMode.
-        /// </summary>
-        public static bool PanelRecoveryMode
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        /// <summary>
-        ///     Gets a value indicating whether PanelReindex.
-        /// </summary>
-        public static bool PanelReindex
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        /// <summary>
-        ///     Gets a value indicating whether PanelShrink.
-        /// </summary>
-        public static bool PanelShrink
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        /// <summary>
-        ///     Gets a value indicating whether PasswordPlaceholderVisible.
-        /// </summary>
-        public static bool PasswordPlaceholderVisible
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        ///     Gets DbConnectionParameters.
-        /// </summary>
-        public override IEnumerable<IDbConnectionParam> DbConnectionParameters
-        {
-            get
-            {
-                return this.DbParameters;
-            }
-        }
-
-        /// <summary>
-        ///     Gets or sets FullTextScript.
-        /// </summary>
-        [NotNull]
-        public override string FullTextScript
-        {
-            get
-            {
-                return "mssql/fulltext.sql";
-            }
-        }
-
-        /// <summary>
-        ///     Gets Scripts.
-        /// </summary>
-        public override IEnumerable<string> Scripts
-        {
-            get
-            {
-                return _scriptList;
-            }
         }
 
         #endregion

@@ -17,6 +17,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+using System.Collections.Generic;
+using YAF.Types.Interfaces.Data;
+
 namespace YAF.Pages.Admin
 {
   #region Using
@@ -107,7 +110,14 @@ namespace YAF.Pages.Admin
     /// </param>
     protected void btnGetStats_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-        this.txtIndexStatistics.Text = LegacyDb.db_getstats_warning() + "\r\n{0}".FormatWith(LegacyDb.db_getstats_new());
+        try
+        {
+            this.txtIndexStatistics.Text = (string)this.Get<IDbFunction>().Query.getstats();
+        }
+        catch (Exception ex)
+        {
+            this.txtIndexStatistics.Text = string.Format("Failure: {0}", ex);
+        }
     }
 
     /// <summary>

@@ -113,17 +113,6 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-        protected override void OnInit([NotNull] EventArgs e)
-        {
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            this.InitializeComponent();
-            base.OnInit(e);
-        }
-
-        /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -154,7 +143,7 @@ namespace YAF.Pages.Admin
         {
             using (DataSet ds = LegacyDb.ds_forumadmin(this.PageContext.PageBoardID))
             {
-                this.CategoryList.DataSource = ds.Tables[MsSqlDbAccess.GetObjectName("Category")];
+                this.CategoryList.DataSource = ds.Tables[DbHelpers.GetObjectName("Category")];
             }
 
             // Hide the New Forum Button if there are no Categories.
