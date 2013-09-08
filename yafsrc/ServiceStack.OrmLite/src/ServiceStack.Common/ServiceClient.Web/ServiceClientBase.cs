@@ -554,12 +554,13 @@ namespace ServiceStack.ServiceClient.Web
 
         private void ApplyWebResponseFilters(WebResponse webResponse)
         {
-            if (!(webResponse is HttpWebResponse)) return;
+            var httpWebResponse = webResponse as HttpWebResponse;
+            if (httpWebResponse == null) return;
 
             if (HttpWebResponseFilter != null)
-                HttpWebResponseFilter((HttpWebResponse)webResponse);
+                HttpWebResponseFilter(httpWebResponse);
             if (LocalHttpWebResponseFilter != null)
-                LocalHttpWebResponseFilter((HttpWebResponse)webResponse);
+                LocalHttpWebResponseFilter(httpWebResponse);
         }
 
         private void ApplyWebRequestFilters(HttpWebRequest client)

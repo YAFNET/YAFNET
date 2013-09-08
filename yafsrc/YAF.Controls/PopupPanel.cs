@@ -169,14 +169,16 @@ namespace YAF.Controls
 			if (this.AutoAttach && this.AttachToControl.IsSet())
 			{
 				var attachedControl = this.Parent.FindControl(this.AttachToControl) as Control;
+                var webControl = attachedControl as WebControl;
+                var userLink = attachedControl as UserLink;
 
-				if (attachedControl != null && attachedControl is WebControl)
+                if (webControl != null)
 				{
-					this.Attach(attachedControl as WebControl);	
+                    this.Attach(webControl);	
 				}
-				else if (attachedControl != null && attachedControl is UserLink)
+                else if (userLink != null)
 				{
-					this.Attach(attachedControl as UserLink);
+                    this.Attach(userLink);
 				}
 			}
 

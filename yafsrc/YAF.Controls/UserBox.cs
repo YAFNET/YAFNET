@@ -112,11 +112,12 @@ namespace YAF.Controls
                     // get cache for user boxes
                     object cache = this.PageCache[Constants.Cache.UserBoxes];
 
+                    var hashtable = cache as Hashtable;
                     // is it hashtable?
-                    if (cache != null && cache is Hashtable)
+                    if (hashtable != null)
                     {
                         // get only record for user who made message being
-                        cache = ((Hashtable)cache)[this.UserId];
+                        cache = hashtable[this.UserId];
 
                         // return from cache if there is something there
                         if (cache != null && cache.ToString() != string.Empty)
@@ -137,13 +138,13 @@ namespace YAF.Controls
                 }
 
                 // get cache for user boxes
-                object cache = this.PageCache[Constants.Cache.UserBoxes];
+                var cache = this.PageCache[Constants.Cache.UserBoxes] as Hashtable;
 
                 // is it hashtable?
-                if (cache != null && cache is Hashtable)
+                if (cache != null)
                 {
                     // save userbox for user of this id to cache
-                    ((Hashtable)cache)[this.UserId] = value;
+                    cache[this.UserId] = value;
                 }
                 else
                 {
