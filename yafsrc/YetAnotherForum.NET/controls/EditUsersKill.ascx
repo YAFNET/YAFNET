@@ -1,12 +1,12 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.EditUsersKill" CodeBehind="EditUsersKill.ascx.cs" %>
-<table class="content" width="100%" cellspacing="1" cellpadding="0">
+<table class="content" style="width:100%">
     <tr runat="server" id="trHeader">
         <td class="header1" colspan="2">
             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEAD_KILL_USER" LocalizedPage="ADMIN_EDITUSER" />
         </td>
     </tr>
     <tr>
-        <td class="header2" height="30" colspan="2"></td>
+        <td class="header2" style="height:30px;" colspan="2"></td>
     </tr>
     <tr>
         <td class="postheader">
@@ -52,7 +52,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="2" class="footer1" align="center">
+        <td colspan="2" class="footer1" style="text-align:center;">
             <asp:Button runat="server" ID="Kill" Text="Kill User" CssClass="pbutton" OnClientClick="return confirm('Delete all posts by and (optionally) ban IP addresses used by this user?');" OnClick="Kill_OnClick" />
         </td>
     </tr>
