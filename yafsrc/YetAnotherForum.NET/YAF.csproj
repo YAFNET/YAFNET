@@ -4440,9 +4440,8 @@
     <Content Include="themes\yafvision\voting_bar.gif" />
     <Content Include="UrlRewriter.config" />
     <None Include="Web References\RegisterV2\RegisterV2.wsdl" />
-    <Content Include="webconfigs\recommended-NET-web.config" />
-    <Content Include="webconfigs\v191-upgrade-web.config" />
-    <Content Include="web.config" />
+    <Content Include="recommended.web.config" />
+    <Content Include="v1.9.1.upgrade.web.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\URLRewriter.NET\Intelligencia.UrlRewriter.csproj">
