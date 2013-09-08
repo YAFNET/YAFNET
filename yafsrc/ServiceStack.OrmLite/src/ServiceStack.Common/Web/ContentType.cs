@@ -168,7 +168,7 @@ namespace ServiceStack.Common.Web
 
         public static string GetContentFormat(EndpointType endpointType)
         {
-            return endpointType.ToString().ToLower();
+            return endpointType.ToString().ToLowerInvariant();
         }
 
         public static string GetContentFormat(string contentType)

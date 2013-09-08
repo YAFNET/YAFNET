@@ -187,10 +187,10 @@ namespace YAF.Utils
       switch (hashCaseType)
       {
         case HashCaseType.Upper:
-          hashedString = hashedString.ToUpper();
+          hashedString = hashedString.ToUpperInvariant();
           break;
         case HashCaseType.Lower:
-          hashedString = hashedString.ToLower();
+          hashedString = hashedString.ToLowerInvariant();
           break;
       }
 

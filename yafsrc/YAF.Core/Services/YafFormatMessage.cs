@@ -150,7 +150,7 @@ namespace YAF.Core.Services
                             bbCode = bbCode.Remove(bbCode.IndexOf("="));
                         }
 
-                        if (!codes.Any(allowedTag => bbCode.ToLower() == allowedTag.ToLower()))
+                        if (!codes.Any(allowedTag => bbCode.ToLowerInvariant() == allowedTag.ToLowerInvariant()))
                         {
                             if (!forbiddenTagList.Contains(bbCode))
                             {
@@ -205,7 +205,7 @@ namespace YAF.Core.Services
                         // as we have tags like '[URL='
                         for (int l = openPosition; l < j; l++)
                         {
-                            res = res + charray[l].ToString().ToUpper();
+                            res = res + charray[l].ToString().ToUpperInvariant();
                         }
 
                         if (checker)
@@ -214,7 +214,7 @@ namespace YAF.Core.Services
                         }
 
                         // detect if the tag from list was found
-                        detectedTag = res.Contains("[" + t.ToUpper().Trim()) || res.Contains("[/" + t.ToUpper().Trim());
+                        detectedTag = res.Contains("[" + t.ToUpperInvariant().Trim()) || res.Contains("[/" + t.ToUpperInvariant().Trim());
                         res = string.Empty;
 
                         // if so we go out from k-loop after we should go out from j-loop too
@@ -233,7 +233,7 @@ namespace YAF.Core.Services
                     // so the tag is forbidden one and we should exit
                     if (!detectedTag)
                     {
-                        string tagForbidden = stringToClear.Substring(i, j - i + 1).ToUpper();
+                        string tagForbidden = stringToClear.Substring(i, j - i + 1).ToUpperInvariant();
                         return tagForbidden;
                     }
 
@@ -485,7 +485,7 @@ namespace YAF.Core.Services
                                     // get string without punctuation
                                     string keywordCleaned =
                                         new string(
-                                            returnMsg.Where(c => !char.IsPunctuation(c) || char.IsWhiteSpace(c)).ToArray()).Trim().ToLower();
+                                            returnMsg.Where(c => !char.IsPunctuation(c) || char.IsWhiteSpace(c)).ToArray()).Trim().ToLowerInvariant();
 
                                     if (keywordCleaned.Length > 5)
                                     {
@@ -552,7 +552,7 @@ namespace YAF.Core.Services
                             code = code.Remove(code.IndexOf(" "));
                         }
 
-                        if (!codes.Any(allowedTag => code.ToLower() == allowedTag.ToLower()))
+                        if (!codes.Any(allowedTag => code.ToLowerInvariant() == allowedTag.ToLowerInvariant()))
                         {
                             if (!forbiddenTagList.Contains(code))
                             {
@@ -601,7 +601,7 @@ namespace YAF.Core.Services
                                 // as we have tags like '[URL='
                                 for (int l = openPosition; l < j; l++)
                                 {
-                                    res = res + charray[l].ToString().ToUpper();
+                                    res = res + charray[l].ToString().ToUpperInvariant();
                                 }
 
                                 if (checker)
@@ -610,7 +610,7 @@ namespace YAF.Core.Services
                                 }
 
                                 // detect if the tag from list was found
-                                detectedTag = res.Contains("<" + t.ToUpper().Trim()) || res.Contains("</" + t.ToUpper().Trim());
+                                detectedTag = res.Contains("<" + t.ToUpperInvariant().Trim()) || res.Contains("</" + t.ToUpperInvariant().Trim());
                                 res = string.Empty;
 
                                 // if so we go out from k-loop after we should go out from j-loop too
@@ -629,7 +629,7 @@ namespace YAF.Core.Services
                             // so the tag is forbidden one and we should exit
                             if (!detectedTag)
                             {
-                                string tagForbidden = stringToClear.Substring(i, j - i + 1).ToUpper();
+                                string tagForbidden = stringToClear.Substring(i, j - i + 1).ToUpperInvariant();
                                 return tagForbidden;
                             }
 
@@ -860,7 +860,7 @@ namespace YAF.Core.Services
             foreach (string word in wordList.Where(w => w.Length > 3))
             {
                 MatchAndPerformAction(
-                    "({0})".FormatWith(word.ToLower().ToRegExString()),
+                    "({0})".FormatWith(word.ToLowerInvariant().ToRegExString()),
                     message,
                     (inner, index, length) =>
                         {
@@ -934,7 +934,7 @@ namespace YAF.Core.Services
 
             foreach (var match in matches)
             {
-                string inner = text.Substring(match.Index + 1, match.Length - 1).Trim().ToLower();
+                string inner = text.Substring(match.Index + 1, match.Length - 1).Trim().ToLowerInvariant();
                 matchAction(inner, match.Index, match.Length);
             }
         }

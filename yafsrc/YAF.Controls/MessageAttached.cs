@@ -137,7 +137,7 @@ namespace YAF.Controls
 
                     foreach (DataRow dr in attachListDT.Rows)
                     {
-                        string strFilename = Convert.ToString(dr["FileName"]).ToLower();
+                        string strFilename = Convert.ToString(dr["FileName"]).ToLowerInvariant();
                         bool bShowImage = false;
 
                         // verify it's not too large to display
@@ -145,7 +145,7 @@ namespace YAF.Controls
                         if (dr["Bytes"].ToType<int>() <= settings.PictureAttachmentDisplayTreshold)
                         {
                             // is it an image file?
-                            bShowImage = aImageExtensions.Any(t => strFilename.ToLower().EndsWith(t));
+                            bShowImage = aImageExtensions.Any(t => strFilename.ToLowerInvariant().EndsWith(t));
                         }
 
                         if (bShowImage && tmpDisplaySort == 1)

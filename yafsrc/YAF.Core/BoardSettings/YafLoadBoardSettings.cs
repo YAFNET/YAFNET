@@ -198,7 +198,7 @@ namespace YAF.Core
                 // get all the registry settings into our hash table
                 foreach (DataRow dr in dataTable.Rows)
                 {
-                    this._reg.Add(dr["Name"].ToString().ToLower(), dr["Value"] == DBNull.Value ? null : dr["Value"]);
+                    this._reg.Add(dr["Name"].ToString().ToLowerInvariant(), dr["Value"] == DBNull.Value ? null : dr["Value"]);
                 }
             }
 
@@ -207,7 +207,7 @@ namespace YAF.Core
                 // get all the registry settings into our hash table
                 foreach (DataRow dr in dataTable.Rows)
                 {
-                    this._regBoard.Add(dr["Name"].ToString().ToLower(), dr["Value"] == DBNull.Value ? null : dr["Value"]);
+                    this._regBoard.Add(dr["Name"].ToString().ToLowerInvariant(), dr["Value"] == DBNull.Value ? null : dr["Value"]);
                 }
             }
         }

@@ -432,13 +432,13 @@ namespace YAF.Providers.Membership
       hashedString = hashHex ? BitBoolExtensions.ToHexString(hashedBytes) : Convert.ToBase64String(hashedBytes);
 
       // Adjust the case of the hash output
-      switch (hashCase.ToLower())
+      switch (hashCase.ToLowerInvariant())
       {
         case "upper":
-          hashedString = hashedString.ToUpper();
+          hashedString = hashedString.ToUpperInvariant();
           break;
         case "lower":
-          hashedString = hashedString.ToLower();
+          hashedString = hashedString.ToLowerInvariant();
           break;
       }
 

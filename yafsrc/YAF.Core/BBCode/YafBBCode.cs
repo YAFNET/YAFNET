@@ -347,12 +347,12 @@ namespace YAF.Core.BBCode
 
                 // add new rules for smilies...
                 var lowerRule = new SimpleReplaceRule(
-                    code.ToLower(),
+                    code.ToLowerInvariant(),
                     @"<img src=""{0}"" alt=""{1}"" />".FormatWith(
                         YafBuildLink.Smiley(smile.Icon), HttpContext.Current.Server.HtmlEncode(smile.Emoticon)));
 
                 var upperRule = new SimpleReplaceRule(
-                    code.ToUpper(), 
+                    code.ToUpperInvariant(), 
                     @"<img src=""{0}"" alt=""{1}"" />".FormatWith(
                         YafBuildLink.Smiley(smile.Icon), HttpContext.Current.Server.HtmlEncode(smile.Emoticon)));
 

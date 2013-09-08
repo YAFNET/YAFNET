@@ -361,7 +361,7 @@ namespace YAF.Controls
           // add attributes...
           foreach (string key in this._attributeCollection.Keys)
           {
-            if (key.ToLower().StartsWith("on") || key.ToLower() == "rel" || key.ToLower() == "target")
+            if (key.ToLowerInvariant().StartsWith("on") || key.ToLowerInvariant() == "rel" || key.ToLowerInvariant() == "target")
             {
               // only write javascript attributes -- and a few other attributes...
               output.WriteAttribute(key, this._attributeCollection[key]);

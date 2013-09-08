@@ -323,7 +323,7 @@ namespace YAF.Core.Nntp
       Match m = null;
       MemoryStream ms;
       byte[] bytes;
-      switch (part.ContentType.Substring(0, part.ContentType.IndexOf('/')).ToUpper())
+      switch (part.ContentType.Substring(0, part.ContentType.IndexOf('/')).ToUpperInvariant())
       {
         case "MULTIPART":
           MIMEPart newPart = null;
@@ -385,7 +385,7 @@ namespace YAF.Core.Nntp
             pos = ms.Position;
             if (line != string.Empty)
             {
-              switch (part.ContentTransferEncoding.ToUpper())
+              switch (part.ContentTransferEncoding.ToUpperInvariant())
               {
                 case "QUOTED-PRINTABLE":
                   QuotedPrintableDecode(line, ms);
@@ -418,7 +418,7 @@ namespace YAF.Core.Nntp
             }
 
             ms.Position = pos;
-            if (part.ContentType.ToUpper() == "TEXT/HTML")
+            if (part.ContentType.ToUpperInvariant() == "TEXT/HTML")
             {
               sb.Append(msr.ReadToEnd());
             }
@@ -437,7 +437,7 @@ namespace YAF.Core.Nntp
           {
             if (line != string.Empty)
             {
-              switch (part.ContentTransferEncoding.ToUpper())
+              switch (part.ContentTransferEncoding.ToUpperInvariant())
               {
                 case "QUOTED-PRINTABLE":
                   QuotedPrintableDecode(line, ms);

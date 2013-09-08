@@ -169,7 +169,7 @@ namespace YAF.Utils
 
       for (int i = 0; i < this._nameValues.Count; i++)
       {
-        string key = this._nameValues.Keys[i].ToLower();
+        string key = this._nameValues.Keys[i].ToLowerInvariant();
         string value = this._nameValues[i];
 
         if (!excludeValues.Contains(key))

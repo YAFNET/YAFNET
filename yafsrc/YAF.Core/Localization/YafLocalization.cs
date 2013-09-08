@@ -325,11 +325,11 @@ namespace YAF.Core
           YafContext.Current.Get<ILogger>()
                     .Log(
                         YafContext.Current.PageUserID,
-                        page.ToLower() + ".ascx",
-                        "Missing Translation For {1}.{0}".FormatWith(tag.ToUpper(), page.ToUpper()),
+                        page.ToLowerInvariant() + ".ascx",
+                        "Missing Translation For {1}.{0}".FormatWith(tag.ToUpperInvariant(), page.ToUpperInvariant()),
                         EventLogTypes.Error);
 
-        return "[{1}.{0}]".FormatWith(tag.ToUpper(), page.ToUpper());
+        return "[{1}.{0}]".FormatWith(tag.ToUpperInvariant(), page.ToUpperInvariant());
       }
       
       localizedText = _rgxBegin.Replace(localizedText, "<strong>");
@@ -403,11 +403,11 @@ namespace YAF.Core
           YafContext.Current.Get<ILogger>()
                     .Log(
                         YafContext.Current.PageUserID,
-                        page.ToLower() + ".ascx",
-                        "Missing Translation For {1}.{0}".FormatWith(tag.ToUpper(), page.ToUpper()),
+                        page.ToLowerInvariant() + ".ascx",
+                        "Missing Translation For {1}.{0}".FormatWith(tag.ToUpperInvariant(), page.ToUpperInvariant()),
                         EventLogTypes.Error);
 
-        return "[{1}.{0}]".FormatWith(tag.ToUpper(), page.ToUpper());
+        return "[{1}.{0}]".FormatWith(tag.ToUpperInvariant(), page.ToUpperInvariant());
       }
 
       localizedText = localizedText.Replace("[b]", "<b>");
@@ -462,10 +462,10 @@ namespace YAF.Core
 				}
 			}
 #if DEBUG
-					localizedText = String.Format( "[INVALID: {1}.{0} -- NEEDS {2} PARAMETERS HAS {3}]", text.ToUpper(), TransPage.ToUpper(), args.Length, i );
+					localizedText = String.Format( "[INVALID: {1}.{0} -- NEEDS {2} PARAMETERS HAS {3}]", text.ToUpperInvariant(), TransPage.ToUpperInvariant(), args.Length, i );
 #endif
 					 inform that the value is wrong to the admin and don't format the string...
-					Data.DB.eventlog_create(YafContext.Current.PageUserID, TransPage.ToLower() + ".ascx", String.Format("Not enough parameters for localization entry {1}.{0} -- Needs {2} parameters, has {3}.", text.ToUpper(), TransPage.ToUpper(), args.Length, i), Data.EventLogTypes.Warning);
+					Data.DB.eventlog_create(YafContext.Current.PageUserID, TransPage.ToLowerInvariant() + ".ascx", String.Format("Not enough parameters for localization entry {1}.{0} -- Needs {2} parameters, has {3}.", text.ToUpperInvariant(), TransPage.ToUpperInvariant(), args.Length, i), Data.EventLogTypes.Warning);
 			*/
 
       int arraySize = Math.Max(args.Length, 10);
@@ -475,7 +475,7 @@ namespace YAF.Core
       for (int arrayIndex = args.Length; arrayIndex < arraySize; arrayIndex++)
       {
         copiedArgs[arrayIndex] = "[INVALID: {1}.{0} -- EMPTY PARAM #{2}]".FormatWith(
-          text.ToUpper(), this.TransPage.IsNotSet() ? "NULL" : this.TransPage.ToUpper(), arrayIndex);
+          text.ToUpperInvariant(), this.TransPage.IsNotSet() ? "NULL" : this.TransPage.ToUpperInvariant(), arrayIndex);
       }
 
       // run format command...
@@ -519,7 +519,7 @@ namespace YAF.Core
       }
 
       // If not using default language load that too
-      if (fileName.ToLower() != "english.xml")
+      if (fileName.ToLowerInvariant() != "english.xml")
       {
 #if !DEBUG
         if ( _defaultLocale == null && HttpContext.Current.Cache ["DefaultLocale"] != null )
@@ -549,7 +549,7 @@ namespace YAF.Core
         this._culture = CultureInfo.CurrentCulture;
       }
 
-      this._languageFileName = fileName.ToLower();
+      this._languageFileName = fileName.ToLowerInvariant();
 
       return this._culture;
     }

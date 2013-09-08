@@ -1232,7 +1232,7 @@ namespace YAF.Pages
                     else
                     {
                         // find first unread message
-                        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "unread")
+                        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLowerInvariant() == "unread")
                         {
                             DateTime lastRead = !this.PageContext.IsCrawler
                                                     ? this.Get<IReadTrackCurrentUser>()
@@ -1338,7 +1338,7 @@ namespace YAF.Pages
         private void ShareMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
             var topicUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.PageContext.PageTopicID);
-            switch (e.Item.ToLower())
+            switch (e.Item.ToLowerInvariant())
             {
                 case "email":
                     this.EmailTopic_Click(sender, e);
@@ -1460,7 +1460,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void OptionsMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
-            switch (e.Item.ToLower())
+            switch (e.Item.ToLowerInvariant())
             {
                 case "print":
                     YafBuildLink.Redirect(ForumPages.printtopic, "t={0}", this.PageContext.PageTopicID);
@@ -1743,7 +1743,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ViewMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
-            switch (e.Item.ToLower())
+            switch (e.Item.ToLowerInvariant())
             {
                 case "normal":
                     this.IsThreaded = false;

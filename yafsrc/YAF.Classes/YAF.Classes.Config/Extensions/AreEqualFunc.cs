@@ -94,7 +94,7 @@ namespace YAF.Utils
     /// </returns>
     public int GetHashCode(T obj)
     {
-      return obj.ToString().ToLower().GetHashCode();
+      return obj.ToString().ToLowerInvariant().GetHashCode();
     }
 
     #endregion

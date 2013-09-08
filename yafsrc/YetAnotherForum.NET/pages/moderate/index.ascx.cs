@@ -76,7 +76,7 @@ namespace YAF.Pages.moderate
         protected void ForumList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             // which command are we handling
-            switch (e.CommandName.ToLower())
+            switch (e.CommandName.ToLowerInvariant())
             {
                 case "viewunapprovedposts":
 

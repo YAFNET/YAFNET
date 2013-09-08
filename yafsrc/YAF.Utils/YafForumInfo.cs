@@ -88,7 +88,7 @@ namespace YAF.Utils
             get
             {
                 string s = HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
-                return s != null && s.ToLower() == "localhost";
+                return s != null && s.ToLowerInvariant() == "localhost";
             }
         }
 

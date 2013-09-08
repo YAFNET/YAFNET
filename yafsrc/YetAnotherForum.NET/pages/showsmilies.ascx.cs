@@ -69,7 +69,7 @@ namespace YAF.Pages
     /// </returns>
     protected string GetSmileyScript([NotNull] string code, [NotNull] string icon)
     {
-      code = code.ToLower();
+      code = code.ToLowerInvariant();
       code = code.Replace("&", "&amp;");
       code = code.Replace("\"", "&quot;");
       code = code.Replace("'", "\\'");

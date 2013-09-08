@@ -68,7 +68,7 @@ namespace YAF.Core.BBCode
         /// </returns>
         public string ColorText(string tmpCode, string language)
         {
-            language = language.ToLower();
+            language = language.ToLowerInvariant();
 
             language = language.Replace("\"", string.Empty);
 

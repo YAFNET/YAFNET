@@ -153,7 +153,7 @@ namespace YAF.Providers.Roles
                 }
 
                 // invalidate the cache for this user...
-                this.DeleteFromRoleCacheIfExists(username.ToLower());
+                this.DeleteFromRoleCacheIfExists(username.ToLowerInvariant());
             }
         }
 
@@ -261,7 +261,7 @@ namespace YAF.Providers.Roles
             StringCollection roleNames = null;
 
             // get the users's collection from the dictionary
-            if (!this.UserRoleCache.ContainsKey(username.ToLower()))
+            if (!this.UserRoleCache.ContainsKey(username.ToLowerInvariant()))
             {
                 roleNames = new StringCollection();
 
@@ -273,11 +273,11 @@ namespace YAF.Providers.Roles
                 }
 
                 // add it to the dictionary cache...
-                this.UserRoleCache.AddOrUpdate(username.ToLower(), (k) => roleNames, (s, v) => roleNames);
+                this.UserRoleCache.AddOrUpdate(username.ToLowerInvariant(), (k) => roleNames, (s, v) => roleNames);
             }
             else
             {
-                roleNames = this.UserRoleCache[username.ToLower()];
+                roleNames = this.UserRoleCache[username.ToLowerInvariant()];
             }
 
             return roleNames.ToStringArray(); // return as a string array
@@ -395,7 +395,7 @@ namespace YAF.Providers.Roles
                     DB.Current.RemoveUserFromRole(this.ApplicationName, username, roleName); // Remove role
 
                     // invalidate cache for this user...
-                    this.DeleteFromRoleCacheIfExists(username.ToLower());
+                    this.DeleteFromRoleCacheIfExists(username.ToLowerInvariant());
                 }
             }
         }

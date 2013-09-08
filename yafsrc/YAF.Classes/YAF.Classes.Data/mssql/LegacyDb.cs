@@ -6270,7 +6270,7 @@ namespace YAF.Classes.Data
 
                             try
                             {
-                                if (sql.ToLower().IndexOf("setuser") >= 0)
+                                if (sql.ToLowerInvariant().IndexOf("setuser") >= 0)
                                 {
                                     continue;
                                 }
@@ -6312,7 +6312,7 @@ namespace YAF.Classes.Data
 
                         try
                         {
-                            if (sql.ToLower().IndexOf("setuser") >= 0)
+                            if (sql.ToLowerInvariant().IndexOf("setuser") >= 0)
                             {
                                 continue;
                             }

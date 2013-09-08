@@ -75,8 +75,6 @@ namespace YAF.Utils.Helpers
 						img.Dispose();
 					}
 				}
-
-				stream.Close();
 			}
 
 			return pseudoMime;

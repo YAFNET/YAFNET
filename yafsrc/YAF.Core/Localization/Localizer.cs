@@ -119,7 +119,7 @@ namespace YAF.Core
 		public IEnumerable<LanuageResourcesPageResource> GetNodesUsingQuery(Func<LanuageResourcesPageResource, bool> predicate)
 		{
 			var pagePointer =
-				this._localizationLanguageResources.page.FirstOrDefault(p => p.name.ToUpper().Equals(this._currentPage));
+				this._localizationLanguageResources.page.FirstOrDefault(p => p.name.ToUpperInvariant().Equals(this._currentPage));
 
 			return pagePointer != null ? pagePointer.Resource.Where(predicate) : this._localizationLanguageResources.page.SelectMany(p => p.Resource).Where(predicate);
 		}
@@ -138,7 +138,7 @@ namespace YAF.Core
 		public IEnumerable<LanuageResourcesPageResource> GetCountryNodesUsingQuery(Func<LanuageResourcesPageResource, bool> predicate)
 		{
 			var pagePointer =
-				this._localizationLanguageResources.page.FirstOrDefault(p => p.name.ToUpper().Equals(this._currentPage));
+				this._localizationLanguageResources.page.FirstOrDefault(p => p.name.ToUpperInvariant().Equals(this._currentPage));
 
 			return pagePointer != null ? pagePointer.Resource.Where(predicate) : this._localizationLanguageResources.page.SelectMany(p => p.Resource).Where(predicate);
 		}
@@ -157,7 +157,7 @@ namespace YAF.Core
 		public IEnumerable<LanuageResourcesPageResource> GetRegionNodesUsingQuery(Func<LanuageResourcesPageResource, bool> predicate)
 		{
 			var pagePointer =
-				this._localizationLanguageResources.page.FirstOrDefault(p => p.name.ToUpper().Equals(this._currentPage));
+				this._localizationLanguageResources.page.FirstOrDefault(p => p.name.ToUpperInvariant().Equals(this._currentPage));
 
 			return pagePointer != null ? pagePointer.Resource.Where(predicate) : this._localizationLanguageResources.page.SelectMany(p => p.Resource).Where(predicate);
 		}
@@ -178,7 +178,7 @@ namespace YAF.Core
 			// default the out parameters
 			localizedText = string.Empty;
 
-			tag = tag.ToUpper(); //ToUpper(this._currentCulture);
+			tag = tag.ToUpperInvariant(); //ToUpper(this._currentCulture);
 
 			var pagePointer =
 				this._localizationLanguageResources.page.FirstOrDefault(p => p.name.Equals(this._currentPage));
@@ -255,7 +255,7 @@ namespace YAF.Core
 				page = "DEFAULT";
 			}
 
-			this._currentPage = page.ToUpper();
+			this._currentPage = page.ToUpperInvariant();
 		}
 
 		#endregion
@@ -320,8 +320,8 @@ namespace YAF.Core
 				(r) =>
 				{
 					// transform the page and tag name ToUpper...
-					r.page.ForEach(p => p.name = p.name.ToUpper());
-					r.page.ForEach(p => p.Resource.ForEach(i => i.tag = i.tag.ToUpper()));
+					r.page.ForEach(p => p.name = p.name.ToUpperInvariant());
+					r.page.ForEach(p => p.Resource.ForEach(i => i.tag = i.tag.ToUpperInvariant()));
 				});
 
 			var userLanguageCode = this._localizationLanguageResources.code.IsSet()

@@ -74,7 +74,7 @@ namespace YAF.Core.Services
         /// </param>
         public void AddPageElement(string name)
         {
-            this._registeredElements.Add(name.ToLower());
+            this._registeredElements.Add(name.ToLowerInvariant());
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace YAF.Core.Services
         /// </returns>
         public bool PageElementExists(string name)
         {
-            return this._registeredElements.Contains(name.ToLower());
+            return this._registeredElements.Contains(name.ToLowerInvariant());
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace YAF.Core.Services
                 return;
             }
 
-            element.Controls.Add(ControlHelper.MakeCssIncludeControl(cssUrl.ToLower()));
+            element.Controls.Add(ControlHelper.MakeCssIncludeControl(cssUrl.ToLowerInvariant()));
             this.AddPageElement(cssUrl);
         }
 

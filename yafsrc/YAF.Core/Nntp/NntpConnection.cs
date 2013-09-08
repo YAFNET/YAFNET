@@ -298,7 +298,7 @@ namespace YAF.Core.Nntp
             continue;
           }
 
-          name = response.Substring(0, i).ToUpper();
+          name = response.Substring(0, i).ToUpperInvariant();
           value = response.Substring(i + 1);
         }
 
@@ -420,7 +420,7 @@ namespace YAF.Core.Nntp
           if ((buff[0] == 'B' || buff[0] == 'b') && (m = Regex.Match(response, @"^EGIN \d\d\d (.+)$", RegexOptions.IgnoreCase)).Success)
           {
             ms = new MemoryStream();
-            while ((response = this.sr.ReadLine()) != null && (response.Length != 3 || response.ToUpper() != "END"))
+            while ((response = this.sr.ReadLine()) != null && (response.Length != 3 || response.ToUpperInvariant() != "END"))
             {
               NntpUtil.UUDecode(response, ms);
             }

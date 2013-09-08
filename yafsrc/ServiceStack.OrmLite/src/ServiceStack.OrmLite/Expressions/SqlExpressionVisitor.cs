@@ -1020,13 +1020,13 @@ namespace ServiceStack.OrmLite
                     statement = string.Format("lower({0})", quotedColName);
                     break;
                 case "StartsWith":
-                    statement = string.Format("upper({0}) like '{1}%' ", quotedColName, args[0].ToString().ToUpper());
+                    statement = string.Format("upper({0}) like '{1}%' ", quotedColName, args[0].ToString().ToUpperInvariant());
                     break;
                 case "EndsWith":
-                    statement = string.Format("upper({0}) like '%{1}'", quotedColName, RemoveQuote(args[0].ToString()).ToUpper());
+                    statement = string.Format("upper({0}) like '%{1}'", quotedColName, RemoveQuote(args[0].ToString()).ToUpperInvariant());
                     break;
                 case "Contains":
-                    statement = string.Format("upper({0}) like '%{1}%'", quotedColName, RemoveQuote(args[0].ToString()).ToUpper());
+                    statement = string.Format("upper({0}) like '%{1}%'", quotedColName, RemoveQuote(args[0].ToString()).ToUpperInvariant());
                     break;
                 case "Substring":
                     var startIndex = Int32.Parse(args[0].ToString()) + 1;

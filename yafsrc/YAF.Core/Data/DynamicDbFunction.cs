@@ -306,7 +306,7 @@ namespace YAF.Core.Data
 
             if (specificFunction == null || !specificFunction.Execute(functionType, operationName, parameters, out result))
             {
-                using (var cmd = this._dbAccessProvider.Instance.GetCommand(operationName.ToLower(), true, parameters))
+                using (var cmd = this._dbAccessProvider.Instance.GetCommand(operationName.ToLowerInvariant(), true, parameters))
                 {
                     result = executeDb(cmd);
                 }

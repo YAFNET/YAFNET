@@ -37,8 +37,8 @@ namespace ServiceStack.Common
 
         public static string ToEnglish(this string camelCase)
         {
-            var ucWords = camelCase.SplitCamelCase().ToLower();
-            return ucWords[0].ToString(CultureInfo.InvariantCulture).ToUpper() + ucWords.Substring(1);
+            var ucWords = camelCase.SplitCamelCase().ToLowerInvariant();
+            return ucWords[0].ToString(CultureInfo.InvariantCulture).ToUpperInvariant() + ucWords.Substring(1);
         }
 
         public static bool IsEmpty(this string value)

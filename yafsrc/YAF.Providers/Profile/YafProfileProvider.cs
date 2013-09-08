@@ -176,7 +176,7 @@ namespace YAF.Providers.Profile
                   userNameBuilder.Append(first ? "," : u);
 
                   // delete this user from the cache if they are in there...
-                  this.DeleteFromProfileCacheIfExists(u.ToLower());
+                  this.DeleteFromProfileCacheIfExists(u.ToLowerInvariant());
               });
 
             // call the DB...
@@ -396,10 +396,10 @@ namespace YAF.Providers.Profile
             this.LoadFromPropertyCollection(collection);
 
             // see if it's cached...
-            if (this.UserProfileCache.ContainsKey(username.ToLower()))
+            if (this.UserProfileCache.ContainsKey(username.ToLowerInvariant()))
             {
                 // just use the cached version...
-                return this.UserProfileCache[username.ToLower()];
+                return this.UserProfileCache[username.ToLowerInvariant()];
             }
             // transfer properties regardless...
             foreach (SettingsProperty prop in collection)
@@ -433,7 +433,7 @@ namespace YAF.Providers.Profile
             }
 
             // save this collection to the cache
-            this.UserProfileCache.AddOrUpdate(username.ToLower(), (k) => settingPropertyCollection, (k, v) => settingPropertyCollection);
+            this.UserProfileCache.AddOrUpdate(username.ToLowerInvariant(), (k) => settingPropertyCollection, (k, v) => settingPropertyCollection);
 
             return settingPropertyCollection;
         }
@@ -523,7 +523,7 @@ namespace YAF.Providers.Profile
                 DB.Current.SetProfileProperties(this.ApplicationName, userID, collection, this._settingsColumnsList);
 
                 // erase from the cache
-                this.DeleteFromProfileCacheIfExists(username.ToLower());
+                this.DeleteFromProfileCacheIfExists(username.ToLowerInvariant());
             }
         }
 

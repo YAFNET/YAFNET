@@ -319,7 +319,7 @@ namespace YAF.Controls
                 var s = new StringBuilder();
                 foreach (byte b in bs)
                 {
-                    s.Append(b.ToString("x2").ToLower());
+                    s.Append(b.ToString("x2").ToLowerInvariant());
                 }
 
                 string emailHash = s.ToString();

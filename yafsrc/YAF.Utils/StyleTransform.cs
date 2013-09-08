@@ -68,7 +68,7 @@ namespace YAF.Utils
         {
             get
             {
-                return this._theme != null ? this._theme.ThemeFile.ToLower().Trim() : string.Empty;
+                return this._theme != null ? this._theme.ThemeFile.ToLowerInvariant().Trim() : string.Empty;
             }
         }
 
@@ -195,7 +195,7 @@ namespace YAF.Utils
         private string GetColorOnly(string styleString)
         {
             string[] styleArray = styleString.Split(';');
-            return styleArray.FirstOrDefault(t => t.ToLower().Contains("color"));
+            return styleArray.FirstOrDefault(t => t.ToLowerInvariant().Contains("color"));
         }
 
         #endregion

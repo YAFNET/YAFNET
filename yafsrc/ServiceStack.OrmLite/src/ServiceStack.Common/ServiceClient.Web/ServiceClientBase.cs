@@ -573,7 +573,7 @@ namespace ServiceStack.ServiceClient.Web
 #else
         private void SendRequest(string requestUri, object request, Action<WebRequest> callback)
         {
-            var isHttpGet = HttpMethod != null && HttpMethod.ToUpper() == "GET";
+            var isHttpGet = HttpMethod != null && HttpMethod.ToUpperInvariant() == "GET";
             if (isHttpGet)
             {
                 var queryString = QueryStringSerializer.SerializeToString(request);
@@ -741,7 +741,7 @@ namespace ServiceStack.ServiceClient.Web
 
         public virtual void CustomMethodAsync<TResponse>(string httpVerb, IReturn<TResponse> request, Action<TResponse> onSuccess, Action<TResponse, Exception> onError)
         {
-            if (Web.HttpMethod.AllVerbs.Contains(httpVerb.ToUpper()))
+            if (Web.HttpMethod.AllVerbs.Contains(httpVerb.ToUpperInvariant()))
                 throw new NotSupportedException("Unknown HTTP Method is not supported: " + httpVerb);
 
             asyncClient.SendAsync(httpVerb, GetUrl(request.ToUrl(httpVerb, Format)), request, onSuccess, onError);
@@ -859,7 +859,7 @@ namespace ServiceStack.ServiceClient.Web
 
         public virtual void CustomMethod(string httpVerb, IReturnVoid request)
         {
-            if (Web.HttpMethod.AllVerbs.Contains(httpVerb.ToUpper()))
+            if (Web.HttpMethod.AllVerbs.Contains(httpVerb.ToUpperInvariant()))
                 throw new NotSupportedException("Unknown HTTP Method is not supported: " + httpVerb);
 
             SendOneWay(httpVerb, request.ToUrl(httpVerb, Format), request);
@@ -867,7 +867,7 @@ namespace ServiceStack.ServiceClient.Web
 
         public virtual TResponse CustomMethod<TResponse>(string httpVerb, IReturn<TResponse> request)
         {
-            if (Web.HttpMethod.AllVerbs.Contains(httpVerb.ToUpper()))
+            if (Web.HttpMethod.AllVerbs.Contains(httpVerb.ToUpperInvariant()))
                 throw new NotSupportedException("Unknown HTTP Method is not supported: " + httpVerb);
 
             return Send<TResponse>(httpVerb, request.ToUrl(httpVerb, Format), request);

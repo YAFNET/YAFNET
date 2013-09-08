@@ -3803,7 +3803,7 @@ namespace YAF.Classes
 
             set
             {
-                this._reg.SetValue("AcceptedHTML", value.ToLower());
+                this._reg.SetValue("AcceptedHTML", value.ToLowerInvariant());
             }
         }
 

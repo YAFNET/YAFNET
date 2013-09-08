@@ -304,7 +304,7 @@ namespace YAF.Core.Nntp
       var nntpConnection = new NntpConnection();
 
       // call connect server
-      nntpConnection.ConnectServer(nntpForum.Address.ToLower(), nntpForum.Port ?? 119);
+      nntpConnection.ConnectServer(nntpForum.Address.ToLowerInvariant(), nntpForum.Port ?? 119);
 
       // provide authentication if required...
       if (nntpForum.UserName.IsSet() && nntpForum.UserPass.IsSet())

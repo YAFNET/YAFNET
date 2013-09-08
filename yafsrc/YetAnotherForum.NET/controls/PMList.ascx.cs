@@ -1029,7 +1029,7 @@ namespace YAF.Controls
                 return PMView.Inbox;
             }
 
-            switch (param.ToLower())
+            switch (param.ToLowerInvariant())
             {
                 case "out":
                     return PMView.Outbox;

@@ -199,7 +199,7 @@ namespace YAF.Pages
     /// </returns>
     protected string GetActionText()
     {
-        return this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLower() == "delete"
+        return this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLowerInvariant() == "delete"
                    ? this.GetText("DELETE")
                    : this.GetText("UNDELETE");
     }
@@ -212,7 +212,7 @@ namespace YAF.Pages
     /// </returns>
     protected string GetReasonText()
       {
-          return this.GetText(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLower() == "delete" ? "DELETE_REASON" : "UNDELETE_REASON");
+          return this.GetText(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLowerInvariant() == "delete" ? "DELETE_REASON" : "UNDELETE_REASON");
       }
 
       /// <summary>
@@ -317,7 +317,7 @@ namespace YAF.Pages
             this.LinkedPosts.DataBind();
         }
 
-        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLower() == "delete")
+        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLowerInvariant() == "delete")
         {
             this.Title.Text = this.GetText("EDIT"); // GetText("EDIT");
             this.Delete.Text = this.GetText("DELETE"); // "GetText("Save");

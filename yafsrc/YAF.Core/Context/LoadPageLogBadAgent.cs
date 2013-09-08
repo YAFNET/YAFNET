@@ -115,8 +115,8 @@ namespace YAF.Core
                 this.Logger.Warn("UserAgent string is empty.");
             }
 
-            if ((@event.Data.Platform.ToLower().Contains("unknown")
-                 || @event.Data.Browser.ToLower().Contains("unknown"))
+            if ((@event.Data.Platform.ToLowerInvariant().Contains("unknown")
+                 || @event.Data.Browser.ToLowerInvariant().Contains("unknown"))
                 && (!UserAgentHelper.IsSearchEngineSpider(@event.Data.UserAgent)))
             {
                 this.Logger.Log(

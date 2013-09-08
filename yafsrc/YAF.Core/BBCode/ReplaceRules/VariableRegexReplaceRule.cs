@@ -293,7 +293,7 @@ namespace YAF.Core.BBCode.ReplaceRules
     {
       if (handlingValue.IsSet())
       {
-        switch (handlingValue.ToLower())
+        switch (handlingValue.ToLowerInvariant())
         {
           case "decode":
             variableValue = HttpUtility.HtmlDecode(variableValue);

@@ -185,7 +185,7 @@ namespace YAF.Pages.moderate
         private void List_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
         {
             // which command are we handling
-            switch (e.CommandName.ToLower())
+            switch (e.CommandName.ToLowerInvariant())
             {
                 case "delete":
 

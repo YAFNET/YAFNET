@@ -201,7 +201,7 @@ namespace YAF.Controls
         {
             if (this.DataRow != null && this.Get<YafBoardSettings>().AllowSignatures &&
                 this.DataRow["Signature"] != DBNull.Value &&
-                this.DataRow["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" &&
+                this.DataRow["Signature"].ToString().ToLowerInvariant() != "<p>&nbsp;</p>" &&
                 this.DataRow["Signature"].ToString().Trim().Length > 0)
             {
                 return "rowspan=\"2\"";

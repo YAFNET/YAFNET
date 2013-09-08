@@ -459,7 +459,7 @@ namespace YAF.Core.Services.Auth
             normalizedRequestParameters = this.NormalizeRequestParameters(parameters);
 
             StringBuilder signatureBase = new StringBuilder();
-            signatureBase.AppendFormat("{0}&", httpMethod.ToUpper());
+            signatureBase.AppendFormat("{0}&", httpMethod.ToUpperInvariant());
             signatureBase.AppendFormat("{0}&", this.UrlEncode(normalizedUrl));
             signatureBase.AppendFormat("{0}", this.UrlEncode(normalizedRequestParameters));
 

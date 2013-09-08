@@ -52,17 +52,15 @@ namespace YAF.Utils.Helpers
       if (control.Visible)
       {
         using (var stringWriter = new StringWriter())
+        using (var writer = new HtmlTextWriter(stringWriter))
         {
-          using (var writer = new HtmlTextWriter(stringWriter))
+          if (control is IRaiseControlLifeCycles)
           {
-            if (control is IRaiseControlLifeCycles)
-            {
-              (control as IRaiseControlLifeCycles).RaisePreRender();
-            }
-
-            control.RenderControl(writer);
-            return stringWriter.ToString();
+            (control as IRaiseControlLifeCycles).RaisePreRender();
           }
+
+          control.RenderControl(writer);
+          return stringWriter.ToString();
         }
       }
 

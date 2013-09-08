@@ -461,7 +461,7 @@ namespace YAF.Types.Extensions
 
 			foreach (byte b in emailBytes)
 			{
-				s.Append(b.ToString("x2").ToLower());
+				s.Append(b.ToString("x2").ToLowerInvariant());
 			}
 
 			return s.ToString();

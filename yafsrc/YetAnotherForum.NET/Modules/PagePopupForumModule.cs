@@ -106,7 +106,7 @@ namespace YAF.Modules
                 this.ForumControl.Page,
                 "modalNotification",
                 "var fpModal = function() {{ {2}('{0}', '{1}'); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);"
-                    .FormatWith(message.Message, message.MessageType.ToString().ToLower(), this._errorPopup.ShowModalFunction));
+                    .FormatWith(message.Message, message.MessageType.ToString().ToLowerInvariant(), this._errorPopup.ShowModalFunction));
         }
 
         /// <summary>

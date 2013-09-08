@@ -22,7 +22,7 @@ namespace ServiceStack.ServiceClient.Web
 
         public static string ToUrl(this IReturn request, string httpMethod, string formatFallbackToPredefinedRoute=null)
         {
-            httpMethod = httpMethod.ToUpper();
+            httpMethod = httpMethod.ToUpperInvariant();
 
             var requestType = request.GetType();
             var requestRoutes = routesCache.GetOrAdd(requestType, GetRoutesForType);

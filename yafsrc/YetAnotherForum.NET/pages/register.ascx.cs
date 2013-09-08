@@ -276,9 +276,9 @@ namespace YAF.Pages
 
             string guestUserName = UserMembershipHelper.GuestUserName;
 
-            guestUserName = guestUserName.IsSet() ? guestUserName.ToLower() : string.Empty;
+            guestUserName = guestUserName.IsSet() ? guestUserName.ToLowerInvariant() : string.Empty;
 
-            if (userName.Contains(";") || badWord || userName.ToLower().Equals(guestUserName))
+            if (userName.Contains(";") || badWord || userName.ToLowerInvariant().Equals(guestUserName))
             {
                 this.PageContext.AddLoadMessage(this.GetText("BAD_USERNAME"), MessageTypes.Warning);
                 e.Cancel = true;

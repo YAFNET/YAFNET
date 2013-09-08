@@ -570,7 +570,7 @@ namespace ServiceStack.Text
                 {
                     string firstLetter = words[i].Substring(0, 1);
                     string rest = words[i].Substring(1);
-                    string result = firstLetter.ToUpper() + rest.ToLower();
+                    string result = firstLetter.ToUpperInvariant() + rest.ToLowerInvariant();
                     words[i] = result;
                 }
             }

@@ -101,7 +101,7 @@ namespace YAF.Types.Interfaces
 
       var value = readValue.Get(key);
 
-      return Equals(value, null) ? defaultValue : Convert.ToBoolean(value.ToLower());
+      return Equals(value, null) ? defaultValue : Convert.ToBoolean(value.ToLowerInvariant());
     }
 
     #endregion

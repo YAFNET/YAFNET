@@ -497,7 +497,7 @@ namespace YAF.Controls
                 foreach (string key in this._attributeCollection.Keys)
                 {
                     // get the attribute and write it...
-                    if (key.ToLower() == "onclick")
+                    if (key.ToLowerInvariant() == "onclick")
                     {
                         // special handling... add to it...
                         output.WriteAttribute(
@@ -506,7 +506,7 @@ namespace YAF.Controls
                             this._attributeCollection[key], "this.blur(); this.onclick = function() { return false; }; return true;"));
                         wroteOnClick = true;
                     }
-                    else if (key.ToLower().StartsWith("data-") || key.ToLower().StartsWith("on") || key.ToLower() == "rel" || key.ToLower() == "target")
+                    else if (key.ToLowerInvariant().StartsWith("data-") || key.ToLowerInvariant().StartsWith("on") || key.ToLowerInvariant() == "rel" || key.ToLowerInvariant() == "target")
                     {
                         // only write javascript attributes -- and a few other attributes...
                         output.WriteAttribute(key, this._attributeCollection[key]);

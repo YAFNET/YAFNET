@@ -153,7 +153,7 @@ namespace YAF.Pages
           strDirectory = this.CurrentDirectory;
         }
 
-        string tmpExt = finfo.Extension.ToLower();
+        string tmpExt = finfo.Extension.ToLowerInvariant();
 
         if (tmpExt == ".gif" || tmpExt == ".jpg" || tmpExt == ".jpeg" || tmpExt == ".png" || tmpExt == ".bmp")
         {
@@ -245,7 +245,7 @@ namespace YAF.Pages
           file =>
           (file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden &&
           (file.Attributes & FileAttributes.System) != FileAttributes.System &&
-          this.IsValidAvatarExtension(file.Extension.ToLower())).ToList();
+          this.IsValidAvatarExtension(file.Extension.ToLowerInvariant())).ToList();
     }
 
     /// <summary>

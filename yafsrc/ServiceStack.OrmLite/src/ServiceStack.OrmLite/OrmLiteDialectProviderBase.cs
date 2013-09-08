@@ -704,7 +704,7 @@ namespace ServiceStack.OrmLite
             var isFullDeleteStatement =
                 !string.IsNullOrEmpty(sqlFilter)
                 && sqlFilter.Length > deleteStatement.Length
-                && sqlFilter.Substring(0, deleteStatement.Length).ToUpper().Equals(deleteStatement);
+                && sqlFilter.Substring(0, deleteStatement.Length).ToUpperInvariant().Equals(deleteStatement);
 
             if (isFullDeleteStatement) return sqlFilter.SqlFormat(filterParams);
 
@@ -828,7 +828,7 @@ namespace ServiceStack.OrmLite
 
         protected virtual string GetIndexName(bool isUnique, string modelName, string fieldName)
         {
-            return string.Format("{0}idx_{1}_{2}", isUnique ? "u" : "", modelName, fieldName).ToLower();
+            return string.Format("{0}idx_{1}_{2}", isUnique ? "u" : "", modelName, fieldName).ToLowerInvariant();
         }
 
         protected virtual string ToCreateIndexStatement(bool isUnique, string indexName, ModelDefinition modelDef, string fieldName, bool isCombined = false)

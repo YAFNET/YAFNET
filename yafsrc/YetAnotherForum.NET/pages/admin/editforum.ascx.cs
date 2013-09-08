@@ -110,7 +110,7 @@ namespace YAF.Pages.Admin
                     long nFileID = 1;
 
                     foreach (FileInfo file in from file in files
-                                              let sExt = file.Extension.ToLower()
+                                              let sExt = file.Extension.ToLowerInvariant()
                                               where sExt == ".png" || sExt == ".gif" || sExt == ".jpg" || sExt == ".jpeg"
                                               select file)
                     {

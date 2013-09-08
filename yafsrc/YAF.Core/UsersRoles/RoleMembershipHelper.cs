@@ -525,7 +525,7 @@ namespace YAF.Core
                         }
 
                         string name = row.Field<string>("Name").Trim();
-                        string email = row.Field<string>("Email").ToLower().Trim();
+                        string email = row.Field<string>("Email").ToLowerInvariant().Trim();
 
                         // clean up the name by removing commas...
                         name = name.Replace(",", string.Empty);

@@ -246,7 +246,7 @@ namespace YAF.Core
                 {
                     for (int j = 0; j < files.Length; j++)
                     {
-                        if (ci.IsNeutralCulture || !tags[1, j].ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower()))
+                        if (ci.IsNeutralCulture || !tags[1, j].ToLowerInvariant().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLowerInvariant()))
                         {
                             continue;
                         }
@@ -298,7 +298,7 @@ namespace YAF.Core
             foreach (System.Globalization.CultureInfo ci in cultures)
             {
                 // We check only the language part as we need a default here.
-                if (!ci.IsNeutralCulture && rawTag.ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower()) && ci.IetfLanguageTag.Length == 5)
+                if (!ci.IsNeutralCulture && rawTag.ToLowerInvariant().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLowerInvariant()) && ci.IetfLanguageTag.Length == 5)
                 {
                     return ci.IetfLanguageTag;
                 }

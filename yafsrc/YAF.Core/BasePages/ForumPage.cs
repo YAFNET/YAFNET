@@ -387,7 +387,7 @@ namespace YAF.Core
         /// </returns>
         public static object IsNull([NotNull] string value)
         {
-            return value == null || value.ToLower() == string.Empty ? (object)DBNull.Value : value;
+            return value == null || value.ToLowerInvariant() == string.Empty ? (object)DBNull.Value : value;
         }
 
         /// <summary>

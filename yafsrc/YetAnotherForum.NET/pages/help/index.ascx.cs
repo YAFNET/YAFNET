@@ -198,7 +198,7 @@ namespace YAF.Pages.help
                     break;
                 default:
                     {
-                        var helpContentList = this.helpContents.FindAll(check => check.HelpPage.ToLower().Equals(faqPage));
+                        var helpContentList = this.helpContents.FindAll(check => check.HelpPage.ToLowerInvariant().Equals(faqPage));
 
                         if (helpContentList.Count > 0)
                         {
@@ -249,8 +249,8 @@ namespace YAF.Pages.help
             var searchlist =
               this.helpContents.FindAll(
                 check =>
-                check.HelpContent.ToLower().Contains(this.search.Text.ToLower()) ||
-                check.HelpTitle.ToLower().Contains(this.search.Text.ToLower()));
+                check.HelpContent.ToLowerInvariant().Contains(this.search.Text.ToLowerInvariant()) ||
+                check.HelpTitle.ToLowerInvariant().Contains(this.search.Text.ToLowerInvariant()));
 
             foreach (YafHelpContent item in searchlist)
             {

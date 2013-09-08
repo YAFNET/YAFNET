@@ -155,7 +155,7 @@ namespace YAF.Controls
                 string evt = string.Empty;
                 if (this._onclick.Length > 0)
                 {
-                    string strCode = Convert.ToString(row["Code"]).ToLower();
+                    string strCode = Convert.ToString(row["Code"]).ToLowerInvariant();
                     strCode = strCode.Replace("&", "&amp;");
                     strCode = strCode.Replace(">", "&gt;");
                     strCode = strCode.Replace("<", "&lt;");

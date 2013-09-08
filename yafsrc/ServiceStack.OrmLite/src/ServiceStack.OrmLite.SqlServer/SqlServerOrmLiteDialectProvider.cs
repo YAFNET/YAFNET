@@ -34,7 +34,7 @@ namespace ServiceStack.OrmLite.SqlServer
 			{
 				var filePath = connectionString;
 
-				var filePathWithExt = filePath.ToLower().EndsWith(".mdf")
+				var filePathWithExt = filePath.ToLowerInvariant().EndsWith(".mdf")
 					? filePath 
 					: filePath + ".mdf";
 
@@ -50,9 +50,9 @@ namespace ServiceStack.OrmLite.SqlServer
 			{
 				foreach (var option in options)
 				{
-					if (option.Key.ToLower() == "read only")
+					if (option.Key.ToLowerInvariant() == "read only")
 					{
-						if (option.Value.ToLower() == "true")
+						if (option.Value.ToLowerInvariant() == "true")
 						{
 							connectionString += "Mode = Read Only;";
 						}

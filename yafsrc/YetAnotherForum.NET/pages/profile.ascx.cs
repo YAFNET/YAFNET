@@ -224,7 +224,7 @@ namespace YAF.Pages
             if (linkUrl.IsSet())
             {
                 string link = linkUrl.Replace("\"", string.Empty);
-                if (!link.ToLower().StartsWith("http"))
+                if (!link.ToLowerInvariant().StartsWith("http"))
                 {
                     link = "http://" + link;
                 }

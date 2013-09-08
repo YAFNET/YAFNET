@@ -146,7 +146,7 @@ namespace YAF.Core
                 return false;
             }
 
-            themeFile = themeFile.Trim().ToLower();
+            themeFile = themeFile.Trim().ToLowerInvariant();
 
             return themeFile.Length != 0 && (themeFile.EndsWith(".xml") && File.Exists(GetMappedThemeFile(themeFile)));
         }
@@ -180,7 +180,7 @@ namespace YAF.Core
             CodeContracts.ArgumentNotNull(page, "page");
             CodeContracts.ArgumentNotNull(tag, "tag");
 
-            return this.GetItem(page, tag, "[{0}.{1}]".FormatWith(page.ToUpper(), tag.ToUpper()));
+            return this.GetItem(page, tag, "[{0}.{1}]".FormatWith(page.ToUpperInvariant(), tag.ToUpperInvariant()));
         }
 
         /// <summary>
@@ -203,23 +203,23 @@ namespace YAF.Core
 
             if (this._themeResources != null)
             {
-                string langCode = YafContext.Current.Get<ILocalization>().LanguageCode.ToUpper();
-                var selectedPage = this._themeResources.page.FirstOrDefault(x => x.name == page.ToUpper());
+                string langCode = YafContext.Current.Get<ILocalization>().LanguageCode.ToUpperInvariant();
+                var selectedPage = this._themeResources.page.FirstOrDefault(x => x.name == page.ToUpperInvariant());
 
                 if (selectedPage != null)
                 {
                     var selectedItem =
                         selectedPage.Resource.FirstOrDefault(
                             x =>
-                            x.tag == tag.ToUpper()
-                            && (x.language.IsNotSet() || (x.language.IsSet() && x.language == langCode.ToUpper())));
+                            x.tag == tag.ToUpperInvariant()
+                            && (x.language.IsNotSet() || (x.language.IsSet() && x.language == langCode.ToUpperInvariant())));
 
                     if (selectedItem == null)
                     {
                         if (this.LogMissingThemeItem)
                         {
                             YafContext.Current.Get<ILogger>()
-                                      .Error("Missing Theme Item: {0}.{1} in {2}.ascx".FormatWith(page.ToUpper(), tag.ToUpper(), page.ToLower()));
+                                      .Error("Missing Theme Item: {0}.{1} in {2}.ascx".FormatWith(page.ToUpperInvariant(), tag.ToUpperInvariant(), page.ToLowerInvariant()));
                         }
 
                         return defaultValue;
@@ -276,10 +276,10 @@ namespace YAF.Core
                         r =>
                             {
                                 // transform the page and tag name ToUpper...
-                                r.page.ForEach(p => p.name = p.name.ToUpper());
+                                r.page.ForEach(p => p.name = p.name.ToUpperInvariant());
                                 r.page.Where(p => p.Resource == null).ForEach(
                                     p => p.Resource = new ResourcesPageResource[0]);
-                                r.page.ForEach(p => p.Resource.ForEach(i => i.tag = i.tag.ToUpper()));
+                                r.page.ForEach(p => p.Resource.ForEach(i => i.tag = i.tag.ToUpperInvariant()));
                             });
             }
         }

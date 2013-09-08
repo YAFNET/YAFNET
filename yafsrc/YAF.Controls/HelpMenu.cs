@@ -176,13 +176,13 @@ namespace YAF.Controls
                 html.AppendFormat(
                         @"<tr class=""header2""><td>{0}</td></tr>", this.GetText("HELP_INDEX", category.HelpCategory));
 
-                html.AppendFormat(@"<tr><td class=""post""><ul id=""yafhelp{0}"">", category.HelpCategory.ToLower());
+                html.AppendFormat(@"<tr><td class=""post""><ul id=""yafhelp{0}"">", category.HelpCategory.ToLowerInvariant());
 
                 foreach (var helpPage in category.HelpPages)
                 {
                     selectedStyle = string.Empty;
 
-                    if (helpPage.HelpPage.ToLower().Equals(faqPage))
+                    if (helpPage.HelpPage.ToLowerInvariant().Equals(faqPage))
                     {
                         selectedStyle = @"style=""color:red;""";
                     }
@@ -193,7 +193,7 @@ namespace YAF.Controls
                         {
                             html.AppendFormat(
                                 @"<li><a href=""{0}"" {2} title=""{1}"">{1}</a></li>",
-                                YafBuildLink.GetLink(ForumPages.help_index, "faq={0}".FormatWith(helpPage.HelpPage.ToLower())),
+                                YafBuildLink.GetLink(ForumPages.help_index, "faq={0}".FormatWith(helpPage.HelpPage.ToLowerInvariant())),
                                 this.GetText("HELP_INDEX", "{0}TITLE".FormatWith(helpPage.HelpPage)),
                                 selectedStyle);
                         }
@@ -202,7 +202,7 @@ namespace YAF.Controls
                     {
                         html.AppendFormat(
                        @"<li><a href=""{0}"" {2} title=""{1}"">{1}</a></li>",
-                       YafBuildLink.GetLink(ForumPages.help_index, "faq={0}".FormatWith(helpPage.HelpPage.ToLower())),
+                       YafBuildLink.GetLink(ForumPages.help_index, "faq={0}".FormatWith(helpPage.HelpPage.ToLowerInvariant())),
                        this.GetText("HELP_INDEX", "{0}TITLE".FormatWith(helpPage.HelpPage)),
                        selectedStyle);
                     }

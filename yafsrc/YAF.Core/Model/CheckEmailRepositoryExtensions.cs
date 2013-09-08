@@ -96,7 +96,7 @@ namespace YAF.Core.Model
             CodeContracts.ArgumentNotNull(email, "email");
             CodeContracts.ArgumentNotNull(repository, "repository");
 
-            repository.DbFunction.Query.checkemail_save(UserID: userID, Hash: hash, Email: email.ToLower(), UTCTIMESTAMP: DateTime.UtcNow);
+            repository.DbFunction.Query.checkemail_save(UserID: userID, Hash: hash, Email: email.ToLowerInvariant(), UTCTIMESTAMP: DateTime.UtcNow);
             repository.FireNew();
         }
 

@@ -398,7 +398,7 @@ namespace YAF
 
             /*string resourceName = "YAF.App_GlobalResources." + context.Request.QueryString["r"];
             int lastIndex = resourceName.LastIndexOf('.');
-            string extension = resourceName.Substring(lastIndex, resourceName.Length - lastIndex).ToLower();
+            string extension = resourceName.Substring(lastIndex, resourceName.Length - lastIndex).ToLowerInvariant();
 
             string resourceType = "text/plain";
 

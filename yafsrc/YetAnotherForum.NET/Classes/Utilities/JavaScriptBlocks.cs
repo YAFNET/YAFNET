@@ -448,7 +448,7 @@ namespace YAF.Utilities
         {
             string cultureJs = string.Empty;
 
-            dateFormat = dateFormat.ToLower();
+            dateFormat = dateFormat.ToLowerInvariant();
 
             dateFormat = dateFormat.Replace("yyyy", "yy");
 

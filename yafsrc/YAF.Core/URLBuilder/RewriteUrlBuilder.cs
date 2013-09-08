@@ -162,7 +162,7 @@ namespace YAF.Core
                         if (parser["pg"].IsSet())
                         {
                             useKey = "pg";
-                            description = parser[useKey].ToEnum<YafRssFeeds>().ToString().ToLower();
+                            description = parser[useKey].ToEnum<YafRssFeeds>().ToString().ToLowerInvariant();
                         }
 
                         if (parser["f"].IsSet())

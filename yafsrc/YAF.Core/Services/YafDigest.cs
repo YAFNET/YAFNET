@@ -128,7 +128,7 @@ namespace YAF.Core.Services
                 BaseUrlBuilder.BaseUrl,
                 BaseUrlBuilder.AppPath,
                 "digest.aspx",
-                "token={0}&userid={1}&boardid={2}&showerror={3}".FormatWith(webServiceToken, userId, boardId, showErrors.ToString().ToLower()));
+                "token={0}&userid={1}&boardid={2}&showerror={3}".FormatWith(webServiceToken, userId, boardId, showErrors.ToString().ToLowerInvariant()));
         }
 
         /// <summary>

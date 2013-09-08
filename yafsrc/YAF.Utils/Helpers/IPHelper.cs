@@ -83,7 +83,7 @@ namespace YAF.Utils.Helpers
             string ip4Address = string.Empty;
 
             // don't resolve nntp
-            if (addressIpv6.IsSet() && addressIpv6.ToLower().Contains("nntp"))
+            if (addressIpv6.IsSet() && addressIpv6.ToLowerInvariant().Contains("nntp"))
             {
                 return addressIpv6;
             }

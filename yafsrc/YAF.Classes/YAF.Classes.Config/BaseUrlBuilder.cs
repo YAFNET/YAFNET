@@ -158,7 +158,7 @@ namespace YAF.Classes
     {
       get
       {
-        string scriptName = HttpContext.Current.Request.FilePath.ToLower();
+        string scriptName = HttpContext.Current.Request.FilePath.ToLowerInvariant();
         return scriptName.Substring(scriptName.LastIndexOf('/') + 1);
       }
     }
@@ -170,7 +170,7 @@ namespace YAF.Classes
     {
       get
       {
-        string scriptName = HttpContext.Current.Request.FilePath.ToLower();
+        string scriptName = HttpContext.Current.Request.FilePath.ToLowerInvariant();
         return scriptName.Substring(0, scriptName.LastIndexOf('/'));
       }
     }
@@ -191,7 +191,7 @@ namespace YAF.Classes
       var url = new StringBuilder();
 
       long serverPort = long.Parse(HttpContext.Current.Request.ServerVariables["SERVER_PORT"]);
-      bool isSecure = HttpContext.Current.Request.ServerVariables["HTTPS"].ToUpper() == "ON" || serverPort == 443;
+      bool isSecure = HttpContext.Current.Request.ServerVariables["HTTPS"].ToUpperInvariant() == "ON" || serverPort == 443;
 
       url.Append("http");
 

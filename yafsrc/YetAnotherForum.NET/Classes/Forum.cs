@@ -531,7 +531,7 @@ namespace YAF
             }*/
             string[] src = { "{0}pages/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, this._page.PageName) };
 
-            string controlOverride = this.Get<ITheme>().GetItem("PAGE_OVERRIDE", this._page.PageName.ToLower(), null);
+            string controlOverride = this.Get<ITheme>().GetItem("PAGE_OVERRIDE", this._page.PageName.ToLowerInvariant(), null);
 
             if (controlOverride.IsSet())
             {

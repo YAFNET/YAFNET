@@ -409,7 +409,7 @@ namespace YAF.Classes
                 if (HttpContext.Current != null)
                 {
                     object obj = HttpContext.Current.Items["PortalSettings"];
-                    return obj != null && obj.GetType().ToString().ToLower().IndexOf("dotnetnuke") >= 0;
+                    return obj != null && obj.GetType().ToString().ToLowerInvariant().IndexOf("dotnetnuke") >= 0;
                 }
 
                 return false;
@@ -426,7 +426,7 @@ namespace YAF.Classes
                 if (HttpContext.Current != null)
                 {
                     object obj = HttpContext.Current.Items["SiteSettings"];
-                    return obj != null && obj.GetType().ToString().ToLower().IndexOf("mojoportal") >= 0;
+                    return obj != null && obj.GetType().ToString().ToLowerInvariant().IndexOf("mojoportal") >= 0;
                 }
 
                 return false;
@@ -465,7 +465,7 @@ namespace YAF.Classes
                 if (HttpContext.Current != null)
                 {
                     object obj = HttpContext.Current.Items["PortalSettings"];
-                    return obj != null && obj.GetType().ToString().ToLower().IndexOf("rainbow") >= 0;
+                    return obj != null && obj.GetType().ToString().ToLowerInvariant().IndexOf("rainbow") >= 0;
                 }
 
                 return false;
@@ -793,7 +793,7 @@ namespace YAF.Classes
 
                 if (!string.IsNullOrEmpty(value))
                 {
-                    switch (value.ToLower().Substring(0, 1))
+                    switch (value.ToLowerInvariant().Substring(0, 1))
                     {
                         case "1":
                         case "t":
@@ -846,7 +846,7 @@ namespace YAF.Classes
         {
             string value = GetConfigValueAsString(configKey);
 
-            return !string.IsNullOrEmpty(value) ? Convert.ToBoolean(value.ToLower()) : defaultValue;
+            return !string.IsNullOrEmpty(value) ? Convert.ToBoolean(value.ToLowerInvariant()) : defaultValue;
         }
 
         /// <summary>

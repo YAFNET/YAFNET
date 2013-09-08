@@ -356,7 +356,7 @@ namespace YAF.Pages
                 return false;
             }
 
-            string extension = Path.GetExtension(filePath).ToLower();
+            string extension = Path.GetExtension(filePath).ToLowerInvariant();
 
             // remove the "period"
             extension = extension.Replace(".", string.Empty);

@@ -15,7 +15,7 @@ namespace ServiceStack.Common.Web
 
         public static EndpointAttributes GetEndpointAttribute(string httpMethod)
         {
-            switch (httpMethod.ToUpper())
+            switch (httpMethod.ToUpperInvariant())
             {
                 case Get:
                     return EndpointAttributes.HttpGet;

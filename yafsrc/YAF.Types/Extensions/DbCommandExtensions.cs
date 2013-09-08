@@ -56,10 +56,10 @@ namespace YAF.Types.Extensions
 
 			if (excludeNames != null)
 			{
-				excludeList.AddRange(excludeNames.Select(x => x.ToLower()));
+				excludeList.AddRange(excludeNames.Select(x => x.ToLowerInvariant()));
 			}
 
-			foreach (var item in dictionary.Where(x => !excludeList.Contains(x.Key.ToLower())))
+			foreach (var item in dictionary.Where(x => !excludeList.Contains(x.Key.ToLowerInvariant())))
 			{
 				AddParam(cmd, item);
 			}

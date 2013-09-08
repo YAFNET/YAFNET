@@ -369,7 +369,7 @@ namespace YAF.Editors
 
             foreach (string color in colors)
             {
-                string tValue = color.Replace(" ", string.Empty).ToLower();
+                string tValue = color.Replace(" ", string.Empty).ToLowerInvariant();
                 writer.WriteLine("<option style=\"color:{0}\" value=\"{0}\">{1}</option>".FormatWith(tValue, color));
             }
 

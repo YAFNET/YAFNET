@@ -807,7 +807,7 @@ namespace YAF.Controls
 
       // Border style.
       if ((controlStyle.BorderStyle.ToString() != string.Empty) &&
-          (controlStyle.BorderStyle.ToString().ToLower() != "notset"))
+          (controlStyle.BorderStyle.ToString().ToLowerInvariant() != "notset"))
       {
         cell.Style.Add("border-style", controlStyle.BorderStyle.ToString());
       }

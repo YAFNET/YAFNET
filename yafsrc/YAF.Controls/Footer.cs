@@ -208,7 +208,7 @@ namespace YAF.Controls
 			if (domainKey.IsSet())
 			{
 				var currentDomainHash = HashHelper.Hash(
-					this.Get<HttpRequestBase>().Url.DnsSafeHost.ToLower(), 
+					this.Get<HttpRequestBase>().Url.DnsSafeHost.ToLowerInvariant(), 
 					HashHelper.HashAlgorithmType.SHA1, 
 					this.GetType().GetSigningKey().ToString(), 
 					false);
