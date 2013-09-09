@@ -60,7 +60,7 @@ namespace YAF.Controls
         ///   Gets or sets PageLinkDT.
         /// </summary>
         [CanBeNull]
-        protected DataTable PageLinkDT
+        public DataTable PageLinkDT
         {
             get
             {
