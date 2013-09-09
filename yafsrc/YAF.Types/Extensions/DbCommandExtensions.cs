@@ -133,34 +133,35 @@ namespace YAF.Types.Extensions
 			}
 			else
 			{
-				if (item is Guid)
-				{
-					p.Value = item.ToString();
-					p.DbType = DbType.String;
-					p.Size = 4000;
-				}
-				else if (item is ExpandoObject)
-				{
-					var d = (IDictionary<string, object>)item;
-					p.Value = d.Values.FirstOrDefault();
-				}
+				if (item is string)
+                {
+                    var asString = item as string;
+
+                    if (asString.Length < 4000)
+                    {
+                        p.Size = 4000;
+                    }
+                    else
+                    {
+                        p.Size = -1;
+                    }
+
+                    p.Value = item;
+                }
+                if (item is Guid)
+                {
+                    p.Value = item.ToString();
+                    p.DbType = DbType.String;
+                    p.Size = 4000;
+                }
+                else if (item is ExpandoObject)
+                {
+                    var d = (IDictionary<string, object>)item;
+                    p.Value = d.Values.FirstOrDefault();
+                }
 				else
 				{
 					p.Value = item;
-				}
-
-				if (item is string)
-				{
-					var asString = item as string;
-
-					if (asString.Length < 4000)
-					{
-						p.Size = 4000;
-					}
-					else
-					{
-						p.Size = -1;
-					}
 				}
 			}
 

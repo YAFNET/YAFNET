@@ -9,6 +9,8 @@ using YAF.Types.Interfaces.Data;
 
 namespace YAF.Classes.Data
 {
+    using System.Data.Common;
+
     public static class DbHelpers
     {
         /// <summary>
@@ -105,16 +107,16 @@ namespace YAF.Classes.Data
         public static SqlCommand GetCommand(
             [NotNull] string commandText,
             bool isText,
-            [NotNull] SqlConnection connection)
+            [NotNull] IDbConnection connection)
         {
             return isText
                 ? new SqlCommand
-                {
-                    CommandType = CommandType.Text,
-                    CommandText = GetCommandTextReplaced(commandText),
-                    Connection = connection,
-                    CommandTimeout = Config.SqlCommandTimeout.ToType<int>()
-                }
+                  {
+                      CommandType = CommandType.Text,
+                      CommandText = GetCommandTextReplaced(commandText),
+                      Connection = connection as SqlConnection,
+                      CommandTimeout = Config.SqlCommandTimeout.ToType<int>()
+                  }
                 : GetCommand(commandText);
         }
 
@@ -146,13 +148,13 @@ namespace YAF.Classes.Data
         /// New SqlCommand
         /// </returns>
         [NotNull]
-        public static SqlCommand GetCommand([NotNull] string storedProcedure, [NotNull] SqlConnection connection)
+        public static SqlCommand GetCommand([NotNull] string storedProcedure, [NotNull] DbConnection connection)
         {
             var cmd = new SqlCommand
             {
                 CommandType = CommandType.StoredProcedure,
                 CommandText = GetObjectName(storedProcedure),
-                Connection = connection,
+                Connection = connection as SqlConnection,
                 CommandTimeout = Int32.Parse(Config.SqlCommandTimeout)
             };
 
