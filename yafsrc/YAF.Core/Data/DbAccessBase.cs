@@ -39,7 +39,7 @@ namespace YAF.Core.Data
     /// <summary>
     ///     The db access base.
     /// </summary>
-    public abstract class DbAccessBase : IDbAccessV2
+    public abstract class DbAccessBase : IDbAccess
     {
         #region Fields
 

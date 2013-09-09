@@ -18,125 +18,76 @@
  */
 namespace YAF.Types.Interfaces.Data
 {
+    #region Using
+
+    using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Data.Common;
+
+    #endregion
 
     /// <summary>
-    /// DBAccess Interface
+    ///     DBAccess Interface
     /// </summary>
     public interface IDbAccess
     {
-        /// <summary>
-        /// Gets the current connection manager.
-        /// </summary>
-        /// <returns></returns>
-        IDbConnectionManager GetConnectionManager();
+        #region Public Properties
 
         /// <summary>
-        /// Sets the connection manager adapter.
+        ///     Gets the database information
         /// </summary>
-        /// <typeparam name="TManager"></typeparam>
-        void SetConnectionManagerAdapter<TManager>() where TManager : IDbConnectionManager;
+        IDbInformation Information { get; }
 
         /// <summary>
-        /// Filter list of result filters.
+        ///     Gets the current db provider factory
         /// </summary>
-        IList<IDataTableResultFilter> ResultFilterList { get; }
+        /// <returns> </returns>
+        DbProviderFactory DbProviderFactory { get; }
+
+        #endregion
+
+        #region Public Methods and Operators
 
         /// <summary>
-        /// The get dataset.
+        /// The execute.
         /// </summary>
+        /// <param name="execFunc">
+        /// The exec func.
+        /// </param>
         /// <param name="cmd">
         /// The cmd.
         /// </param>
-        /// <param name="transaction">
-        /// The transaction.
+        /// <param name="dbTransaction">
+        /// The db transaction.
         /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
         /// <returns>
+        /// The <see cref="T"/>.
         /// </returns>
-        DataSet GetDataset(IDbCommand cmd, bool transaction);
+        T Execute<T>(Func<IDbCommand, T> execFunc, IDbCommand cmd = null, [CanBeNull] IDbTransaction dbTransaction = null);
 
         /// <summary>
-        /// The get data.
+        /// The get command.
         /// </summary>
-        /// <param name="cmd">
-        /// The cmd.
+        /// <param name="sql">
+        /// The sql. 
         /// </param>
-        /// <param name="transaction">
-        /// The transaction.
+        /// <param name="isStoredProcedure">
+        /// The is stored procedure. 
+        /// </param>
+        /// <param name="parameters">
+        /// Command Parameters 
         /// </param>
         /// <returns>
+        /// The <see cref="DbCommand"/> . 
         /// </returns>
-        DataTable GetData(IDbCommand cmd, bool transaction);
+        IDbCommand GetCommand(
+            [NotNull] string sql, 
+            bool isStoredProcedure = true, 
+            [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null);
 
-        /// <summary>
-        /// The get data.
-        /// </summary>
-        /// <param name="commandText">
-        /// The command text.
-        /// </param>
-        /// <param name="transaction">
-        /// The transaction.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        DataTable GetData(string commandText, bool transaction);
-
-        /// <summary>
-        /// The execute non query.
-        /// </summary>
-        /// <param name="cmd">
-        /// The cmd.
-        /// </param>
-        /// <param name="transaction">
-        /// The transaction.
-        /// </param>
-        void ExecuteNonQuery(IDbCommand cmd, bool transaction);
-
-        /// <summary>
-        /// The execute scalar.
-        /// </summary>
-        /// <param name="cmd">
-        /// The cmd.
-        /// </param>
-        /// <param name="transaction">
-        /// The transaction.
-        /// </param>
-        /// <returns>
-        /// The execute scalar.
-        /// </returns> 
-        object ExecuteScalar(IDbCommand cmd, bool transaction);
-        /// <summary>
-        /// Returns values from data reader. 
-        /// </summary>
-        /// <param name="cmd"></param>
-        /// <param name="dt"></param>
-        /// <param name="transaction"></param>
-        /// <param name="acceptChanges"></param>
-        /// <param name="firstColumnIndex"></param>
-        /// <returns></returns>
-        DataTable AddValuesToDataTableFromReader(IDbCommand cmd, DataTable dt, bool transaction, bool acceptChanges,
-                                                int firstColumnIndex);
-        /// <summary>
-        /// Returns values from data reader.
-        /// </summary>
-        /// <param name="cmd"></param>
-        /// <param name="dt"></param>
-        /// <param name="transaction"></param>
-        /// <param name="acceptChanges"></param>
-        /// <param name="firstColumnIndex"></param>
-        /// <param name="currentRow"></param>
-        /// <returns></returns>
-
-        DataTable AddValuesToDataTableFromReader(IDbCommand cmd, DataTable dt, bool transaction, bool acceptChanges,
-                                                 int firstColumnIndex, int currentRow);
-        /// <summary>
-        /// Returns values from data reader.
-        /// </summary>
-        /// <param name="cmd"></param>
-        /// <param name="transaction"></param>
-        /// <param name="acceptChanges"></param>
-        /// <returns></returns>
-        DataTable GetDataTableFromReader(IDbCommand cmd, bool transaction, bool acceptChanges);
+        #endregion
     }
 }

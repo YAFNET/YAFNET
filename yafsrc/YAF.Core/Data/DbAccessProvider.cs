@@ -41,9 +41,9 @@ namespace YAF.Core.Data
     {
         #region Fields
 
-        private readonly IIndex<string, IDbAccessV2> _dbAccessProviders;
+        private readonly IIndex<string, IDbAccess> _dbAccessProviders;
 
-        private readonly SafeReadWriteProvider<IDbAccessV2> _dbAccessSafe;
+        private readonly SafeReadWriteProvider<IDbAccess> _dbAccessSafe;
 
         private readonly IServiceLocator _serviceLocator;
 
@@ -62,16 +62,16 @@ namespace YAF.Core.Data
         /// <param name="serviceLocator">
         ///     The service locator.
         /// </param>
-        public DbAccessProvider(IIndex<string, IDbAccessV2> dbAccessProviders, IServiceLocator serviceLocator)
+        public DbAccessProvider(IIndex<string, IDbAccess> dbAccessProviders, IServiceLocator serviceLocator)
         {
             this._dbAccessProviders = dbAccessProviders;
             this._serviceLocator = serviceLocator;
             this._providerName = Config.ConnectionProviderName;
 
-            this._dbAccessSafe = new SafeReadWriteProvider<IDbAccessV2>(
+            this._dbAccessSafe = new SafeReadWriteProvider<IDbAccess>(
                 () =>
                     {
-                        IDbAccessV2 dbAccess;
+                        IDbAccess dbAccess;
 
                         // attempt to get the provider...
                         if (this._dbAccessProviders.TryGetValue(this.ProviderName, out dbAccess))
@@ -103,7 +103,7 @@ namespace YAF.Core.Data
         ///     .
         /// </exception>
         [CanBeNull]
-        public IDbAccessV2 Instance
+        public IDbAccess Instance
         {
             get
             {

@@ -319,7 +319,7 @@ namespace YAF.Install
         protected void Page_Init([NotNull] object sender, [NotNull] EventArgs e)
         {
             // set the connection string provider...
-            var previousProvider = this.Get<IDbAccessV2>().Information.ConnectionString;
+            var previousProvider = this.Get<IDbAccess>().Information.ConnectionString;
 
             Func<string> dynamicConnectionString = () =>
             {
@@ -331,7 +331,7 @@ namespace YAF.Install
                 return previousProvider();
             };
 
-            this.Get<IDbAccessV2>().Information.ConnectionString = dynamicConnectionString;
+            this.Get<IDbAccess>().Information.ConnectionString = dynamicConnectionString;
         }
 
         /// <summary>

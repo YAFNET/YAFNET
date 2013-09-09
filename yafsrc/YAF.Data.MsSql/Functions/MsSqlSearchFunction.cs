@@ -32,7 +32,7 @@ namespace YAF.Data.MsSql.Functions
     [ExportService(ServiceLifetimeScope.OwnedByContainer)]
     public class MsSqlSearchFunction : BaseMsSqlFunction
     {
-        public MsSqlSearchFunction([NotNull] IDbAccessV2 dbAccess)
+        public MsSqlSearchFunction([NotNull] IDbAccess dbAccess)
             : base(dbAccess)
         {
         }

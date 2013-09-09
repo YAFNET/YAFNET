@@ -30,7 +30,7 @@ namespace YAF.Types.Interfaces.Data
         /// <summary>
         /// Gets the db access.
         /// </summary>
-        IDbAccessV2 DbAccess { get; }
+        IDbAccess DbAccess { get; }
 
         /// <summary>
         ///     Gets the db event.

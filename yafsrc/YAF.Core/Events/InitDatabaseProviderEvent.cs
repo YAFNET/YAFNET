@@ -37,7 +37,7 @@ namespace YAF.Core.Data
         /// <param name="dbAccess">
         /// The db access.
         /// </param>
-        public InitDatabaseProviderEvent(string providerName, IDbAccessV2 dbAccess)
+        public InitDatabaseProviderEvent(string providerName, IDbAccess dbAccess)
         {
             this.ProviderName = providerName;
             this.DbAccess = dbAccess;
@@ -50,7 +50,7 @@ namespace YAF.Core.Data
         /// <summary>
         /// Gets or sets the db access.
         /// </summary>
-        public IDbAccessV2 DbAccess { get; set; }
+        public IDbAccess DbAccess { get; set; }
 
         /// <summary>
         /// Gets or sets the provider name.

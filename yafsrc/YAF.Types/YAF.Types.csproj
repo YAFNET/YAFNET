@@ -74,7 +74,7 @@
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\PropertyInfoExtensions.cs" />
-    <Compile Include="Interfaces\Data\IDbAccessV2Extensions.cs" />
+    <Compile Include="Interfaces\Data\IDbAccessExtensions.cs" />
     <Compile Include="Interfaces\Data\IDbInformation.cs" />
     <Compile Include="Interfaces\Data\IDbSortableOperationExtensions.cs" />
     <Compile Include="Interfaces\Data\IHaveID.cs" />
@@ -89,7 +89,7 @@
     <Compile Include="Extensions\ViewStateExtensions.cs" />
     <Compile Include="Interfaces\Data\IDataLoadable.cs" />
     <Compile Include="Interfaces\Data\IDbAccessProvider.cs" />
-    <Compile Include="Interfaces\Data\IDbAccessV2.cs" />
+    <Compile Include="Interfaces\Data\IDbAccess.cs" />
     <Compile Include="Interfaces\Data\IDbConnectionParam.cs" />
     <Compile Include="Interfaces\Data\IDbDataFilter.cs" />
     <Compile Include="Interfaces\Data\IDbFunction.cs" />
@@ -176,7 +176,6 @@
     <Compile Include="Interfaces\Events\IRaiseEvent.cs" />
     <Compile Include="Interfaces\Events\IFireEvent.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
-    <Compile Include="Interfaces\Data\IDbAccessExtensions.cs" />
     <Compile Include="Interfaces\IHaveLocalizationExtensions.cs" />
     <Compile Include="Interfaces\IInjectServicesExtensions.cs" />
     <Compile Include="Interfaces\IObjectStoreExtensions.cs" />
@@ -237,7 +236,6 @@
     <Compile Include="Interfaces\IUserData.cs" />
     <Compile Include="Interfaces\IUserDisplayName.cs" />
     <Compile Include="Interfaces\IUserIgnored.cs" />
-    <Compile Include="Interfaces\Data\IDBAccess.cs" />
     <Compile Include="Interfaces\Data\IDbConnectionManager.cs" />
     <Compile Include="Interfaces\IWriteValue.cs" />
     <Compile Include="Interfaces\IYafSession.cs" />

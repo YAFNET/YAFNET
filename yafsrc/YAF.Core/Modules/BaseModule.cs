@@ -116,7 +116,7 @@ namespace YAF.Core
         {
             // data
             builder.RegisterType<DbAccessProvider>().As<IDbAccessProvider>().SingleInstance();
-            builder.Register(c => c.Resolve<IComponentContext>().Resolve<IDbAccessProvider>().Instance).As<IDbAccessV2>().InstancePerDependency().PreserveExistingDefaults();
+            builder.Register(c => c.Resolve<IComponentContext>().Resolve<IDbAccessProvider>().Instance).As<IDbAccess>().InstancePerDependency().PreserveExistingDefaults();
             builder.Register((c, p) => DbProviderFactories.GetFactory(p.TypedAs<string>())).ExternallyOwned().PreserveExistingDefaults();
 
             builder.RegisterType<DynamicDbFunction>().As<IDbFunction>().InstancePerDependency();

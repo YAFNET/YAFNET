@@ -232,7 +232,7 @@ namespace YAF.Core.Services
         /// </returns>
         public bool TestDatabaseConnection([NotNull] out string exceptionMessage)
         {
-            return this.Get<IDbAccessV2>().TestConnection(out exceptionMessage);
+            return this.Get<IDbAccess>().TestConnection(out exceptionMessage);
         }
 
         /// <summary>

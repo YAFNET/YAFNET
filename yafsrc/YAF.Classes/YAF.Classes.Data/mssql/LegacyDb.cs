@@ -82,11 +82,11 @@ namespace YAF.Classes.Data
         /// </summary>
         private static bool _fullTextSupported = true;
 
-        public static IDbAccessV2 DbAccess
+        public static IDbAccess DbAccess
         {
             get
             {
-                return ServiceLocatorAccess.CurrentServiceProvider.Get<IDbAccessV2>();
+                return ServiceLocatorAccess.CurrentServiceProvider.Get<IDbAccess>();
             }
         }
 

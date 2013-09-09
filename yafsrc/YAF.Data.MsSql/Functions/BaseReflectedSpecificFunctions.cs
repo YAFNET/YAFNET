@@ -55,8 +55,8 @@ namespace YAF.Data.MsSql
         /// <param name="staticReflectedClass">
         /// The static reflected class. 
         /// </param>
-        protected BaseReflectedSpecificFunctions(Type staticReflectedClass, IDbAccessV2 dbAccessV2)
-            :base(dbAccessV2)
+        protected BaseReflectedSpecificFunctions(Type staticReflectedClass, IDbAccess dbAccess)
+            :base(dbAccess)
         {
             this._methods = staticReflectedClass
                 .GetMethods(BindingFlags.Static | BindingFlags.Public)

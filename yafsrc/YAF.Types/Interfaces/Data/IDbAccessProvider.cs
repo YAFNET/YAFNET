@@ -27,7 +27,7 @@ namespace YAF.Types.Interfaces.Data
 	/// <summary>
 	/// The db access provider.
 	/// </summary>
-	public interface IDbAccessProvider : IReadWriteProvider<IDbAccessV2>
+	public interface IDbAccessProvider : IReadWriteProvider<IDbAccess>
 	{
 		#region Properties
 

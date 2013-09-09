@@ -10,7 +10,7 @@ namespace YAF.Providers.Utils
 {
     public class BaseProviderDb
     {
-        protected IDbAccessV2 DbAccess
+        protected IDbAccess DbAccess
         {
             get { return _dbAccess.Value; }
         }
@@ -18,11 +18,11 @@ namespace YAF.Providers.Utils
         /// <summary>
         ///   The _db access.
         /// </summary>
-        private readonly Lazy<IDbAccessV2> _dbAccess = null;
+        private readonly Lazy<IDbAccess> _dbAccess = null;
 
         protected BaseProviderDb(string connectionStringAppKeyName)
         {
-            this._dbAccess = new Lazy<IDbAccessV2>(() =>
+            this._dbAccess = new Lazy<IDbAccess>(() =>
             {
                 var access = new MsSqlDbAccess((p) => DbProviderFactories.GetFactory(p), new QueryProfile());
                 var old = access.Information.ConnectionString;

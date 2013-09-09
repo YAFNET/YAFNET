@@ -46,7 +46,7 @@ namespace YAF.Data.MsSql
 		/// <param name="dbAccess">
 		/// The db access.
 		/// </param>
-		public BaseMsSqlFunction([NotNull] IDbAccessV2 dbAccess)
+		public BaseMsSqlFunction([NotNull] IDbAccess dbAccess)
 		{
 			this.DbAccess = dbAccess;
 		}
@@ -58,7 +58,7 @@ namespace YAF.Data.MsSql
 		/// <summary>
 		///   Gets or sets DbAccess.
 		/// </summary>
-		public IDbAccessV2 DbAccess { get; set; }
+		public IDbAccess DbAccess { get; set; }
 
 		/// <summary>
 		///   Gets ProviderName.

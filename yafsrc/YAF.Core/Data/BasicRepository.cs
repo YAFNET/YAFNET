@@ -50,7 +50,7 @@ namespace YAF.Core.Data
         /// <param name="haveBoardId">
         /// The have Board Id. 
         /// </param>
-        public BasicRepository(IDbFunction dbFunction, IDbAccessV2 dbAccess, IRaiseEvent raiseEvent, IHaveBoardID haveBoardId)
+        public BasicRepository(IDbFunction dbFunction, IDbAccess dbAccess, IRaiseEvent raiseEvent, IHaveBoardID haveBoardId)
         {
             this.DbFunction = dbFunction;
             this.DbAccess = dbAccess;
@@ -70,7 +70,7 @@ namespace YAF.Core.Data
         /// <summary>
         /// Gets the db access.
         /// </summary>
-        public IDbAccessV2 DbAccess { get; private set; }
+        public IDbAccess DbAccess { get; private set; }
 
         /// <summary>
         ///     Gets the db event.

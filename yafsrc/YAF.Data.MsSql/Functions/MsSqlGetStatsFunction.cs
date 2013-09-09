@@ -46,7 +46,7 @@ namespace YAF.Data.MsSql
 		/// <param name="dbAccess">
 		/// The db access.
 		/// </param>
-		public MsSqlGetStatsFunction([NotNull] IDbAccessV2 dbAccess)
+		public MsSqlGetStatsFunction([NotNull] IDbAccess dbAccess)
 			: base(dbAccess)
 		{
 		}

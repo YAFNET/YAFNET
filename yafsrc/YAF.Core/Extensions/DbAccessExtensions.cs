@@ -63,7 +63,7 @@ namespace YAF.Classes.Data
 		/// <returns>
 		/// true if successfully connected
 		/// </returns>
-		public static bool TestConnection([NotNull] this IDbAccessV2 dbAccess, [NotNull] out string exceptionMessage)
+		public static bool TestConnection([NotNull] this IDbAccess dbAccess, [NotNull] out string exceptionMessage)
 		{
 			exceptionMessage = string.Empty;
 			bool success = false;
