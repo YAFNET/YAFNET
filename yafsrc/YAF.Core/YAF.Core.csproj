@@ -225,7 +225,6 @@
     <Compile Include="Handlers\LocalizationProvider.cs" />
     <Compile Include="Handlers\ThemeProvider.cs" />
     <Compile Include="Helpers\CaptchaHelper.cs" />
-    <Compile Include="Helpers\DynamicConnectionManager.cs" />
     <Compile Include="Helpers\PostDataHelper.cs" />
     <Compile Include="Helpers\StaticDataHelper.cs" />
     <Compile Include="Services\Localization\Localizer.cs" />
