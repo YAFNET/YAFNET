@@ -403,9 +403,10 @@ namespace YAF.Controls
         /// </returns>
         protected string GetImage([NotNull] object dataRow)
         {
-            var isRead = ((DataRowView)dataRow)["IsRead"].ToType<bool>();
+            var dataRowView = dataRow as DataRowView;
+            var isRead = (dataRowView)["IsRead"].ToType<bool>();
 
-            return ((DataRowView)dataRow)["IsReply"].ToType<bool>()
+            return (dataRowView)["IsReply"].ToType<bool>()
                        ? this.Get<ITheme>().GetItem("ICONS", isRead ? "PM_READ_REPLY" : "PM_NEW_REPLY")
                        : this.Get<ITheme>().GetItem("ICONS", isRead ? "PM_READ" : "PM_NEW");
         }
