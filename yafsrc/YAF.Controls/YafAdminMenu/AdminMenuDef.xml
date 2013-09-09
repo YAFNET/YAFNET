@@ -163,7 +163,7 @@
       <ForumPage>admin_eventlog</ForumPage>
       <Image>book-open-next</Image>
     </YafMenuItem>
-		<YafMenuItem>
+    <YafMenuItem>
 			<Title>Restart App</Title>
 			<ForumPage>admin_restartapp</ForumPage>
 			<Image>gear</Image>
@@ -214,7 +214,7 @@
     </YafMenuItem>
     <YafMenuItem>
       <Title>Install</Title>
-      <Link>~install/</Link>
+      <Link>~install/default.aspx</Link>
       <Image>switch</Image>
     </YafMenuItem>
   </YafMenuSection>
