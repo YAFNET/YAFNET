@@ -214,23 +214,25 @@ namespace YAF
         private static bool CheckETag([NotNull] HttpContext context, [NotNull] string eTagCode)
         {
             string ifNoneMatch = context.Request.Headers["If-None-Match"];
-            if (eTagCode.Equals(ifNoneMatch, StringComparison.Ordinal))
+
+            if (!eTagCode.Equals(ifNoneMatch, StringComparison.Ordinal))
             {
-                context.Response.AppendHeader("Content-Length", "0");
-                context.Response.StatusCode = (int)HttpStatusCode.NotModified;
-                context.Response.StatusDescription = "Not modified";
-                context.Response.SuppressContent = true;
-                context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                context.Response.Cache.SetETag(eTagCode);
-                context.Response.Flush();
-                return true;
+                return false;
             }
 
-            return false;
+            context.Response.AppendHeader("Content-Length", "0");
+            context.Response.StatusCode = (int)HttpStatusCode.NotModified;
+            context.Response.StatusDescription = "Not modified";
+            context.Response.SuppressContent = true;
+            context.Response.Cache.SetCacheability(HttpCacheability.Public);
+            context.Response.Cache.SetETag(eTagCode);
+            context.Response.Flush();
+
+            return true;
         }
 
         /// <summary>
-        /// Get the Album Or Image Attachement Preview
+        /// Get the Album Or Image Attachment Preview
         /// </summary>
         /// <param name="data">The data.</param>
         /// <param name="previewWidth">The preview width.</param>
@@ -780,7 +782,13 @@ namespace YAF
                 var imagesNumber =
                     LegacyDb.album_getstats(null, context.Request.QueryString.GetFirstOrDefault("album"))[1];
                 MemoryStream ms = GetAlbumOrAttachmentImageResized(
-                    data, 200, 200, previewCropped, imagesNumber, localizationFile, "ALBUM");
+                    data,
+                    this.Get<YafBoardSettings>().ImageAttachmentResizeWidth,
+                    this.Get<YafBoardSettings>().ImageAttachmentResizeHeight,
+                    previewCropped,
+                    imagesNumber,
+                    localizationFile,
+                    "ALBUM");
 
                 context.Response.ContentType = "image/png";
 
@@ -927,10 +935,10 @@ namespace YAF
 
                         MemoryStream ms = GetAlbumOrAttachmentImageResized(
                             data,
-                            200,
-                            200,
+                            this.Get<YafBoardSettings>().ImageAttachmentResizeWidth,
+                            this.Get<YafBoardSettings>().ImageAttachmentResizeHeight,
                             previewCropped,
-                            (int)row["Downloads"],
+                            row["Downloads"].ToType<int>(),
                             localizationFile,
                             "POSTS");
 
