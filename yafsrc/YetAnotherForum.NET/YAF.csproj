@@ -804,7 +804,6 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Content Include="advanced.aspx" />
-    <Content Include="App_Data\Database.mdf" />
     <Content Include="auth.aspx" />
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
