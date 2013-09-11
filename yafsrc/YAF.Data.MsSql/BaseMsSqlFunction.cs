@@ -68,7 +68,7 @@ namespace YAF.Data.MsSql
 		{
 			get
 			{
-				return "System.Data.SqlClient";
+			    return MsSqlDbAccess.ProviderTypeName;
 			}
 		}
 

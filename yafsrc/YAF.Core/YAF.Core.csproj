@@ -105,6 +105,8 @@
     <Compile Include="Data\CompleteSearchContext.cs" />
     <Compile Include="Events\AttachmentEventHandleFileDelete.cs" />
     <Compile Include="Extensions\InjectionExtensions.cs" />
+    <Compile Include="Helpers\DbFunctionHelpers.cs" />
+    <Compile Include="Helpers\DbInformationHelper.cs" />
     <Compile Include="Services\Cache\BannedIPEventCacheInvalidate.cs" />
     <Compile Include="Services\Cache\CategoryEventHandleCacheInvalidate.cs" />
     <Compile Include="Events\InitDatabaseProviderEvent.cs" />

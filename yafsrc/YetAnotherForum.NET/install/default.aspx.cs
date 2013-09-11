@@ -159,6 +159,14 @@ namespace YAF.Install
 
         #region Properties
 
+        public IDbAccess DbAccess
+        {
+            get
+            {
+                return this.Get<IDbAccess>();
+            }
+        }
+
         /// <summary>
         ///     Gets CurrentConnString.
         /// </summary>
@@ -331,7 +339,7 @@ namespace YAF.Install
                 return previousProvider();
             };
 
-            this.Get<IDbAccess>().Information.ConnectionString = dynamicConnectionString;
+            this.DbAccess.Information.ConnectionString = dynamicConnectionString;
         }
 
         /// <summary>
@@ -1223,7 +1231,7 @@ namespace YAF.Install
                     YafContext.Current.BoardSettings = new YafBoardSettings();
                 }
 
-                this.FullTextSupport.Visible = LegacyDb.FullTextSupported;
+                this.FullTextSupport.Visible = this.DbAccess.Information.FullTextScript.IsSet();
 
                 this.TimeZones.DataSource = StaticDataHelper.TimeZones("english.xml");
 
@@ -1242,82 +1250,46 @@ namespace YAF.Install
                 this.DBUsernamePasswordHolder.Visible = LegacyDb.PasswordPlaceholderVisible;
 
                 // Connection string parameters text boxes
-                this.Parameter1_Name.Text = LegacyDb.Parameter1_Name;
-                this.Parameter1_Value.Text = LegacyDb.Parameter1_Value;
-                this.Parameter1_Value.Visible = LegacyDb.Parameter1_Visible;
+                foreach (var paramNumber in Enumerable.Range(1, 20))
+                {
+                    var dbParam = this.DbAccess.Information.DbConnectionParameters.FirstOrDefault(p => p.ID == paramNumber);
 
-                this.Parameter2_Name.Text = LegacyDb.Parameter2_Name;
-                this.Parameter2_Value.Text = LegacyDb.Parameter2_Value;
-                this.Parameter2_Value.Visible = LegacyDb.Parameter2_Visible;
+                    var label = this.FindControlRecursiveAs<Label>("Parameter{0}_Name".FormatWith(paramNumber));
+                    if (label != null)
+                    {
+                        label.Text = dbParam != null ? dbParam.Name : string.Empty;
+                    }
 
-                this.Parameter3_Name.Text = LegacyDb.Parameter3_Name;
-                this.Parameter3_Value.Text = LegacyDb.Parameter3_Value;
-                this.Parameter3_Value.Visible = LegacyDb.Parameter3_Visible;
-
-                this.Parameter4_Name.Text = LegacyDb.Parameter4_Name;
-                this.Parameter4_Value.Text = LegacyDb.Parameter4_Value;
-                this.Parameter4_Value.Visible = LegacyDb.Parameter4_Visible;
-
-                this.Parameter5_Name.Text = LegacyDb.Parameter5_Name;
-                this.Parameter5_Value.Text = LegacyDb.Parameter5_Value;
-                this.Parameter5_Value.Visible = LegacyDb.Parameter5_Visible;
-
-                this.Parameter6_Name.Text = LegacyDb.Parameter6_Name;
-                this.Parameter6_Value.Text = LegacyDb.Parameter6_Value;
-                this.Parameter6_Value.Visible = LegacyDb.Parameter6_Visible;
-
-                this.Parameter7_Name.Text = LegacyDb.Parameter7_Name;
-                this.Parameter7_Value.Text = LegacyDb.Parameter7_Value;
-                this.Parameter7_Value.Visible = LegacyDb.Parameter7_Visible;
-
-                this.Parameter8_Name.Text = LegacyDb.Parameter8_Name;
-                this.Parameter8_Value.Text = LegacyDb.Parameter8_Value;
-                this.Parameter8_Value.Visible = LegacyDb.Parameter8_Visible;
-
-                this.Parameter9_Name.Text = LegacyDb.Parameter9_Name;
-                this.Parameter9_Value.Text = LegacyDb.Parameter9_Value;
-                this.Parameter9_Value.Visible = LegacyDb.Parameter9_Visible;
-
-                this.Parameter10_Name.Text = LegacyDb.Parameter10_Name;
-                this.Parameter10_Value.Text = LegacyDb.Parameter10_Value;
-                this.Parameter10_Value.Visible = LegacyDb.Parameter10_Visible;
-
-                // Connection string parameters  check boxes
-                this.Parameter11_Value.Text = LegacyDb.Parameter11_Name;
-                this.Parameter11_Value.Checked = LegacyDb.Parameter11_Value;
-                this.Parameter11_Value.Visible = LegacyDb.Parameter11_Visible;
-
-                this.Parameter12_Value.Text = LegacyDb.Parameter12_Name;
-                this.Parameter12_Value.Checked = LegacyDb.Parameter12_Value;
-                this.Parameter12_Value.Visible = LegacyDb.Parameter12_Visible;
-
-                this.Parameter13_Value.Text = LegacyDb.Parameter13_Name;
-                this.Parameter13_Value.Checked = LegacyDb.Parameter13_Value;
-                this.Parameter13_Value.Visible = LegacyDb.Parameter13_Visible;
-
-                this.Parameter14_Value.Text = LegacyDb.Parameter14_Name;
-                this.Parameter14_Value.Checked = LegacyDb.Parameter14_Value;
-                this.Parameter14_Value.Visible = LegacyDb.Parameter14_Visible;
-
-                this.Parameter15_Value.Text = LegacyDb.Parameter15_Name;
-                this.Parameter15_Value.Checked = LegacyDb.Parameter15_Value;
-                this.Parameter15_Value.Visible = LegacyDb.Parameter15_Visible;
-
-                this.Parameter16_Value.Text = LegacyDb.Parameter16_Name;
-                this.Parameter16_Value.Checked = LegacyDb.Parameter16_Value;
-                this.Parameter16_Value.Visible = LegacyDb.Parameter16_Visible;
-
-                this.Parameter17_Value.Text = LegacyDb.Parameter17_Name;
-                this.Parameter17_Value.Checked = LegacyDb.Parameter17_Value;
-                this.Parameter17_Value.Visible = LegacyDb.Parameter17_Visible;
-
-                this.Parameter18_Value.Text = LegacyDb.Parameter18_Name;
-                this.Parameter18_Value.Checked = LegacyDb.Parameter18_Value;
-                this.Parameter18_Value.Visible = LegacyDb.Parameter18_Visible;
-
-                this.Parameter19_Value.Text = LegacyDb.Parameter19_Name;
-                this.Parameter19_Value.Checked = LegacyDb.Parameter19_Value;
-                this.Parameter19_Value.Visible = LegacyDb.Parameter19_Visible;
+                    var control = this.FindControlRecursive("Parameter{0}_Value".FormatWith(paramNumber));
+                    if (control is TextBox)
+                    {
+                        var textBox = control as TextBox;
+                        if (dbParam != null)
+                        {
+                            textBox.Text = dbParam.Value;
+                            textBox.Visible = true;
+                        }
+                        else
+                        {
+                            textBox.Text = string.Empty;
+                            textBox.Visible = false;
+                        }
+                    }
+                    else if (control is CheckBox)
+                    {
+                        var checkBox = control as CheckBox;
+                        if (dbParam != null)
+                        {
+                            checkBox.Checked = dbParam.Value.ToType<bool>();
+                            checkBox.Visible = true;
+                        }
+                        else
+                        {
+                            checkBox.Checked = false;
+                            checkBox.Visible = false;
+                        }
+                    }
+                }
 
                 // Hide New User on DNN
                 if (Config.IsDotNetNuke)
@@ -1342,32 +1314,32 @@ namespace YAF.Install
             if (this.rblYAFDatabase.SelectedValue == "existing" && this.lbConnections.SelectedIndex >= 0)
             {
                 string selectedConnection = this.lbConnections.SelectedValue;
-                if (selectedConnection != Config.ConnectionStringName)
+                if (selectedConnection == Config.ConnectionStringName)
                 {
-                    try
-                    {
-                        // have to write to the appSettings...
-                        if (!this._config.WriteAppSetting("YAF.ConnectionStringName", selectedConnection))
-                        {
-                            this.lblConnectionStringName.Text = selectedConnection;
+                    return UpdateDBFailureType.None;
+                }
 
-                            // failure to write App Settings..
-                            return UpdateDBFailureType.AppSettingsWrite;
-                        }
-                    }
-                    catch
+                try
+                {
+                    // have to write to the appSettings...
+                    if (!this._config.WriteAppSetting("YAF.ConnectionStringName", selectedConnection))
                     {
+                        this.lblConnectionStringName.Text = selectedConnection;
+
+                        // failure to write App Settings..
                         return UpdateDBFailureType.AppSettingsWrite;
                     }
+                }
+                catch
+                {
+                    return UpdateDBFailureType.AppSettingsWrite;
                 }
             }
             else if (this.rblYAFDatabase.SelectedValue == "create")
             {
                 try
                 {
-                    if (
-                        !this._config.WriteConnectionString(
-                            Config.ConnectionStringName, this.CurrentConnString, LegacyDb.ProviderAssemblyName))
+                    if (!this._config.WriteConnectionString(Config.ConnectionStringName, this.CurrentConnString, this.DbAccess.Information.ProviderName))
                     {
                         // failure to write db Settings..
                         return UpdateDBFailureType.ConnectionStringWrite;

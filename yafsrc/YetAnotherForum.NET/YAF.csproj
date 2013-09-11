@@ -1294,6 +1294,7 @@
     <Content Include="images\medals\medal_silver_2_small.png" />
     <Content Include="images\medals\medal_small.png" />
     <Content Include="images\YafLogo.png" />
+    <Content Include="install\custom\custom.sql" />
     <Content Include="install\TopicStatusList.xml" />
     <Content Include="install\wizard.css" />
     <Content Include="languages\admin\english.xml">

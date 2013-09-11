@@ -35,7 +35,7 @@ namespace YAF.Data.MsSql
     /// <summary>
 	/// The ms sql get stats function.
 	/// </summary>
-	[ExportService(ServiceLifetimeScope.OwnedByContainer)]
+    [ExportService(ServiceLifetimeScope.OwnedByContainer)]
 	public class MsSqlGetStatsFunction : BaseMsSqlFunction
 	{
 		#region Constructors and Destructors
@@ -136,7 +136,7 @@ namespace YAF.Data.MsSql
 			sb.AppendLine("CLOSE cur_showfragmentation");
 			sb.AppendLine("DEALLOCATE cur_showfragmentation");
 
-			using (var cmd = this.DbAccess.GetCommand(sb.ToString(), false))
+            using (var cmd = this.DbAccess.GetCommand(sb.ToString(), CommandType.Text))
 			{
 				this.DbAccess.ExecuteNonQuery(cmd, dbTransaction);
 			}

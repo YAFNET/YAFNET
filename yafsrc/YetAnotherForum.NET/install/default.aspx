@@ -14,15 +14,21 @@
 <body>
     <form id="Form1" runat="server">
     <script type="text/javascript">
-        jQuery('#Form1').submit(function () {
-            jQuery('.wizStep').animate({ opacity: '0.4' }, 'fast');
-            jQuery('#YafLoader').css({ top: '40%', left: '50%', margin: '-' + (jQuery('#YafLoader').height() / 2) + 'px 0 0 -' + (jQuery('#YafLoader').width() / 2) + 'px' });
-            jQuery('#YafLoader').show();
-        });
-        jQuery(document).ready(function() {
-            jQuery(".wizMain td:eq(0)").addClass("wizHeader");
-        });
         (function ($) {
+            $(document).ready(function () {
+                $(".wizMain td:eq(0)").addClass("wizHeader");
+                
+                $('#Form1').submit(function () {
+                    $('.wizStep').animate({ opacity: '0.4' }, 'fast');
+                    $('#YafLoader').css({
+                        top: '40%',
+                        left: '50%',
+                        margin: '-' + ($('#YafLoader').height() / 2) + 'px 0 0 -' + (jQuery('#YafLoader').width() / 2) + 'px'
+                    });
+                    $('#YafLoader').show();
+                });
+            });
+
             var cache = [];
             $.preLoadImages = function() {
                 var args_len = arguments.length;
@@ -32,8 +38,8 @@
                     cache.push(cacheImage);
                 }
             };
+            $.preLoadImages("loader.gif", "../resources/images/loader.gif");
         })(jQuery);
-        jQuery.preLoadImages("loader.gif", "../resources/images/loader.gif");
     </script>
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>

@@ -263,6 +263,17 @@ namespace YAF.Core.Data
 
         #region Methods
 
+        public IEnumerable<IDbSpecificFunction> DbSpecificFunctions
+        {
+            get
+            {
+                return this._serviceLocator.Get<IEnumerable<IDbSpecificFunction>>()
+                    .WhereProviderName(this._dbAccessProvider.ProviderName)
+                    .BySortOrder()
+                    .ToList();
+            }
+        }
+
         /// <summary>
         /// The db function execute.
         /// </summary>
@@ -298,9 +309,7 @@ namespace YAF.Core.Data
             var operationName = binder.Name;
 
             // see if there's a specific function override for the current provider...
-            var specificFunction = this._serviceLocator.Get<IEnumerable<IDbSpecificFunction>>()
-                .WhereProviderName(this._dbAccessProvider.ProviderName)
-                .BySortOrder()
+            var specificFunction = this.DbSpecificFunctions
                 .WhereOperationSupported(operationName)
                 .FirstOrDefault();
 
@@ -317,7 +326,7 @@ namespace YAF.Core.Data
 
             if (specificFunction == null)
             {
-                using (var cmd = this._dbAccessProvider.Instance.GetCommand(operationName.ToLower(), true, parameters))
+                using (var cmd = this._dbAccessProvider.Instance.GetCommand(operationName, CommandType.StoredProcedure, parameters))
                 {
                     result = executeDb(cmd);
                 }

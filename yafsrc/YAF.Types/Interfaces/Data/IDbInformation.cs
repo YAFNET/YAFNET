@@ -21,6 +21,8 @@ using System.Collections.Generic;
 
 namespace YAF.Types.Interfaces.Data
 {
+    using System.Data.Common;
+
     public interface IDbInformation
     {
         /// <summary>
@@ -46,6 +48,13 @@ namespace YAF.Types.Interfaces.Data
         /// <summary>
         ///     Gets DbConnectionParameters.
         /// </summary>
-        IEnumerable<IDbConnectionParam> DbConnectionParameters { get; }
+        IDbConnectionParam[] DbConnectionParameters { get; }
+
+        /// <summary>
+        /// Builds a connection string.
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        string BuildConnectionString(IEnumerable<IDbConnectionParam> parameters);
     }
 }

@@ -111,7 +111,7 @@ namespace YAF.Core.Data
         /// </returns>
         public virtual T Execute<T>(Func<IDbCommand, T> execFunc, IDbCommand cmd = null, IDbTransaction dbTransaction = null)
         {
-            var command = cmd ?? this.GetCommand(string.Empty, false);
+            var command = cmd ?? this.GetCommand(string.Empty, CommandType.Text);
 
             using (var p = this._profiler.Start(command.CommandText))
             {
@@ -153,9 +153,7 @@ namespace YAF.Core.Data
         /// <param name="sql">
         /// The sql. 
         /// </param>
-        /// <param name="isStoredProcedure">
-        /// The is stored procedure. 
-        /// </param>
+        /// <param name="commandType"></param>
         /// <param name="parameters">
         /// The parameters. 
         /// </param>
@@ -163,23 +161,15 @@ namespace YAF.Core.Data
         /// The <see cref="DbCommand"/> . 
         /// </returns>
         public virtual IDbCommand GetCommand(
-            [NotNull] string sql, bool isStoredProcedure = true, [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null)
+            [NotNull] string sql, CommandType commandType = CommandType.StoredProcedure, [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null)
         {
             DbCommand cmd = this.DbProviderFactory.CreateCommand();
             parameters = parameters.IfNullEmpty();
 
             cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
+            cmd.CommandType = commandType;
 
-            if (isStoredProcedure)
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = this.FormatProcedureText(sql);
-            }
-            else
-            {
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = sql;
-            }
+            cmd.CommandText = commandType == CommandType.StoredProcedure ? this.FormatProcedureText(sql) : sql;
 
             // map parameters for this command...
             this.MapParameters(cmd, parameters);

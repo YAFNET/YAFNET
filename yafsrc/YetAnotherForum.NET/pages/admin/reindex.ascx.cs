@@ -29,6 +29,7 @@ namespace YAF.Pages.Admin
 
   using YAF.Classes.Data;
   using YAF.Core;
+  using YAF.Core.Helpers;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Extensions;
@@ -186,7 +187,8 @@ namespace YAF.Pages.Admin
         try
         {
             this.txtIndexStatistics.Text = LegacyDb.db_shrink_warning() + @"\r\n\{0}\r\n\".FormatWith(LegacyDb.db_shrink_new());
-            this.txtIndexStatistics.Text = this.GetText("ADMIN_REINDEX", "INDEX_SHRINK").FormatWith(LegacyDb.GetDBSize()) ;
+            this.txtIndexStatistics.Text =
+                this.GetText("ADMIN_REINDEX", "INDEX_SHRINK").FormatWith(this.Get<IDbFunction>().GetDBSize());
         }
         catch (Exception error)
         {

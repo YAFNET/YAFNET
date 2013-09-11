@@ -121,7 +121,7 @@ namespace YAF.Types.Interfaces.Data
         /// The <see cref="T"/> . 
         /// </returns>
         [CanBeNull]
-        public static T GetScalar<T>([NotNull] this IDbFunction dbFunction, [NotNull] Func<object, object> function)
+        public static T GetScalar<T>([NotNull] this IDbFunction dbFunction, [NotNull] Func<dynamic, object> function)
         {
             CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
             CodeContracts.ArgumentNotNull(function, "function");

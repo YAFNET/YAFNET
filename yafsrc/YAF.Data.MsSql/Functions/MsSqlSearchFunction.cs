@@ -64,7 +64,7 @@ namespace YAF.Data.MsSql.Functions
             {
                 var sql = new SearchBuilder().BuildSearchSql(context);
 
-                using (var cmd = this.DbAccess.GetCommand(sql, false))
+                using (var cmd = this.DbAccess.GetCommand(sql, CommandType.Text))
                 {
                     result = this.DbAccess.GetReader(cmd, dbTransaction);
                     return true;

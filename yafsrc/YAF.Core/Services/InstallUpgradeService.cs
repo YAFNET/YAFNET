@@ -85,9 +85,10 @@ namespace YAF.Core.Services
         /// <param name="raiseEvent">
         /// The raise Event.
         /// </param>
-        public InstallUpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEvent)
+        public InstallUpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEvent, IDbAccess dbAccess)
         {
             this.RaiseEvent = raiseEvent;
+            this.DbAccess = dbAccess;
             this.ServiceLocator = serviceLocator;
         }
 
@@ -131,6 +132,8 @@ namespace YAF.Core.Services
         ///     Gets or sets the raise event.
         /// </summary>
         public IRaiseEvent RaiseEvent { get; set; }
+
+        public IDbAccess DbAccess { get; set; }
 
         /// <summary>
         ///     Gets or sets the service locator.
@@ -232,7 +235,7 @@ namespace YAF.Core.Services
         /// </returns>
         public bool TestDatabaseConnection([NotNull] out string exceptionMessage)
         {
-            return this.Get<IDbAccess>().TestConnection(out exceptionMessage);
+            return this.DbAccess.TestConnection(out exceptionMessage);
         }
 
         /// <summary>
@@ -254,7 +257,7 @@ namespace YAF.Core.Services
                 // try
                 this.FixAccess(false);
 
-                foreach (string script in LegacyDb.ScriptList)
+                foreach (string script in this.DbAccess.Information.Scripts)
                 {
                     this.ExecuteScript(script, true);
                 }
@@ -297,11 +300,11 @@ namespace YAF.Core.Services
             }
 
             // attempt to apply fulltext support if desired
-            if (fullText && LegacyDb.FullTextSupported)
+            if (fullText && this.DbAccess.Information.FullTextScript.IsSet())
             {
                 try
                 {
-                    this.ExecuteScript(LegacyDb.FullTextScript, false);
+                    this.ExecuteScript(this.DbAccess.Information.FullTextScript, false);
                 }
                 catch (Exception x)
                 {
@@ -311,7 +314,7 @@ namespace YAF.Core.Services
             }
 
             // run custom script...
-            this.ExecuteScript("custom.sql", true);
+            this.ExecuteScript("custom/custom.sql", true);
 
             return true;
         }

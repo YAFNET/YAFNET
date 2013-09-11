@@ -51,36 +51,7 @@ namespace YAF.Classes.Data
     /// </summary>
     public static class LegacyDb
     {
-        // Parameter 10
         #region Constants and Fields
-
-        /// <summary>
-        ///   The _script list.
-        /// </summary>
-        private static readonly string[] _scriptList = 
-        {
-            "mssql/tables.sql", 
-            "mssql/indexes.sql", 
-            "mssql/views.sql",
-            "mssql/constraints.sql", 
-            "mssql/triggers.sql",
-            "mssql/functions.sql", 
-            "mssql/procedures.sql",
-            "mssql/forum_ns.sql",
-            "mssql/providers/tables.sql",
-            "mssql/providers/indexes.sql",
-            "mssql/providers/procedures.sql" 
-        };
-
-        /// <summary>
-        ///   The _full text script.
-        /// </summary>
-        private static string _fullTextScript = "mssql/fulltext.sql";
-
-        /// <summary>
-        ///   The _full text supported.
-        /// </summary>
-        private static bool _fullTextSupported = true;
 
         public static IDbAccess DbAccess
         {
@@ -93,19 +64,6 @@ namespace YAF.Classes.Data
         #endregion
 
         #region Properties
-
-        /// <summary>
-        ///   Gets the database size
-        /// </summary>
-        /// <returns>intager value for database size</returns>
-        public static int GetDBSize()
-        {
-            using (var cmd = new SqlCommand("select sum(cast(size as integer))/128 from sysfiles"))
-            {
-                cmd.CommandType = CommandType.Text;
-                return (int) DbAccess.ExecuteScalar(cmd);
-            }
-        }
 
         /// <summary>
         ///   Gets DBVersion.
@@ -130,39 +88,6 @@ namespace YAF.Classes.Data
 
             return -1;
         }
-
-        /// <summary>
-        ///   Gets or sets FullTextScript.
-        /// </summary>
-        public static string FullTextScript
-        {
-            get
-            {
-                return _fullTextScript;
-            }
-
-            set
-            {
-                _fullTextScript = value;
-            }
-        }
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether FullTextSupported.
-        /// </summary>
-        public static bool FullTextSupported
-        {
-            get
-            {
-                return _fullTextSupported;
-            }
-
-            set
-            {
-                _fullTextSupported = value;
-            }
-        }
-
 
         /// <summary>
         ///   Gets a value indicating whether PanelGetStats.
@@ -242,10 +167,6 @@ namespace YAF.Classes.Data
                 return false;
             }
         }
-
-        // Check boxes: Parameters 11-19 
-
-        // Parameter 11 hides user password placeholder! 
 
         /// <summary>
         ///   Gets Parameter11_Name.
@@ -877,29 +798,6 @@ namespace YAF.Classes.Data
             get
             {
                 return false;
-            }
-        }
-
-        /// <summary>
-        ///   Gets ProviderAssemblyName.
-        /// </summary>
-        [NotNull]
-        public static string ProviderAssemblyName
-        {
-            get
-            {
-                return "System.Data.SqlClient";
-            }
-        }
-
-        /// <summary>
-        ///   Gets ScriptList.
-        /// </summary>
-        public static string[] ScriptList
-        {
-            get
-            {
-                return _scriptList;
             }
         }
 

@@ -24,6 +24,11 @@ using YAF.Types.Interfaces.Data;
 
 namespace YAF.Data.MsSql
 {
+    using System.Data.SqlClient;
+    using System.Linq;
+
+    using YAF.Types;
+
     public class MsSqlDbInformation : IDbInformation
     {
         public Func<string> ConnectionString { get; set; }
@@ -37,20 +42,23 @@ namespace YAF.Data.MsSql
         {
             "mssql/tables.sql",
             "mssql/indexes.sql",
-            "mssql/views.sql", 
+            "mssql/views.sql",
             "mssql/constraints.sql",
-            "mssql/triggers.sql", 
-            "mssql/functions.sql", 
+            "mssql/triggers.sql",
+            "mssql/functions.sql",
             "mssql/procedures.sql",
-            "mssql/providers/tables.sql", 
-            "mssql/providers/indexes.sql", 
+            "mssql/forum_ns.sql",
+            "mssql/providers/tables.sql",
+            "mssql/providers/indexes.sql",
             "mssql/providers/procedures.sql"
         };
 
-        protected DbConnectionParam[] DbParameters = new[]
+        protected DbConnectionParam[] _dbParameters = new[]
         {
-            new DbConnectionParam(0, "Password", string.Empty, true), new DbConnectionParam(1, "Data Source", "(local)", true), 
-            new DbConnectionParam(2, "Initial Catalog", string.Empty, true), new DbConnectionParam(11, "Use Integrated Security", "true", true)
+            new DbConnectionParam(0, "Password", string.Empty), 
+            new DbConnectionParam(1, "Data Source", "(local)"), 
+            new DbConnectionParam(2, "Initial Catalog", string.Empty), 
+            new DbConnectionParam(11, "Use Integrated Security", "true")
         };
 
         public string FullTextScript
@@ -66,12 +74,26 @@ namespace YAF.Data.MsSql
             }
         }
 
-        public IEnumerable<IDbConnectionParam> DbConnectionParameters
+        public IDbConnectionParam[] DbConnectionParameters
         {
             get
             {
-                return this.DbParameters;
+                return this._dbParameters.OfType<IDbConnectionParam>().ToArray();
             }
+        }
+
+        public string BuildConnectionString([NotNull] IEnumerable<IDbConnectionParam> parameters)
+        {
+            CodeContracts.ArgumentNotNull(parameters, "parameters");
+
+            var connBuilder = new SqlConnectionStringBuilder();
+
+            foreach (var param in parameters)
+            {
+                connBuilder[param.Name] = param.Value;
+            }
+
+            return connBuilder.ConnectionString;
         }
 
         public MsSqlDbInformation()

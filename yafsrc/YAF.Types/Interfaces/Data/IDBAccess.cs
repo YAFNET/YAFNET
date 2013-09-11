@@ -74,9 +74,7 @@ namespace YAF.Types.Interfaces.Data
         /// <param name="sql">
         /// The sql. 
         /// </param>
-        /// <param name="isStoredProcedure">
-        /// The is stored procedure. 
-        /// </param>
+        /// <param name="commandType"></param>
         /// <param name="parameters">
         /// Command Parameters 
         /// </param>
@@ -84,8 +82,8 @@ namespace YAF.Types.Interfaces.Data
         /// The <see cref="DbCommand"/> . 
         /// </returns>
         IDbCommand GetCommand(
-            [NotNull] string sql, 
-            bool isStoredProcedure = true, 
+            [NotNull] string sql,
+            CommandType commandType = CommandType.StoredProcedure, 
             [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null);
 
         #endregion

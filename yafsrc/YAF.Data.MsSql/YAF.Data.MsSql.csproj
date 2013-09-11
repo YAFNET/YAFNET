@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="BaseMsSqlFunction.cs" />
     <Compile Include="Functions\BaseReflectedSpecificFunctions.cs" />
+    <Compile Include="Functions\MsSqlSpecificFunctions.cs" />
+    <Compile Include="Functions\ReflectMsSqlSpecificFunctions.cs" />
     <Compile Include="MsSqlDbAccess.cs" />
     <Compile Include="Functions\MsSqlGetStatsFunction.cs" />
     <Compile Include="MsSqlDbInformation.cs" />

@@ -21,29 +21,19 @@ namespace YAF.Types.Interfaces.Data
 	/// <summary>
 	/// The db connection param.
 	/// </summary>
-	public interface IDbConnectionParam
+	public interface IDbConnectionParam : IHaveID
 	{
 		#region Properties
 
 		/// <summary>
 		///   Gets or sets DefaultValue.
 		/// </summary>
-		string DefaultValue { get; }
-
-		/// <summary>
-		///   Gets or sets ID.
-		/// </summary>
-		int ID { get; }
+		string Value { get; }
 
 		/// <summary>
 		///   Gets or sets Label.
 		/// </summary>
-		string Label { get; }
-
-		/// <summary>
-		///   Gets or sets a value indicating whether Visible.
-		/// </summary>
-		bool Visible { get; }
+		string Name { get; }
 
 		#endregion
 	}

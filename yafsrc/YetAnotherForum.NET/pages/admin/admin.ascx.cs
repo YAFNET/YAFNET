@@ -34,6 +34,7 @@ namespace YAF.Pages.Admin
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.RegisterV2;
     using YAF.Types;
@@ -442,7 +443,7 @@ namespace YAF.Pages.Admin
 
             try
             {
-                this.DBSize.Text = "{0} MB".FormatWith(LegacyDb.GetDBSize());
+                this.DBSize.Text = "{0} MB".FormatWith(this.Get<IDbFunction>().GetDBSize());
             }
             catch (SqlException)
             {

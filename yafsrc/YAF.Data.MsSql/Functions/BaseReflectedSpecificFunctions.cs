@@ -21,6 +21,7 @@ namespace YAF.Data.MsSql
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Data.SqlClient;
     using System.Linq;
     using System.Reflection;
 
@@ -69,24 +70,22 @@ namespace YAF.Data.MsSql
         #region Public Methods and Operators
 
         /// <summary>
-        /// The execute.
+        /// Handle the run operation.
         /// </summary>
-        /// <param name="dbfunctionType">
-        /// The dbfunction type. 
-        /// </param>
-        /// <param name="operationName">
-        /// The operation name. 
-        /// </param>
-        /// <param name="parameters">
-        /// The parameters. 
-        /// </param>
-        /// <param name="result">
-        /// The result. 
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/> . 
-        /// </returns>
-        public bool Execute(DbFunctionType dbfunctionType, string operationName, IEnumerable<KeyValuePair<string, object>> parameters, out object result, IDbTransaction dbTransaction = null)
+        /// <param name="sqlConnection"></param>
+        /// <param name="dbTransaction"></param>
+        /// <param name="dbfunctionType"></param>
+        /// <param name="operationName"></param>
+        /// <param name="parameters"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        protected override bool RunOperation(
+            SqlConnection sqlConnection,
+            IDbTransaction dbTransaction,
+            DbFunctionType dbfunctionType,
+            string operationName,
+            IEnumerable<KeyValuePair<string, object>> parameters,
+            out object result)
         {
             // find operation...
             var method = this._methods.FirstOrDefault(x => string.Equals(x.Key.Name, operationName, StringComparison.OrdinalIgnoreCase));
@@ -100,25 +99,24 @@ namespace YAF.Data.MsSql
 
             var mappedParameters = new List<object>();
 
+            var globalParams = new Dictionary<Type, object>()
+                               {
+                                   { typeof(IDbTransaction), dbTransaction },
+                                   { typeof(SqlConnection), sqlConnection },
+                                   { typeof(DbFunctionType), dbfunctionType },
+                                   { typeof(IDbAccess), this.DbAccess }
+                               };
+
             var incomingParameters = parameters.ToList();
             var incomingIndex = 0;
 
             // match up parameters...
             foreach (var param in method.Value)
             {
-                //if (param.ParameterType == typeof(IDbFunction))
-                //{
-                //    // put the db function in...
-                //    mappedParameters.Add(this.DbFunction);
-
-                //    continue;
-                //}
-
-                if (param.ParameterType == typeof(IDbTransaction))
+                var global = globalParams.FirstOrDefault(p => p.Key == param.ParameterType);
+                if (global.IsNotDefault())
                 {
-                    // put the db transaction in...
-                    mappedParameters.Add(dbTransaction);
-
+                    mappedParameters.Add(global.Value);
                     continue;
                 }
 
@@ -154,7 +152,7 @@ namespace YAF.Data.MsSql
         /// </returns>
         public override bool IsSupportedOperation(string operationName)
         {
-            return this._supportedOperations.Any(x => string.Compare(x, operationName, StringComparison.OrdinalIgnoreCase) == 0);
+            return this._supportedOperations.Any(x => string.Equals(x, operationName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         #endregion

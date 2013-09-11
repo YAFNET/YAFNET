@@ -21,6 +21,8 @@ namespace YAF.Types.Interfaces.Data
     #region Using
 
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Data;
 
     #endregion
@@ -103,6 +105,11 @@ namespace YAF.Types.Interfaces.Data
         ///     Gets Scalar.
         /// </summary>
         dynamic Scalar { get; }
+
+        /// <summary>
+        /// Gets all the Db Specific Functions
+        /// </summary>
+        IEnumerable<IDbSpecificFunction> DbSpecificFunctions { get; }
 
         #endregion
 
