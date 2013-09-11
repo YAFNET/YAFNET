@@ -153,7 +153,7 @@ namespace YAF.Controls
                 this.GetText("SUBSCRIPTIONS"),
                     ForumPages.cp_subscriptions);
 
-            if (this.Get<YafBoardSettings>().AllowPasswordChange)
+            if (!Config.IsDotNetNuke && this.Get<YafBoardSettings>().AllowPasswordChange)
             {
                 html.AppendFormat(
                     @"<li class=""yafprofilemenu_{2}""><a href=""{0}"" title=""{1}"">{1}</a></li>",

@@ -4012,7 +4012,11 @@ BEGIN
 
         UPDATE [{databaseOwner}].[{objectQualifier}Message] SET Position=Position+1 WHERE TopicID=@TopicID AND Position>=@Position
     END
-        -- this check is for guest user only to not override replace name 
+
+	-- Add points to Users total reputation points
+ 	UPDATE [{databaseOwner}].[{objectQualifier}User] SET Points = Points + 3 WHERE UserID = @UserID
+    
+	-- this check is for guest user only to not override replace name 
     if (SELECT Name FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) != @UserName
     begin
     SET @OverrideDisplayName = 1

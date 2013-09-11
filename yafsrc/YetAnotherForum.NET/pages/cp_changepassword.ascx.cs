@@ -81,6 +81,12 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            if (Config.IsDotNetNuke)
+            {
+                // Not accessbile...
+                YafBuildLink.AccessDenied();
+            } 
+
             if (!this.Get<YafBoardSettings>().AllowPasswordChange &&
                 !(this.PageContext.IsAdmin || this.PageContext.IsForumModerator))
             {
