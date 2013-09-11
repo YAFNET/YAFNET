@@ -22,7 +22,8 @@ using YAF.Types.Extensions;
 
 namespace YAF.Data.MsSql
 {
-	using System.Collections.Generic;
+    using System;
+    using System.Collections.Generic;
 	using System.Data;
 	using System.Data.SqlClient;
 	using System.Text;
@@ -81,7 +82,7 @@ namespace YAF.Data.MsSql
 		/// </returns>
 		public override bool IsSupportedOperation([NotNull] string operationName)
 		{
-			return operationName.Equals("getstats");
+			return operationName.Equals("getstats", StringComparison.InvariantCultureIgnoreCase);
 		}
 
 		#endregion

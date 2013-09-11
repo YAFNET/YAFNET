@@ -23,7 +23,7 @@
                     $('#YafLoader').css({
                         top: '40%',
                         left: '50%',
-                        margin: '-' + ($('#YafLoader').height() / 2) + 'px 0 0 -' + (jQuery('#YafLoader').width() / 2) + 'px'
+                        margin: '-' + ($('#YafLoader').height() / 2) + 'px 0 0 -' + ($('#YafLoader').width() / 2) + 'px'
                     });
                     $('#YafLoader').show();
                 });
