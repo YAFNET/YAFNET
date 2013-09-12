@@ -441,7 +441,7 @@ namespace YAF.Pages
             var editorClientId = this._forumEditor.ClientID;
 
             editorClientId = editorClientId.Replace(
-                editorClientId.Substring(editorClientId.LastIndexOf("_")),
+                editorClientId.Substring(editorClientId.LastIndexOf("_", StringComparison.Ordinal)),
                 "_YafTextEditor");
 
             var editorSpellBtnId = "{0}_spell".FormatWith(editorClientId);
@@ -1064,7 +1064,9 @@ namespace YAF.Pages
                     spamChecker.CheckPostForSpam(
                         this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
                         YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                        this._forumEditor.Text,
+                        BBCodeHelper.StripBBCode(
+                            HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this._forumEditor.Text)))
+                            .RemoveMultipleWhitespace(),
                         this.PageContext.IsGuest ? null : this.PageContext.User.Email,
                         out spamResult))
                 {
