@@ -225,6 +225,7 @@
     <Compile Include="Helpers\CaptchaHelper.cs" />
     <Compile Include="Helpers\PostDataHelper.cs" />
     <Compile Include="Helpers\StaticDataHelper.cs" />
+    <Compile Include="Helpers\UrlRewriteHelper.cs" />
     <Compile Include="Services\Localization\Localizer.cs" />
     <Compile Include="Helpers\LoadSerializedXmlFile.cs" />
     <Compile Include="Services\Localization\YafLocalization.cs" />
@@ -313,8 +314,8 @@
     <Compile Include="Tasks\UserCleanUpTask.cs" />
     <Compile Include="Tasks\UserCleanUpTaskForumModule.cs" />
     <Compile Include="Theme\YafTheme.cs" />
-    <Compile Include="URLBuilder\RewriteUrlBuilder.cs" />
-    <Compile Include="URLBuilder\FriendlyUrlBuilder.cs" />
+    <Compile Include="URLBuilder\AdvancedUrlRewriter.cs" />
+    <Compile Include="URLBuilder\StandardUrlRewriter.cs" />
     <Compile Include="UsersRoles\CombinedUserDataHelper.cs" />
     <Compile Include="UsersRoles\DefaultUserDisplayName.cs" />
     <Compile Include="UsersRoles\NoValidGuestUserForBoardException.cs" />

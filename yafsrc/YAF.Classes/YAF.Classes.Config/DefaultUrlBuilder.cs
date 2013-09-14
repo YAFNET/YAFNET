@@ -21,9 +21,9 @@ namespace YAF.Classes
 {
   #region Using
 
-  using System;
+  using YAF.Types.Extensions;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Implements URL Builder.
@@ -47,7 +47,7 @@ namespace YAF.Classes
       url = url.Replace("&", "&amp;");
 
       // return URL to current script with URL from parameter as script's parameter
-      return String.Format("{0}{1}?{2}", AppPath, Config.ForceScriptName ?? ScriptName, url);
+      return "{0}{1}?{2}".FormatWith(AppPath, Config.ForceScriptName ?? ScriptName, url);
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ namespace YAF.Classes
     public override string BuildUrlFull(string url)
     {
       // append the full base server url to the beginning of the url (e.g. http://mydomain.com)
-      return String.Format("{0}{1}", BaseUrl, this.BuildUrl(url));
+      return "{0}{1}".FormatWith(BaseUrl, this.BuildUrl(url));
     }
 
     #endregion

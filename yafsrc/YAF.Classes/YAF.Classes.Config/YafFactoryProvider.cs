@@ -116,7 +116,18 @@ namespace YAF.Classes
                 }
                 else if (Config.EnableURLRewriting)
                 {
-                    urlAssembly = "YAF.Core.RewriteUrlBuilder,YAF.Core";
+                    switch (Config.UrlRewritingFormat)
+                    {
+                        case "advanced":
+                            urlAssembly = "YAF.Core.URLBuilder.AdvancedUrlRewriter,YAF.Core";
+                            break;
+                        case "standard":
+                            urlAssembly = "YAF.Core.URLBuilder.StandardUrlRewriter,YAF.Core";
+                            break;
+                        default:
+                            urlAssembly = "YAF.Core.URLBuilder.StandardUrlRewriter,YAF.Core";
+                            break;
+                    }
                 }
                 else
                 {

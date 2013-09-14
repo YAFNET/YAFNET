@@ -406,13 +406,13 @@ namespace YAF.Classes
         {
             get
             {
-                if (HttpContext.Current != null)
+                if (HttpContext.Current == null)
                 {
-                    object obj = HttpContext.Current.Items["PortalSettings"];
-                    return obj != null && obj.GetType().ToString().ToLower().IndexOf("dotnetnuke") >= 0;
+                    return false;
                 }
 
-                return false;
+                object obj = HttpContext.Current.Items["PortalSettings"];
+                return obj != null && obj.GetType().ToString().ToLower().IndexOf("dotnetnuke") >= 0;
             }
         }
 
@@ -423,13 +423,13 @@ namespace YAF.Classes
         {
             get
             {
-                if (HttpContext.Current != null)
+                if (HttpContext.Current == null)
                 {
-                    object obj = HttpContext.Current.Items["SiteSettings"];
-                    return obj != null && obj.GetType().ToString().ToLower().IndexOf("mojoportal") >= 0;
+                    return false;
                 }
 
-                return false;
+                object obj = HttpContext.Current.Items["SiteSettings"];
+                return obj != null && obj.GetType().ToString().ToLower().IndexOf("mojoportal") >= 0;
             }
         }
 
@@ -462,13 +462,13 @@ namespace YAF.Classes
         {
             get
             {
-                if (HttpContext.Current != null)
+                if (HttpContext.Current == null)
                 {
-                    object obj = HttpContext.Current.Items["PortalSettings"];
-                    return obj != null && obj.GetType().ToString().ToLower().IndexOf("rainbow") >= 0;
+                    return false;
                 }
 
-                return false;
+                object obj = HttpContext.Current.Items["PortalSettings"];
+                return obj != null && obj.GetType().ToString().ToLower().IndexOf("rainbow") >= 0;
             }
         }
 
@@ -759,6 +759,18 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        ///     Gets the Url Rewriting Format -- default is advanced.
+        /// </summary>
+        [NotNull]
+        public static string UrlRewritingFormat
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.UrlRewritingFormat") ?? "advanced";
+            }
+        }
+
+        /// <summary>
         ///     Gets the Url Rewriting URLRewritingMode? -- default is Unicode.
         /// </summary>
         [NotNull]
@@ -791,19 +803,21 @@ namespace YAF.Classes
             {
                 string value = GetConfigValueAsString("YAF.UseRadEditorToolsFile");
 
-                if (!string.IsNullOrEmpty(value))
+                if (!value.IsSet())
                 {
-                    switch (value.ToLower().Substring(0, 1))
-                    {
-                        case "1":
-                        case "t":
-                        case "y":
-                            return true;
-                        case "0":
-                        case "f":
-                        case "n":
-                            return false;
-                    }
+                    return false;
+                }
+
+                switch (value.ToLower().Substring(0, 1))
+                {
+                    case "1":
+                    case "t":
+                    case "y":
+                        return true;
+                    case "0":
+                    case "f":
+                    case "n":
+                        return false;
                 }
 
                 return false;
@@ -846,7 +860,7 @@ namespace YAF.Classes
         {
             string value = GetConfigValueAsString(configKey);
 
-            return !string.IsNullOrEmpty(value) ? Convert.ToBoolean(value.ToLower()) : defaultValue;
+            return value.IsSet() ? value.ToLower().ToType<bool>() : defaultValue;
         }
 
         /// <summary>

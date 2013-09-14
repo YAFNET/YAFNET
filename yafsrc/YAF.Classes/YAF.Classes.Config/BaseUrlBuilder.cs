@@ -28,6 +28,7 @@ namespace YAF.Classes
   using System.Web.Hosting;
 
   using YAF.Types;
+  using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
 
   #endregion
@@ -40,9 +41,9 @@ namespace YAF.Classes
     #region Constants and Fields
 
     /// <summary>
-    /// The _base urls.
+    /// The base URLs.
     /// </summary>
-    private static readonly StringDictionary _baseUrls = new StringDictionary();
+    private static readonly StringDictionary BaseUrls = new StringDictionary();
 
     #endregion
 
@@ -54,52 +55,50 @@ namespace YAF.Classes
     /// <exception cref="BaseUrlMaskRequiredException">Since there is no active context, a base url mask is required. Please specify in the AppSettings in your web.config.</exception>
     public static string BaseUrl
     {
-      get
-      {
-        string baseUrl;
-
-        try
+        get
         {
-            if (HttpContext.Current != null)
+            string baseUrl;
+
+            try
             {
-                // urlKey requires SERVER_NAME in case of systems that use HostNames for seperate sites or in our cases Boards as well as FilePath for multiboards in seperate folders.
-                var urlKey = String.Format(
-                    "{0}{1}",
-                    HttpContext.Current.Request.ServerVariables["SERVER_NAME"],
-                    HttpContext.Current.Request.FilePath);
-
-                // Lookup the AppRoot based on the current host + path. 
-                baseUrl = _baseUrls[urlKey];
-
-                if (String.IsNullOrEmpty(baseUrl))
+                if (HttpContext.Current != null)
                 {
-                    // Each different filepath (multiboard) will specify a AppRoot key in their own web.config in their directory.
-                    baseUrl = !String.IsNullOrEmpty(Config.BaseUrlMask)
-                                  ? TreatBaseUrl(Config.BaseUrlMask)
-                                  : GetBaseUrlFromVariables();
+                    // urlKey requires SERVER_NAME in case of systems that use HostNames for seperate sites or in our cases Boards as well as FilePath for multiboards in seperate folders.
+                    var urlKey = "{0}{1}".FormatWith(
+                        HttpContext.Current.Request.ServerVariables["SERVER_NAME"], HttpContext.Current.Request.FilePath);
 
-                    // save to cache
-                    _baseUrls[urlKey] = baseUrl;
+                    // Lookup the AppRoot based on the current host + path. 
+                    baseUrl = BaseUrls[urlKey];
+
+                    if (baseUrl.IsNotSet())
+                    {
+                        // Each different filepath (multiboard) will specify a AppRoot key in their own web.config in their directory.
+                        baseUrl = Config.BaseUrlMask.IsSet()
+                                      ? TreatBaseUrl(Config.BaseUrlMask)
+                                      : GetBaseUrlFromVariables();
+
+                        // save to cache
+                        BaseUrls[urlKey] = baseUrl;
+                    }
+                }
+                else
+                {
+                    if (Config.BaseUrlMask.IsNotSet())
+                    {
+                        throw new BaseUrlMaskRequiredException(
+                            "Since there is no active context, a base url mask is required. Please specify in the AppSettings in your web.config: YAF.BaseUrlMask");
+                    }
+
+                    baseUrl = TreatBaseUrl(Config.BaseUrlMask);
                 }
             }
-            else
+            catch (Exception)
             {
-                if (String.IsNullOrEmpty(Config.BaseUrlMask))
-                {
-                    throw new BaseUrlMaskRequiredException(
-                      "Since there is no active context, a base url mask is required. Please specify in the AppSettings in your web.config: YAF.BaseUrlMask");
-                }
-
-                baseUrl = TreatBaseUrl(Config.BaseUrlMask);
+                baseUrl = GetBaseUrlFromVariables();
             }
-        }
-        catch (Exception)
-        {
-            baseUrl = GetBaseUrlFromVariables();
-        }
 
-          return baseUrl;
-      }
+            return baseUrl;
+        }
     }
 
     /// <summary>
@@ -109,9 +108,9 @@ namespace YAF.Classes
     {
       get
       {
-        string altRoot = Config.ClientFileRoot;
+        var altRoot = Config.ClientFileRoot;
 
-        if (String.IsNullOrEmpty(altRoot) && !String.IsNullOrEmpty(Config.AppRoot))
+        if (altRoot.IsNotSet() && Config.AppRoot.IsSet())
         {
           // default to "AppRoot" if no file root specified and AppRoot specified...
           altRoot = Config.AppRoot;
@@ -128,9 +127,9 @@ namespace YAF.Classes
     {
       get
       {
-        string altRoot = Config.ServerFileRoot;
+        var altRoot = Config.ServerFileRoot;
 
-        if (String.IsNullOrEmpty(altRoot) && !String.IsNullOrEmpty(Config.AppRoot))
+        if (altRoot.IsNotSet() && Config.AppRoot.IsSet())
         {
           // default to "AppRoot" if no file root specified and AppRoot specified...
           altRoot = Config.AppRoot;
@@ -180,7 +179,7 @@ namespace YAF.Classes
     #region Public Methods
 
     /// <summary>
-    /// The get base url from variables.
+    /// Gets the base URL from variables.
     /// </summary>
     /// <returns>
     /// The get base url from variables.
@@ -193,12 +192,7 @@ namespace YAF.Classes
       long serverPort = long.Parse(HttpContext.Current.Request.ServerVariables["SERVER_PORT"]);
       bool isSecure = HttpContext.Current.Request.ServerVariables["HTTPS"].ToUpper() == "ON" || serverPort == 443;
 
-      url.Append("http");
-
-      if (isSecure)
-      {
-        url.Append("s");
-      }
+      url.Append(isSecure ? "https" : "http");
 
       url.AppendFormat("://{0}", HttpContext.Current.Request.ServerVariables["SERVER_NAME"]);
 
@@ -217,29 +211,27 @@ namespace YAF.Classes
     #region IUrlBuilder
 
     /// <summary>
-    /// The build url.
+    /// Builds the URL.
     /// </summary>
-    /// <param name="url">
-    /// The url.
-    /// </param>
+    /// <param name="url">The url.</param>
     /// <returns>
-    /// The build url.
+    /// Returns the URL
     /// </returns>
     public abstract string BuildUrl(string url);
 
     /// <summary>
-    /// The build url full.
+    /// Builds the Full URL.
     /// </summary>
     /// <param name="url">
     /// The url.
     /// </param>
     /// <returns>
-    /// The build url full.
+    /// Returns the URL.
     /// </returns>
     public virtual string BuildUrlFull(string url)
     {
       // append the full base server url to the beginning of the url (e.g. http://mydomain.com)
-      return String.Format("{0}{1}", BaseUrl, this.BuildUrl(url));
+      return "{0}{1}".FormatWith(BaseUrl, this.BuildUrl(url));
     }
 
     #endregion
@@ -249,11 +241,9 @@ namespace YAF.Classes
     #region Methods
 
     /// <summary>
-    /// The treat base url.
+    /// Treats the base URL.
     /// </summary>
-    /// <param name="baseUrl">
-    /// The base url.
-    /// </param>
+    /// <param name="baseUrl">The base url.</param>
     /// <returns>
     /// The treat base url.
     /// </returns>
@@ -269,84 +259,90 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    /// The treat path str.
+    /// Treats the path string.
     /// </summary>
-    /// <param name="altRoot">
-    /// The alt root.
-    /// </param>
+    /// <param name="altRoot">The alt root.</param>
     /// <returns>
-    /// The treat path str.
+    /// The treat path string.
     /// </returns>
     protected static string TreatPathStr(string altRoot)
     {
-      string _path = string.Empty;
+      var _pathBuilder = new StringBuilder();
 
       try
       {
-        _path = HostingEnvironment.ApplicationVirtualPath;
+        _pathBuilder.Append(HostingEnvironment.ApplicationVirtualPath);
 
-        if (!_path.EndsWith("/"))
+        if (!HostingEnvironment.ApplicationVirtualPath.EndsWith("/"))
         {
-          _path += "/";
+          _pathBuilder.Append("/");
         }
 
-        if (!String.IsNullOrEmpty(altRoot))
+        if (altRoot.IsSet())
         {
-          // use specified root
-          _path = altRoot;
+            _pathBuilder.Clear();
+            
+            // use specified root
+            _pathBuilder.Append(altRoot);
 
-          if (_path.StartsWith("~"))
+          if (altRoot.StartsWith("~"))
           {
             // transform with application path...
-            _path = _path.Replace("~", HostingEnvironment.ApplicationVirtualPath);
+            _pathBuilder = _pathBuilder.Replace("~", HostingEnvironment.ApplicationVirtualPath);
           }
 
-          if (_path[0] != '/')
+          if (_pathBuilder[0] != '/')
           {
-            _path = _path.Insert(0, "/");
+            _pathBuilder = _pathBuilder.Insert(0, "/");
           }
         }
         else if (Config.IsDotNetNuke)
         {
-          _path += "DesktopModules/YetAnotherForumDotNet/";
+          _pathBuilder.Append("DesktopModules/YetAnotherForumDotNet/");
         }
         else if (Config.IsRainbow)
         {
-          _path += "DesktopModules/Forum/";
+          _pathBuilder.Append("DesktopModules/Forum/");
         }
         else if (Config.IsPortal)
         {
-          _path += "Modules/Forum/";
+          _pathBuilder.Append("Modules/Forum/");
         }
 
-        if (!_path.EndsWith("/"))
+        if (!_pathBuilder.ToString().EndsWith("/"))
         {
-          _path += "/";
+            _pathBuilder.Append("/");
         }
 
         // remove redundant slashes...
-        while (_path.Contains("//"))
+        while (_pathBuilder.ToString().Contains("//"))
         {
-          _path = _path.Replace("//", "/");
+          _pathBuilder = _pathBuilder.Replace("//", "/");
         }
       }
       catch (Exception)
       {
-        _path = "/";
+        _pathBuilder.Append("/");
       }
 
-      return _path;
+      return _pathBuilder.ToString();
     }
 
     #endregion
   }
 
-  public class BaseUrlMaskRequiredException : Exception
-  {
-    public BaseUrlMaskRequiredException(string message)
-      :base(message)
+    /// <summary>
+    /// Base Url MaskRequired Exception Class
+    /// </summary>
+    public class BaseUrlMaskRequiredException : Exception
     {
-      
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseUrlMaskRequiredException"/> class.
+        /// </summary>
+        /// <param name="message">The message that describes the error.</param>
+        public BaseUrlMaskRequiredException(string message)
+            : base(message)
+        {
+        }
     }
-  }
 }
