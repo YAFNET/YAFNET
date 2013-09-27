@@ -2740,10 +2740,6 @@
     </Compile>
     <Content Include="App_Browsers\w3cvalidator.browser" />
     <Content Include="app.config" />
-    <Content Include="!my\app.config" />
-    <Content Include="!my\db.config" />
-    <Content Include="!my\mail.config" />
-    <Content Include="!my\UrlRewriter.config" />
     <None Include="BuildScripts\MSBuild.Community.Tasks.Targets">
       <SubType>Designer</SubType>
     </None>
@@ -4273,6 +4269,9 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\RegisterV2\RegisterV2.disco" />
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="YafAjax.asmx" />
     <Content Include="YafWebService.asmx" />
     <Content Include="db.config">
@@ -4417,21 +4416,6 @@
     <None Include="Web References\RegisterV2\RegisterV2.wsdl" />
     <Content Include="recommended.web.config" />
     <Content Include="v1.9.1.upgrade.web.config" />
-    <Content Include="web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <None Include="web.Debug.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
-    <None Include="web.Deploy.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
-    <None Include="web.Package.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
-    <None Include="web.Release.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\URLRewriter.NET\Intelligencia.UrlRewriter.csproj">
