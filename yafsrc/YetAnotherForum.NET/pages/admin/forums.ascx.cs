@@ -157,7 +157,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        private void CategoryList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        protected void CategoryList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {
