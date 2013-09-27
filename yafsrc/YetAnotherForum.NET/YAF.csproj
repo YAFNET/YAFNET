@@ -1133,86 +1133,56 @@
     <Content Include="editors\ckeditor\styles.js" />
     <Content Include="editors\radEditor\toolsFile.xml" />
     <Content Include="editors\tiny_mce\langs\ar.js" />
-    <Content Include="editors\tiny_mce\langs\az.js" />
-    <Content Include="editors\tiny_mce\langs\be.js" />
-    <Content Include="editors\tiny_mce\langs\bg.js" />
-    <Content Include="editors\tiny_mce\langs\bn.js" />
-    <Content Include="editors\tiny_mce\langs\br.js" />
+    <Content Include="editors\tiny_mce\langs\bg_BG.js" />
     <Content Include="editors\tiny_mce\langs\bs.js" />
     <Content Include="editors\tiny_mce\langs\ca.js" />
-    <Content Include="editors\tiny_mce\langs\ch.js" />
-    <Content Include="editors\tiny_mce\langs\cn.js" />
     <Content Include="editors\tiny_mce\langs\cs.js" />
     <Content Include="editors\tiny_mce\langs\cy.js" />
     <Content Include="editors\tiny_mce\langs\da.js" />
     <Content Include="editors\tiny_mce\langs\de.js" />
-    <Content Include="editors\tiny_mce\langs\dv.js" />
     <Content Include="editors\tiny_mce\langs\el.js" />
-    <Content Include="editors\tiny_mce\langs\en.js" />
-    <Content Include="editors\tiny_mce\langs\eo.js" />
     <Content Include="editors\tiny_mce\langs\es.js" />
     <Content Include="editors\tiny_mce\langs\et.js" />
     <Content Include="editors\tiny_mce\langs\eu.js" />
     <Content Include="editors\tiny_mce\langs\fa.js" />
     <Content Include="editors\tiny_mce\langs\fi.js" />
-    <Content Include="editors\tiny_mce\langs\fr.js" />
+    <Content Include="editors\tiny_mce\langs\fo.js" />
+    <Content Include="editors\tiny_mce\langs\fr_FR.js" />
     <Content Include="editors\tiny_mce\langs\gl.js" />
-    <Content Include="editors\tiny_mce\langs\gu.js" />
-    <Content Include="editors\tiny_mce\langs\he.js" />
-    <Content Include="editors\tiny_mce\langs\hi.js" />
+    <Content Include="editors\tiny_mce\langs\he_IL.js" />
     <Content Include="editors\tiny_mce\langs\hr.js" />
-    <Content Include="editors\tiny_mce\langs\hu.js" />
-    <Content Include="editors\tiny_mce\langs\hy.js" />
-    <Content Include="editors\tiny_mce\langs\ia.js" />
+    <Content Include="editors\tiny_mce\langs\hu_HU.js" />
     <Content Include="editors\tiny_mce\langs\id.js" />
-    <Content Include="editors\tiny_mce\langs\is.js" />
     <Content Include="editors\tiny_mce\langs\it.js" />
     <Content Include="editors\tiny_mce\langs\ja.js" />
-    <Content Include="editors\tiny_mce\langs\ka.js" />
-    <Content Include="editors\tiny_mce\langs\kl.js" />
-    <Content Include="editors\tiny_mce\langs\km.js" />
-    <Content Include="editors\tiny_mce\langs\ko.js" />
-    <Content Include="editors\tiny_mce\langs\kz.js" />
+    <Content Include="editors\tiny_mce\langs\ka_GE.js" />
+    <Content Include="editors\tiny_mce\langs\ko_KR.js" />
     <Content Include="editors\tiny_mce\langs\lb.js" />
     <Content Include="editors\tiny_mce\langs\lt.js" />
     <Content Include="editors\tiny_mce\langs\lv.js" />
-    <Content Include="editors\tiny_mce\langs\mk.js" />
-    <Content Include="editors\tiny_mce\langs\ml.js" />
-    <Content Include="editors\tiny_mce\langs\mn.js" />
-    <Content Include="editors\tiny_mce\langs\ms.js" />
-    <Content Include="editors\tiny_mce\langs\my.js" />
-    <Content Include="editors\tiny_mce\langs\nb.js" />
+    <Content Include="editors\tiny_mce\langs\nb_NO.js" />
     <Content Include="editors\tiny_mce\langs\nl.js" />
-    <Content Include="editors\tiny_mce\langs\nn.js" />
-    <Content Include="editors\tiny_mce\langs\no.js" />
     <Content Include="editors\tiny_mce\langs\pl.js" />
-    <Content Include="editors\tiny_mce\langs\ps.js" />
-    <Content Include="editors\tiny_mce\langs\pt.js" />
+    <Content Include="editors\tiny_mce\langs\pt_BR.js" />
+    <Content Include="editors\tiny_mce\langs\pt_PT.js" />
     <Content Include="editors\tiny_mce\langs\ro.js" />
     <Content Include="editors\tiny_mce\langs\ru.js" />
-    <Content Include="editors\tiny_mce\langs\sc.js" />
-    <Content Include="editors\tiny_mce\langs\se.js" />
-    <Content Include="editors\tiny_mce\langs\si.js" />
+    <Content Include="editors\tiny_mce\langs\si_LK.js" />
     <Content Include="editors\tiny_mce\langs\sk.js" />
-    <Content Include="editors\tiny_mce\langs\sl.js" />
-    <Content Include="editors\tiny_mce\langs\sq.js" />
+    <Content Include="editors\tiny_mce\langs\sl_SI.js" />
     <Content Include="editors\tiny_mce\langs\sr.js" />
-    <Content Include="editors\tiny_mce\langs\sv.js" />
-    <Content Include="editors\tiny_mce\langs\sy.js" />
+    <Content Include="editors\tiny_mce\langs\sv_SE.js" />
     <Content Include="editors\tiny_mce\langs\ta.js" />
-    <Content Include="editors\tiny_mce\langs\te.js" />
-    <Content Include="editors\tiny_mce\langs\th.js" />
-    <Content Include="editors\tiny_mce\langs\tn.js" />
-    <Content Include="editors\tiny_mce\langs\tr.js" />
-    <Content Include="editors\tiny_mce\langs\tt.js" />
-    <Content Include="editors\tiny_mce\langs\tw.js" />
+    <Content Include="editors\tiny_mce\langs\ta_IN.js" />
+    <Content Include="editors\tiny_mce\langs\th_TH.js" />
+    <Content Include="editors\tiny_mce\langs\tr_TR.js" />
+    <Content Include="editors\tiny_mce\langs\ug.js" />
     <Content Include="editors\tiny_mce\langs\uk.js" />
-    <Content Include="editors\tiny_mce\langs\ur.js" />
+    <Content Include="editors\tiny_mce\langs\uk_UA.js" />
     <Content Include="editors\tiny_mce\langs\vi.js" />
-    <Content Include="editors\tiny_mce\langs\zh-cn.js" />
-    <Content Include="editors\tiny_mce\langs\zh-tw.js" />
-    <Content Include="editors\tiny_mce\langs\zh.js" />
-    <Content Include="editors\tiny_mce\langs\zu.js" />
+    <Content Include="editors\tiny_mce\langs\vi_VN.js" />
+    <Content Include="editors\tiny_mce\langs\zh_CN.js" />
+    <Content Include="editors\tiny_mce\langs\zh_TW.js" />
     <Content Include="editors\tiny_mce\license.txt" />
     <Content Include="editors\tiny_mce\plugins\emoticons\img\smiley-cool.gif" />
     <Content Include="editors\tiny_mce\plugins\emoticons\img\smiley-cry.gif" />
@@ -2770,6 +2740,10 @@
     </Compile>
     <Content Include="App_Browsers\w3cvalidator.browser" />
     <Content Include="app.config" />
+    <Content Include="!my\app.config" />
+    <Content Include="!my\db.config" />
+    <Content Include="!my\mail.config" />
+    <Content Include="!my\UrlRewriter.config" />
     <None Include="BuildScripts\MSBuild.Community.Tasks.Targets">
       <SubType>Designer</SubType>
     </None>
@@ -2792,6 +2766,7 @@
     <Content Include="editors\tiny_mce\skins\lightgray\fonts\icomoon.eot" />
     <Content Include="editors\tiny_mce\skins\lightgray\fonts\icomoon.ttf" />
     <Content Include="editors\tiny_mce\skins\lightgray\fonts\icomoon.woff" />
+    <None Include="Properties\PublishProfiles\Release.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -4442,6 +4417,21 @@
     <None Include="Web References\RegisterV2\RegisterV2.wsdl" />
     <Content Include="recommended.web.config" />
     <Content Include="v1.9.1.upgrade.web.config" />
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Deploy.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Package.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\URLRewriter.NET\Intelligencia.UrlRewriter.csproj">
