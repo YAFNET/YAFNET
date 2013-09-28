@@ -759,14 +759,14 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        ///     Gets the Url Rewriting Format -- default is advanced.
+        ///     Gets the Url Rewriting Format -- default is standard.
         /// </summary>
         [NotNull]
         public static string UrlRewritingFormat
         {
             get
             {
-                return GetConfigValueAsString("YAF.UrlRewritingFormat") ?? "advanced";
+                return GetConfigValueAsString("YAF.UrlRewritingFormat") ?? "standard";
             }
         }
 
