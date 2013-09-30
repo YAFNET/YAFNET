@@ -8,7 +8,7 @@
 				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="FORUMS" LocalizedPage="TEAM" />
 			</td>
 		</tr>
-		<asp:Repeater ID="CategoryList" runat="server">
+		<asp:Repeater ID="CategoryList" runat="server" OnItemCommand="CategoryList_ItemCommand">
 			<ItemTemplate>
 				<tr>
 					<td class="header2">

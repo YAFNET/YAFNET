@@ -72,7 +72,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The forum list_ item command.
+        /// Handle Commands for Edit/Copy/Delete Forum
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
@@ -88,6 +88,32 @@ namespace YAF.Pages.Admin
                     break;
                 case "delete":
                     YafBuildLink.Redirect(ForumPages.admin_deleteforum, "fa={0}", e.CommandArgument);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Handle Commands for EditDelete a Category
+        /// </summary>
+        /// <param name="source">The source of the event.</param>
+        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
+        protected void CategoryList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        {
+            switch (e.CommandName)
+            {
+                case "edit":
+                    YafBuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", e.CommandArgument);
+                    break;
+                case "delete":
+                    if (this.GetRepository<Category>().Delete(e.CommandArgument.ToType<int>()))
+                    {
+                        this.BindData();
+                    }
+                    else
+                    {
+                        this.PageContext.AddLoadMessage(this.GetText("ADMIN_FORUMS", "MSG_NOT_DELETE"));
+                    }
+
                     break;
             }
         }
@@ -150,41 +176,6 @@ namespace YAF.Pages.Admin
             this.NewForum.Visible = this.CategoryList.Items.Count < 1;
 
             this.DataBind();
-        }
-
-        /// <summary>
-        /// The category list_ item command.
-        /// </summary>
-        /// <param name="source">The source of the event.</param>
-        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        private void CategoryList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
-        {
-            switch (e.CommandName)
-            {
-                case "edit":
-                    YafBuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", e.CommandArgument);
-                    break;
-                case "delete":
-                    if (this.GetRepository<Category>().Delete(e.CommandArgument.ToType<int>()))
-                    {
-                        this.BindData();
-                    }
-                    else
-                    {
-                        this.PageContext.AddLoadMessage(this.GetText("ADMIN_FORUMS", "MSG_NOT_DELETE"));
-                    }
-
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        ///   the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            this.CategoryList.ItemCommand += this.CategoryList_ItemCommand;
         }
 
         #endregion
