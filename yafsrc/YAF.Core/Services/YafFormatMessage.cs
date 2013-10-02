@@ -35,13 +35,12 @@ namespace YAF.Core.Services
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
     using YAF.Utils.Helpers;
 
     #endregion
 
     /// <summary>
-    /// YafFormatMessage provides functions related to formatting the post messages.
+    /// YAF FormatMessage provides functions related to formatting the post messages.
     /// </summary>
     public class YafFormatMessage : IFormatMessage, IHaveServiceLocator
     {
@@ -52,22 +51,34 @@ namespace YAF.Core.Services
         /// </summary>
         private const RegexOptions _Options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
 
-        private static readonly Regex _rgxEmail =
+        /// <summary>
+        /// The mail regex
+        /// </summary>
+        private static readonly Regex _RgxEmail =
             new Regex(
                 @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<inner>(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})",
                 _Options | RegexOptions.Compiled);
 
-        private static readonly Regex _rgxUrl1 =
+        /// <summary>
+        /// The URL Regex
+        /// </summary>
+        private static readonly Regex _RgxUrl1 =
             new Regex(
                 @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,~]*)?)",
                 _Options | RegexOptions.Compiled);
 
-        private static readonly Regex _rgxUrl2 =
+        /// <summary>
+        /// The URL Regex
+        /// </summary>
+        private static readonly Regex _RgxUrl2 =
             new Regex(
                 @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<|^.\[])?)",
                 _Options | RegexOptions.Compiled);
 
-        private static readonly Regex _rgxUrl3 =
+        /// <summary>
+        /// The URL Regex
+        /// </summary>
+        private static readonly Regex _RgxUrl3 =
             new Regex(
                 @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,~]*)?)",
                 _Options | RegexOptions.Compiled);
@@ -114,7 +125,7 @@ namespace YAF.Core.Services
         #region Public Methods
 
         /// <summary>
-        /// The method to detect a forbidden BBCode tag from delimited by 'delim' list 
+        /// The method to detect a forbidden BBCode tag from delimited delimiter list 
         ///   'stringToMatch'
         /// </summary>
         /// <param name="stringToClear">
@@ -124,7 +135,7 @@ namespace YAF.Core.Services
         /// String with delimiter
         /// </param>
         /// <param name="delim">
-        /// The delim.
+        /// The delimiter.
         /// </param>
         /// <returns>
         /// Returns a string containing a forbidden BBCode or a null string
@@ -150,12 +161,14 @@ namespace YAF.Core.Services
                             bbCode = bbCode.Remove(bbCode.IndexOf("="));
                         }
 
-                        if (!codes.Any(allowedTag => bbCode.ToLower() == allowedTag.ToLower()))
+                        if (codes.Any(allowedTag => bbCode.ToLower() == allowedTag.ToLower()))
                         {
-                            if (!forbiddenTagList.Contains(bbCode))
-                            {
-                                forbiddenTagList.Add(bbCode);
-                            }
+                            return;
+                        }
+
+                        if (!forbiddenTagList.Contains(bbCode))
+                        {
+                            forbiddenTagList.Add(bbCode);
                         }
                     });
 
@@ -259,7 +272,7 @@ namespace YAF.Core.Services
         /// The list of accepted tags.
         /// </param>
         /// <param name="delim">
-        /// The delimeter in a tags list.
+        /// The delimiter in a tags list.
         /// </param>
         /// <returns>
         /// A message string.
@@ -325,7 +338,6 @@ namespace YAF.Core.Services
             var ruleEngine =
                 this.ProcessReplaceRuleFactory(
                     new[] { true /*messageFlags.IsBBCode*/, targetBlankOverride, useNoFollow });
-                // tha_watcha : Since html message and bbcode message can be mixed now, always true
 
             // see if the rules are already populated...
             if (!ruleEngine.HasRules)
@@ -335,13 +347,12 @@ namespace YAF.Core.Services
                 // get rules for YafBBCode and Smilies
                 this.Get<IBBCode>().CreateBBCodeRules(
                     ruleEngine, true /*messageFlags.IsBBCode*/, targetBlankOverride, useNoFollow);
-                // tha_watcha : Since html message and bbcode message can be mixed now, always true
 
                 // add email rule
                 // vzrus: it's freezing  when post body contains full email adress.
                 // the fix provided by community 
                 var email = new VariableRegexReplaceRule(
-                    _rgxEmail, "${before}<a href=\"mailto:${inner}\">${inner}</a>", new[] { "before" })
+                    _RgxEmail, "${before}<a href=\"mailto:${inner}\">${inner}</a>", new[] { "before" })
                     { RuleRank = 10 };
 
                 ruleEngine.AddRule(email);
@@ -352,11 +363,11 @@ namespace YAF.Core.Services
                 string nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
 
                 var url = new VariableRegexReplaceRule(
-                    _rgxUrl1,
+                    _RgxUrl1,
                     "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow),
                     new[] { "before" },
                     new[] { string.Empty },
-                    50) { RuleRank = 10 };
+                    50) { RuleRank = 42 };
 
                 ruleEngine.AddRule(url);
 
@@ -367,21 +378,27 @@ namespace YAF.Core.Services
                 // Match expression but don't capture it, zero or one repetions (?:/[\w-./?%&=+;,:#~$]*[^.<])?
                 // (?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<])?)
                 url = new VariableRegexReplaceRule(
-                    _rgxUrl2,
+                    _RgxUrl2,
                     "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow),
-                    new[] { "before" },
+                    new[]
+                        {
+                            "before"
+                        },
                     new[] { string.Empty },
-                    50) { RuleRank = 10 };
+                    50) { RuleRank = 43 };
 
                 ruleEngine.AddRule(url);
 
                 url = new VariableRegexReplaceRule(
-                    _rgxUrl3,
+                    _RgxUrl3,
                     "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace(
                         "{0}", target).Replace("{1}", nofollow),
-                    new[] { "before" },
+                    new[]
+                        {
+                            "before"
+                        },
                     new[] { string.Empty },
-                    50) { RuleRank = 10 };
+                    50) { RuleRank = 44 };
 
                 ruleEngine.AddRule(url);
             }
@@ -469,9 +486,8 @@ namespace YAF.Core.Services
                             {
                                 // process message... clean html, strip html, remove bbcode, etc...
                                 returnMsg =
-                                    StringExtensions.RemoveMultipleWhitespace(
-                                        BBCodeHelper.StripBBCode(
-                                            HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(returnMsg))));
+                                    BBCodeHelper.StripBBCode(
+                                        HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(returnMsg))).RemoveMultipleWhitespace();
 
                                 // encode Message For Security Reasons
                                 returnMsg = this.HttpServer.HtmlEncode(returnMsg);
@@ -517,7 +533,7 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// The method to detect a forbidden HTML code from delimited by 'delim' list
+        /// The method to detect a forbidden HTML code from delimited by delimiter list
         /// </summary>
         /// <param name="stringToClear">
         /// The string To Clear.
@@ -526,7 +542,7 @@ namespace YAF.Core.Services
         /// The string To Match.
         /// </param>
         /// <param name="delim">
-        /// The delim.
+        /// The delimiter string.
         /// </param>
         /// <returns>
         /// Returns a forbidden HTML tag or a null string
@@ -552,12 +568,14 @@ namespace YAF.Core.Services
                             code = code.Remove(code.IndexOf(" "));
                         }
 
-                        if (!codes.Any(allowedTag => code.ToLower() == allowedTag.ToLower()))
+                        if (codes.Any(allowedTag => code.ToLower() == allowedTag.ToLower()))
                         {
-                            if (!forbiddenTagList.Contains(code))
-                            {
-                                forbiddenTagList.Add(code);
-                            }
+                            return;
+                        }
+
+                        if (!forbiddenTagList.Contains(code))
+                        {
+                            forbiddenTagList.Add(code);
                         }
                     });
 
@@ -647,7 +665,7 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Removes nested YafBBCode quotes from the given message body.
+        /// Removes nested BBCode quotes from the given message body.
         /// </summary>
         /// <param name="body">
         /// Message body test to remove nested quotes from
@@ -885,35 +903,10 @@ namespace YAF.Core.Services
         #region Methods
 
         /// <summary>
-        /// The make match list.
-        /// </summary>
-        /// <param name="matchRegEx">
-        /// The match reg ex.
-        /// </param>
-        /// <param name="text">
-        /// The text.
-        /// </param>
-        /// <returns>
-        /// The make match list.
-        /// </returns>
-        [NotNull]
-        private static IList<string> MakeMatchList([NotNull] string matchRegEx, [NotNull] string text)
-        {
-            CodeContracts.ArgumentNotNull(matchRegEx, "matchRegEx");
-            CodeContracts.ArgumentNotNull(text, "text");
-
-            var matchList = new List<string>();
-
-            MatchAndPerformAction(matchRegEx, text, (match, index, length) => matchList.Add(match));
-
-            return matchList;
-        }
-
-        /// <summary>
         /// The match and perform action.
         /// </summary>
         /// <param name="matchRegEx">
-        /// The match reg ex.
+        /// The match regex.
         /// </param>
         /// <param name="text">
         /// The text.
