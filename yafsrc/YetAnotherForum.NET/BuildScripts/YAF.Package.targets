@@ -41,7 +41,7 @@
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.sql" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.xsl" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.asmx" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
-      <yafInstall-Include Include="$(MSBuildProjectDirectory)\*.config" Exclude="$(MSBuildProjectDirectory)\packages.config;$(MSBuildProjectDirectory)\web.config;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\*.config" Exclude="$(MSBuildProjectDirectory)\packages.config;$(MSBuildProjectDirectory)\web.config;$(MSBuildProjectDirectory)\recommended.web.config;$(MSBuildProjectDirectory)\v1.9.1.upgrade.web.config;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.browser" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.mdf" />
     </ItemGroup>
@@ -50,7 +50,7 @@
       <yafsrcInclude Include="$(MSBuildProjectDirectory)\..\**\*.*" Exclude="$(MSBuildProjectDirectory)\..\.nuget\nuget.exe;$(MSBuildProjectDirectory)\..\packages\**\*.*;$(MSBuildProjectDirectory)\..\YAF.Extras\YAF.SampleWebApplication\**\*.*;$(MSBuildProjectDirectory)\..\**\*.ReSharper;$(MSBuildProjectDirectory)\..\**\*.testsettings;$(MSBuildProjectDirectory)\..\**\*.chm;$(MSBuildProjectDirectory)\..\**\*.psd;$(MSBuildProjectDirectory)\..\**\TestResults\**;$(MSBuildProjectDirectory)\..\**\nStuff.UpdateControls\**;$(MSBuildProjectDirectory)\..\**\Dependencies\**;$(MSBuildProjectDirectory)\..\**\CookComputing.XmlRpc\**;$(MSBuildProjectDirectory)\..\**\obj\**;$(MSBuildProjectDirectory)\..\**\_ReSharper*\**;$(MSBuildProjectDirectory)\..\**\bin\**;$(MSBuildProjectDirectory)\..\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;$(MSBuildProjectDirectory)\..\**\*.user;$(MSBuildProjectDirectory)\..\**\.svn\**;$(MSBuildProjectDirectory)\..\**\*.suo;" />
     </ItemGroup>
 
-    <CreateItem Include="$(MSBuildProjectDirectory)\recommended-NET-web.config">
+    <CreateItem Include="$(MSBuildProjectDirectory)\recommended.web.config">
       <Output TaskParameter="Include" ItemName="InstallConfig" />
     </CreateItem>
 
@@ -60,7 +60,7 @@
     
     <Copy SourceFiles="@(yafInstall-Include)" DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)" />
     <Copy SourceFiles="@(LibaryFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\webconfigs\recommended-NET-web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\web.config"/>
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended.web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\web.config"/>
     
     <!-- Minify JS and CSS Files -->
     <ItemGroup>
@@ -76,26 +76,24 @@
     </CreateItem>
     
     <!-- Create the Install package -->
-    <Zip Files="@(OutputContentInstall)" WorkingDirectory="$(MSBuildProjectDirectory)\Package" ZipFileName="$(PackageName)-v%(AssemblyIdentities.Version)-RTW-Install.$(Extension)" />
+    <Zip Files="@(OutputContentInstall)" WorkingDirectory="$(MSBuildProjectDirectory)\Package" ZipFileName="$(PackageName)-v%(AssemblyIdentities.Version)-RC1-Install.$(Extension)" />
     <!-- Copy the Install package to the Packages folder -->
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RTW-Install.$(Extension)" DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RC1-Install.$(Extension)" DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
 
-    <Delete Files="$(MSBuildProjectDirectory)\Package\App_Data\Database.mdf"/>
     <Delete Files="$(MSBuildProjectDirectory)\Package\web.config"/>
     <Delete Files="$(MSBuildProjectDirectory)\Package\app.config"/>
     <Delete Files="$(MSBuildProjectDirectory)\Package\db.config"/>
     <Delete Files="$(MSBuildProjectDirectory)\Package\mail.config"/>
-    <Delete Files="$(MSBuildProjectDirectory)\Package\UrlRewriter.config"/>
 
     <CreateItem Include="$(MSBuildProjectDirectory)\Package\**\*.*">
       <Output TaskParameter="Include" ItemName="OutputContentUpgrade" />
     </CreateItem>
 
     <!-- Create the Upgrade package -->
-    <Zip Files="@(OutputContentUpgrade)" WorkingDirectory="$(MSBuildProjectDirectory)\Package" ZipFileName="$(PackageName)-v%(AssemblyIdentities.Version)-RTW-Upgrade.$(Extension)" />
+    <Zip Files="@(OutputContentUpgrade)" WorkingDirectory="$(MSBuildProjectDirectory)\Package" ZipFileName="$(PackageName)-v%(AssemblyIdentities.Version)-RC1-Upgrade.$(Extension)" />
     
     <!-- Copy the Upgrade package to the Packages folder -->
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RTW-Upgrade.$(Extension)" DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RC1-Upgrade.$(Extension)" DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
 
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\Package" />
 
@@ -107,12 +105,12 @@
       <Output TaskParameter="Include" ItemName="OutputSource" />
     </CreateItem>
 
-    <Zip Files="@(OutputSource)" WorkingDirectory="$(MSBuildProjectDirectory)\Package" ZipFileName="$(PackageName)-v%(AssemblyIdentities.Version)-RTW-SRC.$(Extension)" />
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RTW-SRC.$(Extension)" DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
+    <Zip Files="@(OutputSource)" WorkingDirectory="$(MSBuildProjectDirectory)\Package" ZipFileName="$(PackageName)-v%(AssemblyIdentities.Version)-RC1-SRC.$(Extension)" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RC1-SRC.$(Extension)" DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
 
-    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RTW-Install.$(Extension)" />
-    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RTW-Upgrade.$(Extension)" />
-    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RTW-SRC.$(Extension)" />
+    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RC1-Install.$(Extension)" />
+    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RC1-Upgrade.$(Extension)" />
+    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RC1-SRC.$(Extension)" />
 
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\Package" />
 
