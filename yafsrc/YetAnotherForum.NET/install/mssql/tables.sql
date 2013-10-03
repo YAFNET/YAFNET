@@ -2363,13 +2363,19 @@ GO
 -- delete old stuff from registry
 grant delete on [{databaseOwner}].[{objectQualifier}Registry] to public
 grant update on [{databaseOwner}].[{objectQualifier}Registry] to public
-      -- fix the problem when a user couldn't be registered
-	  exec('delete from [{databaseOwner}].[{objectQualifier}Registry] where Name LIKE ''timezone'' and BoardID IS NOT NULL')
-      if not exists (select count(name) from [{databaseOwner}].[{objectQualifier}Registry] where [Name] LIKE 'timezone' and BoardID IS NULL)
-	  exec('insert into [{databaseOwner}].[{objectQualifier}Registry] (Name,Value) values (''timezone'',0)')
-	   exec('update [{databaseOwner}].[{objectQualifier}Group] set Style = NULL where Style is not null and len(Style) <=2')
-	  exec('update [{databaseOwner}].[{objectQualifier}Rank] set Style = NULL where Style is not null and len(Style) <=2')
+
+-- fix the problem when a user couldn't be registered
+exec('delete from [{databaseOwner}].[{objectQualifier}Registry] where Name LIKE ''timezone'' and BoardID IS NOT NULL')
+
+if not exists (select count(name) from [{databaseOwner}].[{objectQualifier}Registry] where [Name] LIKE 'timezone' and BoardID IS NULL)
+exec('insert into [{databaseOwner}].[{objectQualifier}Registry] (Name,Value) values (''timezone'',0)')
+exec('update [{databaseOwner}].[{objectQualifier}Group] set Style = NULL where Style is not null and len(Style) <=2')
+exec('update [{databaseOwner}].[{objectQualifier}Rank] set Style = NULL where Style is not null and len(Style) <=2')
      
 revoke delete on [{databaseOwner}].[{objectQualifier}Registry] from public
 revoke update on [{databaseOwner}].[{objectQualifier}Registry] from public	
+GO
+
+-- delete any old medals without valid groups.
+exec('DELETE FROM [{databaseOwner}].[{objectQualifier}GroupMedal] WHERE GroupID NOT IN (SELECT GroupID FROM [{databaseOwner}].[{objectQualifier}Group])')
 GO
