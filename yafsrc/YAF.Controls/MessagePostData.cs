@@ -33,7 +33,6 @@ namespace YAF.Controls
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
 
     #endregion
 
@@ -74,7 +73,7 @@ namespace YAF.Controls
         public string ColSpan { get; set; }
 
         /// <summary>
-        ///   Gets or sets DataRow.
+        ///   Sets the DataRow.
         /// </summary>
         public DataRow DataRow
         {
@@ -84,6 +83,12 @@ namespace YAF.Controls
             }
         }
 
+        /// <summary>
+        /// Gets or sets the current message.
+        /// </summary>
+        /// <value>
+        /// The current message.
+        /// </value>
         public Message CurrentMessage
         {
             get
@@ -98,6 +103,12 @@ namespace YAF.Controls
             }
         }
 
+        /// <summary>
+        /// Sets the search result.
+        /// </summary>
+        /// <value>
+        /// The search result.
+        /// </value>
         public SearchResult SearchResult
         {
             set
@@ -125,9 +136,6 @@ namespace YAF.Controls
             get
             {
                 return TruncateMessage(this.CurrentMessage.MessageText);
-                
-
-                return string.Empty;
             }
         }
 
@@ -250,22 +258,25 @@ namespace YAF.Controls
 
                 this.RowColSpan = this.ColSpan;
 
-                if (this.ShowAttachments && (this.CurrentMessage.HasAttachments ?? false))
+                if (this.ShowAttachments)
                 {
-                    // add attached files control...
-                    var attached = new MessageAttached { MessageID = this.CurrentMessage.ID };
-
-                    if (this.CurrentMessage.UserID > 0 && YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
+                    if (this.CurrentMessage.HasAttachments ?? false)
                     {
-                        attached.UserName =
-                            UserMembershipHelper.GetDisplayNameFromID(this.CurrentMessage.UserID);
-                    }
-                    else
-                    {
-                        attached.UserName = this.CurrentMessage.UserName;
-                    }
+                        // add attached files control...
+                        var attached = new MessageAttached { MessageID = this.CurrentMessage.ID };
 
-                    this.Controls.Add(attached);
+                        if (this.CurrentMessage.UserID > 0
+                            && YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
+                        {
+                            attached.UserName = UserMembershipHelper.GetDisplayNameFromID(this.CurrentMessage.UserID);
+                        }
+                        else
+                        {
+                            attached.UserName = this.CurrentMessage.UserName;
+                        }
+
+                        this.Controls.Add(attached);
+                    }
                 }
             }
 
@@ -285,8 +296,7 @@ namespace YAF.Controls
                     this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;
 
                 var deleteText =
-                    !string.IsNullOrEmpty(
-                        this.Get<HttpContextBase>().Server.HtmlDecode(this.CurrentMessage.DeleteReason))
+                    this.Get<HttpContextBase>().Server.HtmlDecode(this.CurrentMessage.DeleteReason).IsSet()
                         ? this.Get<IFormatMessage>().RepairHtml(this.CurrentMessage.DeleteReason, true)
                         : this.GetText("EDIT_REASON_NA");
 

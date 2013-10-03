@@ -58,8 +58,7 @@
         <table class="content linkedPostsContent" cellspacing="1" cellpadding="0" width="100%" align="center">
             <tr>
                 <td class="header2" align="center" colspan="1">
-                    <asp:CheckBox ID="DeleteAllPosts" OnCheckedChanged="DeleteAllPosts_CheckedChanged1"
-                        AutoPostBack="True" runat="server" />
+                    <asp:CheckBox ID="DeleteAllPosts" runat="server" />
                     Delete All Posts?
                 </td>
                 <td class="header2" align="center" colspan="1">
