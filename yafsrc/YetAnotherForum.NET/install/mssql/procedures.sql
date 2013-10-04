@@ -8446,14 +8446,33 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}message_reply_list](@Messag
 begin
         set nocount on
     select
-                a.MessageID,
-        a.Posted,
-        Subject = c.Topic,
-        a.[Message],
+        a.MessageID,
         a.UserID,
+        UserName = b.Name,
+        UserDisplayName = b.DisplayName,
+        a.Posted,
+        a.[Message],
+        c.TopicID,
+        c.ForumID,
+        c.Topic,
+        c.Priority,
+        c.Description,
+        c.Status,
+        c.Styles,
         a.Flags,
-        UserName = IsNull(a.UserName,b.Name),
-        b.Signature
+        c.UserID AS TopicOwnerID,
+        Edited = IsNull(a.Edited,a.Posted),
+        a.EditReason,
+        a.Position,
+        a.Indent,
+        a.IsModeratorChanged,
+        a.DeleteReason,
+        a.BlogPostID,
+        c.PollID,
+        a.IP,
+        a.ReplyTo,
+        a.ExternalMessageId,
+        a.ReferenceMessageId
     from
         [{databaseOwner}].[{objectQualifier}Message] a
         inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID = a.UserID

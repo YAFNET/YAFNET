@@ -3807,14 +3807,22 @@ namespace YAF.Classes.Data
         /// <param name="eraseMessage">
         /// The erase message.
         /// </param>
-        public static void message_delete([NotNull] object messageID,
-          bool isModeratorChanged, [NotNull] string deleteReason,
-          int isDeleteAction,
-          bool DeleteLinked,
-          bool eraseMessage)
+        public static void message_delete(
+            [NotNull] object messageID,
+            bool isModeratorChanged,
+            [NotNull] string deleteReason,
+            int isDeleteAction,
+            bool DeleteLinked,
+            bool eraseMessage)
         {
             message_deleteRecursively(
-              messageID, isModeratorChanged, deleteReason, isDeleteAction, DeleteLinked, false, eraseMessage);
+                messageID,
+                isModeratorChanged,
+                deleteReason,
+                isDeleteAction,
+                DeleteLinked,
+                false,
+                eraseMessage);
         }
 
         /// <summary>
@@ -3868,39 +3876,11 @@ namespace YAF.Classes.Data
         [NotNull]
         public static DataTable message_getRepliesList([NotNull] object messageID)
         {
-            var list = new DataTable();
-            list.Columns.Add("MessageID", typeof(int));
-            list.Columns.Add("Posted", typeof(DateTime));
-            list.Columns.Add("Subject", typeof(string));
-            list.Columns.Add("Message", typeof(string));
-            list.Columns.Add("UserID", typeof(int));
-            list.Columns.Add("Flags", typeof(int));
-            list.Columns.Add("UserName", typeof(string));
-            list.Columns.Add("Signature", typeof(string));
-
             using (var cmd = DbHelpers.GetCommand("message_reply_list"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.AddParam("MessageID", messageID);
-                DataTable dtr = DbAccess.GetData(cmd);
-
-                for (int i = 0; i < dtr.Rows.Count; i++)
-                {
-                    DataRow row = dtr.Rows[i];
-                    DataRow newRow = list.NewRow();
-                    newRow["MessageID"] = row["MessageID"];
-                    newRow["Posted"] = row["Posted"];
-                    newRow["Subject"] = row["Subject"];
-                    newRow["Message"] = row["Message"];
-                    newRow["UserID"] = row["UserID"];
-                    newRow["Flags"] = row["Flags"];
-                    newRow["UserName"] = row["UserName"];
-                    newRow["Signature"] = row["Signature"];
-                    list.Rows.Add(newRow);
-                    message_getRepliesList_populate(dtr, list, (int)row["MessageId"]);
-                }
-
-                return list;
+                return DbAccess.GetData(cmd);
             }
         }
 
@@ -9668,12 +9648,14 @@ namespace YAF.Classes.Data
         /// <param name="eraseMessages">
         /// The erase messages.
         /// </param>
-        private static void message_deleteRecursively([NotNull] object messageID,
-                                                      bool isModeratorChanged, [NotNull] string deleteReason,
-                                                      int isDeleteAction,
-                                                      bool deleteLinked,
-                                                      bool isLinked,
-                                                      bool eraseMessages)
+        private static void message_deleteRecursively(
+            [NotNull] object messageID,
+            bool isModeratorChanged,
+            [NotNull] string deleteReason,
+            int isDeleteAction,
+            bool deleteLinked,
+            bool isLinked,
+            bool eraseMessages)
         {
             bool useFileTable = GetBooleanRegistryValue("UseFileTable");
 
@@ -9689,7 +9671,13 @@ namespace YAF.Classes.Data
                     foreach (DataRow row in tbReplies.Rows)
                     {
                         message_deleteRecursively(
-                          row["MessageID"], isModeratorChanged, deleteReason, isDeleteAction, deleteLinked, true, eraseMessages);
+                            row["MessageID"],
+                            isModeratorChanged,
+                            deleteReason,
+                            isDeleteAction,
+                            true,
+                            true,
+                            eraseMessages);
                     }
                 }
             }
@@ -9704,13 +9692,18 @@ namespace YAF.Classes.Data
                     DataTable tbAttachments = DbAccess.GetData(cmd);
 
                     string uploadDir =
-                      HostingEnvironment.MapPath(String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+                        HostingEnvironment.MapPath(
+                            String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
                     foreach (DataRow row in tbAttachments.Rows)
                     {
                         try
                         {
-                            string fileName = String.Format("{0}/{1}.{2}.yafupload", uploadDir, messageID, row["FileName"]);
+                            string fileName = String.Format(
+                                "{0}/{1}.{2}.yafupload",
+                                uploadDir,
+                                messageID,
+                                row["FileName"]);
                             if (File.Exists(fileName))
                             {
                                 File.Delete(fileName);
@@ -9747,44 +9740,6 @@ namespace YAF.Classes.Data
                     cmd.AddParam("DeleteReason", deleteReason);
                     cmd.AddParam("isDeleteAction", isDeleteAction);
                     DbAccess.ExecuteNonQuery(cmd);
-                }
-            }
-        }
-
-        /// <summary>
-        /// The message_get replies list_populate.
-        /// </summary>
-        /// <param name="listsource">
-        /// The listsource.
-        /// </param>
-        /// <param name="list">
-        /// The list.
-        /// </param>
-        /// <param name="messageID">
-        /// The message id.
-        /// </param>
-        private static void message_getRepliesList_populate([NotNull] DataTable listsource, [NotNull] DataTable list, int messageID)
-        {
-            using (var cmd = DbHelpers.GetCommand("message_reply_list"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("MessageID", messageID);
-                DataTable dtr = DbAccess.GetData(cmd);
-
-                for (int i = 0; i < dtr.Rows.Count; i++)
-                {
-                    DataRow row = dtr.Rows[i];
-                    DataRow newRow = list.NewRow();
-                    newRow["MessageID"] = row["MessageID"];
-                    newRow["Posted"] = row["Posted"];
-                    newRow["Subject"] = row["Subject"];
-                    newRow["Message"] = row["Message"];
-                    newRow["UserID"] = row["UserID"];
-                    newRow["Flags"] = row["Flags"];
-                    newRow["UserName"] = row["UserName"];
-                    newRow["Signature"] = row["Signature"];
-                    list.Rows.Add(newRow);
-                    message_getRepliesList_populate(dtr, list, (int)row["MessageId"]);
                 }
             }
         }
