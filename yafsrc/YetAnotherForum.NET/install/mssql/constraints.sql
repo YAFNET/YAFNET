@@ -1030,9 +1030,16 @@ if not exists (select top 1 1 from  sys.objects where name='FK_{objectQualifier}
 	alter table [{databaseOwner}].[{objectQualifier}Group] add constraint [FK_{objectQualifier}Group_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board] (BoardID)
 go
 
-if not exists (select top 1 1 from  sys.objects where name='FK_{objectQualifier}GroupMedal_{objectQualifier}Group' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}GroupMedal]') and type in (N'F'))
-	alter table [{databaseOwner}].[{objectQualifier}GroupMedal] add constraint [FK_{objectQualifier}GroupMedal_{objectQualifier}Group] foreign key(GroupID) references [{databaseOwner}].[{objectQualifier}Group] (GroupID)
-go
+IF NOT EXISTS (
+		SELECT TOP 1 1
+		FROM sys.objects
+		WHERE NAME = 'FK_{objectQualifier}GroupMedal_{objectQualifier}Group'
+			AND parent_object_id = object_id('[{databaseOwner}].[{objectQualifier}GroupMedal]')
+			AND type IN (N'F')
+		)
+	ALTER TABLE [{databaseOwner}].[{objectQualifier}GroupMedal]
+		WITH CHECK ADD CONSTRAINT [FK_{objectQualifier}GroupMedal_{objectQualifier}Group] FOREIGN KEY (GroupID) REFERENCES [{databaseOwner}].[{objectQualifier}Group](GroupID) ON DELETE CASCADE
+GO
 
 if not exists (select top 1 1 from  sys.objects where name='FK_{objectQualifier}GroupMedal_{objectQualifier}Medal' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}GroupMedal]') and type in (N'F'))
 	alter table [{databaseOwner}].[{objectQualifier}GroupMedal] add constraint [FK_{objectQualifier}GroupMedal_{objectQualifier}Medal] foreign key(MedalID) references [{databaseOwner}].[{objectQualifier}Medal] (MedalID)
