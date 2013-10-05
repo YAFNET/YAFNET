@@ -18,25 +18,8 @@
  */
 namespace YAF.Types.Interfaces
 {
-  using System;
-
-  /// <summary>
-  /// The base module interface.
-  /// </summary>
-  public interface IBaseForumModule : IModuleDefinition, IDisposable
-  {
-    /// <summary>
-    /// Gets or sets ForumControlObj.
-    /// </summary>
-    object ForumControlObj
+    public interface IHaveSortOrder
     {
-      get;
-      set;
+        int SortOrder { get; }
     }
-
-    /// <summary>
-    /// The initialization function.
-    /// </summary>
-    void Init();
-  }
 }

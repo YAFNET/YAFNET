@@ -51,6 +51,7 @@
     <Compile Include="Attributes\AssemblyModuleSortOrder.cs" />
     <Compile Include="Attributes\ExcludeAttribute.cs" />
     <Compile Include="Attributes\ExportServiceAttribute.cs" />
+    <Compile Include="Interfaces\IHaveSortOrder.cs" />
     <Compile Include="Constants\AuthService.cs" />
     <Compile Include="Constants\MessageTypes.cs" />
     <Compile Include="Attributes\InjectAttribute.cs" />
@@ -187,7 +188,7 @@
     <Compile Include="Interfaces\IDataCache.cs" />
     <Compile Include="Interfaces\IEditorModule.cs" />
     <Compile Include="Interfaces\IBaseForumModule.cs" />
-    <Compile Include="Interfaces\IBaseModule.cs" />
+    <Compile Include="Interfaces\IModuleDefinition.cs" />
     <Compile Include="Interfaces\Data\IDataTableResultFilter.cs" />
     <Compile Include="Interfaces\IDateTime.cs" />
     <Compile Include="Interfaces\IDigest.cs" />

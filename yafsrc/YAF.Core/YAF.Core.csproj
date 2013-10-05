@@ -100,9 +100,14 @@
     <Compile Include="Data\Profiling\QueryWatcher.cs" />
     <Compile Include="Data\CompleteSearchContext.cs" />
     <Compile Include="Events\AttachmentEventHandleFileDelete.cs" />
+    <Compile Include="Extensions\HaveSortOrderExtensions.cs" />
     <Compile Include="Extensions\InjectionExtensions.cs" />
     <Compile Include="Helpers\DbFunctionHelpers.cs" />
     <Compile Include="Helpers\DbInformationHelper.cs" />
+    <Compile Include="Modules\BootstrapModule.cs" />
+    <Compile Include="Modules\DynamicServicesModule.cs" />
+    <Compile Include="Modules\GeneralModule.cs" />
+    <Compile Include="Modules\ServicesModule.cs" />
     <Compile Include="Services\Cache\BannedIPEventCacheInvalidate.cs" />
     <Compile Include="Services\Cache\CategoryEventHandleCacheInvalidate.cs" />
     <Compile Include="Events\InitDatabaseProviderEvent.cs" />
@@ -229,7 +234,7 @@
     <Compile Include="Services\Localization\Localizer.cs" />
     <Compile Include="Helpers\LoadSerializedXmlFile.cs" />
     <Compile Include="Services\Localization\YafLocalization.cs" />
-    <Compile Include="Services\Logger\LoggerModule.cs" />
+    <Compile Include="Modules\LoggerModule.cs" />
     <Compile Include="Services\Logger\YafDbLogger.cs" />
     <Compile Include="Services\Logger\YafDbLoggerProvider.cs" />
     <Compile Include="Nntp\Article.cs" />

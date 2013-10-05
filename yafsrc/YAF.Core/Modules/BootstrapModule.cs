@@ -16,27 +16,36 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Types.Interfaces
+
+namespace YAF.Core.Modules
 {
-  using System;
+    using System.Reflection;
 
-  /// <summary>
-  /// The base module interface.
-  /// </summary>
-  public interface IBaseForumModule : IModuleDefinition, IDisposable
-  {
-    /// <summary>
-    /// Gets or sets ForumControlObj.
-    /// </summary>
-    object ForumControlObj
+    using Autofac;
+    using Autofac.Core;
+
+    public class BootstrapModule : BaseModule
     {
-      get;
-      set;
-    }
+        /// <summary>
+        /// Bootstrap module is always called first
+        /// </summary>
+        public override int SortOrder
+        {
+            get
+            {
+                return 1;
+            }
+        }
 
-    /// <summary>
-    /// The initialization function.
-    /// </summary>
-    void Init();
-  }
+        protected override void Load(ContainerBuilder builder)
+        {
+            // register all the modules in this assembly first -- excluding this module
+            this.RegisterBaseModules<IModule>(
+                new[] { Assembly.GetExecutingAssembly() },
+                new[] { typeof(BootstrapModule) });
+
+            // register all the modules in scanned assemblies
+            this.RegisterBaseModules<IModule>(ExtensionAssemblies);
+        }
+    }
 }

@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2006-2013 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -17,18 +17,35 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace YAF.Types.Interfaces.Data
+namespace YAF.Core.Extensions
 {
-    public interface IDbSortableOperation : IHaveSortOrder
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using YAF.Types.Interfaces;
+
+    public static class HaveSortOrderExtensions
     {
         #region Public Methods and Operators
 
-        /// <summary>
-        ///     The supported operation.
-        /// </summary>
-        /// <param name="operationName"> The operation name. </param>
-        /// <returns> True if the operation is supported. </returns>
-        bool IsSupportedOperation(string operationName);
+        public static IEnumerable<T> ByOptionalSortOrder<T>(this IEnumerable<T> sortEnumerable, int defaultSortOrder = 1000)
+        {
+            return sortEnumerable.Select(
+                m =>
+                {
+                    int sortOrder = defaultSortOrder;
+                    var haveSortOrder = (m as IHaveSortOrder);
+
+                    if (haveSortOrder != null)
+                    {
+                        sortOrder = haveSortOrder.SortOrder;
+                    }
+
+                    return new KeyValuePair<int, T>(sortOrder, m);
+                })
+                .OrderByDescending(m => m.Key)
+                .Select(m => m.Value);
+        }
 
         #endregion
     }

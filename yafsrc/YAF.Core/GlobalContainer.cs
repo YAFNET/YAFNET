@@ -20,9 +20,12 @@ namespace YAF.Core
 {
     #region Using
 
+    using System.Reflection;
+
     using Autofac;
 
     using YAF.Core.Helpers;
+    using YAF.Core.Modules;
     using YAF.Core.Services.Logger;
     using YAF.Types;
     using YAF.Types.Interfaces;
@@ -77,11 +80,7 @@ namespace YAF.Core
         {
             var builder = new ContainerBuilder();
 
-            var mainModule = new BaseModule();
-            var logModule = new LoggingModule();
-
-            builder.RegisterModule(mainModule);
-            builder.RegisterModule(logModule);
+            builder.RegisterModule<BootstrapModule>();
 
             return builder.Build();
         }

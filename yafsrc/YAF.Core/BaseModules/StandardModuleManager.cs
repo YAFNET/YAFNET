@@ -35,7 +35,7 @@ namespace YAF.Core
 	/// The module type based on IBaseModule.
 	/// </typeparam>
 	public class StandardModuleManager<TModule> : IModuleManager<TModule>
-		where TModule : IBaseModule
+		where TModule : IModuleDefinition
 	{
 		#region Constants and Fields
 

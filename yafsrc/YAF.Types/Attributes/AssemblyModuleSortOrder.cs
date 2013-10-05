@@ -22,13 +22,15 @@ namespace YAF.Types.Attributes
 
   using System;
 
-  #endregion
+  using YAF.Types.Interfaces;
+
+    #endregion
 
   /// <summary>
   /// The assembly sort order -- sorts the assembly load order in the modules.
   /// </summary>
   [AttributeUsage(AttributeTargets.Assembly)]
-  public class AssemblyModuleSortOrder : Attribute
+  public class AssemblyModuleSortOrder : Attribute, IHaveSortOrder
   {
     #region Constructors and Destructors
 

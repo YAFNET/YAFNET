@@ -18,25 +18,28 @@
  */
 namespace YAF.Types.Interfaces
 {
-  using System;
-
   /// <summary>
-  /// The base module interface.
+  /// the module definition
   /// </summary>
-  public interface IBaseForumModule : IModuleDefinition, IDisposable
+  public interface IModuleDefinition
   {
-    /// <summary>
-    /// Gets or sets ForumControlObj.
-    /// </summary>
-    object ForumControlObj
-    {
-      get;
-      set;
-    }
+    #region Properties
 
     /// <summary>
-    /// The initialization function.
+    ///   Gets a value indicating whether Active.
     /// </summary>
-    void Init();
+    bool Active { get; }
+
+    /// <summary>
+    ///   Gets Description.
+    /// </summary>
+    string Description { get; }
+
+    /// <summary>
+    ///   Gets ModuleId.
+    /// </summary>
+    string ModuleId { get; }
+
+    #endregion
   }
 }

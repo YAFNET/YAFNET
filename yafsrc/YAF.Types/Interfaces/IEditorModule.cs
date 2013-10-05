@@ -21,7 +21,7 @@ namespace YAF.Types.Interfaces
   /// <summary>
   /// IEditorModule Interface for Editor classes.
   /// </summary>
-  public interface IEditorModule : IBaseModule
+  public interface IEditorModule : IModuleDefinition
   {
     #region Properties
 

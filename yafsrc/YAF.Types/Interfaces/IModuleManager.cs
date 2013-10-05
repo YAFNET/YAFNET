@@ -31,7 +31,7 @@ namespace YAF.Types.Interfaces
     /// The module type of this module manager.
     /// </typeparam>
     public interface IModuleManager<out TModule>
-      where TModule : IBaseModule
+      where TModule : IModuleDefinition
     {
         #region Public Methods
 

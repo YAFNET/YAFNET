@@ -24,6 +24,7 @@ namespace YAF.Utils
 
     using Autofac;
 
+    using YAF.Core;
     using YAF.Core.Data.Profiling;
     using YAF.Core.Extensions;
     using YAF.Types;
@@ -34,7 +35,7 @@ namespace YAF.Utils
     /// <summary>
     ///     The utilities module.
     /// </summary>
-    public class UtilitiesModule : Module
+    public class UtilitiesModule : BaseModule
     {
         #region Methods
 

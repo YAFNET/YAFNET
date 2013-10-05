@@ -16,98 +16,100 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 namespace YAF.Core
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Collections.Generic;
-  using System.Data;
-  using System.Linq;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
 
-  using YAF.Types;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// The i module manager extensions.
-  /// </summary>
-  public static class IModuleManagerExtensions
-  {
-    #region Public Methods
-
-    /// <summary>
-    /// The get editors table.
-    /// </summary>
-    /// <typeparam name="TModule">
-    /// </typeparam>
-    /// <param name="moduleManager">
-    /// The module Manager.
-    /// </param>
-    /// <param name="tableName">
-    /// The table Name.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    [NotNull]
-    public static DataTable ActiveAsDataTable<TModule>(
-      [NotNull] this IModuleManager<TModule> moduleManager, [NotNull] string tableName) where TModule : IBaseModule
-    {
-      CodeContracts.ArgumentNotNull(moduleManager, "moduleManager");
-      CodeContracts.ArgumentNotNull(tableName, "tableName");
-
-      using (var dataTable = new DataTable(tableName))
-      {
-        dataTable.Columns.Add("Value", Type.GetType("System.Int32"));
-        dataTable.Columns.Add("Name", Type.GetType("System.String"));
-
-        foreach (var module in moduleManager.GetAll())
-        {
-          dataTable.Rows.Add(new object[] { module.ModuleId, module.Description });
-        }
-
-        return dataTable;
-      }
-    }
-
-    /// <summary>
-    /// Get a dictionary list discribing the active modules.
-    /// </summary>
-    /// <typeparam name="TModule">
-    /// </typeparam>
-    /// <param name="moduleManager">
-    /// The module Manager.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    [NotNull]
-    public static IDictionary<string, string> ActiveAsDictionary<TModule>(
-      [NotNull] this IModuleManager<TModule> moduleManager) where TModule : IBaseModule
-    {
-      CodeContracts.ArgumentNotNull(moduleManager, "moduleManager");
-
-      return moduleManager.GetAll().ToDictionary((mk) => mk.ModuleId, (mv) => mv.Description);
-    }
-
-    /// <summary>
-    /// Get all active modules.
-    /// </summary>
-    /// <typeparam name="TModule">
-    /// </typeparam>
-    /// <param name="moduleManager">
-    /// The module Manager.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static IEnumerable<TModule> GetAll<TModule>([NotNull] this IModuleManager<TModule> moduleManager)
-      where TModule : IBaseModule
-    {
-      CodeContracts.ArgumentNotNull(moduleManager, "moduleManager");
-
-      return moduleManager.GetAll(false);
-    }
+    using YAF.Types;
+    using YAF.Types.Interfaces;
 
     #endregion
-  }
+
+    /// <summary>
+    ///     The i module manager extensions.
+    /// </summary>
+    public static class IModuleManagerExtensions
+    {
+        #region Public Methods and Operators
+
+        /// <summary>
+        ///     The get editors table.
+        /// </summary>
+        /// <typeparam name="TModule">
+        /// </typeparam>
+        /// <param name="moduleManager">
+        ///     The module Manager.
+        /// </param>
+        /// <param name="tableName">
+        ///     The table Name.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        [NotNull]
+        public static DataTable ActiveAsDataTable<TModule>(
+            [NotNull] this IModuleManager<TModule> moduleManager,
+            [NotNull] string tableName) where TModule : IModuleDefinition
+        {
+            CodeContracts.ArgumentNotNull(moduleManager, "moduleManager");
+            CodeContracts.ArgumentNotNull(tableName, "tableName");
+
+            using (var dataTable = new DataTable(tableName))
+            {
+                dataTable.Columns.Add("Value", Type.GetType("System.Int32"));
+                dataTable.Columns.Add("Name", Type.GetType("System.String"));
+
+                foreach (var module in moduleManager.GetAll())
+                {
+                    dataTable.Rows.Add(new object[] { module.ModuleId, module.Description });
+                }
+
+                return dataTable;
+            }
+        }
+
+        /// <summary>
+        ///     Get a dictionary list discribing the active modules.
+        /// </summary>
+        /// <typeparam name="TModule">
+        /// </typeparam>
+        /// <param name="moduleManager">
+        ///     The module Manager.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        [NotNull]
+        public static IDictionary<string, string> ActiveAsDictionary<TModule>(
+            [NotNull] this IModuleManager<TModule> moduleManager) where TModule : IModuleDefinition
+        {
+            CodeContracts.ArgumentNotNull(moduleManager, "moduleManager");
+
+            return moduleManager.GetAll().ToDictionary((mk) => mk.ModuleId, (mv) => mv.Description);
+        }
+
+        /// <summary>
+        ///     Get all active modules.
+        /// </summary>
+        /// <typeparam name="TModule">
+        /// </typeparam>
+        /// <param name="moduleManager">
+        ///     The module Manager.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static IEnumerable<TModule> GetAll<TModule>([NotNull] this IModuleManager<TModule> moduleManager)
+            where TModule : IModuleDefinition
+        {
+            CodeContracts.ArgumentNotNull(moduleManager, "moduleManager");
+
+            return moduleManager.GetAll(false);
+        }
+
+        #endregion
+    }
 }
