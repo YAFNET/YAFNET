@@ -3,24 +3,61 @@
 ###############################################################################
 * text=auto
 
-# Custom for Visual Studio
+
 *.cs     diff=csharp
 *.sln    merge=union
 *.csproj merge=union
 *.vbproj merge=union
 *.fsproj merge=union
 *.dbproj merge=union
+*.sql text
+*.html diff=html
+*.css    text
+*.js     text
+*.sql    text
 
 
+# Normalise endings to CRLF
+*.cs              eol=crlf
+*.xml             eol=crlf
+*.xaml            eol=crlf
+*.xsl             eol=crlf
+*.xsd             eol=crlf
+*.cshtml          eol=crlf
+*.css             eol=crlf
+*.js              eol=crlf
+*.txt             eol=crlf
+*.config          eol=crlf
+*.sql             eol=crlf
+*.sln             eol=crlf
+*.csproj          eol=crlf
+*.vbproj          eol=crlf
+*.fsproj          eol=crlf
+*.dbproj          eol=crlf
+*.nunit           eol=crlf
+*.html            eol=crlf
+*.md              eol=crlf
+*.proj            eol=crlf
+*.bat             eol=crlf
+*.cmd             eol=crlf
+*.nuspec          eol=crlf
+*.targets         eol=crlf
+*.conf            eol=crlf
+*.manifest        eol=crlf
+*.ps1             eol=crlf
+*.resx            eol=crlf
+*.asax            eol=crlf
+*.aspx            eol=crlf
+*.ncrunchproject  eol=crlf
+*.ncrunchsolution eol=crlf
+*.msbuild         eol=crlf
+*.template        eol=crlf
+*.settings        eol=crlf
+*.java            eol=crlf
+.gitattributes    eol=crlf
+.classpath        eol=crlf
+.project          eol=crlf
 
-###############################################################################
-# behavior for image files
-#
-# image files are treated as binary by default.
-###############################################################################
-#*.jpg   binary
-#*.png   binary
-#*.gif   binary
 
 ###############################################################################
 # diff behavior for common document formats
