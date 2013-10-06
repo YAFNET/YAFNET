@@ -48,7 +48,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable List(this IRepository<CheckEmail> repository, string email = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.checkemail_list(Email: email);
         }
@@ -67,7 +67,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static IList<CheckEmail> ListTyped(this IRepository<CheckEmail> repository, string email = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             using (var session = repository.DbFunction.CreateSession())
             {
@@ -92,9 +92,9 @@ namespace YAF.Core.Model
         /// </param>
         public static void Save(this IRepository<CheckEmail> repository, int? userID, [NotNull] string hash, [NotNull] string email)
         {
-            CodeContracts.ArgumentNotNull(hash, "hash");
-            CodeContracts.ArgumentNotNull(email, "email");
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(hash, "hash");
+            CodeContracts.VerifyNotNull(email, "email");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.checkemail_save(UserID: userID, Hash: hash, Email: email.ToLower(), UTCTIMESTAMP: DateTime.UtcNow);
             repository.FireNew();
@@ -114,8 +114,8 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable Update(this IRepository<CheckEmail> repository, [NotNull] string hash)
         {
-            CodeContracts.ArgumentNotNull(hash, "hash");
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(hash, "hash");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.checkemail_update(Hash: hash);
         }

@@ -50,8 +50,8 @@ namespace YAF.Types.Interfaces.Data
         [NotNull]
         public static DataSet GetAsDataSet([NotNull] this IDbFunction dbFunction, [NotNull] Func<dynamic, object> function)
         {
-            CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
-            CodeContracts.ArgumentNotNull(function, "function");
+            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
+            CodeContracts.VerifyNotNull(function, "function");
 
             return (DataSet)function(dbFunction.GetDataSet);
         }
@@ -71,8 +71,8 @@ namespace YAF.Types.Interfaces.Data
         [NotNull]
         public static DataTable GetAsDataTable([NotNull] this IDbFunction dbFunction, [NotNull] Func<dynamic, object> function)
         {
-            CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
-            CodeContracts.ArgumentNotNull(function, "function");
+            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
+            CodeContracts.VerifyNotNull(function, "function");
 
             return (DataTable)function(dbFunction.GetData);
         }
@@ -100,8 +100,8 @@ namespace YAF.Types.Interfaces.Data
             [NotNull] Func<object, object> function, 
             [CanBeNull] IEqualityComparer<string> comparer = null) where T : IDataLoadable, new()
         {
-            CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
-            CodeContracts.ArgumentNotNull(function, "function");
+            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
+            CodeContracts.VerifyNotNull(function, "function");
 
             return dbFunction.GetData(function).Typed<T>(comparer);
         }
@@ -123,8 +123,8 @@ namespace YAF.Types.Interfaces.Data
         [CanBeNull]
         public static T GetScalar<T>([NotNull] this IDbFunction dbFunction, [NotNull] Func<dynamic, object> function)
         {
-            CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
-            CodeContracts.ArgumentNotNull(function, "function");
+            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
+            CodeContracts.VerifyNotNull(function, "function");
 
             return ((object)function(dbFunction.Scalar)).ToType<T>();
         }

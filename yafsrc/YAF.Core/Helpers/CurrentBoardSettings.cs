@@ -85,10 +85,10 @@ namespace YAF.Core
             [NotNull] IHaveBoardID haveBoardId, 
             [NotNull] ITreatCacheKey treatCacheKey)
         {
-            CodeContracts.ArgumentNotNull(applicationStateBase, "applicationStateBase");
-            CodeContracts.ArgumentNotNull(injectServices, "injectServices");
-            CodeContracts.ArgumentNotNull(haveBoardId, "haveBoardId");
-            CodeContracts.ArgumentNotNull(treatCacheKey, "treatCacheKey");
+            CodeContracts.VerifyNotNull(applicationStateBase, "applicationStateBase");
+            CodeContracts.VerifyNotNull(injectServices, "injectServices");
+            CodeContracts.VerifyNotNull(haveBoardId, "haveBoardId");
+            CodeContracts.VerifyNotNull(treatCacheKey, "treatCacheKey");
 
             this._applicationStateBase = applicationStateBase;
             this._injectServices = injectServices;

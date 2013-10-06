@@ -64,7 +64,7 @@ namespace YAF.Core.Model
         public static void Create(
             this IRepository<Mail> repository, string from, string fromName, string to, string toName, string subject, string body, string bodyHtml)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.mail_create(
                 From: from, 
@@ -132,7 +132,7 @@ namespace YAF.Core.Model
         public static void CreateWatch(
             this IRepository<Mail> repository, int topicID, string from, string fromName, string subject, string body, string bodyHtml, int userID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.mail_createwatch(
                 TopicID: topicID, 
@@ -159,7 +159,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable List(this IRepository<Mail> repository, int? processID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.mail_list(ProcessID: processID, UTCTIMESTAMP: DateTime.UtcNow);
         }
@@ -178,7 +178,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static IList<Mail> ListTyped(this IRepository<Mail> repository, int? processID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             using (var session = repository.DbFunction.CreateSession())
             {
@@ -195,7 +195,7 @@ namespace YAF.Core.Model
         public static void Save(
             this IRepository<Mail> repository, Mail mailMessage)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Scalar.mail_save(
                 MailID: mailMessage.ID, SendTries: mailMessage.SendTries, SendAttempt: DateTime.UtcNow);

@@ -47,8 +47,8 @@ namespace YAF.Types.Extensions
 		/// </param>
 		public static void AddDynamicParams([NotNull] this IDbCommand cmd, [NotNull] dynamic parameters, [CanBeNull] params string[] excludeNames)
 		{
-			CodeContracts.ArgumentNotNull(cmd, "cmd");
-			CodeContracts.ArgumentNotNull(parameters, "parameters");
+			CodeContracts.VerifyNotNull(cmd, "cmd");
+			CodeContracts.VerifyNotNull(parameters, "parameters");
 
 			IDictionary<string, object> dictionary = ((object)parameters).AnyToDictionary();
 
@@ -76,7 +76,7 @@ namespace YAF.Types.Extensions
 		/// </param>
 		public static void AddParam([NotNull] this IDbCommand cmd, [CanBeNull] object item)
 		{
-			CodeContracts.ArgumentNotNull(cmd, "cmd");
+			CodeContracts.VerifyNotNull(cmd, "cmd");
 
 			if (item is KeyValuePair<string, object>)
 			{
@@ -102,8 +102,8 @@ namespace YAF.Types.Extensions
 		/// </param>
 		public static void AddParam([NotNull] this IDbCommand cmd, [NotNull] string name, [CanBeNull] object item)
 		{
-			CodeContracts.ArgumentNotNull(cmd, "cmd");
-			CodeContracts.ArgumentNotNull(name, "name");
+			CodeContracts.VerifyNotNull(cmd, "cmd");
+			CodeContracts.VerifyNotNull(name, "name");
 
 			AddParam(cmd, new KeyValuePair<string, object>(name, item));
 		}
@@ -119,7 +119,7 @@ namespace YAF.Types.Extensions
 		/// </param>
 		public static void AddParam([NotNull] this IDbCommand cmd, KeyValuePair<string, object> param)
 		{
-			CodeContracts.ArgumentNotNull(cmd, "cmd");
+			CodeContracts.VerifyNotNull(cmd, "cmd");
 
 			var item = param.Value;
 
@@ -179,8 +179,8 @@ namespace YAF.Types.Extensions
 		/// </param>
 		public static void AddParams([NotNull] this DbCommand cmd, [NotNull] params object[] args)
 		{
-			CodeContracts.ArgumentNotNull(cmd, "cmd");
-			CodeContracts.ArgumentNotNull(args, "args");
+			CodeContracts.VerifyNotNull(cmd, "cmd");
+			CodeContracts.VerifyNotNull(args, "args");
 
 			foreach (var item in args)
 			{
@@ -211,8 +211,8 @@ namespace YAF.Types.Extensions
                                                  int size = 0,
                                                  ParameterDirection direction = ParameterDirection.Output)
 		{
-		    CodeContracts.ArgumentNotNull(cmd, "cmd");
-		    CodeContracts.ArgumentNotNull(parameterName, "parameterName");
+		    CodeContracts.VerifyNotNull(cmd, "cmd");
+		    CodeContracts.VerifyNotNull(parameterName, "parameterName");
 
 		    var p = cmd.CreateParameter();
 

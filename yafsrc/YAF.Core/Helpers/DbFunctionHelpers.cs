@@ -40,7 +40,7 @@ namespace YAF.Core.Helpers
 
         public static int GetDBSize([NotNull] this IDbFunction dbFunction)
         {
-            CodeContracts.ArgumentNotNull(dbFunction, "dbFunction");
+            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
 
             return dbFunction.ValidateAndExecute<int>("DBSize", f => f.GetScalar<int>(s => s.DBSize()));
         }

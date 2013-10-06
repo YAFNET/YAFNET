@@ -33,7 +33,7 @@ namespace YAF.Core.Model
 
         public static void Delete(this IRepository<Group> repository, int groupID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.group_delete(GroupID: groupID);
 
@@ -42,7 +42,7 @@ namespace YAF.Core.Model
 
         public static DataTable List(this IRepository<Group> repository, int? groupID = null, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.group_list(BoardID: boardId ?? repository.BoardID, GroupID: groupID);
         }
@@ -59,14 +59,14 @@ namespace YAF.Core.Model
 
         public static DataTable Member(this IRepository<Group> repository, int userID, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.group_member(BoardID: boardId ?? repository.BoardID, UserID: userID);
         }
 
         public static DataTable RankStyle(this IRepository<Group> repository, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.group_rank_style(BoardID: boardId ?? repository.BoardID);
         }
@@ -91,7 +91,7 @@ namespace YAF.Core.Model
             int usrAlbumImages,
             int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.group_save(
                 GroupID: groupID,

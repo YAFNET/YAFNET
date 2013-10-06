@@ -48,7 +48,7 @@ namespace YAF.Core
     /// </returns>
     public static bool Check([NotNull] this IPermissions permissions, int permission)
     {
-      CodeContracts.ArgumentNotNull(permissions, "permissions");
+      CodeContracts.VerifyNotNull(permissions, "permissions");
 
       return permissions.Check((ViewPermissions)permission);
     }
@@ -64,7 +64,7 @@ namespace YAF.Core
     /// </param>
     public static void HandleRequest([NotNull] this IPermissions permissions, int permission)
     {
-      CodeContracts.ArgumentNotNull(permissions, "permissions");
+      CodeContracts.VerifyNotNull(permissions, "permissions");
 
       permissions.HandleRequest((ViewPermissions)permission);
     }

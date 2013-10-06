@@ -132,7 +132,7 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static string GetUserRealIPAddress([NotNull] this HttpRequest httpRequest)
         {
-            CodeContracts.ArgumentNotNull(httpRequest, "httpRequest");
+            CodeContracts.VerifyNotNull(httpRequest, "httpRequest");
 
             return new HttpRequestWrapper(httpRequest).GetUserRealIPAddress();
         }
@@ -150,7 +150,7 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static string GetUserRealIPAddress([NotNull] this HttpRequestBase httpRequest)
         {
-            CodeContracts.ArgumentNotNull(httpRequest, "httpRequest");
+            CodeContracts.VerifyNotNull(httpRequest, "httpRequest");
 
             IPAddress ipAddress;
             string ipString = httpRequest.Headers["X-Forwarded-For"];
@@ -192,7 +192,7 @@ namespace YAF.Utils.Helpers
         public static ulong IPStrToLong([NotNull] string ipAddress)
         {
             // not sure why it gives me this for local users on firefox--but it does...
-            CodeContracts.ArgumentNotNull(ipAddress, "ipAddress");
+            CodeContracts.VerifyNotNull(ipAddress, "ipAddress");
 
             if (ipAddress == "::1")
             {
@@ -217,8 +217,8 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static bool IsBanned([NotNull] string ban, [NotNull] string chk)
         {
-            CodeContracts.ArgumentNotNull(ban, "ban");
-            CodeContracts.ArgumentNotNull(chk, "chk");
+            CodeContracts.VerifyNotNull(ban, "ban");
+            CodeContracts.VerifyNotNull(chk, "chk");
 
             string bannedIP = ban.Trim();
             if (chk == "::1")
@@ -260,7 +260,7 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static ulong Str2IP([NotNull] string[] ip)
         {
-            CodeContracts.ArgumentNotNull(ip, "ip");
+            CodeContracts.VerifyNotNull(ip, "ip");
 
             if (ip.Length != 4)
             {
@@ -397,7 +397,7 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static bool IsRoutable([NotNull] this IPAddress ipAddress)
         {
-            CodeContracts.ArgumentNotNull(ipAddress, "ipAddress");
+            CodeContracts.VerifyNotNull(ipAddress, "ipAddress");
 
             // Reference: http://en.wikipedia.org/wiki/Reserved_IP_addresses
             byte[] ipAddressBytes = ipAddress.GetAddressBytes();

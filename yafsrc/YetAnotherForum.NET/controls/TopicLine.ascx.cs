@@ -425,7 +425,7 @@
         /// </returns>
         protected string GetPriorityMessage([NotNull] DataRowView row)
         {
-            CodeContracts.ArgumentNotNull(row, "row");
+            CodeContracts.VerifyNotNull(row, "row");
 
             string strReturn = string.Empty;
 
@@ -472,8 +472,8 @@
         /// </returns>
         protected string GetTopicImage([NotNull] object o, [NotNull] ref string imgTitle)
         {
-            CodeContracts.ArgumentNotNull(o, "o");
-            CodeContracts.ArgumentNotNull(imgTitle, "imgTitle");
+            CodeContracts.VerifyNotNull(o, "o");
+            CodeContracts.VerifyNotNull(imgTitle, "imgTitle");
 
             var row = (DataRowView)o;
             DateTime lastPosted = row["LastPosted"] != DBNull.Value

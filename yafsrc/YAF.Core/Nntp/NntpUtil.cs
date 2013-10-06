@@ -118,7 +118,7 @@ namespace YAF.Core.Nntp
     [NotNull]
     public static string Base64Decode([NotNull] string encodedData, [CanBeNull] Encoding encoding = null)
     {
-      CodeContracts.ArgumentNotNull(encodedData, "encodedData");
+      CodeContracts.VerifyNotNull(encodedData, "encodedData");
 
       byte[] decodedDataAsBytes = Convert.FromBase64String(encodedData);
 
@@ -127,7 +127,7 @@ namespace YAF.Core.Nntp
 
     public static int Base64Decode([NotNull] string encodedData, Stream output)
     {
-      CodeContracts.ArgumentNotNull(encodedData, "encodedData");
+      CodeContracts.VerifyNotNull(encodedData, "encodedData");
 
       byte[] decodedDataAsBytes = Convert.FromBase64String(encodedData);
 

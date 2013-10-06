@@ -47,7 +47,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void Delete(this IRepository<Attachment> repository, int attachmentID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.attachment_delete(AttachmentID: attachmentID);
             repository.FireDeleted(attachmentID);
@@ -67,7 +67,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable Download(this IRepository<Attachment> repository, int attachmentID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.attachment_download(AttachmentID: attachmentID);
         }
@@ -104,7 +104,7 @@ namespace YAF.Core.Model
             int? pageIndex = null, 
             int? pageSize = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.attachment_list(
                 MessageID: messageID, AttachmentID: attachmentID, boardID: boardId, PageIndex: pageIndex, PageSize: pageSize);
@@ -142,7 +142,7 @@ namespace YAF.Core.Model
             int? pageIndex = null, 
             int? pageSize = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             using (var session = repository.DbFunction.CreateSession())
             {
@@ -173,7 +173,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void Save(this IRepository<Attachment> repository, int messageID, string fileName, int bytes, string contentType, byte[] fileData = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             var entity =
                 new { MessageID = messageID, FileName = fileName, Bytes = bytes, ContentType = contentType, FileData = fileData }

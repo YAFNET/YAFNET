@@ -89,7 +89,7 @@ namespace YAF.Core.Model
             bool isHostAdmin, 
             string rolePrefix)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             var boardId =
                 (int)
@@ -122,7 +122,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void Delete(this IRepository<Board> repository, int boardID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.board_delete(BoardID: boardID);
 
@@ -143,7 +143,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable List(this IRepository<Board> repository, int? boardID = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.board_list(BoardID: boardID);
         }
@@ -162,7 +162,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static IList<Board> ListTyped(this IRepository<Board> repository, int? boardID = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return boardID.HasValue
                 ? new List<Board> { repository.GetByID(boardID.Value) }
@@ -181,7 +181,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataRow Poststats(this IRepository<Board> repository, int boardID, bool styledNicks, bool showNoCountPosts)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             var dt =
                 (DataTable)
@@ -212,7 +212,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void Resync(this IRepository<Board> repository, int? boardID = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.board_resync(BoardID: boardID);
         }
@@ -234,7 +234,7 @@ namespace YAF.Core.Model
             string culture,
             bool allowThreaded)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.board_save(
                 BoardID: boardID,
@@ -260,7 +260,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataRow Stats(this IRepository<Board> repository, int? boardID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return ((DataTable)repository.DbFunction.GetData.board_stats(BoardID: boardID)).Rows[0];
         }
@@ -279,7 +279,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataRow Userstats(this IRepository<Board> repository, int? boardID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return ((DataTable)repository.DbFunction.GetData.board_userstats(BoardID: boardID)).Rows[0];
         }

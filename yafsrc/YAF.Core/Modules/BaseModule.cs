@@ -88,7 +88,7 @@ namespace YAF.Core
         /// </param>
         public virtual void Configure([NotNull] IComponentRegistry componentRegistry)
         {
-            CodeContracts.ArgumentNotNull(componentRegistry, "componentRegistry");
+            CodeContracts.VerifyNotNull(componentRegistry, "componentRegistry");
 
             this.ComponentRegistry = componentRegistry;
 

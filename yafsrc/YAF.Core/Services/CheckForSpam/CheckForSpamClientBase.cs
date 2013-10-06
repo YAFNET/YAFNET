@@ -122,9 +122,9 @@ namespace YAF.Core.Services.CheckForSpam
             [NotNull] Uri blogUrl,
             [NotNull] HttpClient httpClient)
         {
-            CodeContracts.ArgumentNotNull(apiKey, "apiKey");
-            CodeContracts.ArgumentNotNull(blogUrl, "blogUrl");
-            CodeContracts.ArgumentNotNull(httpClient, "httpClient");
+            CodeContracts.VerifyNotNull(apiKey, "apiKey");
+            CodeContracts.VerifyNotNull(blogUrl, "blogUrl");
+            CodeContracts.VerifyNotNull(httpClient, "httpClient");
 
             this.apiKey = apiKey;
             this.rootUrl = blogUrl;
@@ -279,7 +279,7 @@ namespace YAF.Core.Services.CheckForSpam
         [NotNull]
         public static string BuildUserAgent([NotNull] string applicationName)
         {
-            CodeContracts.ArgumentNotNull(applicationName, "applicationName");
+            CodeContracts.VerifyNotNull(applicationName, "applicationName");
 
             return string.Format(CultureInfo.InvariantCulture, "{0}/{1} | Akismet/1.11", applicationName, version);
         }
@@ -303,7 +303,7 @@ namespace YAF.Core.Services.CheckForSpam
         /// <exception cref="InvalidResponseException">Akismet returned an empty response</exception>
         public bool CheckCommentForSpam(IComment comment, out string result)
         {
-            CodeContracts.ArgumentNotNull(comment, "comment");
+            CodeContracts.VerifyNotNull(comment, "comment");
 
             result = this.SubmitComment(comment, this.submitCheckUrl);
 
@@ -413,8 +413,8 @@ namespace YAF.Core.Services.CheckForSpam
         private string SubmitComment([NotNull] IComment comment, [NotNull] Uri url)
         {
             // Not too many concatenations.  Might not need a string builder.
-            CodeContracts.ArgumentNotNull(comment, "comment");
-            CodeContracts.ArgumentNotNull(url, "url");
+            CodeContracts.VerifyNotNull(comment, "comment");
+            CodeContracts.VerifyNotNull(url, "url");
 
             var parameters = new StringBuilder();
 

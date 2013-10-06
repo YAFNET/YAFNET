@@ -44,7 +44,7 @@ namespace YAF.Core
         /// </returns>
         public static bool DeleteFile([NotNull] this Attachment attachment)
         {
-            CodeContracts.ArgumentNotNull(attachment, "attachment");
+            CodeContracts.VerifyNotNull(attachment, "attachment");
 
             string uploadDir = HostingEnvironment.MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 

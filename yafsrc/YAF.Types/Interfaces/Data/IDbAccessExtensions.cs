@@ -45,7 +45,7 @@ namespace YAF.Types.Interfaces.Data
         /// </returns>
         public static IDbTransaction BeginTransaction([NotNull] this IDbAccess dbAccess, IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
         {
-            CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
+            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
 
             return dbAccess.CreateConnectionOpen().BeginTransaction(isolationLevel);
         }
@@ -62,7 +62,7 @@ namespace YAF.Types.Interfaces.Data
         [NotNull]
         public static DbConnection CreateConnection([NotNull] this IDbAccess dbAccess)
         {
-            CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
+            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
 
             var connection = dbAccess.DbProviderFactory.CreateConnection();
             connection.ConnectionString = dbAccess.Information.ConnectionString();
@@ -82,7 +82,7 @@ namespace YAF.Types.Interfaces.Data
         [NotNull]
         public static DbConnection CreateConnectionOpen([NotNull] this IDbAccess dbAccess)
         {
-            CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
+            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
 
             var connection = dbAccess.CreateConnection();
 
@@ -113,8 +113,8 @@ namespace YAF.Types.Interfaces.Data
         public static int ExecuteNonQuery(
             [NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
         {
-            CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
-            CodeContracts.ArgumentNotNull(cmd, "cmd");
+            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
+            CodeContracts.VerifyNotNull(cmd, "cmd");
 
             return dbAccess.Execute((c) => c.ExecuteNonQuery(), cmd, dbTransaction);
         }
@@ -130,8 +130,8 @@ namespace YAF.Types.Interfaces.Data
         public static int ExecuteNonQuery(
             [NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd, bool useTransaction, IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
         {
-            CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
-            CodeContracts.ArgumentNotNull(cmd, "cmd");
+            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
+            CodeContracts.VerifyNotNull(cmd, "cmd");
 
             if (!useTransaction) return dbAccess.ExecuteNonQuery(cmd);
 
@@ -162,8 +162,8 @@ namespace YAF.Types.Interfaces.Data
         public static object ExecuteScalar(
             [NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
         {
-            CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
-            CodeContracts.ArgumentNotNull(cmd, "cmd");
+            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
+            CodeContracts.VerifyNotNull(cmd, "cmd");
 
             return dbAccess.Execute((c) => c.ExecuteScalar(), cmd, dbTransaction);
         }
@@ -185,8 +185,8 @@ namespace YAF.Types.Interfaces.Data
         public static DataTable GetData(
             [NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
         {
-            CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
-            CodeContracts.ArgumentNotNull(cmd, "cmd");
+            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
+            CodeContracts.VerifyNotNull(cmd, "cmd");
 
             return dbAccess.GetDataset(cmd, dbTransaction).Tables[0];
         }
@@ -207,8 +207,8 @@ namespace YAF.Types.Interfaces.Data
         /// </returns>
         public static DataSet GetDataset([NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
         {
-            CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
-            CodeContracts.ArgumentNotNull(cmd, "cmd");
+            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
+            CodeContracts.VerifyNotNull(cmd, "cmd");
 
             return dbAccess.Execute(
                 (c) =>
@@ -246,9 +246,9 @@ namespace YAF.Types.Interfaces.Data
         /// </returns>
         public static IDataReader GetReader([NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd, [NotNull] IDbTransaction dbTransaction)
         {
-            CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
-            CodeContracts.ArgumentNotNull(cmd, "cmd");
-            CodeContracts.ArgumentNotNull(dbTransaction, "dbTransaction");
+            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
+            CodeContracts.VerifyNotNull(cmd, "cmd");
+            CodeContracts.VerifyNotNull(dbTransaction, "dbTransaction");
 
             return dbAccess.Execute((c) => c.ExecuteReader(), cmd, dbTransaction);
         }
@@ -287,7 +287,7 @@ namespace YAF.Types.Interfaces.Data
         public static int Insert<T>([NotNull] this IDbAccess dbAccess, [NotNull] T insert, [CanBeNull] IDbTransaction transaction = null)
             where T : IEntity
         {
-            CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
+            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
 
             if (transaction != null && transaction.Connection != null)
             {
@@ -329,8 +329,8 @@ namespace YAF.Types.Interfaces.Data
         /// </returns>
         public static T Run<T>([NotNull] this IDbAccess dbAccess, Func<IDbConnection, T> runFunc)
         {
-            CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
-            CodeContracts.ArgumentNotNull(runFunc, "runFunc");
+            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
+            CodeContracts.VerifyNotNull(runFunc, "runFunc");
 
             using (var connection = dbAccess.CreateConnectionOpen())
             {
@@ -358,7 +358,7 @@ namespace YAF.Types.Interfaces.Data
         public static int Update<T>([NotNull] this IDbAccess dbAccess, [NotNull] T update, [CanBeNull] IDbTransaction transaction = null)
             where T : IEntity
         {
-            CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
+            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
 
             using (var connection = dbAccess.CreateConnection())
             {

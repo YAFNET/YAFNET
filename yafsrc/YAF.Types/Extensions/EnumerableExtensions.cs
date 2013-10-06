@@ -41,8 +41,8 @@ namespace YAF.Types.Extensions
         /// <param name="action"> </param>
         public static void ForEach<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T> action)
         {
-            CodeContracts.ArgumentNotNull(list, "list");
-            CodeContracts.ArgumentNotNull(action, "action");
+            CodeContracts.VerifyNotNull(list, "list");
+            CodeContracts.VerifyNotNull(action, "action");
 
             foreach (var item in list.ToList())
             {
@@ -58,8 +58,8 @@ namespace YAF.Types.Extensions
         /// <param name="action"> </param>
         public static void ForEachFirst<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, bool> action)
         {
-            CodeContracts.ArgumentNotNull(list, "list");
-            CodeContracts.ArgumentNotNull(action, "action");
+            CodeContracts.VerifyNotNull(list, "list");
+            CodeContracts.VerifyNotNull(action, "action");
 
             bool isFirst = true;
             foreach (var item in list.ToList())
@@ -77,8 +77,8 @@ namespace YAF.Types.Extensions
         /// <param name="action"> </param>
         public static void ForEachIndex<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, int> action)
         {
-            CodeContracts.ArgumentNotNull(list, "list");
-            CodeContracts.ArgumentNotNull(action, "action");
+            CodeContracts.VerifyNotNull(list, "list");
+            CodeContracts.VerifyNotNull(action, "action");
 
             int i = 0;
             foreach (var item in list.ToList())
@@ -113,7 +113,7 @@ namespace YAF.Types.Extensions
         /// <returns> </returns>
         public static IEnumerable<T> Infinite<T>([NotNull] this IEnumerable<T> currentEnumerable)
         {
-            CodeContracts.ArgumentNotNull(currentEnumerable, "currentEnumerable");
+            CodeContracts.VerifyNotNull(currentEnumerable, "currentEnumerable");
 
             foreach (var item in currentEnumerable)
             {
@@ -136,7 +136,7 @@ namespace YAF.Types.Extensions
         [NotNull]
         public static HashSet<T> ToHashSet<T>([NotNull] this IEnumerable<T> list)
         {
-            CodeContracts.ArgumentNotNull(list, "list");
+            CodeContracts.VerifyNotNull(list, "list");
 
             return new HashSet<T>(list);
         }

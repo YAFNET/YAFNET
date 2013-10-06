@@ -54,7 +54,7 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static IDictionary<string, object> AnyToDictionary([NotNull] this object thingy)
         {
-            CodeContracts.ArgumentNotNull(thingy, "thingy");
+            CodeContracts.VerifyNotNull(thingy, "thingy");
 
             return (IDictionary<string, object>)thingy.ToExpando();
         }
@@ -139,7 +139,7 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static TAttribute GetAttribute<TAttribute>([NotNull] this Type objectType) where TAttribute : Attribute
         {
-            CodeContracts.ArgumentNotNull(objectType, "objectType");
+            CodeContracts.VerifyNotNull(objectType, "objectType");
 
             return objectType.GetCustomAttributes(typeof(TAttribute), false).OfType<TAttribute>().FirstOrDefault();
         }
@@ -159,7 +159,7 @@ namespace YAF.Types.Extensions
         public static IEnumerable<TAttribute> GetAttributes<TAttribute>([NotNull] this Type objectType)
             where TAttribute : Attribute
         {
-            CodeContracts.ArgumentNotNull(objectType, "objectType");
+            CodeContracts.VerifyNotNull(objectType, "objectType");
 
             return objectType.GetCustomAttributes(typeof(TAttribute), false).OfType<TAttribute>();
         }
@@ -216,7 +216,7 @@ namespace YAF.Types.Extensions
         /// </exception>
         public static bool IsIn<T>(this T source, [NotNull] params T[] list)
         {
-            CodeContracts.ArgumentNotNull(list, "list");
+            CodeContracts.VerifyNotNull(list, "list");
 
             return list.Contains(source);
         }
@@ -317,7 +317,7 @@ namespace YAF.Types.Extensions
         [NotNull]
         public static dynamic ToExpando([NotNull] this object obj)
         {
-            CodeContracts.ArgumentNotNull(obj, "obj");
+            CodeContracts.VerifyNotNull(obj, "obj");
 
             var result = new ExpandoObject();
 

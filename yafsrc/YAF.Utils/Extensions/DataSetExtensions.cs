@@ -42,8 +42,8 @@ namespace YAF.Utils.Extensions
 		/// </returns>
 		public static DataTable GetTable([NotNull] this DataSet dataSet, [NotNull] string basicTableName)
 		{
-			CodeContracts.ArgumentNotNull(dataSet, "dataSet");
-			CodeContracts.ArgumentNotNull(basicTableName, "basicTableName");
+			CodeContracts.VerifyNotNull(dataSet, "dataSet");
+			CodeContracts.VerifyNotNull(basicTableName, "basicTableName");
 
 			return dataSet.Tables[DataExtensions.GetObjectName(basicTableName)];
 		}

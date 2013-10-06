@@ -332,7 +332,7 @@ namespace YAF.Pages
         /// </returns>
         protected bool IsCurrentMessage([NotNull] object o)
         {
-            CodeContracts.ArgumentNotNull(o, "o");
+            CodeContracts.VerifyNotNull(o, "o");
 
             var row = (DataRow)o;
 

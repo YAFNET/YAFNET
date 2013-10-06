@@ -198,8 +198,8 @@ namespace YAF.Editors
     /// </returns>
     protected Type GetInterfaceInAssembly([NotNull] Assembly assembly, [NotNull] string className)
     {
-      CodeContracts.ArgumentNotNull(assembly, "assembly");
-      CodeContracts.ArgumentNotNull(className, "className");
+      CodeContracts.VerifyNotNull(assembly, "assembly");
+      CodeContracts.VerifyNotNull(className, "className");
 
       return assembly.GetExportedTypes().FirstOrDefault(typ => typ.FullName == className);
     }

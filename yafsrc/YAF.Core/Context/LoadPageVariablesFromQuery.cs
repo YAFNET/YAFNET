@@ -43,7 +43,7 @@ namespace YAF.Core
         /// </param>
         public LoadPageVariablesFromQuery([NotNull] IServiceLocator serviceLocator)
         {
-            CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
+            CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
 
             this.ServiceLocator = serviceLocator;
         }

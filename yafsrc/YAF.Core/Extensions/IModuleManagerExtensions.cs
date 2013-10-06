@@ -56,8 +56,8 @@ namespace YAF.Core
             [NotNull] this IModuleManager<TModule> moduleManager,
             [NotNull] string tableName) where TModule : IModuleDefinition
         {
-            CodeContracts.ArgumentNotNull(moduleManager, "moduleManager");
-            CodeContracts.ArgumentNotNull(tableName, "tableName");
+            CodeContracts.VerifyNotNull(moduleManager, "moduleManager");
+            CodeContracts.VerifyNotNull(tableName, "tableName");
 
             using (var dataTable = new DataTable(tableName))
             {
@@ -87,7 +87,7 @@ namespace YAF.Core
         public static IDictionary<string, string> ActiveAsDictionary<TModule>(
             [NotNull] this IModuleManager<TModule> moduleManager) where TModule : IModuleDefinition
         {
-            CodeContracts.ArgumentNotNull(moduleManager, "moduleManager");
+            CodeContracts.VerifyNotNull(moduleManager, "moduleManager");
 
             return moduleManager.GetAll().ToDictionary((mk) => mk.ModuleId, (mv) => mv.Description);
         }
@@ -105,7 +105,7 @@ namespace YAF.Core
         public static IEnumerable<TModule> GetAll<TModule>([NotNull] this IModuleManager<TModule> moduleManager)
             where TModule : IModuleDefinition
         {
-            CodeContracts.ArgumentNotNull(moduleManager, "moduleManager");
+            CodeContracts.VerifyNotNull(moduleManager, "moduleManager");
 
             return moduleManager.GetAll(false);
         }

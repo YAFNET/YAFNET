@@ -60,7 +60,7 @@ namespace YAF.Types.Interfaces
 			DateTime? forumReadOverride = null, 
 			DateTime? topicReadOverride = null)
 		{
-			CodeContracts.ArgumentNotNull(readTrackCurrentUser, "readTrackCurrentUser");
+			CodeContracts.VerifyNotNull(readTrackCurrentUser, "readTrackCurrentUser");
 
 			DateTime lastRead = readTrackCurrentUser.GetTopicRead(topicId, topicReadOverride);
 			DateTime lastReadForum = readTrackCurrentUser.GetForumRead(forumId, forumReadOverride);
@@ -84,8 +84,8 @@ namespace YAF.Types.Interfaces
 		/// </param>
 		public static void SetForumRead(this IReadTrackCurrentUser readTrackCurrentUser, IEnumerable<int> forumIds)
 		{
-			CodeContracts.ArgumentNotNull(readTrackCurrentUser, "readTrackCurrentUser");
-			CodeContracts.ArgumentNotNull(forumIds, "forumIds");
+			CodeContracts.VerifyNotNull(readTrackCurrentUser, "readTrackCurrentUser");
+			CodeContracts.VerifyNotNull(forumIds, "forumIds");
 
 			foreach (var id in forumIds)
 			{
@@ -104,8 +104,8 @@ namespace YAF.Types.Interfaces
 		/// </param>
 		public static void SetTopicRead(this IReadTrackCurrentUser readTrackCurrentUser, IEnumerable<int> topicIds)
 		{
-			CodeContracts.ArgumentNotNull(readTrackCurrentUser, "readTrackCurrentUser");
-			CodeContracts.ArgumentNotNull(topicIds, "topicIds");
+			CodeContracts.VerifyNotNull(readTrackCurrentUser, "readTrackCurrentUser");
+			CodeContracts.VerifyNotNull(topicIds, "topicIds");
 
 			foreach (var id in topicIds)
 			{

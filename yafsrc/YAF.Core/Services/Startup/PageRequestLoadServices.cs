@@ -47,7 +47,7 @@ namespace YAF.Core.Services.Startup
     /// </param>
     public PageRequestLoadServices([NotNull] IServiceLocator serviceLocator)
     {
-      CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
+      CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
 
       this.ServiceLocator = serviceLocator;
     }

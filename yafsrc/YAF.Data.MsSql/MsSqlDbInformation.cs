@@ -84,7 +84,7 @@ namespace YAF.Data.MsSql
 
         public string BuildConnectionString([NotNull] IEnumerable<IDbConnectionParam> parameters)
         {
-            CodeContracts.ArgumentNotNull(parameters, "parameters");
+            CodeContracts.VerifyNotNull(parameters, "parameters");
 
             var connBuilder = new SqlConnectionStringBuilder();
 

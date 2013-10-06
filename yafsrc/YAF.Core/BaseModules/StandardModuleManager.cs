@@ -56,7 +56,7 @@ namespace YAF.Core
 		/// </param>
 		public StandardModuleManager([NotNull] IEnumerable<TModule> modules)
 		{
-			CodeContracts.ArgumentNotNull(modules, "modules");
+			CodeContracts.VerifyNotNull(modules, "modules");
 
 		    this._modules = modules.ToList();
 		}
@@ -94,7 +94,7 @@ namespace YAF.Core
 		/// </returns>
 		public TModule GetBy([NotNull] string id, bool getInactive)
 		{
-			CodeContracts.ArgumentNotNull(id, "id");
+			CodeContracts.VerifyNotNull(id, "id");
 
 		    return !getInactive
 		               ? this._modules.SingleOrDefault(e => e.ModuleId.Equals(id) && e.Active)
@@ -112,7 +112,7 @@ namespace YAF.Core
 		/// </returns>
 		public TModule GetBy([NotNull] string id)
 		{
-			CodeContracts.ArgumentNotNull(id, "id");
+			CodeContracts.VerifyNotNull(id, "id");
 
 			return this._modules.SingleOrDefault(e => e.ModuleId.Equals(id));
 		}

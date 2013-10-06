@@ -43,9 +43,9 @@ namespace YAF.Types.Interfaces
     public static string GetText(
       [NotNull] this IHaveLocalization haveLocalization, [NotNull] string page, [NotNull] string tag)
     {
-      CodeContracts.ArgumentNotNull(haveLocalization, "haveLocalization");
-      CodeContracts.ArgumentNotNull(page, "page");
-      CodeContracts.ArgumentNotNull(tag, "tag");
+      CodeContracts.VerifyNotNull(haveLocalization, "haveLocalization");
+      CodeContracts.VerifyNotNull(page, "page");
+      CodeContracts.VerifyNotNull(tag, "tag");
 
       return haveLocalization.Localization.GetText(page, tag);
     }
@@ -64,8 +64,8 @@ namespace YAF.Types.Interfaces
     /// </returns>
     public static string GetText([NotNull] this IHaveLocalization haveLocalization, [NotNull] string tag)
     {
-      CodeContracts.ArgumentNotNull(haveLocalization, "haveLocalization");
-      CodeContracts.ArgumentNotNull(tag, "tag");
+      CodeContracts.VerifyNotNull(haveLocalization, "haveLocalization");
+      CodeContracts.VerifyNotNull(tag, "tag");
 
       return haveLocalization.Localization.GetText(tag);
     }
@@ -88,8 +88,8 @@ namespace YAF.Types.Interfaces
     public static string GetTextFormatted(
       [NotNull] this IHaveLocalization haveLocalization, [NotNull] string tag, [CanBeNull] params object[] args)
     {
-      CodeContracts.ArgumentNotNull(haveLocalization, "haveLocalization");
-      CodeContracts.ArgumentNotNull(tag, "tag");
+      CodeContracts.VerifyNotNull(haveLocalization, "haveLocalization");
+      CodeContracts.VerifyNotNull(tag, "tag");
 
       return haveLocalization.Localization.GetTextFormatted(tag, args);
     }

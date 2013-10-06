@@ -48,8 +48,8 @@ namespace YAF.Types.Interfaces
     /// </returns>
     public static T Get<T>([NotNull] this IObjectStore objectStore, [NotNull] string originalKey)
     {
-      CodeContracts.ArgumentNotNull(objectStore, "objectStore");
-      CodeContracts.ArgumentNotNull(originalKey, "originalKey");
+      CodeContracts.VerifyNotNull(objectStore, "objectStore");
+      CodeContracts.VerifyNotNull(originalKey, "originalKey");
 
       var item = objectStore.Get(originalKey);
 
@@ -71,7 +71,7 @@ namespace YAF.Types.Interfaces
     /// </typeparam>
     public static void RemoveOf<T>([NotNull] this IObjectStore objectStore)
     {
-      CodeContracts.ArgumentNotNull(objectStore, "objectStore");
+      CodeContracts.VerifyNotNull(objectStore, "objectStore");
 
       foreach (var i in objectStore.GetAll<T>().ToList())
       {
@@ -88,7 +88,7 @@ namespace YAF.Types.Interfaces
     public static void Clear([NotNull] this IObjectStore objectStore)
     {
       // remove all objects in the cache...
-      CodeContracts.ArgumentNotNull(objectStore, "objectStore");
+      CodeContracts.VerifyNotNull(objectStore, "objectStore");
 
       objectStore.RemoveOf<object>();
     }
@@ -102,7 +102,7 @@ namespace YAF.Types.Interfaces
     public static int Count([NotNull] this IObjectStore objectStore)
     {
       // remove all objects in the cache...
-      CodeContracts.ArgumentNotNull(objectStore, "objectStore");
+      CodeContracts.VerifyNotNull(objectStore, "objectStore");
 
       return objectStore.GetAll<object>().Count();
     }
@@ -116,7 +116,7 @@ namespace YAF.Types.Interfaces
     public static int CountOf<T>([NotNull] this IObjectStore objectStore)
     {
       // remove all objects in the cache...
-      CodeContracts.ArgumentNotNull(objectStore, "objectStore");
+      CodeContracts.VerifyNotNull(objectStore, "objectStore");
 
       return objectStore.GetAll<T>().Count();
     }
@@ -135,8 +135,8 @@ namespace YAF.Types.Interfaces
     public static void RemoveOf<T>(
       [NotNull] this IObjectStore objectStore, [NotNull] Func<KeyValuePair<string, T>, bool> whereFunc)
     {
-      CodeContracts.ArgumentNotNull(objectStore, "objectStore");
-      CodeContracts.ArgumentNotNull(whereFunc, "whereFunc");
+      CodeContracts.VerifyNotNull(objectStore, "objectStore");
+      CodeContracts.VerifyNotNull(whereFunc, "whereFunc");
 
       foreach (var i in objectStore.GetAll<T>().Where(whereFunc).ToList())
       {
@@ -158,8 +158,8 @@ namespace YAF.Types.Interfaces
     public static void Remove(
       [NotNull] this IObjectStore objectStore, [NotNull] Func<string, bool> whereFunc)
     {
-      CodeContracts.ArgumentNotNull(objectStore, "objectStore");
-      CodeContracts.ArgumentNotNull(whereFunc, "whereFunc");
+      CodeContracts.VerifyNotNull(objectStore, "objectStore");
+      CodeContracts.VerifyNotNull(whereFunc, "whereFunc");
 
       foreach (var i in objectStore.GetAll<object>().Where(k => whereFunc(k.Key)).ToList())
       {

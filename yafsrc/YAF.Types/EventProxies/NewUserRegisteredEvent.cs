@@ -44,7 +44,7 @@ namespace YAF.Types.EventProxies
     /// </param>
     public NewUserRegisteredEvent([NotNull] MembershipUser user, int userId)
     {
-      CodeContracts.ArgumentNotNull(user, "user");
+      CodeContracts.VerifyNotNull(user, "user");
 
       this.User = user;
       this.UserId = userId;

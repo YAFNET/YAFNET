@@ -302,9 +302,9 @@ namespace YAF.Core.Data
             [NotNull] Func<IDbCommand, object> executeDb, 
             [CanBeNull] out object result)
         {
-            CodeContracts.ArgumentNotNull(binder, "binder");
-            CodeContracts.ArgumentNotNull(parameters, "parameters");
-            CodeContracts.ArgumentNotNull(executeDb, "executeDb");
+            CodeContracts.VerifyNotNull(binder, "binder");
+            CodeContracts.VerifyNotNull(parameters, "parameters");
+            CodeContracts.VerifyNotNull(executeDb, "executeDb");
 
             var operationName = binder.Name;
 
@@ -488,8 +488,8 @@ namespace YAF.Core.Data
         [NotNull]
         protected IList<KeyValuePair<string, object>> MapParameters([NotNull] CallInfo callInfo, [NotNull] object[] args)
         {
-            CodeContracts.ArgumentNotNull(callInfo, "callInfo");
-            CodeContracts.ArgumentNotNull(args, "args");
+            CodeContracts.VerifyNotNull(callInfo, "callInfo");
+            CodeContracts.VerifyNotNull(args, "args");
 
             var argsPairs =
                 args.Reverse()

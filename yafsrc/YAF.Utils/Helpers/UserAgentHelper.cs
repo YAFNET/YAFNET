@@ -187,7 +187,7 @@ namespace YAF.Utils.Helpers
             out bool isSearchEngine,
             out bool isIgnoredForDisplay)
         {
-            CodeContracts.ArgumentNotNull(platform, "platform");
+            CodeContracts.VerifyNotNull(platform, "platform");
 
             isSearchEngine = false;
             isIgnoredForDisplay = false;

@@ -46,7 +46,7 @@ namespace YAF.Types.Interfaces
         /// </returns>
         public static TService Get<TService>([NotNull] this IServiceLocator serviceLocator)
         {
-            CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
+            CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
 
             return (TService)serviceLocator.Get(typeof(TService));
         }
@@ -67,8 +67,8 @@ namespace YAF.Types.Interfaces
         /// </returns>
         public static TService Get<TService>([NotNull] this IServiceLocator serviceLocator, [NotNull] string named)
         {
-            CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
-            CodeContracts.ArgumentNotNull(named, "named");
+            CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
+            CodeContracts.VerifyNotNull(named, "named");
 
             return (TService)serviceLocator.Get(typeof(TService), named);
         }
@@ -89,8 +89,8 @@ namespace YAF.Types.Interfaces
         public static TService Get<TService>(
             [NotNull] this IServiceLocator serviceLocator, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
         {
-            CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
-            CodeContracts.ArgumentNotNull(parameters, "parameters");
+            CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
+            CodeContracts.VerifyNotNull(parameters, "parameters");
 
             return (TService)serviceLocator.Get(typeof(TService), parameters);
         }
@@ -114,9 +114,9 @@ namespace YAF.Types.Interfaces
         public static TService Get<TService>(
             [NotNull] this IServiceLocator serviceLocator, [NotNull] string named, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
         {
-            CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
-            CodeContracts.ArgumentNotNull(named, "named");
-            CodeContracts.ArgumentNotNull(parameters, "parameters");
+            CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
+            CodeContracts.VerifyNotNull(named, "named");
+            CodeContracts.VerifyNotNull(parameters, "parameters");
 
             return (TService)serviceLocator.Get(typeof(TService), named, parameters);
         }
@@ -134,7 +134,7 @@ namespace YAF.Types.Interfaces
         /// </returns>
         public static TService Get<TService>([NotNull] this IHaveServiceLocator haveLocator)
         {
-            CodeContracts.ArgumentNotNull(haveLocator, "haveLocator");
+            CodeContracts.VerifyNotNull(haveLocator, "haveLocator");
 
             return haveLocator.ServiceLocator.Get<TService>();
         }
@@ -155,8 +155,8 @@ namespace YAF.Types.Interfaces
         /// </returns>
         public static TService Get<TService>([NotNull] this IHaveServiceLocator haveLocator, [NotNull] string named)
         {
-            CodeContracts.ArgumentNotNull(haveLocator, "haveLocator");
-            CodeContracts.ArgumentNotNull(named, "named");
+            CodeContracts.VerifyNotNull(haveLocator, "haveLocator");
+            CodeContracts.VerifyNotNull(named, "named");
 
             return haveLocator.ServiceLocator.Get<TService>(named);
         }
@@ -178,8 +178,8 @@ namespace YAF.Types.Interfaces
         public static TService Get<TService>(
             [NotNull] this IHaveServiceLocator haveLocator, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
         {
-            CodeContracts.ArgumentNotNull(haveLocator, "haveLocator");
-            CodeContracts.ArgumentNotNull(parameters, "parameters");
+            CodeContracts.VerifyNotNull(haveLocator, "haveLocator");
+            CodeContracts.VerifyNotNull(parameters, "parameters");
 
             return haveLocator.ServiceLocator.Get<TService>(parameters);
         }
@@ -204,9 +204,9 @@ namespace YAF.Types.Interfaces
         public static TService Get<TService>(
             [NotNull] this IHaveServiceLocator haveLocator, [NotNull] string named, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
         {
-            CodeContracts.ArgumentNotNull(haveLocator, "haveLocator");
-            CodeContracts.ArgumentNotNull(named, "named");
-            CodeContracts.ArgumentNotNull(parameters, "parameters");
+            CodeContracts.VerifyNotNull(haveLocator, "haveLocator");
+            CodeContracts.VerifyNotNull(named, "named");
+            CodeContracts.VerifyNotNull(parameters, "parameters");
 
             return haveLocator.ServiceLocator.Get<TService>(named, parameters);
         }
@@ -225,7 +225,7 @@ namespace YAF.Types.Interfaces
         public static IRepository<T> GetRepository<T>([NotNull] this IHaveServiceLocator serviceLocator)
             where T : IEntity
         {
-            CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
+            CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
 
             return serviceLocator.Get<IRepository<T>>();
         }
@@ -241,7 +241,7 @@ namespace YAF.Types.Interfaces
         /// </returns>
         public static bool IsYafContext([NotNull] this IServiceLocator serviceLocator)
         {
-            CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
+            CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
 
             return serviceLocator.Tag == (object)YafLifetimeScope.Context;
         }
@@ -262,7 +262,7 @@ namespace YAF.Types.Interfaces
         /// </returns>
         public static bool TryGet<TService>([NotNull] this IServiceLocator serviceLocator, out TService instance)
         {
-            CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
+            CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
 
             object tempInstance;
 
@@ -297,8 +297,8 @@ namespace YAF.Types.Interfaces
         public static bool TryGet<TService>(
             [NotNull] this IServiceLocator serviceLocator, [NotNull] string named, out TService instance)
         {
-            CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
-            CodeContracts.ArgumentNotNull(named, "named");
+            CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
+            CodeContracts.VerifyNotNull(named, "named");
 
             object tempInstance;
 
@@ -330,7 +330,7 @@ namespace YAF.Types.Interfaces
         /// </returns>
         public static bool TryGet<TService>([NotNull] this IHaveServiceLocator haveLocator, out TService instance)
         {
-            CodeContracts.ArgumentNotNull(haveLocator, "haveLocator");
+            CodeContracts.VerifyNotNull(haveLocator, "haveLocator");
 
             return haveLocator.ServiceLocator.TryGet(out instance);
         }
@@ -355,8 +355,8 @@ namespace YAF.Types.Interfaces
         public static bool TryGet<TService>(
             [NotNull] this IHaveServiceLocator haveLocator, [NotNull] string named, out TService instance)
         {
-            CodeContracts.ArgumentNotNull(haveLocator, "haveLocator");
-            CodeContracts.ArgumentNotNull(named, "named");
+            CodeContracts.VerifyNotNull(haveLocator, "haveLocator");
+            CodeContracts.VerifyNotNull(named, "named");
 
             return haveLocator.ServiceLocator.TryGet(named, out instance);
         }

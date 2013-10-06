@@ -164,7 +164,7 @@ namespace YAF.Utils
       [CanBeNull] string hashRemoveChars = null, 
       bool standardComp = true)
     {
-      CodeContracts.ArgumentNotNull(clearString, "clearString");
+      CodeContracts.VerifyNotNull(clearString, "clearString");
 
       byte[] buffer;
 
@@ -222,7 +222,7 @@ namespace YAF.Utils
     [NotNull]
     private static byte[] Hash([NotNull] byte[] clearBytes, [NotNull] HashAlgorithmType hashAlgorithmType)
     {
-      CodeContracts.ArgumentNotNull(clearBytes, "clearBytes");
+      CodeContracts.VerifyNotNull(clearBytes, "clearBytes");
 
       return HashAlgorithm.Create(hashAlgorithmType.GetStringValue()).ComputeHash(clearBytes);
     }

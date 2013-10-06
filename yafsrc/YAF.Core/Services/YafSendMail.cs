@@ -47,7 +47,7 @@ namespace YAF.Core.Services
     /// </param>
     public void SendAll([NotNull] IEnumerable<MailMessage> messages)
     {
-      CodeContracts.ArgumentNotNull(messages, "messages");
+      CodeContracts.VerifyNotNull(messages, "messages");
 
       messages.ToList().ForEach(m => m.Send());
     }
@@ -63,7 +63,7 @@ namespace YAF.Core.Services
     /// </param>
     public void SendAllIsolated([NotNull] IEnumerable<MailMessage> messages, [CanBeNull] Action<MailMessage, Exception> handleExceptionAction)
     {
-      CodeContracts.ArgumentNotNull(messages, "messages");
+      CodeContracts.VerifyNotNull(messages, "messages");
 
       foreach (var message in messages.ToList())
       {

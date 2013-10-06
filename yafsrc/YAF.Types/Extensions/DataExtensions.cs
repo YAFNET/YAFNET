@@ -52,7 +52,7 @@ namespace YAF.Types.Extensions
         public static IEnumerable<IDictionary<string, object>> ToDictionary(
             [NotNull] this IDataReader reader, [CanBeNull] IEqualityComparer<string> comparer = null)
         {
-            CodeContracts.ArgumentNotNull(reader, "reader");
+            CodeContracts.VerifyNotNull(reader, "reader");
 
             while (reader.Read())
             {
@@ -85,7 +85,7 @@ namespace YAF.Types.Extensions
         public static IDictionary<string, object> ToDictionary(
             [NotNull] this DataRow dataRow, [CanBeNull] IEqualityComparer<string> comparer = null)
         {
-            CodeContracts.ArgumentNotNull(dataRow, "dataRow");
+            CodeContracts.VerifyNotNull(dataRow, "dataRow");
 
             return dataRow.Table.Columns
                 .OfType<DataColumn>()
@@ -109,7 +109,7 @@ namespace YAF.Types.Extensions
         public static IEnumerable<IDictionary<string, object>> ToDictionary(
             [NotNull] this DataTable dataTable, [CanBeNull] IEqualityComparer<string> comparer = null)
         {
-            CodeContracts.ArgumentNotNull(dataTable, "dataTable");
+            CodeContracts.VerifyNotNull(dataTable, "dataTable");
 
             var columns = dataTable.Columns.OfType<DataColumn>().Select(c => c.ColumnName);
 

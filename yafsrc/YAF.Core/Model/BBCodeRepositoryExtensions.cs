@@ -50,7 +50,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable List(this IRepository<BBCode> repository, int? bBCodeID = null, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.bbcode_list(BoardID: boardId ?? repository.BoardID, BBCodeID: bBCodeID);
         }
@@ -72,7 +72,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static IList<BBCode> ListTyped(this IRepository<BBCode> repository, int? bBCodeID = null, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             using (var session = repository.DbFunction.CreateSession())
             {
@@ -145,7 +145,7 @@ namespace YAF.Core.Model
             int execOrder, 
             int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.bbcode_save(
                 BBCodeID: bBCodeID, 

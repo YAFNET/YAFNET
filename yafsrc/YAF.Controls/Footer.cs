@@ -200,7 +200,7 @@ namespace YAF.Controls
 		/// </param>
 		private void RenderVersion([NotNull] StringBuilder footer)
 		{
-			CodeContracts.ArgumentNotNull(footer, "footer");
+			CodeContracts.VerifyNotNull(footer, "footer");
 
 			// Copyright Linkback Algorithm
 			// Please keep if you haven't purchased a removal or commercial license.

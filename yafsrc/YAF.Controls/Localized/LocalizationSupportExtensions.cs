@@ -46,8 +46,8 @@ namespace YAF.Controls
     /// </returns>
     public static string Localize([NotNull] this ILocalizationSupport supportItem, [NotNull] Control currentControl)
     {
-      CodeContracts.ArgumentNotNull(supportItem, "supportItem");
-      CodeContracts.ArgumentNotNull(currentControl, "currentControl");
+      CodeContracts.VerifyNotNull(supportItem, "supportItem");
+      CodeContracts.VerifyNotNull(currentControl, "currentControl");
 
       if (currentControl.Site != null && currentControl.Site.DesignMode == true)
       {
@@ -79,8 +79,8 @@ namespace YAF.Controls
     /// </returns>
     public static string LocalizeAndRender([NotNull] this ILocalizationSupport supportedItem, [NotNull] BaseControl currentControl)
     {
-      CodeContracts.ArgumentNotNull(supportedItem, "supportedItem");
-      CodeContracts.ArgumentNotNull(currentControl, "currentControl");
+      CodeContracts.VerifyNotNull(supportedItem, "supportedItem");
+      CodeContracts.VerifyNotNull(currentControl, "currentControl");
 
       string localizedItem = supportedItem.Localize(currentControl);
 

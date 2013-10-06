@@ -50,7 +50,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void Delete(this IRepository<Medal> repository, int medalID, string category = null, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.medal_delete(BoardID: boardId ?? repository.BoardID, MedalID: medalID, Category: category);
             repository.FireDeleted(medalID);
@@ -76,7 +76,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable List(this IRepository<Medal> repository, int? medalID = null, string category = null, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.medal_list(BoardID: boardId ?? repository.BoardID, MedalID: medalID, Category: category);
         }
@@ -101,7 +101,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static IList<Medal> ListTyped(this IRepository<Medal> repository, int? medalID = null, string category = null, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             using (var functionSession = repository.DbFunction.CreateSession())
             {
@@ -124,7 +124,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable ListUsers(this IRepository<Medal> repository, int medalID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.medal_listusers(MedalID: medalID);
         }
@@ -146,7 +146,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void Resort(this IRepository<Medal> repository, int medalID, int move, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.medal_resort(BoardID: boardId ?? repository.BoardID, MedalID: medalID, Move: move);
             repository.FireUpdated(medalID);
@@ -228,7 +228,7 @@ namespace YAF.Core.Model
             int flags, 
             int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             var success = (int)repository.DbFunction.Scalar.medal_save(
                 BoardID: boardId ?? repository.BoardID, 

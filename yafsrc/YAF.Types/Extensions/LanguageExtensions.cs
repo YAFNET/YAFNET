@@ -52,8 +52,8 @@ namespace YAF.Types.Extensions
     public static void Using<TAny, T1>(this TAny anyObj, [NotNull] Func<T1> makeUsing1, [NotNull] Action<T1> action)
       where T1 : IDisposable
     {
-      CodeContracts.ArgumentNotNull(makeUsing1, "makeUsing1");
-      CodeContracts.ArgumentNotNull(action, "action");
+      CodeContracts.VerifyNotNull(makeUsing1, "makeUsing1");
+      CodeContracts.VerifyNotNull(action, "action");
 
       using (var item1 = makeUsing1())
       {
@@ -86,9 +86,9 @@ namespace YAF.Types.Extensions
       this TAny anyObj, [NotNull] Func<T1> makeUsing1, [NotNull] Func<T2> makeUsing2, [NotNull] Action<T1, T2> action)
       where T1 : IDisposable where T2 : IDisposable
     {
-      CodeContracts.ArgumentNotNull(makeUsing1, "makeUsing1");
-      CodeContracts.ArgumentNotNull(makeUsing2, "makeUsing2");
-      CodeContracts.ArgumentNotNull(action, "action");
+      CodeContracts.VerifyNotNull(makeUsing1, "makeUsing1");
+      CodeContracts.VerifyNotNull(makeUsing2, "makeUsing2");
+      CodeContracts.VerifyNotNull(action, "action");
 
       using (var item1 = makeUsing1())
       {

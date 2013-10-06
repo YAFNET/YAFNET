@@ -55,7 +55,7 @@ namespace YAF.Utils
     /// </exception>
     public AreEqualFunc([NotNull] Func<T, T, bool> comparer)
     {
-      CodeContracts.ArgumentNotNull(comparer, "comparer");
+      CodeContracts.VerifyNotNull(comparer, "comparer");
 
       this._comparer = comparer;
     }

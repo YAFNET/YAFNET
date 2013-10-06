@@ -61,7 +61,7 @@ namespace YAF.Core
 
       set
       {
-        CodeContracts.ArgumentNotNull(value, "value");
+        CodeContracts.VerifyNotNull(value, "value");
 
         this._application = value;
       }

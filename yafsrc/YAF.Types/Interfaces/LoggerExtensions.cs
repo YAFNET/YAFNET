@@ -163,7 +163,7 @@ namespace YAF.Types.Interfaces
             [NotNull] string description, 
             [NotNull] EventLogTypes eventType = EventLogTypes.Error)
         {
-            CodeContracts.ArgumentNotNull(logger, "logger");
+            CodeContracts.VerifyNotNull(logger, "logger");
 
             var sourceDescription = "unknown";
 

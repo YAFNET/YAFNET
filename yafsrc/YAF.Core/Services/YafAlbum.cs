@@ -108,7 +108,7 @@ namespace YAF.Core.Services
     public static ReturnClass ChangeAlbumTitle(int albumID, [NotNull] string newTitle)
     {
       // load the DB so YafContext can work...
-      CodeContracts.ArgumentNotNull(newTitle, "newTitle");
+      CodeContracts.VerifyNotNull(newTitle, "newTitle");
 
       YafContext.Current.Get<StartupInitializeDb>().Run();
 
@@ -139,7 +139,7 @@ namespace YAF.Core.Services
     public static ReturnClass ChangeImageCaption(int imageID, [NotNull] string newCaption)
     {
       // load the DB so YafContext can work...
-      CodeContracts.ArgumentNotNull(newCaption, "newCaption");
+      CodeContracts.VerifyNotNull(newCaption, "newCaption");
 
       YafContext.Current.Get<StartupInitializeDb>().Run();
 

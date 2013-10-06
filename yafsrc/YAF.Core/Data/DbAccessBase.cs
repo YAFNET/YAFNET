@@ -206,8 +206,8 @@ namespace YAF.Core.Data
         /// </param>
         protected virtual void MapParameters([NotNull] IDbCommand cmd, [NotNull] IEnumerable<KeyValuePair<string, object>> parameters)
         {
-            CodeContracts.ArgumentNotNull(cmd, "cmd");
-            CodeContracts.ArgumentNotNull(parameters, "parameters");
+            CodeContracts.VerifyNotNull(cmd, "cmd");
+            CodeContracts.VerifyNotNull(parameters, "parameters");
 
             // add all/any parameters...
             parameters.ForEach(cmd.AddParam);

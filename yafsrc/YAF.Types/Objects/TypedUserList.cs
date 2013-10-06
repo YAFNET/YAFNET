@@ -41,7 +41,7 @@ namespace YAF.Types.Objects
 		/// </param>
 		public TypedUserList([NotNull] DataRow row)
 		{
-			CodeContracts.ArgumentNotNull(row, "row");
+			CodeContracts.VerifyNotNull(row, "row");
 
 			this.UserID = row.Field<int?>("UserID");
 			this.BoardID = row.Field<int?>("BoardID");

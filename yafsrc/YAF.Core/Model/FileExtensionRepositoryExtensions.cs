@@ -49,7 +49,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable List(this IRepository<FileExtension> repository, string extension = null, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.extension_list(BoardID: boardId ?? repository.BoardID, Extension: extension);
         }
@@ -71,7 +71,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static IList<FileExtension> ListTyped(this IRepository<FileExtension> repository, string extension = null, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             using (var functionSession = repository.DbFunction.CreateSession())
             {

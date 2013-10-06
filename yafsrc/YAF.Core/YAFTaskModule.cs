@@ -75,7 +75,7 @@ namespace YAF.Core
     /// </param>
     public void Init([NotNull] HttpApplication httpApplication)
     {
-      CodeContracts.ArgumentNotNull(httpApplication, "httpApplication");
+      CodeContracts.VerifyNotNull(httpApplication, "httpApplication");
 
       if (_moduleInitialized)
       {

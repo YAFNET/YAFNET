@@ -46,7 +46,7 @@ namespace YAF.Core.Data
         /// </param>
         public TryInvokeMemberProxy([NotNull] TryInvokeFunc tryInvokeFunc)
         {
-            CodeContracts.ArgumentNotNull(tryInvokeFunc, "tryInvokeFunc");
+            CodeContracts.VerifyNotNull(tryInvokeFunc, "tryInvokeFunc");
 
             this._tryInvokeFunc = tryInvokeFunc;
         }

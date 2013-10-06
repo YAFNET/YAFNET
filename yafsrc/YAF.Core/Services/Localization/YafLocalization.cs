@@ -276,7 +276,7 @@ namespace YAF.Core.Services.Localization
     /// </returns>
     public string GetText([NotNull] string text)
     {
-      CodeContracts.ArgumentNotNull(text, "text");
+      CodeContracts.VerifyNotNull(text, "text");
 
       return this.GetText(this.TransPage, text);
     }
@@ -446,8 +446,8 @@ namespace YAF.Core.Services.Localization
     /// </returns>
     public string GetTextFormatted([NotNull] string text, [NotNull] params object[] args)
     {
-      CodeContracts.ArgumentNotNull(text, "text");
-      CodeContracts.ArgumentNotNull(args, "args");
+      CodeContracts.VerifyNotNull(text, "text");
+      CodeContracts.VerifyNotNull(args, "args");
 
       string localizedText = this.GetText(this.TransPage, text);
 
@@ -494,7 +494,7 @@ namespace YAF.Core.Services.Localization
     /// </returns>
     public CultureInfo LoadTranslation([NotNull] string fileName)
     {
-      CodeContracts.ArgumentNotNull(fileName, "fileName");
+      CodeContracts.VerifyNotNull(fileName, "fileName");
 
       if (this._localizer != null)
       {

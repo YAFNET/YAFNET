@@ -49,7 +49,7 @@ namespace YAF.Core
     /// </returns>
     public static bool IsNotRegistered<TRegistered>([NotNull] this IHaveComponentRegistry haveComponentRegistry)
     {
-      CodeContracts.ArgumentNotNull(haveComponentRegistry, "haveComponentRegistry");
+      CodeContracts.VerifyNotNull(haveComponentRegistry, "haveComponentRegistry");
 
       return !haveComponentRegistry.ComponentRegistry.IsRegistered(new TypedService(typeof(TRegistered)));
     }
@@ -66,7 +66,7 @@ namespace YAF.Core
     /// </returns>
     public static bool IsNotRegistered([NotNull] this IHaveComponentRegistry haveComponentRegistry, Type registeredType)
     {
-      CodeContracts.ArgumentNotNull(haveComponentRegistry, "haveComponentRegistry");
+      CodeContracts.VerifyNotNull(haveComponentRegistry, "haveComponentRegistry");
 
       return !haveComponentRegistry.ComponentRegistry.IsRegistered(new TypedService(registeredType));
     }
@@ -83,7 +83,7 @@ namespace YAF.Core
     /// </returns>
     public static bool IsRegistered([NotNull] this IHaveComponentRegistry haveComponentRegistry, Type registeredType)
     {
-      CodeContracts.ArgumentNotNull(haveComponentRegistry, "haveComponentRegistry");
+      CodeContracts.VerifyNotNull(haveComponentRegistry, "haveComponentRegistry");
 
       return haveComponentRegistry.ComponentRegistry.IsRegistered(new TypedService(registeredType));
     }
@@ -101,7 +101,7 @@ namespace YAF.Core
     /// </returns>
     public static bool IsRegistered<TRegistered>([NotNull] this IHaveComponentRegistry haveComponentRegistry)
     {
-      CodeContracts.ArgumentNotNull(haveComponentRegistry, "haveComponentRegistry");
+      CodeContracts.VerifyNotNull(haveComponentRegistry, "haveComponentRegistry");
 
       return haveComponentRegistry.ComponentRegistry.IsRegistered(new TypedService(typeof(TRegistered)));
     }
@@ -119,7 +119,7 @@ namespace YAF.Core
     /// </returns>
     public static bool IsNotRegistered<TRegistered>([NotNull] this IHaveComponentRegistry haveComponentRegistry, string named)
     {
-      CodeContracts.ArgumentNotNull(haveComponentRegistry, "haveComponentRegistry");
+      CodeContracts.VerifyNotNull(haveComponentRegistry, "haveComponentRegistry");
 
       return !haveComponentRegistry.ComponentRegistry.IsRegistered(new KeyedService(named, typeof(TRegistered)));
     }
@@ -137,7 +137,7 @@ namespace YAF.Core
     /// </returns>
     public static bool IsRegistered<TRegistered>([NotNull] this IHaveComponentRegistry haveComponentRegistry, string named)
     {
-      CodeContracts.ArgumentNotNull(haveComponentRegistry, "haveComponentRegistry");
+      CodeContracts.VerifyNotNull(haveComponentRegistry, "haveComponentRegistry");
 
       return haveComponentRegistry.ComponentRegistry.IsRegistered(new KeyedService(named, typeof(TRegistered)));
     }
@@ -154,8 +154,8 @@ namespace YAF.Core
     public static void UpdateRegistry(
       [NotNull] this IHaveComponentRegistry haveComponentRegistry, [NotNull] ContainerBuilder containerBuilder)
     {
-      CodeContracts.ArgumentNotNull(haveComponentRegistry, "haveComponentRegistry");
-      CodeContracts.ArgumentNotNull(containerBuilder, "containerBuilder");
+      CodeContracts.VerifyNotNull(haveComponentRegistry, "haveComponentRegistry");
+      CodeContracts.VerifyNotNull(containerBuilder, "containerBuilder");
 
       containerBuilder.Update(haveComponentRegistry.ComponentRegistry);
     }

@@ -37,7 +37,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void Reset(this IRepository<ActiveAccess> repository)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.activeaccess_reset();
         }

@@ -76,7 +76,7 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static byte[] ToArray([NotNull] this Stream stream)
         {
-            CodeContracts.ArgumentNotNull(stream, "stream");
+            CodeContracts.VerifyNotNull(stream, "stream");
 
             var data = new byte[stream.Length];
             stream.Seek(0, SeekOrigin.Begin);

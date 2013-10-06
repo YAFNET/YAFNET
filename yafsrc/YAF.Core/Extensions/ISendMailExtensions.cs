@@ -60,8 +60,8 @@ namespace YAF.Core
             [CanBeNull] string subject, 
             [CanBeNull] string body)
         {
-            CodeContracts.ArgumentNotNull(fromEmail, "fromEmail");
-            CodeContracts.ArgumentNotNull(toEmail, "toEmail");
+            CodeContracts.VerifyNotNull(fromEmail, "fromEmail");
+            CodeContracts.VerifyNotNull(toEmail, "toEmail");
 
             sendMail.Send(new MailAddress(fromEmail), new MailAddress(toEmail), subject, body);
         }
@@ -163,9 +163,9 @@ namespace YAF.Core
             [CanBeNull] string bodyText, 
             [CanBeNull] string bodyHtml)
         {
-            CodeContracts.ArgumentNotNull(sendMail, "sendMail");
-            CodeContracts.ArgumentNotNull(fromAddress, "fromAddress");
-            CodeContracts.ArgumentNotNull(toAddress, "toAddress");
+            CodeContracts.VerifyNotNull(sendMail, "sendMail");
+            CodeContracts.VerifyNotNull(fromAddress, "fromAddress");
+            CodeContracts.VerifyNotNull(toAddress, "toAddress");
 
             var mailMessage = new MailMessage();
             mailMessage.Populate(fromAddress, toAddress, subject, bodyText, bodyHtml);

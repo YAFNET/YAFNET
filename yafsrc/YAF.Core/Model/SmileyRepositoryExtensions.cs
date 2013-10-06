@@ -50,7 +50,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void Delete(this IRepository<Smiley> repository, int? smileyID = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.smiley_delete(SmileyID: smileyID);
             repository.FireDeleted(smileyID);
@@ -73,7 +73,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable List(this IRepository<Smiley> repository, int? smileyID = null, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.smiley_list(BoardID: boardId ?? repository.BoardID, SmileyID: smileyID);
         }
@@ -96,7 +96,7 @@ namespace YAF.Core.Model
         public static IList<Smiley> ListTyped(
             this IRepository<Smiley> repository, int? smileyID = null, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             using (var session = repository.DbFunction.CreateSession())
             {
@@ -121,7 +121,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable ListUnique(this IRepository<Smiley> repository, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.smiley_listunique(BoardID: boardId ?? repository.BoardID);
         }
@@ -140,7 +140,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static IList<Smiley> ListUniqueTyped(this IRepository<Smiley> repository, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.ListTyped(boardId: boardId)
                 .GroupBy(s => new { s.Icon, s.Emoticon })
@@ -167,7 +167,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void Resort(this IRepository<Smiley> repository, int smileyID, int move, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.smiley_resort(BoardID: boardId ?? repository.BoardID, SmileyID: smileyID, Move: move);
             repository.FireUpdated(smileyID);
@@ -210,7 +210,7 @@ namespace YAF.Core.Model
             short replace, 
             int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.smiley_save(
                 SmileyID: smileyID, 
@@ -242,8 +242,8 @@ namespace YAF.Core.Model
         /// </param>
         public static void Save(this IRepository<Smiley> repository, Smiley smiley)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
-            CodeContracts.ArgumentNotNull(smiley, "smiley");
+            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(smiley, "smiley");
 
             if (smiley.BoardID == 0)
             {

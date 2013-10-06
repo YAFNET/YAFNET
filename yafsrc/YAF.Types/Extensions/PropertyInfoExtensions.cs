@@ -46,7 +46,7 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static T GetValueAs<T>([NotNull] this PropertyInfo propertyInfo, object obj, object[] index = null)
         {
-            CodeContracts.ArgumentNotNull(propertyInfo, "propertyInfo");
+            CodeContracts.VerifyNotNull(propertyInfo, "propertyInfo");
 
             return propertyInfo.GetValue(obj, index).ToType<T>();
         }

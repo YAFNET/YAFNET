@@ -49,7 +49,7 @@ namespace YAF.Types.Extensions
 		public static void AddOrUpdate<TKey, TValue>(
 			[NotNull] this IDictionary<TKey, TValue> dictionary, TKey key, TValue value)
 		{
-			CodeContracts.ArgumentNotNull(dictionary, "dictionary");
+			CodeContracts.VerifyNotNull(dictionary, "dictionary");
 
 			if (dictionary.ContainsKey(key))
 			{
@@ -76,8 +76,8 @@ namespace YAF.Types.Extensions
 		/// </typeparam>
 		public static void AddRange<TKey, TValue>([NotNull] this IDictionary<TKey, TValue> dictionaryFirst, [NotNull] IDictionary<TKey, TValue> dictionarySecondary)
 		{
-			CodeContracts.ArgumentNotNull(dictionaryFirst, "dictionaryFirst");
-			CodeContracts.ArgumentNotNull(dictionarySecondary, "dictionarySecondary");
+			CodeContracts.VerifyNotNull(dictionaryFirst, "dictionaryFirst");
+			CodeContracts.VerifyNotNull(dictionarySecondary, "dictionarySecondary");
 
 			dictionarySecondary.ToList().ForEach(i => dictionaryFirst.AddOrUpdate(i.Key, i.Value));
 		}

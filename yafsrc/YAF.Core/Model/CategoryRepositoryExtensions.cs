@@ -40,7 +40,7 @@ namespace YAF.Core.Model
         /// <returns>Returns if Category was deleted or not</returns>
         public static bool Delete(this IRepository<Category> repository, int categoryID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             int success = repository.DbFunction.Scalar.category_delete(CategoryID: categoryID);
 
@@ -65,7 +65,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable List(this IRepository<Category> repository, int? categoryID = null, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.category_list(BoardID: boardId ?? repository.BoardID, CategoryID: categoryID);
         }
@@ -82,7 +82,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable Listread(this IRepository<Category> repository, int userID, int? categoryID, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.category_listread(BoardID: boardId ?? repository.BoardID, UserID: userID, CategoryID: categoryID);
         }
@@ -99,7 +99,7 @@ namespace YAF.Core.Model
         public static void Save(
             this IRepository<Category> repository, int? categoryID, string name, string categoryImage, short sortOrder, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             int newId = (int)repository.DbFunction.Scalar.category_save(
                 BoardID: boardId ?? repository.BoardID, CategoryID: categoryID ?? 0, Name: name, SortOrder: sortOrder, CategoryImage: categoryImage);
@@ -131,7 +131,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable Simplelist(this IRepository<Category> repository, int startID, int limit)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.category_simplelist(StartID: startID, Limit: limit);
         }

@@ -34,7 +34,7 @@ namespace YAF.Core.Model
 
         public static void ClearMessages(this IRepository<ShoutboxMessage> repository, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.shoutbox_clearmessages(BoardId: boardId ?? repository.BoardID, UTCTIMESTAMP: DateTime.UtcNow);
             repository.FireDeleted();
@@ -43,7 +43,7 @@ namespace YAF.Core.Model
         public static DataTable GetMessages(
             this IRepository<ShoutboxMessage> repository, int numberOfMessages, bool styledNicks, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.shoutbox_getmessages(
                 BoardId: boardId ?? repository.BoardID,
@@ -54,7 +54,7 @@ namespace YAF.Core.Model
         public static IList<ShoutboxMessage> GetMessagesTyped(
             this IRepository<ShoutboxMessage> repository, int numberOfMessages, bool styledNicks, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             using (var session = repository.DbFunction.CreateSession())
             {
@@ -68,7 +68,7 @@ namespace YAF.Core.Model
         public static void SaveMessage(
             this IRepository<ShoutboxMessage> repository, string message, string userName, int userID, string ip, int? boardId = null, DateTime? date = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.shoutbox_savemessage(
                 UserName: userName,

@@ -49,7 +49,7 @@ namespace YAF.Core.Services
         /// </param>
         public YafSession([NotNull] HttpSessionStateBase sessionState)
         {
-            CodeContracts.ArgumentNotNull(sessionState, "sessionState");
+            CodeContracts.VerifyNotNull(sessionState, "sessionState");
 
             this.SessionState = sessionState;
         }

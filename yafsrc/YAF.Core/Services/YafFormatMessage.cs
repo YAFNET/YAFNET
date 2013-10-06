@@ -464,8 +464,8 @@ namespace YAF.Core.Services
         /// </returns>
         public MessageCleaned GetCleanedTopicMessage([NotNull] object topicMessage, [NotNull] object topicId)
         {
-            CodeContracts.ArgumentNotNull(topicMessage, "topicMessage");
-            CodeContracts.ArgumentNotNull(topicId, "topicId");
+            CodeContracts.VerifyNotNull(topicMessage, "topicMessage");
+            CodeContracts.VerifyNotNull(topicId, "topicId");
 
             // get the common words for the language -- should be all lower case.
             List<string> commonWords = this.Get<ILocalization>().GetText("COMMON", "COMMON_WORDS").StringToList(',');
@@ -868,10 +868,10 @@ namespace YAF.Core.Services
             [NotNull] string prefix,
             [NotNull] string postfix)
         {
-            CodeContracts.ArgumentNotNull(message, "message");
-            CodeContracts.ArgumentNotNull(wordList, "wordList");
-            CodeContracts.ArgumentNotNull(prefix, "prefix");
-            CodeContracts.ArgumentNotNull(postfix, "postfix");
+            CodeContracts.VerifyNotNull(message, "message");
+            CodeContracts.VerifyNotNull(wordList, "wordList");
+            CodeContracts.VerifyNotNull(prefix, "prefix");
+            CodeContracts.VerifyNotNull(postfix, "postfix");
 
             //// const RegexOptions regexOptions = RegexOptions.IgnoreCase;
 
@@ -917,9 +917,9 @@ namespace YAF.Core.Services
         private static void MatchAndPerformAction(
             [NotNull] string matchRegEx, [NotNull] string text, [NotNull] Action<string, int, int> matchAction)
         {
-            CodeContracts.ArgumentNotNull(matchRegEx, "matchRegEx");
-            CodeContracts.ArgumentNotNull(text, "text");
-            CodeContracts.ArgumentNotNull(matchAction, "MatchAction");
+            CodeContracts.VerifyNotNull(matchRegEx, "matchRegEx");
+            CodeContracts.VerifyNotNull(text, "text");
+            CodeContracts.VerifyNotNull(matchAction, "MatchAction");
 
             const RegexOptions Options = RegexOptions.IgnoreCase;
 
@@ -946,8 +946,8 @@ namespace YAF.Core.Services
         /// </returns>
         private static string RemoveHtmlByList([NotNull] string text, [NotNull] IEnumerable<string> matchList)
         {
-            CodeContracts.ArgumentNotNull(text, "text");
-            CodeContracts.ArgumentNotNull(matchList, "matchList");
+            CodeContracts.VerifyNotNull(text, "text");
+            CodeContracts.VerifyNotNull(matchList, "matchList");
 
             MatchAndPerformAction(
                 "<.*?>",

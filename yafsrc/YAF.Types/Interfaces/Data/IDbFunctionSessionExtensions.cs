@@ -39,7 +39,7 @@ namespace YAF.Types.Interfaces.Data
         /// </param>
         public static void Commit([NotNull] this IDbFunctionSession dbFunctionSession)
         {
-            CodeContracts.ArgumentNotNull(dbFunctionSession, "dbFunctionSession");
+            CodeContracts.VerifyNotNull(dbFunctionSession, "dbFunctionSession");
 
             if (dbFunctionSession.DbTransaction != null)
             {
@@ -55,7 +55,7 @@ namespace YAF.Types.Interfaces.Data
         /// </param>
         public static void Rollback([NotNull] this IDbFunctionSession dbFunctionSession)
         {
-            CodeContracts.ArgumentNotNull(dbFunctionSession, "dbFunctionSession");
+            CodeContracts.VerifyNotNull(dbFunctionSession, "dbFunctionSession");
 
             if (dbFunctionSession.DbTransaction != null)
             {
@@ -74,8 +74,8 @@ namespace YAF.Types.Interfaces.Data
         /// </param>
         public static void Populate([NotNull] this IDbCommand command, IDbTransaction dbTransaction)
         {
-            CodeContracts.ArgumentNotNull(dbTransaction, "dbTransaction");
-            CodeContracts.ArgumentNotNull(command, "command");
+            CodeContracts.VerifyNotNull(dbTransaction, "dbTransaction");
+            CodeContracts.VerifyNotNull(command, "command");
 
             command.Connection = dbTransaction.Connection;
             command.Transaction = dbTransaction;

@@ -60,7 +60,7 @@ namespace YAF.Core.Model
         public static DataTable List(
             this IRepository<Active> repository, bool guests, bool showCrawlers, int activeTime, bool styledNicks, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.active_list(
                 BoardID: boardId ?? repository.BoardID, 
@@ -88,7 +88,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable ListForum(this IRepository<Active> repository, int forumID, bool styledNicks)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.active_listforum(ForumID: forumID, StyledNicks: styledNicks);
         }
@@ -110,7 +110,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable ListTopic(this IRepository<Active> repository, int topicID, bool styledNicks)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.active_listtopic(TopicID: topicID, StyledNicks: styledNicks);
         }
@@ -142,7 +142,7 @@ namespace YAF.Core.Model
         public static IList<Active> ListTyped(
             this IRepository<Active> repository, bool guests, bool showCrawlers, int activeTime, bool styledNicks, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             using (var functionSession = repository.DbFunction.CreateSession())
             {
@@ -187,7 +187,7 @@ namespace YAF.Core.Model
         public static DataTable ListUser(
             this IRepository<Active> repository, int userID, bool guests, bool showCrawlers, int activeTime, bool styledNicks, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.active_list_user(
                 BoardID: boardId ?? repository.BoardID, 
@@ -212,7 +212,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataRow Stats(this IRepository<Active> repository, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return ((DataTable)repository.DbFunction.GetData.active_stats(BoardID: boardId ?? repository.BoardID)).Rows[0];
         }
@@ -231,7 +231,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable UpdateMaxStats(this IRepository<Active> repository, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.active_updatemaxstats(BoardID: boardId ?? repository.BoardID, UTCTIMESTAMP: DateTime.UtcNow);
         }

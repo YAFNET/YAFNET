@@ -53,9 +53,9 @@ namespace YAF.Core
             [NotNull] ILogger logger,
             [NotNull] HttpRequestBase httpRequestBase)
         {
-            CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
-            CodeContracts.ArgumentNotNull(logger, "logger");
-            CodeContracts.ArgumentNotNull(httpRequestBase, "httpRequestBase");
+            CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
+            CodeContracts.VerifyNotNull(logger, "logger");
+            CodeContracts.VerifyNotNull(httpRequestBase, "httpRequestBase");
 
             this.ServiceLocator = serviceLocator;
             this.Logger = logger;

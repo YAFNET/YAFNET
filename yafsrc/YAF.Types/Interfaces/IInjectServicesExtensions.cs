@@ -42,8 +42,8 @@ namespace YAF.Types.Interfaces
     /// </param>
     public static void Inject([NotNull] this IInjectServices injectServices, [NotNull] object instance)
     {
-      CodeContracts.ArgumentNotNull(injectServices, "injectServices");
-      CodeContracts.ArgumentNotNull(instance, "instance");
+      CodeContracts.VerifyNotNull(injectServices, "injectServices");
+      CodeContracts.VerifyNotNull(instance, "instance");
 
       injectServices.InjectMarked<Inject>(instance);
     }

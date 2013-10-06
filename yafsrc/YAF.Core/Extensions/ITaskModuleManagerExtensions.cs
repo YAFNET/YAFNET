@@ -50,8 +50,8 @@ namespace YAF.Core
     /// </returns>
     public static bool Start<T>([NotNull] this ITaskModuleManager taskModuleManager, [NotNull] Func<T> createTask) where T : IBackgroundTask
     {
-      CodeContracts.ArgumentNotNull(taskModuleManager, "taskModuleManager");
-      CodeContracts.ArgumentNotNull(createTask, "createTask");
+      CodeContracts.VerifyNotNull(taskModuleManager, "taskModuleManager");
+      CodeContracts.VerifyNotNull(createTask, "createTask");
 
       string taskName = typeof(T).ToString();
 
@@ -74,7 +74,7 @@ namespace YAF.Core
     /// </returns>
     public static bool Start<T>([NotNull] this ITaskModuleManager taskModuleManager, [CanBeNull] object data) where T : IBackgroundTask, new()
     {
-      CodeContracts.ArgumentNotNull(taskModuleManager, "taskModuleManager");
+      CodeContracts.VerifyNotNull(taskModuleManager, "taskModuleManager");
 
       return Start(taskModuleManager, () => new T { Data = data });
     }

@@ -179,8 +179,8 @@ namespace YAF.Utils.Helpers
         public static IEnumerable<T> SelectTypedList<T>(
             [NotNull] this DataTable dataTable, [NotNull] Func<DataRow, T> createNew)
         {
-            CodeContracts.ArgumentNotNull(dataTable, "dataTable");
-            CodeContracts.ArgumentNotNull(createNew, "createNew");
+            CodeContracts.VerifyNotNull(dataTable, "dataTable");
+            CodeContracts.VerifyNotNull(createNew, "createNew");
 
             return dataTable.AsEnumerable().Select(createNew);
         }
@@ -196,7 +196,7 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static string ToDebugString([NotNull] this IDbCommand command)
         {
-            CodeContracts.ArgumentNotNull(command, "command");
+            CodeContracts.VerifyNotNull(command, "command");
 
             string debugString = command.CommandText;
 

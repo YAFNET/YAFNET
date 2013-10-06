@@ -57,7 +57,7 @@ namespace YAF.Core.Extensions
             [NotNull] string description, 
             EventLogTypes eventType = EventLogTypes.Error)
         {
-            CodeContracts.ArgumentNotNull(logger, "logger");
+            CodeContracts.VerifyNotNull(logger, "logger");
 
             var username = YafContext.Current.Get<IUserDisplayName>().GetName(userId);
 
@@ -100,7 +100,7 @@ namespace YAF.Core.Extensions
             [NotNull] Exception exception, 
             EventLogTypes eventType = EventLogTypes.Error)
         {
-            CodeContracts.ArgumentNotNull(logger, "logger");
+            CodeContracts.VerifyNotNull(logger, "logger");
 
             string username = null;
 

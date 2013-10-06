@@ -58,7 +58,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static int Create(this IRepository<EventLog> repository, int? userID, object source, string description, EventLogTypes logType = EventLogTypes.Information)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             var returnValue =
                 (int)
@@ -87,7 +87,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void Delete(this IRepository<EventLog> repository, int? eventLogID, int userId, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.eventlog_delete(EventLogID: eventLogID, BoardID: boardId ?? repository.BoardID, PageUserID: userId);
 
@@ -111,7 +111,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable DeleteByUser(this IRepository<EventLog> repository, int userId, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.eventlog_deletebyuser(BoardID: boardId ?? repository.BoardID, PageUserID: userId);
         }
@@ -164,7 +164,7 @@ namespace YAF.Core.Model
             string eventIDs, 
             int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.eventlog_list(
                 BoardID: boardId ?? repository.BoardID, 

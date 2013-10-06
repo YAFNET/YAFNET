@@ -158,7 +158,7 @@ namespace YAF.Utils.Structures
     {
       get
       {
-        CodeContracts.ArgumentNotNull(key, "key");
+        CodeContracts.VerifyNotNull(key, "key");
 
         var item = (DoubleLinkedList.LinkItem)this.Dictionary[key];
 
@@ -174,8 +174,8 @@ namespace YAF.Utils.Structures
 
       set
       {
-        CodeContracts.ArgumentNotNull(key, "key");
-        CodeContracts.ArgumentNotNull(value, "value");
+        CodeContracts.VerifyNotNull(key, "key");
+        CodeContracts.VerifyNotNull(value, "value");
 
         DoubleLinkedList.LinkItem link = null;
 
@@ -213,8 +213,8 @@ namespace YAF.Utils.Structures
     /// </param>
     public void Add([NotNull] object key, [NotNull] object value)
     {
-      CodeContracts.ArgumentNotNull(key, "key");
-      CodeContracts.ArgumentNotNull(value, "value");
+      CodeContracts.VerifyNotNull(key, "key");
+      CodeContracts.VerifyNotNull(value, "value");
 
       DoubleLinkedList.LinkItem link = this.m_list.Prepend(value);
 
@@ -235,7 +235,7 @@ namespace YAF.Utils.Structures
     /// </returns>
     public bool Contains([NotNull] object key)
     {
-      CodeContracts.ArgumentNotNull(key, "key");
+      CodeContracts.VerifyNotNull(key, "key");
 
       bool hasKey = this.Dictionary.Contains(key);
 
@@ -256,7 +256,7 @@ namespace YAF.Utils.Structures
     /// </param>
     public void Remove([NotNull] object key)
     {
-      CodeContracts.ArgumentNotNull(key, "key");
+      CodeContracts.VerifyNotNull(key, "key");
 
       var link = (DoubleLinkedList.LinkItem)this.Dictionary[key];
 
@@ -313,8 +313,8 @@ namespace YAF.Utils.Structures
     /// </param>
     protected override void OnInsert([NotNull] object key, [NotNull] object value)
     {
-      CodeContracts.ArgumentNotNull(key, "key");
-      CodeContracts.ArgumentNotNull(value, "value");
+      CodeContracts.VerifyNotNull(key, "key");
+      CodeContracts.VerifyNotNull(value, "value");
 
       if (this.Dictionary.Keys.Count >= this.m_max)
       {

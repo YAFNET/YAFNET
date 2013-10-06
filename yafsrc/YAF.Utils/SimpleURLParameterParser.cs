@@ -163,7 +163,7 @@ namespace YAF.Utils
     [NotNull]
     public string CreateQueryString([NotNull] string[] excludeValues)
     {
-      CodeContracts.ArgumentNotNull(excludeValues, "excludeValues");
+      CodeContracts.VerifyNotNull(excludeValues, "excludeValues");
 
       var queryBuilder = new StringBuilder();
 

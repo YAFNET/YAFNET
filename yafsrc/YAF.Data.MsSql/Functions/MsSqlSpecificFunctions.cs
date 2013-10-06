@@ -13,7 +13,7 @@
         /// <returns>intager value for database size</returns>
         public static int DBSize(this IDbAccess dbAccess)
         {
-            CodeContracts.ArgumentNotNull(dbAccess, "dbAccess");
+            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
 
             using (var cmd = dbAccess.GetCommand("select sum(cast(size as integer))/128 from sysfiles", CommandType.Text))
             {

@@ -46,7 +46,7 @@ namespace YAF.Core.Model
         /// </param>
         public static bool Delete(this IRepository<AccessMask> repository, int accessMaskID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             var returnValue = (int)repository.DbFunction.Scalar.accessmask_delete(AccessMaskID: accessMaskID);
 
@@ -79,7 +79,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable List(this IRepository<AccessMask> repository, int? accessMaskID = null, int excludeFlags = 0, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.accessmask_list(
                 BoardID: boardId ?? repository.BoardID, AccessMaskID: accessMaskID, ExcludeFlags: excludeFlags);
@@ -154,7 +154,7 @@ namespace YAF.Core.Model
             short sortOrder,
             int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.accessmask_save(
                 AccessMaskID: accessMaskID,

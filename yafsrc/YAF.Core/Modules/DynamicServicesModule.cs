@@ -58,7 +58,7 @@ namespace YAF.Core.Modules
 
         private void RegisterDynamicServices([NotNull] Assembly[] assemblies)
         {
-            CodeContracts.ArgumentNotNull(assemblies, "assemblies");
+            CodeContracts.VerifyNotNull(assemblies, "assemblies");
 
             var builder = new ContainerBuilder();
 

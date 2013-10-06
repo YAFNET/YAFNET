@@ -58,7 +58,7 @@ namespace YAF.Core.Model
         public static DataTable List(
             this IRepository<BannedIP> repository, int? id = null, int? pageIndex = 0, int? pageSize = 1000000, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.bannedip_list(
                 BoardID: boardId ?? repository.BoardID, ID: id, PageIndex: pageIndex, PageSize: pageSize);
@@ -88,7 +88,7 @@ namespace YAF.Core.Model
         public static IList<BannedIP> ListTyped(
             this IRepository<BannedIP> repository, int? id = null, int pageIndex = 0, int pageSize = 1000000, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             using (var session = repository.DbFunction.CreateSession())
             {
@@ -121,7 +121,7 @@ namespace YAF.Core.Model
         /// </param>
         public static void Save(this IRepository<BannedIP> repository, int? id, string mask, string reason, int userID, int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.bannedip_save(
                 ID: id, BoardID: boardId ?? repository.BoardID, Mask: mask, Reason: reason, UserID: userID, UTCTIMESTAMP: DateTime.UtcNow);

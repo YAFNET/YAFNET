@@ -55,8 +55,8 @@ namespace YAF.Utils
         /// </returns>
         public static bool CompareMessage([NotNull] object originalMessage, [NotNull] object newMessage)
         {
-            CodeContracts.ArgumentNotNull(originalMessage, "originalMessage");
-            CodeContracts.ArgumentNotNull(newMessage, "newMessage");
+            CodeContracts.VerifyNotNull(originalMessage, "originalMessage");
+            CodeContracts.VerifyNotNull(newMessage, "newMessage");
 
             return originalMessage.ToString() != newMessage.ToString();
         }
@@ -72,7 +72,7 @@ namespace YAF.Utils
         /// </returns>
         public static string EncodeMessage([NotNull] string message)
         {
-            CodeContracts.ArgumentNotNull(message, "message");
+            CodeContracts.VerifyNotNull(message, "message");
 
             return message.IndexOf('<') >= 0 ? HttpUtility.HtmlEncode(message) : message;
         }
@@ -138,7 +138,7 @@ namespace YAF.Utils
         [NotNull]
         public static string GetSafeRawUrl([NotNull] string url)
         {
-            CodeContracts.ArgumentNotNull(url, "url");
+            CodeContracts.VerifyNotNull(url, "url");
 
             string tProcessedRaw = url;
             tProcessedRaw = tProcessedRaw.Replace("\"", string.Empty);

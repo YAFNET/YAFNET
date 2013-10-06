@@ -102,7 +102,7 @@ namespace YAF.Classes
     /// </param>
     public void Start([NotNull] ITaskModuleManager manager)
     {
-      CodeContracts.ArgumentNotNull(manager, "manager");
+      CodeContracts.VerifyNotNull(manager, "manager");
 
       this.Culture = "US";
 

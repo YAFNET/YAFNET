@@ -46,7 +46,7 @@ namespace YAF.Types.Extensions
     /// </returns>
     public static StrongNamePublicKeyBlob GetSigningKey([NotNull] this Type sourceType)
     {
-      CodeContracts.ArgumentNotNull(sourceType, "sourceType");
+      CodeContracts.VerifyNotNull(sourceType, "sourceType");
 
       return sourceType.Assembly.Evidence.OfType<StrongName>().Select(t => t.PublicKey).FirstOrDefault();
     }

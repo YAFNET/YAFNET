@@ -331,7 +331,7 @@ namespace YAF.Core.BBCode
         /// </param>
         public void AddSmiles([NotNull] IProcessReplaceRules rules)
         {
-            CodeContracts.ArgumentNotNull(rules, "rules");
+            CodeContracts.VerifyNotNull(rules, "rules");
 
             var smiles = this.Get<YafDbBroker>().GetSmilies();
             int codeOffset = 0;

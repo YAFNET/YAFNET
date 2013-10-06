@@ -47,7 +47,7 @@ namespace YAF.Core.Modules
         /// </param>
         protected override void Load([NotNull] ContainerBuilder builder)
         {
-            CodeContracts.ArgumentNotNull(builder, "builder");
+            CodeContracts.VerifyNotNull(builder, "builder");
 
             this.ComponentRegistry.Registered += (sender, e) => e.ComponentRegistration.Preparing += OnComponentPreparing;
 

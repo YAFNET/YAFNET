@@ -72,7 +72,7 @@ namespace YAF.Core.Services.Cache
     [NotNull]
     public object Get([NotNull] string originalKey)
     {
-      CodeContracts.ArgumentNotNull(originalKey, "key");
+      CodeContracts.VerifyNotNull(originalKey, "key");
 
       int keyHash = originalKey.GetHashCode();
 

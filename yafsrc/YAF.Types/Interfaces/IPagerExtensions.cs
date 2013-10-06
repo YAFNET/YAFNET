@@ -47,8 +47,8 @@ namespace YAF.Types.Interfaces
         /// </returns>
         public static IList<T> GetPaged<T>([NotNull] this IList<T> list, [NotNull] IPager pager)
         {
-            CodeContracts.ArgumentNotNull(list, "list");
-            CodeContracts.ArgumentNotNull(pager, "pager");
+            CodeContracts.VerifyNotNull(list, "list");
+            CodeContracts.VerifyNotNull(pager, "pager");
 
             pager.Count = list.Count;
 
@@ -66,7 +66,7 @@ namespace YAF.Types.Interfaces
         /// </returns>
         public static int PageCount(this IPager pager)
         {
-            CodeContracts.ArgumentNotNull(pager, "pager");
+            CodeContracts.VerifyNotNull(pager, "pager");
 
             return (int)Math.Ceiling((double)pager.Count / pager.PageSize);
         }
@@ -82,7 +82,7 @@ namespace YAF.Types.Interfaces
         /// </returns>
         public static int SkipIndex([NotNull] this IPager pager)
         {
-            CodeContracts.ArgumentNotNull(pager, "pager");
+            CodeContracts.VerifyNotNull(pager, "pager");
 
             return (int)Math.Ceiling((double)pager.CurrentPageIndex * pager.PageSize);
         }

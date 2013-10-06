@@ -60,8 +60,8 @@ namespace YAF.Types.Interfaces.Data
         public static IEnumerable<T> WhereOperationSupported<T>([NotNull] this IEnumerable<T> checkSupported, [NotNull] string operationName)
             where T : IDbSortableOperation
         {
-            CodeContracts.ArgumentNotNull(checkSupported, "checkSupported");
-            CodeContracts.ArgumentNotNull(operationName, "operationName");
+            CodeContracts.VerifyNotNull(checkSupported, "checkSupported");
+            CodeContracts.VerifyNotNull(operationName, "operationName");
 
             return checkSupported.Where(x => x.IsSupportedOperation(operationName));
         }

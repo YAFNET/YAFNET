@@ -53,7 +53,7 @@ namespace YAF.Core
         /// </returns>
         public static bool ContainsUnicodeCharacter([NotNull] string input)
         {
-            CodeContracts.ArgumentNotNull(input, "input");
+            CodeContracts.VerifyNotNull(input, "input");
 
             const int MaxAnsiCode = 255;
 
@@ -90,9 +90,9 @@ namespace YAF.Core
             [CanBeNull] string bodyText, 
             [CanBeNull] string bodyHtml)
         {
-            CodeContracts.ArgumentNotNull(mailMessage, "mailMessage");
-            CodeContracts.ArgumentNotNull(fromAddress, "fromAddress");
-            CodeContracts.ArgumentNotNull(toAddress, "toAddress");
+            CodeContracts.VerifyNotNull(mailMessage, "mailMessage");
+            CodeContracts.VerifyNotNull(fromAddress, "fromAddress");
+            CodeContracts.VerifyNotNull(toAddress, "toAddress");
 
             mailMessage.To.Add(toAddress);
             mailMessage.From = fromAddress;
@@ -120,7 +120,7 @@ namespace YAF.Core
         /// </param>
         public static void Send([NotNull] this MailMessage message)
         {
-            CodeContracts.ArgumentNotNull(message, "message");
+            CodeContracts.VerifyNotNull(message, "message");
 
             var smtpSend = new SmtpClient { EnableSsl = Config.UseSMTPSSL };
 

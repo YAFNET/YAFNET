@@ -80,7 +80,7 @@ namespace YAF.Utils.Helpers
     /// </param>
     public QueryStringIDHelper([NotNull] string idName, bool errorOnInvalid)
     {
-      CodeContracts.ArgumentNotNull(idName, "idName");
+      CodeContracts.VerifyNotNull(idName, "idName");
 
       this.InitIDs(new[] { idName }, new[] { errorOnInvalid });
     }
@@ -96,7 +96,7 @@ namespace YAF.Utils.Helpers
     /// </param>
     public QueryStringIDHelper([NotNull] string[] idNames, bool errorOnInvalid)
     {
-      CodeContracts.ArgumentNotNull(idNames, "idNames");
+      CodeContracts.VerifyNotNull(idNames, "idNames");
 
       var failInvalid = new bool[idNames.Length];
 
@@ -200,8 +200,8 @@ namespace YAF.Utils.Helpers
     /// </exception>
     private void InitIDs([NotNull] string[] idNames, [NotNull] bool[] errorOnInvalid)
     {
-      CodeContracts.ArgumentNotNull(idNames, "idNames");
-      CodeContracts.ArgumentNotNull(errorOnInvalid, "errorOnInvalid");
+      CodeContracts.VerifyNotNull(idNames, "idNames");
+      CodeContracts.VerifyNotNull(errorOnInvalid, "errorOnInvalid");
 
       if (idNames.Length != errorOnInvalid.Length)
       {

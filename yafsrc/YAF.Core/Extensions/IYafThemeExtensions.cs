@@ -51,8 +51,8 @@ namespace YAF.Core
     public static string GetCollapsiblePanelImageURL(
       [NotNull] this ITheme theme, [NotNull] string panelID, CollapsiblePanelState defaultState)
     {
-      CodeContracts.ArgumentNotNull(theme, "theme");
-      CodeContracts.ArgumentNotNull(panelID, "panelID");
+      CodeContracts.VerifyNotNull(theme, "theme");
+      CodeContracts.VerifyNotNull(panelID, "panelID");
 
       CollapsiblePanelState stateValue = YafContext.Current.Get<IYafSession>().PanelState[panelID];
       if (stateValue == CollapsiblePanelState.None)

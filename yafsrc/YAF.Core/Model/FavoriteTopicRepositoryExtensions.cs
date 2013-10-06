@@ -50,7 +50,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static int Count(this IRepository<FavoriteTopic> repository, int topicId)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return
                 repository.DbAccess.Execute(
@@ -75,7 +75,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static bool DeleteByUserAndTopic(this IRepository<FavoriteTopic> repository, int userID, int topicID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             var count = repository.DbAccess.Execute(db => db.Delete<FavoriteTopic>(x => x.UserID == userID && x.TopicID == topicID));
             if (count > 0)
@@ -133,7 +133,7 @@ namespace YAF.Core.Model
             bool findLastRead, 
             int? boardId = null)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.topic_favorite_details(
                 BoardID: boardId ?? repository.BoardID, 
@@ -161,7 +161,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static IList<FavoriteTopic> ListTyped(this IRepository<FavoriteTopic> repository, int userID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbAccess.Execute(cmd => cmd.Select<FavoriteTopic>(e => e.UserID == userID));
         }

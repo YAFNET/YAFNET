@@ -65,7 +65,7 @@ namespace YAF.Core
         /// </returns>
         public IDictionary<string, string> GetData([CanBeNull] string ip, [CanBeNull] string format, bool callback, string culture, string browser, string os)
         {
-            CodeContracts.ArgumentNotNull(ip, "ip");
+            CodeContracts.VerifyNotNull(ip, "ip");
 
             IDictionary<string, string> res = new ConcurrentDictionary<string, string>();
 

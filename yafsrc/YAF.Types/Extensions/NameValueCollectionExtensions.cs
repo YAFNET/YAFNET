@@ -37,8 +37,8 @@ namespace YAF.Types.Extensions
         public static string GetFirstOrDefault(
             [NotNull] this NameValueCollection collection, [NotNull] string paramName, IEqualityComparer<string> comparer = null)
         {
-            CodeContracts.ArgumentNotNull(collection, "collection");
-            CodeContracts.ArgumentNotNull(paramName, "paramName");
+            CodeContracts.VerifyNotNull(collection, "collection");
+            CodeContracts.VerifyNotNull(paramName, "paramName");
 
             return collection.ToLookup(comparer)[paramName].FirstOrDefault();
         }
@@ -51,8 +51,8 @@ namespace YAF.Types.Extensions
         public static T GetFirstOrDefaultAs<T>(
             [NotNull] this NameValueCollection collection, [NotNull] string paramName, IEqualityComparer<string> comparer = null)
         {
-            CodeContracts.ArgumentNotNull(collection, "collection");
-            CodeContracts.ArgumentNotNull(paramName, "paramName");
+            CodeContracts.VerifyNotNull(collection, "collection");
+            CodeContracts.VerifyNotNull(paramName, "paramName");
 
             return collection.GetFirstOrDefault(paramName, comparer).ToType<T>();
         }
@@ -64,8 +64,8 @@ namespace YAF.Types.Extensions
         /// <returns>Does not return null.</returns>
         public static IEnumerable<string> GetValueList([NotNull] this NameValueCollection collection, [NotNull] string paramName)
         {
-            CodeContracts.ArgumentNotNull(collection, "collection");
-            CodeContracts.ArgumentNotNull(paramName, "paramName");
+            CodeContracts.VerifyNotNull(collection, "collection");
+            CodeContracts.VerifyNotNull(paramName, "paramName");
 
             return collection[paramName] == null ? Enumerable.Empty<string>() : collection[paramName].Split(',').AsEnumerable();
         }
@@ -80,7 +80,7 @@ namespace YAF.Types.Extensions
         [NotNull]
         public static ILookup<string, string> ToLookup([NotNull] this NameValueCollection collection, IEqualityComparer<string> comparer = null)
         {
-            CodeContracts.ArgumentNotNull(collection, "collection");
+            CodeContracts.VerifyNotNull(collection, "collection");
 
             return collection.Cast<string>().ToLookup(key => key, key => collection[key], comparer ?? StringComparer.OrdinalIgnoreCase);
         }

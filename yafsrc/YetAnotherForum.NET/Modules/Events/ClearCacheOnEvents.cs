@@ -55,8 +55,8 @@ namespace YAF.Modules
     /// </param>
     public ClearCacheOnEvents([NotNull] IServiceLocator serviceLocator, [NotNull] IDataCache dataCache)
     {
-      CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
-      CodeContracts.ArgumentNotNull(dataCache, "dataCache");
+      CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
+      CodeContracts.VerifyNotNull(dataCache, "dataCache");
 
       this.ServiceLocator = serviceLocator;
       this.DataCache = dataCache;

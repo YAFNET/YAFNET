@@ -223,7 +223,7 @@ namespace YAF.Core
         /// </returns>
         private YafLegacyBoardSettings SetupLegacyBoardSettings([NotNull] DataRow board)
         {
-            CodeContracts.ArgumentNotNull(board, "board");
+            CodeContracts.VerifyNotNull(board, "board");
 
             var membershipAppName = board["MembershipAppName"].ToString().IsNotSet()
                                         ? YafContext.Current.Get<MembershipProvider>().ApplicationName

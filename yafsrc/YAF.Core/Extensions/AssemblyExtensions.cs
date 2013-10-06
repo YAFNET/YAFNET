@@ -40,7 +40,7 @@ namespace YAF.Core
     [NotNull]
     public static IEnumerable<Type> FindModules<T>([NotNull] this IEnumerable<Assembly> assemblies)
     {
-      CodeContracts.ArgumentNotNull(assemblies, "assemblies");
+      CodeContracts.VerifyNotNull(assemblies, "assemblies");
 
       var moduleClassTypes = new List<Type>();
       var implementedInterfaceType = typeof(T);
@@ -62,7 +62,7 @@ namespace YAF.Core
     public static IEnumerable<Type> FindClassesWithAttribute<T>([NotNull] this IEnumerable<Assembly> assemblies)
       where T : Attribute
     {
-      CodeContracts.ArgumentNotNull(assemblies, "assemblies");
+      CodeContracts.VerifyNotNull(assemblies, "assemblies");
 
       var moduleClassTypes = new List<Type>();
       var attributeType = typeof(T);
@@ -91,7 +91,7 @@ namespace YAF.Core
     /// </returns>
     public static int GetAssemblySortOrder([NotNull] this Assembly assembly)
     {
-      CodeContracts.ArgumentNotNull(assembly, "assembly");
+      CodeContracts.VerifyNotNull(assembly, "assembly");
 
       var attribute = assembly.GetCustomAttributes(typeof(AssemblyModuleSortOrder), true).OfType<AssemblyModuleSortOrder>();
 
@@ -118,9 +118,9 @@ namespace YAF.Core
       [NotNull] string namespaceName,
       [NotNull] string implementedInterfaceName)
     {
-      CodeContracts.ArgumentNotNull(assemblies, "assemblies");
-      CodeContracts.ArgumentNotNull(namespaceName, "namespaceName");
-      CodeContracts.ArgumentNotNull(implementedInterfaceName, "implementedInterfaceName");
+      CodeContracts.VerifyNotNull(assemblies, "assemblies");
+      CodeContracts.VerifyNotNull(namespaceName, "namespaceName");
+      CodeContracts.VerifyNotNull(implementedInterfaceName, "implementedInterfaceName");
 
       var moduleClassTypes = new List<Type>();
       var implementedInterfaceType = Type.GetType(implementedInterfaceName);

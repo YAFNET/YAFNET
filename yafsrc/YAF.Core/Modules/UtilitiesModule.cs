@@ -60,7 +60,7 @@ namespace YAF.Utils
         /// </param>
         private void RegisterWebAbstractions([NotNull] ContainerBuilder builder)
         {
-            CodeContracts.ArgumentNotNull(builder, "builder");
+            CodeContracts.VerifyNotNull(builder, "builder");
 
             builder.Register(c => new HttpContextWrapper(HttpContext.Current)).As<HttpContextBase>().InstancePerYafContext();
             builder.Register(c => c.Resolve<HttpContextBase>().Request).As<HttpRequestBase>().InstancePerYafContext();

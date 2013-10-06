@@ -49,9 +49,9 @@ namespace YAF.Core
         public static void SendVerificationEmail(
             [NotNull] this IHaveServiceLocator haveServiceLocator, [NotNull] MembershipUser user, [NotNull] string email, int? userID, string newUsername = null)
         {
-            CodeContracts.ArgumentNotNull(email, "email");
-            CodeContracts.ArgumentNotNull(user, "user");
-            CodeContracts.ArgumentNotNull(haveServiceLocator, "haveServiceLocator");
+            CodeContracts.VerifyNotNull(email, "email");
+            CodeContracts.VerifyNotNull(user, "user");
+            CodeContracts.VerifyNotNull(haveServiceLocator, "haveServiceLocator");
 
             string hashinput = DateTime.UtcNow + email + Security.CreatePassword(20);
             string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");

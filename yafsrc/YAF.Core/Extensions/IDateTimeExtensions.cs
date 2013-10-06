@@ -54,8 +54,8 @@ namespace YAF.Core
     /// </returns>
     public static string Format([NotNull] this IDateTime dateTimeInstance, DateTimeFormat format, [NotNull] object objectDateTime)
     {
-      CodeContracts.ArgumentNotNull(dateTimeInstance, "dateTimeInstance");
-      CodeContracts.ArgumentNotNull(objectDateTime, "objectDateTime");
+      CodeContracts.VerifyNotNull(dateTimeInstance, "dateTimeInstance");
+      CodeContracts.VerifyNotNull(objectDateTime, "objectDateTime");
 
       try
       {
@@ -104,8 +104,8 @@ namespace YAF.Core
     /// </returns>
     public static string FormatDateLong([NotNull] this IDateTime dateTimeInstance, [NotNull] object objectDateTime)
     {
-      CodeContracts.ArgumentNotNull(dateTimeInstance, "dateTimeInstance");
-      CodeContracts.ArgumentNotNull(objectDateTime, "objectDateTime");
+      CodeContracts.VerifyNotNull(dateTimeInstance, "dateTimeInstance");
+      CodeContracts.VerifyNotNull(objectDateTime, "objectDateTime");
 
       try
       {
@@ -133,8 +133,8 @@ namespace YAF.Core
     /// </returns>
     public static string FormatDateShort([NotNull] this IDateTime dateTimeInstance, [NotNull] object objectDateTime)
     {
-      CodeContracts.ArgumentNotNull(dateTimeInstance, "dateTimeInstance");
-      CodeContracts.ArgumentNotNull(objectDateTime, "objectDateTime");
+      CodeContracts.VerifyNotNull(dateTimeInstance, "dateTimeInstance");
+      CodeContracts.VerifyNotNull(objectDateTime, "objectDateTime");
 
       try
       {
@@ -162,8 +162,8 @@ namespace YAF.Core
     /// </returns>
     public static string FormatDateTime([NotNull] this IDateTime dateTimeInstance, [NotNull] object objectDateTime)
     {
-      CodeContracts.ArgumentNotNull(dateTimeInstance, "dateTimeInstance");
-      CodeContracts.ArgumentNotNull(objectDateTime, "objectDateTime");
+      CodeContracts.VerifyNotNull(dateTimeInstance, "dateTimeInstance");
+      CodeContracts.VerifyNotNull(objectDateTime, "objectDateTime");
 
       try
       {
@@ -191,8 +191,8 @@ namespace YAF.Core
     /// </returns>
     public static string FormatDateTimeShort([NotNull] this IDateTime dateTimeInstance, [NotNull] object objectDateTime)
     {
-      CodeContracts.ArgumentNotNull(dateTimeInstance, "dateTimeInstance");
-      CodeContracts.ArgumentNotNull(objectDateTime, "objectDateTime");
+      CodeContracts.VerifyNotNull(dateTimeInstance, "dateTimeInstance");
+      CodeContracts.VerifyNotNull(objectDateTime, "objectDateTime");
 
       try
       {
@@ -220,8 +220,8 @@ namespace YAF.Core
     /// </returns>
     public static string FormatDateTimeTopic([NotNull] this IDateTime dateTimeInstance, [NotNull] object objectDateTime)
     {
-      CodeContracts.ArgumentNotNull(dateTimeInstance, "dateTimeInstance");
-      CodeContracts.ArgumentNotNull(objectDateTime, "objectDateTime");
+      CodeContracts.VerifyNotNull(dateTimeInstance, "dateTimeInstance");
+      CodeContracts.VerifyNotNull(objectDateTime, "objectDateTime");
 
       try
       {
@@ -249,8 +249,8 @@ namespace YAF.Core
     /// </returns>
     public static string FormatTime([NotNull] this IDateTime dateTimeInstance, [NotNull] object objectDateTime)
     {
-      CodeContracts.ArgumentNotNull(dateTimeInstance, "dateTimeInstance");
-      CodeContracts.ArgumentNotNull(objectDateTime, "objectDateTime");
+      CodeContracts.VerifyNotNull(dateTimeInstance, "dateTimeInstance");
+      CodeContracts.VerifyNotNull(objectDateTime, "objectDateTime");
 
       try
       {

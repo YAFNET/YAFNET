@@ -72,7 +72,7 @@ namespace YAF.Core
         /// </param>
         public YafTheme([NotNull] string newThemeFile)
         {
-            CodeContracts.ArgumentNotNull(newThemeFile, "newThemeFile");
+            CodeContracts.VerifyNotNull(newThemeFile, "newThemeFile");
 
             this.ThemeFile = newThemeFile;
         }
@@ -139,7 +139,7 @@ namespace YAF.Core
         /// </returns>
         public static bool IsValidTheme([NotNull] string themeFile)
         {
-            CodeContracts.ArgumentNotNull(themeFile, "themeFile");
+            CodeContracts.VerifyNotNull(themeFile, "themeFile");
 
             if (themeFile.IsNotSet())
             {
@@ -162,7 +162,7 @@ namespace YAF.Core
         /// </returns>
         public string BuildThemePath([NotNull] string filename)
         {
-            CodeContracts.ArgumentNotNull(filename, "filename");
+            CodeContracts.VerifyNotNull(filename, "filename");
 
             return this.ThemeDir + filename;
         }
@@ -177,8 +177,8 @@ namespace YAF.Core
         /// </returns>
         public string GetItem([NotNull] string page, [NotNull] string tag)
         {
-            CodeContracts.ArgumentNotNull(page, "page");
-            CodeContracts.ArgumentNotNull(tag, "tag");
+            CodeContracts.VerifyNotNull(page, "page");
+            CodeContracts.VerifyNotNull(tag, "tag");
 
             return this.GetItem(page, tag, "[{0}.{1}]".FormatWith(page.ToUpper(), tag.ToUpper()));
         }
@@ -194,8 +194,8 @@ namespace YAF.Core
         /// </returns>
         public string GetItem([NotNull] string page, [NotNull] string tag, [CanBeNull] string defaultValue)
         {
-            CodeContracts.ArgumentNotNull(page, "page");
-            CodeContracts.ArgumentNotNull(tag, "tag");
+            CodeContracts.VerifyNotNull(page, "page");
+            CodeContracts.VerifyNotNull(tag, "tag");
 
             string item = string.Empty;
 
@@ -254,7 +254,7 @@ namespace YAF.Core
         /// </returns>
         private static string GetMappedThemeFile([NotNull] string themeFile)
         {
-            CodeContracts.ArgumentNotNull(themeFile, "themeFile");
+            CodeContracts.VerifyNotNull(themeFile, "themeFile");
 
             return
                 HttpContext.Current.Server.MapPath(

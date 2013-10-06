@@ -101,7 +101,7 @@ namespace YAF.Utils
         /// </returns>
         public static string GetURLToResource([NotNull] string resourceName)
         {
-            CodeContracts.ArgumentNotNull(resourceName, "resourceName");
+            CodeContracts.VerifyNotNull(resourceName, "resourceName");
 
             return "{1}resources/{0}".FormatWith(resourceName, ForumClientFileRoot);
         }

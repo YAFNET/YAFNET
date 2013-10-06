@@ -35,14 +35,14 @@ namespace YAF.Core.Model
 
         public static void AddOrUpdate(this IRepository<ForumReadTracking> repository, int userID, int forumID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.readforum_addorupdate(UserID: userID, ForumID: forumID, UTCTIMESTAMP: DateTime.UtcNow);
         }
 
         public static bool Delete(this IRepository<ForumReadTracking> repository, int userID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             var success = repository.DbAccess.Execute(db => db.Delete<ForumReadTracking>(x => x.UserID == userID)) == 1;
 
@@ -56,7 +56,7 @@ namespace YAF.Core.Model
 
         public static DateTime? Lastread(this IRepository<ForumReadTracking> repository, int userID, int forumID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.Scalar.readforum_lastread(UserID: userID, ForumID: forumID);
         }

@@ -205,7 +205,7 @@ namespace YAF.Types.Flags
     /// </returns>
     public int EnumToIndex([NotNull] Enum theEnum)
     {
-      CodeContracts.ArgumentNotNull(theEnum, "theEnum");
+      CodeContracts.VerifyNotNull(theEnum, "theEnum");
 
       return Convert.ToInt32(Math.Sqrt(Convert.ToInt32(theEnum))) - 1;
     }

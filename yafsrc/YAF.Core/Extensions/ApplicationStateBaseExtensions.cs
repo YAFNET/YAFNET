@@ -53,9 +53,9 @@ namespace YAF.Core
     public static T GetOrSet<T>(
       [NotNull] this HttpApplicationStateBase httpApplicationState, [NotNull] string key, [NotNull] Func<T> getValue)
     {
-      CodeContracts.ArgumentNotNull(httpApplicationState, "httpApplicationState");
-      CodeContracts.ArgumentNotNull(key, "key");
-      CodeContracts.ArgumentNotNull(getValue, "getValue");
+      CodeContracts.VerifyNotNull(httpApplicationState, "httpApplicationState");
+      CodeContracts.VerifyNotNull(key, "key");
+      CodeContracts.VerifyNotNull(getValue, "getValue");
 
       var item = httpApplicationState[key];
 
@@ -99,8 +99,8 @@ namespace YAF.Core
     public static void Set<T>(
       [NotNull] this HttpApplicationStateBase httpApplicationState, [NotNull] string key, [NotNull] T value)
     {
-      CodeContracts.ArgumentNotNull(httpApplicationState, "httpApplicationState");
-      CodeContracts.ArgumentNotNull(key, "key");
+      CodeContracts.VerifyNotNull(httpApplicationState, "httpApplicationState");
+      CodeContracts.VerifyNotNull(key, "key");
 
       try
       {

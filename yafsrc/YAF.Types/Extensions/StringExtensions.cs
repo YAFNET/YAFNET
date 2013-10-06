@@ -77,7 +77,7 @@ namespace YAF.Types.Extensions
 		/// </returns>
 		public static bool AreAnyWordsOverMaxLength([NotNull] this string text, int maxWordLength)
 		{
-			CodeContracts.ArgumentNotNull(text, "text");
+			CodeContracts.VerifyNotNull(text, "text");
 
 			if (maxWordLength > 0 && text.Length > 0)
 			{
@@ -103,7 +103,7 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static string TrimWordsOverMaxLengthWordsPreserved([NotNull] this string text, int maxStringLength)
         {
-            CodeContracts.ArgumentNotNull(text, "text");
+            CodeContracts.VerifyNotNull(text, "text");
             string newText = string.Empty;
             if (maxStringLength > 0 && text.Length > 0)
             {
@@ -148,8 +148,8 @@ namespace YAF.Types.Extensions
 		/// </exception>
 		public static int FastIndexOf([NotNull] this string source, [NotNull] string pattern)
 		{
-			CodeContracts.ArgumentNotNull(source, "source");
-			CodeContracts.ArgumentNotNull(pattern, "pattern");
+			CodeContracts.VerifyNotNull(source, "source");
+			CodeContracts.VerifyNotNull(pattern, "pattern");
 
 			if (pattern.Length == 0)
 			{
@@ -216,8 +216,8 @@ namespace YAF.Types.Extensions
 		/// </param>
 		public static void ForEachChar([NotNull] this string input, [NotNull] Action<char> forEachAction)
 		{
-			CodeContracts.ArgumentNotNull(input, "input");
-			CodeContracts.ArgumentNotNull(forEachAction, "forEachAction");
+			CodeContracts.VerifyNotNull(input, "input");
+			CodeContracts.VerifyNotNull(forEachAction, "forEachAction");
 
 			foreach (char c in input)
 			{
@@ -257,7 +257,7 @@ namespace YAF.Types.Extensions
 		/// </returns>
 		public static string GenerateRandomString(int length, [NotNull] string pickfrom)
 		{
-			CodeContracts.ArgumentNotNull(pickfrom, "pickfrom");
+			CodeContracts.VerifyNotNull(pickfrom, "pickfrom");
 
 			var r = new Random();
 			string result = string.Empty;
@@ -285,7 +285,7 @@ namespace YAF.Types.Extensions
 		[NotNull]
 		public static List<string> GetNewNoEmptyStrings([NotNull] this IEnumerable<string> inputList)
 		{
-			CodeContracts.ArgumentNotNull(inputList, "inputList");
+			CodeContracts.VerifyNotNull(inputList, "inputList");
 
 			return inputList.Where(x => x.IsSet()).ToList();
 		}
@@ -302,7 +302,7 @@ namespace YAF.Types.Extensions
 		[NotNull]
 		public static List<string> GetNewNoSmallStrings([NotNull] this IEnumerable<string> inputList, int minSize)
 		{
-			CodeContracts.ArgumentNotNull(inputList, "inputList");
+			CodeContracts.VerifyNotNull(inputList, "inputList");
 
 			return inputList.Where(x => x.Length >= minSize).ToList();
 		}
@@ -315,8 +315,8 @@ namespace YAF.Types.Extensions
 		/// <returns>
 		/// The is <see langword="null"/> or empty trimmed.
 		/// </returns>
-		[AssertionMethod]
-		public static bool IsNotSet([AssertionCondition(AssertionConditionType.IS_NULL)] this string str)
+        [ContractAnnotation("str:null => true")]
+		public static bool IsNotSet([CanBeNull] this string str)
 		{
 			return string.IsNullOrWhiteSpace(str);
 		}
@@ -329,8 +329,8 @@ namespace YAF.Types.Extensions
 		/// <returns>
 		/// The is <see langword="null"/> or empty trimmed.
 		/// </returns>
-		[AssertionMethod]
-		public static bool IsSet([AssertionCondition(AssertionConditionType.IS_NOT_NULL)] this string str)
+        [ContractAnnotation("str:null => false")]
+		public static bool IsSet([CanBeNull] this string str)
 		{
 			return !string.IsNullOrWhiteSpace(str);
 		}
@@ -502,8 +502,8 @@ namespace YAF.Types.Extensions
 		[NotNull]
 		public static List<string> StringToList([NotNull] this string str, char delimiter, [NotNull] List<string> exclude)
 		{
-			CodeContracts.ArgumentNotNull(str, "str");
-			CodeContracts.ArgumentNotNull(exclude, "exclude");
+			CodeContracts.VerifyNotNull(str, "str");
+			CodeContracts.VerifyNotNull(exclude, "exclude");
 
 			var list = str.Split(delimiter).ToList();
 
@@ -566,7 +566,7 @@ namespace YAF.Types.Extensions
 		[NotNull]
 		public static string ToRegExString([NotNull] this string input)
 		{
-			CodeContracts.ArgumentNotNull(input, "input");
+			CodeContracts.VerifyNotNull(input, "input");
 
 			var sb = new StringBuilder();
 
@@ -594,7 +594,7 @@ namespace YAF.Types.Extensions
 		[NotNull]
 		public static Stream ToStream([NotNull] this string str)
 		{
-			CodeContracts.ArgumentNotNull(str, "str");
+			CodeContracts.VerifyNotNull(str, "str");
 
 			byte[] byteArray = Encoding.ASCII.GetBytes(str);
 			return new MemoryStream(byteArray);
@@ -614,7 +614,7 @@ namespace YAF.Types.Extensions
 		/// </returns>
 		public static string Truncate([CanBeNull] this string input, int inputLimit, [NotNull] string cutOfString = "...")
 		{
-			CodeContracts.ArgumentNotNull(cutOfString, "cutOfString");
+			CodeContracts.VerifyNotNull(cutOfString, "cutOfString");
 
 			string output = input;
 

@@ -33,7 +33,7 @@ namespace YAF.Core.Model
     {
         public static void Add(this IRepository<WatchTopic> repository, int userID, int topicID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.watchtopic_add(UserID: userID, TopicID: topicID, UTCTIMESTAMP: DateTime.UtcNow);
 
@@ -42,21 +42,21 @@ namespace YAF.Core.Model
 
         public static int? Check(this IRepository<WatchTopic> repository, int userID, int topicID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return (int?)repository.DbFunction.Scalar.watchtopic_check(UserID: userID, TopicID: topicID);
         }
 
         public static DataTable List(this IRepository<WatchTopic> repository, int userID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.watchtopic_list(UserID: userID);
         }
 
         public static IList<WatchTopic> ListTyped(this IRepository<WatchTopic> repository, int userID)
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             using (var session = repository.DbFunction.CreateSession())
             {

@@ -46,7 +46,7 @@ namespace YAF.Data.MsSql.Search
 
         public string BuildSearchSql([NotNull] ISearchContext context)
         {
-            CodeContracts.ArgumentNotNull(context, "context");
+            CodeContracts.VerifyNotNull(context, "context");
 
             var builtStatements = new List<string>();
 
@@ -129,8 +129,8 @@ namespace YAF.Data.MsSql.Search
             [NotNull] string dbField,
             bool useFullText)
         {
-            CodeContracts.ArgumentNotNull(toSearchWhat, "toSearchWhat");
-            CodeContracts.ArgumentNotNull(dbField, "dbField");
+            CodeContracts.VerifyNotNull(toSearchWhat, "toSearchWhat");
+            CodeContracts.VerifyNotNull(dbField, "dbField");
 
             toSearchWhat = toSearchWhat.Replace("'", "''").Trim();
 
@@ -202,7 +202,7 @@ namespace YAF.Data.MsSql.Search
             SearchWhatFlags searchFromWhoMethod,
             bool searchDisplayName)
         {
-            CodeContracts.ArgumentNotNull(toSearchFromWho, "toSearchFromWho");
+            CodeContracts.VerifyNotNull(toSearchFromWho, "toSearchFromWho");
 
             toSearchFromWho = toSearchFromWho.Replace("'", "''").Trim();
 

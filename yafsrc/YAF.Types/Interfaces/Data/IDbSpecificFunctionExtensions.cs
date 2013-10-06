@@ -48,8 +48,8 @@ namespace YAF.Types.Interfaces.Data
         [NotNull]
         public static IEnumerable<IDbSpecificFunction> WhereProviderName([NotNull] this IEnumerable<IDbSpecificFunction> functions, [NotNull] string providerName)
         {
-            CodeContracts.ArgumentNotNull(functions, "functions");
-            CodeContracts.ArgumentNotNull(providerName, "providerName");
+            CodeContracts.VerifyNotNull(functions, "functions");
+            CodeContracts.VerifyNotNull(providerName, "providerName");
 
             return functions.Where(p => string.Equals(p.ProviderName, providerName, StringComparison.OrdinalIgnoreCase));
         }

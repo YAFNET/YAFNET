@@ -48,7 +48,7 @@ namespace YAF.Core.Data
         /// </param>
         protected override void Inject([NotNull] IDataRecord source, object target)
         {
-            CodeContracts.ArgumentNotNull(source, "source");
+            CodeContracts.VerifyNotNull(source, "source");
 
             var props = target.GetProps();
 

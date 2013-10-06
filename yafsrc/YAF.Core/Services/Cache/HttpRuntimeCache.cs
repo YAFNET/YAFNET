@@ -78,8 +78,8 @@ namespace YAF.Core.Services.Cache
       [NotNull] IHaveLockObject haveLockObject, 
       [NotNull] ITreatCacheKey treatCacheKey)
     {
-      CodeContracts.ArgumentNotNull(eventRaiser, "eventRaiser");
-      CodeContracts.ArgumentNotNull(haveLockObject, "haveLockObject");
+      CodeContracts.VerifyNotNull(eventRaiser, "eventRaiser");
+      CodeContracts.VerifyNotNull(haveLockObject, "haveLockObject");
 
       this._eventRaiser = eventRaiser;
       this._haveLockObject = haveLockObject;
@@ -163,8 +163,8 @@ namespace YAF.Core.Services.Cache
     /// </returns>
     public T GetOrSet<T>([NotNull] string key, [NotNull] Func<T> getValue, TimeSpan timeout)
     {
-      CodeContracts.ArgumentNotNull(key, "key");
-      CodeContracts.ArgumentNotNull(getValue, "getValue");
+      CodeContracts.VerifyNotNull(key, "key");
+      CodeContracts.VerifyNotNull(getValue, "getValue");
 
       return this.GetOrSetInternal(
         key, 
@@ -193,8 +193,8 @@ namespace YAF.Core.Services.Cache
     /// </returns>
     public T GetOrSet<T>(string key, Func<T> getValue)
     {
-      CodeContracts.ArgumentNotNull(key, "key");
-      CodeContracts.ArgumentNotNull(getValue, "getValue");
+      CodeContracts.VerifyNotNull(key, "key");
+      CodeContracts.VerifyNotNull(getValue, "getValue");
 
       return this.GetOrSetInternal(
         key, 
@@ -224,7 +224,7 @@ namespace YAF.Core.Services.Cache
     /// </param>
     public void Set([NotNull] string key, object value, TimeSpan timeout)
     {
-      CodeContracts.ArgumentNotNull(key, "key");
+      CodeContracts.VerifyNotNull(key, "key");
 
       var actualKey = this.CreateKey(key);
 
@@ -260,7 +260,7 @@ namespace YAF.Core.Services.Cache
     /// </returns>
     public object Get([NotNull] string originalKey)
     {
-      CodeContracts.ArgumentNotNull(originalKey, "key");
+      CodeContracts.VerifyNotNull(originalKey, "key");
 
       return HttpRuntime.Cache[this.CreateKey(originalKey)] ?? null;
     }
@@ -295,7 +295,7 @@ namespace YAF.Core.Services.Cache
     /// </param>
     public void Set([NotNull] string key, [CanBeNull] object value)
     {
-      CodeContracts.ArgumentNotNull(key, "key");
+      CodeContracts.VerifyNotNull(key, "key");
 
       HttpRuntime.Cache[this.CreateKey(key)] = value;
     }
@@ -336,9 +336,9 @@ namespace YAF.Core.Services.Cache
     /// </returns>
     private T GetOrSetInternal<T>([NotNull] string key, [NotNull] Func<T> getValue, [NotNull] Action<T> addToCacheFunction)
     {
-      CodeContracts.ArgumentNotNull(key, "key");
-      CodeContracts.ArgumentNotNull(getValue, "getValue");
-      CodeContracts.ArgumentNotNull(addToCacheFunction, "addToCacheFunction");
+      CodeContracts.VerifyNotNull(key, "key");
+      CodeContracts.VerifyNotNull(getValue, "getValue");
+      CodeContracts.VerifyNotNull(addToCacheFunction, "addToCacheFunction");
 
       var cachedItem = this.Get<T>(key);
 

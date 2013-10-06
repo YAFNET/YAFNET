@@ -52,7 +52,7 @@ namespace YAF.Core
     /// </param>
     public CurrentTaskModuleProvider([NotNull] HttpApplicationStateBase httpApplicationState)
     {
-      CodeContracts.ArgumentNotNull(httpApplicationState, "httpApplicationState");
+      CodeContracts.VerifyNotNull(httpApplicationState, "httpApplicationState");
 
       this._httpApplicationState = httpApplicationState;
     }
@@ -77,7 +77,7 @@ namespace YAF.Core
 
       set
       {
-        CodeContracts.ArgumentNotNull(value, "value");
+        CodeContracts.VerifyNotNull(value, "value");
 
         this._httpApplicationState[Constants.Cache.TaskModule] = value;
       }

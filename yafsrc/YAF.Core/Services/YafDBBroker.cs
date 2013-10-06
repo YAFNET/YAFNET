@@ -656,8 +656,8 @@ namespace YAF.Core.Services
         [NotNull]
         private SimpleTopic LoadSimpleTopic([NotNull] DataRow row, [NotNull] SimpleForum forum)
         {
-            CodeContracts.ArgumentNotNull(row, "row");
-            CodeContracts.ArgumentNotNull(forum, "forum");
+            CodeContracts.VerifyNotNull(row, "row");
+            CodeContracts.VerifyNotNull(forum, "forum");
 
             return new SimpleTopic
                 {

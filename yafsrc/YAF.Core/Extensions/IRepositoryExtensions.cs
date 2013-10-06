@@ -51,8 +51,8 @@ namespace YAF.Core.Extensions
         /// </returns>
         public static bool Delete<T>([NotNull] this IRepository<T> repository, [NotNull] IHaveID haveId) where T : class, IEntity, IHaveID, new()
         {
-            CodeContracts.ArgumentNotNull(haveId, "haveId");
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(haveId, "haveId");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DeleteByID(haveId.ID);
         }
@@ -73,7 +73,7 @@ namespace YAF.Core.Extensions
         /// </returns>
         public static bool DeleteByID<T>([NotNull] this IRepository<T> repository, int id) where T : class, IEntity, IHaveID, new()
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             var success = repository.DbAccess.Execute(db => db.Delete<T>(x => x.ID == id)) == 1;
             if (success)
@@ -93,7 +93,7 @@ namespace YAF.Core.Extensions
         /// <returns></returns>
         public static bool DeleteByIDs<T>([NotNull] this IRepository<T> repository, IEnumerable<int> ids) where T : class, IEntity, IHaveID, new()
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             var success = false;
 
@@ -126,7 +126,7 @@ namespace YAF.Core.Extensions
         /// </returns>
         public static IList<T> GetByBoardID<T>([NotNull] this IRepository<T> repository, int? boardId = null) where T : IEntity, IHaveBoardID, new()
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             int bId = boardId ?? repository.BoardID;
 
@@ -149,7 +149,7 @@ namespace YAF.Core.Extensions
         /// </returns>
         public static T GetByID<T>([NotNull] this IRepository<T> repository, int id) where T : IEntity, IHaveID, new()
         {
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbAccess.Execute(db => db.GetById<T>(id));
         }
@@ -174,8 +174,8 @@ namespace YAF.Core.Extensions
         public static bool Insert<T>([NotNull] this IRepository<T> repository, [NotNull] T entity, IDbTransaction transaction = null)
             where T : class, IEntity, IHaveID, new()
         {
-            CodeContracts.ArgumentNotNull(entity, "entity");
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(entity, "entity");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             var insertId = repository.DbAccess.Insert(entity, transaction);
             
@@ -210,8 +210,8 @@ namespace YAF.Core.Extensions
         public static bool Upsert<T>([NotNull] this IRepository<T> repository, [NotNull] T entity, IDbTransaction transaction = null)
             where T : class, IEntity, IHaveID, new()
         {
-            CodeContracts.ArgumentNotNull(entity, "entity");
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(entity, "entity");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             return entity.ID > 0 ? repository.Update(entity) : repository.Insert(entity);
         }
@@ -236,8 +236,8 @@ namespace YAF.Core.Extensions
         public static bool Update<T>([NotNull] this IRepository<T> repository, [NotNull] T entity, IDbTransaction transaction = null)
             where T : class, IEntity, IHaveID, new()
         {
-            CodeContracts.ArgumentNotNull(entity, "entity");
-            CodeContracts.ArgumentNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(entity, "entity");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
             var success = repository.DbAccess.Update(entity, transaction) > 0;
             if (success)

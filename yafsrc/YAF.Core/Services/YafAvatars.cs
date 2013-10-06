@@ -101,7 +101,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string GetAvatarUrlForUser([NotNull] IUserData userData)
         {
-            CodeContracts.ArgumentNotNull(userData, "userData");
+            CodeContracts.VerifyNotNull(userData, "userData");
 
             var getUserEmail = new Func<string>(
                 () =>

@@ -51,7 +51,7 @@ namespace YAF.Core.Extensions
         public static IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> InstancePerYafContext
             <TLimit, TActivatorData, TRegistrationStyle>([NotNull] this IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> builder)
         {
-            CodeContracts.ArgumentNotNull(builder, "builder");
+            CodeContracts.VerifyNotNull(builder, "builder");
 
             return builder.InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
         }

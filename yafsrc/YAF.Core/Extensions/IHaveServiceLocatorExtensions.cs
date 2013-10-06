@@ -47,7 +47,7 @@ namespace YAF.Core
     /// </param>
     public static void RunStartupServices([NotNull] this IHaveServiceLocator serviceLocator)
     {
-      CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
+      CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
 
       var startupServices =
         serviceLocator.Get<IEnumerable<IStartupService>>();
@@ -75,8 +75,8 @@ namespace YAF.Core
     [NotNull]
     public static IEnumerable<IServiceLocationParameter> WithParameters([NotNull] this IHaveServiceLocator serviceLocator, [NotNull] params IServiceLocationParameter[] parameters)
     {
-      CodeContracts.ArgumentNotNull(serviceLocator, "serviceLocator");
-      CodeContracts.ArgumentNotNull(parameters, "parameters");
+      CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
+      CodeContracts.VerifyNotNull(parameters, "parameters");
 
       return parameters;
     }

@@ -45,7 +45,7 @@ namespace YAF.Core
     [NotNull]
     public static IUserData GetUserData([NotNull] this MembershipUser membershipUser)
     {
-      CodeContracts.ArgumentNotNull(membershipUser, "membershipUser");
+      CodeContracts.VerifyNotNull(membershipUser, "membershipUser");
 
       return new CombinedUserDataHelper(membershipUser);
     }

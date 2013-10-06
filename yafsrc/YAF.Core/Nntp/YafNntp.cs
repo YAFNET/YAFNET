@@ -299,7 +299,7 @@ namespace YAF.Core.Nntp
     [NotNull]
     public static NntpConnection GetNntpConnection([NotNull] TypedNntpForum nntpForum)
     {
-      CodeContracts.ArgumentNotNull(nntpForum, "nntpForum");
+      CodeContracts.VerifyNotNull(nntpForum, "nntpForum");
 
       var nntpConnection = new NntpConnection();
 

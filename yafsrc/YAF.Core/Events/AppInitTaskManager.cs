@@ -106,8 +106,8 @@ namespace YAF.Core
         /// </param>
         public override bool StartTask([NotNull] string instanceName, [NotNull] Func<IBackgroundTask> start)
         {
-            CodeContracts.ArgumentNotNull(instanceName, "instanceName");
-            CodeContracts.ArgumentNotNull(start, "start");
+            CodeContracts.VerifyNotNull(instanceName, "instanceName");
+            CodeContracts.VerifyNotNull(start, "start");
 
             if (this._appInstance == null)
             {

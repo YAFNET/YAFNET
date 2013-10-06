@@ -148,10 +148,10 @@ namespace YAF.Core.Services
             [CanBeNull] string toName,
             bool sendQueued)
         {
-            CodeContracts.ArgumentNotNull(digestHtml, "digestHtml");
-            CodeContracts.ArgumentNotNull(forumName, "forumName");
-            CodeContracts.ArgumentNotNull(forumEmail, "forumEmail");
-            CodeContracts.ArgumentNotNull(toEmail, "toEmail");
+            CodeContracts.VerifyNotNull(digestHtml, "digestHtml");
+            CodeContracts.VerifyNotNull(forumName, "forumName");
+            CodeContracts.VerifyNotNull(forumEmail, "forumEmail");
+            CodeContracts.VerifyNotNull(toEmail, "toEmail");
 
             string subject = "Active Topics and New Topics on {0}".FormatWith(forumName);
             var match = Regex.Match(

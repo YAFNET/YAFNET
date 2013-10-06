@@ -48,9 +48,9 @@ namespace YAF.Types.Interfaces
     /// </returns>
     public static T Get<T>([NotNull] this IReadValue<T> readValue, [NotNull] string key, [NotNull] Func<T> getValue)
     {
-      CodeContracts.ArgumentNotNull(readValue, "readValue");
-      CodeContracts.ArgumentNotNull(key, "key");
-      CodeContracts.ArgumentNotNull(getValue, "getValue");
+      CodeContracts.VerifyNotNull(readValue, "readValue");
+      CodeContracts.VerifyNotNull(key, "key");
+      CodeContracts.VerifyNotNull(getValue, "getValue");
 
       var value = readValue.Get(key);
 
@@ -71,8 +71,8 @@ namespace YAF.Types.Interfaces
     /// </returns>
     public static T Get<T>([NotNull] this IReadValue<T> readValue, [NotNull] string key, [CanBeNull] T defaultValue)
     {
-      CodeContracts.ArgumentNotNull(readValue, "readValue");
-      CodeContracts.ArgumentNotNull(key, "key");
+      CodeContracts.VerifyNotNull(readValue, "readValue");
+      CodeContracts.VerifyNotNull(key, "key");
 
       var value = readValue.Get(key);
 
@@ -96,8 +96,8 @@ namespace YAF.Types.Interfaces
     /// </returns>
     public static bool GetAsBool([NotNull] this IReadValue<string> readValue, [NotNull] string key, bool defaultValue)
     {
-      CodeContracts.ArgumentNotNull(readValue, "readValue");
-      CodeContracts.ArgumentNotNull(key, "key");
+      CodeContracts.VerifyNotNull(readValue, "readValue");
+      CodeContracts.VerifyNotNull(key, "key");
 
       var value = readValue.Get(key);
 
