@@ -96,7 +96,7 @@ namespace YAF.Pages
             {
                 // Ederon : 9/9/2007 - moderators can delete in locked topics
                 return ((!this.PostLocked && !this._forumFlags.IsLocked && !this._topicFlags.IsLocked
-                         && (int)this._messageRow["UserID"] == this.PageContext.PageUserID)
+                         && this._messageRow["UserID"].ToType<int>() == this.PageContext.PageUserID)
                         || this.PageContext.ForumModeratorAccess) && this.PageContext.ForumDeleteAccess;
             }
         }
@@ -119,7 +119,7 @@ namespace YAF.Pages
         {
             get
             {
-                int deleted = (int)this._messageRow["Flags"] & 8;
+                var deleted = this._messageRow["Flags"].ToType<int>() & 8;
 
                 return deleted == 8;
             }
@@ -137,7 +137,7 @@ namespace YAF.Pages
                     return false;
                 }
 
-                var edited = (DateTime)this._messageRow["Edited"];
+                var edited = this._messageRow["Edited"].ToType<DateTime>();
 
                 return edited.AddDays(this.Get<YafBoardSettings>().LockPosts) < DateTime.UtcNow;
             }
@@ -148,14 +148,10 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// The cancel_ click.
+        /// Cancel Deleting and return to topic or forum
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t") != null
@@ -172,7 +168,7 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The get action text.
+        /// Gets the action text.
         /// </summary>
         /// <returns>
         /// Returns the Action Text
@@ -185,7 +181,7 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The get reason text.
+        /// Gets the reason text.
         /// </summary>
         /// <returns>
         /// Returns the reason text.
@@ -200,11 +196,9 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             /* get the forum editor based on the settings
@@ -213,8 +207,6 @@ namespace YAF.Pages
        */
             this.LinkedPosts.ItemDataBound += this.LinkedPosts_ItemDataBound;
 
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            this.InitializeComponent();
             base.OnInit(e);
         }
 
@@ -279,7 +271,7 @@ namespace YAF.Pages
             this.EraseRow.Visible = false;
             this.DeleteReasonRow.Visible = false;
             this.LinkedPosts.Visible = false;
-            this.ReasonEditor.Attributes.Add("style", "width:100%");
+            
             this.Cancel.Text = this.GetText("Cancel");
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") == null)
@@ -383,22 +375,10 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Required method for Designer support - do not modify
-        ///   the contents of this method with the code editor.
+        /// Check if current user has the rights to delete all linked posts
         /// </summary>
-        private void InitializeComponent()
-        {
-        }
-
-        /// <summary>
-        /// The linked posts_ item data bound.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RepeaterItemEventArgs"/> instance containing the event data.</param>
         private void LinkedPosts_ItemDataBound([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType != ListItemType.Header)

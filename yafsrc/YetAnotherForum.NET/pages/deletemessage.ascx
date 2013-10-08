@@ -3,7 +3,6 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
-<%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" cellspacing="1" cellpadding="4" width="100%" align="center">
     <tr>
