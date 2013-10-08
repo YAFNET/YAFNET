@@ -219,14 +219,10 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this._messageRow = null;
@@ -346,7 +342,20 @@ namespace YAF.Pages
             object tmpForumID = this._messageRow["ForumID"];
             object tmpTopicID = this._messageRow["TopicID"];
 
-            var deleteAllPosts = this.LinkedPosts.Controls[0].Controls[1].ToType<CheckBox>();
+            var deleteAllLinked = false;
+
+            if (this.LinkedPosts.Visible)
+            {
+                try
+                {
+                    var deleteAllPosts = this.LinkedPosts.Controls[0].Controls[1].ToType<CheckBox>();
+                    deleteAllLinked = deleteAllPosts.Checked;
+                }
+                catch (Exception)
+                {
+                    deleteAllLinked = false;
+                }
+            }
 
             // Toogle delete message -- if the message is currently deleted it will be undeleted.
             // If it's not deleted it will be marked deleted.
@@ -356,7 +365,7 @@ namespace YAF.Pages
                 this._isModeratorChanged,
                 HttpUtility.HtmlEncode(this.ReasonEditor.Text),
                 this.PostDeleted ? 0 : 1,
-                deleteAllPosts.Checked,
+                deleteAllLinked,
                 this.EraseMessage.Checked);
 
             // retrieve topic information.
