@@ -9,7 +9,7 @@
         <div class="jumbotron clearfix">
             <div class="col-md-6 pull-left">
                 <h2>YAF.NET</h2>
-                <h4>Installation &amp; Upgrading Instructions</h4>
+                <h4>Installation &amp; Upgrading Readme</h4>
             </div>
             <div class="col-md-6 pull-right">
                 <a href="http://www.yetanotherforum.net">
@@ -21,14 +21,14 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <p>
-                    Thank you for downloading <strong>Yet Another Forum.NET</strong> ASP.NET Open Source
-                        Forum solution! The <strong>Yet Another Forum</strong> (<strong>YAF</strong>) project
+                    Thank you for trying <strong>YetAnotherForum.NET</strong> (YAF.NET) ASP.NET Open Source
+                        Forum solution! The <strong>YAF.NET</strong> project
                         is an international collaboration of like-minded, skilled, and creative individuals
-                        who are striving to make <strong>YAF</strong> the most robust and malleable forum
+                        who are striving to make <strong>YAF.NET</strong> the most robust and malleable forum
                         solutions available.
                 </p>
                 <p>
-                    If you have any thoughts or would like to contribute, please see the contact information
+                    If you have any questions or would like to get in touch with the project, please see the contact information
                         at the bottom of this document.
                 </p>
             </div>
@@ -77,7 +77,7 @@
             </div>
             <div class="panel-body">
                 <ol>
-                    <li>The first step is to unzip yaf to the physical location where the Application (YAF) will be run from. By default in IIS  (Internet Information Server) expects the sites to be located at &quot;c:\Inetpub\wwwroot\...&quot; </li>
+                    <li>Decompress the YAF.NET archive file to the physical location where you want YAF.NET. By default, IIS (Internet Information Server) sets web sites to be located at <em>&quot;c:\Inetpub\wwwroot\...&quot;</em>.</li>
                 </ol>
             </div>
         </div>
@@ -89,9 +89,9 @@
             </div>
             <div class="panel-body">
                 <ol>
-                    <li>In IIS you need to create a new Virtual Directory, if you want to run YAF as application, that points to the physical directory where you extracted YAF in to. </li>
-                    <li>How to: <a href="http://msdn.microsoft.com/en-us/library/bb763173.aspx">Create and Configure Virtual Directories in IIS</a></li>
-                    <li>Make sure that the Application Pool for YAF is set to .NET 4</li>
+                    <li>In the IIS Manager, create a new "Virtual Directory." How to: <a href="http://msdn.microsoft.com/en-us/library/bb763173.aspx">Create and Configure Virtual Directories in IIS</a></li>
+                    <li>If you want to run YAF.NET as seperate web site, create a new site and select the physical directory where you extracted YAF.NET. </li>
+                    <li>Set the YAF.NET Application Pool to .NET 4.x</li>
                 </ol>
             </div>
         </div>
@@ -103,10 +103,10 @@
             </div>
             <div class="panel-body">
                 <ol>
-                    <li>A valid database needs to exist on your SQL Server with proper permissions set so
-                            that YAF can access it. When you run YAF for the first time it will detect that
-                            the database is empty (or needs upgrading) and will automatically run you through
-                            the process required to create the SQL database structures needed. </li>
+                    <li>A SQL Server database must exist with proper permissions set so
+                        that YAF.NET can access it. When YAF.NET is run for the first time, it will detect that
+                        the database needs to be setup (or needs upgrading) and will automatically run you through
+                        the process required to create the database structures needed. </li>
                 </ol>
             </div>
         </div>
@@ -141,8 +141,8 @@
             </div>
             <div class="panel-body">
                 <ol>
-                    <li>By default YAF is designed to be installed at the root application on any IIS web
-                            server. If you want YAF to be installed off of the main root in a sub folder, you
+                    <li>By default, YAF.NET is designed to be installed at the root application on any IIS web
+                            server. If you want YAF.NET to be installed off of the main root in a sub folder, you
                             need to modify the root key. Make sure the files in the /bin directory of the YAF
                             zip file are copied to /bin directory on the root of your web server. Then open
                             up &quot;app.config&quot; and un comment the &quot;<strong>YAF.AppRoot</strong>&quot;
@@ -246,8 +246,8 @@
 
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h4><span class="label label-danger">IMPORTANT</span> Remove the Lines if you Upgrade
-                            to YAF Version &gt;= 1.9.5.5</h4>
+                        <h4><span class="label label-danger">IMPORTANT</span> Remove the following lines if you are upgrading
+                            from YAF.NET version prior to 1.9.5.5</h4>
                     </div>
                     <div class="panel-body">
                         <pre>
@@ -274,8 +274,7 @@
 
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h4><span class="label label-danger">IMPORTANT</span> Update this following lines
-                                                   if you Upgrade to YAF Version &gt;= 1.9.5.5</h4>
+                        <h4><span class="label label-danger">IMPORTANT</span> Update this following lines if you are upgrading from YAF.NET version prior to 1.9.5.5</h4>
                     </div>
                     <div class="panel-body">
                         <h4>Remove the Lines Specified Below and Replace with "Add" Line.</h4>
