@@ -4,137 +4,144 @@
     <title>YetAnotherForum.NET Installation and Upgrading</title>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" />
 </head>
-    <body>
-        <div class="container">
-            <div>
-                <div class="jumbotron">
-                    <div class="container">
-                        <a href="http://www.yetanotherforum.net">
-                            <div class=""></div>
-                            <img src="images/YAFLogo.png" alt="YAF logo" />
-                        </a>
-                    </div>
-                </div>
+<body>
+    <div class="container">
+        <div class="jumbotron clearfix">
+            <div class="col-md-6 pull-left">
+                <h2>YAF.NET</h2>
+                <h4>Installation &amp; Upgrading Instructions</h4>
+            </div>
+            <div class="col-md-6 pull-right">
+                <a href="http://www.yetanotherforum.net">
+                    <img src="images/YAFLogo.png" alt="YAF logo" class="pull-right" />
+                </a>
+            </div>
+        </div>
 
-                <div class="page-header">
-                    <h1>
-                        YetAnotherForum.NET Installation &amp; Upgrading Instructions</h1>
-                </div>
-
-                <div>
-                    <p>
-                        Thank you for downloading <strong>Yet Another Forum.NET</strong> ASP.NET Open Source
-                        Forum solution. The <strong>Yet Another Forum</strong> (<strong>YAF</strong>) project
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p>
+                    Thank you for downloading <strong>Yet Another Forum.NET</strong> ASP.NET Open Source
+                        Forum solution! The <strong>Yet Another Forum</strong> (<strong>YAF</strong>) project
                         is an international collaboration of like-minded, skilled, and creative individuals
                         who are striving to make <strong>YAF</strong> the most robust and malleable forum
                         solutions available.
-                    </p>
-                    <p>
-                        If you have any thoughts or would like to contribute, please see the contact information
-                        at the bottom of this document.
-                    </p>
-                    <h2>
-                        Index</h2>
-                    <ol>
-                        <li><a href="#Require">Requirements</a></li>
-                        <li><a href="#NewInstall">New Installation</a></li>
-                        <li><a href="#Upgrade">Upgrade</a></li>
-                        <li><a href="#Support">Support</a></li></ol>
-                </div>
-            </div>
-            
-            <div class="page-header">
-                <h1>
-                    <a id="Require"></a>Installation Requirements</h1>
-            </div>
-        
-            <div class="content">
+                </p>
                 <p>
-                    Make sure your server / Host has the following requirements:</p>
+                    If you have any thoughts or would like to contribute, please see the contact information
+                        at the bottom of this document.
+                </p>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Index</h3>
+            </div>
+            <div class="panel-body">
                 <ol>
-                    <li>Microsoft .NET Framework 4.0 (Use version 1.9.5.5 or earlier for .NET Framework
-                        3.5)</li>
-                    <li>Microsoft SQL Server 2005 or above. SQL Server 2000 works, but requires removal
-                        of some SQL forum database optimizations.</li>
+                    <li><a href="#Require">Requirements</a></li>
+                    <li><a href="#NewInstall">New Installation</a></li>
+                    <li><a href="#Upgrade">Upgrade</a></li>
+                    <li><a href="#Support">Support</a></li>
                 </ol>
             </div>
-        
-            <div class="page-header">
-                <h1><a id="NewInstall"></a>New Installation</h1>
+        </div>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4>
+                    <a id="Require"></a>Installation Requirements</h4>
             </div>
-            
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>
-                        <span class="label label-primary">STEP 1</span> UNZIP</h3>
-                </div>
-                <div class="panel-body">
-                    <ol>
-                        <li>The first step is to unzip yaf to the physical location where the Application (YAF) will be run from. By default in IIS  (Internet Information Server) expects the sites to be located at &quot;c:\Inetpub\wwwroot\...&quot; </li>
-                    </ol>
-                </div>
+            <div class="panel-body">
+                <p class="lead">
+                    Make sure your server / Host has the following requirements:
+                </p>
+                <ol>
+                    <li>Microsoft .NET Framework 4.0 (Use version 1.9.5.5 or earlier for .NET Framework
+                            3.5)</li>
+                    <li>Microsoft SQL Server 2005 or above. SQL Server 2000 works, but requires removal
+                            of some SQL forum database optimizations.</li>
+                </ol>
             </div>
-            
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>
-                        <span class="label label-primary">STEP 2</span> Configuring the Appication in IIS (Internet Information Server)</h3>
-                </div>
-                <div class="panel-body">
-                    <ol>
-                        <li>In IIS you need to create a new Virtual Directory, if you want to run YAF as application, that points to the physical directory where you extracted YAF in to. </li>
-                        <li>How to: <a href="http://msdn.microsoft.com/en-us/library/bb763173.aspx">Create and Configure Virtual Directories in IIS</a></li>
-                        <li>Make sure that the Application Pool for YAF is set to .NET 4</li>
-                    </ol>
-                </div>
+        </div>
+
+        <div class="page-header">
+            <h1><a id="NewInstall"></a>New Installation</h1>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>
+                    <span class="label label-primary">STEP 1</span> UNZIP</h3>
             </div>
-            
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>
-                        <span class="label label-primary">STEP 3</span> SETUP DATABASE</h3>
-                </div>
-                <div class="panel-body">
-                    <ol>
-                        <li>A valid database needs to exist on your SQL Server with proper permissions set so
+            <div class="panel-body">
+                <ol>
+                    <li>The first step is to unzip yaf to the physical location where the Application (YAF) will be run from. By default in IIS  (Internet Information Server) expects the sites to be located at &quot;c:\Inetpub\wwwroot\...&quot; </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>
+                    <span class="label label-primary">STEP 2</span> Configuring the Appication in IIS (Internet Information Server)</h3>
+            </div>
+            <div class="panel-body">
+                <ol>
+                    <li>In IIS you need to create a new Virtual Directory, if you want to run YAF as application, that points to the physical directory where you extracted YAF in to. </li>
+                    <li>How to: <a href="http://msdn.microsoft.com/en-us/library/bb763173.aspx">Create and Configure Virtual Directories in IIS</a></li>
+                    <li>Make sure that the Application Pool for YAF is set to .NET 4</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>
+                    <span class="label label-primary">STEP 3</span> SETUP DATABASE</h3>
+            </div>
+            <div class="panel-body">
+                <ol>
+                    <li>A valid database needs to exist on your SQL Server with proper permissions set so
                             that YAF can access it. When you run YAF for the first time it will detect that
                             the database is empty (or needs upgrading) and will automatically run you through
                             the process required to create the SQL database structures needed. </li>
-                    </ol>
-                </div>
+                </ol>
             </div>
-            
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>
-                        <span class="label label-primary">STEP 4</span> Rename "Web.Config" File</h3>
-                </div>
-                <div class="panel-body">
-                    Rename <span class="approot">&lt;YAF.AppRoot&gt;</span><em>&quot;recommended.web.config&quot;</em> in the yaf root Folder to web.config. <span class="label label-warning">Warning</span> Only edit the web.config if you have knowledge of the ASP.NET configuration system.
-                </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>
+                    <span class="label label-primary">STEP 4</span> Rename "Web.Config" File</h3>
             </div>
-            
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4>
-                        <span class="label label-info">STEP 4a (Optional)</span> Generate a Machine Key for your installation</h4>
-                </div>
-                <div class="panel-body">
-                    <ol>
-                        <li>Open the file <span class="approot">&lt;YAF.AppRoot&gt;</span>web.config and visit the a site that allows generation of a unique machine key for your forum. Such as this site: <a href="http://aspnetresources.com/tools/machineKey">AspNet Resources Machine Key Generator</a>.</li>
-                        <li>Copy and paste the generated machine key to your web.config in the &lt;system.web&gt; section.</li>
-                    </ol>
-                </div>
+            <div class="panel-body">
+                Rename <span class="approot">&lt;YAF.AppRoot&gt;</span><em>&quot;recommended.web.config&quot;</em> in the yaf root Folder to web.config. <span class="label label-warning">Warning</span> Only edit the web.config if you have knowledge of the ASP.NET configuration system.
             </div>
-            
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4>
-                        <span class="label label-info">STEP 4b (Optional)</span> Modify &quot;app.config&quot; File</h4>
-                </div>
-                <div class="panel-body">
-                    <ol>
-                        <li>By default YAF is designed to be installed at the root application on any IIS web
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>
+                    <span class="label label-info">STEP 4a (Optional)</span> Generate a Machine Key for your installation</h4>
+            </div>
+            <div class="panel-body">
+                <ol>
+                    <li>Open the file <span class="approot">&lt;YAF.AppRoot&gt;</span>web.config and visit the a site that allows generation of a unique machine key for your forum. Such as this site: <a href="http://aspnetresources.com/tools/machineKey">AspNet Resources Machine Key Generator</a>.</li>
+                    <li>Copy and paste the generated machine key to your web.config in the &lt;system.web&gt; section.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>
+                    <span class="label label-info">STEP 4b (Optional)</span> Modify &quot;app.config&quot; File</h4>
+            </div>
+            <div class="panel-body">
+                <ol>
+                    <li>By default YAF is designed to be installed at the root application on any IIS web
                             server. If you want YAF to be installed off of the main root in a sub folder, you
                             need to modify the root key. Make sure the files in the /bin directory of the YAF
                             zip file are copied to /bin directory on the root of your web server. Then open
@@ -143,53 +150,53 @@
                             have install the forum in the directory &quot;/forum/yaf/&quot; you will need to
                             un comment/add key with name &quot;<strong>YAF.AppRoot</strong>&quot; and value
                             &quot;/forum/yaf/&quot; to app.config. </li>
-                    </ol>
-                </div>
+                </ol>
             </div>
-            
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4>
-                        <span class="label label-info">STEP 4c (Optional)</span> Modify &quot;mail.config&quot; File</h4>
-                </div>
-                <div class="panel-body">
-                    <ol>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>
+                    <span class="label label-info">STEP 4c (Optional)</span> Modify &quot;mail.config&quot; File</h4>
+            </div>
+            <div class="panel-body">
+                <ol>
                     <li>Modify the SMTP settings by entering your mail server information. If you SMTP server
-                        requires SSL, you must add:
-                        <br />
+                            requires SSL, you must add:
+                            <br />
                         <strong>&lt;add key=&quot;YAF.UseSMTPSSL&quot; value=&quot;false&quot; /&gt;</strong>
                         to your app.config or appSettings.</li>
                 </ol>
-                </div>
             </div>
-            
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>
-                        <span class="label label-primary">STEP 5</span> Run The Install Wizard</h3>
-                </div>
-                <div class="panel-body">
-                    <ol>
-                        <li>Open the file
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>
+                    <span class="label label-primary">STEP 5</span> Run The Install Wizard</h3>
+            </div>
+            <div class="panel-body">
+                <ol>
+                    <li>Open the file
                             &lt;yaf.approot&gt;install/default.aspx on your web site. If you are testing on your local computer,
                             under a directory called YetAnotherForum.Net, the address should be: http://localhost/yetanotherforum.net/install/</li>
-                        <li>The wizard will guide you through the Install Process.</li>
-                    </ol>
-                </div>
+                    <li>The wizard will guide you through the Install Process.</li>
+                </ol>
             </div>
-        
-            <div class="page-header">
-                <h1><a id="Upgrade"></a>Upgrade Installation</h1>
+        </div>
+
+        <div class="page-header">
+            <h1><a id="Upgrade"></a>Upgrade Installation</h1>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>
+                    <span class="label label-primary">STEP 1</span> BACKUP &amp; REMOVE</h3>
             </div>
-            
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>
-                        <span class="label label-primary">STEP 1</span> BACKUP &amp; REMOVE</h3>
-                </div>
-                <div class="panel-body">
-                    <ol>
-                        <li>Backup all your existing installation YAF files remove the following directories
+            <div class="panel-body">
+                <ol>
+                    <li>Backup all your existing installation YAF files remove the following directories
                             from your forum root directory:
                             <ul>
                                 <li><em>\bin</em></li>
@@ -204,144 +211,149 @@
                                 <li><em>\themes</em></li>
                                 <li><em>\Web References</em></li>
                             </ul>
-                        </li>
-                        <li>Be careful not to delete the /images or /upload directory.</li>
-                        <li><span class="label label-danger">IMPORTANT</span> <strong>BACKUP YOUR DATABASE</strong></li>
-                    </ol>
-                </div>
+                    </li>
+                    <li>Be careful not to delete the /images or /upload directory.</li>
+                    <li><span class="label label-danger">IMPORTANT</span> <strong>BACKUP YOUR DATABASE</strong></li>
+                </ol>
             </div>
-                
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>
-                        <span class="label label-primary">STEP 2</span> Unzip</h3>
-                </div>
-                <div class="panel-body">
-                    Unzip the file structure YAF-BIN ZIP archive to the folder you want to run YAF to
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>
+                    <span class="label label-primary">STEP 2</span> Unzip</h3>
+            </div>
+            <div class="panel-body">
+                Unzip the file structure YAF-BIN ZIP archive to the folder you want to run YAF to
                     run inside. The YAF <em>\bin</em> directory must be in your application
-                    root.</div>
+                    root.
             </div>
-                
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>
-                        <span class="label label-primary">STEP 3</span> Upgrade the "Web.Config" File</h3>
-                </div>
-                <div class="panel-body">
-                    <p>
-                        Please follow these important directions:</p>
-                    <p>
-                        You need to MERGE the changes for the recommended.web.config or the v1.9.1.upgrade.web.config
-                        depending on the original web config you used.</p>
-            
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h4><span class="label label-danger">IMPORTANT</span> Remove the Lines if you Upgrade
-                                to YAF Version &gt;= 1.9.5.5</h4></div>
-                
-                        <div class="panel-body">
-                            <pre>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>
+                    <span class="label label-primary">STEP 3</span> Upgrade the "Web.Config" File</h3>
+            </div>
+            <div class="panel-body">
+                <p>
+                    Please follow these important directions:
+                </p>
+                <p>
+                    You need to MERGE the changes for the recommended.web.config or the v1.9.1.upgrade.web.config
+                    depending on the original web config you used.
+                </p>
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4><span class="label label-danger">IMPORTANT</span> Remove the Lines if you Upgrade
+                            to YAF Version &gt;= 1.9.5.5</h4>
+                    </div>
+                    <div class="panel-body">
+                        <pre>
 <span class="label label-danger">Remove Line</span> &lt;add tagPrefix=&quot;DotNetAge&quot; namespace=&quot;DNA.UI.JQuery&quot;assembly=&quot;DNA.UI.JQuery&quot;/&gt;
 <span class="label label-danger">Remove Line</span> &lt;add tagPrefix=&quot;DotNetAge&quot; namespace=&quot;DNA.UI&quot; assembly=&quot;DNA&quot;/&gt;</pre>
-                        
-                            <pre><span class="label label-danger">Remove Line</span> &lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.UI&quot;assembly=&quot;YAF.Classes.UI&quot;/&gt; </pre>
 
-                            <pre>
+                        <pre><span class="label label-danger">Remove Line</span> &lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.UI&quot;assembly=&quot;YAF.Classes.UI&quot;/&gt; </pre>
+
+                        <pre>
 <span class="label label-danger">Remove Line</span> &lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.Utils&quot;assembly=&quot;YAF.Classes.Utils&quot;/&gt;
 <span class="label label-danger">Remove Line</span> &lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.Core&quot; assembly=&quot;YAF.Classes.Core&quot;/&gt;
 <span class="label label-danger">Remove Line</span> &lt;add tagPrefix=&quot;YAF&quot; namespace=&quot;YAF.Classes.Data&quot; assembly=&quot;YAF.Classes.Data&quot;/&gt;</pre>
 
-                            <pre>
+                        <pre>
 <span class="label label-danger">Remove Line</span> &lt;add namespace=&quot;YAF&quot;/&gt;
 <span class="label label-danger">Remove Line</span> &lt;add namespace=&quot;YAF.Classes.Utils&quot;/&gt;
 <span class="label label-danger">Remove Line</span> &lt;add namespace=&quot;YAF.Classes.Core&quot;/&gt;
 <span class="label label-danger">Remove Line</span> &lt;add namespace=&quot;YAF.Controls&quot;/&gt;
 <span class="label label-danger">Remove Line</span> &lt;add namespace=&quot;YAF.Classes.Data&quot;/&gt;</pre>
 
-                            <pre><span class="label label-danger">Remove Line</span> &lt;add namespace=&quot;YAF.Classes.UI&quot;/&gt;</pre>
-                        </div>
+                        <pre><span class="label label-danger">Remove Line</span> &lt;add namespace=&quot;YAF.Classes.UI&quot;/&gt;</pre>
                     </div>
-
-                    <div class="panel panel-info">
-                        <div class="panel-heading"><h4><span class="label label-danger">IMPORTANT</span> Update this following lines
-                                                       if you Upgrade to YAF Version &gt;= 1.9.5.5</h4></div>
-                        <div class="panel-body">
-                            <h4>Remove the Lines Specified Below and Replace with "Add" Line.</h4>
-                            <hr/>
-
-                            <pre><span class="label label-danger">Remove Line</span> &lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Classes.Core.YafTaskModule, YAF.Classes.Core&quot;/&gt;</pre>
-                            <pre><span class="label label-info">Add Line</span> &lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Core.YafTaskModule, YAF.Core&quot;/&gt;</pre>
-
-                            <hr/>
-
-                            <pre><span class="label label-danger">Remove Line</span> &lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Classes.Core.YafTaskModule, YAF.Classes.Core&quot; preCondition=&quot;managedHandler&quot;/&gt;</pre>
-                            <pre><span class="label label-info">Add Line</span> &lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Core.YafTaskModule, YAF.Core&quot; preCondition=&quot;managedHandler&quot;/&gt;</pre>
-                        
-                            <hr/>
-
-                            <pre><span class="label label-danger">Remove Line</span> &lt;profile enabled=&quot;true&quot; defaultProvider=&quot;YafProfileProvider&quot; inherits=&quot;YAF.Classes.Utils.YafUserProfile&quot;&gt;</pre>
-                            <pre><span class="label label-info">Add Line</span> &lt;profile enabled=&quot;true&quot; defaultProvider=&quot;YafProfileProvider&quot; inherits=&quot;YAF.Utils.YafUserProfile&quot;&gt;</pre>
-                        
-                            <hr/>
-
-                            <pre><span class="label label-danger">Remove Line</span> &lt;add verb=&quot;POST,GET,HEAD&quot; path=&quot;ajaxpro/*.ashx&quot; type=&quot;AjaxPro.AjaxHandlerFactory, AjaxPro.2&quot;/&gt;</pre>
-                            <pre><span class="label label-info">Add Line</span> &lt;add verb=&quot;GET&quot; path=&quot;Resource.ashx&quot; type=&quot;YAF.YafResourceHandler, YAF&quot; /&gt;</pre>
-                        
-                            <hr/>
-
-                            <pre><span class="label label-danger">Remove Line</span> &lt;add name=&quot;AjaxPro&quot; preCondition=&quot;integratedMode&quot; verb=&quot;POST,GET,HEAD&quot; path=&quot;ajaxpro/*.ashx&quot; type=&quot;AjaxPro.AjaxHandlerFactory, AjaxPro.2&quot; /&gt;</pre>
-                            <pre><span class="label label-info">Add Line</span> &lt;add name=&quot;YafHandler&quot; preCondition=&quot;integratedMode&quot;verb=&quot;GET&quot; path=&quot;Resource.ashx&quot; type=&quot;YAF.YafResourceHandler,YAF&quot; /&gt;</pre>
-                        </div>
-                    </div>     
                 </div>
-            </div>
-                
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h4><span class="label label-info">Tip</span> Merging Web.Config Files </h4>
-                </div>
-                <div class="panel-body">
-                    A tip to merge web.config files is to download both of them, then use a merge program
-                    to combine. WinMerge is a free and excellent merge program which you can download
-                    here: <a href="http://www.winmerge.org/">http://www.winmerge.org/</a>
-                </div>
-            </div>
-                
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3><span class="label label-primary">STEP 4</span> Upgrade Wizard</h3>
-                </div>
-                <div class="panel-body">
-                    <p>Open the file <span class="approot">&lt;YAF.AppRoot&gt;</span>install/default.aspx on your web site. If you are
-                        testing on your local computer, under a directory called YetAnotherForum.Net, the
-                        address should be: <a href="http://localhost/yetanotherforum.net/install/">http://localhost/yetanotherforum.net/install/</a>
-                    </p>
 
-                    <p>The wizard will guide you through the upgrade process.</p>
-                </div>
-            </div>
-                
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3><a id="Support"></a>Yet Another Forum Community Support</h3>
-                </div>
-                <div class="panel-body">
-                    <p>
-                        If you have any questions, please visit the YAF Community Support forum: <a href="http://forum.yetanotherforum.net">
-                                                                                                     http://forum.yetanotherforum.net</a>, or visit the Wiki for More Informations.</p>
-                    <h3>
-                        Contact Us</h3>
-                    <p>
-                        Thanks for trying YAF! If you have any suggestions or comments please post them
-                        on the support forum!</p>
-                        
-                    <hr />
-                    <strong>
-                        YetAnotherForum.NET (YAF) the Open Source Discussion Forum for ASP.NET - <a href="http://yetanotherforum.net/">http://YetAnotherForum.NET</a>
-                    </strong>
-                    <small>YetAnotherForum.NET Copyright © 2012 <a href="http://www.tinygecko.com/">Tiny Gecko</a>. </small>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4><span class="label label-danger">IMPORTANT</span> Update this following lines
+                                                   if you Upgrade to YAF Version &gt;= 1.9.5.5</h4>
+                    </div>
+                    <div class="panel-body">
+                        <h4>Remove the Lines Specified Below and Replace with "Add" Line.</h4>
+                        <hr />
+
+                        <pre><span class="label label-danger">Remove Line</span> &lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Classes.Core.YafTaskModule, YAF.Classes.Core&quot;/&gt;</pre>
+                        <pre><span class="label label-info">Add Line</span> &lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Core.YafTaskModule, YAF.Core&quot;/&gt;</pre>
+
+                        <hr />
+
+                        <pre><span class="label label-danger">Remove Line</span> &lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Classes.Core.YafTaskModule, YAF.Classes.Core&quot; preCondition=&quot;managedHandler&quot;/&gt;</pre>
+                        <pre><span class="label label-info">Add Line</span> &lt;add name=&quot;YafTaskModule&quot; type=&quot;YAF.Core.YafTaskModule, YAF.Core&quot; preCondition=&quot;managedHandler&quot;/&gt;</pre>
+
+                        <hr />
+
+                        <pre><span class="label label-danger">Remove Line</span> &lt;profile enabled=&quot;true&quot; defaultProvider=&quot;YafProfileProvider&quot; inherits=&quot;YAF.Classes.Utils.YafUserProfile&quot;&gt;</pre>
+                        <pre><span class="label label-info">Add Line</span> &lt;profile enabled=&quot;true&quot; defaultProvider=&quot;YafProfileProvider&quot; inherits=&quot;YAF.Utils.YafUserProfile&quot;&gt;</pre>
+
+                        <hr />
+
+                        <pre><span class="label label-danger">Remove Line</span> &lt;add verb=&quot;POST,GET,HEAD&quot; path=&quot;ajaxpro/*.ashx&quot; type=&quot;AjaxPro.AjaxHandlerFactory, AjaxPro.2&quot;/&gt;</pre>
+                        <pre><span class="label label-info">Add Line</span> &lt;add verb=&quot;GET&quot; path=&quot;Resource.ashx&quot; type=&quot;YAF.YafResourceHandler, YAF&quot; /&gt;</pre>
+
+                        <hr />
+
+                        <pre><span class="label label-danger">Remove Line</span> &lt;add name=&quot;AjaxPro&quot; preCondition=&quot;integratedMode&quot; verb=&quot;POST,GET,HEAD&quot; path=&quot;ajaxpro/*.ashx&quot; type=&quot;AjaxPro.AjaxHandlerFactory, AjaxPro.2&quot; /&gt;</pre>
+                        <pre><span class="label label-info">Add Line</span> &lt;add name=&quot;YafHandler&quot; preCondition=&quot;integratedMode&quot;verb=&quot;GET&quot; path=&quot;Resource.ashx&quot; type=&quot;YAF.YafResourceHandler,YAF&quot; /&gt;</pre>
+                    </div>
                 </div>
             </div>
         </div>
-    </body>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4><span class="label label-info">Tip</span> Merging Web.Config Files </h4>
+            </div>
+            <div class="panel-body">
+                A tip to merge web.config files is to download both of them, then use a merge program
+                to combine. WinMerge is a free and excellent merge program which you can download
+                here: <a href="http://www.winmerge.org/">http://www.winmerge.org/</a>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3><span class="label label-primary">STEP 4</span> Upgrade Wizard</h3>
+            </div>
+            <div class="panel-body">
+                <p>
+                    Open the file <span class="approot">&lt;YAF.AppRoot&gt;</span>install/default.aspx on your web site. If you are
+                    testing on your local computer, under a directory called YetAnotherForum.Net, the
+                    address should be: <a href="http://localhost/yetanotherforum.net/install/">http://localhost/yetanotherforum.net/install/</a>
+                </p>
+
+                <p>The wizard will guide you through the upgrade process.</p>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3><a id="Support"></a>Yet Another Forum Community Support</h3>
+            </div>
+            <div class="panel-body">
+                <p>
+                    If you have any questions, please visit the YAF Community Support forum: <a href="http://forum.yetanotherforum.net">http://forum.yetanotherforum.net</a>, or visit the Wiki for More Informations.
+                </p>
+                <h3>Contact Us</h3>
+                <p>
+                    Thanks for trying YAF! If you have any suggestions or comments please post them
+                    on the support forum!
+                </p>
+
+                <hr />
+                <strong>YetAnotherForum.NET (YAF) the Open Source Discussion Forum for ASP.NET - <a href="http://yetanotherforum.net/">http://YetAnotherForum.NET</a>
+                </strong>
+                <small>YetAnotherForum.NET Copyright © 2012 <a href="http://www.tinygecko.com/">Tiny Gecko</a>. </small>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
