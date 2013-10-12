@@ -1185,6 +1185,30 @@ namespace YAF.Pages
             {
                 this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
 
+                if (Config.IsDotNetNuke && this.EditMessageID == null)
+                {
+                    if (this.TopicID != null)
+                    {
+                        this.Get<IActivityStream>()
+                            .AddReplyToStream(
+                                this.PageContext.PageForumID,
+                                newTopic,
+                                messageId.ToType<int>(),
+                                this.PageContext.PageTopicName,
+                                this._forumEditor.Text);
+                    }
+                    else
+                    {
+                        this.Get<IActivityStream>()
+                           .AddTopicToStream(
+                               this.PageContext.PageForumID,
+                               newTopic,
+                               messageId.ToType<int>(),
+                               this.TopicSubjectTextBox.Text,
+                               this._forumEditor.Text);
+                    }
+                }
+
                 if (this.PageContext.ForumUploadAccess && this.PostOptions1.AttachChecked)
                 {
                     // 't' variable is required only for poll and this is a attach poll token for attachments page
@@ -1215,10 +1239,6 @@ namespace YAF.Pages
                 // Not Approved
                 if (this.Get<YafBoardSettings>().EmailModeratorsOnModeratedPost)
                 {
-                    // TODO : Flag for spam
-                    //fsdklöfkdsöl
-
-
                     // not approved, notifiy moderators
                     this.Get<ISendNotification>()
                         .ToModeratorsThatMessageNeedsApproval(this.PageContext.PageForumID, (int)messageId);
@@ -1334,21 +1354,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The can have poll.
-        /// </summary>
-        /// <param name="message">
-        /// The message. 
-        /// </param>
-        /// <returns>
-        /// The can have poll. 
-        /// </returns>
-        private bool CanHavePoll([NotNull] DataRow message)
-        {
-            return (this.TopicID == null && this.QuotedMessageID == null && this.EditMessageID == null)
-                   || (message != null && message["Position"].ToType<int>() == 0);
-        }
-
-        /// <summary>
         /// Determines whether this instance [can quote post check] the specified topic info.
         /// </summary>
         /// <param name="topicInfo">
@@ -1376,32 +1381,6 @@ namespace YAF.Pages
             return (!forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsLocked)
                     && !topicInfo["Flags"].BinaryAnd(TopicFlags.Flags.IsLocked) || this.PageContext.ForumModeratorAccess)
                    && this.PageContext.ForumReplyAccess;
-        }
-
-        /// <summary>
-        /// The get poll id.
-        /// </summary>
-        /// <returns>
-        /// The get poll id. 
-        /// </returns>
-        [CanBeNull]
-        private object GetPollID()
-        {
-            return null;
-        }
-
-        /// <summary>
-        /// The has poll.
-        /// </summary>
-        /// <param name="message">
-        /// The message. 
-        /// </param>
-        /// <returns>
-        /// The has poll. 
-        /// </returns>
-        private bool HasPoll([NotNull] DataRow message)
-        {
-            return message != null && message["PollID"] != DBNull.Value && message["PollID"] != null;
         }
 
         /// <summary>

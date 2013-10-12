@@ -445,9 +445,9 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             // Quick Reply Modification Begin
@@ -1548,7 +1548,7 @@ namespace YAF.Pages
             YafContext.Current.Get<IYafSession>().LastPost = DateTime.UtcNow;
 
             // post message...
-            long nMessageId = 0;
+            long messageId = 0;
             object replyTo = -1;
             string msg = this._quickReplyEditor.Text;
             long topicID = this.PageContext.PageTopicID;
@@ -1673,7 +1673,7 @@ namespace YAF.Pages
                     null,
                     replyTo,
                     tFlags.BitValue,
-                    ref nMessageId))
+                    ref messageId))
             {
                 topicID = 0;
             }
@@ -1692,7 +1692,7 @@ namespace YAF.Pages
 
             bool bApproved = false;
 
-            using (DataTable dt = LegacyDb.message_list(nMessageId))
+            using (DataTable dt = LegacyDb.message_list(messageId))
             {
                 foreach (DataRow row in dt.Rows)
                 {
@@ -1703,10 +1703,21 @@ namespace YAF.Pages
             if (bApproved)
             {
                 // send new post notification to users watching this topic/forum
-                this.Get<ISendNotification>().ToWatchingUsers(nMessageId.ToType<int>());
+                this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
+
+                if (Config.IsDotNetNuke)
+                {
+                    this.Get<IActivityStream>()
+                           .AddReplyToStream(
+                               this.PageContext.PageForumID,
+                               this.PageContext.PageTopicID,
+                               messageId.ToType<int>(),
+                               this.PageContext.PageTopicName,
+                               msg);
+                }
 
                 // redirect to newly posted message
-                YafBuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", nMessageId);
+                YafBuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", messageId);
             }
             else
             {
@@ -1714,7 +1725,7 @@ namespace YAF.Pages
                 {
                     // not approved, notifiy moderators
                     this.Get<ISendNotification>().ToModeratorsThatMessageNeedsApproval(
-                        this.PageContext.PageForumID, (int)nMessageId);
+                        this.PageContext.PageForumID, (int)messageId);
                 }
 
                 string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);

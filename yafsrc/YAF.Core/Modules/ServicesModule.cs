@@ -35,10 +35,17 @@ namespace YAF.Core.Modules
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
+    /// <summary>
+    /// Registers all Service Modules
+    /// </summary>
     public class ServicesModule : BaseModule
     {
         #region Methods
 
+        /// <summary>
+        /// Loads the specified container builder.
+        /// </summary>
+        /// <param name="containerBuilder">The container builder.</param>
         protected override void Load(ContainerBuilder containerBuilder)
         {
             this.RegisterServices();
@@ -54,6 +61,14 @@ namespace YAF.Core.Modules
 
             // optional defaults.
             builder.RegisterType<YafSendMail>().As<ISendMail>().SingleInstance().PreserveExistingDefaults();
+
+            if (Config.IsDotNetNuke)
+            {
+                builder.RegisterType<YafActivityStream>()
+                    .As<IActivityStream>()
+                    .SingleInstance()
+                    .PreserveExistingDefaults();
+            }
 
             builder.RegisterType<YafSendNotification>().As<ISendNotification>().InstancePerLifetimeScope().PreserveExistingDefaults();
 

@@ -272,6 +272,7 @@
     <Compile Include="Services\Startup\PageRequestLoadServices.cs" />
     <Compile Include="Services\Startup\StartupCheckBannedIps.cs" />
     <Compile Include="Services\Startup\StartupInitializeDb.cs" />
+    <Compile Include="Services\YafActivityStream.cs" />
     <Compile Include="Services\YafAlbum.cs" />
     <Compile Include="Services\YafAvatars.cs" />
     <Compile Include="Services\YafBadWordReplace.cs" />
