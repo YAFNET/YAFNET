@@ -224,7 +224,7 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// The clean string for url.
         /// </returns>
-        protected static string CleanStringForURL(string inputString)
+        public static string CleanStringForURL(string inputString)
         {
             var sb = new StringBuilder();
 
