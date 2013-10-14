@@ -1024,8 +1024,7 @@ namespace YAF
                             "attachment; filename={0}".FormatWith(
                                 HttpUtility.UrlPathEncode(row["FileName"].ToString()).Replace("+", "_")));
                         context.Response.OutputStream.Write(data, 0, data.Length);
-
-                        this.GetRepository<Attachment>().Download(context.Request.QueryString.GetFirstOrDefaultAs<int>("a"));
+                        this.GetRepository<Attachment>().IncrementDownloadCounter(context.Request.QueryString.GetFirstOrDefaultAs<int>("a"));
                         break;
                     }
                 }
@@ -1089,7 +1088,7 @@ namespace YAF
                 if (CheckETag(context, eTag))
                 {
                     // found eTag... no need to resend/create this image -- just mark another view?
-                    this.GetRepository<Attachment>().Download(context.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
+                    this.GetRepository<Attachment>().IncrementDownloadCounter(context.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
                     return;
                 }
 
@@ -1141,7 +1140,7 @@ namespace YAF
                         context.Response.OutputStream.Write(data, 0, data.Length);
 
                         // add a download count...
-                        this.GetRepository<Attachment>().Download(context.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
+                        this.GetRepository<Attachment>().IncrementDownloadCounter(context.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
                         break;
                     }
                 }

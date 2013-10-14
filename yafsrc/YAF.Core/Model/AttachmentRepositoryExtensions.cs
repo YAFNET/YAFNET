@@ -21,8 +21,6 @@ namespace YAF.Core.Model
     using System.Collections.Generic;
     using System.Data;
 
-    using ServiceStack.OrmLite;
-
     using YAF.Core.Data;
     using YAF.Types;
     using YAF.Types.Interfaces;
@@ -54,22 +52,15 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The download.
+        /// Increments the download counter.
         /// </summary>
-        /// <param name="repository">
-        /// The repository. 
-        /// </param>
-        /// <param name="attachmentID">
-        /// The attachment id. 
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/> . 
-        /// </returns>
-        public static DataTable Download(this IRepository<Attachment> repository, int attachmentID)
+        /// <param name="repository">The repository.</param>
+        /// <param name="attachmentID">The attachment id.</param>
+        public static void IncrementDownloadCounter(this IRepository<Attachment> repository, int attachmentID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.GetData.attachment_download(AttachmentID: attachmentID);
+            repository.DbFunction.GetData.attachment_download(AttachmentID: attachmentID);
         }
 
         /// <summary>
@@ -97,17 +88,21 @@ namespace YAF.Core.Model
         /// The <see cref="DataTable"/> . 
         /// </returns>
         public static DataTable List(
-            this IRepository<Attachment> repository, 
-            int? messageID = null, 
-            int? attachmentID = null, 
-            int? boardId = null, 
-            int? pageIndex = null, 
+            this IRepository<Attachment> repository,
+            int? messageID = null,
+            int? attachmentID = null,
+            int? boardId = null,
+            int? pageIndex = null,
             int? pageSize = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.attachment_list(
-                MessageID: messageID, AttachmentID: attachmentID, boardID: boardId, PageIndex: pageIndex, PageSize: pageSize);
+                MessageID: messageID,
+                AttachmentID: attachmentID,
+                boardID: boardId,
+                PageIndex: pageIndex,
+                PageSize: pageSize);
         }
 
         /// <summary>
@@ -135,18 +130,26 @@ namespace YAF.Core.Model
         /// The <see cref="IList"/>.
         /// </returns>
         public static IList<Attachment> ListTyped(
-            this IRepository<Attachment> repository, 
-            int? messageID = null, 
-            int? attachmentID = null, 
-            int? boardId = null, 
-            int? pageIndex = null, 
+            this IRepository<Attachment> repository,
+            int? messageID = null,
+            int? attachmentID = null,
+            int? boardId = null,
+            int? pageIndex = null,
             int? pageSize = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             using (var session = repository.DbFunction.CreateSession())
             {
-                return session.GetTyped<Attachment>(r => r.attachment_list(MessageID: messageID, AttachmentID: attachmentID, boardID: boardId, PageIndex: pageIndex, PageSize: pageSize));
+                return
+                    session.GetTyped<Attachment>(
+                        r =>
+                        r.attachment_list(
+                            MessageID: messageID,
+                            AttachmentID: attachmentID,
+                            boardID: boardId,
+                            PageIndex: pageIndex,
+                            PageSize: pageSize));
             }
         }
 
@@ -171,13 +174,25 @@ namespace YAF.Core.Model
         /// <param name="fileData">
         /// The file data. 
         /// </param>
-        public static void Save(this IRepository<Attachment> repository, int messageID, string fileName, int bytes, string contentType, byte[] fileData = null)
+        public static void Save(
+            this IRepository<Attachment> repository,
+            int messageID,
+            string fileName,
+            int bytes,
+            string contentType,
+            byte[] fileData = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             var entity =
-                new { MessageID = messageID, FileName = fileName, Bytes = bytes, ContentType = contentType, FileData = fileData }
-                    .ToMappedEntity<Attachment>();
+                new
+                    {
+                        MessageID = messageID,
+                        FileName = fileName,
+                        Bytes = bytes,
+                        ContentType = contentType,
+                        FileData = fileData
+                    }.ToMappedEntity<Attachment>();
 
             repository.DbAccess.Insert(entity);
 
