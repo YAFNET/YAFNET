@@ -2019,6 +2019,7 @@
     <Resource tag="UNREAD_MSG2">У вас {0} непрочтённых сообщений в ваших Входящих. Вы желаете прочитать их прямо сейчас?</Resource>
     <Resource tag="UPDATE">Обновить</Resource>
     <Resource tag="USERNAME_TOOLONG">Имя пользователя и отображаемое имя пользователя не могут превышать {0} символов.</Resource>
+    <Resource tag="USERNAME_TOOSMALL">User Name or Display User Name must be more than {0} characters.</Resource>
     <Resource tag="VIEW_CATEGORY">Просмотреть раздел</Resource>
     <Resource tag="VIEW_FORUM">Просмотреть форум</Resource>
     <Resource tag="VIEW_FULLINFO">Показать подробности</Resource>

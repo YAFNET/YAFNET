@@ -319,10 +319,24 @@ namespace YAF.Controls
             if (this.Get<YafBoardSettings>().EnableDisplayName
                 && this.Get<YafBoardSettings>().AllowDisplayNameModification)
             {
+                // Check if name matches the required minimum length
                 if (this.DisplayName.Text.Trim().Length < this.Get<YafBoardSettings>().DisplayNameMinLength)
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "INVALID_DISPLAYNAME"), MessageTypes.Warning);
+                    this.PageContext.AddLoadMessage(
+                        this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().DisplayNameMinLength),
+                        MessageTypes.Warning);
+
                     return;
+                }
+
+                // Check if name matches the required minimum length
+                if (this.DisplayName.Text.Length > this.Get<YafBoardSettings>().UserNameMaxLength)
+                {
+                    this.PageContext.AddLoadMessage(
+                        this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().UserNameMaxLength),
+                        MessageTypes.Warning);
+
+                   return;
                 }
 
                 if (this.DisplayName.Text.Trim() != this.UserData.DisplayName)

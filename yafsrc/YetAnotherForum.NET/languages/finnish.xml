@@ -2007,6 +2007,7 @@
     <Resource tag="UNREAD_MSG2">You have {0} unread message(s) in your Inbox. Would You Like to go to your Inbox now?</Resource>
     <Resource tag="UPDATE">Update</Resource>
     <Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more than {0} characters.</Resource>
+    <Resource tag="USERNAME_TOOSMALL">User Name or Display User Name must be more than {0} characters.</Resource>
     <Resource tag="VIEW_CATEGORY">View category</Resource>
     <Resource tag="VIEW_FORUM">View forum</Resource>
     <Resource tag="VIEW_FULLINFO">View full info</Resource>

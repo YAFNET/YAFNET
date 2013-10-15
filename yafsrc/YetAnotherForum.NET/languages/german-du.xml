@@ -2007,6 +2007,7 @@
     <Resource tag="UNREAD_MSG2">Sie haben {0} ungelesene Nachricht(e) in ihrem Posteingang. Möchten Sie zu ihrem Posteingang gehen?</Resource>
     <Resource tag="UPDATE">Aktualisieren</Resource>
     <Resource tag="USERNAME_TOOLONG">Benutzername oder Anzeigename kann nicht länger als {0} Zeichen lang sein.</Resource>
+    <Resource tag="USERNAME_TOOSMALL">User Name or Display User Name must be more than {0} characters.</Resource>
     <Resource tag="VIEW_CATEGORY">Kategorie anzeigen</Resource>
     <Resource tag="VIEW_FORUM">Forum anzeigen</Resource>
     <Resource tag="VIEW_FULLINFO">Detaillierte Infos</Resource>

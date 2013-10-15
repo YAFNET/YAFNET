@@ -2012,6 +2012,7 @@
     <Resource tag="UNREAD_MSG2">Je hebt {0} ongelezen berichten in je Postvak In. Wil je nu naar je Postvak In?</Resource>
     <Resource tag="UPDATE">Bijwerken</Resource>
     <Resource tag="USERNAME_TOOLONG">Gebruikersnaam of weergegeven naam mag niet meer dan {0} tekens lang zijn.</Resource>
+    <Resource tag="USERNAME_TOOSMALL">User Name or Display User Name must be more than {0} characters.</Resource>
     <Resource tag="VIEW_CATEGORY">Bekijkt categorie</Resource>
     <Resource tag="VIEW_FORUM">Bekijk forum</Resource>
     <Resource tag="VIEW_FULLINFO">Bekijk volledige info</Resource>

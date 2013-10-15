@@ -285,6 +285,16 @@ namespace YAF.Pages
                 return;
             }
 
+            if (userName.Length < this.Get<YafBoardSettings>().DisplayNameMinLength)
+            {
+                this.PageContext.AddLoadMessage(
+                    this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().DisplayNameMinLength),
+                    MessageTypes.Error);
+
+                e.Cancel = true;
+                return;
+            }
+
             if (userName.Length > this.Get<YafBoardSettings>().UserNameMaxLength)
             {
                 this.PageContext.AddLoadMessage(
@@ -301,6 +311,18 @@ namespace YAF.Pages
 
                 if (displayName != null)
                 {
+                    // Check if name matches the required minimum length
+                    if (displayName.Text.Trim().Length < this.Get<YafBoardSettings>().DisplayNameMinLength)
+                    {
+                        this.PageContext.AddLoadMessage(
+                            this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().DisplayNameMinLength),
+                            MessageTypes.Warning);
+                        e.Cancel = true;
+
+                        return;
+                    }
+
+                    // Check if name matches the required minimum length
                     if (displayName.Text.Length > this.Get<YafBoardSettings>().UserNameMaxLength)
                     {
                         this.PageContext.AddLoadMessage(
@@ -625,6 +647,7 @@ namespace YAF.Pages
             // max user name length
             var usernamelehgthText =
                 (LocalizedLabel)this.CreateUserStepContainer.FindControl("LocalizedLabelLohgUserNameWarnText");
+
             usernamelehgthText.Param0 = this.Get<YafBoardSettings>().UserNameMaxLength.ToString();
 
             if (this.Get<YafBoardSettings>().CaptchaTypeRegister == 2)

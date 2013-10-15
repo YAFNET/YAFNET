@@ -2018,6 +2018,7 @@
     <Resource tag="UNREAD_MSG2">Hai {0} nuovi messaggi nella tua cassetta postale. Vuoi leggerli ora?</Resource>
     <Resource tag="UPDATE">Aggiorna</Resource>
     <Resource tag="USERNAME_TOOLONG">Il nome utente od il nome utente da visualizzare non può essere più lungo di {0} caratteri.</Resource>
+    <Resource tag="USERNAME_TOOSMALL">User Name or Display User Name must be more than {0} characters.</Resource>
     <Resource tag="VIEW_CATEGORY">Mostra categoria</Resource>
     <Resource tag="VIEW_FORUM">Mostra forum</Resource>
     <Resource tag="VIEW_FULLINFO">Mostra informazioni dettagliate</Resource>

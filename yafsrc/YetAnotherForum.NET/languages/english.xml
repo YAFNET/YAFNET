@@ -967,8 +967,8 @@
   <Resource tag="DISABLE_NOFOLLOW_ONOLDERPOSTS_HELP">If "NoFollow" is enabled above, this is disable no follow for links on messages older then X days old (which takes into consideration last edited).</Resource>
   <Resource tag="DISABLE_REGISTER">Disable New Registrations:</Resource>
   <Resource tag="DISABLE_REGISTER_HELP">New users won't be able to register.</Resource>
-  <Resource tag="DISPLAYNAME_MIN_LENGTH">Display Name Min. Length</Resource>
-  <Resource tag="DISPLAYNAME_MIN_LENGTH_HELP">Minium Length for Display Names.</Resource>
+  <Resource tag="DISPLAYNAME_MIN_LENGTH">User/Display Name Min. Length</Resource>
+  <Resource tag="DISPLAYNAME_MIN_LENGTH_HELP">Minium Length for Display and User Names.</Resource>
   <Resource tag="DISCUSSIONS_CACHE_TIMEOUT">Active Discussions Cache Timeout:</Resource>
   <Resource tag="DISCUSSIONS_CACHE_TIMEOUT_HELP">In minutes</Resource>
   <Resource tag="DISPLAY_POINTS">Display Reputation Bar:</Resource>
@@ -1157,7 +1157,7 @@
   <Resource tag="MODAL_LOGIN_HELP">If checked, the Login Control is displayed as Login Box. Otherwise Login Control will be Displayed on a Single Page.</Resource>
   <Resource tag="MYTOPICSLIST_PAGE_SIZE">My Topics List Page Size:</Resource>
   <Resource tag="MYTOPICSLIST_PAGE_SIZE_HELP">Number entries on a page on the My Topics page. </Resource>
-  <Resource tag="NAME_LENGTH">User Name Max Length:</Resource>
+  <Resource tag="NAME_LENGTH">User/Display Name Max Length:</Resource>
   <Resource tag="NAME_LENGTH_HELP">Max Allowed User Name or User Display Name Max Length.</Resource>
   <Resource tag="NOFOLLOW_LINKTAGS">Use "NoFollow" Tag in Links:</Resource>
   <Resource tag="NOFOLLOW_LINKTAGS_HELP">If this is checked, all links will have the nofollow tag.</Resource>
@@ -2016,6 +2016,7 @@
   <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>
   <Resource tag="UNREAD_MSG2">You have {0} unread message(s) in your Inbox. Would You Like to go to your Inbox now?</Resource>
   <Resource tag="UPDATE">Update</Resource>
+  <Resource tag="USERNAME_TOOSMALL">User Name or Display User Name must be more than {0} characters.</Resource>
   <Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more than {0} characters.</Resource>
   <Resource tag="VIEW_CATEGORY">View category</Resource>
   <Resource tag="VIEW_FORUM">View forum</Resource>

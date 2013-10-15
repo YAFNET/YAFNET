@@ -2011,6 +2011,7 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="UNREAD_MSG2">شما {0} پیام در صندوق خود دارید. آیا مایل به بازگائی صندوق خود هستید؟</Resource>
     <Resource tag="UPDATE">بروزرسانی</Resource>
     <Resource tag="USERNAME_TOOLONG">.نام کاربری و نامی که نمایش داده می شوند نباید از {0} کاراکتر طولانی تر باشند </Resource>
+    <Resource tag="USERNAME_TOOSMALL">User Name or Display User Name must be more than {0} characters.</Resource>
     <Resource tag="VIEW_CATEGORY">نمایش رده</Resource>
     <Resource tag="VIEW_FORUM">نمایش انجمن</Resource>
     <Resource tag="VIEW_FULLINFO">نمایش کامل اطلاعات</Resource>
