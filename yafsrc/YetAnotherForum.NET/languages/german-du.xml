@@ -947,6 +947,10 @@
     <Resource tag="AVATAR_UPLOAD_HELP">Wenn aktiviert können Benutzer Avatare Hochladen.</Resource>
     <Resource tag="AVATAR_WIDTH">Avatar Breite:</Resource>
     <Resource tag="AVATAR_WIDTH_HELP">Maximale Breite für Avatare.</Resource>
+    <Resource tag="BOT_CHECK_1">StopForumSpam.com</Resource>
+    <Resource tag="BOT_CHECK_2">BotScout.com (Registrierung erforderlich)</Resource>
+    <Resource tag="BOT_CHECK_3">StopForumSpam.com &amp; BotScout.com (Registrierung erforderlich)</Resource>
+    <Resource tag="BOT_CHECK_4">StopForumSpam.com oder BotScout.com (Registrierung erforderlich)</Resource>
     <Resource tag="BOT_CHECK_ONREGISTER">Beim Registrieren auf Bots prüfen:</Resource>
     <Resource tag="BOT_CHECK_ONREGISTER_HELP">Wenn aktivieren wird während der Regstrierung gechecked ob der Benutzer ein SPAM Bot ist, Sie haben die Auswahl was dann passieren soll endweder wird der Benutzer blockiert oder es wird nur geloggt und der Admin per Email benachrichtigt.</Resource>
     <Resource tag="BOT_MESSAGE_0">Deaktiviert</Resource>

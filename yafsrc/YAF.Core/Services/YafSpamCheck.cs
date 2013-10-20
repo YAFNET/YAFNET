@@ -38,7 +38,7 @@ namespace YAF.Core.Services
         /// Check a Post for SPAM against the BlogSpam.NET API or AKISMET Service
         /// </summary>
         /// <param name="userName">Name of the user.</param>
-        /// <param name="ipAddress">The ip address.</param>
+        /// <param name="ipAddress">The IP address.</param>
         /// <param name="postMessage">The post message.</param>
         /// <param name="emailAddress">The email address.</param>
         /// <param name="result">The result.</param>
@@ -73,7 +73,7 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="userName">Name of the user.</param>
         /// <param name="emailAddress">The email address.</param>
-        /// <param name="ipAddress">The ip address.</param>
+        /// <param name="ipAddress">The IP address.</param>
         /// <param name="result">The result.</param>
         /// <returns>
         /// Returns if Post is SPAM or not
@@ -125,6 +125,22 @@ namespace YAF.Core.Services
 
                         return botScout.IsBot(ipAddress, emailAddress, userName)
                                && stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
+                    }
+
+                case 4:
+                    {
+                        // use StopForumSpam instead
+                        var stopForumSpam = new StopForumSpam();
+
+                        if (!YafContext.Current.Get<YafBoardSettings>().BotScoutApiKey.IsSet())
+                        {
+                            return stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
+                        }
+
+                        var botScout = new BotScout();
+
+                        return botScout.IsBot(ipAddress, emailAddress, userName)
+                               | stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
                     }
             }
 
@@ -194,10 +210,15 @@ namespace YAF.Core.Services
                 return
                     service.CheckCommentForSpam(
                         new Comment(IPAddress.Parse(ipAddress), YafContext.Current.Get<HttpRequestBase>().UserAgent)
-                        {
-                            Content = postMessage,
-                            Author = userName,
-                        }, out result);
+                            {
+                                Content
+                                    =
+                                    postMessage,
+                                Author
+                                    =
+                                    userName,
+                            },
+                        out result);
             }
             catch (Exception ex)
             {

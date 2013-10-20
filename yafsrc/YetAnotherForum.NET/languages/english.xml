@@ -1258,6 +1258,10 @@
   <Resource tag="APP_CORES_HELP">Number of Processor cores.</Resource>
   <Resource tag="APP_MEMORY">Application memory:</Resource>
   <Resource tag="APP_MEMORY_HELP">Application memory used.</Resource> 
+  <Resource tag="BOT_CHECK_1">StopForumSpam.com</Resource>
+  <Resource tag="BOT_CHECK_2">BotScout.com (Needs Registration)</Resource>
+  <Resource tag="BOT_CHECK_3">StopForumSpam.com &amp; BotScout.com (Needs Registration)</Resource>
+  <Resource tag="BOT_CHECK_4">StopForumSpam.com or BotScout.com (Needs Registration)</Resource>
   <Resource tag="BOT_MESSAGE_0">Do nothing</Resource>
   <Resource tag="BOT_MESSAGE_1">Approve User &amp; Log User &amp; Send Admin an Email</Resource>
   <Resource tag="BOT_MESSAGE_2">Block User</Resource>

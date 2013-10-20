@@ -687,6 +687,7 @@ namespace YAF.Classes
         /// 1 = StopForumSpam.com Service
         /// 2 = BotScout.com Service
         /// 3 = StopForumSpam.com and BotScout.com Service
+        /// 4 = StopForumSpam.com or BotScout.com Service
         /// </summary>
         public int BotSpamServiceType
         {
@@ -1866,7 +1867,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets User Name Max Length.
+        /// Gets or sets User/Display Name Max Length.
         /// </summary>
         public int UserNameMaxLength
         {
@@ -1882,7 +1883,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets Display Name Min Length.
+        /// Gets or sets User/Display Name Min Length.
         /// </summary>
         public int DisplayNameMinLength
         {

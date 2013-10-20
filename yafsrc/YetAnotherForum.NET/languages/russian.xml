@@ -947,6 +947,10 @@
     <Resource tag="AVATAR_UPLOAD_HELP">Разрешить пользователям загружать аватары в профиле.</Resource>
     <Resource tag="AVATAR_WIDTH">Ширина аватара:</Resource>
     <Resource tag="AVATAR_WIDTH_HELP">Максимальная ширина аватара.</Resource>
+    <Resource tag="BOT_CHECK_1">StopForumSpam.com</Resource>
+    <Resource tag="BOT_CHECK_2">BotScout.com (Needs Registration)</Resource>
+    <Resource tag="BOT_CHECK_3">StopForumSpam.com &amp; BotScout.com (Needs Registration)</Resource>
+    <Resource tag="BOT_CHECK_4">StopForumSpam.com or BotScout.com (Needs Registration)</Resource>
     <Resource tag="BOT_CHECK_ONREGISTER">Handling of Bots during Registration:</Resource>
     <Resource tag="BOT_CHECK_ONREGISTER_HELP">If enabled it detects Spammers during the Registration, you can set to Block that user or simply log it and send a Message to the Admins.</Resource>
     <Resource tag="BOT_MESSAGE_0">Do nothing</Resource>

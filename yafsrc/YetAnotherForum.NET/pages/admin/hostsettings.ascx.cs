@@ -356,9 +356,10 @@ namespace YAF.Pages.Admin
             this.SpamServiceType.Items.Add(new ListItem("Akismet API (Needs Registration)", "2"));
 
             this.BotSpamServiceType.Items.Add(new ListItem(this.GetText("ADMIN_COMMON", "DISABLED"), "0"));
-            this.BotSpamServiceType.Items.Add(new ListItem("StopForumSpam.com", "1"));
-            this.BotSpamServiceType.Items.Add(new ListItem("BotScout.com (Needs Registration)", "2"));
-            this.BotSpamServiceType.Items.Add(new ListItem("StopForumSpam.com & BotScout.com (Needs Registration)", "3"));
+            this.BotSpamServiceType.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_CHECK_1"), "1"));
+            this.BotSpamServiceType.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_CHECK_2"), "2"));
+            this.BotSpamServiceType.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_CHECK_3"), "3"));
+            this.BotSpamServiceType.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_CHECK_4"), "4"));
 
             this.SpamMessageHandling.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "SPAM_MESSAGE_0"), "0"));
             this.SpamMessageHandling.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "SPAM_MESSAGE_1"), "1"));
