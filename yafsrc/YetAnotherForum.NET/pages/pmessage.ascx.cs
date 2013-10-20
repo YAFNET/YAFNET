@@ -134,29 +134,20 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Handles cancel button click event.
+        /// Redirect user back to his PM inbox
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // redirect user back to his PM inbox
             YafBuildLink.Redirect(ForumPages.cp_pm);
         }
 
         /// <summary>
-        /// Handles clear button click event.
+        /// Clears the User List
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Clear_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // clear drop down
@@ -193,28 +184,24 @@ namespace YAF.Pages
 
             // private messages
             this.PageLinks.AddLink(
-              this.GetText(ForumPages.cp_pm.ToString(), "TITLE"),
-              YafBuildLink.GetLink(ForumPages.cp_pm));
+                this.GetText(ForumPages.cp_pm.ToString(), "TITLE"),
+                YafBuildLink.GetLink(ForumPages.cp_pm));
 
             // post new message
             this.PageLinks.AddLink(this.GetText("TITLE"));
         }
 
         /// <summary>
-        /// Handles find users button click event.
+        /// Find Users
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void FindUsers_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.To.Text.Length < 2)
             {
                 // need at least 2 latters of user's name
-                YafContext.Current.AddLoadMessage(this.GetText("NEED_MORE_LETTERS"));
+                YafContext.Current.AddLoadMessage(this.GetText("NEED_MORE_LETTERS"), MessageTypes.Warning);
                 return;
             }
 
@@ -243,7 +230,7 @@ namespace YAF.Pages
             else
             {
                 // user not found
-                YafContext.Current.AddLoadMessage(this.GetText("USER_NOTFOUND"));
+                YafContext.Current.AddLoadMessage(this.GetText("USER_NOTFOUND"), MessageTypes.Error);
                 return;
             }
 
@@ -252,14 +239,10 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Page initialization handler.
+        /// Handles the Initialization event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Init([NotNull] object sender, [NotNull] EventArgs e)
         {
             // create editor based on administrator's settings
@@ -269,14 +252,13 @@ namespace YAF.Pages
             {
                 // Text editor
                 editorId = !string.IsNullOrEmpty(this.PageContext.TextEditor)
-                                        ? this.PageContext.TextEditor
-                                        : this.Get<YafBoardSettings>().ForumEditor;
+                               ? this.PageContext.TextEditor
+                               : this.Get<YafBoardSettings>().ForumEditor;
             }
 
             // Check if Editor exists, if not fallback to default editorid=1
-            this._editor =
-               this.Get<IModuleManager<ForumEditor>>().GetBy(editorId, false) ??
-               this.Get<IModuleManager<ForumEditor>>().GetBy("1");
+            this._editor = this.Get<IModuleManager<ForumEditor>>().GetBy(editorId, false)
+                           ?? this.Get<IModuleManager<ForumEditor>>().GetBy("1");
 
             // Override Editor when mobile device with default Yaf BBCode Editor
             if (PageContext.IsMobileDevice)
@@ -289,14 +271,10 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Handles page load event.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // if user isn't authenticated, redirect him to login page
@@ -338,113 +316,127 @@ namespace YAF.Pages
 
                 // get quoted message
                 DataRow row =
-                    LegacyDb.pmessage_list(Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("p"))).GetFirstRow();
+                    LegacyDb.pmessage_list(
+                        Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("p"))).GetFirstRow();
 
                 // there is such a message
-                if (row != null)
+                if (row == null)
                 {
-                    // get message sender/recipient
-                    var toUserId = (int)row["ToUserID"];
-                    var fromUserId = (int)row["FromUserID"];
-
-                    // verify access to this PM
-                    if (toUserId != YafContext.Current.PageUserID && fromUserId != YafContext.Current.PageUserID)
-                    {
-                        YafBuildLink.AccessDenied();
-                    }
-
-                    // handle subject
-                    var subject = (string)row["Subject"];
-                    if (!subject.StartsWith("Re: "))
-                    {
-                        subject = "Re: {0}".FormatWith(subject);
-                    }
-
-                    this.PmSubjectTextBox.Text = subject;
-
-                    string displayName = this.Get<IUserDisplayName>().GetName(fromUserId);
-
-                    // set "To" user and disable changing...
-                    this.To.Text = displayName;
-                    this.To.Enabled = false;
-                    this.FindUsers.Enabled = false;
-                    this.AllUsers.Enabled = false;
-                    this.AllBuddies.Enabled = false;
-
-                    if (isQuoting)
-                    {
-                        // PM is a quoted reply
-                        string body = row["Body"].ToString();
-
-                        if (this.Get<YafBoardSettings>().RemoveNestedQuotes)
-                        {
-                            body = this.Get<IFormatMessage>().RemoveNestedQuotes(body);
-                        }
-
-                        // Ensure quoted replies have bad words removed from them
-                        body = this.Get<IBadWordReplace>().Replace(body);
-
-                        // Quote the original message
-                        body = "[QUOTE={0}]{1}[/QUOTE]".FormatWith(displayName, body);
-
-                        // we don't want any whitespaces at the beginning of message
-                        this._editor.Text = body.TrimStart();
-                    }
+                    return;
                 }
+
+                // get message sender/recipient
+                var toUserId = row["ToUserID"].ToType<int>();
+                var fromUserId = row["FromUserID"].ToType<int>();
+
+                // verify access to this PM
+                if (toUserId != YafContext.Current.PageUserID && fromUserId != YafContext.Current.PageUserID)
+                {
+                    YafBuildLink.AccessDenied();
+                }
+
+                // handle subject
+                var subject = row["Subject"].ToType<string>();
+                if (!subject.StartsWith("Re: "))
+                {
+                    subject = "Re: {0}".FormatWith(subject);
+                }
+
+                this.PmSubjectTextBox.Text = subject;
+
+                string displayName = this.Get<IUserDisplayName>().GetName(fromUserId);
+
+                // set "To" user and disable changing...
+                this.To.Text = displayName;
+                this.To.Enabled = false;
+                this.FindUsers.Enabled = false;
+                this.AllUsers.Enabled = false;
+                this.AllBuddies.Enabled = false;
+
+                if (!isQuoting)
+                {
+                    return;
+                }
+
+                // PM is a quoted reply
+                string body = row["Body"].ToString();
+
+                if (this.Get<YafBoardSettings>().RemoveNestedQuotes)
+                {
+                    body = this.Get<IFormatMessage>().RemoveNestedQuotes(body);
+                }
+
+                // Ensure quoted replies have bad words removed from them
+                body = this.Get<IBadWordReplace>().Replace(body);
+
+                // Quote the original message
+                body = "[QUOTE={0}]{1}[/QUOTE]".FormatWith(displayName, body);
+
+                // we don't want any whitespaces at the beginning of message
+                this._editor.Text = body.TrimStart();
             }
-            else if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u").IsSet() &&
-                     this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r").IsSet())
+            else if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u").IsSet()
+                     && this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r").IsSet())
             {
                 // We check here if the user have access to the option
-                if (this.PageContext.IsModeratorInAnyForum || this.PageContext.IsForumModerator)
+                if (!this.PageContext.IsModeratorInAnyForum && !this.PageContext.IsForumModerator)
                 {
-                    // PM is being sent to a predefined user
-                    int toUser;
-                    int reportMessage;
+                    return;
+                }
 
-                    if (int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"), out toUser) &&
-                        int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r"), out reportMessage))
-                    {
-                        // get quoted message
-                        DataRow messagesRow =
-                            LegacyDb.message_listreporters(
-                                Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r")).ToType<int>(),
-                                Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")).ToType<int>()).GetFirstRow();
+                // PM is being sent to a predefined user
+                int toUser;
+                int reportMessage;
 
-                        // there is such a message
-                        // message info should be always returned as 1 row 
-                        if (messagesRow != null)
-                        {
-                            // handle subject                                           
-                            this.PmSubjectTextBox.Text = this.GetText("REPORTED_SUBJECT");
+                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"), out toUser)
+                    || !int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r"), out reportMessage))
+                {
+                    return;
+                }
 
-                            string displayName = this.Get<IUserDisplayName>().GetName(
-                                messagesRow.Field<int>("UserID"));
+                // get quoted message
+                DataRow messagesRow =
+                    LegacyDb.message_listreporters(
+                        Security.StringToLongOrRedirect(
+                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r")).ToType<int>(),
+                        Security.StringToLongOrRedirect(
+                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")).ToType<int>())
+                        .GetFirstRow();
 
-                            // set "To" user and disable changing...
-                            this.To.Text = displayName;
-                            this.To.Enabled = false;
-                            this.FindUsers.Enabled = false;
-                            this.AllUsers.Enabled = false;
-                            this.AllBuddies.Enabled = false;
+                // there is such a message
+                // message info should be always returned as 1 row 
+                if (messagesRow == null)
+                {
+                    return;
+                }
 
-                            // Parse content with delimiter '|'  
-                            string[] quoteList = messagesRow.Field<string>("ReportText").Split('|');
+                // handle subject                                           
+                this.PmSubjectTextBox.Text = this.GetText("REPORTED_SUBJECT");
 
-                            // Quoted replies should have bad words in them
-                            // Reply to report PM is always a quoted reply
-                            // Quote the original message in a cycle
-                            for (int i = 0; i < quoteList.Length; i++)
-                            {
-                                // Add quote codes
-                                quoteList[i] = "[QUOTE={0}]{1}[/QUOTE]".FormatWith(displayName, quoteList[i]);
+                string displayName =
+                    this.Get<IUserDisplayName>().GetName(messagesRow.Field<int>("UserID"));
 
-                                // Replace DateTime delimiter '??' by ': ' 
-                                // we don't want any whitespaces at the beginning of message
-                                this._editor.Text = quoteList[i].Replace("??", ": ") + this._editor.Text.TrimStart();
-                            }
-                        }
-                    }
+                // set "To" user and disable changing...
+                this.To.Text = displayName;
+                this.To.Enabled = false;
+                this.FindUsers.Enabled = false;
+                this.AllUsers.Enabled = false;
+                this.AllBuddies.Enabled = false;
+
+                // Parse content with delimiter '|'  
+                string[] quoteList = messagesRow.Field<string>("ReportText").Split('|');
+
+                // Quoted replies should have bad words in them
+                // Reply to report PM is always a quoted reply
+                // Quote the original message in a cycle
+                for (int i = 0; i < quoteList.Length; i++)
+                {
+                    // Add quote codes
+                    quoteList[i] = "[QUOTE={0}]{1}[/QUOTE]".FormatWith(displayName, quoteList[i]);
+
+                    // Replace DateTime delimiter '??' by ': ' 
+                    // we don't want any whitespaces at the beginning of message
+                    this._editor.Text = quoteList[i].Replace("??", ": ") + this._editor.Text.TrimStart();
                 }
             }
             else if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u").IsSet())
@@ -454,51 +446,54 @@ namespace YAF.Pages
                 // find user
                 int toUserId;
 
-                if (int.TryParse(this.Request.QueryString.GetFirstOrDefault("u"), out toUserId))
+                if (!int.TryParse(this.Request.QueryString.GetFirstOrDefault("u"), out toUserId))
                 {
-                    DataRow currentRow = LegacyDb.user_list(YafContext.Current.PageBoardID, toUserId, true).GetFirstRow();
-
-                    if (currentRow != null)
-                    {
-                        this.To.Text = this.Get<IUserDisplayName>().GetName(currentRow.Field<int>("UserID"));
-                        this.To.Enabled = false;
-
-                        // hide find user/all users buttons
-                        this.FindUsers.Enabled = false;
-                        this.AllUsers.Enabled = false;
-                        this.AllBuddies.Enabled = false;
-                    }
+                    return;
                 }
+
+                DataRow currentRow =
+                    LegacyDb.user_list(YafContext.Current.PageBoardID, toUserId, true).GetFirstRow();
+
+                if (currentRow == null)
+                {
+                    return;
+                }
+
+                this.To.Text = this.Get<IUserDisplayName>().GetName(currentRow.Field<int>("UserID"));
+                this.To.Enabled = false;
+
+                // hide find user/all users buttons
+                this.FindUsers.Enabled = false;
+                this.AllUsers.Enabled = false;
+                this.AllBuddies.Enabled = false;
             }
             else
             {
                 // Blank PM
 
                 // multi-receiver info is relevant only when sending blank PM
-                if (this.Get<YafBoardSettings>().PrivateMessageMaxRecipients > 1)
+                if (this.Get<YafBoardSettings>().PrivateMessageMaxRecipients <= 1)
                 {
-                    // format localized string
-                    this.MultiReceiverInfo.Text =
-                        "<br />{0}<br />{1}".FormatWith(
-                            this.GetText("MAX_RECIPIENT_INFO").FormatWith(
-                                this.Get<YafBoardSettings>().PrivateMessageMaxRecipients),
-                            this.GetText("MULTI_RECEIVER_INFO"));
-
-                    // display info
-                    this.MultiReceiverInfo.Visible = true;
+                    return;
                 }
+
+                // format localized string
+                this.MultiReceiverInfo.Text =
+                    "<br />{0}<br />{1}".FormatWith(
+                        this.GetText("MAX_RECIPIENT_INFO")
+                            .FormatWith(this.Get<YafBoardSettings>().PrivateMessageMaxRecipients),
+                        this.GetText("MULTI_RECEIVER_INFO"));
+
+                // display info
+                this.MultiReceiverInfo.Visible = true;
             }
         }
 
         /// <summary>
-        /// Handles preview button click event.
+        /// Previews the Message Output
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Preview_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // make preview row visible
@@ -513,7 +508,11 @@ namespace YAF.Pages
                 return;
             }
 
-            using (DataTable userDT = LegacyDb.user_list(YafContext.Current.PageBoardID, YafContext.Current.PageUserID, true))
+            using (
+                DataTable userDT = LegacyDb.user_list(
+                    YafContext.Current.PageBoardID,
+                    YafContext.Current.PageUserID,
+                    true))
             {
                 if (!userDT.Rows[0].IsNull("Signature"))
                 {
@@ -523,19 +522,15 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Handles save button click event.
+        /// Send Private Message
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             var replyTo = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p").IsSet()
-                               ? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p").ToType<int>()
-                               : -1;
+                              ? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p").ToType<int>()
+                              : -1;
 
             // recipient was set in dropdown
             if (this.ToList.Visible)
@@ -546,21 +541,21 @@ namespace YAF.Pages
             if (this.To.Text.Length <= 0)
             {
                 // recipient is required field
-                YafContext.Current.AddLoadMessage(this.GetText("need_to"));
+                YafContext.Current.AddLoadMessage(this.GetText("need_to"), MessageTypes.Warning);
                 return;
             }
 
             // subject is required
             if (this.PmSubjectTextBox.Text.Trim().Length <= 0)
             {
-                YafContext.Current.AddLoadMessage(this.GetText("need_subject"));
+                YafContext.Current.AddLoadMessage(this.GetText("need_subject"), MessageTypes.Warning);
                 return;
             }
 
             // message is required
             if (this._editor.Text.Trim().Length <= 0)
             {
-                YafContext.Current.AddLoadMessage(this.GetText("need_message"));
+                YafContext.Current.AddLoadMessage(this.GetText("need_message"), MessageTypes.Warning);
                 return;
             }
 
@@ -568,9 +563,45 @@ namespace YAF.Pages
             {
                 // administrator is sending PMs tp all users           
                 string body = this._editor.Text;
-                var messageFlags = new MessageFlags { IsHtml = this._editor.UsesHTML, IsBBCode = this._editor.UsesBBCode };
+                var messageFlags = new MessageFlags
+                                       {
+                                           IsHtml = this._editor.UsesHTML,
+                                           IsBBCode = this._editor.UsesBBCode
+                                       };
 
-                LegacyDb.pmessage_save(YafContext.Current.PageUserID, 0, this.PmSubjectTextBox.Text, body, messageFlags.BitValue, replyTo);
+                // test user's PM count
+                if (!this.VerifyMessageAllowed(1))
+                {
+                    return;
+                }
+
+                var receivingPMInfo = LegacyDb.user_pmcount(replyTo).Rows[0];
+
+                // test receiving user's PM count
+                if (!YafContext.Current.IsAdmin
+                    || !(bool)
+                        Convert.ChangeType(UserMembershipHelper.GetUserRowForID(replyTo, true)["IsAdmin"], typeof(bool)))
+                {
+                    if (receivingPMInfo["NumberTotal"].ToType<int>() + 1
+                        <= receivingPMInfo["NumberAllowed"].ToType<int>())
+                    {
+                        return;
+                    }
+
+                    // recipient has full PM box
+                    YafContext.Current.AddLoadMessage(
+                        this.GetTextFormatted("RECIPIENTS_PMBOX_FULL", this.To.Text),
+                        MessageTypes.Error);
+                    return;
+                }
+
+                LegacyDb.pmessage_save(
+                    YafContext.Current.PageUserID,
+                    0,
+                    this.PmSubjectTextBox.Text,
+                    body,
+                    messageFlags.BitValue,
+                    replyTo);
 
                 // redirect to outbox (sent items), not control panel
                 YafBuildLink.Redirect(ForumPages.cp_pm, "v={0}", "out");
@@ -597,24 +628,21 @@ namespace YAF.Pages
                 // list of recipients
                 var recipients = new List<string>(this.To.Text.Trim().Split(';'));
 
-                if (recipients.Count > this.Get<YafBoardSettings>().PrivateMessageMaxRecipients &&
-                    !YafContext.Current.IsAdmin && this.Get<YafBoardSettings>().PrivateMessageMaxRecipients != 0)
+                if (recipients.Count > this.Get<YafBoardSettings>().PrivateMessageMaxRecipients
+                    && !YafContext.Current.IsAdmin && this.Get<YafBoardSettings>().PrivateMessageMaxRecipients != 0)
                 {
                     // to many recipients
                     YafContext.Current.AddLoadMessage(
-                      this.GetTextFormatted("TOO_MANY_RECIPIENTS", this.Get<YafBoardSettings>().PrivateMessageMaxRecipients));
+                        this.GetTextFormatted(
+                            "TOO_MANY_RECIPIENTS",
+                            this.Get<YafBoardSettings>().PrivateMessageMaxRecipients),
+                        MessageTypes.Warning);
+
                     return;
                 }
 
-                // test sending user's PM count
-                // get user's name
-                DataRow drPMInfo = LegacyDb.user_pmcount(YafContext.Current.PageUserID).Rows[0];
-
-                if ((drPMInfo["NumberTotal"].ToType<int>() > drPMInfo["NumberAllowed"].ToType<int>() + recipients.Count) &&
-                    !YafContext.Current.IsAdmin)
+                if (!this.VerifyMessageAllowed(recipients.Count))
                 {
-                    // user has full PM box
-                    YafContext.Current.AddLoadMessage(this.GetTextFormatted("OWN_PMBOX_FULL", drPMInfo["NumberAllowed"]));
                     return;
                 }
 
@@ -628,13 +656,15 @@ namespace YAF.Pages
 
                     if (!userId.HasValue)
                     {
-                        YafContext.Current.AddLoadMessage(this.GetTextFormatted("NO_SUCH_USER", recipient));
+                        YafContext.Current.AddLoadMessage(
+                            this.GetTextFormatted("NO_SUCH_USER", recipient),
+                            MessageTypes.Warning);
                         return;
                     }
 
                     if (UserMembershipHelper.IsGuestUser(userId.Value))
                     {
-                        YafContext.Current.AddLoadMessage(this.GetText("NOT_GUEST"));
+                        YafContext.Current.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.Error);
                         return;
                     }
 
@@ -644,19 +674,23 @@ namespace YAF.Pages
                         recipientIds.Add(userId.Value);
                     }
 
+                    var receivingPMInfo = LegacyDb.user_pmcount(userId.Value).Rows[0];
+
                     // test receiving user's PM count
-                    if ((LegacyDb.user_pmcount(userId.Value).Rows[0]["NumberTotal"].ToType<int>() <
-                         LegacyDb.user_pmcount(userId.Value).Rows[0]["NumberAllowed"].ToType<int>()) ||
-                        YafContext.Current.IsAdmin ||
-                        (bool)
-                        Convert.ChangeType(
-                            UserMembershipHelper.GetUserRowForID(userId.Value, true)["IsAdmin"], typeof(bool)))
+                    if ((receivingPMInfo["NumberTotal"].ToType<int>() + 1
+                         < receivingPMInfo["NumberAllowed"].ToType<int>()) || YafContext.Current.IsAdmin
+                        || (bool)
+                           Convert.ChangeType(
+                               UserMembershipHelper.GetUserRowForID(userId.Value, true)["IsAdmin"],
+                               typeof(bool)))
                     {
                         continue;
                     }
 
                     // recipient has full PM box
-                    YafContext.Current.AddLoadMessage(this.GetTextFormatted("RECIPIENTS_PMBOX_FULL", recipient));
+                    YafContext.Current.AddLoadMessage(
+                        this.GetTextFormatted("RECIPIENTS_PMBOX_FULL", recipient),
+                        MessageTypes.Error);
                     return;
                 }
 
@@ -665,24 +699,57 @@ namespace YAF.Pages
                 {
                     string body = this._editor.Text;
 
-                    var messageFlags = new MessageFlags { IsHtml = this._editor.UsesHTML, IsBBCode = this._editor.UsesBBCode };
+                    var messageFlags = new MessageFlags
+                                           {
+                                               IsHtml = this._editor.UsesHTML,
+                                               IsBBCode = this._editor.UsesBBCode
+                                           };
 
                     LegacyDb.pmessage_save(
-                    YafContext.Current.PageUserID, userId, this.PmSubjectTextBox.Text, body, messageFlags.BitValue, replyTo);
+                        YafContext.Current.PageUserID,
+                        userId,
+                        this.PmSubjectTextBox.Text,
+                        body,
+                        messageFlags.BitValue,
+                        replyTo);
 
                     // reset reciever's lazy data as he should be informed at once
-                    this.Get<IDataCache>().Remove(
-                      Constants.Cache.ActiveUserLazyData.FormatWith(userId));
+                    this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
 
                     if (this.Get<YafBoardSettings>().AllowPMEmailNotification)
                     {
-                        this.Get<ISendNotification>().ToPrivateMessageRecipient(userId, this.PmSubjectTextBox.Text.Trim());
+                        this.Get<ISendNotification>()
+                            .ToPrivateMessageRecipient(userId, this.PmSubjectTextBox.Text.Trim());
                     }
                 }
 
                 // redirect to outbox (sent items), not control panel
                 YafBuildLink.Redirect(ForumPages.cp_pm, "v={0}", "out");
             }
+        }
+
+        /// <summary>
+        /// Verifies the message allowed.
+        /// </summary>
+        /// <param name="count">The recipients count.</param>
+        /// <returns>Returns if the user is allowed to send a message or not</returns>
+        private bool VerifyMessageAllowed(int count)
+        {
+            // test sending user's PM count
+            // get user's name
+            var drPMInfo = LegacyDb.user_pmcount(YafContext.Current.PageUserID).Rows[0];
+
+            if ((drPMInfo["NumberTotal"].ToType<int>() + count <= drPMInfo["NumberAllowed"].ToType<int>())
+                || YafContext.Current.IsAdmin)
+            {
+                return true;
+            }
+
+            // user has full PM box
+            YafContext.Current.AddLoadMessage(
+                this.GetTextFormatted("OWN_PMBOX_FULL", drPMInfo["NumberAllowed"]),
+                MessageTypes.Error);
+            return false;
         }
 
         #endregion
