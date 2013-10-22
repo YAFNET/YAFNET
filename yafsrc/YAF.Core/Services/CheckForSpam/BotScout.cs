@@ -68,13 +68,11 @@ namespace YAF.Core.Services.CheckForSpam
             [CanBeNull] string userName,
             out string responseText)
         {
-            responseText = string.Empty;
-
             try
             {
                 var url =
-                    "http://www.botscout.com/test/?{0}{1}{2}{3}".FormatWith(
-                        ipAddress.IsSet() ? "ip={0}".FormatWith(ipAddress) : string.Empty,
+                    "http://www.botscout.com/test/?multi{0}{1}{2}{3}".FormatWith(
+                        ipAddress.IsSet() ? "&ip={0}".FormatWith(ipAddress) : string.Empty,
                         emailAddress.IsSet() ? "&mail={0}".FormatWith(emailAddress) : string.Empty,
                         userName.IsSet() ? "&name={0}".FormatWith(userName) : string.Empty,
                         YafContext.Current.Get<YafBoardSettings>().BotScoutApiKey.IsSet()
@@ -89,11 +87,31 @@ namespace YAF.Core.Services.CheckForSpam
 
                 responseText = streamReader.ReadToEnd();
 
-                return responseText.StartsWith("Y|");
+                if (!responseText.StartsWith("Y|"))
+                {
+                    return false;
+                }
+
+                // Match name + email address
+                if (!responseText.Contains("NAME|0") && !responseText.Contains("MAIL|0"))
+                {
+                    return true;
+                }
+
+                // Match name + IP address
+                if (!responseText.Contains("NAME|0") && !responseText.Contains("IP|0"))
+                {
+                    return true;
+                }
+
+                // Match IP + email address
+                return !responseText.Contains("IP|0") && !responseText.Contains("MAIL|0");
             }
             catch (Exception ex)
             {
                 YafContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Bot");
+
+                responseText = ex.Message;
 
                 return false;
             }
