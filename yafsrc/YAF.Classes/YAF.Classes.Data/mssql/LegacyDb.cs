@@ -8483,8 +8483,8 @@ namespace YAF.Classes.Data
         /// <param name="userID">
         /// The user id.
         /// </param>
-        /// <param name="avatar">
-        /// The avatar.
+        /// <param name="avatarUrl">
+        /// The avatar url.
         /// </param>
         /// <param name="stream">
         /// The stream.
@@ -8492,24 +8492,30 @@ namespace YAF.Classes.Data
         /// <param name="avatarImageType">
         /// The avatar image type.
         /// </param>
-        public static void user_saveavatar([NotNull] object userID, [NotNull] object avatar, [NotNull] Stream stream, [NotNull] object avatarImageType)
+        public static void user_saveavatar([NotNull] object userID, [CanBeNull] object avatarUrl, [CanBeNull] Stream stream, [CanBeNull] object avatarImageType)
         {
             using (var cmd = DbHelpers.GetCommand("user_saveavatar"))
             {
-                byte[] data = null;
-
-                if (stream != null)
-                {
-                    data = new byte[stream.Length];
-                    stream.Seek(0, SeekOrigin.Begin);
-                    stream.Read(data, 0, (int)stream.Length);
-                }
-
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.AddParam("UserID", userID);
-                cmd.AddParam("Avatar", avatar);
-                cmd.AddParam("AvatarImage", data);
-                cmd.AddParam("AvatarImageType", avatarImageType);
+                cmd.AddParam("Avatar", avatarUrl);
+
+                if (avatarUrl == null)
+                {
+                    byte[] data = null;
+
+                    if (stream != null)
+                    {
+                        data = new byte[stream.Length];
+                        stream.Seek(0, SeekOrigin.Begin);
+                        stream.Read(data, 0, stream.Length.ToType<int>());
+                    }
+
+
+                    cmd.AddParam("AvatarImage", data);
+                    cmd.AddParam("AvatarImageType", avatarImageType);
+                }
+
                 DbAccess.ExecuteNonQuery(cmd);
             }
         }
