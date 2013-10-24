@@ -4,7 +4,7 @@
 	
 	if(typeof tipTip == "undefined") {
         jQuery.getScript('themes/GreenGrey/js/jquery.tipTip.minified.js', function() {
-            jQuery("img, input, a").not('.Facebook-HoverCard, .Twitter-HoverCard').tipTip();
+            jQuery(".yafnet img, .yafnet input,.yafnet  a").not('.Facebook-HoverCard, .Twitter-HoverCard').tipTip();
         });
     }
 	
