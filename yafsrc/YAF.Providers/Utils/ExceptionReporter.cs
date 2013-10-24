@@ -19,179 +19,179 @@
  */
 namespace YAF.Providers.Utils
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Configuration.Provider;
-  using System.Web;
-  using System.Xml;
+    using System;
+    using System.Configuration.Provider;
+    using System.Web;
+    using System.Xml;
 
-  using YAF.Classes;
-  using YAF.Types.Extensions;
-  using YAF.Utils;
-  using YAF.Types;
-
-  #endregion
-
-  /// <summary>
-  /// The exception reporter.
-  /// </summary>
-  public static class ExceptionReporter
-  {
-    #region Properties
-
-    /// <summary>
-    ///   Get Exception XML File Name from AppSettings
-    /// </summary>
-    [NotNull]
-    private static string ProviderExceptionFile
-    {
-      get
-      {
-        return Config.GetConfigValueAsString("YAF.ProviderExceptionXML") ?? "ProviderExceptions.xml";
-      }
-    }
+    using YAF.Classes;
+    using YAF.Types;
+    using YAF.Types.Extensions;
 
     #endregion
 
-    #region Public Methods
-
     /// <summary>
-    /// Get Exception String
+    /// The exception reporter.
     /// </summary>
-    /// <param name="providerSection">
-    /// The provider Section.
-    /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <returns>
-    /// The get report.
-    /// </returns>
-    public static string GetReport([NotNull] string providerSection, [NotNull] string tag)
+    public static class ExceptionReporter
     {
-      string select = "//provider[@name='{0}']/Resource[@tag='{1}']".FormatWith(
-        providerSection.ToUpper(), tag.ToUpper());
-      XmlNode node = ExceptionXML().SelectSingleNode(select);
+        #region Properties
 
-      if (node != null)
-      {
-        return node.InnerText;
-      }
-      else
-      {
-        return "Exception({1}:{0}) cannot be found in Exception file!".FormatWith(tag, providerSection);
-      }
+        /// <summary>
+        ///   Gets the Exception XML File Name from AppSettings
+        /// </summary>
+        [NotNull]
+        private static string ProviderExceptionFile
+        {
+            get
+            {
+                return Config.GetConfigValueAsString("YAF.ProviderExceptionXML") ?? "ProviderExceptions.xml";
+            }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Get Exception String
+        /// </summary>
+        /// <param name="providerSection">
+        /// The provider Section.
+        /// </param>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <returns>
+        /// The get report.
+        /// </returns>
+        public static string GetReport([NotNull] string providerSection, [NotNull] string tag)
+        {
+            string select = "//provider[@name='{0}']/Resource[@tag='{1}']".FormatWith(
+                providerSection.ToUpper(),
+                tag.ToUpper());
+            XmlNode node = ExceptionXML().SelectSingleNode(select);
+
+            return node != null
+                       ? node.InnerText
+                       : "Exception({1}:{0}) cannot be found in Exception file!".FormatWith(tag, providerSection);
+        }
+
+        /// <summary>
+        /// Throw Exception
+        /// </summary>
+        /// <param name="providerSection">
+        /// The provider Section.
+        /// </param>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <returns>
+        /// The throw.
+        /// </returns>
+        public static string Throw([NotNull] string providerSection, [NotNull] string tag)
+        {
+            throw new ApplicationException(GetReport(providerSection, tag));
+        }
+
+        /// <summary>
+        /// Throw ArgumentException
+        /// </summary>
+        /// <param name="providerSection">
+        /// The provider Section.
+        /// </param>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <returns>
+        /// The throw argument.
+        /// </returns>
+        public static string ThrowArgument([NotNull] string providerSection, [NotNull] string tag)
+        {
+            throw new ArgumentException(GetReport(providerSection, tag));
+        }
+
+        /// <summary>
+        /// Throw ArgumentNullException
+        /// </summary>
+        /// <param name="providerSection">
+        /// The provider Section.
+        /// </param>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <returns>
+        /// The throw argument null.
+        /// </returns>
+        public static string ThrowArgumentNull([NotNull] string providerSection, [NotNull] string tag)
+        {
+            throw new ArgumentNullException(GetReport(providerSection, tag));
+        }
+
+        /// <summary>
+        /// Throw NotSupportedException
+        /// </summary>
+        /// <param name="providerSection">
+        /// The provider Section.
+        /// </param>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <returns>
+        /// The throw not supported.
+        /// </returns>
+        public static string ThrowNotSupported([NotNull] string providerSection, [NotNull] string tag)
+        {
+            throw new NotSupportedException(GetReport(providerSection, tag));
+        }
+
+        /// <summary>
+        /// Throw ProviderException
+        /// </summary>
+        /// <param name="providerSection">
+        /// The provider Section.
+        /// </param>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <returns>
+        /// The throw provider.
+        /// </returns>
+        public static string ThrowProvider([NotNull] string providerSection, [NotNull] string tag)
+        {
+            throw new ProviderException(GetReport(providerSection, tag));
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Return XMLDocument containing text for the Exceptions
+        /// </summary>
+        /// <returns> Returns the XMLDocument containing text for the Exceptions</returns>
+        /// <exception cref="System.ApplicationException">Exception file cannot be null or empty!</exception>
+        [NotNull]
+        private static XmlDocument ExceptionXML()
+        {
+            if (ProviderExceptionFile.IsNotSet())
+            {
+                throw new ApplicationException("Exceptionfile cannot be null or empty!");
+            }
+
+            var exceptionXmlDoc = new XmlDocument();
+            exceptionXmlDoc.Load(
+                HttpContext.Current.Server.MapPath(
+                    "{0}{1}resources/{1}".FormatWith(
+                        Config.ServerFileRoot,
+                        Config.ServerFileRoot.EndsWith("/") ? string.Empty : "/",
+                        ProviderExceptionFile)));
+
+            return exceptionXmlDoc;
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// Throw Exception
-    /// </summary>
-    /// <param name="providerSection">
-    /// The provider Section.
-    /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <returns>
-    /// The throw.
-    /// </returns>
-    public static string Throw([NotNull] string providerSection, [NotNull] string tag)
-    {
-      throw new ApplicationException(GetReport(providerSection, tag));
-    }
-
-    /// <summary>
-    /// Throw ArgumentException
-    /// </summary>
-    /// <param name="providerSection">
-    /// The provider Section.
-    /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <returns>
-    /// The throw argument.
-    /// </returns>
-    public static string ThrowArgument([NotNull] string providerSection, [NotNull] string tag)
-    {
-      throw new ArgumentException(GetReport(providerSection, tag));
-    }
-
-    /// <summary>
-    /// Throw ArgumentNullException
-    /// </summary>
-    /// <param name="providerSection">
-    /// The provider Section.
-    /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <returns>
-    /// The throw argument null.
-    /// </returns>
-    public static string ThrowArgumentNull([NotNull] string providerSection, [NotNull] string tag)
-    {
-      throw new ArgumentNullException(GetReport(providerSection, tag));
-    }
-
-    /// <summary>
-    /// Throw NotSupportedException
-    /// </summary>
-    /// <param name="providerSection">
-    /// The provider Section.
-    /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <returns>
-    /// The throw not supported.
-    /// </returns>
-    public static string ThrowNotSupported([NotNull] string providerSection, [NotNull] string tag)
-    {
-      throw new NotSupportedException(GetReport(providerSection, tag));
-    }
-
-    /// <summary>
-    /// Throw ProviderException
-    /// </summary>
-    /// <param name="providerSection">
-    /// The provider Section.
-    /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <returns>
-    /// The throw provider.
-    /// </returns>
-    public static string ThrowProvider([NotNull] string providerSection, [NotNull] string tag)
-    {
-      throw new ProviderException(GetReport(providerSection, tag));
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// Return XMLDocument containing text for the Exceptions
-    /// </summary>
-    [NotNull]
-    private static XmlDocument ExceptionXML()
-    {
-      if (ProviderExceptionFile.IsNotSet())
-      {
-        throw new ApplicationException("Exceptionfile cannot be null or empty!");
-      }
-
-      var exceptionXmlDoc = new XmlDocument();
-      exceptionXmlDoc.Load(
-        HttpContext.Current.Server.MapPath(
-          "{0}resources/{1}".FormatWith(Config.ServerFileRoot, ProviderExceptionFile)));
-
-      return exceptionXmlDoc;
-    }
-
-    #endregion
-  }
 }
