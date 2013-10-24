@@ -260,6 +260,11 @@ namespace YAF
                     }
                 }
             }
+            else if (YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("error") != null)
+            {
+                // Return to login page if user cancels social login
+                Response.Redirect(YafBuildLink.GetLink(ForumPages.login, true));
+            }
             else
             {
                 // Authorize first
@@ -356,6 +361,11 @@ namespace YAF
                                 SCRIPTENDTAG));
                     }
                 }
+            }
+            else if (YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("error") != null)
+            {
+                // Return to login page if user cancels social login
+                Response.Redirect(YafBuildLink.GetLink(ForumPages.login, true));
             }
             else
             {
