@@ -423,7 +423,7 @@ namespace YAF.Core.Services.Auth
                 facebookUser.UserName,
                 facebookUser.UserName,
                 facebookUser.Email,
-                facebookUser.Timezone,
+                0,
                 null,
                 null,
                 true,
