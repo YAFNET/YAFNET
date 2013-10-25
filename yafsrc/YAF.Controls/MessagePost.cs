@@ -127,12 +127,7 @@ namespace YAF.Controls
         {
             get
             {
-                if (this.ViewState["HighlightWords"] == null)
-                {
-                    this.ViewState["HighlightWords"] = new List<string>();
-                }
-
-                return this.ViewState["HighlightWords"] as IList<string>;
+                return this.ViewState["HighlightWords"] as IList<string> ?? new List<string>();
             }
 
             set
@@ -181,12 +176,7 @@ namespace YAF.Controls
         {
             get
             {
-                if (this.ViewState["MessageFlags"] == null)
-                {
-                    this.ViewState["MessageFlags"] = new MessageFlags(0);
-                }
-
-                return this.ViewState["MessageFlags"] as MessageFlags;
+                return this.ViewState["MessageFlags"] as MessageFlags ?? new MessageFlags(0);
             }
 
             set

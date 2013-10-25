@@ -246,6 +246,8 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
+            CodeContracts.VerifyNotNull(this.MessageFlags, "MessageFlags");
+
             if (!this.MessageFlags.IsDeleted)
             {
                 // populate DisplayUserID
@@ -291,6 +293,10 @@ namespace YAF.Controls
         /// </param>
         protected override void RenderMessage([NotNull] HtmlTextWriter writer)
         {
+            CodeContracts.VerifyNotNull(writer, "writer");
+            CodeContracts.VerifyNotNull(this.MessageFlags, "MessageFlags");
+            CodeContracts.VerifyNotNull(this.CurrentMessage, "CurrentMessage");
+
             if (this.MessageFlags.IsDeleted)
             {
                     this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;
