@@ -5,14 +5,12 @@
 <script runat="server">
     void Page_Load()
     {
-        byte[] delay = new byte[1];
-        RandomNumberGenerator prng = new RNGCryptoServiceProvider();
-
-        prng.GetBytes(delay);
-        Thread.Sleep((int)delay[0]);
-
-        var disposable = prng as IDisposable;
-        if (disposable != null) { disposable.Dispose(); }
+        using (RandomNumberGenerator prng = new RNGCryptoServiceProvider())
+        {
+            var delay = new byte[1];
+            prng.GetBytes(delay);
+            Thread.Sleep((int)delay[0]);
+        }
     }
 </script>
 <html>
