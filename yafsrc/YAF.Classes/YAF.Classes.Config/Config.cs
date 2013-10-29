@@ -189,10 +189,13 @@ namespace YAF.Classes
         {
             get
             {
+                if (ConnectionStringSettings != null && ConnectionStringSettings.ProviderName.IsSet())
+                {
+                    return ConnectionStringSettings.ProviderName;
+                }
+
                 // default to sql client for backwards compatibility.
-                return ConnectionStringSettings.ProviderName.IsSet()
-                           ? ConnectionStringSettings.ProviderName
-                           : "System.Data.SqlClient";
+                return "System.Data.SqlClient";
             }
         }
 
@@ -203,7 +206,7 @@ namespace YAF.Classes
         {
             get
             {
-                return ConnectionStringSettings.ConnectionString;
+                return ConnectionStringSettings != null ? ConnectionStringSettings.ConnectionString : null;
             }
         }
 

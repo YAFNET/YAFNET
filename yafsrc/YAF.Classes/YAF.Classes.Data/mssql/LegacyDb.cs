@@ -3328,7 +3328,19 @@ namespace YAF.Classes.Data
                 // unable to connect to the DB...
                 if (!debugging)
                 {
-                    errorStr = "Unable to connect to the Database. Exception Message: " + ex.Message + " (" + ex.Number + ")";
+                    errorStr = string.Format("Unable to connect to the Database. Exception Message: {0} ({1})", ex.Message, ex.Number);
+                    return false;
+                }
+
+                // re-throw since we are debugging...
+                throw;
+            }
+            catch (InvalidOperationException ex)
+            {
+                // unable to connect to the DB...
+                if (!debugging)
+                {
+                    errorStr = string.Format("Unable to connect to the Database. Exception Message: {0}", ex.Message);
                     return false;
                 }
 

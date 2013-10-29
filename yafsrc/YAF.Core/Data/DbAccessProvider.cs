@@ -47,7 +47,7 @@ namespace YAF.Core.Data
 
         private readonly IServiceLocator _serviceLocator;
 
-        private string _providerName;
+        private string _providerName = null;
 
         #endregion
 
@@ -66,7 +66,6 @@ namespace YAF.Core.Data
         {
             this._dbAccessProviders = dbAccessProviders;
             this._serviceLocator = serviceLocator;
-            this._providerName = Config.ConnectionProviderName;
 
             this._dbAccessSafe = new SafeReadWriteProvider<IDbAccess>(
                 () =>
@@ -127,7 +126,7 @@ namespace YAF.Core.Data
         {
             get
             {
-                return this._providerName;
+                return this._providerName ?? (this._providerName = Config.ConnectionProviderName);
             }
             set
             {

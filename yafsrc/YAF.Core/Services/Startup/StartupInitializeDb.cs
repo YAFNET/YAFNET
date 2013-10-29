@@ -16,9 +16,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 namespace YAF.Core.Services.Startup
 {
-  #region Using
+    #region Using
 
     using System.Web;
 
@@ -31,66 +32,66 @@ namespace YAF.Core.Services.Startup
 
     #endregion
 
-  /// <summary>
-  /// The yaf initialize db.
-  /// </summary>
-  public class StartupInitializeDb : BaseStartupService, ICriticalStartupService
-  {
-    #region Properties
-
     /// <summary>
-    ///   Gets InitVarName.
+    ///     The yaf initialize db.
     /// </summary>
-    [NotNull]
-    protected override string InitVarName
+    public class StartupInitializeDb : BaseStartupService, ICriticalStartupService
     {
-      get
-      {
-        return "YafInitializeDb_Init";
-      }
-    }
+        #region Properties
 
-    #endregion
+        /// <summary>
+        ///     Gets InitVarName.
+        /// </summary>
+        [NotNull]
+        protected override string InitVarName
+        {
+            get
+            {
+                return "YafInitializeDb_Init";
+            }
+        }
 
-    #region Methods
+        #endregion
 
-    /// <summary>
-    /// The run service.
-    /// </summary>
-    /// <returns>
-    /// The run service.
-    /// </returns>
-    protected override bool RunService()
-    {
-      // init the db...
-      string errorStr = string.Empty;
-      bool debugging = false;
+        #region Methods
+
+        /// <summary>
+        ///     The run service.
+        /// </summary>
+        /// <returns>
+        ///     The run service.
+        /// </returns>
+        protected override bool RunService()
+        {
+            // init the db...
+            string errorStr = string.Empty;
+            bool debugging = false;
 
 #if DEBUG
-      debugging = true;
+            debugging = true;
 #endif
 
-      if (HttpContext.Current != null)
-      {
-        // attempt to init the db...
-        if (!LegacyDb.forumpage_initdb(out errorStr, debugging))
-        {
-          // unable to connect to the DB...
-          YafContext.Current.Get<HttpSessionStateBase>()["StartupException"] = errorStr;
-          YafContext.Current.Get<HttpResponseBase>().Redirect(YafForumInfo.ForumClientFileRoot + "error.aspx");
+            if (HttpContext.Current != null)
+            {
+                // attempt to init the db...
+                if (!LegacyDb.forumpage_initdb(out errorStr, debugging))
+                {
+                    // unable to connect to the DB...
+                    YafContext.Current.Get<HttpSessionStateBase>()["StartupException"] = errorStr;
+                    YafContext.Current.Get<HttpResponseBase>().Redirect(YafForumInfo.ForumClientFileRoot + "error.aspx");
+                }
+
+                // step 2: validate the database version...
+                string redirectStr = LegacyDb.forumpage_validateversion(YafForumInfo.AppVersion);
+                if (redirectStr.IsSet())
+                {
+                    YafContext.Current.Get<HttpResponseBase>().Redirect(YafForumInfo.ForumClientFileRoot + redirectStr);
+                }
+            }
+
+            return true;
         }
 
-        // step 2: validate the database version...
-        string redirectStr = LegacyDb.forumpage_validateversion(YafForumInfo.AppVersion);
-        if (redirectStr.IsSet())
-        {
-          YafContext.Current.Get<HttpResponseBase>().Redirect(YafForumInfo.ForumClientFileRoot + redirectStr);
-        }
-      }
-
-      return true;
+        #endregion
     }
-
-    #endregion
-  }
 }
