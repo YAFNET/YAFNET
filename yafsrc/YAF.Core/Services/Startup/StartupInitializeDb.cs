@@ -23,6 +23,7 @@ namespace YAF.Core.Services.Startup
 
     using System.Web;
 
+    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core.Tasks;
     using YAF.Types;
@@ -73,19 +74,30 @@ namespace YAF.Core.Services.Startup
 
             if (HttpContext.Current != null)
             {
+                var response = YafContext.Current.Get<HttpResponseBase>();
+
+                if (Config.ConnectionString == null)
+                {
+                    // attempt to create a connection string...
+                    response.Redirect(YafForumInfo.ForumClientFileRoot + "install/default.aspx");
+                    return false;
+                }
+
                 // attempt to init the db...
                 if (!LegacyDb.forumpage_initdb(out errorStr, debugging))
                 {
                     // unable to connect to the DB...
                     YafContext.Current.Get<HttpSessionStateBase>()["StartupException"] = errorStr;
-                    YafContext.Current.Get<HttpResponseBase>().Redirect(YafForumInfo.ForumClientFileRoot + "error.aspx");
+                    response.Redirect(YafForumInfo.ForumClientFileRoot + "error.aspx");
+                    return false;
                 }
 
                 // step 2: validate the database version...
                 string redirectStr = LegacyDb.forumpage_validateversion(YafForumInfo.AppVersion);
                 if (redirectStr.IsSet())
                 {
-                    YafContext.Current.Get<HttpResponseBase>().Redirect(YafForumInfo.ForumClientFileRoot + redirectStr);
+                    response.Redirect(YafForumInfo.ForumClientFileRoot + redirectStr);
+                    return false;
                 }
             }
 
