@@ -62,7 +62,7 @@ namespace YAF.Core.URLBuilder
                 var parser = new SimpleURLParameterParser(url);
 
                 // create "rewritten" url...
-                newUrl = before + Config.UrlRewritingPrefix;
+                newUrl = "{0}{1}".FormatWith(before, Config.UrlRewritingPrefix);
 
                 var useKey = string.Empty;
                 var description = string.Empty;
@@ -117,20 +117,24 @@ namespace YAF.Core.URLBuilder
                     case "rsstopic":
                         if (parser["pg"].IsSet())
                         {
-                            useKey = "pg";
-                            description = parser[useKey].ToEnum<YafRssFeeds>().ToString().ToLower();
+                            description = parser["pg"].ToEnum<YafRssFeeds>().ToString().ToLower();
                         }
 
                         if (parser["f"].IsSet())
                         {
-                            description += UrlRewriteHelper.GetForumName(parser["f"].ToType<int>());
+                            description += "_{0}".FormatWith(UrlRewriteHelper.GetForumName(parser["f"].ToType<int>()));
                         }
 
                         if (parser["t"].IsSet())
                         {
-                            description += UrlRewriteHelper.GetTopicName(parser["t"].ToType<int>());
+                            description += "_{0}".FormatWith(UrlRewriteHelper.GetTopicName(parser["t"].ToType<int>()));
                         }
 
+                        if (parser["c"].IsSet())
+                        {
+                            description += "_{0}".FormatWith(UrlRewriteHelper.GetCategoryName(parser["c"].ToType<int>()));
+                        }
+                        
                         if (parser["ft"].IsSet())
                         {
                             description += parser["ft"].ToType<int>() == YafSyndicationFormats.Atom.ToInt()

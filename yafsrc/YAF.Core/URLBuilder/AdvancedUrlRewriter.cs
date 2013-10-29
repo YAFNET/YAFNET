@@ -137,12 +137,17 @@ namespace YAF.Core.URLBuilder
 
                         if (parser["f"].IsSet())
                         {
-                            description += UrlRewriteHelper.GetForumName(parser["f"].ToType<int>());
+                            description += "_{0}".FormatWith(UrlRewriteHelper.GetForumName(parser["f"].ToType<int>()));
                         }
                         
                         if (parser["t"].IsSet())
                         {
-                            description += UrlRewriteHelper.GetTopicName(parser["t"].ToType<int>());
+                            description += "_{0}".FormatWith(UrlRewriteHelper.GetTopicName(parser["t"].ToType<int>()));
+                        }
+
+                        if (parser["c"].IsSet())
+                        {
+                            description += "_{0}".FormatWith(UrlRewriteHelper.GetCategoryName(parser["c"].ToType<int>()));
                         }
                         
                         if (parser["ft"].IsSet())
