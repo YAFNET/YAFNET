@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Utils\BaseProviderDb.cs" />
+    <Compile Include="Utils\ConnStringHelpers.cs" />
     <Compile Include="Utils\ExceptionReporter.cs" />
     <Compile Include="Membership\UserPasswordInfo.cs" />
     <Compile Include="Membership\YafMembershipProvider.cs" />

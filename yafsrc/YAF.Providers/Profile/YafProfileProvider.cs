@@ -466,21 +466,7 @@ namespace YAF.Providers.Profile
                 this._appName = "YetAnotherForum";
             }
 
-            // is the connection string set?
-            if (this._connStrName.IsSet())
-            {
-                string connStr = ConfigurationManager.ConnectionStrings[this._connStrName].ConnectionString;
-
-                // set the app variable...
-                if (YafContext.Application[ConnStrAppKeyName] == null)
-                {
-                    YafContext.Application.Add(ConnStrAppKeyName, connStr);
-                }
-                else
-                {
-                    YafContext.Application[ConnStrAppKeyName] = connStr;
-                }
-            }
+            ConnStringHelpers.TrySetConnectionAppString(this._connStrName, ConnStrAppKeyName);
 
             base.Initialize(name, config);
         }
