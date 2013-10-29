@@ -126,7 +126,7 @@ namespace YAF.Utils
         {
             get
             {
-                return 51;
+                return 52;
             }
         }
 
@@ -136,8 +136,6 @@ namespace YAF.Utils
             Alpha,
             BETA,
             RC,
-            RTM,
-            CTM
         }
 
         /// <summary>
@@ -152,8 +150,8 @@ namespace YAF.Utils
                 byte build = 0;
                 byte sub = 0;
 
-                var releaseType = ReleaseType.RC;
-                byte releaseNumber = 1;
+                var releaseType = ReleaseType.Regular;
+                byte releaseNumber = 0;
                 
                 long version = (long)major << 24;
                 version |= (long)minor << 16;
@@ -181,7 +179,7 @@ namespace YAF.Utils
         {
             get
             {
-                return new DateTime(2013, 7, 24);
+                return new DateTime(2013, 10, 28);
             }
         }
 
@@ -218,23 +216,11 @@ namespace YAF.Utils
                     number = AppVersionDate.ToString("yyyyMMdd");
                 }
 
-                switch (value)
+                var releaseType = value.ToEnum<ReleaseType>();
+
+                if (releaseType != ReleaseType.Regular)
                 {
-                    case 1:
-                        version += " ALPHA {0}".FormatWith(number);
-                        break;
-                    case 2:
-                        version += " BETA {0} ".FormatWith(number);
-                        break;
-                    case 3:
-                        version += " RC{0}".FormatWith(number);
-                        break;
-                    case 4:
-                        version += " RTM.{0}".FormatWith(number);
-                        break;
-                    case 5:
-                        version += " CTM.{0}".FormatWith(number);
-                        break;
+                    version += " {0} {1}".FormatWith(releaseType.ToString().ToUpper(), number);
                 }
             }
 
