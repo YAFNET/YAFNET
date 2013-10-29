@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Text", "Servic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extras", "Extras", "{4BD8C8F0-9038-494A-AB76-98650FE31B0F}"
 	ProjectSection(SolutionItems) = preProject
+		build.bat = build.bat
+		BuildPackages.bat = BuildPackages.bat
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
