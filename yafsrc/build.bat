@@ -3,5 +3,6 @@
 @SET FrameworkSDKDir=
 @SET PATH=%FrameworkDir%;%FrameworkSDKDir%;%PATH%
 @SET LANGDIR=EN
+@SET CONFIGURATION=Release
 
-msbuild.exe YetAnotherForum.NET.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Clean;Build /p:WarningLevel=0
+msbuild.exe YetAnotherForum.NET.sln /p:Configuration=%CONFIGURATION% /p:Platform="Any CPU" /t:rebuild;clean /p:WarningLevel=0 %1 %2 %3 %4 %5 %6 %7 %8 %9
