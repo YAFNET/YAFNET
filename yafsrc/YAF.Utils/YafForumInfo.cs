@@ -146,11 +146,11 @@ namespace YAF.Utils
             get
             {
                 int major = 2;
-                byte minor = 0;
+                byte minor = 1;
                 byte build = 0;
                 byte sub = 0;
 
-                var releaseType = ReleaseType.Regular;
+                var releaseType = ReleaseType.BETA;
                 byte releaseNumber = 0;
                 
                 long version = (long)major << 24;
@@ -179,7 +179,7 @@ namespace YAF.Utils
         {
             get
             {
-                return new DateTime(2013, 10, 28);
+                return new DateTime(2013, 10, 31);
             }
         }
 
