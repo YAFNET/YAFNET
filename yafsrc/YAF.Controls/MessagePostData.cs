@@ -135,7 +135,7 @@ namespace YAF.Controls
         {
             get
             {
-                return TruncateMessage(this.CurrentMessage.MessageText);
+                return TruncateMessage(this.CurrentMessage.MessageText ?? string.Empty);
             }
         }
 
@@ -230,6 +230,8 @@ namespace YAF.Controls
         /// </returns>
         public static string TruncateMessage([NotNull] string message)
         {
+            CodeContracts.VerifyNotNull(message, "message");
+
             int maxPostSize = Math.Max(YafContext.Current.Get<YafBoardSettings>().MaxPostSize, 0);
 
             // 0 == unlimited
