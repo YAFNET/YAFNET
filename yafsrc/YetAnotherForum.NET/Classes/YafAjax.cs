@@ -37,11 +37,13 @@ namespace YAF.Classes
 
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
 
     #endregion
 
@@ -129,29 +131,37 @@ namespace YAF.Classes
         /// Returns List of Suggest Words.
         /// </returns>
         [WebMethod(EnableSession = true)]
-        public string SpellCheck([NotNull]string text, [NotNull]string lang, string engine, string suggest)
+        public string SpellCheck(string text, string lang, string engine, string suggest)
         {
-            if (suggest.Equals("undefined", StringComparison.OrdinalIgnoreCase))
+            try
             {
-                suggest = string.Empty;
+                if (suggest.Equals("undefined", StringComparison.OrdinalIgnoreCase))
+                {
+                    suggest = string.Empty;
+                }
+
+                string xml;
+
+                List<string> result;
+
+                if (string.IsNullOrEmpty(suggest))
+                {
+                    xml = GetSpellCheckRequest(text, lang);
+                    result = GetListOfMisspelledWords(xml, text);
+                }
+                else
+                {
+                    xml = GetSpellCheckRequest(suggest, lang);
+                    result = GetListOfSuggestWords(xml, suggest);
+                }
+
+                return new JavaScriptSerializer().Serialize(result);
             }
-
-            string xml;
-
-            List<string> result;
-
-            if (string.IsNullOrEmpty(suggest))
+            catch (Exception ex)
             {
-                xml = GetSpellCheckRequest(text, lang);
-                result = GetListOfMisspelledWords(xml, text);
+                this.Get<ILogger>().Error(ex, "Error calling spell check text: {0} lang {1} engine {2} suggest {3}", text, lang, engine, suggest);
+                throw;
             }
-            else
-            {
-                xml = GetSpellCheckRequest(suggest, lang);
-                result = GetListOfSuggestWords(xml, suggest);
-            }
-
-            return new JavaScriptSerializer().Serialize(result);
         }
 
         /// <summary>
