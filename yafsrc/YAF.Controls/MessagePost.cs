@@ -22,11 +22,9 @@ namespace YAF.Controls
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Web;
     using System.Web.UI;
 
-    using YAF.Classes;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -208,10 +206,10 @@ namespace YAF.Controls
         /// <summary>
         /// Highlight a Message
         /// </summary>
-        /// <param name="message">The Message to Hightlight</param>
+        /// <param name="message">The Message to Highlight</param>
         /// <param name="renderBBCode">if set to <c>true</c> Render Highlight as BB Code or as Html Tags</param>
         /// <returns>
-        /// The Message with the Span Tag and Css Class "highlight" that Hightlights it
+        /// The Message with the Span Tag and CSS Class "highlight" that Highlights it
         /// </returns>
         protected virtual string HighlightMessage([NotNull] string message, bool renderBBCode = false)
         {
@@ -327,7 +325,9 @@ namespace YAF.Controls
                         whoChanged,
                         editedDateTime,
                         editReasonText,
-                        YafBuildLink.GetLink(ForumPages.messagehistory, "m={0}", messageId.ToType<int>())));
+                        this.PageContext.IsGuest
+                            ? "#"
+                            : YafBuildLink.GetLink(ForumPages.messagehistory, "m={0}", messageId.ToType<int>())));
         }
 
         /// <summary>
