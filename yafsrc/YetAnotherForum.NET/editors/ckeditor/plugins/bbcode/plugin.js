@@ -18,7 +18,7 @@ CKEDITOR.plugins.add( 'bbcode',
 function addEventOn(editor) {
   editor.on('paste', function (evt){
     
-	evt.data['html'] = ConvertHtmlToBBCode(evt.data['text']);
+  evt.data['html'] = ConvertHtmlToBBCode(evt.data.dataValue);
   });
 }
 
