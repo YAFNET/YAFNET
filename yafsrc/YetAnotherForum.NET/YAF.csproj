@@ -1318,7 +1318,6 @@
     <Content Include="resources\css\jquery.hovercard.css" />
     <Content Include="resources\css\jquery.msDropDown.css" />
     <Content Include="resources\css\jquery.notification.css" />
-    <Content Include="resources\css\jquery.spellchecker.css" />
     <Content Include="resources\HelpMenuList.xml" />
     <Content Include="resources\icons\authIcons.png" />
     <Content Include="resources\icons\ipbanlifted.png" />
@@ -2190,7 +2189,6 @@
     <Content Include="resources\js\jquery.notification.js" />
     <Content Include="resources\js\jquery.pagemethod.js" />
     <Content Include="resources\js\jquery.pagination.js" />
-    <Content Include="resources\js\jquery.spellchecker.min.js" />
     <Content Include="resources\js\jquery.syntaxhighligher.js" />
     <Content Include="resources\js\jquery.pagemethod.readme.txt" />
     <Content Include="resources\js\jquery.tablesorter.js" />

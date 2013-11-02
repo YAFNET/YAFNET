@@ -432,44 +432,6 @@ namespace YAF.Pages
                 "syntaxhighlighterjs",
                 JavaScriptBlocks.SyntaxHighlightLoadJs);
 
-            // Setup SpellChecker JS
-            YafContext.Current.PageElements.RegisterJsResourceInclude(
-                "jqueryspellchecker",
-                "js/jquery.spellchecker.min.js");
-            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.spellchecker.css");
-
-            var editorClientId = this._forumEditor.ClientID;
-
-            editorClientId = editorClientId.Replace(
-                editorClientId.Substring(editorClientId.LastIndexOf("_", StringComparison.Ordinal)),
-                "_YafTextEditor");
-
-            var editorSpellBtnId = "{0}_spell".FormatWith(editorClientId);
-
-            /*if (this._forumEditor.ModuleId.Equals("5") ||
-                                this._forumEditor.ModuleId.Equals("0"))
-                        {
-                                var spellCheckBtn = new Button
-                                        {
-                                                CssClass = "pbutton", 
-                                                ID = "SpellCheckBtn", 
-                                                Text = this.GetText("COMMON", "SPELL")
-                                        };
-
-                                this.EditorLine.Controls.Add(spellCheckBtn);
-
-                                editorSpellBtnId = spellCheckBtn.ClientID;
-                        }*/
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "spellcheckerjs",
-                JavaScriptBlocks.SpellCheckerLoadJs(
-                    editorClientId,
-                    editorSpellBtnId,
-                    this.PageContext.CultureUser.IsSet()
-                        ? this.PageContext.CultureUser.Substring(0, 2)
-                        : this.Get<YafBoardSettings>().Culture,
-                    this.GetText("SPELL_CORRECT")));
-
             base.OnInit(e);
         }
 

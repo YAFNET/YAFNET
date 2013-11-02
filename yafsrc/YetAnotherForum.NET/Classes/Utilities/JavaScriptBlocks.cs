@@ -20,10 +20,11 @@ namespace YAF.Utilities
 {
     #region Using
 
+    using System.Dynamic;
+
     using YAF.Classes;
     using YAF.Core;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
@@ -76,7 +77,7 @@ namespace YAF.Utilities
         }
 
         /// <summary>
-        ///   Gets Pagination Load Js.
+        ///   Gets Pagination Load JS.
         /// </summary>
         [NotNull]
         public static string PaginationLoadJs
@@ -108,7 +109,7 @@ namespace YAF.Utilities
         }
 
         /// <summary>
-        ///   Gets CeeBox Load Js.
+        ///   Gets CeeBox Load JS.
         /// </summary>
         [NotNull]
         public static string CeeBoxLoadJs
@@ -229,7 +230,7 @@ namespace YAF.Utilities
         }
 
         /// <summary>
-        ///   Gets Repuatation Progress Load Js.
+        ///   Gets Repuatation Progress Load JS.
         /// </summary>
         [NotNull]
         public static string RepuatationProgressLoadJs
@@ -441,7 +442,7 @@ namespace YAF.Utilities
         /// Current Culture
         /// </param>
         /// <returns>
-        /// The load js.
+        /// The Load JS.
         /// </returns>
         public static string DatePickerLoadJs(
             [NotNull] string fieldId, [NotNull] string dateFormat, [NotNull] string culture)
@@ -465,67 +466,13 @@ namespace YAF.Utilities
         }
 
         /// <summary>
-        /// The spell checker load js.
-        /// </summary>
-        /// <param name="editorClientId">
-        /// The Editor client Id.
-        /// </param>
-        /// <param name="spellCheckButtonId">
-        /// The spell Check Button Id.
-        /// </param>
-        /// <param name="cultureCode">
-        /// The culture Code.
-        /// </param>
-        /// <param name="spellCorrectTxt">
-        /// The spell Correct Info Warning Text.
-        /// </param>
-        /// <returns>
-        /// The load js.
-        /// </returns>
-        [NotNull]
-        public static string SpellCheckerLoadJs(
-            [NotNull] string editorClientId,
-            [NotNull] string spellCheckButtonId,
-            [CanBeNull] string cultureCode,
-            [NotNull] string spellCorrectTxt)
-        {
-            return
-                @"{0}(document).ready(function() {{ {0}('#{1}').spellchecker({{lang: ""{3}"", engine: ""google"", url: ""{5}YafAjax.asmx/SpellCheck""}}); }});
-                {0}('#{2}').click(function(e){{
-                    e.preventDefault();
-                     var text = {0}('#{1}').val();
-                     if (text == '') {{  
-                         {0}('#{1}').spellchecker('remove');
-                         alert('{4}');
-                     }}
-                     else
-                    {{                           
-                    {0}('#{1}').spellchecker('check', function(result){{
-                    if (result) {{
-                                   {0}('#{1}').spellchecker('remove');
-                                   alert('{4}');
-                                 }}
-                  }});
-                 }}
-                }});
-                "
-                    .FormatWith(
-                        Config.JQueryAlias,
-                        editorClientId,
-                        spellCheckButtonId,
-                        cultureCode,
-                        spellCorrectTxt,
-                        YafForumInfo.ForumClientFileRoot);
-        }
-
-        /// <summary>
         /// Generates jQuery dropdown load js
         /// </summary>
         /// <param name="dropDownId">
         /// The drop Down client Id.
         /// </param>
         /// <returns>
-        /// The load js.
+        /// The Load JS.
         /// </returns>
         public static string DropDownLoadJs([NotNull] string dropDownId)
         {
@@ -545,7 +492,7 @@ namespace YAF.Utilities
         /// Height Transition
         /// </param>
         /// <returns>
-        /// The jquery ui tabs load js.
+        /// The jquery ui tabs Load JS.
         /// </returns>
         public static string JqueryUITabsLoadJs([NotNull] string tabId, [NotNull] string hiddenId, bool hightTransition)
         {
@@ -574,7 +521,7 @@ namespace YAF.Utilities
         /// The add Selected Function.
         /// </param>
         /// <returns>
-        /// The jquery ui tabs load js.
+        /// The jquery ui tabs Load JS.
         /// </returns>
         public static string JqueryUITabsLoadJs(
             [NotNull] string tabId,
@@ -667,7 +614,7 @@ namespace YAF.Utilities
         /// The Id or Css Class of the Dialog Content
         /// </param>
         /// <returns>
-        /// The yaf modal dialog load js.
+        /// The yaf modal dialog Load JS.
         /// </returns>
         public static string YafModalDialogLoadJs([NotNull] string openLink, [NotNull] string dialogId)
         {
@@ -798,7 +745,7 @@ namespace YAF.Utilities
         #endregion
 
         /// <summary>
-        /// Renders the Hover card load js.
+        /// Renders the Hover card Load JS.
         /// </summary>
         /// <param name="clientId">The client id.</param>
         /// <param name="type">The type.</param>
@@ -818,5 +765,24 @@ namespace YAF.Utilities
                     errorHtml,
                     YafContext.Current.Get<YafBoardSettings>().HoverCardOpenDelay);
         }
+
+
+        #region BootStrap Script Blocks
+
+        /// <summary>
+        /// Gets the tool tip load script block.
+        /// </summary>
+        /// <value>
+        /// The tool tip load script block.
+        /// </value>
+        public static string ToolTipLoadScriptBlock
+        {
+            get
+            {
+                return "{0}('img, input, a').tooltip();".FormatWith(Config.JQueryAlias);
+            }
+        }
+
+        #endregion
     }
 }

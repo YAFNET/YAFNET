@@ -22,28 +22,21 @@ namespace YAF.Classes
     #region Using
 
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using System.Net;
-    using System.Text;
     using System.Web;
-    using System.Web.Script.Serialization;
     using System.Web.Script.Services;
     using System.Web.Security;
     using System.Web.Services;
-    using System.Xml;
 
     using YAF.Classes.Data;
     using YAF.Core;
-    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
 
     #endregion
 
@@ -94,7 +87,7 @@ namespace YAF.Classes
                 }
                 else
                 {
-                    yafSession.MultiQuoteIds = new List<int>() { messageId };
+                    yafSession.MultiQuoteIds = new List<int> { messageId };
                 }
 
                 buttonCssClass += " Checked";
@@ -110,58 +103,6 @@ namespace YAF.Classes
             }
 
             return new YafAlbum.ReturnClass { Id = buttonId, NewTitle = buttonCssClass };
-        }
-
-        /// <summary>
-        /// Spell check via google API.
-        /// </summary>
-        /// <param name="text">
-        /// The text to check.
-        /// </param>
-        /// <param name="lang">
-        /// The language of the text.
-        /// </param>
-        /// <param name="engine">
-        /// The engine.
-        /// </param>
-        /// <param name="suggest">
-        /// The suggest words.
-        /// </param>
-        /// <returns>
-        /// Returns List of Suggest Words.
-        /// </returns>
-        [WebMethod(EnableSession = true)]
-        public string SpellCheck(string text, string lang, string engine, string suggest)
-        {
-            try
-            {
-                if (suggest.Equals("undefined", StringComparison.OrdinalIgnoreCase))
-                {
-                    suggest = string.Empty;
-                }
-
-                string xml;
-
-                List<string> result;
-
-                if (string.IsNullOrEmpty(suggest))
-                {
-                    xml = GetSpellCheckRequest(text, lang);
-                    result = GetListOfMisspelledWords(xml, text);
-                }
-                else
-                {
-                    xml = GetSpellCheckRequest(suggest, lang);
-                    result = GetListOfSuggestWords(xml, suggest);
-                }
-
-                return new JavaScriptSerializer().Serialize(result);
-            }
-            catch (Exception ex)
-            {
-                this.Get<ILogger>().Error(ex, "Error calling spell check text: {0} lang {1} engine {2} suggest {3}", text, lang, engine, suggest);
-                throw;
-            }
         }
 
         /// <summary>
@@ -315,177 +256,6 @@ namespace YAF.Classes
         }
 
         #endregion
-
-        #endregion
-
-        #region private methods
-
-        /// <summary>
-        /// Gets the list of suggest words.
-        /// </summary>
-        /// <param name="xml">
-        /// The XML.
-        /// </param>
-        /// <param name="suggest">
-        /// The suggest.
-        /// </param>
-        /// <returns>
-        /// The get list of suggest words.
-        /// </returns>
-        private static List<string> GetListOfSuggestWords(string xml, string suggest)
-        {
-            if (string.IsNullOrEmpty(xml) || string.IsNullOrEmpty(suggest))
-            {
-                return null;
-            }
-
-            var xmlDoc = new XmlDocument();
-            xmlDoc.LoadXml(xml);
-
-            if (!xmlDoc.HasChildNodes)
-            {
-                return null;
-            }
-
-            XmlNodeList nodeList = xmlDoc.SelectNodes("//c");
-
-            if (null == nodeList || 0 >= nodeList.Count)
-            {
-                return null;
-            }
-
-            List<string> list = new List<string>();
-
-            foreach (XmlNode node in nodeList)
-            {
-                list.AddRange(node.InnerText.Split('\t'));
-                return list;
-            }
-
-            return list;
-        }
-
-        /// <summary>
-        /// Gets the list of misspelled words.
-        /// </summary>
-        /// <param name="xml">
-        /// The XML.
-        /// </param>
-        /// <param name="text">
-        /// The text.
-        /// </param>
-        /// <returns>
-        /// The get list of misspelled words.
-        /// </returns>
-        private static List<string> GetListOfMisspelledWords(string xml, string text)
-        {
-            if (string.IsNullOrEmpty(xml) || string.IsNullOrEmpty(text))
-            {
-                return null;
-            }
-
-            var xmlDoc = new XmlDocument();
-            xmlDoc.LoadXml(xml);
-
-            if (!xmlDoc.HasChildNodes)
-            {
-                return null;
-            }
-
-            var nodeList = xmlDoc.SelectNodes("//c");
-
-            if (null == nodeList || 0 >= nodeList.Count)
-            {
-                return null;
-            }
-
-            return (from XmlNode node in nodeList
-                    let offset = node.Attributes["o"].Value.ToType<int>()
-                    let length = node.Attributes["l"].Value.ToType<int>()
-                    select text.Substring(offset, length)).ToList();
-        }
-
-        /// <summary>
-        /// Requests the spell check and get the result back.
-        /// </summary>
-        /// <param name="text">
-        /// The text.
-        /// </param>
-        /// <param name="lang">
-        /// The lang.
-        /// </param>
-        /// <returns>
-        /// The get spell check request.
-        /// </returns>
-        private static string GetSpellCheckRequest(string text, string lang)
-        {
-            var requestUrl = ConstructRequestUrl(text, lang);
-            var requestContentXml = ConstructSpellRequestContentXml(text);
-
-            byte[] buffer = Encoding.UTF8.GetBytes(requestContentXml);
-
-            WebClient webClient = new WebClient();
-            webClient.Headers.Add("Content-Type", "text/xml");
-            byte[] response = webClient.UploadData(requestUrl, "POST", buffer);
-            return Encoding.UTF8.GetString(response);
-        }
-
-        /// <summary>
-        /// Constructs the request URL.
-        /// </summary>
-        /// <param name="text">
-        /// The text.
-        /// </param>
-        /// <param name="lang">
-        /// The lang.
-        /// </param>
-        /// <returns>
-        /// The construct request url.
-        /// </returns>
-        private static string ConstructRequestUrl(string text, string lang)
-        {
-            if (string.IsNullOrEmpty(text))
-            {
-                return string.Empty;
-            }
-
-            lang = string.IsNullOrEmpty(lang) ? "en" : lang;
-
-            return "https://www.google.com/tbproxy/spell?lang={0}&text={1}".FormatWith(lang, text);
-        }
-
-        /// <summary>
-        /// Constructs the spell request content XML.
-        /// </summary>
-        /// <param name="text">
-        /// The text.
-        /// </param>
-        /// <returns>
-        /// The construct spell request content xml.
-        /// </returns>
-        private static string ConstructSpellRequestContentXml(string text)
-        {
-            var doc = new XmlDocument();
-            var declaration = doc.CreateXmlDeclaration("1.0", null, null);
-
-            doc.AppendChild(declaration);
-
-            var root = doc.CreateElement("spellrequest");
-
-            root.SetAttribute("textalreadyclipped", "0");
-            root.SetAttribute("ignoredups", "0");
-            root.SetAttribute("ignoredigits", "1");
-            root.SetAttribute("ignoreallcaps", "1");
-
-            doc.AppendChild(root);
-
-            var textElement = doc.CreateElement("text");
-
-            textElement.InnerText = text;
-            root.AppendChild(textElement);
-
-            return doc.InnerXml;
-        }
 
         #endregion
     }
