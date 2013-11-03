@@ -53,7 +53,8 @@
     </tr>
     <tr>
         <td colspan="2" class="footer1" style="text-align:center;">
-            <asp:Button runat="server" ID="Kill" Text="Kill User" CssClass="pbutton" OnClientClick="return confirm('Delete all posts by and (optionally) ban IP addresses used by this user?');" OnClick="Kill_OnClick" />
+            <asp:Button runat="server" ID="Kill" Text="Kill User" CssClass="pbutton" OnClick="Kill_OnClick" />
+            <asp:Button runat="server" ID="ReportUser" Text="Report User" CssClass="pbutton" OnClick="Report_OnClick" />
         </td>
     </tr>
 </table>

@@ -50,7 +50,7 @@ namespace YAF.Core.Services.CheckForSpam
         /// The user agent.
         /// </param>
         /// <param name="timeout">
-        /// The timeout in miliseconds.
+        /// The timeout in milliseconds.
         /// </param>
         /// <param name="proxy">
         /// The proxy.
@@ -164,13 +164,12 @@ namespace YAF.Core.Services.CheckForSpam
         [NotNull]
         public virtual string PostRequest(
             [NotNull] Uri url,
-            [NotNull] string userAgent,
+            [CanBeNull] string userAgent,
             int timeout,
             [NotNull] string formParameters,
             [CanBeNull] IWebProxy proxy)
         {
             CodeContracts.VerifyNotNull(url, "url");
-            CodeContracts.VerifyNotNull(userAgent, "userAgent");
             CodeContracts.VerifyNotNull(formParameters, "formParameters");
 
             ServicePointManager.Expect100Continue = false;
@@ -187,7 +186,11 @@ namespace YAF.Core.Services.CheckForSpam
                 request.Proxy = proxy;
             }
 
-            request.UserAgent = userAgent;
+            if (userAgent.IsSet())
+            {
+                request.UserAgent = userAgent;
+            }
+
             request.Timeout = timeout;
             request.Method = "POST";
             request.ContentLength = formParameters.Length;

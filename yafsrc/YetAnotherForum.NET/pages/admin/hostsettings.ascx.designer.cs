@@ -391,6 +391,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox WebServiceToken;
         
         /// <summary>
+        /// HelpLabel223 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel223;
+        
+        /// <summary>
+        /// DisplayNameMinLength control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox DisplayNameMinLength;
+        
+        /// <summary>
         /// HelpLabel11 control.
         /// </summary>
         /// <remarks>
@@ -605,6 +623,24 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox BotScoutApiKey;
+        
+        /// <summary>
+        /// HelpLabel192 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel192;
+        
+        /// <summary>
+        /// StopForumSpamApiKey control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox StopForumSpamApiKey;
         
         /// <summary>
         /// HelpLabel226 control.
@@ -1028,24 +1064,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox AllowDisplayNameModification;
-        
-        /// <summary>
-        /// HelpLabel223 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel223;
-        
-        /// <summary>
-        /// DisplayNameMinLength control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox DisplayNameMinLength;
         
         /// <summary>
         /// HelpLabel85 control.

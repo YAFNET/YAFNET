@@ -26,6 +26,7 @@ namespace YAF.Core.Services.CheckForSpam
     using System.Net;
     using System.Runtime.Serialization;
 
+    using YAF.Classes;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -114,6 +115,33 @@ namespace YAF.Core.Services.CheckForSpam
 
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Reports the user as bot.
+        /// </summary>
+        /// <param name="ipAddress">The IP address.</param>
+        /// <param name="emailAddress">The email address.</param>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns>Returns If the report was successful or not</returns>
+        public bool ReportUserAsBot(
+            [CanBeNull] string ipAddress,
+            [CanBeNull] string emailAddress,
+            [CanBeNull] string userName)
+        {
+            var parameters = "username={0}&ip_addr={1}&email={2}&api_key={3}".FormatWith(
+                userName,
+                ipAddress,
+                emailAddress,
+                YafContext.Current.Get<YafBoardSettings>().StopForumSpamApiKey);
+
+            var result = new HttpClient().PostRequest(
+                new Uri("http://www.stopforumspam.com/add.php"),
+                null,
+                5000,
+                parameters);
+
+            return result.Contains("success");
         }
     }
 

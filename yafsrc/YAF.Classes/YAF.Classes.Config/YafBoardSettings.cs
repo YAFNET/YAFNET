@@ -25,40 +25,10 @@ namespace YAF.Classes
     using YAF.Types.Constants;
 
     /// <summary>
-    /// The yaf board settings.
+    /// The YAF board settings.
     /// </summary>
     public class YafBoardSettings
     {
-        /// <summary>
-        /// The _reg.
-        /// </summary>
-        protected virtual RegistryDictionaryOverride _reg { get; set; }
-
-        /// <summary>
-        /// The _reg board.
-        /// </summary>
-        protected virtual RegistryDictionary _regBoard { get; set; }
-
-        /// <summary>
-        /// The _board id.
-        /// </summary>
-        protected int _boardID;
-
-        /// <summary>
-        /// The _legacy board settings.
-        /// </summary>
-        protected virtual YafLegacyBoardSettings _legacyBoardSettings { get; set; }
-
-        /// <summary>
-        /// The _membership app name.
-        /// </summary>
-        protected virtual string _membershipAppName { get; set; }
-
-        /// <summary>
-        /// The _roles app name.
-        /// </summary>
-        protected virtual string _rolesAppName { get; set; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="YafBoardSettings"/> class.
         /// </summary>
@@ -75,9 +45,6 @@ namespace YAF.Classes
             this._rolesAppName = Roles.ApplicationName;
         }
 
-        // Board/Override properties...
-        // Future stuff... still in progress.
-
         /// <summary>
         /// Gets or sets the guest user id backup.
         /// </summary>
@@ -90,6 +57,7 @@ namespace YAF.Classes
             {
                 return this._regBoard.GetValue<int?>("GuestUserIdBackup", null);
             }
+
             set
             {
                 this._regBoard.SetValue("GuestUserIdBackup", value);
@@ -192,7 +160,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether User genger icons in user box are enabled.
+        /// Gets or sets a value indicating whether User gender icons in user box are enabled.
         /// </summary>
         public bool AllowGenderInUserBox
         {
@@ -256,7 +224,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to enable JqueryUIThemeCDNHosted.
+        /// Gets or sets a value indicating whether to enable jQuery-UIThemeCDNHosted.
         /// </summary>
         public bool JqueryUIThemeCDNHosted
         {
@@ -310,7 +278,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets Jquery UI Theme.
+        /// Gets or sets jQuery-UI Theme.
         /// </summary>
         public string JqueryUITheme
         {
@@ -438,8 +406,11 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets LogError.
+        /// Gets or sets a value indicating whether [log error].
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if [log error]; otherwise, <c>false</c>.
+        /// </value>
         public bool LogError
         {
             get
@@ -454,8 +425,11 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets LogWarning.
+        /// Gets or sets a value indicating whether [log warning].
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if [log warning]; otherwise, <c>false</c>.
+        /// </value>
         public bool LogWarning
         {
             get
@@ -470,8 +444,11 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets LogBannedIP.
+        /// Gets or sets a value indicating whether [log banned ip].
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if [log banned ip]; otherwise, <c>false</c>.
+        /// </value>
         public bool LogBannedIP
         {
             get
@@ -486,8 +463,11 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets LogInformation.
+        /// Gets or sets a value indicating whether [log information].
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if [log information]; otherwise, <c>false</c>.
+        /// </value>
         public bool LogInformation
         {
             get
@@ -502,8 +482,11 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets LogBannedIP.
+        /// Gets or sets a value indicating whether [log user deleted].
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if [log user deleted]; otherwise, <c>false</c>.
+        /// </value>
         public bool LogUserDeleted
         {
             get
@@ -516,9 +499,13 @@ namespace YAF.Classes
                 this._reg.SetValue("LogUserDeleted", value);
             }
         }
+
         /// <summary>
-        /// Gets or sets LogUserSuspendedUnsuspended.
+        /// Gets or sets a value indicating whether [log user suspended unsuspended].
         /// </summary>
+        /// <value>
+        /// <c>true</c> if [log user suspended unsuspended]; otherwise, <c>false</c>.
+        /// </value>
         public bool LogUserSuspendedUnsuspended
         {
             get
@@ -531,9 +518,13 @@ namespace YAF.Classes
                 this._reg.SetValue("LogUserSuspendedUnsuspended", value);
             }
         }
+
         /// <summary>
-        /// Gets or sets LogSqlError.
+        /// Gets or sets a value indicating whether [log SQL error].
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if [log SQL error]; otherwise, <c>false</c>.
+        /// </value>
         public bool LogSqlError
         {
             get
@@ -707,7 +698,7 @@ namespace YAF.Classes
         /// what to to with a SPAM Message
         /// 0 = Do nothing
         /// 1 = Flag Message as Unapproved
-        /// 2 = Dont allow posting
+        /// 2 = Don't allow posting
         /// </summary>
         public int SpamMessageHandling
         {
@@ -726,7 +717,7 @@ namespace YAF.Classes
         /// Gets or sets a value indicating whether 
         /// what to to with Bots during Registration
         /// 0 = Disabled
-        /// 1 = Log & Send Message to Admins
+        /// 1 = Log and Send Message to Admins
         /// 2 = Block user from Registration
         /// </summary>
         public int BotHandlingOnRegister
@@ -759,8 +750,11 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to Use BotScout.com Service.
+        /// Gets or sets the BotScout.com API key.
         /// </summary>
+        /// <value>
+        /// The BotScout.com API key.
+        /// </value>
         public string BotScoutApiKey
         {
             get
@@ -771,6 +765,25 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("BotScoutApiKey", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the StopForumSpam.com API key.
+        /// </summary>
+        /// <value>
+        /// The StopForumSpam.com API key.
+        /// </value>
+        public string StopForumSpamApiKey
+        {
+            get
+            {
+                return this._reg.GetValue("StopForumSpamApiKey", string.Empty);
+            }
+
+            set
+            {
+                this._reg.SetValue("StopForumSpamApiKey", value);
             }
         }
 
@@ -805,7 +818,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether Enable Retweet Message.
+        /// Gets or sets a value indicating whether Enable Re-tweet Message.
         /// </summary>
         public int ShowRetweetMessageTo
         {
@@ -1109,7 +1122,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets SmiliesColumns.
+        /// Gets or sets Smilies Columns.
         /// </summary>
         public int SmiliesColumns
         {
@@ -1717,7 +1730,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets PictureAttachmentDisplayTreshold.
+        /// Gets or sets Picture Attachment Display Threshold.
         /// </summary>
         public int PictureAttachmentDisplayTreshold
         {
@@ -1931,7 +1944,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets Message Notifcation Duration
+        /// Gets or sets Message Notification Duration
         /// </summary>
         public int MessageNotifcationDuration
         {
@@ -2407,7 +2420,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether if Use Farsi Calender
+        /// Gets or sets a value indicating whether if Use Farsi Calendar
         /// </summary>
         public bool UseFarsiCalender
         {
@@ -2439,7 +2452,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets the Refresh Rate for the Timeago
+        /// Gets or sets the Refresh Rate for the TimeAgo
         /// </summary>
         public int RelativeTimeRefreshTime
         {
@@ -2551,7 +2564,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether AvatarGravatar.
+        /// Gets or sets a value indicating whether Avatar Gravatar.
         /// </summary>
         public bool AvatarGravatar
         {
@@ -3352,7 +3365,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets the Number of Replys a Topic must have to became 
+        /// Gets or sets the Number of Replies a Topic must have to became 
         /// Hot.
         /// </summary>
         public int PopularTopicReplys
@@ -3649,7 +3662,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets Minium Reputation Value to Allow User to Give Reputation
+        /// Gets or sets Minimum Reputation Value to Allow User to Give Reputation
         /// </summary>
         public int ReputationMinUpVoting
         {
@@ -3665,7 +3678,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets Minium Reputation Value to Allow User to Remove Reputation
+        /// Gets or sets Minimum Reputation Value to Allow User to Remove Reputation
         /// </summary>
         public int ReputationMinDownVoting
         {
@@ -4351,10 +4364,40 @@ namespace YAF.Classes
 
         #endregion
 
+        /// <summary>
+        /// Gets or sets the RegistryDictionaryOverride.
+        /// </summary>
+        protected virtual RegistryDictionaryOverride _reg { get; set; }
+
+        /// <summary>
+        /// Gets or sets the RegistryDictionary.
+        /// </summary>
+        protected virtual RegistryDictionary _regBoard { get; set; }
+
+        /// <summary>
+        ///  Gets or sets the board id.
+        /// </summary>
+        protected int _boardID { get; set; }
+
+        /// <summary>
+        ///  Gets or sets the legacy board settings.
+        /// </summary>
+        protected virtual YafLegacyBoardSettings _legacyBoardSettings { get; set; }
+
+        /// <summary>
+        ///  Gets or sets the membership app name.
+        /// </summary>
+        protected virtual string _membershipAppName { get; set; }
+
+        /// <summary>
+        ///  Gets or sets the roles app name.
+        /// </summary>
+        protected virtual string _rolesAppName { get; set; }        
+
         #region Nested type: YafLegacyBoardSettings
 
         /// <summary>
-        /// The yaf legacy board settings.
+        /// The YAF legacy board settings.
         /// </summary>
         public class YafLegacyBoardSettings
         {
@@ -4366,23 +4409,13 @@ namespace YAF.Classes
             }
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="YafLegacyBoardSettings"/> class.
+            /// Initializes a new instance of the <see cref="YafLegacyBoardSettings" /> class.
             /// </summary>
-            /// <param name="boardName">
-            /// The board name.
-            /// </param>
-            /// <param name="sqlVersion">
-            /// The sql version.
-            /// </param>
-            /// <param name="allowThreaded">
-            /// The allow threaded.
-            /// </param>
-            /// <param name="membershipAppName">
-            /// The membership app name.
-            /// </param>
-            /// <param name="rolesAppName">
-            /// The roles app name.
-            /// </param>
+            /// <param name="boardName">The board name.</param>
+            /// <param name="sqlVersion">The SQL version.</param>
+            /// <param name="allowThreaded">The allow threaded.</param>
+            /// <param name="membershipAppName">The membership app name.</param>
+            /// <param name="rolesAppName">The roles app name.</param>
             public YafLegacyBoardSettings(string boardName, string sqlVersion, bool allowThreaded, string membershipAppName, string rolesAppName)
                 : this()
             {
@@ -4403,7 +4436,7 @@ namespace YAF.Classes
             }
 
             /// <summary>
-            /// Gets or sets SqlVersion.
+            /// Gets or sets SQL Version.
             /// </summary>
             public string SqlVersion
             {

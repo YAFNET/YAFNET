@@ -682,6 +682,8 @@
   <page name="ADMIN_EDITUSER">
     <Resource tag="ADD_POINTS">Добавить очки:</Resource>
     <Resource tag="BAN_IP_OFUSER">Запретить пользователя по адресам IP?</Resource>
+    <Resource tag="BOT_REPORTED">User Successfully Reported as Bot</Resource>
+    <Resource tag="BOT_REPORTED_FAILED">User Reporting was not successfull, please check your API Key!</Resource>
     <Resource tag="CHANGE_NEW_PASS">Новый пароль:</Resource>
     <Resource tag="CHANGE_NEW_PASS_HELP">Новый пароль пользователя.</Resource>
     <Resource tag="CHANGE_PASS">Изменить пароль</Resource>
@@ -707,6 +709,8 @@
     <Resource tag="HEAD_USER_RESETPASS">Сбросить/Изменить пароль пользователя</Resource>
     <Resource tag="IP_ADDRESSES">IP Addresses:</Resource>
     <Resource tag="IP_ADRESSES">Адреса IP:</Resource>
+    <Resource tag="KILL_USER">Kill User</Resource>
+    <Resource tag="KILL_USER_CONFIRM">Delete all posts by and (optionally) ban IP addresses used by this user?</Resource>
     <Resource tag="LINK_USER_BAN">Пользователь &lt;a id="usr{0}" href="{1}"&gt;{2}&lt;/a&gt;  забанен по IP</Resource>
     <Resource tag="MEMBER">Участник</Resource>
     <Resource tag="MSG_GUEST_APPROVED">Пользователь Гость должен быть одобрен!</Resource>
@@ -720,6 +724,8 @@
     <Resource tag="PASS_REQUIREMENT">минимальная длина {0} . {1} минимум не буквенно-числовых символов ($#@!).</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS">Требования к паролю Membership:</Resource>
     <Resource tag="REMOVE_POINTS">Удалить очки:</Resource>
+    <Resource tag="REPORT_USER">Report User as BOT to StopForumSpam.com</Resource>
+    <Resource tag="REPORT_USER_CONFIRM">Report User Name, Email Address and IP Address to StopForumSpam.com as BOT?</Resource>
     <Resource tag="RESET_PASS">Сброс пароля</Resource>
     <Resource tag="SET_POINTS">Ввести очки:</Resource>
     <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years?</Resource>
@@ -1352,6 +1358,8 @@
     <Resource tag="SSL_REGISTER_HELP">Требовать безопасного соединения при регистрации пользователей.</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Таймаут кэша статистики форума:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">В минутах</Resource>
+    <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
+    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;</Resource>
     <Resource tag="STYLED_NICKS">Использовать стилизированные ники:</Resource>
     <Resource tag="STYLED_NICKS_HELP">Если включено, вы можете использовать цвета или иное форматирование для ников пользователей. Может быть индивидуальным для каждого скина.</Resource>
     <Resource tag="STYLED_TOPIC_TITLES">Использовать стилизированные названия тем:</Resource>

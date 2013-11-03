@@ -682,6 +682,8 @@
   <page name="ADMIN_EDITUSER">
     <Resource tag="ADD_POINTS">Voeg punten toe:</Resource>
     <Resource tag="BAN_IP_OFUSER">Ban de IP Adressen van de gebruiker?</Resource>
+    <Resource tag="BOT_REPORTED">User Successfully Reported as Bot</Resource>
+    <Resource tag="BOT_REPORTED_FAILED">User Reporting was not successfull, please check your API Key!</Resource>
     <Resource tag="CHANGE_NEW_PASS">Nieuw Wachtwoord:</Resource>
     <Resource tag="CHANGE_NEW_PASS_HELP">Nieuw wachtwoord van gebruiker.</Resource>
     <Resource tag="CHANGE_PASS">Wijzig Wachtwoord</Resource>
@@ -707,6 +709,8 @@
     <Resource tag="HEAD_USER_RESETPASS">Reset/Wijzig Wachtwoord van gebruiker</Resource>
     <Resource tag="IP_ADDRESSES">IP Addresses:</Resource>
     <Resource tag="IP_ADRESSES">IP Adressen:</Resource>
+    <Resource tag="KILL_USER">Kill User</Resource>
+    <Resource tag="KILL_USER_CONFIRM">Delete all posts by and (optionally) ban IP addresses used by this user?</Resource>
     <Resource tag="LINK_USER_BAN">Gebruiker &lt;a id="usr{0}" href="{1}"&gt;{2}&lt;/a&gt;  is gebanned door IP</Resource>
     <Resource tag="MEMBER">Lid</Resource>
     <Resource tag="MSG_GUEST_APPROVED">Het gast-account moet gemarkeerd zijn als Goedgekeurd, anders is het forum niet stabiel.</Resource>
@@ -720,6 +724,8 @@
     <Resource tag="PASS_REQUIREMENT">minimaal {0} karakters. Minimaal {1} niet-alfanumerieke karakters ($#@!).</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS">Eisen aan het wachtwoord:</Resource>
     <Resource tag="REMOVE_POINTS">Verwijder punten:</Resource>
+    <Resource tag="REPORT_USER">Report User as BOT to StopForumSpam.com</Resource>
+    <Resource tag="REPORT_USER_CONFIRM">Report User Name, Email Address and IP Address to StopForumSpam.com as BOT?</Resource>
     <Resource tag="RESET_PASS">Reset Wachtwoord</Resource>
     <Resource tag="SET_POINTS">Zet aantal punten:</Resource>
     <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years?</Resource>
@@ -1353,6 +1359,8 @@
     <Resource tag="SSL_REGISTER_HELP">Forceer een beveiligde verbinding bij het registreren van nieuwe gebruikers.</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistieken Cache Timeout:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In minuten</Resource>
+    <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
+    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;</Resource>
     <Resource tag="STYLED_NICKS">Gebruik opgemaakte aliassen:</Resource>
     <Resource tag="STYLED_NICKS_HELP">Als aangevinkt, kun je kleuren, lettergroottes, etc. gebruiken voor actieve gebruikers.</Resource>
     <Resource tag="STYLED_TOPIC_TITLES">Gebruik opgemaakte topictitels:</Resource>

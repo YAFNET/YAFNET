@@ -682,6 +682,8 @@
   <page name="ADMIN_EDITUSER">
     <Resource tag="ADD_POINTS">افزودن نمره:</Resource>
     <Resource tag="BAN_IP_OFUSER">آی پی های کاربر بلوکه شود؟</Resource>
+    <Resource tag="BOT_REPORTED">User Successfully Reported as Bot</Resource>
+    <Resource tag="BOT_REPORTED_FAILED">User Reporting was not successfull, please check your API Key!</Resource>
     <Resource tag="CHANGE_NEW_PASS">کلمه عبور جدید:</Resource>
     <Resource tag="CHANGE_NEW_PASS_HELP">کلمه عوبر جدید کاربر.</Resource>
     <Resource tag="CHANGE_PASS">تغییر کلمه عبور</Resource>
@@ -707,6 +709,8 @@
     <Resource tag="HEAD_USER_RESETPASS">بازنشانی/تغییر کلمه عبور</Resource>
     <Resource tag="IP_ADDRESSES">IP Addresses:</Resource>
     <Resource tag="IP_ADRESSES">آدرس های آی پی :</Resource>
+    <Resource tag="KILL_USER">Kill User</Resource>
+    <Resource tag="KILL_USER_CONFIRM">Delete all posts by and (optionally) ban IP addresses used by this user?</Resource>
     <Resource tag="LINK_USER_BAN">کاربر &lt;a id="usr{0}" href="{1}"&gt;{2}&lt;/a&gt;  بوسیله آی پی بلاک شده</Resource>
     <Resource tag="MEMBER">عضو</Resource>
     <Resource tag="MSG_GUEST_APPROVED">در صورت تائید نشدن کاربر میهمان انجمن شما پایداری نخواهد داشت.</Resource>
@@ -720,6 +724,8 @@
     <Resource tag="PASS_REQUIREMENT">{0} حداقل طول. {1} حداقل تعداد حروف سمبلیک ($#@!).</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS">نیازمندی های کلمه عبور:</Resource>
     <Resource tag="REMOVE_POINTS">حذف نمرات:</Resource>
+    <Resource tag="REPORT_USER">Report User as BOT to StopForumSpam.com</Resource>
+    <Resource tag="REPORT_USER_CONFIRM">Report User Name, Email Address and IP Address to StopForumSpam.com as BOT?</Resource>
     <Resource tag="RESET_PASS">بازنشانی کلمه عبور</Resource>
     <Resource tag="SET_POINTS">تنظیم نمره:</Resource>
     <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years?</Resource>
@@ -1360,6 +1366,8 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="SSL_REGISTER_HELP">الزام در ثبت نام امن برای کاربران.</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">انقضای حافظه موقت آمار انجمن:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">به دقیقه</Resource>
+    <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
+    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;</Resource>
     <Resource tag="STYLED_NICKS">از نیک های حالت دار استفاده کن:</Resource>
     <Resource tag="STYLED_NICKS_HELP">در صورت علامت زدن می توانید رنگ، قلم و اندازه برای نیک کاربران فعال استفاده نمائید.</Resource>
     <Resource tag="STYLED_TOPIC_TITLES">Use styled Topic Titles:</Resource>
