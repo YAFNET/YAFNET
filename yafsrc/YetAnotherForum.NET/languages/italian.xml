@@ -1799,6 +1799,9 @@
     <Resource tag="UP_TITLE">Vai alla cartella superiore.</Resource>
   </page>
   <page name="BBCODEMODULE">
+    <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
+    <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
+    <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
     <Resource tag="HIDDENMOD_DESC">Testo nascosto agli utenti che non cliccano su Grazie. Aggiorna la pagina dopo aver ringraziato.</Resource>
     <Resource tag="HIDDENMOD_GROUP">Non godi di privilegi sufficienti per visualizzare i testo nascosto.</Resource>
     <Resource tag="HIDDENMOD_GUEST">Devi essere registrato ed aver effettuato l'accesso al sito per leggere i messaggi di questo forum.</Resource>
@@ -1816,6 +1819,7 @@
     <Resource tag="SPOILERMOD_HIDE">Nascondi il testo a scomparsa</Resource>
     <Resource tag="SPOILERMOD_SHOW">Mostra il testo a scomparsa</Resource>
     <Resource tag="SPOILERMOD_TOOLTIP">Clicca qui per mostrare o nascondere il testo a scomparsa (spoiler)</Resource>
+    <Resource tag="TWITTER_DESCRIPTION">Enter the Status ID of the Tweet you want to embed</Resource>
     <Resource tag="UERLINKMOD_DESCRIPTION">Inserisci qui il nome dell'utente</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">URL condividi YouTube.</Resource>
   </page>

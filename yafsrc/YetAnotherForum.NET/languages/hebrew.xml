@@ -1828,6 +1828,9 @@
     <Resource tag="UP_TITLE">Go to the Parent Folder.</Resource>
   </page>
   <page name="BBCODEMODULE">
+    <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
+    <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
+    <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
     <Resource tag="HIDDENMOD_DESC">The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post</Resource>
     <Resource tag="HIDDENMOD_GROUP">You have insufficient rights to see the hidden content.</Resource>
     <Resource tag="HIDDENMOD_GUEST">This board requires you to be registered and logged-in before you can view hidden messages.</Resource>
@@ -1845,6 +1848,7 @@
     <Resource tag="SPOILERMOD_HIDE">Hide Spoiler</Resource>
     <Resource tag="SPOILERMOD_SHOW">Show Spoiler</Resource>
     <Resource tag="SPOILERMOD_TOOLTIP">Click here to show or hide the hidden text (also known as a spoiler)</Resource>
+    <Resource tag="TWITTER_DESCRIPTION">Enter the Status ID of the Tweet you want to embed</Resource>
     <Resource tag="UERLINKMOD_DESCRIPTION">Put User Name Here</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">Put YouTube URL in Here</Resource>
   </page>

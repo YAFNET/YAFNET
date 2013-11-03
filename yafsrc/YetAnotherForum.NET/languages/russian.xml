@@ -1785,6 +1785,9 @@
     <Resource tag="UP_TITLE">Перейти в родительскую папку.</Resource>
   </page>
   <page name="BBCODEMODULE">
+    <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
+    <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
+    <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
     <Resource tag="HIDDENMOD_DESC">Контент этого поста скрыт. После того, как вы поблагодарите постящего за это сообщение он будет доступен, обновите страницу для просмотра скрытого контента. You need to thank the Current Post</Resource>
     <Resource tag="HIDDENMOD_GROUP">Не хватает прав для просмотра скрытого содержимого.</Resource>
     <Resource tag="HIDDENMOD_GUEST">Эта конференция требует регистрации перед тем как вы сможете увидеть скрытые сообщения.</Resource>
@@ -1802,6 +1805,7 @@
     <Resource tag="SPOILERMOD_HIDE">Скрыть спойлер</Resource>
     <Resource tag="SPOILERMOD_SHOW">Открыть спойлер</Resource>
     <Resource tag="SPOILERMOD_TOOLTIP">Нажмите здесь, чтобы просмотреть/скрыть текст (применить спойлер)</Resource>
+    <Resource tag="TWITTER_DESCRIPTION">Enter the Status ID of the Tweet you want to embed</Resource>
     <Resource tag="UERLINKMOD_DESCRIPTION">Введите имя пользователя</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">Введите адрес ссылки (URL) YouTube </Resource>
   </page>

@@ -1797,6 +1797,9 @@
     <Resource tag="UP_TITLE">Ga naar de bovenliggende map.</Resource>
   </page>
   <page name="BBCODEMODULE">
+    <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
+    <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
+    <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
     <Resource tag="HIDDENMOD_DESC">De inhoud van dit bericht is verborgen. Als je de auteur bedankt hebt, ververs dan de pagina om de inhoud te bekijken." title="De inhoud van dit bericht is verborgen. Als je de auteur bedankt hebt, ververs dan de pagina om de inhoud te bekijken.</Resource>
     <Resource tag="HIDDENMOD_GROUP">Je hebt onvoldoende rechten om deze inhoud te bekijken.</Resource>
     <Resource tag="HIDDENMOD_GUEST">Dit forum vereist dat je bent geregistreerd en ingelogd om verborgen berichten te bekijken.</Resource>
@@ -1814,6 +1817,7 @@
     <Resource tag="SPOILERMOD_HIDE">Verberg Spoiler</Resource>
     <Resource tag="SPOILERMOD_SHOW">Laat Spoiler zien</Resource>
     <Resource tag="SPOILERMOD_TOOLTIP">Klik hier om de verborgen tekst (ook wel bekend als een spoiler) te verbergen of te laten zien</Resource>
+    <Resource tag="TWITTER_DESCRIPTION">Enter the Status ID of the Tweet you want to embed</Resource>
     <Resource tag="UERLINKMOD_DESCRIPTION">Zet hier de gebruikersnaam</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">Zet hier de URL naar het YouTube bestand</Resource>
   </page>
