@@ -34,11 +34,11 @@
     <DisplayJS />
     <EditJS />
     <DisplayCSS />
-    <SearchRegex>\[googlewidget\]\&amp;lt\;script src\=\&amp;quot\;(?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?gmodules.com\/ig\/ifr\?(?&lt;url&gt;.+?))\&amp;quot\;\&amp;gt\;\&amp;lt\;/script\&amp;gt\;\[/googlewidget\]</SearchRegex>
+    <SearchRegex>\[googlewidget\]&amp;lt;script src=\&amp;quot;(?&lt;prefix&gt;.+?)gmodules.com/ig/ifr\?url=(?&lt;url&gt;.+?)&amp;quot;\&amp;gt;\&amp;lt;/script\&amp;gt;\[/googlewidget\]</SearchRegex>
     <ReplaceRegex>&lt;!-- BEGIN Google Widget --&gt;
-&lt;script type="text/javascript" src="http://${prefix}gmodules.com/ig/ifr?${url}"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="http://www.gmodules.com/ig/ifr?url=${url}"&gt;&lt;/script&gt;
 &lt;!-- END Google Widget --&gt;</ReplaceRegex>
-    <Variables>url:decode;prefix</Variables>
+    <Variables>url:decode;</Variables>
     <UseModule>false</UseModule>
     <ModuleClass />
     <ExecOrder>1</ExecOrder>
