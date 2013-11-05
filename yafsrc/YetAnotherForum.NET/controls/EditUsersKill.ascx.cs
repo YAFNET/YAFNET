@@ -17,8 +17,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using YAF.Classes;
-
 namespace YAF.Controls
 {
     #region Using
@@ -29,11 +27,12 @@ namespace YAF.Controls
     using System.Linq;
     using System.Web.Security;
 
+    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.Services;
+    using YAF.Core.Services.CheckForSpam;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -67,10 +66,13 @@ namespace YAF.Controls
         {
             get
             {
-                return this._allPostsByUser ??
-                       (this._allPostsByUser =
-                        LegacyDb.post_alluser(
-                            this.PageContext.PageBoardID, this.CurrentUserID, this.PageContext.PageUserID, null));
+                return this._allPostsByUser
+                       ?? (this._allPostsByUser =
+                           LegacyDb.post_alluser(
+                               this.PageContext.PageBoardID,
+                               this.CurrentUserID,
+                               this.PageContext.PageUserID,
+                               null));
             }
         }
 
@@ -102,14 +104,10 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// The kill_ on click.
+        /// Kills the User
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Kill_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.BanIps.Checked)
@@ -120,21 +118,47 @@ namespace YAF.Controls
             this.DeletePosts();
 
             MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
-            this.PageContext.AddLoadMessage(this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_USER_KILLED").FormatWith(user.UserName));
+            this.PageContext.AddLoadMessage(
+                this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_USER_KILLED").FormatWith(user.UserName));
 
             // update the displayed data...
             this.BindData();
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Reports the User
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void Report_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (this.Get<YafBoardSettings>().StopForumSpamApiKey.IsNotSet())
+            {
+                return;
+            }
+
+            try
+            {
+                var stopForumSpam = new StopForumSpam();
+
+                MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
+
+                if (stopForumSpam.ReportUserAsBot(this.IPAddresses.FirstOrDefault(), user.Email, user.UserName))
+                {
+                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITUSER", "BOT_REPORTED"), MessageTypes.Success);
+                }
+            }
+            catch (Exception)
+            {
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITUSER", "BOT_REPORTED_FAILED"), MessageTypes.Error);
+            }
+        }
+
+        /// <summary>
+        /// Handles the Load event of the Page control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // init ids...
@@ -147,25 +171,48 @@ namespace YAF.Controls
             }
 
             MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
-            var userData = new CombinedUserDataHelper(user, (int)this.CurrentUserID.Value);
+            var userData = new CombinedUserDataHelper(user, this.CurrentUserID.Value.ToType<int>());
 
             this.ViewPostsLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                 ForumPages.search,
                 "postedby={0}",
-            !userData.IsGuest ? (this.Get<YafBoardSettings>().EnableDisplayName ? userData.DisplayName : userData.UserName)
-            : (UserMembershipHelper.GuestUserName));
+                !userData.IsGuest
+                    ? (this.Get<YafBoardSettings>().EnableDisplayName ? userData.DisplayName : userData.UserName)
+                    : UserMembershipHelper.GuestUserName);
+
+            this.Kill.Text = this.GetText("ADMIN_EDITUSER", "KILL_USER");
+            ControlHelper.AddOnClickConfirmDialog(this.Kill, this.GetText("ADMIN_EDITUSER", "KILL_USER_CONFIRM"));
+
+            if (this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet())
+            {
+                this.ReportUser.Visible = true;
+                this.ReportUser.Text = this.GetText("ADMIN_EDITUSER", "REPORT_USER");
+                ControlHelper.AddOnClickConfirmDialog(
+                    this.ReportUser,
+                    this.GetText("ADMIN_EDITUSER", "REPORT_USER_CONFIRM"));
+            }
+            else
+            {
+                this.ReportUser.Visible = false;
+            }
 
             // bind data
             this.BindData();
         }
 
         /// <summary>
-        /// The ban user ips.
+        /// Bans the user IP Addresses.
         /// </summary>
         private void BanUserIps()
         {
             var usr =
-                LegacyDb.UserList(this.PageContext.PageBoardID, this.CurrentUserID.ToType<int?>(), null, null, null, false).FirstOrDefault();
+                LegacyDb.UserList(
+                    this.PageContext.PageBoardID,
+                    this.CurrentUserID.ToType<int?>(),
+                    null,
+                    null,
+                    null,
+                    false).FirstOrDefault();
 
             if (usr != null)
             {
@@ -184,16 +231,26 @@ namespace YAF.Controls
             var allIps = this.GetRepository<BannedIP>().ListTyped().Select(x => x.Mask).ToList();
 
             // ban user ips...
-            string name = UserMembershipHelper.GetDisplayNameFromID(this.CurrentUserID == null ? -1 : (int)this.CurrentUserID);
+            string name =
+                UserMembershipHelper.GetDisplayNameFromID(
+                    this.CurrentUserID == null ? -1 : this.CurrentUserID.ToType<int>());
 
-            if (string.IsNullOrEmpty(name))
+            if (name.IsNotSet())
             {
-                name = UserMembershipHelper.GetUserNameFromID(this.CurrentUserID == null ? -1 : (int)this.CurrentUserID);
+                name =
+                    UserMembershipHelper.GetUserNameFromID(
+                        this.CurrentUserID == null ? -1 : this.CurrentUserID.ToType<int>());
             }
 
             foreach (var ip in this.IPAddresses.Except(allIps).ToList())
             {
-                string linkUserBan = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "LINK_USER_BAN").FormatWith(this.CurrentUserID, YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.CurrentUserID), this.HtmlEncode(name));
+                string linkUserBan =
+                    this.Get<ILocalization>()
+                        .GetText("ADMIN_EDITUSER", "LINK_USER_BAN")
+                        .FormatWith(
+                            this.CurrentUserID,
+                            YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.CurrentUserID),
+                            this.HtmlEncode(name));
 
                 this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageContext.PageUserID);
             }
@@ -205,7 +262,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The bind data.
+        /// Binds the data.
         /// </summary>
         private void BindData()
         {
@@ -219,13 +276,13 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The delete posts.
+        /// Deletes the posts.
         /// </summary>
         private void DeletePosts()
         {
             // delete posts...
             var messageIds =
-              (from m in this.AllPostsByUser.AsEnumerable() select m.Field<int>("MessageID")).Distinct().ToList();
+                (from m in this.AllPostsByUser.AsEnumerable() select m.Field<int>("MessageID")).Distinct().ToList();
 
             messageIds.ForEach(x => LegacyDb.message_delete(x, true, string.Empty, 1, true));
         }
