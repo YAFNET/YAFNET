@@ -31,7 +31,6 @@ namespace YAF.Pages.Admin
 
     using YAF.Classes;
     using YAF.Classes.Data;
-    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Tasks;
     using YAF.Types;
@@ -58,13 +57,11 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         public void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // add confirmation method on click
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_USERS", "CONFIRM_DELETE"));
+            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_USERS", "CONFIRM_DELETE"));
         }
 
         /// <summary>
-        /// The new user_ click.
+        /// Redirects to the Create User Page
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
@@ -94,7 +91,9 @@ namespace YAF.Pages.Admin
                     if (this.PageContext.PageUserID == int.Parse(e.CommandArgument.ToString()))
                     {
                         // deleting yourself isn't an option
-                        this.PageContext.AddLoadMessage(this.GetText("ADMIN_USERS", "MSG_SELF_DELETE"));
+                        this.PageContext.AddLoadMessage(
+                            this.GetText("ADMIN_USERS", "MSG_SELF_DELETE"),
+                            MessageTypes.Error);
                         return;
                     }
 
@@ -108,7 +107,9 @@ namespace YAF.Pages.Admin
                             if (row["IsGuest"].ToType<int>() > 0)
                             {
                                 // we cannot detele guest
-                                this.PageContext.AddLoadMessage(this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"));
+                                this.PageContext.AddLoadMessage(
+                                    this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
+                                    MessageTypes.Error);
                                 return;
                             }
 
@@ -119,7 +120,9 @@ namespace YAF.Pages.Admin
                             }
 
                             // admin are not deletable either
-                            this.PageContext.AddLoadMessage(this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"));
+                            this.PageContext.AddLoadMessage(
+                                this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
+                                MessageTypes.Error);
                             return;
                         }
                     }
@@ -208,13 +211,15 @@ namespace YAF.Pages.Admin
 
             // link to administration index
             this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), string.Empty);
 
             this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_USERS", "TITLE"));
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                this.GetText("ADMIN_USERS", "TITLE"));
         }
 
         /// <summary>
@@ -377,7 +382,8 @@ namespace YAF.Pages.Admin
 
             // show blocking ui...
             this.PageContext.PageElements.RegisterJsBlockStartup(
-                "BlockUIExecuteJs", JavaScriptBlocks.BlockUIExecuteJs("SyncUsersMessage"));
+                "BlockUIExecuteJs",
+                JavaScriptBlocks.BlockUIExecuteJs("SyncUsersMessage"));
         }
 
         /// <summary>
@@ -468,14 +474,16 @@ namespace YAF.Pages.Admin
                     {
                         dv.RowFilter =
                             "(Name LIKE '%{0}%' OR DisplayName LIKE '%{0}%') AND Email LIKE '%{1}%'".FormatWith(
-                                this.name.Text.Trim(), this.Email.Text.Trim());
+                                this.name.Text.Trim(),
+                                this.Email.Text.Trim());
                     }
 
                     // filter by date of registration
                     if (sinceValue != 9999)
                     {
                         dv.RowFilter += "{1}Joined > '{0}'".FormatWith(
-                            sinceDate.ToString(), dv.RowFilter.IsNotSet() ? string.Empty : " AND ");
+                            sinceDate.ToString(),
+                            dv.RowFilter.IsNotSet() ? string.Empty : " AND ");
                     }
 
                     // set pager and datasource
@@ -558,6 +566,8 @@ namespace YAF.Pages.Admin
             usersList.Columns.Add("Twitter");
             usersList.Columns.Add("TwitterId");
             usersList.Columns.Add("Facebook");
+            usersList.Columns.Add("Google");
+            usersList.Columns.Add("GoogleId");
 
             usersList.Columns.Add("Roles");
 
