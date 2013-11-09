@@ -386,6 +386,11 @@ namespace YAF.Pages.Admin
                 this.UserName.Text = this.User.UserName;
                 this.UserEmail.Text = this.User.Email;
             }
+
+            if (Config.IsDotNetNuke)
+            {
+                this.CreateNewAdminHolder.Visible = false;
+            }
         }
 
         /// <summary>
