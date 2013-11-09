@@ -705,8 +705,7 @@ namespace YAF
                 null,
                 null,
                 messageID,
-                // don't track if this is a search engine
-                isSearchEngine,
+                isSearchEngine, // don't track if this is a search engine
                 isMobileDevice,
                 dontTrack);
 
@@ -1277,22 +1276,12 @@ namespace YAF
         /// </param>
         private void GetResponseRemoteAvatar([NotNull] HttpContext context)
         {
-            if (General.GetCurrentTrustLevel() <= AspNetHostingPermissionLevel.Medium)
-            {
-                // don't bother... not supported.
-                this.Get<ILogger>().Log(
-                    null,
-                    this,
-                    "Remote Avatar is NOT supported on your Hosting Permission Level (must be High)");
-                return;
-            }
+            var avatarUrl = context.Request.QueryString.GetFirstOrDefault("url");
 
-            string avatarUrl = context.Request.QueryString.GetFirstOrDefault("url");
+            var maxwidth = int.Parse(context.Request.QueryString.GetFirstOrDefault("width"));
+            var maxheight = int.Parse(context.Request.QueryString.GetFirstOrDefault("height"));
 
-            int maxwidth = int.Parse(context.Request.QueryString.GetFirstOrDefault("width"));
-            int maxheight = int.Parse(context.Request.QueryString.GetFirstOrDefault("height"));
-
-            string eTag =
+            var eTag =
                 @"""{0}""".FormatWith(
                     (context.Request.QueryString.GetFirstOrDefault("url") + maxheight + maxwidth).GetHashCode());
 
@@ -1360,9 +1349,10 @@ namespace YAF
                     }
                 }
             }
-            catch (WebException)
+            catch (WebException exception)
             {
                 // issue getting access to the avatar...
+                this.Get<ILogger>().Log(null, this, exception);
             }
         }
 
