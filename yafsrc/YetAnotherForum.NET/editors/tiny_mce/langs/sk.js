@@ -99,6 +99,7 @@ tinymce.addI18n('sk',{
 "Embed": "Vlo\u017een\u00e9",
 "Nonbreaking space": "Nedelite\u013en\u00e1 medzera",
 "Page break": "Zalomenie str\u00e1nky",
+"Paste as text": "Vlo\u017ei\u0165 ako text",
 "Preview": "N\u00e1h\u013ead",
 "Print": "Tla\u010di\u0165",
 "Save": "Ulo\u017ei\u0165",
