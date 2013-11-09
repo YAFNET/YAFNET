@@ -711,9 +711,8 @@ namespace YAF.Pages
             YafContext.Current.PageElements.RegisterJsBlockStartup("facebookInitJs", JavaScriptBlocks.FacebookInitJs);
 
             var message =
-                StringExtensions.RemoveMultipleWhitespace(
-                    BBCodeHelper.StripBBCode(
-                        HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this._topic["Topic"]))));
+                BBCodeHelper.StripBBCode(
+                    HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this._topic["Topic"]))).RemoveMultipleWhitespace();
 
             var meta = this.Page.Header.FindControlType<HtmlMeta>();
             string description = string.Empty;
@@ -1331,6 +1330,7 @@ namespace YAF.Pages
         private void ShareMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
             var topicUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.PageContext.PageTopicID);
+
             switch (e.Item.ToLower())
             {
                 case "email":
@@ -1340,9 +1340,8 @@ namespace YAF.Pages
                     {
                         // process message... clean html, strip html, remove bbcode, etc...
                         var tumblrMsg =
-                            StringExtensions.RemoveMultipleWhitespace(
-                                BBCodeHelper.StripBBCode(
-                                    HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this._topic["Topic"]))));
+                            BBCodeHelper.StripBBCode(
+                                HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this._topic["Topic"]))).RemoveMultipleWhitespace();
 
                         var meta = this.Page.Header.FindControlType<HtmlMeta>();
 
@@ -1373,15 +1372,14 @@ namespace YAF.Pages
 
                         // process message... clean html, strip html, remove bbcode, etc...
                         var twitterMsg =
-                            StringExtensions.RemoveMultipleWhitespace(
-                                BBCodeHelper.StripBBCode(
-                                    HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this._topic["Topic"]))));
+                            BBCodeHelper.StripBBCode(
+                                HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this._topic["Topic"]))).RemoveMultipleWhitespace();
 
                         var tweetUrl =
                             "http://twitter.com/share?url={0}&text={1}".FormatWith(
                                 this.Server.UrlEncode(topicUrl),
                                 this.Server.UrlEncode(
-                                    "RT {1}Thread: {0}".FormatWith(twitterMsg.Truncate(100), twitterName)));
+                                    "RT {1}Thread: {0} {2}".FormatWith(twitterMsg.Truncate(100), twitterName, topicUrl)));
 
                         // Send Retweet Directlly thru the Twitter API if User is Twitter User
                         if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet()
@@ -1540,7 +1538,8 @@ namespace YAF.Pages
                         this.GetTextFormatted(
                             "wait",
                             (YafContext.Current.Get<IYafSession>().LastPost
-                             - DateTime.UtcNow.AddSeconds(-this.Get<YafBoardSettings>().PostFloodDelay)).Seconds), MessageTypes.Warning);
+                             - DateTime.UtcNow.AddSeconds(-this.Get<YafBoardSettings>().PostFloodDelay)).Seconds),
+                        MessageTypes.Warning);
                     return;
                 }
             }
@@ -1611,6 +1610,7 @@ namespace YAF.Pages
                         return;
                     }
                 }
+
                 /*
                 // check user for spam bot
                 if (spamChecker.CheckUserForSpamBot(
@@ -1781,6 +1781,7 @@ namespace YAF.Pages
             {
                 var topicUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.posts, true, "t={0}", this.PageContext.PageTopicID);
+
                 if (this.Get<YafBoardSettings>().AllowEmailTopic)
                 {
                     this.ShareMenu.AddPostBackItem(

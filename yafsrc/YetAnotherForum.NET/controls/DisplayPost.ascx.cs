@@ -387,9 +387,8 @@ namespace YAF.Controls
 
             // process message... clean html, strip html, remove bbcode, etc...
             var twitterMsg =
-                StringExtensions.RemoveMultipleWhitespace(
-                    BBCodeHelper.StripBBCode(
-                        HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this.DataRow["Message"]))));
+                BBCodeHelper.StripBBCode(
+                    HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this.DataRow["Message"]))).RemoveMultipleWhitespace();
 
             var topicUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}#post{0}", this.DataRow["MessageID"]);
 
@@ -417,7 +416,7 @@ namespace YAF.Controls
             {
                 this.Get<HttpResponseBase>().Redirect(
                     "http://twitter.com/share?url={0}&text={1}".FormatWith(
-                        this.Server.UrlEncode(this.Get<HttpRequestBase>().Url.ToString()),
+                        this.Server.UrlEncode(topicUrl),
                         this.Server.UrlEncode(
                             "RT {1}: {0} {2}".FormatWith(twitterMsg.Truncate(100), twitterName, topicUrl))));
             }
