@@ -4865,7 +4865,7 @@ begin
             where UserID = @UserID and ForumID= ISNULL(@ForumID,0) and (ISNULL(@ForumID,0) = 0 OR ReadAccess = 1))		
             begin
                  -- verify that there's not the sane session for other board and drop it if required. Test code for portals with many boards
-     delete from [{databaseOwner}].[{objectQualifier}Active] where (SessionID=@SessionID  and (BoardID <> @BoardID or userid <> @UserID))
+     delete from [{databaseOwner}].[{objectQualifier}Active] where (SessionID=@SessionID  and (BoardID <> @BoardID or UserID <> @UserID))
     -- get previous visit
     if  @IsGuest = 0	 begin
         select @PreviousVisit = LastVisit from [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID
@@ -8069,7 +8069,7 @@ begin
         update [{databaseOwner}].[{objectQualifier}Topic] set LastUserDisplayName = @DisplayName where LastUserID = @UserID AND (LastUserDisplayName IS NULL OR LastUserDisplayName = @OldDisplayName)
         update [{databaseOwner}].[{objectQualifier}Topic] set UserDisplayName = @DisplayName where UserID = @UserID AND (UserDisplayName IS NULL OR UserDisplayName = @OldDisplayName)
         update [{databaseOwner}].[{objectQualifier}Message] set UserDisplayName = @DisplayName where UserID = @UserID AND (UserDisplayName IS NULL OR UserDisplayName = @OldDisplayName)
-        update [{databaseOwner}].[{objectQualifier}ShoutboxMessage] set UserDisplayName = @DisplayName where UseriD = @UserID AND (UserDisplayName IS NULL OR UserDisplayName = @OldDisplayName)
+        update [{databaseOwner}].[{objectQualifier}ShoutboxMessage] set UserDisplayName = @DisplayName where UserID = @UserID AND (UserDisplayName IS NULL OR UserDisplayName = @OldDisplayName)
         end
         
     end
