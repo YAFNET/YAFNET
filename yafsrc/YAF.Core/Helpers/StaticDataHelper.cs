@@ -45,6 +45,7 @@ namespace YAF.Core
         /// The allow disallow.
         /// </summary>
         /// <returns>
+        /// Returns a Data Table with allow disallow values.
         /// </returns>
         public static DataTable AllowDisallow()
         {
@@ -53,10 +54,11 @@ namespace YAF.Core
                 dt.Columns.Add("Text", typeof(string));
                 dt.Columns.Add("Value", typeof(int));
 
-                string[] tTextArray = {
-                                    YafContext.Current.Get<ILocalization>().GetText("COMMON", "ALLOWED"),
-                                    YafContext.Current.Get<ILocalization>().GetText("COMMON", "DISALLOWED")
-                                };
+                string[] tTextArray =
+                    {
+                        YafContext.Current.Get<ILocalization>().GetText("COMMON", "ALLOWED"),
+                        YafContext.Current.Get<ILocalization>().GetText("COMMON", "DISALLOWED")
+                    };
 
                 for (int i = 0; i < tTextArray.Length; i++)
                 {
@@ -70,17 +72,14 @@ namespace YAF.Core
             }
         }
 
-
         /// <summary>
-        /// The country names list(localized).
+        /// Gets all country names (localized).
         /// </summary>
         /// <param name="localization">
         /// The localization.
         /// </param>
-        /// <param name="addEmptyRow">
-        /// Add empty row to data table for dropdown lists with empty selection option.
-        /// </param>
         /// <returns>
+        /// Returns a Data Table with all country names (localized).
         /// </returns>
         public static DataTable Country(ILocalization localization)
         {
@@ -90,15 +89,10 @@ namespace YAF.Core
                 dt.Columns.Add("Name", Type.GetType("System.String"));
 
                 // Add empty row to data table for dropdown lists with empty selection option.
-                bool addEmptyRow = true;
-
-                if (addEmptyRow)
-                {
-                    var drow = dt.NewRow();
-                    drow["Value"] = null;
-                    drow["Name"] = "None";
-                    dt.Rows.Add(drow);
-                }
+                var drow = dt.NewRow();
+                drow["Value"] = null;
+                drow["Name"] = "None";
+                dt.Rows.Add(drow);
 
                 var countries =
                     localization.GetRegionNodesUsingQuery("COUNTRY", x => x.tag.StartsWith(string.Empty)).ToList();
@@ -119,9 +113,10 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// The country names list(localized).
+        /// Gets all country names list(localized).
         /// </summary>
         /// <returns>
+        /// Returns a Data Table with all country names list(localized)
         /// </returns>
         public static DataTable Country()
         {
@@ -129,12 +124,13 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// The country names list(localized).
+        /// Gets all country names list(localized).
         /// </summary>
         /// <param name="forceLanguage">
         /// The force a specific language.
         /// </param>
         /// <returns>
+        /// Returns a Data Table with all country names list(localized)
         /// </returns>
         public static DataTable Country(string forceLanguage)
         {
@@ -145,15 +141,12 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// The country names list(localized).
+        /// Gets all country names list(localized).
         /// </summary>
-        /// <param name="localization">
-        /// The localization.
-        /// </param>
-        /// <param name="addEmptyRow">
-        /// Add empty row to data table for dropdown lists with empty selection option.
-        /// </param>
+        /// <param name="localization">The localization.</param>
+        /// <param name="culture">The culture.</param>
         /// <returns>
+        /// Returns a Data Table with all country names list(localized)
         /// </returns>
         public static DataTable Region(ILocalization localization, string culture)
         {
@@ -163,14 +156,12 @@ namespace YAF.Core
                 dt.Columns.Add("Name", Type.GetType("System.String"));
 
                 // Add empty row to data table for dropdown lists with empty selection option.
-                bool addEmptyRow = true;
-                if (addEmptyRow)
-                {
-                    var drow = dt.NewRow();
-                    drow["Value"] = null;
-                    drow["Name"] = null;
-                    dt.Rows.Add(drow);
-                }
+                var drow = dt.NewRow();
+
+                drow["Value"] = null;
+                drow["Name"] = null;
+
+                dt.Rows.Add(drow);
 
                 var countries =
                  localization.GetCountryNodesUsingQuery("REGION", x => x.tag.StartsWith("RGN_{0}_".FormatWith(culture))).ToList();
@@ -179,20 +170,22 @@ namespace YAF.Core
                 {
                     dt.Rows.Add(new object[] { node.tag.Replace("RGN_{0}_".FormatWith(culture), string.Empty), node.Value });
                 }
+
                 return dt;
             }
         }
 
         /// <summary>
-        /// The country names list(localized).
+        /// Gets all region names (localized)
         /// </summary>
+        /// <param name="culture">The culture.</param>
         /// <returns>
+        /// Returns a Data Table with all region names (localized)
         /// </returns>
         public static DataTable Region(string culture)
         {
             return Region(YafContext.Current.Get<ILocalization>(), culture);
         }
-
 
         /// <summary>
         /// The cultures IetfLangTags (4-letter).
@@ -222,7 +215,6 @@ namespace YAF.Core
                 {
                     try
                     {
-
                         var doc = new XmlDocument();
                         doc.Load(files[i].FullName);
                         tags[0, i] = files[i].Name;
@@ -235,7 +227,6 @@ namespace YAF.Core
                         {
                             tags[1, i] = "en-US";
                         }
-
                     }
                     catch (Exception)
                     {
@@ -260,7 +251,6 @@ namespace YAF.Core
                         dr["CultureDisplayName"] = ci.DisplayName;
                         dt.Rows.Add(dr);
                     }
-
                 }
 
                 return dt;
@@ -268,41 +258,53 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// Gets language tag info from language file tag.  
+        /// Gets language tag info from language file tag.
         /// </summary>
-        /// <param name="fileName"></param>
-        /// <returns>A default full 4-letter culture from the existing language file.</returns>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>
+        /// A default full 4-letter culture from the existing language file.
+        /// </returns>
         public static string CultureDefaultFromFile(string fileName)
         {
-            if (string.IsNullOrEmpty(fileName)) return "en-US";
+            if (fileName.IsNotSet())
+            {
+                return "en-US";
+            }
 
             string rawTag = null;
+
             // Get all language files info
             var dir =
               new DirectoryInfo(
                 YafContext.Current.Get<HttpRequestBase>().MapPath("{0}languages".FormatWith(YafForumInfo.ForumServerFileRoot)));
             FileInfo[] files = dir.GetFiles(fileName);
 
-            if (files.Length <= 0) return rawTag;
+            if (files.Length <= 0)
+            {
+                return rawTag;
+            }
+
             try
             {
                 var doc = new XmlDocument();
                 doc.Load(files[0].FullName);
                 rawTag = doc.DocumentElement.Attributes["code"].Value.Trim();
-
             }
             catch (Exception)
             {
             }
 
-            System.Globalization.CultureInfo[] cultures = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures);
-            foreach (System.Globalization.CultureInfo ci in cultures)
+            var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+
+            foreach (
+                CultureInfo ci in
+                    cultures.Where(
+                        ci =>
+                        !ci.IsNeutralCulture
+                        && rawTag.ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower())
+                        && ci.IetfLanguageTag.Length == 5))
             {
-                // We check only the language part as we need a default here.
-                if (!ci.IsNeutralCulture && rawTag.ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower()) && ci.IetfLanguageTag.Length == 5)
-                {
-                    return ci.IetfLanguageTag;
-                }
+                return ci.IetfLanguageTag;
             }
 
             return "en-US";
@@ -312,6 +314,7 @@ namespace YAF.Core
         /// The languages.
         /// </summary>
         /// <returns>
+        /// Returns a Data Table with all Languages
         /// </returns>
         public static DataTable Languages()
         {
@@ -345,9 +348,10 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// The themes.
+        /// Get All Themes
         /// </summary>
         /// <returns>
+        /// Returns a Data Table with all Themes
         /// </returns>
         public static DataTable Themes()
         {
@@ -388,9 +392,10 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// The themes.
+        /// Gets all jQuery-UI Themes
         /// </summary>
         /// <returns>
+        /// Returns a Data Table with all jQuery-UI Themes
         /// </returns>
         public static DataTable JqueryUIThemes()
         {
@@ -420,12 +425,13 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// The time zones.
+        /// Gets all Time Zones
         /// </summary>
         /// <param name="localization">
         /// The localization.
         /// </param>
         /// <returns>
+        /// Returns a Data Table with all Time Zones
         /// </returns>
         public static DataTable TimeZones(ILocalization localization)
         {
@@ -449,9 +455,10 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// The time zones.
+        /// Get all time zones.
         /// </summary>
         /// <returns>
+        /// Returns a Data Table with all time zones.
         /// </returns>
         public static DataTable TimeZones()
         {
@@ -459,12 +466,13 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// The time zones.
+        /// Get all time zones.
         /// </summary>
         /// <param name="forceLanguage">
         /// The force language.
         /// </param>
         /// <returns>
+        /// Returns a Data Table with all time zones.
         /// </returns>
         public static DataTable TimeZones(string forceLanguage)
         {
@@ -475,9 +483,10 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// The topic times.
+        /// Gets all topic times.
         /// </summary>
         /// <returns>
+        /// Returns a Data Table with all topic times.
         /// </returns>
         public static DataTable TopicTimes()
         {
@@ -486,14 +495,17 @@ namespace YAF.Core
                 dt.Columns.Add("TopicText", typeof(string));
                 dt.Columns.Add("TopicValue", typeof(int));
 
-                string[] tTextArray = {
-                                "all", "last_day", "last_two_days", "last_week", "last_two_weeks", "last_month", 
-                                "last_two_months", "last_six_months", "last_year"
-                              };
-                string[] tTextArrayProp = {
-                                    "All", "Last Day", "Last Two Days", "Last Week", "Last Two Weeks", "Last Month", 
-                                    "Last Two Months", "Last Six Months", "Last Year"
-                                  };
+                string[] tTextArray =
+                    {
+                        "all", "last_day", "last_two_days", "last_week", "last_two_weeks", "last_month",
+                        "last_two_months", "last_six_months", "last_year"
+                    };
+
+                string[] tTextArrayProp =
+                    {
+                        "All", "Last Day", "Last Two Days", "Last Week", "Last Two Weeks",
+                        "Last Month", "Last Two Months", "Last Six Months", "Last Year"
+                    };
 
                 for (int i = 0; i < 8; i++)
                 {
@@ -513,23 +525,19 @@ namespace YAF.Core
     }
 
     /// <summary>
-    /// The yaf language node comparer.
+    /// The YAF language node comparer.
     /// </summary>
     public class YafLanguageNodeComparer : IComparer<LanuageResourcesPageResource>
     {
         #region IComparer<XmlNode>
 
         /// <summary>
-        /// The compare.
+        /// Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.
         /// </summary>
-        /// <param name="x">
-        /// The x.
-        /// </param>
-        /// <param name="y">
-        /// The y.
-        /// </param>
+        /// <param name="x">The first object to compare.</param>
+        /// <param name="y">The second object to compare.</param>
         /// <returns>
-        /// The compare.
+        /// A signed integer that indicates the relative values of <paramref name="x" /> and <paramref name="y" />, as shown in the following table.Value Meaning Less than zero<paramref name="x" /> is less than <paramref name="y" />.Zero<paramref name="x" /> equals <paramref name="y" />.Greater than zero<paramref name="x" /> is greater than <paramref name="y" />.
         /// </returns>
         public int Compare(LanuageResourcesPageResource x, LanuageResourcesPageResource y)
         {
