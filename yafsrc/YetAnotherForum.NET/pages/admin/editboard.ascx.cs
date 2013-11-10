@@ -56,13 +56,15 @@ namespace YAF.Pages.Admin
         {
             get
             {
-                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("b").IsSet())
+                if (!this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("b").IsSet())
                 {
-                    int boardId;
-                    if (int.TryParse(this.Request.QueryString.GetFirstOrDefault("b"), out boardId))
-                    {
-                        return boardId;
-                    }
+                    return null;
+                }
+
+                int boardId;
+                if (int.TryParse(this.Request.QueryString.GetFirstOrDefault("b"), out boardId))
+                {
+                    return boardId;
                 }
 
                 return null;
@@ -122,6 +124,7 @@ namespace YAF.Pages.Admin
         /// <param name="boardMembershipAppName">The board membership app name.</param>
         /// <param name="boardRolesAppName">The board roles app name.</param>
         /// <param name="createUserAndRoles">The create user and roles.</param>
+        /// <returns></returns>
         protected bool CreateBoard(
             [NotNull] string adminName,
             [NotNull] string adminPassword,
@@ -247,28 +250,6 @@ namespace YAF.Pages.Admin
             return true;
         }
 
-        private int DbCreateBoard(
-            string boardName,
-            string boardMembershipAppName,
-            string boardRolesAppName,
-            string langFile,
-            MembershipUser newAdmin)
-        {
-            int newBoardID = this.GetRepository<Board>()
-                .Create(
-                    boardName,
-                    this.Culture.SelectedItem.Value,
-                    langFile,
-                    boardMembershipAppName,
-                    boardRolesAppName,
-                    newAdmin.UserName,
-                    newAdmin.Email,
-                    newAdmin.ProviderUserKey.ToString(),
-                    this.PageContext().IsHostAdmin,
-                    Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
-            return newBoardID;
-        }
-
         /// <summary>
         /// Gets the membership error message.
         /// </summary>
@@ -312,7 +293,6 @@ namespace YAF.Pages.Admin
                     return this.GetText("ADMIN_EDITBOARD", "STATUS_UNKNOWN");
             }
         }
-
 
         /// <summary>
         /// Handles the Load event of the Page control.
@@ -528,6 +508,37 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             this.DataBind();
+        }
+
+        /// <summary>
+        /// Creates the board in the database.
+        /// </summary>
+        /// <param name="boardName">Name of the board.</param>
+        /// <param name="boardMembershipAppName">Name of the board membership application.</param>
+        /// <param name="boardRolesAppName">Name of the board roles application.</param>
+        /// <param name="langFile">The language file.</param>
+        /// <param name="newAdmin">The new admin.</param>
+        /// <returns></returns>
+        private int DbCreateBoard(
+            string boardName,
+            string boardMembershipAppName,
+            string boardRolesAppName,
+            string langFile,
+            MembershipUser newAdmin)
+        {
+            int newBoardID = this.GetRepository<Board>()
+                .Create(
+                    boardName,
+                    this.Culture.SelectedItem.Value,
+                    langFile,
+                    boardMembershipAppName,
+                    boardRolesAppName,
+                    newAdmin.UserName,
+                    newAdmin.Email,
+                    newAdmin.ProviderUserKey.ToString(),
+                    this.PageContext().IsHostAdmin,
+                    Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
+            return newBoardID;
         }
 
         #endregion

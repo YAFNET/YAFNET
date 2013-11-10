@@ -18,8 +18,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using YAF.Controls;
-
 namespace YAF.Pages.Admin
 {
     #region Using
@@ -27,9 +25,8 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
-    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -37,26 +34,21 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
     /// <summary>
-    /// Summary description for members.
+    /// Admin Page for managing Boards
     /// </summary>
     public partial class boards : AdminPage
     {
         #region Methods
 
         /// <summary>
-        /// The delete_ load.
+        /// Handles the Load event of the Delete control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
@@ -66,11 +58,9 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             this.List.ItemCommand += this.List_ItemCommand;
@@ -81,14 +71,10 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.PageContext.IsHostAdmin)
@@ -115,7 +101,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The bind data.
+        /// Binds the data.
         /// </summary>
         private void BindData()
         {
@@ -124,14 +110,10 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The list_ item command.
+        /// Handles the ItemCommand event of the List control.
         /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="source">The source of the event.</param>
+        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
         private void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
@@ -140,21 +122,17 @@ namespace YAF.Pages.Admin
                     YafBuildLink.Redirect(ForumPages.admin_editboard, "b={0}", e.CommandArgument);
                     break;
                 case "delete":
-                    this.GetRepository<Board>().DeleteByID(e.CommandArgument.ToType<int>());
+                    this.GetRepository<Board>().Delete(e.CommandArgument.ToType<int>());
                     this.BindData();
                     break;
             }
         }
 
         /// <summary>
-        /// The new_ click.
+        /// Redirects to the Create New Board Page
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void New_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.admin_editboard);
