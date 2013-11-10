@@ -104,8 +104,10 @@ namespace YAF.Pages.Admin
             }
 
             this.Culture.DataSource =
-                StaticDataHelper.Cultures().AsEnumerable().OrderBy(x => x.Field<string>("CultureNativeName")).
-                    CopyToDataTable();
+                StaticDataHelper.Cultures()
+                    .AsEnumerable()
+                    .OrderBy(x => x.Field<string>("CultureNativeName"))
+                    .CopyToDataTable();
 
             this.Culture.DataTextField = "CultureNativeName";
             this.Culture.DataValueField = "CultureTag";
@@ -229,7 +231,12 @@ namespace YAF.Pages.Admin
             }
 
             this.GetRepository<Board>()
-                .Save(this.PageContext.PageBoardID, this.Name.Text, languageFile, this.Culture.SelectedValue, this.AllowThreaded.Checked);
+                .Save(
+                    this.PageContext.PageBoardID,
+                    this.Name.Text,
+                    languageFile,
+                    this.Culture.SelectedValue,
+                    this.AllowThreaded.Checked);
 
             // save poll group
             var boardSettings = this.Get<YafBoardSettings>();
@@ -291,7 +298,9 @@ namespace YAF.Pages.Admin
         /// <param name="value">The value.</param>
         private static void SetSelectedOnList([NotNull] ref DropDownList list, [NotNull] string value)
         {
-            ListItem selItem = list.Items.FindByValue(value);
+            var selItem = list.Items.FindByValue(value);
+
+            list.ClearSelection(); 
 
             if (selItem != null)
             {
