@@ -924,6 +924,15 @@ namespace YAF.Pages
                     EventLogTypes.Information);
             }
 
+            if (this._UserIpLocator["StatusCode"] != "OK")
+            {
+                this.Logger.Log(
+                    null,
+                    this,
+                    "Geolocation Service reports: {0}".FormatWith(this._UserIpLocator["StatusMessage"]),
+                    EventLogTypes.Information);
+            }
+
             if (this._UserIpLocator.Count <= 0 || this._UserIpLocator["StatusCode"] != "OK")
             {
                 return;
@@ -931,25 +940,25 @@ namespace YAF.Pages
 
             var location = new StringBuilder();
 
-            if (this._UserIpLocator["CountryName"] != null && this._UserIpLocator["CountryName"].IsSet())
+            if (this._UserIpLocator["CountryName"] != null && this._UserIpLocator["CountryName"].IsSet() && !this._UserIpLocator["CountryName"].Equals("-"))
             {
                 country.Items.FindByValue(this.Get<ILocalization>().Culture.Name.Substring(2, 2)).Selected =
                     true;
             }
 
-            if (this._UserIpLocator["RegionName"] != null && this._UserIpLocator["RegionName"].IsSet())
+            if (this._UserIpLocator["RegionName"] != null && this._UserIpLocator["RegionName"].IsSet() && !this._UserIpLocator["RegionName"].Equals("-"))
             {
                 location.AppendFormat(", {0}", this._UserIpLocator["RegionName"]);
             }
 
-            if (this._UserIpLocator["CityName"] != null && this._UserIpLocator["CityName"].IsSet())
+            if (this._UserIpLocator["CityName"] != null && this._UserIpLocator["CityName"].IsSet() && !this._UserIpLocator["CityName"].Equals("-"))
             {
                 location.AppendFormat(", {0}", this._UserIpLocator["CityName"]);
             }
 
             this.CreateUserWizard1.FindControlRecursiveAs<TextBox>("Location").Text = location.ToString();
 
-            if (this._UserIpLocator["TimeZone"] != null && this._UserIpLocator["TimeZone"].IsSet())
+            if (this._UserIpLocator["TimeZone"] != null && this._UserIpLocator["TimeZone"].IsSet() && !this._UserIpLocator["TimeZone"].Equals("-"))
             {
                 try
                 {
