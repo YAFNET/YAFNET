@@ -34,9 +34,9 @@
     <DisplayJS />
     <EditJS />
     <DisplayCSS />
-    <SearchRegex>\[youtube\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?youtube.com/watch\?v=(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]|\[youtube\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?youtu.be/(?&lt;id&gt;[0-9A-Za-z-_]{11}))\[/youtube\]</SearchRegex>
-    <ReplaceRegex>&lt;!-- BEGIN youtube --&gt;&lt;div&gt;&lt;iframe width="560" height="350" src="http://${prefix}youtube.com/embed/${id}?hd=1" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;!-- END youtube --&gt;</ReplaceRegex>
-    <Variables>id;prefix</Variables>
+    <SearchRegex>\[youtube\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)youtube.com/watch\?v=(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]|\[youtube\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)youtu.be/(?&lt;id&gt;[0-9A-Za-z-_]{11}))\[/youtube\]</SearchRegex>
+    <ReplaceRegex>&lt;!-- BEGIN youtube --&gt;&lt;div&gt;&lt;iframe width="560" height="350" src="//youtube.com/embed/${id}?hd=1" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;!-- END youtube --&gt;</ReplaceRegex>
+    <Variables>id</Variables>
     <UseModule>false</UseModule>
     <ModuleClass />
     <ExecOrder>1</ExecOrder>
