@@ -1233,7 +1233,7 @@ namespace YAF.Pages
                                                               topicId: this.PageContext.PageTopicID)
                                                     : DateTime.UtcNow;
 
-                            // Find next unread
+                            // Find first unread
                             using (
                                 DataTable unread = LegacyDb.message_findunread(
                                     topicID: this.PageContext.PageTopicID,
@@ -1248,22 +1248,6 @@ namespace YAF.Pages
                                     findMessageId = unreadFirst.Field<int>("MessageID");
                                     messagePosition = unreadFirst.Field<int>("MessagePosition");
                                 }
-                            }
-                        }
-
-                        using (
-                            DataTable unread = LegacyDb.message_findunread(
-                                topicID: this.PageContext.PageTopicID,
-                                messageId: 0,
-                                lastRead: DateTime.UtcNow,
-                                showDeleted: showDeleted,
-                                authorUserID: userId))
-                        {
-                            var unreadFirst = unread.AsEnumerable().FirstOrDefault();
-                            if (unreadFirst != null)
-                            {
-                                findMessageId = unreadFirst.Field<int>("MessageID");
-                                messagePosition = unreadFirst.Field<int>("MessagePosition");
                             }
                         }
                     }
