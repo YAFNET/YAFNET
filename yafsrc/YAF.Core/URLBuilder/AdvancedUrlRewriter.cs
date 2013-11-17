@@ -175,12 +175,14 @@ namespace YAF.Core.URLBuilder
                     newUrl += parser[useKey];
                 }
 
+                // handle pager linkse
                 if (handlePage && parser["p"] != null && !isFeed)
                 {
-                    int page = parser["p"].ToType<int>();
+                    var page = parser["p"].ToType<int>();
+
                     if (page != 1)
                     {
-                        newUrl += "p{0}".FormatWith(page);
+                        description += "/page{0}".FormatWith(page);
                     }
 
                     parser.Parameters.Remove("p");

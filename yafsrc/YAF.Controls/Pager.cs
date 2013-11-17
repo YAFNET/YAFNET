@@ -233,7 +233,7 @@ namespace YAF.Controls
         /// </returns>
         protected string GetPageURL(int page)
         {
-            string url;
+            /*string url;
 
             // create proper query string...
             var parser = new SimpleURLParameterParser(this.Get<HttpRequestBase>().QueryString.ToString());
@@ -263,6 +263,34 @@ namespace YAF.Controls
             else
             {
                 url = YafBuildLink.GetLink(currentPage, parser.CreateQueryString(new[] { "g", "p", "tabid", "find" }));
+            }
+
+            return url;*/
+
+            var url = string.Empty;
+
+            switch (this.PageContext.ForumPageType)
+            {
+                case ForumPages.topics:
+                    url = page > 1
+                              ? YafBuildLink.GetLinkNotEscaped(
+                                  ForumPages.topics,
+                                  "f={0}&p={1}",
+                                  this.PageContext.PageForumID,
+                                  page)
+                              : YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+
+                    break;
+                case ForumPages.posts:
+                    url = page > 1
+                              ? YafBuildLink.GetLinkNotEscaped(
+                                  ForumPages.posts,
+                                  "t={0}&p={1}",
+                                  this.PageContext.PageTopicID,
+                                  page)
+                              : YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+
+                    break;
             }
 
             return url;
