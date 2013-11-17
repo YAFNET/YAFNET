@@ -1015,8 +1015,6 @@
     <Resource tag="ENABLE_DISPLAY_NAME_HELP">Wenn diese Option aktiviert, verwendet YAF den alternativen "Anzeigenamen" anstelle des Benutzernamens.</Resource>
     <Resource tag="ENABLE_HOVERCARDS">Benutzer Info Hover Karte aktivieren:</Resource>
     <Resource tag="ENABLE_HOVERCARDS_HELP">Wenn aktiviert wird eine Hover Karte (Die eine Kurzübersicht über den Benutzer zeigt) angezeigt, wenn man mit der Maus über einen Benutzernamen im Forum fährt. Es wird auch eine Karte angezeigt für den Twitter &amp; Facebook Button.</Resource>
-    <Resource tag="ENABLE_IRKOO">Use Irkoo Reputation Service:</Resource>
-    <Resource tag="ENABLE_IRKOO_HELP">Irkoo is a free service that adds user reputations to your site  Visit &lt;strong&gt;http://www.Irkoo.com&lt;/strong&gt; to get the site ID and secret key for your website.</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS">Aktivieren von Aktiver Ort Fehlerprotokollierung</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">Wenn aktiviert, Alle Aktive Fehler werden Protokolliert</Resource>
     <Resource tag="ENABLE_RETWEET_MSG">Beitrag Retweeten Button aktivieren:</Resource>
@@ -1053,8 +1051,6 @@
     <Resource tag="GRAVATAR_RATING_HELP">Max. Bewertung von Gravataren wenn erlaubt.</Resource>
     <Resource tag="GROUPS_TEMPLATE">Gruppen Vorlage:</Resource>
     <Resource tag="GROUPS_TEMPLATE_HELP">Vorlage für die Darstellung von Benutzer-Gruppen.</Resource>
-    <Resource tag="GUESTS_VIEW_IRKOO">Allow guests to view users' reputations:</Resource>
-    <Resource tag="GUESTS_VIEW_IRKOO_HELP">If checked, guests can view members' reputations.</Resource>
     <Resource tag="HEADER_ADVERTS">Werbeeinstellungen</Resource>
     <Resource tag="HEADER_ALBUM">Albumeinstellungen</Resource>
     <Resource tag="HEADER_AVATARS">Avatar Einstellungen</Resource>
@@ -1069,7 +1065,6 @@
     <Resource tag="HEADER_HOVERCARD">Hover Cards Einstellungen</Resource>
     <Resource tag="HEADER_HOVERCARD">Hover Cards Einstellungen</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">Bildanhang Einstellungen</Resource>
-    <Resource tag="HEADER_IRKOO">Irkoo Reputation Service</Resource>
     <Resource tag="HEADER_LOG">Log-Einstellungen</Resource>
     <Resource tag="HEADER_LOGIN">Login / Registrierungseinstellungen</Resource>
     <Resource tag="HEADER_LOGSCOPE">Ereignisprotokoll Anwendungsbereich</Resource>
@@ -1113,12 +1108,6 @@
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">Aktivieren um Informationen über die Benutzer IPs als XML-Daten zu erhalten.</Resource>
     <Resource tag="IPINFO_ULRL">IP-Infoseite URL:</Resource>
     <Resource tag="IPINFO_ULRL_HELP">Aktivieren um Informationen über den IPs Verbleib als Web-Seite zu erhalten.</Resource>
-    <Resource tag="IRKOO_ONLY_ONTOPICPAGES">Show user reputations in user links only in topic pages:</Resource>
-    <Resource tag="IRKOO_ONLY_ONTOPICPAGES_HELP">If checked, users' reputation will be displayed only in topic pages.</Resource>
-    <Resource tag="IRKOO_SECRETKEY">Irkoo secret key:</Resource>
-    <Resource tag="IRKOO_SECRETKEY_HELP">Enter your Irkoo secret key.</Resource>
-    <Resource tag="IRKOO_SITEID">Irkoo site ID:</Resource>
-    <Resource tag="IRKOO_SITEID_HELP">Enter your Irkoo site ID.</Resource>
     <Resource tag="JOINDATE_TEMPLATE">Anmeldedatum Vorlage:</Resource>
     <Resource tag="JOINDATE_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzers Anmeldedatums.</Resource>
     <Resource tag="LASTPOST_COUNT">Aktive Diskussionen Anzahl:</Resource>

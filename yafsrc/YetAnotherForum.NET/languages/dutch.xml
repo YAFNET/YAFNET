@@ -1015,8 +1015,6 @@
     <Resource tag="ENABLE_HOVERCARDS">Enable User Info Hover Cards:</Resource>
     <Resource tag="ENABLE_HOVERCARDS_HELP">If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter &amp; Facebook Profile Button.
      </Resource>
-    <Resource tag="ENABLE_IRKOO">Gebruik Irkoo Reputatie Service:</Resource>
-    <Resource tag="ENABLE_IRKOO_HELP">Irkoo is een gratis service die Gebruiker reputaties toevoegt op je site. Bezoek &lt;strong&gt;http://www.Irkoo.com&lt;/strong&gt; om de site ID en geheime sleutel voor je website te krijgen.</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS">Zet Actieve locatie error log aan:</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">Als deze aangevinkt is, worden alle fouten van actieve locatiepaden gelogd.</Resource>
     <Resource tag="ENABLE_RETWEET_MSG">Zet Retweet Bericht Knop aan:</Resource>
@@ -1053,8 +1051,6 @@
     <Resource tag="GRAVATAR_RATING_HELP">Maximale waardering van Gravatar (indien toegestaan).</Resource>
     <Resource tag="GROUPS_TEMPLATE">Groep sjabloon:</Resource>
     <Resource tag="GROUPS_TEMPLATE_HELP">Sjabloon om de groepen van de gebruiker op te bouwen.</Resource>
-    <Resource tag="GUESTS_VIEW_IRKOO">Sta zichtbaarheid van reputaties voor gasten toe:</Resource>
-    <Resource tag="GUESTS_VIEW_IRKOO_HELP">Als deze is aangevinkt, kunnen Gasten de reputaties van Gebruikers zien..</Resource>
     <Resource tag="HEADER_ADVERTS">Advertentie instellingen</Resource>
     <Resource tag="HEADER_ALBUM">Album instellingen</Resource>
     <Resource tag="HEADER_AVATARS">Avatar instellingen</Resource>
@@ -1068,7 +1064,6 @@
     <Resource tag="HEADER_HOTTOPICS">Hot (Populaire) Topic Instellingen</Resource>
     <Resource tag="HEADER_HOVERCARD">Hover Cards Settings</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">Fotobijlage instellingen</Resource>
-    <Resource tag="HEADER_IRKOO">Irkoo Reputatie Service</Resource>
     <Resource tag="HEADER_LOG">Log instellingen</Resource>
     <Resource tag="HEADER_LOGIN">Login/Registratie instellingen</Resource>
     <Resource tag="HEADER_LOGSCOPE">Log scope</Resource>
@@ -1112,12 +1107,6 @@
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">Zet deze om informatie te krijgen over de gebruiker als XML data.</Resource>
     <Resource tag="IPINFO_ULRL">IP Info Pagina URL:</Resource>
     <Resource tag="IPINFO_ULRL_HELP">Zet deze om informatie te krijgen over IP lokatie als webpagina.</Resource>
-    <Resource tag="IRKOO_ONLY_ONTOPICPAGES">Laat Reputaties van gebruikers zien alleen zien in Topic pagina's:</Resource>
-    <Resource tag="IRKOO_ONLY_ONTOPICPAGES_HELP">Als deze is aangevinkt, worden de reputaties van gebruikers alleen zichtbaar in Topic pagina's.</Resource>
-    <Resource tag="IRKOO_SECRETKEY">Irkoo geheime sleutel:</Resource>
-    <Resource tag="IRKOO_SECRETKEY_HELP">Vul je Irkoo geheime sleutel in.</Resource>
-    <Resource tag="IRKOO_SITEID">Irkoo site ID:</Resource>
-    <Resource tag="IRKOO_SITEID_HELP">Vul je Irkoo site ID in.</Resource>
     <Resource tag="JOINDATE_TEMPLATE">Lid sinds sjabloon:</Resource>
     <Resource tag="JOINDATE_TEMPLATE_HELP">Sjabloon om de aanmeldingsdatum van een gebruiker op te bouwen.</Resource>
     <Resource tag="LASTPOST_COUNT">Aantal Actieve Topics:</Resource>

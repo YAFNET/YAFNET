@@ -1021,8 +1021,6 @@
     <Resource tag="ENABLE_DISPLAY_NAME_HELP">If checked, YAF uses an alternative "Display Name" instead of the UserName.</Resource>
     <Resource tag="ENABLE_HOVERCARDS">Enable User Info Hover Cards:</Resource>
     <Resource tag="ENABLE_HOVERCARDS_HELP">If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter &amp; Facebook Profile Button.</Resource>
-    <Resource tag="ENABLE_IRKOO">Use Irkoo Reputation Service:</Resource>
-    <Resource tag="ENABLE_IRKOO_HELP">Irkoo is a free service that adds user reputations to your site  Visit &lt;strong&gt;http://www.Irkoo.com&lt;/strong&gt; to get the site ID and secret key for your website.</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS">Enable Active Location Error Log:</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">If checked, all active location path errors are logged.</Resource>
     <Resource tag="ENABLE_RETWEET_MSG">Enable Retweet Message Button:</Resource>
@@ -1059,8 +1057,6 @@
     <Resource tag="GRAVATAR_RATING_HELP">Max. rating of Gravatar if allowed.</Resource>
     <Resource tag="GROUPS_TEMPLATE">Groups template:</Resource>
     <Resource tag="GROUPS_TEMPLATE_HELP">Template for rendering user's groups.</Resource>
-    <Resource tag="GUESTS_VIEW_IRKOO">Allow guests to view users' reputations:</Resource>
-    <Resource tag="GUESTS_VIEW_IRKOO_HELP">If checked, guests can view members' reputations.</Resource>
     <Resource tag="HEADER_ADVERTS">Advert Settings</Resource>
     <Resource tag="HEADER_ALBUM">Album Settings</Resource>
     <Resource tag="HEADER_AVATARS">Avatar Settings</Resource>
@@ -1074,7 +1070,6 @@
     <Resource tag="HEADER_HOTTOPICS">Hot (Popular) Topic Settings</Resource>
     <Resource tag="HEADER_HOVERCARD">Hover Cards Settings</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">Image Attachment &amp; Resize Settings</Resource>
-    <Resource tag="HEADER_IRKOO">Irkoo Reputation Service</Resource>
     <Resource tag="HEADER_LOG">Log settings</Resource>
     <Resource tag="HEADER_LOGIN">Login/Registration Settings</Resource>
     <Resource tag="HEADER_LOGSCOPE">Log scope</Resource>
@@ -1118,12 +1113,6 @@
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">Set it to get details about user IPs as XML data.</Resource>
     <Resource tag="IPINFO_ULRL">IP Info Page URL:</Resource>
     <Resource tag="IPINFO_ULRL_HELP">Set it to get details about IPs whereabouts as web page.</Resource>
-    <Resource tag="IRKOO_ONLY_ONTOPICPAGES">Show user reputations in user links only in topic pages:</Resource>
-    <Resource tag="IRKOO_ONLY_ONTOPICPAGES_HELP">If checked, users' reputation will be displayed only in topic pages.</Resource>
-    <Resource tag="IRKOO_SECRETKEY">Irkoo secret key:</Resource>
-    <Resource tag="IRKOO_SECRETKEY_HELP">Enter your Irkoo secret key.</Resource>
-    <Resource tag="IRKOO_SITEID">Irkoo site ID:</Resource>
-    <Resource tag="IRKOO_SITEID_HELP">Enter your Irkoo site ID.</Resource>
     <Resource tag="JOINDATE_TEMPLATE">Join date template:</Resource>
     <Resource tag="JOINDATE_TEMPLATE_HELP">Template for rendering user's join date.</Resource>
     <Resource tag="LASTPOST_COUNT">Active Discussions Count:</Resource>
@@ -4055,15 +4044,6 @@ Spoiler Content
     <Resource tag="TITLE_MODERATED">Informação</Resource>
     <Resource tag="TITLE_REGISTRATION">Obrigado</Resource>
     <Resource tag="TITLE_SUSPENDED">Suspenso</Resource>
-  </page>
-  <page name="IRKOO">
-    <Resource tag="MIN_VOTE_DOWN">Vote Down requires %min_rating% reputation</Resource>
-    <Resource tag="MIN_VOTE_UP">Vote Up requires %min_rating% reputation</Resource>
-    <Resource tag="NOT_AUTHORIZED">Please login to vote</Resource>
-    <Resource tag="SELF">You cannot vote for your message</Resource>
-    <Resource tag="USER_REPUTATION">Users Reputation</Resource>
-    <Resource tag="VOTE_DOWN">Vote Down</Resource>
-    <Resource tag="VOTE_UP">Vote Up</Resource>
   </page>
   <page name="LANGUAGE">
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>

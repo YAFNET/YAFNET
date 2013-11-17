@@ -1020,9 +1020,6 @@
     <Resource tag="ENABLE_DISPLAY_NAME_HELP">با انتخاب این گزینه YAF نام نمایشی را جای نام کاربری نشان خواهد داد.</Resource>
     <Resource tag="ENABLE_HOVERCARDS">Enable User Info Hover Cards:</Resource>
     <Resource tag="ENABLE_HOVERCARDS_HELP">If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter &amp; Facebook Profile Button.</Resource>
-    <Resource tag="ENABLE_IRKOO">استفاده از سرویس شهرت IrKoo:</Resource>
-    <Resource tag="ENABLE_IRKOO_HELP">IrKoo سرویسی رایگان است که شهرت کاربرانتنان را به سایت شما ضمیمه می کند:
-http://wwww.IrKoo.Com/</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS">فعال کردن سیاه خطاهای مکان فعال:</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">در صورت علامت زدن، خطاهای تمام مسیرهای مکان های فعال سیاهه خواهد شد.</Resource>
     <Resource tag="ENABLE_RETWEET_MSG">Enable Retweet Message Button:</Resource>
@@ -1059,8 +1056,6 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="GRAVATAR_RATING_HELP">حداکثر نرخ Gravatr در صورت مجاز بودن.</Resource>
     <Resource tag="GROUPS_TEMPLATE">قالب گروه :</Resource>
     <Resource tag="GROUPS_TEMPLATE_HELP">قالبی که گروه های کاربر بر اساس آن تولید می شود.</Resource>
-    <Resource tag="GUESTS_VIEW_IRKOO">مجوز نمایش شهرت کاربران به میهمان:</Resource>
-    <Resource tag="GUESTS_VIEW_IRKOO_HELP">کاربر میهمان را مجاز به دیدن شهرت کاربران می کند.</Resource>
     <Resource tag="HEADER_ADVERTS">تنظیمات توجهات</Resource>
     <Resource tag="HEADER_ALBUM">تنظیمات آلبوم</Resource>
     <Resource tag="HEADER_AVATARS">تنظیمات آواتار</Resource>
@@ -1074,7 +1069,6 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="HEADER_HOTTOPICS">Hot (Popular) Topic Settings</Resource>
     <Resource tag="HEADER_HOVERCARD">Hover Cards Settings</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">تنظیمات تصاویر ضمیمه</Resource>
-    <Resource tag="HEADER_IRKOO">خدمات Irkoo</Resource>
     <Resource tag="HEADER_LOG">تنظیمات سیاهه</Resource>
     <Resource tag="HEADER_LOGIN">تنظیمات ورود/ثبت نام</Resource>
     <Resource tag="HEADER_LOGSCOPE">Log scope</Resource>
@@ -1118,12 +1112,6 @@ http://wwww.IrKoo.Com/</Resource>
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">برای دریافت جزئیات آی پی کاربران به عنوان فایل XML استفاده می شود.</Resource>
     <Resource tag="IPINFO_ULRL">آدرس صفحه اطلاعات آی پی :</Resource>
     <Resource tag="IPINFO_ULRL_HELP">دریافت اطلاعات آی پی در قابل صفحه وب.</Resource>
-    <Resource tag="IRKOO_ONLY_ONTOPICPAGES">نمایش شهرت کاربران در پیوندهای او فقط در صفحات موضوع:</Resource>
-    <Resource tag="IRKOO_ONLY_ONTOPICPAGES_HELP">در صورت علامت زدن شهرت فقط در صفحات موضوعی نمایش داده می شود.</Resource>
-    <Resource tag="IRKOO_SECRETKEY"> کلید امنیتی Irkoo :</Resource>
-    <Resource tag="IRKOO_SECRETKEY_HELP"> کلید امنیتی Irkoo خود را وارد کنید.</Resource>
-    <Resource tag="IRKOO_SITEID">شناسه سایت IrKoo :</Resource>
-    <Resource tag="IRKOO_SITEID_HELP">شناسه سایت IrKoo خود را وارد کنید.</Resource>
     <Resource tag="JOINDATE_TEMPLATE">قالب تاریخ پیوستن :</Resource>
     <Resource tag="JOINDATE_TEMPLATE_HELP">قالبی که تاریخ پیوستن کاربر بر اساس آن تولید می شود.</Resource>
     <Resource tag="LASTPOST_COUNT">شمار بحث های فغال :</Resource>
@@ -4046,15 +4034,6 @@ Spoiler Content
     <Resource tag="TITLE_MODERATED">اطلاعات</Resource>
     <Resource tag="TITLE_REGISTRATION">تشکر</Resource>
     <Resource tag="TITLE_SUSPENDED">معلق شده</Resource>
-  </page>
-  <page name="IRKOO">
-    <Resource tag="MIN_VOTE_DOWN">کاهش رای نیاز مند شهرت %min_rating% می باشد.</Resource>
-    <Resource tag="MIN_VOTE_UP">افزایش رای نیاز مند شهرت %min_rating% می باشد.</Resource>
-    <Resource tag="NOT_AUTHORIZED">لطفا برای رای دادن وارد شوید.</Resource>
-    <Resource tag="SELF">شما نمی توانید به پیام خود رای دهید.</Resource>
-    <Resource tag="USER_REPUTATION">Users Reputation</Resource>
-    <Resource tag="VOTE_DOWN">Vote Down</Resource>
-    <Resource tag="VOTE_UP">Vote Up</Resource>
   </page>
   <page name="LANGUAGE">
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>

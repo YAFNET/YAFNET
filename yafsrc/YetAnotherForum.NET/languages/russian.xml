@@ -1014,8 +1014,6 @@
     <Resource tag="ENABLE_DISPLAY_NAME_HELP">YAF будет использовать при отображении альтернативные ники.</Resource>
     <Resource tag="ENABLE_HOVERCARDS">Enable User Info Hover Cards:</Resource>
     <Resource tag="ENABLE_HOVERCARDS_HELP">If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter &amp; Facebook Profile Button.</Resource>
-    <Resource tag="ENABLE_IRKOO">Использовать службу репутации Irkoo:</Resource>
-    <Resource tag="ENABLE_IRKOO_HELP">Irkoo - это бесплатная служба, добавляющая функции репутации к вашему форуму. Посетите &lt;strong&gt;http://www.Irkoo.com&lt;/strong&gt; чтобы получить ID сайта и секретный ключ.</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS">Включить журналирование ошибок списка нахождения активных пользователей:</Resource>
     <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">Журналирование ошибок списка нахождения активных пользователей. Используется при отладке.</Resource>
     <Resource tag="ENABLE_RETWEET_MSG">Включить кнопку ретвиттера:</Resource>
@@ -1052,8 +1050,6 @@
     <Resource tag="GRAVATAR_RATING_HELP">Максимально разрешённый рейтинг Gravatar, если это включено.</Resource>
     <Resource tag="GROUPS_TEMPLATE">Шаблон ролей:</Resource>
     <Resource tag="GROUPS_TEMPLATE_HELP">Шаблон для отображения ролей.</Resource>
-    <Resource tag="GUESTS_VIEW_IRKOO">Разрешить гостям видеть репутацию пользователя:</Resource>
-    <Resource tag="GUESTS_VIEW_IRKOO_HELP">Гости могут видеть репутацию зарегистрированных пользователей.</Resource>
     <Resource tag="HEADER_ADVERTS">Настройки рекламы</Resource>
     <Resource tag="HEADER_ALBUM">Настройки альбомов</Resource>
     <Resource tag="HEADER_AVATARS">Настройки аватара</Resource>
@@ -1067,7 +1063,6 @@
     <Resource tag="HEADER_HOTTOPICS">Популярные темы</Resource>
     <Resource tag="HEADER_HOVERCARD">Hover Cards Settings</Resource>
     <Resource tag="HEADER_IMAGE_ATTACH">Настройки вложенных изображений</Resource>
-    <Resource tag="HEADER_IRKOO">Службы Irkoo</Resource>
     <Resource tag="HEADER_LOG">Настройки журнала</Resource>
     <Resource tag="HEADER_LOGIN">Настройки входа/регистрации</Resource>
     <Resource tag="HEADER_LOGSCOPE">Журналируемые события</Resource>
@@ -1111,12 +1106,6 @@
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">Не изменяйте это поле на другую службу.</Resource>
     <Resource tag="IPINFO_ULRL">URL службы с информацией об IP:</Resource>
     <Resource tag="IPINFO_ULRL_HELP">По этому адресу находится веб-страница, которая сообщает детали о данном IP. Вы можете выбирать любую аналогичную службу.</Resource>
-    <Resource tag="IRKOO_ONLY_ONTOPICPAGES">Показывать репутацию пользователя рядом со ссылками на профиль в темах:</Resource>
-    <Resource tag="IRKOO_ONLY_ONTOPICPAGES_HELP">В противном случае она будет отображаться рядом с любой ссылкой на профиль.</Resource>
-    <Resource tag="IRKOO_SECRETKEY">Секретный ключ Irkoo:</Resource>
-    <Resource tag="IRKOO_SECRETKEY_HELP">Введите секретный ключ Irkoo.</Resource>
-    <Resource tag="IRKOO_SITEID">Irkoo, ID сайта:</Resource>
-    <Resource tag="IRKOO_SITEID_HELP">Введите ID сайта Irkoo .</Resource>
     <Resource tag="JOINDATE_TEMPLATE">Шаблон даты регистрации:</Resource>
     <Resource tag="JOINDATE_TEMPLATE_HELP">Шаблон даты регистрации в данных пользователя в сообщениях.</Resource>
     <Resource tag="LASTPOST_COUNT">Кол-во тем в активных обсуждениях:</Resource>
