@@ -287,7 +287,7 @@ namespace YAF.Core.Services.Auth
             if (YafContext.Current.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
             {
                 // send user register notification to the following admin users...
-                YafSingleSignOnUser.SendRegistrationNotificationEmail(user);
+                YafSingleSignOnUser.SendRegistrationNotificationEmail(user, userID.Value);
             }
 
             // save the time zone...

@@ -346,12 +346,12 @@ namespace YAF.Core.Services.Auth
             if (YafContext.Current.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
             {
                 // send user register notification to the following admin users...
-                YafSingleSignOnUser.SendRegistrationNotificationEmail(user);
+                YafSingleSignOnUser.SendRegistrationNotificationEmail(user, userID.Value);
             }
 
             // send user register notification to the user...
             YafContext.Current.Get<ISendNotification>()
-                .SendRegistrationNotificationToUser(user, pass, securityAnswer, "NOTIFICATION_ON_GOOGLE_REGISTER");// TODO : LOCALIZE
+                .SendRegistrationNotificationToUser(user, pass, securityAnswer, "NOTIFICATION_ON_GOOGLE_REGISTER");
 
             // save the time zone...
             int userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);

@@ -74,21 +74,24 @@ namespace YAF.Core.Services
         /// <summary>
         /// The send registration notification email.
         /// </summary>
-        /// <param name="user">
-        /// The user.
-        /// </param>
-        public static void SendRegistrationNotificationEmail([NotNull] MembershipUser user)
+        /// <param name="user">The Membership User.</param>
+        /// <param name="userID">The user identifier.</param>
+        public static void SendRegistrationNotificationEmail([NotNull] MembershipUser user, [NotNull] int userID)
         {
-            string[] emails = YafContext.Current.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.Split(';');
+            var emails = YafContext.Current.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.Split(';');
 
             var notifyAdmin = new YafTemplateEmail();
 
-            string subject =
+            var subject =
                 YafContext.Current.Get<ILocalization>()
                     .GetText("COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT")
                     .FormatWith(YafContext.Current.Get<YafBoardSettings>().Name);
 
-            notifyAdmin.TemplateParams["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.admin_admin, true);
+            notifyAdmin.TemplateParams["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(
+                ForumPages.admin_edituser,
+                true,
+                "u={0}",
+                userID);
             notifyAdmin.TemplateParams["{user}"] = user.UserName;
             notifyAdmin.TemplateParams["{email}"] = user.Email;
             notifyAdmin.TemplateParams["{forumname}"] = YafContext.Current.Get<YafBoardSettings>().Name;
