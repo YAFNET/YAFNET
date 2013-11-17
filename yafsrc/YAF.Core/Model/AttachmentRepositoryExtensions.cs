@@ -60,7 +60,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.GetData.attachment_download(AttachmentID: attachmentID);
+            repository.DbFunction.Query.attachment_download(AttachmentID: attachmentID);
         }
 
         /// <summary>
