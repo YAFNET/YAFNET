@@ -1193,7 +1193,7 @@ namespace YAF.Pages
             try
             {
                 if (!this._ignoreQueryString)
-                {                
+                {
                     // temporary find=lastpost code until all last/unread post links are find=lastpost and find=unread
                     if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find") == null)
                     {
@@ -1223,32 +1223,55 @@ namespace YAF.Pages
                     }
                     else
                     {
-                        // find first unread message
-                        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower() == "unread")
+                        switch (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find").ToLower())
                         {
-                            DateTime lastRead = !this.PageContext.IsCrawler
-                                                    ? this.Get<IReadTrackCurrentUser>()
-                                                          .GetForumTopicRead(
-                                                              forumId: this.PageContext.PageForumID,
-                                                              topicId: this.PageContext.PageTopicID)
-                                                    : DateTime.UtcNow;
-
-                            // Find first unread
-                            using (
-                                DataTable unread = LegacyDb.message_findunread(
-                                    topicID: this.PageContext.PageTopicID,
-                                    messageId: 0,
-                                    lastRead: lastRead,
-                                    showDeleted: showDeleted,
-                                    authorUserID: userId))
-                            {
-                                var unreadFirst = unread.AsEnumerable().FirstOrDefault();
-                                if (unreadFirst != null)
+                            case "unread":
                                 {
-                                    findMessageId = unreadFirst.Field<int>("MessageID");
-                                    messagePosition = unreadFirst.Field<int>("MessagePosition");
+                                    // find first unread message
+                                    DateTime lastRead = !this.PageContext.IsCrawler
+                                                            ? this.Get<IReadTrackCurrentUser>()
+                                                                  .GetForumTopicRead(
+                                                                      forumId: this.PageContext.PageForumID,
+                                                                      topicId: this.PageContext.PageTopicID)
+                                                            : DateTime.UtcNow;
+
+                                    using (
+                                        DataTable unread =
+                                            LegacyDb.message_findunread(
+                                                topicID: this.PageContext.PageTopicID,
+                                                messageId: 0,
+                                                lastRead: lastRead,
+                                                showDeleted: showDeleted,
+                                                authorUserID: userId))
+                                    {
+                                        var unreadFirst = unread.AsEnumerable().FirstOrDefault();
+                                        if (unreadFirst != null)
+                                        {
+                                            findMessageId = unreadFirst.Field<int>("MessageID");
+                                            messagePosition = unreadFirst.Field<int>("MessagePosition");
+                                        }
+                                    }
                                 }
-                            }
+
+                                break;
+                            case "lastpost":
+                                using (
+                                    DataTable unread = LegacyDb.message_findunread(
+                                        topicID: this.PageContext.PageTopicID,
+                                        messageId: 0,
+                                        lastRead: DateTime.UtcNow,
+                                        showDeleted: showDeleted,
+                                        authorUserID: userId))
+                                {
+                                    var unreadFirst = unread.AsEnumerable().FirstOrDefault();
+                                    if (unreadFirst != null)
+                                    {
+                                        findMessageId = unreadFirst.Field<int>("MessageID");
+                                        messagePosition = unreadFirst.Field<int>("MessagePosition");
+                                    }
+                                }
+
+                                break;
                         }
                     }
                 }
