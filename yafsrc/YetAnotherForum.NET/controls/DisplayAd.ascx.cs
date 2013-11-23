@@ -72,8 +72,10 @@ namespace YAF.Controls
       this.AdMessage.Message = this.Get<YafBoardSettings>().AdPost;
       this.AdMessage.Signature = this.GetText("AD_SIGNATURE");
 
+      MessageFlags messageFlags = this.AdMessage.MessageFlags;
       this.AdMessage.MessageFlags.IsLocked = true;
       this.AdMessage.MessageFlags.NotFormatted = true;
+      this.AdMessage.MessageFlags = messageFlags;
     }
 
     #endregion
