@@ -26,6 +26,7 @@ namespace YAF.Controls
   using YAF.Classes;
   using YAF.Core;
   using YAF.Types;
+  using YAF.Types.Flags;
   using YAF.Types.Interfaces;
 
     #endregion
@@ -72,8 +73,10 @@ namespace YAF.Controls
       this.AdMessage.Message = this.Get<YafBoardSettings>().AdPost;
       this.AdMessage.Signature = this.GetText("AD_SIGNATURE");
 
-      this.AdMessage.MessageFlags.IsLocked = true;
-      this.AdMessage.MessageFlags.NotFormatted = true;
+      MessageFlags messageFlags = this.AdMessage.MessageFlags;
+      messageFlags.IsLocked = true;
+      messageFlags.NotFormatted = true;
+      this.AdMessage.MessageFlags = messageFlags;
     }
 
     #endregion
