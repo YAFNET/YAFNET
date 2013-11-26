@@ -329,7 +329,7 @@ namespace YAF.Providers.Roles
             // Connection String Name
             this._connStrName = config["connectionStringName"].ToStringDBNull();
 
-            ConnStringHelpers.TrySetConnectionAppString(this._connStrName, ConnStrAppKeyName);
+            ConnStringHelpers.TrySetProviderConnectionString(this._connStrName, ConnStrAppKeyName);
 
             base.Initialize(name, config);
 

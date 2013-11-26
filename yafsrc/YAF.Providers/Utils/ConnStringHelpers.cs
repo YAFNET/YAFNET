@@ -19,21 +19,16 @@
 
 namespace YAF.Providers.Utils
 {
-    using System;
     using System.Configuration;
-    using System.Web;
 
-    using YAF.Core;
-    using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
 
     public static class ConnStringHelpers
     {
-        public static void TrySetConnectionAppString(string connStrName, string appKeyName)
+        public static void TrySetProviderConnectionString(string connStrName, string appKeyName)
         {
             // is the connection string set?
-            if (!connStrName.IsSet())
+            if (connStrName.IsNotSet())
             {
                 return;
             }
@@ -48,18 +43,10 @@ namespace YAF.Providers.Utils
 
             string connStr = connectionStringSettings.ConnectionString;
 
-            // set the app variable...
-            var application = YafContext.Current.Get<HttpApplicationStateBase>();
-
-            CodeContracts.VerifyNotNull(application, @"Application");
-
-            if (application[appKeyName] == null)
+            if (!BaseProviderDb.ProviderConnectionStrings.ContainsKey(appKeyName))
             {
-                application.Add(appKeyName, connStr);
-            }
-            else
-            {
-                application[appKeyName] = connStr;
+                // add it...
+                BaseProviderDb.ProviderConnectionStrings.TryAdd(appKeyName, connStr);
             }
         }
     }

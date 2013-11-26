@@ -1,15 +1,21 @@
 ﻿using System;
 using System.Data.Common;
-using YAF.Core;
+
 using YAF.Core.Data.Profiling;
 using YAF.Data.MsSql;
-using YAF.Providers.Membership;
 using YAF.Types.Interfaces.Data;
 
 namespace YAF.Providers.Utils
 {
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+
+    using YAF.Types.Interfaces;
+
     public class BaseProviderDb
     {
+        internal static ConcurrentDictionary<string, string> ProviderConnectionStrings = new ConcurrentDictionary<string, string>();
+
         protected IDbAccess DbAccess
         {
             get { return _dbAccess.Value; }
@@ -28,12 +34,8 @@ namespace YAF.Providers.Utils
                 var old = access.Information.ConnectionString;
                 access.Information.ConnectionString = () =>
                 {
-                    if (YafContext.Application[connectionStringAppKeyName] != null)
-                    {
-                        return YafContext.Application[connectionStringAppKeyName] as string;
-                    }
-
-                    return old();
+                    string connStr;
+                    return ProviderConnectionStrings.TryGetValue(connectionStringAppKeyName, out connStr) ? connStr : old();
                 };
 
                 return access;

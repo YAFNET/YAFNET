@@ -160,10 +160,7 @@ namespace YAF.Providers.Membership
 
             set
             {
-                if (value != this._appName)
-                {
-                    this._appName = value;
-                }
+                this._appName = value;
             }
         }
 
@@ -1144,7 +1141,7 @@ namespace YAF.Providers.Membership
                     break;
             }
 
-            ConnStringHelpers.TrySetConnectionAppString(this._connStrName, ConnStrAppKeyName);
+            ConnStringHelpers.TrySetProviderConnectionString(this._connStrName, ConnStrAppKeyName);
 
             base.Initialize(name, config);
         }

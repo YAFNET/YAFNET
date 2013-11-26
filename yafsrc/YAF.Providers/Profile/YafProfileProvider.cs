@@ -466,7 +466,7 @@ namespace YAF.Providers.Profile
                 this._appName = "YetAnotherForum";
             }
 
-            ConnStringHelpers.TrySetConnectionAppString(this._connStrName, ConnStrAppKeyName);
+            ConnStringHelpers.TrySetProviderConnectionString(this._connStrName, ConnStrAppKeyName);
 
             base.Initialize(name, config);
         }
