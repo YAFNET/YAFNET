@@ -1055,6 +1055,11 @@ namespace YAF.Pages
                 this.Get<IStyleTransform>().DecodeStyleByTable(postListDataTable, true);
             }
 
+            if (postListDataTable.Rows.Count == 0)
+            {
+                throw new NoPostsFoundForTopicException(this.PageContext.PageTopicID);
+            }
+
             // convert to linq...
             var rowList = postListDataTable.AsEnumerable();
 
@@ -1081,12 +1086,14 @@ namespace YAF.Pages
                                                             });
             }*/
 
+            var firstPost = rowList.First();
+
             // set the sorting
-            this.Pager.Count = rowList.First().Field<int>(columnName: "TotalRows");
+            this.Pager.Count = firstPost.Field<int>(columnName: "TotalRows");
 
             if (findMessageId > 0)
             {
-                this.Pager.CurrentPageIndex = rowList.First().Field<int>(columnName: "PageIndex");
+                this.Pager.CurrentPageIndex = firstPost.Field<int>(columnName: "PageIndex");
                 
                 // move to this message on load...
                 if (!this.PageContext.IsCrawler)
@@ -1103,7 +1110,7 @@ namespace YAF.Pages
                     PageContext.PageElements.RegisterJsBlockStartup(
                         this,
                         "GotoAnchorJs",
-                        JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(rowList.First().Field<int>(columnName: "MessageID"))));
+                        JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(firstPost.Field<int>(columnName: "MessageID"))));
                 }
             }
 
@@ -1122,11 +1129,11 @@ namespace YAF.Pages
                 this.AddMetaData(firstMessage: pagedData.First()["Message"]);
             }
 
-            if (pagedData.Any() && this.CurrentMessage == 0)
-            {
-                // set it to the first...
-                // this.CurrentMessage = pagedData.First().Field<int>("MessageID");
-            }
+            //if (pagedData.Any() && this.CurrentMessage == 0)
+            //{
+            //    // set it to the first...
+            //    // this.CurrentMessage = pagedData.First().Field<int>("MessageID");
+            //}
 
             this.MessageList.DataSource = pagedData;
 
@@ -1888,6 +1895,15 @@ namespace YAF.Pages
             {
                 this.BindData();
             }
+        }
+    }
+
+    internal class NoPostsFoundForTopicException : Exception
+    {
+        public NoPostsFoundForTopicException(int topicId)
+            : base("No posts were found for topic [id: {0}]".FormatWith(topicId))
+        {
+            
         }
     }
 }
