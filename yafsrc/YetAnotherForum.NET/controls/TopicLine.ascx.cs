@@ -111,7 +111,7 @@
         {
             set
             {
-                this._theTopicRow = (DataRowView)value;
+                this._theTopicRow = value as DataRowView;
                 this.TopicRowID = this.TopicRow["LinkTopicID"].ToType<int>();
             }
         }
@@ -461,21 +461,18 @@
         /// <summary>
         /// The get topic image.
         /// </summary>
-        /// <param name="o">
-        /// The o.
-        /// </param>
+        /// <param name="row"></param>
         /// <param name="imgTitle">
         /// The img title.
         /// </param>
         /// <returns>
         /// Returns the Topic Image
         /// </returns>
-        protected string GetTopicImage([NotNull] object o, [NotNull] ref string imgTitle)
+        protected string GetTopicImage([NotNull] DataRowView row, [NotNull] ref string imgTitle)
         {
-            CodeContracts.VerifyNotNull(o, "o");
+            CodeContracts.VerifyNotNull(row, "row");
             CodeContracts.VerifyNotNull(imgTitle, "imgTitle");
 
-            var row = (DataRowView)o;
             DateTime lastPosted = row["LastPosted"] != DBNull.Value
                                       ? (DateTime)row["LastPosted"]
                                       : DateTimeHelper.SqlDbMinTime();
@@ -484,11 +481,12 @@
             var forumFlags = new ForumFlags(row["ForumFlags"]);
 
             var isHot = this.IsPopularTopic(lastPosted, row);
+            var theme = this.Get<ITheme>();
 
             if (row["TopicMovedID"].ToString().Length > 0)
             {
                 imgTitle = this.GetText("MOVED");
-                return this.Get<ITheme>().GetItem("ICONS", "TOPIC_MOVED");
+                return theme.GetItem("ICONS", "TOPIC_MOVED");
             }
 
             DateTime lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
@@ -504,66 +502,66 @@
                 if (row["PollID"] != DBNull.Value)
                 {
                     imgTitle = this.GetText("POLL_NEW");
-                    return this.Get<ITheme>().GetItem("ICONS", "TOPIC_POLL_NEW");
+                    return theme.GetItem("ICONS", "TOPIC_POLL_NEW");
                 }
 
                 switch (row["Priority"].ToString())
                 {
                     case "1":
                         imgTitle = this.GetText("STICKY_NEW");
-                        return this.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY_NEW");
+                        return theme.GetItem("ICONS", "TOPIC_STICKY_NEW");
                     case "2":
                         imgTitle = this.GetText("ANNOUNCEMENT");
-                        return this.Get<ITheme>().GetItem("ICONS", "TOPIC_ANNOUNCEMENT_NEW");
+                        return theme.GetItem("ICONS", "TOPIC_ANNOUNCEMENT_NEW");
                     default:
                         if (topicFlags.IsLocked || forumFlags.IsLocked)
                         {
                             imgTitle = this.GetText("NEW_POSTS_LOCKED");
-                            return this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW_LOCKED");
+                            return theme.GetItem("ICONS", "TOPIC_NEW_LOCKED");
                         }
 
                         if (isHot)
                         {
                             imgTitle = this.GetText("ICONLEGEND", "HOT_NEW_POSTS");
-                            return this.Get<ITheme>().GetItem(
-                                "ICONS", "TOPIC_HOT_NEW", this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW"));
+                            return theme.GetItem(
+                                "ICONS", "TOPIC_HOT_NEW", theme.GetItem("ICONS", "TOPIC_NEW"));
                         }
 
                         imgTitle = this.GetText("ICONLEGEND", "NEW_POSTS");
-                        return this.Get<ITheme>().GetItem("ICONS", "TOPIC_NEW");
+                        return theme.GetItem("ICONS", "TOPIC_NEW");
                 }
             }
 
             if (row["PollID"] != DBNull.Value)
             {
                 imgTitle = this.GetText("POLL");
-                return this.Get<ITheme>().GetItem("ICONS", "TOPIC_POLL");
+                return theme.GetItem("ICONS", "TOPIC_POLL");
             }
 
             switch (row["Priority"].ToString())
             {
                 case "1":
                     imgTitle = this.GetText("STICKY");
-                    return this.Get<ITheme>().GetItem("ICONS", "TOPIC_STICKY");
+                    return theme.GetItem("ICONS", "TOPIC_STICKY");
                 case "2":
                     imgTitle = this.GetText("ANNOUNCEMENT");
-                    return this.Get<ITheme>().GetItem("ICONS", "TOPIC_ANNOUNCEMENT");
+                    return theme.GetItem("ICONS", "TOPIC_ANNOUNCEMENT");
                 default:
                     if (topicFlags.IsLocked || forumFlags.IsLocked)
                     {
                         imgTitle = this.GetText("NO_NEW_POSTS_LOCKED");
-                        return this.Get<ITheme>().GetItem("ICONS", "TOPIC_LOCKED");
+                        return theme.GetItem("ICONS", "TOPIC_LOCKED");
                     }
 
                     if (isHot)
                     {
                         imgTitle = this.GetText("HOT_NO_NEW_POSTS");
-                        return this.Get<ITheme>().GetItem(
-                            "ICONS", "TOPIC_HOT", this.Get<ITheme>().GetItem("ICONS", "TOPIC"));
+                        return theme.GetItem(
+                            "ICONS", "TOPIC_HOT", theme.GetItem("ICONS", "TOPIC"));
                     }
 
                     imgTitle = this.GetText("NO_NEW_POSTS");
-                    return this.Get<ITheme>().GetItem("ICONS", "TOPIC");
+                    return theme.GetItem("ICONS", "TOPIC");
             }
         }
 
@@ -584,8 +582,7 @@
         /// </returns>
         protected string MakeLink([NotNull] string text, [NotNull] string link, [NotNull] int pageid)
         {
-            return "<a href=\"{0}\" title=\"{1}\">{2}</a>".FormatWith(
-                link, this.GetText("GOTO_POST_PAGER").FormatWith(pageid), text);
+            return @"<a href=""{0}"" title=""{1}"">{2}</a>".FormatWith(link, this.GetText("GOTO_POST_PAGER").FormatWith(pageid), text);
         }
 
         /// <summary>
@@ -611,6 +608,23 @@
             this.chkSelected.Checked = this.IsSelected;
         }
 
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            if (this.TopicRow == null)
+            {
+                throw new NoTopicRowException(this.TopicRowID);
+            }
+        }
+
         #endregion
+    }
+
+    public class NoTopicRowException : Exception
+    {
+        public NoTopicRowException(int? topicRowID)
+            :base("No topic row found for topic row id [{0}]".FormatWith(topicRowID ?? 0))
+        {
+            
+        }
     }
 }
