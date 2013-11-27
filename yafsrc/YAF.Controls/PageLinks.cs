@@ -20,22 +20,43 @@ namespace YAF.Controls
 {
     #region Using
 
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using System.Web.UI;
 
+    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
     using YAF.Utils;
 
     #endregion
 
+    [Serializable]
+    public class PageLink
+    {
+        public string Title { get; set; }
+        public string URL { get; set; }
+    }
+
+    public static class PageLinkExtensions
+    {
+        public static void AddRoot(this PageLinks pageLinks, int forumId)
+        {
+            pageLinks.AddLink(pageLinks.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+        }
+    }
+
     /// <summary>
     /// Page Links Control.
     /// </summary>
-    public class PageLinks : BaseControl
+    public class PageLinks : BaseControl, IAdd<PageLink>
     {
         #region Properties
 
@@ -47,7 +68,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this.ViewState["LinkedPageLinkID"] != null ? this.ViewState["LinkedPageLinkID"].ToString() : null;
+                return this.ViewState["LinkedPageLinkID"].ToType<string>();
             }
 
             set
@@ -57,24 +78,19 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        ///   Gets or sets PageLinkDT.
+        ///   Gets or sets PageLink List
         /// </summary>
         [CanBeNull]
-        public DataTable PageLinkDT
+        public List<PageLink> PageLinkList
         {
             get
             {
-                if (this.ViewState["PageLinkDT"] != null)
-                {
-                    return this.ViewState["PageLinkDT"] as DataTable;
-                }
-
-                return null;
+                return this.ViewState["PageLinkList"] as List<PageLink>;
             }
 
             set
             {
-                this.ViewState["PageLinkDT"] = value;
+                this.ViewState["PageLinkList"] = value;
             }
         }
 
@@ -130,38 +146,11 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Add a link.
-        /// </summary>
-        /// <param name="title">
-        /// The title.
-        /// </param>
-        /// <param name="url">
-        /// The url.
-        /// </param>
-        public void AddLink([NotNull] string title, [NotNull] string url)
-        {
-            DataTable dt = this.PageLinkDT;
-
-            if (dt == null)
-            {
-                dt = new DataTable();
-                dt.Columns.Add("Title", typeof(string));
-                dt.Columns.Add("URL", typeof(string));
-                this.PageLinkDT = dt;
-            }
-
-            DataRow dr = dt.NewRow();
-            dr["Title"] = title;
-            dr["URL"] = url;
-            dt.Rows.Add(dr);
-        }
-
-        /// <summary>
         /// Clear all Links
         /// </summary>
         public void Clear()
         {
-            this.PageLinkDT = null;
+            this.PageLinkList = null;
         }
 
         #endregion
@@ -174,26 +163,26 @@ namespace YAF.Controls
         /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the server control content.</param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            DataTable linkDataTable = null;
+            List<PageLink> linkedPageList = null;
 
             if (this.LinkedPageLinkID.IsSet())
             {
                 // attempt to get access to the other control...
-                var plControl = this.Parent.FindControl(this.LinkedPageLinkID) as PageLinks;
+                var parentControl = this.Parent.FindControl(this.LinkedPageLinkID) as PageLinks;
 
-                if (plControl != null)
+                if (parentControl != null)
                 {
                     // use the other data stream...
-                    linkDataTable = plControl.PageLinkDT;
+                    linkedPageList = parentControl.PageLinkList;
                 }
             }
             else
             {
                 // use the data table from this control...
-                linkDataTable = this.PageLinkDT;
+                linkedPageList = this.PageLinkList;
             }
 
-            if (linkDataTable == null || linkDataTable.Rows.Count == 0)
+            if (linkedPageList == null || !linkedPageList.Any())
             {
                 return;
             }
@@ -202,29 +191,46 @@ namespace YAF.Controls
 
             var first = true;
 
-            foreach (DataRow row in linkDataTable.Rows)
+            foreach (var link in linkedPageList)
             {
-                if (!first)
-                {
-                    writer.WriteLine(@"<span class=""linkSeperator divider"">&nbsp;&#187;&nbsp;</span>");
-                }
-                else
+                if (first)
                 {
                     first = false;
                 }
+                else
+                {
+                    writer.WriteLine(@"<span class=""linkSeperator divider"">&nbsp;&#187;&nbsp;</span>");
+                }
 
-                string title = this.HtmlEncode(row["Title"].ToString().Trim());
-                string url = row["URL"].ToString().Trim();
+                string encodedTitle = this.HtmlEncode(link.Title);
+                string url = link.URL;
 
                 writer.WriteLine(
                     url.IsNotSet()
-                        ? @"<span class=""currentPageLink active"">{0}</span>".FormatWith(title)
-                        : @"<a href=""{0}"">{1}</a>".FormatWith(url, title));
+                        ? @"<span class=""currentPageLink active"">{0}</span>".FormatWith(encodedTitle)
+                        : @"<a href=""{0}"">{1}</a>".FormatWith(url, encodedTitle));
             }
 
             writer.WriteLine("</div>");
         }
 
         #endregion
+
+        public void Add(PageLink item)
+        {
+            var list = this.PageLinkList ?? new List<PageLink>();
+
+            list.Add(item);
+
+            this.PageLinkList = list;
+        }
+
+        public void AddLink([NotNull] string title, [NotNull] string url)
+        {
+            CodeContracts.VerifyNotNull(url, "url");
+            CodeContracts.VerifyNotNull(title, "title");
+
+            this.Add(new PageLink() { Title = title.Trim(), URL = url.Trim() });
+        }
     }
 }

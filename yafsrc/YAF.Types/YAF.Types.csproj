@@ -51,6 +51,7 @@
     <Compile Include="Attributes\AssemblyModuleSortOrder.cs" />
     <Compile Include="Attributes\ExcludeAttribute.cs" />
     <Compile Include="Attributes\ExportServiceAttribute.cs" />
+    <Compile Include="Interfaces\IAdd.cs" />
     <Compile Include="Interfaces\IHaveSortOrder.cs" />
     <Compile Include="Constants\AuthService.cs" />
     <Compile Include="Constants\MessageTypes.cs" />
@@ -179,7 +180,7 @@
     <Compile Include="Interfaces\IReadValueExtensions.cs" />
     <Compile Include="Interfaces\IServiceLocatorExtensions.cs" />
     <Compile Include="Interfaces\ILocatablePageExtensions.cs" />
-    <Compile Include="Interfaces\IReadTrackCurrentUserExtensions.cs" />    
+    <Compile Include="Interfaces\IReadTrackCurrentUserExtensions.cs" />
     <Compile Include="Interfaces\IActivityStream.cs" />
     <Compile Include="Interfaces\IAvatars.cs" />
     <Compile Include="Interfaces\IBackgroundTask.cs" />
