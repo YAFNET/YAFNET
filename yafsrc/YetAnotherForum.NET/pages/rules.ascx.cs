@@ -25,6 +25,7 @@ namespace YAF.Pages
     using System;
 
     using YAF.Classes;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -116,7 +117,7 @@ namespace YAF.Pages
                 return;
             }
 
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
 
             this.Accept.Text = this.GetText("ACCEPT");
             this.Cancel.Text = this.GetText("DECLINE");

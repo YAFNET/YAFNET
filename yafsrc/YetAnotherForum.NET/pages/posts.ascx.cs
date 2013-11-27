@@ -559,6 +559,8 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
+            var yafBoardSettings = this.Get<YafBoardSettings>();
+
             if (!this.IsPostBack)
             {
                 // Clear Multiquotes
@@ -566,7 +568,7 @@ namespace YAF.Pages
 
                 if (this.PageContext.Settings.LockedForum == 0)
                 {
-                    this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+                    this.PageLinks.AddRoot();
                     this.PageLinks.AddLink(
                         this.PageContext.PageCategoryName,
                         YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
@@ -593,21 +595,21 @@ namespace YAF.Pages
                 this.DataPanel1.ExpandText = this.GetText("QUICKREPLY_SHOW");
                 this.DataPanel1.CollapseText = this.GetText("QUICKREPLY_HIDE");
 
-                this.PageLinks.AddForumLinks(this.PageContext.PageForumID);
+                this.PageLinks.AddForum(this.PageContext.PageForumID);
                 this.PageLinks.AddLink(
                     this.Get<IBadWordReplace>().Replace(this.Server.HtmlDecode(this.PageContext.PageTopicName)),
                     string.Empty);
 
                 var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic["Topic"]));
 
-                if (this._topic["Status"].ToString().IsSet() && this.Get<YafBoardSettings>().EnableTopicStatus)
+                if (this._topic["Status"].ToString().IsSet() && yafBoardSettings.EnableTopicStatus)
                 {
                     var topicStatusIcon = this.Get<ITheme>().GetItem("TOPIC_STATUS", this._topic["Status"].ToString());
 
                     if (topicStatusIcon.IsSet() && !topicStatusIcon.Contains("[TOPIC_STATUS."))
                     {
                         topicSubject =
-                            "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" class=\"topicStatusIcon\" />&nbsp;{2}"
+                            @"<img src=""{0}"" alt=""{1}"" title=""{1}"" class=""topicStatusIcon"" />&nbsp;{2}"
                                 .FormatWith(
                                     this.Get<ITheme>().GetItem("TOPIC_STATUS", this._topic["Status"].ToString()),
                                     this.GetText("TOPIC_STATUS", this._topic["Status"].ToString()),
@@ -622,7 +624,7 @@ namespace YAF.Pages
                 }
 
                 if (!this._topic["Description"].IsNullOrEmptyDBField()
-                    && this.Get<YafBoardSettings>().EnableTopicDescription)
+                    && yafBoardSettings.EnableTopicDescription)
                 {
                     this.TopicTitle.Text = "{0} - <em>{1}</em>".FormatWith(
                         topicSubject, this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic["Description"])));
@@ -636,33 +638,31 @@ namespace YAF.Pages
                     this.HtmlEncode(this._topic["Description"]));
                 this.TopicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
-                this.ViewOptions.Visible = this.Get<YafBoardSettings>().AllowThreaded;
-                this.ForumJumpHolder.Visible = this.Get<YafBoardSettings>().ShowForumJump
+                this.ViewOptions.Visible = yafBoardSettings.AllowThreaded;
+                this.ForumJumpHolder.Visible = yafBoardSettings.ShowForumJump
                                                && this.PageContext.Settings.LockedForum == 0;
 
                 this.RssTopic.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.rsstopic, "pg={0}&t={1}", YafRssFeeds.Posts.ToInt(), this.PageContext.PageTopicID);
-                this.RssTopic.Visible = this.Get<YafBoardSettings>().ShowRSSLink;
+                this.RssTopic.Visible = yafBoardSettings.ShowRSSLink;
 
-                this.QuickReplyPlaceHolder.Visible = this.Get<YafBoardSettings>().ShowQuickAnswer;
+                this.QuickReplyPlaceHolder.Visible = yafBoardSettings.ShowQuickAnswer;
 
-                if ((this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableCaptchaForGuests)
-                    || (this.Get<YafBoardSettings>().EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
+                if ((this.PageContext.IsGuest && yafBoardSettings.EnableCaptchaForGuests)
+                    || (yafBoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
                 {
                     this.imgCaptcha.ImageUrl = "{0}resource.ashx?c=1".FormatWith(YafForumInfo.ForumClientFileRoot);
                     this.CaptchaDiv.Visible = true;
                 }
 
-                if (!this.PageContext.ForumPostAccess
-                    || (this._forumFlags.IsLocked && !this.PageContext.ForumModeratorAccess))
+                if (!this.PageContext.ForumPostAccess || (this._forumFlags.IsLocked && !this.PageContext.ForumModeratorAccess))
                 {
                     this.NewTopic1.Visible = false;
                     this.NewTopic2.Visible = false;
                 }
 
                 // Ederon : 9/9/2007 - moderators can reply in locked topics
-                if (!this.PageContext.ForumReplyAccess
-                    ||
+                if (!this.PageContext.ForumReplyAccess ||
                     ((this._topicFlags.IsLocked || this._forumFlags.IsLocked) && !this.PageContext.ForumModeratorAccess))
                 {
                     this.PostReplyLink1.Visible = this.PostReplyLink2.Visible = false;
@@ -702,8 +702,7 @@ namespace YAF.Pages
 
             this.BindData();
 
-            if (!this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowShareTopicTo)
-                || !Config.FacebookAPIKey.IsSet())
+            if (!this.Get<IPermissions>().Check(yafBoardSettings.ShowShareTopicTo) || !Config.FacebookAPIKey.IsSet())
             {
                 return;
             }
@@ -714,7 +713,8 @@ namespace YAF.Pages
                 BBCodeHelper.StripBBCode(
                     HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this._topic["Topic"]))).RemoveMultipleWhitespace();
 
-            var meta = this.Page.Header.FindControlType<HtmlMeta>();
+            var meta = this.Page.Header.FindControlType<HtmlMeta>().ToList();
+
             string description = string.Empty;
 
             if (meta.Any(x => x.Name.Equals("description")))

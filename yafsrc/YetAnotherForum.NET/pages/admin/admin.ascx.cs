@@ -32,6 +32,7 @@ namespace YAF.Pages.Admin
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
@@ -288,7 +289,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
             this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
 
             this.Page.Header.Title = this.GetText("ADMIN_ADMIN", "Administration");

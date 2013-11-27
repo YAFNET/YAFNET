@@ -152,7 +152,7 @@ namespace YAF.Pages
             this.UnreadTopicsTabContent.Visible = !this.PageContext.IsGuest &&
                                                   this.Get<YafBoardSettings>().UseReadTrackingByDatabase;
 
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
 
             this.PageLinks.AddLink(
                 this.PageContext.IsGuest ? this.GetText("GUESTTITLE") : this.GetText("MEMBERTITLE"), string.Empty);

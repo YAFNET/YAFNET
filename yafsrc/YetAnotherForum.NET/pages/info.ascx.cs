@@ -25,6 +25,7 @@ namespace YAF.Pages
     using System;
 
     using YAF.Classes;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -61,7 +62,7 @@ namespace YAF.Pages
         protected override void CreatePageLinks()
         {
             // forum index
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
 
             // information title text
             this.PageLinks.AddLink(this.Title.Text);

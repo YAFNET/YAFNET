@@ -27,6 +27,7 @@ namespace YAF.Pages.Admin
   using System.Web.UI.WebControls;
 
   using YAF.Classes.Data;
+  using YAF.Controls;
   using YAF.Core;
   using YAF.Core.Services;
   using YAF.Types;
@@ -135,9 +136,10 @@ namespace YAF.Pages.Admin
             return;
         }
 
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink(this.GetText("ADMIN_REPLACEWORDS", "TITLE"), string.Empty);
+        this.PageLinks
+            .AddRoot()
+            .AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin))
+            .AddLink(this.GetText("ADMIN_REPLACEWORDS", "TITLE"));
 
         this.Page.Header.Title = "{0} - {1}".FormatWith(
             this.GetText("ADMIN_ADMIN", "Administration"),

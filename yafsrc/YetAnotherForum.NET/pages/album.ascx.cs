@@ -27,6 +27,7 @@ namespace YAF.Pages
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -103,7 +104,7 @@ namespace YAF.Pages
 
             // Generate the page links.
             this.PageLinks.Clear();
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
             this.PageLinks.AddLink(displayName, YafBuildLink.GetLink(ForumPages.profile, "u={0}", userId));
             this.PageLinks.AddLink(this.GetText("ALBUMS"), YafBuildLink.GetLink(ForumPages.albums, "u={0}", userId));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);

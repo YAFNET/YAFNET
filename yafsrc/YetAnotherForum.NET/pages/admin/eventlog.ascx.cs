@@ -229,7 +229,7 @@ namespace YAF.Pages.Admin
 
             // create page links
             // board index first
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
 
             // administration index second
             this.PageLinks.AddLink(

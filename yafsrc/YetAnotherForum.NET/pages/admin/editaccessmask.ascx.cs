@@ -27,6 +27,7 @@ namespace YAF.Pages.Admin
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types;
@@ -65,7 +66,7 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             // beard index
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
 
             // administration index
             this.PageLinks.AddLink(

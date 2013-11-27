@@ -27,6 +27,7 @@ namespace YAF.Pages.Admin
     using System.Web.UI.WebControls;
 
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Core.Services;
@@ -72,13 +73,13 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             // board index
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
 
             // administration index
             this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 
             // current page label (no link)
-            this.PageLinks.AddLink(this.GetText("ADMIN_ACCESSMASKS", "TITLE"), string.Empty);
+            this.PageLinks.AddLink(this.GetText("ADMIN_ACCESSMASKS", "TITLE"));
 
             this.Page.Header.Title = "{0} - {1}".FormatWith(
                this.GetText("ADMIN_ADMIN", "Administration"),

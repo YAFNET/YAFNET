@@ -209,7 +209,7 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             // link to board index
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
 
             // link to administration index
             this.PageLinks.AddLink(

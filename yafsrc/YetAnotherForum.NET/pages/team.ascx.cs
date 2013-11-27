@@ -249,7 +249,7 @@ namespace YAF.Pages
                 return;
             }
 
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
             this.PageLinks.AddLink(this.GetText("TEAM", "TITLE"), string.Empty);
 
             this.BindData();

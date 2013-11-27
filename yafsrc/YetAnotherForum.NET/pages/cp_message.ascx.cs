@@ -169,7 +169,7 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.Get<YafBoardSettings>().EnableDisplayName
                     ? this.PageContext.CurrentUserData.DisplayName

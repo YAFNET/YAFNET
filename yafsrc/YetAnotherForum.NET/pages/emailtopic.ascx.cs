@@ -28,6 +28,7 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Services;
     using YAF.Types;
@@ -85,7 +86,7 @@ namespace YAF.Pages
                       YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
                 }
 
-                this.PageLinks.AddForumLinks(this.PageContext.PageForumID);
+                this.PageLinks.AddForum(this.PageContext.PageForumID);
                 this.PageLinks.AddLink(
                   this.PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
 

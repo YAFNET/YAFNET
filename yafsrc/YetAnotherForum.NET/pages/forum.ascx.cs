@@ -23,6 +23,7 @@ namespace YAF.Pages
     using System;
 
     using YAF.Classes;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -114,7 +115,7 @@ namespace YAF.Pages
 
             if (this.PageContext.Settings.LockedForum == 0)
             {
-                this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+                this.PageLinks.AddRoot();
                 if (this.PageContext.PageCategoryID != 0)
                 {
                     this.PageLinks.AddLink(

@@ -25,6 +25,7 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;

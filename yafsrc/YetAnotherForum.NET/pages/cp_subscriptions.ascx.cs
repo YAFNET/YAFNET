@@ -30,6 +30,7 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -123,7 +124,7 @@ namespace YAF.Pages
 
             this.BindData();
 
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                     this.Get<YafBoardSettings>().EnableDisplayName
                         ? this.PageContext.CurrentUserData.DisplayName

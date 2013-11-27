@@ -81,7 +81,7 @@ namespace YAF.Pages
         {
             if (!this.IsPostBack)
             {
-                this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+                this.PageLinks.AddRoot();
                 this.PageLinks.AddLink(
                     this.Get<YafBoardSettings>().EnableDisplayName
                         ? this.PageContext.CurrentUserData.DisplayName

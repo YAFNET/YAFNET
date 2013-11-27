@@ -29,6 +29,7 @@ namespace YAF.Pages.Admin
     using System.Text.RegularExpressions;
 
     using YAF.Classes;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types;

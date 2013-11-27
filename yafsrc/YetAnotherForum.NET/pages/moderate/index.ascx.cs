@@ -28,6 +28,7 @@ namespace YAF.Pages.moderate
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -62,7 +63,7 @@ namespace YAF.Pages.moderate
         protected override void CreatePageLinks()
         {
             // forum index
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
 
             // moderation index
             this.PageLinks.AddLink(this.GetText("TITLE"));

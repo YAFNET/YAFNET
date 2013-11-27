@@ -26,6 +26,7 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Classes;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -99,7 +100,7 @@ namespace YAF.Pages
             
             // Generate the Page Links.
             this.PageLinks.Clear();
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.Get<YafBoardSettings>().EnableDisplayName
                     ? displayName

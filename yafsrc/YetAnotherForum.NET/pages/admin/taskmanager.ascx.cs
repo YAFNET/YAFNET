@@ -27,6 +27,7 @@ namespace YAF.Pages.Admin
   using System;
   using System.Web.UI.WebControls;
 
+  using YAF.Controls;
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;

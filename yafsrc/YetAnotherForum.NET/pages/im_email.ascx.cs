@@ -30,6 +30,7 @@ namespace YAF.Pages
 
   using YAF.Classes;
   using YAF.Classes.Data;
+  using YAF.Controls;
   using YAF.Core;
   using YAF.Core.Extensions;
   using YAF.Types;
@@ -104,7 +105,7 @@ namespace YAF.Pages
 
         string displayName = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
 
-        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddRoot();
         this.PageLinks.AddLink(
             this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName, 
             YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));

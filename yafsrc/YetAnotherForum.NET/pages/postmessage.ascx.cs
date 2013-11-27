@@ -31,6 +31,7 @@ namespace YAF.Pages
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -632,13 +633,13 @@ namespace YAF.Pages
 
                 if (this.PageContext.Settings.LockedForum == 0)
                 {
-                    this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+                    this.PageLinks.AddRoot();
                     this.PageLinks.AddLink(
                         this.PageContext.PageCategoryName,
                         YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
                 }
 
-                this.PageLinks.AddForumLinks(this.PageContext.PageForumID);
+                this.PageLinks.AddForum(this.PageContext.PageForumID);
 
                 // check if it's a reply to a topic...
                 if (this.TopicID != null)

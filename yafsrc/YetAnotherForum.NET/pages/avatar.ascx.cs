@@ -31,6 +31,7 @@ namespace YAF.Pages
   using System.Web.UI.WebControls;
 
   using YAF.Classes;
+  using YAF.Controls;
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;
@@ -319,7 +320,7 @@ namespace YAF.Pages
         return;
       }
 
-      this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+      this.PageLinks.AddRoot();
 
       if (this.returnUserID > 0)
       {

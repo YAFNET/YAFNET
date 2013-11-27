@@ -31,6 +31,7 @@ namespace YAF.Pages
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
+    using YAF.Controls;
     using YAF.Core.Data;
     using YAF.Core.Extensions;
     using YAF.Core.Services;
@@ -376,7 +377,7 @@ namespace YAF.Pages
                 return;
             }
 
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
             this.btnSearch.Text = "{0}".FormatWith(this.GetText("btnsearch"));
 

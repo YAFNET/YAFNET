@@ -31,6 +31,7 @@ namespace YAF.Pages
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Core.Services;
@@ -95,7 +96,7 @@ namespace YAF.Pages
 
             this.PasswordRecovery1.MembershipProvider = Config.MembershipProvider;
 
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
             this.PageLinks.AddLink(this.GetText("TITLE"));
 
             // handle localization

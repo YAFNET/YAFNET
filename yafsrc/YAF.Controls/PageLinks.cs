@@ -47,9 +47,66 @@ namespace YAF.Controls
 
     public static class PageLinkExtensions
     {
-        public static void AddRoot(this PageLinks pageLinks, int forumId)
+        public static PageLinks AddRoot(this PageLinks pageLinks)
         {
+            CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
+
             pageLinks.AddLink(pageLinks.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+
+            return pageLinks;
+        }
+
+        public static PageLinks AddCategory(this PageLinks pageLinks, [NotNull] string categoryName, [NotNull] int categoryId)
+        {
+            CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
+            CodeContracts.VerifyNotNull(categoryName, "categoryName");
+
+            pageLinks.AddLink(categoryName, YafBuildLink.GetLink(ForumPages.forum, "c={0}", categoryId));
+
+            return pageLinks;
+        }
+
+        public static PageLinks AddLink(this PageLinks pageLinks, [NotNull] string title, [CanBeNull] string url = "")
+        {
+            CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
+            CodeContracts.VerifyNotNull(title, "title");
+
+            pageLinks.Add(new PageLink() { Title = title.Trim(), URL = url.Trim() });
+
+            return pageLinks;
+        }
+
+        /// <summary>
+        /// Adds the forum links.
+        /// </summary>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        /// <param name="noForumLink">
+        /// The no forum link.
+        /// </param>
+        public static PageLinks AddForum(this PageLinks pageLinks, int forumId, bool noForumLink = false)
+        {
+            CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
+
+            using (DataTable dtLinks = LegacyDb.forum_listpath(forumId))
+            {
+                foreach (DataRow row in dtLinks.Rows)
+                {
+                    if (noForumLink && row["ForumID"].ToType<int>() == forumId)
+                    {
+                        pageLinks.AddLink(row["Name"].ToString(), string.Empty);
+                    }
+                    else
+                    {
+                        pageLinks.AddLink(
+                            row["Name"].ToString(),
+                            YafBuildLink.GetLink(ForumPages.topics, "f={0}", row["ForumID"]));
+                    }
+                }
+            }
+
+            return pageLinks;
         }
     }
 
@@ -97,53 +154,6 @@ namespace YAF.Controls
         #endregion
 
         #region Public Methods
-
-        /// <summary>
-        /// Adds the forum links.
-        /// </summary>
-        /// <param name="forumID">The forum id.</param>
-        public void AddForumLinks(int forumID)
-        {
-            this.AddForumLinks(forumID, false);
-        }
-
-        /// <summary>
-        /// Adds the forum links.
-        /// </summary>
-        /// <param name="forumID">
-        /// The forum id.
-        /// </param>
-        /// <param name="noForumLink">
-        /// The no forum link.
-        /// </param>
-        public void AddForumLinks(int forumID, bool noForumLink)
-        {
-            using (DataTable dtLinks = LegacyDb.forum_listpath(forumID))
-            {
-                foreach (DataRow row in dtLinks.Rows)
-                {
-                    if (noForumLink && row["ForumID"].ToType<int>() == forumID)
-                    {
-                        this.AddLink(row["Name"].ToString(), string.Empty);
-                    }
-                    else
-                    {
-                        this.AddLink(
-                            row["Name"].ToString(),
-                            YafBuildLink.GetLink(ForumPages.topics, "f={0}", row["ForumID"]));
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Add a link.
-        /// </summary>
-        /// <param name="title">The title.</param>
-        public void AddLink([NotNull] string title)
-        {
-            this.AddLink(title, string.Empty);
-        }
 
         /// <summary>
         /// Clear all Links
@@ -216,21 +226,15 @@ namespace YAF.Controls
 
         #endregion
 
-        public void Add(PageLink item)
+        public void Add([NotNull] PageLink item)
         {
+            CodeContracts.VerifyNotNull(item, "item");
+
             var list = this.PageLinkList ?? new List<PageLink>();
 
             list.Add(item);
 
             this.PageLinkList = list;
-        }
-
-        public void AddLink([NotNull] string title, [NotNull] string url)
-        {
-            CodeContracts.VerifyNotNull(url, "url");
-            CodeContracts.VerifyNotNull(title, "title");
-
-            this.Add(new PageLink() { Title = title.Trim(), URL = url.Trim() });
         }
     }
 }

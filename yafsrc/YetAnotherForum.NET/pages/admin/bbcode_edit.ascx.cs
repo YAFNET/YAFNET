@@ -24,6 +24,7 @@ namespace YAF.Pages.Admin
     using System;
 
     using YAF.Classes;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types;
@@ -172,7 +173,7 @@ namespace YAF.Pages.Admin
 
             if (!this.IsPostBack)
             {
-                this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+                this.PageLinks.AddRoot();
                 this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
                 this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_bbcode));
                 this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE_EDIT", "TITLE").FormatWith(strAddEdit), string.Empty);

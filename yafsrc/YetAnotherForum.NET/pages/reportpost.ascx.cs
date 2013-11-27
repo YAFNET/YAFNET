@@ -27,6 +27,7 @@ namespace YAF.Pages
 
   using YAF.Classes;
   using YAF.Classes.Data;
+  using YAF.Controls;
   using YAF.Core;
   using YAF.Types;
   using YAF.Types.Constants;
@@ -208,7 +209,7 @@ namespace YAF.Pages
         }
 
         // Get Forum Link
-        this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+        this.PageLinks.AddRoot();
         this.btnReport.Attributes.Add(
             "onclick", "return confirm('{0}');".FormatWith(this.GetText("CONFIRM_REPORTPOST")));
     }

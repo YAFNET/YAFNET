@@ -28,6 +28,7 @@ namespace YAF.Pages.Admin
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types;

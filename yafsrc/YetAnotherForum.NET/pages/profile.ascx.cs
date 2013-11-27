@@ -298,7 +298,7 @@ namespace YAF.Pages
         private void AddPageLinks([NotNull] string userDisplayName)
         {
             this.PageLinks.Clear();
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("MEMBERS"),
                 this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().MembersListViewPermissions)

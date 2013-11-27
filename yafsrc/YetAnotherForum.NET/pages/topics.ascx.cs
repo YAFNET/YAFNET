@@ -29,6 +29,7 @@ namespace YAF.Pages
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -219,13 +220,13 @@ namespace YAF.Pages
                 // PageLinks.Clear();
                 if (this.PageContext.Settings.LockedForum == 0)
                 {
-                    this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+                    this.PageLinks.AddRoot();
                     this.PageLinks.AddLink(
                         this.PageContext.PageCategoryName,
                         YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
                 }
 
-                this.PageLinks.AddForumLinks(this.PageContext.PageForumID, true);
+                this.PageLinks.AddForum(this.PageContext.PageForumID, true);
 
                 this.ShowList.DataSource = StaticDataHelper.TopicTimes();
                 this.ShowList.DataTextField = "TopicText";

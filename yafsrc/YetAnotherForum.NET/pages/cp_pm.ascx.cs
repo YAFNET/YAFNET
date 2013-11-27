@@ -128,7 +128,7 @@ namespace YAF.Pages
             // this.PMTabs.ActiveTab = this.OutboxTab;
             // else if (_view == PMView.Archive)
             // this.PMTabs.ActiveTab = this.ArchiveTab;
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.Get<YafBoardSettings>().EnableDisplayName
                     ? this.PageContext.CurrentUserData.DisplayName

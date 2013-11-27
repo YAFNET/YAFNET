@@ -27,6 +27,7 @@ namespace YAF.Pages.Admin
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -52,7 +53,7 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             // board index
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
 
             // administration index
             this.PageLinks.AddLink(

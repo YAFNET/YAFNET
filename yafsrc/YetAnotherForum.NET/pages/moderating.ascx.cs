@@ -166,13 +166,13 @@ namespace YAF.Pages
 
                 if (this.PageContext.Settings.LockedForum == 0)
                 {
-                    this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+                    this.PageLinks.AddRoot();
                     this.PageLinks.AddLink(
                         this.PageContext.PageCategoryName,
                         YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
                 }
 
-                this.PageLinks.AddForumLinks(this.PageContext.PageForumID);
+                this.PageLinks.AddForum(this.PageContext.PageForumID);
                 this.PageLinks.AddLink(this.GetText("MODERATE", "TITLE"), string.Empty);
 
                 this.PagerTop.PageSize = 25;

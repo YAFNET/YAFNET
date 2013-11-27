@@ -30,6 +30,7 @@ namespace YAF.Pages
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Services;
     using YAF.Types;
@@ -219,7 +220,7 @@ namespace YAF.Pages
 
             this.Login1.MembershipProvider = Config.MembershipProvider;
 
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
             this.PageLinks.AddLink(this.GetText("title"));
 
             // Login1.CreateUserText = "Sign up for a new account.";

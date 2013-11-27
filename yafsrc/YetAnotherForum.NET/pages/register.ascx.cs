@@ -541,7 +541,7 @@ namespace YAF.Pages
             {
                 this.CreateUserWizard1.MembershipProvider = Config.MembershipProvider;
 
-                this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+                this.PageLinks.AddRoot();
                 this.PageLinks.AddLink(this.GetText("TITLE"));
 
                 // handle the CreateUser Step localization

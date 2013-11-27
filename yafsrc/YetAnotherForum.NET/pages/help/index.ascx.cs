@@ -110,7 +110,7 @@ namespace YAF.Pages.help
                 return;
             }
 
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("SUBTITLE"), YafBuildLink.GetLink(ForumPages.help_index));
 

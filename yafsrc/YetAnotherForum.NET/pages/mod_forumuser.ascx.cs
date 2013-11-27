@@ -28,6 +28,7 @@ namespace YAF.Pages
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types;
@@ -117,19 +118,14 @@ namespace YAF.Pages
             if (this.PageContext.Settings.LockedForum == 0)
             {
                 // forum index
-                this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
-
-                // category
-                this.PageLinks.AddLink(
-                  this.PageContext.PageCategoryName,
-                  YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                this.PageLinks.AddRoot().AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
             }
 
             // forum page
-            this.PageLinks.AddForumLinks(this.PageContext.PageForumID);
+            this.PageLinks.AddForum(this.PageContext.PageForumID);
 
             // currect page
-            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+            this.PageLinks.AddLink(this.GetText("TITLE"));
         }
 
         /// <summary>

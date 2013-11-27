@@ -29,6 +29,7 @@ namespace YAF.Pages
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -233,8 +234,7 @@ namespace YAF.Pages
             this.ViewState["SortNumPostsField"] = 0;
             this.ViewState["SortLastVisitField"] = 0;
 
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+            this.PageLinks.AddRoot().AddLink(this.GetText("TITLE"));
 
             //// this.SetSort("Name", true);
 

@@ -27,6 +27,7 @@ namespace YAF.Pages.Admin
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Tasks;
     using YAF.Types;
@@ -97,7 +98,7 @@ namespace YAF.Pages.Admin
 
             this.LoadingImage.ImageUrl = YafForumInfo.GetURLToResource("images/loader.gif");
 
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 

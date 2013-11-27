@@ -30,6 +30,7 @@ namespace YAF.Pages
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types.Constants;
@@ -289,7 +290,7 @@ namespace YAF.Pages
         /// </summary>
         private void AddPageLinks()
         {
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
 
             if (this._categoryId > 0)
             {
