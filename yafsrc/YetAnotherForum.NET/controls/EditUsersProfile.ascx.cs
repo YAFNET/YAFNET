@@ -74,9 +74,9 @@ namespace YAF.Controls
         private CombinedUserDataHelper _userData;
 
         /// <summary>
-        /// The current culture.
+        /// The current culture information
         /// </summary>
-        private string currentCulture = "en-US";
+        private CultureInfo _currentCultureInfo;
 
         #endregion
 
@@ -105,12 +105,34 @@ namespace YAF.Controls
         {
             get
             {
-                return this.ViewState["bUpdateEmail"] != null && Convert.ToBoolean(this.ViewState["bUpdateEmail"]);
+                return this.ViewState["bUpdateEmail"] != null && this.ViewState["bUpdateEmail"].ToType<bool>();
             }
 
             set
             {
                 this.ViewState["bUpdateEmail"] = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the current Culture information.
+        /// </summary>
+        /// <value>
+        /// The current Culture information.
+        /// </value>
+        [NotNull]
+        private CultureInfo CurrentCultureInfo
+        {
+            get
+            {
+                if (this._currentCultureInfo != null)
+                {
+                    return this._currentCultureInfo;
+                }
+
+                this._currentCultureInfo = CultureInfo.CreateSpecificCulture(this.GetCulture(true));
+
+                return this._currentCultureInfo;
             }
         }
 
@@ -170,13 +192,11 @@ namespace YAF.Controls
             YafContext.Current.PageElements.RegisterJQuery();
             YafContext.Current.PageElements.RegisterJQueryUI();
 
-            var ci = CultureInfo.CreateSpecificCulture(this.GetCulture(true));
-
-            if (!string.IsNullOrEmpty(this.GetText("COMMON", "CAL_JQ_CULTURE")))
+            if (this.GetText("COMMON", "CAL_JQ_CULTURE").IsSet())
             {
                 YafContext.Current.PageElements.RegisterJQueryUILanguageFile();
 
-                if (ci.IsFarsiCulture())
+                if (this.CurrentCultureInfo.IsFarsiCulture())
                 {
                     YafContext.Current.PageElements.RegisterJsResourceInclude(
                         "datepicker-farsi", "js/jquery.ui.datepicker-farsi.js");
@@ -418,17 +438,17 @@ namespace YAF.Controls
             object theme = this.Theme.SelectedValue;
             object editor = this.ForumEditor.SelectedValue;
 
-            if (string.IsNullOrEmpty(this.Theme.SelectedValue))
+            if (this.Theme.SelectedValue.IsNotSet())
             {
                 theme = null;
             }
 
-            if (string.IsNullOrEmpty(this.ForumEditor.SelectedValue))
+            if (this.ForumEditor.SelectedValue.IsNotSet())
             {
                 editor = null;
             }
 
-            if (string.IsNullOrEmpty(this.Culture.SelectedValue))
+            if (this.Culture.SelectedValue.IsNotSet())
             {
                 culture = null;
             }
@@ -539,8 +559,6 @@ namespace YAF.Controls
             this.Country.DataValueField = "Value";
             this.Country.DataTextField = "Name";
 
-            string currentCultureLocal = this.GetCulture(true);
-            this.currentCulture = currentCultureLocal;
             if (this.UserData.Profile.Country.IsSet())
             {
                 this.LookForNewRegionsBind(this.UserData.Profile.Country);
@@ -555,14 +573,12 @@ namespace YAF.Controls
 
             this.DataBind();
 
-            var ci = CultureInfo.CreateSpecificCulture(currentCultureLocal);
-
-            if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
+            if (this.Get<YafBoardSettings>().UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
             {
                 this.Birthday.Text = this.UserData.Profile.Birthday > DateTimeHelper.SqlDbMinTime()
                                      || this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
                                          ? PersianDateConverter.ToPersianDate(this.UserData.Profile.Birthday)
-                                                               .ToString("d")
+                                               .ToString("d")
                                          : PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
             }
             else
@@ -570,9 +586,12 @@ namespace YAF.Controls
                 this.Birthday.Text = this.UserData.Profile.Birthday > DateTimeHelper.SqlDbMinTime()
                                      || this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
                                          ? this.UserData.Profile.Birthday.Date.ToString(
-                                             ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture)
-                                         : DateTimeHelper.SqlDbMinTime().Date.ToString(
-                                             ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
+                                             this.CurrentCultureInfo.DateTimeFormat.ShortDatePattern,
+                                             CultureInfo.InvariantCulture)
+                                         : DateTimeHelper.SqlDbMinTime()
+                                               .Date.ToString(
+                                                   this.CurrentCultureInfo.DateTimeFormat.ShortDatePattern,
+                                                   CultureInfo.InvariantCulture);
             }
 
             this.Birthday.ToolTip = this.GetText("COMMON", "CAL_JQ_TT");
@@ -647,7 +666,7 @@ namespace YAF.Controls
                 // While "Allow User Change Theme" option in hostsettings is true
                 string themeFile = this.Get<YafBoardSettings>().Theme;
 
-                if (!string.IsNullOrEmpty(this.UserData.ThemeFile))
+                if (this.UserData.ThemeFile.IsSet())
                 {
                     themeFile = this.UserData.ThemeFile;
                 }
@@ -662,7 +681,7 @@ namespace YAF.Controls
             if (this.Get<YafBoardSettings>().AllowUsersTextEditor && this.ForumEditor.Items.Count > 0)
             {
                 // Text editor
-                string textEditor = !string.IsNullOrEmpty(this.UserData.TextEditor)
+                string textEditor = this.UserData.TextEditor.IsSet()
                                         ? this.UserData.TextEditor
                                         : this.Get<YafBoardSettings>().ForumEditor;
 
@@ -679,7 +698,7 @@ namespace YAF.Controls
             }
 
             // If 2-letter language code is the same we return Culture, else we return a default full culture from language file
-            ListItem foundCultItem = this.Culture.Items.FindByValue(currentCultureLocal);
+            ListItem foundCultItem = this.Culture.Items.FindByValue(this.GetCulture(true));
 
             if (foundCultItem != null)
             {
@@ -760,11 +779,10 @@ namespace YAF.Controls
             userProfile.Blog = this.Weblog.Text.Trim();
 
             DateTime userBirthdate;
-            var ci = CultureInfo.CreateSpecificCulture(this.GetCulture(true));
 
-            if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
+            if (this.Get<YafBoardSettings>().UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
             {
-                var persianDate = new PersianDate(this.Birthday.Text);
+               var persianDate = new PersianDate(this.Birthday.Text);
                 userBirthdate = PersianDateConverter.ToGregorianDateTime(persianDate);
 
                 if (userBirthdate > DateTime.MinValue.Date)
@@ -774,7 +792,7 @@ namespace YAF.Controls
             }
             else
             {
-                DateTime.TryParse(this.Birthday.Text, ci, DateTimeStyles.None, out userBirthdate);
+                DateTime.TryParse(this.Birthday.Text, this.CurrentCultureInfo, DateTimeStyles.None, out userBirthdate);
 
                 if (userBirthdate > DateTime.MinValue.Date)
                 {
@@ -787,13 +805,26 @@ namespace YAF.Controls
             userProfile.BlogServiceUsername = this.WeblogUsername.Text.Trim();
             userProfile.BlogServicePassword = this.WeblogID.Text.Trim();
 
-            // Sync to User Profile Mirror table while it's dirty
-            SettingsPropertyValueCollection settingsPropertyValueCollection = userProfile.PropertyValues;
-            LegacyDb.SetPropertyValues(
-                PageContext.PageBoardID,
-                UserMembershipHelper.ApplicationName(),
-                this.currentUserID,
-                settingsPropertyValueCollection);
+            try
+            {
+                // Sync to User Profile Mirror table while it's dirty
+                SettingsPropertyValueCollection settingsPropertyValueCollection = userProfile.PropertyValues;
+
+                LegacyDb.SetPropertyValues(
+                    PageContext.PageBoardID,
+                    UserMembershipHelper.ApplicationName(),
+                    this.currentUserID,
+                    settingsPropertyValueCollection);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Log(
+                    "Error while syncinng the User Profile",
+                    EventLogTypes.Error,
+                    this.PageContext.PageUserName,
+                    "Edit User Profile page",
+                    ex);
+            }
 
             userProfile.Save();
         }
@@ -851,12 +882,12 @@ namespace YAF.Controls
             }
             else
             {
-                if (!string.IsNullOrEmpty(this.UserData.LanguageFile))
+                if (this.UserData.LanguageFile.IsSet())
                 {
                     languageFile = this.UserData.LanguageFile;
                 }
-
-                if (!string.IsNullOrEmpty(this.UserData.CultureUser))
+                
+                if (this.UserData.CultureUser.IsSet())
                 {
                     culture4Tag = this.UserData.CultureUser;
                 }
