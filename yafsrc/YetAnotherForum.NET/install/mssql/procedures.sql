@@ -6414,6 +6414,7 @@ BEGIN
         t.LastMessageFlags,
         t.LastUserID,
         t.NumPosts,
+		t.Views,
         t.Posted,	
 		LastMessage = (select m.Message from [{databaseOwner}].[{objectQualifier}Message] m where m.MessageID = t.LastMessageID),
         LastUserName = IsNull(t.LastUserName,(select x.[Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
@@ -8429,6 +8430,7 @@ begin
         a.*,
         TopicName = b.Topic,
         Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=b.TopicID) -1,
+		b.ForumID,
         b.[Views],
         b.LastPosted,
         b.LastMessageID,
@@ -10657,6 +10659,7 @@ begin
       )	  
       select
         c.ForumID,
+		ForumName = d.Name,
         c.TopicID,
         c.TopicMovedID,		
         c.Posted,
