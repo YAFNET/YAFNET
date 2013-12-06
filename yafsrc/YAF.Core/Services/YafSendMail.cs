@@ -27,6 +27,7 @@ namespace YAF.Core.Services
   using System.Net.Mail;
   using System.Threading;
 
+  using YAF.Core.Extensions;
   using YAF.Types;
   using YAF.Types.Interfaces;
 

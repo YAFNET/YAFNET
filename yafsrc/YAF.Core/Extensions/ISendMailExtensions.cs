@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-namespace YAF.Core
+namespace YAF.Core.Extensions
 {
     #region Using
 
@@ -29,7 +29,7 @@ namespace YAF.Core
     #endregion
 
     /// <summary>
-    ///     The yaf send mail extensions.
+    ///   The YAF send mail extensions.
     /// </summary>
     public static class ISendMailExtensions
     {

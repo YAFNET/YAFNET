@@ -23,6 +23,7 @@ namespace YAF.Core.Services
     using System.Net.Mail;
 
     using YAF.Classes;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services.Localization;
     using YAF.Types.Extensions;
@@ -30,7 +31,7 @@ namespace YAF.Core.Services
     using YAF.Types.Models;
 
     /// <summary>
-    ///     The yaf template email.
+    ///     The YAF template email.
     /// </summary>
     public class YafTemplateEmail : IHaveServiceLocator
     {
@@ -162,10 +163,8 @@ namespace YAF.Core.Services
         /// </param>
         public void CreateWatch(int topicID, int userId, MailAddress fromAddress, string subject)
         {
-            string textBody = null, htmlBody = null;
-
-            textBody = this.ProcessTemplate(this.TemplateName + "_TEXT").Trim();
-            htmlBody = this.ProcessTemplate(this.TemplateName + "_HTML").Trim();
+            var textBody = this.ProcessTemplate("{0}_TEXT".FormatWith(this.TemplateName)).Trim();
+            var htmlBody = this.ProcessTemplate("{0}_HTML".FormatWith(this.TemplateName)).Trim();
 
             // null out html if it's not desired
             if (!this.HtmlEnabled || htmlBody.IsNotSet())
@@ -232,10 +231,8 @@ namespace YAF.Core.Services
         /// </param>
         public void SendEmail(MailAddress fromAddress, MailAddress toAddress, string subject, bool useSendThread)
         {
-            string textBody = null, htmlBody = null;
-
-            textBody = this.ProcessTemplate(this.TemplateName + "_TEXT").Trim();
-            htmlBody = this.ProcessTemplate(this.TemplateName + "_HTML").Trim();
+            var textBody = this.ProcessTemplate("{0}_TEXT".FormatWith(this.TemplateName)).Trim();
+            var htmlBody = this.ProcessTemplate("{0}_HTML".FormatWith(this.TemplateName)).Trim();
 
             // null out html if it's not desired
             if (!this.HtmlEnabled || htmlBody.IsNotSet())
@@ -279,14 +276,14 @@ namespace YAF.Core.Services
                 return null;
             }
 
-            if (templateLanguageFile.IsSet())
+            if (!templateLanguageFile.IsSet())
             {
-                var localization = new YafLocalization();
-                localization.LoadTranslation(templateLanguageFile);
-                return localization.GetText("TEMPLATES", templateName);
+                return this.Get<ILocalization>().GetText("TEMPLATES", templateName);
             }
 
-            return this.Get<ILocalization>().GetText("TEMPLATES", templateName);
+            var localization = new YafLocalization();
+            localization.LoadTranslation(templateLanguageFile);
+            return localization.GetText("TEMPLATES", templateName);
         }
 
         #endregion

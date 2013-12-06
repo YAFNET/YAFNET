@@ -18,8 +18,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using YAF.Types.Interfaces.Data;
-
 namespace YAF.Install
 {
     #region Using
@@ -37,11 +35,13 @@ namespace YAF.Install
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Services;
     using YAF.Core.Tasks;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Data;
     using YAF.Utils.Helpers;
 
     #endregion
@@ -82,7 +82,7 @@ namespace YAF.Install
         #region Enums
 
         /// <summary>
-        ///     The update db failure type.
+        ///     The update DB failure type.
         /// </summary>
         private enum UpdateDBFailureType
         {
@@ -159,6 +159,12 @@ namespace YAF.Install
 
         #region Properties
 
+        /// <summary>
+        /// Gets the database access.
+        /// </summary>
+        /// <value>
+        /// The database access.
+        /// </value>
         public IDbAccess DbAccess
         {
             get
@@ -174,37 +180,37 @@ namespace YAF.Install
         {
             get
             {
-                if (this.rblYAFDatabase.SelectedValue == "existing")
+                if (this.rblYAFDatabase.SelectedValue != "existing")
                 {
-                    string connName = this.lbConnections.SelectedValue;
-
-                    return connName.IsSet()
-                               ? ConfigurationManager.ConnectionStrings[connName].ConnectionString
-                               : string.Empty;
+                    return DbHelpers.GetConnectionString(
+                        this.Parameter1_Value.Text.Trim(),
+                        this.Parameter2_Value.Text.Trim(),
+                        this.Parameter3_Value.Text.Trim(),
+                        this.Parameter4_Value.Text.Trim(),
+                        this.Parameter5_Value.Text.Trim(),
+                        this.Parameter6_Value.Text.Trim(),
+                        this.Parameter7_Value.Text.Trim(),
+                        this.Parameter8_Value.Text.Trim(),
+                        this.Parameter9_Value.Text.Trim(),
+                        this.Parameter10_Value.Text.Trim(),
+                        this.Parameter11_Value.Checked,
+                        this.Parameter12_Value.Checked,
+                        this.Parameter13_Value.Checked,
+                        this.Parameter14_Value.Checked,
+                        this.Parameter15_Value.Checked,
+                        this.Parameter16_Value.Checked,
+                        this.Parameter17_Value.Checked,
+                        this.Parameter18_Value.Checked,
+                        this.Parameter19_Value.Checked,
+                        this.txtDBUserID.Text.Trim(),
+                        this.txtDBPassword.Text.Trim());
                 }
 
-                return DbHelpers.GetConnectionString(
-                    this.Parameter1_Value.Text.Trim(), 
-                    this.Parameter2_Value.Text.Trim(), 
-                    this.Parameter3_Value.Text.Trim(), 
-                    this.Parameter4_Value.Text.Trim(), 
-                    this.Parameter5_Value.Text.Trim(), 
-                    this.Parameter6_Value.Text.Trim(), 
-                    this.Parameter7_Value.Text.Trim(), 
-                    this.Parameter8_Value.Text.Trim(), 
-                    this.Parameter9_Value.Text.Trim(), 
-                    this.Parameter10_Value.Text.Trim(), 
-                    this.Parameter11_Value.Checked, 
-                    this.Parameter12_Value.Checked, 
-                    this.Parameter13_Value.Checked, 
-                    this.Parameter14_Value.Checked, 
-                    this.Parameter15_Value.Checked, 
-                    this.Parameter16_Value.Checked, 
-                    this.Parameter17_Value.Checked, 
-                    this.Parameter18_Value.Checked, 
-                    this.Parameter19_Value.Checked, 
-                    this.txtDBUserID.Text.Trim(), 
-                    this.txtDBPassword.Text.Trim());
+                var connName = this.lbConnections.SelectedValue;
+
+                return connName.IsSet()
+                           ? ConfigurationManager.ConnectionStrings[connName].ConnectionString
+                           : string.Empty;
             }
         }
 
@@ -316,14 +322,10 @@ namespace YAF.Install
         }
 
         /// <summary>
-        /// The page_ init.
+        /// Handles the Init event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Init([NotNull] object sender, [NotNull] EventArgs e)
         {
             // set the connection string provider...
@@ -973,7 +975,7 @@ namespace YAF.Install
         /// The info.
         /// </param>
         /// <param name="cssClass">
-        /// The css class.
+        /// The CSS class.
         /// </param>
         private static void UpdateInfoPanel(
             [NotNull] Control infoHolder, [NotNull] Label detailsLabel, [NotNull] string info, [NotNull] string cssClass)
@@ -1015,7 +1017,7 @@ namespace YAF.Install
         /// The add load message.
         /// </summary>
         /// <param name="msg">
-        /// The msg.
+        /// The message.
         /// </param>
         private void AddLoadMessage([NotNull] string msg)
         {

@@ -17,12 +17,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace YAF.Core
+namespace YAF.Core.Extensions
 {
     #region Using
 
-    using System;
-    using System.Linq;
     using System.Net.Mail;
     using System.Net.Mime;
     using System.Text;
@@ -30,7 +28,6 @@ namespace YAF.Core
     using YAF.Classes;
     using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Utils;
 
     #endregion
 
@@ -42,45 +39,14 @@ namespace YAF.Core
         #region Public Methods and Operators
 
         /// <summary>
-        /// Does the string contain any unicode characters?
-        /// From http://stackoverflow.com/questions/4459571/how-to-recognize-if-a-string-contains-unicode-chars
+        /// Populates the specified mail message.
         /// </summary>
-        /// <param name="input">
-        /// The input.
-        /// </param>
-        /// <returns>
-        /// The contains unicode character.
-        /// </returns>
-        public static bool ContainsUnicodeCharacter([NotNull] string input)
-        {
-            CodeContracts.VerifyNotNull(input, "input");
-
-            const int MaxAnsiCode = 255;
-
-            return input.ToCharArray().Any(c => c > MaxAnsiCode);
-        }
-
-        /// <summary>
-        /// The populate.
-        /// </summary>
-        /// <param name="mailMessage">
-        /// The mail message. 
-        /// </param>
-        /// <param name="fromAddress">
-        /// The from address. 
-        /// </param>
-        /// <param name="toAddress">
-        /// The to address. 
-        /// </param>
-        /// <param name="subject">
-        /// The subject. 
-        /// </param>
-        /// <param name="bodyText">
-        /// The body text. 
-        /// </param>
-        /// <param name="bodyHtml">
-        /// The body html. 
-        /// </param>
+        /// <param name="mailMessage">The mail message.</param>
+        /// <param name="fromAddress">The from address.</param>
+        /// <param name="toAddress">The to address.</param>
+        /// <param name="subject">The subject.</param>
+        /// <param name="bodyText">The body text.</param>
+        /// <param name="bodyHtml">The body html.</param>
         [NotNull]
         public static void Populate(
             [NotNull] this MailMessage mailMessage, 
@@ -98,22 +64,25 @@ namespace YAF.Core
             mailMessage.From = fromAddress;
             mailMessage.Subject = subject;
 
+            mailMessage.BodyEncoding = Encoding.UTF8;
+            mailMessage.SubjectEncoding = Encoding.UTF8;
+
             // add default text view
             mailMessage.AlternateViews.Add(
                 AlternateView.CreateAlternateViewFromString(
-                    bodyText, ContainsUnicodeCharacter(bodyText) ? Encoding.Unicode : Encoding.UTF8, MediaTypeNames.Text.Plain));
+                    bodyText, Encoding.UTF8, MediaTypeNames.Text.Plain));
 
             // see if html alternative is also desired...
             if (bodyHtml.IsSet())
             {
                 mailMessage.AlternateViews.Add(
                     AlternateView.CreateAlternateViewFromString(
-                        bodyHtml, ContainsUnicodeCharacter(bodyHtml) ? Encoding.Unicode : Encoding.UTF8, MediaTypeNames.Text.Html));
+                        bodyHtml, Encoding.UTF8, MediaTypeNames.Text.Html));
             }
         }
 
         /// <summary>
-        /// Creates a SmtpClient and sends a MailMessage.
+        /// Creates a SMTPClient and sends a MailMessage.
         /// </summary>
         /// <param name="message">
         /// The message. 

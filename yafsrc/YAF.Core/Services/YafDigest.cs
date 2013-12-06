@@ -24,17 +24,17 @@ namespace YAF.Core.Services
     using System.Text.RegularExpressions;
 
     using YAF.Classes;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
 
     #endregion
 
     /// <summary>
-    /// The yaf digest.
+    /// The YAF digest.
     /// </summary>
     public class YafDigest : IDigest, IHaveServiceLocator
     {
