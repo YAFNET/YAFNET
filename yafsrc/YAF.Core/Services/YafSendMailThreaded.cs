@@ -23,6 +23,7 @@ namespace YAF.Core.Services
 
     using System;
     using System.Collections.Generic;
+    using System.Dynamic;
     using System.Linq;
     using System.Net.Mail;
     using System.Threading;
@@ -42,11 +43,11 @@ namespace YAF.Core.Services
     ///     Separate class since SendThreaded isn't needed functionality for any instance except the <see cref="HttpModule" />
     ///     instance.
     /// </summary>
-    public class YafSendMailThreaded : ISendMailThreaded
+    public class YafSendMailThreaded : ISendMailThreaded, IHaveServiceLocator
     {
         #region Static Fields
 
-        private static readonly Random _random = new Random(Thread.CurrentThread.ManagedThreadId);
+        private static readonly Random _random = new Random();
 
         #endregion
 
@@ -70,11 +71,11 @@ namespace YAF.Core.Services
         /// <param name="mailRepository">
         ///     The mail Repository.
         /// </param>
-        public YafSendMailThreaded([NotNull] ISendMail sendMail, ILogger logger, IRepository<Mail> mailRepository)
+        public YafSendMailThreaded([NotNull] ISendMail sendMail, ILogger logger, IServiceLocator serviceLocator)
         {
             this.SendMail = sendMail;
             this.Logger = logger;
-            this.MailRepository = mailRepository;
+            this.ServiceLocator = serviceLocator;
         }
 
         #endregion
@@ -86,10 +87,18 @@ namespace YAF.Core.Services
         /// </summary>
         public ILogger Logger { get; set; }
 
+        public IServiceLocator ServiceLocator { get; set; }
+
         /// <summary>
         ///     Gets or sets the mail repository.
         /// </summary>
-        public IRepository<Mail> MailRepository { get; set; }
+        public IRepository<Mail> MailRepository
+        {
+            get
+            {
+                return this.GetRepository<Mail>();
+            }
+        }
 
         /// <summary>
         ///     Gets or sets SendMail.
@@ -107,7 +116,7 @@ namespace YAF.Core.Services
         {
             get
             {
-                return this._uniqueId.Value;
+                return this._uniqueId.Value ^ Thread.CurrentThread.ManagedThreadId;
             }
         }
 
@@ -124,7 +133,12 @@ namespace YAF.Core.Services
 
             try
             {
-                IEnumerable<Mail> mailList = this.GetMailListSafe();
+                IEnumerable<Mail> mailList = this.GetMailListSafe().ToList();
+
+                foreach (var n in mailList)
+                {
+                    this.Logger.Debug("Process Id {0} to User {1}", this.UniqueProcessId, n.ToUser);    
+                }
 
                 this.ConstructMessageList(mailMessages, mailList);
 
@@ -323,19 +337,17 @@ namespace YAF.Core.Services
         {
             IList<Mail> mailList;
 
+            Thread.BeginCriticalRegion();
             try
             {
-                this.Logger.Debug("Retrieving queued mail...");
-                Thread.BeginCriticalRegion();
-
                 mailList = this.MailRepository.ListTyped(this.UniqueProcessId);
-
-                this.Logger.Debug("Retreived {0} Messages...".FormatWith(mailList.Count()));
             }
             finally
             {
                 Thread.EndCriticalRegion();
             }
+
+            this.Logger.Debug("Retreived {0} Queued Messages Process Id ({1})...".FormatWith(mailList.Count(), this.UniqueProcessId));
 
             return mailList;
         }

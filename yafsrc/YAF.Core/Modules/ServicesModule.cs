@@ -123,7 +123,7 @@ namespace YAF.Core.Modules
             builder.RegisterGeneric(typeof(StandardModuleManager<>)).As(typeof(IModuleManager<>)).InstancePerLifetimeScope();
 
             // background emailing...
-            builder.RegisterType<YafSendMailThreaded>().As<ISendMailThreaded>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<YafSendMailThreaded>().As<ISendMailThreaded>().PreserveExistingDefaults();
 
             // style transformation...
             builder.RegisterType<StyleTransform>().As<IStyleTransform>().InstancePerYafContext().PreserveExistingDefaults();

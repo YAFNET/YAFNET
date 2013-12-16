@@ -42,6 +42,16 @@ namespace YAF.Core.Tasks
         [Inject]
         public IServiceLocator ServiceLocator { get; set; }
 
+        private ISendMailThreaded _sendMailThreaded = null;
+
+        public ISendMailThreaded SendMailThreaded
+        {
+            get
+            {
+                return this._sendMailThreaded ?? (this._sendMailThreaded = this.ServiceLocator.Get<ISendMailThreaded>());
+            }
+        }
+
         #endregion
 
         #region Constructors and Destructors
@@ -69,7 +79,7 @@ namespace YAF.Core.Tasks
         public override void RunOnce()
         {
             this.Logger.Debug("Running Send Mail Thread....");
-            this.ServiceLocator.Get<ISendMailThreaded>().SendThreaded();
+            this.SendMailThreaded.SendThreaded();
         }
 
         #endregion

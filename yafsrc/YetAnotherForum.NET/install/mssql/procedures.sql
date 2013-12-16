@@ -3548,29 +3548,23 @@ AS
 BEGIN
 	DECLARE @count int
 
-    BEGIN TRANSACTION TRANSUPDATEMAIL
-        UPDATE [{databaseOwner}].[{objectQualifier}Mail]
-        SET 
-            ProcessID = NULL
-        WHERE
-            ProcessID IS NOT NULL AND SendAttempt > @UTCTIMESTAMP
+	SET @count = (SELECT (count(*)/100) FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE SendAttempt IS NULL OR SendAttempt < @UTCTIMESTAMP)
+	SET @count = (Select Case When @count < 10 Then 10 Else @count End)
 
-		SET @count = (SELECT (count(*)/100) FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE SendAttempt > @UTCTIMESTAMP OR SendAttempt IS NULL)
-		SET @count = (Select Case When @count < 10 Then 10 Else @count End)
+	UPDATE [{databaseOwner}].[{objectQualifier}Mail]
+	SET 
+		SendTries = SendTries + 1,
+		SendAttempt = DATEADD(n,5,@UTCTIMESTAMP),
+		ProcessID = @ProcessID
+	WHERE
+		MailID IN (SELECT TOP (@count) MailID FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE SendAttempt IS NULL OR SendAttempt < @UTCTIMESTAMP)
 
-        UPDATE [{databaseOwner}].[{objectQualifier}Mail]
-        SET 
-            SendTries = SendTries + 1,
-            SendAttempt = DATEADD(n,5,@UTCTIMESTAMP),
-            ProcessID = @ProcessID
-        WHERE
-            MailID IN (SELECT TOP (@count) MailID FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE SendAttempt < @UTCTIMESTAMP OR SendAttempt IS NULL ORDER BY SendAttempt, Created)
-    COMMIT TRANSACTION TRANSUPDATEMAIL
-
-    -- now select all mail reserved for this process...
-    SELECT TOP (@count) * FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE ProcessID = @ProcessID ORDER BY SendAttempt, Created desc
+	BEGIN TRANSACTION TRANSUPDATEMAIL
+		-- now select all mail reserved for this process...
+		SELECT TOP (@count) * FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE ProcessID = @ProcessID ORDER BY SendAttempt, Created desc
+		UPDATE [{databaseOwner}].[{objectQualifier}Mail] SET ProcessID = NULL WHERE ProcessID = @ProcessID
+	COMMIT TRANSACTION TRANSUPDATEMAIL
 END
-
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID int) as begin

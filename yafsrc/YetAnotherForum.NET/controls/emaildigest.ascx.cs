@@ -204,7 +204,7 @@ namespace YAF.Controls
         /// </param>
         protected void OutputError([NotNull] string errorString)
         {
-            this.Response.Write("<html><head>Error</head><body><h1>{0}</h1></body></html>".FormatWith(errorString));
+            this.Response.Write("<!DOCTYPE html><html><head><title>Error</title></head><body><h1>{0}</h1></body></html>".FormatWith(errorString));
         }
 
         private bool? _showErrors = null;
