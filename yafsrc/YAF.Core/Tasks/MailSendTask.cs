@@ -55,7 +55,7 @@ namespace YAF.Core.Tasks
             var rand = new Random();
 
             // set interval values...
-            this.RunPeriodMs = (rand.Next(30) + 15) * 1000;
+            this.RunPeriodMs = (rand.Next(10) + 5) * 1000;
             this.StartDelayMs = (rand.Next(30) + 15) * 1000;
         }
 

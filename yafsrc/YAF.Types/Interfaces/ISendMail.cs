@@ -16,31 +16,25 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 namespace YAF.Types.Interfaces
 {
-  using System;
-  using System.Collections.Generic;
-  using System.Net.Mail;
+    using System;
+    using System.Collections.Generic;
+    using System.Net.Mail;
 
-  public interface ISendMail
-  {
-    /// <summary>
-    /// Sends all MailMessages via the SmtpClient. Doesn't handle any exceptions.
-    /// </summary>
-    /// <param name="messages">
-    /// The messages.
-    /// </param>
-    void SendAll([NotNull] IEnumerable<MailMessage> messages);
+    public interface ISendMail
+    {
+        #region Public Methods and Operators
 
-    /// <summary>
-    /// The send all isolated.
-    /// </summary>
-    /// <param name="messages">
-    /// The messages.
-    /// </param>
-    /// <param name="handleExceptionAction">
-    /// The handle exception action.
-    /// </param>
-    void SendAllIsolated([NotNull] IEnumerable<MailMessage> messages, [CanBeNull] Action<MailMessage, Exception> handleExceptionAction);
-  }
+        /// <summary>
+        ///     Sends all MailMessages via the SmtpClient. Doesn't handle any exceptions.
+        /// </summary>
+        /// <param name="messages">
+        ///     The messages.
+        /// </param>
+        void SendAll([NotNull] IEnumerable<MailMessage> messages, [CanBeNull] Action<MailMessage, Exception> handleException = null);
+
+        #endregion
+    }
 }

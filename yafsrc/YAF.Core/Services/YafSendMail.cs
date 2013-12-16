@@ -45,30 +45,7 @@ namespace YAF.Core.Services
         /// <param name="messages">
         ///     The messages.
         /// </param>
-        public void SendAll([NotNull] IEnumerable<MailMessage> messages)
-        {
-            CodeContracts.VerifyNotNull(messages, "messages");
-
-            using (var smtpClient = new SmtpClient { EnableSsl = Config.UseSMTPSSL })
-            {
-                // send the message...
-                foreach (var m in messages.ToList())
-                {
-                    smtpClient.Send(m);
-                }
-            }
-        }
-
-        /// <summary>
-        ///     The send all isolated.
-        /// </summary>
-        /// <param name="messages">
-        ///     The messages.
-        /// </param>
-        /// <param name="handleExceptionAction">
-        ///     The handle exception action.
-        /// </param>
-        public void SendAllIsolated([NotNull] IEnumerable<MailMessage> messages, [CanBeNull] Action<MailMessage, Exception> handleExceptionAction)
+        public void SendAll([NotNull] IEnumerable<MailMessage> messages, [CanBeNull] Action<MailMessage, Exception> handleException = null)
         {
             CodeContracts.VerifyNotNull(messages, "messages");
 
@@ -84,9 +61,14 @@ namespace YAF.Core.Services
                     }
                     catch (Exception ex)
                     {
-                        if (handleExceptionAction != null)
+                        if (handleException != null)
                         {
-                            handleExceptionAction(m, ex);
+                            handleException(m, ex);
+                        }
+                        else
+                        {
+                            // don't handle here...
+                            throw;
                         }
                     }
                 }

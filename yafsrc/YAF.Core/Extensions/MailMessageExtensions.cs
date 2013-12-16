@@ -81,27 +81,6 @@ namespace YAF.Core.Extensions
             }
         }
 
-        /// <summary>
-        /// Creates a SMTPClient and sends a MailMessage.
-        /// </summary>
-        /// <param name="message">
-        /// The message. 
-        /// </param>
-        public static void Send([NotNull] this MailMessage message)
-        {
-            CodeContracts.VerifyNotNull(message, "message");
-
-            var smtpSend = new SmtpClient { EnableSsl = Config.UseSMTPSSL };
-
-            // Tommy: solve random failure problem. Don't set this value to 1.
-            // See this: http://stackoverflow.com...tem-net-mail-has-issues 
-            smtpSend.ServicePoint.MaxIdleTime = 10;
-            smtpSend.ServicePoint.ConnectionLimit = 1;
-
-            // send the message...
-            smtpSend.Send(message);
-        }
-
         #endregion
     }
 }
