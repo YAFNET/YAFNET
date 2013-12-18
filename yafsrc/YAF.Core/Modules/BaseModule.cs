@@ -23,6 +23,7 @@ namespace YAF.Core
 
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
 
@@ -54,9 +55,16 @@ namespace YAF.Core
             ExtensionAssemblies =
                 new YafModuleScanner()
                     .GetModules("YAF*.dll")
+                    .Concat(AppDomain.CurrentDomain.GetAssemblies())
                     .Except(new[] { Assembly.GetExecutingAssembly() })
+                    .Distinct()
                     .OrderByDescending(x => x.GetAssemblySortOrder())
                     .ToArray();
+
+            foreach (var s in ExtensionAssemblies)
+            {
+                Debug.WriteLine("Extension Assembly: {0}", s);
+            }
         }
 
         #endregion

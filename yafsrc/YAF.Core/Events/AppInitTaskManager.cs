@@ -119,12 +119,14 @@ namespace YAF.Core
             {
                 this.Logger.Debug("Starting Task {0}...".FormatWith(instanceName));
 
+                var injectServices = this.Get<IInjectServices>();
+
                 _taskManager.AddOrUpdate(
                     instanceName,
                     s =>
                     {
                         var task = start();
-                        this.Get<IInjectServices>().Inject(task);
+                        injectServices.Inject(task);
                         task.Run();
                         return task;
                     },
@@ -136,7 +138,7 @@ namespace YAF.Core
                         }
 
                         var newTask = start();
-                        this.Get<IInjectServices>().Inject(newTask);
+                        injectServices.Inject(newTask);
                         newTask.Run();
                         return task;
                     });
