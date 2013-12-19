@@ -71,7 +71,7 @@ namespace YAF.Controls
             CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
             CodeContracts.VerifyNotNull(title, "title");
 
-            pageLinks.Add(new PageLink() { Title = title.Trim(), URL = url.Trim() });
+            pageLinks.Add(new PageLink() { Title = title.Trim(), URL = url == null ? null : url.Trim() });
 
             return pageLinks;
         }
