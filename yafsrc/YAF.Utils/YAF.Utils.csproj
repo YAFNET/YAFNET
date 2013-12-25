@@ -70,6 +70,7 @@
     <Compile Include="Helpers\MinifyUtils\JSMinify.cs" />
     <Compile Include="Helpers\StringUtils\Characters.cs" />
     <Compile Include="Helpers\StringUtils\Unidecoder.cs" />
+    <Compile Include="Helpers\StringUtils\UnicodeEncoder.cs" />
     <Compile Include="Helpers\UserAgentHelper.cs" />
     <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

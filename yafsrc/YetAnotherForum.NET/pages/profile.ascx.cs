@@ -547,18 +547,10 @@ namespace YAF.Pages
         /// <summary>
         /// The setup user profile info.
         /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="user">
-        /// The user.
-        /// </param>
-        /// <param name="userData">
-        /// The user data.
-        /// </param>
-        /// <param name="userDisplayName">
-        /// The user display name.
-        /// </param>
+        /// <param name="userID">The user id.</param>
+        /// <param name="user">The user.</param>
+        /// <param name="userData">The user data.</param>
+        /// <param name="userDisplayName">The user display name.</param>
         private void SetupUserProfileInfo(
             int userID, [NotNull] MembershipUser user, [NotNull] IUserData userData, [NotNull] string userDisplayName)
         {
@@ -588,13 +580,13 @@ namespace YAF.Pages
                 this.LastVisitDateTime.Visible = true;
             }
 
-            if (this.User != null && !string.IsNullOrEmpty(userData.RankName))
+            if (this.User != null && userData.RankName.IsSet())
             {
                 this.RankTR.Visible = true;
                 this.Rank.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.RankName));
             }
 
-            if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Location))
+            if (this.User != null && userData.Profile.Location.IsSet())
             {
                 this.LocationTR.Visible = true;
                 this.Location.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Location));
@@ -619,7 +611,7 @@ namespace YAF.Pages
                 this.CountryFlagImage.Attributes.Add("title", this.CountryLabel.Text);
             }
 
-            if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Region))
+            if (this.User != null && userData.Profile.Region.IsSet())
             {
                 this.RegionTR.Visible = true;
 
@@ -627,7 +619,7 @@ namespace YAF.Pages
                 {
                     var tag =
                         "RGN_{0}_{1}".FormatWith(
-                            !string.IsNullOrEmpty(userData.Profile.Country.Trim())
+                            userData.Profile.Country.Trim().IsSet()
                                 ? userData.Profile.Country.Trim()
                                 : this.Get<ILocalization>().Culture.Name.Remove(0, 3).ToUpperInvariant(),
                             userData.Profile.Region);
@@ -640,26 +632,26 @@ namespace YAF.Pages
                 }
             }
 
-            if (this.User != null && !string.IsNullOrEmpty(userData.Profile.City))
+            if (this.User != null && userData.Profile.City.IsSet())
             {
                 this.CityTR.Visible = true;
                 this.CityLabel.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.City));
             }
 
-            if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Location))
+            if (this.User != null && userData.Profile.Location.IsSet())
             {
                 this.LocationTR.Visible = true;
                 this.Location.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Location));
             }
 
-            if (this.User != null && !string.IsNullOrEmpty(userData.Profile.RealName))
+            if (this.User != null && userData.Profile.RealName.IsSet())
             {
                 this.RealNameTR.Visible = true;
                 this.RealName.InnerText = this.HtmlEncode(
                     this.Get<IBadWordReplace>().Replace(userData.Profile.RealName));
             }
 
-            if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Interests))
+            if (this.User != null && userData.Profile.Interests.IsSet())
             {
                 this.InterestsTR.Visible = true;
                 this.Interests.InnerText =
@@ -688,7 +680,7 @@ namespace YAF.Pages
                     @"<a><img src=""{0}"" alt=""{1}"" title=""{1}"" /></a>&nbsp;{1}".FormatWith(imagePath, imageAlt);
             }
 
-            if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Occupation))
+            if (this.User != null && userData.Profile.Occupation.IsSet())
             {
                 this.OccupationTR.Visible = true;
                 this.Occupation.InnerText =
@@ -704,37 +696,37 @@ namespace YAF.Pages
             this.OnlineStatusImage1.UserID = userID;
             this.OnlineStatusImage1.Visible = this.Get<YafBoardSettings>().ShowUserOnlineStatus;
 
-            if (this.User != null && !string.IsNullOrEmpty(userData.Profile.XMPP))
+            if (this.User != null && userData.Profile.XMPP.IsSet())
             {
                 this.XmppTR.Visible = true;
                 this.lblxmpp.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.XMPP));
             }
 
-            if (this.User != null && !string.IsNullOrEmpty(userData.Profile.AIM))
+            if (this.User != null && userData.Profile.AIM.IsSet())
             {
                 this.AimTR.Visible = true;
                 this.lblaim.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.AIM));
             }
 
-            if (this.User != null && !string.IsNullOrEmpty(userData.Profile.ICQ))
+            if (this.User != null && userData.Profile.ICQ.IsSet())
             {
                 this.IcqTR.Visible = true;
                 this.lblicq.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.ICQ));
             }
 
-            if (this.User != null && !string.IsNullOrEmpty(userData.Profile.MSN))
+            if (this.User != null && userData.Profile.MSN.IsSet())
             {
                 this.MsnTR.Visible = true;
                 this.lblmsn.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.MSN));
             }
 
-            if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Skype))
+            if (this.User != null && userData.Profile.Skype.IsSet())
             {
                 this.SkypeTR.Visible = true;
                 this.lblskype.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Skype));
             }
 
-            if (this.User != null && !string.IsNullOrEmpty(userData.Profile.YIM))
+            if (this.User != null && userData.Profile.YIM.IsSet())
             {
                 this.YimTR.Visible = true;
                 this.lblyim.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.YIM));
@@ -742,7 +734,7 @@ namespace YAF.Pages
 
             var loadHoverCardJs = false;
 
-            if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Facebook))
+            if (this.User != null && userData.Profile.Facebook.IsSet())
             {
                 this.FacebookTR.Visible = true;
                 this.lblfacebook.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Facebook));
@@ -759,7 +751,7 @@ namespace YAF.Pages
                 }
             }
 
-            if (this.User != null && !string.IsNullOrEmpty(userData.Profile.Twitter))
+            if (this.User != null && userData.Profile.Twitter.IsSet())
             {
                 this.TwitterTR.Visible = true;
                 this.lbltwitter.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Twitter));

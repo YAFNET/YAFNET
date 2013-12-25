@@ -38,6 +38,7 @@ namespace YAF.Core
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Utils.Helpers.StringUtils;
 
     using QueryCounter = YAF.Core.Data.Profiling.QueryCounter;
 
@@ -63,6 +64,11 @@ namespace YAF.Core
         ///   The _trans page.
         /// </summary>
         private readonly string _transPage = string.Empty;
+
+        /// <summary>
+        /// The Unicode Encoder
+        /// </summary>
+        private readonly UnicodeEncoder unicodeEncoder;
 
         /// <summary>
         ///   No Database Toggle
@@ -99,6 +105,7 @@ namespace YAF.Core
         public ForumPage()
             : this(string.Empty)
         {
+            this.unicodeEncoder = new UnicodeEncoder();
         }
 
         /// <summary>
@@ -119,6 +126,8 @@ namespace YAF.Core
             this.Load += this.ForumPage_Load;
             this.Unload += this.ForumPage_Unload;
             this.PreRender += this.ForumPage_PreRender;
+
+            this.unicodeEncoder = new UnicodeEncoder();
         }
 
         #endregion
@@ -338,16 +347,18 @@ namespace YAF.Core
         {
             get
             {
-                if (this._topPageControl == null)
+                if (this._topPageControl != null)
                 {
-                    if (this.Page != null && this.Page.Header != null)
-                    {
-                        this._topPageControl = this.Page.Header;
-                    }
-                    else
-                    {
-                        this._topPageControl = this.FindControlRecursiveBoth("YafHead") ?? this.ForumTopControl;
-                    }
+                    return this._topPageControl;
+                }
+
+                if (this.Page != null && this.Page.Header != null)
+                {
+                    this._topPageControl = this.Page.Header;
+                }
+                else
+                {
+                    this._topPageControl = this.FindControlRecursiveBoth("YafHead") ?? this.ForumTopControl;
                 }
 
                 return this._topPageControl;
@@ -450,22 +461,20 @@ namespace YAF.Core
         /// Encodes the HTML
         /// </summary>
         /// <param name="data">The data.</param>
-        /// <returns>
-        /// The html encode.
-        /// </returns>
+        /// <returns>Returns the Encoded String</returns>
         [CanBeNull]
         public string HtmlEncode([NotNull] object data)
         {
-            if (data == null || !(data is string))
+            if (!(data is string))
             {
                 return null;
             }
 
-            return this.Server.HtmlEncode(data.ToString());
+            return this.unicodeEncoder.XSSEncode(data.ToString());
         }
 
         /// <summary>
-        /// The redirect no access.
+        /// Redirects if no access.
         /// </summary>
         public void RedirectNoAccess()
         {
@@ -479,7 +488,7 @@ namespace YAF.Core
         #region IRaiseControlLifeCycles
 
         /// <summary>
-        /// The raise init.
+        /// Raise init.
         /// </summary>
         void IRaiseControlLifeCycles.RaiseInit()
         {
@@ -509,7 +518,7 @@ namespace YAF.Core
         #region Methods
 
         /// <summary>
-        /// The create page links.
+        /// Creates the page links.
         /// </summary>
         protected virtual void CreatePageLinks()
         {
