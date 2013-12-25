@@ -84,7 +84,33 @@ namespace YAF.Controls
         {
             get
             {
-                return this.AllPostsByUser.GetColumnAsList<string>("IP").OrderBy(x => x).Distinct().ToList();
+                var ipList = this.AllPostsByUser.GetColumnAsList<string>("IP").OrderBy(x => x).Distinct().ToList();
+
+                if (ipList.Count.Equals(0))
+                {
+                    ipList.Add(this.CurrentUserDataHelper.LastIP);
+                }
+
+                return ipList;
+            }
+        }
+
+        /// <summary>
+        /// Gets the current user data helper.
+        /// </summary>
+        /// <value>
+        /// The current user data helper.
+        /// </value>
+        public CombinedUserDataHelper CurrentUserDataHelper
+        {
+            get
+            {
+                var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
+                var currentUserId = this.CurrentUserID;
+
+                return currentUserId != null
+                           ? new CombinedUserDataHelper(user, currentUserId.Value.ToType<int>())
+                           : null;
             }
         }
 
@@ -170,32 +196,6 @@ namespace YAF.Controls
                 return;
             }
 
-            MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
-            var userData = new CombinedUserDataHelper(user, this.CurrentUserID.Value.ToType<int>());
-
-            this.ViewPostsLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.search,
-                "postedby={0}",
-                !userData.IsGuest
-                    ? (this.Get<YafBoardSettings>().EnableDisplayName ? userData.DisplayName : userData.UserName)
-                    : UserMembershipHelper.GuestUserName);
-
-            this.Kill.Text = this.GetText("ADMIN_EDITUSER", "KILL_USER");
-            ControlHelper.AddOnClickConfirmDialog(this.Kill, this.GetText("ADMIN_EDITUSER", "KILL_USER_CONFIRM"));
-
-            if (this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet())
-            {
-                this.ReportUser.Visible = true;
-                this.ReportUser.Text = this.GetText("ADMIN_EDITUSER", "REPORT_USER");
-                ControlHelper.AddOnClickConfirmDialog(
-                    this.ReportUser,
-                    this.GetText("ADMIN_EDITUSER", "REPORT_USER_CONFIRM"));
-            }
-            else
-            {
-                this.ReportUser.Visible = false;
-            }
-
             // bind data
             this.BindData();
         }
@@ -266,6 +266,29 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
+            this.ViewPostsLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                ForumPages.search,
+                "postedby={0}",
+                !this.CurrentUserDataHelper.IsGuest
+                    ? (this.Get<YafBoardSettings>().EnableDisplayName ? this.CurrentUserDataHelper.DisplayName : this.CurrentUserDataHelper.UserName)
+                    : UserMembershipHelper.GuestUserName);
+
+            this.Kill.Text = this.GetText("ADMIN_EDITUSER", "KILL_USER");
+            ControlHelper.AddOnClickConfirmDialog(this.Kill, this.GetText("ADMIN_EDITUSER", "KILL_USER_CONFIRM"));
+
+            if (this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet())
+            {
+                this.ReportUser.Visible = true;
+                this.ReportUser.Text = this.GetText("ADMIN_EDITUSER", "REPORT_USER");
+                ControlHelper.AddOnClickConfirmDialog(
+                    this.ReportUser,
+                    this.GetText("ADMIN_EDITUSER", "REPORT_USER_CONFIRM"));
+            }
+            else
+            {
+                this.ReportUser.Visible = false;
+            }
+
             // load ip address history for user...
             this.IpAddresses.Text = this.IPAddresses.ToDelimitedString("<br />");
 

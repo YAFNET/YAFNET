@@ -25,7 +25,6 @@ namespace YAF.Core
     using System.Data;
     using System.Web.Security;
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core.Extensions;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -48,7 +47,7 @@ namespace YAF.Core
         private MembershipUser _membershipUser;
 
         /// <summary>
-        ///   The _user db row.
+        ///   The _user DB row.
         /// </summary>
         private DataRow _userDBRow;
 
@@ -163,7 +162,8 @@ namespace YAF.Core
             {
                 if (this._userDBRow == null && this._userId.HasValue)
                 {
-                    this._userDBRow = UserMembershipHelper.GetUserRowForID(this._userId.Value,
+                    this._userDBRow = UserMembershipHelper.GetUserRowForID(
+                        this._userId.Value,
                         YafContext.Current.Get<YafBoardSettings>().AllowUserInfoCaching);
                 }
 
@@ -213,7 +213,7 @@ namespace YAF.Core
                 {
                     YafContext.Current.Get<ILogger>()
                         .Log(
-                            (int) this.UserID,
+                            this.UserID,
                             "CombinedUserDataHelper.get_Email",
                             "ATTENTION! The user with id {0} and name {1} is very possibly is not in your Membership \r\n "
                                 .FormatWith(
@@ -283,6 +283,17 @@ namespace YAF.Core
         }
 
         /// <summary>
+        /// Gets the last IP.
+        /// </summary>
+        /// <value>
+        /// The last IP.
+        /// </value>
+        public string LastIP
+        {
+            get { return this.DBRow.Field<string>("IP"); }
+        }
+
+        /// <summary>
         ///   Gets Membership.
         /// </summary>
         public MembershipUser Membership
@@ -304,7 +315,7 @@ namespace YAF.Core
         }
 
         /// <summary>
-        ///   Gets NumPosts.
+        ///   Gets Number of Posts.
         /// </summary>
         public int? NumPosts
         {
@@ -391,12 +402,7 @@ namespace YAF.Core
         {
             get
             {
-                if (this._userId != null)
-                {
-                    return (int) this._userId;
-                }
-
-                return 0;
+                return this._userId != null ? this._userId.ToType<int>() : 0;
             }
         }
 
@@ -431,7 +437,10 @@ namespace YAF.Core
                 return this._membershipUser;
             }
 
-            set { this._membershipUser = value; }
+            set
+            {
+                this._membershipUser = value;
+            }
         }
 
         #endregion
@@ -439,8 +448,9 @@ namespace YAF.Core
         #region Methods
 
         /// <summary>
-        /// The init user data.
+        /// Initializes the user data.
         /// </summary>
+        /// <exception cref="System.Exception">Cannot locate user information.</exception>
         /// <exception cref="Exception">Cannot locate user information.</exception>
         private void InitUserData()
         {

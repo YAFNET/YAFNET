@@ -25,18 +25,13 @@ namespace YAF.Core
     using System.Web;
     using System.Web.Security;
 
-    using Autofac;
-
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Utils.Structures;
 
@@ -56,24 +51,23 @@ namespace YAF.Core
         {
             get
             {
-                int? guestUserId = YafContext.Current.Get<IDataCache>().GetOrSet(
+                int? guestUserID = YafContext.Current.Get<IDataCache>().GetOrSet(
                     Constants.Cache.GuestUserID,
                     () =>
                         {
                             // get the guest user for this board...
-                            int? guestId = LegacyDb.user_guest(YafContext.Current.PageBoardID);
+                            guestUserID = LegacyDb.user_guest(YafContext.Current.PageBoardID);
 
-                            if (!guestId.HasValue)
+                            if (!guestUserID.HasValue)
                             {
-                                // attempt to fix the guest user
-                                guestId = AttemptFixGuestUser();
-                            }
-                            else
-                            {
-                                UpdateGuestUserIdBackup(guestId);
+                                //// attempt to fix the guest user by re-associating them with the guest group...
+                                // FixGuestUserForBoard(YafContext.Current.PageBoardID);
+
+                                // attempt to get the guestUser again...
+                                guestUserID = LegacyDb.user_guest(YafContext.Current.PageBoardID);
                             }
 
-                            if (!guestId.HasValue)
+                            if (!guestUserID.HasValue)
                             {
                                 // failure...
                                 throw new NoValidGuestUserForBoardException(
@@ -81,51 +75,25 @@ namespace YAF.Core
                                         .FormatWith(YafContext.Current.PageBoardID));
                             }
 
-                            return guestId.Value;
+                            return guestUserID.Value;
                         });
 
-                return guestUserId ?? -1;
+                return guestUserID ?? -1;
             }
         }
 
-        private static int? AttemptFixGuestUser()
-        {
-            YafBoardSettings boardSettings;
+        /*public static void FixGuestUserForBoard(int boardId)
+        //{
+        //  // find the most likely guest user...
+        //  var users = DB.UserFind(boardId, false, null, null, null, null, null);
+        //  var guestGroup = DB.group_list(boardId, null).AsEnumerable().Where(x => x.Field<int>("Flags").Equals(2));
 
-            // attempt to fix the guest user by re-associating them with the guest group...
-            if (YafContext.Current.TryGet<YafBoardSettings>(out boardSettings)
-                && boardSettings.GuestUserIdBackup.HasValue)
-            {
-                var guestId = boardSettings.GuestUserIdBackup;
-                var guestGroup = YafContext.Current.GetRepository<Group>().ListTyped().FirstOrDefault(x => x.GroupFlags.IsGuest);
-
-                if (guestGroup != null)
-                {
-                   // re-add user to guest group...
-                    LegacyDb.usergroup_save(guestId, guestGroup.ID, 1);
-
-                    return guestId;
-                }
-            }
-
-            return null;
-        }
-
-        private static void UpdateGuestUserIdBackup(int? guestId)
-        {
-            YafBoardSettings boardSettings;
-
-            if (YafContext.Current.TryGet(out boardSettings)
-                && boardSettings is YafLoadBoardSettings
-                && boardSettings.GuestUserIdBackup != guestId)
-            {
-                var loadSettings = boardSettings as YafLoadBoardSettings;
-
-                // update & save guest user id just in case...
-                loadSettings.GuestUserIdBackup = guestId;
-                loadSettings.SaveGuestUserIdBackup();
-            }
-        }
+        //  if (users.Any(x => x.IsGuest) && guestGroup.Any())
+        //  {
+        //    // add guest user to guest group...
+        //    DB.usergroup_save(users.First(), guestGroup.First().Field<int>("GroupID"), 1);
+        //  }
+        }*/
 
         /// <summary>
         /// Gets the Username of the Guest user for the current board.
@@ -144,7 +112,7 @@ namespace YAF.Core
         #region Public Methods
 
         /// <summary>
-        /// For the admin fuction: approve all users. Approves all
+        /// For the admin function: approve all users. Approves all
         /// users waiting for approval 
         /// </summary>
         public static void ApproveAll()
@@ -186,22 +154,22 @@ namespace YAF.Core
         {
             object providerUserKey = GetProviderUserKeyFromID(userID);
 
-            if (providerUserKey != null)
+            if (providerUserKey == null)
             {
-                MembershipUser user =
-                    GetUser(ObjectExtensions.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
-                if (!user.IsApproved)
-                {
-                    user.IsApproved = true;
-                }
-
-                YafContext.Current.Get<MembershipProvider>().UpdateUser(user);
-                LegacyDb.user_approve(userID);
-
-                return true;
+                return false;
             }
 
-            return false;
+            MembershipUser user =
+                GetUser(ObjectExtensions.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
+            if (!user.IsApproved)
+            {
+                user.IsApproved = true;
+            }
+
+            YafContext.Current.Get<MembershipProvider>().UpdateUser(user);
+            LegacyDb.user_approve(userID);
+
+            return true;
         }
 
         /// <summary>
@@ -270,39 +238,39 @@ namespace YAF.Core
         {
             string userName = GetUserNameFromID(userID);
 
-            if (userName != string.Empty)
+            if (userName.IsNotSet())
             {
-                // Delete the images/albums both from database and physically.
-                string sUpDir =
-                    HttpContext.Current.Server.MapPath(
-                        string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
-
-                using (DataTable dt = LegacyDb.album_list(userID, null))
-                {
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        YafAlbum.Album_Image_Delete(sUpDir, dr["AlbumID"], userID, null);
-                    }
-                }
-
-                YafContext.Current.Get<MembershipProvider>().DeleteUser(userName, true);
-                LegacyDb.user_delete(userID);
-                YafContext.Current.Get<ILogger>()
-                          .Log(
-                              YafContext.Current.PageUserID,
-                              "UserMembershipHelper.DeleteUser",
-                              "User {0} was deleted by user id {1}.".FormatWith(userName, YafContext.Current.PageUserID),
-                              EventLogTypes.UserDeleted);
-                
-                // clear the cache
-                YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
-                YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
-                YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersDisplayNameCollection);
-
-                return true;
+                return false;
             }
 
-            return false;
+            // Delete the images/albums both from database and physically.
+            string sUpDir =
+                HttpContext.Current.Server.MapPath(
+                    string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+
+            using (DataTable dt = LegacyDb.album_list(userID, null))
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    YafAlbum.Album_Image_Delete(sUpDir, dr["AlbumID"], userID, null);
+                }
+            }
+
+            YafContext.Current.Get<MembershipProvider>().DeleteUser(userName, true);
+            LegacyDb.user_delete(userID);
+            YafContext.Current.Get<ILogger>()
+                .Log(
+                    YafContext.Current.PageUserID,
+                    "UserMembershipHelper.DeleteUser",
+                    "User {0} was deleted by user id {1}.".FormatWith(userName, YafContext.Current.PageUserID),
+                    EventLogTypes.UserDeleted);
+                
+            // clear the cache
+            YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
+            YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
+            YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersDisplayNameCollection);
+
+            return true;
         }
 
         /// <summary>
@@ -440,12 +408,15 @@ namespace YAF.Core
             object providerUserKey = null;
 
             DataRow row = GetUserRowForID(userID);
-            if (row != null)
+
+            if (row == null)
             {
-                if (row["ProviderUserKey"] != DBNull.Value)
-                {
-                    providerUserKey = row["ProviderUserKey"];
-                }
+                return null;
+            }
+
+            if (row["ProviderUserKey"] != DBNull.Value)
+            {
+                providerUserKey = row["ProviderUserKey"];
             }
 
             return providerUserKey;
@@ -552,7 +523,7 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// Gets the user name from the UesrID
+        /// Gets the user name from the UserID
         /// </summary>
         /// <param name="userID">The user ID.</param>
         /// <returns>
@@ -563,19 +534,22 @@ namespace YAF.Core
             string userName = string.Empty;
 
             DataRow row = GetUserRowForID(userID, true);
-            if (row != null)
+            
+            if (row == null)
             {
-                if (!row["Name"].IsNullOrEmptyDBField())
-                {
-                    userName = row["Name"].ToString();
-                }
+                return userName;
+            }
+            
+            if (!row["Name"].IsNullOrEmptyDBField())
+            {
+                userName = row["Name"].ToString();
             }
 
             return userName;
         }
 
         /// <summary>
-        /// Gets the user name from the UesrID
+        /// Gets the user name from the UserID
         /// </summary>
         /// <param name="userID">The user ID.</param>
         /// <returns>
@@ -586,12 +560,15 @@ namespace YAF.Core
             string displayName = string.Empty;
 
             DataRow row = GetUserRowForID(userID, true);
-            if (row != null)
+
+            if (row == null)
             {
-                if (!row["DisplayName"].IsNullOrEmptyDBField())
-                {
-                    displayName = row["DisplayName"].ToString();
-                }
+                return displayName;
+            }
+
+            if (!row["DisplayName"].IsNullOrEmptyDBField())
+            {
+                displayName = row["DisplayName"].ToString();
             }
 
             return displayName;
@@ -664,14 +641,14 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// Simply tells you if the userID passed is the Guest user
+        /// Simply tells you if the User ID passed is the Guest user
         /// for the current board
         /// </summary>
         /// <param name="userID">
         /// ID of user to lookup
         /// </param>
         /// <returns>
-        /// true if the userid is a guest user
+        /// true if the user id is a guest user
         /// </returns>
         public static bool IsGuestUser(object userID)
         {
@@ -679,14 +656,14 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// Simply tells you if the userID passed is the Guest user
+        /// Simply tells you if the user ID passed is the Guest user
         /// for the current board
         /// </summary>
         /// <param name="userID">
         /// ID of user to lookup
         /// </param>
         /// <returns>
-        /// true if the userid is a guest user
+        /// true if the user id is a guest user
         /// </returns>
         public static bool IsGuestUser(int userID)
         {
@@ -706,22 +683,22 @@ namespace YAF.Core
         {
             object providerUserKey = GetProviderUserKeyFromID(userID);
 
-            if (providerUserKey != null)
+            if (providerUserKey == null)
             {
-                MembershipUser user =
-                    GetUser(ObjectExtensions.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
-
-                user.Email = newEmail;
-
-                YafContext.Current.Get<MembershipProvider>().UpdateUser(user);
-
-                LegacyDb.user_aspnet(
-                    YafContext.Current.PageBoardID, user.UserName, null, newEmail, user.ProviderUserKey, user.IsApproved);
-
-                return true;
+                return false;
             }
 
-            return false;
+            MembershipUser user =
+                GetUser(ObjectExtensions.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
+
+            user.Email = newEmail;
+
+            YafContext.Current.Get<MembershipProvider>().UpdateUser(user);
+
+            LegacyDb.user_aspnet(
+                YafContext.Current.PageBoardID, user.UserName, null, newEmail, user.ProviderUserKey, user.IsApproved);
+
+            return true;
         }
 
         /// <summary>
