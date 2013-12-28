@@ -163,20 +163,44 @@ namespace YAF.Controls
                 return;
             }
 
+            var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
+
             try
             {
                 var stopForumSpam = new StopForumSpam();
 
-                MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
-
-                if (stopForumSpam.ReportUserAsBot(this.IPAddresses.FirstOrDefault(), user.Email, user.UserName))
+                if (!stopForumSpam.ReportUserAsBot(this.IPAddresses.FirstOrDefault(), user.Email, user.UserName))
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITUSER", "BOT_REPORTED"), MessageTypes.Success);
+                    return;
                 }
+
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITUSER", "BOT_REPORTED"), MessageTypes.Success);
+
+                this.Logger.Log(
+                    this.PageContext.PageUserID,
+                    "User Reported to StopForumSpam.com".FormatWith(user.UserName, this.CurrentUserID),
+                    "User (Name:{0}/ID:{1}/IP:{2}/Email:{3}) Reported to StopForumSpam.com by {4}".FormatWith(
+                        user.UserName,
+                        this.CurrentUserID,
+                        this.IPAddresses.FirstOrDefault(),
+                        user.Email,
+                        this.Get<YafBoardSettings>().EnableDisplayName
+                            ? this.PageContext.CurrentUserData.DisplayName
+                            : this.PageContext.CurrentUserData.UserName),
+                    EventLogTypes.Information);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITUSER", "BOT_REPORTED_FAILED"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(
+                    this.GetText("ADMIN_EDITUSER", "BOT_REPORTED_FAILED"),
+                    MessageTypes.Error);
+
+                this.Logger.Log(
+                    this.PageContext.PageUserID,
+                    "User (Name{0}/ID:{1}) Report to StopForumSpam.com Failed".FormatWith(
+                        user.UserName,
+                        this.CurrentUserID),
+                    exception);
             }
         }
 
@@ -216,7 +240,7 @@ namespace YAF.Controls
 
             if (usr != null)
             {
-                this.Get<ILogger>()
+                this.Logger
                     .Log(
                         this.PageContext.PageUserID,
                         "YAF.Controls.EditUsersKill",
