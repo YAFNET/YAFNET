@@ -499,23 +499,30 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxUrl2,
-                        "<a {0} {1} href=\"${http}${url}\" title=\"${http}${url}\">${inner}</a>".Replace("{0}", target).Replace("{1}", nofollow),
-                        new[] { "url", "http" },
+                        "<a {0} {1} href=\"${http}${url}\" title=\"${http}${url}\">${inner}</a>".Replace("{0}", target)
+                            .Replace("{1}", nofollow),
+                        new[]
+                            {
+                                "url", "http"
+                            },
                         new[]
                             {
                                 string.Empty, string.Empty // "http://"
-                            }));
+                            }) { RuleRank = 10 });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
-                        _rgxUrl1, 
-                        "<a {0} {1} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow), 
-                        new[] { "http" }, 
+                        _rgxUrl1,
+                        "<a {0} {1} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow),
+                        new[]
+                            {
+                                "http"
+                            },
                         new[]
                             {
                                 string.Empty, string.Empty // "http://"
-                            }, 
-                        50));
+                            },
+                        50) { RuleRank = 11 });
 
                 // urls
                 ruleEngine.AddRule(
