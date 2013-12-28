@@ -79,7 +79,7 @@ namespace YAF.Controls
 
             // make message url...
             string messageUrl = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.posts, "m={0}&find=lastpost", currentRow["LastMessageID"]);
+                ForumPages.posts, "m={0}#post{0}", currentRow["LastMessageID"]);
 
             // get the controls
             var newPostIcon = (Image)e.Item.FindControl("NewPostIcon");

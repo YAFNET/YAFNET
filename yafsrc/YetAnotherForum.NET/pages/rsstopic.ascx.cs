@@ -436,7 +436,7 @@ namespace YAF.Pages
                             string.Empty, row["LastUserID"].ToType<long>(), null, null));
 
                     string messageLink = YafBuildLink.GetLinkNotEscaped(
-                        ForumPages.posts, true, "m={0}&find=lastpost", row["LastMessageID"]);
+                        ForumPages.posts, true, "m={0}#post{0}", row["LastMessageID"]);
                     syndicationItems.AddSyndicationItem(
                         row["Subject"].ToString(),
                         GetPostLatestContent(
@@ -569,7 +569,7 @@ namespace YAF.Pages
                         row["Subject"].ToString(),
                         GetPostLatestContent(
                             YafBuildLink.GetLinkNotEscaped(
-                                ForumPages.posts, true, "m={0}&find=lastpost", row["LastMessageID"]),
+                                ForumPages.posts, true, "m={0}#post{0}", row["LastMessageID"]),
                             lastPostIcon,
                             lastPostName,
                             lastPostName,
@@ -848,7 +848,7 @@ namespace YAF.Pages
                                 row["LastUserDisplayName"].ToString()));
 
                         string messageLink = YafBuildLink.GetLinkNotEscaped(
-                            ForumPages.posts, true, "m={0}&find=lastpost", row["LastMessageID"]);
+                            ForumPages.posts, true, "m={0}#post{0}", row["LastMessageID"]);
 
                         syndicationItems.AddSyndicationItem(
                             row["Topic"].ToString(),
@@ -1074,7 +1074,7 @@ namespace YAF.Pages
                         row["Topic"].ToString(),
                         GetPostLatestContent(
                             YafBuildLink.GetLinkNotEscaped(
-                                ForumPages.posts, true, "m={0}&find=lastpost", row["LastMessageID"]),
+                                ForumPages.posts, true, "m={0}#post{0}", row["LastMessageID"]),
                             lastPostIcon,
                             lastPostName,
                             lastPostName,

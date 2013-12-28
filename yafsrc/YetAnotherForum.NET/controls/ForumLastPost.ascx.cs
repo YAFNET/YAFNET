@@ -185,7 +185,7 @@ namespace YAF.Controls
                 var showNewIcon = DateTime.Parse(Convert.ToString(this.DataRow["LastPosted"])) > lastRead;
 
                 this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                    ForumPages.posts, "m={0}&find=lastpost", this.DataRow["LastMessageID"]);
+                    ForumPages.posts, "m={0}#post{0}", this.DataRow["LastMessageID"]);
 
                 this.Icon.ThemeTag = showNewIcon ? "ICON_NEWEST" : "ICON_LATEST";
 
