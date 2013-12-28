@@ -940,15 +940,19 @@ namespace YAF.Pages
 
             var location = new StringBuilder();
 
-            if (this._UserIpLocator["CountryName"] != null && this._UserIpLocator["CountryName"].IsSet() && !this._UserIpLocator["CountryName"].Equals("-"))
+            if (this._UserIpLocator["CountryCode"] != null && this._UserIpLocator["CountryCode"].IsSet() && !this._UserIpLocator["CountryCode"].Equals("-"))
             {
-                country.Items.FindByValue(this.Get<ILocalization>().Culture.Name.Substring(2, 2)).Selected =
-                    true;
+                var countryItem = country.Items.FindByValue(this._UserIpLocator["CountryCode"]);
+
+                if (countryItem != null)
+                {
+                    countryItem.Selected = true;
+                }
             }
 
             if (this._UserIpLocator["RegionName"] != null && this._UserIpLocator["RegionName"].IsSet() && !this._UserIpLocator["RegionName"].Equals("-"))
             {
-                location.AppendFormat(", {0}", this._UserIpLocator["RegionName"]);
+                location.Append(this._UserIpLocator["RegionName"]);
             }
 
             if (this._UserIpLocator["CityName"] != null && this._UserIpLocator["CityName"].IsSet() && !this._UserIpLocator["CityName"].Equals("-"))
