@@ -20,7 +20,9 @@
 namespace YAF.Core.Services
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
 
     using YAF.Classes;
     using YAF.Types;
@@ -95,46 +97,27 @@ namespace YAF.Core.Services
         [NotNull]
         public static string GetReputationBarText([NotNull]float percentage)
         {
-            string text;
+            var lookup = new Dictionary<int, string>
+                         {
+                             {     0            ,"HATED"     },
+                             {     20           ,"HOSTILE"   },
+                             {     30           ,"HOSTILE"   },
+                             {     40           ,"HOSTILE"   },
+                             {     50           ,"UNFRIENDLY"},
+                             {     60           ,"NEUTRAL"   },
+                             {     80           ,"FRIENDLY"  },
+                             {     90           ,"HONORED"   },
+                             {     int.MaxValue ,"EXALTED"   }
+                         };
 
-            if (percentage.Equals(0))
+            string pageName = "HATED";
+
+            if (percentage > 1)
             {
-                text = YafContext.Current.Get<ILocalization>().GetText("REPUTATION_VALUES", "HATED");
-            }
-            else if (percentage < 20)
-            {
-                text = YafContext.Current.Get<ILocalization>().GetText("REPUTATION_VALUES", "HOSTILE");
-            }
-            else if (percentage < 30)
-            {
-                text = YafContext.Current.Get<ILocalization>().GetText("REPUTATION_VALUES", "HOSTILE");
-            }
-            else if (percentage < 40)
-            {
-                text = YafContext.Current.Get<ILocalization>().GetText("REPUTATION_VALUES", "HOSTILE");
-            }
-            else if (percentage < 50)
-            {
-                text = YafContext.Current.Get<ILocalization>().GetText("REPUTATION_VALUES", "UNFRIENDLY");
-            }
-            else if (percentage < 60)
-            {
-                text = YafContext.Current.Get<ILocalization>().GetText("REPUTATION_VALUES", "NEUTRAL");
-            }
-            else if (percentage < 80)
-            {
-                text = YafContext.Current.Get<ILocalization>().GetText("REPUTATION_VALUES", "FRIENDLY");
-            }
-            else if (percentage < 90)
-            {
-                text = YafContext.Current.Get<ILocalization>().GetText("REPUTATION_VALUES", "HONORED");
-            }
-            else
-            {
-                text = YafContext.Current.Get<ILocalization>().GetText("REPUTATION_VALUES", "EXALTED");
+                pageName = lookup.OrderBy(s => s.Key).Where(x => percentage < x.Key).Select(x => x.Value).FirstOrDefault();
             }
 
-            return text;
+            return YafContext.Current.Get<ILocalization>().GetText("REPUTATION_VALUES", pageName);
         }
 
         /// <summary>
