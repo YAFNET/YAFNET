@@ -25,6 +25,7 @@ namespace YAF.Data.MsSql
     using System.Data;
     using System.Data.Common;
     using System.Linq;
+
     using YAF.Core.Data;
     using YAF.Types;
     using YAF.Types.Attributes;
@@ -37,7 +38,6 @@ namespace YAF.Data.MsSql
     /// <summary>
     ///     The i db setup.
     /// </summary>
-    [ExportService(ServiceLifetimeScope.InstancePerScope, ProviderTypeName, new[] { typeof(IDbAccess) })]
     public class MsSqlDbAccess : DbAccessBase
     {
         public const string ProviderTypeName = "System.Data.SqlClient";
