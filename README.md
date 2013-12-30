@@ -207,7 +207,7 @@
  
 * Free Community based Support Forum here: http://forum.yetanotherforum.net/.
 
-## DotNetNuke� Module
+## DotNetNuke Module
 
 YAF is also available as an DotNetNuke Module, you can download it on the [CodePlex Page](http://dnnyafnet.codeplex.com)
 
