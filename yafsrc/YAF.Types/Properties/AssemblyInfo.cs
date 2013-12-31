@@ -1,7 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AssemblyInfo.cs" company="Tiny Gecko">
 //  YetAnotherForum.NET
-//  Copyright (C) 2006-2013 Jaben Cargman
+//  Copyright (C) 2006-2014 Jaben Cargman
 //  http://www.yetanotherforum.net/
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -32,7 +32,7 @@ using System.Security;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tiny Gecko")]
 [assembly: AssemblyProduct("YAF.Types")]
-[assembly: AssemblyCopyright("Copyright © 2006-2013 Yet Another Forum.NET")]
+[assembly: AssemblyCopyright("Copyright © 2006-2014 Yet Another Forum.NET")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -51,8 +51,8 @@ using System.Security;
 //      Revision
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("2.0.0.0")]
-[assembly: AssemblyFileVersion("2.0.0.0")]
+[assembly: AssemblyVersion("2.1.0.0")]
+[assembly: AssemblyFileVersion("2.1.0.0")]
 
 #if (!COMPACT_FRAMEWORK)
 
