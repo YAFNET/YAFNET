@@ -17,8 +17,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-using YAF.Types.Interfaces.Data;
-
 namespace YAF.Core.Services
 {
     using System;
@@ -30,7 +28,6 @@ namespace YAF.Core.Services
 
     using YAF.Classes;
     using YAF.Classes.Data;
-    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services.Import;
     using YAF.Types;
@@ -38,6 +35,7 @@ namespace YAF.Core.Services
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Utils;
 
@@ -49,17 +47,17 @@ namespace YAF.Core.Services
         #region Constants
 
         /// <summary>
-        ///     The _bbcode import.
+        ///     The BBCode extensions import xml file.
         /// </summary>
         private const string _BbcodeImport = "bbCodeExtensions.xml";
 
         /// <summary>
-        ///     The _file import.
+        ///     The File type extensions import xml file.
         /// </summary>
         private const string _FileImport = "fileExtensions.xml";
 
         /// <summary>
-        ///     The Topic Status Import File.
+        ///     The Topic Status list import xml file.
         /// </summary>
         private const string _TopicStatusImport = "TopicStatusList.xml";
 
@@ -77,14 +75,11 @@ namespace YAF.Core.Services
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InstallUpgradeService"/> class.
+        /// Initializes a new instance of the <see cref="InstallUpgradeService" /> class.
         /// </summary>
-        /// <param name="serviceLocator">
-        /// The service locator.
-        /// </param>
-        /// <param name="raiseEvent">
-        /// The raise Event.
-        /// </param>
+        /// <param name="serviceLocator">The service locator.</param>
+        /// <param name="raiseEvent">The raise Event.</param>
+        /// <param name="dbAccess">The database access.</param>
         public InstallUpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEvent, IDbAccess dbAccess)
         {
             this.RaiseEvent = raiseEvent;
@@ -133,6 +128,12 @@ namespace YAF.Core.Services
         /// </summary>
         public IRaiseEvent RaiseEvent { get; set; }
 
+        /// <summary>
+        /// Gets or sets the database access.
+        /// </summary>
+        /// <value>
+        /// The database access.
+        /// </value>
         public IDbAccess DbAccess { get; set; }
 
         /// <summary>
@@ -169,30 +170,13 @@ namespace YAF.Core.Services
         /// <summary>
         /// The initialize forum.
         /// </summary>
-        /// <param name="forumName">
-        /// The forum name.
-        /// </param>
-        /// <param name="timeZone">
-        /// The time zone.
-        /// </param>
-        /// <param name="culture">
-        /// The culture.
-        /// </param>
-        /// <param name="forumEmail">
-        /// The forum email.
-        /// </param>
-        /// <param name="adminUserName">
-        /// The admin user name.
-        /// </param>
-        /// <param name="adminEmail">
-        /// The admin email.
-        /// </param>
-        /// <param name="adminProviderUserKey">
-        /// The admin provider user key.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
+        /// <param name="forumName">The forum name.</param>
+        /// <param name="timeZone">The time zone.</param>
+        /// <param name="culture">The culture.</param>
+        /// <param name="forumEmail">The forum email.</param>
+        /// <param name="adminUserName">The admin user name.</param>
+        /// <param name="adminEmail">The admin email.</param>
+        /// <param name="adminProviderUserKey">The admin provider user key.</param>
         public void InitializeForum(
             string forumName, string timeZone, string culture, string forumEmail, string adminUserName, string adminEmail, object adminProviderUserKey)
         {
@@ -275,7 +259,6 @@ namespace YAF.Core.Services
                 this.RaiseEvent.RaiseIssolated(new AfterUpgradeDatabaseEvent(prevVersion, YafForumInfo.AppVersion), null);
 
                 //// upgrade providers...
-                // 
                 if (this.IsForumInstalled && (prevVersion < 30 || upgradeExtensions))
                 {
                     this.ImportStatics();
@@ -315,6 +298,12 @@ namespace YAF.Core.Services
 
             // run custom script...
             this.ExecuteScript("custom/custom.sql", true);
+
+            if (Config.IsDotNetNuke)
+            {
+                // run dnn custom script...
+                this.ExecuteScript("custom/dnn.sql", true);
+            }
 
             return true;
         }
