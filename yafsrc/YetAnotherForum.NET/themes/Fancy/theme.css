@@ -511,6 +511,15 @@ html { min-height: 100%; }
 .topicRow_Alt td {
 	
 }
+/* Sticky &  Announcement Topic Row*/
+.yafnet .priorityRow {
+	background-color: #eee
+}
+
+/* Topic Post Priority header */
+.yafnet .post_priority {
+	font-weight: bold
+}
 
 .yafnet .postNavigation .post {
 	background-color: transparent;

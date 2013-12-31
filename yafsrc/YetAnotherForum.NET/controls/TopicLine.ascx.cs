@@ -586,6 +586,22 @@
         }
 
         /// <summary>
+        /// Determines whether [is sticky or announcement].
+        /// </summary>
+        /// <returns>Returns if topic is sticky or announcement</returns>
+        protected bool IsStickyOrAnnouncement()
+        {
+            switch (this.TopicRow["Priority"].ToString())
+            {
+                case "1":
+                case "2":
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
         /// The page_ load.
         /// </summary>
         /// <param name="sender">

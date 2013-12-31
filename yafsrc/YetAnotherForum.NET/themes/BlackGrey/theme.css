@@ -263,6 +263,17 @@
 .topicRow_Alt td {
 	background-color: white;
 }
+
+/* Sticky &  Announcement Topic Row*/
+.yafnet .priorityRow {
+	background-color: #eee;
+}
+
+/* Topic Post Priority header */
+.yafnet .post_priority {
+	font-weight: bold
+}
+
 .yafnet tr.topicRow:hover td,
 .yafnet tr.topicRow_Alt:hover td{
 	background-color: #eee;

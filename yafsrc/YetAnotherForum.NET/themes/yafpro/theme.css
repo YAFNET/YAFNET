@@ -402,6 +402,11 @@
     background-color: #f5f5f5;
 }
 
+/* Sticky &  Announcement Topic Row*/
+.yafnet .priorityRow td {
+	background-color: #eee!important
+}
+
 .yafnet a.header2 { height: auto; background-color: Transparent; border-style: none; background-image: none; }
 .yafnet td.header2 a { color: #009; text-decoration: none; }
 
@@ -464,9 +469,13 @@
 .yafnet .post {
     background-color: #fff;
 }
+
 .yafnet .post_alt {
     background-color: #FaFaFa;
 }
+
+
+
 /* Unresolved post in Moderation Reports */
 .yafnet .post_res
 {

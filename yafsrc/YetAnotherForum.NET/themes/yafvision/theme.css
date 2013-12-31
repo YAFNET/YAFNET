@@ -339,6 +339,12 @@ padding-right: 5px !important;
 .yafnet .post_priority {
 	font-weight:bold;
 }
+
+/* Sticky &  Announcement Topic Row*/
+.yafnet .priorityRow td {
+	background-color: #eee
+}
+
 /* Footer of posts */
 .yafnet .postfooter {
     background-color: #D1DCEB;

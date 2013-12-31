@@ -999,3 +999,8 @@
   border: 1px solid #777777;
   background: #888888;
 }
+
+/* Sticky &  Announcement Topic Row*/
+.yafnet .priorityRow td {
+	background-color: #f8f8f8
+}
