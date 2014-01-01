@@ -33,16 +33,6 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}YafDnn_Topics]
 
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}YafDnn_LastUpdatedProfile](
-  @UserID int)
-	AS
-	SELECT TOP 1
-		LastUpdatedDate
-	FROM {databaseOwner}{objectQualifier}UserProfile
-	WHERE UserID=@UserID
-	order by LastUpdatedDate DESC
-GO
-
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}GetReadAccessListForForum](
   @ForumID int)
 	AS
