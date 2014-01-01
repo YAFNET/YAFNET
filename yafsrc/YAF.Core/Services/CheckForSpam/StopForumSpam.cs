@@ -138,7 +138,7 @@ namespace YAF.Core.Services.CheckForSpam
             var result = new HttpClient().PostRequest(
                 new Uri("http://www.stopforumspam.com/add.php"),
                 null,
-                5000,
+                60 * 1000,
                 parameters);
 
             return result.Contains("success");
