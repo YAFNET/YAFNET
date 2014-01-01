@@ -8,7 +8,7 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Classes" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
-<tr class="<%= "{0}{1}".FormatWith(this.IsAlt ? "topicRow_Alt post_alt" : "topicRow post", this.IsStickyOrAnnouncement() ? " priorityRow" : string.Empty) %>">
+<tr class="<%= "{0}{1}".FormatWith(this.IsAlt ? "topicRow_Alt post_alt" : "topicRow post", this.IsStickyOrAnnouncement()) %>">
     <asp:PlaceHolder ID="SelectionHolder" runat="server" Visible="false">
         <td>
             <asp:CheckBox ID="chkSelected" runat="server" />
