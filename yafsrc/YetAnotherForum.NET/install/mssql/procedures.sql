@@ -6322,7 +6322,18 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_announcements]
 )
 AS
 BEGIN
-    SELECT DISTINCT TOP (@NumPosts) t.Topic, t.LastPosted, t.Posted, t.TopicID, t.LastMessageID, t.LastMessageFlags FROM
+    SELECT DISTINCT TOP (@NumPosts) 
+	t.Topic, 
+	t.LastPosted, 
+	t.Posted,
+	t.UserID,
+	t.LastUserID, 
+	t.TopicID,
+	t.TopicMovedID, 
+	Message = (select  CONVERT(VARCHAR(MAX), m.Message) from [{databaseOwner}].[{objectQualifier}Message] m where t.LastMessageID = m.MessageID),
+	t.LastMessageID, 
+	t.LastMessageFlags 
+	FROM
     [{databaseOwner}].[{objectQualifier}Topic] t 
     INNER JOIN [{databaseOwner}].[{objectQualifier}Forum] f ON t.ForumID = f.ForumID
     INNER JOIN [{databaseOwner}].[{objectQualifier}Category] c 
