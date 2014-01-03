@@ -22,18 +22,16 @@ namespace YAF.Core.Tasks
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
+
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Types.Objects;
-    using YAF.Utils;
 
     #endregion
 
@@ -107,37 +105,39 @@ namespace YAF.Core.Tasks
         {
             CodeContracts.VerifyNotNull(boardSettings, "boardSettings");
 
-            if (boardSettings.AllowDigestEmail)
+            if (!boardSettings.AllowDigestEmail)
             {
-                DateTime lastSend = DateTime.MinValue;
-                bool sendDigest = false;
-                int sendEveryXHours = boardSettings.DigestSendEveryXHours;
-
-                if (boardSettings.LastDigestSend.IsSet())
-                {
-                    lastSend = Convert.ToDateTime(boardSettings.LastDigestSend);
-                }
-
-#if (DEBUG)
-                // haven't sent in X hours or more and it's 12 to 5 am.
-                sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours);
-#else
-        // haven't sent in X hours or more and it's 12 to 5 am.
-        sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours) && DateTime.Now < DateTime.Today.AddHours(6);
-#endif
-                if (sendDigest || boardSettings.ForceDigestSend)
-                {
-                    // && DateTime.Now < DateTime.Today.AddHours(5))
-                    // we're good to send -- update latest send so no duplication...
-                    boardSettings.LastDigestSend = DateTime.Now.ToString();
-                    boardSettings.ForceDigestSend = false;
-                    boardSettings.SaveRegistry();
-
-                    return true;
-                }
+                return false;
             }
 
-            return false;
+            DateTime lastSend = DateTime.MinValue;
+            int sendEveryXHours = boardSettings.DigestSendEveryXHours;
+
+            if (boardSettings.LastDigestSend.IsSet())
+            {
+                lastSend = Convert.ToDateTime(boardSettings.LastDigestSend);
+            }
+
+#if (DEBUG)
+            // haven't sent in X hours or more and it's 12 to 5 am.
+            var sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours);
+#else
+            // haven't sent in X hours or more and it's 12 to 5 am.
+            var sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours)
+                              && DateTime.Now < DateTime.Today.AddHours(6);
+#endif
+            if (!sendDigest && !boardSettings.ForceDigestSend)
+            {
+                return false;
+            }
+
+            // && DateTime.Now < DateTime.Today.AddHours(5))
+            // we're good to send -- update latest send so no duplication...
+            boardSettings.LastDigestSend = DateTime.Now.ToString();
+            boardSettings.ForceDigestSend = false;
+            boardSettings.SaveGuestUserIdBackup();
+
+            return true;
         }
 
         /// <summary>
@@ -161,18 +161,21 @@ namespace YAF.Core.Tasks
                     if (Config.BaseUrlMask.IsNotSet())
                     {
                         // fail...
-                        this.Logger.Error("DigestSendTask: Failed to send digest because BaseUrlMask value is not set in your appSettings.");
+                        this.Logger.Error(
+                            "DigestSendTask: Failed to send digest because BaseUrlMask value is not set in your appSettings.");
                         return;
                     }
 
                     // get users with digest enabled...
                     var usersWithDigest =
-                      LegacyDb.UserFind(boardId, false, null, null, null, null, true).Where(x => !x.IsGuest && (x.IsApproved ?? false));
+                        LegacyDb.UserFind(boardId, false, null, null, null, null, true)
+                            .Where(x => !x.IsGuest && (x.IsApproved ?? false));
 
-                    if (usersWithDigest.Any())
+                    var typedUserFinds = usersWithDigest as IList<TypedUserFind> ?? usersWithDigest.ToList();
+                    if (typedUserFinds.Any())
                     {
                         // start sending...
-                        this.SendDigestToUsers(usersWithDigest, boardId, boardSettings);
+                        this.SendDigestToUsers(typedUserFinds, boardId, boardSettings);
                     }
                 }
             }
@@ -188,41 +191,49 @@ namespace YAF.Core.Tasks
         /// <param name="usersWithDigest">The users with digest.</param>
         /// <param name="boardId">The board id.</param>
         /// <param name="boardSettings">The board settings.</param>
-        private void SendDigestToUsers(IEnumerable<TypedUserFind> usersWithDigest, int boardId, YafLoadBoardSettings boardSettings)
+        private void SendDigestToUsers(
+            IEnumerable<TypedUserFind> usersWithDigest,
+            int boardId,
+            YafBoardSettings boardSettings)
         {
             foreach (var user in usersWithDigest)
             {
-                string digestHtml = string.Empty;
-
                 try
                 {
-                    digestHtml = this.Get<IDigest>().GetDigestHtml(user.UserID ?? 0, boardId, boardSettings.WebServiceToken);
+                    string digestHtml = this.Get<IDigest>()
+                        .GetDigestHtml(user.UserID ?? 0, boardId, boardSettings.WebServiceToken, true);
+
+                    if (!digestHtml.IsSet())
+                    {
+                        continue;
+                    }
+
+                    if (user.ProviderUserKey == null)
+                    {
+                        continue;
+                    }
+
+                    var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey);
+
+                    if (membershipUser == null || membershipUser.Email.IsNotSet())
+                    {
+                        continue;
+                    }
+
+                    // send the digest...
+                    this.Get<IDigest>()
+                        .SendDigest(
+                            digestHtml,
+                            boardSettings.Name,
+                            boardSettings.ForumEmail,
+                            membershipUser.Email,
+                            user.DisplayName,
+                            true);
                 }
                 catch (Exception e)
                 {
                     this.Logger.Error(e, "Error In Creating Digest for User {0}".FormatWith(user.UserID));
                 }
-
-                if (!digestHtml.IsSet())
-                {
-                    continue;
-                }
-
-                if (user.ProviderUserKey == null)
-                {
-                    continue;
-                }
-
-                var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey);
-
-                if (membershipUser == null || membershipUser.Email.IsNotSet())
-                {
-                    continue;
-                }
-
-                // send the digest...
-                this.Get<IDigest>().SendDigest(
-                    digestHtml, boardSettings.Name, boardSettings.ForumEmail, membershipUser.Email, user.DisplayName, true);
             }
         }
 

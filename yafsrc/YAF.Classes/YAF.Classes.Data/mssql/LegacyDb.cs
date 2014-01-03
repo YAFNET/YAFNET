@@ -3215,7 +3215,7 @@ namespace YAF.Classes.Data
                 cmd.CommandType = CommandType.Text;
                 cmd.AddParam("@ForumID", forumID);
                 cmd.AddParam("@ParentID", parentID);
-                return Convert.ToInt32(DbAccess.ExecuteScalar(cmd));
+                return DbAccess.ExecuteScalar(cmd).ToType<int>();
             }
         }
 
@@ -4624,6 +4624,28 @@ namespace YAF.Classes.Data
                 cmd.AddParam("@UTCTIMESTAMP", DateTime.UtcNow);
 
                 DbAccess.ExecuteNonQuery(cmd);
+            }
+        }
+
+        /// <summary>
+        /// Sets the Page Access for the specified user
+        /// </summary>
+        /// <param name="boardID">The board identifier.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="isGuest">The is guest.</param>
+        /// <returns></returns>
+        public static DataTable pageaccess(object boardID, [NotNull] object userId, [NotNull] object isGuest)
+        {
+            using (var cmd = DbHelpers.GetCommand("pageaccess"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.AddParam("BoardID", boardID);
+                cmd.AddParam("UserID", userId);
+                cmd.AddParam("IsGuest", isGuest);
+                cmd.AddParam("@UTCTIMESTAMP", DateTime.UtcNow);
+
+                return DbAccess.GetData(cmd);
             }
         }
 

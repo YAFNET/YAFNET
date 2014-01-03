@@ -105,11 +105,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string GetDigestUrl(int userId, int boardId, string webServiceToken)
         {
-            return "{0}{1}{2}?{3}".FormatWith(
-                BaseUrlBuilder.BaseUrl,
-                BaseUrlBuilder.AppPath,
-                "digest.aspx",
-                "token={0}&userid={1}&boardid={2}".FormatWith(webServiceToken, userId, boardId));
+            return this.GetDigestUrl(userId, boardId, webServiceToken, false);
         }
 
         /// <summary>

@@ -28,7 +28,6 @@ namespace YAF.Controls
     using System.Web.UI;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Data.Profiling;
     using YAF.Core.Services;
@@ -37,9 +36,7 @@ namespace YAF.Controls
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
     using YAF.Types.Objects;
-    using YAF.Utils;
     using YAF.Utils.Helpers;
 
     #endregion
@@ -67,7 +64,7 @@ namespace YAF.Controls
         private string _languageFile;
 
         /// <summary>
-        ///   The _yaf localization.
+        ///   The YAF localization.
         /// </summary>
         private ILocalization _localization;
 
@@ -80,6 +77,11 @@ namespace YAF.Controls
         ///   Numbers of hours to compute digest for...
         /// </summary>
         private int _topicHours = -24;
+
+        /// <summary>
+        /// The _show errors
+        /// </summary>
+        private bool? _showErrors;
 
         #endregion
 
@@ -137,12 +139,35 @@ namespace YAF.Controls
         {
             get
             {
-                if (this._combinedUserData == null)
+                return this._combinedUserData
+                       ?? (this._combinedUserData = new CombinedUserDataHelper(this.CurrentUserID));
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [show errors].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [show errors]; otherwise, <c>false</c>.
+        /// </value>
+        protected bool ShowErrors
+        {
+            get
+            {
+                if (this._showErrors.HasValue)
                 {
-                    this._combinedUserData = new CombinedUserDataHelper(this.CurrentUserID);
+                    return this._showErrors.Value;
                 }
 
-                return this._combinedUserData;
+                var showErrors = false;
+                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("showerror").IsSet())
+                {
+                    showErrors = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("showerror").ToType<bool>();
+                }
+
+                this._showErrors = showErrors;
+
+                return this._showErrors.Value;
             }
         }
 
@@ -151,11 +176,9 @@ namespace YAF.Controls
         #region Public Methods
 
         /// <summary>
-        /// The get text.
+        /// Gets the localized text.
         /// </summary>
-        /// <param name="tag">
-        /// The tag.
-        /// </param>
+        /// <param name="tag">The tag.</param>
         /// <returns>
         /// The get text.
         /// </returns>
@@ -179,14 +202,10 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// The get message formatted and truncated.
+        /// Gets the message formatted and truncated.
         /// </summary>
-        /// <param name="lastMessage">
-        /// The last message.
-        /// </param>
-        /// <param name="maxlength">
-        /// The maxlength.
-        /// </param>
+        /// <param name="lastMessage">The last message.</param>
+        /// <param name="maxlength">The max length.</param>
         /// <returns>
         /// The get message formatted and truncated.
         /// </returns>
@@ -207,35 +226,11 @@ namespace YAF.Controls
             this.Response.Write("<!DOCTYPE html><html><head><title>Error</title></head><body><h1>{0}</h1></body></html>".FormatWith(errorString));
         }
 
-        private bool? _showErrors = null;
-        protected bool ShowErrors
-        {
-            get
-            {
-                if (!_showErrors.HasValue)
-                {
-                    bool showErrors = false;
-                    if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("showerror").IsSet())
-                    {
-                        showErrors = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("showerror").ToType<bool>();
-                    }
-
-                    _showErrors = showErrors;
-                }
-
-                return _showErrors.Value;
-            }
-        }
-
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<StartupInitializeDb>().Run();
@@ -247,7 +242,7 @@ namespace YAF.Controls
                 if (this.ShowErrors)
                 {
                     this.OutputError(
-                      "Invalid Web Service Token. Please go into your host settings and save them committing a unique web service token to the database.");
+                        "Invalid Web Service Token. Please go into your host settings and save them committing a unique web service token to the database.");
                 }
 
                 this.Response.End();
@@ -260,7 +255,7 @@ namespace YAF.Controls
                 if (this.ShowErrors)
                 {
                     this.OutputError(
-                      "Cannot generate digest unless YAF.BaseUrlMask AppSetting is specified in your app.config (default). Please specify the full forward-facing url to this forum in the YAF.BaseUrlMask key.");
+                        "Cannot generate digest unless YAF.BaseUrlMask AppSetting is specified in your app.config (default). Please specify the full forward-facing url to this forum in the YAF.BaseUrlMask key.");
                 }
 
                 this.Response.End();
@@ -273,7 +268,7 @@ namespace YAF.Controls
                 if (this.ShowErrors)
                 {
                     this.OutputError(
-                      @"Cannot generate digest unless YAF.ForceScriptName AppSetting is specified in your app.config (default). Please specify the full page name for YAF.NET -- usually ""default.aspx"".");
+                        @"Cannot generate digest unless YAF.ForceScriptName AppSetting is specified in your app.config (default). Please specify the full page name for YAF.NET -- usually ""default.aspx"".");
                 }
 
                 this.Response.End();
@@ -293,15 +288,16 @@ namespace YAF.Controls
             // get topic hours...
             this._topicHours = -YafContext.Current.BoardSettings.DigestSendEveryXHours;
 
-            this._forumData = this.Get<YafDbBroker>().GetSimpleForumTopic(
-              this.BoardID, this.CurrentUserID, DateTime.Now.AddHours(this._topicHours), 9999);
+            this._forumData = this.Get<YafDbBroker>()
+                .GetSimpleForumTopic(this.BoardID, this.CurrentUserID, DateTime.Now.AddHours(this._topicHours), 9999);
 
             if (!this.NewTopics.Any() && !this.ActiveTopics.Any())
             {
                 if (this.ShowErrors)
                 {
                     this.OutputError(
-                      "No topics for the last {0} hours.".FormatWith(YafContext.Current.BoardSettings.DigestSendEveryXHours));
+                        "No topics for the last {0} hours.".FormatWith(
+                            YafContext.Current.BoardSettings.DigestSendEveryXHours));
 
                     //this.Response.Write(GetDebug());
                 }
@@ -330,23 +326,29 @@ namespace YAF.Controls
 
         #endregion
 
+        /// <summary>
+        /// Gets the debug information.
+        /// </summary>
+        /// <returns>Returns the String with the debug information</returns>
         protected string GetDebug()
         {
             var debugInfo = new StringBuilder();
 
 #if DEBUG
-            if (ShowErrors)
+            if (!this.ShowErrors)
             {
-                debugInfo.Append(@"<div class=""small"">");
-                debugInfo.AppendFormat(
-                    @"<br /><br /><b>{0}</b> SQL Queries: <b>{1:N3}</b> Seconds (<b>{2:N2}%</b> of Total Page Load Time).<br />{3}",
-                    QueryCounter.Count,
-                    QueryCounter.Duration,
-                    (100 * QueryCounter.Duration) / this.Get<IStopWatch>().Duration,
-                    QueryCounter.Commands);
-
-                debugInfo.Append(@"</div>");
+                return debugInfo.ToString();
             }
+
+            debugInfo.Append(@"<div class=""small"">");
+            debugInfo.AppendFormat(
+                @"<br /><br /><b>{0}</b> SQL Queries: <b>{1:N3}</b> Seconds (<b>{2:N2}%</b> of Total Page Load Time).<br />{3}",
+                QueryCounter.Count,
+                QueryCounter.Duration,
+                (100 * QueryCounter.Duration) / this.Get<IStopWatch>().Duration,
+                QueryCounter.Commands);
+
+            debugInfo.Append(@"</div>");
 #endif
 
             return debugInfo.ToString();

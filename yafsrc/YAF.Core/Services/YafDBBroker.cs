@@ -38,7 +38,6 @@ namespace YAF.Core.Services
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Types.Objects;
-    using YAF.Utils;
     using YAF.Utils.Helpers;
 
     #endregion
@@ -51,11 +50,13 @@ namespace YAF.Core.Services
         #region Constructors and Destructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="YafDbBroker" /> class.
+        /// Initializes a new instance of the <see cref="YafDbBroker" /> class.
         /// </summary>
-        /// <param name="serviceLocator"> The service locator. </param>
-        /// <param name="httpSessionState"> The http session state. </param>
-        /// <param name="dataCache"> The data cache. </param>
+        /// <param name="serviceLocator">The service locator.</param>
+        /// <param name="boardSettings">The board settings.</param>
+        /// <param name="httpSessionState">The http session state.</param>
+        /// <param name="dataCache">The data cache.</param>
+        /// <param name="dbFunction">The database function.</param>
         public YafDbBroker(
             IServiceLocator serviceLocator,
             YafBoardSettings boardSettings,
@@ -74,6 +75,12 @@ namespace YAF.Core.Services
 
         #region Public Properties
 
+        /// <summary>
+        /// Gets or sets the board settings.
+        /// </summary>
+        /// <value>
+        /// The board settings.
+        /// </value>
         public YafBoardSettings BoardSettings { get; set; }
 
         /// <summary>
@@ -81,6 +88,12 @@ namespace YAF.Core.Services
         /// </summary>
         public IDataCache DataCache { get; set; }
 
+        /// <summary>
+        /// Gets or sets the database function.
+        /// </summary>
+        /// <value>
+        /// The database function.
+        /// </value>
         public IDbFunction DbFunction { get; set; }
 
         /// <summary>
@@ -314,27 +327,32 @@ namespace YAF.Core.Services
             var favoriteTopicList = this.HttpSessionState[key] as List<int>;
 
             // was it in the cache?
-            if (favoriteTopicList == null)
+            if (favoriteTopicList != null)
             {
-                // get fresh values
-                DataTable favoriteTopicListDt = this.DbFunction.GetAsDataTable(o => o.topic_favorite_list(userID));
-
-                // convert to list...
-                favoriteTopicList = favoriteTopicListDt.GetColumnAsList<int>("TopicID");
-
-                // store it in the user session...
-                this.HttpSessionState.Add(key, favoriteTopicList);
+                return favoriteTopicList;
             }
+
+            // get fresh values
+            DataTable favoriteTopicListDt = this.DbFunction.GetAsDataTable(o => o.topic_favorite_list(userID));
+
+            // convert to list...
+            favoriteTopicList = favoriteTopicListDt.GetColumnAsList<int>("TopicID");
+
+            // store it in the user session...
+            this.HttpSessionState.Add(key, favoriteTopicList);
 
             return favoriteTopicList;
         }
 
         /// <summary>
-        ///     The get active list.
+        /// The get active list.
         /// </summary>
-        /// <param name="guests"> The guests. </param>
-        /// <param name="crawlers"> The bots. </param>
-        /// <returns> Returns the active list. </returns>
+        /// <param name="guests">The guests.</param>
+        /// <param name="crawlers">The bots.</param>
+        /// <param name="activeTime">The active time.</param>
+        /// <returns>
+        /// Returns the active list.
+        /// </returns>
         public DataTable GetActiveList(bool guests, bool crawlers, int? activeTime = null)
         {
             return this.GetRepository<Active>().List(
@@ -437,10 +455,12 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        ///     Get the list of recently logged in users.
+        /// Get the list of recently logged in users.
         /// </summary>
-        /// <param name="timeSinceLastLogin"> The time since last login in minutes. </param>
-        /// <returns> The list of users in Datatable format. </returns>
+        /// <param name="timeSinceLastLogin">The time since last login in minutes.</param>
+        /// <returns>
+        /// The list of users in Data table format.
+        /// </returns>
         public DataTable GetRecentUsers(int timeSinceLastLogin)
         {
             return
@@ -453,7 +473,7 @@ namespace YAF.Core.Services
         ///     The get shout box messages.
         /// </summary>
         /// <param name="boardId"> The board id. </param>
-        /// <returns> Retuns the shout box messages. </returns>
+        /// <returns> Returns the shout box messages. </returns>
         public IEnumerable<DataRow> GetShoutBoxMessages(int boardId)
         {
             return this.DataCache.GetOrSet(
@@ -488,10 +508,23 @@ namespace YAF.Core.Services
         /// <returns> The get simple forum topic. </returns>
         public List<SimpleForum> GetSimpleForumTopic(int boardId, int userId, DateTime timeFrame, int maxCount)
         {
-            var forumData = this.DbFunction
-                .GetAsDataTable(cdb => cdb.forum_listall(boardId, userId))
-                .SelectTypedList(x => new SimpleForum { ForumID = x.Field<int>("ForumID"), Name = x.Field<string>("Forum") })
-                .ToList();
+            var forumData =
+                this.DbFunction.GetAsDataTable(cdb => cdb.forum_listall(boardId, userId))
+                    .SelectTypedList(
+                        x => new SimpleForum { ForumID = x.Field<int>("ForumID"), Name = x.Field<string>("Forum") })
+                    .ToList();
+
+            if (forumData.Any())
+            {
+                // If the user is not logged in (Active Access Table is empty), we need to make sure the Active Access Tables are set
+                LegacyDb.pageaccess(boardId, userId, false);
+
+                forumData =
+                    this.DbFunction.GetAsDataTable(cdb => cdb.forum_listall(boardId, userId))
+                        .SelectTypedList(
+                            x => new SimpleForum { ForumID = x.Field<int>("ForumID"), Name = x.Field<string>("Forum") })
+                        .ToList();
+            }
 
             // get topics for all forums...
             foreach (var forum in forumData)
@@ -499,12 +532,23 @@ namespace YAF.Core.Services
                 SimpleForum forum1 = forum;
 
                 // add topics
-                var topics = LegacyDb.topic_list(forum1.ForumID, userId, timeFrame, DateTime.UtcNow, 0, maxCount, false, false, false).AsEnumerable();
+                var topics =
+                    LegacyDb.topic_list(
+                        forum1.ForumID,
+                        userId,
+                        timeFrame,
+                        DateTime.UtcNow,
+                        0,
+                        maxCount,
+                        false,
+                        false,
+                        false).AsEnumerable();
 
                 // filter first...
-                forum.Topics = topics.Where(x => x.Field<DateTime>("LastPosted") >= timeFrame)
-                                     .Select(x => this.LoadSimpleTopic(x, forum1))
-                                     .ToList();
+                forum.Topics =
+                    topics.Where(x => x.Field<DateTime>("LastPosted") >= timeFrame)
+                        .Select(x => this.LoadSimpleTopic(x, forum1))
+                        .ToList();
             }
 
             return forumData;
@@ -554,34 +598,38 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        ///     The style transform func wrap.
+        ///     The style transform function wrap.
         /// </summary>
         /// <param name="dt"> The DateTable </param>
         /// <returns> The style transform wrap. </returns>
         public DataTable StyleTransformDataTable(DataTable dt)
         {
-            if (this.BoardSettings.UseStyledNicks)
+            if (!this.BoardSettings.UseStyledNicks)
             {
-                var styleTransform = this.Get<IStyleTransform>();
-                styleTransform.DecodeStyleByTable(dt, true);
+                return dt;
             }
+
+            var styleTransform = this.Get<IStyleTransform>();
+            styleTransform.DecodeStyleByTable(dt, true);
 
             return dt;
         }
 
         /// <summary>
-        ///     The style transform func wrap.
+        ///     The style transform function wrap.
         /// </summary>
         /// <param name="dt"> The DateTable </param>
         /// <param name="styleColumns"> Style columns names </param>
         /// <returns> The style transform wrap. </returns>
         public DataTable StyleTransformDataTable(DataTable dt, params string[] styleColumns)
         {
-            if (this.BoardSettings.UseStyledNicks)
+            if (!this.BoardSettings.UseStyledNicks)
             {
-                var styleTransform = this.Get<IStyleTransform>();
-                styleTransform.DecodeStyleByTable(dt, true, styleColumns);
+                return dt;
             }
+
+            var styleTransform = this.Get<IStyleTransform>();
+            styleTransform.DecodeStyleByTable(dt, true, styleColumns);
 
             return dt;
         }
@@ -612,17 +660,19 @@ namespace YAF.Core.Services
             var userList = this.HttpSessionState[key] as List<int>;
 
             // was it in the cache?
-            if (userList == null)
+            if (userList != null)
             {
-                // get fresh values
-                DataTable userListDt = this.DbFunction.GetAsDataTable(cdb => cdb.user_ignoredlist(userId));
-
-                // convert to list...
-                userList = userListDt.GetColumnAsList<int>("IgnoredUserID");
-
-                // store it in the user session...
-                this.HttpSessionState.Add(key, userList);
+                return userList;
             }
+
+            // get fresh values
+            DataTable userListDt = this.DbFunction.GetAsDataTable(cdb => cdb.user_ignoredlist(userId));
+
+            // convert to list...
+            userList = userListDt.GetColumnAsList<int>("IgnoredUserID");
+
+            // store it in the user session...
+            this.HttpSessionState.Add(key, userList);
 
             return userList;
         }
