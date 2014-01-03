@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="MSBuild.Community.Tasks.Targets" />
+  <Import Project="MSBuild.ExtensionPack.tasks"/>
   <Import Project="AjaxMin.tasks" />
   <Target Name="PackageModule" Condition=" '$(Configuration)|$(Platform)' == 'Deploy|AnyCPU' ">
     <GetAssemblyIdentity AssemblyFiles="$(MSBuildProjectDirectory)\bin\YAF.dll">
@@ -59,7 +60,7 @@
       <Output TaskParameter="Include" ItemName="InstallConfig" />
     </CreateItem>
 
-    <CreateItem Include="$(MSBuildProjectDirectory)\bin\**\*.dll">
+    <CreateItem Include="$(MSBuildProjectDirectory)\bin\*.dll">
       <Output TaskParameter="Include" ItemName="LibaryFiles" />
     </CreateItem>
     
@@ -79,11 +80,13 @@
     <CreateItem Include="$(MSBuildProjectDirectory)\Package\**\*.*">
       <Output TaskParameter="Include" ItemName="OutputContentInstall" />
     </CreateItem>
-    
+
     <!-- Create the Install package -->
-    <Zip Files="@(OutputContentInstall)" WorkingDirectory="$(MSBuildProjectDirectory)\Package" ZipFileName="$(PackageName)-v%(AssemblyIdentities.Version)-RC1-Install.$(Extension)" />
+    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create" 
+                        CompressFiles="@(OutputContentInstall)" CompressionLevel="BestCompression" RemoveRoot="$(MSBuildProjectDirectory)\Package\" ZipFileName="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Install.$(Extension)" />
+
     <!-- Copy the Install package to the Packages folder -->
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RC1-Install.$(Extension)" DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Install.$(Extension)" DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
 
     <Delete Files="$(MSBuildProjectDirectory)\Package\web.config"/>
     <Delete Files="$(MSBuildProjectDirectory)\Package\app.config"/>
@@ -95,10 +98,11 @@
     </CreateItem>
 
     <!-- Create the Upgrade package -->
-    <Zip Files="@(OutputContentUpgrade)" WorkingDirectory="$(MSBuildProjectDirectory)\Package" ZipFileName="$(PackageName)-v%(AssemblyIdentities.Version)-RC1-Upgrade.$(Extension)" />
+    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create" 
+                        CompressFiles="@(OutputContentUpgrade)" CompressionLevel="BestCompression" RemoveRoot="$(MSBuildProjectDirectory)\Package\" ZipFileName="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Upgrade.$(Extension)" />
     
     <!-- Copy the Upgrade package to the Packages folder -->
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RC1-Upgrade.$(Extension)" DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Upgrade.$(Extension)" DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
 
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\Package" />
 
@@ -110,12 +114,14 @@
       <Output TaskParameter="Include" ItemName="OutputSource" />
     </CreateItem>
 
-    <Zip Files="@(OutputSource)" WorkingDirectory="$(MSBuildProjectDirectory)\Package" ZipFileName="$(PackageName)-v%(AssemblyIdentities.Version)-RC1-SRC.$(Extension)" />
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RC1-SRC.$(Extension)" DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
+    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create" 
+                        CompressFiles="@(OutputSource)" CompressionLevel="BestCompression" RemoveRoot="$(MSBuildProjectDirectory)\Package\" ZipFileName="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-SRC.$(Extension)" />
+    
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-SRC.$(Extension)" DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
 
-    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RC1-Install.$(Extension)" />
-    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RC1-Upgrade.$(Extension)" />
-    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-RC1-SRC.$(Extension)" />
+    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Install.$(Extension)" />
+    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Upgrade.$(Extension)" />
+    <Delete Files="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-SRC.$(Extension)" />
 
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\Package" />
 
