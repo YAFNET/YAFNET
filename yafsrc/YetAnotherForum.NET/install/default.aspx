@@ -38,7 +38,7 @@
                     cache.push(cacheImage);
                 }
             };
-            $.preLoadImages("loader.gif", "../resources/images/loader.gif");
+            $.preLoadImages("../resources/images/loader.gif", "../resources/images/loader.gif");
         })(jQuery);
     </script>
     <asp:ScriptManager ID="ScriptManager1" runat="server">
