@@ -360,29 +360,23 @@ namespace YAF.Pages
                     this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                     out result))
                 {
+                    this.Logger.Log(
+                    null,
+                    "Bot Detected",
+                    "Bot Check detected a possible SPAM BOT: (user name : '{0}', email : '{1}', ip: '{2}', reason : {3}), user was rejected.".FormatWith(
+                        userName,
+                               this.CreateUserWizard1.Email,
+                               this.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                               result),
+                    EventLogTypes.SpamBotDetected);
+
                     if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
                     {
                         // Flag user as spam bot
                         this.IsPossibleSpamBot = true;
-
-                        this.Get<ILogger>()
-                            .Info(
-                                "Bot Check detected a possible SPAM BOT: (user name : '{0}', email : '{1}', ip: '{2}', reason : {3}).",
-                                userName,
-                                this.CreateUserWizard1.Email,
-                                this.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                                result);
                     }
                     else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
                     {
-                        this.Get<ILogger>()
-                            .Info(
-                                "Bot Check detected a possible SPAM BOT: (user name : '{0}', email : '{1}', ip: '{2}', reason : {3}), user was rejected.",
-                                userName,
-                                this.CreateUserWizard1.Email,
-                                this.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                                result);
-
                         this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.Error);
 
                         e.Cancel = true;

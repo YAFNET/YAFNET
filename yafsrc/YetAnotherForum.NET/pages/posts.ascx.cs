@@ -1591,34 +1591,39 @@ namespace YAF.Pages
                 string spamResult;
 
                 // Check content for spam
-                if (
-                    spamChecker.CheckPostForSpam(
-                        this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                        YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                        this._quickReplyEditor.Text,
-                        this.PageContext.IsGuest ? null : this.PageContext.User.Email,
-                        out spamResult))
+                if (spamChecker.CheckPostForSpam(
+                    this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                    YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                    this._quickReplyEditor.Text,
+                    this.PageContext.IsGuest ? null : this.PageContext.User.Email,
+                    out spamResult))
                 {
                     if (this.Get<YafBoardSettings>().SpamMessageHandling.Equals(1))
                     {
                         spamApproved = false;
 
-                        this.Get<ILogger>()
-                            .Info(
-                                "Spam Check detected possible SPAM ({2}) posted by User: {0}, it was flagged as unapproved post. Content was: {1}",
-                                this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                                this._quickReplyEditor.Text,
-                                spamResult);
+                        this.Logger.Log(
+                            this.PageContext.PageUserID,
+                            "Spam Message Detected",
+                            "Spam Check detected possible SPAM ({2}) posted by User: {0}, it was flagged as unapproved post. Content was: {1}"
+                                .FormatWith(
+                                    this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                                    this._quickReplyEditor.Text,
+                                    spamResult),
+                            EventLogTypes.SpamMessageDetected);
                     }
                     else if (this.Get<YafBoardSettings>().SpamMessageHandling.Equals(2))
                     {
-                        this.Get<ILogger>()
-                            .Info(
-                                "Spam Check detected possible SPAM ({2}) posted by User: {0}, post was rejected. Content was: {1}",
-                                this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                                this._quickReplyEditor.Text,
-                                spamResult);
-                        
+                        this.Logger.Log(
+                            this.PageContext.PageUserID,
+                            "Spam Message Detected",
+                            "Spam Check detected possible SPAM ({2}) posted by User: {0}, post was rejected. Content was: {1}"
+                                .FormatWith(
+                                    this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                                    this._quickReplyEditor.Text,
+                                    spamResult),
+                            EventLogTypes.SpamMessageDetected);
+
                         this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
 
                         return;

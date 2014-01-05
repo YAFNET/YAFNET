@@ -1033,25 +1033,33 @@ namespace YAF.Pages
                         this.PageContext.IsGuest ? null : this.PageContext.User.Email,
                         out spamResult))
                 {
+                    
+
                     if (this.Get<YafBoardSettings>().SpamMessageHandling.Equals(1))
                     {
                         this.spamApproved = false;
 
-                        this.Get<ILogger>()
-                            .Info(
-                                "Spam Check detected possible SPAM ({2}) posted by User: {0}, it was flagged as unapproved post. Content was: {1}",
-                                this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
-                                this._forumEditor.Text,
-                                spamResult);
+                        this.Logger.Log(
+                            this.PageContext.PageUserID,
+                            "Spam Message Detected",
+                            "Spam Check detected possible SPAM ({2}) posted by User: {0}, it was flagged as unapproved post. Content was: {1}"
+                                .FormatWith(
+                                    this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
+                                    this._forumEditor.Text,
+                                    spamResult),
+                            EventLogTypes.SpamMessageDetected);
                     }
                     else if (this.Get<YafBoardSettings>().SpamMessageHandling.Equals(2))
                     {
-                        this.Get<ILogger>()
-                            .Info(
-                                "Spam Check detected possible SPAM ({2}) posted by User: {0}, post was rejected. Content was: {1}",
-                                this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
-                                this._forumEditor.Text,
-                                spamResult);
+                        this.Logger.Log(
+                            this.PageContext.PageUserID,
+                            "Spam Message Detected",
+                            "Spam Check detected possible SPAM ({2}) posted by User: {0}, post was rejected. Content was: {1}"
+                                .FormatWith(
+                                    this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
+                                    this._forumEditor.Text,
+                                    spamResult),
+                            EventLogTypes.SpamMessageDetected); 
 
                         this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
 

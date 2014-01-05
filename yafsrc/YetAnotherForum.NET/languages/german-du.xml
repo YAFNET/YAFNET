@@ -797,6 +797,7 @@
     <Resource tag="LT_INFORMATION">Information</Resource>
     <Resource tag="LT_IPBANLIFTED">IP-Verbot Abbrechen </Resource>
     <Resource tag="LT_IPBANSET">Festlegen von einem IP-Verbot</Resource>
+    <Resource tag="LT_SPAM">Spam Reporting</Resource>
     <Resource tag="LT_SQLERROR">SQL Fehler</Resource>
     <Resource tag="LT_TRACE">Trace</Resource>
     <Resource tag="LT_USERDELETED">Löschen von Benutzern</Resource>

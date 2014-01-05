@@ -178,7 +178,7 @@ namespace YAF.Controls
 
                 this.Logger.Log(
                     this.PageContext.PageUserID,
-                    "User Reported to StopForumSpam.com".FormatWith(user.UserName, this.CurrentUserID),
+                    "User Reported to StopForumSpam.com",
                     "User (Name:{0}/ID:{1}/IP:{2}/Email:{3}) Reported to StopForumSpam.com by {4}".FormatWith(
                         user.UserName,
                         this.CurrentUserID,
@@ -187,7 +187,7 @@ namespace YAF.Controls
                         this.Get<YafBoardSettings>().EnableDisplayName
                             ? this.PageContext.CurrentUserData.DisplayName
                             : this.PageContext.CurrentUserData.UserName),
-                    EventLogTypes.Information);
+                    EventLogTypes.SpamBotReported);
             }
             catch (Exception exception)
             {

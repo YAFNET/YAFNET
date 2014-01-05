@@ -49,7 +49,7 @@ namespace YAF.Types.Constants
         Information = 2, 
 
         /// <summary>
-        ///     The sql error.
+        ///     The SQL error.
         /// </summary>
         SqlError = 3, 
 
@@ -74,8 +74,28 @@ namespace YAF.Types.Constants
         IpBanSet = 1003, 
 
         /// <summary>
-        ///     The Ip Ban Lifted.
+        ///     The IP Ban Lifted.
         /// </summary>
-        IpBanLifted = 1004
+        IpBanLifted = 1004,
+
+        /// <summary>
+        /// The spam bot reported
+        /// </summary>
+        SpamBotReported = 2000,
+
+        /// <summary>
+        /// The spam bot detected
+        /// </summary>
+        SpamBotDetected = 2001,
+
+        /// <summary>
+        /// The spam message reported
+        /// </summary>
+        SpamMessageReported = 2002,
+
+        /// <summary>
+        /// The spam message detected
+        /// </summary>
+        SpamMessageDetected = 2003
     }
 }
