@@ -2,7 +2,7 @@
 <%@ Register TagPrefix="YAF" TagName="PMList" Src="../controls/PMList.ascx" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <div>
-	<YAF:ThemeButton ID="NewPM" runat="server" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="BUTTON_NEWPM" TitleLocalizedTag="BUTTON_NEWPM_TT" />
+	<YAF:ThemeButton ID="NewPM" runat="server" CssClass="yafcssbigbutton rightItem button-newpm" TextLocalizedTag="BUTTON_NEWPM" TitleLocalizedTag="BUTTON_NEWPM_TT" />
 </div>
 <br style="clear: both" />
 <asp:Panel id="PmTabs" runat="server">
@@ -36,7 +36,7 @@
 <asp:HiddenField runat="server" ID="hidLastTab" Value="0" />
 <br />
 <div>
-	<YAF:ThemeButton ID="NewPM2" runat="server" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="BUTTON_NEWPM" TitleLocalizedTag="BUTTON_NEWPM_TT" />
+	<YAF:ThemeButton ID="NewPM2" runat="server" CssClass="yafcssbigbutton rightItem button-newpm" TextLocalizedTag="BUTTON_NEWPM" TitleLocalizedTag="BUTTON_NEWPM_TT" />
 </div>
 <div id="DivSmartScroller">
 	<YAF:SmartScroller ID="SmartScroller1" runat="server" />

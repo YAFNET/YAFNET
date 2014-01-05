@@ -16,21 +16,21 @@
         </td>
         <td>
             <span id="dvFavorite1">
-                <YAF:ThemeButton ID="TagFavorite1" runat="server" CssClass="yafcssbigbutton rightItem"
+                <YAF:ThemeButton ID="TagFavorite1" runat="server" CssClass="yafcssbigbutton rightItem button-favorite"
                     TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT" />
             </span>        
-            <YAF:ThemeButton ID="MoveTopic1" runat="server" CssClass="yafcssbigbutton rightItem"
+            <YAF:ThemeButton ID="MoveTopic1" runat="server" CssClass="yafcssbigbutton rightItem button-move"
                 OnClick="MoveTopic_Click" TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT" />
-            <YAF:ThemeButton ID="UnlockTopic1" runat="server" CssClass="yafcssbigbutton rightItem"
+            <YAF:ThemeButton ID="UnlockTopic1" runat="server" CssClass="yafcssbigbutton rightItem button-unlock"
                 OnClick="UnlockTopic_Click" TextLocalizedTag="BUTTON_UNLOCKTOPIC" TitleLocalizedTag="BUTTON_UNLOCKTOPIC_TT" />
-            <YAF:ThemeButton ID="LockTopic1" runat="server" CssClass="yafcssbigbutton rightItem"
+            <YAF:ThemeButton ID="LockTopic1" runat="server" CssClass="yafcssbigbutton rightItem button-lock"
                 OnClick="LockTopic_Click" TextLocalizedTag="BUTTON_LOCKTOPIC" TitleLocalizedTag="BUTTON_LOCKTOPIC_TT" />
-            <YAF:ThemeButton ID="DeleteTopic1" runat="server" CssClass="yafcssbigbutton rightItem"
+            <YAF:ThemeButton ID="DeleteTopic1" runat="server" CssClass="yafcssbigbutton rightItem button-delete"
                 OnClick="DeleteTopic_Click" OnLoad="DeleteTopic_Load" TextLocalizedTag="BUTTON_DELETETOPIC"
                 TitleLocalizedTag="BUTTON_DELETETOPIC_TT" />
-            <YAF:ThemeButton ID="NewTopic1" runat="server" CssClass="yafcssbigbutton rightItem"
+            <YAF:ThemeButton ID="NewTopic1" runat="server" CssClass="yafcssbigbutton rightItem button-newtopic"
                 OnClick="NewTopic_Click" TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" />
-            <YAF:ThemeButton ID="PostReplyLink1" runat="server" CssClass="yafcssbigbutton rightItem"
+            <YAF:ThemeButton ID="PostReplyLink1" runat="server" CssClass="yafcssbigbutton rightItem button-reply"
                 OnClick="PostReplyLink_Click" TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT" />
         </td>
     </tr>
@@ -180,21 +180,21 @@
         </td>
         <td>
             <span id="dvFavorite2">
-                <YAF:ThemeButton ID="TagFavorite2" runat="server" CssClass="yafcssbigbutton rightItem"
+                <YAF:ThemeButton ID="TagFavorite2" runat="server" CssClass="yafcssbigbutton rightItem button-favorite"
                     TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT" />
             </span>        
-            <YAF:ThemeButton ID="MoveTopic2" runat="server" CssClass="yafcssbigbutton rightItem"
+            <YAF:ThemeButton ID="MoveTopic2" runat="server" CssClass="yafcssbigbutton rightItem button-move"
                 OnClick="MoveTopic_Click" TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT" />
-            <YAF:ThemeButton ID="UnlockTopic2" runat="server" CssClass="yafcssbigbutton rightItem"
+            <YAF:ThemeButton ID="UnlockTopic2" runat="server" CssClass="yafcssbigbutton rightItem button-unlock"
                 OnClick="UnlockTopic_Click" TextLocalizedTag="BUTTON_UNLOCKTOPIC" TitleLocalizedTag="BUTTON_UNLOCKTOPIC_TT" />
-            <YAF:ThemeButton ID="LockTopic2" runat="server" CssClass="yafcssbigbutton rightItem"
+            <YAF:ThemeButton ID="LockTopic2" runat="server" CssClass="yafcssbigbutton rightItem button-lock"
                 OnClick="LockTopic_Click" TextLocalizedTag="BUTTON_LOCKTOPIC" TitleLocalizedTag="BUTTON_LOCKTOPIC_TT" />
-            <YAF:ThemeButton ID="DeleteTopic2" runat="server" CssClass="yafcssbigbutton rightItem"
+            <YAF:ThemeButton ID="DeleteTopic2" runat="server" CssClass="yafcssbigbutton rightItem button*delete"
                 OnClick="DeleteTopic_Click" OnLoad="DeleteTopic_Load" TextLocalizedTag="BUTTON_DELETETOPIC"
                 TitleLocalizedTag="BUTTON_DELETETOPIC_TT" />
-            <YAF:ThemeButton ID="NewTopic2" runat="server" CssClass="yafcssbigbutton rightItem"
+            <YAF:ThemeButton ID="NewTopic2" runat="server" CssClass="yafcssbigbutton rightItem button-newtopic"
                 OnClick="NewTopic_Click" TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" />
-            <YAF:ThemeButton ID="PostReplyLink2" runat="server" CssClass="yafcssbigbutton rightItem"
+            <YAF:ThemeButton ID="PostReplyLink2" runat="server" CssClass="yafcssbigbutton rightItem button-reply"
                 OnClick="PostReplyLink_Click" TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT" />
         </td>
     </tr>

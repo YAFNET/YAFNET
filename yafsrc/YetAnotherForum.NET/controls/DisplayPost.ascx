@@ -26,23 +26,23 @@
             <YAF:DisplayDateTime id="DisplayDateTime" runat="server" DateTime='<%# DataRow["Posted"] %>'></YAF:DisplayDateTime>
             </div>
         <div class="rightItem postedRight">
-            <YAF:ThemeButton ID="Retweet" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_RETWEET"
+            <YAF:ThemeButton ID="Retweet" runat="server" CssClass="yaflittlebutton button-retweet" TextLocalizedTag="BUTTON_RETWEET"
                 TitleLocalizedTag="BUTTON_RETWEET_TT" OnClick="Retweet_Click" />
             <span id="<%# "dvThankBox" + DataRow["MessageID"] %>">
-                <YAF:ThemeButton ID="Thank" runat="server" CssClass="yaflittlebutton" Visible="false" TextLocalizedTag="BUTTON_THANKS"
+                <YAF:ThemeButton ID="Thank" runat="server" CssClass="yaflittlebutton button-thanks" Visible="false" TextLocalizedTag="BUTTON_THANKS"
                     TitleLocalizedTag="BUTTON_THANKS_TT" />
             </span>        
-            <YAF:ThemeButton ID="Attach" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_ATTACH"
+            <YAF:ThemeButton ID="Attach" runat="server" CssClass="yaflittlebutton button-attach" TextLocalizedTag="BUTTON_ATTACH"
                 TitleLocalizedTag="BUTTON_ATTACH_TT" />
-            <YAF:ThemeButton ID="Edit" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_EDIT"
+            <YAF:ThemeButton ID="Edit" runat="server" CssClass="yaflittlebutton button-edit" TextLocalizedTag="BUTTON_EDIT"
                 TitleLocalizedTag="BUTTON_EDIT_TT" />
-            <YAF:ThemeButton ID="MovePost" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_MOVE"
+            <YAF:ThemeButton ID="MovePost" runat="server" CssClass="yaflittlebutton button-move" TextLocalizedTag="BUTTON_MOVE"
                 TitleLocalizedTag="BUTTON_MOVE_TT" />
-            <YAF:ThemeButton ID="Delete" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_DELETE"
+            <YAF:ThemeButton ID="Delete" runat="server" CssClass="yaflittlebutton button-delete" TextLocalizedTag="BUTTON_DELETE"
                 TitleLocalizedTag="BUTTON_DELETE_TT" />
-            <YAF:ThemeButton ID="UnDelete" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_UNDELETE"
+            <YAF:ThemeButton ID="UnDelete" runat="server" CssClass="yaflittlebutton button-undelete" TextLocalizedTag="BUTTON_UNDELETE"
                 TitleLocalizedTag="BUTTON_UNDELETE_TT" />
-            <YAF:ThemeButton ID="Quote" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_QUOTE"
+            <YAF:ThemeButton ID="Quote" runat="server" CssClass="yaflittlebutton button-quote" TextLocalizedTag="BUTTON_QUOTE"
                 TitleLocalizedTag="BUTTON_QUOTE_TT" />
                 <asp:CheckBox runat="server" ID="MultiQuote" CssClass="MultiQuoteButton"  />
         </div>
