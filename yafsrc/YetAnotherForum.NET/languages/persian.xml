@@ -799,7 +799,10 @@
     <Resource tag="LT_INFORMATION">Information</Resource>
     <Resource tag="LT_IPBANLIFTED">Canceling IP ban</Resource>
     <Resource tag="LT_IPBANSET">Setting IP ban</Resource>
-    <Resource tag="LT_SPAM">Spam Reporting</Resource>
+    <Resource tag="LT_SpamBotDetected">Spam Bot Detected</Resource>
+    <Resource tag="LT_SpamBotReported">Spam Bot Reported</Resource>
+    <Resource tag="LT_SpamMessageDetected">Spam Message Detected</Resource>
+    <Resource tag="LT_SpamMessageReported">Spam Message Reported</Resource>
     <Resource tag="LT_SQLERROR">Sql Errors</Resource>
     <Resource tag="LT_TRACE">Trace</Resource>
     <Resource tag="LT_USERDELETED">Deleting users</Resource>

@@ -796,7 +796,10 @@
     <Resource tag="LT_INFORMATION">Информация</Resource>
     <Resource tag="LT_IPBANLIFTED">Отмена бана по IP</Resource>
     <Resource tag="LT_IPBANSET">Установка бана по IP </Resource>
-    <Resource tag="LT_SPAM">Spam Reporting</Resource>
+    <Resource tag="LT_SpamBotDetected">Spam Bot Detected</Resource>
+    <Resource tag="LT_SpamBotReported">Spam Bot Reported</Resource>
+    <Resource tag="LT_SpamMessageDetected">Spam Message Detected</Resource>
+    <Resource tag="LT_SpamMessageReported">Spam Message Reported</Resource>
     <Resource tag="LT_SQLERROR">Ошибки Sql</Resource>
     <Resource tag="LT_TRACE">Trace</Resource>
     <Resource tag="LT_USERDELETED">Удаление пользователей</Resource>
