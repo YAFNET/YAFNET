@@ -1296,6 +1296,10 @@
     <Content Include="resources\icons\authIcons.png" />
     <Content Include="resources\icons\ipbanlifted.png" />
     <Content Include="resources\icons\ipbanset.png" />
+    <Content Include="resources\icons\spambotdetected.png" />
+    <Content Include="resources\icons\spambotreported.png" />
+    <Content Include="resources\icons\spammessagedetected.png" />
+    <Content Include="resources\icons\spammessagereported.png" />
     <Content Include="resources\icons\userdeleted.png" />
     <Content Include="resources\icons\usersuspended.png" />
     <Content Include="resources\icons\userunsuspended.png" />
