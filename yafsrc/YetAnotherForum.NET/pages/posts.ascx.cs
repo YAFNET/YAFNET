@@ -193,7 +193,7 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            LegacyDb.topic_delete(this.PageContext.PageTopicID);
+            LegacyDb.topic_delete(this.PageContext.PageTopicID, true);
             YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
         }
 

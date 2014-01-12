@@ -433,7 +433,7 @@ IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{data
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}mail_create]
 GO
 
-IF  exists (select top 1 1 from dbo.sysobjects where id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}mail_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+IF  exists (select top 1 1 from sys.objects where object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}mail_save]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}mail_save]
 GO
 
@@ -3682,7 +3682,10 @@ begin
     end
     
     -- update user post count
-    UPDATE [{databaseOwner}].[{objectQualifier}User] SET NumPosts = (SELECT count(MessageID) FROM [{databaseOwner}].[{objectQualifier}Message] WHERE UserID = @UserID AND IsDeleted = 0 AND IsApproved = 1) WHERE UserID = @UserID
+    if exists(select top 1 1 from [{databaseOwner}].[{objectQualifier}Forum] where ForumID=@ForumID and (Flags & 4)=0)
+    begin
+	     UPDATE [{databaseOwner}].[{objectQualifier}User] SET NumPosts = (SELECT count(MessageID) FROM [{databaseOwner}].[{objectQualifier}Message] WHERE UserID = @UserID AND IsDeleted = 0 AND IsApproved = 1) WHERE UserID = @UserID
+    end
     
     -- Delete topic if there are no more messages
     select @MessageCount = count(1) from [{databaseOwner}].[{objectQualifier}Message] where TopicID = @TopicID and IsDeleted=0
@@ -6114,8 +6117,45 @@ BEGIN
         DELETE FROM  [{databaseOwner}].[{objectQualifier}topic] WHERE TopicMovedID = @TopicID
         
         DELETE  [{databaseOwner}].[{objectQualifier}Attachment] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID) 
-        DELETE  [{databaseOwner}].[{objectQualifier}MessageHistory] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID) 	
-        DELETE  [{databaseOwner}].[{objectQualifier}Message] WHERE TopicID = @TopicID
+        DELETE  [{databaseOwner}].[{objectQualifier}MessageHistory] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID) 
+		
+		
+		-- update user post count
+		if not exists(select top 1 1 from [{databaseOwner}].[{objectQualifier}Forum] where ForumID=@ForumID and (Flags & 4)=0)
+          -- delete messages
+		  DELETE  [{databaseOwner}].[{objectQualifier}Message] WHERE TopicID = @TopicID
+        else 
+		   begin
+		   declare @tmpUserID int;
+		   declare message_cursor cursor for
+		   select UserID from [{databaseOwner}].[{objectQualifier}Message]
+		   where TopicID=@TopicID
+    
+    
+		   open message_cursor
+    
+		   fetch next from message_cursor
+		   into @tmpUserID
+    
+		   -- Check @@FETCH_STATUS to see if there are any more rows to fetch.
+		   while @@FETCH_STATUS = 0
+    		   begin
+		   UPDATE [{databaseOwner}].[{objectQualifier}User] SET NumPosts = (SELECT count(MessageID) FROM [{databaseOwner}].[{objectQualifier}Message] WHERE UserID = @tmpUserID AND IsDeleted = 0 AND IsApproved = 1) WHERE UserID = @tmpUserID
+
+		   DELETE  [{databaseOwner}].[{objectQualifier}Message] WHERE TopicID = @TopicID and UserID = @tmpUserID
+    
+		   -- This is executed as long as the previous fetch succeeds.
+		   fetch next from message_cursor
+		   into @tmpUserID
+		   end
+    
+		   close message_cursor
+		   deallocate message_cursor
+
+		end
+
+		EXEC [{databaseOwner}].[{objectQualifier}pollgroup_remove] @pollID, @TopicID, null, null, null, 0, 0 	
+        
         DELETE  [{databaseOwner}].[{objectQualifier}WatchTopic] WHERE TopicID = @TopicID
         DELETE  [{databaseOwner}].[{objectQualifier}TopicReadTracking] WHERE TopicID = @TopicID
         DELETE  [{databaseOwner}].[{objectQualifier}FavoriteTopic]  WHERE TopicID = @TopicID
@@ -6123,8 +6163,8 @@ BEGIN
         DELETE  [{databaseOwner}].[{objectQualifier}Topic] WHERE TopicID = @TopicID
         DELETE  [{databaseOwner}].[{objectQualifier}MessageReportedAudit] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID) 
         DELETE  [{databaseOwner}].[{objectQualifier}MessageReported] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID)
-        
-    END
+
+		END
         
     --commit
     IF @UpdateLastPost<>0
@@ -8539,7 +8579,10 @@ begin
      where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
     
     -- update num posts for user now that the delete/undelete status has been toggled...
-    UPDATE [{databaseOwner}].[{objectQualifier}User] SET NumPosts = (SELECT count(MessageID) FROM [{databaseOwner}].[{objectQualifier}Message] WHERE UserID = @UserID AND IsDeleted = 0 AND IsApproved = 1) WHERE UserID = @UserID
+    if exists(select top 1 1 from [{databaseOwner}].[{objectQualifier}Forum] where ForumID=@ForumID and (Flags & 4)=0)
+    begin
+	    UPDATE [{databaseOwner}].[{objectQualifier}User] SET NumPosts = (SELECT count(MessageID) FROM [{databaseOwner}].[{objectQualifier}Message] WHERE UserID = @UserID AND IsDeleted = 0 AND IsApproved = 1) WHERE UserID = @UserID
+	end
 
     -- Delete topic if there are no more messages
     select @MessageCount = count(1) from [{databaseOwner}].[{objectQualifier}Message] where TopicID = @TopicID and IsDeleted=0
