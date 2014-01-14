@@ -257,12 +257,12 @@ namespace YAF.Core
         {
             using (DataTable dt = LegacyDb.group_list(pageBoardID, DBNull.Value))
             {
-                foreach (string roleName in from DataRow row in dt.Rows
-                                            let roleFlags = new GroupFlags(row["Flags"])
-                                            where roleFlags.IsStart && !roleFlags.IsGuest
-                                            select row["Name"].ToString() into roleName 
-                                            where roleName.IsSet() 
-                                            select roleName)
+                foreach (string roleName in (from DataRow row in dt.Rows
+                                             let roleFlags = new GroupFlags(row["Flags"])
+                                             where roleFlags.IsStart && !roleFlags.IsGuest
+                                             select row["Name"].ToString() into roleName 
+                                             where roleName.IsSet() 
+                                             select roleName).Where(roleName => !IsUserInRole(userName, roleName)))
                 {
                     AddUserToRole(userName, roleName);
                 }
@@ -352,7 +352,7 @@ namespace YAF.Core
         /// </summary>
         /// <param name="user">Current Membership User</param>
         /// <param name="pageBoardID">Current BoardID</param>
-        /// <param name="roles">The dnn user roles.</param>
+        /// <param name="roles">The DNN user roles.</param>
         /// <returns>
         /// The update forum user.
         /// </returns>
@@ -380,7 +380,6 @@ namespace YAF.Core
                               "UpdateForumUser",
                               "Null User Provider Key for UserName {0}. Please check your provider key settings for your ASP.NET membership provider."
                                   .FormatWith(user.UserName));
-
 
                 return userId;
             }
