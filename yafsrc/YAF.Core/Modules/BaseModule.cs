@@ -57,6 +57,7 @@ namespace YAF.Core
                     .GetModules("YAF*.dll")
                     .Concat(AppDomain.CurrentDomain.GetAssemblies())
                     .Except(new[] { Assembly.GetExecutingAssembly() })
+                    .Where(a => !a.IsDynamic)
                     .Distinct()
                     .OrderByDescending(x => x.GetAssemblySortOrder())
                     .ToArray();
