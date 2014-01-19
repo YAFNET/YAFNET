@@ -37,6 +37,9 @@ namespace YAF.Core
 
     #endregion
 
+    /// <summary>
+    /// 
+    /// </summary>
     public abstract class BaseModule : IModule, IHaveComponentRegistry, IHaveSortOrder
     {
         #region Static Fields
@@ -50,22 +53,33 @@ namespace YAF.Core
 
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes the <see cref="BaseModule"/> class.
+        /// </summary>
         static BaseModule()
         {
             ExtensionAssemblies =
-                new YafModuleScanner()
-                    .GetModules("YAF*.dll")
-                    .Concat(AppDomain.CurrentDomain.GetAssemblies())
+                new YafModuleScanner().GetModules("YAF*.dll")
+                    .Concat(
+                        AppDomain.CurrentDomain.GetAssemblies()
+                            .Where(
+                                a =>
+                                a.FullName.StartsWith("Autofac") && a.FullName.StartsWith("CookComputing.XmlRpcV2")
+                                && a.FullName.StartsWith("FarsiLibrary")
+                                && a.FullName.StartsWith("Intelligencia.UrlRewriter")
+                                && a.FullName.StartsWith("nStuff.UpdateControls")
+                                && a.FullName.StartsWith("Omu.ValueInjecter") && a.FullName.StartsWith("ServiceStack.")))
                     .Except(new[] { Assembly.GetExecutingAssembly() })
                     .Where(a => !a.IsDynamic)
                     .Distinct()
                     .OrderByDescending(x => x.GetAssemblySortOrder())
                     .ToArray();
-
+#if DEBUG
             foreach (var s in ExtensionAssemblies)
             {
                 Debug.WriteLine("Extension Assembly: {0}", s);
             }
+#endif
         }
 
         #endregion
@@ -77,6 +91,12 @@ namespace YAF.Core
         /// </summary>
         public IComponentRegistry ComponentRegistry { get; set; }
 
+        /// <summary>
+        /// Gets the sort order.
+        /// </summary>
+        /// <value>
+        /// The sort order.
+        /// </value>
         public virtual int SortOrder
         {
             get
@@ -110,8 +130,18 @@ namespace YAF.Core
 
         #region Methods
 
+        /// <summary>
+        /// Loads the specified builder.
+        /// </summary>
+        /// <param name="builder">The builder.</param>
         protected abstract void Load(ContainerBuilder builder);
 
+        /// <summary>
+        /// Registers the base modules.
+        /// </summary>
+        /// <typeparam name="TModule">The type of the module.</typeparam>
+        /// <param name="assemblies">The assemblies.</param>
+        /// <param name="exclude">The exclude.</param>
         protected virtual void RegisterBaseModules<TModule>(Assembly[] assemblies, IEnumerable<Type> exclude = null)
             where TModule : IModule
         {
