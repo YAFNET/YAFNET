@@ -1222,6 +1222,13 @@ namespace YAF.Pages
                                     DataRow first = lastPost.AsEnumerable().FirstOrDefault();
                                     if (first != null)
                                     {
+                                        // if Message is deleted
+                                        if (first["MessagePosition"] == DBNull.Value)
+                                        {
+                                            findMessageId = 0;
+                                            return -1;
+                                        }
+
                                         messagePosition = first.Field<int>("MessagePosition");
                                     }
                                 }
@@ -1254,6 +1261,13 @@ namespace YAF.Pages
                                         var unreadFirst = unread.AsEnumerable().FirstOrDefault();
                                         if (unreadFirst != null)
                                         {
+                                            // if Message is deleted
+                                            if (unreadFirst["MessagePosition"] == DBNull.Value)
+                                            {
+                                                findMessageId = 0;
+                                                return -1;
+                                            }
+
                                             findMessageId = unreadFirst.Field<int>("MessageID");
                                             messagePosition = unreadFirst.Field<int>("MessagePosition");
                                         }
@@ -1273,6 +1287,13 @@ namespace YAF.Pages
                                     var unreadFirst = unread.AsEnumerable().FirstOrDefault();
                                     if (unreadFirst != null)
                                     {
+                                        // if Message is deleted
+                                        if (unreadFirst["MessagePosition"] == DBNull.Value)
+                                        {
+                                            findMessageId = 0;
+                                            return -1;
+                                        }
+
                                         findMessageId = unreadFirst.Field<int>("MessageID");
                                         messagePosition = unreadFirst.Field<int>("MessagePosition");
                                     }
