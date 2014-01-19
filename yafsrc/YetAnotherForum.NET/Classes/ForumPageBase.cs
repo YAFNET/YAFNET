@@ -28,6 +28,7 @@ namespace YAF
     using YAF.Core.Extensions;
     using YAF.Core.Services.Startup;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -50,6 +51,12 @@ namespace YAF
             }
         }
 
+        /// <summary>
+        /// Gets the page context.
+        /// </summary>
+        /// <value>
+        /// The page context.
+        /// </value>
         public YafContext PageContext
         {
             get
@@ -63,14 +70,10 @@ namespace YAF
         #region Public Methods
 
         /// <summary>
-        /// The page_ error.
+        /// Handles the Error event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         public void Page_Error([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.Get<StartupInitializeDb>().Initialized)
@@ -78,9 +81,16 @@ namespace YAF
                 return;
             }
 
-            Exception error = this.Get<HttpServerUtilityBase>().GetLastError();
+            var error = this.Get<HttpServerUtilityBase>().GetLastError();
 
-            this.Get<ILogger>().Log(YafContext.Current.PageUserID, this, error);
+            if (error is ViewStateException)
+            {
+                this.Get<ILogger>().Log(YafContext.Current.PageUserID, error.Source, error, EventLogTypes.Information);
+            }
+            else
+            {
+                this.Get<ILogger>().Log(YafContext.Current.PageUserID, error.Source, error);
+            }
         }
 
         #endregion
