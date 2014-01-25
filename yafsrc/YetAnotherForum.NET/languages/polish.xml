@@ -1,135 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Resources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xml="http://www.w3.org/XML/1998/namespace" language="Polish" code="pl">
  <page name="ACTIVELOCATION">
-  <Resource tag="ACTIVEUSERS">Views Active Users list</Resource>
-  <Resource tag="ADMIN_ACCESSMASKS">Views access masks in admin section</Resource>
-  <Resource tag="ADMIN_ADMIN">Views admin index</Resource>
-  <Resource tag="ADMIN_ATTACHMENTS">Views attachments</Resource>
-  <Resource tag="ADMIN_BANNEDIP">Views banned IPs list</Resource>
-  <Resource tag="ADMIN_BANNEDIP_EDIT">Edits banned IPs</Resource>
-  <Resource tag="ADMIN_BANNEDIP_IMPORT">Imports banned ips</Resource>
-  <Resource tag="ADMIN_BBCODE">Views BBCodes</Resource>
-  <Resource tag="ADMIN_BBCODE_EDIT">Edits BBcodes</Resource>
-  <Resource tag="ADMIN_BBCODE_IMPORT">Imports BBCodes</Resource>
-  <Resource tag="ADMIN_BOARDS">Views boards list</Resource>
-  <Resource tag="ADMIN_BOARDSETTINGS">Views board settings</Resource>
-  <Resource tag="ADMIN_DELETEFORUM">Delete forums</Resource>
-  <Resource tag="ADMIN_EDITACCESSMASK">Edits eccess masks</Resource>
-  <Resource tag="ADMIN_EDITBOARD">Edits boards</Resource>
-  <Resource tag="ADMIN_EDITCATEGORY">Edits categories</Resource>
-  <Resource tag="ADMIN_EDITFORUM">Edits forums</Resource>
-  <Resource tag="ADMIN_EDITGROUP">Edits groups</Resource>
-  <Resource tag="ADMIN_EDITLANGUAGE">Edits a languages file</Resource>
-  <Resource tag="ADMIN_EDITMEDAL">Edits medals</Resource>
-  <Resource tag="ADMIN_EDITNNTPFORUM">Edits NNTP Forum</Resource>
-  <Resource tag="ADMIN_EDITNNTPSERVER">Edits NNTP Server</Resource>
-  <Resource tag="ADMIN_EDITRANK">Edits ranks</Resource>
-  <Resource tag="ADMIN_EDITUSER">Edits a user</Resource>
-  <Resource tag="ADMIN_EVENTLOG">Views/edits event log</Resource>
-  <Resource tag="ADMIN_EXTENSIONS_EDIT">Edits extensions</Resource>
-  <Resource tag="ADMIN_EXTENSIONS_IMPORT">Imports extensions</Resource>
-  <Resource tag="ADMIN_EXTESIONS">View extensions</Resource>
-  <Resource tag="ADMIN_FORUMS">Views forums in admin section</Resource>
-  <Resource tag="ADMIN_GROUPS">Views groups in admin section</Resource>
-  <Resource tag="ADMIN_HOSTSETTING">Views/edits hosts settings</Resource>
-  <Resource tag="ADMIN_LANGUAGES">Views languages list</Resource>
-  <Resource tag="ADMIN_MAIL">Views/edits mails</Resource>
-  <Resource tag="ADMIN_MEDALS">Views/edits medals</Resource>
-  <Resource tag="ADMIN_NNTPFORUMS">Views/edits NNTP forums</Resource>
-  <Resource tag="ADMIN_NNTPRETRIEVE">Retrieves NNTP</Resource>
-  <Resource tag="ADMIN_NNTPSERVERS">Views/edits NNTP servers</Resource>
-  <Resource tag="ADMIN_PM">Views/edits PMs</Resource>
-  <Resource tag="ADMIN_PRUNE">Views/performs pruning</Resource>
-  <Resource tag="ADMIN_RANKS">Views ranks in admin section</Resource>
-  <Resource tag="ADMIN_REGUSER">Registers a user</Resource>
-  <Resource tag="ADMIN_REINDEX">Maintains DB</Resource>
-  <Resource tag="ADMIN_REPLACEWORDS">Vies replace words list</Resource>
-  <Resource tag="ADMIN_REPLACEWORDS_EDIT">Edits replace words list</Resource>
-  <Resource tag="ADMIN_REPLACEWORDS_IMPORT">Imports replace words</Resource>
-  <Resource tag="ADMIN_RESTARTAPP">Restarts application</Resource>
-  <Resource tag="ADMIN_RUNSQL">Runs SQL query</Resource>
-  <Resource tag="ADMIN_SMILIES">Views smilies</Resource>
-  <Resource tag="ADMIN_SMILIES_EDIT">Adits smilies</Resource>
-  <Resource tag="ADMIN_SMILIES_IMPORT">Imports smilies</Resource>
-  <Resource tag="ADMIN_TASKMANAGER">Views/manages task manager</Resource>
-  <Resource tag="ADMIN_TEST_DATA">Views/edits test data generator</Resource>
-  <Resource tag="ADMIN_TOPICSTATUS">Views admin topic status</Resource>
-  <Resource tag="ADMIN_TOPICSTATUS_EDIT">Edits Topic Status</Resource>
-  <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Imports topic status</Resource>
-  <Resource tag="ADMIN_USERS">Views users in admin section</Resource>
-  <Resource tag="ADMIN_USERS_IMPORT">Imports users</Resource>
-  <Resource tag="ADMIN_VERSION">Views version</Resource>
-  <Resource tag="ADMINTASK">Performs admin tasks</Resource>
-  <Resource tag="ALBUM">Views Album</Resource>
-  <Resource tag="ALBUM_OFUSER">of user</Resource>
-  <Resource tag="ALBUM_OWN">Views/Edits his Album</Resource>
-  <Resource tag="ALBUMS">Views Albums</Resource>
-  <Resource tag="ALBUMS_OFUSER">Views Album of user</Resource>
-  <Resource tag="ALBUMS_OWN">Views/Edits his Albums</Resource>
-  <Resource tag="APPROVE">Approves</Resource>
-  <Resource tag="ATTACHMENTS">Handles attachments</Resource>
-  <Resource tag="AVATAR">Views avatar</Resource>
-  <Resource tag="CP_CHANGEPASSWORD">Changes password</Resource>
-  <Resource tag="CP_EDITALBUMIMAGES">Edits album images</Resource>
-  <Resource tag="CP_EDITAVATAR">Edits his avatar</Resource>
-  <Resource tag="CP_EDITBUDDIES">Edits Friends</Resource>
-  <Resource tag="CP_EDITPROFILE">Edits his profile</Resource>
-  <Resource tag="CP_MESSAGE">Views Private Messages</Resource>
-  <Resource tag="CP_PM">Views Private Messages</Resource>
-  <Resource tag="CP_PROFILE">Views a user profile</Resource>
-  <Resource tag="CP_PROFILE_OFUSER">Views profile of</Resource>
-  <Resource tag="CP_SIGNATURE">Edits his signature</Resource>
-  <Resource tag="CP_SUBSCRIPTIONS">Vies subscriptions</Resource>
-  <Resource tag="DELETEMESSAGE">Deletes a message</Resource>
-  <Resource tag="EMAILTOPIC">Emails a topic</Resource>
-  <Resource tag="ERROR">Gets error page</Resource>
-  <Resource tag="FORUM">Views forum </Resource>
-  <Resource tag="FORUMFROMCATEGORY">Views forums in a category</Resource>
-  <Resource tag="HELP_INDEX">Views help index</Resource>
-  <Resource tag="HELP_RECOVER">No data</Resource>
-  <Resource tag="IM_AIM">Uses AIM</Resource>
-  <Resource tag="IM_EMAIL">Uses Email</Resource>
-  <Resource tag="IM_ICQ">Uses ICQ</Resource>
-  <Resource tag="IM_MSN">Uses MSN</Resource>
-  <Resource tag="IM_SKYPE">Uses Skype</Resource>
-  <Resource tag="IM_XMPP">Uses XMPP</Resource>
-  <Resource tag="IM_YIM">Uses YIM</Resource>
-  <Resource tag="IMGPRV">Views an image in a user album</Resource>
-  <Resource tag="INFO">Views info page</Resource>
-  <Resource tag="LASTPOSTS">No data</Resource>
-  <Resource tag="LOGIN">Registers on the forum</Resource>
-  <Resource tag="LOGOUT">Logs out</Resource>
-  <Resource tag="MAINPAGE">Views main forum page</Resource>
-  <Resource tag="MEMBERS">Views members list</Resource>
-  <Resource tag="MESSAGEHISTORY">Views a message history</Resource>
-  <Resource tag="MOD_FORUMUSER">Moderates a forum user</Resource>
-  <Resource tag="MODERATE">Moderates</Resource>
-  <Resource tag="MODERATE_INDEX">Views moderate index</Resource>
-  <Resource tag="MODERATE_REPORTEDPOSTS">Views reported posts</Resource>
-  <Resource tag="MODERATE_UNAPPROVEDPOSTS">Views unapproved posts</Resource>
-  <Resource tag="MOVEMESSAGE">Moves a message</Resource>
-  <Resource tag="MOVETOPIC">Moves a topic</Resource>
-  <Resource tag="MYTOPICS">Views his favorite and active topics</Resource>
-  <Resource tag="NODATA">No data available</Resource>
-  <Resource tag="PMESSAGE">Writes a PM</Resource>
-  <Resource tag="POSTMESSAGE_FULL">Posts a message in topic </Resource>
-  <Resource tag="POSTS">Views messages in topic </Resource>
-  <Resource tag="PRINTTOPIC">Prints topic</Resource>
-  <Resource tag="PROFILE">Views a user profile</Resource>
-  <Resource tag="PROFILE_OFUSER">Views profile of user</Resource>
-  <Resource tag="PROFILE_OWN">Views his profile</Resource>
-  <Resource tag="RECOVERPASSWORD">No data</Resource>
-  <Resource tag="REGISTER">Registers</Resource>
-  <Resource tag="REPORTPOST">Reports a post</Resource>
-  <Resource tag="RSSTOPIC">Views RSS feed</Resource>
-  <Resource tag="RULES">Views forum rules</Resource>
-  <Resource tag="SEARCH">Uses search</Resource>
-  <Resource tag="SHOUTBOX">Uses shoutbox</Resource>
-  <Resource tag="SHOWSMILIES">No data</Resource>
-  <Resource tag="TEAM">Views team page</Resource>
-  <Resource tag="TOPICINFORUM"> in forum </Resource>
-  <Resource tag="TOPICS">Views topic </Resource>
-  <Resource tag="VIEWTHANKS">Views thanks info</Resource>
+  <Resource tag="ACTIVEUSERS">Przegląda listę aktywnych użytkowników</Resource>
+  <Resource tag="ADMIN_ACCESSMASKS">Przegląda maski uprawnień</Resource>
+  <Resource tag="ADMIN_ADMIN">Przegląda informacje w panelu administracyjnym</Resource>
+  <Resource tag="ADMIN_ATTACHMENTS">Przegląda załączniki</Resource>
+  <Resource tag="ADMIN_BANNEDIP">Przegląda listę zbanowanych adresów IP</Resource>
+  <Resource tag="ADMIN_BANNEDIP_EDIT">Edytuje zbanowane adresy IP</Resource>
+  <Resource tag="ADMIN_BANNEDIP_IMPORT">Importuje adresy IP do zbanowanych</Resource>
+  <Resource tag="ADMIN_BBCODE">Przegląda BBCode</Resource>
+  <Resource tag="ADMIN_BBCODE_EDIT">Edytuje BBCode</Resource>
+  <Resource tag="ADMIN_BBCODE_IMPORT">Importuje BBCode</Resource>
+  <Resource tag="ADMIN_BOARDS">Przegląda listę for</Resource>
+  <Resource tag="ADMIN_BOARDSETTINGS">Przegląda ustawienia forum</Resource>
+  <Resource tag="ADMIN_DELETEFORUM">Usuwa działy</Resource>
+  <Resource tag="ADMIN_EDITACCESSMASK">Edytuje maski uprawnień</Resource>
+  <Resource tag="ADMIN_EDITBOARD">Edytuje fora</Resource>
+  <Resource tag="ADMIN_EDITCATEGORY">Edytuje kategorie</Resource>
+  <Resource tag="ADMIN_EDITFORUM">Edytuje działy</Resource>
+  <Resource tag="ADMIN_EDITGROUP">Edytuje grupy</Resource>
+  <Resource tag="ADMIN_EDITLANGUAGE">Edytuje pliki językowe</Resource>
+  <Resource tag="ADMIN_EDITMEDAL">Edytuje medale</Resource>
+  <Resource tag="ADMIN_EDITNNTPFORUM">Edytuje fora NNTP</Resource>
+  <Resource tag="ADMIN_EDITNNTPSERVER">Edytuje serwery NNTP</Resource>
+  <Resource tag="ADMIN_EDITRANK">Edytuje rangi</Resource>
+  <Resource tag="ADMIN_EDITUSER">Edytuje użytkownika</Resource>
+  <Resource tag="ADMIN_EVENTLOG">Przegląda/Edytuje dziennik zdarzeń</Resource>
+  <Resource tag="ADMIN_EXTENSIONS_EDIT">Edytuje rozszerzenia plików</Resource>
+  <Resource tag="ADMIN_EXTENSIONS_IMPORT">Importuje rozszerzenia plików</Resource>
+  <Resource tag="ADMIN_EXTESIONS">Przegląda rozszerzenia plików</Resource>
+  <Resource tag="ADMIN_FORUMS">Przegląda działy w panelu administratora</Resource>
+  <Resource tag="ADMIN_GROUPS">Przegląda grupy w panelu administratora</Resource>
+  <Resource tag="ADMIN_HOSTSETTING">Przegląda/Edytuje ustawienia aplikacji</Resource>
+  <Resource tag="ADMIN_LANGUAGES">Przegląda listę języków</Resource>
+  <Resource tag="ADMIN_MAIL">Przegląda/Edytuje e-maile</Resource>
+  <Resource tag="ADMIN_MEDALS">Przegląda/Edytuje medale</Resource>
+  <Resource tag="ADMIN_NNTPFORUMS">Przegląda/Edytuje fora NNTP</Resource>
+  <Resource tag="ADMIN_NNTPRETRIEVE">Pobiera NNTP</Resource>
+  <Resource tag="ADMIN_NNTPSERVERS">Przegląda/Edytuje serwery NNTP</Resource>
+  <Resource tag="ADMIN_PM">Przegląda/Edytuje prywatne wiadomości</Resource>
+  <Resource tag="ADMIN_PRUNE">Przegląda/wykonuje cięcia</Resource>
+  <Resource tag="ADMIN_RANKS">Przegląda rangi w panelu administratora</Resource>
+  <Resource tag="ADMIN_REGUSER">Rejestruje użytkownika</Resource>
+  <Resource tag="ADMIN_REINDEX">Konserwuje Bazę Danych</Resource>
+  <Resource tag="ADMIN_REPLACEWORDS">Przegląda listę słów do podmiany</Resource>
+  <Resource tag="ADMIN_REPLACEWORDS_EDIT">Edytuje listę słów do podmiany</Resource>
+  <Resource tag="ADMIN_REPLACEWORDS_IMPORT">Importuje słowa do podmiany</Resource>
+  <Resource tag="ADMIN_RESTARTAPP">Restartuje aplikację</Resource>
+  <Resource tag="ADMIN_RUNSQL">Wysyła zapytanie do bazy SQL</Resource>
+  <Resource tag="ADMIN_SMILIES">Przegląda emotikony</Resource>
+  <Resource tag="ADMIN_SMILIES_EDIT">Edytuje emotikony</Resource>
+  <Resource tag="ADMIN_SMILIES_IMPORT">Importuje emotikony</Resource>
+  <Resource tag="ADMIN_TASKMANAGER">Przegląda/zarządza menadżerem zadań</Resource>
+  <Resource tag="ADMIN_TEST_DATA">Przegląda/edytuje generator testowych informacji</Resource>
+  <Resource tag="ADMIN_TOPICSTATUS">Przegląda statusy wątków w panelu administratora</Resource>
+  <Resource tag="ADMIN_TOPICSTATUS_EDIT">Edytuje statusy wątków</Resource>
+  <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Importuje statusy wątków</Resource>
+  <Resource tag="ADMIN_USERS">Przegląda użytkowników w panelu administrora</Resource>
+  <Resource tag="ADMIN_USERS_IMPORT">Importuje użytkowników</Resource>
+  <Resource tag="ADMIN_VERSION">Sprawdza wersję aplikacji</Resource>
+  <Resource tag="ADMINTASK">Wykonuje zadania administratora</Resource>
+  <Resource tag="ALBUM">Przegląda album</Resource>
+  <Resource tag="ALBUM_OFUSER">użytkownika</Resource>
+  <Resource tag="ALBUM_OWN">Przegląda/Edytuje swój album</Resource>
+  <Resource tag="ALBUMS">Przegląda albumy</Resource>
+  <Resource tag="ALBUMS_OFUSER">Przegląda albumy użytkownika</Resource>
+  <Resource tag="ALBUMS_OWN">Przegląda/Edytuje swoje albumy</Resource>
+  <Resource tag="APPROVE">Zatwierdza</Resource>
+  <Resource tag="ATTACHMENTS">Dodaje załączniki</Resource>
+  <Resource tag="AVATAR">Przeglada avatar</Resource>
+  <Resource tag="CP_CHANGEPASSWORD">Edytuje hasło</Resource>
+  <Resource tag="CP_EDITALBUMIMAGES">Edytuje obraz albumu</Resource>
+  <Resource tag="CP_EDITAVATAR">Edytuje swój avatar</Resource>
+  <Resource tag="CP_EDITBUDDIES">Edytuje znajomych</Resource>
+  <Resource tag="CP_EDITPROFILE">Edytuje profil</Resource>
+  <Resource tag="CP_MESSAGE">Przegląda prywatne wiadomości</Resource>
+  <Resource tag="CP_PM">Przegląda prywatne wiadomości</Resource>
+  <Resource tag="CP_PROFILE">Przegląda ustawienia profilu</Resource>
+  <Resource tag="CP_PROFILE_OFUSER">Przegląda profil użytkownika </Resource>
+  <Resource tag="CP_SIGNATURE">Edytuje swoją sygnaturę</Resource>
+  <Resource tag="CP_SUBSCRIPTIONS">Przegląda subskrybcje</Resource>
+  <Resource tag="DELETEMESSAGE">Usuwa post</Resource>
+  <Resource tag="EMAILTOPIC">Wysyła temat e-mailem</Resource>
+  <Resource tag="ERROR">Przegląda stronę błędu</Resource>
+  <Resource tag="FORUM">Przegląda dział</Resource>
+  <Resource tag="FORUMFROMCATEGORY">Przegląda działy w kategorii</Resource>
+  <Resource tag="HELP_INDEX">Przegląda pomoc</Resource>
+  <Resource tag="HELP_RECOVER">Brak danych</Resource>
+  <Resource tag="IM_AIM">Używa AIM</Resource>
+  <Resource tag="IM_EMAIL">Używa poczty e-mail</Resource>
+  <Resource tag="IM_ICQ">Używa ICQ</Resource>
+  <Resource tag="IM_MSN">Używa MSN</Resource>
+  <Resource tag="IM_SKYPE">Używa Skype</Resource>
+  <Resource tag="IM_XMPP">Używa XMPP</Resource>
+  <Resource tag="IM_YIM">Używa YIM</Resource>
+  <Resource tag="IMGPRV">Przegląda obraz w albumie użytkownika</Resource>
+  <Resource tag="INFO">Przegląda informacje</Resource>
+  <Resource tag="LASTPOSTS">Brak danych</Resource>
+  <Resource tag="LOGIN">Rejestruje się na forum</Resource>
+  <Resource tag="LOGOUT">Wylogowywuje się</Resource>
+  <Resource tag="MAINPAGE">Przegląda stronę główną</Resource>
+  <Resource tag="MEMBERS">Przegląda listę użytkowników</Resource>
+  <Resource tag="MESSAGEHISTORY">Przegląda historię wiadomości</Resource>
+  <Resource tag="MOD_FORUMUSER">Moderuje użytkownika forum</Resource>
+  <Resource tag="MODERATE">Moderuje</Resource>
+  <Resource tag="MODERATE_INDEX">Przegląda stronę moderatora</Resource>
+  <Resource tag="MODERATE_REPORTEDPOSTS">Przegląda zgłoszone posty</Resource>
+  <Resource tag="MODERATE_UNAPPROVEDPOSTS">Przegląda niezaakceptowane posty</Resource>
+  <Resource tag="MOVEMESSAGE">Przenosi wiadomość</Resource>
+  <Resource tag="MOVETOPIC">Przenosi temat</Resource>
+  <Resource tag="MYTOPICS">Przegląda swoje ulubione i aktywne teamty</Resource>
+  <Resource tag="NODATA">Brak danych</Resource>
+  <Resource tag="PMESSAGE">Piszę prywatną wiadomość</Resource>
+  <Resource tag="POSTMESSAGE_FULL">Dodaje post w temacie</Resource>
+  <Resource tag="POSTS">Przegląda posty w temacie</Resource>
+  <Resource tag="PRINTTOPIC">Drukuje temat</Resource>
+  <Resource tag="PROFILE">Przegląda profil użytkownika</Resource>
+  <Resource tag="PROFILE_OFUSER">Przegląda profil użytkownika</Resource>
+  <Resource tag="PROFILE_OWN">Przegląda swój profil</Resource>
+  <Resource tag="RECOVERPASSWORD">Brak danych</Resource>
+  <Resource tag="REGISTER">Rejestruje się</Resource>
+  <Resource tag="REPORTPOST">Zgłasza post</Resource>
+  <Resource tag="RSSTOPIC">Przegląda listę RSS/Atom</Resource>
+  <Resource tag="RULES">Przegląda regulamin forum</Resource>
+  <Resource tag="SEARCH">Szuka czegoś</Resource>
+  <Resource tag="SHOUTBOX">Pisze na czacie</Resource>
+  <Resource tag="SHOWSMILIES">Brak danych</Resource>
+  <Resource tag="TEAM">Przegląda stronę z ekipą forum</Resource>
+  <Resource tag="TOPICINFORUM">w dziale</Resource>
+  <Resource tag="TOPICS">Przegląda temat</Resource>
+  <Resource tag="VIEWTHANKS">Przegląda informacje o podziękowaniach</Resource>
  </page>
  <page name="ACTIVEUSERS">
   <Resource tag="ACTIVE">Aktywny</Resource>
@@ -189,6 +189,7 @@
   <Resource tag="NUM_TOPICS">Liczba wątków:</Resource>
   <Resource tag="NUM_USERS">Liczba użytkowników:</Resource>
   <Resource tag="POSTS_DAY">Postów na dzień:</Resource>
+
   <Resource tag="SIZE_DATABASE">Rozmiar bazy danych:</Resource>
   <Resource tag="STATS_DONTCOUNT">Te statystyki nie zawierają usuniętych tematów i postów.</Resource>
   <Resource tag="TOPICS_DAY">Tematów na dzień:</Resource>
@@ -1430,21 +1431,21 @@
  </page>
  <page name="ADMIN_NNTPRETRIEVE">
   <Resource tag="BETA_WARNING">&lt;p style="color: red"&gt;
-		The NNTP feature of Yet Another Forum.net is still beta, and &lt;strong&gt;will&lt;/strong&gt; have bugs.
-		Bugs you should look for is character set conversion, and incorrect time on posts.
-		Usenet articles will be posted to the forum with the date from the article header,
-		meaning that you well could get future dates. Please let me know of any unknown
-		time zones that are encountered.
-	&lt;/p&gt;
-	&lt;p style="color: red"&gt;
-		The forums usenet Articles are posted to should be read-only, as messages will &lt;strong&gt;not&lt;/strong&gt;
-		be posted back to the usenet. For speed purposes usenet articles are automatically
-		approved, meaning that if the forum is moderated, the posts will be automatically
-		approved.
-	&lt;/p&gt;
-	&lt;p style="color: red"&gt;
-		To protect usenet servers, a newsgroup can only be updated once every 10 minutes.
-	&lt;/p&gt;</Resource>
+                The NNTP feature of Yet Another Forum.net is still beta, and &lt;strong&gt;will&lt;/strong&gt; have bugs.
+                Bugs you should look for is character set conversion, and incorrect time on posts.
+                Usenet articles will be posted to the forum with the date from the article header,
+                meaning that you well could get future dates. Please let me know of any unknown
+                time zones that are encountered.
+        &lt;/p&gt;
+        &lt;p style="color: red"&gt;
+                The forums usenet Articles are posted to should be read-only, as messages will &lt;strong&gt;not&lt;/strong&gt;
+                be posted back to the usenet. For speed purposes usenet articles are automatically
+                approved, meaning that if the forum is moderated, the posts will be automatically
+                approved.
+        &lt;/p&gt;
+        &lt;p style="color: red"&gt;
+                To protect usenet servers, a newsgroup can only be updated once every 10 minutes.
+        &lt;/p&gt;</Resource>
   <Resource tag="GROUPS">Groups ready for retrieval</Resource>
   <Resource tag="HEADER">Retrieve NNTP Articles</Resource>
   <Resource tag="LAST_MESSAGE">Last Message</Resource>
@@ -1704,7 +1705,7 @@
   <Resource tag="RUNNING_VERSION">You are running YetAnotherForum.NET version &lt;strong&gt;{0}&lt;/strong&gt; (Date: {1}).</Resource>
   <Resource tag="TITLE">Version Check</Resource>
   <Resource tag="UPGRADE_VERSION">You can download the latest version from &lt;a target="_top" href="http://yafnet.codeplex.com/"&gt;
-						here&lt;/a&gt;.</Resource>
+                                                here&lt;/a&gt;.</Resource>
  </page>
  <page name="ADMINMENU">
   <Resource tag="admin_accessmasks">Maski uprawnień</Resource>
@@ -2521,7 +2522,7 @@
   <Resource tag="ATOMICONTOOLTIPFAVORITE">Zapisz się do swoich ulubionych tematów przez Atom.</Resource>
   <Resource tag="ATOMICONTOOLTIPFORUM">Zapisz się do kanału forum Atom.</Resource>
   <Resource tag="BY">przez {0}</Resource>
-  <Resource tag="CURRENT_TIME">Aktualny temat: {0}.</Resource>
+  <Resource tag="CURRENT_TIME">Aktualny czas: {0}.</Resource>
   <Resource tag="ERROR_FB_HOVERCARD">Nie znaleziono żądanego użytkownika</Resource>
   <Resource tag="ERROR_HOVERCARD">Sorki, nie znaleziono danych albo coś poszło nie tak.</Resource>
   <Resource tag="ERROR_TWIT_HOVERCARD">Błędna nazwa użytkownika lub przekroczono zapytania do Twitter'a.&lt;br/&gt;&lt;small&gt;Proszę zwrócić uwagę, że Twitter zezwala tylko na 150 zapytań na godzinę.&lt;/small&gt;.</Resource>
@@ -2812,7 +2813,7 @@
     &lt;/td&gt;
     &lt;td&gt;
       [left]this text is left aligned[/left]&lt;br /&gt;
-	  [center]this text is center aligned[/center]&lt;br /&gt;
+          [center]this text is center aligned[/center]&lt;br /&gt;
       [right]this text is right aligned[/right]&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
@@ -2820,8 +2821,8 @@
       &lt;strong&gt;Output&lt;/strong&gt;
     &lt;/td&gt;
     &lt;td&gt;&lt;div align="left"&gt;this text is left aligned&lt;/div&gt;
-			&lt;div align="center"&gt;this text is center aligned&lt;/div&gt;
-			&lt;div align="right"&gt;this text is right aligned&lt;/div&gt;&lt;/td&gt;
+                        &lt;div align="center"&gt;this text is center aligned&lt;/div&gt;
+                        &lt;div align="right"&gt;this text is right aligned&lt;/div&gt;&lt;/td&gt;
   &lt;/tr&gt;
 &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Highlight&lt;/td&gt;
@@ -2870,14 +2871,14 @@
     &lt;/td&gt;
     &lt;td&gt;
       [email]someone@mydomain.com[/email]&lt;br /&gt;
-			[email=someone@mydomain.com]Click Here to Email Me[/email]&lt;/td&gt;
+                        [email=someone@mydomain.com]Click Here to Email Me[/email]&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
       &lt;strong&gt;Output&lt;/strong&gt;
     &lt;/td&gt;
     &lt;td&gt;&lt;a href="mailto:someone@mydomain.com" title="someone@mydomain.com"&gt;someone@mydomain.com&lt;/a&gt;&lt;br /&gt;
-			&lt;a href="mailto:someone@mydomain.com" title="Click Here to Email Me"&gt;Click Here to Email Me&lt;/a&gt;&lt;/td&gt;
+                        &lt;a href="mailto:someone@mydomain.com" title="Click Here to Email Me"&gt;Click Here to Email Me&lt;/a&gt;&lt;/td&gt;
   &lt;/tr&gt;
 &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;URL Hyper Links&lt;/td&gt;
@@ -2895,7 +2896,7 @@
     &lt;/td&gt;
     &lt;td&gt;
       [url]{0}[/url]&lt;br /&gt;
-	 [url={0}]mydomain[/url]&lt;/td&gt;
+         [url={0}]mydomain[/url]&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
@@ -2920,7 +2921,7 @@
     &lt;/td&gt;
     &lt;td&gt;
       [modalurl]{0}[/modalurl]&lt;br /&gt;
-	 [modalurl={0}]mydomain[/modalurl]&lt;/td&gt;
+         [modalurl={0}]mydomain[/modalurl]&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
@@ -3110,18 +3111,18 @@
     &lt;td&gt;
       [img]{0}forumlogo.jpg[/img]&lt;br /&gt;&lt;br /&gt;
       [img={0}forumlogo.jpg]YAF Logo[/img]&lt;br /&gt;&lt;br /&gt;
-	  [url={0}] [img]{0}forumlogo.jpg[/img] [/url] (Linked)
-	&lt;/td&gt;
+          [url={0}] [img]{0}forumlogo.jpg[/img] [/url] (Linked)
+        &lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
       &lt;strong&gt;Output&lt;/strong&gt;
     &lt;/td&gt;
     &lt;td&gt;&lt;img src="{0}forumlogo.jpg" alt="" /&gt;&lt;br /&gt;
-		&lt;br /&gt;&lt;img src="{0}forumlogo.jpg" alt="YAF Logo" title="YAF Logo" /&gt;&lt;br /&gt;
-		&lt;br /&gt;
-		&lt;a href="{0}" target="_blank" title="YAF Logo"&gt;&lt;img class="inlineimg" src="{0}forumlogo.jpg" alt="" /&gt;&lt;/a&gt; (Linked)
-	&lt;/td&gt;
+                &lt;br /&gt;&lt;img src="{0}forumlogo.jpg" alt="YAF Logo" title="YAF Logo" /&gt;&lt;br /&gt;
+                &lt;br /&gt;
+                &lt;a href="{0}" target="_blank" title="YAF Logo"&gt;&lt;img class="inlineimg" src="{0}forumlogo.jpg" alt="" /&gt;&lt;/a&gt; (Linked)
+        &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;You Tube&lt;/td&gt;
@@ -3253,8 +3254,8 @@
     &lt;/td&gt;
     &lt;td&gt;
       [quote]Quoted Text.[/quote]&lt;br /&gt;&lt;br /&gt;
-		[quote=John Doe]Quoted Text.[/quote]&lt;br /&gt;&lt;br /&gt;
-		[quote=John Doe;123]Quoted Text.[/quote]&lt;/td&gt;
+                [quote=John Doe]Quoted Text.[/quote]&lt;br /&gt;&lt;br /&gt;
+                [quote=John Doe;123]Quoted Text.[/quote]&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
@@ -3282,7 +3283,7 @@
     &lt;/td&gt;
     &lt;td&gt;
       [code]&lt;br /&gt;
-		// Hello1.cs&lt;br /&gt;
+                // Hello1.cs&lt;br /&gt;
 public class Hello1&lt;br /&gt;
 {{&lt;br /&gt;
 &amp;nbsp;&amp;nbsp;public static void Main()&lt;br /&gt;
@@ -3290,9 +3291,9 @@ public class Hello1&lt;br /&gt;
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;System.Console.WriteLine("Hello, World!");&lt;br /&gt;
 &amp;nbsp;&amp;nbsp;}}&lt;br /&gt;
 }}&lt;br /&gt;
-		[/code]&lt;br /&gt;&lt;br /&gt;
+                [/code]&lt;br /&gt;&lt;br /&gt;
         [code=csharp]&lt;br /&gt;
-		// Hello1.cs&lt;br /&gt;
+                // Hello1.cs&lt;br /&gt;
 public class Hello1&lt;br /&gt;
 {{&lt;br /&gt;
 &amp;nbsp;&amp;nbsp;public static void Main()&lt;br /&gt;
@@ -3300,7 +3301,7 @@ public class Hello1&lt;br /&gt;
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;System.Console.WriteLine("Hello, World!");&lt;br /&gt;
 &amp;nbsp;&amp;nbsp;}}&lt;br /&gt;
 }}&lt;br /&gt;
-		[/code]&lt;/td&gt;
+                [/code]&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
@@ -3363,8 +3364,9 @@ public class Hello1
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
+        &lt;/td&gt;
   &lt;/tr&gt;
+
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Group Hide&lt;/td&gt;
   &lt;/tr&gt;
@@ -3396,7 +3398,7 @@ public class Hello1
     
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
+        &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Hide-Thanks&lt;/td&gt;
@@ -3429,7 +3431,7 @@ public class Hello1
     
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
+        &lt;/td&gt;
   &lt;/tr&gt;
   
   &lt;tr&gt;
@@ -3463,7 +3465,7 @@ public class Hello1
     
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
+        &lt;/td&gt;
   &lt;/tr&gt;
   
   &lt;tr&gt;
@@ -3497,7 +3499,7 @@ public class Hello1
     
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
+        &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Hide-Reply-Thanks&lt;/td&gt;
@@ -3530,7 +3532,7 @@ public class Hello1
     
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
+        &lt;/td&gt;
   &lt;/tr&gt;
 &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Spoiler&lt;/td&gt;
@@ -3556,8 +3558,8 @@ public class Hello1
     &lt;td&gt;
     &lt;!-- BEGIN spoiler --&gt;
     &lt;script type="text/javascript"&gt;
-	function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Show Spoiler'}}else{{el.style.display='';btn.value='Hide Spoiler'}}}}
-	&lt;/script&gt;
+        function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Show Spoiler'}}else{{el.style.display='';btn.value='Hide Spoiler'}}}}
+        &lt;/script&gt;
 &lt;div class="spoilertitle"&gt;
 &lt;input type="button" value="Show Spoiler" class="spoilerbutton" name="spoilerBtn4360a" onclick="toggleSpoiler(this,'spoil_c3a3b');"/&gt;
 &lt;/div&gt;
@@ -3565,7 +3567,7 @@ public class Hello1
 Spoiler Content
 &lt;/div&gt;
 &lt;!-- END spoiler --&gt;
-	&lt;/td&gt;
+        &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/table&gt;
 &lt;br /&gt;
@@ -3598,12 +3600,12 @@ Spoiler Content
     &lt;/td&gt;
     &lt;td&gt;
     &lt;style type="text/css"&gt;.yafnet .userLinkContainer{{background: url({0}resources/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}
-	&lt;/style&gt;
+        &lt;/style&gt;
     &lt;span class="userLinkContainer"&gt;
 &lt;a href="{0}yaf_profile1234.aspx" rel="nofollow" title="View profile" target="_blank" id="UserLinkBBCodeFor12224" class="UserLinkBBCode"&gt;Username&lt;/a&gt;
 &lt;img id="OnlineStatusImage" src="{0}/Themes/OrangeGrey/icon_useronline.png" alt="Online" style="vertical-align: bottom" title="User is Online"/&gt;
 &lt;/span&gt;
-	&lt;/td&gt;
+        &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Stop BB Code Parsing&lt;/td&gt;
@@ -3627,7 +3629,7 @@ Spoiler Content
       &lt;strong&gt;Output&lt;/strong&gt;
     &lt;/td&gt;
     &lt;td&gt;[noparse][b]Sample text.[/b][/noparse]
-	&lt;/td&gt;
+        &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/table&gt;
 
@@ -3713,7 +3715,7 @@ Spoiler Content
   <Resource tag="INDEX">Index</Resource>
   <Resource tag="MAILSETTINGSCONTENT">&lt;p&gt;On the 'Email Notification Preferences' Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Turn off notifications - &lt;/strong&gt;This Options turns off all Notifications and you won’t receive any emails.&lt;/p&gt;
-&lt;p&gt; &lt;strong&gt;Notification for all posts on all topics&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message.&lt;/p&gt;
+&lt;p&gt; &lt;strong&gt;Notification for all posts on all topics&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Notification for topics you've posted to, watched or marked as favorite&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Notification for topics or forums you've selectively watched (listed below)&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Receive once daily digest/summary of activity?&lt;/strong&gt; - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail&lt;/p&gt;
@@ -3955,8 +3957,8 @@ Spoiler Content
   <Resource tag="WELCOME">Here you can find answers to questions about how the board works. Use the links on the left or the search box below to find what you are looking for. </Resource>
  </page>
  <page name="ICONLEGEND">
-  <Resource tag="ANNOUNCEMENT">Zawiadomienie</Resource>
-  <Resource tag="ANNOUNCEMENT_NEW">Zawiadomienie (Nowe Posty)</Resource>
+  <Resource tag="ANNOUNCEMENT">Ogłoszenie</Resource>
+  <Resource tag="ANNOUNCEMENT_NEW">Ogłoszenie (Nowe Posty)</Resource>
   <Resource tag="FORUM_LOCKED">Forum zablokowane</Resource>
   <Resource tag="HOT_NEW_POSTS">Popularny temat (Nowe Posty)</Resource>
   <Resource tag="HOT_NO_NEW_POSTS">Popularny temat</Resource>
@@ -4514,7 +4516,7 @@ Spoiler Content
   <Resource tag="MEDALS">Medale:</Resource>
   <Resource tag="MEMBERS">Członkowie</Resource>
   <Resource tag="MINUTES">minut</Resource>
-  <Resource tag="MODERATION">Moderowane</Resource>
+  <Resource tag="MODERATION">Moderowanie</Resource>
   <Resource tag="MSN">MSN Messenger:</Resource>
   <Resource tag="NUMALL">{0:N2}% wszystkich postów</Resource>
   <Resource tag="NUMDAY">{0:N2} postów na dzień</Resource>
@@ -4531,7 +4533,7 @@ Spoiler Content
   <Resource tag="SEARCHUSER">Zobacz wszystkie posty napisane przez użytkownika</Resource>
   <Resource tag="SKYPE">Skype(tm) ID:</Resource>
   <Resource tag="STATISTICS">Statystyki</Resource>
-  <Resource tag="SUSPEND">Zawieszony</Resource>
+  <Resource tag="SUSPEND">Zawieś</Resource>
   <Resource tag="SUSPEND_USER">Konto zawieszone:</Resource>
   <Resource tag="THANKSFROM">Podziękowano:</Resource>
   <Resource tag="THANKSTOPOSTS">Podziękowano za posty:</Resource>
@@ -4878,10 +4880,10 @@ Hello!
       You have been successfully registered on the {forumname} forum using Facebook Login:
 
       User Name: {user}
-	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
+          Auto Generated Password: {pass}
+          Auto Generated Security Answer: {answer}
       User Email: {email} (Please don't change your email, or you are unable to login with facebook)
-	  
+          
     </Resource>
   <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER">
       Hello {user}.
@@ -4889,10 +4891,10 @@ Hello!
       You have been successfully registered on the {forumname} forum using Google Login:
 
       User Name: {user}
-	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
+          Auto Generated Password: {pass}
+          Auto Generated Security Answer: {answer}
       User Email: {email} (Please don't change your email, or you are unable to login with Google)
-	  
+          
     </Resource>
   <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
     Hello {user}.
@@ -4900,13 +4902,13 @@ Hello!
     Congratulations you have been award with the {medalname} on the {forumname} forum.
   </Resource>
   <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
-		A new message that needs your approved has been posted in the {forumname} forum:
-		
-		Administration Link: {adminlink}
-	</Resource>
+                A new message that needs your approved has been posted in the {forumname} forum:
+                
+                Administration Link: {adminlink}
+        </Resource>
   <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT">
       A message was reported by {reporter} for the following reason: {reason}
-	  
+          
 The Message was posted in the {forumname} forum.
       
       Administration Link: {adminlink}
@@ -4917,10 +4919,10 @@ The Message was posted in the {forumname} forum.
       You have been successfully Registred on the {forumname} forum:
 
       User Name: {user}
-	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
+          Auto Generated Password: {pass}
+          Auto Generated Security Answer: {answer}
       User Email: {email}
-	  
+          
     </Resource>
   <Resource tag="NOTIFICATION_ON_TWITTER_REGISTER">
       Hello {user}.
@@ -4928,21 +4930,21 @@ The Message was posted in the {forumname} forum.
       You have been successfully registered on the {forumname} forum using Twitter Login:
 
       User Name: {user}
-	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
+          Auto Generated Password: {pass}
+          Auto Generated Security Answer: {answer}
       User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)
-	  
+          
     </Resource>
   <Resource tag="NOTIFICATION_ON_USER_REGISTER">
-		Hello!
+                Hello!
 
-		A new user has registered on the {forumname} forum:
-		
-		User Name: {user}
-		User Email: {email}
-		
-		Administration Link: {adminlink}
-	</Resource>
+                A new user has registered on the {forumname} forum:
+                
+                User Name: {user}
+                User Email: {email}
+                
+                Administration Link: {adminlink}
+        </Resource>
   <Resource tag="PASSWORDRETRIEVAL_HTML">
 &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
 &lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
