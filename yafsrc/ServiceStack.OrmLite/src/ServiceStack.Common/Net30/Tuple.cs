@@ -1,4 +1,4 @@
-﻿#region (c)2009 Lokad - New BSD license
+#region (c)2009 Lokad - New BSD license
 
 // Copyright (c) Lokad 2009 
 // Company: http://www.lokad.com

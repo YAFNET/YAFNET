@@ -1,4 +1,4 @@
-﻿#if !SILVERLIGHT && !MONOTOUCH && !XBOX
+#if !SILVERLIGHT && !MONOTOUCH && !XBOX
 using System.Data;
 
 namespace ServiceStack.DataAccess

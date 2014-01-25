@@ -1,4 +1,4 @@
-﻿using ServiceStack.ServiceInterface.ServiceModel;
+using ServiceStack.ServiceInterface.ServiceModel;
 
 namespace ServiceStack.Common.ServiceClient.Web
 {

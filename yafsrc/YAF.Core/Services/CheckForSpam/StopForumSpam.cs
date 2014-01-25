@@ -1,4 +1,4 @@
-﻿/* Yet Another Foru.NET
+/* Yet Another Foru.NET
  * Copyright (C) 2006-2013 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 

@@ -1,4 +1,4 @@
-﻿namespace YAF.TranslateApp
+namespace YAF.TranslateApp
 {
     partial class TranslateForm
     {

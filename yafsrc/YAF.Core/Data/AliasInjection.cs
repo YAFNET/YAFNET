@@ -1,4 +1,4 @@
-﻿namespace YAF.Core.Data
+namespace YAF.Core.Data
 {
     using System;
     using System.Collections.Generic;

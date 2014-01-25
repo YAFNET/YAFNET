@@ -1,4 +1,4 @@
-﻿// ConcurrentDictionary.cs
+// ConcurrentDictionary.cs
 //
 // Copyright (c) 2009 Jérémie "Garuma" Laval
 //

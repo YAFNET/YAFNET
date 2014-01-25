@@ -1,4 +1,4 @@
-﻿/* Based on BlogSpam.net API http://blogspamnetapi.codeplex.com/
+/* Based on BlogSpam.net API http://blogspamnetapi.codeplex.com/
  * 
  * The MIT License (MIT)
  * -------------------------------------

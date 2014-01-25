@@ -1,4 +1,4 @@
-﻿namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces
 {
   using YAF.Types;
 

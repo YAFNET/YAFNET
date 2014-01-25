@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using ServiceStack.Common;
 using ServiceStack.Service;
 using ServiceStack.ServiceClient.Web;

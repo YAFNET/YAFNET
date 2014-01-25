@@ -1,4 +1,4 @@
-﻿/*
+/*
 // $Id: ResponseStatus.cs 11037 2010-02-03 12:36:14Z Demis Bellot $
 //
 // Revision      : $Revision: 11037 $

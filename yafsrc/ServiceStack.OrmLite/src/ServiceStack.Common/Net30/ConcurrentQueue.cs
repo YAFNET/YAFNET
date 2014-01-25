@@ -1,4 +1,4 @@
-﻿// IConcurrentCollection.cs
+// IConcurrentCollection.cs
 //
 // Copyright (c) 2008 Jérémie "Garuma" Laval
 //

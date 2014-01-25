@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using ServiceStack.DataAnnotations;
 
 namespace ServiceStack.OrmLite

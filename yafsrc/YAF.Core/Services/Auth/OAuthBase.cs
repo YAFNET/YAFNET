@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Base oAuth Class for Twitter and LinkedIn
  * Author: Eran Sandler 
  * Code Url: http://oauth.net/code/

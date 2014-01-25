@@ -1,4 +1,4 @@
-﻿namespace ServiceStack.Configuration
+namespace ServiceStack.Configuration
 {
     public interface IRelease
     {

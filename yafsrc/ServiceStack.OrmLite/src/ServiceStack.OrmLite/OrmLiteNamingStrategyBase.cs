@@ -1,4 +1,4 @@
-﻿//
+//
 // ServiceStack.OrmLite: Light-weight POCO ORM for .NET and Mono
 //
 // Authors:

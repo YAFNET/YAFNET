@@ -1,4 +1,4 @@
-﻿using ServiceStack.Redis.Pipeline;
+using ServiceStack.Redis.Pipeline;
 
 namespace ServiceStack.Redis
 {

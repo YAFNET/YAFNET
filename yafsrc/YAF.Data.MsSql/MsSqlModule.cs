@@ -1,4 +1,4 @@
-﻿namespace YAF.Data.MsSql
+namespace YAF.Data.MsSql
 {
     using Autofac;
 

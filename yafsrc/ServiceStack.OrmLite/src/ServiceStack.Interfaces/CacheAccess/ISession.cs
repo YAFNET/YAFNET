@@ -1,4 +1,4 @@
-﻿namespace ServiceStack.CacheAccess
+namespace ServiceStack.CacheAccess
 {
 	/// <summary>
 	/// A Users Session

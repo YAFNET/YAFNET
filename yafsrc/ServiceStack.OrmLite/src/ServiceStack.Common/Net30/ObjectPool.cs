@@ -1,4 +1,4 @@
-﻿// ObjectPool.cs
+// ObjectPool.cs
 //
 // Copyright (c) 2011 Novell
 //

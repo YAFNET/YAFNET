@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This code is an extender of JSMin project
  * http://www.crockford.com/javascript/jsmin.html 
  * Please give credit to Douglas Crockford

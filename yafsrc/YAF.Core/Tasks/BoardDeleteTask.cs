@@ -1,4 +1,4 @@
-﻿
+
 // vzrus
 namespace YAF.Core.Tasks
 {

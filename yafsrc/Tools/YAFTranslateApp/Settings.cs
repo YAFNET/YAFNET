@@ -1,4 +1,4 @@
-﻿namespace YAF.TranslateApp.Properties {
+namespace YAF.TranslateApp.Properties {
     
     
     // This class allows you to handle specific events on the settings class:

@@ -1,4 +1,4 @@
-﻿namespace YAF.Types.Interfaces.Data
+namespace YAF.Types.Interfaces.Data
 {
     using System.Collections.Generic;
 

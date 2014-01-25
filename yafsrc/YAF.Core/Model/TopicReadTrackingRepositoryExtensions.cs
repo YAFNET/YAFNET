@@ -1,4 +1,4 @@
-﻿namespace YAF.Core.Model
+namespace YAF.Core.Model
 {
     using System;
 

@@ -1,4 +1,4 @@
-﻿// SplitOrderedList.cs
+// SplitOrderedList.cs
 //
 // Copyright (c) 2010 Jérémie "Garuma" Laval
 //

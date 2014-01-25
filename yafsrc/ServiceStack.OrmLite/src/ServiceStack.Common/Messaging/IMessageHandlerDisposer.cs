@@ -1,4 +1,4 @@
-﻿namespace ServiceStack.Messaging
+namespace ServiceStack.Messaging
 {
     public interface IMessageHandlerDisposer
     {

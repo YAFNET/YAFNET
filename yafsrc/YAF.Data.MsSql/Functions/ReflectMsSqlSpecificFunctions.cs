@@ -1,4 +1,4 @@
-﻿namespace YAF.Data.MsSql.Functions
+namespace YAF.Data.MsSql.Functions
 {
     using YAF.Types.Attributes;
     using YAF.Types.Interfaces.Data;

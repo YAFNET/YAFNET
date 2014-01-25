@@ -1,4 +1,4 @@
-﻿namespace ServiceStack.ServiceHost
+namespace ServiceStack.ServiceHost
 {
 	public interface IResolver
 	{

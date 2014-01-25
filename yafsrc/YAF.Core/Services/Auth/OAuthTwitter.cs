@@ -1,4 +1,4 @@
-﻿/*
+/*
  * (Copyright (c) 2011, Shannon Whitley <swhitley@whitleymedia.com> http://voiceoftech.com/
  * 
  * All rights reserved.

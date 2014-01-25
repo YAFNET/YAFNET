@@ -1,4 +1,4 @@
-﻿/* Based on "Subkismet - The Cure For Comment Spam" v1.0: http://subkismet.codeplex.com/
+/* Based on "Subkismet - The Cure For Comment Spam" v1.0: http://subkismet.codeplex.com/
  * 
  * License: New BSD License
  * -------------------------------------

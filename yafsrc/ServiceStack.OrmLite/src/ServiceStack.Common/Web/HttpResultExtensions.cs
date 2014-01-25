@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using ServiceStack.Common.Utils;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface.ServiceModel;

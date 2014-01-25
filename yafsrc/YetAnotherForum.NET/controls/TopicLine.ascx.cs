@@ -1,4 +1,4 @@
-﻿namespace YAF.Controls
+namespace YAF.Controls
 {
     #region Using
 

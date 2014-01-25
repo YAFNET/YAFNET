@@ -1,4 +1,4 @@
-﻿/******************************************************************************************************
+/******************************************************************************************************
 //  Original code by: DLESKTECH at http://www.dlesktech.com/support.aspx
 //  Modifications by: KASL Technologies at www.kasltechnologies.com
 //  Mod date:7/21/2009

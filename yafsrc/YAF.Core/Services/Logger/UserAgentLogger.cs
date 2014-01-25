@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Web;
 using YAF.Classes.Data;
 using YAF.Types.Constants;
