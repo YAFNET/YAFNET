@@ -13,13 +13,13 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content profileContent" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
-		<td class="header1" colspan="2">
+		<td class="header1">
 			<YAF:LocalizedLabel runat="server" LocalizedTag="profile" />
 			<YAF:UserLabel ID="UserLabel1" runat="server" />
 		</td>
 	</tr>
 	<tr class="post">
-		<td colspan="2">
+		<td>
 			<YAF:ThemeButton  ID="PM" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
 				TextLocalizedTag="PM" ImageThemeTag="PM" TitleLocalizedTag="PM_TITLE" TitleLocalizedPage="POSTS" />
 			<YAF:ThemeButton ID="Email" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
@@ -52,7 +52,7 @@
 		</td>
 	</tr>
 	<tr class="post">
-		<td valign="top" rowspan="2">
+		<td valign="top">
 			<asp:Panel id="ProfileTabs" runat="server">
                <ul>
                  <li><a href="#AboutTab"><YAF:LocalizedLabel ID="LocalizedLabel40" runat="server" LocalizedTag="ABOUT" /></a></li>
