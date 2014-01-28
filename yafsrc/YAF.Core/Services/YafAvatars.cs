@@ -90,9 +90,17 @@ namespace YAF.Core.Services
         /// </returns>
         public string GetAvatarUrlForUser(int userId)
         {
-            var userData = new CombinedUserDataHelper(userId);
+            try
+            {
+                var userData = new CombinedUserDataHelper(userId);
 
-            return this.GetAvatarUrlForUser(userData);
+                return this.GetAvatarUrlForUser(userData);
+            }
+            catch (Exception)
+            {
+                // Return NoAvatar Image if there something wrong with the user
+                return "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+            }
         }
 
         /// <summary>
@@ -120,6 +128,7 @@ namespace YAF.Core.Services
                         {
                             userEmail = string.Empty;
                         }
+
                         return userEmail;
                     });
 
@@ -173,7 +182,7 @@ namespace YAF.Core.Services
                 // string noAvatarGraphicUrl = HttpContext.Current.Server.UrlEncode( string.Format( "{0}/images/avatars/{1}", YafForumInfo.ForumBaseUrl, "NoAvatar.gif" ) );
                 string gravatarUrl =
                     @"http://www.gravatar.com/avatar/{0}.jpg?r={1}".FormatWith(
-                        StringExtensions.StringToHexBytes(email), this._yafBoardSettings.GravatarRating);
+                        email.StringToHexBytes(), this._yafBoardSettings.GravatarRating);
 
                 avatarUrl =
                     @"{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
