@@ -40,7 +40,7 @@ namespace YAF.Pages.Admin
     #endregion
 
     /// <summary>
-    ///     Summary description for register.
+    ///     the version info page.
     /// </summary>
     public partial class version : AdminPage
     {

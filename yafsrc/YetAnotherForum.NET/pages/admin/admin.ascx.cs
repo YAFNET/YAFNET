@@ -303,8 +303,7 @@ namespace YAF.Pages.Admin
 
             this.BindData();
 
-            var latestInfo =
-                this.Get<HttpApplicationStateBase>()["YafRegistrationLatestInformation"] as LatestVersionInformation;
+            var latestInfo = new LatestInformationService().GetLatestVersionInformation();
 
             if (latestInfo == null || latestInfo.Version <= YafForumInfo.AppVersionCode)
             {
