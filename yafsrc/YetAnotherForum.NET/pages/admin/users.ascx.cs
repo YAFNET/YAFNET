@@ -572,6 +572,7 @@ namespace YAF.Pages.Admin
             usersList.Columns.Add("Twitter");
             usersList.Columns.Add("TwitterId");
             usersList.Columns.Add("Facebook");
+            usersList.Columns.Add("FacebookId");
             usersList.Columns.Add("Google");
             usersList.Columns.Add("GoogleId");
 
