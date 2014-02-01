@@ -739,6 +739,25 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [ban bot ip on detection].
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if [ban bot ip on detection]; otherwise, <c>false</c>.
+        /// </value>
+        public bool BanBotIpOnDetection
+        {
+            get
+            {
+                return this._reg.GetValue("BanBotIpOnDetection", false);
+            }
+
+            set
+            {
+                this._reg.SetValue("BanBotIpOnDetection", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether to Use Akismet Service.
         /// </summary>
         public string AkismetApiKey
