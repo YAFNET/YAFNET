@@ -11,7 +11,7 @@
 * Written in C# ASP.NET (Microsoft .NET Framework v4 and above)
 * Microsoft SQL Server 2005/2008 database
 * Uses AJAX and jQuery for controls
-* Source available under GPL
+* Source available under the Apache license
 
 ### Main Functions
  
