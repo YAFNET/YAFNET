@@ -4959,29 +4959,42 @@ The Message was posted in the {forumname} forum.
 		Administration Link: {adminlink}
 	</Resource>
     <Resource tag="PASSWORDRETRIEVAL_HTML">
-&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
-&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
-&lt;head&gt;
-&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-&lt;title&gt;Password Retrieval&lt;/title&gt;
-&lt;style type="text/css"&gt;
-&lt;!--
-.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
---&gt;
-&lt;/style&gt;
-&lt;/head&gt;&lt;body&gt;
-&lt;p class="style1"&gt; A new password has been generated for you on &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
-&lt;p class="style1"&gt; Please return to the site and log in using the following information:&lt;/p&gt;
-&lt;blockquote&gt;&lt;span class="style1"&gt;
-User Name: &lt;b&gt;{username}&lt;/b&gt;&lt;br /&gt;
-Password: &lt;b&gt;{password}&lt;/b&gt;&lt;/span&gt;&lt;/blockquote&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+    &lt;!DOCTYPE html&gt;
+
+    &lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+    &lt;head&gt;
+    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+    &lt;title&gt;Password Retrieval&lt;/title&gt;
+    &lt;style type=&quot;text/css&quot;&gt;
+    &lt;!--
+    .style1 {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    }
+    --&gt;
+    &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;p class=&quot;style1&quot;&gt;Hello {username},&lt;/p&gt;
+    &lt;p class=&quot;style1&quot;&gt;You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.&lt;/p&gt;
+    &lt;p class=&quot;style1&quot;&gt;A new password has been generated for you on &lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href=&quot;{forumlink}&quot;&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
+    &lt;p class=&quot;style1&quot;&gt;Please return to the site and login using the following information:&lt;/p&gt;
+    &lt;blockquote&gt;
+    &lt;span class=&quot;style1&quot;&gt;
+    User Name: &lt;strong&gt;{username}&lt;/strong&gt;&lt;br /&gt;
+    Password: &lt;strong&gt;{password}&lt;/strong&gt;
+    &lt;/span&gt;
+    &lt;/blockquote&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
 </Resource>
-    <Resource tag="PASSWORDRETRIEVAL_TEXT">
+  <Resource tag="PASSWORDRETRIEVAL_TEXT">
+Hello {username},
+
+You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.
+
 A new password has been generated for you on {forumname} at {forumlink}.
 
-Please return to the site and log in using the following information:
+Please return to the site and login using the following information:
 
 User Name: {username}
 Password: {password}

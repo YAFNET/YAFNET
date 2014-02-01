@@ -27,14 +27,13 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
     using System.Linq;
     using System.Net.Mail;
+    using System.Web;
     using System.Web.Security;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
@@ -45,11 +44,12 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
     /// <summary>
-    /// The recover Password Page Class
+    /// The recover Password Page.
     /// </summary>
     public partial class recoverpassword : ForumPage
     {
@@ -83,14 +83,10 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -127,28 +123,20 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The password recovery 1_ answer lookup error.
+        /// Handles the AnswerLookupError event of the PasswordRecovery1 control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void PasswordRecovery1_AnswerLookupError([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.PageContext.LoadMessage.AddSession(this.GetText("QUESTION_FAILURE"), MessageTypes.Error);
         }
 
         /// <summary>
-        /// The password recovery 1_ send mail error.
+        /// Handles the SendMailError event of the PasswordRecovery1 control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="SendMailErrorEventArgs"/> instance containing the event data.</param>
         protected void PasswordRecovery1_SendMailError([NotNull] object sender, [NotNull] SendMailErrorEventArgs e)
         {
             // it will fail to send the message...
@@ -156,48 +144,56 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The password recovery 1_ sending mail.
+        /// Handles the SendingMail event of the PasswordRecovery1 control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MailMessageEventArgs"/> instance containing the event data.</param>
         protected void PasswordRecovery1_SendingMail([NotNull] object sender, [NotNull] MailMessageEventArgs e)
         {
             // get the username and password from the body
-            string body = e.Message.Body;
+            var body = e.Message.Body;
 
             // remove first line...
             body = body.Remove(0, body.IndexOf('\n') + 1);
 
             // remove "Username: "
-            body = body.Remove(0, body.IndexOf(": ") + 2);
+            body = body.Remove(0, body.IndexOf(": ", StringComparison.Ordinal) + 2);
 
             // get first line which is the username
-            string userName = body.Substring(0, body.IndexOf('\n'));
+            var userName = body.Substring(0, body.IndexOf('\n'));
 
             // delete that same line...
             body = body.Remove(0, body.IndexOf('\n') + 1);
 
             // remove the "Password: " part
-            body = body.Remove(0, body.IndexOf(": ") + 2);
+            body = body.Remove(0, body.IndexOf(": ", StringComparison.Ordinal) + 2);
 
             // the rest is the password...
-            string password = body.Substring(0, body.IndexOf('\n'));
+            var password = body.Substring(0, body.IndexOf('\n'));
 
             // get the e-mail ready from the real template.
             var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
 
-            string subject = this.GetTextFormatted("PASSWORDRETRIEVAL_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
+            var subject = this.GetTextFormatted("PASSWORDRETRIEVAL_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
+
+            var userIpAddress = this.Get<HttpRequestBase>().GetUserRealIPAddress();
 
             passwordRetrieval.TemplateParams["{username}"] = userName;
             passwordRetrieval.TemplateParams["{password}"] = password;
+            passwordRetrieval.TemplateParams["{ipaddress}"] = userIpAddress;
             passwordRetrieval.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
             passwordRetrieval.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
 
             passwordRetrieval.SendEmail(e.Message.To[0], subject, true);
+
+            // log password reset attempt
+            this.Logger.Log(
+                userName,
+                "{0} Requested a Password Reset".FormatWith(userName),
+                "The user {0} with the IP address: '{1}' requested a password reset.".FormatWith(
+                    userName,
+                    userIpAddress),
+                EventLogTypes.Information);
 
             // manually set to success...
             e.Cancel = true;
