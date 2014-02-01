@@ -261,6 +261,14 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel227" runat="server" LocalizedTag="BOT_IPBAN_ONREGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="BanBotIpOnDetection" runat="server" />
+                        </td>
+                    </tr>
+<tr>
                         <td class="header1" colspan="2">
                             <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="HEADER_LOGIN" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>

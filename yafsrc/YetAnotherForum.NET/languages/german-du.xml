@@ -964,6 +964,8 @@
     <Resource tag="BOT_CHECK_4">StopForumSpam.com oder BotScout.com (Registrierung erforderlich)</Resource>
     <Resource tag="BOT_CHECK_ONREGISTER">Beim Registrieren auf Bots prüfen:</Resource>
     <Resource tag="BOT_CHECK_ONREGISTER_HELP">Wenn aktivieren wird während der Regstrierung gechecked ob der Benutzer ein SPAM Bot ist, Sie haben die Auswahl was dann passieren soll endweder wird der Benutzer blockiert oder es wird nur geloggt und der Admin per Email benachrichtigt.</Resource>
+    <Resource tag="BOT_IPBAN_ONREGISTER">Automatically Ban Ip Address of Detected Bot:</Resource>
+    <Resource tag="BOT_IPBAN_ONREGISTER_HELP">If enabled and a Bot is detected during registration, and if bot handling is set to reject Registration, the IP Address of the Bot is automatically banned.</Resource>
     <Resource tag="BOT_MESSAGE_0">Deaktiviert</Resource>
     <Resource tag="BOT_MESSAGE_1">Benutzer registrien aber loggen und Admin benachrichtigen</Resource>
     <Resource tag="BOT_MESSAGE_2">Benutzer nicht registrieren</Resource>

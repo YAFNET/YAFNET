@@ -357,22 +357,21 @@ namespace YAF.Pages
                 var spamChecker = new YafSpamCheck();
                 string result;
 
+                var userIpAddress = this.Get<HttpRequestBase>().GetUserRealIPAddress();
+
                 // Check content for spam
                 if (spamChecker.CheckUserForSpamBot(
                     userName,
                     this.CreateUserWizard1.Email,
-                    this.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                    userIpAddress,
                     out result))
                 {
                     this.Logger.Log(
-                    null,
-                    "Bot Detected",
-                    "Bot Check detected a possible SPAM BOT: (user name : '{0}', email : '{1}', ip: '{2}', reason : {3}), user was rejected.".FormatWith(
-                        userName,
-                               this.CreateUserWizard1.Email,
-                               this.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                               result),
-                    EventLogTypes.SpamBotDetected);
+                        null,
+                        "Bot Detected",
+                        "Bot Check detected a possible SPAM BOT: (user name : '{0}', email : '{1}', ip: '{2}', reason : {3}), user was rejected."
+                            .FormatWith(userName, this.CreateUserWizard1.Email, userIpAddress, result),
+                        EventLogTypes.SpamBotDetected);
 
                     if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
                     {
@@ -382,6 +381,19 @@ namespace YAF.Pages
                     else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
                     {
                         this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.Error);
+
+                        int? num = null;
+
+                        if (this.Get<YafBoardSettings>().BanBotIpOnDetection)
+                        {
+                            this.GetRepository<BannedIP>()
+                                .Save(
+                                    null,
+                                    userIpAddress,
+                                    "A spam Bot who was trying to register was banned by IP {0}".FormatWith(
+                                        userIpAddress),
+                                    num.Value);
+                        }
 
                         e.Cancel = true;
                     }

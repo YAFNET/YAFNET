@@ -950,7 +950,8 @@
   <Resource tag="AVATAR_WIDTH_HELP">Maximum width for avatars.</Resource>
   <Resource tag="BOT_CHECK_ONREGISTER">Handling of Bots during Registration:</Resource>
   <Resource tag="BOT_CHECK_ONREGISTER_HELP">If enabled it detects Spammers during the Registration, you can set to Block that user or simply log it and send a Message to the Admins.</Resource>
-  <Resource tag="BOTSCOUT_KEY">BotScout.com API Key:</Resource>
+  <Resource tag="BOT_IPBAN_ONREGISTER">Automatically Ban Ip Address of Detected Bot:</Resource>
+  <Resource tag="BOT_IPBAN_ONREGISTER_HELP">If enabled and a Bot is detected during registration, and if bot handling is set to reject Registration, the IP Address of the Bot is automatically banned.</Resource><Resource tag="BOTSCOUT_KEY">BotScout.com API Key:</Resource>
   <Resource tag="BOTSCOUT_KEY_HELP">To Use the BotScout Bot Service you need an API Key &lt;a href="http://botscout.com/getkey.htm"&gt;Sign Up here&lt;a&gt;</Resource>
   <Resource tag="CAPTCHA_FOR_REGISTER">Enable CAPTCHA/reCAPTCHA for Register:</Resource>
   <Resource tag="CAPTCHA_FOR_REGISTER_HELP">Require users to enter the CAPTCHA when they register for the forum.</Resource>
