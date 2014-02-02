@@ -2255,84 +2255,114 @@ DROP procedure [{databaseOwner}].[{objectQualifier}forum_initdisplayname]
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}forum_initdisplayname] as
-
+ 
 begin
     declare @tmpUserName nvarchar(255)
-	declare @tmpUserDisplayName nvarchar(255)
-	declare @tmpLastUserName nvarchar(255)
-	declare @tmpLastUserDisplayName nvarchar(255)
-	declare @tmp int
-	declare @tmpUserID int
-	declare @tmpLastUserID int
-		
-		declare fc cursor for
-		select ForumID, LastUserID from [{databaseOwner}].[{objectQualifier}Forum]
-		where (LastUserDisplayName IS NULL OR LastUserName IS NULL) and LastUserID IS NOT NULL
-		FOR UPDATE		
-		open fc
-		
-		fetch next from fc into @tmp,@tmpLastUserID
-		while @@FETCH_STATUS = 0
-		begin
-		select @tmpLastUserDisplayName = u.DisplayName,  @tmpLastUserName = u.Name FROM [{databaseOwner}].[{objectQualifier}User] u WHERE u.UserID = @tmpLastUserID
-		update [{databaseOwner}].[{objectQualifier}Forum] set LastUserDisplayName = @tmpLastUserDisplayName, LastUserName = @tmpLastUserName where [{databaseOwner}].[{objectQualifier}Forum].ForumID = @tmp 	
-	    fetch next from fc into @tmp,@tmpLastUserID
-		end
-		close fc
-		deallocate fc
-		
-		declare sbc cursor for
-		select ShoutBoxMessageID,UserID from [{databaseOwner}].[{objectQualifier}ShoutboxMessage]
-		where UserDisplayName IS NULL
-		FOR UPDATE		
-		open sbc
-		
-		fetch next from sbc into @tmp,@tmpUserID
-		while @@FETCH_STATUS = 0
-		begin
-		select @tmpUserDisplayName = u.DisplayName,  @tmpUserName = u.Name FROM [{databaseOwner}].[{objectQualifier}User] u WHERE u.UserID = @tmpUserID
-		update [{databaseOwner}].[{objectQualifier}ShoutboxMessage] set UserDisplayName = @tmpUserDisplayName,UserName = @tmpUserName where [{databaseOwner}].[{objectQualifier}ShoutboxMessage].ShoutBoxMessageID = @tmp
-	  	fetch next from sbc into @tmp,@tmpUserID
-		end
-		close sbc
-		deallocate sbc			
-		
-		declare mc cursor for
-		select MessageID,UserID from [{databaseOwner}].[{objectQualifier}Message]
-		where UserDisplayName IS NULL
-		FOR UPDATE
-				
-		open mc
-		
-		fetch next from mc into @tmp,@tmpUserID
-		while @@FETCH_STATUS = 0
-		begin
-		select @tmpUserDisplayName = u.DisplayName,  @tmpUserName = u.Name FROM [{databaseOwner}].[{objectQualifier}User] u WHERE u.UserID = @tmpUserID		
-	    update [{databaseOwner}].[{objectQualifier}Message]  set UserDisplayName = @tmpUserDisplayName, UserName = @tmpUserName where MessageID = @tmp
-	   	fetch next from mc into @tmp,@tmpUserID
-		end
-		close mc
-		deallocate mc		
-		
-		declare tc cursor for
-		select TopicID,UserID,LastUserID from [{databaseOwner}].[{objectQualifier}Topic]
-		where (UserDisplayName IS NULL OR LastUserDisplayName IS NULL) and LastUserID IS NOT NULL 
-		FOR UPDATE
-				
-		open tc
-		
-		fetch next from tc into @tmp,@tmpUserID,@tmpLastUserID
-		while @@FETCH_STATUS = 0
-		begin	
-	    select @tmpUserDisplayName = u.DisplayName,  @tmpUserName = u.Name FROM [{databaseOwner}].[{objectQualifier}User] u WHERE u.UserID = @tmpUserID	
-		select @tmpLastUserDisplayName = u.DisplayName,  @tmpLastUserName = u.Name FROM [{databaseOwner}].[{objectQualifier}User] u WHERE u.UserID = @tmpLastUserID		
-	    update [{databaseOwner}].[{objectQualifier}Topic] set UserDisplayName = @tmpUserDisplayName, UserName = @tmpUserName  where TopicID = @tmp
-	    update [{databaseOwner}].[{objectQualifier}Topic] set LastUserDisplayName = @tmpLastUserDisplayName, LastUserName = @tmpLastUserName where TopicID = @tmp			
-
-		fetch next from tc into @tmp,@tmpUserID,@tmpLastUserID
-		end
-		close tc
-		deallocate tc			
+    declare @tmpUserDisplayName nvarchar(255)
+    declare @tmpLastUserName nvarchar(255)
+    declare @tmpLastUserDisplayName nvarchar(255)
+    declare @tmp int
+    declare @tmpUserID int
+    declare @tmpLastUserID int
+ 
+     update d
+      set    d.UserDisplayName = ISNULL((select top 1 f.UserDisplayName FROM [{databaseOwner}].[{objectQualifier}Forum] f
+          join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = f.UserID where u.UserID = d.UserID), 
+           (select top 1 f.UserName FROM [{databaseOwner}].[{objectQualifier}Forum] f
+          join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = f.UserID where u.UserID = d.UserID ))      
+       from  [{databaseOwner}].[{objectQualifier}Forum] d where d.UserDisplayName IS NULL OR d.UserDisplayName = d.UserName;
+         
+        /* declare fc cursor for
+        select ForumID, LastUserID from [{databaseOwner}].[{objectQualifier}Forum]
+        where (LastUserDisplayName IS NULL OR LastUserName IS NULL) and LastUserID IS NOT NULL
+        FOR UPDATE     
+        open fc
+         
+        fetch next from fc into @tmp,@tmpLastUserID
+        while @@FETCH_STATUS = 0
+        begin
+        select @tmpLastUserDisplayName = u.DisplayName,  @tmpLastUserName = u.Name FROM [{databaseOwner}].[{objectQualifier}User] u WHERE u.UserID = @tmpLastUserID
+        update [{databaseOwner}].[{objectQualifier}Forum] set LastUserDisplayName = @tmpLastUserDisplayName, LastUserName = @tmpLastUserName where [{databaseOwner}].[{objectQualifier}Forum].ForumID = @tmp    
+        fetch next from fc into @tmp,@tmpLastUserID
+        end
+        close fc
+        deallocate fc */
+ 
+        update d
+       set    d.UserDisplayName = ISNULL((select top 1 f.UserDisplayName FROM [{databaseOwner}].[{objectQualifier}ShoutboxMessage] f
+          join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = f.UserID where u.UserID = d.UserID), 
+           (select top 1 f.UserName FROM [{databaseOwner}].[{objectQualifier}ShoutboxMessage] f
+          join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = f.UserID where u.UserID = d.UserID ))      
+       from  [{databaseOwner}].[{objectQualifier}ShoutboxMessage] d where d.UserDisplayName IS NULL OR d.UserDisplayName = d.UserName;
+         
+    /*  declare sbc cursor for
+        select ShoutBoxMessageID,UserID from [{databaseOwner}].[{objectQualifier}ShoutboxMessage]
+        where UserDisplayName IS NULL
+        FOR UPDATE     
+        open sbc
+         
+        fetch next from sbc into @tmp,@tmpUserID
+        while @@FETCH_STATUS = 0
+        begin
+        select @tmpUserDisplayName = u.DisplayName,  @tmpUserName = u.Name FROM [{databaseOwner}].[{objectQualifier}User] u WHERE u.UserID = @tmpUserID
+        update [{databaseOwner}].[{objectQualifier}ShoutboxMessage] set UserDisplayName = @tmpUserDisplayName,UserName = @tmpUserName where [{databaseOwner}].[{objectQualifier}ShoutboxMessage].ShoutBoxMessageID = @tmp
+        fetch next from sbc into @tmp,@tmpUserID
+        end
+        close sbc
+        deallocate sbc  
+        */  
+         
+            update d
+       set    d.UserDisplayName = ISNULL((select top 1 f.UserDisplayName FROM [{databaseOwner}].[{objectQualifier}Message] m
+          join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = m.UserID where u.UserID = d.UserID), 
+           (select top 1 f.UserName FROM [{databaseOwner}].[{objectQualifier}Message] m
+          join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = m.UserID where u.UserID = d.UserID ))      
+       from  [{databaseOwner}].[{objectQualifier}Message] d where d.UserDisplayName IS NULL OR d.UserDisplayName = d.UserName;  
+         
+    /*  declare mc cursor for
+        select MessageID,UserID from [{databaseOwner}].[{objectQualifier}Message]
+        where UserDisplayName IS NULL
+        FOR UPDATE
+                 
+        open mc
+         
+        fetch next from mc into @tmp,@tmpUserID
+        while @@FETCH_STATUS = 0
+        begin
+        select @tmpUserDisplayName = u.DisplayName,  @tmpUserName = u.Name FROM [{databaseOwner}].[{objectQualifier}User] u WHERE u.UserID = @tmpUserID     
+        update [{databaseOwner}].[{objectQualifier}Message]  set UserDisplayName = @tmpUserDisplayName, UserName = @tmpUserName where MessageID = @tmp
+        fetch next from mc into @tmp,@tmpUserID
+        end
+        close mc
+        deallocate mc
+        */      
+         
+            update d
+       set    d.UserDisplayName = ISNULL((select top 1 f.UserDisplayName FROM [{databaseOwner}].[{objectQualifier}Topic] t
+          join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = t.UserID where u.UserID = d.UserID), 
+           (select top 1 f.UserName FROM [{databaseOwner}].[{objectQualifier}Topic] t
+          join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = t.UserID where u.UserID = d.UserID ))      
+       from  [{databaseOwner}].[{objectQualifier}Message] d where d.UserDisplayName IS NULL OR d.UserDisplayName = d.UserName;  
+ 
+    /*  declare tc cursor for
+        select TopicID,UserID,LastUserID from [{databaseOwner}].[{objectQualifier}Topic]
+        where (UserDisplayName IS NULL OR LastUserDisplayName IS NULL) and LastUserID IS NOT NULL
+        FOR UPDATE
+                 
+        open tc
+         
+        fetch next from tc into @tmp,@tmpUserID,@tmpLastUserID
+        while @@FETCH_STATUS = 0
+        begin  
+        select @tmpUserDisplayName = u.DisplayName,  @tmpUserName = u.Name FROM [{databaseOwner}].[{objectQualifier}User] u WHERE u.UserID = @tmpUserID 
+        select @tmpLastUserDisplayName = u.DisplayName,  @tmpLastUserName = u.Name FROM [{databaseOwner}].[{objectQualifier}User] u WHERE u.UserID = @tmpLastUserID     
+        update [{databaseOwner}].[{objectQualifier}Topic] set UserDisplayName = @tmpUserDisplayName, UserName = @tmpUserName  where TopicID = @tmp
+        update [{databaseOwner}].[{objectQualifier}Topic] set LastUserDisplayName = @tmpLastUserDisplayName, LastUserName = @tmpLastUserName where TopicID = @tmp           
+ 
+        fetch next from tc into @tmp,@tmpUserID,@tmpLastUserID
+        end
+        close tc
+        deallocate tc   */      
 end
 GO
 
