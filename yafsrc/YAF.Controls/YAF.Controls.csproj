@@ -74,7 +74,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActiveLocation.cs" />
+     <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+   <Compile Include="ActiveLocation.cs" />
     <Compile Include="ActiveUsers.cs" />
     <Compile Include="AlbumListPopMenu.cs" />
     <Compile Include="PopupPanel.cs" />

@@ -66,7 +66,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoFacServiceLocatorProvider.cs" />
+     <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+   <Compile Include="AutoFacServiceLocatorProvider.cs" />
     <Compile Include="BaseControls\BaseControl.cs" />
     <Compile Include="BaseControls\BasePanel.cs" />
     <Compile Include="BaseControls\BaseUserControl.cs">

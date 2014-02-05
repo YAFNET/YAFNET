@@ -70,7 +70,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseUrlBuilder.cs" />
+     <Compile Include="..\..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+   <Compile Include="BaseUrlBuilder.cs" />
     <Compile Include="Extensions\AreEqualFunc.cs" />
     <Compile Include="Pattern\IInstanceFactory.cs" />
     <Compile Include="Pattern\PageSingleton.cs" />
