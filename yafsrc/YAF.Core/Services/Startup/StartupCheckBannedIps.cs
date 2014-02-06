@@ -31,6 +31,7 @@ namespace YAF.Core.Services.Startup
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
@@ -39,7 +40,7 @@ namespace YAF.Core.Services.Startup
     #endregion
 
     /// <summary>
-    /// The yaf check banned ips.
+    /// The YAF check for banned IPs.
     /// </summary>
     public class StartupCheckBannedIps : BaseStartupService
     {
@@ -55,24 +56,17 @@ namespace YAF.Core.Services.Startup
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StartupCheckBannedIps"/> class.
+        /// Initializes a new instance of the <see cref="StartupCheckBannedIps" /> class.
         /// </summary>
-        /// <param name="dataCache">
-        /// The data cache.
-        /// </param>
-        /// <param name="httpResponseBase">
-        /// The http response base.
-        /// </param>
-        /// <param name="httpRequestBase">
-        /// The http request base.
-        /// </param>
-        /// <param name="logger">
-        /// The logger.
-        /// </param>
+        /// <param name="dataCache">The data cache.</param>
+        /// <param name="httpResponseBase">The http response base.</param>
+        /// <param name="httpRequestBase">The http request base.</param>
+        /// <param name="bannedIpRepository">The banned IP repository.</param>
+        /// <param name="logger">The logger.</param>
         public StartupCheckBannedIps(
-          [NotNull] IDataCache dataCache,
-          [NotNull] HttpResponseBase httpResponseBase,
-          [NotNull] HttpRequestBase httpRequestBase,
+            [NotNull] IDataCache dataCache,
+            [NotNull] HttpResponseBase httpResponseBase,
+            [NotNull] HttpRequestBase httpRequestBase,
             IRepository<BannedIP> bannedIpRepository,
             [NotNull] ILogger logger)
         {
@@ -97,6 +91,12 @@ namespace YAF.Core.Services.Startup
         /// </summary>
         public HttpRequestBase HttpRequestBase { get; set; }
 
+        /// <summary>
+        /// Gets or sets the banned IP repository.
+        /// </summary>
+        /// <value>
+        /// The banned IP repository.
+        /// </value>
         public IRepository<BannedIP> BannedIpRepository { get; set; }
 
         /// <summary>
@@ -135,18 +135,26 @@ namespace YAF.Core.Services.Startup
         {
             // TODO: The data cache needs a more fast string array check as number of banned ips can be huge, but current output is too demanding on perfomance in the cases.
             var bannedIPs = this.DataCache.GetOrSet(
-                Constants.Cache.BannedIP, () => this.BannedIpRepository.ListTyped().Select(x => x.Mask.Trim()).ToList());
+                Constants.Cache.BannedIP,
+                () => this.BannedIpRepository.ListTyped().Select(x => x.Mask.Trim()).ToList());
+
+            var ipToCheck = this.HttpRequestBase.ServerVariables["REMOTE_ADDR"];
 
             // check for this user in the list...
-            if (bannedIPs != null && bannedIPs.Any(row => IPHelper.IsBanned(row, this.HttpRequestBase.ServerVariables["REMOTE_ADDR"])))
+            if (bannedIPs == null || !bannedIPs.Any(row => IPHelper.IsBanned(row, ipToCheck)))
             {
-                // we're done...
-                this.Logger.Info(@"Ending Response for Banned User at IP ""{0}""", this.HttpRequestBase.ServerVariables["REMOTE_ADDR"]);
-                this.HttpResponseBase.End();
-                return false;
+                return true;
             }
 
-            return true;
+            // we're done...
+            this.Logger.Log(
+                null,
+                "Banned IP Blocked",
+                @"Ending Response for Banned User at IP ""{0}""".FormatWith(ipToCheck),
+                EventLogTypes.Information);
+
+            this.HttpResponseBase.End();
+            return false;
         }
 
         #endregion
