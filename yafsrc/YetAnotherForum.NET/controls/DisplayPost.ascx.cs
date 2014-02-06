@@ -120,23 +120,21 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// Formats the dvThanksInfo section.
+        /// Formats the thanks information.
         /// </summary>
-        /// <param name="rawStr">
-        /// The raw Str. 
-        /// </param>
+        /// <param name="rawString">The raw string.</param>
         /// <returns>
-        /// The format thanks info. 
+        /// The format thanks info.
         /// </returns>
         [NotNull]
-        protected string FormatThanksInfo([NotNull] string rawStr)
+        protected string FormatThanksInfo([NotNull] string rawString)
         {
             var sb = new StringBuilder();
 
             bool showDate = this.Get<YafBoardSettings>().ShowThanksDate;
 
             // Extract all user IDs, usernames and (If enabled thanks dates) related to this message.
-            foreach (var chunk in rawStr.Split(','))
+            foreach (var chunk in rawString.Split(','))
             {
                 var subChunks = chunk.Split('|');
 
@@ -182,7 +180,7 @@ namespace YAF.Controls
                 return string.Empty;
             }
 
-            var indent = (int)this.DataRow["Indent"];
+            var indent = this.DataRow["Indent"].ToType<int>();
 
             if (indent > 0)
             {
@@ -223,7 +221,7 @@ namespace YAF.Controls
         [NotNull]
         protected string GetIndentSpan()
         {
-            return !this.IsThreaded || (int)this.DataRow["Indent"] == 0 ? "2" : "1";
+            return !this.IsThreaded || this.DataRow["Indent"].ToType<int>() == 0 ? "2" : "1";
         }
 
         /// <summary>
@@ -253,11 +251,9 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
-        /// <param name="e">
-        /// The e. 
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             this.PreRender += this.DisplayPost_PreRender;
@@ -375,7 +371,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Retweets Message thru the Twitter API
+        /// Re-tweets Message thru the Twitter API
         /// </summary>
         /// <param name="sender">
         /// The source of the event. 
@@ -426,21 +422,24 @@ namespace YAF.Controls
             }
         }
 
+        /// <summary>
+        /// Shows the IP information.
+        /// </summary>
         private void ShowIPInfo()
         {
             // Display admin/moderator only info
-            if (this.PageContext.IsAdmin ||
-                (this.Get<YafBoardSettings>().AllowModeratorsViewIPs && this.PageContext.ForumModeratorAccess))
+            if (!this.PageContext.IsAdmin
+                && (!this.Get<YafBoardSettings>().AllowModeratorsViewIPs || !this.PageContext.ForumModeratorAccess))
             {
-                // We should show IP
-                this.IPSpan1.Visible = true;
-                var ip = IPHelper.GetIp4Address(this.PostData.DataRow["IP"].ToString());
-                this.IPLink1.HRef = this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(ip);
-                this.IPLink1.Title = this.GetText("COMMON", "TT_IPDETAILS");
-                this.IPLink1.InnerText = this.HtmlEncode(ip);
+                return;
             }
 
-            
+            // We should show IP
+            this.IPSpan1.Visible = true;
+            var ip = IPHelper.GetIp4Address(this.PostData.DataRow["IP"].ToString());
+            this.IPLink1.HRef = this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(ip);
+            this.IPLink1.Title = this.GetText("COMMON", "TT_IPDETAILS");
+            this.IPLink1.InnerText = this.HtmlEncode(ip);
         }
 
         /// <summary>
@@ -475,15 +474,17 @@ namespace YAF.Controls
                 }
             }
 
+            var userID = this.DataRow["UserID"].ToType<int>();
+
             if (this.Get<YafBoardSettings>().EnableBuddyList &&
-                this.PageContext.PageUserID != (int)this.DataRow["UserID"])
+                this.PageContext.PageUserID != userID)
             {
                 // Should we add the "Add Buddy" item?
-                if (!this.Get<IBuddy>().IsBuddy((int)this.DataRow["UserID"], false) && !this.PageContext.IsGuest)
+                if (!this.Get<IBuddy>().IsBuddy(userID, false) && !this.PageContext.IsGuest)
                 {
                     this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"));
                 }
-                else if (this.Get<IBuddy>().IsBuddy((int)this.DataRow["UserID"], true) && !this.PageContext.IsGuest)
+                else if (this.Get<IBuddy>().IsBuddy(userID, true) && !this.PageContext.IsGuest)
                 {
                     // Are the users approved buddies? Add the "Remove buddy" item.
                     this.PopMenu1.AddClientScriptItemWithPostback(
@@ -625,25 +626,28 @@ namespace YAF.Controls
             if (this.PageContext.PageUserID != this.DataRow["UserID"].ToType<int>() &&
                 this.Get<YafBoardSettings>().EnableUserReputation && !this.IsGuest && !this.PageContext.IsGuest)
             {
-                if (YafReputation.CheckIfAllowReputationVoting(this.DataRow["ReputationVoteDate"]))
+                if (!YafReputation.CheckIfAllowReputationVoting(this.DataRow["ReputationVoteDate"]))
                 {
-                    // Check if the User matches minimal requirements for voting up
-                    if (this.PageContext.Reputation >= this.Get<YafBoardSettings>().ReputationMinUpVoting)
-                    {
-                        this.AddReputation.Visible = true;
-                    }
+                    return;
+                }
 
-                    // Check if the User matches minimal requirements for voting down
-                    if (this.PageContext.Reputation >= this.Get<YafBoardSettings>().ReputationMinDownVoting)
-                    {
-                        // Check if the Value is 0 or Bellow
-                        if (!this.Get<YafBoardSettings>().ReputationAllowNegative &&
-                            this.DataRow["Points"].ToType<int>() > 0 ||
-                            this.Get<YafBoardSettings>().ReputationAllowNegative)
-                        {
-                            this.RemoveReputation.Visible = true;
-                        }
-                    }
+                // Check if the User matches minimal requirements for voting up
+                if (this.PageContext.Reputation >= this.Get<YafBoardSettings>().ReputationMinUpVoting)
+                {
+                    this.AddReputation.Visible = true;
+                }
+
+                // Check if the User matches minimal requirements for voting down
+                if (this.PageContext.Reputation < this.Get<YafBoardSettings>().ReputationMinDownVoting)
+                {
+                    return;
+                }
+
+                // Check if the Value is 0 or Bellow
+                if (this.DataRow["Points"].ToType<int>() > 0 &&
+                    this.Get<YafBoardSettings>().ReputationAllowNegative)
+                {
+                    this.RemoveReputation.Visible = true;
                 }
             }
             else
