@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014 Ingo Herbote
@@ -179,27 +179,27 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// The register j query.
+        /// Register the jQuery Library
         /// </summary>
         public void RegisterJQuery()
-        {
-            this.RegisterJQuery(YafContext.Current.CurrentForumPage.TopPageControl);
-        }
-
-        /// <summary>
-        /// Register jQuery
-        /// </summary>
-        /// <param name="element">
-        /// The element.
-        /// </param>
-        public void RegisterJQuery(Control element)
         {
             if (this.PageElementExists("jquery") || Config.DisableJQuery)
             {
                 return;
             }
 
-            bool registerJQuery = true;
+            this.RegisterJQuery(YafContext.Current.CurrentForumPage.TopPageControl);
+        }
+
+        /// <summary>
+        /// Register the jQuery Library
+        /// </summary>
+        /// <param name="element">
+        /// The element.
+        /// </param>
+        public void RegisterJQuery(Control element)
+        {
+            var registerJQuery = true;
 
             const string Key = "JQuery-Javascripts";
 
@@ -411,6 +411,7 @@ namespace YAF.Core.Services
             }
 
             ScriptManager.RegisterClientScriptInclude(thisControl, thisControl.GetType(), name, url);
+
             this.AddPageElement(name);
         }
 
@@ -449,6 +450,7 @@ namespace YAF.Core.Services
 
             ScriptManager.RegisterClientScriptInclude(
                 thisControl, thisControl.GetType(), name, YafForumInfo.GetURLToResource(relativeResourceUrl));
+
             this.AddPageElement(name);
         }
 
