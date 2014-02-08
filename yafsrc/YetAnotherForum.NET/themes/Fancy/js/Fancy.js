@@ -10,7 +10,11 @@
     jQuery('.menuMyList .myTopics a').text('9');
     jQuery('.menuMyList .menuAccount a').text('E');
     jQuery(".loggedInUser").insertBefore('.menuMyList');
-    jQuery("img, input, a").tipTip();
+	
+	if ((typeof(jQuery.fn.tipTip) != 'undefined')) {
+        jQuery("img, input, a").tipTip();
+    }
+    
     jQuery(function() {
         jQuery('img.avatarimage').onImagesLoaded(function(_this) {
             jQuery(_this).wrap(function() {
@@ -20,11 +24,13 @@
         });
     });
 
-    if (jQuery("input:checkbox").not('.MultiQuoteButton input')) {
-        jQuery("input:checkbox").not('.MultiQuoteButton input').uniform();
+    if ((typeof(jQuery.fn.uniform) != 'undefined')) {
+        if (jQuery("input:checkbox").not('.MultiQuoteButton input')) {
+            jQuery("input:checkbox").not('.MultiQuoteButton input').uniform();
+        }
+        jQuery("input:radio, input:file").not('.MultiQuoteButton input').uniform();
     }
 
-    jQuery("input:radio, input:file").not('.MultiQuoteButton input').uniform();
     jQuery('.QuickSearchButton').text('A');
     jQuery('select').not('[id*="ProfileEditor_Country"]').each(function() {
         jQuery(this).msDropDown();
