@@ -393,6 +393,17 @@ namespace YAF.Pages
                                     "A spam Bot who was trying to register was banned by IP {0}".FormatWith(
                                         userIpAddress),
                                     num.Value);
+
+                            if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
+                            {
+                                this.Get<ILogger>()
+                                    .Log(
+                                        this.PageContext.PageUserID,
+                                        "IP BAN of Bot During Registration",
+                                        "A spam Bot who was trying to register was banned by IP {0}".FormatWith(
+                                            userIpAddress),
+                                        EventLogTypes.IpBanSet);
+                            }
                         }
 
                         e.Cancel = true;

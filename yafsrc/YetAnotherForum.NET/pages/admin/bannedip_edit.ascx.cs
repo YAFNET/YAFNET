@@ -30,7 +30,6 @@ namespace YAF.Pages.Admin
     using System.Data;
     using System.Text;
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -45,7 +44,7 @@ namespace YAF.Pages.Admin
     #endregion
 
     /// <summary>
-    /// Admin Banned ip edit/add page.
+    /// Admin Banned IP edit/add page.
     /// </summary>
     public partial class bannedip_edit : AdminPage
     {
@@ -127,27 +126,27 @@ namespace YAF.Pages.Admin
                 ulong number;
                 if (!ulong.TryParse(ip, out number))
                 {
-                    if (ip.Trim() != "*")
+                    if (ip.Trim() == "*")
                     {
-                        if (ip.Trim().Length == 0)
-                        {
-                            ipError.AppendLine(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_VALUE"));
-                        }
-                        else
-                        {
-                            ipError.AppendFormat(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_SECTION"), ip);
-                        }
+                        continue;
+                    }
 
-                        break;
-                    }
-                }
-                else
-                {
-                    // try parse succeeded... verify number amount...
-                    if (number > 255)
+                    if (ip.Trim().Length != 0)
                     {
-                        ipError.AppendFormat(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_LESS"), ip);
+                        ipError.AppendFormat(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_SECTION"), ip);
                     }
+                    else
+                    {
+                        ipError.AppendLine(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_VALUE"));
+                    }
+
+                    break;
+                }
+
+                // try parse succeeded... verify number amount...
+                if (number > 255)
+                {
+                    ipError.AppendFormat(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_LESS"), ip);
                 }
             }
 
@@ -161,16 +160,19 @@ namespace YAF.Pages.Admin
             this.GetRepository<BannedIP>().Save(
                 this.Request.QueryString.GetFirstOrDefaultAs<int>("i"), this.mask.Text.Trim(), this.BanReason.Text.Trim(), this.PageContext.PageUserID);
 
-            this.Get<ILogger>()
-                .Log(
-                    this.PageContext.PageUserID,
-                    "YAF.Pages.Admin.bannedip_edit",
-                    "IP or mask {0} was saved by {1}.".FormatWith(
-                        this.mask.Text.Trim(),
-                        this.Get<YafBoardSettings>().EnableDisplayName
-                            ? this.PageContext.CurrentUserData.DisplayName
-                            : this.PageContext.CurrentUserData.UserName),
-                    EventLogTypes.IpBanSet);
+            if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
+            {
+                this.Get<ILogger>()
+                    .Log(
+                        this.PageContext.PageUserID,
+                        "YAF.Pages.Admin.bannedip_edit",
+                        "IP or mask {0} was saved by {1}.".FormatWith(
+                            this.mask.Text.Trim(),
+                            this.Get<YafBoardSettings>().EnableDisplayName
+                                ? this.PageContext.CurrentUserData.DisplayName
+                                : this.PageContext.CurrentUserData.UserName),
+                        EventLogTypes.IpBanSet);
+            }
 
             // go back to banned IP's administration page
             YafBuildLink.Redirect(ForumPages.admin_bannedip);

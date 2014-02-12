@@ -28,6 +28,7 @@ namespace YAF.Core.Services.Startup
     using System.Linq;
     using System.Web;
 
+    using YAF.Classes;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -146,12 +147,14 @@ namespace YAF.Core.Services.Startup
                 return true;
             }
 
-            // we're done...
-            this.Logger.Log(
-                null,
-                "Banned IP Blocked",
-                @"Ending Response for Banned User at IP ""{0}""".FormatWith(ipToCheck),
-                EventLogTypes.Information);
+            if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
+            {
+                this.Logger.Log(
+                    null,
+                    "Banned IP Blocked",
+                    @"Ending Response for Banned User at IP ""{0}""".FormatWith(ipToCheck),
+                    EventLogTypes.Information);
+            }
 
             this.HttpResponseBase.End();
             return false;

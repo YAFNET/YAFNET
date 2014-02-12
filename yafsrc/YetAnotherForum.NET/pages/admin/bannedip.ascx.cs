@@ -32,7 +32,6 @@ namespace YAF.Pages.Admin
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -47,21 +46,17 @@ namespace YAF.Pages.Admin
     #endregion
 
     /// <summary>
-    /// The Admin Banned Ip Page.
+    /// The Admin Banned IP Page.
     /// </summary>
     public partial class bannedip : AdminPage
     {
         #region Methods
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -124,20 +119,27 @@ namespace YAF.Pages.Admin
                     YafBuildLink.Redirect(ForumPages.admin_bannedip_edit, "i={0}", e.CommandArgument);
                     break;
                 case "delete":
-                    string ip = this.GetIPFromID(e.CommandArgument);
-                    this.GetRepository<BannedIP>().DeleteByID(e.CommandArgument.ToType<int>());
-                    this.BindData();
-                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_BANNEDIP", "MSG_REMOVEBAN"));
-                    this.Get<ILogger>()
-                        .Log(
-                            this.PageContext.PageUserID,
-                            " YAF.Pages.Admin.bannedip",
-                            "IP or mask {0} was deleted by {1}.".FormatWith(
-                                ip,
-                                this.Get<YafBoardSettings>().EnableDisplayName
-                                    ? this.PageContext.CurrentUserData.DisplayName
-                                    : this.PageContext.CurrentUserData.UserName),
-                            EventLogTypes.IpBanLifted);
+                    {
+                        var ip = this.GetIPFromID(e.CommandArgument);
+                        this.GetRepository<BannedIP>().DeleteByID(e.CommandArgument.ToType<int>());
+                        this.BindData();
+                        this.PageContext.AddLoadMessage(this.GetText("ADMIN_BANNEDIP", "MSG_REMOVEBAN"));
+
+                        if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
+                        {
+                            this.Get<ILogger>()
+                                .Log(
+                                    this.PageContext.PageUserID,
+                                    " YAF.Pages.Admin.bannedip",
+                                    "IP or mask {0} was deleted by {1}.".FormatWith(
+                                        ip,
+                                        this.Get<YafBoardSettings>().EnableDisplayName
+                                            ? this.PageContext.CurrentUserData.DisplayName
+                                            : this.PageContext.CurrentUserData.UserName),
+                                    EventLogTypes.IpBanLifted);
+                        }
+                    }
+
                     break;
             }
         }
