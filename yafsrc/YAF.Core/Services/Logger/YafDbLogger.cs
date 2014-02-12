@@ -30,6 +30,7 @@ namespace YAF.Core.Services.Logger
     using System.Diagnostics;
     using System.Linq;
 
+    using YAF.Classes;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Attributes;
@@ -145,7 +146,19 @@ namespace YAF.Core.Services.Logger
                 exceptionDescription = exception.ToString();
             }
 
-            var formattedDescription = message + "\r\n" + exceptionDescription;
+            var formattedDescription = string.Format("{0}\r\n{1}", message, exceptionDescription);
+
+            if (source.IsNotSet())
+            {
+                if (this.Type != null)
+                {
+                    source = this.Type.FullName.Length > 50 ? this.Type.FullName.Truncate(47) : this.Type.FullName;
+                }
+                else
+                {
+                    source = string.Empty;
+                }
+            }
 
             switch (eventType)
             {
@@ -160,27 +173,59 @@ namespace YAF.Core.Services.Logger
                     }
 
                     break;
+                case EventLogTypes.Information:
+                    if (this.Get<YafBoardSettings>().LogInformation)
+                    {
+                        this.EventLogRepository.Insert(
+                            new EventLog
+                                {
+                                    EventType = eventType,
+                                    UserName = username,
+                                    Description = formattedDescription,
+                                    Source = source,
+                                    EventTime = DateTime.UtcNow
+                                });
+                    }
+
+                    break;
+                case EventLogTypes.Warning:
+                    if (this.Get<YafBoardSettings>().LogWarning)
+                    {
+                        this.EventLogRepository.Insert(
+                            new EventLog
+                                {
+                                    EventType = eventType,
+                                    UserName = username,
+                                    Description = formattedDescription,
+                                    Source = source,
+                                    EventTime = DateTime.UtcNow
+                                });
+                    }
+
+                    break;
+                case EventLogTypes.Error:
+                    if (this.Get<YafBoardSettings>().LogError)
+                    {
+                        this.EventLogRepository.Insert(
+                            new EventLog
+                                {
+                                    EventType = eventType,
+                                    UserName = username,
+                                    Description = formattedDescription,
+                                    Source = source,
+                                    EventTime = DateTime.UtcNow
+                                });
+                    }
+
+                    break;
                 default:
                     {
-                        if (source.IsNotSet())
-                        {
-                            if (this.Type != null)
-                            {
-                                source = this.Type.FullName.Length > 50 ? this.Type.FullName.Truncate(47) : this.Type.FullName;
-
-                            }
-                            else
-                            {
-                                source = string.Empty;
-                            }
-                        }
-
                         var log = new EventLog
                                       {
-                                          EventType = eventType, 
-                                          UserName = username, 
+                                          EventType = eventType,
+                                          UserName = username,
                                           Description = formattedDescription,
-                                          Source = source, 
+                                          Source = source,
                                           EventTime = DateTime.UtcNow
                                       };
 
@@ -201,17 +246,19 @@ namespace YAF.Core.Services.Logger
         /// </summary>
         private void InitLookup()
         {
-            if (this._eventLogTypeLookup == null)
+            if (this._eventLogTypeLookup != null)
             {
-                var logTypes = EnumHelper.EnumToList<EventLogTypes>().ToDictionary(t => t, v => true);
-
-                foreach (var debugTypes in new[] {EventLogTypes.Debug, EventLogTypes.Trace})
-                {
-                    logTypes.AddOrUpdate(debugTypes, this._isDebug);
-                }
-
-                this._eventLogTypeLookup = logTypes;
+                return;
             }
+
+            var logTypes = EnumHelper.EnumToList<EventLogTypes>().ToDictionary(t => t, v => true);
+
+            foreach (var debugTypes in new[] { EventLogTypes.Debug, EventLogTypes.Trace })
+            {
+                logTypes.AddOrUpdate(debugTypes, this._isDebug);
+            }
+
+            this._eventLogTypeLookup = logTypes;
         }
     }
 }
