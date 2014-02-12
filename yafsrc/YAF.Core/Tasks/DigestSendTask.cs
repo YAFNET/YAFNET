@@ -27,6 +27,7 @@ namespace YAF.Core.Tasks
 
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
 
     using YAF.Classes;
@@ -120,7 +121,7 @@ namespace YAF.Core.Tasks
 
             if (boardSettings.LastDigestSend.IsSet())
             {
-                lastSend = Convert.ToDateTime(boardSettings.LastDigestSend);
+                lastSend = Convert.ToDateTime(boardSettings.LastDigestSend, CultureInfo.InvariantCulture);
             }
 
 #if (DEBUG)
@@ -138,7 +139,7 @@ namespace YAF.Core.Tasks
 
             // && DateTime.Now < DateTime.Today.AddHours(5))
             // we're good to send -- update latest send so no duplication...
-            boardSettings.LastDigestSend = DateTime.Now.ToString();
+            boardSettings.LastDigestSend = DateTime.Now.ToString(CultureInfo.InvariantCulture);
             boardSettings.ForceDigestSend = false;
             boardSettings.SaveGuestUserIdBackup();
 
