@@ -107,7 +107,7 @@ namespace YAF.Core.Tasks
         /// <returns>
         /// The is time to send digest for board.
         /// </returns>
-        private bool IsTimeToSendDigestForBoard([NotNull] YafLoadBoardSettings boardSettings)
+        private static bool IsTimeToSendDigestForBoard([NotNull] YafLoadBoardSettings boardSettings)
         {
             CodeContracts.VerifyNotNull(boardSettings, "boardSettings");
 
@@ -116,21 +116,28 @@ namespace YAF.Core.Tasks
                 return false;
             }
 
-            DateTime lastSend = DateTime.MinValue;
-            int sendEveryXHours = boardSettings.DigestSendEveryXHours;
+            var lastSend = DateTime.MinValue;
+            var sendEveryXHours = boardSettings.DigestSendEveryXHours;
 
             if (boardSettings.LastDigestSend.IsSet())
             {
-                lastSend = Convert.ToDateTime(boardSettings.LastDigestSend, CultureInfo.InvariantCulture);
+                try
+                {
+                    lastSend = Convert.ToDateTime(boardSettings.LastDigestSend, CultureInfo.InvariantCulture);
+                }
+                catch (Exception)
+                {
+                    lastSend = DateTime.MinValue;
+                }
             }
 
 #if (DEBUG)
-            // haven't sent in X hours or more and it's 12 to 5 am.
+    // haven't sent in X hours or more and it's 12 to 5 am.
             var sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours);
 #else
             // haven't sent in X hours or more and it's 12 to 5 am.
             var sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours)
-                              && DateTime.Now < DateTime.Today.AddHours(6);
+                             && DateTime.Now < DateTime.Today.AddHours(6);
 #endif
             if (!sendDigest && !boardSettings.ForceDigestSend)
             {
@@ -159,7 +166,7 @@ namespace YAF.Core.Tasks
                 {
                     var boardSettings = new YafLoadBoardSettings(boardId);
 
-                    if (!this.IsTimeToSendDigestForBoard(boardSettings))
+                    if (!IsTimeToSendDigestForBoard(boardSettings))
                     {
                         continue;
                     }
