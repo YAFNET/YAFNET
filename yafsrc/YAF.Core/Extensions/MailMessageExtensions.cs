@@ -30,7 +30,6 @@ namespace YAF.Core.Extensions
     using System.Net.Mime;
     using System.Text;
 
-    using YAF.Classes;
     using YAF.Types;
     using YAF.Types.Extensions;
 
@@ -69,6 +68,7 @@ namespace YAF.Core.Extensions
             mailMessage.From = fromAddress;
             mailMessage.Subject = subject;
 
+            mailMessage.HeadersEncoding = Encoding.UTF8;
             mailMessage.BodyEncoding = Encoding.UTF8;
             mailMessage.SubjectEncoding = Encoding.UTF8;
 
