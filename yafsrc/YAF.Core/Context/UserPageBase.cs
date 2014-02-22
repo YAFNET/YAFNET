@@ -295,13 +295,13 @@ namespace YAF.Core
         }
 
         /// <summary>
-        ///   Gets a value indicating whether the current user is a modeator for at least one forum (True);
+        ///   Gets a value indicating whether the current user is a moderator for at least one forum (True);
         /// </summary>
         public bool IsModeratorInAnyForum
         {
             get
             {
-                return this.PageValueAsBool("IsModerator");
+                return this.PageValueAsBool("IsModerator") || this.PageValueAsBool("IsModeratorAny");
             }
         }
 

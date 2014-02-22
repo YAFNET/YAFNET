@@ -4972,6 +4972,7 @@ begin
         ActiveUpdate        = ISNULL(@ActiveUpdate,0),
         PreviousVisit		= @PreviousVisit,	   
         x.*,	
+        IsModeratorAny      = ISNULL((select top 1 aa.ModeratorAccess from [{databaseOwner}].[{objectQualifier}ActiveAccess] aa where aa.UserID = @UserID and aa.ModeratorAccess = 1),0),
         IsCrawler           = @IsCrawler,
         IsMobileDevice      = @IsMobileDevice,
         CategoryID			= @CategoryID,
