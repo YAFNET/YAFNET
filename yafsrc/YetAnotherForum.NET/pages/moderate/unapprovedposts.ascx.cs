@@ -30,7 +30,6 @@ namespace YAF.Pages.moderate
     using System.Data;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
@@ -161,11 +160,20 @@ namespace YAF.Pages.moderate
         /// </summary>
         private void BindData()
         {
-            // get unapproved posts for this forum
-            this.List.DataSource = LegacyDb.message_unapproved(this.PageContext.PageForumID);
+            var messageList = LegacyDb.message_unapproved(this.PageContext.PageForumID);
 
-            // bind data to controls
-            this.DataBind();
+            if (messageList.Rows.Count == 0)
+            {
+                // redirect back to the moderate main if no messages found
+                YafBuildLink.Redirect(ForumPages.moderate_index);
+            }
+            else
+            {
+                this.List.DataSource = messageList;
+
+                // bind data to controls
+                this.DataBind();
+            }
         }
 
         /// <summary>
@@ -211,14 +219,7 @@ namespace YAF.Pages.moderate
                     break;
             }
 
-            // see if there are any items left...
-            DataTable dt = LegacyDb.message_unapproved(this.PageContext.PageForumID);
-
-            if (dt.Rows.Count == 0)
-            {
-                // nope -- redirect back to the moderate main...
-                YafBuildLink.Redirect(ForumPages.moderate_index);
-            }
+            this.BindData();
         }
 
         #endregion

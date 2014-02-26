@@ -4044,6 +4044,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}message_unapproved](@ForumI
         Posted		= b.Posted,
         TopicID		= a.TopicID,
         Topic		= a.Topic,
+        MessageCount    = a.NumPosts,
         [Message]	= b.[Message],
         [Flags]		= b.Flags,
         [IsModeratorChanged] = b.IsModeratorChanged

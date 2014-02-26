@@ -2,6 +2,7 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:Repeater ID="List" runat="server">
     <HeaderTemplate>
@@ -24,8 +25,8 @@
         <tr class="header2">
             <td colspan="2">
                 <YAF:LocalizedLabel ID="TopicLabel" runat="server" LocalizedTag="TOPIC" />
-                &nbsp;<a id="TopicLink" href='<%# YafBuildLink.GetLink(ForumPages.posts, "t={0}", Eval("TopicID")) %>'
-                    runat="server"><%# Eval("Topic") %></a>
+                &nbsp;<a id="TopicLink" href='<%# Eval("MessageCount").ToType<int>() > 0 ? YafBuildLink.GetLink(ForumPages.posts, "t={0}", Eval("TopicID")) : "" %>'
+                    runat="server" ><%# Eval("Topic") %></a>
             </td>
         </tr>
         <tr class="postheader">
