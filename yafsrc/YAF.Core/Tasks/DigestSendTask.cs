@@ -132,7 +132,7 @@ namespace YAF.Core.Tasks
             }
 
 #if (DEBUG)
-    // haven't sent in X hours or more and it's 12 to 5 am.
+       // haven't sent in X hours or more and it's 12 to 5 am.
             var sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours);
 #else
             // haven't sent in X hours or more and it's 12 to 5 am.
@@ -149,6 +149,8 @@ namespace YAF.Core.Tasks
             boardSettings.LastDigestSend = DateTime.Now.ToString(CultureInfo.InvariantCulture);
             boardSettings.ForceDigestSend = false;
             boardSettings.SaveGuestUserIdBackup();
+
+            boardSettings.SaveRegistry();
 
             return true;
         }
@@ -214,7 +216,7 @@ namespace YAF.Core.Tasks
                 try
                 {
                     string digestHtml = this.Get<IDigest>()
-                        .GetDigestHtml(user.UserID ?? 0, boardId, boardSettings.WebServiceToken, true);
+                        .GetDigestHtml(user.UserID ?? 0, boardId, boardSettings.WebServiceToken);
 
                     if (!digestHtml.IsSet())
                     {
