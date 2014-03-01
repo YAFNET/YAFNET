@@ -221,5 +221,4 @@ See a real live YAF Forum by visiting the Yet Another Forum.NET community suppor
 
 ## License
 
-[Yet Another Forum.NET is licensed under GPLv2](http://yetanotherforum.net/License.aspx).
-If this license does not fit your business, [please visit our site](http://yetanotherforum.net/purchase.aspx). 
+Yet Another Forum.NET is licensed under the Apache 2.0 license. 
