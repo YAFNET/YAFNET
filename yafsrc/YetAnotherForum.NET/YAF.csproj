@@ -4265,7 +4265,6 @@
     <None Include="themes\Fancy\fonts\Lobster-webfont.eot" />
     <None Include="themes\Fancy\fonts\Lobster-webfont.ttf" />
     <None Include="themes\Fancy\fonts\Lobster-webfont.woff" />
-    <Content Include="Views\Web.config" />
     <None Include="Web References\RegisterV2\LatestVersionInformation.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -4416,7 +4415,6 @@
     <Content Include="themes\yafvision\voting_bar.gif" />
     <Content Include="UrlRewriter.config" />
     <None Include="Web References\RegisterV2\RegisterV2.wsdl" />
-    <Content Include="web.config" />
     <Content Include="v1.9.1.upgrade.web.config" />
   </ItemGroup>
   <ItemGroup>
