@@ -266,8 +266,7 @@ namespace YAF.Controls
             this.Cancel.Text = this.GetText("COMMON", "CANCEL");
 
             this.ForumSettingsRows.Visible = this.Get<YafBoardSettings>().AllowUserTheme
-                                             || this.Get<YafBoardSettings>().AllowUserLanguage
-                                             || this.Get<YafBoardSettings>().AllowPMEmailNotification;
+                                             || this.Get<YafBoardSettings>().AllowUserLanguage;
 
             this.UserThemeRow.Visible = this.Get<YafBoardSettings>().AllowUserTheme;
             this.TrTextEditors.Visible = this.Get<YafBoardSettings>().AllowUsersTextEditor;
@@ -276,6 +275,16 @@ namespace YAF.Controls
             this.LoginInfo.Visible = this.Get<YafBoardSettings>().AllowEmailChange;
             this.DisplayNamePlaceholder.Visible = this.Get<YafBoardSettings>().EnableDisplayName
                                                   && this.Get<YafBoardSettings>().AllowDisplayNameModification;
+
+            // override Place Holders for DNN, dnn users should only see the forum settings but not the profile page
+            if (Config.IsDotNetNuke)
+            {
+                this.ProfilePlaceHolder.Visible = false;
+
+                this.IMServicesPlaceHolder.Visible = false;
+
+                this.LoginInfo.Visible = false;
+            }
 
             this.BindData();
         }

@@ -64,12 +64,6 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // Redirect the dnn user to the dnn profile page.
-            if (Config.IsDotNetNuke)
-            {
-                this.Get<HttpResponseBase>().Redirect(YafBuildLink.GetLink(ForumPages.cp_editprofile));
-            } 
-            
             if (this.IsPostBack)
             {
                 return;

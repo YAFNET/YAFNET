@@ -2,6 +2,7 @@
     Inherits="YAF.Controls.EditUsersProfile" Codebehind="EditUsersProfile.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <table width="100%" class="content EditUserProfileTable" cellspacing="1" cellpadding="4">
+    <asp:PlaceHolder ID="ProfilePlaceHolder" runat="server">
     <tr>
         <td class="header1" colspan="2">
             <YAF:LocalizedLabel runat="server"  LocalizedPage="CP_EDITPROFILE" LocalizedTag="TITLE" />
@@ -9,10 +10,10 @@
     </tr>
     <tr>
         <td colspan="2" class="header2">
-            <b>
+            <strong>
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="CP_EDITPROFILE"
                     LocalizedTag="aboutyou" />
-            </b>
+            </strong>
         </td>
     </tr>
     <asp:PlaceHolder ID="DisplayNamePlaceholder" runat="server" Visible="false">
@@ -82,10 +83,10 @@
     </tr>
     <tr>
         <td colspan="2" class="header2">
-            <b>
+            <strong>
                 <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedPage="CP_EDITPROFILE"
                     LocalizedTag="LOCATION" />
-            </b>
+            </strong>
         </td>
     </tr>
     <tr>
@@ -126,10 +127,10 @@
     </tr>
     <tr>
         <td colspan="2" class="header2">
-            <b>
+            <strong>
                 <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedPage="CP_EDITPROFILE"
                     LocalizedTag="homepage" />
-            </b>
+            </strong>
         </td>
     </tr>
     <tr>
@@ -150,13 +151,14 @@
             <asp:TextBox runat="server" ID="Weblog" CssClass="edit" />
         </td>
     </tr>
+    </asp:PlaceHolder>
     <asp:PlaceHolder runat="server" ID="MetaWeblogAPI" Visible="true">
         <tr>
             <td colspan="2" class="header2">
-                <b>
+                <strong>
                     <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedPage="CP_EDITPROFILE"
                         LocalizedTag="METAWEBLOG_TITLE" />
-                </b>
+                </strong>
             </td>
         </tr>
         <tr>
@@ -190,12 +192,13 @@
             </td>
         </tr>
     </asp:PlaceHolder>
+    <asp:PlaceHolder ID="IMServicesPlaceHolder" runat="server">
     <tr>
         <td colspan="2" class="header2">
-            <b>
+            <strong>
                 <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedPage="CP_EDITPROFILE"
                     LocalizedTag="messenger" />
-            </b>
+            </strong>
         </td>
     </tr>
     <tr>
@@ -279,12 +282,13 @@
             <asp:TextBox runat="server" ID="Skype" CssClass="edit" />
         </td>
     </tr>
+    </asp:PlaceHolder>
     <tr>
         <td colspan="2" class="header2">
-            <b>
+            <strong>
                 <YAF:LocalizedLabel ID="LocalizedLabel25" runat="server" LocalizedPage="CP_EDITPROFILE"
                     LocalizedTag="TIMEZONE" />
-            </b>
+            </strong>
         </td>
     </tr>
     <tr>
@@ -307,10 +311,10 @@
     </tr>
     <tr runat="server" id="ForumSettingsRows">
         <td colspan="2" class="header2">
-            <b>
+            <strong>
                 <YAF:LocalizedLabel ID="LocalizedLabel23" runat="server" LocalizedPage="CP_EDITPROFILE"
                     LocalizedTag="FORUM_SETTINGS" />
-            </b>
+            </strong>
         </td>
     </tr>
     <tr runat="server" id="UserThemeRow">
