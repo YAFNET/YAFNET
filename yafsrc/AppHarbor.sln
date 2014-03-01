@@ -22,7 +22,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intelligencia.UrlRewriter",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Controls", "YAF.Controls\YAF.Controls.csproj", "{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF", "YetAnotherForum.NET\YAF.csproj", "{555357E5-A150-4C4D-BC81-97F4AE19086A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF", "YetAnotherForum.NET\YAF-AppHarbor.csproj", "{555357E5-A150-4C4D-BC81-97F4AE19086A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{900B3FCF-BD78-4718-A34D-2662576565C8} = {900B3FCF-BD78-4718-A34D-2662576565C8}
 	EndProjectSection
