@@ -2952,23 +2952,34 @@ create procedure [{databaseOwner}].[{objectQualifier}forum_listpath](@ForumID in
 begin
 declare @tbllpath TABLE (ForumID int, Name nvarchar(255), Indent int);
 declare @Indent int;
-declare @CurrentParentID int ;
-declare @CurrentForumID int
+declare @CurrentParentID int;
+declare @CurrentForumID int;
 declare @CurrentForumName nvarchar(255);
-SET @CurrentParentID = 1000;
+
+-- Flag if a record was selected
+declare @Selectcount int;
+
+-- Forum 1000 is a legal value... always use -1 instead
+SET @CurrentParentID = -1;
 
 SET @Indent = 0;
-      while (@CurrentParentID IS NOT NULL)
+	while (@CurrentParentID IS NOT NULL and @Indent < 1000)
       begin                
+	   set @Selectcount = 0;
        select
+			@Selectcount = 1,
             @CurrentForumID =  a.ForumID,
             @CurrentParentID = a.ParentID,
             @CurrentForumName = a.Name			                      
         from
-            [{databaseOwner}].[{objectQualifier}Forum] a
+             [{databaseOwner}].[{objectQualifier}Forum] a
         where
             a.ForumID=@ForumID;
 
+		if @Selectcount = 0
+		begin
+			break;
+		end
             Insert into @tbllpath(ForumID, Name,Indent)
             values (@CurrentForumID,@CurrentForumName,@Indent)
             SET @ForumID = @CurrentParentID; 
@@ -4048,7 +4059,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}message_unapproved](@ForumI
         Posted		= b.Posted,
         TopicID		= a.TopicID,
         Topic		= a.Topic,
-        MessageCount    = a.NumPosts,
+        MessageCount = a.NumPosts,
         [Message]	= b.[Message],
         [Flags]		= b.Flags,
         [IsModeratorChanged] = b.IsModeratorChanged
@@ -6509,7 +6520,6 @@ BEGIN
 END
 GO
 
-
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_latest_in_category]
 (
     @BoardID int,
@@ -6578,6 +6588,7 @@ BEGIN
         t.LastPosted DESC;
 END
 GO
+
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}announcements_list]
 (
