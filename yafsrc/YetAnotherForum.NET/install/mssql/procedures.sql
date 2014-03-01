@@ -753,6 +753,10 @@ IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{data
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_latest]
 GO
 
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_latest_in_category]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_latest_in_category]
+GO
+
 IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}rss_topic_latest]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}rss_topic_latest]
 GO
@@ -6505,6 +6509,75 @@ BEGIN
 END
 GO
 
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_latest_in_category]
+(
+    @BoardID int,
+    @CategoryID int,
+	@NumPosts int,
+    @PageUserID int,
+    @StyledNicks bit = 0,
+    @ShowNoCountPosts  bit = 0,
+    @FindLastRead bit = 0
+)
+AS
+BEGIN  
+  
+    SELECT TOP(@NumPosts)
+        t.LastPosted,
+        t.ForumID,
+        f.Name as Forum,
+        t.Topic,
+        t.Status,
+        t.Styles,
+        t.TopicID,
+        t.TopicMovedID,
+        t.UserID,
+        UserName = IsNull(t.UserName,(select x.[Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.UserID)),
+        UserDisplayName = IsNull(t.UserDisplayName,(select x.[DisplayName] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.UserID)),		
+        t.LastMessageID,
+        t.LastMessageFlags,
+        t.LastUserID,
+        t.NumPosts,
+		t.Views,
+        t.Posted,	
+		LastMessage = (select m.Message from [{databaseOwner}].[{objectQualifier}Message] m where m.MessageID = t.LastMessageID),
+        LastUserName = IsNull(t.LastUserName,(select x.[Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
+        LastUserDisplayName = IsNull(t.LastUserDisplayName,(select x.[DisplayName] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
+        LastUserStyle = case(@StyledNicks)
+            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = t.LastUserID)
+            else ''	 end,
+        LastForumAccess = case(@FindLastRead)
+             when 1 then
+               (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=f.ForumID AND x.UserID = @PageUserID)
+             else ''	 end,
+        LastTopicAccess = case(@FindLastRead)
+             when 1 then
+               (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=t.TopicID AND y.UserID = @PageUserID)
+             else ''	 end
+            
+    FROM	
+        [{databaseOwner}].[{objectQualifier}Topic] t 
+    INNER JOIN
+        [{databaseOwner}].[{objectQualifier}Forum] f ON t.ForumID = f.ForumID	
+    INNER JOIN
+        [{databaseOwner}].[{objectQualifier}Category] c ON c.CategoryID = f.CategoryID
+    JOIN
+        [{databaseOwner}].[{objectQualifier}ActiveAccess] v  with(nolock) ON v.ForumID=f.ForumID
+    WHERE	
+	    c.BoardID = @BoardID
+        AND c.CategoryID = @CategoryID
+        AND t.TopicMovedID is NULL
+        AND v.UserID=@PageUserID
+        AND (CONVERT(int,v.ReadAccess) <> 0)
+        AND t.IsDeleted != 1
+        AND t.LastPosted IS NOT NULL
+        AND
+        f.Flags & 4 <> (CASE WHEN @ShowNoCountPosts > 0 THEN -1 ELSE 4 END)
+    ORDER BY
+        t.LastPosted DESC;
+END
+GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}announcements_list]
 (
