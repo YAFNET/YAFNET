@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.moderate.index" Codebehind="index.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" cellspacing="1" cellpadding="0" width="100%">
 	<tr>
@@ -33,12 +34,18 @@
 						<td align="center">
 							<asp:LinkButton ID="ViewUnapprovedPostsBtn" runat='server' CommandName='viewunapprovedposts'
 								CommandArgument='<%# Eval( "[\"ForumID\"]") %>' Text='<%# Eval( "[\"MessageCount\"]") %>'
-								Font-Bold='<%# ((Convert.ToInt32(Eval( "[\"MessageCount\"]")) > 0) ? true : false) %>'></asp:LinkButton>
+								Visible='<%# ((this.Eval( "[\"MessageCount\"]").ToType<int>() > 0)) %>' CssClass="yaflittlebutton"></asp:LinkButton>
+                            <YAF:LocalizedLabel ID="NoUnapprovedInfo" LocalizedTag="NO_POSTS" LocalizedPage="MODERATE" runat="server" 
+                                Visible='<%# ((this.Eval( "[\"MessageCount\"]").ToType<int>() == 0)) %>'>
+                            </YAF:LocalizedLabel>
 						</td>				
 						<td align="center">
 							<asp:LinkButton ID="ViewReportedBtn" runat='server' CommandName='viewreportedposts'
 								CommandArgument='<%# Eval( "[\"ForumID\"]") %>' Text='<%# Eval( "[\"ReportedCount\"]") %>'
-								Font-Bold='<%# ((Convert.ToInt32(Eval( "[\"ReportedCount\"]")) > 0) ? true : false) %>'></asp:LinkButton>
+								Visible='<%# ((this.Eval( "[\"ReportedCount\"]").ToType<int>() > 0)) %>' CssClass="yaflittlebutton"></asp:LinkButton>
+                            <YAF:LocalizedLabel ID="NoReportedInfo" LocalizedTag="NO_POSTS" LocalizedPage="MODERATE" runat="server" 
+                                Visible='<%# ((this.Eval( "[\"ReportedCount\"]").ToType<int>() == 0)) %>'>
+                            </YAF:LocalizedLabel>
 						</td>
 					</tr>
 				</ItemTemplate>

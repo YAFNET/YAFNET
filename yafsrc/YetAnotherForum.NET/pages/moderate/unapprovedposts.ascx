@@ -25,8 +25,9 @@
         <tr class="header2">
             <td colspan="2">
                 <YAF:LocalizedLabel ID="TopicLabel" runat="server" LocalizedTag="TOPIC" />
-                &nbsp;<a id="TopicLink" href='<%# Eval("MessageCount").ToType<int>() > 0 ? YafBuildLink.GetLink(ForumPages.posts, "t={0}", Eval("TopicID")) : "" %>'
-                    runat="server" ><%# Eval("Topic") %></a>
+                &nbsp;<a id="TopicLink" href='<%# YafBuildLink.GetLink(ForumPages.posts, "t={0}", Eval("TopicID")) %>'
+                    runat="server" Visible='<%# Eval("MessageCount").ToType<int>() > 0 %>'><%# Eval("Topic") %></a>
+                <asp:Label id="TopicName" runat="server" Visible='<%# Eval("MessageCount").ToType<int>() == 0 %>' Text='<%# Eval("Topic") %>'></asp:Label>
             </td>
         </tr>
         <tr class="postheader">
