@@ -8951,7 +8951,8 @@ AS
     BEGIN               
        
         SELECT TOP(@Limit)  a.[UserID],
-                 a.[Name]
+                 a.[Name],
+				 a.[DisplayName]
         FROM     [{databaseOwner}].[{objectQualifier}User] a
         WHERE    a.[UserID] >= @StartID
         AND a.[UserID] < (@StartID + @Limit)

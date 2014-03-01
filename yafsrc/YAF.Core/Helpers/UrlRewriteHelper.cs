@@ -147,13 +147,23 @@ namespace YAF.Core.Helpers
         {
             const string Type = "Profile";
             const string PrimaryKey = "UserID";
-            const string NameField = "Name";
+
+            string nameField;
+
+            try
+            {
+                nameField = YafContext.Current.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "Name";
+            }
+            catch (Exception)
+            {
+                nameField = "Name";
+            }
 
             var row = GetDataRowFromCache(Type, id);
 
             if (row != null)
             {
-                return CleanStringForURL(row[NameField].ToString());
+                return CleanStringForURL(row[nameField].ToString());
             }
 
             // get the section desired...
@@ -162,7 +172,7 @@ namespace YAF.Core.Helpers
             // set it up in the cache
             row = SetupDataToCache(ref list, Type, id, PrimaryKey);
 
-            return row == null ? string.Empty : CleanStringForURL(row[NameField].ToString());
+            return row == null ? string.Empty : CleanStringForURL(row[nameField].ToString());
         }
 
         /// <summary>
