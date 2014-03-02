@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Interfaces.Data
 {
     #region Using
@@ -61,27 +62,6 @@ namespace YAF.Types.Interfaces.Data
         ///     The reader.
         /// </summary>
         Reader
-    }
-
-    /// <summary>
-    ///     The db function cancelled exception.
-    /// </summary>
-    public class DbFunctionCancelledException : Exception
-    {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DbFunctionCancelledException"/> class.
-        /// </summary>
-        /// <param name="message">
-        /// The message. 
-        /// </param>
-        public DbFunctionCancelledException([NotNull] string message)
-            : base(message)
-        {
-        }
-
-        #endregion
     }
 
     /// <summary>

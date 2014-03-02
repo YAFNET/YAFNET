@@ -35,6 +35,7 @@ namespace YAF.Core
     using YAF.Core.Extensions;
     using YAF.Core.Services;
     using YAF.Types.Constants;
+    using YAF.Types.Exceptions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils.Helpers;

@@ -46,14 +46,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="..\GlobalAssemblyInfo.cs">
+    <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-   <Compile Include="Annotations.cs" />
+    <Compile Include="Annotations.cs" />
     <Compile Include="Attributes\AltStringValueAttribute.cs" />
     <Compile Include="Attributes\AssemblyModuleSortOrder.cs" />
     <Compile Include="Attributes\ExcludeAttribute.cs" />
     <Compile Include="Attributes\ExportServiceAttribute.cs" />
+    <Compile Include="Exceptions\BaseUrlMaskRequiredException.cs" />
+    <Compile Include="Exceptions\CantLoadThemeException.cs" />
+    <Compile Include="Exceptions\DbFunctionCancelledException.cs" />
+    <Compile Include="Exceptions\EmptyBoardSettingException.cs" />
+    <Compile Include="Exceptions\NonUniqueDisplayNameException.cs" />
+    <Compile Include="Exceptions\NoPostsFoundForTopicException.cs" />
+    <Compile Include="Exceptions\NoTopicRowException.cs" />
+    <Compile Include="Exceptions\NoValidDbAccessProviderFoundException.cs" />
+    <Compile Include="Exceptions\NoValidGuestUserForBoardException.cs" />
+    <Compile Include="Exceptions\SecurityFailureInvalidWebServiceTokenException.cs" />
+    <Compile Include="Exceptions\YafTaskModuleNotRegisteredException.cs" />
     <Compile Include="Interfaces\IAdd.cs" />
     <Compile Include="Interfaces\IHaveSortOrder.cs" />
     <Compile Include="Constants\AuthService.cs" />

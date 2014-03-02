@@ -32,6 +32,7 @@ using YAF.Core;
 using YAF.Types;
 using YAF.Types.Constants;
 using YAF.Types.EventProxies;
+using YAF.Types.Exceptions;
 using YAF.Types.Extensions;
 using YAF.Types.Flags;
 using YAF.Types.Interfaces;
@@ -198,44 +199,5 @@ public class YafWebService : WebService, IHaveServiceLocator
     #endregion
 }
 
-/// <summary>
-/// The security failure invalid web service token exception.
-/// </summary>
-public class SecurityFailureInvalidWebServiceTokenException : Exception
-{
-  #region Constructors and Destructors
 
-  /// <summary>
-  /// Initializes a new instance of the <see cref="SecurityFailureInvalidWebServiceTokenException"/> class.
-  /// </summary>
-  /// <param name="message">
-  /// The message.
-  /// </param>
-  public SecurityFailureInvalidWebServiceTokenException([NotNull] string message)
-    : base(message)
-  {
-  }
 
-  #endregion
-}
-
-/// <summary>
-/// The non unique display name exception.
-/// </summary>
-public class NonUniqueDisplayNameException : Exception
-{
-  #region Constructors and Destructors
-
-  /// <summary>
-  /// Initializes a new instance of the <see cref="NonUniqueDisplayNameException"/> class.
-  /// </summary>
-  /// <param name="message">
-  /// The message.
-  /// </param>
-  public NonUniqueDisplayNameException([NotNull] string message)
-    : base(message)
-  {
-  }
-
-  #endregion
-}

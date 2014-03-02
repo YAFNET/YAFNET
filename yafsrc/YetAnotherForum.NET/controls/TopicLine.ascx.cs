@@ -5,11 +5,11 @@ namespace YAF.Controls
     using System;
     using System.Data;
     using System.Text;
-
     using YAF.Classes;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Exceptions;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
@@ -638,20 +638,5 @@ namespace YAF.Controls
         }
 
         #endregion
-    }
-
-    /// <summary>
-    /// The No TopicRow Exception
-    /// </summary>
-    public class NoTopicRowException : Exception
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NoTopicRowException"/> class.
-        /// </summary>
-        /// <param name="topicRowID">The topic row identifier.</param>
-        public NoTopicRowException(int? topicRowID)
-            : base("No topic row found for topic row id [{0}]".FormatWith(topicRowID ?? 0))
-        {
-        }
     }
 }

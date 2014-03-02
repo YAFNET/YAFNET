@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014 Ingo Herbote
@@ -21,34 +21,29 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+
+namespace YAF.Types.Exceptions
 {
-  #region Using
-
-  using System;
-
-  using YAF.Types;
-
-  #endregion
-
-  /// <summary>
-  /// The cant load theme exception.
-  /// </summary>
-  public class CantLoadThemeException : Exception
-  {
-    #region Constructors and Destructors
+    using System;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CantLoadThemeException"/> class.
+    /// The non unique display name exception.
     /// </summary>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    public CantLoadThemeException([NotNull] string message)
-      : base(message)
+    public class NonUniqueDisplayNameException : Exception
     {
-    }
+        #region Constructors and Destructors
 
-    #endregion
-  }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NonUniqueDisplayNameException"/> class.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        public NonUniqueDisplayNameException([NotNull] string message)
+            : base(message)
+        {
+        }
+
+        #endregion
+    }
 }
