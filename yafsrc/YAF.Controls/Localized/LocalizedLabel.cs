@@ -38,36 +38,6 @@ namespace YAF.Controls
     {
         #region Constants and Fields
 
-        /// <summary>
-        /// The _enable bb code.
-        /// </summary>
-        protected bool _enableBBCode = false;
-
-        /// <summary>
-        /// The _localized page.
-        /// </summary>
-        protected string _localizedPage = string.Empty;
-
-        /// <summary>
-        /// The _localized tag.
-        /// </summary>
-        protected string _localizedTag = string.Empty;
-
-        /// <summary>
-        /// The _param 0.
-        /// </summary>
-        protected string _param0 = string.Empty;
-
-        /// <summary>
-        /// The _param 1.
-        /// </summary>
-        protected string _param1 = string.Empty;
-
-        /// <summary>
-        /// The _param 2.
-        /// </summary>
-        protected string _param2 = string.Empty;
-
         #endregion
 
         #region Constructors and Destructors
@@ -76,8 +46,13 @@ namespace YAF.Controls
         /// Initializes a new instance of the <see cref="LocalizedLabel"/> class.
         /// </summary>
         public LocalizedLabel()
-            : base()
         {
+            this.LocalizedPage = string.Empty;
+            this.EnableBBCode = false;
+            this.LocalizedTag = string.Empty;
+            this.Param2 = string.Empty;
+            this.Param1 = string.Empty;
+            this.Param0 = string.Empty;
         }
 
         #endregion
@@ -87,98 +62,32 @@ namespace YAF.Controls
         /// <summary>
         /// Gets or sets a value indicating whether EnableBBCode.
         /// </summary>
-        public bool EnableBBCode
-        {
-            get
-            {
-                return this._enableBBCode;
-            }
-
-            set
-            {
-                this._enableBBCode = value;
-            }
-        }
+        public bool EnableBBCode { get; set; }
 
         /// <summary>
         /// Gets or sets LocalizedPage.
         /// </summary>
-        public string LocalizedPage
-        {
-            get
-            {
-                return this._localizedPage;
-            }
-
-            set
-            {
-                this._localizedPage = value;
-            }
-        }
+        public string LocalizedPage { get; set; }
 
         /// <summary>
         /// Gets or sets LocalizedTag.
         /// </summary>
-        public string LocalizedTag
-        {
-            get
-            {
-                return this._localizedTag;
-            }
-
-            set
-            {
-                this._localizedTag = value;
-            }
-        }
+        public string LocalizedTag { get; set; }
 
         /// <summary>
-        /// Gets or sets Param0.
+        /// Gets or sets Parameter 0.
         /// </summary>
-        public string Param0
-        {
-            get
-            {
-                return this._param0;
-            }
-
-            set
-            {
-                this._param0 = value;
-            }
-        }
+        public string Param0 { get; set; }
 
         /// <summary>
-        /// Gets or sets Param1.
+        /// Gets or sets Parameter 1.
         /// </summary>
-        public string Param1
-        {
-            get
-            {
-                return this._param1;
-            }
-
-            set
-            {
-                this._param1 = value;
-            }
-        }
+        public string Param1 { get; set; }
 
         /// <summary>
-        /// Gets or sets Param2.
+        /// Gets or sets Parameter 2.
         /// </summary>
-        public string Param2
-        {
-            get
-            {
-                return this._param2;
-            }
-
-            set
-            {
-                this._param2 = value;
-            }
-        }
+        public string Param2 { get; set; }
 
         #endregion
 
@@ -187,8 +96,7 @@ namespace YAF.Controls
         /// <summary>
         /// Shows the localized text string (if available)
         /// </summary>
-        /// <param name="output">
-        /// </param>
+        /// <param name="output">The output.</param>
         protected override void Render(HtmlTextWriter output)
         {
             output.BeginRender();

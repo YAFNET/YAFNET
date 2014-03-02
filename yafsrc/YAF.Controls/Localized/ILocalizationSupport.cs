@@ -23,9 +23,7 @@
  */
 namespace YAF.Controls
 {
-  #region Using
-
-  
+  #region Using  
 
   #endregion
 
@@ -52,17 +50,17 @@ namespace YAF.Controls
     string LocalizedTag { get; set; }
 
     /// <summary>
-    /// Gets or sets Param0.
+    /// Gets or sets Parameter 0.
     /// </summary>
     string Param0 { get; set; }
 
     /// <summary>
-    /// Gets or sets Param1.
+    /// Gets or sets Parameter 1.
     /// </summary>
     string Param1 { get; set; }
 
     /// <summary>
-    /// Gets or sets Param2.
+    /// Gets or sets Parameter 2.
     /// </summary>
     string Param2 { get; set; }
 

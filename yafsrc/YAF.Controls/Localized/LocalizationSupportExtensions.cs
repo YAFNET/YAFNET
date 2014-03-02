@@ -24,80 +24,74 @@
 namespace YAF.Controls
 {
     using System.Web.UI;
+
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
-
-  /// <summary>
-  /// The localization support extensions.
-  /// </summary>
-  public static class LocalizationSupportExtensions
-  {
-    #region Public Methods
 
     /// <summary>
-    /// The get current item.
+    /// The localization support extensions.
     /// </summary>
-    /// <param name="supportItem">
-    /// The support Item.
-    /// </param>
-    /// <param name="currentControl">
-    /// The current Control.
-    /// </param>
-    /// <returns>
-    /// The get current item.
-    /// </returns>
-    public static string Localize([NotNull] this ILocalizationSupport supportItem, [NotNull] Control currentControl)
+    public static class LocalizationSupportExtensions
     {
-      CodeContracts.VerifyNotNull(supportItem, "supportItem");
-      CodeContracts.VerifyNotNull(currentControl, "currentControl");
+        #region Public Methods
 
-      if (currentControl.Site != null && currentControl.Site.DesignMode == true)
-      {
-        return "[PAGE:{0}|TAG:{1}]".FormatWith(supportItem.LocalizedPage, supportItem.LocalizedTag);
-      }
-      else if (supportItem.LocalizedPage.IsSet() && supportItem.LocalizedTag.IsSet())
-      {
-        return YafContext.Current.Get<ILocalization>().GetText(supportItem.LocalizedPage, supportItem.LocalizedTag);
-      }
-      else if (supportItem.LocalizedTag.IsSet())
-      {
-        return YafContext.Current.Get<ILocalization>().GetText(supportItem.LocalizedTag);
-      }
+        /// <summary>
+        /// Localizes the specified support item.
+        /// </summary>
+        /// <param name="supportItem">The support Item.</param>
+        /// <param name="currentControl">The current Control.</param>
+        /// <returns>
+        /// The get current item.
+        /// </returns>
+        public static string Localize([NotNull] this ILocalizationSupport supportItem, [NotNull] Control currentControl)
+        {
+            CodeContracts.VerifyNotNull(supportItem, "supportItem");
+            CodeContracts.VerifyNotNull(currentControl, "currentControl");
 
-      return null;
+            if (currentControl.Site != null && currentControl.Site.DesignMode)
+            {
+                return "[PAGE:{0}|TAG:{1}]".FormatWith(supportItem.LocalizedPage, supportItem.LocalizedTag);
+            }
+
+            if (supportItem.LocalizedPage.IsSet() && supportItem.LocalizedTag.IsSet())
+            {
+                return YafContext.Current.Get<ILocalization>()
+                    .GetText(supportItem.LocalizedPage, supportItem.LocalizedTag);
+            }
+
+            return supportItem.LocalizedTag.IsSet()
+                       ? YafContext.Current.Get<ILocalization>().GetText(supportItem.LocalizedTag)
+                       : null;
+        }
+
+        /// <summary>
+        /// Localizes the and render.
+        /// </summary>
+        /// <param name="supportedItem">The supported item.</param>
+        /// <param name="currentControl">The current control.</param>
+        /// <returns>
+        /// The localize and render.
+        /// </returns>
+        public static string LocalizeAndRender(
+            [NotNull] this ILocalizationSupport supportedItem,
+            [NotNull] BaseControl currentControl)
+        {
+            CodeContracts.VerifyNotNull(supportedItem, "supportedItem");
+            CodeContracts.VerifyNotNull(currentControl, "currentControl");
+
+            string localizedItem = supportedItem.Localize(currentControl);
+
+            // convert from YafBBCode to HTML
+            if (supportedItem.EnableBBCode)
+            {
+                localizedItem = currentControl.Get<IBBCode>().MakeHtml(localizedItem, true, false);
+            }
+
+            return localizedItem.FormatWith(supportedItem.Param0, supportedItem.Param1, supportedItem.Param2);
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// The localize and render.
-    /// </summary>
-    /// <param name="supportedItem">
-    /// The supported item.
-    /// </param>
-    /// <param name="currentControl">
-    /// The current control.
-    /// </param>
-    /// <returns>
-    /// The localize and render.
-    /// </returns>
-    public static string LocalizeAndRender([NotNull] this ILocalizationSupport supportedItem, [NotNull] BaseControl currentControl)
-    {
-      CodeContracts.VerifyNotNull(supportedItem, "supportedItem");
-      CodeContracts.VerifyNotNull(currentControl, "currentControl");
-
-      string localizedItem = supportedItem.Localize(currentControl);
-
-      // convert from YafBBCode to HTML
-      if (supportedItem.EnableBBCode)
-      {
-        localizedItem = currentControl.Get<IBBCode>().MakeHtml(localizedItem, true, false);
-      }
-
-      return localizedItem.FormatWith(supportedItem.Param0, supportedItem.Param1, supportedItem.Param2);
-    }
-
-    #endregion
-  }
 }
