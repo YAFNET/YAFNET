@@ -32,10 +32,36 @@ namespace YAF.Utils
     using YAF.Types.Extensions;
 
     /// <summary>
-    /// Class provides helper functions related to the forum path and urls as well as forum version information.
+    /// Class provides helper functions related to the forum path and URLs as well as forum version information.
     /// </summary>
     public static class YafForumInfo
     {
+        /// <summary>
+        /// The YAF.NET Release Type
+        /// </summary>
+        private enum ReleaseType
+        {
+            /// <summary>
+            /// regular release
+            /// </summary>
+            Regular = 0,
+
+            /// <summary>
+            /// alpha release
+            /// </summary>
+            Alpha,
+
+            /// <summary>
+            /// beta release
+            /// </summary>
+            BETA,
+
+            /// <summary>
+            /// release candidate release
+            /// </summary>
+            RC
+        }
+
         /// <summary>
         /// Gets the forum path (client-side).
         /// May not be the actual URL of the forum.
@@ -61,7 +87,7 @@ namespace YAF.Utils
         }
 
         /// <summary>
-        /// Gets complete application external (client-side) URL of the forum. (e.g. http://myforum.com/forum
+        /// Gets complete application external (client-side) URL of the forum. (e.g. http://domain.com/forum
         /// </summary>
         public static string ForumBaseUrl
         {
@@ -97,20 +123,6 @@ namespace YAF.Utils
             }
         }
 
-        /// <summary>
-        /// Helper function that creates the the url of a resource.
-        /// </summary>
-        /// <param name="resourceName">Name of the resource.</param>
-        /// <returns>
-        /// The get url to resource.
-        /// </returns>
-        public static string GetURLToResource([NotNull] string resourceName)
-        {
-            CodeContracts.VerifyNotNull(resourceName, "resourceName");
-
-            return "{1}resources/{0}".FormatWith(resourceName, ForumClientFileRoot);
-        }
-
         #region Version Information
 
         /// <summary>
@@ -131,16 +143,8 @@ namespace YAF.Utils
         {
             get
             {
-                return 53;
+                return 54;
             }
-        }
-
-        private enum ReleaseType
-        {
-            Regular = 0,
-            Alpha,
-            BETA,
-            RC,
         }
 
         /// <summary>
@@ -150,27 +154,27 @@ namespace YAF.Utils
         {
             get
             {
-                int major = 2;
-                byte minor = 1;
-                byte build = 0;
-                byte sub = 0;
+                const int Major = 2;
+                const byte Minor = 1;
+                const byte Build = 1;
+                const byte Sub = 0;
 
-                var releaseType = ReleaseType.Regular;
-                byte releaseNumber = 0;
+                const ReleaseType ReleaseType = ReleaseType.Regular;
+                const byte ReleaseNumber = 0;
                 
-                long version = (long)major << 24;
-                version |= (long)minor << 16;
-                version |= (long)(build & 0x0F) << 12;
+                long version = (long)Major << 24;
+                version |= (long)Minor << 16;
+                version |= (long)(Build & 0x0F) << 12;
 
-                if (sub > 0)
+                if (Sub > 0)
                 {
-                    version |= ((long)sub << 8);
+                    version |= (long)Sub << 8;
                 }
 
-                if (releaseType != ReleaseType.Regular)
+                if (ReleaseType != ReleaseType.Regular)
                 {
-                    version |= (long)releaseType << 4;
-                    version |= (long)(releaseNumber & 0x0F) + 1;
+                    version |= (long)ReleaseType << 4;
+                    version |= (long)(ReleaseNumber & 0x0F) + 1;
                 }
 
                 return version;
@@ -184,7 +188,7 @@ namespace YAF.Utils
         {
             get
             {
-                return new DateTime(2013, 12, 29);
+                return new DateTime(2014, 03, 02);
             }
         }
 
@@ -203,35 +207,51 @@ namespace YAF.Utils
 
             if (((code >> 8) & 0x0F) > 0)
             {
-                version += ".{0}".FormatWith(((code >> 8) & 0x0F));
+                version += ".{0}".FormatWith((code >> 8) & 0x0F);
             }
 
-            if (((code >> 4) & 0x0F) > 0)
+            if (((code >> 4) & 0x0F) <= 0)
             {
-                var value = (code >> 4) & 0x0F;
+                return version;
+            }
 
-                var number = String.Empty;
+            var value = (code >> 4) & 0x0F;
 
-                if ((code & 0x0F) > 1)
-                {
-                    number = ((code & 0x0F).ToType<int>() - 1).ToString();
-                }
-                else if ((code & 0x0F) == 1)
-                {
-                    number = AppVersionDate.ToString("yyyyMMdd");
-                }
+            var number = string.Empty;
 
-                var releaseType = value.ToEnum<ReleaseType>();
+            if ((code & 0x0F) > 1)
+            {
+                number = ((code & 0x0F).ToType<int>() - 1).ToString();
+            }
+            else if ((code & 0x0F) == 1)
+            {
+                number = AppVersionDate.ToString("yyyyMMdd");
+            }
 
-                if (releaseType != ReleaseType.Regular)
-                {
-                    version += " {0} {1}".FormatWith(releaseType.ToString().ToUpper(), number);
-                }
+            var releaseType = value.ToEnum<ReleaseType>();
+
+            if (releaseType != ReleaseType.Regular)
+            {
+                version += " {0} {1}".FormatWith(releaseType.ToString().ToUpper(), number);
             }
 
             return version;
         }
 
         #endregion
+
+        /// <summary>
+        /// Helper function that creates the the url of a resource.
+        /// </summary>
+        /// <param name="resourceName">Name of the resource.</param>
+        /// <returns>
+        /// The get url to resource.
+        /// </returns>
+        public static string GetURLToResource([NotNull] string resourceName)
+        {
+            CodeContracts.VerifyNotNull(resourceName, "resourceName");
+
+            return "{1}resources/{0}".FormatWith(resourceName, ForumClientFileRoot);
+        }
     }
 }
