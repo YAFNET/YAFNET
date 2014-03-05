@@ -79,17 +79,17 @@ namespace YAF.Types.Extensions
         [CanBeNull]
         public static object ConvertObjectToType([CanBeNull] object value, [NotNull] string type)
         {
-            if (value == null)
-                return null;
+		if (value == null)
+			return null;
 
-            Type convertType = Type.GetType(type, true, true);
+		Type convertType = Type.GetType(type, true, true);
 
-            if(convertType.IsEnum)
-				return Enum.Parse(convertType, (String)value);
-			else {
-			    TypeConverter converter = new TypeConverter();
-				return converter.ConvertTo(value, convertType);
-			}
+		if(convertType.IsEnum)
+			return Enum.Parse(convertType, (String)value);
+		else {
+			TypeConverter converter = TypeDescriptor.GetConverter(convertType);
+			return converter.ConvertFrom(value);
+		}
         }
 
         /// <summary>
