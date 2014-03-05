@@ -84,12 +84,8 @@ namespace YAF.Types.Extensions
 
 		Type convertType = Type.GetType(type, true, true);
 
-		if(convertType.IsEnum)
-			return Enum.Parse(convertType, (String)value);
-		else {
-			TypeConverter converter = TypeDescriptor.GetConverter(convertType);
-			return converter.ConvertFrom(value);
-		}
+		TypeConverter converter = TypeDescriptor.GetConverter(convertType);
+		return converter.ConvertFrom(value);
         }
 
         /// <summary>
