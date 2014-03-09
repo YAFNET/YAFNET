@@ -969,7 +969,7 @@ namespace YAF.Pages
         /// <summary>
         /// The bind data.
         /// </summary>
-        /// <exception cref="YAF.Pages.NoPostsFoundForTopicException"></exception>
+        /// <exception cref="NoPostsFoundForTopicException"></exception>
         private void BindData()
         {
             if (this._topic == null)
@@ -1776,7 +1776,7 @@ namespace YAF.Pages
                 // send new post notification to users watching this topic/forum
                 this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
 
-                if (Config.IsDotNetNuke)
+                if (Config.IsDotNetNuke && !this.PageContext.IsGuest)
                 {
                     this.Get<IActivityStream>()
                            .AddReplyToStream(
