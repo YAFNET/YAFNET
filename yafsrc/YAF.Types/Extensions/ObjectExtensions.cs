@@ -79,38 +79,13 @@ namespace YAF.Types.Extensions
         [CanBeNull]
         public static object ConvertObjectToType([CanBeNull] object value, [NotNull] string type)
         {
-            if (value == null)
-            {
-                return null;
-            }
+		if (value == null)
+			return null;
 
-            Type convertType;
+		Type convertType = Type.GetType(type, true, true);
 
-            try
-            {
-                convertType = Type.GetType(type, true, true);
-            }
-            catch
-            {
-                convertType = Type.GetType("System.Guid", false);
-            }
-
-            if (value.GetType().ToString() == "System.String")
-            {
-                switch (convertType.ToString())
-                {
-                    case "System.Guid":
-
-                        // do a "manual conversion" from string to Guid
-                        return new Guid(Convert.ToString(value));
-                    case "System.Int32":
-                        return value.ToType<int>();
-                    case "System.Int64":
-                        return value.ToType<long>();
-                }
-            }
-
-            return Convert.ChangeType(value, convertType);
+		TypeConverter converter = TypeDescriptor.GetConverter(convertType);
+		return converter.ConvertFrom(value);
         }
 
         /// <summary>
