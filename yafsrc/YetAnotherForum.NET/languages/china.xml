@@ -1135,14 +1135,14 @@
     <Resource tag="LOG_ERROR_HELP">Application errors will be logged.</Resource>
     <Resource tag="LOG_INFORMATION">Allow log Application Info:</Resource>
     <Resource tag="LOG_INFORMATION_HELP">Application info messages will be logged.</Resource>
-    <Resource tag="LOG_SQLERROR">Allow log Sql Errors:</Resource>
-    <Resource tag="LOG_SQLERROR_HELP">Sql errors will be logged.</Resource>
     <Resource tag="LOG_SUSPENDEDANDCONTRA">Allow log when users suspended or unsuspended:</Resource>
     <Resource tag="LOG_SUSPENDEDANDCONTRA_HELP">Log when users are suspended or unsuspended.</Resource>
     <Resource tag="LOG_USERDELETED">Allow log user deleting event:</Resource>
     <Resource tag="LOG_USERDELETED_HELP">User deleting event will be logged.</Resource>
     <Resource tag="LOG_USERSUSPENDED">Allow log user suspended and unsuspended:</Resource>
     <Resource tag="LOG_USERSUSPENDED_HELP">Suspended and unsuspended events will be logged.</Resource>
+    <Resource tag="LOG_VIEWSTATEERROR">Log ViewState Exceptions:</Resource>
+    <Resource tag="LOG_VIEWSTATEERROR_HELP">ViewState Exceptions (mainly caused by SPAM Bots) will be logged.</Resource>
     <Resource tag="LOG_WARNING">Allow log Application Warnings:</Resource>
     <Resource tag="LOG_WARNING_HELP">Application warnings will be logged.</Resource>
     <Resource tag="LOGIN_REDIR_URL">Custom Login Redirect Url:</Resource>
@@ -4979,11 +4979,11 @@ The Message was posted in the {forumname} forum.
     <Resource tag="PASSWORDRETRIEVAL_HTML">
       &lt;!DOCTYPE html&gt;
 
-      &lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+      &lt;html lang="en" xmlns="http://www.w3.org/1999/xhtml"&gt;
       &lt;head&gt;
-      &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+      &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
       &lt;title&gt;Password Retrieval&lt;/title&gt;
-      &lt;style type=&quot;text/css&quot;&gt;
+      &lt;style type="text/css"&gt;
       &lt;!--
       .style1 {
       font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -4992,12 +4992,12 @@ The Message was posted in the {forumname} forum.
       &lt;/style&gt;
       &lt;/head&gt;
       &lt;body&gt;
-      &lt;p class=&quot;style1&quot;&gt;Hello {username},&lt;/p&gt;
-      &lt;p class=&quot;style1&quot;&gt;You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.&lt;/p&gt;
-      &lt;p class=&quot;style1&quot;&gt;A new password has been generated for you on &lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href=&quot;{forumlink}&quot;&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
-      &lt;p class=&quot;style1&quot;&gt;Please return to the site and login using the following information:&lt;/p&gt;
+      &lt;p class="style1"&gt;Hello {username},&lt;/p&gt;
+      &lt;p class="style1"&gt;You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.&lt;/p&gt;
+      &lt;p class="style1"&gt;A new password has been generated for you on &lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
+      &lt;p class="style1"&gt;Please return to the site and login using the following information:&lt;/p&gt;
       &lt;blockquote&gt;
-      &lt;span class=&quot;style1&quot;&gt;
+      &lt;span class="style1"&gt;
       User Name: &lt;strong&gt;{username}&lt;/strong&gt;&lt;br /&gt;
       Password: &lt;strong&gt;{password}&lt;/strong&gt;
       &lt;/span&gt;

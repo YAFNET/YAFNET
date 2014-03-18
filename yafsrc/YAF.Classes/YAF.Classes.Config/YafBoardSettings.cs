@@ -525,21 +525,21 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [log SQL error].
+        /// Gets or sets a value indicating whether [log view state error].
         /// </summary>
         /// <value>
-        ///   <c>true</c> if [log SQL error]; otherwise, <c>false</c>.
+        ///   <c>true</c> if [log view state error]; otherwise, <c>false</c>.
         /// </value>
-        public bool LogSqlError
+        public bool LogViewStateError
         {
             get
             {
-                return this._reg.GetValue("LogSqlError", false);
+                return this._reg.GetValue("LogViewStateError", false);
             }
 
             set
             {
-                this._reg.SetValue("LogSqlError", value);
+                this._reg.SetValue("LogViewStateError", value);
             }
         }
 

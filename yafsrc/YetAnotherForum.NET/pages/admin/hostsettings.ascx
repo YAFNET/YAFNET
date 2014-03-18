@@ -2085,10 +2085,10 @@
                     </tr>
                       <tr>
                         <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel210" runat="server" LocalizedTag="LOG_SQLERROR" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            <YAF:HelpLabel ID="HelpLabel210" runat="server" LocalizedTag="LOG_VIEWSTATEERROR" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:CheckBox ID="LogSqlError" runat="server"></asp:CheckBox>
+                            <asp:CheckBox ID="LogViewStateError" runat="server"></asp:CheckBox>
                         </td>
                     </tr>
                       <tr>

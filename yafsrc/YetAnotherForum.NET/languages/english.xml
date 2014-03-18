@@ -1110,8 +1110,8 @@
   <Resource tag="LOG_ERROR_HELP">Application errors will be logged.</Resource>
   <Resource tag="LOG_INFORMATION">Allow log Application Info:</Resource>
   <Resource tag="LOG_INFORMATION_HELP">Application info messages will be logged.</Resource>
-  <Resource tag="LOG_SQLERROR">Allow log Sql Errors:</Resource>
-  <Resource tag="LOG_SQLERROR_HELP">Sql errors will be logged.</Resource>
+  <Resource tag="LOG_VIEWSTATEERROR">Log ViewState Exceptions:</Resource>
+  <Resource tag="LOG_VIEWSTATEERROR_HELP">ViewState Exceptions (mainly caused by SPAM Bots) will be logged.</Resource>
   <Resource tag="LOG_SUSPENDEDANDCONTRA">Allow log when users suspended or unsuspended:</Resource>
   <Resource tag="LOG_SUSPENDEDANDCONTRA_HELP">Log when users are suspended or unsuspended.</Resource>
   <Resource tag="LOG_USERDELETED">Allow log user deleting event:</Resource>

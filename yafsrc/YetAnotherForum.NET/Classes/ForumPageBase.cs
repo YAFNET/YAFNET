@@ -29,6 +29,7 @@ namespace YAF
     using System.Web;
     using System.Web.UI;
 
+    using YAF.Classes;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Services.Startup;
@@ -88,7 +89,8 @@ namespace YAF
 
             var error = this.Get<HttpServerUtilityBase>().GetLastError();
 
-            if (error is ViewStateException)
+            if (error.GetType() == typeof(HttpException) && error.InnerException is ViewStateException
+                && this.Get<YafBoardSettings>().LogViewStateError)
             {
                 this.Get<ILogger>().Log(YafContext.Current.PageUserID, error.Source, error, EventLogTypes.Information);
             }
