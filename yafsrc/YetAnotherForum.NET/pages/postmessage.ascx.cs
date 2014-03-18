@@ -1278,8 +1278,12 @@ namespace YAF.Pages
         {
             this.PreviewRow.Visible = true;
 
-            this.PreviewMessagePost.MessageFlags.IsHtml = this._forumEditor.UsesHTML;
-            this.PreviewMessagePost.MessageFlags.IsBBCode = this._forumEditor.UsesBBCode;
+            this.PreviewMessagePost.MessageFlags = new MessageFlags
+                                                       {
+                                                           IsHtml = this._forumEditor.UsesHTML,
+                                                           IsBBCode = this._forumEditor.UsesBBCode
+                                                       };
+
             this.PreviewMessagePost.Message = this._forumEditor.Text;
 
             if (!this.Get<YafBoardSettings>().AllowSignatures)
