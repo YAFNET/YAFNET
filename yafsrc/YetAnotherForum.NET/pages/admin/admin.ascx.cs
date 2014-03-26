@@ -29,7 +29,6 @@ namespace YAF.Pages.Admin
     using System;
     using System.Data;
     using System.Data.SqlClient;
-    using System.Web;
     using System.Web.UI.WebControls;
 
     using FarsiLibrary;
@@ -41,7 +40,6 @@ namespace YAF.Pages.Admin
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.RegisterV2;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -246,9 +244,9 @@ namespace YAF.Pages.Admin
 
             try
             {
-                location = YafUserProfile.GetProfile(Eval("UserName").ToString()).Location;
+                location = YafUserProfile.GetProfile(userName).Location;
 
-                if (string.IsNullOrEmpty(location))
+                if (location.IsNotSet())
                 {
                     location = "-";
                 }
