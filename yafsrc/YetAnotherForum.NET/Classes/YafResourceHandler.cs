@@ -490,7 +490,9 @@ namespace YAF
             {
                 var userId = context.Request.QueryString.GetFirstOrDefault("userinfo").ToType<int>();
 
-                MembershipUser user = UserMembershipHelper.GetMembershipUserById(userId);
+                var boardId = context.Request.QueryString.GetFirstOrDefault("boardId").ToType<int>();
+
+                MembershipUser user = UserMembershipHelper.GetMembershipUserById(userId, boardId);
 
                 if (user == null || user.ProviderUserKey.ToString() == "0")
                 {

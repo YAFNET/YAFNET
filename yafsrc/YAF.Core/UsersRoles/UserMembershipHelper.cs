@@ -374,6 +374,22 @@ namespace YAF.Core
         }
 
         /// <summary>
+        /// get the membership user from the userID
+        /// </summary>
+        /// <param name="userID">The user identifier.</param>
+        /// <param name="boardId">The board identifier.</param>
+        /// <returns>
+        /// The get membership user by id.
+        /// </returns>
+
+        public static MembershipUser GetMembershipUserById(int userID, int boardId)
+        {
+            object providerUserKey = GetProviderUserKeyFromID(userID, boardId);
+
+            return providerUserKey != null ? GetMembershipUserByKey(providerUserKey) : null;
+        }
+
+        /// <summary>
         /// get the membership user from the providerUserKey
         /// </summary>
         /// <param name="providerUserKey">
@@ -411,9 +427,22 @@ namespace YAF.Core
         /// </returns>
         public static object GetProviderUserKeyFromID(long userID)
         {
+            return GetProviderUserKeyFromID(userID, YafContext.Current.PageBoardID);
+        }
+
+        /// <summary>
+        /// Gets the user provider key from the UserID for a user
+        /// </summary>
+        /// <param name="userID">The user ID.</param>
+        /// <param name="boardID">The board identifier.</param>
+        /// <returns>
+        /// The get provider user key from id.
+        /// </returns>
+        public static object GetProviderUserKeyFromID(long userID, int? boardID)
+        {
             object providerUserKey = null;
 
-            DataRow row = GetUserRowForID(userID);
+            DataRow row = GetUserRowForID(userID, boardID);
 
             if (row == null)
             {
@@ -594,16 +623,35 @@ namespace YAF.Core
         /// </returns>
         public static DataRow GetUserRowForID(long userID, bool allowCached)
         {
+            return GetUserRowForID(userID, YafContext.Current.PageBoardID, allowCached);
+        }
+
+        /// <summary>
+        /// Helper function that gets user data from the DB (or cache)
+        /// </summary>
+        /// <param name="userID">The user ID.</param>
+        /// <param name="boardID">The board identifier.</param>
+        /// <param name="allowCached">if set to <c>true</c> [allow cached].</param>
+        /// <returns>
+        /// The get user row for id.
+        /// </returns>
+        public static DataRow GetUserRowForID(long userID, int? boardID, bool allowCached)
+        {
+            if (!boardID.HasValue)
+            {
+                boardID = YafContext.Current.PageBoardID;
+            }
+
             if (!allowCached)
             {
-                return LegacyDb.user_list(YafContext.Current.PageBoardID, userID, DBNull.Value).GetFirstRow();
+                return LegacyDb.user_list(boardID, userID, DBNull.Value).GetFirstRow();
             }
 
             // get the item cached...
             return
                 YafContext.Current.Get<IDataCache>().GetOrSet(
                     Constants.Cache.UserListForID.FormatWith(userID),
-                    () => LegacyDb.user_list(YafContext.Current.PageBoardID, userID, DBNull.Value),
+                    () => LegacyDb.user_list(boardID, userID, DBNull.Value),
                     TimeSpan.FromMinutes(5)).GetFirstRow();
         }
 
@@ -632,6 +680,19 @@ namespace YAF.Core
         public static DataRow GetUserRowForID(long userID)
         {
             return GetUserRowForID(userID, true);
+        }
+
+        /// <summary>
+        /// Default allows the user row to be cached (mostly used for Provider key and UserID which never change)
+        /// </summary>
+        /// <param name="userID">The user ID.</param>
+        /// <param name="boardID">The board identifier.</param>
+        /// <returns>
+        /// The get user row for id.
+        /// </returns>
+        public static DataRow GetUserRowForID(long userID, int? boardID)
+        {
+            return GetUserRowForID(userID, boardID, true);
         }
 
         /// <summary>
