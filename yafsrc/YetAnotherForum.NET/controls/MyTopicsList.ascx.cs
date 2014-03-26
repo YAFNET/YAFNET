@@ -122,7 +122,7 @@ namespace YAF.Controls
         public bool AutoDatabind { get; set; }
 
         /// <summary>
-        ///   Gets or sets Determines what is th current mode of the control.
+        ///   Gets or sets Determines what is the current mode of the control.
         /// </summary>
         public TopicListMode CurrentMode { get; set; }
 
@@ -357,7 +357,7 @@ namespace YAF.Controls
         {
             this.BindData();
 
-            if (this.topics.Rows.Count.Equals(0))
+            if (this.topics == null || this.topics.Rows.Count.Equals(0))
             {
                 return;
             }
@@ -459,16 +459,19 @@ namespace YAF.Controls
         {
             var forumName = this.Page.HtmlEncode(row["ForumName"]);
             string html = string.Empty;
-            if (forumName != this._lastForumName)
+
+            if (forumName == this._lastForumName)
             {
-                html =
-                    @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"" title=""{2}"" >{0}</a></td></tr>"
-                        .FormatWith(
-                            forumName,
-                            YafBuildLink.GetLink(ForumPages.topics, "f={0}", row["ForumID"]),
-                            this.GetText("COMMON", "VIEW_FORUM"));
-                this._lastForumName = forumName;
+                return html;
             }
+
+            html =
+                @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"" title=""{2}"" >{0}</a></td></tr>"
+                    .FormatWith(
+                        forumName,
+                        YafBuildLink.GetLink(ForumPages.topics, "f={0}", row["ForumID"]),
+                        this.GetText("COMMON", "VIEW_FORUM"));
+            this._lastForumName = forumName;
 
             return html;
         }
