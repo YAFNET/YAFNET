@@ -167,6 +167,11 @@ namespace YAF.Types.Interfaces
     /// </summary>
     string YIM { get; set; }
 
+    /// <summary>
+    /// Gets or sets Last Synced With DNN.
+    /// </summary>
+    DateTime LastSyncedWithDNN { get; set; }
+
     #endregion
   }
 }
