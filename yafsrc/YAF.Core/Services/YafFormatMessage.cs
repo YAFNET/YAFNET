@@ -162,7 +162,7 @@ namespace YAF.Core.Services
                         // If tag contains attributes kill them for cecking
                         if (bbCode.Contains("="))
                         {
-                            bbCode = bbCode.Remove(bbCode.IndexOf("="));
+                            bbCode = bbCode.Remove(bbCode.IndexOf("=", StringComparison.Ordinal));
                         }
 
                         if (codes.Any(allowedTag => bbCode.ToLower() == allowedTag.ToLower()))
@@ -407,10 +407,10 @@ namespace YAF.Core.Services
                 ruleEngine.AddRule(url);
             }
 
+            message = this.Get<IBadWordReplace>().Replace(message);
+
             // process...
             ruleEngine.Process(ref message);
-
-            message = this.Get<IBadWordReplace>().Replace(message);
 
             return message;
         }
@@ -569,7 +569,7 @@ namespace YAF.Core.Services
                         // If tag contains attributes kill them for cecking
                         if (code.Contains("=\""))
                         {
-                            code = code.Remove(code.IndexOf(" "));
+                            code = code.Remove(code.IndexOf(" ", StringComparison.Ordinal));
                         }
 
                         if (codes.Any(allowedTag => code.ToLower() == allowedTag.ToLower()))
