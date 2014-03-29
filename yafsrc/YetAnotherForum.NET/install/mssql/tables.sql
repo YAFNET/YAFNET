@@ -492,7 +492,7 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		[FileName]		nvarchar(255) not null,
 		Bytes			int not null,
 		FileID			int null,
-		ContentType		nvarchar(50) null,
+		ContentType		nvarchar(max) null,
 		Downloads		int not null,
 		FileData		image null
 	)
@@ -2408,4 +2408,8 @@ GO
 
 -- delete any old medals without valid groups.
 exec('DELETE FROM [{databaseOwner}].[{objectQualifier}GroupMedal] WHERE GroupID NOT IN (SELECT GroupID FROM [{databaseOwner}].[{objectQualifier}Group])')
+GO
+
+if exists(select top 1 1 from sys.columns where object_id = object_id(N'[{databaseOwner}].[{objectQualifier}Attachment]') and name=N'ContentType' and precision < 255)
+	alter table [{databaseOwner}].[{objectQualifier}Attachment] alter column ContentType nvarchar(max) null
 GO
