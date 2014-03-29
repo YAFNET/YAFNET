@@ -3439,6 +3439,25 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets the DNN page tab.
+        /// </summary>
+        /// <value>
+        /// The DNN page tab.
+        /// </value>
+        public int DNNPageTab
+        {
+            get
+            {
+                return this._regBoard.GetValue("DNNPageTab", -1);
+            }
+
+            set
+            {
+                this._regBoard.SetValue("DNNPageTab", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether to AddDynamicPageMetaTags.
         /// </summary>
         public bool AddDynamicPageMetaTags
