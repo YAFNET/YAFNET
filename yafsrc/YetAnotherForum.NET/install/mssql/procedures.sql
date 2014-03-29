@@ -5318,6 +5318,7 @@ create procedure [{databaseOwner}].[{objectQualifier}post_list](
                  @MessagePosition int = 0,
                  @UTCTIMESTAMP datetime) as
 begin
+   declare @TotalPages int
    declare @TotalRows int
    declare @FirstSelectRowNumber int
    declare @LastSelectRowNumber int
@@ -5349,6 +5350,14 @@ begin
         AND 
         m.Edited >= SinceEditedDate
         */ 
+
+    select @TotalPages = CEILING(CONVERT(decimal,@TotalRows)/@PageSize);
+    
+	-- check if page index is bigger then Total pages
+    if (@PageIndex > @TotalPages -1)
+    begin
+      set @PageIndex = @TotalPages -1
+    end
 
  if (@MessagePosition > 0)
  begin
