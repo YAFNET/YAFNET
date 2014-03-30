@@ -3842,25 +3842,14 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The message_findunread.
+        /// Finds the Unread Message
         /// </summary>
-        /// <param name="topicID">
-        /// The topic id.
-        /// </param>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
-        /// <param name="lastRead">
-        /// The last read.
-        /// </param>
-        /// <param name="showDeleted">
-        /// The show Deleted.
-        /// </param>
-        /// <param name="authorUserID">
-        /// The author User ID.
-        /// </param>
-        /// <returns>
-        /// </returns>
+        /// <param name="topicID">The topic id.</param>
+        /// <param name="messageId">The message Id.</param>
+        /// <param name="lastRead">The last read.</param>
+        /// <param name="showDeleted">The show Deleted.</param>
+        /// <param name="authorUserID">The author User ID.</param>
+        /// <returns></returns>
         public static DataTable message_findunread([NotNull] object topicID, [NotNull] object messageId, [NotNull] object lastRead, [NotNull] object showDeleted, [NotNull] object authorUserID)
         {
             // Make sure there are no more DateTime.MinValues coming from db.
@@ -3874,6 +3863,7 @@ namespace YAF.Classes.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.AddParam("TopicID", topicID);
                 cmd.AddParam("MessageID", messageId);
+                cmd.AddParam("MinDateTime", DateTimeHelper.SqlDbMinTime().AddYears(-1));
                 cmd.AddParam("LastRead", lastRead);
                 cmd.AddParam("ShowDeleted", showDeleted);
                 cmd.AddParam("AuthorUserID", authorUserID);

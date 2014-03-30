@@ -3721,6 +3721,7 @@ create procedure [{databaseOwner}].[{objectQualifier}message_findunread](
 @TopicID int,
 @MessageID int,
 @LastRead datetime,
+@MinDateTime datetime,
 @ShowDeleted bit = 0,
 @AuthorUserID int) as
 begin
@@ -3728,36 +3729,36 @@ begin
 
    if (@MessageID > 0)
    begin
-   Select top 1 @MessagePosition = CONVERT(int,RowNum), @MessageID = tbl.MessageID  from 
+   select top 1 @MessagePosition = CONVERT(int,RowNum), @MessageID = tbl.MessageID  from 
    (
-   Select ROW_NUMBER() OVER ( order by Posted desc) as RowNum, m.MessageID
+   select ROW_NUMBER() OVER ( order by Posted desc) as RowNum, m.MessageID
    from yaf_Message m  
    where m.TopicID = @TopicID			
         AND m.IsApproved = 1
         AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))        
    ) as tbl
-   Where tbl.MessageID = @MessageID
+   where tbl.MessageID = @MessageID
    order by tbl.RowNum ASC;
    end
 -- a message with the id was not found or we are looking for first unread or last post 
   if (@MessageID <= 0)
    begin  
    -- if value > yaf db min value (1-1-1903) we are looking for first unread 
-   if (@LastRead > CONVERT(datetime,'2/1/1903'))  
+   if (@LastRead > @MinDateTime)  
    begin
-   Select top 1 @MessagePosition = CONVERT(int,RowNum), @MessageID = tbl.MessageID  from 
+   select top 1 @MessagePosition = CONVERT(int,RowNum), @MessageID = tbl.MessageID  from 
    (
-   Select ROW_NUMBER() OVER ( order by m.Posted asc) as RowNum, m.MessageID, m.Posted
+   select ROW_NUMBER() OVER ( order by m.Posted asc) as RowNum, m.MessageID, m.Posted
    from yaf_Message m  
    where m.TopicID = @TopicID			
         AND m.IsApproved = 1
         AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))		     
    ) as tbl
-   Where tbl.Posted > @LastRead 
+   where tbl.Posted > @LastRead 
    order by tbl.RowNum ASC;
    end
    -- if first unread was not found or we looking for last posted 
-   if (@LastRead < CONVERT(datetime,'2/1/1903') OR @MessagePosition IS NULL) 
+   if (@LastRead < @MinDateTime OR @MessagePosition IS NULL) 
    begin    
         select top 1 @MessageID = m.MessageID, @MessagePosition = 1
     from
@@ -3768,7 +3769,18 @@ begin
        AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))
     order by		
         m.Posted DESC;    
-end
+    end
+
+	 select top 1 @MessagePosition = CONVERT(int,RowNum), @MessageID = tbl.MessageID  from 
+   (
+   select ROW_NUMBER() OVER ( order by Posted desc) as RowNum, m.MessageID
+   from yaf_Message m  
+   where m.TopicID = @TopicID			
+        AND m.IsApproved = 1
+        AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))        
+   ) as tbl
+   where tbl.MessageID = @MessageID
+   order by tbl.RowNum ASC;
 end
   
 select @MessageID as MessageID, @MessagePosition as MessagePosition;
