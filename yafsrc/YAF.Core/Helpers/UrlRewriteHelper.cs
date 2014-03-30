@@ -143,6 +143,7 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// The get profile name.
         /// </returns>
+        [Obsolete("To reduce db calls use url parameters only")]
         public static string GetProfileName(int id)
         {
             const string Type = "Profile";

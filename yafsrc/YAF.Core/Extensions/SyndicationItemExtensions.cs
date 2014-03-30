@@ -149,7 +149,11 @@ namespace YAF.Core.Syndication
         {
             userNameToShow = userName.IsNotSet() ? UserMembershipHelper.GetUserNameFromID(userId) : userName;
         }
-        return new SyndicationPerson(userEmail,userNameToShow, YafBuildLink.GetLinkNotEscaped(ForumPages.profile,true,"u={0}", userId));
+
+        return new SyndicationPerson(
+            userEmail,
+            userNameToShow,
+            YafBuildLink.GetLinkNotEscaped(ForumPages.profile, true, "u={0}&name={1}", userId, userNameToShow));
     }
 
     /// <summary>

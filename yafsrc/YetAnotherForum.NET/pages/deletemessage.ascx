@@ -71,7 +71,7 @@
     <ItemTemplate>
         <tr class="postheader">
             <td width="140">
-                <strong><a href="<%# YafBuildLink.GetLink(ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>">
+                <strong><a href="<%# YafBuildLink.GetLink(ForumPages.profile,"u={0}&name={1}",DataBinder.Eval(Container.DataItem, "UserID"), DataBinder.Eval(Container.DataItem, "UserName")) %>">
                     <%# DataBinder.Eval(Container.DataItem, "UserName") %></a></strong>
             </td>
             <td width="80%" class="small" align="left">

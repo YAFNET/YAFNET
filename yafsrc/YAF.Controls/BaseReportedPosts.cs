@@ -155,14 +155,17 @@ namespace YAF.Controls
                 string resolvedByName =
                     LegacyDb.user_list(this.PageContext.PageBoardID, this.ResolvedBy.ToType<int>(), true).Rows[0]["Name"].ToString();
 
+                var resolvedByDisplayName =
+                    UserMembershipHelper.GetDisplayNameFromID(this.ResolvedBy.ToType<long>()).IsSet()
+                        ? this.Server.HtmlEncode(this.Get<IUserDisplayName>().GetName(this.ResolvedBy.ToType<int>()))
+                        : this.Server.HtmlEncode(resolvedByName);
+
                 writer.Write(@"<tr class=""header2""><td>");
                 writer.Write(
                     @"<span class=""postheader"">{0}</span><a class=""YafReported_Link"" href=""{1}""> {2}</a><span class=""YafReported_ResolvedBy""> : {3}</span>", 
-                    this.GetText("RESOLVEDBY"), 
-                    YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.ResolvedBy.ToType<int>()), 
-                    !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(this.ResolvedBy.ToType<long>()))
-                        ? this.Server.HtmlEncode(this.Get<IUserDisplayName>().GetName(this.ResolvedBy.ToType<int>()))
-                        : this.Server.HtmlEncode(resolvedByName), 
+                    this.GetText("RESOLVEDBY"),
+                    YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.ResolvedBy.ToType<int>(), resolvedByDisplayName), 
+                    resolvedByDisplayName, 
                     this.Get<IDateTime>().FormatDateTimeTopic(this.ResolvedDate));
                 writer.WriteLine(@"</td></tr>");
             }
@@ -172,8 +175,8 @@ namespace YAF.Controls
                 @"<span class=""YafReported_Complainer"">{3}</span><a class=""YafReported_Link"" href=""{1}""> {0}{2} </a>", 
                 !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(reporter["UserID"].ToType<long>()))
                     ? this.Server.HtmlEncode(this.Get<IUserDisplayName>().GetName(reporter["UserID"].ToType<int>()))
-                    : this.Server.HtmlEncode(reporter["UserName"].ToString()), 
-                YafBuildLink.GetLink(ForumPages.profile, "u={0}", reporter["UserID"].ToType<int>()), 
+                    : this.Server.HtmlEncode(reporter["UserName"].ToString()),
+                YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", reporter["UserID"].ToType<int>(), reporter["UserName"].ToString()), 
                 howMany, 
                 this.GetText("REPORTEDBY"));
             writer.WriteLine(@"</td></tr>");

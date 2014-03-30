@@ -68,14 +68,17 @@ namespace YAF.Core.Services
                         filler.Append(",&nbsp;");
                     }
 
+                    var name = YafContext.Current.Get<YafBoardSettings>().EnableDisplayName
+                                   ? YafContext.Current.Get<HttpServerUtilityBase>()
+                                         .HtmlEncode(dr["DisplayName"].ToString())
+                                   : YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr["Name"].ToString());
+
                     // vzrus: quick fix for the incorrect link. URL rewriting don't work :(
                     filler.AppendFormat(
                         @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>",
                         dr["UserID"],
-                        YafBuildLink.GetLink(ForumPages.profile, "u={0}", dr["UserID"]),
-                        YafContext.Current.Get<YafBoardSettings>().EnableDisplayName  
-                            ? YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr["DisplayName"].ToString())
-                            : YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr["Name"].ToString()));
+                        YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", dr["UserID"], name),
+                        name);
 
                     if (YafContext.Current.Get<YafBoardSettings>().ShowThanksDate)
                     {

@@ -109,7 +109,7 @@ namespace YAF.Pages
             // Generate the page links.
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(displayName, YafBuildLink.GetLink(ForumPages.profile, "u={0}", userId));
+            this.PageLinks.AddLink(displayName, YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName));
             this.PageLinks.AddLink(this.GetText("ALBUMS"), YafBuildLink.GetLink(ForumPages.albums, "u={0}", userId));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 

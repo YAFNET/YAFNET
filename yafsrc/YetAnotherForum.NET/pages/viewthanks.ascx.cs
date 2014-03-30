@@ -108,35 +108,37 @@ namespace YAF.Pages
       base.OnPreRender(e);
     }
 
-    /// <summary>
-    /// The Page_ Load Event.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
-    
-      if (!this.IsPostBack)
+      /// <summary>
+      /// The Page_ Load Event.
+      /// </summary>
+      /// <param name="sender">
+      /// The sender.
+      /// </param>
+      /// <param name="e">
+      /// The e.
+      /// </param>
+      protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
       {
-        this.PageLinks.Clear();
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(
-          this.PageContext.BoardSettings.EnableDisplayName  
-            ? UserMembershipHelper.GetDisplayNameFromID(userID) : UserMembershipHelper.GetUserNameFromID(userID), 
-          YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID));
-        this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+          var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
+
+          if (!this.IsPostBack)
+          {
+              var displayName = this.PageContext.BoardSettings.EnableDisplayName
+                                    ? UserMembershipHelper.GetDisplayNameFromID(userID)
+                                    : UserMembershipHelper.GetUserNameFromID(userID);
+              this.PageLinks.Clear();
+              this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+              this.PageLinks.AddLink(
+                  displayName,
+                  YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID, displayName));
+              this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+          }
+
+          DataTable thanksInfo = LegacyDb.user_viewallthanks(userID, this.PageContext.PageUserID);
+          this.InitializeThanksList(this.ThanksFromList, ThanksListMode.FromUser, userID, thanksInfo);
+          this.InitializeThanksList(this.ThanksToList, ThanksListMode.ToUser, userID, thanksInfo);
       }
 
-      DataTable thanksInfo = LegacyDb.user_viewallthanks(userID, this.PageContext.PageUserID);
-      this.InitializeThanksList(this.ThanksFromList, ThanksListMode.FromUser, userID, thanksInfo);
-      this.InitializeThanksList(this.ThanksToList, ThanksListMode.ToUser, userID, thanksInfo);
-    }
-
-    #endregion
+      #endregion
   }
 }

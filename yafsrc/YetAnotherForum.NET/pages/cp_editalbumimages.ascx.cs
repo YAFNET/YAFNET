@@ -255,14 +255,15 @@ namespace YAF.Pages
                     break;
             }
 
-            string displayName = UserMembershipHelper.GetDisplayNameFromID(userID);
+            var displayName = YafContext.Current.Get<YafBoardSettings>().EnableDisplayName
+                                  ? UserMembershipHelper.GetDisplayNameFromID(userID)
+                                  : UserMembershipHelper.GetUserNameFromID(userID);
 
             // Add the page links.
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-               YafContext.Current.Get<YafBoardSettings>().EnableDisplayName  
-                             ? displayName : UserMembershipHelper.GetUserNameFromID(userID),
-                YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID.ToString()));
+               displayName,
+                YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userID.ToString(), displayName));
             this.PageLinks.AddLink(
                 this.GetText("ALBUMS"), YafBuildLink.GetLink(ForumPages.albums, "u={0}", userID.ToString()));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);

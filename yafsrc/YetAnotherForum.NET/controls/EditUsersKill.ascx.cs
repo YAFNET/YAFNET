@@ -278,8 +278,9 @@ namespace YAF.Controls
                         .GetText("ADMIN_EDITUSER", "LINK_USER_BAN")
                         .FormatWith(
                             this.CurrentUserID,
-                            YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.CurrentUserID),
+                            YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.CurrentUserID, name),
                             this.HtmlEncode(name));
+
 
                 this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageContext.PageUserID);
             }

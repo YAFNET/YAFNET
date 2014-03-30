@@ -109,7 +109,9 @@ namespace YAF.Core.URLBuilder
                     case "profile":
                         useKey = "u";
 
-                        description = UrlRewriteHelper.GetProfileName(parser[useKey].ToType<int>());
+                        description = parser["name"].IsSet() ? parser["name"] : UrlRewriteHelper.GetProfileName(parser[useKey].ToType<int>());
+
+                        parser.Parameters.Remove("name");
                         break;
                     case "forum":
                         if (parser["c"].IsSet())

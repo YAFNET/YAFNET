@@ -431,7 +431,7 @@ namespace YAF.Controls
             {
                 output =
                     "<a href=\"{0}\">{1}</a>".FormatWith(
-                        YafBuildLink.GetLink(ForumPages.profile, "u={0}", row["ModeratorID"]), row["ModeratorName"]);
+                        YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", row["ModeratorID"], row["ModeratorName"]), row["ModeratorName"]);
             }
             else
             {
