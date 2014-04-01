@@ -28,6 +28,7 @@ namespace YAF.Utils
   using System;
   using System.Web.Profile;
 
+  using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
 
   #endregion
@@ -66,7 +67,7 @@ namespace YAF.Utils
     {
       get
       {
-        return (DateTime)base["Birthday"];
+        return base["Birthday"].ToType<DateTime>();
       }
 
       set
@@ -505,6 +506,24 @@ namespace YAF.Utils
       {
         base["YIM"] = value;
       }
+    }
+
+    /// <summary>
+    /// Gets or sets Last Synced With DNN.
+    /// </summary>
+    [SettingsAllowAnonymous(false)]
+    [CustomProviderData("LastSyncedWithDNN;DateTime")]
+    public DateTime LastSyncedWithDNN
+    {
+        get
+        {
+            return base["LastSyncedWithDNN"].ToType<DateTime>();
+        }
+
+        set
+        {
+            base["LastSyncedWithDNN"] = value;
+        }
     }
 
     #endregion

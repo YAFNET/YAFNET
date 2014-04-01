@@ -103,7 +103,11 @@ namespace YAF.Pages
                 return "&nbsp;";
             }
 
-            string link = @"<a href=""{0}"">{1}</a>".FormatWith(YafBuildLink.GetLink(ForumPages.profile, "u={0}", row["LastUserID"]), this.Get<YafBoardSettings>().EnableDisplayName ? this.HtmlEncode(row["LastUserDisplayName"]) : this.HtmlEncode(row["LastUserName"]));
+            var displayName = this.Get<YafBoardSettings>().EnableDisplayName
+                                  ? this.HtmlEncode(row["LastUserDisplayName"])
+                                  : this.HtmlEncode(row["LastUserName"]);
+
+            string link = @"<a href=""{0}"">{1}</a>".FormatWith(YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", row["LastUserID"], displayName), displayName);
             string by = this.GetTextFormatted("lastpostlink", this.Get<IDateTime>().FormatDateTime((DateTime)row["LastPosted"]), link);
 
             string html = @"{0} <a href=""{1}""><img src=""{2}"" alt="""" /></a>".FormatWith(

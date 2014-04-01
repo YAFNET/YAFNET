@@ -32,6 +32,7 @@ namespace YAF.Classes
   using System.Web.Hosting;
 
   using YAF.Types;
+  using YAF.Types.Exceptions;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
 
@@ -334,19 +335,4 @@ namespace YAF.Classes
 
     #endregion
   }
-
-    /// <summary>
-    /// Base Url MaskRequired Exception Class
-    /// </summary>
-    public class BaseUrlMaskRequiredException : Exception
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BaseUrlMaskRequiredException"/> class.
-        /// </summary>
-        /// <param name="message">The message that describes the error.</param>
-        public BaseUrlMaskRequiredException(string message)
-            : base(message)
-        {
-        }
-    }
 }

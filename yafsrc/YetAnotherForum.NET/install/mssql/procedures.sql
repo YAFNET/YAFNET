@@ -753,6 +753,10 @@ IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{data
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_latest]
 GO
 
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_latest_in_category]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_latest_in_category]
+GO
+
 IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}rss_topic_latest]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}rss_topic_latest]
 GO
@@ -1967,7 +1971,7 @@ declare @FirstSelectRowID int
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}attachment_save](@MessageID int,@FileName nvarchar(255),@Bytes int,@ContentType nvarchar(50)=null,@FileData image=null) as begin
+create procedure [{databaseOwner}].[{objectQualifier}attachment_save](@MessageID int,@FileName nvarchar(255),@Bytes int,@ContentType nvarchar(max)=null,@FileData image=null) as begin
         insert into [{databaseOwner}].[{objectQualifier}Attachment](MessageID,[FileName],Bytes,ContentType,Downloads,FileData) values(@MessageID,@FileName,@Bytes,@ContentType,0,@FileData)
 end
 GO
@@ -2948,23 +2952,34 @@ create procedure [{databaseOwner}].[{objectQualifier}forum_listpath](@ForumID in
 begin
 declare @tbllpath TABLE (ForumID int, Name nvarchar(255), Indent int);
 declare @Indent int;
-declare @CurrentParentID int ;
-declare @CurrentForumID int
+declare @CurrentParentID int;
+declare @CurrentForumID int;
 declare @CurrentForumName nvarchar(255);
-SET @CurrentParentID = 1000;
+
+-- Flag if a record was selected
+declare @Selectcount int;
+
+-- Forum 1000 is a legal value... always use -1 instead
+SET @CurrentParentID = -1;
 
 SET @Indent = 0;
-      while (@CurrentParentID IS NOT NULL)
+	while (@CurrentParentID IS NOT NULL and @Indent < 1000)
       begin                
+	   set @Selectcount = 0;
        select
+			@Selectcount = 1,
             @CurrentForumID =  a.ForumID,
             @CurrentParentID = a.ParentID,
             @CurrentForumName = a.Name			                      
         from
-            [{databaseOwner}].[{objectQualifier}Forum] a
+             [{databaseOwner}].[{objectQualifier}Forum] a
         where
             a.ForumID=@ForumID;
 
+		if @Selectcount = 0
+		begin
+			break;
+		end
             Insert into @tbllpath(ForumID, Name,Indent)
             values (@CurrentForumID,@CurrentForumName,@Indent)
             SET @ForumID = @CurrentParentID; 
@@ -3706,6 +3721,7 @@ create procedure [{databaseOwner}].[{objectQualifier}message_findunread](
 @TopicID int,
 @MessageID int,
 @LastRead datetime,
+@MinDateTime datetime,
 @ShowDeleted bit = 0,
 @AuthorUserID int) as
 begin
@@ -3713,36 +3729,36 @@ begin
 
    if (@MessageID > 0)
    begin
-   Select top 1 @MessagePosition = CONVERT(int,RowNum), @MessageID = tbl.MessageID  from 
+   select top 1 @MessagePosition = CONVERT(int,RowNum), @MessageID = tbl.MessageID  from 
    (
-   Select ROW_NUMBER() OVER ( order by Posted desc) as RowNum, m.MessageID
+   select ROW_NUMBER() OVER ( order by Posted desc) as RowNum, m.MessageID
    from yaf_Message m  
    where m.TopicID = @TopicID			
         AND m.IsApproved = 1
         AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))        
    ) as tbl
-   Where tbl.MessageID = @MessageID
+   where tbl.MessageID = @MessageID
    order by tbl.RowNum ASC;
    end
 -- a message with the id was not found or we are looking for first unread or last post 
   if (@MessageID <= 0)
    begin  
    -- if value > yaf db min value (1-1-1903) we are looking for first unread 
-   if (@LastRead > CONVERT(datetime,'2/1/1903'))  
+   if (@LastRead > @MinDateTime)  
    begin
-   Select top 1 @MessagePosition = CONVERT(int,RowNum), @MessageID = tbl.MessageID  from 
+   select top 1 @MessagePosition = CONVERT(int,RowNum), @MessageID = tbl.MessageID  from 
    (
-   Select ROW_NUMBER() OVER ( order by m.Posted asc) as RowNum, m.MessageID, m.Posted
+   select ROW_NUMBER() OVER ( order by m.Posted asc) as RowNum, m.MessageID, m.Posted
    from yaf_Message m  
    where m.TopicID = @TopicID			
         AND m.IsApproved = 1
         AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))		     
    ) as tbl
-   Where tbl.Posted > @LastRead 
+   where tbl.Posted > @LastRead 
    order by tbl.RowNum ASC;
    end
    -- if first unread was not found or we looking for last posted 
-   if (@LastRead < CONVERT(datetime,'2/1/1903') OR @MessagePosition IS NULL) 
+   if (@LastRead < @MinDateTime OR @MessagePosition IS NULL) 
    begin    
         select top 1 @MessageID = m.MessageID, @MessagePosition = 1
     from
@@ -3753,7 +3769,18 @@ begin
        AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))
     order by		
         m.Posted DESC;    
-end
+    end
+
+	 select top 1 @MessagePosition = CONVERT(int,RowNum), @MessageID = tbl.MessageID  from 
+   (
+   select ROW_NUMBER() OVER ( order by Posted desc) as RowNum, m.MessageID
+   from yaf_Message m  
+   where m.TopicID = @TopicID			
+        AND m.IsApproved = 1
+        AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))        
+   ) as tbl
+   where tbl.MessageID = @MessageID
+   order by tbl.RowNum ASC;
 end
   
 select @MessageID as MessageID, @MessagePosition as MessagePosition;
@@ -4044,7 +4071,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}message_unapproved](@ForumI
         Posted		= b.Posted,
         TopicID		= a.TopicID,
         Topic		= a.Topic,
-        MessageCount    = a.NumPosts,
+        MessageCount = a.NumPosts,
         [Message]	= b.[Message],
         [Flags]		= b.Flags,
         [IsModeratorChanged] = b.IsModeratorChanged
@@ -5303,6 +5330,7 @@ create procedure [{databaseOwner}].[{objectQualifier}post_list](
                  @MessagePosition int = 0,
                  @UTCTIMESTAMP datetime) as
 begin
+   declare @TotalPages int
    declare @TotalRows int
    declare @FirstSelectRowNumber int
    declare @LastSelectRowNumber int
@@ -5334,6 +5362,14 @@ begin
         AND 
         m.Edited >= SinceEditedDate
         */ 
+
+    select @TotalPages = CEILING(CONVERT(decimal,@TotalRows)/@PageSize);
+    
+	-- check if page index is bigger then Total pages
+    if (@PageIndex > @TotalPages -1)
+    begin
+      set @PageIndex = @TotalPages -1
+    end
 
  if (@MessagePosition > 0)
  begin
@@ -6493,6 +6529,75 @@ BEGIN
         [{databaseOwner}].[{objectQualifier}ActiveAccess] v  with(nolock) ON v.ForumID=f.ForumID
     WHERE	
         c.BoardID = @BoardID
+        AND t.TopicMovedID is NULL
+        AND v.UserID=@PageUserID
+        AND (CONVERT(int,v.ReadAccess) <> 0)
+        AND t.IsDeleted != 1
+        AND t.LastPosted IS NOT NULL
+        AND
+        f.Flags & 4 <> (CASE WHEN @ShowNoCountPosts > 0 THEN -1 ELSE 4 END)
+    ORDER BY
+        t.LastPosted DESC;
+END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_latest_in_category]
+(
+    @BoardID int,
+    @CategoryID int,
+	@NumPosts int,
+    @PageUserID int,
+    @StyledNicks bit = 0,
+    @ShowNoCountPosts  bit = 0,
+    @FindLastRead bit = 0
+)
+AS
+BEGIN  
+  
+    SELECT TOP(@NumPosts)
+        t.LastPosted,
+        t.ForumID,
+        f.Name as Forum,
+        t.Topic,
+        t.Status,
+        t.Styles,
+        t.TopicID,
+        t.TopicMovedID,
+        t.UserID,
+        UserName = IsNull(t.UserName,(select x.[Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.UserID)),
+        UserDisplayName = IsNull(t.UserDisplayName,(select x.[DisplayName] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.UserID)),		
+        t.LastMessageID,
+        t.LastMessageFlags,
+        t.LastUserID,
+        t.NumPosts,
+		t.Views,
+        t.Posted,	
+		LastMessage = (select m.Message from [{databaseOwner}].[{objectQualifier}Message] m where m.MessageID = t.LastMessageID),
+        LastUserName = IsNull(t.LastUserName,(select x.[Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
+        LastUserDisplayName = IsNull(t.LastUserDisplayName,(select x.[DisplayName] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
+        LastUserStyle = case(@StyledNicks)
+            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = t.LastUserID)
+            else ''	 end,
+        LastForumAccess = case(@FindLastRead)
+             when 1 then
+               (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x WHERE x.ForumID=f.ForumID AND x.UserID = @PageUserID)
+             else ''	 end,
+        LastTopicAccess = case(@FindLastRead)
+             when 1 then
+               (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y WHERE y.TopicID=t.TopicID AND y.UserID = @PageUserID)
+             else ''	 end
+            
+    FROM	
+        [{databaseOwner}].[{objectQualifier}Topic] t 
+    INNER JOIN
+        [{databaseOwner}].[{objectQualifier}Forum] f ON t.ForumID = f.ForumID	
+    INNER JOIN
+        [{databaseOwner}].[{objectQualifier}Category] c ON c.CategoryID = f.CategoryID
+    JOIN
+        [{databaseOwner}].[{objectQualifier}ActiveAccess] v  with(nolock) ON v.ForumID=f.ForumID
+    WHERE	
+	    c.BoardID = @BoardID
+        AND c.CategoryID = @CategoryID
         AND t.TopicMovedID is NULL
         AND v.UserID=@PageUserID
         AND (CONVERT(int,v.ReadAccess) <> 0)
@@ -8867,7 +8972,8 @@ AS
     BEGIN               
        
         SELECT TOP(@Limit)  a.[UserID],
-                 a.[Name]
+                 a.[Name],
+				 a.[DisplayName]
         FROM     [{databaseOwner}].[{objectQualifier}User] a
         WHERE    a.[UserID] >= @StartID
         AND a.[UserID] < (@StartID + @Limit)

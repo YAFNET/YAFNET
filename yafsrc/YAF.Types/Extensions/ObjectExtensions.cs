@@ -84,46 +84,20 @@ namespace YAF.Types.Extensions
                 return null;
             }
 
-            Type convertType;
+            Type convertType = Type.GetType(type, true, true);
 
-            try
-            {
-                convertType = Type.GetType(type, true, true);
-            }
-            catch
-            {
-                convertType = Type.GetType("System.Guid", false);
-            }
-
-            if (value.GetType().ToString() == "System.String")
-            {
-                switch (convertType.ToString())
-                {
-                    case "System.Guid":
-
-                        // do a "manual conversion" from string to Guid
-                        return new Guid(Convert.ToString(value));
-                    case "System.Int32":
-                        return value.ToType<int>();
-                    case "System.Int64":
-                        return value.ToType<long>();
-                }
-            }
-
-            return Convert.ChangeType(value, convertType);
+            TypeConverter converter = TypeDescriptor.GetConverter(convertType);
+            return converter.ConvertFrom(value);
         }
 
         /// <summary>
         /// Provides a chaining action with the object.
         /// </summary>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <param name="obj">
-        /// </param>
-        /// <param name="action">
-        /// </param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The object.</param>
+        /// <param name="action">The action.</param>
         /// <returns>
-        /// The <see cref="T"/>.
+        /// The <see cref="T" />.
         /// </returns>
         public static T DoWith<T>(this T obj, [NotNull] Action<T> action)
         {
@@ -134,13 +108,10 @@ namespace YAF.Types.Extensions
         /// <summary>
         /// The get attribute.
         /// </summary>
-        /// <param name="objectType">
-        /// The object type. 
-        /// </param>
-        /// <typeparam name="TAttribute">
-        /// </typeparam>
+        /// <typeparam name="TAttribute">The type of the attribute.</typeparam>
+        /// <param name="objectType">The object type.</param>
         /// <returns>
-        /// The <see cref="TAttribute"/>.
+        /// The <see cref="TAttribute" />.
         /// </returns>
         public static TAttribute GetAttribute<TAttribute>([NotNull] this Type objectType) where TAttribute : Attribute
         {
@@ -152,13 +123,10 @@ namespace YAF.Types.Extensions
         /// <summary>
         /// The get attributes.
         /// </summary>
-        /// <param name="objectType">
-        /// The object type. 
-        /// </param>
-        /// <typeparam name="TAttribute">
-        /// </typeparam>
+        /// <typeparam name="TAttribute">The type of the attribute.</typeparam>
+        /// <param name="objectType">The object type.</param>
         /// <returns>
-        /// The <see cref="IEnumerable"/>.
+        /// The <see cref="IEnumerable" />.
         /// </returns>
         [NotNull]
         public static IEnumerable<TAttribute> GetAttributes<TAttribute>([NotNull] this Type objectType)
@@ -256,7 +224,7 @@ namespace YAF.Types.Extensions
         [CanBeNull]
         public static T ToClass<T>([CanBeNull] this object instance) where T : class
         {
-            if (instance != null && instance is T)
+            if (instance is T)
             {
                 return instance as T;
             }
@@ -328,7 +296,7 @@ namespace YAF.Types.Extensions
 
             var d = result as IDictionary<string, object>;
 
-            if (obj.GetType() == typeof(ExpandoObject))
+            if (obj is ExpandoObject)
             {
                 return obj;
             }
@@ -336,8 +304,10 @@ namespace YAF.Types.Extensions
             if (obj.GetType().IsSubclassOf(typeof(NameValueCollection)))
             {
                 var nameValueCollection = (NameValueCollection)obj;
-                nameValueCollection.Cast<string>().Select(key => new KeyValuePair<string, object>(key, nameValueCollection[key])).
-                    ToList().ForEach(d.Add);
+                nameValueCollection.Cast<string>()
+                    .Select(key => new KeyValuePair<string, object>(key, nameValueCollection[key]))
+                    .ToList()
+                    .ForEach(d.Add);
             }
             else
             {
@@ -353,13 +323,10 @@ namespace YAF.Types.Extensions
         /// <summary>
         /// The to generic list.
         /// </summary>
-        /// <param name="listObjects">
-        /// The list objects. 
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="listObjects">The list objects.</param>
         /// <returns>
-        /// The <see cref="List"/>.
+        /// The <see cref="List" />.
         /// </returns>
         [NotNull]
         public static List<T> ToGenericList<T>([NotNull] this IList listObjects)
@@ -422,7 +389,6 @@ namespace YAF.Types.Extensions
             [NotNull] this object anObject, [NotNull] string aFormat, [NotNull] IFormatProvider formatProvider)
         {
             var sb = new StringBuilder();
-            Type type = anObject.GetType();
             var reg = new Regex(@"({)([^}]+)(})", RegexOptions.IgnoreCase);
             MatchCollection mc = reg.Matches(aFormat);
 
@@ -437,7 +403,7 @@ namespace YAF.Types.Extensions
                 string getValue;
                 string format = string.Empty;
 
-                int formatIndex = g.Value.IndexOf(":");
+                int formatIndex = g.Value.IndexOf(":", StringComparison.Ordinal);
                 if (formatIndex == -1)
                 {
                     getValue = g.Value;

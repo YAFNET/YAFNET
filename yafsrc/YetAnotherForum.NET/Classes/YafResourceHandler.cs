@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF
 {
     #region Using
@@ -489,7 +490,9 @@ namespace YAF
             {
                 var userId = context.Request.QueryString.GetFirstOrDefault("userinfo").ToType<int>();
 
-                MembershipUser user = UserMembershipHelper.GetMembershipUserById(userId);
+                var boardId = context.Request.QueryString.GetFirstOrDefault("boardId").ToType<int>();
+
+                MembershipUser user = UserMembershipHelper.GetMembershipUserById(userId, boardId);
 
                 if (user == null || user.ProviderUserKey.ToString() == "0")
                 {
@@ -651,7 +654,15 @@ namespace YAF
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(0, this, x, EventLogTypes.Information);
+                this.Get<ILogger>()
+                   .Log(
+                       0,
+                       this,
+                       "URL: {0}<br />Referer URL: {1}<br />Exception: {2}".FormatWith(
+                           context.Request.Url,
+                           context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty,
+                           x),
+                       EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -876,7 +887,16 @@ namespace YAF
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(null, this, x, EventLogTypes.Information);
+                this.Get<ILogger>()
+                   .Log(
+                       0,
+                       this,
+                       "URL: {0}<br />Referer URL: {1}<br />Exception: {2}".FormatWith(
+                           context.Request.Url,
+                           context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty,
+                           x),
+                       EventLogTypes.Information);
+
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
@@ -964,7 +984,15 @@ namespace YAF
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(null, this, x, EventLogTypes.Information);
+                this.Get<ILogger>()
+                    .Log(
+                        0,
+                        this,
+                        "URL: {0}<br />Referer URL: {1}<br />Exception: {2}".FormatWith(
+                            context.Request.Url,
+                            context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty,
+                            x),
+                        EventLogTypes.Information);
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
@@ -1035,7 +1063,15 @@ namespace YAF
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(0, this, x, EventLogTypes.Information);
+                this.Get<ILogger>()
+                   .Log(
+                       0,
+                       this,
+                       "URL: {0}<br />Referer URL: {1}<br />Exception: {2}".FormatWith(
+                           context.Request.Url,
+                           context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty,
+                           x),
+                       EventLogTypes.Information);
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
@@ -1151,7 +1187,16 @@ namespace YAF
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(0, this, x, EventLogTypes.Information);
+                this.Get<ILogger>()
+                    .Log(
+                        0,
+                        this,
+                        "URL: {0}<br />Referer URL: {1}<br />Exception: {2}".FormatWith(
+                            context.Request.Url,
+                            context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty,
+                            x),
+                        EventLogTypes.Information);
+
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
@@ -1266,7 +1311,15 @@ namespace YAF
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(0, this, x, EventLogTypes.Information);
+                this.Get<ILogger>()
+                    .Log(
+                        0,
+                        this,
+                        "URL: {0}<br />Referer URL: {1}<br />Exception: {2}".FormatWith(
+                            context.Request.Url,
+                            context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty,
+                            x),
+                        EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -1357,7 +1410,14 @@ namespace YAF
             catch (WebException exception)
             {
                 // issue getting access to the avatar...
-                this.Get<ILogger>().Log(null, this, exception);
+                this.Get<ILogger>()
+                    .Log(
+                        null,
+                        this,
+                        "URL: {0}<br />Referer URL: {1}<br />Exception: {2}".FormatWith(
+                            avatarUrl,
+                            context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty,
+                            exception));
             }
         }
 

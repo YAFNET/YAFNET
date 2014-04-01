@@ -1039,35 +1039,43 @@ namespace YAF.Pages
                 {
                     
 
-                    if (this.Get<YafBoardSettings>().SpamMessageHandling.Equals(1))
+                    switch (this.Get<YafBoardSettings>().SpamMessageHandling)
                     {
-                        this.spamApproved = false;
-
-                        this.Logger.Log(
-                            this.PageContext.PageUserID,
-                            "Spam Message Detected",
-                            "Spam Check detected possible SPAM ({2}) posted by User: {0}, it was flagged as unapproved post. Content was: {1}"
-                                .FormatWith(
-                                    this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
-                                    this._forumEditor.Text,
-                                    spamResult),
-                            EventLogTypes.SpamMessageDetected);
-                    }
-                    else if (this.Get<YafBoardSettings>().SpamMessageHandling.Equals(2))
-                    {
-                        this.Logger.Log(
-                            this.PageContext.PageUserID,
-                            "Spam Message Detected",
-                            "Spam Check detected possible SPAM ({2}) posted by User: {0}, post was rejected. Content was: {1}"
-                                .FormatWith(
-                                    this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
-                                    this._forumEditor.Text,
-                                    spamResult),
-                            EventLogTypes.SpamMessageDetected); 
-
-                        this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
-
-                        return;
+                        case 0:
+                            this.Logger.Log(
+                                this.PageContext.PageUserID,
+                                "Spam Message Detected",
+                                "Spam Check detected possible SPAM ({2}) posted by User: {0}. Content was: {1}"
+                                    .FormatWith(
+                                        this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
+                                        this._forumEditor.Text,
+                                        spamResult),
+                                EventLogTypes.SpamMessageDetected);
+                            break;
+                        case 1:
+                            this.spamApproved = false;
+                            this.Logger.Log(
+                                this.PageContext.PageUserID,
+                                "Spam Message Detected",
+                                "Spam Check detected possible SPAM ({2}) posted by User: {0}, it was flagged as unapproved post. Content was: {1}"
+                                    .FormatWith(
+                                        this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
+                                        this._forumEditor.Text,
+                                        spamResult),
+                                EventLogTypes.SpamMessageDetected);
+                            break;
+                        case 2:
+                            this.Logger.Log(
+                                this.PageContext.PageUserID,
+                                "Spam Message Detected",
+                                "Spam Check detected possible SPAM ({2}) posted by User: {0}, post was rejected. Content was: {1}"
+                                    .FormatWith(
+                                        this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
+                                        this._forumEditor.Text,
+                                        spamResult),
+                                EventLogTypes.SpamMessageDetected);
+                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
+                            return;
                     }
                 }
 
@@ -1160,7 +1168,7 @@ namespace YAF.Pages
             {
                 this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
 
-                if (Config.IsDotNetNuke && this.EditMessageID == null)
+                if (Config.IsDotNetNuke && this.EditMessageID == null && !this.PageContext.IsGuest)
                 {
                     if (this.TopicID != null)
                     {
@@ -1175,12 +1183,12 @@ namespace YAF.Pages
                     else
                     {
                         this.Get<IActivityStream>()
-                           .AddTopicToStream(
-                               this.PageContext.PageForumID,
-                               newTopic,
-                               messageId.ToType<int>(),
-                               this.TopicSubjectTextBox.Text,
-                               this._forumEditor.Text);
+                            .AddTopicToStream(
+                                this.PageContext.PageForumID,
+                                newTopic,
+                                messageId.ToType<int>(),
+                                this.TopicSubjectTextBox.Text,
+                                this._forumEditor.Text);
                     }
                 }
 
@@ -1270,8 +1278,12 @@ namespace YAF.Pages
         {
             this.PreviewRow.Visible = true;
 
-            this.PreviewMessagePost.MessageFlags.IsHtml = this._forumEditor.UsesHTML;
-            this.PreviewMessagePost.MessageFlags.IsBBCode = this._forumEditor.UsesBBCode;
+            this.PreviewMessagePost.MessageFlags = new MessageFlags
+                                                       {
+                                                           IsHtml = this._forumEditor.UsesHTML,
+                                                           IsBBCode = this._forumEditor.UsesBBCode
+                                                       };
+
             this.PreviewMessagePost.Message = this._forumEditor.Text;
 
             if (!this.Get<YafBoardSettings>().AllowSignatures)

@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014 Ingo Herbote
@@ -34,7 +34,6 @@ namespace YAF.Pages
     using System.Web;
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
-
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Controls;
@@ -46,6 +45,7 @@ namespace YAF.Pages
     using YAF.Editors;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Exceptions;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
@@ -969,6 +969,7 @@ namespace YAF.Pages
         /// <summary>
         /// The bind data.
         /// </summary>
+        /// <exception cref="NoPostsFoundForTopicException"></exception>
         private void BindData()
         {
             if (this._topic == null)
@@ -998,7 +999,7 @@ namespace YAF.Pages
             if (findMessageId > 0)
             {
                 this.CurrentMessage = findMessageId;
-            }         
+            }
 
             // Mark topic read
             this.Get<IReadTrackCurrentUser>().SetTopicRead(this.PageContext.PageTopicID);
@@ -1061,7 +1062,25 @@ namespace YAF.Pages
 
             if (postListDataTable.Rows.Count == 0)
             {
-                throw new NoPostsFoundForTopicException(this.PageContext.PageTopicID);
+                throw new NoPostsFoundForTopicException(
+                    this.PageContext.PageTopicID,
+                    this.PageContext.PageUserID,
+                    userId,
+                    this.IsPostBack || PageContext.IsCrawler ? 0 : 1,
+                    showDeleted,
+                    this.Get<YafBoardSettings>().UseStyledNicks,
+                    !this.PageContext.IsGuest && this.Get<YafBoardSettings>().DisplayPoints,
+                    DateTimeHelper.SqlDbMinTime(),
+                    DateTime.UtcNow,
+                    DateTimeHelper.SqlDbMinTime(),
+                    DateTime.UtcNow,
+                    this.Pager.CurrentPageIndex,
+                    this.Pager.PageSize,
+                    1,
+                    0,
+                    this.IsThreaded ? 1 : 0,
+                    this.Get<YafBoardSettings>().EnableThanksMod,
+                    messagePosition);
             }
 
             // convert to linq...
@@ -1623,35 +1642,43 @@ namespace YAF.Pages
                     this.PageContext.IsGuest ? null : this.PageContext.User.Email,
                     out spamResult))
                 {
-                    if (this.Get<YafBoardSettings>().SpamMessageHandling.Equals(1))
+                    switch (this.Get<YafBoardSettings>().SpamMessageHandling)
                     {
-                        spamApproved = false;
-
-                        this.Logger.Log(
-                            this.PageContext.PageUserID,
-                            "Spam Message Detected",
-                            "Spam Check detected possible SPAM ({2}) posted by User: {0}, it was flagged as unapproved post. Content was: {1}"
-                                .FormatWith(
-                                    this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                                    this._quickReplyEditor.Text,
-                                    spamResult),
-                            EventLogTypes.SpamMessageDetected);
-                    }
-                    else if (this.Get<YafBoardSettings>().SpamMessageHandling.Equals(2))
-                    {
-                        this.Logger.Log(
-                            this.PageContext.PageUserID,
-                            "Spam Message Detected",
-                            "Spam Check detected possible SPAM ({2}) posted by User: {0}, post was rejected. Content was: {1}"
-                                .FormatWith(
-                                    this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                                    this._quickReplyEditor.Text,
-                                    spamResult),
-                            EventLogTypes.SpamMessageDetected);
-
-                        this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
-
-                        return;
+                        case 0:
+                            this.Logger.Log(
+                                this.PageContext.PageUserID,
+                                "Spam Message Detected",
+                                "Spam Check detected possible SPAM ({2}) posted by User: {0}. Content was: {1}"
+                                    .FormatWith(
+                                        this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                                        this._quickReplyEditor.Text,
+                                        spamResult),
+                                EventLogTypes.SpamMessageDetected);
+                            break;
+                        case 1:
+                            spamApproved = false;
+                            this.Logger.Log(
+                                this.PageContext.PageUserID,
+                                "Spam Message Detected",
+                                "Spam Check detected possible SPAM ({2}) posted by User: {0}, it was flagged as unapproved post. Content was: {1}"
+                                    .FormatWith(
+                                        this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                                        this._quickReplyEditor.Text,
+                                        spamResult),
+                                EventLogTypes.SpamMessageDetected);
+                            break;
+                        case 2:
+                            this.Logger.Log(
+                                this.PageContext.PageUserID,
+                                "Spam Message Detected",
+                                "Spam Check detected possible SPAM ({2}) posted by User: {0}, post was rejected. Content was: {1}"
+                                    .FormatWith(
+                                        this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                                        this._quickReplyEditor.Text,
+                                        spamResult),
+                                EventLogTypes.SpamMessageDetected);
+                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
+                            return;
                     }
                 }
 
@@ -1749,7 +1776,7 @@ namespace YAF.Pages
                 // send new post notification to users watching this topic/forum
                 this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
 
-                if (Config.IsDotNetNuke)
+                if (Config.IsDotNetNuke && !this.PageContext.IsGuest)
                 {
                     this.Get<IActivityStream>()
                            .AddReplyToStream(
@@ -1925,15 +1952,6 @@ namespace YAF.Pages
             {
                 this.BindData();
             }
-        }
-    }
-
-    internal class NoPostsFoundForTopicException : Exception
-    {
-        public NoPostsFoundForTopicException(int topicId)
-            : base("No posts were found for topic [id: {0}]".FormatWith(topicId))
-        {
-            
         }
     }
 }

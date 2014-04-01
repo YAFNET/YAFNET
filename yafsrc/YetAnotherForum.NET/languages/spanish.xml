@@ -1140,14 +1140,14 @@
     <Resource tag="LOG_ERROR_HELP">Los errores de aplicación serán registrados.</Resource>
     <Resource tag="LOG_INFORMATION">Permitir registrar información de aplicación:</Resource>
     <Resource tag="LOG_INFORMATION_HELP">Los mensajes de información de la aplicación serán registrados.</Resource>
-    <Resource tag="LOG_SQLERROR">Permitir registrar errores SQL:</Resource>
-    <Resource tag="LOG_SQLERROR_HELP">Los errores SQL serán registrados.</Resource>
     <Resource tag="LOG_SUSPENDEDANDCONTRA">Registrar suspensión o reaprobación de usuarios:</Resource>
     <Resource tag="LOG_SUSPENDEDANDCONTRA_HELP">Registrar cuándo los usuarios han sido suspendidos o reaprobados.</Resource>
     <Resource tag="LOG_USERDELETED">Registrar eventos de eliminación de usuarios:</Resource>
     <Resource tag="LOG_USERDELETED_HELP">El evento de eliminación de usuario será registrado.</Resource>
     <Resource tag="LOG_USERSUSPENDED">Permitir registrar cuándo un usuario es suspendido o reaprobado:</Resource>
     <Resource tag="LOG_USERSUSPENDED_HELP">Eventos de suspensión o reaprobación serán registrados.</Resource>
+    <Resource tag="LOG_VIEWSTATEERROR">Log ViewState Exceptions:</Resource>
+    <Resource tag="LOG_VIEWSTATEERROR_HELP">ViewState Exceptions (mainly caused by SPAM Bots) will be logged.</Resource>
     <Resource tag="LOG_WARNING">Permitir registrar advertencias de aplicación:</Resource>
     <Resource tag="LOG_WARNING_HELP">Las advertencias de aplicación serán registradas.</Resource>
     <Resource tag="LOGIN_REDIR_URL">URL de redirección a inicio de sesión personalizado:</Resource>
@@ -5313,11 +5313,11 @@ Email de usuario: {email} (Por favor, cambia tu email a tu dirección real para 
     <Resource tag="PASSWORDRETRIEVAL_HTML">
       &lt;!DOCTYPE html&gt;
 
-      &lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+      &lt;html lang="en" xmlns="http://www.w3.org/1999/xhtml"&gt;
       &lt;head&gt;
-      &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+      &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
       &lt;title&gt;Password Retrieval&lt;/title&gt;
-      &lt;style type=&quot;text/css&quot;&gt;
+      &lt;style type="text/css"&gt;
       &lt;!--
       .style1 {
       font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -5326,12 +5326,12 @@ Email de usuario: {email} (Por favor, cambia tu email a tu dirección real para 
       &lt;/style&gt;
       &lt;/head&gt;
       &lt;body&gt;
-      &lt;p class=&quot;style1&quot;&gt;Hello {username},&lt;/p&gt;
-      &lt;p class=&quot;style1&quot;&gt;You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.&lt;/p&gt;
-      &lt;p class=&quot;style1&quot;&gt;A new password has been generated for you on &lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href=&quot;{forumlink}&quot;&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
-      &lt;p class=&quot;style1&quot;&gt;Please return to the site and login using the following information:&lt;/p&gt;
+      &lt;p class="style1"&gt;Hello {username},&lt;/p&gt;
+      &lt;p class="style1"&gt;You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.&lt;/p&gt;
+      &lt;p class="style1"&gt;A new password has been generated for you on &lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
+      &lt;p class="style1"&gt;Please return to the site and login using the following information:&lt;/p&gt;
       &lt;blockquote&gt;
-      &lt;span class=&quot;style1&quot;&gt;
+      &lt;span class="style1"&gt;
       User Name: &lt;strong&gt;{username}&lt;/strong&gt;&lt;br /&gt;
       Password: &lt;strong&gt;{password}&lt;/strong&gt;
       &lt;/span&gt;

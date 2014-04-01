@@ -111,8 +111,12 @@ namespace YAF.Pages
 
         this.PageLinks.AddRoot();
         this.PageLinks.AddLink(
-            this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName, 
-            YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
+            this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName,
+            YafBuildLink.GetLink(
+                ForumPages.profile,
+                "u={0}&name={1}",
+                this.UserID,
+                this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName));
         this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
         this.Send.Text = this.GetText("SEND");

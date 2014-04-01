@@ -26,13 +26,12 @@ namespace YAF.Core.Data
 {
     #region Using
 
-    using System;
-
     using Autofac.Features.Indexed;
 
     using YAF.Classes;
     using YAF.Core.Helpers;
     using YAF.Types;
+    using YAF.Types.Exceptions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -81,13 +80,14 @@ namespace YAF.Core.Data
                         if (this._dbAccessProviders.TryGetValue(this.ProviderName, out dbAccess))
                         {
                             // first time...
-                            this._serviceLocator.Get<IRaiseEvent>().Raise(new InitDatabaseProviderEvent(this.ProviderName, dbAccess));
+                            this._serviceLocator.Get<IRaiseEvent>()
+                                .Raise(new InitDatabaseProviderEvent(this.ProviderName, dbAccess));
                         }
                         else
                         {
                             throw new NoValidDbAccessProviderFoundException(
-                                @"Unable to Locate Provider Named ""{0}"" in Data Access Providers (DLL Not Located in Bin Directory?).".FormatWith(
-                                    this.ProviderName));
+                                @"Unable to Locate Provider Named ""{0}"" in Data Access Providers (DLL Not Located in Bin Directory?)."
+                                    .FormatWith(this.ProviderName));
                         }
 
                         return dbAccess;
@@ -138,27 +138,6 @@ namespace YAF.Core.Data
                 this._providerName = value;
                 this._dbAccessSafe.Instance = null;
             }
-        }
-
-        #endregion
-    }
-
-    /// <summary>
-    ///     The no valid db access provider found exception.
-    /// </summary>
-    public class NoValidDbAccessProviderFoundException : Exception
-    {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="NoValidDbAccessProviderFoundException" /> class.
-        /// </summary>
-        /// <param name="message">
-        ///     The message.
-        /// </param>
-        public NoValidDbAccessProviderFoundException(string message)
-            : base(message)
-        {
         }
 
         #endregion

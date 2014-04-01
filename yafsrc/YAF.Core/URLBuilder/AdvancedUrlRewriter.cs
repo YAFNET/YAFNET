@@ -117,7 +117,9 @@ namespace YAF.Core.URLBuilder
                     case "profile":
                         useKey = "u";
                         pageName += "/";
-                        description = UrlRewriteHelper.GetProfileName(parser[useKey].ToType<int>());
+                        description = parser["name"].IsSet() ? parser["name"] : UrlRewriteHelper.GetProfileName(parser[useKey].ToType<int>());
+
+                        parser.Parameters.Remove("name");
                         break;
                     case "forum":
                         pageName = "category/";

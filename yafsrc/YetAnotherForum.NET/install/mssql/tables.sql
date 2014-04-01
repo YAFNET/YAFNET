@@ -492,7 +492,7 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		[FileName]		nvarchar(255) not null,
 		Bytes			int not null,
 		FileID			int null,
-		ContentType		nvarchar(50) null,
+		ContentType		nvarchar(max) null,
 		Downloads		int not null,
 		FileData		image null
 	)
@@ -2266,11 +2266,11 @@ begin
     declare @tmpLastUserID int
  
      update d
-      set    d.UserDisplayName = ISNULL((select top 1 f.UserDisplayName FROM [{databaseOwner}].[{objectQualifier}Forum] f
+      set    d.LastUserDisplayName = ISNULL((select top 1 f.LastUserDisplayName FROM [{databaseOwner}].[{objectQualifier}Forum] f
           join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = f.UserID where u.UserID = d.UserID), 
-           (select top 1 f.UserName FROM [{databaseOwner}].[{objectQualifier}Forum] f
+           (select top 1 f.LastUserName FROM [{databaseOwner}].[{objectQualifier}Forum] f
           join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = f.UserID where u.UserID = d.UserID ))      
-       from  [{databaseOwner}].[{objectQualifier}Forum] d where d.UserDisplayName IS NULL OR d.UserDisplayName = d.UserName;
+       from  [{databaseOwner}].[{objectQualifier}Forum] d where d.LastUserDisplayName IS NULL OR d.LastUserDisplayName = d.LastUserName;
          
         /* declare fc cursor for
         select ForumID, LastUserID from [{databaseOwner}].[{objectQualifier}Forum]
@@ -2313,9 +2313,9 @@ begin
         */  
          
             update d
-       set    d.UserDisplayName = ISNULL((select top 1 f.UserDisplayName FROM [{databaseOwner}].[{objectQualifier}Message] m
+       set    d.UserDisplayName = ISNULL((select top 1 m.UserDisplayName FROM [{databaseOwner}].[{objectQualifier}Message] m
           join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = m.UserID where u.UserID = d.UserID), 
-           (select top 1 f.UserName FROM [{databaseOwner}].[{objectQualifier}Message] m
+           (select top 1 m.UserName FROM [{databaseOwner}].[{objectQualifier}Message] m
           join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = m.UserID where u.UserID = d.UserID ))      
        from  [{databaseOwner}].[{objectQualifier}Message] d where d.UserDisplayName IS NULL OR d.UserDisplayName = d.UserName;  
          
@@ -2338,9 +2338,9 @@ begin
         */      
          
             update d
-       set    d.UserDisplayName = ISNULL((select top 1 f.UserDisplayName FROM [{databaseOwner}].[{objectQualifier}Topic] t
+       set    d.UserDisplayName = ISNULL((select top 1 t.UserDisplayName FROM [{databaseOwner}].[{objectQualifier}Topic] t
           join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = t.UserID where u.UserID = d.UserID), 
-           (select top 1 f.UserName FROM [{databaseOwner}].[{objectQualifier}Topic] t
+           (select top 1 t.UserName FROM [{databaseOwner}].[{objectQualifier}Topic] t
           join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = t.UserID where u.UserID = d.UserID ))      
        from  [{databaseOwner}].[{objectQualifier}Message] d where d.UserDisplayName IS NULL OR d.UserDisplayName = d.UserName;  
  
@@ -2408,4 +2408,8 @@ GO
 
 -- delete any old medals without valid groups.
 exec('DELETE FROM [{databaseOwner}].[{objectQualifier}GroupMedal] WHERE GroupID NOT IN (SELECT GroupID FROM [{databaseOwner}].[{objectQualifier}Group])')
+GO
+
+if exists(select top 1 1 from sys.columns where object_id = object_id(N'[{databaseOwner}].[{objectQualifier}Attachment]') and name=N'ContentType' and precision < 255)
+	alter table [{databaseOwner}].[{objectQualifier}Attachment] alter column ContentType nvarchar(max) null
 GO

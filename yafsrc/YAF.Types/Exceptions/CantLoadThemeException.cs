@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014 Ingo Herbote
@@ -21,49 +21,35 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
+
+namespace YAF.Types.Exceptions
 {
-  #region Using  
+    #region Using
 
-  #endregion
+    using System;
 
-  /// <summary>
-  /// The localization support interface
-  /// </summary>
-  public interface ILocalizationSupport
-  {
-    #region Properties
-
-    /// <summary>
-    /// Gets or sets a value indicating whether EnableBBCode.
-    /// </summary>
-    bool EnableBBCode { get; set; }
-
-    /// <summary>
-    /// Gets or sets LocalizedPage.
-    /// </summary>
-    string LocalizedPage { get; set; }
-
-    /// <summary>
-    /// Gets or sets LocalizedTag.
-    /// </summary>
-    string LocalizedTag { get; set; }
-
-    /// <summary>
-    /// Gets or sets Parameter 0.
-    /// </summary>
-    string Param0 { get; set; }
-
-    /// <summary>
-    /// Gets or sets Parameter 1.
-    /// </summary>
-    string Param1 { get; set; }
-
-    /// <summary>
-    /// Gets or sets Parameter 2.
-    /// </summary>
-    string Param2 { get; set; }
+    using YAF.Types;
 
     #endregion
-  }
+
+    /// <summary>
+    /// The cant load theme exception.
+    /// </summary>
+    public class CantLoadThemeException : Exception
+    {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CantLoadThemeException"/> class.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        public CantLoadThemeException([NotNull] string message)
+            : base(message)
+        {
+        }
+
+        #endregion
+    }
 }

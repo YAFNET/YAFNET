@@ -3842,25 +3842,14 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The message_findunread.
+        /// Finds the Unread Message
         /// </summary>
-        /// <param name="topicID">
-        /// The topic id.
-        /// </param>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
-        /// <param name="lastRead">
-        /// The last read.
-        /// </param>
-        /// <param name="showDeleted">
-        /// The show Deleted.
-        /// </param>
-        /// <param name="authorUserID">
-        /// The author User ID.
-        /// </param>
-        /// <returns>
-        /// </returns>
+        /// <param name="topicID">The topic id.</param>
+        /// <param name="messageId">The message Id.</param>
+        /// <param name="lastRead">The last read.</param>
+        /// <param name="showDeleted">The show Deleted.</param>
+        /// <param name="authorUserID">The author User ID.</param>
+        /// <returns></returns>
         public static DataTable message_findunread([NotNull] object topicID, [NotNull] object messageId, [NotNull] object lastRead, [NotNull] object showDeleted, [NotNull] object authorUserID)
         {
             // Make sure there are no more DateTime.MinValues coming from db.
@@ -3874,6 +3863,7 @@ namespace YAF.Classes.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.AddParam("TopicID", topicID);
                 cmd.AddParam("MessageID", messageId);
+                cmd.AddParam("MinDateTime", DateTimeHelper.SqlDbMinTime().AddYears(-1));
                 cmd.AddParam("LastRead", lastRead);
                 cmd.AddParam("ShowDeleted", showDeleted);
                 cmd.AddParam("AuthorUserID", authorUserID);
@@ -6696,12 +6686,54 @@ namespace YAF.Classes.Data
         /// <returns>
         /// Returnst the DataTable with the Latest Topics
         /// </returns>
-        public static DataTable topic_latest([NotNull] object boardID, [NotNull] object numOfPostsToRetrieve, [NotNull] object pageUserId, bool useStyledNicks, bool showNoCountPosts, [CanBeNull]bool findLastRead)
+        public static DataTable topic_latest(
+            [NotNull] object boardID,
+            [NotNull] object numOfPostsToRetrieve,
+            [NotNull] object pageUserId,
+            bool useStyledNicks,
+            bool showNoCountPosts,
+            [CanBeNull] bool findLastRead)
         {
             using (var cmd = DbHelpers.GetCommand("topic_latest"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.AddParam("BoardID", boardID);
+                cmd.AddParam("NumPosts", numOfPostsToRetrieve);
+                cmd.AddParam("PageUserID", pageUserId);
+                cmd.AddParam("StyledNicks", useStyledNicks);
+                cmd.AddParam("ShowNoCountPosts", showNoCountPosts);
+                cmd.AddParam("FindLastRead", findLastRead);
+                return DbAccess.GetData(cmd);
+            }
+        }
+
+        /// <summary>
+        /// Get the Latest Topics for the specified category
+        /// </summary>
+        /// <param name="boardID">The board id.</param>
+        /// <param name="categoryID">The category identifier.</param>
+        /// <param name="numOfPostsToRetrieve">The num of posts to retrieve.</param>
+        /// <param name="pageUserId">The page UserId id.</param>
+        /// <param name="useStyledNicks">If true returns string for userID style.</param>
+        /// <param name="showNoCountPosts">The show No Count Posts.</param>
+        /// <param name="findLastRead">Indicates if the Table should Countain the last Access Date</param>
+        /// <returns>
+        /// Returnst the DataTable with the Latest Topics
+        /// </returns>
+        public static DataTable topic_latest_in_category(
+            [NotNull] object boardID,
+            [NotNull] object categoryID,
+            [NotNull] object numOfPostsToRetrieve,
+            [NotNull] object pageUserId,
+            bool useStyledNicks,
+            bool showNoCountPosts,
+            [CanBeNull] bool findLastRead)
+        {
+            using (var cmd = DbHelpers.GetCommand("topic_latest_in_category"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("BoardID", boardID);
+                cmd.AddParam("CategoryID", categoryID);
                 cmd.AddParam("NumPosts", numOfPostsToRetrieve);
                 cmd.AddParam("PageUserID", pageUserId);
                 cmd.AddParam("StyledNicks", useStyledNicks);

@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014 Ingo Herbote
@@ -21,49 +21,23 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
+
+namespace YAF.Types.Exceptions
 {
-  #region Using  
-
-  #endregion
-
-  /// <summary>
-  /// The localization support interface
-  /// </summary>
-  public interface ILocalizationSupport
-  {
-    #region Properties
+    using System;
 
     /// <summary>
-    /// Gets or sets a value indicating whether EnableBBCode.
+    /// Base Url MaskRequired Exception Class
     /// </summary>
-    bool EnableBBCode { get; set; }
-
-    /// <summary>
-    /// Gets or sets LocalizedPage.
-    /// </summary>
-    string LocalizedPage { get; set; }
-
-    /// <summary>
-    /// Gets or sets LocalizedTag.
-    /// </summary>
-    string LocalizedTag { get; set; }
-
-    /// <summary>
-    /// Gets or sets Parameter 0.
-    /// </summary>
-    string Param0 { get; set; }
-
-    /// <summary>
-    /// Gets or sets Parameter 1.
-    /// </summary>
-    string Param1 { get; set; }
-
-    /// <summary>
-    /// Gets or sets Parameter 2.
-    /// </summary>
-    string Param2 { get; set; }
-
-    #endregion
-  }
+    public class BaseUrlMaskRequiredException : Exception
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseUrlMaskRequiredException"/> class.
+        /// </summary>
+        /// <param name="message">The message that describes the error.</param>
+        public BaseUrlMaskRequiredException(string message)
+            : base(message)
+        {
+        }
+    }
 }

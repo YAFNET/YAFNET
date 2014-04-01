@@ -152,7 +152,7 @@ namespace YAF.Controls
                 sb.AppendFormat(
                     @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>",
                     userId,
-                    YafBuildLink.GetLink(ForumPages.profile, "u={0}", userId),
+                    YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName),
                     this.Get<HttpServerUtilityBase>().HtmlEncode(displayName));
 
                 // If showing thanks date is enabled, add it to the formatted string.
@@ -228,7 +228,7 @@ namespace YAF.Controls
         /// The get post class.
         /// </summary>
         /// <returns>
-        /// Returns the post class. 
+        /// Returns the post class.
         /// </returns>
         [NotNull]
         protected string GetPostClass()
@@ -733,7 +733,13 @@ namespace YAF.Controls
             switch (e.Item)
             {
                 case "userprofile":
-                    YafBuildLink.Redirect(ForumPages.profile, "u={0}", this.PostData.UserId);
+                    YafBuildLink.Redirect(
+                        ForumPages.profile,
+                        "u={0}&name={1}",
+                        this.PostData.UserId,
+                        this.Get<YafBoardSettings>().EnableDisplayName
+                            ? this.DataRow["DisplayName"]
+                            : this.DataRow["UserName"]);
                     break;
                 case "lastposts":
                     YafBuildLink.Redirect(

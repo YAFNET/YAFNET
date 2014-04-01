@@ -34,6 +34,7 @@ namespace YAF.Controls
   using YAF.Classes.Data;
   using YAF.Core;
   using YAF.Types;
+  using YAF.Types.Constants;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
   using YAF.Utilities;
@@ -87,21 +88,39 @@ namespace YAF.Controls
       this.BindData();
     }
 
-    /// <summary>
-    /// The on pre render.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
-    {
-      YafContext.Current.PageElements.RegisterJsBlockStartup(
-        this.LastPostUpdatePanel, "DisablePageManagerScrollJs", JavaScriptBlocks.DisablePageManagerScrollJs);
+      /// <summary>
+      /// The on pre render.
+      /// </summary>
+      /// <param name="e">
+      /// The e.
+      /// </param>
+      protected override void OnPreRender([NotNull] EventArgs e)
+      {
+          this.PageContext.PageElements.RegisterJsBlockStartup(
+              this.LastPostUpdatePanel,
+              "DisablePageManagerScrollJs",
+              JavaScriptBlocks.DisablePageManagerScrollJs);
 
-      base.OnPreRender(e);
-    }
+          if (this.PageContext.ForumPageType == ForumPages.postmessage)
+          {
+              var editorId = this.Get<YafBoardSettings>().AllowUsersTextEditor && this.PageContext.TextEditor.IsSet()
+                                 ? this.PageContext.TextEditor
+                                 : this.Get<YafBoardSettings>().ForumEditor;
 
-    /// <summary>
+              // Check if Editor exists, if not fallback to default editorid=1
+              var forumEditor = this.Get<IModuleManager<ForumEditor>>().GetBy(editorId, false)
+                                ?? this.Get<IModuleManager<ForumEditor>>().GetBy("1");
+
+              if (forumEditor.Description.Contains("CKEditor") || forumEditor.Description.Contains("DotNetNuke"))
+              {
+                  this.LastPostUpdateTimer.Enabled = false;
+              }
+          }
+
+          base.OnPreRender(e);
+      }
+
+      /// <summary>
     /// The page_ load.
     /// </summary>
     /// <param name="sender">

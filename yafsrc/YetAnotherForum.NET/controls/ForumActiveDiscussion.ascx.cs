@@ -234,13 +234,27 @@ namespace YAF.Controls
             {
                 this.Get<IYafSession>().UnreadTopics = 0;
 
-                activeTopics = LegacyDb.topic_latest(
-                    boardID: this.PageContext.PageBoardID,
-                    numOfPostsToRetrieve: this.Get<YafBoardSettings>().ActiveDiscussionsCount,
-                    pageUserId: this.PageContext.PageUserID,
-                    useStyledNicks: this.Get<YafBoardSettings>().UseStyledNicks,
-                    showNoCountPosts: this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
-                    findLastRead: this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                if (YafContext.Current.Settings.CategoryID > 0)
+                {
+                    activeTopics = LegacyDb.topic_latest_in_category(
+                        boardID: this.PageContext.PageBoardID,
+                        categoryID: YafContext.Current.Settings.CategoryID,
+                        numOfPostsToRetrieve: this.Get<YafBoardSettings>().ActiveDiscussionsCount,
+                        pageUserId: this.PageContext.PageUserID,
+                        useStyledNicks: this.Get<YafBoardSettings>().UseStyledNicks,
+                        showNoCountPosts: this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
+                        findLastRead: this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                }
+                else
+                {
+                    activeTopics = LegacyDb.topic_latest(
+                         boardID: this.PageContext.PageBoardID,
+                         numOfPostsToRetrieve: this.Get<YafBoardSettings>().ActiveDiscussionsCount,
+                         pageUserId: this.PageContext.PageUserID,
+                         useStyledNicks: this.Get<YafBoardSettings>().UseStyledNicks,
+                         showNoCountPosts: this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
+                         findLastRead: this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                }
 
                 // Set colorOnly parameter to true, as we get all but color from css in the place
                 if (this.Get<YafBoardSettings>().UseStyledNicks)

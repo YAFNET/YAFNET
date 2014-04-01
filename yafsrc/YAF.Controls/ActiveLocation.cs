@@ -470,6 +470,14 @@ namespace YAF.Controls
                 // Render
                 if (userID.ToType<int>() != this.UserID)
                 {
+                    var displayName =
+                        HttpUtility.HtmlEncode(UserMembershipHelper.GetDisplayNameFromID(userID.ToType<long>()));
+
+                    if (displayName.IsNotSet())
+                    {
+                        displayName = HttpUtility.HtmlEncode(UserMembershipHelper.GetUserNameFromID(userID.ToType<long>()));
+                    } 
+                    
                     outstring += this.GetText("ACTIVELOCATION", "ALBUM").FormatWith();
                     outstring +=
                         @"<a href=""{0}"" id=""uiseralbumid_{1}"" runat=""server""> {2} </a>".FormatWith(
@@ -479,9 +487,9 @@ namespace YAF.Controls
                     outstring += this.GetText("ACTIVELOCATION", "ALBUM_OFUSER").FormatWith();
                     outstring +=
                         @"<a href=""{0}"" id=""albumuserid_{1}"" runat=""server""> {2} </a>".FormatWith(
-                            YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID),
+                            YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userID, displayName),
                             userID,
-                            HttpUtility.HtmlEncode(UserMembershipHelper.GetUserNameFromID(userID.ToType<long>())));
+                            HttpUtility.HtmlEncode(displayName));
                 }
                 else
                 {
@@ -524,12 +532,20 @@ namespace YAF.Controls
                 }
                 else
                 {
+                    var displayName =
+                        HttpUtility.HtmlEncode(UserMembershipHelper.GetDisplayNameFromID(userID.ToType<long>()));
+
+                    if (displayName.IsNotSet())
+                    {
+                        displayName = HttpUtility.HtmlEncode(UserMembershipHelper.GetUserNameFromID(userID.ToType<long>()));
+                    }
+
                     outstring += this.GetText("ACTIVELOCATION", "ALBUMS_OFUSER").FormatWith();
                     outstring +=
                         @"<a href=""{0}"" id=""albumsuserid_{1}"" runat=""server""> {2} </a>".FormatWith(
-                            YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID),
+                            YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userID, displayName),
                             userID + this.PageContext.PageUserID,
-                            HttpUtility.HtmlEncode(UserMembershipHelper.GetUserNameFromID(userID.ToType<long>())));
+                            HttpUtility.HtmlEncode(displayName));
                 }
             }
             else
@@ -560,22 +576,22 @@ namespace YAF.Controls
             {
                 if (userID.ToType<int>() != this.UserID)
                 {
-                    string dname =
+                    var displayName =
                         HttpUtility.HtmlEncode(UserMembershipHelper.GetDisplayNameFromID(userID.ToType<long>()));
                     
-                    if (dname.IsNotSet())
+                    if (displayName.IsNotSet())
                     {
-                        dname = HttpUtility.HtmlEncode(UserMembershipHelper.GetUserNameFromID(userID.ToType<long>()));
+                        displayName = HttpUtility.HtmlEncode(UserMembershipHelper.GetUserNameFromID(userID.ToType<long>()));
                     }
 
                     outstring += this.GetText("ACTIVELOCATION", "PROFILE_OFUSER").FormatWith();
                     outstring +=
                         @"<a href=""{0}""  id=""profileuserid_{1}"" title=""{2}"" alt=""{2}"" runat=""server""> {3} </a>"
                             .FormatWith(
-                                YafBuildLink.GetLink(ForumPages.profile, "u={0}", userID),
+                                YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userID, displayName),
                                 userID + this.PageContext.PageUserID,
                                 this.GetText("COMMON", "VIEW_USRPROFILE"),
-                                HttpUtility.HtmlEncode(dname));
+                                HttpUtility.HtmlEncode(displayName));
                 }
                 else
                 {

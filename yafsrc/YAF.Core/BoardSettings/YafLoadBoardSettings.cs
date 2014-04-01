@@ -33,6 +33,7 @@ namespace YAF.Core
     using YAF.Classes.Data;
     using YAF.Core.Model;
     using YAF.Types;
+    using YAF.Types.Exceptions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -244,27 +245,6 @@ namespace YAF.Core
                 board["AllowThreaded"].ToType<bool>(), 
                 membershipAppName, 
                 rolesAppName);
-        }
-
-        #endregion
-    }
-
-    /// <summary>
-    ///     The empty board setting exception.
-    /// </summary>
-    public class EmptyBoardSettingException : Exception
-    {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EmptyBoardSettingException"/> class.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        public EmptyBoardSettingException(string message)
-            : base(message)
-        {
         }
 
         #endregion

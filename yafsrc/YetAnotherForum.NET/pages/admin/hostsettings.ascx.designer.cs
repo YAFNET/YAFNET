@@ -4612,13 +4612,13 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.HelpLabel HelpLabel210;
         
         /// <summary>
-        /// LogSqlError control.
+        /// LogViewStateError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox LogSqlError;
+        protected global::System.Web.UI.WebControls.CheckBox LogViewStateError;
         
         /// <summary>
         /// HelpLabel211 control.

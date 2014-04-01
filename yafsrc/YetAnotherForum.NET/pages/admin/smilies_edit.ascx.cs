@@ -26,7 +26,6 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using System.IO;
     using System.Linq;
@@ -128,7 +127,7 @@ namespace YAF.Pages.Admin
 
             if (this.Request["s"] != null)
             {
-                Smiley smiley =
+                var smiley =
                     this.GetRepository<Smiley>().ListTyped(this.Request.QueryString.GetFirstOrDefaultAs<int>("s"), this.PageContext.PageBoardID).FirstOrDefault();
 
                 if (smiley != null)
@@ -144,10 +143,14 @@ namespace YAF.Pages.Admin
                     this.Preview.Src = "{0}{1}/{2}".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, smiley.Icon);
                     this.SortOrder.Text = smiley.SortOrder.ToString(); // Ederon : 9/4/2007
                 }
-
             }
             else
             {
+                var smilies =
+                    this.GetRepository<Smiley>().ListTyped();
+
+                this.SortOrder.Text = (smilies.Max(s => s.SortOrder) + 1).ToString();
+
                 this.Preview.Src = "{0}images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
             }
 
@@ -157,28 +160,20 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The cancel_ click.
+        /// Handles the Click event of the cancel control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender. 
-        /// </param>
-        /// <param name="e">
-        /// The e. 
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.admin_smilies);
         }
 
         /// <summary>
-        /// The save_ click.
+        /// Handles the Click event of the save control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender. 
-        /// </param>
-        /// <param name="e">
-        /// The e. 
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             string code = this.Code.Text.Trim();
@@ -229,9 +224,15 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            var smileyId = this.Request.QueryString.GetFirstOrDefaultAs<int>("s");
-
-            this.GetRepository<Smiley>().Save(smileyId, code, icon, emotion, sortOrder, 0);
+            if (this.Request["s"] != null)
+            {
+                this.GetRepository<Smiley>()
+                    .Save(this.Request.QueryString.GetFirstOrDefaultAs<int>("s"), code, icon, emotion, sortOrder, 0);
+            }
+            else
+            {
+                this.GetRepository<Smiley>().Save(null, code, icon, emotion, sortOrder, 0);
+            }
 
             YafBuildLink.Redirect(ForumPages.admin_smilies);
         }

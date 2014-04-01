@@ -189,7 +189,7 @@ namespace YAF.Controls
             {
                 output.WriteBeginTag("a");
 
-                output.WriteAttribute("href", YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.UserID));
+                output.WriteAttribute("href", YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.UserID, displayName));
 
                 if (this.CanViewProfile && this.IsHoverCardEnabled)
                 {
@@ -203,10 +203,11 @@ namespace YAF.Controls
                     }
 
                     output.WriteAttribute(
-                        "data-hovercard", 
-                        "{0}resource.ashx?userinfo={1}&type=json&forumUrl={2}".FormatWith(
-                            YafForumInfo.ForumClientFileRoot, 
-                            this.UserID, 
+                        "data-hovercard",
+                        "{0}DesktopModules/YetAnotherForumDotNet/resource.ashx?userinfo={1}&boardId={2}&type=json&forumUrl={3}".FormatWith(
+                            Config.IsDotNetNuke ? YafBuildLink.GetBasePath() : YafForumInfo.ForumClientFileRoot,
+                            this.UserID,
+                            YafContext.Current.PageBoardID,
                             HttpUtility.UrlEncode(YafBuildLink.GetBasePath())));
                 }
                 else

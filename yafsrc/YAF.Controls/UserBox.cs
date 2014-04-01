@@ -355,12 +355,15 @@ namespace YAF.Controls
         [NotNull]
         private string MatchUserBoxAvatar([NotNull] string userBox)
         {
-            string filler = string.Empty;
+            var filler = string.Empty;
             var rx = this.GetRegex(Constants.UserBox.Avatar);
 
             if (!this.PostDeleted)
             {
-                string avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(this.UserId);
+                var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(this.UserId);
+                var displayName = this.Get<YafBoardSettings>().EnableDisplayName
+                                      ? UserMembershipHelper.GetDisplayNameFromID(this.UserId)
+                                      : UserMembershipHelper.GetUserNameFromID(this.UserId);
 
                 if (avatarUrl.IsSet())
                 {
@@ -369,11 +372,9 @@ namespace YAF.Controls
                             @"<a href=""{1}"" title=""{2}""><img class=""avatarimage"" src=""{0}"" alt=""{2}"" title=""{2}""  /></a>"
                                 .FormatWith(
                                     avatarUrl,
-                                    YafBuildLink.GetLinkNotEscaped(ForumPages.profile, "u={0}", this.UserId),
+                                    YafBuildLink.GetLinkNotEscaped(ForumPages.profile, "u={0}&name={1}", this.UserId, displayName),
                                     Page.HtmlEncode(
-                                        this.Get<YafBoardSettings>().EnableDisplayName
-                                            ? UserMembershipHelper.GetDisplayNameFromID(this.UserId)
-                                            : UserMembershipHelper.GetUserNameFromID(this.UserId))));
+                                        displayName)));
                 }
             }
 

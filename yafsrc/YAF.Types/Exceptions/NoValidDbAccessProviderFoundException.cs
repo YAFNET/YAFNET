@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014 Ingo Herbote
@@ -21,34 +21,29 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+
+namespace YAF.Types.Exceptions
 {
-  #region Using
-
-  using System;
-
-  using YAF.Types;
-
-  #endregion
-
-  /// <summary>
-  /// The yaf task module not registered exception.
-  /// </summary>
-  public class YafTaskModuleNotRegisteredException : Exception
-  {
-    #region Constructors and Destructors
+    using System;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="YafTaskModuleNotRegisteredException"/> class.
+    ///     The no valid DB access provider found exception.
     /// </summary>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    public YafTaskModuleNotRegisteredException([NotNull] string message)
-      : base(message)
+    public class NoValidDbAccessProviderFoundException : Exception
     {
-    }
+        #region Constructors and Destructors
 
-    #endregion
-  }
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="NoValidDbAccessProviderFoundException" /> class.
+        /// </summary>
+        /// <param name="message">
+        ///     The message.
+        /// </param>
+        public NoValidDbAccessProviderFoundException(string message)
+            : base(message)
+        {
+        }
+
+        #endregion
+    }
 }

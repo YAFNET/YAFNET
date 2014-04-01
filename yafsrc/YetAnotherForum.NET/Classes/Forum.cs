@@ -39,6 +39,7 @@ namespace YAF
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Exceptions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
@@ -402,13 +403,15 @@ namespace YAF
             this.RunStartupServices();
 
             // handle script manager first...
-            if (ScriptManager.GetCurrent(this.Page) != null)
+            var yafScriptManager = ScriptManager.GetCurrent(this.Page);
+            
+            if (yafScriptManager != null)
             {
-                return;
+               return;
             }
 
             // add a script manager since one doesn't exist...
-            var yafScriptManager = new ScriptManager { ID = "YafScriptManager", EnablePartialRendering = true };
+            yafScriptManager = new ScriptManager { ID = "YafScriptManager", EnablePartialRendering = true };
             this.Controls.Add(yafScriptManager);
 
             base.OnInit(e);
@@ -503,7 +506,7 @@ namespace YAF
             {
                 this.AfterForumPageLoad(this, new YafAfterForumPageLoad());
             }
-
+            
             base.OnLoad(e);
         }
 
@@ -545,7 +548,7 @@ namespace YAF
 
             var replacementPaths = new List<string> { "moderate", "admin", "help" };
 
-            foreach (var path in replacementPaths.Where(path => src[0].IndexOf("/{0}_".FormatWith(path)) >= 0))
+            foreach (var path in replacementPaths.Where(path => src[0].IndexOf("/{0}_".FormatWith(path), StringComparison.Ordinal) >= 0))
             {
                 src[0] = src[0].Replace("/{0}_".FormatWith(path), "/{0}/".FormatWith(path));
             }
@@ -576,7 +579,7 @@ namespace YAF
                     @"YAF.NET is not setup properly. Please add the <add name=""YafTaskModule"" type=""YAF.Core.YafTaskModule, YAF.Core"" /> to the <modules> section of your web.config file.";
 
                 // go immediately to the error page.
-                HttpContext.Current.Response.Redirect(YafForumInfo.ForumClientFileRoot + "error.aspx");
+                HttpContext.Current.Response.Redirect(string.Format("{0}error.aspx", YafForumInfo.ForumClientFileRoot));
             }
             else
             {

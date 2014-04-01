@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014 Ingo Herbote
@@ -21,32 +21,32 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Types.Exceptions
 {
-  #region Using
+    #region Using
 
-  using System;
-
-  #endregion
-
-  /// <summary>
-  /// The no valid guest user for board exception.
-  /// </summary>
-  public class NoValidGuestUserForBoardException : Exception
-  {
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="NoValidGuestUserForBoardException"/> class.
-    /// </summary>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    public NoValidGuestUserForBoardException(string message)
-      : base(message)
-    {
-    }
+    using System;
 
     #endregion
-  }
+
+    /// <summary>
+    /// The no valid guest user for board exception.
+    /// </summary>
+    public class NoValidGuestUserForBoardException : Exception
+    {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NoValidGuestUserForBoardException"/> class.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        public NoValidGuestUserForBoardException(string message)
+            : base(message)
+        {
+        }
+
+        #endregion
+    }
 }

@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014 Ingo Herbote
@@ -21,49 +21,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
+
+namespace YAF.Types.Exceptions
 {
-  #region Using  
-
-  #endregion
-
-  /// <summary>
-  /// The localization support interface
-  /// </summary>
-  public interface ILocalizationSupport
-  {
-    #region Properties
+    using System;
+    using YAF.Types.Extensions;
 
     /// <summary>
-    /// Gets or sets a value indicating whether EnableBBCode.
+    /// The No TopicRow Exception
     /// </summary>
-    bool EnableBBCode { get; set; }
-
-    /// <summary>
-    /// Gets or sets LocalizedPage.
-    /// </summary>
-    string LocalizedPage { get; set; }
-
-    /// <summary>
-    /// Gets or sets LocalizedTag.
-    /// </summary>
-    string LocalizedTag { get; set; }
-
-    /// <summary>
-    /// Gets or sets Parameter 0.
-    /// </summary>
-    string Param0 { get; set; }
-
-    /// <summary>
-    /// Gets or sets Parameter 1.
-    /// </summary>
-    string Param1 { get; set; }
-
-    /// <summary>
-    /// Gets or sets Parameter 2.
-    /// </summary>
-    string Param2 { get; set; }
-
-    #endregion
-  }
+    public class NoTopicRowException : Exception
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NoTopicRowException"/> class.
+        /// </summary>
+        /// <param name="topicRowID">The topic row identifier.</param>
+        public NoTopicRowException(int? topicRowID)
+            : base("No topic row found for topic row id [{0}]".FormatWith(topicRowID ?? 0))
+        {
+        }
+    }
 }

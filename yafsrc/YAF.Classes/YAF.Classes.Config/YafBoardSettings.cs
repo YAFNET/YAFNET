@@ -525,21 +525,21 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [log SQL error].
+        /// Gets or sets a value indicating whether [log view state error].
         /// </summary>
         /// <value>
-        ///   <c>true</c> if [log SQL error]; otherwise, <c>false</c>.
+        ///   <c>true</c> if [log view state error]; otherwise, <c>false</c>.
         /// </value>
-        public bool LogSqlError
+        public bool LogViewStateError
         {
             get
             {
-                return this._reg.GetValue("LogSqlError", false);
+                return this._reg.GetValue("LogViewStateError", false);
             }
 
             set
             {
-                this._reg.SetValue("LogSqlError", value);
+                this._reg.SetValue("LogViewStateError", value);
             }
         }
 
@@ -3435,6 +3435,25 @@ namespace YAF.Classes
             set
             {
                 this._regBoard.SetValue("TopicsFeedItemsCount", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the DNN page tab.
+        /// </summary>
+        /// <value>
+        /// The DNN page tab.
+        /// </value>
+        public int DNNPageTab
+        {
+            get
+            {
+                return this._regBoard.GetValue("DNNPageTab", -1);
+            }
+
+            set
+            {
+                this._regBoard.SetValue("DNNPageTab", value);
             }
         }
 
