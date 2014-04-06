@@ -901,7 +901,7 @@
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME">Allow Forums With Same Name:</Resource>
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME_HELP">If checked forums with duplicated names can be created.</Resource>
     <Resource tag="ALLOW_GRAVATARS">Allow Gravatars:</Resource>
-    <Resource tag="ALLOW_GRAVATARS_HELP">Automatically use users Gavatars if they exist (note: may require additional processing).</Resource>
+    <Resource tag="ALLOW_GRAVATARS_HELP">Automatically use users Gravatars if they exist (note: may require additional processing).</Resource>
     <Resource tag="ALLOW_GUESTS_VIEWPOLL">Allow Guests View Poll Options:</Resource>
     <Resource tag="ALLOW_GUESTS_VIEWPOLL_HELP">If enabled Guests can see poll choices.</Resource>
     <Resource tag="ALLOW_HIDE_POLLRESULTS">Allow Users Hide Poll Results:</Resource>
@@ -4040,7 +4040,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
   <page name="MYTOPICS">
     <Resource tag="ACTIVETOPICS">مواضيع  نشطة</Resource>
     <Resource tag="ATOMFEED">Atom Feed</Resource>
-    <Resource tag="BY">بواسطة {0}</Resource>
+    <Resource tag="BY">{بواسطة {0</Resource>
     <Resource tag="FAVORITETOPICS">مواضيع مفضلة</Resource>
     <Resource tag="GUESTTITLE">موضيع النشطة</Resource>
     <Resource tag="LAST_24">( آخر  24 ساعة )</Resource>
@@ -4051,7 +4051,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="LAST_TWO_DAYS">قبل يومين</Resource>
     <Resource tag="LAST_TWO_HOURS">آخر ساعتين</Resource>
     <Resource tag="LAST_TWO_WEEKS">آخر  اسبوعين </Resource>
-    <Resource tag="LAST_VISIT">آخر زيارة  {0}</Resource>
+    <Resource tag="LAST_VISIT">{آخر زيارة  {0</Resource>
     <Resource tag="LAST_WEEK">آخر اسبوع </Resource>
     <Resource tag="LASTPOST">آخر مشاركة</Resource>
     <Resource tag="MEMBERTITLE">مواضيعي</Resource>
