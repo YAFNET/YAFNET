@@ -1045,6 +1045,8 @@
     <Resource tag="FLOOT_DELAY">Beitrags Überschwemmungs Verzögerung</Resource>
     <Resource tag="FLOOT_DELAY_HELP">Anzahl an Sekunden, bevor ein Benutzer einen weiteren Beitrag veröffentlichen kann (Gilt nicht für Admins oder Mods).</Resource>
     <Resource tag="FORBIDDEN">Verboten</Resource>
+    <Resource tag="FORUM_BASEURLMASK">Forum Base URL Mask:</Resource>
+    <Resource tag="FORUM_BASEURLMASK_HELP">The full forward-facing url to this forum.</Resource>
     <Resource tag="FORUM_EDITOR">Forum-Editor:</Resource>
     <Resource tag="FORUM_EDITOR_HELP">Wählen Sie den Standard Editor für das Forum.</Resource>
     <Resource tag="FORUM_EMAIL">Forum E-Mail Adresse:</Resource>

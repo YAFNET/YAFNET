@@ -836,21 +836,15 @@ namespace YAF.Install
                     {
 #if DEBUG
                         var urlKey =
-                            "http://{0}{1}{2}".FormatWith(
+                            "http://{0}{1}/".FormatWith(
                                 HttpContext.Current.Request.ServerVariables["SERVER_NAME"],
                                 HttpContext.Current.Request.ServerVariables["SERVER_PORT"].Equals("80")
                                     ? string.Empty
-                                    : ":{0}".FormatWith(HttpContext.Current.Request.ServerVariables["SERVER_PORT"]),
-                                HttpContext.Current.Request.ApplicationPath.EndsWith("/")
-                                    ? HttpContext.Current.Request.ApplicationPath
-                                    : "{0}/".FormatWith(HttpContext.Current.Request.ApplicationPath));
+                                    : ":{0}".FormatWith(HttpContext.Current.Request.ServerVariables["SERVER_PORT"]));
 #else
                         var urlKey =
-                            "http://{0}{1}".FormatWith(
-                                HttpContext.Current.Request.ServerVariables["SERVER_NAME"],
-                                HttpContext.Current.Request.ApplicationPath.EndsWith("/")
-                                    ? HttpContext.Current.Request.ApplicationPath
-                                    : "{0}/".FormatWith(HttpContext.Current.Request.ApplicationPath));
+                            "http://{0}/".FormatWith(
+                                HttpContext.Current.Request.ServerVariables["SERVER_NAME"]);
 
 #endif
 
@@ -1143,9 +1137,10 @@ namespace YAF.Install
                 // init forum...
                 this.InstallUpgradeService.InitializeForum(
                     this.TheForumName.Text, 
-                    this.TimeZones.SelectedValue, 
+                    this.TimeZones.SelectedValue,
                     this.Culture.SelectedValue, 
                     this.ForumEmailAddress.Text, 
+                    this.ForumBaseUrlMask.Text,
                     user.UserName, 
                     user.Email, 
                     user.ProviderUserKey);
@@ -1251,6 +1246,11 @@ namespace YAF.Install
                 if (this.Culture.Items.Count > 0)
                 {
                     this.Culture.Items.FindByValue("en-US").Selected = true;
+                }
+
+                if (Config.BaseUrlMask.IsSet())
+                {
+                    this.ForumBaseUrlMask.Text = Config.BaseUrlMask;
                 }
 
                 this.DBUsernamePasswordHolder.Visible = LegacyDb.PasswordPlaceholderVisible;

@@ -104,15 +104,12 @@ namespace YAF.Utils
         /// <summary>
         /// Gets base path to the page without ampersand.
         /// </summary>
-        /// <param name="fullUrl">if set to <c>true</c> [full URL].</param>
         /// <returns>
         /// Base URL to the given page.
         /// </returns>
-        public static string GetBasePath(bool fullUrl = false)
+        public static string GetBasePath()
         {
-            return fullUrl
-                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull(string.Empty).TrimEnd('&')
-                       : YafFactoryProvider.UrlBuilder.BuildUrl(string.Empty).TrimEnd('&');
+            return YafFactoryProvider.UrlBuilder.BuildUrl(string.Empty).TrimEnd('&');
         }
 
         /// <summary>

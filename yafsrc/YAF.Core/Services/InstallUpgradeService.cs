@@ -173,17 +173,18 @@ namespace YAF.Core.Services
         #region Public Methods and Operators
 
         /// <summary>
-        /// The initialize forum.
+        /// Initializes the forum.
         /// </summary>
         /// <param name="forumName">The forum name.</param>
         /// <param name="timeZone">The time zone.</param>
         /// <param name="culture">The culture.</param>
         /// <param name="forumEmail">The forum email.</param>
+        /// <param name="forumBaseUrlMask">The forum base URL mask.</param>
         /// <param name="adminUserName">The admin user name.</param>
         /// <param name="adminEmail">The admin email.</param>
         /// <param name="adminProviderUserKey">The admin provider user key.</param>
         public void InitializeForum(
-            string forumName, string timeZone, string culture, string forumEmail, string adminUserName, string adminEmail, object adminProviderUserKey)
+            string forumName, string timeZone, string culture, string forumEmail, string forumBaseUrlMask, string adminUserName, string adminEmail, object adminProviderUserKey)
         {
             DataTable cult = StaticDataHelper.Cultures();
             string langFile = "english.xml";
@@ -199,6 +200,7 @@ namespace YAF.Core.Services
                 culture, 
                 langFile, 
                 forumEmail, 
+                forumBaseUrlMask,
                 string.Empty, 
                 adminUserName, 
                 adminEmail, 

@@ -1047,6 +1047,8 @@
     <Resource tag="FLOOT_DELAY">Retrasar las publicaciones abrumadoras:</Resource>
     <Resource tag="FLOOT_DELAY_HELP">Número de segundos antes de que otra publicación pueda ser introducida (no se aplica a administradores y moderadores).</Resource>
     <Resource tag="FORBIDDEN">Prohibido</Resource>
+    <Resource tag="FORUM_BASEURLMASK">Forum Base URL Mask:</Resource>
+    <Resource tag="FORUM_BASEURLMASK_HELP">The full forward-facing url to this forum.</Resource>
     <Resource tag="FORUM_EDITOR">Editor del foro:</Resource>
     <Resource tag="FORUM_EDITOR_HELP">Selecciona el tipo de editor blobal para tu foro. Para usar editores HTML (FCL and FreeTextBox) el fichero .bin debe estar en el directorio \bin y los ficheros de apoyo apropiados deben ser puestos en \editors.</Resource>
     <Resource tag="FORUM_EMAIL">Email del foro:</Resource>

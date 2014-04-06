@@ -1050,6 +1050,8 @@
     <Resource tag="FLOOT_DELAY">تاخیر میان ارسال:</Resource>
     <Resource tag="FLOOT_DELAY_HELP">تعداد ثانیه های قبل از ارسالی دیگر.</Resource>
     <Resource tag="FORBIDDEN">ممنوعیت</Resource>
+    <Resource tag="FORUM_BASEURLMASK">Forum Base URL Mask:</Resource>
+    <Resource tag="FORUM_BASEURLMASK_HELP">The full forward-facing url to this forum.</Resource>
     <Resource tag="FORUM_EDITOR">ویرایشگر انجمن :</Resource>
     <Resource tag="FORUM_EDITOR_HELP">یک نوع جهانی برای ویرایشگر انجمن خود مشخص کنید. براس استفاده از ویرایشگر های HTML می بایست فایل های DLL را در شاخه bin و سایر فایل های مورد نیاز را در شاخه editors قرار دهید.</Resource>
     <Resource tag="FORUM_EMAIL">پست الکترونیک انجمن:</Resource>

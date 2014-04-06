@@ -138,6 +138,20 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets the board identifier.
+        /// </summary>
+        /// <value>
+        /// The board identifier.
+        /// </value>
+        public int BoardID
+        {
+            get
+            {
+                return this._boardID;
+            }
+        }
+
+        /// <summary>
         /// Gets a value indicating whether AllowThreaded.
         /// </summary>
         public bool AllowThreaded
@@ -3893,6 +3907,22 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("CustomLoginRedirectUrl", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets BaseUrlMask.
+        /// </summary>
+        public string BaseUrlMask
+        {
+            get
+            {
+                return this._reg.GetValue("BaseUrlMask", Config.BaseUrlMask);
+            }
+
+            set
+            {
+                this._reg.SetValue("BaseUrlMask", value);
             }
         }
 

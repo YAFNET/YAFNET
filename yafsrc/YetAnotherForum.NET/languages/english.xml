@@ -1032,6 +1032,8 @@
   <Resource tag="FORUM_EMAIL_HELP">The from address when sending emails to users.</Resource>
   <Resource tag="FORUM_FEEDS_ACCESS">Forum Feeds Access:</Resource>
   <Resource tag="FORUM_FEEDS_ACCESS_HELP">Restrict display of forum feeds.</Resource>
+  <Resource tag="FORUM_BASEURLMASK">Forum Base URL Mask:</Resource>
+  <Resource tag="FORUM_BASEURLMASK_HELP">The full forward-facing url to this forum.</Resource>
   <Resource tag="GENDER_TEMPLATE">Gender:</Resource>
   <Resource tag="GENDER_TEMPLATE_HELP">Template for rendering user's gender.</Resource>
   <Resource tag="GRAVATAR_RATING">Gravatar Rating:</Resource>

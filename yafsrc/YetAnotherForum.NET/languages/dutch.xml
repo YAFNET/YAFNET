@@ -1045,6 +1045,8 @@
     <Resource tag="FLOOT_DELAY">Post interval timeout:</Resource>
     <Resource tag="FLOOT_DELAY_HELP">Aantal seconden voordat een nieuwe post gemaakt kan worden. (Geldt niet voor Admins of Mods).</Resource>
     <Resource tag="FORBIDDEN">Uitgeschakeld</Resource>
+    <Resource tag="FORUM_BASEURLMASK">Forum Base URL Mask:</Resource>
+    <Resource tag="FORUM_BASEURLMASK_HELP">The full forward-facing url to this forum.</Resource>
     <Resource tag="FORUM_EDITOR">Forum Tekstverwerker:</Resource>
     <Resource tag="FORUM_EDITOR_HELP">Selecteer de globale tekstverwerker voor je forum. OM HTML tekstverwerkers (FCK and FreeTextBox) te gebruiken, moet het .bin bestand in de \bin directory staan en de support bestanden moeten in in \editors staan.</Resource>
     <Resource tag="FORUM_EMAIL">Forum E-mail:</Resource>

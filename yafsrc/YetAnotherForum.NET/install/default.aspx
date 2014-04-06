@@ -316,6 +316,11 @@
                         The official forum email address.
                     </p>
                     <p>
+                        Forum Base Url Mask:<br />
+                        <asp:TextBox ID="ForumBaseUrlMask" runat="server" />
+                        Base Url mask for the forum.
+                    </p>
+                    <p>
                         <asp:RadioButtonList ID="UserChoice" runat="server" AutoPostBack="true" OnSelectedIndexChanged="UserChoice_SelectedIndexChanged">
                             <asp:ListItem Text="Create New Admin User" Selected="true" Value="create"></asp:ListItem>
                             <asp:ListItem Text="Use Existing User" Value="existing"></asp:ListItem>
@@ -406,6 +411,7 @@
             </FinishNavigationTemplate>
             <HeaderTemplate>
                 <img src="../images/YAFLogo.png" alt="YAF Logo" /><br />
+                <%# IsForumInstalled ? "Upgrade" : "Installation"%> Wizard
                 <%# IsForumInstalled ? "Upgrade" : "Installation"%> Wizard
             </HeaderTemplate>
             <StartNavigationTemplate>

@@ -29,6 +29,14 @@
                 <asp:TextBox ID="ForumEmail" runat="server" Width="400"></asp:TextBox>
             </td>
         </tr>
+        <tr>
+            <td class="postheader">
+                <YAF:HelpLabel ID="HelpLabel5" runat="server" LocalizedTag="FORUM_BASEURLMASK" LocalizedPage="ADMIN_HOSTSETTINGS" />
+            </td>
+            <td class="post">
+                <asp:TextBox ID="ForumBaseUrlMask" runat="server" Width="400"></asp:TextBox>
+            </td>
+        </tr>
         <asp:PlaceHolder ID="CopyrightHolder" runat="server">
         <tr>
             <td class="postheader" style="width: 50%">

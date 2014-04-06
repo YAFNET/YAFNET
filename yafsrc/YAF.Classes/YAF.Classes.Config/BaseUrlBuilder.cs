@@ -35,6 +35,7 @@ namespace YAF.Classes
     using YAF.Types.Exceptions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
 
     #endregion
 
@@ -53,59 +54,6 @@ namespace YAF.Classes
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets BaseUrl.
-        /// </summary>
-        /// <exception cref="BaseUrlMaskRequiredException">Since there is no active context, a base url mask is required. Please specify in the AppSettings in your web.config.</exception>
-        public static string BaseUrl
-        {
-            get
-            {
-                string baseUrl;
-
-                try
-                {
-                    if (HttpContext.Current != null)
-                    {
-                        // urlKey requires SERVER_NAME in case of systems that use HostNames for seperate sites or in our cases Boards as well as FilePath for multiboards in seperate folders.
-                        var urlKey = "{0}{1}".FormatWith(
-                            HttpContext.Current.Request.ServerVariables["SERVER_NAME"],
-                            HttpContext.Current.Request.FilePath);
-
-                        // Lookup the AppRoot based on the current host + path. 
-                        baseUrl = BaseUrls[urlKey];
-
-                        if (baseUrl.IsNotSet())
-                        {
-                            // Each different filepath (multiboard) will specify a AppRoot key in their own web.config in their directory.
-                            baseUrl = Config.BaseUrlMask.IsSet()
-                                          ? TreatBaseUrl(Config.BaseUrlMask)
-                                          : GetBaseUrlFromVariables();
-
-                            // save to cache
-                            BaseUrls[urlKey] = baseUrl;
-                        }
-                    }
-                    else
-                    {
-                        if (Config.BaseUrlMask.IsNotSet())
-                        {
-                            throw new BaseUrlMaskRequiredException(
-                                "Since there is no active context, a base url mask is required. Please specify in the AppSettings in your web.config: YAF.BaseUrlMask");
-                        }
-
-                        baseUrl = TreatBaseUrl(Config.BaseUrlMask);
-                    }
-                }
-                catch (Exception)
-                {
-                    baseUrl = GetBaseUrlFromVariables();
-                }
-
-                return baseUrl;
-            }
-        }
 
         /// <summary>
         /// Gets ClientFileRoot.
@@ -183,6 +131,71 @@ namespace YAF.Classes
         #endregion
 
         #region Public Methods
+        /// <summary>
+        /// Gets BaseUrl.
+        /// </summary>
+        /// <exception cref="BaseUrlMaskRequiredException">Since there is no active context, a base url mask is required. Please specify in the AppSettings in your web.config.</exception>
+        public static string BaseUrl
+        {
+            get
+            {
+                string baseUrl;
+
+                try
+                {
+                    if (HttpContext.Current != null)
+                    {
+                        string baseUrlMask;
+
+                        try
+                        {
+                            var boardSettings = HttpContext.Current.Application["BoardSettings$1"] as YafBoardSettings;
+
+                            baseUrlMask = boardSettings.BaseUrlMask;
+                        }
+                        catch (Exception)
+                        {
+                            baseUrlMask = Config.BaseUrlMask;
+                        }
+
+                        // urlKey requires SERVER_NAME in case of systems that use HostNames for seperate sites or in our cases Boards as well as FilePath for multiboards in seperate folders.
+                        var urlKey = "{0}{1}".FormatWith(
+                            HttpContext.Current.Request.ServerVariables["SERVER_NAME"],
+                            HttpContext.Current.Request.FilePath);
+
+                        // Lookup the AppRoot based on the current host + path. 
+                        baseUrl = BaseUrls[urlKey];
+
+                        if (baseUrl.IsNotSet())
+                        {
+                            // Each different filepath (multiboard) will specify a AppRoot key in their own web.config in their directory.
+                            baseUrl = baseUrlMask.IsSet()
+                                          ? TreatBaseUrl(baseUrlMask)
+                                          : GetBaseUrlFromVariables();
+
+                            // save to cache
+                            BaseUrls[urlKey] = baseUrl;
+                        }
+                    }
+                    else
+                    {
+                        if (Config.BaseUrlMask.IsNotSet())
+                        {
+                            throw new BaseUrlMaskRequiredException(
+                                "Since there is no active context, a base url mask is required. Please specify in the AppSettings in your web.config: YAF.BaseUrlMask");
+                        }
+
+                        baseUrl = TreatBaseUrl(Config.BaseUrlMask);
+                    }
+                }
+                catch (Exception)
+                {
+                    baseUrl = GetBaseUrlFromVariables();
+                }
+
+                return baseUrl;
+            }
+        }
 
         /// <summary>
         /// Gets the base URL from variables.
@@ -260,8 +273,10 @@ namespace YAF.Classes
         /// </returns>
         public virtual string BuildUrlFull(object boardSettings, string url)
         {
+            var currentBoardSettings = boardSettings as YafBoardSettings;
+
             // append the full base server url to the beginning of the url (e.g. http://mydomain.com)
-            return "{0}{1}".FormatWith(BaseUrl, this.BuildUrl(url));
+            return "{0}{1}".FormatWith(currentBoardSettings.BaseUrlMask, this.BuildUrl(boardSettings, url));
         }
 
         #endregion

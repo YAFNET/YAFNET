@@ -196,6 +196,7 @@ namespace YAF.Pages.Admin
             this.DefaultSendDigestEmail.Checked = boardSettings.DefaultSendDigestEmail;
             this.JqueryUIThemeCDNHosted.Checked = boardSettings.JqueryUIThemeCDNHosted;
             this.ForumEmail.Text = boardSettings.ForumEmail;
+            this.ForumBaseUrlMask.Text = boardSettings.BaseUrlMask;
 
             this.CopyrightRemovalKey.Text = boardSettings.CopyrightRemovalDomainKey;
 
@@ -272,6 +273,7 @@ namespace YAF.Pages.Admin
                 this.DefaultNotificationSetting.SelectedValue.ToEnum<UserNotificationSetting>();
 
             boardSettings.ForumEmail = this.ForumEmail.Text;
+            boardSettings.BaseUrlMask = this.ForumBaseUrlMask.Text;
             boardSettings.CopyrightRemovalDomainKey = this.CopyrightRemovalKey.Text.Trim();
             boardSettings.JqueryUITheme = this.JqueryUITheme.SelectedValue;
             boardSettings.JqueryUIThemeCDNHosted = this.JqueryUIThemeCDNHosted.Checked;
