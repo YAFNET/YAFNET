@@ -266,6 +266,19 @@ namespace YAF.Core.URLBuilder
             return newUrl;
         }
 
+        /// <summary>
+        /// Builds path for calling page with URL argument as the parameter.
+        /// </summary>
+        /// <param name="boardSettings">The board settings.</param>
+        /// <param name="url">URL to use as a parameter.</param>
+        /// <returns>
+        /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
+        /// </returns>
+        public override string BuildUrl(object boardSettings, string url)
+        {
+            return this.BuildUrl(url);
+        }
+
         #endregion
     }
 }
