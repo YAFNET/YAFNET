@@ -28,7 +28,6 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Web;
     using System.Web.Security;
     using System.Web.UI.WebControls;
 
@@ -101,21 +100,23 @@ namespace YAF.Controls
             }
 
             // display name login...
-            if (this.Get<YafBoardSettings>().EnableDisplayName)
+            if (!this.Get<YafBoardSettings>().EnableDisplayName)
             {
-                // Display name login
-                var id = this.Get<IUserDisplayName>().GetId(username);
+                return null;
+            }
 
-                if (id.HasValue)
+            // Display name login
+            var id = this.Get<IUserDisplayName>().GetId(username);
+
+            if (id.HasValue)
+            {
+                // get the username associated with this id...
+                string realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
+
+                // validate again...
+                if (this.Get<MembershipProvider>().ValidateUser(realUsername, password))
                 {
-                    // get the username associated with this id...
-                    string realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
-
-                    // validate again...
-                    if (this.Get<MembershipProvider>().ValidateUser(realUsername, password))
-                    {
-                        return realUsername;
-                    }
+                    return realUsername;
                 }
             }
 
@@ -191,10 +192,7 @@ namespace YAF.Controls
             this.Login1.PasswordRecoveryUrl = YafBuildLink.GetLink(ForumPages.recoverpassword);
             this.Login1.FailureText = this.GetText("password_error");
 
-            this.Login1.DestinationPageUrl =
-                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet()
-                    ? this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl"))
-                    : YafBuildLink.GetLink(ForumPages.forum);
+            this.Login1.DestinationPageUrl = this.Page.Request.RawUrl;
 
             // localize controls
             var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");
