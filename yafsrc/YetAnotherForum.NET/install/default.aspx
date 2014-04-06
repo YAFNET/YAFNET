@@ -7,7 +7,7 @@
         name="scriptlanguage" content="text/javascript" />
     <meta id="YafMetaStyles" http-equiv="Content-Style-Type" runat="server" name="styles"
         content="text/css" />
-    <title>Yet Another Forum.NET Installation</title>
+    <title>YAF.NET Installation/Upgrade</title>
    <link type="text/css" rel="stylesheet" href="wizard.css" />
    <script src="../resources/js/jquery.min.js" type="text/javascript"></script>    
 </head>
@@ -406,7 +406,7 @@
             </FinishNavigationTemplate>
             <HeaderTemplate>
                 <img src="../images/YAFLogo.png" alt="YAF Logo" /><br />
-                Installation Wizard
+                <%# IsForumInstalled ? "Upgrade" : "Installation"%> Wizard
             </HeaderTemplate>
             <StartNavigationTemplate>
                 <div class="wizNav">

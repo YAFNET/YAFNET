@@ -104,10 +104,10 @@ namespace YAF.Controls
                 var topicsFlattened = this._forumData.SelectMany(x => x.Topics);
 
                 return
-                  topicsFlattened.Where(
-                    t =>
-                    t.LastPostDate > DateTime.Now.AddHours(this._topicHours) &&
-                    t.CreatedDate < DateTime.Now.AddHours(this._topicHours)).GroupBy(x => x.Forum);
+                    topicsFlattened.Where(
+                        t =>
+                        t.LastPostDate > DateTime.Now.AddHours(this._topicHours)
+                        && t.CreatedDate < DateTime.Now.AddHours(this._topicHours)).GroupBy(x => x.Forum);
             }
         }
 
@@ -122,6 +122,14 @@ namespace YAF.Controls
         public int CurrentUserID { get; set; }
 
         /// <summary>
+        /// Gets or sets the board settings.
+        /// </summary>
+        /// <value>
+        /// The board settings.
+        /// </value>
+        public YafBoardSettings BoardSettings { get; set; }
+
+        /// <summary>
         ///   Gets NewTopics.
         /// </summary>
         [NotNull]
@@ -132,7 +140,9 @@ namespace YAF.Controls
                 // flatten...
                 var topicsFlattened = this._forumData.SelectMany(x => x.Topics);
 
-                return topicsFlattened.Where(t => t.CreatedDate > DateTime.Now.AddHours(this._topicHours)).GroupBy(x => x.Forum);
+                return
+                    topicsFlattened.Where(t => t.CreatedDate > DateTime.Now.AddHours(this._topicHours))
+                        .GroupBy(x => x.Forum);
             }
         }
 
@@ -217,7 +227,9 @@ namespace YAF.Controls
         protected string GetMessageFormattedAndTruncated([NotNull] string lastMessage, int maxlength)
         {
             return
-                BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(lastMessage))).RemoveMultipleWhitespace().Truncate(maxlength);
+                BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(lastMessage)))
+                    .RemoveMultipleWhitespace()
+                    .Truncate(maxlength);
         }
 
         /// <summary>
@@ -228,7 +240,9 @@ namespace YAF.Controls
         /// </param>
         protected void OutputError([NotNull] string errorString)
         {
-            this.Response.Write("<!DOCTYPE html><html><head><title>Error</title></head><body><h1>{0}</h1></body></html>".FormatWith(errorString));
+            this.Response.Write(
+                "<!DOCTYPE html><html><head><title>Error</title></head><body><h1>{0}</h1></body></html>".FormatWith(
+                    errorString));
         }
 
         /// <summary>
@@ -238,11 +252,18 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            if (this.BoardID == 0)
+            {
+                this.BoardID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("BoardID").ToType<int>();
+            }
+
+            this.BoardSettings = new YafLoadBoardSettings(this.BoardID);
+
             this.Get<StartupInitializeDb>().Run();
 
             var token = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("token");
 
-            if (token.IsNotSet() || !token.Equals(YafContext.Current.BoardSettings.WebServiceToken))
+            if (token.IsNotSet() || !token.Equals(this.BoardSettings.WebServiceToken))
             {
                 if (this.ShowErrors)
                 {
@@ -285,13 +306,8 @@ namespace YAF.Controls
                 this.CurrentUserID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("UserID").ToType<int>();
             }
 
-            if (this.BoardID == 0)
-            {
-                this.BoardID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("BoardID").ToType<int>();
-            }
-
             // get topic hours...
-            this._topicHours = -YafContext.Current.BoardSettings.DigestSendEveryXHours;
+            this._topicHours = -this.BoardSettings.DigestSendEveryXHours;
 
             this._forumData = this.Get<YafDbBroker>()
                 .GetSimpleForumTopic(this.BoardID, this.CurrentUserID, DateTime.Now.AddHours(this._topicHours), 9999);
@@ -301,8 +317,7 @@ namespace YAF.Controls
                 if (this.ShowErrors)
                 {
                     this.OutputError(
-                        "No topics for the last {0} hours.".FormatWith(
-                            YafContext.Current.BoardSettings.DigestSendEveryXHours));
+                        "No topics for the last {0} hours.".FormatWith(this.BoardSettings.DigestSendEveryXHours));
 
                     //this.Response.Write(GetDebug());
                 }
@@ -311,10 +326,20 @@ namespace YAF.Controls
                 return;
             }
 
-            this._languageFile = UserHelper.GetUserLanguageFile(this.CurrentUserID);
-            this._theme = new YafTheme(UserHelper.GetUserThemeFile(this.CurrentUserID));
+            this._languageFile = UserHelper.GetUserLanguageFile(
+                this.CurrentUserID,
+                this.BoardID,
+                this.BoardSettings.AllowUserLanguage);
 
-            string subject = this.GetText("SUBJECT").FormatWith(YafContext.Current.BoardSettings.Name);
+            this._theme =
+                new YafTheme(
+                    UserHelper.GetUserThemeFile(
+                        this.CurrentUserID,
+                        this.BoardID,
+                        this.BoardSettings.AllowUserTheme,
+                        this.BoardSettings.Theme));
+
+            string subject = this.GetText("SUBJECT").FormatWith(this.BoardSettings.Name);
 
             string digestHead = this._theme.GetItem("THEME", "DIGESTHEAD", null);
 

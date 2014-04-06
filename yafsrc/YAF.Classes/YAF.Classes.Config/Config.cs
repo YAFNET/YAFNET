@@ -419,7 +419,7 @@ namespace YAF.Classes
                 }
 
                 object obj = HttpContext.Current.Items["PortalSettings"];
-                return obj != null && obj.GetType().ToString().ToLower().IndexOf("dotnetnuke") >= 0;
+                return obj != null && obj.GetType().ToString().ToLower().IndexOf("dotnetnuke", StringComparison.Ordinal) >= 0;
             }
         }
 
@@ -436,7 +436,7 @@ namespace YAF.Classes
                 }
 
                 object obj = HttpContext.Current.Items["SiteSettings"];
-                return obj != null && obj.GetType().ToString().ToLower().IndexOf("mojoportal") >= 0;
+                return obj != null && obj.GetType().ToString().ToLower().IndexOf("mojoportal", StringComparison.Ordinal) >= 0;
             }
         }
 
@@ -475,7 +475,7 @@ namespace YAF.Classes
                 }
 
                 object obj = HttpContext.Current.Items["PortalSettings"];
-                return obj != null && obj.GetType().ToString().ToLower().IndexOf("rainbow") >= 0;
+                return obj != null && obj.GetType().ToString().ToLower().IndexOf("rainbow", StringComparison.Ordinal) >= 0;
             }
         }
 
@@ -850,6 +850,20 @@ namespace YAF.Classes
             get
             {
                 return GetConfigValueAsString("YAF.DatabaseWithOIDs");
+            }
+        }
+
+        /// <summary>
+        /// Gets the banned IP redirect URL.
+        /// </summary>
+        /// <value>
+        /// The banned IP redirect URL.
+        /// </value>
+        public static string BannedIpRedirectUrl
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.BannedIpRedirectUrl");
             }
         }
 

@@ -58,6 +58,29 @@ namespace YAF.Core
         }
 
         /// <summary>
+        /// Gets the user language file.
+        /// </summary>
+        /// <param name="userId">The user id.</param>
+        /// <param name="boardID">The board identifier.</param>
+        /// <param name="allowUserLanguage">if set to <c>true</c> [allow user language].</param>
+        /// <returns>
+        /// language file name. If null -- use default language
+        /// </returns>
+        public static string GetUserLanguageFile(int userId, int boardID, bool allowUserLanguage)
+        {
+            // get the user information...
+            DataRow row = UserMembershipHelper.GetUserRowForID(userId, boardID);
+
+            if (row != null && row["LanguageFile"] != DBNull.Value
+                && allowUserLanguage)
+            {
+                return row["LanguageFile"].ToString();
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Gets the user theme file.
         /// </summary>
         /// <param name="userId">The user id.</param>
@@ -66,10 +89,37 @@ namespace YAF.Core
         {
             DataRow row = UserMembershipHelper.GetUserRowForID(userId);
 
-            string themeFile = row["ThemeFile"] != DBNull.Value && YafContext.Current.Get<YafBoardSettings>().AllowUserTheme
+            var themeFile = row != null && row["ThemeFile"] != DBNull.Value
+                               && YafContext.Current.Get<YafBoardSettings>().AllowUserTheme
                                    ? row["ThemeFile"].ToString()
                                    : YafContext.Current.Get<YafBoardSettings>().Theme;
 
+            if (!YafTheme.IsValidTheme(themeFile))
+            {
+                themeFile = StaticDataHelper.Themes().Rows[0][1].ToString();
+            }
+
+            return themeFile;
+        }
+
+        /// <summary>
+        /// Gets the user theme file.
+        /// </summary>
+        /// <param name="userId">The user id.</param>
+        /// <param name="boardID">The board identifier.</param>
+        /// <param name="allowUserTheme">if set to <c>true</c> [allow user theme].</param>
+        /// <param name="theme">The theme.</param>
+        /// <returns>
+        /// Returns User theme
+        /// </returns>
+        public static string GetUserThemeFile(int userId, int boardID, bool allowUserTheme, string theme)
+        {
+            DataRow row = UserMembershipHelper.GetUserRowForID(userId, boardID);
+
+            var themeFile = (row != null && row["ThemeFile"] != DBNull.Value && allowUserTheme)
+                                   ? row["ThemeFile"].ToString()
+                                   : theme;
+            
             if (!YafTheme.IsValidTheme(themeFile))
             {
                 themeFile = StaticDataHelper.Themes().Rows[0][1].ToString();

@@ -17,8 +17,8 @@
                     <tr>
                         <td width="50%">
                             <h1 class="title">
-                                <a href="<%= YafBuildLink.GetLink(ForumPages.forum, true) %>">
-                                    <%= this.PageContext.BoardSettings.Name %></a></h1>
+                                <a href="<%= YafBuildLink.GetLink(this.BoardSettings, ForumPages.forum, true) %>">
+                                    <%= this.BoardSettings.Name %></a></h1>
                         </td>
                         <td width="50%" align="right">
                             <h1 class="date">
@@ -47,9 +47,9 @@
                 <div class="topic">
                     <div>
                         <h3>
-                            <a class="subject" href="<%= YafBuildLink.GetLink(ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
+                            <a class="subject" href="<%= YafBuildLink.GetLink(this.BoardSettings, ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
                                 target="_blank">
-                                <%= t.Subject %></a> <a class="comments" href="<%= YafBuildLink.GetLink(ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
+                                <%= t.Subject %></a> <a class="comments" href="<%= YafBuildLink.GetLink(this.BoardSettings, ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
                                     target="_blank">
                                     <%= this.GetText("COMMENTS").FormatWith(t.Replies) %></a></h3>
                         <h5>
@@ -85,9 +85,9 @@
                 <div class="topic">
                     <div>
                         <h3>
-                            <a class="subject" href="<%= YafBuildLink.GetLink(ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
+                            <a class="subject" href="<%= YafBuildLink.GetLink(this.BoardSettings, ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
                                 target="_blank">
-                                <%= t.Subject %></a> <a class="comments" href="<%= YafBuildLink.GetLink(ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
+                                <%= t.Subject %></a> <a class="comments" href="<%= YafBuildLink.GetLink(this.BoardSettings, ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
                                     target="_blank">
                                     <%= this.GetText("COMMENTS").FormatWith(t.Replies) %></a></h3>
                         <h5>
@@ -95,7 +95,7 @@
                         <div class="shortpost">
                             <span class="text">
                                 <%= this.GetMessageFormattedAndTruncated(t.LastMessage, 200) %>
-                            </span><a href="<%= YafBuildLink.GetLink(ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
+                            </span><a href="<%= YafBuildLink.GetLink(this.BoardSettings, ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
                                 class="link" target="_blank">
                                 <%= this.GetText("LINK") %></a> <span class="by">
                                     <%= this.GetText("LASTBY").FormatWith(t.LastUserName) %>
@@ -112,7 +112,7 @@
         <div class="bottom">
             <div>
                 <%= this.GetText("REMOVALTEXT") %>
-                <a href="<%= YafBuildLink.GetLink(ForumPages.cp_subscriptions, true) %>" class="removelink">
+                <a href="<%= YafBuildLink.GetLink(this.BoardSettings, ForumPages.cp_subscriptions, true) %>" class="removelink">
                     <%= this.GetText("REMOVALLINK") %></a>
             </div>
         </div>

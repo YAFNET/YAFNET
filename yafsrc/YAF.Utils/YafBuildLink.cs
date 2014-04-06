@@ -111,8 +111,8 @@ namespace YAF.Utils
         public static string GetBasePath(bool fullUrl = false)
         {
             return fullUrl
-                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull("").TrimEnd('&')
-                       : YafFactoryProvider.UrlBuilder.BuildUrl("").TrimEnd('&');
+                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull(string.Empty).TrimEnd('&')
+                       : YafFactoryProvider.UrlBuilder.BuildUrl(string.Empty).TrimEnd('&');
         }
 
         /// <summary>
@@ -139,6 +139,22 @@ namespace YAF.Utils
         }
 
         /// <summary>
+        /// Gets link to the page.
+        /// </summary>
+        /// <param name="boardSettings">The board settings.</param>
+        /// <param name="page">Page to which to create a link.</param>
+        /// <param name="fullUrl">if set to <c>true</c> [full URL].</param>
+        /// <returns>
+        /// URL to the given page.
+        /// </returns>
+        public static string GetLink(YafBoardSettings boardSettings, ForumPages page, bool fullUrl = false)
+        {
+            return fullUrl
+                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull(boardSettings, "g={0}".FormatWith(page))
+                       : YafFactoryProvider.UrlBuilder.BuildUrl(boardSettings, "g={0}".FormatWith(page));
+        }
+
+        /// <summary>
         /// Gets link to the page with given parameters.
         /// </summary>
         /// <param name="page">
@@ -162,6 +178,28 @@ namespace YAF.Utils
                        ? YafFactoryProvider.UrlBuilder.BuildUrlFull(
                            "g={0}&{1}".FormatWith(page, format.FormatWith(args)))
                        : YafFactoryProvider.UrlBuilder.BuildUrl("g={0}&{1}".FormatWith(page, format.FormatWith(args)));
+        }
+
+        /// <summary>
+        /// Gets link to the page with given parameters.
+        /// </summary>
+        /// <param name="boardSettings">The board settings.</param>
+        /// <param name="page">Page to which to create a link.</param>
+        /// <param name="fullUrl">The full Url.</param>
+        /// <param name="format">Format of parameters.</param>
+        /// <param name="args">Array of page parameters.</param>
+        /// <returns>
+        /// URL to the given page with parameters.
+        /// </returns>
+        public static string GetLink(YafBoardSettings boardSettings, ForumPages page, bool fullUrl, string format, params object[] args)
+        {
+            return fullUrl
+                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull(
+                           boardSettings,
+                           "g={0}&{1}".FormatWith(page, format.FormatWith(args)))
+                       : YafFactoryProvider.UrlBuilder.BuildUrl(
+                           boardSettings,
+                           "g={0}&{1}".FormatWith(page, format.FormatWith(args)));
         }
 
         /// <summary>
