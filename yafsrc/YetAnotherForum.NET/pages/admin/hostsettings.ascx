@@ -12,7 +12,7 @@
         <li><a href="#View5"><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="HOST_EDITORS" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
         <li><a href="#View6"><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="HOST_PERMISSION" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
         <li><a href="#View7"><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="HOST_TEMPLATES" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
-        <li><a href="#View8"><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="HOST_AVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
+        <asp:PlaceHolder runat="server" ID="AvatarsTabLi"><li><a href="#View8"><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="HOST_AVATARS" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li></asp:PlaceHolder>
         <li><a href="#View9"><YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="HOST_CACHE" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
         <li><a href="#View10"><YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="HOST_SEARCH" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
         <li><a href="#View11"><YAF:LocalizedLabel ID="LocalizedLabel34" runat="server" LocalizedTag="HOST_LOG" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
@@ -268,7 +268,8 @@
                             <asp:CheckBox ID="BanBotIpOnDetection" runat="server" />
                         </td>
                     </tr>
-<tr>
+                    <asp:PlaceHolder runat="server" ID="LoginSettings">
+                    <tr>
                         <td class="header1" colspan="2">
                             <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="HEADER_LOGIN" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
@@ -313,6 +314,7 @@
                             <asp:CheckBox ID="UseLoginBox" runat="server" />
                         </td>
                     </tr>
+                    </asp:PlaceHolder>
                     <tr>
                         <td class="header1" colspan="2">
                             <YAF:LocalizedLabel ID="LocalizedLabel22" runat="server" LocalizedTag="HEADER_IMAGE_ATTACH" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1582,6 +1584,7 @@
                             <asp:TextBox Style="width:350px" ID="MaxWordLength" MaxLength="2" runat="server"></asp:TextBox>
                         </td>
                     </tr>
+                    <asp:PlaceHolder runat="server" ID="SSLSettings">
                     <tr>
                         <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel71" runat="server" LocalizedTag="SSL_LOGIN" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1598,6 +1601,7 @@
                             <asp:CheckBox ID="UseSSLToRegister" runat="server"></asp:CheckBox>
                         </td>
                     </tr>
+                    </asp:PlaceHolder>
                 </table>
 	</div>
     <div id="View7">
@@ -1718,9 +1722,10 @@
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="UserBoxThanksTo" runat="server"></asp:TextBox>
                         </td>
-                    </tr>
+                    </tr>s
                 </table>
 	</div>
+    <asp:PlaceHolder runat="server" ID="AvatarsTab">
     <div id="View8">
 		<table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>
@@ -1799,6 +1804,7 @@
                     </tr>
                 </table>
 	</div>
+    </asp:PlaceHolder>
     <div id="View9">
 		<table class="content" width="100%" cellspacing="2" cellpadding="2" align="center">
                     <tr>

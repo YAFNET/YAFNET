@@ -219,6 +219,12 @@ namespace YAF.Pages.Admin
 
             // CheckCache
             this.CheckCache();
+
+            // Hide Some settings if yaf is inside dnn
+            this.AvatarsTabLi.Visible = !Config.IsDotNetNuke;
+            this.AvatarsTab.Visible = !Config.IsDotNetNuke;
+            this.SSLSettings.Visible = !Config.IsDotNetNuke;
+            this.LoginSettings.Visible = !Config.IsDotNetNuke;
         }
 
         /// <summary>

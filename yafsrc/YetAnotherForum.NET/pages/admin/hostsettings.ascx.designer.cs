@@ -103,6 +103,15 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel7;
         
         /// <summary>
+        /// AvatarsTabLi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder AvatarsTabLi;
+        
+        /// <summary>
         /// LocalizedLabel8 control.
         /// </summary>
         /// <remarks>
@@ -677,6 +686,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox BanBotIpOnDetection;
+        
+        /// <summary>
+        /// LoginSettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder LoginSettings;
         
         /// <summary>
         /// LocalizedLabel21 control.
@@ -3505,6 +3523,15 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox MaxWordLength;
         
         /// <summary>
+        /// SSLSettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder SSLSettings;
+        
+        /// <summary>
         /// HelpLabel71 control.
         /// </summary>
         /// <remarks>
@@ -3800,6 +3827,15 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox UserBoxThanksTo;
+        
+        /// <summary>
+        /// AvatarsTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder AvatarsTab;
         
         /// <summary>
         /// LocalizedLabel18 control.
