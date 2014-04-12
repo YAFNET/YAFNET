@@ -34,6 +34,7 @@ namespace YAF.Controls
 
     using YAF.Classes;
     using YAF.Core;
+    using YAF.Core.Data.Profiling;
     using YAF.Core.Services;
     using YAF.Core.Services.Localization;
     using YAF.Core.Services.Startup;
@@ -256,7 +257,17 @@ namespace YAF.Controls
                 this.BoardID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("BoardID").ToType<int>();
             }
 
-            this.BoardSettings = new YafLoadBoardSettings(this.BoardID);
+            if (HttpContext.Current != null)
+            {
+                if (YafContext.Current.BoardSettings.BoardID.Equals(this.BoardID))
+                {
+                    this.BoardSettings = YafContext.Current.BoardSettings;
+                }
+            }
+            else
+            {
+                this.BoardSettings = new YafLoadBoardSettings(this.BoardID);
+            }
 
             this.Get<StartupInitializeDb>().Run();
 

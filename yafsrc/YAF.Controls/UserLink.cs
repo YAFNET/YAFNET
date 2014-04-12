@@ -204,8 +204,8 @@ namespace YAF.Controls
 
                     output.WriteAttribute(
                         "data-hovercard",
-                        "{0}DesktopModules/YetAnotherForumDotNet/resource.ashx?userinfo={1}&boardId={2}&type=json&forumUrl={3}".FormatWith(
-                            Config.IsDotNetNuke ? YafBuildLink.GetBasePath() : YafForumInfo.ForumClientFileRoot,
+                        "{0}resource.ashx?userinfo={1}&boardId={2}&type=json&forumUrl={3}".FormatWith(
+                            Config.IsDotNetNuke ? YafBuildLink.GetBasePath() + BaseUrlBuilder.AppPath : YafForumInfo.ForumClientFileRoot,
                             this.UserID,
                             YafContext.Current.PageBoardID,
                             HttpUtility.UrlEncode(YafBuildLink.GetBasePath())));
