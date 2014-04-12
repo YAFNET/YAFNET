@@ -1269,6 +1269,10 @@ IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{data
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_gettextbyids]
 GO
 
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_GetTextByIds]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_GetTextByIds]
+GO
+
 /*****************************************************************************************************************************/
 /***** BEGIN CREATE PROCEDURES ******/
 /*****************************************************************************************************************************/
@@ -10549,7 +10553,7 @@ begin
      end
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_gettextbyids] (@MessageIDs varchar(max))
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_GetTextByIds] (@MessageIDs varchar(max))
 AS 
     BEGIN
     -- vzrus says: the server version > 2000 ntext works too slowly with substring in the 2005 

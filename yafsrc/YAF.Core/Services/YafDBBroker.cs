@@ -157,8 +157,8 @@ namespace YAF.Core.Services
             var allThanks = LegacyDb.MessageGetAllThanks(messageIds.ToDelimitedString(",")).ToList();
 
             foreach (var f in
-                allThanks.Where(t => t.FromUserID != null && t.FromUserID == YafContext.Current.PageUserID).SelectMany(
-                    thanks => dataRows.Where(x => x.Field<int>("MessageID") == thanks.MessageID)))
+                allThanks.Where(t => t.FromUserID != null && t.FromUserID == YafContext.Current.PageUserID)
+                    .SelectMany(thanks => dataRows.Where(x => x.Field<int>("MessageID") == thanks.MessageID)))
             {
                 f["IsThankedByUser"] = "true";
                 f.AcceptChanges();
@@ -170,8 +170,7 @@ namespace YAF.Core.Services
             {
                 var messageId = postRow.Field<int>("MessageID");
 
-                postRow["MessageThanksNumber"] =
-                    allThanks.Count(t => t.FromUserID != null && t.MessageID == messageId);
+                postRow["MessageThanksNumber"] = allThanks.Count(t => t.FromUserID != null && t.MessageID == messageId);
 
                 var thanksFiltered = allThanks.Where(t => t.MessageID == messageId);
 
@@ -190,10 +189,10 @@ namespace YAF.Core.Services
                 }
 
                 // load all all thanks info into a special column...
-                postRow["ThanksInfo"] = thanksFiltered
-                    .Where(t => t.FromUserID != null)
-                    .Select(x => "{0}|{1}".FormatWith(x.FromUserID.Value, x.ThanksDate))
-                    .ToDelimitedString(",");
+                postRow["ThanksInfo"] =
+                    thanksFiltered.Where(t => t.FromUserID != null)
+                        .Select(x => "{0}|{1}".FormatWith(x.FromUserID.Value, x.ThanksDate))
+                        .ToDelimitedString(",");
 
                 postRow.AcceptChanges();
             }
@@ -229,15 +228,13 @@ namespace YAF.Core.Services
                     moderator.Columns.AddRange(
                         new[]
                             {
-                                new DataColumn("ForumID", typeof(int)), 
-                                new DataColumn("ForumName", typeof(string)),
+                                new DataColumn("ForumID", typeof(int)), new DataColumn("ForumName", typeof(string)),
                                 new DataColumn("ModeratorName", typeof(string)),
                                 new DataColumn("ModeratorDisplayName", typeof(string)),
                                 new DataColumn("ModeratorEmail", typeof(string)),
                                 new DataColumn("ModeratorAvatar", typeof(string)),
                                 new DataColumn("ModeratorAvatarImage", typeof(bool)),
-                                new DataColumn("Style", typeof(string)), 
-                                new DataColumn("IsGroup", typeof(bool))
+                                new DataColumn("Style", typeof(string)), new DataColumn("IsGroup", typeof(bool))
                             });
                 }
 
@@ -263,9 +260,9 @@ namespace YAF.Core.Services
                 if (categoryID.HasValue)
                 {
                     // make sure this only has the category desired in the dataset
-                    foreach (DataRow row in categoryTable
-                        .AsEnumerable()
-                        .Where(row => row.Field<int>("CategoryID") != categoryID))
+                    foreach (
+                        DataRow row in
+                            categoryTable.AsEnumerable().Where(row => row.Field<int>("CategoryID") != categoryID))
                     {
                         // delete it...
                         row.Delete();
@@ -300,10 +297,12 @@ namespace YAF.Core.Services
                 bool deletedCategory = false;
 
                 // remove empty categories...
-                foreach (DataRow row in categoryTable
-                    .SelectTypedList(row => new { row, childRows = row.GetChildRows("FK_Forum_Category") })
-                    .Where(@t => !@t.childRows.Any())
-                    .Select(@t => @t.row))
+                foreach (
+                    DataRow row in
+                        categoryTable.SelectTypedList(
+                            row => new { row, childRows = row.GetChildRows("FK_Forum_Category") })
+                            .Where(@t => !@t.childRows.Any())
+                            .Select(@t => @t.row))
                 {
                     // remove this category...
                     row.Delete();
@@ -360,8 +359,12 @@ namespace YAF.Core.Services
         /// </returns>
         public DataTable GetActiveList(bool guests, bool crawlers, int? activeTime = null)
         {
-            return this.GetRepository<Active>().List(
-                guests, crawlers, activeTime ?? this.BoardSettings.ActiveListTime, this.BoardSettings.UseStyledNicks);
+            return this.GetRepository<Active>()
+                .List(
+                    guests,
+                    crawlers,
+                    activeTime ?? this.BoardSettings.ActiveListTime,
+                    this.BoardSettings.UseStyledNicks);
         }
 
         /// <summary>
@@ -451,11 +454,13 @@ namespace YAF.Core.Services
             return this.DataCache.GetOrSet(
                 Constants.Cache.ForumModerators,
                 () =>
-                {
-                    DataTable moderator = this.DbFunction.GetAsDataTable(cdb => cdb.forum_moderators(this.BoardSettings.UseStyledNicks));
-                    moderator.TableName = "Moderator";
-                    return moderator;
-                },
+                    {
+                        DataTable moderator =
+                            this.DbFunction.GetAsDataTable(
+                                cdb => cdb.forum_moderators(this.BoardSettings.UseStyledNicks));
+                        moderator.TableName = "Moderator";
+                        return moderator;
+                    },
                 TimeSpan.FromMinutes(this.Get<YafBoardSettings>().BoardModeratorsCacheTimeout));
         }
 
@@ -471,7 +476,11 @@ namespace YAF.Core.Services
             return
                 this.StyleTransformDataTable(
                     this.DbFunction.GetAsDataTable(
-                        cdb => cdb.recent_users(YafContext.Current.PageBoardID, timeSinceLastLogin, this.BoardSettings.UseStyledNicks)));
+                        cdb =>
+                        cdb.recent_users(
+                            YafContext.Current.PageBoardID,
+                            timeSinceLastLogin,
+                            this.BoardSettings.UseStyledNicks)));
         }
 
         /// <summary>
@@ -485,7 +494,12 @@ namespace YAF.Core.Services
                 Constants.Cache.Shoutbox,
                 () =>
                     {
-                        var messages = this.GetRepository<ShoutboxMessage>().GetMessages(this.BoardSettings.ShoutboxShowMessageCount, this.BoardSettings.UseStyledNicks, boardId);
+                        var messages =
+                            this.GetRepository<ShoutboxMessage>()
+                                .GetMessages(
+                                    this.BoardSettings.ShoutboxShowMessageCount,
+                                    this.BoardSettings.UseStyledNicks,
+                                    boardId);
                         var flags = new MessageFlags { IsBBCode = true, IsHtml = false };
 
                         foreach (var row in messages.AsEnumerable())
@@ -560,12 +574,17 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        ///     The get smilies.
+        /// Gets the smilies.
         /// </summary>
-        /// <returns> Table with list of smiles </returns>
+        /// <returns>
+        /// Table with list of smilies
+        /// </returns>
         public IList<Smiley> GetSmilies()
         {
-            return this.DataCache.GetOrSet(Constants.Cache.Smilies, () => this.GetRepository<Smiley>().ListTyped(), TimeSpan.FromMinutes(60));
+            return this.DataCache.GetOrSet(
+                Constants.Cache.Smilies,
+                () => this.GetRepository<Smiley>().ListTyped(),
+                TimeSpan.FromMinutes(60));
         }
 
         /// <summary>
@@ -579,7 +598,8 @@ namespace YAF.Core.Services
 
             var messageIds = results.Where(x => x.Message.IsNotSet()).Select(x => x.MessageID);
 
-            var messageTextTable = this.DbFunction.GetAsDataTable(cdb => cdb.message_GetTextByIds(messageIds.ToDelimitedString(",")));
+            var messageTextTable =
+                this.DbFunction.GetAsDataTable(cdb => cdb.message_GetTextByIds(messageIds.ToDelimitedString(",")));
 
             if (messageTextTable == null)
             {
@@ -597,7 +617,7 @@ namespace YAF.Core.Services
                 {
                     continue;
                 }
-                
+
                 r.Message = message.Field<string>("Message");
             }
         }
@@ -693,7 +713,9 @@ namespace YAF.Core.Services
 
             // get the medals cached...
             DataTable dt = this.DataCache.GetOrSet(
-                key, () => this.DbFunction.GetAsDataTable(cdb => cdb.user_listmedals(userId)), TimeSpan.FromMinutes(10));
+                key,
+                () => this.DbFunction.GetAsDataTable(cdb => cdb.user_listmedals(userId)),
+                TimeSpan.FromMinutes(10));
 
             return dt;
         }
@@ -715,21 +737,23 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(forum, "forum");
 
             return new SimpleTopic
-                {
-                    TopicID = row.Field<int>("TopicID"),
-                    CreatedDate = row.Field<DateTime>("Posted"),
-                    Subject = row.Field<string>("Subject"),
-                    StartedUserID = row.Field<int>("UserID"),
-                    StartedUserName = UserMembershipHelper.GetDisplayNameFromID(row.Field<int>("UserID")),
-                    Replies = row.Field<int>("Replies"),
-                    LastPostDate = row.Field<DateTime>("LastPosted"),
-                    LastUserID = row.Field<int>("LastUserID"),
-                    LastUserName = UserMembershipHelper.GetDisplayNameFromID(row.Field<int>("LastUserID")),
-                    LastMessageID = row.Field<int>("LastMessageID"),
-                    FirstMessage = row.Field<string>("FirstMessage"),
-                    LastMessage = LegacyDb.MessageList(row.Field<int>("LastMessageID")).First().Message,
-                    Forum = forum
-                };
+                       {
+                           TopicID = row.Field<int>("TopicID"),
+                           CreatedDate = row.Field<DateTime>("Posted"),
+                           Subject = row.Field<string>("Subject"),
+                           StartedUserID = row.Field<int>("UserID"),
+                           StartedUserName =
+                               UserMembershipHelper.GetDisplayNameFromID(row.Field<int>("UserID")),
+                           Replies = row.Field<int>("Replies"),
+                           LastPostDate = row.Field<DateTime>("LastPosted"),
+                           LastUserID = row.Field<int>("LastUserID"),
+                           LastUserName =
+                               UserMembershipHelper.GetDisplayNameFromID(row.Field<int>("LastUserID")),
+                           LastMessageID = row.Field<int>("LastMessageID"),
+                           FirstMessage = row.Field<string>("FirstMessage"),
+                           LastMessage = LegacyDb.MessageList(row.Field<int>("LastMessageID")).First().Message,
+                           Forum = forum
+                       };
         }
 
         #endregion

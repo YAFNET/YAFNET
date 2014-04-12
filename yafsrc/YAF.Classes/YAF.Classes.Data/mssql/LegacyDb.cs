@@ -3671,25 +3671,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// Retuns All the message text for the Message IDs which are in the 
-        ///   delimited string variable MessageIDs
-        /// </summary>
-        /// <param name="messageIDs">
-        /// The message i ds.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static DataTable message_GetTextByIds([NotNull] string messageIDs)
-        {
-            using (var cmd = DbHelpers.GetCommand("message_gettextbyids"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("MessageIDs", messageIDs);
-                return DbAccess.GetData(cmd);
-            }
-        }
-
-        /// <summary>
         /// Returns the UserIDs and UserNames who have thanked the message
         ///   with the provided messageID.
         /// </summary>
@@ -6014,37 +5995,29 @@ namespace YAF.Classes.Data
         /// <summary>
         /// The system_initialize.
         /// </summary>
-        /// <param name="forumName">
-        /// The forum name.
-        /// </param>
-        /// <param name="timeZone">
-        /// The time zone.
-        /// </param>
-        /// <param name="culture">
-        /// The culture.
-        /// </param>
-        /// <param name="languageFile">
-        /// The language File.
-        /// </param>
-        /// <param name="forumEmail">
-        /// The forum email.
-        /// </param>
-        /// <param name="smtpServer">
-        /// The smtp server.
-        /// </param>
-        /// <param name="userName">
-        /// The user name.
-        /// </param>
-        /// <param name="userEmail">
-        /// The user email.
-        /// </param>
-        /// <param name="providerUserKey">
-        /// The provider user key.
-        /// </param>
-        /// <param name="rolePrefix">
-        /// The role Prefix.
-        /// </param>
-        public static void system_initialize([NotNull] string forumName, [NotNull] string timeZone, [NotNull] string culture, [NotNull] string languageFile, [NotNull] string forumEmail, [NotNull] string smtpServer, [NotNull] string userName, [NotNull] string userEmail, [NotNull] object providerUserKey, [NotNull] string rolePrefix)
+        /// <param name="forumName">The forum name.</param>
+        /// <param name="timeZone">The time zone.</param>
+        /// <param name="culture">The culture.</param>
+        /// <param name="languageFile">The language File.</param>
+        /// <param name="forumEmail">The forum email.</param>
+        /// <param name="forumBaseUrlMask">The forum base URL mask.</param>
+        /// <param name="smtpServer">The smtp server.</param>
+        /// <param name="userName">The user name.</param>
+        /// <param name="userEmail">The user email.</param>
+        /// <param name="providerUserKey">The provider user key.</param>
+        /// <param name="rolePrefix">The role Prefix.</param>
+        public static void system_initialize(
+            [NotNull] string forumName,
+            [NotNull] string timeZone,
+            [NotNull] string culture,
+            [NotNull] string languageFile,
+            [NotNull] string forumEmail,
+            [NotNull] string forumBaseUrlMask,
+            [NotNull] string smtpServer,
+            [NotNull] string userName,
+            [NotNull] string userEmail,
+            [NotNull] object providerUserKey,
+            [NotNull] string rolePrefix)
         {
             using (var cmd = DbHelpers.GetCommand("system_initialize"))
             {
@@ -6054,6 +6027,7 @@ namespace YAF.Classes.Data
                 cmd.AddParam("@Culture", culture);
                 cmd.AddParam("@LanguageFile", languageFile);
                 cmd.AddParam("@ForumEmail", forumEmail);
+                cmd.AddParam("@ForumBaseUrlMask", forumBaseUrlMask);
                 cmd.AddParam("@SmtpServer", string.Empty);
                 cmd.AddParam("@User", userName);
                 cmd.AddParam("@UserEmail", userEmail);
