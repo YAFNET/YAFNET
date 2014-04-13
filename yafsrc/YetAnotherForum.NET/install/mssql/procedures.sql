@@ -9773,7 +9773,8 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_addrequest]
     @FromUserID INT,
     @ToUserID INT,
     @UTCTIMESTAMP datetime,
-    @approved BIT = NULL OUT,	
+    @approved BIT = NULL OUT,
+	@UseDisplayName BIT,	
     @paramOutput NVARCHAR(255) = NULL OUT
 AS 
     BEGIN
@@ -9803,10 +9804,10 @@ AS
                                   0,
                                   @UTCTIMESTAMP 
                                 )
-                        SET @paramOutput = ( SELECT [Name]
-                                             FROM   [{databaseOwner}].[{objectQualifier}User]
-                                             WHERE  ( UserID = @ToUserID )
-                                           )
+                        SET @paramOutput = ( SELECT (CASE WHEN @UseDisplayName = 1 THEN [DisplayName] ELSE [Name] END) 
+		                     FROM [{databaseOwner}].[{objectQualifier}User]
+							 WHERE ( UserID = @ToUserID )
+                           )
                         SET @approved = 0
                     END
                 ELSE 
@@ -9849,6 +9850,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_approverequest]
     @ToUserID INT,
     @Mutual BIT,
     @UTCTIMESTAMP datetime,
+	@UseDisplayName BIT,
     @paramOutput NVARCHAR(255) = NULL OUT
 AS 
     BEGIN
@@ -9863,10 +9865,10 @@ AS
                 WHERE   ( FromUserID = @FromUserID
                           AND ToUserID = @ToUserID
                         )
-                SET @paramOutput = ( SELECT [Name]
-                                     FROM   [{databaseOwner}].[{objectQualifier}User]
-                                     WHERE  ( UserID = @FromUserID )
-                                   )
+                SET @paramOutput = ( SELECT (CASE WHEN @UseDisplayName = 1 THEN [DisplayName] ELSE [Name] END) 
+		                     FROM [{databaseOwner}].[{objectQualifier}User]
+							 WHERE ( UserID = @FromUserID )
+                           )
                 IF ( @Mutual = 1 )
                     AND ( NOT EXISTS ( SELECT   ID
                                        FROM     [{databaseOwner}].[{objectQualifier}Buddy]
@@ -9930,6 +9932,7 @@ AS
     CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_remove]
     @FromUserID INT,
     @ToUserID INT,
+	@UseDisplayName BIT,
     @paramOutput NVARCHAR(255) = NULL OUT
 AS 
     BEGIN
@@ -9937,25 +9940,27 @@ AS
         WHERE   ( FromUserID = @FromUserID
                   AND ToUserID = @ToUserID
                 )
-        SET @paramOutput = ( SELECT [Name]
-                             FROM   [{databaseOwner}].[{objectQualifier}User]
-                             WHERE  ( UserID = @ToUserID )
+        SET @paramOutput = ( SELECT (CASE WHEN @UseDisplayName = 1 THEN [DisplayName] ELSE [Name] END) 
+		                     FROM [{databaseOwner}].[{objectQualifier}User]
+							 WHERE ( UserID = @ToUserID )
                            )
     END
     GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}buddy_denyrequest]
     @FromUserID INT,
     @ToUserID INT,
+	@UseDisplayName BIT,
     @paramOutput NVARCHAR(255) = NULL OUT
 AS 
     BEGIN
         DELETE  FROM [{databaseOwner}].[{objectQualifier}Buddy]
         WHERE   FromUserID = @FromUserID
                 AND ToUserID = @ToUserID
-        SET @paramOutput = ( SELECT [Name]
-                             FROM   [{databaseOwner}].[{objectQualifier}User]
-                             WHERE  ( UserID = @FromUserID )
-                           )
+        SET @paramOutput = ( SELECT (CASE WHEN @UseDisplayName = 1 THEN [DisplayName] ELSE [Name] END) 
+		                     FROM [{databaseOwner}].[{objectQualifier}User]
+							 WHERE ( UserID = @FromUserID 
+							)
+)
     END
 Go    
 /* End of stored procedures for Buddy feature */

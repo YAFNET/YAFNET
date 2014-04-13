@@ -1397,28 +1397,37 @@ namespace YAF.Classes.Data
         /// <summary>
         /// Adds a buddy request. (Should be approved later by "ToUserID")
         /// </summary>
-        /// <param name="FromUserID">
-        /// The from user id.
-        /// </param>
-        /// <param name="ToUserID">
-        /// The to user id.
-        /// </param>
+        /// <param name="FromUserID">The from user id.</param>
+        /// <param name="ToUserID">The to user id.</param>
+        /// <param name="useDisplayName">Display name of the use.</param>
         /// <returns>
         /// The name of the second user + Whether this request is approved or not.
         /// </returns>
         [NotNull]
-        public static string[] buddy_addrequest([NotNull] object FromUserID, [NotNull] object ToUserID)
+        public static string[] buddy_addrequest(
+            [NotNull] object FromUserID,
+            [NotNull] object ToUserID,
+            [NotNull] object useDisplayName)
         {
             using (var cmd = DbHelpers.GetCommand("buddy_addrequest"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255) { Direction = ParameterDirection.Output };
+                var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255)
+                                      {
+                                          Direction =
+                                              ParameterDirection
+                                              .Output
+                                      };
                 var approved = new SqlParameter("approved", SqlDbType.Bit) { Direction = ParameterDirection.Output };
+
                 cmd.AddParam("FromUserID", FromUserID);
                 cmd.AddParam("ToUserID", ToUserID);
                 cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
+                cmd.AddParam("UseDisplayName", useDisplayName);
+
                 cmd.Parameters.Add(paramOutput);
                 cmd.Parameters.Add(approved);
+
                 DbAccess.ExecuteNonQuery(cmd);
                 return new[] { paramOutput.Value.ToString(), approved.Value.ToString() };
             }
@@ -1440,17 +1449,25 @@ namespace YAF.Classes.Data
         /// the name of the second user.
         /// </returns>
         [NotNull]
-        public static string buddy_approveRequest([NotNull] object FromUserID, [NotNull] object ToUserID, [NotNull] object Mutual)
+        public static string buddy_approveRequest([NotNull] object FromUserID, [NotNull] object ToUserID, [NotNull] object Mutual, [NotNull] object useDisplayName)
         {
             using (var cmd = DbHelpers.GetCommand("buddy_approverequest"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
-                paramOutput.Direction = ParameterDirection.Output;
+
+                var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255)
+                {
+                    Direction =
+                        ParameterDirection
+                        .Output
+                };
+
                 cmd.AddParam("FromUserID", FromUserID);
                 cmd.AddParam("ToUserID", ToUserID);
                 cmd.AddParam("mutual", Mutual);
                 cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
+                cmd.AddParam("UseDisplayName", useDisplayName);
+
                 cmd.Parameters.Add(paramOutput);
                 DbAccess.ExecuteNonQuery(cmd);
                 return paramOutput.Value.ToString();
@@ -1460,25 +1477,30 @@ namespace YAF.Classes.Data
         /// <summary>
         /// Denies a buddy request.
         /// </summary>
-        /// <param name="FromUserID">
-        /// The from user id.
-        /// </param>
-        /// <param name="ToUserID">
-        /// The to user id.
-        /// </param>
+        /// <param name="FromUserID">The from user id.</param>
+        /// <param name="ToUserID">The to user id.</param>
+        /// <param name="useDisplayName">Display name of the use.</param>
         /// <returns>
         /// the name of the second user.
         /// </returns>
         [NotNull]
-        public static string buddy_denyRequest([NotNull] object FromUserID, [NotNull] object ToUserID)
+        public static string buddy_denyRequest([NotNull] object FromUserID, [NotNull] object ToUserID, [NotNull] object useDisplayName)
         {
             using (var cmd = DbHelpers.GetCommand("buddy_denyrequest"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
-                paramOutput.Direction = ParameterDirection.Output;
+
+                var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255)
+                                      {
+                                          Direction =
+                                              ParameterDirection
+                                              .Output
+                                      };
+
                 cmd.AddParam("FromUserID", FromUserID);
                 cmd.AddParam("ToUserID", ToUserID);
+                cmd.AddParam("UseDisplayName", useDisplayName);
+
                 cmd.Parameters.Add(paramOutput);
                 DbAccess.ExecuteNonQuery(cmd);
                 return paramOutput.Value.ToString();
@@ -1507,25 +1529,30 @@ namespace YAF.Classes.Data
         /// <summary>
         /// Removes the "ToUserID" from "FromUserID"'s buddy list.
         /// </summary>
-        /// <param name="FromUserID">
-        /// The from user id.
-        /// </param>
-        /// <param name="ToUserID">
-        /// The to user id.
-        /// </param>
+        /// <param name="FromUserID">The from user id.</param>
+        /// <param name="ToUserID">The to user id.</param>
+        /// <param name="useDisplayName">Display name of the use.</param>
         /// <returns>
         /// The name of the second user.
         /// </returns>
         [NotNull]
-        public static string buddy_remove([NotNull] object FromUserID, [NotNull] object ToUserID)
+        public static string buddy_remove([NotNull] object FromUserID, [NotNull] object ToUserID, [NotNull] object useDisplayName)
         {
             using (var cmd = DbHelpers.GetCommand("buddy_remove"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255);
-                paramOutput.Direction = ParameterDirection.Output;
+
+                var paramOutput = new SqlParameter("paramOutput", SqlDbType.NVarChar, 255)
+                {
+                    Direction =
+                        ParameterDirection
+                        .Output
+                };
+
                 cmd.AddParam("FromUserID", FromUserID);
                 cmd.AddParam("ToUserID", ToUserID);
+                cmd.AddParam("UseDisplayName", useDisplayName);
+
                 cmd.Parameters.Add(paramOutput);
                 DbAccess.ExecuteNonQuery(cmd);
                 return paramOutput.Value.ToString();
