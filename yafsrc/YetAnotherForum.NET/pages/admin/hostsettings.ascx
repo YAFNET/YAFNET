@@ -222,6 +222,7 @@
                             <asp:TextBox ID="AkismetApiKey" Style="width:350px" runat="server"></asp:TextBox>
                         </td>
                     </tr>
+                    <asp:PlaceHolder runat="server" ID="BotRegisterCheck">
                     <tr>
                         <td class="header1" colspan="2">
                             <YAF:LocalizedLabel ID="LocalizedLabel39" runat="server" LocalizedTag="HEADER_BOTSPAM" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -268,6 +269,7 @@
                             <asp:CheckBox ID="BanBotIpOnDetection" runat="server" />
                         </td>
                     </tr>
+                    </asp:PlaceHolder>
                     <asp:PlaceHolder runat="server" ID="LoginSettings">
                     <tr>
                         <td class="header1" colspan="2">

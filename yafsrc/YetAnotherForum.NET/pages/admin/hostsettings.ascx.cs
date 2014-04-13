@@ -224,6 +224,7 @@ namespace YAF.Pages.Admin
             this.AvatarsTabLi.Visible = !Config.IsDotNetNuke;
             this.AvatarsTab.Visible = !Config.IsDotNetNuke;
             this.SSLSettings.Visible = !Config.IsDotNetNuke;
+            this.BotRegisterCheck.Visible = !Config.IsDotNetNuke;
             this.LoginSettings.Visible = !Config.IsDotNetNuke;
         }
 
