@@ -39,7 +39,7 @@ namespace YAF.Modules
     #endregion
 
     /// <summary>
-    /// Summary description for SuspendCheckModule
+    /// Suspend Check Forum Module
     /// </summary>
     [YafModule("Suspend Check Module", "Tiny Gecko", 1)]
     public class SuspendCheckForumModule : SimpleBaseForumModule
@@ -72,14 +72,10 @@ namespace YAF.Modules
         #region Methods
 
         /// <summary>
-        /// The _pre load page_ handle event.
+        /// Check if the user needs to be unsuspended or redirected to the info page
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         private void _preLoadPage_HandleEvent(
             [NotNull] object sender, [NotNull] EventConverterArgs<ForumPagePreLoadEvent> e)
         {
@@ -97,6 +93,8 @@ namespace YAF.Modules
             if (this.PageContext.SuspendedUntil <= DateTime.UtcNow)
             {
                 LegacyDb.user_suspend(this.PageContext.PageUserID, null);
+
+                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
             }
             else
             {
