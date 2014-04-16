@@ -75,14 +75,14 @@ namespace YAF.Core.URLBuilder
                 var isFeed = false;
                 var handlePage = false;
 
-                switch (parser["g"])
+                switch (parser["g"].ToEnum<ForumPages>())
                 {
-                    case "topics":
+                    case ForumPages.topics:
                         useKey = "f";
                         description = UrlRewriteHelper.GetForumName(parser[useKey].ToType<int>());
                         handlePage = true;
                         break;
-                    case "posts":
+                    case ForumPages.posts:
                         if (parser["t"].IsSet())
                         {
                             useKey = "t";
@@ -106,14 +106,18 @@ namespace YAF.Core.URLBuilder
 
                         handlePage = true;
                         break;
-                    case "profile":
+                    case ForumPages.profile:
                         useKey = "u";
 
-                        description = parser["name"].IsSet() ? parser["name"] : UrlRewriteHelper.GetProfileName(parser[useKey].ToType<int>());
+                        description =
+                            UrlRewriteHelper.CleanStringForURL(
+                                parser["name"].IsSet()
+                                    ? parser["name"]
+                                    : UrlRewriteHelper.GetProfileName(parser[useKey].ToType<int>()));
 
                         parser.Parameters.Remove("name");
                         break;
-                    case "forum":
+                    case ForumPages.forum:
                         if (parser["c"].IsSet())
                         {
                             useKey = "c";
@@ -121,7 +125,7 @@ namespace YAF.Core.URLBuilder
                         }
 
                         break;
-                    case "rsstopic":
+                    case ForumPages.rsstopic:
                         if (parser["pg"].IsSet())
                         {
                             description = parser["pg"].ToEnum<YafRssFeeds>().ToString().ToLower();

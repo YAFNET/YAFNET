@@ -81,15 +81,15 @@ namespace YAF.Core.URLBuilder
                 bool isFeed = false;
                 bool handlePage = false;
 
-                switch (pageName)
+                switch (pageName.ToEnum<ForumPages>())
                 {
-                    case "topics":
+                    case ForumPages.topics:
                         useKey = "f";
                         pageName += "/";
                         description = UrlRewriteHelper.GetForumName(parser[useKey].ToType<int>());
                         handlePage = true;
                         break;
-                    case "posts":
+                    case ForumPages.posts:
                         pageName += "/";
                         if (parser["t"].IsSet())
                         {
@@ -114,14 +114,18 @@ namespace YAF.Core.URLBuilder
 
                         handlePage = true;
                         break;
-                    case "profile":
+                    case ForumPages.profile:
                         useKey = "u";
                         pageName += "/";
-                        description = parser["name"].IsSet() ? parser["name"] : UrlRewriteHelper.GetProfileName(parser[useKey].ToType<int>());
+                        description =
+                            UrlRewriteHelper.CleanStringForURL(
+                                parser["name"].IsSet()
+                                    ? parser["name"]
+                                    : UrlRewriteHelper.GetProfileName(parser[useKey].ToType<int>()));
 
                         parser.Parameters.Remove("name");
                         break;
-                    case "forum":
+                    case ForumPages.forum:
                         pageName = "category/";
                         if (parser["c"].IsSet())
                         {
@@ -134,7 +138,7 @@ namespace YAF.Core.URLBuilder
                         }
 
                         break;
-                    case "rsstopic":
+                    case ForumPages.rsstopic:
                         pageName += "/";
 
                         if (parser["pg"].IsSet())
