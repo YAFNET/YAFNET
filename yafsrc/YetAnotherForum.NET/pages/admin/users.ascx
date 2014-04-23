@@ -92,20 +92,21 @@
                     </td>
                     <td class="post" align="center">
                        <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
-                       <YAF:ThemeButton ID="ThemeButtonDelete" OnLoad="Delete_Load" CssClass="yaflittlebutton" CommandName='delete' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' TitleLocalizedTag="DELETE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false %>' runat="server"></YAF:ThemeButton>
+                       <YAF:ThemeButton ID="ThemeButtonDelete" OnLoad="Delete_Load" CssClass="yaflittlebutton" CommandName='delete' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' TitleLocalizedTag="DELETE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !YAF.Classes.Config.IsDotNetNuke %>' runat="server"></YAF:ThemeButton>
                     </td>
                 </tr>
             </ItemTemplate>
         </asp:Repeater>
         <tr>
             <td class="footer1" colspan="9" style="text-align:center">
-                <strong>
-                    <asp:Button id="NewUser" OnClick="NewUser_Click" runat="server" CssClass="pbutton"></asp:Button></strong>
-                | 
+                <asp:PlaceHolder runat="server" ID="ImportAndSyncHolder">
+                    <strong><asp:Button id="NewUser" OnClick="NewUser_Click" runat="server" CssClass="pbutton"></asp:Button></strong>
+                |
                     <asp:Button id="SyncUsers" OnClick="SyncUsers_Click" runat="server" CssClass="pbutton"></asp:Button>
                 |
                     <asp:Button id="ImportUsers" OnClick="ImportUsers_Click" runat="server" CssClass="pbutton"></asp:Button>
                 |
+                </asp:PlaceHolder> 
                     <asp:Button id="ExportUsersXml" OnClick="ExportUsersXml_Click" runat="server" CssClass="pbutton"></asp:Button>
                 |
                     <asp:Button id="ExportUsersCsv" OnClick="ExportUsersCsv_Click" runat="server" CssClass="pbutton"></asp:Button>

@@ -341,11 +341,7 @@ namespace YAF.Pages.Admin
             this.PagerTop.PageSize = 25;
 
             // Hide "New User" & Sync Button on DotNetNuke
-            if (Config.IsDotNetNuke)
-            {
-                this.NewUser.Visible = false;
-                this.SyncUsers.Visible = false;
-            }
+            this.ImportAndSyncHolder.Visible = !Config.IsDotNetNuke;
         }
 
         /// <summary>
