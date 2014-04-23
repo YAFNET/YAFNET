@@ -60,6 +60,11 @@ namespace YAF.Core.URLBuilder
             // get the base script file from the config -- defaults to, well, default.aspx :)
             string scriptFile = Config.BaseScriptFile;
 
+            if (url.IsNotSet())
+            {
+                return newUrl;
+            }
+
             if (scriptName.EndsWith(scriptFile))
             {
                 var before = scriptName.Remove(scriptName.LastIndexOf(scriptFile, StringComparison.Ordinal));
