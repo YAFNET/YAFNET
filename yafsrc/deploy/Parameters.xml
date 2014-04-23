@@ -1,0 +1,90 @@
+﻿<parameters>
+  <parameter name="AppPath" defaultValue="Default Web Site/YetAnotherForum.NET" tags="iisapp">
+    <parameterEntry type="ProviderPath" scope="iisapp" match="YetAnotherForum.NET" />
+  </parameter>
+  
+  <parameter name="YAF.NET Application URL" description="The URL of the application on the target box such as http://www.myserver.com/myapp ." defaultValue="" tags="AppURL,Hidden">
+    <parameterEntry type="TextFile" scope="dbFullSql " match="localhost:?[0-9]+/?" />
+  </parameter>
+  
+  <parameter 
+	name="Forum Configuration Password" 
+	description="Please provide required password that will be used for install and upgrade (Minimum 8 characters)."
+	tags="Password, New">
+	<parameterValidation
+		type="RegularExpression"
+		validationString="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" /> 
+    <parameterEntry 
+		type="XmlFile" 
+		scope="\\app.config$" 
+		match="/appSettings/add[@key='YAF.ConfigPassword']/@value" />
+  </parameter> 
+  
+  <parameter 
+	name="Database Server" 
+	defaultValue=".\SQLExpress" 
+	tags="SQL, dbServer">
+   </parameter>
+  <parameter 
+	name="Database Name" 
+	defaultValue="YAFNET" 
+	tags="SQL, dbName">
+    <parameterEntry 
+		type="TextFile" 
+		scope="InstallSQL.sql" 
+		match="PlaceholderForDbName" />
+  </parameter>
+  <parameter 
+	name="Database Username" 
+	defaultValue="YAFDB" 
+	tags="SQL, dbUsername">
+    <parameterEntry 
+		type="TextFile" 
+		scope="InstallSQL.sql" 
+		match="PlaceholderForDbUsername" />
+  </parameter>
+  <parameter 
+	name="Database Password" 
+	tags="New, Password, SQL, dbUserPassword">
+	 <parameterValidation
+		type="RegularExpression"
+		validationString="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" /> 
+    <parameterEntry 
+		type="TextFile" 
+		scope="InstallSQL.sql" 
+		match="PlaceholderForDbPassword" />
+  </parameter>
+  <parameter 
+	name="Database Administrator" 
+	defaultValue="sa" 
+	tags="SQL, dbAdminUsername">
+	</parameter>
+  <parameter 
+	name="Database Administrator Password" 
+	tags="Password, SQL, dbAdminPassword">
+	</parameter>
+  <parameter 
+	name="Connection String For Config" 
+	defaultValue="Data Source={Database Server};Database={Database Name};uid={Database Username};Pwd={Database Password};" 
+	tags="Hidden">
+    <parameterEntry 
+		type="XmlFile" 
+		scope="\\db.config$" 
+		match="/connectionStrings/add[@name='yafnet']/@connectionString" />
+  </parameter>
+  <parameter 
+	name="Connection String"  
+	defaultValue="Data Source={Database Server};Database={Database Name};uid={Database Administrator};Pwd={Database Administrator Password};" 
+	tags="Hidden, SQLConnectionString, Validate">
+    <parameterEntry 
+		type="ProviderPath" 
+		scope="dbfullsql" 
+		match="InstallSQL.sql" />
+  </parameter>
+
+  <parameter name="SetAclParameter1" defaultValue="{AppPath}" tags="Hidden">
+    <parameterEntry type="ProviderPath" scope="setAcl" match="YetAnotherForum.NET" />
+  </parameter>
+   <!-- <parameter name="Dummy parameter" description="To allow portal to identify the app requires sql database. This does not do any changes to the package" defaultValue="None"
+  tags="SQL,SQLConnectionString,Hidden,NoStore"/>-->
+</parameters>

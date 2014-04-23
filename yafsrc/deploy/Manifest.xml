@@ -1,0 +1,6 @@
+﻿<MSDeploy.iisApp>
+  <iisapp path="YetAnotherForum.NET" />
+  <setAcl path="YetAnotherForum.NET" setAclAccess="Modify" />
+  <setAcl path="YetAnotherForum.NET/uploads" setAclAccess="Read,Write" />
+  <dbfullsql path="installSQL.sql" transacted="false" />
+</MSDeploy.iisApp>
