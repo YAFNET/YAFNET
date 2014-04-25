@@ -41,7 +41,7 @@ namespace YAF.Core.URLBuilder
     /// </summary>
     public class AdvancedUrlRewriter : BaseUrlBuilder
     {
-       #region Public Methods
+        #region Public Methods
 
         /// <summary>
         /// Build the url.
@@ -77,100 +77,121 @@ namespace YAF.Core.URLBuilder
                 var useKey = string.Empty;
                 var description = string.Empty;
                 var pageName = parser["g"];
+                ForumPages forumPage = ForumPages.forum;
+                var getDescription = false;
 
                 bool isFeed = false;
                 bool handlePage = false;
 
-                switch (pageName.ToEnum<ForumPages>())
+                if (pageName.IsSet())
                 {
-                    case ForumPages.topics:
-                        useKey = "f";
-                        pageName += "/";
-                        description = UrlRewriteHelper.GetForumName(parser[useKey].ToType<int>());
-                        handlePage = true;
-                        break;
-                    case ForumPages.posts:
-                        pageName += "/";
-                        if (parser["t"].IsSet())
-                        {
-                            useKey = "t";
-                            pageName += "t";
-                            description = UrlRewriteHelper.GetTopicName(parser[useKey].ToType<int>());
-                        }
-                        else if (parser["m"].IsSet())
-                        {
-                            useKey = "m";
-                            pageName += "m";
+                    try
+                    {
+                        forumPage = pageName.ToEnum<ForumPages>();
+                        getDescription = true;
+                    }
+                    catch (Exception)
+                    {
+                        getDescription = false;
+                    }
+                }
 
-                            try
+                if (getDescription)
+                {
+                    switch (forumPage)
+                    {
+                        case ForumPages.topics:
+                            useKey = "f";
+                            pageName += "/";
+                            description = UrlRewriteHelper.GetForumName(parser[useKey].ToType<int>());
+                            handlePage = true;
+                            break;
+                        case ForumPages.posts:
+                            pageName += "/";
+                            if (parser["t"].IsSet())
                             {
-                                description = UrlRewriteHelper.GetTopicNameFromMessage(parser[useKey].ToType<int>());
+                                useKey = "t";
+                                pageName += "t";
+                                description = UrlRewriteHelper.GetTopicName(parser[useKey].ToType<int>());
                             }
-                            catch (Exception)
+                            else if (parser["m"].IsSet())
                             {
-                                description = "posts";
+                                useKey = "m";
+                                pageName += "m";
+
+                                try
+                                {
+                                    description = UrlRewriteHelper.GetTopicNameFromMessage(parser[useKey].ToType<int>());
+                                }
+                                catch (Exception)
+                                {
+                                    description = "posts";
+                                }
                             }
-                        }
 
-                        handlePage = true;
-                        break;
-                    case ForumPages.profile:
-                        useKey = "u";
-                        pageName += "/";
-                        description =
-                            UrlRewriteHelper.CleanStringForURL(
-                                parser["name"].IsSet()
-                                    ? parser["name"]
-                                    : UrlRewriteHelper.GetProfileName(parser[useKey].ToType<int>()));
+                            handlePage = true;
+                            break;
+                        case ForumPages.profile:
+                            useKey = "u";
+                            pageName += "/";
+                            description =
+                                UrlRewriteHelper.CleanStringForURL(
+                                    parser["name"].IsSet()
+                                        ? parser["name"]
+                                        : UrlRewriteHelper.GetProfileName(parser[useKey].ToType<int>()));
 
-                        parser.Parameters.Remove("name");
-                        break;
-                    case ForumPages.forum:
-                        pageName = "category/";
-                        if (parser["c"].IsSet())
-                        {
-                            useKey = "c";
-                            description = UrlRewriteHelper.GetCategoryName(parser[useKey].ToType<int>());
-                        }
-                        else
-                        {
-                            pageName = string.Empty;
-                        }
+                            parser.Parameters.Remove("name");
+                            break;
+                        case ForumPages.forum:
+                            pageName = "category/";
+                            if (parser["c"].IsSet())
+                            {
+                                useKey = "c";
+                                description = UrlRewriteHelper.GetCategoryName(parser[useKey].ToType<int>());
+                            }
+                            else
+                            {
+                                pageName = string.Empty;
+                            }
 
-                        break;
-                    case ForumPages.rsstopic:
-                        pageName += "/";
+                            break;
+                        case ForumPages.rsstopic:
+                            pageName += "/";
 
-                        if (parser["pg"].IsSet())
-                        {
-                            description = parser["pg"].ToEnum<YafRssFeeds>().ToString().ToLower();
-                        }
+                            if (parser["pg"].IsSet())
+                            {
+                                description = parser["pg"].ToEnum<YafRssFeeds>().ToString().ToLower();
+                            }
 
-                        if (parser["f"].IsSet())
-                        {
-                            description += "_{0}".FormatWith(UrlRewriteHelper.GetForumName(parser["f"].ToType<int>()));
-                        }
-                        
-                        if (parser["t"].IsSet())
-                        {
-                            description += "_{0}".FormatWith(UrlRewriteHelper.GetTopicName(parser["t"].ToType<int>()));
-                        }
+                            if (parser["f"].IsSet())
+                            {
+                                description +=
+                                    "_{0}".FormatWith(UrlRewriteHelper.GetForumName(parser["f"].ToType<int>()));
+                            }
 
-                        if (parser["c"].IsSet())
-                        {
-                            description += "_{0}".FormatWith(UrlRewriteHelper.GetCategoryName(parser["c"].ToType<int>()));
-                        }
-                        
-                        if (parser["ft"].IsSet())
-                        {
-                            description += parser["ft"].ToType<int>() == YafSyndicationFormats.Atom.ToInt()
-                                               ? "-atom"
-                                               : "-rss";
-                        }
+                            if (parser["t"].IsSet())
+                            {
+                                description +=
+                                    "_{0}".FormatWith(UrlRewriteHelper.GetTopicName(parser["t"].ToType<int>()));
+                            }
 
-                        handlePage = true;
-                        isFeed = true;
-                        break;
+                            if (parser["c"].IsSet())
+                            {
+                                description +=
+                                    "_{0}".FormatWith(UrlRewriteHelper.GetCategoryName(parser["c"].ToType<int>()));
+                            }
+
+                            if (parser["ft"].IsSet())
+                            {
+                                description += parser["ft"].ToType<int>() == YafSyndicationFormats.Atom.ToInt()
+                                                   ? "-atom"
+                                                   : "-rss";
+                            }
+
+                            handlePage = true;
+                            isFeed = true;
+                            break;
+                    }
                 }
 
                 // special handling for admin pages
@@ -250,11 +271,7 @@ namespace YAF.Core.URLBuilder
                 if (newUrl.EndsWith("/forum"))
                 {
                     // remove in favor of just slash...
-                    newUrl =
-                        newUrl.Remove(
-                            newUrl.LastIndexOf(
-                                "/forum", StringComparison.Ordinal),
-                            "/forum".Length);
+                    newUrl = newUrl.Remove(newUrl.LastIndexOf("/forum", StringComparison.Ordinal), "/forum".Length);
                 }
 
                 // add anchor
