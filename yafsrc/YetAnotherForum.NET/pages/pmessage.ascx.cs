@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014 Ingo Herbote
@@ -566,37 +566,17 @@ namespace YAF.Pages
 
             if (this.ToList.SelectedItem != null && this.ToList.SelectedItem.Value == "0")
             {
-                // administrator is sending PMs tp all users           
+                // administrator is sending PMs to all users           
                 string body = this._editor.Text;
                 var messageFlags = new MessageFlags
                                        {
                                            IsHtml = this._editor.UsesHTML,
                                            IsBBCode = this._editor.UsesBBCode
                                        };
-
+                
                 // test user's PM count
                 if (!this.VerifyMessageAllowed(1))
                 {
-                    return;
-                }
-
-                var receivingPMInfo = LegacyDb.user_pmcount(replyTo).Rows[0];
-
-                // test receiving user's PM count
-                if (!YafContext.Current.IsAdmin
-                    || !(bool)
-                        Convert.ChangeType(UserMembershipHelper.GetUserRowForID(replyTo, true)["IsAdmin"], typeof(bool)))
-                {
-                    if (receivingPMInfo["NumberTotal"].ToType<int>() + 1
-                        <= receivingPMInfo["NumberAllowed"].ToType<int>())
-                    {
-                        return;
-                    }
-
-                    // recipient has full PM box
-                    YafContext.Current.AddLoadMessage(
-                        this.GetTextFormatted("RECIPIENTS_PMBOX_FULL", this.To.Text),
-                        MessageTypes.Error);
                     return;
                 }
 
