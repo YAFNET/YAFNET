@@ -761,6 +761,10 @@ IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{data
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}rss_topic_latest]
 GO
 
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}rsstopic_list]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}rsstopic_list]
+GO
+
 IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_list]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_list]
 GO
@@ -6546,6 +6550,33 @@ BEGIN
         t.LastPosted DESC;
 END
 GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}rsstopic_list]
+(
+    @ForumID int,
+    @TopicLimit int
+)
+as
+begin
+  
+    select top(@TopicLimit)
+	Topic = a.Topic,
+	TopicID = a.TopicID, 
+	Name = b.Name, 
+	LastPosted = IsNull(a.LastPosted,a.Posted), 
+	LastUserID = IsNull(a.LastUserID, a.UserID), 
+	LastMessageID= IsNull(a.LastMessageID,
+	(select top 1 m.MessageID 
+	from [{databaseOwner}].[{objectQualifier}Message] m where m.TopicID = a.TopicID order by m.Posted desc)), 
+	LastMessageFlags = IsNull(a.LastMessageFlags,22) , 
+	LastMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(a.TopicMovedID,a.TopicID) AND mes2.IsApproved = 1 AND mes2.IsDeleted = 0 ORDER BY mes2.Posted DESC) 
+
+from [{databaseOwner}].[{objectQualifier}Topic] a, 
+     [{databaseOwner}].[{objectQualifier}Forum] b where a.ForumID = 1 and b.ForumID = a.ForumID and a.TopicMovedID is null and a.IsDeleted = 0
+
+order by a.Posted desc
+end
+go
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_latest_in_category]
 (

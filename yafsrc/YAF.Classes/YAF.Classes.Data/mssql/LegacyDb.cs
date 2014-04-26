@@ -5902,23 +5902,11 @@ namespace YAF.Classes.Data
         /// </returns>
         public static DataTable rsstopic_list(int forumId, int topicLimit)
         {
-            var sb = new StringBuilder();
-
-            sb.AppendFormat(
-              "select top {0} Topic = a.Topic,TopicID = a.TopicID, Name = b.Name, LastPosted = IsNull(a.LastPosted,a.Posted), LastUserID = IsNull(a.LastUserID, a.UserID), LastMessageID= IsNull(a.LastMessageID,(select top 1 m.MessageID ",
-              topicLimit);
-            sb.Append(
-              "from {databaseOwner}.{objectQualifier}Message m where m.TopicID = a.TopicID order by m.Posted desc)), LastMessageFlags = IsNull(a.LastMessageFlags,22) ");
-
-            // sb.Append(", message = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(a.TopicMovedID,a.TopicID) AND mes2.IsApproved = 1 AND mes2.IsDeleted = 0 ORDER BY mes2.Posted DESC) ");
-            sb.Append(
-              "from {databaseOwner}.{objectQualifier}Topic a, {databaseOwner}.{objectQualifier}Forum b where a.ForumID = @ForumID and b.ForumID = a.ForumID and a.TopicMovedID is null and a.IsDeleted = 0");
-            sb.Append(" order by a.Posted desc");
-
-            using (var cmd = DbHelpers.GetCommand(sb.ToString(), true))
+            using (var cmd = DbHelpers.GetCommand("rsstopic_list"))
             {
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.AddParam("ForumID", forumId);
+                cmd.AddParam("TopicLimit", topicLimit);
                 return DbAccess.GetData(cmd);
             }
         }

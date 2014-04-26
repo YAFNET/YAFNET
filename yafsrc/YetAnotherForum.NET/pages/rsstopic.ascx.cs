@@ -313,7 +313,7 @@ namespace YAF.Pages
         /// <summary>
         /// The method to return latest topic content to display in a feed.
         /// </summary>
-        /// <param name="link">A linkt to an active topic.</param>
+        /// <param name="link">A link to an active topic.</param>
         /// <param name="imgUrl">A latest topic icon Url.</param>
         /// <param name="imgAlt">A latest topic icon Alt text.</param>
         /// <param name="linkName">A latest topic displayed link name</param>
@@ -599,10 +599,10 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The method creates YafSyndicationFeed for forums in a category.
+        /// The method creates YAF SyndicationFeed for forums in a category.
         /// </summary>
         /// <param name="feed">
-        /// The YafSyndicationFeed.
+        /// The YAF Syndication Feed.
         /// </param>
         /// <param name="feedType">
         /// The FeedType.
@@ -771,7 +771,13 @@ namespace YAF.Pages
                     attachementLinks.AddRange(
                         from DataRow attachLink in attList.Rows
                         where !attachLink["FileName"].IsNullOrEmptyDBField()
-                        select new SyndicationLink(new Uri("{0}{1}resource.ashx?a={2}".FormatWith(YafForumInfo.ForumBaseUrl, YafForumInfo.ForumClientFileRoot.TrimStart('/'), attachLink["AttachmentID"])),
+                        select
+                            new SyndicationLink(
+                            new Uri(
+                            "{0}{1}resource.ashx?a={2}".FormatWith(
+                                YafForumInfo.ForumBaseUrl,
+                                YafForumInfo.ForumClientFileRoot.TrimStart('/'),
+                                attachLink["AttachmentID"])),
                             "enclosure",
                             attachLink["FileName"].ToString(),
                             attachLink["ContentType"].ToString(),
@@ -1014,10 +1020,10 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The method creates YafSyndicationFeed for topics in a forum.
+        /// The method creates YAF SyndicationFeed for topics in a forum.
         /// </summary>
         /// <param name="feed">
-        /// The YafSyndicationFeed.
+        /// The YAF SyndicationFeed.
         /// </param>
         /// <param name="feedType">
         /// The FeedType.
@@ -1082,7 +1088,7 @@ namespace YAF.Pages
                             lastPostIcon,
                             lastPostName,
                             lastPostName,
-                            string.Empty,
+                            row["LastMessage"].ToString(),
                             !row["LastMessageFlags"].IsNullOrEmptyDBField() ? row["LastMessageFlags"].ToType<int>() : 22,
                             false),
                         null,
