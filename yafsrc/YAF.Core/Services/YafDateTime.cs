@@ -35,12 +35,11 @@ namespace YAF.Core.Services
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 
     /// <summary>
-    /// The yaf date time.
+    /// The YAF DateTime.
     /// </summary>
     public class YafDateTime : IDateTime
     {
@@ -63,16 +62,18 @@ namespace YAF.Core.Services
         {
             get
             {
-                if (YafContext.Current.Page != null)
+                if (YafContext.Current.Page == null)
                 {
-                    int min = YafContext.Current.TimeZoneUser;
-                    int hrs = min / 60;
-
-                    return new TimeSpan(
-                        hrs, (min % 60) + YafContext.Current.Get<YafBoardSettings>().ServerTimeCorrection, 0);
+                    return new TimeSpan(0, YafContext.Current.Get<YafBoardSettings>().ServerTimeCorrection, 0);
                 }
 
-                return new TimeSpan(0, YafContext.Current.Get<YafBoardSettings>().ServerTimeCorrection, 0);
+                int min = YafContext.Current.TimeZoneUser;
+                int hrs = min / 60;
+
+                return new TimeSpan(
+                    hrs,
+                    (min % 60) + YafContext.Current.Get<YafBoardSettings>().ServerTimeCorrection,
+                    0);
             }
         }
 
@@ -81,7 +82,7 @@ namespace YAF.Core.Services
         #region Public Methods
 
         /// <summary>
-        /// Formats a datetime value into 7. february 2003
+        /// Formats a DateTime value into 7. february 2003
         /// </summary>
         /// <param name="dateTime">
         /// The date to be formatted
@@ -91,29 +92,29 @@ namespace YAF.Core.Services
         /// </returns>
         public string FormatDateLong(DateTime dateTime)
         {
-            string strDateFormat;
+            string dateFormat;
             dateTime = this.AccountForDST(dateTime + this.TimeOffset);
 
             try
             {
-                strDateFormat =
-                    YafContext.Current.Get<ILocalization>().FormatDateTime(
-                        YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_LONG"), dateTime);
+                dateFormat =
+                    YafContext.Current.Get<ILocalization>()
+                        .FormatDateTime(YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_LONG"), dateTime);
             }
             catch (Exception)
             {
-                strDateFormat = dateTime.ToString("D");
+                dateFormat = dateTime.ToString("D");
             }
 
             return YafContext.Current.Get<YafBoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("D")
                        : YafContext.Current.IsGuest
-                             ? "{0}{1}".FormatWith(strDateFormat, this.timeZoneName)
-                             : strDateFormat;
+                             ? "{0}{1}".FormatWith(dateFormat, this.timeZoneName)
+                             : dateFormat;
         }
 
         /// <summary>
-        /// Formats a datetime value into 07.03.2003
+        /// Formats a DateTime value into 07.03.2003
         /// </summary>
         /// <param name="dateTime">
         /// The date Time.
@@ -123,29 +124,29 @@ namespace YAF.Core.Services
         /// </returns>
         public string FormatDateShort([NotNull] DateTime dateTime)
         {
-            string strDateFormat;
+            string dateFormat;
             dateTime = this.AccountForDST(dateTime + this.TimeOffset);
 
             try
             {
-                strDateFormat =
-                    YafContext.Current.Get<ILocalization>().FormatDateTime(
-                        YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_SHORT"), dateTime);
+                dateFormat =
+                    YafContext.Current.Get<ILocalization>()
+                        .FormatDateTime(YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_SHORT"), dateTime);
             }
             catch (Exception)
             {
-                strDateFormat = dateTime.ToString("d");
+                dateFormat = dateTime.ToString("d");
             }
 
             return YafContext.Current.Get<YafBoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("d")
                        : YafContext.Current.IsGuest
-                             ? "{0}{1}".FormatWith(strDateFormat, this.timeZoneName)
-                             : strDateFormat;
+                             ? "{0}{1}".FormatWith(dateFormat, this.timeZoneName)
+                             : dateFormat;
         }
 
         /// <summary>
-        /// Formats a datetime value into 07.03.2003 22:32:34
+        /// Formats a DateTime value into 07.03.2003 22:32:34
         /// </summary>
         /// <param name="dateTime">
         /// The date Time.
@@ -157,24 +158,26 @@ namespace YAF.Core.Services
         {
             dateTime = this.AccountForDST(dateTime + this.TimeOffset);
 
-            string strDateFormat;
+            string dateFormat;
 
             try
             {
-                strDateFormat =
-                    YafContext.Current.Get<ILocalization>().FormatDateTime(
-                        YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_LONG"), dateTime);
+                dateFormat =
+                    YafContext.Current.Get<ILocalization>()
+                        .FormatDateTime(
+                            YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_LONG"),
+                            dateTime);
             }
             catch (Exception)
             {
-                strDateFormat = dateTime.ToString("F");
+                dateFormat = dateTime.ToString("F");
             }
 
             return YafContext.Current.Get<YafBoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString()
                        : YafContext.Current.IsGuest
-                             ? "{0}{1}".FormatWith(strDateFormat, this.timeZoneName)
-                             : strDateFormat;
+                             ? "{0}{1}".FormatWith(dateFormat, this.timeZoneName)
+                             : dateFormat;
         }
 
         /// <summary>
@@ -188,30 +191,32 @@ namespace YAF.Core.Services
         /// </returns>
         public string FormatDateTimeShort([NotNull] DateTime dateTime)
         {
-            string strDateFormat;
+            string dateFormat;
 
             dateTime = this.AccountForDST(dateTime + this.TimeOffset);
 
             try
             {
-                strDateFormat =
-                    YafContext.Current.Get<ILocalization>().FormatDateTime(
-                        YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_SHORT"), dateTime);
+                dateFormat =
+                    YafContext.Current.Get<ILocalization>()
+                        .FormatDateTime(
+                            YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_SHORT"),
+                            dateTime);
             }
             catch (Exception)
             {
-                strDateFormat = dateTime.ToString("G");
+                dateFormat = dateTime.ToString("G");
             }
 
             return YafContext.Current.Get<YafBoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("G")
                        : YafContext.Current.IsGuest
-                             ? "{0}{1}".FormatWith(strDateFormat, this.timeZoneName)
-                             : strDateFormat;
+                             ? "{0}{1}".FormatWith(dateFormat, this.timeZoneName)
+                             : dateFormat;
         }
 
         /// <summary>
-        /// Formats a datatime value into 07.03.2003 00:00:00 except if 
+        /// Formats a DateTime value into 07.03.2003 00:00:00 except if 
         ///   the date is yesterday or today -- in which case it says that.
         /// </summary>
         /// <param name="dateTime">
@@ -225,44 +230,46 @@ namespace YAF.Core.Services
             dateTime = this.AccountForDST(dateTime + this.TimeOffset);
             DateTime nowDateTime = this.AccountForDST(DateTime.UtcNow + this.TimeOffset);
 
-            string strDateFormat;
+            string dateFormat;
             try
             {
                 if (dateTime.Date == nowDateTime.Date)
                 {
                     // today
-                    strDateFormat =
-                        YafContext.Current.Get<ILocalization>().FormatString(
-                            YafContext.Current.Get<ILocalization>().GetText("TodayAt"), dateTime);
+                    dateFormat =
+                        YafContext.Current.Get<ILocalization>()
+                            .FormatString(YafContext.Current.Get<ILocalization>().GetText("TodayAt"), dateTime);
                 }
                 else if (dateTime.Date == nowDateTime.AddDays(-1).Date)
                 {
                     // yesterday
-                    strDateFormat =
-                        YafContext.Current.Get<ILocalization>().FormatString(
-                            YafContext.Current.Get<ILocalization>().GetText("YesterdayAt"), dateTime);
+                    dateFormat =
+                        YafContext.Current.Get<ILocalization>()
+                            .FormatString(YafContext.Current.Get<ILocalization>().GetText("YesterdayAt"), dateTime);
                 }
                 else
                 {
-                    strDateFormat =
-                        YafContext.Current.Get<ILocalization>().FormatDateTime(
-                            YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_SHORT"), dateTime);
+                    dateFormat =
+                        YafContext.Current.Get<ILocalization>()
+                            .FormatDateTime(
+                                YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_SHORT"),
+                                dateTime);
                 }
             }
             catch (Exception)
             {
-                strDateFormat = dateTime.ToString("G");
+                dateFormat = dateTime.ToString("G");
             }
 
             return YafContext.Current.Get<YafBoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("G")
                        : YafContext.Current.IsGuest
-                             ? "{0}{1}".FormatWith(strDateFormat, this.timeZoneName)
-                             : strDateFormat;
+                             ? "{0}{1}".FormatWith(dateFormat, this.timeZoneName)
+                             : dateFormat;
         }
 
         /// <summary>
-        /// Formats a datetime value into 22:32:34
+        /// Formats a DateTime value into 22:32:34
         /// </summary>
         /// <param name="dateTime">
         /// The date to be formatted
@@ -272,26 +279,36 @@ namespace YAF.Core.Services
         /// </returns>
         public string FormatTime(DateTime dateTime)
         {
-            string strDateFormat;
+            string dateFormat;
 
             dateTime = this.AccountForDST(dateTime + this.TimeOffset);
 
             try
             {
-                strDateFormat =
-                    YafContext.Current.Get<ILocalization>().FormatDateTime(
-                        YafContext.Current.Get<ILocalization>().GetText("FORMAT_TIME"), dateTime);
+                dateFormat =
+                    YafContext.Current.Get<ILocalization>()
+                        .FormatDateTime(YafContext.Current.Get<ILocalization>().GetText("FORMAT_TIME"), dateTime);
             }
             catch (Exception)
             {
-                strDateFormat = dateTime.ToString("T");
+                dateFormat = dateTime.ToString("T");
             }
 
             return YafContext.Current.Get<YafBoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("T")
                        : YafContext.Current.IsGuest
-                             ? "{0}{1}".FormatWith(strDateFormat, this.timeZoneName)
-                             : strDateFormat;
+                             ? "{0}{1}".FormatWith(dateFormat, this.timeZoneName)
+                             : dateFormat;
+        }
+
+        /// <summary>
+        /// Gets the user DateTime.
+        /// </summary>
+        /// <param name="dateTime">The Date Time.</param>
+        /// <returns>Returns the user Date Time</returns>
+        public DateTime GetUserDateTime(DateTime dateTime)
+        {
+            return this.AccountForDST(dateTime + this.TimeOffset);
         }
 
         #endregion
@@ -309,15 +326,14 @@ namespace YAF.Core.Services
         /// </returns>
         private DateTime AccountForDST(DateTime dtCurrent)
         {
-            if (YafContext.Current.DSTUser)
+            if (!YafContext.Current.DSTUser)
             {
-                if (TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time").IsDaylightSavingTime(dtCurrent))
-                {
-                    return dtCurrent.AddHours(1);
-                }
+                return dtCurrent;
             }
 
-            return dtCurrent;
+            return TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time").IsDaylightSavingTime(dtCurrent)
+                       ? dtCurrent.AddHours(1)
+                       : dtCurrent;
         }
 
         #endregion

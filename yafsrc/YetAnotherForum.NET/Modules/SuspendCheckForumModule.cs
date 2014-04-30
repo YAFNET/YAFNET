@@ -77,7 +77,8 @@ namespace YAF.Modules
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
         private void _preLoadPage_HandleEvent(
-            [NotNull] object sender, [NotNull] EventConverterArgs<ForumPagePreLoadEvent> e)
+            [NotNull] object sender,
+            [NotNull] EventConverterArgs<ForumPagePreLoadEvent> e)
         {
             // check for suspension if enabled...
             if (!this.PageContext.Globals.IsSuspendCheckEnabled)
@@ -90,7 +91,8 @@ namespace YAF.Modules
                 return;
             }
 
-            if (this.PageContext.SuspendedUntil <= DateTime.UtcNow)
+            if (this.Get<IDateTime>().GetUserDateTime(this.PageContext.SuspendedUntil)
+                <= this.Get<IDateTime>().GetUserDateTime(DateTime.UtcNow))
             {
                 LegacyDb.user_suspend(this.PageContext.PageUserID, null);
 
