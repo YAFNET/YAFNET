@@ -4702,6 +4702,7 @@ Spoiler Content
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">您的显示名已经被使用.</Resource>
     <Resource tag="BAD_EMAIL">您输入了一个无效的电子邮件地址.</Resource>
     <Resource tag="BAD_PASSWORD">Please pick a more complex password that includes punctuation (!?) or numbers.</Resource>
+    <Resource tag="BASIC_ACCOUNT">Account</Resource>
     <Resource tag="BOT_MESSAGE">Sorry Spammers are not allowed in the Forum!</Resource>
     <Resource tag="CONFIRM_PASSWORD">确认密码</Resource>
     <Resource tag="CONTINUE">继续</Resource>
@@ -4739,6 +4740,7 @@ Spoiler Content
     <Resource tag="TERMS_AND_CONDITIONS_TITLE">Terms and Conditions</Resource>
     <Resource tag="TIMEZONE">时区(GMT+8:00 表示中国)</Resource>
     <Resource tag="TITLE">注册新用户</Resource>
+    <Resource tag="TITLE2">Register a new account</Resource>
     <Resource tag="USERNAME">用户名</Resource>
     <Resource tag="USERNAME_LENGTH_WARN">User name should not contain more than {0} characters.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>

@@ -4671,6 +4671,7 @@ Spoiler Content
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Такое отображаемое имя пользователя уже зарегистрировано на форуме.</Resource>
     <Resource tag="BAD_EMAIL">Вы ввели недопустимый адрес электронной почты.</Resource>
     <Resource tag="BAD_PASSWORD">Пожалуйста, выберите более сложный пароль, содержащий знаки пунктуации (!?) или цифры.</Resource>
+    <Resource tag="BASIC_ACCOUNT">Account</Resource>
     <Resource tag="BOT_MESSAGE">Sorry Spammers are not allowed in the Forum!</Resource>
     <Resource tag="CONFIRM_PASSWORD">Подтвердите пароль</Resource>
     <Resource tag="CONTINUE">Продолжить</Resource>
@@ -4685,7 +4686,7 @@ Spoiler Content
     <Resource tag="INVALID_QUESTION">Пожалуйста, выберите другой вопрос.</Resource>
     <Resource tag="INVALID_USERNAME">Пожалуйста, выберите другое имя пользователя.</Resource>
     <Resource tag="LOCATION">Место нахождения</Resource>
-    <Resource tag="LOGIN_INSTEAD">Login instead with an existing Account</Resource>
+    <Resource tag="LOGIN_INSTEAD">Already Signed Up? Click Sign In to login your account.</Resource>
     <Resource tag="NEED_ANSWER">Ответ на контрольный вопрос обязателен.</Resource>
     <Resource tag="NEED_DISPLAYNAME">Отображаемое имя обязательно.</Resource>
     <Resource tag="NEED_EMAIL">E-mail обязателен.</Resource>
@@ -4708,6 +4709,7 @@ Spoiler Content
     <Resource tag="TERMS_AND_CONDITIONS_TITLE">Условия и правила</Resource>
     <Resource tag="TIMEZONE">Часовой пояс</Resource>
     <Resource tag="TITLE">Регистрация нового пользователя</Resource>
+    <Resource tag="TITLE2">Register a new account</Resource>
     <Resource tag="USERNAME">Имя пользователя</Resource>
     <Resource tag="USERNAME_LENGTH_WARN">В имени пользователя не должно быть более {0} символов.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Подтверждение регистрации на форуме {0}</Resource>

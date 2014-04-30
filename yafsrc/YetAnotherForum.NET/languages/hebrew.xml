@@ -4740,6 +4740,7 @@ Spoiler Content
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Your display name is already registered.</Resource>
     <Resource tag="BAD_EMAIL">הזנת כתובת דוא"ל לא תקינה.</Resource>
     <Resource tag="BAD_PASSWORD">יש לבחור סיסמא מורכבת יותר שתכלול סימני (!?) או מספרים.</Resource>
+    <Resource tag="BASIC_ACCOUNT">Account</Resource>
     <Resource tag="BOT_MESSAGE">Sorry Spammers are not allowed in the Forum!</Resource>
     <Resource tag="CONFIRM_PASSWORD">אשר סיסמא</Resource>
     <Resource tag="CONTINUE">המשך</Resource>
@@ -4754,7 +4755,7 @@ Spoiler Content
     <Resource tag="INVALID_QUESTION">נא לבחור שאלה אחרת.</Resource>
     <Resource tag="INVALID_USERNAME">נא לבחור שם משתמש שונה.</Resource>
     <Resource tag="LOCATION">מיקום</Resource>
-    <Resource tag="LOGIN_INSTEAD">Login instead with an existing Account</Resource>
+    <Resource tag="LOGIN_INSTEAD">Already Signed Up? Click Sign In to login your account.</Resource>
     <Resource tag="NEED_ANSWER">חובה להזין אבטחה.</Resource>
     <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
     <Resource tag="NEED_EMAIL">חובה להזין כתובת דוא"ל.</Resource>
@@ -4777,6 +4778,7 @@ Spoiler Content
     <Resource tag="TERMS_AND_CONDITIONS_TITLE">תנאי שימוש</Resource>
     <Resource tag="TIMEZONE">איזור זמן</Resource>
     <Resource tag="TITLE">רישום חבר חדש</Resource>
+    <Resource tag="TITLE2">Register a new account</Resource>
     <Resource tag="USERNAME">שם המשתמש</Resource>
     <Resource tag="USERNAME_LENGTH_WARN">User name should not contain more than {0} characters.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">אישור הרשמה לפורום {0}</Resource>

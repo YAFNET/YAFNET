@@ -4658,6 +4658,7 @@ Spoiler Inhoud
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Deze gebruikersnaam bestaat al.</Resource>
     <Resource tag="BAD_EMAIL">Je hebt een ongeldig e-mail adres opgegeven.</Resource>
     <Resource tag="BAD_PASSWORD">Kies a.u.b. een complexer wachtwoord dat ook leestekens of cijfers bevat.</Resource>
+    <Resource tag="BASIC_ACCOUNT">Account</Resource>
     <Resource tag="BOT_MESSAGE">Sorry Spammers are not allowed in the Forum!</Resource>
     <Resource tag="CONFIRM_PASSWORD">Bevestig wachtwoord</Resource>
     <Resource tag="CONTINUE">Verder</Resource>
@@ -4672,7 +4673,7 @@ Spoiler Inhoud
     <Resource tag="INVALID_QUESTION">Kies a.u.b. een andere vraag.</Resource>
     <Resource tag="INVALID_USERNAME">Kies a.u.b. een andere gebruikersnaam.</Resource>
     <Resource tag="LOCATION">Locatie</Resource>
-    <Resource tag="LOGIN_INSTEAD">Login instead with an existing Account</Resource>
+    <Resource tag="LOGIN_INSTEAD">Already Signed Up? Click Sign In to login your account.</Resource>
     <Resource tag="NEED_ANSWER">Beveiligings-antwoord is verplicht.</Resource>
     <Resource tag="NEED_DISPLAYNAME">Naam is verplicht.</Resource>
     <Resource tag="NEED_EMAIL">E-mail is verplicht.</Resource>
@@ -4695,6 +4696,7 @@ Spoiler Inhoud
     <Resource tag="TERMS_AND_CONDITIONS_TITLE">Reglement</Resource>
     <Resource tag="TIMEZONE">Tijdzone</Resource>
     <Resource tag="TITLE">Registreren als nieuwe gebruiker</Resource>
+    <Resource tag="TITLE2">Register a new account</Resource>
     <Resource tag="USERNAME">Gebruikersnaam</Resource>
     <Resource tag="USERNAME_LENGTH_WARN">Gebruikersnaam kan niet meer dan {0} karakters.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Bevestiging registratie voor {0} forum</Resource>

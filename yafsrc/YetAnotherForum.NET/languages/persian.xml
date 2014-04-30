@@ -4713,6 +4713,7 @@
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">نام نمایشی شما هم اکنون ثبت شده.</Resource>
     <Resource tag="BAD_EMAIL">آدر پست الکترونیک غیر معتبری را وارد کرده اید.</Resource>
     <Resource tag="BAD_PASSWORD">لطفاً رمز عبور پیچیده تری را شامل اعداد و یا علائم انتخاب کنبد.</Resource>
+    <Resource tag="BASIC_ACCOUNT">Account</Resource>
     <Resource tag="BOT_MESSAGE">Sorry Spammers are not allowed in the Forum!</Resource>
     <Resource tag="CONFIRM_PASSWORD">تایپ مجدد رمز عبور</Resource>
     <Resource tag="CONTINUE">ادامه</Resource>
@@ -4727,7 +4728,7 @@
     <Resource tag="INVALID_QUESTION">لطفاً سوال امنیتی دیگری را انتخاب کنید.</Resource>
     <Resource tag="INVALID_USERNAME">لطفاً نام کاربری دیگری را انتخاب کنید.</Resource>
     <Resource tag="LOCATION">مکان</Resource>
-    <Resource tag="LOGIN_INSTEAD">Login instead with an existing Account</Resource>
+    <Resource tag="LOGIN_INSTEAD">Already Signed Up? Click Sign In to login your account.</Resource>
     <Resource tag="NEED_ANSWER">پاسخ امنیتی ضروری است.</Resource>
     <Resource tag="NEED_DISPLAYNAME">نام نمایشی الزامی است.</Resource>
     <Resource tag="NEED_EMAIL">پست الکترونیک ضروری است.</Resource>
@@ -4750,6 +4751,7 @@
     <Resource tag="TERMS_AND_CONDITIONS_TITLE">قوانین و مقررات</Resource>
     <Resource tag="TIMEZONE">منطقه ساعتی</Resource>
     <Resource tag="TITLE">ثبت کاربر جدید</Resource>
+    <Resource tag="TITLE2">Register a new account</Resource>
     <Resource tag="USERNAME">نام کاربری</Resource>
     <Resource tag="USERNAME_LENGTH_WARN">نام کاربری نباید از {0} کاراکتر بیشتر باشد</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">بررسی ثبت نام برای انجمن {0}</Resource>

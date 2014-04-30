@@ -134,6 +134,11 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void CreateUserWizard1_ContinueButtonClick([NotNull] object sender, [NotNull] EventArgs e)
         {
+            if (!this.Get<YafBoardSettings>().EmailVerification)
+            {
+                FormsAuthentication.SetAuthCookie(this.CreateUserWizard1.UserName, true);
+            }
+
             // vzrus: to clear the cache to show user in the list at once
             this.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
             this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
@@ -190,9 +195,6 @@ namespace YAF.Pages
             }
 
             this.PageContext.AddLoadMessage(createUserError, MessageTypes.Error);
-
-            // Display the failure message in a client-side alert box
-            // Page.ClientScript.RegisterStartupScript(Page.GetType(), "CreateUserError", String.Format("alert('{0}');", createUserError.Replace("'", "\'")), true);
         }
 
         /// <summary>
@@ -453,60 +455,12 @@ namespace YAF.Pages
                 return;
             }
 
-            // this is the "Profile Information" step. Save the data to their profile (+ defaults).
-            var timeZones = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("TimeZones");
-            var country = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("Country");
-            var locationTextBox = (TextBox)this.CreateUserWizard1.FindWizardControlRecursive("Location");
-            var homepageTextBox = (TextBox)this.CreateUserWizard1.FindWizardControlRecursive("Homepage");
-            var dstUser = (CheckBox)this.CreateUserWizard1.FindWizardControlRecursive("DSTUser");
-
             MembershipUser user = UserMembershipHelper.GetUser(this.CreateUserWizard1.UserName);
 
-            // setup/save the profile
-            YafUserProfile userProfile = YafUserProfile.GetProfile(this.CreateUserWizard1.UserName);
-
-            if (country.SelectedValue != null)
-            {
-                userProfile.Country = country.SelectedValue;
-            }
-
-            userProfile.Location = locationTextBox.Text.Trim();
-            userProfile.Homepage = homepageTextBox.Text.Trim();
-
-            userProfile.Save();
-
             // save the time zone...
-            int userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
+            var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
 
-            LegacyDb.user_save(
-                userID: userId,
-                boardID: this.PageContext.PageBoardID,
-                userName: null,
-                displayName: null,
-                email: null,
-                timeZone: timeZones.SelectedValue.ToType<int>(),
-                languageFile: null,
-                culture: null,
-                themeFile: null,
-                textEditor: null,
-                useMobileTheme: null,
-                approved: null,
-                pmNotification: null,
-                autoWatchTopics: null,
-                dSTUser: dstUser.Checked,
-                hideUser: null,
-                notificationType: null);
-
-            bool autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting
-                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
-
-            // save the settings...
-            LegacyDb.user_savenotification(
-                userId,
-                true,
-                autoWatchTopicsEnabled,
-                this.Get<YafBoardSettings>().DefaultNotificationSetting,
-                this.Get<YafBoardSettings>().DefaultSendDigestEmail);
+            this.SetupUserProfile(userId);
 
             // Clearing cache with old Active User Lazy Data ...
             this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
@@ -537,6 +491,7 @@ namespace YAF.Pages
         {
             // setup jQuery and DatePicker JS...
             YafContext.Current.PageElements.RegisterJQuery();
+            YafContext.Current.PageElements.RegisterJQueryUI();
 
             YafContext.Current.PageElements.RegisterJsResourceInclude("msdropdown", "js/jquery.msDropDown.js");
 
@@ -558,118 +513,119 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.IsPostBack)
+            if (this.IsPostBack)
             {
-                this.CreateUserWizard1.MembershipProvider = Config.MembershipProvider;
-
-                this.PageLinks.AddRoot();
-                this.PageLinks.AddLink(this.GetText("TITLE"));
-
-                // handle the CreateUser Step localization
-                this.SetupCreateUserStep();
-
-                // handle other steps localization
-                ((Button)this.CreateUserWizard1.FindWizardControlRecursive("ProfileNextButton")).Text =
-                    this.GetText("SAVE");
-                ((Button)this.CreateUserWizard1.FindWizardControlRecursive("ContinueButton")).Text =
-                    this.GetText("CONTINUE");
-
-                var facebookRegister = (LinkButton)this.CreateUserWizard1.FindWizardControlRecursive("FacebookRegister");
-                var twitterRegister = (LinkButton)this.CreateUserWizard1.FindWizardControlRecursive("TwitterRegister");
-                var googleRegister = (LinkButton)this.CreateUserWizard1.FindWizardControlRecursive("GoogleRegister");
-
-                var loginButton = (LinkButton)this.CreateUserWizard1.FindWizardControlRecursive("LoginButton");
-
-                var authPanel = (Panel)this.CreateUserWizard1.FindWizardControlRecursive("AuthPanel");
-
-                if (this.PageContext.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
-                {
-                    loginButton.Visible = true;
-                    loginButton.Text = this.GetText("LOGIN_INSTEAD");
-                }
-
-                if (Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet())
-                {
-                    facebookRegister.Visible = authPanel.Visible = true;
-                    facebookRegister.Text = this.GetTextFormatted("REGISTER_AUTH", "Facebook");
-                }
-
-                if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet())
-                {
-                    twitterRegister.Visible = authPanel.Visible = true;
-                    twitterRegister.Text = this.GetTextFormatted("REGISTER_AUTH", "Twitter");
-                }
-
-                if (Config.GoogleClientID.IsSet() && Config.GoogleClientSecret.IsSet())
-                {
-                    googleRegister.Visible = authPanel.Visible = true;
-                    googleRegister.Text = this.GetTextFormatted("REGISTER_AUTH", "Google");
-                }
-
-                // get the time zone data source
-                var timeZones = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("TimeZones");
-                timeZones.DataSource = StaticDataHelper.TimeZones();
-
-                // get the country data source
-                var country = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("Country");
-                country.DataSource = StaticDataHelper.Country();
-
-                if (this.Get<YafBoardSettings>().EnableIPInfoService && this._UserIpLocator == null)
-                {
-                    // vzrus: we should always get not null class here
-                    this._UserIpLocator = new IPDetails().GetData(
-                        this.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                        "text",
-                        false,
-                        this.PageContext().CurrentForumPage.Localization.Culture.Name,
-                        string.Empty,
-                        string.Empty);
-                }
-
-                if (!this.Get<YafBoardSettings>().EmailVerification)
-                {
-                    // automatically log in created users
-                    this.CreateUserWizard1.LoginCreatedUser = true;
-                    this.CreateUserWizard1.DisableCreatedUser = false;
-
-                    // success notification localization
-                    ((Literal)this.CreateUserWizard1.FindWizardControlRecursive("AccountCreated")).Text =
-                        this.Get<IBBCode>().MakeHtml(this.GetText("ACCOUNT_CREATED"), true, false);
-                }
-                else
-                {
-                    this.CreateUserWizard1.LoginCreatedUser = false;
-                    this.CreateUserWizard1.DisableCreatedUser = true;
-
-                    // success notification localization
-                    ((Literal)this.CreateUserWizard1.FindWizardControlRecursive("AccountCreated")).Text =
-                        this.Get<IBBCode>().MakeHtml(this.GetText("ACCOUNT_CREATED_VERIFICATION"), true, false);
-                }
-
-                this.CreateUserWizard1.FinishDestinationPageUrl = YafForumInfo.ForumURL;
-
-                this.DataBind();
-
-                // fill location field 
-                if (this.Get<YafBoardSettings>().EnableIPInfoService)
-                {
-                    this.FillLocationData(country, timeZones);
-                }
-
-                this.CreateUserWizard1.FindWizardControlRecursive("UserName").Focus();
+                return;
             }
+
+            this.CreateUserWizard1.MembershipProvider = Config.MembershipProvider;
+
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(this.GetText("TITLE"));
+
+            // handle the CreateUser Step localization
+            this.SetupCreateUserStep();
+
+            // handle other steps localization
+            ((Button)this.CreateUserWizard1.FindWizardControlRecursive("ProfileNextButton")).Text =
+                    this.GetText("SAVE");
+            ((Button)this.CreateUserWizard1.FindWizardControlRecursive("ContinueButton")).Text =
+                this.GetText("CONTINUE");
+
+            var dstUser = (CheckBox)this.CreateUserWizard1.FindWizardControlRecursive("DSTUser");
+
+            dstUser.Text = this.GetText("CP_EDITPROFILE", "DST");
+
+            var facebookRegister = (LinkButton)this.CreateUserWizard1.FindWizardControlRecursive("FacebookRegister");
+            var twitterRegister = (LinkButton)this.CreateUserWizard1.FindWizardControlRecursive("TwitterRegister");
+            var googleRegister = (LinkButton)this.CreateUserWizard1.FindWizardControlRecursive("GoogleRegister");
+
+            var loginButton = (LinkButton)this.CreateUserWizard1.FindWizardControlRecursive("LoginButton");
+
+            var authPanel = (Panel)this.CreateUserWizard1.FindWizardControlRecursive("AuthPanel");
+
+            if (this.PageContext.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
+            {
+                loginButton.Visible = true;
+                loginButton.Text = this.GetText("LOGIN_INSTEAD");
+            }
+
+            if (Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet())
+            {
+                facebookRegister.Visible = authPanel.Visible = true;
+                facebookRegister.Text = this.GetTextFormatted("REGISTER_AUTH", "Facebook");
+            }
+
+            if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet())
+            {
+                twitterRegister.Visible = authPanel.Visible = true;
+                twitterRegister.Text = this.GetTextFormatted("REGISTER_AUTH", "Twitter");
+            }
+
+            if (Config.GoogleClientID.IsSet() && Config.GoogleClientSecret.IsSet())
+            {
+                googleRegister.Visible = authPanel.Visible = true;
+                googleRegister.Text = this.GetTextFormatted("REGISTER_AUTH", "Google");
+            }
+
+            // get the time zone data source
+            var timeZones = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("TimeZones");
+            timeZones.DataSource = StaticDataHelper.TimeZones();
+
+            // get the country data source
+            var country = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("Country");
+            country.DataSource = StaticDataHelper.Country();
+
+            if (this.Get<YafBoardSettings>().EnableIPInfoService && this._UserIpLocator == null)
+            {
+                // vzrus: we should always get not null class here
+                this._UserIpLocator = new IPDetails().GetData(
+                    this.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                    "text",
+                    false,
+                    this.PageContext().CurrentForumPage.Localization.Culture.Name,
+                    string.Empty,
+                    string.Empty);
+            }
+
+            if (!this.Get<YafBoardSettings>().EmailVerification)
+            {
+                // automatically log in created users
+                this.CreateUserWizard1.LoginCreatedUser = false;
+                this.CreateUserWizard1.DisableCreatedUser = false;
+
+                // success notification localization
+                ((Literal)this.CreateUserWizard1.FindWizardControlRecursive("AccountCreated")).Text =
+                    this.Get<IBBCode>().MakeHtml(this.GetText("ACCOUNT_CREATED"), true, false);
+            }
+            else
+            {
+                this.CreateUserWizard1.LoginCreatedUser = false;
+                this.CreateUserWizard1.DisableCreatedUser = true;
+
+                // success notification localization
+                ((Literal)this.CreateUserWizard1.FindWizardControlRecursive("AccountCreated")).Text =
+                    this.Get<IBBCode>().MakeHtml(this.GetText("ACCOUNT_CREATED_VERIFICATION"), true, false);
+            }
+
+            this.CreateUserWizard1.ContinueDestinationPageUrl = YafForumInfo.ForumURL;
+            this.CreateUserWizard1.FinishDestinationPageUrl = YafForumInfo.ForumURL;
+
+            this.DataBind();
+
+            // fill location field 
+            if (this.Get<YafBoardSettings>().EnableIPInfoService)
+            {
+                this.FillLocationData(country, timeZones);
+            }
+
+            this.CreateUserWizard1.FindWizardControlRecursive("UserName").Focus();
 
             // password requirement parameters...
             var requirementText =
                 (LocalizedLabel)this.CreateUserStepContainer.FindControl("LocalizedLabelRequirementsText");
             requirementText.Param0 = this.Get<MembershipProvider>().MinRequiredPasswordLength.ToString();
             requirementText.Param1 = this.Get<MembershipProvider>().MinRequiredNonAlphanumericCharacters.ToString();
-
-            // max user name length
-            var usernamelehgthText =
-                (LocalizedLabel)this.CreateUserStepContainer.FindControl("LocalizedLabelLohgUserNameWarnText");
-
-            usernamelehgthText.Param0 = this.Get<YafBoardSettings>().UserNameMaxLength.ToString();
 
             if (this.Get<YafBoardSettings>().CaptchaTypeRegister == 2)
             {
@@ -824,6 +780,12 @@ namespace YAF.Pages
         /// </summary>
         private void SetupCreateUserStep()
         {
+            // Set Name lengths
+            this.CreateUserStepContainer.FindControlAs<TextBox>("DisplayName").MaxLength =
+                this.Get<YafBoardSettings>().UserNameMaxLength;
+            this.CreateUserStepContainer.FindControlAs<TextBox>("UserName").MaxLength =
+                this.Get<YafBoardSettings>().UserNameMaxLength;
+
             var passwordNoMatch = (CompareValidator)this.CreateUserStepContainer.FindControl("PasswordCompare");
             var usernameRequired = (RequiredFieldValidator)this.CreateUserStepContainer.FindControl("UserNameRequired");
             var passwordRequired = (RequiredFieldValidator)this.CreateUserStepContainer.FindControl("PasswordRequired");
@@ -835,7 +797,7 @@ namespace YAF.Pages
             var questionRequired = (RequiredFieldValidator)this.CreateUserStepContainer.FindControl("QuestionRequired");
             var answerRequired = (RequiredFieldValidator)this.CreateUserStepContainer.FindControl("AnswerRequired");
             var createUser = (Button)this.CreateUserStepContainer.FindControl("StepNextButton");
-
+            
             usernameRequired.ToolTip = usernameRequired.ErrorMessage = this.GetText("NEED_USERNAME");
             passwordRequired.ToolTip = passwordRequired.ErrorMessage = this.GetText("NEED_PASSWORD");
             confirmPasswordRequired.ToolTip = confirmPasswordRequired.ErrorMessage = this.GetText("RETYPE_PASSWORD");
@@ -900,8 +862,9 @@ namespace YAF.Pages
         private void SetupRecaptchaControl()
         {
             this.CreateUserWizard1.FindWizardControlRecursive("RecaptchaPlaceHolder").Visible = true;
-            if (string.IsNullOrEmpty(this.Get<YafBoardSettings>().RecaptchaPrivateKey)
-                || string.IsNullOrEmpty(this.Get<YafBoardSettings>().RecaptchaPrivateKey))
+
+            if (this.Get<YafBoardSettings>().RecaptchaPrivateKey.IsNotSet()
+                || this.Get<YafBoardSettings>().RecaptchaPublicKey.IsNotSet())
             {
                 // this.PageContext.AddLoadMessage(this.GetText("RECAPTCHA_BADSETTING"));              
                 this.Logger.Log(this.PageContext.PageUserID, this, "Private or public key for Recapture required!");
@@ -996,6 +959,64 @@ namespace YAF.Pages
             }
 
             timeZones.Items.FindByValue(hours.ToString()).Selected = true;
+        }
+
+        /// <summary>
+        /// Setups the user profile.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        private void SetupUserProfile(int userId)
+        {
+            // this is the "Profile Information" step. Save the data to their profile (+ defaults).
+            var timeZones = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("TimeZones");
+            var country = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("Country");
+            var locationTextBox = (TextBox)this.CreateUserWizard1.FindWizardControlRecursive("Location");
+            var homepageTextBox = (TextBox)this.CreateUserWizard1.FindWizardControlRecursive("Homepage");
+            var dstUser = (CheckBox)this.CreateUserWizard1.FindWizardControlRecursive("DSTUser");
+
+            // setup/save the profile
+            YafUserProfile userProfile = YafUserProfile.GetProfile(this.CreateUserWizard1.UserName);
+
+            if (country.SelectedValue != null)
+            {
+                userProfile.Country = country.SelectedValue;
+            }
+
+            userProfile.Location = locationTextBox.Text.Trim();
+            userProfile.Homepage = homepageTextBox.Text.Trim();
+
+            userProfile.Save();
+
+            // save the time zone...
+            LegacyDb.user_save(
+                userID: userId,
+                boardID: this.PageContext.PageBoardID,
+                userName: null,
+                displayName: null,
+                email: null,
+                timeZone: timeZones.SelectedValue.ToType<int>(),
+                languageFile: null,
+                culture: null,
+                themeFile: null,
+                textEditor: null,
+                useMobileTheme: null,
+                approved: null,
+                pmNotification: null,
+                autoWatchTopics: null,
+                dSTUser: dstUser.Checked,
+                hideUser: null,
+                notificationType: null);
+
+            bool autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting
+                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
+
+            // save the settings...
+            LegacyDb.user_savenotification(
+                userId,
+                true,
+                autoWatchTopicsEnabled,
+                this.Get<YafBoardSettings>().DefaultNotificationSetting,
+                this.Get<YafBoardSettings>().DefaultSendDigestEmail);
         }
 
         #endregion

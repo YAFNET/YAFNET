@@ -4700,6 +4700,7 @@ Spoiler Content
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Your display name is already registered.</Resource>
     <Resource tag="BAD_EMAIL">Vous avez entré une adresse e-mail invalide.</Resource>
     <Resource tag="BAD_PASSWORD">Choisir un mot de passe plus complexe avec de la ponctuation (!?) ou des chiffres.</Resource>
+    <Resource tag="BASIC_ACCOUNT">Account</Resource>
     <Resource tag="BOT_MESSAGE">Sorry Spammers are not allowed in the Forum!</Resource>
     <Resource tag="CONFIRM_PASSWORD">Confirmation du mot de passe</Resource>
     <Resource tag="CONTINUE">Continuer</Resource>
@@ -4714,7 +4715,7 @@ Spoiler Content
     <Resource tag="INVALID_QUESTION">Choisissez une question différente.</Resource>
     <Resource tag="INVALID_USERNAME">Choisissez un autre nom d'utilisateur.</Resource>
     <Resource tag="LOCATION">Localisation</Resource>
-    <Resource tag="LOGIN_INSTEAD">Login instead with an existing Account</Resource>
+    <Resource tag="LOGIN_INSTEAD">Already Signed Up? Click Sign In to login your account.</Resource>
     <Resource tag="NEED_ANSWER">Réponse à la question de sécurité requise.</Resource>
     <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
     <Resource tag="NEED_EMAIL">E-mail requis.</Resource>
@@ -4737,6 +4738,7 @@ Spoiler Content
     <Resource tag="TERMS_AND_CONDITIONS_TITLE">Termes et Conditions</Resource>
     <Resource tag="TIMEZONE">Fuseau horaire</Resource>
     <Resource tag="TITLE">Enregistrer un nouvel utilisateur</Resource>
+    <Resource tag="TITLE2">Register a new account</Resource>
     <Resource tag="USERNAME">Nom de l'utilisateur</Resource>
     <Resource tag="USERNAME_LENGTH_WARN">User name should not contain more than {0} characters.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Vérification de l'enregistrement pour les forums {0}</Resource>

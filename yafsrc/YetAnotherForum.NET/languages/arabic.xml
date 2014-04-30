@@ -4523,6 +4523,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">لقد قمت  بالتسجيل مسبقا.</Resource>
     <Resource tag="BAD_EMAIL">يرجى التأكد من البريد الإلكتروني</Resource>
     <Resource tag="BAD_PASSWORD">يرجى ادخال   كلمة مرور معقده  تحتوي على ارقام ورموز .</Resource>
+    <Resource tag="BASIC_ACCOUNT">Account</Resource>
     <Resource tag="BOT_MESSAGE">Sorry Spammers are not allowed in the Forum!</Resource>
     <Resource tag="CONFIRM_PASSWORD">التأكد من كلمت المرور</Resource>
     <Resource tag="CONTINUE">استمرار</Resource>
@@ -4537,7 +4538,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="INVALID_QUESTION">ادخال   سوال اتحقبق مختلف  .</Resource>
     <Resource tag="INVALID_USERNAME">الرجاء إدخال اسم مستخدم موجود مسبقا   </Resource>
     <Resource tag="LOCATION">مكان الاقامة </Resource>
-    <Resource tag="LOGIN_INSTEAD">Login instead with an existing Account</Resource>
+    <Resource tag="LOGIN_INSTEAD">Already Signed Up? Click Sign In to login your account.</Resource>
     <Resource tag="NEED_ANSWER">اخال الرمز المجود بالصورة </Resource>
     <Resource tag="NEED_DISPLAYNAME">اضهار الاسم الحقيقي </Resource>
     <Resource tag="NEED_EMAIL">إدخال البريد الإلكتروني</Resource>
@@ -4560,6 +4561,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="TERMS_AND_CONDITIONS_TITLE">الشروط</Resource>
     <Resource tag="TIMEZONE">الوقت المحلي</Resource>
     <Resource tag="TITLE">تسجيل اسم المستخدم </Resource>
+    <Resource tag="TITLE2">Register a new account</Resource>
     <Resource tag="USERNAME">اسم المستخدم </Resource>
     <Resource tag="USERNAME_LENGTH_WARN">يجب اسم المستخدم ان لايحتوى على  {0} حرف.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">تحقيق  من التسجيل في {0} المنتدى </Resource>

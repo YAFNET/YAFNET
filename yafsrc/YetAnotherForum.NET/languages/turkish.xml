@@ -4683,6 +4683,7 @@ Spoiler Content
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Forumda görünecek isminiz daha önce seçilmiştir.</Resource>
     <Resource tag="BAD_EMAIL">Girmiş olduğunuz e-posta adresi geçersiz.</Resource>
     <Resource tag="BAD_PASSWORD">Lütfen daha karmaşık bir şifre seçiniz. (!-? 0-9) gibi karakter-sayı içeren şifre giriniz.</Resource>
+    <Resource tag="BASIC_ACCOUNT">Account</Resource>
     <Resource tag="BOT_MESSAGE">Sorry Spammers are not allowed in the Forum!</Resource>
     <Resource tag="CONFIRM_PASSWORD">Şifre Onayı</Resource>
     <Resource tag="CONTINUE">Devam</Resource>
@@ -4697,7 +4698,7 @@ Spoiler Content
     <Resource tag="INVALID_QUESTION">Lütfen farklı bir soru girin.</Resource>
     <Resource tag="INVALID_USERNAME">Lütfen farklı bir kullanıcı adı girin.</Resource>
     <Resource tag="LOCATION">Adres Bilgileriniz</Resource>
-    <Resource tag="LOGIN_INSTEAD">Login instead with an existing Account</Resource>
+    <Resource tag="LOGIN_INSTEAD">Already Signed Up? Click Sign In to login your account.</Resource>
     <Resource tag="NEED_ANSWER">Hatırlatma sorusu cevabı gereklidir.</Resource>
     <Resource tag="NEED_DISPLAYNAME">Forumda görünecek isim zorunludur.</Resource>
     <Resource tag="NEED_EMAIL">E-Posta gereklidir.</Resource>
@@ -4720,6 +4721,7 @@ Spoiler Content
     <Resource tag="TERMS_AND_CONDITIONS_TITLE">Kurallar ve Şartlar</Resource>
     <Resource tag="TIMEZONE">Saat Diliminizi Seçiniz</Resource>
     <Resource tag="TITLE">Yeni Kullanıcı Kayıt Ekranı</Resource>
+    <Resource tag="TITLE2">Register a new account</Resource>
     <Resource tag="USERNAME">Kullanıcı Adı</Resource>
     <Resource tag="USERNAME_LENGTH_WARN">Kullanıcı adınız {0} karakterden uzun olamaz.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">{0} Forumu için kayıt onayı</Resource>

@@ -4701,6 +4701,7 @@ Spoiler Content
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Dit navn til visning er allerede taget.</Resource>
     <Resource tag="BAD_EMAIL">Du har skrevet en ugyldig e-mail adresse.</Resource>
     <Resource tag="BAD_PASSWORD">Vælg venligst en mere kompleks adgangskode som indeholder ikke alfanummeriske tegn eller tal.</Resource>
+    <Resource tag="BASIC_ACCOUNT">Account</Resource>
     <Resource tag="BOT_MESSAGE">Sorry Spammers are not allowed in the Forum!</Resource>
     <Resource tag="CONFIRM_PASSWORD">Bekræft adgangskode</Resource>
     <Resource tag="CONTINUE">Forsæt</Resource>
@@ -4715,7 +4716,7 @@ Spoiler Content
     <Resource tag="INVALID_QUESTION">Vælg et andet spørgsmål.</Resource>
     <Resource tag="INVALID_USERNAME">Vælg et andet brugernavn.</Resource>
     <Resource tag="LOCATION">Sted</Resource>
-    <Resource tag="LOGIN_INSTEAD">Login instead with an existing Account</Resource>
+    <Resource tag="LOGIN_INSTEAD">Already Signed Up? Click Sign In to login your account.</Resource>
     <Resource tag="NEED_ANSWER">Sikkerheds svar er påkrævet.</Resource>
     <Resource tag="NEED_DISPLAYNAME">Visnings navn er påkrævet.</Resource>
     <Resource tag="NEED_EMAIL">E-mail er påkrævet.</Resource>
@@ -4738,6 +4739,7 @@ Spoiler Content
     <Resource tag="TERMS_AND_CONDITIONS_TITLE">Regler og betingelser</Resource>
     <Resource tag="TIMEZONE">Tids zone</Resource>
     <Resource tag="TITLE">Tilmeld ny bruger</Resource>
+    <Resource tag="TITLE2">Register a new account</Resource>
     <Resource tag="USERNAME">Brugernavn</Resource>
     <Resource tag="USERNAME_LENGTH_WARN">Bruger navnet bør ikke indholde mere end {0} tegn.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Registrerings validering for {0} forum</Resource>

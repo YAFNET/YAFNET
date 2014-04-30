@@ -15,22 +15,19 @@
 								<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" />
 							</td>
 						</tr>
+                        <tr>
+                            <td class="header2" colspan="2">
+                                <strong>
+                                    <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedTag="BASIC_ACCOUNT" />
+                                </strong>
+                            </td>
+                        </tr>
 						<tr>
-							<td align="center" class="post" colspan="2">
-								<asp:CompareValidator ID="PasswordCompare" runat="server" ControlToCompare="Password"
-									ControlToValidate="ConfirmPassword" Display="Dynamic" ErrorMessage="The Password and Confirmation Password must match."
-									ValidationGroup="CreateUserWizard1"></asp:CompareValidator>
-									<YAF:LocalizedLabel ID="LocalizedLabelRequirementsTitle" runat="server" LocalizedTag="PASSWORD_REQUIREMENTS_TITLE"></YAF:LocalizedLabel>:
-									<YAF:LocalizedLabel ID="LocalizedLabelRequirementsText" runat="server" LocalizedTag="PASSWORD_REQUIREMENTS_WARN"></YAF:LocalizedLabel>
-							</br>
-							<YAF:LocalizedLabel ID="LocalizedLabelLohgUserNameWarnText" runat="server" LocalizedTag="USERNAME_LENGTH_WARN"></YAF:LocalizedLabel>
-							</td>
-						</tr>
-						<tr>
-							<td align="right" class="postheader">
-								<asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">
+						    <td align="right" class="postheader">
+                                <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">
 									<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="USERNAME" />
-									:</asp:Label></td>
+									:</asp:Label>
+                            </td>
 							<td class="post">
 								<asp:TextBox ID="UserName" runat="server"></asp:TextBox>
 								<asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName"
@@ -41,13 +38,51 @@
 							<td align="right" class="postheader">
 								<asp:Label ID="DisplayNameLabel" runat="server" AssociatedControlID="DisplayName">
 									<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="DISPLAYNAME" />
-									:</asp:Label></td>
+									:</asp:Label>
+                            </td>
 							<td class="post">
 								<asp:TextBox ID="DisplayName" runat="server"></asp:TextBox>
 								<YAF:LocalizedRequiredFieldValidator ID="DisplayNameRequired" runat="server" Enabled="false" ControlToValidate="DisplayName" LocalizedTag="NEED_DISPLAYNAME" ValidationGroup="CreateUserWizard1">*</YAF:LocalizedRequiredFieldValidator>
 							</td>
 						</tr>
 						</asp:PlaceHolder>
+                        <tr>
+							<td align="right" class="postheader">
+								<asp:Label ID="EmailLabel" runat="server" AssociatedControlID="Email">
+									<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="EMAIL" />
+									:</asp:Label></td>
+							<td class="post">
+								<asp:TextBox ID="Email" runat="server"></asp:TextBox>
+								<asp:RequiredFieldValidator ID="EmailRequired" runat="server" ControlToValidate="Email" 
+									ErrorMessage="E-mail is required." ToolTip="E-mail is required." ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
+                                <asp:RegularExpressionValidator ID="EmailValid" runat="server" ValidationGroup="CreateUserWizard1" ControlToValidate="Email"
+                                     ErrorMessage="E-mail adress is not valid." ValidationExpression="^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$">*
+                                 </asp:RegularExpressionValidator>
+							</td>
+						</tr>
+                         <tr>
+                            <td class="header2" colspan="2">
+                                <strong>
+                                    <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="PASSWORD" />
+                                </strong>
+                            </td>
+                        </tr>
+						<tr>
+							<td style="text-align:center" class="post" colspan="2">
+								<asp:CompareValidator ID="PasswordCompare" runat="server" ControlToCompare="Password"
+									ControlToValidate="ConfirmPassword" Display="Dynamic" ErrorMessage="The Password and Confirmation Password must match."
+									ValidationGroup="CreateUserWizard1"></asp:CompareValidator>
+									<div class="ui-widget">
+									    <div class="ui-state-highlight ui-corner-all">
+									        <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                                                <strong><YAF:LocalizedLabel ID="LocalizedLabelRequirementsTitle" runat="server" LocalizedTag="PASSWORD_REQUIREMENTS_TITLE"></YAF:LocalizedLabel>:</strong>
+									<YAF:LocalizedLabel ID="LocalizedLabelRequirementsText" runat="server" LocalizedTag="PASSWORD_REQUIREMENTS_WARN"></YAF:LocalizedLabel></p>
+									    </div>
+									</div>
+							    <br />
+							
+							</td>
+						</tr>
 						<tr>
 							<td align="right" class="postheader">
 								<asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">
@@ -74,20 +109,7 @@
 									ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
 							</td>
 						</tr>
-						<tr>
-							<td align="right" class="postheader">
-								<asp:Label ID="EmailLabel" runat="server" AssociatedControlID="Email">
-									<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="EMAIL" />
-									:</asp:Label></td>
-							<td class="post">
-								<asp:TextBox ID="Email" runat="server"></asp:TextBox>
-								<asp:RequiredFieldValidator ID="EmailRequired" runat="server" ControlToValidate="Email" 
-									ErrorMessage="E-mail is required." ToolTip="E-mail is required." ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
-                                <asp:RegularExpressionValidator ID="EmailValid" runat="server" ValidationGroup="CreateUserWizard1" ControlToValidate="Email"
-                                     ErrorMessage="E-mail adress is not valid." ValidationExpression="^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$">*
-                                 </asp:RegularExpressionValidator>
-							</td>
-						</tr>
+						
 						<asp:PlaceHolder runat="server" ID="QuestionAnswerPlaceHolder"><tr>
 							<td align="right" class="postheader">
 								<asp:Label ID="QuestionLabel" runat="server" AssociatedControlID="Question">
@@ -171,18 +193,25 @@
 					<!-- in the Content Template -->
 				</CustomNavigationTemplate>
 			</asp:CreateUserWizardStep>
-			<asp:TemplatedWizardStep runat="server" Title="Profile Information" ID="profile">
+            <asp:TemplatedWizardStep runat="server" Title="Profile Information" ID="profile">
 				<ContentTemplate>
 					<table class="content" cellspacing="1" cellpadding="0" border="0" width="700">
 						<tr>
 							<td align="center" class="header1" colspan="2">
-								<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="TITLE" />
+								<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="PROFILE" />
 							</td>
 						</tr>
                         <tr>
+                            <td class="header2" colspan="2">
+                                <strong>
+                                    <YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedTag="PROFILE" />
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr>
 							<td align="right" class="postheader">
 								<YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="COUNTRY" />
-								:</td>
+						    </td>
 							<td class="post">
 								<YAF:CountryListBox ID="Country" runat="server" DataTextField="Name" DataValueField="Value" /></td>
 						</tr>
@@ -205,12 +234,12 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="header2" colspan="2" align="center">
+							<td class="header2" colspan="2">
 								<YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="PREFERENCES" />
 							</td>
 						</tr>
 						<tr>
-							<td class="postheader">
+							<td align="right"class="postheader">
 								<YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="TIMEZONE" />
 								:</td>
 							<td class="post">
@@ -218,13 +247,12 @@
 						</tr>
                         <tr>
                             <td class="postheader">
-                                <YAF:LocalizedLabel ID="DSTLocalizedLabel" runat="server" LocalizedPage="CP_EDITPROFILE"
-                                  LocalizedTag="DST" />
                            </td>
                            <td class="post">
                                  <asp:CheckBox runat="server" ID="DSTUser" />
                            </td>
                         </tr>
+                        
 						<tr align="right">
 							<td align="center" colspan="2" class="postfooter">
 								<asp:Button ID="ProfileNextButton" runat="server" CssClass="pbutton" CommandName="MoveNext" Text="Next" />

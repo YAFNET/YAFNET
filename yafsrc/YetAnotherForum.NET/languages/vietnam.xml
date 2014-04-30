@@ -4684,6 +4684,7 @@ Spoiler Content
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Your display name is already registered.</Resource>
     <Resource tag="BAD_EMAIL">Địa chỉ email bạn cung cấp không hợp lệ.</Resource>
     <Resource tag="BAD_PASSWORD">Xin chọn một mật khẩu an toàn hơn,bao gồm cả các ký tự (!?) hoặc số.</Resource>
+    <Resource tag="BASIC_ACCOUNT">Account</Resource>
     <Resource tag="BOT_MESSAGE">Sorry Spammers are not allowed in the Forum!</Resource>
     <Resource tag="CONFIRM_PASSWORD">Xác nhận lại mật khẩu</Resource>
     <Resource tag="CONTINUE">Tiếp tục</Resource>
@@ -4698,7 +4699,7 @@ Spoiler Content
     <Resource tag="INVALID_QUESTION">Vui lòng chọn một câu hỏi khác.</Resource>
     <Resource tag="INVALID_USERNAME">Vui lòng chọn một Username khác.</Resource>
     <Resource tag="LOCATION">Đến từ</Resource>
-    <Resource tag="LOGIN_INSTEAD">Login instead with an existing Account</Resource>
+    <Resource tag="LOGIN_INSTEAD">Already Signed Up? Click Sign In to login your account.</Resource>
     <Resource tag="NEED_ANSWER">Bạn chưa trả lời Câu hỏi bảo mật.</Resource>
     <Resource tag="NEED_DISPLAYNAME">Display Name is required.</Resource>
     <Resource tag="NEED_EMAIL">Bạn chưa nhập Email</Resource>
@@ -4721,6 +4722,7 @@ Spoiler Content
     <Resource tag="TERMS_AND_CONDITIONS_TITLE">Điều khoản sử dụng</Resource>
     <Resource tag="TIMEZONE">Múi giờ</Resource>
     <Resource tag="TITLE">Đăng ký thành viên</Resource>
+    <Resource tag="TITLE2">Register a new account</Resource>
     <Resource tag="USERNAME">Tên đăng nhập</Resource>
     <Resource tag="USERNAME_LENGTH_WARN">User name should not contain more than {0} characters.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>

@@ -4631,6 +4631,7 @@ Spoiler Content
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Ihr Anzeigename wird bereits verwendet.</Resource>
     <Resource tag="BAD_EMAIL">Die E-Mailadresse hat ein falsches Format.</Resource>
     <Resource tag="BAD_PASSWORD">Wähle bitte ein komplexeres Passwort mit Sonderzeichen und Zahlen</Resource>
+    <Resource tag="BASIC_ACCOUNT">Benuzterkonto</Resource>
     <Resource tag="BOT_MESSAGE">Entschuldigen Sie bitte aber Spammer sind nicht erlaubt im Forum!</Resource>
     <Resource tag="CONFIRM_PASSWORD">Passwortbestätigung</Resource>
     <Resource tag="CONTINUE">Weiter</Resource>
@@ -4667,7 +4668,8 @@ Spoiler Content
     <Resource tag="SECURITY_QUESTION">Sicherheitsfrage (bei Passwortverlust)</Resource>
     <Resource tag="TERMS_AND_CONDITIONS_TITLE">Nutzungsbedingungen</Resource>
     <Resource tag="TIMEZONE">Zeitzone</Resource>
-    <Resource tag="TITLE">Neuen Benutzer registrieren</Resource>
+    <Resource tag="TITLE">Benutzer registrieren</Resource>
+    <Resource tag="TITLE2">Neuen Benutzer registrieren</Resource>
     <Resource tag="USERNAME">Benutzername</Resource>
     <Resource tag="USERNAME_LENGTH_WARN">Benutzername darf mehr als {0} Zeichen haben.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Bestätigung der Anmeldedaten für {0}</Resource>

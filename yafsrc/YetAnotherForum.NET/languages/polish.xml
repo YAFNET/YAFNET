@@ -4677,6 +4677,7 @@ Spoiler Content
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Twoja wyświetlana nazwa jest już zajęta.</Resource>
     <Resource tag="BAD_EMAIL">Wpisałeś nieprawidłowy adres e-mail.</Resource>
     <Resource tag="BAD_PASSWORD">Proszę wybrać bardziej skomplikowane hasło, dodając znaki specjalne (!?) lub liczby.</Resource>
+    <Resource tag="BASIC_ACCOUNT">Account</Resource>
     <Resource tag="BOT_MESSAGE">Spamerzy nie są mile widziani na Forum!</Resource>
     <Resource tag="CONFIRM_PASSWORD">Potwierdź hasło</Resource>
     <Resource tag="CONTINUE">Kontynuuj</Resource>
@@ -4714,6 +4715,7 @@ Spoiler Content
     <Resource tag="TERMS_AND_CONDITIONS_TITLE">Regulamin</Resource>
     <Resource tag="TIMEZONE">Strefa Czasowa</Resource>
     <Resource tag="TITLE">Zarejestruj Nowego Użytkownika</Resource>
+    <Resource tag="TITLE2">Register a new account</Resource>
     <Resource tag="USERNAME">Nazwa Użytkownika</Resource>
     <Resource tag="USERNAME_LENGTH_WARN">Nazwa użytkownika powinna się składać z co najmniej {0} znaków.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Weryfikacja rejestracji na forum {0}</Resource>

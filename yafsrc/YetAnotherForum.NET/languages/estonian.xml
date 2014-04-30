@@ -4700,6 +4700,7 @@ Spoiler Content
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Hüüdnimi on juba kasutusel</Resource>
     <Resource tag="BAD_EMAIL">E-posti aadress ei vasta reeglitele.</Resource>
     <Resource tag="BAD_PASSWORD">Palun sisesta keerukam parool, mis sisaldab erisümboleid (!?) või numbreid.</Resource>
+    <Resource tag="BASIC_ACCOUNT">Account</Resource>
     <Resource tag="BOT_MESSAGE">Sorry Spammers are not allowed in the Forum!</Resource>
     <Resource tag="CONFIRM_PASSWORD">Korda parooli</Resource>
     <Resource tag="CONTINUE">Jätka</Resource>
@@ -4714,7 +4715,7 @@ Spoiler Content
     <Resource tag="INVALID_QUESTION">Palun vali teistsugune küsimus.</Resource>
     <Resource tag="INVALID_USERNAME">Palun vali teistsugune kasutajanimi.</Resource>
     <Resource tag="LOCATION">Asukoht</Resource>
-    <Resource tag="LOGIN_INSTEAD">Login instead with an existing Account</Resource>
+    <Resource tag="LOGIN_INSTEAD">Already Signed Up? Click Sign In to login your account.</Resource>
     <Resource tag="NEED_ANSWER">Salaküsimuse vastus on kohustuslik.</Resource>
     <Resource tag="NEED_DISPLAYNAME">Hüüdnimi on kohustuslik..</Resource>
     <Resource tag="NEED_EMAIL">E-post on kohustuslik.</Resource>
@@ -4737,6 +4738,7 @@ Spoiler Content
     <Resource tag="TERMS_AND_CONDITIONS_TITLE">Tingimused ja reeglid</Resource>
     <Resource tag="TIMEZONE">Ajatsoon</Resource>
     <Resource tag="TITLE">Uue kasutaja registreerimine</Resource>
+    <Resource tag="TITLE2">Register a new account</Resource>
     <Resource tag="USERNAME">Kasutajanimi</Resource>
     <Resource tag="USERNAME_LENGTH_WARN">Kasutajanimi ei tohi olla pikem kui {0} märki.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Registreerimise kinnitus {0} foorumis</Resource>

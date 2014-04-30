@@ -5037,6 +5037,7 @@ public class Hello1
     <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Tu nombre a mostrar ya está registrado.</Resource>
     <Resource tag="BAD_EMAIL">La cuenta de correo es incorrecta.</Resource>
     <Resource tag="BAD_PASSWORD">Por favor elija una calve más compleja que incluya caracteres de puntuacion (!?) o numeros.</Resource>
+    <Resource tag="BASIC_ACCOUNT">Account</Resource>
     <Resource tag="BOT_MESSAGE">Lo sentimos, no se permiten spammers en el foro.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Confirmar clave</Resource>
     <Resource tag="CONTINUE">Continuar</Resource>
@@ -5074,6 +5075,7 @@ public class Hello1
     <Resource tag="TERMS_AND_CONDITIONS_TITLE">Terminos y condiciones</Resource>
     <Resource tag="TIMEZONE">Zona horaria</Resource>
     <Resource tag="TITLE">Registro de usuario nuevo</Resource>
+    <Resource tag="TITLE2">Register a new account</Resource>
     <Resource tag="USERNAME">Nombre de usuario (nick)</Resource>
     <Resource tag="USERNAME_LENGTH_WARN">El nombre de usuario no puede exceder los {0} caracteres.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Verificación de registro para el foro {0} </Resource>
