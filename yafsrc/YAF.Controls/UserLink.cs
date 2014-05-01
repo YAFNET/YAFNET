@@ -159,8 +159,8 @@ namespace YAF.Controls
                     .FormatWith(
                         Config.JQueryAlias,
                         this.Get<YafBoardSettings>().HoverCardOpenDelay,
-                        this.GetText("DEFAULT", "LOADING_HOVERCARD"),
-                        this.GetText("DEFAULT", "ERROR_HOVERCARD")));
+                        this.GetText("DEFAULT", "LOADING_HOVERCARD").ToJsString(),
+                        this.GetText("DEFAULT", "ERROR_HOVERCARD").ToJsString()));
         }
 
         /// <summary>

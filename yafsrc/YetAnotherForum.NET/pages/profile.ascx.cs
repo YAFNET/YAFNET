@@ -783,15 +783,15 @@ namespace YAF.Pages
                     JavaScriptBlocks.HoverCardLoadJs(
                         ".Facebook-HoverCard",
                         "Facebook",
-                        this.GetText("DEFAULT", "LOADING_FB_HOVERCARD"),
-                        this.GetText("DEFAULT", "ERROR_FB_HOVERCARD")));
+                        this.GetText("DEFAULT", "LOADING_FB_HOVERCARD").ToJsString(),
+                        this.GetText("DEFAULT", "ERROR_FB_HOVERCARD").ToJsString()));
 
                 hoverCardLoadJs.Append(
                     JavaScriptBlocks.HoverCardLoadJs(
                         ".Twitter-HoverCard",
                         "Twitter",
-                        this.GetText("DEFAULT", "LOADING_TWIT_HOVERCARD"),
-                        this.GetText("DEFAULT", "ERROR_TWIT_HOVERCARD")));
+                        this.GetText("DEFAULT", "LOADING_TWIT_HOVERCARD").ToJsString(),
+                        this.GetText("DEFAULT", "ERROR_TWIT_HOVERCARD").ToJsString()));
 
                 // Setup Hover Card JS
                 YafContext.Current.PageElements.RegisterJsBlockStartup(

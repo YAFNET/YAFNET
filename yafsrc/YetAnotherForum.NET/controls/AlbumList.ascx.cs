@@ -35,6 +35,7 @@ namespace YAF.Controls
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utilities;
     using YAF.Utils;
@@ -114,8 +115,8 @@ namespace YAF.Controls
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "AlbumEventsJs",
                     JavaScriptBlocks.AlbumEventsJs(
-                        this.Get<ILocalization>().GetText("ALBUM_CHANGE_TITLE"),
-                        this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION")));
+                        this.Get<ILocalization>().GetText("ALBUM_CHANGE_TITLE").ToJsString(),
+                        this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION").ToJsString()));
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "ChangeAlbumTitleJs", JavaScriptBlocks.ChangeAlbumTitleJs);
                 YafContext.Current.PageElements.RegisterJsBlockStartup(

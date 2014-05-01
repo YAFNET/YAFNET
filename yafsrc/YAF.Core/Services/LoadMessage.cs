@@ -130,25 +130,6 @@ namespace YAF.Core.Services
         #region Public Methods
 
         /// <summary>
-        /// Cleans the js string.
-        /// </summary>
-        /// <param name="jsString">The js string.</param>
-        /// <returns>
-        /// The clean js string.
-        /// </returns>
-        [NotNull]
-        public static string CleanJsString([NotNull] string jsString)
-        {
-            string message = jsString;
-            message = message.Replace("\\", "\\\\");
-            message = message.Replace("'", "\\'");
-            message = message.Replace("\r\n", "\\r\\n");
-            message = message.Replace("\n", "\\n");
-            message = message.Replace("\"", "\\\"");
-            return message;
-        }
-
-        /// <summary>
         /// AddLoadMessage creates a message that will be returned on the next page load.
         /// </summary>
         /// <param name="message">The message you wish to display.</param>

@@ -27,12 +27,10 @@ namespace YAF.Modules
 
     using System;
 
-    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 
@@ -100,7 +98,7 @@ namespace YAF.Modules
             }*/
 
             // Get the clean JS string.
-            message.Message = LoadMessage.CleanJsString(message.Message);
+            message.Message = message.Message.ToJsString();
 
             if (string.IsNullOrEmpty(message.Message))
             {

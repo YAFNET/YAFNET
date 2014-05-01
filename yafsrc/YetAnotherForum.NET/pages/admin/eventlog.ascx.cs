@@ -213,7 +213,7 @@ namespace YAF.Pages.Admin
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "ToggleEventLogItemJs",
                 JavaScriptBlocks.ToggleEventLogItemJs(
-                    this.GetText("ADMIN_EVENTLOG", "SHOW"), this.GetText("ADMIN_EVENTLOG", "HIDE")));
+                    this.GetText("ADMIN_EVENTLOG", "SHOW").ToJsString(), this.GetText("ADMIN_EVENTLOG", "HIDE").ToJsString()));
 
             base.OnPreRender(e);
         }
