@@ -130,6 +130,15 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.HiddenField hidLastTab;
         
         /// <summary>
+        /// hidLastTabId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidLastTabId;
+        
+        /// <summary>
         /// NewPM2 control.
         /// </summary>
         /// <remarks>

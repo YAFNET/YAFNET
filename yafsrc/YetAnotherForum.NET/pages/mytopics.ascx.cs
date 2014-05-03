@@ -124,7 +124,7 @@ namespace YAF.Pages
                     this.TopicsTabs.ClientID,
                     this.hidLastTab.ClientID,
                     this.hidLastTabId.ClientID,
-                    this.Page.ClientScript.GetPostBackEventReference(ChangeTab, string.Empty),
+                    this.Page.ClientScript.GetPostBackEventReference(this.ChangeTab, string.Empty),
                     false,
                     true));
 

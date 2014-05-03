@@ -42,7 +42,8 @@
                 </div>
                 </asp:PlaceHolder>
              </asp:Panel>
-        <asp:HiddenField runat="server" ID="hidLastTab" Value="0" /><asp:HiddenField runat="server" ID="hidLastTabId" Value="0" />
+        <asp:HiddenField runat="server" ID="hidLastTab" Value="0" />
+        <asp:HiddenField runat="server" ID="hidLastTabId" Value="0" />
         <asp:Button id="ChangeTab" OnClick="ChangeTabClick" runat="server" style="display:none" />
 <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
     <div id="DivForumJump">

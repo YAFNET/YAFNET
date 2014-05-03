@@ -2136,4 +2136,5 @@
     </table>
 </YAF:AdminMenu>
 <asp:HiddenField runat="server" ID="hidLastTab" Value="0" />
+<asp:HiddenField runat="server" ID="hidLastTabId" Value="0" />
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

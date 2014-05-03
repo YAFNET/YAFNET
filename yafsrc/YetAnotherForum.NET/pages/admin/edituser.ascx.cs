@@ -103,7 +103,11 @@ namespace YAF.Pages.Admin
 
             YafContext.Current.PageElements.RegisterJsBlock(
                 "EditUserTabsJs",
-                JavaScriptBlocks.JqueryUITabsLoadJs(this.EditUserTabs.ClientID, this.hidLastTab.ClientID, false));
+                JavaScriptBlocks.JqueryUITabsLoadJs(
+                    this.EditUserTabs.ClientID,
+                    this.hidLastTab.ClientID,
+                    this.hidLastTabId.ClientID,
+                    false));
 
             base.OnPreRender(e);
         }

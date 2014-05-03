@@ -709,6 +709,7 @@
                 </div>
              </asp:Panel>
     <asp:HiddenField runat="server" ID="hidLastTab" Value="0" />
+    <asp:HiddenField runat="server" ID="hidLastTabId" Value="0" />
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
 			<td class="postfooter" align="center">

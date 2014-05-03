@@ -34,6 +34,7 @@
                 </div>
              </asp:Panel>
 <asp:HiddenField runat="server" ID="hidLastTab" Value="0" />
+<asp:HiddenField runat="server" ID="hidLastTabId" Value="0" />
 <br />
 <div>
 	<YAF:ThemeButton ID="NewPM2" runat="server" CssClass="yafcssbigbutton rightItem button-newpm" TextLocalizedTag="BUTTON_NEWPM" TitleLocalizedTag="BUTTON_NEWPM_TT" />

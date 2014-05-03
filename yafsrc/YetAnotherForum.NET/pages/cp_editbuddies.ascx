@@ -31,6 +31,7 @@
     </tr>
 </table>
 <asp:HiddenField runat="server" ID="hidLastTab" Value="0" />
+<asp:HiddenField runat="server" ID="hidLastTabId" Value="0" />
 <div id="DivSmartScroller">
     <YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>

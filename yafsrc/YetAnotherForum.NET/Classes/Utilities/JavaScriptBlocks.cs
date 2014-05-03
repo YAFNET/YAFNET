@@ -261,12 +261,13 @@ namespace YAF.Utilities
             get
             {
                 return
-                    @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
+                    @" if( typeof(CKEDITOR) == 'undefined' ) {{Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
             function loadTimeAgo() {{	
             {2}.timeago.settings.refreshMillis = {1};			      	
             {0}
-              {2}('abbr.timeago').timeago();	
-			      }}"
+		    {2}('abbr.timeago').timeago();	
+	   
+			      }} }}"
                         .FormatWith(
                             YafContext.Current.Get<ILocalization>().GetText("TIMEAGO_JS"),
                             YafContext.Current.Get<YafBoardSettings>().RelativeTimeRefreshTime,
@@ -485,27 +486,43 @@ namespace YAF.Utilities
         }
 
         /// <summary>
-        /// Gets JqueryUITabsLoadJs.
+        /// Gets the jQuery-UI Tabs Load JS.
         /// </summary>
-        /// <param name="tabId">
-        /// The tab Id.
-        /// </param>
-        /// <param name="hiddenId">
-        /// The hidden Id.
-        /// </param>
-        /// <param name="hightTransition">
-        /// Height Transition
-        /// </param>
+        /// <param name="tabId">The tab Id.</param>
+        /// <param name="hiddenId">The hidden Id.</param>
+        /// <param name="hightTransition">Height Transition</param>
         /// <returns>
-        /// The jquery ui tabs Load JS.
+        /// Returns the the jQuery-UI Tabs Load JS string
         /// </returns>
-        public static string JqueryUITabsLoadJs([NotNull] string tabId, [NotNull] string hiddenId, bool hightTransition)
+        public static string JqueryUITabsLoadJs(
+            [NotNull] string tabId,
+            [NotNull] string hiddenId,
+            bool hightTransition)
         {
-            return JqueryUITabsLoadJs(tabId, hiddenId, null, null, hightTransition, false);
+            return JqueryUITabsLoadJs(tabId, hiddenId, string.Empty, string.Empty, hightTransition, true);
         }
 
         /// <summary>
-        /// Gets JqueryUITabsLoadJs.
+        /// Gets the jQuery-UI Tabs Load JS.
+        /// </summary>
+        /// <param name="tabId">The tab Id.</param>
+        /// <param name="hiddenId">The hidden Id.</param>
+        /// <param name="hiddenTabId">The hidden tab identifier.</param>
+        /// <param name="hightTransition">Height Transition</param>
+        /// <returns>
+        /// Returns the the jQuery-UI Tabs Load JS string
+        /// </returns>
+        public static string JqueryUITabsLoadJs(
+            [NotNull] string tabId,
+            [NotNull] string hiddenId,
+            [NotNull] string hiddenTabId,
+            bool hightTransition)
+        {
+            return JqueryUITabsLoadJs(tabId, hiddenId, hiddenTabId, string.Empty, hightTransition, true);
+        }
+
+        /// <summary>
+        /// Gets the jQuery-UI Tabs Load JS.
         /// </summary>
         /// <param name="tabId">
         /// The tab Id.
@@ -517,7 +534,7 @@ namespace YAF.Utilities
         /// The hidden tab id.
         /// </param>
         /// <param name="postbackJs">
-        /// The postback Js.
+        /// The PostBack JS.
         /// </param>
         /// <param name="hightTransition">
         /// Height Transition
@@ -526,7 +543,7 @@ namespace YAF.Utilities
         /// The add Selected Function.
         /// </param>
         /// <returns>
-        /// The jquery ui tabs Load JS.
+        /// Returns the the jQuery-UI Tabs Load JS string
         /// </returns>
         public static string JqueryUITabsLoadJs(
             [NotNull] string tabId,
@@ -543,8 +560,7 @@ namespace YAF.Utilities
                                                 .FormatWith(Config.JQueryAlias, hiddenId, hiddenTabId, postbackJs)
                                           : string.Empty;
 
-            return
-                @"{3}(document).ready(function() {{
+            return @"{3}(document).ready(function() {{
 					{3}('#{0}').tabs(
                     {{
             show: function() {{
@@ -556,8 +572,7 @@ namespace YAF.Utilities
             {2}
             {4}
         }});
-                    }});"
-                    .FormatWith(tabId, hiddenId, heightTransitionJs, Config.JQueryAlias, selectFunctionJs);
+                    }});".FormatWith(tabId, hiddenId, heightTransitionJs, Config.JQueryAlias, selectFunctionJs);
         }
 
         /// <summary>

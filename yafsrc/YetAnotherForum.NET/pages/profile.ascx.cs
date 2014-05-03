@@ -164,7 +164,13 @@ namespace YAF.Pages
 
             YafContext.Current.PageElements.RegisterJsBlock(
                 "ProfileTabsJs",
-                JavaScriptBlocks.JqueryUITabsLoadJs(this.ProfileTabs.ClientID, this.hidLastTab.ClientID, true));
+                JavaScriptBlocks.JqueryUITabsLoadJs(
+                    this.ProfileTabs.ClientID,
+                    this.hidLastTab.ClientID,
+                    this.hidLastTabId.ClientID,
+                    string.Empty,
+                    false,
+                    true));
 
             // Setup Syntax Highlight JS
             YafContext.Current.PageElements.RegisterJsResourceInclude(

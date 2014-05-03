@@ -174,7 +174,11 @@ namespace YAF.Pages.Admin
 
             YafContext.Current.PageElements.RegisterJsBlock(
                 "TestDataTabsJs",
-                JavaScriptBlocks.JqueryUITabsLoadJs(this.TestDataTabs.ClientID, this.hidLastTab.ClientID, false));
+                JavaScriptBlocks.JqueryUITabsLoadJs(
+                    this.TestDataTabs.ClientID,
+                    this.hidLastTab.ClientID,
+                    this.hidLastTabId.ClientID,
+                    false));
 
             base.OnPreRender(e);
         }

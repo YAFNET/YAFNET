@@ -71,7 +71,11 @@ namespace YAF.Pages
 
             YafContext.Current.PageElements.RegisterJsBlock(
                 "yafBuddiesTabsJs",
-                JavaScriptBlocks.JqueryUITabsLoadJs(this.BuddiesTabs.ClientID, this.hidLastTab.ClientID, false));
+                JavaScriptBlocks.JqueryUITabsLoadJs(
+                    this.BuddiesTabs.ClientID,
+                    this.hidLastTab.ClientID,
+                    this.hidLastTabId.ClientID,
+                    false));
 
             base.OnPreRender(e);
         }

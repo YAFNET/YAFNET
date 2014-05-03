@@ -153,7 +153,11 @@ namespace YAF.Pages.Admin
 
             YafContext.Current.PageElements.RegisterJsBlock(
                 "yafTabsJs",
-                JavaScriptBlocks.JqueryUITabsLoadJs(this.HostSettingsTabs.ClientID, this.hidLastTab.ClientID, false));
+                JavaScriptBlocks.JqueryUITabsLoadJs(
+                    this.HostSettingsTabs.ClientID,
+                    this.hidLastTab.ClientID,
+                    this.hidLastTabId.ClientID,
+                    false));
 
             YafContext.Current.PageElements.RegisterJsBlock("spinnerJs", JavaScriptBlocks.LoadSpinnerWidget());
 
@@ -364,8 +368,9 @@ namespace YAF.Pages.Admin
             this.CaptchaTypeRegister.Items.Add(new ListItem("ReCaptcha", "2"));
 
             this.SpamServiceType.Items.Add(new ListItem(this.GetText("ADMIN_COMMON", "DISABLED"), "0"));
-            this.SpamServiceType.Items.Add(new ListItem("BlogSpam.NET API", "1"));
-            this.SpamServiceType.Items.Add(new ListItem("Akismet API (Needs Registration)", "2"));
+            this.SpamServiceType.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "SPAM_SERVICE_TYP_1"), "1"));
+            this.SpamServiceType.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "SPAM_SERVICE_TYP_2"), "2"));
+            this.SpamServiceType.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "SPAM_SERVICE_TYP_3"), "3"));
 
             this.BotSpamServiceType.Items.Add(new ListItem(this.GetText("ADMIN_COMMON", "DISABLED"), "0"));
             this.BotSpamServiceType.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_CHECK_1"), "1"));
