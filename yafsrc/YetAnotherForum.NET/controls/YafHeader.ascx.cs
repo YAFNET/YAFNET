@@ -458,8 +458,13 @@ namespace YAF.Controls
                     null);
             }
 
+            if (!this.PageContext.IsGuest || Config.IsAnyPortal)
+            {
+                return;
+            }
+
             // Login
-            if (this.PageContext.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
+            if (Config.AllowLoginAndLogoff)
             {
                 if (this.Get<YafBoardSettings>().UseLoginBox && !(this.Get<IYafSession>().UseMobileTheme ?? false))
                 {
@@ -488,8 +493,9 @@ namespace YAF.Controls
                         this.GetText("TOOLBAR", "LOGIN"),
                         this.GetText("TOOLBAR", "LOGIN_TITLE"),
                         !this.Get<YafBoardSettings>().UseSSLToLogIn
-                            ? YafBuildLink.GetLink(ForumPages.login, returnUrl)
-                            : YafBuildLink.GetLink(ForumPages.login, true, returnUrl).Replace("http:", "https:"),
+                            ? YafBuildLink.GetLinkNotEscaped(ForumPages.login, returnUrl)
+                            : YafBuildLink.GetLinkNotEscaped(ForumPages.login, true, returnUrl)
+                                  .Replace("http:", "https:"),
                         true,
                         false,
                         null,
@@ -498,7 +504,7 @@ namespace YAF.Controls
             }
 
             // Register
-            if (this.PageContext.IsGuest && !this.Get<YafBoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
+            if (!this.Get<YafBoardSettings>().DisableRegistrations)
             {
                 RenderMenuItem(
                     this.menuListItems,
@@ -676,9 +682,9 @@ namespace YAF.Controls
                                                : string.Empty;
 
                         loginLink.NavigateUrl = !this.Get<YafBoardSettings>().UseSSLToLogIn
-                                                    ? YafBuildLink.GetLink(ForumPages.login, returnUrl)
-                                                    : YafBuildLink.GetLink(ForumPages.login, true, returnUrl).Replace(
-                                                        "http:", "https:");
+                                                    ? YafBuildLink.GetLinkNotEscaped(ForumPages.login, returnUrl)
+                                                    : YafBuildLink.GetLinkNotEscaped(ForumPages.login, true, returnUrl)
+                                                          .Replace("http:", "https:");
                     }
 
                     this.GuestUserMessage.Controls.Add(loginLink);
