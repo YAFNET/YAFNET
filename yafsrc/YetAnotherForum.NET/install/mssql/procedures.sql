@@ -5677,7 +5677,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}replace_words_delete](@ID int) AS
 BEGIN
-        DELETE FROM [{databaseOwner}].[{objectQualifier}replace_words] WHERE ID = @ID
+        DELETE FROM [{databaseOwner}].[{objectQualifier}Replace_Words] WHERE ID = @ID
 END
 GO
 
@@ -5705,10 +5705,10 @@ AS
 BEGIN
         IF (@ID IS NOT NULL AND @ID <> 0)
     BEGIN
-        UPDATE [{databaseOwner}].[{objectQualifier}replace_words] SET BadWord = @BadWord, GoodWord = @GoodWord WHERE ID = @ID		
+        UPDATE [{databaseOwner}].[{objectQualifier}Replace_Words] SET BadWord = @BadWord, GoodWord = @GoodWord WHERE ID = @ID		
     END
     ELSE BEGIN
-        INSERT INTO [{databaseOwner}].[{objectQualifier}replace_words]
+        INSERT INTO [{databaseOwner}].[{objectQualifier}Replace_Words]
             (BoardID,BadWord,GoodWord)
         VALUES
             (@BoardID,@BadWord,@GoodWord)
@@ -7974,10 +7974,15 @@ begin
         -- user is not guest
         ISNULL(a.Flags & 4,0) <> 4
             AND
-        LOWER(a.DisplayName) LIKE CASE 
+        (LOWER(a.DisplayName) LIKE CASE 
             WHEN (@BeginsWith = 0 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN '%' + LOWER(@Literals) + '%' 
             WHEN (@BeginsWith = 1 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN LOWER(@Literals) + '%'
             ELSE '%' END  
+            or
+         LOWER(a.Name) LIKE CASE 
+            WHEN (@BeginsWith = 0 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN '%' + LOWER(@Literals) + '%' 
+            WHEN (@BeginsWith = 1 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN LOWER(@Literals) + '%'
+            ELSE '%' END) 
         and
         (a.NumPosts >= (case 
         when @NumPostsCompare = 3 then  @NumPosts end) 
@@ -8023,10 +8028,15 @@ begin
         -- user is not guest
         ISNULL(a.Flags & 4,0) <> 4
             AND
-        LOWER(a.DisplayName) LIKE CASE 
+        (LOWER(a.DisplayName) LIKE CASE 
             WHEN (@BeginsWith = 0 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN '%' + LOWER(@Literals) + '%' 
             WHEN (@BeginsWith = 1 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN LOWER(@Literals) + '%'
             ELSE '%' END  
+            or
+         LOWER(a.Name) LIKE CASE 
+            WHEN (@BeginsWith = 0 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN '%' + LOWER(@Literals) + '%' 
+            WHEN (@BeginsWith = 1 AND @Literals IS NOT NULL AND LEN(@Literals) > 0) THEN LOWER(@Literals) + '%'
+            ELSE '%' END) 
         and
         (a.NumPosts >= (case 
         when @NumPostsCompare = 3 then  @NumPosts end) 
