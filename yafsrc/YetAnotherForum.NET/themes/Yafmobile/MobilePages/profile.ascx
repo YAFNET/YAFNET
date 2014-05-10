@@ -353,7 +353,7 @@
 						<YAF:SignatureEdit runat="server" ID="SignatureEditControl" ShowHeader="False" />
                 </div>
              </asp:Panel>
-            <asp:HiddenField runat="server" ID="hidLastTab" Value="0" />
+            <asp:HiddenField runat="server" ID="hidLastTab" Value="0" /><asp:HiddenField runat="server" ID="hidLastTabId" Value="0" />
 		</td>
 	</tr>
 </table>
