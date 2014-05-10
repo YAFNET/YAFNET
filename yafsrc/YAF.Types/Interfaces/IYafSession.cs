@@ -26,12 +26,12 @@ namespace YAF.Types.Interfaces
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Data;
 
     using YAF.Types.Models;
+    using YAF.Types.Objects;
 
     /// <summary>
-    /// The Yaf Session Interface
+    /// The YAF Session Interface
     /// </summary>
     public interface IYafSession
     {
@@ -51,7 +51,7 @@ namespace YAF.Types.Interfaces
         /// <value>
         /// The multi quote ids.
         /// </value>
-        List<int> MultiQuoteIds { get; set; }
+        List<MultiQuote> MultiQuoteIds { get; set; }
 
         /// <summary>
         ///   Gets or sets Unread Topic Since.

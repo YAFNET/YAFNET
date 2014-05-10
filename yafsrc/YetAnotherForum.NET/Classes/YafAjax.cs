@@ -41,6 +41,7 @@ namespace YAF.Classes
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Objects;
     using YAF.Utils.Helpers.StringUtils;
 
     #endregion
@@ -74,34 +75,44 @@ namespace YAF.Classes
         /// <param name="buttonId">The button id.</param>
         /// <param name="multiquoteButton">The Multi quote Button Checkbox checked</param>
         /// <param name="messageId">The message id.</param>
+        /// <param name="topicId">The topic identifier.</param>
         /// <param name="buttonCssClass">The button CSS class.</param>
-        /// <returns>Returns the Message Id and the Updated CSS Class for the Button</returns>
+        /// <returns>
+        /// Returns the Message Id and the Updated CSS Class for the Button
+        /// </returns>
         [WebMethod(EnableSession = true)]
-        public YafAlbum.ReturnClass HandleMultiQuote([NotNull]string buttonId, [NotNull]bool multiquoteButton, [NotNull]int messageId, [NotNull]string buttonCssClass)
+        public YafAlbum.ReturnClass HandleMultiQuote(
+            [NotNull] string buttonId,
+            [NotNull] bool multiquoteButton,
+            [NotNull] int messageId,
+            [NotNull] int topicId,
+            [NotNull] string buttonCssClass)
         {
             var yafSession = this.Get<IYafSession>();
+
+            var multiQuote = new MultiQuote { MessageID = messageId, TopicID = topicId };
 
             if (multiquoteButton)
             {
                 if (yafSession.MultiQuoteIds != null)
                 {
-                    if (!yafSession.MultiQuoteIds.Contains(messageId))
+                    if (!yafSession.MultiQuoteIds.Any(m => m.MessageID.Equals(messageId)))
                     {
-                        yafSession.MultiQuoteIds.Add(messageId);
+                        yafSession.MultiQuoteIds.Add(multiQuote);
                     }
                 }
                 else
                 {
-                    yafSession.MultiQuoteIds = new List<int> { messageId };
+                    yafSession.MultiQuoteIds = new List<MultiQuote> { multiQuote };
                 }
 
                 buttonCssClass += " Checked";
             }
             else
             {
-                if (yafSession.MultiQuoteIds != null && yafSession.MultiQuoteIds.Contains(messageId))
+                if (yafSession.MultiQuoteIds != null && yafSession.MultiQuoteIds.Any(m => m.MessageID.Equals(messageId)))
                 {
-                    yafSession.MultiQuoteIds.Remove(messageId);
+                    yafSession.MultiQuoteIds.Remove(multiQuote);
                 }
 
                 buttonCssClass = "MultiQuoteButton";

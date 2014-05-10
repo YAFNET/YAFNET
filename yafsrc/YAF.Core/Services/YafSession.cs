@@ -35,6 +35,7 @@ namespace YAF.Core.Services
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
     using YAF.Utils.Helpers;
 
     #endregion
@@ -132,13 +133,13 @@ namespace YAF.Core.Services
         /// <value>
         /// The multi quote ids.
         /// </value>
-        public List<int> MultiQuoteIds
+        public List<MultiQuote> MultiQuoteIds
         {
             get
             {
                 if (this.SessionState["MultiQuoteIds"] != null)
                 {
-                    return this.SessionState["MultiQuoteIds"] as List<int>;
+                    return this.SessionState["MultiQuoteIds"] as List<MultiQuote>;
                 }
 
                 return null;

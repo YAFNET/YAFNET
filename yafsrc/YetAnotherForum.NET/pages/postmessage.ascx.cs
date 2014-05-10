@@ -662,14 +662,16 @@ namespace YAF.Pages
                     {
                         if (this.Get<IYafSession>().MultiQuoteIds != null)
                         {
+                            var quoteId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("q").ToType<int>();
+                            var multiQuote = new MultiQuote { MessageID = quoteId, TopicID = this.PageContext.PageTopicID };
+
                             if (
                                 !this.Get<IYafSession>()
-                                    .MultiQuoteIds.Contains(
-                                        this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("q").ToType<int>()))
+                                    .MultiQuoteIds.Any(m => m.MessageID.Equals(quoteId)))
                             {
                                 this.Get<IYafSession>()
                                     .MultiQuoteIds.Add(
-                                        this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("q").ToType<int>());
+                                        multiQuote);
                             }
 
                             var messages = LegacyDb.post_list(
@@ -684,8 +686,8 @@ namespace YAF.Pages
                                 DateTime.UtcNow,
                                 DateTimeHelper.SqlDbMinTime(),
                                 DateTime.UtcNow,
-                                this.PageIndex.ToType<int>(),
-                                this.Get<YafBoardSettings>().PostsPerPage,
+                                0,
+                                500,
                                 1,
                                 0,
                                 0,
@@ -693,15 +695,15 @@ namespace YAF.Pages
                                 0);
 
                             // quoting a reply to a topic...
-                            foreach (var msg in
-                                this.Get<IYafSession>()
-                                    .MultiQuoteIds.ToArray()
-                                    .Select(
-                                        id =>
+                            foreach (
+                                TypedMessageList msg in
+                                    this.Get<IYafSession>()
+                                        .MultiQuoteIds.Select(
+                                            item =>
                                             messages.AsEnumerable()
                                                 .Select(t => new TypedMessageList(t))
-                                                .Where(m => m.MessageID == id.ToType<int>()))
-                                    .SelectMany(quotedMessage => quotedMessage))
+                                                .Where(m => m.MessageID == item.MessageID))
+                                        .SelectMany(quotedMessage => quotedMessage))
                             {
                                 this.InitQuotedReply(msg);
                             }

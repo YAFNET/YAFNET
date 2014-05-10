@@ -578,7 +578,11 @@ namespace YAF.Controls
 
             if (this.MultiQuote.Visible)
             {
-                this.MultiQuote.Attributes.Add("onclick", "handleMultiQuoteButton(this, '{0}')".FormatWith(this.PostData.MessageId));
+                this.MultiQuote.Attributes.Add(
+                    "onclick",
+                    "handleMultiQuoteButton(this, '{0}', '{1}')".FormatWith(
+                        this.PostData.MessageId,
+                        this.PostData.TopicId));
 
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "MultiQuoteButtonJs", JavaScriptBlocks.MultiQuoteButtonJs);

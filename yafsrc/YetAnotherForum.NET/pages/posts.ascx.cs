@@ -278,10 +278,9 @@ namespace YAF.Pages
 
             // Threaded
             string brief =
-                StringExtensions.RemoveMultipleWhitespace(
-                    BBCodeHelper.StripBBCode(
-                        BBCodeHelper.StripBBCodeQuotes(
-                            HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(row["Message"].ToString())))));
+                BBCodeHelper.StripBBCode(
+                    BBCodeHelper.StripBBCodeQuotes(
+                        HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(row["Message"].ToString())))).RemoveMultipleWhitespace();
 
             brief = this.Get<IBadWordReplace>().Replace(brief).Truncate(100);
             brief = this.Get<IBBCode>().AddSmiles(brief);
@@ -458,7 +457,6 @@ namespace YAF.Pages
             this._quickReplyEditor = new BasicBBCodeEditor();
             this.QuickReplyLine.Controls.Add(this._quickReplyEditor);
             this.QuickReply.Click += this.QuickReply_Click;
-            this.Pager.PageChange += this.Pager_PageChange;
 
             // CODEGEN: This call is required by the ASP.NET Web Form Designer.
             this.InitializeComponent();
@@ -567,8 +565,14 @@ namespace YAF.Pages
 
             if (!this.IsPostBack)
             {
-                // Clear Multiquotes
-                this.Get<IYafSession>().MultiQuoteIds = null;
+                // Clear Multiquotes if topic is different
+                if (this.Get<IYafSession>().MultiQuoteIds != null)
+                {
+                    if (!this.Get<IYafSession>().MultiQuoteIds.Any(m => m.TopicID.Equals(this.PageContext.PageTopicID)))
+                    {
+                        this.Get<IYafSession>().MultiQuoteIds = null;
+                    }
+                }
 
                 if (this.PageContext.Settings.LockedForum == 0)
                 {
@@ -967,9 +971,9 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The bind data.
+        /// Binds the data.
         /// </summary>
-        /// <exception cref="NoPostsFoundForTopicException"></exception>
+        /// <exception cref="NoPostsFoundForTopicException">1;0</exception>
         private void BindData()
         {
             if (this._topic == null)
@@ -1537,18 +1541,6 @@ namespace YAF.Pages
                 default:
                     throw new ApplicationException(e.Item);
             }
-        }
-
-        /// <summary>
-        /// The pager_ page change.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this._ignoreQueryString = true;
-            this.SmartScroller1.Reset();
-            this.BindData();
         }
 
         /// <summary>
