@@ -30,7 +30,6 @@ namespace YAF.Controls
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using System.Web.Security;
 
     using YAF.Classes;
     using YAF.Classes.Data;
@@ -43,6 +42,7 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -130,6 +130,14 @@ namespace YAF.Controls
             }
         }
 
+        /// <summary>
+        /// Gets or sets the current user.
+        /// </summary>
+        /// <value>
+        /// The current user.
+        /// </value>
+        private TypedUserList CurrentUser { get; set; }
+
         #endregion
 
         #region Methods
@@ -148,65 +156,56 @@ namespace YAF.Controls
 
             this.DeletePosts();
 
-            MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
+            var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
+
+            if (this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet())
+            {
+                try
+                {
+                    var stopForumSpam = new StopForumSpam();
+
+                    if (!stopForumSpam.ReportUserAsBot(this.IPAddresses.FirstOrDefault(), user.Email, user.UserName))
+                    {
+                        return;
+                    }
+
+                    this.PageContext.AddLoadMessage(
+                        this.GetText("ADMIN_EDITUSER", "BOT_REPORTED"),
+                        MessageTypes.Success);
+
+                    this.Logger.Log(
+                        this.PageContext.PageUserID,
+                        "User Reported to StopForumSpam.com",
+                        "User (Name:{0}/ID:{1}/IP:{2}/Email:{3}) Reported to StopForumSpam.com by {4}".FormatWith(
+                            user.UserName,
+                            this.CurrentUserID,
+                            this.IPAddresses.FirstOrDefault(),
+                            user.Email,
+                            this.Get<YafBoardSettings>().EnableDisplayName
+                                ? this.PageContext.CurrentUserData.DisplayName
+                                : this.PageContext.CurrentUserData.UserName),
+                        EventLogTypes.SpamBotReported);
+                }
+                catch (Exception exception)
+                {
+                    this.PageContext.AddLoadMessage(
+                        this.GetText("ADMIN_EDITUSER", "BOT_REPORTED_FAILED"),
+                        MessageTypes.Error);
+
+                    this.Logger.Log(
+                        this.PageContext.PageUserID,
+                        "User (Name{0}/ID:{1}) Report to StopForumSpam.com Failed".FormatWith(
+                            user.UserName,
+                            this.CurrentUserID),
+                        exception);
+                }
+            }
+
             this.PageContext.AddLoadMessage(
                 this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_USER_KILLED").FormatWith(user.UserName));
 
             // update the displayed data...
             this.BindData();
-        }
-
-        /// <summary>
-        /// Reports the User
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Report_OnClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.Get<YafBoardSettings>().StopForumSpamApiKey.IsNotSet())
-            {
-                return;
-            }
-
-            var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
-
-            try
-            {
-                var stopForumSpam = new StopForumSpam();
-
-                if (!stopForumSpam.ReportUserAsBot(this.IPAddresses.FirstOrDefault(), user.Email, user.UserName))
-                {
-                    return;
-                }
-
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITUSER", "BOT_REPORTED"), MessageTypes.Success);
-
-                this.Logger.Log(
-                    this.PageContext.PageUserID,
-                    "User Reported to StopForumSpam.com",
-                    "User (Name:{0}/ID:{1}/IP:{2}/Email:{3}) Reported to StopForumSpam.com by {4}".FormatWith(
-                        user.UserName,
-                        this.CurrentUserID,
-                        this.IPAddresses.FirstOrDefault(),
-                        user.Email,
-                        this.Get<YafBoardSettings>().EnableDisplayName
-                            ? this.PageContext.CurrentUserData.DisplayName
-                            : this.PageContext.CurrentUserData.UserName),
-                    EventLogTypes.SpamBotReported);
-            }
-            catch (Exception exception)
-            {
-                this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_EDITUSER", "BOT_REPORTED_FAILED"),
-                    MessageTypes.Error);
-
-                this.Logger.Log(
-                    this.PageContext.PageUserID,
-                    "User (Name{0}/ID:{1}) Report to StopForumSpam.com Failed".FormatWith(
-                        user.UserName,
-                        this.CurrentUserID),
-                    exception);
-            }
         }
 
         /// <summary>
@@ -234,27 +233,19 @@ namespace YAF.Controls
         /// </summary>
         private void BanUserIps()
         {
-            var usr =
-                LegacyDb.UserList(
-                    this.PageContext.PageBoardID,
-                    this.CurrentUserID.ToType<int?>(),
-                    null,
-                    null,
-                    null,
-                    false).FirstOrDefault();
-
-            if (usr != null)
+            if (this.CurrentUser != null)
             {
-                this.Logger
-                    .Log(
-                        this.PageContext.PageUserID,
-                        "YAF.Controls.EditUsersKill",
-                        "User {0} was killed by {1}".FormatWith(
-                            this.Get<YafBoardSettings>().EnableDisplayName ? usr.DisplayName : usr.Name,
-                            this.Get<YafBoardSettings>().EnableDisplayName
-                                ? this.PageContext.CurrentUserData.DisplayName
-                                : this.PageContext.CurrentUserData.UserName),
-                        EventLogTypes.UserSuspended);
+                this.Logger.Log(
+                    this.PageContext.PageUserID,
+                    "YAF.Controls.EditUsersKill",
+                    "User {0} was killed by {1}".FormatWith(
+                        this.Get<YafBoardSettings>().EnableDisplayName
+                            ? this.CurrentUser.DisplayName
+                            : this.CurrentUser.Name,
+                        this.Get<YafBoardSettings>().EnableDisplayName
+                            ? this.PageContext.CurrentUserData.DisplayName
+                            : this.PageContext.CurrentUserData.UserName),
+                    EventLogTypes.UserSuspended);
             }
 
             var allIps = this.GetRepository<BannedIP>().ListTyped().Select(x => x.Mask).ToList();
@@ -281,9 +272,11 @@ namespace YAF.Controls
                             YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.CurrentUserID, name),
                             this.HtmlEncode(name));
 
-
                 this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageContext.PageUserID);
             }
+
+            // Clear cache
+            this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
 
             if (this.SuspendUser.Checked && this.CurrentUserID > 0)
             {
@@ -300,30 +293,40 @@ namespace YAF.Controls
                 ForumPages.search,
                 "postedby={0}",
                 !this.CurrentUserDataHelper.IsGuest
-                    ? (this.Get<YafBoardSettings>().EnableDisplayName ? this.CurrentUserDataHelper.DisplayName : this.CurrentUserDataHelper.UserName)
+                    ? (this.Get<YafBoardSettings>().EnableDisplayName
+                           ? this.CurrentUserDataHelper.DisplayName
+                           : this.CurrentUserDataHelper.UserName)
                     : UserMembershipHelper.GuestUserName);
 
             this.Kill.Text = this.GetText("ADMIN_EDITUSER", "KILL_USER");
             ControlHelper.AddOnClickConfirmDialog(this.Kill, this.GetText("ADMIN_EDITUSER", "KILL_USER_CONFIRM"));
 
-            if (this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet())
-            {
-                this.ReportUser.Visible = true;
-                this.ReportUser.Text = this.GetText("ADMIN_EDITUSER", "REPORT_USER");
-                ControlHelper.AddOnClickConfirmDialog(
-                    this.ReportUser,
-                    this.GetText("ADMIN_EDITUSER", "REPORT_USER_CONFIRM"));
-            }
-            else
-            {
-                this.ReportUser.Visible = false;
-            }
+            this.ReportUserRow.Visible = this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet();
 
             // load ip address history for user...
             this.IpAddresses.Text = this.IPAddresses.ToDelimitedString("<br />");
 
             // show post count...
             this.PostCount.Text = this.AllPostsByUser.Rows.Count.ToString();
+
+            // get user's info
+            this.CurrentUser =
+                LegacyDb.UserList(
+                    this.PageContext.PageBoardID,
+                    this.CurrentUserID.ToType<int?>(),
+                    null,
+                    null,
+                    null,
+                    false).FirstOrDefault();
+
+            // there is no such user
+            if (this.CurrentUser != null && this.CurrentUser.Suspended.HasValue)
+            {
+                this.SuspendedTo.Visible = true;
+
+                // is user suspended?
+                this.SuspendedTo.Text = this.Get<IDateTime>().FormatDateTime(this.CurrentUser.Suspended);
+            }
 
             this.DataBind();
         }

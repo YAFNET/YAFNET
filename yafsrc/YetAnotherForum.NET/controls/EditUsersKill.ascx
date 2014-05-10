@@ -36,6 +36,7 @@
         </td>
         <td class="post">
             <asp:CheckBox ID="SuspendUser" runat="server" />
+            <asp:Literal ID="SuspendedTo" runat="server"></asp:Literal>
         </td>
     </tr>
     <tr>
@@ -51,10 +52,19 @@
                 </asp:HyperLink>)
         </td>
     </tr>
+    <tr runat="server" ID="ReportUserRow">
+        <td class="postheader">
+            <strong>
+                <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="REPORT_USER" LocalizedPage="ADMIN_EDITUSER" />
+            </strong>
+        </td>
+        <td class="post">
+            <asp:CheckBox ID="ReportUser" runat="server" />
+        </td>
+    </tr>
     <tr>
         <td colspan="2" class="footer1" style="text-align:center;">
             <asp:Button runat="server" ID="Kill" Text="Kill User" CssClass="pbutton" OnClick="Kill_OnClick" />
-            <asp:Button runat="server" ID="ReportUser" Text="Report User" CssClass="pbutton" OnClick="Report_OnClick" />
         </td>
     </tr>
 </table>
