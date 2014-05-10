@@ -5792,73 +5792,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// Deletes a bad/good word
-        /// </summary>
-        /// <param name="ID">
-        /// ID of bad/good word to delete
-        /// </param>
-        public static void replace_words_delete([NotNull] object ID)
-        {
-            using (var cmd = DbHelpers.GetCommand("replace_words_delete"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("ID", ID);
-                DbAccess.ExecuteNonQuery(cmd);
-            }
-        }
-
-        /// <summary>
-        /// Gets a list of replace words
-        /// </summary>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <param name="id">
-        /// The id.
-        /// </param>
-        /// <returns>
-        /// DataTable with replace words
-        /// </returns>
-        public static DataTable replace_words_list([NotNull] object boardId, [NotNull] object id)
-        {
-            using (var cmd = DbHelpers.GetCommand("replace_words_list"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("BoardID", boardId);
-                cmd.AddParam("ID", id);
-                return DbAccess.GetData(cmd);
-            }
-        }
-
-        /// <summary>
-        /// Saves changs to a words
-        /// </summary>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <param name="id">
-        /// ID of bad/good word
-        /// </param>
-        /// <param name="badword">
-        /// bad word
-        /// </param>
-        /// <param name="goodword">
-        /// good word
-        /// </param>
-        public static void replace_words_save([NotNull] object boardId, [NotNull] object id, [NotNull] object badword, [NotNull] object goodword)
-        {
-            using (var cmd = DbHelpers.GetCommand("replace_words_save"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("ID", id);
-                cmd.AddParam("BoardID", boardId);
-                cmd.AddParam("badword", badword);
-                cmd.AddParam("goodword", goodword);
-                DbAccess.ExecuteNonQuery(cmd);
-            }
-        }
-
-        /// <summary>
         /// The rss_topic_latest.
         /// </summary>
         /// <param name="boardID">
@@ -8099,7 +8032,26 @@ namespace YAF.Classes.Data
         /// </param>
         /// <returns>
         /// </returns>
-        public static DataTable user_listmembers([NotNull] object boardId, [NotNull] object userId, [NotNull] object approved, [NotNull] object groupId, [NotNull] object rankId, [NotNull] object useStyledNicks, [NotNull] object lastUserId, [NotNull] object literals, [NotNull] object exclude, [NotNull] object beginsWith, [NotNull] object pageIndex, [NotNull] object pageSize, [NotNull] object sortName, [NotNull] object sortRank, [NotNull] object sortJoined, [NotNull] object sortPosts, [NotNull] object sortLastVisit, [NotNull] object numPosts, [NotNull] object numPostCompare)
+        public static DataTable user_listmembers(
+            [NotNull] object boardId,
+            [NotNull] object userId,
+            [NotNull] object approved,
+            [NotNull] object groupId,
+            [NotNull] object rankId,
+            [NotNull] object useStyledNicks,
+            [NotNull] object lastUserId,
+            [NotNull] object literals,
+            [NotNull] object exclude,
+            [NotNull] object beginsWith,
+            [NotNull] object pageIndex,
+            [NotNull] object pageSize,
+            [NotNull] object sortName,
+            [NotNull] object sortRank,
+            [NotNull] object sortJoined,
+            [NotNull] object sortPosts,
+            [NotNull] object sortLastVisit,
+            [NotNull] object numPosts,
+            [NotNull] object numPostCompare)
         {
             using (var cmd = DbHelpers.GetCommand("user_listmembers"))
             {

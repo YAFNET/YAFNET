@@ -528,6 +528,27 @@
     <Compile Include="pages\admin\smilies_import.ascx.designer.cs">
       <DependentUpon>smilies_import.ascx</DependentUpon>
     </Compile>
+    <Compile Include="pages\admin\spamwords.ascx.cs">
+      <DependentUpon>spamwords.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\spamwords.ascx.designer.cs">
+      <DependentUpon>spamwords.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\spamwords_edit.ascx.cs">
+      <DependentUpon>spamwords_edit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\spamwords_edit.ascx.designer.cs">
+      <DependentUpon>spamwords_edit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\spamwords_import.ascx.cs">
+      <DependentUpon>spamwords_import.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\spamwords_import.ascx.designer.cs">
+      <DependentUpon>spamwords_import.ascx</DependentUpon>
+    </Compile>
     <Compile Include="pages\admin\taskmanager.ascx.cs">
       <DependentUpon>taskmanager.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1286,6 +1307,9 @@
     <Content Include="pages\admin\pageaccessedit.ascx" />
     <Content Include="pages\admin\pageaccesslist.ascx" />
     <Content Include="pages\admin\deleteforum.ascx" />
+    <Content Include="pages\admin\spamwords.ascx" />
+    <Content Include="pages\admin\spamwords_edit.ascx" />
+    <Content Include="pages\admin\spamwords_import.ascx" />
     <Content Include="pages\admin\topicstatus.ascx" />
     <Content Include="pages\admin\topicstatus_edit.ascx" />
     <Content Include="pages\admin\topicstatus_import.ascx" />
@@ -4470,17 +4494,6 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Package|AnyCPU'">
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <BaseAddress>285212672</BaseAddress>
-    <Optimize>true</Optimize>
-    <FileAlignment>4096</FileAlignment>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

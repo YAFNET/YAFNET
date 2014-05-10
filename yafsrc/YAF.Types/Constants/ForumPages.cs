@@ -541,7 +541,22 @@ namespace YAF.Types.Constants
     /// <summary>
     /// The admin_replacewords_import.
     /// </summary>
-    admin_replacewords_import, 
+    admin_replacewords_import,
+
+    /// <summary>
+    /// The admin spam words
+    /// </summary>
+    admin_spamwords,
+
+    /// <summary>
+    /// The admin spam words edit
+    /// </summary>
+    admin_spamwords_edit,
+
+    /// <summary>
+    /// The admin spam words import
+    /// </summary>
+    admin_spamwords_import, 
 
     /// <summary>
     /// The admin_extensions.

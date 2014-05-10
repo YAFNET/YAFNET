@@ -58,6 +58,13 @@
       <SubForumPage_1>admin_replacewords_import</SubForumPage_1>
 			<Image>sticky-note-text</Image>
 		</YafMenuItem>
+    <YafMenuItem>
+			<Title>Spam Check Words</Title>
+			<ForumPage>admin_spamwords</ForumPage>
+      <SubForumPage_0>admin_spamwords_edit</SubForumPage_0>
+      <SubForumPage_1>admin_spamwords_import</SubForumPage_1>
+			<Image>spambotreported</Image>
+		</YafMenuItem>
 		<YafMenuItem>
       <Title>File Extensions</Title>
       <ForumPage>admin_extensions</ForumPage>

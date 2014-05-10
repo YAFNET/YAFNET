@@ -123,6 +123,14 @@ namespace YAF.Pages
         /// </value>
         private bool IsPossibleSpamBot { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is possible spam bot internal check.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is possible spam bot internal check; otherwise, <c>false</c>.
+        /// </value>
+        private bool IsPossibleSpamBotInternalCheck { get; set; }
+
         #endregion
 
         #region Methods
@@ -134,6 +142,11 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void CreateUserWizard1_ContinueButtonClick([NotNull] object sender, [NotNull] EventArgs e)
         {
+            if (this.IsPossibleSpamBotInternalCheck && this.Get<YafBoardSettings>().BotHandlingOnRegister > 0)
+            {
+                return;
+            }
+
             if (!this.Get<YafBoardSettings>().EmailVerification)
             {
                 FormsAuthentication.SetAuthCookie(this.CreateUserWizard1.UserName, true);
@@ -396,6 +409,9 @@ namespace YAF.Pages
                                         userIpAddress),
                                     num.Value);
 
+                            // Clear cache
+                            this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
+
                             if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
                             {
                                 this.Get<ILogger>()
@@ -460,7 +476,7 @@ namespace YAF.Pages
             // save the time zone...
             var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
 
-            this.SetupUserProfile(userId);
+            this.SetupUserProfile(user, userId);
 
             // Clearing cache with old Active User Lazy Data ...
             this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
@@ -964,8 +980,9 @@ namespace YAF.Pages
         /// <summary>
         /// Setups the user profile.
         /// </summary>
+        /// <param name="user">The user.</param>
         /// <param name="userId">The user identifier.</param>
-        private void SetupUserProfile(int userId)
+        private void SetupUserProfile(MembershipUser user, int userId)
         {
             // this is the "Profile Information" step. Save the data to their profile (+ defaults).
             var timeZones = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("TimeZones");
@@ -980,6 +997,69 @@ namespace YAF.Pages
             if (country.SelectedValue != null)
             {
                 userProfile.Country = country.SelectedValue;
+            }
+
+            string result;
+
+            if (this.Get<ISpamWordCheck>().CheckForSpamWord(homepageTextBox.Text.Trim(), out result))
+            {
+                this.IsPossibleSpamBotInternalCheck = true;
+
+                var userIpAddress = this.Get<HttpRequestBase>().GetUserRealIPAddress();
+
+                if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
+                {
+                    // Flag user as spam bot
+                    this.IsPossibleSpamBot = true;
+
+                    this.SendSpamBotNotificationToAdmins(user, userId);
+                }
+                else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
+                {
+                    // Kill user
+                    UserMembershipHelper.DeleteUser(userId, true);
+
+                    this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.Error);
+
+                    int? num = null;
+
+                    if (this.Get<YafBoardSettings>().BanBotIpOnDetection)
+                    {
+                        this.GetRepository<BannedIP>()
+                            .Save(
+                                null,
+                                userIpAddress,
+                                "A spam Bot who was trying to register was banned by IP {0}".FormatWith(
+                                    userIpAddress),
+                                num.Value);
+
+                        // Clear cache
+                        this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
+
+                        if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
+                        {
+                            this.Get<ILogger>()
+                                .Log(
+                                    this.PageContext.PageUserID,
+                                    "IP BAN of Bot During Registration",
+                                    "A spam Bot who was trying to register was banned by IP {0}".FormatWith(
+                                        userIpAddress),
+                                    EventLogTypes.IpBanSet);
+                        }
+                    }
+                }
+
+                this.Logger.Log(
+                        null,
+                        "Bot Detected",
+                        "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', email : '{1}', ip: '{2}') reason word: {3}"
+                            .FormatWith(user.UserName, this.CreateUserWizard1.Email, userIpAddress, homepageTextBox.Text.Trim()),
+                        EventLogTypes.SpamBotDetected);
+            }
+
+            if (!this.IsPossibleSpamBotInternalCheck)
+            {
+                return;
             }
 
             userProfile.Location = locationTextBox.Text.Trim();

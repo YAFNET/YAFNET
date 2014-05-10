@@ -91,6 +91,7 @@ namespace YAF.Core.Modules
 
             builder.RegisterType<YafSession>().As<IYafSession>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafBadWordReplace>().As<IBadWordReplace>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<YafSpamWordCheck>().As<ISpamWordCheck>().SingleInstance().PreserveExistingDefaults();
 
             builder.RegisterType<YafPermissions>().As<IPermissions>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafDateTime>().As<IDateTime>().InstancePerLifetimeScope().PreserveExistingDefaults();

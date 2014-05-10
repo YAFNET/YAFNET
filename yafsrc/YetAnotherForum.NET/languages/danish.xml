@@ -51,6 +51,9 @@
     <Resource tag="ADMIN_SMILIES">Vis smilies</Resource>
     <Resource tag="ADMIN_SMILIES_EDIT">Rediger smilies</Resource>
     <Resource tag="ADMIN_SMILIES_IMPORT">Importer smilies</Resource>
+    <Resource tag="ADMIN_SPAMWORDS">Views spam words list</Resource>
+    <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
+    <Resource tag="ADMIN_SPAMWORDS_IMPORT">Imports spam words</Resource>
     <Resource tag="ADMIN_TASKMANAGER">Vis/håndter job liste</Resource>
     <Resource tag="ADMIN_TEST_DATA">Vis/rediger test data generator</Resource>
     <Resource tag="ADMIN_TOPICSTATUS">Views admin topic status</Resource>
@@ -1354,6 +1357,9 @@
     <Resource tag="SPAM_MESSAGE_2">Reject Message</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING">Handling of as SPAM Detected Messages</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Choose what to do when a Message was detected a SPAM, You can choose between Do Nothing, Flag Message as Unapproved, or reject the Message.</Resource>
+    <Resource tag="SPAM_SERVICE_TYP_1">BlogSpam.NET API</Resource>
+    <Resource tag="SPAM_SERVICE_TYP_2">Akismet API (Needs Registration)</Resource>
+    <Resource tag="SPAM_SERVICE_TYP_3">Internal Spam Check Words</Resource>
     <Resource tag="SQL_FULLTEXT">Use SQL Full Text Search:</Resource>
     <Resource tag="SQL_FULLTEXT_HELP">Toggle use of FULLTEXT SQL Server support on searches.</Resource>
     <Resource tag="SSL_LOGIN">Use SSL while logging in:</Resource>
@@ -1638,6 +1644,31 @@
     <Resource tag="SELECT_FILE">Select File (*.pak)</Resource>
     <Resource tag="TITLE">Smilies Import</Resource>
   </page>
+  <page name="ADMIN_SPAMWORDS">
+    <Resource tag="ADD">Add</Resource>
+    <Resource tag="EXPORT">Export to XML</Resource>
+    <Resource tag="IMPORT">Import from XML</Resource>
+    <Resource tag="MSG_DELETE">Delete this Word?</Resource>
+    <Resource tag="NOTE">&lt;strong&gt;Note: &lt;/strong&gt; The Spam Words are used for the internal SPAM Detection, during Registration the Homepage the user is entering in the user profile is checked against the Spam Words. Also if a user Posts a new Message in the forum it will be checked against the Spam Words if 'Choose a SPAM Service for Automatically SPAM Checking' in the Host Settings is set to 'Internal Spam Check Words'.</Resource>
+    <Resource tag="SPAM">"Spam" Word (Find) Expression</Resource>
+    <Resource tag="TITLE">Spam Check Words</Resource>
+  </page>
+  <page name="ADMIN_SPAMWORDS_EDIT">
+    <Resource tag="MSG_REGEX_SPAM">The Regular expression statement you have entered is invalid.</Resource>
+    <Resource tag="SPAM">"Spam" Word (Find) Expression:</Resource>
+    <Resource tag="SPAM_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. '\.').</Resource>
+    <Resource tag="TITLE">Add/Edit Spam Word</Resource>
+  </page>
+  <page name="ADMIN_SPAMWORDS_IMPORT">
+    <Resource tag="HEADER">Import Spam Word List</Resource>
+    <Resource tag="MSG_IMPORTED">{0} new spam word(s) were imported successfully.</Resource>
+    <Resource tag="MSG_IMPORTED_FAILED">Failed to import: Import file format is different than expected.</Resource>
+    <Resource tag="MSG_IMPORTED_FAILEDX">Failed to import: {0}</Resource>
+    <Resource tag="MSG_NOTHING">Nothing imported: no new spam words were found in the upload.</Resource>
+    <Resource tag="SELECT_IMPORT">Select Import File:</Resource>
+    <Resource tag="SELECT_IMPORT_HELP">(Must be *.xml file)</Resource>
+    <Resource tag="TITLE">Import Spam Words</Resource>
+  </page>
   <page name="ADMIN_TASKMANAGER">
     <Resource tag="DURATION">Duration</Resource>
     <Resource tag="HEADER">Task Manager: {0} Task(s) Running</Resource>
@@ -1755,6 +1786,7 @@
     <Resource tag="admin_restartapp">Restart App</Resource>
     <Resource tag="admin_runsql">Run SQL Query</Resource>
     <Resource tag="admin_smilies">Smiles</Resource>
+    <Resource tag="admin_spamwords">Spam Check Words</Resource>
     <Resource tag="admin_taskmanager">Task Manager</Resource>
     <Resource tag="admin_test_data">Create Test Data</Resource>
     <Resource tag="admin_topicstatus">Topic Status</Resource>

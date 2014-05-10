@@ -237,10 +237,11 @@ namespace YAF.Core
         /// Deletes the user.
         /// </summary>
         /// <param name="userID">The user id.</param>
+        /// <param name="isBotAutoDelete">if set to <c>true</c> [is bot automatic delete].</param>
         /// <returns>
         /// Returns if Deleting was successfully
         /// </returns>
-        public static bool DeleteUser(int userID)
+        public static bool DeleteUser(int userID, bool isBotAutoDelete = false)
         {
             string userName = GetUserNameFromID(userID);
 
@@ -266,9 +267,9 @@ namespace YAF.Core
             LegacyDb.user_delete(userID);
             YafContext.Current.Get<ILogger>()
                 .Log(
-                    YafContext.Current.PageUserID,
+                YafContext.Current.PageUserID,
                     "UserMembershipHelper.DeleteUser",
-                    "User {0} was deleted by user id {1}.".FormatWith(userName, YafContext.Current.PageUserID),
+                    "User {0} was deleted by {1}.".FormatWith(userName, isBotAutoDelete ? "the automatic spam check system" : YafContext.Current.PageUserName),
                     EventLogTypes.UserDeleted);
                 
             // clear the cache

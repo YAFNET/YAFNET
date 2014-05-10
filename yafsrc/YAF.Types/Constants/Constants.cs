@@ -152,9 +152,9 @@ namespace YAF.Types.Constants
             public const string ReplaceWords = "ReplaceWords";
 
             /// <summary>
-            ///   The replace words.
+            ///   The spam words.
             /// </summary>
-            public const string ReplaceWordsCache = "ReplaceWordsCache";
+            public const string SpamWords = "SpamWords";
 
             /// <summary>
             ///   The shoutbox.

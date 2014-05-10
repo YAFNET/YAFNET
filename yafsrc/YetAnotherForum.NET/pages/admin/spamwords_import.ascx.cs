@@ -30,6 +30,7 @@ namespace YAF.Pages.Admin
     using System.Data;
     using System.Linq;
 
+    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
@@ -43,9 +44,9 @@ namespace YAF.Pages.Admin
     #endregion
 
     /// <summary>
-    /// The Admin replacewords import page.
+    /// The Admin spam words import page.
     /// </summary>
-    public partial class replacewords_import : AdminPage
+    public partial class spamwords_import : AdminPage
     {
         #region Methods
 
@@ -56,7 +57,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Cancel_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.admin_replacewords);
+            YafBuildLink.Redirect(ForumPages.admin_spamwords);
         }
 
         /// <summary>
@@ -70,59 +71,55 @@ namespace YAF.Pages.Admin
             if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILEDX").FormatWith(
-                        "Invalid upload format specified: " + this.importFile.PostedFile.ContentType));
+                    this.GetText("ADMIN_SPAMWORDS_IMPORT", "MSG_IMPORTED_FAILEDX")
+                        .FormatWith(
+                            "Invalid upload format specified: {0}".FormatWith(this.importFile.PostedFile.ContentType)));
 
                 return;
             }
 
             try
             {
-                // import replace words...
-                var dsReplaceWords = new DataSet();
-                dsReplaceWords.ReadXml(this.importFile.PostedFile.InputStream);
+                // import spam words...
+                var dsSpamWords = new DataSet();
+                dsSpamWords.ReadXml(this.importFile.PostedFile.InputStream);
 
-                if (dsReplaceWords.Tables["YafReplaceWords"] != null
-                    && dsReplaceWords.Tables["YafReplaceWords"].Columns["badword"] != null
-                    && dsReplaceWords.Tables["YafReplaceWords"].Columns["goodword"] != null)
+                if (dsSpamWords.Tables["YafSpamWords"] != null
+                    && dsSpamWords.Tables["YafSpamWords"].Columns["spamword"] != null)
                 {
                     int importedCount = 0;
 
-                    DataTable replaceWordsList = this.GetRepository<Replace_Words>().List();
+                    var spamWordsList = this.GetRepository<Spam_Words>().List();
 
                     // import any extensions that don't exist...
                     foreach (DataRow row in
-                        dsReplaceWords.Tables["YafReplaceWords"].Rows.Cast<DataRow>().Where(
-                            row =>
-                            replaceWordsList.Select(
-                                "badword = '{0}' AND goodword = '{1}'".FormatWith(row["badword"], row["goodword"])).Length == 0))
+                        dsSpamWords.Tables["YafSpamWords"].Rows.Cast<DataRow>()
+                            .Where(
+                                row => spamWordsList.Select("spamword = '{0}'".FormatWith(row["spamword"])).Length == 0)
+                        )
                     {
                         // add this...
-                        this.GetRepository<Replace_Words>()
-                            .Save(
-                                replaceWordID: null,
-                                badWord: row["badword"].ToString(),
-                                goodWord: row["goodword"].ToString());
+                        this.GetRepository<Spam_Words>().Save(spamWordID: null, spamWord: row["spamword"].ToString());
                         importedCount++;
                     }
 
                     this.PageContext.LoadMessage.AddSession(
                         importedCount > 0
-                            ? this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED").FormatWith(importedCount)
-                            : this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_NOTHING"),
+                            ? this.GetText("ADMIN_SPAMWORDS_IMPORT", "MSG_IMPORTED").FormatWith(importedCount)
+                            : this.GetText("ADMIN_SPAMWORDS_IMPORT", "MSG_NOTHING"),
                         importedCount > 0 ? MessageTypes.Success : MessageTypes.Warning);
 
-                    YafBuildLink.Redirect(ForumPages.admin_replacewords);
+                    YafBuildLink.Redirect(ForumPages.admin_spamwords);
                 }
                 else
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILED"));
+                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_SPAMWORDS_IMPORT", "MSG_IMPORTED_FAILED"));
                 }
             }
             catch (Exception x)
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILEDX").FormatWith(x.Message));
+                    this.GetText("ADMIN_SPAMWORDS_IMPORT", "MSG_IMPORTED_FAILEDX").FormatWith(x.Message));
             }
         }
 
@@ -146,13 +143,13 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(
-                this.GetText("ADMIN_REPLACEWORDS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_replacewords));
-            this.PageLinks.AddLink(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "TITLE"), string.Empty);
+                this.GetText("ADMIN_SPAMWORDS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_spamwords));
+            this.PageLinks.AddLink(this.GetText("ADMIN_SPAMWORDS_IMPORT", "TITLE"), string.Empty);
 
             this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_REPLACEWORDS", "TITLE"),
-                this.GetText("ADMIN_REPLACEWORDS_IMPORT", "TITLE"));
+                this.GetText("ADMIN_SPAMWORDS", "TITLE"),
+                this.GetText("ADMIN_SPAMWORDS_IMPORT", "TITLE"));
 
             this.Import.Text = this.GetText("COMMON", "IMPORT");
             this.cancel.Text = this.GetText("COMMON", "CANCEL");

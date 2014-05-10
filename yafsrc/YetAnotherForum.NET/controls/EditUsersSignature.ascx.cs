@@ -337,6 +337,20 @@ namespace YAF.Controls
             {
                 if (this._sig.Text.Length <= this._allowedNumberOfCharacters)
                 {
+                    // Check for spam
+                    string result;
+
+                    if (this.Get<ISpamWordCheck>().CheckForSpamWord(body, out result))
+                    {
+                        // only log at the moment
+                        this.Logger.Log(
+                                null,
+                                "Bot Detected",
+                                "Internal Spam Word Check detected a SPAM BOT: (user id : '{0}') after the user changed the profile Homepage url to: {1}"
+                                    .FormatWith(this.CurrentUserID, result),
+                                EventLogTypes.SpamBotDetected);
+                    }
+
                     LegacyDb.user_savesignature(this.CurrentUserID, this.Get<IBadWordReplace>().Replace(body));
                 }
                 else

@@ -114,6 +114,7 @@
     <Compile Include="Interfaces\Data\IDbFunctionSessionExtensions.cs" />
     <Compile Include="Interfaces\Data\IEntity.cs" />
     <Compile Include="Interfaces\IPager.cs" />
+    <Compile Include="Interfaces\ISpamWordCheck.cs" />
     <Compile Include="Interfaces\IStyleTransform.cs" />
     <Compile Include="Interfaces\LoggerExtensions.cs" />
     <Compile Include="Models\AccessMask.cs" />
@@ -134,13 +135,16 @@
     <Compile Include="Models\Mail.cs" />
     <Compile Include="Models\Medal.cs" />
     <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\Replace_Words.cs" />
     <Compile Include="Models\SearchResult.cs" />
     <Compile Include="Models\ShoutboxMessage.cs" />
     <Compile Include="Models\Smiley.cs" />
+    <Compile Include="Models\Spam_Words.cs" />
     <Compile Include="Models\TopicReadTracking.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\WatchForum.cs" />
     <Compile Include="Models\WatchTopic.cs" />
+    <Compile Include="Objects\SpamWordCheckItem.cs" />
     <Compile Include="Objects\FacebookUser.cs" />
     <Compile Include="Objects\GoogleUser.cs" />
     <Compile Include="Objects\MessageNotification.cs" />

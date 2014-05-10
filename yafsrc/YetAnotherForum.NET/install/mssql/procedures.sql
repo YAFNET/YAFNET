@@ -693,6 +693,18 @@ IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{data
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}replace_words_save]
 GO
 
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}spam_words_delete]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}spam_words_delete]
+GO
+
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}spam_words_list]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}spam_words_list]
+GO
+
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}spam_words_save]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}spam_words_save]
+GO
+
 IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}smiley_delete]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}smiley_delete]
 GO
@@ -2194,6 +2206,7 @@ begin
     delete from [{databaseOwner}].[{objectQualifier}Medal] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}Smiley] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}Replace_Words] where BoardID=@BoardID
+	delete from [{databaseOwner}].[{objectQualifier}Spam_Words] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}NntpServer] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}Registry] where BoardID=@BoardID
@@ -5712,6 +5725,46 @@ BEGIN
             (BoardID,BadWord,GoodWord)
         VALUES
             (@BoardID,@BadWord,@GoodWord)
+    END
+END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}spam_words_delete](@ID int) AS
+BEGIN
+        DELETE FROM [{databaseOwner}].[{objectQualifier}Spam_Words] WHERE ID = @ID
+END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}spam_words_list]
+(
+    @BoardID int,
+    @ID int = null
+)
+AS BEGIN
+        IF (@ID IS NOT NULL AND @ID <> 0)
+        SELECT * FROM [{databaseOwner}].[{objectQualifier}Spam_Words] WHERE BoardID = @BoardID AND ID = @ID
+    ELSE
+        SELECT * FROM [{databaseOwner}].[{objectQualifier}Spam_Words] WHERE BoardID = @BoardID
+END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}spam_words_save]
+(
+    @BoardID int,
+    @ID int = null,
+    @SpamWord nvarchar(255)
+)
+AS
+BEGIN
+        IF (@ID IS NOT NULL AND @ID <> 0)
+    BEGIN
+        UPDATE [{databaseOwner}].[{objectQualifier}Spam_Words] SET SpamWord = @SpamWord WHERE ID = @ID		
+    END
+    ELSE BEGIN
+        INSERT INTO [{databaseOwner}].[{objectQualifier}Spam_Words]
+            (BoardID,SpamWord)
+        VALUES
+            (@BoardID,@SpamWord)
     END
 END
 GO

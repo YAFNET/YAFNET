@@ -50,7 +50,12 @@ namespace YAF.Core.Services
         /// <returns>
         /// Returns if Post is SPAM or not
         /// </returns>
-        public bool CheckPostForSpam([NotNull]string userName, [NotNull]string ipAddress, [NotNull]string postMessage, [CanBeNull]string emailAddress, out string result)
+        public bool CheckPostForSpam(
+            [NotNull] string userName,
+            [NotNull] string ipAddress,
+            [NotNull] string postMessage,
+            [CanBeNull] string emailAddress,
+            out string result)
         {
             result = string.Empty;
 
@@ -58,16 +63,21 @@ namespace YAF.Core.Services
             {
                 return false;
             }
-            
+
             switch (YafContext.Current.Get<YafBoardSettings>().SpamServiceType)
             {
                 case 1:
                     return this.CheckWithBlogSpam(userName, postMessage, ipAddress, out result);
                 case 2:
-                {
-                    return YafContext.Current.Get<YafBoardSettings>().AkismetApiKey.IsSet()
-                           && this.CheckWithAkismet(userName, postMessage, ipAddress, out result);
-                }
+                    {
+                        return YafContext.Current.Get<YafBoardSettings>().AkismetApiKey.IsSet()
+                               && this.CheckWithAkismet(userName, postMessage, ipAddress, out result);
+                    }
+
+                case 3:
+                    {
+                        return YafContext.Current.Get<ISpamWordCheck>().CheckForSpamWord(postMessage, out result);
+                    }
             }
 
             return false;

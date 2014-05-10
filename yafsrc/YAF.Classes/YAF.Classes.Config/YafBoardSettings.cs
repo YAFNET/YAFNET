@@ -676,12 +676,13 @@ namespace YAF.Classes
         /// 0 = No Service
         /// 1 = BlogSpam.NET Service
         /// 2 = Akismet.com Service
+        /// 3 = Use Internal Spam Check
         /// </summary>
         public int SpamServiceType
         {
             get
             {
-                return this._reg.GetValue("SpamServiceType", 0);
+                return this._reg.GetValue("SpamServiceType", 3);
             }
 
             set

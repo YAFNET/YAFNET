@@ -610,6 +610,17 @@ begin
 end
 GO
 
+if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Spam_Words]') and type in (N'U'))
+begin
+	create table [{databaseOwner}].[{objectQualifier}Spam_Words](
+		ID				int IDENTITY (1, 1) NOT NULL,
+		BoardId			int NOT NULL,
+		SpamWord			nvarchar (255) NULL ,
+		constraint [PK_{objectQualifier}Spam_Words] primary key(ID)
+	)
+end
+GO
+
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Registry]') and type in (N'U'))
 begin
 	create table [{databaseOwner}].[{objectQualifier}Registry](

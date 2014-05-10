@@ -51,6 +51,9 @@
     <Resource tag="ADMIN_SMILIES">Betrachtet Smileys</Resource>
     <Resource tag="ADMIN_SMILIES_EDIT">Bearbeitet Smileys</Resource>
     <Resource tag="ADMIN_SMILIES_IMPORT">Importiert Smileys</Resource>
+    <Resource tag="ADMIN_SPAMWORDS">Views spam words list</Resource>
+    <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
+    <Resource tag="ADMIN_SPAMWORDS_IMPORT">Imports spam words</Resource>
     <Resource tag="ADMIN_TASKMANAGER">Betrachtet Aufgabenmanager</Resource>
     <Resource tag="ADMIN_TEST_DATA">Betrachtet Test Datengenerator</Resource>
     <Resource tag="ADMIN_TOPICSTATUS">Betrachtet Themen Status</Resource>
@@ -1350,6 +1353,9 @@
     <Resource tag="SPAM_MESSAGE_2">Reject Message</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING">Handhabung von als Spam erkannten Nachrichten</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Wählen Sie, was mit einem Beitrag passiert der als SPAM erkannt wurde. Sie können wählen zwischen nichts tun, Beiträge als nicht genehmigt markieren, oder den Beitrag ablehnen.</Resource>
+    <Resource tag="SPAM_SERVICE_TYP_1">BlogSpam.NET API</Resource>
+    <Resource tag="SPAM_SERVICE_TYP_2">Akismet API (Needs Registration)</Resource>
+    <Resource tag="SPAM_SERVICE_TYP_3">Internal Spam Check Words</Resource>
     <Resource tag="SQL_FULLTEXT">SQL Volltext-Suche verwenden:</Resource>
     <Resource tag="SQL_FULLTEXT_HELP">Volltext SQL Server Funktion aktivieren/deaktivierten (Muss in der Datenbank aktiviert werden).</Resource>
     <Resource tag="SSL_LOGIN">SSL bei der Anmeldung verwenden:</Resource>
@@ -1624,6 +1630,31 @@
     <Resource tag="SELECT_FILE">Datei (*.pak) wählen</Resource>
     <Resource tag="TITLE">Smileys Importieren</Resource>
   </page>
+  <page name="ADMIN_SPAMWORDS">
+    <Resource tag="ADD">Add</Resource>
+    <Resource tag="EXPORT">Export to XML</Resource>
+    <Resource tag="IMPORT">Import from XML</Resource>
+    <Resource tag="MSG_DELETE">Delete this Word?</Resource>
+    <Resource tag="NOTE">&lt;strong&gt;Note: &lt;/strong&gt; The Spam Words are used for the internal SPAM Detection, during Registration the Homepage the user is entering in the user profile is checked against the Spam Words. Also if a user Posts a new Message in the forum it will be checked against the Spam Words if 'Choose a SPAM Service for Automatically SPAM Checking' in the Host Settings is set to 'Internal Spam Check Words'.</Resource>
+    <Resource tag="SPAM">"Spam" Word (Find) Expression</Resource>
+    <Resource tag="TITLE">Spam Check Words</Resource>
+  </page>
+  <page name="ADMIN_SPAMWORDS_EDIT">
+    <Resource tag="MSG_REGEX_SPAM">The Regular expression statement you have entered is invalid.</Resource>
+    <Resource tag="SPAM">"Spam" Word (Find) Expression:</Resource>
+    <Resource tag="SPAM_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. '\.').</Resource>
+    <Resource tag="TITLE">Add/Edit Spam Word</Resource>
+  </page>
+  <page name="ADMIN_SPAMWORDS_IMPORT">
+    <Resource tag="HEADER">Import Spam Word List</Resource>
+    <Resource tag="MSG_IMPORTED">{0} new spam word(s) were imported successfully.</Resource>
+    <Resource tag="MSG_IMPORTED_FAILED">Failed to import: Import file format is different than expected.</Resource>
+    <Resource tag="MSG_IMPORTED_FAILEDX">Failed to import: {0}</Resource>
+    <Resource tag="MSG_NOTHING">Nothing imported: no new spam words were found in the upload.</Resource>
+    <Resource tag="SELECT_IMPORT">Select Import File:</Resource>
+    <Resource tag="SELECT_IMPORT_HELP">(Must be *.xml file)</Resource>
+    <Resource tag="TITLE">Import Spam Words</Resource>
+  </page>
   <page name="ADMIN_TASKMANAGER">
     <Resource tag="DURATION">Dauer</Resource>
     <Resource tag="HEADER">Task-Manager: {0} Aufgabe(n) laufen</Resource>
@@ -1741,6 +1772,7 @@
     <Resource tag="admin_restartapp">Anwendung neustarten</Resource>
     <Resource tag="admin_runsql">SQL Query ausführen</Resource>
     <Resource tag="admin_smilies">Smileys</Resource>
+    <Resource tag="admin_spamwords">Spam Check Words</Resource>
     <Resource tag="admin_taskmanager">Task-Manager</Resource>
     <Resource tag="admin_test_data">Testdaten generieren</Resource>
     <Resource tag="admin_topicstatus">Topic Status</Resource>

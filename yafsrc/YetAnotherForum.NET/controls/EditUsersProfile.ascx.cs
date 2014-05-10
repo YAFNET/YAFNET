@@ -296,6 +296,8 @@ namespace YAF.Controls
         /// <param name="e">The e.</param>
         protected void UpdateProfile_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
+            var userName = UserMembershipHelper.GetUserNameFromID(this.currentUserID);
+            
             if (this.HomePage.Text.IsSet())
             {
                 // add http:// by default
@@ -308,6 +310,20 @@ namespace YAF.Controls
                 {
                     this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_HOME"), MessageTypes.Warning);
                     return;
+                }
+
+                // Check for spam
+                string result;
+
+                if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.HomePage.Text, out result))
+                {
+                    // only log at the moment
+                    this.Logger.Log(
+                            null,
+                            "Bot Detected",
+                            "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user changed the profile Homepage url to: {2}"
+                                .FormatWith(userName, this.currentUserID, this.HomePage.Text),
+                            EventLogTypes.SpamBotDetected);
                 }
             }
 
@@ -386,7 +402,6 @@ namespace YAF.Controls
                 }
             }
 
-            string userName = UserMembershipHelper.GetUserNameFromID(this.currentUserID);
             if (this.UpdateEmailFlag)
             {
                 string newEmail = this.Email.Text.Trim();

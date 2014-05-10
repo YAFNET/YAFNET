@@ -44,9 +44,9 @@ namespace YAF.Pages.Admin
     #endregion
 
     /// <summary>
-    /// The Replace Words Admin Page.
+    /// The Admin spam words page.
     /// </summary>
-    public partial class replacewords : AdminPage
+    public partial class spamwords : AdminPage
     {
         #region Methods
 
@@ -58,48 +58,40 @@ namespace YAF.Pages.Admin
         protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_REPLACEWORDS", "MSG_DELETE"));
+                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_SPAMWORDS", "MSG_DELETE"));
         }
 
         /// <summary>
-        /// Adds the load.
+        /// Adds Localized Text to Button
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void addLoad(object sender, EventArgs e)
+        protected void AddLoad(object sender, EventArgs e)
         {
             var add = (Button)sender;
-            add.Text = this.GetText("ADMIN_REPLACEWORDS", "ADD");
+            add.Text = this.GetText("ADMIN_SPAMWORDS", "ADD");
         }
 
         /// <summary>
-        /// Add Localized Text to Button
+        /// Adds Localized Text to Button
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void exportLoad(object sender, EventArgs e)
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        protected void ExportLoad(object sender, EventArgs e)
         {
             var export = (Button)sender;
-            export.Text = this.GetText("ADMIN_REPLACEWORDS", "EXPORT");
+            export.Text = this.GetText("ADMIN_SPAMWORDS", "EXPORT");
         }
 
         /// <summary>
-        /// Add Localized Text to Button
+        /// Adds Localized Text to Button
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void importLoad(object sender, EventArgs e)
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
+        protected void ImportLoad(object sender, EventArgs e)
         {
             var import = (Button)sender;
-            import.Text = this.GetText("ADMIN_REPLACEWORDS", "IMPORT");
+            import.Text = this.GetText("ADMIN_SPAMWORDS", "IMPORT");
         }
 
         /// <summary>
@@ -129,11 +121,11 @@ namespace YAF.Pages.Admin
 
             this.PageLinks.AddRoot()
                 .AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin))
-                .AddLink(this.GetText("ADMIN_REPLACEWORDS", "TITLE"));
+                .AddLink(this.GetText("ADMIN_SPAMWORDS", "TITLE"));
 
             this.Page.Header.Title = "{0} - {1}".FormatWith(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_REPLACEWORDS", "TITLE"));
+                this.GetText("ADMIN_SPAMWORDS", "TITLE"));
 
             this.BindData();
         }
@@ -143,7 +135,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.list.DataSource = this.GetRepository<Replace_Words>().List();
+            this.list.DataSource = this.GetRepository<Spam_Words>().List();
             this.DataBind();
         }
 
@@ -165,35 +157,33 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "add":
-                    YafBuildLink.Redirect(ForumPages.admin_replacewords_edit);
+                    YafBuildLink.Redirect(ForumPages.admin_spamwords_edit);
                     break;
                 case "edit":
-                    YafBuildLink.Redirect(ForumPages.admin_replacewords_edit, "i={0}", e.CommandArgument);
+                    YafBuildLink.Redirect(ForumPages.admin_spamwords_edit, "i={0}", e.CommandArgument);
                     break;
                 case "delete":
-                    this.GetRepository<Replace_Words>().DeleteByID(e.CommandArgument.ToType<int>());
-                    this.Get<IObjectStore>().Remove(Constants.Cache.ReplaceWords);
+                    this.GetRepository<Spam_Words>().DeleteByID(e.CommandArgument.ToType<int>());
+                    this.Get<IObjectStore>().Remove(Constants.Cache.SpamWords);
                     this.BindData();
                     break;
                 case "export":
                     {
-                        DataTable replaceDT = this.GetRepository<Replace_Words>().List();
-                        replaceDT.DataSet.DataSetName = "YafReplaceWordsList";
-                        replaceDT.TableName = "YafReplaceWords";
-                        replaceDT.Columns.Remove("ID");
-                        replaceDT.Columns.Remove("BoardID");
+                        DataTable spamwordDataTable = this.GetRepository<Spam_Words>().List();
+                        spamwordDataTable.DataSet.DataSetName = "YafSpamWordsList";
+                        spamwordDataTable.TableName = "YafSpamWords";
+                        spamwordDataTable.Columns.Remove("ID");
+                        spamwordDataTable.Columns.Remove("BoardID");
 
                         this.Response.ContentType = "text/xml";
-                        this.Response.AppendHeader(
-                            "Content-Disposition",
-                            "attachment; filename=YafReplaceWordsExport.xml");
-                        replaceDT.DataSet.WriteXml(this.Response.OutputStream);
+                        this.Response.AppendHeader("Content-Disposition", "attachment; filename=YafSpamWordsExport.xml");
+                        spamwordDataTable.DataSet.WriteXml(this.Response.OutputStream);
                         this.Response.End();
                     }
 
                     break;
                 case "import":
-                    YafBuildLink.Redirect(ForumPages.admin_replacewords_import);
+                    YafBuildLink.Redirect(ForumPages.admin_spamwords_import);
                     break;
             }
         }

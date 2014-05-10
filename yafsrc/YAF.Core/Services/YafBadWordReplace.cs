@@ -27,30 +27,29 @@ namespace YAF.Core.Services
 
   using System;
   using System.Collections.Generic;
-  using System.Data;
   using System.Linq;
   using System.Text.RegularExpressions;
 
-  using YAF.Classes.Data;
+  using YAF.Core.Model;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
-  using YAF.Utils;
+  using YAF.Types.Models;
 
-  #endregion
+    #endregion
 
   /// <summary>
-  /// The yaf bad word replace.
+  /// The YAF bad word replace.
   /// </summary>
-  public class YafBadWordReplace : IBadWordReplace
+    public class YafBadWordReplace : IBadWordReplace, IHaveServiceLocator
   {
     #region Constants and Fields
 
     /// <summary>
     ///   The _options.
     /// </summary>
-    private const RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Compiled
+    private const RegexOptions _Options = RegexOptions.IgnoreCase | RegexOptions.Compiled
                                /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
     #endregion
@@ -58,23 +57,29 @@ namespace YAF.Core.Services
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="YafBadWordReplace"/> class.
+    /// Initializes a new instance of the <see cref="YafBadWordReplace" /> class.
     /// </summary>
-    /// <param name="objectStore">
-    /// The object Store.
-    /// </param>
-    /// <param name="logger">
-    /// The logger.
-    /// </param>
-    public YafBadWordReplace([NotNull] IObjectStore objectStore, [NotNull] ILogger logger)
-    {
-      this.ObjectStore = objectStore;
-      this.Logger = logger;
-    }
+    /// <param name="objectStore">The object Store.</param>
+    /// <param name="logger">The logger.</param>
+    /// <param name="serviceLocator">The service locator.</param>
+      public YafBadWordReplace(
+          [NotNull] IObjectStore objectStore,
+          [NotNull] ILogger logger,
+          IServiceLocator serviceLocator)
+      {
+          this.ServiceLocator = serviceLocator;
+          this.ObjectStore = objectStore;
+          this.Logger = logger;
+      }
 
-    #endregion
+      #endregion
 
     #region Properties
+
+    /// <summary>
+    /// Gets or sets the service locator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; set; }
 
     /// <summary>
     /// Gets or sets Logger.
@@ -97,12 +102,12 @@ namespace YAF.Core.Services
           Constants.Cache.ReplaceWords, 
           () =>
             {
-              var replaceWords = LegacyDb.replace_words_list(YafContext.Current.PageBoardID, null).AsEnumerable();
+              var replaceWords = this.GetRepository<Replace_Words>().ListTyped();
 
               // move to collection...
               return
                 replaceWords.Select(
-                  row => new BadWordReplaceItem(row.Field<string>("goodword"), row.Field<string>("badword"), _options)).ToList();
+                  item => new BadWordReplaceItem(item.GoodWord, item.BadWord, _Options)).ToList();
             });
 
         return replaceItems;

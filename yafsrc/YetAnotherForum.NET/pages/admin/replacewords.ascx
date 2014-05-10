@@ -31,15 +31,13 @@
 					<%# HtmlEncode(Eval("goodword")) %>
 				</td>
 				<td class="post">
-					<asp:LinkButton runat="server" CommandName='edit' CommandArgument='<%# Eval("ID") %>'
-						ID="Linkbutton1">
-  <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" />
-					</asp:LinkButton>
+					<YAF:ThemeButton ID="btnEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# Eval("ID") %>' 
+                        TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server">					    
+					</YAF:ThemeButton>	
 					|
-					<asp:LinkButton runat="server"  CommandName='delete' OnLoad="Delete_Load"
-						CommandArgument='<%# Eval("ID") %>' ID="Linkbutton2">
-                          <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="DELETE" />
-					</asp:LinkButton>
+					<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" OnLoad="Delete_Load"  CommandName='delete' 
+                        CommandArgument='<%# Eval( "ID") %>' TitleLocalizedTag="DELETE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" runat="server">
+					</YAF:ThemeButton>
 				</td>
 			</tr>
 		</ItemTemplate>

@@ -1037,8 +1037,6 @@ namespace YAF.Pages
                         this.PageContext.IsGuest ? null : this.PageContext.User.Email,
                         out spamResult))
                 {
-                    
-
                     switch (this.Get<YafBoardSettings>().SpamMessageHandling)
                     {
                         case 0:

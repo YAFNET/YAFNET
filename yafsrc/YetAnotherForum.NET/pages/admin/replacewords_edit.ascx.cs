@@ -33,10 +33,12 @@ namespace YAF.Pages.Admin
   using YAF.Classes.Data;
   using YAF.Controls;
   using YAF.Core;
+  using YAF.Core.Model;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
+  using YAF.Types.Models;
   using YAF.Utils;
 
   #endregion
@@ -46,6 +48,48 @@ namespace YAF.Pages.Admin
   /// </summary>
   public partial class replacewords_edit : AdminPage
   {
+      #region Constants and Fields
+
+      /// <summary>
+      ///   The _ReplaceWord id.
+      /// </summary>
+      private int? _replaceWordId;
+
+      #endregion
+
+      #region Properties
+
+      /// <summary>
+      ///   Gets ReplaceWordID.
+      /// </summary>
+      protected int? ReplaceWordID
+      {
+          get
+          {
+              if (this._replaceWordId != null)
+              {
+                  return this._replaceWordId;
+              }
+
+              if (this.Request.QueryString.GetFirstOrDefault("i") == null)
+              {
+                  return null;
+              }
+
+              int id;
+
+              if (!int.TryParse(this.Request.QueryString.GetFirstOrDefault("i"), out id))
+              {
+                  return null;
+              }
+
+              this._replaceWordId = id;
+              return id;
+          }
+      }
+
+      #endregion
+
     #region Methods
 
       /// <summary>
@@ -59,13 +103,13 @@ namespace YAF.Pages.Admin
       /// </returns>
       protected bool IsValidWordExpression([NotNull] string newExpression)
       {
-          if (newExpression.Equals("*"))
+          if (!newExpression.Equals("*"))
           {
-              this.PageContext.AddLoadMessage(this.GetText("ADMIN_REPLACEWORDS_EDIT", "MSG_REGEX_BAD"));
-              return false;
+              return true;
           }
 
-          return true;
+          this.PageContext.AddLoadMessage(this.GetText("ADMIN_REPLACEWORDS_EDIT", "MSG_REGEX_BAD"));
+          return false;
       }
 
     /// <summary>
@@ -133,9 +177,15 @@ namespace YAF.Pages.Admin
             return;
         }
 
-        DataRow row = LegacyDb.replace_words_list(this.PageContext.PageBoardID, id).Rows[0];
-        this.badword.Text = (string)row["badword"];
-        this.goodword.Text = (string)row["goodword"];
+        if (this.ReplaceWordID == null)
+        {
+            return;
+        }
+
+        var replaceWord =
+                this.GetRepository<Replace_Words>().ListTyped(this.ReplaceWordID.Value, this.PageContext.PageBoardID)[0];
+        this.badword.Text = replaceWord.BadWord;
+        this.goodword.Text = replaceWord.GoodWord;
     }
 
     /// <summary>
@@ -157,17 +207,17 @@ namespace YAF.Pages.Admin
     /// </param>
     private void add_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-        if (!this.IsValidWordExpression(badword.Text.Trim()))
+        if (!this.IsValidWordExpression(this.badword.Text.Trim()))
         {
             this.BindData();
         }
         else
         {
-            LegacyDb.replace_words_save(
-                this.PageContext.PageBoardID,
-                this.Request.QueryString.GetFirstOrDefault("i"),
-                this.badword.Text,
-                this.goodword.Text);
+            this.GetRepository<Replace_Words>()
+                .Save(
+                    replaceWordID: this.Request.QueryString.GetFirstOrDefaultAs<int>("i"),
+                    badWord: this.badword.Text,
+                    goodWord: this.goodword.Text);
 
             this.Get<IDataCache>().Remove(Constants.Cache.ReplaceWords);
             YafBuildLink.Redirect(ForumPages.admin_replacewords);
