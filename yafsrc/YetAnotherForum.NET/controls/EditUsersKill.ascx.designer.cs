@@ -85,6 +85,15 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.CheckBox SuspendUser;
         
         /// <summary>
+        /// SuspendedTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal SuspendedTo;
+        
+        /// <summary>
         /// LocalizedLabel4 control.
         /// </summary>
         /// <remarks>
@@ -121,13 +130,22 @@ namespace YAF.Controls {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel5;
         
         /// <summary>
-        /// Kill control.
+        /// ReportUserRow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Kill;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow ReportUserRow;
+        
+        /// <summary>
+        /// LocalizedLabel7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel7;
         
         /// <summary>
         /// ReportUser control.
@@ -136,6 +154,15 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ReportUser;
+        protected global::System.Web.UI.WebControls.CheckBox ReportUser;
+        
+        /// <summary>
+        /// Kill control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Kill;
     }
 }

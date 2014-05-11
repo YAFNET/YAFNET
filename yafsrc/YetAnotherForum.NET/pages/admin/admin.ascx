@@ -22,6 +22,7 @@
 				<asp:HyperLink ID="UpdateLinkWarning" runat="server" Target="_blank"></asp:HyperLink>
 			</div>
     </asp:PlaceHolder>
+    <asp:PlaceHolder runat="server" ID="UnverifiedUsersHolder">
     <table width="100%" cellspacing="1" cellpadding="0" class="content">
         <tr>
              <td class="header1">
@@ -103,6 +104,7 @@
         </asp:Repeater>
     </table>
     &nbsp;<br />
+    </asp:PlaceHolder>
     <table class="content" cellspacing="1" cellpadding="0" width="100%">
         <tr>
             <td class="header1" colspan="4">
