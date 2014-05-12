@@ -100,8 +100,8 @@ namespace YAF.Controls
             html.AppendFormat(
                 @"<li class=""yafprofilemenu_{2}""><a href=""{0}"" title=""{1}"">{1}</a></li>",
                 YafBuildLink.GetLink(ForumPages.cp_editprofile),
-                this.GetText("EDIT_PROFILE"),
-                    ForumPages.cp_editprofile);
+                this.GetText(Config.IsDotNetNuke ? "FORUM_SETTINGS" : "EDIT_PROFILE"),
+                ForumPages.cp_editprofile);
 
             if (!this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableThanksMod)
             {

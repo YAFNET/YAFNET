@@ -113,6 +113,18 @@ namespace YAF.Utils
         }
 
         /// <summary>
+        /// Gets base path to the page without ampersand.
+        /// </summary>
+        /// <param name="boardSettings">The board settings.</param>
+        /// <returns>
+        /// Base URL to the given page.
+        /// </returns>
+        public static string GetBasePath(YafBoardSettings boardSettings)
+        {
+            return YafFactoryProvider.UrlBuilder.BuildUrl(boardSettings, string.Empty).TrimEnd('&');
+        }
+
+        /// <summary>
         /// Redirects response to the access denied page.
         /// </summary>
         public static void AccessDenied()

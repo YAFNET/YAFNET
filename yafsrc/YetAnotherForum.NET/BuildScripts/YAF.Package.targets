@@ -67,7 +67,7 @@
     
     <Copy SourceFiles="@(yafInstall-Include)" DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)" />
     <Copy SourceFiles="@(LibaryFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended.web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\web.config"/>
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended.web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\recommended.web.config"/>
     
     <!-- Minify JS and CSS Files -->
     <ItemGroup>
