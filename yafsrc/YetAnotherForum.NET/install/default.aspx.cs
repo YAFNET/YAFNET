@@ -518,7 +518,7 @@ namespace YAF.Install
         /// The sender.
         /// </param>
         /// <param name="e">
-        /// The e.
+        /// The e.p
         /// </param>
         protected void UpdateStatusTimer_Tick([NotNull] object sender, [NotNull] EventArgs e)
         {

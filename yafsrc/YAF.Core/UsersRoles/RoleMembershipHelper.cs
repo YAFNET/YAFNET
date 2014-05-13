@@ -107,7 +107,12 @@ namespace YAF.Core
             try
             {
                 userID = LegacyDb.user_aspnet(
-                    pageBoardID, user.UserName, displayName, user.Email, user.ProviderUserKey, user.IsApproved);
+                    pageBoardID,
+                    user.UserName,
+                    displayName,
+                    user.Email,
+                    user.ProviderUserKey,
+                    user.IsApproved);
 
                 foreach (string role in GetRolesForUser(user.UserName))
                 {
@@ -197,8 +202,8 @@ namespace YAF.Core
         public static bool GroupInGroupTable([NotNull] string groupName, [NotNull] DataTable groupTable)
         {
             return
-                groupTable.AsEnumerable().Any(
-                    row => row["Member"].ToType<int>() == 1 && row["Name"].ToType<string>() == groupName);
+                groupTable.AsEnumerable()
+                    .Any(row => row["Member"].ToType<int>() == 1 && row["Name"].ToType<string>() == groupName);
         }
 
         /// <summary>
@@ -265,8 +270,9 @@ namespace YAF.Core
                 foreach (string roleName in (from DataRow row in dt.Rows
                                              let roleFlags = new GroupFlags(row["Flags"])
                                              where roleFlags.IsStart && !roleFlags.IsGuest
-                                             select row["Name"].ToString() into roleName 
-                                             where roleName.IsSet() 
+                                             select row["Name"].ToString()
+                                             into roleName
+                                             where roleName.IsSet()
                                              select roleName).Where(roleName => !IsUserInRole(userName, roleName)))
                 {
                     AddUserToRole(userName, roleName);
@@ -288,13 +294,13 @@ namespace YAF.Core
 
             // get all users in membership...
             var users =
-                YafContext.Current.Get<MembershipProvider>().GetAllUsers(0, 999999, out totalRecords).Cast<MembershipUser>().Where(
-                u => u != null && u.Email.IsSet());
+                YafContext.Current.Get<MembershipProvider>()
+                    .GetAllUsers(0, 999999, out totalRecords)
+                    .Cast<MembershipUser>()
+                    .Where(u => u != null && u.Email.IsSet());
 
             // create/update users...
-            Parallel.ForEach(
-                users,
-                user => UpdateForumUser(user, pageBoardId));
+            Parallel.ForEach(users, user => UpdateForumUser(user, pageBoardId));
         }
 
         /// <summary>
@@ -306,29 +312,14 @@ namespace YAF.Core
             // get all the groups in YAF DB and create them if they do not exist as a role in membership
             using (DataTable dt = LegacyDb.group_list(pageBoardID, DBNull.Value))
             {
-                foreach (var name in from DataRow row in dt.Rows let name = (string)row["Name"] let roleFlags = new GroupFlags(row["Flags"]) where name.IsSet() && !roleFlags.IsGuest && !RoleExists(name) select name)
+                foreach (var name in from DataRow row in dt.Rows
+                                     let name = (string)row["Name"]
+                                     let roleFlags = new GroupFlags(row["Flags"])
+                                     where name.IsSet() && !roleFlags.IsGuest && !RoleExists(name)
+                                     select name)
                 {
                     CreateRole(name);
                 }
-
-                /* get all the roles and create them in the YAF DB if they do not exist
-                foreach ( string role in Roles.GetAllRoles() )
-                {
-                    int nGroupID = 0;
-                    string filter = string.Format( "Name='{0}'", role );
-                    DataRow [] rows = dt.Select( filter );
-
-                    if ( rows.Length == 0 )
-                    {
-                    // sets new roles to default "Read Only" access
-                    nGroupID = ( int ) YAF.Classes.Data.DB.group_save( DBNull.Value, pageBoardID, role, false, false, false, false, 1 );
-                    }
-                    else
-                    {
-                    nGroupID = ( int ) rows [0] ["GroupID"];
-                    }
-                }
-                        */
             }
         }
 
@@ -380,11 +371,11 @@ namespace YAF.Core
             {
                 // problem -- log and move on...
                 YafContext.Current.Get<ILogger>()
-                          .Log(
-                              userId,
-                              "UpdateForumUser",
-                              "Null User Provider Key for UserName {0}. Please check your provider key settings for your ASP.NET membership provider."
-                                  .FormatWith(user.UserName));
+                    .Log(
+                        userId,
+                        "UpdateForumUser",
+                        "Null User Provider Key for UserName {0}. Please check your provider key settings for your ASP.NET membership provider."
+                            .FormatWith(user.UserName));
 
                 return userId;
             }
@@ -393,7 +384,12 @@ namespace YAF.Core
             bool isNewUser = userId <= 0;
 
             userId = LegacyDb.user_aspnet(
-                pageBoardID, user.UserName, null, user.Email, user.ProviderUserKey, user.IsApproved);
+                pageBoardID,
+                user.UserName,
+                null,
+                user.Email,
+                user.ProviderUserKey,
+                user.IsApproved);
 
             // get user groups...
             DataTable groupTable = LegacyDb.group_member(pageBoardID, userId);
@@ -406,8 +402,8 @@ namespace YAF.Core
 
             if (Config.IsMojoPortal)
             {
-                string roles1 = userRoles.Where(t => !string.IsNullOrEmpty(t)).Aggregate(
-                    string.Empty, (current, t) => current.Trim() + "," + t.Trim());
+                string roles1 = userRoles.Where(t => !string.IsNullOrEmpty(t))
+                    .Aggregate(string.Empty, (current, t) => current.Trim() + "," + t.Trim());
                 userRoles = roles1.Trim(',').Split(',');
             }
 
@@ -444,12 +440,19 @@ namespace YAF.Core
 
                 // save the settings...
                 LegacyDb.user_savenotification(
-                    userId, true, autoWatchTopicsEnabled, defaultNotificationSetting, defaultSendDigestEmail);
+                    userId,
+                    true,
+                    autoWatchTopicsEnabled,
+                    defaultNotificationSetting,
+                    defaultSendDigestEmail);
             }
             catch (Exception ex)
             {
                 YafContext.Current.Get<ILogger>()
-                    .Log(userId, "UpdateForumUser", "Failed to save default notifications for new user: {0}".FormatWith(ex));
+                    .Log(
+                        userId,
+                        "UpdateForumUser",
+                        "Failed to save default notifications for new user: {0}".FormatWith(ex));
             }
 
             return userId;
@@ -486,8 +489,8 @@ namespace YAF.Core
             do
             {
                 string password = Membership.GeneratePassword(7 + retry, 1 + retry);
-                user = YafContext.Current.Get<MembershipProvider>().CreateUser(
-                    name, password, email, question, answer, approved, null, out status);
+                user = YafContext.Current.Get<MembershipProvider>()
+                    .CreateUser(name, password, email, question, answer, approved, null, out status);
             }
             while (status == MembershipCreateStatus.InvalidPassword && ++retry < 10);
 
@@ -506,8 +509,7 @@ namespace YAF.Core
         private static void MigrateUsersFromDataTable(bool approved, [NotNull] DataTable dataTable)
         {
             // is this the Yaf membership provider?
-            bool isYafProvider = YafContext.Current.Get<MembershipProvider>().Description
-                                 == "YAF Native Membership Provider";
+            bool isYafProvider = YafContext.Current.Get<MembershipProvider>().Name == "YafMembershipProvider";
             bool isLegacyYafDB = dataTable.Columns.Contains("Location");
 
             var userRows = dataTable.AsEnumerable();
@@ -545,11 +547,17 @@ namespace YAF.Core
                         if (user == null)
                         {
                             MembershipCreateStatus status = MigrateCreateUser(
-                                name, email, "Your email in all lower case", email, approved, out user);
+                                name,
+                                email,
+                                "Your email in all lower case",
+                                email,
+                                approved,
+                                out user);
 
                             if (status != MembershipCreateStatus.Success)
                             {
-                                YafContext.Current.Get<ILogger>().Log(0, "MigrateUsers", "Failed to create user {0}: {1}".FormatWith(name, status));
+                                YafContext.Current.Get<ILogger>()
+                                    .Log(0, "MigrateUsers", "Failed to create user {0}: {1}".FormatWith(name, status));
                             }
                             else
                             {
@@ -573,74 +581,68 @@ namespace YAF.Core
                                 }
                             }
 
-                            if (!isLegacyYafDB)
+                            if (isLegacyYafDB)
                             {
-                                return;
-                            }
+                                // copy profile data over...
+                                YafUserProfile userProfile = YafUserProfile.GetProfile(name);
+                                if (dataTable.Columns.Contains("AIM") && !row["AIM"].IsNullOrEmptyDBField())
+                                {
+                                    userProfile.AIM = row["AIM"].ToString();
+                                }
 
-                            // copy profile data over...
-                            YafUserProfile userProfile = YafUserProfile.GetProfile(name);
-                            if (dataTable.Columns.Contains("AIM") && !row["AIM"].IsNullOrEmptyDBField())
-                            {
-                                userProfile.AIM = row["AIM"].ToString();
-                            }
+                                if (dataTable.Columns.Contains("YIM") && !row["YIM"].IsNullOrEmptyDBField())
+                                {
+                                    userProfile.YIM = row["YIM"].ToString();
+                                }
 
-                            if (dataTable.Columns.Contains("YIM") && !row["YIM"].IsNullOrEmptyDBField())
-                            {
-                                userProfile.YIM = row["YIM"].ToString();
-                            }
+                                if (dataTable.Columns.Contains("MSN") && !row["MSN"].IsNullOrEmptyDBField())
+                                {
+                                    userProfile.MSN = row["MSN"].ToString();
+                                }
 
-                            if (dataTable.Columns.Contains("MSN") && !row["MSN"].IsNullOrEmptyDBField())
-                            {
-                                userProfile.MSN = row["MSN"].ToString();
-                            }
+                                if (dataTable.Columns.Contains("ICQ") && !row["ICQ"].IsNullOrEmptyDBField())
+                                {
+                                    userProfile.ICQ = row["ICQ"].ToString();
+                                }
 
-                            if (dataTable.Columns.Contains("ICQ") && !row["ICQ"].IsNullOrEmptyDBField())
-                            {
-                                userProfile.ICQ = row["ICQ"].ToString();
-                            }
+                                if (dataTable.Columns.Contains("RealName") && !row["RealName"].IsNullOrEmptyDBField())
+                                {
+                                    userProfile.RealName = row["RealName"].ToString();
+                                }
 
-                            if (dataTable.Columns.Contains("RealName")
-                                && !row["RealName"].IsNullOrEmptyDBField())
-                            {
-                                userProfile.RealName = row["RealName"].ToString();
-                            }
+                                if (dataTable.Columns.Contains("Occupation")
+                                    && !row["Occupation"].IsNullOrEmptyDBField())
+                                {
+                                    userProfile.Occupation = row["Occupation"].ToString();
+                                }
 
-                            if (dataTable.Columns.Contains("Occupation")
-                                && !row["Occupation"].IsNullOrEmptyDBField())
-                            {
-                                userProfile.Occupation = row["Occupation"].ToString();
-                            }
+                                if (dataTable.Columns.Contains("Location") && !row["Location"].IsNullOrEmptyDBField())
+                                {
+                                    userProfile.Location = row["Location"].ToString();
+                                }
 
-                            if (dataTable.Columns.Contains("Location")
-                                && !row["Location"].IsNullOrEmptyDBField())
-                            {
-                                userProfile.Location = row["Location"].ToString();
-                            }
+                                if (dataTable.Columns.Contains("Homepage") && !row["Homepage"].IsNullOrEmptyDBField())
+                                {
+                                    userProfile.Homepage = row["Homepage"].ToString();
+                                }
 
-                            if (dataTable.Columns.Contains("Homepage")
-                                && !row["Homepage"].IsNullOrEmptyDBField())
-                            {
-                                userProfile.Homepage = row["Homepage"].ToString();
-                            }
+                                if (dataTable.Columns.Contains("Interests") && !row["Interests"].IsNullOrEmptyDBField())
+                                {
+                                    userProfile.Interests = row["Interests"].ToString();
+                                }
 
-                            if (dataTable.Columns.Contains("Interests")
-                                && !row["Interests"].IsNullOrEmptyDBField())
-                            {
-                                userProfile.Interests = row["Interests"].ToString();
-                            }
+                                if (dataTable.Columns.Contains("Weblog") && !row["Weblog"].IsNullOrEmptyDBField())
+                                {
+                                    userProfile.Blog = row["Weblog"].ToString();
+                                }
 
-                            if (dataTable.Columns.Contains("Weblog") && !row["Weblog"].IsNullOrEmptyDBField())
-                            {
-                                userProfile.Blog = row["Weblog"].ToString();
-                            }
+                                if (dataTable.Columns.Contains("Gender") && !row["Gender"].IsNullOrEmptyDBField())
+                                {
+                                    userProfile.Gender = row["Gender"].ToType<int>();
+                                }
 
-                            if (dataTable.Columns.Contains("Gender") && !row["Gender"].IsNullOrEmptyDBField())
-                            {
-                                userProfile.Gender = row["Gender"].ToType<int>();
+                                userProfile.Save();
                             }
-
-                            userProfile.Save();
                         }
                         else
                         {

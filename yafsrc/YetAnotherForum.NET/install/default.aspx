@@ -373,8 +373,11 @@
                         user(s) in your forum database.</p>
                     <p>
                         Click "Next" to start the upgrade (migration) of all roles and users from your old
-                        Yet Another Forum.NET database to the .NET Provider Model. The migration task can
-                        take a <strong>very</strong> long time depending on how many users are in your forum.</p>
+                        Yet Another Forum.NET database to the .NET Provider Model.
+                    </p> 
+                    <p>The migration task can
+                        take a <strong>very</strong> long time depending on how many users are in your forum.
+                    </p>
                     <asp:CheckBox ID="skipMigration" runat="server" Text="Disable Migration (not recommended)"
                         Visible="False" />
                 </asp:WizardStep>
@@ -411,7 +414,6 @@
             </FinishNavigationTemplate>
             <HeaderTemplate>
                 <img src="../images/YAFLogo.png" alt="YAF Logo" /><br />
-                <%# IsForumInstalled ? "Upgrade" : "Installation"%> Wizard
                 <%# IsForumInstalled ? "Upgrade" : "Installation"%> Wizard
             </HeaderTemplate>
             <StartNavigationTemplate>
