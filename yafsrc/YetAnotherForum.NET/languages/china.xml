@@ -4969,7 +4969,7 @@ Hello!
     Congratulations you have been award with the {medalname} on the {forumname} forum.
   </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
-		A new message that needs your approved has been posted in the {forumname} forum:
+		A new message that needs to be approved has been posted in the {forumname} forum:
 		
 		Administration Link: {adminlink}
 	</Resource>
