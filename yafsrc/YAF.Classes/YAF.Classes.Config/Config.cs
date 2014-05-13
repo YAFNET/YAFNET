@@ -415,11 +415,12 @@ namespace YAF.Classes
             {
                 if (HttpContext.Current == null)
                 {
-                    return false;
+                    return AppDomain.CurrentDomain.GetAssemblies().Any(a => a.FullName.Contains("DotNetNuke"));
                 }
 
                 object obj = HttpContext.Current.Items["PortalSettings"];
-                return obj != null && obj.GetType().ToString().ToLower().IndexOf("dotnetnuke", StringComparison.Ordinal) >= 0;
+                return obj != null
+                       && obj.GetType().ToString().ToLower().IndexOf("dotnetnuke", StringComparison.Ordinal) >= 0;
             }
         }
 
