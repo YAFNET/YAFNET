@@ -1219,7 +1219,10 @@ namespace YAF.Pages
                 {
                     // not approved, notifiy moderators
                     this.Get<ISendNotification>()
-                        .ToModeratorsThatMessageNeedsApproval(this.PageContext.PageForumID, (int)messageId);
+                        .ToModeratorsThatMessageNeedsApproval(
+                            this.PageContext.PageForumID,
+                            messageId.ToType<int>(),
+                            spamApproved);
                 }
 
                 // 't' variable is required only for poll and this is a attach poll token for attachments page

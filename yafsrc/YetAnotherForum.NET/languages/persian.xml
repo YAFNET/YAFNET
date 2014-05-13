@@ -2015,6 +2015,7 @@
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">You have been award on the {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">پیام جدید در انجمن {0} نیاز به تائید دارد</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">A Message on {0} Forum was reported</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL">New SPAM Message on {0} Forum needs to be checked</Resource>
     <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registration on {0} Forum successfully</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">کاربر جدیدی در {0} ثبت نام کرده است.</Resource>
     <Resource tag="OK">تائید</Resource>
@@ -4974,6 +4975,11 @@
       A message was reported by {reporter} for the following reason: {reason}
 	  
 The Message was posted in the {forumname} forum.
+      
+      Administration Link: {adminlink}
+   </Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL_TEXT">
+      A new message (posted in the {forumname} forum) was detected as SPAM, needs to be checked:
       
       Administration Link: {adminlink}
    </Resource>

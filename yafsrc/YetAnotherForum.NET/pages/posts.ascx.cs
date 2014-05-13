@@ -1784,8 +1784,11 @@ namespace YAF.Pages
                 if (this.Get<YafBoardSettings>().EmailModeratorsOnModeratedPost)
                 {
                     // not approved, notifiy moderators
-                    this.Get<ISendNotification>().ToModeratorsThatMessageNeedsApproval(
-                        this.PageContext.PageForumID, (int)messageId);
+                    this.Get<ISendNotification>()
+                        .ToModeratorsThatMessageNeedsApproval(
+                            this.PageContext.PageForumID,
+                            messageId.ToType<int>(),
+                            spamApproved);
                 }
 
                 string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);

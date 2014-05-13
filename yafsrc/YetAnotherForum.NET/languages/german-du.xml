@@ -1996,6 +1996,7 @@
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">Sie haben eine Auszeichnung erhalten im {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Neue Nachricht im Forum {0} Forum muss genehmigt werden.</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">Ein Beitrag im {0} Forum wurde gemeldet</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL">New SPAM Message on {0} Forum needs to be checked</Resource>
     <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registrierung im {0} Forum erfolgreich</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Ein Benutzer hat sich im Forum {0} registriert</Resource>
     <Resource tag="OK">OK</Resource>
@@ -4909,6 +4910,11 @@ Hallo!
 Der Beitrag wurde im {forumname} forum veröffentlicht.
       
       Administrations Link: {adminlink}
+   </Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL_TEXT">
+      A new message (posted in the {forumname} forum) was detected as SPAM, needs to be checked:
+      
+      Administration Link: {adminlink}
    </Resource>
     <Resource tag="NOTIFICATION_ON_REGISTER">
       Hallo {user}.

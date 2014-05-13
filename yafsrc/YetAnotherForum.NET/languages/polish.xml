@@ -2002,6 +2002,7 @@
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">Zostałeś nagrodzony na forum {0}</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Nowy post na forum {0} musi być zaakceptowany</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">Post na forum {0} został zgłoszony</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL">New SPAM Message on {0} Forum needs to be checked</Resource>
     <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Rejestracja na forum {0} zakończona sukcesem</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Nowy użytkownik na forum {0}</Resource>
     <Resource tag="OK">Tak</Resource>
@@ -4951,6 +4952,11 @@ Hello!
       A message was reported by {reporter} for the following reason: {reason}
           
 The Message was posted in the {forumname} forum.
+      
+      Administration Link: {adminlink}
+   </Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL_TEXT">
+      A new message (posted in the {forumname} forum) was detected as SPAM, needs to be checked:
       
       Administration Link: {adminlink}
    </Resource>

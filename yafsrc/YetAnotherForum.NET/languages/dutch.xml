@@ -2002,6 +2002,7 @@
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">You have been award on the {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Nieuw bericht op {0} Forum heeft goedkeuring nodig</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">Er is een Bericht gerapporteerd op {0} Forum.</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL">New SPAM Message on {0} Forum needs to be checked</Resource>
     <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registratie op {0} Forum gelukt</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Nieuwe gebruiker geregistreerd op {0} Forum</Resource>
     <Resource tag="OK">OK</Resource>
@@ -4928,6 +4929,11 @@ Als je je e-mail niet wilde wijzigen, dan kun je deze mail negeren.
 Het bericht was gepost op het  {forumname} forum.
       
       Beheerlink: {adminlink}
+   </Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL_TEXT">
+      A new message (posted in the {forumname} forum) was detected as SPAM, needs to be checked:
+      
+      Administration Link: {adminlink}
    </Resource>
     <Resource tag="NOTIFICATION_ON_REGISTER">
       Hallo {user}.
