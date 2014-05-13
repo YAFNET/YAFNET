@@ -33,9 +33,12 @@
         <tr class="postheader">
             <td>
                 <YAF:UserLink ID="UserName" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>' />
+                <YAF:ThemeButton ID="AdminUserButton" runat="server" CssClass="yaflittlebutton" Visible='<%# this.PageContext.IsAdmin %>'
+                     TextLocalizedTag="ADMIN_USER" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", Convert.ToInt32(Eval("UserID")) ) %>'>
+                 </YAF:ThemeButton>
             </td>
             <td>
-                <b>Posted:</b>
+                <strong>Posted:</strong>
                 <%# this.Get<IDateTime>().FormatDateTimeShort( Convert.ToDateTime( Eval( "Posted" ) ) )%>
             </td>
         </tr>
