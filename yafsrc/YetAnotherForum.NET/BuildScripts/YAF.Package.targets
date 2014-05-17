@@ -57,10 +57,6 @@
       <yafsrcInclude Include="$(MSBuildProjectDirectory)\..\**\*.*" Exclude="$(MSBuildProjectDirectory)\..\.nuget\nuget.exe;$(MSBuildProjectDirectory)\..\packages\**\*.*;$(MSBuildProjectDirectory)\..\YAF.Extras\YAF.SampleWebApplication\**\*.*;$(MSBuildProjectDirectory)\..\**\*.ReSharper;$(MSBuildProjectDirectory)\..\**\*.testsettings;$(MSBuildProjectDirectory)\..\**\*.chm;$(MSBuildProjectDirectory)\..\**\*.psd;$(MSBuildProjectDirectory)\..\**\TestResults\**;$(MSBuildProjectDirectory)\..\**\nStuff.UpdateControls\**;$(MSBuildProjectDirectory)\..\**\Dependencies\**;$(MSBuildProjectDirectory)\..\**\CookComputing.XmlRpc\**;$(MSBuildProjectDirectory)\..\**\obj\**;$(MSBuildProjectDirectory)\..\**\_ReSharper*\**;$(MSBuildProjectDirectory)\..\**\bin\**;$(MSBuildProjectDirectory)\..\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;$(MSBuildProjectDirectory)\..\**\*.user;$(MSBuildProjectDirectory)\..\**\.svn\**;$(MSBuildProjectDirectory)\..\**\*.suo;" />
     </ItemGroup>
 
-    <CreateItem Include="$(MSBuildProjectDirectory)\recommended.web.config">
-      <Output TaskParameter="Include" ItemName="InstallConfig" />
-    </CreateItem>
-
     <CreateItem Include="$(MSBuildProjectDirectory)\bin\*.dll">
       <Output TaskParameter="Include" ItemName="LibaryFiles" />
     </CreateItem>
@@ -118,10 +114,12 @@
     
     <!-- / END Deploy Package-->
 
-    <Delete Files="$(MSBuildProjectDirectory)\Package\web.config"/>
-    <Delete Files="$(MSBuildProjectDirectory)\Package\app.config"/>
-    <Delete Files="$(MSBuildProjectDirectory)\Package\db.config"/>
-    <Delete Files="$(MSBuildProjectDirectory)\Package\mail.config"/>
+    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\app.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\app.config"/>
+    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\db.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\db.config"/>
+    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\mail.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\mail.config"/>
+    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\recommended.web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\recommended.web.config"/>
+    
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\v1.9.1.upgrade.web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\v1.9.1.upgrade.web.config"/>
 
     <CreateItem Include="$(MSBuildProjectDirectory)\Package\**\*.*">
       <Output TaskParameter="Include" ItemName="OutputContentUpgrade" />
