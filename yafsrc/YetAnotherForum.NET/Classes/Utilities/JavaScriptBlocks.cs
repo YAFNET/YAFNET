@@ -25,8 +25,6 @@ namespace YAF.Utilities
 {
     #region Using
 
-    using System.Dynamic;
-
     using YAF.Classes;
     using YAF.Core;
     using YAF.Types;
@@ -453,13 +451,13 @@ namespace YAF.Utilities
         public static string DatePickerLoadJs(
             [NotNull] string fieldId, [NotNull] string dateFormat, [NotNull] string culture)
         {
-            string cultureJs = string.Empty;
+            var cultureJs = string.Empty;
 
             dateFormat = dateFormat.ToLower();
 
             dateFormat = dateFormat.Replace("yyyy", "yy");
 
-            if (!string.IsNullOrEmpty(culture))
+            if (culture.IsSet())
             {
                 cultureJs = @"{2}('#{0}').datepicker('option', {2}.datepicker.regional['{1}']);".FormatWith(
                     fieldId, culture, Config.JQueryAlias);
@@ -467,7 +465,7 @@ namespace YAF.Utilities
 
             return
                 @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadDatePicker);
-                  function loadDatePicker() {{	{3}(document).ready(function() {{ {3}('#{0}').datepicker({{showButtonPanel: true,changeMonth:true,changeYear:true,maxDate:'+0d',dateFormat:'{1}',}}); {2} }});}} "
+                  function loadDatePicker() {{	{3}(document).ready(function() {{ {3}('#{0}').datepicker({{showButtonPanel: true,changeMonth:true,changeYear:true,yearRange: '-100:+0',maxDate:'+0d',dateFormat:'{1}',}}); {2} }});}} "
                     .FormatWith(fieldId, dateFormat, cultureJs, Config.JQueryAlias);
         }
 
@@ -780,12 +778,11 @@ namespace YAF.Utilities
                 "{0}('{1}').hovercard({{{2}width: 350,loadingHTML: '{3}',errorHTML: '{4}', delay: {5} }});".FormatWith(
                     Config.JQueryAlias,
                     clientId,
-                    !string.IsNullOrEmpty(type) ? "show{0}Card: true,".FormatWith(type) : string.Empty,
+                    type.IsSet() ? "show{0}Card: true,".FormatWith(type) : string.Empty,
                     loadingHtml,
                     errorHtml,
                     YafContext.Current.Get<YafBoardSettings>().HoverCardOpenDelay);
         }
-
 
         #region BootStrap Script Blocks
 
