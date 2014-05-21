@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014 Ingo Herbote
@@ -270,46 +270,30 @@ namespace YAF
             {
                 var ms = new MemoryStream();
 
-                // Cropped Image
-                int size = previewWidth;
-
                 var newImgSize = new Size(previewWidth, previewHeight);
-                int x = 0;
-                int y = 0;
 
                 if (previewCropped)
                 {
-                    // Determine dimensions of resized version of the image 
-                    if (newImgSize.Width > newImgSize.Height)
-                    {
-                        newImgSize.Width =
-                            decimal.Round(
-                                (size.ToType<decimal>()
-                                 * (newImgSize.Width.ToType<decimal>() / newImgSize.Height.ToType<decimal>())).ToType<decimal>(),
-                                0).ToType<int>();
-                        newImgSize.Height = size;
-                    }
-                    else if (newImgSize.Height > newImgSize.Width)
-                    {
-                        newImgSize.Height =
-                            decimal.Round(
-                                (size.ToType<decimal>()
-                                 * (newImgSize.Height.ToType<decimal>() / newImgSize.Width.ToType<decimal>())).ToType<decimal>(),
-                                0).ToType<int>();
-                        newImgSize.Width = size;
-                    }
-                    else
-                    {
-                        newImgSize.Width = size;
-                        newImgSize.Height = size;
-                    }
+                    var width = (float)newImgSize.Width;
+                    var height = (float)newImgSize.Height;
+
+                    var xRatio = width / src.Width;
+                    var yRatio = height / src.Height;
+
+                    var ratio = Math.Min(xRatio, yRatio);
+
+                    newImgSize =
+                        new Size(
+                            Math.Min(
+                                newImgSize.Width,
+                                (int)Math.Round(src.Width * ratio, MidpointRounding.AwayFromZero)),
+                            Math.Min(
+                                newImgSize.Height,
+                                (int)Math.Round(src.Height * ratio, MidpointRounding.AwayFromZero)));
+
 
                     newImgSize.Width = newImgSize.Width - PixelPadding;
                     newImgSize.Height = newImgSize.Height - BottomSize - PixelPadding;
-
-                    // moves cursor so that crop is more centered 
-                    x = newImgSize.Width / 2;
-                    y = newImgSize.Height / 2;
                 }
                 else
                 {
@@ -345,7 +329,7 @@ namespace YAF
 
                     if (previewCropped)
                     {
-                        rSrcImg = new Rectangle(x, y, newImgSize.Width, newImgSize.Height);
+                        rSrcImg = new Rectangle(0, 0, newImgSize.Width, newImgSize.Height);
                     }
 
                     var rDstImg = new Rectangle(3, 3, dst.Width - PixelPadding, dst.Height - PixelPadding - BottomSize);
@@ -588,7 +572,7 @@ namespace YAF
                                        realname = HttpUtility.HtmlEncode(userData.Profile.RealName),
                                        avatar = avatarUrl,
                                        /*profilelink =
-                                           Config.IsAnyPortal ? userlinkUrl : YafBuildLink.GetLink(ForumPages.profile, true, "u={0}", userId).Replace(
+                                           Config.IsAnyPortal ? userlinkUrl : YafBuildLink.GetLink(ForumPages.profile, true, "u={0}&name={1}", userId).Replace(
                                                "resource.ashx", "default.aspx"),*/
                                        interests = HttpUtility.HtmlEncode(userData.Profile.Interests),
                                        homepage = userData.Profile.Homepage,
@@ -1296,7 +1280,7 @@ namespace YAF
                         context.Response.ContentType = "image/png";
 
                         // output stream...
-                        context.Response.OutputStream.Write(ms.ToArray(), 0, (int)ms.Length);
+                        context.Response.OutputStream.Write(ms.ToArray(), 0, ms.Length.ToType<int>());
                         context.Response.Cache.SetCacheability(HttpCacheability.Public);
                         context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
                         context.Response.Cache.SetLastModified(DateTime.UtcNow);

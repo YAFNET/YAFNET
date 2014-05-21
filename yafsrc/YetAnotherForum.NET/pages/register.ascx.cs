@@ -397,8 +397,6 @@ namespace YAF.Pages
                     {
                         this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.Error);
 
-                        int? num = null;
-
                         if (this.Get<YafBoardSettings>().BanBotIpOnDetection)
                         {
                             this.GetRepository<BannedIP>()
@@ -407,7 +405,7 @@ namespace YAF.Pages
                                     userIpAddress,
                                     "A spam Bot who was trying to register was banned by IP {0}".FormatWith(
                                         userIpAddress),
-                                    num.Value);
+                                    this.PageContext.PageUserID);
 
                             // Clear cache
                             this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
@@ -1021,17 +1019,14 @@ namespace YAF.Pages
 
                     this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.Error);
 
-                    int? num = null;
-
                     if (this.Get<YafBoardSettings>().BanBotIpOnDetection)
                     {
                         this.GetRepository<BannedIP>()
                             .Save(
                                 null,
                                 userIpAddress,
-                                "A spam Bot who was trying to register was banned by IP {0}".FormatWith(
-                                    userIpAddress),
-                                num.Value);
+                                "A spam Bot who was trying to register was banned by IP {0}".FormatWith(userIpAddress),
+                                this.PageContext.PageUserID);
 
                         // Clear cache
                         this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
