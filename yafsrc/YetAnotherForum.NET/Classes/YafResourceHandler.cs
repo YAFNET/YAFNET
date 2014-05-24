@@ -1333,7 +1333,12 @@ namespace YAF
                 return;
             }
 
-            var webClient = new WebClient { Credentials = CredentialCache.DefaultCredentials };
+            var webClient = new WebClient();
+
+            if (General.GetCurrentTrustLevel() >= AspNetHostingPermissionLevel.High)
+            {
+                webClient.Credentials = CredentialCache.DefaultCredentials;
+            }
 
             try
             {
