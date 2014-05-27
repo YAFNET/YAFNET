@@ -1615,7 +1615,7 @@ namespace YAF.Pages
 
             if (forumInfo != null)
             {
-                isForumModerated = forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsModerated);
+                isForumModerated = this.CheckForumModerateStatus(forumInfo);
             }
 
             bool spamApproved = true;
@@ -1944,6 +1944,35 @@ namespace YAF.Pages
             {
                 this.BindData();
             }
+        }
+
+        /// <summary>
+        /// Checks the forum moderate status.
+        /// </summary>
+        /// <param name="forumInfo">The forum information.</param>
+        /// <returns>Returns if the forum needs to be moderated</returns>
+        private bool CheckForumModerateStatus(DataRow forumInfo)
+        {
+            var forumModerated = forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsModerated);
+
+            if (!forumModerated)
+            {
+                return false;
+            }
+
+            if (forumInfo["IsModeratedNewTopicOnly"].ToType<bool>())
+            {
+                return false;
+            }
+
+            if (forumInfo["ModeratedPostCount"].IsNullOrEmptyDBField() || this.PageContext.IsGuest)
+            {
+                return true;
+            }
+
+            var moderatedPostCount = forumInfo["ModeratedPostCount"].ToType<int>();
+
+            return !(this.PageContext.CurrentUserData.NumPosts >= moderatedPostCount);
         }
     }
 }

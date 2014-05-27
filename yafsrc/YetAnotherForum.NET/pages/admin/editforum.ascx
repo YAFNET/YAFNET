@@ -75,7 +75,7 @@
                 <YAF:HelpLabel ID="HelpLabel12" runat="server" LocalizedTag="SORT_ORDER" LocalizedPage="ADMIN_EDITFORUM" />
             </td>
             <td class="post">
-                <asp:TextBox ID="SortOrder" Width="250" MaxLength="5" runat="server" Text="10"></asp:TextBox>
+                <asp:TextBox ID="SortOrder" Width="250" MaxLength="5" runat="server" Text="10" CssClass="Numeric"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -107,7 +107,30 @@
                 <YAF:HelpLabel ID="HelpLabel8" runat="server" LocalizedTag="PRE_MODERATED" LocalizedPage="ADMIN_EDITFORUM" />
             </td>
             <td class="post">
-                <asp:CheckBox ID="Moderated" runat="server"></asp:CheckBox>
+                <asp:CheckBox ID="Moderated" runat="server" AutoPostBack="true" OnCheckedChanged="ModeratedCheckedChanged"></asp:CheckBox>
+            </td>
+        </tr>
+        <tr runat="server" id="ModerateNewTopicOnlyRow" Visible="false">
+            <td class="postheader">
+                <YAF:HelpLabel ID="HelpLabel16" runat="server" LocalizedTag="MODERATED_NEWTOPIC_ONLY" LocalizedPage="ADMIN_EDITFORUM" />
+            </td>
+            <td class="post">
+                <asp:CheckBox ID="ModerateNewTopicOnly" runat="server" AutoPostBack="true"></asp:CheckBox>
+            </td>
+        </tr>
+        <tr runat="server" id="ModeratedPostCountRow" Visible="false">
+            <td class="postheader">
+                <YAF:HelpLabel ID="HelpLabel15" runat="server" LocalizedTag="MODERATED_COUNT" LocalizedPage="ADMIN_EDITFORUM" />
+            </td>
+            <td class="post">
+                <asp:CheckBox ID="ModerateAllPosts" runat="server" AutoPostBack="true" 
+                    OnCheckedChanged="ModerateAllPostsCheckedChanged" Checked="true">
+                </asp:CheckBox>
+                <div>
+                    <asp:TextBox Width="250" ID="ModeratedPostCount" runat="server" 
+                        Visible="false" MaxLength="5" Text="5" CssClass="Numeric">
+                    </asp:TextBox>
+                </div>
             </td>
         </tr>
         <tr>

@@ -231,7 +231,9 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		[IsModerated]	AS (CONVERT([bit],sign([Flags]&(8)),(0))),
 		ThemeURL		nvarchar(50) NULL,
 		PollGroupID     int null,
-		UserID          int null 
+		UserID          int null,
+		ModeratedPostCount int null,
+		IsModeratedNewTopicOnly	bit not null constraint [DF_{objectQualifier}Forum_IsModeratedNewTopicOnly] default (0)
 	)
 GO
 
@@ -1215,6 +1217,14 @@ GO
 -- Forum Table
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='RemoteURL')
 	alter table [{databaseOwner}].[{objectQualifier}Forum] add RemoteURL nvarchar(100) null
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='ModeratedPostCount')
+	alter table [{databaseOwner}].[{objectQualifier}Forum] add ModeratedPostCount int null
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IsModeratedNewTopicOnly')
+	alter table [{databaseOwner}].[{objectQualifier}Forum] add IsModeratedNewTopicOnly	bit not null constraint [DF_{objectQualifier}Forum_IsModeratedNewTopicOnly] default (0)
 GO
 
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='Flags')

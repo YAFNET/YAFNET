@@ -109,9 +109,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\YAF.Types\YAF.Types.csproj">
       <Project>{B9CF38B0-39CF-43C7-9589-166DCC665652}</Project>
       <Name>YAF.Types</Name>

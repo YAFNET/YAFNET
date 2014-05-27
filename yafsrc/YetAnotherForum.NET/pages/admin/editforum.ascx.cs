@@ -44,6 +44,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -57,14 +58,10 @@ namespace YAF.Pages.Admin
         #region Public Methods
 
         /// <summary>
-        /// The category_ change.
+        /// Handles the Change event of the Category control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         public void Category_Change([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.BindParentList();
@@ -75,14 +72,10 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// The bind data_ access mask id.
+        /// Handles the AccessMaskID event of the BindData control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void BindData_AccessMaskID([NotNull] object sender, [NotNull] EventArgs e)
         {
             var dropDownList = sender as DropDownList;
@@ -157,11 +150,9 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             this.CategoryList.AutoPostBack = true;
@@ -171,14 +162,27 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Registers the needed Java Scripts
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            // setup jQuery and YAF JS...
+            YafContext.Current.PageElements.RegisterJQuery();
+            YafContext.Current.PageElements.RegisterJQueryUI();
+
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "spinnerJs",
+                JavaScriptBlocks.LoadSpinnerWidget());
+
+            base.OnPreRender(e);
+        }
+
+        /// <summary>
+        /// Handles the Load event of the Page control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -200,6 +204,8 @@ namespace YAF.Pages.Admin
 
             this.Save.Text = this.GetText("SAVE");
             this.Cancel.Text = this.GetText("CANCEL");
+
+            this.ModerateAllPosts.Text = this.GetText("MODERATE_ALL_POSTS");
 
             // Populate Forum Images Table
             this.CreateImagesDataTable();
@@ -241,14 +247,31 @@ namespace YAF.Pages.Admin
             {
                 DataRow row = dt.Rows[0];
                 var flags = new ForumFlags(row["Flags"]);
-                this.Name.Text = (string)row["Name"];
-                this.Description.Text = (string)row["Description"];
+                this.Name.Text = row["Name"].ToString();
+                this.Description.Text = row["Description"].ToString();
                 this.SortOrder.Text = row["SortOrder"].ToString();
                 this.HideNoAccess.Checked = flags.IsHidden;
                 this.Locked.Checked = flags.IsLocked;
                 this.IsTest.Checked = flags.IsTest;
                 this.ForumNameTitle.Text = this.Name.Text;
                 this.Moderated.Checked = flags.IsModerated;
+
+                this.ModeratedPostCountRow.Visible = this.Moderated.Checked;
+                this.ModerateNewTopicOnlyRow.Visible = this.Moderated.Checked;
+
+                if (row["ModeratedPostCount"].IsNullOrEmptyDBField())
+                {
+                    this.ModerateAllPosts.Checked = true;
+                }
+                else
+                {
+                    this.ModerateAllPosts.Checked = false;
+                    this.ModeratedPostCount.Visible = true;
+                    this.ModeratedPostCount.Text = row["ModeratedPostCount"].ToString();
+                }
+
+                this.ModerateNewTopicOnly.Checked = row["IsModeratedNewTopicOnly"].ToType<bool>();
+
                 this.Styles.Text = row["Styles"].ToString();
 
                 this.CategoryList.SelectedValue = row["CategoryID"].ToString();
@@ -283,14 +306,10 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The set drop down index.
+        /// Sets the index of the drop down.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void SetDropDownIndex([NotNull] object sender, [NotNull] EventArgs e)
         {
             try
@@ -304,7 +323,28 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The bind data.
+        /// Sets the Visiblity of the ModeratedPostCount Row
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void ModeratedCheckedChanged(object sender, EventArgs e)
+        {
+            this.ModeratedPostCountRow.Visible = this.Moderated.Checked;
+            this.ModerateNewTopicOnlyRow.Visible = this.Moderated.Checked;
+        }
+
+        /// <summary>
+        /// Sets the Visiblity of the ModeratedPostCount TextBox
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void ModerateAllPostsCheckedChanged(object sender, EventArgs e)
+        {
+            this.ModeratedPostCount.Visible = !this.ModerateAllPosts.Checked;
+        }
+
+        /// <summary>
+        /// Binds the data.
         /// </summary>
         private void BindData()
         {
@@ -335,7 +375,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The bind parent list.
+        /// Binds the parent list.
         /// </summary>
         private void BindParentList()
         {
@@ -347,21 +387,17 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The cancel_ click.
+        /// Handles the Click event of the Cancel control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.admin_forums);
         }
 
         /// <summary>
-        /// The clear caches.
+        /// Clears the caches.
         /// </summary>
         private void ClearCaches()
         {
@@ -373,14 +409,10 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The save_ click.
+        /// Handles the Click event of the Save control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.CategoryList.SelectedValue.Trim().Length == 0)
@@ -508,6 +540,8 @@ namespace YAF.Pages.Admin
               this.HideNoAccess.Checked,
               this.IsTest.Checked,
               this.Moderated.Checked,
+              this.ModerateAllPosts.Checked ? null : this.ModeratedPostCount.Text,
+              this.ModerateNewTopicOnly.Checked,
               this.AccessMaskID.SelectedValue,
               IsNull(this.remoteurl.Text),
               themeUrl,

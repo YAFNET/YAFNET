@@ -247,6 +247,69 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox Moderated;
         
         /// <summary>
+        /// ModerateNewTopicOnlyRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow ModerateNewTopicOnlyRow;
+        
+        /// <summary>
+        /// HelpLabel16 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel16;
+        
+        /// <summary>
+        /// ModerateNewTopicOnly control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ModerateNewTopicOnly;
+        
+        /// <summary>
+        /// ModeratedPostCountRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow ModeratedPostCountRow;
+        
+        /// <summary>
+        /// HelpLabel15 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel15;
+        
+        /// <summary>
+        /// ModerateAllPosts control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ModerateAllPosts;
+        
+        /// <summary>
+        /// ModeratedPostCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ModeratedPostCount;
+        
+        /// <summary>
         /// HelpLabel7 control.
         /// </summary>
         /// <remarks>

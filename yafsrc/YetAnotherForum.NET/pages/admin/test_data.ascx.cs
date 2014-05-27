@@ -244,7 +244,7 @@ namespace YAF.Pages.Admin
             this.ForumsGroups.DataSource = LegacyDb.group_list(this.PageContext.PageBoardID, null);
 
             // Board lists
-            this.UsersBoardsList.DataSource = this.GetRepository<Board>().List(null);
+            this.UsersBoardsList.DataSource = this.GetRepository<Board>().List();
             this.CategoriesBoardsList.DataSource = this.UsersBoardsList.DataSource;
             this.PMessagesBoardsList.DataSource = this.UsersBoardsList.DataSource;
 
@@ -783,6 +783,8 @@ namespace YAF.Pages.Admin
                     false,
                     isHiddenIfNoAccess,
                     countMessagesInStatistics,
+                    false,
+                    null,
                     false,
                     this.ForumsStartMask.SelectedValue,
                     null,

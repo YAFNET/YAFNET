@@ -3233,6 +3233,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}forum_save](
     @Hidden			bit,
     @IsTest			bit,
     @Moderated		bit,
+	@ModeratedPostCount int = null,
+	@IsModeratedNewTopicOnly bit,
     @RemoteURL		nvarchar(100)=null,
     @ThemeURL		nvarchar(100)=null,
     @ImageURL       nvarchar(128)=null,
@@ -3263,13 +3265,15 @@ begin
             ThemeURL = @ThemeURL,
             ImageURL = @ImageURL,
             Styles = @Styles,
-            Flags = @Flags
+            Flags = @Flags,
+			ModeratedPostCount = @ModeratedPostCount,
+			IsModeratedNewTopicOnly = @IsModeratedNewTopicOnly
         where ForumID=@ForumID
     end
     else begin		
     
-        insert into [{databaseOwner}].[{objectQualifier}Forum](ParentID,Name,Description,SortOrder,CategoryID,NumTopics,NumPosts,RemoteURL,ThemeURL,Flags,ImageURL,Styles)
-        values(@ParentID,@Name,@Description,@SortOrder,@CategoryID,0,0,@RemoteURL,@ThemeURL,@Flags,@ImageURL,@Styles)
+        insert into [{databaseOwner}].[{objectQualifier}Forum](ParentID,Name,Description,SortOrder,CategoryID,NumTopics,NumPosts,RemoteURL,ThemeURL,Flags,ImageURL,Styles,ModeratedPostCount,IsModeratedNewTopicOnly)
+        values(@ParentID,@Name,@Description,@SortOrder,@CategoryID,0,0,@RemoteURL,@ThemeURL,@Flags,@ImageURL,@Styles,@ModeratedPostCount,@IsModeratedNewTopicOnly)
         select @ForumID = SCOPE_IDENTITY()
 
         insert into [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID) 

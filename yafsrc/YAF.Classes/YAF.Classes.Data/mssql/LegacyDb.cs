@@ -3148,59 +3148,46 @@ namespace YAF.Classes.Data
         /// <summary>
         /// The forum_save.
         /// </summary>
-        /// <param name="forumID">
-        /// The forum id.
-        /// </param>
-        /// <param name="categoryID">
-        /// The category id.
-        /// </param>
-        /// <param name="parentID">
-        /// The parent id.
-        /// </param>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        /// <param name="sortOrder">
-        /// The sort order.
-        /// </param>
-        /// <param name="locked">
-        /// The locked.
-        /// </param>
-        /// <param name="hidden">
-        /// The hidden.
-        /// </param>
-        /// <param name="isTest">
-        /// The is test.
-        /// </param>
-        /// <param name="moderated">
-        /// The moderated.
-        /// </param>
-        /// <param name="accessMaskID">
-        /// The access mask id.
-        /// </param>
-        /// <param name="remoteURL">
-        /// The remote url.
-        /// </param>
-        /// <param name="themeURL">
-        /// The theme url.
-        /// </param>
-        /// <param name="imageURL">
-        /// The imageURL.
-        /// </param>
-        /// <param name="styles">
-        /// The styles.
-        /// </param>
-        /// <param name="dummy">
-        /// The dummy.
-        /// </param>
+        /// <param name="forumID">The forum id.</param>
+        /// <param name="categoryID">The category id.</param>
+        /// <param name="parentID">The parent id.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="description">The description.</param>
+        /// <param name="sortOrder">The sort order.</param>
+        /// <param name="locked">The locked.</param>
+        /// <param name="hidden">The hidden.</param>
+        /// <param name="isTest">The is test.</param>
+        /// <param name="moderated">The moderated.</param>
+        /// <param name="moderatedPostCount">The moderated post count.</param>
+        /// <param name="isModeratedNewTopicOnly">The is moderated new topic only.</param>
+        /// <param name="accessMaskID">The access mask id.</param>
+        /// <param name="remoteURL">The remote url.</param>
+        /// <param name="themeURL">The theme url.</param>
+        /// <param name="imageURL">The imageURL.</param>
+        /// <param name="styles">The styles.</param>
+        /// <param name="dummy">The dummy.</param>
         /// <returns>
         /// The forum_save.
         /// </returns>
-        public static long forum_save([NotNull] object forumID, [NotNull] object categoryID, [NotNull] object parentID, [NotNull] object name, [NotNull] object description, [NotNull] object sortOrder, [NotNull] object locked, [NotNull] object hidden, [NotNull] object isTest, [NotNull] object moderated, [NotNull] object accessMaskID, [NotNull] object remoteURL, [NotNull] object themeURL, [NotNull] object imageURL, [NotNull] object styles,
-          bool dummy)
+        public static long forum_save(
+            [NotNull] object forumID,
+            [NotNull] object categoryID,
+            [NotNull] object parentID,
+            [NotNull] object name,
+            [NotNull] object description,
+            [NotNull] object sortOrder,
+            [NotNull] object locked,
+            [NotNull] object hidden,
+            [NotNull] object isTest,
+            [NotNull] object moderated,
+            [NotNull] object moderatedPostCount,
+            [NotNull] object isModeratedNewTopicOnly,
+            [NotNull] object accessMaskID,
+            [NotNull] object remoteURL,
+            [NotNull] object themeURL,
+            [NotNull] object imageURL,
+            [NotNull] object styles,
+            bool dummy)
         {
             using (var cmd = DbHelpers.GetCommand("forum_save"))
             {
@@ -3215,6 +3202,8 @@ namespace YAF.Classes.Data
                 cmd.AddParam("Hidden", hidden);
                 cmd.AddParam("IsTest", isTest);
                 cmd.AddParam("Moderated", moderated);
+                cmd.AddParam("ModeratedPostCount", moderatedPostCount);
+                cmd.AddParam("IsModeratedNewTopicOnly", isModeratedNewTopicOnly);
                 cmd.AddParam("RemoteURL", remoteURL);
                 cmd.AddParam("ThemeURL", themeURL);
                 cmd.AddParam("ImageURL", imageURL);

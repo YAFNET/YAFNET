@@ -866,7 +866,7 @@ namespace YAF.Pages
 
             if (forumInfo != null)
             {
-                isForumModerated = forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsModerated);
+                isForumModerated = this.CheckForumModerateStatus(forumInfo, true);
             }
 
             // If Forum is Moderated
@@ -952,7 +952,7 @@ namespace YAF.Pages
 
             if (forumInfo != null)
             {
-                isForumModerated = forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsModerated);
+                isForumModerated = this.CheckForumModerateStatus(forumInfo, false);
             }
 
             // If Forum is Moderated
@@ -1615,6 +1615,38 @@ namespace YAF.Pages
             {
                 this.GetRepository<WatchTopic>().Add(userId, topicId);
             }
+        }
+
+        /// <summary>
+        /// Checks the forum moderate status.
+        /// </summary>
+        /// <param name="forumInfo">The forum information.</param>
+        /// <param name="isNewTopic">if set to <c>true</c> [is new topic].</param>
+        /// <returns>
+        /// Returns if the forum needs to be moderated
+        /// </returns>
+        private bool CheckForumModerateStatus(DataRow forumInfo, bool isNewTopic)
+        {
+            var forumModerated = forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsModerated);
+
+            if (!forumModerated)
+            {
+                return false;
+            }
+
+            if (forumInfo["IsModeratedNewTopicOnly"].ToType<bool>() && !isNewTopic)
+            {
+                return false;
+            }
+
+            if (forumInfo["ModeratedPostCount"].IsNullOrEmptyDBField() || this.PageContext.IsGuest)
+            {
+                return true;
+            }
+
+            var moderatedPostCount = forumInfo["ModeratedPostCount"].ToType<int>();
+
+            return !(this.PageContext.CurrentUserData.NumPosts >= moderatedPostCount);
         }
 
         #endregion
