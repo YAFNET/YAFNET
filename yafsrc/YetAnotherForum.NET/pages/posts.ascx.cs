@@ -1441,7 +1441,7 @@ namespace YAF.Pages
                             "http://twitter.com/share?url={0}&text={1}".FormatWith(
                                 this.Server.UrlEncode(topicUrl),
                                 this.Server.UrlEncode(
-                                    "RT {1}Thread: {0} {2}".FormatWith(twitterMsg.Truncate(100), twitterName, topicUrl)));
+                                    "RT {1}Thread: {0}".FormatWith(twitterMsg.Truncate(100), twitterName)));
 
                         // Send Retweet Directlly thru the Twitter API if User is Twitter User
                         if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet()

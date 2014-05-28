@@ -418,7 +418,7 @@ namespace YAF.Controls
                     "http://twitter.com/share?url={0}&text={1}".FormatWith(
                         this.Server.UrlEncode(topicUrl),
                         this.Server.UrlEncode(
-                            "RT {1}: {0} {2}".FormatWith(twitterMsg.Truncate(100), twitterName, topicUrl))));
+                            "RT {1}: {0}".FormatWith(twitterMsg.Truncate(100), twitterName))));
             }
         }
 
