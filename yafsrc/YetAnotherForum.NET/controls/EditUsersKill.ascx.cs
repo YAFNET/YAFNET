@@ -304,7 +304,14 @@ namespace YAF.Controls
             this.ReportUserRow.Visible = this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet();
 
             // load ip address history for user...
-            this.IpAddresses.Text = this.IPAddresses.ToDelimitedString("<br />");
+            foreach (var ipAddress in this.IPAddresses)
+            {
+                this.IpAddresses.Text +=
+                    "<a href=\"{0}\" target=\"_blank\" title=\"{1}\">{2}</a><br />".FormatWith(
+                        this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(ipAddress),
+                        this.GetText("COMMON", "TT_IPDETAILS"),
+                        ipAddress);
+            }
 
             // show post count...
             this.PostCount.Text = this.AllPostsByUser.Rows.Count.ToString();
@@ -325,7 +332,9 @@ namespace YAF.Controls
                 this.SuspendedTo.Visible = true;
 
                 // is user suspended?
-                this.SuspendedTo.Text = this.Get<IDateTime>().FormatDateTime(this.CurrentUser.Suspended);
+                this.SuspendedTo.Text = "({0} {1})".FormatWith(
+                    this.GetText("PROFILE", "ENDS"),
+                    this.Get<IDateTime>().FormatDateTime(this.CurrentUser.Suspended));
             }
 
             this.DataBind();
