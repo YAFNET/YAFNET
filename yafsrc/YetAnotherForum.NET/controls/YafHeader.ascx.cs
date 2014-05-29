@@ -80,27 +80,32 @@ namespace YAF.Controls
         /// <summary>
         /// Do Logout Dialog
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void LogOutClick([NotNull] object sender, [NotNull] EventArgs e)
         {
+            if (YafContext.Current.ForumPageType.Equals(ForumPages.search))
+            {
+                YafBuildLink.Redirect(ForumPages.logout);
+            }
+
             var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
 
             notification.Show(
-              this.GetText("TOOLBAR", "LOGOUT_QUESTION"),
-              "Logout?",
-              DialogBox.DialogIcon.Question,
-              new DialogBox.DialogButton
-                {
-                    Text = this.GetText("TOOLBAR", "LOGOUT"),
-                    CssClass = "StandardButton OkButton",
-                    ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.logout }
-                },
-              new DialogBox.DialogButton { Text = this.GetText("COMMON", "CANCEL"), CssClass = "StandardButton CancelButton" });
+                this.GetText("TOOLBAR", "LOGOUT_QUESTION"),
+                "Logout?",
+                DialogBox.DialogIcon.Question,
+                new DialogBox.DialogButton
+                    {
+                        Text = this.GetText("TOOLBAR", "LOGOUT"),
+                        CssClass = "StandardButton OkButton",
+                        ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.logout }
+                    },
+                new DialogBox.DialogButton
+                    {
+                        Text = this.GetText("COMMON", "CANCEL"),
+                        CssClass = "StandardButton CancelButton"
+                    });
         }
 
         /// <summary>
