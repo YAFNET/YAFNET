@@ -28,7 +28,9 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Data;
+    using System.Linq;
     using System.Text;
+
     using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
@@ -81,17 +83,21 @@ namespace YAF.Pages.Admin
             }
 
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
 
-            this.PageLinks.AddLink(this.GetText("ADMIN_BANNEDIP", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_bannedip));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_BANNEDIP", "TITLE"),
+                YafBuildLink.GetLink(ForumPages.admin_bannedip));
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_BANNEDIP_EDIT", "TITLE"), string.Empty);
 
             this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-               this.GetText("ADMIN_ADMIN", "Administration"),
-               this.GetText("ADMIN_BANNEDIP", "TITLE"),
-               this.GetText("ADMIN_BANNEDIP_EDIT", "TITLE"));
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                this.GetText("ADMIN_BANNEDIP", "TITLE"),
+                this.GetText("ADMIN_BANNEDIP_EDIT", "TITLE"));
 
             this.save.Text = this.GetText("COMMON", "SAVE");
             this.cancel.Text = this.GetText("COMMON", "CANCEL");
@@ -157,8 +163,12 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.GetRepository<BannedIP>().Save(
-                this.Request.QueryString.GetFirstOrDefaultAs<int>("i"), this.mask.Text.Trim(), this.BanReason.Text.Trim(), this.PageContext.PageUserID);
+            this.GetRepository<BannedIP>()
+                .Save(
+                    this.Request.QueryString.GetFirstOrDefaultAs<int>("i"),
+                    this.mask.Text.Trim(),
+                    this.BanReason.Text.Trim(),
+                    this.PageContext.PageUserID);
 
             if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
             {
@@ -188,10 +198,13 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            DataRow row = this.GetRepository<BannedIP>().List(this.Request.QueryString.GetFirstOrDefaultAs<int>("i"), null, null).Rows[0];
+            var ipAddress =
+                this.GetRepository<BannedIP>()
+                    .ListTyped(id: this.Request.QueryString.GetFirstOrDefaultAs<int>("i"))
+                    .FirstOrDefault();
 
-            this.mask.Text = row["Mask"].ToString();
-            this.BanReason.Text = row["Reason"].ToString();
+            this.mask.Text = ipAddress.Mask;
+            this.BanReason.Text = ipAddress.Reason;
         }
 
         #endregion

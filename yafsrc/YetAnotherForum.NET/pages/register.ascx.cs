@@ -367,63 +367,56 @@ namespace YAF.Pages
             this.IsPossibleSpamBot = false;
 
             // Check user for bot
-            if (this.Get<YafBoardSettings>().BotSpamServiceType > 0)
+
+            var spamChecker = new YafSpamCheck();
+            string result;
+
+            var userIpAddress = this.Get<HttpRequestBase>().GetUserRealIPAddress();
+
+            // Check content for spam
+            if (spamChecker.CheckUserForSpamBot(userName, this.CreateUserWizard1.Email, userIpAddress, out result))
             {
-                var spamChecker = new YafSpamCheck();
-                string result;
+                this.Logger.Log(
+                    null,
+                    "Bot Detected",
+                    "Bot Check detected a possible SPAM BOT: (user name : '{0}', email : '{1}', ip: '{2}', reason : {3}), user was rejected."
+                        .FormatWith(userName, this.CreateUserWizard1.Email, userIpAddress, result),
+                    EventLogTypes.SpamBotDetected);
 
-                var userIpAddress = this.Get<HttpRequestBase>().GetUserRealIPAddress();
-
-                // Check content for spam
-                if (spamChecker.CheckUserForSpamBot(
-                    userName,
-                    this.CreateUserWizard1.Email,
-                    userIpAddress,
-                    out result))
+                if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
                 {
-                    this.Logger.Log(
-                        null,
-                        "Bot Detected",
-                        "Bot Check detected a possible SPAM BOT: (user name : '{0}', email : '{1}', ip: '{2}', reason : {3}), user was rejected."
-                            .FormatWith(userName, this.CreateUserWizard1.Email, userIpAddress, result),
-                        EventLogTypes.SpamBotDetected);
+                    // Flag user as spam bot
+                    this.IsPossibleSpamBot = true;
+                }
+                else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
+                {
+                    this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.Error);
 
-                    if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
+                    if (this.Get<YafBoardSettings>().BanBotIpOnDetection)
                     {
-                        // Flag user as spam bot
-                        this.IsPossibleSpamBot = true;
-                    }
-                    else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
-                    {
-                        this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.Error);
+                        this.GetRepository<BannedIP>()
+                            .Save(
+                                null,
+                                userIpAddress,
+                                "A spam Bot who was trying to register was banned by IP {0}".FormatWith(userIpAddress),
+                                this.PageContext.PageUserID);
 
-                        if (this.Get<YafBoardSettings>().BanBotIpOnDetection)
+                        // Clear cache
+                        this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
+
+                        if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
                         {
-                            this.GetRepository<BannedIP>()
-                                .Save(
-                                    null,
-                                    userIpAddress,
+                            this.Get<ILogger>()
+                                .Log(
+                                    this.PageContext.PageUserID,
+                                    "IP BAN of Bot During Registration",
                                     "A spam Bot who was trying to register was banned by IP {0}".FormatWith(
                                         userIpAddress),
-                                    this.PageContext.PageUserID);
-
-                            // Clear cache
-                            this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
-
-                            if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
-                            {
-                                this.Get<ILogger>()
-                                    .Log(
-                                        this.PageContext.PageUserID,
-                                        "IP BAN of Bot During Registration",
-                                        "A spam Bot who was trying to register was banned by IP {0}".FormatWith(
-                                            userIpAddress),
-                                        EventLogTypes.IpBanSet);
-                            }
+                                    EventLogTypes.IpBanSet);
                         }
-
-                        e.Cancel = true;
                     }
+
+                    e.Cancel = true;
                 }
             }
 

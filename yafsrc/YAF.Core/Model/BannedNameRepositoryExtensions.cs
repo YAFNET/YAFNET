@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014 Ingo Herbote
@@ -33,9 +33,9 @@ namespace YAF.Core.Model
     using YAF.Types.Models;
 
     /// <summary>
-    ///     The banned ip repository extensions.
+    ///     The banned name repository extensions.
     /// </summary>
-    public static class BannedIpRepositoryExtensions
+    public static class BannedNameRepositoryExtensions
     {
         #region Public Methods and Operators
 
@@ -51,7 +51,7 @@ namespace YAF.Core.Model
         /// The <see cref="DataTable" /> .
         /// </returns>
         public static DataTable List(
-            this IRepository<BannedIP> repository,
+            this IRepository<BannedName> repository,
             int? id = null,
             int? pageIndex = 0,
             int? pageSize = 1000000,
@@ -59,7 +59,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.GetData.bannedip_list(
+            return repository.DbFunction.GetData.bannedname_list(
                 BoardID: boardId ?? repository.BoardID,
                 ID: id,
                 PageIndex: pageIndex,
@@ -77,8 +77,8 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="IList" />.
         /// </returns>
-        public static IList<BannedIP> ListTyped(
-            this IRepository<BannedIP> repository,
+        public static IList<BannedName> ListTyped(
+            this IRepository<BannedName> repository,
             int? id = null,
             int pageIndex = 0,
             int pageSize = 1000000,
@@ -89,9 +89,9 @@ namespace YAF.Core.Model
             using (var session = repository.DbFunction.CreateSession())
             {
                 return
-                    session.GetTyped<BannedIP>(
+                    session.GetTyped<BannedName>(
                         r =>
-                        r.bannedip_list(
+                        r.bannedname_list(
                             BoardID: boardId ?? repository.BoardID,
                             ID: id,
                             PageIndex: pageIndex,
@@ -114,28 +114,23 @@ namespace YAF.Core.Model
         /// <param name="reason">
         /// The reason. 
         /// </param>
-        /// <param name="userID">
-        /// The user id. 
-        /// </param>
         /// <param name="boardId">
         /// The board Id.
         /// </param>
         public static void Save(
-            this IRepository<BannedIP> repository,
+            this IRepository<BannedName> repository,
             int? id,
             string mask,
             string reason,
-            int userID,
             int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Query.bannedip_save(
+            repository.DbFunction.Query.bannedname_save(
                 ID: id,
                 BoardID: boardId ?? repository.BoardID,
                 Mask: mask,
                 Reason: reason,
-                UserID: userID,
                 UTCTIMESTAMP: DateTime.UtcNow);
 
             if (id.HasValue)

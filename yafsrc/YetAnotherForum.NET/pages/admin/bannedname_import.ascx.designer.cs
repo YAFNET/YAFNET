@@ -10,7 +10,7 @@
 namespace YAF.Pages.Admin {
     
     
-    public partial class bannedip_import {
+    public partial class bannedname_import {
         
         /// <summary>
         /// PageLinks control.

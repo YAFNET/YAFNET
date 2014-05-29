@@ -31,6 +31,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Package|AnyCPU'">
+    <OutputPath>bin\Package\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -121,7 +130,9 @@
     <Compile Include="Models\Active.cs" />
     <Compile Include="Models\ActiveAccess.cs" />
     <Compile Include="Models\Attachment.cs" />
+    <Compile Include="Models\BannedEmail.cs" />
     <Compile Include="Models\BannedIP.cs" />
+    <Compile Include="Models\BannedName.cs" />
     <Compile Include="Models\BBCode.cs" />
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\Category.cs" />

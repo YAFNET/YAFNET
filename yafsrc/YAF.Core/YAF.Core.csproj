@@ -34,6 +34,16 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\YetAnotherForum.NET\Bin\YAF.Core.XML</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Package|AnyCPU'">
+    <OutputPath>bin\Package\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>..\YetAnotherForum.NET\Bin\YAF.Core.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -107,6 +117,8 @@
     <Compile Include="Extensions\InjectionExtensions.cs" />
     <Compile Include="Helpers\DbFunctionHelpers.cs" />
     <Compile Include="Helpers\DbInformationHelper.cs" />
+    <Compile Include="Model\BannedEmailRepositoryExtensions.cs" />
+    <Compile Include="Model\BannedNameRepositoryExtensions.cs" />
     <Compile Include="Model\ReplaceWordsRepositoryExtensions.cs" />
     <Compile Include="Model\SpamWordsRepositoryExtensions.cs" />
     <Compile Include="Modules\BootstrapModule.cs" />
@@ -147,6 +159,7 @@
     <Compile Include="Services\Auth\OAuthTwitter.cs" />
     <Compile Include="Services\Auth\TweetAPI.cs" />
     <Compile Include="Services\Auth\Twitter.cs" />
+    <Compile Include="Services\CheckForSpam\YafInternalCheck.cs" />
     <Compile Include="Services\Import\DataImport.cs" />
     <Compile Include="Model\AccessMaskRepositoryExtensions.cs" />
     <Compile Include="Model\ActiveAccessRepositoryExtensions.cs" />

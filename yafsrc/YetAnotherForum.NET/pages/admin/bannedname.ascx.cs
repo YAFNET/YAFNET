@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014 Ingo Herbote
@@ -48,9 +48,9 @@ namespace YAF.Pages.Admin
     #endregion
 
     /// <summary>
-    /// The Admin Banned IP Page.
+    /// The Admin Banned Names Page.
     /// </summary>
-    public partial class bannedip : AdminPage
+    public partial class bannedname : AdminPage
     {
         #region Methods
 
@@ -68,12 +68,14 @@ namespace YAF.Pages.Admin
 
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
 
-            this.PageLinks.AddLink(this.GetText("ADMIN_BANNEDIP", "TITLE"), string.Empty);
+            this.PageLinks.AddLink(this.GetText("ADMIN_BANNEDNAME", "TITLE"), string.Empty);
 
             this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_BANNEDIP", "TITLE"));
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                this.GetText("ADMIN_BANNEDNAME", "TITLE"));
 
             this.BindData();
         }
@@ -87,7 +89,7 @@ namespace YAF.Pages.Admin
         {
             var addButton = (Button)sender;
 
-            addButton.Text = addButton.ToolTip = this.GetText("ADMIN_BANNEDIP", "ADD_IP");
+            addButton.Text = addButton.ToolTip = this.GetText("ADMIN_BANNEDNAME", "ADD_IP");
         }
 
         /// <summary>
@@ -99,7 +101,7 @@ namespace YAF.Pages.Admin
         {
             var importButton = (Button)sender;
 
-            importButton.Text = importButton.ToolTip = this.GetText("ADMIN_BANNEDIP", "IMPORT_IPS");
+            importButton.Text = importButton.ToolTip = this.GetText("ADMIN_BANNEDNAME", "IMPORT_IPS");
         }
 
         /// <summary>
@@ -123,17 +125,17 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "import":
-                    YafBuildLink.Redirect(ForumPages.admin_bannedip_import);
+                    YafBuildLink.Redirect(ForumPages.admin_bannedname_import);
                     break;
                 case "add":
-                    YafBuildLink.Redirect(ForumPages.admin_bannedip_edit);
+                    YafBuildLink.Redirect(ForumPages.admin_bannedname_edit);
                     break;
                 case "edit":
-                    YafBuildLink.Redirect(ForumPages.admin_bannedip_edit, "i={0}", e.CommandArgument);
+                    YafBuildLink.Redirect(ForumPages.admin_bannedname_edit, "i={0}", e.CommandArgument);
                     break;
                 case "export":
                     {
-                        var bannedIps = this.GetRepository<BannedIP>().ListTyped();
+                        var bannedNames = this.GetRepository<BannedName>().ListTyped();
 
                         this.Get<HttpResponseBase>().Clear();
                         this.Get<HttpResponseBase>().ClearContent();
@@ -141,13 +143,13 @@ namespace YAF.Pages.Admin
 
                         this.Get<HttpResponseBase>().ContentType = "application/vnd.text";
                         this.Get<HttpResponseBase>()
-                            .AppendHeader("content-disposition", "attachment; filename=BannedIpsExport.txt");
+                            .AppendHeader("content-disposition", "attachment; filename=BannedEmailsExport.txt");
 
                         var streamWriter = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 
-                        foreach (var ip in bannedIps)
+                        foreach (var name in bannedNames)
                         {
-                            streamWriter.Write(ip.Mask);
+                            streamWriter.Write(name.Mask);
                             streamWriter.Write(streamWriter.NewLine);
                         }
 
@@ -159,24 +161,8 @@ namespace YAF.Pages.Admin
                     break;
                 case "delete":
                     {
-                        var ip = this.GetIPFromID(e.CommandArgument);
-                        this.GetRepository<BannedIP>().DeleteByID(e.CommandArgument.ToType<int>());
+                        this.GetRepository<BannedName>().DeleteByID(e.CommandArgument.ToType<int>());
                         this.BindData();
-                        this.PageContext.AddLoadMessage(this.GetText("ADMIN_BANNEDIP", "MSG_REMOVEBAN"));
-
-                        if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
-                        {
-                            this.Get<ILogger>()
-                                .Log(
-                                    this.PageContext.PageUserID,
-                                    " YAF.Pages.Admin.bannedip",
-                                    "IP or mask {0} was deleted by {1}.".FormatWith(
-                                        ip,
-                                        this.Get<YafBoardSettings>().EnableDisplayName
-                                            ? this.PageContext.CurrentUserData.DisplayName
-                                            : this.PageContext.CurrentUserData.UserName),
-                                    EventLogTypes.IpBanLifted);
-                        }
                     }
 
                     break;
@@ -195,29 +181,14 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Helper to get mask from ID.
-        /// </summary>
-        /// <param name="id">The ID.</param>
-        /// <returns>
-        /// Returns the IP
-        /// </returns>
-        private string GetIPFromID(object id)
-        {
-            return (from RepeaterItem ri in this.list.Items
-                    let chid = ((Label)ri.FindControl("MaskBox")).Text
-                    let fid = ((HiddenField)ri.FindControl("fID")).Value
-                    where id.ToString() == fid
-                    select chid).FirstOrDefault();
-        }
-
-        /// <summary>
         /// The bind data.
         /// </summary>
         private void BindData()
         {
             this.PagerTop.PageSize = this.Get<YafBoardSettings>().MemberListPageSize;
 
-            var bannedList = this.GetRepository<BannedIP>().List(null, this.PagerTop.CurrentPageIndex, this.PagerTop.PageSize);
+            var bannedList = this.GetRepository<BannedName>()
+                .List(null, this.PagerTop.CurrentPageIndex, this.PagerTop.PageSize);
             this.list.DataSource = bannedList;
 
             this.PagerTop.Count = bannedList != null && bannedList.Rows.Count > 0

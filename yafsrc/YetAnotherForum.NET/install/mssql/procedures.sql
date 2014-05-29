@@ -201,6 +201,30 @@ IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{data
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}bannedip_save]
 GO
 
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bannedname_delete]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}bannedname_delete]
+GO
+
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bannedname_list]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}bannedname_list]
+GO
+
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bannedname_save]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}bannedname_save]
+GO
+
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bannedemail_delete]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}bannedemail_delete]
+GO
+
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bannedemail_list]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}bannedemail_list]
+GO
+
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bannedemail_save]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}bannedemail_save]
+GO
+
 IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}board_create]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}board_create]
 GO
@@ -2051,6 +2075,124 @@ begin
     end
     else begin
         update [{databaseOwner}].[{objectQualifier}BannedIP] set Mask = @Mask,Reason = @Reason, UserID = @UserID where ID = @ID
+    end
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}bannedname_delete](@ID int) as
+begin
+        delete from [{databaseOwner}].[{objectQualifier}BannedName] where ID = @ID
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}bannedname_list](@BoardID int,@ID int=null,@PageIndex int=null, @PageSize int=null) as
+begin
+declare @TotalRows int
+declare @FirstSelectRowNumber int
+declare @LastSelectRowNumber int
+ if @ID is null
+        begin       
+           set @PageIndex = @PageIndex + 1;
+           set @FirstSelectRowNumber = 0;  
+           set @LastSelectRowNumber = 0;  
+           set @TotalRows = 0;
+           
+           select @TotalRows = count(1) from [{databaseOwner}].[{objectQualifier}BannedName] where BoardID=@BoardID;
+           select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1;
+           select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize +  @PageSize;
+           
+           with BannedNames  as 
+           (
+             select ROW_NUMBER() over (order by Mask) as RowNum, Mask 
+             from  [{databaseOwner}].[{objectQualifier}BannedName] where BoardID=@BoardID
+           )
+           select
+            a.*,
+            @TotalRows as TotalRows
+            from
+            BannedNames c
+            inner join [{databaseOwner}].[{objectQualifier}BannedName] a	
+            on 	c.Mask = a.Mask	
+            where c.RowNum between (@FirstSelectRowNumber) and (@LastSelectRowNumber)
+            order by c.RowNum asc
+  end
+  else
+  select * from [{databaseOwner}].[{objectQualifier}BannedName] where ID=@ID and BoardID=@BoardID
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}bannedname_save](@ID int=null,@BoardID int,@Mask varchar(255), @Reason nvarchar(128), @UTCTIMESTAMP datetime) as
+begin
+    if (@ID is null or @ID = 0 ) 
+    begin
+        declare @ExistsRow int
+        select @ExistsRow = count(1) from [{databaseOwner}].[{objectQualifier}BannedName] where BoardID=@BoardID and Mask=@Mask;
+        if (@ExistsRow  is null or @ExistsRow = 0)
+        begin
+            insert into [{databaseOwner}].[{objectQualifier}BannedName](BoardID,Mask,Since,Reason) values(@BoardID,@Mask,@UTCTIMESTAMP,@Reason)
+        end
+    end
+    else begin
+        update [{databaseOwner}].[{objectQualifier}BannedName] set Mask = @Mask,Reason = @Reason where ID = @ID
+    end
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}bannedemail_delete](@ID int) as
+begin
+        delete from [{databaseOwner}].[{objectQualifier}BannedEmail] where ID = @ID
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}bannedemail_list](@BoardID int,@ID int=null,@PageIndex int=null, @PageSize int=null) as
+begin
+declare @TotalRows int
+declare @FirstSelectRowNumber int
+declare @LastSelectRowNumber int
+ if @ID is null
+        begin       
+           set @PageIndex = @PageIndex + 1;
+           set @FirstSelectRowNumber = 0;  
+           set @LastSelectRowNumber = 0;  
+           set @TotalRows = 0;
+           
+           select @TotalRows = count(1) from [{databaseOwner}].[{objectQualifier}BannedEmail] where BoardID=@BoardID;
+           select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1;
+           select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize +  @PageSize;
+           
+           with BannedEmails  as 
+           (
+             select ROW_NUMBER() over (order by Mask) as RowNum, Mask 
+             from  [{databaseOwner}].[{objectQualifier}BannedEmail] where BoardID=@BoardID
+           )
+           select
+            a.*,
+            @TotalRows as TotalRows
+            from
+            BannedEmails c
+            inner join [{databaseOwner}].[{objectQualifier}BannedEmail] a	
+            on 	c.Mask = a.Mask	
+            where c.RowNum between (@FirstSelectRowNumber) and (@LastSelectRowNumber)
+            order by c.RowNum asc
+  end
+  else
+  select * from [{databaseOwner}].[{objectQualifier}BannedEmail] where ID=@ID and BoardID=@BoardID
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}bannedemail_save](@ID int=null,@BoardID int,@Mask varchar(255), @Reason nvarchar(128), @UTCTIMESTAMP datetime) as
+begin
+    if (@ID is null or @ID = 0 ) 
+    begin
+        declare @ExistsRow int
+        select @ExistsRow = count(1) from [{databaseOwner}].[{objectQualifier}BannedEmail] where BoardID=@BoardID and Mask=@Mask;
+        if (@ExistsRow  is null or @ExistsRow = 0)
+        begin
+            insert into [{databaseOwner}].[{objectQualifier}BannedEmail](BoardID,Mask,Since,Reason) values(@BoardID,@Mask,@UTCTIMESTAMP,@Reason)
+        end
+    end
+    else begin
+        update [{databaseOwner}].[{objectQualifier}BannedEmail] set Mask = @Mask,Reason = @Reason where ID = @ID
     end
 end
 GO

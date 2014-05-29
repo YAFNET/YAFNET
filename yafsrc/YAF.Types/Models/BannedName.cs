@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014 Ingo Herbote
@@ -30,32 +30,60 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
+    /// <summary>
+    /// The Banned Name Table
+    /// </summary>
     [Serializable]
-    public partial class BannedIP : IEntity, IHaveID, IHaveBoardID
+    public partial class BannedName : IEntity, IHaveID, IHaveBoardID
     {
         partial void OnCreated();
 
-        public BannedIP()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BannedName"/> class.
+        /// </summary>
+        public BannedName()
         {
             OnCreated();
         }
 
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [AutoIncrement]
         [Alias("ID")]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets BoardId.
+        /// </summary>
         public int BoardID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the mask.
+        /// </summary>
+        /// <value>
+        /// The mask.
+        /// </value>
         public string Mask { get; set; }
 
+        /// <summary>
+        /// Gets or sets the since.
+        /// </summary>
+        /// <value>
+        /// The since.
+        /// </value>
         public DateTime Since { get; set; }
 
+        /// <summary>
+        /// Gets or sets the reason.
+        /// </summary>
+        /// <value>
+        /// The reason.
+        /// </value>
         public string Reason { get; set; }
 
-        public int? UserID { get; set; }
-        
         #endregion
     }
 }

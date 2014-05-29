@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.bannedip" Codebehind="bannedip.ascx.cs" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.bannedemail" Codebehind="bannedemail.ascx.cs" %>
 <%@ Import Namespace="YAF.Core"%>
 <%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
@@ -11,22 +11,19 @@
 
 				<tr>
 					<td class="header1" colspan="5">
-						<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_BANNEDIP" />
+						<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_BANNEDEMAIL" />
                      </td>
 				</tr>
 				<tr>
 					<td class="header2" width="15%">
-						<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDIP" />
+						<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDEMAIL" />
                     </td>
 					<td class="header2" width="15%">
-						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="SINCE" LocalizedPage="ADMIN_BANNEDIP" />
+						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="SINCE" LocalizedPage="ADMIN_BANNEDEMAIL" />
                     </td>
 					<td class="header2" width="15%">
-						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="REASON" LocalizedPage="ADMIN_BANNEDIP" />
+						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="REASON" LocalizedPage="ADMIN_BANNEDEMAIL" />
                     </td>	
-					<td class="header2" width="10%">
-						<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="BAN_BY" LocalizedPage="ADMIN_BANNEDIP" />
-                    </td>		
 					<td class="header2">&nbsp;
 						</td>
 				</tr>
@@ -43,9 +40,6 @@
 				<td class="post">
 					<%# Eval("Reason") %>
 				</td>
-				<td class="post">
-				<YAF:UserLink ID="UserLink1" runat="server" UserID='<%# string.IsNullOrEmpty(Eval("UserID").ToString())? -1 :Eval("UserID") %>' />
-				</td>
 				<td class="post" style="text-align:right">
 				<YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# Eval("ID") %>' 
                     TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
@@ -56,7 +50,7 @@
 			</ItemTemplate>
 		<FooterTemplate>
 			<tr>
-				<td class="footer1" colspan="5" style="text-align:center">
+				<td class="footer1" colspan="4" style="text-align:center">
 					<asp:Button runat="server" OnLoad="Import_Load" CommandName='import' CssClass="pbutton"></asp:Button>
                     &nbsp;|&nbsp;
                     <asp:Button runat="server" OnLoad="Add_Load" CommandName='add' CssClass="pbutton"></asp:Button>

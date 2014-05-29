@@ -97,6 +97,16 @@ namespace YAF.Core.Services
         {
             result = string.Empty;
 
+            // Check internal
+            var internalCheck = new YafInternalCheck();
+
+            var isInternalFoundBot = internalCheck.IsBot(ipAddress, emailAddress, userName, out result);
+
+            if (isInternalFoundBot)
+            {
+                return true;
+            }
+
             if (YafContext.Current.Get<YafBoardSettings>().BotSpamServiceType.Equals(0))
             {
                 return false;

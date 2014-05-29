@@ -58,13 +58,6 @@
       <SubForumPage_1>admin_replacewords_import</SubForumPage_1>
 			<Image>sticky-note-text</Image>
 		</YafMenuItem>
-    <YafMenuItem>
-			<Title>Spam Check Words</Title>
-			<ForumPage>admin_spamwords</ForumPage>
-      <SubForumPage_0>admin_spamwords_edit</SubForumPage_0>
-      <SubForumPage_1>admin_spamwords_import</SubForumPage_1>
-			<Image>spambotreported</Image>
-		</YafMenuItem>
 		<YafMenuItem>
       <Title>File Extensions</Title>
       <ForumPage>admin_extensions</ForumPage>
@@ -91,6 +84,36 @@
       <ForumPage>admin_languages</ForumPage>
       <SubForumPage_0>admin_editlanguage</SubForumPage_0>
       <Image>globe-green</Image>
+    </YafMenuItem>
+  </YafMenuSection>
+  <YafMenuSection Title="Spam Protection" Tag="Spam_Protection" HostAdminOnly="False">
+    <YafMenuItem>
+      <Title>Spam Check Words</Title>
+      <ForumPage>admin_spamwords</ForumPage>
+      <SubForumPage_0>admin_spamwords_edit</SubForumPage_0>
+      <SubForumPage_1>admin_spamwords_import</SubForumPage_1>
+      <Image>radioactivity</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>Banned Emails</Title>
+      <ForumPage>admin_bannedemail</ForumPage>
+      <SubForumPage_0>admin_bannedemail_edit</SubForumPage_0>
+      <SubForumPage_1>admin_bannedemail_import</SubForumPage_1>
+      <Image>shield--exclamation</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>Banned IPs</Title>
+      <ForumPage>admin_bannedip</ForumPage>
+      <SubForumPage_0>admin_bannedip_edit</SubForumPage_0>
+      <SubForumPage_1>admin_bannedip_import</SubForumPage_1>
+      <Image>shield--exclamation</Image>
+    </YafMenuItem>
+    <YafMenuItem>
+      <Title>Banned Names</Title>
+      <ForumPage>admin_bannedname</ForumPage>
+      <SubForumPage_0>admin_bannedname_edit</SubForumPage_0>
+      <SubForumPage_1>admin_bannedname_import</SubForumPage_1>
+      <Image>shield--exclamation</Image>
     </YafMenuItem>
   </YafMenuSection>
   <YafMenuSection Title="Users and Roles" Tag="UsersandRoles" HostAdminOnly="false">
@@ -120,13 +143,6 @@
       <SubForumPage_0>admin_editrank</SubForumPage_0>
 			<Image>target</Image>
 		</YafMenuItem>
-		<YafMenuItem>
-      <Title>Banned IPs</Title>
-      <ForumPage>admin_bannedip</ForumPage>
-      <SubForumPage_0>admin_bannedip_edit</SubForumPage_0>
-      <SubForumPage_1>admin_bannedip_import</SubForumPage_1>
-      <Image>lock</Image>
-    </YafMenuItem>
     <YafMenuItem>
       <Title>Medals</Title>
       <ForumPage>admin_medals</ForumPage>

@@ -1322,6 +1322,8 @@
     <Content Include="resources\icons\authIcons.png" />
     <Content Include="resources\icons\ipbanlifted.png" />
     <Content Include="resources\icons\ipbanset.png" />
+    <Content Include="resources\icons\radioactivity.png" />
+    <Content Include="resources\icons\shield--exclamation.png" />
     <Content Include="resources\icons\spambotdetected.png" />
     <Content Include="resources\icons\spambotreported.png" />
     <Content Include="resources\icons\spammessagedetected.png" />

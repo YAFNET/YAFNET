@@ -341,12 +341,22 @@ namespace YAF.Types.Constants
     /// <summary>
     /// The admin_forums.
     /// </summary>
-    admin_forums, 
+    admin_forums,
+
+    /// <summary>
+    /// The admin_bannedemail.
+    /// </summary>
+    admin_bannedemail,
 
     /// <summary>
     /// The admin_bannedip.
     /// </summary>
     admin_bannedip, 
+      
+    /// <summary>
+    /// The admin_bannedname.
+    /// </summary>
+    admin_bannedname, 
 
     /// <summary>
     /// The admin_smilies.
@@ -446,7 +456,17 @@ namespace YAF.Types.Constants
     /// <summary>
     /// The admin_version.
     /// </summary>
-    admin_version, 
+    admin_version,
+
+    /// <summary>
+    /// The admin_bannedemail_edit.
+    /// </summary>
+    admin_bannedemail_edit,
+
+    /// <summary>
+    /// The admin_bannedemail_import.
+    /// </summary>
+    admin_bannedemail_import,
 
     /// <summary>
     /// The admin_bannedip_edit.
@@ -457,6 +477,16 @@ namespace YAF.Types.Constants
     /// The admin_bannedip_import.
     /// </summary>
     admin_bannedip_import, 
+      
+    /// <summary>
+    /// The admin_bannedname_edit.
+    /// </summary>
+    admin_bannedname_edit,
+
+    /// <summary>
+    /// The admin_bannedname_import.
+    /// </summary>
+    admin_bannedname_import, 
 
     /// <summary>
     /// The admin_editaccessmask.

@@ -43,9 +43,11 @@ namespace YAF.Install
     using YAF.Core.Services;
     using YAF.Core.Tasks;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Utils;
     using YAF.Utils.Helpers;
 
     #endregion
@@ -512,14 +514,10 @@ namespace YAF.Install
         }
 
         /// <summary>
-        /// The update status timer_ tick.
+        /// Handles the Tick event of the UpdateStatusTimer control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.p
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void UpdateStatusTimer_Tick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // see if the migration is done....
@@ -535,7 +533,14 @@ namespace YAF.Install
             }
 
             // done here...
-            this.Response.Redirect("default.aspx");
+            try
+            {
+                this.Response.Redirect(YafBuildLink.GetLink(ForumPages.forum));
+            }
+            catch (Exception)
+            {
+                this.Response.Redirect("default.aspx");
+            }
         }
 
         /// <summary>

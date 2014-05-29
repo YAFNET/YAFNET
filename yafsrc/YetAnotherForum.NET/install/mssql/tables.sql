@@ -156,6 +156,26 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 	)
 go
 
+if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}BannedName]') and type in (N'U'))
+	create table [{databaseOwner}].[{objectQualifier}BannedName](
+		ID				int IDENTITY (1, 1) NOT NULL ,
+		BoardID			int NOT NULL ,
+		Mask			nvarchar (255) NOT NULL ,
+		Since			datetime NOT NULL,
+		Reason          nvarchar (128) NULL
+	)
+go
+
+if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}BannedEmail]') and type in (N'U'))
+	create table [{databaseOwner}].[{objectQualifier}BannedEmail](
+		ID				int IDENTITY (1, 1) NOT NULL ,
+		BoardID			int NOT NULL ,
+		Mask			nvarchar (255) NOT NULL ,
+		Since			datetime NOT NULL,
+		Reason          nvarchar (128) NULL
+	)
+go
+
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Category]') and type in (N'U'))
 	create table [{databaseOwner}].[{objectQualifier}Category](
 		CategoryID		int IDENTITY (1, 1) NOT NULL ,

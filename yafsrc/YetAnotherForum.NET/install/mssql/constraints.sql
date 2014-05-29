@@ -528,6 +528,14 @@ if not exists (select top 1 1 from  sys.indexes where object_id=object_id('[{dat
 	alter table [{databaseOwner}].[{objectQualifier}BannedIP] with nocheck add constraint [PK_{objectQualifier}BannedIP] primary key clustered(ID)
 go
 
+if not exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databaseOwner}].[{objectQualifier}BannedName]') and name='PK_{objectQualifier}BannedName')
+	alter table [{databaseOwner}].[{objectQualifier}BannedName] with nocheck add constraint [PK_{objectQualifier}BannedName] primary key clustered(ID)
+go
+
+if not exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databaseOwner}].[{objectQualifier}BannedEmail]') and name='PK_{objectQualifier}BannedEmail')
+	alter table [{databaseOwner}].[{objectQualifier}BannedEmail] with nocheck add constraint [PK_{objectQualifier}BannedEmail] primary key clustered(ID)
+go
+
 if not exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databaseOwner}].[{objectQualifier}Buddy]') and name='PK_{objectQualifier}Buddy')
 	alter table [{databaseOwner}].[{objectQualifier}Buddy] with nocheck add constraint [PK_{objectQualifier}Buddy] primary key clustered(ID)   
 go
@@ -764,14 +772,16 @@ if not exists (select top 1 1 from  sys.indexes where object_id=object_id('[{dat
 	alter table [{databaseOwner}].[{objectQualifier}BannedIP] add constraint IX_{objectQualifier}BannedIP unique nonclustered(BoardID,Mask)
 go
 
+if not exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databaseOwner}].[{objectQualifier}BannedName]') and name='IX_{objectQualifier}BannedName')
+	alter table [{databaseOwner}].[{objectQualifier}BannedName] add constraint IX_{objectQualifier}BannedName unique nonclustered(BoardID,Mask)
+go
+
+if not exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databaseOwner}].[{objectQualifier}BannedEmail]') and name='IX_{objectQualifier}BannedEmail')
+	alter table [{databaseOwner}].[{objectQualifier}BannedEmail] add constraint IX_{objectQualifier}BannedEmail unique nonclustered(BoardID,Mask)
+go
 
 if not exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databaseOwner}].[{objectQualifier}Smiley]') and name='IX_{objectQualifier}Smiley')
 	alter table [{databaseOwner}].[{objectQualifier}Smiley] add constraint IX_{objectQualifier}Smiley unique nonclustered(BoardID,Code)
-go
-
-
-if not exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databaseOwner}].[{objectQualifier}BannedIP]') and name='IX_{objectQualifier}BannedIP')
-	alter table [{databaseOwner}].[{objectQualifier}BannedIP] add constraint IX_{objectQualifier}BannedIP unique nonclustered(BoardID,Mask)
 go
 
 
@@ -1023,6 +1033,14 @@ go
 
 if not exists (select top 1 1 from  sys.objects where name='FK_{objectQualifier}BannedIP_{objectQualifier}Board' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}BannedIP]') and type in (N'F'))
 	alter table [{databaseOwner}].[{objectQualifier}BannedIP] add constraint [FK_{objectQualifier}BannedIP_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board] (BoardID)
+go
+
+if not exists (select top 1 1 from  sys.objects where name='FK_{objectQualifier}BannedName_{objectQualifier}Board' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}BannedName]') and type in (N'F'))
+	alter table [{databaseOwner}].[{objectQualifier}BannedName] add constraint [FK_{objectQualifier}BannedName_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board] (BoardID)
+go
+
+if not exists (select top 1 1 from  sys.objects where name='FK_{objectQualifier}BannedEmail_{objectQualifier}Board' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}BannedEmail]') and type in (N'F'))
+	alter table [{databaseOwner}].[{objectQualifier}BannedEmail] add constraint [FK_{objectQualifier}BannedEmail_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board] (BoardID)
 go
 
 

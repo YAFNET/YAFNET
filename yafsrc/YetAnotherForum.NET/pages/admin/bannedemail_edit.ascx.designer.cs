@@ -10,7 +10,7 @@
 namespace YAF.Pages.Admin {
     
     
-    public partial class bannedip_import {
+    public partial class bannedemail_edit {
         
         /// <summary>
         /// PageLinks control.
@@ -22,15 +22,6 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.PageLinks PageLinks;
         
         /// <summary>
-        /// Adminmenu1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.AdminMenu Adminmenu1;
-        
-        /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
         /// <remarks>
@@ -38,15 +29,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
-        
-        /// <summary>
-        /// LocalizedLabelRequirementsText control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabelRequirementsText;
         
         /// <summary>
         /// HelpLabel1 control.
@@ -58,22 +40,40 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.HelpLabel HelpLabel1;
         
         /// <summary>
-        /// importFile control.
+        /// mask control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputFile importFile;
+        protected global::System.Web.UI.WebControls.TextBox mask;
         
         /// <summary>
-        /// Import control.
+        /// HelpLabel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Import;
+        protected global::YAF.Controls.HelpLabel HelpLabel2;
+        
+        /// <summary>
+        /// BanReason control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox BanReason;
+        
+        /// <summary>
+        /// save control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button save;
         
         /// <summary>
         /// cancel control.

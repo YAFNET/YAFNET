@@ -1,11 +1,11 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.bannedip_import" Codebehind="bannedip_import.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.bannedname_import" Codebehind="bannedname_import.ascx.cs" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu ID="Adminmenu1" runat="server">
 	
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
 			<td class="header1" colspan="2">
-              <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_BANNEDIP_IMPORT" />
+              <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_BANNEDNAME_IMPORT" />
             </td>
 		</tr>
         <tr>
@@ -14,7 +14,7 @@
                     <div class="ui-state-highlight ui-corner-all">
                         <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
                             <YAF:LocalizedLabel ID="LocalizedLabelRequirementsText" runat="server" 
-                                LocalizedTag="NOTE" LocalizedPage="ADMIN_BANNEDIP">
+                                LocalizedTag="NOTE" LocalizedPage="ADMIN_BANNEDNAME">
                                     </YAF:LocalizedLabel>
                         </p>
                     </div>
@@ -23,7 +23,7 @@
         </tr>
 		<tr>
 			<td class="postheader" width="50%">
-              <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="IMPORT_FILE" LocalizedPage="ADMIN_BANNEDIP_IMPORT" />
+              <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="IMPORT_FILE" LocalizedPage="ADMIN_BANNEDNAME_IMPORT" />
             </td>
 			<td class="post" width="50%">
 			  <input type="file" id="importFile" class="pbutton" runat="server" style="width:250px" />

@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014 Ingo Herbote
@@ -40,9 +40,9 @@ namespace YAF.Pages.Admin
     #endregion
 
     /// <summary>
-    /// The Admin Banned IP Import List Page.
+    /// The Admin Banned Email Import List Page.
     /// </summary>
-    public partial class bannedip_import : AdminPage
+    public partial class bannedemail_import : AdminPage
     {
         #region Methods
 
@@ -53,7 +53,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Cancel_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.admin_bannedip);
+            YafBuildLink.Redirect(ForumPages.admin_bannedemail);
         }
 
         /// <summary>
@@ -67,29 +67,31 @@ namespace YAF.Pages.Admin
             if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_FAILED").FormatWith(
-                        this.importFile.PostedFile.ContentType));
+                    this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT_FAILED")
+                        .FormatWith(this.importFile.PostedFile.ContentType));
 
                 return;
             }
 
             try
             {
-                int importedCount = DataImport.BannedIpAdressesImport(
-                    this.PageContext.PageBoardID, this.PageContext.PageUserID, this.importFile.PostedFile.InputStream);
+                int importedCount = DataImport.BannedEmailAdressesImport(
+                    this.PageContext.PageBoardID,
+                    this.PageContext.PageUserID,
+                    this.importFile.PostedFile.InputStream);
 
                 this.PageContext.LoadMessage.AddSession(
                     importedCount > 0
-                        ? this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_SUCESS").FormatWith(importedCount)
-                        : this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_NOTHING"),
+                        ? this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT_SUCESS").FormatWith(importedCount)
+                        : this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT_NOTHING"),
                     MessageTypes.Information);
 
-                YafBuildLink.Redirect(ForumPages.admin_bannedip);
+                YafBuildLink.Redirect(ForumPages.admin_bannedemail);
             }
             catch (Exception x)
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_FAILED").FormatWith(x.Message));
+                    this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT_FAILED").FormatWith(x.Message));
             }
         }
 
@@ -107,17 +109,19 @@ namespace YAF.Pages.Admin
 
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(
-                this.GetText("ADMIN_BANNEDIP", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_bannedip));
-            this.PageLinks.AddLink(this.GetText("ADMIN_BANNEDIP_IMPORT", "TITLE"), string.Empty);
+                this.GetText("ADMIN_BANNEDEMAIL", "TITLE"),
+                YafBuildLink.GetLink(ForumPages.admin_bannedemail));
+            this.PageLinks.AddLink(this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "TITLE"), string.Empty);
 
             this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_BANNEDIP", "TITLE"),
-                this.GetText("ADMIN_BANNEDIP_IMPORT", "TITLE"));
+                this.GetText("ADMIN_BANNEDEMAIL", "TITLE"),
+                this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "TITLE"));
 
-            this.Import.Text = this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT");
+            this.Import.Text = this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT");
             this.cancel.Text = this.GetText("CANCEL");
         }
 

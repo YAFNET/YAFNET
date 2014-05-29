@@ -62,7 +62,7 @@ namespace YAF.Core.Services.Import
         {
             int importedCount = 0;
 
-            var repository = YafContext.Current.Get<IRepository<YAF.Types.Models.BBCode>>();
+            var repository = YafContext.Current.Get<IRepository<BBCode>>();
 
             // import extensions...
             var dsBBCode = new DataSet();
@@ -148,7 +148,7 @@ namespace YAF.Core.Services.Import
                     try
                     {
                         // add this...
-                        repository.Insert(new FileExtension() { BoardId = boardId, Extension = newExtension });
+                        repository.Insert(new FileExtension { BoardId = boardId, Extension = newExtension });
                     }
                     catch
                     {
@@ -218,6 +218,49 @@ namespace YAF.Core.Services.Import
         }
 
         /// <summary>
+        /// Import List of Banned Email Adresses
+        /// </summary>
+        /// <param name="boardId">The board id.</param>
+        /// <param name="userId">The user id.</param>
+        /// <param name="imputStream">The imput stream.</param>
+        /// <returns>
+        /// Returns the Number of Imported Items.
+        /// </returns>
+        /// <exception cref="Exception">
+        /// Import stream is not expected format.
+        /// </exception>
+        public static int BannedEmailAdressesImport(int boardId, int userId, Stream imputStream)
+        {
+            int importedCount = 0;
+
+            var repository = YafContext.Current.Get<IRepository<BannedEmail>>();
+            var existingBannedEmailList = repository.List(boardId: boardId);
+
+            using (var streamReader = new StreamReader(imputStream))
+            {
+                while (!streamReader.EndOfStream)
+                {
+                    var line = streamReader.ReadLine();
+
+                    if (line.IsNotSet())
+                    {
+                        continue;
+                    }
+
+                    if (existingBannedEmailList.Select("Mask = '{0}'".FormatWith(line)).Length != 0)
+                    {
+                        continue;
+                    }
+
+                    repository.Save(null, line, "Imported Email Adress", boardId);
+                    importedCount++;
+                }
+            }
+
+            return importedCount;
+        }
+
+        /// <summary>
         /// Import List of Banned Ip Adresses
         /// </summary>
         /// <param name="boardId">The board id.</param>
@@ -243,7 +286,7 @@ namespace YAF.Core.Services.Import
                     var line = streamReader.ReadLine();
                     IPAddress importAddress;
 
-                    if (string.IsNullOrEmpty(line) || !IPAddress.TryParse(line, out importAddress))
+                    if (line.IsNotSet() || !IPAddress.TryParse(line, out importAddress))
                     {
                         continue;
                     }
@@ -257,11 +300,49 @@ namespace YAF.Core.Services.Import
                     importedCount++;
                 }
             }
-            
-            /*else
+
+            return importedCount;
+        }
+        
+        /// <summary>
+        /// Import List of Banned User Names
+        /// </summary>
+        /// <param name="boardId">The board id.</param>
+        /// <param name="userId">The user id.</param>
+        /// <param name="imputStream">The imput stream.</param>
+        /// <returns>
+        /// Returns the Number of Imported Items.
+        /// </returns>
+        /// <exception cref="Exception">
+        /// Import stream is not expected format.
+        /// </exception>
+        public static int BannedNamesImport(int boardId, int userId, Stream imputStream)
+        {
+            int importedCount = 0;
+
+            var repository = YafContext.Current.Get<IRepository<BannedName>>();
+            var existingBannedNameList = repository.List(boardId: boardId);
+
+            using (var streamReader = new StreamReader(imputStream))
             {
-                throw new Exception("Import stream is not expected format.");
-            }*/
+                while (!streamReader.EndOfStream)
+                {
+                    var line = streamReader.ReadLine();
+
+                    if (line.IsNotSet())
+                    {
+                        continue;
+                    }
+
+                    if (existingBannedNameList.Select("Mask = '{0}'".FormatWith(line)).Length != 0)
+                    {
+                        continue;
+                    }
+
+                    repository.Save(null, line, "Imported User Name", boardId);
+                    importedCount++;
+                }
+            } 
 
             return importedCount;
         }
