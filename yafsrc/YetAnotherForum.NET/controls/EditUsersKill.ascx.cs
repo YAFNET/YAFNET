@@ -184,6 +184,8 @@ namespace YAF.Controls
                                 : this.PageContext.CurrentUserData.UserName));
             }
 
+            this.DeleteAllUserMessages();
+
             if (this.ReportUser.Checked && this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet())
             {
                 try
@@ -271,12 +273,13 @@ namespace YAF.Controls
 
                         // all is good, user can be deleted
                         UserMembershipHelper.DeleteUser(this.CurrentUserID.ToType<int>());
+
+                        YafBuildLink.Redirect(ForumPages.admin_users);
                     }
                     break;
                 case "suspend":
                     if (this.CurrentUserID > 0)
                     {
-                        this.DeletePosts();
                         LegacyDb.user_suspend(this.CurrentUserID, DateTime.UtcNow.AddYears(5));
                     }
                     break;
@@ -307,8 +310,7 @@ namespace YAF.Controls
                 return;
             }
 
-            this.SuspendOrDelete.Items.Add(
-                new ListItem(this.GetText("ADMIN_EDITUSER", "DELETE_ACCOUNT"), "delete"));
+            this.SuspendOrDelete.Items.Add(new ListItem(this.GetText("ADMIN_EDITUSER", "DELETE_ACCOUNT"), "delete"));
             this.SuspendOrDelete.Items.Add(
                 new ListItem(this.GetText("ADMIN_EDITUSER", "SUSPEND_ACCOUNT_USER"), "suspend"));
 
@@ -409,9 +411,9 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Deletes the posts.
+        /// Deletes all user messages.
         /// </summary>
-        private void DeletePosts()
+        private void DeleteAllUserMessages()
         {
             // delete posts...
             var messageIds =

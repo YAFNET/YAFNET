@@ -29,6 +29,10 @@
             <tr class="postheader">
                 <td class="postformheader">
                     <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# this.Eval("UserID").ToType<int>() %>' />
+                    <YAF:ThemeButton ID="AdminUserButton" runat="server" CssClass="yaflittlebutton" Visible='<%# this.PageContext.IsAdmin %>'
+                    TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE" 
+                    NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", Convert.ToInt32(Eval("UserID")) ) %>'>
+                </YAF:ThemeButton>
                 </td>
                 <td>
                     <strong>

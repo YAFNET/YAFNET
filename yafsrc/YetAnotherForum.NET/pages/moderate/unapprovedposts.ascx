@@ -34,8 +34,9 @@
             <td>
                 <YAF:UserLink ID="UserName" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>' />
                 <YAF:ThemeButton ID="AdminUserButton" runat="server" CssClass="yaflittlebutton" Visible='<%# this.PageContext.IsAdmin %>'
-                     TextLocalizedTag="ADMIN_USER" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", Convert.ToInt32(Eval("UserID")) ) %>'>
-                 </YAF:ThemeButton>
+                    TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE" 
+                    NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", Convert.ToInt32(Eval("UserID")) ) %>'>
+                </YAF:ThemeButton>
             </td>
             <td>
                 <strong>Posted:</strong>
