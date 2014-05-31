@@ -745,7 +745,7 @@ html { min-height: 100%; }
 	width: 100%;
 }
 
-.yafnet div.postdiv {width: 100%;min-height: 100px;overflow: auto;	}
+.yafnet div.postdiv {width: 100%;min-height: 270px;overflow: auto;	}
 .yafnet div.AdMessage {min-height: 10px;}
 .yafnet .yafsignature {border-top: solid 1px #666;margin-top: 15px;padding-top: 5px;}
 .yafnet .yafactiveusers a.active_hidden {font-style: italic;color: #aaaaaa;}
