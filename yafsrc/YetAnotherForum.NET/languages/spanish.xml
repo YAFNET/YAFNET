@@ -5,9 +5,15 @@
     <Resource tag="ADMIN_ACCESSMASKS">Ver máscara de acceso</Resource>
     <Resource tag="ADMIN_ADMIN">Ver índice de administrador</Resource>
     <Resource tag="ADMIN_ATTACHMENTS">Ver adjuntos</Resource>
+    <Resource tag="ADMIN_BANNEDEMAIL">Views banned Emails list</Resource>
+    <Resource tag="ADMIN_BANNEDEMAIL_EDIT">Edits banned Emails</Resource>
+    <Resource tag="ADMIN_BANNEDEMAIL_IMPORT">Imports banned Emails</Resource>
     <Resource tag="ADMIN_BANNEDIP">Ver lista de IPs baneadas</Resource>
     <Resource tag="ADMIN_BANNEDIP_EDIT">Editar IPs baneadas</Resource>
     <Resource tag="ADMIN_BANNEDIP_IMPORT">Importar IPs baneadas</Resource>
+    <Resource tag="ADMIN_BANNEDNAME">Views banned Names list</Resource>
+    <Resource tag="ADMIN_BANNEDNAME_EDIT">Edits banned Names</Resource>
+    <Resource tag="ADMIN_BANNEDNAME_IMPORT">Imports banned Names</Resource>
     <Resource tag="ADMIN_BBCODE">Ver BBCodes</Resource>
     <Resource tag="ADMIN_BBCODE_EDIT">Editar BBcodes</Resource>
     <Resource tag="ADMIN_BBCODE_IMPORT">Importar BBCodes</Resource>
@@ -204,9 +210,36 @@
     <Resource tag="POSTED">Publicado</Resource>
     <Resource tag="TITLE">Adjuntos</Resource>
   </page>
+  <page name="ADMIN_BANNEDEMAIL">
+    <Resource tag="ADD_IP">Add New Email</Resource>
+    <Resource tag="IMPORT_IPS">Import Email(s)</Resource>
+    <Resource tag="MASK">Mask</Resource>
+    <Resource tag="REASON">Reason</Resource>
+    <Resource tag="SINCE">Since</Resource>
+    <Resource tag="TITLE">Banned Email Addresses</Resource>
+  </page>
+  <page name="ADMIN_BANNEDEMAIL_EDIT">
+    <Resource tag="MASK">Mask:</Resource>
+    <Resource tag="MASK_HELP">The Email address to ban. You can use Regular Expressions.</Resource>
+    <Resource tag="REASON">Reason:</Resource>
+    <Resource tag="REASON_HELP">The reason why the email address was banned.</Resource>
+    <Resource tag="TITLE">Add/Edit Banned Email Address</Resource>
+  </page>
+  <page name="ADMIN_BANNEDEMAIL_IMPORT">
+    <Resource tag="HEADER">Import Email Addresses List</Resource>
+    <Resource tag="IMPORT">Import List</Resource>
+    <Resource tag="IMPORT_FAILED">Failed to import! Invalid upload format specified: {0} </Resource>
+    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containing an Email Adress on each line</Resource>
+    <Resource tag="IMPORT_NOTHING">Nothing imported: no new email address was found in the upload.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} new email adress(es) imported successfully.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot Email Addresses on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
+    <Resource tag="TITLE">Import Email Addresses</Resource>
+  </page>
   <page name="ADMIN_BANNEDIP">
     <Resource tag="ADD_IP">Añadir nueva dirección</Resource>
     <Resource tag="BAN_BY">Baneado por</Resource>
+    <Resource tag="EXPORT">Export to Text File</Resource>
     <Resource tag="IMPORT_IPS">Importar IPs</Resource>
     <Resource tag="MASK">Máscara</Resource>
     <Resource tag="REASON">Razón</Resource>
@@ -232,7 +265,34 @@
     <Resource tag="IMPORT_FILE_HELP">Debe ser un fichero *.txt conteniendo una IP en cada línea.</Resource>
     <Resource tag="IMPORT_NOTHING">No se ha importado nada. No se han encontrado nuevas IPs en el archivo subido.</Resource>
     <Resource tag="IMPORT_SUCESS">{0} nuevas IPs importadas correctamente.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot Ips on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
     <Resource tag="TITLE">Importar IPs</Resource>
+  </page>
+  <page name="ADMIN_BANNEDNAME">
+    <Resource tag="ADD_IP">Add New User Name</Resource>
+    <Resource tag="IMPORT_IPS">Import Name(s)</Resource>
+    <Resource tag="MASK">Mask</Resource>
+    <Resource tag="REASON">Reason</Resource>
+    <Resource tag="SINCE">Since</Resource>
+    <Resource tag="TITLE">Banned Names</Resource>
+  </page>
+  <page name="ADMIN_BANNEDNAME_EDIT">
+    <Resource tag="MASK">Mask:</Resource>
+    <Resource tag="MASK_HELP">The User Name to ban. You can use Regular Expressions.</Resource>
+    <Resource tag="REASON">Reason:</Resource>
+    <Resource tag="REASON_HELP">The reason why the email address was banned.</Resource>
+    <Resource tag="TITLE">Add/Edit Banned Email Address</Resource>
+  </page>
+  <page name="ADMIN_BANNEDNAME_IMPORT">
+    <Resource tag="HEADER">Import Names List</Resource>
+    <Resource tag="IMPORT">Import List</Resource>
+    <Resource tag="IMPORT_FAILED">Failed to import! Invalid upload format specified: {0} </Resource>
+    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containing one Name on each line</Resource>
+    <Resource tag="IMPORT_NOTHING">Nothing imported: no new name was found in the upload.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} new name(s) imported successfully.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot user names on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
+    <Resource tag="TITLE">Import Name(s)</Resource>
   </page>
   <page name="ADMIN_BBCODE">
     <Resource tag="ADD">Añadir nuevo BBCode</Resource>
@@ -691,7 +751,9 @@
   </page>
   <page name="ADMIN_EDITUSER">
     <Resource tag="ADD_POINTS">Añadir puntos:</Resource>
+    <Resource tag="BAN_EMAIL_OFUSER">Ban Email Addresses of User?</Resource>
     <Resource tag="BAN_IP_OFUSER">¿Banear IP de este usuario?</Resource>
+    <Resource tag="BAN_NAME_OFUSER">Ban User Name of User?</Resource>
     <Resource tag="BOT_REPORTED">User Successfully Reported as Bot</Resource>
     <Resource tag="BOT_REPORTED_FAILED">User Reporting was not successfull, please check your API Key!</Resource>
     <Resource tag="CHANGE_NEW_PASS">Nueva contraseña:</Resource>
@@ -702,6 +764,7 @@
     <Resource tag="CONFIRM_PASS">Confirmar contraseña:</Resource>
     <Resource tag="CONFIRM_PASS_HELP">Confirmar la nueva contraseña.</Resource>
     <Resource tag="CURRENT_POINTS">Puntos actuales:</Resource>
+    <Resource tag="DELETE_ACCOUNT">Delete this account</Resource>
     <Resource tag="DELETE_POSTS_USER">¿Eliminar todas las publicaciones de este usuario?</Resource>
     <Resource tag="ERROR_CONFIRM_PASS">Debes introducir una contraseña de confirmación</Resource>
     <Resource tag="ERROR_NEW_PASS">Debes introducir una nueva contraseña</Resource>
@@ -711,7 +774,7 @@
     <Resource tag="FACEBOOK_USER_HELP">Indica si el usuario está conectado vía Facebook.</Resource>
     <Resource tag="GOOGLE_USER">Usuario de Google:</Resource>
     <Resource tag="GOOGLE_USER_HELP">Indica si el usuario está conectado vía Google.</Resource>
-    <Resource tag="HEAD_KILL_USER">Matar la actividad del usuario.</Resource>
+    <Resource tag="HEAD_KILL_USER">Kill User and Ban</Resource>
     <Resource tag="HEAD_USER_CHANGEPASS">Cambiar contraseña</Resource>
     <Resource tag="HEAD_USER_DETAILS">Detalles del usuario</Resource>
     <Resource tag="HEAD_USER_GROUPS">Grupos del usuario</Resource>
@@ -738,12 +801,13 @@
     <Resource tag="RESET_PASS">Resetear contraseña</Resource>
     <Resource tag="SET_POINTS">Fijar puntos a:</Resource>
     <Resource tag="SUSPEND_ACCOUNT_USER">¿Suspender esta cuenta por 5 años?</Resource>
+    <Resource tag="SUSPEND_OR_DELETE_ACCOUNT">Suspend or Delete this Account?</Resource>
     <Resource tag="TITLE">Editar usuario "{0}"</Resource>
     <Resource tag="TWITTER_USER">Twiter del usuario:</Resource>
     <Resource tag="TWITTER_USER_HELP">Indica si el usuario está conectado a través de Twitter.</Resource>
     <Resource tag="USER_AVATAR">Avatar del usuario</Resource>
     <Resource tag="USER_DETAILS">Detalles del usuario</Resource>
-    <Resource tag="USER_KILL">Matar actividad del usuario</Resource>
+    <Resource tag="USER_KILL">User Kill &amp; Ban</Resource>
     <Resource tag="USER_PASS">Contraseña del usuario</Resource>
     <Resource tag="USER_PROFILE">Perfil del usuario</Resource>
     <Resource tag="USER_REPUTATION">Reputación del usuario</Resource>
@@ -1766,7 +1830,9 @@
     <Resource tag="admin_accessmasks">Máscaras de acceso</Resource>
     <Resource tag="admin_admin">Índice de admin</Resource>
     <Resource tag="admin_attachments">Adjuntos</Resource>
+    <Resource tag="admin_bannedemail">Banned Emails</Resource>
     <Resource tag="admin_bannedip">IPs baneadas</Resource>
+    <Resource tag="admin_bannedname">Banned Names</Resource>
     <Resource tag="admin_bbcode">Extensiones BBCode</Resource>
     <Resource tag="admin_boards">Escritorios</Resource>
     <Resource tag="admin_boardsettings">Preferencias de tablero</Resource>
@@ -1806,6 +1872,7 @@
     <Resource tag="Maintenance">Mantenimiento</Resource>
     <Resource tag="NNTP">NNTP</Resource>
     <Resource tag="Settings">Preferencias</Resource>
+    <Resource tag="Spam_Protection">Spam Protection</Resource>
     <Resource tag="Upgrade">Actualizar</Resource>
     <Resource tag="UsersandRoles">Roles y usuarios</Resource>
   </page>

@@ -5,9 +5,15 @@
     <Resource tag="ADMIN_ACCESSMASKS">Просматривает маски доступа</Resource>
     <Resource tag="ADMIN_ADMIN">Просматривает главную страницу администратора</Resource>
     <Resource tag="ADMIN_ATTACHMENTS">Администрирует прикреплённые файлы</Resource>
+    <Resource tag="ADMIN_BANNEDEMAIL">Views banned Emails list</Resource>
+    <Resource tag="ADMIN_BANNEDEMAIL_EDIT">Edits banned Emails</Resource>
+    <Resource tag="ADMIN_BANNEDEMAIL_IMPORT">Imports banned Emails</Resource>
     <Resource tag="ADMIN_BANNEDIP">Просматривает запрещённые IP</Resource>
     <Resource tag="ADMIN_BANNEDIP_EDIT">Редактирует запрещённые IP</Resource>
     <Resource tag="ADMIN_BANNEDIP_IMPORT">Imports banned ips</Resource>
+    <Resource tag="ADMIN_BANNEDNAME">Views banned Names list</Resource>
+    <Resource tag="ADMIN_BANNEDNAME_EDIT">Edits banned Names</Resource>
+    <Resource tag="ADMIN_BANNEDNAME_IMPORT">Imports banned Names</Resource>
     <Resource tag="ADMIN_BBCODE">Просматривает BB-коды</Resource>
     <Resource tag="ADMIN_BBCODE_EDIT">Редактирует  BB-коды</Resource>
     <Resource tag="ADMIN_BBCODE_IMPORT">Импортирует  BB-коды</Resource>
@@ -204,9 +210,36 @@
     <Resource tag="POSTED">Оставлено</Resource>
     <Resource tag="TITLE">Вложения</Resource>
   </page>
+  <page name="ADMIN_BANNEDEMAIL">
+    <Resource tag="ADD_IP">Add New Email</Resource>
+    <Resource tag="IMPORT_IPS">Import Email(s)</Resource>
+    <Resource tag="MASK">Mask</Resource>
+    <Resource tag="REASON">Reason</Resource>
+    <Resource tag="SINCE">Since</Resource>
+    <Resource tag="TITLE">Banned Email Addresses</Resource>
+  </page>
+  <page name="ADMIN_BANNEDEMAIL_EDIT">
+    <Resource tag="MASK">Mask:</Resource>
+    <Resource tag="MASK_HELP">The Email address to ban. You can use Regular Expressions.</Resource>
+    <Resource tag="REASON">Reason:</Resource>
+    <Resource tag="REASON_HELP">The reason why the email address was banned.</Resource>
+    <Resource tag="TITLE">Add/Edit Banned Email Address</Resource>
+  </page>
+  <page name="ADMIN_BANNEDEMAIL_IMPORT">
+    <Resource tag="HEADER">Import Email Addresses List</Resource>
+    <Resource tag="IMPORT">Import List</Resource>
+    <Resource tag="IMPORT_FAILED">Failed to import! Invalid upload format specified: {0} </Resource>
+    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containing an Email Adress on each line</Resource>
+    <Resource tag="IMPORT_NOTHING">Nothing imported: no new email address was found in the upload.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} new email adress(es) imported successfully.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot Email Addresses on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
+    <Resource tag="TITLE">Import Email Addresses</Resource>
+  </page>
   <page name="ADMIN_BANNEDIP">
     <Resource tag="ADD_IP">Добавить новый IP</Resource>
     <Resource tag="BAN_BY">Забанил: </Resource>
+    <Resource tag="EXPORT">Export to Text File</Resource>
     <Resource tag="IMPORT_IPS">Import Adress(es)</Resource>
     <Resource tag="MASK">Маска</Resource>
     <Resource tag="REASON">Причина</Resource>
@@ -232,7 +265,34 @@
     <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containting Ip Adresses on each line</Resource>
     <Resource tag="IMPORT_NOTHING">Nothing imported: no new ip address was found in the upload.</Resource>
     <Resource tag="IMPORT_SUCESS">{0} new ip adress(es) imported successfully.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot Ips on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
     <Resource tag="TITLE">Import IP Addresses</Resource>
+  </page>
+  <page name="ADMIN_BANNEDNAME">
+    <Resource tag="ADD_IP">Add New User Name</Resource>
+    <Resource tag="IMPORT_IPS">Import Name(s)</Resource>
+    <Resource tag="MASK">Mask</Resource>
+    <Resource tag="REASON">Reason</Resource>
+    <Resource tag="SINCE">Since</Resource>
+    <Resource tag="TITLE">Banned Names</Resource>
+  </page>
+  <page name="ADMIN_BANNEDNAME_EDIT">
+    <Resource tag="MASK">Mask:</Resource>
+    <Resource tag="MASK_HELP">The User Name to ban. You can use Regular Expressions.</Resource>
+    <Resource tag="REASON">Reason:</Resource>
+    <Resource tag="REASON_HELP">The reason why the email address was banned.</Resource>
+    <Resource tag="TITLE">Add/Edit Banned Email Address</Resource>
+  </page>
+  <page name="ADMIN_BANNEDNAME_IMPORT">
+    <Resource tag="HEADER">Import Names List</Resource>
+    <Resource tag="IMPORT">Import List</Resource>
+    <Resource tag="IMPORT_FAILED">Failed to import! Invalid upload format specified: {0} </Resource>
+    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containing one Name on each line</Resource>
+    <Resource tag="IMPORT_NOTHING">Nothing imported: no new name was found in the upload.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} new name(s) imported successfully.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot user names on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
+    <Resource tag="TITLE">Import Name(s)</Resource>
   </page>
   <page name="ADMIN_BBCODE">
     <Resource tag="ADD">Новый BB-код</Resource>
@@ -689,7 +749,9 @@
   </page>
   <page name="ADMIN_EDITUSER">
     <Resource tag="ADD_POINTS">Добавить очки:</Resource>
+    <Resource tag="BAN_EMAIL_OFUSER">Ban Email Addresses of User?</Resource>
     <Resource tag="BAN_IP_OFUSER">Запретить пользователя по адресам IP?</Resource>
+    <Resource tag="BAN_NAME_OFUSER">Ban User Name of User?</Resource>
     <Resource tag="BOT_REPORTED">User Successfully Reported as Bot</Resource>
     <Resource tag="BOT_REPORTED_FAILED">User Reporting was not successfull, please check your API Key!</Resource>
     <Resource tag="CHANGE_NEW_PASS">Новый пароль:</Resource>
@@ -700,6 +762,7 @@
     <Resource tag="CONFIRM_PASS">Подтвердить пароль:</Resource>
     <Resource tag="CONFIRM_PASS_HELP">Подтвердить новый пароль.</Resource>
     <Resource tag="CURRENT_POINTS">Текущие очки:</Resource>
+    <Resource tag="DELETE_ACCOUNT">Delete this account</Resource>
     <Resource tag="DELETE_POSTS_USER">Удалить все сообщения пользователя?</Resource>
     <Resource tag="ERROR_CONFIRM_PASS">Нужно ввести подтверждение пароля</Resource>
     <Resource tag="ERROR_NEW_PASS">Нужно ввести новый пароль</Resource>
@@ -709,7 +772,7 @@
     <Resource tag="FACEBOOK_USER_HELP">Показывает, что пользователь зашёл через Facebook.</Resource>
     <Resource tag="GOOGLE_USER">Google User:</Resource>
     <Resource tag="GOOGLE_USER_HELP">Indicates if the User is logged in via Google.</Resource>
-    <Resource tag="HEAD_KILL_USER">Уничтожить следы активности пользователя</Resource>
+    <Resource tag="HEAD_KILL_USER">Kill User and Ban</Resource>
     <Resource tag="HEAD_USER_CHANGEPASS">Изменить пароль</Resource>
     <Resource tag="HEAD_USER_DETAILS">Данные пользователя</Resource>
     <Resource tag="HEAD_USER_GROUPS">Группы пользователя</Resource>
@@ -736,13 +799,14 @@
     <Resource tag="REPORT_USER_CONFIRM">Report User Name, Email Address and IP Address to StopForumSpam.com as BOT?</Resource>
     <Resource tag="RESET_PASS">Сброс пароля</Resource>
     <Resource tag="SET_POINTS">Ввести очки:</Resource>
-    <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years?</Resource>
+    <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years</Resource>
+    <Resource tag="SUSPEND_OR_DELETE_ACCOUNT">Suspend or Delete this Account?</Resource>
     <Resource tag="TITLE">Редактирование пользователя "{0}"</Resource>
     <Resource tag="TWITTER_USER">Пользователь Twitter:</Resource>
     <Resource tag="TWITTER_USER_HELP">Indicates if the User is logged in via Twitter.</Resource>
     <Resource tag="USER_AVATAR">Аватар пользователя</Resource>
     <Resource tag="USER_DETAILS">Данные пользователя</Resource>
-    <Resource tag="USER_KILL">Подавление активности</Resource>
+    <Resource tag="USER_KILL">User Kill &amp; Ban</Resource>
     <Resource tag="USER_PASS">Пароль пользователя</Resource>
     <Resource tag="USER_PROFILE">Профиль пользователя</Resource>
     <Resource tag="USER_REPUTATION">Репутация пользователя</Resource>
@@ -1742,7 +1806,9 @@
     <Resource tag="admin_accessmasks">Маски доступа</Resource>
     <Resource tag="admin_admin">Индекс админа</Resource>
     <Resource tag="admin_attachments">Вложения</Resource>
+    <Resource tag="admin_bannedemail">Banned Emails</Resource>
     <Resource tag="admin_bannedip">Запрещённые IP</Resource>
+    <Resource tag="admin_bannedname">Banned Names</Resource>
     <Resource tag="admin_bbcode">BB-коды</Resource>
     <Resource tag="admin_boards">Конференции</Resource>
     <Resource tag="admin_boardsettings">Данные конференции</Resource>
@@ -1782,6 +1848,7 @@
     <Resource tag="Maintenance">Обслуживание</Resource>
     <Resource tag="NNTP">NNTP</Resource>
     <Resource tag="Settings">Настройки</Resource>
+    <Resource tag="Spam_Protection">Spam Protection</Resource>
     <Resource tag="Upgrade">Обновление</Resource>
     <Resource tag="UsersandRoles">Пользователи и роли</Resource>
   </page>

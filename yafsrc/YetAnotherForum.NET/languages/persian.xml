@@ -5,9 +5,15 @@
     <Resource tag="ADMIN_ACCESSMASKS">در حا مشاهده تنظیمات دسترسی در بخش مدیر</Resource>
     <Resource tag="ADMIN_ADMIN">در حال مشاهده پانل مدیر</Resource>
     <Resource tag="ADMIN_ATTACHMENTS">نمایش پیوست ها</Resource>
+    <Resource tag="ADMIN_BANNEDEMAIL">Views banned Emails list</Resource>
+    <Resource tag="ADMIN_BANNEDEMAIL_EDIT">Edits banned Emails</Resource>
+    <Resource tag="ADMIN_BANNEDEMAIL_IMPORT">Imports banned Emails</Resource>
     <Resource tag="ADMIN_BANNEDIP">در حال مشاهده لیست IP های مسدود شده</Resource>
     <Resource tag="ADMIN_BANNEDIP_EDIT">در حال ویرایش لیست IP های مسدود شده</Resource>
     <Resource tag="ADMIN_BANNEDIP_IMPORT">Imports banned ips</Resource>
+    <Resource tag="ADMIN_BANNEDNAME">Views banned Names list</Resource>
+    <Resource tag="ADMIN_BANNEDNAME_EDIT">Edits banned Names</Resource>
+    <Resource tag="ADMIN_BANNEDNAME_IMPORT">Imports banned Names</Resource>
     <Resource tag="ADMIN_BBCODE">در حال مشاهده BBCodes</Resource>
     <Resource tag="ADMIN_BBCODE_EDIT">در حال ویرایش BBcodes</Resource>
     <Resource tag="ADMIN_BBCODE_IMPORT">در حال وارد کردن BBCodes</Resource>
@@ -204,9 +210,36 @@
     <Resource tag="POSTED">ارسال شده</Resource>
     <Resource tag="TITLE">ضمائم</Resource>
   </page>
+  <page name="ADMIN_BANNEDEMAIL">
+    <Resource tag="ADD_IP">Add New Email</Resource>
+    <Resource tag="IMPORT_IPS">Import Email(s)</Resource>
+    <Resource tag="MASK">Mask</Resource>
+    <Resource tag="REASON">Reason</Resource>
+    <Resource tag="SINCE">Since</Resource>
+    <Resource tag="TITLE">Banned Email Addresses</Resource>
+  </page>
+  <page name="ADMIN_BANNEDEMAIL_EDIT">
+    <Resource tag="MASK">Mask:</Resource>
+    <Resource tag="MASK_HELP">The Email address to ban. You can use Regular Expressions.</Resource>
+    <Resource tag="REASON">Reason:</Resource>
+    <Resource tag="REASON_HELP">The reason why the email address was banned.</Resource>
+    <Resource tag="TITLE">Add/Edit Banned Email Address</Resource>
+  </page>
+  <page name="ADMIN_BANNEDEMAIL_IMPORT">
+    <Resource tag="HEADER">Import Email Addresses List</Resource>
+    <Resource tag="IMPORT">Import List</Resource>
+    <Resource tag="IMPORT_FAILED">Failed to import! Invalid upload format specified: {0} </Resource>
+    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containing an Email Adress on each line</Resource>
+    <Resource tag="IMPORT_NOTHING">Nothing imported: no new email address was found in the upload.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} new email adress(es) imported successfully.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot Email Addresses on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
+    <Resource tag="TITLE">Import Email Addresses</Resource>
+  </page>
   <page name="ADMIN_BANNEDIP">
     <Resource tag="ADD_IP">افزودن آدرس جدید</Resource>
     <Resource tag="BAN_BY">ممنوع شده بوسیله</Resource>
+    <Resource tag="EXPORT">Export to Text File</Resource>
     <Resource tag="IMPORT_IPS">Import Adress(es)</Resource>
     <Resource tag="MASK">قالب</Resource>
     <Resource tag="REASON">دلیل</Resource>
@@ -232,7 +265,34 @@
     <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containting Ip Adresses on each line</Resource>
     <Resource tag="IMPORT_NOTHING">Nothing imported: no new ip address was found in the upload.</Resource>
     <Resource tag="IMPORT_SUCESS">{0} new ip adress(es) imported successfully.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot Ips on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
     <Resource tag="TITLE">Import IP Addresses</Resource>
+  </page>
+  <page name="ADMIN_BANNEDNAME">
+    <Resource tag="ADD_IP">Add New User Name</Resource>
+    <Resource tag="IMPORT_IPS">Import Name(s)</Resource>
+    <Resource tag="MASK">Mask</Resource>
+    <Resource tag="REASON">Reason</Resource>
+    <Resource tag="SINCE">Since</Resource>
+    <Resource tag="TITLE">Banned Names</Resource>
+  </page>
+  <page name="ADMIN_BANNEDNAME_EDIT">
+    <Resource tag="MASK">Mask:</Resource>
+    <Resource tag="MASK_HELP">The User Name to ban. You can use Regular Expressions.</Resource>
+    <Resource tag="REASON">Reason:</Resource>
+    <Resource tag="REASON_HELP">The reason why the email address was banned.</Resource>
+    <Resource tag="TITLE">Add/Edit Banned Email Address</Resource>
+  </page>
+  <page name="ADMIN_BANNEDNAME_IMPORT">
+    <Resource tag="HEADER">Import Names List</Resource>
+    <Resource tag="IMPORT">Import List</Resource>
+    <Resource tag="IMPORT_FAILED">Failed to import! Invalid upload format specified: {0} </Resource>
+    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containing one Name on each line</Resource>
+    <Resource tag="IMPORT_NOTHING">Nothing imported: no new name was found in the upload.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} new name(s) imported successfully.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot user names on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
+    <Resource tag="TITLE">Import Name(s)</Resource>
   </page>
   <page name="ADMIN_BBCODE">
     <Resource tag="ADD">افزودن بی بی کد جدید</Resource>
@@ -689,7 +749,9 @@
   </page>
   <page name="ADMIN_EDITUSER">
     <Resource tag="ADD_POINTS">افزودن نمره:</Resource>
+    <Resource tag="BAN_EMAIL_OFUSER">Ban Email Addresses of User?</Resource>
     <Resource tag="BAN_IP_OFUSER">آی پی های کاربر بلوکه شود؟</Resource>
+    <Resource tag="BAN_NAME_OFUSER">Ban User Name of User?</Resource>
     <Resource tag="BOT_REPORTED">User Successfully Reported as Bot</Resource>
     <Resource tag="BOT_REPORTED_FAILED">User Reporting was not successfull, please check your API Key!</Resource>
     <Resource tag="CHANGE_NEW_PASS">کلمه عبور جدید:</Resource>
@@ -700,6 +762,7 @@
     <Resource tag="CONFIRM_PASS">تائید کلمه عبور:</Resource>
     <Resource tag="CONFIRM_PASS_HELP">کلمه عوبر جدید را دوباره وارد کنید.</Resource>
     <Resource tag="CURRENT_POINTS">نمرات جاری:</Resource>
+    <Resource tag="DELETE_ACCOUNT">Delete this account</Resource>
     <Resource tag="DELETE_POSTS_USER">تمام ارسال های کاربر حذف شود؟</Resource>
     <Resource tag="ERROR_CONFIRM_PASS">می بایست کلمه عبور تائید شود</Resource>
     <Resource tag="ERROR_NEW_PASS">می بایست کلمه عبور جدید وارد گردد</Resource>
@@ -709,7 +772,7 @@
     <Resource tag="FACEBOOK_USER_HELP">Indicates if the User is logged in via Facebook.</Resource>
     <Resource tag="GOOGLE_USER">Google User:</Resource>
     <Resource tag="GOOGLE_USER_HELP">Indicates if the User is logged in via Google.</Resource>
-    <Resource tag="HEAD_KILL_USER">قطع فعالیت کاربر</Resource>
+    <Resource tag="HEAD_KILL_USER">Kill User and Ban</Resource>
     <Resource tag="HEAD_USER_CHANGEPASS">تغییر کلمه عبور</Resource>
     <Resource tag="HEAD_USER_DETAILS">جزئیات کاربر</Resource>
     <Resource tag="HEAD_USER_GROUPS">گروهای کاربر</Resource>
@@ -736,13 +799,14 @@
     <Resource tag="REPORT_USER_CONFIRM">Report User Name, Email Address and IP Address to StopForumSpam.com as BOT?</Resource>
     <Resource tag="RESET_PASS">بازنشانی کلمه عبور</Resource>
     <Resource tag="SET_POINTS">تنظیم نمره:</Resource>
-    <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years?</Resource>
+    <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years</Resource>
+    <Resource tag="SUSPEND_OR_DELETE_ACCOUNT">Suspend or Delete this Account?</Resource>
     <Resource tag="TITLE">ویرایش کاربر "{0}"</Resource>
     <Resource tag="TWITTER_USER">Twitter User:</Resource>
     <Resource tag="TWITTER_USER_HELP">Indicates if the User is logged in via Twitter.</Resource>
     <Resource tag="USER_AVATAR">آواتار کاربر</Resource>
     <Resource tag="USER_DETAILS">جزئیات کاربر</Resource>
-    <Resource tag="USER_KILL">فعالیت های مرده کاربر</Resource>
+    <Resource tag="USER_KILL">User Kill &amp; Ban</Resource>
     <Resource tag="USER_PASS">کلمه عبور کاربر</Resource>
     <Resource tag="USER_PROFILE">پروفایل کاربر</Resource>
     <Resource tag="USER_REPUTATION">User Reputation</Resource>
@@ -1766,7 +1830,9 @@
     <Resource tag="admin_accessmasks">قالب دسترسی</Resource>
     <Resource tag="admin_admin">فهرست مدیر</Resource>
     <Resource tag="admin_attachments">ضمائم</Resource>
+    <Resource tag="admin_bannedemail">Banned Emails</Resource>
     <Resource tag="admin_bannedip">آی پی های ممنوعه</Resource>
+    <Resource tag="admin_bannedname">Banned Names</Resource>
     <Resource tag="admin_bbcode">افزونه های بی بی کد</Resource>
     <Resource tag="admin_boards">تابلو ها</Resource>
     <Resource tag="admin_boardsettings">تنظیمات تابلو</Resource>
@@ -1806,6 +1872,7 @@
     <Resource tag="Maintenance">نگهداری</Resource>
     <Resource tag="NNTP">NNTP</Resource>
     <Resource tag="Settings">تنظیمات</Resource>
+    <Resource tag="Spam_Protection">Spam Protection</Resource>
     <Resource tag="Upgrade">بروز رسانی</Resource>
     <Resource tag="UsersandRoles">کاربران و نقش ها</Resource>
   </page>
