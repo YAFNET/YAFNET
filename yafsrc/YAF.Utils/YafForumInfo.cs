@@ -143,7 +143,7 @@ namespace YAF.Utils
         {
             get
             {
-                return 55;
+                return 56;
             }
         }
 
