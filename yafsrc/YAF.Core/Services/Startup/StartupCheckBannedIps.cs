@@ -153,10 +153,16 @@ namespace YAF.Core.Services.Startup
                     null,
                     "Banned IP Blocked",
                     @"Ending Response for Banned User at IP ""{0}""".FormatWith(ipToCheck),
-                    EventLogTypes.Information);
+                    EventLogTypes.IpBanDetected);
+            }
+
+            if (Config.BannedIpRedirectUrl.IsSet())
+            {
+                this.HttpResponseBase.Redirect(Config.BannedIpRedirectUrl);
             }
 
             this.HttpResponseBase.End();
+
             return false;
         }
 

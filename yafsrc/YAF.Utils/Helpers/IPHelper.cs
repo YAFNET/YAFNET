@@ -51,11 +51,11 @@ namespace YAF.Utils.Helpers
         /// </summary>
         private static readonly List<string> nonRoutableIPv4Networks = new List<string>
                                                                            {
-                                                                               "10.0.0.0/8", 
-                                                                               "172.16.0.0/12", 
-                                                                               "192.168.0.0/16", 
-                                                                               "169.254.0.0/16", 
-                                                                               "127.0.0.0/8", 
+                                                                               "10.0.0.0/8",
+                                                                               "172.16.0.0/12",
+                                                                               "192.168.0.0/16",
+                                                                               "169.254.0.0/16",
+                                                                               "127.0.0.0/8",
                                                                                "0.0.0.0/8"
                                                                            };
 
@@ -64,10 +64,10 @@ namespace YAF.Utils.Helpers
         /// </summary>
         private static readonly List<string> nonRoutableIPv6Networks = new List<string>
                                                                            {
-                                                                               "::/128", 
-                                                                               "::1/128", 
-                                                                               "2001:db8::/32", 
-                                                                               "fc00::/7", 
+                                                                               "::/128",
+                                                                               "::1/128",
+                                                                               "2001:db8::/32",
+                                                                               "fc00::/7",
                                                                                "::ffff:0:0/96"
                                                                            };
 
@@ -96,8 +96,10 @@ namespace YAF.Utils.Helpers
             try
             {
                 // Loop through all address InterNetwork - Address for IP version 4))
-                foreach (var ipAddress in Dns.GetHostAddresses(addressIpv6)
-                    .Where(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork))
+                foreach (
+                    var ipAddress in
+                        Dns.GetHostAddresses(addressIpv6)
+                            .Where(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork))
                 {
                     ip4Address = ipAddress.ToString();
                     break;
@@ -109,8 +111,10 @@ namespace YAF.Utils.Helpers
                 }
 
                 // to find by host name - is not in use so far. 
-                foreach (var ipAddress in Dns.GetHostAddresses(Dns.GetHostName())
-                    .Where(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork))
+                foreach (
+                    var ipAddress in
+                        Dns.GetHostAddresses(Dns.GetHostName())
+                            .Where(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork))
                 {
                     ip4Address = ipAddress.ToString();
                     break;
@@ -164,8 +168,8 @@ namespace YAF.Utils.Helpers
             {
                 string[] ipAddresses = ipString.Split(',');
                 string firstNonLocalAddress =
-                    ipAddresses.FirstOrDefault(ip => 
-                        IPAddress.TryParse(ipString.Split(',')[0].Trim(), out ipAddress) && ipAddress.IsRoutable());
+                    ipAddresses.FirstOrDefault(
+                        ip => IPAddress.TryParse(ipString.Split(',')[0].Trim(), out ipAddress) && ipAddress.IsRoutable());
 
                 if (!string.IsNullOrEmpty(firstNonLocalAddress))
                 {
@@ -174,15 +178,15 @@ namespace YAF.Utils.Helpers
             }
 
             ipString = httpRequest.Headers["X-Real-IP"];
-            if (ipString.IsSet())
+
+            if (!ipString.IsSet())
             {
-                if (IPAddress.TryParse((ipString.Split(',').LastOrDefault() ?? string.Empty).Trim(), out ipAddress))
-                {
-                    return ipString;
-                }
+                return httpRequest.UserHostAddress;
             }
 
-            return httpRequest.UserHostAddress;
+            return IPAddress.TryParse((ipString.Split(',').LastOrDefault() ?? string.Empty).Trim(), out ipAddress)
+                       ? ipString
+                       : httpRequest.UserHostAddress;
         }
 
         /// <summary>
@@ -194,7 +198,7 @@ namespace YAF.Utils.Helpers
         /// <returns>
         /// The ip str to long.
         /// </returns>
-        public static ulong IPStrToLong([NotNull] string ipAddress)
+        public static ulong IPStringToLong([NotNull] string ipAddress)
         {
             // not sure why it gives me this for local users on firefox--but it does...
             CodeContracts.VerifyNotNull(ipAddress, "ipAddress");
@@ -205,7 +209,7 @@ namespace YAF.Utils.Helpers
             }
 
             string[] ip = ipAddress.Split('.');
-            return Str2IP(ip);
+            return StringToIP(ip);
         }
 
         /// <summary>
@@ -226,9 +230,15 @@ namespace YAF.Utils.Helpers
             CodeContracts.VerifyNotNull(chk, "chk");
 
             string bannedIP = ban.Trim();
+
             if (chk == "::1")
             {
                 chk = "127.0.0.1";
+            }
+
+            if (bannedIP == "::1")
+            {
+                bannedIP = "127.0.0.1";
             }
 
             string[] ipmask = bannedIP.Split('.');
@@ -247,9 +257,9 @@ namespace YAF.Utils.Helpers
                 }
             }
 
-            ulong banmask = Str2IP(ip);
-            ulong banchk = Str2IP(ipmask);
-            ulong ipchk = Str2IP(chk.Split('.'));
+            ulong banmask = StringToIP(ip);
+            ulong banchk = StringToIP(ipmask);
+            ulong ipchk = StringToIP(chk.Split('.'));
 
             return (ipchk & banchk) == banmask;
         }
@@ -263,7 +273,7 @@ namespace YAF.Utils.Helpers
         /// <returns>
         /// ulong represending an encoding IP address
         /// </returns>
-        public static ulong Str2IP([NotNull] string[] ip)
+        public static ulong StringToIP([NotNull] string[] ip)
         {
             CodeContracts.VerifyNotNull(ip, "ip");
 
@@ -292,13 +302,11 @@ namespace YAF.Utils.Helpers
         #region Methods
 
         /// <summary>
+        /// Converts to byte array.
         /// </summary>
-        /// <param name="bitArray">
-        /// </param>
-        /// <returns>
-        /// The <see cref="byte[]"/>.
-        /// </returns>
-        private static byte[] ConvertToByteArray(BitArray bitArray)
+        /// <param name="bitArray">The bit array.</param>
+        /// <returns>Returns the byte array</returns>
+        private static IEnumerable<byte> ConvertToByteArray(BitArray bitArray)
         {
             // pack (in this case, using the first bool as the lsb - if you want
             // the first bool as the msb, reverse things ;-p)
@@ -315,26 +323,28 @@ namespace YAF.Utils.Helpers
                 }
 
                 bitIndex++;
-                if (bitIndex == 8)
+
+                if (bitIndex != 8)
                 {
-                    bitIndex = 0;
-                    byteIndex++;
+                    continue;
                 }
+
+                bitIndex = 0;
+                byteIndex++;
             }
 
             return arr2;
         }
 
         /// <summary>
+        /// Determines whether [is ip address in range] [the specified ip address bytes].
         /// </summary>
-        /// <see cref="http://stackoverflow.com/questions/8230728/is-there-a-function-that-can-take-an-ipaddress-as-string-and-tell-me-if-its-a-no"/>
-        /// <param name="ipAddressBytes">
-        /// </param>
-        /// <param name="reservedIpAddress">
-        /// </param>
+        /// <param name="ipAddressBytes">The ip address bytes.</param>
+        /// <param name="reservedIpAddress">The reserved ip address.</param>
         /// <returns>
-        /// The <see cref="bool"/>.
+        /// The <see cref="bool" />.
         /// </returns>
+        /// <see cref="http://stackoverflow.com/questions/8230728/is-there-a-function-that-can-take-an-ipaddress-as-string-and-tell-me-if-its-a-no" />
         private static bool IsIpAddressInRange(byte[] ipAddressBytes, string reservedIpAddress)
         {
             if (reservedIpAddress.IsNotSet())
@@ -355,7 +365,7 @@ namespace YAF.Utils.Helpers
             }
 
             string ipAddressRange = ipAddressSplit[0];
-            IPAddress ipAddress = null;
+            IPAddress ipAddress;
 
             if (!IPAddress.TryParse(ipAddressRange, out ipAddress))
             {
@@ -363,23 +373,29 @@ namespace YAF.Utils.Helpers
             }
 
             byte[] ipBytes = ipAddress.GetAddressBytes();
-            int bits = 0;
+            int bits;
             if (!int.TryParse(ipAddressSplit[1], out bits))
             {
                 bits = 0;
             }
 
             byte[] maskBytes = null;
-            if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
+
+            switch (ipAddress.AddressFamily)
             {
-                uint mask = ~(uint.MaxValue >> bits);
-                maskBytes = BitConverter.GetBytes(mask).Reverse().ToArray();
-            }
-            else if (ipAddress.AddressFamily == AddressFamily.InterNetworkV6)
-            {
-                var bitArray = new BitArray(128, false);
-                ShiftRight(bitArray, bits, true);
-                maskBytes = ConvertToByteArray(bitArray).Reverse().ToArray();
+                case AddressFamily.InterNetwork:
+                    {
+                        uint mask = ~(uint.MaxValue >> bits);
+                        maskBytes = BitConverter.GetBytes(mask).Reverse().ToArray();
+                    }
+                    break;
+                case AddressFamily.InterNetworkV6:
+                    {
+                        var bitArray = new BitArray(128, false);
+                        ShiftRight(bitArray, bits, true);
+                        maskBytes = ConvertToByteArray(bitArray).Reverse().ToArray();
+                    }
+                    break;
             }
 
             bool result = true;
@@ -421,13 +437,11 @@ namespace YAF.Utils.Helpers
         }
 
         /// <summary>
+        /// Shifts the right.
         /// </summary>
-        /// <param name="bitArray">
-        /// </param>
-        /// <param name="shiftN">
-        /// </param>
-        /// <param name="fillValue">
-        /// </param>
+        /// <param name="bitArray">The bit array.</param>
+        /// <param name="shiftN">The shift n.</param>
+        /// <param name="fillValue">if set to <c>true</c> [fill value].</param>
         private static void ShiftRight(BitArray bitArray, int shiftN, bool fillValue)
         {
             for (int i = shiftN; i < bitArray.Count; i++)
