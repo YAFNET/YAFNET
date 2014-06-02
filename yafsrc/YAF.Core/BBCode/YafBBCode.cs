@@ -596,7 +596,7 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImg,
-                        "<img src=\"${http}//${inner}\" alt=\"UserPostedImage\" class=\"UserPostedImage\"{0} />".Replace(
+                        "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"UserPostedImage\"{0} />".Replace(
                             "{0}", styleAttribute),
                         new[]
                             {
@@ -607,7 +607,7 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImgEmptyTitle,
-                        "<img src=\"${http}//${inner}\" alt=\"UserPostedImage\" class=\"UserPostedImage\"{0} />".Replace(
+                        "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"UserPostedImage\"{0} />".Replace(
                             "{0}", styleAttribute),
                         new[]
                             {
@@ -618,7 +618,7 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxImgTitle,
-                        "<img src=\"${http}//${inner}\" alt=\"${description}\" title=\"${description}\" class=\"UserPostedImage\"{0} />"
+                        "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" class=\"UserPostedImage\"{0} />"
                             .Replace("{0}", styleAttribute),
                         new[]
                             {
