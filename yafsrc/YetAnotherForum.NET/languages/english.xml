@@ -4797,7 +4797,7 @@ Spoiler Content
   <Resource tag="NEED_USERNAME">User Name is required.</Resource>
   <Resource tag="PASSWORD">Password</Resource>
   <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Password Requirements</Resource>
-  <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length. {1} minimum non-alphanumeric characters (jQuery#@!).</Resource>
+  <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length. {1} minimum non-alphanumeric characters (#@!).</Resource>
   <Resource tag="PREFERENCES">Forum Preferences</Resource>
   <Resource tag="PROFILE">Profile Information</Resource>
   <Resource tag="RECAPTCHA_BADSETTING">Recapture settings are bad. Report it to administration.</Resource>
