@@ -1125,7 +1125,7 @@ namespace YAF.Controls
 
         if (this.Get<YafBoardSettings>().PollVoteTiedToIP)
         {
-            remoteIp = IPHelper.IPStrToLong(this.Request.GetUserRealIPAddress()).ToString();
+            remoteIp = IPHelper.IPStringToLong(this.Request.GetUserRealIPAddress()).ToString();
         }
 
         if (!this.PageContext.IsGuest)

@@ -232,7 +232,7 @@ namespace YAF.Controls
 
       if (this.PageContext.BoardSettings.PollVoteTiedToIP)
       {
-        remoteIP = IPHelper.IPStrToLong(this.Request.ServerVariables["REMOTE_ADDR"]).ToString();
+        remoteIP = IPHelper.IPStringToLong(this.Request.ServerVariables["REMOTE_ADDR"]).ToString();
       }
 
       if (!this.PageContext.IsGuest)
