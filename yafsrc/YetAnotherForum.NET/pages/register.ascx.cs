@@ -1047,44 +1047,42 @@ namespace YAF.Pages
 
             if (!this.IsPossibleSpamBotInternalCheck)
             {
-                return;
+                userProfile.Location = locationTextBox.Text.Trim();
+                userProfile.Homepage = homepageTextBox.Text.Trim();
+
+                userProfile.Save();
+
+                // save the time zone...
+                LegacyDb.user_save(
+                    userID: userId,
+                    boardID: this.PageContext.PageBoardID,
+                    userName: null,
+                    displayName: null,
+                    email: null,
+                    timeZone: timeZones.SelectedValue.ToType<int>(),
+                    languageFile: null,
+                    culture: null,
+                    themeFile: null,
+                    textEditor: null,
+                    useMobileTheme: null,
+                    approved: null,
+                    pmNotification: null,
+                    autoWatchTopics: null,
+                    dSTUser: dstUser.Checked,
+                    hideUser: null,
+                    notificationType: null);
+
+                bool autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting
+                                              == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
+
+                // save the settings...
+                LegacyDb.user_savenotification(
+                    userId,
+                    true,
+                    autoWatchTopicsEnabled,
+                    this.Get<YafBoardSettings>().DefaultNotificationSetting,
+                    this.Get<YafBoardSettings>().DefaultSendDigestEmail);
             }
-
-            userProfile.Location = locationTextBox.Text.Trim();
-            userProfile.Homepage = homepageTextBox.Text.Trim();
-
-            userProfile.Save();
-
-            // save the time zone...
-            LegacyDb.user_save(
-                userID: userId,
-                boardID: this.PageContext.PageBoardID,
-                userName: null,
-                displayName: null,
-                email: null,
-                timeZone: timeZones.SelectedValue.ToType<int>(),
-                languageFile: null,
-                culture: null,
-                themeFile: null,
-                textEditor: null,
-                useMobileTheme: null,
-                approved: null,
-                pmNotification: null,
-                autoWatchTopics: null,
-                dSTUser: dstUser.Checked,
-                hideUser: null,
-                notificationType: null);
-
-            bool autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting
-                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
-
-            // save the settings...
-            LegacyDb.user_savenotification(
-                userId,
-                true,
-                autoWatchTopicsEnabled,
-                this.Get<YafBoardSettings>().DefaultNotificationSetting,
-                this.Get<YafBoardSettings>().DefaultSendDigestEmail);
         }
 
         #endregion
