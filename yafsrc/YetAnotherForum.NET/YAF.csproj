@@ -335,6 +335,24 @@
     <Compile Include="pages\admin\attachments.ascx.designer.cs">
       <DependentUpon>attachments.ascx</DependentUpon>
     </Compile>
+    <Compile Include="pages\admin\bannedemail.ascx.cs">
+      <DependentUpon>bannedemail.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\bannedemail.ascx.designer.cs">
+      <DependentUpon>bannedemail.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\bannedemail_edit.ascx.cs">
+      <DependentUpon>bannedemail_edit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\bannedemail_edit.ascx.designer.cs">
+      <DependentUpon>bannedemail_edit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\bannedemail_import.ascx.cs">
+      <DependentUpon>bannedemail_import.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\bannedemail_import.ascx.designer.cs">
+      <DependentUpon>bannedemail_import.ascx</DependentUpon>
+    </Compile>
     <Compile Include="pages\admin\bannedip.ascx.designer.cs">
       <DependentUpon>bannedip.ascx</DependentUpon>
     </Compile>
@@ -347,6 +365,24 @@
     </Compile>
     <Compile Include="pages\admin\bannedip_import.ascx.designer.cs">
       <DependentUpon>bannedip_import.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\bannedname.ascx.cs">
+      <DependentUpon>bannedname.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\bannedname.ascx.designer.cs">
+      <DependentUpon>bannedname.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\bannedname_edit.ascx.cs">
+      <DependentUpon>bannedname_edit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\bannedname_edit.ascx.designer.cs">
+      <DependentUpon>bannedname_edit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\bannedname_import.ascx.cs">
+      <DependentUpon>bannedname_import.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\bannedname_import.ascx.designer.cs">
+      <DependentUpon>bannedname_import.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\admin\bbcode.ascx.designer.cs">
       <DependentUpon>bbcode.ascx</DependentUpon>
@@ -1302,6 +1338,12 @@
     <Content Include="languages\install\english.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="pages\admin\bannedemail.ascx" />
+    <Content Include="pages\admin\bannedemail_edit.ascx" />
+    <Content Include="pages\admin\bannedemail_import.ascx" />
+    <Content Include="pages\admin\bannedname.ascx" />
+    <Content Include="pages\admin\bannedname_edit.ascx" />
+    <Content Include="pages\admin\bannedname_import.ascx" />
     <Content Include="pages\admin\eventloggroupaccess.ascx" />
     <Content Include="pages\admin\eventloggroups.ascx" />
     <Content Include="pages\admin\pageaccessedit.ascx" />
