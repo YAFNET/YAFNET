@@ -9,7 +9,7 @@
 <tr class="postheader">		
     <%#GetIndentCell()%>
     <td width="140" id="NameCell" class="postUser" runat="server">
-        <a id="post<%# DataRow["MessageID"] %>" /><strong>
+        <strong>
             <YAF:OnlineStatusImage id="OnlineStatusImage" runat="server" Visible='<%# this.Get<YafBoardSettings>().ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( DataRow["UserID"] )%>' Style="vertical-align: bottom" UserID='<%# DataRow["UserID"] %>'  />
             <YAF:ThemeImage ID="ThemeImgSuspended" ThemePage="ICONS" ThemeTag="USER_SUSPENDED"  UseTitleForEmptyAlt="True" Enabled='<%# DataRow["Suspended"] != DBNull.Value && DataRow["Suspended"].ToType<DateTime>() > DateTime.UtcNow %>' runat="server"></YAF:ThemeImage>
             <YAF:UserLink  ID="UserProfileLink" runat="server" UserID='<%# DataRow["UserID"]%>' ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName && (!DataRow["IsGuest"].ToType<bool>() || (DataRow["IsGuest"].ToType<bool>() && DataRow["DisplayName"].ToString() == DataRow["UserName"].ToString())) ? DataRow["DisplayName"] : DataRow["UserName"]%>' PostfixText='<%# DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : String.Empty %>' Style='<%#DataRow["Style"]%>' CssClass="UserPopMenuLink" EnableHoverCard="False" />
@@ -19,7 +19,7 @@
     </td>
     <td width="80%" class="postPosted" colspan='<%#GetIndentSpan()%>'>
         <div class="leftItem postedLeft">        
-            <strong><a href='<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}",DataRow["MessageID"]) %>'>
+            <strong><a name="post<%# DataRow["MessageID"] %>" href='<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}",DataRow["MessageID"]) %>'>
                 #<%# (CurrentPage * this.Get<YafBoardSettings>().PostsPerPage) + PostCount + 1%></a>
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="POSTED" />
                 :</strong>
@@ -68,7 +68,7 @@
         </a>
      <span id="IPSpan1" class="rightItem postInfoRight" runat="server" visible="false"> 
 		&nbsp;&nbsp;
-		<b><%# this.GetText("IP") %>:</b>&nbsp;<a id="IPLink1" target="_blank" runat="server"/>			   
+		<strong><%# this.GetText("IP") %>:</strong>&nbsp;<a id="IPLink1" target="_blank" runat="server"/>			   
 	</span> 		
     </td>
 		<td class="postfooter postInfoBottom">
