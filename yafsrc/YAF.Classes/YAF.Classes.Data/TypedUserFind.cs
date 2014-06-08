@@ -79,7 +79,17 @@ namespace YAF.Types.Objects
             this.NotificationType = row.Field<int?>("NotificationType");
             this.DailyDigest = row.Field<bool?>("DailyDigest");
             this.IsGuest = row.Field<bool>("IsGuest");
-            this.ProviderUserKey = this.IsGuest ? null : ObjectExtensions.ConvertObjectToType(row.Field<string>("ProviderUserKey"), Config.ProviderKeyType);
+
+            try
+            {
+                this.ProviderUserKey = this.IsGuest ? null : ObjectExtensions.ConvertObjectToType(row.Field<string>("ProviderUserKey"), Config.ProviderKeyType);
+            }
+            catch (Exception)
+            {
+                this.IsGuest = true;
+                this.ProviderUserKey = null;
+            }
+            
         }
 
         #endregion
