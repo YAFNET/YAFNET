@@ -259,7 +259,7 @@ namespace YAF.Utilities
             get
             {
                 return
-                    @" if( typeof(CKEDITOR) == 'undefined' ) {{Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
+                    @" if( typeof(CKEDITOR) == 'undefined' && typeof loadTimeAgo == 'function') {{Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
             function loadTimeAgo() {{	
             {2}.timeago.settings.refreshMillis = {1};			      	
             {0}
