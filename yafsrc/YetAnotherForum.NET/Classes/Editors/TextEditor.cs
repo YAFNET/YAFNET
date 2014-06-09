@@ -153,10 +153,21 @@ namespace YAF.Editors
                 "YafEditorJs",
                 this.ResolveUrl("yafEditor/yafEditor.js"));
 
+            YafContext.Current.PageElements.RegisterJsInclude(
+                "CodeMirrorJs",
+                this.ResolveUrl("ckeditor/plugins/codemirror/js/codemirror.min.js"));
+
+            YafContext.Current.PageElements.RegisterJsInclude(
+                "CodeMirrorBBCodeJs",
+                this.ResolveUrl("ckeditor/plugins/codemirror/js/codemirror.mode.bbcode.min.js"));
+
             YafContext.Current.PageElements.RegisterJsBlock(
                 "CreateYafEditorJs",
                 "var {0}=new yafEditor('{0}');\nfunction setStyle(style,option) {{\n{0}.FormatText(style,option);\n}}\n"
                     .FormatWith(this.SafeID));
+
+            YafContext.Current.PageElements.RegisterCssInclude(
+                this.ResolveUrl("ckeditor/plugins/codemirror/css/codemirror.min.css"));
 
             this.RegisterSmilieyScript();
         }
@@ -178,7 +189,7 @@ namespace YAF.Editors
         }
 
         /// <summary>
-        /// The register smiliey script.
+        /// Registers the smiliey script.
         /// </summary>
         protected virtual void RegisterSmilieyScript()
         {

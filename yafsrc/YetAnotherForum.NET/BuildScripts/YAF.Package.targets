@@ -67,10 +67,10 @@
     
     <!-- Minify JS and CSS Files -->
     <ItemGroup>
-      <JS Include="$(MSBuildProjectDirectory)\Package\**\*.js" Exclude="**\*.min.js;**\*-min.js;**\*_src.js;$(MSBuildProjectDirectory)\Package\editors\ckeditor\**\*.js;$(MSBuildProjectDirectory)\Package\editors\tiny_mce\**\*.js;" />
+      <JS Include="$(MSBuildProjectDirectory)\Package\**\*.js" Exclude="**\*.min.js;**\*-min.js;**\*_src.js;$(MSBuildProjectDirectory)\Package\Scripts\ckeditor\**\*.js;$(MSBuildProjectDirectory)\Package\Scripts\tinymce\**\*.js;" />
     </ItemGroup>
     <ItemGroup>
-      <CSS Include="$(MSBuildProjectDirectory)\Package\**\*.css" Exclude="**\*.min.css;**\*_src.css;$(MSBuildProjectDirectory)\Package\themes\**\*.css;$(MSBuildProjectDirectory)\Package\editors\ckeditor\**\*.css;$(MSBuildProjectDirectory)\Package\editors\tiny_mce\**\*.css;" />
+      <CSS Include="$(MSBuildProjectDirectory)\Package\**\*.css" Exclude="**\*.min.css;**\*_src.css;$(MSBuildProjectDirectory)\Package\themes\**\*.css;$(MSBuildProjectDirectory)\Package\Scripts\ckeditor\**\*.css;$(MSBuildProjectDirectory)\Package\Scripts\tinymce\**\*.css;" />
     </ItemGroup>
     <AjaxMin JsSourceFiles="@(JS)" JsSourceExtensionPattern="\.js$" JsTargetExtension=".js" CssSourceFiles="@(CSS)" CssSourceExtensionPattern="\.css$" CssTargetExtension=".css"  />
 
