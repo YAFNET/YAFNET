@@ -46,14 +46,14 @@ namespace YAF.Editors
     #endregion
 
     /// <summary>
-    /// The bb code editor.
+    /// The Standard YAF BBCode editor.
     /// </summary>
     public class BBCodeEditor : TextEditor
     {
         #region Constants and Fields
 
         /// <summary>
-        ///   The BB Code menu.
+        ///   The BBCode menu.
         /// </summary>
         private AlbumListPopMenu _popMenuAlbums;
 
@@ -72,7 +72,7 @@ namespace YAF.Editors
         #region Properties
 
         /// <summary>
-        ///   Gets Description.
+        ///   Gets the Description.
         /// </summary>
         [NotNull]
         public override string Description
@@ -84,7 +84,7 @@ namespace YAF.Editors
         }
 
         /// <summary>
-        ///   Gets ModuleId.
+        ///   Gets the Module Id.
         /// </summary>
         public override string ModuleId
         {
@@ -111,14 +111,10 @@ namespace YAF.Editors
         #region Methods
 
         /// <summary>
-        /// The editor_ pre render.
+        /// Handles the PreRender event of the Editor control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected override void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             base.Editor_PreRender(sender, e);
@@ -131,11 +127,9 @@ namespace YAF.Editors
         }
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             base.OnInit(e);
@@ -155,20 +149,26 @@ namespace YAF.Editors
         }
 
         /// <summary>
-        /// The render.
+        /// Sends server control content to a provided <see cref="T:System.Web.UI.HtmlTextWriter" /> object, which writes the content to be rendered on the client.
         /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
+        /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the server control content.</param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
             writer.WriteLine(@"<table border=""0"" id=""bbcodeFeatures"">");
             writer.WriteLine("<tr><td>");
 
             this.RenderButton(
-                writer, "bold", "FormatText('bold','')", this.GetText("COMMON", "TT_BOLD"), "yafEditor/bold.gif");
+                writer,
+                "bold",
+                "FormatText('bold','')",
+                this.GetText("COMMON", "TT_BOLD"),
+                "yafEditor/bold.gif");
             this.RenderButton(
-                writer, "italic", "FormatText('italic','')", this.GetText("COMMON", "TT_ITALIC"), "yafEditor/italic.gif");
+                writer,
+                "italic",
+                "FormatText('italic','')",
+                this.GetText("COMMON", "TT_ITALIC"),
+                "yafEditor/italic.gif");
 
             this.RenderButton(
                 writer,
@@ -187,7 +187,11 @@ namespace YAF.Editors
                 "yafEditor/highlight.gif");
 
             this.RenderButton(
-                writer, "quote", "FormatText('quote','')", this.GetText("COMMON", "TT_QUOTE"), "yafEditor/quote.gif");
+                writer,
+                "quote",
+                "FormatText('quote','')",
+                this.GetText("COMMON", "TT_QUOTE"),
+                "yafEditor/quote.gif");
 
             // add drop down for optional "extra" codes...
             writer.WriteLine(
@@ -201,42 +205,124 @@ namespace YAF.Editors
                         this.ResolveUrl("yafEditor/code.gif")));
 
             var highLightList = new List<HighLightList>
-                {
-                    new HighLightList { BrushAlias = "plain", BrushName = "Plain Text" },
-                    new HighLightList { BrushAlias = "as3", BrushName = "ActionScript3" },
-                    new HighLightList { BrushAlias = "bash", BrushName = "Bash(shell)" },
-                    new HighLightList { BrushAlias = "coldfusion", BrushName = "ColdFusion" },
-                    new HighLightList { BrushAlias = "csharp", BrushName = "C#" },
-                    new HighLightList { BrushAlias = "cpp", BrushName = "C++" },
-                    new HighLightList { BrushAlias = "css", BrushName = "CSS/Html" },
-                    new HighLightList { BrushAlias = "delphi", BrushName = "Delphi" },
-                    new HighLightList { BrushAlias = "diff", BrushName = "Diff" },
-                    new HighLightList { BrushAlias = "erlang", BrushName = "Erlang" },
-                    new HighLightList { BrushAlias = "groovy", BrushName = "Groovy" },
-                    new HighLightList { BrushAlias = "jscript", BrushName = "JavaScript" },
-                    new HighLightList { BrushAlias = "java", BrushName = "Java" },
-                    new HighLightList { BrushAlias = "javafx", BrushName = "JavaFX" },
-                    new HighLightList { BrushAlias = "perl", BrushName = "Perl" },
-                    new HighLightList { BrushAlias = "php", BrushName = "PHP" },
-                    new HighLightList { BrushAlias = "powershell", BrushName = "PowerShell" },
-                    new HighLightList { BrushAlias = "python", BrushName = "Pyton" },
-                    new HighLightList { BrushAlias = "ruby", BrushName = "Ruby" },
-                    new HighLightList { BrushAlias = "scala", BrushName = "Scala" },
-                    new HighLightList { BrushAlias = "sql", BrushName = "SQL" },
-                    new HighLightList { BrushAlias = "vb", BrushName = "Visual Basic" },
-                    new HighLightList { BrushAlias = "xml", BrushName = "XML" }
-                };
+                                    {
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "plain",
+                                                BrushName = "Plain Text"
+                                            },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "as3",
+                                                BrushName = "ActionScript3"
+                                            },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "bash",
+                                                BrushName = "Bash(shell)"
+                                            },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "coldfusion",
+                                                BrushName = "ColdFusion"
+                                            },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "csharp",
+                                                BrushName = "C#"
+                                            },
+                                        new HighLightList { BrushAlias = "cpp", BrushName = "C++" },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "css",
+                                                BrushName = "CSS/Html"
+                                            },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "delphi",
+                                                BrushName = "Delphi"
+                                            },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "diff",
+                                                BrushName = "Diff"
+                                            },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "erlang",
+                                                BrushName = "Erlang"
+                                            },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "groovy",
+                                                BrushName = "Groovy"
+                                            },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "jscript",
+                                                BrushName = "JavaScript"
+                                            },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "java",
+                                                BrushName = "Java"
+                                            },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "javafx",
+                                                BrushName = "JavaFX"
+                                            },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "perl",
+                                                BrushName = "Perl"
+                                            },
+                                        new HighLightList { BrushAlias = "php", BrushName = "PHP" },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "powershell",
+                                                BrushName = "PowerShell"
+                                            },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "python",
+                                                BrushName = "Pyton"
+                                            },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "ruby",
+                                                BrushName = "Ruby"
+                                            },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "scala",
+                                                BrushName = "Scala"
+                                            },
+                                        new HighLightList { BrushAlias = "sql", BrushName = "SQL" },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "vb",
+                                                BrushName = "Visual Basic"
+                                            },
+                                        new HighLightList { BrushAlias = "xml", BrushName = "XML" }
+                                    };
 
             foreach (HighLightList item in highLightList)
             {
                 this._popMenuBBCode.AddClientScriptItem(
-                    item.BrushName, "setStyle('codelang','{0}')".FormatWith(item.BrushAlias));
+                    item.BrushName,
+                    "setStyle('codelang','{0}')".FormatWith(item.BrushAlias));
             }
 
             this.RenderButton(
-                writer, "img", "FormatText('img','')", this.GetText("COMMON", "TT_IMAGE"), "yafEditor/image.gif");
+                writer,
+                "img",
+                "FormatText('img','')",
+                this.GetText("COMMON", "TT_IMAGE"),
+                "yafEditor/image.gif");
 
-            if (this.Get<YafBoardSettings>().EnableAlbum && (this.PageContext.UsrAlbums > 0 && this.PageContext.NumAlbums > 0))
+            if (this.Get<YafBoardSettings>().EnableAlbum
+                && (this.PageContext.UsrAlbums > 0 && this.PageContext.NumAlbums > 0))
             {
                 var albumImageList = LegacyDb.album_images_by_user(this.PageContext.PageUserID);
 
@@ -253,7 +339,9 @@ namespace YAF.Editors
                 foreach (DataRow row in albumImageList.Rows)
                 {
                     this._popMenuAlbums.AddClientScriptItem(
-                        !string.IsNullOrEmpty(row["Caption"].ToString()) ? row["Caption"].ToString() : row["FileName"].ToString(),
+                        !string.IsNullOrEmpty(row["Caption"].ToString())
+                            ? row["Caption"].ToString()
+                            : row["FileName"].ToString(),
                         "setStyle('AlbumImgId','{0}')".FormatWith(row["ImageID"]),
                         "{0}resource.ashx?image={1}".FormatWith(YafForumInfo.ForumClientFileRoot, row["ImageID"]));
                 }
@@ -355,8 +443,11 @@ namespace YAF.Editors
 
             // add spell check button.
             writer.WriteLine(
-                @"<img src=""{2}"" id=""{0}_spell"" alt=""{1}"" title=""{1}"" onload=""Button_Load(this)"" />".FormatWith(
-                        this.SafeID, this.GetText("COMMON", "SPELL"), this.ResolveUrl("yafEditor/spellcheck.gif")));
+                @"<img src=""{2}"" id=""{0}_spell"" alt=""{1}"" title=""{1}"" onload=""Button_Load(this)"" />"
+                    .FormatWith(
+                        this.SafeID,
+                        this.GetText("COMMON", "SPELL"),
+                        this.ResolveUrl("yafEditor/spellcheck.gif")));
 
             writer.WriteLine("	</td></tr>");
             writer.WriteLine("	<tr><td>");
@@ -364,13 +455,14 @@ namespace YAF.Editors
             // TODO: Convert to a control...
             writer.WriteLine(this.GetText("COMMON", "FONT_COLOR"));
             writer.WriteLine(
-                "<select onchange=\"if(this.value!='') setStyle('color',this.value); this.value=''\">", this.SafeID);
+                "<select onchange=\"if(this.value!='') setStyle('color',this.value); this.value=''\">");
             writer.WriteLine("<option value=\"\">Default</option>");
 
-            string[] colors = {
-                                  "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue",
-                                  "Dark Blue", "Indigo", "Violet", "White", "Black"
-                              };
+            string[] colors =
+                {
+                    "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue",
+                    "Dark Blue", "Indigo", "Violet", "White", "Black"
+                };
 
             foreach (string color in colors)
             {
@@ -383,7 +475,7 @@ namespace YAF.Editors
             // TODO: Just convert to a drop down control...
             writer.WriteLine(this.GetText("COMMON", "FONT_SIZE"));
             writer.WriteLine(
-                "<select onchange=\"if(this.value!='') setStyle('fontsize',this.value); this.value=''\">", this.SafeID);
+                "<select onchange=\"if(this.value!='') setStyle('fontsize',this.value); this.value=''\">");
             writer.WriteLine("<option value=\"1\">1</option>");
             writer.WriteLine("<option value=\"2\">2</option>");
             writer.WriteLine("<option value=\"3\">3</option>");

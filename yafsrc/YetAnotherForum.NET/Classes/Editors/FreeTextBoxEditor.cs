@@ -23,168 +23,162 @@
  */
 namespace YAF.Editors
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Reflection;
-  using System.Web.UI.WebControls;
+    using System;
+    using System.Reflection;
+    using System.Web.UI.WebControls;
 
-  using YAF.Core;
-  using YAF.Types;
-
-  #endregion
-
-  /// <summary>
-  /// The free text box editor.
-  /// </summary>
-  public class FreeTextBoxEditor : RichClassEditor
-  {
-    #region Constructors and Destructors
-
-    /// <summary>
-    ///   Initializes a new instance of the <see cref = "FreeTextBoxEditor" /> class.
-    /// </summary>
-    public FreeTextBoxEditor()
-      : base("FreeTextBoxControls.FreeTextBox,FreeTextBox")
-    {
-      this.InitEditorObject();
-    }
+    using YAF.Core;
+    using YAF.Types;
 
     #endregion
 
-    #region Properties
-
     /// <summary>
-    ///   Gets Description.
+    /// The free text box editor.
     /// </summary>
-    [NotNull]
-    public override string Description
+    public class FreeTextBoxEditor : RichClassEditor
     {
-      get
-      {
-        return "Free Text Box v2 (HTML)";
-      }
-    }
+        #region Constructors and Destructors
 
-    /// <summary>
-    ///   Gets ModuleId.
-    /// </summary>
-    public override string ModuleId
-    {
-      get
-      {
-        // backward compatibility...
-        return "3";
-      }
-    }
-
-    /// <summary>
-    ///   Gets or sets Text.
-    /// </summary>
-    [NotNull]
-    public override string Text
-    {
-      get
-      {
-        if (this._init)
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "FreeTextBoxEditor" /> class.
+        /// </summary>
+        public FreeTextBoxEditor()
+            : base("FreeTextBoxControls.FreeTextBox,FreeTextBox")
         {
-          PropertyInfo pInfo = this._typEditor.GetProperty("Text");
-          return Convert.ToString(pInfo.GetValue(this._editor, null));
+            this.InitEditorObject();
         }
-        else
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets Description.
+        /// </summary>
+        [NotNull]
+        public override string Description
         {
-          return string.Empty;
+            get
+            {
+                return "Free Text Box v2 (HTML)";
+            }
         }
-      }
 
-      set
-      {
-        if (this._init)
+        /// <summary>
+        ///   Gets ModuleId.
+        /// </summary>
+        public override string ModuleId
         {
-          PropertyInfo pInfo = this._typEditor.GetProperty("Text");
-          pInfo.SetValue(this._editor, value, null);
+            get
+            {
+                // backward compatibility...
+                return "3";
+            }
         }
-      }
+
+        /// <summary>
+        ///   Gets or sets Text.
+        /// </summary>
+        [NotNull]
+        public override string Text
+        {
+            get
+            {
+                if (!this._init)
+                {
+                    return string.Empty;
+                }
+
+                PropertyInfo pInfo = this._typEditor.GetProperty("Text");
+                return Convert.ToString(pInfo.GetValue(this._editor, null));
+            }
+
+            set
+            {
+                if (!this._init)
+                {
+                    return;
+                }
+                PropertyInfo pInfo = this._typEditor.GetProperty("Text");
+                pInfo.SetValue(this._editor, value, null);
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the Load event of the Editor control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected virtual void Editor_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (!this._init || !this._editor.Visible)
+            {
+                return;
+            }
+            PropertyInfo pInfo = this._typEditor.GetProperty("SupportFolder");
+            pInfo.SetValue(this._editor, this.ResolveUrl("FreeTextBox/"), null);
+            pInfo = this._typEditor.GetProperty("Width");
+            pInfo.SetValue(this._editor, Unit.Percentage(100), null);
+            pInfo = this._typEditor.GetProperty("DesignModeCss");
+            pInfo.SetValue(this._editor, this.StyleSheet, null);
+
+            // pInfo = typEditor.GetProperty("EnableHtmlMode");
+            // pInfo.SetValue(objEditor,false,null);
+        }
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+        protected override void OnInit([NotNull] EventArgs e)
+        {
+            if (this._init)
+            {
+                this.Load += this.Editor_Load;
+                PropertyInfo pInfo = this._typEditor.GetProperty("ID");
+                pInfo.SetValue(this._editor, "edit", null);
+                pInfo = this._typEditor.GetProperty("AutoGenerateToolbarsFromString");
+                pInfo.SetValue(this._editor, true, null);
+                pInfo = this._typEditor.GetProperty("ToolbarLayout");
+                pInfo.SetValue(
+                    this._editor,
+                    "FontFacesMenu,FontSizesMenu,FontForeColorsMenu;Bold,Italic,Underline|Cut,Copy,Paste,Delete,Undo,Redo|CreateLink,Unlink|JustifyLeft,JustifyRight,JustifyCenter,JustifyFull;BulletedList,NumberedList,Indent,Outdent",
+                    null);
+
+                this.AddEditorControl(this._editor);
+            }
+
+            base.OnInit(e);
+        }
+
+        /// <summary>
+        /// The On PreRender event.
+        /// </summary>
+        /// <param name="e">
+        /// the Event Arguments
+        /// </param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            this.RegisterSmilieyScript();
+            base.OnPreRender(e);
+        }
+
+        /// <summary>
+        /// The register smiliey script.
+        /// </summary>
+        protected virtual void RegisterSmilieyScript()
+        {
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "InsertSmileyJs",
+                "function insertsmiley(code){" + "FTB_InsertText('" + this.SafeID + "',code);" + "}\n");
+        }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The editor_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected virtual void Editor_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      if (this._init && this._editor.Visible)
-      {
-        PropertyInfo pInfo;
-        pInfo = this._typEditor.GetProperty("SupportFolder");
-        pInfo.SetValue(this._editor, this.ResolveUrl("FreeTextBox/"), null);
-        pInfo = this._typEditor.GetProperty("Width");
-        pInfo.SetValue(this._editor, Unit.Percentage(100), null);
-        pInfo = this._typEditor.GetProperty("DesignModeCss");
-        pInfo.SetValue(this._editor, this.StyleSheet, null);
-
-        // pInfo = typEditor.GetProperty("EnableHtmlMode");
-        // pInfo.SetValue(objEditor,false,null);
-      }
-    }
-
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit([NotNull] EventArgs e)
-    {
-      if (this._init)
-      {
-        this.Load += this.Editor_Load;
-        PropertyInfo pInfo = this._typEditor.GetProperty("ID");
-        pInfo.SetValue(this._editor, "edit", null);
-        pInfo = this._typEditor.GetProperty("AutoGenerateToolbarsFromString");
-        pInfo.SetValue(this._editor, true, null);
-        pInfo = this._typEditor.GetProperty("ToolbarLayout");
-        pInfo.SetValue(
-          this._editor, 
-          "FontFacesMenu,FontSizesMenu,FontForeColorsMenu;Bold,Italic,Underline|Cut,Copy,Paste,Delete,Undo,Redo|CreateLink,Unlink|JustifyLeft,JustifyRight,JustifyCenter,JustifyFull;BulletedList,NumberedList,Indent,Outdent", 
-          null);
-
-        this.AddEditorControl(this._editor);
-      }
-
-      base.OnInit(e);
-    }
-
-    /// <summary>
-    /// The On PreRender event.
-    /// </summary>
-    /// <param name="e">
-    /// the Event Arguments
-    /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
-    {
-      this.RegisterSmilieyScript();
-      base.OnPreRender(e);
-    }
-
-    /// <summary>
-    /// The register smiliey script.
-    /// </summary>
-    protected virtual void RegisterSmilieyScript()
-    {
-      YafContext.Current.PageElements.RegisterJsBlock(
-        "InsertSmileyJs", "function insertsmiley(code){" + "FTB_InsertText('" + this.SafeID + "',code);" + "}\n");
-    }
-
-    #endregion
-  }
 }

@@ -28,7 +28,6 @@ namespace YAF.Editors
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     /// <summary>
     /// The tiny mce html editor.
@@ -94,7 +93,8 @@ namespace YAF.Editors
         {
             YafContext.Current.PageElements.RegisterJsBlock(
                 "InsertSmileyJs",
-                "function insertsmiley(code,img) {{\n var ckEditor = CKEDITOR.instances.{0};\nif ( ckEditor.mode == 'wysiwyg' ) {{\nckEditor.insertHtml( '<img src=\"' + img + '\" alt=\"\" />' ); }}\nelse alert( 'You must be on WYSIWYG mode!' );\n}}\n".FormatWith(this._textCtl.ClientID));
+                "function insertsmiley(code,img) {{\n var ckEditor = CKEDITOR.instances.{0};\nif ( ckEditor.mode == 'wysiwyg' ) {{\nckEditor.insertHtml( '<img src=\"' + img + '\" alt=\"\" />' ); }}\nelse alert( 'You must be on WYSIWYG mode!' );\n}}\n"
+                    .FormatWith(this._textCtl.ClientID));
         }
 
         /// <summary>
@@ -103,10 +103,15 @@ namespace YAF.Editors
         protected override void RegisterCKEditorCustomJS()
         {
             YafContext.Current.PageElements.RegisterJsBlock(
-        "teditorlang",
-        @"var editorLanguage = ""{0}"";".FormatWith(YafContext.Current.CultureUser.IsSet() ? YafContext.Current.CultureUser.Substring(0, 2) : this.Get<YafBoardSettings>().Culture.Substring(0, 2)));
+                "teditorlang",
+                @"var editorLanguage = ""{0}"";".FormatWith(
+                    YafContext.Current.CultureUser.IsSet()
+                        ? YafContext.Current.CultureUser.Substring(0, 2)
+                        : this.Get<YafBoardSettings>().Culture.Substring(0, 2)));
 
-            YafContext.Current.PageElements.RegisterJsInclude("ckeditorinit", this.ResolveUrl("ckeditor/ckeditor_init.js"));
+            YafContext.Current.PageElements.RegisterJsInclude(
+                "ckeditorinit",
+                this.ResolveUrl("ckeditor/ckeditor_init.js"));
         }
 
         #endregion

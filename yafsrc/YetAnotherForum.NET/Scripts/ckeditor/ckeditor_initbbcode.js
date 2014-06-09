@@ -30,7 +30,7 @@
 			config.disableObjectResizing = true;
 			config.forcePasteAsPlainText = true;
 			
-			config.contentsCss = 'editors/ckeditor/contents.css';
+			config.contentsCss = 'Scripts/ckeditor/yaf_contents.css';
 		  });
 };
 

@@ -29,7 +29,7 @@ function CKEditor_Load() {
 			config.entities_latin = false;
 			config.language = editorLanguage;
 			
-			config.contentsCss = 'editors/ckeditor/contents.css';
+			config.contentsCss = 'Scripts/ckeditor/yaf_contents.css';
 		  });
 };
    

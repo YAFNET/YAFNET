@@ -23,73 +23,71 @@
  */
 namespace YAF.Editors
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Types;
-
-  #endregion
-
-  /// <summary>
-  /// The same as the TextEditor except it adds YafBBCode support. Used for QuickReply
-  ///   functionality.
-  /// </summary>
-  public class BasicBBCodeEditor : TextEditor
-  {
-    #region Properties
-
-    /// <summary>
-    ///   Gets Description.
-    /// </summary>
-    [NotNull]
-    public override string Description
-    {
-      get
-      {
-        return "Basic YafBBCode Editor";
-      }
-    }
-
-    /// <summary>
-    ///   Gets ModuleId.
-    /// </summary>
-    public override string ModuleId
-    {
-      get
-      {
-        // backward compatibility...
-        return "5";
-      }
-    }
-
-    /// <summary>
-    ///   Gets a value indicating whether UsesBBCode.
-    /// </summary>
-    public override bool UsesBBCode
-    {
-      get
-      {
-        return true;
-      }
-    }
+    using YAF.Types;
 
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// The on init.
+    /// The same as the TextEditor except it adds YafBBCode support. Used for QuickReply
+    ///   functionality.
     /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit([NotNull] EventArgs e)
+    public class BasicBBCodeEditor : TextEditor
     {
-      base.OnInit(e);
-      this._textCtl.Attributes.Add("class", "basicBBCodeEditor");
-    }
+        #region Properties
 
-    #endregion
-  }
+        /// <summary>
+        ///   Gets Description.
+        /// </summary>
+        [NotNull]
+        public override string Description
+        {
+            get
+            {
+                return "Basic YafBBCode Editor";
+            }
+        }
+
+        /// <summary>
+        ///   Gets ModuleId.
+        /// </summary>
+        public override string ModuleId
+        {
+            get
+            {
+                // backward compatibility...
+                return "5";
+            }
+        }
+
+        /// <summary>
+        ///   Gets a value indicating whether UsesBBCode.
+        /// </summary>
+        public override bool UsesBBCode
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+        protected override void OnInit([NotNull] EventArgs e)
+        {
+            base.OnInit(e);
+            this._textCtl.Attributes.Add("class", "basicBBCodeEditor");
+        }
+
+        #endregion
+    }
 }

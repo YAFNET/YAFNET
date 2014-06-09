@@ -82,7 +82,7 @@ namespace YAF.Editors
                 this.Page,
                 this.Page.GetType(),
                 "tinymce",
-                this.ResolveUrl("tiny_mce/tinymce.min.js"));
+                this.ResolveUrl("tinymce/tinymce.min.js"));
 
             this.RegisterTinyMceCustomJS();
             this.RegisterSmilieyScript();
