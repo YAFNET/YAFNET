@@ -216,6 +216,7 @@ $(document).ready(function () {
         tabSize: 2,
         indentUnit: 2,
         indentWithTabs: false,
-        lineNumbers: true
+        lineNumbers: true,
+        lineWrapping: true
     });
 });
