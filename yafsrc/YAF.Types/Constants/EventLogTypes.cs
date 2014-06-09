@@ -83,7 +83,6 @@ namespace YAF.Types.Constants
         /// </summary>
         IpBanLifted = 1004,
 
-
         /// <summary>
         ///     The IP Ban Detected.
         /// </summary>

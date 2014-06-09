@@ -865,6 +865,7 @@
   <Resource tag="LT_DEBUG">Debug</Resource>
   <Resource tag="LT_ERROR">Errors</Resource>
   <Resource tag="LT_INFORMATION">Information</Resource>
+  <Resource tag="LT_IPBANDETECTED">Detected a Banned IP</Resource>
   <Resource tag="LT_IPBANLIFTED">Canceling IP ban</Resource>
   <Resource tag="LT_IPBANSET">Setting IP ban</Resource>
   <Resource tag="LT_SpamBotDetected">Spam Bot Detected</Resource>

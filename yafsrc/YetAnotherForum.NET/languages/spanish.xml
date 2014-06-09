@@ -867,6 +867,7 @@
     <Resource tag="LT_DEBUG">Depurar</Resource>
     <Resource tag="LT_ERROR">Errores</Resource>
     <Resource tag="LT_INFORMATION">Información</Resource>
+    <Resource tag="LT_IPBANDETECTED">Detected a Banned IP</Resource>
     <Resource tag="LT_IPBANLIFTED">Cancelar baneo de IP</Resource>
     <Resource tag="LT_IPBANSET">Configurar baneo de IP</Resource>
     <Resource tag="LT_SpamBotDetected">Spam Bot Detected</Resource>
