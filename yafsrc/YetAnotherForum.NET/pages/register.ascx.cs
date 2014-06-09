@@ -623,7 +623,19 @@ namespace YAF.Pages
             // fill location field 
             if (this.Get<YafBoardSettings>().EnableIPInfoService)
             {
-                this.FillLocationData(country, timeZones);
+                try
+                {
+                    this.FillLocationData(country, timeZones);
+                }
+                catch (Exception exception)
+                {
+                    this.Logger.Log(
+                        null,
+                        this,
+                        "Error whith Location Data for IP: {0}, exception is: {1}".FormatWith(
+                            this.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                            exception));
+                }
             }
 
             this.CreateUserWizard1.FindWizardControlRecursive("UserName").Focus();
