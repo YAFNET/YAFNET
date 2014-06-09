@@ -1,6 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.ForumList"
 	EnableViewState="false" Codebehind="ForumList.ascx.cs" %>
 <%@ Import Namespace="YAF.Core" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Register TagPrefix="YAF" TagName="ForumLastPost" Src="ForumLastPost.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumModeratorList" Src="ForumModeratorList.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumSubForumList" Src="ForumSubForumList.ascx" %>
@@ -18,7 +19,7 @@
 				<div class="forumviewing">
 					<%# GetViewing(Container.DataItem) %>
 				</div>
-				<div class="subforumheading">
+				<div class="subforumheading" runat="server" Visible='<%# DataBinder.Eval(Container.DataItem, "[\"Description\"]").ToString().IsSet() %>'>
 					<%# Page.HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Description\"]")) %>
 				</div>
                 <span id="ModListMob_Span" class="description" Visible="false" runat="server"><YAF:ForumModeratorList ID="ForumModeratorListMob" Visible="false" runat="server"  /></span>
@@ -53,7 +54,7 @@
 				<div class="forumviewing">
 					<%# GetViewing(Container.DataItem) %>
 				</div>
-				<div class="subforumheading">
+				<div class="subforumheading" runat="server" Visible='<%# DataBinder.Eval(Container.DataItem, "[\"Description\"]").ToString().IsSet() %>'>
 					<%# Page.HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Description\"]"))%>
 				</div> 
 				<YAF:ForumSubForumList ID="ForumSubForumListAlt" runat="server" DataSource='<%# GetSubforums( (System.Data.DataRow)Container.DataItem ) %>'

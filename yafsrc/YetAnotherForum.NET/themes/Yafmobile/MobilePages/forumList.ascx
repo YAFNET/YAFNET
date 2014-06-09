@@ -1,5 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" CodeBehind="../../../controls/forumList.ascx.cs"
     Inherits="YAF.Controls.ForumList" EnableViewState="false" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Register TagPrefix="YAF" TagName="ForumSubForumList" Src="../../../controls/ForumSubForumList.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumLastPost" Src="../../../controls/ForumLastPost.ascx" %>
 <asp:Repeater ID="ForumList1" runat="server" OnItemCreated="ForumList1_ItemCreated">
@@ -16,7 +17,7 @@
                 <div class="forumviewing">
                     <%# GetViewing(Container.DataItem) %>
                 </div>
-                <div class="subforumheading">
+                <div class="subforumheading" runat="server" Visible='<%# DataBinder.Eval(Container.DataItem, "[\"Description\"]").ToString().IsSet() %>'>
                     <%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %>
                 </div>
                 <YAF:ForumSubForumList ID="SubForumList" runat="server" DataSource='<%# GetSubforums( (System.Data.DataRow)Container.DataItem ) %>'
@@ -39,7 +40,7 @@
                 <div class="forumviewing">
                     <%# GetViewing(Container.DataItem) %>
                 </div>
-                <div class="subforumheading">
+                <div class="subforumheading" runat="server" Visible='<%# DataBinder.Eval(Container.DataItem, "[\"Description\"]").ToString().IsSet() %>'>
                     <%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %>
                 </div>        
                 <YAF:ForumSubForumList ID="ForumSubForumListAlt" runat="server" DataSource='<%# GetSubforums( (System.Data.DataRow)Container.DataItem ) %>'

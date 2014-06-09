@@ -427,12 +427,6 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            if (this.Description.Text.Trim().Length == 0)
-            {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_DESCRIPTION"));
-                return;
-            }
-
             if (this.SortOrder.Text.Trim().Length == 0)
             {
                 this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_VALUE"));

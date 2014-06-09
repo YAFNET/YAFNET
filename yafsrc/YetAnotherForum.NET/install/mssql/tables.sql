@@ -233,7 +233,7 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		CategoryID		int NOT NULL ,
 		ParentID		int NULL ,
 		Name			nvarchar (50) NOT NULL ,
-		[Description]	nvarchar (255) NOT NULL ,
+		[Description]	nvarchar (255) NULL ,
 		SortOrder		smallint NOT NULL ,
 		LastPosted		datetime NULL ,
 		LastTopicID		int NULL ,
@@ -1331,6 +1331,12 @@ GO
 if not exists (select top 1 1 from sys.columns where object_id =  object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='UserID')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Forum] ADD [UserID]  int null 
+end
+GO
+
+if exists (select top 1 1 from sys.columns where object_id =  object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='Description' and is_nullable=0)
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Forum] alter column [Description] nvarchar(255) null
 end
 GO
 

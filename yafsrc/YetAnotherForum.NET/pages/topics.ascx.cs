@@ -43,7 +43,6 @@ namespace YAF.Pages
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -112,11 +111,13 @@ namespace YAF.Pages
         /// </returns>
         public DataTable StyleTransformDataTable([NotNull] DataTable dt)
         {
-            if (this.Get<YafBoardSettings>().UseStyledNicks)
+            if (!this.Get<YafBoardSettings>().UseStyledNicks)
             {
-                var styleTransform = this.Get<IStyleTransform>();
-                styleTransform.DecodeStyleByTable(dt, false, new string[] { "StarterStyle", "LastUserStyle" });
+                return dt;
             }
+
+            var styleTransform = this.Get<IStyleTransform>();
+            styleTransform.DecodeStyleByTable(dt, false, new[] { "StarterStyle", "LastUserStyle" });
 
             return dt;
         }
@@ -278,7 +279,11 @@ namespace YAF.Pages
 
             this._forumFlags = new ForumFlags(this._forum["Flags"]);
 
-            this.PageTitle.Text = this.HtmlEncode(this._forum["Name"]);
+            this.PageTitle.Text = this._forum["Description"].ToString().IsSet()
+                                      ? "{0} - <em>{1}</em>".FormatWith(
+                                          this.HtmlEncode(this._forum["Name"]),
+                                          this.HtmlEncode(this._forum["Description"]))
+                                      : this.HtmlEncode(this._forum["Name"]);
 
             this.BindData(); // Always because of yaf:TopicLine
 
@@ -416,7 +421,7 @@ namespace YAF.Pages
             }
             else
             {
-                int[] days = new[] { 1, 2, 7, 14, 31, 2 * 31, 6 * 31, 356 };
+                int[] days = { 1, 2, 7, 14, 31, 2 * 31, 6 * 31, 356 };
 
                 DateTime date = DateTime.UtcNow.AddDays(-days[this._showTopicListSelected]);
 
