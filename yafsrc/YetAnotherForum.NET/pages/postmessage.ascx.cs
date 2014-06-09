@@ -531,7 +531,7 @@ namespace YAF.Pages
 
             // Message.EnableRTE = PageContext.BoardSettings.AllowRichEdit;
             this._forumEditor.StyleSheet = this.Get<ITheme>().BuildThemePath("theme.css");
-            this._forumEditor.BaseDir = "{0}editors".FormatWith(YafForumInfo.ForumClientFileRoot);
+            this._forumEditor.BaseDir = "{0}Scripts".FormatWith(YafForumInfo.ForumClientFileRoot);
 
             this.Title.Text = this.GetText("NEWTOPIC");
 

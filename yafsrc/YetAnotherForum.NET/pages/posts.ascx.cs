@@ -504,10 +504,10 @@ namespace YAF.Pages
                 if (this.Get<IFavoriteTopic>().IsFavoriteTopic(this.PageContext.PageTopicID))
                 {
                     // Generate the "Untag" theme button with appropriate JS calls for onclick event.
-                    this.TagFavorite1.NavigateUrl = "javascript:removeFavoriteTopic(" + this.PageContext.PageTopicID
-                                                    + ");";
-                    this.TagFavorite2.NavigateUrl = "javascript:removeFavoriteTopic(" + this.PageContext.PageTopicID
-                                                    + ");";
+                    this.TagFavorite1.NavigateUrl =
+                        "javascript:removeFavoriteTopic({0});".FormatWith(this.PageContext.PageTopicID);
+                    this.TagFavorite2.NavigateUrl =
+                        "javascript:removeFavoriteTopic({0});".FormatWith(this.PageContext.PageTopicID);
                     this.TagFavorite1.TextLocalizedTag = "BUTTON_UNTAGFAVORITE";
                     this.TagFavorite1.TitleLocalizedTag = "BUTTON_UNTAGFAVORITE_TT";
                     this.TagFavorite2.TextLocalizedTag = "BUTTON_UNTAGFAVORITE";
@@ -516,8 +516,10 @@ namespace YAF.Pages
                 else
                 {
                     // Generate the "Tag" theme button with appropriate JS calls for onclick event.
-                    this.TagFavorite1.NavigateUrl = "javascript:addFavoriteTopic(" + this.PageContext.PageTopicID + ");";
-                    this.TagFavorite2.NavigateUrl = "javascript:addFavoriteTopic(" + this.PageContext.PageTopicID + ");";
+                    this.TagFavorite1.NavigateUrl =
+                        "javascript:addFavoriteTopic({0});".FormatWith(this.PageContext.PageTopicID);
+                    this.TagFavorite2.NavigateUrl =
+                        "javascript:addFavoriteTopic({0});".FormatWith(this.PageContext.PageTopicID);
                     this.TagFavorite1.TextLocalizedTag = "BUTTON_TAGFAVORITE";
                     this.TagFavorite1.TitleLocalizedTag = "BUTTON_TAGFAVORITE_TT";
                     this.TagFavorite2.TextLocalizedTag = "BUTTON_TAGFAVORITE";
@@ -530,7 +532,7 @@ namespace YAF.Pages
                 this.TagFavorite2.Visible = false;
             }
 
-            this._quickReplyEditor.BaseDir = "{0}editors".FormatWith(YafForumInfo.ForumClientFileRoot);
+            this._quickReplyEditor.BaseDir = "{0}Scripts".FormatWith(YafForumInfo.ForumClientFileRoot);
             this._quickReplyEditor.StyleSheet = this.Get<ITheme>().BuildThemePath("theme.css");
 
             this._topic = LegacyDb.topic_info(this.PageContext.PageTopicID);
