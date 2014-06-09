@@ -211,7 +211,7 @@ $(document).ready(function () {
         }
     });
 
-    window["editorCM"] = CodeMirror.fromTextArea($('.BBCodeEditor')[0], {
+    window["editorCM"] = CodeMirror.fromTextArea($('.BBCodeEditor,.basicBBCodeEditor')[0], {
         mode: "bbcode",
         tabSize: 2,
         indentUnit: 2,
