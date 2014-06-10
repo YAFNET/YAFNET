@@ -912,9 +912,9 @@ namespace YAF.Pages
 
                 // Use Topic Description if set
                 var descriptionContent = !this._topic["Description"].IsNullOrEmptyDBField()
-                                         ? this.Get<IBadWordReplace>().Replace(
-                                             this.HtmlEncode(this._topic["Description"]))
-                                         : "{0}: {1}".FormatWith(this._topic["Topic"], message.MessageTruncated);
+                                             ? this.Get<IBadWordReplace>()
+                                                   .Replace(this.HtmlEncode(this._topic["Description"]))
+                                             : message.MessageTruncated;
 
                 if (meta.Any(x => x.Name.Equals("description")))
                 {

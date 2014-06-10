@@ -124,7 +124,7 @@ namespace YAF.Core.Services
         /// <summary>
         /// Gets or sets ProcessReplaceRuleFactory.
         /// </summary>
-        public Func<IEnumerable<bool>, IProcessReplaceRules> ProcessReplaceRuleFactory { get; set; }       
+        public Func<IEnumerable<bool>, IProcessReplaceRules> ProcessReplaceRuleFactory { get; set; }
 
         #region Public Methods
 
@@ -146,7 +146,9 @@ namespace YAF.Core.Services
         /// </returns>
         [CanBeNull]
         public string BBCodeForbiddenDetector(
-            [NotNull] string stringToClear, [NotNull] string stringToMatch, char delim)
+            [NotNull] string stringToClear,
+            [NotNull] string stringToMatch,
+            char delim)
         {
             string[] codes = stringToMatch.Split(delim);
 
@@ -287,14 +289,14 @@ namespace YAF.Core.Services
 
             if (!string.IsNullOrEmpty(detectedHtmlTag) && detectedHtmlTag != "ALL")
             {
-                return YafContext.Current.Get<ILocalization>().GetTextFormatted(
-                    "HTMLTAG_WRONG", HttpUtility.HtmlEncode(detectedHtmlTag));
+                return YafContext.Current.Get<ILocalization>()
+                    .GetTextFormatted("HTMLTAG_WRONG", HttpUtility.HtmlEncode(detectedHtmlTag));
             }
 
             return detectedHtmlTag == "ALL"
                        ? YafContext.Current.Get<ILocalization>().GetText("HTMLTAG_FORBIDDEN")
                        : string.Empty;
-        }        
+        }
 
         /// <summary>
         /// The format message.
@@ -349,15 +351,16 @@ namespace YAF.Core.Services
                 // populate
 
                 // get rules for YafBBCode and Smilies
-                this.Get<IBBCode>().CreateBBCodeRules(
-                    ruleEngine, true /*messageFlags.IsBBCode*/, targetBlankOverride, useNoFollow);
+                this.Get<IBBCode>()
+                    .CreateBBCodeRules(ruleEngine, true /*messageFlags.IsBBCode*/, targetBlankOverride, useNoFollow);
 
                 // add email rule
                 // vzrus: it's freezing  when post body contains full email adress.
                 // the fix provided by community 
                 var email = new VariableRegexReplaceRule(
-                    _RgxEmail, "${before}<a href=\"mailto:${inner}\">${inner}</a>", new[] { "before" })
-                    { RuleRank = 10 };
+                    _RgxEmail,
+                    "${before}<a href=\"mailto:${inner}\">${inner}</a>",
+                    new[] { "before" }) { RuleRank = 10 };
 
                 ruleEngine.AddRule(email);
 
@@ -368,7 +371,8 @@ namespace YAF.Core.Services
 
                 var url = new VariableRegexReplaceRule(
                     _RgxUrl1,
-                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow),
+                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target)
+                        .Replace("{1}", nofollow),
                     new[] { "before" },
                     new[] { string.Empty },
                     50) { RuleRank = 42 };
@@ -383,11 +387,9 @@ namespace YAF.Core.Services
                 // (?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<])?)
                 url = new VariableRegexReplaceRule(
                     _RgxUrl2,
-                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow),
-                    new[]
-                        {
-                            "before"
-                        },
+                    "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target)
+                        .Replace("{1}", nofollow),
+                    new[] { "before" },
                     new[] { string.Empty },
                     50) { RuleRank = 43 };
 
@@ -396,11 +398,9 @@ namespace YAF.Core.Services
                 url = new VariableRegexReplaceRule(
                     _RgxUrl3,
                     "${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace(
-                        "{0}", target).Replace("{1}", nofollow),
-                    new[]
-                        {
-                            "before"
-                        },
+                        "{0}",
+                        target).Replace("{1}", nofollow),
+                    new[] { "before" },
                     new[] { string.Empty },
                     50) { RuleRank = 44 };
 
@@ -435,7 +435,10 @@ namespace YAF.Core.Services
         /// </returns>
         [NotNull]
         public string FormatSyndicationMessage(
-            [NotNull] string message, [NotNull] MessageFlags messageFlags, bool altItem, int charsToFetch)
+            [NotNull] string message,
+            [NotNull] MessageFlags messageFlags,
+            bool altItem,
+            int charsToFetch)
         {
             message =
                 @"<table class=""{0}"" width=""100%""><tr><td>{1}</td></tr></table>".FormatWith(
@@ -491,7 +494,8 @@ namespace YAF.Core.Services
                                 // process message... clean html, strip html, remove bbcode, etc...
                                 returnMsg =
                                     BBCodeHelper.StripBBCode(
-                                        HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(returnMsg))).RemoveMultipleWhitespace();
+                                        HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(returnMsg)))
+                                        .RemoveMultipleWhitespace();
 
                                 // encode Message For Security Reasons
                                 returnMsg = this.HttpServer.HtmlEncode(returnMsg);
@@ -505,7 +509,8 @@ namespace YAF.Core.Services
                                     // get string without punctuation
                                     string keywordCleaned =
                                         new string(
-                                            returnMsg.Where(c => !char.IsPunctuation(c) || char.IsWhiteSpace(c)).ToArray()).Trim().ToLower();
+                                            returnMsg.Where(c => !char.IsPunctuation(c) || char.IsWhiteSpace(c))
+                                                .ToArray()).Trim().ToLower();
 
                                     if (keywordCleaned.Length > 5)
                                     {
@@ -514,13 +519,17 @@ namespace YAF.Core.Services
 
                                         // clean up the list a bit...
                                         keywordList =
-                                            keywordList.GetNewNoEmptyStrings().GetNewNoSmallStrings(5).Where(x => !char.IsNumber(x[0])).Distinct().ToList();
+                                            keywordList.GetNewNoEmptyStrings()
+                                                .GetNewNoSmallStrings(5)
+                                                .Where(x => !char.IsNumber(x[0]))
+                                                .Distinct()
+                                                .ToList();
 
                                         // sort...
                                         keywordList.Sort();
 
-                                        // get maximum of 50 keywords...
-                                        if (keywordList.Count > 50)
+                                        // get maximum of 20 keywords...
+                                        if (keywordList.Count > 20)
                                         {
                                             keywordList = keywordList.GetRange(0, 50);
                                         }
@@ -528,7 +537,7 @@ namespace YAF.Core.Services
                                 }
                             }
 
-                            return new MessageCleaned(returnMsg.Truncate(255), keywordList);
+                            return new MessageCleaned(returnMsg.Truncate(200), keywordList);
                         },
                     TimeSpan.FromMinutes(this.Get<YafBoardSettings>().FirstPostCacheTimeout));
             }
@@ -553,7 +562,9 @@ namespace YAF.Core.Services
         /// </returns>
         [CanBeNull]
         public string HtmlTagForbiddenDetector(
-            [NotNull] string stringToClear, [NotNull] string stringToMatch, char delim)
+            [NotNull] string stringToClear,
+            [NotNull] string stringToMatch,
+            char delim)
         {
             string[] codes = stringToMatch.Split(delim);
 
@@ -792,7 +803,10 @@ namespace YAF.Core.Services
         /// <returns>
         /// The repaired html.
         /// </returns>
-        public string RepairHtml([NotNull] string html, [NotNull] bool allowHtml, [NotNull] IEnumerable<string> matchList)
+        public string RepairHtml(
+            [NotNull] string html,
+            [NotNull] bool allowHtml,
+            [NotNull] IEnumerable<string> matchList)
         {
             // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
             // These are '\n\r' things related to multiline regexps.
@@ -808,9 +822,7 @@ namespace YAF.Core.Services
                 html = html.Insert(mc2[i].Index + 1, " \r");
             }
 
-            html = !allowHtml
-                       ? this.HttpServer.HtmlEncode(html)
-                       : RemoveHtmlByList(html, matchList);
+            html = !allowHtml ? this.HttpServer.HtmlEncode(html) : RemoveHtmlByList(html, matchList);
 
             return html;
         }
@@ -919,7 +931,9 @@ namespace YAF.Core.Services
         /// The match action.
         /// </param>
         private static void MatchAndPerformAction(
-            [NotNull] string matchRegEx, [NotNull] string text, [NotNull] Action<string, int, int> matchAction)
+            [NotNull] string matchRegEx,
+            [NotNull] string text,
+            [NotNull] Action<string, int, int> matchAction)
         {
             CodeContracts.VerifyNotNull(matchRegEx, "matchRegEx");
             CodeContracts.VerifyNotNull(text, "text");

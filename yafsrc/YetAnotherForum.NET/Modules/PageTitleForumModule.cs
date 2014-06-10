@@ -23,166 +23,199 @@
  */
 namespace YAF.Modules
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Text;
-  using System.Web.UI.HtmlControls;
+    using System;
+    using System.Linq;
+    using System.Text;
+    using System.Web.UI.HtmlControls;
 
-  using YAF.Controls;
-  using YAF.Types;
-  using YAF.Types.Attributes;
-  using YAF.Types.Constants;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-  using YAF.Utils.Helpers;
-
-  #endregion
-
-  /// <summary>
-  /// Summary description for PageTitleModule
-  /// </summary>
-  [YafModule("Page Title Module", "Tiny Gecko", 1)]
-  public class PageTitleForumModule : SimpleBaseForumModule
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _forum page title.
-    /// </summary>
-    protected string _forumPageTitle;
+    using YAF.Controls;
+    using YAF.Types;
+    using YAF.Types.Attributes;
+    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Utils.Helpers;
 
     #endregion
 
-    #region Public Methods
-
     /// <summary>
-    /// The init after page.
+    /// Page Title Module
     /// </summary>
-    public override void InitAfterPage()
+    [YafModule("Page Title Module", "Tiny Gecko", 1)]
+    public class PageTitleForumModule : SimpleBaseForumModule
     {
-      this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
-      this.CurrentForumPage.Load += this.ForumPage_Load;
+        #region Constants and Fields
+
+        /// <summary>
+        ///   The _forum page title.
+        /// </summary>
+        protected string _forumPageTitle;
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// The init after page.
+        /// </summary>
+        public override void InitAfterPage()
+        {
+            this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
+            this.CurrentForumPage.Load += this.ForumPage_Load;
+        }
+
+        /// <summary>
+        /// The init before page.
+        /// </summary>
+        public override void InitBeforePage()
+        {
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the Load event of the ForumPage control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.GeneratePageTitle();
+        }
+
+        /// <summary>
+        /// Handles the PreRender event of the ForumPage control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            HtmlHead head = this.ForumControl.Page.Header
+                            ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
+
+            if (head != null)
+            {
+                // setup the title...
+                string addition = string.Empty;
+
+                if (head.Title.IsSet())
+                {
+                    addition = " - {0}".FormatWith(head.Title.Trim());
+                }
+
+                head.Title = this._forumPageTitle + addition;
+            }
+            else
+            {
+                // old style
+                var title = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlTitle>("ForumTitle");
+
+                if (title != null)
+                {
+                    title.Text = this._forumPageTitle;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creates this pages title and fires a PageTitleSet event if one is set
+        /// </summary>
+        private void GeneratePageTitle()
+        {
+            // compute page title..
+            var title = new StringBuilder();
+
+            var pageString = string.Empty;
+
+            if (this.ForumPageType == ForumPages.posts || this.ForumPageType == ForumPages.topics)
+            {
+                // get current page...
+                var currentPager = this.CurrentForumPage.FindControlAs<Pager>("Pager");
+
+                if (currentPager != null && currentPager.CurrentPageIndex != 0)
+                {
+                    pageString = "- Page {0}".FormatWith(currentPager.CurrentPageIndex + 1);
+                }
+            }
+
+            var addBoardName = true;
+
+            if (!this.PageContext.CurrentForumPage.IsAdminPage)
+            {
+
+                switch (this.ForumPageType)
+                {
+                    case ForumPages.posts:
+                        if (this.PageContext.PageTopicID != 0)
+                        {
+                            // Tack on the topic we're viewing
+                            title.Append(
+                                this.Get<IBadWordReplace>().Replace(this.PageContext.PageTopicName.Truncate(80)));
+                        }
+
+                        addBoardName = false;
+
+                        // Append Current Page
+                        title.Append(pageString);
+
+                        break;
+                    case ForumPages.topics:
+                        if (this.PageContext.PageForumName != string.Empty)
+                        {
+                            // Tack on the forum we're viewing
+                            title.Append(this.CurrentForumPage.HtmlEncode(this.PageContext.PageForumName.Truncate(80)));
+                        }
+
+                        addBoardName = false;
+
+                        // Append Current Page
+                        title.Append(pageString);
+
+                        break;
+                    case ForumPages.forum:
+                        if (this.PageContext.PageCategoryName != string.Empty)
+                        {
+                            addBoardName = false;
+
+                            // Tack on the forum we're viewing
+                            title.Append(
+                                this.CurrentForumPage.HtmlEncode(this.PageContext.PageCategoryName.Truncate(80)));
+                        }
+
+                        break;
+                    default:
+                        var activePageLink =
+                            this.CurrentForumPage.FindControlAs<PageLinks>("PageLinks")
+                                .PageLinkList.FirstOrDefault(link => link.URL.IsNotSet());
+
+                        if (activePageLink != null)
+                        {
+                            addBoardName = false;
+
+                            // Tack on the forum we're viewing
+                            title.Append(this.CurrentForumPage.HtmlEncode(activePageLink.Title.Truncate(80)));
+                        }
+
+                        break;
+                }
+            }
+
+
+            if (addBoardName)
+            {
+                // and lastly, tack on the board's name
+                title.Append(this.CurrentForumPage.HtmlEncode(this.PageContext.BoardSettings.Name));
+            }
+
+            this._forumPageTitle = title.ToString();
+
+            this.ForumControl.FirePageTitleSet(this, new ForumPageTitleArgs(this._forumPageTitle));
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// The init before page.
-    /// </summary>
-    public override void InitBeforePage()
-    {
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The forum page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      this.GeneratePageTitle();
-    }
-
-    /// <summary>
-    /// The forum page_ pre render.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      HtmlHead head = this.ForumControl.Page.Header ??
-                      this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
-
-      if (head != null)
-      {
-        // setup the title...
-        string addition = string.Empty;
-
-        if (head.Title.IsSet())
-        {
-          addition = " - " + head.Title.Trim();
-        }
-
-        head.Title = this._forumPageTitle + addition;
-      }
-      else
-      {
-        // old style
-        var title = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlTitle>("ForumTitle");
-
-        if (title != null)
-        {
-          title.Text = this._forumPageTitle;
-        }
-      }
-    }
-
-    /// <summary>
-    /// Creates this pages title and fires a PageTitleSet event if one is set
-    /// </summary>
-    private void GeneratePageTitle()
-    {
-      // compute page title..
-      var title = new StringBuilder();
-
-      string pageStr = string.Empty;
-
-      if (this.ForumPageType == ForumPages.posts || this.ForumPageType == ForumPages.topics)
-      {
-        // get current page...
-        var currentPager = (Pager)this.CurrentForumPage.FindControl("Pager");
-
-        if (currentPager != null && currentPager.CurrentPageIndex != 0)
-        {
-          pageStr = "Page {0} - ".FormatWith(currentPager.CurrentPageIndex + 1);
-        }
-      }
-
-      if (!this.PageContext.CurrentForumPage.IsAdminPage)
-      {
-        if (this.PageContext.PageTopicID != 0)
-        {
-          // Tack on the topic we're viewing
-          title.AppendFormat("{0} - ", this.Get<IBadWordReplace>().Replace(this.PageContext.PageTopicName));
-        }
-
-        if (this.ForumPageType == ForumPages.posts)
-        {
-          title.Append(pageStr);
-        }
-
-        if (this.PageContext.PageForumName != string.Empty)
-        {
-          // Tack on the forum we're viewing
-          title.AppendFormat("{0} - ", this.CurrentForumPage.HtmlEncode(this.PageContext.PageForumName));
-        }
-
-        if (this.ForumPageType == ForumPages.topics)
-        {
-          title.Append(pageStr);
-        }
-      }
-
-      title.Append(this.CurrentForumPage.HtmlEncode(this.PageContext.BoardSettings.Name));
-        
-        // and lastly, tack on the board's name
-      this._forumPageTitle = title.ToString();
-
-      this.ForumControl.FirePageTitleSet(this, new ForumPageTitleArgs(this._forumPageTitle));
-    }
-
-    #endregion
-  }
 }
