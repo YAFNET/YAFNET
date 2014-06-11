@@ -531,7 +531,7 @@ namespace YAF.Core.Services
                                         // get maximum of 20 keywords...
                                         if (keywordList.Count > 20)
                                         {
-                                            keywordList = keywordList.GetRange(0, 50);
+                                            keywordList = keywordList.GetRange(0, 20);
                                         }
                                     }
                                 }
