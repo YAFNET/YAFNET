@@ -46,6 +46,9 @@
 	width: 100%;
 	height: 350px;
 }
+.yafnet .CodeMirror-wrap {
+	border: 1px solid grey;
+}
 .yafnet #DivForumJump
 {
 	float:right;
@@ -644,4 +647,8 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 
 .yafnet img {
 	max-width: inherit;
+}
+
+.yafnet .emailConfirmation {
+	display: none
 }
