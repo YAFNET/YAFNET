@@ -442,14 +442,6 @@ namespace YAF.Editors
                 }
             }
 
-            // add spell check button.
-            writer.WriteLine(
-                @"<img src=""{2}"" id=""{0}_spell"" alt=""{1}"" title=""{1}"" onload=""Button_Load(this)"" />"
-                    .FormatWith(
-                        this.SafeID,
-                        this.GetText("COMMON", "SPELL"),
-                        this.ResolveUrl("yafEditor/spellcheck.gif")));
-
             writer.WriteLine("	</td></tr>");
             writer.WriteLine("	<tr><td>");
 
