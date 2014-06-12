@@ -27,6 +27,7 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.IO;
     using System.Linq;
@@ -906,20 +907,32 @@ namespace YAF.Pages
                 firstMessage, this.PageContext.PageTopicID);
             var meta = this.Page.Header.FindControlType<HtmlMeta>();
 
+            var htmlMetas = meta as IList<HtmlMeta> ?? meta.ToList();
             if (message.MessageTruncated.IsSet())
             {
                 HtmlMeta descriptionMeta;
 
-                // Use Topic Description if set
-                var descriptionContent = !this._topic["Description"].IsNullOrEmptyDBField()
-                                             ? this.Get<IBadWordReplace>()
-                                                   .Replace(this.HtmlEncode(this._topic["Description"]))
-                                             : message.MessageTruncated;
+                string descriptionContent;
 
-                if (meta.Any(x => x.Name.Equals("description")))
+                // Use Topic Description if set
+                if (!this._topic["Description"].IsNullOrEmptyDBField())
+                {
+                    var topicDescription =
+                        this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic["Description"]))´;
+
+                    descriptionContent = topicDescription.Length > 50
+                                             ? topicDescription
+                                             : "{0} - {1}".FormatWith(topicDescription, message.MessageTruncated);
+                }
+                else
+                {
+                    descriptionContent = message.MessageTruncated;
+                }
+
+                if (htmlMetas.Any(x => x.Name.Equals("description")))
                 {
                     // use existing...
-                    descriptionMeta = meta.FirstOrDefault(x => x.Name.Equals("description"));
+                    descriptionMeta = htmlMetas.FirstOrDefault(x => x.Name.Equals("description"));
                     if (descriptionMeta != null)
                     {
                         descriptionMeta.Content = descriptionContent;
@@ -952,10 +965,10 @@ namespace YAF.Pages
 
             //// this.Tags.Text = "Tags: {0}".FormatWith(keywordStr);
 
-            if (meta.Any(x => x.Name.Equals("keywords")))
+            if (htmlMetas.Any(x => x.Name.Equals("keywords")))
             {
                 // use existing...
-                keywordMeta = meta.FirstOrDefault(x => x.Name.Equals("keywords"));
+                keywordMeta = htmlMetas.FirstOrDefault(x => x.Name.Equals("keywords"));
                 keywordMeta.Content = keywordStr;
 
                 this.Page.Header.Controls.Remove(keywordMeta);
