@@ -146,7 +146,6 @@ namespace YAF.Modules
 
             if (!this.PageContext.CurrentForumPage.IsAdminPage)
             {
-
                 switch (this.ForumPageType)
                 {
                     case ForumPages.posts:
@@ -188,18 +187,20 @@ namespace YAF.Modules
 
                         break;
                     default:
-                        var activePageLink =
-                            this.CurrentForumPage.FindControlAs<PageLinks>("PageLinks")
-                                .PageLinkList.FirstOrDefault(link => link.URL.IsNotSet());
+                        var pageLinks = this.CurrentForumPage.FindControlAs<PageLinks>("PageLinks");
 
-                        if (activePageLink != null)
+                        if (pageLinks != null)
                         {
-                            addBoardName = false;
+                            var activePageLink = pageLinks.PageLinkList.FirstOrDefault(link => link.URL.IsNotSet());
 
-                            // Tack on the forum we're viewing
-                            title.Append(this.CurrentForumPage.HtmlEncode(activePageLink.Title.Truncate(80)));
+                            if (activePageLink != null)
+                            {
+                                addBoardName = false;
+
+                                // Tack on the forum we're viewing
+                                title.Append(this.CurrentForumPage.HtmlEncode(activePageLink.Title.Truncate(80)));
+                            }
                         }
-
                         break;
                 }
             }
