@@ -918,7 +918,7 @@ namespace YAF.Pages
                 if (!this._topic["Description"].IsNullOrEmptyDBField())
                 {
                     var topicDescription =
-                        this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic["Description"]))´;
+                        this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic["Description"]));
 
                     descriptionContent = topicDescription.Length > 50
                                              ? topicDescription
