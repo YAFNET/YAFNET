@@ -216,6 +216,6 @@ $(document).ready(function () {
              "Ctrl-Q": function (codeMirror_Editor) {
                  wrapSelection('[quote]', '[/quote]');
              }
-        },
+        }
     });
 });
