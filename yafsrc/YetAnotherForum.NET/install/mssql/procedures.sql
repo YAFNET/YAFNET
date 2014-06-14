@@ -6320,6 +6320,7 @@ begin
     
 end
 GO
+
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_delete] (@TopicID int,@UpdateLastPost bit=1,@EraseTopic bit=0) 
 AS
 BEGIN
@@ -6378,7 +6379,9 @@ BEGIN
 		   select UserID from [{databaseOwner}].[{objectQualifier}Message]
 		   where TopicID=@TopicID
     
-    
+           -- delete messages
+		   update [{databaseOwner}].[{objectQualifier}Message] SET ReplyTo = null WHERE TopicID = @TopicID
+
 		   open message_cursor
     
 		   fetch next from message_cursor
@@ -6388,6 +6391,8 @@ BEGIN
 		   while @@FETCH_STATUS = 0
     		   begin
 		   UPDATE [{databaseOwner}].[{objectQualifier}User] SET NumPosts = (SELECT count(MessageID) FROM [{databaseOwner}].[{objectQualifier}Message] WHERE UserID = @tmpUserID AND IsDeleted = 0 AND IsApproved = 1) WHERE UserID = @tmpUserID
+
+		   
 
 		   DELETE  [{databaseOwner}].[{objectQualifier}Message] WHERE TopicID = @TopicID and UserID = @tmpUserID
     
