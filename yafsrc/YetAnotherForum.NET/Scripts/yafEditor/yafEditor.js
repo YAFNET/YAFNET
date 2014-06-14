@@ -196,27 +196,26 @@ jQuery(document).ready(function () {
     }
 });
 $(document).ready(function () {
-    $('.BBCodeEditor').keydown(function (e) {
-        if (e.ctrlKey && !e.altKey && (e.which == 66 || e.which == 73 || e.which == 85 || e.which == 81)) {
-            if (e.which == 66) {
-                wrapSelection('[b]', '[/b]');
-            } else if (e.which == 73) {
-                wrapSelection('[i]', '[/i]');
-            } else if (e.which == 85) {
-                wrapSelection('[u]', '[/u]');
-            } else if (e.which == 81) {
-                wrapSelection('[quote]', '[/quote]');
-            }
-            return false;
-        }
-    });
-
     window["editorCM"] = CodeMirror.fromTextArea($('.BBCodeEditor,.basicBBCodeEditor')[0], {
         mode: "bbcode",
         tabSize: 2,
         indentUnit: 2,
         indentWithTabs: false,
         lineNumbers: true,
-        lineWrapping: true
+        lineWrapping: true,
+        extraKeys: {
+             "Ctrl-B": function(codeMirror_Editor) {
+                 wrapSelection('[b]', '[/b]');
+             },
+             "Ctrl-I": function (codeMirror_Editor) {
+                 wrapSelection('[i]', '[/i]');
+             },
+             "Ctrl-U": function (codeMirror_Editor) {
+                 wrapSelection('[u]', '[/u]');
+             },
+             "Ctrl-Q": function (codeMirror_Editor) {
+                 wrapSelection('[quote]', '[/quote]');
+             }
+        },
     });
 });
