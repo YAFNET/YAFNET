@@ -107,7 +107,7 @@
     <Resource tag="INFO">Просматривает страницу информации</Resource>
     <Resource tag="LASTPOSTS">Последние сообщения</Resource>
     <Resource tag="LOGIN">Входит на форум</Resource>
-    <Resource tag="LOGOUT">Выходит с форума</Resource>
+    <Resource tag="LOGOUT">Выходит из форума</Resource>
     <Resource tag="MAINPAGE">Просматривает главную страницу форума</Resource>
     <Resource tag="MEMBERS">Просматривает список пользователей</Resource>
     <Resource tag="MESSAGEHISTORY">Просматривает историю сообщения</Resource>
@@ -115,7 +115,7 @@
     <Resource tag="MODERATE">Модерирует</Resource>
     <Resource tag="MODERATE_INDEX">Просматривает страницу модерирования</Resource>
     <Resource tag="MODERATE_REPORTEDPOSTS">Просматривает посты с жалобами</Resource>
-    <Resource tag="MODERATE_UNAPPROVEDPOSTS">Просматривает неодобреннные посты</Resource>
+    <Resource tag="MODERATE_UNAPPROVEDPOSTS">Просматривает неодобренные посты</Resource>
     <Resource tag="MOVEMESSAGE">Перемещает сообщение</Resource>
     <Resource tag="MOVETOPIC">Перемещает тему</Resource>
     <Resource tag="MYTOPICS">Просматривает избранные/активные темы</Resource>
@@ -186,14 +186,14 @@
     <Resource tag="CONFIRM_APROVE">Одобрить этого пользователя?</Resource>
     <Resource tag="CONFIRM_APROVE_ALL">Одобрить всех пользователей?</Resource>
     <Resource tag="CONFIRM_DELETE">Удалить этого пользователя?</Resource>
-    <Resource tag="CONFIRM_DELETE_ALL">Удалить всех неодобренных пользователей, зарегистированных раньше указанного числа дней?</Resource>
+    <Resource tag="CONFIRM_DELETE_ALL">Удалить всех неодобренных пользователей, зарегистрированных раньше указанного числа дней?</Resource>
     <Resource tag="DAYS_AGO">{0:d} ({1:N0} дней назад)</Resource>
     <Resource tag="DELETE_ALL">Удалить всех зарегистрированных ранее, дней:</Resource>
     <Resource tag="ERROR_DATABASESIZE">Невозможно определить размер БД</Resource>
     <Resource tag="HEADER1">Пользователи онлайн</Resource>
     <Resource tag="HEADER2">Неподтверждённые пользователи</Resource>
     <Resource tag="HEADER3">Статистика для</Resource>
-    <Resource tag="MSG_VALID_DAYS">Вы должны ввести целове число для дней.</Resource>
+    <Resource tag="MSG_VALID_DAYS">Вы должны ввести целое число для дней.</Resource>
     <Resource tag="NUM_POSTS">Количество сообщений:</Resource>
     <Resource tag="NUM_TOPICS">Количество тем:</Resource>
     <Resource tag="NUM_USERS">Количество пользователей:</Resource>
@@ -306,7 +306,7 @@
   </page>
   <page name="ADMIN_BBCODE_EDIT">
     <Resource tag="BBCODE_DESC">Описание:</Resource>
-    <Resource tag="BBCODE_DESC_HELP">Необходимое описание этого расширения видимое пользователю.</Resource>
+    <Resource tag="BBCODE_DESC_HELP">Необходимое описание этого расширения, видимое пользователю.</Resource>
     <Resource tag="BBCODE_NAME">Название:</Resource>
     <Resource tag="BBCODE_NAME_HELP">Необходимо просто название для этого расширения.</Resource>
     <Resource tag="CLASS_NAME">Название класса модуля:</Resource>
@@ -314,9 +314,9 @@
     <Resource tag="DISPLAY_CSS">Отображаемый CSS:</Resource>
     <Resource tag="DISPLAY_CSS_HELP">CSS для того, чтобы лучше отобразить это расширение. Просто введите CSS в это поле. Тег style будет добавлен автоматически.</Resource>
     <Resource tag="DISPLAY_JS">Отображаемый JS:</Resource>
-    <Resource tag="DISPLAY_JS_HELP">JS используемый для  помоши в отображении расширения . Просто введите скрипт в это поле. Тег script будет добавлен автоматически.</Resource>
+    <Resource tag="DISPLAY_JS_HELP">JS, используемый для помощи в отображении расширения. Просто введите скрипт в это поле. Тег script будет добавлен автоматически.</Resource>
     <Resource tag="EDIT_JS">Редактировать JS:</Resource>
-    <Resource tag="EDIT_JS_HELP">Код JS для изменения тектового редактора. Используйте "{{editorid}}" (without quotes) для замены ID текстового редактора в коде. Просто введите javascript в это поле. Тэг script будет добавлен автоматически.</Resource>
+    <Resource tag="EDIT_JS_HELP">Код JS для изменения текстового редактора. Используйте "{{editorid}}" (without quotes) для замены ID текстового редактора в коде. Просто введите javascript в это поле. Тэг script будет добавлен автоматически.</Resource>
     <Resource tag="EXEC_ORDER">Порядок выполнения:</Resource>
     <Resource tag="EXEC_ORDER_HELP">Необходимое поле, которое определяет порядок, в котором выполняются расширения. Наменьшее выполняется первым.</Resource>
     <Resource tag="HEADER">Добавить/изменить расширение BBCode</Resource>
@@ -326,7 +326,7 @@
     <Resource tag="MSG_NUMBER">Вы должны ввести целое число от 0 до 32767 для порядка сортировки.</Resource>
     <Resource tag="MSG_POSITIVE_VALUE">Порядок сортировки должен быть целым числом от 0 до 32767.</Resource>
     <Resource tag="ONCLICK_JS">OnClick JS:</Resource>
-    <Resource tag="ONCLICK_JS_HELP">Код JS, вызываемый когда расширение BBCode выбирается на стороне пользователя. Просто введите javascript в это поле. Теги script будут добавлены автоматически.</Resource>
+    <Resource tag="ONCLICK_JS_HELP">Код JS, вызываемый, когда расширение BBCode выбирается на стороне пользователя. Просто введите javascript в это поле. Теги script будут добавлены автоматически.</Resource>
     <Resource tag="REPLACE_REGEX">Регулярное выражение для замены:</Resource>
     <Resource tag="REPLACE_REGEX_HELP">Необходимое регулярное выражение для замены поискового BBCode.</Resource>
     <Resource tag="REPLACE_VARIABLES">Переменные для замены:</Resource>
@@ -357,17 +357,17 @@
     <Resource tag="BOARD_ALLOW_DIGEST">Отправлять дайджест по пользователям ежедневно:</Resource>
     <Resource tag="BOARD_ALLOW_DIGEST_HELP">Обязательное поле: конференция должна иметь "YAF.BaseUrlMask" и "YAF.ForceScriptName" в вашем web.config чтобы дайджест работал.</Resource>
     <Resource tag="BOARD_CDN_HOSTED">Использовать внешний Google CDN файл jQuery UI CSS</Resource>
-    <Resource tag="BOARD_CDN_HOSTED_HELP">Вы можете использовать размешённый на Google CDN файл jQuery UI CSS вместо встроенного</Resource>
+    <Resource tag="BOARD_CDN_HOSTED_HELP">Вы можете использовать размещённый на Google CDN файл jQuery UI CSS вместо встроенного</Resource>
     <Resource tag="BOARD_CULTURE">Язык/культура:</Resource>
     <Resource tag="BOARD_CULTURE_HELP">Язык &amp; культура по умолчанию для этой конференции.</Resource>
     <Resource tag="BOARD_DEFAULT_NOTIFICATION">Настройки уведомлений по-умолчанию:</Resource>
     <Resource tag="BOARD_DEFAULT_NOTIFICATION_HELP">Когда новый пользователь регистрируется на сайте, это определяет какой тип уведомления при этом используется</Resource>
     <Resource tag="BOARD_DIGEST_HOURS">Период отсылки дайджеста(часы):</Resource>
-    <Resource tag="BOARD_DIGEST_HOURS_HELP">Кол-во часов перед отсылкой следующего дайджеста. ПЕриод рассылки только с 12:00 до 6:00am.</Resource>
+    <Resource tag="BOARD_DIGEST_HOURS_HELP">Кол-во часов перед отсылкой следующего дайджеста. Период рассылки только с 12:00 до 6:00am.</Resource>
     <Resource tag="BOARD_DIGEST_NEWUSERS">Включить по умолчанию посылку дайджеста для новых пользователей</Resource>
     <Resource tag="BOARD_DIGEST_NEWUSERS_HELP">Включить по умолчанию посылку дайджеста для новых пользователей?</Resource>
-    <Resource tag="BOARD_EMAIL_MODS">Посылать собщение Email модераторам при появлении нового (пред)модерируемого поста:</Resource>
-    <Resource tag="BOARD_EMAIL_MODS_HELP">Посылать собщение Email модераторам при появлении нового предмодерируемого или подлежащего модерации поста?</Resource>
+    <Resource tag="BOARD_EMAIL_MODS">Посылать сообщение Email модераторам при появлении нового (пред)модерируемого поста:</Resource>
+    <Resource tag="BOARD_EMAIL_MODS_HELP">Посылать сообщение Email модераторам при появлении нового предмодерируемого или подлежащего модерации поста?</Resource>
     <Resource tag="BOARD_EMAIL_ONREGISTER">Посылать уведомление по Email при регистрации пользователя на адреса:</Resource>
     <Resource tag="BOARD_EMAIL_ONREGISTER_HELP">Разделённый точкой с запятой (;) список адресов электронной почты дял посылки уведомлений при регистрации нового пользователя.</Resource>
     <Resource tag="BOARD_EMAIL_REPORTMODS">Отправить модератором сообщение Email при жалобе:</Resource>
@@ -375,14 +375,14 @@
     <Resource tag="BOARD_FILE_EXTENSIONS">Список разрешённых расширений файлов:</Resource>
     <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Список разрешённых/запрещённых расширений файлов. Последнее менее безопасно.</Resource>
     <Resource tag="BOARD_JQ_THEME">Тема jQuery UI:</Resource>
-    <Resource tag="BOARD_JQ_THEME_HELP">Тема jQuery UI Theme для испольлзования на это даске для вкладок и аккордиона.</Resource>
+    <Resource tag="BOARD_JQ_THEME_HELP">Тема jQuery UI для использования на этой конференции для вкладок и аккордеона.</Resource>
     <Resource tag="BOARD_MOBILE_THEME">Мобильная тема:</Resource>
     <Resource tag="BOARD_MOBILE_THEME_HELP">Мобильная тема для использования на этой конференции.</Resource>
     <Resource tag="BOARD_NAME">Название:</Resource>
     <Resource tag="BOARD_NAME_HELP">Название конференции</Resource>
     <Resource tag="BOARD_SETUP">Настройки текущей конференции</Resource>
     <Resource tag="BOARD_THEME">Тема:</Resource>
-    <Resource tag="BOARD_THEME_HELP">Тема используемая по умолчанию во всех форумах конференции.</Resource>
+    <Resource tag="BOARD_THEME_HELP">Тема, используемая по умолчанию во всех форумах конференции.</Resource>
     <Resource tag="BOARD_THEME_LOGO">Разрешить логотип из темы:</Resource>
     <Resource tag="BOARD_THEME_LOGO_HELP">Загружать логотип из темы. Не работает при интеграции</Resource>
     <Resource tag="BOARD_THREADED">Разрешить отображение в виде дерева:</Resource>
@@ -421,9 +421,9 @@
     <Resource tag="DIGEST_ENABLED">Рассылка даджеста включена:</Resource>
     <Resource tag="DIGEST_ENABLED_HELP">Изменить в ваших настройках конференции.</Resource>
     <Resource tag="DIGEST_GENERATE">Дайджест:</Resource>
-    <Resource tag="DIGEST_GENERATE_HELP">Генерировать дайджест для текущего администратора и используемой темы. (Может выглядить немного иначе, чем в клиенте email.)</Resource>
+    <Resource tag="DIGEST_GENERATE_HELP">Генерировать дайджест для текущего администратора и используемой темы. (Может выглядеть немного иначе, чем в клиенте email.)</Resource>
     <Resource tag="DIGEST_LAST">Последний отправленный  дайджест:</Resource>
-    <Resource tag="DIGEST_LAST_HELP">Последний раз, когда задача отправки дайджеста исполнялась (время севрера)</Resource>
+    <Resource tag="DIGEST_LAST_HELP">Последний раз, когда задача отправки дайджеста исполнялась (время сервера)</Resource>
     <Resource tag="DIGEST_METHOD">Метод  отправки:</Resource>
     <Resource tag="DIGEST_METHOD_HELP">Тип системы отправки.</Resource>
     <Resource tag="DIGEST_NEVER">Никогда</Resource>
@@ -450,7 +450,7 @@
     <Resource tag="MASK_NAME_HELP">Название маски доступа</Resource>
     <Resource tag="MASK_ORDER">Сортировка:</Resource>
     <Resource tag="MASK_ORDER_HELP">Порядковый номер для данной маски.</Resource>
-    <Resource tag="MODERATOR_ACCESS">Morderator Access</Resource>
+    <Resource tag="MODERATOR_ACCESS">Moderator Access</Resource>
     <Resource tag="MODERATOR_ACCESS_HELP">Allows Users to Edit/Delete all Posts and Topics in a Forum.</Resource>
     <Resource tag="MSG_MASK_NAME">Вы должны ввести название для этой маски доступа.</Resource>
     <Resource tag="MSG_NUMBER_SORT">Вы должны ввести значение от 0 до 32767 для порядкового номера сортировки.</Resource>
@@ -460,7 +460,7 @@
     <Resource tag="POST_ACCESS">Post Access</Resource>
     <Resource tag="POST_ACCESS_HELP">Allows Users to Post New Topics in a Forum.</Resource>
     <Resource tag="PRIORITY_ACCESS">Priority Access</Resource>
-    <Resource tag="PRIORITY_ACCESS_HELP">Allows Users to Change the Priority of Topic (Normal, Sticky, Anouncement).</Resource>
+    <Resource tag="PRIORITY_ACCESS_HELP">Allows Users to Change the Priority of Topic (Normal, Sticky, Announcement).</Resource>
     <Resource tag="READ_ACCESS">Read Access</Resource>
     <Resource tag="READ_ACCESS_HELP">Allows Users to Read Topics and Messages in a Forum.</Resource>
     <Resource tag="REPLY_ACCESS">Reply Access</Resource>
@@ -497,7 +497,7 @@
     <Resource tag="STATUS_INVAL_NAME">Введённое имя пользователя неверно. Пожалуйста, проверьте и введите снова.</Resource>
     <Resource tag="STATUS_INVAL_PASS">Введённый пароль неверен. Пожалуйста, введите верный пароль.</Resource>
     <Resource tag="STATUS_INVAL_QUESTION">Вопрос неверен. Пожалуйста, вспомните и попробуйте снова.</Resource>
-    <Resource tag="STATUS_PROVIDER_ERR">Провайдер авторизации возвратил ошибку.Проверьте введённые данные. Если проблема повторяется, то свяжитесь с вашим системным администратором.</Resource>
+    <Resource tag="STATUS_PROVIDER_ERR">Провайдер авторизации возвратил ошибку. Проверьте введённые данные. Если проблема повторяется, то свяжитесь с вашим системным администратором.</Resource>
     <Resource tag="STATUS_USR_REJECTED">Запрос на создание пользователя был отклонён. Проверьте введённые данные. Если проблема повторяется, то свяжитесь с вашим системным администратором.</Resource>
     <Resource tag="THREADED">Разрешить древовидность:</Resource>
     <Resource tag="THREADED_HELP">Разрешить древовидное отображение сообщений.</Resource>
@@ -518,10 +518,10 @@
     <Resource tag="CATEGORY_NAME_HELP">Название этой категории</Resource>
     <Resource tag="HEADER">Редактировать категорию:</Resource>
     <Resource tag="MSG_NUMBER">Неверное значение для порядкового номера категории. Ожидается целое число.</Resource>
-    <Resource tag="MSG_POSITIVE_VALUE">Порядок сортировки должен быть целым числом в диапазане от 0 до 32767.</Resource>
+    <Resource tag="MSG_POSITIVE_VALUE">Порядок сортировки должен быть целым числом в диапазоне от 0 до 32767.</Resource>
     <Resource tag="MSG_VALUE">Название категории обязательно.</Resource>
     <Resource tag="SORT_ORDER">Порядок сортировки:</Resource>
-    <Resource tag="SORT_ORDER_HELP">Порядок отображениея категории. Меньше значение - выше категория в списке.</Resource>
+    <Resource tag="SORT_ORDER_HELP">Порядок отображение категории. Меньше значение - выше категория в списке.</Resource>
     <Resource tag="TITLE">Добавить/Изменить категорию</Resource>
   </page>
   <page name="ADMIN_EDITFORUM">
@@ -555,7 +555,7 @@
     <Resource tag="MSG_INVALID_URL">Вы ввели неверный адрес Url.</Resource>
     <Resource tag="MSG_NAME_FORUM">Вы должны ввести название для форума.</Resource>
     <Resource tag="MSG_PARENT_SELF">Форум не может быть подчинённым форумом самого себя.</Resource>
-    <Resource tag="MSG_POSITIVE_VALUE">Порядок сортировки должин быть целым числом в диапазоне от 0 до 32767.</Resource>
+    <Resource tag="MSG_POSITIVE_VALUE">Порядок сортировки должен быть целым числом в диапазоне от 0 до 32767.</Resource>
     <Resource tag="MSG_VALUE">Вы должны вести значение для порядка сортировки.</Resource>
     <Resource tag="NAME">Название:</Resource>
     <Resource tag="NAME_HELP">Название форума.</Resource>
@@ -595,8 +595,8 @@
     <Resource tag="IS_GUEST">Гость::</Resource>
     <Resource tag="IS_GUEST_HELP">Это значение для внутреннего использования и делает роль недоступной для .NET membership. Никогда не назначайте этот флаг никаким пользователям кроме роли гостя или в комбинации с другими значениями ролей. </Resource>
     <Resource tag="IS_START">Стартовая:</Resource>
-    <Resource tag="IS_START_HELP">Если это значение выбрано, то все новые пользовтели будут в этой роли. Только одна роль должна быть стартовой.</Resource>
-    <Resource tag="MSG_ALBUM_NUMBER">Вы должны ввести целое положительное число для максимвльного количества изображений в каждом альбоме.</Resource>
+    <Resource tag="IS_START_HELP">Если это значение выбрано, то все новые пользователи будут в этой роли. Только одна роль должна быть стартовой.</Resource>
+    <Resource tag="MSG_ALBUM_NUMBER">Вы должны ввести целое положительное число для максимального количества изображений в каждом альбоме.</Resource>
     <Resource tag="MSG_INTEGER">Вы должны ввести целое число для приоритета.</Resource>
     <Resource tag="MSG_SIG_NUMBER">Вы должны ввести целое число для  кол-ва символов в подписи пользователя.</Resource>
     <Resource tag="MSG_TOTAL_NUMBER">Вы должны ввести целое положительное число для кол-ва изображений в каждом альбоме.</Resource>
@@ -614,7 +614,7 @@
     <Resource tag="SIGNATURE_LENGTH">Максимальное число символов в подписи пользователя:</Resource>
     <Resource tag="SIGNATURE_LENGTH_HELP">Максимальное число символов для пользователей в этой роли.</Resource>
     <Resource tag="STYLE">Стиль ника:</Resource>
-    <Resource tag="STYLE_HELP">Введите сюда строку стилей в формате тега style или коминированную строку со стилями для каждого скина.</Resource>
+    <Resource tag="STYLE_HELP">Введите сюда строку стилей в формате тега style или комбинированную строку со стилями для каждого скина.</Resource>
     <Resource tag="TITLE">Добавить/Изменить роль</Resource>
   </page>
   <page name="ADMIN_EDITLANGUAGE">
@@ -660,7 +660,7 @@
     <Resource tag="MEDAL_NAME">Название:</Resource>
     <Resource tag="MEDAL_NAME_HELP">Название медали.</Resource>
     <Resource tag="MEDAL_USER">Пользователь:</Resource>
-    <Resource tag="MEDAL_USER_HELP">Введите имя пользователя и нажмите на "Найтти пользователей" чтобы выбрать пользователя из списка.</Resource>
+    <Resource tag="MEDAL_USER_HELP">Введите имя пользователя и нажмите на "Найти пользователей" чтобы выбрать пользователя из списка.</Resource>
     <Resource tag="MSG_AMBIGOUS_USER">Такое имя пользователя уже указано!</Resource>
     <Resource tag="MSG_IMAGE">Изображение для медали должно быть выбрано!</Resource>
     <Resource tag="MSG_SMALL_IMAGE">Уменьшенное изображение медали должно быть выбрано!</Resource>
@@ -693,7 +693,7 @@
     <Resource tag="FORUM_HELP">Название форума, куда будут добавляться сообщения.</Resource>
     <Resource tag="GROUP">Группа новостей:</Resource>
     <Resource tag="GROUP_HELP">Название группы новостей.</Resource>
-    <Resource tag="MSG_SELECT_FORUM">Вы должны выбрать форум для созхранения сообщений NNTP.</Resource>
+    <Resource tag="MSG_SELECT_FORUM">Вы должны выбрать форум для сохранения сообщений NNTP.</Resource>
     <Resource tag="MSG_VALID_GROUP">Вы должны ввести правильное название группы новостей.</Resource>
     <Resource tag="SERVER">Сервер:</Resource>
     <Resource tag="SERVER_HELP">На каком сервере находится эта группа новостей.</Resource>
@@ -740,9 +740,9 @@
     <Resource tag="RANK_STYLE_HELP">Стиль для цвета и оформления ссылок.</Resource>
     <Resource tag="SELECT_IMAGE">Выберите изображение статуса</Resource>
     <Resource tag="SIG_BBCODE">Разрешённые BBCodes в подписи:</Resource>
-    <Resource tag="SIG_BBCODE_HELP">Разделённые запятой BBCodes, разрещённые в подписи обладателя статуса.</Resource>
+    <Resource tag="SIG_BBCODE_HELP">Разделённые запятой BBCodes, разрешённые в подписи обладателя статуса.</Resource>
     <Resource tag="SIG_HTML">Разрешённые теги HTML в подписи:</Resource>
-    <Resource tag="SIG_HTML_HELP">Разделённые запятой теги HTML, разрещённые в подписи обладателя статуса.</Resource>
+    <Resource tag="SIG_HTML_HELP">Разделённые запятой теги HTML, разрешённые в подписи обладателя статуса.</Resource>
     <Resource tag="SIG_LENGTH">Кол-во символов в подписи:</Resource>
     <Resource tag="SIG_LENGTH_HELP">Максимально разрешённое кол-во символов в подписи пользователя для данного статуса.</Resource>
     <Resource tag="TITLE">Добавить/Изменить статус</Resource>
@@ -766,8 +766,8 @@
     <Resource tag="DELETE_POSTS_USER">Удалить все сообщения пользователя?</Resource>
     <Resource tag="ERROR_CONFIRM_PASS">Нужно ввести подтверждение пароля</Resource>
     <Resource tag="ERROR_NEW_PASS">Нужно ввести новый пароль</Resource>
-    <Resource tag="ERROR_NOTE_PASSRESET">Ошибка: Текущий провайдер Membership не поддерживает функцию сброса пароля. ПроверьтеЮ что опция "EnablePasswordReset" имеет значение "true" в секции конфигурации провайдера в web.config.</Resource>
-    <Resource tag="ERROR_PASS_NOTMATCH">Подтвержение и пароль не совпадают</Resource>
+    <Resource tag="ERROR_NOTE_PASSRESET">Ошибка: Текущий провайдер Membership не поддерживает функцию сброса пароля. Проверьте, что опция "EnablePasswordReset" имеет значение "true" в секции конфигурации провайдера в web.config.</Resource>
+    <Resource tag="ERROR_PASS_NOTMATCH">Подтверждение и пароль не совпадают</Resource>
     <Resource tag="FACEBOOK_USER">Пользователь Facebook:</Resource>
     <Resource tag="FACEBOOK_USER_HELP">Показывает, что пользователь зашёл через Facebook.</Resource>
     <Resource tag="GOOGLE_USER">Google User:</Resource>
@@ -903,7 +903,7 @@
   </page>
   <page name="ADMIN_EXTENSIONS_IMPORT">
     <Resource tag="HEADER">Импорт списка расширений</Resource>
-    <Resource tag="IMPORT">Испортировать список</Resource>
+    <Resource tag="IMPORT">Эспортировать список</Resource>
     <Resource tag="IMPORT_FAILED">Не смогли импортировать: {0}</Resource>
     <Resource tag="IMPORT_FILE">Выбор файла для импорта:</Resource>
     <Resource tag="IMPORT_FILE_HELP">Должен быть в формате *.xml</Resource>
@@ -915,7 +915,7 @@
     <Resource tag="CONFIRM_DELETE">Удалить этот форум навсегда, включая темы, сообщения, вложения и другую связанную с ним информацию?</Resource>
     <Resource tag="CONFIRM_DELETE_CAT">Удалить категорию?</Resource>
     <Resource tag="CONFIRM_DELETE_POSITIVE">Вы уверены, что вменяемы сегодня?</Resource>
-    <Resource tag="MSG_NOT_DELETE">Вы не можете удалить категорию, до тех пор пока в ней есть хотя бы один форум. Чтобы переместит форум нажмите \"Изменить\"  и переместите форум в другую категорию.</Resource>
+    <Resource tag="MSG_NOT_DELETE">Вы не можете удалить категорию, до тех пор пока в ней есть хотя бы один форум. Чтобы переместит форум нажмите \"Изменить\" и переместите форум в другую категорию.</Resource>
     <Resource tag="NEW_CATEGORY">Добавить категорию</Resource>
     <Resource tag="NEW_FORUM">Добавить форум</Resource>
   </page>
@@ -1046,7 +1046,7 @@
     <Resource tag="CAPTCHA_FOR_REGISTER">Включить CAPTCHA/reCAPTCHA при регистрации:</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER_HELP">Требовать от пользователей ввести данные CAPTCHA при регистрации на форуме.</Resource>
     <Resource tag="CAPTCHA_GUEST_POSTING">Включить CAPTCHA при постах гостей:</Resource>
-    <Resource tag="CAPTCHA_GUEST_POSTING_HELP">Требовать от гостей вввести CAPTCHA, когда они оставляют сообщение на форуме, включая быстрый ответ.</Resource>
+    <Resource tag="CAPTCHA_GUEST_POSTING_HELP">Требовать от гостей ввести CAPTCHA, когда они оставляют сообщение на форуме, включая быстрый ответ.</Resource>
     <Resource tag="CAPTCHA_SIZE">Размер CAPTCHA:</Resource>
     <Resource tag="CAPTCHA_SIZE_HELP">Длина(символы) генерируемой случайной строки CAPTCHA.</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT">Таймаут кэша для категорий конференции:</Resource>
@@ -1054,7 +1054,7 @@
     <Resource tag="CHECK_FOR_BOTSPAM">Choose a Service for Automatically User Bot Checking:</Resource>
     <Resource tag="CHECK_FOR_BOTSPAM_HELP">Enables/disables automatically Bot SPAM Checking via the &lt;a href="http://stopforumspam.com/"&gt;StopForumSpam.com API&lt;/a&gt; , BotScout.com API, or both together.</Resource>
     <Resource tag="CHECK_FOR_SPAM">Служба анти-СПАМА.</Resource>
-    <Resource tag="CHECK_FOR_SPAM_HELP">Включает/отключает автоматичсекую проверку спама при помощи &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt; или Akismet.com. Если включено, то спам автоматически отвергается.</Resource>
+    <Resource tag="CHECK_FOR_SPAM_HELP">Включает/отключает автоматическую проверку спама при помощи &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt; или Akismet.com. Если включено, то спам автоматически отвергается.</Resource>
     <Resource tag="CLEAR_CACHE">Очистить кэш</Resource>
     <Resource tag="COLLAPSED">Collapsed</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE">Шаблон иконки страны:</Resource>
@@ -1062,10 +1062,10 @@
     <Resource tag="CREATE_NNTPNAMES">Создавать имена пользователей NNTP:</Resource>
     <Resource tag="CREATE_NNTPNAMES_HELP">Включите, чтобы пользователи добавлялись из сообщений usenet. Включайте это только в тестовых случаях и &lt;em&gt;НИКОГДА&lt;/em&gt; на работающем сервере. Главная цель этой опции - тестирование производительности.</Resource>
     <Resource tag="CROP_IMAGE_ATTACH">Обрезать изображение при предпросмотре:</Resource>
-    <Resource tag="CROP_IMAGE_ATTACH_HELP">Обрезать изображение при предпросмотре, используютя указанные параметры изображения.</Resource>
+    <Resource tag="CROP_IMAGE_ATTACH_HELP">Обрезать изображение при предпросмотре, используются указанные параметры изображения.</Resource>
     <Resource tag="DAYS_BEFORE_POSTLOCK">Дни до тех пор пока посты закрыты:</Resource>
     <Resource tag="DAYS_BEFORE_POSTLOCK_HELP">Число дней, до того как посты невозможно редактировать или удалять. Установите 0, для отсутствия ограничений.</Resource>
-    <Resource tag="DISABLE_NOFOLLOW_ONOLDERPOSTS">Отключить тег "NoFollow" по ссылкам и собщениям старше чем:</Resource>
+    <Resource tag="DISABLE_NOFOLLOW_ONOLDERPOSTS">Отключить тег "NoFollow" по ссылкам и сообщениям старше чем:</Resource>
     <Resource tag="DISABLE_NOFOLLOW_ONOLDERPOSTS_HELP">Если "NoFollow" включено, то переход по ссылкам старше чем указанное кол-во дней будет невозможен.</Resource>
     <Resource tag="DISABLE_REGISTER">Отключить новые регистрации:</Resource>
     <Resource tag="DISABLE_REGISTER_HELP">Новые пользователи не смогут регистрироваться.</Resource>
@@ -1181,7 +1181,7 @@
     <Resource tag="IMAGES_PER_PAGE_HELP">Количество изображений на одной странице.</Resource>
     <Resource tag="IP_INFOSERVICE">Включить информационную службу IP:</Resource>
     <Resource tag="IP_INFOSERVICE_DATAMAPPING">Мэппинг аргументов веб-службы геолокации по IP:</Resource>
-    <Resource tag="IP_INFOSERVICE_DATAMAPPING_HELP">Соппоставляет строковый массив возвращаемых данных аргументам службы.</Resource>
+    <Resource tag="IP_INFOSERVICE_DATAMAPPING_HELP">Сопоставляет строковый массив возвращаемых данных аргументам службы.</Resource>
     <Resource tag="IP_INFOSERVICE_HELP">Эта служба собирает информацию о нахождении пользователя и заполняет поле Местонахождения при регистрации.</Resource>
     <Resource tag="IP_INFOSERVICE_XMLURL">URL информационной XML-вебслужбы :</Resource>
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">Не изменяйте это поле на другую службу.</Resource>
@@ -1212,7 +1212,7 @@
     <Resource tag="LOG_VIEWSTATEERROR">Log ViewState Exceptions:</Resource>
     <Resource tag="LOG_VIEWSTATEERROR_HELP">ViewState Exceptions (mainly caused by SPAM Bots) will be logged.</Resource>
     <Resource tag="LOG_WARNING">Записывать предупреждения:</Resource>
-    <Resource tag="LOG_WARNING_HELP">Преудпреждения приложения будут журналироваться.</Resource>
+    <Resource tag="LOG_WARNING_HELP">Предупреждения приложения будут журналироваться.</Resource>
     <Resource tag="LOGIN_REDIR_URL">Специальный Url для перенаправления на страницу регистрации:</Resource>
     <Resource tag="LOGIN_REDIR_URL_HELP">Если логин выключен в AppSettings (AllowLoginAndLogoff должна быть установлена как "false"), это адрес URL куда перенаправляются пользователи, когда они хотят получить доступ к форуму. Добавьте по выбору "{0}" к URL, чтобы добавить URL возврата к вашему особому URL, например "http://mydomain.com/login.aspx?PreviousUrl={{0}}"</Resource>
     <Resource tag="MAX_ALLOWED_CHOICES">Число вариантов ответа:</Resource>
@@ -1220,7 +1220,7 @@
     <Resource tag="MAX_ALLOWED_POLLS">Число вопросов:</Resource>
     <Resource tag="MAX_ALLOWED_POLLS_HELP">Максимальное число вопросов в группе. Искусственно ограничено до 99.</Resource>
     <Resource tag="MAX_ATTACHMENTS">Число вложений к сообщению:</Resource>
-    <Resource tag="MAX_ATTACHMENTS_HELP">Максимальное число вложение к одному сообщению. Уставновите 0 для неограниченного.</Resource>
+    <Resource tag="MAX_ATTACHMENTS_HELP">Максимальное число вложение к одному сообщению. Установите 0 для неограниченного.</Resource>
     <Resource tag="MAX_FILESIZE">Размер файла:</Resource>
     <Resource tag="MAX_FILESIZE_HELP">Максимальный размер загружаемых файлов. Оставьте пустым для неограниченного.</Resource>
     <Resource tag="MAX_IMAGE_SIZE">Размер изображения:</Resource>
@@ -1247,9 +1247,9 @@
     <Resource tag="MOD_CACHE_TIMEOUT_HELP">В минутах</Resource>
     <Resource tag="MODAL_DIALOG">Modal Dialog</Resource>
     <Resource tag="MODAL_LOGIN">Использовать модальное всплывающее окно для входа:</Resource>
-    <Resource tag="MODAL_LOGIN_HELP">Если отключено, то для входа будет использоватьс яотдельная страница.</Resource>
+    <Resource tag="MODAL_LOGIN_HELP">Если отключено, то для входа будет использоваться отдельная страница.</Resource>
     <Resource tag="MYTOPICSLIST_PAGE_SIZE">Размер страницы Мои Темы:</Resource>
-    <Resource tag="MYTOPICSLIST_PAGE_SIZE_HELP">Количество тем на одной странице  на странице Мои Темы. </Resource>
+    <Resource tag="MYTOPICSLIST_PAGE_SIZE_HELP">Количество тем на одной странице на странице Мои Темы. </Resource>
     <Resource tag="NAME_LENGTH">Максимальное количество символов в нике пользователя:</Resource>
     <Resource tag="NAME_LENGTH_HELP">Максимально разрешённая длина имени пользователя и отображаемого имени пользователя.</Resource>
     <Resource tag="NOFOLLOW_LINKTAGS">Использовать тег "NoFollow" в ссылках:</Resource>
@@ -1260,7 +1260,7 @@
     <Resource tag="NOTIFICATION_MOBILE">Use Native Message Dialogs on Mobile:</Resource>
     <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notifcation Dialogs on Mobile Devices.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Таймаут кэша пользователя онлайн:</Resource>
-    <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Вы можете уставливать это значение в зависимости от активности на сайте(в миллисекундах)</Resource>
+    <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Вы можете устанавливать это значение в зависимости от активности на сайте(в миллисекундах)</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Размер файла изображения в опросах:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Максимальный размер файла в опросах в КБ.</Resource>
     <Resource tag="POLLVOTING_PERIP">Голосование зависит от IP:</Resource>
@@ -1296,7 +1296,7 @@
     <Resource tag="RECAPTCHA_PUBLIC_KEY">Публичный ключ reCAPTCHA:</Resource>
     <Resource tag="RECAPTCHA_PUBLIC_KEY_HELP">Введите публичный ключ reCAPTCHA.</Resource>
     <Resource tag="REFERRER_CHECK">Включить проверку безопасности Url Referrer:</Resource>
-    <Resource tag="REFERRER_CHECK_HELP">Проверяет, что все POST происходят из того же домена как и домен ссылки (Отсутсвие кроссдоменных POST).</Resource>
+    <Resource tag="REFERRER_CHECK_HELP">Проверяет, что все POST происходят из того же домена как и домен ссылки (Отсутствие кроссдоменных POST).</Resource>
     <Resource tag="REG_USERS">Зарегистрированные пользователи</Resource>
     <Resource tag="REMOTE_AVATARS">Разрешить удалённые аватары:</Resource>
     <Resource tag="REMOTE_AVATARS_HELP">Пользователя могут использовать аватары с других сайтов.</Resource>
@@ -1334,7 +1334,7 @@
     <Resource tag="SEARCH_MAXLENGTH">Максимальная длина текста для поиска:</Resource>
     <Resource tag="SEARCH_MAXLENGTH_HELP">Максимальная разрешённая длина слова/слов для поиска.</Resource>
     <Resource tag="SEARCH_MINLENGTH">Минимальная длина текста для поиска:</Resource>
-    <Resource tag="SEARCH_MINLENGTH_HELP">Минимальная  разрешённая длина слова/слов для поиска.</Resource>
+    <Resource tag="SEARCH_MINLENGTH_HELP">Минимальная разрешённая длина слова/слов для поиска.</Resource>
     <Resource tag="SEARCH_PATTERN">Шаблон (регулярное выражение) текста для поиска:</Resource>
     <Resource tag="SEARCH_PATTERN_HELP">Шаблон (регулярное выражение) разрешённого текста для поиска.</Resource>
     <Resource tag="SEARCH_PERMISS">Разрешения для поиска:</Resource>
@@ -1382,7 +1382,7 @@
     <Resource tag="SHOW_MODLIST_ASCOLUMN_HELP">Показывает список модераторов в виде столбца в списке категорий.</Resource>
     <Resource tag="SHOW_MODLIST_HELP">Колонка со списком модераторов будет отображаться в списках форумов.</Resource>
     <Resource tag="SHOW_MOVED_TOPICS">Показывать перемещённые темы:</Resource>
-    <Resource tag="SHOW_MOVED_TOPICS_HELP">Если это включено, то вместо перемещённых тем будут в старом месте будут видны ссылки на них в новом месте месте.</Resource>
+    <Resource tag="SHOW_MOVED_TOPICS_HELP">Если это включено, то вместо перемещённых тем будут в старом месте будут видны ссылки на них в новом месте.</Resource>
     <Resource tag="SHOW_NOCOUNT_POSTS">Отображать "не считаемые" сообщения в активных обсуждениях:</Resource>
     <Resource tag="SHOW_NOCOUNT_POSTS_HELP">Такие сообщения будут отображаться в активных обсуждениях.</Resource>
     <Resource tag="SHOW_RECENT_USERS">Показывать информацию о недавних пользователях:</Resource>
@@ -1392,7 +1392,7 @@
     <Resource tag="SHOW_RENDERTIME">Показывать время генерации страницы:</Resource>
     <Resource tag="SHOW_RENDERTIME_HELP">Включить отображение времени генерации страницы в подвале форума.</Resource>
     <Resource tag="SHOW_RSS_LINKS">Показывать ссылки RSS:</Resource>
-    <Resource tag="SHOW_RSS_LINKS_HELP">Разрешить ссылки RSS. Вы также должны устанвоить разрешения для каждой ленты</Resource>
+    <Resource tag="SHOW_RSS_LINKS_HELP">Разрешить ссылки RSS. Вы также должны установить разрешения для каждой ленты</Resource>
     <Resource tag="SHOW_SHOUTBOX">Включить чат:</Resource>
     <Resource tag="SHOW_SHOUTBOX_HELP">Включить чат на главной странице форума.</Resource>
     <Resource tag="SHOW_SHOUTBOX_SMILIES">Показывать смайлы в чате:</Resource>
@@ -1405,8 +1405,8 @@
     <Resource tag="SHOW_UNREAD_LINKS_HELP">Ссылки будут вести к последнему непрочитанному сообщению.</Resource>
     <Resource tag="SHOW_USER_STATUS">Показывать иконку пользователя онлайн/оффлайн:</Resource>
     <Resource tag="SHOW_USER_STATUS_HELP">Показывать иконку пользователя онлайн/оффлайн. Скрытые пользователи отображаются как оффлайн.</Resource>
-    <Resource tag="SHOW_USERSBROWSING">Показывать актиных пользователей форума/темы:</Resource>
-    <Resource tag="SHOW_USERSBROWSING_HELP">Показывать активных пользователй форума/темы внизу соответствующей страницы.</Resource>
+    <Resource tag="SHOW_USERSBROWSING">Показывать активных пользователей форума/темы:</Resource>
+    <Resource tag="SHOW_USERSBROWSING_HELP">Показывать активных пользователей форума/темы внизу соответствующей страницы.</Resource>
     <Resource tag="SHOW_YAFVERSION">Показывать версию YetAnotherForum:</Resource>
     <Resource tag="SHOW_YAFVERSION_HELP">Показывать версию внизу страницы.</Resource>
     <Resource tag="SHOWAD_LOGINUSERS">Показывать рекламу зарегистрированным пользователям:</Resource>
@@ -1414,12 +1414,12 @@
     <Resource tag="SHOWHELP">Показывать помощь:</Resource>
     <Resource tag="SHOWHELP_HELP">Показывать ссылку на страницу поиска в заголовке страницы.</Resource>
     <Resource tag="SHOWTEAM">Показывать страницу команды:</Resource>
-    <Resource tag="SHOWTEAM_HELP">Показывать ссылку на страницу страницу команды форума(админстраторы, модераторы...) в заголовке</Resource>
+    <Resource tag="SHOWTEAM_HELP">Показывать ссылку на страницу команды форума(администраторы, модераторы...) в заголовке</Resource>
     <Resource tag="SPAM_MESSAGE_0">Ничего не делать</Resource>
     <Resource tag="SPAM_MESSAGE_1">Отметить как неодобренное</Resource>
     <Resource tag="SPAM_MESSAGE_2">Удалить сообщение</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING">Обработка сообщений детектированных как СПАМ</Resource>
-    <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Выберите действие которое будет выполняться если сообщщение детектировано как спам.</Resource>
+    <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Выберите действие которое будет выполняться если сообщение детектировано как спам.</Resource>
     <Resource tag="SPAM_SERVICE_TYP_1">BlogSpam.NET API</Resource>
     <Resource tag="SPAM_SERVICE_TYP_2">Akismet API (Needs Registration)</Resource>
     <Resource tag="SPAM_SERVICE_TYP_3">Internal Spam Check Words</Resource>
@@ -1475,7 +1475,7 @@
     <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box View Permission:</Resource>
     <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">View Permission for the Shout Box to allow for all Users (Including Guests) or only registered users.</Resource>
     <Resource tag="WSERVICE_TOKEN">Токен веб-службы:</Resource>
-    <Resource tag="WSERVICE_TOKEN_HELP">Токен для безопасного вызова веб-служб. Чтобы зафиксировать его вы должны сохранить настроийки хоста хотя бы раз.</Resource>
+    <Resource tag="WSERVICE_TOKEN_HELP">Токен для безопасного вызова веб-служб. Чтобы зафиксировать его вы должны сохранить настройки хоста хотя бы раз.</Resource>
   </page>
   <page name="ADMIN_LANGUAGES">
     <Resource tag="CULTURE_TAG">Код языковой культуры</Resource>
@@ -1491,14 +1491,14 @@
     <Resource tag="MAIL_SUBJECT">Тема:</Resource>
     <Resource tag="MAIL_TO">Кому:</Resource>
     <Resource tag="MSG_QUEUED">Почта в очереди.</Resource>
-    <Resource tag="MSG_SUBJECT">Необходимо вввести название темы</Resource>
+    <Resource tag="MSG_SUBJECT">Необходимо ввести название темы</Resource>
     <Resource tag="SEND_MAIL">Послать почту</Resource>
     <Resource tag="TITLE">Почта</Resource>
   </page>
   <page name="ADMIN_MEDALS">
     <Resource tag="CONFIRM_DELETE">Удалить эту медаль?</Resource>
-    <Resource tag="DISPLAY_BOX">Изображение медали как она будет отображаться в блоке пользователя в постах.</Resource>
-    <Resource tag="DISPLAY_RIBBON">Орденская планка  как она будет отображаться в блоке пользователя в постах.</Resource>
+    <Resource tag="DISPLAY_BOX">Изображение медали, как она будет отображаться в блоке пользователя в постах.</Resource>
+    <Resource tag="DISPLAY_RIBBON">Орденская планка, как она будет отображаться в блоке пользователя в постах.</Resource>
     <Resource tag="NEW_MEDAL">Новая медаль</Resource>
     <Resource tag="TITLE">Медали</Resource>
   </page>
@@ -1553,7 +1553,7 @@
     <Resource tag="TITLE">Список доступа администраторов</Resource>
   </page>
   <page name="ADMIN_PM">
-    <Resource tag="CONFIRM_DELETE">Вы действительно желаете удалисть личные сообщения? Этот процесс необратим.</Resource>
+    <Resource tag="CONFIRM_DELETE">Вы действительно желаете удалить личные сообщения? Этот процесс необратим.</Resource>
     <Resource tag="DAYS">дней</Resource>
     <Resource tag="DELETE_READ">Удалить прочитанные сообщения старше чем:</Resource>
     <Resource tag="DELETE_UNREAD">Удалить непрочитанные сообщения старше чем:</Resource>
@@ -1588,7 +1588,7 @@
   </page>
   <page name="ADMIN_REGUSER">
     <Resource tag="HEADER">Создать нового пользователя</Resource>
-    <Resource tag="HEADER2">Детали эккаунта</Resource>
+    <Resource tag="HEADER2">Детали аккаунта</Resource>
     <Resource tag="HEADER3">Информация о профиле</Resource>
     <Resource tag="HEADER4">Предпочтения для форума</Resource>
     <Resource tag="MSG_CREATED">Пользователь {0} успешно зарегистрирован.</Resource>
@@ -1599,7 +1599,7 @@
     <Resource tag="TITLE">Новый пользователь</Resource>
   </page>
   <page name="ADMIN_REINDEX">
-    <Resource tag="CONFIRM_RECOVERY">Вы уверены, что хотите изменить режим восстановления вашей базы данных? Эта операция может сделать эту БД недоступной и иожет занять много времени.\nДЕЛАЙТЕ ЭТО ТОЛЬКО ЕСЛИ ВЫ ХОРОШО РАЗБИРАЕТЕСЬ В ТОМ, ЧТО ДЕЛАЕТЕ!</Resource>
+    <Resource tag="CONFIRM_RECOVERY">Вы уверены, что хотите изменить режим восстановления вашей базы данных? Эта операция может сделать эту БД недоступной и может занять много времени.\nДЕЛАЙТЕ ЭТО ТОЛЬКО ЕСЛИ ВЫ ХОРОШО РАЗБИРАЕТЕСЬ В ТОМ, ЧТО ДЕЛАЕТЕ!</Resource>
     <Resource tag="CONFIRM_REINDEX">Вы уверены, что хотите реиндексировать все таблицы YAF? Это действие может прервать доступ к БД и займёт много времени.</Resource>
     <Resource tag="CONFIRM_SHRINK">Вы уверены, что хотите сжать БД? Это действие может прервать доступ к БД и займёт много времени.</Resource>
     <Resource tag="HEADER">Сообщение об операции с БД YAF</Resource>
@@ -1607,13 +1607,13 @@
     <Resource tag="INDEX_STATS">Режим восстановления базы данных успешно установлен на {0}</Resource>
     <Resource tag="INDEX_STATS_FAIL">Произошла ошибка. Сообщение системы: {0}</Resource>
     <Resource tag="RECOVERY1">Полное (Полное восстановление позволяет откатить базу к точке сбоя.)</Resource>
-    <Resource tag="RECOVERY2">Простое (Простоое восстановление позволяет восстановить копию последнего резервного бэкапа. Вы должны делать регулярные бэкапы.)</Resource>
+    <Resource tag="RECOVERY2">Простое (Простое восстановление позволяет восстановить копию последнего резервного бэкапа. Вы должны делать регулярные бэкапы.)</Resource>
     <Resource tag="RECOVERY3">Bulk-Logged (Восстановление в режиме Bulk-Logged выполняет такие операции.)</Resource>
     <Resource tag="REINDEX">При любых модификациях данных происходит фрагментация данных в таблицах. Эта команда может быть использована для воссоздания индексов во всех таблицах БД, чтобы увеличить скорость.</Resource>
     <Resource tag="REINDEXTBL_BTN">Реиндексировать таблицы</Resource>
     <Resource tag="SETRECOVERY_BTN">Установить режим</Resource>
     <Resource tag="SHOW_STATS">Показать статистическую информацию об индексах таблиц YAF.</Resource>
-    <Resource tag="SHRINK">Вы можете использовать сжатие, чтобы снизить размер БД вручную. Данные более компактны и неиспользуемые странциы удаляются.</Resource>
+    <Resource tag="SHRINK">Вы можете использовать сжатие, чтобы снизить размер БД вручную. Данные более компактны и неиспользуемые страницы удаляются.</Resource>
     <Resource tag="SHRINK_BTN">Сжать БД</Resource>
     <Resource tag="TBLINDEXSTATS_BTN">Статистика индексов</Resource>
     <Resource tag="TITLE">Реиндексирование и обслуживание БД</Resource>
@@ -1787,7 +1787,7 @@
     <Resource tag="USER_NAME">Ник пользователя</Resource>
   </page>
   <page name="ADMIN_USERS_IMPORT">
-    <Resource tag="HEADER">Импортировать пользователй в YAF</Resource>
+    <Resource tag="HEADER">Импортировать пользователей в YAF</Resource>
     <Resource tag="IMPORT_FAILED">Невозможно импортировать: {0}</Resource>
     <Resource tag="IMPORT_FAILED_FORMAT">Импорт не удался - неверный формат файла!</Resource>
     <Resource tag="IMPORT_FILE">Выбрать файл File:</Resource>
@@ -2195,9 +2195,9 @@
     <Resource tag="CM">Камерун</Resource>
     <Resource tag="CN">Китай</Resource>
     <Resource tag="CO">Колумбия</Resource>
-    <Resource tag="CR">Коста Рика</Resource>
+    <Resource tag="CR">Коста-Рика</Resource>
     <Resource tag="CU">Куба</Resource>
-    <Resource tag="CV">КАпе Верде</Resource>
+    <Resource tag="CV">Кабо-Верде</Resource>
     <Resource tag="CX">Рождества Остров</Resource>
     <Resource tag="CY">Кипр</Resource>
     <Resource tag="CZ">Чехия</Resource>
@@ -2232,7 +2232,7 @@
     <Resource tag="GM">Гамбия</Resource>
     <Resource tag="GN">Гвинея</Resource>
     <Resource tag="GP">Гваделупа</Resource>
-    <Resource tag="GQ">Экваторияльная Гвинея</Resource>
+    <Resource tag="GQ">Экваториальная Гвинея</Resource>
     <Resource tag="GR">Греция</Resource>
     <Resource tag="GS">Южная Джорджия</Resource>
     <Resource tag="GT">Гватемала</Resource>
@@ -2249,7 +2249,7 @@
     <Resource tag="IE">Ирландия</Resource>
     <Resource tag="IL">Израиль</Resource>
     <Resource tag="IN">Индия</Resource>
-    <Resource tag="IO">Британскиая Индия</Resource>
+    <Resource tag="IO">Британская Индия</Resource>
     <Resource tag="IQ">Ирак</Resource>
     <Resource tag="IR">Иран</Resource>
     <Resource tag="IS">Исландия</Resource>
@@ -2289,7 +2289,7 @@
     <Resource tag="MM">Мьянма</Resource>
     <Resource tag="MN">Монголия</Resource>
     <Resource tag="MO">Макао</Resource>
-    <Resource tag="MP">Севю Марианские  О-ва</Resource>
+    <Resource tag="MP">Сев. Марианские  О-ва</Resource>
     <Resource tag="MQ">Мартиника</Resource>
     <Resource tag="MR">Мавритания</Resource>
     <Resource tag="MS">Монтсеррат</Resource>
@@ -2316,13 +2316,13 @@
     <Resource tag="PA">Панама</Resource>
     <Resource tag="PE">Перу</Resource>
     <Resource tag="PF">Французская Полинезия</Resource>
-    <Resource tag="PG">Папуа Новая Гвмнея</Resource>
+    <Resource tag="PG">Папуа Новая Гвинея</Resource>
     <Resource tag="PH">Филлипины</Resource>
     <Resource tag="PK">Пакистан</Resource>
     <Resource tag="PL">Польша</Resource>
     <Resource tag="PM">Св.Пьер и Микелон</Resource>
     <Resource tag="PN">Питкаирн</Resource>
-    <Resource tag="PR">Пуэрто Рико</Resource>
+    <Resource tag="PR">Пуэрто-Рико</Resource>
     <Resource tag="PT">Португалия</Resource>
     <Resource tag="PW">Палау</Resource>
     <Resource tag="PY">Парагвай</Resource>
@@ -2347,7 +2347,7 @@
     <Resource tag="SO">Сомали</Resource>
     <Resource tag="SP">Сербия</Resource>
     <Resource tag="SR">Суринам</Resource>
-    <Resource tag="ST">Сао Том и принсипе</Resource>
+    <Resource tag="ST">Сао Томе и Принсипи</Resource>
     <Resource tag="SV">Сальвадор</Resource>
     <Resource tag="SY">Сирия</Resource>
     <Resource tag="SZ">Свазиленд</Resource>
@@ -2374,7 +2374,7 @@
     <Resource tag="UY">Уругвай</Resource>
     <Resource tag="UZ">Узбекистан</Resource>
     <Resource tag="VA">Ватикан</Resource>
-    <Resource tag="VC">Сант -Венсет и Гренадины</Resource>
+    <Resource tag="VC">Сент-Винсет и Гренадины</Resource>
     <Resource tag="VE">Венесуэла</Resource>
     <Resource tag="VG">Виргинские О-ва(Британия)</Resource>
     <Resource tag="VI">Виргинские О-ва(США)</Resource>
@@ -2469,7 +2469,7 @@
     <Resource tag="BAD_ICQ">Вы ввели недопустимое значение для вашего номера ICQ.</Resource>
     <Resource tag="BAD_MSN">Вы ввели неверный адрес электронной почты для учётной записи MSN.</Resource>
     <Resource tag="BAD_WEBLOG">Вы ввели неверный адрес для вашего блога.</Resource>
-    <Resource tag="BAD_XMPP">Вы ввели неверное имя для своего эккаунта XMPP.</Resource>
+    <Resource tag="BAD_XMPP">Вы ввели неверное имя для своего аккаунта XMPP.</Resource>
     <Resource tag="BIRTHDAY">Дата рождения</Resource>
     <Resource tag="CHANGE_EMAIL">Изменить адрес электронной почты</Resource>
     <Resource tag="CITY">Город:</Resource>
@@ -2585,7 +2585,7 @@
     <Resource tag="SIGNATURE">Подпись:</Resource>
     <Resource tag="SIGNATURE_BBCODE_WRONG">В вашей подписи содержится запрещённый администрацией BBCode {0}.</Resource>
     <Resource tag="SIGNATURE_CHARSMAX">Максимальная длина подписи {0} символов.</Resource>
-    <Resource tag="SIGNATURE_MAX">Ваша подпись слишком длинная. Она не должна быть длинее {0} символов.</Resource>
+    <Resource tag="SIGNATURE_MAX">Ваша подпись слишком длинная. Она не должна быть длиннее {0} символов.</Resource>
     <Resource tag="SIGNATURE_NOEDIT">Вы не можете редактировать подпись, но можете полностью удалить её.</Resource>
     <Resource tag="SIGNATURE_PERMISSIONS">Параметры подписи</Resource>
     <Resource tag="SIGNATURE_PREVIEW">Предпросмотр подписи</Resource>
@@ -2603,7 +2603,7 @@
     <Resource tag="REPLIES">Ответы</Resource>
     <Resource tag="SAVED_NOTIFICATION_SETTING">Настройки уведомлений по Email обновлены</Resource>
     <Resource tag="TITLE">Уведомления по Email</Resource>
-    <Resource tag="TOPIC">Tема</Resource>
+    <Resource tag="TOPIC">Тема</Resource>
     <Resource tag="TOPICS">Отслеживаемые темы</Resource>
     <Resource tag="TOPICSIPOSTTOORSUBSCRIBETO">Уведомления о темах  [b]в которых вы оставляли сообщения[/b] или отслеживали</Resource>
     <Resource tag="TOPICSISUBSCRIBETO">Уведомления о темах или форумах которые Вы выбрали для отслеживания (список ниже)</Resource>
@@ -4259,7 +4259,7 @@ Spoiler Content
     <Resource tag="ASK_DELETE">Удалить это сообщение?</Resource>
     <Resource tag="COPYOVER">Обновить текст сообщения</Resource>
     <Resource tag="DELETE">Удалить сообщение</Resource>
-    <Resource tag="DELETED">Сообщение удалёно.</Resource>
+    <Resource tag="DELETED">Сообщение удалено.</Resource>
     <Resource tag="HISTORY">История</Resource>
     <Resource tag="MODIFIED">Сообщение было отредактировано!</Resource>
     <Resource tag="NUMBERREPORTED">Сообщённое число случаев :</Resource>
@@ -4292,7 +4292,7 @@ Spoiler Content
     <Resource tag="LEAVE_POINTER">Оставить ссылку на тему на первоначальном форуме</Resource>
     <Resource tag="MOVE">Переместить тему</Resource>
     <Resource tag="POINTER_DAYS">Хранить ссылку (дней):</Resource>
-    <Resource tag="POINTER_DAYS_INVALID">Вы должны ввест ицелое число дней</Resource>
+    <Resource tag="POINTER_DAYS_INVALID">Вы должны ввести целое число дней</Resource>
     <Resource tag="SELECT_FORUM">Выберите форум, куда Вы хотите переместить эту тему:</Resource>
     <Resource tag="TITLE">Переместить тему</Resource>
   </page>
@@ -4352,7 +4352,7 @@ Spoiler Content
     <Resource tag="TITLE">Отправить личное сообщение</Resource>
     <Resource tag="TO">Кому:</Resource>
     <Resource tag="TOO_MANY_RECIPIENTS">Слишком много адресатов. Разрешено не более {0}.</Resource>
-    <Resource tag="USER_NOTFOUND">Пользователь которого вы искали не существует. Пожалуйста попытайтесь снова или используйте кнопку "Все пользователи".</Resource>
+    <Resource tag="USER_NOTFOUND">Пользователь, которого вы искали не существует. Пожалуйста попытайтесь снова или используйте кнопку "Все пользователи".</Resource>
   </page>
   <page name="POLLEDIT">
     <Resource tag="ASK_POLL_DELETE">Вы действительно желаете удалить этот опрос?</Resource>
@@ -4435,7 +4435,7 @@ Spoiler Content
     <Resource tag="SAVE_TITLE">Разместить/Редактировать сообщение</Resource>
     <Resource tag="SMILIES_HEADER">[b]Добавить смайлик[/b]</Resource>
     <Resource tag="SMILIES_MORE">Ещё смайлики...</Resource>
-    <Resource tag="SPAM_MESSAGE">Ваше ссобщение было определено как СПАМ!</Resource>
+    <Resource tag="SPAM_MESSAGE">Ваше сообщение было определено как СПАМ!</Resource>
     <Resource tag="STATUS">Статус:</Resource>
     <Resource tag="STICKY">Прикреплённое</Resource>
     <Resource tag="SUBJECT">Тема:</Resource>
@@ -4505,7 +4505,7 @@ Spoiler Content
     <Resource tag="LINKBACK_TOPIC">URL ссылки на тему</Resource>
     <Resource tag="LINKBACK_TOPIC_PROMT">Используйте адрес URL ниже, если вы желаете оставить ссылку (LinkBack) с URL темы на другом сайте.</Resource>
     <Resource tag="LOCATION">Откуда</Resource>
-    <Resource tag="MESSAGEDELETED_MOD">Собщение удалено модератором.</Resource>
+    <Resource tag="MESSAGEDELETED_MOD">Сообщение удалено модератором.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Сообщение удалено пользователем.</Resource>
     <Resource tag="MSN">MSN</Resource>
     <Resource tag="MSN_TITLE">Пообщаться с {0} через MSN</Resource>
@@ -4556,7 +4556,7 @@ Spoiler Content
     <Resource tag="TIP_REPLY_TOPIC">Ответить на сообщение</Resource>
     <Resource tag="TIP_UNLOCK_TOPIC">Открыть эту тему</Resource>
     <Resource tag="TOGGLEPOST">Показать/скрыть пост</Resource>
-    <Resource tag="TOGGLEUSERPOSTS_HIDE">Игнорировать собщения пользователя</Resource>
+    <Resource tag="TOGGLEUSERPOSTS_HIDE">Игнорировать сообщения пользователя</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Показывать сообщения пользователя</Resource>
     <Resource tag="TOP">Вверх</Resource>
     <Resource tag="TOPICBROWSERS">Пользователи, просматривающие эту тему</Resource>
@@ -4572,7 +4572,7 @@ Spoiler Content
     <Resource tag="USERPROFILE">Профиль пользователя</Resource>
     <Resource tag="USERSUSPENDED">Пользователь забанен до {0}</Resource>
     <Resource tag="VIEW">Просмотр</Resource>
-    <Resource tag="VIEW_TOOLTIP">Изменить режим просмотра с номального на дерево.</Resource>
+    <Resource tag="VIEW_TOOLTIP">Изменить режим просмотра с нормального на дерево.</Resource>
     <Resource tag="VOTES">Голоса</Resource>
     <Resource tag="WARN_ALREADY_VOTED">Вы уже голосовали в этом опросе.</Resource>
     <Resource tag="WARN_EMAILLOGIN">Вы должны зарегистрироваться для отправки электронной почты.</Resource>
@@ -4732,7 +4732,7 @@ Spoiler Content
     <Resource tag="RGN_US_IL">Иллинойс</Resource>
     <Resource tag="RGN_US_IN">Индиана</Resource>
     <Resource tag="RGN_US_KS">Канзас</Resource>
-    <Resource tag="RGN_US_KY">Кентуки</Resource>
+    <Resource tag="RGN_US_KY">Кентукки</Resource>
     <Resource tag="RGN_US_LA">Луизиана</Resource>
     <Resource tag="RGN_US_MA">Массачусетс</Resource>
     <Resource tag="RGN_US_MD">Мерилэнд</Resource>
@@ -5040,7 +5040,7 @@ Spoiler Content
 
     </Resource>
     <Resource tag="NOTIFICATION_ON_TWITTER_REGISTER">
-      Зравствуйтеб {user}.
+      Зравствуйте, {user}.
 
      Вы были успешно зарегистрированы на форуме {forumname} через Твиттер :
 
@@ -5119,7 +5119,7 @@ Password: {password}
     </Resource>
     <Resource tag="VERIFYEMAIL_HTML" />
     <Resource tag="VERIFYEMAIL_TEXT">
-		Вы решили присоединиться к форуму {forumname}, но преварительно адрес Вашей электронной почты должен быть проверен.
+		Вы решили присоединиться к форуму {forumname}, но предварительно адрес Вашей электронной почты должен быть проверен.
 
 		Для проверки Вашего адреса электронной почты перейдите по этой ссылке в веб-браузере:
 
@@ -5135,9 +5135,9 @@ Password: {password}
   <page name="TIMEZONES">
     <Resource tag="NAME_UTC">(UTC)</Resource>
     <Resource tag="UTC0">(UTC) Касабланка, Дублин, Эдинбург, Лондон, Лиссабон, Монровия</Resource>
-    <Resource tag="UTC1">(UTC+1:00) Берлин, Брюссель, Кристиансанд, Мадрид, Париж, Рим, Варашава</Resource>
+    <Resource tag="UTC1">(UTC+1:00) Берлин, Брюссель, Кристиансанд, Мадрид, Париж, Рим, Варшава</Resource>
     <Resource tag="UTC-1">(UTC-1:00) Азоры, Острова Зелёного Мыса </Resource>
-    <Resource tag="UTC10">(UTC+10:00) Владивосток,Мельбурн, Папуа Новая Гвинея, Сидней</Resource>
+    <Resource tag="UTC10">(UTC+10:00) Владивосток, Мельбурн, Папуа Новая Гвинея, Сидней</Resource>
     <Resource tag="UTC-10">(UTC-10:00) Гавайи</Resource>
     <Resource tag="UTC11">(UTC+11:00) Магадан, Новая Каледония, Соломоновы острова</Resource>
     <Resource tag="UTC-11">(UTC-11:00) Остров Мидвей, Самоа</Resource>
