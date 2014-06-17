@@ -226,6 +226,7 @@ namespace YAF.Pages
             this.Page.Form.DefaultButton = this.SearchByUserName.UniqueID;
 
             this.SearchByUserName.Focus();
+            this.UserSearchName.Focus();
 
             if (this.IsPostBack)
             {
