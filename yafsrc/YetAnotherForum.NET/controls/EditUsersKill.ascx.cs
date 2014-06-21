@@ -166,7 +166,7 @@ namespace YAF.Controls
             }
 
             // Ban User IP?
-            if (this.BanIps.Checked)
+            if (this.BanIps.Checked && this.IPAddresses.Any())
             {
                 this.BanUserIps();
             }
@@ -186,7 +186,8 @@ namespace YAF.Controls
 
             this.DeleteAllUserMessages();
 
-            if (this.ReportUser.Checked && this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet())
+            if (this.ReportUser.Checked && this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet()
+                && this.IPAddresses.Any())
             {
                 try
                 {
@@ -381,6 +382,14 @@ namespace YAF.Controls
                         this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(ipAddress),
                         this.GetText("COMMON", "TT_IPDETAILS"),
                         ipAddress);
+            }
+
+            // if no ip disable BanIp checkbox
+            if (this.IPAddresses.Any())
+            {
+                this.BanIps.Checked = false;
+                this.BanIps.Enabled = false;
+                this.ReportUserRow.Visible = false;
             }
 
             // show post count...
