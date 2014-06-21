@@ -90,8 +90,8 @@ namespace YAF.Core
         {
             using (var dt = new DataTable("Country"))
             {
-                dt.Columns.Add("Value", Type.GetType("System.String"));
-                dt.Columns.Add("Name", Type.GetType("System.String"));
+                dt.Columns.Add("Value", typeof(string));
+                dt.Columns.Add("Name", typeof(string));
 
                 // Add empty row to data table for dropdown lists with empty selection option.
                 var drow = dt.NewRow();
@@ -100,7 +100,9 @@ namespace YAF.Core
                 dt.Rows.Add(drow);
 
                 var countries =
-                    localization.GetRegionNodesUsingQuery("COUNTRY", x => x.tag.StartsWith(string.Empty)).ToList();
+                    localization.GetRegionNodesUsingQuery("COUNTRY", x => x.tag.StartsWith(string.Empty))
+                        .OrderBy(c => c.Value)
+                        .ToList();
 
                 // vzrus: a temporary hack - it returns all tags if the page is not found
                 if (countries.Count > 2000)
@@ -157,8 +159,8 @@ namespace YAF.Core
         {
             using (var dt = new DataTable("Region"))
             {
-                dt.Columns.Add("Value", Type.GetType("System.String"));
-                dt.Columns.Add("Name", Type.GetType("System.String"));
+                dt.Columns.Add("Value", typeof(string));
+                dt.Columns.Add("Name", typeof(string));
 
                 // Add empty row to data table for dropdown lists with empty selection option.
                 var drow = dt.NewRow();
@@ -286,7 +288,7 @@ namespace YAF.Core
 
             if (files.Length <= 0)
             {
-                return rawTag;
+                return null;
             }
 
             try
@@ -442,8 +444,8 @@ namespace YAF.Core
         {
             using (var dt = new DataTable("TimeZone"))
             {
-                dt.Columns.Add("Value", Type.GetType("System.Int32"));
-                dt.Columns.Add("Name", Type.GetType("System.String"));
+                dt.Columns.Add("Value", typeof(string));
+                dt.Columns.Add("Name", typeof(string));
 
                 var timezones =
                   localization.GetNodesUsingQuery("TIMEZONES", x => x.tag.StartsWith("UTC")).ToList();
