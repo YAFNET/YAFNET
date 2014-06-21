@@ -461,6 +461,8 @@ namespace YAF.Pages
             this.LoadingModal.MessageText = this.GetText("LOADING_SEARCH");
             this.LoadingModal.Icon = YafForumInfo.GetURLToResource("images/loader.gif");
 
+            this.txtSearchStringWhat.Focus();
+
             this.Page.Form.DefaultButton = this.btnSearch.UniqueID;
 
             this.listForum.DataSource = LegacyDb.forum_listall_sorted(
