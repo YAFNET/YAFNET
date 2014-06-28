@@ -32,7 +32,6 @@ namespace YAF.Pages.Admin
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
@@ -107,7 +106,7 @@ namespace YAF.Pages.Admin
                 case "edit":
 
                     // edit medal
-                    YafBuildLink.Redirect(ForumPages.admin_editmedal, "m={0}", e.CommandArgument);
+                    YafBuildLink.Redirect(ForumPages.admin_editmedal, "medalid={0}", e.CommandArgument);
                     break;
                 case "delete":
                     // delete medal

@@ -70,17 +70,27 @@ namespace YAF.Pages.Admin
 
         #endregion
 
+        /// <summary>
+        /// Gets the current medal identifier.
+        /// </summary>
+        /// <value>
+        /// The current medal identifier.
+        /// </value>
+        protected int? CurrentMedalID
+        {
+            get
+            {
+                return this.Request.QueryString.GetFirstOrDefault("medalid").ToType<int>();
+            }
+        }
+
         #region Methods
 
         /// <summary>
         /// Hides group add/edit controls.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void AddGroupCancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // set visibility
@@ -94,12 +104,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Handles click on save group button.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void AddGroupSave_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // test if there is specified unsername/user id
@@ -113,7 +119,7 @@ namespace YAF.Pages.Admin
             // save group, if there is no message specified, pass null
             LegacyDb.group_medal_save(
               this.AvailableGroupList.SelectedValue,
-              this.Request.QueryString.GetFirstOrDefault("m"),
+              this.CurrentMedalID,
               this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
               this.GroupHide.Checked,
               this.GroupOnlyRibbon.Checked,
@@ -129,12 +135,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Handles click on add group button.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         /// <remarks>
         /// Shows user-medal adding/editing controls.
         /// </remarks>
@@ -167,12 +169,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Hides user add/edit controls.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void AddUserCancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // set visibility
@@ -186,12 +184,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Handles click on save user button.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void AddUserSave_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // test if there is specified unsername/user id
@@ -233,7 +227,7 @@ namespace YAF.Pages.Admin
             // save user, if there is no message specified, pass null
             LegacyDb.user_medal_save(
               this.UserID.Text,
-              this.Request.QueryString.GetFirstOrDefault("m"),
+              this.CurrentMedalID,
               this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text,
               this.UserHide.Checked,
               this.UserOnlyRibbon.Checked,
@@ -259,12 +253,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Handles click on add user button.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         /// <remarks>
         /// Shows user-medal adding/editing controls.
         /// </remarks>
@@ -303,12 +293,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Handles click on cancel button.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // go back to medals administration
@@ -318,12 +304,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Handles clear button click event.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Clear_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // clear drop down
@@ -367,12 +349,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Handles find users button click event.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void FindUsers_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // try to find users by user name
@@ -437,12 +415,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Handles click on GroupList repeaters item command link buttton.
         /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="source">The source of the event.</param>
+        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
         protected void GroupList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
@@ -450,7 +424,7 @@ namespace YAF.Pages.Admin
                 case "edit":
 
                     // load group-medal to the controls
-                    using (DataTable dt = LegacyDb.group_medal_list(e.CommandArgument, this.Request.QueryString.GetFirstOrDefault("m")))
+                    using (DataTable dt = LegacyDb.group_medal_list(e.CommandArgument, this.CurrentMedalID))
                     {
                         // prepare editing interface
                         this.AddGroup_Click(null, e);
@@ -476,7 +450,7 @@ namespace YAF.Pages.Admin
 
                     break;
                 case "remove":
-                    LegacyDb.group_medal_delete(e.CommandArgument, this.Request.QueryString.GetFirstOrDefault("m"));
+                    LegacyDb.group_medal_delete(e.CommandArgument, this.CurrentMedalID);
 
                     // remove all user medals...
                     this.RemoveMedalsFromCache();
@@ -489,12 +463,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Adds javascript popup to remove group link button.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void GroupRemove_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_GROUP"));
@@ -503,12 +473,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Handles page load event.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // this needs to be done just once, not during postbacks
@@ -599,17 +565,10 @@ namespace YAF.Pages.Admin
             }
 
             // data
-            int? medalID = null;
             string ribbonURL = null, smallRibbonURL = null;
             short? ribbonWidth = null, ribbonHeight = null;
             Size imageSize;
             var flags = new MedalFlags(0);
-
-            // retrieve medal ID, use null if we are creating new one
-            if (this.Request.QueryString.GetFirstOrDefault("m") != null)
-            {
-                medalID = this.Request.QueryString.GetFirstOrDefaultAs<int>("m");
-            }
 
             // flags
             flags.ShowMessage = this.ShowMessage.Checked;
@@ -639,7 +598,7 @@ namespace YAF.Pages.Admin
 
             // save medal
             this.GetRepository<Medal>().Save(
-                medalID,
+                this.CurrentMedalID,
                 this.Name.Text,
                 this.Description.Text,
                 this.Message.Text,
@@ -662,12 +621,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Handles click on UserList repeaters item command link buttton.
         /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="source">The source of the event.</param>
+        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
         protected void UserList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
@@ -675,7 +630,7 @@ namespace YAF.Pages.Admin
                 case "edit":
 
                     // load user-medal to the controls
-                    using (DataTable dt = LegacyDb.user_medal_list(e.CommandArgument, this.Request.QueryString.GetFirstOrDefault("m")))
+                    using (DataTable dt = LegacyDb.user_medal_list(e.CommandArgument, this.CurrentMedalID))
                     {
                         // prepare editing interface
                         this.AddUser_Click(null, e);
@@ -701,10 +656,10 @@ namespace YAF.Pages.Admin
                 case "remove":
 
                     // delete user-medal
-                    LegacyDb.user_medal_delete(e.CommandArgument, this.Request.QueryString.GetFirstOrDefault("m"));
+                    LegacyDb.user_medal_delete(e.CommandArgument, this.CurrentMedalID);
 
                     // clear cache...
-                    this.RemoveUserFromCache(this.Request.QueryString.GetFirstOrDefault("m").ToType<int>());
+                    this.RemoveUserFromCache(this.CurrentMedalID.Value);
                     this.BindData();
                     break;
             }
@@ -713,12 +668,8 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Adds javascript popup to remove user link button.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void UserRemove_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_USER"));
@@ -789,19 +740,19 @@ namespace YAF.Pages.Admin
             this.DataBind();
 
             // load existing medal if we are editing one
-            if (this.Request.QueryString.GetFirstOrDefault("m") != null)
+            if (this.CurrentMedalID.HasValue)
             {
                 // load users and groups who has been assigned this medal
-                this.UserList.DataSource = LegacyDb.user_medal_list(null, this.Request.QueryString.GetFirstOrDefault("m"));
+                this.UserList.DataSource = LegacyDb.user_medal_list(null, this.CurrentMedalID);
                 this.UserList.DataBind();
-                this.GroupList.DataSource = LegacyDb.group_medal_list(null, this.Request.QueryString.GetFirstOrDefault("m"));
+                this.GroupList.DataSource = LegacyDb.group_medal_list(null, this.CurrentMedalID);
                 this.GroupList.DataBind();
 
                 // enable adding users/groups
                 this.AddUserRow.Visible = true;
                 this.AddGroupRow.Visible = true;
 
-                using (DataTable dt = this.GetRepository<Medal>().List(this.Request.QueryString.GetFirstOrDefaultAs<int>("m")))
+                using (DataTable dt = this.GetRepository<Medal>().List(this.CurrentMedalID))
                 {
                     // get data row
                     DataRow row = dt.Rows[0];
