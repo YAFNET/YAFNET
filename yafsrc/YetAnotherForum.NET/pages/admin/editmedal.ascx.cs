@@ -45,6 +45,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -53,7 +54,7 @@ namespace YAF.Pages.Admin
     #endregion
 
     /// <summary>
-    /// Administration inferface to Add/Edit Medals
+    /// Administration Page to Add/Edit Medals
     /// </summary>
     public partial class editmedal : AdminPage
     {
@@ -80,7 +81,9 @@ namespace YAF.Pages.Admin
         {
             get
             {
-                return this.Request.QueryString.GetFirstOrDefault("medalid").ToType<int>();
+                return this.Request.QueryString.GetFirstOrDefault("medalid") != null
+                           ? this.Request.QueryString.GetFirstOrDefault("medalid").ToType<int?>()
+                           : null;
             }
         }
 
@@ -413,7 +416,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Handles click on GroupList repeaters item command link buttton.
+        /// Handles click on GroupList repeaters item command link button.
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
@@ -441,8 +444,8 @@ namespace YAF.Pages.Admin
                         this.AvailableGroupList.Items.FindByValue(r["GroupID"].ToString()).Selected = true;
                         this.GroupMessage.Text = r["MessageEx"].ToString();
                         this.GroupSortOrder.Text = r["SortOrder"].ToString();
-                        this.GroupOnlyRibbon.Checked = (bool)r["OnlyRibbon"];
-                        this.GroupHide.Checked = (bool)r["Hide"];
+                        this.GroupOnlyRibbon.Checked = r["OnlyRibbon"].ToType<bool>();
+                        this.GroupHide.Checked = r["Hide"].ToType<bool>();
 
                         // remove all user medals...
                         this.RemoveMedalsFromCache();
@@ -461,7 +464,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Adds javascript popup to remove group link button.
+        /// Adds Java Script popup to remove group link button.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
@@ -568,13 +571,15 @@ namespace YAF.Pages.Admin
             string ribbonURL = null, smallRibbonURL = null;
             short? ribbonWidth = null, ribbonHeight = null;
             Size imageSize;
-            var flags = new MedalFlags(0);
-
+            
             // flags
-            flags.ShowMessage = this.ShowMessage.Checked;
-            flags.AllowRibbon = this.AllowRibbon.Checked;
-            flags.AllowReOrdering = this.AllowReOrdering.Checked;
-            flags.AllowHiding = this.AllowHiding.Checked;
+            var flags = new MedalFlags(0)
+                            {
+                                ShowMessage = this.ShowMessage.Checked,
+                                AllowRibbon = this.AllowRibbon.Checked,
+                                AllowReOrdering = this.AllowReOrdering.Checked,
+                                AllowHiding = this.AllowHiding.Checked
+                            };
 
             // get medal images
             string imageURL = this.MedalImage.SelectedValue;
@@ -588,13 +593,13 @@ namespace YAF.Pages.Admin
             {
                 smallRibbonURL = this.SmallRibbonImage.SelectedValue;
 
-                imageSize = this.GetImageSize(smallRibbonURL.ToString());
+                imageSize = this.GetImageSize(smallRibbonURL);
                 ribbonWidth = imageSize.Width.ToType<short>();
                 ribbonHeight = imageSize.Height.ToType<short>();
             }
 
             // get size of small image
-            imageSize = this.GetImageSize(smallImageURL.ToString());
+            imageSize = this.GetImageSize(smallImageURL);
 
             // save medal
             this.GetRepository<Medal>().Save(
@@ -619,7 +624,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Handles click on UserList repeaters item command link buttton.
+        /// Handles click on UserList repeaters item command link button.
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
@@ -648,8 +653,8 @@ namespace YAF.Pages.Admin
                         this.UserName.Text = r["UserName"].ToString();
                         this.UserMessage.Text = r["MessageEx"].ToString();
                         this.UserSortOrder.Text = r["SortOrder"].ToString();
-                        this.UserOnlyRibbon.Checked = (bool)r["OnlyRibbon"];
-                        this.UserHide.Checked = (bool)r["Hide"];
+                        this.UserOnlyRibbon.Checked = r["OnlyRibbon"].ToType<bool>();
+                        this.UserHide.Checked = r["Hide"].ToType<bool>();
                     }
 
                     break;
@@ -666,13 +671,30 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Adds javascript popup to remove user link button.
+        /// Adds Java Script popup to remove user link button.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void UserRemove_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_USER"));
+        }
+
+        /// <summary>
+        /// Registers the needed Java Scripts
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            // setup jQuery and YAF JS...
+            YafContext.Current.PageElements.RegisterJQuery();
+            YafContext.Current.PageElements.RegisterJQueryUI();
+
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "spinnerJs",
+                JavaScriptBlocks.LoadSpinnerWidget());
+
+            base.OnPreRender(e);
         }
 
         /// <summary>
@@ -829,7 +851,7 @@ namespace YAF.Pages.Admin
         /// Preview image.
         /// </param>
         /// <param name="imageURL">
-        /// URL to seach for.
+        /// URL to search for.
         /// </param>
         private void SelectImage([NotNull] DropDownList list, [NotNull] HtmlImage preview, [NotNull] object imageURL)
         {
@@ -846,7 +868,7 @@ namespace YAF.Pages.Admin
         /// Preview image.
         /// </param>
         /// <param name="imageURL">
-        /// URL to seach for.
+        /// URL to search for.
         /// </param>
         private void SelectImage([NotNull] DropDownList list, [NotNull] HtmlImage preview, [NotNull] string imageURL)
         {
@@ -870,14 +892,10 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Set onchange event for image selector DropDown to set preview image.
+        /// Sets the Image preview.
         /// </summary>
-        /// <param name="imageSelector">
-        /// DropDownList with image file listed.
-        /// </param>
-        /// <param name="imagePreview">
-        /// Image for showing preview.
-        /// </param>
+        /// <param name="imageSelector">DropDownList with image file listed.</param>
+        /// <param name="imagePreview">Image for showing preview.</param>
         private void SetPreview([NotNull] WebControl imageSelector, [NotNull] HtmlControl imagePreview)
         {
             // create javascript

@@ -90,7 +90,7 @@
 				<YAF:HelpLabel ID="HelpLabel9" runat="server" LocalizedTag="SORT_ORDER" LocalizedPage="ADMIN_EDITMEDAL" />
             </td>
 			<td class="post" colspan="2">
-				<asp:TextBox Style="width: 250px" ID="SortOrder" MaxLength="5" runat="server" /></td>
+				<asp:TextBox Style="width: 250px" ID="SortOrder" MaxLength="5" runat="server" CssClass="Numeric" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
@@ -194,7 +194,7 @@
 					<YAF:HelpLabel ID="HelpLabel16" runat="server" LocalizedTag="OVERRIDE_ORDER" LocalizedPage="ADMIN_EDITMEDAL" />
                 </td>
 				<td class="post" colspan="2">
-					<asp:TextBox Style="width: 250px" ID="GroupSortOrder" runat="server" />
+					<asp:TextBox Style="width: 250px" ID="GroupSortOrder" runat="server" CssClass="Numeric" />
 				</td>
 			</tr>
 			<tr>
@@ -300,7 +300,7 @@
 					<YAF:HelpLabel ID="HelpLabel20" runat="server" LocalizedTag="OVERRIDE_ORDER" LocalizedPage="ADMIN_EDITMEDAL" />
 				</td>
 				<td class="post" colspan="2">
-					<asp:TextBox Style="width: 250px" ID="UserSortOrder" runat="server" />
+					<asp:TextBox Style="width: 250px" ID="UserSortOrder" runat="server" CssClass="Numeric" />
 				</td>
 			</tr>
 			<tr>
