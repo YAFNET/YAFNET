@@ -4152,9 +4152,8 @@ public class Hello1
 &lt;p&gt;YetAnotherForum.NET (YAF) es un foro de discusión de software libre en ASP.NET 
     100% escrito en C#. YAF es una combinación única de software libre, .NET de 
     Microsoft y una colaboración internación de la comunidad de desarrolladores de 
-    .NET. Creciendo y cambiando diariamente, el proyecto YAF está liderado por Jaben 
-    Cargman de Tiny Gecko. YAF funciona en cualquier servidor web que soporte 
-    ASP.NET v2.0 o superior y SQL Server. YAF está licenciado bajo GPL.&lt;/p&gt;
+    .NET. Creciendo y cambiando diariamente, el proyecto YAF está liderado por Ingo Herbote. YAF funciona en cualquier servidor web que soporte 
+    ASP.NET v4.0 o superior y SQL Server. YAF está licenciado bajo Apache 2.0.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;¿Cómo está todo esto estructurado?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;El foro contiene varias áreas, las cuales contienen foros (áreas de asuntos más 
     específicos) que contienen temas compuestos de mensajes individuales (cuando un 

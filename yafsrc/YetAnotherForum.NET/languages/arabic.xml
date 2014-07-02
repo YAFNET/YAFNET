@@ -2721,7 +2721,15 @@
     <Resource tag="ANOUNCECONTENT">&lt;p&gt;الاعلانات هي رسائل خاصة مرفقة من قبل المدير والمشرفين . They are a simple one-way communication with the users and you can't reply. اذا اردت مناقشة الاعلانات, يتوجب عليك انشاء موضوع جديد في المنتدى .&lt;/p&gt;
     		&lt;p&gt;موضوعات الاعلانات ظهرت في أعلى صفحات المنتدى, above regular and sticky threads.&lt;/p&gt;</Resource>
     <Resource tag="ANOUNCETITLE">اعلانات</Resource>
-    <Resource tag="ATTACHMENTSCONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
+    <Resource tag="ATTACHMENTSCONTENT">&lt;p&gt;To attach a file to a post, you need to be using the main 'Post Reply' or 'New Topic' page and not 'Quick Reply', or Click the 'Attach' button to on an existing Message.&lt;/p&gt;
+&lt;p&gt;On this page, below the message box, you will find a Check box 'Attach files to this post?'. When you Click on the 'Post' button you are redirected to the Attachments Page where you can Upload and Attach Files.&lt;/p&gt;
+&lt;p&gt;To upload a file from your computer, click the 'Browse' button and locate the file. Once you have selected a file, click 'Upload'.&lt;/p&gt;
+&lt;p&gt;Once the upload is completed the file name will appear over the Upload Section. You can click 'Back' to return to the Topic.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What files types can be used? How large can attachments be?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to add an image to a post?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image&lt;/p&gt;
+&lt;p&gt;To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.&lt;/p&gt;</Resource>
     <Resource tag="ATTACHMENTSTITLE">المرفقات والصور</Resource>
     <Resource tag="BBCODESCONTENT">&lt;p&gt;On this Page you find a list  of the BB code tags you can use to format your messages.&lt;/p&gt;
 &lt;table class="content" width="90%"&gt;
@@ -3756,12 +3764,22 @@ Spoiler Content
 &lt;p&gt;To remove a Friend from Your List go to your 'My Friends' page. On the Tab 'Friend List' Click on the Button 'Remove Friend' of the User you want to remove&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Your Requests&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;The Third Tab of the 'My Friends' Page shows your the Pending Request you have made.&lt;/p&gt;</Resource>
-    <Resource tag="BUDDIESECONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
     <Resource tag="BUDDIESETITLE">إصدقاء</Resource>
     <Resource tag="BUDDIESTITLE">Friends</Resource>
-    <Resource tag="DISPLAYCONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
+    <Resource tag="DISPLAYCONTENT">&lt;p&gt;You have a choice over how you view topics. When you're in a thread, look at the top bar. On the right hand side you'll see 'View'. Click on this and it lets you change how posts are ordered.&lt;/p&gt;
+&lt;p&gt;You have two choices:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Normal&lt;/strong&gt; - Posts are displayed chronologically, usually from oldest to newest. Posts are shown in a flat mode so that many posts can be viewed simultaneously. &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Threaded&lt;/strong&gt; - A tree is shown along with every post. This shows you the relationship each post has to the others. It's easy to see who responded to whom. Only one post is shown at a time. By clicking on a single post in the post tree, the page will show that post and all posts made in response to it.&lt;/li&gt;
+&lt;/ul&gt;
+</Resource>
     <Resource tag="DISPLAYTITLE">خيارات عرض الموضوع</Resource>
-    <Resource tag="EDITDELETECONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
+    <Resource tag="EDITDELETECONTENT">&lt;p&gt;If you are currently registered and logged in, you may be able to edit and delete your messages (if the administrator doesn’t turned off this option). &lt;/p&gt;
+&lt;p&gt;To edit or delete your posts, click the 'Edit' button by the particular post. If your post was the first in the thread, then deleting it may remove the entire thread.&lt;/p&gt;
+&lt;p&gt;Once you've made your modifications, a note, on the bottom of the post, appear to inform other users that you have edited your post.&lt;/p&gt;
+&lt;p&gt;Please also enter in The Field 'Reason for edit' a reason why you edited this Message.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Can others edit my posts?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Administrators and moderators may also edit your messages. If they do, a note at the bottom appear telling other users that the post was modified.&lt;/p&gt;</Resource>
     <Resource tag="EDITDELETETITLE">تحرير وحذف مشاركاتك</Resource>
     <Resource tag="EDITPROFILECONTENT">&lt;p&gt;You can change your account information using Personal Profile -&amp;gt; 'Edit Profile' option from within the &lt;strong&gt;User Control Panel&lt;/strong&gt;. If you want to change your Password there is an extra Page (Change Password) for that in the &lt;strong&gt;User Control Panel&lt;/strong&gt;, where you can set a new Password.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Edit Profile&lt;/strong&gt; Page&lt;/p&gt;
@@ -3782,7 +3800,27 @@ Spoiler Content
 
 </Resource>
     <Resource tag="EDITPROFILETITLE">Editing User Profile &amp; Forum Settings</Resource>
-    <Resource tag="FORUMSCONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
+    <Resource tag="FORUMSCONTENT">&lt;p&gt;&lt;strong&gt;What is YAF?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;YetAnotherForum.NET (YAF) is The Open Source Discussion Forum for sites running ASP.NET. 100% written in C#, YAF (pronounced like &amp;quot;laugh&amp;quot;) is a unique combination of Open Source, Microsoft's .NET platform and an international collaboration of the .NET developer community. Growing and changing daily, the YAF project is led by Ingo Herbote. YAF runs on any web server that supports ASP.NET v4.0 (and above) and SQL Server. YAF is licensed under Apache 2.0.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How is all of this structured?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;A Forum contains various areas, which themselves contain forums (more specific subject areas) which contain topics  which are made up of individual messages (where a user writes something).&lt;/p&gt;
+&lt;p&gt;The Forums home page has a list of categories and forums, with basic statistics for each, including the number of topics and messages, and which member posted the most recent message.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How do I find my way around?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;When you click on a forum's name, you are taken to the list of topics it contains. A topic is a conversation between members or guests. Each topic starts out as a single message and grows as more individual messages are added by different users. &lt;/p&gt;
+&lt;p&gt;To start a new Topic simply click on the 'New Topic' button  (If you have access to it).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Paging&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;When there are more topics to display than will fit on a single page, you may see the Pager, which contains page numbers. This indicates that the list of topics has been split over two or more pages.&lt;/p&gt;
+&lt;p&gt;This method of splitting lists of items over many pages is used throughout the board.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What are sticky topics?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;'Sticky' Topics can be created by moderators or administrators, and remain 'stuck' to the top of the listing, even if they haven't had any messages recently. Their purpose is to keep important information visible and accessible at all times.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How do I read a topic?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To read a topic, click on its title. Each message in a topic is created by a member or a guest. You'll see some brief information about the member who created the topic on the left side of the message.&lt;/p&gt;
+&lt;p&gt;To message a reply to an existing topic, click on the 'Post Reply'  button. If the 'Post Reply' button does not appear, it could mean that you are not logged in as a member, or that you do not have permission to reply, or that the topic has been closed for new replies.&lt;/p&gt;
+&lt;p&gt;If enabled, there will also be a 'Quick Reply' box where you can quickly enter a reply without having to go to the 'Post Reply' page. You need to click the 'Quick Reply' button  in a message to activate the quick reply box before you can type into it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How do I find out more about members?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To view information about a particular member, click on the user name. This will take you to their public profile page.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What is the Header?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The Header on top of every page has links to help you move around. With one click you can reach areas such as: My Profile, Help (which you are reading now), Search and other  useful features..&lt;/p&gt;</Resource>
     <Resource tag="FORUMSTITLE">المنتديات, المواضيع والمشاركات</Resource>
     <Resource tag="GENERALTOPICS">الاستخدام العام للمنتدى</Resource>
     <Resource tag="INDEX">Index</Resource>
@@ -3794,7 +3832,10 @@ Spoiler Content
 &lt;p&gt;&lt;strong&gt;Receive an email notification when you get a new private message? &lt;/strong&gt; - You can also turn on/off Email Notifications when you receive a private message.&lt;/p&gt;
 </Resource>
     <Resource tag="MAILSETTINGSTITLE">Email Notification Preferences</Resource>
-    <Resource tag="MEMBERSLISTCONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
+    <Resource tag="MEMBERSLISTCONTENT">&lt;p&gt;The members list shows the registered members of the board. You can view the member list ordered alphabetically by user name, &amp;quot;Joined“ Date , or „last visit“,&lt;/p&gt;
+&lt;p&gt;There is also a Search Box where you can search for an specific user.&lt;/p&gt;
+&lt;p&gt;To view the members list, click on 'Members' on main Header at the top of the page (If you don't see the link you didn't have access to that page).&lt;/p&gt;
+</Resource>
     <Resource tag="MEMBERSLISTTITLE">قائمة الأعضاء</Resource>
     <Resource tag="MESSENGERCONTENT">
         &lt;p&gt;Registered members may be able to send messages to other members of this forum using the private messaging system (If enabled by the Administrator).
@@ -3820,13 +3861,50 @@ Spoiler Content
         &lt;p&gt;Depending  on how many Messages you are allowed to have you should delete some of them from  time (You can export them before you delete them to keep them on your local computer). Otherwise when your Mailbox is full you are not able to receive new  messages. On the Bottom you will be informed how many Messages you have and how  many you can Maximal have.&lt;/p&gt;
       </Resource>
     <Resource tag="MESSENGERTITLE">Private Messages (Messenger)</Resource>
-    <Resource tag="MODSADMINSCONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
+    <Resource tag="MODSADMINSCONTENT">&lt;p&gt;Moderators oversee specific forums. They generally have the ability to edit and delete posts, move topics, and perform other actions. Becoming a moderator for a specific forum is usually rewarded to users who are particularly helpful and knowledgeable in the subject of the forum they are moderating.&lt;/p&gt;
+&lt;p&gt;Administrators are the people who have overall control of everything that happens on the board. They oversee how the board is styled, what forums to create and how to organize them, what information to require from members and who to appoint as moderators.&lt;/p&gt;</Resource>
     <Resource tag="MODSADMINSTITLE">المشرفين والإداريين</Resource>
-    <Resource tag="MYALBUMSCONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
+    <Resource tag="MYALBUMSCONTENT">&lt;p&gt;If the Administrator has enable the Album Feature and you are a member who has access to add Albums, you can create Albums of images that are linked to your public profile. Albums can be created by visiting the &lt;strong&gt;User Control Panel&lt;/strong&gt;, and clicking on the 'Edit Albums' link, and then clicking on 'Add New Album'. The Number of how many Albums and how many Images depends on what the Admin has Setup for your User Group which you are in.&lt;/p&gt;
+&lt;p&gt;Each album can have a title and you can set a Cover for it (Image from the Album) or use random, you can also add a caption for every Image.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How do I upload pictures?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;If you are on the Add/Edit Album Page you select an Image on your Computer and Click Upload to add it to the Album.&lt;/p&gt;
+&lt;p&gt;You'll have the option to give each picture a caption, and to set one image as the Album cover, which will be displayed on the public profile. To delete an album or edit the title, add image(s) or delete(s) image, click on 'Edit'. To edit or add a caption of an image click on the text bellow the image. If you want to Set a Cover or Remove the Cover Click on the Button bellow the Cover.&lt;/p&gt;</Resource>
     <Resource tag="MYALBUMSTITLE">البومات</Resource>
-    <Resource tag="MYPICSCONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
+    <Resource tag="MYPICSCONTENT">&lt;p&gt;&lt;strong&gt;What are Avatars?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Avatars are small images that people use to identify or distinguish themselves to other forum members. These Avatars will be displayed as part of the user info in posts, as well as in the public profile.&lt;/p&gt;
+&lt;p&gt;You can modify your Avatar by clicking on 'Modify Avatar' under the 'Personal Profile' area of the navigation bar within the &lt;strong&gt;User Control Panel&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;There are three ways to add an Avatar (Maybe less if deactivated by the Administrator)...&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;If available in the forum you can choose from an existing collection of Avatars&lt;/li&gt;
+  &lt;li&gt;Enter an existing URL to an Image on a Remote Server&lt;/li&gt;
+  &lt;li&gt;Select an Image from Your Computer and Upload it&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;Be aware that the Administrator can set the Allowed Image File types, Image Size, and Image Dimensions (Max Width and Height of an Image).&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What are signatures?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;'Signatures' contain information that you want to include at the bottom of all your posts. This might include pictures, links to your site(s), quotes, etc.&lt;/p&gt;
+&lt;p&gt;To modify signatures, click on 'Signature' under the 'Personal Profile' area of the navigation bar within the User CP. On this Page you will be Informed which BB Codes and which HTML Tags you can use, and how long the Signature can be.&lt;/p&gt;</Resource>
     <Resource tag="MYPICSTITLE">التواقيع, الصور الشخصية</Resource>
-    <Resource tag="MYSETTINGSCONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
+    <Resource tag="MYSETTINGSCONTENT">&lt;p&gt;The &lt;strong&gt;User Control Panel&lt;/strong&gt; is where you control your personal settings, options and preferences.&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;Control Panel&lt;/strong&gt; main page will show your Account Summary including your User Name, Email Address, and Number of posts, Member of Groups you are in and since when you are member.&lt;/p&gt;
+&lt;p&gt;On the Left Side you will find Links to all Sub Pages and Forms that allow you to control..&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Messenger&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Inbox&lt;/li&gt;
+  &lt;li&gt;Sent Items&lt;/li&gt;
+  &lt;li&gt;Archive&lt;/li&gt;
+  &lt;li&gt;New Message&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Personal Profile&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;View Profile&lt;/li&gt;
+  &lt;li&gt;Edit Profile&lt;/li&gt;
+  &lt;li&gt;View Thanks&lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;Edit Albums&lt;/li&gt;
+  &lt;li&gt;Modify Avatar&lt;/li&gt;
+  &lt;li&gt;Signature&lt;/li&gt;
+  &lt;li&gt;Email Notification Preferences&lt;/li&gt;
+  &lt;li&gt;Change Password&lt;/li&gt;
+&lt;/ul&gt;</Resource>
     <Resource tag="MYSETTINGSTITLE">اعداداتي</Resource>
     <Resource tag="NAVIGATION">Navigation</Resource>
     <Resource tag="NEWPOSTSCONTENT">
@@ -3840,9 +3918,36 @@ Spoiler Content
     </Resource>
     <Resource tag="NEWPOSTSTITLE">عرض المشاركات الجديدة ومشاركات اليوم</Resource>
     <Resource tag="NORESULTS">لا يوجد نتيجة.</Resource>
-    <Resource tag="PMCONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
+    <Resource tag="PMCONTENT">&lt;p&gt;You can contact another by sending an E-Mail, you find them on the member list.&lt;/p&gt;
+&lt;p&gt;This will usually open a page that contains a form where you can enter your message. When you have finished typing your message, press the 'Send E-mail' button and your message will be sent instantly.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Can I see e-mail addresses?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;For privacy reasons, the recipient's e-mail address is not revealed to you during this process, or at any other location in the forums.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Why can't I send an e-mail to someone?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;If you cannot find an e-mail button or link for a member, it means either that the administrator has disabled e-mail functions for this forum, or that the member has said that they do not wish to receive e-mail from other members.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What is private messaging?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Registered members may also be able to send messages to other members of this forum using the private messaging system.&lt;/p&gt;</Resource>
     <Resource tag="PMTITLE">اتصال الأعضاء الآخرين</Resource>
-    <Resource tag="POLLSCONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
+    <Resource tag="POLLSCONTENT">&lt;p&gt;&lt;em&gt;Polls are an Option to vote on an issue or a question.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Create a new poll?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;When you post a new Topic, you have the option 'Add Poll?' to create a new poll. If you don't see that option you may not have access to that option.&lt;/p&gt;
+&lt;p&gt;You can also add new Polls to existing ones. A Topic can have as many Polls you want.&lt;/p&gt;
+&lt;p&gt;This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set up a higher number) - &lt;em&gt;An Administrator can attach Images (Remote Urls) as Responses&lt;/em&gt;. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;An example poll might be:&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;What is your favorite color?&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;Blue&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Red&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Yellow&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Green&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You may also want to specify a time limit for the poll. For example: run the poll for 10 Days or you can also set it to never expire.&lt;/p&gt;
+&lt;p&gt;You can also decide if the user should be able to see the results without making a vote or if you enable the Check box 'You should vote in all polls to see results.&lt;em&gt;'&lt;/em&gt; you need to vote before seeing any results.&lt;/p&gt;
+&lt;p&gt;'Bound voting' Option don't show results, if the poll didn't expire.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Grouping Polls&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;All Polls attached to a Topic are automatically combined as a Group. You can display this Group with Polls on any other Topic you want.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to vote?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To vote in a poll, simply click on the option you want to vote for.&lt;/p&gt;
+&lt;p&gt;Generally, once you have voted in a poll, you will not be able to change your vote later, so place your vote carefully!&lt;/p&gt;</Resource>
     <Resource tag="POLLSTITLE">إنشاء ومشاركة في الإستطلاعات</Resource>
     <Resource tag="POPUPSCONTENT">&lt;p&gt;When you have logged in and load the Page you may receive an Pop Up Notification on the center of your Browser Window.&lt;/p&gt;
 &lt;p&gt;This will inform you about several actions...&lt;/p&gt;
@@ -3855,10 +3960,35 @@ Spoiler Content
 &lt;/ul&gt;
 &lt;p&gt;&lt;em&gt;You may also receive a couple of Information and Error Messages in the same way.&lt;/em&gt;&lt;/p&gt;</Resource>
     <Resource tag="POPUPSTITLE">PopUp Notifications</Resource>
-    <Resource tag="POSTINGCONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
+    <Resource tag="POSTINGCONTENT">&lt;p&gt;When posting messages you may wish to include some formatting such as bold text, italic text and underlined text.&lt;/p&gt;
+&lt;p&gt;Adding formatting to your post can be done in two ways:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Using clickable controls similar to those found in most word processors&lt;/li&gt;
+  &lt;li&gt;Typing formatting commands in BB code&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Clickable controls are available in the Standard and Enhanced WYSIWYG (What You See Is What You Get) editors. The difference between these is that the standard editor will show the BB code in your message and be processed when it is displayed. The enhanced WYSIWYG editor will show your message as it will be displayed while you are typing.&lt;/p&gt;
+&lt;p&gt;Currently it depends on the Administrator which Editor is enabled ether WYSIWYG or the BB Code Editor.&lt;/p&gt;
+&lt;p&gt;To use these, simply click the button, for example the B (bold) button and then type to get bold text. Click the button again to stop using that formatting. You can also highlight text that you have already typed then click the formatting button to format existing text.&lt;/p&gt;
+&lt;p&gt;BB code Tags are a special set of tags similar to HTML tags that can be used in posts to the board. To find out more about the BB codes and which are available go to the Help Topic &lt;a href="{0}"&gt;BB Codes List&lt;/a&gt;&lt;/p&gt;</Resource>
     <Resource tag="POSTINGTITLE">نشر المواضيع الجديدة والمشاركات</Resource>
     <Resource tag="PROFILETOPICS">الاعداد ومميزات الملف الشخصي</Resource>
-    <Resource tag="PUBLICPROFILECONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
+    <Resource tag="PUBLICPROFILECONTENT">&lt;p&gt;As member you have a publicly viewable profile page. This page includes information provided by the member, either during the registration process or later on via the User Control Panel.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;There are a multiple ways to view a members profile...&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;When you see an username click on the name and you will see a dropdown menu which contains an Link 'User Profile' to view the Profile..&lt;/li&gt;
+  &lt;li&gt;The members list allows you to browse all registered members, and quickly click through to public profiles.&lt;/li&gt;
+  &lt;li&gt;When logged in, you can also view your own public profile by logging into the forums and clicking on The 'My Profile' Link in the header at the top of the page, to open the User Control Panel.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Which Informations are shown on that Page?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The Public Profile Page is grouped into 5 Tabs.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;About&lt;/strong&gt; - Shows all Informations the user has provided on his Profile Page such as Real name, gender, Status if User is Online/Offline, Forum Rank, and other.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Statistics&lt;/strong&gt; - Shows statistical information such as Joined date, Last Visit, Number of thanks, Number of times this user was thanked                          and Number of posts for which this user was thanked.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Last 10 Post&lt;/strong&gt; - Shows if available the Last 10 Messages the User has written&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Friends - &lt;/strong&gt;Shows the Friends the User has in the Forum.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Albums - &lt;/strong&gt;Shows the Albums (if enabled) that the User has generated.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Personal information such as E-Mail Address or Passwords are &lt;strong&gt;NOT&lt;/strong&gt; shown.&lt;/p&gt;</Resource>
     <Resource tag="PUBLICPROFILETITLE">ملفي الشخصي العام</Resource>
     <Resource tag="READPOSTTOPICS">قراءة وإرسال الرسائل</Resource>
     <Resource tag="RECOVERCONTENT">اذا نسيت كلمة المرور, you can click on the "&lt;a href="{0}"&gt;Lost Password&lt;/a&gt;" 
@@ -3871,16 +4001,32 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
   work. You may need to check your spam filters and folder if you do not see this 
   email in a few minutes. &lt;/p&gt;</Resource>
     <Resource tag="RECOVERTITLE">استعادة كلمة المرور</Resource>
-    <Resource tag="REGISTRATIONCONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
+    <Resource tag="REGISTRATIONCONTENT">&lt;p&gt;The administrator will probably require you to register in order to use all the features of the forum. Being registered gives you an identity on the board, a fixed username on all messages you post and an online public profile.&lt;/p&gt;
+&lt;p&gt;Registration is free (unless otherwise specified), and offers an extended range of features, including:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Posting new Topics&lt;/li&gt;
+  &lt;li&gt;Replying to other peoples' Topics&lt;/li&gt;
+  &lt;li&gt;Editing your messages&lt;/li&gt;
+  &lt;li&gt;Receiving email notification of replies to messages and topics you specify&lt;/li&gt;
+  &lt;li&gt;Sending private messages to other members&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;How do I register?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;You register by clicking on the 'Register' in the Header. First You have to agree to the Forum Rules and Policies. Then You will be asked to choose a user name, password, a Security Question/Answer, and enter a valid email address. And if the Administrator you need to enter the Shown Captcha code in order to proceed. On the next Page you can optional Provide some basic Profile Settings.&lt;/p&gt;
+</Resource>
     <Resource tag="REGISTRATIONTITLE">التسجيل</Resource>
-    <Resource tag="REPLYINGCONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
+    <Resource tag="REPLYINGCONTENT">&lt;p&gt;On some boards you might be able to post and reply as a guest user. But most communities require registration.&lt;/p&gt;
+&lt;p&gt;A registered user can go to a forum on a board where he has permission to view Topics and leave replies. To reply you have a few options. You can click on the 'Post Reply' button and add a new Message to the end of the Topic. Alternatively, you can leave a quick reply in a Quick Reply box listed below the posts in the Topic.&lt;/p&gt;
+&lt;p&gt;If you want to Reply to a Message hit the 'Quote' button and you can Reply to a Message with the Quoted Text.&lt;/p&gt;</Resource>
     <Resource tag="REPLYINGTITLE">رد على المشاركة</Resource>
-    <Resource tag="RSSCONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
+    <Resource tag="RSSCONTENT">&lt;p&gt;The feeds are currently provided in two formats, RSS and Atom.&lt;/p&gt;
+&lt;p&gt;If the administrator has enabled Feed syndication, you can get the Feeds for a forums, topics and active topics.&lt;/p&gt;
+&lt;p&gt;Most modern browsers have facilities for reading RSS feeds and will automatically detect the availability of feeds on YAF forum pages.&lt;/p&gt;</Resource>
     <Resource tag="RSSTITLE">ملخصات </Resource>
     <Resource tag="SEARCHFOR">أدخل كلمة للبحث عنها :</Resource>
     <Resource tag="SEARCHHELP">مساعدة البحث</Resource>
     <Resource tag="SEARCHHELPTITLE">البحث عن المواضيع المساعدة</Resource>
-    <Resource tag="SEARCHINGCONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
+    <Resource tag="SEARCHINGCONTENT">&lt;p&gt;To quickly find a thread or post of interest anywhere on the forums, click on the 'Search' link in the Header. Then, type in the keyword or phrase you wish to search for.&lt;/p&gt;
+&lt;p&gt;For more control over the search, you can restrict your search to individual forums, or find posts or topics written by a specified user. You can also select how many Results should be shown per page.&lt;/p&gt;</Resource>
     <Resource tag="SEARCHINGTITLE">بحث في المنتديات والمواضيع </Resource>
     <Resource tag="SEARCHLONGER">يجب ان يكون البحث على الاقل  3 احرف  </Resource>
     <Resource tag="SMILIESCONTENT">&lt;em&gt;Help مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
@@ -3905,9 +4051,15 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
   &lt;li&gt;&lt;strong&gt;Your Name was thanked -&lt;/strong&gt; Shows the List your Messages where you received thanks.&lt;/li&gt;
 &lt;/ul&gt;</Resource>
     <Resource tag="THANKSTITLE">Thanks Feature</Resource>
-    <Resource tag="THREADOPTCONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
+    <Resource tag="THREADOPTCONTENT">&lt;p&gt;At the top of each Topic, there is a link  'Options'. By clicking on this link, a menu will appear with a number of options:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Watch this topic&lt;/strong&gt; - by subscribing to a thread, you will receive periodic email updates on recent activity within it.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Print this topic&lt;/strong&gt; - This will show you a page with the thread post content in a reduced graphics format that is more 'printer friendly'.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Atom Feed&lt;/strong&gt; - This will show the Feed of this Topic with all Post as Feed Items.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Rss Feed&lt;/strong&gt; - This will show the Feed of this Topic with all Post as Feed Items.&lt;/li&gt;
+&lt;/ul&gt;
+</Resource>
     <Resource tag="THREADOPTTITLE">خيارات الموضوع</Resource>
-    <Resource tag="THREADSTATUSCONTENT">&lt;em&gt;مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
     <Resource tag="THREADSTATUSTITLE">ايقونات الرسالة وحالة الموضوع</Resource>
     <Resource tag="TITLE">YetAnotherForum.NET Help</Resource>
     <Resource tag="WELCOME">هنا تجد الأجوبة عن الأسئلة حول كيفية عمل المجلس . ستخدم الروابط في اليسار أو صندوق البحث في الأسفل لايجاد ما تبحث عنه. </Resource>
