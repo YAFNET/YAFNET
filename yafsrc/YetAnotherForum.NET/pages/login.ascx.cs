@@ -561,7 +561,8 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void RegisterLinkClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.register);
+            YafBuildLink.Redirect(
+                this.Get<YafBoardSettings>().ShowRulesForRegistration ? ForumPages.rules : ForumPages.register);
         }
 
         /// <summary>
