@@ -204,18 +204,25 @@ $(document).ready(function () {
         lineNumbers: true,
         lineWrapping: true,
         extraKeys: {
-             "Ctrl-B": function(codeMirror_Editor) {
-                 wrapSelection('[b]', '[/b]');
-             },
-             "Ctrl-I": function (codeMirror_Editor) {
-                 wrapSelection('[i]', '[/i]');
-             },
-             "Ctrl-U": function (codeMirror_Editor) {
-                 wrapSelection('[u]', '[/u]');
-             },
-             "Ctrl-Q": function (codeMirror_Editor) {
-                 wrapSelection('[quote]', '[/quote]');
-             }
+            "Ctrl-B": function(codeMirror_Editor) {
+                wrapSelection('[b]', '[/b]');
+            },
+            "Ctrl-I": function(codeMirror_Editor) {
+                wrapSelection('[i]', '[/i]');
+            },
+            "Ctrl-U": function(codeMirror_Editor) {
+                wrapSelection('[u]', '[/u]');
+            },
+            "Ctrl-Q": function(codeMirror_Editor) {
+                wrapSelection('[quote]', '[/quote]');
+            },
+            "Ctrl-Enter": function(codeMirror_Editor) {
+                if ($('[id *= "QuickReply"]').length) {
+                    $('[id *= "QuickReply"]').click();
+                } else if ($('[id *= "PostReply"]').length) {
+                    window.location.href = $('[id *= "PostReply"]').attr('href');
+                }
+            }
         }
     });
 });
