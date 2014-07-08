@@ -3899,7 +3899,7 @@ begin
    select top 1 @MessagePosition = CONVERT(int,RowNum), @MessageID = tbl.MessageID  from 
    (
    select ROW_NUMBER() OVER ( order by Posted desc) as RowNum, m.MessageID
-   from yaf_Message m  
+   from [{databaseOwner}].[{objectQualifier}Message] m  
    where m.TopicID = @TopicID			
         AND m.IsApproved = 1
         AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))        
@@ -3916,7 +3916,7 @@ begin
    select top 1 @MessagePosition = CONVERT(int,RowNum), @MessageID = tbl.MessageID  from 
    (
    select ROW_NUMBER() OVER ( order by m.Posted asc) as RowNum, m.MessageID, m.Posted
-   from yaf_Message m  
+   from [{databaseOwner}].[{objectQualifier}Message] m  
    where m.TopicID = @TopicID			
         AND m.IsApproved = 1
         AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))		     
@@ -3941,7 +3941,7 @@ begin
 	 select top 1 @MessagePosition = CONVERT(int,RowNum), @MessageID = tbl.MessageID  from 
    (
    select ROW_NUMBER() OVER ( order by Posted desc) as RowNum, m.MessageID
-   from yaf_Message m  
+   from [{databaseOwner}].[{objectQualifier}Message] m  
    where m.TopicID = @TopicID			
         AND m.IsApproved = 1
         AND (@ShowDeleted = 1 OR m.IsDeleted = 0 OR (@AuthorUserID > 0 AND m.UserID = @AuthorUserID))        
