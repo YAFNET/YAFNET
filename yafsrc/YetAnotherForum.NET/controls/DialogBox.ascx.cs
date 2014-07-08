@@ -29,7 +29,6 @@ namespace YAF.Controls
     using System;
     using System.Text;
     using System.Web;
-    using System.Web.UI;
 
     using YAF.Core;
     using YAF.Types;
@@ -162,19 +161,19 @@ namespace YAF.Controls
                 switch (icon)
                 {
                     case DialogIcon.Mail:
-                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToResource("icons/EmailBig.png");
+                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToContent("icons/EmailBig.png");
                         break;
                     case DialogIcon.Info:
-                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToResource("icons/InfoBig.png");
+                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToContent("icons/InfoBig.png");
                         break;
                     case DialogIcon.Warning:
-                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToResource("icons/WarningBig.png");
+                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToContent("icons/WarningBig.png");
                         break;
                     case DialogIcon.Error:
-                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToResource("icons/ErrorBig.png");
+                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToContent("icons/ErrorBig.png");
                         break;
                     case DialogIcon.Question:
-                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToResource("icons/QuestionBig.png");
+                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToContent("icons/QuestionBig.png");
                         break;
                 }
 
@@ -237,10 +236,6 @@ namespace YAF.Controls
                 this.CancelButtonLink = new ForumLink { ForumPage = YafContext.Current.ForumPageType };
             }
 
-            YafContext.Current.PageElements.RegisterJQuery();
-            YafContext.Current.PageElements.RegisterJsResourceInclude("yafmodaldialog", "js/jquery.yafmodaldialog.js");
-            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.yafmodaldialog.css");
-
             var sbScript = new StringBuilder();
 
             sbScript.Append("Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(ShowNotificationPopup);");
@@ -248,7 +243,7 @@ namespace YAF.Controls
             sbScript.AppendFormat(
                 "function ShowNotificationPopup() {{ jQuery(document).ready(function() {{jQuery().YafModalDialog.Show({{Dialog : '#{0}',ImagePath : '{1}'}});return false; }});}}",
                 this.YafForumPageErrorPopup.ClientID,
-                YafForumInfo.GetURLToResource("images/"));
+                YafForumInfo.GetURLToContent("images/"));
 
             this.PageContext.PageElements.RegisterJsBlockStartup(this.Page, "PopUp{0}".FormatWith(Guid.NewGuid()), sbScript.ToString());
 

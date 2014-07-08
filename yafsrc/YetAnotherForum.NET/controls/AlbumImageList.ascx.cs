@@ -130,9 +130,6 @@ namespace YAF.Controls
         {
             if (this.UserID == this.PageContext.PageUserID)
             {
-                // Register jQuery Ajax Plugin.
-                YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
-
                 // Register Js Blocks.
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "AlbumEventsJs",

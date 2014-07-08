@@ -410,7 +410,7 @@ namespace YAF.Core
             {
                 dt.Columns.Add("Theme", typeof(string));
 
-                var themeDir = new DirectoryInfo(HttpContext.Current.Request.MapPath(YafForumInfo.GetURLToResource("css/jquery-ui-themes")));
+                var themeDir = new DirectoryInfo(HttpContext.Current.Request.MapPath(YafForumInfo.GetURLToContent("css/themes")));
 
                 foreach (DirectoryInfo dir in themeDir.GetDirectories())
                 {

@@ -12,7 +12,7 @@
         <tr>
             <td class="post">
                 <div style="font-size: 11pt;">
-                    <img src="<%=YafForumInfo.ForumClientFileRoot + "images/YafLogo.png" %>" alt="YAF.NET" style="float:left; padding: 10px" />
+                    <img src="<%=YafForumInfo.GetURLToContent("images/YafLogo.png") %>" alt="YAF.NET" style="float:left; padding: 10px" />
                     <p>
                         <asp:Label ID="RunningVersion" runat="server"></asp:Label></p>
                     <p>

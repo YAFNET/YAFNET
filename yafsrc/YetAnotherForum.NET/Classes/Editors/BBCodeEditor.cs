@@ -123,8 +123,6 @@ namespace YAF.Editors
             // this call is supposed to be after editor load since it may use
             // JS variables created in editor_load...
             this.Get<IBBCode>().RegisterCustomBBCodePageElements(this.Page, this.GetType(), this.SafeID);
-
-            YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
         }
 
         /// <summary>

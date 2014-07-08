@@ -188,7 +188,7 @@ namespace YAF.Providers.Utils
             var exceptionXmlDoc = new XmlDocument();
             exceptionXmlDoc.Load(
                 HttpContext.Current.Server.MapPath(
-                    "{0}{1}resources/{1}".FormatWith(
+                    "{0}{1}Resources/{1}".FormatWith(
                         Config.ServerFileRoot,
                         Config.ServerFileRoot.EndsWith("/") ? string.Empty : "/",
                         ProviderExceptionFile)));

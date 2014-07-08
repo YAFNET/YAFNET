@@ -135,13 +135,13 @@ namespace YAF.Pages.Admin
                         }
                         else
                         {
-                            this.Preview.Src = "{0}images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+                            this.Preview.Src = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
                         }
                     }
                 }
                 else
                 {
-                    this.Preview.Src = "{0}images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+                    this.Preview.Src = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
                 }
             }
 
@@ -237,7 +237,7 @@ namespace YAF.Pages.Admin
                 dt.Columns.Add("Description", typeof(string));
                 DataRow dr = dt.NewRow();
                 dr["FileID"] = 0;
-                dr["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
+                dr["FileName"] = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
                 dr["Description"] = this.GetText("ADMIN_EDITRANK", "SELECT_IMAGE");
                 dt.Rows.Add(dr);
 

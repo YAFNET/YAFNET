@@ -148,9 +148,6 @@ namespace YAF.Pages.Admin
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and YAF JS...
-            YafContext.Current.PageElements.RegisterJQuery();
-            YafContext.Current.PageElements.RegisterJQueryUI();
-
             YafContext.Current.PageElements.RegisterJsBlock(
                 "yafTabsJs",
                 JavaScriptBlocks.JqueryUITabsLoadJs(
@@ -225,8 +222,7 @@ namespace YAF.Pages.Admin
             this.CheckCache();
 
             // Hide Some settings if yaf is inside dnn
-            this.AvatarsTabLi.Visible = !Config.IsDotNetNuke;
-            this.AvatarsTab.Visible = !Config.IsDotNetNuke;
+            this.AvatarSettingsHolder.Visible = !Config.IsDotNetNuke;
             this.SSLSettings.Visible = !Config.IsDotNetNuke;
             this.BotRegisterCheck.Visible = !Config.IsDotNetNuke;
             this.LoginSettings.Visible = !Config.IsDotNetNuke;

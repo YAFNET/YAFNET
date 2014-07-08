@@ -243,6 +243,38 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        ///  Gets or sets a value indicating whether to use the jQuery CDN hosted version or the local one.
+        /// </summary>
+        public bool JqueryCDNHosted
+        {
+            get
+            {
+                return this._reg.GetValue("JqueryCDNHosted", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("JqueryCDNHosted", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to use the jQuery-UI CDN hosted version or the local one.
+        /// </summary>
+        public bool JqueryUICDNHosted
+        {
+            get
+            {
+                return this._reg.GetValue("JqueryUICDNHosted", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("JqueryUICDNHosted", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether to enable jQuery-UIThemeCDNHosted.
         /// </summary>
         public bool JqueryUIThemeCDNHosted

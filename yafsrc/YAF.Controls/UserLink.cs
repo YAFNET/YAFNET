@@ -145,13 +145,6 @@ namespace YAF.Controls
                 return;
             }
 
-            // setup jQuery and YAF JS...
-            YafContext.Current.PageElements.RegisterJQuery();
-            YafContext.Current.PageElements.RegisterJQueryUI();
-
-            YafContext.Current.PageElements.RegisterJsResourceInclude("hovercard", "js/jquery.hovercard.js");
-            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.hovercard.css");
-
             // Setup Hover Card JS
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "yafhovercardtjs",

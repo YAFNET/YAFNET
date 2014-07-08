@@ -92,15 +92,12 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJQuery();
-            this.PageContext.PageElements.RegisterJsResourceInclude("blockUIJs", "js/jquery.blockUI.js");
-
             if (this.IsPostBack)
             {
                 return;
             }
 
-            this.LoadingImage.ImageUrl = YafForumInfo.GetURLToResource("images/loader.gif");
+            this.LoadingImage.ImageUrl = YafForumInfo.GetURLToContent("images/loader.gif");
 
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(

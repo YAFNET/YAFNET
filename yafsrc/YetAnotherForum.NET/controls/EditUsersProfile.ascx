@@ -95,7 +95,7 @@
                 LocalizedTag="COUNTRY" />
         </td>
         <td class="post">
-            <YAF:CountryListBox ID="Country" AutoPostBack="true" OnTextChanged="LookForNewRegions" runat="server" CssClass="edit" />
+            <YAF:CountryListBox ID="Country" AutoPostBack="true" OnTextChanged="LookForNewRegions" runat="server" CssClass="selectMenuWithIcons" />
         </td>
     </tr>
      <tr id="RegionTr" visible="false" runat="server">

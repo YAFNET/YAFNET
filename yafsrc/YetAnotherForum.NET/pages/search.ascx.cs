@@ -163,9 +163,6 @@ namespace YAF.Pages
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // Setup Syntax Highlight JS
-            YafContext.Current.PageElements.RegisterJsResourceInclude(
-                "syntaxhighlighter", "js/jquery.syntaxhighligher.js");
-            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.syntaxhighligher.css");
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
 
@@ -459,7 +456,7 @@ namespace YAF.Pages
             // }
             this.LoadingModal.Title = this.GetText("LOADING");
             this.LoadingModal.MessageText = this.GetText("LOADING_SEARCH");
-            this.LoadingModal.Icon = YafForumInfo.GetURLToResource("images/loader.gif");
+            this.LoadingModal.Icon = YafForumInfo.GetURLToContent("images/loader.gif");
 
             this.txtSearchStringWhat.Focus();
 

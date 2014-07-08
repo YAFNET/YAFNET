@@ -130,8 +130,6 @@ namespace YAF.Controls
 
             this.shoutBoxPanel.Visible = true;
 
-            YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
-
             if (this.IsPostBack)
             {
                 return;

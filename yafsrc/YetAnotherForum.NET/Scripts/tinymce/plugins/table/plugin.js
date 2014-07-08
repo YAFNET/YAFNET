@@ -155,7 +155,7 @@ define("tinymce/tableplugin/TableGrid", [
 								};
 							}
 						}
-						
+
 						gridWidth = Math.max(gridWidth, x + 1);
 					});
 				});
@@ -1492,10 +1492,10 @@ define("tinymce/tableplugin/CellSelection", [
 	};
 });
 
-// Included from: js/tinymce/plugins/table/classes/Plugin.js
+// Included from: js/tinymce/plugins/table/classes/Dialogs.js
 
 /**
- * Plugin.js
+ * Dialogs.js
  *
  * Copyright, Moxiecode Systems AB
  * Released under LGPL License.
@@ -1505,24 +1505,79 @@ define("tinymce/tableplugin/CellSelection", [
  */
 
 /**
- * This class contains all core logic for the table plugin.
+ * ...
  *
- * @class tinymce.tableplugin.Plugin
+ * @class tinymce.tableplugin.Dialogs
  * @private
  */
-define("tinymce/tableplugin/Plugin", [
-	"tinymce/tableplugin/TableGrid",
-	"tinymce/tableplugin/Quirks",
-	"tinymce/tableplugin/CellSelection",
+define("tinymce/tableplugin/Dialogs", [
 	"tinymce/util/Tools",
-	"tinymce/dom/TreeWalker",
-	"tinymce/Env",
-	"tinymce/PluginManager"
-], function(TableGrid, Quirks, CellSelection, Tools, TreeWalker, Env, PluginManager) {
+	"tinymce/Env"
+], function(Tools, Env) {
 	var each = Tools.each;
 
-	function Plugin(editor) {
-		var clipboardRows, self = this; // Might be selected cells on reload
+	return function(editor) {
+		var self = this;
+
+		function pickColorAction() {
+			var self = this, colorPickerCallback = editor.settings.color_picker_callback;
+
+			if (colorPickerCallback) {
+				colorPickerCallback.call(
+					editor,
+					function(value) {
+						self.value(value).fire('change');
+					},
+					self.value()
+				);
+			}
+		}
+
+		function createStyleForm(dom) {
+			return {
+				title: 'Advanced',
+				type: 'form',
+				defaults: {
+					onchange: function() {
+						updateStyle(dom, this.parents().reverse()[0], this.name() == "style");
+					}
+				},
+				items: [
+					{
+						label: 'Style',
+						name: 'style',
+						type: 'textbox'
+					},
+
+					{
+						type: 'form',
+						padding: 0,
+						formItemDefaults: {
+							layout: 'grid',
+							alignH: ['start', 'right']
+						},
+						defaults: {
+							size: 7
+						},
+						items: [
+							{
+								label: 'Border color',
+								type: 'colorbox',
+								name: 'borderColor',
+								onaction: pickColorAction
+							},
+
+							{
+								label: 'Background color',
+								type: 'colorbox',
+								name: 'backgroundColor',
+								onaction: pickColorAction
+							}
+						]
+					}
+				]
+			};
+		}
 
 		function removePxSuffix(size) {
 			return size ? size.replace(/px$/, '') : "";
@@ -1541,69 +1596,151 @@ define("tinymce/tableplugin/Plugin", [
 				editor.formatter.remove('align' + name, {}, elm);
 			});
 		}
-		
+
 		function unApplyVAlign(elm) {
 			each('top middle bottom'.split(' '), function(name) {
 				editor.formatter.remove('valign' + name, {}, elm);
 			});
 		}
 
-		function applyPreview(tagName, items) {
-			Tools.each(items, function(item) {
-				item.textStyle = function() {
-					return editor.formatter.getCssText({block: tagName, classes: [item.value]});
-				};
-			});
+		function buildListItems(inputList, itemCallback, startItems) {
+			function appendItems(values, output) {
+				output = output || [];
 
-			return items;
-		}
+				Tools.each(values, function(item) {
+					var menuItem = {text: item.text || item.title};
 
-		function buildValues(data, listSettingName, dataItemName, defaultItems) {
-			var selectedItem, items = [];
+					if (item.menu) {
+						menuItem.menu = appendItems(item.menu);
+					} else {
+						menuItem.value = item.value;
 
-			Tools.each(editor.settings[listSettingName] || defaultItems, function(target) {
-				var item = {
-					text: target.text || target.title,
-					value: target.value
-				};
+						if (itemCallback) {
+							itemCallback(menuItem);
+						}
+					}
 
-				items.push(item);
+					output.push(menuItem);
+				});
 
-				if (data[dataItemName] === target.value || (!selectedItem && target.selected)) {
-					selectedItem = item;
-				}
-			});
-
-			if (selectedItem) {
-				data[dataItemName] = selectedItem.value;
-				selectedItem.selected = true;
+				return output;
 			}
 
-			return items;
+			return appendItems(inputList, startItems || []);
 		}
 
-		function tableDialog() {
-			var dom = editor.dom, tableElm, colsCtrl, rowsCtrl, classListCtrl, data;
+		function updateStyle(dom, win, isStyleCtrl) {
+			var data = win.toJSON();
+			var css = dom.parseStyle(data.style);
 
-			tableElm = dom.getParent(editor.selection.getStart(), 'table');
+			if (isStyleCtrl) {
+				win.find('#borderColor').value(css["border-color"] || '')[0].fire('change');
+				win.find('#backgroundColor').value(css["background-color"] || '')[0].fire('change');
+			} else {
+				css["border-color"] = data.borderColor;
+				css["background-color"] = data.backgroundColor;
+			}
 
-			data = {
-				width: removePxSuffix(dom.getStyle(tableElm, 'width') || dom.getAttrib(tableElm, 'width')),
-				height: removePxSuffix(dom.getStyle(tableElm, 'height') || dom.getAttrib(tableElm, 'height')),
-				cellspacing: tableElm ? dom.getAttrib(tableElm, 'cellspacing') : '',
-				cellpadding: tableElm ? dom.getAttrib(tableElm, 'cellpadding') : '',
-				border: tableElm ? dom.getAttrib(tableElm, 'border') : '',
-				caption: !!dom.select('caption', tableElm)[0],
-				'class': dom.getAttrib(tableElm, 'class')
-			};
+			win.find('#style').value(dom.serializeStyle(dom.parseStyle(dom.serializeStyle(css))));
+		}
 
-			each('left center right'.split(' '), function(name) {
-				if (editor.formatter.matchNode(tableElm, 'align' + name)) {
-					data.align = name;
+		function appendStylesToData(dom, data, elm) {
+			var css = dom.parseStyle(dom.getAttrib(elm, 'style'));
+
+			if (css["border-color"]) {
+				data.borderColor = css["border-color"];
+			}
+
+			if (css["background-color"]) {
+				data.backgroundColor = css["background-color"];
+			}
+
+			data.style = dom.serializeStyle(css);
+		}
+
+		self.tableProps = function() {
+			self.table(true);
+		};
+
+		self.table = function(isProps) {
+			var dom = editor.dom, tableElm, colsCtrl, rowsCtrl, classListCtrl, data = {}, generalTableForm;
+
+			function onSubmitTableForm() {
+				var captionElm;
+
+				updateStyle(dom, this);
+				data = Tools.extend(data, this.toJSON());
+
+				Tools.each('backgroundColor borderColor'.split(' '), function(name) {
+					delete data[name];
+				});
+
+				if (data["class"] === false) {
+					delete data["class"];
 				}
-			});
 
-			if (!tableElm) {
+				editor.undoManager.transact(function() {
+					if (!tableElm) {
+						tableElm = editor.plugins.table.insertTable(data.cols || 1, data.rows || 1);
+					}
+
+					editor.dom.setAttribs(tableElm, {
+						cellspacing: data.cellspacing,
+						cellpadding: data.cellpadding,
+						border: data.border,
+						style: data.style,
+						'class': data['class']
+					});
+
+					editor.dom.setStyles(tableElm, {
+						width: addSizeSuffix(data.width),
+						height: addSizeSuffix(data.height)
+					});
+
+					// Toggle caption on/off
+					captionElm = dom.select('caption', tableElm)[0];
+
+					if (captionElm && !data.caption) {
+						dom.remove(captionElm);
+					}
+
+					if (!captionElm && data.caption) {
+						captionElm = dom.create('caption');
+						captionElm.innerHTML = !Env.ie ? '<br data-mce-bogus="1"/>' : '\u00a0';
+						tableElm.insertBefore(captionElm, tableElm.firstChild);
+					}
+
+					unApplyAlign(tableElm);
+					if (data.align) {
+						editor.formatter.apply('align' + data.align, {}, tableElm);
+					}
+
+					editor.focus();
+					editor.addVisual();
+				});
+			}
+
+			if (isProps === true) {
+				tableElm = dom.getParent(editor.selection.getStart(), 'table');
+
+				if (tableElm) {
+					data = {
+						width: removePxSuffix(dom.getStyle(tableElm, 'width') || dom.getAttrib(tableElm, 'width')),
+						height: removePxSuffix(dom.getStyle(tableElm, 'height') || dom.getAttrib(tableElm, 'height')),
+						cellspacing: tableElm ? dom.getAttrib(tableElm, 'cellspacing') : '',
+						cellpadding: tableElm ? dom.getAttrib(tableElm, 'cellpadding') : '',
+						border: tableElm ? dom.getAttrib(tableElm, 'border') : '',
+						caption: !!dom.select('caption', tableElm)[0],
+						'class': dom.getAttrib(tableElm, 'class')
+					};
+
+					each('left center right'.split(' '), function(name) {
+						if (editor.formatter.matchNode(tableElm, 'align' + name)) {
+							data.align = name;
+						}
+					});
+				}
+			} else {
 				colsCtrl = {label: 'Cols', name: 'cols'};
 				rowsCtrl = {label: 'Rows', name: 'rows'};
 			}
@@ -1617,106 +1754,94 @@ define("tinymce/tableplugin/Plugin", [
 					name: 'class',
 					type: 'listbox',
 					label: 'Class',
-					values: applyPreview('table', buildValues(data, 'table_class_list', 'class'))
+					values: buildListItems(
+						editor.settings.table_class_list,
+						function(item) {
+							if (item.value) {
+								item.textStyle = function() {
+									return editor.formatter.getCssText({block: 'table', classes: [item.value]});
+								};
+							}
+						}
+					)
 				};
 			}
 
-			editor.windowManager.open({
-				title: "Table properties",
-				items: {
-					type: 'form',
-					layout: 'flex',
-					direction: 'column',
-					labelGapCalc: 'children',
-					items: [
+			generalTableForm = {
+				type: 'form',
+				layout: 'flex',
+				direction: 'column',
+				labelGapCalc: 'children',
+				padding: 0,
+				items: [
+					{
+						type: 'form',
+						labelGapCalc: false,
+						padding: 0,
+						layout: 'grid',
+						columns: 2,
+						defaults: {
+							type: 'textbox',
+							maxWidth: 50
+						},
+						items: [
+							colsCtrl,
+							rowsCtrl,
+							{label: 'Width', name: 'width'},
+							{label: 'Height', name: 'height'},
+							{label: 'Cell spacing', name: 'cellspacing'},
+							{label: 'Cell padding', name: 'cellpadding'},
+							{label: 'Border', name: 'border'},
+							{label: 'Caption', name: 'caption', type: 'checkbox'}
+						]
+					},
+
+					{
+						label: 'Alignment',
+						name: 'align',
+						type: 'listbox',
+						text: 'None',
+						values: [
+							{text: 'None', value: ''},
+							{text: 'Left', value: 'left'},
+							{text: 'Center', value: 'center'},
+							{text: 'Right', value: 'right'}
+						]
+					},
+
+					classListCtrl
+				]
+			};
+
+			if (editor.settings.table_adv_tab !== false) {
+				appendStylesToData(dom, data, tableElm);
+
+				editor.windowManager.open({
+					title: "Table properties",
+					data: data,
+					bodyType: 'tabpanel',
+					body: [
 						{
+							title: 'General',
 							type: 'form',
-							labelGapCalc: false,
-							padding: 0,
-							layout: 'grid',
-							columns: 2,
-							data: data,
-							defaults: {
-								type: 'textbox',
-								maxWidth: 50
-							},
-							items: [
-								colsCtrl,
-								rowsCtrl,
-								{label: 'Width', name: 'width'},
-								{label: 'Height', name: 'height'},
-								{label: 'Cell spacing', name: 'cellspacing'},
-								{label: 'Cell padding', name: 'cellpadding'},
-								{label: 'Border', name: 'border'},
-								{label: 'Caption', name: 'caption', type: 'checkbox'}
-							]
+							items: generalTableForm
 						},
+						createStyleForm(dom)
+					],
 
-						{
-							label: 'Alignment',
-							name: 'align',
-							type: 'listbox',
-							text: 'None',
-							values: [
-								{text: 'None', value: ''},
-								{text: 'Left', value: 'left'},
-								{text: 'Center', value: 'center'},
-								{text: 'Right', value: 'right'}
-							]
-						},
+					onsubmit: onSubmitTableForm
+				});
+			} else {
+				editor.windowManager.open({
+					title: "Table properties",
+					data: data,
+					body: generalTableForm,
+					onsubmit: onSubmitTableForm
+				});
+			}
+		};
 
-						classListCtrl
-					]
-				},
-
-				onsubmit: function() {
-					var captionElm;
-
-					data = Tools.extend(data, this.toJSON());
-
-					editor.undoManager.transact(function() {
-						if (!tableElm) {
-							tableElm = insertTable(data.cols || 1, data.rows || 1);
-						}
-
-						editor.dom.setAttribs(tableElm, {
-							cellspacing: data.cellspacing,
-							cellpadding: data.cellpadding,
-							border: data.border,
-							'class': data['class']
-						});
-
-						editor.dom.setStyles(tableElm, {
-							width: addSizeSuffix(data.width),
-							height: addSizeSuffix(data.height)
-						});
-
-						// Toggle caption on/off
-						captionElm = dom.select('caption', tableElm)[0];
-
-						if (captionElm && !data.caption) {
-							dom.remove(captionElm);
-						}
-
-						if (!captionElm && data.caption) {
-							captionElm = dom.create('caption');
-							captionElm.innerHTML = !Env.ie ? '<br data-mce-bogus="1"/>' : '\u00a0';
-							tableElm.insertBefore(captionElm, tableElm.firstChild);
-						}
-
-						unApplyAlign(tableElm);
-						if (data.align) {
-							editor.formatter.apply('align' + data.align, {}, tableElm);
-						}
-
-						editor.focus();
-						editor.addVisual();
-					});
-				}
-			});
-		}
-
-		function mergeDialog(grid, cell) {
+		self.merge = function(grid, cell) {
 			editor.windowManager.open({
 				title: "Merge cells",
 				body: [
@@ -1731,10 +1856,49 @@ define("tinymce/tableplugin/Plugin", [
 					});
 				}
 			});
-		}
+		};
 
-		function cellDialog() {
+		self.cell = function() {
 			var dom = editor.dom, cellElm, data, classListCtrl, cells = [];
+
+			function onSubmitCellForm() {
+				updateStyle(dom, this);
+				data = Tools.extend(data, this.toJSON());
+
+				editor.undoManager.transact(function() {
+					each(cells, function(cellElm) {
+						editor.dom.setAttribs(cellElm, {
+							scope: data.scope,
+							style: data.style,
+							'class': data['class']
+						});
+
+						editor.dom.setStyles(cellElm, {
+							width: addSizeSuffix(data.width),
+							height: addSizeSuffix(data.height)
+						});
+
+						// Switch cell type
+						if (data.type && cellElm.nodeName.toLowerCase() != data.type) {
+							cellElm = dom.rename(cellElm, data.type);
+						}
+
+						// Apply/remove alignment
+						unApplyAlign(cellElm);
+						if (data.align) {
+							editor.formatter.apply('align' + data.align, {}, cellElm);
+						}
+
+						// Apply/remove vertical alignment
+						unApplyVAlign(cellElm);
+						if (data.valign) {
+							editor.formatter.apply('valign' + data.valign, {}, cellElm);
+						}
+					});
+
+					editor.focus();
+				});
+			}
 
 			// Get selected cells or the current cell
 			cells = editor.dom.select('td.mce-item-selected,th.mce-item-selected');
@@ -1776,135 +1940,184 @@ define("tinymce/tableplugin/Plugin", [
 					name: 'class',
 					type: 'listbox',
 					label: 'Class',
-					values: applyPreview('td', buildValues(data, 'table_cell_class_list', 'class'))
+					values: buildListItems(
+						editor.settings.table_cell_class_list,
+						function(item) {
+							if (item.value) {
+								item.textStyle = function() {
+									return editor.formatter.getCssText({block: 'td', classes: [item.value]});
+								};
+							}
+						}
+					)
 				};
 			}
 
-			editor.windowManager.open({
-				title: "Cell properties",
-				items: {
-					type: 'form',
-					layout: 'flex',
-					direction: 'column',
-					labelGapCalc: 'children',
-					items: [
-						{
-							type: 'form',
-							data: data,
-							layout: 'grid',
-							columns: 2,
-							labelGapCalc: false,
-							padding: 0,
-							defaults: {
-								type: 'textbox',
-								maxWidth: 50
+			var generalCellForm = {
+				type: 'form',
+				layout: 'flex',
+				direction: 'column',
+				labelGapCalc: 'children',
+				padding: 0,
+				items: [
+					{
+						type: 'form',
+						layout: 'grid',
+						columns: 2,
+						labelGapCalc: false,
+						padding: 0,
+						defaults: {
+							type: 'textbox',
+							maxWidth: 50
+						},
+						items: [
+							{label: 'Width', name: 'width'},
+							{label: 'Height', name: 'height'},
+							{
+								label: 'Cell type',
+								name: 'type',
+								type: 'listbox',
+								text: 'None',
+								minWidth: 90,
+								maxWidth: null,
+								values: [
+									{text: 'Cell', value: 'td'},
+									{text: 'Header cell', value: 'th'}
+								]
 							},
-							items: [
-								{label: 'Width', name: 'width'},
-								{label: 'Height', name: 'height'},
-								{
-									label: 'Cell type',
-									name: 'type',
-									type: 'listbox',
-									text: 'None',
-									minWidth: 90,
-									maxWidth: null,
-									values: [
-										{text: 'Cell', value: 'td'},
-										{text: 'Header cell', value: 'th'}
-									]
-								},
-								{
-									label: 'Scope',
-									name: 'scope',
-									type: 'listbox',
-									text: 'None',
-									minWidth: 90,
-									maxWidth: null,
-									values: [
-										{text: 'None', value: ''},
-										{text: 'Row', value: 'row'},
-										{text: 'Column', value: 'col'},
-										{text: 'Row group', value: 'rowgroup'},
-										{text: 'Column group', value: 'colgroup'}
-									]
-								},
-								{
-									label: 'H Align',
-									name: 'align',
-									type: 'listbox',
-									text: 'None',
-									minWidth: 90,
-									maxWidth: null,
-									values: [
-										{text: 'None', value: ''},
-										{text: 'Left', value: 'left'},
-										{text: 'Center', value: 'center'},
-										{text: 'Right', value: 'right'}
-									]
-								},
-								{
-									label: 'V Align',
-									name: 'valign',
-									type: 'listbox',
-									text: 'None',
-									minWidth: 90,
-									maxWidth: null,
-									values: [
-										{text: 'None', value: ''},
-										{text: 'Top', value: 'top'},
-										{text: 'Middle', value: 'middle'},
-										{text: 'Bottom', value: 'bottom'}
-									]
-								}
-							]
+							{
+								label: 'Scope',
+								name: 'scope',
+								type: 'listbox',
+								text: 'None',
+								minWidth: 90,
+								maxWidth: null,
+								values: [
+									{text: 'None', value: ''},
+									{text: 'Row', value: 'row'},
+									{text: 'Column', value: 'col'},
+									{text: 'Row group', value: 'rowgroup'},
+									{text: 'Column group', value: 'colgroup'}
+								]
+							},
+							{
+								label: 'H Align',
+								name: 'align',
+								type: 'listbox',
+								text: 'None',
+								minWidth: 90,
+								maxWidth: null,
+								values: [
+									{text: 'None', value: ''},
+									{text: 'Left', value: 'left'},
+									{text: 'Center', value: 'center'},
+									{text: 'Right', value: 'right'}
+								]
+							},
+							{
+								label: 'V Align',
+								name: 'valign',
+								type: 'listbox',
+								text: 'None',
+								minWidth: 90,
+								maxWidth: null,
+								values: [
+									{text: 'None', value: ''},
+									{text: 'Top', value: 'top'},
+									{text: 'Middle', value: 'middle'},
+									{text: 'Bottom', value: 'bottom'}
+								]
+							}
+						]
+					},
+
+					classListCtrl
+				]
+			};
+
+			if (editor.settings.table_cell_adv_tab !== false) {
+				appendStylesToData(dom, data, cellElm);
+
+				editor.windowManager.open({
+					title: "Cell properties",
+					bodyType: 'tabpanel',
+					data: data,
+					body: [
+						{
+							title: 'General',
+							type: 'form',
+							items: generalCellForm
 						},
 
-						classListCtrl
-					]
-				},
+						createStyleForm(dom)
+					],
 
-				onsubmit: function() {
-					data = Tools.extend(data, this.toJSON());
+					onsubmit: onSubmitCellForm
+				});
+			} else {
+				editor.windowManager.open({
+					title: "Cell properties",
+					data: data,
+					items: generalCellForm,
+					onsubmit: onSubmitCellForm
+				});
+			}
+		};
 
-					editor.undoManager.transact(function() {
-						each(cells, function(cellElm) {
-							editor.dom.setAttribs(cellElm, {
-								scope: data.scope,
-								'class': data['class']
-							});
+		self.row = function() {
+			var dom = editor.dom, tableElm, cellElm, rowElm, classListCtrl, data, rows = [], generalRowForm;
 
-							editor.dom.setStyles(cellElm, {
-								width: addSizeSuffix(data.width),
-								height: addSizeSuffix(data.height)
-							});
+			function onSubmitRowForm() {
+				var tableElm, oldParentElm, parentElm;
 
-							// Switch cell type
-							if (data.type && cellElm.nodeName.toLowerCase() != data.type) {
-								cellElm = dom.rename(cellElm, data.type);
-							}
+				updateStyle(dom, this);
+				data = Tools.extend(data, this.toJSON());
 
-							// Apply/remove alignment
-							unApplyAlign(cellElm);
-							if (data.align) {
-								editor.formatter.apply('align' + data.align, {}, cellElm);
-							}
+				editor.undoManager.transact(function() {
+					var toType = data.type;
 
-							// Apply/remove vertical alignment
-							unApplyVAlign(cellElm);
-							if (data.valign) {
-								editor.formatter.apply('valign' + data.valign, {}, cellElm);
-							}
+					each(rows, function(rowElm) {
+						editor.dom.setAttribs(rowElm, {
+							scope: data.scope,
+							style: data.style,
+							'class': data['class']
 						});
 
-						editor.focus();
-					});
-				}
-			});
-		}
+						editor.dom.setStyles(rowElm, {
+							height: addSizeSuffix(data.height)
+						});
 
-		function rowDialog() {
-			var dom = editor.dom, tableElm, cellElm, rowElm, classListCtrl, data, rows = [];
+						if (toType != rowElm.parentNode.nodeName.toLowerCase()) {
+							tableElm = dom.getParent(rowElm, 'table');
+
+							oldParentElm = rowElm.parentNode;
+							parentElm = dom.select(toType, tableElm)[0];
+							if (!parentElm) {
+								parentElm = dom.create(toType);
+								if (tableElm.firstChild) {
+									tableElm.insertBefore(parentElm, tableElm.firstChild);
+								} else {
+									tableElm.appendChild(parentElm);
+								}
+							}
+
+							parentElm.appendChild(rowElm);
+
+							if (!oldParentElm.hasChildNodes()) {
+								dom.remove(oldParentElm);
+							}
+						}
+
+						// Apply/remove alignment
+						unApplyAlign(rowElm);
+						if (data.align) {
+							editor.formatter.apply('align' + data.align, {}, rowElm);
+						}
+					});
+
+					editor.focus();
+				});
+			}
 
 			tableElm = editor.dom.getParent(editor.selection.getStart(), 'table');
 			cellElm = editor.dom.getParent(editor.selection.getStart(), 'td,th');
@@ -1943,101 +2156,119 @@ define("tinymce/tableplugin/Plugin", [
 					name: 'class',
 					type: 'listbox',
 					label: 'Class',
-					values: applyPreview('tr', buildValues(data, 'table_row_class_list', 'class'))
+					values: buildListItems(
+						editor.settings.table_row_class_list,
+						function(item) {
+							if (item.value) {
+								item.textStyle = function() {
+									return editor.formatter.getCssText({block: 'tr', classes: [item.value]});
+								};
+							}
+						}
+					)
 				};
 			}
 
-			editor.windowManager.open({
-				title: "Row properties",
-				items: {
-					type: 'form',
-					data: data,
-					columns: 2,
-					defaults: {
-						type: 'textbox'
-					},
-					items: [
-						{
-							type: 'listbox',
-							name: 'type',
-							label: 'Row type',
-							text: 'None',
-							maxWidth: null,
-							values: [
-								{text: 'Header', value: 'thead'},
-								{text: 'Body', value: 'tbody'},
-								{text: 'Footer', value: 'tfoot'}
-							]
-						},
-						{
-							type: 'listbox',
-							name: 'align',
-							label: 'Alignment',
-							text: 'None',
-							maxWidth: null,
-							values: [
-								{text: 'None', value: ''},
-								{text: 'Left', value: 'left'},
-								{text: 'Center', value: 'center'},
-								{text: 'Right', value: 'right'}
-							]
-						},
-						{label: 'Height', name: 'height'},
-						classListCtrl
-					]
+			generalRowForm = {
+				type: 'form',
+				columns: 2,
+				padding: 0,
+				defaults: {
+					type: 'textbox'
 				},
+				items: [
+					{
+						type: 'listbox',
+						name: 'type',
+						label: 'Row type',
+						text: 'None',
+						maxWidth: null,
+						values: [
+							{text: 'Header', value: 'thead'},
+							{text: 'Body', value: 'tbody'},
+							{text: 'Footer', value: 'tfoot'}
+						]
+					},
+					{
+						type: 'listbox',
+						name: 'align',
+						label: 'Alignment',
+						text: 'None',
+						maxWidth: null,
+						values: [
+							{text: 'None', value: ''},
+							{text: 'Left', value: 'left'},
+							{text: 'Center', value: 'center'},
+							{text: 'Right', value: 'right'}
+						]
+					},
+					{label: 'Height', name: 'height'},
+					classListCtrl
+				]
+			};
 
-				onsubmit: function() {
-					var tableElm, oldParentElm, parentElm;
+			if (editor.settings.table_row_adv_tab !== false) {
+				appendStylesToData(dom, data, rowElm);
 
-					data = Tools.extend(data, this.toJSON());
+				editor.windowManager.open({
+					title: "Row properties",
+					data: data,
+					bodyType: 'tabpanel',
+					body: [
+						{
+							title: 'General',
+							type: 'form',
+							items: generalRowForm
+						},
+						createStyleForm(dom)
+					],
 
-					editor.undoManager.transact(function() {
-						var toType = data.type;
+					onsubmit: onSubmitRowForm
+				});
+			} else {
+				editor.windowManager.open({
+					title: "Row properties",
+					data: data,
+					body: generalRowForm,
+					onsubmit: onSubmitRowForm
+				});
+			}
+		};
+	};
+});
 
-						each(rows, function(rowElm) {
-							editor.dom.setAttribs(rowElm, {
-								scope: data.scope,
-								'class': data['class']
-							});
+// Included from: js/tinymce/plugins/table/classes/Plugin.js
 
-							editor.dom.setStyles(rowElm, {
-								height: addSizeSuffix(data.height)
-							});
+/**
+ * Plugin.js
+ *
+ * Copyright, Moxiecode Systems AB
+ * Released under LGPL License.
+ *
+ * License: http://www.tinymce.com/license
+ * Contributing: http://www.tinymce.com/contributing
+ */
 
-							if (toType != rowElm.parentNode.nodeName.toLowerCase()) {
-								tableElm = dom.getParent(rowElm, 'table');
+/**
+ * This class contains all core logic for the table plugin.
+ *
+ * @class tinymce.tableplugin.Plugin
+ * @private
+ */
+define("tinymce/tableplugin/Plugin", [
+	"tinymce/tableplugin/TableGrid",
+	"tinymce/tableplugin/Quirks",
+	"tinymce/tableplugin/CellSelection",
+	"tinymce/tableplugin/Dialogs",
+	"tinymce/util/Tools",
+	"tinymce/dom/TreeWalker",
+	"tinymce/Env",
+	"tinymce/PluginManager"
+], function(TableGrid, Quirks, CellSelection, Dialogs, Tools, TreeWalker, Env, PluginManager) {
+	var each = Tools.each;
 
-								oldParentElm = rowElm.parentNode;
-								parentElm = dom.select(toType, tableElm)[0];
-								if (!parentElm) {
-									parentElm = dom.create(toType);
-									if (tableElm.firstChild) {
-										tableElm.insertBefore(parentElm, tableElm.firstChild);
-									} else {
-										tableElm.appendChild(parentElm);
-									}
-								}
-
-								parentElm.appendChild(rowElm);
-
-								if (!oldParentElm.hasChildNodes()) {
-									dom.remove(oldParentElm);
-								}
-							}
-
-							// Apply/remove alignment
-							unApplyAlign(rowElm);
-							if (data.align) {
-								editor.formatter.apply('align' + data.align, {}, rowElm);
-							}
-						});
-
-						editor.focus();
-					});
-				}
-			});
-		}
+	function Plugin(editor) {
+		var clipboardRows, self = this, dialogs = new Dialogs(editor);
 
 		function cmd(command) {
 			return function() {
@@ -2046,7 +2277,7 @@ define("tinymce/tableplugin/Plugin", [
 		}
 
 		function insertTable(cols, rows) {
-			var y, x, html;
+			var y, x, html, tableElm;
 
 			html = '<table id="__mce"><tbody>';
 
@@ -2062,13 +2293,15 @@ define("tinymce/tableplugin/Plugin", [
 
 			html += '</tbody></table>';
 
-			editor.insertContent(html);
+			editor.undoManager.transact(function() {
+				editor.insertContent(html);
 
-			var tableElm = editor.dom.get('__mce');
-			editor.dom.setAttrib(tableElm, 'id', null);
+				tableElm = editor.dom.get('__mce');
+				editor.dom.setAttrib(tableElm, 'id', null);
 
-			editor.dom.setAttribs(tableElm, editor.settings.table_default_attributes || {});
-			editor.dom.setStyles(tableElm, editor.settings.table_default_styles || {});
+				editor.dom.setAttribs(tableElm, editor.settings.table_default_attributes || {});
+				editor.dom.setStyles(tableElm, editor.settings.table_default_styles || {});
+			});
 
 			return tableElm;
 		}
@@ -2154,7 +2387,7 @@ define("tinymce/tableplugin/Plugin", [
 				text: 'Insert table',
 				icon: 'table',
 				context: 'table',
-				onclick: tableDialog
+				onclick: dialogs.table
 			});
 		} else {
 			editor.addMenuItem('inserttable', {
@@ -2166,7 +2399,7 @@ define("tinymce/tableplugin/Plugin", [
 					if (e.aria) {
 						this.parent().hideAll();
 						e.stopImmediatePropagation();
-						tableDialog();
+						dialogs.table();
 					}
 				},
 				onshow: function() {
@@ -2206,53 +2439,6 @@ define("tinymce/tableplugin/Plugin", [
 							}
 						},
 
-						onkeydown: function(e) {
-							var x = this.lastX, y = this.lastY, isHandled;
-
-							switch (e.keyCode) {
-								case 37: // DOM_VK_LEFT
-									if (x > 0) {
-										x--;
-										isHandled = true;
-									}
-									break;
-
-								case 39: // DOM_VK_RIGHT
-									isHandled = true;
-
-									if (x < 9) {
-										x++;
-									}
-									break;
-
-								case 38: // DOM_VK_UP
-									isHandled = true;
-
-									if (y > 0) {
-										y--;
-									}
-									break;
-
-								case 40: // DOM_VK_DOWN
-									isHandled = true;
-
-									if (y < 9) {
-										y++;
-									}
-									break;
-							}
-
-							if (isHandled) {
-								e.preventDefault();
-								e.stopPropagation();
-
-								selectGrid(x, y, e.control).focus();
-
-								this.lastX = x;
-								this.lastY = y;
-							}
-						},
-
 						onclick: function(e) {
 							var self = this;
 
@@ -2277,7 +2463,7 @@ define("tinymce/tableplugin/Plugin", [
 			text: 'Table properties',
 			context: 'table',
 			onPostRender: postRender,
-			onclick: tableDialog
+			onclick: dialogs.tableProps
 		});
 
 		editor.addMenuItem('deletetable', {
@@ -2369,7 +2555,7 @@ define("tinymce/tableplugin/Plugin", [
 				cell = editor.dom.getParent(editor.selection.getStart(), 'th,td');
 
 				if (!editor.dom.select('td.mce-item-selected,th.mce-item-selected').length) {
-					mergeDialog(grid, cell);
+					dialogs.merge(grid, cell);
 				} else {
 					grid.merge();
 				}
@@ -2432,12 +2618,12 @@ define("tinymce/tableplugin/Plugin", [
 
 		// Register dialog commands
 		each({
-			mceInsertTable: function() {
-				tableDialog();
+			mceInsertTable: dialogs.table,
+			mceTableProps: function() {
+				dialogs.table(true);
 			},
-
-			mceTableRowProps: rowDialog,
-			mceTableCellProps: cellDialog
+			mceTableRowProps: dialogs.row,
+			mceTableCellProps: dialogs.cell
 		}, function(func, name) {
 			editor.addCommand(name, function(ui, val) {
 				func(val);
@@ -2469,6 +2655,8 @@ define("tinymce/tableplugin/Plugin", [
 				}
 			});
 		}
+
+		self.insertTable = insertTable;
 	}
 
 	PluginManager.add('table', Plugin);

@@ -103,15 +103,6 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel7;
         
         /// <summary>
-        /// AvatarsTabLi control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder AvatarsTabLi;
-        
-        /// <summary>
         /// LocalizedLabel8 control.
         /// </summary>
         /// <remarks>
@@ -3856,6 +3847,15 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel18;
         
         /// <summary>
+        /// AvatarSettingsHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder AvatarSettingsHolder;
+        
+        /// <summary>
         /// HelpLabel189 control.
         /// </summary>
         /// <remarks>
@@ -3946,6 +3946,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.DropDownList GravatarRating;
         
         /// <summary>
+        /// HelpLabel56 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel56;
+        
+        /// <summary>
+        /// AvatarSize control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AvatarSize;
+        
+        /// <summary>
         /// HelpLabel54 control.
         /// </summary>
         /// <remarks>
@@ -3980,24 +3998,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox AvatarHeight;
-        
-        /// <summary>
-        /// HelpLabel56 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel56;
-        
-        /// <summary>
-        /// AvatarSize control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AvatarSize;
         
         /// <summary>
         /// LocalizedLabel19 control.

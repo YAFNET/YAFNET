@@ -82,7 +82,7 @@ namespace YAF.Classes
         /// <summary>
         ///     Gets BaseUrlMask.
         /// </summary>
-        [NotNull]
+        [Obsolete("No longer been used Setting is moved to the board settings")]
         public static string BaseUrlMask
         {
             get
@@ -505,40 +505,38 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        ///     Gets JQuery File Name.
+        ///     Gets JQuery Override File Name.
         /// </summary>
-        [NotNull]
-        public static string JQueryFile
+        public static string JQueryOverrideFile
         {
             get
             {
-                return GetConfigValueAsString("YAF.JQuery") ?? "js/jquery.min.js";
+                return GetConfigValueAsString("YAF.JQueryUIOverrideFile")
+                       ?? string.Empty;
             }
         }
 
         /// <summary>
-        ///     Gets JQuery UI File Name.
+        ///     Gets JQuery UI Override File Name.
         /// </summary>
-        [NotNull]
-        public static string JQueryUIFile
+        public static string JQueryUIOverrideFile
         {
             get
             {
-                return GetConfigValueAsString("YAF.JQueryUIFile")
-                       ?? "//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js";
+                return GetConfigValueAsString("YAF.JQueryUIOverrideFile")
+                       ?? string.Empty;
             }
         }
 
         /// <summary>
-        ///     Gets jQuery UI date picker lang File Name.
+        ///     Gets jQuery UI date picker lang Override File Name.
         /// </summary>
-        [NotNull]
-        public static string JQueryUILangFile
+        public static string JQueryUIOverrideLangFile
         {
             get
             {
-                return GetConfigValueAsString("YAF.JQueryUILangFile")
-                       ?? "//ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery-ui-i18n.min.js";
+                return GetConfigValueAsString("YAF.JQueryUIOverrideLangFile")
+                       ?? string.Empty;
             }
         }
 

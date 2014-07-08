@@ -3464,7 +3464,7 @@
       &lt;/td&gt;
       &lt;td&gt;
       &lt;p&gt;اگر پیام از شما مخفی باشد، نوشته ای به شما این آگاهی را می دهد که چرا این پیام مخفی است.&lt;/p&gt;
-      &lt;img src="{0}resources/images/HiddenWarnDescription.png" alt="این پیام مخفی است. بعد از زدن دکمه تشکر ارسال، صفحه را مجددا بارگذاری نمایید تا نوشته مخفی را ببینید." title="این پیام مخفی است. بعد از زدن دکمه تشکر ارسال، صفحه را مجددا بارگذاری نمایید تا نوشته مخفی را ببینید." /&gt;
+      &lt;img src="{0}Content/images/HiddenWarnDescription.png" alt="این پیام مخفی است. بعد از زدن دکمه تشکر ارسال، صفحه را مجددا بارگذاری نمایید تا نوشته مخفی را ببینید." title="این پیام مخفی است. بعد از زدن دکمه تشکر ارسال، صفحه را مجددا بارگذاری نمایید تا نوشته مخفی را ببینید." /&gt;
       &lt;p&gt;برای کاربران مهمان اطلاعات زیر نمایش داده می شود.&lt;/p&gt;
       &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;برای دیدن پیامهای مخفی انجمن باید ثبت نام کرده و وارد شده باشید.&lt;/div&gt;&lt;/div&gt;
       &lt;p&gt;اگر مجاز به دیدن پیام مخفی شده باشید. اصل پیام نمایش داده خواهد شد.&lt;/p&gt;&lt;br /&gt;
@@ -3702,7 +3702,7 @@
       &lt;strong&gt;خروجی&lt;/strong&gt;
       &lt;/td&gt;
       &lt;td&gt;
-      &lt;style type="text/css"&gt;.yafnet .userLinkContainer{{background: url({0}resources/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}
+      &lt;style type="text/css"&gt;.yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}
       &lt;/style&gt;
       &lt;span class="userLinkContainer"&gt;
       &lt;a href="{0}yaf_profile1234.aspx" rel="nofollow" title="View profile" target="_blank" id="UserLinkBBCodeFor12224" class="UserLinkBBCode"&gt;نام کاربر&lt;/a&gt;

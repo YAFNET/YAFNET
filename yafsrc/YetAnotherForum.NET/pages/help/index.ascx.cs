@@ -165,18 +165,10 @@ namespace YAF.Pages.help
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private static void Index_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // setup jQuery and YAF JS...
-            YafContext.Current.PageElements.RegisterJQuery();
-            YafContext.Current.PageElements.RegisterJQueryUI();
-
             // Setup Ceebox js
-            YafContext.Current.PageElements.RegisterJsResourceInclude("ceeboxjs", "js/jquery.ceebox.js");
-            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.ceebox.css");
             YafContext.Current.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
 
             // Setup Syntax Highlight JS
-            YafContext.Current.PageElements.RegisterJsResourceInclude("syntaxhighlighter", "js/jquery.syntaxhighligher.js");
-            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.syntaxhighligher.css");
             YafContext.Current.PageElements.RegisterJsBlockStartup(
               "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
         }
@@ -298,7 +290,7 @@ namespace YAF.Pages.help
 
             var xmlFilePath =
                 HttpContext.Current.Server.MapPath(
-                    "{0}resources/{1}".FormatWith(YafForumInfo.ForumServerFileRoot, "HelpMenuList.xml"));
+                    "{0}Resources/{1}".FormatWith(YafForumInfo.ForumServerFileRoot, "HelpMenuList.xml"));
 
             if (File.Exists(xmlFilePath))
             {

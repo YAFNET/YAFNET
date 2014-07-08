@@ -57,18 +57,6 @@ namespace YAF.Controls
 
         #endregion
 
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "PopMenu" /> class.
-        /// </summary>
-        public PopMenu()
-        {
-            Init += this.PopMenu_Init;
-        }
-
-        #endregion
-
         #region Events
 
         /// <summary>
@@ -320,21 +308,6 @@ namespace YAF.Controls
             writer.WriteLine(sb.ToString());
 
             base.Render(writer);
-        }
-
-        /// <summary>
-        /// The pop menu_ init.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private void PopMenu_Init([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // init the necessary js...
-            PageContext.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
         }
 
         #endregion

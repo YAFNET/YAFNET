@@ -83,7 +83,7 @@ namespace YAF.Modules.BBCode
                     .FormatWith(descriptionGuest);
 
             string shownContent = "<img src=\"{1}\" alt=\"{0}\" title=\"{0}\" />".FormatWith(
-               description, YafForumInfo.GetURLToResource("images/HiddenWarnDescription.png"));
+               description, YafForumInfo.GetURLToContent("images/HiddenWarnDescription.png"));
 
 
             if (YafContext.Current.IsAdmin)
@@ -177,7 +177,7 @@ namespace YAF.Modules.BBCode
                 else
                 {
                     shownContent = "<img src=\"{1}\" alt=\"{0}\" title=\"{0}\" />".FormatWith(
-                        description, YafForumInfo.GetURLToResource("images/HiddenWarnDescription.png"));
+                        description, YafForumInfo.GetURLToContent("images/HiddenWarnDescription.png"));
                 }
             }
 

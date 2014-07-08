@@ -536,7 +536,12 @@ namespace YAF.Core
         protected void InsertCssRefresh([NotNull] Control addTo)
         {
             // make the style sheet link controls.
-            addTo.Controls.Add(ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToResource("css/forum.css")));
+#if DEBUG
+            addTo.Controls.Add(ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToContent("forum.css")));
+#else
+            addTo.Controls.Add(ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToContent("forum.min.css")));
+#endif
+
             addTo.Controls.Add(ControlHelper.MakeCssIncludeControl(this.Get<ITheme>().BuildThemePath("theme.css")));
 
             if (this.RefreshURL == null || this.RefreshTime < 0)
@@ -556,7 +561,6 @@ namespace YAF.Core
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            YafContext.Current.PageElements.RegisterJQuery();
             base.OnPreRender(e);
         }
 

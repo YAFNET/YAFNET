@@ -21,12 +21,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core
 {
     #region Using
 
     using System;
     using System.Data;
+    using System.Web;
     using System.Web.Security;
 
     using YAF.Classes;
@@ -37,11 +39,12 @@ namespace YAF.Core
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Utils;
 
     #endregion
 
     /// <summary>
-    ///     The yaf load board settings.
+    ///     The YAF load board settings.
     /// </summary>
     public class YafLoadBoardSettings : YafBoardSettings
     {
@@ -62,11 +65,6 @@ namespace YAF.Core
         /// <param name="boardID">
         /// The board id.
         /// </param>
-        /// <exception cref="Exception">
-        /// </exception>
-        /// <exception cref="EmptyBoardSettingException">
-        /// <c>EmptyBoardSettingException</c>.
-        /// </exception>
         public YafLoadBoardSettings([NotNull] int boardID)
         {
             this._boardID = boardID;
@@ -82,23 +80,23 @@ namespace YAF.Core
         /// <summary>
         /// Gets the current board row.
         /// </summary>
-        /// <exception cref="EmptyBoardSettingException">
-        /// </exception>
         protected DataRow CurrentBoardRow
         {
             get
             {
-                if (this._currentBoardRow == null)
+                if (this._currentBoardRow != null)
                 {
-                    var dataTable = YafContext.Current.GetRepository<Board>().List(this._boardID);
-
-                    if (dataTable.Rows.Count == 0)
-                    {
-                        throw new EmptyBoardSettingException("No data for board ID: {0}".FormatWith(this._boardID));
-                    }
-
-                    this._currentBoardRow = dataTable.Rows[0];
+                    return this._currentBoardRow;
                 }
+
+                var dataTable = YafContext.Current.GetRepository<Board>().List(this._boardID);
+
+                if (dataTable.Rows.Count == 0)
+                {
+                    throw new EmptyBoardSettingException("No data for board ID: {0}".FormatWith(this._boardID));
+                }
+
+                this._currentBoardRow = dataTable.Rows[0];
 
                 return this._currentBoardRow;
             }
@@ -191,10 +189,8 @@ namespace YAF.Core
         #region Methods
 
         /// <summary>
-        ///     The load board settings from db.
+        /// Loads the board settings from database.
         /// </summary>
-        /// <exception cref="Exception">
-        /// </exception>
         protected void LoadBoardSettingsFromDB()
         {
             DataTable dataTable;

@@ -52,8 +52,11 @@ namespace YAF.Controls
         {
             foreach (ListItem item in this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()))
             {
+                item.Attributes.Add("data-class", "customicon");
                 item.Attributes.Add(
-                    "title", "{1}resources/images/flags/{0}.png".FormatWith(item.Value, YafForumInfo.ForumClientFileRoot));
+                    "data-style",
+                    "background-image: url('{0}');".FormatWith(
+                        YafForumInfo.GetURLToContent("images/flags/{0}.png").FormatWith(item.Value)));
             }
 
             base.Render(writer);

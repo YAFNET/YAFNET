@@ -59,18 +59,6 @@ namespace YAF.Controls
 
         #endregion
 
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "AlbumListPopMenu" /> class.
-        /// </summary>
-        public AlbumListPopMenu()
-        {
-            Init += this.PopMenu_Init;
-        }
-
-        #endregion
-
         #region Events
 
         /// <summary>
@@ -231,7 +219,7 @@ namespace YAF.Controls
             sb.Append("<div id=\"AlbumsPagerResult\">");
             sb.AppendFormat(
                 "<p style=\"text-align:center\"><span>{1}</span><br /><img title=\"{1}\" src=\"{0}\" alt=\"{1}\" /></p>",
-                YafForumInfo.GetURLToResource("images/loader.gif"),
+                YafForumInfo.GetURLToContent("images/loader.gif"),
                 this.Get<ILocalization>().GetText("COMMON", "LOADING"));
             sb.Append("</div>");
 
@@ -288,17 +276,6 @@ namespace YAF.Controls
             writer.WriteLine(sb.ToString());
 
             base.Render(writer);
-        }
-
-        /// <summary>
-        /// The pop menu_ init.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void PopMenu_Init([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // init the necessary js...
-            PageContext.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
         }
 
         #endregion

@@ -132,7 +132,7 @@ namespace YAF.Controls
 
             var xmlFilePath =
                 HttpContext.Current.Server.MapPath(
-                    "{0}resources/{1}".FormatWith(YafForumInfo.ForumServerFileRoot, "HelpMenuList.xml"));
+                    "{0}Resources/{1}".FormatWith(YafForumInfo.ForumServerFileRoot, "HelpMenuList.xml"));
 
             if (File.Exists(xmlFilePath))
             {

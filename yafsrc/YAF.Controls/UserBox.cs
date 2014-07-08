@@ -868,7 +868,7 @@ namespace YAF.Controls
                 string imagePath = this.PageContext.Get<ITheme>().GetItem(
                     "FLAGS",
                     "{0}_MEDIUM".FormatWith(this.UserProfile.Country.ToUpperInvariant()),
-                    YafForumInfo.GetURLToResource("images/flags/{0}.png".FormatWith(this.UserProfile.Country.Trim())));
+                    YafForumInfo.GetURLToContent("images/flags/{0}.png".FormatWith(this.UserProfile.Country.Trim())));
 
                 string imageAlt = this.GetText("COUNTRY", this.UserProfile.Country.ToUpperInvariant());
 

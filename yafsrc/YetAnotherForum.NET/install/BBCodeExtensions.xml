@@ -117,7 +117,7 @@
     <EditJS />
     <DisplayCSS>.yafnet .userLinkContainer
 {
-    background: url(resources/icons/user.png) #fff no-repeat 4px 50%;
+    background: url(Content/icons/user.png) #fff no-repeat 4px 50%;
     border: 1px solid #eee;
     padding: 4px 2px 4px 25px;
     margin: 3px;

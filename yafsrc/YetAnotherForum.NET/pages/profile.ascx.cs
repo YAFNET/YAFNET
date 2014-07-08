@@ -159,9 +159,6 @@ namespace YAF.Pages
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
-            YafContext.Current.PageElements.RegisterJQuery();
-            YafContext.Current.PageElements.RegisterJQueryUI();
-
             YafContext.Current.PageElements.RegisterJsBlock(
                 "ProfileTabsJs",
                 JavaScriptBlocks.JqueryUITabsLoadJs(
@@ -173,9 +170,6 @@ namespace YAF.Pages
                     true));
 
             // Setup Syntax Highlight JS
-            YafContext.Current.PageElements.RegisterJsResourceInclude(
-                "syntaxhighlighter", "js/jquery.syntaxhighligher.js");
-            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.syntaxhighligher.css");
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
 
@@ -613,7 +607,7 @@ namespace YAF.Pages
                                                 .GetItem(
                                                     "FLAGS",
                                                     "{0}_MEDIUM".FormatWith(userData.Profile.Country.Trim()),
-                                                    YafForumInfo.GetURLToResource(
+                                                    YafForumInfo.GetURLToContent(
                                                         "images/flags/{0}.png".FormatWith(
                                                             userData.Profile.Country.Trim())));
 
@@ -781,9 +775,6 @@ namespace YAF.Pages
             if (loadHoverCardJs && this.Get<YafBoardSettings>().EnableUserInfoHoverCards)
             {
                 var hoverCardLoadJs = new StringBuilder();
-
-                YafContext.Current.PageElements.RegisterJsResourceInclude("hovercard", "js/jquery.hovercard.js");
-                YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.hovercard.css");
 
                 hoverCardLoadJs.Append(
                     JavaScriptBlocks.HoverCardLoadJs(

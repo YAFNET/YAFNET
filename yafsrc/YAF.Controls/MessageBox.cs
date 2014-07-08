@@ -99,7 +99,7 @@ namespace YAF.Controls
             {
                 return this.ViewState["Icon"] != null
                            ? this.ViewState["Icon"].ToString()
-                           : YafForumInfo.GetURLToResource("icons/InfoBig.png");
+                           : YafForumInfo.GetURLToContent("icons/InfoBig.png");
             }
 
             set
@@ -275,22 +275,6 @@ namespace YAF.Controls
             writer.EndRender();
 
             base.Render(writer);
-        }
-
-        /// <summary>
-        /// The On PreRender event.
-        /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            // Setup JS
-            YafContext.Current.PageElements.RegisterJQuery();
-            YafContext.Current.PageElements.RegisterJsResourceInclude("yafmodaldialog", "js/jquery.yafmodaldialog.js");
-            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.yafmodaldialog.css");
-
-            base.OnPreRender(e);
         }
 
         #endregion

@@ -70,43 +70,49 @@ namespace YAF.Core.Services.Startup
         protected override bool RunService()
         {
             // init the db...
-            string errorStr = string.Empty;
+            string errorString;
             bool debugging = false;
 
 #if DEBUG
             debugging = true;
 #endif
 
-            if (HttpContext.Current != null)
+            if (HttpContext.Current == null)
             {
-                var response = YafContext.Current.Get<HttpResponseBase>();
-
-                if (Config.ConnectionString == null)
-                {
-                    // attempt to create a connection string...
-                    response.Redirect(YafForumInfo.ForumClientFileRoot + "install/default.aspx");
-                    return false;
-                }
-
-                // attempt to init the db...
-                if (!LegacyDb.forumpage_initdb(out errorStr, debugging))
-                {
-                    // unable to connect to the DB...
-                    YafContext.Current.Get<HttpSessionStateBase>()["StartupException"] = errorStr;
-                    response.Redirect(YafForumInfo.ForumClientFileRoot + "error.aspx");
-                    return false;
-                }
-
-                // step 2: validate the database version...
-                string redirectStr = LegacyDb.forumpage_validateversion(YafForumInfo.AppVersion);
-                if (redirectStr.IsSet())
-                {
-                    response.Redirect(YafForumInfo.ForumClientFileRoot + redirectStr);
-                    return false;
-                }
+                return true;
             }
 
-            return true;
+            var response = YafContext.Current.Get<HttpResponseBase>();
+
+            if (Config.ConnectionString == null)
+            {
+                // attempt to create a connection string...
+                response.Redirect("{0}install/default.aspx".FormatWith(YafForumInfo.ForumClientFileRoot));
+                
+                return false;
+            }
+
+            // attempt to init the db...
+            if (!LegacyDb.forumpage_initdb(out errorString, debugging))
+            {
+                // unable to connect to the DB...
+                YafContext.Current.Get<HttpSessionStateBase>()["StartupException"] = errorString;
+               
+                response.Redirect("{0}error.aspx".FormatWith(YafForumInfo.ForumClientFileRoot));
+                
+                return false;
+            }
+
+            // step 2: validate the database version...
+            var redirectString = LegacyDb.forumpage_validateversion(YafForumInfo.AppVersion);
+
+            if (!redirectString.IsSet())
+            {
+                return true;
+            }
+
+            response.Redirect("{0}{1}".FormatWith(YafForumInfo.ForumClientFileRoot, redirectString));
+            return false;
         }
 
         #endregion

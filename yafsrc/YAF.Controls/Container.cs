@@ -169,7 +169,6 @@ namespace YAF.Controls
     /// </param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
-      YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
       base.OnPreRender(e);
     }
 

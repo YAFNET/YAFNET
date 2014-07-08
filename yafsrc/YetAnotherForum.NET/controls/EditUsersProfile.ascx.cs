@@ -194,18 +194,9 @@ namespace YAF.Controls
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and DatePicker JS...
-            YafContext.Current.PageElements.RegisterJQuery();
-            YafContext.Current.PageElements.RegisterJQueryUI();
-
             if (this.GetText("COMMON", "CAL_JQ_CULTURE").IsSet())
             {
-                YafContext.Current.PageElements.RegisterJQueryUILanguageFile();
-
-                if (this.CurrentCultureInfo.IsFarsiCulture())
-                {
-                    YafContext.Current.PageElements.RegisterJsResourceInclude(
-                        "datepicker-farsi", "js/jquery.ui.datepicker-farsi.js");
-                }
+                YafContext.Current.PageElements.RegisterJQueryUILanguageFile(this.CurrentCultureInfo);
             }
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
@@ -215,12 +206,8 @@ namespace YAF.Controls
                     this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
                     this.GetText("COMMON", "CAL_JQ_CULTURE")));
 
-            YafContext.Current.PageElements.RegisterJsResourceInclude("msdropdown", "js/jquery.msDropDown.js");
-
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "dropDownJs", JavaScriptBlocks.DropDownLoadJs(this.Country.ClientID));
-
-            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.msDropDown.css");
 
             base.OnPreRender(e);
         }
@@ -297,7 +284,7 @@ namespace YAF.Controls
         protected void UpdateProfile_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             var userName = UserMembershipHelper.GetUserNameFromID(this.currentUserID);
-            
+
             if (this.HomePage.Text.IsSet())
             {
                 // add http:// by default
@@ -319,11 +306,11 @@ namespace YAF.Controls
                 {
                     // only log at the moment
                     this.Logger.Log(
-                            null,
-                            "Bot Detected",
-                            "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user changed the profile Homepage url to: {2}"
-                                .FormatWith(userName, this.currentUserID, this.HomePage.Text),
-                            EventLogTypes.SpamBotDetected);
+                        null,
+                        "Bot Detected",
+                        "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user changed the profile Homepage url to: {2}"
+                            .FormatWith(userName, this.currentUserID, this.HomePage.Text),
+                        EventLogTypes.SpamBotDetected);
                 }
             }
 

@@ -185,7 +185,7 @@ namespace YAF.Controls
             if (indent > 0)
             {
                 return
-                    @"<td rowspan=""4"" width=""1%""><img src=""{1}images/spacer.gif"" width=""{0}"" height=""2"" alt=""""/></td>"
+                    @"<td rowspan=""4"" width=""1%""><img src=""{1}Content/images/spacer.gif"" width=""{0}"" height=""2"" alt=""""/></td>"
                         .FormatWith(indent * 32, YafForumInfo.ForumClientFileRoot);
             }
 
@@ -556,23 +556,12 @@ namespace YAF.Controls
                 this.CurrentPage);
 
             // setup jQuery and YAF JS...
-            YafContext.Current.PageElements.RegisterJQuery();
-            YafContext.Current.PageElements.RegisterJQueryUI();
-
-            YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
             YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
 
-            YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
-
             // Setup Ceebox js
-            YafContext.Current.PageElements.RegisterJsResourceInclude("ceeboxjs", "js/jquery.ceebox.js");
-            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.ceebox.css");
             YafContext.Current.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
 
             // Setup Syntax Highlight JS
-            YafContext.Current.PageElements.RegisterJsResourceInclude(
-                "syntaxhighlighter", "js/jquery.syntaxhighligher.js");
-            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.syntaxhighligher.css");
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
 

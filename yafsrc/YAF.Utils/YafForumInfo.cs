@@ -241,17 +241,31 @@ namespace YAF.Utils
         #endregion
 
         /// <summary>
-        /// Helper function that creates the the url of a resource.
+        /// Helper function that creates the url to the Content folder.
         /// </summary>
         /// <param name="resourceName">Name of the resource.</param>
         /// <returns>
-        /// The get url to resource.
+        /// Returns the url including the Content path
         /// </returns>
-        public static string GetURLToResource([NotNull] string resourceName)
+        public static string GetURLToContent([NotNull] string resourceName)
         {
             CodeContracts.VerifyNotNull(resourceName, "resourceName");
 
-            return "{1}resources/{0}".FormatWith(resourceName, ForumClientFileRoot);
+            return "{1}Content/{0}".FormatWith(resourceName, ForumClientFileRoot);
+        }
+
+        /// <summary>
+        /// Helper function that creates the the url to the Scripts folder.
+        /// </summary>
+        /// <param name="resourceName">Name of the resource.</param>
+        /// <returns>
+        /// Returns the url including the Scripts path
+        /// </returns>
+        public static string GetURLToScripts([NotNull] string resourceName)
+        {
+            CodeContracts.VerifyNotNull(resourceName, "resourceName");
+
+            return "{1}Scripts/{0}".FormatWith(resourceName, ForumClientFileRoot);
         }
     }
 }

@@ -6,7 +6,7 @@
         <div>
             <a href="javascript:jQuery.fn.YafModalDialog.Close({ Dialog: '#LoginBox' });" 
                 class="close" id="Close">
-                <img src='<%# YAF.Utils.YafForumInfo.GetURLToResource("images/closelabel.png") %>' title="close" class="close_image">
+                <img src='<%# YAF.Utils.YafForumInfo.GetURLToContent("images/closelabel.png") %>' title="close" class="close_image">
             </a>
             <asp:Login ID="Login1" runat="server" RememberMeSet="True" OnLoginError="Login1_LoginError" OnLoggedIn="Login1_LoggedIn"
                 OnAuthenticate="Login1_Authenticate" VisibleWhenLoggedIn="True">

@@ -67,8 +67,6 @@ namespace YAF.Pages.Admin
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsResourceInclude("tablesorter", "js/jquery.tablesorter.js");
-
             base.OnPreRender(e);
         }
 

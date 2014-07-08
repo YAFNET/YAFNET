@@ -43,18 +43,6 @@ namespace YAF.Controls
 
 		#endregion
 
-		#region Constructors and Destructors
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="PopupPanel"/> class.
-		/// </summary>
-		public PopupPanel()
-		{
-			this.Init += new EventHandler(this.PopupPanel_Init);
-		}
-
-		#endregion
-
 		#region Properties
 
 		/// <summary>
@@ -187,21 +175,6 @@ namespace YAF.Controls
 				}
 			}
 
-		}
-
-		/// <summary>
-		/// The pop menu_ init.
-		/// </summary>
-		/// <param name="sender">
-		/// The sender.
-		/// </param>
-		/// <param name="e">
-		/// The e.
-		/// </param>
-		private void PopupPanel_Init([NotNull] object sender, [NotNull] EventArgs e)
-		{
-			// init the necessary js...
-			YafContext.Current.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
 		}
 
 		#endregion

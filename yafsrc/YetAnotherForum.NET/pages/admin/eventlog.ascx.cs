@@ -120,7 +120,7 @@ namespace YAF.Pages.Admin
             // return HTML code of event log entry image
             return
                 @"<img src=""{0}"" alt=""{1}"" title=""{1}"" />".FormatWith(
-                    YafForumInfo.GetURLToResource("icons/{0}.png".FormatWith(imageType.ToLowerInvariant())), imageType);
+                    YafForumInfo.GetURLToContent("icons/{0}.png".FormatWith(imageType.ToLowerInvariant())), imageType);
         }
 
         /// <summary>
@@ -188,19 +188,11 @@ namespace YAF.Pages.Admin
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and DatePicker JS...
-            YafContext.Current.PageElements.RegisterJQuery();
-            YafContext.Current.PageElements.RegisterJQueryUI();
-
             var ci = CultureInfo.CreateSpecificCulture(PageContext.CultureUser);
 
-            if (!string.IsNullOrEmpty(this.GetText("COMMON", "CAL_JQ_CULTURE")))
+            if (this.GetText("COMMON", "CAL_JQ_CULTURE").IsSet())
             {
-                YafContext.Current.PageElements.RegisterJQueryUILanguageFile();
-
-                if (ci.IsFarsiCulture())
-                {
-                    YafContext.Current.PageElements.RegisterJsResourceInclude("datepicker-farsi", "js/jquery.ui.datepicker-farsi.js");
-                }
+                YafContext.Current.PageElements.RegisterJQueryUILanguageFile(ci);
             }
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(

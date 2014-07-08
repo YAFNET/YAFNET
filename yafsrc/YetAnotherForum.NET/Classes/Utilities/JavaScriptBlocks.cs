@@ -418,11 +418,9 @@ namespace YAF.Utilities
         }
 
         /// <summary>
-        /// Requires {0} formatted elementId.
+        /// Blocks the UI js.
         /// </summary>
-        /// <param name="elementId">
-        /// The element Id.
-        /// </param>
+        /// <param name="elementId">The element Id.</param>
         /// <returns>
         /// The block ui execute js.
         /// </returns>
@@ -480,7 +478,9 @@ namespace YAF.Utilities
         /// </returns>
         public static string DropDownLoadJs([NotNull] string dropDownId)
         {
-            return @"Sys.Application.add_load(test);function test() {{ {0}('#{1}').msDropDown(); }} ".FormatWith(Config.JQueryAlias, dropDownId);
+            return @"Sys.Application.add_load(render_IconSelectMenu);function render_IconSelectMenu() {{ 
+                                    {0}('#{1}').iconselectmenu().iconselectmenu('menuWidget').addClass('ui-menu-icons customicon'); 
+                     }} ".FormatWith(Config.JQueryAlias, dropDownId);
         }
 
         /// <summary>
@@ -638,7 +638,7 @@ namespace YAF.Utilities
         {
             return
                 @"{3}(document).ready(function() {{{3}('{0}').YafModalDialog({{Dialog : '{1}',ImagePath : '{2}'}}); }});"
-                    .FormatWith(openLink, dialogId, YafForumInfo.GetURLToResource("images/"), Config.JQueryAlias);
+                    .FormatWith(openLink, dialogId, YafForumInfo.GetURLToContent("images/"), Config.JQueryAlias);
         }
 
         /// <summary>

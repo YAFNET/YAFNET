@@ -40,7 +40,7 @@ namespace YAF.Core.Syndication
   #endregion
 
   /// <summary>
-  /// Summary description for YafSyndicationFeed.
+  /// Class that generates all feeds
   /// </summary>
   public class YafSyndicationFeed : SyndicationFeed
   {
@@ -56,19 +56,12 @@ namespace YAF.Core.Syndication
     #region Constructors and Destructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="YafSyndicationFeed"/> class.
+    /// Initializes a new instance of the <see cref="YafSyndicationFeed" /> class.
     /// </summary>
-    /// <param name="subTitle">
-    /// </param>
-    /// <param name="feedType">
-    /// The feed source.
-    /// </param>
-    /// <param name="sf">
-    /// The feed type Atom/Rss.
-    /// </param>
-    /// <param name="urlAlphaNum">
-    /// The alphanumerically encoded base site Url.
-    /// </param>
+    /// <param name="subTitle">The sub title.</param>
+    /// <param name="feedType">The feed source.</param>
+    /// <param name="sf">The feed type Atom/RSS.</param>
+    /// <param name="urlAlphaNum">The alphanumerically encoded base site Url.</param>
     public YafSyndicationFeed([NotNull] string subTitle, YafRssFeeds feedType, int sf, [NotNull] string urlAlphaNum)
     {
       this.Copyright =
@@ -115,7 +108,7 @@ namespace YAF.Core.Syndication
           subTitle, 
           YafContext.Current.PageBoardID).Unidecode();
 
-      this.Id = this.Id.Replace(" ", String.Empty);
+      this.Id = this.Id.Replace(" ", string.Empty);
 
       // this.Id = "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D"));
       this.BaseUri = slink;

@@ -147,12 +147,8 @@ namespace YAF.Modules
                             this.ClientID,
                             this.MainTextClientID,
                             this.ShowModalFunction,
-                            YafForumInfo.GetURLToResource("images/"),
+                            YafForumInfo.GetURLToContent("images/"),
                             Config.JQueryAlias);
-
-                YafContext.Current.PageElements.RegisterJsResourceInclude(
-                    "yafmodaldialog", "js/jquery.yafmodaldialog.js");
-                YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.yafmodaldialog.css");
             }
             else
             {
@@ -170,13 +166,9 @@ namespace YAF.Modules
                             this.ClientID,
                             this.MainTextClientID,
                             this.ShowModalFunction,
-                            YafForumInfo.GetURLToResource("icons/"),
+                            YafForumInfo.GetURLToContent("icons/"),
                             this.Get<YafBoardSettings>().MessageNotifcationDuration,
                             Config.JQueryAlias);
-
-                YafContext.Current.PageElements.RegisterJsResourceInclude(
-                    "yafnotification", "js/jquery.notification.js");
-                YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.notification.css");
             }
 
             // Override Notification Setting if Mobile Device is used

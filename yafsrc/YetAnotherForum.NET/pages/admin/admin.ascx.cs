@@ -266,12 +266,6 @@ namespace YAF.Pages.Admin
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and YAF JS...
-            YafContext.Current.PageElements.RegisterJQuery();
-            YafContext.Current.PageElements.RegisterJQueryUI();
-
-            YafContext.Current.PageElements.RegisterJsResourceInclude(
-                 "tablesorter", "js/jquery.tablesorter.js");
-
             YafContext.Current.PageElements.RegisterJsBlock(
                 "spinnerJs",
                 JavaScriptBlocks.LoadSpinnerWidget());

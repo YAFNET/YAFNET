@@ -269,9 +269,6 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJQuery();
-            this.PageContext.PageElements.RegisterJsResourceInclude("blockUIJs", "js/jquery.blockUI.js");
-
             this.Page.Form.DefaultButton = this.search.UniqueID;
 
             this.search.Focus();
@@ -306,7 +303,7 @@ namespace YAF.Pages.Admin
 
             // set since filter to last item "All time"
             this.Since.SelectedIndex = this.Since.Items.Count - 1;
-            this.LoadingImage.ImageUrl = YafForumInfo.GetURLToResource("images/loader.gif");
+            this.LoadingImage.ImageUrl = YafForumInfo.GetURLToContent("images/loader.gif");
 
             // get list of user groups for filtering
             using (DataTable dt = LegacyDb.group_list(this.PageContext.PageBoardID, null))

@@ -1491,7 +1491,9 @@
     <Content Include="Images\Ranks\Moderator.png" />
     <Content Include="Images\Ranks\Newbie.png" />
     <Content Include="Content\images\spacer.gif" />
-    <Content Include="install\BBCodeExtensions.xml" />
+    <Content Include="install\BBCodeExtensions.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="install\default.aspx">
       <SubType>Form</SubType>
     </Content>
@@ -2952,7 +2954,9 @@
     <Content Include="Scripts\ckeditor\composer.json" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
     <Content Include="Scripts\ckeditor\bower.json" />
-    <Content Include="Scripts\InstallWizard.comb.js.bundle" />
+    <Content Include="Scripts\InstallWizard.comb.js.bundle">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Content\forum.less" />
     <None Include="Content\jquery.ceebox.less" />
     <None Include="Content\jquery.hovercard.less" />

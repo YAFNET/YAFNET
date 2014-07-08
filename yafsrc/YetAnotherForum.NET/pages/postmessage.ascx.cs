@@ -425,14 +425,7 @@ namespace YAF.Pages
 
             this.EditorLine.Controls.Add(this._forumEditor);
 
-            // setup jQuery and YAF JS...
-            YafContext.Current.PageElements.RegisterJQuery();
-
             // Setup Syntax Highlight JS
-            YafContext.Current.PageElements.RegisterJsResourceInclude(
-                "syntaxhighlighter",
-                "js/jquery.syntaxhighligher.js");
-            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.syntaxhighligher.css");
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "syntaxhighlighterjs",
                 JavaScriptBlocks.SyntaxHighlightLoadJs);

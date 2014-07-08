@@ -83,8 +83,6 @@ namespace YAF.Modules
         /// </summary>
         protected void RegisterLoadString()
         {
-            this.PageContext.PageElements.RegisterJQuery();
-
             var message = this.PageContext.LoadMessage.GetMessage();
 
             if (message == null)

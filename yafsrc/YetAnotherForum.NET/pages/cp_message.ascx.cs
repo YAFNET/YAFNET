@@ -109,9 +109,6 @@ namespace YAF.Pages
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // Setup Syntax Highlight JS
-            YafContext.Current.PageElements.RegisterJsResourceInclude(
-                "syntaxhighlighter", "js/jquery.syntaxhighligher.js");
-            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.syntaxhighligher.css");
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
 

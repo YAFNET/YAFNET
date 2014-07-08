@@ -92,14 +92,13 @@ namespace YAF.Controls
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            LoadingImage.ImageUrl = YafForumInfo.GetURLToResource("images/loader.gif");
-            LoadingImage.AlternateText = this.Get<ILocalization>().GetText("COMMON", "LOADING");
-            LoadingImage.ToolTip = this.Get<ILocalization>().GetText("COMMON", "LOADING");
+            this.LoadingImage.ImageUrl = YafForumInfo.GetURLToContent("images/loader.gif");
+            this.LoadingImage.AlternateText = this.Get<ILocalization>().GetText("COMMON", "LOADING");
+            this.LoadingImage.ToolTip = this.Get<ILocalization>().GetText("COMMON", "LOADING");
 
-            LoadingText.Text = this.Get<ILocalization>().GetText("COMMON", "LOADING");
+            this.LoadingText.Text = this.Get<ILocalization>().GetText("COMMON", "LOADING");
 
             // Setup Pagination js
-            YafContext.Current.PageElements.RegisterJsResourceInclude("paginationjs", "js/jquery.pagination.js");
             YafContext.Current.PageElements.RegisterJsBlock("paginationloadjs", JavaScriptBlocks.PaginationLoadJs);
 
             base.OnPreRender(e);

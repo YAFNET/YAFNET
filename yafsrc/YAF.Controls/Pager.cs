@@ -167,19 +167,19 @@ namespace YAF.Controls
         {
             get
             {
-                if (this.LinkedPager != null)
+                if (this.LinkedPager == null)
                 {
-                    var linkedPager = (Pager)this.Parent.FindControl(this.LinkedPager);
-
-                    if (linkedPager == null)
-                    {
-                        throw new Exception("Failed to link pager to '{0}'.".FormatWith(this.LinkedPager));
-                    }
-
-                    return linkedPager;
+                    return null;
                 }
 
-                return null;
+                var linkedPager = (Pager)this.Parent.FindControl(this.LinkedPager);
+
+                if (linkedPager == null)
+                {
+                    throw new Exception("Failed to link pager to '{0}'.".FormatWith(this.LinkedPager));
+                }
+
+                return linkedPager;
             }
         }
 
@@ -217,11 +217,9 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// The copy pager settings.
+        /// Copies the pager settings.
         /// </summary>
-        /// <param name="toPager">
-        /// The to pager.
-        /// </param>
+        /// <param name="toPager">To pager.</param>
         protected void CopyPagerSettings([NotNull] Pager toPager)
         {
             toPager.Count = this.Count;
@@ -302,11 +300,9 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             base.OnInit(e);
@@ -315,8 +311,8 @@ namespace YAF.Controls
             {
                 // set a new page...
                 this.CurrentPageIndex =
-                    (int)Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p")) -
-                    1;
+                    Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p"))
+                        .ToType<int>() - 1;
             }
 
             this._pageLabel.ID = this.GetExtendedID("PageLabel");
@@ -330,19 +326,14 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The on load.
+        /// Raises the <see cref="E:System.Web.UI.Control.Load" /> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">The <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnLoad([NotNull] EventArgs e)
         {
             base.OnLoad(e);
 
             // init the necessary js...
-            this.PageContext.PageElements.RegisterJQuery();
-            this.PageContext.PageElements.RegisterJsResourceInclude("yafjs", "js/yaf.js");
-
             this.PageContext.PageElements.RegisterCssBlock("PagerCss", "#simplemodal-overlay {background-color:#000;}");
             this._pageLabel.Attributes.Add("style", "cursor: pointer");
 
@@ -447,7 +438,7 @@ gotoForm.fadeIn( 'slow', function() {{
         /// <summary>
         /// Gets the link URL.
         /// </summary>
-        /// <param name="pageNum">The page num.</param>
+        /// <param name="pageNum">The page number.</param>
         /// <param name="postBack">The post back.</param>
         /// <returns>
         /// The get link url.
@@ -567,14 +558,10 @@ gotoForm.fadeIn( 'slow', function() {{
         }
 
         /// <summary>
-        /// The _goto page form_ goto page click.
+        /// Handles the GotoPageClick event of the _gotoPageForm control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="GotoPageForumEventArgs"/> instance containing the event data.</param>
         private void _gotoPageForm_GotoPageClick([NotNull] object sender, [NotNull] GotoPageForumEventArgs e)
         {
             int newPage = e.GotoPage - 1;

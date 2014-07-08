@@ -497,18 +497,11 @@ namespace YAF.Pages
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and DatePicker JS...
-            YafContext.Current.PageElements.RegisterJQuery();
-            YafContext.Current.PageElements.RegisterJQueryUI();
-
-            YafContext.Current.PageElements.RegisterJsResourceInclude("msdropdown", "js/jquery.msDropDown.js");
-
             var country = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("Country");
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "dropDownJs",
                 JavaScriptBlocks.DropDownLoadJs(country.ClientID));
-
-            YafContext.Current.PageElements.RegisterCssIncludeResource("css/jquery.msDropDown.css");
 
             base.OnPreRender(e);
         }

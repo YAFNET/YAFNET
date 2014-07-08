@@ -79,7 +79,7 @@ namespace YAF.Pages.Admin
                 dt.Columns.Add("Description", typeof(string));
                 DataRow dr = dt.NewRow();
                 dr["FileID"] = 0;
-                dr["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
+                dr["FileName"] = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
                 dr["Description"] = "None";
                 dt.Rows.Add(dr);
 
@@ -214,7 +214,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.Preview.Src = "{0}images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+            this.Preview.Src = "{0}Content/images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
 
             if (this.Request.QueryString.GetFirstOrDefault("c") == null)
             {

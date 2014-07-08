@@ -248,8 +248,8 @@ namespace YAF.Pages
             var currentIndex = (int)o;
             if (currentIndex > 0)
             {
-                return "<img src='{1}images/spacer.gif' width='{0}' alt='' height='2'/>".FormatWith(
-                    currentIndex * 32, YafForumInfo.ForumClientFileRoot);
+                return "<img src='{1}' width='{0}' alt='' height='2'/>".FormatWith(
+                    currentIndex * 32, YafForumInfo.GetURLToContent("images/spacer.gif"));
             }
 
             return string.Empty;
@@ -482,8 +482,6 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafContext.Current.PageElements.RegisterJsResourceInclude("yafPageMethodjs", "js/jquery.pagemethod.js");
-
             if (!this.PageContext.IsGuest)
             {
                 // The html code for "Favorite Topic" theme buttons.

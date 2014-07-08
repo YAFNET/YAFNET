@@ -876,7 +876,7 @@ define("tinymce/spellcheckerplugin/Plugin", [
 
 			return value;
 		}
-		
+
 		function findSpansByIndex(index) {
 			var nodes, spans = [];
 
@@ -982,5 +982,5 @@ define("tinymce/spellcheckerplugin/Plugin", [
 	});
 });
 
-expose(["tinymce/spellcheckerplugin/DomTextMatcher","tinymce/spellcheckerplugin/Plugin"]);
+expose(["tinymce/spellcheckerplugin/DomTextMatcher"]);
 })(this);

@@ -687,9 +687,6 @@ namespace YAF.Pages.Admin
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and YAF JS...
-            YafContext.Current.PageElements.RegisterJQuery();
-            YafContext.Current.PageElements.RegisterJQueryUI();
-
             YafContext.Current.PageElements.RegisterJsBlock(
                 "spinnerJs",
                 JavaScriptBlocks.LoadSpinnerWidget());
@@ -713,7 +710,7 @@ namespace YAF.Pages.Admin
                 // add blank row
                 DataRow dr = dt.NewRow();
                 dr["FileID"] = 0;
-                dr["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
+                dr["FileName"] = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
                 dr["Description"] = this.GetText("ADMIN_EDITMEDAL", "SELECT_IMAGE");
                 dt.Rows.Add(dr);
 
@@ -811,7 +808,7 @@ namespace YAF.Pages.Admin
             else
             {
                 // set all previews on blank image
-                var spacerPath = "{0}images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+                var spacerPath = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
 
                 this.MedalPreview.Src = spacerPath;
                 this.RibbonPreview.Src = spacerPath;
@@ -887,7 +884,7 @@ namespace YAF.Pages.Admin
             else
             {
                 // if we found nothing, set blank image as preview
-                preview.Src = "{0}images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+                preview.Src = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
             }
         }
 
