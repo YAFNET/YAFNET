@@ -1347,13 +1347,13 @@ define("tinymce/tableplugin/CellSelection", [
 	"tinymce/util/Tools"
 ], function(TableGrid, TreeWalker, Tools) {
 	return function(editor) {
-		var dom = editor.dom, tableGrid, startCell, startTable, hasCellSelection = true;
+		var dom = editor.dom, tableGrid, startCell, startTable, hasCellSelection = true, resizing;
 
-		function clear() {
+		function clear(force) {
 			// Restore selection possibilities
 			editor.getBody().style.webkitUserSelect = '';
 
-			if (hasCellSelection) {
+			if (force || hasCellSelection) {
 				editor.dom.removeClass(
 					editor.dom.select('td.mce-item-selected,th.mce-item-selected'),
 					'mce-item-selected'
@@ -1365,6 +1365,10 @@ define("tinymce/tableplugin/CellSelection", [
 
 		function cellSelectionHandler(e) {
 			var sel, table, target = e.target;
+
+			if (resizing) {
+				return;
+			}
 
 			if (startCell && (tableGrid || target != startCell) && (target.nodeName == 'TD' || target.nodeName == 'TH')) {
 				table = dom.getParent(target, 'table');
@@ -1399,7 +1403,7 @@ define("tinymce/tableplugin/CellSelection", [
 
 		// Add cell selection logic
 		editor.on('MouseDown', function(e) {
-			if (e.button != 2) {
+			if (e.button != 2 && !resizing) {
 				clear();
 
 				startCell = dom.getParent(e.target, 'td,th');
@@ -1481,9 +1485,13 @@ define("tinymce/tableplugin/CellSelection", [
 			}
 		});
 
-		editor.on('KeyUp Drop', function() {
-			clear();
+		editor.on('KeyUp Drop SetContent', function(e) {
+			clear(e.type == 'setcontent');
 			startCell = tableGrid = startTable = null;
+		});
+
+		editor.on('ObjectResizeStart ObjectResized', function(e) {
+			resizing = e.type != 'ObjectResized';
 		});
 
 		return {

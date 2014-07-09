@@ -206,22 +206,23 @@ define("tinymce/pasteplugin/Clipboard", [
 		 * @return {String} Get the contents of the paste bin.
 		 */
 		function getPasteBinHtml() {
-			var html = pasteBinDefaultContent, pasteBinClones, i;
+			var html = '', pasteBinClones, i, clone, cloneHtml;
 
 			// Since WebKit/Chrome might clone the paste bin when pasting
 			// for example: <img style="float: right"> we need to check if any of them contains some useful html.
 			// TODO: Man o man is this ugly. WebKit is the new IE! Remove this if they ever fix it!
 			pasteBinClones = editor.dom.select('div[id=mcepastebin]');
-			i = pasteBinClones.length;
-			while (i--) {
-				var cloneHtml = pasteBinClones[i].innerHTML;
+			for (i = 0; i < pasteBinClones.length; i++) {
+				clone = pasteBinClones[i];
 
-				if (html == pasteBinDefaultContent) {
-					html = '';
+				// Pasting plain text produces pastebins in pastebinds makes sence right!?
+				if (clone.firstChild && clone.firstChild.id == 'mcepastebin') {
+					clone = clone.firstChild;
 				}
 
-				if (cloneHtml.length > html.length) {
-					html = cloneHtml;
+				cloneHtml = clone.innerHTML;
+				if (html != pasteBinDefaultContent) {
+					html += cloneHtml;
 				}
 			}
 
@@ -321,15 +322,25 @@ define("tinymce/pasteplugin/Clipboard", [
 		}
 
 		function getCaretRangeFromEvent(e) {
-			var doc = editor.getDoc(), rng;
+			var doc = editor.getDoc(), rng, point;
 
 			if (doc.caretPositionFromPoint) {
-				var point = doc.caretPositionFromPoint(e.clientX, e.clientY);
+				point = doc.caretPositionFromPoint(e.clientX, e.clientY);
 				rng = doc.createRange();
 				rng.setStart(point.offsetNode, point.offset);
 				rng.collapse(true);
 			} else if (doc.caretRangeFromPoint) {
 				rng = doc.caretRangeFromPoint(e.clientX, e.clientY);
+			} else if (doc.body.createTextRange) {
+				rng = doc.body.createTextRange();
+
+				try {
+					rng.moveToPoint(e.clientX, e.clientY);
+					rng.collapse(true);
+				} catch (ex) {
+					// Append to top or bottom depending on drop location
+					rng.collapse(e.clientY < doc.body.clientHeight);
+				}
 			}
 
 			return rng;
@@ -437,7 +448,7 @@ define("tinymce/pasteplugin/Clipboard", [
 						}
 					}
 
-					content = Utils.trimHtml(getPasteBinHtml());
+					content = Utils.trimHtml(content);
 
 					// WebKit has a nice bug where it clones the paste bin if you paste from for example notepad
 					// so we need to force plain text mode in this case
