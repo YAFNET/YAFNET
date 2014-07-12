@@ -5,13 +5,6 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Third-Party Libs", "Third-Party Libs", "{CFC7B19E-F7F2-41F1-B709-5C1D72A9BAD0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CD7B910C-7C51-4B36-89BC-3B15F5B35F7E}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Classes.Config", "YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj", "{05E50D2F-9527-4CE8-A0F8-168281C426CB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Classes.Data", "YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj", "{9A454596-56DC-4834-A043-F3C1443F859B}"

@@ -5,4 +5,5 @@
 @SET LANGDIR=EN
 @SET CONFIGURATION=Release
 
+.nuget\nuget.exe restore YetAnotherForum.NET.sln
 msbuild.exe YetAnotherForum.NET.sln /p:Configuration=%CONFIGURATION% /p:Platform="Any CPU" /t:rebuild /p:WarningLevel=0 %1 %2 %3 %4 %5 %6 %7 %8 %9

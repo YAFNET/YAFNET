@@ -72,6 +72,30 @@ namespace YAF.Classes.Data
         /// <summary>
         ///   Gets DBVersion.
         /// </summary>
+        public static string GetDBVersionName()
+        {
+            try
+            {
+                using (DataTable dt = registry_list("versionname"))
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        // get the version...
+                        return dt.Rows[0]["Value"].ToType<string>();
+                    }
+                }
+            }
+            catch
+            {
+                return string.Empty;
+            }
+
+            return string.Empty;
+        }
+
+        /// <summary>
+        ///   Gets DBVersion.
+        /// </summary>
         public static int GetDBVersion()
         {
             try
@@ -3322,7 +3346,7 @@ namespace YAF.Classes.Data
         /// <summary>
         /// The forumpage_initdb.
         /// </summary>
-        /// <param name="errorStr">
+        /// <param name="errorString">
         /// The error str.
         /// </param>
         /// <param name="debugging">
@@ -3331,9 +3355,9 @@ namespace YAF.Classes.Data
         /// <returns>
         /// The forumpage_initdb.
         /// </returns>
-        public static bool forumpage_initdb([NotNull] out string errorStr, bool debugging)
+        public static bool forumpage_initdb([NotNull] out string errorString, bool debugging)
         {
-            errorStr = string.Empty;
+            errorString = string.Empty;
 
             try
             {
@@ -3348,7 +3372,7 @@ namespace YAF.Classes.Data
                 // unable to connect to the DB...
                 if (!debugging)
                 {
-                    errorStr = string.Format("Unable to connect to the Database. Exception Message: {0} ({1})", ex.Message, ex.Number);
+                    errorString = string.Format("Unable to connect to the Database. Exception Message: {0} ({1})", ex.Message, ex.Number);
                     return false;
                 }
 
@@ -3360,7 +3384,7 @@ namespace YAF.Classes.Data
                 // unable to connect to the DB...
                 if (!debugging)
                 {
-                    errorStr = string.Format("Unable to connect to the Database. Exception Message: {0}", ex.Message);
+                    errorString = string.Format("Unable to connect to the Database. Exception Message: {0}", ex.Message);
                     return false;
                 }
 

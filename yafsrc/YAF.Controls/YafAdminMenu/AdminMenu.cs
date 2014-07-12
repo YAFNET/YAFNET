@@ -127,7 +127,7 @@ namespace YAF.Controls
                           <img alt=""{1}"" src=""{2}"" /><span style=""margin-left:3px;{3}"">{1}</span></a></li>", 
                           url,
                           this.GetText("ADMINMENU", !string.IsNullOrEmpty(item.ForumPage) ? item.ForumPage : "admin_install"),
-                          YafForumInfo.GetURLToResource("icons/{0}.png".FormatWith(item.Image)),
+                          YafForumInfo.GetURLToContent("icons/{0}.png".FormatWith(item.Image)),
                           highlightStyle,
                           highlightCssClass);
             }
@@ -168,9 +168,6 @@ namespace YAF.Controls
                     x.SubForumPage_2 != null && x.SubForumPage_2.Equals(currentPage))).Count();
 
       // setup jQuery
-      this.PageContext.PageElements.RegisterJQuery();
-      YafContext.Current.PageElements.RegisterJQueryUI();
-
       string accordianJs;
 
       // A magic digit why it's so?

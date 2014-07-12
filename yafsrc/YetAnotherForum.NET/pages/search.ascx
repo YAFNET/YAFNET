@@ -13,7 +13,7 @@
         jQuery().YafModalDialog.Close({ Dialog: '#<%=LoadingModal.ClientID%>' });
     }
     function ShowLoadingDialog() {
-        jQuery().YafModalDialog.Show({ Dialog: '#<%=LoadingModal.ClientID%>', ImagePath: '<%=YafForumInfo.GetURLToResource("images/")%>' }); 
+        jQuery().YafModalDialog.Show({ Dialog: '#<%=LoadingModal.ClientID%>', ImagePath: '<%=YafForumInfo.GetURLToContent("images/")%>' }); 
     }
     Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
 </script>
