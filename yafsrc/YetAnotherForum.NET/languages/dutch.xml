@@ -1051,12 +1051,12 @@
     <Resource tag="CAPTCHA_SIZE_HELP">Grootte (lengte) van de CAPTCHA willekeurige tekenreeks.</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT">s Cache Timeout:</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT_HELP">In minuten</Resource>
-    <Resource tag="CDN_JQUERY">Use Google Hosted CDN jQuery UI CSS File?</Resource>
-    <Resource tag="CDN_JQUERY_HELP">You can use the Google Hosted CSS Files, or instead use internal.</Resource>
-    <Resource tag="CDN_JQUERY_UI">Use Google Hosted CDN jQuery UI CSS File?</Resource>
-    <Resource tag="CDN_JQUERY_UI_HELP">You can use the Google Hosted CSS Files, or instead use internal.</Resource>
-    <Resource tag="CDN_SCRIPTMANAGER">Use Google Hosted CDN jQuery UI CSS File?</Resource>
-    <Resource tag="CDN_SCRIPTMANAGER_HELP">You can use the Google Hosted CSS Files, or instead use internal.</Resource>
+    <Resource tag="CDN_JQUERY">Use Google Hosted CDN jQuery Script File?</Resource>
+    <Resource tag="CDN_JQUERY_HELP">You can use the Google Hosted Script File, or instead use internal.</Resource>
+    <Resource tag="CDN_JQUERY_UI">Use Google Hosted CDN jQuery-UI Script File?</Resource>
+    <Resource tag="CDN_JQUERY_UI_HELP">You can use the Google Hosted Script File, or instead use internal.</Resource>
+    <Resource tag="CDN_SCRIPTMANAGER">Use CDN Hosted Script Manager JS Files?</Resource>
+    <Resource tag="CDN_SCRIPTMANAGER_HELP">You can use the CDN Hosted Script Files, or instead use internal.</Resource>
     <Resource tag="CHECK_FOR_BOTSPAM">Choose a Service for Automatically User Bot Checking:</Resource>
     <Resource tag="CHECK_FOR_BOTSPAM_HELP">Enables/disables automatically Bot SPAM Checking via the &lt;a href="http://stopforumspam.com/"&gt;StopForumSpam.com API&lt;/a&gt; , BotScout.com API, or both together.</Resource>
     <Resource tag="CHECK_FOR_SPAM">Kies een SPAM Service voor Automatische SPAM Controle:</Resource>

@@ -16,6 +16,7 @@
             detailsHTML: "",
             loadingHTML: "Loading...",
             errorHTML: "Sorry, no data found.",
+            twitterURL: "",
             twitterScreenName: '',
             showTwitterCard: false,
             showYafCard: false,
@@ -98,7 +99,7 @@
                             dataUrl = obj.attr('data-hovercard');
                         }
 
-                        LoadSocialProfile("yaf", obj.attr('href'), dataUrl, curHCDetails, options.customCardJSON);
+                        LoadSocialProfile("yaf", '', dataUrl, curHCDetails, options.customCardJSON);
                     }
 
                     //check for twitter profile. If already loaded don't load again
@@ -112,7 +113,7 @@
                             tUsername = obj.attr('data-hovercard');
                         }
 
-                        LoadSocialProfile("twitter", "", tUsername, curHCDetails);
+                        LoadSocialProfile("twitter", obj.attr('href') + dataUrl, tUsername, curHCDetails);
                     }
 
                     //check for facebook profile. If already loaded don't load again
@@ -196,9 +197,9 @@
                 switch (type) {
                 case "twitter":
                     {
-                        dataType = 'jsonp',
-                        urlToRequest = 'https://api.twitter.com/1.1/users/lookup.json?screen_name=' + username;
-                        cardHTML = function(profileData) {
+                        dataType = 'json',
+                        urlToRequest = options.twitterURL + username;
+                        cardHTML = function (profileData) {
                             profileData = profileData[0];
                             return '<div class="s-card s-card-pad">' +
                                 (profileData.profile_image_url ? ('<img class="s-img" src="' + profileData.profile_image_url + '" />') : '') +
@@ -297,19 +298,19 @@
                             var online = (profileData.online ? ('border-left: 4px solid green') : 'border-left: 4px solid red');
 
                             return '<div class="s-card s-card-pad">' +
-                                (profileData.avatar ? ('<img class="s-img" style="' + online + '" src=' + profileData.avatar + ' />') : '') +
-                                (profileData.realname ? ('<label class="s-name">' + profileData.realname + ' </label>') : ('<label class="s-name">' + profileData.name + ' </label>')) +
-                                (href ? ('(<a class="s-username" title="Visit full profile for ' + profileData.name + '" href="' + href + '">' + profileData.name + '</a>)<br/>') : '') +
-                                (profileData.location ? ('<label class="s-location">' + profileData.location + '</label><br />') : '') +
-                                (profileData.rank ? ('<label class="s-rank">' + profileData.rank + '</label>') : '') +
-                                (profileData.interests ? ('<p class="s-interests">' + profileData.interests + '</p>') : '') +
-                                (profileData.joined ? ('<p class="s-joined"><span class="s-strong">Member since:</span><br/>' + profileData.joined + '</p>') : '') +
-                                (profileData.homepage ? ('<a class="s-href" href="' + profileData.homepage + '">' + profileData.homepage + '</a><br/>') : '') +
+                                (profileData.Avatar ? ('<img class="s-img" style="' + online + '" src=' + profileData.Avatar + ' />') : '') +
+                                (profileData.RealName ? ('<label class="s-name">' + profileData.RealName + ' </label>') : ('<label class="s-name">' + profileData.Name + ' </label>')) +
+                                (href ? ('(<a class="s-username" title="Visit full profile for ' + profileData.Name + '" href="' + href + '">' + profileData.Name + '</a>)<br/>') : '') +
+                                (profileData.Location ? ('<label class="s-location">' + profileData.Location + '</label><br />') : '') +
+                                (profileData.Rank ? ('<label class="s-rank">' + profileData.Rank + '</label>') : '') +
+                                (profileData.Interests ? ('<p class="s-interests">' + profileData.Interests + '</p>') : '') +
+                                (profileData.Joined ? ('<p class="s-joined"><span class="s-strong">Member since:</span><br/>' + profileData.Joined + '</p>') : '') +
+                                (profileData.HomePage ? ('<a class="s-href" href="' + profileData.homepage + '">' + profileData.HomePage + '</a><br/>') : '') +
                                 '<ul class="s-stats">' +
-                                (profileData.posts ? ('<li>Posts<br /><span class="s-posts">' + profileData.posts + '</span></li>') : '') +
-                                (profileData.points ? ('<li>Reputation<br /><span class="s-points">' + profileData.points + '</span></li>') : '') +
+                                (profileData.Posts ? ('<li>Posts<br /><span class="s-posts">' + profileData.Posts + '</span></li>') : '') +
+                                (profileData.Points ? ('<li>Reputation<br /><span class="s-points">' + profileData.Points + '</span></li>') : '') +
                                 '</ul>' +
-                                (profileData.actionButtons ? ('<span class="s-action">' + profileData.actionButtons + '</span>') : '') +
+                                (profileData.ActionButtons ? ('<span class="s-action">' + profileData.ActionButtons + '</span>') : '') +
                                 '</div>';
                         };
                         loadingHTML = options.loadingHTML;

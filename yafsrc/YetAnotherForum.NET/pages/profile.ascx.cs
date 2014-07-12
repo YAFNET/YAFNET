@@ -760,7 +760,7 @@ namespace YAF.Pages
                 this.TwitterTR.Visible = true;
                 this.lbltwitter.Text = this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Twitter));
 
-                if (this.Get<YafBoardSettings>().EnableUserInfoHoverCards)
+                if (this.Get<YafBoardSettings>().EnableUserInfoHoverCards && Config.IsTwitterEnabled)
                 {
                     this.lbltwitter.Attributes.Add("data-hovercard", this.lbltwitter.Text);
                     this.Twitter.Attributes.Add("data-hovercard", this.lbltwitter.Text);
@@ -772,7 +772,7 @@ namespace YAF.Pages
                 }
             }
 
-            if (loadHoverCardJs && this.Get<YafBoardSettings>().EnableUserInfoHoverCards)
+            if (loadHoverCardJs && this.Get<YafBoardSettings>().EnableUserInfoHoverCards && Config.IsTwitterEnabled)
             {
                 var hoverCardLoadJs = new StringBuilder();
 
@@ -788,7 +788,10 @@ namespace YAF.Pages
                         ".Twitter-HoverCard",
                         "Twitter",
                         this.GetText("DEFAULT", "LOADING_TWIT_HOVERCARD").ToJsString(),
-                        this.GetText("DEFAULT", "ERROR_TWIT_HOVERCARD").ToJsString()));
+                        this.GetText("DEFAULT", "ERROR_TWIT_HOVERCARD").ToJsString(),
+                        "{0}{1}resource.ashx?twitterinfo=".FormatWith(
+                            BaseUrlBuilder.BaseUrl.TrimEnd('/'),
+                            BaseUrlBuilder.AppPath)));
 
                 // Setup Hover Card JS
                 YafContext.Current.PageElements.RegisterJsBlockStartup(

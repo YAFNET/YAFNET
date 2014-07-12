@@ -769,10 +769,15 @@ namespace YAF.Utilities
         /// <param name="type">The type.</param>
         /// <param name="loadingHtml">The loading HTML.</param>
         /// <param name="errorHtml">The error HTML.</param>
-        /// <returns>Returns the js String</returns>
+        /// <returns>
+        /// Returns the JS String
+        /// </returns>
         [NotNull]
         public static string HoverCardLoadJs(
-            [NotNull] string clientId, [NotNull] string type, [NotNull] string loadingHtml, [NotNull] string errorHtml)
+            [NotNull] string clientId,
+            [NotNull] string type,
+            [NotNull] string loadingHtml,
+            [NotNull] string errorHtml)
         {
             return
                 "{0}('{1}').hovercard({{{2}width: 350,loadingHTML: '{3}',errorHTML: '{4}', delay: {5} }});".FormatWith(
@@ -782,6 +787,36 @@ namespace YAF.Utilities
                     loadingHtml,
                     errorHtml,
                     YafContext.Current.Get<YafBoardSettings>().HoverCardOpenDelay);
+        }
+
+        /// <summary>
+        /// Renders the Hover card Load JS.
+        /// </summary>
+        /// <param name="clientId">The client id.</param>
+        /// <param name="type">The type.</param>
+        /// <param name="loadingHtml">The loading HTML.</param>
+        /// <param name="errorHtml">The error HTML.</param>
+        /// <param name="twitterUrl">The twitter URL.</param>
+        /// <returns>
+        /// Returns the JS String
+        /// </returns>
+        [NotNull]
+        public static string HoverCardLoadJs(
+            [NotNull] string clientId,
+            [NotNull] string type,
+            [NotNull] string loadingHtml,
+            [NotNull] string errorHtml,
+            [NotNull] string twitterUrl)
+        {
+            return
+                "{0}('{1}').hovercard({{{2}width: 350,loadingHTML: '{3}',errorHTML: '{4}', delay: {5}, twitterURL: '{6}' }});".FormatWith(
+                    Config.JQueryAlias,
+                    clientId,
+                    type.IsSet() ? "show{0}Card: true,".FormatWith(type) : string.Empty,
+                    loadingHtml,
+                    errorHtml,
+                    YafContext.Current.Get<YafBoardSettings>().HoverCardOpenDelay,
+                    twitterUrl);
         }
 
         #region BootStrap Script Blocks

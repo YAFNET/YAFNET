@@ -1052,12 +1052,12 @@
     <Resource tag="CAPTCHA_SIZE_HELP">Größe (Länge) des CAPTCHA zufällige alphanumerische Zeichenfolge.</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT">Board Kategorien Speicher Ablaufzeit:</Resource>
     <Resource tag="CAT_CACHE_TIMEOUT_HELP">In Minuten</Resource>
-    <Resource tag="CDN_JQUERY">Use Google Hosted CDN jQuery UI CSS File?</Resource>
-    <Resource tag="CDN_JQUERY_HELP">You can use the Google Hosted CSS Files, or instead use internal.</Resource>
-    <Resource tag="CDN_JQUERY_UI">Use Google Hosted CDN jQuery UI CSS File?</Resource>
-    <Resource tag="CDN_JQUERY_UI_HELP">You can use the Google Hosted CSS Files, or instead use internal.</Resource>
-    <Resource tag="CDN_SCRIPTMANAGER">Use Google Hosted CDN jQuery UI CSS File?</Resource>
-    <Resource tag="CDN_SCRIPTMANAGER_HELP">You can use the Google Hosted CSS Files, or instead use internal.</Resource>
+    <Resource tag="CDN_JQUERY">Use Google Hosted CDN jQuery Script File?</Resource>
+    <Resource tag="CDN_JQUERY_HELP">You can use the Google Hosted Script File, or instead use internal.</Resource>
+    <Resource tag="CDN_JQUERY_UI">Use Google Hosted CDN jQuery-UI Script File?</Resource>
+    <Resource tag="CDN_JQUERY_UI_HELP">You can use the Google Hosted Script File, or instead use internal.</Resource>
+    <Resource tag="CDN_SCRIPTMANAGER">Use CDN Hosted Script Manager JS Files?</Resource>
+    <Resource tag="CDN_SCRIPTMANAGER_HELP">You can use the CDN Hosted Script Files, or instead use internal.</Resource>
     <Resource tag="CHECK_FOR_BOTSPAM">Dienst für das automatische Checken von automatischen Spammern:</Resource>
     <Resource tag="CHECK_FOR_BOTSPAM_HELP">Aktiviert / deaktiviert die automatisch Bot SPAM Kontrolle über die &lt;a href="http://stopforumspam.com/"&gt; StopForumSpam.com API &lt;/a&gt; , die BotScout.com API, oder beides zusammen. Wenn diese Option aktiviert ist, können SPAM Beiträge abgelehnt werden oder als nicht bestätigt markiert werden.</Resource>
     <Resource tag="CHECK_FOR_SPAM">SPAM Dienst für das automatische Checken von Beitragspam:</Resource>

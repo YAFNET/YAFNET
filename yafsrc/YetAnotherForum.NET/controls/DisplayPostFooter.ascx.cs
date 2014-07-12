@@ -28,6 +28,7 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
+    using System.IO;
     using System.Text;
     using System.Web;
 
@@ -306,7 +307,7 @@ namespace YAF.Controls
                 this.Twitter.NavigateUrl = "http://twitter.com/{0}".FormatWith(this.PostData.UserProfile.Twitter);
                 this.Twitter.ParamTitle0 = userName;
 
-                if (this.Get<YafBoardSettings>().EnableUserInfoHoverCards)
+                if (this.Get<YafBoardSettings>().EnableUserInfoHoverCards && Config.IsTwitterEnabled)
                 {
                     this.Twitter.Attributes.Add("data-hovercard", this.PostData.UserProfile.Twitter);
                     this.Twitter.CssClass += " Twitter-HoverCard";
@@ -340,14 +341,17 @@ namespace YAF.Controls
                         this.GetText("DEFAULT", "ERROR_FB_HOVERCARD")));
             }
 
-            if (this.Twitter.Visible)
+            if (this.Twitter.Visible && Config.IsTwitterEnabled)
             {
                 hoverCardLoadJs.Append(
                     JavaScriptBlocks.HoverCardLoadJs(
                         ".Twitter-HoverCard",
                         "Twitter",
                         this.GetText("DEFAULT", "LOADING_TWIT_HOVERCARD"),
-                        this.GetText("DEFAULT", "ERROR_TWIT_HOVERCARD")));
+                        this.GetText("DEFAULT", "ERROR_TWIT_HOVERCARD"),
+                        "{0}{1}resource.ashx?twitterinfo=".FormatWith(
+                            BaseUrlBuilder.BaseUrl.TrimEnd('/'),
+                            BaseUrlBuilder.AppPath)));
             }
 
             // Setup Hover Card JS

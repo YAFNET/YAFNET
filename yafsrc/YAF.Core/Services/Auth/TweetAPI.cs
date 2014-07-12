@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014 Ingo Herbote
@@ -24,6 +24,8 @@
 
 namespace YAF.Core.Services.Auth
 {
+    using System.Collections.Generic;
+
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Objects;
@@ -66,6 +68,50 @@ namespace YAF.Core.Services.Auth
             /// </summary>
             xml
         }
+
+        #region User Lookup
+
+        /// <summary>
+        /// Returns the user info
+        /// </summary>
+        /// <param name="userNames">Name of the users.</param>
+        /// <param name="optionalparameters">Any other optional parameters.Use an empty string if you don't want to pass any optional parameters</param>
+        /// <returns>
+        /// Response string from twitter in user selected format
+        /// </returns>
+        public string UsersLookupJson(
+            [NotNull] string userNames,
+            [CanBeNull] string optionalparameters = null)
+        {
+            return this.oAuth.OAuthWebRequest(
+                AuthUtilities.Method.GET,
+                "https://api.twitter.com/1.1/users/lookup.json?screen_name={0}".FormatWith(userNames),
+                optionalparameters);
+        }
+
+        /// <summary>
+        /// Returns the user info
+        /// </summary>
+        /// <param name="response_format">The format in which you want twitter to respond</param>
+        /// <param name="userNames">Name of the users.</param>
+        /// <param name="optionalparameters">Any other optional parameters.Use an empty string if you don't want to pass any optional parameters</param>
+        /// <returns>
+        /// Response string from twitter in user selected format
+        /// </returns>
+        public List<TwitterUser> UsersLookup(
+            [NotNull] ResponseFormat response_format,
+            [NotNull] string userNames,
+            [CanBeNull] string optionalparameters = null)
+        {
+            return this.oAuth.OAuthWebRequest(
+                AuthUtilities.Method.GET,
+                "https://api.twitter.com/1.1/users/lookup.{1}?screen_name={0}".FormatWith(
+                    userNames,
+                    response_format.ToString()),
+                optionalparameters).FromJson<List<TwitterUser>>();
+        }
+
+        #endregion
 
         #region Show:ID
 

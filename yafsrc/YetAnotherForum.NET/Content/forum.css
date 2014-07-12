@@ -1646,7 +1646,7 @@ table.tablesorter thead tr .headerSortUp {
   float: left;
   width: 22px;
   height: 22px;
-  background: url('../icons/authIcons.png') no-repeat 99px 99px;
+  background: url('icons/authIcons.png') no-repeat 99px 99px;
 }
 .authLogin::-moz-focus-inner {
   border: 0;

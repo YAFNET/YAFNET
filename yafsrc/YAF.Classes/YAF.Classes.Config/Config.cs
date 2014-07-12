@@ -765,6 +765,49 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets the twitter token.
+        /// </summary>
+        /// <value>
+        /// The twitter token.
+        /// </value>
+        public static string TwitterToken
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.TwitterToken");
+            }
+        }
+
+        /// <summary>
+        /// Gets the twitter token secret.
+        /// </summary>
+        /// <value>
+        /// The twitter token secret.
+        /// </value>
+        public static string TwitterTokenSecret
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.TwitterTokenSecret");
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is twitter enabled.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is twitter enabled; otherwise, <c>false</c>.
+        /// </value>
+        public static bool IsTwitterEnabled
+        {
+            get
+            {
+                return TwitterConsumerKey.IsSet() && TwitterConsumerSecret.IsSet() && TwitterToken.IsSet()
+                       && TwitterTokenSecret.IsSet();
+            }
+        }
+
+        /// <summary>
         ///     Gets the Url Rewriting Format -- default is standard.
         /// </summary>
         [NotNull]
