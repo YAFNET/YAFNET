@@ -243,8 +243,11 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        ///  Gets or sets a value indicating whether to use the jQuery CDN hosted version or the local one.
+        ///  Gets or sets a value indicating whether to use the jQuery scripts from a CDN or locally.
         /// </summary>
+        /// <value>
+        /// <c>If true use CDN if not use locally</c>.
+        /// </value>
         public bool JqueryCDNHosted
         {
             get
@@ -259,8 +262,11 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to use the jQuery-UI CDN hosted version or the local one.
+        /// Gets or sets a value indicating whether to use the jQuery-UI scripts from a CDN or locally.
         /// </summary>
+        /// <value>
+        /// <c>If true use CDN if not use locally</c>.
+        /// </value>
         public bool JqueryUICDNHosted
         {
             get
@@ -275,8 +281,11 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to enable jQuery-UIThemeCDNHosted.
+        /// Gets or sets a value indicating whether to use the jQuery-UI Theme files from a CDN or locally.
         /// </summary>
+        /// <value>
+        /// <c>If true use CDN if not use locally</c>.
+        /// </value>
         public bool JqueryUIThemeCDNHosted
         {
             get
@@ -287,6 +296,25 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("JqueryUIThemeCDNHosted", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to use the script manager scripts from a CDN or locally.
+        /// </summary>
+        /// <value>
+        /// <c>If true use CDN if not use locally</c>.
+        /// </value>
+        public bool ScriptManagerScriptsCDNHosted
+        {
+            get
+            {
+                return this._reg.GetValue("ScriptManagerScriptsCDNHosted", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("ScriptManagerScriptsCDNHosted", value);
             }
         }
 

@@ -21,15 +21,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-using System;
-using YAF.Types;
 
 namespace YAF.Classes
 {
-  using YAF.Classes.Pattern;
+    using System;
 
-  /// <summary>
-  /// The yaf board folders.
+    using YAF.Classes.Pattern;
+
+    /// <summary>
+  /// The YAF board folders.
   /// </summary>
   public class YafBoardFolders
   {
@@ -51,14 +51,9 @@ namespace YAF.Classes
     {
       get
       {
-        if (Config.MultiBoardFolders)
-        {
-          return String.Format(Config.BoardRoot + "{0}/", YafControlSettings.Current.BoardID);
-        }
-        else
-        {
-          return Config.BoardRoot;
-        }
+          return Config.MultiBoardFolders
+                     ? string.Format(Config.BoardRoot + "{0}/", YafControlSettings.Current.BoardID)
+                     : Config.BoardRoot;
       }
     }
 
@@ -69,7 +64,7 @@ namespace YAF.Classes
     {
       get
       {
-        return String.Concat(BoardFolder, "Uploads");
+          return String.Concat(this.BoardFolder, "Uploads");
       }
     }
 
@@ -80,7 +75,7 @@ namespace YAF.Classes
     {
       get
       {
-        return String.Concat(BoardFolder, "Themes");
+          return String.Concat(this.BoardFolder, "Themes");
       }
     }
 
@@ -91,7 +86,7 @@ namespace YAF.Classes
     {
       get
       {
-        return String.Concat(BoardFolder, "Images");
+          return String.Concat(this.BoardFolder, "Images");
       }
     }
 
@@ -102,7 +97,7 @@ namespace YAF.Classes
     {
       get
       {
-        return String.Concat(BoardFolder, "Images/Avatars");
+          return String.Concat(this.BoardFolder, "Images/Avatars");
       }
     }
 
@@ -113,7 +108,7 @@ namespace YAF.Classes
     {
       get
       {
-        return String.Concat(BoardFolder, "Images/Categories");
+          return String.Concat(this.BoardFolder, "Images/Categories");
       }
     }
 
@@ -124,7 +119,7 @@ namespace YAF.Classes
     {
         get
         {
-            return String.Concat(BoardFolder, "Images/Forums");
+            return String.Concat(this.BoardFolder, "Images/Forums");
         }
     }
 
@@ -135,7 +130,7 @@ namespace YAF.Classes
     {
       get
       {
-        return String.Concat(BoardFolder, "Images/Emoticons");
+          return String.Concat(this.BoardFolder, "Images/Emoticons");
       }
     }
 
@@ -146,7 +141,7 @@ namespace YAF.Classes
     {
       get
       {
-        return String.Concat(BoardFolder, "Images/Medals");
+          return String.Concat(this.BoardFolder, "Images/Medals");
       }
     }
 
@@ -157,7 +152,7 @@ namespace YAF.Classes
     {
       get
       {
-        return String.Concat(BoardFolder, "Images/Ranks");
+          return String.Concat(this.BoardFolder, "Images/Ranks");
       }
     }
   }

@@ -404,14 +404,25 @@ namespace YAF
 
             // handle script manager first...
             var yafScriptManager = ScriptManager.GetCurrent(this.Page);
-            
+
             if (yafScriptManager != null)
             {
-               return;
+                yafScriptManager.EnableCdn = this.Get<YafBoardSettings>().ScriptManagerScriptsCDNHosted;
+                yafScriptManager.EnableScriptLocalization = !this.Get<YafBoardSettings>().ScriptManagerScriptsCDNHosted;
+                return;
             }
 
             // add a script manager since one doesn't exist...
-            yafScriptManager = new ScriptManager { ID = "YafScriptManager", EnablePartialRendering = true };
+            yafScriptManager = new ScriptManager
+                                   {
+                                       ID = "YafScriptManager",
+                                       EnablePartialRendering = true,
+                                       EnableCdn =
+                                           this.Get<YafBoardSettings>().ScriptManagerScriptsCDNHosted,
+                                       EnableScriptLocalization =
+                                           !this.Get<YafBoardSettings>().ScriptManagerScriptsCDNHosted
+                                   };
+
             this.Controls.Add(yafScriptManager);
 
             base.OnInit(e);
@@ -421,7 +432,6 @@ namespace YAF
         /// Raises the <see cref="E:System.Web.UI.Control.Load"/> event.
         /// </summary>
         /// <param name="e">The <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-        /// <exception cref="ApplicationException"></exception>
         protected override void OnLoad(EventArgs e)
         {
             // context is ready to be loaded, call the before page load event...

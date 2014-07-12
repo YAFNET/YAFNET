@@ -370,6 +370,43 @@
                             <asp:CheckBox ID="ImageAttachmentResizeCropped" runat="server"></asp:CheckBox>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="header1" colspan="2">
+                            <YAF:LocalizedLabel ID="LocalizedLabel40" runat="server" LocalizedTag="HEADER_CDN" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel235" runat="server" LocalizedTag="CDN_SCRIPTMANAGER" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="ScriptManagerScriptsCDNHosted" runat="server" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel228" runat="server" LocalizedTag="CDN_JQUERY" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="JqueryCDNHosted" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel229" runat="server" LocalizedTag="CDN_JQUERY_UI" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="JqueryUICDNHosted" runat="server" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel230" runat="server" LocalizedTag="BOARD_CDN_HOSTED" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="JqueryUIThemeCDNHosted" runat="server" />
+                        </td>
+                    </tr>
                 </table>
 	</div>
     <div id="View2">
