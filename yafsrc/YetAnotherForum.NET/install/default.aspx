@@ -83,7 +83,8 @@
                             YAF.NET Has Write Access to "~/Upload" directory ...
                         </li>
                     </ul>
-                    <YAF:ModernButton ID="btnTestPermissions" runat="server" Text="Test Permissions" CssClass="buttonInfo ladda-button"
+                    <YAF:ModernButton ID="btnTestPermissions" runat="server" Text="Test Permissions" CssClass="buttonInfo" 
+                        EnableLoadingAnimation="True"
                         OnClick="TestPermissions_Click" data-style="expand-left" />
                 </asp:WizardStep> 
                 <asp:WizardStep ID="WizCreatePassword" runat="server" Title="Create Config Password">
@@ -237,7 +238,7 @@
                         </asp:PlaceHolder>
                     </asp:PlaceHolder>
                     <hr/>
-                    <YAF:ModernButton ID="btnTestDBConnection" runat="server" CssClass="buttonInfo ladda-button" Text="Test Connection"
+                    <YAF:ModernButton ID="btnTestDBConnection" runat="server" CssClass="buttonInfo" EnableLoadingAnimation="True" Text="Test Connection"
                         OnClick="TestDBConnection_Click" OnClientClick="return true;" data-style="expand-left" />
                     <asp:PlaceHolder ID="ConnectionInfoHolder" runat="server" Visible="false">
                         <hr/>
@@ -289,8 +290,8 @@
                     <h4>
                         Database Connection Test
                     </h4>
-                    <YAF:ModernButton ID="btnTestDBConnectionManual" runat="server" CssClass="buttonInfo ladda-button" Text="Test Database Connection"
-                        OnClick="TestDBConnectionManual_Click" data-style="expand-left" />
+                    <YAF:ModernButton ID="btnTestDBConnectionManual" runat="server" CssClass="buttonInfo" EnableLoadingAnimation="True" 
+                        Text="Test Database Connection" OnClick="TestDBConnectionManual_Click" data-style="expand-left" />
                     <asp:PlaceHolder ID="ManualConnectionInfoHolder" runat="server" Visible="false">
                         <hr/>
                         <asp:Literal ID="lblConnectionDetailsManual" runat="server"></asp:Literal>
@@ -308,8 +309,8 @@
                     <YAF:ModernTextBox ID="txtTestToEmail" runat="server" 
                         Placeholder="Enter the to Email Address" RenderWrapper="True" 
                         LabelText="Send To Email Address"/>
-                    <YAF:ModernButton ID="btnTestSmtp" runat="server" Text="Test Smtp Settings" CssClass="buttonInfo ladda-button"
-                                OnClick="TestSmtp_Click" data-style="expand-left" />
+                    <YAF:ModernButton ID="btnTestSmtp" runat="server" Text="Test Smtp Settings" CssClass="buttonInfo" 
+                        EnableLoadingAnimation="True" OnClick="TestSmtp_Click" data-style="expand-left" />
                     <asp:PlaceHolder ID="SmtpInfoHolder" runat="server" Visible="false">
                         <hr/>
                         <asp:Literal ID="lblSmtpTestDetails" runat="server"></asp:Literal>
@@ -467,15 +468,14 @@
                 </div>
             </LayoutTemplate>
             <StartNavigationTemplate>
-                    <YAF:ModernButton ID="StartNextButton" CssClass="buttonPrimary ladda-button" runat="server" CommandName="MoveNext"
-                        Text="Next" data-style="expand-left" />
+                    <YAF:ModernButton ID="StartNextButton" CssClass="buttonPrimary" EnableLoadingAnimation="True" runat="server" 
+                        CommandName="MoveNext" Text="Next" data-style="expand-left" />
             </StartNavigationTemplate>
             <StepNavigationTemplate>
                     <YAF:ModernButton ID="StepPreviousButton" runat="server" CssClass="buttonStandard" Visible="false"
                         CausesValidation="False" CommandName="MovePrevious" Text="Previous" />
-                    <YAF:ModernButton ID="StepNextButton" runat="server" CssClass="buttonPrimary ladda-button" 
-                        OnClientClick="return true;"
-                        CommandName="MoveNext" Text="Next" data-style="expand-left" />
+                    <YAF:ModernButton ID="StepNextButton" runat="server" CssClass="buttonPrimary" EnableLoadingAnimation="True"
+                        OnClientClick="return true;" CommandName="MoveNext" Text="Next" data-style="expand-left" />
             </StepNavigationTemplate>
         </asp:Wizard>
     </form>
