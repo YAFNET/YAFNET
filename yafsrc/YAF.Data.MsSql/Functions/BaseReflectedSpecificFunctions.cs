@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Data.MsSql
+namespace YAF.Data.MsSql.Functions
 {
     using System;
     using System.Collections.Generic;
@@ -31,7 +31,6 @@ namespace YAF.Data.MsSql
     using System.Reflection;
 
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>

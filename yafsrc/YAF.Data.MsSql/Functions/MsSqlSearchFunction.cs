@@ -37,11 +37,18 @@ namespace YAF.Data.MsSql.Functions
     [ExportService(ServiceLifetimeScope.OwnedByContainer)]
     public class MsSqlSearchFunction : BaseMsSqlFunction
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MsSqlSearchFunction"/> class.
+        /// </summary>
+        /// <param name="dbAccess">The db access.</param>
         public MsSqlSearchFunction([NotNull] IDbAccess dbAccess)
             : base(dbAccess)
         {
         }
 
+        /// <summary>
+        /// Gets SortOrder.
+        /// </summary>
         public override int SortOrder
         {
             get
@@ -50,11 +57,30 @@ namespace YAF.Data.MsSql.Functions
             }
         }
 
+        /// <summary>
+        /// The supported operation.
+        /// </summary>
+        /// <param name="operationName">The operation name.</param>
+        /// <returns>
+        /// True if the operation is supported.
+        /// </returns>
         public override bool IsSupportedOperation(string operationName)
         {
             return operationName.Equals("executesearch");
         }
 
+        /// <summary>
+        /// The run operation.
+        /// </summary>
+        /// <param name="sqlConnection">The sql connection.</param>
+        /// <param name="dbTransaction">The unit Of Work.</param>
+        /// <param name="dbfunctionType">The dbfunction type.</param>
+        /// <param name="operationName">The operation name.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <param name="result">The result.</param>
+        /// <returns>
+        /// The run operation.
+        /// </returns>
         protected override bool RunOperation(
             SqlConnection sqlConnection,
             IDbTransaction dbTransaction,
