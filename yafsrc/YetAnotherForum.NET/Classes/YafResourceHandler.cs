@@ -39,7 +39,6 @@ namespace YAF
     using System.Web;
     using System.Web.Security;
     using System.Web.SessionState;
-
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Controls;
@@ -47,6 +46,7 @@ namespace YAF
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services;
+    using YAF.Core.Services.Auth;
     using YAF.Core.Services.Localization;
     using YAF.Core.Services.Startup;
     using YAF.Types;
@@ -54,6 +54,7 @@ namespace YAF
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Extensions;
     using YAF.Utils.Helpers;
@@ -134,7 +135,11 @@ namespace YAF
                 }
                 /////////////
 
-                if (context.Request.QueryString.GetFirstOrDefault("userinfo") != null)
+                if (context.Request.QueryString.GetFirstOrDefault("twitterinfo") != null)
+                {
+                    this.GetTwitterUserInfo(context);
+                } 
+                else if (context.Request.QueryString.GetFirstOrDefault("userinfo") != null)
                 {
                     this.GetUserInfo(context);
                 }
@@ -290,7 +295,6 @@ namespace YAF
                             Math.Min(
                                 newImgSize.Height,
                                 (int)Math.Round(src.Height * ratio, MidpointRounding.AwayFromZero)));
-
 
                     newImgSize.Width = newImgSize.Width - PixelPadding;
                     newImgSize.Height = newImgSize.Height - BottomSize - PixelPadding;
@@ -465,7 +469,7 @@ namespace YAF
         }
 
         /// <summary>
-        /// Gets the user info as JSON string for the hover cards
+        /// Gets the forum user info as JSON string for the hover cards
         /// </summary>
         /// <param name="context">The context.</param>
         private void GetUserInfo([NotNull] HttpContext context)
@@ -566,27 +570,27 @@ namespace YAF
                                            && !userId.Equals(YafContext.Current.PageUserID) && !YafContext.Current.IsGuest
                                    };
 
-                var userInfo = new YafUserInfo
+                var userInfo = new ForumUserInfo
                                    {
-                                       name = userName,
-                                       realname = HttpUtility.HtmlEncode(userData.Profile.RealName),
-                                       avatar = avatarUrl,
+                                       Name = userName,
+                                       RealName = HttpUtility.HtmlEncode(userData.Profile.RealName),
+                                       Avatar = avatarUrl,
                                        /*profilelink =
                                            Config.IsAnyPortal ? userlinkUrl : YafBuildLink.GetLink(ForumPages.profile, true, "u={0}&name={1}", userId).Replace(
                                                "resource.ashx", "default.aspx"),*/
-                                       interests = HttpUtility.HtmlEncode(userData.Profile.Interests),
-                                       homepage = userData.Profile.Homepage,
-                                       posts = "{0:N0}".FormatWith(userData.NumPosts),
-                                       rank = userData.RankName,
-                                       location = location,
-                                       joined = this.Get<IDateTime>().FormatDateLong(userData.Joined),
-                                       online = userIsOnline,
-                                       actionButtons = pmButton.RenderToString()
+                                       Interests = HttpUtility.HtmlEncode(userData.Profile.Interests),
+                                       HomePage = userData.Profile.Homepage,
+                                       Posts = "{0:N0}".FormatWith(userData.NumPosts),
+                                       Rank = userData.RankName,
+                                       Location = location,
+                                       Joined = this.Get<IDateTime>().FormatDateLong(userData.Joined),
+                                       Online = userIsOnline,
+                                       ActionButtons = pmButton.RenderToString()
                                    };
 
                 if (YafContext.Current.Get<YafBoardSettings>().EnableUserReputation)
                 {
-                    userInfo.points = (userData.Points.ToType<int>() > 0 ? "+" : string.Empty) + userData.Points;
+                    userInfo.Points = (userData.Points.ToType<int>() > 0 ? "+" : string.Empty) + userData.Points;
                 }
 
                 context.Response.Write(userInfo.ToJson());
@@ -595,7 +599,48 @@ namespace YAF
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(0, this, x, EventLogTypes.Information);
+                this.Get<ILogger>().Log(YafContext.Current.PageUserID, this, x, EventLogTypes.Information);
+
+                context.Response.Write(
+                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+            }
+        }
+
+        /// <summary>
+        /// Gets the twitter user info as JSON string for the hover cards
+        /// </summary>
+        /// <param name="context">The context.</param>
+        private void GetTwitterUserInfo([NotNull] HttpContext context)
+        {
+            try
+            {
+                var twitterName = context.Request.QueryString.GetFirstOrDefault("twitterinfo").ToType<string>();
+
+                if (!Config.IsTwitterEnabled)
+                {
+                    context.Response.Write(
+                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+
+                    return;
+                }
+
+                var oAuth = new OAuthTwitter
+                {
+                    ConsumerKey = Config.TwitterConsumerKey,
+                    ConsumerSecret = Config.TwitterConsumerSecret,
+                    Token = Config.TwitterToken,
+                    TokenSecret = Config.TwitterTokenSecret
+                };
+
+                var tweetAPI = new TweetAPI(oAuth);
+
+                context.Response.Write(tweetAPI.UsersLookupJson(twitterName));
+
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+            }
+            catch (Exception x)
+            {
+                this.Get<ILogger>().Log(YafContext.Current.PageUserID, this, x, EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -640,7 +685,7 @@ namespace YAF
             {
                 this.Get<ILogger>()
                    .Log(
-                       0,
+                       YafContext.Current.PageUserID,
                        this,
                        "URL: {0}<br />Referer URL: {1}<br />Exception: {2}".FormatWith(
                            context.Request.Url,
@@ -803,7 +848,7 @@ namespace YAF
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(0, this, x, EventLogTypes.Information);
+                this.Get<ILogger>().Log(YafContext.Current.PageUserID, this, x, EventLogTypes.Information);
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
@@ -873,7 +918,7 @@ namespace YAF
             {
                 this.Get<ILogger>()
                    .Log(
-                       0,
+                       YafContext.Current.PageUserID,
                        this,
                        "URL: {0}<br />Referer URL: {1}<br />Exception: {2}".FormatWith(
                            context.Request.Url,
@@ -970,7 +1015,7 @@ namespace YAF
             {
                 this.Get<ILogger>()
                     .Log(
-                        0,
+                        YafContext.Current.PageUserID,
                         this,
                         "URL: {0}<br />Referer URL: {1}<br />Exception: {2}".FormatWith(
                             context.Request.Url,
@@ -1049,7 +1094,7 @@ namespace YAF
             {
                 this.Get<ILogger>()
                    .Log(
-                       0,
+                       YafContext.Current.PageUserID,
                        this,
                        "URL: {0}<br />Referer URL: {1}<br />Exception: {2}".FormatWith(
                            context.Request.Url,
@@ -1087,7 +1132,7 @@ namespace YAF
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(0, this, x);
+                this.Get<ILogger>().Log(YafContext.Current.PageUserID, this, x);
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
@@ -1173,7 +1218,7 @@ namespace YAF
             {
                 this.Get<ILogger>()
                     .Log(
-                        0,
+                        YafContext.Current.PageUserID,
                         this,
                         "URL: {0}<br />Referer URL: {1}<br />Exception: {2}".FormatWith(
                             context.Request.Url,
@@ -1297,7 +1342,7 @@ namespace YAF
             {
                 this.Get<ILogger>()
                     .Log(
-                        0,
+                        YafContext.Current.PageUserID,
                         this,
                         "URL: {0}<br />Referer URL: {1}<br />Exception: {2}".FormatWith(
                             context.Request.Url,
@@ -1401,7 +1446,7 @@ namespace YAF
                 // issue getting access to the avatar...
                 this.Get<ILogger>()
                     .Log(
-                        null,
+                        YafContext.Current.PageUserID,
                         this,
                         "URL: {0}<br />Referer URL: {1}<br />Exception: {2}".FormatWith(
                             avatarUrl,
@@ -1411,116 +1456,5 @@ namespace YAF
         }
 
         #endregion
-
-        /// <summary>
-        /// Yaf User Info
-        /// </summary>
-        [Serializable]
-        public class YafUserInfo
-        {
-            /// <summary>
-            /// Gets or sets the name.
-            /// </summary>
-            /// <value>
-            /// The name.
-            /// </value>
-            public string name { get; set; }
-
-            /// <summary>
-            /// Gets or sets the realname.
-            /// </summary>
-            /// <value>
-            /// The realname.
-            /// </value>
-            public string realname { get; set; }
-
-            /// <summary>
-            /// Gets or sets the avatar.
-            /// </summary>
-            /// <value>
-            /// The avatar.
-            /// </value>
-            public string avatar { get; set; }
-
-            /// <summary>
-            /// Gets or sets the interests.
-            /// </summary>
-            /// <value>
-            /// The interests.
-            /// </value>
-            public string interests { get; set; }
-
-            /// <summary>
-            /// Gets or sets the homepage.
-            /// </summary>
-            /// <value>
-            /// The homepage.
-            /// </value>
-            public string homepage { get; set; }
-
-            /// <summary>
-            /// Gets or sets the profilelink.
-            /// </summary>
-            /// <value>
-            /// The profilelink.
-            /// </value>
-            public string profilelink { get; set; }
-
-            /// <summary>
-            /// Gets or sets the posts.
-            /// </summary>
-            /// <value>
-            /// The posts.
-            /// </value>
-            public string posts { get; set; }
-
-            /// <summary>
-            /// Gets or sets the points.
-            /// </summary>
-            /// <value>
-            /// The points.
-            /// </value>
-            public string points { get; set; }
-
-            /// <summary>
-            /// Gets or sets the rank.
-            /// </summary>
-            /// <value>
-            /// The rank.
-            /// </value>
-            public string rank { get; set; }
-
-            /// <summary>
-            /// Gets or sets the location.
-            /// </summary>
-            /// <value>
-            /// The location.
-            /// </value>
-            public string location { get; set; }
-
-            /// <summary>
-            /// Gets or sets the joined.
-            /// </summary>
-            /// <value>
-            /// The joined.
-            /// </value>
-            public string joined { get; set; }
-
-            /// <summary>
-            /// Gets or sets a value indicating whether this <see cref="YafUserInfo"/> is online.
-            /// </summary>
-            /// <value>
-            ///   <c>true</c> if online; otherwise, <c>false</c>.
-            /// </value>
-            public bool online { get; set; }
-
-            /// <summary>
-            /// Gets or sets the action buttons.
-            /// </summary>
-            /// <value>
-            /// The action buttons.
-            /// </value>
-            public string actionButtons { get; set; }
-        }
     }
 }
