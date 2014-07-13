@@ -36,6 +36,7 @@ namespace YAF.Pages
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;

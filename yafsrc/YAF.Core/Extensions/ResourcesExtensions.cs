@@ -21,50 +21,52 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Extensions
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Types;
-
-  #endregion
-
-  /// <summary>
-  /// The resources extensions.
-  /// </summary>
-  public static class ResourcesExtensions
-  {
-    #region Public Methods
-
-    /// <summary>
-    /// The get hours offset.
-    /// </summary>
-    /// <param name="lanuageResource">
-    /// The resource.
-    /// </param>
-    /// <returns>
-    /// The get hours offset.
-    /// </returns>
-    public static decimal GetHoursOffset(this LanuageResourcesPageResource lanuageResource)
-    {
-      // calculate hours -- can use prefix of either UTC or GMT...
-      decimal hours = 0;
-
-      try
-      {
-        hours = Convert.ToDecimal(lanuageResource.tag.Replace("UTC", string.Empty).Replace("GMT", string.Empty));
-      }
-      catch (FormatException)
-      {
-        hours =
-          Convert.ToDecimal(lanuageResource.tag.Replace(".", ",").Replace("UTC", string.Empty).Replace("GMT", string.Empty));
-      }
-
-      return hours;
-    }
+    using YAF.Types;
+    using YAF.Types.Extensions;
 
     #endregion
-  }
+
+    /// <summary>
+    /// The resources extensions.
+    /// </summary>
+    public static class ResourcesExtensions
+    {
+        #region Public Methods
+
+        /// <summary>
+        /// Gets the hours offset.
+        /// </summary>
+        /// <param name="lanuageResource">The resource.</param>
+        /// <returns>
+        /// The get hours offset.
+        /// </returns>
+        public static decimal GetHoursOffset(this LanuageResourcesPageResource lanuageResource)
+        {
+            // calculate hours -- can use prefix of either UTC or GMT...
+            decimal hours;
+
+            try
+            {
+                hours = lanuageResource.tag.Replace("UTC", string.Empty).Replace("GMT", string.Empty).ToType<decimal>();
+            }
+            catch (FormatException)
+            {
+                hours =
+                    lanuageResource.tag.Replace(".", ",")
+                        .Replace("UTC", string.Empty)
+                        .Replace("GMT", string.Empty)
+                        .ToType<decimal>();
+            }
+
+            return hours;
+        }
+
+        #endregion
+    }
 }

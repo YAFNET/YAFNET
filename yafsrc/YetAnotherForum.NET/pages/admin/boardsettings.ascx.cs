@@ -35,6 +35,7 @@ namespace YAF.Pages.Admin
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -194,7 +195,6 @@ namespace YAF.Pages.Admin
             this.EmailModeratorsOnReportedPost.Checked = boardSettings.EmailModeratorsOnReportedPost;
             this.AllowDigestEmail.Checked = boardSettings.AllowDigestEmail;
             this.DefaultSendDigestEmail.Checked = boardSettings.DefaultSendDigestEmail;
-            this.JqueryUIThemeCDNHosted.Checked = boardSettings.JqueryUIThemeCDNHosted;
             this.ForumEmail.Text = boardSettings.ForumEmail;
             this.ForumBaseUrlMask.Text = boardSettings.BaseUrlMask;
 
@@ -276,7 +276,6 @@ namespace YAF.Pages.Admin
             boardSettings.BaseUrlMask = this.ForumBaseUrlMask.Text;
             boardSettings.CopyrightRemovalDomainKey = this.CopyrightRemovalKey.Text.Trim();
             boardSettings.JqueryUITheme = this.JqueryUITheme.SelectedValue;
-            boardSettings.JqueryUIThemeCDNHosted = this.JqueryUIThemeCDNHosted.Checked;
 
             int hours;
 

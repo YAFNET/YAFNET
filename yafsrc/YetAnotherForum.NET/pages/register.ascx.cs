@@ -35,12 +35,12 @@ namespace YAF.Pages
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.UI.WebControls;
-
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;

@@ -33,6 +33,7 @@ namespace YAF.Core.Services
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services.Import;
     using YAF.Types;
@@ -207,7 +208,6 @@ namespace YAF.Core.Services
                 adminProviderUserKey, 
                 Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
 
-            LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
             LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
 
             // vzrus: uncomment it to not keep install/upgrade objects in db for a place and better security

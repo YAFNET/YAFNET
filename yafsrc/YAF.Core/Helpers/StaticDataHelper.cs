@@ -22,10 +22,9 @@
  * under the License.
  */
 
-namespace YAF.Core
+namespace YAF.Core.Helpers
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using System.Globalization;
     using System.IO;
@@ -33,8 +32,8 @@ namespace YAF.Core
     using System.Web;
     using System.Xml;
     using YAF.Classes;
+    using YAF.Core.Extensions;
     using YAF.Core.Services.Localization;
-    using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
@@ -450,9 +449,7 @@ namespace YAF.Core
                 var timezones =
                   localization.GetNodesUsingQuery("TIMEZONES", x => x.tag.StartsWith("UTC")).ToList();
 
-                timezones.Sort(new YafLanguageNodeComparer());
-
-                foreach (var node in timezones)
+                foreach (var node in timezones.OrderBy(tz => tz.tag))
                 {
                     dt.Rows.Add(new object[] { node.GetHoursOffset() * 60, node.Value });
                 }
@@ -526,29 +523,6 @@ namespace YAF.Core
 
                 return dt;
             }
-        }
-
-        #endregion
-    }
-
-    /// <summary>
-    /// The YAF language node comparer.
-    /// </summary>
-    public class YafLanguageNodeComparer : IComparer<LanuageResourcesPageResource>
-    {
-        #region IComparer<XmlNode>
-
-        /// <summary>
-        /// Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.
-        /// </summary>
-        /// <param name="x">The first object to compare.</param>
-        /// <param name="y">The second object to compare.</param>
-        /// <returns>
-        /// A signed integer that indicates the relative values of <paramref name="x" /> and <paramref name="y" />, as shown in the following table.Value Meaning Less than zero<paramref name="x" /> is less than <paramref name="y" />.Zero<paramref name="x" /> equals <paramref name="y" />.Greater than zero<paramref name="x" /> is greater than <paramref name="y" />.
-        /// </returns>
-        public int Compare(LanuageResourcesPageResource x, LanuageResourcesPageResource y)
-        {
-            return x.GetHoursOffset().CompareTo(y.GetHoursOffset());
         }
 
         #endregion

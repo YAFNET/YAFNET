@@ -21,16 +21,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Handlers
 {
   #region Using
 
   using System;
 
+  using YAF.Core.Helpers;
   using YAF.Types.Exceptions;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
-  using YAF.Utils;
 
   #endregion
 

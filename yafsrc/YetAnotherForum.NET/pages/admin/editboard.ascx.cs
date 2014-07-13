@@ -33,10 +33,10 @@ namespace YAF.Pages.Admin
     using System.Web;
     using System.Web.Security;
     using System.Web.UI.WebControls;
-
     using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;

@@ -39,6 +39,7 @@ namespace YAF.Install
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Services;
     using YAF.Core.Tasks;
     using YAF.Types;

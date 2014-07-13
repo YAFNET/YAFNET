@@ -42,6 +42,7 @@ namespace YAF.Controls
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;

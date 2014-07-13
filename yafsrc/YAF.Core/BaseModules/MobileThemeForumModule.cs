@@ -21,18 +21,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.BaseModules
 {
   #region Using
 
   using System;
   using System.Web;
 
+  using YAF.Core.Handlers;
   using YAF.Types;
   using YAF.Types.Attributes;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
-  using YAF.Utils;
   using YAF.Utils.Helpers;
 
   #endregion
@@ -49,7 +49,7 @@ namespace YAF.Core
     /// Initializes a new instance of the <see cref="MobileThemeForumModule"/> class.
     /// </summary>
     /// <param name="yafSession">
-    /// The yaf session.
+    /// The YAF session.
     /// </param>
     /// <param name="httpRequestBase">
     /// The http request base.

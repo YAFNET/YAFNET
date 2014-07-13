@@ -33,6 +33,7 @@ namespace YAF.Core.Modules
     using YAF.Classes;
     using YAF.Core.BBCode;
     using YAF.Core.Extensions;
+    using YAF.Core.Handlers;
     using YAF.Core.Services;
     using YAF.Core.Services.Cache;
     using YAF.Core.Services.Startup;

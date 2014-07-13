@@ -38,6 +38,7 @@ namespace YAF.Controls
     using YAF.Core.Services;
     using YAF.Core.Services.Localization;
     using YAF.Core.Services.Startup;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
