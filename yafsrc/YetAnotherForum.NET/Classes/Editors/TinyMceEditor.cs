@@ -29,6 +29,7 @@ namespace YAF.Editors
     using System.Web.UI;
 
     using YAF.Types;
+    using YAF.Types.Interfaces;
 
     #endregion
 
@@ -86,6 +87,11 @@ namespace YAF.Editors
 
             this.RegisterTinyMceCustomJS();
             this.RegisterSmilieyScript();
+
+            // register custom YafBBCode javascript (if there is any)
+            // this call is supposed to be after editor load since it may use
+            // JS variables created in editor_load...
+            this.Get<IBBCode>().RegisterCustomBBCodePageElements(this.Page, this.GetType(), this.SafeID);
         }
 
         /// <summary>
