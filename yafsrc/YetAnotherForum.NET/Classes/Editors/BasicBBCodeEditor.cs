@@ -27,12 +27,15 @@ namespace YAF.Editors
 
     using System;
 
+    using YAF.Core;
     using YAF.Types;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
 
     #endregion
 
     /// <summary>
-    /// The same as the TextEditor except it adds YafBBCode support. Used for QuickReply
+    /// The same as the TextEditor except it adds YAF BBCode support. Used for QuickReply
     ///   functionality.
     /// </summary>
     public class BasicBBCodeEditor : TextEditor
@@ -47,7 +50,7 @@ namespace YAF.Editors
         {
             get
             {
-                return "Basic YafBBCode Editor";
+                return "Basic BBCode Editor";
             }
         }
 
@@ -77,6 +80,46 @@ namespace YAF.Editors
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Handles the PreRender event of the Editor control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+        protected override void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            base.Editor_PreRender(sender, e);
+
+            YafContext.Current.PageElements.RegisterJsInclude(
+                "YafEditorJs",
+#if DEBUG
+                this.ResolveUrl("yafEditor/yafEditor.js"));
+#else
+                this.ResolveUrl("yafEditor/yafEditor.min.js"));
+#endif
+
+
+            YafContext.Current.PageElements.RegisterJsInclude(
+                "CodeMirrorJs",
+                this.ResolveUrl("ckeditor/plugins/codemirror/js/codemirror.min.js"));
+
+            YafContext.Current.PageElements.RegisterJsInclude(
+                "CodeMirrorBBCodeJs",
+                this.ResolveUrl("ckeditor/plugins/codemirror/js/codemirror.mode.bbcode.min.js"));
+
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "CreateYafEditorJs",
+                "var {0}=new yafEditor('{0}');\nfunction setStyle(style,option) {{\n{0}.FormatText(style,option);\n}}\n"
+                    .FormatWith(this.SafeID));
+
+            YafContext.Current.PageElements.RegisterCssInclude(
+                this.ResolveUrl("ckeditor/plugins/codemirror/css/codemirror.min.css"));
+
+            // register custom YafBBCode javascript (if there is any)
+            // this call is supposed to be after editor load since it may use
+            // JS variables created in editor_load...
+            this.Get<IBBCode>().RegisterCustomBBCodePageElements(this.Page, this.GetType(), this.SafeID);
+        }
 
         /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.

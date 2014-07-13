@@ -26,7 +26,6 @@ namespace YAF.Core
 {
     #region Using
 
-    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
@@ -37,25 +36,19 @@ namespace YAF.Core
     #endregion
 
     /// <summary>
-    ///     The i module manager extensions.
+    ///     The module manager extensions.
     /// </summary>
     public static class IModuleManagerExtensions
     {
         #region Public Methods and Operators
 
         /// <summary>
-        ///     The get editors table.
+        /// The get editors table.
         /// </summary>
-        /// <typeparam name="TModule">
-        /// </typeparam>
-        /// <param name="moduleManager">
-        ///     The module Manager.
-        /// </param>
-        /// <param name="tableName">
-        ///     The table Name.
-        /// </param>
-        /// <returns>
-        /// </returns>
+        /// <typeparam name="TModule">The type of the module.</typeparam>
+        /// <param name="moduleManager">The module Manager.</param>
+        /// <param name="tableName">The table Name.</param>
+        /// <returns>Returns all editors as data table</returns>
         [NotNull]
         public static DataTable ActiveAsDataTable<TModule>(
             [NotNull] this IModuleManager<TModule> moduleManager,
@@ -66,10 +59,10 @@ namespace YAF.Core
 
             using (var dataTable = new DataTable(tableName))
             {
-                dataTable.Columns.Add("Value", Type.GetType("System.Int32"));
-                dataTable.Columns.Add("Name", Type.GetType("System.String"));
+                dataTable.Columns.Add("Value", typeof(int));
+                dataTable.Columns.Add("Name", typeof(string));
 
-                foreach (var module in moduleManager.GetAll())
+                foreach (var module in moduleManager.GetAll().OrderBy(e => e.Description))
                 {
                     dataTable.Rows.Add(new object[] { module.ModuleId, module.Description });
                 }
@@ -79,34 +72,26 @@ namespace YAF.Core
         }
 
         /// <summary>
-        ///     Get a dictionary list discribing the active modules.
+        /// Get a dictionary list describing the active modules.
         /// </summary>
-        /// <typeparam name="TModule">
-        /// </typeparam>
-        /// <param name="moduleManager">
-        ///     The module Manager.
-        /// </param>
-        /// <returns>
-        /// </returns>
+        /// <typeparam name="TModule">The type of the module.</typeparam>
+        /// <param name="moduleManager">The module Manager.</param>
+        /// <returns>Returns a dictionary list describing the active modules.</returns>
         [NotNull]
         public static IDictionary<string, string> ActiveAsDictionary<TModule>(
             [NotNull] this IModuleManager<TModule> moduleManager) where TModule : IModuleDefinition
         {
             CodeContracts.VerifyNotNull(moduleManager, "moduleManager");
 
-            return moduleManager.GetAll().ToDictionary((mk) => mk.ModuleId, (mv) => mv.Description);
+            return moduleManager.GetAll().ToDictionary(mk => mk.ModuleId, mv => mv.Description);
         }
 
         /// <summary>
-        ///     Get all active modules.
+        /// Get all active modules.
         /// </summary>
-        /// <typeparam name="TModule">
-        /// </typeparam>
-        /// <param name="moduleManager">
-        ///     The module Manager.
-        /// </param>
-        /// <returns>
-        /// </returns>
+        /// <typeparam name="TModule">The type of the module.</typeparam>
+        /// <param name="moduleManager">The module Manager.</param>
+        /// <returns>Returns all active modules</returns>
         public static IEnumerable<TModule> GetAll<TModule>([NotNull] this IModuleManager<TModule> moduleManager)
             where TModule : IModuleDefinition
         {

@@ -146,33 +146,7 @@ namespace YAF.Editors
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected virtual void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // Ederon : 9/6/2007
-            /*if (this.Visible || this.)
-			{*/
-            YafContext.Current.PageElements.RegisterJsInclude(
-                "YafEditorJs",
-#if DEBUG
-                this.ResolveUrl("yafEditor/yafEditor.js"));
-#else
-                this.ResolveUrl("yafEditor/yafEditor.min.js"));
-#endif
-
-
-            YafContext.Current.PageElements.RegisterJsInclude(
-                "CodeMirrorJs",
-                this.ResolveUrl("ckeditor/plugins/codemirror/js/codemirror.min.js"));
-
-            YafContext.Current.PageElements.RegisterJsInclude(
-                "CodeMirrorBBCodeJs",
-                this.ResolveUrl("ckeditor/plugins/codemirror/js/codemirror.mode.bbcode.min.js"));
-
-            YafContext.Current.PageElements.RegisterJsBlock(
-                "CreateYafEditorJs",
-                "var {0}=new yafEditor('{0}');\nfunction setStyle(style,option) {{\n{0}.FormatText(style,option);\n}}\n"
-                    .FormatWith(this.SafeID));
-
-            YafContext.Current.PageElements.RegisterCssInclude(
-                this.ResolveUrl("ckeditor/plugins/codemirror/css/codemirror.min.css"));
+            
 
             this.RegisterSmilieyScript();
         }

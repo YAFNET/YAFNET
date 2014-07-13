@@ -161,6 +161,7 @@
     <Compile Include="auth.aspx.designer.cs">
       <DependentUpon>auth.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Editors\BBCodeEditorCodeMirror.cs" />
     <Compile Include="Classes\Editors\CKEditor.cs" />
     <Compile Include="Classes\Editors\CKEditorBBCodeEditor.cs" />
     <Compile Include="Classes\Editors\CKEditorHtmlEditor.cs" />
@@ -1880,6 +1881,10 @@
     <Content Include="Scripts\tinymce\themes\modern\theme.min.js" />
     <Content Include="Scripts\tinymce\tinymce.js" />
     <Content Include="Scripts\tinymce\tinymce.min.js" />
+    <Content Include="Scripts\yafEditor\yafEditorStandard.js" />
+    <Content Include="Scripts\yafEditor\yafEditorStandard.min.js">
+      <DependentUpon>yafEditorStandard.js</DependentUpon>
+    </Content>
     <Content Include="themes\Fancy\images\dd_arrow.gif" />
     <Content Include="Content\images\desc.gif" />
     <Content Include="Content\images\flags\ad.png" />
@@ -4972,6 +4977,7 @@
     <Content Include="UrlRewriter.config" />
     <None Include="Web References\RegisterV2\RegisterV2.wsdl" />
     <Content Include="v1.9.1.upgrade.web.config" />
+    <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\URLRewriter.NET\Intelligencia.UrlRewriter.csproj">

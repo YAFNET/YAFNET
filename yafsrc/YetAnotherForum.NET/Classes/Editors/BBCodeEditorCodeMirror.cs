@@ -47,7 +47,7 @@ namespace YAF.Editors
     /// <summary>
     /// The (old) YAF BBCode editor.
     /// </summary>
-    public class BBCodeEditor : TextEditor
+    public class BBCodeEditorCodeMirror : TextEditor
     {
         #region Constants and Fields
 
@@ -78,7 +78,7 @@ namespace YAF.Editors
         {
             get
             {
-                return "Standard BBCode Editor";
+                return "Standard BBCode Editor (width Syntax Highlighting)";
             }
         }
 
@@ -90,7 +90,7 @@ namespace YAF.Editors
             get
             {
                 // backward compatibility...
-                return "1";
+                return "2";
             }
         }
 
@@ -121,14 +121,27 @@ namespace YAF.Editors
             YafContext.Current.PageElements.RegisterJsInclude(
                 "YafEditorJs",
 #if DEBUG
-                this.ResolveUrl("yafEditor/yafEditorStandard.js"));
+                this.ResolveUrl("yafEditor/yafEditor.js"));
 #else
-                this.ResolveUrl("yafEditor/yafEditorStandard.min.js"));
+                this.ResolveUrl("yafEditor/yafEditor.min.js"));
 #endif
+
+
+            YafContext.Current.PageElements.RegisterJsInclude(
+                "CodeMirrorJs",
+                this.ResolveUrl("ckeditor/plugins/codemirror/js/codemirror.min.js"));
+
+            YafContext.Current.PageElements.RegisterJsInclude(
+                "CodeMirrorBBCodeJs",
+                this.ResolveUrl("ckeditor/plugins/codemirror/js/codemirror.mode.bbcode.min.js"));
+
             YafContext.Current.PageElements.RegisterJsBlock(
                 "CreateYafEditorJs",
                 "var {0}=new yafEditor('{0}');\nfunction setStyle(style,option) {{\n{0}.FormatText(style,option);\n}}\n"
                     .FormatWith(this.SafeID));
+
+            YafContext.Current.PageElements.RegisterCssInclude(
+                this.ResolveUrl("ckeditor/plugins/codemirror/css/codemirror.min.css"));
 
             // register custom YafBBCode javascript (if there is any)
             // this call is supposed to be after editor load since it may use
