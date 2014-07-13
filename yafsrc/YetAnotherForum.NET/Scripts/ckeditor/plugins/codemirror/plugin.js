@@ -638,6 +638,48 @@
                     window["foldFunc_" + editor.id] = CodeMirror.newFoldFunction(CodeMirror.tagRangeFinder);
                 }
 
+                function getCodeMirrorKey(ckeditorKeystroke) {
+                    var MODIFIERS = [
+                        [ CKEDITOR.SHIFT, "Shift-" ],
+                        [ CKEDITOR.CTRL, "Ctrl-" ],
+                        [ CKEDITOR.ALT, "Alt-" ]
+                    ];
+                    var keyModifiers = "";
+                    for (var i = 0; i < MODIFIERS.length; i++) {
+                        if (ckeditorKeystroke & MODIFIERS[i][0]) {
+                            ckeditorKeystroke -= MODIFIERS[i][0];
+                            keyModifiers += MODIFIERS[i][1];
+                        }
+                    }
+                    if (CodeMirror.keyNames[ckeditorKeystroke]) {
+                        return keyModifiers + CodeMirror.keyNames[ckeditorKeystroke];
+                    }
+                    return null;
+                }
+
+                function addCKEditorKeystrokes(extraKeys) {
+                    var ckeditorKeystrokes = editor.config.keystrokes;
+                    if (CKEDITOR.tools.isArray(ckeditorKeystrokes)) {
+                        for (var i = 0; i < ckeditorKeystrokes.length; i++) {
+                            var key = getCodeMirrorKey(ckeditorKeystrokes[i][0]);
+                            if (key !== null) {
+                                (function(command) {
+                                    extraKeys[key] = function() {
+                                        editor.execCommand(command);
+                                    }
+                                })(ckeditorKeystrokes[i][1]);
+                            }
+                        }
+                    }
+                }
+
+                var extraKeys = {
+                    "Ctrl-Q": function (codeMirror_Editor) {
+                        window["foldFunc_" + editor.id](codeMirror_Editor, codeMirror_Editor.getCursor().line);
+                    }
+                };
+                addCKEditorKeystrokes(extraKeys);
+
                 window["codemirror_" + editor.id] = CodeMirror.fromTextArea(sourceAreaElement.$, {
                     mode: config.mode,
                     matchBrackets: config.matchBrackets,
@@ -656,7 +698,7 @@
                     showTrailingSpace: config.showTrailingSpace,
                     showCursorWhenSelecting: true,
                     //extraKeys: {"Ctrl-Space": "autocomplete"},
-                    extraKeys: { "Ctrl-Q": function (codeMirror_Editor) { window["foldFunc_" + editor.id](codeMirror_Editor, codeMirror_Editor.getCursor().line); } },
+                    extraKeys: extraKeys,
                     onKeyEvent: function (codeMirror_Editor, evt) {
                         
                         if (config.enableCodeFormatting) {
