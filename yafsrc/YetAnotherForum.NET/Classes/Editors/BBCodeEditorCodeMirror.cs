@@ -78,7 +78,7 @@ namespace YAF.Editors
         {
             get
             {
-                return "Standard BBCode Editor (width Syntax Highlighting)";
+                return "Standard BBCode Editor (with Syntax Highlighting)";
             }
         }
 
