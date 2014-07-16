@@ -210,10 +210,10 @@
                         </tr>
                         <tr>
 							<td align="right" class="postheader">
-								<YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="COUNTRY" CssClass="selectMenuWithIcons" />
+								<YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="COUNTRY" />
 						    </td>
 							<td class="post">
-								<YAF:CountryListBox ID="Country" runat="server" DataTextField="Name" DataValueField="Value" /></td>
+								<YAF:CountryListBox ID="Country" runat="server" DataTextField="Name" DataValueField="Value" CssClass="selectMenuWithIcons" /></td>
 						</tr>
 						<tr>
 							<td align="right" class="postheader">
