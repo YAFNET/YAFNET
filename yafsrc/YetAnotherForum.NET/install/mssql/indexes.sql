@@ -87,6 +87,10 @@ go
 
 -- {objectQualifier}User
 
+if not exists(select top 1 1 from sys.indexes where name=N'IX_{objectQualifier}User_FlagsNJoinded' and object_id=object_id(N'[{databaseOwner}].[{objectQualifier}User]'))
+ CREATE NONCLUSTERED INDEX [IX_{objectQualifier}User_FlagsNJoinded] ON [{databaseOwner}].[{objectQualifier}User] ([BoardID]) INCLUDE ([UserID],[Joined],[Flags])
+go
+
 if not exists(select top 1 1 from sys.indexes where name=N'IX_{objectQualifier}User_Flags' and object_id=object_id(N'[{databaseOwner}].[{objectQualifier}User]'))
  CREATE  INDEX [IX_{objectQualifier}User_Flags] ON [{databaseOwner}].[{objectQualifier}User]([Flags])
 go
