@@ -259,13 +259,14 @@ namespace YAF.Utilities
             get
             {
                 return
-                    @" if( typeof(CKEDITOR) == 'undefined' && typeof loadTimeAgo == 'function') {{Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
+                    @" if( typeof(CKEDITOR) == 'undefined' && typeof loadTimeAgo == 'function') {{
             function loadTimeAgo() {{	
             {2}.timeago.settings.refreshMillis = {1};			      	
             {0}
 		    {2}('abbr.timeago').timeago();	
-	   
-			      }} }}"
+			      }} 
+                   Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
+                   }};"
                         .FormatWith(
                             YafContext.Current.Get<ILocalization>().GetText("TIMEAGO_JS"),
                             YafContext.Current.Get<YafBoardSettings>().RelativeTimeRefreshTime,
