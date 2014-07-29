@@ -6776,7 +6776,13 @@ begin
 	LastMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(a.TopicMovedID,a.TopicID) AND mes2.IsApproved = 1 AND mes2.IsDeleted = 0 ORDER BY mes2.Posted DESC) 
 
 from [{databaseOwner}].[{objectQualifier}Topic] a, 
-     [{databaseOwner}].[{objectQualifier}Forum] b where a.ForumID = @ForumID and b.ForumID = a.ForumID and a.TopicMovedID is null and a.IsDeleted = 0
+     [{databaseOwner}].[{objectQualifier}Forum] b 
+
+where a.ForumID = @ForumID and 
+      b.ForumID = a.ForumID and 
+	  a.TopicMovedID is null and 
+	  a.IsDeleted = 0 and
+	  a.NumPosts > 0
 
 order by a.Posted desc
 end
