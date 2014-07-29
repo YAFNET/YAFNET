@@ -170,6 +170,10 @@ define("tinymce/pasteplugin/Utils", [
 			}
 		}
 
+		html = filter(html, [
+			/<!\[[^\]]+\]>/g // Conditional comments
+		]);
+
 		walk(domParser.parse(html));
 
 		return text;
@@ -1366,7 +1370,7 @@ define("tinymce/pasteplugin/Quirks", [
 						return before + ' style="' + outputStyles + '"' + after;
 					}
 
-					return '';
+					return before + after;
 				});
 			} else {
 				// Remove all external styles
