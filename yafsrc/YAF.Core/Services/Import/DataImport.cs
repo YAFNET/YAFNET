@@ -24,14 +24,13 @@
 
 namespace YAF.Core.Services.Import
 {
-    using YAF.Classes.Data;
-
     using System;
     using System.Data;
     using System.IO;
     using System.Linq;
     using System.Net;
 
+    using YAF.Classes.Data;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
@@ -242,7 +241,7 @@ namespace YAF.Core.Services.Import
                 {
                     var line = streamReader.ReadLine();
 
-                    if (line.IsNotSet())
+                    if (line.IsNotSet() || !line.Contains("@"))
                     {
                         continue;
                     }
