@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014 Ingo Herbote
@@ -188,7 +188,7 @@ namespace YAF.Providers.Utils
             var exceptionXmlDoc = new XmlDocument();
             exceptionXmlDoc.Load(
                 HttpContext.Current.Server.MapPath(
-                    "{0}{1}Resources/{1}".FormatWith(
+                    "{0}{1}Resources/{2}".FormatWith(
                         Config.ServerFileRoot,
                         Config.ServerFileRoot.EndsWith("/") ? string.Empty : "/",
                         ProviderExceptionFile)));
