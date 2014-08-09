@@ -2149,6 +2149,7 @@
     <Resource tag="VIEW_FORUM">Mostra forum</Resource>
     <Resource tag="VIEW_FULLINFO">Mostra informazioni dettagliate</Resource>
     <Resource tag="VIEW_TOPIC">Mostra discussione</Resource>
+    <Resource tag="VIEW_TOPIC_STARTED_BY">View topic started by {0}</Resource>
     <Resource tag="VIEW_USRPROFILE">Mostra profilo</Resource>
     <Resource tag="VOTE">Vota</Resource>
     <Resource tag="YES">Sì</Resource>

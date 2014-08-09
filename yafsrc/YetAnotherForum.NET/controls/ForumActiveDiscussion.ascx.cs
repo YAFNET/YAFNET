@@ -105,7 +105,7 @@ namespace YAF.Controls
             var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["TOPIC"]));
 
             var styles = this.Get<YafBoardSettings>().UseStyledTopicTitles
-                             ? this.Get<IStyleTransform>().DecodeStyleByString(currentRow["Styles"].ToString(), false)
+                             ? this.Get<IStyleTransform>().DecodeStyleByString(currentRow["Styles"].ToString())
                              : string.Empty;
 
             if (styles.IsSet())
@@ -140,8 +140,12 @@ namespace YAF.Controls
 
             if (!this.PageContext.IsMobileDevice)
             {
-                textMessageLink.ToolTip = "{0}".FormatWith(
-                    this.GetText("COMMON", "VIEW_TOPIC"));
+                textMessageLink.ToolTip =
+                    "{0}".FormatWith(
+                        this.GetTextFormatted(
+                            "VIEW_TOPIC_STARTED_BY",
+                            currentRow[this.Get<YafBoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName"]
+                                .ToString()));
 
                 textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "t={0}", currentRow["TopicID"]);

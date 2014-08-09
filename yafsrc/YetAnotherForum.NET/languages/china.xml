@@ -2156,6 +2156,7 @@
     <Resource tag="VIEW_FORUM">查看论坛</Resource>
     <Resource tag="VIEW_FULLINFO">查看完整信息</Resource>
     <Resource tag="VIEW_TOPIC">查看主题</Resource>
+    <Resource tag="VIEW_TOPIC_STARTED_BY">View topic started by {0}</Resource>
     <Resource tag="VIEW_USRPROFILE">查看档案</Resource>
     <Resource tag="VOTE">投票</Resource>
     <Resource tag="YES">是</Resource>

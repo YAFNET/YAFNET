@@ -2143,6 +2143,7 @@
     <Resource tag="VIEW_FORUM">Bekijk forum</Resource>
     <Resource tag="VIEW_FULLINFO">Bekijk volledige info</Resource>
     <Resource tag="VIEW_TOPIC">Bekijk topic</Resource>
+    <Resource tag="VIEW_TOPIC_STARTED_BY">View topic started by {0}</Resource>
     <Resource tag="VIEW_USRPROFILE">Bekijk profiel</Resource>
     <Resource tag="VOTE">Stem</Resource>
     <Resource tag="YES">Ja</Resource>

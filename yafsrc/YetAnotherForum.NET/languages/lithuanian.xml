@@ -2192,6 +2192,7 @@
     <Resource tag="VIEW_FORUM">View forum</Resource>
     <Resource tag="VIEW_FULLINFO">View full info</Resource>
     <Resource tag="VIEW_TOPIC">View topic</Resource>
+    <Resource tag="VIEW_TOPIC_STARTED_BY">View topic started by {0}</Resource>
     <Resource tag="VIEW_USRPROFILE">View profile</Resource>
     <Resource tag="VOTE">Vote</Resource>
     <Resource tag="YES">Yes</Resource>

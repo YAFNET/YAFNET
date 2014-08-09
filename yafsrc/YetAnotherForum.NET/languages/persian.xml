@@ -2141,6 +2141,7 @@
     <Resource tag="VIEW_FORUM">نمایش انجمن</Resource>
     <Resource tag="VIEW_FULLINFO">نمایش کامل اطلاعات</Resource>
     <Resource tag="VIEW_TOPIC">نمایش موضوع</Resource>
+    <Resource tag="VIEW_TOPIC_STARTED_BY">View topic started by {0}</Resource>
     <Resource tag="VIEW_USRPROFILE">نمایش پروفایل</Resource>
     <Resource tag="VOTE">رای</Resource>
     <Resource tag="YES">خیر</Resource>

@@ -2158,6 +2158,7 @@
     <Resource tag="VIEW_FORUM">Ver foro</Resource>
     <Resource tag="VIEW_FULLINFO">Ver información completa</Resource>
     <Resource tag="VIEW_TOPIC">Ver tema</Resource>
+    <Resource tag="VIEW_TOPIC_STARTED_BY">View topic started by {0}</Resource>
     <Resource tag="VIEW_USRPROFILE">Ver perfil</Resource>
     <Resource tag="VOTE">Votar</Resource>
     <Resource tag="YES">Si</Resource>
