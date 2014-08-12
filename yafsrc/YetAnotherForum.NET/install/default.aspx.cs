@@ -846,6 +846,13 @@ namespace YAF.Install
                     // move to upgrade..
                     this.CurrentWizardStepID = "WizInitDatabase";
                     break;
+                case "WizWelcome":
+
+                    e.Cancel = false;
+
+                    // move to upgrade..
+                    this.CurrentWizardStepID = "WizValidatePermission";
+                    break;
                 case "WizFinished":
                     break;
                 default:
