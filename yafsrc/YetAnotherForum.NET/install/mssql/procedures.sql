@@ -7700,6 +7700,7 @@ begin
     delete from [{databaseOwner}].[{objectQualifier}WatchForum] where UserID = @UserID
     delete from [{databaseOwner}].[{objectQualifier}TopicReadTracking] where UserID = @UserID
     delete from [{databaseOwner}].[{objectQualifier}ForumReadTracking] where UserID = @UserID
+	delete from [{databaseOwner}].[{objectQualifier}UserAlbum] where UserID = @UserID
     delete from [{databaseOwner}].[{objectQualifier}ReputationVote] where ReputationFromUserID = @UserID
 	delete from [{databaseOwner}].[{objectQualifier}ReputationVote] where ReputationToUserID = @UserID
     delete from [{databaseOwner}].[{objectQualifier}UserGroup] where UserID = @UserID
