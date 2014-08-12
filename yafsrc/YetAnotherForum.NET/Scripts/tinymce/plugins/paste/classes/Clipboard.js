@@ -33,7 +33,7 @@ define("tinymce/pasteplugin/Clipboard", [
 	"tinymce/pasteplugin/Utils"
 ], function(Env, VK, Utils) {
 	return function(editor) {
-		var self = this, pasteBinElm, lastRng, keyboardPasteTimeStamp = 0;
+		var self = this, pasteBinElm, lastRng, keyboardPasteTimeStamp = 0, draggingInternally = false;
 		var pasteBinDefaultContent = '%MCEPASTEBIN%', keyboardPastePlainTextState;
 
 		/**
@@ -238,16 +238,20 @@ define("tinymce/pasteplugin/Clipboard", [
 		function getDataTransferItems(dataTransfer) {
 			var data = {};
 
-			if (dataTransfer && dataTransfer.types) {
-				// Use old WebKit API
-				var legacyText = dataTransfer.getData('Text');
-				if (legacyText && legacyText.length > 0) {
-					data['text/plain'] = legacyText;
+			if (dataTransfer) {
+				// Use old WebKit/IE API
+				if (dataTransfer.getData) {
+					var legacyText = dataTransfer.getData('Text');
+					if (legacyText && legacyText.length > 0) {
+						data['text/plain'] = legacyText;
+					}
 				}
 
-				for (var i = 0; i < dataTransfer.types.length; i++) {
-					var contentType = dataTransfer.types[i];
-					data[contentType] = dataTransfer.getData(contentType);
+				if (dataTransfer.types) {
+					for (var i = 0; i < dataTransfer.types.length; i++) {
+						var contentType = dataTransfer.types[i];
+						data[contentType] = dataTransfer.getData(contentType);
+					}
 				}
 			}
 
@@ -458,6 +462,11 @@ define("tinymce/pasteplugin/Clipboard", [
 
 					removePasteBin();
 
+					// If we got nothing from clipboard API and pastebin then we could try the last resort: plain/text
+					if (!content.length) {
+						plainTextMode = true;
+					}
+
 					// Grab plain text from Clipboard API or convert existing HTML to plain text
 					if (plainTextMode) {
 						// Use plain text contents from Clipboard API unless the HTML contains paragraphs then
@@ -487,20 +496,14 @@ define("tinymce/pasteplugin/Clipboard", [
 				}, 0);
 			});
 
-			editor.on('dragstart', function(e) {
-				if (e.dataTransfer.types) {
-					try {
-						e.dataTransfer.setData('mce-internal', editor.selection.getContent());
-					} catch (ex) {
-						// IE 10 throws an error since it doesn't support custom data items
-					}
-				}
+			editor.on('dragstart dragend', function(e) {
+				draggingInternally = e.type == 'dragstart';
 			});
 
 			editor.on('drop', function(e) {
 				var rng = getCaretRangeFromEvent(e);
 
-				if (e.isDefaultPrevented()) {
+				if (e.isDefaultPrevented() || draggingInternally) {
 					return;
 				}
 
@@ -508,7 +511,7 @@ define("tinymce/pasteplugin/Clipboard", [
 					return;
 				}
 
-				if (rng) {
+				if (rng && editor.settings.paste_filter_drop !== false) {
 					var dropContent = getDataTransferItems(e.dataTransfer);
 					var content = dropContent['mce-internal'] || dropContent['text/html'] || dropContent['text/plain'];
 
@@ -521,6 +524,8 @@ define("tinymce/pasteplugin/Clipboard", [
 							}
 
 							editor.selection.setRng(rng);
+
+							content = Utils.trimHtml(content);
 
 							if (!dropContent['text/html']) {
 								pasteText(content);
