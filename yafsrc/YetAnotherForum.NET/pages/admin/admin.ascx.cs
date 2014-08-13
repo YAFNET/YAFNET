@@ -29,6 +29,8 @@ namespace YAF.Pages.Admin
     using System;
     using System.Data;
     using System.Data.SqlClient;
+    using System.Linq;
+    using System.Net.Mail;
     using System.Web.UI.WebControls;
 
     using FarsiLibrary;
@@ -40,6 +42,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -81,6 +84,33 @@ namespace YAF.Pages.Admin
             {
                 case "edit":
                     YafBuildLink.Redirect(ForumPages.admin_edituser, "u={0}", e.CommandArgument);
+                    break;
+                case "resendEmail":
+                    var commandArgument = e.CommandArgument.ToString().Split(';');
+
+                    var checkMail = this.GetRepository<CheckEmail>().ListTyped(commandArgument[0]).FirstOrDefault();
+
+                    if (checkMail != null)
+                    {
+                        var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
+
+                        var subject = this.Get<ILocalization>()
+                            .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
+
+                        verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
+                            ForumPages.approve,
+                            true,
+                            "k={0}",
+                            checkMail.Hash);
+                        verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
+                        verifyEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
+                        verifyEmail.TemplateParams["{forumlink}"] = YafForumInfo.ForumURL;
+
+                        verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject, true);
+
+                        this.PageContext.AddLoadMessage(this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"));
+                    }
+
                     break;
                 case "delete":
                     string daysValue =

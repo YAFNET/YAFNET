@@ -177,6 +177,7 @@
     <Resource tag="ADMIN_JOINED">Dołączył</Resource>
     <Resource tag="ADMIN_LOCATION">Lokalizacja forum</Resource>
     <Resource tag="ADMIN_NAME">Nazwa użytkownika</Resource>
+    <Resource tag="ADMIN_RESEND_EMAIL">Resend Email Verification</Resource>
     <Resource tag="ADMIN_UPGRADE">Zainstalowana wersja Yet Another Forum.net i wersja bazy danych nie zgadzają się. Powinieneś iść do "Instaluj" i zaktualizować bazę danych.</Resource>
     <Resource tag="Administration">Administracja</Resource>
     <Resource tag="ALL_BOARDS">- Wszystkie fora -</Resource>
@@ -193,6 +194,7 @@
     <Resource tag="HEADER1">Kto jest dostępny</Resource>
     <Resource tag="HEADER2">Nieaktywowani użytkownicy</Resource>
     <Resource tag="HEADER3">Statystyki dla</Resource>
+    <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to the User.</Resource>
     <Resource tag="MSG_VALID_DAYS">Powinieneś wpisać poprawną ilość dni.</Resource>
     <Resource tag="NUM_POSTS">Liczba postów:</Resource>
     <Resource tag="NUM_TOPICS">Liczba wątków:</Resource>

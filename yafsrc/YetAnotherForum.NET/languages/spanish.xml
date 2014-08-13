@@ -177,6 +177,7 @@
     <Resource tag="ADMIN_JOINED">Unido</Resource>
     <Resource tag="ADMIN_LOCATION">Localización</Resource>
     <Resource tag="ADMIN_NAME">Nombre</Resource>
+    <Resource tag="ADMIN_RESEND_EMAIL">Resend Email Verification</Resource>
     <Resource tag="ADMIN_UPGRADE">La versión instalada de TAF y la versión de tu base de datos no coinciden. Debes instalar y actualizar tu base de datos.</Resource>
     <Resource tag="Administration">Administración</Resource>
     <Resource tag="ALL_BOARDS"> - Todos los tablones - </Resource>
@@ -193,6 +194,7 @@
     <Resource tag="HEADER1">Quién está online</Resource>
     <Resource tag="HEADER2">Usuarios no verificados</Resource>
     <Resource tag="HEADER3">Estadísticas para</Resource>
+    <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to the User.</Resource>
     <Resource tag="MSG_VALID_DAYS">Debes ingresar un valor entero válido para días.</Resource>
     <Resource tag="NUM_POSTS">Número de publicaciones:</Resource>
     <Resource tag="NUM_TOPICS">Número de temas:</Resource>

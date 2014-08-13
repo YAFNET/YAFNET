@@ -170,13 +170,14 @@
   <Resource tag="VOTE">Vote</Resource>
  </page>
  <page name="ADMIN_ADMIN">
-  <Resource tag="ADMIN_APPROVE">Approve</Resource>
-  <Resource tag="ADMIN_DELETE">Delete</Resource>
+  <Resource tag="ADMIN_APPROVE">Approve user</Resource>
+  <Resource tag="ADMIN_DELETE">Delete user</Resource>
   <Resource tag="ADMIN_EMAIL">E-Mail</Resource>
   <Resource tag="ADMIN_IPADRESS">IP Address</Resource>
   <Resource tag="ADMIN_JOINED">Joined</Resource>
   <Resource tag="ADMIN_LOCATION">Board Location</Resource>
   <Resource tag="ADMIN_NAME">Name</Resource>
+  <Resource tag="ADMIN_RESEND_EMAIL">Resend Email Verification</Resource>
   <Resource tag="ADMIN_UPGRADE">The installed version of Yet Another Forum.net and the version of your database does not match. You should go to install and update your database.</Resource>
   <Resource tag="Administration">Administration</Resource>
   <Resource tag="ALL_BOARDS"> - All Boards - </Resource>
@@ -194,6 +195,7 @@
   <Resource tag="HEADER2">Unverified Users</Resource>
   <Resource tag="HEADER3">Statistics for</Resource>
   <Resource tag="MSG_VALID_DAYS">You should enter a valid integer value for days.</Resource>
+  <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to the User.</Resource>
   <Resource tag="NUM_POSTS">Number of posts:</Resource>
   <Resource tag="NUM_TOPICS">Number of topics:</Resource>
   <Resource tag="NUM_USERS">Number of users:</Resource>

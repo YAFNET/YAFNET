@@ -177,6 +177,7 @@
     <Resource tag="ADMIN_JOINED">Joined</Resource>
     <Resource tag="ADMIN_LOCATION">Board Location</Resource>
     <Resource tag="ADMIN_NAME">Name</Resource>
+    <Resource tag="ADMIN_RESEND_EMAIL">Resend Email Verification</Resource>
     <Resource tag="ADMIN_UPGRADE"> and update your database.</Resource>
     <Resource tag="Administration">管理员</Resource>
     <Resource tag="ALL_BOARDS"> - All Boards - </Resource>
@@ -193,6 +194,7 @@
     <Resource tag="HEADER1">哪些人在线</Resource>
     <Resource tag="HEADER2">Unverified Users</Resource>
     <Resource tag="HEADER3">Statistics for</Resource>
+    <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to the User.</Resource>
     <Resource tag="MSG_VALID_DAYS">You should enter a valid integer value for days.</Resource>
     <Resource tag="NUM_POSTS">帖子数:</Resource>
     <Resource tag="NUM_TOPICS">主题数:</Resource>

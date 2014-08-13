@@ -177,6 +177,7 @@
     <Resource tag="ADMIN_JOINED">Geregistreerd</Resource>
     <Resource tag="ADMIN_LOCATION">Board Lokatie</Resource>
     <Resource tag="ADMIN_NAME">Naam</Resource>
+    <Resource tag="ADMIN_RESEND_EMAIL">Resend Email Verification</Resource>
     <Resource tag="ADMIN_UPGRADE">De ge&amp;iuml;nstalleerde versie van de database en de versie van Yet Another Forum.net komen niet overeen. Je moet de database updaten.</Resource>
     <Resource tag="Administration">Onderhoud</Resource>
     <Resource tag="ALL_BOARDS"> - Alle Boards - </Resource>
@@ -193,6 +194,7 @@
     <Resource tag="HEADER1">Wie is online</Resource>
     <Resource tag="HEADER2">Niet-goedgekeurde gebruikers</Resource>
     <Resource tag="HEADER3">Statistieken voor</Resource>
+    <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to the User.</Resource>
     <Resource tag="MSG_VALID_DAYS">Je moet een nummer invullen voor het aantal dagen.</Resource>
     <Resource tag="NUM_POSTS">Aantal posts:</Resource>
     <Resource tag="NUM_TOPICS">Aantal topics:</Resource>

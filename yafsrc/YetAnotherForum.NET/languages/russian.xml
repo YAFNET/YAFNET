@@ -177,6 +177,7 @@
     <Resource tag="ADMIN_JOINED">Зарегистрирован</Resource>
     <Resource tag="ADMIN_LOCATION">Местонахождение</Resource>
     <Resource tag="ADMIN_NAME">Имя</Resource>
+    <Resource tag="ADMIN_RESEND_EMAIL">Resend Email Verification</Resource>
     <Resource tag="ADMIN_UPGRADE"> и обновить вашу базу данных.</Resource>
     <Resource tag="Administration">Администрирование</Resource>
     <Resource tag="ALL_BOARDS"> - Все конференции - </Resource>
@@ -193,6 +194,7 @@
     <Resource tag="HEADER1">Пользователи онлайн</Resource>
     <Resource tag="HEADER2">Неподтверждённые пользователи</Resource>
     <Resource tag="HEADER3">Статистика для</Resource>
+    <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to the User.</Resource>
     <Resource tag="MSG_VALID_DAYS">Вы должны ввести целое число для дней.</Resource>
     <Resource tag="NUM_POSTS">Количество сообщений:</Resource>
     <Resource tag="NUM_TOPICS">Количество тем:</Resource>

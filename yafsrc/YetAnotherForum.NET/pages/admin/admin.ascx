@@ -75,13 +75,19 @@
                         <%# this.Get<IDateTime>().FormatDateTime((DateTime)this.Eval("Joined")) %>
                     </td>
                     <td class="post">
-                        <asp:LinkButton OnLoad="Approve_Load" runat="server" CommandName="approve" CommandArgument='<%# Eval("UserID") %>'>
+                        <asp:LinkButton runat="server" CommandName="resendEmail" CommandArgument='<%# Eval("Email") + ";" + Eval("Name") %>' 
+                            CssClass="yaflittlebutton">
+                            <YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedTag="ADMIN_RESEND_EMAIL"
+                                LocalizedPage="ADMIN_ADMIN" />
+                        </asp:LinkButton>
+                        <asp:LinkButton OnLoad="Approve_Load" runat="server" CommandName="approve" CommandArgument='<%# Eval("UserID") %>'
+                            CssClass="yaflittlebutton">
                             <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="ADMIN_APPROVE"
                                 LocalizedPage="ADMIN_ADMIN">
                             </YAF:LocalizedLabel>
                         </asp:LinkButton>
-                        |
-                        <asp:LinkButton OnLoad="Delete_Load" runat="server" CommandName="delete" CommandArgument='<%# Eval("UserID") %>'>
+                        <asp:LinkButton OnLoad="Delete_Load" runat="server" CommandName="delete" CommandArgument='<%# Eval("UserID") %>' 
+                            CssClass="yaflittlebutton">
                             <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="ADMIN_DELETE"
                                 LocalizedPage="ADMIN_ADMIN" />
                         </asp:LinkButton>

@@ -177,6 +177,7 @@
     <Resource tag="ADMIN_JOINED">Registriert</Resource>
     <Resource tag="ADMIN_LOCATION">Board Ort</Resource>
     <Resource tag="ADMIN_NAME">Name</Resource>
+    <Resource tag="ADMIN_RESEND_EMAIL">Resend Email Verification</Resource>
     <Resource tag="ADMIN_UPGRADE"> und aktualisieren Sie Ihre Datenbank.</Resource>
     <Resource tag="Administration">Verwaltung</Resource>
     <Resource tag="ALL_BOARDS"> - Alle Boards - </Resource>
@@ -193,6 +194,7 @@
     <Resource tag="HEADER1">Wer ist Online</Resource>
     <Resource tag="HEADER2">Nicht verifizierte Benutzer</Resource>
     <Resource tag="HEADER3">Statistik für</Resource>
+    <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to the User.</Resource>
     <Resource tag="MSG_VALID_DAYS">Sie sollten einen gültigen Integer-Wert für Tage eingeben.</Resource>
     <Resource tag="NUM_POSTS">Anzahl der Beiträge:</Resource>
     <Resource tag="NUM_TOPICS">Anzahl der Themen:</Resource>

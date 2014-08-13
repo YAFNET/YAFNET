@@ -76,7 +76,7 @@ namespace YAF.Core.Model
 
             using (var session = repository.DbFunction.CreateSession())
             {
-                return session.GetTyped<CheckEmail>(r => r.repository.DbFunction.GetData.checkemail_list(Email: email));
+                return session.GetTyped<CheckEmail>(r => r.checkemail_list(Email: email));
             }
         }
 

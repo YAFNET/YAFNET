@@ -177,6 +177,7 @@
     <Resource tag="ADMIN_JOINED">پیوسته</Resource>
     <Resource tag="ADMIN_LOCATION">مکان تابلو</Resource>
     <Resource tag="ADMIN_NAME">نام</Resource>
+    <Resource tag="ADMIN_RESEND_EMAIL">Resend Email Verification</Resource>
     <Resource tag="ADMIN_UPGRADE"> و پایگاه داده خود را بروز رسانی کنید</Resource>
     <Resource tag="Administration">مدیریت</Resource>
     <Resource tag="ALL_BOARDS"> - همه تابلو ها - </Resource>
@@ -193,6 +194,7 @@
     <Resource tag="HEADER1">چه کسی برخط است</Resource>
     <Resource tag="HEADER2">کاربران وارسی نشده</Resource>
     <Resource tag="HEADER3">آمار برای</Resource>
+    <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to the User.</Resource>
     <Resource tag="MSG_VALID_DAYS">شما می بایست یک مقدار صحیح برای شمار روز وارد کنید</Resource>
     <Resource tag="NUM_POSTS">تعداد ارسال ها :</Resource>
     <Resource tag="NUM_TOPICS">تعداد موضوعات :</Resource>
