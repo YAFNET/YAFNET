@@ -4067,9 +4067,7 @@
     <Content Include="themes\Fancy\images\vote_rcap.gif" />
     <Content Include="themes\Fancy\images\vote_refuse.gif" />
     <Content Include="themes\Fancy\images\voting_bar.gif" />
-    <Content Include="themes\Fancy\jquery.msDropDown.css" />
     <Content Include="themes\Fancy\js\Fancy.js" />
-    <Content Include="themes\Fancy\js\jquery.msDropDown.js" />
     <Content Include="themes\Fancy\js\jquery.tipTip.minified.js" />
     <Content Include="themes\Fancy\js\jquery.uniform.min.js" />
     <Content Include="themes\Fancy\theme.css" />
