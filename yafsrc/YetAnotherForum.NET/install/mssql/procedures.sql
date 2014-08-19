@@ -6367,7 +6367,8 @@ BEGIN
         DELETE  [{databaseOwner}].[{objectQualifier}Attachment] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID) 
         DELETE  [{databaseOwner}].[{objectQualifier}MessageHistory] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID) 
 		
-		
+		update [{databaseOwner}].[{objectQualifier}Message] SET ReplyTo = null WHERE TopicID = @TopicID
+
 		-- update user post count
 		if not exists(select top 1 1 from [{databaseOwner}].[{objectQualifier}Forum] where ForumID=@ForumID and (Flags & 4)=0)
           -- delete messages
@@ -6380,8 +6381,6 @@ BEGIN
 		   where TopicID=@TopicID
     
            -- delete messages
-		   update [{databaseOwner}].[{objectQualifier}Message] SET ReplyTo = null WHERE TopicID = @TopicID
-
 		   open message_cursor
     
 		   fetch next from message_cursor
