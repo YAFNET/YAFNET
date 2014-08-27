@@ -182,7 +182,7 @@ namespace YAF.Modules
             if (YafContext.Current.Get<YafBoardSettings>().JqueryUIThemeCDNHosted)
             {
                YafContext.Current.PageElements.RegisterCssInclude(
-                    "//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/{0}/jquery-ui.min.css".FormatWith(
+                    "//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/{0}/jquery-ui.min.css".FormatWith(
                         YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
             }
             else
@@ -210,11 +210,11 @@ namespace YAF.Modules
             else
             {
                 jqueryUIUrl = YafContext.Current.Get<YafBoardSettings>().JqueryUICDNHosted
-                                  ? "//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"
+                                  ? "//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"
 #if DEBUG
-                                  : YafForumInfo.GetURLToScripts("jquery-ui-1.11.0.js");
+                                  : YafForumInfo.GetURLToScripts("jquery-ui-1.11.1.js");
 #else
- : YafForumInfo.GetURLToScripts("jquery-ui-1.11.0.min.js");
+                                  : YafForumInfo.GetURLToScripts("jquery-ui-1.11.1.min.js");
 #endif
             }
 
