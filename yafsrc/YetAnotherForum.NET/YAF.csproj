@@ -1856,7 +1856,9 @@
     <Content Include="Scripts\ckeditor\plugins\link\dialogs\link.js" />
     <Content Include="Scripts\ckeditor\plugins\link\images\anchor.png" />
     <Content Include="Scripts\ckeditor\plugins\link\images\hidpi\anchor.png" />
+    <Content Include="Scripts\ckeditor\plugins\magicline\images\hidpi\icon-rtl.png" />
     <Content Include="Scripts\ckeditor\plugins\magicline\images\hidpi\icon.png" />
+    <Content Include="Scripts\ckeditor\plugins\magicline\images\icon-rtl.png" />
     <Content Include="Scripts\ckeditor\plugins\magicline\images\icon.png" />
     <Content Include="Scripts\ckeditor\plugins\pastefromword\filter\default.js" />
     <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\options.js" />
