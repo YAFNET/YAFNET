@@ -138,24 +138,15 @@ namespace YAF.Controls
                 textMessageLink.Text = topicSubject;
             }
 
-            if (!this.PageContext.IsMobileDevice)
-            {
-                textMessageLink.ToolTip =
-                    "{0}".FormatWith(
-                        this.GetTextFormatted(
-                            "VIEW_TOPIC_STARTED_BY",
-                            currentRow[this.Get<YafBoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName"]
-                                .ToString()));
+            textMessageLink.ToolTip =
+                     "{0}".FormatWith(
+                         this.GetTextFormatted(
+                             "VIEW_TOPIC_STARTED_BY",
+                             currentRow[this.Get<YafBoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName"]
+                                 .ToString()));
 
-                textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                    ForumPages.posts, "t={0}", currentRow["TopicID"]);
-            }
-            else
-            {
-                textMessageLink.ToolTip = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
-                textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                    ForumPages.posts, "t={0}&find=unread", currentRow["TopicID"]);
-            }
+            textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                ForumPages.posts, "t={0}&find=unread", currentRow["TopicID"]);
 
             imageMessageLink.NavigateUrl = messageUrl;
             lastPostedImage.LocalizedTitle = this.lastPostToolTip;
@@ -163,8 +154,9 @@ namespace YAF.Controls
             if (imageLastUnreadMessageLink.Visible)
             {
                 imageLastUnreadMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                    //// ForumPages.posts, "m={0}&find=unread", currentRow["LastMessageID"]);
-                    ForumPages.posts, "t={0}&find=unread", currentRow["TopicID"]);
+                    ForumPages.posts,
+                    "t={0}&find=unread",
+                    currentRow["TopicID"]);
 
                 lastUnreadImage.LocalizedTitle = this.firstUnreadPostToolTip;
             }
