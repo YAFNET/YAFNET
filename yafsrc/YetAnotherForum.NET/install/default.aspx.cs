@@ -568,6 +568,13 @@ namespace YAF.Install
                     {
                         // no need for this setup if IsInstalled...
                         this.InstallWizard.ActiveStepIndex++;
+
+                        if (!this.IsForumInstalled)
+                        {
+                            // Skip enter the password on a new install when 
+                            // the app.config password is already set
+                            this.CurrentWizardStepID = "WizDatabaseConnection";
+                        }
                     }
 
                     break;
@@ -766,7 +773,7 @@ namespace YAF.Install
                         e.Cancel = false;
 
                         // move to upgrade..
-                        this.CurrentWizardStepID = "WizWelcomeUpgrade";
+                        this.CurrentWizardStepID = this.IsForumInstalled ? "WizWelcomeUpgrade" : "WizDatabaseConnection";
 
                         var dbVersionName = LegacyDb.GetDBVersionName();
                         var dbVersion = LegacyDb.GetDBVersion();
@@ -1210,7 +1217,7 @@ namespace YAF.Install
             {
                 this.Cache["DBVersion"] = LegacyDb.GetDBVersion();
 
-                this.CurrentWizardStepID = this.IsConfigPasswordSet ? "WizEnterPassword" : "WizWelcome";
+                this.CurrentWizardStepID = this.IsConfigPasswordSet && this.IsForumInstalled ? "WizEnterPassword" : "WizWelcome";
 
                 // "WizCreatePassword"
                 if (!this.IsConfigPasswordSet)
