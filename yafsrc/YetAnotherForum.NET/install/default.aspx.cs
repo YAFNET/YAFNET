@@ -768,12 +768,11 @@ namespace YAF.Install
                         // move to upgrade..
                         this.CurrentWizardStepID = "WizWelcomeUpgrade";
 
-                        this.CurrentVersionName.Text = "{0} ({1})".FormatWith(
-                            LegacyDb.GetDBVersionName(),
-                            LegacyDb.GetDBVersion());
-                        this.UpgradeVersionName.Text = "{0} ({1})".FormatWith(
-                            YafForumInfo.AppVersionName,
-                            YafForumInfo.AppVersion);
+                        var dbVersionName = LegacyDb.GetDBVersionName();
+                        var dbVersion = LegacyDb.GetDBVersion();
+
+                        this.CurrentVersionName.Text = dbVersion < 0 ? "New" :  "{0} ({1})".FormatWith(dbVersionName, dbVersion);
+                        this.UpgradeVersionName.Text = "{0} ({1})".FormatWith(YafForumInfo.AppVersionName, YafForumInfo.AppVersion);
                     }
                     else
                     {
