@@ -771,7 +771,7 @@ namespace YAF.Install
                         var dbVersionName = LegacyDb.GetDBVersionName();
                         var dbVersion = LegacyDb.GetDBVersion();
 
-                        this.CurrentVersionName.Text = dbVersion < 0 ? "N/A (New)" :  "{0} ({1})".FormatWith(dbVersionName, dbVersion);
+                        this.CurrentVersionName.Text = dbVersion < 0 ? "New" :  "{0} ({1})".FormatWith(dbVersionName, dbVersion);
                         this.UpgradeVersionName.Text = "{0} ({1})".FormatWith(YafForumInfo.AppVersionName, YafForumInfo.AppVersion);
                     }
                     else
