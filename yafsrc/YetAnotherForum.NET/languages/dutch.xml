@@ -1428,6 +1428,7 @@
     <Resource tag="SPAM_MESSAGE_0">Niets doen</Resource>
     <Resource tag="SPAM_MESSAGE_1">Markeer bericht als niet-goedgekeurd</Resource>
     <Resource tag="SPAM_MESSAGE_2">Blokkeer bericht</Resource>
+    <Resource tag="SPAM_MESSAGE_3">Delete &amp; Ban user</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING">Verwerking van als SPAM herkende berichten</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Kies hier wat er moet gebeuren als een bericht als SPAM herkend wordt. Je kunt kiezen tussen 'Niets doen', 'Markeer bericht als niet-goedgekeurd', of blokkeer het bericht.</Resource>
     <Resource tag="SPAM_SERVICE_TYP_1">BlogSpam.NET API</Resource>

@@ -1439,6 +1439,7 @@
     <Resource tag="SPAM_MESSAGE_0">No hacer nada</Resource>
     <Resource tag="SPAM_MESSAGE_1">Etiquetar mensaje como no aprobado</Resource>
     <Resource tag="SPAM_MESSAGE_2">Rechazar mensaje</Resource>
+    <Resource tag="SPAM_MESSAGE_3">Delete &amp; Ban user</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING">Manejo de los mensajes detectados como SPAM</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Elije que hacer cunado un mensaje ha sido detectado como SPAM, puedes elegir entre no hacer nada, marcar el mensaje como no aprobado o rechazar el mensaje.</Resource>
     <Resource tag="SPAM_SERVICE_TYP_1">BlogSpam.NET API</Resource>

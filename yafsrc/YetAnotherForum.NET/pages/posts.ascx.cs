@@ -1681,39 +1681,29 @@ namespace YAF.Pages
                                 EventLogTypes.SpamMessageDetected);
                             this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
                             return;
+                        case 3:
+                            this.Logger.Log(
+                                this.PageContext.PageUserID,
+                                "Spam Message Detected",
+                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and bannded"
+                                    .FormatWith(
+                                        this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                                        spamResult),
+                                EventLogTypes.SpamMessageDetected);
+                            
+                            var userIp =
+                                new CombinedUserDataHelper(
+                                    this.PageContext.CurrentUserData.Membership,
+                                    this.PageContext.PageUserID).LastIP;
+
+                            UserMembershipHelper.DeleteAndBanUser(
+                                this.PageContext.PageUserID,
+                                this.PageContext.CurrentUserData.Membership,
+                                userIp);
+
+                            return;
                     }
                 }
-
-                /*
-                // check user for spam bot
-                if (spamChecker.CheckUserForSpamBot(
-                    this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                    this.PageContext.IsGuest ? null : this.PageContext.User.Email,
-                    this.Get<HttpRequestBase>().GetUserRealIPAddress()))
-                {
-                    if (this.Get<YafBoardSettings>().SpamMessageHandling.Equals(1))
-                    {
-                        spamApproved = false;
-
-                        this.Get<ILogger>()
-                            .Info(
-                                "Spam Check detected possible SPAM posted by User: {0}, it was flagged as unapproved post. Content was: {1}",
-                                this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                                this._quickReplyEditor.Text);
-                    }
-                    else if (this.Get<YafBoardSettings>().SpamMessageHandling.Equals(2))
-                    {
-                        this.Get<ILogger>()
-                           .Info(
-                               "Spam Check detected possible SPAM posted by User: {0}, post was rejected. Content was: {1}",
-                               this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                               this._quickReplyEditor.Text);
-
-                        this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
-
-                        return;
-                    }
-                }*/
             }
 
             // If Forum is Moderated

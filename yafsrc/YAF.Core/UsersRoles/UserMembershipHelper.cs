@@ -33,11 +33,13 @@ namespace YAF.Core
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types.Constants;
     using YAF.Types.Exceptions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils.Helpers;
     using YAF.Utils.Structures;
 
@@ -272,6 +274,79 @@ namespace YAF.Core
                     "User {0} was deleted by {1}.".FormatWith(userName, isBotAutoDelete ? "the automatic spam check system" : YafContext.Current.PageUserName),
                     EventLogTypes.UserDeleted);
                 
+            // clear the cache
+            YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
+            YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
+            YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersDisplayNameCollection);
+
+            return true;
+        }
+
+        /// <summary>
+        /// Deletes and ban's the user.
+        /// </summary>
+        /// <param name="userID">The user id.</param>
+        /// <param name="user">The MemberShip User.</param>
+        /// <param name="userIpAddress">The user's IP address.</param>
+        /// <returns>
+        /// Returns if Deleting was successfully
+        /// </returns>
+        public static bool DeleteAndBanUser(int userID, MembershipUser user, string userIpAddress)
+        {
+            // Ban IP ?
+            if (YafContext.Current.Get<YafBoardSettings>().BanBotIpOnDetection)
+            {
+                YafContext.Current.GetRepository<BannedIP>()
+                    .Save(
+                        null,
+                        userIpAddress,
+                        "A spam Bot who was trying to register was banned by IP {0}".FormatWith(userIpAddress),
+                        userID);
+
+                // Clear cache
+                YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
+
+                if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
+                {
+                    YafContext.Current.Get<ILogger>()
+                        .Log(
+                            userID,
+                            "IP BAN of Bot",
+                            "A spam Bot who was banned by IP {0}".FormatWith(userIpAddress),
+                            EventLogTypes.IpBanSet);
+                }
+            }
+
+            // Ban Name ?
+            YafContext.Current.GetRepository<BannedName>()
+                .Save(null, user.UserName, "Name was reported by the automatic spam system.");
+
+            // Ban User Email?
+            YafContext.Current.GetRepository<BannedEmail>()
+                .Save(null, user.Email, "Email was reported by the automatic spam system.");
+
+            // Delete the images/albums both from database and physically.
+            var uploadDir =
+                HttpContext.Current.Server.MapPath(
+                    string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+
+            using (DataTable dt = LegacyDb.album_list(userID, null))
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    YafAlbum.Album_Image_Delete(uploadDir, dr["AlbumID"], userID, null);
+                }
+            }
+
+            YafContext.Current.Get<MembershipProvider>().DeleteUser(user.UserName, true);
+            LegacyDb.user_delete(userID);
+            YafContext.Current.Get<ILogger>()
+                .Log(
+                    YafContext.Current.PageUserID,
+                    "UserMembershipHelper.DeleteUser",
+                    "User {0} was deleted by the automatic spam check system.".FormatWith(user.UserName),
+                    EventLogTypes.UserDeleted);
+
             // clear the cache
             YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
             YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);

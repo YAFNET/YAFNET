@@ -779,6 +779,7 @@ namespace YAF.Classes
         /// 0 = Do nothing
         /// 1 = Flag Message as Unapproved
         /// 2 = Don't allow posting
+        /// 3 = Delete and Ban User
         /// </summary>
         public int SpamMessageHandling
         {
@@ -814,10 +815,10 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [ban bot ip on detection].
+        /// Gets or sets a value indicating whether [ban bot IP on detection].
         /// </summary>
         /// <value>
-        /// <c>true</c> if [ban bot ip on detection]; otherwise, <c>false</c>.
+        /// <c>true</c> if [ban bot IP on detection]; otherwise, <c>false</c>.
         /// </value>
         public bool BanBotIpOnDetection
         {

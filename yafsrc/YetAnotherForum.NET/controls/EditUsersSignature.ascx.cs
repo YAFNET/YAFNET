@@ -30,6 +30,7 @@ namespace YAF.Controls
     using System.Data;
     using System.Text;
 
+    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Editors;
@@ -339,13 +340,36 @@ namespace YAF.Controls
 
                     if (this.Get<ISpamWordCheck>().CheckForSpamWord(body, out result))
                     {
-                        // only log at the moment
-                        this.Logger.Log(
+                        var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
+                        var userId = this.CurrentUserID;
+
+                        // Log and Send Message to Admins
+                        if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
+                        {
+                            this.Logger.Log(
                                 null,
                                 "Bot Detected",
-                                "Internal Spam Word Check detected a SPAM BOT: (user id : '{0}') after the user changed the profile Homepage url to: {1}"
-                                    .FormatWith(this.CurrentUserID, result),
+                                "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user included a spam word in his/her signature: {2}"
+                                    .FormatWith(user.UserName, this.CurrentUserID, result),
                                 EventLogTypes.SpamBotDetected);
+                        }
+                        else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
+                        {
+                            this.Logger.Log(
+                                null,
+                                "Bot Detected",
+                                "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user included a spam word in his/her signature: {2}, user was deleted and the name, email and IP Address are banned."
+                                    .FormatWith(user.UserName, this.CurrentUserID, result),
+                                EventLogTypes.SpamBotDetected);
+
+                            // Kill user
+                            if (!this.InAdminPages)
+                            {
+                                var userIp = new CombinedUserDataHelper(user, userId).LastIP;
+
+                                UserMembershipHelper.DeleteAndBanUser(this.CurrentUserID, user, userIp);
+                            }
+                        }
                     }
 
                     LegacyDb.user_savesignature(this.CurrentUserID, this.Get<IBadWordReplace>().Replace(body));

@@ -1426,6 +1426,7 @@
     <Resource tag="SPAM_MESSAGE_0">Do nothing</Resource>
     <Resource tag="SPAM_MESSAGE_1">Flag Message as Unapproved</Resource>
     <Resource tag="SPAM_MESSAGE_2">Reject Message</Resource>
+    <Resource tag="SPAM_MESSAGE_3">Delete &amp; Ban user</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING">Handling of as SPAM Detected Messages</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Choose what to do when a Message was detected a SPAM, You can choose between Do Nothing, Flag Message as Unapproved, or reject the Message.</Resource>
     <Resource tag="SPAM_SERVICE_TYP_1">BlogSpam.NET API</Resource>

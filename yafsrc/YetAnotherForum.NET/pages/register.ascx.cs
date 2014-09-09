@@ -1013,33 +1013,9 @@ namespace YAF.Pages
                 else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
                 {
                     // Kill user
-                    UserMembershipHelper.DeleteUser(userId, true);
+                    UserMembershipHelper.DeleteAndBanUser(userId, user, userIpAddress);
 
                     this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.Error);
-
-                    if (this.Get<YafBoardSettings>().BanBotIpOnDetection)
-                    {
-                        this.GetRepository<BannedIP>()
-                            .Save(
-                                null,
-                                userIpAddress,
-                                "A spam Bot who was trying to register was banned by IP {0}".FormatWith(userIpAddress),
-                                this.PageContext.PageUserID);
-
-                        // Clear cache
-                        this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
-
-                        if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
-                        {
-                            this.Get<ILogger>()
-                                .Log(
-                                    this.PageContext.PageUserID,
-                                    "IP BAN of Bot During Registration",
-                                    "A spam Bot who was trying to register was banned by IP {0}".FormatWith(
-                                        userIpAddress),
-                                    EventLogTypes.IpBanSet);
-                        }
-                    }
                 }
 
                 this.Logger.Log(

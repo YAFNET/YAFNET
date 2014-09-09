@@ -159,39 +159,29 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// The cancel_ click.
+        /// Handles the Click event of the Cancel control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(this.adminEditMode ? ForumPages.admin_users : ForumPages.cp_profile);
         }
 
         /// <summary>
-        /// The email_ text changed.
+        /// Handles the TextChanged event of the Email control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Email_TextChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.UpdateEmailFlag = true;
         }
 
         /// <summary>
-        /// The On PreRender event.
+        /// Raises the <see cref="E:System.Web.UI.Control.PreRender" /> event.
         /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and DatePicker JS...
@@ -208,20 +198,17 @@ namespace YAF.Controls
                     this.GetText("COMMON", "CAL_JQ_CULTURE")));
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "dropDownJs", JavaScriptBlocks.DropDownLoadJs(this.Country.ClientID));
+                "dropDownJs",
+                JavaScriptBlocks.DropDownLoadJs(this.Country.ClientID));
 
             base.OnPreRender(e);
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Page.Form.DefaultButton = this.UpdateProfile.UniqueID;
@@ -278,10 +265,10 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The update profile_ click.
+        /// Saves the Updated Profile
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The e.</param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void UpdateProfile_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             var userName = UserMembershipHelper.GetUserNameFromID(this.currentUserID);
@@ -305,13 +292,36 @@ namespace YAF.Controls
 
                 if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.HomePage.Text, out result))
                 {
-                    // only log at the moment
-                    this.Logger.Log(
-                        null,
-                        "Bot Detected",
-                        "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user changed the profile Homepage url to: {2}"
-                            .FormatWith(userName, this.currentUserID, this.HomePage.Text),
-                        EventLogTypes.SpamBotDetected);
+                    // Log and Send Message to Admins
+                    if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
+                    {
+                        this.Logger.Log(
+                            null,
+                            "Bot Detected",
+                            "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user changed the profile Homepage url to: {2}"
+                                .FormatWith(userName, this.currentUserID, this.HomePage.Text),
+                            EventLogTypes.SpamBotDetected);
+                    }
+                    else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
+                    {
+                        this.Logger.Log(
+                            null,
+                            "Bot Detected",
+                            "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user changed the profile Homepage url to: {2}, user was deleted and the name, email and IP Address are banned."
+                                .FormatWith(userName, this.currentUserID, this.HomePage.Text),
+                            EventLogTypes.SpamBotDetected);
+
+                        // Kill user
+                        if (!this.adminEditMode)
+                        {
+                            var user = UserMembershipHelper.GetMembershipUserById(this.currentUserID);
+                            var userId = this.currentUserID;
+
+                            var userIp = new CombinedUserDataHelper(user, userId).LastIP;
+
+                            UserMembershipHelper.DeleteAndBanUser(this.currentUserID, user, userIp);
+                        }
+                    }
                 }
             }
 
@@ -374,14 +384,16 @@ namespace YAF.Controls
                         this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().UserNameMaxLength),
                         MessageTypes.Warning);
 
-                   return;
+                    return;
                 }
 
                 if (this.DisplayName.Text.Trim() != this.UserData.DisplayName)
                 {
                     if (this.Get<IUserDisplayName>().GetId(this.DisplayName.Text.Trim()).HasValue)
                     {
-                        this.PageContext.AddLoadMessage(this.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"), MessageTypes.Warning);
+                        this.PageContext.AddLoadMessage(
+                            this.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"),
+                            MessageTypes.Warning);
 
                         return;
                     }
@@ -421,7 +433,9 @@ namespace YAF.Controls
                     }
                     catch (ApplicationException)
                     {
-                        this.PageContext.AddLoadMessage(this.GetText("PROFILE", "DUPLICATED_EMAIL"), MessageTypes.Warning);
+                        this.PageContext.AddLoadMessage(
+                            this.GetText("PROFILE", "DUPLICATED_EMAIL"),
+                            MessageTypes.Warning);
 
                         return;
                     }
@@ -473,8 +487,8 @@ namespace YAF.Controls
             {
                 foreach (DataRow row in
                     StaticDataHelper.Cultures()
-                                    .Rows.Cast<DataRow>()
-                                    .Where(row => culture.ToString() == row["CultureTag"].ToString()))
+                        .Rows.Cast<DataRow>()
+                        .Where(row => culture.ToString() == row["CultureTag"].ToString()))
                 {
                     language = row["CultureFile"].ToString();
                 }
@@ -553,7 +567,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The bind data.
+        /// Binds the data.
         /// </summary>
         private void BindData()
         {
@@ -799,7 +813,7 @@ namespace YAF.Controls
 
             if (this.Get<YafBoardSettings>().UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
             {
-               var persianDate = new PersianDate(this.Birthday.Text);
+                var persianDate = new PersianDate(this.Birthday.Text);
                 userBirthdate = PersianDateConverter.ToGregorianDateTime(persianDate);
 
                 if (userBirthdate > DateTime.MinValue.Date)
@@ -903,7 +917,7 @@ namespace YAF.Controls
                 {
                     languageFile = this.UserData.LanguageFile;
                 }
-                
+
                 if (this.UserData.CultureUser.IsSet())
                 {
                     culture4Tag = this.UserData.CultureUser;

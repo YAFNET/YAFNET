@@ -277,12 +277,14 @@ namespace YAF.Controls
 
                         YafBuildLink.Redirect(ForumPages.admin_users);
                     }
+
                     break;
                 case "suspend":
                     if (this.CurrentUserID > 0)
                     {
                         LegacyDb.user_suspend(this.CurrentUserID, DateTime.UtcNow.AddYears(5));
                     }
+
                     break;
             }
 

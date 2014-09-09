@@ -1430,6 +1430,7 @@
     <Resource tag="SPAM_MESSAGE_0">Do nothing</Resource>
     <Resource tag="SPAM_MESSAGE_1">Flag Message as Unapproved</Resource>
     <Resource tag="SPAM_MESSAGE_2">Reject Message</Resource>
+    <Resource tag="SPAM_MESSAGE_3">Delete &amp; Ban user</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING">Handhabung von als Spam erkannten Nachrichten</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Wählen Sie, was mit einem Beitrag passiert der als SPAM erkannt wurde. Sie können wählen zwischen nichts tun, Beiträge als nicht genehmigt markieren, oder den Beitrag ablehnen.</Resource>
     <Resource tag="SPAM_SERVICE_TYP_1">BlogSpam.NET API</Resource>

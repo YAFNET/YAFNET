@@ -1427,6 +1427,7 @@
     <Resource tag="SPAM_MESSAGE_0">Ничего не делать</Resource>
     <Resource tag="SPAM_MESSAGE_1">Отметить как неодобренное</Resource>
     <Resource tag="SPAM_MESSAGE_2">Удалить сообщение</Resource>
+    <Resource tag="SPAM_MESSAGE_3">Delete &amp; Ban user</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING">Обработка сообщений детектированных как СПАМ</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Выберите действие которое будет выполняться если сообщение детектировано как спам.</Resource>
     <Resource tag="SPAM_SERVICE_TYP_1">BlogSpam.NET API</Resource>
