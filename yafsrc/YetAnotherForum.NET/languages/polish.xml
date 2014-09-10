@@ -57,6 +57,7 @@
     <Resource tag="ADMIN_SMILIES">Przegląda emotikony</Resource>
     <Resource tag="ADMIN_SMILIES_EDIT">Edytuje emotikony</Resource>
     <Resource tag="ADMIN_SMILIES_IMPORT">Importuje emotikony</Resource>
+    <Resource tag="ADMIN_SPAMLOG">Views/edits the spam log</Resource>
     <Resource tag="ADMIN_SPAMWORDS">Views spam words list</Resource>
     <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
     <Resource tag="ADMIN_SPAMWORDS_IMPORT">Imports spam words</Resource>
@@ -1716,6 +1717,9 @@
     <Resource tag="SELECT_FILE">Select File (*.pak)</Resource>
     <Resource tag="TITLE">Smilies Import</Resource>
   </page>
+  <page name="ADMIN_SPAMLOG">
+    <Resource tag="TITLE">Spam Event Log</Resource>
+  </page>
   <page name="ADMIN_SPAMWORDS">
     <Resource tag="ADD">Add</Resource>
     <Resource tag="EXPORT">Export to XML</Resource>
@@ -1860,6 +1864,7 @@
     <Resource tag="admin_restartapp">Restartuj aplikację</Resource>
     <Resource tag="admin_runsql">Wyślij zapytanie SQL</Resource>
     <Resource tag="admin_smilies">Emotikony</Resource>
+    <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
     <Resource tag="admin_taskmanager">Menedżer zadań</Resource>
     <Resource tag="admin_test_data">Tworzenie danych testowych</Resource>

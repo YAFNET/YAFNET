@@ -57,6 +57,7 @@
     <Resource tag="ADMIN_SMILIES">در حال مشاهده خندانک ها</Resource>
     <Resource tag="ADMIN_SMILIES_EDIT">در حال ویرایش خندانک ها</Resource>
     <Resource tag="ADMIN_SMILIES_IMPORT">وارد کردن خندانک ها</Resource>
+    <Resource tag="ADMIN_SPAMLOG">Views/edits the spam log</Resource>
     <Resource tag="ADMIN_SPAMWORDS">Views spam words list</Resource>
     <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
     <Resource tag="ADMIN_SPAMWORDS_IMPORT">Imports spam words</Resource>
@@ -1726,6 +1727,9 @@
     <Resource tag="SELECT_FILE">انتخاب کنید(pak.*)</Resource>
     <Resource tag="TITLE">وارد کردن خندانک</Resource>
   </page>
+  <page name="ADMIN_SPAMLOG">
+    <Resource tag="TITLE">Spam Event Log</Resource>
+  </page>
   <page name="ADMIN_SPAMWORDS">
     <Resource tag="ADD">Add</Resource>
     <Resource tag="EXPORT">Export to XML</Resource>
@@ -1872,6 +1876,7 @@
     <Resource tag="admin_restartapp">شروع مجدد برنامه</Resource>
     <Resource tag="admin_runsql">اجرای پرس و جوی SQL</Resource>
     <Resource tag="admin_smilies">خندانک ها</Resource>
+    <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
     <Resource tag="admin_taskmanager">مدیری فرمان</Resource>
     <Resource tag="admin_test_data">تولید داده های آزمایشی</Resource>

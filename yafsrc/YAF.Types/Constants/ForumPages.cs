@@ -436,7 +436,12 @@ namespace YAF.Types.Constants
     /// <summary>
     /// The admin_eventlog.
     /// </summary>
-    admin_eventlog, 
+    admin_eventlog,
+
+    /// <summary>
+    /// The admin_spamlog.
+    /// </summary>
+    admin_spamlog, 
 
     /// <summary>
     /// The admin_nntpservers.

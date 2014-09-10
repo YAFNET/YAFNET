@@ -88,6 +88,11 @@
   </YafMenuSection>
   <YafMenuSection Title="Spam Protection" Tag="Spam_Protection" HostAdminOnly="False">
     <YafMenuItem>
+      <Title>Spam Log</Title>
+      <ForumPage>admin_spamlog</ForumPage>
+      <Image>book-open-next</Image>
+    </YafMenuItem>
+    <YafMenuItem>
       <Title>Spam Check Words</Title>
       <ForumPage>admin_spamwords</ForumPage>
       <SubForumPage_0>admin_spamwords_edit</SubForumPage_0>

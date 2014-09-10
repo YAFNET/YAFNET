@@ -57,6 +57,7 @@
     <Resource tag="ADMIN_SMILIES">Просматривает смайлы</Resource>
     <Resource tag="ADMIN_SMILIES_EDIT">Редактирует смайлы</Resource>
     <Resource tag="ADMIN_SMILIES_IMPORT">Импортирует смайлы</Resource>
+    <Resource tag="ADMIN_SPAMLOG">Views/edits the spam log</Resource>
     <Resource tag="ADMIN_SPAMWORDS">Views spam words list</Resource>
     <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
     <Resource tag="ADMIN_SPAMWORDS_IMPORT">Imports spam words</Resource>
@@ -1704,6 +1705,9 @@
     <Resource tag="SELECT_FILE">Выберите файл (*.pak)</Resource>
     <Resource tag="TITLE">Импорт смайлов</Resource>
   </page>
+  <page name="ADMIN_SPAMLOG">
+    <Resource tag="TITLE">Spam Event Log</Resource>
+  </page>
   <page name="ADMIN_SPAMWORDS">
     <Resource tag="ADD">Add</Resource>
     <Resource tag="EXPORT">Export to XML</Resource>
@@ -1848,6 +1852,7 @@
     <Resource tag="admin_restartapp">Перезапуск приложения</Resource>
     <Resource tag="admin_runsql">Выполнить запрос SQL</Resource>
     <Resource tag="admin_smilies">Смайлы</Resource>
+    <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
     <Resource tag="admin_taskmanager">Менеджер задач</Resource>
     <Resource tag="admin_test_data">Тестовые данные</Resource>

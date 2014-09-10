@@ -52,6 +52,7 @@
   <Resource tag="ADMIN_REPLACEWORDS">Views replace words list</Resource>
   <Resource tag="ADMIN_REPLACEWORDS_EDIT">Edits replace words list</Resource>
   <Resource tag="ADMIN_REPLACEWORDS_IMPORT">Imports replace words</Resource>
+  <Resource tag="ADMIN_SPAMLOG">Views/edits the spam log</Resource>
   <Resource tag="ADMIN_SPAMWORDS">Views spam words list</Resource>
   <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
   <Resource tag="ADMIN_SPAMWORDS_IMPORT">Imports spam words</Resource>
@@ -1741,6 +1742,9 @@
   <Resource tag="SELECT_FILE">Select File (*.pak)</Resource>
   <Resource tag="TITLE">Smilies Import</Resource>
  </page>
+ <page name="ADMIN_SPAMLOG">
+  <Resource tag="TITLE">Spam Event Log</Resource>
+ </page>
  <page name="ADMIN_TASKMANAGER">
   <Resource tag="DURATION">Duration</Resource>
   <Resource tag="HEADER">Task Manager: {0} Task(s) Running</Resource>
@@ -1857,6 +1861,7 @@
   <Resource tag="admin_ranks">Ranks</Resource>
   <Resource tag="admin_reindex">DB Maintenance</Resource>
   <Resource tag="admin_replacewords">Replace Words</Resource>
+  <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
   <Resource tag="admin_spamwords">Spam Check Words</Resource>
   <Resource tag="admin_restartapp">Restart App</Resource>
   <Resource tag="admin_runsql">Run SQL Query</Resource>
