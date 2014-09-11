@@ -387,7 +387,7 @@ namespace YAF.Controls
             }
 
             // if no ip disable BanIp checkbox
-            if (this.IPAddresses.Any())
+            if (!this.IPAddresses.Any())
             {
                 this.BanIps.Checked = false;
                 this.BanIps.Enabled = false;
