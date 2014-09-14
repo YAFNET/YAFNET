@@ -30,14 +30,17 @@ namespace YAF.Core.Services.Auth
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     /// <summary>
     /// Twitter Single Sign On Class
@@ -239,6 +242,62 @@ namespace YAF.Core.Services.Auth
 
             // Create User if not exists?! Doesnt work because there is no Email
             var email = "{0}@twitter.com".FormatWith(twitterUser.UserName);
+
+            // Check user for bot
+            /*var spamChecker = new YafSpamCheck();
+            string result;
+            var isPossibleSpamBot = false;
+
+            var userIpAddress = YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress();
+
+            // Check content for spam
+            if (spamChecker.CheckUserForSpamBot(twitterUser.UserName, twitterUser.Email, userIpAddress, out result))
+            {
+                YafContext.Current.Get<ILogger>().Log(
+                    null,
+                    "Bot Detected",
+                    "Bot Check detected a possible SPAM BOT: (user name : '{0}', email : '{1}', ip: '{2}', reason : {3}), user was rejected."
+                        .FormatWith(twitterUser.UserName, twitterUser.Email, userIpAddress, result),
+                    EventLogTypes.SpamBotDetected);
+
+                if (YafContext.Current.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
+                {
+                    // Flag user as spam bot
+                    isPossibleSpamBot = true;
+                }
+                else if (YafContext.Current.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
+                {
+                    message = YafContext.Current.Get<ILocalization>().GetText("BOT_MESSAGE");
+
+                    if (!YafContext.Current.Get<YafBoardSettings>().BanBotIpOnDetection)
+                    {
+                        return false;
+                    }
+
+                    YafContext.Current.GetRepository<BannedIP>()
+                        .Save(
+                            null,
+                            userIpAddress,
+                            "A spam Bot who was trying to register was banned by IP {0}".FormatWith(userIpAddress),
+                            YafContext.Current.PageUserID);
+
+                    // Clear cache
+                    YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
+
+                    if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
+                    {
+                        YafContext.Current.Get<ILogger>()
+                            .Log(
+                                null,
+                                "IP BAN of Bot During Registration",
+                                "A spam Bot who was trying to register was banned by IP {0}".FormatWith(
+                                    userIpAddress),
+                                EventLogTypes.IpBanSet);
+                    }
+
+                    return false;
+                }
+            }*/
 
             // Create User if not exists?!
             MembershipCreateStatus status;

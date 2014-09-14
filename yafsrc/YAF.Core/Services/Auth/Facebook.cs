@@ -33,10 +33,12 @@ namespace YAF.Core.Services.Auth
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Core.Model;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Extensions;
@@ -162,17 +164,19 @@ namespace YAF.Core.Services.Auth
             {
                 var userGender = 0;
 
-                if (facebookUser.Gender.IsSet())
+                if (!facebookUser.Gender.IsSet())
                 {
-                    switch (facebookUser.Gender)
-                    {
-                        case "male":
-                            userGender = 1;
-                            break;
-                        case "female":
-                            userGender = 2;
-                            break;
-                    }
+                    return this.CreateFacebookUser(facebookUser, userGender, out message);
+                }
+
+                switch (facebookUser.Gender)
+                {
+                    case "male":
+                        userGender = 1;
+                        break;
+                    case "female":
+                        userGender = 2;
+                        break;
                 }
 
                 // Create User if not exists?!
@@ -347,6 +351,62 @@ namespace YAF.Core.Services.Auth
                 return false;
             }
 
+            // Check user for bot
+            var spamChecker = new YafSpamCheck();
+            string result;
+            var isPossibleSpamBot = false;
+
+            var userIpAddress = YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress();
+
+            // Check content for spam
+            if (spamChecker.CheckUserForSpamBot(facebookUser.UserName, facebookUser.Email, userIpAddress, out result))
+            {
+                YafContext.Current.Get<ILogger>().Log(
+                    null,
+                    "Bot Detected",
+                    "Bot Check detected a possible SPAM BOT: (user name : '{0}', email : '{1}', ip: '{2}', reason : {3}), user was rejected."
+                        .FormatWith(facebookUser.UserName, facebookUser.Email, userIpAddress, result),
+                    EventLogTypes.SpamBotDetected);
+
+                if (YafContext.Current.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
+                {
+                    // Flag user as spam bot
+                    isPossibleSpamBot = true;
+                }
+                else if (YafContext.Current.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
+                {
+                    message = YafContext.Current.Get<ILocalization>().GetText("BOT_MESSAGE");
+
+                    if (!YafContext.Current.Get<YafBoardSettings>().BanBotIpOnDetection)
+                    {
+                        return false;
+                    }
+
+                    YafContext.Current.GetRepository<BannedIP>()
+                        .Save(
+                            null,
+                            userIpAddress,
+                            "A spam Bot who was trying to register was banned by IP {0}".FormatWith(userIpAddress),
+                            YafContext.Current.PageUserID);
+
+                    // Clear cache
+                    YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
+
+                    if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
+                    {
+                        YafContext.Current.Get<ILogger>()
+                            .Log(
+                                null,
+                                "IP BAN of Bot During Registration",
+                                "A spam Bot who was trying to register was banned by IP {0}".FormatWith(
+                                    userIpAddress),
+                                EventLogTypes.IpBanSet);
+                    }
+
+                    return false;
+                }
+            }
+
             MembershipCreateStatus status;
 
             var pass = Membership.GeneratePassword(32, 16);
@@ -412,6 +472,11 @@ namespace YAF.Core.Services.Auth
             {
                 // send user register notification to the following admin users...
                 YafSingleSignOnUser.SendRegistrationNotificationEmail(user, userID.Value);
+            }
+
+            if (isPossibleSpamBot)
+            {
+                YafSingleSignOnUser.SendSpamBotNotificationToAdmins(user, userID.Value);
             }
 
             // send user register notification to the user...

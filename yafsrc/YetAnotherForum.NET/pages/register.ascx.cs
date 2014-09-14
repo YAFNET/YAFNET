@@ -263,7 +263,7 @@ namespace YAF.Pages
 
             if (this.IsPossibleSpamBot)
             {
-                this.SendSpamBotNotificationToAdmins(user, userID.Value);
+                YafSingleSignOnUser.SendSpamBotNotificationToAdmins(user, userID.Value);
             }
         }
 
@@ -367,7 +367,6 @@ namespace YAF.Pages
             this.IsPossibleSpamBot = false;
 
             // Check user for bot
-
             var spamChecker = new YafSpamCheck();
             string result;
 

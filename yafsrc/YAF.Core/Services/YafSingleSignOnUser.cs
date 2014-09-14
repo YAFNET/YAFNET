@@ -24,6 +24,7 @@
 
 namespace YAF.Core.Services
 {
+    using System.Data;
     using System.Linq;
     using System.Web.Security;
 
@@ -37,6 +38,7 @@ namespace YAF.Core.Services
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     /// <summary>
     /// Single Sign On User Class to handle Twitter and Facebook Logins
@@ -107,6 +109,62 @@ namespace YAF.Core.Services
             {
                 YafContext.Current.GetRepository<Mail>()
                     .Create(YafContext.Current.Get<YafBoardSettings>().ForumEmail, email.Trim(), subject, emailBody);
+            }
+        }
+
+        /// <summary>
+        /// Sends a spam bot notification to admins.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="userId">The user id.</param>
+        public static void SendSpamBotNotificationToAdmins([NotNull] MembershipUser user, int userId)
+        {
+            // Get Admin Group ID
+            var adminGroupID = 1;
+
+            foreach (DataRow dataRow in
+                LegacyDb.group_list(YafContext.Current.Get<YafBoardSettings>().BoardID, null)
+                    .Rows.Cast<DataRow>()
+                    .Where(
+                        dataRow =>
+                        !dataRow["Name"].IsNullOrEmptyDBField() && dataRow.Field<string>("Name") == "Administrators"))
+            {
+                adminGroupID = dataRow["GroupID"].ToType<int>();
+                break;
+            }
+
+            using (DataTable dt = LegacyDb.user_emails(YafContext.Current.Get<YafBoardSettings>().BoardID, adminGroupID))
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    var emailAddress = row.Field<string>("Email");
+
+                    if (!emailAddress.IsSet())
+                    {
+                        continue;
+                    }
+
+                    var notifyAdmin = new YafTemplateEmail();
+
+                    string subject =
+                        YafContext.Current.Get<ILocalization>()
+                            .GetText("COMMON", "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT")
+                            .FormatWith(YafContext.Current.Get<YafBoardSettings>().Name);
+
+                    notifyAdmin.TemplateParams["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(
+                        ForumPages.admin_edituser,
+                        true,
+                        "u={0}",
+                        userId);
+                    notifyAdmin.TemplateParams["{user}"] = user.UserName;
+                    notifyAdmin.TemplateParams["{email}"] = user.Email;
+                    notifyAdmin.TemplateParams["{forumname}"] = YafContext.Current.Get<YafBoardSettings>().Name;
+
+                    string emailBody = notifyAdmin.ProcessTemplate("NOTIFICATION_ON_BOT_USER_REGISTER");
+
+                    YafContext.Current.GetRepository<Mail>()
+                        .Create(YafContext.Current.Get<YafBoardSettings>().ForumEmail, emailAddress, subject, emailBody);
+                }
             }
         }
 
