@@ -116,6 +116,31 @@ namespace YAF.Classes.Data
 
             return -1;
         }
+        
+        /// <summary>
+        /// Determines whether [is full text supported].
+        /// </summary>
+        /// <returns>Returns if fulltext is supported by the server or not</returns>
+        public static bool IsFullTextSupported()
+        {
+            try
+            {
+                using (
+              var cmd =
+                DbHelpers.GetCommand(
+                  "select SERVERPROPERTY('IsFullTextInstalled')",
+                  true))
+                {
+                    return DbAccess.ExecuteScalar(cmd).ToType<string>().Equals("1");
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+            return false;
+        }
 
         /// <summary>
         ///   Gets a value indicating whether PanelGetStats.
