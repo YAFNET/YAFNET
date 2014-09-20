@@ -885,6 +885,7 @@
       <DependentUpon>bootstrap-select.less</DependentUpon>
     </Content>
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\icons\ipbandetected.png" />
     <Content Include="Content\images\InstallBackground.jpg" />
     <Content Include="Content\ladda-themeless.css">
       <DependentUpon>ladda-themeless.less</DependentUpon>
