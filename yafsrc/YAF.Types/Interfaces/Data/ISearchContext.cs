@@ -40,6 +40,7 @@ namespace YAF.Types.Interfaces.Data
 
         bool UseFullText { get; }
         bool SearchDisplayName { get; }
+        bool SearchTitleOnly { get; }
 
         int[] ForumIDs { get; }
     }

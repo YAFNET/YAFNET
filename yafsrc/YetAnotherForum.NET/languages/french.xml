@@ -4928,11 +4928,13 @@ Spoiler Content
     <Resource tag="BTNSEARCH">Chercher</Resource>
     <Resource tag="BTNSEARCH_EXTERNAL">Search {0}</Resource>
     <Resource tag="BY">par</Resource>
+    <Resource tag="KEYWORDS">Keyword(s)</Resource>
     <Resource tag="LOADING_SEARCH">Chargement des résultats de recherche...</Resource>
     <Resource tag="MATCH_ALL">Contient tous les mots</Resource>
     <Resource tag="MATCH_ANY">Contient au moins un des mots</Resource>
     <Resource tag="MATCH_EXACT">Contient la phrase exacte</Resource>
     <Resource tag="NO_SEARCH_RESULTS">[b]Pas de résultats pour cette recherche.[/b]</Resource>
+    <Resource tag="POST_AND_TITLE">Search Entire Posts</Resource>
     <Resource tag="POSTED">Envoyé&amp;nbsp;:</Resource>
     <Resource tag="POSTEDBY">Envoyés par</Resource>
     <Resource tag="POSTS">Messages</Resource>
@@ -4943,7 +4945,12 @@ Spoiler Content
     <Resource tag="RESULTS">Résultats</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MAX">Search texts must be less than {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MIN">Search texts must be at least {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
+    <Resource tag="SEARCH_IN">Search in Forum(s)</Resource>
+    <Resource tag="SEARCH_OPTIONS">Search Options</Resource>
+    <Resource tag="SEARCH_RESULTS">Search Results per Page</Resource>
+    <Resource tag="SEARCH_TITLEORBOTH">Search entire Posts or Titles only</Resource>
     <Resource tag="TITLE">Recherche</Resource>
+    <Resource tag="TITLE_ONLY">Search Titles Only</Resource>
     <Resource tag="TOPIC">Sujet&amp;nbsp;:</Resource>
   </page>
   <page name="SHOUTBOX">

@@ -30,17 +30,27 @@ namespace YAF.Data.MsSql.Search
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
+    /// <summary>
+    /// 
+    /// </summary>
     [ExportService(ServiceLifetimeScope.OwnedByContainer, new[] { typeof(ISearch) })]
     public class MsSqlSearch : ISearch
     {
         #region Fields
 
+        /// <summary>
+        /// The _DB function
+        /// </summary>
         private readonly IDbFunction _dbFunction;
 
         #endregion
 
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MsSqlSearch"/> class.
+        /// </summary>
+        /// <param name="dbFunction">The database function.</param>
         public MsSqlSearch(IDbFunction dbFunction)
         {
             this._dbFunction = dbFunction;
@@ -50,6 +60,11 @@ namespace YAF.Data.MsSql.Search
 
         #region Public Methods and Operators
 
+        /// <summary>
+        /// Executes the specified context.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <returns></returns>
         public IEnumerable<SearchResult> Execute(ISearchContext context)
         {
             using (var session = this._dbFunction.CreateSession())

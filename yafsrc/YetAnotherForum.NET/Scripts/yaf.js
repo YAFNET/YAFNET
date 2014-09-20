@@ -186,6 +186,8 @@ jQuery(document).ready(function () {
             image.wrap('<a href="' + image.attr("src") + '" class="ceebox" title="' + image.attr("alt") + '"/>');
         }
     });
+
+    jQuery(".standardSelectMenu").selectmenu();
 });
 
 $(function () {

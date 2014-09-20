@@ -199,7 +199,7 @@ namespace YAF.Controls
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "dropDownJs",
-                JavaScriptBlocks.DropDownLoadJs(this.Country.ClientID));
+                JavaScriptBlocks.SelectMenuWithIconsJs(this.Country.ClientID));
 
             base.OnPreRender(e);
         }

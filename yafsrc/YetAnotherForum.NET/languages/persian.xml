@@ -4940,11 +4940,13 @@
     <Resource tag="BTNSEARCH">جستجو</Resource>
     <Resource tag="BTNSEARCH_EXTERNAL">جستجوی {0}</Resource>
     <Resource tag="BY">بوسیله</Resource>
+    <Resource tag="KEYWORDS">Keyword(s)</Resource>
     <Resource tag="LOADING_SEARCH">در حال بارگذاری نتایج جستجو...</Resource>
     <Resource tag="MATCH_ALL">فقط کلمات وارد شده جستجو شوند</Resource>
     <Resource tag="MATCH_ANY">هر کلمه ای در متن جستجو شود</Resource>
     <Resource tag="MATCH_EXACT">فقط کلمه های مشابه جستجو شوند.</Resource>
     <Resource tag="NO_SEARCH_RESULTS">[b]موردی پیدا نشد.[/b]</Resource>
+    <Resource tag="POST_AND_TITLE">Search Entire Posts</Resource>
     <Resource tag="POSTED">ارسال شده:</Resource>
     <Resource tag="POSTEDBY">ارسال شده توسط</Resource>
     <Resource tag="POSTS">ارسالها</Resource>
@@ -4955,7 +4957,12 @@
     <Resource tag="RESULTS">نتایج</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MAX">.متن مورد جستجو باید کمتر از {0} کاراکتر طول داشته باشد و با قوانین انجمن برای جستجو مطابقت کند.برای اطلاعات بیشتر بخش پرسشهای متداول را ببینید</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MIN">.متن مورد جستجو باید حداقل {0} کاراکتر طول داشته باشد و با قوانین انجمن برای جستجو مطابقت کند.برای اطلاعات بیشتر بخش پرسشهای متداول را ببینید</Resource>
+    <Resource tag="SEARCH_IN">Search in Forum(s)</Resource>
+    <Resource tag="SEARCH_OPTIONS">Search Options</Resource>
+    <Resource tag="SEARCH_RESULTS">Search Results per Page</Resource>
+    <Resource tag="SEARCH_TITLEORBOTH">Search entire Posts or Titles only</Resource>
     <Resource tag="TITLE">جستجو</Resource>
+    <Resource tag="TITLE_ONLY">Search Titles Only</Resource>
     <Resource tag="TOPIC">عنوان:</Resource>
   </page>
   <page name="SHOUTBOX">

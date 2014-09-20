@@ -31,22 +31,22 @@ namespace YAF.Pages {
         protected global::nStuff.UpdateControls.UpdateHistory UpdateHistory;
         
         /// <summary>
-        /// listForum control.
+        /// txtSearchStringWhat control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList listForum;
+        protected global::System.Web.UI.WebControls.TextBox txtSearchStringWhat;
         
         /// <summary>
-        /// listResInPage control.
+        /// listSearchWhat control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList listResInPage;
+        protected global::System.Web.UI.WebControls.DropDownList listSearchWhat;
         
         /// <summary>
         /// txtSearchStringFromWho control.
@@ -67,22 +67,49 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.DropDownList listSearchFromWho;
         
         /// <summary>
-        /// txtSearchStringWhat control.
+        /// CollapsibleImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSearchStringWhat;
+        protected global::YAF.Controls.CollapsibleImage CollapsibleImage;
         
         /// <summary>
-        /// listSearchWhat control.
+        /// MoreOptions control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList listSearchWhat;
+        protected global::System.Web.UI.WebControls.PlaceHolder MoreOptions;
+        
+        /// <summary>
+        /// listForum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList listForum;
+        
+        /// <summary>
+        /// TitleOnly control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList TitleOnly;
+        
+        /// <summary>
+        /// listResInPage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList listResInPage;
         
         /// <summary>
         /// btnSearch control.

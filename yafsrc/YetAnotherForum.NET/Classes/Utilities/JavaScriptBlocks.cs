@@ -469,7 +469,7 @@ namespace YAF.Utilities
         }
 
         /// <summary>
-        /// Generates jQuery dropdown load js
+        /// Generates jQuery Select Menu (with icons) load JS
         /// </summary>
         /// <param name="dropDownId">
         /// The drop Down client Id.
@@ -477,7 +477,7 @@ namespace YAF.Utilities
         /// <returns>
         /// The Load JS.
         /// </returns>
-        public static string DropDownLoadJs([NotNull] string dropDownId)
+        public static string SelectMenuWithIconsJs([NotNull] string dropDownId)
         {
             return @"Sys.Application.add_load(render_IconSelectMenu);function render_IconSelectMenu() {{ 
                                     {0}('#{1}').iconselectmenu().iconselectmenu('menuWidget').addClass('ui-menu-icons customicon'); 

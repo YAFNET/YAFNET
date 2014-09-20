@@ -500,7 +500,7 @@ namespace YAF.Pages
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "dropDownJs",
-                JavaScriptBlocks.DropDownLoadJs(country.ClientID));
+                JavaScriptBlocks.SelectMenuWithIconsJs(country.ClientID));
 
             base.OnPreRender(e);
         }

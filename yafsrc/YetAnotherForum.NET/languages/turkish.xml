@@ -4911,11 +4911,13 @@ Siz foruma otomatik bilgisayar programlarını kullanarak üye olmayacağınız�
     <Resource tag="BTNSEARCH">Ara</Resource>
     <Resource tag="BTNSEARCH_EXTERNAL">Ara {0}</Resource>
     <Resource tag="BY">Tarafından </Resource>
+    <Resource tag="KEYWORDS">Keyword(s)</Resource>
     <Resource tag="LOADING_SEARCH">Arama Sonuçları Yükleniyor...</Resource>
     <Resource tag="MATCH_ALL">Tüm Kelimeleri Bul</Resource>
     <Resource tag="MATCH_ANY">Herhangi Bir Kelimeyi Bul</Resource>
     <Resource tag="MATCH_EXACT">Tam Yazılanı Bul</Resource>
     <Resource tag="NO_SEARCH_RESULTS">[b]Arama için bir sonuç bulunamadı.[/b]</Resource>
+    <Resource tag="POST_AND_TITLE">Search Entire Posts</Resource>
     <Resource tag="POSTED">Gönderildi:</Resource>
     <Resource tag="POSTEDBY">Tarafından Eklendi</Resource>
     <Resource tag="POSTS">Eklemeler</Resource>
@@ -4926,7 +4928,12 @@ Siz foruma otomatik bilgisayar programlarını kullanarak üye olmayacağınız�
     <Resource tag="RESULTS">Sonuçlar</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MAX">Aranılacak kelime {0} harften uzun olamaz.</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MIN">Aranılacak kelime {0} harften kısa olamaz.</Resource>
+    <Resource tag="SEARCH_IN">Search in Forum(s)</Resource>
+    <Resource tag="SEARCH_OPTIONS">Search Options</Resource>
+    <Resource tag="SEARCH_RESULTS">Search Results per Page</Resource>
+    <Resource tag="SEARCH_TITLEORBOTH">Search entire Posts or Titles only</Resource>
     <Resource tag="TITLE">Ara</Resource>
+    <Resource tag="TITLE_ONLY">Search Titles Only</Resource>
     <Resource tag="TOPIC">Konu:</Resource>
   </page>
   <page name="SHOUTBOX">

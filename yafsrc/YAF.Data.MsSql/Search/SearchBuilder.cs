@@ -28,7 +28,6 @@ namespace YAF.Data.MsSql.Search
     using System.Diagnostics;
     using System.Linq;
 
-    using YAF.Classes.Data;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -49,6 +48,11 @@ namespace YAF.Data.MsSql.Search
     {
         #region Public Methods and Operators
 
+        /// <summary>
+        /// Builds the search SQL.
+        /// </summary>
+        /// <param name="context">The search context.</param>
+        /// <returns>Returns the full SQL script</returns>
         public string BuildSearchSql([NotNull] ISearchContext context)
         {
             CodeContracts.VerifyNotNull(context, "context");
@@ -60,9 +64,13 @@ namespace YAF.Data.MsSql.Search
                 builtStatements.Add("SET ROWCOUNT {0};".FormatWith(context.MaxResults));
             }
 
-            string searchSql = "SELECT a.ForumID, a.TopicID, a.Topic, b.UserID, IsNull(c.Username, b.Name) as Name, c.MessageID, c.Posted, [Message] = '', c.Flags ";
-            searchSql += "\r\nfrom {databaseOwner}.{objectQualifier}topic a left join {databaseOwner}.{objectQualifier}message c on a.TopicID = c.TopicID left join {databaseOwner}.{objectQualifier}user b on c.UserID = b.UserID join {databaseOwner}.{objectQualifier}vaccess x on x.ForumID=a.ForumID ";
-            searchSql += "\r\nwhere x.ReadAccess<>0 AND x.UserID={0} AND c.IsApproved = 1 AND a.TopicMovedID IS NULL AND a.IsDeleted = 0 AND c.IsDeleted = 0".FormatWith(context.UserID);
+            string searchSql =
+                "SELECT a.ForumID, a.TopicID, a.Topic, b.UserID, IsNull(c.Username, b.Name) as Name, c.MessageID, c.Posted, [Message] = '', c.Flags ";
+            searchSql +=
+                "\r\nfrom {databaseOwner}.{objectQualifier}topic a left join {databaseOwner}.{objectQualifier}message c on a.TopicID = c.TopicID left join {databaseOwner}.{objectQualifier}user b on c.UserID = b.UserID join {databaseOwner}.{objectQualifier}vaccess x on x.ForumID=a.ForumID ";
+            searchSql +=
+                "\r\nwhere x.ReadAccess<>0 AND x.UserID={0} AND c.IsApproved = 1 AND a.TopicMovedID IS NULL AND a.IsDeleted = 0 AND c.IsDeleted = 0"
+                    .FormatWith(context.UserID);
 
             if (context.ForumIDs.Any())
             {
@@ -73,24 +81,38 @@ namespace YAF.Data.MsSql.Search
             {
                 searchSql +=
                     "\r\nAND ({0})".FormatWith(
-                        this.BuildWhoConditions(context.ToSearchFromWho, context.SearchFromWhoMethod, context.SearchDisplayName).BuildSql(true));
+                        this.BuildWhoConditions(
+                            context.ToSearchFromWho,
+                            context.SearchFromWhoMethod,
+                            context.SearchDisplayName).BuildSql(true));
             }
 
             if (context.ToSearchWhat.IsSet())
             {
+                if (!context.SearchTitleOnly)
+                {
+                    builtStatements.Add(searchSql);
+
+                    builtStatements.Add(
+                        "AND ({0})".FormatWith(
+                            this.BuildWhatConditions(
+                                context.ToSearchWhat,
+                                context.SearchWhatMethod,
+                                "c.Message",
+                                context.UseFullText).BuildSql(true)));
+
+                    builtStatements.Add("UNION");
+                }
+
                 builtStatements.Add(searchSql);
 
                 builtStatements.Add(
                     "AND ({0})".FormatWith(
-                        this.BuildWhatConditions(context.ToSearchWhat, context.SearchWhatMethod, "c.Message", context.UseFullText).BuildSql(true)));
-
-                builtStatements.Add("UNION");
-
-                builtStatements.Add(searchSql);
-
-                builtStatements.Add(
-                    "AND ({0})".FormatWith(
-                        this.BuildWhatConditions(context.ToSearchWhat, context.SearchWhatMethod, "a.Topic", context.UseFullText).BuildSql(true)));
+                        this.BuildWhatConditions(
+                            context.ToSearchWhat,
+                            context.SearchWhatMethod,
+                            "a.Topic",
+                            context.UseFullText).BuildSql(true)));
             }
             else
             {
@@ -100,7 +122,7 @@ namespace YAF.Data.MsSql.Search
             builtStatements.Add("ORDER BY c.Posted DESC");
 
             string builtSql = builtStatements.ToDelimitedString("\r\n");
-
+            
             Debug.WriteLine("Build Sql: [{0}]".FormatWith(builtSql));
 
             return builtSql;
@@ -120,7 +142,7 @@ namespace YAF.Data.MsSql.Search
         ///     The search What Method.
         /// </param>
         /// <param name="dbField">
-        ///     The db Field.
+        ///     The DB Field.
         /// </param>
         /// <param name="useFullText">
         ///     The use Full Text.
@@ -140,7 +162,6 @@ namespace YAF.Data.MsSql.Search
             toSearchWhat = toSearchWhat.Replace("'", "''").Trim();
 
             var conditions = new List<SearchCondition>();
-            string conditionSql = string.Empty;
 
             var conditionType = SearchConditionType.AND;
 
@@ -154,7 +175,11 @@ namespace YAF.Data.MsSql.Search
             if (searchWhatMethod == SearchWhatFlags.AllWords || searchWhatMethod == SearchWhatFlags.AnyWords)
             {
                 wordList =
-                    toSearchWhat.Replace(@"""", string.Empty).Split(' ').Where(x => x.IsSet()).Select(x => x.Trim()).ToList();
+                    toSearchWhat.Replace(@"""", string.Empty)
+                        .Split(' ')
+                        .Where(x => x.IsSet())
+                        .Select(x => x.Trim())
+                        .ToList();
             }
 
             if (useFullText)
@@ -163,21 +188,27 @@ namespace YAF.Data.MsSql.Search
 
                 list.AddRange(
                     wordList.Select(
-                        word => new SearchCondition { Condition = @"""{0}""".FormatWith(word), ConditionType = conditionType }));
+                        word =>
+                        new SearchCondition
+                            {
+                                Condition = @"""{0}""".FormatWith(word), 
+                                ConditionType = conditionType
+                            }));
 
                 conditions.Add(
                     new SearchCondition
-                    {
-                        Condition = "CONTAINS ({1}, N' {0} ')".FormatWith(list.BuildSql(false), dbField),
-                        ConditionType = conditionType
-                    });
+                        {
+                            Condition =
+                                "CONTAINS ({1}, N' {0} ')".FormatWith(list.BuildSql(false), dbField),
+                            ConditionType = conditionType
+                        });
             }
             else
             {
                 conditions.AddRange(
                     wordList.Select(
                         word =>
-                            new SearchCondition
+                        new SearchCondition
                             {
                                 Condition = "{1} LIKE N'%{0}%'".FormatWith(word, dbField),
                                 ConditionType = conditionType
@@ -212,7 +243,6 @@ namespace YAF.Data.MsSql.Search
             toSearchFromWho = toSearchFromWho.Replace("'", "''").Trim();
 
             var conditions = new List<SearchCondition>();
-            string conditionSql = string.Empty;
 
             var conditionType = SearchConditionType.AND;
 
@@ -226,13 +256,18 @@ namespace YAF.Data.MsSql.Search
             if (searchFromWhoMethod == SearchWhatFlags.AllWords || searchFromWhoMethod == SearchWhatFlags.AnyWords)
             {
                 wordList =
-                    toSearchFromWho.Replace(@"""", string.Empty).Split(' ').Where(x => x.IsSet()).Select(x => x.Trim()).ToList();
+                    toSearchFromWho.Replace(@"""", string.Empty)
+                        .Split(' ')
+                        .Where(x => x.IsSet())
+                        .Select(x => x.Trim())
+                        .ToList();
             }
 
             foreach (string word in wordList)
             {
                 int userId;
 
+                string conditionSql;
                 if (int.TryParse(word, out userId))
                 {
                     conditionSql = "c.UserID IN ({0})".FormatWith(userId);
@@ -241,15 +276,17 @@ namespace YAF.Data.MsSql.Search
                 {
                     if (searchFromWhoMethod == SearchWhatFlags.ExactMatch)
                     {
-                        conditionSql = "(c.Username IS NULL AND b.{1} = N'{0}') OR (c.Username = N'{0}')".FormatWith(
-                            word,
-                            searchDisplayName ? "DisplayName" : "Name");
+                        conditionSql =
+                            "(c.Username IS NULL AND b.{1} = N'{0}') OR (c.Username = N'{0}')".FormatWith(
+                                word,
+                                searchDisplayName ? "DisplayName" : "Name");
                     }
                     else
                     {
-                        conditionSql = "(c.Username IS NULL AND b.{1} LIKE N'%{0}%') OR (c.Username LIKE N'%{0}%')".FormatWith(
-                            word,
-                            searchDisplayName ? "DisplayName" : "Name");
+                        conditionSql =
+                            "(c.Username IS NULL AND b.{1} LIKE N'%{0}%') OR (c.Username LIKE N'%{0}%')".FormatWith(
+                                word,
+                                searchDisplayName ? "DisplayName" : "Name");
                     }
                 }
 

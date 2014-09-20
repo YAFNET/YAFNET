@@ -436,6 +436,11 @@ namespace YAF.Pages
             this.listSearchWhat.Items.Add(new ListItem(this.GetText("match_any"), "1"));
             this.listSearchWhat.Items.Add(new ListItem(this.GetText("match_all"), "0"));
 
+            // Load TitleOnly dropdown
+            this.TitleOnly.Items.Add(new ListItem(this.GetText("POST_AND_TITLE"), "0")); 
+            this.TitleOnly.Items.Add(new ListItem(this.GetText("TITLE_ONLY"), "1"));
+            
+
             this.listSearchFromWho.SelectedIndex = 0;
             this.listSearchWhat.SelectedIndex = 2;
 
@@ -492,7 +497,9 @@ namespace YAF.Pages
                 }
             }
 
+            // TODO : Correct encoding
             var postedBy = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("postedby");
+
 
             if (postedBy.IsSet() && postedBy.Length < 50)
             {
@@ -641,6 +648,7 @@ namespace YAF.Pages
                 var sw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchWhat.SelectedValue);
                 var sfw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchFromWho.SelectedValue);
                 int forumId = int.Parse(this.listForum.SelectedValue);
+                var searchTitleOnly = this.TitleOnly.SelectedValue.Equals("1");
 
                 var context = new CompleteSearchContext(
                     this.SearchWhatCleaned,
@@ -652,7 +660,8 @@ namespace YAF.Pages
                     this.Get<YafBoardSettings>().ReturnSearchMax,
                     this.Get<YafBoardSettings>().UseFullTextSearch,
                     this.Get<YafBoardSettings>().EnableDisplayName,
-                    forumId);
+                    forumId, 
+                    searchTitleOnly);
 
                 var searchResults = this.Get<ISearch>().Execute(context).ToArray();
 

@@ -5264,11 +5264,13 @@ public class Hello1
     <Resource tag="BTNSEARCH">Buscar</Resource>
     <Resource tag="BTNSEARCH_EXTERNAL">Buscar {0}</Resource>
     <Resource tag="BY">por</Resource>
+    <Resource tag="KEYWORDS">Keyword(s)</Resource>
     <Resource tag="LOADING_SEARCH">Cargando resultados de busqueda...</Resource>
     <Resource tag="MATCH_ALL">Buscar todas las palabras</Resource>
     <Resource tag="MATCH_ANY">Buscar cualquier palabra</Resource>
     <Resource tag="MATCH_EXACT">Buscar frase exacta</Resource>
     <Resource tag="NO_SEARCH_RESULTS">[b]No se encontraron resultados para la búsqueda.[/b]</Resource>
+    <Resource tag="POST_AND_TITLE">Search Entire Posts</Resource>
     <Resource tag="POSTED">Publicado:</Resource>
     <Resource tag="POSTEDBY">Mensaje por</Resource>
     <Resource tag="POSTS">Mensaje</Resource>
@@ -5279,7 +5281,12 @@ public class Hello1
     <Resource tag="RESULTS">Resultados</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MAX">El texto de búsqueda no debe exceder los {0} caracteres y obedecer las reglas del foro para búsquedas (mira las FAQ del foro para más información).</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MIN">El texto de búsqueda debe tener al menos {0} caracteres y obedecer las reglas del foro para búsquedas (mira las FAQ del foro para más inforación).</Resource>
+    <Resource tag="SEARCH_IN">Search in Forum(s)</Resource>
+    <Resource tag="SEARCH_OPTIONS">Search Options</Resource>
+    <Resource tag="SEARCH_RESULTS">Search Results per Page</Resource>
+    <Resource tag="SEARCH_TITLEORBOTH">Search entire Posts or Titles only</Resource>
     <Resource tag="TITLE">Buscar</Resource>
+    <Resource tag="TITLE_ONLY">Search Titles Only</Resource>
     <Resource tag="TOPIC">Tema:</Resource>
   </page>
   <page name="SHOUTBOX">

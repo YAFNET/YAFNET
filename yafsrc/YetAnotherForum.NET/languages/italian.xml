@@ -4941,11 +4941,13 @@ Questo regolamento potra' essere modificato parzialmente o totalmente dagli ammi
     <Resource tag="BTNSEARCH">Cerca</Resource>
     <Resource tag="BTNSEARCH_EXTERNAL">Cerca su {0}</Resource>
     <Resource tag="BY">di</Resource>
+    <Resource tag="KEYWORDS">Keyword(s)</Resource>
     <Resource tag="LOADING_SEARCH">Caricamento risultati ricerca...</Resource>
     <Resource tag="MATCH_ALL">Cerca tutte le parole</Resource>
     <Resource tag="MATCH_ANY">Cerca ogni singola parola</Resource>
     <Resource tag="MATCH_EXACT">Cerca la frase esatta</Resource>
     <Resource tag="NO_SEARCH_RESULTS">[b]Nessun risultato trovato per la ricerca.[/b]</Resource>
+    <Resource tag="POST_AND_TITLE">Search Entire Posts</Resource>
     <Resource tag="POSTED">Inviato:</Resource>
     <Resource tag="POSTEDBY">Inviato da</Resource>
     <Resource tag="POSTS">Messaggi</Resource>
@@ -4956,7 +4958,12 @@ Questo regolamento potra' essere modificato parzialmente o totalmente dagli ammi
     <Resource tag="RESULTS">Risultati</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MAX">Il testo cercato deve essere più corto di {0} caratteri e rispettare le regole per la ricerca del forum (vedi le FAQ per maggiori informazioni).</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MIN">Il testo cercato deve essere lungo almeno {0} caratteri e rispettare le regole per la ricerca del forum (vedi le FAQ per maggiori informazioni).</Resource>
+    <Resource tag="SEARCH_IN">Search in Forum(s)</Resource>
+    <Resource tag="SEARCH_OPTIONS">Search Options</Resource>
+    <Resource tag="SEARCH_RESULTS">Search Results per Page</Resource>
+    <Resource tag="SEARCH_TITLEORBOTH">Search entire Posts or Titles only</Resource>
     <Resource tag="TITLE">Cerca</Resource>
+    <Resource tag="TITLE_ONLY">Search Titles Only</Resource>
     <Resource tag="TOPIC">Discussioni:</Resource>
   </page>
   <page name="SHOUTBOX">

@@ -4926,11 +4926,13 @@ Spoiler Content
     <Resource tag="BTNSEARCH">Otsi</Resource>
     <Resource tag="BTNSEARCH_EXTERNAL">Otsi {0}</Resource>
     <Resource tag="BY">vastavalt</Resource>
+    <Resource tag="KEYWORDS">Keyword(s)</Resource>
     <Resource tag="LOADING_SEARCH">Otsingutulemuste laadimine...</Resource>
     <Resource tag="MATCH_ALL">Otsi kõiki sõnu</Resource>
     <Resource tag="MATCH_ANY">Otsi mis tahes sõna</Resource>
     <Resource tag="MATCH_EXACT">Otsi täpset fraasi</Resource>
     <Resource tag="NO_SEARCH_RESULTS">[b]Ei leitud ühtegi tulemust.[/b]</Resource>
+    <Resource tag="POST_AND_TITLE">Search Entire Posts</Resource>
     <Resource tag="POSTED">Postitatud:</Resource>
     <Resource tag="POSTEDBY">Postitas</Resource>
     <Resource tag="POSTS">Postitusi</Resource>
@@ -4941,7 +4943,12 @@ Spoiler Content
     <Resource tag="RESULTS">Tulemused</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MAX">Otsitava teksti pikkus peab olema kuni {0} tähemärki ja tekst peab vastama foorumi otsingureeglitele (vt. foorumi KKK täiendava info saamiseks).</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MIN">Otsitava teksti pikkus peab olema vähemalt {0} tähemärki ja tekst peab vastama foorumi otsingureeglitele (vt. foorumi KKK täiendava info saamiseks).</Resource>
+    <Resource tag="SEARCH_IN">Search in Forum(s)</Resource>
+    <Resource tag="SEARCH_OPTIONS">Search Options</Resource>
+    <Resource tag="SEARCH_RESULTS">Search Results per Page</Resource>
+    <Resource tag="SEARCH_TITLEORBOTH">Search entire Posts or Titles only</Resource>
     <Resource tag="TITLE">Otsing</Resource>
+    <Resource tag="TITLE_ONLY">Search Titles Only</Resource>
     <Resource tag="TOPIC">Teema:</Resource>
   </page>
   <page name="SHOUTBOX">

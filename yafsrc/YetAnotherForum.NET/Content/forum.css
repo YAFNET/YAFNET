@@ -1158,6 +1158,9 @@
   float: right;
 }
 .yafnet .centerItem {
+  text-align: center;
+}
+.yafnet .centerItem {
   margin: 0 auto;
 }
 .yafnet .postNavigation td {
@@ -1745,4 +1748,8 @@ table.tablesorter thead tr .headerSortUp {
   margin: 0 1em 0 -1em;
   background-position: -88px 0;
   background-color: #e6e6e6;
+}
+/* Drop Downs */
+.standardSelectMenu {
+  width: 350px;
 }

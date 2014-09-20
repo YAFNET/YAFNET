@@ -4899,11 +4899,13 @@ Spoiler Content
     <Resource tag="BTNSEARCH">Найти</Resource>
     <Resource tag="BTNSEARCH_EXTERNAL">Найти {0}</Resource>
     <Resource tag="BY">по</Resource>
+    <Resource tag="KEYWORDS">Keyword(s)</Resource>
     <Resource tag="LOADING_SEARCH">Загрузка результатов поиска...</Resource>
     <Resource tag="MATCH_ALL">Искать все слова</Resource>
     <Resource tag="MATCH_ANY">Искать любое слово</Resource>
     <Resource tag="MATCH_EXACT">Искать точную фразу</Resource>
     <Resource tag="NO_SEARCH_RESULTS">[b]Поиск не дал результатов.[/b]</Resource>
+    <Resource tag="POST_AND_TITLE">Search Entire Posts</Resource>
     <Resource tag="POSTED">Создана:</Resource>
     <Resource tag="POSTEDBY">Оставил</Resource>
     <Resource tag="POSTS">Сообщения</Resource>
@@ -4914,7 +4916,12 @@ Spoiler Content
     <Resource tag="RESULTS">Результаты</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MAX">Длина текста для поиска не должна превышать {0} символов и должна соответствовать правилам форума для поиска (смотрите FAQ форума для дальнейшей информации).</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MIN">Длина текста для поиска не должна быть меньше {0} символов и должна соответствовать правилам форума для поиска (смотрите FAQ форума для дальнейшей информации).</Resource>
+    <Resource tag="SEARCH_IN">Search in Forum(s)</Resource>
+    <Resource tag="SEARCH_OPTIONS">Search Options</Resource>
+    <Resource tag="SEARCH_RESULTS">Search Results per Page</Resource>
+    <Resource tag="SEARCH_TITLEORBOTH">Search entire Posts or Titles only</Resource>
     <Resource tag="TITLE">Поиск</Resource>
+    <Resource tag="TITLE_ONLY">Search Titles Only</Resource>
     <Resource tag="TOPIC">Тема:</Resource>
   </page>
   <page name="SHOUTBOX">

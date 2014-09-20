@@ -18,38 +18,67 @@
     Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
 </script>
 <nStuff:UpdateHistory ID="UpdateHistory" runat="server" OnNavigate="OnUpdateHistoryNavigate" />
-<table cellpadding="0" cellspacing="1" class="content searchContent" width="100%">
+<table class="content searchContent" width="100%">
     <tr>
         <td class="header1" colspan="2">
             <YAF:LocalizedLabel runat="server" LocalizedTag="title" />
         </td>
     </tr>
     <tr>
-        <td align="center" class="postheader" colspan="2">
-            <asp:DropDownList ID="listForum" runat="server" />
-            <asp:DropDownList ID="listResInPage" runat="server" />
+        <td align="right" class="postheader" valign="middle">
+            <YAF:LocalizedLabel runat="server" LocalizedTag="KEYWORDS" />
+        </td>
+        <td class="post" valign="middle">
+            <asp:TextBox ID="txtSearchStringWhat" runat="server" Width="350px" />
+            <asp:DropDownList ID="listSearchWhat" runat="server" CssClass="standardSelectMenu" />
         </td>
     </tr>
     <tr>
-        <td align="right" class="postheader" width="35%">
+        <td align="right" class="postheader">
             <YAF:LocalizedLabel runat="server" LocalizedTag="postedby" />
         </td>
-        <td align="left" class="postheader">
+        <td class="post">
             <asp:TextBox ID="txtSearchStringFromWho" runat="server" Width="350px" />
-            <asp:DropDownList ID="listSearchFromWho" runat="server" />
+            <asp:DropDownList ID="listSearchFromWho" runat="server" CssClass="standardSelectMenu" />
+        </td>
+    </tr>
+    <tr class="forumRowCat header2">
+        <td colspan="2">
+            <YAF:CollapsibleImage ID="CollapsibleImage" runat="server" BorderWidth="0" 
+                ImageAlign="Bottom" PanelID='MoreOptions' 
+                AttachedControlID="MoreOptions" ToolTip='<%# this.GetText("COMMON", "SHOWHIDE") %>'
+                DefaultState="Collapsed"  />
+            <YAF:LocalizedLabel runat="server" LocalizedTag="SEARCH_OPTIONS" />      
+        </td>
+    </tr>
+    <asp:PlaceHolder ID="MoreOptions" runat="server">
+    <tr>
+        <td align="right" class="postheader">
+            <YAF:LocalizedLabel runat="server" LocalizedTag="SEARCH_IN" />
+        </td>
+        <td align="left" class="post">
+            <asp:DropDownList ID="listForum" runat="server" CssClass="standardSelectMenu" />
         </td>
     </tr>
     <tr>
-        <td align="right" class="postheader" width="35%">
-            <YAF:LocalizedLabel runat="server" LocalizedTag="posts" />
+        <td align="right" class="postheader">
+            <YAF:LocalizedLabel runat="server" LocalizedTag="SEARCH_TITLEORBOTH" />
         </td>
-        <td align="left" class="postheader">
-            <asp:TextBox ID="txtSearchStringWhat" runat="server" Width="350px" />
-            <asp:DropDownList ID="listSearchWhat" runat="server" />
+        <td align="left" class="post">
+            <asp:DropDownList ID="TitleOnly" runat="server" CssClass="standardSelectMenu" />
         </td>
     </tr>
     <tr>
-        <td align="center" class="postfooter" colspan="2">
+        <td align="right" class="post">
+            <YAF:LocalizedLabel runat="server" LocalizedTag="SEARCH_RESULTS" />
+        </td>
+        <td align="left" class="post">
+            <asp:DropDownList ID="listResInPage" runat="server" CssClass="standardSelectMenu" />
+        </td>
+    </tr>
+    </asp:PlaceHolder>
+    <tr>
+        <td class="postfooter centerItem" colspan="2">
             <asp:Button ID="btnSearch" runat="server" CssClass="pbutton" OnClick="btnSearch_Click"
                 OnClientClick="ShowLoadingDialog(); return true;" Visible="false" />
             <asp:Button ID="btnSearchExt1" runat="server" CssClass="pbutton" Visible="false"

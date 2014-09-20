@@ -30,52 +30,50 @@ namespace YAF.Data.MsSql.Search
     using YAF.Types.Extensions;
 
     /// <summary>
-  /// The search builder extensions.
-  /// </summary>
-  public static class SearchBuilderExtensions
-  {
-    #region Public Methods
-
-    /// <summary>
-    /// The build sql.
+    /// The search builder extensions.
     /// </summary>
-    /// <param name="conditions">
-    /// The conditions.
-    /// </param>
-    /// <param name="surroundWithParathesis">
-    /// The surround with parathesis.
-    /// </param>
-    /// <returns>
-    /// The build sql.
-    /// </returns>
-    [NotNull]
-    public static string BuildSql([NotNull] this IEnumerable<SearchCondition> conditions, bool surroundWithParathesis)
+    public static class SearchBuilderExtensions
     {
-      var sb = new StringBuilder();
+        #region Public Methods
 
-      conditions.ForEachFirst(
-        (item, isFirst) =>
-          {
-            sb.Append(" ");
-            if (!isFirst)
-            {
-              sb.Append(item.ConditionType.GetStringValue());
-              sb.Append(" ");
-            }
+        /// <summary>
+        /// Builds the SQL.
+        /// </summary>
+        /// <param name="conditions">The conditions.</param>
+        /// <param name="surroundWithParenthesis">The surround with parenthesis.</param>
+        /// <returns>
+        /// The build SQL.
+        /// </returns>
+        [NotNull]
+        public static string BuildSql(
+            [NotNull] this IEnumerable<SearchCondition> conditions,
+            bool surroundWithParenthesis)
+        {
+            var sb = new StringBuilder();
 
-            if (surroundWithParathesis)
-            {
-              sb.AppendFormat("({0})", (object)item.Condition);
-            }
-            else
-            {
-              sb.Append((string)item.Condition);
-            }
-          });
+            conditions.ForEachFirst(
+                (item, isFirst) =>
+                    {
+                        sb.Append(" ");
+                        if (!isFirst)
+                        {
+                            sb.Append(item.ConditionType.GetStringValue());
+                            sb.Append(" ");
+                        }
 
-      return sb.ToString();
+                        if (surroundWithParenthesis)
+                        {
+                            sb.AppendFormat("({0})", item.Condition);
+                        }
+                        else
+                        {
+                            sb.Append(item.Condition);
+                        }
+                    });
+
+            return sb.ToString();
+        }
+
+        #endregion
     }
-
-    #endregion
-  }
 }
