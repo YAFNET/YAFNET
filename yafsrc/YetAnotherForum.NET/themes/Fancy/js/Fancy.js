@@ -1,4 +1,12 @@
-﻿function pageLoad() {
+﻿jQuery.fn.onImagesLoaded = function (_cb) {
+    return this.each(function () {
+        var $imgs = (this.tagName.toLowerCase() === 'img') ? $(this) : $('img', this), _cont = this, i = 0, _done = function () { if (typeof _cb === 'function') _cb(_cont); }; if ($imgs.length) {
+            $imgs.each(function () { var _img = this, _checki = function (e) { if ((_img.complete) || (_img.readyState == 'complete' && e.type == 'readystatechange')) { if (++i === $imgs.length) _done(); } else if (_img.readyState === undefined) { $(_img).attr('src', $(_img).attr('src')); } }; $(_img).bind('load readystatechange', function (e) { _checki(e); }); _checki({ type: 'readystatechange' }); });
+        } else _done();
+    });
+};
+
+function pageLoad() {
     jQuery('.yafnet').hide();
     jQuery('.content, .yafPageLink').addClass('contentShadow roundShadow');
     jQuery('#DivIconLegend, #DivPageAccess').addClass('content contentShadow roundShadow');
@@ -15,14 +23,16 @@
         jQuery("img, input, a").tipTip();
     }
     
-    jQuery(function() {
-        jQuery('img.avatarimage').onImagesLoaded(function(_this) {
-            jQuery(_this).wrap(function() {
-                return '<span class="AvatarWrap" style="position:relative; display:inline-block; background:url(' + jQuery(_this).attr('src') + ') no-repeat center center; width: auto; height: auto;" />';
-            });
-            jQuery(_this).css("opacity", "0");
-        });
-    });
+	jQuery(function() {
+	    if (jQuery('img.avatarimage').length && (typeof (jQuery.fn.onImagesLoaded) != 'undefined')) {
+	        jQuery('img.avatarimage').onImagesLoaded(function(_this) {
+	            jQuery(_this).wrap(function() {
+	                return '<span class="AvatarWrap" style="position:relative; display:inline-block; background:url(' + jQuery(_this).attr('src') + ') no-repeat center center; width: auto; height: auto;" />';
+	            });
+	            jQuery(_this).css("opacity", "0");
+	        });
+	    }
+	});
 
     if ((typeof(jQuery.fn.uniform) != 'undefined')) {
         if (jQuery("input:checkbox").not('.MultiQuoteButton input')) {
@@ -32,9 +42,6 @@
     }
 
     jQuery('.QuickSearchButton').text('A');
-    jQuery('select').not('[id*="ProfileEditor_Country"]').each(function() {
-        jQuery(this).msDropDown();
-    });
 
     jQuery('.dd').each(function() {
         var width = jQuery(this).width();
@@ -49,22 +56,3 @@
 
     jQuery('.yafnet').show();
 }
-
-jQuery.fn.onImagesLoaded = function(_cb) {
-    return this.each(function() {
-        var $imgs = (this.tagName.toLowerCase() === 'img') ? $(this) : $('img', this), _cont = this, i = 0, _done = function() { if (typeof _cb === 'function') _cb(_cont); };
-        if ($imgs.length) {
-            $imgs.each(function() {
-                var _img = this, _checki = function(e) {
-                    if ((_img.complete) || (_img.readyState == 'complete' && e.type == 'readystatechange')) {
-                        if (++i === $imgs.length) _done();
-                    } else if (_img.readyState === undefined) {
-                        $(_img).attr('src', $(_img).attr('src'));
-                    }
-                };
-                $(_img).bind('load readystatechange', function(e) { _checki(e); });
-                _checki({ type: 'readystatechange' });
-            });
-        } else _done();
-    });
-};
