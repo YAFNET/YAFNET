@@ -25,12 +25,67 @@
       <DefaultExclude Include="**\*.txt" />
       <DefaultExclude Include="**\*ReSharper.*\**" />
       <DefaultExclude Include="**\.nuget\**" />
+      <DefaultExclude Include="**\_source\**" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.min.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-select.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-select.min.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\DataPanel.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\InstallWizard.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\InstallWizard.comb.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.blockUI.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ceebox.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumExtensions.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.hovercard.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.msDropDown.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.notification.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.pagemethod.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.pagination.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.syntaxhighligher.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.tablesorter.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.timeago.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ui.datepicker-farsi.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.yafmodaldialog.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-2.1.1.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-2.1.1.intellisense.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-migrate-1.2.1.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-ui-1.11.1.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-ui-i18n.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\ladda.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\ladda.min.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\spin.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\spin.min.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\yaf.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-select.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-select.min.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\InstallWizard.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.ceebox.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.ceebox.min.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.hovercard.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.hovercard.min.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.notification.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.notification.min.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.syntaxhighligher.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.syntaxhighligher.min.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.yafmodaldialog.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.yafmodaldialog.min.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\ladda.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\ladda.min.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\ladda-themeless.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\ladda-themeless.min.css" />
     </ItemGroup>
 
     <ItemGroup>
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.ascx" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
-      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.js" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
-      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.css" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include 
+        Include="$(MSBuildProjectDirectory)\**\*.js" 
+        Exclude="@(DefaultExclude)" 
+      />
+      <yafInstall-Include 
+        Include="$(MSBuildProjectDirectory)\**\*.css" 
+        Exclude="@(DefaultExclude)" 
+      />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.html" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.htm" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.jpg" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
