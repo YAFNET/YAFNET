@@ -3546,7 +3546,7 @@ GO
 CREATE procedure [{databaseOwner}].[{objectQualifier}group_save](
     @GroupID		int,
     @BoardID		int,
-    @Name			nvarchar(50),
+    @Name			nvarchar(255),
     @IsAdmin		bit,
     @IsGuest		bit,
     @IsStart		bit,
@@ -8555,7 +8555,7 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_setrole](@BoardID int,@ProviderUserKey nvarchar(64),@Role nvarchar(50)) as
+create procedure [{databaseOwner}].[{objectQualifier}user_setrole](@BoardID int,@ProviderUserKey nvarchar(64),@Role nvarchar(255)) as
 begin
     
     declare @UserID int, @GroupID int
