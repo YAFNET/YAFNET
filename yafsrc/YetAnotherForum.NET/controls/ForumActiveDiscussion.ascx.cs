@@ -102,7 +102,7 @@ namespace YAF.Controls
             newPostIcon.AlternateText = this.GetText("NEW_POSTS");
             newPostIcon.ToolTip = this.GetText("NEW_POSTS");
 
-            var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["TOPIC"]));
+            var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"]));
 
             var styles = this.Get<YafBoardSettings>().UseStyledTopicTitles
                              ? this.Get<IStyleTransform>().DecodeStyleByString(currentRow["Styles"].ToString())
