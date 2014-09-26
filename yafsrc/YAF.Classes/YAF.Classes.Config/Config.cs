@@ -511,7 +511,7 @@ namespace YAF.Classes
         {
             get
             {
-                return GetConfigValueAsString("YAF.JQueryUIOverrideFile")
+                return GetConfigValueAsString("YAF.JQueryOverrideFile")
                        ?? string.Empty;
             }
         }
