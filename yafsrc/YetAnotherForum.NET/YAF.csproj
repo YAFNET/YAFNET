@@ -887,6 +887,12 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\icons\ipbandetected.png" />
     <Content Include="Content\images\InstallBackground.jpg" />
+    <Content Include="Content\jsdifflib.css">
+      <DependentUpon>jsdifflib.less</DependentUpon>
+    </Content>
+    <Content Include="Content\jsdifflib.min.css">
+      <DependentUpon>jsdifflib.css</DependentUpon>
+    </Content>
     <Content Include="Content\ladda-themeless.css">
       <DependentUpon>ladda-themeless.less</DependentUpon>
     </Content>
@@ -1411,6 +1417,7 @@
     <Content Include="Images\Medals\medal_small.png" />
     <Content Include="Images\YafLogo.png" />
     <Content Include="install\custom\custom.sql" />
+    <Content Include="install\custom\dnn.sql" />
     <Content Include="install\TopicStatusList.xml" />
     <Content Include="Images\YafLogoSmall.png" />
     <Content Include="languages\admin\english.xml">
@@ -1723,6 +1730,8 @@
     <Content Include="Content\images\bg.gif" />
     <Content Include="Resources\HelpMenuList.xml" />
     <Content Include="Resources\ProviderExceptions.xml" />
+    <Content Include="Scripts\bootstrap-select.js" />
+    <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
@@ -1985,6 +1994,10 @@
     <Content Include="Scripts\ckeditor\styles.js" />
     <Content Include="Scripts\jquery-ui-1.11.1.js" />
     <Content Include="Scripts\jquery-ui-1.11.1.min.js" />
+    <Content Include="Scripts\jsdifflib.js" />
+    <Content Include="Scripts\jsdifflib.min.js">
+      <DependentUpon>jsdifflib.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\tinymce\license.txt" />
     <Content Include="Scripts\tinymce\plugins\advlist\plugin.js" />
     <Content Include="Scripts\tinymce\plugins\advlist\plugin.min.js" />
@@ -2138,8 +2151,8 @@
     <Content Include="Scripts\tinymce\plugins\visualchars\plugin.min.js" />
     <Content Include="Scripts\tinymce\plugins\wordcount\plugin.js" />
     <Content Include="Scripts\tinymce\plugins\wordcount\plugin.min.js" />
-    <Content Include="Scripts\tinymce\skins\lightgray\content.inline.min.css" />
-    <Content Include="Scripts\tinymce\skins\lightgray\content.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\Content.inline.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\Content.min.css" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.svg" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.svg" />
     <Content Include="Scripts\tinymce\skins\lightgray\img\anchor.gif" />
@@ -3110,6 +3123,7 @@
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Content\bootstrap-select.less" />
+    <Content Include="Content\bootstrap-select.css.map" />
     <None Include="Content\InstallWizard.less" />
     <Content Include="Content\InstallWizard.css">
       <DependentUpon>InstallWizard.less</DependentUpon>
@@ -3119,14 +3133,11 @@
     </Content>
     <Content Include="Content\ladda-themeless.less" />
     <Content Include="Content\ladda.less" />
+    <Content Include="Content\jsdifflib.less" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="Scripts\bootstrap-select.js" />
-    <Content Include="Scripts\bootstrap-select.min.js">
-      <DependentUpon>bootstrap-select.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js">
       <DependentUpon>bootstrap.js</DependentUpon>
@@ -3153,6 +3164,7 @@
     <Content Include="Scripts\ckeditor\composer.json" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
     <Content Include="Scripts\ckeditor\bower.json" />
+    <Content Include="Scripts\bootstrap-select.js.map" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js">
       <DependentUpon>jquery-2.1.1.js</DependentUpon>
     </None>

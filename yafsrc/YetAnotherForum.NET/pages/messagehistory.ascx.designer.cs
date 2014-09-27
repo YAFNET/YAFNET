@@ -40,15 +40,6 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.Repeater RevisionsList;
         
         /// <summary>
-        /// CurrentMessageRpt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater CurrentMessageRpt;
-        
-        /// <summary>
         /// ReturnBtn control.
         /// </summary>
         /// <remarks>
@@ -65,6 +56,24 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.ThemeButton ReturnModBtn;
+        
+        /// <summary>
+        /// LocalizedLabel4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
+        
+        /// <summary>
+        /// LocalizedLabel8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel8;
         
         /// <summary>
         /// SmartScroller1 control.

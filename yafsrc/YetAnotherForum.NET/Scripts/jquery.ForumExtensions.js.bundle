@@ -22,6 +22,7 @@
     <file>/Scripts/jquery.tablesorter.js</file>
     <file>/Scripts/jquery.timeago.js</file>
     <file>/Scripts/jquery.yafmodaldialog.js</file>
+    <file>/Scripts/jsdifflib.js</file>
     <file>/Scripts/yaf.js</file>
   </files>
 </bundle>

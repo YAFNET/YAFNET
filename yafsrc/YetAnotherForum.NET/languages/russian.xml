@@ -4217,14 +4217,27 @@ Spoiler Content
     <Resource tag="USERNAME">Имя пользователя</Resource>
   </page>
   <page name="MESSAGEHISTORY">
+    <Resource tag="COMPARE_TITLE">Message Edit History Post Comparsion</Resource>
+    <Resource tag="COMPARE_VERSIONS">Compare versions</Resource>
+    <Resource tag="CONFIRM_RESTORE">Are you really want to restore that Message version?</Resource>
     <Resource tag="CURRENTMESSAGE">Последняя редакция</Resource>
     <Resource tag="EDITED">Дата изменения:</Resource>
     <Resource tag="EDITEDBY">Изменил:</Resource>
+    <Resource tag="EDITEDBY_MOD">Edited By an Moderator</Resource>
     <Resource tag="EDITEREASON">Причина изменения:</Resource>
     <Resource tag="GOMODERATE">Продолжить модерировать</Resource>
     <Resource tag="HISTORYSTART">Предыдущие редакции</Resource>
+    <Resource tag="MESSAGE_EDITEDAT">Message Edited at </Resource>
+    <Resource tag="MESSAGE_RESTORED">Message was successfully restored!</Resource>
+    <Resource tag="NEW">New</Resource>
+    <Resource tag="NOTHING_SELECTED">Nothing selected</Resource>
+    <Resource tag="OLD">Old</Resource>
     <Resource tag="ORIGINALMESSAGE">Первоначальная редакция</Resource>
     <Resource tag="POSTED">Оставлено:</Resource>
+    <Resource tag="RESTORE_MESSAGE">Restore Version</Resource>
+    <Resource tag="SELECT_BOTH">Please select one old and one new Message</Resource>
+    <Resource tag="SELECT_DIFFERENT">You must select two different versions to make a valid comparison.</Resource>
+    <Resource tag="TEXT_CHANGES">Text Changes</Resource>
     <Resource tag="TITLE">История изменений</Resource>
     <Resource tag="TOMESSAGE">Вернуться к сообщению</Resource>
   </page>

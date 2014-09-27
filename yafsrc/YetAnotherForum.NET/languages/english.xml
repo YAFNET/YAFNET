@@ -4214,6 +4214,7 @@ Spoiler Content
  </page>
  <page name="MESSAGEHISTORY">
   <Resource tag="CONFIRM_RESTORE">Are you really want to restore that Message version?</Resource>
+  <Resource tag="COMPARE_TITLE">Message Edit History Post Comparsion</Resource>
   <Resource tag="COMPARE_VERSIONS">Compare versions</Resource>
   <Resource tag="CURRENTMESSAGE">Current message</Resource>
   <Resource tag="EDITED">Edited at</Resource>
@@ -4223,11 +4224,16 @@ Spoiler Content
   <Resource tag="OLD">Old</Resource>
   <Resource tag="ORIGINALMESSAGE">Original message</Resource>
   <Resource tag="MESSAGE_RESTORED">Message was successfully restored!</Resource>
+  <Resource tag="MESSAGE_EDITEDAT">Message Edited at </Resource>
   <Resource tag="NEW">New</Resource>
   <Resource tag="POSTED">Posted:</Resource>
   <Resource tag="RESTORE_MESSAGE">Restore Version</Resource>
+  <Resource tag="TEXT_CHANGES">Text Changes</Resource>
   <Resource tag="TITLE">Message Edit History</Resource>
   <Resource tag="TOMESSAGE">Go to message</Resource>
+  <Resource tag="NOTHING_SELECTED">Nothing selected</Resource>
+  <Resource tag="SELECT_BOTH">Please select one old and one new Message</Resource>
+  <Resource tag="SELECT_DIFFERENT">You must select two different versions to make a valid comparison.</Resource>
  </page>
  <page name="MOD_FORUMUSER">
   <Resource tag="ACCESSMASK">Access Mask:</Resource>

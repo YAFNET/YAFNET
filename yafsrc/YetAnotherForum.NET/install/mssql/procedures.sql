@@ -3315,8 +3315,7 @@ BEGIN
         IsGroup=1
     from
         [{databaseOwner}].[{objectQualifier}Forum] f WITH(NOLOCK) 
-        INNER JOIN [{databaseOwner}].[{objectQualifier}ForumAccess] a WITH(NOLOCK)
-        ON a.ForumID = f.ForumID
+        INNER JOIN [{databaseOwner}].[{objectQualifier}ForumAccess] a WITH(NOLOCK) ON a.ForumID = f.ForumID
         INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b WITH(NOLOCK) ON b.GroupID = a.GroupID
         INNER JOIN [{databaseOwner}].[{objectQualifier}AccessMask] c WITH(NOLOCK) ON c.AccessMaskID = a.AccessMaskID
     where
@@ -4289,22 +4288,47 @@ begin
         a.MessageID = @MessageID
 
     if (@OverrideApproval = 1 OR (@ForumFlags & 8)=0) set @Flags = @Flags | 16
+
+	-- save original message in the history if this is the first edit
+	if not exists(select 1 from [{databaseOwner}].[{objectQualifier}MessageHistory] where MessageID=@MessageID)
+	  begin
+	    insert into [{databaseOwner}].[{objectQualifier}MessageHistory] (MessageID,		
+            [Message],
+            IP,
+            Edited,
+            EditedBy,		
+            EditReason,
+            IsModeratorChanged,
+            Flags)
+            select MessageID, 
+			       OriginalMessage=@OriginalMessage, 
+				   IP,
+				   Posted,
+				   UserID,
+				   NULL, 
+				   IsModeratorChanged, 
+				   Flags
+		    from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID
+	  end
+	else
+	 begin
+	     -- insert current message variant - use OriginalMessage in future 	
+        insert into [{databaseOwner}].[{objectQualifier}MessageHistory]
+        (MessageID,		
+            [Message],
+            IP,
+            Edited,
+            EditedBy,		
+            EditReason,
+            IsModeratorChanged,
+            Flags)
+        select 
+        MessageID, OriginalMessage=@OriginalMessage, IP , @CurrentUtcTimestamp, IsNull(EditedBy,UserID), EditReason, IsModeratorChanged, Flags
+        from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID
+	 end
     
     
-    -- insert current message variant - use OriginalMessage in future 	
-    insert into [{databaseOwner}].[{objectQualifier}MessageHistory]
-    (MessageID,		
-        [Message],
-        IP,
-        Edited,
-        EditedBy,		
-        EditReason,
-        IsModeratorChanged,
-        Flags)
-    select 
-    MessageID, OriginalMessage=@OriginalMessage, IP , IsNull(Edited,Posted), IsNull(EditedBy,UserID), EditReason, IsModeratorChanged, Flags
-    from [{databaseOwner}].[{objectQualifier}Message] where
-        MessageID = @MessageID
+    
     
     update [{databaseOwner}].[{objectQualifier}Message] set
         [Message] = @Message,
@@ -10715,8 +10739,8 @@ GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}messagehistory_list] (@MessageID INT, @DaysToClean INT,
       @UTCTIMESTAMP datetime)
 as 
-    BEGIN    
-    -- delete all message variants older then DaysToClean days Flags reserved for possible pms   
+    BEGIN             
+     -- delete all message variants older then DaysToClean days Flags reserved for possible pms   
      delete from [{databaseOwner}].[{objectQualifier}MessageHistory]
      where DATEDIFF(day,Edited,@UTCTIMESTAMP ) > @DaysToClean	
               

@@ -4218,14 +4218,27 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="USERNAME">الاسم</Resource>
   </page>
   <page name="MESSAGEHISTORY">
+    <Resource tag="COMPARE_TITLE">Message Edit History Post Comparsion</Resource>
+    <Resource tag="COMPARE_VERSIONS">Compare versions</Resource>
+    <Resource tag="CONFIRM_RESTORE">Are you really want to restore that Message version?</Resource>
     <Resource tag="CURRENTMESSAGE">النسخة  الحالية </Resource>
     <Resource tag="EDITED">تعديل:</Resource>
     <Resource tag="EDITEDBY">تعديل بواسطة:</Resource>
+    <Resource tag="EDITEDBY_MOD">Edited By an Moderator</Resource>
     <Resource tag="EDITEREASON">سبب التعديل:</Resource>
     <Resource tag="GOMODERATE">الذهاب الى الاشراف </Resource>
     <Resource tag="HISTORYSTART">تاريخ الاصدارات </Resource>
+    <Resource tag="MESSAGE_EDITEDAT">Message Edited at </Resource>
+    <Resource tag="MESSAGE_RESTORED">Message was successfully restored!</Resource>
+    <Resource tag="NEW">New</Resource>
+    <Resource tag="NOTHING_SELECTED">Nothing selected</Resource>
+    <Resource tag="OLD">Old</Resource>
     <Resource tag="ORIGINALMESSAGE">النسخة اصلية</Resource>
     <Resource tag="POSTED">انشر:</Resource>
+    <Resource tag="RESTORE_MESSAGE">Restore Version</Resource>
+    <Resource tag="SELECT_BOTH">Please select one old and one new Message</Resource>
+    <Resource tag="SELECT_DIFFERENT">You must select two different versions to make a valid comparison.</Resource>
+    <Resource tag="TEXT_CHANGES">Text Changes</Resource>
     <Resource tag="TITLE">تاريخ الرسالة </Resource>
     <Resource tag="TOMESSAGE">الذهاب الى الرسائل </Resource>
   </page>

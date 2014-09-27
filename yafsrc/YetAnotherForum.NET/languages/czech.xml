@@ -4225,14 +4225,27 @@ Spoiler Content
     <Resource tag="USERNAME">Uživatelské jméno</Resource>
   </page>
   <page name="MESSAGEHISTORY">
+    <Resource tag="COMPARE_TITLE">Message Edit History Post Comparsion</Resource>
+    <Resource tag="COMPARE_VERSIONS">Compare versions</Resource>
+    <Resource tag="CONFIRM_RESTORE">Are you really want to restore that Message version?</Resource>
     <Resource tag="CURRENTMESSAGE">Current edition</Resource>
     <Resource tag="EDITED">Edited:</Resource>
     <Resource tag="EDITEDBY">Edited by:</Resource>
+    <Resource tag="EDITEDBY_MOD">Edited By an Moderator</Resource>
     <Resource tag="EDITEREASON">Edit reason:</Resource>
     <Resource tag="GOMODERATE">Continue moderate</Resource>
     <Resource tag="HISTORYSTART">History editions</Resource>
+    <Resource tag="MESSAGE_EDITEDAT">Message Edited at </Resource>
+    <Resource tag="MESSAGE_RESTORED">Message was successfully restored!</Resource>
+    <Resource tag="NEW">New</Resource>
+    <Resource tag="NOTHING_SELECTED">Nothing selected</Resource>
+    <Resource tag="OLD">Old</Resource>
     <Resource tag="ORIGINALMESSAGE">Original edition</Resource>
     <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="RESTORE_MESSAGE">Restore Version</Resource>
+    <Resource tag="SELECT_BOTH">Please select one old and one new Message</Resource>
+    <Resource tag="SELECT_DIFFERENT">You must select two different versions to make a valid comparison.</Resource>
+    <Resource tag="TEXT_CHANGES">Text Changes</Resource>
     <Resource tag="TITLE">Message History</Resource>
     <Resource tag="TOMESSAGE">Go to message</Resource>
   </page>

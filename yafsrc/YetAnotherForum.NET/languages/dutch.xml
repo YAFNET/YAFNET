@@ -4190,14 +4190,27 @@ Spoiler Inhoud
     <Resource tag="USERNAME">Gebruikersnaam</Resource>
   </page>
   <page name="MESSAGEHISTORY">
+    <Resource tag="COMPARE_TITLE">Message Edit History Post Comparsion</Resource>
+    <Resource tag="COMPARE_VERSIONS">Compare versions</Resource>
+    <Resource tag="CONFIRM_RESTORE">Are you really want to restore that Message version?</Resource>
     <Resource tag="CURRENTMESSAGE">Huidige versie</Resource>
     <Resource tag="EDITED">Bewerkt:</Resource>
     <Resource tag="EDITEDBY">Bewerkt door:</Resource>
+    <Resource tag="EDITEDBY_MOD">Edited By an Moderator</Resource>
     <Resource tag="EDITEREASON">Reden:</Resource>
     <Resource tag="GOMODERATE">Verder met moderatie</Resource>
     <Resource tag="HISTORYSTART">Oudere versies</Resource>
+    <Resource tag="MESSAGE_EDITEDAT">Message Edited at </Resource>
+    <Resource tag="MESSAGE_RESTORED">Message was successfully restored!</Resource>
+    <Resource tag="NEW">New</Resource>
+    <Resource tag="NOTHING_SELECTED">Nothing selected</Resource>
+    <Resource tag="OLD">Old</Resource>
     <Resource tag="ORIGINALMESSAGE">Originele versie</Resource>
     <Resource tag="POSTED">Gepost:</Resource>
+    <Resource tag="RESTORE_MESSAGE">Restore Version</Resource>
+    <Resource tag="SELECT_BOTH">Please select one old and one new Message</Resource>
+    <Resource tag="SELECT_DIFFERENT">You must select two different versions to make a valid comparison.</Resource>
+    <Resource tag="TEXT_CHANGES">Text Changes</Resource>
     <Resource tag="TITLE">Bericht geschiedenis</Resource>
     <Resource tag="TOMESSAGE">Ga naar bericht</Resource>
   </page>

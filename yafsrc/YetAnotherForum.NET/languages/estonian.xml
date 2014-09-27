@@ -4242,14 +4242,27 @@ Spoiler Content
     <Resource tag="USERNAME">Nimi</Resource>
   </page>
   <page name="MESSAGEHISTORY">
+    <Resource tag="COMPARE_TITLE">Message Edit History Post Comparsion</Resource>
+    <Resource tag="COMPARE_VERSIONS">Compare versions</Resource>
+    <Resource tag="CONFIRM_RESTORE">Are you really want to restore that Message version?</Resource>
     <Resource tag="CURRENTMESSAGE">Jooksev versioon</Resource>
     <Resource tag="EDITED">Toimetatud:</Resource>
     <Resource tag="EDITEDBY">Toimetas:</Resource>
+    <Resource tag="EDITEDBY_MOD">Edited By an Moderator</Resource>
     <Resource tag="EDITEREASON">Toimetamise põhjus:</Resource>
     <Resource tag="GOMODERATE">Jätka modereerimist</Resource>
     <Resource tag="HISTORYSTART">Versioonide ajalugu</Resource>
+    <Resource tag="MESSAGE_EDITEDAT">Message Edited at </Resource>
+    <Resource tag="MESSAGE_RESTORED">Message was successfully restored!</Resource>
+    <Resource tag="NEW">New</Resource>
+    <Resource tag="NOTHING_SELECTED">Nothing selected</Resource>
+    <Resource tag="OLD">Old</Resource>
     <Resource tag="ORIGINALMESSAGE">Esialgne versioon</Resource>
     <Resource tag="POSTED">Saadetud:</Resource>
+    <Resource tag="RESTORE_MESSAGE">Restore Version</Resource>
+    <Resource tag="SELECT_BOTH">Please select one old and one new Message</Resource>
+    <Resource tag="SELECT_DIFFERENT">You must select two different versions to make a valid comparison.</Resource>
+    <Resource tag="TEXT_CHANGES">Text Changes</Resource>
     <Resource tag="TITLE">Sõnumite ajalugu</Resource>
     <Resource tag="TOMESSAGE">Ava sõnum</Resource>
   </page>

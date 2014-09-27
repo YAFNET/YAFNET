@@ -27,7 +27,9 @@ namespace YAF.Pages
 
     using System;
     using System.Data;
+    using System.Linq;
     using System.Web;
+    using System.Web.UI.WebControls;
 
     using YAF.Classes.Data;
     using YAF.Controls;
@@ -35,6 +37,7 @@ namespace YAF.Pages
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
@@ -48,17 +51,12 @@ namespace YAF.Pages
         #region Constants and Fields
 
         /// <summary>
-        ///   To save single report value.
-        /// </summary>
-        protected bool singleReport;
-
-        /// <summary>
-        ///   To save forumid value.
+        ///   To save Forum ID value.
         /// </summary>
         private int forumID;
 
         /// <summary>
-        ///   To save messageid value.
+        ///   To save Message ID value.
         /// </summary>
         private int messageID;
 
@@ -80,6 +78,14 @@ namespace YAF.Pages
         }
 
         #endregion
+
+        /// <summary>
+        /// Gets or sets the revisions count.
+        /// </summary>
+        /// <value>
+        /// The revisions count.
+        /// </value>
+        protected int RevisionsCount { get; set; }
 
         #region Methods
 
@@ -143,6 +149,16 @@ namespace YAF.Pages
         }
 
         /// <summary>
+        /// Compares the selected Versions
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void CompareVersions_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            //TODO:
+        }
+
+        /// <summary>
         /// Redirect to the changed post
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -164,22 +180,115 @@ namespace YAF.Pages
         }
 
         /// <summary>
+        /// Handle Commands for restoring an old Message Version
+        /// </summary>
+        /// <param name="source">The source of the event.</param>
+        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
+        protected void RevisionsList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        {
+            switch (e.CommandName)
+            {
+                case "restore":
+                    var currentMessage = LegacyDb.MessageList(this.messageID).FirstOrDefault();
+
+                    DataRow restoreMessage = null;
+
+                    var revisionsTable = LegacyDb.messagehistory_list(
+                        this.messageID,
+                        this.PageContext.BoardSettings.MessageHistoryDaysToLog).AsEnumerable();
+
+                    foreach (DataRow row in Enumerable.Where(revisionsTable, row => row["Edited"].ToType<string>().Equals(e.CommandArgument.ToType<string>())))
+                    {
+                        restoreMessage = row;
+                    }
+
+                    if (restoreMessage != null)
+                    {
+
+                        LegacyDb.message_update(
+                            this.messageID,
+                            currentMessage.Priority,
+                            restoreMessage["Message"],
+                            currentMessage.Description,
+                            currentMessage.Status,
+                            currentMessage.Styles,
+                            currentMessage.Topic,
+                            currentMessage.Flags.BitValue,
+                            restoreMessage["EditReason"],
+                            this.PageContext.PageUserID != currentMessage.UserID,
+                            this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess,
+                            currentMessage.Message,
+                            this.PageContext.PageUserID);
+
+                        this.PageContext.AddLoadMessage(this.GetText("MESSAGE_RESTORED"), MessageTypes.Success);
+                    }
+
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Add Confirm Dialog to the Restore Message Button
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void RestoreVersion_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            ((ThemeButton)sender).Attributes["onclick"] =
+                "return confirm('{0}')".FormatWith(this.GetText("MESSAGEHISTORY", "CONFIRM_RESTORE"));
+        }
+
+        /// <summary>
+        /// Format message.
+        /// </summary>
+        /// <param name="row">
+        /// Message data row.
+        /// </param>
+        /// <returns>
+        /// Formatted string with escaped HTML markup and formatted.
+        /// </returns>
+        protected string FormatMessage([NotNull] DataRow row)
+        {
+            // get message flags
+            var messageFlags = new MessageFlags(row["Flags"]);
+
+            // message
+            string msg;
+
+            // format message?
+            if (messageFlags.NotFormatted)
+            {
+                // just encode it for HTML output
+                msg = this.HtmlEncode(row["Message"].ToString());
+            }
+            else
+            {
+                // fully format message (YafBBCode, smilies)
+                msg = this.Get<IFormatMessage>().FormatMessage(
+                  row["Message"].ToString(), messageFlags, row["IsModeratorChanged"].ToType<bool>());
+            }
+
+            // return formatted message
+            return msg;
+        }
+        
+        /// <summary>
         /// Binds data to data source
         /// </summary>
         private void BindData()
         {
             // Fill revisions list repeater.
-            DataTable dt = LegacyDb.messagehistory_list(
+            var revisionsTable = LegacyDb.messagehistory_list(
                 this.messageID,
                 this.PageContext.BoardSettings.MessageHistoryDaysToLog);
-            this.RevisionsList.DataSource = dt.AsEnumerable();
 
-            this.singleReport = dt.Rows.Count <= 1;
+            revisionsTable.AcceptChanges();
 
-            // Fill current message repeater
-            this.CurrentMessageRpt.DataSource =
-                LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID).AsEnumerable();
-            this.CurrentMessageRpt.Visible = true;
+            revisionsTable.Merge(LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID));
+
+            this.RevisionsCount = revisionsTable.Rows.Count;
+
+            this.RevisionsList.DataSource = revisionsTable.AsEnumerable();
 
             this.DataBind();
         }
