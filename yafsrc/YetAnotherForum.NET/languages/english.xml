@@ -283,8 +283,8 @@
   <Resource tag="MASK">Mask:</Resource>
   <Resource tag="MASK_HELP">The User Name to ban. You can use Regular Expressions.</Resource>
   <Resource tag="REASON">Reason:</Resource>
-  <Resource tag="REASON_HELP">The reason why the email address was banned.</Resource>
-  <Resource tag="TITLE">Add/Edit Banned Email Address</Resource>
+  <Resource tag="REASON_HELP">The reason why the user name was banned.</Resource>
+  <Resource tag="TITLE">Add/Edit Banned Name</Resource>
  </page>
  <page name="ADMIN_BANNEDNAME_IMPORT">
   <Resource tag="HEADER">Import Names List</Resource>
@@ -4213,15 +4213,20 @@ Spoiler Content
   <Resource tag="USERNAME">Name</Resource>
  </page>
  <page name="MESSAGEHISTORY">
-  <Resource tag="CURRENTMESSAGE">Current edition</Resource>
-  <Resource tag="EDITED">Edited:</Resource>
-  <Resource tag="EDITEDBY">Edited by:</Resource>
-  <Resource tag="EDITEREASON">Edit reason:</Resource>
-  <Resource tag="GOMODERATE">Continue moderate</Resource>
-  <Resource tag="HISTORYSTART">History editions</Resource>
-  <Resource tag="ORIGINALMESSAGE">Original edition</Resource>
+  <Resource tag="CONFIRM_RESTORE">Are you really want to restore that Message version?</Resource>
+  <Resource tag="COMPARE_VERSIONS">Compare versions</Resource>
+  <Resource tag="CURRENTMESSAGE">Current message</Resource>
+  <Resource tag="EDITED">Edited at</Resource>
+  <Resource tag="EDITEDBY">Edited by</Resource>
+  <Resource tag="EDITEREASON">Edit reason</Resource>
+  <Resource tag="EDITEDBY_MOD">Edited By an Moderator</Resource>
+  <Resource tag="OLD">Old</Resource>
+  <Resource tag="ORIGINALMESSAGE">Original message</Resource>
+  <Resource tag="MESSAGE_RESTORED">Message was successfully restored!</Resource>
+  <Resource tag="NEW">New</Resource>
   <Resource tag="POSTED">Posted:</Resource>
-  <Resource tag="TITLE">Message History</Resource>
+  <Resource tag="RESTORE_MESSAGE">Restore Version</Resource>
+  <Resource tag="TITLE">Message Edit History</Resource>
   <Resource tag="TOMESSAGE">Go to message</Resource>
  </page>
  <page name="MOD_FORUMUSER">
