@@ -29,7 +29,6 @@ namespace YAF.Pages.Admin
     using System;
     using System.Data;
 
-    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
@@ -237,7 +236,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var errorMessage = string.Empty;
+            string errorMessage;
 
             if (this.MoveTopics.Checked)
             {
@@ -279,7 +278,10 @@ namespace YAF.Pages.Admin
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 "BlockUIExecuteJs", JavaScriptBlocks.BlockUIExecuteJs("DeleteForumMessage"));
 
-            // TODO : Handle Error Message?!
+            if (errorMessage.IsSet())
+            {
+                this.PageContext.AddLoadMessage(errorMessage, MessageTypes.Error);
+            }
         }
 
         #endregion

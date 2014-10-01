@@ -24,6 +24,7 @@
 
 namespace YAF.Controls
 {
+    using System;
     using System.ComponentModel;
     using System.Web.UI;
     using System.Web.UI.WebControls;
@@ -90,6 +91,14 @@ namespace YAF.Controls
         [Category("Appearance")]
         [DefaultValue(false)]
         public bool RenderWrapper { get; set; }
+
+        /// <summary>
+        /// Gets or sets the behavior mode (single-line, multiline, or password) of the <see cref="T:System.Web.UI.WebControls.TextBox" /> control.
+        /// </summary>
+        /// [Bindable(true)]
+        [Category("Appearance")]
+        [DefaultValue(InputType.SingleLine)]
+        public InputType Type { get; set; }
 
         /// <summary>
         /// Gets or sets the placeholder text.
@@ -174,6 +183,15 @@ namespace YAF.Controls
 
             writer.AddAttribute("placeholder", this.placeholder);
 
+            InputType textMode = this.Type;
+
+            switch (textMode)
+            {
+                default:
+                    writer.AddAttribute(HtmlTextWriterAttribute.Type, GetTypeAttributeValue(textMode));
+                    break;
+            }
+
             base.AddAttributesToRender(writer);
         }
 
@@ -191,5 +209,138 @@ namespace YAF.Controls
 
             writer.WriteEndTag(HtmlTextWriterTag.Label.ToString());
         }
+
+        /// <summary>
+        /// Gets the type attribute value.
+        /// </summary>
+        /// <param name="mode">The mode.</param>
+        /// <returns></returns>
+        /// <exception cref="System.InvalidOperationException"></exception>
+        internal static string GetTypeAttributeValue(InputType mode)
+        {
+            switch (mode)
+            {
+                case InputType.SingleLine:
+                    return "text";
+                case InputType.Password:
+                    return "password";
+                case InputType.Color:
+                    return "color";
+                case InputType.Date:
+                    return "date";
+                case InputType.DateTime:
+                    return "datetime";
+                case InputType.DateTimeLocal:
+                    return "datetime-local";
+                case InputType.Email:
+                    return "email";
+                case InputType.Month:
+                    return "month";
+                case InputType.Number:
+                    return "number";
+                case InputType.Range:
+                    return "range";
+                case InputType.Search:
+                    return "search";
+                case InputType.Phone:
+                    return "tel";
+                case InputType.Time:
+                    return "time";
+                case InputType.Url:
+                    return "url";
+                case InputType.Week:
+                    return "week";
+                default:
+                    throw new InvalidOperationException();
+            }
+        }
+    }
+
+
+
+    /// <summary>
+    /// Specifies the behavior mode of the text box.
+    /// </summary>
+    public enum InputType
+    {
+        /// <summary>
+        /// Represents color entry mode.
+        /// </summary>
+        Color,
+
+        /// <summary>
+        /// Represents date entry mode.
+        /// </summary>
+        Date,
+
+        /// <summary>
+        /// Represents date-time entry mode.
+        /// </summary>
+        DateTime,
+
+        /// <summary>
+        /// Represents local date-time entry mode.
+        /// </summary>
+        DateTimeLocal,
+
+        /// <summary>
+        /// Represents email address entry mode.
+        /// </summary>
+        Email,
+
+        /// <summary>
+        /// Represents month entry mode.
+        /// </summary>
+        Month,
+
+        /// <summary>
+        /// Represents multiline entry mode.
+        /// </summary>
+        MultiLine,
+
+        /// <summary>
+        /// Represents number entry mode.
+        /// </summary>
+        Number,
+
+        /// <summary>
+        /// Represents password entry mode.
+        /// </summary>
+        Password,
+
+        /// <summary>
+        /// Represents phone number entry mode.
+        /// </summary>
+        Phone,
+
+        /// <summary>
+        /// Represents numeric range entry mode.
+        /// </summary>
+        Range,
+
+        /// <summary>
+        /// Represents search string entry mode.
+        /// </summary>
+        Search,
+
+        /// <summary>
+        /// Represents single-line entry mode.
+        /// </summary>
+        SingleLine,
+
+        /// <summary>
+        /// Represents time entry mode.
+        /// </summary>
+        Time,
+
+        /// <summary>
+        /// Represents URL entry mode.
+        /// </summary>
+        Url,
+
+        /// <summary>
+        /// Represents week entry mode.
+        /// </summary>
+        Week,
     }
 }

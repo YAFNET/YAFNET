@@ -2589,6 +2589,7 @@ namespace YAF.Classes.Data
                     cmd_new.CommandTimeout = 99999;
                     cmd_new.AddParam("ForumOldID", forumOldID);
                     cmd_new.AddParam("ForumNewID", forumNewID);
+                    cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
                     DbAccess.ExecuteNonQuery(cmd_new);
                 }
 

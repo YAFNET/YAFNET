@@ -26,7 +26,7 @@
                 <YAF:HelpLabel ID="HelpLabel4" runat="server" LocalizedTag="FORUM_EMAIL" LocalizedPage="ADMIN_HOSTSETTINGS" />
             </td>
             <td class="post">
-                <asp:TextBox ID="ForumEmail" runat="server" Width="400"></asp:TextBox>
+                <asp:TextBox ID="ForumEmail" runat="server" Width="400" type="email"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -93,15 +93,6 @@
             <td class="post">
                 <asp:DropDownList ID="JqueryUITheme" runat="server" Width="400">
                 </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td class="postheader">
-                <YAF:HelpLabel ID="LocalizedLabel9" runat="server" LocalizedTag="BOARD_CDN_HOSTED"
-                    LocalizedPage="ADMIN_BOARDSETTINGS" />
-            </td>
-            <td class="post">
-                <asp:CheckBox ID="JqueryUIThemeCDNHosted" runat="server"></asp:CheckBox>
             </td>
         </tr>
         <tr>

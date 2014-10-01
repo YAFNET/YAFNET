@@ -11208,7 +11208,7 @@ begin
 end
 GO
 
-CREATE procedure [{databaseOwner}].[{objectQualifier}forum_move](@ForumOldID int,@ForumNewID int) as
+CREATE procedure [{databaseOwner}].[{objectQualifier}forum_move](@ForumOldID int,@ForumNewID int, @UTCTIMESTAMP datetime) as
 begin
         -- Maybe an idea to use cascading foreign keys instead? Too bad they don't work on MS SQL 7.0...
     update [{databaseOwner}].[{objectQualifier}Forum] set LastMessageID=null,LastTopicID=null where ForumID=@ForumOldID
@@ -11234,7 +11234,7 @@ begin
     -- Check @@FETCH_STATUS to see if there are any more rows to fetch.
     while @@FETCH_STATUS = 0
     begin
-        exec [{databaseOwner}].[{objectQualifier}topic_move] @tmpTopicID,@ForumNewID,0, -1;
+        exec [{databaseOwner}].[{objectQualifier}topic_move] @tmpTopicID,@ForumNewID,0, -1,@UTCTIMESTAMP;
     
        -- This is executed as long as the previous fetch succeeds.
         fetch next from topic_cursor

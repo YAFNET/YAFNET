@@ -103,7 +103,7 @@
                         <asp:Button OnLoad="ApproveAll_Load" CommandName="approveall" CssClass="pbutton"
                             runat="server" />
                         <asp:Button OnLoad="DeleteAll_Load" CommandName="deleteall" CssClass="pbutton" runat="server" />
-                        <asp:TextBox ID="DaysOld" runat="server" MaxLength="5" Text="14" CssClass="Numeric"></asp:TextBox>
+                        <asp:TextBox ID="DaysOld" runat="server" MaxLength="5" Text="14" CssClass="Numeric" type="number"></asp:TextBox>
                     </td>
                 </tr>
             </FooterTemplate>

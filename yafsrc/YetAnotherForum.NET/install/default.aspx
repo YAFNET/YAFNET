@@ -304,10 +304,10 @@
                         Sends a test Message to the Email address that is defined as Send to address
                     </p>
                     <YAF:ModernTextBox ID="txtTestFromEmail" runat="server"
-                        Placeholder="Enter the from Email Address" RenderWrapper="True" 
+                        Placeholder="Enter the from Email Address" RenderWrapper="True" Type="Email"
                         LabelText="Send From Email Address"/>
                     <YAF:ModernTextBox ID="txtTestToEmail" runat="server" 
-                        Placeholder="Enter the to Email Address" RenderWrapper="True" 
+                        Placeholder="Enter the to Email Address" RenderWrapper="True" Type="Email"
                         LabelText="Send To Email Address"/>
                     <YAF:ModernButton ID="btnTestSmtp" runat="server" Text="Test Smtp Settings" CssClass="buttonInfo" 
                         EnableLoadingAnimation="True" OnClick="TestSmtp_Click" data-style="expand-left" />
@@ -352,7 +352,7 @@
                             CssClass="selectCulture" data-width="100%" />
                     </div>
                     <YAF:ModernTextBox ID="ForumEmailAddress" runat="server" 
-                        Placeholder="Enter the forum email address"  RenderWrapper="True" 
+                        Placeholder="Enter the forum email address"  RenderWrapper="True" Type="Email"
                         LabelText="Forum Email"/>
                     <YAF:ModernTextBox ID="ForumBaseUrlMask" runat="server" 
                         Placeholder="Enter the Base Url mask for the forum" RenderWrapper="True" 
