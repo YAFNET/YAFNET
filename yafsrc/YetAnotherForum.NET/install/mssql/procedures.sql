@@ -3441,10 +3441,18 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}forum_updatestats](@ForumID int) as
 begin
-        update [{databaseOwner}].[{objectQualifier}Forum] set 
-        NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x join [{databaseOwner}].[{objectQualifier}Topic] y on y.TopicID=x.TopicID where y.ForumID = @ForumID and x.IsApproved = 1 and x.IsDeleted = 0 and y.IsDeleted = 0 ),
-        NumTopics = (select count(distinct x.TopicID) from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and y.IsApproved = 1 and y.IsDeleted = 0 and x.IsDeleted = 0)
-    where ForumID=@ForumID
+	--update Forum with forum and subforum topic values
+	 update f set
+		  NumPosts = isnull(t.Numposts, 0),
+		  NumTopics = isnull(t.Numtopics, 0)
+	   from [{databaseOwner}].[{objectQualifier}Forum] (nolock) f cross apply
+		  (select sum(t.NumPosts) as Numposts,
+				count(t.TopicID) as Numtopics
+		  from [{databaseOwner}].[{objectQualifier}Topic](nolock)t inner join
+			 [{databaseOwner}].[{objectQualifier}Forum](nolock) ff on ff.ForumID = t.ForumID
+		  where ff.ForumID = f.ForumID or
+			    ff.ParentID = f.ForumID) as t
+	   where f.ForumID = isnull(@ForumID, f.ForumID)
 end
 GO
 
