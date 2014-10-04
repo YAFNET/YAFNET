@@ -49,15 +49,15 @@ namespace YAF.Core.Services.Import
         /// <param name="boardId">
         /// The board id.
         /// </param>
-        /// <param name="imputStream">
-        /// The imput stream.
+        /// <param name="inputStream">
+        /// The input stream.
         /// </param>
         /// <returns>
         /// Returns How Many Extensions where imported.
         /// </returns>
         /// <exception cref="Exception">Import stream is not expected format.
         /// </exception>
-        public static int BBCodeExtensionImport(int boardId, Stream imputStream)
+        public static int BBCodeExtensionImport(int boardId, Stream inputStream)
         {
             int importedCount = 0;
 
@@ -65,7 +65,7 @@ namespace YAF.Core.Services.Import
 
             // import extensions...
             var dsBBCode = new DataSet();
-            dsBBCode.ReadXml(imputStream);
+            dsBBCode.ReadXml(inputStream);
 
             if (dsBBCode.Tables["YafBBCode"] != null && dsBBCode.Tables["YafBBCode"].Columns["Name"] != null &&
                 dsBBCode.Tables["YafBBCode"].Columns["SearchRegex"] != null &&
@@ -74,31 +74,52 @@ namespace YAF.Core.Services.Import
                 var bbcodeList = repository.ListTyped(boardId: boardId);
 
                 // import any extensions that don't exist...
-                foreach (
-                    DataRow row in
-                        from DataRow row in dsBBCode.Tables["YafBBCode"].Rows
-                        let name = row["Name"].ToString()
-                        where bbcodeList.All(b => b.Name != name)
-                        select row)
+                foreach (DataRow row in dsBBCode.Tables["YafBBCode"].Rows)
                 {
-                    // add this bbcode...
-                    repository.Save(
-                        null,
-                        row["Name"].ToString(),
-                        row["Description"].ToString(),
-                        row["OnClickJS"].ToString(),
-                        row["DisplayJS"].ToString(),
-                        row["EditJS"].ToString(),
-                        row["DisplayCSS"].ToString(),
-                        row["SearchRegex"].ToString(),
-                        row["ReplaceRegex"].ToString(),
-                        row["Variables"].ToString(),
-                        Convert.ToBoolean(row["UseModule"]),
-                        row["ModuleClass"].ToString(),
-                        row["ExecOrder"].ToType<int>(),
-                        boardId);
+                    var name = row["Name"].ToString();
 
-                    importedCount++;
+                    var bbCodeExtension = bbcodeList.FirstOrDefault(b => b.Name.Equals(name));
+
+                    if (bbCodeExtension != null)
+                    {
+                        // update this bbcode...
+                        repository.Save(
+                            bbCodeExtension.ID,
+                            row["Name"].ToString(),
+                            row["Description"].ToString(),
+                            row["OnClickJS"].ToString(),
+                            row["DisplayJS"].ToString(),
+                            row["EditJS"].ToString(),
+                            row["DisplayCSS"].ToString(),
+                            row["SearchRegex"].ToString(),
+                            row["ReplaceRegex"].ToString(),
+                            row["Variables"].ToString(),
+                            row["UseModule"].ToType<bool>(),
+                            row["ModuleClass"].ToString(),
+                            row["ExecOrder"].ToType<int>(),
+                            boardId);
+                    }
+                    else
+                    {
+                        // add this bbcode...
+                        repository.Save(
+                            null,
+                            row["Name"].ToString(),
+                            row["Description"].ToString(),
+                            row["OnClickJS"].ToString(),
+                            row["DisplayJS"].ToString(),
+                            row["EditJS"].ToString(),
+                            row["DisplayCSS"].ToString(),
+                            row["SearchRegex"].ToString(),
+                            row["ReplaceRegex"].ToString(),
+                            row["Variables"].ToString(),
+                            row["UseModule"].ToType<bool>(),
+                            row["ModuleClass"].ToString(),
+                            row["ExecOrder"].ToType<int>(),
+                            boardId);
+
+                        importedCount++;
+                    }
                 }
             }
             else
@@ -115,20 +136,20 @@ namespace YAF.Core.Services.Import
         /// <param name="boardId">
         /// The board id.
         /// </param>
-        /// <param name="imputStream">
-        /// The imput stream.
+        /// <param name="inputStream">
+        /// The input stream.
         /// </param>
         /// <returns>
         /// Returns How Many Extensions where imported.
         /// </returns>
         /// <exception cref="Exception">Import stream is not expected format.
         /// </exception>
-        public static int FileExtensionImport(int boardId, Stream imputStream)
+        public static int FileExtensionImport(int boardId, Stream inputStream)
         {
             int importedCount = 0;
 
             var dsExtensions = new DataSet();
-            dsExtensions.ReadXml(imputStream);
+            dsExtensions.ReadXml(inputStream);
 
             if (dsExtensions.Tables["YafExtension"] != null &&
                 dsExtensions.Tables["YafExtension"].Columns["Extension"] != null)
@@ -171,8 +192,8 @@ namespace YAF.Core.Services.Import
         /// <param name="boardId">
         /// The board id.
         /// </param>
-        /// <param name="imputStream">
-        /// The imput stream.
+        /// <param name="inputStream">
+        /// The input stream.
         /// </param>
         /// <exception cref="Exception">
         /// Import stream is not expected format.
@@ -180,13 +201,13 @@ namespace YAF.Core.Services.Import
         /// <returns>
         /// Returns the Number of Imported Items.
         /// </returns>
-        public static int TopicStatusImport(int boardId, Stream imputStream)
+        public static int TopicStatusImport(int boardId, Stream inputStream)
         {
             int importedCount = 0;
 
             // import extensions...
             var dsStates = new DataSet();
-            dsStates.ReadXml(imputStream);
+            dsStates.ReadXml(inputStream);
 
             if (dsStates.Tables["YafTopicStatus"] != null &&
                 dsStates.Tables["YafTopicStatus"].Columns["TopicStatusName"] != null &&
@@ -217,25 +238,25 @@ namespace YAF.Core.Services.Import
         }
 
         /// <summary>
-        /// Import List of Banned Email Adresses
+        /// Import List of Banned Email Addresses
         /// </summary>
         /// <param name="boardId">The board id.</param>
         /// <param name="userId">The user id.</param>
-        /// <param name="imputStream">The imput stream.</param>
+        /// <param name="inputStream">The input stream.</param>
         /// <returns>
         /// Returns the Number of Imported Items.
         /// </returns>
         /// <exception cref="Exception">
         /// Import stream is not expected format.
         /// </exception>
-        public static int BannedEmailAdressesImport(int boardId, int userId, Stream imputStream)
+        public static int BannedEmailAdressesImport(int boardId, int userId, Stream inputStream)
         {
             int importedCount = 0;
 
             var repository = YafContext.Current.Get<IRepository<BannedEmail>>();
             var existingBannedEmailList = repository.List(boardId: boardId);
 
-            using (var streamReader = new StreamReader(imputStream))
+            using (var streamReader = new StreamReader(inputStream))
             {
                 while (!streamReader.EndOfStream)
                 {
@@ -260,25 +281,25 @@ namespace YAF.Core.Services.Import
         }
 
         /// <summary>
-        /// Import List of Banned Ip Adresses
+        /// Import List of Banned IP Addresses
         /// </summary>
         /// <param name="boardId">The board id.</param>
         /// <param name="userId">The user id.</param>
-        /// <param name="imputStream">The imput stream.</param>
+        /// <param name="inputStream">The input stream.</param>
         /// <returns>
         /// Returns the Number of Imported Items.
         /// </returns>
         /// <exception cref="Exception">
         /// Import stream is not expected format.
         /// </exception>
-        public static int BannedIpAdressesImport(int boardId, int userId, Stream imputStream)
+        public static int BannedIpAdressesImport(int boardId, int userId, Stream inputStream)
         {
             int importedCount = 0;
 
             var repository = YafContext.Current.Get<IRepository<BannedIP>>();
             var existingBannedIPList = repository.List(boardId: boardId);
 
-            using (var streamReader = new StreamReader(imputStream))
+            using (var streamReader = new StreamReader(inputStream))
             {
                 while (!streamReader.EndOfStream)
                 {
@@ -308,21 +329,21 @@ namespace YAF.Core.Services.Import
         /// </summary>
         /// <param name="boardId">The board id.</param>
         /// <param name="userId">The user id.</param>
-        /// <param name="imputStream">The imput stream.</param>
+        /// <param name="inputStream">The input stream.</param>
         /// <returns>
         /// Returns the Number of Imported Items.
         /// </returns>
         /// <exception cref="Exception">
         /// Import stream is not expected format.
         /// </exception>
-        public static int BannedNamesImport(int boardId, int userId, Stream imputStream)
+        public static int BannedNamesImport(int boardId, int userId, Stream inputStream)
         {
             int importedCount = 0;
 
             var repository = YafContext.Current.Get<IRepository<BannedName>>();
             var existingBannedNameList = repository.List(boardId: boardId);
 
-            using (var streamReader = new StreamReader(imputStream))
+            using (var streamReader = new StreamReader(inputStream))
             {
                 while (!streamReader.EndOfStream)
                 {
