@@ -98,11 +98,6 @@ namespace YAF.Core.BBCode.ReplaceRules
       innerValue = innerValue.Replace("<", "&lt;");
       innerValue = innerValue.Replace(">", "&gt;");
       innerValue = innerValue.Replace("\r\n", "<br />");
-      // TODO: vzrus there should not be contsructions with string.Replace and double whitespace to replace.
-      // it can lead to server overloads in some situations. Seems OK.
-      // TODO : tha_watcha _this creates duplicated whitespace, in simple texts its not really needed, to replace it.
-      //innerValue = Regex.Replace(innerValue, @"\s+", " &nbsp;").Trim();
-      // vzrus: No matter I mean comstructions like .Replace("  "," ")
       return innerValue;
     }
 

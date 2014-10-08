@@ -104,16 +104,8 @@ namespace YAF.Types.Interfaces
     /// <param name="ruleEngine">
     /// The rule Engine.
     /// </param>
-    /// <param name="doFormatting">
-    /// The do Formatting.
-    /// </param>
-    /// <param name="convertBBQuotes">
-    /// The convert BB Quotes.
-    /// </param>
     void CreateHtmlRules(
-        [NotNull] IProcessReplaceRules ruleEngine,
-        bool doFormatting,
-        bool convertBBQuotes);
+        [NotNull] IProcessReplaceRules ruleEngine);
 
     /// <summary>
     /// Handles localization for a Custom YafBBCode Elements using

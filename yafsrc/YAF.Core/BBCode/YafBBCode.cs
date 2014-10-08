@@ -404,7 +404,7 @@ namespace YAF.Core.BBCode
         }
 
         /// <summary>
-        /// Converts a message containing HTML to YafBBCode for editing in a rich bbcode editor.
+        /// Converts a message containing HTML to YAF BBCode for editing in a rich BBCode editor.
         /// </summary>
         /// <param name="message">
         /// String containing the body of the message to convert
@@ -429,7 +429,7 @@ namespace YAF.Core.BBCode
 
             if (!ruleEngine.HasRules)
             {
-                this.CreateHtmlRules(ruleEngine, DoFormatting, true);
+                this.CreateHtmlRules(ruleEngine);
             }
 
             ruleEngine.Process(ref message);
@@ -700,13 +700,7 @@ namespace YAF.Core.BBCode
         /// <param name="ruleEngine">
         /// The rule Engine.
         /// </param>
-        /// <param name="doFormatting">
-        /// The do Formatting.
-        /// </param>
-        /// <param name="convertBBQuotes">
-        /// The convert BB Quotes.
-        /// </param>
-        public void CreateHtmlRules(IProcessReplaceRules ruleEngine, bool doFormatting, bool convertBBQuotes)
+        public void CreateHtmlRules(IProcessReplaceRules ruleEngine)
         {
             // e-mails
             ruleEngine.AddRule(
@@ -854,23 +848,23 @@ namespace YAF.Core.BBCode
                     @"<div class=""code"">.*?<div class=""innercode"">.*?<pre class=""brush:(?<language>(.*?));"">(?<inner>(.*?))</pre>.*?</div>",
                     "[code=${language}]${inner}[/code]",
                     _Options,
-                    new[] { "language" }));
+                    new[] { "language" }) { RuleRank = 97 });
 
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
                     "<div class=\"code\">.*?<div class=\"innercode\">(?<inner>(.*?))</div>",
                     "[code]${inner}[/code]",
-                    _Options));
+                    _Options) { RuleRank = 98 });
 
-            ruleEngine.AddRule(new SingleRegexReplaceRule("<br />", "\r\n", _Options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule("<br />", "\r\n", _Options));
 
             // Remove remaining tags.
-            ruleEngine.AddRule(new SingleRegexReplaceRule("<p>", string.Empty, _Options));
-            ruleEngine.AddRule(new SingleRegexReplaceRule("</p>", string.Empty, _Options));
-            ruleEngine.AddRule(new SingleRegexReplaceRule("&nbsp;", string.Empty, _Options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule("<p>", string.Empty, _Options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule("</p>", string.Empty, _Options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule("&nbsp;", string.Empty, _Options));
 
             // remove remaining tags
-            ruleEngine.AddRule(new SingleRegexReplaceRule("<[^>]+>", string.Empty, _Options) { RuleRank = 100 });
+            ruleEngine.AddRule(new SimpleRegexReplaceRule("<[^>]+>", string.Empty, _Options) { RuleRank = 100 });
         }
 
         /// <summary>
