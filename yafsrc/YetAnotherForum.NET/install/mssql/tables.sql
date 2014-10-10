@@ -21,7 +21,7 @@ WHERE
   c.name = @columnname
   
 IF @DefName IS NOT NULL
-  EXECUTE ('ALTER TABLE ' + @tablename + ' DROP CONSTRAINT [' + @DefName + ']')
+  EXECUTE ('ALTER TABLE [{databaseOwner}].[' + @tablename + '] DROP CONSTRAINT [' + @DefName + ']')
 END
 GO
 

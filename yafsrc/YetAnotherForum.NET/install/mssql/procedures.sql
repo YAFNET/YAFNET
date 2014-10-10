@@ -661,8 +661,8 @@ IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{data
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}pollvote_check]
 GO
 
-IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{objectQualifier}pollgroup_votecheck]') AND type in (N'P', N'PC'))
-DROP PROCEDURE [{objectQualifier}pollgroup_votecheck]
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}pollgroup_votecheck]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}pollgroup_votecheck]
 GO
 
 IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}post_last10user]') AND type in (N'P', N'PC'))
@@ -3439,14 +3439,32 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}forum_updatestats](@ForumID int) as
+create procedure [{databaseOwner}].[{objectQualifier}forum_updatestats]
+@ForumID int
+as
 begin
-        update [{databaseOwner}].[{objectQualifier}Forum] set 
-        NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x join [{databaseOwner}].[{objectQualifier}Topic] y on y.TopicID=x.TopicID where y.ForumID = @ForumID and x.IsApproved = 1 and x.IsDeleted = 0 and y.IsDeleted = 0 ),
-        NumTopics = (select count(distinct x.TopicID) from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and y.IsApproved = 1 and y.IsDeleted = 0 and x.IsDeleted = 0)
-    where ForumID=@ForumID
+    update  [{databaseOwner}].[{objectQualifier}Forum]
+        set NumPosts  = (select count(1)
+                         from   [{databaseOwner}].[{objectQualifier}Message] as x
+                                inner join
+                                [{databaseOwner}].[{objectQualifier}Topic] as y
+                                on y.TopicID = x.TopicID
+                         where  y.ForumID = @ForumID
+                                and x.IsApproved = 1
+                                and x.IsDeleted = 0
+                                and y.IsDeleted = 0),
+            NumTopics = (select count(distinct x.TopicID)
+                         from   [{databaseOwner}].[{objectQualifier}Topic] as x
+                                inner join
+                                [{databaseOwner}].[{objectQualifier}Message] as y
+                                on y.TopicID = x.TopicID
+                         where  x.ForumID = @ForumID
+                                and y.IsApproved = 1
+                                and y.IsDeleted = 0
+                                and x.IsDeleted = 0)
+    where   ForumID = @ForumID;
 end
-GO
+go
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}forumaccess_group](@GroupID int) as
 begin
@@ -9272,9 +9290,9 @@ AS
 BEGIN
         
     IF @BBCodeID IS NOT NULL
-        DELETE FROM [{objectQualifier}BBCode] WHERE BBCodeID = @BBCodeID
+        DELETE FROM [{databaseOwner}].[{objectQualifier}BBCode] WHERE BBCodeID = @BBCodeID
     ELSE
-        DELETE FROM [{objectQualifier}BBCode]
+        DELETE FROM [{databaseOwner}].[{objectQualifier}BBCode]
 END
 GO
 
@@ -9287,9 +9305,9 @@ AS
 BEGIN
         
     IF @BBCodeID IS NULL
-        SELECT * FROM [{objectQualifier}BBCode] WHERE BoardID = @BoardID ORDER BY ExecOrder, [Name] DESC
+        SELECT * FROM [{databaseOwner}].[{objectQualifier}BBCode] WHERE BoardID = @BoardID ORDER BY ExecOrder, [Name] DESC
     ELSE
-        SELECT * FROM [{objectQualifier}BBCode] WHERE BBCodeID = @BBCodeID ORDER BY ExecOrder
+        SELECT * FROM [{databaseOwner}].[{objectQualifier}BBCode] WHERE BBCodeID = @BBCodeID ORDER BY ExecOrder
 END
 GO
 
@@ -9315,7 +9333,7 @@ BEGIN
         
     IF @BBCodeID IS NOT NULL BEGIN
         UPDATE
-            [{objectQualifier}BBCode]
+            [{databaseOwner}].[{objectQualifier}BBCode]
         SET
             [Name] = @Name,
             [Description] = @Description,
@@ -9333,9 +9351,9 @@ BEGIN
             BBCodeID = @BBCodeID
     END
     ELSE BEGIN
-        IF NOT EXISTS(SELECT 1 FROM [{objectQualifier}BBCode] WHERE BoardID = @BoardID AND [Name] = @Name)
+        IF NOT EXISTS(SELECT 1 FROM [{databaseOwner}].[{objectQualifier}BBCode] WHERE BoardID = @BoardID AND [Name] = @Name)
             INSERT INTO
-                [{objectQualifier}BBCode] ([BoardID],[Name],[Description],[OnClickJS],[DisplayJS],[EditJS],[DisplayCSS],[SearchRegEx],[ReplaceRegEx],[Variables],[UseModule],[ModuleClass],[ExecOrder])
+                [{databaseOwner}].[{objectQualifier}BBCode] ([BoardID],[Name],[Description],[OnClickJS],[DisplayJS],[EditJS],[DisplayCSS],[SearchRegEx],[ReplaceRegEx],[Variables],[UseModule],[ModuleClass],[ExecOrder])
             VALUES (@BoardID,@Name,@Description,@OnClickJS,@DisplayJS,@EditJS,@DisplayCSS,@SearchRegEx,@ReplaceRegEx,@Variables,@UseModule,@ModuleClass,@ExecOrder)
     END
 END
