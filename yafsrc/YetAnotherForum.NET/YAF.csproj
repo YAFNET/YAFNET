@@ -905,6 +905,7 @@
     <Content Include="Content\ladda.min.css">
       <DependentUpon>ladda.less</DependentUpon>
     </Content>
+    <Content Include="Content\prism.css" />
     <Content Include="Content\themes\black-tie\images\animated-overlay.gif" />
     <Content Include="Content\themes\black-tie\images\ui-bg_diagonals-thick_8_333333_40x40.png" />
     <Content Include="Content\themes\black-tie\images\ui-bg_flat_65_ffffff_40x100.png" />
@@ -1418,6 +1419,7 @@
     <Content Include="Images\YafLogo.png" />
     <Content Include="install\custom\custom.sql" />
     <Content Include="install\custom\dnn.sql" />
+    <Content Include="install\SpamWords.xml" />
     <Content Include="install\TopicStatusList.xml" />
     <Content Include="Images\YafLogoSmall.png" />
     <Content Include="languages\admin\english.xml">
@@ -1998,6 +2000,7 @@
     <Content Include="Scripts\jsdifflib.min.js">
       <DependentUpon>jsdifflib.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\tinymce\license.txt" />
     <Content Include="Scripts\tinymce\plugins\advlist\plugin.js" />
     <Content Include="Scripts\tinymce\plugins\advlist\plugin.min.js" />

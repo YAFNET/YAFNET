@@ -169,10 +169,6 @@ namespace YAF.Pages
                     false,
                     true));
 
-            // Setup Syntax Highlight JS
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
-
             base.OnPreRender(e);
         }
 

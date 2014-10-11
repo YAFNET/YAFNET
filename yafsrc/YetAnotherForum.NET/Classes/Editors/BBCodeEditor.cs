@@ -218,103 +218,30 @@ namespace YAF.Editors
                                     {
                                         new HighLightList
                                             {
-                                                BrushAlias = "plain",
+                                                BrushAlias = "markup",
                                                 BrushName = "Plain Text"
                                             },
                                         new HighLightList
                                             {
-                                                BrushAlias = "as3",
-                                                BrushName = "ActionScript3"
+                                                BrushAlias = "markup",
+                                                BrushName = "HTML"
                                             },
+                                        new HighLightList { BrushAlias = "css", BrushName = "CSS" },
                                         new HighLightList
                                             {
-                                                BrushAlias = "bash",
-                                                BrushName = "Bash(shell)"
-                                            },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "coldfusion",
-                                                BrushName = "ColdFusion"
-                                            },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "csharp",
-                                                BrushName = "C#"
-                                            },
-                                        new HighLightList { BrushAlias = "cpp", BrushName = "C++" },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "css",
-                                                BrushName = "CSS/Html"
-                                            },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "delphi",
-                                                BrushName = "Delphi"
-                                            },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "diff",
-                                                BrushName = "Diff"
-                                            },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "erlang",
-                                                BrushName = "Erlang"
-                                            },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "groovy",
-                                                BrushName = "Groovy"
-                                            },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "jscript",
+                                                BrushAlias = "javascript",
                                                 BrushName = "JavaScript"
                                             },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "java",
-                                                BrushName = "Java"
-                                            },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "javafx",
-                                                BrushName = "JavaFX"
-                                            },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "perl",
-                                                BrushName = "Perl"
-                                            },
-                                        new HighLightList { BrushAlias = "php", BrushName = "PHP" },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "powershell",
-                                                BrushName = "PowerShell"
-                                            },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "python",
-                                                BrushName = "Pyton"
-                                            },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "ruby",
-                                                BrushName = "Ruby"
-                                            },
-                                        new HighLightList
-                                            {
-                                                BrushAlias = "scala",
-                                                BrushName = "Scala"
-                                            },
+                                        new HighLightList { BrushAlias = "c", BrushName = "C" },
+                                        new HighLightList { BrushAlias = "cpp", BrushName = "C++" },
+                                        new HighLightList { BrushAlias = "csharp", BrushName = "C#" },
+                                        new HighLightList { BrushAlias = "git", BrushName = "Git" },
                                         new HighLightList { BrushAlias = "sql", BrushName = "SQL" },
                                         new HighLightList
                                             {
-                                                BrushAlias = "vb",
-                                                BrushName = "Visual Basic"
+                                                BrushAlias = "markup",
+                                                BrushName = "XML"
                                             },
-                                        new HighLightList { BrushAlias = "xml", BrushName = "XML" }
                                     };
 
             foreach (HighLightList item in highLightList)

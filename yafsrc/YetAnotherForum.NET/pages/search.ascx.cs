@@ -155,21 +155,6 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// The On PreRender event.
-        /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            // Setup Syntax Highlight JS
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
-
-            base.OnPreRender(e);
-        }
-
-        /// <summary>
         /// Handles btn Click eventn for external search button 1
         /// </summary>
         /// <param name="sender">The source of the event.</param>

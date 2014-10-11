@@ -425,11 +425,6 @@ namespace YAF.Pages
 
             this.EditorLine.Controls.Add(this._forumEditor);
 
-            // Setup Syntax Highlight JS
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "syntaxhighlighterjs",
-                JavaScriptBlocks.SyntaxHighlightLoadJs);
-
             base.OnInit(e);
         }
 
@@ -962,7 +957,7 @@ namespace YAF.Pages
 
             object replyTo = (this.QuotedMessageID != null) ? this.QuotedMessageID.Value : -1;
 
-            // make message flags
+            // make message flags 
             var messageFlags = new MessageFlags
                                {
                                    IsHtml = this._forumEditor.UsesHTML,

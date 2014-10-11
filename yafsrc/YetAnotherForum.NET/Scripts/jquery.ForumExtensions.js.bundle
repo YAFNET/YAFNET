@@ -18,7 +18,7 @@
     <file>/Scripts/jquery.notification.js</file>
     <file>/Scripts/jquery.pagemethod.js</file>
     <file>/Scripts/jquery.pagination.js</file>
-    <file>/Scripts/jquery.syntaxhighligher.js</file>
+    <file>/Scripts/prism.js</file>
     <file>/Scripts/jquery.tablesorter.js</file>
     <file>/Scripts/jquery.timeago.js</file>
     <file>/Scripts/jquery.yafmodaldialog.js</file>

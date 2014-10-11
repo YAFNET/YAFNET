@@ -20,5 +20,6 @@ CKEDITOR.plugins.add('syntaxhighlight',
 					command:b,
 					icon:this.path+"images/syntaxhighlight.gif"
 	});
-	CKEDITOR.dialog.add(b,this.path+"dialogs/syntaxhighlight.js")}
+	CKEDITOR.dialog.add(b,this.path+"dialogs/syntaxhighlight.js");
+    }
 });

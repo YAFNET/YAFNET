@@ -218,21 +218,6 @@ namespace YAF.Utilities
         }
 
         /// <summary>
-        ///   Gets SyntaxHighlightLoadJs.
-        /// </summary>
-        [NotNull]
-        public static string SyntaxHighlightLoadJs
-        {
-            get
-            {
-                return
-                    @"{0}(document).ready(function() {{
-					SyntaxHighlighter.all()}});".FormatWith(
-                        Config.JQueryAlias);
-            }
-        }
-
-        /// <summary>
         ///   Gets Repuatation Progress Load JS.
         /// </summary>
         [NotNull]

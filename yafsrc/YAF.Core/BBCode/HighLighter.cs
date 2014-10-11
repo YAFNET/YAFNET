@@ -76,9 +76,17 @@ namespace YAF.Core.BBCode
 
             language = language.Replace("\"", string.Empty);
 
-            if (language.Equals("cs"))
+            switch (language)
             {
-                language = "csharp";
+                case "cs":
+                    language = "csharp";
+                    break;
+                case "xml":
+                    language = "markup";
+                    break;
+                case "plaintext":
+                    language = "markup";
+                    break;
             }
 
             var tmpOutput = new StringBuilder();
@@ -94,13 +102,14 @@ namespace YAF.Core.BBCode
 
             // Create Output
             tmpOutput.AppendFormat(
-                "<pre class=\"brush:{0}{1}\">{2}",
+                "<pre class=\"line-numbers\"{1}><code class=\"language-{0}\">{2}",
                 language,
-                !string.IsNullOrEmpty(highlight) ? ";highlight: [{0}];".FormatWith(highlight) : string.Empty,
+                highlight.IsSet() ? " data-line=\"{0}\"".FormatWith(highlight) : string.Empty,
                 Environment.NewLine);
 
             tmpOutput.Append(tmpCode);
-            tmpOutput.AppendFormat("</pre>{0}", Environment.NewLine);
+
+            tmpOutput.AppendFormat("</code></pre>{0}", Environment.NewLine);
 
             return tmpOutput.ToString();
         }

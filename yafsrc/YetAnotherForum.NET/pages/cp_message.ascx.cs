@@ -101,21 +101,6 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// The On PreRender event.
-        /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            // Setup Syntax Highlight JS
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
-
-            base.OnPreRender(e);
-        }
-
-        /// <summary>
         /// Handles the ItemCommand event of the Inbox control.
         /// </summary>
         /// <param name="source">The source of the event.</param>

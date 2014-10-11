@@ -561,10 +561,6 @@ namespace YAF.Controls
             // Setup Ceebox js
             YafContext.Current.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
 
-            // Setup Syntax Highlight JS
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "syntaxhighlighterjs", JavaScriptBlocks.SyntaxHighlightLoadJs);
-
             if (this.MultiQuote.Visible)
             {
                 this.MultiQuote.Attributes.Add(
