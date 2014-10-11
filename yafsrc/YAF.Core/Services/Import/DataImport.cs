@@ -366,5 +366,42 @@ namespace YAF.Core.Services.Import
 
             return importedCount;
         }
+
+        /// <summary>
+        /// Import List of Spam Words
+        /// </summary>
+        /// <param name="boardId">The board identifier.</param>
+        /// <param name="inputStream">The input stream.</param>
+        /// <returns>Returns the Number of Imported Items.</returns>
+        public static int SpamWordsImport(int boardId, Stream inputStream)
+        {
+            var importedCount = 0;
+
+            var repository = YafContext.Current.Get<IRepository<Spam_Words>>();
+
+            // import spam words...
+            var dsSpamWords = new DataSet();
+            dsSpamWords.ReadXml(inputStream);
+
+            if (dsSpamWords.Tables["YafSpamWords"] == null
+                || dsSpamWords.Tables["YafSpamWords"].Columns["spamword"] == null)
+            {
+                return importedCount;
+            }
+
+            var spamWordsList = repository.List();
+
+            // import any extensions that don't exist...
+            foreach (DataRow row in
+                dsSpamWords.Tables["YafSpamWords"].Rows.Cast<DataRow>()
+                    .Where(row => spamWordsList.Select("spamword = '{0}'".FormatWith(row["spamword"])).Length == 0))
+            {
+                // add this...
+                repository.Save(spamWordID: null, spamWord: row["spamword"].ToString());
+                importedCount++;
+            }
+
+            return importedCount;
+        }
     }
 }

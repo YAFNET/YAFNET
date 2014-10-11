@@ -67,6 +67,11 @@ namespace YAF.Core.Services
         /// </summary>
         private const string _TopicStatusImport = "TopicStatusList.xml";
 
+        /// <summary>
+        ///     The Spam Words list import xml file.
+        /// </summary>
+        private const string _SpamWordsImport = "SpamWords.xml";
+
         #endregion
 
         #region Fields
@@ -393,6 +398,9 @@ namespace YAF.Core.Services
 
             // load default topic status if available...
             loadWrapper(_TopicStatusImport, s => DataImport.TopicStatusImport(this.PageBoardID, s));
+
+            // load default spam word if available...
+            loadWrapper(_SpamWordsImport, s => DataImport.SpamWordsImport(this.PageBoardID, s));
         }
 
         #endregion

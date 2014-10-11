@@ -100,10 +100,10 @@
                         <asp:Label ID="lblConfigPasswordAppSettingFile" runat="server">app.config</asp:Label>
                         file.
                     </p>
-                    <YAF:ModernTextBox ID="txtCreatePassword1" runat="server" TextMode="Password" 
+                    <YAF:ModernTextBox ID="txtCreatePassword1" runat="server" TextMode="Password" Type="Password" 
                         PlaceHolder="Enter the Config Password" RenderWrapper="True" 
                         LabelText="Config Password"/>
-                    <YAF:ModernTextBox ID="txtCreatePassword2" runat="server" TextMode="Password" 
+                    <YAF:ModernTextBox ID="txtCreatePassword2" runat="server" TextMode="Password" Type="Password"  
                         PlaceHolder="Re-Enter the Config Password" RenderWrapper="True" 
                         LabelText="Verify Password"/>
                 </asp:WizardStep>
@@ -118,7 +118,7 @@
                         <span class="infoLabel">Note</span> 
                         If this is an upgrade, please enter the configuration password you created when the forum was first installed, not the admin user password.
                     </div>
-                    <YAF:ModernTextBox ID="txtEnteredPassword" runat="server" TextMode="Password" 
+                    <YAF:ModernTextBox ID="txtEnteredPassword" runat="server" TextMode="Password" Type="Password" 
                         PlaceHolder="Enter the Config Password" RenderWrapper="True" 
                         LabelText="Password"/>
                 </asp:WizardStep>
@@ -329,7 +329,7 @@
                     </div>
                     <div class="checkbox">
                         <asp:CheckBox ID="UpgradeExtensions" Checked="True" Visible="<%# IsForumInstalled %>" runat="server" 
-                            Text="Upgrade BBCode Extensions, File Extensions and Topic Status Lists" />
+                            Text="Upgrade BBCode Extensions, File Extensions, Topic Status Lists and Spam Words" />
                     </div>
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Create Forum" ID="WizCreateForum">
@@ -431,8 +431,8 @@
                     <h4>
                         <%# IsForumInstalled ? "Upgrade" : "Setup"%> Finished
                     </h4>
-                    <p>Your forum has now been <%# IsForumInstalled ? "upgraded" : "Setup"%> to the latest version.</p>
                     <p class="descriptionText">Clicking Finish will take you to the Forum main page.</p>
+                    <p>Your forum has now been <%# IsForumInstalled ? "upgraded" : "Setup"%> to the latest version.</p>
                 </asp:WizardStep>
             </WizardSteps>
             <FinishNavigationTemplate>
@@ -479,8 +479,6 @@
             </StepNavigationTemplate>
         </asp:Wizard>
     </form>
-    <script src="../Scripts/spin.min.js" type="text/javascript"></script>
-	<script src="../Scripts/ladda.min.js" type="text/javascript"></script>
-    <script src="../Scripts/InstallWizard.comb.min.js" type="text/javascript"></script>
+    <script src="../Scripts/InstallWizard.comb.min.js" type="text/javascript" async></script>
 </body>
 </html>
