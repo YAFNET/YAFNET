@@ -3443,28 +3443,23 @@ create procedure [{databaseOwner}].[{objectQualifier}forum_updatestats]
 @ForumID int
 as
 begin
-    update  [{databaseOwner}].[{objectQualifier}Forum]
-        set NumPosts  = (select count(1)
-                         from   [{databaseOwner}].[{objectQualifier}Message] as x
-                                inner join
-                                [{databaseOwner}].[{objectQualifier}Topic] as y
-                                on y.TopicID = x.TopicID
-                         where  y.ForumID = @ForumID
-                                and x.IsApproved = 1
-                                and x.IsDeleted = 0
-                                and y.IsDeleted = 0),
-            NumTopics = (select count(distinct x.TopicID)
-                         from   [{databaseOwner}].[{objectQualifier}Topic] as x
-                                inner join
-                                [{databaseOwner}].[{objectQualifier}Message] as y
-                                on y.TopicID = x.TopicID
-                         where  x.ForumID = @ForumID
-                                and y.IsApproved = 1
-                                and y.IsDeleted = 0
-                                and x.IsDeleted = 0)
-    where   ForumID = @ForumID;
+    --update Forum with forum and subforum topic values
+    update  f
+        set NumPosts  = isnull(t.Numposts, 0),
+            NumTopics = isnull(t.Numtopics, 0)
+    from    [{databaseOwner}].[{objectQualifier}Forum] as f cross apply (select sum(t.NumPosts) as Numposts,
+                                                                                count(t.TopicID) as Numtopics
+                                                                         from   [{databaseOwner}].[{objectQualifier}Topic] as t
+                                                                                inner join
+                                                                                [{databaseOwner}].[{objectQualifier}Forum] as ff
+                                                                                on ff.ForumID = t.ForumID
+                                                                         where  (ff.ForumID = f.ForumID
+                                                                                 or ff.ParentID = f.ForumID)
+                                                                                and t.IsDeleted <> 1) as t
+    where   f.ForumID = isnull(@ForumID, f.ForumID);
 end
 go
+
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}forumaccess_group](@GroupID int) as
 begin
