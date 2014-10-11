@@ -64,6 +64,22 @@ namespace YAF.Core.Services
                 _Options | RegexOptions.Compiled);
 
         /// <summary>
+        /// The YouTube Regex
+        /// </summary>
+        private static readonly Regex _RgxYoutube1 =
+            new Regex(
+                @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://)(www.)?youtube\.com\/watch\?v=(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)",
+                _Options | RegexOptions.Compiled);
+
+        /// <summary>
+        /// The YouTube (Short URL) Regex
+        /// </summary>
+        private static readonly Regex _RgxYoutube2 =
+            new Regex(
+                @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://)youtu\.be\/(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)",
+                _Options | RegexOptions.Compiled);
+
+        /// <summary>
         /// The URL Regex
         /// </summary>
         private static readonly Regex _RgxUrl1 =
@@ -369,6 +385,24 @@ namespace YAF.Core.Services
 
                 string nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
 
+                var youtubeVideo1 = new VariableRegexReplaceRule(
+                    _RgxYoutube1,
+                    "${before}<div class=\"YoutubeVideoEmbed\"><iframe src=\"//www.youtube.com/embed/${videoId}?wmode=transparent\" width=\"560\" height=\"315\" allowfullscreen=\"true\" allowscriptaccess=\"always\" scrolling=\"no\" frameborder=\"0\"></iframe></div>",
+                    new[] { "before", "videoId" },
+                    new[] { string.Empty },
+                    50) { RuleRank = 40 };
+
+                ruleEngine.AddRule(youtubeVideo1);
+
+                var youtubeVideo2 = new VariableRegexReplaceRule(
+                    _RgxYoutube2,
+                    "${before}<div class=\"YoutubeVideoEmbed\"><iframe src=\"//www.youtube.com/embed/${videoId}?wmode=transparent\" width=\"560\" height=\"315\" allowfullscreen=\"true\" allowscriptaccess=\"always\" scrolling=\"no\" frameborder=\"0\"></iframe></div>",
+                    new[] { "before", "videoId" },
+                    new[] { string.Empty },
+                    50) { RuleRank = 41 };
+
+                ruleEngine.AddRule(youtubeVideo2);
+
                 var url = new VariableRegexReplaceRule(
                     _RgxUrl1,
                     "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}", target)
@@ -453,8 +487,6 @@ namespace YAF.Core.Services
             message = this.RemoveCustomBBCodes(message);
 
             return message;
-
-            // <span class=\"quotetitle\">tester1 �������:</span><div class=\"innerquote\">gfhgfhdf</div></div><br />vcxvxcvzcxv</td></tr></tab
         }
 
         /// <summary>
