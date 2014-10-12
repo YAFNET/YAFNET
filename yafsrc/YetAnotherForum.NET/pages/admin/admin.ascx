@@ -117,7 +117,7 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER3" LocalizedPage="ADMIN_ADMIN" />
                 <span runat="server" id="boardSelector" visible='<%# this.PageContext.IsHostAdmin %>'>
                     <asp:DropDownList ID="BoardStatsSelect" runat="server" DataTextField="Name" DataValueField="BoardID"
-                        OnSelectedIndexChanged="BoardStatsSelect_Changed" AutoPostBack="true" />
+                        OnSelectedIndexChanged="BoardStatsSelect_Changed" AutoPostBack="true" CssClass="standardSelectMenu" />
                 </span>
             </td>
         </tr>

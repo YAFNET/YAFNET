@@ -38,7 +38,7 @@ function toggleItem(detailId)
             </td>
             <td>
                 <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedPage="ADMIN_EVENTLOG" Suffix=":" LocalizedTag="TYPES" />&nbsp;
-                <asp:DropDownList ID="Types" runat="server" CssClass="edit"></asp:DropDownList>
+                <asp:DropDownList ID="Types" runat="server" CssClass="standardSelectMenu"></asp:DropDownList>
             </td>
         </tr>
         <tr>
@@ -78,14 +78,14 @@ function toggleItem(detailId)
                 <tr>
                     <td colspan="5">
                       <div class="<%# EventCssClass(Container.DataItem) %> ui-corner-all eventItem" onclick="javascript:toggleItem(<%# Eval("EventLogID") %>);">
-                        <table style="padding:0;margin:0;">
+                        <table style="padding:0;margin:0;width:100%">
                           <tr>
-                            <td width="1%">
+                            <td width="6%">
                               <a name="event<%# Eval("EventLogID")%>" ></a>
                               <%# EventImageCode(Container.DataItem) %>
                               <asp:HiddenField ID="EventTypeID" Value='<%# Eval("Type")%>' runat="server"/>
                             </td>
-                            <td width="5%">
+                            <td width="6%">
                               <%# HtmlEncode(Eval( "Name")) %>
                             </td>
                             <td width="8%">
