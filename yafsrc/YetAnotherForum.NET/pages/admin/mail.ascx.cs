@@ -44,7 +44,7 @@ namespace YAF.Pages.Admin
     #endregion
 
     /// <summary>
-    ///     Summary description for mail.
+    ///     Admin Interface to send Mass email's to user groups.
     /// </summary>
     public partial class mail : AdminPage
     {
@@ -113,9 +113,12 @@ namespace YAF.Pages.Admin
                         // Wes - Changed to use queue to improve scalability
                         this.GetRepository<Mail>().Create(
                             this.Get<YafBoardSettings>().ForumEmail, 
-                            (string)row["Email"], 
+                            this.Get<YafBoardSettings>().Name,
+                            row["Email"].ToType<string>(),
+                            null,
                             this.Subject.Text.Trim(), 
-                            this.Body.Text.Trim());
+                            this.Body.Text.Trim(),
+                            null);
                     }
                 }
 
