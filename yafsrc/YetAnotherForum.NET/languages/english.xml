@@ -1823,7 +1823,7 @@
   <Resource tag="TITLE">User Importer</Resource>
  </page>
  <page name="ADMIN_VERSION">
-  <Resource tag="LATEST_VERSION">The Latest Stable Version is: &lt;b&gt;{0}&lt;/b&gt; Released &lt;b&gt;{1}&lt;/b&gt;.</Resource>
+  <Resource tag="LATEST_VERSION">The Latest Stable Version is: &lt;b&gt;{0}&lt;/b&gt; (Date: {1}).</Resource>
   <Resource tag="RUNNING_VERSION">Your YAF.NET Version: &lt;b&gt;{0}&lt;/b&gt; (Date: {1}).</Resource>
   <Resource tag="TITLE">Version Check</Resource>
   <Resource tag="UPGRADE_VERSION">Get the Latest Version &lt;a target="_top" href="http://yetanotherforum.net/"&gt;

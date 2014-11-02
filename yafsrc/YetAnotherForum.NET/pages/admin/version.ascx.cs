@@ -61,8 +61,11 @@ namespace YAF.Pages.Admin
         #region Properties
 
         /// <summary>
-        ///     Gets LastVersion.
+        /// Gets the last version.
         /// </summary>
+        /// <value>
+        /// The last version.
+        /// </value>
         protected string LastVersion
         {
             get
@@ -72,8 +75,11 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        ///     Gets LastVersionDate.
+        /// Gets the last version date.
         /// </summary>
+        /// <value>
+        /// The last version date.
+        /// </value>
         protected string LastVersionDate
         {
             get
@@ -87,43 +93,46 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        ///     The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        ///     The sender.
-        /// </param>
-        /// <param name="e">
-        ///     The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.IsPostBack)
             {
-                using (var reg = new RegisterV2())
+                try
                 {
-                    this._lastVersion = reg.LatestVersion();
-                    this._lastVersionDate = reg.LatestVersionDate();
+                    using (var reg = new RegisterV2())
+                    {
+                        this._lastVersion = reg.LatestVersion();
+                        this._lastVersionDate = reg.LatestVersionDate();
+                    }
+
+                    this.LatestVersion.Text = this.GetTextFormatted(
+                        "LATEST_VERSION",
+                        this.LastVersion,
+                        this.LastVersionDate);
+
+                    this.UpgradeVersionHolder.Visible = this._lastVersion > YafForumInfo.AppVersionCode;
+                }
+                catch (Exception)
+                {
+                    this.LatestVersion.Visible = false;
                 }
 
-                this.Upgrade.Visible = this._lastVersion > YafForumInfo.AppVersionCode;
-
                 this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-                this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.PageLinks.AddLink(
+                    this.GetText("ADMIN_ADMIN", "Administration"),
+                    YafBuildLink.GetLink(ForumPages.admin_admin));
                 this.PageLinks.AddLink(this.GetText("ADMIN_VERSION", "TITLE"), string.Empty);
 
-                this.Page.Header.Title = "{0} - {1}".FormatWith(
-                    this.GetText("ADMIN_ADMIN", "Administration"),
-                    this.GetText("ADMIN_VERSION", "TITLE"));
+                this.Page.Header.Title = this.GetText("ADMIN_VERSION", "TITLE");
 
                 this.RunningVersion.Text = this.GetTextFormatted(
                     "RUNNING_VERSION",
                     YafForumInfo.AppVersionName,
                     this.Get<IDateTime>().FormatDateShort(YafForumInfo.AppVersionDate));
-
-                this.LatestVersion.Text = this.GetTextFormatted(
-                    "LATEST_VERSION",
-                    this.LastVersion,
-                    this.LastVersionDate);
             }
 
             this.DataBind();
