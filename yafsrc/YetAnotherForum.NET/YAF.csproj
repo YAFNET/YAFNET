@@ -161,7 +161,6 @@
     <Compile Include="auth.aspx.designer.cs">
       <DependentUpon>auth.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Editors\BBCodeEditorCodeMirror.cs" />
     <Compile Include="Classes\Editors\CKEditor.cs" />
     <Compile Include="Classes\Editors\CKEditorBBCodeEditor.cs" />
     <Compile Include="Classes\Editors\CKEditorHtmlEditor.cs" />
@@ -1734,8 +1733,9 @@
     <Content Include="Resources\ProviderExceptions.xml" />
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap-select.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
-    <Content Include="Scripts\ckeditor\build-config.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
     <Content Include="Scripts\ckeditor\config.js" />
     <Content Include="Scripts\ckeditor\contents.css" />
@@ -1938,39 +1938,6 @@
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.css" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.js" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
-    <Content Include="Scripts\ckeditor\samples\ajax.html" />
-    <Content Include="Scripts\ckeditor\samples\api.html" />
-    <Content Include="Scripts\ckeditor\samples\appendto.html" />
-    <Content Include="Scripts\ckeditor\samples\assets\inlineall\logo.png" />
-    <Content Include="Scripts\ckeditor\samples\assets\outputxhtml\outputxhtml.css" />
-    <Content Include="Scripts\ckeditor\samples\assets\sample.jpg" />
-    <Content Include="Scripts\ckeditor\samples\assets\uilanguages\languages.js" />
-    <Content Include="Scripts\ckeditor\samples\datafiltering.html" />
-    <Content Include="Scripts\ckeditor\samples\divreplace.html" />
-    <Content Include="Scripts\ckeditor\samples\index.html" />
-    <Content Include="Scripts\ckeditor\samples\inlineall.html" />
-    <Content Include="Scripts\ckeditor\samples\inlinebycode.html" />
-    <Content Include="Scripts\ckeditor\samples\inlinetextarea.html" />
-    <Content Include="Scripts\ckeditor\samples\jquery.html" />
-    <Content Include="Scripts\ckeditor\samples\plugins\dialog\assets\my_dialog.js" />
-    <Content Include="Scripts\ckeditor\samples\plugins\dialog\dialog.html" />
-    <Content Include="Scripts\ckeditor\samples\plugins\enterkey\enterkey.html" />
-    <Content Include="Scripts\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.swf" />
-    <Content Include="Scripts\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\swfobject.js" />
-    <Content Include="Scripts\ckeditor\samples\plugins\htmlwriter\outputforflash.html" />
-    <Content Include="Scripts\ckeditor\samples\plugins\htmlwriter\outputhtml.html" />
-    <Content Include="Scripts\ckeditor\samples\plugins\magicline\magicline.html" />
-    <Content Include="Scripts\ckeditor\samples\plugins\toolbar\toolbar.html" />
-    <Content Include="Scripts\ckeditor\samples\plugins\wysiwygarea\fullpage.html" />
-    <Content Include="Scripts\ckeditor\samples\readonly.html" />
-    <Content Include="Scripts\ckeditor\samples\replacebyclass.html" />
-    <Content Include="Scripts\ckeditor\samples\replacebycode.html" />
-    <Content Include="Scripts\ckeditor\samples\sample.css" />
-    <Content Include="Scripts\ckeditor\samples\sample.js" />
-    <Content Include="Scripts\ckeditor\samples\tabindex.html" />
-    <Content Include="Scripts\ckeditor\samples\uicolor.html" />
-    <Content Include="Scripts\ckeditor\samples\uilanguages.html" />
-    <Content Include="Scripts\ckeditor\samples\xhtmlstyle.html" />
     <Content Include="Scripts\ckeditor\skins\moono\dialog.css" />
     <Content Include="Scripts\ckeditor\skins\moono\dialog_ie.css" />
     <Content Include="Scripts\ckeditor\skins\moono\dialog_ie7.css" />
@@ -2091,12 +2058,6 @@
     <Content Include="Scripts\tinymce\plugins\noneditable\plugin.min.js" />
     <Content Include="Scripts\tinymce\plugins\pagebreak\plugin.js" />
     <Content Include="Scripts\tinymce\plugins\pagebreak\plugin.min.js" />
-    <Content Include="Scripts\tinymce\plugins\paste\classes\Clipboard.js" />
-    <Content Include="Scripts\tinymce\plugins\paste\classes\Plugin.js" />
-    <Content Include="Scripts\tinymce\plugins\paste\classes\Quirks.js" />
-    <Content Include="Scripts\tinymce\plugins\paste\classes\Utils.js" />
-    <Content Include="Scripts\tinymce\plugins\paste\classes\WordFilter.js" />
-    <Content Include="Scripts\tinymce\plugins\paste\plugin.dev.js" />
     <Content Include="Scripts\tinymce\plugins\paste\plugin.js" />
     <Content Include="Scripts\tinymce\plugins\paste\plugin.min.js" />
     <Content Include="Scripts\tinymce\plugins\preview\plugin.js" />
@@ -2107,19 +2068,10 @@
     <Content Include="Scripts\tinymce\plugins\save\plugin.min.js" />
     <Content Include="Scripts\tinymce\plugins\searchreplace\plugin.js" />
     <Content Include="Scripts\tinymce\plugins\searchreplace\plugin.min.js" />
-    <Content Include="Scripts\tinymce\plugins\spellchecker\classes\DomTextMatcher.js" />
-    <Content Include="Scripts\tinymce\plugins\spellchecker\classes\Plugin.js" />
-    <Content Include="Scripts\tinymce\plugins\spellchecker\plugin.dev.js" />
     <Content Include="Scripts\tinymce\plugins\spellchecker\plugin.js" />
     <Content Include="Scripts\tinymce\plugins\spellchecker\plugin.min.js" />
     <Content Include="Scripts\tinymce\plugins\tabfocus\plugin.js" />
     <Content Include="Scripts\tinymce\plugins\tabfocus\plugin.min.js" />
-    <Content Include="Scripts\tinymce\plugins\table\classes\CellSelection.js" />
-    <Content Include="Scripts\tinymce\plugins\table\classes\Dialogs.js" />
-    <Content Include="Scripts\tinymce\plugins\table\classes\Plugin.js" />
-    <Content Include="Scripts\tinymce\plugins\table\classes\Quirks.js" />
-    <Content Include="Scripts\tinymce\plugins\table\classes\TableGrid.js" />
-    <Content Include="Scripts\tinymce\plugins\table\plugin.dev.js" />
     <Content Include="Scripts\tinymce\plugins\table\plugin.js" />
     <Content Include="Scripts\tinymce\plugins\table\plugin.min.js" />
     <Content Include="Scripts\tinymce\plugins\template\plugin.js" />
@@ -2154,8 +2106,8 @@
     <Content Include="Scripts\tinymce\plugins\visualchars\plugin.min.js" />
     <Content Include="Scripts\tinymce\plugins\wordcount\plugin.js" />
     <Content Include="Scripts\tinymce\plugins\wordcount\plugin.min.js" />
-    <Content Include="Scripts\tinymce\skins\lightgray\Content.inline.min.css" />
-    <Content Include="Scripts\tinymce\skins\lightgray\Content.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\content.inline.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\content.min.css" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.svg" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.svg" />
     <Content Include="Scripts\tinymce\skins\lightgray\img\anchor.gif" />
@@ -3052,6 +3004,8 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\bootstrap-select.less" />
+    <Content Include="Content\bootstrap-select.css.map" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
@@ -3125,8 +3079,6 @@
     <Content Include="Content\bootstrap\bootstrap.less" />
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
-    <Content Include="Content\bootstrap-select.less" />
-    <Content Include="Content\bootstrap-select.css.map" />
     <None Include="Content\InstallWizard.less" />
     <Content Include="Content\InstallWizard.css">
       <DependentUpon>InstallWizard.less</DependentUpon>
@@ -3141,10 +3093,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js">
-      <DependentUpon>bootstrap.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\InstallWizard.comb.js.bundle">
       <SubType>Designer</SubType>
     </Content>
@@ -3154,20 +3102,15 @@
     <Content Include="Content\jquery.notification.less" />
     <Content Include="Content\jquery.syntaxhighligher.less" />
     <Content Include="Content\jquery.yafmodaldialog.less" />
+    <Content Include="Scripts\bootstrap-select.js.map" />
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
-    <Content Include="Scripts\ckeditor\samples\sample_posteddata.php" />
-    <Content Include="Scripts\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
-    <Content Include="Scripts\ckeditor\samples\assets\posteddata.php" />
     <Content Include="Scripts\ckeditor\README.md" />
     <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
     <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
     <Content Include="Scripts\ckeditor\plugins\scayt\README.md" />
     <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
-    <Content Include="Scripts\ckeditor\composer.json" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
-    <Content Include="Scripts\ckeditor\bower.json" />
-    <Content Include="Scripts\bootstrap-select.js.map" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js">
       <DependentUpon>jquery-2.1.1.js</DependentUpon>
     </None>
@@ -3923,7 +3866,9 @@
     <Content Include="Scripts\jquery-2.1.1.min.map">
       <DependentUpon>jquery-2.1.1.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery.ForumExtensions.js.bundle" />
+    <Content Include="Scripts\jquery.ForumExtensions.js.bundle">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.woff" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.ttf" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.json" />
