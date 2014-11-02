@@ -98,22 +98,10 @@ namespace YAF.Editors
                 this.ResolveUrl("yafEditor/yafEditor.min.js"));
 #endif
 
-
-            YafContext.Current.PageElements.RegisterJsInclude(
-                "CodeMirrorJs",
-                this.ResolveUrl("ckeditor/plugins/codemirror/js/codemirror.min.js"));
-
-            YafContext.Current.PageElements.RegisterJsInclude(
-                "CodeMirrorBBCodeJs",
-                this.ResolveUrl("ckeditor/plugins/codemirror/js/codemirror.mode.bbcode.min.js"));
-
-            YafContext.Current.PageElements.RegisterJsBlock(
+YafContext.Current.PageElements.RegisterJsBlock(
                 "CreateYafEditorJs",
                 "var {0}=new yafEditor('{0}');\nfunction setStyle(style,option) {{\n{0}.FormatText(style,option);\n}}\n"
                     .FormatWith(this.SafeID));
-
-            YafContext.Current.PageElements.RegisterCssInclude(
-                this.ResolveUrl("ckeditor/plugins/codemirror/css/codemirror.min.css"));
 
             // register custom YafBBCode javascript (if there is any)
             // this call is supposed to be after editor load since it may use

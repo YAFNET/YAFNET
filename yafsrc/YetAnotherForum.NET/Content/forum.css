@@ -1141,9 +1141,6 @@ pre[class*='language-'] > code[data-language]::before {
   width: 100%;
   height: 350px;
 }
-.yafnet .CodeMirror-wrap {
-  border: 1px solid grey;
-}
 .yafnet #DivForumJump {
   float: right;
 }
