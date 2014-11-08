@@ -27,6 +27,9 @@ namespace YAF.Core.Model
     using System.Collections.Generic;
     using System.Data;
 
+    using Omu.ValueInjecter;
+
+    using YAF.Core.Data;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -48,14 +51,8 @@ namespace YAF.Core.Model
         /// <param name="from">
         /// The from.
         /// </param>
-        /// <param name="fromName">
-        /// The from name.
-        /// </param>
         /// <param name="to">
         /// The to.
-        /// </param>
-        /// <param name="toName">
-        /// The to name.
         /// </param>
         /// <param name="subject">
         /// The subject.
@@ -63,90 +60,113 @@ namespace YAF.Core.Model
         /// <param name="body">
         /// The body.
         /// </param>
-        /// <param name="bodyHtml">
-        /// The body html.
-        /// </param>
         public static void Create(
-            this IRepository<Mail> repository, string from, string fromName, string to, string toName, string subject, string body, string bodyHtml)
+            this IRepository<Mail> repository,
+            string from,
+            string to,
+            string subject,
+            string body)
+        {
+            repository.Create(from, null, to, null, subject, body, null, 0, null);
+        }
+
+        /// <summary>
+        /// The create.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="from">The from.</param>
+        /// <param name="fromName">The from name.</param>
+        /// <param name="to">The to.</param>
+        /// <param name="toName">The to name.</param>
+        /// <param name="subject">The subject.</param>
+        /// <param name="body">The body.</param>
+        /// <param name="bodyHtml">The body html.</param>
+        public static void Create(
+            this IRepository<Mail> repository,
+            string from,
+            string fromName,
+            string to,
+            string toName,
+            string subject,
+            string body,
+            string bodyHtml)
+        {
+            repository.Create(from, fromName, to, toName, subject, body, bodyHtml, 0, null);
+        }
+
+        /// <summary>
+        /// The create.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="from">The from.</param>
+        /// <param name="fromName">The from name.</param>
+        /// <param name="to">The to.</param>
+        /// <param name="toName">The to name.</param>
+        /// <param name="subject">The subject.</param>
+        /// <param name="body">The body.</param>
+        /// <param name="bodyHtml">The body html.</param>
+        /// <param name="sendTries">The send tries.</param>
+        /// <param name="sendAttempt">The send attempt.</param>
+        public static void Create(
+            this IRepository<Mail> repository,
+            string from,
+            string fromName,
+            string to,
+            string toName,
+            string subject,
+            string body,
+            string bodyHtml,
+            int sendTries,
+            DateTime? sendAttempt)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.mail_create(
-                From: from, 
-                FromName: fromName, 
-                To: to, 
-                ToName: toName, 
-                Subject: subject, 
-                Body: body, 
-                BodyHtml: bodyHtml, 
+                From: from,
+                FromName: fromName,
+                To: to,
+                ToName: toName,
+                Subject: subject,
+                Body: body,
+                BodyHtml: bodyHtml,
+                SendTries: sendTries,
+                SendAttempt: sendAttempt,
                 UTCTIMESTAMP: DateTime.UtcNow);
 
             repository.FireNew();
         }
 
         /// <summary>
-        /// The create.
+        /// Creates the watch email.
         /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="from">
-        /// The from.
-        /// </param>
-        /// <param name="to">
-        /// The to.
-        /// </param>
-        /// <param name="subject">
-        /// The subject.
-        /// </param>
-        /// <param name="body">
-        /// The body.
-        /// </param>
-        public static void Create(this IRepository<Mail> repository, string from, string to, string subject, string body)
-        {
-            repository.Create(from, null, to, null, subject, body, null);
-        }
-
-        /// <summary>
-        /// The createwatch.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="topicID">
-        /// The topic id.
-        /// </param>
-        /// <param name="from">
-        /// The from.
-        /// </param>
-        /// <param name="fromName">
-        /// The from name.
-        /// </param>
-        /// <param name="subject">
-        /// The subject.
-        /// </param>
-        /// <param name="body">
-        /// The body.
-        /// </param>
-        /// <param name="bodyHtml">
-        /// The body html.
-        /// </param>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
+        /// <param name="repository">The repository.</param>
+        /// <param name="topicID">The topic id.</param>
+        /// <param name="from">The from.</param>
+        /// <param name="fromName">The from name.</param>
+        /// <param name="subject">The subject.</param>
+        /// <param name="body">The body.</param>
+        /// <param name="bodyHtml">The body html.</param>
+        /// <param name="userID">The user id.</param>
         public static void CreateWatch(
-            this IRepository<Mail> repository, int topicID, string from, string fromName, string subject, string body, string bodyHtml, int userID)
+            this IRepository<Mail> repository,
+            int topicID,
+            string from,
+            string fromName,
+            string subject,
+            string body,
+            string bodyHtml,
+            int userID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.mail_createwatch(
-                TopicID: topicID, 
-                From: from, 
-                FromName: fromName, 
-                Subject: subject, 
-                Body: body, 
-                BodyHtml: bodyHtml, 
-                UserID: userID, 
+                TopicID: topicID,
+                From: from,
+                FromName: fromName,
+                Subject: subject,
+                Body: body,
+                BodyHtml: bodyHtml,
+                UserID: userID,
                 UTCTIMESTAMP: DateTime.UtcNow);
         }
 
@@ -185,11 +205,17 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            using (var session = repository.DbFunction.CreateSession())
+            var mailList = new List<Mail>();
+
+            foreach (DataRow dr in
+                repository.DbFunction.GetData.mail_list(ProcessID: processID, UTCTIMESTAMP: DateTime.UtcNow).Rows)
             {
-                return session.GetTyped<Mail>(
-                    r => r.mail_list(ProcessID: processID, UTCTIMESTAMP: DateTime.UtcNow));
+                var mail = new Mail();
+                mail.InjectFrom<DataRowInjection>(dr);
+                mailList.Add(mail);
             }
+
+            return mailList;
         }
 
         /// <summary>
@@ -197,13 +223,14 @@ namespace YAF.Core.Model
         /// </summary>
         /// <param name="repository">The repository.</param>
         /// <param name="mailMessage">The mail message.</param>
-        public static void Save(
-            this IRepository<Mail> repository, Mail mailMessage)
+        public static void Save(this IRepository<Mail> repository, Mail mailMessage)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Scalar.mail_save(
-                MailID: mailMessage.ID, SendTries: mailMessage.SendTries, SendAttempt: DateTime.UtcNow);
+                MailID: mailMessage.ID,
+                SendTries: mailMessage.SendTries,
+                SendAttempt: DateTime.UtcNow);
 
             repository.FireUpdated(mailMessage.ID);
         }

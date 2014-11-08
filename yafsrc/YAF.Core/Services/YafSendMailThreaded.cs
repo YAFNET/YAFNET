@@ -28,7 +28,6 @@ namespace YAF.Core.Services
 
     using System;
     using System.Collections.Generic;
-    using System.Dynamic;
     using System.Linq;
     using System.Net.Mail;
     using System.Threading;
@@ -52,30 +51,30 @@ namespace YAF.Core.Services
     {
         #region Static Fields
 
-        private static readonly Random _random = new Random();
+        /// <summary>
+        /// The _random
+        /// </summary>
+        private static readonly Random _Random = new Random();
 
         #endregion
 
         #region Fields
 
-        private readonly Lazy<int> _uniqueId = new Lazy<int>(() => _random.Next());
+        /// <summary>
+        /// The _unique identifier
+        /// </summary>
+        private readonly Lazy<int> _uniqueId = new Lazy<int>(() => _Random.Next());
 
         #endregion
 
         #region Constructors and Destructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="YafSendMailThreaded" /> class.
+        /// Initializes a new instance of the <see cref="YafSendMailThreaded" /> class.
         /// </summary>
-        /// <param name="sendMail">
-        ///     The send mail.
-        /// </param>
-        /// <param name="logger">
-        ///     The logger.
-        /// </param>
-        /// <param name="mailRepository">
-        ///     The mail Repository.
-        /// </param>
+        /// <param name="sendMail">The send mail.</param>
+        /// <param name="logger">The logger.</param>
+        /// <param name="serviceLocator">The service locator.</param>
         public YafSendMailThreaded([NotNull] ISendMail sendMail, ILogger logger, IServiceLocator serviceLocator)
         {
             this.SendMail = sendMail;
@@ -92,10 +91,13 @@ namespace YAF.Core.Services
         /// </summary>
         public ILogger Logger { get; set; }
 
+        /// <summary>
+        /// Gets or sets the ServiceLocator.
+        /// </summary>
         public IServiceLocator ServiceLocator { get; set; }
 
         /// <summary>
-        ///     Gets or sets the mail repository.
+        ///     Gets the mail repository.
         /// </summary>
         public IRepository<Mail> MailRepository
         {
@@ -115,8 +117,11 @@ namespace YAF.Core.Services
         #region Properties
 
         /// <summary>
-        ///     The _unique id.
+        /// Gets the unique process identifier.
         /// </summary>
+        /// <value>
+        /// The unique process identifier.
+        /// </value>
         protected int UniqueProcessId
         {
             get
@@ -188,9 +193,17 @@ namespace YAF.Core.Services
                             if (mailMessages.ContainsKey(message) && mailMessages[message].SendTries < 2)
                             {
                                 // update messsage so it will be deleted on the second run
-                                this.MailRepository.Save(mailMessages[message]);
+                                this.MailRepository.Create(
+                                    mailMessages[message].FromUser,
+                                    mailMessages[message].FromUserName,
+                                    mailMessages[message].ToUser,
+                                    mailMessages[message].ToUserName,
+                                    mailMessages[message].Subject,
+                                    mailMessages[message].Body,
+                                    mailMessages[message].BodyHtml,
+                                    mailMessages[message].SendTries + 1,
+                                    DateTime.UtcNow);
 
-                                // remove from the collection so it doesn't get deleted...
                                 mailMessages.Remove(message);
                             }
                             else
@@ -204,8 +217,6 @@ namespace YAF.Core.Services
                                             mailMessages[message].ToUser,
                                             mailMessages[message].Subject),
                                     EventLogTypes.Warning);
-
-                                // TODO : should we store failed messages in the db or simply delete them?
                             }
                         }
                         else
@@ -223,13 +234,6 @@ namespace YAF.Core.Services
 #endif
                         }
                     });
-
-                /*foreach (var message in mailMessages.Values)
-                {
-                    // all is well, delete this message...
-                    this.Logger.Debug("Deleting email to {0} (ID: {1})".FormatWith(message.ToUser, message.ID));
-                    this.MailRepository.Delete(message);
-                }*/
             }
             catch (Exception ex)
             {
@@ -245,10 +249,6 @@ namespace YAF.Core.Services
                     "Exception Thrown in SendMail Thread: {0}".FormatWith(ex.ToString()),
                     EventLogTypes.Warning);
 #endif
-            }
-            finally
-            {
-                this.DeleteMessage(mailMessages);
             }
 
             this.Logger.Debug("SendMailThread exiting");
@@ -306,29 +306,6 @@ namespace YAF.Core.Services
                         EventLogTypes.Warning);
 #endif
                 }
-            }
-        }
-
-        private void DeleteMessage([NotNull] IDictionary<MailMessage, Mail> mailMessages)
-        {
-            CodeContracts.VerifyNotNull(mailMessages, "mailMessages");
-
-            if (!mailMessages.Any())
-            {
-                return;
-            }
-
-            foreach (var message in mailMessages.Values)
-            {
-                // all is well, delete this message...
-                this.Logger.Debug("Deleting email to {0} (ID: {1})".FormatWith(message.ToUser, message.ID));
-                this.MailRepository.Delete(message);
-            }
-
-            // dispose of all mail messages
-            foreach (var m in mailMessages.Where(x => x.Key != null).Select(m => m.Key).ToList())
-            {
-                m.Dispose();
             }
         }
 

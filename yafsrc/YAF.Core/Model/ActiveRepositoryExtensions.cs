@@ -27,6 +27,9 @@ namespace YAF.Core.Model
     using System.Collections.Generic;
     using System.Data;
 
+    using Omu.ValueInjecter;
+
+    using YAF.Core.Data;
     using YAF.Types;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
@@ -77,19 +80,13 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The listforum.
+        /// Lists the forum.
         /// </summary>
-        /// <param name="repository">
-        /// The repository. 
-        /// </param>
-        /// <param name="forumID">
-        /// The forum id. 
-        /// </param>
-        /// <param name="styledNicks">
-        /// The styled nicks. 
-        /// </param>
+        /// <param name="repository">The repository.</param>
+        /// <param name="forumID">The forum id.</param>
+        /// <param name="styledNicks">The styled nicks.</param>
         /// <returns>
-        /// The <see cref="DataTable"/> . 
+        /// The <see cref="DataTable" /> .
         /// </returns>
         public static DataTable ListForum(this IRepository<Active> repository, int forumID, bool styledNicks)
         {
@@ -99,19 +96,13 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The listtopic.
+        /// Lists the topic.
         /// </summary>
-        /// <param name="repository">
-        /// The repository. 
-        /// </param>
-        /// <param name="topicID">
-        /// The topic id. 
-        /// </param>
-        /// <param name="styledNicks">
-        /// The styled nicks. 
-        /// </param>
+        /// <param name="repository">The repository.</param>
+        /// <param name="topicID">The topic id.</param>
+        /// <param name="styledNicks">The styled nicks.</param>
         /// <returns>
-        /// The <see cref="DataTable"/> . 
+        /// The <see cref="DataTable" /> .
         /// </returns>
         public static DataTable ListTopic(this IRepository<Active> repository, int topicID, bool styledNicks)
         {
@@ -145,21 +136,32 @@ namespace YAF.Core.Model
         /// The <see cref="IList"/>.
         /// </returns>
         public static IList<Active> ListTyped(
-            this IRepository<Active> repository, bool guests, bool showCrawlers, int activeTime, bool styledNicks, int? boardId = null)
+            this IRepository<Active> repository,
+            bool guests,
+            bool showCrawlers,
+            int activeTime,
+            bool styledNicks,
+            int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            using (var functionSession = repository.DbFunction.CreateSession())
+            var activeList = new List<Active>();
+
+            foreach (DataRow dr in
+                repository.DbFunction.GetData.active_list(
+                    BoardID: boardId ?? repository.BoardID,
+                    Guests: guests,
+                    ShowCrawlers: showCrawlers,
+                    ActiveTime: activeTime,
+                    StyledNicks: styledNicks,
+                    UTCTIMESTAMP: DateTime.UtcNow).Rows)
             {
-                return functionSession.GetTyped<Active>(
-                    r => r.active_list(
-                        BoardID: boardId ?? repository.BoardID, 
-                        Guests: guests, 
-                        ShowCrawlers: showCrawlers, 
-                        ActiveTime: activeTime, 
-                        StyledNicks: styledNicks, 
-                        UTCTIMESTAMP: DateTime.UtcNow));
+                var active = new Active();
+                active.InjectFrom<DataRowInjection>(dr);
+                activeList.Add(active);
             }
+
+            return activeList;
         }
 
         /// <summary>
@@ -223,16 +225,12 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The updatemaxstats.
+        /// Updates the maximum stats.
         /// </summary>
-        /// <param name="repository">
-        /// The repository. 
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
+        /// <param name="repository">The repository.</param>
+        /// <param name="boardId">The board Id.</param>
         /// <returns>
-        /// The <see cref="DataTable"/> . 
+        /// The <see cref="DataTable" /> .
         /// </returns>
         public static DataTable UpdateMaxStats(this IRepository<Active> repository, int? boardId = null)
         {

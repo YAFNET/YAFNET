@@ -3638,14 +3638,16 @@ create procedure [{databaseOwner}].[{objectQualifier}mail_create]
     @Subject nvarchar(100),
     @Body ntext,
     @BodyHtml ntext = NULL,
+	@SendTries int,
+	@SendAttempt datetime,
     @UTCTIMESTAMP datetime
 )
 AS 
 BEGIN
         insert into [{databaseOwner}].[{objectQualifier}Mail]
-        (FromUser,FromUserName,ToUser,ToUserName,Created,Subject,Body,BodyHtml)
+        (FromUser,FromUserName,ToUser,ToUserName,Created,Subject,Body,BodyHtml,SendTries.SendAttempt)
     values
-        (@From,@FromName,@To,@ToName,@UTCTIMESTAMP ,@Subject,@Body,@BodyHtml)	
+        (@From,@FromName,@To,@ToName,@UTCTIMESTAMP ,@Subject,@Body,@BodyHtml,@SendTries,@SendAttempt)	
 END
 GO
 
@@ -3733,33 +3735,39 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}mail_list]
+create procedure [{databaseOwner}].[{objectQualifier}mail_list]
 (
     @ProcessID int,
     @UTCTIMESTAMP datetime
 )
 AS
-BEGIN
-	DECLARE @count int
+begin
+	declare @count int
 
-	SET @count = (SELECT (count(*)/100) FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE SendAttempt IS NULL OR SendAttempt < @UTCTIMESTAMP)
-	SET @count = (Select Case When @count < 10 Then 10 Else @count End)
+	set @count = (select (count(*)/100) 
+	              from [{databaseOwner}].[{objectQualifier}Mail] 
+				  where SendAttempt is null or SendAttempt < @UTCTIMESTAMP
+				 )
+	set @count = (select Case When @count < 10 Then 10 Else @count End)
 
-	UPDATE [{databaseOwner}].[{objectQualifier}Mail]
-	SET 
+	update [{databaseOwner}].[{objectQualifier}Mail]
+	set 
 		SendTries = SendTries + 1,
 		SendAttempt = DATEADD(n,5,@UTCTIMESTAMP),
 		ProcessID = @ProcessID
-	WHERE
-		MailID IN (SELECT TOP (@count) MailID FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE SendAttempt IS NULL OR SendAttempt < @UTCTIMESTAMP)
+	where
+		MailID in (select top (@count) MailID 
+		           from [{databaseOwner}].[{objectQualifier}Mail] 
+				   where SendAttempt is null or SendAttempt < @UTCTIMESTAMP)
 
-	BEGIN TRANSACTION TRANSUPDATEMAIL
-		-- now select all mail reserved for this process...
-		SELECT TOP (@count) * FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE ProcessID = @ProcessID ORDER BY SendAttempt, Created desc
-		UPDATE [{databaseOwner}].[{objectQualifier}Mail] SET ProcessID = NULL WHERE ProcessID = @ProcessID
-	COMMIT TRANSACTION TRANSUPDATEMAIL
-END
-GO
+	select top (@count) * 
+	from [{databaseOwner}].[{objectQualifier}Mail] 
+	where ProcessID = @ProcessID 
+	order by SendAttempt, Created desc
+
+	delete from [{databaseOwner}].[{objectQualifier}Mail] where ProcessID = @ProcessID
+end
+go
 
 create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID int) as begin
     
