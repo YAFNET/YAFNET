@@ -1761,7 +1761,7 @@
                         <td class="post">
                             <asp:TextBox Style="width:350px" ID="UserBoxThanksTo" runat="server"></asp:TextBox>
                         </td>
-                    </tr>s
+                    </tr>
                 </table>
 	</div>
     <asp:PlaceHolder runat="server" ID="AvatarsTab">
