@@ -2380,6 +2380,8 @@ BEGIN
         Forums = (select count(1) from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID),	
         LastPostInfoID	= 1,
         LastPost	= a.Posted,
+		LastPostTopic = b.Topic,
+        LastPostID = a.MessageID,
         LastUserID	= a.UserID,
         LastUser	= e.Name,
         LastUserDisplayName	= e.DisplayName,
