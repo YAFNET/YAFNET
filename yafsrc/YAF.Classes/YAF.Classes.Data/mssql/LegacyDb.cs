@@ -4980,10 +4980,7 @@ namespace YAF.Classes.Data
         /// The RemoveCompletely. If true and pollID is null , all polls in a group are deleted completely, 
         ///   else only one poll is deleted completely. 
         /// </param>
-        /// <param name="removeEverywhere">
-        /// The remove Everywhere.
-        /// </param>
-        public static void poll_remove([NotNull] object pollGroupID, [NotNull] object pollID, [NotNull] object boardId, bool removeCompletely, bool removeEverywhere)
+        public static void poll_remove([NotNull] object pollGroupID, [NotNull] object pollID, [NotNull] object boardId, bool removeCompletely)
         {
             using (var cmd = DbHelpers.GetCommand("poll_remove"))
             {
@@ -4992,7 +4989,6 @@ namespace YAF.Classes.Data
                 cmd.AddParam("PollID", pollID);
                 cmd.AddParam("BoardID", boardId);
                 cmd.AddParam("RemoveCompletely", removeCompletely);
-                cmd.AddParam("RemoveEverywhere", removeEverywhere);
                 DbAccess.ExecuteNonQuery(cmd);
             }
         }
@@ -5320,26 +5316,14 @@ namespace YAF.Classes.Data
         /// <summary>
         /// The poll_remove.
         /// </summary>
-        /// <param name="pollGroupID">
-        /// The poll group id. The parameter should always be present. 
-        /// </param>
-        /// <param name="topicId">
-        /// The poll id. If null all polls in a group a deleted. 
-        /// </param>
-        /// <param name="forumId">
-        /// </param>
-        /// <param name="categoryId">
-        /// The category Id.
-        /// </param>
-        /// <param name="boardId">
-        /// The BoardID id. 
-        /// </param>
-        /// <param name="removeCompletely">
-        /// The RemoveCompletely. If true and pollID is null , all polls in a group are deleted completely, 
-        ///   else only one poll is deleted completely. 
-        /// </param>
-        /// <param name="removeEverywhere">
-        /// </param>
+        /// <param name="pollGroupID">The poll group id. The parameter should always be present.</param>
+        /// <param name="topicId">The topic identifier.</param>
+        /// <param name="forumId">The forum identifier.</param>
+        /// <param name="categoryId">The category Id.</param>
+        /// <param name="boardId">The BoardID id.</param>
+        /// <param name="removeCompletely">The RemoveCompletely. If true and pollID is null , all polls in a group are deleted completely,
+        /// else only one poll is deleted completely.</param>
+        /// <param name="removeEverywhere">if set to <c>true</c> [remove everywhere].</param>
         public static void pollgroup_remove([NotNull] object pollGroupID, [NotNull] object topicId, [NotNull] object forumId, [NotNull] object categoryId, [NotNull] object boardId,
           bool removeCompletely,
           bool removeEverywhere)

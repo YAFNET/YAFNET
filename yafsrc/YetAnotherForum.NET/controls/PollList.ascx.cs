@@ -586,7 +586,7 @@ namespace YAF.Controls
         // ChangePollShowStatus(false);
         if (e.CommandArgument != null && e.CommandArgument.ToString() != string.Empty)
         {
-          LegacyDb.poll_remove(this.PollGroupId, e.CommandArgument, this.BoardId, false, false);
+          LegacyDb.poll_remove(this.PollGroupId, e.CommandArgument, this.BoardId, false);
           this.ReturnToPage();
 
           // BindData();
@@ -597,7 +597,7 @@ namespace YAF.Controls
       {
         if (e.CommandArgument != null && e.CommandArgument.ToString() != string.Empty)
         {
-          LegacyDb.poll_remove(this.PollGroupId, e.CommandArgument, this.BoardId, true, false);
+          LegacyDb.poll_remove(this.PollGroupId, e.CommandArgument, this.BoardId, true);
           this.ReturnToPage();
 
           // BindData();

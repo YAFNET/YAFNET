@@ -6403,8 +6403,7 @@ BEGIN
         SELECT @pollID = pollID FROM  [{databaseOwner}].[{objectQualifier}topic] WHERE TopicID = @TopicID
         IF (@pollID is not null)
         BEGIN
-            UPDATE  [{databaseOwner}].[{objectQualifier}topic] SET PollID = null WHERE TopicID = @TopicID
-            EXEC [{databaseOwner}].[{objectQualifier}pollgroup_remove] @pollID, @TopicID, null, null, null, 0, 0 
+             exec [{databaseOwner}].[{objectQualifier}pollgroup_remove] @pollID, @TopicID, null, null, null, 1, 1
         END	
     
         DELETE FROM  [{databaseOwner}].[{objectQualifier}topic] WHERE TopicMovedID = @TopicID
@@ -6506,9 +6505,9 @@ create procedure [{databaseOwner}].[{objectQualifier}pollgroup_remove](@PollGrou
     begin	
     insert into @polllist (PollID)
     select PollID from [{databaseOwner}].[{objectQualifier}Poll] where PollGroupID = @PollGroupID   
-            DELETE FROM  [{databaseOwner}].[{objectQualifier}pollvote] WHERE PollID IN (SELECT PollID FROM @polllist)
-            DELETE FROM  [{databaseOwner}].[{objectQualifier}choice] WHERE PollID IN (SELECT PollID FROM @polllist)	
-            DELETE FROM  [{databaseOwner}].[{objectQualifier}poll] WHERE PollGroupID = @PollGroupID 
+            DELETE FROM  [{databaseOwner}].[{objectQualifier}PollVote] WHERE PollID IN (SELECT PollID FROM @polllist)
+            DELETE FROM  [{databaseOwner}].[{objectQualifier}Choice] WHERE PollID IN (SELECT PollID FROM @polllist)	
+            DELETE FROM  [{databaseOwner}].[{objectQualifier}Poll] WHERE PollGroupID = @PollGroupID 
             DELETE FROM  [{databaseOwner}].[{objectQualifier}PollGroupCluster] WHERE PollGroupID = @PollGroupID		
     end
 
@@ -9471,7 +9470,7 @@ end
 GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}poll_remove](
-    @PollGroupID int, @PollID int = null, @BoardID int = null, @RemoveCompletely bit, @RemoveEverywhere bit)
+    @PollGroupID int, @PollID int = null, @BoardID int = null, @RemoveCompletely bit)
 as
 begin
 declare @groupcount int
