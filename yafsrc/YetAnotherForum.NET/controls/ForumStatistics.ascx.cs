@@ -247,6 +247,7 @@ namespace YAF.Controls
                     this.BirthdayUsers.Visible = true;
                 }
             }
+
             if (this.BirthdayUsers.Visible)
             {
                 // Remove last Separator
@@ -378,6 +379,15 @@ namespace YAF.Controls
                             DateTime = postsStatisticsDataRow["LastPost"],
                             Format = DateTimeFormat.BothTopic
                         }.RenderToString());
+
+                this.LastPostLink.Text =
+                    this.Get<IBadWordReplace>()
+                        .Replace(this.HtmlEncode(postsStatisticsDataRow["LastPostTopic"]))
+                        .Truncate(50);
+                this.LastPostLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                    ForumPages.posts,
+                    "m={0}#post{0}",
+                    postsStatisticsDataRow["LastPostID"]);
             }
             else
             {

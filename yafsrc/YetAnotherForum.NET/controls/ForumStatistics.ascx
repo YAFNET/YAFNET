@@ -61,7 +61,8 @@
                         <br />
                         <asp:PlaceHolder runat="server" ID="StatsLastPostHolder" Visible="False">
                             <asp:Label ID="StatsLastPost" runat="server" />&nbsp;<YAF:UserLink ID="LastPostUserLink"
-                                runat="server" />.
+                                runat="server" />&nbsp;<YAF:LocalizedLabel runat="server" ID="InLabel" LocalizedTag="IN" LocalizedPage="DEFAULT" ></YAF:LocalizedLabel>
+                            <asp:HyperLink ID="LastPostLink" runat="server"></asp:HyperLink>.
                             <br />
                         </asp:PlaceHolder>
                         <asp:Label ID="StatsMembersCount" runat="server" />
