@@ -189,11 +189,6 @@ namespace YAF
                     // album image
                     this.GetAlbumImage(context);
                 }
-                else if (context.Request.QueryString.GetFirstOrDefault("s") != null
-                         && context.Request.QueryString.GetFirstOrDefault("lang") != null)
-                {
-                    GetResponseGoogleSpell(context);
-                }
             }
             else
             {
@@ -435,37 +430,6 @@ namespace YAF
                     context.Response.Write("Error: Invalid forum resource. Please contact the forum admin.");
                 }
             }*/
-        }
-
-        /// <summary>
-        /// The get response google spell.
-        /// </summary>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        private static void GetResponseGoogleSpell([NotNull] HttpContext context)
-        {
-            string url =
-                "https://www.google.com/tbproxy/spell?lang={0}".FormatWith(
-                    context.Request.QueryString.GetFirstOrDefault("lang"));
-
-            var webRequest = (HttpWebRequest)WebRequest.Create(url);
-            webRequest.KeepAlive = true;
-            webRequest.Timeout = 100000;
-            webRequest.Method = "POST";
-            webRequest.ContentType = "application/x-www-form-urlencoded";
-            webRequest.ContentLength = context.Request.InputStream.Length;
-
-            Stream requestStream = webRequest.GetRequestStream();
-
-            context.Request.InputStream.CopyTo(requestStream);
-
-            requestStream.Close();
-
-            var httpWebResponse = (HttpWebResponse)webRequest.GetResponse();
-            Stream responseStream = httpWebResponse.GetResponseStream();
-
-            responseStream.CopyTo(context.Response.OutputStream);
         }
 
         /// <summary>
