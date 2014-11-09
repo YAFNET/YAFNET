@@ -3647,7 +3647,7 @@ create procedure [{databaseOwner}].[{objectQualifier}mail_create]
 AS 
 BEGIN
         insert into [{databaseOwner}].[{objectQualifier}Mail]
-        (FromUser,FromUserName,ToUser,ToUserName,Created,Subject,Body,BodyHtml,SendTries.SendAttempt)
+        (FromUser,FromUserName,ToUser,ToUserName,Created,Subject,Body,BodyHtml,SendTries,SendAttempt)
     values
         (@From,@FromName,@To,@ToName,@UTCTIMESTAMP ,@Subject,@Body,@BodyHtml,@SendTries,@SendAttempt)	
 END
