@@ -2656,9 +2656,9 @@
     <Resource tag="FORUM">المنتدى</Resource>
     <Resource tag="GO_LAST_POST">الذهاب الى  آخر مشاركة</Resource>
     <Resource tag="GO_LASTUNREAD_POST">Go to first unread</Resource>
-    <Resource tag="IN">في {0}</Resource>
+    <Resource tag="IN">in {0}</Resource>
     <Resource tag="INFORMATION">معلومات </Resource>
-    <Resource tag="LAST_VISIT">آخر زيارة : {0}.</Resource>
+    <Resource tag="LAST_VISIT">Your last visit: {0}.</Resource>
     <Resource tag="LASTPOST">آخر مشاركة</Resource>
     <Resource tag="LATEST_POSTS">آخر مشاركات </Resource>
     <Resource tag="LOADING_FB_HOVERCARD">Loading Facebook Info ...</Resource>
@@ -4340,7 +4340,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="LAST_TWO_DAYS">قبل يومين</Resource>
     <Resource tag="LAST_TWO_HOURS">آخر ساعتين</Resource>
     <Resource tag="LAST_TWO_WEEKS">آخر  اسبوعين </Resource>
-    <Resource tag="LAST_VISIT">{آخر زيارة  {0</Resource>
+    <Resource tag="LAST_VISIT">last visit at {0}</Resource>
     <Resource tag="LAST_WEEK">آخر اسبوع </Resource>
     <Resource tag="LASTPOST">آخر مشاركة</Resource>
     <Resource tag="MEMBERTITLE">مواضيعي</Resource>
@@ -4368,7 +4368,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="NEED_MORE_LETTERS">الرجاء  إدخال  على  الاقل  اول  حرفين  من  اسم  العضو  حتى يمكنت تحديد مكانه.</Resource>
     <Resource tag="NEED_SUBJECT">الرجاء ادخال  عنوان الرسالة  حتى تتمكن من المتابعة .</Resource>
     <Resource tag="NEED_TO">الرجاء تحدي الشخص /اشخاص  الذي تودي ارال  الرسالة لهم .</Resource>
-    <Resource tag="NO_SUCH_USER">نأسف و المستخدم  "{0}" غير مسجل  في المنتدى </Resource>
+    <Resource tag="NO_SUCH_USER">نأسف و المستخدم  {0}" غير مسجل  في المنتدى </Resource>
     <Resource tag="NOT_GUEST">لايمكن   ارسال  رسالة  خاصة   الى   زائر.</Resource>
     <Resource tag="OWN_PMBOX_FULL">الرسائل  الخاصة   ممتلئة {0}. الرجاء حذفمن الرسائل الخاصة .</Resource>
     <Resource tag="PMLIMIT_ALL">   لديك {0} رسائل خاصة: {1} في صندوق الوارد {2} و رسائل  في  المرسلات, {3} تم ارشفتة {4} مسموح به. يمتلىء صندوق الوارد  بـ {5}%.</Resource>
