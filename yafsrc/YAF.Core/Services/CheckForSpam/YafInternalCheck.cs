@@ -90,10 +90,24 @@ namespace YAF.Core.Services.CheckForSpam
 
                 var isBot = false;
 
-                if (bannedEmailRepository.ListTyped().Any(email => Regex.Match(emailAddress, email.Mask).Success))
+                foreach (BannedEmail email in bannedEmailRepository.ListTyped())
                 {
-                    responseText = "internal detection found email address {0}".FormatWith(emailAddress);
-                    isBot = true;
+                    try
+                    {
+                        if (!Regex.Match(emailAddress, email.Mask).Success)
+                        {
+                            continue;
+                        }
+
+                        responseText = "internal detection found email address {0}".FormatWith(emailAddress);
+                        isBot = true;
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        YafContext.Current.Get<ILogger>()
+                            .Error(ex, "Error while Checking for Bot Email (Check: {0})".FormatWith(email.Mask));
+                    }
                 }
 
                 if (bannedIpList.Any(i => i.Equals(ipAddress)))
@@ -102,10 +116,24 @@ namespace YAF.Core.Services.CheckForSpam
                     isBot = true;
                 }
 
-                if (bannedNameRepository.ListTyped().Any(name => Regex.Match(userName, name.Mask).Success))
+                foreach (BannedName name in bannedNameRepository.ListTyped())
                 {
-                    responseText = "internal detection found name {0}".FormatWith(userName);
-                    isBot = true;
+                    try
+                    {
+                        if (!Regex.Match(userName, name.Mask).Success)
+                        {
+                            continue;
+                        }
+
+                        responseText = "internal detection found name {0}".FormatWith(userName);
+                        isBot = true;
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        YafContext.Current.Get<ILogger>()
+                            .Error(ex, "Error while Checking for Bot Name (Check: {0})".FormatWith(name.Mask));
+                    }
                 }
 
                 return isBot;
