@@ -1407,6 +1407,9 @@ namespace YAF
             }
             catch (WebException exception)
             {
+                // Output the data
+                context.Response.Redirect("{0}/Images/{1}".FormatWith(YafForumInfo.ForumClientFileRoot, "noavatar.gif"));
+
                 // issue getting access to the avatar...
                 this.Get<ILogger>()
                     .Log(
