@@ -304,12 +304,12 @@ namespace YAF.Controls
             if (this.PostData.UserProfile.Twitter.IsSet())
             {
                 this.Twitter.Visible = this.PostData.UserProfile.Twitter.IsSet();
-                this.Twitter.NavigateUrl = "http://twitter.com/{0}".FormatWith(this.PostData.UserProfile.Twitter);
+                this.Twitter.NavigateUrl = "http://twitter.com/{0}".FormatWith(this.HtmlEncode(this.PostData.UserProfile.Twitter));
                 this.Twitter.ParamTitle0 = userName;
 
                 if (this.Get<YafBoardSettings>().EnableUserInfoHoverCards && Config.IsTwitterEnabled)
                 {
-                    this.Twitter.Attributes.Add("data-hovercard", this.PostData.UserProfile.Twitter);
+                    this.Twitter.Attributes.Add("data-hovercard", this.HtmlEncode(this.PostData.UserProfile.Twitter));
                     this.Twitter.CssClass += " Twitter-HoverCard";
 
                     loadHoverCardJs = true;

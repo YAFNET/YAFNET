@@ -347,9 +347,9 @@ namespace YAF.Pages
                 this.AlbumList1.Dispose();
             }
 
-            var userNameOrDisplayName = this.Get<YafBoardSettings>().EnableDisplayName
+            var userNameOrDisplayName = this.HtmlEncode(this.Get<YafBoardSettings>().EnableDisplayName
                                             ? userData.DisplayName
-                                            : userData.UserName;
+                                            : userData.UserName);
 
             this.SetupUserProfileInfo(this.UserId, user, userData, userNameOrDisplayName);
 
@@ -378,7 +378,7 @@ namespace YAF.Pages
                 this.SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.search,
                     "postedby={0}",
-                    this.Get<YafBoardSettings>().EnableDisplayName ? userData.DisplayName : userData.UserName);
+                    userNameOrDisplayName);
             }
 
             this.DataBind();
@@ -491,7 +491,7 @@ namespace YAF.Pages
             this.Facebook.ParamTitle0 = userName;
 
             this.Twitter.Visible = this.User != null && userData.Profile.Twitter.IsSet();
-            this.Twitter.NavigateUrl = "http://twitter.com/{0}".FormatWith(userData.Profile.Twitter);
+            this.Twitter.NavigateUrl = "http://twitter.com/{0}".FormatWith(this.HtmlEncode(userData.Profile.Twitter));
             this.Twitter.ParamTitle0 = userName;
 
             this.Google.Visible = this.User != null && userData.Profile.Google.IsSet();
