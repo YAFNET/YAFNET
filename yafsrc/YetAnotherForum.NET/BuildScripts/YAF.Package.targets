@@ -51,8 +51,11 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-migrate-1.2.1.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-ui-1.11.1.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-ui-i18n.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jsdifflib.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jsdifflib.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\ladda.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\ladda.min.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\prism.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\spin.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\spin.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\yaf.js" />
@@ -70,10 +73,13 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.syntaxhighligher.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.yafmodaldialog.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.yafmodaldialog.min.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jsdifflib.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jsdifflib.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\ladda.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\ladda.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\ladda-themeless.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\ladda-themeless.min.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\prism.css" />
     </ItemGroup>
 
     <ItemGroup>
@@ -122,10 +128,10 @@
     
     <!-- Minify JS and CSS Files -->
     <ItemGroup>
-      <JS Include="$(MSBuildProjectDirectory)\Package\**\*.js" Exclude="**\*.min.js;**\*-min.js;**\*_src.js;$(MSBuildProjectDirectory)\Package\Scripts\ckeditor\**\*.js;$(MSBuildProjectDirectory)\Package\Scripts\tinymce\**\*.js;" />
+      <JS Include="$(MSBuildProjectDirectory)\Package\**\*.js" Exclude="**\*.min.js;**\*-min.js;**\*_src.js;$(MSBuildProjectDirectory)\Package\Scripts\**\*.js;" />
     </ItemGroup>
     <ItemGroup>
-      <CSS Include="$(MSBuildProjectDirectory)\Package\**\*.css" Exclude="**\*.min.css;**\*_src.css;$(MSBuildProjectDirectory)\Package\themes\**\*.css;$(MSBuildProjectDirectory)\Package\Scripts\ckeditor\**\*.css;$(MSBuildProjectDirectory)\Package\Scripts\tinymce\**\*.css;" />
+      <CSS Include="$(MSBuildProjectDirectory)\Package\**\*.css" Exclude="**\*.min.css;**\*_src.css;$(MSBuildProjectDirectory)\Package\themes\**\*.css;$(MSBuildProjectDirectory)\Package\Scripts\**\*.css;$(MSBuildProjectDirectory)\Package\Content\**\*.css;" />
     </ItemGroup>
     <AjaxMin JsSourceFiles="@(JS)" JsSourceExtensionPattern="\.js$" JsTargetExtension=".js" CssSourceFiles="@(CSS)" CssSourceExtensionPattern="\.css$" CssTargetExtension=".css"  />
 
