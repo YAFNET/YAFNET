@@ -42,9 +42,9 @@ namespace YAF.Modules
     #endregion
 
     /// <summary>
-    /// Automatic Javascript Loading Module
+    /// Automatic JavaScript Loading Module
     /// </summary>
-    [YafModule("Javascript Loading Module", "Ingo Herbote", 1)]
+    [YafModule("JavaScript Loading Module", "Ingo Herbote", 1)]
     public class ScriptsLoaderModule : SimpleBaseForumModule
     {
         #region Public Methods
@@ -93,13 +93,6 @@ namespace YAF.Modules
 
                 this.PageContext.Vars["yafForumExtensions"] = true;
             }
-
-            /*if (!this.PageContext.Vars.ContainsKey("yafjs"))
-            {
-                YafContext.Current.PageElements.RegisterJsScriptsInclude("yafjs", "yaf.min.js");
-
-                this.PageContext.Vars["yafjs"] = true;
-            }*/
         }
 
         /// <summary>
@@ -182,7 +175,7 @@ namespace YAF.Modules
             if (YafContext.Current.Get<YafBoardSettings>().JqueryUIThemeCDNHosted)
             {
                YafContext.Current.PageElements.RegisterCssInclude(
-                    "//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/{0}/jquery-ui.min.css".FormatWith(
+                    "//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/{0}/jquery-ui.min.css".FormatWith(
                         YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
             }
             else
@@ -210,11 +203,11 @@ namespace YAF.Modules
             else
             {
                 jqueryUIUrl = YafContext.Current.Get<YafBoardSettings>().JqueryUICDNHosted
-                                  ? "//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"
+                                  ? "//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"
 #if DEBUG
-                                  : YafForumInfo.GetURLToScripts("jquery-ui-1.11.1.js");
+                                  : YafForumInfo.GetURLToScripts("jquery-ui-1.11.2.js");
 #else
-                                  : YafForumInfo.GetURLToScripts("jquery-ui-1.11.1.min.js");
+                                  : YafForumInfo.GetURLToScripts("jquery-ui-1.11.2.min.js");
 #endif
             }
 
