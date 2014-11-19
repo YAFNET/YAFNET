@@ -1503,9 +1503,6 @@
     <Content Include="Content\jquery.notification.min.css">
       <DependentUpon>jquery.notification.less</DependentUpon>
     </Content>
-    <Content Include="Content\jquery.syntaxhighligher.min.css">
-      <DependentUpon>jquery.syntaxhighligher.less</DependentUpon>
-    </Content>
     <Content Include="Content\jquery.yafmodaldialog.min.css">
       <DependentUpon>jquery.yafmodaldialog.less</DependentUpon>
     </Content>
@@ -1706,9 +1703,6 @@
     </Content>
     <Content Include="Content\jquery.ceebox.css">
       <DependentUpon>jquery.ceebox.less</DependentUpon>
-    </Content>
-    <Content Include="Content\jquery.syntaxhighligher.css">
-      <DependentUpon>jquery.syntaxhighligher.less</DependentUpon>
     </Content>
     <Content Include="Content\jquery.yafmodaldialog.css">
       <DependentUpon>jquery.yafmodaldialog.less</DependentUpon>
@@ -2476,7 +2470,6 @@
     <Content Include="Scripts\jquery.notification.js" />
     <Content Include="Scripts\jquery.pagemethod.js" />
     <Content Include="Scripts\jquery.pagination.js" />
-    <Content Include="Scripts\jquery.syntaxhighligher.js" />
     <Content Include="Scripts\jquery.pagemethod.readme.txt">
       <DependentUpon>jquery.pagemethod.js</DependentUpon>
     </Content>
@@ -3169,7 +3162,6 @@
     <None Include="Content\jquery.ceebox.less" />
     <None Include="Content\jquery.hovercard.less" />
     <Content Include="Content\jquery.notification.less" />
-    <Content Include="Content\jquery.syntaxhighligher.less" />
     <Content Include="Content\jquery.yafmodaldialog.less" />
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
     <Content Include="Scripts\ckeditor\README.md" />
