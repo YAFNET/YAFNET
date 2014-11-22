@@ -31,6 +31,7 @@ namespace YAF.Pages
     using System.Data;
     using System.Linq;
     using System.Text;
+    using System.Text.RegularExpressions;
     using System.Web;
     using System.Web.Security;
     using System.Web.UI;
@@ -1028,7 +1029,17 @@ namespace YAF.Pages
             if (!this.IsPossibleSpamBotInternalCheck)
             {
                 userProfile.Location = locationTextBox.Text.Trim();
-                userProfile.Homepage = homepageTextBox.Text.Trim();
+
+                // add http:// by default
+                if (!Regex.IsMatch(homepageTextBox.Text.Trim(), @"^(http|https|ftp|ftps|git|svn|news)\://.*"))
+                {
+                    homepageTextBox.Text = "http://{0}".FormatWith(homepageTextBox.Text.Trim());
+                }
+
+                if (ValidationHelper.IsValidURL(homepageTextBox.Text))
+                {
+                    userProfile.Homepage = homepageTextBox.Text.Trim();
+                }
 
                 userProfile.Save();
 

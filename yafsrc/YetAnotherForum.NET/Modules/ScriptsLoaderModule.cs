@@ -154,11 +154,11 @@ namespace YAF.Modules
                 element.Controls.Add(ControlHelper.MakeJsIncludeControl(jqueryUrl));
 
                 // load jQuery migrate
-                element.Controls.Add(
+                /*element.Controls.Add(
                     ControlHelper.MakeJsIncludeControl(
                         YafContext.Current.Get<YafBoardSettings>().JqueryCDNHosted
                             ? YafForumInfo.GetURLToScripts("jquery-migrate-1.2.1.min.js")
-                            : "//code.jquery.com/jquery-migrate-1.1.0.js"));
+                            : "//code.jquery.com/jquery-migrate-1.2.1.js"));*/
             }
 
             YafContext.Current.PageElements.AddPageElement("jquery");

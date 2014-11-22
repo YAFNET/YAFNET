@@ -285,6 +285,9 @@ namespace YAF.Controls
 
                 // Location
                 userBox = this.MatchUserBoxLocation(userBox);
+
+                // Topic Author Badge
+                //userBox = this.MatchUserBoxAuthorBadge(userBox);
             }
             else
             {
@@ -617,13 +620,39 @@ namespace YAF.Controls
             if (this.UserProfile.Location.IsSet())
             {
                 filler = this.Get<YafBoardSettings>().UserBoxLocation.FormatWith(
-                    this.GetText("LOCATION"), this.Get<IFormatMessage>().RepairHtml(this.UserProfile.Location, false));
+                    this.GetText("LOCATION"), this.Get<IFormatMessage>().RepairHtml(this.HtmlEncode(this.UserProfile.Location), false));
             }
 
             // replaces template placeholder with actual location
             userBox = rx.Replace(userBox, filler);
             return userBox;
         }
+        /*
+        /// <summary>
+        /// The match user box location.
+        /// </summary>
+        /// <param name="userBox">
+        /// The user box.
+        /// </param>
+        /// <returns>
+        /// Returns the Location Userbox string.
+        /// </returns>
+        [NotNull]
+        private string MatchUserBoxAuthorBadge([NotNull] string userBox)
+        {
+            string filler = string.Empty;
+            var rx = this.GetRegex(Constants.UserBox.Location);
+
+            if (this.UserProfile.Location.IsSet())
+            {
+                filler = this.Get<YafBoardSettings>().UserBoxLocation.FormatWith(
+                    this.GetText("LOCATION"), this.Get<IFormatMessage>().RepairHtml(this.UserProfile.Location, false));
+            }
+
+            // replaces template placeholder with actual location
+            userBox = rx.Replace(userBox, filler);
+            return userBox;
+        }*/
 
         /// <summary>
         /// The match user box medals.

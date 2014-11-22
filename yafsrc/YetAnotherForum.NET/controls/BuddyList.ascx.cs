@@ -176,7 +176,7 @@ namespace YAF.Controls
         this.Rank.Text = this.GetText("rank");
         this.Joined.Text = this.GetText("members", "joined");
         this.Posts.Text = this.GetText("CP_EDITBUDDIES", "POSTS");
-        this.Location.Text = this.GetText("POSTS", "LOCATION");
+        this.Location.Text = this.HtmlEncode(this.GetText("POSTS", "LOCATION"));
         if (this.Mode == 4)
         {
           this.LastColumn.Text = this.GetText("REQUEST_DATE");
