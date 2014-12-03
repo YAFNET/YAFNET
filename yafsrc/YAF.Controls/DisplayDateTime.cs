@@ -134,7 +134,7 @@ namespace YAF.Controls
 
             writer.Write(
                 this._controlHtml.FormatWith(
-                    this.AsDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ"),
+                    this.AsDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture),
                     this.Get<IDateTime>().Format(this.Format, this.DateTime)));
             writer.WriteLine();
         }
