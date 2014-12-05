@@ -121,9 +121,9 @@ namespace YAF.Editors
             YafContext.Current.PageElements.RegisterJsInclude(
                 "YafEditorJs",
 #if DEBUG
-                this.ResolveUrl("yafEditor/yafEditorStandard.js"));
+                this.ResolveUrl("yafEditor/yafEditor.js"));
 #else
-                this.ResolveUrl("yafEditor/yafEditorStandard.min.js"));
+                this.ResolveUrl("yafEditor/yafEditor.min.js"));
 #endif
             YafContext.Current.PageElements.RegisterJsBlock(
                 "CreateYafEditorJs",
