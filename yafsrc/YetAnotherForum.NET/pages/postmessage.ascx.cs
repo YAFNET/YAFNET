@@ -447,57 +447,63 @@ namespace YAF.Pages
                     LegacyDb.MessageList(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("q").ToType<int>())
                         .FirstOrDefault();
 
-                this.OriginalMessage = currentMessage.Message;
-
-                if (currentMessage.TopicID.ToType<int>() != this.PageContext.PageTopicID)
+                if (currentMessage != null)
                 {
-                    YafBuildLink.AccessDenied();
-                }
+                    this.OriginalMessage = currentMessage.Message;
 
-                if (!this.CanQuotePostCheck(topicInfo))
-                {
-                    YafBuildLink.AccessDenied();
-                }
+                    if (currentMessage.TopicID.ToType<int>() != this.PageContext.PageTopicID)
+                    {
+                        YafBuildLink.AccessDenied();
+                    }
 
-                this.PollGroupId = currentMessage.PollID.ToType<int>().IsNullOrEmptyDBField()
-                    ? 0
-                    : currentMessage.PollID;
+                    if (!this.CanQuotePostCheck(topicInfo))
+                    {
+                        YafBuildLink.AccessDenied();
+                    }
 
-                // if this is a quoted message (a new reply with a quote)  we should transfer the TopicId value only to return
-                this.PollList.TopicId = this.TopicID.ToType<int>();
+                    this.PollGroupId = currentMessage.PollID.ToType<int>().IsNullOrEmptyDBField()
+                                           ? 0
+                                           : currentMessage.PollID;
 
-                if (this.TopicID == null)
-                {
-                    this.PollList.TopicId = currentMessage.TopicID.ToType<int>().IsNullOrEmptyDBField()
-                        ? 0
-                        : currentMessage.TopicID.ToType<int>();
+                    // if this is a quoted message (a new reply with a quote)  we should transfer the TopicId value only to return
+                    this.PollList.TopicId = this.TopicID.ToType<int>();
+
+                    if (this.TopicID == null)
+                    {
+                        this.PollList.TopicId = currentMessage.TopicID.ToType<int>().IsNullOrEmptyDBField()
+                                                    ? 0
+                                                    : currentMessage.TopicID.ToType<int>();
+                    }
                 }
             }
             else if (this.EditMessageID != null)
             {
                 currentMessage = LegacyDb.MessageList(this.EditMessageID.ToType<int>()).FirstOrDefault();
 
-                this.OriginalMessage = currentMessage.Message;
-
-                this._ownerUserId = currentMessage.UserID.ToType<int>();
-
-                if (!this.CanEditPostCheck(currentMessage, topicInfo))
+                if (currentMessage != null)
                 {
-                    YafBuildLink.AccessDenied();
-                }
+                    this.OriginalMessage = currentMessage.Message;
 
-                this.PollGroupId = currentMessage.PollID.ToType<int>().IsNullOrEmptyDBField()
-                    ? 0
-                    : currentMessage.PollID;
+                    this._ownerUserId = currentMessage.UserID.ToType<int>();
 
-                // we edit message and should transfer both the message ID and TopicID for PageLinks. 
-                this.PollList.EditMessageId = this.EditMessageID.ToType<int>();
+                    if (!this.CanEditPostCheck(currentMessage, topicInfo))
+                    {
+                        YafBuildLink.AccessDenied();
+                    }
 
-                if (this.TopicID == null)
-                {
-                    this.PollList.TopicId = currentMessage.TopicID.ToType<int>().IsNullOrEmptyDBField()
-                        ? 0
-                        : currentMessage.TopicID.ToType<int>();
+                    this.PollGroupId = currentMessage.PollID.ToType<int>().IsNullOrEmptyDBField()
+                                           ? 0
+                                           : currentMessage.PollID;
+
+                    // we edit message and should transfer both the message ID and TopicID for PageLinks. 
+                    this.PollList.EditMessageId = this.EditMessageID.ToType<int>();
+
+                    if (this.TopicID == null)
+                    {
+                        this.PollList.TopicId = currentMessage.TopicID.ToType<int>().IsNullOrEmptyDBField()
+                                                    ? 0
+                                                    : currentMessage.TopicID.ToType<int>();
+                    }
                 }
             }
 
