@@ -26,6 +26,7 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Globalization;
     using System.Web.UI;
 
     using YAF.Core;
