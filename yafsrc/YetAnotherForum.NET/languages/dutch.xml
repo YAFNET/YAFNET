@@ -2021,6 +2021,7 @@
     <Resource tag="ALLOWED">Toegestaan</Resource>
     <Resource tag="BACK">Terug</Resource>
     <Resource tag="BAD_CAPTCHA">Tekst komt niet overeen met de tekst in het plaatje</Resource>
+    <Resource tag="BAD_RECAPTCHA">Please re-enter the reCAPTCHA.</Resource>
     <Resource tag="BAD_USERNAME">Gebruikersnaam mag geen puntkomma's (;)bevatten.</Resource>
     <Resource tag="BBCODE_CODE">Code:</Resource>
     <Resource tag="BBCODE_QUOTE">Quote:</Resource>

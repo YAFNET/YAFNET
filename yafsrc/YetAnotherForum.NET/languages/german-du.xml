@@ -2015,6 +2015,7 @@
     <Resource tag="ALLOWED">Erlaubt</Resource>
     <Resource tag="BACK">Zurück</Resource>
     <Resource tag="BAD_CAPTCHA">Der eingegebene Text passt nicht zum angezeigten Sicherheitscode (Groß und Kleinschreibung beachten)</Resource>
+    <Resource tag="BAD_RECAPTCHA">Please re-enter the reCAPTCHA.</Resource>
     <Resource tag="BAD_USERNAME">Der Benutzername darf kein Semikolon (;) enthalten.</Resource>
     <Resource tag="BBCODE_CODE">Code:</Resource>
     <Resource tag="BBCODE_QUOTE">Zitat:</Resource>

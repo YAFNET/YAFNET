@@ -61,15 +61,6 @@ namespace YAF.Pages
     /// </summary>
     public partial class register : ForumPage
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The recPH.
-        /// </summary>
-        private PlaceHolder recPH;
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -110,11 +101,6 @@ namespace YAF.Pages
                 return this.CreateUserWizard1.CreateUserStep.ContentTemplateContainer;
             }
         }
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether Re-Captcha Control.
-        /// </summary>
-        private RecaptchaControl Recupt { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the user is possible spam bot.
@@ -420,7 +406,40 @@ namespace YAF.Pages
                 }
             }
 
-            var yafCaptchaText = this.CreateUserStepContainer.FindControlAs<TextBox>("tbCaptcha");
+            switch (this.Get<YafBoardSettings>().CaptchaTypeRegister)
+            {
+                case 1:
+                    {
+                        // Check YAF Captcha
+                        var yafCaptchaText = this.CreateUserStepContainer.FindControlAs<TextBox>("tbCaptcha");
+
+                        if (!CaptchaHelper.IsValid(yafCaptchaText.Text.Trim()))
+                        {
+                            this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.Error);
+                            e.Cancel = true;
+                        }
+                    }
+
+                    break;
+                case 2:
+                    {
+                        // Check reCAPTCHA
+                        var recaptcha =
+                             //this.CreateUserWizard1.FindWizardControlRecursive("Recaptcha1").ToClass<RecaptchaControl>();
+                            this.CreateUserStepContainer.FindControlAs<RecaptchaControl>("Recaptcha1");
+                          // Recupt;
+
+                        if (!recaptcha.IsValid)
+                        {
+                            this.PageContext.AddLoadMessage(this.GetText("BAD_RECAPTCHA"), MessageTypes.Error);
+                            e.Cancel = true;
+                        }
+                    }
+
+                    break;
+            }
+            /*
+            
 
             // vzrus: Here recaptcha should be always valid. This piece of code for testing only.
             if (this.Get<YafBoardSettings>().CaptchaTypeRegister == 2)
@@ -435,15 +454,7 @@ namespace YAF.Pages
                 }
             }
 
-            // verify captcha if enabled
-            if (this.Get<YafBoardSettings>().CaptchaTypeRegister != 1
-                || CaptchaHelper.IsValid(yafCaptchaText.Text.Trim()))
-            {
-                return;
-            }
-
-            this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.Error);
-            e.Cancel = true;
+            */
         }
 
         /// <summary>
@@ -869,7 +880,7 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The setup RE-Captcha control.
+        /// The setup reCAPTCHA control.
         /// </summary>
         private void SetupRecaptchaControl()
         {
@@ -879,27 +890,9 @@ namespace YAF.Pages
                 || this.Get<YafBoardSettings>().RecaptchaPublicKey.IsNotSet())
             {
                 // this.PageContext.AddLoadMessage(this.GetText("RECAPTCHA_BADSETTING"));              
-                this.Logger.Log(this.PageContext.PageUserID, this, "Private or public key for Recapture required!");
+                this.Logger.Log(this.PageContext.PageUserID, this, "secret or site key is required for reCAPTCHA!");
                 YafBuildLink.AccessDenied();
             }
-
-            this.Recupt = new RecaptchaControl
-                          {
-                              ID = "Recaptcha1",
-                              PrivateKey = this.Get<YafBoardSettings>().RecaptchaPrivateKey,
-                              PublicKey = this.Get<YafBoardSettings>().RecaptchaPublicKey,
-                              AllowMultipleInstances =
-                                  this.Get<YafBoardSettings>().RecaptureMultipleInstances,
-                              Enabled = true,
-                              EnableTheming = true,
-                              // 'red' , 'white', 'blackglass' , 'clean' , 'custom'	
-                              Theme = "blackglass",
-                              OverrideSecureMode = false
-                          };
-
-            this.recPH = (PlaceHolder)this.CreateUserWizard1.FindWizardControlRecursive("RecaptchaControl");
-            this.recPH.Controls.Add(this.Recupt);
-            this.recPH.Visible = true;
         }
 
         /// <summary>
@@ -1077,5 +1070,15 @@ namespace YAF.Pages
         }
 
         #endregion
+
+        protected string GetSiteKey()
+        {
+            return PageContext.BoardSettings.RecaptchaPublicKey;
+        }
+
+        protected string GetSecretKey()
+        {
+            return PageContext.BoardSettings.RecaptchaPrivateKey;
+        }
     }
 }

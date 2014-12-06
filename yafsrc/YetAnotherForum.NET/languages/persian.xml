@@ -2034,6 +2034,7 @@
     <Resource tag="ALLOWED">مجاز</Resource>
     <Resource tag="BACK">برگشت</Resource>
     <Resource tag="BAD_CAPTCHA">متن وارد شده با متن نمایش داده شده در عکس متفاوت می باشد</Resource>
+    <Resource tag="BAD_RECAPTCHA">Please re-enter the reCAPTCHA.</Resource>
     <Resource tag="BAD_USERNAME">نام کاربری نمی تواند حاوی نقطه و ویرگول باشد.</Resource>
     <Resource tag="BBCODE_CODE">کد:</Resource>
     <Resource tag="BBCODE_QUOTE">نقل قول:</Resource>

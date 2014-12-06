@@ -21,12 +21,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
+namespace YAF.Controls.ReCAPTCHA
 {
     #region Using
 
     using System;
-    using System.Diagnostics;
     using System.IO;
     using System.Net;
     using System.Net.Sockets;
@@ -35,17 +34,15 @@ namespace YAF.Controls
 
     using YAF.Core;
     using YAF.Core.Extensions;
+    using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Constants;
-    using YAF.Classes.Data;
-    using YAF.Utils;
-    using YAF.Types;
+    using YAF.Utils.Extensions;
 
     #endregion
 
     /// <summary>
-    /// The recaptcha validator.
+    /// The reCAPTCHA validator.
     /// </summary>
     public class RecaptchaValidator
     {
@@ -54,15 +51,10 @@ namespace YAF.Controls
         /// <summary>
         ///   The verify url.
         /// </summary>
-        private const string VerifyUrl = "http://api-verify.recaptcha.net/verify";
+        private const string VerifyUrl = "https://www.google.com/recaptcha/api/siteverify";
 
         /// <summary>
-        ///   The challenge.
-        /// </summary>
-        private string challenge;
-
-        /// <summary>
-        ///   The remote ip.
+        ///   The remote IP.
         /// </summary>
         private string remoteIp;
 
@@ -76,31 +68,13 @@ namespace YAF.Controls
         #region Properties
 
         /// <summary>
-        ///   Gets or sets Challenge.
+        ///   Gets or sets SecretKey.
         /// </summary>
-        public string Challenge
-        {
-            get
-            {
-                return this.challenge;
-            }
-
-            set
-            {
-                this.challenge = value;
-            }
-        }
-
-        /// <summary>
-        ///   Gets or sets PrivateKey.
-        /// </summary>
-        public string PrivateKey { get; set; }
+        public string SecretKey { get; set; }
 
         /// <summary>
         ///   Gets or sets RemoteIP.
         /// </summary>
-        /// <exception cref = "ArgumentException">
-        /// </exception>
         public string RemoteIP
         {
             get
@@ -143,37 +117,35 @@ namespace YAF.Controls
         #region Public Methods
 
         /// <summary>
-        /// The validate.
+        /// Validates the reCAPTCHA Response
         /// </summary>
-        /// <returns>
-        /// </returns>
-        /// <exception cref="InvalidProgramException">
-        /// </exception>
+        /// <returns>Returns if the reCaptcha is valid or not</returns>
+        /// <exception cref="System.InvalidProgramException">Unknown status response.</exception>
         public RecaptchaResponse Validate()
         {
-            string[] strArray;
-            this.CheckNotNull(this.PrivateKey, "PrivateKey");
+            RecaptchaJson responseJson;
+            this.CheckNotNull(this.SecretKey, "SecretKey");
             this.CheckNotNull(this.RemoteIP, "RemoteIp");
-            this.CheckNotNull(this.Challenge, "Challenge");
             this.CheckNotNull(this.Response, "Response");
-            if ((this.challenge == string.Empty) || (this.response == string.Empty))
+            
+            if (this.response.IsNotSet())
             {
                 return RecaptchaResponse.InvalidSolution;
             }
 
-            var request = (HttpWebRequest)WebRequest.Create("http://api-verify.recaptcha.net/verify");
+            var request = (HttpWebRequest)WebRequest.Create(VerifyUrl);
+
             request.ProtocolVersion = HttpVersion.Version10;
             request.Timeout = 0x7530;
             request.Method = "POST";
-            request.UserAgent = "reCAPTCHA/ASP.NET";
+            request.UserAgent = "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.2.16) Gecko/20110319 Firefox/3.6.16";
             request.ContentType = "application/x-www-form-urlencoded";
-            string s =
-              "privatekey={0}&remoteip={1}&challenge={2}&response={3}".FormatWith(
-                new object[]
-            {
-              HttpUtility.UrlEncode(this.PrivateKey), HttpUtility.UrlEncode(this.RemoteIP), 
-              HttpUtility.UrlEncode(this.Challenge), HttpUtility.UrlEncode(this.Response)
-            });
+
+            string s = "secret={0}&remoteip={1}&response={2}".FormatWith(
+                HttpUtility.UrlEncode(this.SecretKey),
+                HttpUtility.UrlEncode(this.RemoteIP),
+                HttpUtility.UrlEncode(this.Response));
+            
             byte[] bytes = Encoding.ASCII.GetBytes(s);
             using (Stream stream = request.GetRequestStream())
             {
@@ -182,31 +154,24 @@ namespace YAF.Controls
 
             try
             {
-                using (WebResponse response = request.GetResponse())
+                using (WebResponse webResponse = request.GetResponse())
                 {
-                    using (TextReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                    using (TextReader reader = new StreamReader(webResponse.GetResponseStream(), Encoding.UTF8))
                     {
-                        strArray = reader.ReadToEnd().Split(new char[0]);
+                        responseJson = reader.ReadToEnd().FromJson<RecaptchaJson>();
                     }
                 }
             }
             catch (WebException exception)
             {
-                YafContext.Current.Get<ILogger>().Log(YafContext.Current.PageUserID, this.GetType().Name, exception.ToString(), EventLogTypes.Error);
+                YafContext.Current.Get<ILogger>().Log(YafContext.Current.PageUserID, this.GetType().Name, exception.ToString());
 
                 return RecaptchaResponse.RecaptchaNotReachable;
             }
 
-            switch (strArray[0])
-            {
-                case "true":
-                    return RecaptchaResponse.Valid;
-
-                case "false":
-                    return new RecaptchaResponse(false, strArray[1]);
-            }
-
-            throw new InvalidProgramException("Unknown status response.");
+            return responseJson.Success
+                       ? RecaptchaResponse.Valid
+                       : new RecaptchaResponse(false, responseJson.ErrorCodes);
         }
 
         #endregion

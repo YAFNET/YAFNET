@@ -2009,6 +2009,7 @@
     <Resource tag="ALLOWED">Разрешено</Resource>
     <Resource tag="BACK">Назад</Resource>
     <Resource tag="BAD_CAPTCHA">Введённый текст отличается от текста на изображении.</Resource>
+    <Resource tag="BAD_RECAPTCHA">Please re-enter the reCAPTCHA.</Resource>
     <Resource tag="BAD_USERNAME">Имя пользователя не может содержать некоторые знаки препинания(;) или некоторые слова.</Resource>
     <Resource tag="BBCODE_CODE">Код:</Resource>
     <Resource tag="BBCODE_QUOTE">Цитата:</Resource>

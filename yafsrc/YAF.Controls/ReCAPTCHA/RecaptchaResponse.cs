@@ -21,12 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
+namespace YAF.Controls.ReCAPTCHA
 {
-  using YAF.Types;
+    using YAF.Types;
 
-  /// <summary>
-  /// The recaptcha response.
+    /// <summary>
+  /// The reCAPTCHA response.
   /// </summary>
   public class RecaptchaResponse
   {
@@ -38,7 +38,7 @@ namespace YAF.Controls
     public static readonly RecaptchaResponse InvalidSolution = new RecaptchaResponse(false, "incorrect-captcha-sol");
 
     /// <summary>
-    ///   The recaptcha not reachable.
+    ///   The reCAPTCHA not reachable.
     /// </summary>
     public static readonly RecaptchaResponse RecaptchaNotReachable = new RecaptchaResponse(
       false, "recaptcha-not-reachable");
@@ -108,17 +108,15 @@ namespace YAF.Controls
     #region Public Methods
 
     /// <summary>
-    /// The equals.
+    /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
     /// </summary>
-    /// <param name="obj">
-    /// The obj.
-    /// </param>
+    /// <param name="recaptchaResponse">The <see cref="System.Object" /> to compare with this instance.</param>
     /// <returns>
     /// The equals.
     /// </returns>
-    public override bool Equals([NotNull] object obj)
+    public override bool Equals([NotNull] object recaptchaResponse)
     {
-      var response = (RecaptchaResponse)obj;
+      var response = (RecaptchaResponse)recaptchaResponse;
       if (response == null)
       {
         return false;
@@ -128,7 +126,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    /// The get hash code.
+    /// Returns a hash code for this instance.
     /// </summary>
     /// <returns>
     /// The get hash code.

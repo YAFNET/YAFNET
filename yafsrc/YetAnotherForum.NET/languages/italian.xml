@@ -1302,10 +1302,10 @@
     <Resource tag="RANKIMAGE_TEMPLATE_HELP">Template for rendering rank image.</Resource>
     <Resource tag="RECAPTCHA_MULTI_INSTANCE">Enable reCAPTCHA Multiple Instances:</Resource>
     <Resource tag="RECAPTCHA_MULTI_INSTANCE_HELP">Enable reCAPTCHA Recapture Multiple Instances(shared keys).</Resource>
-    <Resource tag="RECAPTCHA_PRIVATE_KEY">reCAPTCHA Private Key:</Resource>
-    <Resource tag="RECAPTCHA_PRIVATE_KEY_HELP">Enter a reCAPTCHA Private Key</Resource>
-    <Resource tag="RECAPTCHA_PUBLIC_KEY">reCAPTCHA Public Key:</Resource>
-    <Resource tag="RECAPTCHA_PUBLIC_KEY_HELP">Enter a reCAPTCHA Public Key.</Resource>
+    <Resource tag="RECAPTCHA_PRIVATE_KEY">reCAPTCHA Secret Key:</Resource>
+    <Resource tag="RECAPTCHA_PRIVATE_KEY_HELP">Enter a reCAPTCHA Secret Key</Resource>
+    <Resource tag="RECAPTCHA_PUBLIC_KEY">reCAPTCHA Site Key:</Resource>
+    <Resource tag="RECAPTCHA_PUBLIC_KEY_HELP">Enter a reCAPTCHA Site Key.</Resource>
     <Resource tag="REFERRER_CHECK">Enable Url Referrer Security Check:</Resource>
     <Resource tag="REFERRER_CHECK_HELP">Validates all POSTs are from the same domain as the referring domain (No cross domain POSTs).</Resource>
     <Resource tag="REG_USERS">Registered Users</Resource>
@@ -2023,6 +2023,7 @@
     <Resource tag="ALLOWED">Permesso</Resource>
     <Resource tag="BACK">Indietro</Resource>
     <Resource tag="BAD_CAPTCHA">Il testo inserito non corrisponde a quello presente nell'immagine di sicurezza.</Resource>
+    <Resource tag="BAD_RECAPTCHA">Please re-enter the reCAPTCHA.</Resource>
     <Resource tag="BAD_USERNAME">Il nome utente non può contenere il punto e virgola (;).</Resource>
     <Resource tag="BBCODE_CODE">Codice:</Resource>
     <Resource tag="BBCODE_QUOTE">Citazione:</Resource>

@@ -2033,6 +2033,7 @@
     <Resource tag="ALLOWED">Permitido</Resource>
     <Resource tag="BACK">Atrás</Resource>
     <Resource tag="BAD_CAPTCHA">El texto no coincide con el texto de la imagen.</Resource>
+    <Resource tag="BAD_RECAPTCHA">Please re-enter the reCAPTCHA.</Resource>
     <Resource tag="BAD_USERNAME">El nombre de usuario no puede tener puntos y comas (;).</Resource>
     <Resource tag="BBCODE_CODE">Código:</Resource>
     <Resource tag="BBCODE_QUOTE">Citar:</Resource>

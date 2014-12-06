@@ -1,4 +1,6 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.register" Codebehind="register.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Register TagPrefix="YAF" Assembly="YAF.Controls" Namespace="YAF.Controls" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div align="center">
 	<asp:CreateUserWizard ID="CreateUserWizard1" runat="server" StartNextButtonText="Agree"
@@ -154,13 +156,13 @@
 						</tr>
 						</asp:PlaceHolder>
 						<asp:PlaceHolder runat="server" ID="RecaptchaPlaceHolder" Visible="false">  
-
 						<tr>
 							<td align="right" class="postheader" valign="top">
 							<YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="Captcha_Image" />
 							</td>
 							<td class="post">
-						    <asp:PlaceHolder runat="server" ID="RecaptchaControl" Visible="false"/>
+						    <YAF:RecaptchaControl runat="server" ID="Recaptcha1" 
+                                Visible='<%# PageContext.BoardSettings.CaptchaTypeRegister.Equals(2) %>' />
 					    </td>
 					    </tr>
 					    </asp:PlaceHolder>

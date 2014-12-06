@@ -73,6 +73,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -94,6 +95,7 @@
     <Compile Include="ModernTextBox.cs" />
     <Compile Include="PopupPanel.cs" />
     <Compile Include="CountryListBox.cs" />
+    <Compile Include="ReCAPTCHA\ReCaptchaJson.cs" />
     <Compile Include="UserStyles.cs" />
     <Compile Include="Localized\ILocalizationSupport.cs" />
     <Compile Include="Localized\LocalizationSupportExtensions.cs" />
@@ -102,9 +104,9 @@
     <Compile Include="HelpLabel.cs" />
     <Compile Include="MessageBox.cs" />
     <Compile Include="PopEventArgs.cs" />
-    <Compile Include="Recaptcha.cs" />
-    <Compile Include="RecaptchaResponse.cs" />
-    <Compile Include="RecaptchaValidator.cs" />
+    <Compile Include="ReCAPTCHA\Recaptcha.cs" />
+    <Compile Include="ReCAPTCHA\RecaptchaResponse.cs" />
+    <Compile Include="ReCAPTCHA\RecaptchaValidator.cs" />
     <Compile Include="BaseReportedPosts.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
