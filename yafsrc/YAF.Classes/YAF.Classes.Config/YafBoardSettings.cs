@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014 Ingo Herbote
@@ -630,22 +630,6 @@ namespace YAF.Classes
             set
             {
                 this._regBoard.SetValue("FileExtensionAreAllowed", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether Recapture can have Multiple Instances.
-        /// </summary>
-        public bool RecaptureMultipleInstances
-        {
-            get
-            {
-                return this._regBoard.GetValue("RecaptureMultipleInstances", true);
-            }
-
-            set
-            {
-                this._regBoard.SetValue("RecaptureMultipleInstances", value);
             }
         }
 
@@ -3813,7 +3797,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets RecaptchaPublicKey .
+        /// Gets or sets reCAPTCHA Site Key.
         /// </summary>
         public string RecaptchaPublicKey
         {
@@ -3829,7 +3813,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets RecaptchaPrivateKey.
+        /// Gets or sets reCAPTCHA Secret Key.
         /// </summary>
         public string RecaptchaPrivateKey
         {

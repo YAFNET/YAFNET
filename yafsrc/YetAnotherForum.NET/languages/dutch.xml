@@ -1300,8 +1300,6 @@
     <Resource tag="RANK_TEMPLATE_HELP">Sjabloon om de rang van de gebruiker op te bouwen.</Resource>
     <Resource tag="RANKIMAGE_TEMPLATE">Rang afbeelding sjabloon :</Resource>
     <Resource tag="RANKIMAGE_TEMPLATE_HELP">Sjabloon om de rang afbeelding op te bouwen.</Resource>
-    <Resource tag="RECAPTCHA_MULTI_INSTANCE">Zet meerdere instanties van reCAPTCHA aan:</Resource>
-    <Resource tag="RECAPTCHA_MULTI_INSTANCE_HELP">Zet meerdere instanties van reCAPTCHA aan (gedeelde sleutels).</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY"> Sleutel:</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY_HELP"> Sleutel in.</Resource>
     <Resource tag="RECAPTCHA_PUBLIC_KEY">reCAPTCHA Publieke Sleutel:</Resource>

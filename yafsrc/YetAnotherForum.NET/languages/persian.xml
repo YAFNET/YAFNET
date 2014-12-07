@@ -1306,8 +1306,6 @@
     <Resource tag="RANK_TEMPLATE_HELP">قالبی برای تولید رتبه کاربر در آن.</Resource>
     <Resource tag="RANKIMAGE_TEMPLATE">قالب تصاویر رتبه :</Resource>
     <Resource tag="RANKIMAGE_TEMPLATE_HELP">قالبی برای تصاویر رتبه کاربر.</Resource>
-    <Resource tag="RECAPTCHA_MULTI_INSTANCE">فعال کردن چند نمونه سازی از reCAPTCHA:</Resource>
-    <Resource tag="RECAPTCHA_MULTI_INSTANCE_HELP">فعال کردن چند نمونه سازی از reCAPTCHA (کلید های اشتراکی)</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY">کلید خصوصی reCAPTCHA :</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY_HELP">کلید خصوصی reCAPTCHA را وارد کنید.</Resource>
     <Resource tag="RECAPTCHA_PUBLIC_KEY">کلید سراسری reCAPTCHA :</Resource>

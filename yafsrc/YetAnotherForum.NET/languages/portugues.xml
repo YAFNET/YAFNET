@@ -1306,8 +1306,6 @@
     <Resource tag="RANK_TEMPLATE_HELP">Template for rendering user's rank.</Resource>
     <Resource tag="RANKIMAGE_TEMPLATE">Rank image template:</Resource>
     <Resource tag="RANKIMAGE_TEMPLATE_HELP">Template for rendering rank image.</Resource>
-    <Resource tag="RECAPTCHA_MULTI_INSTANCE">Enable reCAPTCHA Multiple Instances:</Resource>
-    <Resource tag="RECAPTCHA_MULTI_INSTANCE_HELP">Enable reCAPTCHA Recapture Multiple Instances(shared keys).</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY">reCAPTCHA Secret Key:</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY_HELP">Enter a reCAPTCHA Secret Key</Resource>
     <Resource tag="RECAPTCHA_PUBLIC_KEY">reCAPTCHA Site Key:</Resource>

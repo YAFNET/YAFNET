@@ -1299,8 +1299,6 @@
     <Resource tag="RANK_TEMPLATE_HELP">Шаблон для отображения статуса пользователя в сообщениях.</Resource>
     <Resource tag="RANKIMAGE_TEMPLATE">Шаблон изображения статуса:</Resource>
     <Resource tag="RANKIMAGE_TEMPLATE_HELP">Шаблон для отображения изображения статуса(если есть).</Resource>
-    <Resource tag="RECAPTCHA_MULTI_INSTANCE">Разрешить множественные экземпляры reCAPTCHA:</Resource>
-    <Resource tag="RECAPTCHA_MULTI_INSTANCE_HELP">Разрешить множественные экземпляры reCAPTCHA (общий ключ).</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY">Частный ключ reCAPTCHA:</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY_HELP">Введите частный ключ reCAPTCHA</Resource>
     <Resource tag="RECAPTCHA_PUBLIC_KEY">Публичный ключ reCAPTCHA:</Resource>

@@ -158,7 +158,6 @@
 						<asp:PlaceHolder runat="server" ID="RecaptchaPlaceHolder" Visible="false">  
 						<tr>
 							<td align="right" class="postheader" valign="top">
-							<YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="Captcha_Image" />
 							</td>
 							<td class="post">
 						    <YAF:RecaptchaControl runat="server" ID="Recaptcha1" 

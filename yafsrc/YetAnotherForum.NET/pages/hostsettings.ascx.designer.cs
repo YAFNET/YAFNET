@@ -913,6 +913,87 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox ImageAttachmentResizeCropped;
         
         /// <summary>
+        /// LocalizedLabel40 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel40;
+        
+        /// <summary>
+        /// HelpLabel235 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel235;
+        
+        /// <summary>
+        /// ScriptManagerScriptsCDNHosted control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ScriptManagerScriptsCDNHosted;
+        
+        /// <summary>
+        /// HelpLabel228 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel228;
+        
+        /// <summary>
+        /// JqueryCDNHosted control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox JqueryCDNHosted;
+        
+        /// <summary>
+        /// HelpLabel229 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel229;
+        
+        /// <summary>
+        /// JqueryUICDNHosted control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox JqueryUICDNHosted;
+        
+        /// <summary>
+        /// HelpLabel230 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel230;
+        
+        /// <summary>
+        /// JqueryUIThemeCDNHosted control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox JqueryUIThemeCDNHosted;
+        
+        /// <summary>
         /// LocalizedLabel12 control.
         /// </summary>
         /// <remarks>
@@ -2333,24 +2414,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox RecaptchaPrivateKey;
-        
-        /// <summary>
-        /// HelpLabel181 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel181;
-        
-        /// <summary>
-        /// RecaptureMultipleInstances control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox RecaptureMultipleInstances;
         
         /// <summary>
         /// HelpLabel146 control.

@@ -1302,8 +1302,6 @@
     <Resource tag="RANK_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzer Ranges</Resource>
     <Resource tag="RANKIMAGE_TEMPLATE">Rang Bild Vorlage:</Resource>
     <Resource tag="RANKIMAGE_TEMPLATE_HELP">Vorlage für die Darstellung des Rang Bildes.</Resource>
-    <Resource tag="RECAPTCHA_MULTI_INSTANCE">reCAPTCHA Mehrere Instanzen aktivieren:</Resource>
-    <Resource tag="RECAPTCHA_MULTI_INSTANCE_HELP">reCAPTCHA Mehrere Instanzen aktivieren (Geteilte Schlüssel).</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY">reCAPTCHA Privater Schlüssel:</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY_HELP">Geben Sie einen reCAPTCHA Privaten Schlüssel ein</Resource>
     <Resource tag="RECAPTCHA_PUBLIC_KEY">reCAPTCHA Öffentlicher Schlüssel:</Resource>

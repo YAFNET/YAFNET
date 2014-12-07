@@ -1311,8 +1311,6 @@
     <Resource tag="RANK_TEMPLATE_HELP">Plantilla para mostrar la clasificación de usuarios.</Resource>
     <Resource tag="RANKIMAGE_TEMPLATE">Plantilla para clasificación de imágenes:</Resource>
     <Resource tag="RANKIMAGE_TEMPLATE_HELP">Plantilla para mostrar la clasificación de imágenes.</Resource>
-    <Resource tag="RECAPTCHA_MULTI_INSTANCE">Permitir múltiples instancias reCAPTCHA:</Resource>
-    <Resource tag="RECAPTCHA_MULTI_INSTANCE_HELP">Permitir múltiples instancias de reCAPTCHA (llaves compartidas).</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY">Llave privada reCAPTCHA:</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY_HELP">Introduce una llave privada para reCAPTCHA</Resource>
     <Resource tag="RECAPTCHA_PUBLIC_KEY">Llave pública reCAPTCHA:</Resource>
