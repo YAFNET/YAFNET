@@ -1506,7 +1506,6 @@
     <Content Include="Content\jquery.yafmodaldialog.min.css">
       <DependentUpon>jquery.yafmodaldialog.less</DependentUpon>
     </Content>
-    <Content Include="obj\HelpMenuList.xml" />
     <Content Include="Content\icons\authIcons.png" />
     <Content Include="Content\icons\ipbanlifted.png" />
     <Content Include="Content\icons\ipbanset.png" />
@@ -1763,9 +1762,7 @@
       <DependentUpon>bootstrap-select.js</DependentUpon>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js">
-      <DependentUpon>bootstrap.js</DependentUpon>
-    </Content>
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
     <Content Include="Scripts\ckeditor\config.js" />
@@ -2464,7 +2461,7 @@
       <DependentUpon>jquery.ForumExtensions.js.bundle</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery.ForumExtensions.min.js">
-      <DependentUpon>jjquery.ForumExtensions.js</DependentUpon>
+      <DependentUpon>jquery.ForumExtensions.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery.msDropDown.js" />
     <Content Include="Scripts\jquery.notification.js" />
@@ -2480,7 +2477,6 @@
     </Content>
     <Content Include="Scripts\jquery.yafmodaldialog.js" />
     <Content Include="Scripts\yaf.js" />
-    <Content Include="obj\ProviderExceptions.xml" />
     <Compile Include="controls\AlbumImageList.ascx.cs">
       <DependentUpon>AlbumImageList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3150,7 +3146,7 @@
     <Content Include="Content\ladda-themeless.less" />
     <Content Include="Content\ladda.less" />
     <Content Include="Content\jsdifflib.less" />
-    <Content Include="Content\variables.less" />
+    <Content Include="Content\bootstrap-select-variables.less" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
