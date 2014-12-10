@@ -27,6 +27,7 @@ namespace YAF.Core.Services
 
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Web;
     using System.Web.UI;
 
     using FarsiLibrary;
@@ -230,8 +231,7 @@ namespace YAF.Core.Services
 
             if (currentCulture.IsFarsiCulture())
             {
-                this.RegisterJsScriptsInclude(
-                    "datepicker-farsi", "jquery.ui.datepicker-farsi.min.js");
+                this.RegisterJsScriptsInclude("datepicker-farsi", "jquery.ui.datepicker-farsi.min.js");
             }
         }
 
@@ -246,7 +246,7 @@ namespace YAF.Core.Services
         /// </param>
         public void RegisterJsBlock(string name, string script)
         {
-            this.RegisterJsBlock(YafContext.Current.CurrentForumPage, name, script);
+            this.RegisterJsBlock(this.GetCurrentPage(), name, script);
         }
 
         /// <summary>
@@ -285,7 +285,7 @@ namespace YAF.Core.Services
         /// </param>
         public void RegisterJsBlockStartup(string name, string script)
         {
-            this.RegisterJsBlockStartup(YafContext.Current.CurrentForumPage, name, script);
+            this.RegisterJsBlockStartup(this.GetCurrentPage(), name, script);
         }
 
         /// <summary>
@@ -348,7 +348,7 @@ namespace YAF.Core.Services
         /// </param>
         public void RegisterJsInclude(string name, string url)
         {
-            this.RegisterJsInclude(YafContext.Current.CurrentForumPage, name, url);
+            this.RegisterJsInclude(this.GetCurrentPage(), name, url);
         }
 
         /// <summary>
@@ -390,9 +390,18 @@ namespace YAF.Core.Services
         /// </param>
         public void RegisterJsScriptsInclude(string name, string relativeScriptsUrl)
         {
-            this.RegisterJsScriptsInclude(YafContext.Current.CurrentForumPage, name, relativeScriptsUrl);
+            this.RegisterJsScriptsInclude(this.GetCurrentPage(), name, relativeScriptsUrl);
         }
 
         #endregion
+
+        /// <summary>
+        /// Gets the current page.
+        /// </summary>
+        /// <returns>Returns the current page</returns>
+        private Control GetCurrentPage()
+        {
+            return YafContext.Current.CurrentForumPage ?? (Control)(HttpContext.Current.Handler as Page);
+        }
     }
 }
