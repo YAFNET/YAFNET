@@ -99,7 +99,7 @@ function toggleItem(detailId)
                         </table>     
                       </div>
                       <div class="EventDetails" id="eventDetails<%# Eval("EventLogID") %>" style="display: none;margin:0;padding:0;">  
-                            <pre><%# Eval( "Description") %></pre>
+                            <pre><%# HtmlEncode(Eval( "Description")) %></pre>
                         </div>   
                     </td>
                 </tr>
