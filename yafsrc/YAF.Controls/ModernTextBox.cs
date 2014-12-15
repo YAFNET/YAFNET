@@ -59,6 +59,14 @@ namespace YAF.Controls
         private string placeholder = "enter value";
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ModernTextBox"/> class.
+        /// </summary>
+        public ModernTextBox()
+        {
+            this.Type = InputType.SingleLine;
+        }
+
+        /// <summary>
         /// Gets or sets the placeholder text.
         /// </summary>
         /// <value>
