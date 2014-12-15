@@ -222,3 +222,6 @@ pre[class*='language-'] > code[data-language]::before {
 	padding: 0 0.5em;
 	text-shadow: none;
 }
+.url-link {
+	color: #e6db74!important;
+}

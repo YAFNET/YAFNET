@@ -1,5 +1,5 @@
 ﻿#cee_closeBtn {
-  background-image: url(../Content/ceebox/cee-close-btn.png);
+  background-image: url(ceebox/cee-close-btn.png);
   background-repeat: no-repeat;
   display: block;
   width: 24px;
@@ -10,13 +10,13 @@
   right: -3px;
 }
 #cee_next {
-  background-image: url(../Content/ceebox/cee-next-btn.png);
+  background-image: url(ceebox/cee-next-btn.png);
 }
 #cee_prev {
-  background-image: url(../Content/ceebox/cee-prev-btn.png);
+  background-image: url(ceebox/cee-prev-btn.png);
 }
 #cee_load {
-  background-image: url(../Content/ceebox/loader.gif);
+  background-image: url(ceebox/loader.gif);
   display: none;
   height: 50px;
   width: 50px;
@@ -185,7 +185,7 @@
   position: absolute;
   top: 11px;
   right: 8px;
-  background: url("../Content/images/closelabel.png") no-repeat;
+  background: url("images/closelabel.png") no-repeat;
   width: 8px;
   height: 8px;
 }
@@ -1102,6 +1102,9 @@ pre[class*='language-'] > code[data-language]::before {
 	border-radius: 0 0 0 5px;
 	padding: 0 0.5em;
 	text-shadow: none;
+}
+.url-link {
+	color: #e6db74!important;
 }
 
 .PopupBody {
