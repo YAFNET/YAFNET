@@ -1271,7 +1271,7 @@ GO
 
 IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}album_image_save]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}album_image_save]
-Go
+GO
 
 IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}album_image_list]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}album_image_list]
@@ -1471,7 +1471,7 @@ AS
                 AND x.ReadAccess <> 0
         ORDER BY c.Posted DESC
     END
-Go
+GO
 /* End of procedures for "Thanks" Mod */
 
 create procedure [{databaseOwner}].[{objectQualifier}accessmask_delete](@AccessMaskID int) as
@@ -3460,7 +3460,7 @@ begin
                                                                                 and t.IsDeleted <> 1) as t
     where   f.ForumID = isnull(@ForumID, f.ForumID);
 end
-go
+GO
 
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}forumaccess_group](@GroupID int) as
@@ -3769,7 +3769,7 @@ begin
 
 	delete from [{databaseOwner}].[{objectQualifier}Mail] where ProcessID = @ProcessID
 end
-go
+GO
 
 create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID int) as begin
     
@@ -6831,7 +6831,7 @@ where a.ForumID = @ForumID and
 
 order by a.Posted desc
 end
-go
+GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_latest_in_category]
 (
@@ -10273,7 +10273,7 @@ BEGIN
                                 (@UserID, @TopicID)
     END
 END
-Go
+GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_favorite_remove] 
     @UserID int,
@@ -11606,3 +11606,4 @@ GO
 
 exec('[{databaseOwner}].[{objectQualifier}init_styles]')
 GO
+

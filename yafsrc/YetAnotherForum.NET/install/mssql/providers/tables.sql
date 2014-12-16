@@ -114,3 +114,4 @@ begin
 	ALTER TABLE [{databaseOwner}].[{objectQualifier}prov_RoleMembership] ALTER COLUMN UserID nvarchar(64) NOT NULL
 end
 GO
+
