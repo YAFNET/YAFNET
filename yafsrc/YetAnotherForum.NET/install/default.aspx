@@ -352,11 +352,13 @@
                             CssClass="selectCulture" data-width="100%" />
                     </div>
                     <YAF:ModernTextBox ID="ForumEmailAddress" runat="server" 
-                        Placeholder="Enter the forum email address"  RenderWrapper="True" Type="Email"
-                        LabelText="Forum Email"/>
+                        Placeholder="Enter the forum email address"  RenderWrapper="True"
+                        LabelText="Forum Email"
+                        Type="Email"/>
                     <YAF:ModernTextBox ID="ForumBaseUrlMask" runat="server" 
                         Placeholder="Enter the Base Url mask for the forum" RenderWrapper="True" 
-                        LabelText="Forum Base Url Mask"/>
+                        LabelText="Forum Base Url Mask"
+                        Type="Url"/>
                     <hr/>
                     <div class="formElement radio">
                         <asp:RadioButtonList ID="UserChoice" runat="server" AutoPostBack="true" 
@@ -376,13 +378,16 @@
                         LabelText="Admin User Name"/>
                     <YAF:ModernTextBox ID="AdminEmail" runat="server" 
                         Placeholder="Enter the administrators email address" RenderWrapper="True" 
-                        LabelText="Admin E-mail"/>
-                    <YAF:ModernTextBox ID="Password1" runat="server" TextMode="Password" 
+                        LabelText="Admin E-mail"
+                        Type="Email"/>
+                    <YAF:ModernTextBox ID="Password1" runat="server" 
                         Placeholder="Enter the password of the admin user." RenderWrapper="True" 
-                        LabelText="Admin Password"/>
-                    <YAF:ModernTextBox ID="Password2" runat="server" TextMode="Password"
+                        LabelText="Admin Password"
+                        TextMode="Password" Type="Password" />
+                    <YAF:ModernTextBox ID="Password2" runat="server"
                         Placeholder="Verify the password" RenderWrapper="True" 
-                        LabelText="Confirm Password"/>
+                        LabelText="Confirm Password"
+                        TextMode="Password" Type="Password" />
                     <YAF:ModernTextBox runat="server" ID="SecurityQuestion" 
                         Placeholder="The question you will be asked when you need to retrieve your lost password" 
                         RenderWrapper="True" 
