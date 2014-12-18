@@ -158,6 +158,10 @@ namespace YAF.Pages.Admin
 
             YafContext.Current.PageElements.RegisterJsBlock("spinnerJs", JavaScriptBlocks.LoadSpinnerWidget());
 
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "spinnerForTimeCorrectionJs",
+                JavaScriptBlocks.LoadSpinnerWidgetForTimeCorrection());
+
             base.OnPreRender(e);
         }
 
@@ -453,7 +457,9 @@ namespace YAF.Pages.Admin
 
                 if (control is TextBox && settingCollection.SettingsInt[name].CanRead)
                 {
-                    ((TextBox)control).CssClass = "Numeric";
+                    ((TextBox)control).CssClass = name.Equals("ServerTimeCorrection")
+                                                      ? "NumericServerTimeCorrection"
+                                                      : "Numeric";
 
                     // get the value from the property...
                     ((TextBox)control).Text =

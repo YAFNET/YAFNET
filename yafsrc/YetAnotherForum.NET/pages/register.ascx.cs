@@ -710,6 +710,24 @@ namespace YAF.Pages
         }
 
         /// <summary>
+        /// Gets the reCAPTCHA site key.
+        /// </summary>
+        /// <returns>Returns the eCAPTCHA site key.</returns>
+        protected string GetSiteKey()
+        {
+            return PageContext.BoardSettings.RecaptchaPublicKey;
+        }
+
+        /// <summary>
+        /// Gets the reCAPTCHA secret key.
+        /// </summary>
+        /// <returns>Returns the reCAPTCHA secret key.</returns>
+        protected string GetSecretKey()
+        {
+            return PageContext.BoardSettings.RecaptchaPrivateKey;
+        }
+        
+        /// <summary>
         /// The send registration notification email.
         /// </summary>
         /// <param name="user">The user.</param>
@@ -1070,15 +1088,5 @@ namespace YAF.Pages
         }
 
         #endregion
-
-        protected string GetSiteKey()
-        {
-            return PageContext.BoardSettings.RecaptchaPublicKey;
-        }
-
-        protected string GetSecretKey()
-        {
-            return PageContext.BoardSettings.RecaptchaPrivateKey;
-        }
     }
 }

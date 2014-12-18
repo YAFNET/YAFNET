@@ -569,7 +569,20 @@ namespace YAF.Utilities
         {
             return @"{0}(document).ready(function() {{
                         if (typeof (jQuery.fn.spinner) !== 'undefined') {{
-                            {0}('.Numeric').spinner();
+                            {0}('.Numeric').spinner({{min: 0}});
+                        }}
+                    }});".FormatWith(Config.JQueryAlias);
+        }
+
+        /// <summary>
+        /// Loads the spinner widget for time correction.
+        /// </summary>
+        /// <returns>Returns the spinner widget for time correction.</returns>
+        public static string LoadSpinnerWidgetForTimeCorrection()
+        {
+            return @"{0}(document).ready(function() {{
+                        if (typeof (jQuery.fn.spinner) !== 'undefined') {{
+                            {0}('.NumericServerTimeCorrection').spinner({{min: -720, max: 720}});
                         }}
                     }});".FormatWith(Config.JQueryAlias);
         }
