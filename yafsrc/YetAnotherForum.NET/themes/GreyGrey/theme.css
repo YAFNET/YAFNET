@@ -1,7 +1,9 @@
+@import url(http://fonts.googleapis.com/css?family=Actor);
+
 .yafnet,
 .yafnet td {
 	font-size:12px;
-	font-family: Arial,Helvetica,sans-serif;
+	font-family: "Actor", Arial,Helvetica,sans-serif;
 	color: black;
 }
 .yafnet input,
@@ -924,7 +926,7 @@ height:80em;
 	text-align:center;
 }
 
-.postUser a {font-weight:bold;font-family: Arial, Helvetica, sans-serif;}
+.postUser a {font-weight:bold;font-family: "Actor", Arial,Helvetica,sans-serif;}
 
 /* TipTip CSS - Version 1.2 */
 

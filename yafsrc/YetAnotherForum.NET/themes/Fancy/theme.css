@@ -48,7 +48,7 @@ html { min-height: 100%; }
 .yafnet input[type="password"],
 .yafnet input[type="text"],
 .yafnet textarea {
-  padding: 5px;
+    padding: 5px;
   margin:2px 2px 2px 2px;
   font: 13px/100% "Helvetica Neue", "Helvetica";
   line-height: 18px;
@@ -74,13 +74,15 @@ html { min-height: 100%; }
   border-bottom-color: #b3b3b3;
   -webkit-border-radius: 4px;
      -moz-border-radius: 4px;
-          border-radius: 4px;
+    -ms-border-radius: 4px;
+    border-radius: 4px;
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6e6e6', GradientType=0);
   filter: progid:dximagetransform.microsoft.gradient(enabled='false');
   *zoom: 1;
   -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
   -moz-box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
-  box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 3px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
+    -ms-box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 3px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
+    box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 3px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
 }
 
 .yafnet input[type="password"]:focus,
@@ -433,9 +435,9 @@ html { min-height: 100%; }
 .content .header2 td.header1 {border-top:none;}
 
 .yafnet #yafprofilecontainer .content {
-	-webkit-box-shadow: 0 0px 2px rgba(244,244,244,0.9);
-	-moz-box-shadow: 0 0px 2px rgba(0,0,0,0.9);
-	box-shadow: 0 0px 2px rgba(225, 223, 192,0.9);
+	-webkit-box-shadow: 0 0 2px rgba(244,244,244,0.9);
+	-moz-box-shadow: 0 0 2px rgba(0,0,0,0.9);
+	box-shadow: 0 0 2px rgba(225, 223, 192,0.9);
 }
 
 .yafnet #yafprofilecontainer .footer1 {background:white;}
@@ -630,7 +632,7 @@ html { min-height: 100%; }
     padding: 8px;
 }
 .yafnet .content td table td table td {
-	padding: 0px;	
+	padding: 0;	
 }
 .yafnet .content .headersub {
 	color: #ffffff;
@@ -640,7 +642,6 @@ html { min-height: 100%; }
 	line-height: 30px;	
 }
 /* used for quoting messages */
-.yafnet .code,
 .yafnet .quote {
     padding: 4px;
 	border: 1px solid white;
@@ -650,9 +651,9 @@ html { min-height: 100%; }
 	
 	background-color: white;
 	width:90%;
-	-webkit-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.455);
-    -moz-box-shadow:    0px 1px 5px rgba(0, 0, 0, 0.455);
-    box-shadow:         0px 1px 5px rgba(0, 0, 0, 0.455);
+	-webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.455);
+    -moz-box-shadow:    0 1px 5px rgba(0, 0, 0, 0.455);
+    box-shadow:         0 1px 5px rgba(0, 0, 0, 0.455);
 	margin: 10px;
 }
 .yafnet .quotetitle {
@@ -799,9 +800,9 @@ html { min-height: 100%; }
 .modalPopup .modalHeader
 {
 	
-	-webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.62);
--moz-box-shadow:    0px 0px 2px rgba(0, 0, 0, 0.62);
-box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
+	-webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.62);
+-moz-box-shadow:    0 0 2px rgba(0, 0, 0, 0.62);
+box-shadow:         0 0 2px rgba(0, 0, 0, 0.62);
 	background: url('images/HeaderBack.png') #333;
 	
 	background: -webkit-gradient(linear, left top, left bottom, from(#666), to(#000));
@@ -852,7 +853,7 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
 }
 
 /* Goto Page Form */
-.gotoPageForm {-webkit-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.455);-moz-box-shadow:    0px 1px 5px rgba(0, 0, 0, 0.455);box-shadow:         0px 1px 5px rgba(0, 0, 0, 0.455);
+.gotoPageForm {-webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.455);-moz-box-shadow:    0 1px 5px rgba(0, 0, 0, 0.455);box-shadow:         0 1px 5px rgba(0, 0, 0, 0.455);
     border: 1px solid white;-webkit-border-radius: 7px;-moz-border-radius: 7px;border-radius: 7px;background-color: white;z-index:20000;}
 .yafnet .gotoPageForm .gotoHeader span {font-weight: bold;color:black;}
 
@@ -954,7 +955,7 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
 	margin-bottom:10px;
 	color: black;	
 	width:100%;
-	padding:4px 4px 4px 0px!important; 
+	padding:4px 4px 4px 0!important; 
 	
 	-webkit-border-radius: 7px;
 	-moz-border-radius: 7px;
@@ -1086,16 +1087,16 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
 	border-radius: 0.4em;
     box-shadow:1px 1px 1px gray;
 }
-.yafnet .Unread a {color:white!important;font-weight:bold!important;font-size:0.9em!important;padding-left: 0px!important;}
+.yafnet .Unread a {color:white!important;font-weight:bold!important;font-size:0.9em!important;padding-left: 0!important;}
 .yafnet .unread {padding-top:7px;}
 
 /* Alpha Sort Control */
 .yafnet dl.AlphaSort {
 	margin-bottom:10px;
 		
-	-webkit-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.455);
-    -moz-box-shadow:    0px 1px 5px rgba(0, 0, 0, 0.455);
-    box-shadow:         0px 1px 5px rgba(0, 0, 0, 0.455);
+	-webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.455);
+    -moz-box-shadow:    0 1px 5px rgba(0, 0, 0, 0.455);
+    box-shadow:         0 1px 5px rgba(0, 0, 0, 0.455);
 
     border: 1px solid white;
 	-webkit-border-radius: 7px;
@@ -1191,7 +1192,7 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
 .yafnet .dd .ddTitle {text-align:left;border:none!important;background: transparent!important;}
 .yafnet .ddChild {text-align:left;margin-top:13px!important;padding:6px;}
 
-.yafnet .dd .ddTitle .ddTitleText { padding: 0px 20px 5px 5px!important;}
+.yafnet .dd .ddTitle .ddTitleText { padding: 0 20px 5px 5px!important;}
 .yafnet .ddcommon .arrow { top: 0;}
 
 /* jQuery-UI Override */
@@ -1285,14 +1286,14 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
 
 
 .ui-tabs .ui-tabs-nav { margin: 0; padding: .2em .2em 0; border-bottom:1px solid #DDD; }
-.ui-tabs .ui-tabs-nav li {  text-decoration: none; list-style: none; float: left; position: relative; top: 1px; padding: 0px 0px 1px 0px; white-space: nowrap; background:none; border:0px; 
+.ui-tabs .ui-tabs-nav li {  text-decoration: none; list-style: none; float: left; position: relative; top: 1px; padding: 0 0 1px 0; white-space: nowrap; background:none; border:0px; 
 
 }
 
 .ui-tabs-nav .ui-state-default{
-  -webkit-box-shadow: 0px 0px 0px #ffffff; /* Saf3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-     -moz-box-shadow: 0px 0px 0px #ffffff; /* FF3.5 - 3.6 */
-          box-shadow: 0px 0px 0px #ffffff; /* Opera 10.5, IE9, FF4+, Chrome 6+, iOS 5 */
+  -webkit-box-shadow: 0 0 0 #ffffff; /* Saf3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+     -moz-box-shadow: 0 0 0 #ffffff; /* FF3.5 - 3.6 */
+          box-shadow: 0 0 0 #ffffff; /* Opera 10.5, IE9, FF4+, Chrome 6+, iOS 5 */
 }
 .ui-tabs .ui-tabs-nav li a {
 
@@ -1309,7 +1310,7 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
 
 
  }
-.ui-tabs .ui-tabs-nav li.ui-tabs-active { margin-bottom: 0; padding-bottom: 0px; outline:none;}
+.ui-tabs .ui-tabs-nav li.ui-tabs-active { margin-bottom: 0; padding-bottom: 0; outline:none;}
 
 .ui-tabs .ui-tabs-nav li.ui-tabs-active a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a {
 
@@ -1439,21 +1440,24 @@ box-shadow:         0px 0px 2px rgba(0, 0, 0, 0.62);
 }
 
 
-.ui-datepicker td .ui-state-active{
-  background:#BFBFBF;
-  margin-bottom:0px;
+.ui-datepicker td .ui-state-active {
+    background:#BFBFBF;
+  margin-bottom:0;
   font-size:normal;
-  text-shadow: 0px;
+    -ms-text-shadow: 0px;
+    text-shadow: 0px;
   color:white;  
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
-  border-radius: 4px;
+    -ms-border-radius: 4px;
+    border-radius: 4px;
 }
 
-.ui-datepicker td .ui-state-default:hover{
-  background:#0064cd;
+.ui-datepicker td .ui-state-default:hover {
+    background:#0064cd;
   color:white;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
-  border-radius: 4px;
+    -ms-border-radius: 4px;
+    border-radius: 4px;
 }
