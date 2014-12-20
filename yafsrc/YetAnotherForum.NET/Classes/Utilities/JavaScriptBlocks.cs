@@ -465,7 +465,13 @@ namespace YAF.Utilities
         public static string SelectMenuWithIconsJs([NotNull] string dropDownId)
         {
             return @"Sys.Application.add_load(render_IconSelectMenu);function render_IconSelectMenu() {{ 
-                                    {0}('#{1}').iconselectmenu().iconselectmenu('menuWidget').addClass('ui-menu-icons customicon'); 
+                                    {0}('#{1}').iconselectmenu({{
+            change: function() {{
+                if (typeof ({0}(this).attr('onchange')) !== 'undefined') {{
+                            __doPostBack({0}(this).attr('name'),'');
+                        }}
+        }}
+        }}).iconselectmenu('menuWidget').addClass('ui-menu-icons customicon'); 
                      }} ".FormatWith(Config.JQueryAlias, dropDownId);
         }
 

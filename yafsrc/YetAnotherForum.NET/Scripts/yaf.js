@@ -182,12 +182,19 @@ jQuery(document).ready(function () {
     /// </summary>
     jQuery(".postContainer .UserPostedImage,.postContainer_Alt .UserPostedImage").each(function() {
         var image = jQuery(this);
+
         if (!image.parents('a').length) {
             image.wrap('<a href="' + image.attr("src") + '" class="ceebox" title="' + image.attr("alt") + '"/>');
         }
     });
 
-    jQuery(".standardSelectMenu").selectmenu();
+    jQuery(".standardSelectMenu").selectmenu({
+        change: function() {
+            if (typeof (jQuery(this).attr('onchange')) !== 'undefined') {
+                __doPostBack(jQuery(this).attr('name'), '');
+            }
+        }
+    });
 });
 
 $(function () {

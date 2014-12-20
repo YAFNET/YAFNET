@@ -6317,7 +6317,13 @@ jQuery(document).ready(function () {
         }
     });
 
-    jQuery(".standardSelectMenu").selectmenu();
+    jQuery(".standardSelectMenu").selectmenu({
+        change: function() {
+            if (typeof (jQuery(this).attr('onchange')) !== 'undefined') {
+                __doPostBack(jQuery(this).attr('name'), '');
+            }
+        }
+    });
 });
 
 $(function () {
