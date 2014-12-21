@@ -673,7 +673,7 @@ namespace YAF
         private bool CheckAccessRights([NotNull] object boardID, [NotNull] object messageID)
         {
             // Find user name
-            MembershipUser user = Membership.GetUser();
+            MembershipUser user = UserMembershipHelper.GetUser();
 
             string browser = "{0} {1}".FormatWith(
                 HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);

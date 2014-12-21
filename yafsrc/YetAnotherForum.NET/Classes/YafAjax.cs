@@ -228,7 +228,7 @@ namespace YAF.Classes
         {
             var messageId = msgID.ToType<int>();
 
-            var membershipUser = Membership.GetUser();
+            var membershipUser = UserMembershipHelper.GetUser();
 
             if (membershipUser == null)
             {
