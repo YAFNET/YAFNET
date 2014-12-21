@@ -255,8 +255,8 @@ th {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url('../Content/fonts/glyphicons-halflings-regular.eot');
-  src: url('../Content/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../Content/fonts/glyphicons-halflings-regular.woff') format('woff'), url('../Content/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../Content/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url('fonts/glyphicons-halflings-regular.eot');
+  src: url('fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('fonts/glyphicons-halflings-regular.woff') format('woff'), url('fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 .glyphicon {
   position: relative;
@@ -8227,4 +8227,10 @@ textarea.standardTextInput {
 }
 .ladda-spinner div[role="progressbar"] {
   top: 15px !important;
+}
+.radio input[type="radio"],
+.radio-inline input[type="radio"] {
+  position: absolute;
+  margin-left: 0;
+  margin-top: 4px \9;
 }
