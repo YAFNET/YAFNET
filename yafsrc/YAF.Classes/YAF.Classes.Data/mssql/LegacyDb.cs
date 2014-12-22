@@ -116,6 +116,45 @@ namespace YAF.Classes.Data
 
             return -1;
         }
+
+        /// <summary>
+        /// Gets the current SQL Engine Edition.
+        /// </summary>
+        /// <returns>Returns the current SQL Engine Edition.</returns>
+        public static string get_sqlengine()
+        {
+            try
+            {
+                using (
+              var cmd =
+                DbHelpers.GetCommand(
+                  "select SERVERPROPERTY('EngineEdition')",
+                  true))
+                {
+                    switch (DbAccess.ExecuteScalar(cmd).ToType<int>())
+                    {
+                        case 1:
+                            return "Personal";
+                        case 2:
+                            return "Standard";
+                        case 3:
+                            return "Enterprise";
+                        case 4:
+                            return "Express";
+                        case 5:
+                            return "Azure";
+                        default:
+                            return "Unknown";
+                    }
+                }
+            }
+            catch
+            {
+                return "Unknown";
+            }
+
+            return "Unknown";
+        }
         
         /// <summary>
         /// Determines whether [is full text supported].

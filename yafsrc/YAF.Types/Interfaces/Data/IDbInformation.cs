@@ -21,45 +21,57 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-using System;
-using System.Collections.Generic;
 
 namespace YAF.Types.Interfaces.Data
 {
-    using System.Data.Common;
+    using System;
+    using System.Collections.Generic;
 
+    /// <summary>
+    /// The DB Information Interface
+    /// </summary>
     public interface IDbInformation
     {
         /// <summary>
-        /// Db Connection String
+        /// Gets or sets the DB Connection String
         /// </summary>
         Func<string> ConnectionString { get; set; }
 
         /// <summary>
-        /// Db Provider Name
+        /// Gets the DB Provider Name
         /// </summary>
         string ProviderName { get; }
 
         /// <summary>
-        ///     Gets FullTextScript.
+        /// Gets Full Text Script.
         /// </summary>
         string FullTextScript { get; }
 
         /// <summary>
-        ///     Gets Scripts.
+        ///     Gets the Azure Script List.
         /// </summary>
-        IEnumerable<string> Scripts { get; }
+        IEnumerable<string> AzureScripts { get; }
 
         /// <summary>
-        ///     Gets DbConnectionParameters.
+        ///     Gets the Script List.
+        /// </summary>
+        IEnumerable<string> Scripts { get; }
+        
+        /// <summary>
+        ///     Gets the YAF Provider script list
+        /// </summary>
+        IEnumerable<string> YAFProviderScripts { get; }
+
+        /// <summary>
+        /// Gets the DB Connection Parameters.
         /// </summary>
         IDbConnectionParam[] DbConnectionParameters { get; }
 
         /// <summary>
         /// Builds a connection string.
         /// </summary>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
+        /// <param name="parameters">The Connection Parameters</param>
+        /// <returns>Returns the Connection String</returns>
         string BuildConnectionString(IEnumerable<IDbConnectionParam> parameters);
     }
 }

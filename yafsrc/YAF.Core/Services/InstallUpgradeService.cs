@@ -253,9 +253,18 @@ namespace YAF.Core.Services
                 // try
                 this.FixAccess(false);
 
-                foreach (string script in this.DbAccess.Information.Scripts)
+                var isAzureEngine = LegacyDb.get_sqlengine().Equals("Azure");
+
+                if (!this.IsForumInstalled && isAzureEngine)
                 {
-                    this.ExecuteScript(script, true);
+                    this.DbAccess.Information.AzureScripts.ForEach(s => this.ExecuteScript(s, true));
+                }
+
+                this.DbAccess.Information.Scripts.ForEach(s => this.ExecuteScript(s, true));
+
+                if (!isAzureEngine)
+                {
+                    this.DbAccess.Information.YAFProviderScripts.ForEach(s => this.ExecuteScript(s, true));
                 }
 
                 this.FixAccess(true);

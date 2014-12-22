@@ -1451,6 +1451,10 @@
     <Content Include="Images\YafLogo.png" />
     <Content Include="install\custom\custom.sql" />
     <Content Include="install\custom\dnn.sql" />
+    <Content Include="install\mssql\azure\InstallCommon.sql" />
+    <Content Include="install\mssql\azure\InstallMembership.sql" />
+    <Content Include="install\mssql\azure\InstallProfile.SQL" />
+    <Content Include="install\mssql\azure\InstallRoles.sql" />
     <Content Include="install\SpamWords.xml" />
     <Content Include="install\TopicStatusList.xml" />
     <Content Include="Images\YafLogoSmall.png" />
@@ -5020,6 +5024,8 @@
     <Content Include="UrlRewriter.config" />
     <None Include="Web References\RegisterV2\RegisterV2.wsdl" />
     <Content Include="v1.9.1.upgrade.web.config" />
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\URLRewriter.NET\Intelligencia.UrlRewriter.csproj">
