@@ -39,12 +39,13 @@
 				<td class="post">
 					<%# HtmlEncode(Eval("spamword")) %>
 				</td>
-				<td class="post">
+				<td class="post" align="right">
 					<YAF:ThemeButton ID="btnEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# Eval("ID") %>' 
+                        TextLocalizedTag="EDIT"
                         TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server">					    
-					</YAF:ThemeButton>	
-					|
+					</YAF:ThemeButton>
 					<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" OnLoad="Delete_Load"  CommandName='delete' 
+                        TextLocalizedTag="DELETE"
                         CommandArgument='<%# Eval( "ID") %>' TitleLocalizedTag="DELETE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" runat="server">
 					</YAF:ThemeButton>
 				</td>

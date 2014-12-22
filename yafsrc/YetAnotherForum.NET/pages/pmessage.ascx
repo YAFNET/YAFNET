@@ -21,7 +21,7 @@
 		</td>
 		<td class="post">
 			<asp:TextBox ID="To" runat="server" />
-			<asp:DropDownList runat="server" ID="ToList" Visible="false" />
+			<asp:DropDownList runat="server" ID="ToList" Visible="false" CssClass="standardSelectMenu" />
 			<asp:Button runat="server" ID="FindUsers" CssClass="pbutton" OnClick="FindUsers_Click" />
 			<asp:Button runat="server" ID="AllUsers" CssClass="pbutton" OnClick="AllUsers_Click" />
             <asp:Button runat="server" ID="AllBuddies" CssClass="pbutton" OnClick="AllBuddies_Click" />

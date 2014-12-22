@@ -104,7 +104,8 @@ namespace YAF.Pages.Admin
         protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // add on click confirm dialog
-            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ACCESSMASKS", "CONFIRM_DELETE"));
+            ((ThemeButton)sender).Attributes["onclick"] =
+                "return (confirm('{0}')".FormatWith(this.GetText("ADMIN_ACCESSMASKS", "CONFIRM_DELETE"));
         }
 
         /// <summary>

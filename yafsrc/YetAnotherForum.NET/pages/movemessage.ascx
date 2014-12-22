@@ -16,7 +16,7 @@
 			<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="select_forum_moveto" />
 		</td>
 		<td class="post" width="50%">
-			<asp:DropDownList ID="ForumList" runat="server" CssClass="edit" AutoPostBack="True" OnSelectedIndexChanged="ForumList_SelectedIndexChanged" />
+			<asp:DropDownList ID="ForumList" runat="server" CssClass="standardSelectMenu" AutoPostBack="True" OnSelectedIndexChanged="ForumList_SelectedIndexChanged" />
 		</td>
 	</tr>
 	<tr>
@@ -24,7 +24,7 @@
 			<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="select_topic_moveto" />
 		</td>
 		<td class="post" width="50%">
-			<asp:DropDownList ID="TopicsList" runat="server" CssClass="edit" OnSelectedIndexChanged="TopicsList_SelectedIndexChanged" />
+			<asp:DropDownList ID="TopicsList" runat="server" CssClass="standardSelectMenu" OnSelectedIndexChanged="TopicsList_SelectedIndexChanged" />
 		</td>
 	</tr>
 	<tr>

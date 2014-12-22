@@ -37,7 +37,7 @@
                     <td class="post">
                         <%# Eval( "UserName") %>
                     </td>
-                    <td class="post">
+                    <td class="post rightItem">
                         <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval( "NntpServerID") %>'>
                             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="EDIT" LocalizedPage="ADMIN_NNTPFORUMS" />
                         </asp:LinkButton>

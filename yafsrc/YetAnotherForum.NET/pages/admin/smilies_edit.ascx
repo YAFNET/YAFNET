@@ -26,7 +26,7 @@
                 </strong>
             </td>
             <td class="post" width="50%">
-                <asp:DropDownList ID="Icon" runat="server" Width="250" />
+                <asp:DropDownList ID="Icon" runat="server" Width="250" CssClass="standardSelectMenu" />
                 &nbsp;
 			
                 <img style="vertical-align: middle" runat="server" id="Preview" src="" alt="" />
@@ -48,7 +48,7 @@
                 </strong>
             </td>
             <td class="post" width="50%">
-                <asp:TextBox ID="SortOrder" runat="server" Text="0" MaxLength="3" Width="250" /></td>
+                <asp:TextBox ID="SortOrder" runat="server" Text="0" MaxLength="3" Width="250" CssClass="Numeric" /></td>
         </tr>
         <tr>
             <td class="footer1" colspan="2" align="center">

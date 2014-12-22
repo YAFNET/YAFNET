@@ -1696,6 +1696,8 @@
     <Resource tag="COMANDS">Emoción</Resource>
     <Resource tag="EMOTION">Emoción</Resource>
     <Resource tag="IMPORT">Importar pack de smilies</Resource>
+    <Resource tag="MOVE_DOWN">Move Down</Resource>
+    <Resource tag="MOVE_UP">Move Up</Resource>
     <Resource tag="MSG_DELETE">¿Eliminar este smiley?</Resource>
     <Resource tag="ORDER">Ordenar</Resource>
     <Resource tag="SMILEY">Smiley</Resource>

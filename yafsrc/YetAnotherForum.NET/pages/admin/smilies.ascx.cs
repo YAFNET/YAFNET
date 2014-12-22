@@ -64,7 +64,8 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_SMILIES", "MSG_DELETE"));
+            ((ThemeButton)sender).Attributes["onclick"] =
+                "return (confirm('{0}')".FormatWith(this.GetText("ADMIN_SMILIES", "MSG_DELETE"));
         }
 
         /// <summary>

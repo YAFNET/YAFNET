@@ -76,15 +76,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
-        /// LocalizedLabel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
-        
-        /// <summary>
         /// HelpLabel3 control.
         /// </summary>
         /// <remarks>
@@ -101,15 +92,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ReadAccess;
-        
-        /// <summary>
-        /// LocalizedLabel3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
         
         /// <summary>
         /// HelpLabel4 control.
@@ -130,15 +112,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox PostAccess;
         
         /// <summary>
-        /// LocalizedLabel4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
-        
-        /// <summary>
         /// HelpLabel5 control.
         /// </summary>
         /// <remarks>
@@ -155,15 +128,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ReplyAccess;
-        
-        /// <summary>
-        /// LocalizedLabel5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel5;
         
         /// <summary>
         /// HelpLabel6 control.
@@ -184,15 +148,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox PriorityAccess;
         
         /// <summary>
-        /// LocalizedLabel6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
-        
-        /// <summary>
         /// HelpLabel7 control.
         /// </summary>
         /// <remarks>
@@ -209,15 +164,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox PollAccess;
-        
-        /// <summary>
-        /// LocalizedLabel7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel7;
         
         /// <summary>
         /// HelpLabel8 control.
@@ -238,15 +184,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox VoteAccess;
         
         /// <summary>
-        /// LocalizedLabel8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel8;
-        
-        /// <summary>
         /// HelpLabel9 control.
         /// </summary>
         /// <remarks>
@@ -263,15 +200,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ModeratorAccess;
-        
-        /// <summary>
-        /// LocalizedLabel9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel9;
         
         /// <summary>
         /// HelpLabel10 control.
@@ -292,15 +220,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox EditAccess;
         
         /// <summary>
-        /// LocalizedLabel10 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel10;
-        
-        /// <summary>
         /// HelpLabel11 control.
         /// </summary>
         /// <remarks>
@@ -319,15 +238,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox DeleteAccess;
         
         /// <summary>
-        /// LocalizedLabel11 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel11;
-        
-        /// <summary>
         /// HelpLabel12 control.
         /// </summary>
         /// <remarks>
@@ -344,15 +254,6 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox UploadAccess;
-        
-        /// <summary>
-        /// LocalizedLabel12 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel12;
         
         /// <summary>
         /// HelpLabel13 control.

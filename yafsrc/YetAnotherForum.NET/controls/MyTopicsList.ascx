@@ -5,7 +5,7 @@
     <tr>
         <td align="right">
             <YAF:LocalizedLabel ID="SinceLabel" runat="server" LocalizedTag="SINCE" />
-            <asp:DropDownList ID="Since" runat="server" AutoPostBack="True" OnSelectedIndexChanged="Since_SelectedIndexChanged" />
+            <asp:DropDownList ID="Since" runat="server" AutoPostBack="True" OnSelectedIndexChanged="Since_SelectedIndexChanged" CssClass="standardSelectMenu" />
         </td>
     </tr>
 </table>

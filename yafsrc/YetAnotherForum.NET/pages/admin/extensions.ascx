@@ -24,15 +24,21 @@
             <tr>
                 <td class="post">
                     <strong>*.<%# HtmlEncode(Eval("extension")) %></strong></td>
-                <td class="post" style="white-space:nowrap">
-                    <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval("extensionId") %>'
-                        ID="Linkbutton1"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" />
-                    </asp:LinkButton>
-                    |
-                    <asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete"
-                        CommandArgument='<%# Eval("extensionId") %>' ID="Linkbutton2">
-                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETE" />
-                    </asp:LinkButton>
+                <td class="post" align="right">
+                    <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" 
+                            CommandName='edit' CommandArgument='<%# Eval( "extensionId") %>' 
+                            TitleLocalizedTag="EDIT" 
+                            ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON"
+                            TextLocalizedTag="EDIT" 
+                            runat="server">
+					    </YAF:ThemeButton>
+                    <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" 
+                                    CommandName='delete' CommandArgument='<%# Eval( "extensionId") %>' 
+                                    TitleLocalizedTag="DELETE" 
+                                    ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON"
+                                    TextLocalizedTag="DELETE"
+                                    OnLoad="Delete_Load"  runat="server">
+                                </YAF:ThemeButton>
                 </td>
             </tr>
         	 </ItemTemplate>

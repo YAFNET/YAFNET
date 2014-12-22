@@ -236,7 +236,7 @@ namespace YAF.Pages.Admin
 
             return
                 "<a target=\"_top\" href=\"{0}\">{1}</a>".FormatWith(
-                    YafBuildLink.GetLink(ForumPages.topics, "f={0}", forumID), forumName);
+                    YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, forumName), forumName);
         }
 
         /// <summary>
@@ -295,12 +295,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            // setup jQuery and YAF JS...
-            YafContext.Current.PageElements.RegisterJsBlock(
-                "spinnerJs",
-                JavaScriptBlocks.LoadSpinnerWidget());
-
-           base.OnPreRender(e);
+            base.OnPreRender(e);
         }
         
         /// <summary>

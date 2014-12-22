@@ -20,7 +20,7 @@
             </td>
             <td class="post">
                 <asp:DropDownList Width="250" ID="CategoryList" runat="server" OnSelectedIndexChanged="Category_Change"
-                    DataValueField="CategoryID" DataTextField="Name">
+                    DataValueField="CategoryID" DataTextField="Name" CssClass="standardSelectMenu">
                 </asp:DropDownList>
             </td>
         </tr>
@@ -31,7 +31,7 @@
                 <br />
             </td>
             <td class="post">
-                <asp:DropDownList Width="250" ID="ParentList" runat="server">
+                <asp:DropDownList Width="250" ID="ParentList" runat="server" CssClass="standardSelectMenu">
                 </asp:DropDownList>
             </td>
         </tr>
@@ -66,7 +66,7 @@
                 <YAF:HelpLabel ID="HelpLabel13" runat="server" LocalizedTag="THEME" LocalizedPage="ADMIN_EDITFORUM" />
             </td>
             <td class="post">
-                <asp:DropDownList Width="250" ID="ThemeList" runat="server">
+                <asp:DropDownList Width="250" ID="ThemeList" runat="server" CssClass="standardSelectMenu">
                 </asp:DropDownList>
             </td>
         </tr>
@@ -138,7 +138,7 @@
                 <YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="FORUM_IMAGE" LocalizedPage="ADMIN_EDITFORUM" />
             </td>
             <td class="post">
-                <asp:DropDownList Width="250" ID="ForumImages" runat="server" />
+                <asp:DropDownList Width="250" ID="ForumImages" runat="server" CssClass="standardSelectMenu" />
                 <img align="middle" runat="server" id="Preview" alt="" />
             </td>
         </tr>
@@ -157,7 +157,7 @@
                 <YAF:HelpLabel ID="HelpLabel5" runat="server" LocalizedTag="INITAL_MASK" LocalizedPage="ADMIN_EDITFORUM" />
             </td>
             <td class="post">
-                <asp:DropDownList Width="250" ID="AccessMaskID" OnDataBinding="BindData_AccessMaskID"
+                <asp:DropDownList Width="250" ID="AccessMaskID" OnDataBinding="BindData_AccessMaskID" CssClass="standardSelectMenu"
                     runat="server">
                 </asp:DropDownList>
             </td>
@@ -187,7 +187,7 @@
                         <%# Eval( "GroupName") %>
                     </td>
                     <td class="post">
-                        <asp:DropDownList Width="250" runat="server" ID="AccessMaskID" OnDataBinding="BindData_AccessMaskID"
+                        <asp:DropDownList Width="250" runat="server" ID="AccessMaskID" OnDataBinding="BindData_AccessMaskID" CssClass="standardSelectMenu"
                             OnPreRender="SetDropDownIndex" value='<%# Eval("AccessMaskID") %>' />
                         ...
                     </td>

@@ -11,20 +11,17 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="header2">
+			<td class="header2" style="width:15%">
 				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="GROUPNAME"  LocalizedPage="ADMIN_EVENTLOGGROUPS" />
 			</td>	
-            <td class="header2">
+            <td class="header2" colspan="2">
 				<YAF:LocalizedLabel ID="BoardNameLabel" runat="server" LocalizedTag="BOARDNAME"  LocalizedPage="ADMIN_EVENTLOGGROUPS" />
 			</td>	
-			<td class="header2">&nbsp;
-				
-			</td>
 		</tr>
 		<asp:Repeater ID="List" runat="server" OnItemCommand="List_ItemCommand">
 			<ItemTemplate>
 				<tr class="post">
-					<td>
+				    <td>
 					    <!-- Group Name -->
 					  <img alt='<%# this.HtmlEncode(Eval("Name")) %>'
                                     title='<%# this.HtmlEncode(Eval("Name")) %>'
@@ -33,8 +30,11 @@
                     	<td>
                     	 <%# this.HtmlEncode(Eval( "BoardName")) %>
                         </td>		
-					<td width="15%">
-						  <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" TitleLocalizedPage="ADMIN_EVENTLOGGROUPS" CommandName='edit' CommandArgument='<%# Eval( "GroupID") %>' TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
+					<td class="rightItem">
+						  <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" 
+                              TitleLocalizedPage="ADMIN_EVENTLOGGROUPS" TitleLocalizedTag="EDIT"
+                              CommandName='edit' CommandArgument='<%# Eval( "GroupID") %>' TextLocalizedTag="EDIT" 
+                              ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
 					</td>
 				</tr>
 			</ItemTemplate>

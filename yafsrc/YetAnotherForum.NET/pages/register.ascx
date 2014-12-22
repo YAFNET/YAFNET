@@ -244,7 +244,7 @@
 								<YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="TIMEZONE" />
 								:</td>
 							<td class="post">
-								<asp:DropDownList ID="TimeZones" runat="server" DataTextField="Name" DataValueField="Value" /></td>
+								<asp:DropDownList ID="TimeZones" runat="server" DataTextField="Name" DataValueField="Value" CssClass="standardSelectMenu" /></td>
 						</tr>
                         <tr>
                             <td class="postheader">

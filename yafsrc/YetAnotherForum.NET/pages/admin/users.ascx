@@ -27,11 +27,11 @@
         </tr>
         <tr class="post">
             <td>
-                <asp:DropDownList ID="group" runat="server" Width="95%">
+                <asp:DropDownList ID="group" runat="server" Width="95%" CssClass="standardSelectMenu">
                 </asp:DropDownList>
             </td>
             <td>
-                <asp:DropDownList ID="rank" runat="server" Width="95%">
+                <asp:DropDownList ID="rank" runat="server" Width="95%" CssClass="standardSelectMenu">
                 </asp:DropDownList>
             </td>
             <td>
@@ -46,7 +46,8 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="FILTER" LocalizedPage="ADMIN_USERS" />
             </td>
             <td>
-                <asp:DropDownList ID="Since" runat="server" Width="95%" AutoPostBack="True" OnSelectedIndexChanged="Since_SelectedIndexChanged" />
+                <asp:DropDownList ID="Since" runat="server" Width="95%" AutoPostBack="True" OnSelectedIndexChanged="Since_SelectedIndexChanged" CssClass="standardSelectMenu"
+ />
             </td>
         </tr>
         <tr>
@@ -90,9 +91,11 @@
                      <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TWITTER_USER" LocalizedPage="ADMIN_USERS" /> :</span> <%# this.GetText("COMMON", Eval("IsTwitterUser").ToType<bool>() ? "YES" : "NO")%>&nbsp;|&nbsp;
                      <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="GOOGLE_USER" LocalizedPage="ADMIN_USERS" /> :</span> <%# this.GetText("COMMON", Eval("IsGoogleUser").ToType<bool>() ? "YES" : "NO")%>
                     </td>
-                    <td class="post" align="center">
-                       <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
-                       <YAF:ThemeButton ID="ThemeButtonDelete" OnLoad="Delete_Load" CssClass="yaflittlebutton" CommandName='delete' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' TitleLocalizedTag="DELETE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !YAF.Classes.Config.IsDotNetNuke %>' runat="server"></YAF:ThemeButton>
+                    <td class="post" align="right">
+                       <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' 
+                           TextLocalizedTag="EDIT" TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
+                       <YAF:ThemeButton ID="ThemeButtonDelete" OnLoad="Delete_Load" CssClass="yaflittlebutton" CommandName='delete' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' 
+                           TextLocalizedTag="DELETE" TitleLocalizedTag="DELETE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !YAF.Classes.Config.IsDotNetNuke %>' runat="server"></YAF:ThemeButton>
                     </td>
                 </tr>
             </ItemTemplate>

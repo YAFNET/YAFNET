@@ -42,10 +42,21 @@
                     <td class="post">
                         <%# Eval( "Active") %>
                     </td>
-                    <td class="post">
-                        <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval( "NntpForumID") %>'><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="EDIT" LocalizedPage="ADMIN_NNTPFORUMS" /></asp:LinkButton>
-                        |
-                        <asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval( "NntpForumID") %>'><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DELETE" LocalizedPage="ADMIN_NNTPFORUMS" /></asp:LinkButton>
+                    <td class="post" align="right">
+                        <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" 
+                            CommandName='edit' CommandArgument='<%# Eval( "NntpForumID") %>' 
+                            TitleLocalizedTag="EDIT" 
+                            ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON"
+                            TextLocalizedTag="EDIT" 
+                            runat="server">
+					    </YAF:ThemeButton>
+                        <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" 
+                                    CommandName='delete' CommandArgument='<%# Eval( "NntpForumID") %>' 
+                                    TitleLocalizedTag="DELETE" 
+                                    ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON"
+                                    TextLocalizedTag="DELETE"
+                                    OnLoad="Delete_Load"  runat="server">
+                                </YAF:ThemeButton>
                     </td>
                 </tr>
             </ItemTemplate>

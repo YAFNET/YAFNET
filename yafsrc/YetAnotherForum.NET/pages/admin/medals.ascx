@@ -20,7 +20,7 @@
 						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="CATEGORY" /></td>
 					<td class="header2">
 						<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="DESCRIPTION" LocalizedPage="ADMIN_BBCODE" /></td>
-					<td class="header2" style="width: 125px;">
+					<td class="header2">
 						<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="COMMAND" /></td>
 				</tr>
 			</HeaderTemplate>
@@ -41,20 +41,37 @@
 					<td class="post">
 						<%# ((string)Eval( "Description")).Substring(0, Math.Min(Eval( "Description").ToString().Length, 100)) + "..." %>
 					</td>
-					<td class="post">
-						<asp:LinkButton ID="EditMedal" runat="server" CommandName="edit" CommandArgument='<%# Eval("MedalID") %>'>
-                          <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" />
-                        </asp:LinkButton>
-						|
-						<asp:LinkButton ID="MoveUp" runat="server" CommandName="moveup" CommandArgument='<%# Eval("MedalID") %>'
-							Text="▲" />
-						<asp:LinkButton ID="MoveDown" runat="server" CommandName="movedown" CommandArgument='<%# Eval("MedalID") %>'
-							Text="▼" />
-						|
-						<asp:LinkButton ID="DeleteMedal" runat="server" OnLoad="Delete_Load" CommandName="delete"
-							CommandArgument='<%# Eval("MedalID") %>'>
-                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETE" />
-                        </asp:LinkButton>
+					<td class="post" align="right">
+					    <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" 
+                            CommandName='edit' CommandArgument='<%# Eval( "MedalID") %>' 
+                            TitleLocalizedTag="EDIT" 
+                            ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON"
+                            TextLocalizedTag="EDIT" 
+                            runat="server">
+					    </YAF:ThemeButton>
+					    <YAF:ThemeButton ID="ThemeButtonMoveUp" CssClass="yaflittlebutton" 
+                            CommandName='moveup' CommandArgument='<%# Eval("MedalID") %>' 
+					        TitleLocalizedTag="MOVE_UP" 
+                            TitleLocalizedPage="ADMIN_SMILIES"
+					        ImageThemePage="SORT" ImageThemeTag="ASCENDING"
+					        TextLocalizedTag="MOVE_UP" 
+                            TextLocalizedPage="ADMIN_SMILIES"
+					        runat="server"/>
+					    <YAF:ThemeButton ID="ThemeButtonMoveDown" CssClass="yaflittlebutton" 
+					        CommandName='movedown' CommandArgument='<%# Eval("MedalID") %>' 
+					        TitleLocalizedTag="MOVE_DOWN" 
+                            TitleLocalizedPage="ADMIN_SMILIES"
+					        ImageThemePage="SORT" ImageThemeTag="DESCENDING"
+					        TextLocalizedTag="MOVE_DOWN" 
+                            TextLocalizedPage="ADMIN_SMILIES"
+					        runat="server" />
+						<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" 
+                                    CommandName='delete' CommandArgument='<%# Eval( "MedalID") %>' 
+                                    TitleLocalizedTag="DELETE" 
+                                    ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON"
+                                    TextLocalizedTag="DELETE"
+                                    OnLoad="Delete_Load"  runat="server">
+                                </YAF:ThemeButton>
 					</td>
 				</tr>
 			</ItemTemplate>

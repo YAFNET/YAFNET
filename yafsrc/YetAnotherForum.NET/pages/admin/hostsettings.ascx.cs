@@ -156,8 +156,6 @@ namespace YAF.Pages.Admin
                     this.hidLastTabId.ClientID,
                     false));
 
-            YafContext.Current.PageElements.RegisterJsBlock("spinnerJs", JavaScriptBlocks.LoadSpinnerWidget());
-
             YafContext.Current.PageElements.RegisterJsBlock(
                 "spinnerForTimeCorrectionJs",
                 JavaScriptBlocks.LoadSpinnerWidgetForTimeCorrection());

@@ -17,7 +17,7 @@
                 <YAF:HelpLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SERVER" LocalizedPage="ADMIN_EDITNNTPFORUM" />
             </td>
             <td class="post" width="50%">
-                <asp:DropDownList ID="NntpServerID" runat="server" Width="250" />
+                <asp:DropDownList ID="NntpServerID" runat="server" Width="250" CssClass="standardSelectMenu" />
             </td>
         </tr>
         <tr>
@@ -33,7 +33,7 @@
                 <YAF:HelpLabel ID="LocalizedLabel4" runat="server" LocalizedTag="FORUM" LocalizedPage="ADMIN_EDITNNTPFORUM" />
             </td>
             <td class="post">
-                <asp:DropDownList ID="ForumID" runat="server" Width="250" />
+                <asp:DropDownList ID="ForumID" runat="server" Width="250" CssClass="standardSelectMenu" />
             </td>
         </tr>
         <tr>

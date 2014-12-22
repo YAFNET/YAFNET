@@ -23,7 +23,7 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="DELETE_READ" LocalizedPage="ADMIN_PM" />
                 </td>
 			<td class="post" width="50%">
-				<asp:TextBox runat="server" ID="Days1" />
+				<asp:TextBox runat="server" ID="Days1" CssClass="Numeric" />
 				<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DAYS" LocalizedPage="ADMIN_PM" />
             </td>
 		</tr>
@@ -32,7 +32,7 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="DELETE_UNREAD" LocalizedPage="ADMIN_PM" />
             </td>
 			<td class="post" width="50%">
-				<asp:TextBox runat="server" ID="Days2" />
+				<asp:TextBox runat="server" ID="Days2" CssClass="Numeric" />
 				<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="DAYS" LocalizedPage="ADMIN_PM" />
             </td>
 		</tr>

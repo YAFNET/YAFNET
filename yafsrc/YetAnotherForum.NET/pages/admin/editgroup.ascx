@@ -57,7 +57,7 @@
                 
             </td>
             <td class="post" width="50%">
-                <asp:TextBox Style="width: 350px" ID="PMLimit" Text="0" runat="server" />
+                <asp:TextBox Style="width: 350px" ID="PMLimit" Text="0" runat="server" CssClass="Numeric" />
             </td>
         </tr>
         <tr>
@@ -77,7 +77,7 @@
                 
             </td>
             <td class="post" width="50%">
-                <asp:TextBox Style="width: 350px" ID="UsrSigChars" runat="server"  Text="128" />
+                <asp:TextBox Style="width: 350px" ID="UsrSigChars" runat="server"  Text="128" CssClass="Numeric" />
             </td>
         </tr>
         <tr>
@@ -101,7 +101,7 @@
                 <YAF:HelpLabel ID="HelpLabel10" runat="server" LocalizedTag="ALBUM_NUMBER" LocalizedPage="ADMIN_EDITGROUP" />
             </td>
             <td class="post" width="50%">
-                <asp:TextBox Style="width: 350px" ID="UsrAlbums" runat="server" Text="0" />
+                <asp:TextBox Style="width: 350px" ID="UsrAlbums" runat="server" Text="0" CssClass="Numeric" />
             </td>
         </tr>
         <tr>
@@ -109,7 +109,7 @@
                 <YAF:HelpLabel ID="HelpLabel11" runat="server" LocalizedTag="IMAGES_NUMBER" LocalizedPage="ADMIN_EDITGROUP" />
             </td>
             <td class="post" width="50%">
-                <asp:TextBox Style="width: 350px" ID="UsrAlbumImages" runat="server" Text="0" />
+                <asp:TextBox Style="width: 350px" ID="UsrAlbumImages" runat="server" Text="0" CssClass="Numeric" />
             </td>
         </tr>
         <tr>
@@ -117,7 +117,7 @@
                 <YAF:HelpLabel ID="HelpLabel12" runat="server" LocalizedTag="PRIORITY" LocalizedPage="ADMIN_EDITGROUP" />
             </td>
             <td class="post" style="width: 50%">
-                <asp:TextBox Style="width: 350px" ID="Priority" MaxLength="5" Text="0" runat="server" />
+                <asp:TextBox Style="width: 350px" ID="Priority" MaxLength="5" Text="0" runat="server" CssClass="Numeric" />
             </td>
         </tr>
         <tr>
@@ -141,7 +141,7 @@
                 <YAF:HelpLabel ID="HelpLabel15" runat="server" LocalizedTag="INITIAL_MASK" LocalizedPage="ADMIN_EDITGROUP" />
             </td>
             <td class="post">
-                <asp:DropDownList Style="width: 350px" runat="server" ID="AccessMaskID" OnDataBinding="BindData_AccessMaskID" />
+                <asp:DropDownList Style="width: 350px" runat="server" ID="AccessMaskID" OnDataBinding="BindData_AccessMaskID" CssClass="standardSelectMenu" />
             </td>
         </tr>
         <asp:Repeater ID="AccessList" runat="server">
@@ -177,7 +177,7 @@
                         </em>
                     </td>
                     <td class="post">
-                        <asp:DropDownList Style="width: 350px" runat="server" ID="AccessMaskID" OnDataBinding="BindData_AccessMaskID"
+                        <asp:DropDownList Style="width: 350px" runat="server" ID="AccessMaskID" OnDataBinding="BindData_AccessMaskID" CssClass="standardSelectMenu"
                             OnPreRender="SetDropDownIndex" value='<%# Eval("AccessMaskID") %>' />
                         ...
                     </td>

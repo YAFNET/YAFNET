@@ -78,7 +78,7 @@
                 LocalizedTag="GENDER" />
         </td>
         <td class="post">
-            <asp:DropDownList ID="Gender" runat="server" CssClass="edit" />
+            <asp:DropDownList ID="Gender" runat="server" CssClass="standardSelectMenu" />
         </td>
     </tr>
     <tr>
@@ -104,7 +104,7 @@
                 LocalizedTag="REGION" />
         </td>
         <td class="post">
-            <asp:DropDownList ID="Region" runat="server" CssClass="edit" />            
+            <asp:DropDownList ID="Region" runat="server" CssClass="standardSelectMenu" />            
         </td>
     </tr>
     <tr>
@@ -306,7 +306,7 @@
                 LocalizedTag="TIMEZONE2" />
         </td>
         <td class="post">
-            <asp:DropDownList runat="server" ID="TimeZones" DataTextField="Name" DataValueField="Value" CssClass="edit" />
+            <asp:DropDownList runat="server" ID="TimeZones" DataTextField="Name" DataValueField="Value" CssClass="standardSelectMenu" />
         </td>
     </tr>
     <tr runat="server" id="ForumSettingsRows">
@@ -323,7 +323,7 @@
                 LocalizedTag="SELECT_THEME" />
         </td>
         <td class="post">
-            <asp:DropDownList runat="server" ID="Theme" CssClass="edit" />
+            <asp:DropDownList runat="server" ID="Theme" CssClass="standardSelectMenu" />
         </td>
     </tr>
     <tr runat="server" id="TrTextEditors">
@@ -332,7 +332,7 @@
                 LocalizedTag="SELECT_TEXTEDITOR" />
         </td> 
         <td class="post">
-         <asp:DropDownList ID="ForumEditor" CssClass="edit" runat="server" DataValueField="Value" DataTextField="Name">
+         <asp:DropDownList ID="ForumEditor" CssClass="standardSelectMenu" runat="server" DataValueField="Value" DataTextField="Name">
                             </asp:DropDownList>
         </td>
     </tr>
@@ -351,7 +351,7 @@
                 LocalizedTag="SELECT_LANGUAGE" />
         </td>
         <td class="post">
-             <asp:DropDownList runat="server" ID="Culture" CssClass="edit" />
+             <asp:DropDownList runat="server" ID="Culture" CssClass="standardSelectMenu" />
         </td>
     </tr>
     <asp:PlaceHolder runat="server" ID="LoginInfo" Visible="false">

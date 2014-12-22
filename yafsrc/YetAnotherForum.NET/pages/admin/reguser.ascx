@@ -109,7 +109,7 @@
                <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="TIMEZONE" LocalizedPage="ADMIN_REGUSER"></YAF:LocalizedLabel>:
             </td>
 			<td class="post">
-			<asp:DropDownList Style="width: 350px" id="TimeZones" runat="server" DataValueField="Value" DataTextField="Name"></asp:DropDownList></td>
+			<asp:DropDownList Style="width: 350px" id="TimeZones" runat="server" DataValueField="Value" DataTextField="Name" CssClass="standardSelectMenu"></asp:DropDownList></td>
 			
 			
 			

@@ -8,7 +8,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="header2">
+			<td class="header2" style="width:15%">
 				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="ID" LocalizedPage="ADMIN_BOARDS" />
 			</td>
 			<td class="header2" colspan="2">
@@ -18,15 +18,27 @@
 		<asp:Repeater ID="List" runat="server">
 			<ItemTemplate>
 				<tr id="BoardRow" class='<%# Convert.ToInt32(Eval( "BoardID")) != PageContext.PageBoardID ? "post" : "post_res" %>' runat="server">
-					<td >
+					<td class="post">
 						<%# Eval( "BoardID") %>
 					</td>
-					<td>
+					<td class="post">
 						<%# HtmlEncode(Eval( "Name")) %>
 					</td>
-					<td align="center">
-                     <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# Eval( "BoardID") %>' TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
-                     <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" OnLoad="Delete_Load"  CommandName='delete' CommandArgument='<%# Eval( "BoardID") %>' TitleLocalizedTag="DELETE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" runat="server"></YAF:ThemeButton>						
+                    <td class="post" align="right">
+					    <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" 
+                            CommandName='edit' CommandArgument='<%# Eval( "BoardID") %>' 
+                            TitleLocalizedTag="EDIT" 
+                            ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON"
+                            TextLocalizedTag="EDIT" 
+                            runat="server">
+					    </YAF:ThemeButton>
+                        <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" 
+                            CommandName='delete' CommandArgument='<%# Eval( "BoardID") %>' 
+                            TitleLocalizedTag="DELETE" 
+                            ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON"
+                            TextLocalizedTag="DELETE"
+                            OnLoad="Delete_Load"  runat="server">
+                        </YAF:ThemeButton>						
 					</td>
 				</tr>
 			</ItemTemplate>

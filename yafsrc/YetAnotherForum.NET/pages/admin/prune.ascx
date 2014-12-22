@@ -17,7 +17,7 @@
                 <YAF:HelpLabel ID="LocalizedLabel4" runat="server" LocalizedTag="PRUNE_FORUM" LocalizedPage="ADMIN_PRUNE" />
             </td>
             <td class="post" width="50%">
-                <asp:DropDownList ID="forumlist" runat="server">
+                <asp:DropDownList ID="forumlist" runat="server" CssClass="standardSelectMenu">
                 </asp:DropDownList>
             </td>
         </tr>
@@ -26,7 +26,7 @@
                 <YAF:HelpLabel ID="LocalizedLabel3" runat="server" LocalizedTag="PRUNE_DAYS" LocalizedPage="ADMIN_PRUNE" />
             </td>
             <td class="post">
-                <asp:TextBox ID="days" runat="server"></asp:TextBox>
+                <asp:TextBox ID="days" runat="server" CssClass="Numeric"></asp:TextBox>
             </td>
         </tr>
         <tr>

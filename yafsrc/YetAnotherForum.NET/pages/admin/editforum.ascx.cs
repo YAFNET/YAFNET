@@ -168,11 +168,6 @@ namespace YAF.Pages.Admin
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            // setup jQuery and YAF JS...
-            YafContext.Current.PageElements.RegisterJsBlock(
-                "spinnerJs",
-                JavaScriptBlocks.LoadSpinnerWidget());
-
             base.OnPreRender(e);
         }
 

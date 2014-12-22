@@ -29,7 +29,7 @@
                 <br />
             </td>
             <td class="post">
-                <asp:DropDownList Width="250" ID="ForumList" runat="server" Enabled="false">
+                <asp:DropDownList Width="250" ID="ForumList" runat="server" Enabled="false" CssClass="standardSelectMenu">
                 </asp:DropDownList>
             </td>
         </tr>

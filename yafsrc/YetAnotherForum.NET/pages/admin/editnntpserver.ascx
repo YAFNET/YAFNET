@@ -30,7 +30,7 @@
 				<YAF:HelpLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NNTP_PORT" LocalizedPage="ADMIN_EDITNNTPSERVER" />
             </td>
 			<td class="post" colspan="7">
-				<asp:TextBox Width="250" ID="Port" runat="server" /></td>
+				<asp:TextBox Width="250" ID="Port" runat="server" CssClass="Numeric" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">

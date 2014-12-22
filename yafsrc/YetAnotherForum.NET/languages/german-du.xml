@@ -1678,6 +1678,8 @@
     <Resource tag="COMANDS">Emotion</Resource>
     <Resource tag="EMOTION">Emotion</Resource>
     <Resource tag="IMPORT">Smiley Packet Importieren</Resource>
+    <Resource tag="MOVE_DOWN">Move Down</Resource>
+    <Resource tag="MOVE_UP">Move Up</Resource>
     <Resource tag="MSG_DELETE">Dieses Smiley löschen?</Resource>
     <Resource tag="ORDER">Reihenfolge</Resource>
     <Resource tag="SMILEY">Smiley</Resource>

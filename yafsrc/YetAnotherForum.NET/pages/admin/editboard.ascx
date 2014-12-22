@@ -24,7 +24,7 @@
                 <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="CULTURE" LocalizedPage="ADMIN_EDITBOARD" />
             </td>
             <td width="50%" class="post">
-            <asp:DropDownList ID="Culture" runat="server" Width="350" />               
+            <asp:DropDownList ID="Culture" runat="server" Width="350" CssClass="standardSelectMenu" />               
         </tr>
         <tr>
             <td class="postheader">

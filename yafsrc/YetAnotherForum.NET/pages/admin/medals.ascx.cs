@@ -91,7 +91,8 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_MEDALS", "CONFIRM_DELETE"));
+            ((ThemeButton)sender).Attributes["onclick"] =
+                "return (confirm('{0}')".FormatWith(this.GetText("ADMIN_MEDALS", "CONFIRM_DELETE"));
         }
 
         /// <summary>

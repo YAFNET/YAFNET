@@ -1684,6 +1684,8 @@
     <Resource tag="COMANDS">Emotie</Resource>
     <Resource tag="EMOTION">Emotie</Resource>
     <Resource tag="IMPORT">Importeer Smiley Pack</Resource>
+    <Resource tag="MOVE_DOWN">Move Down</Resource>
+    <Resource tag="MOVE_UP">Move Up</Resource>
     <Resource tag="MSG_DELETE">Smiley verwijderen?</Resource>
     <Resource tag="ORDER">Sorteer</Resource>
     <Resource tag="SMILEY">Smiley</Resource>

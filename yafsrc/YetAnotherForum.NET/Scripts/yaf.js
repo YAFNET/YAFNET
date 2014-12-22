@@ -195,6 +195,10 @@ jQuery(document).ready(function () {
             }
         }
     });
+
+    if (typeof (jQuery.fn.spinner) !== 'undefined') {
+        jQuery('.Numeric').spinner({min: 0});
+    }
 });
 
 $(function () {

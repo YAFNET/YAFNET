@@ -35,14 +35,21 @@
 						(<YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedPage="ADMIN_GROUPS" LocalizedTag="UNLINKED" />)
 					</td>
 					<td class="post" align="right">
-						<asp:LinkButton ID="LinkButtonAdd" runat="server" CommandName="add" CommandArgument='<%# Container.DataItem %>'>
-                        <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedPage="ADMIN_GROUPS" LocalizedTag="ADD_ROLETOYAF" />
-                        </asp:LinkButton>
-						|
-						<asp:LinkButton ID="LinkButtonDelete" runat="server" OnLoad="Delete_Load" CommandName="delete"
-							CommandArgument='<%# Container.DataItem %>'>
-                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="ADMIN_GROUPS" LocalizedTag="DELETE_ROLEFROMYAF" />
-                            </asp:LinkButton>
+						<YAF:ThemeButton ID="ThemeButtonAdd" CssClass="yaflittlebutton" 
+                            CommandName='add' CommandArgument='<%# Container.DataItem %>' 
+                            TitleLocalizedTag="ADD_ROLETOYAF" 
+                            TitleLocalizedPage="ADMIN_GROUPS"
+                            TextLocalizedTag="ADD_ROLETOYAF" 
+                            TextLocalizedPage="ADMIN_GROUPS"
+                            runat="server">
+					    </YAF:ThemeButton>
+						<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" 
+                                    CommandName='delete' CommandArgument='<%# Container.DataItem %>' 
+                                    TitleLocalizedTag="DELETE" 
+                                    ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON"
+                                    TextLocalizedTag="DELETE"
+                                    OnLoad="Delete_Load"  runat="server">
+                                </YAF:ThemeButton>
 					</td>
 				</tr>
 			</ItemTemplate>
@@ -76,15 +83,20 @@
 						(<%# GetLinkedStatus( (DataRowView) Container.DataItem )%>)&nbsp;&nbsp;                        
 					</td>
                     <td class="header2" align="right">
-						<asp:LinkButton ID="LinkButtonEdit" runat="server" Visible="true"
-							CommandName="edit" CommandArgument='<%# Eval( "GroupID") %>'>
-                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" />
-                         </asp:LinkButton>
-						|
-						<asp:LinkButton  ID="LinkButtonDelete" runat="server" OnLoad="Delete_Load" Visible='<%#(this.Eval( "Flags" ).BinaryAnd(2) ? false : true)%>'
-							CommandName="delete" CommandArgument='<%# Eval( "GroupID") %>'>
-                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETE" />
-                        </asp:LinkButton>
+						<YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" 
+                            CommandName='edit' CommandArgument='<%# Eval( "GroupID") %>' 
+                            TitleLocalizedTag="EDIT" 
+                            ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON"
+                            TextLocalizedTag="EDIT" 
+                            runat="server">
+					    </YAF:ThemeButton>
+						<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" Visible='<%#(!this.Eval( "Flags" ).BinaryAnd(2))%>'
+                                    CommandName='delete' CommandArgument='<%# Eval( "GroupID") %>' 
+                                    TitleLocalizedTag="DELETE" 
+                                    ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON"
+                                    TextLocalizedTag="DELETE"
+                                    OnLoad="Delete_Load"  runat="server">
+                                </YAF:ThemeButton>
 					</td>
                      </tr>
                     <tr>           

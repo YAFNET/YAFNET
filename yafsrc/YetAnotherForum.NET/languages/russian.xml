@@ -1672,6 +1672,8 @@
     <Resource tag="COMANDS">Эмоция</Resource>
     <Resource tag="EMOTION">Эмоция</Resource>
     <Resource tag="IMPORT">Импортировать архив смайлов</Resource>
+    <Resource tag="MOVE_DOWN">Move Down</Resource>
+    <Resource tag="MOVE_UP">Move Up</Resource>
     <Resource tag="MSG_DELETE">Удалить этот смайл?</Resource>
     <Resource tag="ORDER">Порядок</Resource>
     <Resource tag="SMILEY">Смайл</Resource>

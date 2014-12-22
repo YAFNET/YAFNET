@@ -79,7 +79,7 @@
                 <YAF:HelpLabel ID="LocalizedLabel8" runat="server" LocalizedTag="DIGEST_METHOD" LocalizedPage="ADMIN_DIGEST" />
             </td>
             <td class="post" width="75%">
-                <asp:DropDownList ID="SendMethod" runat="server" Style="width: 250px">
+                <asp:DropDownList ID="SendMethod" runat="server" Style="width: 250px" CssClass="standardSelectMenu">
                     <asp:ListItem Text="Direct" />
                     <asp:ListItem Text="Queued" Selected="True" />
                 </asp:DropDownList>

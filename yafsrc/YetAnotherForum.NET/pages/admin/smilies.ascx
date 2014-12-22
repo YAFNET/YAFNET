@@ -27,7 +27,7 @@
                                 <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="EMOTION" LocalizedPage="ADMIN_SMILIES" />
                             </td>
                             <td class="header2">
-                                <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="COMANDS" LocalizedPage="ADMIN_SMILIES" />
+                                &nbsp;
                             </td>
                         </tr>
                     </HeaderTemplate>
@@ -45,19 +45,38 @@
                             <td class="post">
                                 <%# Eval("Emoticon") %>
                             </td>
-                            <td class="post">
-                                <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval("ID") %>'>
-                                  <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" LocalizedPage="COMMON" />
-                                </asp:LinkButton>
-                                |
-                                <asp:LinkButton ID="MoveUp" runat="server" CommandName="moveup" CommandArgument='<%# Eval("ID") %>'
-                                    Text="▲" />
-                                <asp:LinkButton ID="MoveDown" runat="server" CommandName="movedown" CommandArgument='<%# Eval("ID") %>'
-                                    Text="▼" />
-                                |
-                                <asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval("ID") %>'>
-                                  <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="DELETE" LocalizedPage="COMMON" />
-                                </asp:LinkButton>
+                            <td class="post" align="right">
+                                <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" 
+                                    CommandName='edit' CommandArgument='<%# Eval( "ID") %>' 
+                                    TitleLocalizedTag="EDIT" 
+                                    ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON"
+                                    TextLocalizedTag="EDIT" 
+                                    runat="server">
+                                </YAF:ThemeButton>
+                                <YAF:ThemeButton ID="ThemeButtonMoveUp" CssClass="yaflittlebutton" 
+                            CommandName='moveup' CommandArgument='<%# Eval("ID") %>' 
+					        TitleLocalizedTag="MOVE_UP" 
+                            TitleLocalizedPage="ADMIN_SMILIES"
+					        ImageThemePage="SORT" ImageThemeTag="ASCENDING"
+					        TextLocalizedTag="MOVE_UP" 
+                            TextLocalizedPage="ADMIN_SMILIES"
+					        runat="server"/>
+					    <YAF:ThemeButton ID="ThemeButtonMoveDown" CssClass="yaflittlebutton" 
+					        CommandName='movedown' CommandArgument='<%# Eval("ID") %>' 
+					        TitleLocalizedTag="MOVE_DOWN" 
+                            TitleLocalizedPage="ADMIN_SMILIES"
+					        ImageThemePage="SORT" ImageThemeTag="DESCENDING"
+					        TextLocalizedTag="MOVE_DOWN" 
+                            TextLocalizedPage="ADMIN_SMILIES"
+					        runat="server" />
+						
+                                <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" 
+                                    CommandName='delete' CommandArgument='<%# Eval( "ID") %>' 
+                                    TitleLocalizedTag="DELETE" 
+                                    ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON"
+                                    TextLocalizedTag="DELETE"
+                                    OnLoad="Delete_Load"  runat="server">
+                                </YAF:ThemeButton>
                             </td>
                         </tr>
                     </ItemTemplate>

@@ -35,7 +35,7 @@
             <YAF:HelpLabel ID="HelpLabel4" runat="server" LocalizedTag="RANK" LocalizedPage="ADMIN_USERS" />
         </td>
         <td class="post">
-            <asp:DropDownList Style="width: 300px" ID="RankID" runat="server" />
+            <asp:DropDownList Style="width: 300px" ID="RankID" runat="server" CssClass="standardSelectMenu" />
         </td>
     </tr>
 

@@ -23,11 +23,11 @@
     </tr>
     <tr class="post">
         <td>
-            <asp:DropDownList ID="Group" runat="server" Width="95%">
+            <asp:DropDownList ID="Group" runat="server" Width="95%" CssClass="standardSelectMenu">
             </asp:DropDownList>
         </td>
         <td>
-            <asp:DropDownList ID="Ranks" runat="server" Width="95%">
+            <asp:DropDownList ID="Ranks" runat="server" Width="95%" CssClass="standardSelectMenu">
             </asp:DropDownList>
         </td>
         <td>
@@ -38,10 +38,10 @@
         <td colspan="3">
             <YAF:LocalizedLabel ID="NumPostsLabel" runat="server" LocalizedTag="NUMPOSTS" />
             &nbsp;
-            <asp:DropDownList ID="NumPostDDL" runat="server" Width="200px">
+            <asp:DropDownList ID="NumPostDDL" runat="server" Width="200px" CssClass="standardSelectMenu">
             </asp:DropDownList>
             &nbsp;
-            <asp:TextBox ID="NumPostsTB" runat="server" Width="70px"></asp:TextBox>
+            <asp:TextBox ID="NumPostsTB" runat="server" Width="70px" CssClass="Numeric"></asp:TextBox>
         </td>
     </tr>
     <tr>

@@ -25,7 +25,7 @@
 							Number of users to create:
 						</td>
 						<td class="post">
-							<asp:TextBox ID="UsersNumber" runat="server">0</asp:TextBox>
+							<asp:TextBox ID="UsersNumber" runat="server" CssClass="Numeric">0</asp:TextBox>
 							<asp:RequiredFieldValidator ID="Requiredfieldvalidator1" runat="server" EnableClientScript="False"
 								Text="0" ControlToValidate="UsersNumber" ErrorMessage="User's number is required."></asp:RequiredFieldValidator>
 						</td>
@@ -43,7 +43,7 @@
 						<td class="postheader">						
 						</td>
 						<td class="post">
-							<asp:DropDownList ID="UsersBoardsList" runat="server"  Visible="false" DataValueField="BoardID" DataTextField="Name">
+							<asp:DropDownList ID="UsersBoardsList" runat="server"  Visible="false" DataValueField="BoardID" DataTextField="Name" CssClass="standardSelectMenu">
 							</asp:DropDownList>
 						</td>
 					</tr>
@@ -109,7 +109,7 @@
 							Time Zone(for all users):
 						</td>
 						<td class="post">
-							<asp:DropDownList ID="TimeZones" runat="server" DataValueField="Value" DataTextField="Name">
+							<asp:DropDownList ID="TimeZones" runat="server" DataValueField="Value" DataTextField="Name" CssClass="standardSelectMenu">
 							</asp:DropDownList>
 						</td>
 					</tr>								
@@ -132,7 +132,7 @@
 							Number of boards to create(max 10):
 						</td>
 						<td class="post">
-							<asp:TextBox ID="BoardNumber" runat="server">0</asp:TextBox>
+							<asp:TextBox ID="BoardNumber" runat="server" CssClass="Numeric">0</asp:TextBox>
 							<asp:RequiredFieldValidator ID="Requiredfieldvalidator10" runat="server" EnableClientScript="False"
 								Text="0" ControlToValidate="BoardNumber" ErrorMessage="Boards's number is required."></asp:RequiredFieldValidator>
 						</td>
@@ -158,7 +158,7 @@
 							Number of Users in Each Board:
 						</td>
 						<td class="post">
-							<asp:TextBox ID="BoardsUsersNumber" runat="server" Text="0" Enabled ="true" ></asp:TextBox>
+							<asp:TextBox ID="BoardsUsersNumber" runat="server" Text="0" Enabled ="true" CssClass="Numeric"></asp:TextBox>
 							<asp:RequiredFieldValidator ID="Requiredfieldvalidator12" runat="server" EnableClientScript="False"
 								Text="0" ControlToValidate="BoardsUsersNumber" ErrorMessage="User's number is required."></asp:RequiredFieldValidator>
 						</td>
@@ -170,7 +170,7 @@
 							</td>
 							<td class="post">
 								<asp:TextBox ID="BoardsCategoriesNumber" runat="server" Enabled="false"  datavaluefield="TopicID"
-									datatextfield="Subject">0</asp:TextBox>
+									datatextfield="Subject" CssClass="Numeric">0</asp:TextBox>
 							</td>
 						</tr>
 						<tr>
@@ -179,7 +179,7 @@
 							</td>
 							<td class="post">
 								<asp:TextBox ID="BoardsForumsNumber" runat="server" Enabled="false" datavaluefield="TopicID"
-									datatextfield="Subject">0</asp:TextBox>
+									datatextfield="Subject" CssClass="Numeric">0</asp:TextBox>
 							</td>
 						</tr>
 						<tr>
@@ -188,7 +188,7 @@
 							</td>
 							<td class="post">
 								<asp:TextBox ID="BoardsTopicsNumber" runat="server" Enabled="false" datavaluefield="TopicID"
-									datatextfield="Subject">0</asp:TextBox>
+									datatextfield="Subject" CssClass="Numeric">0</asp:TextBox>
 							</td>
 						</tr>
 						<tr>
@@ -197,7 +197,7 @@
 							</td>
 							<td class="post">
 								<asp:TextBox ID="BoardsMessagesNumber" runat="server" Enabled="false" datavaluefield="TopicID"
-									datatextfield="Subject">0</asp:TextBox>
+									datatextfield="Subject" CssClass="Numeric">0</asp:TextBox>
 							</td>
 						</tr>				
 					<tr>
@@ -219,7 +219,7 @@
 							Number of categories to create(max 100):
 						</td>
 						<td class="post">
-							<asp:TextBox ID="CategoriesNumber" runat="server">0</asp:TextBox>
+							<asp:TextBox ID="CategoriesNumber" runat="server" CssClass="Numeric">0</asp:TextBox>
 							<asp:RequiredFieldValidator ID="Requiredfieldvalidator5" runat="server" EnableClientScript="False"
 								Text="0" ControlToValidate="CategoriesNumber" ErrorMessage="Categories's number is required."></asp:RequiredFieldValidator>
 						</td>
@@ -237,7 +237,7 @@
 						<td class="postheader">						
 						</td>
 						<td class="post">
-							<asp:DropDownList ID="CategoriesBoardsList" runat="server"  Visible="false" DataValueField="BoardID" DataTextField="Name">
+							<asp:DropDownList ID="CategoriesBoardsList" runat="server"  Visible="false" DataValueField="BoardID" DataTextField="Name" CssClass="standardSelectMenu">
 							</asp:DropDownList>
 						</td>
 					</tr>					
@@ -246,7 +246,7 @@
 							Number of Forums in Each Category:
 						</td>
 						<td class="post">
-							<asp:TextBox ID="CategoriesForumsNumber" runat="server" Enabled="true">0</asp:TextBox>
+							<asp:TextBox ID="CategoriesForumsNumber" runat="server" Enabled="true" CssClass="Numeric">0</asp:TextBox>
 						</td>
 					</tr>
 					<tr>
@@ -255,7 +255,7 @@
 						</td>
 						<td class="post">
 							<asp:TextBox ID="CategoriesTopicsNumber" runat="server" Enabled="true" datavaluefield="TopicID"
-								datatextfield="Subject">0</asp:TextBox>
+								datatextfield="Subject" CssClass="Numeric">0</asp:TextBox>
 						</td>
 					</tr>
 					<tr>
@@ -264,7 +264,7 @@
 						</td>
 						<td class="post">
 							<asp:TextBox ID="CategoriesMessagesNumber" runat="server" Enabled="true" datavaluefield="TopicID"
-								datatextfield="Subject">0</asp:TextBox>
+								datatextfield="Subject" CssClass="Numeric">0</asp:TextBox>
 						</td>
 					</tr>			
 					<tr>			
@@ -286,7 +286,7 @@
 							Number of forums to create:
 						</td>
 						<td class="post">
-							<asp:TextBox ID="ForumsNumber" runat="server">0</asp:TextBox>
+							<asp:TextBox ID="ForumsNumber" runat="server" CssClass="Numeric">0</asp:TextBox>
 							<asp:RequiredFieldValidator ID="Requiredfieldvalidator6" runat="server" EnableClientScript="False"
 								Text="0" ControlToValidate="ForumsNumber" ErrorMessage="Forums' number is required."></asp:RequiredFieldValidator>
 						</td>
@@ -322,7 +322,7 @@
 						</td>
 						<td class="post">
 							<asp:DropDownList ID="ForumsStartMask" runat="server" DataValueField="AccessMaskID"
-								DataTextField="Name" OnSelectedIndexChanged="ForumsCategory_OnSelectedIndexChanged">
+								DataTextField="Name" OnSelectedIndexChanged="ForumsCategory_OnSelectedIndexChanged" CssClass="standardSelectMenu">
 							</asp:DropDownList>
 						</td>
 					</tr>
@@ -332,7 +332,7 @@
 						</td>
 						<td class="post">
 							<asp:DropDownList ID="ForumsGroups" runat="server" DataValueField="GroupID" DataTextField="Name"
-								OnSelectedIndexChanged="ForumsCategory_OnSelectedIndexChanged">
+								OnSelectedIndexChanged="ForumsCategory_OnSelectedIndexChanged" CssClass="standardSelectMenu">
 							</asp:DropDownList>
 						</td>
 					</tr>
@@ -342,7 +342,7 @@
 						</td>
 						<td class="post">
 							<asp:DropDownList ID="ForumsAdminMask" runat="server" DataValueField="AccessMaskID"
-								DataTextField="Name" OnSelectedIndexChanged="ForumsCategory_OnSelectedIndexChanged">
+								DataTextField="Name" OnSelectedIndexChanged="ForumsCategory_OnSelectedIndexChanged" CssClass="standardSelectMenu">
 							</asp:DropDownList>
 						</td>
 					</tr>
@@ -352,7 +352,7 @@
 						</td>
 						<td class="post">
 							<asp:DropDownList ID="ForumsCategory" runat="server" AutoPostBack="true" DataValueField="CategoryID"
-								DataTextField="Name" OnDataBound="ForumsCategory_OnSelectedIndexChanged" OnSelectedIndexChanged="ForumsCategory_OnSelectedIndexChanged">
+								DataTextField="Name" OnDataBound="ForumsCategory_OnSelectedIndexChanged" OnSelectedIndexChanged="ForumsCategory_OnSelectedIndexChanged" CssClass="standardSelectMenu">
 							</asp:DropDownList>
 						</td>
 					</tr>
@@ -361,7 +361,7 @@
 							Choose parent forum:
 						</td>
 						<td class="post">
-							<asp:DropDownList ID="ForumsParent" runat="server" DataValueField="ForumID" DataTextField="Title">
+							<asp:DropDownList ID="ForumsParent" runat="server" DataValueField="ForumID" DataTextField="Title" CssClass="standardSelectMenu">
 							</asp:DropDownList>
 						</td>
 					</tr>
@@ -371,7 +371,7 @@
 						</td>
 						<td class="post">
 							<asp:TextBox ID="ForumsTopicsNumber" runat="server" Enabled="true" datavaluefield="TopicID"
-								datatextfield="Subject">0</asp:TextBox>
+								datatextfield="Subject" CssClass="Numeric">0</asp:TextBox>
 						</td>
 					</tr>
 					<tr>
@@ -380,7 +380,7 @@
 						</td>
 						<td class="post">
 							<asp:TextBox ID="ForumsMessagesNumber" runat="server" Enabled="true" datavaluefield="TopicID"
-								datatextfield="Subject">0</asp:TextBox>
+								datatextfield="Subject" CssClass="Numeric">0</asp:TextBox>
 						</td>
 					</tr>								
 					<tr>
@@ -402,7 +402,7 @@
 							Number of topics to create:
 						</td>
 						<td class="post">
-							<asp:TextBox ID="TopicsNumber" runat="server">0</asp:TextBox>
+							<asp:TextBox ID="TopicsNumber" runat="server" CssClass="Numeric">0</asp:TextBox>
 							<asp:RequiredFieldValidator ID="Requiredfieldvalidator7" runat="server" EnableClientScript="False"
 								Text="0" ControlToValidate="TopicsNumber" ErrorMessage="Categories' number is required."></asp:RequiredFieldValidator>
 						</td>
@@ -418,7 +418,7 @@
 					</tr>
 					<tr>
 						<td class="post" width="80%">
-							<asp:DropDownList ID="TopicsPriorityList" runat="server" />
+							<asp:DropDownList ID="TopicsPriorityList" runat="server" CssClass="standardSelectMenu" />
 						</td>
 					</tr>
 					<tr>
@@ -435,7 +435,7 @@
 						</td>
 						<td class="post">
 							<asp:DropDownList ID="TopicsCategory" runat="server" AutoPostBack="true" DataValueField="CategoryID"
-								DataTextField="Name" OnDataBound="TopicsCategory_OnSelectedIndexChanged" OnSelectedIndexChanged="TopicsCategory_OnSelectedIndexChanged">
+								DataTextField="Name" OnDataBound="TopicsCategory_OnSelectedIndexChanged" OnSelectedIndexChanged="TopicsCategory_OnSelectedIndexChanged" CssClass="standardSelectMenu">
 							</asp:DropDownList>
 						</td>
 					</tr>
@@ -445,7 +445,7 @@
 						</td>
 						<td class="post">
 							<asp:DropDownList ID="TopicsForum" runat="server" AutoPostBack="false" DataValueField="ForumID"
-								DataTextField="Title">
+								DataTextField="Title" CssClass="standardSelectMenu">
 							</asp:DropDownList>
 						</td>
 					</tr>
@@ -455,7 +455,7 @@
 						</td>
 						<td class="post">
 							<asp:TextBox ID="TopicsMessagesNumber" runat="server" Enabled="true" datavaluefield="TopicID"
-								datatextfield="Subject">0</asp:TextBox>
+								datatextfield="Subject" CssClass="Numeric">0</asp:TextBox>
 						</td>
 					</tr>			
 					<tr>
@@ -477,7 +477,7 @@
 							Number of messages to create:
 						</td>
 						<td class="post">
-							<asp:TextBox ID="PostsNumber" runat="server">0</asp:TextBox>
+							<asp:TextBox ID="PostsNumber" runat="server" CssClass="Numeric">0</asp:TextBox>
 							<asp:RequiredFieldValidator ID="Requiredfieldvalidator8" runat="server" EnableClientScript="False"
 								Text="0" ControlToValidate="PostsNumber" ErrorMessage="Categories' number is required."></asp:RequiredFieldValidator>
 						</td>
@@ -497,7 +497,7 @@
 						</td>
 						<td class="post">
 							<asp:DropDownList ID="PostsCategory" runat="server" AutoPostBack="true" DataValueField="CategoryID"
-								DataTextField="Name" OnDataBound="PostsCategory_OnSelectedIndexChanged" OnSelectedIndexChanged="PostsCategory_OnSelectedIndexChanged">
+								DataTextField="Name" OnDataBound="PostsCategory_OnSelectedIndexChanged" OnSelectedIndexChanged="PostsCategory_OnSelectedIndexChanged" CssClass="standardSelectMenu">
 							</asp:DropDownList>
 						</td>
 					</tr>
@@ -507,7 +507,7 @@
 						</td>
 						<td class="post">
 							<asp:DropDownList ID="PostsForum" runat="server" DataValueField="ForumID" AutoPostBack="true"
-								DataTextField="Title" OnSelectedIndexChanged="PostsForum_OnSelectedIndexChanged">
+								DataTextField="Title" OnSelectedIndexChanged="PostsForum_OnSelectedIndexChanged" CssClass="standardSelectMenu">
 							</asp:DropDownList>
 						</td>
 					</tr>
@@ -516,7 +516,7 @@
 							Choose topic:
 						</td>
 						<td class="post">
-							<asp:DropDownList ID="PostsTopic" runat="server" DataValueField="TopicID" DataTextField="Subject">
+							<asp:DropDownList ID="PostsTopic" runat="server" DataValueField="TopicID" DataTextField="Subject" CssClass="standardSelectMenu">
 							</asp:DropDownList>
 						</td>
 					</tr>
@@ -547,7 +547,7 @@
 							Number of pmessages to create:
 						</td>
 						<td class="post">
-							<asp:TextBox ID="PMessagesNumber" runat="server">0</asp:TextBox>
+							<asp:TextBox ID="PMessagesNumber" runat="server" CssClass="Numeric">0</asp:TextBox>
 							<asp:RequiredFieldValidator ID="Requiredfieldvalidator9" runat="server" EnableClientScript="False"
 								Text="0" ControlToValidate="PMessagesNumber" ErrorMessage="Pmessages's number is required."></asp:RequiredFieldValidator>
 						</td>
@@ -565,7 +565,7 @@
 						<td class="postheader">						
 						</td>
 						<td class="post">
-							<asp:DropDownList ID="PMessagesBoardsList" runat="server"   DataValueField="BoardID" Enabled="false" DataTextField="Name">
+							<asp:DropDownList ID="PMessagesBoardsList" runat="server"   DataValueField="BoardID" Enabled="false" DataTextField="Name" CssClass="standardSelectMenu">
 							</asp:DropDownList>
 						</td>
 					</tr>						

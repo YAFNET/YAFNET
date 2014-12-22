@@ -46,10 +46,12 @@
 				<td class="post">
 				<YAF:UserLink ID="UserLink1" runat="server" UserID='<%# string.IsNullOrEmpty(Eval("UserID").ToString())? -1 :Eval("UserID") %>' />
 				</td>
-				<td class="post" style="text-align:right">
-				<YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# Eval("ID") %>' 
+				<td class="post" align="right">
+				<YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# Eval("ID") %>'
+                    TextLocalizedTag="EDIT" 
                     TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
                     <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" CommandName='delete' CommandArgument='<%# Eval("ID") %>' 
+                        TextLocalizedTag="DELETE"
                     TitleLocalizedTag="DELETE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" runat="server"></YAF:ThemeButton>
 				</td>
 			</tr>

@@ -55,7 +55,7 @@
             </strong>
         </td>
         <td class="post">
-            <asp:DropDownList runat="server" ID="SuspendOrDelete">
+            <asp:DropDownList runat="server" ID="SuspendOrDelete" CssClass="standardSelectMenu">
             </asp:DropDownList>
             <asp:Literal ID="SuspendedTo" runat="server"></asp:Literal>
         </td>

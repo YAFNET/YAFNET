@@ -81,7 +81,7 @@
 			  			    <HeaderStyle CssClass="header2"></HeaderStyle>
 			  			    <ItemStyle CssClass="post" Width="350px"></ItemStyle>
 			  				    <ItemTemplate>
-               				        <asp:DropDownList ID="ModForums" runat="server">
+               				        <asp:DropDownList ID="ModForums" runat="server" CssClass="standardSelectMenu">
                				        </asp:DropDownList>
                                      <YAF:ThemeButton ID="GoToForumButton" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="GO" OnClick="GoToForum"></YAF:ThemeButton>
 			  				    </ItemTemplate>

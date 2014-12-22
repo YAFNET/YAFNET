@@ -470,7 +470,8 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void GroupRemove_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_GROUP"));
+            ((ThemeButton)sender).Attributes["onclick"] =
+                "return (confirm('{0}')".FormatWith(this.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_GROUP"));
         }
 
         /// <summary>
@@ -686,11 +687,6 @@ namespace YAF.Pages.Admin
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            // setup jQuery and YAF JS...
-            YafContext.Current.PageElements.RegisterJsBlock(
-                "spinnerJs",
-                JavaScriptBlocks.LoadSpinnerWidget());
-
             base.OnPreRender(e);
         }
 

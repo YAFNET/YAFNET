@@ -25,14 +25,21 @@
                                     title='<%# Eval( "Name") %>'
                                     src='<%# this.Get<ITheme>().GetItem("VOTE","POLL_MASK") %>' />&nbsp;<%# Eval( "Name") %>
 					</td>					
-					<td width="15%" style="font-weight: normal">
-						<asp:LinkButton runat='server' CommandName='edit' CommandArgument='<%# Eval( "AccessMaskID") %>'>
-                          <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" />
-                        </asp:LinkButton>
-						|
-						<asp:LinkButton runat='server' OnLoad="Delete_Load" CommandName='delete' CommandArgument='<%# Eval( "AccessMaskID") %>'>
-                          <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETE" />
-                        </asp:LinkButton>
+					<td width="15%" style="font-weight: normal" align="right">
+					    <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" 
+                            CommandName='edit' CommandArgument='<%# Eval( "AccessMaskID") %>' 
+                            TitleLocalizedTag="EDIT" 
+                            ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON"
+                            TextLocalizedTag="EDIT" 
+                            runat="server">
+					    </YAF:ThemeButton>
+						<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" 
+                                    CommandName='delete' CommandArgument='<%# Eval( "AccessMaskID") %>' 
+                                    TitleLocalizedTag="DELETE" 
+                                    ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON"
+                                    TextLocalizedTag="DELETE"
+                                    OnLoad="Delete_Load"  runat="server">
+                                </YAF:ThemeButton>
 					</td>
 				</tr>
                 <tr class="post">

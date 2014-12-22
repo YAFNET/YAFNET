@@ -48,13 +48,14 @@
 					<td>
 						<%# Eval("CultureFile")%>
 					</td>
-                    <td>
+                    <td class="rightItem">
                         <YAF:ThemeButton ID="btnEdit" 
                             CssClass="yaflittlebutton" 
                             CommandName='edit' 
                             CommandArgument='<%# Eval("CultureFile")%>' 
                             TitleLocalizedTag="EDIT" 
                             ImageThemePage="ICONS" 
+                            TextLocalizedTag="EDIT"
                             ImageThemeTag="EDIT_SMALL_ICON" 
                             runat="server">
                         </YAF:ThemeButton>

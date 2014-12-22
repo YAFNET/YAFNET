@@ -61,7 +61,7 @@
 			<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="Status" />
 		</td>
 		<td class="post" width="80%">
-			<asp:DropDownList ID="TopicStatus" runat="server" CssClass="edit" Width="400">
+			<asp:DropDownList ID="TopicStatus" runat="server" CssClass="standardSelectMenu" Width="400">
             </asp:DropDownList>
 		</td>
 	</tr>	
@@ -70,7 +70,7 @@
 			<YAF:LocalizedLabel runat="server" LocalizedTag="priority" />
 		</td>
 		<td class="post" width="80%">
-			<asp:DropDownList ID="Priority" runat="server" CssClass="edit" Width="400" />
+			<asp:DropDownList ID="Priority" runat="server" CssClass="standardSelectMenu" Width="400" />
 		</td>
 	</tr>
     <tr id="StyleRow" runat="server">

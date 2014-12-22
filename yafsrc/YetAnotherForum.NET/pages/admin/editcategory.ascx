@@ -24,7 +24,7 @@
 			  <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="CATEGORY_IMAGE" LocalizedPage="ADMIN_EDITCATEGORY" />
 			</td>
 			<td class="post">
-			<asp:DropDownList ID="CategoryImages" Width="250" runat="server" />
+			<asp:DropDownList ID="CategoryImages" Width="250" runat="server" CssClass="standardSelectMenu" />
 			<img align="middle" alt="Preview" runat="server" id="Preview" />
 			</td>
 		</tr>
@@ -33,7 +33,7 @@
 			  <YAF:HelpLabel ID="HelpLabel3" runat="server" LocalizedTag="SORT_ORDER" LocalizedPage="ADMIN_EDITCATEGORY" />
 			</td>
 			<td class="post">
-			<asp:TextBox ID="SortOrder" runat="server" Width="250" MaxLength="5"></asp:TextBox></td>
+			<asp:TextBox ID="SortOrder" runat="server" Width="250" MaxLength="5" CssClass="Numeric"></asp:TextBox></td>
 		</tr>
 		<tr>
 			<td class="postfooter" colspan="2" align="center">

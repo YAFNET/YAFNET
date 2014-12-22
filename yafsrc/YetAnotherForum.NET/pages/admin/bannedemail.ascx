@@ -40,10 +40,12 @@
 				<td class="post">
 					<%# Eval("Reason") %>
 				</td>
-				<td class="post" style="text-align:right">
+				<td class="post" align="right">
 				<YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# Eval("ID") %>' 
+                    TextLocalizedTag="EDIT"
                     TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
                     <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" CommandName='delete' CommandArgument='<%# Eval("ID") %>' 
+                        TextLocalizedTag="DELETE"
                     TitleLocalizedTag="DELETE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" runat="server"></YAF:ThemeButton>
 				</td>
 			</tr>

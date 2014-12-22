@@ -25,7 +25,7 @@
               <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="EXEC_ORDER" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
             </td>
 			<td class="post" style="width: 80%">
-				<asp:TextBox ID="txtExecOrder" Style="width: 50px" MaxLength="5" runat="server" Text="1"></asp:TextBox></td>
+				<asp:TextBox ID="txtExecOrder" Style="width: 50px" MaxLength="5" runat="server" Text="1" CssClass="Numeric"></asp:TextBox></td>
 		</tr>
 		<tr>
 			<td class="postheader" style="width: 20%">

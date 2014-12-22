@@ -26,6 +26,7 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Globalization;
 
     using YAF.Classes;
     using YAF.Controls;
@@ -103,7 +104,9 @@ namespace YAF.Pages.Admin
 
             this.LastDigestSendLabel.Text = this.Get<YafBoardSettings>().LastDigestSend.IsNotSet()
                                                 ? this.GetText("ADMIN_DIGEST", "DIGEST_NEVER")
-                                                : this.Get<YafBoardSettings>().LastDigestSend;
+                                                : Convert.ToDateTime(
+                                                    this.Get<YafBoardSettings>().LastDigestSend,
+                                                    CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture);
 
             this.DigestEnabled.Text = this.Get<YafBoardSettings>().AllowDigestEmail
                                           ? this.GetText("COMMON", "YES")

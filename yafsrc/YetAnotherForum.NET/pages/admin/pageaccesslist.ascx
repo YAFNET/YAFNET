@@ -11,14 +11,11 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="header2">
+			<td class="header2" style="width:15%">
 				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="HEADER"  LocalizedPage="ADMIN_PAGEACCESSLIST" />
 			</td>	
-            <td class="header2">
+            <td class="header2" colspan="2">
 				<YAF:LocalizedLabel ID="BoardNameLabel" runat="server" LocalizedTag="BOARDnAME"  LocalizedPage="ADMIN_PAGEACCESSLIST" />
-			</td>	
-			<td class="header2">&nbsp;
-				
 			</td>
 		</tr>
 		<asp:Repeater ID="List" runat="server" OnItemCommand="List_ItemCommand">
@@ -32,10 +29,16 @@
 					</td>
                     	<td>
                     	 <%# this.HtmlEncode(Eval( "BoardName")) %>
-                        </td>		
-					<td width="15%">
-						  <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" TitleLocalizedPage="ADMIN_PAGEACCESSLIST" CommandName='edit' CommandArgument='<%# Eval( "UserID") %>' TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
-					</td>
+                        </td>
+                    <td class="rightItem">
+						  <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" 
+                              TitleLocalizedPage="ADMIN_PAGEACCESSLIST" CommandName='edit' CommandArgument='<%# Eval( "UserID") %>' 
+                              TitleLocalizedTag="EDIT" 
+                              ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" 
+                              TextLocalizedTag="EDIT" 
+                              runat="server">
+						  </YAF:ThemeButton>
+					</td>		
 				</tr>
 			</ItemTemplate>
 		</asp:Repeater>

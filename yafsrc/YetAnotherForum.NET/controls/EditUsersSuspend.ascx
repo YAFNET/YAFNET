@@ -25,7 +25,7 @@
 			<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_USER" />
 		</td>
 		<td class="post">
-			<asp:TextBox runat="server" ID="SuspendCount" Style="width: 60px" />&nbsp;<asp:DropDownList
+			<asp:TextBox runat="server" ID="SuspendCount" Style="width: 60px" CssClass="Numeric" />&nbsp;<asp:DropDownList
 				runat="server" ID="SuspendUnit" />&nbsp;<asp:Button runat="server" ID="Suspend" OnClick="Suspend_Click" CssClass="pbutton"  />
 		</td>
 	</tr>

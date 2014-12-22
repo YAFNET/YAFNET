@@ -1694,6 +1694,8 @@
     <Resource tag="COMANDS">احساس</Resource>
     <Resource tag="EMOTION">احساس</Resource>
     <Resource tag="IMPORT">وارد کردن بسته خندانک</Resource>
+    <Resource tag="MOVE_DOWN">Move Down</Resource>
+    <Resource tag="MOVE_UP">Move Up</Resource>
     <Resource tag="MSG_DELETE">حذف این خندانک؟</Resource>
     <Resource tag="ORDER">ترتیب</Resource>
     <Resource tag="SMILEY">خندانک</Resource>

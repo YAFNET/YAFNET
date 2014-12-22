@@ -25,7 +25,7 @@
                 <strong></strong><br />
 				</td>
 			<td class="post" width="50%">
-				<asp:TextBox runat="server" ID="SortOrder" MaxLength="5" style="width:250px" CssClass="edit" /><asp:RequiredFieldValidator ID="RequiredFieldValidator1"
+				<asp:TextBox runat="server" ID="SortOrder" MaxLength="5" style="width:250px" CssClass="Numeric" /><asp:RequiredFieldValidator ID="RequiredFieldValidator1"
 					runat="server" Text="<br />Enter sort order please!" ControlToValidate="SortOrder" Display="Dynamic" /></td>
 		</tr>
 		<tr>

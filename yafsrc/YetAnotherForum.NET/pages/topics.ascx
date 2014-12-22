@@ -92,7 +92,7 @@
                 <tr>
                     <td width="1%" style="white-space: nowrap">
                         <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="showtopics" />
-                        <asp:DropDownList ID="ShowList" runat="server" AutoPostBack="True" />
+                        <asp:DropDownList ID="ShowList" runat="server" AutoPostBack="True" CssClass="standardSelectMenu" />
                     </td>
                     <td align="right">
                         <asp:LinkButton ID="WatchForum" runat="server" /><span id="WatchForumID" runat="server"

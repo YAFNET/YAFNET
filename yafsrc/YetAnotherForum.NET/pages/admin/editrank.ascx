@@ -43,7 +43,7 @@
 				<YAF:HelpLabel ID="HelpLabel5" runat="server" LocalizedTag="PRIVATE_MESSAGES" LocalizedPage="ADMIN_EDITRANK" />
             </td>
 			<td class="post" colspan="6">
-				<asp:TextBox ID="PMLimit"  Style="width: 250px" Text="0" runat="server" /></td>
+				<asp:TextBox ID="PMLimit"  Style="width: 250px" Text="0" runat="server" CssClass="Numeric" /></td>
 		</tr>
 			<tr>
 			<td class="postheader" colspan="4">
@@ -57,7 +57,7 @@
 				<YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="SIG_LENGTH" LocalizedPage="ADMIN_EDITRANK" />
             </td>
 			<td class="post" colspan="6">
-				<asp:TextBox Style="width: 250px" ID="UsrSigChars" runat="server" /></td>
+				<asp:TextBox Style="width: 250px" ID="UsrSigChars" runat="server" CssClass="Numeric" /></td>
 		</tr>
 			<tr>
 			<td class="postheader" colspan="4">
@@ -79,21 +79,21 @@
 				<YAF:HelpLabel ID="HelpLabel10" runat="server" LocalizedTag="ALBUMS_NUMBER" LocalizedPage="ADMIN_EDITRANK" />
             </td>
 			<td class="post" colspan="6">
-				<asp:TextBox Style="width: 250px" ID="UsrAlbums" Text="0" runat="server" /></td>
+				<asp:TextBox Style="width: 250px" ID="UsrAlbums" Text="0" runat="server" CssClass="Numeric" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
 				<YAF:HelpLabel ID="HelpLabel11" runat="server" LocalizedTag="IMAGES_NUMBER" LocalizedPage="ADMIN_EDITRANK" />
             </td>
 			<td class="post" colspan="6">
-				<asp:TextBox Style="width: 250px" ID="UsrAlbumImages" Text="0" runat="server" /></td>
+				<asp:TextBox Style="width: 250px" ID="UsrAlbumImages" Text="0" runat="server" CssClass="Numeric" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
 				<YAF:HelpLabel ID="HelpLabel12" runat="server" LocalizedTag="RANK_PRIO" LocalizedPage="ADMIN_EDITRANK" />
             </td>
 			<td class="post" colspan="6">
-				<asp:TextBox ID="RankPriority" Style="width: 250px" Text="0" runat="server" /></td>
+				<asp:TextBox ID="RankPriority" Style="width: 250px" Text="0" runat="server" CssClass="Numeric" /></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="4">
@@ -107,7 +107,7 @@
 				<YAF:HelpLabel ID="HelpLabel14" runat="server" LocalizedTag="RANK_IMAGE" LocalizedPage="ADMIN_EDITRANK" />
 			</td>
 			<td class="post" colspan="7">
-				<asp:DropDownList Style="width: 250px" ID="RankImage" runat="server" />
+				<asp:DropDownList Style="width: 250px" ID="RankImage" runat="server" CssClass="standardSelectMenu" />
 				<img style="vertical-align:middle" src="" alt="Rank Image" runat="server" id="Preview" />
 			</td>
 		</tr>

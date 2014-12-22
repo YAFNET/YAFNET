@@ -13,7 +13,7 @@
 		</td>
 		<td class="post" width="50%">
 			<asp:TextBox runat="server" ID="UserName" /><asp:DropDownList runat="server" ID="ToList"
-				Visible="false" />
+				Visible="false" CssClass="standardSelectMenu" />
 			<asp:Button runat="server" ID="FindUsers" OnClick="FindUsers_Click" /></td>
 	</tr>
 	<tr>
@@ -21,7 +21,7 @@
 			<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="ACCESSMASK" />
 		</td>
 		<td class="post">
-			<asp:DropDownList runat="server" ID="AccessMaskID" /></td>
+			<asp:DropDownList runat="server" ID="AccessMaskID" CssClass="standardSelectMenu" /></td>
 	</tr>
 	<tr class="footer1">
 		<td colspan="2" align="center">

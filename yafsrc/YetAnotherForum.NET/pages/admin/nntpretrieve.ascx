@@ -44,7 +44,7 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TIME" LocalizedPage="ADMIN_NNTPRETRIEVE" />
 				</td>
 			<td class="post" width="50%">
-				<asp:TextBox runat="server" ID="Seconds" Text="30" />&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="SECONDS" LocalizedPage="ADMIN_NNTPRETRIEVE" /></td>
+				<asp:TextBox runat="server" ID="Seconds" Text="30" CssClass="Numeric" />&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="SECONDS" LocalizedPage="ADMIN_NNTPRETRIEVE" /></td>
 		</tr>
 		<tr>
 			<td colspan="3" align="center" class="footer1">

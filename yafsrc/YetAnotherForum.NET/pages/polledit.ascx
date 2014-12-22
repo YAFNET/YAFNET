@@ -132,7 +132,7 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:DropDownList ID="PollGroupListDropDown" runat="server" CssClass="edit" MaxLength="10" Width="400" />			
+			<asp:DropDownList ID="PollGroupListDropDown" runat="server" CssClass="standardSelectMenu" MaxLength="10" Width="400" />			
 		</td>
 	</tr>
     <tr>

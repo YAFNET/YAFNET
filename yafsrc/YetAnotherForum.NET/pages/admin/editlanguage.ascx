@@ -11,7 +11,7 @@
     <tr>
       <td class="header2" style="text-align:center">
       <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SELECT_PAGE" LocalizedPage="ADMIN_EDITLANGUAGE" />
-	    <asp:DropDownList runat="server" id="dDLPages" ></asp:DropDownList>
+	    <asp:DropDownList runat="server" id="dDLPages" CssClass="standardSelectMenu"></asp:DropDownList>
 	    <asp:Button runat="server" id="btnLoadPageLocalization"/>
       </td>
     </tr>

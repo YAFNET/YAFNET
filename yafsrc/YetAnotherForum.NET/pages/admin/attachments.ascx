@@ -44,7 +44,7 @@
 			<ItemTemplate>
 				<tr class="post">
 					<td>
-						<a target="_top" href='<%# YafBuildLink.GetLink(ForumPages.topics,"f={0}",Eval("ForumID")) %>'>
+						<a target="_top" href='<%# YafBuildLink.GetLink(ForumPages.topics,"f={0}&name={1}",Eval("ForumID"), Eval("ForumName")) %>'>
 							<%# HtmlEncode(Eval("ForumName")) %>
 						</a>
 					</td>
@@ -68,8 +68,14 @@
 					<td align="right">
 						<%# Eval( "Bytes") %>
 					</td>
-					<td>
-						<asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval( "AttachmentID") %>'><%# this.GetText("DELETE")%></asp:LinkButton>
+					<td align="right">
+						<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" 
+                                    CommandName='delete' CommandArgument='<%# Eval( "AttachmentID") %>' 
+                                    TitleLocalizedTag="DELETE" 
+                                    ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON"
+                                    TextLocalizedTag="DELETE"
+                                    OnLoad="Delete_Load"  runat="server">
+                                </YAF:ThemeButton>
 					</td>
 				</tr>
 			</ItemTemplate>
