@@ -2439,7 +2439,7 @@
     <Resource tag="OURAVATAR_SELECT">Klikni sem pre výber personifikácie</Resource>
     <Resource tag="TITLE">Uprav personifikáciu</Resource>
     <Resource tag="WARN_BIGFILE">Obrázok nemôže mať viac ako {0} bajtov.</Resource>
-    <Resource tag="WARN_File size">Váš obrázok mal {0} bajtov.</Resource>
+    <Resource tag="WARN_FILESIZE">Váš obrázok mal {0} bajtov.</Resource>
     <Resource tag="WARN_RESIZED">Veľkosť obrázku bola upravená.</Resource>
     <Resource tag="WARN_SIZE">Váš obrázok meral {0}x{1} pixelov.</Resource>
     <Resource tag="WARN_TOOBIG">Obrázok nemôže byť väčší ako {0}x{1} pixelov.</Resource>

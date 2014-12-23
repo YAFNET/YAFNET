@@ -2451,7 +2451,7 @@
     <Resource tag="OURAVATAR_SELECT">Нажмите здесь, чтобы выбрать аватар</Resource>
     <Resource tag="TITLE">Изменить аватар</Resource>
     <Resource tag="WARN_BIGFILE">Размер вашего изображения не может быть более  {0} байт.</Resource>
-    <Resource tag="WARN_File size">Размер вашего изображения был {0} байт.</Resource>
+    <Resource tag="WARN_FILESIZE">Размер вашего изображения был {0} байт.</Resource>
     <Resource tag="WARN_RESIZED">Размер был изменён, чтобы соответствовать разрешённому.</Resource>
     <Resource tag="WARN_SIZE">Размер вашего изображения был {0}x{1} пикселей.</Resource>
     <Resource tag="WARN_TOOBIG">Размер изображения не должен быть больше чем {0}x{1} пикселей.</Resource>

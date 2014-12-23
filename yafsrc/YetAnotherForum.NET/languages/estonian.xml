@@ -2457,7 +2457,7 @@
     <Resource tag="OURAVATAR_SELECT">Avatari valimiseks kliki siia</Resource>
     <Resource tag="TITLE">Avatari muutmine</Resource>
     <Resource tag="WARN_BIGFILE">Pildi suurus ei tohi ületada {0} baiti.</Resource>
-    <Resource tag="WARN_File size">Pildi suurus oli {0} baiti.</Resource>
+    <Resource tag="WARN_FILESIZE">Pildi suurus oli {0} baiti.</Resource>
     <Resource tag="WARN_RESIZED">Pildi mõõtmed on muudetud.</Resource>
     <Resource tag="WARN_SIZE">Pildi mõõtmed olid {0}x{1} pikselit.</Resource>
     <Resource tag="WARN_TOOBIG">Pildi mõõtmed ei tohi ületada {0}x{1} pikselit.</Resource>

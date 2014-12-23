@@ -219,9 +219,14 @@ namespace YAF
         /// </returns>
         private static bool CheckETag([NotNull] HttpContext context, [NotNull] string eTagCode)
         {
-            string ifNoneMatch = context.Request.Headers["If-None-Match"];
+            var ifNoneMatch = context.Request.Headers["If-None-Match"];
 
-            if (!eTagCode.Equals(ifNoneMatch, StringComparison.Ordinal))
+            if (!eTagCode.Equals(ifNoneMatch, StringComparison.Ordinal) )
+            {
+                return false;
+            }
+
+            if (context.Request.QueryString.GetFirstOrDefault("v") != null)
             {
                 return false;
             }

@@ -2442,7 +2442,7 @@
     <Resource tag="OURAVATAR_SELECT">برای انتخاب عکس اینجا را کلیک کنید</Resource>
     <Resource tag="TITLE">تغییر عکس</Resource>
     <Resource tag="WARN_BIGFILE">اندازه عکس شما نباید بیشتر از {0} بایت باشد.</Resource>
-    <Resource tag="WARN_File size">The size of your image was {0} bytes.</Resource>
+    <Resource tag="WARN_FILESIZE">The size of your image was {0} bytes.</Resource>
     <Resource tag="WARN_FILESIZE">اندازه عکس شما {0} بایت بود.</Resource>
     <Resource tag="WARN_RESIZED">عکس به طور خودکار تغییر اندازه داده شد.</Resource>
     <Resource tag="WARN_SIZE">اندازه عکس انتخابی {0}x{1} پیکسل می باشد.</Resource>

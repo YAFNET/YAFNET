@@ -2479,7 +2479,7 @@
     <Resource tag="OURAVATAR_SELECT">לחץ כאן על מנת לבחור דמות</Resource>
     <Resource tag="TITLE">עדכון דמות</Resource>
     <Resource tag="WARN_BIGFILE">גודל התמונה שלך אינו יכול לעלות על {0} בתים.</Resource>
-    <Resource tag="WARN_File size">גודל התמונה שלך היה {0} בתים.</Resource>
+    <Resource tag="WARN_FILESIZE">גודל התמונה שלך היה {0} בתים.</Resource>
     <Resource tag="WARN_RESIZED">התמונה הוקטנה על מנת להתאים.</Resource>
     <Resource tag="WARN_SIZE">גודל התמונה שלך היה {0}x{1} פיקסלים.</Resource>
     <Resource tag="WARN_TOOBIG">גודל התמונה אינו יכול לעלות על {0}x{1} פיקסלים.</Resource>

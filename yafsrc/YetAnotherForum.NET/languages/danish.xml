@@ -2456,7 +2456,7 @@
     <Resource tag="OURAVATAR_SELECT">Klik her for at vælge en avatar</Resource>
     <Resource tag="TITLE">Ændre avatar</Resource>
     <Resource tag="WARN_BIGFILE">Størrelsen af dit billede kan ikke være mere end {0} bytes.</Resource>
-    <Resource tag="WARN_File size">Størrelsen af dit billede var {0} bytes.</Resource>
+    <Resource tag="WARN_FILESIZE">Størrelsen af dit billede var {0} bytes.</Resource>
     <Resource tag="WARN_RESIZED">Billedet er blevet beskåret så det passer.</Resource>
     <Resource tag="WARN_SIZE">Størrelsen på dit billede var {0}x{1} pixels.</Resource>
     <Resource tag="WARN_TOOBIG">Billedets størrelse må ikke være større end {0}x{1} pixels.</Resource>

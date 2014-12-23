@@ -26,6 +26,7 @@ namespace YAF.Core
 {
     using System;
     using System.Data;
+    using System.IO;
     using System.Linq;
     using System.Web;
     using System.Web.Security;
@@ -111,7 +112,8 @@ namespace YAF.Core
             get
             {
                 return
-                    LegacyDb.user_list(YafContext.Current.PageBoardID, GuestUserId, true).GetFirstRowColumnAsValue<string>("Name", null);
+                    LegacyDb.user_list(YafContext.Current.PageBoardID, GuestUserId, true)
+                        .GetFirstRowColumnAsValue<string>("Name", null);
             }
         }
 
@@ -167,8 +169,7 @@ namespace YAF.Core
                 return false;
             }
 
-            MembershipUser user =
-                GetUser(ObjectExtensions.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
+            MembershipUser user = GetUser(ObjectExtensions.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
             if (!user.IsApproved)
             {
                 user.IsApproved = true;
@@ -189,8 +190,8 @@ namespace YAF.Core
             YafContext.Current.Get<IUserDisplayName>().Clear((int)userId);
             YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.UserListForID.FormatWith(userId));
 
-            var cache = YafContext.Current.Get<IDataCache>().GetOrSet(
-                Constants.Cache.UserSignatureCache, () => new MostRecentlyUsed(250), TimeSpan.FromMinutes(10));
+            var cache = YafContext.Current.Get<IDataCache>()
+                .GetOrSet(Constants.Cache.UserSignatureCache, () => new MostRecentlyUsed(250), TimeSpan.FromMinutes(10));
 
             // remove from the the signature cache...
             cache.Remove((int)userId);
@@ -224,11 +225,13 @@ namespace YAF.Core
                     LegacyDb.user_delete(GetUserIDFromProviderUserKey(user.ProviderUserKey));
                     YafContext.Current.Get<MembershipProvider>().DeleteUser(user.UserName, true);
                     YafContext.Current.Get<ILogger>()
-                              .Log(
-                                  YafContext.Current.PageUserID,
-                                  "UserMembershipHelper.DeleteAllUnapproved",
-                                  "User {0} was deleted by user id {1} as unapproved.".FormatWith(user.UserName, YafContext.Current.PageUserID),
-                                  EventLogTypes.UserDeleted);
+                        .Log(
+                            YafContext.Current.PageUserID,
+                            "UserMembershipHelper.DeleteAllUnapproved",
+                            "User {0} was deleted by user id {1} as unapproved.".FormatWith(
+                                user.UserName,
+                                YafContext.Current.PageUserID),
+                            EventLogTypes.UserDeleted);
                 }
 
                 pageCount++;
@@ -253,7 +256,7 @@ namespace YAF.Core
             }
 
             // Delete the images/albums both from database and physically.
-            string sUpDir =
+            var uploadFolderPath =
                 HttpContext.Current.Server.MapPath(
                     string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
@@ -261,7 +264,32 @@ namespace YAF.Core
             {
                 foreach (DataRow dr in dt.Rows)
                 {
-                    YafAlbum.Album_Image_Delete(sUpDir, dr["AlbumID"], userID, null);
+                    YafAlbum.Album_Image_Delete(uploadFolderPath, dr["AlbumID"], userID, null);
+                }
+            }
+
+            // Check if there are any avatar images in the uploads folder
+            if (!YafContext.Current.Get<YafBoardSettings>().UseFileTable
+                && YafContext.Current.Get<YafBoardSettings>().AvatarUpload)
+            {
+                if (File.Exists(Path.Combine(uploadFolderPath, "{0}.png".FormatWith(userID))))
+                {
+                    File.Delete(Path.Combine(uploadFolderPath, "{0}.png".FormatWith(userID)));
+                }
+
+                if (File.Exists(Path.Combine(uploadFolderPath, "{0}.jpg".FormatWith(userID))))
+                {
+                    File.Delete(Path.Combine(uploadFolderPath, "{0}.jpg".FormatWith(userID)));
+                }
+
+                if (File.Exists(Path.Combine(uploadFolderPath, "{0}.jpeg".FormatWith(userID))))
+                {
+                    File.Delete(Path.Combine(uploadFolderPath, "{0}.jpeg".FormatWith(userID)));
+                }
+
+                if (File.Exists(Path.Combine(uploadFolderPath, "{0}.gif".FormatWith(userID))))
+                {
+                    File.Delete(Path.Combine(uploadFolderPath, "{0}.gif".FormatWith(userID)));
                 }
             }
 
@@ -269,11 +297,13 @@ namespace YAF.Core
             LegacyDb.user_delete(userID);
             YafContext.Current.Get<ILogger>()
                 .Log(
-                YafContext.Current.PageUserID,
+                    YafContext.Current.PageUserID,
                     "UserMembershipHelper.DeleteUser",
-                    "User {0} was deleted by {1}.".FormatWith(userName, isBotAutoDelete ? "the automatic spam check system" : YafContext.Current.PageUserName),
+                    "User {0} was deleted by {1}.".FormatWith(
+                        userName,
+                        isBotAutoDelete ? "the automatic spam check system" : YafContext.Current.PageUserName),
                     EventLogTypes.UserDeleted);
-                
+
             // clear the cache
             YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
             YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
@@ -403,8 +433,8 @@ namespace YAF.Core
         public static MembershipUserCollection GetAllUsers(int pageCount, out int exitCount, int userNumber)
         {
             int totalRecords;
-            MembershipUserCollection muc = YafContext.Current.Get<MembershipProvider>().GetAllUsers(
-                pageCount, 1000, out totalRecords);
+            MembershipUserCollection muc = YafContext.Current.Get<MembershipProvider>()
+                .GetAllUsers(pageCount, 1000, out totalRecords);
             exitCount = totalRecords;
             return muc;
         }
@@ -645,12 +675,12 @@ namespace YAF.Core
             string userName = string.Empty;
 
             DataRow row = GetUserRowForID(userID, true);
-            
+
             if (row == null)
             {
                 return userName;
             }
-            
+
             if (!row["Name"].IsNullOrEmptyDBField())
             {
                 userName = row["Name"].ToString();
@@ -725,10 +755,12 @@ namespace YAF.Core
 
             // get the item cached...
             return
-                YafContext.Current.Get<IDataCache>().GetOrSet(
-                    Constants.Cache.UserListForID.FormatWith(userID),
-                    () => LegacyDb.user_list(boardID, userID, DBNull.Value),
-                    TimeSpan.FromMinutes(5)).GetFirstRow();
+                YafContext.Current.Get<IDataCache>()
+                    .GetOrSet(
+                        Constants.Cache.UserListForID.FormatWith(userID),
+                        () => LegacyDb.user_list(boardID, userID, DBNull.Value),
+                        TimeSpan.FromMinutes(5))
+                    .GetFirstRow();
         }
 
         /// <summary>
@@ -831,15 +863,19 @@ namespace YAF.Core
                 return false;
             }
 
-            MembershipUser user =
-                GetUser(ObjectExtensions.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
+            MembershipUser user = GetUser(ObjectExtensions.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
 
             user.Email = newEmail;
 
             YafContext.Current.Get<MembershipProvider>().UpdateUser(user);
 
             LegacyDb.user_aspnet(
-                YafContext.Current.PageBoardID, user.UserName, null, newEmail, user.ProviderUserKey, user.IsApproved);
+                YafContext.Current.PageBoardID,
+                user.UserName,
+                null,
+                newEmail,
+                user.ProviderUserKey,
+                user.IsApproved);
 
             return true;
         }

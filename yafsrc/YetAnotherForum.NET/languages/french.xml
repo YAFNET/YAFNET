@@ -2455,7 +2455,7 @@
     <Resource tag="OURAVATAR_SELECT">Cliquez ici pour choisir l'Avatar</Resource>
     <Resource tag="TITLE">Modifier l'Avatar</Resource>
     <Resource tag="WARN_BIGFILE">Le poids de l'image ne peut être supérieur à {0} octets.</Resource>
-    <Resource tag="WARN_File size">Le poids de votre image est de {0} octets.</Resource>
+    <Resource tag="WARN_FILESIZE">Le poids de votre image est de {0} octets.</Resource>
     <Resource tag="WARN_RESIZED">L'image a été redimensionnée.</Resource>
     <Resource tag="WARN_SIZE">La taille de l'image est {0}x{1} pixels.</Resource>
     <Resource tag="WARN_TOOBIG">La taille de l'image ne peut être supérieure à {0}x{1} pixels.</Resource>

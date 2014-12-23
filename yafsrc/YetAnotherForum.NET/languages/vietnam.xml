@@ -2439,7 +2439,7 @@
     <Resource tag="OURAVATAR_SELECT">Click vào đây để chọn</Resource>
     <Resource tag="TITLE">Sửa hình đại diện</Resource>
     <Resource tag="WARN_BIGFILE">Dung lương hình không thể lớn hơn {0} bytes.</Resource>
-    <Resource tag="WARN_File size">Hình của bạn có dung lượng {0} bytes.</Resource>
+    <Resource tag="WARN_FILESIZE">Hình của bạn có dung lượng {0} bytes.</Resource>
     <Resource tag="WARN_RESIZED">Hình đã được chỉnh lại kích thước phù hợp.</Resource>
     <Resource tag="WARN_SIZE">Hình của bạn có kích thước {0}x{1} px.</Resource>
     <Resource tag="WARN_TOOBIG">Hình không thể lớn hơn {0}x{1} px.</Resource>

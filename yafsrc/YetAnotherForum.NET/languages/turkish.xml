@@ -2439,7 +2439,7 @@
     <Resource tag="OURAVATAR_SELECT">Avatar seçmek için tıklayın</Resource>
     <Resource tag="TITLE">Avatar Güncelle</Resource>
     <Resource tag="WARN_BIGFILE">Resmin büyüklüğü {0} byte'tan fazla olamaz.</Resource>
-    <Resource tag="WARN_File size">Resmin büyüklüğü {0} bytes.</Resource>
+    <Resource tag="WARN_FILESIZE">Resmin büyüklüğü {0} bytes.</Resource>
     <Resource tag="WARN_RESIZED">Resim uygunluk için boyutlandırıldı.</Resource>
     <Resource tag="WARN_SIZE">Resminizin büyüklüğü {0}x{1} pixel.</Resource>
     <Resource tag="WARN_TOOBIG">Resim büyüklüğü {0}x{1} pixelden büyük olamaz.</Resource>

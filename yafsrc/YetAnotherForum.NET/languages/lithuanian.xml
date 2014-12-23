@@ -2497,7 +2497,7 @@
     </Resource>
     <Resource tag="TITLE">Keisti Avataras </Resource>
     <Resource tag="WARN_BIGFILE">Dydis vaizdo negali būti didesnis nei {0} baitų. </Resource>
-    <Resource tag="WARN_File size">Dydį vaizdus buvo {0} baitų. </Resource>
+    <Resource tag="WARN_FILESIZE">Dydį vaizdus buvo {0} baitų. </Resource>
     <Resource tag="WARN_RESIZED">Vaizdas buvo pakeistas, kad tilptų. </Resource>
     <Resource tag="WARN_SIZE">Dydį vaizdus buvo {0} x {1} pikselių. </Resource>
     <Resource tag="WARN_TOOBIG">

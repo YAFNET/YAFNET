@@ -2457,7 +2457,7 @@
     <Resource tag="OURAVATAR_SELECT">انقر هنا لاختيار الصورة الشخصية</Resource>
     <Resource tag="TITLE">تعديل الصورة الشخصية</Resource>
     <Resource tag="WARN_BIGFILE">لا يمكن أن يكون حجم الصورة أكبر من {0} بايت.</Resource>
-    <Resource tag="WARN_File size">حجم الصورة {0} بايت.</Resource>
+    <Resource tag="WARN_FILESIZE">حجم الصورة {0} بايت.</Resource>
     <Resource tag="WARN_RESIZED">تم تغيير حجم الصورة بشكل مناسب.</Resource>
     <Resource tag="WARN_SIZE">حجم الصورة {0}x{1} بكسل</Resource>
     <Resource tag="WARN_TOOBIG">لا يمكن أن تكون أبعاد الصورة أكبر من {0}x{1} بكسل.</Resource>

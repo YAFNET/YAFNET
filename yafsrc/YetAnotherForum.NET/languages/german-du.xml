@@ -2441,7 +2441,7 @@
     <Resource tag="OURAVATAR_SELECT">Wähle einen Avatar aus unserem Verzeichnis aus.</Resource>
     <Resource tag="TITLE">Avatar bearbeiten</Resource>
     <Resource tag="WARN_BIGFILE">Maximale Dateigröße eines Bildes {0} Byte.</Resource>
-    <Resource tag="WARN_File size">Die originale Dateigröße war: {0} Byte.</Resource>
+    <Resource tag="WARN_FILESIZE">Die originale Dateigröße war: {0} Byte.</Resource>
     <Resource tag="WARN_RESIZED">Die Bildgröße wurde angepasst.</Resource>
     <Resource tag="WARN_SIZE">Originalgröße Deines Bildes {0}x{1} Pixel.</Resource>
     <Resource tag="WARN_TOOBIG">Maximale Bildgröße: {0}x{1} Pixel.</Resource>

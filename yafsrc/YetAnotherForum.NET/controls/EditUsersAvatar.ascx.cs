@@ -142,7 +142,8 @@ namespace YAF.Controls
                 LegacyDb.user_saveavatar(
                     this._currentUserID,
                     "{0}{1}".FormatWith(
-                        BaseUrlBuilder.BaseUrl, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("av")),
+                        BaseUrlBuilder.BaseUrl,
+                        this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("av")),
                     null,
                     null);
 
@@ -232,10 +233,11 @@ namespace YAF.Controls
                 {
                     if (img.Width > x || img.Height > y)
                     {
-                        this.PageContext.AddLoadMessage(this.GetText("CP_EDITAVATAR", "WARN_TOOBIG").FormatWith(x, y));
                         this.PageContext.AddLoadMessage(
-                            this.GetText("CP_EDITAVATAR", "WARN_SIZE").FormatWith(img.Width, img.Height));
-                        this.PageContext.AddLoadMessage(this.GetText("CP_EDITAVATAR", "WARN_RESIZED"));
+                            "{0} {1} {2}".FormatWith(
+                                this.GetTextFormatted("WARN_TOOBIG", x, y),
+                                this.GetTextFormatted("WARN_SIZE", img.Width, img.Height),
+                                this.GetText("CP_EDITAVATAR", "WARN_RESIZED")));
 
                         resized = ImageHelper.GetResizedImageStreamFromImage(img, x, y);
                     }
@@ -244,11 +246,60 @@ namespace YAF.Controls
                 // Delete old first...
                 LegacyDb.user_deleteavatar(this._currentUserID);
 
-                LegacyDb.user_saveavatar(
-                    this._currentUserID,
-                    null,
-                    resized ?? this.File.PostedFile.InputStream,
-                    this.File.PostedFile.ContentType);
+                if (this.Get<YafBoardSettings>().UseFileTable)
+                {
+                    LegacyDb.user_saveavatar(
+                        this._currentUserID,
+                        null,
+                        resized ?? this.File.PostedFile.InputStream,
+                        this.File.PostedFile.ContentType);
+                }
+                else
+                {
+                    var uploadFolderPath =
+                        this.Get<HttpRequestBase>()
+                            .MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+
+                    // check if Uploads folder exists
+                    if (!Directory.Exists(uploadFolderPath))
+                    {
+                        Directory.CreateDirectory(uploadFolderPath);
+                    }
+
+                    var fileName = this.File.PostedFile.FileName;
+
+                    int pos = fileName.LastIndexOfAny(new[] { '/', '\\' });
+                    if (pos >= 0)
+                    {
+                        fileName = fileName.Substring(pos + 1);
+                    }
+
+                    // filename can be only 255 characters long (due to table column)
+                    if (fileName.Length > 255)
+                    {
+                        fileName = fileName.Substring(fileName.Length - 255);
+                    }
+
+                    var newFileName = "{0}{1}".FormatWith(_currentUserID, Path.GetExtension(fileName));
+
+                    var filePath = Path.Combine(uploadFolderPath, newFileName);
+
+                    // Delete old avatar
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
+
+                    var avatarImage = Image.FromStream(resized ?? this.File.PostedFile.InputStream);
+
+                    avatarImage.Save(filePath, avatarImage.RawFormat);
+
+                    LegacyDb.user_saveavatar(
+                        this._currentUserID,
+                        "{0}{1}/{2}".FormatWith(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Uploads, newFileName),
+                        null,
+                        null);
+                }
 
                 // clear the cache for this user...
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this._currentUserID));
@@ -256,26 +307,18 @@ namespace YAF.Controls
                 if (nAvatarSize > 0 && this.File.PostedFile.ContentLength >= nAvatarSize && resized == null)
                 {
                     this.PageContext.AddLoadMessage(
-                        this.GetText("CP_EDITAVATAR", "WARN_BIGFILE").FormatWith(nAvatarSize));
-                    this.PageContext.AddLoadMessage(
-                        this.GetText("CP_EDITAVATAR", "WARN_FILESIZE").FormatWith(this.File.PostedFile.ContentLength));
+                        "{0} {1}".FormatWith(
+                            this.GetTextFormatted("WARN_BIGFILE", nAvatarSize),
+                            this.GetTextFormatted("WARN_FILESIZE", this.File.PostedFile.ContentLength)));
                 }
 
-                this.AvatarImg.ImageUrl = "{0}resource.ashx?u={1}&upd={2}".FormatWith(
-                    YafForumInfo.ForumClientFileRoot, this._currentUserID, DateTime.Now.Ticks);
-
-                if (this.AvatarImg.ImageUrl.IsSet())
-                {
-                    this.NoAvatar.Visible = false;
-                }
+                this.BindData();
             }
             catch (Exception)
             {
                 // image is probably invalid...
                 this.PageContext.AddLoadMessage(this.GetText("CP_EDITAVATAR", "INVALID_FILE"));
             }
-
-            // this.BindData();
         }
 
         /// <summary>
@@ -295,11 +338,13 @@ namespace YAF.Controls
             this.DeleteAvatar.Visible = false;
             this.NoAvatar.Visible = false;
 
-            if (this.Get<YafBoardSettings>().AvatarUpload && row["HasAvatarImage"] != null
+            if (row["HasAvatarImage"] != null
                 && long.Parse(row["HasAvatarImage"].ToString()) > 0)
             {
-                this.AvatarImg.ImageUrl = "{0}resource.ashx?u={1}".FormatWith(
-                    YafForumInfo.ForumClientFileRoot, this._currentUserID);
+                this.AvatarImg.ImageUrl = "{0}resource.ashx?u={1}&v={2}".FormatWith(
+                    YafForumInfo.ForumClientFileRoot,
+                    this._currentUserID,
+                    DateTime.Now.Ticks);
                 this.Avatar.Text = string.Empty;
                 this.DeleteAvatar.Visible = true;
             }
@@ -307,11 +352,12 @@ namespace YAF.Controls
             {
                 // Took out PageContext.BoardSettings.AvatarRemote
                 this.AvatarImg.ImageUrl =
-                    "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
+                    "{3}resource.ashx?url={0}&width={1}&height={2}&v={4}".FormatWith(
                         this.Server.UrlEncode(row["Avatar"].ToString()),
                         this.Get<YafBoardSettings>().AvatarWidth,
                         this.Get<YafBoardSettings>().AvatarHeight,
-                        YafForumInfo.ForumClientFileRoot);
+                        YafForumInfo.ForumClientFileRoot,
+                        DateTime.Now.Ticks);
 
                 this.Avatar.Text = row["Avatar"].ToString();
                 this.DeleteAvatar.Visible = true;
@@ -330,14 +376,16 @@ namespace YAF.Controls
                 string emailHash = s.ToString();
 
                 string gravatarUrl = "http://www.gravatar.com/avatar/{0}.jpg?r={1}".FormatWith(
-                    emailHash, this.Get<YafBoardSettings>().GravatarRating);
+                    emailHash,
+                    this.Get<YafBoardSettings>().GravatarRating);
 
                 this.AvatarImg.ImageUrl =
-                    "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
+                    "{3}resource.ashx?url={0}&width={1}&height={2}&v={4}".FormatWith(
                         this.Server.UrlEncode(gravatarUrl),
                         this.Get<YafBoardSettings>().AvatarWidth,
                         this.Get<YafBoardSettings>().AvatarHeight,
-                        YafForumInfo.ForumClientFileRoot);
+                        YafForumInfo.ForumClientFileRoot,
+                        DateTime.Now.Ticks);
 
                 this.NoAvatar.Text = "Gravatar Image";
                 this.NoAvatar.Visible = true;

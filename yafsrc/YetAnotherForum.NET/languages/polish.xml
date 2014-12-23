@@ -2460,7 +2460,7 @@
     <Resource tag="OURAVATAR_SELECT">Kliknij tutaj, aby wybrać avatar</Resource>
     <Resource tag="TITLE">Modyfikuj avatar</Resource>
     <Resource tag="WARN_BIGFILE">Rozmiar obrazu nie może być większy niż {0} bytes.</Resource>
-    <Resource tag="WARN_File size">Rozmiar Twojego obrazu to {0} bytes.</Resource>
+    <Resource tag="WARN_FILESIZE">Rozmiar Twojego obrazu to {0} bytes.</Resource>
     <Resource tag="WARN_RESIZED">Obraz został przeskalowany w celu dopasowania.</Resource>
     <Resource tag="WARN_SIZE">Rozmiar Twojego obrazu to {0}x{1} pikseli.</Resource>
     <Resource tag="WARN_TOOBIG">Rozmiar obrazu nie może być większy niż {0}x{1} pikseli.</Resource>

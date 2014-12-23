@@ -2444,7 +2444,7 @@
     <Resource tag="OURAVATAR_SELECT">Selecteer uit onze avatar-galerij</Resource>
     <Resource tag="TITLE">Avatar wijzigen</Resource>
     <Resource tag="WARN_BIGFILE">De bestandsgrootte van je afbeelding mag maximaal {0} bytes bedragen.</Resource>
-    <Resource tag="WARN_File size">De bestandsgrootte van je afbeelding is {0} bytes.</Resource>
+    <Resource tag="WARN_FILESIZE">De bestandsgrootte van je afbeelding is {0} bytes.</Resource>
     <Resource tag="WARN_RESIZED">De afmetingen van je afbeelding zijn aangepast.</Resource>
     <Resource tag="WARN_SIZE">De afmetingen van je afbeelding zijn {0}x{1} pixels.</Resource>
     <Resource tag="WARN_TOOBIG">De afmeting van je afbeelding mag niet meer dan {0}x{1} pixels bedragen.</Resource>
