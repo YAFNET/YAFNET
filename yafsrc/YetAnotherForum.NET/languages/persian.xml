@@ -1412,6 +1412,8 @@
     <Resource tag="SHOW_SHOUTBOX_HELP">فعال یا غیرفعال گردن ماژوول چت.</Resource>
     <Resource tag="SHOW_SHOUTBOX_SMILIES">نمایش خندانک های جعبه گفتگو:</Resource>
     <Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">نمایش یا عدم نمایش خندانک های اتاق گفتگو (چت روم).</Resource>
+    <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
+    <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">نمایش تاریخ تشکر کاربر:</Resource>
     <Resource tag="SHOW_THANK_DATE_HELP">قبلا حالت تشکر باید فعال باشد.</Resource>
     <Resource tag="SHOW_TODAYS_BIRTHDAYS">Show Todays Birthdays in Forum Info:</Resource>
@@ -4611,6 +4613,7 @@
     <Resource tag="RSSTOPIC">اشتراک عنوان</Resource>
     <Resource tag="SHARE">Share</Resource>
     <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr.</Resource>
+    <Resource tag="SIMILAR_TOPICS">Similar Topics</Resource>
     <Resource tag="SKYPE">اسکایپ</Resource>
     <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
     <Resource tag="STATISTICS">آمار</Resource>

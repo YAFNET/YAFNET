@@ -6,6 +6,7 @@
 <%@ Register TagPrefix="YAF" TagName="DisplayPost" Src="../controls/DisplayPost.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayAd" Src="../controls/DisplayAd.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PollList" Src="../controls/PollList.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="SimilarTopics" Src="../controls/SimilarTopics.ascx" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:PollList ID="PollList" TopicId='<%# PageContext.PageTopicID %>' ShowButtons='<%# ShowPollButtons() %>' Visible='<%# PollGroupId() > 0 %>' PollGroupId='<%# PollGroupId() %>' runat="server"/>
 <a id="top"  name="top"></a>
@@ -173,6 +174,8 @@
 <table class="content postForumUsers" width="100%">
     <YAF:ForumUsers ID="ForumUsers1" runat="server" />
 </table>
+<YAF:SimilarTopics ID="SimilarTopics"  runat="server" Topic='<%# PageContext.PageTopicName %>' TopicID='<%# PageContext.PageTopicID %>'>
+</YAF:SimilarTopics>
 <table cellpadding="0" cellspacing="0" class="command" width="100%">
     <tr>
         <td align="left">

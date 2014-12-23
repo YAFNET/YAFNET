@@ -1118,6 +1118,12 @@ DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_simplelist]
 GO
 
 IF EXISTS (select top 1 1 from sys.objects
+           WHERE  object_id = Object_id(N'[{databaseOwner}].[{objectQualifier}topic_similarlist]')
+           AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_similarlist] 
+GO
+
+IF EXISTS (select top 1 1 from sys.objects
            WHERE  object_id = Object_id(N'[{databaseOwner}].[{objectQualifier}user_simplelist]')
            AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_simplelist] 
@@ -1271,7 +1277,7 @@ GO
 
 IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}album_image_save]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}album_image_save]
-GO
+Go
 
 IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}album_image_list]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}album_image_list]
@@ -1471,7 +1477,7 @@ AS
                 AND x.ReadAccess <> 0
         ORDER BY c.Posted DESC
     END
-GO
+Go
 /* End of procedures for "Thanks" Mod */
 
 create procedure [{databaseOwner}].[{objectQualifier}accessmask_delete](@AccessMaskID int) as
@@ -2410,6 +2416,8 @@ BEGIN
         Forums = 1,	
         LastPostInfoID	= 1,
         LastPost	= null,
+        LastPostTopic   = null,
+        LastPostID      = null,
         LastUserID	= null,
         LastUser	= null,
         LastUserDisplayName	= null,
@@ -3460,7 +3468,7 @@ begin
                                                                                 and t.IsDeleted <> 1) as t
     where   f.ForumID = isnull(@ForumID, f.ForumID);
 end
-GO
+go
 
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}forumaccess_group](@GroupID int) as
@@ -3769,7 +3777,7 @@ begin
 
 	delete from [{databaseOwner}].[{objectQualifier}Mail] where ProcessID = @ProcessID
 end
-GO
+go
 
 create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID int) as begin
     
@@ -6831,7 +6839,7 @@ where a.ForumID = @ForumID and
 
 order by a.Posted desc
 end
-GO
+go
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_latest_in_category]
 (
@@ -9268,6 +9276,38 @@ AS
     END
 GO
 
+create procedure [{databaseOwner}].[{objectQualifier}topic_similarlist](
+                @PageUserID int,
+                @Topic   nvarchar(100),
+				@TopicID int,
+                @Count   int,
+                @StyledNicks bit = 0)
+as
+    begin
+        select top(@Count) 
+		t.Topic,
+        t.TopicID,
+        t.ForumID,
+        ForumName = f.Name,
+        t.UserID,
+        StarterName = u.Name,
+        StarterDisplayName = u.DisplayName,
+        StarterStyle = case(@StyledNicks)
+            when 1 then  u.UserStyle
+            else ''	 end,
+        t.Posted
+        from     [{databaseOwner}].[{objectQualifier}Topic] t
+		inner join [{databaseOwner}].[{objectQualifier}Forum] f on t.ForumID= f.ForumID
+        inner join [{databaseOwner}].[{objectQualifier}User] u on t.UserID = u.UserID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=f.ForumID
+        where    t.[Topic] like '%' + @Topic + '%'
+        and t.[TopicID] != @TopicID
+        and x.UserID = @PageUserID
+        and CONVERT(int,x.ReadAccess) <> 0
+        order by t.[TopicID]        
+    end
+go
+
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_simplelist](
                 @StartID INT  = 0,
                 @Limit   INT  = 500)
@@ -10273,7 +10313,7 @@ BEGIN
                                 (@UserID, @TopicID)
     END
 END
-GO
+Go
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_favorite_remove] 
     @UserID int,
@@ -11606,4 +11646,3 @@ GO
 
 exec('[{databaseOwner}].[{objectQualifier}init_styles]')
 GO
-

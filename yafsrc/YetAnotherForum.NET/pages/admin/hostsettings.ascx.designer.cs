@@ -2416,24 +2416,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox RecaptchaPrivateKey;
         
         /// <summary>
-        /// HelpLabel181 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel181;
-        
-        /// <summary>
-        /// RecaptureMultipleInstances control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox RecaptureMultipleInstances;
-        
-        /// <summary>
         /// HelpLabel146 control.
         /// </summary>
         /// <remarks>
@@ -2936,6 +2918,24 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ShowBrowsingUsers;
+        
+        /// <summary>
+        /// HelpLabel181 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel181;
+        
+        /// <summary>
+        /// ShowSimilarTopics control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowSimilarTopics;
         
         /// <summary>
         /// HelpLabel171 control.

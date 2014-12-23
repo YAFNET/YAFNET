@@ -1417,6 +1417,8 @@
     <Resource tag="SHOW_SHOUTBOX_HELP">Activar o desactivar el mostrar el chat en la página del foro.</Resource>
     <Resource tag="SHOW_SHOUTBOX_SMILIES">Mostrar smilies en el chat:</Resource>
     <Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">Activar o desactivar el mostrar los smilies del chat.</Resource>
+    <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
+    <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">Mostrar la fecha en la que cada usuario a agradecido una publicación:</Resource>
     <Resource tag="SHOW_THANK_DATE_HELP">Si está marcado, los usuarios podrán ver en qué fecha una publicación ha sido agradecida. (El módulo de agradecimiento debe estar activado primero.)</Resource>
     <Resource tag="SHOW_TODAYS_BIRTHDAYS">Mostrar los cumpleaños de hoy en la información del foro:</Resource>
@@ -4934,6 +4936,7 @@ public class Hello1
     <Resource tag="RSSTOPIC">RSS</Resource>
     <Resource tag="SHARE">Compartir</Resource>
     <Resource tag="SHARE_TOOLTIP">Comparte este tema a través de email, Twitter, Google+, Facebook, Digg, Reddit o Tumblr.</Resource>
+    <Resource tag="SIMILAR_TOPICS">Similar Topics</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="SKYPE_TITLE">Contactar con {0} a través de Skype</Resource>
     <Resource tag="STATISTICS">Estadísticas</Resource>
