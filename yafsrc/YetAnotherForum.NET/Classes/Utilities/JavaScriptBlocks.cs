@@ -607,7 +607,7 @@ namespace YAF.Utilities
             return
                 @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadGotoAnchor);
             function loadGotoAnchor() {{
-               window.location.hash = ""{0}"";               
+               document.getElementById('{0}').scrollIntoView();       
 			      }}"
                     .FormatWith(anchor);
         }

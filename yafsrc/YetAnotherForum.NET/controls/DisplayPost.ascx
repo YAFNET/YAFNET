@@ -19,7 +19,7 @@
     </td>
     <td width="80%" class="postPosted" colspan='<%#GetIndentSpan()%>'>
         <div class="leftItem postedLeft">        
-            <strong><a name="post<%# DataRow["MessageID"] %>" href='<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}",DataRow["MessageID"]) %>'>
+            <strong><a id/>="post<%# DataRow["MessageID"] %>" name="post<%# DataRow["MessageID"] %>" href='<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}",DataRow["MessageID"]) %>'>
                 #<%# (CurrentPage * this.Get<YafBoardSettings>().PostsPerPage) + PostCount + 1%></a>
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="POSTED" />
                 :</strong>
