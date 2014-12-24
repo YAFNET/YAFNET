@@ -248,11 +248,13 @@ namespace YAF.Controls
 
                 if (this.Get<YafBoardSettings>().UseFileTable)
                 {
-                    LegacyDb.user_saveavatar(
-                        this._currentUserID,
-                        null,
-                        resized ?? this.File.PostedFile.InputStream,
-                        this.File.PostedFile.ContentType);
+                    var image = Image.FromStream(resized ?? this.File.PostedFile.InputStream);
+
+                    var memoryStream = new MemoryStream();
+                    image.Save(memoryStream, image.RawFormat);
+                    memoryStream.Position = 0;
+
+                    LegacyDb.user_saveavatar(this._currentUserID, null, memoryStream, this.File.PostedFile.ContentType);
                 }
                 else
                 {
