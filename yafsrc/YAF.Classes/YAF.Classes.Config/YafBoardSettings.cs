@@ -4039,6 +4039,22 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether Show Similar Topics.
+        /// </summary>
+        public bool ShowSimilarTopics
+        {
+            get
+            {
+                return this._reg.GetValue("ShowSimilarTopics", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("ShowSimilarTopics", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether ShowMedals.
         /// </summary>
         public bool ShowMedals
