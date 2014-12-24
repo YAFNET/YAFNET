@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using YAF.Utils.Helpers;
-
 namespace YAF.Controls
 {
     #region Using
@@ -33,12 +31,14 @@ namespace YAF.Controls
     using System.Data;
     using System.Web.UI.WebControls;
 
+    using YAF.Classes;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -86,7 +86,7 @@ namespace YAF.Controls
             {
                 output =
                     "<a href=\"{0}\" title=\"{1}\" >{2}</a>".FormatWith(
-                        YafBuildLink.GetLink(ForumPages.topics, "f={0}", forumID),
+                        YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output),
                         this.GetText("COMMON", "VIEW_FORUM"),
                         output);
             }
@@ -104,55 +104,73 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// The subforum list_ item created.
+        /// Handles the ItemCreated event of the SubForumList control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RepeaterItemEventArgs"/> instance containing the event data.</param>
         protected void SubforumList_ItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
         {
-            if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
+            switch (e.Item.ItemType)
             {
-                return;
-            }
+                case ListItemType.Item:
+                case ListItemType.AlternatingItem:
+                    {
+                        var row = e.Item.DataItem.ToType<DataRow>();
+                        var lastRead = this.Get<IReadTrackCurrentUser>()
+                            .GetForumRead(
+                                row["ForumID"].ToType<int>(),
+                                row["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
 
-            var row = (DataRow)e.Item.DataItem;
+                        var lastPosted = row["LastPosted"].ToType<DateTime?>() ?? lastRead;
 
-            DateTime lastRead = this.Get<IReadTrackCurrentUser>().GetForumRead(
-                row["ForumID"].ToType<int>(), row["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
+                        var subForumIcon = e.Item.FindControl("ThemeSubforumIcon") as ThemeImage;
 
-            DateTime lastPosted = row["LastPosted"].ToType<DateTime?>() ?? lastRead;
+                        if (subForumIcon == null)
+                        {
+                            return;
+                        }
 
-            var subForumIcon = e.Item.FindControl("ThemeSubforumIcon") as ThemeImage;
+                        try
+                        {
+                            if (lastPosted > lastRead)
+                            {
+                                subForumIcon.ThemeTag = "SUBFORUM_NEW";
+                                subForumIcon.LocalizedTitlePage = "ICONLEGEND";
+                                subForumIcon.LocalizedTitleTag = "NEW_POSTS";
+                            }
+                            else
+                            {
+                                subForumIcon.ThemeTag = "SUBFORUM";
+                                subForumIcon.LocalizedTitlePage = "ICONLEGEND";
+                                subForumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
+                            }
+                        }
+                        catch
+                        {
+                            subForumIcon.ThemeTag = "SUBFORUM";
+                            subForumIcon.LocalizedTitlePage = "ICONLEGEND";
+                            subForumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
+                        }
+                    }
 
-            if (subForumIcon == null)
-            {
-                return;
-            }
+                    break;
+                case ListItemType.EditItem:
+                    break;
+                case ListItemType.Footer:
+                    {
+                        var repeater = sender as Repeater;
+                        var dataSource = repeater.DataSource.ToType<IEnumerable>();
 
-            try
-            {
-                if (lastPosted > lastRead)
-                {
-                    subForumIcon.ThemeTag = "SUBFORUM_NEW";
-                    subForumIcon.LocalizedTitlePage = "ICONLEGEND";
-                    subForumIcon.LocalizedTitleTag = "NEW_POSTS";
-                }
-                else
-                {
-                    subForumIcon.ThemeTag = "SUBFORUM";
-                    subForumIcon.LocalizedTitlePage = "ICONLEGEND";
-                    subForumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
-                }
-            }
-            catch
-            {
-                subForumIcon.ThemeTag = "SUBFORUM";
-                subForumIcon.LocalizedTitlePage = "ICONLEGEND";
-                subForumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
+                        if (dataSource != null
+                            && dataSource.ToType<ArrayList>().Count >= this.Get<YafBoardSettings>().SubForumsInForumList)
+                        {
+                            e.Item.FindControl("CutOff").Visible = true;
+                        }
+                    }
+
+                    break;
+                default:
+                    return;
             }
         }
 

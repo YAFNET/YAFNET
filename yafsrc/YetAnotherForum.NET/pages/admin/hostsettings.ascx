@@ -1384,6 +1384,15 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel236" runat="server" LocalizedTag="AMOUNT_OF_SUBFORUMS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:TextBox Style="width:350px" ID="SubForumsInForumList" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                    
+                    <tr>
                         <td class="header1" colspan="2">
                             <YAF:LocalizedLabel ID="LocalizedLabel36" runat="server" LocalizedTag="HEADER_SHOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>

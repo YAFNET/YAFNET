@@ -1335,6 +1335,8 @@
   <Resource tag="SERVER_VERSION_HELP">What version of SQL Server is running.</Resource>
   <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
   <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;</Resource>
+  <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
+  <Resource tag="AMOUNT_OF_SUBFORUMS">The amount of Sub Forums In Forums List.</Resource>
   <Resource tag="APP_OS_NAME">Operating System:</Resource>
   <Resource tag="APP_OS_NAME_HELP">What version of operating system is running.</Resource>
   <Resource tag="APP_RUNTIME">.NET Runtime Version:</Resource>

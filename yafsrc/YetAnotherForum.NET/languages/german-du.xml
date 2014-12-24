@@ -1014,6 +1014,7 @@
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">Wen aktiviert können Benutzer Bilder als Umfrage Optionen verwenden</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR">Benutzern erlauben, Text-Editor auszuwählen</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Benutzern erlauben, Text-Editor in den Profileinstellungen auszuwählen</Resource>
+    <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
     <Resource tag="APP_CORES">Prozessorkerne:</Resource>
     <Resource tag="APP_CORES_HELP">Anzahl der Prozessorkerne.</Resource>
     <Resource tag="APP_MEMORY">Anwendungspeicher:</Resource>

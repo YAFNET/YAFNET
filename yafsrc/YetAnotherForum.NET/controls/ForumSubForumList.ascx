@@ -8,6 +8,7 @@
         <YAF:ThemeImage ID="ThemeSubforumIcon" runat="server" /> <%# GetForumLink((System.Data.DataRow)Container.DataItem) %></ItemTemplate>
     <SeparatorTemplate>, </SeparatorTemplate>
     <FooterTemplate>
-				</div>        
-    </FooterTemplate>
+            <asp:Label Text="..." Visible="false" ID="CutOff" runat="server" />
+        </div>
+</FooterTemplate>
 </asp:Repeater>

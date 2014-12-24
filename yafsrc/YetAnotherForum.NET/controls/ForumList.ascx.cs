@@ -58,6 +58,11 @@ namespace YAF.Controls
         /// </summary>
         private string _altLastPost;
 
+        /// <summary>
+        /// The Data Source
+        /// </summary>
+        private IEnumerable _dataSource;
+
         #endregion
 
         #region Properties
@@ -78,10 +83,6 @@ namespace YAF.Controls
                 this._altLastPost = value;
             }
         }
-
-        /// <summary>
-        /// </summary>
-        private IEnumerable _dataSource;
 
         /// <summary>
         ///   Gets or sets DataSource.
@@ -207,7 +208,7 @@ namespace YAF.Controls
             {
                 output =
                     "<a href=\"{0}\" title=\"{1}\">{2}</a>".FormatWith(
-                        YafBuildLink.GetLink(ForumPages.topics, "f={0}", forumID),
+                        YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output),
                         this.GetText("COMMON", "VIEW_FORUM"),
                         this.Page.HtmlEncode(output));
             }
@@ -225,14 +226,10 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// The forum list 1_ item created.
+        /// Handles the ItemCreated event of the ForumList1 control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RepeaterItemEventArgs"/> instance containing the event data.</param>
         protected void ForumList1_ItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
@@ -244,11 +241,12 @@ namespace YAF.Controls
             var flags = new ForumFlags(row["Flags"]);
 
             DateTime lastRead =
-                this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                    forumId: row["ForumID"].ToType<int>(),
-                    topicId: row["LastTopicID"].ToType<int>(),
-                    forumReadOverride: row["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
-                    topicReadOverride: row["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
+                this.Get<IReadTrackCurrentUser>()
+                    .GetForumTopicRead(
+                        forumId: row["ForumID"].ToType<int>(),
+                        topicId: row["LastTopicID"].ToType<int>(),
+                        forumReadOverride: row["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
+                        topicReadOverride: row["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
 
             DateTime lastPosted = row["LastPosted"].ToType<DateTime?>() ?? lastRead;
 
@@ -294,7 +292,9 @@ namespace YAF.Controls
                 if (forumImage != null)
                 {
                     forumImage.Src = "{0}{1}/{2}".FormatWith(
-                        YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums, row["ImageUrl"].ToString());
+                        YafForumInfo.ForumServerFileRoot,
+                        YafBoardFolders.Current.Forums,
+                        row["ImageUrl"].ToString());
 
                     // TODO: vzrus: needs to be moved to css and converted to a more light control in the future.
                     // Highlight custom icon images and add tool tips to them. 
@@ -360,22 +360,24 @@ namespace YAF.Controls
                 var moderatorColumn = e.Item.FindControl("ModeratorListTD") as HtmlTableCell;
                 var modList = e.Item.FindControl("ModeratorList") as ForumModeratorList;
 
-                if (modList != null)
+                if (modList == null)
                 {
-                    var dra = row.GetChildRows("FK_Moderator_Forum");
+                    return;
+                }
 
-                    if (dra.GetLength(0) > 0)
-                    {
-                        modList.DataSource = dra;
-                        modList.Visible = true;
-                        modList.DataBind();
-                    }
+                var dra = row.GetChildRows("FK_Moderator_Forum");
 
-                    // set them as visible...
-                    if (moderatorColumn != null)
-                    {
-                        moderatorColumn.Visible = true;
-                    }
+                if (dra.GetLength(0) > 0)
+                {
+                    modList.DataSource = dra;
+                    modList.Visible = true;
+                    modList.DataBind();
+                }
+
+                // set them as visible...
+                if (moderatorColumn != null)
+                {
+                    moderatorColumn.Visible = true;
                 }
             }
             else
@@ -427,11 +429,16 @@ namespace YAF.Controls
         {
             string output;
 
-            if ((int)row["IsGroup"] == 0)
+            if (row["IsGroup"].ToType<int>() == 0)
             {
                 output =
                     "<a href=\"{0}\">{1}</a>".FormatWith(
-                        YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", row["ModeratorID"], row["ModeratorName"]), row["ModeratorName"]);
+                        YafBuildLink.GetLink(
+                            ForumPages.profile,
+                            "u={0}&name={1}",
+                            row["ModeratorID"],
+                            row["ModeratorName"]),
+                        row["ModeratorName"]);
             }
             else
             {
@@ -457,7 +464,7 @@ namespace YAF.Controls
         [NotNull]
         protected string GetModeratorsFooter([NotNull] Repeater sender)
         {
-            if (sender.DataSource != null && sender.DataSource is DataRow[] && ((DataRow[])sender.DataSource).Length < 1)
+            if (sender.DataSource is DataRow[] && ((DataRow[])sender.DataSource).Length < 1)
             {
                 return "-";
             }
@@ -466,33 +473,31 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Gets the subforums.
+        /// Gets the sub Forums.
         /// </summary>
-        /// <param name="row">
-        /// The row.
-        /// </param>
-        /// <returns>
-        /// The get subforums.
-        /// </returns>
+        /// <param name="row">The row.</param>
+        /// <returns>Returns the Sub Forums</returns>
         protected IEnumerable GetSubforums([NotNull] DataRow row)
         {
-            if (this.HasSubforums(row))
+            if (!this.HasSubforums(row))
             {
-                ArrayList arlist = new ArrayList();
-
-                foreach (
-                    DataRow subrow in
-                        this.SubDataSource.Rows.Cast<DataRow>().Where(
-                            subrow => row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>()))
-                {
-                    arlist.Add(subrow);
-                }
-
-                this.SubDataSource.AcceptChanges();
-                return arlist;
+                return null;
             }
 
-            return null;
+            var arlist = new ArrayList();
+
+            foreach (
+                DataRow subrow in
+                    this.SubDataSource.Rows.Cast<DataRow>()
+                        .Where(subrow => row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>())
+                        .Where(subrow => arlist.Count < this.Get<YafBoardSettings>().SubForumsInForumList))
+            {
+                arlist.Add(subrow);
+            }
+
+            this.SubDataSource.AcceptChanges();
+
+            return arlist;
         }
 
         /// <summary>
@@ -511,41 +516,34 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Determines whether the specified row has subforums.
+        /// Determines whether the specified row has sub forums.
         /// </summary>
         /// <param name="row">The row.</param>
         /// <returns>
-        /// The has subforums.
+        /// The has sub forums.
         /// </returns>
         protected bool HasSubforums([NotNull] DataRow row)
         {
             return this.SubDataSource != null
-                   &&
-                   this.SubDataSource.Rows.Cast<DataRow>().Any(
-                       subrow => row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>());
+                   && this.SubDataSource.Rows.Cast<DataRow>()
+                          .Any(subrow => row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>());
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.AltLastPost = this.GetText("DEFAULT", "GO_LAST_POST");
         }
 
         /// <summary>
-        /// Postses the specified _o.
+        /// Gets the Posts string
         /// </summary>
         /// <param name="_o">The _o.</param>
-        /// <returns>
-        /// The posts.
-        /// </returns>
+        /// <returns>Returns the Posts string</returns>
         protected string Posts([NotNull] object _o)
         {
             var row = (DataRow)_o;
@@ -554,12 +552,10 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Topicses the specified _o.
+        /// Gets the Topics string
         /// </summary>
         /// <param name="_o">The _o.</param>
-        /// <returns>
-        /// The topics.
-        /// </returns>
+        /// <returns>Returns the Topics string</returns>
         protected string Topics([NotNull] object _o)
         {
             var row = (DataRow)_o;

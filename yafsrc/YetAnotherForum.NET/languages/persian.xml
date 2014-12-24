@@ -1019,6 +1019,7 @@
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">با انتخاب این گزینه کاربران می توانند به جای گزینه ها از تص.یر استفاده کنند.</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR">به کاربر مجوز بکارگیری ویرایشگر متنی را می دهد</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">به کاربر مجوز بکارگیری ویرایشگر متنی را در پروفایلشان می دهد</Resource>
+    <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
     <Resource tag="APP_CORES">Processor Cores:</Resource>
     <Resource tag="APP_CORES_HELP">Number of Processor cores.</Resource>
     <Resource tag="APP_MEMORY">Application memory:</Resource>

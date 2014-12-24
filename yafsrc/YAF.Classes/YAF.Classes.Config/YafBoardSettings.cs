@@ -1286,6 +1286,22 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets the amount of Sub Forums In Forums List.
+        /// </summary>
+        public int SubForumsInForumList
+        {
+            get
+            {
+                return this._reg.GetValue("SubForumsInForumList", 5);
+            }
+
+            set
+            {
+                this._reg.SetValue("SubForumsInForumList", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets TopicsPerPage.
         /// </summary>
         public int TopicsPerPage
