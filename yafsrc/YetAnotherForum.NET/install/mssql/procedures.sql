@@ -6837,7 +6837,7 @@ where a.ForumID = @ForumID and
 	  a.IsDeleted = 0 and
 	  a.NumPosts > 0
 
-order by a.Posted desc
+order by LastPosted desc
 end
 go
 
