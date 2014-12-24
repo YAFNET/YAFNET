@@ -41,6 +41,7 @@ namespace YAF.Pages
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Utilities;
     using YAF.Utils;
@@ -552,7 +553,10 @@ namespace YAF.Pages
         /// <param name="userData">The user data.</param>
         /// <param name="userDisplayName">The user display name.</param>
         private void SetupUserProfileInfo(
-            int userID, [NotNull] MembershipUser user, [NotNull] IUserData userData, [NotNull] string userDisplayName)
+            int userID,
+            [NotNull] MembershipUser user,
+            [NotNull] IUserData userData,
+            [NotNull] string userDisplayName)
         {
             this.UserLabel1.UserID = userData.UserID;
 
@@ -600,12 +604,10 @@ namespace YAF.Pages
                         this.Get<IBadWordReplace>().Replace(this.GetText("COUNTRY", userData.Profile.Country.Trim())));
 
                 this.CountryFlagImage.Src = this.Get<ITheme>()
-                                                .GetItem(
-                                                    "FLAGS",
-                                                    "{0}_MEDIUM".FormatWith(userData.Profile.Country.Trim()),
-                                                    YafForumInfo.GetURLToContent(
-                                                        "images/flags/{0}.png".FormatWith(
-                                                            userData.Profile.Country.Trim())));
+                    .GetItem(
+                        "FLAGS",
+                        "{0}_MEDIUM".FormatWith(userData.Profile.Country.Trim()),
+                        YafForumInfo.GetURLToContent("images/flags/{0}.png".FormatWith(userData.Profile.Country.Trim())));
 
                 this.CountryFlagImage.Alt = userData.Profile.Country.Trim();
                 this.CountryFlagImage.Attributes.Add("title", this.CountryLabel.Text);
@@ -791,13 +793,15 @@ namespace YAF.Pages
 
                 // Setup Hover Card JS
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "hovercardtwitterfacebookjs", hoverCardLoadJs.ToString());
+                    "hovercardtwitterfacebookjs",
+                    hoverCardLoadJs.ToString());
 
                 if (this.Get<YafBoardSettings>().EnableUserReputation)
                 {
                     // Setup UserBox Reputation Script Block
                     YafContext.Current.PageElements.RegisterJsBlockStartup(
-                        "reputationprogressjs", JavaScriptBlocks.RepuatationProgressLoadJs);
+                        "reputationprogressjs",
+                        JavaScriptBlocks.RepuatationProgressLoadJs);
                 }
             }
 
@@ -811,6 +815,97 @@ namespace YAF.Pages
             else
             {
                 this.BirthdayTR.Visible = false;
+            }
+
+            // Show User Medals
+            if (this.Get<YafBoardSettings>().ShowMedals)
+            {
+                var userMedalsTable = this.Get<YafDbBroker>().UserMedals(this.UserId);
+
+                if (userMedalsTable.Rows.Count <= 0)
+                {
+                    this.MedalsRow.Visible = false;
+
+                    return;
+                }
+
+                var ribbonBar = new StringBuilder(500);
+                var medals = new StringBuilder(500);
+
+                DataRow r;
+                MedalFlags f;
+
+                int i = 0;
+                int inRow = 0;
+
+                // do ribbon bar first
+                while (userMedalsTable.Rows.Count > i)
+                {
+                    r = userMedalsTable.Rows[i];
+                    f = new MedalFlags(r["Flags"]);
+
+                    // do only ribbon bar items first
+                    if (!r["OnlyRibbon"].ToType<bool>())
+                    {
+                        break;
+                    }
+
+                    // skip hidden medals
+                    if (!f.AllowHiding || !r["Hide"].ToType<bool>())
+                    {
+                        if (inRow == 3)
+                        {
+                            // add break - only three ribbons in a row
+                            ribbonBar.Append("<br />");
+                            inRow = 0;
+                        }
+
+                        var title = "{0}{1}".FormatWith(
+                            r["Name"],
+                            f.ShowMessage ? ": {0}".FormatWith(r["Message"]) : string.Empty);
+
+                        ribbonBar.AppendFormat(
+                            "<img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" title=\"{4}\" />",
+                            YafForumInfo.ForumClientFileRoot,
+                            r["SmallRibbonURL"],
+                            r["SmallRibbonWidth"],
+                            r["SmallRibbonHeight"],
+                            title,
+                            YafBoardFolders.Current.Medals);
+
+                        inRow++;
+                    }
+
+                    // move to next row
+                    i++;
+                }
+
+                // follow with the rest
+                while (userMedalsTable.Rows.Count > i)
+                {
+                    r = userMedalsTable.Rows[i];
+                    f = new MedalFlags(r["Flags"]);
+
+                    // skip hidden medals
+                    if (!f.AllowHiding || !r["Hide"].ToType<bool>())
+                    {
+                        medals.AppendFormat(
+                            "<img src=\"{0}{6}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" title=\"{4}{5}\" />",
+                            YafForumInfo.ForumClientFileRoot,
+                            r["SmallMedalURL"],
+                            r["SmallMedalWidth"],
+                            r["SmallMedalHeight"],
+                            r["Name"],
+                            f.ShowMessage ? ": {0}".FormatWith(r["Message"]) : string.Empty,
+                            YafBoardFolders.Current.Medals);
+                    }
+
+                    // move to next row
+                    i++;
+                }
+
+                this.MedalsPlaceHolder.Text = "{0}<br />{1}".FormatWith(ribbonBar, medals);
+                this.MedalsRow.Visible = true;
             }
         }
 

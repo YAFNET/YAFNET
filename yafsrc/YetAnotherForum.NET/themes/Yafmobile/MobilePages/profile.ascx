@@ -292,6 +292,14 @@
 									<asp:Label ID="ReputationReceived" runat="server" />
 								</td>
 							</tr>
+                            <tr runat="server" id="MedalsRow" Visible="False">
+                                <td class="postheader">
+									<YAF:LocalizedLabel ID="LocalizedLabel30" runat="server" LocalizedTag="MEDALS" />
+								</td>
+								<td class="post">
+									<asp:Label ID="MedalsPlaceHolder" runat="server" />
+								</td>
+                            </tr>
 						</table>
                 </div>
                 <div runat="server" id="AvatarTab">
