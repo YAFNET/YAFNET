@@ -2090,7 +2090,7 @@
     <Resource tag="HTMLTAG_FORBIDDEN">البيانات المدخلة  يجب  ان لا تحتوي على( HTML tags). </Resource>
     <Resource tag="HTMLTAG_WRONG">لقد ادخلت   بيانات  خاطئا يرجى التاكد من  (html code) {0} .</Resource>
     <Resource tag="LOADING">... تحميل   </Resource>
-    <Resource tag="MAX_ONLINE">أكبر عدد تواجد كان {0}, {1}.</Resource>
+    <Resource tag="MAX_ONLINE">أكبر عدد تواجد كان {0:N0} on {1}.</Resource>
     <Resource tag="MESSAGE">Message</Resource>
     <Resource tag="MOBILE_FULLSITE">View Full Site</Resource>
     <Resource tag="MOBILE_VIEWSITE">View Mobile Site</Resource>
@@ -5079,7 +5079,7 @@ The Message was posted in the {forumname} forum.
     <Resource tag="NOTIFICATION_ON_REGISTER">
       Hello {user}.
 
-      You have been successfully Registred on the {forumname} forum:
+      You have been successfully registered on the {forumname} forum:
 
       User Name: {user}
       Auto Generated Password: {pass}

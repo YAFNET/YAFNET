@@ -5237,7 +5237,7 @@ The Message was posted in the {forumname} forum.
     <Resource tag="NOTIFICATION_ON_REGISTER">
       Hello {user}.
 
-      You have been successfully Registred on the {forumname} forum:
+      You have been successfully registered on the {forumname} forum:
 
       User Name: {user}
       Auto Generated Password: {pass}

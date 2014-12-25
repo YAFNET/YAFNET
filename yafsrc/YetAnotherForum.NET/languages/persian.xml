@@ -2094,7 +2094,7 @@
     <Resource tag="HTMLTAG_FORBIDDEN">داده های ورود شما نمی بایست دارای تگ HTML باشند.</Resource>
     <Resource tag="HTMLTAG_WRONG">داده های ورود شما شامل تگ های {0} غیر مجاز HTML  میباشد.</Resource>
     <Resource tag="LOADING">در حال بارگذاری...</Resource>
-    <Resource tag="MAX_ONLINE">بیشترین تعداد کاربرانی که بطور همزمان آنلاین بوده اند {0}, {1}.</Resource>
+    <Resource tag="MAX_ONLINE">بیشترین تعداد کاربرانی که بطور همزمان آنلاین بوده اند {0:N0} on {1}.</Resource>
     <Resource tag="MESSAGE">پیام</Resource>
     <Resource tag="MOBILE_FULLSITE">نمایش کامل سایت</Resource>
     <Resource tag="MOBILE_VIEWSITE">نمایش موبایل</Resource>
@@ -5100,7 +5100,7 @@ The Message was posted in the {forumname} forum.
     <Resource tag="NOTIFICATION_ON_REGISTER">
       Hello {user}.
 
-      You have been successfully Registred on the {forumname} forum:
+      You have been successfully registered on the {forumname} forum:
 
       User Name: {user}
 	  Auto Generated Password: {pass}

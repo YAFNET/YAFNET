@@ -2090,7 +2090,7 @@
     <Resource tag="HTMLTAG_FORBIDDEN">不允许包含 HTML 标签.</Resource>
     <Resource tag="HTMLTAG_WRONG">包含有禁止的 {0} HTML 标签.</Resource>
     <Resource tag="LOADING">Loading...</Resource>
-    <Resource tag="MAX_ONLINE">最高在线记录 {0}, {1}.</Resource>
+    <Resource tag="MAX_ONLINE">最高在线记录 {0:N0} on {1}.</Resource>
     <Resource tag="MESSAGE">Message</Resource>
     <Resource tag="MOBILE_FULLSITE">查看电脑版</Resource>
     <Resource tag="MOBILE_VIEWSITE">查看手机版</Resource>
@@ -5103,7 +5103,7 @@ The Message was posted in the {forumname} forum.
     <Resource tag="NOTIFICATION_ON_REGISTER">
       Hello {user}.
 
-      You have been successfully Registred on the {forumname} forum:
+      You have been successfully registered on the {forumname} forum:
 
       User Name: {user}
 	  Auto Generated Password: {pass}

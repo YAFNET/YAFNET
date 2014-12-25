@@ -2113,7 +2113,7 @@
     <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>
     <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
     <Resource tag="LOADING">טוען...</Resource>
-    <Resource tag="MAX_ONLINE">מספר המשתמשים המחוברים הגבוה ביותר אי פעם היה {0}, {1}.</Resource>
+    <Resource tag="MAX_ONLINE">מספר המשתמשים המחוברים הגבוה ביותר אי פעם היה {0:N0} on {1}.</Resource>
     <Resource tag="MESSAGE">Message</Resource>
     <Resource tag="MOBILE_FULLSITE">View Full Site</Resource>
     <Resource tag="MOBILE_VIEWSITE">View Mobile Site</Resource>
@@ -5147,7 +5147,7 @@ The Message was posted in the {forumname} forum.
     <Resource tag="NOTIFICATION_ON_REGISTER">
       Hello {user}.
 
-      You have been successfully Registred on the {forumname} forum:
+      You have been successfully registered on the {forumname} forum:
 
       User Name: {user}
       Auto Generated Password: {pass}

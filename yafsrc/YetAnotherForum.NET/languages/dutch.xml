@@ -2081,7 +2081,7 @@
     <Resource tag="HTMLTAG_FORBIDDEN">Je tekst mag geen HTML tags bevatten.</Resource>
     <Resource tag="HTMLTAG_WRONG">Je tekst bevat een verboden {0} HTML tag.</Resource>
     <Resource tag="LOADING">Bezig met laden...</Resource>
-    <Resource tag="MAX_ONLINE">Grootste aantal gebruikers ooit online was {0}, {1}.</Resource>
+    <Resource tag="MAX_ONLINE">Grootste aantal gebruikers ooit online was {0:N0} on {1}.</Resource>
     <Resource tag="MESSAGE">Bericht</Resource>
     <Resource tag="MOBILE_FULLSITE">Bekijk volledige site</Resource>
     <Resource tag="MOBILE_VIEWSITE">Bekijk mobiele site</Resource>

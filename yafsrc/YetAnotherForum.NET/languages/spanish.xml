@@ -2093,7 +2093,7 @@
     <Resource tag="HTMLTAG_FORBIDDEN">Los datos que introduzcas no pueden tener código HTML.</Resource>
     <Resource tag="HTMLTAG_WRONG">Los datos que has introducido contienen {0} etiquetas HTML no permitidas.</Resource>
     <Resource tag="LOADING">Cargando...</Resource>
-    <Resource tag="MAX_ONLINE">El número máximo de usuarios activos fue {0}, {1}.</Resource>
+    <Resource tag="MAX_ONLINE">El número máximo de usuarios activos fue {0:N0} on {1}.</Resource>
     <Resource tag="MESSAGE">Mensaje</Resource>
     <Resource tag="MOBILE_FULLSITE">Ver el sitio completo</Resource>
     <Resource tag="MOBILE_VIEWSITE">Ver el sitio para móviles</Resource>

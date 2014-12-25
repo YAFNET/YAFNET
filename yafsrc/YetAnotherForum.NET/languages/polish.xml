@@ -2081,7 +2081,7 @@
     <Resource tag="HTMLTAG_FORBIDDEN">Twoja wiadomość nie może zawierać tagów html.</Resource>
     <Resource tag="HTMLTAG_WRONG">Twoja wiadomość zawiera zabronione {0} tagi html.</Resource>
     <Resource tag="LOADING">Wczytywanie...</Resource>
-    <Resource tag="MAX_ONLINE">Najwięcej użytkowników było {0}, {1}.</Resource>
+    <Resource tag="MAX_ONLINE">Najwięcej użytkowników było {0:N0} on {1}.</Resource>
     <Resource tag="MESSAGE">Wiadomość</Resource>
     <Resource tag="MOBILE_FULLSITE">Pokaż pełną stronę</Resource>
     <Resource tag="MOBILE_VIEWSITE">Pokaż mobilną stronę</Resource>
@@ -5077,7 +5077,7 @@ The Message was posted in the {forumname} forum.
     <Resource tag="NOTIFICATION_ON_REGISTER">
       Hello {user}.
 
-      You have been successfully Registred on the {forumname} forum:
+      You have been successfully registered on the {forumname} forum:
 
       User Name: {user}
           Auto Generated Password: {pass}
