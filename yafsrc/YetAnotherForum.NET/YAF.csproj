@@ -275,6 +275,13 @@
     <Compile Include="controls\ProfileYourAccount.ascx.designer.cs">
       <DependentUpon>ProfileYourAccount.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\SimilarTopics.ascx.cs">
+      <DependentUpon>SimilarTopics.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\SimilarTopics.ascx.designer.cs">
+      <DependentUpon>SimilarTopics.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\smileys.ascx.designer.cs">
       <DependentUpon>smileys.ascx</DependentUpon>
     </Compile>
@@ -878,6 +885,12 @@
     <Content Include="advanced.aspx" />
     <Content Include="auth.aspx" />
     <Content Include="Changes.html" />
+    <Content Include="Content\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.less</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-select.css">
       <DependentUpon>bootstrap-select.less</DependentUpon>
     </Content>
@@ -1416,6 +1429,7 @@
     <Content Include="controls\ProfileYourAccount.ascx" />
     <Content Include="controls\ReportedPosts.ascx" />
     <Content Include="controls\ShoutBox.ascx" />
+    <Content Include="controls\SimilarTopics.ascx" />
     <Content Include="controls\smileys.ascx">
       <SubType>UserControl</SubType>
     </Content>
@@ -3146,6 +3160,7 @@
     <Content Include="Content\bootstrap\bootstrap.less" />
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
+    <Content Include="Content\bootstrap-forum.less" />
     <None Include="Content\InstallWizard.less" />
     <Content Include="Content\InstallWizard.css">
       <DependentUpon>InstallWizard.less</DependentUpon>
@@ -5025,8 +5040,6 @@
     <Content Include="UrlRewriter.config" />
     <None Include="Web References\RegisterV2\RegisterV2.wsdl" />
     <Content Include="v1.9.1.upgrade.web.config" />
-      <SubType>Designer</SubType>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\URLRewriter.NET\Intelligencia.UrlRewriter.csproj">
