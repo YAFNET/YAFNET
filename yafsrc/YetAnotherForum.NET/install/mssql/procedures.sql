@@ -9304,7 +9304,7 @@ as
         and t.[TopicID] != @TopicID
         and x.UserID = @PageUserID
         and CONVERT(int,x.ReadAccess) <> 0
-        order by t.[TopicID]        
+        order by t.[Posted] DESC
     end
 go
 
