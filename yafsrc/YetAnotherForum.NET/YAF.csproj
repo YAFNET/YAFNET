@@ -5091,10 +5091,6 @@
       <CachedSettingsPropName>YAF_RegisterV2_RegisterV2</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
-  <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Package|AnyCPU'">
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
