@@ -1762,6 +1762,7 @@ table.tablesorter thead tr .headerSortUp {
 .standardSelectMenu {
   width: 350px;
 }
+.ui-menu,
 .ui-menu-icons {
   height: 200px;
 }

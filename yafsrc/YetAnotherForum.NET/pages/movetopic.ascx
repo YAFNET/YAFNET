@@ -11,7 +11,7 @@
 			<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="select_forum" />
 		</td>
 		<td class="post" width="50%">
-			<asp:DropDownList ID="ForumList" runat="server" DataValueField="ForumID" DataTextField="Title" />
+			<asp:DropDownList ID="ForumList" runat="server" DataValueField="ForumID" DataTextField="Title" CssClass="standardSelectMenu" />
 		</td>
     </tr>
 		<tr id="trLeaveLink" runat="server">
@@ -29,7 +29,7 @@
 				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="POINTER_DAYS" />
 			</td>
 			<td class="post" width="50%">
-				<asp:TextBox ID="LinkDays" runat="server" />
+				<asp:TextBox ID="LinkDays" runat="server" CssClass="Numeric" />
 			</td>
 		</tr>
 	<tr>   
