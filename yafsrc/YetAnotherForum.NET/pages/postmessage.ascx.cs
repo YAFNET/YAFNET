@@ -961,7 +961,7 @@ namespace YAF.Pages
                 isSpamApproved = true;
             }
 
-            object replyTo = (this.QuotedMessageID != null) ? this.QuotedMessageID.Value : -1;
+            object replyTo = this.QuotedMessageID ?? -1;
 
             // make message flags 
             var messageFlags = new MessageFlags

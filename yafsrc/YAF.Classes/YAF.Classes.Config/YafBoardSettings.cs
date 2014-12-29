@@ -716,6 +716,26 @@ namespace YAF.Classes
 
         /// <summary>
         /// Gets or sets a value indicating whether 
+        /// sending the user a welcome notification after register
+        /// 0 = No Mail
+        /// 1 = Send as Mail Message
+        /// 2 = Send as Private Message
+        /// </summary>
+        public int SendWelcomeNotificationAfterRegister
+        {
+            get
+            {
+                return this._reg.GetValue("SendWelcomeNotificationAfterRegister", 1);
+            }
+
+            set
+            {
+                this._reg.SetValue("SendWelcomeNotificationAfterRegister", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether 
         /// which Spam Service Type should been used
         /// 0 = No Service
         /// 1 = BlogSpam.NET Service

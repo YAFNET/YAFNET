@@ -41,6 +41,7 @@ namespace YAF.Core.Services
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
@@ -257,7 +258,7 @@ namespace YAF.Core.Services
             try
             {
                 // user's PM notification setting
-                bool privateMessageNotificationEnabled = false;
+                var privateMessageNotificationEnabled = false;
 
                 // user's email
                 var toEMail = string.Empty;
@@ -278,7 +279,7 @@ namespace YAF.Core.Services
                 // get the PM ID
                 // Ederon : 11/21/2007 - PageBoardID as parameter of DB.pmessage_list?
                 // using (DataTable dt = DB.pmessage_list(toUserID, PageContext.PageBoardID, null))
-                int userPMessageId =
+                var userPMessageId =
                     LegacyDb.pmessage_list(toUserId, null, null).GetFirstRow().Field<int>("UserPMessageID");
 
                 /*// get the sender e-mail -- DISABLED: too much information...
@@ -350,13 +351,13 @@ namespace YAF.Core.Services
             }
 
             // TODO : Rewrite Watch Topic code to allow watch mails in the users language, as workaround send all messages in the default board language
-            string languageFile = this.BoardSettings.Language;
-            string boardName = this.BoardSettings.Name;
-            string forumEmail = this.BoardSettings.ForumEmail;
+            var languageFile = this.BoardSettings.Language;
+            var boardName = this.BoardSettings.Name;
+            var forumEmail = this.BoardSettings.ForumEmail;
 
             foreach (var message in LegacyDb.MessageList(newMessageId))
             {
-                int userId = message.UserID ?? 0;
+                var userId = message.UserID ?? 0;
 
                 var watchEmail = new YafTemplateEmail("TOPICPOST") { TemplateLanguageFile = languageFile };
 
@@ -387,6 +388,7 @@ namespace YAF.Core.Services
                 // create individual watch emails for all users who have All Posts on...
                 foreach (var user in usersWithAll.Where(x => x.UserID.HasValue && x.UserID.Value != userId))
                 {
+                    // TODO: Check if the user has read access to the message
                     // Make sure its not a guest
                     if (user.ProviderUserKey == null)
                     {
@@ -494,6 +496,167 @@ namespace YAF.Core.Services
                 new MailAddress(toUser.Email, this.BoardSettings.EnableDisplayName ? toUser.DisplayName : toUser.Name),
                 subject,
                 true);
+        }
+
+        /// <summary>
+        /// Sends a new user notification email to all emails in the NotificationOnUserRegisterEmailList
+        /// Setting
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="userId">The user id.</param>
+        public void SendRegistrationNotificationEmail([NotNull] MembershipUser user, int userId)
+        {
+            string[] emails = this.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.Split(';');
+
+            var notifyAdmin = new YafTemplateEmail();
+
+            var subject =
+                this.Get<ILocalization>()
+                    .GetText("COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT")
+                    .FormatWith(this.Get<YafBoardSettings>().Name);
+
+            notifyAdmin.TemplateParams["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(
+                ForumPages.admin_edituser,
+                true,
+                "u={0}",
+                userId);
+
+            notifyAdmin.TemplateParams["{user}"] = user.UserName;
+            notifyAdmin.TemplateParams["{email}"] = user.Email;
+            notifyAdmin.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
+
+            var emailBody = notifyAdmin.ProcessTemplate("NOTIFICATION_ON_USER_REGISTER");
+
+            foreach (var email in emails.Where(email => email.Trim().IsSet()))
+            {
+                this.GetRepository<Mail>()
+                    .Create(this.Get<YafBoardSettings>().ForumEmail, email.Trim(), subject, emailBody);
+            }
+        }
+
+        /// <summary>
+        /// Sends a spam bot notification to admins.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="userId">The user id.</param>
+        public void SendSpamBotNotificationToAdmins([NotNull] MembershipUser user, int userId)
+        {
+            // Get Admin Group ID
+            var adminGroupID = 1;
+
+            foreach (DataRow dataRow in
+                LegacyDb.group_list(YafContext.Current.PageBoardID, null)
+                    .Rows.Cast<DataRow>()
+                    .Where(
+                        dataRow =>
+                        !dataRow["Name"].IsNullOrEmptyDBField() && dataRow.Field<string>("Name") == "Administrators"))
+            {
+                adminGroupID = dataRow["GroupID"].ToType<int>();
+                break;
+            }
+
+            using (DataTable dt = LegacyDb.user_emails(YafContext.Current.PageBoardID, adminGroupID))
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    var emailAddress = row.Field<string>("Email");
+
+                    if (!emailAddress.IsSet())
+                    {
+                        continue;
+                    }
+
+                    var notifyAdmin = new YafTemplateEmail();
+
+                    var subject =
+                        this.Get<ILocalization>()
+                            .GetText("COMMON", "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT")
+                            .FormatWith(this.Get<YafBoardSettings>().Name);
+
+                    notifyAdmin.TemplateParams["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(
+                        ForumPages.admin_edituser,
+                        true,
+                        "u={0}",
+                        userId);
+                    notifyAdmin.TemplateParams["{user}"] = user.UserName;
+                    notifyAdmin.TemplateParams["{email}"] = user.Email;
+                    notifyAdmin.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
+
+                    var emailBody = notifyAdmin.ProcessTemplate("NOTIFICATION_ON_BOT_USER_REGISTER");
+
+                    this.GetRepository<Mail>()
+                        .Create(this.Get<YafBoardSettings>().ForumEmail, emailAddress, subject, emailBody);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sends the user welcome notification.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="userId">The user identifier.</param>
+        public void SendUserWelcomeNotification([NotNull] MembershipUser user, int? userId)
+        {
+            if (this.Get<YafBoardSettings>().SendWelcomeNotificationAfterRegister.Equals(0))
+            {
+                return;
+            }
+
+            var notifyUser = new YafTemplateEmail();
+
+            var subject =
+                this.Get<ILocalization>()
+                    .GetText("COMMON", "NOTIFICATION_ON_WELCOME_USER_SUBJECT")
+                    .FormatWith(YafContext.Current.Get<YafBoardSettings>().Name);
+
+            notifyUser.TemplateParams["{user}"] = user.UserName;
+
+            notifyUser.TemplateParams["{forumname}"] = this.BoardSettings.Name;
+            notifyUser.TemplateParams["{forumurl}"] = YafForumInfo.ForumURL;
+
+            var emailBody = notifyUser.ProcessTemplate("NOTIFICATION_ON_WELCOME_USER");
+
+            var messageFlags = new MessageFlags { IsHtml = false, IsBBCode = true };
+
+            if (this.Get<YafBoardSettings>().AllowPrivateMessages
+                && this.Get<YafBoardSettings>().SendWelcomeNotificationAfterRegister.Equals(2))
+            {
+                LegacyDb.pmessage_save(2, userId, subject, emailBody, messageFlags.BitValue, -1);
+            }
+            else
+            {
+                this.GetRepository<Mail>().Create(this.BoardSettings.ForumEmail, user.Email, subject, emailBody);
+            }
+        }
+
+        /// <summary>
+        /// Sends the verification email.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="email">The email.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <param name="newUsername">The new username.</param>
+        public void SendVerificationEmail([NotNull] MembershipUser user, [NotNull] string email, int? userID, string newUsername = null)
+        {
+            CodeContracts.VerifyNotNull(email, "email");
+            CodeContracts.VerifyNotNull(user, "user");
+
+            var hashinput = string.Format("{0}{1}{2}", DateTime.UtcNow, email, Security.CreatePassword(20));
+            var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
+
+            // save verification record...
+            this.GetRepository<CheckEmail>().Save(userID, hash, user.Email);
+
+            var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
+
+            var subject = this.Get<ILocalization>().GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
+
+            verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash);
+            verifyEmail.TemplateParams["{key}"] = hash;
+            verifyEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
+            verifyEmail.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
+
+            verifyEmail.SendEmail(new MailAddress(email, newUsername ?? user.UserName), subject, true);
         }
 
         #endregion

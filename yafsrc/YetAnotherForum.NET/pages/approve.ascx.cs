@@ -27,16 +27,14 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
     using System.Web.Security;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
@@ -44,7 +42,7 @@ namespace YAF.Pages
     #endregion
 
     /// <summary>
-    /// Summary description for approve.
+    /// The User Account Verification Page.
     /// </summary>
     public partial class approve : ForumPage
     {
@@ -78,20 +76,20 @@ namespace YAF.Pages
         #region Public Methods
 
         /// <summary>
-        /// The validate key_ click.
+        /// Handles the Click event of the ValidateKey control.
         /// </summary>
         /// <param name="sender">
-        /// The sender.
+        /// The source of the event.
         /// </param>
         /// <param name="e">
-        /// The e.
+        /// The <see cref="EventArgs"/> instance containing the event data.
         /// </param>
         public void ValidateKey_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            DataRow userRow = this.GetRepository<CheckEmail>().Update(this.key.Text).Rows[0];
-            string userEmail = userRow["Email"].ToString();
+            var userRow = this.GetRepository<CheckEmail>().Update(this.key.Text).Rows[0];
+            var userEmail = userRow["Email"].ToString();
 
-            bool keyVerified = userRow["ProviderUserKey"] != DBNull.Value;
+            var keyVerified = userRow["ProviderUserKey"] != DBNull.Value;
 
             this.approved.Visible = keyVerified;
             this.error.Visible = !keyVerified;
@@ -102,10 +100,14 @@ namespace YAF.Pages
             }
 
             // approve and update e-mail in the membership as well...
-            MembershipUser user = UserMembershipHelper.GetMembershipUserByKey(userRow["ProviderUserKey"]);
+            var user = UserMembershipHelper.GetMembershipUserByKey(userRow["ProviderUserKey"]);
+
             if (!user.IsApproved)
             {
                 user.IsApproved = true;
+
+                // Send welcome mail/pm to user
+                this.Get<ISendNotification>().SendUserWelcomeNotification(user, userRow["UserID"].ToType<int>());
             }
 
             // update the email if anything was returned...
@@ -129,10 +131,10 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -144,6 +146,7 @@ namespace YAF.Pages
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             this.ValidateKey.Text = this.GetText("validate");
+
             if (this.Request.QueryString["k"] != null)
             {
                 this.key.Text = this.Request.QueryString["k"];

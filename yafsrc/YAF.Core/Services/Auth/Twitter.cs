@@ -350,7 +350,7 @@ namespace YAF.Core.Services.Auth
             if (YafContext.Current.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
             {
                 // send user register notification to the following admin users...
-                YafSingleSignOnUser.SendRegistrationNotificationEmail(user, userID.Value);
+                YafContext.Current.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userID.Value);
             }
 
             // save the time zone...
@@ -479,7 +479,7 @@ namespace YAF.Core.Services.Auth
             notifyUser.TemplateParams["{answer}"] = securityAnswer;
             notifyUser.TemplateParams["{forumname}"] = YafContext.Current.Get<YafBoardSettings>().Name;
 
-            string emailBody = notifyUser.ProcessTemplate("NOTIFICATION_ON_TWITTER_REGISTER");
+            var emailBody = notifyUser.ProcessTemplate("NOTIFICATION_ON_TWITTER_REGISTER");
 
             var messageFlags = new MessageFlags { IsHtml = false, IsBBCode = true };
 

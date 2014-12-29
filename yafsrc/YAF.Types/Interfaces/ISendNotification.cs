@@ -91,7 +91,10 @@ namespace YAF.Types.Interfaces
         /// The template Name.
         /// </param>
         void SendRegistrationNotificationToUser(
-            [NotNull] MembershipUser user, [NotNull] string pass, [NotNull] string securityAnswer, string templateName);
+            [NotNull] MembershipUser user,
+            [NotNull] string pass,
+            [NotNull] string securityAnswer,
+            string templateName);
 
         /// <summary>
         /// Sends notification that the User was awarded with a Medal
@@ -99,5 +102,39 @@ namespace YAF.Types.Interfaces
         /// <param name="toUserId">To user id.</param>
         /// <param name="medalName">Name of the medal.</param>
         void ToUserWithNewMedal([NotNull] int toUserId, [NotNull] string medalName);
+
+        /// <summary>
+        /// The send registration notification email.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="userId">The user id.</param>
+        void SendRegistrationNotificationEmail([NotNull] MembershipUser user, int userId);
+
+        /// <summary>
+        /// Sends a spam bot notification to admins.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="userId">The user id.</param>
+        void SendSpamBotNotificationToAdmins([NotNull] MembershipUser user, int userId);
+
+        /// <summary>
+        /// Sends the user welcome notification.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="userId">The user identifier.</param>
+        void SendUserWelcomeNotification([NotNull] MembershipUser user, int? userId);
+
+        /// <summary>
+        /// Sends the verification email.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="email">The email.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <param name="newUsername">The new username.</param>
+        void SendVerificationEmail(
+            [NotNull] MembershipUser user,
+            [NotNull] string email,
+            int? userID,
+            string newUsername = null);
     }
 }

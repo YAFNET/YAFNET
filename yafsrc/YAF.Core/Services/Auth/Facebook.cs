@@ -471,12 +471,12 @@ namespace YAF.Core.Services.Auth
             if (YafContext.Current.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
             {
                 // send user register notification to the following admin users...
-                YafSingleSignOnUser.SendRegistrationNotificationEmail(user, userID.Value);
+                YafContext.Current.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userID.Value);
             }
 
             if (isPossibleSpamBot)
             {
-                YafSingleSignOnUser.SendSpamBotNotificationToAdmins(user, userID.Value);
+                YafContext.Current.Get<ISendNotification>().SendSpamBotNotificationToAdmins(user, userID.Value);
             }
 
             // send user register notification to the user...

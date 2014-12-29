@@ -101,8 +101,8 @@ namespace YAF.Pages.Admin
         protected void UserLazyDataCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // vzrus: remove all users lazy data 
-            this.Get<IDataCache>().RemoveOf<object>(
-                k => k.Key.StartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(string.Empty)));
+            this.Get<IDataCache>()
+                .RemoveOf<object>(k => k.Key.StartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(string.Empty)));
             this.CheckCache();
         }
 
@@ -179,11 +179,13 @@ namespace YAF.Pages.Admin
             {
                 this.PageLinks.AddRoot();
                 this.PageLinks.AddLink(
-                    this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+                    this.GetText("ADMIN_ADMIN", "Administration"),
+                    YafBuildLink.GetLink(ForumPages.admin_admin));
                 this.PageLinks.AddLink(this.GetText("ADMIN_HOSTSETTINGS", "TITLE"), string.Empty);
 
                 this.Page.Header.Title = "{0} - {1}".FormatWith(
-                    this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_HOSTSETTINGS", "TITLE"));
+                    this.GetText("ADMIN_ADMIN", "Administration"),
+                    this.GetText("ADMIN_HOSTSETTINGS", "TITLE"));
 
                 this.RenderListItems();
 
@@ -192,7 +194,9 @@ namespace YAF.Pages.Admin
 
             var txtBoxes =
                 this.ControlListRecursive(
-                    c => (c.GetType() == typeof(TextBox) && ((TextBox)c).TextMode == TextBoxMode.SingleLine)).Cast<TextBox>().ToList();
+                    c => (c.GetType() == typeof(TextBox) && ((TextBox)c).TextMode == TextBoxMode.SingleLine))
+                    .Cast<TextBox>()
+                    .ToList();
 
             // default to 100% width...
             txtBoxes.ForEach(x => x.Width = Unit.Percentage(100));
@@ -243,26 +247,30 @@ namespace YAF.Pages.Admin
             var settingCollection = new YafBoardSettingCollection(this.Get<YafBoardSettings>());
 
             // handle checked fields...
-            foreach (string name in settingCollection.SettingsBool.Keys)
+            foreach (var name in settingCollection.SettingsBool.Keys)
             {
                 Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is CheckBox && settingCollection.SettingsBool[name].CanWrite)
                 {
                     settingCollection.SettingsBool[name].SetValue(
-                        this.Get<YafBoardSettings>(), ((CheckBox)control).Checked, null);
+                        this.Get<YafBoardSettings>(),
+                        ((CheckBox)control).Checked,
+                        null);
                 }
             }
 
             // handle string fields...
-            foreach (string name in settingCollection.SettingsString.Keys)
+            foreach (var name in settingCollection.SettingsString.Keys)
             {
                 Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is TextBox && settingCollection.SettingsString[name].CanWrite)
                 {
                     settingCollection.SettingsString[name].SetValue(
-                        this.Get<YafBoardSettings>(), ((TextBox)control).Text.Trim(), null);
+                        this.Get<YafBoardSettings>(),
+                        ((TextBox)control).Text.Trim(),
+                        null);
                 }
                 else if (control is DropDownList && settingCollection.SettingsString[name].CanWrite)
                 {
@@ -274,13 +282,13 @@ namespace YAF.Pages.Admin
             }
 
             // handle int fields...
-            foreach (string name in settingCollection.SettingsInt.Keys)
+            foreach (var name in settingCollection.SettingsInt.Keys)
             {
                 Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is TextBox && settingCollection.SettingsInt[name].CanWrite)
                 {
-                    string value = ((TextBox)control).Text.Trim();
+                    var value = ((TextBox)control).Text.Trim();
                     int i;
 
                     if (value.IsNotSet())
@@ -297,18 +305,20 @@ namespace YAF.Pages.Admin
                 else if (control is DropDownList && settingCollection.SettingsInt[name].CanWrite)
                 {
                     settingCollection.SettingsInt[name].SetValue(
-                        this.Get<YafBoardSettings>(), ((DropDownList)control).SelectedItem.Value.ToType<int>(), null);
+                        this.Get<YafBoardSettings>(),
+                        ((DropDownList)control).SelectedItem.Value.ToType<int>(),
+                        null);
                 }
             }
 
             // handle double fields...
-            foreach (string name in settingCollection.SettingsDouble.Keys)
+            foreach (var name in settingCollection.SettingsDouble.Keys)
             {
                 Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is TextBox && settingCollection.SettingsDouble[name].CanWrite)
                 {
-                    string value = ((TextBox)control).Text.Trim();
+                    var value = ((TextBox)control).Text.Trim();
                     double i;
 
                     if (value.IsNotSet())
@@ -348,17 +358,21 @@ namespace YAF.Pages.Admin
             var localizations = new[] { "FORBIDDEN", "REG_USERS", "ALL_USERS" };
 
             var dropDownLists = new[]
-                {
-                    this.PostsFeedAccess, this.AllowCreateTopicsSameName, this.PostLatestFeedAccess, this.ForumFeedAccess, this.TopicsFeedAccess,
-                    this.ActiveTopicFeedAccess, this.FavoriteTopicFeedAccess, this.ReportPostPermissions, this.ProfileViewPermissions,
-                    this.MembersListViewPermissions, this.ActiveUsersViewPermissions, this.ExternalSearchPermissions, this.SearchPermissions,
-                    this.ShowHelpTo, this.ShowTeamTo, this.ShowRetweetMessageTo, this.ShowShareTopicTo, this.ShoutboxViewPermissions
-                };
+                                    {
+                                        this.PostsFeedAccess, this.AllowCreateTopicsSameName, this.PostLatestFeedAccess,
+                                        this.ForumFeedAccess, this.TopicsFeedAccess, this.ActiveTopicFeedAccess,
+                                        this.FavoriteTopicFeedAccess, this.ReportPostPermissions,
+                                        this.ProfileViewPermissions, this.MembersListViewPermissions,
+                                        this.ActiveUsersViewPermissions, this.ExternalSearchPermissions,
+                                        this.SearchPermissions, this.ShowHelpTo, this.ShowTeamTo,
+                                        this.ShowRetweetMessageTo, this.ShowShareTopicTo, this.ShoutboxViewPermissions
+                                    };
 
             foreach (var ddl in dropDownLists)
             {
                 ddl.Items.AddRange(
-                    localizations.Select((t, i) => new ListItem(this.GetText("ADMIN_HOSTSETTINGS", t), i.ToString())).ToArray());
+                    localizations.Select((t, i) => new ListItem(this.GetText("ADMIN_HOSTSETTINGS", t), i.ToString()))
+                        .ToArray());
             }
 
             this.CaptchaTypeRegister.Items.Add(new ListItem(this.GetText("ADMIN_COMMON", "DISABLED"), "0"));
@@ -385,11 +399,20 @@ namespace YAF.Pages.Admin
             this.BotHandlingOnRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_1"), "1"));
             this.BotHandlingOnRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_2"), "2"));
 
-            this.MessageNotificationSystem.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "MODAL_DIALOG"), "0"));
-            this.MessageNotificationSystem.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "NOTIFICATION_BAR"), "1"));
+            this.MessageNotificationSystem.Items.Add(
+                new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "MODAL_DIALOG"), "0"));
+            this.MessageNotificationSystem.Items.Add(
+                new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "NOTIFICATION_BAR"), "1"));
 
-            this.ShoutboxDefaultState.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "EXPANDED"), "0")); 
+            this.ShoutboxDefaultState.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "EXPANDED"), "0"));
             this.ShoutboxDefaultState.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "COLLAPSED"), "1"));
+
+            this.SendWelcomeNotificationAfterRegister.Items.Add(
+                new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "WELCOME_NOTIFICATION_0"), "0"));
+            this.SendWelcomeNotificationAfterRegister.Items.Add(
+                new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "WELCOME_NOTIFICATION_1"), "1"));
+            this.SendWelcomeNotificationAfterRegister.Items.Add(
+                new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "WELCOME_NOTIFICATION_2"), "2"));
         }
 
         /// <summary>
@@ -406,7 +429,7 @@ namespace YAF.Pages.Admin
             var settingCollection = new YafBoardSettingCollection(this.Get<YafBoardSettings>());
 
             // handle checked fields...
-            foreach (string name in settingCollection.SettingsBool.Keys)
+            foreach (var name in settingCollection.SettingsBool.Keys)
             {
                 Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
@@ -422,7 +445,7 @@ namespace YAF.Pages.Admin
             }
 
             // handle string fields...
-            foreach (string name in settingCollection.SettingsString.Keys)
+            foreach (var name in settingCollection.SettingsString.Keys)
             {
                 Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
@@ -439,7 +462,8 @@ namespace YAF.Pages.Admin
                 {
                     ListItem listItem =
                         ((DropDownList)control).Items.FindByValue(
-                            settingCollection.SettingsString[name].GetValue(this.Get<YafBoardSettings>(), null).ToString());
+                            settingCollection.SettingsString[name].GetValue(this.Get<YafBoardSettings>(), null)
+                                .ToString());
 
                     if (listItem != null)
                     {
@@ -449,7 +473,7 @@ namespace YAF.Pages.Admin
             }
 
             // handle int fields...
-            foreach (string name in settingCollection.SettingsInt.Keys)
+            foreach (var name in settingCollection.SettingsInt.Keys)
             {
                 Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
@@ -477,7 +501,7 @@ namespace YAF.Pages.Admin
             }
 
             // handle double fields...
-            foreach (string name in settingCollection.SettingsDouble.Keys)
+            foreach (var name in settingCollection.SettingsDouble.Keys)
             {
                 Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
@@ -493,7 +517,8 @@ namespace YAF.Pages.Admin
                 {
                     ListItem listItem =
                         ((DropDownList)control).Items.FindByValue(
-                            settingCollection.SettingsDouble[name].GetValue(this.Get<YafBoardSettings>(), null).ToString());
+                            settingCollection.SettingsDouble[name].GetValue(this.Get<YafBoardSettings>(), null)
+                                .ToString());
 
                     if (listItem != null)
                     {
