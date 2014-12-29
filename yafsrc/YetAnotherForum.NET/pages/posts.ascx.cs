@@ -16,6 +16,7 @@
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
+ * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
@@ -383,7 +384,8 @@ namespace YAF.Pages
 
             var connectControl = e.Item.FindControlAs<DisplayConnect>("DisplayConnect");
 
-            if (connectControl != null && this.PageContext.IsGuest && this.Get<YafBoardSettings>().ShowConnectMessageInTopic)
+            if (connectControl != null && this.PageContext.IsGuest
+                && this.Get<YafBoardSettings>().ShowConnectMessageInTopic)
             {
                 connectControl.Visible = true;
             }
@@ -395,7 +397,7 @@ namespace YAF.Pages
             // check if need to display the ad...
             if (this.Get<YafBoardSettings>().AdPost.IsSet() && adControl != null)
             {
-                adControl.Visible = !this.PageContext.IsGuest || this.Get<YafBoardSettings>().ShowAdsToSignedInUsers;
+                adControl.Visible = this.PageContext.IsGuest || this.Get<YafBoardSettings>().ShowAdsToSignedInUsers;
             }
         }
 

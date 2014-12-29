@@ -127,11 +127,6 @@ namespace YAF.Controls
 
                 if (!this.Get<YafBoardSettings>().DisableRegistrations)
                 {
-                    if (isLoginAllowed)
-                    {
-                        this.ConnectHolder.Controls.Add(new Literal { Text = "&nbsp;,&nbsp;" });
-                    }
-
                     // show register link
                     var registerLink = new ThemeButton
                                            {
