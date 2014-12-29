@@ -2647,7 +2647,7 @@ begin
     delete [{databaseOwner}].[{objectQualifier}CheckEmail] where CheckEmailID = @CheckEmailID
 
     -- return the UserProviderKey
-    SELECT ProviderUserKey, Email FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID
+    SELECT ProviderUserKey, Email, UserID FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID
 end
 GO
 

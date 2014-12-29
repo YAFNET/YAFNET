@@ -135,7 +135,6 @@
     <Compile Include="Services\Cache\SmileyEventCacheInvalidate.cs" />
     <Compile Include="Extensions\ILoggerExtensions.cs" />
     <Compile Include="Extensions\IRegistrationBuilderExtension.cs" />
-    <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="Model\BoardRepositoryExtensions.cs" />
     <Compile Include="Extensions\DbAccessExtensions.cs" />
     <Compile Include="Extensions\IRepositoryExtensions.cs" />
