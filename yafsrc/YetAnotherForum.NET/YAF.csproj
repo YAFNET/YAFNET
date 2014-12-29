@@ -3610,10 +3610,6 @@
     <Content Include="themes\cleanSlate\albums.png" />
     <Content Include="themes\cleanSlate\arrow_up_button.png" />
     <Content Include="themes\cleanSlate\atomfeed.png" />
-    <Content Include="themes\cleanSlate\buttonBack.gif" />
-    <Content Include="themes\cleanSlate\buttonBackB.gif" />
-    <Content Include="themes\cleanSlate\buttonEnd.gif" />
-    <Content Include="themes\cleanSlate\buttonEndB.gif" />
     <Content Include="themes\cleanSlate\collapse.gif" />
     <Content Include="themes\cleanSlate\copy_small_icon.png" />
     <Content Include="themes\cleanSlate\delete_small_icon.gif" />
