@@ -346,7 +346,7 @@ namespace YAF.Controls
             {
                 this.MostUsersCount.Text = this.GetTextFormatted(
                   "MAX_ONLINE",
-                  userStatisticsDataRow["MaxUsers"],
+                  Convert.ToInt32(userStatisticsDataRow["MaxUsers"]),
                   this.Get<IDateTime>().FormatDateTimeTopic(userStatisticsDataRow["MaxUsersWhen"]));
             }
             else
