@@ -2386,8 +2386,6 @@ BEGIN
         Forums = (select count(1) from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID),	
         LastPostInfoID	= 1,
         LastPost	= a.Posted,
-		LastPostTopic = b.Topic,
-        LastPostID = a.MessageID,
         LastUserID	= a.UserID,
         LastUser	= e.Name,
         LastUserDisplayName	= e.DisplayName,
@@ -2396,7 +2394,7 @@ BEGIN
             else ''	 end
             FROM 
                 [{databaseOwner}].[{objectQualifier}Message] a 
-                join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID 
+				join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID
                 join [{databaseOwner}].[{objectQualifier}Forum] c on c.ForumID=b.ForumID 
                 join [{databaseOwner}].[{objectQualifier}Category] d on d.CategoryID=c.CategoryID 
                 join [{databaseOwner}].[{objectQualifier}User] e on e.UserID=a.UserID						
@@ -2416,8 +2414,6 @@ BEGIN
         Forums = 1,	
         LastPostInfoID	= 1,
         LastPost	= null,
-        LastPostTopic   = null,
-        LastPostID      = null,
         LastUserID	= null,
         LastUser	= null,
         LastUserDisplayName	= null,

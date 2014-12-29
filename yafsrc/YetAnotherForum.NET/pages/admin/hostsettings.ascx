@@ -286,6 +286,14 @@
                     </tr>
                     <tr>
                         <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel238" runat="server" LocalizedTag="SHOW_CONNECT_MESSAGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="ShowConnectMessageInTopic" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="postheader">
                             <YAF:HelpLabel ID="HelpLabel237" runat="server" LocalizedTag="WELCOME_NOTIFICATION" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">

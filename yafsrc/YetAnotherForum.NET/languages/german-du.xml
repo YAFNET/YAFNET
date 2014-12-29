@@ -1365,6 +1365,8 @@
     <Resource tag="SHOW_AVATARS_TOPICLISTS_HELP">Wenn aktiviert werden in den Themen Seiten Avatarbilder angezeigt.</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE">Zeige Crawlers in der Aktiven Benutzerliste:</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE_HELP">Wenn aktiviert, werden Crawlers in der Aktiven Benutzerliste angezeigt.</Resource>
+    <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>
+    <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES">Gelöschte Beiträge zeigen:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_HELP">Wenn aktiviert werden Beiträge die Gelöscht wurden mit einer Nachricht hinterlassen</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">Alle Gelöschte Nachrichten zeigen:</Resource>
@@ -1485,7 +1487,10 @@
     <Resource tag="VIEWPROFILE_PERMISSION_HELP">Damit können andere Benutzer Profile ansehen:</Resource>
     <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box Anzeigeberechtigung:</Resource>
     <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">Anzeigeberechtigung für die Shout Box um sie für alle Benutzer (inkl. Gäste), oder nur für Registrierte Benutzer zu erlauben.</Resource>
-    <<Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
+    <Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_0">Send No Message</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_1">Send as e-mail</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_2">Send as private message</Resource>
     <Resource tag="WELCOME_NOTIFICATION_HELP">If enabled you it sends a user a Welcome Mail/Private Message after successfully registration.</Resource>
     <Resource tag="WSERVICE_TOKEN">Web-Service-Token:</Resource>
     <Resource tag="WSERVICE_TOKEN_HELP">Token die verwendet werden, um sichere Web-Service-Anrufe zu tätigen. Ständig wechselnde, bis Sie Ihren Host Einstellungen  speichern.</Resource>
@@ -4130,6 +4135,7 @@ Spoiler Content
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Zugriffstoken nicht erhalten!</Resource>
     <Resource tag="AUTO">Login merken</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Sowohl E-Mail-Adresse als auch Benutzername müssen eingegeben werden.</Resource>
+    <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">E-Mail-Adresse</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Eine E-Mail mit einem neuen Passwort wurde versandt.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Mit Facebook anmelden</Resource>
@@ -5203,6 +5209,7 @@ Der Bestätigungscode lautet
     <Resource tag="INBOX_TITLE">Öffnet Ihren den Private Nachrichten Posteingang.</Resource>
     <Resource tag="LOGGED_IN_AS">Angemeldet als: {0}</Resource>
     <Resource tag="LOGIN">Anmelden</Resource>
+    <Resource tag="LOGIN_CONNECT">Login to your {0} forum account</Resource>
     <Resource tag="LOGIN_TITLE">Öffnet das Anmelden Fenster.</Resource>
     <Resource tag="LOGOUT">Abmelden</Resource>
     <Resource tag="LOGOUT_QUESTION">Möchtest du dich wirklich abmelden?</Resource>
@@ -5219,6 +5226,7 @@ Der Bestätigungscode lautet
     <Resource tag="MYTOPICS_TITLE">Öffnet die Seite mit den Aktiven Themen und ihren Favorisierten Themen.</Resource>
     <Resource tag="NEWPM">({0} neue Nachricht(en))</Resource>
     <Resource tag="REGISTER">Registrieren</Resource>
+    <Resource tag="REGISTER_CONNECT">register a new account</Resource>
     <Resource tag="REGISTER_TITLE">Öffnet das Registrierungsformular.</Resource>
     <Resource tag="SEARCH">Suche</Resource>
     <Resource tag="SEARCH_TITLE">Forum Suche benutzen.</Resource>
@@ -5227,6 +5235,7 @@ Der Bestätigungscode lautet
     <Resource tag="TEAM_TITLE">Öffnet die Team Seite, die alle Mods und Admins zeigt.</Resource>
     <Resource tag="UNREADTOPICS">Es gibt {0} Themen mit ungelesenen Beiträgen</Resource>
     <Resource tag="WELCOME_GUEST">Willkommen, Gast!</Resource>
+    <Resource tag="WELCOME_GUEST_CONNECT">Wanna join the discussion?! </Resource>
     <Resource tag="WELCOME_GUEST_FULL">Willkommen Gast! Um alle Funktionen zu aktivieren müssen Sie sich </Resource>
     <Resource tag="WELCOME_GUEST_NO">Willkommen Gast! Sie können sich &lt;strong&gt;nicht&lt;/strong&gt; anmelden oder registrieren.</Resource>
   </page>

@@ -1365,6 +1365,8 @@
     <Resource tag="SHOW_AVATARS_TOPICLISTS_HELP">If this is checked, the topic pages will show avatar graphics.</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE">Show Crawlers In Active Lists:</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE_HELP">If checked, Crawlers will be displayed In Active Lists.</Resource>
+    <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>
+    <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES">Show Deleted Messages:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_HELP">If this is checked, messages that are deleted will leave with some notes</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">Show Deleted Messages to All:</Resource>
@@ -1485,7 +1487,10 @@
     <Resource tag="VIEWPROFILE_PERMISSION_HELP">Allow viewing of other users' profiles to:</Resource>
     <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box View Permission:</Resource>
     <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">View Permission for the Shout Box to allow for all Users (Including Guests) or only registered users.</Resource>
-    <<Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
+    <Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_0">Send No Message</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_1">Send as e-mail</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_2">Send as private message</Resource>
     <Resource tag="WELCOME_NOTIFICATION_HELP">If enabled you it sends a user a Welcome Mail/Private Message after successfully registration.</Resource>
     <Resource tag="WSERVICE_TOKEN">Web Service Token:</Resource>
     <Resource tag="WSERVICE_TOKEN_HELP">Token used to make secure web service calls. Constantly changing until you save your host settings.</Resource>
@@ -4180,6 +4185,7 @@ Spoiler Content
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Brak dostępu!</Resource>
     <Resource tag="AUTO">Zapamiętaj mnie</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Wpisz nazwę użytkownika i hasło, które są wymagane.</Resource>
+    <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">Adres e-mail</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Mail z nowym hasłem został wysłany do Ciebie.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Zaloguj przez Facebook</Resource>
@@ -5253,6 +5259,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="INBOX_TITLE">Pokazuje odebrane wiadomości prywatne.</Resource>
     <Resource tag="LOGGED_IN_AS">Zalogowany jako: {0}</Resource>
     <Resource tag="LOGIN">Zaloguj</Resource>
+    <Resource tag="LOGIN_CONNECT">Login to your {0} forum account</Resource>
     <Resource tag="LOGIN_TITLE">Pokazuje formularz logujący do forum.</Resource>
     <Resource tag="LOGOUT">Wyloguj</Resource>
     <Resource tag="LOGOUT_QUESTION">Na pewno chcesz się wylogować?</Resource>
@@ -5269,6 +5276,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="MYTOPICS_TITLE">Pokazuje Twoje aktywne i ulubione wątki.</Resource>
     <Resource tag="NEWPM">({0} Nieprzeczytanych)</Resource>
     <Resource tag="REGISTER">Rejestruj</Resource>
+    <Resource tag="REGISTER_CONNECT">register a new account</Resource>
     <Resource tag="REGISTER_TITLE">Pokazuje formularz rejestracyjny.</Resource>
     <Resource tag="SEARCH">Szukaj</Resource>
     <Resource tag="SEARCH_TITLE">Przeszukaj forum.</Resource>
@@ -5277,6 +5285,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="TEAM_TITLE">Pokazuję stronę z listą wszystkich moderatorów i administratorów...</Resource>
     <Resource tag="UNREADTOPICS">Jest tu {0} wątków z nieprzeczytanymi postami.</Resource>
     <Resource tag="WELCOME_GUEST">Witaj Gościu! Aby odblokować wszystkie funkcje proszę się zarejestrować lub zalogować.</Resource>
+    <Resource tag="WELCOME_GUEST_CONNECT">Wanna join the discussion?! </Resource>
     <Resource tag="WELCOME_GUEST_FULL">Witaj Gościu! Aby odblokować wszystkie funkcję proszę się </Resource>
     <Resource tag="WELCOME_GUEST_NO">Witaj Gościu! &lt;strong&gt;Nie&lt;/strong&gt; możesz się zalogować lub zarejestrować.</Resource>
   </page>

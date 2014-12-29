@@ -268,7 +268,7 @@ namespace YAF.Controls
                             forumIcon.LocalizedTitlePage = "ICONLEGEND";
                             forumIcon.LocalizedTitleTag = "FORUM_LOCKED";
                         }
-                        else if (lastPosted > lastRead)
+                        else if (lastPosted > lastRead && row["ReadAccess"].ToType<int>() > 0)
                         {
                             forumIcon.ThemeTag = "FORUM_NEW";
                             forumIcon.LocalizedTitlePage = "ICONLEGEND";

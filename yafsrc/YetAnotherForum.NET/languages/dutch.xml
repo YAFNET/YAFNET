@@ -1367,6 +1367,8 @@
     <Resource tag="SHOW_AVATARS_TOPICLISTS_HELP">Als deze is aangevinkt, worden de Gebruikers Avatars getoond in de topiclijsten.</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE">Laat Bots zien in de Actieve Gebruikerslijst:</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE_HELP">Als deze is aangevinkt, worden Bots zichtbaar in de Actieve Gebruikerslijst.</Resource>
+    <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>
+    <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES">Laat verwijderde berichten zien:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_HELP">Als deze is aangevinkt, blijven verwijderde berichten staan met een notitie.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">Laat verwijderde berichten zien aan Iedereen:</Resource>
@@ -1487,7 +1489,10 @@
     <Resource tag="VIEWPROFILE_PERMISSION_HELP">Sta het bekijken van andere profielen toe aan:</Resource>
     <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box View Permission:</Resource>
     <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">View Permission for the Shout Box to allow for all Users (Including Guests) or only registered users.</Resource>
-    <<Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
+    <Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_0">Send No Message</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_1">Send as e-mail</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_2">Send as private message</Resource>
     <Resource tag="WELCOME_NOTIFICATION_HELP">If enabled you it sends a user a Welcome Mail/Private Message after successfully registration.</Resource>
     <Resource tag="WSERVICE_TOKEN">Web Service Merkteken:</Resource>
     <Resource tag="WSERVICE_TOKEN_HELP">Merkteken om beveiligde web service calls te maken. Wijzigt voortdurend totdat je de host settings hebt opgeslagen.</Resource>
@@ -4147,6 +4152,7 @@ Spoiler Inhoud
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">Automatisch inloggen</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Graag zowel je gebruikersnaam als je e-mail adres in te vullen.</Resource>
+    <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">E-mail adres</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Er is een e-mail verzonden met je nieuwe wachtwoord.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Login met Facebook</Resource>
@@ -5219,6 +5225,7 @@ Bezoek {forumname} op {forumlink}
     <Resource tag="INBOX_TITLE">Laat Postvak In zien.</Resource>
     <Resource tag="LOGGED_IN_AS">Aangemeld als: {0}</Resource>
     <Resource tag="LOGIN">Inloggen</Resource>
+    <Resource tag="LOGIN_CONNECT">Login to your {0} forum account</Resource>
     <Resource tag="LOGIN_TITLE">Laat het Login-control van het forum zien.</Resource>
     <Resource tag="LOGOUT">Uitloggen</Resource>
     <Resource tag="LOGOUT_QUESTION">Weet je zeker dat je wilt uitloggen?</Resource>
@@ -5235,6 +5242,7 @@ Bezoek {forumname} op {forumlink}
     <Resource tag="MYTOPICS_TITLE">Laat de actieve en favoriete topics zien.</Resource>
     <Resource tag="NEWPM">(&lt;b&gt;{0} Ongelezen&lt;/b&gt;)</Resource>
     <Resource tag="REGISTER">Registreren</Resource>
+    <Resource tag="REGISTER_CONNECT">register a new account</Resource>
     <Resource tag="REGISTER_TITLE">Laat het registratieformulier zien.</Resource>
     <Resource tag="SEARCH">Zoeken</Resource>
     <Resource tag="SEARCH_TITLE">Gebruik de zoekfunctie.</Resource>
@@ -5243,6 +5251,7 @@ Bezoek {forumname} op {forumlink}
     <Resource tag="TEAM_TITLE">Laat de teampagina zien met alle Moderators en Admins</Resource>
     <Resource tag="UNREADTOPICS">Er is/zijn {0} Topic(s) met ongelezen berichten.</Resource>
     <Resource tag="WELCOME_GUEST">Welkom gast!</Resource>
+    <Resource tag="WELCOME_GUEST_CONNECT">Wanna join the discussion?! </Resource>
     <Resource tag="WELCOME_GUEST_FULL">Welkom gast! Om van alle functies gebruik te kunnen maken kun je</Resource>
     <Resource tag="WELCOME_GUEST_NO">Welkom gast! Je kunt helaas &lt;strong&gt;niet&lt;/strong&gt; inloggen of registreren.</Resource>
   </page>

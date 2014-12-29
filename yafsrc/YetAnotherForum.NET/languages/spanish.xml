@@ -1378,6 +1378,8 @@
     <Resource tag="SHOW_AVATARS_TOPICLISTS_HELP">Si está seleccionado, la página de temas mostrará gráficos de avatares.</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE">Mostrar rastreadores en listas activas:</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE_HELP">Si está seleccionado, los rastreadores serán mostrados en las listas activas.</Resource>
+    <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>
+    <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES">Mostrar mensajes elimnados:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_HELP">Si está marcado, los mensajes eliminados se dejarán con algunas notas.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">Mostrar mensajes eliminados a todos:</Resource>
@@ -1498,7 +1500,10 @@
     <Resource tag="VIEWPROFILE_PERMISSION_HELP">Permitir ver los perfiles de otros usuarios a:</Resource>
     <Resource tag="VIEWSHOUTBOX_PERMISSION">Permisos para ver el chat:</Resource>
     <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">Permisos para ver el chat a todos los usuarios (incluidos invitados) o solo a usuarios registrados.</Resource>
-    <<Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
+    <Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_0">Send No Message</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_1">Send as e-mail</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_2">Send as private message</Resource>
     <Resource tag="WELCOME_NOTIFICATION_HELP">If enabled you it sends a user a Welcome Mail/Private Message after successfully registration.</Resource>
     <Resource tag="WSERVICE_TOKEN">Token para servicio web:</Resource>
     <Resource tag="WSERVICE_TOKEN_HELP">Token usado para hacer llamadas a servicios web seguros. En cambio constante hasta que se guarda la configuración del servidor.</Resource>
@@ -4540,6 +4545,7 @@ public class Hello1
     <Resource tag="AUTH_NO_ACCESS_TOKEN">No se ha podido autorizar la contraseña.</Resource>
     <Resource tag="AUTO">Iniciar sesión automaticamente:</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Debe ingresar usuario y correo electrónico.</Resource>
+    <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">Correo electrónico</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Se ha enviado un correo con la nueva contraseña.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Ingresar con Facebook</Resource>
@@ -5610,6 +5616,7 @@ Visita {forumname} en {forumlink}
     <Resource tag="INBOX_TITLE">Muestra los mensajes privado en la bandeja de entrada.</Resource>
     <Resource tag="LOGGED_IN_AS">Sesión iniciada como: {0}</Resource>
     <Resource tag="LOGIN">Iniciar sesión</Resource>
+    <Resource tag="LOGIN_CONNECT">Login to your {0} forum account</Resource>
     <Resource tag="LOGIN_TITLE">Muestra el control de sesión en el foro.</Resource>
     <Resource tag="LOGOUT">Cerrar sesión</Resource>
     <Resource tag="LOGOUT_QUESTION">¿Estas seguro que deseas cerrar la sesión?</Resource>
@@ -5626,6 +5633,7 @@ Visita {forumname} en {forumlink}
     <Resource tag="MYTOPICS_TITLE">Muestra los temas activos y favoritos.</Resource>
     <Resource tag="NEWPM">({0} Sin leer)</Resource>
     <Resource tag="REGISTER">Registrarse</Resource>
+    <Resource tag="REGISTER_CONNECT">register a new account</Resource>
     <Resource tag="REGISTER_TITLE">Muestra e formulario de registro.</Resource>
     <Resource tag="SEARCH">Buscar</Resource>
     <Resource tag="SEARCH_TITLE">Usa la búsqueda del foro.</Resource>
@@ -5634,6 +5642,7 @@ Visita {forumname} en {forumlink}
     <Resource tag="TEAM_TITLE">Muestra la página del equipo con todos los moderadores y administradores.</Resource>
     <Resource tag="UNREADTOPICS">Hay {0} tema(s) con mensajes no leídos</Resource>
     <Resource tag="WELCOME_GUEST">Bienvenido visitante. Para activar todas las opciones prueba a registrarte o iniciar sesión.</Resource>
+    <Resource tag="WELCOME_GUEST_CONNECT">Wanna join the discussion?! </Resource>
     <Resource tag="WELCOME_GUEST_FULL">Bienvenido visitante. Para activar todas las funcionalidades, por favor</Resource>
     <Resource tag="WELCOME_GUEST_NO">Bienvenido visitante. &lt;strong&gt;No&lt;/strong&gt; puedes iniciar sesión o registrarte.</Resource>
   </page>

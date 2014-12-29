@@ -724,6 +724,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox EmailVerification;
         
         /// <summary>
+        /// HelpLabel238 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel238;
+        
+        /// <summary>
+        /// ShowConnectMessageInTopic control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowConnectMessageInTopic;
+        
+        /// <summary>
         /// HelpLabel237 control.
         /// </summary>
         /// <remarks>

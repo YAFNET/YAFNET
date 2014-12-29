@@ -201,6 +201,13 @@
     <Compile Include="controls\DialogBox.ascx.designer.cs">
       <DependentUpon>DialogBox.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\DisplayConnect.ascx.cs">
+      <DependentUpon>DisplayConnect.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\DisplayConnect.ascx.designer.cs">
+      <DependentUpon>DisplayConnect.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\PollChoiceList.ascx.cs">
       <DependentUpon>PollChoiceList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1393,6 +1400,7 @@
     <Content Include="controls\AlbumList.ascx" />
     <Content Include="controls\BuddyList.ascx" />
     <Content Include="controls\DialogBox.ascx" />
+    <Content Include="controls\DisplayConnect.ascx" />
     <Content Include="controls\PollChoiceList.ascx" />
     <Content Include="controls\DisplayAd.ascx" />
     <Content Include="controls\DisplayPost.ascx">

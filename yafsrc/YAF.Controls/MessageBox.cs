@@ -185,10 +185,10 @@ namespace YAF.Controls
 
             this.Controls.Add(new LiteralControl("<div style=\"float:left\">"));
 
-            var imageIcon = new HtmlImage { Src = this.Icon, Alt = "Icon", };
+            var imageIcon = new HtmlImage { Src = this.Icon, Alt = "Icon", Height = 64, Width = 64 };
 
-            imageIcon.Attributes.Add("class", "DialogIcon");
-            imageIcon.Attributes.Add("style", "padding:5px");
+            imageIcon.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "DialogIcon");
+            imageIcon.Attributes.Add(HtmlTextWriterAttribute.Style.ToString(), "padding:5px");
 
             this.Controls.Add(imageIcon);
 
@@ -200,10 +200,10 @@ namespace YAF.Controls
 
                 var divOuterMessage = new HtmlGenericControl("div") { ID = "YafPopupErrorMessageOuter" };
 
-                divOuterMessage.Attributes.Add("class", "modalOuter");
+                divOuterMessage.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "modalOuter");
 
                 spanInnerMessage.ID = "YafPopupErrorMessageInner";
-                spanInnerMessage.Attributes.Add("class", "modalInner");
+                spanInnerMessage.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "modalInner");
 
                 spanInnerMessage.InnerText = this.MessageText;
 
@@ -230,7 +230,7 @@ namespace YAF.Controls
             if (this.Buttons != null && this.Buttons.Count > 0)
             {
                 var divFooter = new HtmlGenericControl("div") { ID = "YafModalFooter" };
-                divFooter.Attributes.Add("class", "modalFooter");
+                divFooter.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "modalFooter");
 
                 this.Controls.Add(divFooter);
 
@@ -267,7 +267,7 @@ namespace YAF.Controls
             writer.WriteBeginTag("div");
             writer.WriteAttribute("id", this.ClientID);
 
-            writer.WriteAttribute("class", "MessageBox");
+            writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "MessageBox");
 
             writer.Write(">");
             writer.WriteLine();

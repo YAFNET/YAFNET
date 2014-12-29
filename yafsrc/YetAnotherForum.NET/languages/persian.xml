@@ -1373,6 +1373,8 @@
     <Resource tag="SHOW_AVATARS_TOPICLISTS_HELP">با استفاده از این گزینه صفحات موضوعات تصاویر آواتار را نمایش خواهند داد.</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE">نمایش کراولر ها در لیست کاربران فعال:</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE_HELP">با انتخاب این گزینه کراولر ها در لیست کاربران فعال نمایش داده خواهد شد.</Resource>
+    <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>
+    <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES">نمایش پیام های حذف شده:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_HELP">با انتخاب این گزینه، پیام های حذف شدهبا یادداشتی رها می شوند.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">نمایش پیام های حذف شده به همه :</Resource>
@@ -1493,7 +1495,10 @@
     <Resource tag="VIEWPROFILE_PERMISSION_HELP">اعطای مجوز بازدید از پروفایل سایر کاربران به :</Resource>
     <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box View Permission:</Resource>
     <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">View Permission for the Shout Box to allow for all Users (Including Guests) or only registered users.</Resource>
-    <<Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
+    <Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_0">Send No Message</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_1">Send as e-mail</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_2">Send as private message</Resource>
     <Resource tag="WELCOME_NOTIFICATION_HELP">If enabled you it sends a user a Welcome Mail/Private Message after successfully registration.</Resource>
     <Resource tag="WSERVICE_TOKEN">نشانه سرویس وب:</Resource>
     <Resource tag="WSERVICE_TOKEN_HELP">نشانه برای فراخوانی امن سرویس وب استفاده می شود. و مدام در خال تغییر است تا زمانی که شما تنظمیات میزبان را ذخیره کنید.</Resource>
@@ -4216,6 +4221,7 @@
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">مرا به خاطر داشته باش</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">نام کاربری و پست الکترونیک تواماً باید وارد شوند.</Resource>
+    <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">آدرس پست الکترونیک</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">پست الکترونیکی حاوی رمز عبور جدید شما ارسال شد.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Login with Facebook</Resource>
@@ -5258,6 +5264,7 @@ The Message was posted in the {forumname} forum.
     <Resource tag="INBOX_TITLE">Shows Private Messages Inbox.</Resource>
     <Resource tag="LOGGED_IN_AS">وارد شده به عنوان: {0}</Resource>
     <Resource tag="LOGIN">ورود</Resource>
+    <Resource tag="LOGIN_CONNECT">Login to your {0} forum account</Resource>
     <Resource tag="LOGIN_TITLE">Shows the Login Control to the Forum.</Resource>
     <Resource tag="LOGOUT">خروج</Resource>
     <Resource tag="LOGOUT_QUESTION">آیا از خروج خود مطمئن هستید؟</Resource>
@@ -5274,6 +5281,7 @@ The Message was posted in the {forumname} forum.
     <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>
     <Resource tag="NEWPM">({0} پیغام خوانده نشده)</Resource>
     <Resource tag="REGISTER">ثبت نام</Resource>
+    <Resource tag="REGISTER_CONNECT">register a new account</Resource>
     <Resource tag="REGISTER_TITLE">Shows the Registration Form.</Resource>
     <Resource tag="SEARCH">جستجو</Resource>
     <Resource tag="SEARCH_TITLE">Use the Forum Search.</Resource>
@@ -5282,6 +5290,7 @@ The Message was posted in the {forumname} forum.
     <Resource tag="TEAM_TITLE">Shows the Team Page which shows all Moderators and Admins..</Resource>
     <Resource tag="UNREADTOPICS">There are {0} Topic(s) with unread Messages</Resource>
     <Resource tag="WELCOME_GUEST">ورود به عنوان میهمان</Resource>
+    <Resource tag="WELCOME_GUEST_CONNECT">Wanna join the discussion?! </Resource>
     <Resource tag="WELCOME_GUEST_FULL">خوش آمدید! برای فعال سازی امکانات لطفا  </Resource>
     <Resource tag="WELCOME_GUEST_NO">خوش آمدید! &lt;strong&gt;not&lt;/strong&gt; ثبت نام کنید یا وارد شوید.</Resource>
   </page>

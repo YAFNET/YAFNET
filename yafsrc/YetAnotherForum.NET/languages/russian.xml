@@ -1366,6 +1366,8 @@
     <Resource tag="SHOW_AVATARS_TOPICLISTS_HELP">На страницах со списком тем будут отображены миниатюры аватаров.</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE">Отображать ботов в активных пользователях:</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE_HELP">Боты будут отображаться в активных пользователях, иначе они будут обрабатываться как гости.</Resource>
+    <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>
+    <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES">Показывать удалённые сообщения:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_HELP">Удалённые сообщения(пустые) будут видны с уведомлением. Не включайте обе опции одновременно.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">Показывать удалённые сообщения для всех:</Resource>
@@ -1486,7 +1488,10 @@
     <Resource tag="VIEWPROFILE_PERMISSION_HELP">Разрешить просмотр профилей других пользователей:</Resource>
     <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box View Permission:</Resource>
     <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">View Permission for the Shout Box to allow for all Users (Including Guests) or only registered users.</Resource>
-    <<Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
+    <Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_0">Send No Message</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_1">Send as e-mail</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_2">Send as private message</Resource>
     <Resource tag="WELCOME_NOTIFICATION_HELP">If enabled you it sends a user a Welcome Mail/Private Message after successfully registration.</Resource>
     <Resource tag="WSERVICE_TOKEN">Токен веб-службы:</Resource>
     <Resource tag="WSERVICE_TOKEN_HELP">Токен для безопасного вызова веб-служб. Чтобы зафиксировать его вы должны сохранить настройки хоста хотя бы раз.</Resource>
@@ -4173,6 +4178,7 @@ Spoiler Content
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">Запомните меня</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Должны быть введены как адрес почты пользователя, так и его имя.</Resource>
+    <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">Адрес Email</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Было послано сообщение по почте с вашим новым паролем.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Войти через Facebook</Resource>
@@ -5248,6 +5254,7 @@ Password: {password}
     <Resource tag="INBOX_TITLE">Личные сообщения</Resource>
     <Resource tag="LOGGED_IN_AS">Вы вошли как: {0}</Resource>
     <Resource tag="LOGIN">Вход</Resource>
+    <Resource tag="LOGIN_CONNECT">Login to your {0} forum account</Resource>
     <Resource tag="LOGIN_TITLE">Форма входа на форум.</Resource>
     <Resource tag="LOGOUT">Выход</Resource>
     <Resource tag="LOGOUT_QUESTION">Вы уверены, что действительно желаете выйти?</Resource>
@@ -5264,6 +5271,7 @@ Password: {password}
     <Resource tag="MYTOPICS_TITLE">Активные и избранные темы</Resource>
     <Resource tag="NEWPM">({0} непрочитанных)</Resource>
     <Resource tag="REGISTER">Регистрация</Resource>
+    <Resource tag="REGISTER_CONNECT">register a new account</Resource>
     <Resource tag="REGISTER_TITLE">На страницу регистрации</Resource>
     <Resource tag="SEARCH">Поиск</Resource>
     <Resource tag="SEARCH_TITLE">Использовать поиск</Resource>
@@ -5272,6 +5280,7 @@ Password: {password}
     <Resource tag="TEAM_TITLE">Список команды: администраторы и модераторы</Resource>
     <Resource tag="UNREADTOPICS">Есть {0} Тем(а) с непрочитанными сообщениями</Resource>
     <Resource tag="WELCOME_GUEST">Добро пожаловать, Гость. Чтобы воспользоваться всеми функциями форума - зарегистрируйтесь или аутентифицируйтесь.</Resource>
+    <Resource tag="WELCOME_GUEST_CONNECT">Wanna join the discussion?! </Resource>
     <Resource tag="WELCOME_GUEST_FULL">Добро пожаловать, Гость! Чтобы использовать все возможности </Resource>
     <Resource tag="WELCOME_GUEST_NO">Добро пожаловать, Гость! Вы  &lt;strong&gt;не&lt;/strong&gt; зарегистрироваться или войти.</Resource>
   </page>

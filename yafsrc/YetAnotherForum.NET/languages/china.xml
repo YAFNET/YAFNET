@@ -1373,6 +1373,8 @@
     <Resource tag="SHOW_AVATARS_TOPICLISTS_HELP">If this is checked, the topic pages will show avatar graphics.</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE">Show Crawlers In Active Lists:</Resource>
     <Resource tag="SHOW_BOTS_INACTIVE_HELP">If checked, Crawlers will be displayed In Active Lists.</Resource>
+    <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>
+    <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES">Show Deleted Messages:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_HELP">If this is checked, messages that are deleted will leave with some notes</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">Show Deleted Messages to All:</Resource>
@@ -1493,7 +1495,10 @@
     <Resource tag="VIEWPROFILE_PERMISSION_HELP">Allow viewing of other users' profiles to:</Resource>
     <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box View Permission:</Resource>
     <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">View Permission for the Shout Box to allow for all Users (Including Guests) or only registered users.</Resource>
-    <<Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
+    <Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_0">Send No Message</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_1">Send as e-mail</Resource>
+    <Resource tag="WELCOME_NOTIFICATION_2">Send as private message</Resource>
     <Resource tag="WELCOME_NOTIFICATION_HELP">If enabled you it sends a user a Welcome Mail/Private Message after successfully registration.</Resource>
     <Resource tag="WSERVICE_TOKEN">Web Service Token:</Resource>
     <Resource tag="WSERVICE_TOKEN_HELP">Token used to make secure web service calls. Constantly changing until you save your host settings.</Resource>
@@ -4199,6 +4204,7 @@ Spoiler Content
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">自动登录:</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">用户名和电子邮件地址必须输入.</Resource>
+    <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">电子邮件地址</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">一封电子邮件已经发送给您，里面有新的密码.</Resource>
     <Resource tag="FACEBOOK_LOGIN">使用Facebook帐号登录</Resource>
@@ -5279,6 +5285,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="INBOX_TITLE">显示私信箱.</Resource>
     <Resource tag="LOGGED_IN_AS">欢迎回来，{0}</Resource>
     <Resource tag="LOGIN">登录</Resource>
+    <Resource tag="LOGIN_CONNECT">Login to your {0} forum account</Resource>
     <Resource tag="LOGIN_TITLE">Shows the Login Control to the Forum.</Resource>
     <Resource tag="LOGOUT">注销</Resource>
     <Resource tag="LOGOUT_QUESTION">确定要注销吗?</Resource>
@@ -5295,6 +5302,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="MYTOPICS_TITLE">显示活动和收藏主题.</Resource>
     <Resource tag="NEWPM">({0} 未读)</Resource>
     <Resource tag="REGISTER">注册</Resource>
+    <Resource tag="REGISTER_CONNECT">register a new account</Resource>
     <Resource tag="REGISTER_TITLE">Shows the Registration Form.</Resource>
     <Resource tag="SEARCH">搜索</Resource>
     <Resource tag="SEARCH_TITLE">使用论坛搜索.</Resource>
@@ -5303,6 +5311,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="TEAM_TITLE">Shows the Team Page which shows all Moderators and Admins..</Resource>
     <Resource tag="UNREADTOPICS">There are {0} Topic(s) with unread Messages</Resource>
     <Resource tag="WELCOME_GUEST">欢迎您，来宾.</Resource>
+    <Resource tag="WELCOME_GUEST_CONNECT">Wanna join the discussion?! </Resource>
     <Resource tag="WELCOME_GUEST_FULL">Welcome Guest! To enable all features please </Resource>
     <Resource tag="WELCOME_GUEST_NO">Welcome Guest! You can &lt;strong&gt;not&lt;/strong&gt; login or register.</Resource>
   </page>

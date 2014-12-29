@@ -63,21 +63,22 @@
 
         settings = $.extend({ Dialog: "#MessageBox", ImagePath: "images/", Type: "information" }, settings);
 
-        var icon = $(settings.Dialog).find(".DialogIcon").eq(0).attr('src');
+        var dialogIcon = $(settings.Dialog).find(".DialogIcon").eq(0),
+        iconSRC = dialogIcon.attr('src');
 
         var iconsPath = settings.ImagePath;
 
         iconsPath = iconsPath.replace("images/", "icons/");
 
         if (settings.Type == 'error') {
-            icon = iconsPath + 'ErrorBig.png'; // over write the message to error message
+            iconSRC = iconsPath + 'ErrorBig.png'; // over write the message to error message
         } else if (settings.Type == 'information') {
-            icon = iconsPath + 'InfoBig.png'; // over write the message to information message
+            iconSRC = iconsPath + 'InfoBig.png'; // over write the message to information message
         } else if (settings.Type == 'warning') {
-            icon = iconsPath + 'WarningBig.png'; // over write the message to warning message
+            iconSRC = iconsPath + 'WarningBig.png'; // over write the message to warning message
         }
 
-        $(settings.Dialog).find(".DialogIcon").eq(0).attr('src', icon);
+        dialogIcon.attr({ src: iconSRC });
 
         if ($('#LoginBox').is(':visible')) {
             $.fn.YafModalDialog.Close({ Dialog: '#LoginBox' });

@@ -3618,6 +3618,25 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [show connect message in topic].
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if [show connect message in topic]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ShowConnectMessageInTopic
+        {
+            get
+            {
+                return this._reg.GetValue("ShowConnectMessageInTopic", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("ShowConnectMessageInTopic", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether use user info hover Cards.
         /// </summary>
         public bool EnableUserInfoHoverCards

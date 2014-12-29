@@ -380,24 +380,22 @@ namespace YAF.Pages
                 return;
             }
 
-            // check if need to display the ad...
-            bool showAds = true;
 
-            if (this.User != null)
+            var connectControl = e.Item.FindControlAs<DisplayConnect>("DisplayConnect");
+
+            if (connectControl != null && this.PageContext.IsGuest && this.Get<YafBoardSettings>().ShowConnectMessageInTopic)
             {
-                showAds = this.Get<YafBoardSettings>().ShowAdsToSignedInUsers;
+                connectControl.Visible = true;
             }
 
-            if (string.IsNullOrEmpty(this.Get<YafBoardSettings>().AdPost) || !showAds)
-            {
-                return;
-            }
 
             // first message... show the ad below this message
-            var adControl = (DisplayAd)e.Item.FindControl("DisplayAd");
-            if (adControl != null)
+            var adControl = e.Item.FindControlAs<DisplayAd>("DisplayAd");
+
+            // check if need to display the ad...
+            if (this.Get<YafBoardSettings>().AdPost.IsSet() && adControl != null)
             {
-                adControl.Visible = true;
+                adControl.Visible = !this.PageContext.IsGuest || this.Get<YafBoardSettings>().ShowAdsToSignedInUsers;
             }
         }
 

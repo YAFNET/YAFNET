@@ -1333,6 +1333,8 @@
   <Resource tag="SEO_CACHE_TIMEOUT_HELP">First Post "Title" for SEO Cache Timeout (in minutes)</Resource>
   <Resource tag="SERVER_VERSION">SQL Server Version:</Resource>
   <Resource tag="SERVER_VERSION_HELP">What version of SQL Server is running.</Resource>
+  <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>
+  <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource> 
   <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
   <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;</Resource>
   <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
@@ -4173,6 +4175,7 @@ Spoiler Content
   <Resource tag="AUTH_CONNECT_GOOGLE">&lt;strong&gt;The Google email address must match the forum user email address to connect the user.&lt;/strong&gt;</Resource>
   <Resource tag="AUTH_LOGIN_EXISTING">Login with an user Account that is connected with {0}. Or if no account is found a new account will be automatically created in the forums.</Resource>
   <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
+  <Resource tag="CONNECT_VIA">Or Connect via</Resource>
   <Resource tag="BOTH_USERNAME_EMAIL">Both user name and email address must be entered.</Resource>
   <Resource tag="EMAIL">Email Address</Resource>
   <Resource tag="EMAIL_SENT_PASSWORD">A mail has been sent with your new password.</Resource>
@@ -5249,6 +5252,7 @@ Visit {forumname} at {forumlink}
   <Resource tag="INBOX_TITLE">Shows Private Messages Inbox.</Resource>
   <Resource tag="LOGGED_IN_AS">Logged in as: {0}</Resource>
   <Resource tag="LOGIN">Login</Resource>
+  <Resource tag="LOGIN_CONNECT">Login to your {0} forum account</Resource>
   <Resource tag="LOGIN_TITLE">Shows the Login Control to the Forum.</Resource>
   <Resource tag="LOGOUT">Logout</Resource>
   <Resource tag="LOGOUT_QUESTION">Are you sure you want to logout?</Resource>
@@ -5265,6 +5269,7 @@ Visit {forumname} at {forumlink}
   <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>
   <Resource tag="NEWPM">({0} Unread)</Resource>
   <Resource tag="REGISTER">Register</Resource>
+  <Resource tag="REGISTER_CONNECT">register a new account</Resource>
   <Resource tag="REGISTER_TITLE">Shows the Registration Form.</Resource>
   <Resource tag="SEARCH">Search</Resource>
   <Resource tag="SEARCH_TITLE">Use the Forum Search.</Resource>
@@ -5274,6 +5279,7 @@ Visit {forumname} at {forumlink}
   <Resource tag="UNREADTOPICS">There are {0} Topic(s) with unread Messages</Resource>
   <Resource tag="WELCOME_GUEST">Welcome Guest! To enable all features please try to register or login.</Resource>
   <Resource tag="WELCOME_GUEST_FULL">Welcome Guest! To enable all features please </Resource>
+  <Resource tag="WELCOME_GUEST_CONNECT">Wanna join the discussion?! </Resource>
   <Resource tag="WELCOME_GUEST_NO">Welcome Guest! You can &lt;strong&gt;not&lt;/strong&gt; login or register.</Resource>
  </page>
  <page name="TOPIC_STATUS">
