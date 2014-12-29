@@ -535,15 +535,6 @@ namespace YAF.Core
         /// <param name="addTo">The control to add.</param>
         protected void InsertCssRefresh([NotNull] Control addTo)
         {
-            // make the style sheet link controls.
-#if DEBUG
-            addTo.Controls.Add(ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToContent("forum.css")));
-#else
-            addTo.Controls.Add(ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToContent("forum.min.css")));
-#endif
-
-            addTo.Controls.Add(ControlHelper.MakeCssIncludeControl(this.Get<ITheme>().BuildThemePath("theme.css")));
-
             if (this.RefreshURL == null || this.RefreshTime < 0)
             {
                 return;

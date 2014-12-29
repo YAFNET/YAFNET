@@ -69,6 +69,9 @@ namespace YAF.Modules
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void CurrentForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            // Load CSS First
+            this.RegisterCSSFiles();
+
             this.RegisterJQuery();
         }
 
@@ -215,6 +218,36 @@ namespace YAF.Modules
             element.Controls.Add(ControlHelper.MakeJsIncludeControl(jqueryUIUrl));
 
             YafContext.Current.PageElements.AddPageElement("jqueryui");
+        }
+
+        /// <summary>
+        /// Register the CSS Files in the header.
+        /// </summary>
+        private void RegisterCSSFiles()
+        {
+            var element = YafContext.Current.CurrentForumPage.TopPageControl;
+
+            // make the style sheet link controls.
+#if DEBUG
+            element.Controls.Add(ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToContent("forum.css")));
+#else
+            element.Controls.Add(ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToContent("forum.min.css")));
+#endif
+
+            element.Controls.Add(ControlHelper.MakeCssIncludeControl(this.Get<ITheme>().BuildThemePath("theme.css")));
+
+            // Register the jQueryUI Theme CSS
+            if (YafContext.Current.Get<YafBoardSettings>().JqueryUIThemeCDNHosted)
+            {
+                YafContext.Current.PageElements.RegisterCssInclude(
+                     "//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/{0}/jquery-ui.min.css".FormatWith(
+                         YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
+            }
+            else
+            {
+                YafContext.Current.PageElements.RegisterCssIncludeContent(
+                    "themes/{0}/jquery-ui.min.css".FormatWith(YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
+            }
         }
 
         #endregion
