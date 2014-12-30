@@ -74,11 +74,9 @@ namespace YAF.Controls
             {
                 return this._allPostsByUser
                        ?? (this._allPostsByUser =
-                           LegacyDb.post_alluser(
+                           LegacyDb.post_alluser_simple(
                                this.PageContext.PageBoardID,
-                               this.CurrentUserID,
-                               this.PageContext.PageUserID,
-                               null));
+                               this.CurrentUserID));
             }
         }
 
@@ -288,8 +286,6 @@ namespace YAF.Controls
                     break;
             }
 
-
-
             this.PageContext.AddLoadMessage(
                 this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_USER_KILLED").FormatWith(user.UserName));
 
@@ -329,7 +325,7 @@ namespace YAF.Controls
             var allIps = this.GetRepository<BannedIP>().ListTyped().Select(x => x.Mask).ToList();
 
             // ban user ips...
-            string name =
+            var name =
                 UserMembershipHelper.GetDisplayNameFromID(
                     this.CurrentUserID == null ? -1 : this.CurrentUserID.ToType<int>());
 
@@ -342,7 +338,7 @@ namespace YAF.Controls
 
             foreach (var ip in this.IPAddresses.Except(allIps).ToList())
             {
-                string linkUserBan =
+                var linkUserBan =
                     this.Get<ILocalization>()
                         .GetText("ADMIN_EDITUSER", "LINK_USER_BAN")
                         .FormatWith(

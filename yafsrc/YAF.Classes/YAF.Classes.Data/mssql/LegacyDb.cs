@@ -5478,6 +5478,25 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
+        /// Gets all the post by a user.
+        /// </summary>
+        /// <param name="boardID">The board id.</param>
+        /// <param name="userID">The user id.</param>
+        /// <returns> Returns all the post by a user.</returns>
+        public static DataTable post_alluser_simple([NotNull] object boardID, [NotNull] object userID)
+        {
+            using (var cmd = DbHelpers.GetCommand("post_alluser_simple"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                
+                cmd.AddParam("BoardID", boardID);
+                cmd.AddParam("UserID", userID);
+                
+                return DbAccess.GetData(cmd);
+            }
+        }
+
+        /// <summary>
         /// The post_last 10 user.
         /// </summary>
         /// <param name="boardID">

@@ -673,6 +673,10 @@ IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{data
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}post_alluser]
 GO
 
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}post_alluser_simple]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}post_alluser_simple]
+GO
+
 IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}post_list]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}post_list]
 GO
@@ -5524,6 +5528,20 @@ begin
         
     SET ROWCOUNT 0;
      SET NOCOUNT OFF
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}post_alluser_simple](@BoardID int,@UserID int) as
+begin
+    select
+        a.MessageID,	
+        a.IP
+    from
+        [{databaseOwner}].[{objectQualifier}Message] a
+    where
+        a.UserID = @UserID
+    order by
+        a.Posted desc
 end
 GO
 
