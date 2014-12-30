@@ -38,7 +38,6 @@ namespace YAF.Core.BBCode
     /// </summary>
     public class HighLighter
     {
-        // Default Constructor
         #region Constructors and Destructors
 
         /// <summary>
@@ -65,12 +64,12 @@ namespace YAF.Core.BBCode
         /// <summary>
         /// Colors the text.
         /// </summary>
-        /// <param name="tmpCode">The tmp code.</param>
+        /// <param name="codeText">The code to highlight.</param>
         /// <param name="language">The language.</param>
         /// <returns>
         /// The color text.
         /// </returns>
-        public string ColorText(string tmpCode, string language)
+        public string ColorText(string codeText, string language)
         {
             language = language.ToLower();
 
@@ -102,12 +101,11 @@ namespace YAF.Core.BBCode
 
             // Create Output
             tmpOutput.AppendFormat(
-                "<pre class=\"line-numbers\"{1}><code class=\"language-{0}\">{2}",
+                "<pre class=\"line-numbers\"{1}><code class=\"language-{0}\">",
                 language,
-                highlight.IsSet() ? " data-line=\"{0}\"".FormatWith(highlight) : string.Empty,
-                Environment.NewLine);
+                highlight.IsSet() ? " data-line=\"{0}\"".FormatWith(highlight) : string.Empty);
 
-            tmpOutput.Append(tmpCode);
+            tmpOutput.Append(codeText);
 
             tmpOutput.AppendFormat("</code></pre>{0}", Environment.NewLine);
 
