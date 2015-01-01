@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014 Ingo Herbote
+ * Copyright (C) 2014-2015 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -93,7 +93,7 @@ namespace YAF.Utils
         {
             get
             {
-                return BaseUrlBuilder.BaseUrl + BaseUrlBuilder.AppPath;
+                return "{0}{1}".FormatWith(BaseUrlBuilder.BaseUrl, BaseUrlBuilder.AppPath);
             }
         }
 
@@ -118,8 +118,8 @@ namespace YAF.Utils
         {
             get
             {
-                string s = HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
-                return s != null && s.ToLower() == "localhost";
+                var serverName = HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
+                return serverName != null && serverName.ToLower() == "localhost";
             }
         }
 
@@ -162,19 +162,19 @@ namespace YAF.Utils
                 const ReleaseType ReleaseType = ReleaseType.Alpha;
                 const byte ReleaseNumber = 0;
                 
-                long version = (long)Major << 24;
-                version |= (long)Minor << 16;
-                version |= (long)(Build & 0x0F) << 12;
+                var version = Major.ToType<long>() << 24;
+                version |= Minor.ToType<long>() << 16;
+                version |= (Build & 0x0F).ToType<long>() << 12;
 
                 if (Sub > 0)
                 {
-                    version |= (long)Sub << 8;
+                    version |= Sub.ToType<long>() << 8;
                 }
 
                 if (ReleaseType != ReleaseType.Regular)
                 {
-                    version |= (long)ReleaseType << 4;
-                    version |= (long)(ReleaseNumber & 0x0F) + 1;
+                    version |= ReleaseType.ToType<long>() << 4;
+                    version |= (ReleaseNumber & 0x0F).ToType<long>() + 1;
                 }
 
                 return version;
@@ -188,7 +188,7 @@ namespace YAF.Utils
         {
             get
             {
-                return new DateTime(2014, 10, 11);
+                return new DateTime(2014, 12, 30);
             }
         }
 
@@ -203,7 +203,7 @@ namespace YAF.Utils
         /// </returns>
         public static string AppVersionNameFromCode(long code)
         {
-            string version = "{0}.{1}.{2}".FormatWith((code >> 24) & 0xFF, (code >> 16) & 0xFF, (code >> 12) & 0x0F);
+            var version = "{0}.{1}.{2}".FormatWith((code >> 24) & 0xFF, (code >> 16) & 0xFF, (code >> 12) & 0x0F);
 
             if (((code >> 8) & 0x0F) > 0)
             {

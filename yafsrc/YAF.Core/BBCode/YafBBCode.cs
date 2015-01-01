@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014 Ingo Herbote
+ * Copyright (C) 2014-2015 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -661,7 +661,7 @@ namespace YAF.Core.BBCode
 
                 // add rule for code block type with no syntax highlighting
                 ruleEngine.AddRule(
-                    new CodeRegexReplaceRule(
+                    new SyntaxHighlightedCodeRegexReplaceRule(
                         _rgxCode1, 
                         @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}", localCodeStr)));
 

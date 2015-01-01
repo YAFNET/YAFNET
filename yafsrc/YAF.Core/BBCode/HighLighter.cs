@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014 Ingo Herbote
+ * Copyright (C) 2014-2015 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -84,6 +84,9 @@ namespace YAF.Core.BBCode
                     language = "markup";
                     break;
                 case "plain":
+                    language = "markup";
+                    break;
+                case "":
                     language = "markup";
                     break;
             }
