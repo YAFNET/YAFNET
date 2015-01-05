@@ -1,11 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using ServiceStack.Logging;
 
-namespace ServiceStack.Common
+namespace ServiceStack
 {
     public static class ExecExtensions
     {
@@ -73,9 +71,9 @@ namespace ServiceStack.Common
         public static void RetryUntilTrue(Func<bool> action, TimeSpan? timeOut)
         {
             var i = 0;
-            var firstAttempt = DateTime.Now;
+            var firstAttempt = DateTime.UtcNow;
 
-            while (timeOut == null || DateTime.Now - firstAttempt < timeOut.Value)
+            while (timeOut == null || DateTime.UtcNow - firstAttempt < timeOut.Value)
             {
                 i++;
                 if (action())
@@ -92,9 +90,9 @@ namespace ServiceStack.Common
         {
             var i = 0;
             Exception lastEx = null;
-            var firstAttempt = DateTime.Now;
+            var firstAttempt = DateTime.UtcNow;
 
-            while (timeOut == null || DateTime.Now - firstAttempt < timeOut.Value)
+            while (timeOut == null || DateTime.UtcNow - firstAttempt < timeOut.Value)
             {
                 i++;
                 try

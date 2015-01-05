@@ -5,28 +5,34 @@
 // Authors:
 //   Demis Bellot (demis.bellot@gmail.com)
 //
-// Copyright 2012 ServiceStack Ltd.
+// Copyright 2012 Service Stack LLC. All Rights Reserved.
 //
-// Licensed under the same terms of ServiceStack: new BSD license.
+// Licensed under the same terms of ServiceStack.
 //
 
 using System;
+using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using ServiceStack.Text;
 using ServiceStack.Text.Common;
 using ServiceStack.Text.Jsv;
 
-namespace ServiceStack.Text
+namespace ServiceStack
 {
 	public static class QueryStringSerializer
 	{
 		internal static readonly JsWriter<JsvTypeSerializer> Instance = new JsWriter<JsvTypeSerializer>();
 
 		private static Dictionary<Type, WriteObjectDelegate> WriteFnCache = new Dictionary<Type, WriteObjectDelegate>();
+
+        public static WriteComplexTypeDelegate ComplexTypeStrategy { get; set; } 
 
 		internal static WriteObjectDelegate GetWriteFn(Type type)
 		{
@@ -36,9 +42,10 @@ namespace ServiceStack.Text
                 if (WriteFnCache.TryGetValue(type, out writeFn)) return writeFn;
 
                 var genericType = typeof(QueryStringWriter<>).MakeGenericType(type);
-                var mi = genericType.GetMethod("WriteFn", BindingFlags.NonPublic | BindingFlags.Static);
-                var writeFactoryFn = (Func<WriteObjectDelegate>)Delegate.CreateDelegate(
-                    typeof(Func<WriteObjectDelegate>), mi);
+                var mi = genericType.GetStaticMethod("WriteFn");
+                var writeFactoryFn = (Func<WriteObjectDelegate>)mi.MakeDelegate(
+                    typeof(Func<WriteObjectDelegate>));
+
                 writeFn = writeFactoryFn();
 
                 Dictionary<Type, WriteObjectDelegate> snapshot, newCache;
@@ -91,7 +98,7 @@ namespace ServiceStack.Text
 	{
 		private static readonly WriteObjectDelegate CacheFn;
 
-		internal static WriteObjectDelegate WriteFn()
+	    public static WriteObjectDelegate WriteFn()
 		{
 			return CacheFn;
 		}
@@ -102,10 +109,19 @@ namespace ServiceStack.Text
 			{
 				CacheFn = QueryStringSerializer.WriteLateBoundObject;
 			}
+            else if (typeof (T).AssignableFrom(typeof (IDictionary))
+                || typeof (T).HasInterface(typeof (IDictionary)))
+            {
+                CacheFn = WriteIDictionary;
+            }
 			else
 			{
-				if (typeof(T).IsClass || typeof(T).IsInterface)
-				{
+                var isEnumerable = typeof(T).AssignableFrom(typeof(IEnumerable))
+                    || typeof(T).HasInterface(typeof(IEnumerable));
+
+                if ((typeof(T).IsClass() || typeof(T).IsInterface()) 
+                    && !isEnumerable)
+                {
 					var canWriteType = WriteType<T, JsvTypeSerializer>.Write;
 					if (canWriteType != null)
 					{
@@ -123,6 +139,100 @@ namespace ServiceStack.Text
 			if (writer == null) return;
 			CacheFn(writer, value);
 		}
-	}
-	
+
+        private static readonly ITypeSerializer Serializer = JsvTypeSerializer.Instance;        
+        public static void WriteIDictionary(TextWriter writer, object oMap)
+        {
+            WriteObjectDelegate writeKeyFn = null;
+            WriteObjectDelegate writeValueFn = null;
+
+            try
+            {
+                JsState.QueryStringMode = true;
+
+                var map = (IDictionary)oMap;
+                var ranOnce = false;
+                foreach (var key in map.Keys)
+                {
+                    var dictionaryValue = map[key];
+                    if (dictionaryValue == null) continue;
+
+                    if (writeKeyFn == null)
+                    {
+                        var keyType = key.GetType();
+                        writeKeyFn = Serializer.GetWriteFn(keyType);
+                    }
+
+                    if (writeValueFn == null)
+                        writeValueFn = Serializer.GetWriteFn(dictionaryValue.GetType());
+
+                    if (ranOnce)
+                        writer.Write("&");
+                    else
+                        ranOnce = true;
+
+                    JsState.WritingKeyCount++;
+                    JsState.IsWritingValue = false;
+
+                    writeKeyFn(writer, key);
+
+                    JsState.WritingKeyCount--;
+
+                    writer.Write("=");
+
+                    JsState.IsWritingValue = true;
+                    writeValueFn(writer, dictionaryValue);
+                    JsState.IsWritingValue = false;
+                }
+            }
+            finally 
+            {
+                JsState.QueryStringMode = false;
+            }
+        }
+    }
+
+    public delegate bool WriteComplexTypeDelegate(TextWriter writer, string propertyName, object obj);
+
+    internal class PropertyTypeConfig
+    {
+        public TypeConfig TypeConfig;
+        public string[] PropertyNames;
+        public Action<string, TextWriter, object> WriteFn;
+    }
+
+    internal class PropertyTypeConfig<T>
+    {
+        public static PropertyTypeConfig Config;
+
+        static PropertyTypeConfig()
+        {
+            Config = new PropertyTypeConfig {
+                TypeConfig = TypeConfig<T>.GetState(),
+                WriteFn = WriteType<T, JsvTypeSerializer>.WriteComplexQueryStringProperties,
+            };
+        }
+    }
+
+    public static class QueryStringStrategy
+    {
+        static readonly ConcurrentDictionary<Type, PropertyTypeConfig> typeConfigCache =
+            new ConcurrentDictionary<Type, PropertyTypeConfig>();
+
+        public static bool FormUrlEncoded(TextWriter writer, string propertyName, object obj)
+        {
+            var typeConfig = typeConfigCache.GetOrAdd(obj.GetType(), t =>
+                {
+                    var genericType = typeof (PropertyTypeConfig<>).MakeGenericType(t);
+                    var fi = genericType.Fields().First(x => x.Name == "Config");;
+
+                    var config = (PropertyTypeConfig)fi.GetValue(null);
+                    return config;
+                });
+
+            typeConfig.WriteFn(propertyName, writer, obj);
+
+            return true;
+        }
+    }
 }

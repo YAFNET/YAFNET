@@ -1,30 +1,20 @@
-//
-// https://github.com/ServiceStack/ServiceStack.Text
-// ServiceStack.Text: .NET C# POCO JSON, JSV and CSV Text Serializers.
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2012 ServiceStack Ltd.
-//
-// Licensed under the same terms of ServiceStack: new BSD license.
-//
+//Copyright (c) Service Stack LLC. All Rights Reserved.
+//License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Threading;
 using ServiceStack.Text.Common;
 
 namespace ServiceStack.Text.Json
 {
-	internal static class JsonReader
+    public static class JsonReader
 	{
 		public static readonly JsReader<JsonTypeSerializer> Instance = new JsReader<JsonTypeSerializer>();
 
 		private static Dictionary<Type, ParseFactoryDelegate> ParseFnCache = new Dictionary<Type, ParseFactoryDelegate>();
-        
-		public static ParseStringDelegate GetParseFn(Type type)
+
+	    internal static ParseStringDelegate GetParseFn(Type type)
 		{
 			ParseFactoryDelegate parseFactoryFn;
             ParseFnCache.TryGetValue(type, out parseFactoryFn);
@@ -32,8 +22,8 @@ namespace ServiceStack.Text.Json
             if (parseFactoryFn != null) return parseFactoryFn();
 
             var genericType = typeof(JsonReader<>).MakeGenericType(type);
-            var mi = genericType.GetMethod("GetParseFn", BindingFlags.Public | BindingFlags.Static);
-            parseFactoryFn = (ParseFactoryDelegate)Delegate.CreateDelegate(typeof(ParseFactoryDelegate), mi);
+            var mi = genericType.GetStaticMethod("GetParseFn");
+            parseFactoryFn = (ParseFactoryDelegate)mi.MakeDelegate(typeof(ParseFactoryDelegate));
 
             Dictionary<Type, ParseFactoryDelegate> snapshot, newCache;
             do
@@ -49,7 +39,7 @@ namespace ServiceStack.Text.Json
 		}
 	}
 
-	public static class JsonReader<T>
+    public static class JsonReader<T>
 	{
 		private static readonly ParseStringDelegate ReadFn;
 
@@ -65,23 +55,26 @@ namespace ServiceStack.Text.Json
 
 		public static object Parse(string value)
 		{
-			if (ReadFn == null)
-			{
-                if (typeof(T).IsAbstract || typeof(T).IsInterface)
-				{
-					if (string.IsNullOrEmpty(value)) return null;
-					var concreteType = DeserializeType<JsonTypeSerializer>.ExtractType(value);
-					if (concreteType != null)
-					{
-						return JsonReader.GetParseFn(concreteType)(value);
-					}
-					throw new NotSupportedException("Can not deserialize interface type: "
-						+ typeof(T).Name);
-				}
-			}
-			return value == null 
-			       	? null 
-			       	: ReadFn(value);
-		}
+            TypeConfig<T>.AssertValidUsage();
+
+            if (ReadFn == null)
+            {
+                if (typeof(T).IsAbstract() || typeof(T).IsInterface())
+                {
+                    if (string.IsNullOrEmpty(value)) return null;
+                    var concreteType = DeserializeType<JsonTypeSerializer>.ExtractType(value);
+                    if (concreteType != null)
+                    {
+                        return JsonReader.GetParseFn(concreteType)(value);
+                    }
+                    throw new NotSupportedException("Can not deserialize interface type: "
+                        + typeof(T).Name);
+                }
+            }
+
+            return value == null
+                    ? null
+                    : ReadFn(value);
+        }
 	}
 }

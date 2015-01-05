@@ -4,152 +4,107 @@
 // Authors:
 //   Demis Bellot (demis.bellot@gmail.com)
 //
-// Copyright 2010 Liquidbit Ltd.
+// Copyright 2013 Service Stack LLC. All Rights Reserved.
 //
-// Licensed under the same terms of ServiceStack: new BSD license.
+// Licensed under the same terms of ServiceStack.
 //
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using ServiceStack.Common.Extensions;
-using ServiceStack.Common.Utils;
-using ServiceStack.DataAccess;
+using ServiceStack.Data;
 
 namespace ServiceStack.OrmLite
 {
-	/// <summary>
-	/// Allow for code-sharing between OrmLite, IPersistenceProvider and ICacheClient
-	/// </summary>
-	public class OrmLitePersistenceProvider
-		: IBasicPersistenceProvider
-	{
-		protected string ConnectionString { get; set; }
-		protected bool DisposeConnection = true;
+    /// <summary>
+    /// Allow for code-sharing between OrmLite, IPersistenceProvider and ICacheClient
+    /// </summary>
+    public class OrmLitePersistenceProvider
+        : IEntityStore
+    {
+        protected string ConnectionString { get; set; }
+        protected bool DisposeConnection = true;
 
-		protected IDbConnection connection;
-		public IDbConnection Connection
-		{
-			get
-			{
-				if (connection == null)
-				{
-					connection = this.ConnectionString.OpenDbConnection();
-				}
-				return connection;
-			}
-		}
+        protected IDbConnection connection;
+        public IDbConnection Connection
+        {
+            get
+            {
+                if (connection == null)
+                {
+                    var connStr = this.ConnectionString;
+                    connection = connStr.OpenDbConnection();
+                }
+                return connection;
+            }
+        }
 
-		public OrmLitePersistenceProvider(string connectionString)
-		{
-			ConnectionString = connectionString;
-		}
+        public OrmLitePersistenceProvider(string connectionString)
+        {
+            ConnectionString = connectionString;
+        }
 
-		public OrmLitePersistenceProvider(IDbConnection connection)
-		{
-			this.connection = connection;
-			this.DisposeConnection = false;
-		}
+        public OrmLitePersistenceProvider(IDbConnection connection)
+        {
+            this.connection = connection;
+            this.DisposeConnection = false;
+        }
 
-		public T GetById<T>(object id)
-			where T : class, new()
-		{
-			using (var dbCmd = this.Connection.CreateCommand())
-			{
-				return dbCmd.GetByIdOrDefault<T>(id);
-			}
-		}
+        private IDbCommand CreateCommand()
+        {
+            var cmd = this.Connection.CreateCommand();
+            cmd.CommandTimeout = OrmLiteConfig.CommandTimeout;
+            return cmd;
+        }
 
-		public IList<T> GetByIds<T>(ICollection ids)
-			where T : class, new()
-		{
-			using (var dbCmd = this.Connection.CreateCommand())
-			{
-				return dbCmd.GetByIds<T>(ids);
-			}
-		}
+        public T GetById<T>(object id)
+        {
+            return this.Connection.SingleById<T>(id);
+        }
 
-		public T Store<T>(T entity)
-			where T : class, new()
-		{
-			using (var dbCmd = this.Connection.CreateCommand())
-			{
-				return InsertOrUpdate(dbCmd, entity);
-			}
-		}
+        public IList<T> GetByIds<T>(ICollection ids)
+        {
+            return this.Connection.SelectByIds<T>(ids);
+        }
 
-		private static T InsertOrUpdate<T>(IDbCommand dbCmd, T entity)
-			where T : class, new()
-		{
-			var id = IdUtils.GetId(entity);
-			var existingEntity = dbCmd.GetByIdOrDefault<T>(id);
-			if (existingEntity != null)
-			{
-				existingEntity.PopulateWith(entity);
-				dbCmd.Update(entity);
+        public T Store<T>(T entity)
+        {
+            this.Connection.Save(entity);
+            return entity;
+        }
 
-				return existingEntity;
-			}
+        public void StoreAll<TEntity>(IEnumerable<TEntity> entities)
+        {
+            this.Connection.SaveAll(entities);
+        }
 
-			dbCmd.Insert(entity);
-			return entity;
-		}
+        public void Delete<T>(T entity)
+        {
+            this.Connection.DeleteById<T>(entity.GetId());
+        }
 
-		public void StoreAll<TEntity>(IEnumerable<TEntity> entities) 
-			where TEntity : class, new()
-		{
-			using (var dbCmd = this.Connection.CreateCommand())
-			using (var dbTrans = this.Connection.BeginTransaction())
-			{
-				foreach (var entity in entities)
-				{
-					InsertOrUpdate(dbCmd, entity);
-				}
-				dbTrans.Commit();
-			}
-		}
+        public void DeleteById<T>(object id)
+        {
+            this.Connection.DeleteById<T>(id);
+        }
 
-		public void Delete<T>(T entity)
-			where T : class, new()
-		{
-			using (var dbCmd = this.Connection.CreateCommand())
-			{
-				dbCmd.Delete(entity);
-			}
-		}
+        public void DeleteByIds<T>(ICollection ids)
+        {
+            this.Connection.DeleteByIds<T>(ids);
+        }
 
-		public void DeleteById<T>(object id) where T : class, new()
-		{
-			using (var dbCmd = this.Connection.CreateCommand())
-			{
-				dbCmd.DeleteById<T>(id);
-			}
-		}
+        public void DeleteAll<TEntity>()
+        {
+            this.Connection.DeleteAll<TEntity>();
+        }
 
-		public void DeleteByIds<T>(ICollection ids) where T : class, new()
-		{
-			using (var dbCmd = this.Connection.CreateCommand())
-			{
-				dbCmd.DeleteByIds<T>(ids);
-			}
-		}
+        public void Dispose()
+        {
+            if (!DisposeConnection) return;
+            if (this.connection == null) return;
 
-		public void DeleteAll<TEntity>() where TEntity : class, new()
-		{
-			using (var dbCmd = this.Connection.CreateCommand())
-			{
-				dbCmd.DeleteAll<TEntity>();
-			}
-		}
-
-		public void Dispose()
-		{
-			if (!DisposeConnection) return;
-			if (this.connection == null) return;
-			
-			this.connection.Dispose();
-			this.connection = null;
-		}
-	}
+            this.connection.Dispose();
+            this.connection = null;
+        }
+    }
 }

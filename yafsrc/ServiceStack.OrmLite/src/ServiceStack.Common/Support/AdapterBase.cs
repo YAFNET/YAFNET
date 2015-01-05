@@ -1,7 +1,7 @@
 using System;
 using ServiceStack.Logging;
 
-namespace ServiceStack.Common.Support
+namespace ServiceStack.Support
 {
     /// <summary>
     /// Common functionality when creating adapters
@@ -18,18 +18,24 @@ namespace ServiceStack.Common.Support
         /// <returns></returns>
         protected T Execute<T>(Func<T> action)
         {
-            DateTime before = DateTime.Now;
+            DateTime before = DateTime.UtcNow;
+#if !NETFX_CORE && !WP
             this.Log.DebugFormat("Executing action '{0}'", action.Method.Name);
+#endif
             try
             {
                 T result = action();
-                TimeSpan timeTaken = DateTime.Now - before;
+                TimeSpan timeTaken = DateTime.UtcNow - before;
+#if !NETFX_CORE && !WP
                 this.Log.DebugFormat("Action '{0}' executed. Took {1} ms.", action.Method.Name, timeTaken.TotalMilliseconds);
+#endif
                 return result;
             }
             catch (Exception ex)
             {
+#if !NETFX_CORE && !WP
                 this.Log.ErrorFormat("There was an error executing Action '{0}'. Message: {1}", action.Method.Name, ex.Message);
+#endif
                 throw;
             }
         }
@@ -40,17 +46,23 @@ namespace ServiceStack.Common.Support
         /// <param name="action">The action.</param>
         protected void Execute(Action action)
         {
-            DateTime before = DateTime.Now;
+            DateTime before = DateTime.UtcNow;
+#if !NETFX_CORE && !WP
             this.Log.DebugFormat("Executing action '{0}'", action.Method.Name);
+#endif
             try
             {
                 action();
-                TimeSpan timeTaken = DateTime.Now - before;
+                TimeSpan timeTaken = DateTime.UtcNow - before;
+#if !NETFX_CORE && !WP
                 this.Log.DebugFormat("Action '{0}' executed. Took {1} ms.", action.Method.Name, timeTaken.TotalMilliseconds);
+#endif
             }
             catch (Exception ex)
             {
+#if !NETFX_CORE && !WP
                 this.Log.ErrorFormat("There was an error executing Action '{0}'. Message: {1}", action.Method.Name, ex.Message);
+#endif
                 throw;
             }
         }

@@ -5,14 +5,15 @@
 // Authors:
 //   Demis Bellot (demis.bellot@gmail.com)
 //
-// Copyright 2012 ServiceStack Ltd.
+// Copyright 2012 Service Stack LLC. All Rights Reserved.
 //
-// Licensed under the same terms of ServiceStack: new BSD license.
+// Licensed under the same terms of ServiceStack.
 //
 
 using System;
 using System.IO;
 using System.Text;
+using System.Reflection;
 using ServiceStack.Text.Common;
 using ServiceStack.Text.Json;
 
@@ -45,11 +46,11 @@ namespace ServiceStack.Text
 		{
 			if (value == null) return null;
 			if (typeof(T) == typeof(string)) return value as string;
-            if (typeof(T) == typeof(object) || typeof(T).IsAbstract || typeof(T).IsInterface)
+            if (typeof(T) == typeof(object) || typeof(T).IsAbstract() || typeof(T).IsInterface())
             {
-                if (typeof(T).IsAbstract || typeof(T).IsInterface) JsState.IsWritingDynamic = true;
+                if (typeof(T).IsAbstract() || typeof(T).IsInterface()) JsState.IsWritingDynamic = true;
                 var result = JsonSerializer.SerializeToString(value, value.GetType());
-                if (typeof(T).IsAbstract || typeof(T).IsInterface) JsState.IsWritingDynamic = false;
+                if (typeof(T).IsAbstract() || typeof(T).IsInterface()) JsState.IsWritingDynamic = false;
                 return result;
             }
 
@@ -69,11 +70,11 @@ namespace ServiceStack.Text
 				writer.Write(value);
 				return;
 			}
-            if (typeof(T) == typeof(object) || typeof(T).IsAbstract || typeof(T).IsInterface)
+            if (typeof(T) == typeof(object) || typeof(T).IsAbstract() || typeof(T).IsInterface())
             {
-                if (typeof(T).IsAbstract || typeof(T).IsInterface) JsState.IsWritingDynamic = true;
+                if (typeof(T).IsAbstract() || typeof(T).IsInterface()) JsState.IsWritingDynamic = true;
                 JsonSerializer.SerializeToWriter(value, value.GetType(), writer);
-                if (typeof(T).IsAbstract || typeof(T).IsInterface) JsState.IsWritingDynamic = false;
+                if (typeof(T).IsAbstract() || typeof(T).IsInterface()) JsState.IsWritingDynamic = false;
                 return;
             }
            

@@ -5,106 +5,91 @@
 // Authors:
 //   Demis Bellot (demis.bellot@gmail.com)
 //
-// Copyright 2012 ServiceStack Ltd.
+// Copyright 2012 Service Stack LLC. All Rights Reserved.
 //
-// Licensed under the same terms of ServiceStack: new BSD license.
+// Licensed under the same terms of ServiceStack.
 //
 
 using System;
 using System.Reflection;
+using System.Linq;
 using ServiceStack.Text.Jsv;
 
 namespace ServiceStack.Text.Common
 {
-	internal delegate object ParseDelegate(string value);
+    internal delegate object ParseDelegate(string value);
 
-	public static class StaticParseMethod<T>
-	{
-		const string ParseMethod = "Parse";
+    internal static class ParseMethodUtilities
+    {
+        public static ParseStringDelegate GetParseFn<T>(string parseMethod)
+        {
+            // Get the static Parse(string) method on the type supplied
+            var parseMethodInfo = typeof(T).GetStaticMethod(parseMethod, new[] { typeof(string) });
+            if (parseMethodInfo == null) 
+                return null;
 
-		private static readonly ParseStringDelegate CacheFn;
+            ParseDelegate parseDelegate = null;
+            try
+            {
+                if (parseMethodInfo.ReturnType != typeof(T))
+                {
+                    parseDelegate = (ParseDelegate)parseMethodInfo.MakeDelegate(typeof(ParseDelegate), false);
+                }
+                if (parseDelegate == null)
+                {
+                    //Try wrapping strongly-typed return with wrapper fn.
+                    var typedParseDelegate = (Func<string, T>)parseMethodInfo.MakeDelegate(typeof(Func<string, T>));
+                    parseDelegate = x => typedParseDelegate(x);
+                }
+            }
+            catch (ArgumentException)
+            {
+                Tracer.Instance.WriteDebug("Nonstandard Parse method on type {0}", typeof(T));
+            }
 
-		public static ParseStringDelegate Parse
-		{
-			get { return CacheFn; }
-		}
+            if (parseDelegate != null)
+                return value => parseDelegate(value.FromCsvField());
 
-		static StaticParseMethod()
-		{
-			CacheFn = GetParseFn();
-		}
+            return null;
+        }
+    }
 
-		public static ParseStringDelegate GetParseFn()
-		{
-			// Get the static Parse(string) method on the type supplied
-			var parseMethodInfo = typeof(T).GetMethod(
-				ParseMethod, BindingFlags.Public | BindingFlags.Static, null,
-				new[] { typeof(string) }, null);
+    public static class StaticParseMethod<T>
+    {
+        const string ParseMethod = "Parse";
 
-			if (parseMethodInfo == null) return null;
+        private static readonly ParseStringDelegate CacheFn;
 
-			ParseDelegate parseDelegate;
-			try
-			{
-				parseDelegate = (ParseDelegate)Delegate.CreateDelegate(typeof(ParseDelegate), parseMethodInfo);
-			}
-			catch (ArgumentException)
-			{
-				//Try wrapping strongly-typed return with wrapper fn.
-				var typedParseDelegate = (Func<string, T>)Delegate.CreateDelegate(typeof(Func<string, T>), parseMethodInfo);
-				parseDelegate = x => typedParseDelegate(x);
-			}
-			if (parseDelegate != null)
-				return value => parseDelegate(value.FromCsvField());
+        public static ParseStringDelegate Parse
+        {
+            get { return CacheFn; }
+        }
 
-			return null;
-		}
-	}
+        static StaticParseMethod()
+        {
+            CacheFn = ParseMethodUtilities.GetParseFn<T>(ParseMethod);
+        }
 
-	internal static class StaticParseRefTypeMethod<TSerializer, T>
-		where TSerializer : ITypeSerializer
-	{
-		static string ParseMethod = typeof(TSerializer) == typeof(JsvTypeSerializer)
-			? "ParseJsv"
-			: "ParseJson";
+    }
 
-		private static readonly ParseStringDelegate CacheFn;
+    internal static class StaticParseRefTypeMethod<TSerializer, T>
+        where TSerializer : ITypeSerializer
+    {
+        static readonly string ParseMethod = typeof(TSerializer) == typeof(JsvTypeSerializer)
+            ? "ParseJsv"
+            : "ParseJson";
 
-		public static ParseStringDelegate Parse
-		{
-			get { return CacheFn; }
-		}
+        private static readonly ParseStringDelegate CacheFn;
 
-		static StaticParseRefTypeMethod()
-		{			
-			CacheFn = GetParseFn();
-		}
+        public static ParseStringDelegate Parse
+        {
+            get { return CacheFn; }
+        }
 
-		public static ParseStringDelegate GetParseFn()
-		{
-			// Get the static Parse(string) method on the type supplied
-			var parseMethodInfo = typeof(T).GetMethod(
-				ParseMethod, BindingFlags.Public | BindingFlags.Static, null,
-				new[] { typeof(string) }, null);
-
-			if (parseMethodInfo == null) return null;
-
-			ParseDelegate parseDelegate;
-			try
-			{
-				parseDelegate = (ParseDelegate)Delegate.CreateDelegate(typeof(ParseDelegate), parseMethodInfo);
-			}
-			catch (ArgumentException)
-			{
-				//Try wrapping strongly-typed return with wrapper fn.
-				var typedParseDelegate = (Func<string, T>)Delegate.CreateDelegate(typeof(Func<string, T>), parseMethodInfo);
-				parseDelegate = x => typedParseDelegate(x);
-			}
-			if (parseDelegate != null)
-				return value => parseDelegate(value);
-
-			return null;
-		}
-	}
+        static StaticParseRefTypeMethod()
+        {
+            CacheFn = ParseMethodUtilities.GetParseFn<T>(ParseMethod);
+        }
+    }
 
 }

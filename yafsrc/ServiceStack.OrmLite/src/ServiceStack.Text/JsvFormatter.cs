@@ -6,9 +6,9 @@
 //	 Peter Townsend (townsend.pete@gmail.com)
 //   Demis Bellot (demis.bellot@gmail.com)
 //
-// Copyright 2012 ServiceStack Ltd.
+// Copyright 2012 Service Stack LLC. All Rights Reserved.
 //
-// Licensed under the same terms of ServiceStack: new BSD license.
+// Licensed under the same terms of ServiceStack.
 //
 
 using System;
@@ -27,6 +27,7 @@ namespace ServiceStack.Text
 			var tabCount = 0;
 			var sb = new StringBuilder();
 			var firstKeySeparator = true;
+			var inString = false;
 
 			for (var i = 0; i < serializedText.Length; i++)
 			{
@@ -62,7 +63,14 @@ namespace ServiceStack.Text
 					continue;
 				}
 
-				if (current == JsWriter.ItemSeperator)
+				if (current == JsWriter.QuoteChar)
+				{
+					sb.Append(current);
+					inString = !inString;
+					continue;
+				}
+
+				if (current == JsWriter.ItemSeperator && !inString)
 				{
 					sb.Append(current);
 					AppendTabLine(sb, tabCount);

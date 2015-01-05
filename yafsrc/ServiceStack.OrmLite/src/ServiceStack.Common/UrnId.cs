@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace ServiceStack.Common
+namespace ServiceStack
 {
     /// <summary>
     /// Creates a Unified Resource Name (URN) with the following formats:
@@ -76,6 +76,11 @@ namespace ServiceStack.Common
         public static string Create<T>(string idFieldValue)
         {
             return Create(typeof(T), idFieldValue);
+        }
+
+        public static string Create<T>(object idFieldValue)
+        {
+            return Create(typeof(T), idFieldValue.ToString());
         }
 
         public static string Create(Type objectType, string idFieldValue)

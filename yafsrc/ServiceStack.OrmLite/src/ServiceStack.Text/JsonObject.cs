@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text.RegularExpressions;
+using ServiceStack.Text.Common;
 using ServiceStack.Text.Json;
 
 namespace ServiceStack.Text
@@ -72,10 +75,15 @@ namespace ServiceStack.Text
             set { base[key] = value; }
         }
 
-		public static JsonObject Parse(string json)
-		{
-			return JsonSerializer.DeserializeFromString<JsonObject>(json);
-		}
+        public static JsonObject Parse(string json)
+        {
+            return JsonSerializer.DeserializeFromString<JsonObject>(json);
+        }
+
+        public static JsonArrayObjects ParseArray(string json)
+        {
+            return JsonArrayObjects.Parse(json);
+        }
 
 		public JsonArrayObjects ArrayObjects(string propertyName)
 		{
@@ -108,6 +116,31 @@ namespace ServiceStack.Text
         {
             return base[key];
         }
+        
+        static readonly Regex NumberRegEx = new Regex(@"^[0-9]*(?:\.[0-9]*)?$", PclExport.Instance.RegexOptions);
+
+        /// <summary>
+        /// Write JSON Array, Object, bool or number values as raw string
+        /// </summary>
+        public static void WriteValue(TextWriter writer, object value)
+        {
+            var strValue = value as string;
+            if (!string.IsNullOrEmpty(strValue))
+            {
+                var firstChar = strValue[0];
+                var lastChar = strValue[strValue.Length - 1];
+                if ((firstChar == JsWriter.MapStartChar && lastChar == JsWriter.MapEndChar)
+                    || (firstChar == JsWriter.ListStartChar && lastChar == JsWriter.ListEndChar) 
+                    || JsonUtils.True == strValue
+                    || JsonUtils.False == strValue
+                    || NumberRegEx.IsMatch(strValue))
+                {
+                    writer.Write(strValue);
+                    return;
+                }
+            }
+            JsonUtils.WriteString(writer, strValue);
+        }
     }
 
 	public class JsonArrayObjects : List<JsonObject>
@@ -117,5 +150,35 @@ namespace ServiceStack.Text
 			return JsonSerializer.DeserializeFromString<JsonArrayObjects>(json);
 		}
 	}
+
+    public interface IValueWriter
+    {
+        void WriteTo(ITypeSerializer serializer, TextWriter writer);
+    }
+
+    public struct JsonValue : IValueWriter
+    {
+        private readonly string json;
+
+        public JsonValue(string json)
+        {
+            this.json = json;
+        }
+
+        public T As<T>()
+        {
+            return JsonSerializer.DeserializeFromString<T>(json);
+        }
+        
+        public override string ToString()
+        {
+            return json;
+        }
+
+        public void WriteTo(ITypeSerializer serializer, TextWriter writer)
+        {
+            writer.Write(json ?? JsonUtils.Null);
+        }
+    }
 
 }

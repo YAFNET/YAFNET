@@ -1,3 +1,4 @@
+﻿using System;
 using System.Text;
 
 namespace ServiceStack.Messaging
@@ -10,6 +11,7 @@ namespace ServiceStack.Messaging
         int TotalRetries { get; }
         int TotalNormalMessagesReceived { get; }
         int TotalPriorityMessagesReceived { get; }
+        DateTime? LastMessageProcessed { get; }
         void Add(IMessageHandlerStats stats);
     }
 
@@ -20,8 +22,8 @@ namespace ServiceStack.Messaging
             Name = name;
         }
 
-        public MessageHandlerStats(string name, int totalMessagesProcessed, int totalMessagesFailed, int totalRetries, 
-            int totalNormalMessagesReceived, int totalPriorityMessagesReceived)
+        public MessageHandlerStats(string name, int totalMessagesProcessed, int totalMessagesFailed, int totalRetries,
+            int totalNormalMessagesReceived, int totalPriorityMessagesReceived, DateTime? lastMessageProcessed)
         {
             Name = name;
             TotalMessagesProcessed = totalMessagesProcessed;
@@ -29,9 +31,11 @@ namespace ServiceStack.Messaging
             TotalRetries = totalRetries;
             TotalNormalMessagesReceived = totalNormalMessagesReceived;
             TotalPriorityMessagesReceived = totalPriorityMessagesReceived;
+            LastMessageProcessed = lastMessageProcessed;
         }
 
         public string Name { get; private set; }
+        public DateTime? LastMessageProcessed { get; private set; }
         public int TotalMessagesProcessed { get; private set; }
         public int TotalMessagesFailed { get; private set; }
         public int TotalRetries { get; private set; }
@@ -45,6 +49,8 @@ namespace ServiceStack.Messaging
             TotalRetries += stats.TotalRetries;
             TotalNormalMessagesReceived += stats.TotalNormalMessagesReceived;
             TotalPriorityMessagesReceived += stats.TotalPriorityMessagesReceived;
+            if (LastMessageProcessed == null || stats.LastMessageProcessed > LastMessageProcessed)
+                LastMessageProcessed = stats.LastMessageProcessed;
         }
 
         public override string ToString()
@@ -56,6 +62,7 @@ namespace ServiceStack.Messaging
             sb.AppendFormat("\nTotalProcessed: {0}", TotalMessagesProcessed);
             sb.AppendFormat("\nTotalRetries: {0}", TotalRetries);
             sb.AppendFormat("\nTotalFailed: {0}", TotalMessagesFailed);
+            sb.AppendFormat("\nLastMessageProcessed: {0}", LastMessageProcessed.HasValue ? LastMessageProcessed.Value.ToString() : "");
             return sb.ToString();
         }
     }

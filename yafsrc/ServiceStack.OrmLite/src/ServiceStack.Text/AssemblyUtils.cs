@@ -1,11 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-#if SILVERLIGHT
-
-#endif
+using System.Threading;
 using ServiceStack.Common.Support;
 
 namespace ServiceStack.Text
@@ -16,9 +15,9 @@ namespace ServiceStack.Text
     public static class AssemblyUtils
     {
         private const string FileUri = "file:///";
-        private const string DllExt = "dll";
-        private const string ExeExt = "dll";
         private const char UriSeperator = '/';
+
+        private static Dictionary<string, Type> TypeCache = new Dictionary<string, Type>();
 
 #if !XBOX
         /// <summary>
@@ -28,37 +27,48 @@ namespace ServiceStack.Text
         /// <returns></returns>
         public static Type FindType(string typeName)
         {
-#if !SILVERLIGHT
-            var type = Type.GetType(typeName);
-            if (type != null) return type;
+            Type type = null;
+            if (TypeCache.TryGetValue(typeName, out type)) return type;
+
+#if !SL5
+            type = Type.GetType(typeName);
 #endif
-            var typeDef = new AssemblyTypeDefinition(typeName);
-            if (!String.IsNullOrEmpty(typeDef.AssemblyName))
+            if (type == null)
             {
-                return FindType(typeDef.TypeName, typeDef.AssemblyName);
+                var typeDef = new AssemblyTypeDefinition(typeName);
+                type = !string.IsNullOrEmpty(typeDef.AssemblyName) 
+                    ? FindType(typeDef.TypeName, typeDef.AssemblyName) 
+                    : FindTypeFromLoadedAssemblies(typeDef.TypeName);
             }
-            else
+
+            Dictionary<string, Type> snapshot, newCache;
+            do
             {
-                return FindTypeFromLoadedAssemblies(typeDef.TypeName);
-            }
+                snapshot = TypeCache;
+                newCache = new Dictionary<string, Type>(TypeCache);
+                newCache[typeName] = type;
+
+            } while (!ReferenceEquals(
+                Interlocked.CompareExchange(ref TypeCache, newCache, snapshot), snapshot));
+
+            return type;
         }
 #endif
 
-#if !XBOX
-
-		
-		/// <summary>
-		/// The top-most interface of the given type, if any.
-		/// </summary>
-    	public static Type MainInterface<T>() {
-			var t = typeof(T);
-    		if (t.BaseType == typeof(object)) {
-				// on Windows, this can be just "t.GetInterfaces()" but Mono doesn't return in order.
-				var interfaceType = t.GetInterfaces().FirstOrDefault(i => !t.GetInterfaces().Any(i2 => i2.GetInterfaces().Contains(i)));
-				if (interfaceType != null) return interfaceType;
-			}
-			return t; // not safe to use interface, as it might be a superclass's one.
-		}
+        /// <summary>
+        /// The top-most interface of the given type, if any.
+        /// </summary>
+        public static Type MainInterface<T>()
+        {
+            var t = typeof(T);
+            if (t.BaseType() == typeof(object))
+            {
+                // on Windows, this can be just "t.GetInterfaces()" but Mono doesn't return in order.
+                var interfaceType = t.Interfaces().FirstOrDefault(i => !t.Interfaces().Any(i2 => i2.Interfaces().Contains(i)));
+                if (interfaceType != null) return interfaceType;
+            }
+            return t; // not safe to use interface, as it might be a superclass's one.
+        }
 
         /// <summary>
         /// Find type if it exists
@@ -73,30 +83,13 @@ namespace ServiceStack.Text
             {
                 return type;
             }
-            var binPath = GetAssemblyBinPath(Assembly.GetExecutingAssembly());
-            Assembly assembly = null;
-            var assemblyDllPath = binPath + String.Format("{0}.{1}", assemblyName, DllExt);
-            if (File.Exists(assemblyDllPath))
-            {
-                assembly = LoadAssembly(assemblyDllPath);
-            }
-            var assemblyExePath = binPath + String.Format("{0}.{1}", assemblyName, ExeExt);
-            if (File.Exists(assemblyExePath))
-            {
-                assembly = LoadAssembly(assemblyExePath);
-            }
-            return assembly != null ? assembly.GetType(typeName) : null;
-        }
-#endif
 
-#if !XBOX
+            return PclExport.Instance.FindType(typeName, assemblyName);
+        }
+
         public static Type FindTypeFromLoadedAssemblies(string typeName)
         {
-#if SILVERLIGHT4
-        	var assemblies = ((dynamic) AppDomain.CurrentDomain).GetAssemblies() as Assembly[];
-#else
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-#endif
+            var assemblies = PclExport.Instance.GetAllAssemblies();
             foreach (var assembly in assemblies)
             {
                 var type = assembly.GetType(typeName);
@@ -107,52 +100,25 @@ namespace ServiceStack.Text
             }
             return null;
         }
-#endif
 
-#if !SILVERLIGHT
-private static Assembly LoadAssembly(string assemblyPath)
-		{
-			return Assembly.LoadFrom(assemblyPath);
-		}
-#elif WINDOWS_PHONE
-        private static Assembly LoadAssembly(string assemblyPath)
+        public static Assembly LoadAssembly(string assemblyPath)
         {
-            return Assembly.LoadFrom(assemblyPath);
+            return PclExport.Instance.LoadAssembly(assemblyPath);
         }
-#else
-        private static Assembly LoadAssembly(string assemblyPath)
-        {
-            var sri = System.Windows.Application.GetResourceStream(new Uri(assemblyPath, UriKind.Relative));
-            var myPart = new System.Windows.AssemblyPart();
-            var assembly = myPart.Load(sri.Stream);
-            return assembly;
-        }
-#endif
 
-#if !XBOX
         public static string GetAssemblyBinPath(Assembly assembly)
         {
-#if WINDOWS_PHONE
-            var codeBase = assembly.GetName().CodeBase;
-#else
-            var codeBase = assembly.CodeBase;
-#endif
-
+            var codeBase = PclExport.Instance.GetAssemblyCodeBase(assembly);
             var binPathPos = codeBase.LastIndexOf(UriSeperator);
             var assemblyPath = codeBase.Substring(0, binPathPos + 1);
-            if (assemblyPath.StartsWith(FileUri))
+            if (assemblyPath.StartsWith(FileUri, StringComparison.OrdinalIgnoreCase))
             {
                 assemblyPath = assemblyPath.Remove(0, FileUri.Length);
             }
             return assemblyPath;
         }
-#endif
 
-#if !SILVERLIGHT
-		static readonly Regex versionRegEx = new Regex(", Version=[^\\]]+", RegexOptions.Compiled);
-#else
-        static readonly Regex versionRegEx = new Regex(", Version=[^\\]]+");
-#endif
+        static readonly Regex versionRegEx = new Regex(", Version=[^\\]]+", PclExport.Instance.RegexOptions);
         public static string ToTypeString(this Type type)
         {
             return versionRegEx.Replace(type.AssemblyQualifiedName, "");

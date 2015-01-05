@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using ServiceStack.Data;
 
 namespace ServiceStack.OrmLite
 {
@@ -11,37 +12,21 @@ namespace ServiceStack.OrmLite
     public class OrmLiteConnectionFactory : IDbConnectionFactory
     {
         public OrmLiteConnectionFactory()
-            : this(null, true)
-        {
-        }
+            : this(null, null, true) { }
 
         public OrmLiteConnectionFactory(string connectionString)
-            : this(connectionString, true)
-        {
-        }
-
-        public OrmLiteConnectionFactory(string connectionString, bool autoDisposeConnection)
-            : this(connectionString, autoDisposeConnection, null)
-        {
-        }
+            : this(connectionString, null, true) { }
 
         public OrmLiteConnectionFactory(string connectionString, IOrmLiteDialectProvider dialectProvider)
-            : this(connectionString, true, dialectProvider)
-        {
-        }
+            : this(connectionString, dialectProvider, true) { }
 
-        public OrmLiteConnectionFactory(string connectionString, bool autoDisposeConnection, IOrmLiteDialectProvider dialectProvider)
-            : this(connectionString, autoDisposeConnection, dialectProvider, true)
-        {
-        }
-
-        public OrmLiteConnectionFactory(string connectionString, bool autoDisposeConnection, IOrmLiteDialectProvider dialectProvider, bool setGlobalConnection)
+        public OrmLiteConnectionFactory(string connectionString, IOrmLiteDialectProvider dialectProvider, bool setGlobalDialectProvider)
         {
             ConnectionString = connectionString;
-            AutoDisposeConnection = autoDisposeConnection;
+            AutoDisposeConnection = connectionString != ":memory:";
             this.DialectProvider = dialectProvider ?? OrmLiteConfig.DialectProvider;
 
-            if (setGlobalConnection && dialectProvider != null)
+            if (setGlobalDialectProvider && dialectProvider != null)
             {
                 OrmLiteConfig.DialectProvider = dialectProvider;
             }
@@ -82,7 +67,7 @@ namespace ServiceStack.OrmLite
             }
         }
 
-        public IDbConnection OpenDbConnection()
+        public virtual IDbConnection OpenDbConnection()
         {
             var connection = CreateDbConnection();
             connection.Open();
@@ -90,7 +75,7 @@ namespace ServiceStack.OrmLite
             return connection;
         }
 
-        public IDbConnection CreateDbConnection()
+        public virtual IDbConnection CreateDbConnection()
         {
             if (this.ConnectionString == null)
                 throw new ArgumentNullException("ConnectionString", "ConnectionString must be set");
@@ -99,10 +84,24 @@ namespace ServiceStack.OrmLite
                 ? new OrmLiteConnection(this)
                 : OrmLiteConnection;
 
-            return ConnectionFilter(connection);
+            return connection;
         }
 
-        public IDbConnection OpenDbConnection(string connectionKey)
+        public virtual IDbConnection OpenDbConnectionString(string connectionString)
+        {
+            if (connectionString == null)
+                throw new ArgumentNullException("connectionString");
+
+            var connection = new OrmLiteConnection(this) {
+                ConnectionString = connectionString
+            };
+
+            connection.Open();
+
+            return connection;
+        }
+
+        public virtual IDbConnection OpenDbConnection(string connectionKey)
         {
             OrmLiteConnectionFactory factory;
             if (!NamedConnections.TryGetValue(connectionKey, out factory))
@@ -112,7 +111,8 @@ namespace ServiceStack.OrmLite
                 ? new OrmLiteConnection(factory)
                 : factory.OrmLiteConnection;
 
-            connection = factory.ConnectionFilter(connection);
+            //moved setting up the ConnectionFilter to OrmLiteConnection.Open
+            //connection = factory.ConnectionFilter(connection);
             connection.Open();
 
             return connection;
@@ -128,55 +128,30 @@ namespace ServiceStack.OrmLite
             }
         }
 
-        public void RegisterConnection(string connectionKey, string connectionString, IOrmLiteDialectProvider dialectProvider, bool autoDisposeConnection = true)
+        public virtual void RegisterConnection(string connectionKey, string connectionString, IOrmLiteDialectProvider dialectProvider)
         {
-            NamedConnections[connectionKey] = new OrmLiteConnectionFactory(connectionString, autoDisposeConnection, dialectProvider, autoDisposeConnection);
+            RegisterConnection(connectionKey, new OrmLiteConnectionFactory(connectionString, dialectProvider, setGlobalDialectProvider: false));
+        }
+
+        public virtual void RegisterConnection(string connectionKey, OrmLiteConnectionFactory connectionFactory)
+        {
+            NamedConnections[connectionKey] = connectionFactory;
         }
     }
 
     public static class OrmLiteConnectionFactoryExtensions
     {
-        [Obsolete("Use IDbConnectionFactory.Run(IDbConnection db => ...) extension method instead")]
-        public static void Exec(this IDbConnectionFactory connectionFactory, Action<IDbCommand> runDbCommandsFn)
-        {
-            using (var dbConn = connectionFactory.OpenDbConnection())
-            using (var dbCmd = dbConn.CreateCommand())
-            {
-                runDbCommandsFn(dbCmd);
-            }
-        }
-
-        [Obsolete("Use IDbConnectionFactory.Run(IDbConnection db => ...) extension method instead")]
-        public static T Exec<T>(this IDbConnectionFactory connectionFactory, Func<IDbCommand, T> runDbCommandsFn)
-        {
-            using (var dbConn = connectionFactory.OpenDbConnection())
-            using (var dbCmd = dbConn.CreateCommand())
-            {
-                return runDbCommandsFn(dbCmd);
-            }
-        }
-
-        public static void Run(this IDbConnectionFactory connectionFactory, Action<IDbConnection> runDbCommandsFn)
-        {
-            using (var dbConn = connectionFactory.OpenDbConnection())
-            {
-                runDbCommandsFn(dbConn);
-            }
-        }
-
-        public static T Run<T>(this IDbConnectionFactory connectionFactory, Func<IDbConnection, T> runDbCommandsFn)
-        {
-            using (var dbConn = connectionFactory.OpenDbConnection())
-            {
-                return runDbCommandsFn(dbConn);
-            }
-        }
-
+        /// <summary>
+        /// Alias for OpenDbConnection
+        /// </summary>
         public static IDbConnection Open(this IDbConnectionFactory connectionFactory)
         {
             return connectionFactory.OpenDbConnection();
         }
 
+        /// <summary>
+        /// Alias for OpenDbConnection
+        /// </summary>
         public static IDbConnection Open(this IDbConnectionFactory connectionFactory, string namedConnection)
         {
             return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnection(namedConnection);
@@ -185,6 +160,35 @@ namespace ServiceStack.OrmLite
         public static IDbConnection OpenDbConnection(this IDbConnectionFactory connectionFactory, string namedConnection)
         {
             return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnection(namedConnection);
+        }
+
+        public static IDbConnection OpenDbConnectionString(this IDbConnectionFactory connectionFactory, string connectionString)
+        {
+            return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionString(connectionString);
+        }
+
+        public static IDbConnection ToDbConnection(this IDbConnection db)
+        {
+            var hasDb = db as IHasDbConnection;
+            return hasDb != null
+                ? hasDb.DbConnection
+                : db;
+        }
+
+        public static IDbCommand ToDbCommand(this IDbCommand dbCmd)
+        {
+            var hasDbCmd = dbCmd as IHasDbCommand;
+            return hasDbCmd != null
+                ? hasDbCmd.DbCommand
+                : dbCmd;
+        }
+
+        public static IDbTransaction ToDbTransaction(this IDbTransaction dbTrans)
+        {
+            var hasDbTrans = dbTrans as IHasDbTransaction;
+            return hasDbTrans != null
+                ? hasDbTrans.Transaction
+                : dbTrans;
         }
     }
 }

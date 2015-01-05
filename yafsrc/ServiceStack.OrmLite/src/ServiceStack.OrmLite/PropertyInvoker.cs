@@ -4,13 +4,12 @@
 // Authors:
 //   Demis Bellot (demis.bellot@gmail.com)
 //
-// Copyright 2010 Liquidbit Ltd.
+// Copyright 2013 Service Stack LLC. All Rights Reserved.
 //
-// Licensed under the same terms of ServiceStack: new BSD license.
+// Licensed under the same terms of ServiceStack.
 //
 
 using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -29,7 +28,7 @@ namespace ServiceStack.OrmLite
                 propertySetMethod.Invoke(o, new[] { convertedValue });
                 return;
             };
-#else 
+#else
             var instance = Expression.Parameter(typeof(object), "i");
             var argument = Expression.Parameter(typeof(object), "a");
 
@@ -50,28 +49,28 @@ namespace ServiceStack.OrmLite
 #if NO_EXPRESSIONS
 			return o => propertyInfo.GetGetMethod().Invoke(o, new object[] { });
 #else
-try 
-	{	        
-		    var oInstanceParam = Expression.Parameter(typeof(object), "oInstanceParam");
-            var instanceParam = Expression.Convert(oInstanceParam, propertyInfo.DeclaringType);
+            try
+            {
+                var oInstanceParam = Expression.Parameter(typeof(object), "oInstanceParam");
+                var instanceParam = Expression.Convert(oInstanceParam, propertyInfo.DeclaringType);
 
-            var exprCallPropertyGetFn = Expression.Call(instanceParam, getMethodInfo);
-            var oExprCallPropertyGetFn = Expression.Convert(exprCallPropertyGetFn, typeof(object));
+                var exprCallPropertyGetFn = Expression.Call(instanceParam, getMethodInfo);
+                var oExprCallPropertyGetFn = Expression.Convert(exprCallPropertyGetFn, typeof(object));
 
-            var propertyGetFn = Expression.Lambda<PropertyGetterDelegate>
-                (
-                    oExprCallPropertyGetFn,
-                    oInstanceParam
-                ).Compile();
+                var propertyGetFn = Expression.Lambda<PropertyGetterDelegate>
+                    (
+                        oExprCallPropertyGetFn,
+                        oInstanceParam
+                    ).Compile();
 
-            return propertyGetFn;
+                return propertyGetFn;
 
-	}
-	catch (Exception ex)
-	{
-		Console.Write(ex.Message);
-		throw;
-	}
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+                throw;
+            }
 #endif
         }
     }

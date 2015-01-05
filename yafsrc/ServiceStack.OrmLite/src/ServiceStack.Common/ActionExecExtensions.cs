@@ -2,9 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using ServiceStack.Common.Support;
+using ServiceStack.Support;
 
-namespace ServiceStack.Common
+#if NETFX_CORE
+using Windows.System.Threading;
+#endif
+
+namespace ServiceStack
 {
     public static class ActionExecExtensions
     {
@@ -28,7 +32,11 @@ namespace ServiceStack.Common
                 var waitHandle = new AutoResetEvent(false);
                 waitHandles.Add(waitHandle);
                 var commandExecsHandler = new ActionExecHandler(action, waitHandle);
+#if NETFX_CORE
+                ThreadPool.RunAsync(new WorkItemHandler((IAsyncAction) => commandExecsHandler.Execute()));
+#else
                 ThreadPool.QueueUserWorkItem(x => ((ActionExecHandler)x).Execute(), commandExecsHandler);
+#endif
             }
             return waitHandles;
         }
@@ -48,7 +56,7 @@ namespace ServiceStack.Common
             return WaitAll(waitHandles.ToArray(), (int)timeout.TotalMilliseconds);
         }
 
-#if !SILVERLIGHT && !MONOTOUCH && !XBOX
+#if !SL5 && !IOS && !XBOX
         public static bool WaitAll(this List<IAsyncResult> asyncResults, TimeSpan timeout)
         {
             var waitHandles = asyncResults.ConvertAll(x => x.AsyncWaitHandle);

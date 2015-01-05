@@ -1,14 +1,5 @@
-//
-// https://github.com/ServiceStack/ServiceStack.Text
-// ServiceStack.Text: .NET C# POCO JSON, JSV and CSV Text Serializers.
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2012 ServiceStack Ltd.
-//
-// Licensed under the same terms of ServiceStack: new BSD license.
-//
+//Copyright (c) Service Stack LLC. All Rights Reserved.
+//License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
 using System;
 using System.Globalization;
@@ -18,7 +9,7 @@ using ServiceStack.Text.Common;
 
 namespace ServiceStack.Text.Json
 {
-    internal class JsonTypeSerializer
+    public class JsonTypeSerializer
         : ITypeSerializer
     {
         public static ITypeSerializer Instance = new JsonTypeSerializer();
@@ -42,16 +33,16 @@ namespace ServiceStack.Text.Json
 
         static JsonTypeSerializer()
         {
-            WhiteSpaceFlags[' '] = true;
-            WhiteSpaceFlags['\t'] = true;
-            WhiteSpaceFlags['\r'] = true;
-            WhiteSpaceFlags['\n'] = true;
+            foreach (var c in JsonUtils.WhiteSpaceChars)
+            {
+                WhiteSpaceFlags[c] = true;
+            }
         }
 
         public WriteObjectDelegate GetWriteFn<T>()
         {
             return JsonWriter<T>.WriteFn();
-        }
+		}
 
         public WriteObjectDelegate GetWriteFn(Type type)
         {
@@ -108,6 +99,12 @@ namespace ServiceStack.Text.Json
             JsonUtils.WriteString(writer, value != null ? value.ToString() : null);
         }
 
+        public void WriteFormattableObjectString(TextWriter writer, object value)
+        {
+            var formattable = value as IFormattable;
+            JsonUtils.WriteString(writer, formattable != null ? formattable.ToString(null, CultureInfo.InvariantCulture) : null);
+        }
+
         public void WriteException(TextWriter writer, object value)
         {
             WriteString(writer, ((Exception)value).Message);
@@ -115,7 +112,20 @@ namespace ServiceStack.Text.Json
 
         public void WriteDateTime(TextWriter writer, object oDateTime)
         {
-            WriteRawString(writer, DateTimeSerializer.ToWcfJsonDate((DateTime)oDateTime));
+            var dateTime = (DateTime)oDateTime;
+            switch (JsConfig.DateHandler)
+            {
+                case DateHandler.UnixTime:
+                    writer.Write(dateTime.ToUnixTime());
+                    return;
+                case DateHandler.UnixTimeMs:
+                    writer.Write(dateTime.ToUnixTimeMs());
+                    return;
+            }
+
+            writer.Write(JsWriter.QuoteString);
+            DateTimeSerializer.WriteWcfJsonDate(writer, dateTime);
+            writer.Write(JsWriter.QuoteString);
         }
 
         public void WriteNullableDateTime(TextWriter writer, object dateTime)
@@ -128,7 +138,9 @@ namespace ServiceStack.Text.Json
 
         public void WriteDateTimeOffset(TextWriter writer, object oDateTimeOffset)
         {
-            WriteRawString(writer, DateTimeSerializer.ToWcfJsonDateTimeOffset((DateTimeOffset)oDateTimeOffset));
+            writer.Write(JsWriter.QuoteString);
+            DateTimeSerializer.WriteWcfJsonDateTimeOffset(writer, (DateTimeOffset)oDateTimeOffset);
+            writer.Write(JsWriter.QuoteString);
         }
 
         public void WriteNullableDateTimeOffset(TextWriter writer, object dateTimeOffset)
@@ -141,7 +153,7 @@ namespace ServiceStack.Text.Json
 
         public void WriteTimeSpan(TextWriter writer, object oTimeSpan)
         {
-            var stringValue = JsConfig.TimeSpanHandler == JsonTimeSpanHandler.StandardFormat
+            var stringValue = JsConfig.TimeSpanHandler == TimeSpanHandler.StandardFormat
                 ? oTimeSpan.ToString()
                 : DateTimeSerializer.ToXsdTimeSpanString((TimeSpan)oTimeSpan);
             WriteRawString(writer, stringValue);
@@ -176,7 +188,7 @@ namespace ServiceStack.Text.Json
             if (charValue == null)
                 writer.Write(JsonUtils.Null);
             else
-                WriteRawString(writer, ((char)charValue).ToString(CultureInfo.InvariantCulture));
+                WriteString(writer, ((char)charValue).ToString());
         }
 
         public void WriteByte(TextWriter writer, object byteValue)
@@ -284,7 +296,10 @@ namespace ServiceStack.Text.Json
         public void WriteEnum(TextWriter writer, object enumValue)
         {
             if (enumValue == null) return;
-            WriteRawString(writer, enumValue.ToString());
+            if (GetTypeInfo(enumValue.GetType()).IsNumeric)
+                JsWriter.WriteEnumFlags(writer, enumValue);
+            else
+                WriteRawString(writer, enumValue.ToString());
         }
 
         public void WriteEnumFlags(TextWriter writer, object enumFlagValue)
@@ -294,7 +309,7 @@ namespace ServiceStack.Text.Json
 
         public void WriteLinqBinary(TextWriter writer, object linqBinaryValue)
         {
-#if !MONOTOUCH && !SILVERLIGHT && !XBOX  && !ANDROID
+#if !(__IOS__ || SL5 || XBOX || ANDROID || PCL)
             WriteRawString(writer, Convert.ToBase64String(((System.Data.Linq.Binary)linqBinaryValue).ToArray()));
 #endif
         }
@@ -319,9 +334,8 @@ namespace ServiceStack.Text.Json
             return string.IsNullOrEmpty(value) ? value : ParseRawString(value);
         }
 
-        internal static bool IsEmptyMap(string value)
+        public static bool IsEmptyMap(string value, int i = 1)
         {
-            var i = 1;
             for (; i < value.Length; i++) { var c = value[i]; if (c >= WhiteSpaceFlags.Length || !WhiteSpaceFlags[c]) break; } //Whitespace inline
             if (value.Length == i) return true;
             return value[i++] == JsWriter.MapEndChar;
@@ -381,7 +395,8 @@ namespace ServiceStack.Text.Json
         {
             if (string.IsNullOrEmpty(json)) return json;
             var jsonLength = json.Length;
-            if (json[index] == JsonUtils.QuoteChar)
+            var firstChar = json[index];
+            if (firstChar == JsonUtils.QuoteChar)
             {
                 index++;
 
@@ -396,84 +411,132 @@ namespace ServiceStack.Text.Json
                 }
             }
 
-            var sb = new StringBuilder(jsonLength);
+            return Unescape(json);
+        }
 
-        	while (true)
+
+        public static string Unescape(string input)
+        {
+            var length = input.Length;
+            int start = 0;
+            int count = 0; 
+            StringBuilder output = new StringBuilder(length);
+            for ( ; count < length; )
             {
-                if (index == jsonLength) break;
-
-                char c = json[index++];
-                if (c == JsonUtils.QuoteChar) break;
-
-                if (c == JsonUtils.EscapeChar)
+                if (input[count] == JsonUtils.QuoteChar)
                 {
-                    if (index == jsonLength)
+                    if (start != count)
                     {
-                        break;
+                        output.Append(input, start, count - start);
+                    }                    
+                    count++;
+                    start = count;
+                    continue;
+                }
+
+                if (input[count] == JsonUtils.EscapeChar)
+                {
+                    if (start != count)
+                    {
+                        output.Append(input, start, count - start);
                     }
-                    c = json[index++];
+                    start = count;
+                    count++;
+                    if (count >= length) continue;
+
+                    //we will always be parsing an escaped char here
+                    var c = input[count];
+
                     switch (c)
                     {
-                        case '"':
-                            sb.Append('"');
-                            break;
-                        case '\\':
-                            sb.Append('\\');
-                            break;
-                        case '/':
-                            sb.Append('/');
+                        case 'a':
+                            output.Append('\a');
+                            count++;
                             break;
                         case 'b':
-                            sb.Append('\b');
+                            output.Append('\b');
+                            count++;
                             break;
                         case 'f':
-                            sb.Append('\f');
+                            output.Append('\f');
+                            count++;
                             break;
                         case 'n':
-                            sb.Append('\n');
+                            output.Append('\n');
+                            count++;
                             break;
                         case 'r':
-                            sb.Append('\r');
+                            output.Append('\r');
+                            count++;
+                            break;
+                        case 'v':
+                            output.Append('\v');
+                            count++;
                             break;
                         case 't':
-                            sb.Append('\t');
+                            output.Append('\t');
+                            count++;
                             break;
                         case 'u':
-                            var remainingLength = jsonLength - index;
-                            if (remainingLength >= 4)
+                            if (count + 4 < length)
                             {
-                                var unicodeString = json.Substring(index, 4);
+                                var unicodeString = input.Substring(count+1, 4);
                                 var unicodeIntVal = UInt32.Parse(unicodeString, NumberStyles.HexNumber);
-                                sb.Append(ConvertFromUtf32((int) unicodeIntVal));
-                                index += 4;
+                                output.Append(JsonTypeSerializer.ConvertFromUtf32((int) unicodeIntVal));
+                                count += 5;
                             }
                             else
                             {
-                                break;
+                                output.Append(c);
                             }
                             break;
+                        case 'x':
+                            if (count + 4 < length)
+                            {
+                                var unicodeString = input.Substring(count+1, 4);
+                                var unicodeIntVal = UInt32.Parse(unicodeString, NumberStyles.HexNumber);
+                                output.Append(JsonTypeSerializer.ConvertFromUtf32((int) unicodeIntVal));
+                                count += 5;
+                            }
+                            else
+                            if (count + 2 < length)
+                            {
+                                var unicodeString = input.Substring(count+1, 2);
+                                var unicodeIntVal = UInt32.Parse(unicodeString, NumberStyles.HexNumber);
+                                output.Append(JsonTypeSerializer.ConvertFromUtf32((int) unicodeIntVal));
+                                count += 3;
+                            }
+                            else
+                            {
+                                output.Append(input, start, count - start);
+                            }
+                            break;
+                        default:
+                            output.Append(c);
+                            count++;
+                            break;
                     }
+                    start = count;
                 }
                 else
                 {
-                    sb.Append(c);
+                    count++;
                 }
             }
-
-            return sb.ToString();
+            output.Append(input, start, length - start);
+            return output.ToString();
         }
 
         /// <summary>
-        /// Since Silverlight doesn't have char.ConvertFromUtf32() so putting Mono's implemenation inline.
+        /// Given a character as utf32, returns the equivalent string provided that the character
+        /// is legal json.
         /// </summary>
         /// <param name="utf32"></param>
         /// <returns></returns>
-        private static string ConvertFromUtf32(int utf32)
+        public static string ConvertFromUtf32(int utf32)
         {
             if (utf32 < 0 || utf32 > 0x10FFFF)
                 throw new ArgumentOutOfRangeException("utf32", "The argument must be from 0 to 0x10FFFF.");
-            if (0xD800 <= utf32 && utf32 <= 0xDFFF)
-                throw new ArgumentOutOfRangeException("utf32", "The argument must not be in surrogate pair range.");
             if (utf32 < 0x10000)
                 return new string((char)utf32, 1);
             utf32 -= 0x10000;
@@ -494,7 +557,39 @@ namespace ServiceStack.Text.Json
 
         public string EatMapKey(string value, ref int i)
         {
-            return ParseJsonString(value, ref i);
+            var valueLength = value.Length;
+            for (; i < value.Length; i++) { var c = value[i]; if (c >= WhiteSpaceFlags.Length || !WhiteSpaceFlags[c]) break; } //Whitespace inline
+
+            var tokenStartPos = i;
+            var valueChar = value[i];
+
+            switch (valueChar)
+            {
+                //If we are at the end, return.
+                case JsWriter.ItemSeperator:
+                case JsWriter.MapEndChar:
+                    return null;
+
+                //Is Within Quotes, i.e. "..."
+                case JsWriter.QuoteChar:
+                    return ParseString(value, ref i);
+            }
+            
+            //Is Value
+            while (++i < valueLength)
+            {
+                valueChar = value[i];
+
+                if (valueChar == JsWriter.ItemSeperator
+                    //If it doesn't have quotes it's either a keyword or number so also has a ws boundary
+                    || (valueChar < WhiteSpaceFlags.Length && WhiteSpaceFlags[valueChar])
+                )
+                {
+                    break;
+                }
+            }
+
+            return value.Substring(tokenStartPos, i - tokenStartPos);
         }
 
         public bool EatMapKeySeperator(string value, ref int i)

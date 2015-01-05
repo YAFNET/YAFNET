@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
+using ServiceStack.Text;
 
-namespace ServiceStack.Common
+namespace ServiceStack
 {
     public static class EnumExtensions
     {
@@ -22,86 +21,107 @@ namespace ServiceStack.Common
         /// </summary>
         /// <param name="enum"></param>
         /// <returns></returns>
+#if !NETFX_CORE
         public static string ToDescription(this Enum @enum) 
         {
             var type = @enum.GetType();
-            var memInfo = type.GetMember(@enum.ToString());
-            if (memInfo != null && memInfo.Length > 0)
-            {
-                var attrs = memInfo[0].GetCustomAttributes(
-                    typeof(DescriptionAttribute),
-                    false);
 
-                if (attrs != null && attrs.Length > 0)
-                    return ((DescriptionAttribute)attrs[0]).Description;
+            var memInfo = type.GetMember(@enum.ToString());
+            if (memInfo.Length > 0)
+            {
+                var attr = memInfo[0].FirstAttribute<DescriptionAttribute>();
+
+                if (attr != null)
+                    return attr.Description;
             }
 
             return @enum.ToString();
         }
+#endif
 
         public static List<string> ToList(this Enum @enum)
         {
-#if !SILVERLIGHT4
+#if !(SL54 || WP)
             return new List<string>(Enum.GetNames(@enum.GetType()));
 #else
             return @enum.GetType().GetFields(BindingFlags.Static | BindingFlags.Public).Select(fi => fi.Name).ToList();
 #endif
         }
 
-        public static bool Has<T>(this Enum type, T value)
+        public static TypeCode GetTypeCode(this Enum @enum)
         {
-            try
+            return Type.GetTypeCode(Enum.GetUnderlyingType(@enum.GetType()));
+        }
+        
+        public static bool Has<T>(this Enum @enum, T value)
+        {
+            var typeCode = @enum.GetTypeCode();
+            switch (typeCode)
             {
-                return (((int)(object)type & (int)(object)value) == (int)(object)value);
-            }
-            catch
-            {
-                return false;
+                case TypeCode.Byte:
+                    return (((byte)(object)@enum & (byte)(object)value) == (byte)(object)value);
+                case TypeCode.Int16:
+                    return (((short)(object)@enum & (short)(object)value) == (short)(object)value);
+                case TypeCode.Int32:
+                    return (((int)(object)@enum & (int)(object)value) == (int)(object)value);
+                case TypeCode.Int64:
+                    return (((long)(object)@enum & (long)(object)value) == (long)(object)value);
+                default:
+                    throw new NotSupportedException("Enums of type {0}".Fmt(@enum.GetType().Name));
             }
         }
 
-        public static bool Is<T>(this Enum type, T value)
+        public static bool Is<T>(this Enum @enum, T value)
         {
-            try
+            var typeCode = @enum.GetTypeCode();
+            switch (typeCode)
             {
-                return (int)(object)type == (int)(object)value;
-            }
-            catch
-            {
-                return false;
+                case TypeCode.Byte:
+                    return (byte)(object)@enum == (byte)(object)value;
+                case TypeCode.Int16:
+                    return (short)(object)@enum == (short)(object)value;
+                case TypeCode.Int32:
+                    return (int)(object)@enum == (int)(object)value;
+                case TypeCode.Int64:
+                    return (long)(object)@enum == (long)(object)value;
+                default:
+                    throw new NotSupportedException("Enums of type {0}".Fmt(@enum.GetType().Name));
             }
         }
 
-
-        public static T Add<T>(this Enum type, T value)
+        public static T Add<T>(this Enum @enum, T value)
         {
-            try
+            var typeCode = @enum.GetTypeCode();
+            switch (typeCode)
             {
-                return (T)(object)(((int)(object)type | (int)(object)value));
-            }
-            catch (Exception ex)
-            {
-                throw new ArgumentException(
-                    string.Format(
-                        "Could not append value from enumerated type '{0}'.",
-                        typeof(T).Name
-                        ), ex);
+                case TypeCode.Byte:
+                    return (T)(object)(((byte)(object)@enum | (byte)(object)value));
+                case TypeCode.Int16:
+                    return (T)(object)(((short)(object)@enum | (short)(object)value));
+                case TypeCode.Int32:
+                    return (T)(object)(((int)(object)@enum | (int)(object)value));
+                case TypeCode.Int64:
+                    return (T)(object)(((long)(object)@enum | (long)(object)value));
+                default:
+                    throw new NotSupportedException("Enums of type {0}".Fmt(@enum.GetType().Name));
             }
         }
 
-        public static T Remove<T>(this Enum type, T value)
+        public static T Remove<T>(this Enum @enum, T value)
         {
-            try
+            var typeCode = @enum.GetTypeCode();
+            switch (typeCode)
             {
-                return (T)(object)(((int)(object)type & ~(int)(object)value));
-            }
-            catch (Exception ex)
-            {
-                throw new ArgumentException(
-                    string.Format(
-                        "Could not remove value from enumerated type '{0}'.",
-                        typeof(T).Name
-                        ), ex);
+                case TypeCode.Byte:
+                    return (T)(object)(((byte)(object)@enum & ~(byte)(object)value));
+                case TypeCode.Int16:
+                    return (T)(object)(((short)(object)@enum & ~(short)(object)value));
+                case TypeCode.Int32:
+                    return (T)(object)(((int)(object)@enum & ~(int)(object)value));
+                case TypeCode.Int64:
+                    return (T)(object)(((long)(object)@enum & ~(long)(object)value));
+                default:
+                    throw new NotSupportedException("Enums of type {0}".Fmt(@enum.GetType().Name));
             }
         }
 

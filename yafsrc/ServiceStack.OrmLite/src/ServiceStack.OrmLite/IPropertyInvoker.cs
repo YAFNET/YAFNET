@@ -4,9 +4,9 @@
 // Authors:
 //   Demis Bellot (demis.bellot@gmail.com)
 //
-// Copyright 2010 Liquidbit Ltd.
+// Copyright 2013 Service Stack LLC. All Rights Reserved.
 //
-// Licensed under the same terms of ServiceStack: new BSD license.
+// Licensed under the same terms of ServiceStack.
 //
 
 using System;
@@ -14,12 +14,12 @@ using System.Reflection;
 
 namespace ServiceStack.OrmLite
 {
-	public interface IPropertyInvoker
-	{
-		Func<object, Type, object> ConvertValueFn { get; set; }
+    public interface IPropertyInvoker
+    {
+        Func<object, Type, object> ConvertValueFn { get; set; }
 
-		void SetPropertyValue(PropertyInfo propertyInfo, Type fieldType, object onInstance, object withValue);
+        void SetPropertyValue(PropertyInfo propertyInfo, Type fieldType, object onInstance, object withValue);
 
-		object GetPropertyValue(PropertyInfo propertyInfo, object fromInstance);
-	}
+        object GetPropertyValue(PropertyInfo propertyInfo, object fromInstance);
+    }
 }

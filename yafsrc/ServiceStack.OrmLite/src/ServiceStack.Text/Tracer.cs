@@ -28,38 +28,38 @@ namespace ServiceStack.Text
 		{
 			public void WriteDebug(string error)
 			{
-				Console.WriteLine(error);
-			}
+                PclExport.Instance.WriteLine(error);
+            }
 
 			public void WriteDebug(string format, params object[] args)
 			{
-				Console.WriteLine(format, args);
-			}
+                PclExport.Instance.WriteLine(format, args);
+            }
 
 		    public void WriteWarning(string warning)
 		    {
-                Console.WriteLine(warning);                
-		    }
+                PclExport.Instance.WriteLine(warning);
+            }
 
 		    public void WriteWarning(string format, params object[] args)
 		    {
-                Console.WriteLine(format, args);
+                PclExport.Instance.WriteLine(format, args);
             }
 
 		    public void WriteError(Exception ex)
 			{
-				Console.WriteLine(ex);
-			}
+                PclExport.Instance.WriteLine(ex.ToString());
+            }
 
 			public void WriteError(string error)
 			{
-				Console.WriteLine(error);
-			}
+                PclExport.Instance.WriteLine(error);
+            }
 
 			public void WriteError(string format, params object[] args)
 			{
-				Console.WriteLine(format, args);
-			}
+                PclExport.Instance.WriteLine(format, args);
+            }
 		}
 	}
 }

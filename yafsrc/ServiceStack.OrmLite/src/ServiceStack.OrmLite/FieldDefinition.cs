@@ -4,9 +4,9 @@
 // Authors:
 //   Demis Bellot (demis.bellot@gmail.com)
 //
-// Copyright 2010 Liquidbit Ltd.
+// Copyright 2013 Service Stack LLC. All Rights Reserved.
 //
-// Licensed under the same terms of ServiceStack: new BSD license.
+// Licensed under the same terms of ServiceStack.
 //
 
 using System;
@@ -27,6 +27,13 @@ namespace ServiceStack.OrmLite
 
         public Type FieldType { get; set; }
 
+        public Type TreatAsType { get; set; }
+
+        public Type ColumnType
+        {
+            get { return TreatAsType ?? FieldType; }
+        }
+
         public PropertyInfo PropertyInfo { get; set; }
 
         public bool IsPrimaryKey { get; set; }
@@ -38,6 +45,12 @@ namespace ServiceStack.OrmLite
         public bool IsIndexed { get; set; }
 
         public bool IsUnique { get; set; }
+
+        public bool IsClustered { get; set; }
+
+        public bool IsNonClustered { get; set; }
+
+        public bool IsRowVersion { get; set; }
 
         public int? FieldLength { get; set; }  // Precision for Decimal Type
 
@@ -56,18 +69,17 @@ namespace ServiceStack.OrmLite
             return this.GetValueFn == null ? null : this.GetValueFn(onInstance);
         }
 
-        public void SetValue(object onInstance, object withValue)
+        public string GetQuotedName(IOrmLiteDialectProvider dialectProvider)
         {
-            if (this.SetValueFn == null) return;
-
-            var convertedValue = OrmLiteConfig.DialectProvider.ConvertDbValue(withValue, this.FieldType);
-            SetValueFn(onInstance, convertedValue);
+            return IsRowVersion
+                ? dialectProvider.GetRowVersionColumnName(this)
+                : dialectProvider.GetQuotedColumnName(FieldName);
         }
 
-        public string GetQuotedValue(object fromInstance)
+        public string GetQuotedValue(object fromInstance, IOrmLiteDialectProvider dialect = null)
         {
             var value = GetValue(fromInstance);
-            return OrmLiteConfig.DialectProvider.GetQuotedValue(value, FieldType);
+            return (dialect ?? OrmLiteConfig.DialectProvider).GetQuotedValue(value, ColumnType);
         }
 
         public string Sequence { get; set; }
@@ -76,19 +88,73 @@ namespace ServiceStack.OrmLite
 
         public string ComputeExpression { get; set; }
 
+        public string BelongToModelName { get; set; }
+
+        public bool IsReference { get; set; }
+
+        public string CustomFieldDefinition { get; set; }
+
+        public bool IsRefType { get; set; }
+
+        public bool ShouldSkipInsert()
+        {
+            return AutoIncrement || IsComputed || IsRowVersion;
+        }
+
+        public bool ShouldSkipUpdate()
+        {
+            return IsComputed;
+        }
+
+        public bool ShouldSkipDelete()
+        {
+            return IsComputed;
+        }
+
+        public bool IsSelfRefField(FieldDefinition fieldDef)
+        {
+            return (fieldDef.Alias != null && IsSelfRefField(fieldDef.Alias))
+                    || IsSelfRefField(fieldDef.Name);
+        }
+
+        public bool IsSelfRefField(string name)
+        {
+            return (Alias != null && Alias + "Id" == name)
+                    || Name + "Id" == name;
+        }
     }
 
     public class ForeignKeyConstraint
     {
-        public ForeignKeyConstraint(Type type, string onDelete = null, string onUpdate = null)
+        public ForeignKeyConstraint(Type type, string onDelete = null, string onUpdate = null, string foreignKeyName = null)
         {
             ReferenceType = type;
             OnDelete = onDelete;
             OnUpdate = onUpdate;
+            ForeignKeyName = foreignKeyName;
         }
 
         public Type ReferenceType { get; private set; }
         public string OnDelete { get; private set; }
         public string OnUpdate { get; private set; }
+        public string ForeignKeyName { get; private set; }
+
+        public string GetForeignKeyName(ModelDefinition modelDef, ModelDefinition refModelDef, INamingStrategy NamingStrategy, FieldDefinition fieldDef)
+        {
+            if (ForeignKeyName.IsNullOrEmpty())
+            {
+                var modelName = modelDef.IsInSchema
+                    ? modelDef.Schema + "_" + NamingStrategy.GetTableName(modelDef.ModelName)
+                    : NamingStrategy.GetTableName(modelDef.ModelName);
+
+                var refModelName = refModelDef.IsInSchema
+                    ? refModelDef.Schema + "_" + NamingStrategy.GetTableName(refModelDef.ModelName)
+                    : NamingStrategy.GetTableName(refModelDef.ModelName);
+
+                var fkName = string.Format("FK_{0}_{1}_{2}", modelName, refModelName, fieldDef.FieldName);
+                return NamingStrategy.ApplyNameRestrictions(fkName);
+            }
+            else { return ForeignKeyName; }
+        }
     }
 }

@@ -1,32 +1,33 @@
 using System;
-using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
+using ServiceStack.Model;
 
 namespace ServiceStack.Messaging
 {
-	public interface IMessage
-		: IHasId<Guid>
-	{
-		DateTime CreatedDate { get; }
+    public interface IMessage
+        : IHasId<Guid>
+    {
+        DateTime CreatedDate { get; }
 
-		long Priority { get; set; }
+        long Priority { get; set; }
 
-		int RetryAttempts { get; set; }
+        int RetryAttempts { get; set; }
 
-		Guid? ReplyId { get; set; }
+        Guid? ReplyId { get; set; }
 
         string ReplyTo { get; set; }
 
         int Options { get; set; }
 
-        MessageError Error { get; set; }
+        ResponseStatus Error { get; set; }
 
-		object Body { get; set; }
-	}
+        string Tag { get; set; }
+
+        object Body { get; set; }
+    }
 
     public interface IMessage<T>
-		: IMessage
-	{
-		T GetBody();
-	}
+        : IMessage
+    {
+        T GetBody();
+    }
 }

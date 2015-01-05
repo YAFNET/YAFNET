@@ -1,14 +1,5 @@
-//
-// https://github.com/ServiceStack/ServiceStack.Text
-// ServiceStack.Text: .NET C# POCO JSON, JSV and CSV Text Serializers.
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2012 ServiceStack Ltd.
-//
-// Licensed under the same terms of ServiceStack: new BSD license.
-//
+//Copyright (c) Service Stack LLC. All Rights Reserved.
+//License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
 using System;
 using System.Globalization;
@@ -18,7 +9,7 @@ using ServiceStack.Text.Json;
 
 namespace ServiceStack.Text.Jsv
 {
-	internal class JsvTypeSerializer
+    public class JsvTypeSerializer
 		: ITypeSerializer
 	{
 		public static ITypeSerializer Instance = new JsvTypeSerializer();
@@ -57,7 +48,7 @@ namespace ServiceStack.Text.Jsv
 
 		public void WriteRawString(TextWriter writer, string value)
 		{
-			writer.Write(value.ToCsvField());
+			writer.Write(value.EncodeJsv());
 		}
 
 		public void WritePropertyName(TextWriter writer, string value)
@@ -72,31 +63,61 @@ namespace ServiceStack.Text.Jsv
 
 		public void WriteObjectString(TextWriter writer, object value)
 		{
-			if (value != null)
+            if (value != null)
 			{
-				writer.Write(value.ToString().ToCsvField());
+                var strValue = value as string;
+                if (strValue != null)
+                {
+                    WriteString(writer, strValue);
+                }
+                else
+                {
+                    writer.Write(value.ToString().EncodeJsv());
+                }
 			}
 		}
 
 		public void WriteException(TextWriter writer, object value)
 		{
-			writer.Write(((Exception)value).Message.ToCsvField());
+			writer.Write(((Exception)value).Message.EncodeJsv());
 		}
 
 		public void WriteString(TextWriter writer, string value)
 		{
-			writer.Write(value.ToCsvField());
+		    if(JsState.QueryStringMode && !string.IsNullOrEmpty(value) && value.StartsWith(JsWriter.QuoteString) && value.EndsWith(JsWriter.QuoteString))
+                value = String.Concat(JsWriter.QuoteChar, value, JsWriter.QuoteChar);
+		    else if (JsState.QueryStringMode && !string.IsNullOrEmpty(value) && value.Contains(JsWriter.ItemSeperatorString))
+		        value = String.Concat(JsWriter.QuoteChar, value, JsWriter.QuoteChar);
+
+		    writer.Write(value == "" ? "\"\"" : value.EncodeJsv());
 		}
 
-		public void WriteDateTime(TextWriter writer, object oDateTime)
+	    public void WriteFormattableObjectString(TextWriter writer, object value)
+	    {
+	        var f = (IFormattable)value;
+	        writer.Write(f.ToString(null,CultureInfo.InvariantCulture).EncodeJsv());
+	    }
+
+	    public void WriteDateTime(TextWriter writer, object oDateTime)
 		{
+            var dateTime = (DateTime)oDateTime;
+            switch (JsConfig.DateHandler)
+            {
+                case DateHandler.UnixTime:
+                    writer.Write(dateTime.ToUnixTime());
+                    return;
+                case DateHandler.UnixTimeMs:
+                    writer.Write(dateTime.ToUnixTimeMs());
+                    return;
+            }
+
 			writer.Write(DateTimeSerializer.ToShortestXsdDateTimeString((DateTime)oDateTime));
 		}
 
 		public void WriteNullableDateTime(TextWriter writer, object dateTime)
 		{
 			if (dateTime == null) return;
-			writer.Write(DateTimeSerializer.ToShortestXsdDateTimeString((DateTime)dateTime));
+			WriteDateTime(writer, dateTime);
 		}
 
 		public void WriteDateTimeOffset(TextWriter writer, object oDateTimeOffset)
@@ -221,7 +242,10 @@ namespace ServiceStack.Text.Jsv
 		public void WriteEnum(TextWriter writer, object enumValue)
 		{
 			if (enumValue == null) return;
-			writer.Write(enumValue.ToString());
+			if (JsConfig.TreatEnumAsInteger)
+				JsWriter.WriteEnumFlags(writer, enumValue);
+			else
+				writer.Write(enumValue.ToString());
 		}
 
         public void WriteEnumFlags(TextWriter writer, object enumFlagValue)
@@ -231,8 +255,8 @@ namespace ServiceStack.Text.Jsv
 
 		public void WriteLinqBinary(TextWriter writer, object linqBinaryValue)
         {
-#if !MONOTOUCH && !SILVERLIGHT && !XBOX  && !ANDROID
-			WriteRawString(writer, Convert.ToBase64String(((System.Data.Linq.Binary)linqBinaryValue).ToArray()));
+#if !(__IOS__ || SL5 || XBOX || ANDROID || PCL)
+            WriteRawString(writer, Convert.ToBase64String(((System.Data.Linq.Binary)linqBinaryValue).ToArray()));
 #endif
         }
 

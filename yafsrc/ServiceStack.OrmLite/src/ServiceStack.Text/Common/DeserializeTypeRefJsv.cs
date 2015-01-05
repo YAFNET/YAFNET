@@ -1,130 +1,151 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Reflection;
 using ServiceStack.Text.Json;
 using ServiceStack.Text.Jsv;
 
 namespace ServiceStack.Text.Common
 {
-	internal static class DeserializeTypeRefJsv
-	{
-		private static readonly JsvTypeSerializer Serializer = (JsvTypeSerializer)JsvTypeSerializer.Instance;
+    internal static class DeserializeTypeRefJsv
+    {
+        private static readonly JsvTypeSerializer Serializer = (JsvTypeSerializer)JsvTypeSerializer.Instance;
 
-		internal static object StringToType(
-			Type type, 
-			string strType, 
-			EmptyCtorDelegate ctorFn, 
-			Dictionary<string, TypeAccessor> typeAccessorMap)
-		{
-			var index = 0;
+        internal static object StringToType(
+            TypeConfig typeConfig,
+            string strType,
+            EmptyCtorDelegate ctorFn,
+            Dictionary<string, TypeAccessor> typeAccessorMap)
+        {
+            var index = 0;
+            var type = typeConfig.Type;
 
-			if (strType == null)
-				return null;
+            if (strType == null)
+                return null;
 
-			//if (!Serializer.EatMapStartChar(strType, ref index))
-			if (strType[index++] != JsWriter.MapStartChar)
-				throw DeserializeTypeRef.CreateSerializationError(type, strType);
+            //if (!Serializer.EatMapStartChar(strType, ref index))
+            if (strType[index++] != JsWriter.MapStartChar)
+                throw DeserializeTypeRef.CreateSerializationError(type, strType);
 
             if (JsonTypeSerializer.IsEmptyMap(strType)) return ctorFn();
 
-			object instance = null;
+            object instance = null;
 
-			var strTypeLength = strType.Length;
-			while (index < strTypeLength)
-			{
-				var propertyName = Serializer.EatMapKey(strType, ref index);
+            var propertyResolver = JsConfig.PropertyConvention == PropertyConvention.Lenient
+                ? ParseUtils.LenientPropertyNameResolver
+                : ParseUtils.DefaultPropertyNameResolver;
 
-				//Serializer.EatMapKeySeperator(strType, ref index);
-				index++;
+            var strTypeLength = strType.Length;
+            while (index < strTypeLength)
+            {
+                var propertyName = Serializer.EatMapKey(strType, ref index);
 
-				var propertyValueStr = Serializer.EatValue(strType, ref index);
-				var possibleTypeInfo = propertyValueStr != null && propertyValueStr.Length > 1;
+                //Serializer.EatMapKeySeperator(strType, ref index);
+                index++;
 
-				if (possibleTypeInfo && propertyName == JsWriter.TypeAttr)
-				{
-					var explicitTypeName = Serializer.ParseString(propertyValueStr);
-                    var explicitType = Type.GetType(explicitTypeName);
-                    if (explicitType != null && !explicitType.IsInterface && !explicitType.IsAbstract) {
+                var propertyValueStr = Serializer.EatValue(strType, ref index);
+                var possibleTypeInfo = propertyValueStr != null && propertyValueStr.Length > 1;
+
+                if (possibleTypeInfo && propertyName == JsWriter.TypeAttr)
+                {
+                    var explicitTypeName = Serializer.ParseString(propertyValueStr);
+                    var explicitType = JsConfig.TypeFinder(explicitTypeName);
+
+                    if (explicitType != null && !explicitType.IsInterface() && !explicitType.IsAbstract())
+                    {
                         instance = explicitType.CreateInstance();
                     }
 
                     if (instance == null)
-					{
-						Tracer.Instance.WriteWarning("Could not find type: " + propertyValueStr);
-					}
-					else
-					{
-						//If __type info doesn't match, ignore it.
-						if (!type.IsInstanceOfType(instance)) {
-							instance = null;
-						} else {
-						    var derivedType = instance.GetType();
-                            if (derivedType != type) {
-						        var derivedTypeConfig = new TypeConfig(derivedType);
-						        var map = DeserializeTypeRef.GetTypeAccessorMap(derivedTypeConfig, Serializer);
-                                if (map != null) {
+                    {
+                        Tracer.Instance.WriteWarning("Could not find type: " + propertyValueStr);
+                    }
+                    else
+                    {
+                        //If __type info doesn't match, ignore it.
+                        if (!type.InstanceOfType(instance))
+                        {
+                            instance = null;
+                        }
+                        else
+                        {
+                            var derivedType = instance.GetType();
+                            if (derivedType != type)
+                            {
+                                var derivedTypeConfig = new TypeConfig(derivedType);
+                                var map = DeserializeTypeRef.GetTypeAccessorMap(derivedTypeConfig, Serializer);
+                                if (map != null)
+                                {
                                     typeAccessorMap = map;
                                 }
                             }
-						}
-					}
+                        }
+                    }
 
-					//Serializer.EatItemSeperatorOrMapEndChar(strType, ref index);
-					if (index != strType.Length) index++;
+                    //Serializer.EatItemSeperatorOrMapEndChar(strType, ref index);
+                    if (index != strType.Length) index++;
 
-					continue;
-				}
+                    continue;
+                }
 
-				if (instance == null) instance = ctorFn();
+                if (instance == null) instance = ctorFn();
 
-				TypeAccessor typeAccessor;
-				typeAccessorMap.TryGetValue(propertyName, out typeAccessor);
+                var typeAccessor = propertyResolver.GetTypeAccessorForProperty(propertyName, typeAccessorMap);
 
-				var propType = possibleTypeInfo && propertyValueStr[0] == '_' ? TypeAccessor.ExtractType(Serializer, propertyValueStr) : null;
-				if (propType != null)
-				{
-					try
-					{
-						if (typeAccessor != null)
-						{
-							var parseFn = Serializer.GetParseFn(propType);
-							var propertyValue = parseFn(propertyValueStr);
-							typeAccessor.SetProperty(instance, propertyValue);
-						}
+                var propType = possibleTypeInfo && propertyValueStr[0] == '_' ? TypeAccessor.ExtractType(Serializer, propertyValueStr) : null;
+                if (propType != null)
+                {
+                    try
+                    {
+                        if (typeAccessor != null)
+                        {
+                            var parseFn = Serializer.GetParseFn(propType);
+                            var propertyValue = parseFn(propertyValueStr);
+                            if (typeConfig.OnDeserializing != null)
+                                propertyValue = typeConfig.OnDeserializing(instance, propertyName, propertyValue);
+                            typeAccessor.SetProperty(instance, propertyValue);
+                        }
 
-						//Serializer.EatItemSeperatorOrMapEndChar(strType, ref index);
-						if (index != strType.Length) index++;
+                        //Serializer.EatItemSeperatorOrMapEndChar(strType, ref index);
+                        if (index != strType.Length) index++;
 
-						continue;
-					}
-					catch(Exception e)
-					{
+                        continue;
+                    }
+                    catch (Exception e)
+                    {
                         if (JsConfig.ThrowOnDeserializationError) throw DeserializeTypeRef.GetSerializationException(propertyName, propertyValueStr, propType, e);
-						else Tracer.Instance.WriteWarning("WARN: failed to set dynamic property {0} with: {1}", propertyName, propertyValueStr);
-					}
-				}
+                        else Tracer.Instance.WriteWarning("WARN: failed to set dynamic property {0} with: {1}", propertyName, propertyValueStr);
+                    }
+                }
 
-				if (typeAccessor != null && typeAccessor.GetProperty != null && typeAccessor.SetProperty != null)
-				{
-					try
-					{
-						var propertyValue = typeAccessor.GetProperty(propertyValueStr);
-						typeAccessor.SetProperty(instance, propertyValue);
-					}
-					catch(Exception e)
-					{
+                if (typeAccessor != null && typeAccessor.GetProperty != null && typeAccessor.SetProperty != null)
+                {
+                    try
+                    {
+                        var propertyValue = typeAccessor.GetProperty(propertyValueStr);
+                        if (typeConfig.OnDeserializing != null)
+                            propertyValue = typeConfig.OnDeserializing(instance, propertyName, propertyValue);
+                        typeAccessor.SetProperty(instance, propertyValue);
+                    }
+                    catch (Exception e)
+                    {
                         if (JsConfig.ThrowOnDeserializationError) throw DeserializeTypeRef.GetSerializationException(propertyName, propertyValueStr, propType, e);
                         else Tracer.Instance.WriteWarning("WARN: failed to set property {0} with: {1}", propertyName, propertyValueStr);
-					}
-				}
+                    }
+                }
+                else if (typeConfig.OnDeserializing != null)
+                {
+                    // the property is not known by the DTO
+                    typeConfig.OnDeserializing(instance, propertyName, propertyValueStr);
+                }
 
-				//Serializer.EatItemSeperatorOrMapEndChar(strType, ref index);
-				if (index != strType.Length) index++;
-			}
+                //Serializer.EatItemSeperatorOrMapEndChar(strType, ref index);
+                if (index != strType.Length) index++;
+            }
 
-			return instance;
-		}
-	}
+            return instance;
+        }
+    }
 
-	//The same class above but JSON-specific to enable inlining in this hot class.
+    //The same class above but JSON-specific to enable inlining in this hot class.
 }

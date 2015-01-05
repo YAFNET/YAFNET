@@ -1,3 +1,4 @@
+﻿#if (NETFX_CORE || WP)
 //
 // https://github.com/ServiceStack/ServiceStack.Text
 // ServiceStack.Text: .NET C# POCO JSON, JSV and CSV Text Serializers.
@@ -8,7 +9,7 @@
 //
 // Copyright 2012 Liquidbit Ltd.
 //
-// Licensed under the same terms of ServiceStack: new BSD license.
+// Licensed under the same terms of ServiceStack.
 //
 
 using System;
@@ -16,7 +17,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ServiceStack.Text.WP
+namespace ServiceStack.Text
 {
     ///<summary>
     /// A hashset implementation that uses an IDictionary
@@ -86,3 +87,4 @@ namespace ServiceStack.Text.WP
         }
     }
 }
+#endif

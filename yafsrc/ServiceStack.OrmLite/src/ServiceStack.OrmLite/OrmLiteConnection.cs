@@ -1,119 +1,132 @@
-using System;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
-using ServiceStack.DataAccess;
+using ServiceStack.Data;
 
 namespace ServiceStack.OrmLite
 {
-	/// <summary>
-	/// Wrapper IDbConnection class to allow for connection sharing, mocking, etc.
-	/// </summary>
-	public class OrmLiteConnection
-		: IDbConnection, IHasDbConnection 
-	{
-	    public readonly OrmLiteConnectionFactory Factory;
-		private IDbConnection dbConnection;
-		private bool isOpen;
+    /// <summary>
+    /// Wrapper IDbConnection class to allow for connection sharing, mocking, etc.
+    /// </summary>
+    public class OrmLiteConnection
+        : IDbConnection, IHasDbConnection, IHasDbTransaction
+    {
+        public readonly OrmLiteConnectionFactory Factory;
+        public IDbTransaction Transaction { get; set; }
+        private IDbConnection dbConnection;
+
+        public IOrmLiteDialectProvider DialectProvider { get; set; }
+        public string LastCommandText { get; set; }
+        public int? CommandTimeout { get; set; }
 
         public OrmLiteConnection(OrmLiteConnectionFactory factory)
         {
             this.Factory = factory;
+            this.DialectProvider = factory.DialectProvider;
         }
 
         public IDbConnection DbConnection
-		{
-			get
-			{
-				if (dbConnection == null)
-				{
-					dbConnection = Factory.ConnectionString.ToDbConnection(Factory.DialectProvider);
-				}
-				return dbConnection;
-			}
-		}
+        {
+            get
+            {
+                if (dbConnection == null)
+                {
+                    dbConnection = ConnectionString.ToDbConnection(Factory.DialectProvider);
+                }
+                return dbConnection;
+            }
+        }
 
-		public void Dispose()
-		{
+        public void Dispose()
+        {
             if (Factory.OnDispose != null) Factory.OnDispose(this);
             if (!Factory.AutoDisposeConnection) return;
 
-			DbConnection.Dispose();
-			dbConnection = null;
-			isOpen = false;
+            DbConnection.Dispose();
+            dbConnection = null;
         }
 
-		public IDbTransaction BeginTransaction()
-		{
-			if (Factory.AlwaysReturnTransaction != null)
-				return Factory.AlwaysReturnTransaction;
+        public IDbTransaction BeginTransaction()
+        {
+            if (Factory.AlwaysReturnTransaction != null)
+                return Factory.AlwaysReturnTransaction;
 
-			return DbConnection.BeginTransaction();
-		}
+            return DbConnection.BeginTransaction();
+        }
 
-		public IDbTransaction BeginTransaction(IsolationLevel isolationLevel)
-		{
-			if (Factory.AlwaysReturnTransaction != null)
-				return Factory.AlwaysReturnTransaction;
+        public IDbTransaction BeginTransaction(IsolationLevel isolationLevel)
+        {
+            if (Factory.AlwaysReturnTransaction != null)
+                return Factory.AlwaysReturnTransaction;
 
-			return DbConnection.BeginTransaction(isolationLevel);
-		}
+            return DbConnection.BeginTransaction(isolationLevel);
+        }
 
-		public void Close()
-		{
+        public void Close()
+        {
             DbConnection.Close();
         }
 
-		public void ChangeDatabase(string databaseName)
-		{
-			DbConnection.ChangeDatabase(databaseName);
-		}
+        public void ChangeDatabase(string databaseName)
+        {
+            DbConnection.ChangeDatabase(databaseName);
+        }
 
-		public IDbCommand CreateCommand()
-		{
-			if (Factory.AlwaysReturnCommand != null)
-				return Factory.AlwaysReturnCommand;
+        public IDbCommand CreateCommand()
+        {
+            if (Factory.AlwaysReturnCommand != null)
+                return Factory.AlwaysReturnCommand;
 
-			return DbConnection.CreateCommand();
-		}
+            var cmd = DbConnection.CreateCommand();
 
-		public void Open()
-		{
-			if (isOpen) return;
-			
-			DbConnection.Open();
-			isOpen = true;
-		}
+            return cmd;
+        }
 
-		public string ConnectionString
-		{
-			get { return Factory.ConnectionString; }
-			set { Factory.ConnectionString = value; }
-		}
+        public void Open()
+        {
+            if (DbConnection.State == ConnectionState.Broken)
+                DbConnection.Close();
 
-		public int ConnectionTimeout
-		{
-			get { return DbConnection.ConnectionTimeout; }
-		}
+            if (DbConnection.State == ConnectionState.Closed)
+            {
+                DbConnection.Open();
+                //so the internal connection is wrapped for example by miniprofiler
+                if (Factory.ConnectionFilter != null)
+                    dbConnection = Factory.ConnectionFilter(dbConnection);
+            }
+        }
 
-		public string Database
-		{
-			get { return DbConnection.Database; }
-		}
+        private string connectionString;
+        public string ConnectionString
+        {
+            get { return connectionString ?? Factory.ConnectionString; }
+            set { connectionString = value; }
+        }
 
-		public ConnectionState State
-		{
-			get { return DbConnection.State; }
-		}
+        public int ConnectionTimeout
+        {
+            get { return DbConnection.ConnectionTimeout; }
+        }
 
-		public static explicit operator SqlConnection(OrmLiteConnection dbConn)
-		{
-			return (SqlConnection)dbConn.DbConnection;
-		}
+        public string Database
+        {
+            get { return DbConnection.Database; }
+        }
 
-		public static explicit operator DbConnection(OrmLiteConnection dbConn)
-		{
-			return (DbConnection)dbConn.DbConnection;
-		}
-	}
+        public ConnectionState State
+        {
+            get { return DbConnection.State; }
+        }
+
+        public bool AutoDisposeConnection { get; set; }
+
+        public static explicit operator DbConnection(OrmLiteConnection dbConn)
+        {
+            return (DbConnection)dbConn.DbConnection;
+        }
+    }
+
+    internal interface IHasDbTransaction
+    {
+        IDbTransaction Transaction { get; set; }
+    }
 }

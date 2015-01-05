@@ -5,40 +5,49 @@
 // Authors:
 //   Demis Bellot (demis.bellot@gmail.com)
 //
-// Copyright 2012 ServiceStack Ltd.
+// Copyright 2012 Service Stack LLC. All Rights Reserved.
 //
-// Licensed under the same terms of ServiceStack: new BSD license.
+// Licensed under the same terms of ServiceStack.
 //
 
 using System;
 using System.Collections.Generic;
-using System.Text;
-using ServiceStack.Text.Common;
+using ServiceStack.Text;
 
-namespace ServiceStack.Text
+namespace ServiceStack
 {
 	public static class TextExtensions
 	{
-		public static string ToCsvField(this string text)
-		{
-			return string.IsNullOrEmpty(text) || !JsWriter.HasAnyEscapeChars(text)
-		       	? text
-		       	: string.Concat
-		       	  	(
-						JsWriter.QuoteString,
-						text.Replace(JsWriter.QuoteString, TypeSerializer.DoubleQuoteString),
-						JsWriter.QuoteString
-		       	  	);
-		}
+        public static string ToCsvField(this string text)
+        {
+            return string.IsNullOrEmpty(text) || !CsvWriter.HasAnyEscapeChars(text)
+                ? text
+                : string.Concat
+                        (
+                            CsvConfig.ItemDelimiterString,
+                            text.Replace(CsvConfig.ItemDelimiterString, CsvConfig.EscapedItemDelimiterString),
+                            CsvConfig.ItemDelimiterString
+                        );
+        }
 
-		public static string FromCsvField(this string text)
+        public static object ToCsvField(this object text)
+        {
+            return text == null || !CsvWriter.HasAnyEscapeChars(text.ToString())
+                ? text
+                : string.Concat
+                        (
+                            CsvConfig.ItemDelimiterString,
+                            text.ToString().Replace(CsvConfig.ItemDelimiterString, CsvConfig.EscapedItemDelimiterString),
+                            CsvConfig.ItemDelimiterString
+                        );
+        }
+
+	    public static string FromCsvField(this string text)
 		{
-			const int startingQuotePos = 1;
-			const int endingQuotePos = 2;
-			return string.IsNullOrEmpty(text) || text[0] != JsWriter.QuoteChar
+            return string.IsNullOrEmpty(text) || !text.StartsWith(CsvConfig.ItemDelimiterString, StringComparison.Ordinal)
 			       	? text
-					: text.Substring(startingQuotePos, text.Length - endingQuotePos)
-						.Replace(TypeSerializer.DoubleQuoteString, JsWriter.QuoteString);
+					: text.Substring(CsvConfig.ItemDelimiterString.Length, text.Length - CsvConfig.EscapedItemDelimiterString.Length)
+						.Replace(CsvConfig.EscapedItemDelimiterString, CsvConfig.ItemDelimiterString);
 		}
 
 		public static List<string> FromCsvFields(this IEnumerable<string> texts)

@@ -5,14 +5,15 @@
 // Authors:
 //   Demis Bellot (demis.bellot@gmail.com)
 //
-// Copyright 2012 ServiceStack Ltd.
+// Copyright 2012 Service Stack LLC. All Rights Reserved.
 //
-// Licensed under the same terms of ServiceStack: new BSD license.
+// Licensed under the same terms of ServiceStack.
 //
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace ServiceStack.Text.Controller
 {
@@ -27,8 +28,11 @@ namespace ServiceStack.Text.Controller
 			this.Controllers = controllers;
 
 			this.contextMap = new Dictionary<string, object>();
-			controllers.ToList().ForEach(x => contextMap[x.GetType().Name] = x);
-		}
+            foreach (var x in controllers.ToList())
+            {
+                contextMap[x.GetType().Name] = x;
+            }
+        }
 
 		public void Invoke(string commandUri)
 		{
@@ -46,8 +50,8 @@ namespace ServiceStack.Text.Controller
 
 			var methodName = pathInfo.ActionName;
 
-			var method = context.GetType().GetMethods().First(
-				c => c.Name == methodName && c.GetParameters().Count() == pathInfo.Arguments.Count);
+            var method = context.GetType().GetMethodInfos().First(
+                c => c.Name == methodName && c.GetParameters().Count() == pathInfo.Arguments.Count);
 
 			var methodParamTypes = method.GetParameters().Select(x => x.ParameterType);
 

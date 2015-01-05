@@ -1,3 +1,6 @@
+//Copyright (c) Service Stack LLC. All Rights Reserved.
+//License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
+
 using System;
 using System.IO;
 
@@ -10,6 +13,8 @@ namespace ServiceStack.Text.Json
 		public const string Null = "null";
 		public const string True = "true";
 		public const string False = "false";
+
+        public static char[] WhiteSpaceChars = new[] { ' ', '\t', '\r', '\n' };
 
 		static readonly char[] EscapeChars = new[]
 			{
@@ -46,53 +51,55 @@ namespace ServiceStack.Text.Json
 			writer.Write(QuoteChar);
 
 			var len = value.Length;
-			for (var i = 0; i < len; i++)
-			{
-				switch (value[i])
-				{
-					case '\n':
-						writer.Write("\\n");
-						continue;
+            for (var i = 0; i < len; i++)
+            {
+                switch (value[i])
+                {
+                    case '\n':
+                        writer.Write("\\n");
+                        continue;
 
-					case '\r':
-						writer.Write("\\r");
-						continue;
+                    case '\r':
+                        writer.Write("\\r");
+                        continue;
 
-					case '\t':
-						writer.Write("\\t");
-						continue;
+                    case '\t':
+                        writer.Write("\\t");
+                        continue;
 
-					case '"':
-					case '\\':
-						writer.Write('\\');
-						writer.Write(value[i]);
-						continue;
+                    case '"':
+                    case '\\':
+                        writer.Write('\\');
+                        writer.Write(value[i]);
+                        continue;
 
-					case '\f':
-						writer.Write("\\f");
-						continue;
+                    case '\f':
+                        writer.Write("\\f");
+                        continue;
 
-					case '\b':
-						writer.Write("\\b");
-						continue;
-				}
+                    case '\b':
+                        writer.Write("\\b");
+                        continue;
+                }
 
-				//Is printable char?
-				if (value[i] >= 32 && value[i] <= 126)
-				{
-					writer.Write(value[i]);
-					continue;
-				}
+                //Is printable char?
+                if (value[i] >= 32 && value[i] <= 126)
+                {
+                    writer.Write(value[i]);
+                    continue;
+                }
 
-				var isValidSequence = value[i] < 0xD800 || value[i] > 0xDFFF;
-				if (isValidSequence)
-				{
-					// Default, turn into a \uXXXX sequence
-					IntToHex(value[i], hexSeqBuffer);
-					writer.Write("\\u");
-					writer.Write(hexSeqBuffer);
-				}
-			}
+                // http://json.org/ spec requires any control char to be escaped
+                if (JsConfig.EscapeUnicode || char.IsControl(value[i]))
+                {
+                    // Default, turn into a \uXXXX sequence
+                    IntToHex(value[i], hexSeqBuffer);
+                    writer.Write("\\u");
+                    writer.Write(hexSeqBuffer);
+                }
+                else
+                    writer.Write(value[i]);
+            }
 
 			writer.Write(QuoteChar);
 		}
@@ -108,6 +115,10 @@ namespace ServiceStack.Text.Json
 			for (var i = 0; i < len; i++)
 			{
 				var c = value[i];
+
+                // non-printable
+                if (!(value[i] >= 32 && value[i] <= 126)) return true;
+
 				if (c >= LengthFromLargestChar || !EscapeCharFlags[c]) continue;
 				return true;
 			}

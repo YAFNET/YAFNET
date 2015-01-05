@@ -5,138 +5,174 @@
 // Authors:
 //   Demis Bellot (demis.bellot@gmail.com)
 //
-// Copyright 2012 ServiceStack Ltd.
+// Copyright 2012 Service Stack LLC. All Rights Reserved.
 //
-// Licensed under the same terms of ServiceStack: new BSD license.
+// Licensed under the same terms of ServiceStack.
 //
 
 using System;
+using System.Globalization;
 using ServiceStack.Text.Common;
 
 namespace ServiceStack.Text
 {
-	/// <summary>
-	/// A fast, standards-based, serialization-issue free DateTime serailizer.
-	/// </summary>
-	public static class DateTimeExtensions
-	{
-		public const long UnixEpoch = 621355968000000000L;
-		private static readonly DateTime UnixEpochDateTimeUtc = new DateTime(UnixEpoch, DateTimeKind.Utc);
-		private static readonly DateTime UnixEpochDateTimeUnspecified = new DateTime(UnixEpoch, DateTimeKind.Unspecified);
+    /// <summary>
+    /// A fast, standards-based, serialization-issue free DateTime serailizer.
+    /// </summary>
+    public static class DateTimeExtensions
+    {
+        public const long UnixEpoch = 621355968000000000L;
+        private static readonly DateTime UnixEpochDateTimeUtc = new DateTime(UnixEpoch, DateTimeKind.Utc);
+        private static readonly DateTime UnixEpochDateTimeUnspecified = new DateTime(UnixEpoch, DateTimeKind.Unspecified);
+        private static readonly DateTime MinDateTimeUtc = new DateTime(1, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-		public static long ToUnixTime(this DateTime dateTime)
-		{
-			return (dateTime.ToStableUniversalTime().Ticks - UnixEpoch) / TimeSpan.TicksPerSecond;
-		}
+        public static DateTime FromUnixTime(this int unixTime)
+        {
+            return UnixEpochDateTimeUtc + TimeSpan.FromSeconds(unixTime);
+        }
 
-		public static DateTime FromUnixTime(this double unixTime)
-		{
-			return UnixEpochDateTimeUtc + TimeSpan.FromSeconds(unixTime);
-		}
+        public static DateTime FromUnixTime(this double unixTime)
+        {
+            return UnixEpochDateTimeUtc + TimeSpan.FromSeconds(unixTime);
+        }
 
-		public static long ToUnixTimeMs(this DateTime dateTime)
-		{
-			return (dateTime.ToStableUniversalTime().Ticks - UnixEpoch) / TimeSpan.TicksPerMillisecond;
-		}
+        public static DateTime FromUnixTime(this long unixTime)
+        {
+            return UnixEpochDateTimeUtc + TimeSpan.FromSeconds(unixTime);
+        }
+
+        public static long ToUnixTimeMsAlt(this DateTime dateTime)
+        {
+            return (dateTime.ToStableUniversalTime().Ticks - UnixEpoch) / TimeSpan.TicksPerMillisecond;
+        }
+
+        public static long ToUnixTimeMs(this DateTime dateTime)
+        {
+            var universal = ToDateTimeSinceUnixEpoch(dateTime);
+            return (long)universal.TotalMilliseconds;
+        }
+
+        public static long ToUnixTime(this DateTime dateTime)
+        {
+            return (dateTime.ToDateTimeSinceUnixEpoch().Ticks) / TimeSpan.TicksPerSecond;
+        }
+
+        private static TimeSpan ToDateTimeSinceUnixEpoch(this DateTime dateTime)
+        {
+            var dtUtc = dateTime;
+            if (dateTime.Kind != DateTimeKind.Utc)
+            {
+                dtUtc = dateTime.Kind == DateTimeKind.Unspecified && dateTime > DateTime.MinValue
+                    ? DateTime.SpecifyKind(dateTime.Subtract(DateTimeSerializer.LocalTimeZone.GetUtcOffset(dateTime)), DateTimeKind.Utc)
+                    : dateTime.ToStableUniversalTime();
+            }
+
+            var universal = dtUtc.Subtract(UnixEpochDateTimeUtc);
+            return universal;
+        }
 
         public static long ToUnixTimeMs(this long ticks)
         {
             return (ticks - UnixEpoch) / TimeSpan.TicksPerMillisecond;
         }
 
-		public static DateTime FromUnixTimeMs(this double msSince1970)
-		{
-			return UnixEpochDateTimeUtc + TimeSpan.FromMilliseconds(msSince1970);
-		}
+        public static DateTime FromUnixTimeMs(this double msSince1970)
+        {
+            return UnixEpochDateTimeUtc + TimeSpan.FromMilliseconds(msSince1970);
+        }
 
-		public static DateTime FromUnixTimeMs(this long msSince1970)
-		{
-			return UnixEpochDateTimeUtc + TimeSpan.FromMilliseconds(msSince1970);
-		}
+        public static DateTime FromUnixTimeMs(this long msSince1970)
+        {
+            return UnixEpochDateTimeUtc + TimeSpan.FromMilliseconds(msSince1970);
+        }
 
-		public static DateTime FromUnixTimeMs(this long msSince1970, TimeSpan offset)
-		{
-			return UnixEpochDateTimeUnspecified + TimeSpan.FromMilliseconds(msSince1970) + offset;
-		}
+        public static DateTime FromUnixTimeMs(this long msSince1970, TimeSpan offset)
+        {
+            return DateTime.SpecifyKind(UnixEpochDateTimeUnspecified + TimeSpan.FromMilliseconds(msSince1970) + offset, DateTimeKind.Local);
+        }
 
-		public static DateTime FromUnixTimeMs(this double msSince1970, TimeSpan offset)
-		{
-			return UnixEpochDateTimeUnspecified + TimeSpan.FromMilliseconds(msSince1970) + offset;
-		}
+        public static DateTime FromUnixTimeMs(this double msSince1970, TimeSpan offset)
+        {
+            return DateTime.SpecifyKind(UnixEpochDateTimeUnspecified + TimeSpan.FromMilliseconds(msSince1970) + offset, DateTimeKind.Local);
+        }
 
-		public static DateTime FromUnixTimeMs(string msSince1970)
-		{
-			long ms;
-			if (long.TryParse(msSince1970, out ms)) return ms.FromUnixTimeMs();
+        public static DateTime FromUnixTimeMs(string msSince1970)
+        {
+            long ms;
+            if (long.TryParse(msSince1970, out ms)) return ms.FromUnixTimeMs();
 
-			// Do we really need to support fractional unix time ms time strings??
-			return double.Parse(msSince1970).FromUnixTimeMs();
-		}
+            // Do we really need to support fractional unix time ms time strings??
+            return double.Parse(msSince1970).FromUnixTimeMs();
+        }
 
-		public static DateTime FromUnixTimeMs(string msSince1970, TimeSpan offset)
-		{
-			long ms;
-			if (long.TryParse(msSince1970, out ms)) return ms.FromUnixTimeMs(offset);
+        public static DateTime FromUnixTimeMs(string msSince1970, TimeSpan offset)
+        {
+            long ms;
+            if (long.TryParse(msSince1970, out ms)) return ms.FromUnixTimeMs(offset);
 
-			// Do we really need to support fractional unix time ms time strings??
-			return double.Parse(msSince1970).FromUnixTimeMs(offset);
-		}
+            // Do we really need to support fractional unix time ms time strings??
+            return double.Parse(msSince1970).FromUnixTimeMs(offset);
+        }
 
-		public static DateTime RoundToMs(this DateTime dateTime)
-		{
-			return new DateTime((dateTime.Ticks / TimeSpan.TicksPerMillisecond) * TimeSpan.TicksPerMillisecond);
-		}
+        public static DateTime RoundToMs(this DateTime dateTime)
+        {
+            return new DateTime((dateTime.Ticks / TimeSpan.TicksPerMillisecond) * TimeSpan.TicksPerMillisecond);
+        }
 
-		public static DateTime RoundToSecond(this DateTime dateTime)
-		{
-			return new DateTime((dateTime.Ticks / TimeSpan.TicksPerSecond) * TimeSpan.TicksPerSecond);
-		}
+        public static DateTime RoundToSecond(this DateTime dateTime)
+        {
+            return new DateTime((dateTime.Ticks / TimeSpan.TicksPerSecond) * TimeSpan.TicksPerSecond);
+        }
 
-		public static string ToShortestXsdDateTimeString(this DateTime dateTime)
-		{
-			return DateTimeSerializer.ToShortestXsdDateTimeString(dateTime);
-		}
+        public static DateTime Truncate(this DateTime dateTime, TimeSpan timeSpan)
+        {
+            return dateTime.AddTicks(-(dateTime.Ticks % timeSpan.Ticks));
+        }
 
-		public static DateTime FromShortestXsdDateTimeString(this string xsdDateTime)
-		{
-			return DateTimeSerializer.ParseShortestXsdDateTime(xsdDateTime);
-		}
+        public static string ToShortestXsdDateTimeString(this DateTime dateTime)
+        {
+            return DateTimeSerializer.ToShortestXsdDateTimeString(dateTime);
+        }
 
-		public static bool IsEqualToTheSecond(this DateTime dateTime, DateTime otherDateTime)
-		{
-			return dateTime.ToStableUniversalTime().RoundToSecond().Equals(otherDateTime.ToStableUniversalTime().RoundToSecond());
-		}
+        public static DateTime FromShortestXsdDateTimeString(this string xsdDateTime)
+        {
+            return DateTimeSerializer.ParseShortestXsdDateTime(xsdDateTime);
+        }
 
-		public static string ToTimeOffsetString(this TimeSpan offset, bool includeColon = false)
-		{
-			var sign = offset < TimeSpan.Zero ? "-" : "+";
-			var hours = Math.Abs(offset.Hours);
-			var minutes = Math.Abs(offset.Minutes);
-			var separator = includeColon ? ":" : "";
-			return string.Format("{0}{1:00}{2}{3:00}", sign, hours, separator, minutes);
-		}
+        public static bool IsEqualToTheSecond(this DateTime dateTime, DateTime otherDateTime)
+        {
+            return dateTime.ToStableUniversalTime().RoundToSecond().Equals(otherDateTime.ToStableUniversalTime().RoundToSecond());
+        }
 
-		public static TimeSpan FromTimeOffsetString(this string offsetString)
-		{
-			if (!offsetString.Contains(":"))
-				offsetString = offsetString.Insert(offsetString.Length - 2, ":");
+        public static string ToTimeOffsetString(this TimeSpan offset, string seperator = "")
+        {
+            var hours = Math.Abs(offset.Hours).ToString(CultureInfo.InvariantCulture);
+            var minutes = Math.Abs(offset.Minutes).ToString(CultureInfo.InvariantCulture);
+            return (offset < TimeSpan.Zero ? "-" : "+")
+                + (hours.Length == 1 ? "0" + hours : hours)
+                + seperator
+                + (minutes.Length == 1 ? "0" + minutes : minutes);
+        }
 
-			offsetString = offsetString.TrimStart('+');
+        public static TimeSpan FromTimeOffsetString(this string offsetString)
+        {
+            if (!offsetString.Contains(":"))
+                offsetString = offsetString.Insert(offsetString.Length - 2, ":");
 
-			return TimeSpan.Parse(offsetString);
-		}
+            offsetString = offsetString.TrimStart('+');
 
-		public static DateTime ToStableUniversalTime(this DateTime dateTime)
-		{
-#if SILVERLIGHT
-			// Silverlight 3, 4 and 5 all work ok with DateTime.ToUniversalTime, but have no TimeZoneInfo.ConverTimeToUtc implementation.
-			return dateTime.ToUniversalTime();
-#else
-			// .Net 2.0 - 3.5 has an issue with DateTime.ToUniversalTime, but works ok with TimeZoneInfo.ConvertTimeToUtc.
-			// .Net 4.0+ does this under the hood anyway.
-			return TimeZoneInfo.ConvertTimeToUtc(dateTime);
-#endif
-		}
+            return TimeSpan.Parse(offsetString);
+        }
+
+        public static DateTime ToStableUniversalTime(this DateTime dateTime)
+        {
+            if (dateTime.Kind == DateTimeKind.Utc)
+                return dateTime;
+            if (dateTime == DateTime.MinValue)
+                return MinDateTimeUtc;
+
+            return PclExport.Instance.ToStableUniversalTime(dateTime);
+        }
 
         public static string FmtSortableDate(this DateTime from)
         {
@@ -150,8 +186,8 @@ namespace ServiceStack.Text
 
         public static DateTime LastMonday(this DateTime from)
         {
-            var modayOfWeekBefore = from.Date.AddDays(-(int)from.DayOfWeek - 6);
-            return modayOfWeekBefore;
+            var mondayOfWeek = from.Date.AddDays(-(int)from.DayOfWeek + 1);
+            return mondayOfWeek;
         }
 
         public static DateTime StartOfLastMonth(this DateTime from)
@@ -161,7 +197,8 @@ namespace ServiceStack.Text
 
         public static DateTime EndOfLastMonth(this DateTime from)
         {
-            return new DateTime(from.Date.Year, from.Date.Month, 1).AddDays(-1); 
+            return new DateTime(from.Date.Year, from.Date.Month, 1).AddDays(-1);
         }
     }
+
 }

@@ -1,31 +1,34 @@
-//
-// https://github.com/ServiceStack/ServiceStack.Text
-// ServiceStack.Text: .NET C# POCO JSON, JSV and CSV Text Serializers.
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2012 ServiceStack Ltd.
-//
-// Licensed under the same terms of ServiceStack: new BSD license.
-//
+//Copyright (c) Service Stack LLC. All Rights Reserved.
+//License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Threading;
 using ServiceStack.Text.Common;
 
 namespace ServiceStack.Text.Json
 {
-	internal static class JsonWriter
+    public static class JsonWriter
 	{
 		public static readonly JsWriter<JsonTypeSerializer> Instance = new JsWriter<JsonTypeSerializer>();
 
 		private static Dictionary<Type, WriteObjectDelegate> WriteFnCache = new Dictionary<Type, WriteObjectDelegate>();
 
-		public static WriteObjectDelegate GetWriteFn(Type type)
+        internal static void RemoveCacheFn(Type forType)
+        {
+            Dictionary<Type, WriteObjectDelegate> snapshot, newCache;
+            do
+            {
+                snapshot = WriteFnCache;
+                newCache = new Dictionary<Type, WriteObjectDelegate>(WriteFnCache);
+                newCache.Remove(forType);
+                
+            } while (!ReferenceEquals(
+                Interlocked.CompareExchange(ref WriteFnCache, newCache, snapshot), snapshot));
+        }
+
+	    internal static WriteObjectDelegate GetWriteFn(Type type)
 		{
 			try
 			{
@@ -33,9 +36,9 @@ namespace ServiceStack.Text.Json
 				if (WriteFnCache.TryGetValue(type, out writeFn)) return writeFn;
 
 				var genericType = typeof(JsonWriter<>).MakeGenericType(type);
-				var mi = genericType.GetMethod("WriteFn", BindingFlags.Public | BindingFlags.Static);
-				var writeFactoryFn = (Func<WriteObjectDelegate>)Delegate.CreateDelegate(typeof(Func<WriteObjectDelegate>), mi);
-				writeFn = writeFactoryFn();
+                var mi = genericType.GetStaticMethod("WriteFn");
+                var writeFactoryFn = (Func<WriteObjectDelegate>)mi.MakeDelegate(typeof(Func<WriteObjectDelegate>));
+                writeFn = writeFactoryFn();
 
 				Dictionary<Type, WriteObjectDelegate> snapshot, newCache;
 				do
@@ -58,7 +61,7 @@ namespace ServiceStack.Text.Json
 
 		private static Dictionary<Type, TypeInfo> JsonTypeInfoCache = new Dictionary<Type, TypeInfo>();
 
-		public static TypeInfo GetTypeInfo(Type type)
+	    internal static TypeInfo GetTypeInfo(Type type)
 		{
 			try
 			{
@@ -66,9 +69,9 @@ namespace ServiceStack.Text.Json
 				if (JsonTypeInfoCache.TryGetValue(type, out writeFn)) return writeFn;
 
 				var genericType = typeof(JsonWriter<>).MakeGenericType(type);
-				var mi = genericType.GetMethod("GetTypeInfo", BindingFlags.Public | BindingFlags.Static);
-				var writeFactoryFn = (Func<TypeInfo>)Delegate.CreateDelegate(typeof(Func<TypeInfo>), mi);
-				writeFn = writeFactoryFn();
+                var mi = genericType.GetStaticMethod("GetTypeInfo");
+                var writeFactoryFn = (Func<TypeInfo>)mi.MakeDelegate(typeof(Func<TypeInfo>));
+                writeFn = writeFactoryFn();
 
 				Dictionary<Type, TypeInfo> snapshot, newCache;
 				do
@@ -89,47 +92,68 @@ namespace ServiceStack.Text.Json
 			}
 		}
 
-		public static void WriteLateBoundObject(TextWriter writer, object value)
+	    internal static void WriteLateBoundObject(TextWriter writer, object value)
 		{
 			if (value == null)
 			{
-				if (JsConfig.IncludeNullValues)
-				{
-					writer.Write(JsonUtils.Null);
-				}
+				writer.Write(JsonUtils.Null);
 				return;
 			}
 
-			var type = value.GetType();
-			var writeFn = type == typeof(object)
-				? WriteType<object, JsonTypeSerializer>.WriteEmptyType
-				: GetWriteFn(type);
+            try
+            {
+                if (++JsState.Depth > JsConfig.MaxDepth)
+                {
+                    Tracer.Instance.WriteError("Exceeded MaxDepth limit of {0} attempting to serialize {1}"
+                        .Fmt(JsConfig.MaxDepth, value.GetType().Name));
+                    return;
+                }
 
-			var prevState = JsState.IsWritingDynamic;
-			JsState.IsWritingDynamic = true;
-			writeFn(writer, value);
-			JsState.IsWritingDynamic = prevState;
-		}
+			    var type = value.GetType();
+			    var writeFn = type == typeof(object)
+				    ? WriteType<object, JsonTypeSerializer>.WriteObjectType
+				    : GetWriteFn(type);
 
-		public static WriteObjectDelegate GetValueTypeToStringMethod(Type type)
+			    var prevState = JsState.IsWritingDynamic;
+			    JsState.IsWritingDynamic = true;
+			    writeFn(writer, value);
+			    JsState.IsWritingDynamic = prevState;
+            }
+            finally
+            {
+                JsState.Depth--;
+            }
+        }
+
+	    internal static WriteObjectDelegate GetValueTypeToStringMethod(Type type)
 		{
 			return Instance.GetValueTypeToStringMethod(type);
 		}
 	}
 
-	internal class TypeInfo
+    public class TypeInfo
 	{
-		internal bool EncodeMapKey;
-	}
+        internal bool EncodeMapKey;
+        internal bool IsNumeric;
+    }
 
 	/// <summary>
 	/// Implement the serializer using a more static approach
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	internal static class JsonWriter<T>
+	public static class JsonWriter<T>
 	{
 		internal static TypeInfo TypeInfo;
-		private static readonly WriteObjectDelegate CacheFn;
+		private static WriteObjectDelegate CacheFn;
+
+        public static void Reset()
+        {
+            JsonWriter.RemoveCacheFn(typeof(T));
+
+            CacheFn = typeof(T) == typeof(object) 
+                ? JsonWriter.WriteLateBoundObject 
+                : JsonWriter.Instance.GetWriteFn<T>();
+        }
 
 		public static WriteObjectDelegate WriteFn()
 		{
@@ -143,8 +167,10 @@ namespace ServiceStack.Text.Json
 
 		static JsonWriter()
 		{
+		    var isNumeric = typeof(T).IsNumericType();
 			TypeInfo = new TypeInfo {
-				EncodeMapKey = typeof(T) == typeof(bool) || typeof(T).IsNumericType()
+                EncodeMapKey = typeof(T) == typeof(bool) || isNumeric,
+                IsNumeric = isNumeric
 			};
 
             CacheFn = typeof(T) == typeof(object) 
@@ -152,10 +178,40 @@ namespace ServiceStack.Text.Json
                 : JsonWriter.Instance.GetWriteFn<T>();
 		}
 
-	    public static void WriteObject(TextWriter writer, object value)
-		{
-			CacheFn(writer, value);
-		}
-	}
+        public static void WriteObject(TextWriter writer, object value)
+        {
+#if __IOS__
+			if (writer == null) return;
+#endif
+            TypeConfig<T>.AssertValidUsage();
+
+            try
+            {
+                if (++JsState.Depth > JsConfig.MaxDepth)
+                {
+                    Tracer.Instance.WriteError("Exceeded MaxDepth limit of {0} attempting to serialize {1}"
+                        .Fmt(JsConfig.MaxDepth, value.GetType().Name));
+                    return;
+                }
+
+                CacheFn(writer, value);
+            }
+            finally
+            {
+                JsState.Depth--;
+            }
+        }
+
+        public static void WriteRootObject(TextWriter writer, object value)
+        {
+#if __IOS__
+			if (writer == null) return;
+#endif
+            TypeConfig<T>.AssertValidUsage();
+
+            JsState.Depth = 0;
+            CacheFn(writer, value);
+        }
+    }
 
 }

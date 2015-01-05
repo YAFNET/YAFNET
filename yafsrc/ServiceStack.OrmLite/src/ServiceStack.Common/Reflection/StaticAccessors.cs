@@ -1,68 +1,9 @@
 using System;
 using System.Reflection;
+using System.Linq.Expressions;
 
-namespace ServiceStack.Common.Reflection
+namespace ServiceStack.Reflection
 {
-
-#if MONOTOUCH || SILVERLIGHT
-    public static class StaticAccessors
-    {
-    }
-#else
-    using System.Linq.Expressions;
-    
-    public static class StaticAccessors
-    {
-        public static Func<object, object> GetValueGetter(Type type, PropertyInfo propertyInfo)
-        {
-            if (type != propertyInfo.DeclaringType)
-            {
-                throw new ArgumentException();
-            }
-
-            var instance = Expression.Parameter(typeof(object), "i");
-            var convertInstance = Expression.TypeAs(instance, propertyInfo.DeclaringType);
-            var property = Expression.Property(convertInstance, propertyInfo);
-            var convertProperty = Expression.TypeAs(property, typeof(object));
-            return Expression.Lambda<Func<object, object>>(convertProperty, instance).Compile();
-        }
-
-        public static Func<T, object> GetValueGetter<T>(this PropertyInfo propertyInfo)
-        {
-            if (typeof(T) != propertyInfo.DeclaringType)
-            {
-                throw new ArgumentException();
-            }
-
-            var instance = Expression.Parameter(propertyInfo.DeclaringType, "i");
-            var property = Expression.Property(instance, propertyInfo);
-            var convert = Expression.TypeAs(property, typeof(object));
-            return Expression.Lambda<Func<T, object>>(convert, instance).Compile();
-        }
-
-        public static Action<T, object> GetValueSetter<T>(this PropertyInfo propertyInfo)
-        {
-            if (typeof(T) != propertyInfo.DeclaringType)
-            {
-                throw new ArgumentException();
-            }
-
-            var instance = Expression.Parameter(propertyInfo.DeclaringType, "i");
-            var argument = Expression.Parameter(typeof(object), "a");
-            var setterCall = Expression.Call(
-                instance,
-                propertyInfo.GetSetMethod(),
-                Expression.Convert(argument, propertyInfo.PropertyType));
-
-            return Expression.Lambda<Action<T, object>>
-                (
-                    setterCall, instance, argument
-                ).Compile();
-        }
-    }
-
-#endif
-
     public static class StaticAccessors<TEntity>
     {
         /// <summary>
@@ -70,8 +11,8 @@ namespace ServiceStack.Common.Reflection
         /// </summary>
         public static Func<TEntity, TId> TypedGetPropertyFn<TId>(PropertyInfo pi)
         {
-            var mi = pi.GetGetMethod();
-            return (Func<TEntity, TId>)Delegate.CreateDelegate(typeof(Func<TEntity, TId>), mi);
+            var mi = pi.GetMethodInfo();
+            return (Func<TEntity, TId>)mi.MakeDelegate(typeof(Func<TEntity, TId>));
         }
 
         /// <summary>
@@ -85,16 +26,17 @@ namespace ServiceStack.Common.Reflection
 
         public static Func<TEntity, object> ValueUnTypedGetPropertyTypeFn(PropertyInfo pi)
         {
-            var mi = typeof(StaticAccessors<TEntity>).GetMethod("TypedGetPropertyFn");
+            var mi = typeof(StaticAccessors<TEntity>).GetMethodInfo("TypedGetPropertyFn");
             var genericMi = mi.MakeGenericMethod(pi.PropertyType);
             var typedGetPropertyFn = (Delegate)genericMi.Invoke(null, new[] { pi });
 
-#if MONOTOUCH || SILVERLIGHT
-            return x => typedGetPropertyFn.Method.Invoke(x, new object[] { });
+#if IOS || SL5 || NETFX_CORE
+            return x => typedGetPropertyFn.InvokeMethod(x);
 #else
+
             var typedMi = typedGetPropertyFn.Method;
             var paramFunc = Expression.Parameter(typeof(object), "oFunc");
-            var expr = Expression.Lambda<Func<TEntity, object>> (
+            var expr = Expression.Lambda<Func<TEntity, object>>(
                     Expression.Convert(
                         Expression.Call(
                             Expression.Convert(paramFunc, typedMi.DeclaringType),
@@ -119,8 +61,8 @@ namespace ServiceStack.Common.Reflection
         /// </summary>
         public static Action<TEntity, TId> TypedSetPropertyFn<TId>(PropertyInfo pi)
         {
-            var mi = pi.GetSetMethod();
-            return (Action<TEntity, TId>)Delegate.CreateDelegate(typeof(Action<TEntity, TId>), mi);
+            var mi = pi.SetMethod();
+            return (Action<TEntity, TId>)mi.MakeDelegate(typeof(Action<TEntity, TId>));
         }
 
         /// <summary>
@@ -134,13 +76,14 @@ namespace ServiceStack.Common.Reflection
 
         public static Action<TEntity, object> ValueUnTypedSetPropertyTypeFn(PropertyInfo pi)
         {
-            var mi = typeof(StaticAccessors<TEntity>).GetMethod("TypedSetPropertyFn");
+            var mi = typeof(StaticAccessors<TEntity>).GetMethodInfo("TypedSetPropertyFn");
             var genericMi = mi.MakeGenericMethod(pi.PropertyType);
             var typedSetPropertyFn = (Delegate)genericMi.Invoke(null, new[] { pi });
 
-#if MONOTOUCH || SILVERLIGHT
-            return (x, y) => typedSetPropertyFn.Method.Invoke(x, new[] { y });
+#if IOS || SL5 || NETFX_CORE
+            return (x, y) => typedSetPropertyFn.InvokeMethod(x, new[] { y });
 #else
+
             var typedMi = typedSetPropertyFn.Method;
             var paramFunc = Expression.Parameter(typeof(object), "oFunc");
             var paramValue = Expression.Parameter(typeof(object), "oValue");

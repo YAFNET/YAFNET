@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ServiceStack.Common
+namespace ServiceStack
 {
     public static class EnumerableExtensions
     {
@@ -15,9 +15,51 @@ namespace ServiceStack.Common
             return new HashSet<T>(items);
         }
 
-        public static List<To> SafeConvertAll<To, From>(this IEnumerable<From> items, Func<From, To> converter)
+        public static void Each<T>(this IEnumerable<T> values, Action<T> action)
         {
-            return items == null ? new List<To>() : Extensions.EnumerableExtensions.ConvertAll(items, converter);
+            if (values == null) return;
+
+            foreach (var value in values)
+            {
+                action(value);
+            }
+        }
+
+        public static void Each<T>(this IEnumerable<T> values, Action<int, T> action)
+        {
+            if (values == null) return;
+
+            var i = 0;
+            foreach (var value in values)
+            {
+                action(i++, value);
+            }
+        }
+        
+        public static List<To> Map<To, From>(this IEnumerable<From> items, Func<From, To> converter)
+        {
+            if (items == null)
+                return new List<To>();
+
+            var list = new List<To>();
+            foreach (var item in items)
+            {
+                list.Add(converter(item));
+            }
+            return list;
+        }
+
+        public static List<To> Map<To>(this System.Collections.IEnumerable items, Func<object, To> converter)
+        {
+            if (items == null)
+                return new List<To>();
+
+            var list = new List<To>();
+            foreach (var item in items)
+            {
+                list.Add(converter(item));
+            }
+            return list;
         }
 
         public static List<object> ToObjects<T>(this IEnumerable<T> items)
@@ -102,6 +144,24 @@ namespace ServiceStack.Common
             }
             return map;
         }
-        
+
+        public static Dictionary<TKey, TValue> ToDictionary<T, TKey, TValue>(this IEnumerable<T> list, Func<T, KeyValuePair<TKey, TValue>> map)
+        {
+            var to = new Dictionary<TKey, TValue>();
+            foreach (var item in list)
+            {
+                var entry = map(item);
+                to[entry.Key] = entry.Value;
+            }
+            return to;
+        }
+
+        /// <summary>
+        /// Return T[0] when enumerable is null, safe to use in enumerations like foreach
+        /// </summary>
+        public static IEnumerable<T> Safe<T>(this IEnumerable<T> enumerable)
+        {
+            return enumerable ?? new T[0];
+        }
     }
 }
