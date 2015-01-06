@@ -34,12 +34,12 @@ namespace YAF.Core.Extensions
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    ///     The i repository extensions.
+    ///     The repository extensions.
     /// </summary>
     public static class IRepositoryExtensions
     {
         #region Public Methods and Operators
-
+        
         /// <summary>
         /// The delete.
         /// </summary>
@@ -50,6 +50,7 @@ namespace YAF.Core.Extensions
         /// The have id.
         /// </param>
         /// <typeparam name="T">
+        /// The type parameter.
         /// </typeparam>
         /// <returns>
         /// The <see cref="bool"/>.
@@ -61,7 +62,7 @@ namespace YAF.Core.Extensions
 
             return repository.DeleteByID(haveId.ID);
         }
-
+        
         /// <summary>
         /// The delete by id.
         /// </summary>
@@ -72,6 +73,7 @@ namespace YAF.Core.Extensions
         /// The id. 
         /// </param>
         /// <typeparam name="T">
+        /// The type parameter.
         /// </typeparam>
         /// <returns>
         /// The <see cref="bool"/> . 
@@ -80,7 +82,7 @@ namespace YAF.Core.Extensions
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var success = repository.DbAccess.Execute(db => db.Delete<T>(x => x.ID == id)) == 1;
+            var success = repository.DbAccess.Execute(db => db.Connection.Delete<T>(x => x.ID == id)) == 1;
             if (success)
             {
                 repository.FireDeleted(id);
@@ -92,9 +94,9 @@ namespace YAF.Core.Extensions
         /// <summary>
         /// Deletes all typeof `T with ids in the list
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="repository"></param>
-        /// <param name="ids"></param>
+        /// <typeparam name="T">The type parameter.</typeparam>
+        /// <param name="repository">The repository.</param>
+        /// <param name="ids">The ids.</param>
         /// <returns></returns>
         public static bool DeleteByIDs<T>([NotNull] this IRepository<T> repository, IEnumerable<int> ids) where T : class, IEntity, IHaveID, new()
         {
@@ -104,7 +106,7 @@ namespace YAF.Core.Extensions
 
             ids.ForEach(id =>
             {
-                success = repository.DbAccess.Execute(db => db.Delete<T>(x => x.ID == id)) == 1;
+                success = repository.DbAccess.Execute(db => db.Connection.Delete<T>(x => x.ID == id)) == 1;
             });
 
             if (success)
@@ -114,7 +116,7 @@ namespace YAF.Core.Extensions
 
             return success;
         }
-
+       
         /// <summary>
         /// Get a all entities by the board Id or current board id if none is specified.
         /// </summary>
@@ -125,6 +127,7 @@ namespace YAF.Core.Extensions
         /// The board id. 
         /// </param>
         /// <typeparam name="T">
+        /// The type parameter.
         /// </typeparam>
         /// <returns>
         /// The <see cref="IList"/> . 
@@ -133,9 +136,9 @@ namespace YAF.Core.Extensions
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            int bId = boardId ?? repository.BoardID;
+            var newboardID = boardId ?? repository.BoardID;
 
-            return repository.DbAccess.Execute(db => db.Where<T>(new { BoardID = bId }));
+            return repository.DbAccess.Execute(db => db.Connection.Where<T>(new { BoardID = newboardID }));
         }
 
         /// <summary>
@@ -148,6 +151,7 @@ namespace YAF.Core.Extensions
         /// The id. 
         /// </param>
         /// <typeparam name="T">
+        /// The type parameter.
         /// </typeparam>
         /// <returns>
         /// The <see cref="T"/> . 
@@ -156,7 +160,7 @@ namespace YAF.Core.Extensions
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbAccess.Execute(db => db.GetById<T>(id));
+            return repository.DbAccess.Execute(db => db.Connection.SingleById<T>(id));
         }
 
         /// <summary>
@@ -172,6 +176,7 @@ namespace YAF.Core.Extensions
         /// The transaction. 
         /// </param>
         /// <typeparam name="T">
+        /// The type parameter.
         /// </typeparam>
         /// <returns>
         /// The <see cref="bool"/> . 
@@ -182,17 +187,17 @@ namespace YAF.Core.Extensions
             CodeContracts.VerifyNotNull(entity, "entity");
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var insertId = repository.DbAccess.Insert(entity, transaction);
-            
-            if (insertId > 0)
-            {
-                entity.ID = insertId;
-                repository.FireNew(insertId, entity);
+            var insertId = repository.DbAccess.Insert(entity, transaction, true).ToType<int>();
 
-                return true;
+            if (insertId <= 0)
+            {
+                return false;
             }
 
-            return false;
+            entity.ID = insertId;
+            repository.FireNew(insertId, entity);
+
+            return true;
         }
 
         /// <summary>
@@ -208,6 +213,7 @@ namespace YAF.Core.Extensions
         /// The transaction. 
         /// </param>
         /// <typeparam name="T">
+        /// The type parameter.
         /// </typeparam>
         /// <returns>
         /// The <see cref="bool"/> . 
@@ -234,6 +240,7 @@ namespace YAF.Core.Extensions
         /// The transaction. 
         /// </param>
         /// <typeparam name="T">
+        /// The type parameter.
         /// </typeparam>
         /// <returns>
         /// The <see cref="bool"/> . 

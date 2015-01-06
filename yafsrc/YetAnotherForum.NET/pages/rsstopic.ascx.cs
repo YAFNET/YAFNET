@@ -764,26 +764,27 @@ namespace YAF.Pages
         private List<SyndicationLink> GetMediaLinks(int messageId)
         {
             var attachementLinks = new List<SyndicationLink>();
-            using (var attList = this.GetRepository<Attachment>().List(messageId, null, this.PageContext.PageBoardID, 0, 1000))
+            var attachments = this.GetRepository<Attachment>()
+                .ListTyped(messageID: messageId, pageIndex: 0, pageSize: 1000);
+
+            if (attachments.Any())
             {
-                if (attList.Rows.Count > 0)
-                {
-                    attachementLinks.AddRange(
-                        from DataRow attachLink in attList.Rows
-                        where !attachLink["FileName"].IsNullOrEmptyDBField()
-                        select
-                            new SyndicationLink(
-                            new Uri(
-                            "{0}{1}resource.ashx?a={2}".FormatWith(
-                                YafForumInfo.ForumBaseUrl,
-                                YafForumInfo.ForumClientFileRoot.TrimStart('/'),
-                                attachLink["AttachmentID"])),
-                            "enclosure",
-                            attachLink["FileName"].ToString(),
-                            attachLink["ContentType"].ToString(),
-                            attachLink["Bytes"].ToType<long>()));
-                }
+                attachementLinks.AddRange(
+                    from Attachment attachment in attachments
+                    where !attachment.FileName.IsNotSet()
+                    select
+                        new SyndicationLink(
+                        new Uri(
+                        "{0}{1}resource.ashx?a={2}".FormatWith(
+                            YafForumInfo.ForumBaseUrl,
+                            YafForumInfo.ForumClientFileRoot.TrimStart('/'),
+                            attachment.ID)),
+                        "enclosure",
+                        attachment.FileName,
+                        attachment.ContentType,
+                        attachment.Bytes.ToType<long>()));
             }
+
 
             return attachementLinks;
         }

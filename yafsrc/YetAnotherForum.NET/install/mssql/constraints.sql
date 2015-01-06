@@ -99,10 +99,6 @@ if exists (select top 1 1 from sys.objects where name='FK_WatchTopic_User' and p
 	alter table [{databaseOwner}].[{objectQualifier}WatchTopic] drop constraint [FK_WatchTopic_User]
 go
 
-if exists (select top 1 1 from sys.objects where name='FK_Active_Forum' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Active]') and type in (N'F'))
-	alter table [{databaseOwner}].[{objectQualifier}Attachment] drop constraint [FK_Attachment_Message]
-go
-
 if exists (select top 1 1 from sys.objects where name='FK_UserGroup_User' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}UserGroup]') and type in (N'F'))
 	alter table [{databaseOwner}].[{objectQualifier}UserGroup] drop constraint [FK_UserGroup_User]
 go
@@ -113,6 +109,10 @@ go
 
 if exists (select top 1 1 from sys.objects where name='FK_Attachment_Message' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Attachment]') and type in (N'F'))
 	alter table [{databaseOwner}].[{objectQualifier}Attachment] drop constraint [FK_Attachment_Message]
+go
+
+if exists (select top 1 1 from sys.foreign_keys where object_id = OBJECT_ID(N'FK_{objectQualifier}Attachment_{objectQualifier}Message') and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Attachment]'))
+	alter table [{databaseOwner}].[{objectQualifier}Attachment] drop constraint [FK_{objectQualifier}Attachment_{objectQualifier}Message]
 go
 
 if exists (select top 1 1 from sys.objects where name='FK_NntpForum_NntpServer' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}NntpForum]') and type in (N'F'))
@@ -952,12 +952,6 @@ if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}W
 	alter table [{databaseOwner}].[{objectQualifier}WatchTopic] add constraint [FK_{objectQualifier}WatchTopic_{objectQualifier}User] foreign key (UserID) references [{databaseOwner}].[{objectQualifier}User](UserID)
 go
 
-
-if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Active_{objectQualifier}Forum' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Active]') and type in (N'F'))
-	alter table [{databaseOwner}].[{objectQualifier}Attachment] add constraint [FK_{objectQualifier}Active_{objectQualifier}Forum] foreign key (MessageID) references [{databaseOwner}].[{objectQualifier}Message] (MessageID)
-go
-
-
 if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}UserGroup_{objectQualifier}User' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}UserGroup]') and type in (N'F'))
 	alter table [{databaseOwner}].[{objectQualifier}UserGroup] add constraint [FK_{objectQualifier}UserGroup_{objectQualifier}User] foreign key (UserID) references [{databaseOwner}].[{objectQualifier}User](UserID)
 go
@@ -968,8 +962,8 @@ if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}U
 go
 
 
-if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Attachment_{objectQualifier}Message' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Attachment]') and type in (N'F'))
-	alter table [{databaseOwner}].[{objectQualifier}Attachment] add constraint [FK_{objectQualifier}Attachment_{objectQualifier}Message] foreign key (MessageID) references [{databaseOwner}].[{objectQualifier}Message] (MessageID)
+if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Attachment_{objectQualifier}User' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Attachment]') and type in (N'F'))
+	alter table [{databaseOwner}].[{objectQualifier}Attachment] add constraint [FK_{objectQualifier}Attachment_{objectQualifier}User] foreign key (UserID) references [{databaseOwner}].[{objectQualifier}User] (UserID)
 go
 
 
@@ -1244,8 +1238,6 @@ if OBJECTPROPERTY(OBJECT_ID('DF_{objectQualifier}ActiveAccess_IsGuestX'), 'IsCon
 go
 
 /***** VIEWS ******/
-
-/****** Object:  Index [{objectQualifier}vaccess_user_UserForum]    Script Date: 09/28/2009 22:30:20 ******/
 
 /****** Object:  Index [{objectQualifier}vaccess_user_UserForum]    Script Date: 09/28/2009 22:30:20 ******/
 #IFSRVVER>8#IF NOT exists (select top 1 1 from sys.indexes WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}vaccess_user]') AND name = N'{objectQualifier}vaccess_user_UserForum_PK')

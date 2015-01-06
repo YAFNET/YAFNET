@@ -819,9 +819,6 @@
   text-decoration: none;
   background: #f5f5f5;
   border: 1px solid #444444;
-  -moz-border-radius: 0.4em;
-  -webkit-border-radius: 0.4em;
-  border-radius: 0.4em;
   padding: 1px 3px 1px 3px;
   margin-right: 2px;
 }

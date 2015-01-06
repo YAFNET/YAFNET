@@ -1013,6 +1013,7 @@
     <Resource tag="ALLOW_USERTEXTEDITOR">Benutzern erlauben, Text-Editor auszuwählen</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Benutzern erlauben, Text-Editor in den Profileinstellungen auszuwählen</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
+    <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
     <Resource tag="APP_CORES">Prozessorkerne:</Resource>
     <Resource tag="APP_CORES_HELP">Anzahl der Prozessorkerne.</Resource>
     <Resource tag="APP_MEMORY">Anwendungspeicher:</Resource>
@@ -1901,16 +1902,21 @@
     <Resource tag="VALIDATE">Überprüfen</Resource>
   </page>
   <page name="ATTACHMENTS">
+    <Resource tag="ADD_FILES">Add file(s)...</Resource>
     <Resource tag="ALLOWED_EXTENSIONS">Erlaubte Dateitypen</Resource>
     <Resource tag="ASK_DELETE">Möchtest du diesen Anhang löschen?</Resource>
+    <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
     <Resource tag="DELETE">Löschen</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">Verbotene Dateitypen</Resource>
+    <Resource tag="DROP_HERE">Drop file(s) here</Resource>
     <Resource tag="FILEERROR">'{0}' ist kein gültiger Dateiname.</Resource>
     <Resource tag="FILENAME">Dateiname</Resource>
     <Resource tag="SELECT_FILE">Bitte wähle die hochzuladende Datei aus.</Resource>
     <Resource tag="SIZE">Größe</Resource>
+    <Resource tag="START_UPLOADS">Start upload(s)</Resource>
     <Resource tag="TITLE">Anhänge</Resource>
     <Resource tag="UPLOAD">Hochladen</Resource>
+    <Resource tag="UPLOAD_NEW">Upload New File(s)</Resource>
     <Resource tag="UPLOAD_NOTE">Hinweis: max. Dateigröße eines Anhangs ist {0} KB.</Resource>
     <Resource tag="UPLOAD_TITLE">Datei Hochladen</Resource>
     <Resource tag="UPLOAD_TOOBIG">Du kannst keine Dateien anhängen, die größer als {1} KB. Ihre Dateigröße beträgt {0} KB.</Resource>
@@ -1923,6 +1929,7 @@
   </page>
   <page name="BBCODEMODULE">
     <Resource tag="ALBUMIMG_DESCRIPTION">Geben Sie hier die Album Nummer ein</Resource>
+    <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">Geben Sie hier eine DailyMotion URL (http://www.dailymotion.com/video/xxxx)</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">Geben Sie hier eine Google Maps URL ein</Resource>
     <Resource tag="HIDDENMOD_DESC">Der Inhalt dieses Beitrages ist versteckt. Nachdem Sie dem Autor DANKE Gesagt haben, und die Seite neugeladen haben, können Sie den Inhalt sehen.</Resource>
@@ -2019,6 +2026,7 @@
   <page name="COMMON">
     <Resource tag="ALBUMIMG_BBCODE">Album Bild einfügen...</Resource>
     <Resource tag="ALLOWED">Erlaubt</Resource>
+    <Resource tag="ATTACH_BBCODE">Insert an existing Attachment or upload a new File...</Resource>
     <Resource tag="BACK">Zurück</Resource>
     <Resource tag="BAD_CAPTCHA">Der eingegebene Text passt nicht zum angezeigten Sicherheitscode (Groß und Kleinschreibung beachten)</Resource>
     <Resource tag="BAD_RECAPTCHA">Bitte wiederholen Sie die reCAPTCHA Eingabe.</Resource>

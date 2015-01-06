@@ -254,4 +254,18 @@
     <ModuleClass>YAF.Modules.BBCode.AlbumImage</ModuleClass>
     <ExecOrder>30</ExecOrder>
   </YafBBCode>
+  <YafBBCode>
+    <Name>ATTACH</Name>
+    <Description>[ATTACH][localization=ATTACH_DESCRIPTION]Enter a Album Image Number[/localization][/ATTACH]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS />
+    <SearchRegex>\[attach\](?&lt;inner&gt;.+?)\[\/attach\]</SearchRegex>
+    <ReplaceRegex />
+    <Variables />
+    <UseModule>true</UseModule>
+    <ModuleClass>YAF.Modules.BBCode.Attach</ModuleClass>
+    <ExecOrder>31</ExecOrder>
+  </YafBBCode>
 </YafBBCodeList>

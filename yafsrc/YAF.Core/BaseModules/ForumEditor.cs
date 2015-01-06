@@ -23,184 +23,224 @@
  */
 namespace YAF.Core
 {
-  #region Using
+    #region Using
 
-  using System.Text.RegularExpressions;
-  using System.Web.UI;
-  using System.Web.UI.HtmlControls;
+    using System.Text.RegularExpressions;
+    using System.Web.UI;
+    using System.Web.UI.HtmlControls;
 
-  using YAF.Types;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// Summary description for BaseForumEditor.
-  /// </summary>
-  public abstract class ForumEditor : BaseControl, IEditorModule
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _base dir.
-    /// </summary>
-    protected string _baseDir = string.Empty;
-
-    /// <summary>
-    ///   The _options.
-    /// </summary>
-    protected RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
+    using YAF.Types;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
 
     #endregion
 
-    #region Properties
-
     /// <summary>
-    ///   Gets a value indicating whether Active.
+    /// The Base ForumEditor Class
     /// </summary>
-    public abstract bool Active { get; }
-
-    /// <summary>
-    ///   Sets BaseDir.
-    /// </summary>
-    public virtual string BaseDir
+    public abstract class ForumEditor : BaseControl, IEditorModule
     {
-      set
-      {
-        this._baseDir = value;
-        if (!this._baseDir.EndsWith("/"))
+        #region Properties
+
+        /// <summary>
+        ///   Gets a value indicating whether Active.
+        /// </summary>
+        public abstract bool Active { get; }
+
+        /// <summary>
+        ///   Sets BaseDir.
+        /// </summary>
+        public virtual string BaseDir
         {
-          this._baseDir += "/";
+            set
+            {
+                this._baseDir = value;
+                if (!this._baseDir.EndsWith("/"))
+                {
+                    this._baseDir += "/";
+                }
+            }
         }
-      }
+
+        /// <summary>
+        ///   Gets Description.
+        /// </summary>
+        public abstract string Description { get; }
+
+        /// <summary>
+        ///   Gets ModuleId.
+        /// </summary>
+        public virtual string ModuleId
+        {
+            get
+            {
+                return this.Description.GetHashCode().ToString();
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets StyleSheet.
+        /// </summary>
+        [NotNull]
+        public virtual string StyleSheet
+        {
+            get
+            {
+                return string.Empty;
+            }
+
+            set
+            {
+                ;
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets Text.
+        /// </summary>
+        public abstract string Text { get; set; }
+
+        /// <summary>
+        ///   Gets a value indicating whether UsesBBCode.
+        /// </summary>
+        public virtual bool UsesBBCode
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        ///   Gets a value indicating whether UsesHTML.
+        /// </summary>
+        public virtual bool UsesHTML
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [allows uploads].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [allows uploads]; otherwise, <c>false</c>.
+        /// </value>
+        public virtual bool AllowsUploads
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [user can upload].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [allow uploads]; otherwise, <c>false</c>.
+        /// </value>
+        public virtual bool UserCanUpload
+        {
+            get
+            {
+                return this._userCanUpload;
+            }
+
+            set
+            {
+                this._userCanUpload = value;
+            }
+        }
+
+        #endregion
+
+        #region Constants and Fields
+
+        /// <summary>
+        ///   The _base dir.
+        /// </summary>
+        protected string _baseDir = string.Empty;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [_allow uploads].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [_allow uploads]; otherwise, <c>false</c>.
+        /// </value>
+        protected bool _userCanUpload { get; set; }
+
+        /// <summary>
+        ///   The _options.
+        /// </summary>
+        protected RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Converts a URL into one that is usable on the requesting client.
+        /// </summary>
+        /// <param name="relativeUrl">The URL associated with the <see cref="P:System.Web.UI.Control.TemplateSourceDirectory" /> property.</param>
+        /// <returns>
+        /// The converted URL.
+        /// </returns>
+        public new string ResolveUrl([NotNull] string relativeUrl)
+        {
+            if (this._baseDir.IsSet())
+            {
+                return this._baseDir + relativeUrl;
+            }
+
+            return base.ResolveUrl(relativeUrl);
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The add editor control.
+        /// </summary>
+        /// <param name="editor">
+        /// The editor.
+        /// </param>
+        protected virtual void AddEditorControl([NotNull] Control editor)
+        {
+            var newDiv = new HtmlGenericControl("div") { ID = "EditorDiv" };
+            newDiv.Attributes.Add("class", "EditorDiv");
+            newDiv.Controls.Add(editor);
+            this.Controls.Add(newDiv);
+        }
+
+        /// <summary>
+        /// The replace.
+        /// </summary>
+        /// <param name="txt">
+        /// The txt.
+        /// </param>
+        /// <param name="match">
+        /// The match.
+        /// </param>
+        /// <param name="replacement">
+        /// The replacement.
+        /// </param>
+        /// <returns>
+        /// The replace.
+        /// </returns>
+        protected virtual string Replace([NotNull] string txt, [NotNull] string match, [NotNull] string replacement)
+        {
+            while (Regex.IsMatch(txt, match, this._options))
+            {
+                txt = Regex.Replace(txt, match, replacement, this._options);
+            }
+
+            return txt;
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    ///   Gets Description.
-    /// </summary>
-    public abstract string Description { get; }
-
-    /// <summary>
-    ///   Gets ModuleId.
-    /// </summary>
-    public virtual string ModuleId
-    {
-      get
-      {
-        return this.Description.GetHashCode().ToString();
-      }
-    }
-
-    /// <summary>
-    ///   Gets or sets StyleSheet.
-    /// </summary>
-    [NotNull]
-    public virtual string StyleSheet
-    {
-      get
-      {
-        return string.Empty;
-      }
-
-      set
-      {
-        ;
-      }
-    }
-
-    /// <summary>
-    ///   Gets or sets Text.
-    /// </summary>
-    public abstract string Text { get; set; }
-
-    /// <summary>
-    ///   Gets a value indicating whether UsesBBCode.
-    /// </summary>
-    public virtual bool UsesBBCode
-    {
-      get
-      {
-        return false;
-      }
-    }
-
-    /// <summary>
-    ///   Gets a value indicating whether UsesHTML.
-    /// </summary>
-    public virtual bool UsesHTML
-    {
-      get
-      {
-        return false;
-      }
-    }
-
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// The resolve url.
-    /// </summary>
-    /// <param name="relativeUrl">
-    /// The relative url.
-    /// </param>
-    /// <returns>
-    /// The resolve url.
-    /// </returns>
-    public new string ResolveUrl([NotNull] string relativeUrl)
-    {
-      if (this._baseDir != string.Empty)
-      {
-        return this._baseDir + relativeUrl;
-      }
-
-      return base.ResolveUrl(relativeUrl);
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The add editor control.
-    /// </summary>
-    /// <param name="editor">
-    /// The editor.
-    /// </param>
-    protected virtual void AddEditorControl([NotNull] Control editor)
-    {
-      var newDiv = new HtmlGenericControl("div") { ID = "EditorDiv" };
-      newDiv.Attributes.Add("class", "EditorDiv");
-      newDiv.Controls.Add(editor);
-      this.Controls.Add(newDiv);
-    }
-
-    /// <summary>
-    /// The replace.
-    /// </summary>
-    /// <param name="txt">
-    /// The txt.
-    /// </param>
-    /// <param name="match">
-    /// The match.
-    /// </param>
-    /// <param name="replacement">
-    /// The replacement.
-    /// </param>
-    /// <returns>
-    /// The replace.
-    /// </returns>
-    protected virtual string Replace([NotNull] string txt, [NotNull] string match, [NotNull] string replacement)
-    {
-      while (Regex.IsMatch(txt, match, this._options))
-      {
-        txt = Regex.Replace(txt, match, replacement, this._options);
-      }
-
-      return txt;
-    }
-
-    #endregion
-  }
 }

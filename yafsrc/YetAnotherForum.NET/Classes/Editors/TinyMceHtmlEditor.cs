@@ -93,7 +93,8 @@ namespace YAF.Editors
         {
             YafContext.Current.PageElements.RegisterJsBlock(
                 "InsertSmileyJs",
-                "function insertsmiley(code,img) {\ntinyMCE.execCommand('mceInsertContent',false,'<img src=\"' + img + '\" alt=\"\" />');\n}\n");
+                @"function insertsmiley(code,img) {tinyMCE.execCommand('mceInsertContent',false,'<img src=""' + img + '"" alt="""" />');}
+                  function insertAttachment(id,url) {tinyMCE.execCommand('mceInsertContent',false,'[attach]' + id + '[/attach]');}");
         }
 
         /// <summary>

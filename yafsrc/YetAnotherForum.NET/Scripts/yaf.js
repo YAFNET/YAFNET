@@ -199,7 +199,54 @@ jQuery(document).ready(function () {
     if (typeof (jQuery.fn.spinner) !== 'undefined') {
         jQuery('.Numeric').spinner({min: 0});
     }
+
+    var dialog = jQuery(".UploadDialog").dialog({
+        autoOpen: false,
+        width: 530,
+        modal: true,
+        buttons: {
+            Cancel: function () {
+                dialog.dialog("close");
+            }
+        },
+        close: function () {
+        }
+    });
+
+    jQuery(".OpenUploadDialog,.UploadNewFileLine").on("click", function () {
+        dialog.dialog("open");
+    });
+
+    if (jQuery('#AttachmentsListPager').length) {
+        var Attachments_entries = jQuery('#AttachmentsPagerHidden div.result').length;
+        jQuery('#AttachmentsListPager').pagination(Attachments_entries, {
+            callback: AttachmentsPageSelectCallback,
+            items_per_page: 1,
+            num_display_entries: 3,
+            num_edge_entries: 1,
+            prev_class: 'smiliesPagerPrev',
+            next_class: 'smiliesPagerNext',
+            prev_text: '&laquo;',
+            next_text: '&raquo;'
+        });
+    }
+
+    jQuery(document).tooltip({
+        items: "[data-url]",
+        content: function () {
+            var element = $(this);
+            var text = element.text();
+            var url = element.attr('data-url');
+            return "<img alt='" + text + "'  src='" + url + "' style='max-width:300px' />";
+        }
+    });
 });
+
+function AttachmentsPageSelectCallback(page_index) {
+    var Attachments_content = jQuery('#AttachmentsPagerHidden div.result:eq(' + page_index + ')').clone();
+    jQuery('#AttachmentsPagerResult').empty().append(Attachments_content);
+    return false;
+}
 
 $(function () {
     $.widget("custom.iconselectmenu", $.ui.selectmenu, {

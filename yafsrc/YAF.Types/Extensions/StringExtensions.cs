@@ -715,6 +715,20 @@ namespace YAF.Types.Extensions
             return Encoding.UTF8.GetBytes(value);
         }
 
+        /// <summary>
+        /// Determines whether [is image name] [the specified input string].
+        /// </summary>
+        /// <param name="inputString">The input string.</param>
+        /// <returns>Returns if the String is a Image Name</returns>
+        public static bool IsImageName(this string inputString)
+        {
+            return inputString.EndsWith("png", StringComparison.InvariantCultureIgnoreCase)
+                   || inputString.EndsWith("gif", StringComparison.InvariantCultureIgnoreCase)
+                   || inputString.EndsWith("jpeg", StringComparison.InvariantCultureIgnoreCase)
+                   || inputString.EndsWith("jpg", StringComparison.InvariantCultureIgnoreCase)
+                   || inputString.EndsWith("bmp", StringComparison.InvariantCultureIgnoreCase);
+        }
+
         #endregion
     }
 }

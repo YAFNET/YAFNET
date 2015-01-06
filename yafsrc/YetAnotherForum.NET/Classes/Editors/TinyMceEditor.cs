@@ -28,6 +28,8 @@ namespace YAF.Editors
     using System;
     using System.Web.UI;
 
+    using YAF.Classes.Editors;
+    using YAF.Core;
     using YAF.Types;
     using YAF.Types.Interfaces;
 
@@ -79,11 +81,7 @@ namespace YAF.Editors
         /// <param name="e">The e.</param>
         protected override void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            ScriptManager.RegisterClientScriptInclude(
-                this.Page,
-                this.Page.GetType(),
-                "tinymce",
-                this.ResolveUrl("tinymce/tinymce.min.js"));
+            YafContext.Current.PageElements.RegisterJsInclude("tinymce", this.ResolveUrl("tinymce/tinymce.min.js"));
 
             this.RegisterTinyMceCustomJS();
             this.RegisterSmilieyScript();

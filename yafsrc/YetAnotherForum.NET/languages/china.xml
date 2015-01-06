@@ -1021,6 +1021,7 @@
     <Resource tag="ALLOW_USERTEXTEDITOR">Allow users to pick text editor</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Allow users to pick text editor in their profiles.</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
+    <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
     <Resource tag="APP_CORES">Processor Cores:</Resource>
     <Resource tag="APP_CORES_HELP">Number of Processor cores.</Resource>
     <Resource tag="APP_MEMORY">Application memory:</Resource>
@@ -1919,17 +1920,22 @@
     <Resource tag="VALIDATE">验证</Resource>
   </page>
   <page name="ATTACHMENTS">
+    <Resource tag="ADD_FILES">Add file(s)...</Resource>
     <Resource tag="ALLOWED_EXTENSIONS">允许的文件类型</Resource>
     <Resource tag="ASK_DELETE">删除此附件吗?</Resource>
+    <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
     <Resource tag="DELETE">删除</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">Disallowed File Types</Resource>
+    <Resource tag="DROP_HERE">Drop file(s) here</Resource>
     <Resource tag="ERROR_TOOBIG">你不能用那么大的附件.</Resource>
     <Resource tag="FILEERROR">'{0}' 不能上传.</Resource>
     <Resource tag="FILENAME">文件名</Resource>
     <Resource tag="SELECT_FILE">选择一个您要上传的文件.</Resource>
     <Resource tag="SIZE">大小</Resource>
+    <Resource tag="START_UPLOADS">Start upload(s)</Resource>
     <Resource tag="TITLE">附件</Resource>
     <Resource tag="UPLOAD">上传</Resource>
+    <Resource tag="UPLOAD_NEW">Upload New File(s)</Resource>
     <Resource tag="UPLOAD_NOTE">注意: 文件最大限制为 {0} KB.</Resource>
     <Resource tag="UPLOAD_TITLE">请上传文件</Resource>
     <Resource tag="UPLOAD_TOOBIG">您不能上传大于 {1} KB 的附件. 您试图上传的文件为 {0} KB.</Resource>
@@ -1942,6 +1948,7 @@
   </page>
   <page name="BBCODEMODULE">
     <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
+    <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
     <Resource tag="HIDDENMOD_DESC">The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post</Resource>
@@ -2038,6 +2045,7 @@
   <page name="COMMON">
     <Resource tag="ALBUMIMG_BBCODE">插入相册图像...</Resource>
     <Resource tag="ALLOWED">允许</Resource>
+    <Resource tag="ATTACH_BBCODE">Insert an existing Attachment or upload a new File...</Resource>
     <Resource tag="BACK">返回</Resource>
     <Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
     <Resource tag="BAD_RECAPTCHA">Please re-enter the reCAPTCHA.</Resource>

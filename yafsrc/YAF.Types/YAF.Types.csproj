@@ -155,6 +155,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\WatchForum.cs" />
     <Compile Include="Models\WatchTopic.cs" />
+    <Compile Include="Objects\FileUploadStatus.cs" />
     <Compile Include="Objects\ForumUserInfo.cs" />
     <Compile Include="Objects\MultiQuote.cs" />
     <Compile Include="Objects\SpamWordCheckItem.cs" />

@@ -90,6 +90,7 @@
     </Compile>
     <Compile Include="ActiveLocation.cs" />
     <Compile Include="ActiveUsers.cs" />
+    <Compile Include="AttachmentsPopMenu.cs" />
     <Compile Include="AlbumListPopMenu.cs" />
     <Compile Include="ModernButton.cs" />
     <Compile Include="ModernTextBox.cs" />

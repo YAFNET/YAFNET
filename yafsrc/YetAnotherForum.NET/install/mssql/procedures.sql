@@ -1915,18 +1915,13 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}attachment_delete](@AttachmentID int) as begin
-        delete from [{databaseOwner}].[{objectQualifier}Attachment] where AttachmentID=@AttachmentID
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}attachment_download](@AttachmentID int) as
 begin
         update [{databaseOwner}].[{objectQualifier}Attachment] set Downloads=Downloads+1 where AttachmentID=@AttachmentID
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}attachment_list](@MessageID int=null,@AttachmentID int=null,@BoardID int=null,@PageIndex int = null, @PageSize int = 0) as begin
+create procedure [{databaseOwner}].[{objectQualifier}attachment_list](@MessageID int=null,@UserID int=null,@AttachmentID int=null,@BoardID int=null,@PageIndex int = null, @PageSize int = 0) as begin
 declare @TotalRows int
 declare @FirstSelectRowNumber int
 declare @FirstSelectRowID int		
@@ -1945,17 +1940,56 @@ declare @FirstSelectRowID int
             a.MessageID=@MessageID
     else if @AttachmentID is not null
         select 
-            a.*,
-            e.BoardID
+            a.*
         from
             [{databaseOwner}].[{objectQualifier}Attachment] a
-            inner join [{databaseOwner}].[{objectQualifier}Message] b on b.MessageID = a.MessageID
-            inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID = b.TopicID
-            inner join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID = c.ForumID
-            inner join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID = d.CategoryID
-            inner join [{databaseOwner}].[{objectQualifier}Board] brd on brd.BoardID = e.BoardID
         where 
             a.AttachmentID=@AttachmentID
+    else if @UserID is not null
+        begin
+            set nocount on
+           set @PageIndex = @PageIndex + 1
+           set @FirstSelectRowNumber = 0
+           set @FirstSelectRowID = 0
+           set @TotalRows = 0
+           
+           select @TotalRows = count(1) from [{databaseOwner}].[{objectQualifier}Attachment] a			
+        where
+            a.UserID = @UserID
+           select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1
+           
+           if (@FirstSelectRowNumber <= @TotalRows)
+           begin
+           -- find first selectedrowid 
+           set rowcount @FirstSelectRowNumber
+           end
+           else
+           begin  
+           set rowcount 1
+           end
+      -- find first row id for a current page 
+      select @FirstSelectRowID = AttachmentID 
+     from 
+            [{databaseOwner}].[{objectQualifier}Attachment] a			
+        where
+            a.UserID = @UserID
+        order by
+            a.AttachmentID
+
+      -- display page 
+      set rowcount @PageSize
+     select 
+            a.*,
+            TotalRows  = @TotalRows
+        from 
+            [{databaseOwner}].[{objectQualifier}Attachment] a			
+        where
+            a.AttachmentID >= @FirstSelectRowID  and  a.UserID = @UserID
+        order by
+            a.AttachmentID
+            set rowcount 0 
+   set nocount off
+        end
     else
     begin
 
@@ -2022,11 +2056,6 @@ declare @FirstSelectRowID int
 
         
     end
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}attachment_save](@MessageID int,@FileName nvarchar(255),@Bytes int,@ContentType nvarchar(max)=null,@FileData image=null) as begin
-        insert into [{databaseOwner}].[{objectQualifier}Attachment](MessageID,[FileName],Bytes,ContentType,Downloads,FileData) values(@MessageID,@FileName,@Bytes,@ContentType,0,@FileData)
 end
 GO
 

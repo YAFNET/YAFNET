@@ -34,6 +34,7 @@ namespace YAF.Controls
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
@@ -295,9 +296,7 @@ namespace YAF.Controls
         /// <summary>
         /// The render message.
         /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
+        /// <param name="writer">The writer.</param>
         protected override void RenderMessage([NotNull] HtmlTextWriter writer)
         {
             CodeContracts.VerifyNotNull(writer, "writer");
@@ -306,12 +305,11 @@ namespace YAF.Controls
 
             if (this.MessageFlags.IsDeleted)
             {
-                    this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;
+                this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;
 
-                var deleteText =
-                    this.Get<HttpContextBase>().Server.HtmlDecode(this.CurrentMessage.DeleteReason).IsSet()
-                        ? this.Get<IFormatMessage>().RepairHtml(this.CurrentMessage.DeleteReason, true)
-                        : this.GetText("EDIT_REASON_NA");
+                var deleteText = this.Get<HttpContextBase>().Server.HtmlDecode(this.CurrentMessage.DeleteReason).IsSet()
+                                     ? this.Get<IFormatMessage>().RepairHtml(this.CurrentMessage.DeleteReason, true)
+                                     : this.GetText("EDIT_REASON_NA");
 
                 // deleted message text...
                 this.RenderDeletedMessage(writer, deleteText);
@@ -334,8 +332,12 @@ namespace YAF.Controls
                 }
 
                 var formattedMessage =
-                    this.Get<IFormatMessage>().FormatMessage(
-                        this.HighlightMessage(this.Message, true), this.MessageFlags, false, editedMessageDateTime);
+                    this.Get<IFormatMessage>()
+                        .FormatMessage(
+                            this.HighlightMessage(this.Message, true),
+                            this.MessageFlags,
+                            false,
+                            editedMessageDateTime);
 
                 // tha_watcha : Since html message and bbcode can be mixed now, message should be always replace bbcode
                 this.RenderModulesInBBCode(
@@ -346,7 +348,8 @@ namespace YAF.Controls
                     this.MessageId);
 
                 // Render Edit Message
-                if (this.ShowEditMessage && this.Edited > this.Posted.AddSeconds(this.Get<YafBoardSettings>().EditTimeOut))
+                if (this.ShowEditMessage
+                    && this.Edited > this.Posted.AddSeconds(this.Get<YafBoardSettings>().EditTimeOut))
                 {
                     this.RenderEditedMessage(writer, this.Edited, this.CurrentMessage.EditReason, this.MessageId);
                 }
@@ -354,12 +357,16 @@ namespace YAF.Controls
             else
             {
                 var formattedMessage =
-                    this.Get<IFormatMessage>().FormatMessage(
-                        this.HighlightMessage(this.Message, true), this.MessageFlags);
+                    this.Get<IFormatMessage>()
+                        .FormatMessage(this.HighlightMessage(this.Message, true), this.MessageFlags);
 
                 // tha_watcha : Since html message and bbcode can be mixed now, message should be always replace bbcode
                 this.RenderModulesInBBCode(
-                    writer, formattedMessage, this.MessageFlags, this.DisplayUserID, this.MessageID);
+                    writer,
+                    formattedMessage,
+                    this.MessageFlags,
+                    this.DisplayUserID,
+                    this.MessageID);
             }
         }
 

@@ -1014,6 +1014,7 @@
     <Resource tag="ALLOW_USERTEXTEDITOR">Gebruikers mogen tekstverwerker kiezen</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Gebruikers kunnen kiezen tussen verschillende tekstverwerkers in hun profiel.</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
+    <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
     <Resource tag="APP_CORES">Processor Cores:</Resource>
     <Resource tag="APP_CORES_HELP">Number of Processor cores.</Resource>
     <Resource tag="APP_MEMORY">Application memory:</Resource>
@@ -1911,16 +1912,21 @@
     <Resource tag="VALIDATE">Valideren</Resource>
   </page>
   <page name="ATTACHMENTS">
+    <Resource tag="ADD_FILES">Add file(s)...</Resource>
     <Resource tag="ALLOWED_EXTENSIONS">Toegestane bestandstypen</Resource>
     <Resource tag="ASK_DELETE">Bijlage verwijderen?</Resource>
+    <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
     <Resource tag="DELETE">Verwijderen</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">Verbonden bestandstypen</Resource>
+    <Resource tag="DROP_HERE">Drop file(s) here</Resource>
     <Resource tag="FILEERROR">'{0}' is geen geldig bestand om te uploaden.</Resource>
     <Resource tag="FILENAME">Bestandsnaam</Resource>
     <Resource tag="SELECT_FILE">Selecteer het bestand dat je wilt uploaden:</Resource>
     <Resource tag="SIZE">Grootte</Resource>
+    <Resource tag="START_UPLOADS">Start upload(s)</Resource>
     <Resource tag="TITLE">Bijlagen</Resource>
     <Resource tag="UPLOAD">Uploaden</Resource>
+    <Resource tag="UPLOAD_NEW">Upload New File(s)</Resource>
     <Resource tag="UPLOAD_NOTE">Let op: Max. Bestandsgrootte van een Attachment is {0} KB.</Resource>
     <Resource tag="UPLOAD_TITLE">Te uploaden bestand</Resource>
     <Resource tag="UPLOAD_TOOBIG">Je kunt geen bestanden bijsluiten die groter zijn dan {1} KB. Deze grootte is {0} KB.</Resource>
@@ -1933,6 +1939,7 @@
   </page>
   <page name="BBCODEMODULE">
     <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
+    <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
     <Resource tag="HIDDENMOD_DESC">De inhoud van dit bericht is verborgen. Als je de auteur bedankt hebt, ververs dan de pagina om de inhoud te bekijken." title="De inhoud van dit bericht is verborgen. Als je de auteur bedankt hebt, ververs dan de pagina om de inhoud te bekijken.</Resource>
@@ -2029,6 +2036,7 @@
   <page name="COMMON">
     <Resource tag="ALBUMIMG_BBCODE">Voeg Album plaatje toe...</Resource>
     <Resource tag="ALLOWED">Toegestaan</Resource>
+    <Resource tag="ATTACH_BBCODE">Insert an existing Attachment or upload a new File...</Resource>
     <Resource tag="BACK">Terug</Resource>
     <Resource tag="BAD_CAPTCHA">Tekst komt niet overeen met de tekst in het plaatje</Resource>
     <Resource tag="BAD_RECAPTCHA">Please re-enter the reCAPTCHA.</Resource>

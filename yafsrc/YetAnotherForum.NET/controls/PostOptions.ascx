@@ -3,7 +3,7 @@
 
 <tr id="OptionsRow" runat="server" class="postOptions">
     <td class="post" colspan="2">
-        <b><YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" LocalizedTag="NEWPOSTOPTIONS" /></b>
+        <strong><YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" LocalizedTag="NEWPOSTOPTIONS" /></strong>
         <br />
         <ul style="list-style-type: none; padding-left: 0px;">
             <li id="liAddPoll" runat="server">
@@ -21,10 +21,6 @@
             <li id="liTopicWatch" runat="server">
                 <asp:CheckBox ID="TopicWatch" runat="server" />
                 <YAF:LocalizedLabel ID="TopicWatchLabel" runat="server" LocalizedTag="TOPICWATCH" />
-            </li>
-            <li id="liTopicAttach" runat="server">
-                <asp:CheckBox ID="TopicAttach" runat="server" />
-                <YAF:LocalizedLabel ID="TopicAttachLabel" runat="server" LocalizedTag="TOPICATTACH" />
             </li>
         </ul>
     </td>

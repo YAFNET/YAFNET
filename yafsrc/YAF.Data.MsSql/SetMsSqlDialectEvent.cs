@@ -9,7 +9,7 @@ namespace YAF.Data.MsSql
     using YAF.Types.Interfaces;
 
     /// <summary>
-    /// The yaf naming strategy base override.
+    /// The YAF naming strategy base override.
     /// </summary>
     public class YafNamingStrategyBaseOverride : INamingStrategy
     {
@@ -30,14 +30,43 @@ namespace YAF.Data.MsSql
         }
 
         /// <summary>
-        /// The get table name.
+        /// Gets the name of the sequence.
+        /// </summary>
+        /// <param name="modelName">Name of the model.</param>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <returns>Returns the sequence name</returns>
+        public virtual string GetSequenceName(string modelName, string fieldName)
+        {
+            return string.Format("SEQ_{0}_{1}", modelName, fieldName);
+        }
+
+        /// <summary>
+        /// Applies the name restrictions.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>Returns the name</returns>
+        public string ApplyNameRestrictions(string name)
+        {
+            return name;
+        }
+
+        /// <summary>
+        /// Gets the name of the table.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>Returns the name of the table.</returns>
+        public string GetTableName(ModelDefinition modelDef)
+        {
+            return this.GetTableName(modelDef.ModelName);
+        }
+
+        /// <summary>
+        /// Gets the name of the table.
         /// </summary>
         /// <param name="name">
         /// The name.
         /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
+        /// <returns>Returns the name of the table.</returns>
         public string GetTableName(string name)
         {
             return string.Format("{0}{1}", Config.DatabaseObjectQualifier, name);
@@ -47,7 +76,7 @@ namespace YAF.Data.MsSql
     }
 
     /// <summary>
-    /// The yaf sql server orm lite dialect provider.
+    /// The YAF SQL Server ORM lite dialect provider.
     /// </summary>
     public class YafSqlServerOrmLiteDialectProvider : SqlServerOrmLiteDialectProvider
     {
@@ -74,7 +103,7 @@ namespace YAF.Data.MsSql
     }
 
     /// <summary>
-    /// The set ms sql dialect event.
+    /// The set MS SQL dialect event.
     /// </summary>
     [ExportService(ServiceLifetimeScope.InstancePerDependancy, new[] { typeof(IHandleEvent<InitDatabaseProviderEvent>) })]
     public class SetMsSqlDialectEvent : IHandleEvent<InitDatabaseProviderEvent>

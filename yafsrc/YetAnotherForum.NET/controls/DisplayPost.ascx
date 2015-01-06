@@ -32,8 +32,6 @@
                 <YAF:ThemeButton ID="Thank" runat="server" CssClass="yaflittlebutton button-thanks" Visible="false" TextLocalizedTag="BUTTON_THANKS"
                     TitleLocalizedTag="BUTTON_THANKS_TT" />
             </span>        
-            <YAF:ThemeButton ID="Attach" runat="server" CssClass="yaflittlebutton button-attach" TextLocalizedTag="BUTTON_ATTACH"
-                TitleLocalizedTag="BUTTON_ATTACH_TT" />
             <YAF:ThemeButton ID="Edit" runat="server" CssClass="yaflittlebutton button-edit" TextLocalizedTag="BUTTON_EDIT"
                 TitleLocalizedTag="BUTTON_EDIT_TT" />
             <YAF:ThemeButton ID="MovePost" runat="server" CssClass="yaflittlebutton button-move" TextLocalizedTag="BUTTON_MOVE"

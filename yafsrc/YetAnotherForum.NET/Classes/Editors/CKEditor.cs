@@ -28,6 +28,8 @@ namespace YAF.Editors
     using System;
     using System.Web.UI;
 
+    using YAF.Classes.Editors;
+    using YAF.Core;
     using YAF.Types;
     using YAF.Types.Interfaces;
 
@@ -79,8 +81,7 @@ namespace YAF.Editors
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected override void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            ScriptManager.RegisterClientScriptInclude(
-              this.Page, this.Page.GetType(), "ckeditor", this.ResolveUrl("ckeditor/ckeditor.js"));
+            YafContext.Current.PageElements.RegisterJsInclude("ckeditor", this.ResolveUrl("ckeditor/ckeditor.js"));
 
             this.RegisterCKEditorCustomJS();
             

@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Editors
+namespace YAF.Classes.Editors
 {
     #region Using
 
@@ -124,6 +124,20 @@ namespace YAF.Editors
         }
 
         /// <summary>
+        /// Gets a value indicating whether [allows uploads].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [allows uploads]; otherwise, <c>false</c>.
+        /// </value>
+        public override bool AllowsUploads
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         ///   Gets the Safe ID.
         /// </summary>
         [NotNull]
@@ -146,8 +160,6 @@ namespace YAF.Editors
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected virtual void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            
-
             this.RegisterSmilieyScript();
         }
 

@@ -31,9 +31,9 @@ namespace YAF.Pages.Admin
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -41,26 +41,21 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
     /// <summary>
-    ///     Summary description for attachments.
+    ///     Admin Attachments Page.
     /// </summary>
     public partial class attachments : AdminPage
     {
         #region Methods
 
         /// <summary>
-        /// The delete_ load.
+        /// Handles the Load event of the Delete control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender. 
-        /// </param>
-        /// <param name="e">
-        /// The e. 
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
@@ -68,11 +63,9 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
-        /// <param name="e">
-        /// The e. 
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             this.List.ItemCommand += this.List_ItemCommand;
@@ -83,14 +76,10 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender. 
-        /// </param>
-        /// <param name="e">
-        /// The e. 
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -123,14 +112,22 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        ///     The bind data.
+        /// Binds the data.
         /// </summary>
         private void BindData()
         {
             this.PagerTop.PageSize = this.Get<YafBoardSettings>().MemberListPageSize;
-            var dt = this.GetRepository<Attachment>().List(null, null, this.PageContext.PageBoardID, this.PagerTop.CurrentPageIndex, this.PagerTop.PageSize);
-            this.List.DataSource = this.GetRepository<Attachment>().List(null, null, this.PageContext.PageBoardID, this.PagerTop.CurrentPageIndex, this.PagerTop.PageSize);
-            this.PagerTop.Count = dt != null && dt.Rows.Count > 0 ? dt.AsEnumerable().First().Field<int>("TotalRows") : 0;
+
+            var dt = this.GetRepository<Attachment>()
+                .List(
+                    boardId: this.PageContext.PageBoardID,
+                    pageIndex: this.PagerTop.CurrentPageIndex,
+                    pageSize: this.PagerTop.PageSize);
+            
+            this.List.DataSource = dt;
+            this.PagerTop.Count = dt != null && dt.Rows.Count > 0
+                                      ? dt.AsEnumerable().First().Field<int>("TotalRows")
+                                      : 0;
             this.DataBind();
         }
 
@@ -143,20 +140,17 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The list_ item command.
+        /// Handles the ItemCommand event of the List control.
         /// </summary>
-        /// <param name="source">
-        /// The source. 
-        /// </param>
-        /// <param name="e">
-        /// The e. 
-        /// </param>
+        /// <param name="source">The source of the event.</param>
+        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
         private void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {
                 case "delete":
-                    this.GetRepository<Attachment>().Delete(e.CommandArgument.ToType<int>());
+                    this.GetRepository<Attachment>().DeleteByID(e.CommandArgument.ToType<int>());
+
                     this.BindData();
                     break;
             }

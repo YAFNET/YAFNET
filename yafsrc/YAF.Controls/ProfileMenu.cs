@@ -94,7 +94,7 @@ namespace YAF.Controls
             
             html.AppendFormat(
                 @"<li class=""yafprofilemenu_{2}""><a href=""{0}"" title=""{1}"">{1}</a></li>",
-                YafBuildLink.GetLink(ForumPages.profile, "u={0}", PageContext.PageUserID),
+                YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.PageContext.PageUserID),
                 this.GetText("VIEW_PROFILE"),
                     ForumPages.profile);
             html.AppendFormat(
@@ -107,9 +107,18 @@ namespace YAF.Controls
             {
                 html.AppendFormat(
                     @"<li class=""yafprofilemenu_{2}""><a href=""{0}"" title=""{1}"">{1}</a></li>",
-                    YafBuildLink.GetLink(ForumPages.viewthanks, "u={0}", PageContext.PageUserID),
+                    YafBuildLink.GetLink(ForumPages.viewthanks, "u={0}", this.PageContext.PageUserID),
                     this.GetText("ViewTHANKS", "TITLE"),
                     ForumPages.viewthanks);
+            }
+            
+            if (!this.PageContext.IsGuest)
+            {
+                html.AppendFormat(
+                    @"<li class=""yafprofilemenu_{2}""><a href=""{0}"" title=""{1}"">{1}</a></li>",
+                    YafBuildLink.GetLink(ForumPages.attachments),
+                    this.GetText("ATTACHMENTS", "TITLE"),
+                    ForumPages.attachments);
             }
 
             if (!this.PageContext.IsGuest

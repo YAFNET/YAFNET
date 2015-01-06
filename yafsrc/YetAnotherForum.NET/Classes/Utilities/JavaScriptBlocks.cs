@@ -809,6 +809,75 @@ namespace YAF.Utilities
                     twitterUrl);
         }
 
+        /// <summary>
+        /// Gets the FileUpload Java Script.
+        /// </summary>
+        /// <param name="acceptedFileTypes">The accepted file types.</param>
+        /// <param name="maxFileSize">Maximum size of the file.</param>
+        /// <param name="fileUploaderUrl">The file uploader URL.</param>
+        /// <param name="forumID">The forum identifier.</param>
+        /// <returns>Returns the FileUpload Java Script.</returns>
+        [NotNull]
+        public static string FileUploadLoadJs([NotNull] string acceptedFileTypes, [NotNull] int maxFileSize, [NotNull] string fileUploaderUrl, int forumID)
+        {
+            return
+                @"{0}(function() {{
+            var uploadList = new Array(0);
+
+            {0}('#fileupload').fileupload({{
+                url: '{3}',
+                acceptFileTypes: new RegExp('(\.|\/)(' + '{2}' + ')', 'i'),
+                dataType: 'json',
+                {1}
+                done: function (e, data) {{
+                    setStyle('attach', data.result[0].fileID);
+                    {0}('#fileupload').find('.files tr:first').remove();
+                    
+                    if ({0}('#fileupload').find('.files tr').length == 0) {{
+                        {0}('.UploadDialog').dialog('close');
+                    }}
+                }},
+                formData: {{
+                    forumID: '{4}',
+                    allowedUpload: true
+                }},
+                dropZone: {0}('#dropzone')
+            }});
+            {0}(document).bind('dragover', function (e) {{
+                var dropZone = {0}('#dropzone'),
+                    timeout = window.dropZoneTimeout;
+                if (!timeout) {{
+                    dropZone.addClass('ui-state-highlight');
+                }} else {{
+                    clearTimeout(timeout);
+                }}
+                var found = false,
+                    node = e.target;
+                do {{
+                    if (node === dropZone[0]) {{
+                        found = true;
+                        break;
+                    }}
+                    node = node.parentNode;
+                }} while (node != null);
+                if (found) {{
+                    dropZone.addClass('ui-widget-content');
+                }} else {{
+                    dropZone.removeClass('ui-widget-content');
+                }}
+                window.dropZoneTimeout = setTimeout(function () {{
+                    window.dropZoneTimeout = null;
+                    dropZone.removeClass('ui-state-highlight ui-widget-content');
+                }}, 100);
+            }});
+        }});".FormatWith(
+                    Config.JQueryAlias,
+                    maxFileSize > 0 ? "maxFileSize: {0},".FormatWith(maxFileSize) : string.Empty,
+                    acceptedFileTypes,
+                    fileUploaderUrl,
+                    forumID);
+        }
+
         #region BootStrap Script Blocks
 
         /// <summary>

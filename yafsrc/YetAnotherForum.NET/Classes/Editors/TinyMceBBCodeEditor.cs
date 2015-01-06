@@ -92,11 +92,11 @@ namespace YAF.Editors
         /// </summary>
         protected override void RegisterSmilieyScript()
         {
-            ScriptManager.RegisterClientScriptBlock(
-                this.Page,
+            ScriptManager.RegisterClientScriptBlock(this.Page,
                 this.Page.GetType(),
                 "insertsmiley",
-                "function insertsmiley(code,img) {\n" + "	tinyMCE.execCommand('mceInsertContent',false,code);\n" + "}\n",
+                @"function insertsmiley(code,img) {tinyMCE.execCommand('mceInsertContent',false,code);}
+                  function insertAttachment(id,url) {tinyMCE.execCommand('mceInsertContent',false,'[attach]' + id + '[/attach]');}",
                 true);
         }
 

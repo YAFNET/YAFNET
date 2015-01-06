@@ -1338,7 +1338,7 @@
   <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
   <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;</Resource>
   <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
-  <Resource tag="AMOUNT_OF_SUBFORUMS">The amount of Sub Forums In Forums List.</Resource>
+  <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
   <Resource tag="APP_OS_NAME">Operating System:</Resource>
   <Resource tag="APP_OS_NAME_HELP">What version of operating system is running.</Resource>
   <Resource tag="APP_RUNTIME">.NET Runtime Version:</Resource>
@@ -1912,18 +1912,23 @@
   <Resource tag="VALIDATE">Validate</Resource>
  </page>
  <page name="ATTACHMENTS">
+  <Resource tag="ADD_FILES">Add file(s)...</Resource>
   <Resource tag="ALLOWED_EXTENSIONS">Allowed File Types</Resource>
   <Resource tag="ASK_DELETE">Delete this attachment?</Resource>
+  <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
   <Resource tag="DELETE">Delete</Resource>
   <Resource tag="DISALLOWED_EXTENSIONS">Disallowed File Types</Resource>
+  <Resource tag="DROP_HERE">Drop file(s) here</Resource>
   <Resource tag="FILEERROR">'{0}' is not an allowed file type for upload.</Resource>
   <Resource tag="FILENAME">File Name</Resource>
-  <Resource tag="SELECT_FILE">Select the file you want to upload.</Resource>
+  <Resource tag="SELECT_FILE">Select the file(s) you want to upload.</Resource>
   <Resource tag="SIZE">Size</Resource>
+  <Resource tag="START_UPLOADS">Start upload(s)</Resource>
   <Resource tag="TITLE">Attachments</Resource>
   <Resource tag="UPLOAD">Upload</Resource>
+  <Resource tag="UPLOAD_NEW">Upload New File(s)</Resource>
   <Resource tag="UPLOAD_NOTE">Note: Max. File Size of an Attachment is {0} KB.</Resource>
-  <Resource tag="UPLOAD_TITLE">Upload File</Resource>
+  <Resource tag="UPLOAD_TITLE">Upload File(s)</Resource>
   <Resource tag="UPLOAD_TOOBIG">You cannot attach files that are bigger than {1} KB. Your File size is {0} KB.</Resource>
  </page>
  <page name="AVATAR">
@@ -1934,6 +1939,7 @@
  </page>
  <page name="BBCODEMODULE">
   <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
+  <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
   <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
   <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
   <Resource tag="HIDDENMOD_DESC">The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post</Resource>
@@ -1976,7 +1982,7 @@
  <page name="BUTTON">
   <Resource tag="BUTTON_ADDALBUM">Add New Album</Resource>
   <Resource tag="BUTTON_ATTACH">Attach</Resource>
-  <Resource tag="BUTTON_ATTACH_TT">Attach files to this post</Resource>
+  <Resource tag="BUTTON_ATTACH_TT">Attach files to this post...</Resource>
   <Resource tag="BUTTON_DELETE">Delete</Resource>
   <Resource tag="BUTTON_DELETE_TT">Delete this Post</Resource>
   <Resource tag="BUTTON_DELETEALBUM">Delete Album</Resource>
@@ -2029,6 +2035,7 @@
  </page>
  <page name="COMMON">
   <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
+  <Resource tag="ATTACH_BBCODE">Insert an existing Attachment or upload a new File...</Resource>
   <Resource tag="ALLOWED">Allowed</Resource>
   <Resource tag="BACK">Back</Resource>
   <Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>

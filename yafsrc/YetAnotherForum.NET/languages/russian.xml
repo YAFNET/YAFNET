@@ -1014,6 +1014,7 @@
     <Resource tag="ALLOW_USERTEXTEDITOR">Разрешить выбор текстового редактора</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Пользователи смогут выбирать текстовой редактор в своих профилях.</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
+    <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
     <Resource tag="APP_CORES">Processor Cores:</Resource>
     <Resource tag="APP_CORES_HELP">Number of Processor cores.</Resource>
     <Resource tag="APP_MEMORY">Application memory:</Resource>
@@ -1899,16 +1900,21 @@
     <Resource tag="VALIDATE">Подтвердить</Resource>
   </page>
   <page name="ATTACHMENTS">
+    <Resource tag="ADD_FILES">Add file(s)...</Resource>
     <Resource tag="ALLOWED_EXTENSIONS">Разрешённые типы файлов</Resource>
     <Resource tag="ASK_DELETE">Удалить это вложение?</Resource>
+    <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
     <Resource tag="DELETE">Удалить</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">Запрещённые типы файлов</Resource>
+    <Resource tag="DROP_HERE">Drop file(s) here</Resource>
     <Resource tag="FILEERROR">Файла типа '{0}' не разрешены для загрузки.</Resource>
     <Resource tag="FILENAME">Название файла</Resource>
     <Resource tag="SELECT_FILE">Выберите файл для загрузки.</Resource>
     <Resource tag="SIZE">Размер</Resource>
+    <Resource tag="START_UPLOADS">Start upload(s)</Resource>
     <Resource tag="TITLE">Вложения</Resource>
     <Resource tag="UPLOAD">Аплоад</Resource>
+    <Resource tag="UPLOAD_NEW">Upload New File(s)</Resource>
     <Resource tag="UPLOAD_NOTE">Максимальный размер вложения {0} KB.</Resource>
     <Resource tag="UPLOAD_TITLE">Загрузить файл</Resource>
     <Resource tag="UPLOAD_TOOBIG">Вы не можете загружать файлы более чем {1} KB. Ваш файл имеет размер {0} KB.</Resource>
@@ -1921,6 +1927,7 @@
   </page>
   <page name="BBCODEMODULE">
     <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
+    <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
     <Resource tag="HIDDENMOD_DESC">Контент этого поста скрыт. После того, как вы поблагодарите постящего за это сообщение он будет доступен, обновите страницу для просмотра скрытого контента. You need to thank the Current Post</Resource>
@@ -2017,6 +2024,7 @@
   <page name="COMMON">
     <Resource tag="ALBUMIMG_BBCODE">Вставить изображение из альбома...</Resource>
     <Resource tag="ALLOWED">Разрешено</Resource>
+    <Resource tag="ATTACH_BBCODE">Insert an existing Attachment or upload a new File...</Resource>
     <Resource tag="BACK">Назад</Resource>
     <Resource tag="BAD_CAPTCHA">Введённый текст отличается от текста на изображении.</Resource>
     <Resource tag="BAD_RECAPTCHA">Please re-enter the reCAPTCHA.</Resource>

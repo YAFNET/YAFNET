@@ -22,15 +22,6 @@ namespace YAF.Controls {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell NameCell;
         
         /// <summary>
-        /// UserProfileLink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.UserLink UserProfileLink;
-        
-        /// <summary>
         /// OnlineStatusImage control.
         /// </summary>
         /// <remarks>
@@ -47,6 +38,15 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.ThemeImage ThemeImgSuspended;
+        
+        /// <summary>
+        /// UserProfileLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.UserLink UserProfileLink;
         
         /// <summary>
         /// AddReputation control.
@@ -101,15 +101,6 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.ThemeButton Thank;
-        
-        /// <summary>
-        /// Attach control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.ThemeButton Attach;
         
         /// <summary>
         /// Edit control.

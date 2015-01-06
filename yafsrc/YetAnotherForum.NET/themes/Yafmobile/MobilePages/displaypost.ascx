@@ -13,8 +13,6 @@
                     TitleLocalizedTag="BUTTON_THANKS_TT" />
             </span>    
             <asp:PlaceHolder ID="buttonsMobile" runat="server" Visible="false">
-            <YAF:ThemeButton ID="Attach" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_ATTACH"
-                TitleLocalizedTag="BUTTON_ATTACH_TT" />
             <YAF:ThemeButton ID="MovePost" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_MOVE"
                 TitleLocalizedTag="BUTTON_MOVE_TT" />
             <YAF:ThemeButton ID="Delete" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_DELETE"

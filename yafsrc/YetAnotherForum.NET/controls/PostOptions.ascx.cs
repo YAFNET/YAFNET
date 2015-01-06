@@ -40,38 +40,6 @@ namespace YAF.Controls
     #region Properties
 
     /// <summary>
-    ///   Gets or sets a value indicating whether AttachChecked.
-    /// </summary>
-    public bool AttachChecked
-    {
-      get
-      {
-        return this.TopicAttach.Checked;
-      }
-
-      set
-      {
-        this.TopicAttach.Checked = value;
-      }
-    }
-
-    /// <summary>
-    ///   Gets or sets a value indicating whether AttachOptionVisible.
-    /// </summary>
-    public bool AttachOptionVisible
-    {
-      get
-      {
-        return this.liTopicAttach.Visible;
-      }
-
-      set
-      {
-        this.liTopicAttach.Visible = value;
-      }
-    }
-
-    /// <summary>
     ///   Gets or sets a value indicating whether IsQuestionChecked.
     /// </summary>
     public bool IsQuestionChecked
@@ -104,7 +72,7 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    ///   Gets or sets a value indicating whether PersistantChecked.
+    ///   Gets or sets a value indicating whether Persistent Checked.
     /// </summary>
     public bool PersistantChecked
     {
@@ -120,9 +88,9 @@ namespace YAF.Controls
     }
 
     /// <summary>
-    ///   Gets or sets a value indicating whether PersistantOptionVisible.
+    ///   Gets or sets a value indicating whether Persistent Option Visible.
     /// </summary>
-    public bool PersistantOptionVisible
+    public bool PersistentOptionVisible
     {
       get
       {
@@ -204,14 +172,10 @@ namespace YAF.Controls
     #region Methods
 
     /// <summary>
-    /// The page_ load.
+    /// Handles the Load event of the Page control.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
     }

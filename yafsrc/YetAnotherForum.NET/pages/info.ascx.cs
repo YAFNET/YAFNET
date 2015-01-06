@@ -23,12 +23,10 @@
  */
 namespace YAF.Pages
 {
-    // YAF.Pages
     #region Using
 
     using System;
 
-    using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Types;
@@ -73,11 +71,9 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             // CODEGEN: This call is required by the ASP.NET Web Form Designer.
@@ -86,12 +82,10 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// </param>
-        /// <param name="e">
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Put user code to initialize the page here
@@ -114,7 +108,7 @@ namespace YAF.Pages
             try
             {
                 // compare it converted to enumeration
-                switch ((InfoMessage)int.Parse(this.Request.QueryString.GetFirstOrDefault("i")))
+                switch ((InfoMessage)this.Request.QueryString.GetFirstOrDefaultAs<int>("i"))
                 {
                     case InfoMessage.Moderated: // Moderated
                         this.Title.Text = this.GetText("title_moderated");
@@ -153,24 +147,6 @@ namespace YAF.Pages
                     case InfoMessage.Failure: // some sort of failure
                         this.Title.Text = this.GetText("TITLE_FAILURE");
                         this.Info.Text = this.GetText("FAILURE");
-                        this.RefreshTime = 10;
-                        this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
-                        break;
-                    case InfoMessage.RequiresCookies: // some sort of failure
-                        this.Title.Text = this.GetText("TITLE_COOKIES");
-                        this.Info.Text = this.GetText("COOKIES");
-                        this.RefreshTime = 10;
-                        this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
-                        break;
-                    case InfoMessage.RequiresEcmaScript: // some sort of failure
-                        this.Title.Text = this.GetText("TITLE_ECMAREQUIRED");
-                        this.Info.Text = this.GetText("ECMAREQUIRED");
-                        this.RefreshTime = 10;
-                        this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
-                        break;
-                    case InfoMessage.EcmaScriptVersionUnsupported: // some sort of failure
-                        this.Title.Text = this.GetText("TITLE_ECMAVERSION");
-                        this.Info.Text = this.GetText("ECMAVERSION");
                         this.RefreshTime = 10;
                         this.RefreshURL = YafBuildLink.GetLink(ForumPages.forum);
                         break;

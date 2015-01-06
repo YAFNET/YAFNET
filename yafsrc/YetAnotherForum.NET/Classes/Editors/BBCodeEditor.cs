@@ -30,16 +30,18 @@ namespace YAF.Editors
     using System.Data;
     using System.Linq;
     using System.Web.UI;
-
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Classes.Editors;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.BBCode;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -52,7 +54,12 @@ namespace YAF.Editors
         #region Constants and Fields
 
         /// <summary>
-        ///   The BBCode menu.
+        ///   The Attachments list menu.
+        /// </summary>
+        private AttachmentsPopMenu _popMenuAttachments;
+
+        /// <summary>
+        ///   The Album list menu.
         /// </summary>
         private AlbumListPopMenu _popMenuAlbums;
 
@@ -105,6 +112,20 @@ namespace YAF.Editors
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether [allows uploads].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [allows uploads]; otherwise, <c>false</c>.
+        /// </value>
+        public override bool AllowsUploads
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -125,9 +146,10 @@ namespace YAF.Editors
 #else
                 this.ResolveUrl("yafEditor/yafEditor.min.js"));
 #endif
+
             YafContext.Current.PageElements.RegisterJsBlock(
                 "CreateYafEditorJs",
-                "var {0}=new yafEditor('{0}');\nfunction setStyle(style,option) {{\n{0}.FormatText(style,option);\n}}\n"
+                "var {0}=new yafEditor('{0}');\nfunction setStyle(style,option) {{\n{0}.FormatText(style,option);\n}}\nfunction insertAttachment(id,url) {{\n{0}.FormatText('attach', id);\n}}\n"
                     .FormatWith(this.SafeID));
 
             // register custom YafBBCode javascript (if there is any)
@@ -164,6 +186,13 @@ namespace YAF.Editors
         /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the server control content.</param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
+            if (this.UserCanUpload)
+            {
+                // add popmenu Attachments to this mix...
+                this._popMenuAttachments = new AttachmentsPopMenu();
+                this.Controls.Add(this._popMenuAttachments);
+            }
+
             writer.WriteLine(@"<table border=""0"" id=""bbcodeFeatures"">");
             writer.WriteLine("<tr><td>");
 
@@ -276,11 +305,43 @@ namespace YAF.Editors
                 foreach (DataRow row in albumImageList.Rows)
                 {
                     this._popMenuAlbums.AddClientScriptItem(
-                        !string.IsNullOrEmpty(row["Caption"].ToString())
+                        row["Caption"].ToString().IsSet()
                             ? row["Caption"].ToString()
                             : row["FileName"].ToString(),
                         "setStyle('AlbumImgId','{0}')".FormatWith(row["ImageID"]),
                         "{0}resource.ashx?image={1}".FormatWith(YafForumInfo.ForumClientFileRoot, row["ImageID"]));
+                }
+            }
+
+            if (this.UserCanUpload)
+            {
+                var attachments = this.GetRepository<Attachment>()
+                    .ListTyped(userID: this.PageContext.PageUserID, pageSize: 10000);
+
+                writer.WriteLine(
+                    @"<img src=""{5}"" id=""{3}"" alt=""{4}"" title=""{4}"" onclick=""{0}"" onload=""Button_Load(this)"" onmouseover=""{1}"" />"
+                        .FormatWith(
+                            this._popMenuAttachments.ControlOnClick,
+                            this._popMenuAttachments.ControlOnMouseOver,
+                            this.GetText("COMMON", "ATTACH_BBCODE"),
+                            "{0}_attachments_popMenu".FormatWith(this.ClientID),
+                            this.GetText("COMMON", "ATTACH_BBCODE"),
+                            this.ResolveUrl("yafEditor/attach.png")));
+
+                foreach (var attachment in attachments)
+                {
+                    var url = attachment.FileName.IsImageName()
+                                  ? "{0}resource.ashx?i={1}&editor=true".FormatWith(
+                                      YafForumInfo.ForumClientFileRoot,
+                                      attachment.ID)
+                                  : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot);
+
+                    this._popMenuAttachments.AddClientScriptItem(
+                        attachment.FileName,
+                        "insertAttachment('{0}', '{1}')".FormatWith(attachment.ID, url),
+                        attachment.FileName.IsImageName()
+                            ? "{0}resource.ashx?i={1}&editor=true".FormatWith(YafForumInfo.ForumClientFileRoot, attachment.ID)
+                            : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot));
                 }
             }
 
@@ -362,7 +423,7 @@ namespace YAF.Editors
 
                 foreach (var row in customBbCode)
                 {
-                    string name = row.Name;
+                    var name = row.Name;
 
                     if (row.Description.IsSet())
                     {
@@ -370,7 +431,7 @@ namespace YAF.Editors
                         name = this.Get<IBBCode>().LocalizeCustomBBCodeElement(row.Description.Trim());
                     }
 
-                    string onclickJs = row.OnClickJS.IsSet()
+                    var onclickJs = row.OnClickJS.IsSet()
                                            ? row.OnClickJS
                                            : "setStyle('{0}','')".FormatWith(row.Name.Trim());
 
@@ -393,9 +454,9 @@ namespace YAF.Editors
                     "Dark Blue", "Indigo", "Violet", "White", "Black"
                 };
 
-            foreach (string color in colors)
+            foreach (var color in colors)
             {
-                string tValue = color.Replace(" ", string.Empty).ToLower();
+                var tValue = color.Replace(" ", string.Empty).ToLower();
                 writer.WriteLine("<option style=\"color:{0}\" value=\"{0}\">{1}</option>".FormatWith(tValue, color));
             }
 
@@ -424,6 +485,7 @@ namespace YAF.Editors
             this._popMenuBBCustom.RenderControl(writer);
             this._popMenuBBCode.RenderControl(writer);
             this._popMenuAlbums.RenderControl(writer);
+            this._popMenuAttachments.RenderControl(writer);
         }
 
         /// <summary>

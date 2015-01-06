@@ -528,9 +528,6 @@ namespace YAF.Controls
 
             this.Retweet.Visible = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowRetweetMessageTo);
 
-            this.Attach.Visible = !this.PostData.PostDeleted && this.PostData.CanAttach && !this.PostData.IsLocked;
-            this.Attach.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.attachments, "m={0}", this.PostData.MessageId);
             this.Edit.Visible = !this.PostData.PostDeleted && this.PostData.CanEditPost && !this.PostData.IsLocked;
             this.Edit.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                 ForumPages.postmessage, "m={0}", this.PostData.MessageId);

@@ -67,8 +67,9 @@ namespace YAF.Editors
         {
             YafContext.Current.PageElements.RegisterJsBlock(
                 "InsertSmileyJs",
-                @"function insertsmiley(code,img){{"
-                + "FTB_API['{0}'].InsertHtml('<img src=\"' + img + '\" alt=\"\" />');" + "}}\n".FormatWith(this.SafeID));
+                @"function insertsmiley(code,img) {{FTB_API['{0}'].InsertHtml('<img src=""' + img + '"" alt="""" />');}}
+                  function insertAttachment(id,url) {{FTB_API['{0}'].InsertHtml('[attach]' + id + '[/attach]');}}"
+                    .FormatWith(this.SafeID));
         }
 
         #endregion

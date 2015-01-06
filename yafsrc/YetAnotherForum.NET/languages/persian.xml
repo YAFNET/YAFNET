@@ -1020,6 +1020,7 @@
     <Resource tag="ALLOW_USERTEXTEDITOR">به کاربر مجوز بکارگیری ویرایشگر متنی را می دهد</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">به کاربر مجوز بکارگیری ویرایشگر متنی را در پروفایلشان می دهد</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
+    <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
     <Resource tag="APP_CORES">Processor Cores:</Resource>
     <Resource tag="APP_CORES_HELP">Number of Processor cores.</Resource>
     <Resource tag="APP_MEMORY">Application memory:</Resource>
@@ -1924,16 +1925,21 @@
     <Resource tag="VALIDATE">ارزیابی</Resource>
   </page>
   <page name="ATTACHMENTS">
+    <Resource tag="ADD_FILES">Add file(s)...</Resource>
     <Resource tag="ALLOWED_EXTENSIONS">انواع فایلهای مجاز</Resource>
     <Resource tag="ASK_DELETE">فایل الصاق شده حذف شود؟</Resource>
+    <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
     <Resource tag="DELETE">حذف</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">انواع فایلهای غیر مجاز</Resource>
+    <Resource tag="DROP_HERE">Drop file(s) here</Resource>
     <Resource tag="FILEERROR">'{0}' فایل مجازی برای ارسال نمی باشد.</Resource>
     <Resource tag="FILENAME">نام فایل</Resource>
     <Resource tag="SELECT_FILE">فایلی را که مایل به ارسال آن هستید انتخاب کنید.</Resource>
     <Resource tag="SIZE">اندازه</Resource>
+    <Resource tag="START_UPLOADS">Start upload(s)</Resource>
     <Resource tag="TITLE">فایلهای الصاق شده</Resource>
     <Resource tag="UPLOAD">الصاق فایل</Resource>
+    <Resource tag="UPLOAD_NEW">Upload New File(s)</Resource>
     <Resource tag="UPLOAD_NOTE">نکته : حداکثر اندازه ضمیمه {0} کیلو بایت است.</Resource>
     <Resource tag="UPLOAD_TITLE">الصاق فایل</Resource>
     <Resource tag="UPLOAD_TOOBIG">شما نمی توانید فایل های بزرگتر از {10} کیلو بایت را ضمیمه کنید. اندازه فایل شما {0} کیلو بایت می باشد.</Resource>
@@ -1946,6 +1952,7 @@
   </page>
   <page name="BBCODEMODULE">
     <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
+    <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
     <Resource tag="HIDDENMOD_DESC">The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post</Resource>
@@ -2042,6 +2049,7 @@
   <page name="COMMON">
     <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
     <Resource tag="ALLOWED">مجاز</Resource>
+    <Resource tag="ATTACH_BBCODE">Insert an existing Attachment or upload a new File...</Resource>
     <Resource tag="BACK">برگشت</Resource>
     <Resource tag="BAD_CAPTCHA">متن وارد شده با متن نمایش داده شده در عکس متفاوت می باشد</Resource>
     <Resource tag="BAD_RECAPTCHA">Please re-enter the reCAPTCHA.</Resource>

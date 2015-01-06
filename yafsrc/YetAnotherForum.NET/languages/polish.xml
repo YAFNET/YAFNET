@@ -1013,6 +1013,7 @@
     <Resource tag="ALLOW_USERTEXTEDITOR">Allow users to pick text editor</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Allow users to pick text editor in their profiles.</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
+    <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
     <Resource tag="APP_CORES">Processor Cores:</Resource>
     <Resource tag="APP_CORES_HELP">Number of Processor cores.</Resource>
     <Resource tag="APP_MEMORY">Application memory:</Resource>
@@ -1911,16 +1912,21 @@
     <Resource tag="VALIDATE">Weryfikuj</Resource>
   </page>
   <page name="ATTACHMENTS">
+    <Resource tag="ADD_FILES">Add file(s)...</Resource>
     <Resource tag="ALLOWED_EXTENSIONS">Dozwolone typy plików</Resource>
     <Resource tag="ASK_DELETE">Usunąć ten załącznik?</Resource>
+    <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
     <Resource tag="DELETE">Usuń</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">Zabronione typy plków</Resource>
+    <Resource tag="DROP_HERE">Drop file(s) here</Resource>
     <Resource tag="FILEERROR">'{0}' nie jest prawidłowym plikiem do wgrania.</Resource>
     <Resource tag="FILENAME">Nazwa Pliku</Resource>
     <Resource tag="SELECT_FILE">Wybierz plik, który chcesz wgrać.</Resource>
     <Resource tag="SIZE">Rozmiar</Resource>
+    <Resource tag="START_UPLOADS">Start upload(s)</Resource>
     <Resource tag="TITLE">Załączniki</Resource>
     <Resource tag="UPLOAD">Wgraj</Resource>
+    <Resource tag="UPLOAD_NEW">Upload New File(s)</Resource>
     <Resource tag="UPLOAD_NOTE">Maksymalny rozmiar pliku, który ma być załącznikiem to {0} KB.</Resource>
     <Resource tag="UPLOAD_TITLE">Wgraj Plik</Resource>
     <Resource tag="UPLOAD_TOOBIG">Nie możesz załączyć plików większych niż {1} KB. Rozmiar Twoich plików to {0} KB.</Resource>
@@ -1933,6 +1939,7 @@
   </page>
   <page name="BBCODEMODULE">
     <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
+    <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
     <Resource tag="HIDDENMOD_DESC">The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post</Resource>
@@ -2029,6 +2036,7 @@
   <page name="COMMON">
     <Resource tag="ALBUMIMG_BBCODE">Wstaw obrazek z albumu...</Resource>
     <Resource tag="ALLOWED">Dozwolony</Resource>
+    <Resource tag="ATTACH_BBCODE">Insert an existing Attachment or upload a new File...</Resource>
     <Resource tag="BACK">Wstecz</Resource>
     <Resource tag="BAD_CAPTCHA">Tekst wprowadzony nie zgadza się z tym na obrazie zabezpieczającym.</Resource>
     <Resource tag="BAD_RECAPTCHA">Please re-enter the reCAPTCHA.</Resource>

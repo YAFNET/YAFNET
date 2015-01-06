@@ -1014,6 +1014,7 @@
     <Resource tag="ALLOW_USERTEXTEDITOR">Allow users to pick text editor</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Allow users to pick text editor in their profiles.</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
+    <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
     <Resource tag="APP_CORES">Processor Cores:</Resource>
     <Resource tag="APP_CORES_HELP">Number of Processor cores.</Resource>
     <Resource tag="APP_MEMORY">Application memory:</Resource>
@@ -1913,16 +1914,21 @@
     <Resource tag="VALIDATE">Verifica</Resource>
   </page>
   <page name="ATTACHMENTS">
+    <Resource tag="ADD_FILES">Add file(s)...</Resource>
     <Resource tag="ALLOWED_EXTENSIONS">Tipi di file consentiti</Resource>
     <Resource tag="ASK_DELETE">Cancello questo allegato?</Resource>
+    <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
     <Resource tag="DELETE">Cancella</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">Tipi di file non consentiti</Resource>
+    <Resource tag="DROP_HERE">Drop file(s) here</Resource>
     <Resource tag="FILEERROR">'{0}' Non è un file valido per l'upload.</Resource>
     <Resource tag="FILENAME">Nome del file</Resource>
     <Resource tag="SELECT_FILE">Seleziona il file da allegare.</Resource>
     <Resource tag="SIZE">Dimensione</Resource>
+    <Resource tag="START_UPLOADS">Start upload(s)</Resource>
     <Resource tag="TITLE">Allegati</Resource>
     <Resource tag="UPLOAD">Allega</Resource>
+    <Resource tag="UPLOAD_NEW">Upload New File(s)</Resource>
     <Resource tag="UPLOAD_NOTE">Nota: la dimensione massima di un allegato è {0} KB.</Resource>
     <Resource tag="UPLOAD_TITLE">Allega file</Resource>
     <Resource tag="UPLOAD_TOOBIG">Non puoi allegare file più grandi di {1} KB. La dimensione del tuo file è di {0} KB.</Resource>
@@ -1935,6 +1941,7 @@
   </page>
   <page name="BBCODEMODULE">
     <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
+    <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
     <Resource tag="HIDDENMOD_DESC">Testo nascosto agli utenti che non cliccano su Grazie. Aggiorna la pagina dopo aver ringraziato.</Resource>
@@ -2031,6 +2038,7 @@
   <page name="COMMON">
     <Resource tag="ALBUMIMG_BBCODE">Inserisci immagine dall'album...</Resource>
     <Resource tag="ALLOWED">Permesso</Resource>
+    <Resource tag="ATTACH_BBCODE">Insert an existing Attachment or upload a new File...</Resource>
     <Resource tag="BACK">Indietro</Resource>
     <Resource tag="BAD_CAPTCHA">Il testo inserito non corrisponde a quello presente nell'immagine di sicurezza.</Resource>
     <Resource tag="BAD_RECAPTCHA">Please re-enter the reCAPTCHA.</Resource>

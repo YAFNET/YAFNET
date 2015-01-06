@@ -30,7 +30,7 @@ namespace YAF.Types.Interfaces.Data
     using ServiceStack.OrmLite;
 
     /// <summary>
-    ///     The DbAccess extensions.
+    ///     The DBAccess extensions.
     /// </summary>
     public static class IDbAccessExtensions
     {
@@ -40,7 +40,7 @@ namespace YAF.Types.Interfaces.Data
         /// The begin transaction.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The DB access.
         /// </param>
         /// <param name="isolationLevel">
         /// The isolation level.
@@ -56,13 +56,11 @@ namespace YAF.Types.Interfaces.Data
         }
 
         /// <summary>
-        /// The create connection.
+        /// Creates the connection.
         /// </summary>
-        /// <param name="dbAccess">
-        /// The db access.
-        /// </param>
+        /// <param name="dbAccess">The DB access.</param>
         /// <returns>
-        /// The <see cref="DbConnection"/> .
+        /// The <see cref="DbConnection" /> .
         /// </returns>
         [NotNull]
         public static DbConnection CreateConnection([NotNull] this IDbAccess dbAccess)
@@ -76,10 +74,10 @@ namespace YAF.Types.Interfaces.Data
         }
 
         /// <summary>
-        /// Get an open db connection.
+        /// Get an open DB connection.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db Access.
+        /// The DB Access.
         /// </param>
         /// <returns>
         /// The <see cref="DbConnection"/> .
@@ -101,16 +99,16 @@ namespace YAF.Types.Interfaces.Data
         }
 
         /// <summary>
-        /// The execute non query.
+        /// Executes a non query in a transaction
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The DB access.
         /// </param>
         /// <param name="cmd">
-        /// The cmd.
+        /// The command.
         /// </param>
         /// <param name="dbTransaction">
-        /// The db Transaction.
+        /// The DB Transaction.
         /// </param>
         /// <returns>
         /// The <see cref="int"/> .
@@ -121,28 +119,31 @@ namespace YAF.Types.Interfaces.Data
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
             CodeContracts.VerifyNotNull(cmd, "cmd");
 
-            return dbAccess.Execute((c) => c.ExecuteNonQuery(), cmd, dbTransaction);
+            return dbAccess.Execute(c => c.ExecuteNonQuery(), cmd, dbTransaction);
         }
 
         /// <summary>
         /// Executes a non query in a transaction
         /// </summary>
-        /// <param name="dbAccess"></param>
-        /// <param name="cmd"></param>
-        /// <param name="useTransaction"></param>
-        /// <param name="isolationLevel"></param>
-        /// <returns></returns>
+        /// <param name="dbAccess">The database access.</param>
+        /// <param name="cmd">The command.</param>
+        /// <param name="useTransaction">if set to <c>true</c> [use transaction].</param>
+        /// <param name="isolationLevel">The isolation level.</param>
+        /// <returns>Returns the Result</returns>
         public static int ExecuteNonQuery(
             [NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd, bool useTransaction, IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
         {
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
             CodeContracts.VerifyNotNull(cmd, "cmd");
 
-            if (!useTransaction) return dbAccess.ExecuteNonQuery(cmd);
+            if (!useTransaction)
+            {
+                return dbAccess.ExecuteNonQuery(cmd);
+            }
 
             using (var dbTransaction = dbAccess.BeginTransaction(isolationLevel))
             {
-                var result = dbAccess.Execute((c) => c.ExecuteNonQuery(), cmd, dbTransaction);
+                var result = dbAccess.Execute(c => c.ExecuteNonQuery(), cmd, dbTransaction);
                 dbTransaction.Commit();
 
                 return result;
@@ -150,19 +151,13 @@ namespace YAF.Types.Interfaces.Data
         }
 
         /// <summary>
-        /// The execute scalar.
+        /// Executes the scalar.
         /// </summary>
-        /// <param name="dbAccess">
-        /// The db access.
-        /// </param>
-        /// <param name="cmd">
-        /// The cmd.
-        /// </param>
-        /// <param name="dbTransaction">
-        /// The db Transaction.
-        /// </param>
+        /// <param name="dbAccess">The DB access.</param>
+        /// <param name="cmd">The command.</param>
+        /// <param name="dbTransaction">The DB Transaction.</param>
         /// <returns>
-        /// The execute scalar.
+        /// Returns the Data
         /// </returns>
         public static object ExecuteScalar(
             [NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
@@ -170,22 +165,17 @@ namespace YAF.Types.Interfaces.Data
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
             CodeContracts.VerifyNotNull(cmd, "cmd");
 
-            return dbAccess.Execute((c) => c.ExecuteScalar(), cmd, dbTransaction);
+            return dbAccess.Execute(c => c.ExecuteScalar(), cmd, dbTransaction);
         }
 
         /// <summary>
-        /// The get data.
+        /// Gets the data.
         /// </summary>
-        /// <param name="dbAccess">
-        /// The db access.
-        /// </param>
-        /// <param name="cmd">
-        /// The cmd.
-        /// </param>
-        /// <param name="dbTransaction">
-        /// </param>
+        /// <param name="dbAccess">The DB access.</param>
+        /// <param name="cmd">The command.</param>
+        /// <param name="dbTransaction">The database transaction.</param>
         /// <returns>
-        /// The <see cref="DataTable"/> .
+        /// The <see cref="DataTable" /> .
         /// </returns>
         public static DataTable GetData(
             [NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
@@ -197,18 +187,13 @@ namespace YAF.Types.Interfaces.Data
         }
 
         /// <summary>
-        /// The get dataset.
+        /// Gets the dataset.
         /// </summary>
-        /// <param name="dbAccess">
-        /// The db access.
-        /// </param>
-        /// <param name="cmd">
-        /// The cmd.
-        /// </param>
-        /// <param name="dbTransaction">
-        /// </param>
+        /// <param name="dbAccess">The DB access.</param>
+        /// <param name="cmd">The command.</param>
+        /// <param name="dbTransaction">The database transaction.</param>
         /// <returns>
-        /// The <see cref="DataSet"/> .
+        /// The <see cref="DataSet" /> .
         /// </returns>
         public static DataSet GetDataset([NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
         {
@@ -216,7 +201,7 @@ namespace YAF.Types.Interfaces.Data
             CodeContracts.VerifyNotNull(cmd, "cmd");
 
             return dbAccess.Execute(
-                (c) =>
+                c =>
                     {
                         var ds = new DataSet();
 
@@ -235,19 +220,13 @@ namespace YAF.Types.Interfaces.Data
         }
 
         /// <summary>
-        /// The get reader.
+        /// Gets the reader.
         /// </summary>
-        /// <param name="dbAccess">
-        /// The db access.
-        /// </param>
-        /// <param name="cmd">
-        /// The cmd.
-        /// </param>
-        /// <param name="dbTransaction">
-        /// The db transaction.
-        /// </param>
+        /// <param name="dbAccess">The DB access.</param>
+        /// <param name="cmd">The command.</param>
+        /// <param name="dbTransaction">The DB transaction.</param>
         /// <returns>
-        /// The <see cref="IDataReader"/> .
+        /// The <see cref="IDataReader" /> .
         /// </returns>
         public static IDataReader GetReader([NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd, [NotNull] IDbTransaction dbTransaction)
         {
@@ -255,19 +234,16 @@ namespace YAF.Types.Interfaces.Data
             CodeContracts.VerifyNotNull(cmd, "cmd");
             CodeContracts.VerifyNotNull(dbTransaction, "dbTransaction");
 
-            return dbAccess.Execute((c) => c.ExecuteReader(), cmd, dbTransaction);
+            return dbAccess.Execute(c => c.ExecuteReader(), cmd, dbTransaction);
         }
 
         /// <summary>
-        /// The get table.
+        /// Gets the name of the table.
         /// </summary>
-        /// <param name="dbAccess">
-        /// The db access.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
+        /// <typeparam name="T">The type parameter</typeparam>
+        /// <param name="dbAccess">The DB access.</param>
         /// <returns>
-        /// The <see cref="string"/>.
+        /// The <see cref="string" />.
         /// </returns>
         public static string GetTableName<T>(this IDbAccess dbAccess)
         {
@@ -277,43 +253,46 @@ namespace YAF.Types.Interfaces.Data
         /// <summary>
         /// Insert the entity using the model provided.
         /// </summary>
-        /// <param name="dbAccess">
-        /// The db access.
-        /// </param>
-        /// <param name="insert">
-        /// The insert.
-        /// </param>
-        /// <param name="transaction">
-        /// The transaction.
-        /// </param>
+        /// <typeparam name="T">The type parameter</typeparam>
+        /// <param name="dbAccess">The DB access.</param>
+        /// <param name="insert">The insert.</param>
+        /// <param name="transaction">The transaction.</param>
+        /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
         /// <returns>
-        /// The <see cref="int"/>.
+        /// The <see cref="int" />.
         /// </returns>
-        public static int Insert<T>([NotNull] this IDbAccess dbAccess, [NotNull] T insert, [CanBeNull] IDbTransaction transaction = null)
-            where T : IEntity
+        public static long Insert<T>(
+            [NotNull] this IDbAccess dbAccess,
+            [NotNull] T insert,
+            [CanBeNull] IDbTransaction transaction = null,
+            bool selectIdentity = false) where T : IEntity
         {
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
 
             if (transaction != null && transaction.Connection != null)
             {
-                using (var command = OrmLiteConfig.DialectProvider.CreateParameterizedInsertStatement(insert, transaction.Connection))
+                using (var command = transaction.Connection.CreateCommand())
                 {
-                    command.Populate(transaction);
-                    dbAccess.ExecuteNonQuery(command, transaction);
+                    OrmLiteConfig.DialectProvider.PrepareParameterizedInsertStatement<T>(command);
+                    OrmLiteConfig.DialectProvider.SetParameterValues<T>(command, insert);
 
-                    return (int)OrmLiteConfig.DialectProvider.GetLastInsertId(command);
+                    return selectIdentity
+                               ? OrmLiteConfig.DialectProvider.InsertAndGetLastInsertId<T>(command)
+                               : dbAccess.ExecuteNonQuery(command, transaction);
                 }
             }
 
             // no transaction
             using (var connection = dbAccess.CreateConnectionOpen())
             {
-                using (var command = OrmLiteConfig.DialectProvider.CreateParameterizedInsertStatement(insert, connection))
+                using (var command = connection.CreateCommand())
                 {
-                    command.Connection = connection;
-                    dbAccess.ExecuteNonQuery(command, transaction);
+                    OrmLiteConfig.DialectProvider.PrepareParameterizedInsertStatement<T>(command);
+                    OrmLiteConfig.DialectProvider.SetParameterValues<T>(command, insert);
 
-                    return (int)OrmLiteConfig.DialectProvider.GetLastInsertId(command);
+                    return selectIdentity
+                               ? OrmLiteConfig.DialectProvider.InsertAndGetLastInsertId<T>(command)
+                               : dbAccess.ExecuteNonQuery(command, transaction);
                 }
             }
         }
@@ -322,13 +301,12 @@ namespace YAF.Types.Interfaces.Data
         /// The run.
         /// </summary>
         /// <param name="dbAccess">
-        /// The db access.
+        /// The DB access.
         /// </param>
         /// <param name="runFunc">
-        /// The run func.
+        /// The run function.
         /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
+        /// <typeparam name="T">The type Parameter</typeparam>
         /// <returns>
         /// The <see cref="T"/> .
         /// </returns>
@@ -344,21 +322,14 @@ namespace YAF.Types.Interfaces.Data
         }
 
         /// <summary>
-        /// The update.
+        /// Runs the update command.
         /// </summary>
-        /// <param name="dbAccess">
-        /// The db access.
-        /// </param>
-        /// <param name="update">
-        /// The update.
-        /// </param>
-        /// <param name="transaction">
-        /// The transaction.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
+        /// <typeparam name="T">The type Parameter</typeparam>
+        /// <param name="dbAccess">The DB access.</param>
+        /// <param name="update">The update.</param>
+        /// <param name="transaction">The transaction.</param>
         /// <returns>
-        /// The <see cref="int"/>.
+        /// The <see cref="int" />.
         /// </returns>
         public static int Update<T>([NotNull] this IDbAccess dbAccess, [NotNull] T update, [CanBeNull] IDbTransaction transaction = null)
             where T : IEntity
@@ -367,8 +338,11 @@ namespace YAF.Types.Interfaces.Data
 
             using (var connection = dbAccess.CreateConnection())
             {
-                using (var command = OrmLiteConfig.DialectProvider.CreateParameterizedUpdateStatement(update, connection))
+                using (var command = connection.CreateCommand())
                 {
+                    OrmLiteConfig.DialectProvider.PrepareParameterizedUpdateStatement<T>(command);
+                    OrmLiteConfig.DialectProvider.SetParameterValues<T>(command, transaction);
+
                     return dbAccess.ExecuteNonQuery(command, transaction);
                 }
             }

@@ -104,7 +104,6 @@ namespace YAF
         /// </param>
         public void ProcessRequest([NotNull] HttpContext context)
         {
-            // resource no longer works with dynamic compile...
             if (context.Request.QueryString.GetFirstOrDefault("r") != null)
             {
                 // resource request
@@ -121,7 +120,7 @@ namespace YAF
 
                 if (context.Session["imagePreviewCropped"] is bool)
                 {
-                    previewCropped = (bool)context.Session["imagePreviewCropped"];
+                    previewCropped = context.Session["imagePreviewCropped"].ToType<bool>();
                 }
 
                 if (context.Session["localizationFile"] is string)
@@ -221,7 +220,7 @@ namespace YAF
         {
             var ifNoneMatch = context.Request.Headers["If-None-Match"];
 
-            if (!eTagCode.Equals(ifNoneMatch, StringComparison.Ordinal) )
+            if (!eTagCode.Equals(ifNoneMatch, StringComparison.Ordinal))
             {
                 return false;
             }
@@ -232,7 +231,7 @@ namespace YAF
             }
 
             context.Response.AppendHeader("Content-Length", "0");
-            context.Response.StatusCode = (int)HttpStatusCode.NotModified;
+            context.Response.StatusCode = HttpStatusCode.NotModified.ToType<int>();
             context.Response.StatusDescription = "Not modified";
             context.Response.SuppressContent = true;
             context.Response.Cache.SetCacheability(HttpCacheability.Public);
@@ -291,10 +290,10 @@ namespace YAF
                         new Size(
                             Math.Min(
                                 newImgSize.Width,
-                                (int)Math.Round(src.Width * ratio, MidpointRounding.AwayFromZero)),
+                                Math.Round(src.Width * ratio, MidpointRounding.AwayFromZero).ToType<int>()),
                             Math.Min(
                                 newImgSize.Height,
-                                (int)Math.Round(src.Height * ratio, MidpointRounding.AwayFromZero)));
+                                Math.Round(src.Height * ratio, MidpointRounding.AwayFromZero).ToType<int>()));
 
                     newImgSize.Width = newImgSize.Width - PixelPadding;
                     newImgSize.Height = newImgSize.Height - BottomSize - PixelPadding;
@@ -320,7 +319,7 @@ namespace YAF
                     }
                 }
 
-                bool heightToSmallFix = newImgSize.Height <= BottomSize + PixelPadding;
+                var heightToSmallFix = newImgSize.Height <= BottomSize + PixelPadding;
 
                 using (
                     var dst = new Bitmap(
@@ -631,7 +630,7 @@ namespace YAF
                     foreach (DataRow row in dt.Rows)
                     {
                         var data = (byte[])row["AvatarImage"];
-                        string contentType = row["AvatarImageType"].ToString();
+                        var contentType = row["AvatarImageType"].ToString();
 
                         context.Response.Clear();
                         if (contentType.IsNotSet())
@@ -675,18 +674,23 @@ namespace YAF
         /// <returns>
         /// The check access rights.
         /// </returns>
-        private bool CheckAccessRights([NotNull] object boardID, [NotNull] object messageID)
+        private bool CheckAccessRights([NotNull] int boardID, [NotNull] int messageID)
         {
-            // Find user name
-            MembershipUser user = UserMembershipHelper.GetUser();
+            if (messageID.Equals(0))
+            {
+                return true;
+            }
 
-            string browser = "{0} {1}".FormatWith(
+            // Find user name
+            var user = UserMembershipHelper.GetUser();
+
+            var browser = "{0} {1}".FormatWith(
                 HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version);
-            string platform = HttpContext.Current.Request.Browser.Platform;
-            bool isMobileDevice = HttpContext.Current.Request.Browser.IsMobileDevice;
+            var platform = HttpContext.Current.Request.Browser.Platform;
+            var isMobileDevice = HttpContext.Current.Request.Browser.IsMobileDevice;
             bool isSearchEngine;
             bool dontTrack;
-            string userAgent = HttpContext.Current.Request.UserAgent;
+            var userAgent = HttpContext.Current.Request.UserAgent;
 
             // try and get more verbose platform name by ref and other parameters             
             UserAgentHelper.Platform(
@@ -749,7 +753,7 @@ namespace YAF
             try
             {
                 // CoverID
-                string fileName = string.Empty;
+                var fileName = string.Empty;
                 var data = new MemoryStream();
                 if (context.Request.QueryString.GetFirstOrDefault("cover") == "0")
                 {
@@ -766,12 +770,12 @@ namespace YAF
                         if (dt.Rows.Count > 0)
                         {
                             DataRow row = dt.Rows[0];
-                            string sUpDir = YafBoardFolders.Current.Uploads;
+                            var sUpDir = YafBoardFolders.Current.Uploads;
 
-                            string oldFileName =
+                            var oldFileName =
                                 context.Server.MapPath(
                                     "{0}/{1}.{2}.{3}".FormatWith(sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
-                            string newFileName =
+                            var newFileName =
                                 context.Server.MapPath(
                                     "{0}/{1}.{2}.{3}.yafalbum".FormatWith(
                                         sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
@@ -806,7 +810,7 @@ namespace YAF
                 context.Response.ContentType = "image/png";
 
                 // output stream...
-                context.Response.OutputStream.Write(ms.ToArray(), 0, (int)ms.Length);
+                context.Response.OutputStream.Write(ms.ToArray(), 0, ms.Length.ToType<int>());
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
                 context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
                 context.Response.Cache.SetLastModified(DateTime.UtcNow);
@@ -833,7 +837,7 @@ namespace YAF
         {
             try
             {
-                string eTag = @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("image"));
+                var eTag = @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("image"));
 
                 if (CheckETag(context, eTag))
                 {
@@ -851,18 +855,18 @@ namespace YAF
                     {
                         byte[] data;
 
-                        string sUpDir = YafBoardFolders.Current.Uploads;
+                        var sUpDir = YafBoardFolders.Current.Uploads;
 
-                        string oldFileName =
+                        var oldFileName =
                             context.Server.MapPath(
                                 "{0}/{1}.{2}.{3}".FormatWith(sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
-                        string newFileName =
+                        var newFileName =
                             context.Server.MapPath(
                                 "{0}/{1}.{2}.{3}.yafalbum".FormatWith(
                                     sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
 
                         // use the new fileName (with extension) if it exists...
-                        string fileName = File.Exists(newFileName) ? newFileName : oldFileName;
+                        var fileName = File.Exists(newFileName) ? newFileName : oldFileName;
 
                         using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                         {
@@ -931,18 +935,18 @@ namespace YAF
                     {
                         var data = new MemoryStream();
 
-                        string sUpDir = YafBoardFolders.Current.Uploads;
+                        var sUpDir = YafBoardFolders.Current.Uploads;
 
-                        string oldFileName =
+                        var oldFileName =
                             context.Server.MapPath(
                                 "{0}/{1}.{2}.{3}".FormatWith(sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
-                        string newFileName =
+                        var newFileName =
                             context.Server.MapPath(
                                 "{0}/{1}.{2}.{3}.yafalbum".FormatWith(
                                     sUpDir, row["UserID"], row["AlbumID"], row["FileName"]));
 
                         // use the new fileName (with extension) if it exists...
-                        string fileName = File.Exists(newFileName) ? newFileName : oldFileName;
+                        var fileName = File.Exists(newFileName) ? newFileName : oldFileName;
 
                         using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                         {
@@ -967,7 +971,7 @@ namespace YAF
                         context.Response.ContentType = "image/png";
 
                         // output stream...
-                        context.Response.OutputStream.Write(ms.ToArray(), 0, (int)ms.Length);
+                        context.Response.OutputStream.Write(ms.ToArray(), 0, ms.Length.ToType<int>());
                         context.Response.Cache.SetCacheability(HttpCacheability.Public);
                         context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
                         context.Response.Cache.SetLastModified(DateTime.UtcNow);
@@ -1007,69 +1011,79 @@ namespace YAF
             try
             {
                 // AttachmentID
-                using (DataTable dt = this.GetRepository<Attachment>().List(null, context.Request.QueryString.GetFirstOrDefaultAs<int>("a"), null, 0, 1000))
+                var attachment =
+                    this.GetRepository<Attachment>()
+                        .ListTyped(attachmentID: context.Request.QueryString.GetFirstOrDefaultAs<int>("a"))
+                        .FirstOrDefault();
+
+                // TODO : check download permissions here
+                if (!this.CheckAccessRights(this.Get<YafBoardSettings>().BoardID, attachment.MessageID))
                 {
-                    foreach (DataRow row in dt.Rows)
+                    // tear it down
+                    // no permission to download
+                    context.Response.Write(
+                        "You have insufficient rights to download this resource. Contact forum administrator for further details.");
+                    return;
+                }
+
+                byte[] data;
+
+                if (attachment.FileData == null)
+                {
+                    var uploadFolder = YafBoardFolders.Current.Uploads;
+
+                    var oldFileName =
+                        context.Server.MapPath(
+                            "{0}/{1}.{2}".FormatWith(
+                                uploadFolder,
+                                attachment.MessageID > 0
+                                    ? attachment.MessageID.ToString()
+                                    : "u{0}".FormatWith(attachment.UserID),
+                                attachment.FileName));
+
+                    var newFileName =
+                        context.Server.MapPath(
+                            "{0}/{1}.{2}.yafupload".FormatWith(
+                                uploadFolder,
+                                attachment.MessageID > 0
+                                    ? attachment.MessageID.ToString()
+                                    : "u{0}".FormatWith(attachment.UserID),
+                                attachment.FileName));
+
+                    // use the new fileName (with extension) if it exists...
+                    var fileName = File.Exists(newFileName) ? newFileName : oldFileName;
+
+                    using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                     {
-                        // TODO : check download permissions here
-                        if (!this.CheckAccessRights(row["BoardID"], row["MessageID"]))
-                        {
-                            // tear it down
-                            // no permission to download
-                            context.Response.Write(
-                                "You have insufficient rights to download this resource. Contact forum administrator for further details.");
-                            return;
-                        }
-
-                        byte[] data;
-
-                        if (row.IsNull("FileData"))
-                        {
-                            string sUpDir = YafBoardFolders.Current.Uploads;
-
-                            string oldFileName =
-                                context.Server.MapPath(
-                                    "{0}/{1}.{2}".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
-                            string newFileName =
-                                context.Server.MapPath(
-                                    "{0}/{1}.{2}.yafupload".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
-
-                            // use the new fileName (with extension) if it exists...
-                            string fileName = File.Exists(newFileName) ? newFileName : oldFileName;
-
-                            using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-                            {
-                                data = input.ToArray();
-                                input.Close();
-                            }
-                        }
-                        else
-                        {
-                            data = (byte[])row["FileData"];
-                        }
-
-                        context.Response.ContentType = row["ContentType"].ToString();
-                        context.Response.AppendHeader(
-                            "Content-Disposition",
-                            "attachment; filename={0}".FormatWith(
-                                HttpUtility.UrlPathEncode(row["FileName"].ToString()).Replace("+", "_")));
-                        context.Response.OutputStream.Write(data, 0, data.Length);
-                        this.GetRepository<Attachment>().IncrementDownloadCounter(context.Request.QueryString.GetFirstOrDefaultAs<int>("a"));
-                        break;
+                        data = input.ToArray();
+                        input.Close();
                     }
                 }
+                else
+                {
+                    data = attachment.FileData;
+                }
+
+                context.Response.ContentType = attachment.ContentType;
+                context.Response.AppendHeader(
+                    "Content-Disposition",
+                    "attachment; filename={0}".FormatWith(
+                        HttpUtility.UrlPathEncode(attachment.FileName).Replace("+", "_")));
+                context.Response.OutputStream.Write(data, 0, data.Length);
+                this.GetRepository<Attachment>()
+                    .IncrementDownloadCounter(context.Request.QueryString.GetFirstOrDefaultAs<int>("a"));
             }
             catch (Exception x)
             {
                 this.Get<ILogger>()
-                   .Log(
-                       YafContext.Current.PageUserID,
-                       this,
-                       "URL: {0}<br />Referer URL: {1}<br />Exception: {2}".FormatWith(
-                           context.Request.Url,
-                           context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty,
-                           x),
-                       EventLogTypes.Information);
+                    .Log(
+                        YafContext.Current.PageUserID,
+                        this,
+                        "URL: {0}<br />Referer URL: {1}<br />Exception: {2}".FormatWith(
+                            context.Request.Url,
+                            context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty,
+                            x),
+                        EventLogTypes.Information);
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
@@ -1112,75 +1126,86 @@ namespace YAF
         // TommyB: Start MOD: PreviewImages   ##########
 
         /// <summary>
-        /// The get response image.
+        /// Gets the response image.
         /// </summary>
-        /// <param name="context">
-        /// The context.
-        /// </param>
+        /// <param name="context">The context.</param>
         private void GetResponseImage([NotNull] HttpContext context)
         {
             try
             {
-                string eTag = @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("i"));
+                var eTag = @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("i"));
 
                 if (CheckETag(context, eTag))
                 {
                     // found eTag... no need to resend/create this image -- just mark another view?
-                    this.GetRepository<Attachment>().IncrementDownloadCounter(context.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
+                    this.GetRepository<Attachment>()
+                        .IncrementDownloadCounter(context.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
                     return;
                 }
 
                 // AttachmentID
-                using (DataTable dt = this.GetRepository<Attachment>().List(null, context.Request.QueryString.GetFirstOrDefaultAs<int>("i"), null, 0, 1000))
+                var attachment =
+                    this.GetRepository<Attachment>()
+                        .ListTyped(attachmentID: context.Request.QueryString.GetFirstOrDefaultAs<int>("i"))
+                        .FirstOrDefault();
+
+                // check download permissions here
+                if (!this.CheckAccessRights(this.Get<YafBoardSettings>().BoardID, attachment.MessageID))
                 {
-                    foreach (DataRow row in dt.Rows)
+                    // tear it down
+                    // no permission to download
+                    context.Response.Write(
+                        "You have insufficient rights to download this resource. Contact forum administrator for further details.");
+                    return;
+                }
+
+                byte[] data;
+
+                if (attachment.FileData == null)
+                {
+                    var uploadFolder = YafBoardFolders.Current.Uploads;
+
+                    var oldFileName =
+                        context.Server.MapPath(
+                            "{0}/{1}.{2}".FormatWith(
+                                uploadFolder,
+                                attachment.MessageID > 0
+                                    ? attachment.MessageID.ToString()
+                                    : "u{0}".FormatWith(attachment.UserID),
+                                attachment.FileName));
+                    var newFileName =
+                        context.Server.MapPath(
+                            "{0}/{1}.{2}.yafupload".FormatWith(
+                                uploadFolder,
+                                attachment.MessageID > 0
+                                    ? attachment.MessageID.ToString()
+                                    : "u{0}".FormatWith(attachment.UserID),
+                                attachment.FileName));
+
+                    // use the new fileName (with extension) if it exists...
+                    var fileName = File.Exists(newFileName) ? newFileName : oldFileName;
+
+                    using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                     {
-                        // TODO : check download permissions here
-                        if (!this.CheckAccessRights(row["BoardID"], row["MessageID"]))
-                        {
-                            // tear it down
-                            // no permission to download
-                            context.Response.Write(
-                                "You have insufficient rights to download this resource. Contact forum administrator for further details.");
-                            return;
-                        }
-
-                        byte[] data;
-
-                        if (row.IsNull("FileData"))
-                        {
-                            string sUpDir = YafBoardFolders.Current.Uploads;
-
-                            string oldFileName =
-                                context.Server.MapPath(
-                                    "{0}/{1}.{2}".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
-                            string newFileName =
-                                context.Server.MapPath(
-                                    "{0}/{1}.{2}.yafupload".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
-
-                            // use the new fileName (with extension) if it exists...
-                            string fileName = File.Exists(newFileName) ? newFileName : oldFileName;
-
-                            using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-                            {
-                                data = input.ToArray();
-                                input.Close();
-                            }
-                        }
-                        else
-                        {
-                            data = (byte[])row["FileData"];
-                        }
-
-                        context.Response.ContentType = row["ContentType"].ToString();
-                        context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                        context.Response.Cache.SetETag(eTag);
-                        context.Response.OutputStream.Write(data, 0, data.Length);
-
-                        // add a download count...
-                        this.GetRepository<Attachment>().IncrementDownloadCounter(context.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
-                        break;
+                        data = input.ToArray();
+                        input.Close();
                     }
+                }
+                else
+                {
+                    data = attachment.FileData;
+                }
+
+                context.Response.ContentType = attachment.ContentType;
+                context.Response.Cache.SetCacheability(HttpCacheability.Public);
+                context.Response.Cache.SetETag(eTag);
+                context.Response.OutputStream.Write(data, 0, data.Length);
+
+                if (context.Request.QueryString.GetFirstOrDefault("editor") == null)
+                {
+                    // add a download count...
+                    this.GetRepository<Attachment>()
+                        .IncrementDownloadCounter(context.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
                 }
             }
             catch (Exception x)
@@ -1225,87 +1250,95 @@ namespace YAF
 
             if (context.Session["imagePreviewWidth"] is int)
             {
-                previewMaxWidth = (int)context.Session["imagePreviewWidth"];
+                previewMaxWidth = context.Session["imagePreviewWidth"].ToType<int>();
             }
 
             if (context.Session["imagePreviewHeight"] is int)
             {
-                previewMaxHeight = (int)context.Session["imagePreviewHeight"];
+                previewMaxHeight = context.Session["imagePreviewHeight"].ToType<int>();
             }
 
             try
             {
                 // AttachmentID
-                using (DataTable dt = this.GetRepository<Attachment>().List(null, context.Request.QueryString.GetFirstOrDefaultAs<int>("p"), null, 0, 1000))
+                var attachment =
+                    this.GetRepository<Attachment>()
+                        .ListTyped(attachmentID: context.Request.QueryString.GetFirstOrDefaultAs<int>("p"))
+                        .FirstOrDefault();
+
+                // TODO : check download permissions here
+                if (!this.CheckAccessRights(this.Get<YafBoardSettings>().BoardID, attachment.MessageID))
                 {
-                    foreach (DataRow row in dt.Rows)
+                    // tear it down
+                    // no permission to download
+                    context.Response.Write(
+                        "You have insufficient rights to download this resource. Contact forum administrator for further details.");
+                    return;
+                }
+
+                var data = new MemoryStream();
+
+                if (attachment.FileData == null)
+                {
+                    var sUpDir = YafBoardFolders.Current.Uploads;
+
+                    var oldFileName =
+                        context.Server.MapPath(
+                            "{0}/{1}.{2}".FormatWith(
+                                sUpDir,
+                                attachment.MessageID > 0
+                                    ? attachment.MessageID.ToString()
+                                    : "u{0}".FormatWith(attachment.UserID),
+                                attachment.FileName));
+                    var newFileName =
+                        context.Server.MapPath(
+                            "{0}/{1}.{2}.yafupload".FormatWith(
+                                sUpDir,
+                                attachment.MessageID > 0
+                                    ? attachment.MessageID.ToString()
+                                    : "u{0}".FormatWith(attachment.UserID),
+                                attachment.FileName));
+
+                    // use the new fileName (with extension) if it exists...
+                    var fileName = File.Exists(newFileName) ? newFileName : oldFileName;
+
+                    using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                     {
-                        // TODO : check download permissions here
-                        if (!this.CheckAccessRights(row["BoardID"], row["MessageID"]))
-                        {
-                            // tear it down
-                            // no permission to download
-                            context.Response.Write("You have insufficient rights to download this resource. Contact forum administrator for further details.");
-                            return;
-                        }
-
-                        var data = new MemoryStream();
-
-                        if (row.IsNull("FileData"))
-                        {
-                            string sUpDir = YafBoardFolders.Current.Uploads;
-
-                            string oldFileName =
-                                context.Server.MapPath(
-                                    "{0}/{1}.{2}".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
-                            string newFileName =
-                                context.Server.MapPath(
-                                    "{0}/{1}.{2}.yafupload".FormatWith(sUpDir, row["MessageID"], row["FileName"]));
-
-                            // use the new fileName (with extension) if it exists...
-                            string fileName = File.Exists(newFileName) ? newFileName : oldFileName;
-
-                            using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-                            {
-                                var buffer = new byte[input.Length];
-                                input.Read(buffer, 0, buffer.Length);
-                                data.Write(buffer, 0, buffer.Length);
-                                input.Close();
-                            }
-                        }
-                        else
-                        {
-                            var buffer = (byte[])row["FileData"];
-                            data.Write(buffer, 0, buffer.Length);
-                        }
-
-                        // reset position...
-                        data.Position = 0;
-
-                        MemoryStream ms = GetAlbumOrAttachmentImageResized(
-                            data,
-                            previewMaxWidth,
-                            previewMaxHeight,
-                            previewCropped,
-                            (int)row["Downloads"],
-                            localizationFile,
-                            "POSTS");
-
-                        context.Response.ContentType = "image/png";
-
-                        // output stream...
-                        context.Response.OutputStream.Write(ms.ToArray(), 0, ms.Length.ToType<int>());
-                        context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                        context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
-                        context.Response.Cache.SetLastModified(DateTime.UtcNow);
-                        context.Response.Cache.SetETag(eTag);
-
-                        data.Dispose();
-                        ms.Dispose();
-
-                        break;
+                        var buffer = new byte[input.Length];
+                        input.Read(buffer, 0, buffer.Length);
+                        data.Write(buffer, 0, buffer.Length);
+                        input.Close();
                     }
                 }
+                else
+                {
+                    var buffer = attachment.FileData;
+                    data.Write(buffer, 0, buffer.Length);
+                }
+
+                // reset position...
+                data.Position = 0;
+
+                MemoryStream ms = GetAlbumOrAttachmentImageResized(
+                    data,
+                    previewMaxWidth,
+                    previewMaxHeight,
+                    previewCropped,
+                    attachment.Downloads,
+                    localizationFile,
+                    "POSTS");
+
+                context.Response.ContentType = "image/png";
+
+                // output stream...
+                context.Response.OutputStream.Write(ms.ToArray(), 0, ms.Length.ToType<int>());
+                context.Response.Cache.SetCacheability(HttpCacheability.Public);
+                context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
+                context.Response.Cache.SetLastModified(DateTime.UtcNow);
+                context.Response.Cache.SetETag(eTag);
+
+                data.Dispose();
+                ms.Dispose();
             }
             catch (Exception x)
             {
@@ -1365,8 +1398,8 @@ namespace YAF
 
                     using (var img = new Bitmap(avatarStream))
                     {
-                        int width = img.Width;
-                        int height = img.Height;
+                        var width = img.Width;
+                        var height = img.Height;
 
                         if (width <= maxwidth && height <= maxheight)
                         {

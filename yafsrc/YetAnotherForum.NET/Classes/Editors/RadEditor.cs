@@ -32,6 +32,7 @@ namespace YAF.Editors
     using YAF.Classes;
     using YAF.Core;
     using YAF.Types;
+    using YAF.Types.Extensions;
 
     #endregion
 
@@ -91,12 +92,13 @@ namespace YAF.Editors
         {
             get
             {
-                if (this._init)
+                if (!this._init)
                 {
-                    PropertyInfo pInfo = this._typEditor.GetProperty("Html");
-                    return Convert.ToString(pInfo.GetValue(this._editor, null));
+                    return string.Empty;
                 }
-                return string.Empty;
+
+                PropertyInfo pInfo = this._typEditor.GetProperty("Html");
+                return Convert.ToString(pInfo.GetValue(this._editor, null));
             }
 
             set
@@ -190,8 +192,9 @@ namespace YAF.Editors
         {
             YafContext.Current.PageElements.RegisterJsBlock(
                 "InsertSmileyJs",
-                @"function insertsmiley(code,img){" + "\n" + "var editor = $find('" + this._editor.ClientID + "');"
-                + "editor.pasteHtml('<img src=\"' + img + '\" alt=\"\" />');\n" + "}\n");
+                @"function insertsmiley(code,img){{var editor = $find('{0}'); editor.pasteHtml('<img src=""' + img + '"" alt="""" />');}}
+                  function insertAttachment(id,url){{var editor = $find('{0}'); editor.pasteHtml('[attach]' + id + '[/attach]');}}
+                  ".FormatWith(this._editor.ClientID));
         }
 
         #endregion

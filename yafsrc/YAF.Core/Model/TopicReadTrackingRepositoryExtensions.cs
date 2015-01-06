@@ -1,6 +1,7 @@
 namespace YAF.Core.Model
 {
     using System;
+    using System.CodeDom;
 
     using ServiceStack.OrmLite;
 
@@ -24,7 +25,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var success = repository.DbAccess.Execute(db => db.Delete<TopicReadTracking>(x => x.UserID == userID)) == 1;
+            var success = repository.DbAccess.Execute(db => db.Connection.Delete<TopicReadTracking>(x => x.UserID == userID)) == 1;
 
             if (success)
             {

@@ -171,7 +171,7 @@ namespace YAF.Core.Model
 
             return boardID.HasValue
                 ? new List<Board> { repository.GetByID(boardID.Value) }
-                : repository.DbAccess.Execute(cmd => cmd.Select<Board>());
+                : repository.DbAccess.Execute(cmd => cmd.Connection.Select<Board>());
         }
 
         /// <summary>

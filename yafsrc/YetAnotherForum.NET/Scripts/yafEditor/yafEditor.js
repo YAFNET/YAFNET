@@ -92,6 +92,9 @@ yafEditor.prototype.FormatText = function (command, option) {
         case "AlbumImgId":
             replaceSelection(textObj, '[albumimg]' + option + '[/albumimg]');
             break;
+        case "attach":
+            replaceSelection(textObj, '[attach]' + option + '[/attach]');
+            break;
         default:
             // make custom option
             wrapSelection(textObj, "[" + command + "]", "[/" + command + "]");

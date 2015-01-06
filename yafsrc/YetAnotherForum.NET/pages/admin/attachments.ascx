@@ -3,12 +3,13 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
      <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">
 		<tr>
-			<td class="header1" colspan="8">
+			<td class="header1" colspan="9">
 				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_ATTACHMENTS" />
 			</td>
 		</tr>
@@ -23,6 +24,9 @@
 					</td>
 					<td>
 						<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="POSTED" LocalizedPage="ADMIN_ATTACHMENTS" />
+					</td>
+                    <td>
+						<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="USER" />
 					</td>
 					<td>
 						<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="FILENAME" />
@@ -44,33 +48,36 @@
 			<ItemTemplate>
 				<tr class="post">
 					<td>
-						<a target="_top" href='<%# YafBuildLink.GetLink(ForumPages.topics,"f={0}&name={1}",Eval("ForumID"), Eval("ForumName")) %>'>
-							<%# HtmlEncode(Eval("ForumName")) %>
+						<a target="_top" href='<%# YafBuildLink.GetLink(ForumPages.topics,"f={0}&name={1}",Eval("ForumID"), this.Eval("ForumName")) %>'>
+							<%# this.HtmlEncode(this.Eval("ForumName")) %>
 						</a>
 					</td>
 					<td>
 						<a target="_top" href='<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}",Eval("TopicID")) %>'>
-							<%# HtmlEncode(Eval("TopicName")) %>
+							<%# this.HtmlEncode(this.Eval("TopicName")) %>
 						</a>
 					</td>
 					<td>
-						<%# this.Get<IDateTime>().FormatDateTimeShort(Eval( "Posted")) %>
+						<%# this.Get<IDateTime>().FormatDateTimeShort(this.Eval("Posted")) %>
+					</td>
+                    <td>
+						<YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%# this.Eval("UserID").ToType<int>() %>' />
 					</td>
 					<td>
-						<%# HtmlEncode(Eval( "FileName")) %>
+						<%# this.HtmlEncode(this.Eval( "FileName")) %>
 					</td>
 					<td align="right">
-						<%# Eval( "Downloads") %>
+						<%# this.Eval( "Downloads") %>
 					</td>
 					<td>
-						<%# Eval( "ContentType") %>
+						<%# this.Eval( "ContentType") %>
 					</td>
 					<td align="right">
-						<%# Eval( "Bytes") %>
+						<%# this.Eval( "Bytes") %>
 					</td>
 					<td align="right">
 						<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" 
-                                    CommandName='delete' CommandArgument='<%# Eval( "AttachmentID") %>' 
+                                    CommandName='delete' CommandArgument='<%# this.Eval( "AttachmentID") %>' 
                                     TitleLocalizedTag="DELETE" 
                                     ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON"
                                     TextLocalizedTag="DELETE"

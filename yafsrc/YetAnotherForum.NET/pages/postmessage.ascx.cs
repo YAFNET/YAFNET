@@ -219,7 +219,7 @@ namespace YAF.Pages
         /// </returns>
         protected string HandlePostToBlog([NotNull] string message, [NotNull] string subject)
         {
-            string blogPostID = string.Empty;
+            var blogPostID = string.Empty;
 
             // Does user wish to post this to their blog?
             if (!this.Get<YafBoardSettings>().AllowPostToBlog || !this.PostToBlog.Checked)
@@ -287,7 +287,7 @@ namespace YAF.Pages
         protected bool IsPostReplyVerified()
         {
             // To avoid posting whitespace(s) or empty messages
-            string postedMessage = this._forumEditor.Text.Trim();
+            var postedMessage = this._forumEditor.Text.Trim();
 
             if (postedMessage.IsNotSet())
             {
@@ -402,13 +402,30 @@ namespace YAF.Pages
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
+            if (this.PageContext.ForumUploadAccess)
+            {
+                this.PageContext.PageElements.RegisterJsScriptsInclude(
+                    "FileUploadScriptJs",
+#if DEBUG
+                    "jquery.fileupload.comb.js");
+#else
+                    "jquery.fileupload.comb.min.js");
+#endif
+
+#if DEBUG
+                this.PageContext.PageElements.RegisterCssIncludeContent("jquery.fileupload.comb.css");
+#else
+                this.PageContext.PageElements.RegisterCssIncludeContent("jquery.fileupload.comb.min.css");
+#endif
+            }
+
             // get the forum editor based on the settings
-            string editorId = this.Get<YafBoardSettings>().ForumEditor;
+            var editorId = this.Get<YafBoardSettings>().ForumEditor;
 
             if (this.Get<YafBoardSettings>().AllowUsersTextEditor)
             {
                 // Text editor
-                editorId = !string.IsNullOrEmpty(this.PageContext.TextEditor)
+                editorId = this.PageContext.TextEditor.IsSet()
                     ? this.PageContext.TextEditor
                     : this.Get<YafBoardSettings>().ForumEditor;
             }
@@ -424,7 +441,7 @@ namespace YAF.Pages
             }
 
             this.EditorLine.Controls.Add(this._forumEditor);
-
+            
             base.OnInit(e);
         }
 
@@ -548,7 +565,7 @@ namespace YAF.Pages
                 }
 
                 // helper bool -- true if this is a completely new topic...
-                bool isNewTopic = (this.TopicID == null) && (this.QuotedMessageID == null)
+                var isNewTopic = (this.TopicID == null) && (this.QuotedMessageID == null)
                                   && (this.EditMessageID == null);
 
                 this.Priority.Items.Add(new ListItem(this.GetText("normal"), "0"));
@@ -560,7 +577,7 @@ namespace YAF.Pages
                 {
                     this.StatusRow.Visible = true;
 
-                    this.TopicStatus.Items.Add(new ListItem("   ", "-1"));
+                    this.TopicStatus.Items.Add(new ListItem("[{0}]".FormatWith(this.GetText("COMMON", "NONE")), "-1"));
 
                     foreach (DataRow row in LegacyDb.TopicStatus_List(this.PageContext.PageBoardID).Rows)
                     {
@@ -596,26 +613,14 @@ namespace YAF.Pages
 
                 // update options...
                 this.PostOptions1.Visible = !this.PageContext.IsGuest;
-                this.PostOptions1.PersistantOptionVisible = this.PageContext.ForumPriorityAccess;
-                this.PostOptions1.AttachOptionVisible = this.PageContext.ForumUploadAccess;
+                this.PostOptions1.PersistentOptionVisible = this.PageContext.ForumPriorityAccess;
                 this.PostOptions1.WatchOptionVisible = !this.PageContext.IsGuest;
                 this.PostOptions1.PollOptionVisible = this.PageContext.ForumPollAccess && isNewTopic;
 
-                ////this.Attachments1.Visible = !this.PageContext.IsGuest;
-
-                // get topic and forum information
-                /*DataRow topicInfo = LegacyDb.topic_info(this.PageContext.PageTopicID);
-                                using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
-                                {
-                                        DataRow forumInfo = dt.Rows[0];
-                                }*/
+                this.HandleUploadControls();
 
                 if (!this.PageContext.IsGuest)
                 {
-                    /*this.Attachments1.Visible = this.PageContext.ForumUploadAccess;
-                                        this.Attachments1.Forum = forumInfo;
-                                        this.Attachments1.Topic = topicInfo;
-                                        // todo message id*/
                     this.PostOptions1.WatchChecked = this.PageContext.PageTopicID > 0
                         ? this.TopicWatchedId(this.PageContext.PageUserID, this.PageContext.PageTopicID).HasValue
                         : new CombinedUserDataHelper(this.PageContext.PageUserID).AutoWatchTopics;
@@ -759,9 +764,9 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            string subjectSave = string.Empty;
-            string descriptionSave = string.Empty;
-            string stylesSave = string.Empty;
+            var subjectSave = string.Empty;
+            var descriptionSave = string.Empty;
+            var stylesSave = string.Empty;
 
             if (this.TopicSubjectTextBox.Enabled)
             {
@@ -799,7 +804,7 @@ namespace YAF.Pages
                                        .PersistantChecked
                                };
 
-            bool isModeratorChanged = this.PageContext.PageUserID != this._ownerUserId;
+            var isModeratorChanged = this.PageContext.PageUserID != this._ownerUserId;
 
             LegacyDb.message_update(
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"),
@@ -818,7 +823,7 @@ namespace YAF.Pages
                 this.OriginalMessage,
                 this.PageContext.PageUserID);
 
-            long messageId = this.EditMessageID.Value;
+            var messageId = this.EditMessageID.Value;
 
             this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
 
@@ -851,7 +856,7 @@ namespace YAF.Pages
 
             // Check if Forum is Moderated
             DataRow forumInfo;
-            bool isForumModerated = false;
+            var isForumModerated = false;
 
             using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
             {
@@ -884,7 +889,7 @@ namespace YAF.Pages
                                    IsApproved = this.spamApproved
                                };
 
-            string blogPostID = this.HandlePostToBlog(this._forumEditor.Text, this.TopicSubjectTextBox.Text);
+            var blogPostID = this.HandlePostToBlog(this._forumEditor.Text, this.TopicSubjectTextBox.Text);
 
             // Save to Db
             topicId = LegacyDb.topic_save(
@@ -937,7 +942,7 @@ namespace YAF.Pages
 
             // Check if Forum is Moderated
             DataRow forumInfo;
-            bool isForumModerated = false;
+            var isForumModerated = false;
 
             using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
             {
@@ -1120,7 +1125,7 @@ namespace YAF.Pages
             }
 
             // Check if message is approved
-            bool isApproved = false;
+            var isApproved = false;
             using (DataTable dt = LegacyDb.message_list(messageId))
             {
                 foreach (DataRow row in dt.Rows)
@@ -1130,13 +1135,13 @@ namespace YAF.Pages
             }
 
             // vzrus^ the poll access controls are enabled and this is a new topic - we add the variables
-            string attachp = string.Empty;
-            string retforum = string.Empty;
+            var attachPollParameter = string.Empty;
+            var retforum = string.Empty;
 
             if (this.PageContext.ForumPollAccess && this.PostOptions1.PollOptionVisible && newTopic > 0)
             {
                 // new topic poll token
-                attachp = "&t={0}".FormatWith(newTopic);
+                attachPollParameter = "&t={0}".FormatWith(newTopic);
 
                 // new return forum poll token
                 retforum = "&f={0}".FormatWith(this.PageContext.PageForumID);
@@ -1171,29 +1176,15 @@ namespace YAF.Pages
                     }
                 }
 
-                if (this.PageContext.ForumUploadAccess && this.PostOptions1.AttachChecked)
+                if (attachPollParameter.IsNotSet() || (!this.PostOptions1.PollChecked))
                 {
-                    // 't' variable is required only for poll and this is a attach poll token for attachments page
-                    if (!this.PostOptions1.PollChecked)
-                    {
-                        attachp = string.Empty;
-                    }
-
-                    // redirect to the attachment page...
-                    YafBuildLink.Redirect(ForumPages.attachments, "m={0}{1}", messageId, attachp);
+                    // regular redirect...
+                    YafBuildLink.Redirect(ForumPages.posts, "m={0}#post{0}", messageId);
                 }
                 else
                 {
-                    if (attachp.IsNotSet() || (!this.PostOptions1.PollChecked))
-                    {
-                        // regular redirect...
-                        YafBuildLink.Redirect(ForumPages.posts, "m={0}#post{0}", messageId);
-                    }
-                    else
-                    {
-                        // poll edit redirect...
-                        YafBuildLink.Redirect(ForumPages.polledit, "{0}", attachp);
-                    }
+                    // poll edit redirect...
+                    YafBuildLink.Redirect(ForumPages.polledit, "{0}", attachPollParameter);
                 }
             }
             else
@@ -1206,43 +1197,35 @@ namespace YAF.Pages
                         .ToModeratorsThatMessageNeedsApproval(
                             this.PageContext.PageForumID,
                             messageId.ToType<int>(),
-                            spamApproved);
+                            this.spamApproved);
                 }
 
                 // 't' variable is required only for poll and this is a attach poll token for attachments page
                 if (!this.PostOptions1.PollChecked)
                 {
-                    attachp = string.Empty;
+                    attachPollParameter = string.Empty;
                 }
 
-                if (this.PostOptions1.AttachChecked && this.PageContext.ForumUploadAccess)
+                // Tell user that his message will have to be approved by a moderator
+                var url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+
+                if (this.PageContext.PageTopicID > 0)
                 {
-                    // redirect to the attachment page...
-                    YafBuildLink.Redirect(ForumPages.attachments, "m={0}&ra=1{1}{2}", messageId, attachp, retforum);
+                    url = YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+                }
+
+                if (attachPollParameter.Length <= 0)
+                {
+                    YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
                 }
                 else
                 {
-                    // Tell user that his message will have to be approved by a moderator
-                    string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+                    YafBuildLink.Redirect(ForumPages.polledit, "&ra=1{0}{1}", attachPollParameter, retforum);
+                }
 
-                    if (this.PageContext.PageTopicID > 0)
-                    {
-                        url = YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
-                    }
-
-                    if (attachp.Length <= 0)
-                    {
-                        YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
-                    }
-                    else
-                    {
-                        YafBuildLink.Redirect(ForumPages.polledit, "&ra=1{0}{1}", attachp, retforum);
-                    }
-
-                    if (Config.IsRainbow)
-                    {
-                        YafBuildLink.Redirect(ForumPages.info, "i=1");
-                    }
+                if (Config.IsRainbow)
+                {
+                    YafBuildLink.Redirect(ForumPages.info, "i=1");
                 }
             }
         }
@@ -1273,7 +1256,7 @@ namespace YAF.Pages
                 return;
             }
 
-            string userSig = LegacyDb.user_getsignature(this.PageContext.PageUserID);
+            var userSig = LegacyDb.user_getsignature(this.PageContext.PageUserID);
 
             if (userSig.IsSet())
             {
@@ -1295,7 +1278,7 @@ namespace YAF.Pages
         /// </returns>
         private bool CanEditPostCheck([NotNull] TypedMessageList message, DataRow topicInfo)
         {
-            bool postLocked = false;
+            var postLocked = false;
 
             if (!this.PageContext.IsAdmin && this.Get<YafBoardSettings>().LockPosts > 0)
             {
@@ -1386,7 +1369,7 @@ namespace YAF.Pages
             // editing..
             this.PageLinks.AddLink(this.GetText("EDIT"));
 
-            string blogPostID = currentMessage.BlogPostID;
+            var blogPostID = currentMessage.BlogPostID;
 
             if (blogPostID != string.Empty)
             {
@@ -1454,8 +1437,6 @@ namespace YAF.Pages
             this.EditReasonRow.Visible = true;
             this.ReasonEditor.Text = this.Server.HtmlDecode(currentMessage.EditReason);
             this.PostOptions1.PersistantChecked = currentMessage.Flags.IsPersistent;
-
-            // this.Attachments1.MessageID = (int)this.EditMessageID;
         }
 
         /// <summary>
@@ -1528,14 +1509,7 @@ namespace YAF.Pages
             // add "reply" text...
             this.PageLinks.AddLink(this.GetText("reply"));
 
-            // show attach file option if its a reply...
-            if (this.PageContext.ForumUploadAccess)
-            {
-                this.PostOptions1.Visible = true;
-                this.PostOptions1.AttachOptionVisible = true;
-
-                // this.Attachments1.Visible = true;
-            }
+            this.HandleUploadControls();
 
             // show the last posts AJAX frame...
             this.LastPosts1.Visible = true;
@@ -1631,6 +1605,17 @@ namespace YAF.Pages
             var moderatedPostCount = forumInfo["ModeratedPostCount"].ToType<int>();
 
             return !(this.PageContext.CurrentUserData.NumPosts >= moderatedPostCount);
+        }
+
+        /// <summary>
+        /// Handles the upload controls.
+        /// </summary>
+        private void HandleUploadControls()
+        {
+            this._forumEditor.UserCanUpload = this.PageContext.ForumUploadAccess;
+            this.UploadDialog.Visible = this.PageContext.ForumUploadAccess;
+
+            this.PostAttachments1.Visible = !this._forumEditor.AllowsUploads;
         }
 
         #endregion

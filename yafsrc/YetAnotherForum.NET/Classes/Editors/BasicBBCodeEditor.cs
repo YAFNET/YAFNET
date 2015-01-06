@@ -27,6 +27,7 @@ namespace YAF.Editors
 
     using System;
 
+    using YAF.Classes.Editors;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -100,7 +101,7 @@ namespace YAF.Editors
 
 YafContext.Current.PageElements.RegisterJsBlock(
                 "CreateYafEditorJs",
-                "var {0}=new yafEditor('{0}');\nfunction setStyle(style,option) {{\n{0}.FormatText(style,option);\n}}\n"
+                "var {0}=new yafEditor('{0}');\nfunction setStyle(style,option) {{\n{0}.FormatText(style,option);\n}}\nfunction insertAttachment(id,url) {{\n{0}.FormatText('attach', id);\n}}\n"
                     .FormatWith(this.SafeID));
 
             // register custom YafBBCode javascript (if there is any)

@@ -1021,6 +1021,7 @@
     <Resource tag="ALLOW_USERTEXTEDITOR">Allow users to pick text editor</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Allow users to pick text editor in their profiles.</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
+    <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
     <Resource tag="APP_CORES">Processor Cores:</Resource>
     <Resource tag="APP_CORES_HELP">Number of Processor cores.</Resource>
     <Resource tag="APP_MEMORY">Application memory:</Resource>
@@ -1919,17 +1920,22 @@
     <Resource tag="VALIDATE">Xác nhận</Resource>
   </page>
   <page name="ATTACHMENTS">
+    <Resource tag="ADD_FILES">Add file(s)...</Resource>
     <Resource tag="ALLOWED_EXTENSIONS">Các định dạng cho phép</Resource>
     <Resource tag="ASK_DELETE">Xóa tập tin đính kèm này?</Resource>
+    <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
     <Resource tag="DELETE">Xóa</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">Các định dạng bị cấm</Resource>
+    <Resource tag="DROP_HERE">Drop file(s) here</Resource>
     <Resource tag="ERROR_TOOBIG">Bạn không thể đính kèm tập tin quá lớn.</Resource>
     <Resource tag="FILEERROR">Tập tin '{0}' không hợp lệ.</Resource>
     <Resource tag="FILENAME">Tên tập tin</Resource>
     <Resource tag="SELECT_FILE">Chọn tập tin bạn muốn upload.</Resource>
     <Resource tag="SIZE">Dung lượng</Resource>
+    <Resource tag="START_UPLOADS">Start upload(s)</Resource>
     <Resource tag="TITLE">Đính kèm</Resource>
     <Resource tag="UPLOAD">Upload</Resource>
+    <Resource tag="UPLOAD_NEW">Upload New File(s)</Resource>
     <Resource tag="UPLOAD_NOTE">Note: Max. File Size of an Attachment is {0} KB.</Resource>
     <Resource tag="UPLOAD_TITLE">Upload File</Resource>
     <Resource tag="UPLOAD_TOOBIG">You cannot attach files that bigger than {1} KB. Your File size is {0} KB.</Resource>
@@ -1942,6 +1948,7 @@
   </page>
   <page name="BBCODEMODULE">
     <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
+    <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
     <Resource tag="HIDDENMOD_DESC">The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post</Resource>
@@ -2038,6 +2045,7 @@
   <page name="COMMON">
     <Resource tag="ALBUMIMG_BBCODE">Insert Album Image...</Resource>
     <Resource tag="ALLOWED">Allowed</Resource>
+    <Resource tag="ATTACH_BBCODE">Insert an existing Attachment or upload a new File...</Resource>
     <Resource tag="BACK">Quay lại</Resource>
     <Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
     <Resource tag="BAD_RECAPTCHA">Please re-enter the reCAPTCHA.</Resource>

@@ -60,7 +60,7 @@ namespace YAF.Core.Model
             return
                 repository.DbAccess.Execute(
                     cmd =>
-                    cmd.GetScalar<int>("SELECT COUNT(*) FROM " + repository.DbAccess.GetTableName<FavoriteTopic>() + "  WHERE topicId = {0}", topicId));
+                    cmd.Connection.Scalar<int>("SELECT COUNT(*) FROM " + repository.DbAccess.GetTableName<FavoriteTopic>() + "  WHERE topicId = {0}", topicId));
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var count = repository.DbAccess.Execute(db => db.Delete<FavoriteTopic>(x => x.UserID == userID && x.TopicID == topicID));
+            var count = repository.DbAccess.Execute(db => db.Connection.Delete<FavoriteTopic>(x => x.UserID == userID && x.TopicID == topicID));
             if (count > 0)
             {
                 repository.FireDeleted();
@@ -168,7 +168,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbAccess.Execute(cmd => cmd.Select<FavoriteTopic>(e => e.UserID == userID));
+            return repository.DbAccess.Execute(cmd => cmd.Connection.Select<FavoriteTopic>(e => e.UserID == userID));
         }
 
         #endregion

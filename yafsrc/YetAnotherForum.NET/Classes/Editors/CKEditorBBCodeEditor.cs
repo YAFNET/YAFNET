@@ -94,7 +94,8 @@ namespace YAF.Editors
         {
             YafContext.Current.PageElements.RegisterJsBlock(
                 "InsertSmileyJs",
-                "function insertsmiley(code,img) {{\n var ckEditor = CKEDITOR.instances.{0};\nif ( ckEditor.mode == 'wysiwyg' ) {{\nckEditor.insertHtml( '[img]' + '{1}' + img + '[/img]' ); }}\nelse alert( 'You must be on WYSIWYG mode!' );\n}}\n"
+                @"function insertsmiley(code,img) {{var ckEditor = CKEDITOR.instances.{0}; ckEditor.insertHtml( '[img]' + '{1}' + img + '[/img]' );}}
+                  function insertAttachment(id,url) {{var ckEditor = CKEDITOR.instances.{0}; ckEditor.insertHtml( '[attach]' + id + '[/attach]' );}}"
                     .FormatWith(this._textCtl.ClientID, BaseUrlBuilder.BaseUrl));
         }
 

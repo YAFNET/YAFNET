@@ -31,6 +31,7 @@ namespace YAF.Editors
 
     using YAF.Core;
     using YAF.Types;
+    using YAF.Types.Extensions;
 
     #endregion
 
@@ -174,9 +175,9 @@ namespace YAF.Editors
         /// </summary>
         protected virtual void RegisterSmilieyScript()
         {
-            YafContext.Current.PageElements.RegisterJsBlock(
-                "InsertSmileyJs",
-                "function insertsmiley(code){" + "FTB_InsertText('" + this.SafeID + "',code);" + "}\n");
+            YafContext.Current.PageElements.RegisterJsBlock("InsertSmileyJs",
+                @"function insertsmiley(code){{FTB_InsertText('{0}',code);}}
+                  function insertAttachment(id,url){{FTB_InsertText('{0}','[attach]' + id + '[/attach]');}}".FormatWith(this.SafeID));
         }
 
         #endregion

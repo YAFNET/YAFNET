@@ -3,7 +3,9 @@
 <%@ Register TagPrefix="YAF" TagName="smileys" Src="../controls/smileys.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="LastPosts" Src="../controls/LastPosts.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PostOptions" Src="../controls/PostOptions.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="PostAttachments" Src="../controls/PostAttachments.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PollList" Src="../controls/PollList.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="AttachmentsUploadDialog" Src="../controls/AttachmentsUploadDialog.ascx" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:PollList ID="PollList"  ShowButtons="true" PollGroupId='<%# GetPollGroupID() %>'  runat="server"/>
 <table align="center" cellpadding="4" cellspacing="1" class="content" width="100%">
@@ -93,11 +95,14 @@
 			<!-- editor goes here -->
 		</td>
 	</tr>
-
+    
     <YAF:PostOptions id="PostOptions1" runat="server">
     </YAF:PostOptions>
+    
+    <YAF:PostAttachments id="PostAttachments1" runat="server" Visible="False">
+    </YAF:PostAttachments>
 
-	<tr id="tr_captcha1" runat="server" visible="false">
+    <tr id="tr_captcha1" runat="server" visible="false">
 		<td class="postformheader" valign="top">
 			<YAF:LocalizedLabel runat="server" LocalizedTag="Captcha_Image" />
 		</td>
@@ -153,3 +158,4 @@
 <div id="DivSmartScroller">
 	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>
+<YAF:AttachmentsUploadDialog ID="UploadDialog" runat="server" Visible="False"></YAF:AttachmentsUploadDialog>

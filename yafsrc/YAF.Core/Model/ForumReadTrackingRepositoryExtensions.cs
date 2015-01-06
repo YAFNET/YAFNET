@@ -49,7 +49,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var success = repository.DbAccess.Execute(db => db.Delete<ForumReadTracking>(x => x.UserID == userID)) == 1;
+            var success = repository.DbAccess.Execute(db => db.Connection.Delete<ForumReadTracking>(x => x.UserID == userID)) == 1;
 
             if (success)
             {

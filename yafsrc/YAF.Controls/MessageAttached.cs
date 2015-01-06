@@ -21,18 +21,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Controls
 {
     #region Using
 
     using System;
-    using System.Data;
-    using System.Linq;
     using System.Web;
     using System.Web.UI;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types;
@@ -116,10 +114,8 @@ namespace YAF.Controls
         /// </param>
         protected void RenderAttachedFiles([NotNull] HtmlTextWriter writer)
         {
-            string[] aImageExtensions = { "jpg", "gif", "png", "bmp" };
-
-            string stats = this.GetText("ATTACHMENTINFO");
-            string strFileIcon = this.Get<ITheme>().GetItem("ICONS", "ATTACHED_FILE");
+            var stats = this.GetText("ATTACHMENTINFO");
+            var fileIcon = this.Get<ITheme>().GetItem("ICONS", "ATTACHED_FILE");
 
             var session = this.Get<HttpSessionStateBase>();
             var settings = this.Get<YafBoardSettings>();
@@ -129,147 +125,146 @@ namespace YAF.Controls
             session["imagePreviewCropped"] = settings.ImageAttachmentResizeCropped;
             session["localizationFile"] = this.Get<ILocalization>().LanguageFileName;
 
-            using (DataTable attachListDT = this.GetRepository<Attachment>().List(this.MessageID, null, null,null,null))
+            var attachments = this.GetRepository<Attachment>().ListTyped(messageID: this.MessageID);
+
+            // show file then image attachments...
+            var tmpDisplaySort = 0;
+
+            writer.Write(@"<div class=""fileattach smallfont ceebox"">");
+
+            while (tmpDisplaySort <= 1)
             {
-                // show file then image attachments...
-                int tmpDisplaySort = 0;
+                var firstItem = true;
 
-                writer.Write(@"<div class=""fileattach smallfont ceebox"">");
-
-                while (tmpDisplaySort <= 1)
+                foreach (var attachment in attachments)
                 {
-                    bool bFirstItem = true;
+                    var filename = attachment.FileName.ToLower();
+                    var showImage = false;
 
-                    foreach (DataRow dr in attachListDT.Rows)
+                    // verify it's not too large to display
+                    // Ederon : 02/17/2009 - made it board setting
+                    if (attachment.Bytes.ToType<int>() <= settings.PictureAttachmentDisplayTreshold)
                     {
-                        string strFilename = Convert.ToString(dr["FileName"]).ToLower();
-                        bool bShowImage = false;
+                        // is it an image file?
+                        showImage = filename.IsImageName();
+                    }
 
-                        // verify it's not too large to display
-                        // Ederon : 02/17/2009 - made it board setting
-                        if (dr["Bytes"].ToType<int>() <= settings.PictureAttachmentDisplayTreshold)
+                    if (showImage && tmpDisplaySort == 1)
+                    {
+                        if (firstItem)
                         {
-                            // is it an image file?
-                            bShowImage = aImageExtensions.Any(t => strFilename.ToLower().EndsWith(t));
+                            writer.Write(@"<div class=""imgtitle"">");
+
+                            writer.Write(
+                                this.GetText("IMAGE_ATTACHMENT_TEXT"), 
+                                this.HtmlEncode(Convert.ToString(this.UserName)));
+
+                            writer.Write("</div>");
+
+                            firstItem = false;
                         }
 
-                        if (bShowImage && tmpDisplaySort == 1)
+                        // Ederon : download rights
+                        if (this.PageContext.ForumDownloadAccess || this.PageContext.ForumModeratorAccess)
                         {
-                            if (bFirstItem)
+                            // user has rights to download, show him image
+                            if (!settings.EnableImageAttachmentResize)
                             {
-                                writer.Write(@"<div class=""imgtitle"">");
-
                                 writer.Write(
-                                    this.GetText("IMAGE_ATTACHMENT_TEXT"),
-                                    this.HtmlEncode(Convert.ToString(this.UserName)));
-
-                                writer.Write("</div>");
-
-                                bFirstItem = false;
-                            }
-
-                            // Ederon : download rights
-                            if (this.PageContext.ForumDownloadAccess || this.PageContext.ForumModeratorAccess)
-                            {
-                                // user has rights to download, show him image
-                                if (!settings.EnableImageAttachmentResize)
-                                {
-                                    writer.Write(
-                                        @"<div class=""attachedimg""><img src=""{0}resource.ashx?a={1}"" alt=""{2}"" /></div>",
-                                        YafForumInfo.ForumClientFileRoot,
-                                        dr["AttachmentID"],
-                                        this.HtmlEncode(dr["FileName"]));
-                                }
-                                else
-                                {
-                                    var attachFilesText =
-                                        "{0} {1}".FormatWith(
-                                            this.GetText("IMAGE_ATTACHMENT_TEXT").FormatWith(
-                                                this.HtmlEncode(Convert.ToString(this.UserName))),
-                                            this.HtmlEncode(dr["FileName"]));
-
-                                    // TommyB: Start MOD: Preview Images
-                                    writer.Write(
-                                        @"<div class=""attachedimg"" style=""display: inline;""><a href=""{0}resource.ashx?i={1}"" title=""{2}"" title=""{2}"" date-img=""{0}resource.ashx?a={1}""><img src=""{0}resource.ashx?p={1}"" alt=""{3}"" title=""{2}"" /></a></div>",
-                                        YafForumInfo.ForumClientFileRoot,
-                                        dr["AttachmentID"],
-                                        attachFilesText,
-                                        this.HtmlEncode(dr["FileName"]));
-
-                                    // TommyB: End MOD: Preview Images
-                                }
+                                    @"<div class=""attachedimg""><img src=""{0}resource.ashx?a={1}"" alt=""{2}"" /></div>", 
+                                    YafForumInfo.ForumClientFileRoot, 
+                                    attachment.ID, 
+                                    this.HtmlEncode(attachment.FileName));
                             }
                             else
                             {
-                                int kb = (1023 + (int)dr["Bytes"]) / 1024;
+                                var attachFilesText =
+                                    "{0} {1}".FormatWith(
+                                        this.GetText("IMAGE_ATTACHMENT_TEXT")
+                                            .FormatWith(this.HtmlEncode(Convert.ToString(this.UserName))), 
+                                        this.HtmlEncode(attachment.FileName));
 
-                                // user doesn't have rights to download, don't show the image
-                                writer.Write(@"<div class=""attachedfile"">");
-
+                                // TommyB: Start MOD: Preview Images
                                 writer.Write(
-                                    @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""attachmentinfo"">{2}</span>",
-                                    strFileIcon,
-                                    dr["FileName"],
-                                    stats.FormatWith(kb, dr["Downloads"]));
+                                    @"<div class=""attachedimg"" style=""display: inline;""><a href=""{0}resource.ashx?i={1}"" title=""{2}"" title=""{2}"" date-img=""{0}resource.ashx?a={1}""><img src=""{0}resource.ashx?p={1}"" alt=""{3}"" title=""{2}"" /></a></div>", 
+                                    YafForumInfo.ForumClientFileRoot, 
+                                    attachment.ID, 
+                                    attachFilesText, 
+                                    this.HtmlEncode(attachment.FileName));
 
-                                writer.Write(@"</div>");
+                                // TommyB: End MOD: Preview Images
                             }
                         }
-                        else if (!bShowImage && tmpDisplaySort == 0)
+                        else
                         {
-                            if (bFirstItem)
-                            {
-                                writer.Write(@"<div class=""filetitle"">{0}</div>", this.GetText("ATTACHMENTS"));
-                                bFirstItem = false;
-                            }
+                            var kb = (1023 + attachment.Bytes.ToType<int>()) / 1024;
 
-                            // regular file attachment
-                            int kb = (1023 + (int)dr["Bytes"]) / 1024;
-
+                            // user doesn't have rights to download, don't show the image
                             writer.Write(@"<div class=""attachedfile"">");
 
-                            // Ederon : download rights
-                            if (this.PageContext.ForumDownloadAccess || this.PageContext.ForumModeratorAccess)
-                            {
-                                writer.Write(
-                                    @"<img border=""0"" alt="""" src=""{0}"" /> <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{1}resource.ashx?a={2}"">{3}</a> <span class=""attachmentinfo"">{4}</span>",
-                                    strFileIcon,
-                                    YafForumInfo.ForumClientFileRoot,
-                                    dr["AttachmentID"],
-                                    dr["FileName"],
-                                    stats.FormatWith(kb, dr["Downloads"]));
-                            }
-                            else
-                            {
-                                writer.Write(
-                                    @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""attachmentinfo"">{2}</span>",
-                                    strFileIcon,
-                                    dr["FileName"],
-                                    stats.FormatWith(kb, dr["Downloads"]));
-                            }
+                            writer.Write(
+                                @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""attachmentinfo"">{2}</span>", 
+                                fileIcon, 
+                                attachment.FileName, 
+                                stats.FormatWith(kb, attachment.Downloads));
 
                             writer.Write(@"</div>");
                         }
                     }
+                    else if (!showImage && tmpDisplaySort == 0)
+                    {
+                        if (firstItem)
+                        {
+                            writer.Write(@"<div class=""filetitle"">{0}</div>", this.GetText("ATTACHMENTS"));
+                            firstItem = false;
+                        }
 
-                    // now show images
-                    tmpDisplaySort++;
+                        // regular file attachment
+                        var kb = (1023 + attachment.Bytes.ToType<int>()) / 1024;
+
+                        writer.Write(@"<div class=""attachedfile"">");
+
+                        // Ederon : download rights
+                        if (this.PageContext.ForumDownloadAccess || this.PageContext.ForumModeratorAccess)
+                        {
+                            writer.Write(
+                                @"<img border=""0"" alt="""" src=""{0}"" /> <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{1}resource.ashx?a={2}"">{3}</a> <span class=""attachmentinfo"">{4}</span>", 
+                                fileIcon, 
+                                YafForumInfo.ForumClientFileRoot, 
+                                attachment.ID, 
+                                attachment.FileName, 
+                                stats.FormatWith(kb, attachment.Downloads));
+                        }
+                        else
+                        {
+                            writer.Write(
+                                @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""attachmentinfo"">{2}</span>", 
+                                fileIcon, 
+                                attachment.FileName, 
+                                stats.FormatWith(kb, attachment.Downloads));
+                        }
+
+                        writer.Write(@"</div>");
+                    }
                 }
 
-                if (!this.PageContext.ForumDownloadAccess)
-                {
-                    writer.Write(@"<br /><div class=""attachmentinfo"">");
+                // now show images
+                tmpDisplaySort++;
+            }
 
-                    writer.Write(
-                        this.PageContext.IsGuest
-                            ? this.GetText("POSTS", "CANT_DOWNLOAD_REGISTER")
-                            : this.GetText("POSTS", "CANT_DOWNLOAD"));
+            if (!this.PageContext.ForumDownloadAccess)
+            {
+                writer.Write(@"<br /><div class=""attachmentinfo"">");
 
-                    writer.Write(@"</div>");
-                }
+                writer.Write(
+                    this.PageContext.IsGuest
+                        ? this.GetText("POSTS", "CANT_DOWNLOAD_REGISTER")
+                        : this.GetText("POSTS", "CANT_DOWNLOAD"));
 
                 writer.Write(@"</div>");
             }
+
+            writer.Write(@"</div>");
         }
 
         #endregion
