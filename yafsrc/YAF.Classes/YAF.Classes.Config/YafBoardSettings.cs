@@ -819,6 +819,26 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets the amount of posts a user has to have to be ignored 
+        /// by the spam check
+        /// </summary>
+        /// <value>
+        /// The ignore spam word check post count.
+        /// </value>
+        public int IgnoreSpamWordCheckPostCount
+        {
+            get
+            {
+                return this._reg.GetValue("IgnoreSpamWordCheckPostCount", 20);
+            }
+
+            set
+            {
+                this._reg.SetValue("IgnoreSpamWordCheckPostCount", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [ban bot IP on detection].
         /// </summary>
         /// <value>

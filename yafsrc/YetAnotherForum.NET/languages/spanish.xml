@@ -1189,6 +1189,8 @@
     <Resource tag="HOST_TEMPLATES">Plantillas</Resource>
     <Resource tag="HOVERCARD_DELAY">Retardo de apertura de tarjetas flotantes(milisegundos):</Resource>
     <Resource tag="HOVERCARD_DELAY_HELP">El retardo antes de abrir la tarjeta flotante cuando un usuario pasa por encima de un nombre de usuario.</Resource>
+    <Resource tag="IGNORE_SPAMCHECK_COUNT">User Post Count to be ignored from Spam Check:</Resource>
+    <Resource tag="IGNORE_SPAMCHECK_COUNT_HELP">The amount of posts a user has to have to be ignored by the spam checking.</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE">Activar el redimensionamiento de imágenes adjutas:</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE_HELP">Las imágenes adjuntas serán redimensionadas a thumbnails si son muy grandes.</Resource>
     <Resource tag="IMAGE_RESIZE_HEIGHT">Alto máximo para el redimensionado de imagen:</Resource>

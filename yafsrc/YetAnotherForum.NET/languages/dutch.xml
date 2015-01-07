@@ -1184,6 +1184,8 @@
     <Resource tag="HOST_TEMPLATES">Sjablonen</Resource>
     <Resource tag="HOVERCARD_DELAY">Hover Card opening Delay (Milliseconds):</Resource>
     <Resource tag="HOVERCARD_DELAY_HELP">The Delay before opening the Hover Card when a user hovers over a user name.</Resource>
+    <Resource tag="IGNORE_SPAMCHECK_COUNT">User Post Count to be ignored from Spam Check:</Resource>
+    <Resource tag="IGNORE_SPAMCHECK_COUNT_HELP">The amount of posts a user has to have to be ignored by the spam checking.</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE">Activeer automatisch vergroten/verkleinen van foto-bijlagen:</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE_HELP">Foto-bijlagen worden verkleind naar miniatuurweergaven als ze te groot zijn.</Resource>
     <Resource tag="IMAGE_RESIZE_HEIGHT">Maximale hoogte van de verkleinde foto-bijlagen:</Resource>

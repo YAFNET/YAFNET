@@ -133,7 +133,7 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// The bind data.
+        /// Binds the data.
         /// </summary>
         protected void BindData()
         {
@@ -144,11 +144,9 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             // since signatures are so small only allow YafBBCode in them...
@@ -168,14 +166,10 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.PageContext.QueryIDs = new QueryStringIDHelper("u");
@@ -183,7 +177,8 @@ namespace YAF.Controls
             this._sig.BaseDir = "{0}Scripts".FormatWith(YafForumInfo.ForumClientFileRoot);
             this._sig.StyleSheet = this.Get<ITheme>().BuildThemePath("theme.css");
 
-            DataTable sigData = LegacyDb.user_getsignaturedata(this.CurrentUserID, YafContext.Current.PageBoardID);
+            DataTable sigData = LegacyDb.user_getsignaturedata(this.CurrentUserID, this.PageContext.PageBoardID);
+
             if (sigData.Rows.Count > 0)
             {
                 this._allowedBbcodes = sigData.Rows[0]["UsrSigBBCodes"].ToString().Trim().Trim(',').Trim();
@@ -293,10 +288,10 @@ namespace YAF.Controls
         /// </param>
         private void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            string body = this._sig.Text;
+            var body = this._sig.Text;
 
             // find forbidden BBcodes in signature
-            string detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this._allowedBbcodes, ',');
+            var detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this._allowedBbcodes, ',');
             if (this._allowedBbcodes.IndexOf("ALL") < 0)
             {
                 if (detectedBbCode.IsSet() && detectedBbCode != "ALL")
@@ -316,7 +311,7 @@ namespace YAF.Controls
             // find forbidden HTMLTags in signature
             if (!this.PageContext.IsAdmin && this._allowedHtml.IndexOf("ALL") < 0)
             {
-                string detectedHtmlTag = this.Get<IFormatMessage>().CheckHtmlTags(body, this._allowedHtml, ',');
+                var detectedHtmlTag = this.Get<IFormatMessage>().CheckHtmlTags(body, this._allowedHtml, ',');
                 if (detectedHtmlTag.IsSet() && detectedHtmlTag != "ALL")
                 {
                     this.PageContext.AddLoadMessage(detectedHtmlTag);
@@ -338,7 +333,10 @@ namespace YAF.Controls
                     // Check for spam
                     string result;
 
-                    if (this.Get<ISpamWordCheck>().CheckForSpamWord(body, out result))
+                    var userData = new CombinedUserDataHelper(this.CurrentUserID);
+
+                    if (this.Get<ISpamWordCheck>().CheckForSpamWord(body, out result)
+                        && userData.NumPosts < this.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount)
                     {
                         var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
                         var userId = this.CurrentUserID;
@@ -371,13 +369,15 @@ namespace YAF.Controls
                             }
                         }
                     }
-
-                    LegacyDb.user_savesignature(this.CurrentUserID, this.Get<IBadWordReplace>().Replace(body));
+                    else
+                    {
+                        LegacyDb.user_savesignature(this.CurrentUserID, this.Get<IBadWordReplace>().Replace(body));
+                    }
                 }
                 else
                 {
                     this.PageContext.AddLoadMessage(
-                      this.GetTextFormatted("SIGNATURE_MAX", this._allowedNumberOfCharacters));
+                        this.GetTextFormatted("SIGNATURE_MAX", this._allowedNumberOfCharacters));
 
                     return;
                 }
@@ -411,10 +411,11 @@ namespace YAF.Controls
         /// </param>
         private void Preview_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            string body = this._sig.Text;
+            var body = this._sig.Text;
 
             // find forbidden BBcodes in signature
-            string detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this._allowedBbcodes, ',');
+            var detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this._allowedBbcodes, ',');
+
             if (this._allowedBbcodes.IndexOf("ALL") < 0)
             {
                 if (detectedBbCode.IsSet() && detectedBbCode != "ALL")
@@ -434,7 +435,8 @@ namespace YAF.Controls
             // find forbidden HTMLTags in signature
             if (!this.PageContext.IsAdmin && this._allowedHtml.IndexOf("ALL") < 0)
             {
-                string detectedHtmlTag = this.Get<IFormatMessage>().CheckHtmlTags(body, this._allowedHtml, ',');
+                var detectedHtmlTag = this.Get<IFormatMessage>().CheckHtmlTags(body, this._allowedHtml, ',');
+
                 if (detectedHtmlTag.IsSet() && detectedHtmlTag != "ALL")
                 {
                     this.PageContext.AddLoadMessage(detectedHtmlTag);

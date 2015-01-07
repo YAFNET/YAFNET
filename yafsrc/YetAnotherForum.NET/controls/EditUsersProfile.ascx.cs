@@ -187,17 +187,17 @@ namespace YAF.Controls
             // setup jQuery and DatePicker JS...
             if (this.GetText("COMMON", "CAL_JQ_CULTURE").IsSet())
             {
-                YafContext.Current.PageElements.RegisterJQueryUILanguageFile(this.CurrentCultureInfo);
+                this.PageContext.PageElements.RegisterJQueryUILanguageFile(this.CurrentCultureInfo);
             }
 
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
+            this.PageContext.PageElements.RegisterJsBlockStartup(
                 "DatePickerJs",
                 JavaScriptBlocks.DatePickerLoadJs(
                     this.Birthday.ClientID,
                     this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
                     this.GetText("COMMON", "CAL_JQ_CULTURE")));
 
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
+            this.PageContext.PageElements.RegisterJsBlockStartup(
                 "dropDownJs",
                 JavaScriptBlocks.SelectMenuWithIconsJs(this.Country.ClientID));
 
@@ -290,7 +290,8 @@ namespace YAF.Controls
                 // Check for spam
                 string result;
 
-                if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.HomePage.Text, out result))
+                if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.HomePage.Text, out result)
+                    && this.UserData.NumPosts >= this.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount)
                 {
                     // Log and Send Message to Admins
                     if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
@@ -404,7 +405,7 @@ namespace YAF.Controls
 
             if (this.UpdateEmailFlag)
             {
-                string newEmail = this.Email.Text.Trim();
+                var newEmail = this.Email.Text.Trim();
 
                 if (!ValidationHelper.IsValidEmail(newEmail))
                 {
@@ -412,7 +413,7 @@ namespace YAF.Controls
                     return;
                 }
 
-                string userNameFromEmail = this.Get<MembershipProvider>().GetUserNameByEmail(this.Email.Text.Trim());
+                var userNameFromEmail = this.Get<MembershipProvider>().GetUserNameByEmail(this.Email.Text.Trim());
 
                 if (userNameFromEmail.IsSet() && userNameFromEmail != userName)
                 {
@@ -525,7 +526,7 @@ namespace YAF.Controls
             // clear the cache for this user...)
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserID));
 
-            YafContext.Current.Get<IDataCache>().Clear();
+            this.Get<IDataCache>().Clear();
 
             if (!this.adminEditMode)
             {
@@ -695,7 +696,7 @@ namespace YAF.Controls
             {
                 // Allows to use different per-forum themes,
                 // While "Allow User Change Theme" option in hostsettings is true
-                string themeFile = this.Get<YafBoardSettings>().Theme;
+                var themeFile = this.Get<YafBoardSettings>().Theme;
 
                 if (this.UserData.ThemeFile.IsSet())
                 {
@@ -712,7 +713,7 @@ namespace YAF.Controls
             if (this.Get<YafBoardSettings>().AllowUsersTextEditor && this.ForumEditor.Items.Count > 0)
             {
                 // Text editor
-                string textEditor = this.UserData.TextEditor.IsSet()
+                var textEditor = this.UserData.TextEditor.IsSet()
                                         ? this.UserData.TextEditor
                                         : this.Get<YafBoardSettings>().ForumEditor;
 
@@ -736,7 +737,7 @@ namespace YAF.Controls
                 foundCultItem.Selected = true;
             }
 
-            if (!Page.IsPostBack)
+            if (!this.Page.IsPostBack)
             {
                 this.Realname.Focus();
             }
@@ -750,19 +751,19 @@ namespace YAF.Controls
         /// </param>
         private void SendEmailVerification([NotNull] string newEmail)
         {
-            string hashinput = DateTime.UtcNow + this.Email.Text + Security.CreatePassword(20);
-            string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
+            var hashinput = DateTime.UtcNow + this.Email.Text + Security.CreatePassword(20);
+            var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
 
             // Create Email
-            var changeEmail = new YafTemplateEmail("CHANGEEMAIL");
+            var changeEmail = new YafTemplateEmail("CHANGEEMAIL")
+                                  {
+                                      TemplateParams =
+                                          {
+                                              ["{user}"] =
+                                                  YafForumInfo.ForumURL
+                                          }
+                                  };
 
-            changeEmail.TemplateParams["{user}"] = this.PageContext.PageUserName;
-            changeEmail.TemplateParams["{link}"] =
-                "{0}\r\n\r\n".FormatWith(YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash));
-            changeEmail.TemplateParams["{newemail}"] = this.Email.Text;
-            changeEmail.TemplateParams["{key}"] = hash;
-            changeEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-            changeEmail.TemplateParams["{forumlink}"] = YafForumInfo.ForumURL;
 
             // save a change email reference to the db
             this.GetRepository<CheckEmail>().Save(this.currentUserID, hash, newEmail);
@@ -842,7 +843,7 @@ namespace YAF.Controls
                 SettingsPropertyValueCollection settingsPropertyValueCollection = userProfile.PropertyValues;
 
                 LegacyDb.SetPropertyValues(
-                    PageContext.PageBoardID,
+                    this.PageContext.PageBoardID,
                     UserMembershipHelper.ApplicationName(),
                     this.currentUserID,
                     settingsPropertyValueCollection);
@@ -897,8 +898,9 @@ namespace YAF.Controls
         private string GetCulture(bool overrideByPageUserCulture)
         {
             // Language and culture
-            string languageFile = this.Get<YafBoardSettings>().Language;
-            string culture4Tag = this.Get<YafBoardSettings>().Culture;
+            var languageFile = this.Get<YafBoardSettings>().Language;
+            var culture4Tag = this.Get<YafBoardSettings>().Culture;
+
             if (overrideByPageUserCulture)
             {
                 if (this.PageContext.CurrentUserData.LanguageFile.IsSet())
@@ -925,7 +927,7 @@ namespace YAF.Controls
             }
 
             // Get first default full culture from a language file tag.
-            string langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
+            var langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
             return langFileCulture.Substring(0, 2) == culture4Tag.Substring(0, 2) ? culture4Tag : langFileCulture;
         }
     }

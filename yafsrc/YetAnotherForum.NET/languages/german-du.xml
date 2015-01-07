@@ -1182,6 +1182,8 @@
     <Resource tag="HOST_TEMPLATES">Vorlagen</Resource>
     <Resource tag="HOVERCARD_DELAY">Hover Karte Verzögerungs Öffnungszeit (Millisekunden):</Resource>
     <Resource tag="HOVERCARD_DELAY_HELP">Die Verzögerungszeit vor dem Öffnen der Hoverkarte, whenn der Benutzer über einen Benutzer Namen mit der Maus fährt.</Resource>
+    <Resource tag="IGNORE_SPAMCHECK_COUNT">User Post Count to be ignored from Spam Check:</Resource>
+    <Resource tag="IGNORE_SPAMCHECK_COUNT_HELP">The amount of posts a user has to have to be ignored by the spam checking.</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE">Bildanhänge verkleinern aktivieren</Resource>
     <Resource tag="IMAGE_ATTACH_RESIZE_HELP">Angehängten Bilder werden zu den Thumbnails verkleinert, falls sie zu groß sind.</Resource>
     <Resource tag="IMAGE_RESIZE_HEIGHT">Bild Max. Höhe:</Resource>

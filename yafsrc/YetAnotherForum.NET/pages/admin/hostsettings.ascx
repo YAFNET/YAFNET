@@ -214,6 +214,14 @@
                             <asp:TextBox ID="AkismetApiKey" Style="width:350px" runat="server"></asp:TextBox>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel239" runat="server" LocalizedTag="IGNORE_SPAMCHECK_COUNT" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:TextBox ID="IgnoreSpamWordCheckPostCount" Style="width:350px" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
                     <asp:PlaceHolder runat="server" ID="BotRegisterCheck">
                     <tr>
                         <td class="header1" colspan="2">

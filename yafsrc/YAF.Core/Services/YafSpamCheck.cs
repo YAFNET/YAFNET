@@ -64,6 +64,12 @@ namespace YAF.Core.Services
                 return false;
             }
 
+            if (YafContext.Current.CurrentUserData.NumPosts
+                >= YafContext.Current.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount)
+            {
+                return false;
+            }
+
             switch (YafContext.Current.Get<YafBoardSettings>().SpamServiceType)
             {
                 case 1:
@@ -95,8 +101,6 @@ namespace YAF.Core.Services
         /// </returns>
         public bool CheckUserForSpamBot([NotNull]string userName, [CanBeNull]string emailAddress, [NotNull]string ipAddress, out string result)
         {
-            result = string.Empty;
-
             // Check internal
             var internalCheck = new YafInternalCheck();
 
