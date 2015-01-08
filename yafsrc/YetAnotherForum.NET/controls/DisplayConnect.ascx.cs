@@ -81,7 +81,7 @@ namespace YAF.Controls
 
             if (Config.IsAnyPortal)
             {
-                this.ConnectHolder.Visible = false;
+                this.Visible = false;
             }
             else
             {
