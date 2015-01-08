@@ -330,49 +330,48 @@ namespace YAF.Controls
             {
                 if (this._sig.Text.Length <= this._allowedNumberOfCharacters)
                 {
-                    // Check for spam
-                    string result;
-
                     var userData = new CombinedUserDataHelper(this.CurrentUserID);
 
-                    if (this.Get<ISpamWordCheck>().CheckForSpamWord(body, out result)
-                        && userData.NumPosts < this.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount)
+                    if (userData.NumPosts < this.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount)
                     {
-                        var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
-                        var userId = this.CurrentUserID;
-
-                        // Log and Send Message to Admins
-                        if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
+                        // Check for spam
+                        string result;
+                        if (this.Get<ISpamWordCheck>().CheckForSpamWord(body, out result))
                         {
-                            this.Logger.Log(
-                                null,
-                                "Bot Detected",
-                                "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user included a spam word in his/her signature: {2}"
-                                    .FormatWith(user.UserName, this.CurrentUserID, result),
-                                EventLogTypes.SpamBotDetected);
-                        }
-                        else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
-                        {
-                            this.Logger.Log(
-                                null,
-                                "Bot Detected",
-                                "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user included a spam word in his/her signature: {2}, user was deleted and the name, email and IP Address are banned."
-                                    .FormatWith(user.UserName, this.CurrentUserID, result),
-                                EventLogTypes.SpamBotDetected);
+                            var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
+                            var userId = this.CurrentUserID;
 
-                            // Kill user
-                            if (!this.InAdminPages)
+                            // Log and Send Message to Admins
+                            if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
                             {
-                                var userIp = new CombinedUserDataHelper(user, userId).LastIP;
+                                this.Logger.Log(
+                                    null,
+                                    "Bot Detected",
+                                    "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user included a spam word in his/her signature: {2}"
+                                        .FormatWith(user.UserName, this.CurrentUserID, result),
+                                    EventLogTypes.SpamBotDetected);
+                            }
+                            else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
+                            {
+                                this.Logger.Log(
+                                    null,
+                                    "Bot Detected",
+                                    "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user included a spam word in his/her signature: {2}, user was deleted and the name, email and IP Address are banned."
+                                        .FormatWith(user.UserName, this.CurrentUserID, result),
+                                    EventLogTypes.SpamBotDetected);
 
-                                UserMembershipHelper.DeleteAndBanUser(this.CurrentUserID, user, userIp);
+                                // Kill user
+                                if (!this.InAdminPages)
+                                {
+                                    var userIp = new CombinedUserDataHelper(user, userId).LastIP;
+
+                                    UserMembershipHelper.DeleteAndBanUser(this.CurrentUserID, user, userIp);
+                                }
                             }
                         }
                     }
-                    else
-                    {
-                        LegacyDb.user_savesignature(this.CurrentUserID, this.Get<IBadWordReplace>().Replace(body));
-                    }
+
+                    LegacyDb.user_savesignature(this.CurrentUserID, this.Get<IBadWordReplace>().Replace(body));
                 }
                 else
                 {

@@ -287,40 +287,42 @@ namespace YAF.Controls
                     return;
                 }
 
-                // Check for spam
-                string result;
-
-                if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.HomePage.Text, out result)
-                    && this.UserData.NumPosts >= this.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount)
+                if (this.UserData.NumPosts < this.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount)
                 {
-                    // Log and Send Message to Admins
-                    if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
-                    {
-                        this.Logger.Log(
-                            null,
-                            "Bot Detected",
-                            "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user changed the profile Homepage url to: {2}"
-                                .FormatWith(userName, this.currentUserID, this.HomePage.Text),
-                            EventLogTypes.SpamBotDetected);
-                    }
-                    else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
-                    {
-                        this.Logger.Log(
-                            null,
-                            "Bot Detected",
-                            "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user changed the profile Homepage url to: {2}, user was deleted and the name, email and IP Address are banned."
-                                .FormatWith(userName, this.currentUserID, this.HomePage.Text),
-                            EventLogTypes.SpamBotDetected);
+                    string result;
 
-                        // Kill user
-                        if (!this.adminEditMode)
+                    // Check for spam
+                    if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.HomePage.Text, out result))
+                    {
+                        // Log and Send Message to Admins
+                        if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
                         {
-                            var user = UserMembershipHelper.GetMembershipUserById(this.currentUserID);
-                            var userId = this.currentUserID;
+                            this.Logger.Log(
+                                null,
+                                "Bot Detected",
+                                "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user changed the profile Homepage url to: {2}"
+                                    .FormatWith(userName, this.currentUserID, this.HomePage.Text),
+                                EventLogTypes.SpamBotDetected);
+                        }
+                        else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
+                        {
+                            this.Logger.Log(
+                                null,
+                                "Bot Detected",
+                                "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user changed the profile Homepage url to: {2}, user was deleted and the name, email and IP Address are banned."
+                                    .FormatWith(userName, this.currentUserID, this.HomePage.Text),
+                                EventLogTypes.SpamBotDetected);
 
-                            var userIp = new CombinedUserDataHelper(user, userId).LastIP;
+                            // Kill user
+                            if (!this.adminEditMode)
+                            {
+                                var user = UserMembershipHelper.GetMembershipUserById(this.currentUserID);
+                                var userId = this.currentUserID;
 
-                            UserMembershipHelper.DeleteAndBanUser(this.currentUserID, user, userIp);
+                                var userIp = new CombinedUserDataHelper(user, userId).LastIP;
+
+                                UserMembershipHelper.DeleteAndBanUser(this.currentUserID, user, userIp);
+                            }
                         }
                     }
                 }
@@ -751,19 +753,19 @@ namespace YAF.Controls
         /// </param>
         private void SendEmailVerification([NotNull] string newEmail)
         {
-            var hashinput = DateTime.UtcNow + this.Email.Text + Security.CreatePassword(20);
+            var hashinput = "{0}{1}{2}".FormatWith(DateTime.UtcNow, this.Email.Text, Security.CreatePassword(20));
             var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
 
             // Create Email
-            var changeEmail = new YafTemplateEmail("CHANGEEMAIL")
-                                  {
-                                      TemplateParams =
-                                          {
-                                              ["{user}"] =
-                                                  YafForumInfo.ForumURL
-                                          }
-                                  };
+            var changeEmail = new YafTemplateEmail("CHANGEEMAIL");
 
+            changeEmail.TemplateParams["{user}"] = this.PageContext.PageUserName;
+            changeEmail.TemplateParams["{link}"] =
+                "{0}\r\n\r\n".FormatWith(YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash));
+            changeEmail.TemplateParams["{newemail}"] = this.Email.Text;
+            changeEmail.TemplateParams["{key}"] = hash;
+            changeEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
+            changeEmail.TemplateParams["{forumlink}"] = YafForumInfo.ForumURL;
 
             // save a change email reference to the db
             this.GetRepository<CheckEmail>().Save(this.currentUserID, hash, newEmail);
