@@ -68,7 +68,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-select.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\forum.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\InstallWizard.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.fileupload.comb.css.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.fileupload.comb.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.ceebox.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.ceebox.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.hovercard.css" />

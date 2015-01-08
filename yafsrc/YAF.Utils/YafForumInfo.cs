@@ -159,7 +159,7 @@ namespace YAF.Utils
                 const byte Build = 0;
                 const byte Sub = 0;
 
-                const ReleaseType ReleaseType = ReleaseType.Alpha;
+                const ReleaseType ReleaseType = ReleaseType.BETA;
                 const byte ReleaseNumber = 0;
                 
                 var version = Major.ToType<long>() << 24;
