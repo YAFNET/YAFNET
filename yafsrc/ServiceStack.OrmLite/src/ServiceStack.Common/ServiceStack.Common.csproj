@@ -67,7 +67,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>YetAnotherForum.NET.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -203,9 +204,6 @@
       <Project>{579b3fdb-cdad-44e1-8417-885c38e49a0e}</Project>
       <Name>ServiceStack.Text</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="YetAnotherForum.NET.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

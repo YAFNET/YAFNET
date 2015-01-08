@@ -150,7 +150,8 @@ namespace YAF.Controls
         protected override void OnInit([NotNull] EventArgs e)
         {
             // since signatures are so small only allow YafBBCode in them...
-            this._sig = new BBCodeEditor();
+            this._sig = new BBCodeEditor { UserCanUpload = false };
+
             this.EditorLine.Controls.Add(this._sig);
 
             this.signaturePreview = new SignaturePreview();

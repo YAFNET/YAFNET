@@ -252,7 +252,8 @@ namespace YAF.Pages
         {
             // create editor based on administrator's settings
             // get the forum editor based on the settings
-            string editorId = this.Get<YafBoardSettings>().ForumEditor;
+            var editorId = this.Get<YafBoardSettings>().ForumEditor;
+
             if (this.Get<YafBoardSettings>().AllowUsersTextEditor)
             {
                 // Text editor
@@ -270,6 +271,9 @@ namespace YAF.Pages
             {
                 this._editor = this.Get<IModuleManager<ForumEditor>>().GetBy("1");
             }
+
+            // TODO : Handle Attachments for pm's
+            this._editor.UserCanUpload = false;
 
             // add editor to the page
             this.EditorLine.Controls.Add(this._editor);

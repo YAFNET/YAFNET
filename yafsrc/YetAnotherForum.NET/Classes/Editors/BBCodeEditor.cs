@@ -239,7 +239,7 @@ namespace YAF.Editors
                         this._popMenuBBCode.ControlOnClick,
                         this._popMenuBBCode.ControlOnMouseOver,
                         this.GetText("COMMON", "TT_CODE"),
-                        this.ClientID + "_bbcode_popMenu",
+                        "{0}_bbcode_popMenu".FormatWith(this.ClientID),
                         this.GetText("COMMON", "TT_CODELANG"),
                         this.ResolveUrl("yafEditor/code.gif")));
 
@@ -404,7 +404,7 @@ namespace YAF.Editors
                 this.GetText("COMMON", "INDENT"),
                 "yafEditor/indent.gif");
 
-            var customBbCode = this.Get<YafDbBroker>().GetCustomBBCode();
+            var customBbCode = this.Get<YafDbBroker>().GetCustomBBCode().ToList();
 
             if (customBbCode.Any())
             {
@@ -485,7 +485,11 @@ namespace YAF.Editors
             this._popMenuBBCustom.RenderControl(writer);
             this._popMenuBBCode.RenderControl(writer);
             this._popMenuAlbums.RenderControl(writer);
-            this._popMenuAttachments.RenderControl(writer);
+
+            if (this.UserCanUpload)
+            {
+                this._popMenuAttachments.RenderControl(writer);
+            }
         }
 
         /// <summary>

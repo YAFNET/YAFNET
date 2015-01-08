@@ -26,6 +26,7 @@
       <DefaultExclude Include="**\*ReSharper.*\**" />
       <DefaultExclude Include="**\.nuget\**" />
       <DefaultExclude Include="**\_source\**" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.FileUpload\**\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-select.js" />
@@ -35,6 +36,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\InstallWizard.comb.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.blockUI.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ceebox.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.fileupload.comb.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumExtensions.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.hovercard.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.msDropDown.js" />
@@ -59,10 +61,14 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\spin.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\spin.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\yaf.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.FileUpload\**\*.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-forum.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-select.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-select.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\forum.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\InstallWizard.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.fileupload.comb.css.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.ceebox.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.ceebox.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.hovercard.css" />
@@ -96,7 +102,7 @@
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.htm" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.jpg" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.jpeg" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
-      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.gif" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.gif" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;$(MSBuildProjectDirectory)\**\jQuery.FileUpload\**;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.png" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.xml" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.txt" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
