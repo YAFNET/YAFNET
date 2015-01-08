@@ -33,6 +33,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.OrmLite", "ServiceStack.OrmLite\src\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj", "{96179AC6-F6F1-40C3-9FDD-4F6582F54C5C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.OrmLite.SqlServer", "ServiceStack.OrmLite\src\ServiceStack.OrmLite.SqlServer\ServiceStack.OrmLite.SqlServer.csproj", "{1887DC99-9139-43E3-A7AA-6D74714B3A5D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{579B3FDB-CDAD-44E1-8417-885C38E49A0E} = {579B3FDB-CDAD-44E1-8417-885C38E49A0E}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OrmLite", "OrmLite", "{1ECD5170-F9EA-43B7-956E-3CD3E6667784}"
 EndProject
