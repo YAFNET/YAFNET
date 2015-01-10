@@ -129,6 +129,9 @@
       <Output TaskParameter="Include" ItemName="LibaryFiles" />
     </CreateItem>
     
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\CHANGES.md" DestinationFolder="$(MSBuildProjectDirectory)\Package\" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\LICENSE.md" DestinationFolder="$(MSBuildProjectDirectory)\Package\" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\README.md" DestinationFolder="$(MSBuildProjectDirectory)\Package\" />
     <Copy SourceFiles="@(yafInstall-Include)" DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)" />
     <Copy SourceFiles="@(LibaryFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
     <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended.web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\recommended.web.config"/>

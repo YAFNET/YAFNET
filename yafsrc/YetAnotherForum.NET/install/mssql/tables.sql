@@ -712,8 +712,8 @@ GO
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Attachment]') and type in (N'U'))
 	create table [{databaseOwner}].[{objectQualifier}Attachment](
 		AttachmentID	int IDENTITY (1,1) not null,
-		MessageID		int not null,
-		UserID          int not null,		
+		MessageID		int not null default (0),
+		UserID          int not null default (0),		
 		[FileName]		nvarchar(255) not null,
 		Bytes			int not null,
 		ContentType		nvarchar(max) null,
@@ -2764,7 +2764,7 @@ GO
 
 if not exists(select top 1 1 from sys.columns where object_id = object_id(N'[{databaseOwner}].[{objectQualifier}Attachment]') and name=N'UserID')
     begin
-	    alter table [{databaseOwner}].[{objectQualifier}Attachment] add UserID int not null
+	    alter table [{databaseOwner}].[{objectQualifier}Attachment] add UserID int not null default (0)
 
 		exec('
 		declare @MessageID int
@@ -2779,7 +2779,7 @@ if not exists(select top 1 1 from sys.columns where object_id = object_id(N'[{da
 				INNER JOIN [{databaseOwner}].[{objectQualifier}Message] m ON m.MessageID = a.MessageID
 
             where
-                a.UserID is null
+                a.UserID = 0
 
         open curMessages
         
@@ -2787,7 +2787,7 @@ if not exists(select top 1 1 from sys.columns where object_id = object_id(N'[{da
         fetch next from curMessages into @MessageID, @UserID
         while @@FETCH_STATUS = 0
         begin
-            update [dbo].[yaf_Attachment] SET UserID = @UserID where MessageID = @MessageID and UserID  is null
+            update [dbo].[yaf_Attachment] SET UserID = @UserID where MessageID = @MessageID and UserID = 0
 
             fetch next from curMessages into @MessageID, @UserID
         end
