@@ -8,7 +8,7 @@
         <div>
             <div id="fileupload">
                       <div class="fileupload-buttonbar">
-                          <div id="dropzone" class="fade ui-widget-header"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "DROP_HERE") %></div>
+                          <div id="dropzone" class="ui-widget-header"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "DROP_HERE") %></div>
                           <div class="fileupload-buttons">
                               <span class="fileinput-button">
                                   <YAF:LocalizedLabel id="AddFiles" runat="server" LocalizedPage="ATTACHMENTS" LocalizedTag="ADD_FILES" />
@@ -17,7 +17,7 @@
                               <button type="submit" class="start"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "START_UPLOADS") %></button>
                               <span class="fileupload-process"></span>
                           </div>
-                          <div class="fileupload-progress fade" style="display:none">
+                          <div class="fileupload-progress" style="display:none">
                               <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
                               <div class="progress-extended">&nbsp;</div>
                           </div>
@@ -28,7 +28,7 @@
                   </div>
                   <script id="template-upload" type="text/x-tmpl">
                       {% for (var i=0, file; file=o.files[i]; i++) { %}
-                          <tr class="template-upload fade">
+                          <tr class="template-upload">
                               <td>
                                   <span class="preview"></span>
                               </td>
