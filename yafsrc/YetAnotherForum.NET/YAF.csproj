@@ -1586,6 +1586,7 @@
     <Content Include="Images\folder.gif" />
     <Content Include="Images\Forums\forumImageSample.gif" />
     <Content Include="Images\noavatar.gif" />
+    <Content Include="Images\document.png" />
     <Content Include="Images\noCover.png" />
     <Content Include="Images\Ranks\Administration.png" />
     <Content Include="Images\Ranks\Advanced-Member.png" />
