@@ -49,6 +49,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extras", "Extras", "{4BD8C8
 	ProjectSection(SolutionItems) = preProject
 		build.bat = build.bat
 		BuildPackages.bat = BuildPackages.bat
+		..\CHANGES.md = ..\CHANGES.md
+		..\LICENSE.md = ..\LICENSE.md
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject

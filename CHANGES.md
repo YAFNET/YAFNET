@@ -5,10 +5,7 @@ YetAnotherForum.NET Changelog
 
 #New Features:
 
-* Re-designed install wizard
-* CSS Files are now combined
-* JS Files are now combined
-* Switched from syntaxhighlighter to Prism.js
+* [#191](https://github.com/YAFNET/YAFNET/issues/191): YAF.NET is now compatible with Azure
 * [#112](https://github.com/YAFNET/YAFNET/issues/112): Intuitive Posting of Photos
 * [#230](https://github.com/YAFNET/YAFNET/issues/230): Thousand Separator in Active Users
 * [#198](https://github.com/YAFNET/YAFNET/issues/198): Display of user's medal in his profile
@@ -30,6 +27,11 @@ YetAnotherForum.NET Changelog
 * added ability to search for post titles only
 * existing bbcode extensions can now be upgraded during an upgrade
 * moved to no Captcha reCAPTCHA
+* Re-designed install wizard
+* CSS Files are now combined
+* JS Files are now combined
+* Switched from syntaxhighlighter to Prism.js
+
 
 #Fixed Issues:
 * [#215](https://github.com/YAFNET/YAFNET/issues/215): added missing Board Name to mass emails

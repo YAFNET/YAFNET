@@ -907,7 +907,6 @@
     </Compile>
     <Content Include="advanced.aspx" />
     <Content Include="auth.aspx" />
-    <Content Include="Changes.html" />
     <Content Include="Content\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.less</DependentUpon>
     </Content>
@@ -1542,7 +1541,6 @@
     <Content Include="pages\admin\topicstatus_edit.ascx" />
     <Content Include="pages\admin\topicstatus_import.ascx" />
     <Content Include="pages\admin\users_import.ascx" />
-    <Content Include="ReadMe.htm" />
     <Content Include="Content\forum.min.css">
       <DependentUpon>forum.less</DependentUpon>
     </Content>
