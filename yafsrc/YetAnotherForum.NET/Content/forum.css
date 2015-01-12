@@ -1107,6 +1107,9 @@ pre[class*='language-'] > code[data-language]::before {
 	color: #e6db74!important;
 }
 
+.content {
+  padding: 0;
+}
 .PopupBody {
   margin: 0;
   padding: 0;
@@ -1310,7 +1313,7 @@ pre[class*='language-'] > code[data-language]::before {
 .yafnet .pagination {
   font-size: 90%;
   text-align: center;
-  margin-left: 4px;
+  margin: 0 0 0 4px;
   position: relative;
 }
 .yafnet .pagination .smiliesPagerNext {

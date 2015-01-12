@@ -23,7 +23,6 @@
     }
 }(function ($) {
     //'use strict';
-
     $.widget('blueimp.fileupload', $.blueimp.fileupload, {
 
         options: {
@@ -69,7 +68,7 @@
                 icons: {primary: 'ui-icon-cancel'},
                 text: showIconText
             });
-            if (node.hasClass('fade')) {
+            if (node.hasClass('fade-ui')) {
                 node.hide();
             }
             return node;
@@ -82,7 +81,7 @@
                 icons: {primary: 'ui-icon-trash'},
                 text: showIconText
             });
-            if (node.hasClass('fade')) {
+            if (node.hasClass('fade-ui')) {
                 node.hide();
             }
             return node;

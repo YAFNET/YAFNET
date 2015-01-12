@@ -6330,6 +6330,10 @@ jQuery(document).ready(function () {
         jQuery('.Numeric').spinner({min: 0});
     }
 
+    if (typeof $().emulateTransitionEnd == 'function' && jQuery(".OpenUploadDialog,.UploadNewFileLine").length) {
+        jQuery.fn.bootstrapBtn = jQuery.fn.button.noConflict();
+    }
+
     var dialog = jQuery(".UploadDialog").dialog({
         autoOpen: false,
         width: 530,

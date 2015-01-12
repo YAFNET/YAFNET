@@ -215,7 +215,7 @@ namespace YAF.Classes
                     {
                         var previousDirectory =
                             this.Get<HttpRequestBase>()
-                                .MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+                                .MapPath(Path.Combine(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
                         // check if Uploads folder exists
                         if (!Directory.Exists(previousDirectory))
@@ -233,8 +233,6 @@ namespace YAF.Classes
                                 bytes: file.ContentLength,
                                 contentType: file.ContentType);
                     }
-
-                    this.Get<ILogger>().Info(newAttachmentID.ToString());
 
                     var fullName = Path.GetFileName(fileName);
                     statuses.Add(new FilesUploadStatus(fullName, file.ContentLength, newAttachmentID));

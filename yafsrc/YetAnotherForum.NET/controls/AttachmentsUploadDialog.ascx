@@ -8,7 +8,7 @@
         <div>
             <div id="fileupload">
                       <div class="fileupload-buttonbar">
-                          <div id="dropzone" class="ui-widget-header"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "DROP_HERE") %></div>
+                          <div id="dropzone" class="fade-ui ui-widget-header"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "DROP_HERE") %></div>
                           <div class="fileupload-buttons">
                               <span class="fileinput-button">
                                   <YAF:LocalizedLabel id="AddFiles" runat="server" LocalizedPage="ATTACHMENTS" LocalizedTag="ADD_FILES" />
@@ -17,18 +17,18 @@
                               <button type="submit" class="start"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "START_UPLOADS") %></button>
                               <span class="fileupload-process"></span>
                           </div>
-                          <div class="fileupload-progress" style="display:none">
+                          <div class="fileupload-progress fade-ui" style="display:none">
                               <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
                               <div class="progress-extended">&nbsp;</div>
                           </div>
                       </div>
                       <div id="UploadFilesBox">
-                          <table role="presentation" class="table table-striped UploadFiles"><tbody class="files"></tbody></table>
+                          <table role="presentation" class="table-striped UploadFiles"><tbody class="files"></tbody></table>
                       </div>
                   </div>
                   <script id="template-upload" type="text/x-tmpl">
                       {% for (var i=0, file; file=o.files[i]; i++) { %}
-                          <tr class="template-upload">
+                          <tr class="template-upload fade-ui">
                               <td>
                                   <span class="preview"></span>
                               </td>
