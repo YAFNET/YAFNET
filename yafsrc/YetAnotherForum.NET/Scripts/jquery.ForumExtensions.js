@@ -6330,8 +6330,10 @@ jQuery(document).ready(function () {
         jQuery('.Numeric').spinner({min: 0});
     }
 
-    if (typeof $().emulateTransitionEnd == 'function' && jQuery(".OpenUploadDialog,.UploadNewFileLine").length) {
+    if (typeof $().emulateTransitionEnd == 'function') {
         jQuery.fn.bootstrapBtn = jQuery.fn.button.noConflict();
+
+        $.widget.bridge('uitooltip', $.ui.tooltip);
     }
 
     var dialog = jQuery(".UploadDialog").dialog({
@@ -6365,7 +6367,7 @@ jQuery(document).ready(function () {
         });
     }
 
-    jQuery(document).tooltip({
+    jQuery(document).uitooltip({
         items: "[data-url]",
         content: function () {
             var element = $(this);
