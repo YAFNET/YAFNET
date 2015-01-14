@@ -1254,26 +1254,8 @@ pre[class*='language-'] > code[data-language]::before {
   border: 1px solid #666;
   margin-right: 8px;
 }
-.yafnet .yafcodehighlighting .keytype {
-  color: #FF9933;
-  font-weight: normal;
-}
-.yafnet .yafcodehighlighting .keyword {
-  color: #224FFF;
-  font-weight: normal;
-}
-.yafnet .yafcodehighlighting .integer {
-  color: #FF0032;
-}
-.yafnet .yafcodehighlighting .comment {
-  color: #008100;
-}
-.yafnet .yafcodehighlighting .errors {
-  color: #FF0000;
-  font-weight: bold;
-}
-.yafnet .yafcodehighlighting .string {
-  color: #FF0022;
+.yafnet .code {
+  max-width: 750px;
 }
 .yafnet .adminContainer {
   width: 100%;
