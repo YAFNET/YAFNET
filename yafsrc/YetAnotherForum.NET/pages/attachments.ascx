@@ -16,26 +16,20 @@
 	<asp:Repeater runat="server" ID="List" OnItemCommand="List_ItemCommand">
 		<HeaderTemplate>
 			<tr>
-			    <td class="header2">
-					<YAF:LocalizedLabel ID="Filename" LocalizedTag="FILENAME" runat="server" />
-				</td>
-				<td class="header2" align="right">
-					<YAF:LocalizedLabel ID="Size" LocalizedTag="SIZE" runat="server" />
-				</td>
-				<td class="header2">
+			    <td class="header2" colspan="3">
 					&nbsp;
 				</td>
 			</tr>
 		</HeaderTemplate>
 		<ItemTemplate>
 			<tr>
+			    <td class="post">
+					<%# this.GetPreviewImage(Container.DataItem) %>
+				</td>
 				<td class="post">
-					<%# this.Eval( "FileName") %>
+					<%# this.Eval( "FileName") %> <em>(<%# this.Eval("Bytes").ToType<int>() / 1024%> kb)</em>
 				</td>
                 <td class="post" align="right">
-					<%# this.Eval("Bytes").ToType<int>() / 1024%> Kb
-				</td>
-				<td class="post">
 					<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" 
                                     CommandName='delete' CommandArgument='<%# this.Eval( "AttachmentID") %>' 
                                     TitleLocalizedTag="DELETE" 
@@ -48,7 +42,7 @@
 		</ItemTemplate>
 	</asp:Repeater>
 	<tr class="footer1">
-		<td colspan="3" align="center">
+		<td colspan="2" align="center">
 			<asp:Button runat="server" CssClass="pbutton" ID="Back" OnClick="Back_Click" />
 		</td>
 	</tr>

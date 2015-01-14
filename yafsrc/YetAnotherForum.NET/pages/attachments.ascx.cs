@@ -33,7 +33,6 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -149,6 +148,28 @@ namespace YAF.Pages
             this.BindData();
         }
 
+        /// <summary>
+        /// Gets the preview image.
+        /// </summary>
+        /// <param name="o">The Data Row object.</param>
+        /// <returns>Returns the Preview Image</returns>
+        protected string GetPreviewImage([NotNull] object o)
+        {
+            var row = o.ToType<DataRowView>();
+
+            var fileName = row["FileName"].ToString();
+            var isImage = fileName.IsImageName();
+            var url = isImage
+                          ? "{0}resource.ashx?i={1}&editor=true".FormatWith(
+                              YafForumInfo.ForumClientFileRoot,
+                              row["AttachmentID"])
+                          : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot);
+
+            var dataUrl = isImage ? " data-url=\"{0}\"".FormatWith(url) : string.Empty;
+
+            return "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\"{2} style=\"max-width:30px\" />".FormatWith(url, fileName, dataUrl);
+        }
+        
         /// <summary>
         /// Binds the data.
         /// </summary>

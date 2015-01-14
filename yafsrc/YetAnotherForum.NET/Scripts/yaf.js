@@ -201,7 +201,9 @@ jQuery(document).ready(function () {
     }
 
     if (typeof $().emulateTransitionEnd == 'function') {
-        jQuery.fn.bootstrapBtn = jQuery.fn.button.noConflict();
+        if (jQuery(".OpenUploadDialog,.UploadNewFileLine").length) {
+            jQuery.fn.bootstrapBtn = jQuery.fn.button.noConflict();
+        }
 
         $.widget.bridge('uitooltip', $.ui.tooltip);
     }
