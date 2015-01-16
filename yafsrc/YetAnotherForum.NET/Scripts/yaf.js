@@ -239,15 +239,17 @@ jQuery(document).ready(function () {
         });
     }
 
-    jQuery(document).uitooltip({
-        items: "[data-url]",
-        content: function () {
-            var element = $(this);
-            var text = element.text();
-            var url = element.attr('data-url');
-            return "<img alt='" + text + "'  src='" + url + "' style='max-width:300px' />";
-        }
-    });
+    if (typeof (jQuery.fn.uitooltip) !== 'undefined') {
+        jQuery(document).uitooltip({
+            items: "[data-url]",
+            content: function() {
+                var element = $(this);
+                var text = element.text();
+                var url = element.attr('data-url');
+                return "<img alt='" + text + "'  src='" + url + "' style='max-width:300px' />";
+            }
+        });
+    }
 });
 
 function AttachmentsPageSelectCallback(page_index) {
