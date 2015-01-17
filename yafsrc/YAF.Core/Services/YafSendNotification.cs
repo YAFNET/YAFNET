@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2015 Ingo Herbote
@@ -102,8 +102,8 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="forumId">The forum id.</param>
         /// <param name="newMessageId">The new message id.</param>
-        /// <param name="spamApproved">if set to <c>true</c> [spam approved].</param>
-        public void ToModeratorsThatMessageNeedsApproval(int forumId, int newMessageId, bool spamApproved)
+        /// <param name="isSpamMessage">if set to <c>true</c> [is spam message].</param>
+        public void ToModeratorsThatMessageNeedsApproval(int forumId, int newMessageId, bool isSpamMessage)
         {
             var moderatorsFiltered = this.Get<YafDbBroker>().GetAllModerators().Where(f => f.ForumID.Equals(forumId));
             var moderatorUserNames = new List<string>();
@@ -133,17 +133,17 @@ namespace YAF.Core.Services
                     this.Get<ILocalization>()
                         .GetText(
                             "COMMON",
-                            spamApproved
-                                ? "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL"
-                                : "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL",
+                            isSpamMessage
+                                ? "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL"
+                                : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
                             languageFile)
                         .FormatWith(this.Get<YafBoardSettings>().Name);
 
                 var notifyModerators =
                     new YafTemplateEmail(
-                        spamApproved
-                            ? "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL"
-                            : "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL")
+                        isSpamMessage
+                            ? "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL"
+                            : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL")
                         {
                             // get the user localization...
                             TemplateLanguageFile = languageFile
@@ -263,7 +263,8 @@ namespace YAF.Core.Services
                 // user's email
                 var toEMail = string.Empty;
 
-                var userList = LegacyDb.UserList(YafContext.Current.PageBoardID, toUserId, true, null, null, null);
+                var userList =
+                    LegacyDb.UserList(YafContext.Current.PageBoardID, toUserId, true, null, null, null).ToList();
 
                 if (userList.Any())
                 {
@@ -461,7 +462,7 @@ namespace YAF.Core.Services
         /// <param name="medalName">Name of the medal.</param>
         public void ToUserWithNewMedal([NotNull] int toUserId, [NotNull] string medalName)
         {
-            var userList = LegacyDb.UserList(YafContext.Current.PageBoardID, toUserId, true, null, null, null);
+            var userList = LegacyDb.UserList(YafContext.Current.PageBoardID, toUserId, true, null, null, null).ToList();
 
             TypedUserList toUser;
 
@@ -636,7 +637,11 @@ namespace YAF.Core.Services
         /// <param name="email">The email.</param>
         /// <param name="userID">The user identifier.</param>
         /// <param name="newUsername">The new username.</param>
-        public void SendVerificationEmail([NotNull] MembershipUser user, [NotNull] string email, int? userID, string newUsername = null)
+        public void SendVerificationEmail(
+            [NotNull] MembershipUser user,
+            [NotNull] string email,
+            int? userID,
+            string newUsername = null)
         {
             CodeContracts.VerifyNotNull(email, "email");
             CodeContracts.VerifyNotNull(user, "user");
@@ -649,9 +654,14 @@ namespace YAF.Core.Services
 
             var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
 
-            var subject = this.Get<ILocalization>().GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
+            var subject = this.Get<ILocalization>()
+                .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
 
-            verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash);
+            verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
+                ForumPages.approve,
+                true,
+                "k={0}",
+                hash);
             verifyEmail.TemplateParams["{key}"] = hash;
             verifyEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
             verifyEmail.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);

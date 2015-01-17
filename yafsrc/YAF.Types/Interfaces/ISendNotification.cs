@@ -35,8 +35,8 @@ namespace YAF.Types.Interfaces
         /// </summary>
         /// <param name="forumId">The forum id.</param>
         /// <param name="newMessageId">The new message id.</param>
-        /// <param name="spamApproved">if set to <c>true</c> [spam approved].</param>
-        void ToModeratorsThatMessageNeedsApproval(int forumId, int newMessageId, bool spamApproved);
+        /// <param name="isSpamMessage">if set to <c>true</c> [is spam message].</param>
+        void ToModeratorsThatMessageNeedsApproval(int forumId, int newMessageId, bool isSpamMessage);
 
         /// <summary>
         /// Sends Notifications to Moderators that a Message was Reported

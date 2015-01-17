@@ -1631,7 +1631,8 @@ namespace YAF.Pages
                 isForumModerated = this.CheckForumModerateStatus(forumInfo);
             }
 
-            bool spamApproved = true;
+            var spamApproved = true;
+            var isPossibleSpamMessage = false;
 
             // Check for SPAM
             if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess && !this.Get<YafBoardSettings>().SpamServiceType.Equals(0))
@@ -1661,6 +1662,7 @@ namespace YAF.Pages
                             break;
                         case 1:
                             spamApproved = false;
+                            isPossibleSpamMessage = true;
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
@@ -1791,7 +1793,7 @@ namespace YAF.Pages
                         .ToModeratorsThatMessageNeedsApproval(
                             this.PageContext.PageForumID,
                             messageId.ToType<int>(),
-                            spamApproved);
+                            isPossibleSpamMessage);
                 }
 
                 string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);

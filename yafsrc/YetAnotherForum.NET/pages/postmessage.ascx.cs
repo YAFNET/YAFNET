@@ -1020,6 +1020,8 @@ namespace YAF.Pages
                 return;
             }
 
+            var isPossibleSpamMessage = false;
+
             // Check for SPAM
             if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess
                 && !this.Get<YafBoardSettings>().SpamServiceType.Equals(0))
@@ -1050,6 +1052,7 @@ namespace YAF.Pages
                             break;
                         case 1:
                             this.spamApproved = false;
+                            isPossibleSpamMessage = true;
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
@@ -1197,7 +1200,7 @@ namespace YAF.Pages
                         .ToModeratorsThatMessageNeedsApproval(
                             this.PageContext.PageForumID,
                             messageId.ToType<int>(),
-                            this.spamApproved);
+                            isPossibleSpamMessage);
                 }
 
                 // 't' variable is required only for poll and this is a attach poll token for attachments page
