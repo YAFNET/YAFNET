@@ -3358,7 +3358,6 @@ BEGIN
         INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b WITH(NOLOCK) ON b.GroupID = a.GroupID
         INNER JOIN [{databaseOwner}].[{objectQualifier}AccessMask] c WITH(NOLOCK) ON c.AccessMaskID = a.AccessMaskID
     where
-        (b.Flags & 1)=0 and
         (c.Flags & 64)<>0
     union all
     select 
