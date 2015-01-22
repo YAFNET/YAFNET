@@ -32,15 +32,16 @@ namespace YAF.Pages.Admin
     using System.Drawing;
     using System.Linq;
     using System.Web.UI.WebControls;
-
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -290,7 +291,7 @@ namespace YAF.Pages.Admin
     private void BindData()
     {
       // list roles of this board
-      DataTable dt = LegacyDb.group_list(this.PageContext.PageBoardID, null);
+        DataTable dt = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
 
       // set repeater datasource
       this.RoleListYaf.DataSource = dt;
