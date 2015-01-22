@@ -15,6 +15,7 @@
  * http://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
+ * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
  * KIND, either express or implied.  See the License for the
@@ -306,7 +307,7 @@ namespace YAF.Pages.Admin
             this.LoadingImage.ImageUrl = YafForumInfo.GetURLToContent("images/loader.gif");
 
             // get list of user groups for filtering
-            using (DataTable dt = LegacyDb.group_list(this.PageContext.PageBoardID, null))
+            using (DataTable dt = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID))
             {
                 // add empty item for no filtering
                 DataRow newRow = dt.NewRow();

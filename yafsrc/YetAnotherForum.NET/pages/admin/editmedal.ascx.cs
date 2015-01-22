@@ -793,7 +793,7 @@ namespace YAF.Pages.Admin
                     this.SelectImage(this.SmallRibbonImage, this.SmallRibbonPreview, row["SmallRibbonURL"]);
                 }
 
-                using (DataTable dt = LegacyDb.group_list(this.PageContext.PageBoardID, null))
+                using (var dt = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID))
                 {
                     this.AvailableGroupList.DataSource = dt;
                     this.AvailableGroupList.DataTextField = "Name";

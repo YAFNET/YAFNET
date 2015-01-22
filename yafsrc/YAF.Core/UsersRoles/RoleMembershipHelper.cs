@@ -31,15 +31,16 @@ namespace YAF.Core
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Security;
-
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -265,18 +266,17 @@ namespace YAF.Core
         /// <param name="userName">Name of the user.</param>
         public static void SetupUserRoles(int pageBoardID, [NotNull] string userName)
         {
-            using (DataTable dt = LegacyDb.group_list(pageBoardID, DBNull.Value))
+            foreach (
+                var roleName in from @group in YafContext.Current.GetRepository<Group>().ListTyped(boardId: pageBoardID)
+                                let roleFlags = new GroupFlags(@group.Flags)
+                                where roleFlags.IsStart && !roleFlags.IsGuest
+                                select @group.Name
+                                into roleName
+                                where roleName.IsSet()
+                                where !IsUserInRole(userName, roleName)
+                                select roleName)
             {
-                foreach (string roleName in (from DataRow row in dt.Rows
-                                             let roleFlags = new GroupFlags(row["Flags"])
-                                             where roleFlags.IsStart && !roleFlags.IsGuest
-                                             select row["Name"].ToString()
-                                             into roleName
-                                             where roleName.IsSet()
-                                             select roleName).Where(roleName => !IsUserInRole(userName, roleName)))
-                {
-                    AddUserToRole(userName, roleName);
-                }
+                AddUserToRole(userName, roleName);
             }
         }
 
@@ -310,16 +310,14 @@ namespace YAF.Core
         public static void SyncRoles(int pageBoardID)
         {
             // get all the groups in YAF DB and create them if they do not exist as a role in membership
-            using (DataTable dt = LegacyDb.group_list(pageBoardID, DBNull.Value))
+            foreach (
+                var name in from @group in YafContext.Current.GetRepository<Group>().ListTyped(boardId: pageBoardID)
+                            let name = @group.Name
+                            let roleFlags = new GroupFlags(@group.Flags)
+                            where name.IsSet() && !roleFlags.IsGuest && !RoleExists(name)
+                            select name)
             {
-                foreach (var name in from DataRow row in dt.Rows
-                                     let name = (string)row["Name"]
-                                     let roleFlags = new GroupFlags(row["Flags"])
-                                     where name.IsSet() && !roleFlags.IsGuest && !RoleExists(name)
-                                     select name)
-                {
-                    CreateRole(name);
-                }
+                CreateRole(name);
             }
         }
 

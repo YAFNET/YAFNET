@@ -24,6 +24,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -239,7 +240,7 @@ namespace YAF.Pages.Admin
             this.ForumsStartMask.DataSource = this.GetRepository<AccessMask>().List();
             this.ForumsAdminMask.DataSource = this.ForumsStartMask.DataSource;
 
-            this.ForumsGroups.DataSource = LegacyDb.group_list(this.PageContext.PageBoardID, null);
+            this.ForumsGroups.DataSource = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
 
             // Board lists
             this.UsersBoardsList.DataSource = this.GetRepository<Board>().List();

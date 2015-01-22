@@ -133,7 +133,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.ToList.DataSource = LegacyDb.group_list(this.PageContext.PageBoardID, null);
+            this.ToList.DataSource = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
             this.DataBind();
 
             var item = new ListItem(this.GetText("ADMIN_MAIL", "ALL_USERS"), "0");

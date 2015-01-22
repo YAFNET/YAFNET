@@ -159,7 +159,7 @@ namespace YAF.Pages.Admin
 
             // get data about edited role
             using (
-                DataTable dt = LegacyDb.group_list(this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("i")))
+                DataTable dt = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID, groupID: this.Request.QueryString.GetFirstOrDefaultAs<int>("i")))
             {
                 // get it as row
                 DataRow row = dt.Rows[0];
@@ -274,7 +274,7 @@ namespace YAF.Pages.Admin
             if (roleID != 0)
             {
                 // get the current role name in the DB
-                using (DataTable dt = LegacyDb.group_list(YafContext.Current.PageBoardID, roleID))
+                using (DataTable dt = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID))
                 {
                     foreach (DataRow row in dt.Rows)
                     {
