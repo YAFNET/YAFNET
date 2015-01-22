@@ -7,12 +7,6 @@
  
 */
 
-#IFSRVVER>8#CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}exampleserverversion] as
-BEGIN
-SELECT 'sqlserver version variant example for mssqlserver 2005 and higher'   
-END
- GO
-
 IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}exampleserverversion]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}exampleserverversion]
 GO

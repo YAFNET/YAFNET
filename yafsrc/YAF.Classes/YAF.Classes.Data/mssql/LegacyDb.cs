@@ -1024,24 +1024,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The sql server major version as short.
-        /// </summary>
-        /// <returns>
-        /// The sql server major version as short.
-        /// </returns>
-        public static ushort SqlServerMajorVersionAsShort()
-        {
-            using (
-              var cmd =
-                DbHelpers.GetCommand(
-                  "SELECT SUBSTRING(CONVERT(VARCHAR(20), SERVERPROPERTY('productversion')), 1, PATINDEX('%.%', CONVERT(VARCHAR(20), SERVERPROPERTY('productversion')))-1)",
-                  true))
-            {
-                return Convert.ToUInt16(DbAccess.ExecuteScalar(cmd));
-            }
-        }
-
-        /// <summary>
         /// The UserFind.
         /// </summary>
         /// <param name="boardID">
@@ -6068,25 +6050,17 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The system_initialize_executescripts.
+        /// System initialize and execute script's.
         /// </summary>
-        /// <param name="script">
-        /// The script.
-        /// </param>
-        /// <param name="scriptFile">
-        /// The script file.
-        /// </param>
-        /// <param name="useTransactions">
-        /// The use transactions.
-        /// </param>
-        /// <exception cref="Exception">
-        /// </exception>
+        /// <param name="script">The script.</param>
+        /// <param name="scriptFile">The script file.</param>
+        /// <param name="useTransactions">The use transactions.</param>
         public static void system_initialize_executescripts([NotNull] string script, [NotNull] string scriptFile, bool useTransactions)
         {
             script = DbHelpers.GetCommandTextReplaced(script);
 
-            List<string> statements = Regex.Split(script, "\\sGO\\s", RegexOptions.IgnoreCase).ToList();
-            ushort sqlMajVersion = SqlServerMajorVersionAsShort();
+            var statements = Regex.Split(script, "\\sGO\\s", RegexOptions.IgnoreCase).ToList();
+
             using (var connMan = new MsSqlDbConnectionManager())
             {
                 // use transactions...
@@ -6094,12 +6068,8 @@ namespace YAF.Classes.Data
                 {
                     using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction())
                     {
-                        foreach (string sql0 in statements)
+                        foreach (var sql in statements.Select(sql0 => sql0.Trim()))
                         {
-                            string sql = sql0.Trim();
-
-                            sql = DbHelpers.CleanForSQLServerVersion(sql, sqlMajVersion);
-
                             try
                             {
                                 if (sql.ToLower().IndexOf("setuser") >= 0)
@@ -6107,25 +6077,27 @@ namespace YAF.Classes.Data
                                     continue;
                                 }
 
-                                if (sql.Length > 0)
+                                if (sql.Length <= 0)
                                 {
-                                    using (var cmd = new SqlCommand())
-                                    {
-                                        // added so command won't timeout anymore...
-                                        cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
-                                        cmd.Transaction = trans;
-                                        cmd.Connection = connMan.DBConnection;
-                                        cmd.CommandType = CommandType.Text;
-                                        cmd.CommandText = sql.Trim();
-                                        cmd.ExecuteNonQuery();
-                                    }
+                                    continue;
+                                }
+
+                                using (var cmd = new SqlCommand())
+                                {
+                                    // added so command won't timeout anymore...
+                                    cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
+                                    cmd.Transaction = trans;
+                                    cmd.Connection = connMan.DBConnection;
+                                    cmd.CommandType = CommandType.Text;
+                                    cmd.CommandText = sql.Trim();
+                                    cmd.ExecuteNonQuery();
                                 }
                             }
                             catch (Exception x)
                             {
                                 trans.Rollback();
                                 throw new Exception(
-                                  String.Format("FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}", scriptFile, sql, x.Message));
+                                    "FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}".FormatWith(scriptFile, sql, x.Message));
                             }
                         }
 
@@ -6135,13 +6107,8 @@ namespace YAF.Classes.Data
                 else
                 {
                     // don't use transactions
-                    foreach (string sql0 in statements)
+                    foreach (var sql in statements.Select(sql0 => sql0.Trim()))
                     {
-                        string sql = sql0.Trim();
-
-                        // add ARITHABORT option
-                        // sql = "SET ARITHABORT ON\r\nGO\r\n" + sql;
-
                         try
                         {
                             if (sql.ToLower().IndexOf("setuser") >= 0)
@@ -6149,21 +6116,23 @@ namespace YAF.Classes.Data
                                 continue;
                             }
 
-                            if (sql.Length > 0)
+                            if (sql.Length <= 0)
                             {
-                                using (var cmd = new SqlCommand())
-                                {
-                                    cmd.Connection = connMan.OpenDBConnection;
-                                    cmd.CommandType = CommandType.Text;
-                                    cmd.CommandText = sql.Trim();
-                                    cmd.ExecuteNonQuery();
-                                }
+                                continue;
+                            }
+
+                            using (var cmd = new SqlCommand())
+                            {
+                                cmd.Connection = connMan.OpenDBConnection;
+                                cmd.CommandType = CommandType.Text;
+                                cmd.CommandText = sql.Trim();
+                                cmd.ExecuteNonQuery();
                             }
                         }
                         catch (Exception x)
                         {
                             throw new Exception(
-                              String.Format("FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}", scriptFile, sql, x.Message));
+                                "FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}".FormatWith(scriptFile, sql, x.Message));
                         }
                     }
                 }

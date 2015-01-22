@@ -1,20 +1,44 @@
-using System;
-using System.Data;
-using System.Data.SqlClient;
-using Autofac;
-using YAF.Core;
-using YAF.Types;
-using YAF.Types.Extensions;
-using YAF.Types.Interfaces.Data;
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014-2015 Ingo Herbote
+ * http://www.yetanotherforum.net/
+ * 
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * http://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 
 namespace YAF.Classes.Data
 {
+    using System.Data;
     using System.Data.Common;
+    using System.Data.SqlClient;
 
+    using YAF.Types;
+    using YAF.Types.Extensions;
+
+    /// <summary>
+    /// The DB helpers.
+    /// </summary>
     public static class DbHelpers
     {
         /// <summary>
-        /// Gets LargeForumTree optimization setting.
+        /// Gets a value indicating whether YAF should be optimized for use with very large number of forums. 
+        /// Before enabling you should know exactly what you do and what's it all for. Ask developers.
         /// </summary>
         public static bool LargeForumTree
         {
@@ -25,55 +49,7 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// A method to handle custom scripts execution tags
-        /// </summary>
-        /// <param name="scriptChunk">
-        /// Input string
-        /// </param>
-        /// <param name="versionSQL">
-        /// SQL server version as ushort
-        /// </param>
-        /// <returns>
-        /// Returns an empty string if condition was not and cleanedfrom tags string if was.
-        /// </returns>
-        [NotNull]
-        public static string CleanForSQLServerVersion([NotNull] string scriptChunk, ushort versionSQL)
-        {
-            if (scriptChunk == null) throw new ArgumentNullException("scriptChunk");
-
-            const string serverVersionString = "#IFSRVVER";
-
-            if (!scriptChunk.Contains(serverVersionString))
-            {
-                return scriptChunk;
-            }
-
-            int signIndex = scriptChunk.IndexOf(serverVersionString, System.StringComparison.Ordinal) + serverVersionString.Length;
-            string temp = scriptChunk.Substring(signIndex);
-            int endIndex = temp.IndexOf("#", System.StringComparison.Ordinal);
-            int equalIndex = temp.IndexOf("=", System.StringComparison.Ordinal);
-            int moreIndex = temp.IndexOf(">", System.StringComparison.Ordinal);
-
-            ushort versionEnd = 0;
-
-            if (equalIndex >= 0 && equalIndex < endIndex)
-            {
-                versionEnd = Convert.ToUInt16(temp.Substring(equalIndex + 1, endIndex - equalIndex - 1).Trim());
-                if (versionSQL == versionEnd)
-                {
-                    return scriptChunk.Substring(endIndex + signIndex + 1);
-                }
-            }
-
-            if (moreIndex < 0 || moreIndex >= endIndex) return String.Empty;
-
-            versionEnd = Convert.ToUInt16(temp.Substring(moreIndex + 1, endIndex - moreIndex - 1).Trim());
-
-            return versionSQL > versionEnd ? scriptChunk.Substring(endIndex + signIndex + 1) : String.Empty;
-        }
-
-        /// <summary>
-        /// Creates new SqlCommand based on command text applying all qualifiers to the name.
+        /// Creates new SQL Command based on command text applying all qualifiers to the name.
         /// </summary>
         /// <param name="commandText">
         /// Command text to qualify.
@@ -82,7 +58,7 @@ namespace YAF.Classes.Data
         /// Determines whether command text is text or stored procedure.
         /// </param>
         /// <returns>
-        /// New SqlCommand
+        /// New SQL Command
         /// </returns>
         public static SqlCommand GetCommand([NotNull] string commandText, bool isText)
         {
@@ -90,7 +66,7 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// Creates new SqlCommand based on command text applying all qualifiers to the name.
+        /// Creates new SQL Command based on command text applying all qualifiers to the name.
         /// </summary>
         /// <param name="commandText">
         /// Command text to qualify.
@@ -102,7 +78,7 @@ namespace YAF.Classes.Data
         /// Connection to use with command.
         /// </param>
         /// <returns>
-        /// New SqlCommand
+        /// New SQL Command
         /// </returns>
         public static SqlCommand GetCommand(
             [NotNull] string commandText,
@@ -110,24 +86,24 @@ namespace YAF.Classes.Data
             [NotNull] IDbConnection connection)
         {
             return isText
-                ? new SqlCommand
-                  {
-                      CommandType = CommandType.Text,
-                      CommandText = GetCommandTextReplaced(commandText),
-                      Connection = connection as SqlConnection,
-                      CommandTimeout = Config.SqlCommandTimeout.ToType<int>()
-                  }
-                : GetCommand(commandText);
+                       ? new SqlCommand
+                             {
+                                 CommandType = CommandType.Text,
+                                 CommandText = GetCommandTextReplaced(commandText),
+                                 Connection = connection as SqlConnection,
+                                 CommandTimeout = Config.SqlCommandTimeout.ToType<int>()
+                             }
+                       : GetCommand(commandText);
         }
 
         /// <summary>
-        /// Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
+        /// Creates new SQL Command calling stored procedure applying all qualifiers to the name.
         /// </summary>
         /// <param name="storedProcedure">
         /// Base of stored procedure name.
         /// </param>
         /// <returns>
-        /// New SqlCommand
+        /// New SQL Command
         /// </returns>
         [NotNull]
         public static SqlCommand GetCommand([NotNull] string storedProcedure)
@@ -136,7 +112,7 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
+        /// Creates new SQL Command calling stored procedure applying all qualifiers to the name.
         /// </summary>
         /// <param name="storedProcedure">
         /// Base of stored procedure name.
@@ -145,18 +121,18 @@ namespace YAF.Classes.Data
         /// Connection to use with command.
         /// </param>
         /// <returns>
-        /// New SqlCommand
+        /// New SQL Command
         /// </returns>
         [NotNull]
         public static SqlCommand GetCommand([NotNull] string storedProcedure, [NotNull] DbConnection connection)
         {
             var cmd = new SqlCommand
-            {
-                CommandType = CommandType.StoredProcedure,
-                CommandText = GetObjectName(storedProcedure),
-                Connection = connection as SqlConnection,
-                CommandTimeout = Int32.Parse(Config.SqlCommandTimeout)
-            };
+                          {
+                              CommandType = CommandType.StoredProcedure,
+                              CommandText = GetObjectName(storedProcedure),
+                              Connection = connection as SqlConnection,
+                              CommandTimeout = int.Parse(Config.SqlCommandTimeout)
+                          };
 
             return cmd;
         }
@@ -182,48 +158,27 @@ namespace YAF.Classes.Data
         /// <summary>
         /// Creates a Connection String from the parameters.
         /// </summary>
-        /// <param name="parm1">
-        /// </param>
-        /// <param name="parm2">
-        /// </param>
-        /// <param name="parm3">
-        /// </param>
-        /// <param name="parm4">
-        /// </param>
-        /// <param name="parm5">
-        /// </param>
-        /// <param name="parm6">
-        /// </param>
-        /// <param name="parm7">
-        /// </param>
-        /// <param name="parm8">
-        /// </param>
-        /// <param name="parm9">
-        /// </param>
-        /// <param name="parm10">
-        /// </param>
-        /// <param name="parm11">
-        /// </param>
-        /// <param name="parm12">
-        /// </param>
-        /// <param name="parm13">
-        /// </param>
-        /// <param name="parm14">
-        /// </param>
-        /// <param name="parm15">
-        /// </param>
-        /// <param name="parm16">
-        /// </param>
-        /// <param name="parm17">
-        /// </param>
-        /// <param name="parm18">
-        /// </param>
-        /// <param name="parm19">
-        /// </param>
-        /// <param name="userID">
-        /// </param>
-        /// <param name="userPassword">
-        /// </param>
+        /// <param name="parm1">The parm1.</param>
+        /// <param name="parm2">The parm2.</param>
+        /// <param name="parm3">The parm3.</param>
+        /// <param name="parm4">The parm4.</param>
+        /// <param name="parm5">The parm5.</param>
+        /// <param name="parm6">The parm6.</param>
+        /// <param name="parm7">The parm7.</param>
+        /// <param name="parm8">The parm8.</param>
+        /// <param name="parm9">The parm9.</param>
+        /// <param name="parm10">The parm10.</param>
+        /// <param name="parm11">if set to <c>true</c> [parm11].</param>
+        /// <param name="parm12">if set to <c>true</c> [parm12].</param>
+        /// <param name="parm13">if set to <c>true</c> [parm13].</param>
+        /// <param name="parm14">if set to <c>true</c> [parm14].</param>
+        /// <param name="parm15">if set to <c>true</c> [parm15].</param>
+        /// <param name="parm16">if set to <c>true</c> [parm16].</param>
+        /// <param name="parm17">if set to <c>true</c> [parm17].</param>
+        /// <param name="parm18">if set to <c>true</c> [parm18].</param>
+        /// <param name="parm19">if set to <c>true</c> [parm19].</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <param name="userPassword">The user password.</param>
         /// <returns>
         /// The get connection string.
         /// </returns>

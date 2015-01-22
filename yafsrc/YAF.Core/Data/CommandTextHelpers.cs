@@ -24,62 +24,14 @@
 
 namespace YAF.Core.Data
 {
-    using System;
-
     using YAF.Classes;
     using YAF.Types;
 
+    /// <summary>
+    /// Command Text Helpers
+    /// </summary>
     public static class CommandTextHelpers
     {
-        /// <summary>
-        /// A method to handle custom scripts execution tags
-        /// </summary>
-        /// <param name="scriptChunk">
-        /// Input string
-        /// </param>
-        /// <param name="version">
-        /// SQL server version as ushort
-        /// </param>
-        /// <returns>
-        /// Returns an empty string if condition was not and cleanedfrom tags string if was.
-        /// </returns>
-        [NotNull]
-        public static string CleanForServerVersion([NotNull] string scriptChunk, ushort version)
-        {
-            const string ServerVersionBegin = "#IFSRVVER";
-
-            if (!scriptChunk.Contains(ServerVersionBegin))
-            {
-                return scriptChunk;
-            }
-
-            int indSign = scriptChunk.IndexOf(ServerVersionBegin) + ServerVersionBegin.Length;
-            string temp = scriptChunk.Substring(indSign);
-            int indEnd = temp.IndexOf("#");
-            int indEqual = temp.IndexOf("=");
-            int indMore = temp.IndexOf(">");
-
-            if (indEqual >= 0 && indEqual < indEnd)
-            {
-                ushort indVerEnd = Convert.ToUInt16(temp.Substring(indEqual + 1, indEnd - indEqual - 1).Trim());
-                if (version == indVerEnd)
-                {
-                    return scriptChunk.Substring(indEnd + indSign + 1);
-                }
-            }
-
-            if (indMore >= 0 && indMore < indEnd)
-            {
-                ushort indVerEnd = Convert.ToUInt16(temp.Substring(indMore + 1, indEnd - indMore - 1).Trim());
-                if (version > indVerEnd)
-                {
-                    return scriptChunk.Substring(indEnd + indSign + 1);
-                }
-            }
-
-            return string.Empty;
-        }
-
         /// <summary>
         /// Gets command text replaced with {databaseOwner} and {objectQualifier}.
         /// </summary>
@@ -96,6 +48,6 @@ namespace YAF.Core.Data
             commandText = commandText.Replace("{objectQualifier}", Config.DatabaseObjectQualifier);
 
             return commandText;
-        }		
+        }
     }
 }
