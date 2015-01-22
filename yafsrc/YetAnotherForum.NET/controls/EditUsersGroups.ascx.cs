@@ -27,10 +27,11 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
+    using System.Linq;
     using System.Web.UI.WebControls;
-
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -38,6 +39,7 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -140,14 +142,7 @@ namespace YAF.Controls
                 int roleID = int.Parse(((Label)item.FindControl("GroupID")).Text);
 
                 // get role name
-                string roleName = string.Empty;
-                using (DataTable dt = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.group_list(this.PageContext.PageBoardID, roleID)))
-                {
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        roleName = (string)row["Name"];
-                    }
-                }
+                string roleName = this.GetRepository<Group>().ListTyped(boardId: this.PageContext.PageBoardID, groupID: roleID).FirstOrDefault().Name;
 
                 // is user supposed to be in that role?
                 bool isChecked = ((CheckBox)item.FindControl("GroupMember")).Checked;

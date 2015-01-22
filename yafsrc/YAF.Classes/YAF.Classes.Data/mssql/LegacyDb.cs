@@ -3491,28 +3491,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The group_list.
-        /// </summary>
-        /// <param name="boardID">
-        /// The board id.
-        /// </param>
-        /// <param name="groupID">
-        /// The group id.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static DataTable group_list([NotNull] object boardID, [NotNull] object groupID)
-        {
-            using (var cmd = DbHelpers.GetCommand("group_list"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("BoardID", boardID);
-                cmd.AddParam("GroupID", groupID);
-                return DbAccess.GetData(cmd);
-            }
-        }
-
-        /// <summary>
         /// Deletes medal allocation to a group.
         /// </summary>
         /// <param name="groupID">

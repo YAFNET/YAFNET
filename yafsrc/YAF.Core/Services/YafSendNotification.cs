@@ -28,6 +28,7 @@ namespace YAF.Core.Services
 
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Data;
     using System.Linq;
     using System.Net.Mail;
@@ -543,17 +544,16 @@ namespace YAF.Core.Services
         public void SendSpamBotNotificationToAdmins([NotNull] MembershipUser user, int userId)
         {
             // Get Admin Group ID
-            var adminGroupID = 1;
+            var adminGroupID =
+                YafContext.Current.GetRepository<Group>()
+                    .ListTyped(boardId: YafContext.Current.PageBoardID)
+                    .Where(@group => @group.Name.Contains("Admin"))
+                    .Select(@group => @group.ID)
+                    .FirstOrDefault();
 
-            foreach (DataRow dataRow in
-                LegacyDb.group_list(YafContext.Current.PageBoardID, null)
-                    .Rows.Cast<DataRow>()
-                    .Where(
-                        dataRow =>
-                        !dataRow["Name"].IsNullOrEmptyDBField() && dataRow.Field<string>("Name") == "Administrators"))
+            if (adminGroupID <= 0)
             {
-                adminGroupID = dataRow["GroupID"].ToType<int>();
-                break;
+                return;
             }
 
             using (DataTable dt = LegacyDb.user_emails(YafContext.Current.PageBoardID, adminGroupID))
