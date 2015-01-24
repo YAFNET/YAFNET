@@ -233,9 +233,9 @@
     <Resource tag="IMPORT">Import List</Resource>
     <Resource tag="IMPORT_FAILED">Failed to import! Invalid upload format specified: {0} </Resource>
     <Resource tag="IMPORT_FILE">Select Import File:</Resource>
-    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containing an Email Adress on each line</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containing an Email Address on each line</Resource>
     <Resource tag="IMPORT_NOTHING">Nothing imported: no new email address was found in the upload.</Resource>
-    <Resource tag="IMPORT_SUCESS">{0} new email adress(es) imported successfully.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} new email address(es) imported successfully.</Resource>
     <Resource tag="NOTE">You can find a list of Spam Bot Email Addresses on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
     <Resource tag="TITLE">Import Email Addresses</Resource>
   </page>
@@ -243,7 +243,7 @@
     <Resource tag="ADD_IP">افزودن آدرس جدید</Resource>
     <Resource tag="BAN_BY">ممنوع شده بوسیله</Resource>
     <Resource tag="EXPORT">Export to Text File</Resource>
-    <Resource tag="IMPORT_IPS">Import Adress(es)</Resource>
+    <Resource tag="IMPORT_IPS">Import Address(es)</Resource>
     <Resource tag="MASK">قالب</Resource>
     <Resource tag="REASON">دلیل</Resource>
     <Resource tag="SINCE">از آنجائی که</Resource>
@@ -265,9 +265,9 @@
     <Resource tag="IMPORT">Import List</Resource>
     <Resource tag="IMPORT_FAILED">Failed to import! Invalid upload format specified: {0} </Resource>
     <Resource tag="IMPORT_FILE">Select Import File:</Resource>
-    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containting Ip Adresses on each line</Resource>
+    <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containing an Ip Address on each line</Resource>
     <Resource tag="IMPORT_NOTHING">Nothing imported: no new ip address was found in the upload.</Resource>
-    <Resource tag="IMPORT_SUCESS">{0} new ip adress(es) imported successfully.</Resource>
+    <Resource tag="IMPORT_SUCESS">{0} new ip address(es) imported successfully.</Resource>
     <Resource tag="NOTE">You can find a list of Spam Bot Ips on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
     <Resource tag="TITLE">Import IP Addresses</Resource>
   </page>

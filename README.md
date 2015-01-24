@@ -15,7 +15,7 @@ If you have any questions or would like to get in touch with the project, please
 
 ### DNN Module
 
-YAF is also available as an DNN Module, you can download it on the [GitHub Project Page](https://github.com/YAFNET/YAFNET-DNN)
+YAF is also available as a DNN Module, you can download it on the [GitHub Project Page](https://github.com/YAFNET/YAFNET-DNN)
 
 ### Demo Forum
 
@@ -23,7 +23,7 @@ A "sandbox" test forum is available here: http://testforum.yetanotherforum.net/.
 
 ## Community Support Forum
 
-See a real live YAF Forum by visiting the Yet Another Forum.NET community support forum: http://forum.yetanotherforum.net. Also, get your questions answered by the YAF community.
+See a real live YAF Forum by visiting the YetAnotherForum.NET community support forum: http://forum.yetanotherforum.net. Also, get your questions answered by the YAF community.
 
 ## License
 
