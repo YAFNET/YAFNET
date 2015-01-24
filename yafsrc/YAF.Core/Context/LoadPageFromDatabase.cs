@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using YAF.Utils.Helpers;
-
 namespace YAF.Core
 {
     using System;
@@ -39,7 +37,7 @@ namespace YAF.Core
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
-    using YAF.Utils.Extensions;
+    using YAF.Utils.Helpers;
 
     /// <summary>
     /// The load page from database.
@@ -133,6 +131,7 @@ namespace YAF.Core
                     forumPage = string.Empty;
                     location = string.Empty;
                 }
+
                 do
                 {
                     pageRow = LegacyDb.pageload(
@@ -202,7 +201,10 @@ namespace YAF.Core
 #if !DEBUG
 
                 // log the exception...
-                this.Logger.Fatal(x, "Failure Initializing User/Page.");
+                this.Logger.Fatal(
+                    x,
+                    "Failure Initializing User/Page (URL: {0}).",
+                    this.Get<HttpRequestBase>().Url.ToString());
 
                 // log the user out...
                 FormsAuthentication.SignOut();
