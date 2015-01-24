@@ -173,14 +173,6 @@ namespace YAF.Core.Tasks
                         continue;
                     }
 
-                    if (Config.BaseUrlMask.IsNotSet())
-                    {
-                        // fail...
-                        this.Logger.Error(
-                            "DigestSendTask: Failed to send digest because BaseUrlMask value is not set in your appSettings.");
-                        return;
-                    }
-
                     // get users with digest enabled...
                     var usersWithDigest =
                         LegacyDb.UserFind(boardId, false, null, null, null, null, true)

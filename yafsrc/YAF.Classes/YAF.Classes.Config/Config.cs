@@ -80,18 +80,6 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        ///     Gets BaseUrlMask.
-        /// </summary>
-        [Obsolete("No longer been used Setting is moved to the board settings")]
-        public static string BaseUrlMask
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.BaseUrlMask") ?? string.Empty;
-            }
-        }
-
-        /// <summary>
         ///     Gets the Current BoardID -- default is 1.
         /// </summary>
         [NotNull]
@@ -324,13 +312,13 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        ///     Gets a value indicating whether Is Url Rewriting enabled? -- default is false.
+        ///     Gets a value indicating whether Is Url Rewriting enabled? -- default is "true".
         /// </summary>
         public static bool EnableURLRewriting
         {
             get
             {
-                return GetConfigValueAsBool("YAF.EnableUrlRewriting", false);
+                return GetConfigValueAsBool("YAF.EnableUrlRewriting", true);
             }
         }
 
@@ -541,7 +529,8 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        ///     Gets a value indicating whether YAF should be optimized for use with very large number of forums. Before enabling you should know exactly what you do and what's it all for. Ask developers.
+        /// Gets a value indicating whether YAF should be optimized for use with very large number of forums. 
+        /// Before enabling you should know exactly what you do and what's it all for. Ask developers.
         /// </summary>
         [NotNull]
         public static bool LargeForumTree
@@ -808,14 +797,14 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        ///     Gets the Url Rewriting Format -- default is standard.
+        ///     Gets the Url Rewriting Format -- default is "advanced".
         /// </summary>
         [NotNull]
         public static string UrlRewritingFormat
         {
             get
             {
-                return GetConfigValueAsString("YAF.UrlRewritingFormat") ?? "standard";
+                return GetConfigValueAsString("YAF.UrlRewritingFormat") ?? "advanced";
             }
         }
 

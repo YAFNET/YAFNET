@@ -286,19 +286,6 @@ namespace YAF.Controls
                 return;
             }
 
-            if (Config.BaseUrlMask.IsNotSet())
-            {
-                // fail... BaseUrlMask required for Digest.
-                if (this.ShowErrors)
-                {
-                    this.OutputError(
-                        "Cannot generate digest unless YAF.BaseUrlMask AppSetting is specified in your app.config (default). Please specify the full forward-facing url to this forum in the YAF.BaseUrlMask key.");
-                }
-
-                this.Response.End();
-                return;
-            }
-
             if (Config.ForceScriptName.IsNotSet())
             {
                 // fail... ForceScriptName required for Digest.

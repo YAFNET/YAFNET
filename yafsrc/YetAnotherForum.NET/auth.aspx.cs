@@ -68,11 +68,11 @@ namespace YAF
                 "else {{ window.location.href = '{0}' }}",
                 YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"));
 
-            if (Request.QueryString.GetFirstOrDefault("denied") != null)
+            if (this.Request.QueryString.GetFirstOrDefault("denied") != null)
             {
-                Response.Clear();
+                this.Response.Clear();
 
-                Response.Write("{0} {1} {2}".FormatWith(SCRIPTBEGINTAG, closeScript.ToString(), SCRIPTENDTAG));
+                this.Response.Write("{0} {1} {2}".FormatWith(SCRIPTBEGINTAG, closeScript.ToString(), SCRIPTENDTAG));
 
                 return;
             }
@@ -96,7 +96,7 @@ namespace YAF
                     this.HandleGoogleReturn();
                     break;
                 default:
-                    Response.Write("{0} {1} {2}".FormatWith(SCRIPTBEGINTAG, closeScript.ToString(), SCRIPTENDTAG));
+                    this.Response.Write("{0} {1} {2}".FormatWith(SCRIPTBEGINTAG, closeScript.ToString(), SCRIPTENDTAG));
                     break;
             }
         }
@@ -151,7 +151,7 @@ namespace YAF
                     message = ex.Message;
                 }
 
-                Response.Clear();
+                this.Response.Clear();
 
                 if (message.IsSet())
                 {
@@ -164,7 +164,7 @@ namespace YAF
                 }
                 else
                 {
-                    Response.Write(
+                    this.Response.Write(
                         "{1} window.opener.location.href = '{0}';window.close(); {2}>".FormatWith(
                             YafBuildLink.GetLink(ForumPages.forum).Replace("auth.aspx", "default.aspx"),
                             SCRIPTBEGINTAG,
@@ -244,7 +244,7 @@ namespace YAF
                         message = ex.Message;
                     }
 
-                    Response.Clear();
+                    this.Response.Clear();
 
                     if (message.IsSet())
                     {
@@ -257,7 +257,7 @@ namespace YAF
                     }
                     else
                     {
-                        Response.Write(
+                        this.Response.Write(
                             "{1} window.location.href = '{0}';window.close(); {2}".FormatWith(
                                 YafBuildLink.GetLink(ForumPages.forum).Replace("auth.aspx", "default.aspx"),
                                 SCRIPTBEGINTAG,
@@ -268,12 +268,12 @@ namespace YAF
             else if (YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("error") != null)
             {
                 // Return to login page if user cancels social login
-                Response.Redirect(YafBuildLink.GetLink(ForumPages.login, true));
+                this.Response.Redirect(YafBuildLink.GetLink(ForumPages.login, true));
             }
             else
             {
                 // Authorize first
-                Response.Redirect(facebookAuth.GetAuthorizeUrl(this.Request), true);
+                this.Response.Redirect(facebookAuth.GetAuthorizeUrl(this.Request), true);
             }
         }
 
@@ -346,7 +346,7 @@ namespace YAF
                         message = ex.Message;
                     }
 
-                    Response.Clear();
+                    this.Response.Clear();
 
                     if (message.IsSet())
                     {
@@ -359,7 +359,7 @@ namespace YAF
                     }
                     else
                     {
-                        Response.Write(
+                        this.Response.Write(
                             "{1} window.location.href = '{0}';window.close(); {2}".FormatWith(
                                 YafBuildLink.GetLink(ForumPages.forum).Replace("auth.aspx", "default.aspx"),
                                 SCRIPTBEGINTAG,
@@ -370,12 +370,12 @@ namespace YAF
             else if (YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("error") != null)
             {
                 // Return to login page if user cancels social login
-                Response.Redirect(YafBuildLink.GetLink(ForumPages.login, true));
+                this.Response.Redirect(YafBuildLink.GetLink(ForumPages.login, true));
             }
             else
             {
                 // Authorize first
-                Response.Redirect(googleAuth.GetAuthorizeUrl(this.Request), true);
+                this.Response.Redirect(googleAuth.GetAuthorizeUrl(this.Request), true);
             }
         }
     }

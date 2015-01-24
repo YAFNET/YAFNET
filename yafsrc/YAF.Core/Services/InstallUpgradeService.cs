@@ -192,14 +192,14 @@ namespace YAF.Core.Services
         public void InitializeForum(
             string forumName, string timeZone, string culture, string forumEmail, string forumBaseUrlMask, string adminUserName, string adminEmail, object adminProviderUserKey)
         {
-            DataTable cult = StaticDataHelper.Cultures();
-            string langFile = "english.xml";
+            var cult = StaticDataHelper.Cultures();
+            var langFile = "english.xml";
 
             foreach (DataRow drow in cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == culture))
             {
                 langFile = (string)drow["CultureFile"];
             }
-
+            
             LegacyDb.system_initialize(
                 forumName, 
                 timeZone, 
@@ -269,7 +269,7 @@ namespace YAF.Core.Services
 
                 this.FixAccess(true);
 
-                int prevVersion = LegacyDb.GetDBVersion();
+                var prevVersion = LegacyDb.GetDBVersion();
 
                 LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
 
@@ -277,7 +277,9 @@ namespace YAF.Core.Services
                 // resync all boards - necessary for propr last post bubbling
                 this.GetRepository<Board>().Resync();
 
-                this.RaiseEvent.RaiseIssolated(new AfterUpgradeDatabaseEvent(prevVersion, YafForumInfo.AppVersion), null);
+                this.RaiseEvent.RaiseIssolated(
+                    new AfterUpgradeDatabaseEvent(prevVersion, YafForumInfo.AppVersion),
+                    null);
 
                 //// upgrade providers...
                 if (this.IsForumInstalled && (prevVersion < 30 || upgradeExtensions))
@@ -295,6 +297,14 @@ namespace YAF.Core.Services
                 {
                     // Reset The UserBox Template
                     this.Get<YafBoardSettings>().UserBox = Constants.UserBox.DisplayTemplateDefault;
+
+                    ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
+                }
+
+                // Check if BaskeUrlMask is set and if not automatically write it
+                if (this.IsForumInstalled && this.Get<YafBoardSettings>().BaseUrlMask.IsNotSet())
+                {
+                    this.Get<YafBoardSettings>().BaseUrlMask = BaseUrlBuilder.GetBaseUrlFromVariables();
 
                     ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
                 }
@@ -345,7 +355,7 @@ namespace YAF.Core.Services
         private void ExecuteScript([NotNull] string scriptFile, bool useTransactions)
         {
             string script;
-            string fileName = this.Get<HttpRequestBase>().MapPath(scriptFile);
+            var fileName = this.Get<HttpRequestBase>().MapPath(scriptFile);
 
             try
             {

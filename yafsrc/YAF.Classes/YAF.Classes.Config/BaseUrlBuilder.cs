@@ -26,7 +26,6 @@ namespace YAF.Classes
     #region Using
 
     using System;
-    using System.Collections.Specialized;
     using System.Text;
     using System.Web;
     using System.Web.Hosting;
@@ -35,7 +34,6 @@ namespace YAF.Classes
     using YAF.Types.Exceptions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
 
     #endregion
 
@@ -44,15 +42,6 @@ namespace YAF.Classes
     /// </summary>
     public abstract class BaseUrlBuilder : IUrlBuilder
     {
-        #region Constants and Fields
-
-        /// <summary>
-        /// The base URLs.
-        /// </summary>
-        private static readonly StringDictionary BaseUrls = new StringDictionary();
-
-        #endregion
-
         #region Properties
 
         /// <summary>
@@ -111,7 +100,7 @@ namespace YAF.Classes
         {
             get
             {
-                string scriptName = HttpContext.Current.Request.FilePath.ToLower();
+                var scriptName = HttpContext.Current.Request.FilePath.ToLower();
                 return scriptName.Substring(scriptName.LastIndexOf('/') + 1);
             }
         }
@@ -123,7 +112,7 @@ namespace YAF.Classes
         {
             get
             {
-                string scriptName = HttpContext.Current.Request.FilePath.ToLower();
+                var scriptName = HttpContext.Current.Request.FilePath.ToLower();
                 return scriptName.Substring(0, scriptName.LastIndexOf('/'));
             }
         }
@@ -131,6 +120,7 @@ namespace YAF.Classes
         #endregion
 
         #region Public Methods
+
         /// <summary>
         /// Gets BaseUrl.
         /// </summary>
@@ -139,61 +129,22 @@ namespace YAF.Classes
         {
             get
             {
-                string baseUrl;
+                string baseUrlMask;
 
                 try
                 {
-                    if (HttpContext.Current != null)
-                    {
-                        string baseUrlMask;
+                    var boardSettings = HttpContext.Current.Application["BoardSettings$1"] as YafBoardSettings;
 
-                        try
-                        {
-                            var boardSettings = HttpContext.Current.Application["BoardSettings$1"] as YafBoardSettings;
-
-                            baseUrlMask = boardSettings.BaseUrlMask;
-                        }
-                        catch (Exception)
-                        {
-                            baseUrlMask = Config.BaseUrlMask;
-                        }
-
-                        // urlKey requires SERVER_NAME in case of systems that use HostNames for seperate sites or in our cases Boards as well as FilePath for multiboards in seperate folders.
-                        var urlKey = "{0}{1}".FormatWith(
-                            HttpContext.Current.Request.ServerVariables["SERVER_NAME"],
-                            HttpContext.Current.Request.FilePath);
-
-                        // Lookup the AppRoot based on the current host + path. 
-                        baseUrl = BaseUrls[urlKey];
-
-                        if (baseUrl.IsNotSet())
-                        {
-                            // Each different filepath (multiboard) will specify a AppRoot key in their own web.config in their directory.
-                            baseUrl = baseUrlMask.IsSet()
-                                          ? TreatBaseUrl(baseUrlMask)
-                                          : GetBaseUrlFromVariables();
-
-                            // save to cache
-                            BaseUrls[urlKey] = baseUrl;
-                        }
-                    }
-                    else
-                    {
-                        if (Config.BaseUrlMask.IsNotSet())
-                        {
-                            throw new BaseUrlMaskRequiredException(
-                                "Since there is no active context, a base url mask is required. Please specify in the AppSettings in your web.config: YAF.BaseUrlMask");
-                        }
-
-                        baseUrl = TreatBaseUrl(Config.BaseUrlMask);
-                    }
+                    baseUrlMask = boardSettings.BaseUrlMask.IsSet()
+                                      ? TreatBaseUrl(boardSettings.BaseUrlMask)
+                                      : GetBaseUrlFromVariables();
                 }
                 catch (Exception)
                 {
-                    baseUrl = GetBaseUrlFromVariables();
+                    baseUrlMask = GetBaseUrlFromVariables();
                 }
 
-                return baseUrl;
+                return baseUrlMask;
             }
         }
 
@@ -208,8 +159,8 @@ namespace YAF.Classes
         {
             var url = new StringBuilder();
 
-            long serverPort = long.Parse(HttpContext.Current.Request.ServerVariables["SERVER_PORT"]);
-            bool isSecure = HttpContext.Current.Request.ServerVariables["HTTPS"].ToUpper() == "ON" || serverPort == 443;
+            var serverPort = long.Parse(HttpContext.Current.Request.ServerVariables["SERVER_PORT"]);
+            var isSecure = HttpContext.Current.Request.IsSecureConnection || serverPort == 443;
 
             url.Append(isSecure ? "https" : "http");
 
@@ -278,8 +229,6 @@ namespace YAF.Classes
             // append the full base server url to the beginning of the url (e.g. http://mydomain.com)
             return "{0}{1}".FormatWith(currentBoardSettings.BaseUrlMask, this.BuildUrl(boardSettings, url));
         }
-
-        #endregion
 
         #endregion
 
@@ -372,6 +321,8 @@ namespace YAF.Classes
 
             return _pathBuilder.ToString();
         }
+
+        #endregion
 
         #endregion
     }

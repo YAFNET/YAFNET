@@ -4038,7 +4038,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("BaseUrlMask", Config.BaseUrlMask);
+                return this._reg.GetValue<string>("BaseUrlMask", null);
             }
 
             set

@@ -64,11 +64,6 @@ namespace YAF.Install
         /// </summary>
         private const string _AppPasswordKey = "YAF.ConfigPassword";
 
-        /// <summary>
-        /// The app settings base URL mask key
-        /// </summary>
-        private const string _AppBaseUrlMaskKey = "YAF.BaseUrlMask";
-
         #endregion
 
         #region Fields
@@ -234,7 +229,7 @@ namespace YAF.Install
 
             set
             {
-                int index = this.IndexOfWizardID(value);
+                var index = this.IndexOfWizardID(value);
                 if (index >= 0)
                 {
                     this.InstallWizard.ActiveStepIndex = index;
@@ -778,7 +773,9 @@ namespace YAF.Install
                         var dbVersionName = LegacyDb.GetDBVersionName();
                         var dbVersion = LegacyDb.GetDBVersion();
 
-                        this.CurrentVersionName.Text = dbVersion < 0 ? "New" :  "{0} ({1})".FormatWith(dbVersionName, dbVersion);
+                        this.CurrentVersionName.Text = dbVersion < 0
+                                                           ? "New"
+                                                           : "{0} ({1})".FormatWith(dbVersionName, dbVersion);
                         this.UpgradeVersionName.Text = "{0} ({1})".FormatWith(YafForumInfo.AppVersionName, YafForumInfo.AppVersion);
                     }
                     else
@@ -800,26 +797,6 @@ namespace YAF.Install
                         this.UpgradeExtensions.Checked))
                     {
                         e.Cancel = false;
-                    }
-
-                    // Check if BaskeUrlMask is set and if not automatically write it
-                    if (this._config.GetConfigValueAsString(_AppBaseUrlMaskKey).IsNotSet()
-                        && this._config.TrustLevel >= AspNetHostingPermissionLevel.High)
-                    {
-#if DEBUG
-                        var urlKey =
-                            "http://{0}{1}/".FormatWith(
-                                HttpContext.Current.Request.ServerVariables["SERVER_NAME"],
-                                HttpContext.Current.Request.ServerVariables["SERVER_PORT"].Equals("80")
-                                    ? string.Empty
-                                    : ":{0}".FormatWith(HttpContext.Current.Request.ServerVariables["SERVER_PORT"]));
-#else
-                        var urlKey = "http://{0}/".FormatWith(
-                            HttpContext.Current.Request.ServerVariables["SERVER_NAME"]);
-
-#endif
-
-                        this._config.WriteAppSetting(_AppBaseUrlMaskKey, urlKey);
                     }
 
                     var messages = this.InstallUpgradeService.Messages;
@@ -1004,16 +981,18 @@ namespace YAF.Install
             msg = msg.Replace("\"", "\\\"");
             this._loadMessage += msg;
 
-            if (this._loadMessage.IsSet())
+            if (!this._loadMessage.IsSet())
             {
-                var errorMessage = this.InstallWizard.FindControlAs<PlaceHolder>("ErrorMessage");
-                var errorMessageContent = this.InstallWizard.FindControlAs<Literal>("ErrorMessageContent");
-
-                errorMessage.Visible = true;
-                errorMessageContent.Text = this._loadMessage;
-
-                this._loadMessage = string.Empty;
+                return;
             }
+            
+            var errorMessage = this.InstallWizard.FindControlAs<PlaceHolder>("ErrorMessage");
+            var errorMessageContent = this.InstallWizard.FindControlAs<Literal>("ErrorMessageContent");
+
+            errorMessage.Visible = true;
+            errorMessageContent.Text = this._loadMessage;
+
+            this._loadMessage = string.Empty;
         }
 
         /// <summary>
@@ -1104,7 +1083,7 @@ namespace YAF.Install
 
             try
             {
-                string prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty;
+                var prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty;
 
                 // add administrators and registered if they don't already exist...
                 if (!RoleMembershipHelper.RoleExists("{0}Administrators".FormatWith(prefix)))
@@ -1242,10 +1221,7 @@ namespace YAF.Install
                     this.Culture.Items.FindByValue("en-US").Selected = true;
                 }
 
-                if (Config.BaseUrlMask.IsSet())
-                {
-                    this.ForumBaseUrlMask.Text = Config.BaseUrlMask;
-                }
+                this.ForumBaseUrlMask.Text = BaseUrlBuilder.GetBaseUrlFromVariables();
 
                 this.DBUsernamePasswordHolder.Visible = LegacyDb.PasswordPlaceholderVisible;
 
@@ -1316,7 +1292,7 @@ namespace YAF.Install
         {
             if (this.rblYAFDatabase.SelectedValue == "existing" && this.lbConnections.SelectedIndex >= 0)
             {
-                string selectedConnection = this.lbConnections.SelectedValue;
+                var selectedConnection = this.lbConnections.SelectedValue;
                 if (selectedConnection == Config.ConnectionStringName)
                 {
                     return UpdateDBFailureType.None;
