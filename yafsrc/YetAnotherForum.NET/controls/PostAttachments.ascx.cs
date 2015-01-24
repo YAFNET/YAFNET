@@ -88,7 +88,7 @@ namespace YAF.Controls
             html.AppendFormat("<ul class=\"PostAttachmentList\">");
 
             var attachments = this.GetRepository<Attachment>()
-                .ListTyped(userID: this.PageContext.PageUserID, pageSize: 10000);
+                .ListTyped(userID: this.PageContext.PageUserID, pageIndex: 0, pageSize: 10000);
 
             var rowPanel = 0;
 

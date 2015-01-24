@@ -316,7 +316,7 @@ namespace YAF.Editors
             if (this.UserCanUpload)
             {
                 var attachments = this.GetRepository<Attachment>()
-                    .ListTyped(userID: this.PageContext.PageUserID, pageSize: 10000);
+                    .ListTyped(userID: this.PageContext.PageUserID, pageIndex: 0, pageSize: 10000);
 
                 writer.WriteLine(
                     @"<img src=""{5}"" id=""{3}"" alt=""{4}"" title=""{4}"" onclick=""{0}"" onload=""Button_Load(this)"" onmouseover=""{1}"" />"
@@ -337,7 +337,7 @@ namespace YAF.Editors
                                   : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot);
 
                     this._popMenuAttachments.AddClientScriptItem(
-                        attachment.FileName,
+                        attachment.FileName.Truncate(40),
                         "insertAttachment('{0}', '{1}')".FormatWith(attachment.ID, url),
                         attachment.FileName.IsImageName()
                             ? "{0}resource.ashx?i={1}&editor=true".FormatWith(YafForumInfo.ForumClientFileRoot, attachment.ID)
@@ -517,7 +517,6 @@ namespace YAF.Editors
             [NotNull] string title,
             [NotNull] string image)
         {
-            // writer.WriteLine("		<td><img id='{1}_{4}' onload='Button_Load(this)' src='{0}' width='21' height='20' alt='{2}' title='{2}' onclick=\"{1}.{3}\"></td><td>&nbsp;</td>",ResolveUrl(image),SafeID,title,cmd,id);
             writer.WriteLine(
                 @"<img id=""{1}_{4}"" onload=""Button_Load(this)"" src=""{0}"" width=""21"" height=""20"" alt=""{2}"" title=""{2}"" onclick=""setStyle('{4}','')"" />",
                 this.ResolveUrl(image),
