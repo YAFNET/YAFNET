@@ -822,7 +822,6 @@ namespace YAF.Utilities
         {
             return
                 @"{0}(function() {{
-            var uploadList = new Array(0);
 
             {0}('#fileupload').fileupload({{
                 url: '{3}',
@@ -876,6 +875,43 @@ namespace YAF.Utilities
                     acceptedFileTypes,
                     fileUploaderUrl,
                     forumID);
+        }
+
+        [NotNull]
+        public static string SelectTopicsLoadJs([NotNull] string forumDropDownID)
+        {
+            return @"{0}('.TopicsSelect2Menu').select2({{
+            ajax: {{
+                url: '{2}YafAjax.asmx/GetTopics',
+                type: 'POST',
+                dataType: 'json',
+                minimumInputLength: 0,
+                data: function(params) {{
+                    return {{
+                        'forumID': {0}('#{1}').val(),
+                        'page': params.page || 0,
+                        'searchTerm': params.term || ''
+                    }};
+                }},
+                processResults: function(data, params) {{
+                    params.page = params.page || 0;
+
+                    var resultsperPage = 15 * 2;
+
+                    var total = params.page == 0 ? data.Results.length : resultsperPage;
+
+                    return {{
+                        results: data.Results,
+                        pagination: {{
+                            more: total < data.Total
+                        }}
+                    }}
+                }}
+            }},
+            allowClear: true,
+            cache: true,
+            width: '350px'
+        }});".FormatWith(Config.JQueryAlias, forumDropDownID, YafForumInfo.ForumClientFileRoot);
         }
 
         #region BootStrap Script Blocks

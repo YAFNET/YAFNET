@@ -22,15 +22,12 @@
  * under the License.
  */
 
-using YAF.Utils.Helpers;
-
 namespace YAF.Pages
 {
     #region Using
 
     using System;
 
-    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
@@ -38,12 +35,14 @@ namespace YAF.Pages
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Utilities;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
     /// <summary>
-    /// Summary description for movetopic.
+    /// Move Message Page
     /// </summary>
     public partial class movemessage : ForumPage
     {
@@ -62,21 +61,29 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// The create and move_ click.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        protected override void OnInit([NotNull] EventArgs e)
+        {
+            this.PreRender += this.MoveMessage_PreRender;
+            base.OnInit(e);
+        }
+
+        /// <summary>
+        /// Handles the Click event of the CreateAndMove control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void CreateAndMove_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.TopicSubject.Text != string.Empty)
+            if (this.TopicSubject.Text.IsSet())
             {
-                long nTopicId = LegacyDb.topic_create_by_message(
-                  this.Request.QueryString.GetFirstOrDefault("m"), this.ForumList.SelectedValue, this.TopicSubject.Text);
-                LegacyDb.message_move(this.Request.QueryString.GetFirstOrDefault("m"), nTopicId, true);
+                var topicId = LegacyDb.topic_create_by_message(
+                    this.Request.QueryString.GetFirstOrDefault("m"),
+                    this.ForumList.SelectedValue,
+                    this.TopicSubject.Text);
+                LegacyDb.message_move(this.Request.QueryString.GetFirstOrDefault("m"), topicId, true);
                 YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
             }
             else
@@ -86,52 +93,55 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The forum list_ selected index changed.
+        /// Handles the SelectedIndexChanged event of the ForumList control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ForumList_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.TopicsList.DataSource = LegacyDb.topic_list(this.ForumList.SelectedValue, null, DateTimeHelper.SqlDbMinTime(), DateTime.UtcNow, 0, 32762, false, false, false);
+            this.TopicsList.DataSource = LegacyDb.topic_list(
+                this.ForumList.SelectedValue,
+                null,
+                DateTimeHelper.SqlDbMinTime(),
+                DateTime.UtcNow,
+                0,
+                100,
+                false,
+                false,
+                false);
+
             this.TopicsList.DataTextField = "Subject";
             this.TopicsList.DataValueField = "TopicID";
+
             this.TopicsList.DataBind();
+
             this.TopicsList_SelectedIndexChanged(this.ForumList, e);
-            this.CreateAndMove.Enabled = this.ForumList.SelectedValue.ToType<int>() <= 0 ? false : true;
+            this.CreateAndMove.Enabled = this.ForumList.SelectedValue.ToType<int>() > 0;
         }
 
         /// <summary>
-        /// The move_ click.
+        /// Handles the Click event of the Move control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Move_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.TopicsList.SelectedValue.ToType<int>() != this.PageContext.PageTopicID)
             {
-                LegacyDb.message_move(this.Request.QueryString.GetFirstOrDefault("m"), this.TopicsList.SelectedValue, true);
+                LegacyDb.message_move(
+                    this.Request.QueryString.GetFirstOrDefault("m"),
+                    this.TopicsList.SelectedValue,
+                    true);
             }
 
             YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.Request.QueryString.GetFirstOrDefault("m") == null || !this.PageContext.ForumModeratorAccess)
@@ -151,7 +161,8 @@ namespace YAF.Pages
                 YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
             this.PageLinks.AddForum(this.PageContext.PageForumID);
             this.PageLinks.AddLink(
-                this.PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
+                this.PageContext.PageTopicName,
+                YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
 
             this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
 
@@ -160,7 +171,9 @@ namespace YAF.Pages
             this.CreateAndMove.Text = this.GetText("CREATE_TOPIC");
             this.CreateAndMove.ToolTip = this.GetText("SPLIT_TITLE");
 
-            this.ForumList.DataSource = LegacyDb.forum_listall_sorted(this.PageContext.PageBoardID, this.PageContext.PageUserID);
+            this.ForumList.DataSource = LegacyDb.forum_listall_sorted(
+                this.PageContext.PageBoardID,
+                this.PageContext.PageUserID);
             this.ForumList.DataTextField = "Title";
             this.ForumList.DataValueField = "ForumID";
             this.DataBind();
@@ -170,17 +183,25 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The topics list_ selected index changed.
+        /// Handles the SelectedIndexChanged event of the TopicsList control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void TopicsList_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Move.Enabled = this.TopicsList.SelectedValue != string.Empty;
+        }
+
+        /// <summary>
+        /// Handles the PreRender event of the AttachmentsUploadDialog control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void MoveMessage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "fileUploadjs",
+                JavaScriptBlocks.SelectTopicsLoadJs(this.ForumList.ClientID));
         }
 
         #endregion

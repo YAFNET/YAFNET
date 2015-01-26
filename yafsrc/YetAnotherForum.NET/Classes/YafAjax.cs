@@ -30,6 +30,7 @@ namespace YAF.Classes
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Web.Script.Serialization;
     using System.Web.Script.Services;
     using System.Web.Security;
     using System.Web.Services;
@@ -42,6 +43,7 @@ namespace YAF.Classes
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
+    using YAF.Utils.Helpers;
     using YAF.Utils.Helpers.StringUtils;
 
     #endregion
@@ -70,10 +72,90 @@ namespace YAF.Classes
         #endregion
 
         /// <summary>
+        /// Gets the topics by forum.
+        /// </summary>
+        /// <param name="forumID">The forum identifier.</param>
+        /// <param name="page">The page.</param>
+        /// <param name="searchTerm">The search term.</param>
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public void GetTopics(int forumID, int page, string searchTerm)
+        {
+            var serializer = new JavaScriptSerializer();
+
+            if (!YafContext.Current.IsAdmin && !YafContext.Current.IsForumModerator)
+            {
+                this.Context.Response.Write("{ 'No Access' }");
+                return;
+            }
+            
+            if (searchTerm.IsSet())
+            {
+                var topics = LegacyDb.topic_list(
+                                 forumID,
+                                 null,
+                                 DateTimeHelper.SqlDbMinTime(),
+                                 DateTime.UtcNow,
+                                 0,
+                                 30000,
+                                 false,
+                                 false,
+                                 false);
+
+                var topicsList = (from DataRow topic in topics.Rows
+                                   where topic["Subject"].ToString().Contains(searchTerm)
+                                   select
+                                       new SelectOptions
+                                           {
+                                               text = topic["Subject"].ToString(),
+                                               id = topic["TopicID"].ToString()
+                                           }).ToList();
+
+                var pagedTopics = new SelectPagedOptions { Total = 0, Results = topicsList };
+
+                this.Context.Response.Write(serializer.Serialize(pagedTopics));
+            }
+            else
+            {
+                var topics = LegacyDb.topic_list(
+                                 forumID,
+                                 null,
+                                 DateTimeHelper.SqlDbMinTime(),
+                                 DateTime.UtcNow,
+                                 page,
+                                 15,
+                                 false,
+                                 false,
+                                 false);
+
+                var topicsList = (from DataRow topic in topics.Rows
+                                   select
+                                       new SelectOptions
+                                           {
+                                               text = topic["Subject"].ToString(),
+                                               id = topic["TopicID"].ToString()
+                                           }).ToList();
+
+                var topicsEnum = topics.AsEnumerable();
+
+                var pagedTopics = new SelectPagedOptions
+                                      {
+                                          Total =
+                                              topicsEnum.Any()
+                                                  ? topicsEnum.First().Field<int>("TotalRows")
+                                                  : 0,
+                                          Results = topicsList
+                                      };
+
+                this.Context.Response.Write(serializer.Serialize(pagedTopics));
+            }
+        }
+
+        /// <summary>
         /// Handles the multi quote Button.
         /// </summary>
         /// <param name="buttonId">The button id.</param>
-        /// <param name="multiquoteButton">The Multi quote Button Checkbox checked</param>
+        /// <param name="multiquoteButton">The Multi quote Button Check box checked</param>
         /// <param name="messageId">The message id.</param>
         /// <param name="topicId">The topic identifier.</param>
         /// <param name="buttonCssClass">The button CSS class.</param>

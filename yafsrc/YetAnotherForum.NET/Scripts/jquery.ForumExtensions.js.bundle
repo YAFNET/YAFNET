@@ -12,6 +12,7 @@
   <files>
     <file>/Scripts/DataPanel.js</file>
     <file>/Scripts/jquery.ceebox.js</file>
+    <file>/Scripts/select2.js</file>
     <file>/Scripts/jquery.blockUI.js</file>
     <file>/Scripts/jquery.hovercard.js</file>
     <file>/Scripts/jquery.msDropDown.js</file>

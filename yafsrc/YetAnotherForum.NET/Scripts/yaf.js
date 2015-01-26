@@ -196,6 +196,10 @@ jQuery(document).ready(function () {
         }
     });
 
+    jQuery(".standardSelect2Menu").select2({
+        width: '350px'
+    });
+
     if (typeof (jQuery.fn.spinner) !== 'undefined') {
         jQuery('.Numeric').spinner({min: 0});
     }

@@ -158,6 +158,8 @@
     <Compile Include="Objects\FileUploadStatus.cs" />
     <Compile Include="Objects\ForumUserInfo.cs" />
     <Compile Include="Objects\MultiQuote.cs" />
+    <Compile Include="Objects\SelectOptions.cs" />
+    <Compile Include="Objects\SelectPagedOptions.cs" />
     <Compile Include="Objects\SpamWordCheckItem.cs" />
     <Compile Include="Objects\FacebookUser.cs" />
     <Compile Include="Objects\GoogleUser.cs" />

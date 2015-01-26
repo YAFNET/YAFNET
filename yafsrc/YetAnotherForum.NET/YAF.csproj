@@ -919,6 +919,7 @@
     <Content Include="Content\bootstrap-select.min.css">
       <DependentUpon>bootstrap-select.less</DependentUpon>
     </Content>
+    <Content Include="Content\select2.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\icons\ipbandetected.png" />
     <Content Include="Content\images\InstallBackground.jpg" />
@@ -2111,6 +2112,36 @@
       <DependentUpon>jsdifflib.js</DependentUpon>
     </Content>
     <Content Include="Scripts\prism.js" />
+    <Content Include="Scripts\Select2-locales\az.js" />
+    <Content Include="Scripts\Select2-locales\bg.js" />
+    <Content Include="Scripts\Select2-locales\da.js" />
+    <Content Include="Scripts\Select2-locales\de.js" />
+    <Content Include="Scripts\Select2-locales\en.js" />
+    <Content Include="Scripts\Select2-locales\es.js" />
+    <Content Include="Scripts\Select2-locales\et.js" />
+    <Content Include="Scripts\Select2-locales\eu.js" />
+    <Content Include="Scripts\Select2-locales\fi.js" />
+    <Content Include="Scripts\Select2-locales\fr.js" />
+    <Content Include="Scripts\Select2-locales\gl.js" />
+    <Content Include="Scripts\Select2-locales\hr.js" />
+    <Content Include="Scripts\Select2-locales\hu.js" />
+    <Content Include="Scripts\Select2-locales\id.js" />
+    <Content Include="Scripts\Select2-locales\is.js" />
+    <Content Include="Scripts\Select2-locales\lt.js" />
+    <Content Include="Scripts\Select2-locales\lv.js" />
+    <Content Include="Scripts\Select2-locales\mk.js" />
+    <Content Include="Scripts\Select2-locales\nb.js" />
+    <Content Include="Scripts\Select2-locales\ro.js" />
+    <Content Include="Scripts\Select2-locales\ru.js" />
+    <Content Include="Scripts\Select2-locales\sk.js" />
+    <Content Include="Scripts\Select2-locales\sr.js" />
+    <Content Include="Scripts\Select2-locales\th.js" />
+    <Content Include="Scripts\Select2-locales\tr.js" />
+    <Content Include="Scripts\Select2-locales\uk.js" />
+    <Content Include="Scripts\Select2-locales\vi.js" />
+    <Content Include="Scripts\Select2-locales\zh-TW.js" />
+    <Content Include="Scripts\select2.js" />
+    <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\tinymce\langs\ar.js" />
     <Content Include="Scripts\tinymce\langs\ar_SA.js" />
     <Content Include="Scripts\tinymce\langs\az.js" />
@@ -5269,11 +5300,4 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
 </Project>
