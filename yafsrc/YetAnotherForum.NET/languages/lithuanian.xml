@@ -2182,6 +2182,33 @@
     </Resource>
     <Resource tag="REPLY">Reply</Resource>
     <Resource tag="SAVE">Išsaugoti </Resource>
+    <Resource tag="SELECT_LOCALE_JS">
+      language:  {
+                inputTooLong: function(t) {
+                    var n = t.input.length - t.maximum,
+                        r = "Pašalinkite " + remainingChars + " simbol";
+                    return r += e(remainingChars, "ių", "ius", "į"), r
+                },
+                inputTooShort: function(t) {
+                    var n = t.minimum - t.input.length,
+                        r = "Įrašykite dar " + n + " simbol";
+                    return r += e(n, "ių", "ius", "į"), r
+                },
+                loadingMore: function() {
+                    return "Kraunama daugiau rezultatų…"
+                },
+                maximumSelection: function(t) {
+                    var n = "Jūs galite pasirinkti tik " + t.maximum + " element";
+                    return n += e(t.maximum, "ų", "us", "ą"), n
+                },
+                noResults: function() {
+                    return "Atitikmenų nerasta"
+                },
+                searching: function() {
+                    return "Ieškoma…"
+                }
+          }
+  </Resource>
     <Resource tag="SHOWHIDE">Show/Hide</Resource>
     <Resource tag="SUBMIT">Submit</Resource>
     <Resource tag="TIMEAGO_JS">

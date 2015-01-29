@@ -2136,6 +2136,36 @@
     <Resource tag="REGMAIL_WILL_BE_SEND">Po zaregistrování vám bude zaslána e-mailová zpráva. Abyste se mohli přihlásit, podívejte se do své poštovní schránky a klikněte na odkaz, který je ve zprávě uveden.</Resource>
     <Resource tag="REPLY">Reply</Resource>
     <Resource tag="SAVE">Uložit</Resource>
+    <Resource tag="SELECT_LOCALE_JS">
+      language:  {
+              errorLoading: function() {
+                    return "The results could not be loaded."
+                },
+                inputTooLong: function(e) {
+                    var t = e.input.length - e.maximum,
+                        n = "Please delete " + t + " character";
+                    return t != 1 &amp;&amp; (n += "s"), n
+                },
+                inputTooShort: function(e) {
+                    var t = e.minimum - e.input.length,
+                        n = "Please enter " + t + " or more characters";
+                    return n
+                },
+                loadingMore: function() {
+                    return "Loading more results…"
+                },
+                maximumSelected: function(e) {
+                    var t = "You can only select " + e.maximum + " item";
+                    return e.maximum != 1 &amp;&amp; (t += "s"), t
+                },
+                noResults: function() {
+                    return "No results found"
+                },
+                searching: function() {
+                    return "Searching…"
+                }
+          }
+  </Resource>
     <Resource tag="SHOWHIDE">Show/Hide</Resource>
     <Resource tag="SUBMIT">Submit</Resource>
     <Resource tag="TIMEAGO_JS">

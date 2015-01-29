@@ -2136,6 +2136,36 @@
     <Resource tag="REGMAIL_WILL_BE_SEND">Kayıt Olduğunuda Belirttiğiniz e-Posta Adresine bir e-Posta Gönderilecektir. Foruma Girebilmeniz İçin Mesaj Kutunuzu Kontrol Ediniz ve e-Posta içindeki Bağlantıyı Klikleyiniz.</Resource>
     <Resource tag="REPLY">Reply</Resource>
     <Resource tag="SAVE">Kaydet</Resource>
+    <Resource tag="SELECT_LOCALE_JS">
+      language:  {
+              errorLoading: function() {
+                    return "The results could not be loaded."
+                },
+                inputTooLong: function(e) {
+                    var t = e.input.length - e.maximum,
+                        n = t + " karakter daha girmelisiniz";
+                    return n
+                },
+                inputTooShort: function(e) {
+                    var t = e.minimum - e.input.length,
+                        n = "En az " + t + " karakter daha girmelisiniz";
+                    return n
+                },
+                loadingMore: function() {
+                    return "Daha fazla…"
+                },
+                maximumSelected: function(e) {
+                    var t = "Sadece " + e.maximum + " seçim yapabilirsiniz";
+                    return t
+                },
+                noResults: function() {
+                    return "Sonuç bulunamadı"
+                },
+                searching: function() {
+                    return "Aranıyor…"
+                }
+          }
+  </Resource>
     <Resource tag="SHOWHIDE">Show/Hide</Resource>
     <Resource tag="SUBMIT">Gönder</Resource>
     <Resource tag="TIMEAGO_JS">

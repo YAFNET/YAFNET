@@ -2136,6 +2136,36 @@
     <Resource tag="REGMAIL_WILL_BE_SEND">En e-mail bliver afsendt når du tilmelder dig. For at logge ind skal du tjekke din indbakke og klikke på linket i e-mailen.</Resource>
     <Resource tag="REPLY">Reply</Resource>
     <Resource tag="SAVE">Gem</Resource>
+    <Resource tag="SELECT_LOCALE_JS">
+      language:  {
+                 errorLoading: function() {
+                    return "The results could not be loaded."
+                },
+                inputTooLong: function(e) {
+                    var t = e.input.length - e.maximum,
+                        n = "Angiv venligst " + t + " tegn mindre";
+                    return n
+                },
+                inputTooShort: function(e) {
+                    var t = e.minimum - e.input.length,
+                        n = "Angiv venligst " + t + " tegn mere";
+                    return n
+                },
+                loadingMore: function() {
+                    return "Indlæser flere resultater…"
+                },
+                maximumSelected: function(e) {
+                    var t = "Du kan kun vælge " + e.maximum + " emne";
+                    return e.maximum != 1 &amp;&amp; (t += "r"), t
+                },
+                noResults: function() {
+                    return "Ingen resultater fundet"
+                },
+                searching: function() {
+                    return "Søger…"
+                }
+          }
+  </Resource>
     <Resource tag="SHOWHIDE">Show/Hide</Resource>
     <Resource tag="SUBMIT">Indsend</Resource>
     <Resource tag="TIMEAGO_JS">

@@ -2136,6 +2136,30 @@
     <Resource tag="REGMAIL_WILL_BE_SEND">Rekisteröinnin yhteydessä lähetetään sähköpostia sinulle. Ennen kuin voit kirjautua sisään, tulee sinun varmistaa sähköpostin toimivuus seuraamalla postissa olevaa linkkiä.</Resource>
     <Resource tag="REPLY">Reply</Resource>
     <Resource tag="SAVE">Tallenna</Resource>
+    <Resource tag="SELECT_LOCALE_JS">
+      language:  {
+                inputTooLong: function(e) {
+                    var t = e.input.length - e.maximum;
+                    return "Ole hyvä ja anna " + t + " merkkiä vähemmän"
+                },
+                inputTooShort: function(e) {
+                    var t = e.minimum - e.input.length;
+                    return "Ole hyvä ja anna " + t + " merkkiä lisää"
+                },
+                loadingMore: function() {
+                    return "Ladataan lisää tuloksia…"
+                },
+                maximumSelection: function(e) {
+                    return "Voit valita ainoastaan " + e.maximum + " kpl"
+                },
+                noResults: function() {
+                    return "Ei tuloksia"
+                },
+                searching: function() {
+                    return "Searching…"
+                }
+          }
+  </Resource>
     <Resource tag="SHOWHIDE">Show/Hide</Resource>
     <Resource tag="SUBMIT">Submit</Resource>
     <Resource tag="TIMEAGO_JS">

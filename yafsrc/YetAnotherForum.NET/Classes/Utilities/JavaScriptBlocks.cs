@@ -910,8 +910,13 @@ namespace YAF.Utilities
             }},
             allowClear: true,
             cache: true,
-            width: '350px'
-        }});".FormatWith(Config.JQueryAlias, forumDropDownID, YafForumInfo.ForumClientFileRoot);
+            width: '350px',
+            {3}
+        }});".FormatWith(
+                Config.JQueryAlias,
+                forumDropDownID,
+                YafForumInfo.ForumClientFileRoot,
+                YafContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS"));
         }
 
         #region BootStrap Script Blocks
