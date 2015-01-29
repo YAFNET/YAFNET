@@ -82,10 +82,9 @@ namespace YAF.Modules
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
+           // this.RegisterBootStrap();
             this.RegisterJQueryUI();
 
-            ///this.RegisterBootStrap();
-            
             if (!this.PageContext.Vars.ContainsKey("yafForumExtensions"))
             {
 #if DEBUG
@@ -145,11 +144,11 @@ namespace YAF.Modules
                 else
                 {
                     jqueryUrl = YafContext.Current.Get<YafBoardSettings>().JqueryCDNHosted
-                                    ? "//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"
+                                    ? "//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
 #if DEBUG
-                                    : YafForumInfo.GetURLToScripts("jquery-2.1.1.js");
+                                    : YafForumInfo.GetURLToScripts("jquery-2.1.3.js");
 #else
- : YafForumInfo.GetURLToScripts("jquery-2.1.1.min.js");
+                                    : YafForumInfo.GetURLToScripts("jquery-2.1.3.min.js");
 #endif
                 }
 
@@ -165,6 +164,58 @@ namespace YAF.Modules
             }
 
             YafContext.Current.PageElements.AddPageElement("jquery");
+        }
+        private void RegisterBootStrap()
+        {
+            var element = YafContext.Current.CurrentForumPage.TopPageControl;
+            /*
+            // Register the jQueryUI Theme CSS
+            if (YafContext.Current.Get<YafBoardSettings>().JqueryUIThemeCDNHosted)
+            {
+                YafContext.Current.PageElements.RegisterCssInclude(
+                     "//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/{0}/jquery-ui.min.css".FormatWith(
+                         YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
+            }
+            else
+            {
+                YafContext.Current.PageElements.RegisterCssIncludeContent(
+                    "themes/{0}/jquery-ui.min.css".FormatWith(YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
+            }
+            */
+
+            // If registered or told not to register, don't bother
+            if (YafContext.Current.PageElements.PageElementExists("bootstrap"))
+            {
+                return;
+            }
+            
+            string jqueryUIUrl;
+
+            var useCDn = false;
+
+            // Check if override file is set ?
+            if (Config.JQueryUIOverrideFile.IsSet())
+            {
+                jqueryUIUrl = !Config.JQueryUIOverrideFile.StartsWith("http")
+                              && !Config.JQueryUIOverrideFile.StartsWith("//")
+                                  ? YafForumInfo.GetURLToScripts(Config.JQueryOverrideFile)
+                                  : Config.JQueryUIOverrideFile;
+            }
+            else
+            {
+                jqueryUIUrl = useCDn /*YafContext.Current.Get<YafBoardSettings>().JqueryUICDNHosted*/
+                                  ? "//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"
+#if DEBUG
+                                  : YafForumInfo.GetURLToScripts("bootstrap.js");
+#else
+                                  : YafForumInfo.GetURLToScripts("bootstrap.min.js");
+#endif
+            }
+
+            // load jQuery UI from google...
+            element.Controls.Add(ControlHelper.MakeJsIncludeControl(jqueryUIUrl));
+
+            YafContext.Current.PageElements.AddPageElement("bootstrap");
         }
 
         /// <summary>

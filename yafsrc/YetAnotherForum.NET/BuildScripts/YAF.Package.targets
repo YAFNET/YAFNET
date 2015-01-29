@@ -48,8 +48,8 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.timeago.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ui.datepicker-farsi.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.yafmodaldialog.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-2.1.1.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-2.1.1.intellisense.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-2.1.3.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-2.1.3.intellisense.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-migrate-1.2.1.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-ui-1.11.2.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-ui-i18n.js" />

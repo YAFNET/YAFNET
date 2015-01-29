@@ -2112,34 +2112,6 @@
       <DependentUpon>jsdifflib.js</DependentUpon>
     </Content>
     <Content Include="Scripts\prism.js" />
-    <Content Include="Scripts\Select2-locales\az.js" />
-    <Content Include="Scripts\Select2-locales\bg.js" />
-    <Content Include="Scripts\Select2-locales\da.js" />
-    <Content Include="Scripts\Select2-locales\de.js" />
-    <Content Include="Scripts\Select2-locales\en.js" />
-    <Content Include="Scripts\Select2-locales\es.js" />
-    <Content Include="Scripts\Select2-locales\et.js" />
-    <Content Include="Scripts\Select2-locales\eu.js" />
-    <Content Include="Scripts\Select2-locales\fi.js" />
-    <Content Include="Scripts\Select2-locales\fr.js" />
-    <Content Include="Scripts\Select2-locales\gl.js" />
-    <Content Include="Scripts\Select2-locales\hr.js" />
-    <Content Include="Scripts\Select2-locales\hu.js" />
-    <Content Include="Scripts\Select2-locales\id.js" />
-    <Content Include="Scripts\Select2-locales\is.js" />
-    <Content Include="Scripts\Select2-locales\lt.js" />
-    <Content Include="Scripts\Select2-locales\lv.js" />
-    <Content Include="Scripts\Select2-locales\mk.js" />
-    <Content Include="Scripts\Select2-locales\nb.js" />
-    <Content Include="Scripts\Select2-locales\ro.js" />
-    <Content Include="Scripts\Select2-locales\ru.js" />
-    <Content Include="Scripts\Select2-locales\sk.js" />
-    <Content Include="Scripts\Select2-locales\sr.js" />
-    <Content Include="Scripts\Select2-locales\th.js" />
-    <Content Include="Scripts\Select2-locales\tr.js" />
-    <Content Include="Scripts\Select2-locales\uk.js" />
-    <Content Include="Scripts\Select2-locales\vi.js" />
-    <Content Include="Scripts\Select2-locales\zh-TW.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\tinymce\langs\ar.js" />
@@ -3358,8 +3330,8 @@
     <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
-    <None Include="Scripts\jquery-2.1.1.intellisense.js">
-      <DependentUpon>jquery-2.1.1.js</DependentUpon>
+    <None Include="Scripts\jquery-2.1.3.intellisense.js">
+      <DependentUpon>jquery-2.1.3.js</DependentUpon>
     </None>
     <Content Include="Scripts\ckeditor\ckeditor_init.js" />
     <Content Include="Scripts\ckeditor\ckeditor_initbbcode.js" />
@@ -3489,13 +3461,9 @@
     <Content Include="Scripts\ckeditor\plugins\syntaxhighlight\scripts\shCore.js" />
     <Content Include="Scripts\ckeditor\plugins\syntaxhighlight\styles\shCore.css" />
     <Content Include="Scripts\ckeditor\yaf_contents.css" />
-    <Content Include="Scripts\jquery-2.1.1.js" />
-    <Content Include="Scripts\jquery-2.1.1.min.js">
-      <DependentUpon>jquery-2.1.1.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery-migrate-1.2.1.js" />
-    <Content Include="Scripts\jquery-migrate-1.2.1.min.js">
-      <DependentUpon>jquery-migrate-1.2.1.js</DependentUpon>
+    <Content Include="Scripts\jquery-2.1.3.js" />
+    <Content Include="Scripts\jquery-2.1.3.min.js">
+      <DependentUpon>jquery-2.1.3.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery-ui-i18n.js" />
     <Content Include="Scripts\jquery-ui-i18n.min.js">
@@ -4101,8 +4069,8 @@
     <Content Include="themes\cleanSlate\tab-line.png" />
     <Content Include="themes\cleanSlate\tab.png" />
     <Content Include="recommended.web.config" />
-    <Content Include="Scripts\jquery-2.1.1.min.map">
-      <DependentUpon>jquery-2.1.1.js</DependentUpon>
+    <Content Include="Scripts\jquery-2.1.3.min.map">
+      <DependentUpon>jquery-2.1.3.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery.ForumExtensions.js.bundle">
       <SubType>Designer</SubType>

@@ -103,7 +103,7 @@ namespace YAF.Classes
                                  false);
 
                 var topicsList = (from DataRow topic in topics.Rows
-                                   where topic["Subject"].ToString().Contains(searchTerm)
+                                  where topic["Subject"].ToString().ToLower().Contains(searchTerm.ToLower())
                                    select
                                        new SelectOptions
                                            {
