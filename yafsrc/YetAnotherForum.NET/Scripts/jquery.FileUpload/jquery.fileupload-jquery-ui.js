@@ -27,7 +27,7 @@
 
         options: {
             processdone: function (e, data) {
-                data.context.find('.start').button('enable');
+                data.context.find('.start').uibutton('enable');
             },
             progress: function (e, data) {
                 if (data.context) {
@@ -60,11 +60,11 @@
             var node = this._super(func, files),
                 showIconText = $(window).width() > 480;
             node.find('.progress').empty().progressbar();
-            node.find('.start').button({
+            node.find('.start').uibutton({
                 icons: {primary: 'ui-icon-circle-arrow-e'},
                 text: showIconText
             });
-            node.find('.cancel').button({
+            node.find('.cancel').uibutton({
                 icons: {primary: 'ui-icon-cancel'},
                 text: showIconText
             });
@@ -77,7 +77,7 @@
         _renderDownload: function (func, files) {
             var node = this._super(func, files),
                 showIconText = $(window).width() > 480;
-            node.find('.delete').button({
+            node.find('.delete').uibutton({
                 icons: {primary: 'ui-icon-trash'},
                 text: showIconText
             });
@@ -88,13 +88,13 @@
         },
 
         _startHandler: function (e) {
-            $(e.currentTarget).button('disable');
+            $(e.currentTarget).uibutton('disable');
             this._super(e);
         },
 
         _transition: function (node) {
             var deferred = $.Deferred();
-            if (node.hasClass('fade')) {
+            if (node.hasClass('fade-ui')) {
                 node.fadeToggle(
                     this.options.transitionDuration,
                     this.options.transitionEasing,
@@ -119,11 +119,11 @@
                         .append(input);
                 })
                 .end().find('.start')
-                .button({icons: {primary: 'ui-icon-circle-arrow-e'}})
+                .uibutton({icons: {primary: 'ui-icon-circle-arrow-e'}})
                 .end().find('.cancel')
-                .button({icons: {primary: 'ui-icon-cancel'}})
+                .uibutton({ icons: { primary: 'ui-icon-cancel' } })
                 .end().find('.delete')
-                .button({icons: {primary: 'ui-icon-trash'}})
+                .uibutton({ icons: { primary: 'ui-icon-trash' } })
                 .end().find('.progress').progressbar();
         },
 
@@ -133,15 +133,15 @@
                 .find('.fileinput-button').each(function () {
                     var input = $(this).find('input:file').detach();
                     $(this)
-                        .button('destroy')
+                        .uibutton('destroy')
                         .append(input);
                 })
                 .end().find('.start')
-                .button('destroy')
+                .uibutton('destroy')
                 .end().find('.cancel')
-                .button('destroy')
+                .vbutton('destroy')
                 .end().find('.delete')
-                .button('destroy')
+                .uibutton('destroy')
                 .end().find('.progress').progressbar('destroy');
             this._super();
         }

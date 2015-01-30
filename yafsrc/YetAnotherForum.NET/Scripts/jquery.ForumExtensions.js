@@ -11055,7 +11055,7 @@ function yaf_top(obj) {
 
 function yaf_popit(menuName) {
     var evt = getEvent(window.event);
-    var target, newmenu;
+    var target;
 
     if (!document.getElementById) {
         throw ('ERROR: missing getElementById');
@@ -11069,7 +11069,7 @@ function yaf_popit(menuName) {
         throw ('ERROR: missing event target');
     }
 
-    newmenu = document.getElementById(menuName);
+    var newmenu = document.getElementById(menuName);
 
     if (window.themenu && window.themenu.id != newmenu.id)
         yaf_hidemenu();
@@ -11149,13 +11149,8 @@ jQuery(document).ready(function () {
         jQuery('.Numeric').spinner({min: 0});
     }
 
-    if (typeof $().emulateTransitionEnd == 'function') {
-        if (jQuery(".OpenUploadDialog,.UploadNewFileLine").length) {
-            jQuery.fn.bootstrapBtn = jQuery.fn.button.noConflict();
-        }
-
-        $.widget.bridge('uitooltip', $.ui.tooltip);
-    }
+    jQuery.widget.bridge('uitooltip', $.ui.tooltip);
+    jQuery.widget.bridge('uibutton', $.ui.button);
 
     var dialog = jQuery(".UploadDialog").dialog({
         autoOpen: false,

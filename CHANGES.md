@@ -5,6 +5,7 @@ YetAnotherForum.NET Changelog
 
 #New Features:
 
+* [#229](https://github.com/YAFNET/YAFNET/issues/229): Topics List on the MoveMessage Page are now loaded paged via ajax
 * [#191](https://github.com/YAFNET/YAFNET/issues/191): YAF.NET is now compatible with Azure
 * [#112](https://github.com/YAFNET/YAFNET/issues/112): Intuitive Posting of Photos
 * [#230](https://github.com/YAFNET/YAFNET/issues/230): Thousand Separator in Active Users
