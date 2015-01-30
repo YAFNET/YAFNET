@@ -25,6 +25,7 @@
 namespace YAF.Utils
 {
     using System;
+    using System.Text;
     using System.Web;
     using YAF.Classes;
     using YAF.Types;
@@ -159,7 +160,7 @@ namespace YAF.Utils
                 const byte Build = 0;
                 const byte Sub = 0;
 
-                const ReleaseType ReleaseType = ReleaseType.BETA;
+                const ReleaseType ReleaseType = ReleaseType.RC;
                 const byte ReleaseNumber = 0;
                 
                 var version = Major.ToType<long>() << 24;
@@ -188,7 +189,7 @@ namespace YAF.Utils
         {
             get
             {
-                return new DateTime(2015, 01, 10);
+                return new DateTime(2015, 01, 30);
             }
         }
 
@@ -203,16 +204,18 @@ namespace YAF.Utils
         /// </returns>
         public static string AppVersionNameFromCode(long code)
         {
-            var version = "{0}.{1}.{2}".FormatWith((code >> 24) & 0xFF, (code >> 16) & 0xFF, (code >> 12) & 0x0F);
+            var version = new StringBuilder();
+
+            version.AppendFormat("{0}.{1}.{2}", (code >> 24) & 0xFF, (code >> 16) & 0xFF, (code >> 12) & 0x0F);
 
             if (((code >> 8) & 0x0F) > 0)
             {
-                version += ".{0}".FormatWith((code >> 8) & 0x0F);
+                version.AppendFormat(".{0}", (code >> 8) & 0x0F);
             }
 
             if (((code >> 4) & 0x0F) <= 0)
             {
-                return version;
+                return version.ToString();
             }
 
             var value = (code >> 4) & 0x0F;
@@ -232,10 +235,10 @@ namespace YAF.Utils
 
             if (releaseType != ReleaseType.Regular)
             {
-                version += " {0} {1}".FormatWith(releaseType.ToString().ToUpper(), number);
+                version.AppendFormat(" {0} {1}", releaseType.ToString().ToUpper(), number);
             }
 
-            return version;
+            return version.ToString();
         }
 
         #endregion
