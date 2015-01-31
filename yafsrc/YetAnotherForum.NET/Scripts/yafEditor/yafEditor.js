@@ -32,10 +32,10 @@ yafEditor.prototype.FormatText = function (command, option) {
                 // ask for the Image description text...
                 var imgDesc = prompt('Enter Image Description:', '');
 
-                if (imgDesc != '' && imgDesc != null) {
+                if (imgDesc !== '' && imgDesc != null) {
                     replaceSelection(textObj, '[img=' + imgUrl + ']' + imgDesc + '[/img]');
                 }
-                else {
+                else if (imgUrl !== '' && imgUrl != null) {
                     replaceSelection(textObj, '[img]' + imgUrl + '[/img]');
                 }
             }
