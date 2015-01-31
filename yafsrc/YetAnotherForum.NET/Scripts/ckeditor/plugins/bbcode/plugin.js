@@ -132,12 +132,12 @@ function ConvertHtmlToBBCode(html) {
 
         html = html.replace(/<[^>]+>/g, '');
 
-        return html
-	}
+    return html;
+}
 
 CKEDITOR.htmlDataProcessor.prototype =
 {
-    toHtml: function (data, fixForBody) {
+    toHtml: function(data, fixForBody) {
 
         // Convert < and > to their HTML entities.
         data = data.replace(/</g, '&lt;');
@@ -191,12 +191,12 @@ CKEDITOR.htmlDataProcessor.prototype =
         // [left] 
         data = data.replace(/\[indent\]/gi, '<div style="text-align: left;">');
         data = data.replace(/\[\/indent\]/gi, '</div>');
-		
-		// [center] 
+
+        // [center] 
         data = data.replace(/\[center\]/gi, '<div style="text-align: center;">');
         data = data.replace(/\[\/center\]/gi, '</div>');
-		
-		// [right] 
+
+        // [right] 
         data = data.replace(/\[right\]/gi, '<div style="text-align: right;">');
         data = data.replace(/\[\/right\]/gi, '</div>');
 
@@ -233,7 +233,7 @@ CKEDITOR.htmlDataProcessor.prototype =
         return data;
     },
 
-    toDataFormat: function (html, fixForBody) {
+    toDataFormat: function(html, fixForBody) {
         return ConvertHtmlToBBCode(html);
     }
 };

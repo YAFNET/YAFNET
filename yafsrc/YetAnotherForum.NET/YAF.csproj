@@ -919,8 +919,8 @@
     <Content Include="Content\bootstrap-select.min.css">
       <DependentUpon>bootstrap-select.less</DependentUpon>
     </Content>
-    <Content Include="Content\select2.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\select2.css" />
     <Content Include="Content\icons\ipbandetected.png" />
     <Content Include="Content\images\InstallBackground.jpg" />
     <Content Include="Content\images\progressbar.gif" />
@@ -1515,7 +1515,9 @@
     <Content Include="languages\admin\english.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="languages\arabic.xml" />
+    <Content Include="languages\arabic.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="languages\estonian.xml" />
     <Content Include="languages\help\english.xml">
       <SubType>Designer</SubType>
@@ -1625,7 +1627,9 @@
     </Content>
     <Content Include="languages\finnish.xml" />
     <Content Include="languages\french.xml" />
-    <Content Include="languages\german-du.xml" />
+    <Content Include="languages\german-du.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="languages\hebrew.xml" />
     <Content Include="languages\italian.xml" />
     <Content Include="languages\lithuanian.xml" />
@@ -2081,6 +2085,93 @@
     <Content Include="Scripts\i18n\defaults-zh_CN.min.js" />
     <Content Include="Scripts\i18n\defaults-zh_TW.js" />
     <Content Include="Scripts\i18n\defaults-zh_TW.min.js" />
+    <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
+    <Content Include="Scripts\ckeditor\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\CHANGES.md" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap\wells.less" />
+    <Content Include="Content\bootstrap\variables.less" />
+    <Content Include="Content\bootstrap\utilities.less" />
+    <Content Include="Content\bootstrap\type.less" />
+    <Content Include="Content\bootstrap\tooltip.less" />
+    <Content Include="Content\bootstrap\thumbnails.less" />
+    <Content Include="Content\bootstrap\theme.less" />
+    <Content Include="Content\bootstrap\tables.less" />
+    <Content Include="Content\bootstrap\scaffolding.less" />
+    <Content Include="Content\bootstrap\responsive-utilities.less" />
+    <Content Include="Content\bootstrap\responsive-embed.less" />
+    <Content Include="Content\bootstrap\progress-bars.less" />
+    <Content Include="Content\bootstrap\print.less" />
+    <Content Include="Content\bootstrap\popovers.less" />
+    <Content Include="Content\bootstrap\panels.less" />
+    <Content Include="Content\bootstrap\pagination.less" />
+    <Content Include="Content\bootstrap\pager.less" />
+    <Content Include="Content\bootstrap\normalize.less" />
+    <Content Include="Content\bootstrap\navs.less" />
+    <Content Include="Content\bootstrap\navbar.less" />
+    <Content Include="Content\bootstrap\modals.less" />
+    <Content Include="Content\bootstrap\mixins\vendor-prefixes.less" />
+    <Content Include="Content\bootstrap\mixins\text-overflow.less" />
+    <Content Include="Content\bootstrap\mixins\text-emphasis.less" />
+    <Content Include="Content\bootstrap\mixins\table-row.less" />
+    <Content Include="Content\bootstrap\mixins\tab-focus.less" />
+    <Content Include="Content\bootstrap\mixins\size.less" />
+    <Content Include="Content\bootstrap\mixins\responsive-visibility.less" />
+    <Content Include="Content\bootstrap\mixins\resize.less" />
+    <Content Include="Content\bootstrap\mixins\reset-filter.less" />
+    <Content Include="Content\bootstrap\mixins\progress-bar.less" />
+    <Content Include="Content\bootstrap\mixins\panels.less" />
+    <Content Include="Content\bootstrap\mixins\pagination.less" />
+    <Content Include="Content\bootstrap\mixins\opacity.less" />
+    <Content Include="Content\bootstrap\mixins\nav-vertical-align.less" />
+    <Content Include="Content\bootstrap\mixins\nav-divider.less" />
+    <Content Include="Content\bootstrap\mixins\list-group.less" />
+    <Content Include="Content\bootstrap\mixins\labels.less" />
+    <Content Include="Content\bootstrap\mixins\image.less" />
+    <Content Include="Content\bootstrap\mixins\hide-text.less" />
+    <Content Include="Content\bootstrap\mixins\grid-framework.less" />
+    <Content Include="Content\bootstrap\mixins\grid.less" />
+    <Content Include="Content\bootstrap\mixins\gradients.less" />
+    <Content Include="Content\bootstrap\mixins\forms.less" />
+    <Content Include="Content\bootstrap\mixins\clearfix.less" />
+    <Content Include="Content\bootstrap\mixins\center-block.less" />
+    <Content Include="Content\bootstrap\mixins\buttons.less" />
+    <Content Include="Content\bootstrap\mixins\border-radius.less" />
+    <Content Include="Content\bootstrap\mixins\background-variant.less" />
+    <Content Include="Content\bootstrap\mixins\alerts.less" />
+    <Content Include="Content\bootstrap\mixins.less" />
+    <Content Include="Content\bootstrap\media.less" />
+    <Content Include="Content\bootstrap\list-group.less" />
+    <Content Include="Content\bootstrap\labels.less" />
+    <Content Include="Content\bootstrap\jumbotron.less" />
+    <Content Include="Content\bootstrap\input-groups.less" />
+    <Content Include="Content\bootstrap\grid.less" />
+    <Content Include="Content\bootstrap\glyphicons.less" />
+    <Content Include="Content\bootstrap\forms.less" />
+    <Content Include="Content\bootstrap\dropdowns.less" />
+    <Content Include="Content\bootstrap\component-animations.less" />
+    <Content Include="Content\bootstrap\code.less" />
+    <Content Include="Content\bootstrap\close.less" />
+    <Content Include="Content\bootstrap\carousel.less" />
+    <Content Include="Content\bootstrap\buttons.less" />
+    <Content Include="Content\bootstrap\button-groups.less" />
+    <Content Include="Content\bootstrap\breadcrumbs.less" />
+    <Content Include="Content\bootstrap\bootstrap.less" />
+    <Content Include="Content\bootstrap\badges.less" />
+    <Content Include="Content\bootstrap\alerts.less" />
+    <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.3.js" />
+    <Content Include="Scripts\jquery-2.1.3.min.js">
+      <DependentUpon>jquery-2.1.3.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery-ui-1.11.2.js" />
     <Content Include="Scripts\jquery-ui-1.11.2.min.js">
       <DependentUpon>jquery-ui-1.11.2.js</DependentUpon>
@@ -2113,7 +2204,9 @@
     </Content>
     <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\select2.js" />
-    <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\select2.min.js">
+      <DependentUpon>select2.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\tinymce\langs\ar.js" />
     <Content Include="Scripts\tinymce\langs\ar_SA.js" />
     <Content Include="Scripts\tinymce\langs\az.js" />
@@ -3223,79 +3316,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Content\bootstrap-select.less" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap\wells.less" />
-    <Content Include="Content\bootstrap\variables.less" />
-    <Content Include="Content\bootstrap\utilities.less" />
-    <Content Include="Content\bootstrap\type.less" />
-    <Content Include="Content\bootstrap\tooltip.less" />
-    <Content Include="Content\bootstrap\thumbnails.less" />
-    <Content Include="Content\bootstrap\theme.less" />
-    <Content Include="Content\bootstrap\tables.less" />
-    <Content Include="Content\bootstrap\scaffolding.less" />
-    <Content Include="Content\bootstrap\responsive-utilities.less" />
-    <Content Include="Content\bootstrap\responsive-embed.less" />
-    <Content Include="Content\bootstrap\progress-bars.less" />
-    <Content Include="Content\bootstrap\print.less" />
-    <Content Include="Content\bootstrap\popovers.less" />
-    <Content Include="Content\bootstrap\panels.less" />
-    <Content Include="Content\bootstrap\pagination.less" />
-    <Content Include="Content\bootstrap\pager.less" />
-    <Content Include="Content\bootstrap\normalize.less" />
-    <Content Include="Content\bootstrap\navs.less" />
-    <Content Include="Content\bootstrap\navbar.less" />
-    <Content Include="Content\bootstrap\modals.less" />
-    <Content Include="Content\bootstrap\mixins\vendor-prefixes.less" />
-    <Content Include="Content\bootstrap\mixins\text-overflow.less" />
-    <Content Include="Content\bootstrap\mixins\text-emphasis.less" />
-    <Content Include="Content\bootstrap\mixins\table-row.less" />
-    <Content Include="Content\bootstrap\mixins\tab-focus.less" />
-    <Content Include="Content\bootstrap\mixins\size.less" />
-    <Content Include="Content\bootstrap\mixins\responsive-visibility.less" />
-    <Content Include="Content\bootstrap\mixins\resize.less" />
-    <Content Include="Content\bootstrap\mixins\reset-filter.less" />
-    <Content Include="Content\bootstrap\mixins\progress-bar.less" />
-    <Content Include="Content\bootstrap\mixins\panels.less" />
-    <Content Include="Content\bootstrap\mixins\pagination.less" />
-    <Content Include="Content\bootstrap\mixins\opacity.less" />
-    <Content Include="Content\bootstrap\mixins\nav-vertical-align.less" />
-    <Content Include="Content\bootstrap\mixins\nav-divider.less" />
-    <Content Include="Content\bootstrap\mixins\list-group.less" />
-    <Content Include="Content\bootstrap\mixins\labels.less" />
-    <Content Include="Content\bootstrap\mixins\image.less" />
-    <Content Include="Content\bootstrap\mixins\hide-text.less" />
-    <Content Include="Content\bootstrap\mixins\grid-framework.less" />
-    <Content Include="Content\bootstrap\mixins\grid.less" />
-    <Content Include="Content\bootstrap\mixins\gradients.less" />
-    <Content Include="Content\bootstrap\mixins\forms.less" />
-    <Content Include="Content\bootstrap\mixins\clearfix.less" />
-    <Content Include="Content\bootstrap\mixins\center-block.less" />
-    <Content Include="Content\bootstrap\mixins\buttons.less" />
-    <Content Include="Content\bootstrap\mixins\border-radius.less" />
-    <Content Include="Content\bootstrap\mixins\background-variant.less" />
-    <Content Include="Content\bootstrap\mixins\alerts.less" />
-    <Content Include="Content\bootstrap\mixins.less" />
-    <Content Include="Content\bootstrap\media.less" />
-    <Content Include="Content\bootstrap\list-group.less" />
-    <Content Include="Content\bootstrap\labels.less" />
-    <Content Include="Content\bootstrap\jumbotron.less" />
-    <Content Include="Content\bootstrap\input-groups.less" />
-    <Content Include="Content\bootstrap\grid.less" />
-    <Content Include="Content\bootstrap\glyphicons.less" />
-    <Content Include="Content\bootstrap\forms.less" />
-    <Content Include="Content\bootstrap\dropdowns.less" />
-    <Content Include="Content\bootstrap\component-animations.less" />
-    <Content Include="Content\bootstrap\code.less" />
-    <Content Include="Content\bootstrap\close.less" />
-    <Content Include="Content\bootstrap\carousel.less" />
-    <Content Include="Content\bootstrap\buttons.less" />
-    <Content Include="Content\bootstrap\button-groups.less" />
-    <Content Include="Content\bootstrap\breadcrumbs.less" />
-    <Content Include="Content\bootstrap\bootstrap.less" />
-    <Content Include="Content\bootstrap\badges.less" />
-    <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Content\bootstrap-forum.less" />
     <None Include="Content\InstallWizard.less" />
     <Content Include="Content\InstallWizard.css">
@@ -3322,17 +3342,6 @@
     <None Include="Content\jquery.hovercard.less" />
     <Content Include="Content\jquery.notification.less" />
     <Content Include="Content\jquery.yafmodaldialog.less" />
-    <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
-    <Content Include="Scripts\ckeditor\README.md" />
-    <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
-    <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
-    <Content Include="Scripts\ckeditor\plugins\scayt\README.md" />
-    <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
-    <Content Include="Scripts\ckeditor\LICENSE.md" />
-    <Content Include="Scripts\ckeditor\CHANGES.md" />
-    <None Include="Scripts\jquery-2.1.3.intellisense.js">
-      <DependentUpon>jquery-2.1.3.js</DependentUpon>
-    </None>
     <Content Include="Scripts\ckeditor\ckeditor_init.js" />
     <Content Include="Scripts\ckeditor\ckeditor_initbbcode.js" />
     <Content Include="Scripts\ckeditor\plugins\bbcodehtml\plugin.js" />
@@ -3461,10 +3470,6 @@
     <Content Include="Scripts\ckeditor\plugins\syntaxhighlight\scripts\shCore.js" />
     <Content Include="Scripts\ckeditor\plugins\syntaxhighlight\styles\shCore.css" />
     <Content Include="Scripts\ckeditor\yaf_contents.css" />
-    <Content Include="Scripts\jquery-2.1.3.js" />
-    <Content Include="Scripts\jquery-2.1.3.min.js">
-      <DependentUpon>jquery-2.1.3.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\jquery-ui-i18n.js" />
     <Content Include="Scripts\jquery-ui-i18n.min.js">
       <DependentUpon>jquery-ui-i18n.js</DependentUpon>
@@ -4069,9 +4074,6 @@
     <Content Include="themes\cleanSlate\tab-line.png" />
     <Content Include="themes\cleanSlate\tab.png" />
     <Content Include="recommended.web.config" />
-    <Content Include="Scripts\jquery-2.1.3.min.map">
-      <DependentUpon>jquery-2.1.3.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\jquery.ForumExtensions.js.bundle">
       <SubType>Designer</SubType>
     </Content>
@@ -4086,6 +4088,7 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\readme.md" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Scripts\jquery.fileupload.comb.js.bundle" />
+    <Content Include="Scripts\jquery-2.1.3.min.map" />
     <None Include="themes\cleanSlate\theme.less" />
     <Content Include="themes\cleanSlate\theme.css">
       <DependentUpon>theme.less</DependentUpon>
@@ -5171,6 +5174,9 @@
     <Content Include="UrlRewriter.config" />
     <None Include="Web References\RegisterV2\RegisterV2.wsdl" />
     <Content Include="v1.9.1.upgrade.web.config" />
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\URLRewriter.NET\Intelligencia.UrlRewriter.csproj">
