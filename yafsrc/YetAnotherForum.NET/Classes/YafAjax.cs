@@ -91,16 +91,21 @@ namespace YAF.Classes
             
             if (searchTerm.IsSet())
             {
-                var topics = LegacyDb.topic_list(
-                                 forumID,
-                                 null,
-                                 DateTimeHelper.SqlDbMinTime(),
-                                 DateTime.UtcNow,
-                                 0,
-                                 30000,
-                                 false,
-                                 false,
-                                 false);
+                var topics = this.Get<IDataCache>()
+                    .GetOrSet(
+                        "TopicsList_{0}".FormatWith(forumID),
+                        () =>
+                        LegacyDb.topic_list(
+                            forumID,
+                            null,
+                            DateTimeHelper.SqlDbMinTime(),
+                            DateTime.UtcNow,
+                            0,
+                            30000,
+                            false,
+                            false,
+                            false),
+                        TimeSpan.FromMinutes(5));
 
                 var topicsList = (from DataRow topic in topics.Rows
                                   where topic["Subject"].ToString().ToLower().Contains(searchTerm.ToLower())
