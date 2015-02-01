@@ -190,7 +190,7 @@ namespace YAF.Pages
                     LegacyDb.pmessage_list(
                         Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm"))))
             {
-                if (dt.Rows.Count > 0)
+                if (dt.HasRows())
                 {
                     DataRow row = dt.Rows[0];
 

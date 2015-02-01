@@ -3,6 +3,7 @@
 @import "../Content/jquery.notification.less";
 @import "../Content/jquery.yafmodaldialog.less";
 @import "../Content/jsdifflib.less";
+@import "../Content/jquery.tablesorter.less";
 @import (inline)"../Content/prism.css";
 @import (inline)"../Content/select2.css";
 
@@ -483,40 +484,7 @@
 .yafnet .showEventItem, .yafnet .deleteEventItem {
     color: black!important;
 }
-table.tablesorter {
-    width: 100%;
-    text-align: left;
-    border-collapse:collapse;
-    border-spacing:0;
-    thead {
-        tr {
-            .header {
-                background-image: url('images/bg.gif');
-                background-repeat: no-repeat;
-                background-position: center right;
-                cursor: pointer;
-            }
-            .headerSortUp {
-                background-image: url('images/asc.gif');
-            }
-            .headerSortDown {
-                background-image: url('images/desc.gif');
-            }
-        }
-    }
-    tbody {
-        td {
-            padding: 4px;
-            vertical-align: top;
-        }
-    }
-}
-table.tablesorter thead tr th, table.tablesorter tfoot tr th {
-    padding: 4px;
-}
-table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
-    text-decoration:underline;
-}
+
 .authLogin {
     font-family:'lucida grande',tahoma,verdana,arial,sans-serif;
 }
@@ -652,7 +620,10 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 
 /* Drop Downs */
 .standardSelectMenu {
-    width:350px
+    width:350px;
+}
+.ui-selectmenu-button {
+    vertical-align:middle;
 }
 .ui-menu,
 .ui-menu-icons {

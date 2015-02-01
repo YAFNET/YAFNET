@@ -94,7 +94,7 @@ namespace YAF.Controls
 
                   Random random = new Random();
 
-                  if ((curAlbum != null) && (curAlbum.Rows.Count > 0))
+                  if ((curAlbum != null) && curAlbum.HasRows())
                   {
                       coverImage.ImageUrl = String.Format("{0}resource.ashx?imgprv={1}", YafForumInfo.ForumClientFileRoot, curAlbum.Rows[random.Next(curAlbum.Rows.Count)]["ImageID"]);
                   }*/

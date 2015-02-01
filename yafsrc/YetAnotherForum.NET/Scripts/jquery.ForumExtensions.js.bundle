@@ -21,6 +21,7 @@
     <file>/Scripts/jquery.pagination.js</file>
     <file>/Scripts/prism.js</file>
     <file>/Scripts/jquery.tablesorter.js</file>
+    <file>/Scripts/jquery.tablesorter.pager.js</file>
     <file>/Scripts/jquery.timeago.js</file>
     <file>/Scripts/jquery.yafmodaldialog.js</file>
     <file>/Scripts/jsdifflib.js</file>

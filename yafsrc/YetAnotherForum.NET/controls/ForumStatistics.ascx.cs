@@ -287,7 +287,7 @@ namespace YAF.Controls
                     () => this.Get<YafDbBroker>().GetRecentUsers(60 * 24 * 30),
                     TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ForumStatisticsCacheTimeout));
 
-                if (activeUsers30Day != null && activeUsers30Day.Rows.Count > 0)
+                if (activeUsers30Day != null && activeUsers30Day.HasRows())
                 {
                     var activeUsers1Day1 =
                         activeUsers30Day.Select("LastVisit >= '{0}'".FormatWith(DateTime.UtcNow.AddDays(-1)));

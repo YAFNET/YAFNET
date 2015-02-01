@@ -29,8 +29,9 @@ namespace YAF.Providers.Membership
   using System.Data;
 
   using YAF.Providers.Utils;
+  using YAF.Types.Extensions;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// The user password info.
@@ -406,7 +407,7 @@ namespace YAF.Providers.Membership
     {
       DataTable userData = DB.Current.GetUserPasswordInfo(appName, username, updateUser);
 
-      if (userData.Rows.Count > 0)
+      if (userData.HasRows())
       {
         DataRow userInfo = userData.Rows[0];
 

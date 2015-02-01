@@ -290,7 +290,7 @@ namespace YAF.Pages
             DataTable tempdb =
                 LegacyDb.message_getRepliesList(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
 
-            if (tempdb.Rows.Count > 0 && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
+            if (tempdb.HasRows() && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
             {
                 this.LinkedPosts.Visible = true;
                 this.LinkedPosts.DataSource = tempdb;

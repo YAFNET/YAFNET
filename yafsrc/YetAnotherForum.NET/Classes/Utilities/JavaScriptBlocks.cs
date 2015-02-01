@@ -594,6 +594,29 @@ namespace YAF.Utilities
         }
 
         /// <summary>
+        /// Generated the load Script for the Table Sorter Plugin (with Pager)
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="options">The options.</param>
+        /// <param name="pagerSelector">The pager selector.</param>
+        /// <returns>
+        /// Returns the Java Script that loads table Sorter
+        /// </returns>
+        public static string LoadTableSorter([NotNull]string selector, [CanBeNull]string options, [NotNull]string pagerSelector)
+        {
+            return @"{0}(document).ready(function() {{
+                        {0}('{1}').tablesorter( {2} )
+                                  .tablesorterPager({{
+                                                     container: $('{3}')
+                                                     }});
+                    }});".FormatWith(
+                Config.JQueryAlias,
+                selector,
+                options.IsSet() ? "{{ {0} }}".FormatWith(options) : string.Empty,
+                pagerSelector);
+        }
+
+        /// <summary>
         /// Load Go to Anchor
         /// </summary>
         /// <param name="anchor">

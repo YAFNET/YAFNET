@@ -35,6 +35,7 @@ namespace YAF.Providers.Membership
     using YAF.Classes.Pattern;
     using YAF.Classes.Data;
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces.Data;
 
     #endregion
@@ -392,14 +393,7 @@ namespace YAF.Providers.Membership
                 cmd.Parameters.AddWithValue("@UTCTIMESTAMP", DateTime.UtcNow);
                 using (DataTable dt = this.DbAccess.GetData(cmd))
                 {
-                    if (dt.Rows.Count > 0)
-                    {
-                        return dt.Rows[0];
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                    return dt.HasRows() ? dt.Rows[0] : null;
                 }
             }
         }

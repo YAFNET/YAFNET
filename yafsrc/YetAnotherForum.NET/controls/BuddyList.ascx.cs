@@ -168,8 +168,11 @@ namespace YAF.Controls
     /// </param>
     protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
-      if (!this.IsPostBack)
-      {
+        if (this.IsPostBack)
+        {
+            return;
+        }
+
         this.SetSort("Name", true);
 
         this.UserName.Text = this.GetText("username");
@@ -179,11 +182,10 @@ namespace YAF.Controls
         this.Location.Text = this.HtmlEncode(this.GetText("POSTS", "LOCATION"));
         if (this.Mode == 4)
         {
-          this.LastColumn.Text = this.GetText("REQUEST_DATE");
+            this.LastColumn.Text = this.GetText("REQUEST_DATE");
         }
 
         this.BindData();
-      }
     }
 
     /// <summary>
@@ -406,7 +408,7 @@ namespace YAF.Controls
       // set the Datatable
       DataTable buddyListDataTable = this.Get<IBuddy>().GetForUser(this.CurrentUserID);
 
-      if ((buddyListDataTable != null) && (buddyListDataTable.Rows.Count > 0))
+      if ((buddyListDataTable != null) && buddyListDataTable.HasRows())
       {
         // get the view from the datatable
         DataView buddyListDataView = buddyListDataTable.DefaultView;

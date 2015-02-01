@@ -520,7 +520,7 @@ namespace YAF.Controls
             // vzrus: If it's a guest edited by an admin registry value should be changed
             DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.currentUserID, true, null, null, false);
 
-            if (dt.Rows.Count > 0 && dt.Rows[0]["IsGuest"].ToType<bool>())
+            if (dt.HasRows() && dt.Rows[0]["IsGuest"].ToType<bool>())
             {
                 LegacyDb.registry_save("timezone", this.TimeZones.SelectedValue, this.PageContext.PageBoardID);
             }

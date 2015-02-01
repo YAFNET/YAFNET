@@ -110,10 +110,10 @@ namespace YAF.Pages.Admin
 
                         this.PageContext.AddLoadMessage(this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"));
                     }
-
+                    
                     break;
                 case "delete":
-                    string daysValue =
+                    var daysValue =
                         this.PageContext.CurrentForumPage.FindControlRecursiveAs<TextBox>("DaysOld").Text.Trim();
                     if (!ValidationHelper.IsValidInt(daysValue))
                     {
@@ -142,7 +142,7 @@ namespace YAF.Pages.Admin
                 case "deleteall":
 
                     // vzrus: Should not delete the whole providers portal data? Under investigation.
-                    string daysValueAll =
+                    var daysValueAll =
                         this.PageContext.CurrentForumPage.FindControlRecursiveAs<TextBox>("DaysOld").Text.Trim();
                     if (!ValidationHelper.IsValidInt(daysValueAll))
                     {
@@ -310,10 +310,9 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+            this.CreatePageLinks();
 
-            this.Page.Header.Title = this.GetText("ADMIN_ADMIN", "Administration");
+           this.Page.Header.Title = this.GetText("ADMIN_ADMIN", "Administration");
 
             // bind data
             this.BindBoardsList();
@@ -350,13 +349,14 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The pager_ page change.
+        /// Creates page links for this page.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+        protected override void CreatePageLinks()
         {
-            this.BindActiveUserData();
+            // forum index
+            this.PageLinks.AddRoot();
+
+            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
         }
 
         /// <summary>
@@ -364,36 +364,28 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindActiveUserData()
         {
-            DataTable activeList = this.GetActiveUsersData(true, true);
+            var activeUsers = this.GetActiveUsersData(true, true);
 
-            if (activeList == null || activeList.Rows.Count <= 0)
+            if (activeUsers.HasRows())
             {
-                return;
+                YafContext.Current.PageElements.RegisterJsBlock(
+                    "ActiveUsersTablesorterLoadJs",
+                    JavaScriptBlocks.LoadTableSorter(
+                        "#ActiveUsers",
+                        "sortList: [[0,0]]",
+                        "#ActiveUsersPager"));
             }
 
-            var activeUsersView = activeList.DefaultView;
-            this.Pager.PageSize = 50;
-
-            var pds = new PagedDataSource { AllowPaging = true, PageSize = this.Pager.PageSize };
-            this.Pager.Count = activeUsersView.Count;
-            pds.DataSource = activeUsersView;
-            pds.CurrentPageIndex = this.Pager.CurrentPageIndex;
-
-            if (pds.CurrentPageIndex >= pds.PageCount)
-            {
-                pds.CurrentPageIndex = pds.PageCount - 1;
-            }
-
-            this.ActiveList.DataSource = pds;
+            this.ActiveList.DataSource = activeUsers;
             this.ActiveList.DataBind();
         }
 
         /// <summary>
-        /// Bind list of boards to dropdown
+        /// Bind list of boards to drop down
         /// </summary>
         private void BindBoardsList()
         {
-            // only if user is hostadmin, otherwise boards' list is hidden
+            // only if user is host admin, otherwise boards' list is hidden
             if (!this.PageContext.IsHostAdmin)
             {
                 return;
@@ -430,13 +422,15 @@ namespace YAF.Pages.Admin
             {
                 var unverifiedUsers = LegacyDb.user_list(this.PageContext.PageBoardID, null, false);
 
-                YafContext.Current.PageElements.RegisterJsBlock(
-                    "tablesorterLoadJs",
-                    JavaScriptBlocks.LoadTableSorter(
-                        ".sortable",
-                        unverifiedUsers.Rows.Count > 0
-                            ? "headers: { 4: { sorter: false }},sortList: [[3,1],[0,0]]"
-                            : null));
+                if (unverifiedUsers.HasRows())
+                {
+                    YafContext.Current.PageElements.RegisterJsBlock(
+                        "UnverifiedUserstablesorterLoadJs",
+                        JavaScriptBlocks.LoadTableSorter(
+                            "#UnverifiedUsers",
+                            "headers: { 4: { sorter: false }},sortList: [[3,1],[0,0]]",
+                            "#UnverifiedUsersPager"));
+                }
 
                 // bind list
                 this.UserList.DataSource = unverifiedUsers;
@@ -444,7 +438,7 @@ namespace YAF.Pages.Admin
             }
 
             // get stats for current board, selected board or all boards (see function)
-            DataRow row = this.GetRepository<Board>().Stats(this.GetSelectedBoardID());
+            var row = this.GetRepository<Board>().Stats(this.GetSelectedBoardID());
 
             this.NumPosts.Text = "{0:N0}".FormatWith(row["NumPosts"]);
             this.NumTopics.Text = "{0:N0}".FormatWith(row["NumTopics"]);
@@ -498,16 +492,13 @@ namespace YAF.Pages.Admin
         private DataTable GetActiveUsersData(bool showGuests, bool showCrawlers)
         {
             // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.        
-            DataTable activeUsers =
-                this.Get<IDbFunction>().GetAsDataTable(
-                    cdb => 
-                    cdb.active_list_user(
-                        this.PageContext.PageBoardID,
-                        this.PageContext.PageUserID,
-                        showGuests,
-                        showCrawlers,
-                        this.Get<YafBoardSettings>().ActiveListTime,
-                        this.Get<YafBoardSettings>().UseStyledNicks));
+            var activeUsers = this.GetRepository<Active>()
+                .ListUser(
+                    userID: this.PageContext.PageUserID,
+                    guests: showGuests,
+                    showCrawlers: showCrawlers,
+                    activeTime: this.PageContext.BoardSettings.ActiveListTime,
+                    styledNicks: this.PageContext.BoardSettings.UseStyledNicks);
 
             return activeUsers;
         }

@@ -397,7 +397,7 @@ namespace YAF.Pages
 
                 var albumList = LegacyDb.album_image_list(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), null);
                 this.List.DataSource = albumList;
-                this.List.Visible = albumList.Rows.Count > 0;
+                this.List.Visible = albumList.HasRows();
             }
 
             this.DataBind();

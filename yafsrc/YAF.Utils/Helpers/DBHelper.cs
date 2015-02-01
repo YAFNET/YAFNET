@@ -93,7 +93,7 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static DataRow GetFirstRow([NotNull] this DataTable dt)
         {
-            return dt.Rows.Count > 0 ? dt.Rows[0] : null;
+            return dt.HasRows() ? dt.Rows[0] : null;
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace YAF.Utils.Helpers
         public static T GetFirstRowColumnAsValue<T>(
             [NotNull] this DataTable dt, [NotNull] string columnName, T defaultValue)
         {
-            if (dt.Rows.Count > 0 && dt.Columns.Contains(columnName))
+            if (dt.HasRows() && dt.Columns.Contains(columnName))
             {
                 if (dt.Rows[0][columnName] != DBNull.Value)
                 {

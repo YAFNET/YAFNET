@@ -418,7 +418,7 @@ namespace YAF.Providers.Profile
             DataSet profileDS = DB.Current.GetProfiles(this.ApplicationName, 0, 1, username, null);
             DataTable profileDT = profileDS.Tables[0];
 
-            if (profileDT.Rows.Count > 0)
+            if (profileDT.HasRows())
             {
                 DataRow row = profileDT.Rows[0];
 

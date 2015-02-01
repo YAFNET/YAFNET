@@ -220,7 +220,7 @@ namespace YAF.Pages.Admin
             var bannedList = this.GetRepository<BannedIP>().List(null, this.PagerTop.CurrentPageIndex, this.PagerTop.PageSize);
             this.list.DataSource = bannedList;
 
-            this.PagerTop.Count = bannedList != null && bannedList.Rows.Count > 0
+            this.PagerTop.Count = bannedList != null && bannedList.HasRows()
                                       ? bannedList.AsEnumerable().First().Field<int>("TotalRows")
                                       : 0;
 

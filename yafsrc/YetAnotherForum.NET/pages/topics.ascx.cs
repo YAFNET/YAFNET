@@ -349,7 +349,7 @@ namespace YAF.Pages
                 this.PageContext.PageUserID,
                 this.PageContext.PageCategoryID,
                 this.PageContext.PageForumID);
-            if (ds.Tables["Forum"].Rows.Count > 0)
+            if (ds.Tables["Forum"].HasRows())
             {
                 this.ForumList.DataSource = ds.Tables["Forum"].Rows;
                 this.SubForums.Visible = true;
@@ -450,7 +450,7 @@ namespace YAF.Pages
             // setup the show topic list selection after data binding
             this.ShowList.SelectedIndex = this._showTopicListSelected;
             this.Get<IYafSession>().ShowList = this._showTopicListSelected;
-            if (dtTopics != null && dtTopics.Rows.Count > 0)
+            if (dtTopics != null && dtTopics.HasRows())
             {
                 this.Pager.Count = dtTopics.AsEnumerable().First().Field<int>("TotalRows");
             }

@@ -125,7 +125,7 @@ namespace YAF.Pages.Admin
                     pageSize: this.PagerTop.PageSize);
             
             this.List.DataSource = dt;
-            this.PagerTop.Count = dt != null && dt.Rows.Count > 0
+            this.PagerTop.Count = dt != null && dt.HasRows()
                                       ? dt.AsEnumerable().First().Field<int>("TotalRows")
                                       : 0;
             this.DataBind();

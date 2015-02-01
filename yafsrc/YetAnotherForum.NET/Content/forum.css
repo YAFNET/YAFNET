@@ -879,6 +879,49 @@ ins {
   background-color: #99EE99 !important;
   text-decoration: underline !important;
 }
+table.tablesorter {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+table.tablesorter thead tr .header {
+  background-image: url('images/bg.gif');
+  background-repeat: no-repeat;
+  background-position: center right;
+  cursor: pointer;
+}
+table.tablesorter thead tr .headerSortUp {
+  background-image: url('images/asc.gif');
+}
+table.tablesorter thead tr .headerSortDown {
+  background-image: url('images/desc.gif');
+}
+table.tablesorter tbody td {
+  padding: 4px;
+  vertical-align: top;
+}
+table.tablesorter thead tr th,
+table.tablesorter tfoot tr th {
+  padding: 4px;
+}
+table.tablesorter thead tr .headerSortDown,
+table.tablesorter thead tr .headerSortUp {
+  text-decoration: underline;
+}
+.tableSorterPager {
+  margin-bottom: 5px;
+  padding: 10px;
+}
+.pagedisplay {
+  text-align: center;
+}
+.emptydatatemplate {
+  display: none;
+}
+.exportlink {
+  display: none;
+}
 /* http://prismjs.com/download.html?themes=prism-okaidia&languages=markup+css+css-extras+clike+javascript+java+php+coffeescript+scss+c+cpp+sql+http+csharp+aspnet+scala+apacheconf+git&plugins=line-highlight+line-numbers+show-language */
 /**
  * okaidia theme for JavaScript, CSS and HTML
@@ -1982,36 +2025,6 @@ pre[class*='language-'] > code[data-language]::before {
 .yafnet .deleteEventItem {
   color: black!important;
 }
-table.tablesorter {
-  width: 100%;
-  text-align: left;
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-table.tablesorter thead tr .header {
-  background-image: url('images/bg.gif');
-  background-repeat: no-repeat;
-  background-position: center right;
-  cursor: pointer;
-}
-table.tablesorter thead tr .headerSortUp {
-  background-image: url('images/asc.gif');
-}
-table.tablesorter thead tr .headerSortDown {
-  background-image: url('images/desc.gif');
-}
-table.tablesorter tbody td {
-  padding: 4px;
-  vertical-align: top;
-}
-table.tablesorter thead tr th,
-table.tablesorter tfoot tr th {
-  padding: 4px;
-}
-table.tablesorter thead tr .headerSortDown,
-table.tablesorter thead tr .headerSortUp {
-  text-decoration: underline;
-}
 .authLogin {
   font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
 }
@@ -2158,6 +2171,9 @@ table.tablesorter thead tr .headerSortUp {
 /* Drop Downs */
 .standardSelectMenu {
   width: 350px;
+}
+.ui-selectmenu-button {
+  vertical-align: middle;
 }
 .ui-menu,
 .ui-menu-icons {

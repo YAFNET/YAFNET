@@ -363,7 +363,7 @@ namespace YAF.Providers.Roles
         {
             DataTable roles = DB.Current.IsUserInRole(this.ApplicationName, username, roleName);
 
-            return roles.Rows.Count > 0;
+            return roles.HasRows();
         }
 
         /// <summary>

@@ -202,7 +202,7 @@ namespace YAF.Pages
         DataTable messageRow = LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID);
 
         // Checking if the user has a right to view the message and getting data  
-        if (messageRow.Rows.Count > 0)
+        if (messageRow.HasRows())
         {
             // populate the repeater with the message datarow...
             this.MessageList.DataSource = LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID);

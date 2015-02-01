@@ -31,6 +31,7 @@ namespace YAF.Core.Model
 
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
@@ -193,7 +194,7 @@ namespace YAF.Core.Model
                 repository.DbFunction.GetData.board_poststats(
                     BoardID: boardID, StyledNicks: styledNicks, ShowNoCountPosts: showNoCountPosts, GetDefaults: 0);
 
-            if (dt.Rows.Count > 0)
+            if (dt.HasRows())
             {
                 return dt.Rows[0];
             }
@@ -203,7 +204,7 @@ namespace YAF.Core.Model
                 repository.DbFunction.GetData.board_poststats(
                     BoardID: boardID, StyledNicks: styledNicks, ShowNoCountPosts: showNoCountPosts, GetDefaults: 1);
 
-            return dt.Rows.Count > 0 ? dt.Rows[0] : null;
+            return dt.HasRows() ? dt.Rows[0] : null;
         }
 
         /// <summary>

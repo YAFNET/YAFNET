@@ -180,7 +180,7 @@ namespace YAF.Controls
 
             DataTable sigData = LegacyDb.user_getsignaturedata(this.CurrentUserID, this.PageContext.PageBoardID);
 
-            if (sigData.Rows.Count > 0)
+            if (sigData.HasRows())
             {
                 this._allowedBbcodes = sigData.Rows[0]["UsrSigBBCodes"].ToString().Trim().Trim(',').Trim();
 

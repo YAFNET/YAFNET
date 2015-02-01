@@ -107,7 +107,7 @@ namespace YAF.Pages.Admin
                "tablesorterLoadJs",
                JavaScriptBlocks.LoadTableSorter(
                    ".sortable",
-                   cultureTable.Rows.Count > 0 ? "headers: { 4: { sorter: false }}" : null));
+                   cultureTable.HasRows() ? "headers: { 4: { sorter: false }}" : null));
 
 
             this.DataBind();

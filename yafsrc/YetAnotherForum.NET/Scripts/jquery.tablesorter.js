@@ -859,7 +859,7 @@
                 return /^[-+]?\d*$/.test($.trim(s.replace(/[,.']/g, '')));
             };
             this.clearTableBody = function (table) {
-                if ($.browser.msie) {
+                if (navigator.userAgent.match("MSIE")) {
                     function empty() {
                         while (this.firstChild)
                         this.removeChild(this.firstChild);

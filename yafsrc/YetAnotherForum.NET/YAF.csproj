@@ -920,6 +920,12 @@
       <DependentUpon>bootstrap-select.less</DependentUpon>
     </Content>
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\jquery.tablesorter.css">
+      <DependentUpon>jquery.tablesorter.less</DependentUpon>
+    </Content>
+    <Content Include="Content\jquery.tablesorter.min.css">
+      <DependentUpon>jquery.tablesorter.css</DependentUpon>
+    </Content>
     <Content Include="Content\select2.css" />
     <Content Include="Content\icons\ipbandetected.png" />
     <Content Include="Content\images\InstallBackground.jpg" />
@@ -2167,6 +2173,7 @@
     <Content Include="Content\bootstrap\bootstrap.less" />
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
+    <None Include="Content\jquery.tablesorter.less" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js">
@@ -2198,6 +2205,10 @@
     <Content Include="Scripts\jquery.FileUpload\jquery.iframe-transport.js" />
     <Content Include="Scripts\jquery.FileUpload\load-image.all.min.js" />
     <Content Include="Scripts\jquery.FileUpload\tmpl.min.js" />
+    <Content Include="Scripts\jquery.tablesorter.min.js">
+      <DependentUpon>jquery.tablesorter.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.tablesorter.pager.js" />
     <Content Include="Scripts\jsdifflib.js" />
     <Content Include="Scripts\jsdifflib.min.js">
       <DependentUpon>jsdifflib.js</DependentUpon>
@@ -5174,9 +5185,6 @@
     <Content Include="UrlRewriter.config" />
     <None Include="Web References\RegisterV2\RegisterV2.wsdl" />
     <Content Include="v1.9.1.upgrade.web.config" />
-    <Content Include="web.config">
-      <SubType>Designer</SubType>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\URLRewriter.NET\Intelligencia.UrlRewriter.csproj">

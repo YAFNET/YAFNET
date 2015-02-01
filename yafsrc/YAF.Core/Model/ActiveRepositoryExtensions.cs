@@ -165,31 +165,17 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The list user.
+        /// Lists the active user.
         /// </summary>
-        /// <param name="repository">
-        /// The repository. 
-        /// </param>
-        /// <param name="userID">
-        /// The user id. 
-        /// </param>
-        /// <param name="guests">
-        /// The guests. 
-        /// </param>
-        /// <param name="showCrawlers">
-        /// The show crawlers. 
-        /// </param>
-        /// <param name="activeTime">
-        /// The active time. 
-        /// </param>
-        /// <param name="styledNicks">
-        /// The styled nicks. 
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
+        /// <param name="repository">The repository.</param>
+        /// <param name="userID">The user id.</param>
+        /// <param name="guests">The guests.</param>
+        /// <param name="showCrawlers">The show crawlers.</param>
+        /// <param name="activeTime">The active time.</param>
+        /// <param name="styledNicks">The styled nicks.</param>
+        /// <param name="boardId">The board Id.</param>
         /// <returns>
-        /// The <see cref="DataTable"/> . 
+        /// The <see cref="DataTable" /> .
         /// </returns>
         public static DataTable ListUser(
             this IRepository<Active> repository, int userID, bool guests, bool showCrawlers, int activeTime, bool styledNicks, int? boardId = null)

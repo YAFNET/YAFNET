@@ -74,6 +74,7 @@
     <Compile Include="Exceptions\NoValidGuestUserForBoardException.cs" />
     <Compile Include="Exceptions\SecurityFailureInvalidWebServiceTokenException.cs" />
     <Compile Include="Exceptions\YafTaskModuleNotRegisteredException.cs" />
+    <Compile Include="Extensions\DataTableExtensions.cs" />
     <Compile Include="Interfaces\IAdd.cs" />
     <Compile Include="Interfaces\IHaveSortOrder.cs" />
     <Compile Include="Constants\AuthService.cs" />

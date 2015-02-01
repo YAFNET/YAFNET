@@ -5,6 +5,8 @@ YetAnotherForum.NET Changelog
 
 #New Features:
 
+* [#18](https://github.com/YAFNET/YAFNET/issues/18): Added Sorting/Paging for Active Users Page 
+* [#18](https://github.com/YAFNET/YAFNET/issues/18): Added Sorting/Paging for Active Users and Unverified Users on the Admin Page
 * [#229](https://github.com/YAFNET/YAFNET/issues/229): Topics List on the MoveMessage Page are now loaded paged via ajax
 * [#191](https://github.com/YAFNET/YAFNET/issues/191): YAF.NET is now compatible with Azure
 * [#112](https://github.com/YAFNET/YAFNET/issues/112): Intuitive Posting of Photos
@@ -16,7 +18,7 @@ YetAnotherForum.NET Changelog
 * [#163](https://github.com/YAFNET/YAFNET/issues/163): Add a "resend confirmation email" functionality
 * [#158](https://github.com/YAFNET/YAFNET/issues/158): Optional Connect Message is now shown after the first message
 * [#154](https://github.com/YAFNET/YAFNET/issues/154): added new spam event log page to the spam protection section of the admin area
-* [#146](https://github.com/YAFNET/YAFNET/issues/146): seo improvements for meta title,description,keywords
+* [#146](https://github.com/YAFNET/YAFNET/issues/146): SEO improvements for meta title,description,keywords
 * [#133](https://github.com/YAFNET/YAFNET/issues/133): forum description is now optional
 * [#129](https://github.com/YAFNET/YAFNET/issues/154): number of shown sub forum can be defined in the host settings
 * [#123](https://github.com/YAFNET/YAFNET/issues/123): Save Avatars in Physical folder
@@ -26,7 +28,7 @@ YetAnotherForum.NET Changelog
 * [#100](https://github.com/YAFNET/YAFNET/issues/100): View topic started by xxxx" instead of just "View topic" in Active Discussions list
 * added new event log filter for "detected a banned ip"
 * added ability to search for post titles only
-* existing bbcode extensions can now be upgraded during an upgrade
+* existing BBCode extensions can now be upgraded during an upgrade
 * moved to no Captcha reCAPTCHA
 * Re-designed install wizard
 * CSS Files are now combined

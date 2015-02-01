@@ -45,6 +45,8 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.pagination.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.syntaxhighligher.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.tablesorter.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.tablesorter.min.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.tablesorter.pager.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.timeago.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ui.datepicker-farsi.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.yafmodaldialog.js" />
@@ -58,6 +60,8 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\ladda.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\ladda.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\prism.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\select2.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\select2.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\spin.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\spin.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\yaf.js" />
@@ -79,6 +83,8 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.syntaxhighligher.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.yafmodaldialog.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.yafmodaldialog.min.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.tablesorter.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.tablesorter.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jsdifflib.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jsdifflib.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\ladda.css" />
@@ -86,6 +92,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\ladda-themeless.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\ladda-themeless.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\prism.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\select2.css" />
     </ItemGroup>
 
     <ItemGroup>

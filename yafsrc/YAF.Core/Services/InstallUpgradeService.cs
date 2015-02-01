@@ -112,7 +112,7 @@ namespace YAF.Core.Services
                 try
                 {
                     var boards = this.GetRepository<Board>().List();
-                    return boards.Rows.Count > 0;
+                    return boards.HasRows();
                 }
                 catch
                 {

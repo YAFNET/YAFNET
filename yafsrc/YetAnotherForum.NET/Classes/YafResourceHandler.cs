@@ -767,7 +767,7 @@ namespace YAF
                         DataTable dt = LegacyDb.album_image_list(
                             null, context.Request.QueryString.GetFirstOrDefault("cover")))
                     {
-                        if (dt.Rows.Count > 0)
+                        if (dt.HasRows())
                         {
                             DataRow row = dt.Rows[0];
                             var sUpDir = YafBoardFolders.Current.Uploads;

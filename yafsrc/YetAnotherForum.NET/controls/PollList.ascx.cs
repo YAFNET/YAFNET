@@ -1068,7 +1068,7 @@ namespace YAF.Controls
       this._dtPollAllChoices = LegacyDb.pollgroup_stats(this.PollGroupId);
 
       // Here should be a poll group, remove the value to avoid exception if a deletion was not safe. 
-      if (!(this._dtPollAllChoices.Rows.Count > 0))
+      if (!this._dtPollAllChoices.HasRows())
       {
         LegacyDb.pollgroup_remove(this.PollGroupId, this.TopicId, this.ForumId, this.CategoryId, this.BoardId, true, true);          
         return;
@@ -1117,7 +1117,7 @@ namespace YAF.Controls
       // frequently used
       this.PollNumber = this._dtPollGroupAllChoices.Rows.Count;
 
-      if (this._dtPollGroupAllChoices.Rows.Count > 0)
+      if (this._dtPollGroupAllChoices.HasRows())
       {
         // Check if the user is already voted in polls in the group 
         object userId = null;

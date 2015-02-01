@@ -355,7 +355,7 @@ namespace YAF.Pages.Admin
                     found = false;
                 }
 
-                if (dt != null && dt.Rows.Count > 0)
+                if (dt != null && dt.HasRows())
                 {
                     this.GroupName.Text = this.HtmlEncode(dt.Rows[0]["GroupName"]);
                 }

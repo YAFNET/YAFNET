@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2015 Ingo Herbote
@@ -21,32 +21,33 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Data
+
+namespace YAF.Types.Extensions
 {
+    #region Using
+
+    using System.Data;
+
+    using YAF.Types;
+
+    #endregion
+
     /// <summary>
-    /// The Repository interface.
+    /// The DataTable Extensions
     /// </summary>
-    /// <typeparam name="T">
-    /// The Type Parameter
-    /// </typeparam>
-    public interface IRepository<T> : IEntity, IHaveBoardID
+    public static class DataTableExtensions
     {
-        #region Public Properties
+        #region Public Methods
 
         /// <summary>
-        /// Gets the DB access.
+        /// Determines whether the specified table has rows.
         /// </summary>
-        IDbAccess DbAccess { get; }
-
-        /// <summary>
-        ///     Gets the DB event.
-        /// </summary>
-        IRaiseEvent DbEvent { get; }
-
-        /// <summary>
-        ///     Gets the DB function.
-        /// </summary>
-        IDbFunction DbFunction { get; }
+        /// <param name="table">The table.</param>
+        /// <returns>Returns if the table has rows or not</returns>
+        public static bool HasRows([CanBeNull] this DataTable table)
+        {
+            return table.Rows.Count > 0;
+        }
 
         #endregion
     }

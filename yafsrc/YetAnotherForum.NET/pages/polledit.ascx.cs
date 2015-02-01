@@ -603,7 +603,7 @@ namespace YAF.Pages
             int allExistingRowsCount = this._choices.Rows.Count;
 
             // we edit existing poll 
-            if (this._choices.Rows.Count > 0)
+            if (this._choices.HasRows())
             {
                 if ((this._choices.Rows[0]["UserID"].ToType<int>() != this.PageContext.PageUserID) &&
                     (!this.PageContext.IsAdmin) && (!this.PageContext.ForumModeratorAccess))

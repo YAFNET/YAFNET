@@ -658,7 +658,7 @@ namespace YAF.Controls
         {
             // Renew PM Statistics
             DataTable dt = LegacyDb.user_pmcount(this.PageContext.PageUserID);
-            if (dt.Rows.Count > 0)
+            if (dt.HasRows())
             {
                 this.PMInfoLink.Text = this.GetPMessageText(
                     "PMLIMIT_ALL",

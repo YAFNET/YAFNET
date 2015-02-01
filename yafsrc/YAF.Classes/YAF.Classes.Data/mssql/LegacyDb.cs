@@ -8109,6 +8109,7 @@ namespace YAF.Classes.Data
             using (var cmd = DbHelpers.GetCommand("user_listmembers"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
+
                 cmd.AddParam("BoardID", boardId);
                 cmd.AddParam("UserID", userId);
                 cmd.AddParam("Approved", approved);
@@ -8127,6 +8128,7 @@ namespace YAF.Classes.Data
                 cmd.AddParam("SortLastVisit", sortLastVisit);
                 cmd.AddParam("NumPosts", numPosts);
                 cmd.AddParam("NumPostsCompare", numPostCompare);
+
                 return DbAccess.GetData(cmd);
             }
         }

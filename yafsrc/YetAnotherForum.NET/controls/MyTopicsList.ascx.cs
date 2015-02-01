@@ -297,7 +297,7 @@ namespace YAF.Controls
             }
 
             // let's page the results
-            this.PagerTop.Count = topicsNew.Rows.Count > 0
+            this.PagerTop.Count = topicsNew.HasRows()
                                       ? topicsNew.AsEnumerable().First().Field<int>("TotalRows")
                                       : 0;
 
@@ -457,7 +457,7 @@ namespace YAF.Controls
         /// </returns>
         protected string PrintForumName([NotNull] DataRowView row)
         {
-            var forumName = this.Page.HtmlEncode(row["ForumName"]);
+            var forumName = this.HtmlEncode(row["ForumName"]);
             string html = string.Empty;
 
             if (forumName == this._lastForumName)
@@ -469,7 +469,7 @@ namespace YAF.Controls
                 @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"" title=""{2}"" >{0}</a></td></tr>"
                     .FormatWith(
                         forumName,
-                        YafBuildLink.GetLink(ForumPages.topics, "f={0}", row["ForumID"]),
+                        YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", row["ForumID"], forumName),
                         this.GetText("COMMON", "VIEW_FORUM"));
             this._lastForumName = forumName;
 
