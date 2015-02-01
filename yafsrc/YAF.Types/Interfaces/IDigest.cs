@@ -34,36 +34,33 @@ namespace YAF.Types.Interfaces
         /// Gets the digest HTML.
         /// </summary>
         /// <param name="userId">The user id.</param>
-        /// <param name="boardId">The board id.</param>
-        /// <param name="webServiceToken">The web service token.</param>
+        /// <param name="boardSettings">The board settings.</param>
         /// <param name="showErrors">if set to <c>true</c> [show errors].</param>
         /// <returns>
         /// The get digest html.
         /// </returns>
-        string GetDigestHtml(int userId, int boardId, string webServiceToken, bool showErrors = false);
+        string GetDigestHtml(int userId, object boardSettings, bool showErrors = false);
 
         /// <summary>
         /// Gets the digest URL.
         /// </summary>
         /// <param name="userId">The user id.</param>
-        /// <param name="boardId">The board id.</param>
-        /// <param name="webServiceToken">The web service token.</param>
+        /// <param name="boardSettings">The board settings.</param>
         /// <returns>
         /// The get digest url.
         /// </returns>
-        string GetDigestUrl(int userId, int boardId, string webServiceToken);
+        string GetDigestUrl(int userId, object boardSettings);
 
         /// <summary>
         /// Gets the digest URL.
         /// </summary>
         /// <param name="userId">The user id.</param>
-        /// <param name="boardId">The board id.</param>
-        /// <param name="webServiceToken">The web service token.</param>
+        /// <param name="boardSettings">The board settings.</param>
         /// <param name="showErrors">Show digest generation errors</param>
         /// <returns>
         /// The get digest url.
         /// </returns>
-        string GetDigestUrl(int userId, int boardId, string webServiceToken, bool showErrors);
+        string GetDigestUrl(int userId, object boardSettings, bool showErrors);
 
         /// <summary>
         /// Sends the digest html to the email/name specified.

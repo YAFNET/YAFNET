@@ -182,7 +182,7 @@ namespace YAF.Core.Tasks
                     if (typedUserFinds.Any())
                     {
                         // start sending...
-                        this.SendDigestToUsers(typedUserFinds, boardId, boardSettings);
+                        this.SendDigestToUsers(typedUserFinds, boardSettings);
                     }
                 }
             }
@@ -196,19 +196,17 @@ namespace YAF.Core.Tasks
         /// Sends the digest to users.
         /// </summary>
         /// <param name="usersWithDigest">The users with digest.</param>
-        /// <param name="boardId">The board id.</param>
         /// <param name="boardSettings">The board settings.</param>
         private void SendDigestToUsers(
             IEnumerable<TypedUserFind> usersWithDigest,
-            int boardId,
             YafBoardSettings boardSettings)
         {
             foreach (var user in usersWithDigest)
             {
                 try
                 {
-                    string digestHtml = this.Get<IDigest>()
-                        .GetDigestHtml(user.UserID ?? 0, boardId, boardSettings.WebServiceToken);
+                    var digestHtml = this.Get<IDigest>()
+                        .GetDigestHtml(user.UserID ?? 0, boardSettings);
 
                     if (!digestHtml.IsSet())
                     {

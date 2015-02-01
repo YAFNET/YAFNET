@@ -75,17 +75,16 @@ namespace YAF.Core.Services
         /// Gets the digest HTML.
         /// </summary>
         /// <param name="userId">The user id.</param>
-        /// <param name="boardId">The board id.</param>
-        /// <param name="webServiceToken">The web service token.</param>
+        /// <param name="boardSettings">The board settings.</param>
         /// <param name="showErrors">if set to <c>true</c> [show errors].</param>
         /// <returns>
         /// The get digest html.
         /// </returns>
-        public string GetDigestHtml(int userId, int boardId, string webServiceToken, bool showErrors = false)
+        public string GetDigestHtml(int userId, object boardSettings, bool showErrors = false)
         {
-            var request = (HttpWebRequest)WebRequest.Create(this.GetDigestUrl(userId, boardId, webServiceToken, showErrors));
+            var request = (HttpWebRequest)WebRequest.Create(this.GetDigestUrl(userId, boardSettings, showErrors));
 
-            string digestHtml = string.Empty;
+            var digestHtml = string.Empty;
 
             // set timeout to max 10 seconds
             request.Timeout = 10 * 1000;
@@ -103,33 +102,37 @@ namespace YAF.Core.Services
         /// Gets the digest URL.
         /// </summary>
         /// <param name="userId">The user id.</param>
-        /// <param name="boardId">The board id.</param>
-        /// <param name="webServiceToken">The web service token.</param>
+        /// <param name="boardSettings">The board settings.</param>
         /// <returns>
         /// The get digest url.
         /// </returns>
-        public string GetDigestUrl(int userId, int boardId, string webServiceToken)
+        public string GetDigestUrl(int userId, object boardSettings)
         {
-            return this.GetDigestUrl(userId, boardId, webServiceToken, false);
+            return this.GetDigestUrl(userId, boardSettings, false);
         }
 
         /// <summary>
         /// Gets the digest URL.
         /// </summary>
         /// <param name="userId">The user id.</param>
-        /// <param name="boardId">The board id.</param>
-        /// <param name="webServiceToken">The web service token.</param>
+        /// <param name="boardSettings">The board settings.</param>
         /// <param name="showErrors">Show errors creating the digest.</param>
         /// <returns>
         /// The get digest url.
         /// </returns>
-        public string GetDigestUrl(int userId, int boardId, string webServiceToken, bool showErrors)
+        public string GetDigestUrl(int userId, object boardSettings, bool showErrors)
         {
+            var yafBoardSettings = boardSettings as YafBoardSettings;
+
             return "{0}{1}{2}?{3}".FormatWith(
-                BaseUrlBuilder.BaseUrl,
+                yafBoardSettings.BaseUrlMask,
                 BaseUrlBuilder.AppPath,
                 "digest.aspx",
-                "token={0}&userid={1}&boardid={2}&showerror={3}".FormatWith(webServiceToken, userId, boardId, showErrors.ToString().ToLower()));
+                "token={0}&userid={1}&boardid={2}&showerror={3}".FormatWith(
+                    yafBoardSettings.WebServiceToken,
+                    userId,
+                    yafBoardSettings.BoardID,
+                    showErrors.ToString().ToLower()));
         }
 
         /// <summary>
@@ -154,7 +157,7 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(forumEmail, "forumEmail");
             CodeContracts.VerifyNotNull(toEmail, "toEmail");
 
-            string subject = "Active Topics and New Topics on {0}".FormatWith(forumName);
+            var subject = "Active Topics and New Topics on {0}".FormatWith(forumName);
             var match = Regex.Match(
                 digestHtml, @"\<title\>(?<inner>(.*?))\<\/title\>", RegexOptions.IgnoreCase | RegexOptions.Singleline);
 

@@ -75,11 +75,8 @@ namespace YAF.Pages.Admin
         protected void GenerateDigest_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.DigestHtmlPlaceHolder.Visible = true;
-            this.DigestFrame.Attributes["src"] = this.Get<IDigest>().GetDigestUrl(
-                this.PageContext.PageUserID,
-                this.PageContext.PageBoardID,
-                this.Get<YafBoardSettings>().WebServiceToken,
-                true);
+            this.DigestFrame.Attributes["src"] = this.Get<IDigest>()
+                .GetDigestUrl(this.PageContext.PageUserID, this.PageContext.BoardSettings, true);
         }
 
         /// <summary>
@@ -94,10 +91,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-            this.PageLinks.AddLink(this.GetText("ADMIN_DIGEST", "TITLE"), string.Empty);
+            this.CreatePageLinks();
 
             this.Page.Header.Title = "{0} - {1}".FormatWith(
                 this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_DIGEST", "TITLE"));
@@ -122,6 +116,19 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            // forum index
+            this.PageLinks.AddRoot();
+
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(this.GetText("ADMIN_DIGEST", "TITLE"), string.Empty);
+        }
+
+        /// <summary>
         /// Send Test Digest
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -138,8 +145,7 @@ namespace YAF.Pages.Admin
                 // create and send a test digest to the email provided...
                 var digestHtml = this.Get<IDigest>().GetDigestHtml(
                     this.PageContext.PageUserID,
-                    this.PageContext.PageBoardID,
-                    this.Get<YafBoardSettings>().WebServiceToken,
+                    this.PageContext.BoardSettings,
                     true);
 
                 // send....
