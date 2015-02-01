@@ -160,7 +160,7 @@ namespace YAF.Utils
                 const byte Build = 0;
                 const byte Sub = 0;
 
-                const ReleaseType ReleaseType = ReleaseType.RC;
+                const ReleaseType ReleaseType = ReleaseType.Regular;
                 const byte ReleaseNumber = 0;
                 
                 var version = Major.ToType<long>() << 24;
@@ -189,7 +189,7 @@ namespace YAF.Utils
         {
             get
             {
-                return new DateTime(2015, 01, 30);
+                return new DateTime(2015, 02, 01);
             }
         }
 
@@ -244,11 +244,11 @@ namespace YAF.Utils
         #endregion
 
         /// <summary>
-        /// Helper function that creates the url to the Content folder.
+        /// Helper function that creates the URL to the Content folder.
         /// </summary>
         /// <param name="resourceName">Name of the resource.</param>
         /// <returns>
-        /// Returns the url including the Content path
+        /// Returns the URL including the Content path
         /// </returns>
         public static string GetURLToContent([NotNull] string resourceName)
         {
@@ -258,11 +258,11 @@ namespace YAF.Utils
         }
 
         /// <summary>
-        /// Helper function that creates the the url to the Scripts folder.
+        /// Helper function that creates the URL to the Scripts folder.
         /// </summary>
         /// <param name="resourceName">Name of the resource.</param>
         /// <returns>
-        /// Returns the url including the Scripts path
+        /// Returns the URL including the Scripts path
         /// </returns>
         public static string GetURLToScripts([NotNull] string resourceName)
         {
