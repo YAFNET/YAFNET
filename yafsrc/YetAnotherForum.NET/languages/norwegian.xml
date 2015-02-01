@@ -2145,7 +2145,7 @@
                 inputTooShort: function(e) {
                     var t = e.minimum - e.input.length,
                         n = "Vennligst skriv inn ";
-                    return t > 1 ? n += " flere tegn" : n += " tegn til", n
+                    return t &gt; 1 ? n += " flere tegn" : n += " tegn til", n
                 },
                 loadingMore: function() {
                     return "Laster flere resultater…"
