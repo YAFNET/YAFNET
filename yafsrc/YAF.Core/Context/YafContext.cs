@@ -27,6 +27,7 @@ namespace YAF.Core
     #region Using
 
     using System;
+    using System.Runtime.CompilerServices;
     using System.Web;
     using System.Web.Security;
 
@@ -42,6 +43,7 @@ namespace YAF.Core
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Utils.Helpers.StringUtils;
 
     #endregion
 
@@ -91,11 +93,6 @@ namespace YAF.Core
         /// The _page elements.
         /// </summary>
         private PageElementRegister _pageElements;
-
-        /// <summary>
-        /// The _query i ds.
-        /// </summary>
-        private QueryStringIDHelper _queryIDs;
 
         #endregion
 
@@ -148,18 +145,6 @@ namespace YAF.Core
         #endregion
 
         #region Public Properties
-
-        /// <summary>
-        /// Gets the current application.
-        /// </summary>
-        [Obsolete("Use Service Location: this.Get<HttpApplicationStateBase>()")]
-        public static HttpApplicationStateBase Application
-        {
-            get
-            {
-                return GlobalContainer.Container.Resolve<HttpApplicationStateBase>();
-            }
-        }
 
         /// <summary>
         /// Gets the instance of the Forum Context
@@ -285,21 +270,10 @@ namespace YAF.Core
         /// <summary>
         /// Gets or sets the Current Page Query ID Helper
         /// </summary>
-        public QueryStringIDHelper QueryIDs
-        {
-            get
-            {
-                return this._queryIDs;
-            }
-
-            set
-            {
-                this._queryIDs = value;
-            }
-        }
+        public QueryStringIDHelper QueryIDs { get; set; }
 
         /// <summary>
-        /// Gets the Provides access to the Service Locatorer
+        /// Gets the Provides access to the Service Locator
         /// </summary>
         public IServiceLocator ServiceLocator
         {
