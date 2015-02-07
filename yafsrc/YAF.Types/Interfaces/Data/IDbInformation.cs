@@ -53,9 +53,14 @@ namespace YAF.Types.Interfaces.Data
         IEnumerable<string> AzureScripts { get; }
 
         /// <summary>
-        ///     Gets the Script List.
+        ///     Gets the Install Script List.
         /// </summary>
-        IEnumerable<string> Scripts { get; }
+        IEnumerable<string> InstallScripts { get; }
+
+        /// <summary>
+        ///     Gets the Upgrade Script List.
+        /// </summary>
+        IEnumerable<string> UpgradeScripts { get; }
         
         /// <summary>
         ///     Gets the YAF Provider script list

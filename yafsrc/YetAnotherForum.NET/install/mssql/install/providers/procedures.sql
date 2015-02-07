@@ -859,4 +859,3 @@ BEGIN
         AND (LastActivity <= @InactiveSinceDate)
 END
 GO
-

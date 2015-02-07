@@ -55,25 +55,39 @@ namespace YAF.Data.MsSql
         /// </summary>
         private static readonly string[] _AzureScriptList =
             {
-                "mssql/azure/InstallCommon.sql",
-                "mssql/azure/InstallMembership.sql",
-                "mssql/azure/InstallProfile.sql",
-                "mssql/azure/InstallRoles.sql"
+                "mssql/install/azure/InstallCommon.sql",
+                "mssql/install/azure/InstallMembership.sql",
+                "mssql/install/azure/InstallProfile.sql",
+                "mssql/install/azure/InstallRoles.sql"
             };
 
         /// <summary>
-        /// The script list
+        /// The install script list
         /// </summary>
-        private static readonly string[] _ScriptList =
+        private static readonly string[] _InstallScriptList =
             {
-                "mssql/tables.sql", 
-                "mssql/indexes.sql", 
-                "mssql/views.sql",
-                "mssql/constraints.sql", 
-                "mssql/triggers.sql",
-                "mssql/functions.sql", 
-                "mssql/procedures.sql",
-                "mssql/forum_ns.sql"
+                "mssql/install/tables.sql", 
+                "mssql/install/indexes.sql", 
+                "mssql/install/views.sql",
+                "mssql/install/constraints.sql", 
+                "mssql/install/functions.sql", 
+                "mssql/install/procedures.sql",
+                "mssql/install/forum_ns.sql"
+            };
+
+        /// <summary>
+        /// The upgrade script list
+        /// </summary>
+        private static readonly string[] _UpgradeScriptList =
+            {
+                "mssql/upgrade/tables.sql", 
+                "mssql/upgrade/indexes.sql", 
+                "mssql/upgrade/views.sql",
+                "mssql/upgrade/constraints.sql", 
+                "mssql/upgrade/triggers.sql",
+                "mssql/upgrade/functions.sql", 
+                "mssql/upgrade/procedures.sql",
+                "mssql/upgrade/forum_ns.sql"
             };
 
         /// <summary>
@@ -81,9 +95,9 @@ namespace YAF.Data.MsSql
         /// </summary>
         private static readonly string[] _YAFProviderScriptList =
             {
-                "mssql/providers/tables.sql",
-                "mssql/providers/indexes.sql", 
-                "mssql/providers/procedures.sql"
+                "mssql/install/providers/tables.sql",
+                "mssql/install/providers/indexes.sql", 
+                "mssql/install/providers/procedures.sql"
             };
 
         /// <summary>
@@ -128,13 +142,24 @@ namespace YAF.Data.MsSql
         }
 
         /// <summary>
-        /// Gets the Script List.
+        /// Gets the Install Script List.
         /// </summary>
-        public IEnumerable<string> Scripts
+        public IEnumerable<string> InstallScripts
         {
             get
             {
-                return _ScriptList;
+                return _InstallScriptList;
+            }
+        }
+
+        /// <summary>
+        /// Gets the Upgrade Script List.
+        /// </summary>
+        public IEnumerable<string> UpgradeScripts
+        {
+            get
+            {
+                return _UpgradeScriptList;
             }
         }
 

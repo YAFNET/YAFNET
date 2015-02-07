@@ -1317,6 +1317,10 @@ IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{data
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_GetTextByIds]
 GO
 
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}init_styles]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}init_styles]
+GO
+
 /*****************************************************************************************************************************/
 /***** BEGIN CREATE PROCEDURES ******/
 /*****************************************************************************************************************************/
@@ -11622,10 +11626,6 @@ begin
         from  [{databaseOwner}].[{objectQualifier}User] d; 
     
 end
-GO
-
-IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}init_styles]') AND type in (N'P', N'PC'))
-DROP PROCEDURE [{databaseOwner}].[{objectQualifier}init_styles]
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}init_styles] as

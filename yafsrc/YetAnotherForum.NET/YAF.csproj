@@ -1511,10 +1511,17 @@
     <Content Include="Images\YafLogo.png" />
     <Content Include="install\custom\custom.sql" />
     <Content Include="install\custom\dnn.sql" />
-    <Content Include="install\mssql\azure\InstallCommon.sql" />
-    <Content Include="install\mssql\azure\InstallMembership.sql" />
-    <Content Include="install\mssql\azure\InstallProfile.SQL" />
-    <Content Include="install\mssql\azure\InstallRoles.sql" />
+    <Content Include="install\mssql\install\azure\InstallCommon.sql" />
+    <Content Include="install\mssql\install\azure\InstallMembership.sql" />
+    <Content Include="install\mssql\install\azure\InstallProfile.SQL" />
+    <Content Include="install\mssql\install\azure\InstallRoles.sql" />
+    <Content Include="install\mssql\install\constraints.sql" />
+    <Content Include="install\mssql\install\fulltext.sql" />
+    <Content Include="install\mssql\install\functions.sql" />
+    <Content Include="install\mssql\install\indexes.sql" />
+    <Content Include="install\mssql\install\procedures.sql" />
+    <Content Include="install\mssql\install\tables.sql" />
+    <Content Include="install\mssql\install\views.sql" />
     <Content Include="install\SpamWords.xml" />
     <Content Include="install\TopicStatusList.xml" />
     <Content Include="Images\YafLogoSmall.png" />
@@ -1611,17 +1618,17 @@
       <SubType>Form</SubType>
     </Content>
     <Content Include="install\FileExtensions.xml" />
-    <Content Include="install\mssql\constraints.sql" />
-    <Content Include="install\mssql\fulltext.sql" />
-    <Content Include="install\mssql\functions.sql" />
-    <Content Include="install\mssql\indexes.sql" />
-    <Content Include="install\mssql\procedures.sql" />
-    <Content Include="install\mssql\providers\indexes.sql" />
-    <Content Include="install\mssql\providers\procedures.sql" />
-    <Content Include="install\mssql\providers\tables.sql" />
-    <Content Include="install\mssql\tables.sql" />
-    <Content Include="install\mssql\triggers.sql" />
-    <Content Include="install\mssql\views.sql" />
+    <Content Include="install\mssql\upgrade\constraints.sql" />
+    <Content Include="install\mssql\upgrade\fulltext.sql" />
+    <Content Include="install\mssql\upgrade\functions.sql" />
+    <Content Include="install\mssql\upgrade\indexes.sql" />
+    <Content Include="install\mssql\upgrade\procedures.sql" />
+    <Content Include="install\mssql\install\providers\indexes.sql" />
+    <Content Include="install\mssql\install\providers\procedures.sql" />
+    <Content Include="install\mssql\install\providers\tables.sql" />
+    <Content Include="install\mssql\upgrade\tables.sql" />
+    <Content Include="install\mssql\upgrade\triggers.sql" />
+    <Content Include="install\mssql\upgrade\views.sql" />
     <Content Include="languages\china.xml">
       <SubType>Designer</SubType>
     </Content>
