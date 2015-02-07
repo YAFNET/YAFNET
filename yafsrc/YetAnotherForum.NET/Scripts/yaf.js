@@ -184,9 +184,11 @@ jQuery(document).ready(function () {
         var image = jQuery(this);
 
         if (!image.parents('a').length) {
-            image.wrap('<a href="' + image.attr("src") + '" class="ceebox" title="' + image.attr("alt") + '"/>');
+           image.wrap('<a href="' + image.attr("src") + '" class="ceebox" title="' + image.attr("alt") + '"/>');
         }
     });
+
+    jQuery('.postdiv div').has('.attachedImage').addClass('ceebox');
 
     jQuery(".standardSelectMenu").selectmenu({
         change: function() {

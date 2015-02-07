@@ -80,7 +80,7 @@ namespace YAF.Modules.BBCode
                     writer.Write(
                         !this.Get<YafBoardSettings>().EnableImageAttachmentResize
                             ? @"<img src=""{0}resource.ashx?a={1}"" alt=""{2}"" class=""UserPostedImage"" /></div>"
-                            : @"<a href=""{0}resource.ashx?i={1}"" date-img=""{0}resource.ashx?a={1}"" class=""ceebox""><img src=""{0}resource.ashx?p={1}"" alt=""{2}"" title=""{2}"" class=""UserPostedImage"" /></a>",
+                            : @"<a href=""{0}resource.ashx?i={1}"" date-img=""{0}resource.ashx?a={1}"" class=""attachedImage""><img src=""{0}resource.ashx?p={1}"" alt=""{2}"" title=""{2}"" /></a>",
                         YafForumInfo.ForumClientFileRoot,
                         attachment.ID,
                         this.HtmlEncode(attachment.FileName));
