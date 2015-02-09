@@ -31,23 +31,74 @@ namespace YAF.Core.Helpers
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces.Data;
 
+    /// <summary>
+    /// The DB Function Helpers
+    /// </summary>
     public static class DbFunctionHelper
     {
-        private static T ValidateAndExecute<T>(this IDbFunction dbFunction, string operationName, Func<IDbFunction, T> func)
+        /// <summary>
+        /// Validates the and execute.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbFunction">The database function.</param>
+        /// <param name="operationName">Name of the operation.</param>
+        /// <param name="func">The function.</param>
+        /// <returns></returns>
+        /// <exception cref="System.InvalidOperationException">@Database Provider does not support operation {0}..FormatWith(operationName)</exception>
+        private static T ValidateAndExecute<T>(
+            this IDbFunction dbFunction,
+            string operationName,
+            Func<IDbFunction, T> func)
         {
             if (!dbFunction.DbSpecificFunctions.WhereOperationSupported(operationName).Any())
             {
-                throw new InvalidOperationException(@"Database Provider does not support operation ""{0}"".".FormatWith(operationName));
+                throw new InvalidOperationException(
+                    @"Database Provider does not support operation ""{0}"".".FormatWith(operationName));
             }
 
             return func(dbFunction);
         }
 
+        /// <summary>
+        /// Gets the size of the database.
+        /// </summary>
+        /// <param name="dbFunction">The database function.</param>
+        /// <returns>Returns the size of the database</returns>
         public static int GetDBSize([NotNull] this IDbFunction dbFunction)
         {
             CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
 
-            return dbFunction.ValidateAndExecute<int>("DBSize", f => f.GetScalar<int>(s => s.DBSize()));
+            return dbFunction.ValidateAndExecute("DBSize", f => f.GetScalar<int>(s => s.DBSize()));
+        }
+
+        /// <summary>
+        /// Gets the current SQL Engine Edition.
+        /// </summary>
+        /// <param name="dbFunction">The database function.</param>
+        /// <returns>
+        /// Returns the current SQL Engine Edition.
+        /// </returns>
+        public static string GetSQLEngine([NotNull] this IDbFunction dbFunction)
+        {
+            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
+
+            return dbFunction.ValidateAndExecute("GetSQLEngine", f => f.GetScalar<string>(s => s.GetSQLEngine()));
+        }
+
+        /// <summary>
+        /// Determines whether [is full text supported].
+        /// </summary>
+        /// <param name="dbFunction">The database function.</param>
+        /// <returns>
+        /// Returns if full text is supported by the server or not
+        /// </returns>
+        public static bool IsFullTextSupported([NotNull] this IDbFunction dbFunction)
+        {
+            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
+
+            return dbFunction.ValidateAndExecute(
+                "IsFullTextSupported",
+                f => f.GetScalar<bool>(s => s.IsFullTextSupported()));
         }
     }
 }

@@ -78,7 +78,7 @@ namespace YAF.Classes.Data
             {
                 using (DataTable dt = registry_list("versionname"))
                 {
-                    if (dt.Rows.Count > 0)
+                    if (dt.HasRows())
                     {
                         // get the version...
                         return dt.Rows[0]["Value"].ToType<string>();
@@ -102,7 +102,7 @@ namespace YAF.Classes.Data
             {
                 using (DataTable dt = registry_list("version"))
                 {
-                    if (dt.Rows.Count > 0)
+                    if (dt.HasRows())
                     {
                         // get the version...
                         return dt.Rows[0]["Value"].ToType<int>();
@@ -115,70 +115,6 @@ namespace YAF.Classes.Data
             }
 
             return -1;
-        }
-
-        /// <summary>
-        /// Gets the current SQL Engine Edition.
-        /// </summary>
-        /// <returns>Returns the current SQL Engine Edition.</returns>
-        public static string get_sqlengine()
-        {
-            try
-            {
-                using (
-              var cmd =
-                DbHelpers.GetCommand(
-                  "select SERVERPROPERTY('EngineEdition')",
-                  true))
-                {
-                    switch (DbAccess.ExecuteScalar(cmd).ToType<int>())
-                    {
-                        case 1:
-                            return "Personal";
-                        case 2:
-                            return "Standard";
-                        case 3:
-                            return "Enterprise";
-                        case 4:
-                            return "Express";
-                        case 5:
-                            return "Azure";
-                        default:
-                            return "Unknown";
-                    }
-                }
-            }
-            catch
-            {
-                return "Unknown";
-            }
-
-            return "Unknown";
-        }
-        
-        /// <summary>
-        /// Determines whether [is full text supported].
-        /// </summary>
-        /// <returns>Returns if fulltext is supported by the server or not</returns>
-        public static bool IsFullTextSupported()
-        {
-            try
-            {
-                using (
-              var cmd =
-                DbHelpers.GetCommand(
-                  "select SERVERPROPERTY('IsFullTextInstalled')",
-                  true))
-                {
-                    return DbAccess.ExecuteScalar(cmd).ToType<string>().Equals("1");
-                }
-            }
-            catch
-            {
-                return false;
-            }
-
-            return false;
         }
 
         /// <summary>
@@ -4775,7 +4711,7 @@ namespace YAF.Classes.Data
 
                         using (DataTable dt = DbAccess.GetData(cmd))
                         {
-                            return dt.Rows.Count > 0 ? dt.Rows[0] : null;
+                            return dt.HasRows() ? dt.Rows[0] : null;
                         }
                     }
                 }
@@ -6607,7 +6543,7 @@ namespace YAF.Classes.Data
                 cmd.AddParam("TopicID", topicID);
                 using (DataTable dt = DbAccess.GetData(cmd))
                 {
-                    return dt.Rows.Count > 0 ? dt.Rows[0] : null;
+                    return dt.HasRows() ? dt.Rows[0] : null;
                 }
             }
         }
@@ -9408,48 +9344,6 @@ namespace YAF.Classes.Data
             }
 
             return results.ToString();
-        }
-
-        /// <summary>
-        /// Calls underlying stroed procedure for deletion of event log entry(ies).
-        /// </summary>
-        /// <param name="eventLogID">
-        /// When not null, only given event log entry is deleted.
-        /// </param>
-        /// <param name="boardID">
-        /// Specifies board. It is ignored if eventLogID parameter is not null.
-        /// </param>
-        private static void eventlog_delete([NotNull] object eventLogID, [NotNull] object boardID, [NotNull] object pageUserID)
-        {
-            using (var cmd = DbHelpers.GetCommand("eventlog_delete"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("EventLogID", eventLogID);
-                cmd.AddParam("BoardID", boardID);
-                cmd.AddParam("PageUserID", pageUserID);
-                DbAccess.ExecuteNonQuery(cmd);
-            }
-        }
-
-        /// <summary>
-        /// Deletes events of a type.
-        /// </summary>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <param name="pageUserId">
-        /// The page User Id.
-        /// </param>
-        public static void eventlog_deletebyuser([NotNull] object boardId, [NotNull] object pageUserId)
-        {
-            using (var cmd = DbHelpers.GetCommand("eventlog_deletebyuser"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("BoardID", boardId);
-                cmd.AddParam("PageUserID", pageUserId);
-               
-                DbAccess.ExecuteNonQuery(cmd);
-            }
         }
 
         /// <summary>

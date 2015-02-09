@@ -1205,7 +1205,7 @@ namespace YAF.Install
                     YafContext.Current.BoardSettings = new YafBoardSettings();
                 }
 
-                this.FullTextSupport.Visible = this.DbAccess.Information.FullTextScript.IsSet() && LegacyDb.IsFullTextSupported();
+                this.FullTextSupport.Visible = this.DbAccess.Information.FullTextScript.IsSet() && this.Get<IDbFunction>().IsFullTextSupported();
 
                 this.TimeZones.DataSource = StaticDataHelper.TimeZones("english.xml");
 

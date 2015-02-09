@@ -76,30 +76,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The delete.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="eventLogID">
-        /// The event log id.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        public static void Delete(this IRepository<EventLog> repository, int? eventLogID, int userId, int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            repository.DbFunction.Query.eventlog_delete(EventLogID: eventLogID, BoardID: boardId ?? repository.BoardID, PageUserID: userId);
-
-            repository.FireDeleted(eventLogID);
-        }
-
-        /// <summary>
         /// The delete by user.
         /// </summary>
         /// <param name="repository">
@@ -114,11 +90,13 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        public static DataTable DeleteByUser(this IRepository<EventLog> repository, int userId, int? boardId = null)
+        public static void DeleteByUser(this IRepository<EventLog> repository, int userId, int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.GetData.eventlog_deletebyuser(BoardID: boardId ?? repository.BoardID, PageUserID: userId);
+            repository.DbFunction.Query.eventlog_deletebyuser(BoardID: boardId ?? repository.BoardID, PageUserID: userId);
+
+            repository.FireDeleted();
         }
 
         /// <summary>

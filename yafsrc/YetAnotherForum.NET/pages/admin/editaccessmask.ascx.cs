@@ -27,10 +27,8 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
+    using System.Linq;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
@@ -74,10 +72,12 @@ namespace YAF.Pages.Admin
 
             // administration index
             this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
 
             this.PageLinks.AddLink(
-                this.GetText("ADMIN_ACCESSMASKS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_accessmasks));
+                this.GetText("ADMIN_ACCESSMASKS", "TITLE"),
+                YafBuildLink.GetLink(ForumPages.admin_accessmasks));
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITACCESSMASKS", "TITLE"), string.Empty);
@@ -146,21 +146,22 @@ namespace YAF.Pages.Admin
             }
 
             // save it
-            this.GetRepository<AccessMask>().Save(
-                accessMaskID,
-                this.Name.Text,
-                this.ReadAccess.Checked,
-                this.PostAccess.Checked,
-                this.ReplyAccess.Checked,
-                this.PriorityAccess.Checked,
-                this.PollAccess.Checked,
-                this.VoteAccess.Checked,
-                this.ModeratorAccess.Checked,
-                this.EditAccess.Checked,
-                this.DeleteAccess.Checked,
-                this.UploadAccess.Checked,
-                this.DownloadAccess.Checked,
-                sortOrder);
+            this.GetRepository<AccessMask>()
+                .Save(
+                    accessMaskID,
+                    this.Name.Text,
+                    this.ReadAccess.Checked,
+                    this.PostAccess.Checked,
+                    this.ReplyAccess.Checked,
+                    this.PriorityAccess.Checked,
+                    this.PollAccess.Checked,
+                    this.VoteAccess.Checked,
+                    this.ModeratorAccess.Checked,
+                    this.EditAccess.Checked,
+                    this.DeleteAccess.Checked,
+                    this.UploadAccess.Checked,
+                    this.DownloadAccess.Checked,
+                    sortOrder);
 
             // empty out access table
             this.Get<IDbFunction>().Query.activeaccess_reset();
@@ -172,8 +173,6 @@ namespace YAF.Pages.Admin
             YafBuildLink.Redirect(ForumPages.admin_accessmasks);
         }
 
-        /* Methods */
-
         /// <summary>
         /// Binds the data.
         /// </summary>
@@ -181,30 +180,28 @@ namespace YAF.Pages.Admin
         {
             if (this.Request.QueryString.GetFirstOrDefault("i") != null)
             {
-                // load access mask
-                using (DataTable dataTable = this.GetRepository<AccessMask>().List(this.Request.QueryString.GetFirstOrDefaultAs<int>("i")))
-                {
-                    // we need just one
-                    DataRow row = dataTable.Rows[0];
+                var accessMask =
+                    this.GetRepository<AccessMask>()
+                        .ListTyped(this.Request.QueryString.GetFirstOrDefaultAs<int>("i"))
+                        .FirstOrDefault();
 
-                    // get access mask properties
-                    this.Name.Text = (string)row["Name"];
-                    this.SortOrder.Text = row["SortOrder"].ToString();
+                // get access mask properties
+                this.Name.Text = accessMask.Name;
+                this.SortOrder.Text = accessMask.SortOrder.ToString();
 
-                    // get flags
-                    var flags = new AccessFlags(row["Flags"]);
-                    this.ReadAccess.Checked = flags.ReadAccess;
-                    this.PostAccess.Checked = flags.PostAccess;
-                    this.ReplyAccess.Checked = flags.ReplyAccess;
-                    this.PriorityAccess.Checked = flags.PriorityAccess;
-                    this.PollAccess.Checked = flags.PollAccess;
-                    this.VoteAccess.Checked = flags.VoteAccess;
-                    this.ModeratorAccess.Checked = flags.ModeratorAccess;
-                    this.EditAccess.Checked = flags.EditAccess;
-                    this.DeleteAccess.Checked = flags.DeleteAccess;
-                    this.UploadAccess.Checked = flags.UploadAccess;
-                    this.DownloadAccess.Checked = flags.DownloadAccess;
-                }
+                // get flags
+                var flags = new AccessFlags(accessMask.Flags);
+                this.ReadAccess.Checked = flags.ReadAccess;
+                this.PostAccess.Checked = flags.PostAccess;
+                this.ReplyAccess.Checked = flags.ReplyAccess;
+                this.PriorityAccess.Checked = flags.PriorityAccess;
+                this.PollAccess.Checked = flags.PollAccess;
+                this.VoteAccess.Checked = flags.VoteAccess;
+                this.ModeratorAccess.Checked = flags.ModeratorAccess;
+                this.EditAccess.Checked = flags.EditAccess;
+                this.DeleteAccess.Checked = flags.DeleteAccess;
+                this.UploadAccess.Checked = flags.UploadAccess;
+                this.DownloadAccess.Checked = flags.DownloadAccess;
             }
 
             this.DataBind();

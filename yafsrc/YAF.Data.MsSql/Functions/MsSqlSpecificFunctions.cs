@@ -51,5 +51,67 @@ namespace YAF.Data.MsSql.Functions
                 return dbAccess.ExecuteScalar(cmd).ToType<int>();
             }
         }
+
+        /// <summary>
+        /// Gets the current SQL Engine Edition.
+        /// </summary>
+        /// <param name="dbAccess">The database access.</param>
+        /// <returns>
+        /// Returns the current SQL Engine Edition.
+        /// </returns>
+        public static string GetSQLEngine(this IDbAccess dbAccess)
+        {
+            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
+
+            try
+            {
+                using (var cmd = dbAccess.GetCommand("select SERVERPROPERTY('EngineEdition')", CommandType.Text))
+                {
+                    switch (dbAccess.ExecuteScalar(cmd).ToType<int>())
+                    {
+                        case 1:
+                            return "Personal";
+                        case 2:
+                            return "Standard";
+                        case 3:
+                            return "Enterprise";
+                        case 4:
+                            return "Express";
+                        case 5:
+                            return "Azure";
+                        default:
+                            return "Unknown";
+                    }
+                }
+            }
+            catch
+            {
+                return "Unknown";
+            }
+        }
+
+        /// <summary>
+        /// Determines whether [is full text supported].
+        /// </summary>
+        /// <param name="dbAccess">The database access.</param>
+        /// <returns>
+        /// Returns if fulltext is supported by the server or not
+        /// </returns>
+        public static bool IsFullTextSupported(this IDbAccess dbAccess)
+        {
+            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
+
+            try
+            {
+                using (var cmd = dbAccess.GetCommand("select SERVERPROPERTY('IsFullTextInstalled')", CommandType.Text))
+                {
+                    return dbAccess.ExecuteScalar(cmd).ToType<string>().Equals("1");
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

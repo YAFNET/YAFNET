@@ -253,18 +253,15 @@ namespace YAF.Core.Services
                 // try
                 this.FixAccess(false);
 
-                var isAzureEngine = LegacyDb.get_sqlengine().Equals("Azure");
+                var isAzureEngine = this.Get<IDbFunction>().GetSQLEngine().Equals("Azure");
 
-                if (!this.IsForumInstalled && isAzureEngine)
+                if (!this.IsForumInstalled)
                 {
-                    this.DbAccess.Information.AzureScripts.ForEach(s => this.ExecuteScript(s, true));
+                    this.ExecuteInstallScripts(isAzureEngine);
                 }
-
-                this.DbAccess.Information.Scripts.ForEach(s => this.ExecuteScript(s, true));
-
-                if (!isAzureEngine)
+                else
                 {
-                    this.DbAccess.Information.YAFProviderScripts.ForEach(s => this.ExecuteScript(s, true));
+                   this.ExecuteUpgradeScripts();   
                 }
 
                 this.FixAccess(true);
@@ -281,32 +278,34 @@ namespace YAF.Core.Services
                     new AfterUpgradeDatabaseEvent(prevVersion, YafForumInfo.AppVersion),
                     null);
 
-                //// upgrade providers...
-                if (this.IsForumInstalled && (prevVersion < 30 || upgradeExtensions))
+                if (this.IsForumInstalled)
                 {
-                    this.ImportStatics();
-                }
+                    if (prevVersion < 30 || upgradeExtensions)
+                    {
+                        this.ImportStatics();
+                    }
 
-                if (this.IsForumInstalled && prevVersion < 42)
-                {
-                    // un-html encode all topic subject names...
-                    LegacyDb.unencode_all_topics_subjects(HttpUtility.HtmlDecode);
-                }
+                    if (prevVersion < 42)
+                    {
+                        // un-html encode all topic subject names...
+                        LegacyDb.unencode_all_topics_subjects(HttpUtility.HtmlDecode);
+                    }
 
-                if (this.IsForumInstalled && prevVersion < 49)
-                {
-                    // Reset The UserBox Template
-                    this.Get<YafBoardSettings>().UserBox = Constants.UserBox.DisplayTemplateDefault;
+                    if (prevVersion < 49)
+                    {
+                        // Reset The UserBox Template
+                        this.Get<YafBoardSettings>().UserBox = Constants.UserBox.DisplayTemplateDefault;
 
-                    ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
-                }
+                        ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
+                    }
 
-                // Check if BaskeUrlMask is set and if not automatically write it
-                if (this.IsForumInstalled && this.Get<YafBoardSettings>().BaseUrlMask.IsNotSet())
-                {
-                    this.Get<YafBoardSettings>().BaseUrlMask = BaseUrlBuilder.GetBaseUrlFromVariables();
+                    // Check if BaskeUrlMask is set and if not automatically write it
+                    if (this.Get<YafBoardSettings>().BaseUrlMask.IsNotSet())
+                    {
+                        this.Get<YafBoardSettings>().BaseUrlMask = BaseUrlBuilder.GetBaseUrlFromVariables();
 
-                    ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
+                        ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
+                    }
                 }
 
                 // vzrus: uncomment it to not keep install/upgrade objects in DB and for better security 
@@ -342,6 +341,34 @@ namespace YAF.Core.Services
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Executes the install scripts.
+        /// </summary>
+        /// <param name="isAzureEngine">if set to <c>true</c> [is azure engine].</param>
+        private void ExecuteInstallScripts(bool isAzureEngine)
+        {
+            // Install Membership Scripts
+            if (!isAzureEngine)
+            {
+                this.DbAccess.Information.AzureScripts.ForEach(script => this.ExecuteScript(script, true));
+            }
+            else
+            {
+                this.DbAccess.Information.YAFProviderScripts.ForEach(script => this.ExecuteScript(script, true));
+            }
+            
+            // Run other
+            this.DbAccess.Information.InstallScripts.ForEach(script => this.ExecuteScript(script, true));
+        }
+
+        /// <summary>
+        /// Executes the upgrade scripts.
+        /// </summary>
+        private void ExecuteUpgradeScripts()
+        {
+            this.DbAccess.Information.UpgradeScripts.ForEach(script => this.ExecuteScript(script, true));
+        }
 
         /// <summary>
         /// The execute script.

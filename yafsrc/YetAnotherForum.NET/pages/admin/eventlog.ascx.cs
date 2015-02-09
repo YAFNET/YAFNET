@@ -36,6 +36,7 @@ namespace YAF.Pages.Admin
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
@@ -63,7 +64,8 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void DeleteAll_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            LegacyDb.eventlog_deletebyuser(this.PageContext.PageBoardID, this.PageContext.PageUserID);
+            this.GetRepository<EventLog>()
+                .DeleteByUser(userId: this.PageContext.PageUserID, boardId: this.PageContext.PageBoardID);
 
             // re-bind controls
             this.BindData();
@@ -371,7 +373,7 @@ namespace YAF.Pages.Admin
                 case "delete":
 
                     // delete just this particular log entry
-                    this.GetRepository<EventLog>().Delete(e.CommandArgument.ToType<int?>(), this.PageContext.PageUserID);
+                    this.GetRepository<EventLog>().DeleteByID(e.CommandArgument.ToType<int>());
 
                     // re-bind controls
                     this.BindData();
