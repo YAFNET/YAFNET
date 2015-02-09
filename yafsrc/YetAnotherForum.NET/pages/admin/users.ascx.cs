@@ -187,6 +187,20 @@ namespace YAF.Pages.Admin
             YafBuildLink.Redirect(ForumPages.admin_users_import);
         }
 
+        /// <summary>
+        /// Gets the suspended string.
+        /// </summary>
+        /// <param name="suspendedUntil">The suspended until.</param>
+        /// <returns>Returns the suspended string</returns>
+        protected string GetSuspendedString(string suspendedUntil)
+        {
+            return suspendedUntil.IsNotSet()
+                       ? this.GetText("COMMON", "NO")
+                       : this.GetTextFormatted(
+                           "USERSUSPENDED",
+                           this.Get<IDateTime>().FormatDateTime(suspendedUntil.ToType<DateTime>()));
+        }
+
         #endregion
 
         #region Methods
@@ -292,6 +306,8 @@ namespace YAF.Pages.Admin
             this.ExportUsersXml.Text = this.GetText("ADMIN_USERS", "EXPORT_XML");
             this.ExportUsersCsv.Text = this.GetText("ADMIN_USERS", "EXPORT_CSV");
 
+            this.SuspendedOnly.Text = this.GetText("ADMIN_USERS", "SUSPENDED_ONLY");
+
             if (Config.IsAnyPortal)
             {
                 this.ImportUsers.Visible = false;
@@ -312,12 +328,16 @@ namespace YAF.Pages.Admin
             {
                 // add empty item for no filtering
                 DataRow newRow = dt.NewRow();
-                newRow["Name"] = string.Empty;
-                newRow["GroupID"] = DBNull.Value;
+                
+                newRow["Name"] = this.GetText("FILTER_NO");
+                newRow["GroupID"] = 0;
+                
                 dt.Rows.InsertAt(newRow, 0);
+
                 this.group.DataSource = dt;
                 this.group.DataTextField = "Name";
                 this.group.DataValueField = "GroupID";
+
                 this.group.DataBind();
             }
 
@@ -326,8 +346,8 @@ namespace YAF.Pages.Admin
             {
                 // add empty for for no filtering
                 DataRow newRow = dt.NewRow();
-                newRow["Name"] = string.Empty;
-                newRow["RankID"] = DBNull.Value;
+                newRow["Name"] = this.GetText("FILTER_NO");
+                newRow["RankID"] = 0;
                 dt.Rows.InsertAt(newRow, 0);
 
                 this.rank.DataSource = dt;
@@ -413,10 +433,10 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             // default since date is now
-            DateTime sinceDate = DateTime.UtcNow;
+            var sinceDate = DateTime.UtcNow;
 
             // default since option is "since last visit"
-            int sinceValue = 0;
+            var sinceValue = 0;
 
             // is any "since"option selected
             if (this.Since.SelectedItem != null)
@@ -487,7 +507,14 @@ namespace YAF.Pages.Admin
                             dv.RowFilter.IsNotSet() ? string.Empty : " AND ");
                     }
 
-                    // set pager and datasource
+                    // show only suspended ?
+                    if (this.SuspendedOnly.Checked)
+                    {
+                        dv.RowFilter += "{0}Suspended is not null".FormatWith(
+                            dv.RowFilter.IsNotSet() ? string.Empty : " AND ");
+                    }
+
+                    // set pager and data source
                     this.PagerTop.Count = dv.Count;
                     pds.DataSource = dv;
 
@@ -640,13 +667,13 @@ namespace YAF.Pages.Admin
             var sw = new StreamWriter(this.Response.OutputStream);
 
             // Write Column Headers
-            int iColCount = usersList.Columns.Count;
+            var columnCount = usersList.Columns.Count;
 
-            for (int i = 0; i < iColCount; i++)
+            for (var i = 0; i < columnCount; i++)
             {
                 sw.Write(usersList.Columns[i]);
 
-                if (i < iColCount - 1)
+                if (i < columnCount - 1)
                 {
                     sw.Write(",");
                 }
@@ -656,14 +683,14 @@ namespace YAF.Pages.Admin
 
             foreach (DataRow dr in usersList.Rows)
             {
-                for (int i = 0; i < iColCount; i++)
+                for (var i = 0; i < columnCount; i++)
                 {
                     if (!Convert.IsDBNull(dr[i]))
                     {
                         sw.Write(dr[i].ToString());
                     }
 
-                    if (i < iColCount - 1)
+                    if (i < columnCount - 1)
                     {
                         sw.Write(",");
                     }

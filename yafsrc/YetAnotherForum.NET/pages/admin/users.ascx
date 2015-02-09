@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="System.Drawing" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
     <table cellspacing="0" cellpadding="0" class="content" width="100%">
@@ -26,29 +27,36 @@
             </td>
         </tr>
         <tr class="post">
-            <td>
-                <asp:DropDownList ID="group" runat="server" Width="95%" CssClass="standardSelectMenu">
+            <td style="width:200px">
+                <asp:DropDownList ID="group" runat="server" Width="200px" CssClass="standardSelectMenu" data-placeholder='<%# this.GetText("ADMIN_USERS", "FILTER_BY_GROUP") %>'>
+                </asp:DropDownList>
+            </td>
+            <td style="width:200px"s>
+                <asp:DropDownList ID="rank" runat="server" Width="200px" CssClass="standardSelectMenu" data-placeholder='<%# this.GetText("ADMIN_USERS", "FILTER_BY_RANK") %>'>
                 </asp:DropDownList>
             </td>
             <td>
-                <asp:DropDownList ID="rank" runat="server" Width="95%" CssClass="standardSelectMenu">
-                </asp:DropDownList>
+                <asp:TextBox ID="name" runat="server" Width="90%"></asp:TextBox>
             </td>
             <td>
-                <asp:TextBox ID="name" runat="server" Width="95%"></asp:TextBox>
-            </td>
-            <td>
-                <asp:TextBox ID="Email" runat="server" Width="95%"></asp:TextBox>
+                <asp:TextBox ID="Email" runat="server" Width="90%"></asp:TextBox>
             </td>
         </tr>
         <tr>
-            <td class="post" colspan="3" align="right">
-                <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="FILTER" LocalizedPage="ADMIN_USERS" />
+            <td class="post" colspan="4">
+                <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="FILTER" LocalizedPage="ADMIN_USERS" /> 
+                <asp:DropDownList ID="Since" runat="server" AutoPostBack="True" 
+                    OnSelectedIndexChanged="Since_SelectedIndexChanged" 
+                    CssClass="standardSelectMenu"/>
             </td>
-            <td>
-                <asp:DropDownList ID="Since" runat="server" Width="95%" AutoPostBack="True" OnSelectedIndexChanged="Since_SelectedIndexChanged" CssClass="standardSelectMenu"
- />
+
+        </tr>
+        <tr>
+            <td class="post" colspan="4">
+                <asp:CheckBox ID="SuspendedOnly" runat="server" AutoPostBack="True" 
+                    OnSelectedIndexChanged="Since_SelectedIndexChanged"/>
             </td>
+
         </tr>
         <tr>
             <td class="footer1" colspan="4" align="center">
@@ -82,14 +90,19 @@
                     </td>
 
                     <td class="post">
-                     <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="EMAIL" LocalizedPage="ADMIN_USERS" /> :</span> <%# DataBinder.Eval(Container.DataItem,"Email") %>&nbsp;|&nbsp;
-                     <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="RANK" /> :</span> <%# Eval("RankName") %>
-                     <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="POSTS" LocalizedPage="ADMIN_USERS" /> :</span> <%# Eval( "NumPosts") %>&nbsp;|&nbsp;
-                     <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="APPROVED" LocalizedPage="ADMIN_USERS" /> :</span> <%# this.GetText("COMMON", BitSet(Eval("Flags"), 2) ? "YES" : "NO")%>&nbsp;|&nbsp;
-                     <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="LAST_VISIT" LocalizedPage="ADMIN_USERS" /> :</span> <%# this.Get<IDateTime>().FormatDateTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>&nbsp;|&nbsp;
-                     <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="FACEBOOK_USER" LocalizedPage="ADMIN_USERS" /> :</span> <%# this.GetText("COMMON", Eval("IsFacebookUser").ToType<bool>() ?  "YES" : "NO") %>&nbsp;|&nbsp;
-                     <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TWITTER_USER" LocalizedPage="ADMIN_USERS" /> :</span> <%# this.GetText("COMMON", Eval("IsTwitterUser").ToType<bool>() ? "YES" : "NO")%>&nbsp;|&nbsp;
-                     <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="GOOGLE_USER" LocalizedPage="ADMIN_USERS" /> :</span> <%# this.GetText("COMMON", Eval("IsGoogleUser").ToType<bool>() ? "YES" : "NO")%>
+                        <div>
+                            <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="EMAIL" LocalizedPage="ADMIN_USERS" /> :</span> <%# DataBinder.Eval(Container.DataItem,"Email") %>&nbsp;|&nbsp;
+                            <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="RANK" /> </span> <%# Eval("RankName") %>
+                            <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="POSTS" LocalizedPage="ADMIN_USERS" /> :</span> <%# Eval( "NumPosts") %>&nbsp;|&nbsp;
+                            <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="LAST_VISIT" LocalizedPage="ADMIN_USERS" /> :</span> <%# this.Get<IDateTime>().FormatDateTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>&nbsp;&nbsp;
+                            <span id="FacebookUser" class="FacebookIcon" runat="server" Visible='<%# this.Eval("IsFacebookUser").ToType<bool>() %>' title='<%# this.GetText("ADMIN_EDITUSER", "FACEBOOK_USER_HELP") %>'>&nbsp;</span>
+                            <span id="TwitterUser" class="TwitterIcon" runat="server" Visible='<%# this.Eval("IsTwitterUser").ToType<bool>() %>' title='<%# this.GetText("ADMIN_EDITUSER", "TWITTER_USER_HELP") %>'>&nbsp;</span>
+                            <span id="GoogleUser" class="GoogleIcon" runat="server" Visible='<%# this.Eval("IsGoogleUser").ToType<bool>() %>' title='<%# this.GetText("ADMIN_EDITUSER", "GOOGLE_USER_HELP") %>'>&nbsp;</span>
+                        </div>
+                        <div style="padding-top:5px">
+                            <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE_SUSPENDED" LocalizedPage="INFO" />&nbsp;:&nbsp;</span>
+                            <asp:Label runat="server" ID="Suspended" ForeColor='<%# Eval("Suspended") == DBNull.Value ? Color.Green : Color.Red %>'><%# this.GetSuspendedString(Eval("Suspended").ToString())%></asp:Label>
+                        </div>
                     </td>
                     <td class="post" align="right">
                        <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' 
