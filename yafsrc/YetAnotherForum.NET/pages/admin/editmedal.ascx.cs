@@ -202,7 +202,8 @@ namespace YAF.Pages.Admin
             if (this.UserNameList.SelectedValue.IsNotSet() && this.UserID.Text.IsNotSet())
             {
                 // only username is specified, we must find id for it
-                var users = LegacyDb.UserFind(this.PageContext.PageBoardID, true, this.UserName.Text, null, this.UserName.Text, null, null);
+                var users = this.GetRepository<User>()
+                    .FindUserTyped(filter: true, userName: this.UserName.Text, displayName: this.UserName.Text);
 
                 if (users.Count() > 1)
                 {
@@ -219,7 +220,7 @@ namespace YAF.Pages.Admin
                 }
 
                 // save id to the control
-                this.UserID.Text = (users.First().UserID ?? 0).ToString();
+                this.UserID.Text = users.First().UserID.ToString();
             }
             else if (this.UserID.Text.IsNotSet())
             {
@@ -357,7 +358,8 @@ namespace YAF.Pages.Admin
         protected void FindUsers_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // try to find users by user name
-            var users = LegacyDb.UserFind(this.PageContext.PageBoardID, true, this.UserName.Text, null, this.UserName.Text, null, null);
+            var users = this.GetRepository<User>()
+                    .FindUserTyped(filter: true, userName: this.UserName.Text, displayName: this.UserName.Text);
 
             if (!users.Any())
             {

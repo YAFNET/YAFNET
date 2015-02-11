@@ -30,7 +30,7 @@
              		 	</asp:TemplateColumn>
              		 	<asp:TemplateColumn HeaderText="Forums">
 			  			    <HeaderStyle CssClass="header2"></HeaderStyle>
-			  			    <ItemStyle CssClass="post" Width="350px"></ItemStyle>
+			  			    <ItemStyle CssClass="post" Width="390px"></ItemStyle>
 			  				    <ItemTemplate>
                				        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="FORUMS_ALL" LocalizedPage="TEAM" />
 			  				    </ItemTemplate>
@@ -79,7 +79,7 @@
              		 	</asp:TemplateColumn>
              		 	<asp:TemplateColumn HeaderText="Forums">
 			  			    <HeaderStyle CssClass="header2"></HeaderStyle>
-			  			    <ItemStyle CssClass="post" Width="350px"></ItemStyle>
+			  			    <ItemStyle CssClass="post" Width="390px"></ItemStyle>
 			  				    <ItemTemplate>
                				        <asp:DropDownList ID="ModForums" runat="server" CssClass="standardSelectMenu">
                				        </asp:DropDownList>

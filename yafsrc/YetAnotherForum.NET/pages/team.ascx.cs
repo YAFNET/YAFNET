@@ -36,12 +36,14 @@ namespace YAF.Pages
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
 
@@ -114,14 +116,12 @@ namespace YAF.Pages
         protected DataTable GetAdmins()
         {
             // get a row with user lazy data...
-            DataTable adminListDataTable = this.Get<IDataCache>().GetOrSet(
-                Constants.Cache.BoardAdmins,
-                () =>
-                this.Get<IDbFunction>().GetAsDataTable(
-                    cdb =>
-                    cdb.admin_list(
-                        this.PageContext.PageBoardID, this.Get<YafBoardSettings>().UseStyledNicks, DateTime.UtcNow)),
-                TimeSpan.FromMinutes(this.Get<YafBoardSettings>().BoardModeratorsCacheTimeout));
+            DataTable adminListDataTable = this.Get<IDataCache>()
+                .GetOrSet(
+                    Constants.Cache.BoardAdmins,
+                    () =>
+                    this.GetRepository<User>().AdminList(useStyledNicks: this.Get<YafBoardSettings>().UseStyledNicks),
+                    TimeSpan.FromMinutes(this.Get<YafBoardSettings>().BoardModeratorsCacheTimeout));
 
             if (this.Get<YafBoardSettings>().UseStyledNicks)
             {

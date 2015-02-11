@@ -28,7 +28,6 @@ namespace YAF.Core
 
     using System;
     using System.Data;
-    using System.Web;
     using System.Web.Security;
 
     using YAF.Classes;
@@ -39,7 +38,6 @@ namespace YAF.Core
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
 
     #endregion
 

@@ -73,6 +73,7 @@ namespace YAF.Types.Objects
             this.Status = row.Field<string>("Status");
             this.Styles = row.Field<string>("Styles");
             this.Description = row.Field<string>("Description");
+            this.HasAttachments = row.Field<bool>("HasAttachments");
         }
 
         /// <summary>
@@ -226,6 +227,14 @@ namespace YAF.Types.Objects
         ///   Gets or sets Message.
         /// </summary>
         public string Message { get; set; }
+
+        /// <summary>
+        /// Gets or sets the has attachments.
+        /// </summary>
+        /// <value>
+        /// The has attachments.
+        /// </value>
+        public bool HasAttachments { get; set; }
 
         /// <summary>
         ///   Gets or sets MessageID.

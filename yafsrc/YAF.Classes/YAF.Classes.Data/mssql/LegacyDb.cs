@@ -118,8 +118,11 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        ///   Gets a value indicating whether PanelGetStats.
+        /// Gets a value indicating whether PanelGetStats.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if [panel get stats]; otherwise, <c>false</c>.
+        /// </value>
         public static bool PanelGetStats
         {
             get
@@ -960,50 +963,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The UserFind.
-        /// </summary>
-        /// <param name="boardID">
-        /// The board id.
-        /// </param>
-        /// <param name="filter">
-        /// The filter.
-        /// </param>
-        /// <param name="userName">
-        /// The user name.
-        /// </param>
-        /// <param name="email">
-        /// The email.
-        /// </param>
-        /// <param name="displayName">
-        /// </param>
-        /// <param name="notificationType">
-        /// </param>
-        /// <param name="dailyDigest">
-        /// </param>
-        /// <returns>
-        /// </returns>
-        [NotNull]
-        public static IEnumerable<TypedUserFind> UserFind(
-          int boardID,
-          bool filter, [NotNull] string userName, [NotNull] string email, [NotNull] string displayName, [NotNull] object notificationType, [NotNull] object dailyDigest)
-        {
-            using (var cmd = DbHelpers.GetCommand("user_find"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.AddParam("BoardID", boardID);
-                cmd.AddParam("Filter", filter);
-                cmd.AddParam("UserName", userName);
-                cmd.AddParam("Email", email);
-                cmd.AddParam("DisplayName", displayName);
-                cmd.AddParam("NotificationType", notificationType);
-                cmd.AddParam("DailyDigest", dailyDigest);
-
-                return DbAccess.GetData(cmd).AsEnumerable().Select(u => new TypedUserFind(u));
-            }
-        }
-
-        /// <summary>
         /// Get the user list as a typed list.
         /// </summary>
         /// <param name="boardID">
@@ -1042,30 +1001,6 @@ namespace YAF.Classes.Data
                 cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 
                 return DbAccess.GetData(cmd).AsEnumerable().Select(x => new TypedUserList(x));
-            }
-        }
-
-        /// <summary>
-        /// The admin_list.
-        /// </summary>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <param name="useStyledNicks">
-        /// The use styled nicks.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static DataTable admin_list([CanBeNull] object boardId, [NotNull] object useStyledNicks)
-        {
-            using (var cmd = DbHelpers.GetCommand("admin_list"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("BoardID", boardId);
-                cmd.AddParam("StyledNicks", useStyledNicks);
-                cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
-
-                return DbAccess.GetData(cmd);
             }
         }
 

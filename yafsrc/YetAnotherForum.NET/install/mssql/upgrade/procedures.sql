@@ -2662,28 +2662,6 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}eventlog_delete]
-(
-    @EventLogID int = null, 
-    @BoardID int = null,
-    @PageUserID int
-) as
-begin
-        -- either EventLogID or BoardID must be null, not both at the same time
-    if (@EventLogID is null) begin
-        -- delete all events of this board
-        delete from [{databaseOwner}].[{objectQualifier}EventLog]
-        where
-            (UserID is null or
-            UserID in (select UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID))
-    end
-    else begin
-        -- delete just one event
-        delete from [{databaseOwner}].[{objectQualifier}EventLog] where EventLogID=@EventLogID
-    end
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}eventlog_deletebyuser]
 (	
     @BoardID int = null,
@@ -3999,7 +3977,8 @@ BEGIN
         a.IP,
         a.ReplyTo,
         a.ExternalMessageId,
-        a.ReferenceMessageId
+        a.ReferenceMessageId,
+        HasAttachments	= convert(bit,ISNULL((select top 1 1 from [{databaseOwner}].[{objectQualifier}Attachment] x where x.MessageID=a.MessageID),0))
     FROM
         [{databaseOwner}].[{objectQualifier}Message] a
         inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID = a.UserID

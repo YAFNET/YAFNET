@@ -28,7 +28,6 @@ namespace YAF.Core.Services
 
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Data;
     using System.Linq;
     using System.Net.Mail;
@@ -337,19 +336,13 @@ namespace YAF.Core.Services
         /// </param>
         public void ToWatchingUsers(int newMessageId)
         {
-            IEnumerable<TypedUserFind> usersWithAll = new List<TypedUserFind>();
+            IList<User> usersWithAll = new List<User>();
 
             if (this.BoardSettings.AllowNotificationAllPostsAllTopics)
             {
                 // TODO: validate permissions!
-                usersWithAll = LegacyDb.UserFind(
-                    YafContext.Current.PageBoardID,
-                    false,
-                    null,
-                    null,
-                    null,
-                    UserNotificationSetting.AllTopics.ToInt(),
-                    null);
+                usersWithAll = this.GetRepository<User>()
+                    .FindUserTyped(filter: false, notificationType: UserNotificationSetting.AllTopics.ToInt());
             }
 
             // TODO : Rewrite Watch Topic code to allow watch mails in the users language, as workaround send all messages in the default board language
@@ -388,7 +381,7 @@ namespace YAF.Core.Services
                 watchEmail.CreateWatch(message.TopicID ?? 0, userId, new MailAddress(forumEmail, boardName), subject);
 
                 // create individual watch emails for all users who have All Posts on...
-                foreach (var user in usersWithAll.Where(x => x.UserID.HasValue && x.UserID.Value != userId))
+                foreach (var user in usersWithAll.Where(x => x.UserID != userId))
                 {
                     // TODO: Check if the user has read access to the message
                     // Make sure its not a guest

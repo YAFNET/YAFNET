@@ -96,7 +96,7 @@
                         <input type="text" class="pagedisplay"/>
                         <a href="#" class="next pagelink"><span>&gt;</span></a>
                         <a href="#" class="last pagelink"><span>&gt;&gt;</span></a>
-                        <select class="standardSelectMenu pagesize">
+                        <select class="pagesize">
 		                    <option selected="selected"  value="10">10</option>
 		                    <option value="20">20</option>
                         	<option value="30">30</option>

@@ -783,27 +783,43 @@ namespace YAF.Pages
                 stylesSave = this.TopicStylesTextBox.Text;
             }
 
+            var currentMessage =
+                LegacyDb.MessageList(this.EditMessageID.ToType<int>()).FirstOrDefault();
+
+            // Remove Message Attachments
+            if (currentMessage.HasAttachments)
+            {
+                var attachments = this.GetRepository<Attachment>().ListTyped(messageID: currentMessage.MessageID);
+
+                attachments.ForEach(
+                    attach =>
+                        {
+                            attach.MessageID = 0;
+                            this.GetRepository<Attachment>().Update(attach);
+                        });
+            }
+
             // Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
             // Ederon : now it should be better, but all this code around forum/topic/message flags needs revamp
             // retrieve message flags
             var messageFlags = new MessageFlags(LegacyDb.message_list(this.EditMessageID).Rows[0]["Flags"])
-                               {
-                                   IsHtml =
-                                       this
-                                       ._forumEditor
-                                       .UsesHTML,
-                                   IsBBCode
-                                       =
-                                       this
-                                       ._forumEditor
-                                       .UsesBBCode,
-                                   IsPersistent
-                                       =
-                                       this
-                                       .PostOptions1
-                                       .PersistantChecked
-                               };
-
+            {
+                IsHtml =
+                    this
+                    ._forumEditor
+                    .UsesHTML,
+                IsBBCode
+                    =
+                    this
+                    ._forumEditor
+                    .UsesBBCode,
+                IsPersistent
+                    =
+                    this
+                    .PostOptions1
+                    .PersistantChecked
+            };
+                               
             var isModeratorChanged = this.PageContext.PageUserID != this._ownerUserId;
 
             LegacyDb.message_update(
@@ -1359,6 +1375,18 @@ namespace YAF.Pages
             }
 
             this._forumEditor.Text = currentMessage.Message;
+
+            // Convert Message Attachments to new [Attach] BBCode Attachments
+            if (currentMessage.HasAttachments)
+            {
+                var attachments = this.GetRepository<Attachment>().ListTyped(messageID: currentMessage.MessageID);
+
+                attachments.ForEach(
+                    attach =>
+                        {
+                            this._forumEditor.Text += "[ATTACH]{0}[/Attach] ".FormatWith(attach.ID);
+                        });
+            }
 
             this.Title.Text = this.GetText("EDIT");
             this.PostReply.TextLocalizedTag = "SAVE";

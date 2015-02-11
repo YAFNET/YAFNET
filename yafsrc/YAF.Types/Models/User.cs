@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using YAF.Types.Flags;
-
 namespace YAF.Types.Models
 {
     using System;
@@ -31,6 +29,7 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
@@ -39,20 +38,29 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "User")]
-    public partial class User : IEntity, IHaveID, IHaveBoardID
+    public partial class User : IEntity, IHaveBoardID
     {
         partial void OnCreated();
 
         public User()
         {
+            try
+            {
+                this.ProviderUserKey = this.IsGuest ? null : this.ProviderUserKey;
+            }
+            catch (Exception)
+            {
+                this.IsGuest = true;
+                this.ProviderUserKey = null;
+            }
+
             this.OnCreated();
         }
 
         #region Properties
 
         [AutoIncrement]
-        [Alias("UserID")]
-        public int ID { get; set; }
+        public int UserID { get; set; }
 
         public int BoardID { get; set; }
 
@@ -119,7 +127,7 @@ namespace YAF.Types.Models
 
         public bool UseSingleSignOn { get; set; }
 
-        public bool? IsGuest { get; set; }
+        public bool IsGuest { get; set; }
 
         public bool? IsCaptchaExcluded { get; set; }
 

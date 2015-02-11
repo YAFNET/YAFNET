@@ -336,12 +336,24 @@ namespace YAF.Types.Interfaces.Data
         {
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
 
-            using (var connection = dbAccess.CreateConnection())
+            if (transaction != null && transaction.Connection != null)
+            {
+                using (var command = transaction.Connection.CreateCommand())
+                {
+                    OrmLiteConfig.DialectProvider.PrepareParameterizedUpdateStatement<T>(command);
+                    OrmLiteConfig.DialectProvider.SetParameterValues<T>(command, update);
+
+                    return dbAccess.ExecuteNonQuery(command, transaction);
+                }
+            }
+
+            // no transaction
+            using (var connection = dbAccess.CreateConnectionOpen())
             {
                 using (var command = connection.CreateCommand())
                 {
                     OrmLiteConfig.DialectProvider.PrepareParameterizedUpdateStatement<T>(command);
-                    OrmLiteConfig.DialectProvider.SetParameterValues<T>(command, transaction);
+                    OrmLiteConfig.DialectProvider.SetParameterValues<T>(command, update);
 
                     return dbAccess.ExecuteNonQuery(command, transaction);
                 }

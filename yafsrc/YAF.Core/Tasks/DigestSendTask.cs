@@ -31,13 +31,11 @@ namespace YAF.Core.Tasks
     using System.Linq;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Types.Objects;
 
     #endregion
 
@@ -175,10 +173,10 @@ namespace YAF.Core.Tasks
 
                     // get users with digest enabled...
                     var usersWithDigest =
-                        LegacyDb.UserFind(boardId, false, null, null, null, null, true)
+                        this.GetRepository<User>().FindUserTyped(filter: false, boardId: boardId, dailyDigest: true)
                             .Where(x => !x.IsGuest && (x.IsApproved ?? false));
 
-                    var typedUserFinds = usersWithDigest as IList<TypedUserFind> ?? usersWithDigest.ToList();
+                    var typedUserFinds = usersWithDigest as IList<User> ?? usersWithDigest.ToList();
                     if (typedUserFinds.Any())
                     {
                         // start sending...
@@ -198,7 +196,7 @@ namespace YAF.Core.Tasks
         /// <param name="usersWithDigest">The users with digest.</param>
         /// <param name="boardSettings">The board settings.</param>
         private void SendDigestToUsers(
-            IEnumerable<TypedUserFind> usersWithDigest,
+            IList<User> usersWithDigest,
             YafBoardSettings boardSettings)
         {
             foreach (var user in usersWithDigest)
@@ -206,7 +204,7 @@ namespace YAF.Core.Tasks
                 try
                 {
                     var digestHtml = this.Get<IDigest>()
-                        .GetDigestHtml(user.UserID ?? 0, boardSettings);
+                        .GetDigestHtml(user.UserID, boardSettings);
 
                     if (!digestHtml.IsSet())
                     {

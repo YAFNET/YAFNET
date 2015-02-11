@@ -32,13 +32,12 @@ namespace YAF.Core
     using System.Linq;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Objects;
-    using YAF.Utils;
+    using YAF.Types.Models;
 
     #endregion
 
@@ -116,20 +115,20 @@ namespace YAF.Core
         [NotNull]
         public IDictionary<int, string> Find([NotNull] string contains)
         {
-            IEnumerable<TypedUserFind> found;
+            IList<User> found;
 
             if (YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
             {
-                found = LegacyDb.UserFind(YafContext.Current.PageBoardID, true, null, null, contains, null, null);
-                return found.ToDictionary(k => k.UserID ?? 0, v => v.DisplayName);
+                found = this.GetRepository<User>().FindUserTyped(filter: true, displayName: contains);
+                return found.ToDictionary(k => k.UserID, v => v.DisplayName);
             }
 
-            found = LegacyDb.UserFind(YafContext.Current.PageBoardID, true, contains, null, null, null, null);
-            return found.ToDictionary(k => k.UserID ?? 0, v => v.Name);
+            found = this.GetRepository<User>().FindUserTyped(filter: true, userName: contains);
+            return found.ToDictionary(k => k.UserID, v => v.Name);
         }
 
         /// <summary>
-        /// Get the userid from the user name.
+        /// Get the UserID from the user name.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <returns>
@@ -137,11 +136,11 @@ namespace YAF.Core
         /// </returns>
         public int? GetId([NotNull] string name)
         {
-            int? userId = null;
+            int? userId;
 
             if (name.IsNotSet())
             {
-                return userId;
+                return null;
             }
 
             var keyValue =
@@ -159,24 +158,28 @@ namespace YAF.Core
                 if (YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
                 {
                     var user =
-                      LegacyDb.UserFind(YafContext.Current.PageBoardID, false, null, null, name, null, null).FirstOrDefault();
+                      this.GetRepository<User>().FindUserTyped(filter: true, displayName: name).FirstOrDefault();
 
-                    if (user != null)
+                    if (user == null)
                     {
-                        userId = user.UserID ?? 0;
-                        this.UserDisplayNameCollection.AddOrUpdate(userId.Value, k => user.DisplayName, (k, v) => user.DisplayName);
+                        return null;
                     }
+
+                    userId = user.UserID;
+                    this.UserDisplayNameCollection.AddOrUpdate(userId.Value, k => user.DisplayName, (k, v) => user.DisplayName);
                 }
                 else
                 {
                     var user =
-                      LegacyDb.UserFind(YafContext.Current.PageBoardID, false, name, null, null, null, null).FirstOrDefault();
+                      this.GetRepository<User>().FindUserTyped(filter: true, userName: name).FirstOrDefault();
 
-                    if (user != null)
+                    if (user == null)
                     {
-                        userId = user.UserID ?? 0;
-                        this.UserDisplayNameCollection.AddOrUpdate(userId.Value, k => user.DisplayName, (k, v) => user.DisplayName);
+                        return null;
                     }
+
+                    userId = user.UserID;
+                    this.UserDisplayNameCollection.AddOrUpdate(userId.Value, k => user.DisplayName, (k, v) => user.DisplayName);
                 }
             }
 
@@ -194,26 +197,30 @@ namespace YAF.Core
         {
             string displayName;
 
-            if (!this.UserDisplayNameCollection.TryGetValue(userId, out displayName))
+            if (this.UserDisplayNameCollection.TryGetValue(userId, out displayName))
             {
-                var row = UserMembershipHelper.GetUserRowForID(userId, true);
-
-                if (row != null)
-                {
-                    if (YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
-                    {
-                        displayName = row.Field<string>("DisplayName");
-                    }
-
-                    if (displayName.IsNotSet())
-                    {
-                        // revert to their user name...
-                        displayName = row.Field<string>("Name");
-                    }
-
-                    this.UserDisplayNameCollection.AddOrUpdate(userId, k => displayName, (k, v) => displayName);
-                }
+                return displayName;
             }
+
+            var row = UserMembershipHelper.GetUserRowForID(userId, true);
+
+            if (row == null)
+            {
+                return null;
+            }
+
+            if (YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
+            {
+                displayName = row.Field<string>("DisplayName");
+            }
+
+            if (displayName.IsNotSet())
+            {
+                // revert to their user name...
+                displayName = row.Field<string>("Name");
+            }
+
+            this.UserDisplayNameCollection.AddOrUpdate(userId, k => displayName, (k, v) => displayName);
 
             return displayName;
         }
