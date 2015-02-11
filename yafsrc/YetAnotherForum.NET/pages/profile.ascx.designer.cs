@@ -292,6 +292,15 @@ namespace YAF.Pages {
         protected global::YAF.Controls.OnlineStatusImage OnlineStatusImage1;
         
         /// <summary>
+        /// ThemeImgSuspended control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeImage ThemeImgSuspended;
+        
+        /// <summary>
         /// lnkBuddy control.
         /// </summary>
         /// <remarks>

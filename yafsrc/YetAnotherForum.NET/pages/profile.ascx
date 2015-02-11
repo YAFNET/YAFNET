@@ -74,6 +74,7 @@
 								<td width="50%" class="post">
 									<asp:Label ID="Name" runat="server" />
 									<YAF:OnlineStatusImage id="OnlineStatusImage1" runat="server" Style="vertical-align: bottom" />
+                                    <YAF:ThemeImage ID="ThemeImgSuspended" runat="server" ThemePage="ICONS" ThemeTag="USER_SUSPENDED"></YAF:ThemeImage> 
                             <asp:LinkButton ID="lnkBuddy" runat="server" OnCommand="lnk_AddBuddy"/>
                                 <asp:literal ID="ltrApproval" runat="server" Text='<%# this.GetText("BUDDY","AWAIT_BUDDY_APPROVAL") %>'
                                 Visible="false">
