@@ -28,9 +28,11 @@
                 <asp:Literal ID="AttachmentsResults" runat="server" />
             </div>
             <span class="UploadNewFileLine">
-                <YAF:ThemeButton ID="UploadNew" TextLocalizedTag="UPLOAD_NEW" TextLocalizedPage="ATTACHMENTS" runat="server"
-                    CssClass="OpenUploadDialog yaflittlebutton">
-                </YAF:ThemeButton>
+               <a class="OpenUploadDialog yaflittlebutton">
+                   <span>
+                       <YAF:LocalizedLabel ID="ThemeButton1" LocalizedTag="UPLOAD_NEW" LocalizedPage="ATTACHMENTS" runat="server" />
+                   </span>
+               </a>
             </span>
         </div>
     </td>

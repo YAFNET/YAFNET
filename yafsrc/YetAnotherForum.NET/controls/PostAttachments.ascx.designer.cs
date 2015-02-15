@@ -76,12 +76,12 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.Literal AttachmentsResults;
         
         /// <summary>
-        /// UploadNew control.
+        /// ThemeButton1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton UploadNew;
+        protected global::YAF.Controls.LocalizedLabel ThemeButton1;
     }
 }
