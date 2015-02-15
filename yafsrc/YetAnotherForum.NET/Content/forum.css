@@ -1639,6 +1639,10 @@ pre[class*='language-'] > code[data-language]::before {
 .yafnet .postsep td {
   padding: 0px;
 }
+.yafnet .postdiv {
+  -ms-word-break: break-all;
+  word-break: break-all;
+}
 .yafnet .yafpopupmenu {
   padding: 0px;
 }
@@ -1646,10 +1650,10 @@ pre[class*='language-'] > code[data-language]::before {
   margin: 15px 0px 0px 0px;
 }
 .yafnet #yafprofilemenu {
+  float: left;
   width: 150px;
   margin: 5px 5px 5px 0px;
   width: 19%;
-  float: left;
   clear: left;
 }
 .yafnet .RssFeedIcon {
@@ -1924,6 +1928,7 @@ pre[class*='language-'] > code[data-language]::before {
   white-space: -o-pre-wrap;
   white-space: -moz-pre-wrap;
   white-space: -hp-pre-wrap;
+  -ms-word-wrap: break-word;
   word-wrap: break-word;
   border: 1px solid #999;
   background-color: #eee;
@@ -1933,8 +1938,8 @@ pre[class*='language-'] > code[data-language]::before {
   cursor: pointer;
 }
 .yafnet .eventItem table td {
-  border: none!important;
-  padding: 5px!important;
+  border: none !important;
+  padding: 5px !important;
 }
 .yafnet .forumIconLegend {
   padding: 2px;
@@ -2236,7 +2241,7 @@ a.OpenUploadDialog {
 }
 #dropzone {
   width: auto;
-  padding: 10px 0;
+  padding: 30px 0;
   text-align: center;
   margin: 20px auto;
 }
@@ -2253,7 +2258,7 @@ a.OpenUploadDialog {
   padding: 5px;
   margin-bottom: 5px;
   margin-top: 5px;
-  height: 275px;
+  max-height: 275px;
   border-top: 1px dotted grey;
   border-bottom: 1px dotted grey;
 }
