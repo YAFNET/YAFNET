@@ -221,6 +221,11 @@ namespace YAF.Controls
         {
             base.OnInit(e);
 
+            if (!this.Visible)
+            {
+                return;
+            }
+
             if (this.SiteKey.IsNotSet() || this.SecretKey.IsNotSet())
             {
                 throw new ApplicationException("reCAPTCHA needs to be configured with a site & secret key.");
@@ -228,11 +233,9 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The render.
+        /// Renders the control to the specified HTML writer.
         /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
+        /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the control content.</param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
             if (this.skipRecaptcha)
@@ -242,16 +245,17 @@ namespace YAF.Controls
             }
             else
             {
-                this.RenderContents(writer);
+                if (this.Visible)
+                {
+                    this.RenderContents(writer);
+                }
             }
         }
 
         /// <summary>
-        /// The render contents.
+        /// Renders the contents.
         /// </summary>
-        /// <param name="output">
-        /// The output.
-        /// </param>
+        /// <param name="output">The output.</param>
         protected override void RenderContents([NotNull] HtmlTextWriter output)
         {
             output.AddAttribute(HtmlTextWriterAttribute.Type, "text/javascript");

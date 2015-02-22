@@ -244,7 +244,7 @@ namespace YAF.Utilities
             get
             {
                 return
-                    @" if( typeof(CKEDITOR) == 'undefined' && typeof loadTimeAgo == 'function') {{
+                    @" if( typeof(CKEDITOR) == 'undefined') {{
             function loadTimeAgo() {{	
             {2}.timeago.settings.refreshMillis = {1};			      	
             {0}
