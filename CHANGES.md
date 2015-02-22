@@ -1,9 +1,31 @@
 YetAnotherForum.NET Changelog
 ====================
 
-## YetAnotherForum.NET v2.2.0
+# YetAnotherForum.NET v2.2.1
 
-#New Features:
+## New Features:
+
+* User online status icon on the profile page now indicates when user is suspended
+* [#239](https://github.com/YAFNET/YAFNET/issues/239): Multiple image attachments are now grouped as ceebox gallery
+* SQL scripts are not splitted in install/upgrade for faster install/upgrade
+* Admin Users page now shows if user is suspended and until which date
+* On the Admin Users page you can now filter by suspended users to show only suspended users
+* Admin Users Page now shows an Twitter/Facebook/Google icon if the users is logged in via that SSO Service
+
+## Fixed Issues:
+* [#244](https://github.com/YAFNET/YAFNET/issues/244): Fixed not Working Upload Dialog in editors other then the Standard BB Code Editor
+* [#243](https://github.com/YAFNET/YAFNET/issues/243): a few tweaks to the attachments upload dialog
+* Fixed Issue with reCaptcha on the register page
+* Fixed timeAgo loading Script
+* Fixed Wrong Encoding in some places
+* Removed not working report message to Akismet
+
+###Full Change log here:
+https://github.com/YAFNET/YAFNET/commits/master
+
+# YetAnotherForum.NET v2.2.0
+
+## New Features:
 
 * [#18](https://github.com/YAFNET/YAFNET/issues/18): Added Sorting/Paging for Active Users Page 
 * [#18](https://github.com/YAFNET/YAFNET/issues/18): Added Sorting/Paging for Active Users and Unverified Users on the Admin Page
@@ -35,8 +57,7 @@ YetAnotherForum.NET Changelog
 * JS Files are now combined
 * Switched from syntax highlighter to Prism.js
 
-
-#Fixed Issues:
+##Fixed Issues:
 * [#215](https://github.com/YAFNET/YAFNET/issues/215): added missing Board Name to mass emails
 * [#214](https://github.com/YAFNET/YAFNET/issues/214): added missing {databaseOwner}
 * [#209](https://github.com/YAFNET/YAFNET/issues/209): Fixed group name parameter length to match the length of database field
