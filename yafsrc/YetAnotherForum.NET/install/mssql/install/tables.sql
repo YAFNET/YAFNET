@@ -1036,6 +1036,61 @@ begin
 end
 GO
 
+-- Create Topic Read Tracking Table
+
+if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}TopicReadTracking]') and type in (N'U'))
+	create table [{databaseOwner}].[{objectQualifier}TopicReadTracking](
+		UserID			int NOT NULL,
+		TopicID			int NOT NULL,
+		LastAccessDate	datetime NOT NULL
+ constraint [PK_{objectQualifier}TopicReadTracking] PRIMARY KEY CLUSTERED 
+(
+	[UserID] ASC,
+	[TopicID] ASC
+)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
+	)
+GO
+
+-- Create Forum Read Tracking Table
+
+if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}ForumReadTracking]') and type in (N'U'))
+	create table [{databaseOwner}].[{objectQualifier}ForumReadTracking](
+		UserID			int NOT NULL,
+		ForumID			int NOT NULL,
+		LastAccessDate	datetime NOT NULL,
+ constraint [PK_{objectQualifier}ForumReadTracking] PRIMARY KEY CLUSTERED 
+(
+	[UserID] ASC,
+	[ForumID] ASC
+)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
+	)
+GO
+
+if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}TopicStatus]') and type in (N'U'))
+BEGIN
+	CREATE TABLE [{databaseOwner}].[{objectQualifier}TopicStatus](
+	    TopicStatusID int IDENTITY(1,1) NOT NULL,
+		TopicStatusName nvarchar(100) NOT NULL,
+		BoardID int NOT NULL,
+		defaultDescription nvarchar(100) NOT NULL,
+		constraint [PK_{objectQualifier}TopicStatus] PRIMARY KEY(TopicStatusID)
+	)
+END
+GO
+
+if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}ReputationVote]') and type in (N'U'))
+	create table [{databaseOwner}].[{objectQualifier}ReputationVote](
+		ReputationFromUserID  int NOT NULL,
+		ReputationToUserID	  int NOT NULL,
+		VoteDate	datetime NOT NULL,
+ constraint [PK_{objectQualifier}ReputationVote] PRIMARY KEY CLUSTERED 
+(
+	[ReputationFromUserID] ASC,
+	[ReputationToUserID] ASC
+)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
+	)
+GO
+GO
 
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and type in (N'U'))
 begin
