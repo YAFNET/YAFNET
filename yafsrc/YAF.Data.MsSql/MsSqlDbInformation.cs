@@ -126,7 +126,7 @@ namespace YAF.Data.MsSql
         {
             get
             {
-                return "mssql/fulltext.sql";
+                return "mssql/install/fulltext.sql";
             }
         }
 

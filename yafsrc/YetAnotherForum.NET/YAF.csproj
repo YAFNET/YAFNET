@@ -1619,7 +1619,6 @@
     </Content>
     <Content Include="install\FileExtensions.xml" />
     <Content Include="install\mssql\upgrade\constraints.sql" />
-    <Content Include="install\mssql\upgrade\fulltext.sql" />
     <Content Include="install\mssql\upgrade\functions.sql" />
     <Content Include="install\mssql\upgrade\indexes.sql" />
     <Content Include="install\mssql\upgrade\procedures.sql" />
