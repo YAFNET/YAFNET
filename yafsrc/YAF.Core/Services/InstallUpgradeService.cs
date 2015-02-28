@@ -349,7 +349,7 @@ namespace YAF.Core.Services
         private void ExecuteInstallScripts(bool isAzureEngine)
         {
             // Install Membership Scripts
-            if (!isAzureEngine)
+            if (isAzureEngine)
             {
                 this.DbAccess.Information.AzureScripts.ForEach(script => this.ExecuteScript(script, true));
             }
