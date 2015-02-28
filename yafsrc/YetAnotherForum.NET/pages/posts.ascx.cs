@@ -1244,13 +1244,17 @@ namespace YAF.Pages
                     // temporary find=lastpost code until all last/unread post links are find=lastpost and find=unread
                     if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find") == null)
                     {
-                        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
+                        int messageID;
+                        if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null
+                            && int.TryParse(
+                                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"),
+                                out messageID))
                         {
                             // we find message position always by time.
                             using (
                                 DataTable lastPost = LegacyDb.message_findunread(
                                     topicID: this.PageContext.PageTopicID,
-                                    messageId: this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"),
+                                    messageId: messageID,
                                     lastRead: DateTimeHelper.SqlDbMinTime(),
                                     showDeleted: showDeleted,
                                     authorUserID: userId))
