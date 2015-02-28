@@ -82,19 +82,19 @@ namespace YAF.Modules
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-           // this.RegisterBootStrap();
             this.RegisterJQueryUI();
 
-            if (!this.PageContext.Vars.ContainsKey("yafForumExtensions"))
+            if (this.PageContext.Vars.ContainsKey("yafForumExtensions"))
             {
+                return;
+            }
 #if DEBUG
-                YafContext.Current.PageElements.RegisterJsScriptsInclude("yafForumExtensions", "jquery.ForumExtensions.js");
+            YafContext.Current.PageElements.RegisterJsScriptsInclude("yafForumExtensions", "jquery.ForumExtensions.js");
 #else
                 YafContext.Current.PageElements.RegisterJsScriptsInclude("yafForumExtensions", "jquery.ForumExtensions.min.js");
 #endif
 
-                this.PageContext.Vars["yafForumExtensions"] = true;
-            }
+            this.PageContext.Vars["yafForumExtensions"] = true;
         }
 
         /// <summary>
@@ -154,89 +154,17 @@ namespace YAF.Modules
 
                 // load jQuery
                 element.Controls.Add(ControlHelper.MakeJsIncludeControl(jqueryUrl));
-
-                // load jQuery migrate
-                /*element.Controls.Add(
-                    ControlHelper.MakeJsIncludeControl(
-                        YafContext.Current.Get<YafBoardSettings>().JqueryCDNHosted
-                            ? YafForumInfo.GetURLToScripts("jquery-migrate-1.2.1.min.js")
-                            : "//code.jquery.com/jquery-migrate-1.2.1.js"));*/
             }
 
             YafContext.Current.PageElements.AddPageElement("jquery");
         }
-        private void RegisterBootStrap()
-        {
-            var element = YafContext.Current.CurrentForumPage.TopPageControl;
-            /*
-            // Register the jQueryUI Theme CSS
-            if (YafContext.Current.Get<YafBoardSettings>().JqueryUIThemeCDNHosted)
-            {
-                YafContext.Current.PageElements.RegisterCssInclude(
-                     "//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/{0}/jquery-ui.min.css".FormatWith(
-                         YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
-            }
-            else
-            {
-                YafContext.Current.PageElements.RegisterCssIncludeContent(
-                    "themes/{0}/jquery-ui.min.css".FormatWith(YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
-            }
-            */
-
-            // If registered or told not to register, don't bother
-            if (YafContext.Current.PageElements.PageElementExists("bootstrap"))
-            {
-                return;
-            }
-            
-            string jqueryUIUrl;
-
-            var useCDn = false;
-
-            // Check if override file is set ?
-            if (Config.JQueryUIOverrideFile.IsSet())
-            {
-                jqueryUIUrl = !Config.JQueryUIOverrideFile.StartsWith("http")
-                              && !Config.JQueryUIOverrideFile.StartsWith("//")
-                                  ? YafForumInfo.GetURLToScripts(Config.JQueryOverrideFile)
-                                  : Config.JQueryUIOverrideFile;
-            }
-            else
-            {
-                jqueryUIUrl = useCDn /*YafContext.Current.Get<YafBoardSettings>().JqueryUICDNHosted*/
-                                  ? "//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"
-#if DEBUG
-                                  : YafForumInfo.GetURLToScripts("bootstrap.js");
-#else
-                                  : YafForumInfo.GetURLToScripts("bootstrap.min.js");
-#endif
-            }
-
-            // load jQuery UI from google...
-            element.Controls.Add(ControlHelper.MakeJsIncludeControl(jqueryUIUrl));
-
-            YafContext.Current.PageElements.AddPageElement("bootstrap");
-        }
-
+        
         /// <summary>
         /// Register the jQuery UI script library in the header.
         /// </summary>
         private void RegisterJQueryUI()
         {
             var element = YafContext.Current.CurrentForumPage.TopPageControl;
-
-            // Register the jQueryUI Theme CSS
-            if (YafContext.Current.Get<YafBoardSettings>().JqueryUIThemeCDNHosted)
-            {
-               YafContext.Current.PageElements.RegisterCssInclude(
-                    "//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/{0}/jquery-ui.min.css".FormatWith(
-                        YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
-            }
-            else
-            {
-                YafContext.Current.PageElements.RegisterCssIncludeContent(
-                    "themes/{0}/jquery-ui.min.css".FormatWith(YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
-            }
 
             // If registered or told not to register, don't bother
             if (YafContext.Current.PageElements.PageElementExists("jqueryui"))
