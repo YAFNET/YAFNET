@@ -157,10 +157,10 @@ namespace YAF.Utils
             {
                 const int Major = 2;
                 const byte Minor = 2;
-                const byte Build = 0;
+                const byte Build = 1;
                 const byte Sub = 0;
 
-                const ReleaseType ReleaseType = ReleaseType.Regular;
+                const ReleaseType ReleaseType = ReleaseType.BETA;
                 const byte ReleaseNumber = 0;
                 
                 var version = Major.ToType<long>() << 24;
@@ -189,7 +189,7 @@ namespace YAF.Utils
         {
             get
             {
-                return new DateTime(2015, 02, 01);
+                return new DateTime(2015, 03, 01);
             }
         }
 
