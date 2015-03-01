@@ -212,7 +212,7 @@ namespace YAF.Controls
         /// Highlight a Message
         /// </summary>
         /// <param name="message">The Message to Highlight</param>
-        /// <param name="renderBBCode">if set to <c>true</c> Render Highlight as BB Code or as Html Tags</param>
+        /// <param name="renderBBCode">if set to <c>true</c> Render Highlight as BB Code or as HTML Tags</param>
         /// <returns>
         /// The Message with the Span Tag and CSS Class "highlight" that Highlights it
         /// </returns>
@@ -262,8 +262,13 @@ namespace YAF.Controls
             writer.BeginRender();
             writer.WriteBeginTag("div");
 
-            writer.WriteAttribute("id", MessageID.ToString());
-            writer.WriteAttribute("class", "selectionQuoteable");
+            writer.WriteAttribute("id", this.MessageID.HasValue ? this.MessageID.ToString() : this.ClientID);
+
+            if (this.MessageID.HasValue)
+            {
+                writer.WriteAttribute("class", "selectionQuoteable");
+            }
+
             writer.Write(HtmlTextWriter.TagRightChar);
 
             this.RenderMessage(writer);
@@ -359,7 +364,7 @@ namespace YAF.Controls
                     this.Get<IFormatMessage>().FormatMessage(
                         this.HighlightMessage(this.Message, true), this.MessageFlags);
 
-                // tha_watcha : Since html message and bbcode can be mixed now, message should be always replace bbcode
+                // tha_watcha : Since HTML message and BBCode can be mixed now, message should be always replace BBCode
                 this.RenderModulesInBBCode(
                     writer, formattedMessage, this.MessageFlags, this.DisplayUserID, this.MessageID);
             }

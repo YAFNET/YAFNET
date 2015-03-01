@@ -484,16 +484,6 @@ namespace YAF.Pages
         {
             if (!this.PageContext.IsGuest)
             {
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "SelectedQuotingJs",
-                    JavaScriptBlocks.SelectedQuotingJs(
-                        YafBuildLink.GetLinkNotEscaped(
-                            ForumPages.postmessage,
-                            "t={0}&f={1}",
-                            this.PageContext.PageTopicID,
-                            this.PageContext.PageForumID),
-                            this.GetText("POSTS", "QUOTE_SELECTED")));
-
                 // The html code for "Favorite Topic" theme buttons.
                 string tagButtonHTML =
                     "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:addFavoriteTopic(' + res.d + ');\" onclick=\"jQuery(this).blur();\" title=\"{0}\"><span>{1}</span></a>'"
@@ -714,6 +704,20 @@ namespace YAF.Pages
                     this.UnlockTopic1.Visible = !this.LockTopic1.Visible;
                     this.LockTopic2.Visible = this.LockTopic1.Visible;
                     this.UnlockTopic2.Visible = !this.LockTopic2.Visible;
+                }
+
+                if (this.PageContext.ForumReplyAccess ||
+                    ((!this._topicFlags.IsLocked || !this._forumFlags.IsLocked) && this.PageContext.ForumModeratorAccess))
+                {
+                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                        "SelectedQuotingJs",
+                        JavaScriptBlocks.SelectedQuotingJs(
+                            YafBuildLink.GetLinkNotEscaped(
+                                ForumPages.postmessage,
+                                "t={0}&f={1}",
+                                this.PageContext.PageTopicID,
+                                this.PageContext.PageForumID),
+                                this.GetText("POSTS", "QUOTE_SELECTED")));
                 }
             }
 

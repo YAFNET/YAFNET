@@ -948,7 +948,7 @@ namespace YAF.Utilities
         {
             return @"{0}('.selectionQuoteable').each(function () {{
                          var $this = jQuery(this);
-                         $this.selectionSharer({{ URL: '{1}', ToolTip: '{2}' }});
+                         $this.selectedQuoting({{ URL: '{1}', ToolTip: '{2}' }});
                      }});".FormatWith(Config.JQueryAlias, postURL, toolTipText);
         }
 
