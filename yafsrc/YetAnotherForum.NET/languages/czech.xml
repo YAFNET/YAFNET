@@ -1816,6 +1816,9 @@
     <Resource tag="EXPORT_XML">Export All User(s) as Xml</Resource>
     <Resource tag="FACEBOOK_USER">Facebook User</Resource>
     <Resource tag="FILTER">Filter by join date since:</Resource>
+    <Resource tag="FILTER_BY_GROUP">Filter by Group...</Resource>
+    <Resource tag="FILTER_BY_RANK">Filter by Rank...</Resource>
+    <Resource tag="FILTER_NO">[No Filter]</Resource>
     <Resource tag="HEADER">Search Users</Resource>
     <Resource tag="IMPORT">Import User(s)</Resource>
     <Resource tag="LAST_VISIT">Last Visit</Resource>
@@ -1828,6 +1831,7 @@
     <Resource tag="RANK">Rank:</Resource>
     <Resource tag="ROLE">Role:</Resource>
     <Resource tag="SEARCH">Search</Resource>
+    <Resource tag="SUSPENDED_ONLY">Show only suspended users?</Resource>
     <Resource tag="SYNC_ALL">Sync All Membership Users</Resource>
     <Resource tag="TITLE">Users</Resource>
     <Resource tag="TWITTER_USER">Twitter User</Resource>
@@ -4621,6 +4625,7 @@ Spoiler Content
     <Resource tag="QUICKREPLY">Rýchla odpověď</Resource>
     <Resource tag="QUICKREPLY_HIDE">Schovej rychlou odpověď</Resource>
     <Resource tag="QUICKREPLY_SHOW">Zobraz rychlou odpověď</Resource>
+    <Resource tag="QUOTE_SELECTED">Quote Selected Message</Resource>
     <Resource tag="RANK">Kategorie</Resource>
     <Resource tag="REDDIT_TOPIC">Reddit this Topic</Resource>
     <Resource tag="REP_VOTE_DOWN_MSG">You have successfully removed -1 Reputation to {0}.</Resource>

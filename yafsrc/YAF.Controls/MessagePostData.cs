@@ -256,6 +256,8 @@ namespace YAF.Controls
         {
             CodeContracts.VerifyNotNull(this.MessageFlags, "MessageFlags");
 
+            this.MessageID = this.CurrentMessage.ID;
+
             if (!this.MessageFlags.IsDeleted)
             {
                 // populate DisplayUserID

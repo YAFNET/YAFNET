@@ -262,7 +262,8 @@ namespace YAF.Controls
             writer.BeginRender();
             writer.WriteBeginTag("div");
 
-            writer.WriteAttribute("id", this.ClientID);
+            writer.WriteAttribute("id", MessageID.ToString());
+            writer.WriteAttribute("class", "selectionQuoteable");
             writer.Write(HtmlTextWriter.TagRightChar);
 
             this.RenderMessage(writer);

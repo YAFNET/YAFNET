@@ -546,11 +546,10 @@ namespace YAF.Controls
 
             this.Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                 ForumPages.postmessage,
-                "t={0}&f={1}&q={2}&page={3}",
+                "t={0}&f={1}&q={2}",
                 this.PageContext.PageTopicID,
                 this.PageContext.PageForumID,
-                this.PostData.MessageId,
-                this.CurrentPage);
+                this.PostData.MessageId);
 
             // setup jQuery and YAF JS...
             YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);

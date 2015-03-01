@@ -20,6 +20,7 @@
     <file>/Scripts/jquery.pagemethod.js</file>
     <file>/Scripts/jquery.pagination.js</file>
     <file>/Scripts/prism.js</file>
+    <file>/Scripts/jquery.selectedQuoting.js</file>
     <file>/Scripts/jquery.tablesorter.js</file>
     <file>/Scripts/jquery.tablesorter.pager.js</file>
     <file>/Scripts/jquery.timeago.js</file>

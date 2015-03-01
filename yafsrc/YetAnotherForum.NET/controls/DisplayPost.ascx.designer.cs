@@ -175,15 +175,6 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.Panel panMessage;
         
         /// <summary>
-        /// MessagePost1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.MessagePostData MessagePost1;
-        
-        /// <summary>
         /// IPSpan1 control.
         /// </summary>
         /// <remarks>

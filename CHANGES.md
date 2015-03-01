@@ -5,6 +5,7 @@ YetAnotherForum.NET Changelog
 
 ## New Features:
 
+* [#217](https://github.com/YAFNET/YAFNET/issues/239): Selected Quote of Messages
 * User online status icon on the profile page now indicates when user is suspended
 * [#239](https://github.com/YAFNET/YAFNET/issues/239): Multiple image attachments are now grouped as ceebox gallery
 * SQL scripts are not splitted in install/upgrade for faster install/upgrade
@@ -15,9 +16,12 @@ YetAnotherForum.NET Changelog
 ## Fixed Issues:
 * [#244](https://github.com/YAFNET/YAFNET/issues/244): Fixed not Working Upload Dialog in editors other then the Standard BB Code Editor
 * [#243](https://github.com/YAFNET/YAFNET/issues/243): a few tweaks to the attachments upload dialog
-* Fixed Issue with reCaptcha on the register page
-* Fixed timeAgo loading Script
-* Fixed Wrong Encoding in some places
+* [FIXED] dateTime Issue with the Most Recent users feature
+* [FIXED] Exception caused by bots on the posts page
+* [FIXED] duplicate loading of the jquery-ui theme css
+* [FIXED] Issue with reCaptcha on the register page
+* [FIXED] timeAgo loading Script
+* [FIXED] Wrong Encoding in some places
 * Removed not working report message to Akismet
 
 ###Full Change log here:

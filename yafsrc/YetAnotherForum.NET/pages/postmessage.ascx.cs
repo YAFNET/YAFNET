@@ -134,17 +134,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        ///   Gets Page.
-        /// </summary>
-        protected long? PageIndex
-        {
-            get
-            {
-                return this.PageContext.QueryIDs["page"];
-            }
-        }
-
-        /// <summary>
         ///   Gets or sets the PollGroupId if the topic has a poll attached
         /// </summary>
         protected int? PollGroupId { get; set; }
@@ -452,7 +441,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.QueryIDs = new QueryStringIDHelper(new[] { "m", "t", "q", "page" }, false);
+            this.PageContext.QueryIDs = new QueryStringIDHelper(new[] { "m", "t", "q" }, false);
 
             TypedMessageList currentMessage = null;
             DataRow topicInfo = LegacyDb.topic_info(this.PageContext.PageTopicID);
@@ -461,13 +450,16 @@ namespace YAF.Pages
             if (this.QuotedMessageID != null)
             {
                 currentMessage =
-                    LegacyDb.MessageList(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("q").ToType<int>())
+                    LegacyDb.MessageList(this.QuotedMessageID.ToType<int>())
                         .FirstOrDefault();
 
-                if (currentMessage != null)
+                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("text") != null)
                 {
-                    this.OriginalMessage = currentMessage.Message;
-
+                    currentMessage.Message =
+                        this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("text"));
+                }
+                else if (currentMessage != null)
+                {
                     if (currentMessage.TopicID.ToType<int>() != this.PageContext.PageTopicID)
                     {
                         YafBuildLink.AccessDenied();

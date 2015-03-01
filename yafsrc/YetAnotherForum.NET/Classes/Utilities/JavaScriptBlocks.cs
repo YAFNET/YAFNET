@@ -48,8 +48,7 @@ namespace YAF.Utilities
         {
             get
             {
-               return
-                   @"{1}(document).ready(function() {{
+                return @"{1}(document).ready(function() {{
                          {1}.getScript('//connect.facebook.net/en_US/all.js', function(data, textStatus, jqxhr) {{
                             FB.init({{appId:'{0}',status:true,cookie:true,xfbml:true}});
                          }});
@@ -68,8 +67,7 @@ namespace YAF.Utilities
         {
             get
             {
-                return
-                    @"function changeTitleSuccess(res){{
+                return @"function changeTitleSuccess(res){{
                   spnTitleVar = document.getElementById('spnTitle' + res.d.Id);
                   txtTitleVar =  document.getElementById('txtTitle' + res.d.Id);
                   spnTitleVar.firstChild.nodeValue = res.d.NewTitle;
@@ -87,8 +85,7 @@ namespace YAF.Utilities
         {
             get
             {
-                return
-                    @"function pageselectCallback(page_index, jq){{
+                return @"function pageselectCallback(page_index, jq){{
                 var new_content = {0}('#SmiliesPagerHidden div.result:eq('+page_index+')').clone();
                 {0}('#SmiliesPagerResult').empty().append(new_content);
                 return false;
@@ -106,8 +103,7 @@ namespace YAF.Utilities
 					prev_text: '&laquo;',
 					next_text: '&raquo;'
                 }});
-            }});"
-                        .FormatWith(Config.JQueryAlias);
+            }});".FormatWith(Config.JQueryAlias);
             }
         }
 
@@ -119,10 +115,8 @@ namespace YAF.Utilities
         {
             get
             {
-                return
-                    @"{0}(document).ready(function() {{ 
-					{0}('.ceebox').ceebox({{titles:true}});}});".FormatWith(
-                        Config.JQueryAlias);
+                return @"{0}(document).ready(function() {{ 
+					{0}('.ceebox').ceebox({{titles:true}});}});".FormatWith(Config.JQueryAlias);
             }
         }
 
@@ -134,13 +128,11 @@ namespace YAF.Utilities
         {
             get
             {
-                return
-                    @"function multiQuoteSuccess(res){{
+                return @"function multiQuoteSuccess(res){{
                   var multiQuoteButton = {0}('#' + res.d.Id).parent('span');
                   multiQuoteButton.removeClass(multiQuoteButton.attr('class')).addClass(res.d.NewTitle);
                   {0}(document).scrollTop(multiQuoteButton.offset().top - 20);
-                      }}"
-                        .FormatWith(Config.JQueryAlias);
+                      }}".FormatWith(Config.JQueryAlias);
             }
         }
 
@@ -204,8 +196,7 @@ namespace YAF.Utilities
         {
             get
             {
-                return
-                    @"
+                return @"
 	var prm = Sys.WebForms.PageRequestManager.getInstance();
 
 	prm.add_beginRequest(beginRequest);
@@ -225,14 +216,12 @@ namespace YAF.Utilities
         {
             get
             {
-                return
-                    @"{0}(document).ready(function() {{
+                return @"{0}(document).ready(function() {{
 					{0}('.ReputationBar').progressbar({{
 			            create: function(event, ui) {{
 			                    ChangeReputationBarColor({0}(this).attr('data-percent'),{0}(this).attr('data-text'), this);
 			                    }}
-		             }});}});"
-                        .FormatWith(Config.JQueryAlias);
+		             }});}});".FormatWith(Config.JQueryAlias);
             }
         }
 
@@ -243,19 +232,17 @@ namespace YAF.Utilities
         {
             get
             {
-                return
-                    @" if( typeof(CKEDITOR) == 'undefined') {{
+                return @" if( typeof(CKEDITOR) == 'undefined') {{
             function loadTimeAgo() {{	
             {2}.timeago.settings.refreshMillis = {1};			      	
             {0}
 		    {2}('abbr.timeago').timeago();	
 			      }} 
                    Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
-                   }};"
-                        .FormatWith(
-                            YafContext.Current.Get<ILocalization>().GetText("TIMEAGO_JS"),
-                            YafContext.Current.Get<YafBoardSettings>().RelativeTimeRefreshTime,
-                            Config.JQueryAlias);
+                   }};".FormatWith(
+                    YafContext.Current.Get<ILocalization>().GetText("TIMEAGO_JS"),
+                    YafContext.Current.Get<YafBoardSettings>().RelativeTimeRefreshTime,
+                    Config.JQueryAlias);
             }
         }
 
@@ -267,11 +254,9 @@ namespace YAF.Utilities
         {
             get
             {
-                return
-                    @"
+                return @"
                       function toggleMessage(divId)
-                      {{ {0}('#' + divId).toggle(); }}"
-                        .FormatWith(Config.JQueryAlias);
+                      {{ {0}('#' + divId).toggle(); }}".FormatWith(Config.JQueryAlias);
             }
         }
 
@@ -314,10 +299,13 @@ namespace YAF.Utilities
         /// </returns>
         [NotNull]
         public static string FacebookPostJs(
-            string message, string description, string link, string picture, string caption)
+            string message,
+            string description,
+            string link,
+            string picture,
+            string caption)
         {
-            return
-                @"function postToFacebook() {{
+            return @"function postToFacebook() {{
 
                    FB.getLoginStatus(function(response) {{
   if (response.status === 'connected') {{
@@ -352,8 +340,7 @@ namespace YAF.Utilities
   }}
  }});
 
-                         }}"
-                    .FormatWith(message, description, link, picture, caption);
+                         }}".FormatWith(message, description, link, picture, caption);
         }
 
         /// <summary>
@@ -374,33 +361,26 @@ namespace YAF.Utilities
                 ("function showTexBox(spnTitleId){{"
                  + "spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));"
                  + "txtTitleVar = document.getElementById('txtTitle'+spnTitleId.substring(8));"
-                 +
-                 "if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value',spnTitleVar.firstChild.nodeValue);"
-                 +
-                 "if(spnTitleVar.firstChild.nodeValue == '{0}' || spnTitleVar.firstChild.nodeValue == '{1}'){{txtTitleVar.value='';spnTitleVar.firstChild.nodeValue='';}}"
+                 + "if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value',spnTitleVar.firstChild.nodeValue);"
+                 + "if(spnTitleVar.firstChild.nodeValue == '{0}' || spnTitleVar.firstChild.nodeValue == '{1}'){{txtTitleVar.value='';spnTitleVar.firstChild.nodeValue='';}}"
                  + "txtTitleVar.style.display = 'inline'; spnTitleVar.style.display = 'none'; txtTitleVar.focus();}}"
-                 +
-                 "function resetBox(txtTitleId, isAlbum) {{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                 +
-                 "txtTitleVar.style.display = 'none';txtTitleVar.disabled = false;spnTitleVar.style.display = 'inline';"
-                 +
-                 "if (spnTitleVar.firstChild != null)txtTitleVar.value = spnTitleVar.firstChild.nodeValue;if (spnTitleVar.firstChild.nodeValue==''){{txtTitleVar.value='';if (isAlbum) spnTitleVar.firstChild.nodeValue='{0}';else spnTitleVar.firstChild.nodeValue='{1}';}}}}"
+                 + "function resetBox(txtTitleId, isAlbum) {{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
+                 + "txtTitleVar.style.display = 'none';txtTitleVar.disabled = false;spnTitleVar.style.display = 'inline';"
+                 + "if (spnTitleVar.firstChild != null)txtTitleVar.value = spnTitleVar.firstChild.nodeValue;if (spnTitleVar.firstChild.nodeValue==''){{txtTitleVar.value='';if (isAlbum) spnTitleVar.firstChild.nodeValue='{0}';else spnTitleVar.firstChild.nodeValue='{1}';}}}}"
                  + "function checkKey(event, handler, id, isAlbum){{"
                  + "if ((event.keyCode == 13) || (event.which == 13)){{"
                  + "if (event.preventDefault) event.preventDefault(); event.cancel=true; event.returnValue=false; "
                  + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                 +
-                 "handler.disabled = true; if (isAlbum == true)changeAlbumTitle(id, handler.id); else changeImageCaption(id,handler.id);}}"
+                 + "handler.disabled = true; if (isAlbum == true)changeAlbumTitle(id, handler.id); else changeImageCaption(id,handler.id);}}"
                  + "else resetBox(handler.id, isAlbum);}}"
                  + "else if ((event.keyCode == 27) || (event.which == 27))resetBox(handler.id, isAlbum);}}"
-                 +
-                 "function blurTextBox(txtTitleId, id , isAlbum){{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
+                 + "function blurTextBox(txtTitleId, id , isAlbum){{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
                  + "if (spnTitleVar.firstChild != null){{"
                  + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                 +
-                 "txtTitleVar.disabled = true; if (isAlbum == true)changeAlbumTitle(id, txtTitleId); else changeImageCaption(id,txtTitleId);}}"
+                 + "txtTitleVar.disabled = true; if (isAlbum == true)changeAlbumTitle(id, txtTitleId); else changeImageCaption(id,txtTitleId);}}"
                  + "else resetBox(txtTitleId, isAlbum);}}" + "else resetBox(txtTitleId, isAlbum);}}").FormatWith(
-                     albumEmptyTitle, imageEmptyCaption);
+                     albumEmptyTitle,
+                     imageEmptyCaption);
         }
 
         /// <summary>
@@ -414,7 +394,8 @@ namespace YAF.Utilities
         {
             return
                 @"{1}(document).ready(function() {{ {1}.blockUI({{ message: {1}('#{0}') }}); }});".FormatWith(
-                    elementId, Config.JQueryAlias);
+                    elementId,
+                    Config.JQueryAlias);
         }
 
         /// <summary>
@@ -433,7 +414,9 @@ namespace YAF.Utilities
         /// The Load JS.
         /// </returns>
         public static string DatePickerLoadJs(
-            [NotNull] string fieldId, [NotNull] string dateFormat, [NotNull] string culture)
+            [NotNull] string fieldId,
+            [NotNull] string dateFormat,
+            [NotNull] string culture)
         {
             var cultureJs = string.Empty;
 
@@ -444,7 +427,9 @@ namespace YAF.Utilities
             if (culture.IsSet())
             {
                 cultureJs = @"{2}('#{0}').datepicker('option', {2}.datepicker.regional['{1}']);".FormatWith(
-                    fieldId, culture, Config.JQueryAlias);
+                    fieldId,
+                    culture,
+                    Config.JQueryAlias);
             }
 
             return
@@ -484,10 +469,7 @@ namespace YAF.Utilities
         /// <returns>
         /// Returns the the jQuery-UI Tabs Load JS string
         /// </returns>
-        public static string JqueryUITabsLoadJs(
-            [NotNull] string tabId,
-            [NotNull] string hiddenId,
-            bool hightTransition)
+        public static string JqueryUITabsLoadJs([NotNull] string tabId, [NotNull] string hiddenId, bool hightTransition)
         {
             return JqueryUITabsLoadJs(tabId, hiddenId, string.Empty, string.Empty, hightTransition, true);
         }
@@ -586,11 +568,14 @@ namespace YAF.Utilities
         /// <returns>
         /// Returns the Java Script that loads table Sorter
         /// </returns>
-        public static string LoadTableSorter([NotNull]string selector, [CanBeNull]string options)
+        public static string LoadTableSorter([NotNull] string selector, [CanBeNull] string options)
         {
             return @"{0}(document).ready(function() {{
                         {0}('{1}').tablesorter( {2} );
-                    }});".FormatWith(Config.JQueryAlias, selector, options.IsSet() ? "{{ {0} }}".FormatWith(options) : string.Empty);
+                    }});".FormatWith(
+                Config.JQueryAlias,
+                selector,
+                options.IsSet() ? "{{ {0} }}".FormatWith(options) : string.Empty);
         }
 
         /// <summary>
@@ -602,7 +587,10 @@ namespace YAF.Utilities
         /// <returns>
         /// Returns the Java Script that loads table Sorter
         /// </returns>
-        public static string LoadTableSorter([NotNull]string selector, [CanBeNull]string options, [NotNull]string pagerSelector)
+        public static string LoadTableSorter(
+            [NotNull] string selector,
+            [CanBeNull] string options,
+            [NotNull] string pagerSelector)
         {
             return @"{0}(document).ready(function() {{
                         {0}('{1}').tablesorter( {2} )
@@ -627,12 +615,10 @@ namespace YAF.Utilities
         /// </returns>
         public static string LoadGotoAnchor([NotNull] string anchor)
         {
-            return
-                @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadGotoAnchor);
+            return @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadGotoAnchor);
             function loadGotoAnchor() {{
                document.getElementById('{0}').scrollIntoView();       
-			      }}"
-                    .FormatWith(anchor);
+			      }}".FormatWith(anchor);
         }
 
         /// <summary>
@@ -665,12 +651,13 @@ namespace YAF.Utilities
         /// </returns>
         public static string AddFavoriteTopicJs([NotNull] string untagButtonHTML)
         {
-            return
-                @"function addFavoriteTopic(topicID){{ var topId = topicID; {2}.PageMethod('{1}YafAjax.asmx', 'AddFavoriteTopic', addFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
+            return @"function addFavoriteTopic(topicID){{ var topId = topicID; {2}.PageMethod('{1}YafAjax.asmx', 'AddFavoriteTopic', addFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
           function addFavoriteTopicSuccess(res){{if (res.d != null) {{
                    {2}('#dvFavorite1').html({0});
-                   {2}('#dvFavorite2').html({0});}}}}"
-                    .FormatWith(untagButtonHTML, YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
+                   {2}('#dvFavorite2').html({0});}}}}".FormatWith(
+                untagButtonHTML,
+                YafForumInfo.ForumClientFileRoot,
+                Config.JQueryAlias);
         }
 
         /// <summary>
@@ -684,13 +671,14 @@ namespace YAF.Utilities
         /// </returns>
         public static string AddThanksJs([NotNull] string removeThankBoxHTML)
         {
-            return
-                @"function addThanks(messageID){{ var messId = messageID;{2}.PageMethod('{1}YafAjax.asmx', 'AddThanks', addThanksSuccess, CallFailed, 'msgID', messId);}}
+            return @"function addThanks(messageID){{ var messId = messageID;{2}.PageMethod('{1}YafAjax.asmx', 'AddThanks', addThanksSuccess, CallFailed, 'msgID', messId);}}
           function addThanksSuccess(res){{if (res.d != null) {{
                    {2}('#dvThanks' + res.d.MessageID).html(res.d.Thanks);
                    {2}('#dvThanksInfo' + res.d.MessageID).html(res.d.ThanksInfo);
-                   {2}('#dvThankBox' + res.d.MessageID).html({0});}}}}"
-                    .FormatWith(removeThankBoxHTML, YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
+                   {2}('#dvThankBox' + res.d.MessageID).html({0});}}}}".FormatWith(
+                removeThankBoxHTML,
+                YafForumInfo.ForumClientFileRoot,
+                Config.JQueryAlias);
         }
 
         /// <summary>
@@ -704,12 +692,13 @@ namespace YAF.Utilities
         /// </returns>
         public static string RemoveFavoriteTopicJs([NotNull] string tagButtonHTML)
         {
-            return
-                @"function removeFavoriteTopic(topicID){{ var topId = topicID;{2}.PageMethod('{1}YafAjax.asmx', 'RemoveFavoriteTopic', removeFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
+            return @"function removeFavoriteTopic(topicID){{ var topId = topicID;{2}.PageMethod('{1}YafAjax.asmx', 'RemoveFavoriteTopic', removeFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
           function removeFavoriteTopicSuccess(res){{if (res.d != null) {{
                    {2}('#dvFavorite1').html({0});
-                   {2}('#dvFavorite2').html({0});}}}}"
-                    .FormatWith(tagButtonHTML, YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
+                   {2}('#dvFavorite2').html({0});}}}}".FormatWith(
+                tagButtonHTML,
+                YafForumInfo.ForumClientFileRoot,
+                Config.JQueryAlias);
         }
 
         /// <summary>
@@ -723,13 +712,14 @@ namespace YAF.Utilities
         /// </returns>
         public static string RemoveThanksJs([NotNull] string addThankBoxHTML)
         {
-            return
-                @"function removeThanks(messageID){{ var messId = messageID;{2}.PageMethod('{1}YafAjax.asmx', 'RemoveThanks', removeThanksSuccess, CallFailed, 'msgID', messId);}}
+            return @"function removeThanks(messageID){{ var messId = messageID;{2}.PageMethod('{1}YafAjax.asmx', 'RemoveThanks', removeThanksSuccess, CallFailed, 'msgID', messId);}}
           function removeThanksSuccess(res){{if (res.d != null) {{
                    {2}('#dvThanks' + res.d.MessageID).html(res.d.Thanks);
                    {2}('#dvThanksInfo' + res.d.MessageID).html(res.d.ThanksInfo);
-                   {2}('#dvThankBox' + res.d.MessageID).html({0});}}}}"
-                    .FormatWith(addThankBoxHTML, YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
+                   {2}('#dvThankBox' + res.d.MessageID).html({0});}}}}".FormatWith(
+                addThankBoxHTML,
+                YafForumInfo.ForumClientFileRoot,
+                Config.JQueryAlias);
         }
 
         /// <summary>
@@ -741,8 +731,7 @@ namespace YAF.Utilities
         [NotNull]
         public static string ReputationProgressChangeJs([NotNull] string generateReputationBar, [NotNull] string userId)
         {
-            return
-                @"{0}(document).ready(function() {{
+            return @"{0}(document).ready(function() {{
                     {0}('.AddReputation_{1}').remove();
                     {0}('.RemoveReputation_{1}').remove();
                     {0}('.ReputationUser_{1}').replaceWith('{2}');
@@ -750,8 +739,7 @@ namespace YAF.Utilities
 			            create: function(event, ui) {{
 			                    ChangeReputationBarColor({0}(this).attr('data-percent'),{0}(this).attr('data-text'), this);
 			                    }}
-		             }});}});"
-                    .FormatWith(Config.JQueryAlias, userId, generateReputationBar);
+		             }});}});".FormatWith(Config.JQueryAlias, userId, generateReputationBar);
         }
 
         /// <summary>
@@ -764,13 +752,11 @@ namespace YAF.Utilities
         [NotNull]
         public static string ToggleEventLogItemJs([NotNull] string showText, [NotNull] string hideText)
         {
-            return
-                @"function toggleEventLogItem(detailId) {{
+            return @"function toggleEventLogItem(detailId) {{
                            var show = '{1}';var hide = '{2}';
 	                       {0}('#Show'+ detailId).text({0}('#Show'+ detailId).text() == show ? hide : show);
                            {0}('#eventDetails' + detailId).slideToggle('slow'); return false;
-                  }}"
-                    .FormatWith(Config.JQueryAlias, showText, hideText);
+                  }}".FormatWith(Config.JQueryAlias, showText, hideText);
         }
 
         #endregion
@@ -822,14 +808,15 @@ namespace YAF.Utilities
             [NotNull] string twitterUrl)
         {
             return
-                "{0}('{1}').hovercard({{{2}width: 350,loadingHTML: '{3}',errorHTML: '{4}', delay: {5}, twitterURL: '{6}' }});".FormatWith(
-                    Config.JQueryAlias,
-                    clientId,
-                    type.IsSet() ? "show{0}Card: true,".FormatWith(type) : string.Empty,
-                    loadingHtml,
-                    errorHtml,
-                    YafContext.Current.Get<YafBoardSettings>().HoverCardOpenDelay,
-                    twitterUrl);
+                "{0}('{1}').hovercard({{{2}width: 350,loadingHTML: '{3}',errorHTML: '{4}', delay: {5}, twitterURL: '{6}' }});"
+                    .FormatWith(
+                        Config.JQueryAlias,
+                        clientId,
+                        type.IsSet() ? "show{0}Card: true,".FormatWith(type) : string.Empty,
+                        loadingHtml,
+                        errorHtml,
+                        YafContext.Current.Get<YafBoardSettings>().HoverCardOpenDelay,
+                        twitterUrl);
         }
 
         /// <summary>
@@ -841,10 +828,13 @@ namespace YAF.Utilities
         /// <param name="forumID">The forum identifier.</param>
         /// <returns>Returns the FileUpload Java Script.</returns>
         [NotNull]
-        public static string FileUploadLoadJs([NotNull] string acceptedFileTypes, [NotNull] int maxFileSize, [NotNull] string fileUploaderUrl, int forumID)
+        public static string FileUploadLoadJs(
+            [NotNull] string acceptedFileTypes,
+            [NotNull] int maxFileSize,
+            [NotNull] string fileUploaderUrl,
+            int forumID)
         {
-            return
-                @"{0}(function() {{
+            return @"{0}(function() {{
 
             {0}('#fileupload').fileupload({{
                 url: '{3}',
@@ -893,13 +883,18 @@ namespace YAF.Utilities
                 }}, 100);
             }});
         }});".FormatWith(
-                    Config.JQueryAlias,
-                    maxFileSize > 0 ? "maxFileSize: {0},".FormatWith(maxFileSize) : string.Empty,
-                    acceptedFileTypes,
-                    fileUploaderUrl,
-                    forumID);
+                Config.JQueryAlias,
+                maxFileSize > 0 ? "maxFileSize: {0},".FormatWith(maxFileSize) : string.Empty,
+                acceptedFileTypes,
+                fileUploaderUrl,
+                forumID);
         }
 
+        /// <summary>
+        /// Selects the topics load js.
+        /// </summary>
+        /// <param name="forumDropDownID">The forum drop down identifier.</param>
+        /// <returns></returns>
         [NotNull]
         public static string SelectTopicsLoadJs([NotNull] string forumDropDownID)
         {
@@ -942,7 +937,22 @@ namespace YAF.Utilities
                 YafContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS"));
         }
 
-        #region BootStrap Script Blocks
+        /// <summary>
+        /// Gets the Selected Quoting Java Script
+        /// </summary>
+        /// <param name="postURL">The post URL.</param>
+        /// <param name="toolTipText">The tool tip text.</param>
+        /// <returns>Returns the the Selected Quoting Java Script</returns>
+        [NotNull]
+        public static string SelectedQuotingJs([NotNull] string postURL, string toolTipText)
+        {
+            return @"{0}('.selectionQuoteable').each(function () {{
+                         var $this = jQuery(this);
+                         $this.selectionSharer({{ URL: '{1}', ToolTip: '{2}' }});
+                     }});".FormatWith(Config.JQueryAlias, postURL, toolTipText);
+        }
+
+#region BootStrap Script Blocks
 
         /// <summary>
         /// Gets the tool tip load script block.

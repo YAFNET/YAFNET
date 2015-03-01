@@ -1796,6 +1796,9 @@
     <Resource tag="EXPORT_XML">Экспортировать пользователя(лей) в формате CSV Xml</Resource>
     <Resource tag="FACEBOOK_USER">Пользователь Facebook</Resource>
     <Resource tag="FILTER">Фильтровать по дате регистрации с:</Resource>
+    <Resource tag="FILTER_BY_GROUP">Filter by Group...</Resource>
+    <Resource tag="FILTER_BY_RANK">Filter by Rank...</Resource>
+    <Resource tag="FILTER_NO">[No Filter]</Resource>
     <Resource tag="HEADER">Поиск пользователей</Resource>
     <Resource tag="IMPORT">Импортировать пользователя(лей)</Resource>
     <Resource tag="LAST_VISIT">Последнее посещение</Resource>
@@ -1808,6 +1811,7 @@
     <Resource tag="RANK">Статус:</Resource>
     <Resource tag="ROLE">Роль:</Resource>
     <Resource tag="SEARCH">Поиск</Resource>
+    <Resource tag="SUSPENDED_ONLY">Show only suspended users?</Resource>
     <Resource tag="SYNC_ALL">Синхронизировать всех пользователей в Membership</Resource>
     <Resource tag="TITLE">Пользователи</Resource>
     <Resource tag="TWITTER_USER">Пользователь Twitter</Resource>
@@ -4608,6 +4612,7 @@ Spoiler Content
     <Resource tag="QUICKREPLY">Быстрый ответ</Resource>
     <Resource tag="QUICKREPLY_HIDE">Скрыть форму быстрого ответа</Resource>
     <Resource tag="QUICKREPLY_SHOW">Показать форму быстрого ответа</Resource>
+    <Resource tag="QUOTE_SELECTED">Quote Selected Message</Resource>
     <Resource tag="RANK">Статус</Resource>
     <Resource tag="REDDIT_TOPIC">Поделиться в Reddit</Resource>
     <Resource tag="REP_VOTE_DOWN_MSG">Вы успешно понизили на -1 репутацию {0}.</Resource>

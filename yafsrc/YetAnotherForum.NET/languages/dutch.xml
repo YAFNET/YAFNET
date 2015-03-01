@@ -1808,6 +1808,9 @@
     <Resource tag="EXPORT_XML">Exporteer Alle Gebruiker(s) als Xml</Resource>
     <Resource tag="FACEBOOK_USER">Facebook Gebruiker</Resource>
     <Resource tag="FILTER">Filter op datum aanmelding:</Resource>
+    <Resource tag="FILTER_BY_GROUP">Filter by Group...</Resource>
+    <Resource tag="FILTER_BY_RANK">Filter by Rank...</Resource>
+    <Resource tag="FILTER_NO">[No Filter]</Resource>
     <Resource tag="HEADER">Zoek gebruikers</Resource>
     <Resource tag="IMPORT">Importeer Gebruiker(s)</Resource>
     <Resource tag="LAST_VISIT">Laatste bezoek</Resource>
@@ -1820,6 +1823,7 @@
     <Resource tag="RANK">Rang:</Resource>
     <Resource tag="ROLE">Rol:</Resource>
     <Resource tag="SEARCH">Zoeken</Resource>
+    <Resource tag="SUSPENDED_ONLY">Show only suspended users?</Resource>
     <Resource tag="SYNC_ALL">Synchroniseer alle Membership Gebruikers</Resource>
     <Resource tag="TITLE">Gebruikers</Resource>
     <Resource tag="TWITTER_USER">Twitter Gebruiker</Resource>
@@ -4580,6 +4584,7 @@ Spoiler Inhoud
     <Resource tag="QUICKREPLY">Snel antwoorden</Resource>
     <Resource tag="QUICKREPLY_HIDE">Verberg Snel antwoorden</Resource>
     <Resource tag="QUICKREPLY_SHOW">Toon Snel antwoorden</Resource>
+    <Resource tag="QUOTE_SELECTED">Quote Selected Message</Resource>
     <Resource tag="RANK">Rang</Resource>
     <Resource tag="REDDIT_TOPIC">Reddit ditTopic</Resource>
     <Resource tag="REP_VOTE_DOWN_MSG">Je hebt {0} een -1 gegeven.</Resource>

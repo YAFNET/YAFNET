@@ -1815,6 +1815,9 @@
     <Resource tag="EXPORT_XML">Export All User(s) as Xml</Resource>
     <Resource tag="FACEBOOK_USER">Facebook User</Resource>
     <Resource tag="FILTER">فیلتر بر اساس تاریخ پیوستن:</Resource>
+    <Resource tag="FILTER_BY_GROUP">Filter by Group...</Resource>
+    <Resource tag="FILTER_BY_RANK">Filter by Rank...</Resource>
+    <Resource tag="FILTER_NO">[No Filter]</Resource>
     <Resource tag="HEADER">جستجوی کاربر</Resource>
     <Resource tag="IMPORT">وارد کردن کاربر (ها)</Resource>
     <Resource tag="LAST_VISIT">آخرین بازدید </Resource>
@@ -1827,6 +1830,7 @@
     <Resource tag="RANK">رتبه:</Resource>
     <Resource tag="ROLE">نقش:</Resource>
     <Resource tag="SEARCH">جستجو</Resource>
+    <Resource tag="SUSPENDED_ONLY">Show only suspended users?</Resource>
     <Resource tag="SYNC_ALL">همسان سازی عضویت تمام گروه ها</Resource>
     <Resource tag="TITLE">کاربران</Resource>
     <Resource tag="TWITTER_USER">Twitter User</Resource>
@@ -4637,6 +4641,7 @@
     <Resource tag="QUICKREPLY">پاسخ سریع</Resource>
     <Resource tag="QUICKREPLY_HIDE">عدم نمایش بخش پاسخ سریع</Resource>
     <Resource tag="QUICKREPLY_SHOW">نمایش بخش پاسخ سریع</Resource>
+    <Resource tag="QUOTE_SELECTED">Quote Selected Message</Resource>
     <Resource tag="RANK">رتبه</Resource>
     <Resource tag="REDDIT_TOPIC">Reddit این موضوع</Resource>
     <Resource tag="REP_VOTE_DOWN_MSG">شما با موفقیت -1 امتیاز از  {0} کم کردید</Resource>

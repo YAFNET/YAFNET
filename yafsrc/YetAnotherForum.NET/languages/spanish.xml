@@ -1820,6 +1820,9 @@
     <Resource tag="EXPORT_XML">Exportar todos los usuarios como XML</Resource>
     <Resource tag="FACEBOOK_USER">Usuario de Facebook</Resource>
     <Resource tag="FILTER">Filtrar por fecha de ingreso desde:</Resource>
+    <Resource tag="FILTER_BY_GROUP">Filter by Group...</Resource>
+    <Resource tag="FILTER_BY_RANK">Filter by Rank...</Resource>
+    <Resource tag="FILTER_NO">[No Filter]</Resource>
     <Resource tag="HEADER">Buscar usuarios</Resource>
     <Resource tag="IMPORT">Importar usuarios</Resource>
     <Resource tag="LAST_VISIT">Última visita</Resource>
@@ -1832,6 +1835,7 @@
     <Resource tag="RANK">Rango:</Resource>
     <Resource tag="ROLE">Rol:</Resource>
     <Resource tag="SEARCH">Buscar</Resource>
+    <Resource tag="SUSPENDED_ONLY">Show only suspended users?</Resource>
     <Resource tag="SYNC_ALL">Sincronizar todos los usuarios suscritos</Resource>
     <Resource tag="TITLE">Usuarios</Resource>
     <Resource tag="TWITTER_USER">Usuario de Twitter</Resource>
@@ -4973,6 +4977,7 @@ public class Hello1
     <Resource tag="QUICKREPLY">Respuesta rápida</Resource>
     <Resource tag="QUICKREPLY_HIDE">Ocultar respuesta rápida</Resource>
     <Resource tag="QUICKREPLY_SHOW">Mostrar respuesta rápida</Resource>
+    <Resource tag="QUOTE_SELECTED">Quote Selected Message</Resource>
     <Resource tag="RANK">Posición</Resource>
     <Resource tag="REDDIT_TOPIC">Reddit este tema</Resource>
     <Resource tag="REP_VOTE_DOWN_MSG">Has quitado -1 a la reputación de {0}.</Resource>
