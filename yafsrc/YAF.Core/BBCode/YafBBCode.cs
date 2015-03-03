@@ -857,6 +857,7 @@ namespace YAF.Core.BBCode
                     _Options) { RuleRank = 98 });
 
             ruleEngine.AddRule(new SimpleRegexReplaceRule("<br />", "\r\n", _Options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule("<br>", "\r\n", _Options));
 
             // Remove remaining tags.
             ruleEngine.AddRule(new SimpleRegexReplaceRule("<p>", string.Empty, _Options));

@@ -455,8 +455,13 @@ namespace YAF.Pages
 
                 if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("text") != null)
                 {
+                    var quotedMessage =
+                        this.Get<IBBCode>()
+                            .ConvertHtmltoBBCodeForEdit(
+                                this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("text")));
+
                     currentMessage.Message =
-                        this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("text"));
+                        HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(quotedMessage));
                 }
                 else if (currentMessage != null)
                 {
