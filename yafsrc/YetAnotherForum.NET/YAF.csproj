@@ -4104,6 +4104,8 @@
     <Content Include="Scripts\jquery.ForumExtensions.js.bundle">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\jquery.fileupload.comb.js.bundle" />
+    <Content Include="Scripts\jquery-2.1.3.min.map" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.woff" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.ttf" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.json" />
@@ -4114,8 +4116,6 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.eot" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\readme.md" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
-    <Content Include="Scripts\jquery.fileupload.comb.js.bundle" />
-    <Content Include="Scripts\jquery-2.1.3.min.map" />
     <None Include="themes\cleanSlate\theme.less" />
     <Content Include="themes\cleanSlate\theme.css">
       <DependentUpon>theme.less</DependentUpon>
