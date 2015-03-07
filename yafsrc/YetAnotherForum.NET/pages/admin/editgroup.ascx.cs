@@ -21,7 +21,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 namespace YAF.Pages.Admin
 {
     #region Using
@@ -35,8 +34,8 @@ namespace YAF.Pages.Admin
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -55,7 +54,11 @@ namespace YAF.Pages.Admin
     {
         #region Methods
 
+        /// <summary>
+        /// Gets or sets the access masks list.
+        /// </summary>
         public DataTable AccessMasksList { get; set; }
+
         /// <summary>
         /// Handles databinding event of initial access maks dropdown control.
         /// </summary>
@@ -68,21 +71,20 @@ namespace YAF.Pages.Admin
         protected void BindData_AccessMaskID([NotNull] object sender, [NotNull] EventArgs e)
         {
             // We don't change access masks if it's a guest
-            if (!this.IsGuestX.Checked)
+            if (this.IsGuestX.Checked)
             {
-                // get sender object as dropdown list
-                var c = (DropDownList) sender;
+                return;
+            }
 
-                // list all access masks as data source
-                c.DataSource = this.AccessMasksList;
-                // set value and text field names
-                c.DataValueField = "AccessMaskID";
-                c.DataTextField = "Name";
-            }
-            else
-            {
-                
-            }
+            // get sender object as dropdown list
+            var c = (DropDownList)sender;
+
+            // list all access masks as data source
+            c.DataSource = this.AccessMasksList;
+
+            // set value and text field names
+            c.DataValueField = "AccessMaskID";
+            c.DataTextField = "Name";
         }
 
         /// <summary>
@@ -117,8 +119,8 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITGROUP", "TITLE"), string.Empty);
 
             this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-               this.GetText("ADMIN_ADMIN", "Administration"),
-               this.GetText("ADMIN_GROUPS", "TITLE"),
+               this.GetText("ADMIN_ADMIN", "Administration"), 
+               this.GetText("ADMIN_GROUPS", "TITLE"), 
                this.GetText("ADMIN_EDITGROUP", "TITLE"));
         }
 
@@ -145,9 +147,9 @@ namespace YAF.Pages.Admin
             this.Save.Text = this.GetText("COMMON", "SAVE");
             this.Cancel.Text = this.GetText("COMMON", "CANCEL");
 
-
             // bind data
             this.BindData();
+
             // is this editing of existing role or creation of new one?
             if (this.Request.QueryString.GetFirstOrDefault("i") == null)
             {
@@ -159,10 +161,13 @@ namespace YAF.Pages.Admin
 
             // get data about edited role
             using (
-                DataTable dt = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID, groupID: this.Request.QueryString.GetFirstOrDefaultAs<int>("i")))
+                var dt = this.GetRepository<Group>()
+                    .List(
+                        boardId: this.PageContext.PageBoardID, 
+                        groupID: this.Request.QueryString.GetFirstOrDefaultAs<int>("i")))
             {
                 // get it as row
-                DataRow row = dt.Rows[0];
+                var row = dt.Rows[0];
 
                 // get role flags
                 var flags = new GroupFlags(row["Flags"]);
@@ -212,7 +217,6 @@ namespace YAF.Pages.Admin
                     this.IsGuestX.Enabled = !flags.IsGuest;
                     this.AccessList.Visible = false;
                 }
-
             }
         }
 
@@ -267,14 +271,14 @@ namespace YAF.Pages.Admin
             }
 
             // get new and old name
-            string roleName = this.Name.Text.Trim();
-            string oldRoleName = string.Empty;
+            var roleName = this.Name.Text.Trim();
+            var oldRoleName = string.Empty;
 
             // if we are editing exising role, get it's original name
             if (roleID != 0)
             {
                 // get the current role name in the DB
-                using (DataTable dt = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID))
+                using (var dt = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID))
                 {
                     foreach (DataRow row in dt.Rows)
                     {
@@ -285,26 +289,27 @@ namespace YAF.Pages.Admin
 
             // save role and get its ID if it's new (if it's old role, we get it anyway)
             roleID = LegacyDb.group_save(
-              roleID,
-              this.PageContext.PageBoardID,
-              roleName,
-              this.IsAdminX.Checked,
-              this.IsGuestX.Checked,
-              this.IsStartX.Checked,
-              this.IsModeratorX.Checked,
-              AccessMaskID.SelectedValue,
-              this.PMLimit.Text.Trim(),
-              this.StyleTextBox.Text.Trim(),
-              this.Priority.Text.Trim(),
-              this.Description.Text,
-              this.UsrSigChars.Text,
-              this.UsrSigBBCodes.Text,
-              this.UsrSigHTMLTags.Text,
-              this.UsrAlbums.Text.Trim(),
+              roleID, 
+              this.PageContext.PageBoardID, 
+              roleName, 
+              this.IsAdminX.Checked, 
+              this.IsGuestX.Checked, 
+              this.IsStartX.Checked, 
+              this.IsModeratorX.Checked, 
+              this.AccessMaskID.SelectedValue, 
+              this.PMLimit.Text.Trim(), 
+              this.StyleTextBox.Text.Trim(), 
+              this.Priority.Text.Trim(), 
+              this.Description.Text, 
+              this.UsrSigChars.Text, 
+              this.UsrSigBBCodes.Text, 
+              this.UsrSigHTMLTags.Text, 
+              this.UsrAlbums.Text.Trim(), 
               this.UsrAlbumImages.Text.Trim());
 
-            // empty out access table
-            this.GetRepository<ActiveAccess>().Reset();
+            // empty out access table(s)
+            this.GetRepository<Active>().DeleteAll();
+            this.GetRepository<ActiveAccess>().DeleteAll();
 
             // see if need to rename an existing role...
             if (oldRoleName.IsSet() && roleName != oldRoleName && RoleMembershipHelper.RoleExists(oldRoleName) && !RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
@@ -336,17 +341,19 @@ namespace YAF.Pages.Admin
             if (this.Request.QueryString.GetFirstOrDefault("i") != null)
             {
                     // go trhough all forums
-                    for (int i = 0; i < this.AccessList.Items.Count; i++)
+                    for (var i = 0; i < this.AccessList.Items.Count; i++)
                     {
                         // get current repeater item
-                        RepeaterItem item = this.AccessList.Items[i];
+                        var item = this.AccessList.Items[i];
 
                         // get forum ID
-                        int forumID = int.Parse(((Label)item.FindControl("ForumID")).Text);
+                        var forumID = int.Parse(((Label)item.FindControl("ForumID")).Text);
 
                         // save forum access maks for this role
-                        LegacyDb.forumaccess_save(forumID, roleID,
-                                                  ((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
+                        LegacyDb.forumaccess_save(
+                            forumID,
+                            roleID,
+                            ((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
                     }
 
                 YafBuildLink.Redirect(ForumPages.admin_groups);
@@ -356,7 +363,7 @@ namespace YAF.Pages.Admin
             this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
 
             // Clearing cache with old permissions data...
-            this.Get<IDataCache>().Remove(k => k.StartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(String.Empty)));
+            this.Get<IDataCache>().Remove(k => k.StartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(string.Empty)));
 
             // Done, redirect to role editing page
             YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", roleID);
@@ -377,14 +384,13 @@ namespace YAF.Pages.Admin
             var list = (DropDownList)sender;
 
             // select value from the list
-            ListItem item = list.Items.FindByValue(list.Attributes["value"]);
+            var item = list.Items.FindByValue(list.Attributes["value"]);
 
             // verify something was found...
             if (item != null)
             {
                 item.Selected = true;
             }
-
         }
 
         /// <summary>
@@ -397,10 +403,11 @@ namespace YAF.Pages.Admin
             {
                 this.AccessList.DataSource = LegacyDb.forumaccess_group(this.Request.QueryString.GetFirstOrDefault("i"));
             }
+
             this.AccessMasksList = this.GetRepository<AccessMask>().List();
+
             // bind data to controls
             this.DataBind();
-
         }
 
         #endregion

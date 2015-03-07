@@ -340,7 +340,6 @@ namespace YAF.Core.Services
 
             if (this.BoardSettings.AllowNotificationAllPostsAllTopics)
             {
-                // TODO: validate permissions!
                 usersWithAll = this.GetRepository<User>()
                     .FindUserTyped(filter: false, notificationType: UserNotificationSetting.AllTopics.ToInt());
             }
@@ -350,62 +349,54 @@ namespace YAF.Core.Services
             var boardName = this.BoardSettings.Name;
             var forumEmail = this.BoardSettings.ForumEmail;
 
-            foreach (var message in LegacyDb.MessageList(newMessageId))
+            var message = LegacyDb.MessageList(newMessageId).FirstOrDefault();
+
+            var messageAuthorUserID = message.UserID ?? 0;
+
+            var watchEmail = new YafTemplateEmail("TOPICPOST") { TemplateLanguageFile = languageFile };
+
+            // cleaned body as text...
+            var bodyText =
+                BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(message.Message)))
+                    .RemoveMultipleWhitespace();
+
+            // Send track mails
+            var subject =
+                this.Get<ILocalization>()
+                    .GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT", languageFile)
+                    .FormatWith(boardName);
+
+            watchEmail.TemplateParams["{forumname}"] = boardName;
+            watchEmail.TemplateParams["{topic}"] = HttpUtility.HtmlDecode(message.Topic);
+            watchEmail.TemplateParams["{postedby}"] = UserMembershipHelper.GetDisplayNameFromID(messageAuthorUserID);
+            watchEmail.TemplateParams["{body}"] = bodyText;
+            watchEmail.TemplateParams["{bodytruncated}"] = bodyText.Truncate(160);
+            watchEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
+                ForumPages.posts,
+                true,
+                "m={0}#post{0}",
+                newMessageId);
+
+            watchEmail.CreateWatch(message.TopicID ?? 0, messageAuthorUserID, new MailAddress(forumEmail, boardName), subject);
+
+            // create individual watch emails for all users who have All Posts on...
+            foreach (var user in usersWithAll.Where(x => x.UserID != messageAuthorUserID && x.ProviderUserKey != null))
             {
-                var userId = message.UserID ?? 0;
+                var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey);
 
-                var watchEmail = new YafTemplateEmail("TOPICPOST") { TemplateLanguageFile = languageFile };
-
-                // cleaned body as text...
-                var bodyText =
-                    BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(message.Message)))
-                        .RemoveMultipleWhitespace();
-
-                // Send track mails
-                var subject =
-                    this.Get<ILocalization>()
-                        .GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT", languageFile)
-                        .FormatWith(boardName);
-
-                watchEmail.TemplateParams["{forumname}"] = boardName;
-                watchEmail.TemplateParams["{topic}"] = HttpUtility.HtmlDecode(message.Topic);
-                watchEmail.TemplateParams["{postedby}"] = UserMembershipHelper.GetDisplayNameFromID(userId);
-                watchEmail.TemplateParams["{body}"] = bodyText;
-                watchEmail.TemplateParams["{bodytruncated}"] = bodyText.Truncate(160);
-                watchEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
-                    ForumPages.posts,
-                    true,
-                    "m={0}#post{0}",
-                    newMessageId);
-
-                watchEmail.CreateWatch(message.TopicID ?? 0, userId, new MailAddress(forumEmail, boardName), subject);
-
-                // create individual watch emails for all users who have All Posts on...
-                foreach (var user in usersWithAll.Where(x => x.UserID != userId))
+                if (membershipUser == null || membershipUser.Email.IsNotSet())
                 {
-                    // TODO: Check if the user has read access to the message
-                    // Make sure its not a guest
-                    if (user.ProviderUserKey == null)
-                    {
-                        continue;
-                    }
-
-                    var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey);
-
-                    if (membershipUser == null || !membershipUser.Email.IsSet())
-                    {
-                        continue;
-                    }
-
-                    watchEmail.TemplateLanguageFile = !string.IsNullOrEmpty(user.LanguageFile)
-                                                          ? user.LanguageFile
-                                                          : this.Get<ILocalization>().LanguageFileName;
-                    watchEmail.SendEmail(
-                        new MailAddress(forumEmail, boardName),
-                        new MailAddress(membershipUser.Email, membershipUser.UserName),
-                        subject,
-                        true);
+                    continue;
                 }
+
+                watchEmail.TemplateLanguageFile = user.LanguageFile.IsSet()
+                                                      ? user.LanguageFile
+                                                      : this.Get<ILocalization>().LanguageFileName;
+                watchEmail.SendEmail(
+                    new MailAddress(forumEmail, boardName),
+                    new MailAddress(membershipUser.Email, membershipUser.UserName),
+                    subject,
+                    true);
             }
         }
 

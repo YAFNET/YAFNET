@@ -3215,14 +3215,6 @@ begin
 end
 GO
 
-CREATE procedure [{databaseOwner}].[{objectQualifier}activeaccess_reset] 
-as
-begin
-delete from [{databaseOwner}].[{objectQualifier}Active];
-delete from [{databaseOwner}].[{objectQualifier}ActiveAccess];
-end
-GO
-
 CREATE procedure [{databaseOwner}].[{objectQualifier}pageaccess](
     @BoardID int,
     @UserID	int,
@@ -6490,12 +6482,31 @@ create procedure [{databaseOwner}].[{objectQualifier}user_find](
     @Email nvarchar(255)=null,
     @DisplayName nvarchar(255)=null,
     @NotificationType int = null,
-    @DailyDigest bit = null
+    @DailyDigest bit = null,
+	@ForumID int = 0
 )
 AS
 begin
     
-    if @Filter<>0
+    if @ForumID>0
+        begin
+	        select 
+                a.*,			
+                IsAdmin = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 1)<>0)
+	        from 
+                [{databaseOwner}].[{objectQualifier}User] a
+				join [{databaseOwner}].[{objectQualifier}vaccess] x with(nolock) on x.ForumID = @ForumID
+	        where 
+                a.BoardID=@BoardID and
+				x.UserID = a.UserID and    
+                x.ReadAccess <> 0 and
+                ((@UserName is not null and a.Name like @UserName) or
+                (@Email is not null and Email like @Email) or
+                (@DisplayName is not null and a.DisplayName like @DisplayName) or
+                (@NotificationType is not null and a.NotificationType = @NotificationType) or
+                (@DailyDigest is not null and a.DailyDigest = @DailyDigest))
+        end
+	else if @Filter<>0
     begin
         if @UserName is not null
             set @UserName = '%' + @UserName + '%'

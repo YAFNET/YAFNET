@@ -33,7 +33,7 @@ namespace YAF.Core.Model
     public static class ActiveAccessRepositoryExtensions
     {
         #region Public Methods and Operators
-
+        /*
         /// <summary>
         /// The reset.
         /// </summary>
@@ -45,7 +45,7 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.activeaccess_reset();
-        }
+        }*/
 
         #endregion
     }

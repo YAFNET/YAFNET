@@ -21,7 +21,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 namespace YAF.Pages.Admin
 {
     #region Using
@@ -37,6 +36,7 @@ namespace YAF.Pages.Admin
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
@@ -45,14 +45,13 @@ namespace YAF.Pages.Admin
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
     #endregion
 
     /// <summary>
-    /// Administrative Page for the editting of forum properties.
+    /// Administrative Page for the editing of forum properties.
     /// </summary>
     public partial class editforum : AdminPage
     {
@@ -61,8 +60,12 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Handles the Change event of the Category control.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="EventArgs"/> instance containing the event data.
+        /// </param>
         public void Category_Change([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.BindParentList();
@@ -75,8 +78,12 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Handles the AccessMaskID event of the BindData control.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="EventArgs"/> instance containing the event data.
+        /// </param>
         protected void BindData_AccessMaskID([NotNull] object sender, [NotNull] EventArgs e)
         {
             var dropDownList = sender as DropDownList;
@@ -95,7 +102,7 @@ namespace YAF.Pages.Admin
                 dt.Columns.Add("FileID", typeof(long));
                 dt.Columns.Add("FileName", typeof(string));
                 dt.Columns.Add("Description", typeof(string));
-                DataRow dr = dt.NewRow();
+                var dr = dt.NewRow();
                 dr["FileID"] = 0;
                 dr["FileName"] = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
                 dr["Description"] = this.GetText("COMMON", "NONE");
@@ -106,10 +113,10 @@ namespace YAF.Pages.Admin
                     this.Request.MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Forums)));
                 if (dir.Exists)
                 {
-                    FileInfo[] files = dir.GetFiles("*.*");
+                    var files = dir.GetFiles("*.*");
                     long nFileID = 1;
 
-                    foreach (FileInfo file in from file in files
+                    foreach (var file in from file in files
                                               let sExt = file.Extension.ToLower()
                                               where sExt == ".png" || sExt == ".gif" || sExt == ".jpg" || sExt == ".jpeg"
                                               select file)
@@ -136,6 +143,7 @@ namespace YAF.Pages.Admin
         /// The name.
         /// </param>
         /// <returns>
+        /// The <see cref="int?"/>.
         /// </returns>
         protected int? GetQueryStringAsInt([NotNull] string name)
         {
@@ -151,9 +159,11 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
         /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+        /// <param name="e">
+        /// An <see cref="T:System.EventArgs"/> object that contains the event data.
+        /// </param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             this.CategoryList.AutoPostBack = true;
@@ -165,7 +175,9 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Registers the needed Java Scripts
         /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        /// <param name="e">
+        /// An <see cref="T:System.EventArgs"/> object that contains the event data.
+        /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             base.OnPreRender(e);
@@ -174,8 +186,12 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="EventArgs"/> instance containing the event data.
+        /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -191,8 +207,8 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITFORUM", "TITLE"), string.Empty);
 
             this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-              this.GetText("ADMIN_ADMIN", "Administration"),
-              this.GetText("TEAM", "FORUMS"),
+              this.GetText("ADMIN_ADMIN", "Administration"), 
+              this.GetText("TEAM", "FORUMS"), 
               this.GetText("ADMIN_EDITFORUM", "TITLE"));
 
             this.Save.Text = this.GetText("SAVE");
@@ -215,13 +231,13 @@ namespace YAF.Pages.Admin
             {
                 // Currently creating a New Forum, and auto fill the Forum Sort Order + 1
                 using (
-                DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, null))
+                var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, null))
                 {
-                    int sortOrder = 1;
+                    var sortOrder = 1;
 
                     try
                     {
-                        DataRow highestRow = dt.Rows[dt.Rows.Count - 1];
+                        var highestRow = dt.Rows[dt.Rows.Count - 1];
 
                         sortOrder = (short)highestRow["SortOrder"] + sortOrder;
                     }
@@ -236,9 +252,9 @@ namespace YAF.Pages.Admin
                 }
             }
 
-            using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, forumId.Value))
+            using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, forumId.Value))
             {
-                DataRow row = dt.Rows[0];
+                var row = dt.Rows[0];
                 var flags = new ForumFlags(row["Flags"]);
                 this.Name.Text = row["Name"].ToString();
                 this.Description.Text = row["Description"].ToString();
@@ -271,7 +287,7 @@ namespace YAF.Pages.Admin
 
                 this.Preview.Src = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
 
-                ListItem item = this.ForumImages.Items.FindByText(row["ImageURL"].ToString());
+                var item = this.ForumImages.Items.FindByText(row["ImageURL"].ToString());
                 if (item != null)
                 {
                     item.Selected = true;
@@ -301,8 +317,12 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Sets the index of the drop down.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="EventArgs"/> instance containing the event data.
+        /// </param>
         protected void SetDropDownIndex([NotNull] object sender, [NotNull] EventArgs e)
         {
             try
@@ -316,10 +336,14 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Sets the Visiblity of the ModeratedPostCount Row
+        /// Sets the Visibility of the ModeratedPostCount Row
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="EventArgs"/> instance containing the event data.
+        /// </param>
         protected void ModeratedCheckedChanged(object sender, EventArgs e)
         {
             this.ModeratedPostCountRow.Visible = this.Moderated.Checked;
@@ -327,10 +351,14 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Sets the Visiblity of the ModeratedPostCount TextBox
+        /// Sets the Visibility of the ModeratedPostCount TextBox
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="EventArgs"/> instance containing the event data.
+        /// </param>
         protected void ModerateAllPostsCheckedChanged(object sender, EventArgs e)
         {
             this.ModeratedPostCount.Visible = !this.ModerateAllPosts.Checked;
@@ -382,8 +410,12 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Handles the Click event of the Cancel control.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="EventArgs"/> instance containing the event data.
+        /// </param>
         private void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.admin_forums);
@@ -404,8 +436,12 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Handles the Click event of the Save control.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="EventArgs"/> instance containing the event data.
+        /// </param>
         private void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.CategoryList.SelectedValue.Trim().Length == 0)
@@ -457,8 +493,8 @@ namespace YAF.Pages.Admin
 
             // Forum
             // vzrus: it's stored in the DB as int
-            int? forumId = this.GetQueryStringAsInt("fa");
-            int? forumCopyId = this.GetQueryStringAsInt("copy");
+            var forumId = this.GetQueryStringAsInt("fa");
+            var forumCopyId = this.GetQueryStringAsInt("copy");
 
             object parentID = null;
 
@@ -478,7 +514,7 @@ namespace YAF.Pages.Admin
             // If we update a forum ForumID > 0 
             if (forumId.HasValue && parentID != null)
             {
-                int dependency = LegacyDb.forum_save_parentschecker(forumId.Value, parentID);
+                var dependency = LegacyDb.forum_save_parentschecker(forumId.Value, parentID);
                 if (dependency > 0)
                 {
                     this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_CHILD_PARENT"));
@@ -517,33 +553,35 @@ namespace YAF.Pages.Admin
             }
 
             var newForumId = LegacyDb.forum_save(
-              forumId,
-              this.CategoryList.SelectedValue,
-              parentID,
-              this.Name.Text.Trim(),
-              this.Description.Text.Trim(),
-              sortOrder,
-              this.Locked.Checked,
-              this.HideNoAccess.Checked,
-              this.IsTest.Checked,
-              this.Moderated.Checked,
-              this.ModerateAllPosts.Checked ? null : this.ModeratedPostCount.Text,
-              this.ModerateNewTopicOnly.Checked,
-              this.AccessMaskID.SelectedValue,
-              IsNull(this.remoteurl.Text),
-              themeUrl,
-              this.ForumImages.SelectedIndex > 0 ? this.ForumImages.SelectedValue.Trim() : null,
-              this.Styles.Text,
+              forumId, 
+              this.CategoryList.SelectedValue, 
+              parentID, 
+              this.Name.Text.Trim(), 
+              this.Description.Text.Trim(), 
+              sortOrder, 
+              this.Locked.Checked, 
+              this.HideNoAccess.Checked, 
+              this.IsTest.Checked, 
+              this.Moderated.Checked, 
+              this.ModerateAllPosts.Checked ? null : this.ModeratedPostCount.Text, 
+              this.ModerateNewTopicOnly.Checked, 
+              this.AccessMaskID.SelectedValue, 
+              IsNull(this.remoteurl.Text), 
+              themeUrl, 
+              this.ForumImages.SelectedIndex > 0 ? this.ForumImages.SelectedValue.Trim() : null, 
+              this.Styles.Text, 
               false);
 
-            this.GetRepository<ActiveAccess>().Reset();
+            // empty out access table(s)
+            this.GetRepository<Active>().DeleteAll();
+            this.GetRepository<ActiveAccess>().DeleteAll();
 
             // Access
             if (forumId.HasValue || forumCopyId.HasValue)
             {
                 foreach (var item in this.AccessList.Items.OfType<RepeaterItem>())
                 {
-                    int groupId = int.Parse(item.FindControlAs<Label>("GroupID").Text);
+                    var groupId = int.Parse(item.FindControlAs<Label>("GroupID").Text);
 
                     LegacyDb.forumaccess_save(newForumId, groupId, item.FindControlAs<DropDownList>("AccessmaskID").SelectedValue);
                 }

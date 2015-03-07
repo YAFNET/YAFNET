@@ -39,6 +39,32 @@ namespace YAF.Core.Extensions
     public static class IRepositoryExtensions
     {
         #region Public Methods and Operators
+
+        /// <summary>
+        /// The delete by id.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository. 
+        /// </param>
+        /// <typeparam name="T">
+        /// The type parameter.
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="bool"/> . 
+        /// </returns>
+        public static bool DeleteAll<T>([NotNull] this IRepository<T> repository) where T : class, IEntity, new()
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var success = repository.DbAccess.Execute(db => db.Connection.DeleteAll<T>()) == 1;
+            
+            if (success)
+            {
+                repository.FireDeleted();
+            }
+
+            return success;
+        }
         
         /// <summary>
         /// The delete.
@@ -203,20 +229,12 @@ namespace YAF.Core.Extensions
         /// <summary>
         /// Update or Insert entity.
         /// </summary>
-        /// <param name="repository">
-        /// The repository. 
-        /// </param>
-        /// <param name="entity">
-        /// The entity. 
-        /// </param>
-        /// <param name="transaction">
-        /// The transaction. 
-        /// </param>
-        /// <typeparam name="T">
-        /// The type parameter.
-        /// </typeparam>
+        /// <typeparam name="T">The type parameter.</typeparam>
+        /// <param name="repository">The repository.</param>
+        /// <param name="entity">The entity.</param>
+        /// <param name="transaction">The transaction.</param>
         /// <returns>
-        /// The <see cref="bool"/> . 
+        /// The <see cref="bool" /> .
         /// </returns>
         public static bool Upsert<T>([NotNull] this IRepository<T> repository, [NotNull] T entity, IDbTransaction transaction = null)
             where T : class, IEntity, IHaveID, new()
