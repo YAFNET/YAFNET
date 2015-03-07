@@ -57,7 +57,7 @@ namespace YAF.Controls
         /// </returns>
         protected string GetReturnUrl()
         {
-            string returnUrl = string.Empty;
+            var returnUrl = string.Empty;
 
             if (this.PageContext.ForumPageType != ForumPages.login)
             {
@@ -119,17 +119,13 @@ namespace YAF.Controls
             this.RenderQuickSearch();
            
             base.OnPreRender(e);
-        }        
+        }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RenderGuestControls();
@@ -140,24 +136,25 @@ namespace YAF.Controls
 
             this.RenderAdminModMenu();
         }
-        
+
         /// <summary>
         /// Do Quick Search
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void QuickSearchClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.searchInput.Text))
+            if (this.searchInput.Text.IsNotSet())
             {
                 return;
             }
 
-            YafBuildLink.Redirect(ForumPages.search, "search={0}", this.searchInput.Text.TrimWordsOverMaxLengthWordsPreserved(this.Get<YafBoardSettings>().SearchStringMaxLength));
+            YafBuildLink.Redirect(
+                ForumPages.search,
+                "search={0}",
+                this.Server.UrlEncode(
+                    this.searchInput.Text.TrimWordsOverMaxLengthWordsPreserved(
+                        this.Get<YafBoardSettings>().SearchStringMaxLength)));
         }
 
         /// <summary>
@@ -179,7 +176,7 @@ namespace YAF.Controls
         /// The link tool tip.
         /// </param>
         /// <param name="linkUrl">
-        /// The link url.
+        /// The link URL.
         /// </param>
         /// <param name="noFollow">
         /// Add rel="nofollow" to the link
@@ -198,12 +195,12 @@ namespace YAF.Controls
         {
             var liElement = new HtmlGenericControl("li");
 
-            if (!string.IsNullOrEmpty(liCssClass))
+            if (liCssClass.IsSet())
             {
                 liElement.Attributes.Add("class", liCssClass);
             }
 
-            if (string.IsNullOrEmpty(linkToolTip))
+            if (linkToolTip.IsNotSet())
             {
                 linkToolTip = linkText;
             }
@@ -221,7 +218,7 @@ namespace YAF.Controls
                 link.Attributes.Add("rel", "nofollow");
             }
 
-            if (!string.IsNullOrEmpty(linkCssClass))
+            if (linkCssClass.IsSet())
             {
                 link.CssClass = linkCssClass;
             }
@@ -279,7 +276,7 @@ namespace YAF.Controls
 
             var searchIcon = this.Get<ITheme>().GetItem("ICONS", "SEARCH");
 
-            if (!string.IsNullOrEmpty(searchIcon))
+            if (searchIcon.IsSet())
             {
                 this.doQuickSearch.Text = @"<img alt=""{1}"" title=""{1}"" src=""{0}"" /> {1}".FormatWith(
                     searchIcon, this.GetText("SEARCH", "BTNSEARCH"));
@@ -487,7 +484,7 @@ namespace YAF.Controls
                 }
                 else
                 {
-                    string returnUrl = this.GetReturnUrl().IsSet()
+                    var returnUrl = this.GetReturnUrl().IsSet()
                                            ? "ReturnUrl={0}".FormatWith(this.GetReturnUrl())
                                            : string.Empty;
 
@@ -594,7 +591,7 @@ namespace YAF.Controls
                     null);
             }
 
-            bool unread = this.PageContext.UnreadPrivate > 0 || this.PageContext.PendingBuddies > 0/* ||
+            var unread = this.PageContext.UnreadPrivate > 0 || this.PageContext.PendingBuddies > 0/* ||
                           this.PageContext.UnreadTopics > 0*/;
 
             // My Topics
@@ -682,7 +679,7 @@ namespace YAF.Controls
                     }
                     else
                     {
-                        string returnUrl = this.GetReturnUrl().IsSet()
+                        var returnUrl = this.GetReturnUrl().IsSet()
                                                ? "ReturnUrl={0}".FormatWith(this.GetReturnUrl())
                                                : string.Empty;
 
@@ -732,12 +729,14 @@ namespace YAF.Controls
                 }
 
                 // If both disallowed
-                if (!isLoginAllowed && !isRegisterAllowed)
+                if (isLoginAllowed || isRegisterAllowed)
                 {
-                    this.GuestUserMessage.Controls.Clear();
-                    this.GuestUserMessage.Controls.Add(
-                          new Label { Text = this.GetText("TOOLBAR", "WELCOME_GUEST_NO") });
+                    return;
                 }
+
+                this.GuestUserMessage.Controls.Clear();
+                this.GuestUserMessage.Controls.Add(
+                    new Label { Text = this.GetText("TOOLBAR", "WELCOME_GUEST_NO") });
             }           
         }
 
