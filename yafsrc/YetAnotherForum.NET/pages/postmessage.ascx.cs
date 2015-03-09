@@ -554,6 +554,8 @@ namespace YAF.Pages
                     this.Get<YafBoardSettings>().MaxPostSize.ToString(CultureInfo.InvariantCulture);
             }
 
+            this.HandleUploadControls();
+
             if (!this.IsPostBack)
             {
                 if (this.Get<YafBoardSettings>().EnableTopicDescription)
@@ -613,8 +615,6 @@ namespace YAF.Pages
                 this.PostOptions1.PersistentOptionVisible = this.PageContext.ForumPriorityAccess;
                 this.PostOptions1.WatchOptionVisible = !this.PageContext.IsGuest;
                 this.PostOptions1.PollOptionVisible = this.PageContext.ForumPollAccess && isNewTopic;
-
-                this.HandleUploadControls();
 
                 if (!this.PageContext.IsGuest)
                 {
