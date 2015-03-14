@@ -530,7 +530,7 @@ namespace YAF
                                        ImageThemeTag = "PM",
                                        TitleLocalizedTag = "PM_TITLE",
                                        TitleLocalizedPage = "POSTS",
-                                       NavigateUrl = Config.IsAnyPortal ? forumUrl : YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, true, "u={0}", userId).Replace(
+                                       NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, true, "u={0}", userId).Replace(
                                                "resource.ashx", "default.aspx"),
                                        ParamTitle0 = userName,
                                        Visible =
@@ -1017,7 +1017,7 @@ namespace YAF
                         .FirstOrDefault();
 
                 // TODO : check download permissions here
-                if (!this.CheckAccessRights(this.Get<YafBoardSettings>().BoardID, attachment.MessageID))
+                if (!this.CheckAccessRights(YafContext.Current.BoardSettings.BoardID, attachment.MessageID))
                 {
                     // tear it down
                     // no permission to download
@@ -1267,7 +1267,7 @@ namespace YAF
                         .FirstOrDefault();
 
                 // TODO : check download permissions here
-                if (!this.CheckAccessRights(this.Get<YafBoardSettings>().BoardID, attachment.MessageID))
+                if (!this.CheckAccessRights(YafContext.Current.BoardSettings.BoardID, attachment.MessageID))
                 {
                     // tear it down
                     // no permission to download
