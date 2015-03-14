@@ -1843,8 +1843,8 @@ pre[class*='language-'] > code[data-language]::before {
   padding: 0px;
 }
 .yafnet .postdiv {
-  -ms-word-break: break-all;
-  word-break: break-all;
+  -ms-word-break: break-word;
+  word-break: break-word;
 }
 .yafnet .yafpopupmenu {
   padding: 0px;
