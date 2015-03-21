@@ -1016,8 +1016,11 @@ namespace YAF
                         .ListTyped(attachmentID: context.Request.QueryString.GetFirstOrDefaultAs<int>("a"))
                         .FirstOrDefault();
 
-                // TODO : check download permissions here
-                if (!this.CheckAccessRights(YafContext.Current.BoardSettings.BoardID, attachment.MessageID))
+                var boardID = context.Request.QueryString.GetFirstOrDefault("b") != null
+                                  ? context.Request.QueryString.GetFirstOrDefaultAs<int>("b")
+                                  : YafContext.Current.BoardSettings.BoardID;
+
+                if (!this.CheckAccessRights(boardID, attachment.MessageID))
                 {
                     // tear it down
                     // no permission to download
@@ -1149,8 +1152,12 @@ namespace YAF
                         .ListTyped(attachmentID: context.Request.QueryString.GetFirstOrDefaultAs<int>("i"))
                         .FirstOrDefault();
 
+                var boardID = context.Request.QueryString.GetFirstOrDefault("b") != null
+                                  ? context.Request.QueryString.GetFirstOrDefaultAs<int>("b")
+                                  : YafContext.Current.BoardSettings.BoardID;
+
                 // check download permissions here
-                if (!this.CheckAccessRights(this.Get<YafBoardSettings>().BoardID, attachment.MessageID))
+                if (!this.CheckAccessRights(boardID, attachment.MessageID))
                 {
                     // tear it down
                     // no permission to download
@@ -1266,8 +1273,11 @@ namespace YAF
                         .ListTyped(attachmentID: context.Request.QueryString.GetFirstOrDefaultAs<int>("p"))
                         .FirstOrDefault();
 
-                // TODO : check download permissions here
-                if (!this.CheckAccessRights(YafContext.Current.BoardSettings.BoardID, attachment.MessageID))
+                var boardID = context.Request.QueryString.GetFirstOrDefault("b") != null
+                                  ? context.Request.QueryString.GetFirstOrDefaultAs<int>("b")
+                                  : YafContext.Current.BoardSettings.BoardID;
+
+                if (!this.CheckAccessRights(boardID, attachment.MessageID))
                 {
                     // tear it down
                     // no permission to download

@@ -43,9 +43,7 @@ namespace YAF.Modules.BBCode
         /// <summary>
         /// Render The Album Image as Link with Image
         /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
+        /// <param name="writer">The writer.</param>
         protected override void Render(HtmlTextWriter writer)
         {
             var attachment =
@@ -79,11 +77,12 @@ namespace YAF.Modules.BBCode
                     // user has rights to download, show him image
                     writer.Write(
                         !this.Get<YafBoardSettings>().EnableImageAttachmentResize
-                            ? @"<img src=""{0}resource.ashx?a={1}"" alt=""{2}"" class=""UserPostedImage"" /></div>"
-                            : @"<a href=""{0}resource.ashx?i={1}"" date-img=""{0}resource.ashx?a={1}"" class=""attachedImage""><img src=""{0}resource.ashx?p={1}"" alt=""{2}"" title=""{2}"" /></a>",
+                            ? @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""UserPostedImage"" /></div>"
+                            : @"<a href=""{0}resource.ashx?i={1}&b={3}"" date-img=""{0}resource.ashx?a={1}&b={3}"" class=""attachedImage""><img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" title=""{2}"" /></a>",
                         YafForumInfo.ForumClientFileRoot,
                         attachment.ID,
-                        this.HtmlEncode(attachment.FileName));
+                        this.HtmlEncode(attachment.FileName),
+                        this.PageContext.PageBoardID);
                 }
                 else
                 {
@@ -106,12 +105,13 @@ namespace YAF.Modules.BBCode
                 if (this.PageContext.ForumDownloadAccess || this.PageContext.ForumModeratorAccess)
                 {
                     writer.Write(
-                        @"<img border=""0"" alt="""" src=""{0}"" /> <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{1}resource.ashx?a={2}"">{3}</a> <span class=""attachmentinfo"">{4}</span>",
+                        @"<img border=""0"" alt="""" src=""{0}"" /> <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{1}resource.ashx?a={2}&b={5}"">{3}</a> <span class=""attachmentinfo"">{4}</span>",
                         fileIcon,
                         YafForumInfo.ForumClientFileRoot,
                         attachment.ID,
                         attachment.FileName,
-                        stats.FormatWith(kb, attachment.Downloads));
+                        stats.FormatWith(kb, attachment.Downloads),
+                        this.PageContext.PageBoardID);
                 }
                 else
                 {

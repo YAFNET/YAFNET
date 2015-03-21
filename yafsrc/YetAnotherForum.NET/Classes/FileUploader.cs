@@ -149,8 +149,9 @@ namespace YAF.Classes
         private void UploadWholeFile(HttpContext context, List<FilesUploadStatus> statuses)
         {
             var forumID = HttpContext.Current.Request["forumID"].ToType<int>();
+            var boardID = HttpContext.Current.Request["boardID"].ToType<int>();
 
-            if (!this.CheckAccessRights(YafContext.Current.PageBoardID, forumID))
+            if (!this.CheckAccessRights(boardID, forumID))
             {
                 throw new HttpRequestValidationException("No Access");
             }

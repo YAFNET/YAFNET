@@ -171,7 +171,7 @@ namespace YAF.Controls
                             if (!settings.EnableImageAttachmentResize)
                             {
                                 writer.Write(
-                                    @"<div class=""attachedimg""><img src=""{0}resource.ashx?a={1}"" alt=""{2}"" /></div>", 
+                                    @"<div class=""attachedimg""><img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" /></div>", 
                                     YafForumInfo.ForumClientFileRoot, 
                                     attachment.ID, 
                                     this.HtmlEncode(attachment.FileName));
@@ -186,11 +186,12 @@ namespace YAF.Controls
 
                                 // TommyB: Start MOD: Preview Images
                                 writer.Write(
-                                    @"<div class=""attachedimg"" style=""display: inline;""><a href=""{0}resource.ashx?i={1}"" title=""{2}"" title=""{2}"" date-img=""{0}resource.ashx?a={1}""><img src=""{0}resource.ashx?p={1}"" alt=""{3}"" title=""{2}"" /></a></div>", 
+                                    @"<div class=""attachedimg"" style=""display: inline;""><a href=""{0}resource.ashx?i={1}&b={4}"" title=""{2}"" title=""{2}"" date-img=""{0}resource.ashx?a={1}&b={4}""><img src=""{0}resource.ashx?p={1}&b={4}"" alt=""{3}"" title=""{2}"" /></a></div>", 
                                     YafForumInfo.ForumClientFileRoot, 
                                     attachment.ID, 
                                     attachFilesText, 
-                                    this.HtmlEncode(attachment.FileName));
+                                    this.HtmlEncode(attachment.FileName),
+                                    settings.BoardID);
 
                                 // TommyB: End MOD: Preview Images
                             }
@@ -228,12 +229,13 @@ namespace YAF.Controls
                         if (this.PageContext.ForumDownloadAccess || this.PageContext.ForumModeratorAccess)
                         {
                             writer.Write(
-                                @"<img border=""0"" alt="""" src=""{0}"" /> <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{1}resource.ashx?a={2}"">{3}</a> <span class=""attachmentinfo"">{4}</span>", 
+                                @"<img border=""0"" alt="""" src=""{0}"" /> <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{1}resource.ashx?a={2}&b={5}"">{3}</a> <span class=""attachmentinfo"">{4}</span>", 
                                 fileIcon, 
                                 YafForumInfo.ForumClientFileRoot, 
                                 attachment.ID, 
                                 attachment.FileName, 
-                                stats.FormatWith(kb, attachment.Downloads));
+                                stats.FormatWith(kb, attachment.Downloads),
+                                settings.BoardID);
                         }
                         else
                         {

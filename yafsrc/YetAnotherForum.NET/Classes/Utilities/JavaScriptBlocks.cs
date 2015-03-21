@@ -826,13 +826,17 @@ namespace YAF.Utilities
         /// <param name="maxFileSize">Maximum size of the file.</param>
         /// <param name="fileUploaderUrl">The file uploader URL.</param>
         /// <param name="forumID">The forum identifier.</param>
-        /// <returns>Returns the FileUpload Java Script.</returns>
+        /// <param name="boardID">The board identifier.</param>
+        /// <returns>
+        /// Returns the FileUpload Java Script.
+        /// </returns>
         [NotNull]
         public static string FileUploadLoadJs(
             [NotNull] string acceptedFileTypes,
             [NotNull] int maxFileSize,
             [NotNull] string fileUploaderUrl,
-            int forumID)
+            [NotNull] int forumID,
+            [NotNull] int boardID)
         {
             return @"{0}(function() {{
 
@@ -851,6 +855,7 @@ namespace YAF.Utilities
                 }},
                 formData: {{
                     forumID: '{4}',
+                    boardID: '{5}',
                     allowedUpload: true
                 }},
                 dropZone: {0}('#dropzone')
@@ -887,7 +892,8 @@ namespace YAF.Utilities
                 maxFileSize > 0 ? "maxFileSize: {0},".FormatWith(maxFileSize) : string.Empty,
                 acceptedFileTypes,
                 fileUploaderUrl,
-                forumID);
+                forumID,
+                boardID);
         }
 
         /// <summary>

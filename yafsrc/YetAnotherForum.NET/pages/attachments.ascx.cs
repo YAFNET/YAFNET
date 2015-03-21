@@ -160,9 +160,10 @@ namespace YAF.Pages
             var fileName = row["FileName"].ToString();
             var isImage = fileName.IsImageName();
             var url = isImage
-                          ? "{0}resource.ashx?i={1}&editor=true".FormatWith(
+                          ? "{0}resource.ashx?i={1}&b={2}&editor=true".FormatWith(
                               YafForumInfo.ForumClientFileRoot,
-                              row["AttachmentID"])
+                              row["AttachmentID"],
+                              this.PageContext.PageBoardID)
                           : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot);
 
             var dataUrl = isImage ? " data-url=\"{0}\"".FormatWith(url) : string.Empty;

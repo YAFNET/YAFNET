@@ -331,16 +331,20 @@ namespace YAF.Editors
                 foreach (var attachment in attachments)
                 {
                     var url = attachment.FileName.IsImageName()
-                                  ? "{0}resource.ashx?i={1}&editor=true".FormatWith(
+                                  ? "{0}resource.ashx?i={1}&b={2}&editor=true".FormatWith(
                                       YafForumInfo.ForumClientFileRoot,
-                                      attachment.ID)
+                                      attachment.ID,
+                                this.PageContext.PageBoardID)
                                   : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot);
 
                     this._popMenuAttachments.AddClientScriptItem(
                         attachment.FileName.Truncate(40),
                         "insertAttachment('{0}', '{1}')".FormatWith(attachment.ID, url),
                         attachment.FileName.IsImageName()
-                            ? "{0}resource.ashx?i={1}&editor=true".FormatWith(YafForumInfo.ForumClientFileRoot, attachment.ID)
+                            ? "{0}resource.ashx?i={1}&b={2}&editor=true".FormatWith(
+                                YafForumInfo.ForumClientFileRoot,
+                                attachment.ID,
+                                this.PageContext.PageBoardID)
                             : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot));
                 }
             }

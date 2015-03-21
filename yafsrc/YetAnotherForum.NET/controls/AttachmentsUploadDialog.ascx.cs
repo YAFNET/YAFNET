@@ -47,10 +47,10 @@ namespace YAF.Controls
     public partial class AttachmentsUploadDialog : BaseUserControl
     {
         /// <summary>
-        /// Gets the file exentsions.
+        /// Gets the file extensions.
         /// </summary>
         /// <value>
-        /// The file exentsions.
+        /// The file extensions.
         /// </value>
         private IList<FileExtension> FileExentsions
         {
@@ -129,7 +129,8 @@ namespace YAF.Controls
                     string.Join("|", this.FileExentsions.Select(ext => ext.Extension)),
                     this.Get<YafBoardSettings>().MaxFileSize,
                     "{0}YafUploader.ashx".FormatWith(YafForumInfo.ForumClientFileRoot),
-                    this.PageContext.PageForumID));
+                    this.PageContext.PageForumID,
+                    this.PageContext.PageBoardID));
         }
 
         #endregion

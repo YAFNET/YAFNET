@@ -775,10 +775,11 @@ namespace YAF.Pages
                     select
                         new SyndicationLink(
                         new Uri(
-                        "{0}{1}resource.ashx?a={2}".FormatWith(
+                        "{0}{1}resource.ashx?a={2}&b={3}".FormatWith(
                             YafForumInfo.ForumBaseUrl,
                             YafForumInfo.ForumClientFileRoot.TrimStart('/'),
-                            attachment.ID)),
+                            attachment.ID,
+                            this.PageContext.PageBoardID)),
                         "enclosure",
                         attachment.FileName,
                         attachment.ContentType,

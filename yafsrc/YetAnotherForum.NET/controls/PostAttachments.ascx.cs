@@ -109,9 +109,10 @@ namespace YAF.Controls
                 rowPanel++;
 
                 var url = attachment.FileName.IsImageName()
-                              ? "{0}resource.ashx?i={1}&editor=true".FormatWith(
+                              ? "{0}resource.ashx?i={1}&b={2}&editor=true".FormatWith(
                                   YafForumInfo.ForumClientFileRoot,
-                                  attachment.ID)
+                                  attachment.ID,
+                                  this.PageContext.PageBoardID)
                               : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot);
 
                 var onClick = "insertAttachment('{0}', '{1}')".FormatWith(attachment.ID, url);
