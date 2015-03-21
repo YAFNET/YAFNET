@@ -879,170 +879,184 @@ ins {
   background-color: #99EE99 !important;
   text-decoration: underline !important;
 }
-/*************
-  jQuery UI Theme
- *************/
- /* overall */
-.tablesorter-jui {
-	width: 100%;
-	border-collapse: separate;
-	border-spacing: 2px; /* adjust spacing between table cells */
-	margin: 10px 0 15px;
-	padding: 5px;
-	font-size: 0.8em;
+/* Tablesorter Custom LESS Theme by Rob Garrison
+ To create your own theme, modify the code below and run it through
+ a LESS compiler, like this one: http://leafo.net/lessphp/editor.html
+ or download less.js from http://lesscss.org/
+Test out these custom less files live
+ Basic Theme : http://codepen.io/Mottie/pen/eqBbn
+ Bootstrap   : http://codepen.io/Mottie/pen/Ltzpi
+ Metro Style : http://codepen.io/Mottie/pen/gCslk
+ */
+/*** theme ***/
+/*** color definitions ***/
+/* for best results, only change the hue (120),
+   leave the saturation (60%) and luminosity (75%) alone
+   pick the color from here: http://hslpicker.com/#99E699 */
+/* darken(@headerBackground, 10%); */
+/* desaturate(@headerAsc, 5%); */
+/* it might be best to match the document body background color here */
+/* ajax error message (added to thead) */
+/* becomes height using padding (so it's divided by 2) */
+/* url(icons/loading.gif); */
+/* Columns widget */
+/* saturate( darken( desaturate(@headerBackground, 10%), 10% ), 30%); */
+/* Filter widget transition */
+.filterWidgetTransition {
+  -webkit-transition: line-height 0.1s ease;
+  -moz-transition: line-height 0.1s ease;
+  -o-transition: line-height 0.1s ease;
+  transition: line-height 0.1s ease;
 }
-
-/* header */
-.tablesorter-jui thead th,
-.tablesorter-jui thead td,
-.tablesorter-jui tfoot th,
-.tablesorter-jui tfoot td {
-	position: relative;
-	background-repeat: no-repeat;
-	background-position: right center;
-	/* UI hover and active states make the font normal and the table resizes, this fixes it */
-	font-weight: bold !important;
-	border-width: 1px !important;
-	text-align: left;
-	padding: 8px; /* wider than the icon */
+/*** Arrows ***/
+/* black */
+/* variable theme name - requires less.js 1.3+;
+   or just replace (!".@{theme}") with the contents of @theme
+ */
+.tablesorter {
+  background-color: inherit;
+  text-align: left;
+  border-spacing: 0;
+  border: inherit 0px;
+  border-width: 1px 0 0 1px;
+  /* style th's outside of the thead */
+  /* style header */
+  /* tfoot */
+  /* optional disabled input styling */
+  /* table processing indicator - indeterminate spinner */
+  /* Column Widget - column sort colors */
+  /* caption (non-theme matching) */
+  /* filter widget */
+  /* hidden filter row */
+  /* rows hidden by filtering (needed for child rows) */
+  /* ajax error row */
 }
-.tablesorter-jui .header,
-.tablesorter-jui .tablesorter-header {
-	cursor: pointer;
-	white-space: normal;
+.tablesorter th,
+.tablesorter td {
+  border: inherit 0px;
+  border-width: 0 1px 1px 0;
 }
-.tablesorter-jui .tablesorter-header-inner {
-	padding-right: 20px;
+.tablesorter th,
+.tablesorter thead td {
+  font-weight: bold;
+  background-color: transparent;
+  border-collapse: collapse;
 }
-.tablesorter-jui thead tr th .ui-icon {
-	position: absolute;
-	right: 3px;
-	top: 50%;
-	margin-top: -8px; /* half the icon height; older IE doesn't like this */
+.tablesorter tbody td,
+.tablesorter tfoot th,
+.tablesorter tfoot td {
+  vertical-align: top;
 }
-
-.tablesorter-jui thead .sorter-false {
-	cursor: default;
+.tablesorter .tablesorter-header {
+  background-image: url(data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
+  background-repeat: no-repeat;
+  background-position: right 5px center;
+  cursor: pointer;
 }
-.tablesorter-jui thead tr .sorter-false .ui-icon {
-	display: none;
+.tablesorter .tablesorter-header.sorter-false {
+  background-image: none;
+  cursor: default;
 }
-
-/* tfoot */
-.tablesorter-jui tfoot th,
-.tablesorter-jui tfoot td {
-	font-weight: normal !important;
-	font-size: .9em;
-	padding: 2px;
+.tablesorter .tablesorter-headerAsc {
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7);
 }
-
-/* tbody */
-.tablesorter-jui td {
-	padding: 4px;
-	vertical-align: top;
+.tablesorter .tablesorter-headerDesc {
+  background-color: rgba(26, 26, 26, 0);
+  background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
 }
-
-/* hovered row colors */
-.tablesorter-jui tbody > tr:hover td {
-	opacity: 0.7;
-	filter: alpha(opacity=70);
+.tablesorter tfoot .tablesorter-headerAsc,
+.tablesorter tfoot .tablesorter-headerDesc {
+  /* remove sort arrows from footer */
+  background-image: none;
 }
-
-/* table processing indicator */
-.tablesorter-jui .tablesorter-processing .tablesorter-header-inner {
-	background-position: center center !important;
-	background-repeat: no-repeat !important;
-	/* background-image: url(images/loading.gif) !important; */
-	background-image: url('data:image/gif;base64,R0lGODlhFAAUAKEAAO7u7lpaWgAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQBCgACACwAAAAAFAAUAAACQZRvoIDtu1wLQUAlqKTVxqwhXIiBnDg6Y4eyx4lKW5XK7wrLeK3vbq8J2W4T4e1nMhpWrZCTt3xKZ8kgsggdJmUFACH5BAEKAAIALAcAAAALAAcAAAIUVB6ii7jajgCAuUmtovxtXnmdUAAAIfkEAQoAAgAsDQACAAcACwAAAhRUIpmHy/3gUVQAQO9NetuugCFWAAAh+QQBCgACACwNAAcABwALAAACE5QVcZjKbVo6ck2AF95m5/6BSwEAIfkEAQoAAgAsBwANAAsABwAAAhOUH3kr6QaAcSrGWe1VQl+mMUIBACH5BAEKAAIALAIADQALAAcAAAIUlICmh7ncTAgqijkruDiv7n2YUAAAIfkEAQoAAgAsAAAHAAcACwAAAhQUIGmHyedehIoqFXLKfPOAaZdWAAAh+QQFCgACACwAAAIABwALAAACFJQFcJiXb15zLYRl7cla8OtlGGgUADs=') !important;
+.tablesorter .disabled {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  cursor: not-allowed;
 }
-
-/* Zebra widget - This allows you to use ui-state-default as the zebra stripe color */
-.tablesorter-jui tr.ui-state-default {
-	background-image: none;
-	font-weight: normal;
+.tablesorter .tablesorter-processing {
+  background-image: url('data:image/gif;base64,R0lGODlhFAAUAKEAAO7u7lpaWgAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQBCgACACwAAAAAFAAUAAACQZRvoIDtu1wLQUAlqKTVxqwhXIiBnDg6Y4eyx4lKW5XK7wrLeK3vbq8J2W4T4e1nMhpWrZCTt3xKZ8kgsggdJmUFACH5BAEKAAIALAcAAAALAAcAAAIUVB6ii7jajgCAuUmtovxtXnmdUAAAIfkEAQoAAgAsDQACAAcACwAAAhRUIpmHy/3gUVQAQO9NetuugCFWAAAh+QQBCgACACwNAAcABwALAAACE5QVcZjKbVo6ck2AF95m5/6BSwEAIfkEAQoAAgAsBwANAAsABwAAAhOUH3kr6QaAcSrGWe1VQl+mMUIBACH5BAEKAAIALAIADQALAAcAAAIUlICmh7ncTAgqijkruDiv7n2YUAAAIfkEAQoAAgAsAAAHAAcACwAAAhQUIGmHyedehIoqFXLKfPOAaZdWAAAh+QQFCgACACwAAAIABwALAAACFJQFcJiXb15zLYRl7cla8OtlGGgUADs=');
+  background-position: center center;
+  background-repeat: no-repeat;
 }
-
-/* processing background color */
-.tablesorter-jui .tablesorter-processing {
-	background-color: #ddd; /* older browsers that don't support rgba */
-	background-color: rgba(255,255,255,0.8);
+.tablesorter tr.odd td.primary {
+  background-color: rgba(0, 0, 0, 0);
 }
-
-/* caption */
-.tablesorter-jui caption {
-	border: 0;
+.tablesorter td.primary,
+.tablesorter tr.even td.primary {
+  background-color: rgba(26, 26, 26, 0);
 }
-
-/* filter widget */
-.tablesorter-jui .tablesorter-filter-row {
-	background: transparent;
+.tablesorter tr.odd td.secondary {
+  background-color: rgba(26, 26, 26, 0);
 }
-.tablesorter-jui .tablesorter-filter-row td {
-	background: transparent;
-	line-height: normal;
-	text-align: center; /* center the input */
-	-webkit-transition: line-height 0.1s ease;
-	-moz-transition: line-height 0.1s ease;
-	-o-transition: line-height 0.1s ease;
-	transition: line-height 0.1s ease;
+.tablesorter td.secondary,
+.tablesorter tr.even td.secondary {
+  background-color: rgba(38, 38, 38, 0);
 }
-/* optional disabled input styling */
-.tablesorter-jui .tablesorter-filter-row .disabled {
-	opacity: 0.5;
-	filter: alpha(opacity=50);
-	cursor: not-allowed;
+.tablesorter tr.odd td.tertiary {
+  background-color: rgba(38, 38, 38, 0);
 }
-/* hidden filter row */
-.tablesorter-jui .tablesorter-filter-row.hideme td {
-	/*** *********************************************** ***/
-	/*** change this padding to modify the thickness     ***/
-	/*** of the closed filter row (height = padding x 2) ***/
-	padding: 2px;
-	/*** *********************************************** ***/
-	margin: 0;
-	line-height: 0;
-	cursor: pointer;
+.tablesorter td.tertiary,
+.tablesorter tr.even td.tertiary {
+  background-color: rgba(51, 51, 51, 0);
 }
-.tablesorter-jui .tablesorter-filter-row.hideme * {
-	height: 1px;
-	min-height: 0;
-	border: 0;
-	padding: 0;
-	margin: 0;
-	/* don't use visibility: hidden because it disables tabbing */
-	opacity: 0;
-	filter: alpha(opacity=0);
+.tablesorter caption {
+  background: #ffffff;
 }
-/* filters */
-.tablesorter-jui input.tablesorter-filter,
-.tablesorter-jui select.tablesorter-filter {
-	width: 98%;
-	height: auto;
-	margin: 0;
-	padding: 4px;
-	background-color: #fff;
-	border: 1px solid #bbb;
-	color: #333;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-transition: height 0.1s ease;
-	-moz-transition: height 0.1s ease;
-	-o-transition: height 0.1s ease;
-	transition: height 0.1s ease;
+.tablesorter .tablesorter-filter-row input,
+.tablesorter .tablesorter-filter-row select {
+  width: 98%;
+  height: auto;
+  margin: 0;
+  color: #333333;
+  background: #ffffff;
+  border: 1px solid #bbbbbb;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: line-height 0.1s ease;
+  -moz-transition: line-height 0.1s ease;
+  -o-transition: line-height 0.1s ease;
+  transition: line-height 0.1s ease;
 }
-/* rows hidden by filtering (needed for child rows) */
+.tablesorter .tablesorter-filter-row {
+  background: #eeeeee;
+}
+.tablesorter .tablesorter-filter-row td {
+  background: #eeeeee;
+  line-height: normal;
+  text-align: center;
+  /* center the input */
+  -webkit-transition: line-height 0.1s ease;
+  -moz-transition: line-height 0.1s ease;
+  -o-transition: line-height 0.1s ease;
+  transition: line-height 0.1s ease;
+}
+.tablesorter .tablesorter-filter-row.hideme td {
+  padding: 0;
+  margin: 0;
+  line-height: 0;
+  cursor: pointer;
+}
+.tablesorter .tablesorter-filter-row.hideme * {
+  height: 1px;
+  min-height: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  /* don't use visibility: hidden because it disables tabbing */
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
 .tablesorter .filtered {
-	display: none;
+  display: none;
 }
-
-/* ajax error row */
 .tablesorter .tablesorter-errorRow td {
-	text-align: center;
-	cursor: pointer;
-	background-color: #e6bf99;
+  text-align: center;
+  cursor: pointer;
+  background-color: #e6bf99;
 }
-
 /* http://prismjs.com/download.html?themes=prism-okaidia&languages=markup+css+css-extras+clike+javascript+java+php+coffeescript+scss+c+cpp+sql+http+csharp+aspnet+scala+apacheconf+git&plugins=line-highlight+line-numbers+show-language */
 /**
  * okaidia theme for JavaScript, CSS and HTML
