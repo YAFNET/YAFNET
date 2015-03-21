@@ -46,19 +46,21 @@ namespace YAF.Core.URLBuilder
         /// <summary>
         /// Build the url.
         /// </summary>
-        /// <param name="url">The url.</param>
+        /// <param name="url">
+        /// The url.
+        /// </param>
         /// <returns>
         /// Returns the URL.
         /// </returns>
         public override string BuildUrl(string url)
         {
-            string newUrl = "{0}{1}?{2}".FormatWith(AppPath, Config.ForceScriptName ?? ScriptName, url);
+            var newUrl = "{0}{1}?{2}".FormatWith(AppPath, Config.ForceScriptName ?? ScriptName, url);
 
             // create scriptName
-            string scriptName = "{0}{1}".FormatWith(AppPath, Config.ForceScriptName ?? ScriptName);
+            var scriptName = "{0}{1}".FormatWith(AppPath, Config.ForceScriptName ?? ScriptName);
 
             // get the base script file from the config -- defaults to, well, default.aspx :)
-            string scriptFile = Config.BaseScriptFile;
+            var scriptFile = Config.BaseScriptFile;
 
             if (url.IsNotSet())
             {
@@ -77,7 +79,7 @@ namespace YAF.Core.URLBuilder
                 var useKey = string.Empty;
                 var description = string.Empty;
                 var pageName = parser["g"];
-                ForumPages forumPage = ForumPages.forum;
+                var forumPage = ForumPages.forum;
                 var getDescription = false;
                 var isFeed = false;
                 var handlePage = false;
@@ -101,7 +103,13 @@ namespace YAF.Core.URLBuilder
                     {
                         case ForumPages.topics:
                             useKey = "f";
-                            description = UrlRewriteHelper.GetForumName(parser[useKey].ToType<int>());
+
+                            // description = UrlRewriteHelper.GetForumName(parser[useKey].ToType<int>());
+                            description =
+                                UrlRewriteHelper.CleanStringForURL(
+                                    parser["name"].IsSet()
+                                        ? parser["name"]
+                                        : UrlRewriteHelper.GetForumName(parser[useKey].ToType<int>()));
                             handlePage = true;
                             break;
                         case ForumPages.posts:
@@ -193,7 +201,7 @@ namespace YAF.Core.URLBuilder
 
                 if (handlePage && parser["p"] != null && !isFeed)
                 {
-                    int page = parser["p"].ToType<int>();
+                    var page = parser["p"].ToType<int>();
                     if (page != 1)
                     {
                         newUrl += "p{0}".FormatWith(page);
@@ -206,21 +214,21 @@ namespace YAF.Core.URLBuilder
                 {
                     if (parser["ft"] != null)
                     {
-                        int page = parser["ft"].ToType<int>();
+                        var page = parser["ft"].ToType<int>();
                         newUrl += "ft{0}".FormatWith(page);
                         parser.Parameters.Remove("ft");
                     }
 
                     if (parser["f"] != null)
                     {
-                        int page = parser["f"].ToType<int>();
+                        var page = parser["f"].ToType<int>();
                         newUrl += "f{0}".FormatWith(page);
                         parser.Parameters.Remove("f");
                     }
 
                     if (parser["t"] != null)
                     {
-                        int page = parser["t"].ToType<int>();
+                        var page = parser["t"].ToType<int>();
                         newUrl += "t{0}".FormatWith(page);
                         parser.Parameters.Remove("t");
                     }
@@ -244,7 +252,7 @@ namespace YAF.Core.URLBuilder
 
                 newUrl += ".aspx";
 
-                var restURL = parser.CreateQueryString(new[] { "g", useKey });
+                var restURL = parser.CreateQueryString(new[] { "g", useKey, "name" });
 
                 // append to the url if there are additional (unsupported) parameters
                 if (restURL.Length > 0)
@@ -259,7 +267,7 @@ namespace YAF.Core.URLBuilder
                     newUrl =
                         newUrl.Remove(
                             newUrl.LastIndexOf(
-                                "{0}forum.aspx".FormatWith(Config.UrlRewritingPrefix), StringComparison.Ordinal),
+                                "{0}forum.aspx".FormatWith(Config.UrlRewritingPrefix), StringComparison.Ordinal), 
                             "{0}forum.aspx".FormatWith(Config.UrlRewritingPrefix).Length);
                 }
 
@@ -279,8 +287,12 @@ namespace YAF.Core.URLBuilder
         /// <summary>
         /// Builds Full URL for calling page with parameter URL as page's escaped parameter.
         /// </summary>
-        /// <param name="boardSettings">The board settings.</param>
-        /// <param name="url">URL to put into parameter.</param>
+        /// <param name="boardSettings">
+        /// The board settings.
+        /// </param>
+        /// <param name="url">
+        /// URL to put into parameter.
+        /// </param>
         /// <returns>
         /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
         /// </returns>

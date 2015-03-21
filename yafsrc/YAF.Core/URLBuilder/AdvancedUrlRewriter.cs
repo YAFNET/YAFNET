@@ -21,7 +21,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 namespace YAF.Core.URLBuilder
 {
     #region Using
@@ -46,19 +45,21 @@ namespace YAF.Core.URLBuilder
         /// <summary>
         /// Build the url.
         /// </summary>
-        /// <param name="url">The url.</param>
+        /// <param name="url">
+        /// The url.
+        /// </param>
         /// <returns>
         /// Returns the URL.
         /// </returns>
         public override string BuildUrl(string url)
         {
-            string newUrl = "{0}{1}?{2}".FormatWith(AppPath, Config.ForceScriptName ?? ScriptName, url);
+            var newUrl = "{0}{1}?{2}".FormatWith(AppPath, Config.ForceScriptName ?? ScriptName, url);
 
             // create scriptName
-            string scriptName = "{0}{1}".FormatWith(AppPath, Config.ForceScriptName ?? ScriptName);
+            var scriptName = "{0}{1}".FormatWith(AppPath, Config.ForceScriptName ?? ScriptName);
 
             // get the base script file from the config -- defaults to, well, default.aspx :)
-            string scriptFile = Config.BaseScriptFile;
+            var scriptFile = Config.BaseScriptFile;
 
             if (url.IsNotSet())
             {
@@ -67,7 +68,7 @@ namespace YAF.Core.URLBuilder
 
             if (scriptName.EndsWith(scriptFile))
             {
-                string before = scriptName.Remove(scriptName.LastIndexOf(scriptFile, StringComparison.Ordinal));
+                var before = scriptName.Remove(scriptName.LastIndexOf(scriptFile, StringComparison.Ordinal));
 
                 var parser = new SimpleURLParameterParser(url);
 
@@ -77,11 +78,11 @@ namespace YAF.Core.URLBuilder
                 var useKey = string.Empty;
                 var description = string.Empty;
                 var pageName = parser["g"];
-                ForumPages forumPage = ForumPages.forum;
+                var forumPage = ForumPages.forum;
                 var getDescription = false;
 
-                bool isFeed = false;
-                bool handlePage = false;
+                var isFeed = false;
+                var handlePage = false;
 
                 if (pageName.IsSet())
                 {
@@ -103,7 +104,13 @@ namespace YAF.Core.URLBuilder
                         case ForumPages.topics:
                             useKey = "f";
                             pageName += "/";
-                            description = UrlRewriteHelper.GetForumName(parser[useKey].ToType<int>());
+
+                            // description = UrlRewriteHelper.GetForumName(parser[useKey].ToType<int>());
+                            description =
+                                UrlRewriteHelper.CleanStringForURL(
+                                    parser["name"].IsSet()
+                                        ? parser["name"]
+                                        : UrlRewriteHelper.GetForumName(parser[useKey].ToType<int>()));
                             handlePage = true;
                             break;
                         case ForumPages.posts:
@@ -224,21 +231,21 @@ namespace YAF.Core.URLBuilder
                 {
                     if (parser["ft"] != null)
                     {
-                        int page = parser["ft"].ToType<int>();
+                        var page = parser["ft"].ToType<int>();
                         newUrl += "ft{0}".FormatWith(page);
                         parser.Parameters.Remove("ft");
                     }
 
                     if (parser["f"] != null)
                     {
-                        int page = parser["f"].ToType<int>();
+                        var page = parser["f"].ToType<int>();
                         newUrl += "f{0}".FormatWith(page);
                         parser.Parameters.Remove("f");
                     }
 
                     if (parser["t"] != null)
                     {
-                        int page = parser["t"].ToType<int>();
+                        var page = parser["t"].ToType<int>();
                         newUrl += "t{0}".FormatWith(page);
                         parser.Parameters.Remove("t");
                     }
@@ -260,7 +267,7 @@ namespace YAF.Core.URLBuilder
                     newUrl += "-{0}".FormatWith(description);
                 }
 
-                var restURL = parser.CreateQueryString(new[] { "g", useKey });
+                var restURL = parser.CreateQueryString(new[] { "g", useKey, "name" });
 
                 // append to the url if there are additional (unsupported) parameters
                 if (restURL.Length > 0)
@@ -290,8 +297,12 @@ namespace YAF.Core.URLBuilder
         /// <summary>
         /// Builds path for calling page with URL argument as the parameter.
         /// </summary>
-        /// <param name="boardSettings">The board settings.</param>
-        /// <param name="url">URL to use as a parameter.</param>
+        /// <param name="boardSettings">
+        /// The board settings.
+        /// </param>
+        /// <param name="url">
+        /// URL to use as a parameter.
+        /// </param>
         /// <returns>
         /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
         /// </returns>
