@@ -4281,10 +4281,7 @@
     <Content Include="themes\Fancy\images\vote_refuse.gif" />
     <Content Include="themes\Fancy\images\voting_bar.gif" />
     <Content Include="themes\Fancy\js\Fancy.js" />
-    <Content Include="themes\Fancy\js\jquery.tipTip.minified.js" />
-    <Content Include="themes\Fancy\js\jquery.uniform.min.js" />
     <Content Include="themes\Fancy\theme.css" />
-    <Content Include="themes\Fancy\uniform.default.css" />
     <Content Include="themes\GreenGrey.xml" />
     <Content Include="themes\GreenGrey\albums.png" />
     <Content Include="themes\GreenGrey\arrow_up_button.png" />

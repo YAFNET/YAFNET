@@ -19,10 +19,6 @@ function pageLoad() {
     jQuery('.menuMyList .menuAccount a').text('E');
     jQuery(".loggedInUser").insertBefore('.menuMyList');
 	
-	if ((typeof(jQuery.fn.tipTip) != 'undefined')) {
-        jQuery("img, input, a").tipTip();
-    }
-    
 	jQuery(function() {
 	    if (jQuery('img.avatarimage').length && (typeof (jQuery.fn.onImagesLoaded) != 'undefined')) {
 	        jQuery('img.avatarimage').onImagesLoaded(function(_this) {
@@ -33,13 +29,6 @@ function pageLoad() {
 	        });
 	    }
 	});
-
-    if ((typeof(jQuery.fn.uniform) != 'undefined')) {
-        if (jQuery("input:checkbox").not('.MultiQuoteButton input')) {
-            jQuery("input:checkbox").not('.MultiQuoteButton input').uniform();
-        }
-        jQuery("input:radio, input:file").not('.MultiQuoteButton input').uniform();
-    }
 
     jQuery('.QuickSearchButton').text('A');
 
