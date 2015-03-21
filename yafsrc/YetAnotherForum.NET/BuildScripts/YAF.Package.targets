@@ -43,6 +43,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.notification.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.pagemethod.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.pagination.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.selectedQuoting.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.syntaxhighligher.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.tablesorter.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.tablesorter.min.js" />
@@ -52,7 +53,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.yafmodaldialog.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-2.1.3.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-2.1.3.intellisense.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-ui-1.11.3.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-ui-1.11.4.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-ui-i18n.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jsdifflib.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jsdifflib.min.js" />
@@ -78,6 +79,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.hovercard.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.notification.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.notification.min.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.selectedQuoting.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.syntaxhighligher.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.syntaxhighligher.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.yafmodaldialog.css" />

@@ -445,6 +445,7 @@ namespace ServiceStack
             return emptyCtorFn;
         }
 
+
         public static EmptyCtorDelegate GetConstructorMethodToCache(Type type)
         {
             if (type.IsInterface())
@@ -491,8 +492,9 @@ namespace ServiceStack
             var emptyCtor = type.GetEmptyConstructor();
             if (emptyCtor != null)
             {
-
-#if __IOS__ || XBOX || NETFX_CORE
+                return System.Linq.Expressions.Expression.Lambda<EmptyCtorDelegate>(
+                   System.Linq.Expressions.Expression.New(type)).Compile();
+/*#if __IOS__ || XBOX || NETFX_CORE
 				return () => Activator.CreateInstance(type);
 #elif WP || PCL
                 return System.Linq.Expressions.Expression.Lambda<EmptyCtorDelegate>(
@@ -510,7 +512,7 @@ namespace ServiceStack
                 ilgen.Emit(System.Reflection.Emit.OpCodes.Ret);
 
                 return (EmptyCtorDelegate)dm.CreateDelegate(typeof(EmptyCtorDelegate));
-#endif
+#endif*/
             }
 
 #if (SL5 && !WP) || XBOX
@@ -1684,6 +1686,29 @@ namespace ServiceStack
         public static Type GetCollectionType(this Type type)
         {
             return type.ElementType() ?? type.GetTypeGenericArguments().FirstOrDefault();
+        }
+
+        public static Dictionary<string, object> ToObjectDictionary<T>(this T obj)
+        {
+            var alreadyDict = obj as Dictionary<string, object>;
+            if (alreadyDict != null)
+                return alreadyDict;
+
+            var dict = new Dictionary<string, object>();
+            
+            foreach (var pi in obj.GetType().GetSerializableProperties())
+            {
+                dict[pi.Name] = pi.GetValue(obj, null);
+            }
+
+            if (JsConfig.IncludePublicFields)
+            {
+                foreach (var fi in obj.GetType().GetSerializableFields())
+                {
+                    dict[fi.Name] = fi.GetValue(obj);
+                }
+            }
+            return dict;
         }
     }
 

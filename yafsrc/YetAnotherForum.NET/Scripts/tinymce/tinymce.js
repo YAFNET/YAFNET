@@ -1,4 +1,4 @@
-// 4.1.8 (2015-03-05)
+// 4.1.9 (2015-03-10)
 
 /**
  * Compiled inline version. (Library mode)
@@ -16242,12 +16242,12 @@ define("tinymce/Formatter", [
 
 			// BlockFormat shortcuts keys
 			for (var i = 1; i <= 6; i++) {
-				ed.addShortcut('meta+alt+' + i, '', ['FormatBlock', false, 'h' + i]);
+				ed.addShortcut('meta+shift+' + i, '', ['FormatBlock', false, 'h' + i]);
 			}
 
-			ed.addShortcut('meta+alt+7', '', ['FormatBlock', false, 'p']);
-			ed.addShortcut('meta+alt+8', '', ['FormatBlock', false, 'div']);
-			ed.addShortcut('meta+alt+9', '', ['FormatBlock', false, 'address']);
+			ed.addShortcut('meta+shift+7', '', ['FormatBlock', false, 'p']);
+			ed.addShortcut('meta+shift+8', '', ['FormatBlock', false, 'div']);
+			ed.addShortcut('meta+shift+9', '', ['FormatBlock', false, 'address']);
 		}
 
 		// Public functions
@@ -16346,7 +16346,7 @@ define("tinymce/Formatter", [
 				textDecoration = getTextDecoration(node.parentNode);
 				if (ed.dom.getStyle(node, 'color') && textDecoration) {
 					ed.dom.setStyle(node, 'text-decoration', textDecoration);
-				} else if (ed.dom.getStyle(node, 'textdecoration') === textDecoration) {
+				} else if (ed.dom.getStyle(node, 'text-decoration') === textDecoration) {
 					ed.dom.setStyle(node, 'text-decoration', null);
 				}
 			}
@@ -16820,6 +16820,11 @@ define("tinymce/Formatter", [
 				// checks for another more suitable node
 				if (isBookmarkNode(out)) {
 					out = out[start ? 'firstChild' : 'lastChild'];
+				}
+
+				// Since dom.remove removes empty text nodes then we need to try to find a better node
+				if (out.nodeType == 3 && out.data.length === 0) {
+					out = start ? node.previousSibling || node.nextSibling : node.nextSibling || node.previousSibling;
 				}
 
 				dom.remove(node, true);
@@ -19996,6 +20001,31 @@ define("tinymce/EditorCommands", [
 					return html;
 				}
 
+				// Removes &nbsp; from a [b] c -> a &nbsp;c -> a c
+				function trimNbspAfterDeleteAndPaddValue() {
+					var rng, container, offset;
+
+					rng = selection.getRng(true);
+					container = rng.startContainer;
+					offset = rng.startOffset;
+
+					if (container.nodeType == 3 && rng.collapsed) {
+						if (container.data[offset] === '\u00a0') {
+							container.deleteData(offset, 1);
+
+							if (!/[\u00a0| ]$/.test(value)) {
+								value += ' ';
+							}
+						} else if (container.data[offset - 1] === '\u00a0') {
+							container.deleteData(offset - 1, 1);
+
+							if (!/[\u00a0| ]$/.test(value)) {
+								value = ' ' + value;
+							}
+						}
+					}
+				}
+
 				function markInlineFormatElements(fragment) {
 					if (merge) {
 						for (node = fragment.firstChild; node; node = node.walk(true)) {
@@ -20066,6 +20096,7 @@ define("tinymce/EditorCommands", [
 				// Insert node maker where we will insert the new HTML and get it's parent
 				if (!selection.isCollapsed()) {
 					editor.getDoc().execCommand('Delete', false, null);
+					trimNbspAfterDeleteAndPaddValue();
 				}
 
 				parentNode = selection.getNode();
@@ -31254,7 +31285,7 @@ define("tinymce/EditorManager", [
 		 * @property minorVersion
 		 * @type String
 		 */
-		minorVersion: '1.8',
+		minorVersion: '1.9',
 
 		/**
 		 * Release date of TinyMCE build.
@@ -31262,7 +31293,7 @@ define("tinymce/EditorManager", [
 		 * @property releaseDate
 		 * @type String
 		 */
-		releaseDate: '2015-03-05',
+		releaseDate: '2015-03-10',
 
 		/**
 		 * Collection of editor instances.
