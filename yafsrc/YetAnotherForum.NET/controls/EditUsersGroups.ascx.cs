@@ -21,18 +21,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Controls
 {
     #region Using
 
     using System;
-    using System.Data;
     using System.Linq;
     using System.Web.UI.WebControls;
-    using YAF.Classes.Data;
+
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -59,7 +59,7 @@ namespace YAF.Controls
         {
             get
             {
-                return (int)this.PageContext.QueryIDs["u"];
+                return this.PageContext.QueryIDs["u"].ToType<int>();
             }
         }
 
@@ -78,12 +78,12 @@ namespace YAF.Controls
         /// </param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // redurect to user admin page.
+            // redirect to user admin page.
             YafBuildLink.Redirect(ForumPages.admin_users);
         }
 
         /// <summary>
-        /// Checks if user is memeber of role or not depending on value of parameter.
+        /// Checks if user is member of role or not depending on value of parameter.
         /// </summary>
         /// <param name="o">
         /// Parameter if 0, user is not member of a role.
@@ -133,25 +133,26 @@ namespace YAF.Controls
         protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // go through all roles displayed on page
-            for (int i = 0; i < this.UserGroups.Items.Count; i++)
+            for (var i = 0; i < this.UserGroups.Items.Count; i++)
             {
                 // get current item
-                RepeaterItem item = this.UserGroups.Items[i];
+                var item = this.UserGroups.Items[i];
 
                 // get role ID from it
-                int roleID = int.Parse(((Label)item.FindControl("GroupID")).Text);
+                var roleID = int.Parse(((Label)item.FindControl("GroupID")).Text);
 
                 // get role name
-                string roleName = this.GetRepository<Group>().ListTyped(boardId: this.PageContext.PageBoardID, groupID: roleID).FirstOrDefault().Name;
+                var roleName = this.GetRepository<Group>().ListTyped(boardId: this.PageContext.PageBoardID, groupID: roleID).FirstOrDefault().Name;
 
                 // is user supposed to be in that role?
-                bool isChecked = ((CheckBox)item.FindControl("GroupMember")).Checked;
+                var isChecked = ((CheckBox)item.FindControl("GroupMember")).Checked;
 
                 // save user in role
                 this.Get<IDbFunction>().Query.usergroup_save(this.CurrentUserID, roleID, isChecked);
 
-                // empty out access table
-                this.Get<IDbFunction>().Query.activeaccess_reset();
+                // empty out access table(s)
+                this.GetRepository<Active>().DeleteAll();
+                this.GetRepository<ActiveAccess>().DeleteAll();
 
                 // update roles if this user isn't the guest
                 if (UserMembershipHelper.IsGuestUser(this.CurrentUserID))
@@ -160,7 +161,7 @@ namespace YAF.Controls
                 }
 
                 // get user's name
-                string userName = UserMembershipHelper.GetUserNameFromID(this.CurrentUserID);
+                var userName = UserMembershipHelper.GetUserNameFromID(this.CurrentUserID);
 
                 // add/remove user from roles in membership provider
                 if (isChecked && !RoleMembershipHelper.IsUserInRole(userName, roleName))

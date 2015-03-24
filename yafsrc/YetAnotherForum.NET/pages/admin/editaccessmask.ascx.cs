@@ -31,13 +31,13 @@ namespace YAF.Pages.Admin
 
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -163,8 +163,9 @@ namespace YAF.Pages.Admin
                     this.DownloadAccess.Checked,
                     sortOrder);
 
-            // empty out access table
-            this.Get<IDbFunction>().Query.activeaccess_reset();
+            // empty out access table(s)
+            this.GetRepository<Active>().DeleteAll();
+            this.GetRepository<ActiveAccess>().DeleteAll();
 
             // clear cache
             this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
