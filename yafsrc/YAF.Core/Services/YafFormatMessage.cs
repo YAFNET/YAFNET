@@ -371,12 +371,12 @@ namespace YAF.Core.Services
                     .CreateBBCodeRules(ruleEngine, true /*messageFlags.IsBBCode*/, targetBlankOverride, useNoFollow);
 
                 // add email rule
-                // vzrus: it's freezing  when post body contains full email adress.
+                // vzrus: it's freezing  when post body contains full email address.
                 // the fix provided by community 
                 var email = new VariableRegexReplaceRule(
                     _RgxEmail,
                     "${before}<a href=\"mailto:${inner}\">${inner}</a>",
-                    new[] { "before" }) { RuleRank = 10 };
+                    new[] { "before" }) { RuleRank = 31 };
 
                 ruleEngine.AddRule(email);
 

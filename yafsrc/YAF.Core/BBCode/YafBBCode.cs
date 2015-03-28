@@ -40,7 +40,6 @@ namespace YAF.Core.BBCode
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -649,21 +648,13 @@ namespace YAF.Core.BBCode
             {
                 // add rule for code block type with syntax highlighting
                 ruleEngine.AddRule(
-                    new SyntaxHighlightedCodeRegexReplaceRule(
-                        _regexCodeWithLanguage,
-                        @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}", localCodeStr))
-                        {
-                            RuleRank = 40
-                        });
+                    new SyntaxHighlightedCodeRegexReplaceRule(_regexCodeWithLanguage, "${inner}") { RuleRank = 30 });
 
                 // handle custom YafBBCode
                 this.AddCustomBBCodeRules(ruleEngine);
 
                 // add rule for code block type with no syntax highlighting
-                ruleEngine.AddRule(
-                    new SyntaxHighlightedCodeRegexReplaceRule(
-                        _rgxCode1, 
-                        @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}", localCodeStr)));
+                ruleEngine.AddRule(new SyntaxHighlightedCodeRegexReplaceRule(_rgxCode1, "${inner}"));
 
                 ruleEngine.AddRule(
                     new QuoteRegexReplaceRule(
@@ -1041,12 +1032,12 @@ namespace YAF.Core.BBCode
 
             // handle custom bbcodes row by row...
             foreach (var codeRow in
-                bbcodeTable.Where<BBCode>(codeRow => !(codeRow.UseModule ?? false) && StringExtensions.IsSet(codeRow.SearchRegex)))
+                bbcodeTable.Where(codeRow => !(codeRow.UseModule ?? false) && codeRow.SearchRegex.IsSet()))
             {
                 if (codeRow.Variables.IsSet())
                 {
                     // handle variables...
-                    string[] variables = codeRow.Variables.Split(new[] { ';' });
+                    string[] variables = codeRow.Variables.Split(';');
 
                     var rule = new VariableRegexReplaceRule(
                         codeRow.SearchRegex, codeRow.ReplaceRegex, _Options, variables) { RuleRank = 50 };

@@ -663,15 +663,6 @@ html { min-height: 100%; }
 .yafnet  .innerquote {
     font-style: italic;
 }
-/* used for code */
-.yafnet .innercode {
-	padding: 4px;
-	
-	color: #000000;
-	line-height: 1.3em;
-	font-family: "courier new", "times new roman", monospace;
-    overflow-x: auto;
-}
 /* font sizes */
 .yafnet .smallfont	{ font-size: 10px; }
 .yafnet .largefont	{ font-size: 11px; }
