@@ -167,7 +167,8 @@ namespace YAF.Classes
                     if (fileName.IsSet())
                     {
                         // Replace dots in the name with underscores (only one dot can be there... security issue).
-                        fileName = Regex.Replace(fileName, @"\.(?![^.]*$)", "_", RegexOptions.None);
+                        // NOTE: Not needed in ASP.NET
+                        //fileName = Regex.Replace(fileName, @"\.(?![^.]*$)", "_", RegexOptions.None);
 
                         // Check for Illegal Chars
                         if (FileHelper.ValidateFileName(fileName))
