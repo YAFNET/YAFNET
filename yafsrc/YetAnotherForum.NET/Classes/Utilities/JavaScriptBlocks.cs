@@ -858,7 +858,7 @@ namespace YAF.Utilities
                     boardID: '{5}',
                     allowedUpload: true
                 }},
-                dropZone: {0}('#dropzone')
+                dropZone: {0}('.UploadDialog')
             }});
             {0}(document).bind('dragover', function (e) {{
                 var dropZone = {0}('#dropzone'),
