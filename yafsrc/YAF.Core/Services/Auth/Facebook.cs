@@ -21,7 +21,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 namespace YAF.Core.Services.Auth
 {
     using System;
@@ -52,8 +51,12 @@ namespace YAF.Core.Services.Auth
         /// <summary>
         /// Gets the authorize URL.
         /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns>Returns the Authorize URL</returns>
+        /// <param name="request">
+        /// The request.
+        /// </param>
+        /// <returns>
+        /// Returns the Authorize URL
+        /// </returns>
         public string GetAuthorizeUrl(HttpRequest request)
         {
             const string SCOPE = "email,user_birthday,status_update,publish_stream,user_location";
@@ -62,17 +65,21 @@ namespace YAF.Core.Services.Auth
 
             return
                 "https://graph.facebook.com/oauth/authorize?client_id={0}&redirect_uri={1}{2}&scope={3}".FormatWith(
-                    Config.FacebookAPIKey,
-                    redirectUrl,
-                    redirectUrl.Contains("connectCurrent") ? "&state=connectCurrent" : string.Empty,
+                    Config.FacebookAPIKey, 
+                    redirectUrl, 
+                    redirectUrl.Contains("connectCurrent") ? "&state=connectCurrent" : string.Empty, 
                     SCOPE);
         }
 
         /// <summary>
         /// Gets the access token.
         /// </summary>
-        /// <param name="authorizationCode">The authorization code.</param>
-        /// <param name="request">The request.</param>
+        /// <param name="authorizationCode">
+        /// The authorization code.
+        /// </param>
+        /// <param name="request">
+        /// The request.
+        /// </param>
         /// <returns>
         /// Returns the Access Token
         /// </returns>
@@ -81,9 +88,9 @@ namespace YAF.Core.Services.Auth
             var urlGetAccessToken =
                 "https://graph.facebook.com/oauth/access_token?client_id={0}&client_secret={1}&redirect_uri={2}&code={3}"
                     .FormatWith(
-                        Config.FacebookAPIKey,
-                        Config.FacebookSecretKey,
-                        this.GetRedirectURL(request),
+                        Config.FacebookAPIKey, 
+                        Config.FacebookSecretKey, 
+                        this.GetRedirectURL(request), 
                         authorizationCode);
 
             var responseData = AuthUtilities.WebRequest(AuthUtilities.Method.GET, urlGetAccessToken, null);
@@ -103,8 +110,12 @@ namespace YAF.Core.Services.Auth
         /// <summary>
         /// Get The Facebook User Profile of the Current User
         /// </summary>
-        /// <param name="request">The request.</param>
-        /// <param name="access_token">The access_token.</param>
+        /// <param name="request">
+        /// The request.
+        /// </param>
+        /// <param name="access_token">
+        /// The access_token.
+        /// </param>
         /// <returns>
         /// Returns the FacebookUser Profile
         /// </returns>
@@ -120,14 +131,20 @@ namespace YAF.Core.Services.Auth
         /// <summary>
         /// Generates the login URL.
         /// </summary>
-        /// <param name="generatePopUpUrl">if set to <c>true</c> [generate pop up URL].</param>
-        /// <param name="connectCurrentUser">if set to <c>true</c> [connect current user].</param>
-        /// <returns>Returns the login URL</returns>
+        /// <param name="generatePopUpUrl">
+        /// if set to <c>true</c> [generate pop up URL].
+        /// </param>
+        /// <param name="connectCurrentUser">
+        /// if set to <c>true</c> [connect current user].
+        /// </param>
+        /// <returns>
+        /// Returns the login URL
+        /// </returns>
         public string GenerateLoginUrl(bool generatePopUpUrl, bool connectCurrentUser = false)
         {
             var authUrl = "{0}auth.aspx?auth={1}{2}".FormatWith(
                 YafForumInfo.ForumBaseUrl, 
-                AuthService.facebook,
+                AuthService.facebook, 
                 connectCurrentUser ? "&connectCurrent=true" : string.Empty);
 
             return authUrl;
@@ -136,10 +153,18 @@ namespace YAF.Core.Services.Auth
         /// <summary>
         /// Logins the or create user.
         /// </summary>
-        /// <param name="request">The request.</param>
-        /// <param name="parameters">The access token.</param>
-        /// <param name="message">The message.</param>
-        /// <returns>Returns if Login was successful or not</returns>
+        /// <param name="request">
+        /// The request.
+        /// </param>
+        /// <param name="parameters">
+        /// The access token.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <returns>
+        /// Returns if Login was successful or not
+        /// </returns>
         public bool LoginOrCreateUser(HttpRequest request, string parameters, out string message)
         {
             if (!YafContext.Current.Get<YafBoardSettings>().AllowSingleSignOn)
@@ -151,7 +176,7 @@ namespace YAF.Core.Services.Auth
 
             var facebookUser = this.GetFacebookUser(request, parameters);
 
-            // Check if username is null
+            // Check if user name is null
             if (facebookUser.UserName.IsNotSet())
             {
                 facebookUser.UserName = facebookUser.Name;
@@ -193,7 +218,7 @@ namespace YAF.Core.Services.Auth
             {
                 if (!yafUser.Facebook.Equals(facebookUser.UserID))
                 {
-                    message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FACEBOOK_FAILED");
+                    message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FACEBOOK_FAILED2");
 
                     return false;
                 }
@@ -201,7 +226,7 @@ namespace YAF.Core.Services.Auth
 
             if (!yafUser.FacebookId.Equals(facebookUser.UserID))
             {
-                message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FACEBOOK_FAILED");
+                message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FACEBOOK_FAILED2");
 
                 return false;
             }
@@ -216,9 +241,15 @@ namespace YAF.Core.Services.Auth
         /// <summary>
         /// Connects the user.
         /// </summary>
-        /// <param name="request">The request.</param>
-        /// <param name="parameters">The access token.</param>
-        /// <param name="message">The message.</param>
+        /// <param name="request">
+        /// The request.
+        /// </param>
+        /// <param name="parameters">
+        /// The access token.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
         /// <returns>
         /// Returns if the connect was successful or not
         /// </returns>
@@ -226,7 +257,7 @@ namespace YAF.Core.Services.Auth
         {
             var facebookUser = this.GetFacebookUser(request, parameters);
 
-            // Check if username is null
+            // Check if user name is null
             if (facebookUser.UserName.IsNotSet())
             {
                 facebookUser.UserName = facebookUser.Name;
@@ -259,7 +290,7 @@ namespace YAF.Core.Services.Auth
                 }
 
                 // Update profile with facebook informations
-                YafUserProfile userProfile = YafContext.Current.Profile;
+                var userProfile = YafContext.Current.Profile;
 
                 userProfile.Facebook = facebookUser.ProfileURL;
                 userProfile.FacebookId = facebookUser.UserID;
@@ -289,9 +320,9 @@ namespace YAF.Core.Services.Auth
 
                 // save avatar
                 LegacyDb.user_saveavatar(
-                    YafContext.Current.PageUserID,
-                    "https://graph.facebook.com/{0}/picture".FormatWith(facebookUser.UserID),
-                    null,
+                    YafContext.Current.PageUserID, 
+                    "https://graph.facebook.com/{0}/picture".FormatWith(facebookUser.UserID), 
+                    null, 
                     null);
 
                 YafSingleSignOnUser.LoginSuccess(AuthService.facebook, null, YafContext.Current.PageUserID, false);
@@ -308,8 +339,12 @@ namespace YAF.Core.Services.Auth
         /// <summary>
         /// Gets the redirect URL.
         /// </summary>
-        /// <param name="request">The request.</param>
-        /// <returns>Returns the Redirect URL</returns>
+        /// <param name="request">
+        /// The request.
+        /// </param>
+        /// <returns>
+        /// Returns the Redirect URL
+        /// </returns>
         private string GetRedirectURL(HttpRequest request)
         {
             var urlCurrentPage = request.Url.AbsoluteUri.IndexOf('?') == -1
@@ -318,7 +353,7 @@ namespace YAF.Core.Services.Auth
 
             var nvc = new NameValueCollection();
 
-            foreach (string key in request.QueryString.Cast<string>().Where(key => key != "code"))
+            foreach (var key in request.QueryString.Cast<string>().Where(key => key != "code"))
             {
                 nvc.Add(key, request.QueryString[key]);
             }
@@ -337,9 +372,15 @@ namespace YAF.Core.Services.Auth
         /// <summary>
         /// Creates the facebook user
         /// </summary>
-        /// <param name="facebookUser">The facebook user.</param>
-        /// <param name="userGender">The user gender.</param>
-        /// <param name="message">The message.</param>
+        /// <param name="facebookUser">
+        /// The facebook user.
+        /// </param>
+        /// <param name="userGender">
+        /// The user gender.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
         /// <returns>
         /// Returns if the login was successfully or not
         /// </returns>
@@ -362,10 +403,10 @@ namespace YAF.Core.Services.Auth
             if (spamChecker.CheckUserForSpamBot(facebookUser.UserName, facebookUser.Email, userIpAddress, out result))
             {
                 YafContext.Current.Get<ILogger>().Log(
-                    null,
-                    "Bot Detected",
+                    null, 
+                    "Bot Detected", 
                     "Bot Check detected a possible SPAM BOT: (user name : '{0}', email : '{1}', ip: '{2}', reason : {3}), user was rejected."
-                        .FormatWith(facebookUser.UserName, facebookUser.Email, userIpAddress, result),
+                        .FormatWith(facebookUser.UserName, facebookUser.Email, userIpAddress, result), 
                     EventLogTypes.SpamBotDetected);
 
                 if (YafContext.Current.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
@@ -384,9 +425,9 @@ namespace YAF.Core.Services.Auth
 
                     YafContext.Current.GetRepository<BannedIP>()
                         .Save(
-                            null,
-                            userIpAddress,
-                            "A spam Bot who was trying to register was banned by IP {0}".FormatWith(userIpAddress),
+                            null, 
+                            userIpAddress, 
+                            "A spam Bot who was trying to register was banned by IP {0}".FormatWith(userIpAddress), 
                             YafContext.Current.PageUserID);
 
                     // Clear cache
@@ -396,10 +437,10 @@ namespace YAF.Core.Services.Auth
                     {
                         YafContext.Current.Get<ILogger>()
                             .Log(
-                                null,
-                                "IP BAN of Bot During Registration",
+                                null, 
+                                "IP BAN of Bot During Registration", 
                                 "A spam Bot who was trying to register was banned by IP {0}".FormatWith(
-                                    userIpAddress),
+                                    userIpAddress), 
                                 EventLogTypes.IpBanSet);
                     }
 
@@ -412,25 +453,25 @@ namespace YAF.Core.Services.Auth
             var pass = Membership.GeneratePassword(32, 16);
             var securityAnswer = Membership.GeneratePassword(64, 30);
 
-            MembershipUser user = YafContext.Current.Get<MembershipProvider>()
+            var user = YafContext.Current.Get<MembershipProvider>()
                 .CreateUser(
-                    facebookUser.UserName,
-                    pass,
-                    facebookUser.Email,
-                    "Answer is a generated Pass",
-                    securityAnswer,
-                    true,
-                    null,
+                    facebookUser.UserName, 
+                    pass, 
+                    facebookUser.Email, 
+                    "Answer is a generated Pass", 
+                    securityAnswer, 
+                    true, 
+                    null, 
                     out status);
 
-            // setup inital roles (if any) for this user
+            // setup initial roles (if any) for this user
             RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, facebookUser.UserName);
 
             // create the user in the YAF DB as well as sync roles...
-            int? userID = RoleMembershipHelper.CreateForumUser(user, YafContext.Current.PageBoardID);
+            var userID = RoleMembershipHelper.CreateForumUser(user, YafContext.Current.PageBoardID);
 
             // create empty profile just so they have one
-            YafUserProfile userProfile = YafUserProfile.GetProfile(facebookUser.UserName);
+            var userProfile = YafUserProfile.GetProfile(facebookUser.UserName);
 
             userProfile.Facebook = facebookUser.ProfileURL;
             userProfile.FacebookId = facebookUser.UserID;
@@ -458,7 +499,7 @@ namespace YAF.Core.Services.Auth
 
             userProfile.Save();
 
-            // setup their inital profile information
+            // setup their initial profile information
             userProfile.Save();
 
             if (userID == null)
@@ -484,43 +525,43 @@ namespace YAF.Core.Services.Auth
                 .SendRegistrationNotificationToUser(user, pass, securityAnswer, "NOTIFICATION_ON_FACEBOOK_REGISTER");
 
             // save the time zone...
-            int userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
+            var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
 
             LegacyDb.user_save(
-                userId,
-                YafContext.Current.PageBoardID,
-                facebookUser.UserName,
-                facebookUser.UserName,
-                facebookUser.Email,
-                0,
-                null,
-                null,
-                true,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
+                userId, 
+                YafContext.Current.PageBoardID, 
+                facebookUser.UserName, 
+                facebookUser.UserName, 
+                facebookUser.Email, 
+                0, 
+                null, 
+                null, 
+                true, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null, 
                 null);
 
-            bool autoWatchTopicsEnabled = YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting
+            var autoWatchTopicsEnabled = YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting
                                           == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
             // save the settings...
             LegacyDb.user_savenotification(
-                userId,
-                true,
-                autoWatchTopicsEnabled,
-                YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
+                userId, 
+                true, 
+                autoWatchTopicsEnabled, 
+                YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting, 
                 YafContext.Current.Get<YafBoardSettings>().DefaultSendDigestEmail);
 
             // save avatar
             LegacyDb.user_saveavatar(
-                userId,
-                "https://graph.facebook.com/{0}/picture".FormatWith(facebookUser.UserID),
-                null,
+                userId, 
+                "https://graph.facebook.com/{0}/picture".FormatWith(facebookUser.UserID), 
+                null, 
                 null);
 
             YafContext.Current.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));

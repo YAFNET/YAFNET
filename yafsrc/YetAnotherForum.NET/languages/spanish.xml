@@ -4605,12 +4605,15 @@ public class Hello1
     <Resource tag="SSO_DEACTIVATED">El inicio de sesión único no está disponible en estos momentos.</Resource>
     <Resource tag="SSO_DEACTIVATED_BYUSER">El inicio de sesión único no está disponible para este usuario, necesitas activarlo en tu configuración de cuenta para usarlo en el futuro.</Resource>
     <Resource tag="SSO_FACEBOOK_FAILED">El ingreso en Facebook ha fallado, el usuario no existe o la cuenta no está activada.</Resource>
+    <Resource tag="SSO_FACEBOOK_FAILED2">The Facebook Login failed, an user account with the same email address as the facebook account already exists, please try to connect you your forum account instead.</Resource>
     <Resource tag="SSO_FACEBOOKNAME_NOTMATCH">La cuenta de email de Facebook debe coincidir con la cuenta de email del foro.</Resource>
     <Resource tag="SSO_FAILED">Nuevos registros están desactivados.</Resource>
     <Resource tag="SSO_GOOGLE_FAILED">El ingreso en Google ha fallado, el usuario no existe o la cuenta no está activada.</Resource>
+    <Resource tag="SSO_GOOGLE_FAILED2">The Google Login failed, an user account with the same email address as the Google account already exists, please try to connect you your forum account instead.</Resource>
     <Resource tag="SSO_GOOGLENAME_NOTMATCH">La dirección de email de Google debe coincidir con la dirección de email del foro.</Resource>
     <Resource tag="SSO_ID_NOTMATCH">La cuenta de usuario no está activa o no ha sido encontrada.</Resource>
     <Resource tag="SSO_TWITTER_FAILED">El ingreso en Twitter ha fallado, la cuenta de usuario no existe.</Resource>
+    <Resource tag="SSO_TWITTER_FAILED2">The Twitter Login failed, an user account with the same user name as the Twitter account already exists, please try to connect you your forum account instead.</Resource>
     <Resource tag="SSO_TWITTERNAME_NOTMATCH">El nombre de usuario de Twitter debe coincidir con el nombre de usuario del foro.</Resource>
     <Resource tag="TITLE">Iniciar sesión</Resource>
     <Resource tag="TWITTER_DM">Has recibido información adicional sobre tu cuenta como un mensaje privado en el foro.</Resource>

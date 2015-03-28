@@ -30,17 +30,14 @@ namespace YAF.Core.Services.Auth
 
     using YAF.Classes;
     using YAF.Classes.Data;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     /// <summary>
     /// Twitter Single Sign On Class
@@ -50,19 +47,25 @@ namespace YAF.Core.Services.Auth
         /// <summary>
         /// Generates the login URL.
         /// </summary>
-        /// <param name="generatePopUpUrl">if set to <c>true</c> [generate pop up URL].</param>
-        /// <param name="connectCurrentUser">if set to <c>true</c> [connect current user].</param>
-        /// <returns>Returns the Login URL</returns>
+        /// <param name="generatePopUpUrl">
+        /// if set to <c>true</c> [generate pop up URL].
+        /// </param>
+        /// <param name="connectCurrentUser">
+        /// if set to <c>true</c> [connect current user].
+        /// </param>
+        /// <returns>
+        /// Returns the Login URL
+        /// </returns>
         public string GenerateLoginUrl(bool generatePopUpUrl, bool connectCurrentUser = false)
         {
             var oAuth = new OAuthTwitter
                             {
                                 CallBackUrl =
                                     "{0}auth.aspx?auth={1}{2}".FormatWith(
-                                        YafForumInfo.ForumBaseUrl,
-                                        AuthService.twitter,
-                                        connectCurrentUser ? "&connectCurrent=true" : string.Empty),
-                                ConsumerKey = Config.TwitterConsumerKey,
+                                        YafForumInfo.ForumBaseUrl, 
+                                        AuthService.twitter, 
+                                        connectCurrentUser ? "&connectCurrent=true" : string.Empty), 
+                                ConsumerKey = Config.TwitterConsumerKey, 
                                 ConsumerSecret = Config.TwitterConsumerSecret
                             };
 
@@ -75,9 +78,15 @@ namespace YAF.Core.Services.Auth
         /// <summary>
         /// Logins the or create user.
         /// </summary>
-        /// <param name="request">The request.</param>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="message">The message.</param>
+        /// <param name="request">
+        /// The request.
+        /// </param>
+        /// <param name="parameters">
+        /// The parameters.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
         /// <returns>
         /// Returns if Login was successful or not
         /// </returns>
@@ -85,7 +94,7 @@ namespace YAF.Core.Services.Auth
         {
             var oAuth = new OAuthTwitter
                             {
-                                ConsumerKey = Config.TwitterConsumerKey,
+                                ConsumerKey = Config.TwitterConsumerKey, 
                                 ConsumerSecret = Config.TwitterConsumerSecret
                             };
 
@@ -116,7 +125,7 @@ namespace YAF.Core.Services.Auth
 
                     if (yafUser.Twitter.IsNotSet() && yafUser.TwitterId.IsNotSet())
                     {
-                        // user with the same name exists but account is not conncected, exit!
+                        // user with the same name exists but account is not connected, exit!
                         message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_TWITTER_FAILED");
 
                         return false;
@@ -148,9 +157,15 @@ namespace YAF.Core.Services.Auth
         /// <summary>
         /// Connects the user.
         /// </summary>
-        /// <param name="request">The request.</param>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="message">The message.</param>
+        /// <param name="request">
+        /// The request.
+        /// </param>
+        /// <param name="parameters">
+        /// The parameters.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
         /// <returns>
         /// Returns if the connect was successful or not
         /// </returns>
@@ -158,7 +173,7 @@ namespace YAF.Core.Services.Auth
         {
             var oAuth = new OAuthTwitter
                             {
-                                ConsumerKey = Config.TwitterConsumerKey,
+                                ConsumerKey = Config.TwitterConsumerKey, 
                                 ConsumerSecret = Config.TwitterConsumerSecret
                             };
 
@@ -176,7 +191,7 @@ namespace YAF.Core.Services.Auth
                     // Create User if not exists?!
                     if (!YafContext.Current.IsGuest && !YafContext.Current.Get<YafBoardSettings>().DisableRegistrations)
                     {
-                        // Because twitter doesnt provide the email we need to match the user name...
+                        // Because twitter doesn't provide the email we need to match the user name...
                         if (twitterUser.UserName != YafContext.Current.Profile.UserName)
                         {
                             message = YafContext.Current.Get<ILocalization>()
@@ -203,9 +218,9 @@ namespace YAF.Core.Services.Auth
                         if (twitterUser.ProfileImageUrl.IsSet())
                         {
                             LegacyDb.user_saveavatar(
-                                YafContext.Current.PageUserID,
-                                twitterUser.ProfileImageUrl,
-                                null,
+                                YafContext.Current.PageUserID, 
+                                twitterUser.ProfileImageUrl, 
+                                null, 
                                 null);
                         }
 
@@ -226,9 +241,15 @@ namespace YAF.Core.Services.Auth
         /// <summary>
         /// Creates the or assign twitter user.
         /// </summary>
-        /// <param name="twitterUser">The twitter user.</param>
-        /// <param name="oAuth">The oAUTH.</param>
-        /// <param name="message">The message.</param>
+        /// <param name="twitterUser">
+        /// The twitter user.
+        /// </param>
+        /// <param name="oAuth">
+        /// The oAUTH.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
         /// <returns>
         /// Returns if the login was successfully or not
         /// </returns>
@@ -240,7 +261,7 @@ namespace YAF.Core.Services.Auth
                 return false;
             }
 
-            // Create User if not exists?! Doesnt work because there is no Email
+            // Create User if not exists?! Doesn't work because there is no Email
             var email = "{0}@twitter.com".FormatWith(twitterUser.UserName);
 
             // Check user for bot
@@ -307,16 +328,16 @@ namespace YAF.Core.Services.Auth
 
             MembershipUser user = YafContext.Current.Get<MembershipProvider>()
                 .CreateUser(
-                    twitterUser.UserName,
-                    pass,
-                    email,
-                    "Answer is a generated Pass",
-                    securityAnswer,
-                    true,
-                    null,
+                    twitterUser.UserName, 
+                    pass, 
+                    email, 
+                    "Answer is a generated Pass", 
+                    securityAnswer, 
+                    true, 
+                    null, 
                     out status);
 
-            // setup inital roles (if any) for this user
+            // setup initial roles (if any) for this user
             RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, twitterUser.UserName);
 
             // create the user in the YAF DB as well as sync roles...
@@ -336,7 +357,7 @@ namespace YAF.Core.Services.Auth
 
             userProfile.Save();
 
-            // setup their inital profile information
+            // setup their initial profile information
             userProfile.Save();
 
             if (userID == null)
@@ -354,39 +375,39 @@ namespace YAF.Core.Services.Auth
             }
 
             // save the time zone...
-            int userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
+            var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
 
             // send user register notification to the following admin users...
             SendRegistrationMessageToTwitterUser(user, pass, securityAnswer, userId, oAuth);
 
             LegacyDb.user_save(
-                userId,
-                YafContext.Current.PageBoardID,
-                twitterUser.UserName,
-                null,
-                email,
-                0,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
+                userId, 
+                YafContext.Current.PageBoardID, 
+                twitterUser.UserName, 
+                null, 
+                email, 
+                0, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null, 
                 null);
 
-            bool autoWatchTopicsEnabled = YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting
+            var autoWatchTopicsEnabled = YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting
                                           == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
             // save the settings...
             LegacyDb.user_savenotification(
-                userId,
-                true,
-                autoWatchTopicsEnabled,
-                YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
+                userId, 
+                true, 
+                autoWatchTopicsEnabled, 
+                YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting, 
                 YafContext.Current.Get<YafBoardSettings>().DefaultSendDigestEmail);
 
             // save avatar
@@ -418,9 +439,9 @@ namespace YAF.Core.Services.Auth
         /// The user.
         /// </param>
         private static void LoginTwitterSuccess(
-            [NotNull] bool newUser,
-            [NotNull] OAuthTwitter oAuth,
-            [NotNull] int userId,
+            [NotNull] bool newUser, 
+            [NotNull] OAuthTwitter oAuth, 
+            [NotNull] int userId, 
             [CanBeNull] MembershipUser user)
         {
             if (newUser)
@@ -460,15 +481,15 @@ namespace YAF.Core.Services.Auth
         /// The oAUTH.
         /// </param>
         private static void SendRegistrationMessageToTwitterUser(
-            [NotNull] MembershipUser user,
-            [NotNull] string pass,
-            [NotNull] string securityAnswer,
-            [NotNull] int userId,
+            [NotNull] MembershipUser user, 
+            [NotNull] string pass, 
+            [NotNull] string securityAnswer, 
+            [NotNull] int userId, 
             OAuthTwitter oAuth)
         {
             var notifyUser = new YafTemplateEmail();
 
-            string subject =
+            var subject =
                 YafContext.Current.Get<ILocalization>()
                     .GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT")
                     .FormatWith(YafContext.Current.Get<YafBoardSettings>().Name);
@@ -487,7 +508,7 @@ namespace YAF.Core.Services.Auth
             var tweetApi = new TweetAPI(oAuth);
 
             var message = "{0}. {1}".FormatWith(
-                subject,
+                subject, 
                 YafContext.Current.Get<ILocalization>().GetText("LOGIN", "TWITTER_DM"));
 
             if (YafContext.Current.Get<YafBoardSettings>().AllowPrivateMessages)
@@ -498,10 +519,10 @@ namespace YAF.Core.Services.Auth
             {
                 message = YafContext.Current.Get<ILocalization>()
                     .GetTextFormatted(
-                        "LOGIN",
-                        "TWITTER_DM_ACCOUNT",
-                        YafContext.Current.Get<YafBoardSettings>().Name,
-                        user.UserName,
+                        "LOGIN", 
+                        "TWITTER_DM_ACCOUNT", 
+                        YafContext.Current.Get<YafBoardSettings>().Name, 
+                        user.UserName, 
                         pass);
             }
 

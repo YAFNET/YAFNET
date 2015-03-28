@@ -4245,12 +4245,15 @@ Spoiler Content
     <Resource tag="SSO_DEACTIVATED">Pojedyncze logowanie jest wyłączone przez administratora!</Resource>
     <Resource tag="SSO_DEACTIVATED_BYUSER">Pojedyncze logowanie jest wyłączone dla tego użytkownika. Możesz je aktywować w ustawieniach profilu.</Resource>
     <Resource tag="SSO_FACEBOOK_FAILED">Logowanie przez Facebooka nie powiodło się. Użytkownik nie istnieje, albo nie jest połączony.</Resource>
+    <Resource tag="SSO_FACEBOOK_FAILED2">The Facebook Login failed, an user account with the same email address as the facebook account already exists, please try to connect you your forum account instead.</Resource>
     <Resource tag="SSO_FACEBOOKNAME_NOTMATCH">Adres e-mail na Facebooku musi być taki sam, jak adres e-mail na forum!</Resource>
     <Resource tag="SSO_FAILED">Rejestracja jest zablokowana.</Resource>
     <Resource tag="SSO_GOOGLE_FAILED">Logowanie przez Google nie powiodło się. Użytkownik nie istnieje, albo nie jest połączony</Resource>
+    <Resource tag="SSO_GOOGLE_FAILED2">The Google Login failed, an user account with the same email address as the Google account already exists, please try to connect you your forum account instead.</Resource>
     <Resource tag="SSO_GOOGLENAME_NOTMATCH">Adres e-mail Google musi być taki sam, jak adres e-mail na forum!</Resource>
     <Resource tag="SSO_ID_NOTMATCH">Konto użytkownika jest niepołączone, lub nie istnieje.</Resource>
     <Resource tag="SSO_TWITTER_FAILED">Logowanie przez Twittera nie powiodło się. Użytkownik nie istnieje, albo nie jest połączony.</Resource>
+    <Resource tag="SSO_TWITTER_FAILED2">The Twitter Login failed, an user account with the same user name as the Twitter account already exists, please try to connect you your forum account instead.</Resource>
     <Resource tag="SSO_TWITTERNAME_NOTMATCH">Nazwa użytkownika na Twitterze musi być taka sama, jak nazwa użytkownika na forum!</Resource>
     <Resource tag="TITLE">Zaloguj</Resource>
     <Resource tag="TWITTER_DM">Otrzymałeś dalsze informacje w prywatnej wiadomości na forum.</Resource>
