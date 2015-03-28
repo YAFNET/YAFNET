@@ -648,13 +648,21 @@ namespace YAF.Core.BBCode
             {
                 // add rule for code block type with syntax highlighting
                 ruleEngine.AddRule(
-                    new SyntaxHighlightedCodeRegexReplaceRule(_regexCodeWithLanguage, "${inner}") { RuleRank = 30 });
+                    new SyntaxHighlightedCodeRegexReplaceRule(
+                        _regexCodeWithLanguage,
+                        @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}", localCodeStr))
+                        {
+                            RuleRank = 30
+                        });
 
                 // handle custom YafBBCode
                 this.AddCustomBBCodeRules(ruleEngine);
 
                 // add rule for code block type with no syntax highlighting
-                ruleEngine.AddRule(new SyntaxHighlightedCodeRegexReplaceRule(_rgxCode1, "${inner}"));
+                ruleEngine.AddRule(
+                    new SyntaxHighlightedCodeRegexReplaceRule(
+                        _rgxCode1, 
+                        @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}", localCodeStr)));
 
                 ruleEngine.AddRule(
                     new QuoteRegexReplaceRule(

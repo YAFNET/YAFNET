@@ -87,7 +87,7 @@ CKEDITOR.dialog.add('bbcodeselector', function(editor)
                               type: 'select',
                               labelLayout: 'horizontal',
                               label: editor.lang.bbcodeselector.bbCodeLbl,
-                              'default': 'Youtube',
+                              'default': 'youtube',
                               widths : [ '25%','75%' ],
                               items: [
                                       ['Youtube', 'youtube'],

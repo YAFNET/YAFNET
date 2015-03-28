@@ -5,7 +5,7 @@
 
     CKEDITOR.replaceAll(function(textarea, config) {
 
-        config.extraPlugins = 'bbcode,syntaxhighlight,bbcodeselector,codemirror';
+        config.extraPlugins = 'autosave,bbcode,syntaxhighlight,bbcodeselector,codemirror';
         config.disableNativeSpellChecker = false;
         config.scayt_autoStartup = true;
 

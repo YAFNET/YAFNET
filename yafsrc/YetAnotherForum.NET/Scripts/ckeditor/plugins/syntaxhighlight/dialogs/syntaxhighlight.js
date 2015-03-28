@@ -138,7 +138,7 @@ CKEDITOR.dialog.add('syntaxhighlight', function(editor)
                               type: 'select',
                               labelLayout: 'horizontal',
                               label: editor.lang.syntaxhighlight.langLbl,
-                              'default': 'plain',
+                              'default': 'markup',
                               widths : [ '25%','75%' ],
                               items: [
                                       ['Plain (Text)', 'markup'],
