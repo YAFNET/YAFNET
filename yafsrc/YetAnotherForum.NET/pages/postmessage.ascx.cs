@@ -784,7 +784,7 @@ namespace YAF.Pages
                 LegacyDb.MessageList(this.EditMessageID.ToType<int>()).FirstOrDefault();
 
             // Remove Message Attachments
-            if (currentMessage.HasAttachments)
+            if (currentMessage.HasAttachments.HasValue && currentMessage.HasAttachments.Value)
             {
                 var attachments = this.GetRepository<Attachment>().ListTyped(messageID: currentMessage.MessageID);
 
@@ -1374,7 +1374,7 @@ namespace YAF.Pages
             this._forumEditor.Text = currentMessage.Message;
 
             // Convert Message Attachments to new [Attach] BBCode Attachments
-            if (currentMessage.HasAttachments)
+            if (currentMessage.HasAttachments.HasValue && currentMessage.HasAttachments.Value)
             {
                 var attachments = this.GetRepository<Attachment>().ListTyped(messageID: currentMessage.MessageID);
 

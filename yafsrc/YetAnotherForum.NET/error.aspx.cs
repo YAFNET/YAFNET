@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2015 Ingo Herbote
@@ -24,49 +24,51 @@
 
 namespace YAF
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Web.UI;
+    using System;
+    using System.Web.UI;
 
-  using YAF.Types;
-
-  #endregion
-
-  /// <summary>
-  /// Summary description for error.
-  /// </summary>
-  public partial class error : Page
-  {
-    #region Methods
-
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      if (!this.IsPostBack)
-      {
-        string errorMessage = @"There has been a serious error loading the forum. No further information is available.";
-
-        // show error message if one was provided...
-        if (this.Session["StartupException"] != null)
-        {
-          errorMessage = "Startup Error: " + this.Session["StartupException"];
-          this.Session["StartupException"] = null;
-        }
-
-        this.ErrorMsg.Text = Server.HtmlEncode(errorMessage) + "<br /><br />" +
-                             "Please contact the administrator if this message persists.";
-      }
-    }
+    using YAF.Types;
+    using YAF.Types.Extensions;
 
     #endregion
-  }
+
+    /// <summary>
+    /// Custom Error Page
+    /// </summary>
+    public partial class Error : Page
+    {
+        #region Methods
+
+        /// <summary>
+        /// Handles the Load event of the Page control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (this.IsPostBack)
+            {
+                return;
+            }
+
+            var errorMessage = @"There has been a serious error loading the forum. No further information is available.";
+
+            // show error message if one was provided...
+            if (this.Session["StartupException"] != null)
+            {
+                errorMessage =
+                    "<span class=\"label label-danger\">Error</span> {0}".FormatWith(
+                        this.Server.HtmlEncode(this.Session["StartupException"].ToString()));
+
+                this.Session["StartupException"] = null;
+            }
+
+            this.ErrorMessage.Text = errorMessage;
+            //////////
+        }
+
+        #endregion
+    }
 }
