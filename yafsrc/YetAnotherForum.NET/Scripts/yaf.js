@@ -212,6 +212,7 @@ jQuery(document).ready(function () {
     var dialog = jQuery(".UploadDialog").dialog({
         autoOpen: false,
         width: 530,
+
         modal: true,
         buttons: {
             Cancel: function () {

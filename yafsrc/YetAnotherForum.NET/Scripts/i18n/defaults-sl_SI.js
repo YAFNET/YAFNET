@@ -6,19 +6,19 @@
  */
 (function ($) {
   $.fn.selectpicker.defaults = {
-    noneSelectedText: 'Nothing selected',
-    noneResultsText: 'No results match {0}',
+    noneSelectedText: 'Nič izbranega',
+    noneResultsText: 'Ni zadetkov za {0}',
     countSelectedText: function (numSelected, numTotal) {
-      return (numSelected == 1) ? "{0} item selected" : "{0} items selected";
+      "Število izbranih: {0}";
     },
     maxOptionsText: function (numAll, numGroup) {
       return [
-        (numAll == 1) ? 'Limit reached ({n} item max)' : 'Limit reached ({n} items max)',
-        (numGroup == 1) ? 'Group limit reached ({n} item max)' : 'Group limit reached ({n} items max)'
+        'Omejitev dosežena (max. izbranih: {n})',
+        'Omejitev skupine dosežena (max. izbranih: {n})'
       ];
     },
-    selectAllText: 'Select All',
-    deselectAllText: 'Deselect All',
+    selectAllText: 'Izberi vse',
+    deselectAllText: 'Počisti izbor',
     multipleSeparator: ', '
   };
 })(jQuery);

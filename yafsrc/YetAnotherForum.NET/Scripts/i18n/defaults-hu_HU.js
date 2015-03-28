@@ -6,19 +6,19 @@
  */
 (function ($) {
   $.fn.selectpicker.defaults = {
-    noneSelectedText: 'Nothing selected',
-    noneResultsText: 'No results match {0}',
+    noneSelectedText: 'Válasszon!',
+    noneResultsText: 'Nincs találat {0}',
     countSelectedText: function (numSelected, numTotal) {
-      return (numSelected == 1) ? "{0} item selected" : "{0} items selected";
+      return '{n} elem kiválasztva';
     },
     maxOptionsText: function (numAll, numGroup) {
       return [
-        (numAll == 1) ? 'Limit reached ({n} item max)' : 'Limit reached ({n} items max)',
-        (numGroup == 1) ? 'Group limit reached ({n} item max)' : 'Group limit reached ({n} items max)'
+        'Legfeljebb {n} elem választható',
+        'A csoportban legfeljebb {n} elem választható'
       ];
     },
-    selectAllText: 'Select All',
-    deselectAllText: 'Deselect All',
+    selectAllText: 'Mind',
+    deselectAllText: 'Egyik sem',
     multipleSeparator: ', '
   };
 })(jQuery);

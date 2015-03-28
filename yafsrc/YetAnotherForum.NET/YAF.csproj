@@ -920,6 +920,12 @@
       <DependentUpon>bootstrap-select.less</DependentUpon>
     </Content>
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\jquery.tablesorter.css">
+      <DependentUpon>jquery.tablesorter.less</DependentUpon>
+    </Content>
+    <Content Include="Content\jquery.tablesorter.min.css">
+      <DependentUpon>jquery.tablesorter.css</DependentUpon>
+    </Content>
     <Content Include="Content\select2.css" />
     <Content Include="Content\icons\ipbandetected.png" />
     <Content Include="Content\images\InstallBackground.jpg" />
@@ -990,7 +996,6 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
-    <Content Include="Content\themes\black-tie\images\animated-overlay.gif" />
     <Content Include="Content\themes\black-tie\images\ui-bg_diagonals-thick_8_333333_40x40.png" />
     <Content Include="Content\themes\black-tie\images\ui-bg_flat_65_ffffff_40x100.png" />
     <Content Include="Content\themes\black-tie\images\ui-bg_glass_40_111111_1x400.png" />
@@ -1009,7 +1014,6 @@
     <Content Include="Content\themes\black-tie\jquery-ui.css" />
     <Content Include="Content\themes\black-tie\jquery-ui.min.css" />
     <Content Include="Content\themes\black-tie\theme.css" />
-    <Content Include="Content\themes\blitzer\images\animated-overlay.gif" />
     <Content Include="Content\themes\blitzer\images\ui-bg_diagonals-thick_75_f3d8d8_40x40.png" />
     <Content Include="Content\themes\blitzer\images\ui-bg_dots-small_65_a6a6a6_2x2.png" />
     <Content Include="Content\themes\blitzer\images\ui-bg_flat_0_333333_40x100.png" />
@@ -1025,7 +1029,6 @@
     <Content Include="Content\themes\blitzer\jquery-ui.css" />
     <Content Include="Content\themes\blitzer\jquery-ui.min.css" />
     <Content Include="Content\themes\blitzer\theme.css" />
-    <Content Include="Content\themes\cupertino\images\animated-overlay.gif" />
     <Content Include="Content\themes\cupertino\images\ui-bg_diagonals-thick_90_eeeeee_40x40.png" />
     <Content Include="Content\themes\cupertino\images\ui-bg_flat_15_cd0a0a_40x100.png" />
     <Content Include="Content\themes\cupertino\images\ui-bg_glass_100_e4f1fb_1x400.png" />
@@ -1043,7 +1046,6 @@
     <Content Include="Content\themes\cupertino\jquery-ui.css" />
     <Content Include="Content\themes\cupertino\jquery-ui.min.css" />
     <Content Include="Content\themes\cupertino\theme.css" />
-    <Content Include="Content\themes\dark-hive\images\animated-overlay.gif" />
     <Content Include="Content\themes\dark-hive\images\ui-bg_flat_30_cccccc_40x100.png" />
     <Content Include="Content\themes\dark-hive\images\ui-bg_flat_50_5c5c5c_40x100.png" />
     <Content Include="Content\themes\dark-hive\images\ui-bg_glass_40_ffc73d_1x400.png" />
@@ -1061,7 +1063,6 @@
     <Content Include="Content\themes\dark-hive\jquery-ui.css" />
     <Content Include="Content\themes\dark-hive\jquery-ui.min.css" />
     <Content Include="Content\themes\dark-hive\theme.css" />
-    <Content Include="Content\themes\dot-luv\images\animated-overlay.gif" />
     <Content Include="Content\themes\dot-luv\images\ui-bg_diagonals-thick_15_0b3e6f_40x40.png" />
     <Content Include="Content\themes\dot-luv\images\ui-bg_dots-medium_30_0b58a2_4x4.png" />
     <Content Include="Content\themes\dot-luv\images\ui-bg_dots-small_20_333333_2x2.png" />
@@ -1077,7 +1078,6 @@
     <Content Include="Content\themes\dot-luv\jquery-ui.css" />
     <Content Include="Content\themes\dot-luv\jquery-ui.min.css" />
     <Content Include="Content\themes\dot-luv\theme.css" />
-    <Content Include="Content\themes\eggplant\images\animated-overlay.gif" />
     <Content Include="Content\themes\eggplant\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\eggplant\images\ui-bg_flat_0_eeeeee_40x100.png" />
     <Content Include="Content\themes\eggplant\images\ui-bg_flat_55_994d53_40x100.png" />
@@ -1096,7 +1096,6 @@
     <Content Include="Content\themes\eggplant\jquery-ui.css" />
     <Content Include="Content\themes\eggplant\jquery-ui.min.css" />
     <Content Include="Content\themes\eggplant\theme.css" />
-    <Content Include="Content\themes\excite-bike\images\animated-overlay.gif" />
     <Content Include="Content\themes\excite-bike\images\ui-bg_diagonals-small_25_c5ddfc_40x40.png" />
     <Content Include="Content\themes\excite-bike\images\ui-bg_diagonals-thick_20_e69700_40x40.png" />
     <Content Include="Content\themes\excite-bike\images\ui-bg_diagonals-thick_22_1484e6_40x40.png" />
@@ -1113,7 +1112,6 @@
     <Content Include="Content\themes\excite-bike\jquery-ui.css" />
     <Content Include="Content\themes\excite-bike\jquery-ui.min.css" />
     <Content Include="Content\themes\excite-bike\theme.css" />
-    <Content Include="Content\themes\flick\images\animated-overlay.gif" />
     <Content Include="Content\themes\flick\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\flick\images\ui-bg_flat_0_eeeeee_40x100.png" />
     <Content Include="Content\themes\flick\images\ui-bg_flat_55_ffffff_40x100.png" />
@@ -1130,7 +1128,6 @@
     <Content Include="Content\themes\flick\jquery-ui.css" />
     <Content Include="Content\themes\flick\jquery-ui.min.css" />
     <Content Include="Content\themes\flick\theme.css" />
-    <Content Include="Content\themes\hot-sneaks\images\animated-overlay.gif" />
     <Content Include="Content\themes\hot-sneaks\images\ui-bg_diagonals-small_40_db4865_40x40.png" />
     <Content Include="Content\themes\hot-sneaks\images\ui-bg_diagonals-small_50_93c3cd_40x40.png" />
     <Content Include="Content\themes\hot-sneaks\images\ui-bg_diagonals-small_50_ff3853_40x40.png" />
@@ -1149,7 +1146,6 @@
     <Content Include="Content\themes\hot-sneaks\jquery-ui.css" />
     <Content Include="Content\themes\hot-sneaks\jquery-ui.min.css" />
     <Content Include="Content\themes\hot-sneaks\theme.css" />
-    <Content Include="Content\themes\humanity\images\animated-overlay.gif" />
     <Content Include="Content\themes\humanity\images\ui-bg_flat_75_aaaaaa_40x100.png" />
     <Content Include="Content\themes\humanity\images\ui-bg_glass_100_f5f0e5_1x400.png" />
     <Content Include="Content\themes\humanity\images\ui-bg_glass_25_cb842e_1x400.png" />
@@ -1167,7 +1163,6 @@
     <Content Include="Content\themes\humanity\jquery-ui.css" />
     <Content Include="Content\themes\humanity\jquery-ui.min.css" />
     <Content Include="Content\themes\humanity\theme.css" />
-    <Content Include="Content\themes\le-frog\images\animated-overlay.gif" />
     <Content Include="Content\themes\le-frog\images\ui-bg_diagonals-small_0_aaaaaa_40x40.png" />
     <Content Include="Content\themes\le-frog\images\ui-bg_diagonals-thick_15_444444_40x40.png" />
     <Content Include="Content\themes\le-frog\images\ui-bg_diagonals-thick_95_ffdc2e_40x40.png" />
@@ -1184,7 +1179,6 @@
     <Content Include="Content\themes\le-frog\jquery-ui.css" />
     <Content Include="Content\themes\le-frog\jquery-ui.min.css" />
     <Content Include="Content\themes\le-frog\theme.css" />
-    <Content Include="Content\themes\mint-choc\images\animated-overlay.gif" />
     <Content Include="Content\themes\mint-choc\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\mint-choc\images\ui-bg_glass_15_5f391b_1x400.png" />
     <Content Include="Content\themes\mint-choc\images\ui-bg_gloss-wave_20_1c160d_500x100.png" />
@@ -1202,7 +1196,6 @@
     <Content Include="Content\themes\mint-choc\jquery-ui.css" />
     <Content Include="Content\themes\mint-choc\jquery-ui.min.css" />
     <Content Include="Content\themes\mint-choc\theme.css" />
-    <Content Include="Content\themes\overcast\images\animated-overlay.gif" />
     <Content Include="Content\themes\overcast\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\overcast\images\ui-bg_flat_0_eeeeee_40x100.png" />
     <Content Include="Content\themes\overcast\images\ui-bg_flat_55_c0402a_40x100.png" />
@@ -1220,7 +1213,6 @@
     <Content Include="Content\themes\overcast\jquery-ui.css" />
     <Content Include="Content\themes\overcast\jquery-ui.min.css" />
     <Content Include="Content\themes\overcast\theme.css" />
-    <Content Include="Content\themes\pepper-grinder\images\animated-overlay.gif" />
     <Content Include="Content\themes\pepper-grinder\images\ui-bg_diagonal-maze_20_6e4f1c_10x10.png" />
     <Content Include="Content\themes\pepper-grinder\images\ui-bg_diagonal-maze_40_000000_10x10.png" />
     <Content Include="Content\themes\pepper-grinder\images\ui-bg_fine-grain_10_eceadf_60x60.png" />
@@ -1239,7 +1231,6 @@
     <Content Include="Content\themes\pepper-grinder\jquery-ui.css" />
     <Content Include="Content\themes\pepper-grinder\jquery-ui.min.css" />
     <Content Include="Content\themes\pepper-grinder\theme.css" />
-    <Content Include="Content\themes\redmond\images\animated-overlay.gif" />
     <Content Include="Content\themes\redmond\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\redmond\images\ui-bg_flat_55_fbec88_40x100.png" />
     <Content Include="Content\themes\redmond\images\ui-bg_glass_75_d0e5f5_1x400.png" />
@@ -1258,7 +1249,6 @@
     <Content Include="Content\themes\redmond\jquery-ui.css" />
     <Content Include="Content\themes\redmond\jquery-ui.min.css" />
     <Content Include="Content\themes\redmond\theme.css" />
-    <Content Include="Content\themes\smoothness\images\animated-overlay.gif" />
     <Content Include="Content\themes\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -1275,7 +1265,6 @@
     <Content Include="Content\themes\smoothness\jquery-ui.css" />
     <Content Include="Content\themes\smoothness\jquery-ui.min.css" />
     <Content Include="Content\themes\smoothness\theme.css" />
-    <Content Include="Content\themes\south-street\images\animated-overlay.gif" />
     <Content Include="Content\themes\south-street\images\ui-bg_glass_55_fcf0ba_1x400.png" />
     <Content Include="Content\themes\south-street\images\ui-bg_gloss-wave_100_ece8da_500x100.png" />
     <Content Include="Content\themes\south-street\images\ui-bg_highlight-hard_100_f5f3e5_1x100.png" />
@@ -1294,7 +1283,6 @@
     <Content Include="Content\themes\south-street\jquery-ui.css" />
     <Content Include="Content\themes\south-street\jquery-ui.min.css" />
     <Content Include="Content\themes\south-street\theme.css" />
-    <Content Include="Content\themes\start\images\animated-overlay.gif" />
     <Content Include="Content\themes\start\images\ui-bg_flat_55_999999_40x100.png" />
     <Content Include="Content\themes\start\images\ui-bg_flat_75_aaaaaa_40x100.png" />
     <Content Include="Content\themes\start\images\ui-bg_glass_45_0078ae_1x400.png" />
@@ -1314,7 +1302,6 @@
     <Content Include="Content\themes\start\jquery-ui.css" />
     <Content Include="Content\themes\start\jquery-ui.min.css" />
     <Content Include="Content\themes\start\theme.css" />
-    <Content Include="Content\themes\sunny\images\animated-overlay.gif" />
     <Content Include="Content\themes\sunny\images\ui-bg_diagonals-medium_20_d34d17_40x40.png" />
     <Content Include="Content\themes\sunny\images\ui-bg_flat_30_cccccc_40x100.png" />
     <Content Include="Content\themes\sunny\images\ui-bg_flat_50_5c5c5c_40x100.png" />
@@ -1334,7 +1321,6 @@
     <Content Include="Content\themes\sunny\jquery-ui.css" />
     <Content Include="Content\themes\sunny\jquery-ui.min.css" />
     <Content Include="Content\themes\sunny\theme.css" />
-    <Content Include="Content\themes\swanky-purse\images\animated-overlay.gif" />
     <Content Include="Content\themes\swanky-purse\images\ui-bg_diamond_10_4f4221_10x8.png" />
     <Content Include="Content\themes\swanky-purse\images\ui-bg_diamond_20_372806_10x8.png" />
     <Content Include="Content\themes\swanky-purse\images\ui-bg_diamond_25_675423_10x8.png" />
@@ -1353,7 +1339,6 @@
     <Content Include="Content\themes\swanky-purse\jquery-ui.css" />
     <Content Include="Content\themes\swanky-purse\jquery-ui.min.css" />
     <Content Include="Content\themes\swanky-purse\theme.css" />
-    <Content Include="Content\themes\trontastic\images\animated-overlay.gif" />
     <Content Include="Content\themes\trontastic\images\ui-bg_diagonals-small_50_262626_40x40.png" />
     <Content Include="Content\themes\trontastic\images\ui-bg_flat_0_303030_40x100.png" />
     <Content Include="Content\themes\trontastic\images\ui-bg_flat_0_4c4c4c_40x100.png" />
@@ -1372,7 +1357,6 @@
     <Content Include="Content\themes\trontastic\jquery-ui.css" />
     <Content Include="Content\themes\trontastic\jquery-ui.min.css" />
     <Content Include="Content\themes\trontastic\theme.css" />
-    <Content Include="Content\themes\ui-darkness\images\animated-overlay.gif" />
     <Content Include="Content\themes\ui-darkness\images\ui-bg_flat_30_cccccc_40x100.png" />
     <Content Include="Content\themes\ui-darkness\images\ui-bg_flat_50_5c5c5c_40x100.png" />
     <Content Include="Content\themes\ui-darkness\images\ui-bg_glass_20_555555_1x400.png" />
@@ -1390,7 +1374,6 @@
     <Content Include="Content\themes\ui-darkness\jquery-ui.css" />
     <Content Include="Content\themes\ui-darkness\jquery-ui.min.css" />
     <Content Include="Content\themes\ui-darkness\theme.css" />
-    <Content Include="Content\themes\ui-lightness\images\animated-overlay.gif" />
     <Content Include="Content\themes\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\themes\ui-lightness\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
     <Content Include="Content\themes\ui-lightness\images\ui-bg_flat_10_000000_40x100.png" />
@@ -1408,7 +1391,6 @@
     <Content Include="Content\themes\ui-lightness\jquery-ui.css" />
     <Content Include="Content\themes\ui-lightness\jquery-ui.min.css" />
     <Content Include="Content\themes\ui-lightness\theme.css" />
-    <Content Include="Content\themes\vader\images\animated-overlay.gif" />
     <Content Include="Content\themes\vader\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\vader\images\ui-bg_glass_95_fef1ec_1x400.png" />
     <Content Include="Content\themes\vader\images\ui-bg_gloss-wave_16_121212_500x100.png" />
@@ -2151,6 +2133,7 @@
     <Content Include="Content\bootstrap\bootstrap.less" />
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
+    <Content Include="Content\jquery.tablesorter.less" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js">
       <DependentUpon>jquery-2.1.3.js</DependentUpon>
     </None>
@@ -2228,7 +2211,6 @@
       <DependentUpon>jquery.tablesorter.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery.tablesorter.pager.js" />
-    <Content Include="Scripts\jquery.tablesorter.widgets.js" />
     <Content Include="Scripts\jsdifflib.js" />
     <Content Include="Scripts\jsdifflib.min.js">
       <DependentUpon>jsdifflib.js</DependentUpon>

@@ -6,19 +6,19 @@
  */
 (function ($) {
   $.fn.selectpicker.defaults = {
-    noneSelectedText: 'Nothing selected',
-    noneResultsText: 'No results match {0}',
+    noneSelectedText: 'Inget valt',
+    noneResultsText: 'Inget sökresultat matchar {0}',
     countSelectedText: function (numSelected, numTotal) {
-      return (numSelected == 1) ? "{0} item selected" : "{0} items selected";
+      return (numSelected === 1) ? "{0} alternativ valt" : "{0} alternativ valda";
     },
     maxOptionsText: function (numAll, numGroup) {
       return [
-        (numAll == 1) ? 'Limit reached ({n} item max)' : 'Limit reached ({n} items max)',
-        (numGroup == 1) ? 'Group limit reached ({n} item max)' : 'Group limit reached ({n} items max)'
+        'Gräns uppnåd (max {n} alternativ)',
+        'Gräns uppnåd (max {n} gruppalternativ)'
       ];
     },
-    selectAllText: 'Select All',
-    deselectAllText: 'Deselect All',
+    selectAllText: 'Markera alla',
+    deselectAllText: 'Avmarkera alla',
     multipleSeparator: ', '
   };
 })(jQuery);
