@@ -73,11 +73,11 @@ namespace YAF.Types.Objects
             this.Status = row.Field<string>("Status");
             this.Styles = row.Field<string>("Styles");
             this.Description = row.Field<string>("Description");
-            this.HasAttachments = row.Field<bool>("HasAttachments");
+            this.HasAttachments = row.Field<bool?>("HasAttachments");
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TypedMessageList"/> class.
+        /// Initializes a new instance of the <see cref="TypedMessageList" /> class.
         /// </summary>
         /// <param name="messageid">The messageid.</param>
         /// <param name="userid">The userid.</param>
@@ -234,7 +234,7 @@ namespace YAF.Types.Objects
         /// <value>
         /// The has attachments.
         /// </value>
-        public bool HasAttachments { get; set; }
+        public bool? HasAttachments { get; set; }
 
         /// <summary>
         ///   Gets or sets MessageID.
