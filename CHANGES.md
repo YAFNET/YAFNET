@@ -5,24 +5,33 @@ YetAnotherForum.NET Changelog
 
 ## New Features:
 
-* [#217](https://github.com/YAFNET/YAFNET/issues/239): Selected Quote of Messages
+* [NEW #217](https://github.com/YAFNET/YAFNET/issues/239): Selected Quote of Messages
 * User online status icon on the profile page now indicates when user is suspended
-* [#239](https://github.com/YAFNET/YAFNET/issues/239): Multiple image attachments are now grouped as ceebox gallery
+* [NEW #239](https://github.com/YAFNET/YAFNET/issues/239): Multiple image attachments are now grouped as ceebox gallery
 * SQL scripts are not splitted in install/upgrade for faster install/upgrade
 * Admin Users page now shows if user is suspended and until which date
 * On the Admin Users page you can now filter by suspended users to show only suspended users
 * Admin Users Page now shows an Twitter/Facebook/Google icon if the users is logged in via that SSO Service
+* New Bootstraped Error Page
 
 ## Fixed Issues:
-* [#244](https://github.com/YAFNET/YAFNET/issues/244): Fixed not Working Upload Dialog in editors other then the Standard BB Code Editor
-* [#243](https://github.com/YAFNET/YAFNET/issues/243): a few tweaks to the attachments upload dialog
+* [FIXED #248](https://github.com/YAFNET/YAFNET/issues/248) issue with access rights checking
+* [FIXED #250](https://github.com/YAFNET/YAFNET/issues/250) File Attach Button in the Standard Editor was not rendered after postback
+* [FIXED #247](https://github.com/YAFNET/YAFNET/issues/247): Notification on all posts and topics without read access check
+* [FIXED #244](https://github.com/YAFNET/YAFNET/issues/244): Fixed not Working Upload Dialog in editors other then the Standard BB Code Editor
+* [FIXED #243](https://github.com/YAFNET/YAFNET/issues/243): a few tweaks to the attachments upload dialog
 * [FIXED] dateTime Issue with the Most Recent users feature
 * [FIXED] Exception caused by bots on the posts page
 * [FIXED] duplicate loading of the jquery-ui theme css
 * [FIXED] Issue with reCaptcha on the register page
 * [FIXED] timeAgo loading Script
 * [FIXED] Wrong Encoding in some places
+* [FIXED] Issue with Unicode Chars from the Quick Search
+* [FIXED] emails inside BBCode Code tags
+* [FIXED] not working confirm dialogs on some Delete Buttons
 * Removed not working report message to Akismet
+* Attachments can now dropped anywhere inside the upload dialog
+* Better error descriptions for SSO (Facebook,Google,Twitter)
 
 ###Full Change log here:
 https://github.com/YAFNET/YAFNET/commits/master

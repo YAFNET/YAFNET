@@ -252,6 +252,17 @@ jQuery(document).ready(function () {
             }
         });
     }
+
+    // Show caps lock info on password fields
+    jQuery("input[type='password']").keypress(function (e) {
+        var s = String.fromCharCode(e.which);
+        if (s.toUpperCase() === s && s.toLowerCase() !== s && !e.shiftKey) {
+            jQuery('.CapsLockWarning').show();
+        }
+        else {
+            jQuery('.CapsLockWarning').hide();
+        }
+    });
 });
 
 function AttachmentsPageSelectCallback(page_index) {

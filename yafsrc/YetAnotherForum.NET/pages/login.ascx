@@ -40,7 +40,18 @@
                                             </asp:Label>
                                         </td>
                                         <td class="post" style="height: 24px">
-                                            <asp:TextBox ID="Password" runat="server" TextMode="Password"></asp:TextBox>
+                                            <asp:TextBox ID="Password" runat="server" TextMode="Password"></asp:TextBox><br/>
+                                        </td>
+                                    </tr>
+                                    <tr class="CapsLockWarning" style="display: none;">
+                                        <td colspan="2" class="post">
+                                            <div class="ui-widget">
+                                                <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+                                                    <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+                                                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="CAPS_LOCK" />
+                                                    </p>
+                                                 </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>

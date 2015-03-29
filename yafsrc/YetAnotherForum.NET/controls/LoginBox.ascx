@@ -27,7 +27,17 @@
                                 <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">
                                                 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="password" />
                                             </asp:Label>
-                                <asp:TextBox ID="Password" runat="server" TextMode="Password"></asp:TextBox>
+                                <asp:TextBox ID="Password" runat="server" TextMode="Password"></asp:TextBox><br/>
+                                
+                                </div>
+                              </div>
+                              <div class="CapsLockWarning" style="display: none;">
+                                  <div class="ui-widget">
+                                                <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+                                                    <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+                                                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="CAPS_LOCK" />
+                                                    </p>
+                                                 </div>
                               </div>
                               <div>
                                 <asp:Button ID="LoginButton" runat="server" CssClass="LoginButton" CommandName="Login" ValidationGroup="Login1" />

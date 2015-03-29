@@ -216,7 +216,7 @@ namespace YAF.Core.Services
             else
             {
                 jqueryUILangUrl = YafContext.Current.Get<YafBoardSettings>().JqueryUICDNHosted
-                                      ? "//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/i18n/jquery-ui-i18n.min.js"
+                                      ? "//ajax.aspnetcdn.com/ajax/jquery.ui/1.11.4/i18n/jquery-ui-i18n.min.js"
 #if DEBUG
                                       : YafForumInfo.GetURLToScripts("jquery-ui-i18n.js");
 #else

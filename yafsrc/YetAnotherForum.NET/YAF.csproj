@@ -962,7 +962,6 @@
     </Content>
     <Content Include="Content\prism.css" />
     <Content Include="Content\jquery.selectedQuoting.css" />
-    <Content Include="Content\theme.jui.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
