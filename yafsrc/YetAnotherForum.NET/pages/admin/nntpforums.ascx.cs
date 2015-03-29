@@ -60,7 +60,7 @@ namespace YAF.Pages.Admin
     protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
         ((ThemeButton)sender).Attributes["onclick"] =
-                 "return (confirm('{0}')".FormatWith(this.GetText("ADMIN_NNTPFORUMS", "DELETE_FORUM"));
+                 "return confirm('{0}')".FormatWith(this.GetText("ADMIN_NNTPFORUMS", "DELETE_FORUM"));
     }
 
     /// <summary>

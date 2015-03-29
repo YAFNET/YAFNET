@@ -105,7 +105,7 @@ namespace YAF.Pages.Admin
         {
             // add on click confirm dialog
             ((ThemeButton)sender).Attributes["onclick"] =
-                "return (confirm('{0}')".FormatWith(this.GetText("ADMIN_ACCESSMASKS", "CONFIRM_DELETE"));
+                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_ACCESSMASKS", "CONFIRM_DELETE"));
         }
 
         /// <summary>
@@ -222,7 +222,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            // list all access masks for this boeard
+            // list all access masks for this board
             this.List.DataSource = this.GetRepository<AccessMask>().List();
             this.DataBind();
         }

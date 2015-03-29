@@ -45,7 +45,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -473,7 +472,7 @@ namespace YAF.Pages.Admin
         protected void GroupRemove_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
-                "return (confirm('{0}')".FormatWith(this.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_GROUP"));
+                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_GROUP"));
         }
 
         /// <summary>
@@ -585,8 +584,8 @@ namespace YAF.Pages.Admin
                             };
 
             // get medal images
-            string imageURL = this.MedalImage.SelectedValue;
-            string smallImageURL = this.SmallMedalImage.SelectedValue;
+            var imageURL = this.MedalImage.SelectedValue;
+            var smallImageURL = this.SmallMedalImage.SelectedValue;
             if (this.RibbonImage.SelectedIndex > 0)
             {
                 ribbonURL = this.RibbonImage.SelectedValue;

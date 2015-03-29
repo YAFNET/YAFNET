@@ -83,7 +83,7 @@ namespace YAF.Pages
         protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
-                "return (confirm('{0}')".FormatWith(this.GetText("ADMIN_ATTACHMENTS", "CONFIRM_DELETE"));
+                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_ATTACHMENTS", "CONFIRM_DELETE"));
         }
 
         /// <summary>

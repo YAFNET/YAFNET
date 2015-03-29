@@ -66,7 +66,7 @@ namespace YAF.Pages.Admin
         protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
-                "return (confirm('{0}')".FormatWith(this.GetText("ADMIN_BBCODE", "CONFIRM_DELETE"));
+                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_BBCODE", "CONFIRM_DELETE"));
         }
 
         /// <summary>

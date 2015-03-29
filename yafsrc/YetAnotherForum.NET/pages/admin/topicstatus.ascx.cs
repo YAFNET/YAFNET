@@ -62,7 +62,7 @@ namespace YAF.Pages.Admin
     protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
         ((ThemeButton)sender).Attributes["onclick"] =
-            "return (confirm('{0}'));"
+            "return confirm('{0}'));"
                 .FormatWith(this.GetText("ADMIN_TOPICSTATUS", "CONFIRM_DELETE"));
     }
 
