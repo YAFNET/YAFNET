@@ -1951,6 +1951,7 @@
     <Resource tag="ADD_FILES">Add file(s)...</Resource>
     <Resource tag="ALLOWED_EXTENSIONS">סוגי קבצים מורשים</Resource>
     <Resource tag="ASK_DELETE">האם למחוק קובץ מצורף זה?</Resource>
+    <Resource tag="COMPLETE_WARNING">Please wait until all Upload(s) are completed and the Dialog closes itself!</Resource>
     <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
     <Resource tag="DELETE">מחק</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">סוגי קבצים שאינם מורשים</Resource>

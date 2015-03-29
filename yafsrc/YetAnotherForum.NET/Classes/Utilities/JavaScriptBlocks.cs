@@ -845,8 +845,11 @@ namespace YAF.Utilities
                 acceptFileTypes: new RegExp('(\.|\/)(' + '{2}' + ')', 'i'),
                 dataType: 'json',
                 {1}
+                start: function (e) {{
+                    {0}('.uploadCompleteWarning').toggle();
+                }},
                 done: function (e, data) {{
-                    setStyle('attach', data.result[0].fileID);
+                    insertAttachment(data.result[0].fileID, data.result[0].fileID);
                     {0}('#fileupload').find('.files tr:first').remove();
                     
                     if ({0}('#fileupload').find('.files tr').length == 0) {{

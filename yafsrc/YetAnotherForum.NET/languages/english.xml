@@ -1921,6 +1921,7 @@
   <Resource tag="ADD_FILES">Add file(s)...</Resource>
   <Resource tag="ALLOWED_EXTENSIONS">Allowed File Types</Resource>
   <Resource tag="ASK_DELETE">Delete this attachment?</Resource>
+  <Resource tag="COMPLETE_WARNING">Please wait until all Upload(s) are completed and the Dialog closes itself!</Resource>
   <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
   <Resource tag="DELETE">Delete</Resource>
   <Resource tag="DISALLOWED_EXTENSIONS">Disallowed File Types</Resource>

@@ -1911,6 +1911,7 @@
     <Resource tag="ADD_FILES">Add file(s)...</Resource>
     <Resource tag="ALLOWED_EXTENSIONS">Erlaubte Dateitypen</Resource>
     <Resource tag="ASK_DELETE">Möchtest du diesen Anhang löschen?</Resource>
+    <Resource tag="COMPLETE_WARNING">Please wait until all Upload(s) are completed and the Dialog closes itself!</Resource>
     <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
     <Resource tag="DELETE">Löschen</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">Verbotene Dateitypen</Resource>

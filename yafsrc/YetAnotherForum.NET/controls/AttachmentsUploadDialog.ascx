@@ -9,6 +9,13 @@
             <div id="fileupload">
                       <div class="fileupload-buttonbar">
                           <div id="dropzone" class="fade-ui ui-widget-header"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "DROP_HERE") %></div>
+                          <div class="ui-widget">
+                              <div class="ui-state-error ui-corner-all uploadCompleteWarning" style="padding: 0 .7em; margin-bottom: 15px;display:none">
+                                  <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em"></span>
+                                      <%= this.Get<ILocalization>().GetText("ATTACHMENTS", "COMPLETE_WARNING") %>
+                                  </p>
+                              </div>
+                          </div>
                           <div class="fileupload-buttons">
                               <span class="fileinput-button">
                                   <YAF:LocalizedLabel id="AddFiles" runat="server" LocalizedPage="ATTACHMENTS" LocalizedTag="ADD_FILES" />

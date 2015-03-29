@@ -1930,6 +1930,7 @@
     <Resource tag="ADD_FILES">Add file(s)...</Resource>
     <Resource tag="ALLOWED_EXTENSIONS">فایلهای مجاز</Resource>
     <Resource tag="ASK_DELETE">حذف فایل ضمیمه؟</Resource>
+    <Resource tag="COMPLETE_WARNING">Please wait until all Upload(s) are completed and the Dialog closes itself!</Resource>
     <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
     <Resource tag="DELETE">حذف</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">فایل های غیرمجاز</Resource>

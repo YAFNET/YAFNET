@@ -338,7 +338,7 @@ namespace YAF.Editors
                                   : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot);
 
                     this._popMenuAttachments.AddClientScriptItem(
-                        attachment.FileName.Truncate(40),
+                        attachment.FileName,
                         "insertAttachment('{0}', '{1}')".FormatWith(attachment.ID, url),
                         attachment.FileName.IsImageName()
                             ? "{0}resource.ashx?i={1}&b={2}&editor=true".FormatWith(
