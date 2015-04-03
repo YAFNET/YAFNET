@@ -706,11 +706,15 @@ namespace YAF.Pages
                 if (suspended.HasValue && suspended.Value > DateTime.UtcNow)
                 {
                     this.ThemeImgSuspended.LocalizedTitle =
-                        this.GetText("POSTS", "USERSUSPENDED").FormatWith(
-                            this.Get<IDateTime>().FormatDateTimeShort(suspended.Value));
+                        this.GetText("POSTS", "USERSUSPENDED")
+                            .FormatWith(this.Get<IDateTime>().FormatDateTimeShort(suspended.Value));
 
                     this.ThemeImgSuspended.Visible = true;
                     this.OnlineStatusImage1.Visible = false;
+                }
+                else
+                {
+                    this.ThemeImgSuspended.Visible = false;
                 }
             }
             else
