@@ -4,206 +4,210 @@
 ** Primary keys
 */
 
-if not exists (SELECT OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}BannedIP]'), 'TableHasPrimaryKey'))
+/*
+** Primary keys
+*/
+
+if (SELECT OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}BannedIP]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}BannedIP] with nocheck add constraint [PK_{objectQualifier}BannedIP] primary key clustered(ID)
 go
 
-if not exists (SELECT OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}BannedName]'), 'TableHasPrimaryKey'))
+if (SELECT OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}BannedName]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}BannedName] with nocheck add constraint [PK_{objectQualifier}BannedName] primary key clustered(ID)
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}BannedEmail]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}BannedEmail]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}BannedEmail] with nocheck add constraint [PK_{objectQualifier}BannedEmail] primary key clustered(ID)
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Buddy]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Buddy]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Buddy] with nocheck add constraint [PK_{objectQualifier}Buddy] primary key clustered(ID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Category]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Category]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Category] with nocheck add constraint [PK_{objectQualifier}Category] primary key clustered(CategoryID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}CheckEmail]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}CheckEmail]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}CheckEmail] with nocheck add constraint [PK_{objectQualifier}CheckEmail] primary key clustered(CheckEmailID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Choice]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Choice]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Choice] with nocheck add constraint [PK_{objectQualifier}Choice] primary key clustered(ChoiceID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Forum]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Forum]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Forum] with nocheck add constraint [PK_{objectQualifier}Forum] primary key clustered(ForumID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}ForumAccess]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}ForumAccess]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}ForumAccess] with nocheck add constraint [PK_{objectQualifier}ForumAccess] primary key clustered(GroupID,ForumID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}MessageReported]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}MessageReported]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}MessageReported] with nocheck add constraint [PK_{objectQualifier}MessageReported] primary key clustered(MessageID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Group]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Group]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Group] with nocheck add constraint [PK_{objectQualifier}Group] primary key clustered(GroupID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}GroupMedal]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}GroupMedal]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}GroupMedal] with nocheck add constraint [PK_{objectQualifier}GroupMedal] primary key clustered(MedalID,GroupID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}ForumReadTracking]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}ForumReadTracking]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}ForumReadTracking] with nocheck add constraint [PK_{objectQualifier}ForumReadTracking] primary key clustered(UserID,ForumID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}TopicReadTracking]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}TopicReadTracking]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}TopicReadTracking] with nocheck add constraint [PK_{objectQualifier}TopicReadTracking] primary key clustered(UserID,TopicID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}UserMedal]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}UserMedal]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}UserMedal] with nocheck add constraint [PK_{objectQualifier}UserMedal] primary key clustered(MedalID,UserID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Mail]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Mail]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Mail] with nocheck add constraint [PK_{objectQualifier}Mail] primary key clustered(MailID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}UserProfile]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}UserProfile]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}UserProfile] with nocheck add constraint [PK_{objectQualifier}UserProfile] primary key clustered(UserID,ApplicationName)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Message]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Message]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Message] with nocheck add constraint [PK_{objectQualifier}Message] primary key clustered(MessageID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}PMessage]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}PMessage]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}PMessage] with nocheck add constraint [PK_{objectQualifier}PMessage] primary key clustered(PMessageID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}PollGroupCluster]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}PollGroupCluster]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}PollGroupCluster] with nocheck add constraint [PK_{objectQualifier}PollGroupCluster] primary key clustered(PollGroupID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Poll]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Poll]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Poll] with nocheck add constraint [PK_{objectQualifier}Poll] primary key clustered(PollID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Smiley]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Smiley]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Smiley] with nocheck add constraint [PK_{objectQualifier}Smiley] primary key clustered(SmileyID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Topic]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Topic]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Topic] with nocheck add constraint [PK_{objectQualifier}Topic] primary key clustered(TopicID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}FavoriteTopic]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}FavoriteTopic]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}FavoriteTopic] with nocheck add constraint [PK_{objectQualifier}FavoriteTopic] primary key clustered(ID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}User]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}User]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}User] with nocheck add constraint [PK_{objectQualifier}User] primary key clustered(UserID)   
 go
 
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}WatchForum]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}WatchForum]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}WatchForum] with nocheck add constraint [PK_{objectQualifier}WatchForum] primary key clustered(WatchForumID)   
 go
 
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}WatchTopic]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}WatchTopic]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}WatchTopic] with nocheck add constraint [PK_{objectQualifier}WatchTopic] primary key clustered(WatchTopicID)   
 go
 
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}UserGroup]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}UserGroup]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}UserGroup] with nocheck add constraint [PK_{objectQualifier}UserGroup] primary key clustered(UserID,GroupID)
 go
 
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Rank]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Rank]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Rank] with nocheck add constraint [PK_{objectQualifier}Rank] primary key clustered(RankID)
 go
 
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}NntpServer]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}NntpServer]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}NntpServer] with nocheck add constraint [PK_{objectQualifier}NntpServer] primary key clustered (NntpServerID) 
 go
 
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}NntpForum]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}NntpForum]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}NntpForum] with nocheck add constraint [PK_{objectQualifier}NntpForum] primary key clustered (NntpForumID) 
 go
 
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}NntpTopic]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}NntpTopic]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}NntpTopic] with nocheck add constraint [PK_{objectQualifier}NntpTopic] primary key clustered (NntpTopicID) 
 go
 
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}AccessMask]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}AccessMask]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}AccessMask] with nocheck add constraint [PK_{objectQualifier}AccessMask] primary key clustered (AccessMaskID) 
 go
 
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}UserForum]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}UserForum]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}UserForum] with nocheck add constraint [PK_{objectQualifier}UserForum] primary key clustered (UserID,ForumID) 
 go
 
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Board]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Board]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Board] with nocheck add constraint [PK_{objectQualifier}Board] primary key clustered (BoardID)
 go
 
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Active]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Active]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Active] with nocheck add constraint [PK_{objectQualifier}Active] primary key clustered(SessionID,BoardID)
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}UserPMessage]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}UserPMessage]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] with nocheck add constraint [PK_{objectQualifier}UserPMessage] primary key clustered (UserPMessageID) 
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Attachment]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Attachment]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Attachment] with nocheck add constraint [PK_{objectQualifier}Attachment] primary key clustered (AttachmentID) 
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Active]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Active]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Active] with nocheck add constraint [PK_{objectQualifier}Active] primary key clustered(SessionID,BoardID)
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}PollVote]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}PollVote]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}PollVote] with nocheck add constraint [PK_{objectQualifier}PollVote] primary key clustered(PollVoteID)
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}IgnoreUser]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}IgnoreUser]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}IgnoreUser] with nocheck add constraint [PK_{objectQualifier}IgnoreUser] PRIMARY KEY CLUSTERED (UserID, IgnoredUserID)
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}ShoutboxMessage]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}ShoutboxMessage]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] with nocheck add constraint [PK_{objectQualifier}ShoutboxMessage] PRIMARY KEY CLUSTERED (ShoutBoxMessageID)
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Thanks]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Thanks]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Thanks] with nocheck add constraint [PK_{objectQualifier}Thanks] PRIMARY KEY CLUSTERED (ThanksID)
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}MessageHistory]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}MessageHistory]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}MessageHistory] with nocheck add constraint  [PK_{objectQualifier}MessageHistory] primary key clustered (MessageID,Edited)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}ActiveAccess]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}ActiveAccess]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}ActiveAccess] with nocheck add constraint  [PK_{objectQualifier}ActiveAccess] primary key clustered (UserID,ForumID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}ReputationVote]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}ReputationVote]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}ReputationVote] with nocheck add constraint  [PK_{objectQualifier}ReputationVote] primary key clustered (ReputationFromUserID,ReputationToUserID)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}AdminPageUserAccess]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}AdminPageUserAccess]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] with nocheck add constraint [PK_{objectQualifier}AdminPageUserAccess] primary key clustered(UserID,PageName)   
 go
 
-if not exists (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}EventLogGroupAccess]'), 'TableHasPrimaryKey'))
+if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}EventLogGroupAccess]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] with nocheck add constraint [PK_{objectQualifier}EventLogGroupAccess] primary key clustered(GroupID,EventTypeID)   
 go
 

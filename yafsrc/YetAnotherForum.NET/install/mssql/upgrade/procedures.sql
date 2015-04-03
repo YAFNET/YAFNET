@@ -3846,7 +3846,6 @@ begin
         delete [{databaseOwner}].[{objectQualifier}Thanks] where MessageID = @MessageID
         delete [{databaseOwner}].[{objectQualifier}MessageHistory] where MessageID = @MessageID
 
-
 		-- update message positions inside the topic
 		declare @Posted datetime = (select posted from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID)
 		
