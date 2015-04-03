@@ -3806,6 +3806,7 @@ begin
     declare @MessageCount	int
     declare @LastMessageID	int
     declare @UserID			int
+	declare @ReplyToID      int
 
     -- Find TopicID and ForumID
     select @TopicID=b.TopicID,@ForumID=b.ForumID,@UserID = a.UserID 
@@ -3844,7 +3845,43 @@ begin
         --delete thanks related to this message
         delete [{databaseOwner}].[{objectQualifier}Thanks] where MessageID = @MessageID
         delete [{databaseOwner}].[{objectQualifier}MessageHistory] where MessageID = @MessageID
-        delete [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID
+
+
+		-- update message positions inside the topic
+		declare @Posted datetime = (select posted from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID)
+		
+		update [{databaseOwner}].[{objectQualifier}Message] 
+		    set Position = Position-1
+		where    
+		    TopicID = @TopicID and posted > @Posted and MessageID != @MessageID
+
+		-- update ReplyTo
+		set	@ReplyToID = (select 
+		                      MessageID
+						  from
+						      [{databaseOwner}].[{objectQualifier}Message]
+                          where     
+						      TopicID = @TopicID and Position = 0 and MessageID != @MessageID
+					     )
+
+		update 
+		    [{databaseOwner}].[{objectQualifier}Message] 
+	        set ReplyTo = @ReplyToID
+        where
+		    TopicID = @TopicID and ReplyTo = @MessageID
+
+	    -- fix Reply To if equal with MessageID
+		update 
+		    [{databaseOwner}].[{objectQualifier}Message] 
+	        set ReplyTo = NULL
+        where
+		    TopicID = @TopicID and MessageID = @ReplyToID
+
+	    -- finally delete the message we want to delete
+        delete 
+		    [{databaseOwner}].[{objectQualifier}Message] 
+		where 
+		    MessageID = @MessageID
         
     end
     else begin
@@ -9097,12 +9134,21 @@ update [{databaseOwner}].[{objectQualifier}Message] set
         LastUserDisplayName = null
     where LastMessageID = @MessageID
 
+	if (@Position = 0) 
+	begin
+	    update [{databaseOwner}].[{objectQualifier}Message] set
+		    ReplyTo = @MessageID
+        WHERE  
+		    TopicID = @MoveToTopic and ReplyTo is NULL
 
-UPDATE [{databaseOwner}].[{objectQualifier}Message] SET
+		set @ReplyToID = NULL
+    end
+
+    UPDATE [{databaseOwner}].[{objectQualifier}Message] SET
     TopicID = @MoveToTopic,
     ReplyTo = @ReplyToID,
     [Position] = @Position
-WHERE  MessageID = @MessageID
+    WHERE  MessageID = @MessageID
 
     -- Delete topic if there are no more messages
     select @MessageCount = count(1) from [{databaseOwner}].[{objectQualifier}Message] where TopicID = @OldTopicID and IsDeleted=0

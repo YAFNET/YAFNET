@@ -344,6 +344,54 @@ namespace YAF.Controls
         }
 
         /// <summary>
+        /// Gets or sets Param Text 0.
+        /// </summary>
+        public string ParamText0
+        {
+            get
+            {
+                return this._localizedLabel.Param0;
+            }
+
+            set
+            {
+                this._localizedLabel.Param0 = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets Param Text 1.
+        /// </summary>
+        public string ParamText1
+        {
+            get
+            {
+                return this._localizedLabel.Param1;
+            }
+
+            set
+            {
+                this._localizedLabel.Param1 = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets Param Text 2.
+        /// </summary>
+        public string ParamText2
+        {
+            get
+            {
+                return this._localizedLabel.Param2;
+            }
+
+            set
+            {
+                this._localizedLabel.Param2 = value;
+            }
+        }
+
+        /// <summary>
         ///    Gets or sets the Localized Tag for the optional link description (title)
         /// </summary>
         [CanBeNull]
@@ -468,7 +516,7 @@ namespace YAF.Controls
         protected override void Render([NotNull] HtmlTextWriter output)
         {
             // get the title...
-            string title = this.GetLocalizedTitle();
+            var title = this.GetLocalizedTitle();
 
             output.BeginRender();
             output.WriteBeginTag("a");
@@ -493,7 +541,7 @@ namespace YAF.Controls
                     ? this.NavigateUrl.Replace("&", "&amp;")
                     : this.Page.ClientScript.GetPostBackClientHyperlink(this, string.Empty));
 
-            bool wroteOnClick = false;
+            var wroteOnClick = false;
 
             // handle additional attributes (if any)
             if (this._attributeCollection.Count > 0)

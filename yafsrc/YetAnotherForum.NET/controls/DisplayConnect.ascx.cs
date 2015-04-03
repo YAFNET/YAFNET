@@ -95,7 +95,7 @@ namespace YAF.Controls
                                         {
                                             TextLocalizedTag = "LOGIN_CONNECT",
                                             TextLocalizedPage = "TOOLBAR",
-                                            ParamTitle0 = this.Get<YafBoardSettings>().Name,
+                                            ParamText0 = this.Get<YafBoardSettings>().Name,
                                             TitleLocalizedTag = "LOGIN",
                                             TitleLocalizedPage = "TOOLBAR",
                                             CssClass = "yafcssbigbutton"
