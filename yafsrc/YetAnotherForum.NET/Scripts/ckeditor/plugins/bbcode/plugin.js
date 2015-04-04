@@ -23,7 +23,10 @@ function addEventOn(editor) {
 }
 
 function ConvertHtmlToBBCode(html) {
-		// [url]
+        // [attach]
+    html = html.replace(/<a href="resource.ashx\?i=(.+?)".*?class="attachedImage">.*?<\/a>/gi, '[attach]$1[/attach]');
+
+        // [url]
         html = html.replace(/<a .*?href=(["'])(.+?)\1.*?>(.+?)<\/a>/gi, '[url=$2]$3[/url]');
         //html = html.replace(/<a.*?href=\"(.*?)\".*?>(.*?)<\/a>/gi,"[url=$1]$2[/url]");
 
@@ -120,7 +123,6 @@ function ConvertHtmlToBBCode(html) {
         html = html.replace(/<p style=\"font-family:(.*?);\">(((\n|.)*).*?)<\/p>/gi, "[font=$1]$2[/font]");
         html = html.replace(/<span style=\"font-family:(.*?)\">(((\n|.)*).*?)<\/span>/gi, "[font=$1]$2[/font]");
         html = html.replace(/<p style=\"font-family:(.*?)\">(((\n|.)*).*?)<\/p>/gi, "[font=$1]$2[/font]");
-
 
         // Convert <br> to line breaks.
         html = html.replace(/<br(?=[ \/>]).*?>/gi, '\r\n');
@@ -229,6 +231,9 @@ CKEDITOR.htmlDataProcessor.prototype =
 
         // [font=?]
         data = data.replace(/\[font=(.*?)\](((\n|.)*).*?)\[\/font\]/gi, '<span style="font-family:$1">$2</span>');
+
+        // [attach]
+        data = data.replace(/\[attach\](.+?)\[\/attach]/gi, '<a href="resource.ashx?i=$1" date-img="resource.ashx?a=$1" class="attachedImage"><img src="resource.ashx?p=$1" alt="Attached Image" class="UserPostedImage" /></a>');
 
         return data;
     },

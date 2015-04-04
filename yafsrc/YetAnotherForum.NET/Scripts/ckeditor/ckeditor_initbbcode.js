@@ -9,6 +9,8 @@
         config.disableNativeSpellChecker = false;
         config.scayt_autoStartup = true;
 
+        config.autosave_saveDetectionSelectors = "a[id*='_PostReply'],a[id*='Cancel']";
+
         config.toolbar = [
             ['Source'],
             ['Undo', 'Redo'],

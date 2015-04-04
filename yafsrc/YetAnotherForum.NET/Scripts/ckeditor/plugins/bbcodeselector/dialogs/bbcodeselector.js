@@ -1,5 +1,4 @@
-CKEDITOR.dialog.add('bbcodeselector', function(editor)
-{    
+CKEDITOR.dialog.add('bbcodeselector', function(editor) {
     var parseHtml = function(htmlString) {
         htmlString = htmlString.replace(/<br>/g, '\n');
         htmlString = htmlString.replace(/&amp;/g, '&');
@@ -8,14 +7,14 @@ CKEDITOR.dialog.add('bbcodeselector', function(editor)
         htmlString = htmlString.replace(/&quot;/g, '"');
         return htmlString;
     }
-    
+
     var getDefaultOptions = function(options) {
         var options = new Object();
         options.bbcodeName = null;
         options.code = '';
         return options;
     }
-    
+
     var getOptionsForString = function(optionsString) {
         var options = getDefaultOptions();
         if (optionsString) {
@@ -28,11 +27,11 @@ CKEDITOR.dialog.add('bbcodeselector', function(editor)
         }
         return options;
     }
-    
+
     var getStringForOptions = function(optionsObject) {
         return optionsObject.bbcodeName;
     }
-    
+
     return {
         title: editor.lang.bbcodeselector.title,
         minWidth: 500,
@@ -55,6 +54,8 @@ CKEDITOR.dialog.add('bbcodeselector', function(editor)
                 optionsObj = getDefaultOptions();
             }
             this.setupContent(optionsObj)*/
+
+
         },
         onOk: function() {
             var editor = this.getParentEditor();
@@ -64,84 +65,78 @@ CKEDITOR.dialog.add('bbcodeselector', function(editor)
             var data = getDefaultOptions();
             this.commitContent(data);
             var optionsString = getStringForOptions(data);
-			/*
+            /*
 			var newElement = new CKEDITOR.dom.element(optionsString);
             newElement.setText("[" + optionsString + "]" + data.code + "[/"+ optionsString + "]");
             
 			editor.insertElement(newElement);*/
-			
-			editor.insertHtml("[" + optionsString + "]" + data.code + "[/"+ optionsString + "]");
+
+            editor.insertHtml("[" + optionsString + "]" + data.code + "[/" + optionsString + "]");
         },
-        contents : [
+        contents: [
             {
-                id : 'source',
-                label : editor.lang.bbcodeselector.langLbl,
-                accessKey : 'S',
-                elements :
+                id: 'source',
+                label: editor.lang.bbcodeselector.langLbl,
+                accessKey: 'S',
+                elements:
                 [
                     {
-                        type : 'vbox',
+                        type: 'vbox',
                         children: [
-                          {
-                              id: 'cmbBBCode',
-                              type: 'select',
-                              labelLayout: 'horizontal',
-                              label: editor.lang.bbcodeselector.bbCodeLbl,
-                              'default': 'youtube',
-                              widths : [ '25%','75%' ],
-                              items: [
-                                      ['Youtube', 'youtube'],
-									  ['Vimeo', 'vimeo'],
-									  ['GoogleWidget', 'googlewidget'],
-									  ['Spoiler', 'spoiler'], 
-									  ['Userlink', 'userlink']
-                              ],
-                              setup: function(data) {
-                                  if (data.bbcodeName)
-                                      this.setValue(data.bbcodeName);
-                              },
-                              commit: function(data) {
-                                  data.bbcodeName = this.getValue();
-                              },
-							  onChange : function (data) {
-								  var dialog = this.getDialog(),
-								  bbCodeType = this.getValue(),
-								  contentBox = dialog.getContentElement( 'source', 'CodeBox' );
-								  
-								  switch(bbCodeType)
-								  {
-									  case "youtube":
-									      {
-											  var text = editor.lang.bbcodeselector.youtube;
-											  contentBox.setValue( text );
-									      }
-									      break;
-									  case "vimeo": 
-									      {
-											  var text = editor.lang.bbcodeselector.vimeo;
-											  contentBox.setValue( text );
-									      }
-									      break;
-									  case "googlewidget": 
-									      {
-											  var text = editor.lang.bbcodeselector.googlewidget;
-											  contentBox.setValue( text );
-									      }
-									      break;
-									  case "spoiler": 
-									      {
-											  var text = editor.lang.bbcodeselector.spoiler;
-											  contentBox.setValue( text );
-									      }
-									  break;
-									  case "userlink": 
-									      {
-											  var text = editor.lang.bbcodeselector.userLink;
-											  contentBox.setValue( text );
-									      }
-								  }
-							  }
-                          }
+                            {
+                                id: 'cmbBBCode',
+                                type: 'select',
+                                labelLayout: 'horizontal',
+                                label: editor.lang.bbcodeselector.bbCodeLbl,
+                                'default': 'youtube',
+                                widths: ['25%', '75%'],
+                                items:
+                                    window["arrayTest"],
+                                setup: function(data) {
+                                    if (data.bbcodeName)
+                                        this.setValue(data.bbcodeName);
+                                },
+                                commit: function(data) {
+                                    data.bbcodeName = this.getValue();
+                                },
+                                onChange: function(data) {
+                                    var dialog = this.getDialog(),
+                                        bbCodeType = this.getValue(),
+                                        contentBox = dialog.getContentElement('source', 'CodeBox');
+
+                                    switch (bbCodeType) {
+                                    case "youtube":
+                                        {
+                                            var text = editor.lang.bbcodeselector.youtube;
+                                            contentBox.setValue(text);
+                                        }
+                                        break;
+                                    case "vimeo":
+                                        {
+                                            var text = editor.lang.bbcodeselector.vimeo;
+                                            contentBox.setValue(text);
+                                        }
+                                        break;
+                                    case "googlewidget":
+                                        {
+                                            var text = editor.lang.bbcodeselector.googlewidget;
+                                            contentBox.setValue(text);
+                                        }
+                                        break;
+                                    case "spoiler":
+                                        {
+                                            var text = editor.lang.bbcodeselector.spoiler;
+                                            contentBox.setValue(text);
+                                        }
+                                        break;
+                                    case "userlink":
+                                    {
+                                        var text = editor.lang.bbcodeselector.userLink;
+                                        contentBox.setValue(text);
+                                    }
+                                    }
+                                }
+                            }
                         ]
                     },
                     {
