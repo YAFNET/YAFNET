@@ -4,6 +4,8 @@
 
 ![projectbadge](http://www.ohloh.net/p/yaf/widgets/project_partner_badge.gif)
 
+[![Build status](https://ci.appveyor.com/api/projects/status/9905j18xqb16gdy7?svg=true)](https://ci.appveyor.com/project/YAFNET/yafnet)
+
 If you have any questions or would like to get in touch with the project, please see the contact information at the bottom of this document.
 
 ### Installation & Upgrade
