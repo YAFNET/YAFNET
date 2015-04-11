@@ -1946,6 +1946,20 @@
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\about.js" />
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="Scripts\ckeditor\plugins\autosave\css\autosave.min.css" />
+    <Content Include="Scripts\ckeditor\plugins\autosave\js\extensions.min.js" />
+    <Content Include="Scripts\ckeditor\plugins\autosave\lang\ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\autosave\lang\de.js" />
+    <Content Include="Scripts\ckeditor\plugins\autosave\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\autosave\lang\es.js" />
+    <Content Include="Scripts\ckeditor\plugins\autosave\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\plugins\autosave\lang\ja.js" />
+    <Content Include="Scripts\ckeditor\plugins\autosave\lang\pl.js" />
+    <Content Include="Scripts\ckeditor\plugins\autosave\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\plugins\autosave\lang\sv.js" />
+    <Content Include="Scripts\ckeditor\plugins\autosave\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\plugins\autosave\lang\zh.js" />
+    <Content Include="Scripts\ckeditor\plugins\autosave\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\clipboard\dialogs\paste.js" />
     <Content Include="Scripts\ckeditor\plugins\dialog\dialogDefinition.js" />
     <Content Include="Scripts\ckeditor\plugins\icons.png" />
@@ -2016,6 +2030,7 @@
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
     <Content Include="Scripts\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
     <Content Include="Scripts\ckeditor\plugins\table\dialogs\table.js" />
+    <Content Include="Scripts\ckeditor\plugins\textselection\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\ciframe.html" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.css" />
@@ -2034,24 +2049,6 @@
     <Content Include="Scripts\ckeditor\skins\moono\editor_iequirks.css" />
     <Content Include="Scripts\ckeditor\skins\moono\icons.png" />
     <Content Include="Scripts\ckeditor\skins\moono\icons_hidpi.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\arrow.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\close.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\close.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\lock-open.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\lock.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\refresh.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\lock-open.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\lock.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\refresh.png" />
-    <Content Include="Scripts\ckeditor\styles.js" />
-    <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
-    <Content Include="Scripts\ckeditor\README.md" />
-    <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
-    <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
-    <Content Include="Scripts\ckeditor\plugins\scayt\README.md" />
-    <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
-    <Content Include="Scripts\ckeditor\LICENSE.md" />
-    <Content Include="Scripts\ckeditor\CHANGES.md" />
     <Content Include="Content\bootstrap-select.css.map">
       <DependentUpon>bootstrap-select.css</DependentUpon>
     </Content>
@@ -2133,9 +2130,28 @@
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Content\jquery.tablesorter.less" />
+    <Content Include="Scripts\ckeditor\plugins\autosave\lang\LionSonderreinigung-Rechnung.pdf" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\arrow.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\close.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\close.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\lock-open.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\lock.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\refresh.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\lock-open.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\lock.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\refresh.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
+    <Content Include="Scripts\ckeditor\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\CHANGES.md" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js">
       <DependentUpon>jquery-2.1.3.js</DependentUpon>
     </None>
+    <Content Include="Scripts\ckeditor\styles.js" />
     <Content Include="Scripts\i18n\defaults-bg_BG.js" />
     <Content Include="Scripts\i18n\defaults-bg_BG.min.js" />
     <Content Include="Scripts\i18n\defaults-cs_CZ.js" />
@@ -5261,6 +5277,7 @@
     <Extension>zip</Extension>
     <PackageName>YAF</PackageName>
     <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\BuildScripts</MSBuildCommunityTasksPath>
+    <CreatePackages>false</CreatePackages>
   </PropertyGroup>
   <Import Project="BuildScripts\YAF.Package.Targets" />
   <Target Name="AfterBuild" DependsOnTargets="PackageModule">

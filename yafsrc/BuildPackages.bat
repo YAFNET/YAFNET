@@ -5,4 +5,4 @@
 @SET LANGDIR=EN
 
 .nuget\nuget.exe restore YetAnotherForum.NET.sln
-msbuild.exe YetAnotherForum.NET.sln /p:Configuration=Deploy /p:Platform="Any CPU" /t:Clean;Build /p:WarningLevel=0
+msbuild.exe YetAnotherForum.NET.sln /p:Configuration=Release /p:Platform="Any CPU" /t:rebuild /p:WarningLevel=0;CreatePackages=true

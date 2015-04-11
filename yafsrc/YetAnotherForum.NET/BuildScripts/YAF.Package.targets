@@ -3,7 +3,7 @@
   <Import Project="MSBuild.Community.Tasks.Targets" />
   <Import Project="MSBuild.ExtensionPack.tasks"/>
   <Import Project="AjaxMin.tasks" />
-  <Target Name="PackageModule" Condition=" '$(Configuration)|$(Platform)' == 'Deploy|AnyCPU' ">
+  <Target Name="PackageModule" Condition=" '$(Configuration)' == 'Release' AND '$(CreatePackages)' == 'true' ">
     <GetAssemblyIdentity AssemblyFiles="$(MSBuildProjectDirectory)\bin\YAF.dll">
       <Output TaskParameter="Assemblies" ItemName="AssemblyIdentities"/>
     </GetAssemblyIdentity>
