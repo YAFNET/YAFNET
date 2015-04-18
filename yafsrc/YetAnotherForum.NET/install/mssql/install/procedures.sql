@@ -2492,7 +2492,6 @@ begin
     declare @MessageCount	int
     declare @LastMessageID	int
     declare @UserID			int
-	declare @LastMessageID	int
 	declare @ReplyToID      int
 
     -- Find TopicID and ForumID
