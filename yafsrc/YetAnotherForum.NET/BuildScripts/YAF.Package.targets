@@ -124,7 +124,7 @@
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.eof" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.svg" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.woff" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
-      <yafInstall-Include Include="$(MSBuildProjectDirectory)\*.config" Exclude="$(MSBuildProjectDirectory)\packages.config;$(MSBuildProjectDirectory)\web.config;$(MSBuildProjectDirectory)\recommended.web.config;$(MSBuildProjectDirectory)\v1.9.1.upgrade.web.config;$(MSBuildProjectDirectory)\..\.nuget\NuGet.Config" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\*.config" Exclude="$(MSBuildProjectDirectory)\packages.config;$(MSBuildProjectDirectory)\web.config;$(MSBuildProjectDirectory)\recommended.web.config;$(MSBuildProjectDirectory)\recommended-azure.web.config;$(MSBuildProjectDirectory)\v1.9.1.upgrade.web.config;$(MSBuildProjectDirectory)\..\.nuget\NuGet.Config" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.browser" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.mdf" />
     </ItemGroup>
@@ -143,6 +143,7 @@
     <Copy SourceFiles="@(yafInstall-Include)" DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)" />
     <Copy SourceFiles="@(LibaryFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
     <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended.web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\recommended.web.config"/>
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended-azure.web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\recommended-azure.web.config"/>
     
     <!-- Minify JS and CSS Files -->
     <ItemGroup>
@@ -197,6 +198,7 @@
     <Move SourceFiles="$(MSBuildProjectDirectory)\Package\db.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\db.config"/>
     <Move SourceFiles="$(MSBuildProjectDirectory)\Package\mail.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\mail.config"/>
     <Move SourceFiles="$(MSBuildProjectDirectory)\Package\recommended.web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\recommended.web.config"/>
+    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\recommended-azure.web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\recommended-azure.web.config"/>
     
     <Copy SourceFiles="$(MSBuildProjectDirectory)\v1.9.1.upgrade.web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\v1.9.1.upgrade.web.config"/>
 
