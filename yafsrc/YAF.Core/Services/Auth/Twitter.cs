@@ -323,19 +323,20 @@ namespace YAF.Core.Services.Auth
             // Create User if not exists?!
             MembershipCreateStatus status;
 
+            var memberShipProvider = YafContext.Current.Get<MembershipProvider>();
+
             var pass = Membership.GeneratePassword(32, 16);
             var securityAnswer = Membership.GeneratePassword(64, 30);
 
-            MembershipUser user = YafContext.Current.Get<MembershipProvider>()
-                .CreateUser(
-                    twitterUser.UserName, 
-                    pass, 
-                    email, 
-                    "Answer is a generated Pass", 
-                    securityAnswer, 
-                    true, 
-                    null, 
-                    out status);
+            var user = memberShipProvider.CreateUser(
+                twitterUser.UserName,
+                pass,
+                email,
+                memberShipProvider.RequiresQuestionAndAnswer ? "Answer is a generated Pass" : null,
+                memberShipProvider.RequiresQuestionAndAnswer ? securityAnswer : null,
+                true,
+                null,
+                out status);
 
             // setup initial roles (if any) for this user
             RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, twitterUser.UserName);

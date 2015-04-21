@@ -450,19 +450,20 @@ namespace YAF.Core.Services.Auth
 
             MembershipCreateStatus status;
 
+            var memberShipProvider = YafContext.Current.Get<MembershipProvider>();
+
             var pass = Membership.GeneratePassword(32, 16);
             var securityAnswer = Membership.GeneratePassword(64, 30);
 
-            var user = YafContext.Current.Get<MembershipProvider>()
-                .CreateUser(
-                    facebookUser.UserName, 
-                    pass, 
-                    facebookUser.Email, 
-                    "Answer is a generated Pass", 
-                    securityAnswer, 
-                    true, 
-                    null, 
-                    out status);
+            var user = memberShipProvider.CreateUser(
+                facebookUser.UserName,
+                pass,
+                facebookUser.Email,
+                memberShipProvider.RequiresQuestionAndAnswer ? "Answer is a generated Pass" : null,
+                memberShipProvider.RequiresQuestionAndAnswer ? securityAnswer : null,
+                true,
+                null,
+                out status);
 
             // setup initial roles (if any) for this user
             RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, facebookUser.UserName);
