@@ -194,7 +194,7 @@ namespace YAF.Pages.Admin
         /// </exception>
         private int UsersImport(Stream imputStream, bool isXml)
         {
-            int importedCount = 0;
+            var importedCount = 0;
 
             if (isXml)
             {
@@ -222,10 +222,7 @@ namespace YAF.Pages.Admin
 
                 string[] headers = streamReader.ReadLine().Split(',');
 
-                foreach (string header in headers)
-                {
-                    usersTable.Columns.Add(header);
-                }
+                headers.ForEach(header => usersTable.Columns.Add(header));
 
                 while (streamReader.Peek() >= 0)
                 {
@@ -281,16 +278,17 @@ namespace YAF.Pages.Admin
                 && row.Table.Columns.Contains("SecurityAnswer") && !string.IsNullOrEmpty((string)row["SecurityAnswer"]))
             {
                 pass = (string)row["Password"];
+
                 securityAnswer = (string)row["SecurityAnswer"];
                 securityQuestion = (string)row["SecurityQuestion"];
             }
 
-            MembershipUser user = YafContext.Current.Get<MembershipProvider>().CreateUser(
+            var user = YafContext.Current.Get<MembershipProvider>().CreateUser(
                 (string)row["Name"],
                 pass,
                 (string)row["Email"],
-                securityQuestion,
-                securityAnswer,
+                this.Get<MembershipProvider>().RequiresQuestionAndAnswer ? securityQuestion : null,
+                this.Get<MembershipProvider>().RequiresQuestionAndAnswer ? securityAnswer : null,
                 true,
                 null,
                 out status);
@@ -456,16 +454,16 @@ namespace YAF.Pages.Admin
                 user, pass, securityAnswer, "NOTIFICATION_ON_REGISTER");
 
             // save the time zone...
-            int userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
+            var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
 
-            bool isDST = false;
+            var isDST = false;
 
             if (row.Table.Columns.Contains("IsDST") && !string.IsNullOrEmpty((string)row["IsDST"]))
             {
                 bool.TryParse((string)row["IsDST"], out isDST);
             }
 
-            int timeZone = 0;
+            var timeZone = 0;
 
             if (row.Table.Columns.Contains("Timezone") && !string.IsNullOrEmpty((string)row["Timezone"]))
             {
@@ -491,7 +489,7 @@ namespace YAF.Pages.Admin
                 null,
                 null);
 
-            bool autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting
+            var autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting
                                           == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
             // save the settings...
