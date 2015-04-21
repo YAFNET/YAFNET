@@ -2148,6 +2148,7 @@
     <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
+    <Content Include="recommended-azure.web.config" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js">
       <DependentUpon>jquery-2.1.3.js</DependentUpon>
     </None>
