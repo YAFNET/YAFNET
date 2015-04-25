@@ -265,6 +265,7 @@ namespace YAF.Editors
                                         new HighLightList { BrushAlias = "cpp", BrushName = "C++" },
                                         new HighLightList { BrushAlias = "csharp", BrushName = "C#" },
                                         new HighLightList { BrushAlias = "git", BrushName = "Git" },
+                                        new HighLightList { BrushAlias = "python", BrushName = "Python" },
                                         new HighLightList { BrushAlias = "sql", BrushName = "SQL" },
                                         new HighLightList
                                             {
