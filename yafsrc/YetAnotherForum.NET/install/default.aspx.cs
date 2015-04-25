@@ -1104,10 +1104,22 @@ namespace YAF.Install
                 // logout administrator...
                 FormsAuthentication.SignOut();
 
+
+                int timeZone;
+
+                try
+                {
+                    timeZone = int.Parse(this.TimeZones.SelectedValue);
+                }
+                catch (Exception)
+                {
+                    timeZone = 0;
+                }
+
                 // init forum...
                 this.InstallUpgradeService.InitializeForum(
                     this.TheForumName.Text,
-                    this.TimeZones.SelectedValue,
+                    timeZone,
                     this.Culture.SelectedValue,
                     this.ForumEmailAddress.Text,
                     this.ForumBaseUrlMask.Text,
