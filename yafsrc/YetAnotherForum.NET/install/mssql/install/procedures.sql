@@ -634,7 +634,12 @@ declare @FirstSelectRowID int
            set @PageIndex = @PageIndex + 1
            set @TotalRows = 0
            
-           select @TotalRows = count(1) from [{databaseOwner}].[{objectQualifier}Attachment]
+           select 
+               @TotalRows = count(1) 
+           from 
+               [dbo].[yaf_Attachment]
+           where
+               UserID = @UserID
 		   		
            select top (@PageSize)
                *
