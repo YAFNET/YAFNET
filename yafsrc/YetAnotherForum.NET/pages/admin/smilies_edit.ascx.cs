@@ -146,12 +146,14 @@ namespace YAF.Pages.Admin
             }
             else
             {
-                var smilies =
+                 var smilies =
                     this.GetRepository<Smiley>().ListTyped();
+                if (smilies.Any())
+                {
+                    this.SortOrder.Text = ((smilies).Max(s => s.SortOrder) + 1).ToString();
 
-                this.SortOrder.Text = (smilies.Max(s => s.SortOrder) + 1).ToString();
-
-                this.Preview.Src = "{0}images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+                    this.Preview.Src = "{0}images/spacer.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+                }
             }
 
             this.Icon.Attributes["onchange"] =
