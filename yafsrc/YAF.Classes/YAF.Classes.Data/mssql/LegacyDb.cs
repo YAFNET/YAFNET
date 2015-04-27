@@ -5868,7 +5868,7 @@ namespace YAF.Classes.Data
         /// <param name="rolePrefix">The role Prefix.</param>
         public static void system_initialize(
             [NotNull] string forumName,
-            [NotNull] string timeZone,
+            [NotNull] int timeZone,
             [NotNull] string culture,
             [NotNull] string languageFile,
             [NotNull] string forumEmail,
