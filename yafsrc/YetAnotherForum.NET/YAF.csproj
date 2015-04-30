@@ -926,6 +926,14 @@
     <Content Include="Content\jquery.tablesorter.min.css">
       <DependentUpon>jquery.tablesorter.css</DependentUpon>
     </Content>
+    <Content Include="Content\ladda-themeless.css" />
+    <Content Include="Content\ladda-themeless.min.css">
+      <DependentUpon>ladda-themeless.css</DependentUpon>
+    </Content>
+    <Content Include="Content\ladda.css" />
+    <Content Include="Content\ladda.min.css">
+      <DependentUpon>ladda.css</DependentUpon>
+    </Content>
     <Content Include="Content\select2.css" />
     <Content Include="Content\icons\ipbandetected.png" />
     <Content Include="Content\images\InstallBackground.jpg" />
@@ -947,18 +955,6 @@
     </Content>
     <Content Include="Content\jsdifflib.min.css">
       <DependentUpon>jsdifflib.css</DependentUpon>
-    </Content>
-    <Content Include="Content\ladda-themeless.css">
-      <DependentUpon>ladda-themeless.less</DependentUpon>
-    </Content>
-    <Content Include="Content\ladda-themeless.min.css">
-      <DependentUpon>ladda-themeless.less</DependentUpon>
-    </Content>
-    <Content Include="Content\ladda.css">
-      <DependentUpon>ladda.less</DependentUpon>
-    </Content>
-    <Content Include="Content\ladda.min.css">
-      <DependentUpon>ladda.less</DependentUpon>
     </Content>
     <Content Include="Content\prism.css" />
     <Content Include="Content\jquery.selectedQuoting.css" />
@@ -2130,7 +2126,6 @@
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Content\jquery.tablesorter.less" />
-    <Content Include="Scripts\ckeditor\plugins\autosave\lang\LionSonderreinigung-Rechnung.pdf" />
     <Content Include="Scripts\ckeditor\skins\moono\images\arrow.png" />
     <Content Include="Scripts\ckeditor\skins\moono\images\close.png" />
     <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\close.png" />
@@ -2148,7 +2143,9 @@
     <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
-    <Content Include="recommended-azure.web.config" />
+    <Content Include="recommended-azure.web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Scripts\jquery-2.1.3.intellisense.js">
       <DependentUpon>jquery-2.1.3.js</DependentUpon>
     </None>
@@ -2231,6 +2228,8 @@
     <Content Include="Scripts\jsdifflib.min.js">
       <DependentUpon>jsdifflib.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\ladda.js" />
+    <Content Include="Scripts\ladda.min.js" />
     <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js">
@@ -3354,8 +3353,6 @@
     <Content Include="Content\InstallWizard.min.css">
       <DependentUpon>InstallWizard.less</DependentUpon>
     </Content>
-    <Content Include="Content\ladda-themeless.less" />
-    <Content Include="Content\ladda.less" />
     <Content Include="Content\jsdifflib.less" />
     <Content Include="Content\bootstrap-select-variables.less" />
     <Content Include="Content\jquery.fileupload.comb.css.bundle" />
@@ -3505,10 +3502,6 @@
       <DependentUpon>jquery-ui-i18n.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery.timeago.js" />
-    <Content Include="Scripts\ladda.js" />
-    <Content Include="Scripts\ladda.min.js">
-      <DependentUpon>ladda.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\radEditor\toolsFile.xml" />
     <Content Include="Scripts\spin.js" />
     <Content Include="Scripts\spin.min.js">
@@ -5264,6 +5257,10 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
