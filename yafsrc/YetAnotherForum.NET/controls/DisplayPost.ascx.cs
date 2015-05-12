@@ -131,15 +131,15 @@ namespace YAF.Controls
         {
             var sb = new StringBuilder();
 
-            bool showDate = this.Get<YafBoardSettings>().ShowThanksDate;
+            var showDate = this.Get<YafBoardSettings>().ShowThanksDate;
 
-            // Extract all user IDs, usernames and (If enabled thanks dates) related to this message.
+            // Extract all user IDs, user name's and (If enabled thanks dates) related to this message.
             foreach (var chunk in rawString.Split(','))
             {
                 var subChunks = chunk.Split('|');
 
-                int userId = int.Parse(subChunks[0]);
-                DateTime thanksDate = DateTime.Parse(subChunks[1]);
+                var userId = int.Parse(subChunks[0]);
+                var thanksDate = DateTime.Parse(subChunks[1]);
 
                 if (sb.Length > 0)
                 {
@@ -147,7 +147,7 @@ namespace YAF.Controls
                 }
 
                 // Get the username related to this User ID
-                string displayName = this.Get<IUserDisplayName>().GetName(userId);
+                var displayName = this.Get<IUserDisplayName>().GetName(userId);
 
                 sb.AppendFormat(
                     @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>",
@@ -526,7 +526,7 @@ namespace YAF.Controls
                 this.panMessage.Visible = true;
             }
 
-            this.Retweet.Visible = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowRetweetMessageTo);
+            this.Retweet.Visible = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowRetweetMessageTo) && !this.PostData.PostDeleted && !this.PostData.IsLocked;
 
             this.Edit.Visible = !this.PostData.PostDeleted && this.PostData.CanEditPost && !this.PostData.IsLocked;
             this.Edit.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
@@ -543,6 +543,8 @@ namespace YAF.Controls
 
             this.Quote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
             this.MultiQuote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
+
+            this.Retweet.Visible = !this.PostData.PostDeleted && !this.PostData.IsLocked;
 
             this.Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                 ForumPages.postmessage,
@@ -734,7 +736,7 @@ namespace YAF.Controls
                     break;
                 case "addbuddy":
                     this.PopMenu1.RemovePostBackItem("addbuddy");
-                    string[] strBuddyRequest = this.Get<IBuddy>().AddRequest(this.PostData.UserId);
+                    var strBuddyRequest = this.Get<IBuddy>().AddRequest(this.PostData.UserId);
                     if (Convert.ToBoolean(strBuddyRequest[1]))
                     {
                         this.PageContext.AddLoadMessage(
