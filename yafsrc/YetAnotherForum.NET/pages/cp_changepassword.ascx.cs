@@ -37,6 +37,7 @@ namespace YAF.Pages
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -90,42 +91,41 @@ namespace YAF.Pages
             {
                 // Not accessbile...
                 YafBuildLink.AccessDenied();
-            } 
+            }
 
-            if (!this.Get<YafBoardSettings>().AllowPasswordChange &&
-                !(this.PageContext.IsAdmin || this.PageContext.IsForumModerator))
+            if (!this.Get<YafBoardSettings>().AllowPasswordChange
+                && !(this.PageContext.IsAdmin || this.PageContext.IsForumModerator))
             {
                 // Not accessbile...
                 YafBuildLink.AccessDenied();
             }
 
-            if (this.IsPostBack)
+            if (!this.IsPostBack)
             {
-                return;
+                this.PageLinks.AddRoot();
+                this.PageLinks.AddLink(
+                    this.Get<YafBoardSettings>().EnableDisplayName
+                        ? this.PageContext.CurrentUserData.DisplayName
+                        : this.PageContext.PageUserName,
+                    YafBuildLink.GetLink(ForumPages.cp_profile));
+                this.PageLinks.AddLink(this.GetText("TITLE"));
             }
 
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.Get<YafBoardSettings>().EnableDisplayName
-                    ? this.PageContext.CurrentUserData.DisplayName
-                    : this.PageContext.PageUserName,
-                YafBuildLink.GetLink(ForumPages.cp_profile));
-            this.PageLinks.AddLink(this.GetText("TITLE"));
-
             var oldPasswordRequired =
-                (RequiredFieldValidator)
-                this.ChangePassword1.ChangePasswordTemplateContainer.FindControl("CurrentPasswordRequired");
+                this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<RequiredFieldValidator>(
+                    "CurrentPasswordRequired");
             var newPasswordRequired =
-                (RequiredFieldValidator)
-                this.ChangePassword1.ChangePasswordTemplateContainer.FindControl("NewPasswordRequired");
+                this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<RequiredFieldValidator>(
+                    "NewPasswordRequired");
             var confirmNewPasswordRequired =
-                (RequiredFieldValidator)
-                this.ChangePassword1.ChangePasswordTemplateContainer.FindControl("ConfirmNewPasswordRequired");
+                this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<RequiredFieldValidator>(
+                    "ConfirmNewPasswordRequired");
             var passwordsEqual =
-                (CompareValidator)this.ChangePassword1.ChangePasswordTemplateContainer.FindControl("NewPasswordCompare");
+                this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<CompareValidator>(
+                    "NewPasswordCompare");
             var passwordsNotEqual =
-                (CompareValidator)
-                this.ChangePassword1.ChangePasswordTemplateContainer.FindControl("NewOldPasswordCompare");
+                this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<CompareValidator>(
+                    "NewOldPasswordCompare");
 
             oldPasswordRequired.ToolTip = oldPasswordRequired.ErrorMessage = this.GetText("NEED_OLD_PASSWORD");
             newPasswordRequired.ToolTip = newPasswordRequired.ErrorMessage = this.GetText("NEED_NEW_PASSWORD");
@@ -134,22 +134,36 @@ namespace YAF.Pages
             passwordsEqual.ToolTip = passwordsEqual.ErrorMessage = this.GetText("NO_PASSWORD_MATCH");
             passwordsNotEqual.ToolTip = passwordsNotEqual.ErrorMessage = this.GetText("PASSWORD_NOT_NEW");
 
-            ((Button)this.ChangePassword1.ChangePasswordTemplateContainer.FindControl("ChangePasswordPushButton")).Text
-                = this.GetText("CHANGE_BUTTON");
-            ((Button)this.ChangePassword1.ChangePasswordTemplateContainer.FindControl("CancelPushButton")).Text =
+            var changeButton =
+                (this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<Button>("ChangePasswordPushButton"));
+
+            changeButton.Text = this.GetText("CHANGE_BUTTON");
+            (this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<Button>("CancelPushButton")).Text =
                 this.GetText("CANCEL");
-            ((Button)this.ChangePassword1.SuccessTemplateContainer.FindControl("ContinuePushButton")).Text =
+            (this.ChangePassword1.SuccessTemplateContainer.FindControlAs<Button>("ContinuePushButton")).Text =
                 this.GetText("CONTINUE");
 
             // make failure text...
             // 1. Password incorrect or New Password invalid.
-            // 2. New Password length minimum: {0}.
+            // 2. New Password length minimum: {0}.t
             // 3. Non-alphanumeric characters required: {1}.
-            string failureText = this.GetText("PASSWORD_INCORRECT");
+            var failureText = this.GetText("PASSWORD_INCORRECT");
             failureText += "<br />{0}".FormatWith(this.GetText("PASSWORD_BAD_LENGTH"));
             failureText += "<br />{0}".FormatWith(this.GetText("PASSWORD_NOT_COMPLEX"));
 
             this.ChangePassword1.ChangePasswordFailureText = failureText;
+
+            var currentPassword =
+                this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<TextBox>("CurrentPassword");
+            var newPassword = this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<TextBox>("NewPassword");
+            var confirmNewPassword =
+                this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<TextBox>("ConfirmNewPassword");
+
+            currentPassword.Attributes.Add("onKeyPress", "doClick('{0}',event)".FormatWith(changeButton.ClientID));
+
+            newPassword.Attributes.Add("onKeyPress", "doClick('{0}',event)".FormatWith(changeButton.ClientID));
+
+            confirmNewPassword.Attributes.Add("onKeyPress", "doClick('{0}',event)".FormatWith(changeButton.ClientID));
 
             this.DataBind();
         }

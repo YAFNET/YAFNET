@@ -339,6 +339,25 @@ function RenderMessageDiff(messageEditedAtText, nothingSelectedText, selectBothT
     }
 }
 
+function doClick(buttonName, e) {
+    var key;
+
+    if (window.event) {
+        key = window.event.keyCode;
+    } else {
+        key = e.which;
+    }
+
+    if (key == 13) {
+        var btn = document.getElementById(buttonName);
+        if (btn != null) {
+            e.preventDefault();
+            btn.click();
+            event.keyCode = 0;
+        }
+    }
+}
+
 document.onclick = yaf_hidemenu;
 if (document.addEventListener) document.addEventListener("click", function(e) { window.event = e; }, true);
 if (document.addEventListener) document.addEventListener("mouseover", function(e) { window.event = e; }, true);

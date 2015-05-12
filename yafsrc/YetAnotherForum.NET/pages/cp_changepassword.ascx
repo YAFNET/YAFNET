@@ -56,7 +56,7 @@
                             ControlToValidate="ConfirmNewPassword" Display="Dynamic" ErrorMessage="The Confirm New Password must match the New Password entry."
                             ValidationGroup="ctl00$ChangePassword1"></asp:CompareValidator>
                        <asp:CompareValidator ID="NewOldPasswordCompare" ControlToValidate="NewPassword" ControlToCompare="CurrentPassword" 
-                               Type="String" Operator="NotEqual" Text="New Password must be different from the old one." Runat = "Server" /> 
+                               Type="String" Operator="NotEqual" Text="New Password must be different from the old one." ValidationGroup="ctl00$ChangePassword1" Runat="Server" /> 
                         <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
                     </td>
                 </tr>
