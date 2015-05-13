@@ -31,10 +31,9 @@ namespace YAF.Pages
     using System.Linq;
     using System.Text.RegularExpressions;
     using System.Web;
+    using System.Web.UI;
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
-
-    using nStuff.UpdateControls;
 
     using YAF.Classes;
     using YAF.Classes.Data;
@@ -49,6 +48,8 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Utils;
+
+    using HistoryEventArgs = nStuff.UpdateControls.HistoryEventArgs;
 
     #endregion
 
