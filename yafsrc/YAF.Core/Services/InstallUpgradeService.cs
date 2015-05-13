@@ -250,12 +250,14 @@ namespace YAF.Core.Services
         {
             this._messages.Clear();
             {
+                var isForumInstalled = this.IsForumInstalled;
+
                 // try
                 this.FixAccess(false);
 
                 var isAzureEngine = this.Get<IDbFunction>().GetSQLEngine().Equals("Azure");
 
-                if (!this.IsForumInstalled)
+                if (!isForumInstalled)
                 {
                     this.ExecuteInstallScripts(isAzureEngine);
                 }
@@ -278,7 +280,7 @@ namespace YAF.Core.Services
                     new AfterUpgradeDatabaseEvent(prevVersion, YafForumInfo.AppVersion),
                     null);
 
-                if (this.IsForumInstalled)
+                if (isForumInstalled)
                 {
                     if (prevVersion < 30 || upgradeExtensions)
                     {
