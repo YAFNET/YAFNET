@@ -31,14 +31,15 @@ namespace YAF.Pages.Admin
     using System.Web;
     using System.Web.UI;
     using System.Web.UI.WebControls;
-
     using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -420,7 +421,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.ForumEditor.DataSource = this.Get<IModuleManager<ForumEditor>>().ActiveAsDataTable("Editors");
+            this.ForumEditor.DataSource = ForumEditorHelper.GetFilteredEditorList();
 
             // TODO: vzrus: UseFullTextSearch check box is data layer specific and can be hidden by YAF.Classes.Data.LegacyDb.FullTextSupported  property.)
             this.DataBind();

@@ -600,7 +600,7 @@ namespace YAF.Controls
 
             if (this.Get<YafBoardSettings>().AllowUsersTextEditor)
             {
-                this.ForumEditor.DataSource = this.Get<IModuleManager<ForumEditor>>().ActiveAsDataTable("Editors");
+                this.ForumEditor.DataSource = ForumEditorHelper.GetFilteredEditorList();
                 this.ForumEditor.DataValueField = "Value";
                 this.ForumEditor.DataTextField = "Name";
             }
@@ -719,9 +719,14 @@ namespace YAF.Controls
                                         ? this.UserData.TextEditor
                                         : this.Get<YafBoardSettings>().ForumEditor;
 
-                ListItem editorItem = this.ForumEditor.Items.FindByValue(textEditor);
+                var editorItem = this.ForumEditor.Items.FindByValue(textEditor);
                 if (editorItem != null)
                 {
+                    editorItem.Selected = true;
+                }
+                else
+                {
+                    editorItem = this.ForumEditor.Items.FindByValue("1");
                     editorItem.Selected = true;
                 }
             }

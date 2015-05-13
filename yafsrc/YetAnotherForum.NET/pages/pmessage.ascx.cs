@@ -38,6 +38,7 @@ namespace YAF.Pages
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -252,25 +253,9 @@ namespace YAF.Pages
         {
             // create editor based on administrator's settings
             // get the forum editor based on the settings
-            var editorId = this.Get<YafBoardSettings>().ForumEditor;
+            this._editor = ForumEditorHelper.GetCurrentForumEditor();
 
-            if (this.Get<YafBoardSettings>().AllowUsersTextEditor)
-            {
-                // Text editor
-                editorId = !string.IsNullOrEmpty(this.PageContext.TextEditor)
-                               ? this.PageContext.TextEditor
-                               : this.Get<YafBoardSettings>().ForumEditor;
-            }
-
-            // Check if Editor exists, if not fallback to default editorid=1
-            this._editor = this.Get<IModuleManager<ForumEditor>>().GetBy(editorId, false)
-                           ?? this.Get<IModuleManager<ForumEditor>>().GetBy("1");
-
-            // Override Editor when mobile device with default Yaf BBCode Editor
-            if (PageContext.IsMobileDevice)
-            {
-                this._editor = this.Get<IModuleManager<ForumEditor>>().GetBy("1");
-            }
+            this.EditorLine.Controls.Add(this._editor);
 
             // TODO : Handle Attachments for pm's
             this._editor.UserCanUpload = false;

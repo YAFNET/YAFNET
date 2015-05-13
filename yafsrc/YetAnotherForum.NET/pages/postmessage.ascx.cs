@@ -38,6 +38,7 @@ namespace YAF.Pages
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
@@ -408,26 +409,7 @@ namespace YAF.Pages
 #endif
             }
 
-            // get the forum editor based on the settings
-            var editorId = this.Get<YafBoardSettings>().ForumEditor;
-
-            if (this.Get<YafBoardSettings>().AllowUsersTextEditor)
-            {
-                // Text editor
-                editorId = this.PageContext.TextEditor.IsSet()
-                    ? this.PageContext.TextEditor
-                    : this.Get<YafBoardSettings>().ForumEditor;
-            }
-
-            // Check if Editor exists, if not fallback to default editorid=1
-            this._forumEditor = this.Get<IModuleManager<ForumEditor>>().GetBy(editorId, false)
-                                ?? this.Get<IModuleManager<ForumEditor>>().GetBy("1");
-
-            // Override Editor when mobile device with default Yaf BBCode Editor
-            if (this.PageContext.IsMobileDevice)
-            {
-                this._forumEditor = this.Get<IModuleManager<ForumEditor>>().GetBy("1");
-            }
+            this._forumEditor = ForumEditorHelper.GetCurrentForumEditor();
 
             this.EditorLine.Controls.Add(this._forumEditor);
             

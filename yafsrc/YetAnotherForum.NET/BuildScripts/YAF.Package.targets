@@ -67,7 +67,6 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\yaf.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.FileUpload\**\*.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-forum.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-forum.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-select.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-select.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\forum.css" />
