@@ -191,11 +191,9 @@ namespace YAF.Pages.Admin
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and DatePicker JS...
-            var ci = CultureInfo.CreateSpecificCulture(PageContext.CultureUser);
-
             if (this.GetText("COMMON", "CAL_JQ_CULTURE").IsSet())
             {
-                YafContext.Current.PageElements.RegisterJQueryUILanguageFile(ci);
+                YafContext.Current.PageElements.RegisterJQueryUILanguageFile(this.Get<ILocalization>().Culture);
             }
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
@@ -253,7 +251,7 @@ namespace YAF.Pages.Admin
                     new ListItem(eventTypeName, eventTypeId.ToString()));
             }
 
-            var ci = CultureInfo.CreateSpecificCulture(this.GetCulture());
+            var ci = this.Get<ILocalization>().Culture;
 
             if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
             {
@@ -307,7 +305,7 @@ namespace YAF.Pages.Admin
             var sinceDate = DateTime.UtcNow.AddDays(-this.Get<YafBoardSettings>().EventLogMaxDays);
             var toDate = DateTime.UtcNow;
 
-            var ci = CultureInfo.CreateSpecificCulture(this.GetCulture());
+            var ci = this.Get<ILocalization>().Culture;
 
             if (this.SinceDate.Text.IsSet())
             {
@@ -379,33 +377,6 @@ namespace YAF.Pages.Admin
                     this.BindData();
                     break;
             }
-        }
-
-        /// <summary>
-        /// Gets the culture.
-        /// </summary>
-        /// <returns>
-        /// The get culture.
-        /// </returns>
-        private string GetCulture()
-        {
-            // Language and culture
-            string languageFile = this.Get<YafBoardSettings>().Language;
-            string culture4tag = this.Get<YafBoardSettings>().Culture;
-
-            if (!string.IsNullOrEmpty(this.PageContext.LanguageFile))
-            {
-                languageFile = this.PageContext.LanguageFile;
-            }
-
-            if (!string.IsNullOrEmpty(this.PageContext.CultureUser))
-            {
-                culture4tag = this.PageContext.CultureUser;
-            }
-
-            // Get first default full culture from a language file tag.
-            string langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
-            return langFileCulture.Substring(0, 2) == culture4tag.Substring(0, 2) ? culture4tag : langFileCulture;
         }
 
         #endregion
