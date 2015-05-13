@@ -4633,7 +4633,7 @@ Spoiler Content
     <Resource tag="NORMAL">Normal</Resource>
     <Resource tag="OPTIONS">Indstillinger</Resource>
     <Resource tag="OPTIONS_TOOLTIP">Topic Options to Subscribe via Email, RSS, Atom, and to view Printer Friendly Page.</Resource>
-    <Resource tag="PM">Privat ebsked</Resource>
+    <Resource tag="PM">Privat besked</Resource>
     <Resource tag="PM_TITLE">Send {0} a Private Message</Resource>
     <Resource tag="POINTS">Points</Resource>
     <Resource tag="POLL_CLOSED">(Afstemningen er slut)</Resource>
