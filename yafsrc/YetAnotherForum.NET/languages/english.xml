@@ -248,7 +248,7 @@
   <Resource tag="REASON">Reason</Resource>
   <Resource tag="SINCE">Since</Resource>
   <Resource tag="TITLE">Banned IP Addresses</Resource>
- </page>s
+ </page>
  <page name="ADMIN_BANNEDIP_EDIT">
   <Resource tag="INVALID_ADRESS">Invalid IP address.</Resource>
   <Resource tag="INVALID_LESS">"{0}" is not a valid IP section value (must be less then 255).</Resource>
