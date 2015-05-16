@@ -368,6 +368,15 @@ namespace YAF.Core
                 }
             }
 
+            // delete posts...
+            var messageIds =
+                (from m in LegacyDb.post_alluser_simple(
+                               YafContext.Current.PageBoardID,
+                               userID).AsEnumerable()
+                 select m.Field<int>("MessageID")).Distinct().ToList();
+
+            messageIds.ForEach(x => LegacyDb.message_delete(x, true, string.Empty, 1, true));
+
             YafContext.Current.Get<MembershipProvider>().DeleteUser(user.UserName, true);
             LegacyDb.user_delete(userID);
             YafContext.Current.Get<ILogger>()
