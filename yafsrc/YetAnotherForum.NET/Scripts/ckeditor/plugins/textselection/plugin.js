@@ -46,7 +46,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
                             //
                             var match = /cke_bookmark_\d+(\w)/.exec(node.$.nodeValue);
                             if (match) {
-                                if(decodeURIComponent(node.$.nodeValue)
+                                if (unescape(node.$.nodeValue)
                                     .match(/<!--cke_bookmark_[0-9]+S-->.*<!--cke_bookmark_[0-9]+E-->/)){
                                     isTextNode = true;
                                     startNode = endNode = node;
@@ -63,26 +63,32 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
                             return false;
                         };
                         walker.lastForward();
-                        range.setStartAfter(startNode);
-                        range.setEndBefore(endNode);
-                        range.select();
-                        // Scroll into view for non-IE.
-                        if (!CKEDITOR.env.ie || (CKEDITOR.env.ie && CKEDITOR.env.version === 9)) {
-                            editor.getSelection().getStartElement().scrollIntoView(true);
-                        } // Remove the comments node which are out of range.
-                        if(isTextNode){
-                            //remove all of our bookmarks from the text node
-                            //then remove all of the cke_protected bits that added because we had a comment
-                            //whatever code is supposed to clean these cke_protected up doesn't work
-                            //when there's two comments in a row like: <!--{cke_protected}{C}--><!--{cke_protected}{C}-->
-                            startNode.$.nodeValue = decodeURIComponent(startNode.$.nodeValue).
-                                replace(/<!--cke_bookmark_[0-9]+[SE]-->/g,'').
-                                replace(/<!--[\s]*\{cke_protected}[\s]*\{C}[\s]*-->/g,'');
-                        } else {
-                            //just remove the comment nodes
-                            startNode.remove();
-                            endNode.remove();
+                        try {
+                            range.setStartAfter(startNode);
+                            range.setEndBefore(endNode);
+                            range.select();
+
+                            // Scroll into view for non-IE.
+                            if (!CKEDITOR.env.ie || (CKEDITOR.env.ie && CKEDITOR.env.version === 9)) {
+                                editor.getSelection().getStartElement().scrollIntoView(true);
+                            } // Remove the comments node which are out of range.
+                            if (isTextNode) {
+                                //remove all of our bookmarks from the text node
+                                //then remove all of the cke_protected bits that added because we had a comment
+                                //whatever code is supposed to clean these cke_protected up doesn't work
+                                //when there's two comments in a row like: <!--{cke_protected}{C}--><!--{cke_protected}{C}-->
+                                startNode.$.nodeValue = unescape(startNode.$.nodeValue).
+                                    replace(/<!--cke_bookmark_[0-9]+[SE]-->/g, '').
+                                    replace(/<!--[\s]*\{cke_protected}[\s]*\{C}[\s]*-->/g, '');
+                            } else {
+                                //just remove the comment nodes
+                                startNode.remove();
+                                endNode.remove();
+                            }
+                        } catch (excec)  {
+                            
                         }
+                        
                     }
                 }, null, null, 10);
 

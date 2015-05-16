@@ -24,7 +24,7 @@ function addEventOn(editor) {
 
 function ConvertHtmlToBBCode(html) {
         // [attach]
-    html = html.replace(/<a href="resource.ashx\?i=(.+?)".*?class="attachedImage">.*?<\/a>/gi, '[attach]$1[/attach]');
+        html = html.replace(/<a href="resource.ashx\?i=(.+?)".*?class="attachedImage">.*?<\/a>/gi, '[attach]$1[/attach]');
 
         // [url]
         html = html.replace(/<a .*?href=(["'])(.+?)\1.*?>(.+?)<\/a>/gi, '[url=$2]$3[/url]');

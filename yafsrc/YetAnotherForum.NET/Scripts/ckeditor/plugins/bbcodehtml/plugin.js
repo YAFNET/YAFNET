@@ -23,8 +23,8 @@ function ConvertHtmlToBBCode(html) {
 		// Convert <br> to line breaks.
         html = html.replace(/<br(?=[ \/>]).*?>/gi, '\r\n');
 
-        return html
-	}
+    return html;
+}
 
 CKEDITOR.htmlDataProcessor.prototype =
 {
