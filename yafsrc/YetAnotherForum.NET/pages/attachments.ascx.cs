@@ -33,6 +33,7 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
+    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -43,6 +44,7 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -169,6 +171,22 @@ namespace YAF.Pages
             var dataUrl = isImage ? " data-url=\"{0}\"".FormatWith(url) : string.Empty;
 
             return "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\"{2} style=\"max-width:30px\" />".FormatWith(url, fileName, dataUrl);
+        }
+
+        protected void DeleteAttachments_Click(object sender, EventArgs e)
+        {
+            foreach (RepeaterItem item in from RepeaterItem item in this.List.Items
+                                          where
+                                              item.ItemType == ListItemType.Item
+                                              || item.ItemType == ListItemType.AlternatingItem
+                                          where item.FindControlAs<CheckBox>("Selected").Checked
+                                          select item)
+            {
+                this.GetRepository<Attachment>()
+                    .DeleteByID(item.FindControlAs<ThemeButton>("ThemeButtonDelete").CommandArgument.ToType<int>());
+            }
+
+            this.BindData();
         }
         
         /// <summary>
