@@ -2002,6 +2002,8 @@
     <Resource tag="BUTTON_DELETE">Slet</Resource>
     <Resource tag="BUTTON_DELETE_TT">Slet dette indlæg</Resource>
     <Resource tag="BUTTON_DELETEALBUM">Slet album</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT">Delete Attachment(s)</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT_TT">Delete selected attachment(s)s</Resource>
     <Resource tag="BUTTON_DELETETOPIC">Slet emne</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">Slet dette emne</Resource>
     <Resource tag="BUTTON_EDIT">Rediger</Resource>
@@ -4248,6 +4250,7 @@ Spoiler Content
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">Husk mig</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Du skal skrive både brugernavn og e-mail adresse.</Resource>
+    <Resource tag="CAPS_LOCK">Caps Lock is on</Resource>
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">Email Adresse</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">En e-mail er blevet sendt til dig med dit nye adgangskode.</Resource>

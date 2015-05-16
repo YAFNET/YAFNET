@@ -2002,6 +2002,8 @@
     <Resource tag="BUTTON_DELETE">ازالة</Resource>
     <Resource tag="BUTTON_DELETE_TT">حذف هذه المشاركة </Resource>
     <Resource tag="BUTTON_DELETEALBUM">ازالة ألبوم</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT">Delete Attachment(s)</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT_TT">Delete selected attachment(s)s</Resource>
     <Resource tag="BUTTON_DELETETOPIC">ازالة موضوع</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">ازالة هذا الموضوع</Resource>
     <Resource tag="BUTTON_EDIT">تعديل</Resource>
@@ -4225,6 +4227,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">تذكرني</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">يجب إدخال البريد الإلكتروني واسم المستخدم .</Resource>
+    <Resource tag="CAPS_LOCK">Caps Lock is on</Resource>
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">عنوان البريد الإلكتروني</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">تم ارسال  كلمة المرور الى  بريدك الإلكتروني</Resource>
@@ -5330,7 +5333,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>
     <Resource tag="NEWPM">({0} غيرمقروء)</Resource>
     <Resource tag="REGISTER">تسجـيل</Resource>
-    <Resource tag="REGISTER_CONNECT">register a new account</Resource>
+    <Resource tag="REGISTER_CONNECT">or Register a new forum account</Resource>
     <Resource tag="REGISTER_TITLE">Shows the Registration Form.</Resource>
     <Resource tag="SEARCH">البحـث</Resource>
     <Resource tag="SEARCH_TITLE">Use the Forum Search.</Resource>

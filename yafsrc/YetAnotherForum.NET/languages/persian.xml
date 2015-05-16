@@ -2002,6 +2002,8 @@
     <Resource tag="BUTTON_DELETE">حذف</Resource>
     <Resource tag="BUTTON_DELETE_TT">حذف این مطلب</Resource>
     <Resource tag="BUTTON_DELETEALBUM">حذف آلبوم</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT">Delete Attachment(s)</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT_TT">Delete selected attachment(s)s</Resource>
     <Resource tag="BUTTON_DELETETOPIC">حذف مطلب</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">حذف این مطلب</Resource>
     <Resource tag="BUTTON_EDIT">ویرایش</Resource>
@@ -4255,6 +4257,7 @@
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">مرا به خاطر داشته باش</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">نام کاربری و پست الکترونیک تواماً باید وارد شوند.</Resource>
+    <Resource tag="CAPS_LOCK">Caps Lock is on</Resource>
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">آدرس پست الکترونیک</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">پست الکترونیکی حاوی رمز عبور جدید شما ارسال شد.</Resource>
@@ -5317,7 +5320,7 @@ The Message was posted in the {forumname} forum.
     <Resource tag="MYTOPICS_TITLE">نمایش موضوعات فعال و مورد علاقه</Resource>
     <Resource tag="NEWPM">({0} پیغام خوانده نشده)</Resource>
     <Resource tag="REGISTER">ثبت نام</Resource>
-    <Resource tag="REGISTER_CONNECT">register a new account</Resource>
+    <Resource tag="REGISTER_CONNECT">or Register a new forum account</Resource>
     <Resource tag="REGISTER_TITLE">نمایش فرم ثبت نام</Resource>
     <Resource tag="SEARCH">جستجو</Resource>
     <Resource tag="SEARCH_TITLE">استفاده از جستجوی انجمن</Resource>

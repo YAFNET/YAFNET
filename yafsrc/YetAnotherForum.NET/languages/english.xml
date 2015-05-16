@@ -207,8 +207,8 @@
   <Resource tag="USERS_DAY">Users per day:</Resource>
  </page>
  <page name="ADMIN_ATTACHMENTS">
-  <Resource tag="CONFIRM_DELETE">Delete this attachment?</Resource>
-  <Resource tag="CONTENT_TYPE">Content Type</Resource>
+  <Resource tag="CONFIRM_DELETE">Delete attachment(s)?</Resource>
+  <Resource tag="CONTENT_TYPE">Content Type</Resource>BUTTON_DELETE
   <Resource tag="DOWNLOADS">Downloads</Resource>
   <Resource tag="POSTED">Posted</Resource>
   <Resource tag="TITLE">Attachments</Resource>
@@ -1993,6 +1993,8 @@
   <Resource tag="BUTTON_DELETE">Delete</Resource>
   <Resource tag="BUTTON_DELETE_TT">Delete this Post</Resource>
   <Resource tag="BUTTON_DELETEALBUM">Delete Album</Resource>
+  <Resource tag="BUTTON_DELETEATTACHMENT">Delete Attachment(s)</Resource>
+  <Resource tag="BUTTON_DELETEATTACHMENT_TT">Delete selected attachment(s)s</Resource>
   <Resource tag="BUTTON_DELETETOPIC">Delete Topic</Resource>
   <Resource tag="BUTTON_DELETETOPIC_TT">Delete this topic</Resource>
   <Resource tag="BUTTON_EDIT">Edit</Resource>
@@ -4219,6 +4221,7 @@ Spoiler Content
   <Resource tag="AUTH_CONNECT_GOOGLE">&lt;strong&gt;The Google email address must match the forum user email address to connect the user.&lt;/strong&gt;</Resource>
   <Resource tag="AUTH_LOGIN_EXISTING">Login with an user Account that is connected with {0}. Or if no account is found a new account will be automatically created in the forums.</Resource>
   <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
+  <Resource tag="CAPS_LOCK">Caps Lock is on</Resource>
   <Resource tag="CONNECT_VIA">Or Connect via</Resource>
   <Resource tag="BOTH_USERNAME_EMAIL">Both user name and email address must be entered.</Resource>
   <Resource tag="EMAIL">Email Address</Resource>
@@ -5317,7 +5320,7 @@ Visit {forumname} at {forumlink}
   <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>
   <Resource tag="NEWPM">({0} Unread)</Resource>
   <Resource tag="REGISTER">Register</Resource>
-  <Resource tag="REGISTER_CONNECT">register a new account</Resource>
+  <Resource tag="REGISTER_CONNECT">or Register a new forum account</Resource>
   <Resource tag="REGISTER_TITLE">Shows the Registration Form.</Resource>
   <Resource tag="SEARCH">Search</Resource>
   <Resource tag="SEARCH_TITLE">Use the Forum Search.</Resource>

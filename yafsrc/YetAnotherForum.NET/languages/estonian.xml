@@ -2002,6 +2002,8 @@
     <Resource tag="BUTTON_DELETE">Kustuta</Resource>
     <Resource tag="BUTTON_DELETE_TT">Kustuta see postitus</Resource>
     <Resource tag="BUTTON_DELETEALBUM">Kustuta album</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT">Delete Attachment(s)</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT_TT">Delete selected attachment(s)s</Resource>
     <Resource tag="BUTTON_DELETETOPIC">Kustuta teema</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">Kustuta see teema</Resource>
     <Resource tag="BUTTON_EDIT">Muuda</Resource>
@@ -4246,6 +4248,7 @@ Spoiler Content
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">Jäta mind meelde</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Nii kasutajanimi kui ka e-posti aadress peavad olema sisestatud.</Resource>
+    <Resource tag="CAPS_LOCK">Caps Lock is on</Resource>
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">E-posti aadress</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Teile on saadetud e-kiri uue parooliga.</Resource>
@@ -5342,7 +5345,7 @@ Külastage {forumname} aadressil {forumlink}
     <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>
     <Resource tag="NEWPM">({0} lugemata)</Resource>
     <Resource tag="REGISTER">Registreeri</Resource>
-    <Resource tag="REGISTER_CONNECT">register a new account</Resource>
+    <Resource tag="REGISTER_CONNECT">or Register a new forum account</Resource>
     <Resource tag="REGISTER_TITLE">Shows the Registration Form.</Resource>
     <Resource tag="SEARCH">Otsi</Resource>
     <Resource tag="SEARCH_TITLE">Use the Forum Search.</Resource>

@@ -1983,6 +1983,8 @@
     <Resource tag="BUTTON_DELETE">Löschen</Resource>
     <Resource tag="BUTTON_DELETE_TT">Diese Nachricht löschen</Resource>
     <Resource tag="BUTTON_DELETEALBUM">Album löschen</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT">Delete Attachment(s)</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT_TT">Delete selected attachment(s)s</Resource>
     <Resource tag="BUTTON_DELETETOPIC">Thema Löschen</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">Dieses Thema aus dem Forum löschen</Resource>
     <Resource tag="BUTTON_EDIT">Bearbeiten</Resource>
@@ -4175,6 +4177,7 @@ Spoiler Content
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Zugriffstoken nicht erhalten!</Resource>
     <Resource tag="AUTO">Login merken</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Sowohl E-Mail-Adresse als auch Benutzername müssen eingegeben werden.</Resource>
+    <Resource tag="CAPS_LOCK">Caps Lock is on</Resource>
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">E-Mail-Adresse</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Eine E-Mail mit einem neuen Passwort wurde versandt.</Resource>
@@ -5270,7 +5273,7 @@ Der Bestätigungscode lautet
     <Resource tag="MYTOPICS_TITLE">Öffnet die Seite mit den Aktiven Themen und ihren Favorisierten Themen.</Resource>
     <Resource tag="NEWPM">({0} neue Nachricht(en))</Resource>
     <Resource tag="REGISTER">Registrieren</Resource>
-    <Resource tag="REGISTER_CONNECT">register a new account</Resource>
+    <Resource tag="REGISTER_CONNECT">or Register a new forum account</Resource>
     <Resource tag="REGISTER_TITLE">Öffnet das Registrierungsformular.</Resource>
     <Resource tag="SEARCH">Suche</Resource>
     <Resource tag="SEARCH_TITLE">Forum Suche benutzen.</Resource>

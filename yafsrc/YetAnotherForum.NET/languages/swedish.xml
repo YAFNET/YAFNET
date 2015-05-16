@@ -2002,6 +2002,8 @@
     <Resource tag="BUTTON_DELETE">Delete</Resource>
     <Resource tag="BUTTON_DELETE_TT">Delete this Post</Resource>
     <Resource tag="BUTTON_DELETEALBUM">Delete Album</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT">Delete Attachment(s)</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT_TT">Delete selected attachment(s)s</Resource>
     <Resource tag="BUTTON_DELETETOPIC">Delete Topic</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">Delete this topic</Resource>
     <Resource tag="BUTTON_EDIT">Edit</Resource>
@@ -4248,6 +4250,7 @@ Spoiler Content
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">Automatisk inloggning:</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Både användarnamn och e-postadress måste anges.</Resource>
+    <Resource tag="CAPS_LOCK">Caps Lock is on</Resource>
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">E-postadress</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Ett e-postmeddelande har skickats med ditt lösenord.</Resource>
@@ -5350,7 +5353,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>
     <Resource tag="NEWPM">({0} Unread)</Resource>
     <Resource tag="REGISTER">Registrera dig</Resource>
-    <Resource tag="REGISTER_CONNECT">register a new account</Resource>
+    <Resource tag="REGISTER_CONNECT">or Register a new forum account</Resource>
     <Resource tag="REGISTER_TITLE">Shows the Registration Form.</Resource>
     <Resource tag="SEARCH">Sök</Resource>
     <Resource tag="SEARCH_TITLE">Use the Forum Search.</Resource>

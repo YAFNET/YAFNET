@@ -1981,6 +1981,8 @@
     <Resource tag="BUTTON_DELETE">Удалить</Resource>
     <Resource tag="BUTTON_DELETE_TT">Удалить это сообщение</Resource>
     <Resource tag="BUTTON_DELETEALBUM">Удалить альбом</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT">Delete Attachment(s)</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT_TT">Delete selected attachment(s)s</Resource>
     <Resource tag="BUTTON_DELETETOPIC">Удалить Тему</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">Удалить эту тему</Resource>
     <Resource tag="BUTTON_EDIT">Изменить</Resource>
@@ -4223,6 +4225,7 @@ Spoiler Content
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">Запомните меня</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Должны быть введены как адрес почты пользователя, так и его имя.</Resource>
+    <Resource tag="CAPS_LOCK">Caps Lock is on</Resource>
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">Адрес Email</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Было послано сообщение по почте с вашим новым паролем.</Resource>
@@ -5320,7 +5323,7 @@ Password: {password}
     <Resource tag="MYTOPICS_TITLE">Активные и избранные темы</Resource>
     <Resource tag="NEWPM">({0} непрочитанных)</Resource>
     <Resource tag="REGISTER">Регистрация</Resource>
-    <Resource tag="REGISTER_CONNECT">register a new account</Resource>
+    <Resource tag="REGISTER_CONNECT">or Register a new forum account</Resource>
     <Resource tag="REGISTER_TITLE">На страницу регистрации</Resource>
     <Resource tag="SEARCH">Поиск</Resource>
     <Resource tag="SEARCH_TITLE">Использовать поиск</Resource>

@@ -1993,6 +1993,8 @@
     <Resource tag="BUTTON_DELETE">Verwijder</Resource>
     <Resource tag="BUTTON_DELETE_TT">Verwijder dit bericht</Resource>
     <Resource tag="BUTTON_DELETEALBUM">Album verwijderen</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT">Delete Attachment(s)</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT_TT">Delete selected attachment(s)s</Resource>
     <Resource tag="BUTTON_DELETETOPIC">Verwijder topic</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">Verwijder dit topic</Resource>
     <Resource tag="BUTTON_EDIT">Bewerk</Resource>
@@ -4197,6 +4199,7 @@ Spoiler Inhoud
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">Automatisch inloggen</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Graag zowel je gebruikersnaam als je e-mail adres in te vullen.</Resource>
+    <Resource tag="CAPS_LOCK">Caps Lock is on</Resource>
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">E-mail adres</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Er is een e-mail verzonden met je nieuwe wachtwoord.</Resource>
@@ -5291,7 +5294,7 @@ Bezoek {forumname} op {forumlink}
     <Resource tag="MYTOPICS_TITLE">Laat de actieve en favoriete topics zien.</Resource>
     <Resource tag="NEWPM">(&lt;b&gt;{0} Ongelezen&lt;/b&gt;)</Resource>
     <Resource tag="REGISTER">Registreren</Resource>
-    <Resource tag="REGISTER_CONNECT">register a new account</Resource>
+    <Resource tag="REGISTER_CONNECT">or Register a new forum account</Resource>
     <Resource tag="REGISTER_TITLE">Laat het registratieformulier zien.</Resource>
     <Resource tag="SEARCH">Zoeken</Resource>
     <Resource tag="SEARCH_TITLE">Gebruik de zoekfunctie.</Resource>

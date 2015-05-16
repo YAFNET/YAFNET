@@ -1995,6 +1995,8 @@
     <Resource tag="BUTTON_DELETE">Elimina</Resource>
     <Resource tag="BUTTON_DELETE_TT">Elimina questo messaggio</Resource>
     <Resource tag="BUTTON_DELETEALBUM">Elimina album</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT">Delete Attachment(s)</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT_TT">Delete selected attachment(s)s</Resource>
     <Resource tag="BUTTON_DELETETOPIC">Elimina discussione</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">Elimina questa discussione</Resource>
     <Resource tag="BUTTON_EDIT">Modifica</Resource>
@@ -4222,6 +4224,7 @@ Spoiler Content
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">Ricordami</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">E' necessario indicare sia il nome utente sia l'indirizzo e-mail.</Resource>
+    <Resource tag="CAPS_LOCK">Caps Lock is on</Resource>
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">Indirizzo e-mail</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">E' stata inviata un'e-ail con la tua nuova password.</Resource>
@@ -5362,7 +5365,7 @@ Visita il forum {forumname} su {forumlink}
     <Resource tag="MYTOPICS_TITLE">Mostra discussioni attive e preferite.</Resource>
     <Resource tag="NEWPM">({0} non letti)</Resource>
     <Resource tag="REGISTER">Registrati</Resource>
-    <Resource tag="REGISTER_CONNECT">register a new account</Resource>
+    <Resource tag="REGISTER_CONNECT">or Register a new forum account</Resource>
     <Resource tag="REGISTER_TITLE">Mostra il modulo per la registrazione.</Resource>
     <Resource tag="SEARCH">Ricerca</Resource>
     <Resource tag="SEARCH_TITLE">Usa la ricerca del forum.</Resource>

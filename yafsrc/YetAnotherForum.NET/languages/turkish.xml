@@ -2002,6 +2002,8 @@
     <Resource tag="BUTTON_DELETE">Sil</Resource>
     <Resource tag="BUTTON_DELETE_TT">Bu mesajı sil</Resource>
     <Resource tag="BUTTON_DELETEALBUM">Albümü Sil</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT">Delete Attachment(s)</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT_TT">Delete selected attachment(s)s</Resource>
     <Resource tag="BUTTON_DELETETOPIC">Konu Sil</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">Bu konuyu sil</Resource>
     <Resource tag="BUTTON_EDIT">Düzenle</Resource>
@@ -4231,6 +4233,7 @@ Spoiler Content
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">Beni Hatırla?</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Kullanıcı adı ve E-Posta adresi girilmek zorunda.</Resource>
+    <Resource tag="CAPS_LOCK">Caps Lock is on</Resource>
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">E-posta Adresi</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Yeni şifreiz E-Posta adresinize gönderildi.</Resource>

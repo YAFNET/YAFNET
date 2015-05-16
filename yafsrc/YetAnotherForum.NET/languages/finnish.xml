@@ -2002,6 +2002,8 @@
     <Resource tag="BUTTON_DELETE">Delete</Resource>
     <Resource tag="BUTTON_DELETE_TT">Delete this Post</Resource>
     <Resource tag="BUTTON_DELETEALBUM">Delete Album</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT">Delete Attachment(s)</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT_TT">Delete selected attachment(s)s</Resource>
     <Resource tag="BUTTON_DELETETOPIC">Delete Topic</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">Delete this topic</Resource>
     <Resource tag="BUTTON_EDIT">Edit</Resource>
@@ -4225,6 +4227,7 @@ Spoiler Content
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">Kirjaudu automaattisesti:</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Sekä käyttäjätunnus että sähköpostiosoite pitää antaa.</Resource>
+    <Resource tag="CAPS_LOCK">Caps Lock is on</Resource>
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">Sähköpostiosoite</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Sähköpostiisi on lähetetty uusi salasana.</Resource>
@@ -5327,7 +5330,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>
     <Resource tag="NEWPM">({0} Unread)</Resource>
     <Resource tag="REGISTER">Rekisteröidy</Resource>
-    <Resource tag="REGISTER_CONNECT">register a new account</Resource>
+    <Resource tag="REGISTER_CONNECT">or Register a new forum account</Resource>
     <Resource tag="REGISTER_TITLE">Shows the Registration Form.</Resource>
     <Resource tag="SEARCH">Etsi</Resource>
     <Resource tag="SEARCH_TITLE">Use the Forum Search.</Resource>

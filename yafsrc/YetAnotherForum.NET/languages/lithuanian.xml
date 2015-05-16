@@ -2006,6 +2006,8 @@
     <Resource tag="BUTTON_DELETE">Delete</Resource>
     <Resource tag="BUTTON_DELETE_TT">Delete this Post</Resource>
     <Resource tag="BUTTON_DELETEALBUM">Delete Album</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT">Delete Attachment(s)</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT_TT">Delete selected attachment(s)s</Resource>
     <Resource tag="BUTTON_DELETETOPIC">Delete Topic</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">Delete this topic</Resource>
     <Resource tag="BUTTON_EDIT">Edit</Resource>
@@ -4332,6 +4334,7 @@ Spoiler Content
 
       turi būti įrašytas. 
     </Resource>
+    <Resource tag="CAPS_LOCK">Caps Lock is on</Resource>
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">Elektroninio pašto adresas </Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">
@@ -5482,7 +5485,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>
     <Resource tag="NEWPM">({0} Unread)</Resource>
     <Resource tag="REGISTER">Registruotis </Resource>
-    <Resource tag="REGISTER_CONNECT">register a new account</Resource>
+    <Resource tag="REGISTER_CONNECT">or Register a new forum account</Resource>
     <Resource tag="REGISTER_TITLE">Shows the Registration Form.</Resource>
     <Resource tag="SEARCH">Ieškoti </Resource>
     <Resource tag="SEARCH_TITLE">Use the Forum Search.</Resource>

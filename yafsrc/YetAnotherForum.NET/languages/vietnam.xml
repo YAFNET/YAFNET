@@ -2002,6 +2002,8 @@
     <Resource tag="BUTTON_DELETE">Xoá</Resource>
     <Resource tag="BUTTON_DELETE_TT">Xoá bài viết này</Resource>
     <Resource tag="BUTTON_DELETEALBUM">Delete Album</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT">Delete Attachment(s)</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT_TT">Delete selected attachment(s)s</Resource>
     <Resource tag="BUTTON_DELETETOPIC">Xoá</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">Xoá chủ đề này</Resource>
     <Resource tag="BUTTON_EDIT">Sửa</Resource>
@@ -4231,6 +4233,7 @@ Spoiler Content
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
     <Resource tag="AUTO">Ghi nhớ</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">Bạn cần phải nhập cả tên đăng nhập và email.</Resource>
+    <Resource tag="CAPS_LOCK">Caps Lock is on</Resource>
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">Email</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">Email đã được gửi cho bạn vơi mật khẩu mới.</Resource>
@@ -5347,7 +5350,7 @@ Password: {password}
     <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>
     <Resource tag="NEWPM">({0} Chưa đọc)</Resource>
     <Resource tag="REGISTER">Đăng ký</Resource>
-    <Resource tag="REGISTER_CONNECT">register a new account</Resource>
+    <Resource tag="REGISTER_CONNECT">or Register a new forum account</Resource>
     <Resource tag="REGISTER_TITLE">Shows the Registration Form.</Resource>
     <Resource tag="SEARCH">Tìm kiếm</Resource>
     <Resource tag="SEARCH_TITLE">Use the Forum Search.</Resource>
