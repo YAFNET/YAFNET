@@ -36,12 +36,11 @@ namespace YAF.Editors
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.BBCode;
-    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
+    using YAF.Utilities;
     using YAF.Utils;
 
     #endregion
@@ -316,9 +315,6 @@ namespace YAF.Editors
 
             if (this.UserCanUpload)
             {
-                var attachments = this.GetRepository<Attachment>()
-                    .ListTyped(userID: this.PageContext.PageUserID, pageIndex: 0, pageSize: 10000);
-
                 writer.WriteLine(
                     @"<img src=""{5}"" id=""{3}"" alt=""{4}"" title=""{4}"" onclick=""{0}"" onload=""Button_Load(this)"" onmouseover=""{1}"" />"
                         .FormatWith(
@@ -328,26 +324,6 @@ namespace YAF.Editors
                             "{0}_attachments_popMenu".FormatWith(this.ClientID),
                             this.GetText("COMMON", "ATTACH_BBCODE"),
                             this.ResolveUrl("yafEditor/attach.png")));
-
-                foreach (var attachment in attachments)
-                {
-                    var url = attachment.FileName.IsImageName()
-                                  ? "{0}resource.ashx?i={1}&b={2}&editor=true".FormatWith(
-                                      YafForumInfo.ForumClientFileRoot,
-                                      attachment.ID,
-                                this.PageContext.PageBoardID)
-                                  : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot);
-
-                    this._popMenuAttachments.AddClientScriptItem(
-                        attachment.FileName,
-                        "insertAttachment('{0}', '{1}')".FormatWith(attachment.ID, url),
-                        attachment.FileName.IsImageName()
-                            ? "{0}resource.ashx?i={1}&b={2}&editor=true".FormatWith(
-                                YafForumInfo.ForumClientFileRoot,
-                                attachment.ID,
-                                this.PageContext.PageBoardID)
-                            : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot));
-                }
             }
 
             this.RenderButton(

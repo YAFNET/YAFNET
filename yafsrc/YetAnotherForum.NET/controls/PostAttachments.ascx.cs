@@ -26,14 +26,18 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Data;
+    using System.Linq;
     using System.Text;
 
+    using YAF.Classes;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Utilities;
     using YAF.Utils;
 
     #endregion
@@ -57,85 +61,7 @@ namespace YAF.Controls
             this.LoadingImage.AlternateText = this.Get<ILocalization>().GetText("COMMON", "LOADING");
             this.LoadingImage.ToolTip = this.Get<ILocalization>().GetText("COMMON", "LOADING");
 
-            this.LoadingText.Text = this.Get<ILocalization>().GetText("COMMON", "LOADING");
-
             base.OnPreRender(e);
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            this.CreateAttachments();
-        }
-
-        /// <summary>
-        /// Creates the attachments.
-        /// </summary>
-        private void CreateAttachments()
-        {
-            var html = new StringBuilder();
-
-            html.Append("<div class=\"result\">");
-            html.AppendFormat("<ul class=\"PostAttachmentList\">");
-
-            var attachments = this.GetRepository<Attachment>()
-                .ListTyped(userID: this.PageContext.PageUserID, pageIndex: 0, pageSize: 10000);
-
-            var rowPanel = 0;
-
-            foreach (var attachment in attachments)
-            {
-                if (rowPanel == 5 && (rowPanel + 1) < attachments.Count)
-                {
-                    html.Append("</ul>");
-                    html.Append("</div>");
-                    html.AppendFormat("<strong>{0}</strong>", this.GetText("ATTACHMENTS", "CURRENT_UPLOADS"));
-                    html.Append("<div class=\"result\">");
-
-                    html.Append("<ul class=\"PostAttachmentList\">");
-
-                    rowPanel = 0;
-                }
-
-                rowPanel++;
-
-                var url = attachment.FileName.IsImageName()
-                              ? "{0}resource.ashx?i={1}&b={2}&editor=true".FormatWith(
-                                  YafForumInfo.ForumClientFileRoot,
-                                  attachment.ID,
-                                  this.PageContext.PageBoardID)
-                              : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot);
-
-                var onClick = "insertAttachment('{0}', '{1}')".FormatWith(attachment.ID, url);
-
-                var iconImage =
-                    @"<img class=""popupitemIcon"" src=""{0}"" alt=""{1}"" title=""{1}"" /><span>{1}</span>".FormatWith(
-                        url,
-                        "{0} ({1}kb)".FormatWith(attachment.FileName, attachment.Bytes / 1024));
-
-                html.AppendFormat(
-                    @"<li class=""popupitem AttachmentItem"" onmouseover=""mouseHover(this,true)"" onmouseout=""mouseHover(this,false)"" onclick=""{2}"" style=""white-space:nowrap"" title=""{1}""{3}>{0}</li>",
-                    iconImage,
-                    attachment.FileName,
-                    onClick,
-                    attachment.FileName.IsImageName() ? " data-url=\"{0}\"".FormatWith(url) : string.Empty);
-            }
-
-            html.Append("</ul>");
-            html.Append("</div>");
-
-            html.Append("</ul></div>");
-
-            this.AttachmentsResults.Text = html.ToString();
         }
 
         #endregion

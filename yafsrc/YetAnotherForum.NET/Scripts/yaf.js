@@ -227,20 +227,6 @@ jQuery(document).ready(function () {
         dialog.dialog("open");
     });
 
-    if (jQuery('#AttachmentsListPager').length) {
-        var Attachments_entries = jQuery('#AttachmentsPagerHidden div.result').length;
-        jQuery('#AttachmentsListPager').pagination(Attachments_entries, {
-            callback: AttachmentsPageSelectCallback,
-            items_per_page: 1,
-            num_display_entries: 3,
-            num_edge_entries: 1,
-            prev_class: 'smiliesPagerPrev',
-            next_class: 'smiliesPagerNext',
-            prev_text: '&laquo;',
-            next_text: '&raquo;'
-        });
-    }
-
     if (typeof (jQuery.fn.uitooltip) !== 'undefined') {
         jQuery(document).uitooltip({
             items: "[data-url]",
@@ -263,7 +249,99 @@ jQuery(document).ready(function () {
             jQuery('.CapsLockWarning').hide();
         }
     });
+
+    if (jQuery('#PostAttachmentListPlaceholder').length) {
+        var pageSize = 5;
+        var pageNumber = 0;
+        getPaginationData(pageSize, pageNumber, false);
+    }
 });
+
+function getPaginationData(pageSize, pageNumber) {
+    var defaultParameters = "{pageSize:" + pageSize + ",pageNumber:" + pageNumber + "}";
+
+    $.ajax({
+        type: "POST",
+        url: "YafAjax.asmx/GetAttachments",
+        data: defaultParameters,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: (function Success(data, status) {
+            $('#PostAttachmentListPlaceholder ul').empty();
+
+            $("#PostAttachmentLoader").hide();
+
+            $.each(data.d.AttachmentList, function (id, data) {
+                var list = $('#PostAttachmentListPlaceholder ul'),
+                    listItem = $('<li class="popupitem" onmouseover="mouseHover(this,true)" onmouseout="mouseHover(this,false)" style="white-space: nowrap; cursor: pointer;" />');
+
+                listItem.attr("onclick", data.OnClick).attr("title", data.FileName);
+                
+                if (data.dataURL) {
+                    listItem.attr("data-url", data.DataURL);
+                }
+
+                listItem.append(data.IconImage);
+
+                list.append(listItem);
+            });
+
+            setPageNumber(pageSize, pageNumber, data.d.TotalRecords);
+        }),
+        error: (function Error(request, status, error) {
+            $("#PostAttachmentLoader").hide();
+
+            $("#PostAttachmentListPlaceholder").html(request.statusText).fadeIn(1000);
+        })
+    });
+}
+
+function setPageNumber(pageSize, pageNumber, total) {
+    var pages = Math.ceil(total / pageSize);
+    var pagerHolder = $('#AttachmentsListPager'),
+        pagination = $('<div class="pagination" />');
+
+    pagerHolder.empty();
+
+    if (pageNumber > 0) {
+        pagination.append('<a href="javascript:getPaginationData(' + pageSize + ',' + (pageNumber - 1) + ',' + total + ')" class="prev">&laquo;</a>');
+    }
+
+    var start = pageNumber - 2;
+    var end = pageNumber + 3;
+
+    if (start < 0) {
+        start = 0;
+    }
+
+    if (end > pages) {
+        end = pages;
+    }
+
+    if (start > 0) {
+        pagination.append('<a href="javascript:getPaginationData(' + pageSize + ',' + 0 + ',' + total + ')">1</a>');
+        pagination.append('<span>...</span>');
+    }
+
+    for (var i = start; i < end; i++) {
+        if (i == pageNumber) {
+            pagination.append('<span class="current">' + (i + 1) + '</span>');
+        } else {
+            pagination.append('<a href="javascript:getPaginationData(' + pageSize + ',' + i + ',' + total + ')">' + (i + 1) + '</a>');
+        }
+    }
+
+    if (end < pages) {
+        pagination.append('<span>...</span>');
+        pagination.append('<a href="javascript:getPaginationData(' + pageSize + ',' + (pages - 1) + ',' + total + ')">' + pages + '</a>');
+    }
+
+    if (pageNumber < pages - 1) {
+        pagination.append('<a href="javascript:getPaginationData(' + pageSize + ',' + (pageNumber + 1) + ',' + total + ')" class="next">&raquo;</a>');
+    }
+
+    pagerHolder.append(pagination);
+}
 
 function AttachmentsPageSelectCallback(page_index) {
     var Attachments_content = jQuery('#AttachmentsPagerHidden div.result:eq(' + page_index + ')').clone();
@@ -357,7 +435,11 @@ function doClick(buttonName, e) {
         }
     }
 }
+jQuery(document).on('click', function (event) {
+    if (!$(event.target).parent().is('.pagination')) {
+        yaf_hidemenu();
+    }
+});
 
-document.onclick = yaf_hidemenu;
-if (document.addEventListener) document.addEventListener("click", function(e) { window.event = e; }, true);
+if (document.addEventListener) document.addEventListener("click", function (e) { window.event = e; }, true);
 if (document.addEventListener) document.addEventListener("mouseover", function(e) { window.event = e; }, true);

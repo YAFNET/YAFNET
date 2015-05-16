@@ -37,12 +37,15 @@ namespace YAF.Classes
 
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Types.Objects;
+    using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Utils.Helpers.StringUtils;
 
@@ -70,6 +73,62 @@ namespace YAF.Classes
         }
 
         #endregion
+
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public GridDataSet GetAttachments(int pageSize, int pageNumber)
+        {
+            var attachments = YafContext.Current.GetRepository<Attachment>()
+                .List(userID: YafContext.Current.PageUserID, pageIndex: pageNumber, pageSize: pageSize);
+
+
+            var attachmentItems = new List<AttachmentItem>();
+
+            foreach (DataRow row in attachments.Rows)
+            {
+                var url = row["FileName"].ToString().IsImageName()
+                              ? "{0}resource.ashx?i={1}&b={2}&editor=true".FormatWith(
+                                  YafForumInfo.ForumClientFileRoot,
+                                  row["AttachmentID"],
+                                  YafContext.Current.PageBoardID)
+                              : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot);
+
+                var attachment = new AttachmentItem()
+                                     {
+                                         FileName = row["FileName"].ToString(),
+                                         OnClick =
+                                             "insertAttachment('{0}', '{1}')".FormatWith(
+                                                 row["AttachmentID"],
+                                                 url),
+                                         IconImage =
+                                             @"<img class=""popupitemIcon"" src=""{0}"" alt=""{1}"" title=""{1}"" /><span>{1}</span>"
+                                             .FormatWith(
+                                                 url,
+                                                 "{0} ({1} kb)".FormatWith(
+                                                     row["FileName"].ToString(),
+                                                     row["Bytes"].ToType<int>() / 1024))
+                                     };
+
+                if (row["FileName"].ToString().IsImageName())
+                {
+                    attachment.DataURL = url;
+                }
+
+                attachmentItems.Add(attachment);
+            }
+
+            return new GridDataSet
+                       {
+                           PageNumber = pageNumber,
+                           TotalRecords =
+                               attachments.HasRows()
+                                   ? attachments.AsEnumerable().First().Field<int>("TotalRows")
+                                   : 0,
+                           PageSize = pageSize,
+                           AttachmentList = attachmentItems
+                       };
+        }
+
 
         /// <summary>
         /// Gets the topics by forum.
@@ -363,5 +422,21 @@ namespace YAF.Classes
         #endregion
 
         #endregion
+    }
+
+    public class AttachmentItem
+    {
+        public string FileName { get; set; }
+        public string OnClick { get; set; }
+        public string DataURL { get; set; }
+        public string IconImage { get; set; }
+    }
+
+    public class GridDataSet
+    {
+        public int PageNumber { get; set; }
+        public int TotalRecords { get; set; }
+        public int PageSize { get; set; }
+        public List<AttachmentItem> AttachmentList { get; set; }
     }
 }

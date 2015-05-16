@@ -55,7 +55,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LoadingText;
+        protected global::YAF.Controls.LocalizedLabel LoadingText;
         
         /// <summary>
         /// LoadingImage control.
@@ -65,15 +65,6 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image LoadingImage;
-        
-        /// <summary>
-        /// AttachmentsResults control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal AttachmentsResults;
         
         /// <summary>
         /// ThemeButton1 control.
