@@ -12,26 +12,35 @@ YetAnotherForum.NET Changelog
 * Admin Users page now shows if user is suspended and until which date
 * On the Admin Users page you can now filter by suspended users to show only suspended users
 * Admin Users Page now shows an Twitter/Facebook/Google icon if the users is logged in via that SSO Service
+* It is now possible to select multiple attachments for deleting
 * New Bootstraped Error Page
 
 ## Fixed Issues:
+* [FIXED #269](https://github.com/YAFNET/YAFNET/issues/269) Some buttons where visible when post is soft deleted
+* [FIXED #268](https://github.com/YAFNET/YAFNET/issues/268) If current culture is RTL page automatically switches to rtl mode
+* [FIXED #265](https://github.com/YAFNET/YAFNET/issues/265) Event/Spam Log Date Time is now displayed in user time
+* [FIXED #262](https://github.com/YAFNET/YAFNET/issues/262) Pagination on search after navigating back to the search results 
+* [FIXED #261](https://github.com/YAFNET/YAFNET/issues/261) Change Password page Enter key and Submit event 
 * [FIXED #248](https://github.com/YAFNET/YAFNET/issues/248) issue with access rights checking
 * [FIXED #250](https://github.com/YAFNET/YAFNET/issues/250) File Attach Button in the Standard Editor was not rendered after postback
 * [FIXED #247](https://github.com/YAFNET/YAFNET/issues/247): Notification on all posts and topics without read access check
 * [FIXED #244](https://github.com/YAFNET/YAFNET/issues/244): Fixed not Working Upload Dialog in editors other then the Standard BB Code Editor
 * [FIXED #243](https://github.com/YAFNET/YAFNET/issues/243): a few tweaks to the attachments upload dialog
+* [FIXED] tinyMCE is now longer included by default because of license incompatibility
 * [FIXED] dateTime Issue with the Most Recent users feature
 * [FIXED] Exception caused by bots on the posts page
-* [FIXED] duplicate loading of the jquery-ui theme css
+* [FIXED] duplicate loading of the jQuery-UI theme CSS
 * [FIXED] Issue with reCaptcha on the register page
 * [FIXED] timeAgo loading Script
 * [FIXED] Wrong Encoding in some places
 * [FIXED] Issue with Unicode Chars from the Quick Search
 * [FIXED] emails inside BBCode Code tags
 * [FIXED] not working confirm dialogs on some Delete Buttons
+* [FIXED] User messages where not deleted on user delete and ban
 * Removed not working report message to Akismet
 * Attachments can now dropped anywhere inside the upload dialog
 * Better error descriptions for SSO (Facebook,Google,Twitter)
+* Attachment lists are now loaded paged via AJAX to avoid long loading times
 
 ###Full Change log here:
 https://github.com/YAFNET/YAFNET/commits/master

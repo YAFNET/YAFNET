@@ -12,7 +12,7 @@
   <files>
     <file>/Scripts/spin.js</file>
     <file>/Scripts/ladda.js</file>
-    <file>/Scripts/jquery-2.1.3.js</file>
+    <file>/Scripts/jquery-2.1.4.js</file>
     <file>/Scripts/bootstrap.js</file>
     <file>/Scripts/bootstrap-select.js</file>
     <file>/Scripts/InstallWizard.js</file>
