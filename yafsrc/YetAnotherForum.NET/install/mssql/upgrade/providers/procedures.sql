@@ -4,6 +4,134 @@
 -- Description:	Membership Provider, Roles Provider SPROCS
 -- =============================================
 
+
+-- =============================================
+-- Membership Drop Procedures
+-- =============================================
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_upgrade]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_upgrade]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_createapplication]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_createapplication]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_changepassword]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_changepassword]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_changepasswordquestionandanswer]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_changepasswordquestionandanswer]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_createuser]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_createuser]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_deleteuser]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_deleteuser]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_findusersbyemail]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_findusersbyemail]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_findusersbyname]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_findusersbyname]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_getallusers]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getallusers]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_getnumberofusersonline]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getnumberofusersonline]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_getuser]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getuser]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_getusernamebyemail]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getusernamebyemail]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_resetpassword]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_resetpassword]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_unlockuser]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_unlockuser]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_updateuser]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_updateuser]
+GO
+
+-- =============================================
+-- Roles Drop Procedures
+-- =============================================
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_list]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_list]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_delete]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_delete]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_addusertorole]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_addusertorole]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_createrole]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_createrole]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_deleterole]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_deleterole]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_findusersinrole]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_findusersinrole]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_getroles]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_getroles]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_isuserinrole]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_isuserinrole]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_removeuserfromrole]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_removeuserfromrole]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_exists]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_exists]
+GO
+
+-- =============================================
+-- Profiles Drop Procedures
+-- =============================================
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_profile_deleteinactive]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_profile_deleteinactive]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_profile_deleteprofiles]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_profile_deleteprofiles]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_profile_getprofiles]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_profile_getprofiles]
+GO
+
+IF  exists(select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_profile_getnumberinactiveprofiles]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_profile_getnumberinactiveprofiles]
+GO
+
 -- =============================================
 -- Membership Create Procedures
 -- =============================================

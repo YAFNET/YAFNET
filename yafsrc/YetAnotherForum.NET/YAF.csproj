@@ -1501,6 +1501,9 @@
     <Content Include="install\mssql\install\procedures.sql" />
     <Content Include="install\mssql\install\tables.sql" />
     <Content Include="install\mssql\install\views.sql" />
+    <Content Include="install\mssql\upgrade\providers\indexes.sql" />
+    <Content Include="install\mssql\upgrade\providers\procedures.sql" />
+    <Content Include="install\mssql\upgrade\providers\tables.sql" />
     <Content Include="install\SpamWords.xml" />
     <Content Include="install\TopicStatusList.xml" />
     <Content Include="Images\YafLogoSmall.png" />

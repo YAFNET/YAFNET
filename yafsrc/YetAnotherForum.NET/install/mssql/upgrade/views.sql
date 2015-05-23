@@ -212,7 +212,7 @@ AS
         ForumID				= x.ForumID,
         IsAdmin				= max(convert(int,b.Flags & 1)),
         IsForumModerator	= max(convert(int,b.Flags & 8)),
-        IsModerator			= (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] v,[{databaseOwner}].[{objectQualifier}Group] w,[{databaseOwner}].[{objectQualifier}ForumAccess] x,[{databaseOwner}].[{objectQualifier}AccessMask] y where v.UserID=a.UserID and w.GroupID=v.GroupID and x.GroupID=w.GroupID and y.AccessMaskID=x.AccessMaskID and (y.Flags & 64)<>0),
+        IsModerator			= (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] v1,[{databaseOwner}].[{objectQualifier}Group] w2,[{databaseOwner}].[{objectQualifier}ForumAccess] x,[{databaseOwner}].[{objectQualifier}AccessMask] y where v1.UserID=a.UserID and w2.GroupID=v1.GroupID and x.GroupID=w2.GroupID and y.AccessMaskID=x.AccessMaskID and (y.Flags & 64)<>0),
         ReadAccess			= max(x.ReadAccess),
         PostAccess			= max(x.PostAccess),
         ReplyAccess			= max(x.ReplyAccess),

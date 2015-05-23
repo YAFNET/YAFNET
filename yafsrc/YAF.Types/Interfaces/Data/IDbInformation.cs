@@ -63,9 +63,14 @@ namespace YAF.Types.Interfaces.Data
         IEnumerable<string> UpgradeScripts { get; }
         
         /// <summary>
-        ///     Gets the YAF Provider script list
+        ///     Gets the YAF Provider Install script list
         /// </summary>
-        IEnumerable<string> YAFProviderScripts { get; }
+        IEnumerable<string> YAFProviderInstallScripts { get; }
+
+        /// <summary>
+        ///     Gets the YAF Provider Upgrade script list
+        /// </summary>
+        IEnumerable<string> YAFProviderUpgradeScripts { get; }
 
         /// <summary>
         /// Gets the DB Connection Parameters.

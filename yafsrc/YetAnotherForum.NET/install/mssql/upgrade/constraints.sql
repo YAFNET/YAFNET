@@ -885,12 +885,12 @@ go
 
 
 if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}ForumAccess_{objectQualifier}Forum' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}ForumAccess]') and type in (N'F'))
-	alter table [{databaseOwner}].[{objectQualifier}ForumAccess] add constraint [FK_{objectQualifier}ForumAccess_{objectQualifier}Forum] foreign key (ForumID) references [{databaseOwner}].[{objectQualifier}Forum] (ForumID)
+	alter table [{databaseOwner}].[{objectQualifier}ForumAccess] WITH NOCHECK add constraint [FK_{objectQualifier}ForumAccess_{objectQualifier}Forum] foreign key (ForumID) references [{databaseOwner}].[{objectQualifier}Forum] (ForumID)
 go
 
 
 if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}ForumAccess_{objectQualifier}Group' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}ForumAccess]') and type in (N'F'))
-	alter table [{databaseOwner}].[{objectQualifier}ForumAccess] add constraint [FK_{objectQualifier}ForumAccess_{objectQualifier}Group] foreign key (GroupID) references [{databaseOwner}].[{objectQualifier}Group] (GroupID)
+	alter table [{databaseOwner}].[{objectQualifier}ForumAccess] WITH NOCHECK add constraint [FK_{objectQualifier}ForumAccess_{objectQualifier}Group] foreign key (GroupID) references [{databaseOwner}].[{objectQualifier}Group] (GroupID)
 go
 
 

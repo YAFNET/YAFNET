@@ -91,13 +91,23 @@ namespace YAF.Data.MsSql
             };
 
         /// <summary>
-        /// The YAF Provider script list
+        /// The YAF Provider Install script list
         /// </summary>
-        private static readonly string[] _YAFProviderScriptList =
+        private static readonly string[] _YAFProviderInstallScriptList =
             {
                 "mssql/install/providers/tables.sql",
                 "mssql/install/providers/indexes.sql", 
                 "mssql/install/providers/procedures.sql"
+            };
+
+        /// <summary>
+        /// The YAF Provider Upgrade script list
+        /// </summary>
+        private static readonly string[] _YAFProviderUpgradeScriptList =
+            {
+                "mssql/upgrade/providers/tables.sql",
+                "mssql/upgrade/providers/indexes.sql", 
+                "mssql/upgrade/providers/procedures.sql"
             };
 
         /// <summary>
@@ -164,13 +174,24 @@ namespace YAF.Data.MsSql
         }
 
         /// <summary>
-        /// Gets the YAF Provider Script List.
+        /// Gets the YAF Provider Install Script List.
         /// </summary>
-        public IEnumerable<string> YAFProviderScripts
+        public IEnumerable<string> YAFProviderInstallScripts
         {
             get
             {
-                return _YAFProviderScriptList;
+                return _YAFProviderInstallScriptList;
+            }
+        }
+
+        /// <summary>
+        /// Gets the YAF Provider Upgrade Script List.
+        /// </summary>
+        public IEnumerable<string> YAFProviderUpgradeScripts
+        {
+            get
+            {
+                return _YAFProviderUpgradeScriptList;
             }
         }
 

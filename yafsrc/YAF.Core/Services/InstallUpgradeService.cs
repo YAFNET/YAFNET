@@ -263,7 +263,7 @@ namespace YAF.Core.Services
                 }
                 else
                 {
-                   this.ExecuteUpgradeScripts();   
+                    this.ExecuteUpgradeScripts(isAzureEngine);   
                 }
 
                 this.FixAccess(true);
@@ -357,7 +357,7 @@ namespace YAF.Core.Services
             }
             else
             {
-                this.DbAccess.Information.YAFProviderScripts.ForEach(script => this.ExecuteScript(script, true));
+                this.DbAccess.Information.YAFProviderInstallScripts.ForEach(script => this.ExecuteScript(script, true));
             }
             
             // Run other
@@ -367,8 +367,14 @@ namespace YAF.Core.Services
         /// <summary>
         /// Executes the upgrade scripts.
         /// </summary>
-        private void ExecuteUpgradeScripts()
+        private void ExecuteUpgradeScripts(bool isAzureEngine)
         {
+            // upgrade Membership Scripts
+            if (!isAzureEngine)
+            {
+                this.DbAccess.Information.YAFProviderUpgradeScripts.ForEach(script => this.ExecuteScript(script, true));
+            }
+
             this.DbAccess.Information.UpgradeScripts.ForEach(script => this.ExecuteScript(script, true));
         }
 
