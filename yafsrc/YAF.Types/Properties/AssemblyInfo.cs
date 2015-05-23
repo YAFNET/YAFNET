@@ -34,7 +34,6 @@ using System.Security;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("YetAnotherForum.NET")]
 [assembly: AssemblyProduct("YAF.Types")]
-[assembly: AssemblyCopyright("Copyright © 2006-2014 Yet Another Forum.NET")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

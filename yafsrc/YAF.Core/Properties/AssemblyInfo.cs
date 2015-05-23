@@ -36,7 +36,6 @@ using YAF.Types.Attributes;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("YetAnotherForum.NET")]
 [assembly: AssemblyProduct("YAF.Core")]
-[assembly: AssemblyCopyright("Copyright © 2006-2014 Yet Another Forum.NET")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyModuleSortOrder(10)]
