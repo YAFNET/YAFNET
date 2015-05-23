@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2015 Ingo Herbote
@@ -162,7 +162,7 @@ namespace YAF.Pages
         /// </param>
         protected void CreateUserWizard1_CreateUserError([NotNull] object sender, [NotNull] CreateUserErrorEventArgs e)
         {
-            string createUserError = string.Empty;
+            var createUserError = string.Empty;
 
             // find the type of error
             switch (e.CreateUserError)
@@ -243,31 +243,36 @@ namespace YAF.Pages
                 YafBuildLink.RedirectInfoPage(InfoMessage.Failure);
             }
 
-            // handle e-mail verification if needed
-            if (this.Get<YafBoardSettings>().EmailVerification)
+            if (this.IsPossibleSpamBot)
             {
-                // get the user email
-                var emailTextBox =
-                    (TextBox)this.CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("Email");
-                var email = emailTextBox.Text.Trim();
-
-                this.Get<ISendNotification>().SendVerificationEmail(user, email, userID);
+                if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
+                {
+                    this.Get<ISendNotification>().SendSpamBotNotificationToAdmins(user, userID.Value);
+                }
             }
             else
             {
-                // Send welcome mail/pm to user
-                this.Get<ISendNotification>().SendUserWelcomeNotification(user, userID.Value);
-            }
+                // handle e-mail verification if needed
+                if (this.Get<YafBoardSettings>().EmailVerification)
+                {
+                    // get the user email
+                    var emailTextBox =
+                        (TextBox)this.CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("Email");
+                    var email = emailTextBox.Text.Trim();
 
-            if (this.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
-            {
-                // send user register notification to the following admin users...
-                this.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userID.Value);
-            }
+                    this.Get<ISendNotification>().SendVerificationEmail(user, email, userID);
+                }
+                else
+                {
+                    // Send welcome mail/pm to user
+                    this.Get<ISendNotification>().SendUserWelcomeNotification(user, userID.Value);
+                }
 
-            if (this.IsPossibleSpamBot)
-            {
-                this.Get<ISendNotification>().SendSpamBotNotificationToAdmins(user, userID.Value);
+                if (this.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
+                {
+                    // send user register notification to the following admin users...
+                    this.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userID.Value);
+                }
             }
         }
 
@@ -387,6 +392,9 @@ namespace YAF.Pages
             // Check content for spam
             if (spamChecker.CheckUserForSpamBot(userName, this.CreateUserWizard1.Email, userIpAddress, out result))
             {
+                // Flag user as spam bot
+                this.IsPossibleSpamBot = true;
+
                 this.Logger.Log(
                     null, 
                     "Bot Detected", 
@@ -394,12 +402,7 @@ namespace YAF.Pages
                         .FormatWith(userName, this.CreateUserWizard1.Email, userIpAddress, result), 
                     EventLogTypes.SpamBotDetected);
 
-                if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
-                {
-                    // Flag user as spam bot
-                    this.IsPossibleSpamBot = true;
-                }
-                else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
+                if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
                 {
                     this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.Error);
 
@@ -680,7 +683,7 @@ namespace YAF.Pages
                 (LocalizedLabel)this.CreateUserStepContainer.FindControl("LocalizedLabelRequirementsText");
             requirementText.Param0 = this.Get<MembershipProvider>().MinRequiredPasswordLength.ToString();
             requirementText.Param1 = this.Get<MembershipProvider>().MinRequiredNonAlphanumericCharacters.ToString();
-
+            
             if (this.Get<YafBoardSettings>().CaptchaTypeRegister == 2)
             {
                 this.SetupRecaptchaControl();
@@ -982,13 +985,13 @@ namespace YAF.Pages
             {
                 this.IsPossibleSpamBotInternalCheck = true;
 
+                // Flag user as spam bot
+                this.IsPossibleSpamBot = true;
+
                 var userIpAddress = this.Get<HttpRequestBase>().GetUserRealIPAddress();
 
                 if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
                 {
-                    // Flag user as spam bot
-                    this.IsPossibleSpamBot = true;
-
                     this.Get<ISendNotification>().SendSpamBotNotificationToAdmins(user, userId);
                 }
                 else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
