@@ -4894,8 +4894,13 @@ Spoiler Content
     <Resource tag="NEED_QUESTION">La domanda di sicurezza è obbligatoria.</Resource>
     <Resource tag="NEED_USERNAME">Il nome utente è obbligatorio.</Resource>
     <Resource tag="PASSWORD">Password</Resource>
+    <Resource tag="PASSWORD_GOOD">Good Password!</Resource>
+    <Resource tag="PASSWORD_MIN">Password must be {0} characters long.</Resource>
+    <Resource tag="PASSWORD_NOTMATCH">Password and Confirm Password do not match!</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Requisiti complessità password</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} caratteri di lunghezza minima; minimo {1} caratteri non alfanumerici ($#@!).</Resource>
+    <Resource tag="PASSWORD_STRONGER">Make your password stronger with more capital letters, more numbers and special characters!</Resource>
+    <Resource tag="PASSWORD_WEAK">Weak Password, try using numbers and capital letters.</Resource>
     <Resource tag="PREFERENCES">Opzioni forum</Resource>
     <Resource tag="PROFILE">Informazioni di profilo</Resource>
     <Resource tag="RECAPTCHA_BADSETTING">Le impostazioni Captcha sono errate. Per favore segnala il problema agli amministratori.</Resource>

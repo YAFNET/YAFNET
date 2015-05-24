@@ -2639,3 +2639,11 @@ a.OpenUploadDialog {
 #fileupload .error {
   color: red;
 }
+#passwordStrength {
+  padding: 0 .7em;
+}
+#passwordStrength .PasswordStrengthMessageIcon {
+  display: inline-block;
+  vertical-align: bottom;
+  margin-right: .3em;
+}

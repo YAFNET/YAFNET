@@ -8519,9 +8519,6 @@ textarea.standardTextInput {
 .checkbox input[type="checkbox"] {
   margin-left: 0;
 }
-.ladda-spinner div[role="progressbar"] {
-  top: 15px !important;
-}
 .radio input[type="radio"],
 .radio-inline input[type="radio"] {
   position: absolute;

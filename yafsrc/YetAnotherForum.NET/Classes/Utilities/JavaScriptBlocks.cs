@@ -961,7 +961,98 @@ namespace YAF.Utilities
                      }});".FormatWith(Config.JQueryAlias, postURL, toolTipText);
         }
 
-#region BootStrap Script Blocks
+        /// <summary>
+        /// Gets the Passwords strength checker Java Script.
+        /// </summary>
+        /// <param name="passwordClientID">The password client identifier.</param>
+        /// <param name="confirmPasswordClientID">The confirm password client identifier.</param>
+        /// <param name="minimumChars">The minimum chars.</param>
+        /// <param name="notMatchText">The not match text.</param>
+        /// <param name="passwordMinText">The password minimum text.</param>
+        /// <param name="passwordGoodText">The password good text.</param>
+        /// <param name="passwordStrongerText">The password stronger text.</param>
+        /// <param name="passwordWeakText">The password weak text.</param>
+        /// <returns>Returns the Passwords strength checker Java Script</returns>
+        [NotNull]
+        public static string PasswordStrengthCheckerJs(
+            [NotNull] string passwordClientID,
+            [NotNull] string confirmPasswordClientID,
+            [NotNull] int minimumChars,
+            [NotNull] string notMatchText,
+            [NotNull] string passwordMinText,
+            [NotNull] string passwordGoodText,
+            [NotNull] string passwordStrongerText,
+            [NotNull] string passwordWeakText)
+        {
+            return @"{0}(document).ready(function() {{
+
+    {0}('#{2}').on('keyup', function(e) {{
+        var password = {0}('#{1}').val();
+        var passwordConfirm = {0}('#{2}').val();
+
+        if(password == '' && passwordConfirm == '') {{
+            {0}('#passwordStrength').removeClass().empty();
+            {0}('#passwordStrength').parent().parent('.post').hide();
+ 
+            return false;
+        }}
+        else 
+        {{
+             if(password != passwordConfirm) {{
+    		    {0}('#passwordStrength').removeClass().addClass('ui-state-error ui-corner-all').html('<p><span class=""PasswordStrengthMessageIcon ui-icon ui-icon-alert"" />{4}</p>');
+                {0}('#passwordStrength').parent().parent('.post').show();
+        	    return false;
+    	     }}
+         }}
+    }});
+ 
+    {0}('#{1}').on('keyup', function(e) {{
+
+        var password = {0}('#{1}').val();
+        var passwordConfirm = {0}('#{2}').val();
+ 
+        if(password == '' && passwordConfirm == '')
+        {{
+            {0}('#passwordStrength').removeClass().empty();
+            {0}('#passwordStrength').parent().parent('.post').hide();
+ 
+            return false;
+        }}
+
+        var strongRegex = new RegExp(""^(?=.{{8,}})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$"", ""g"");
+ 
+        var mediumRegex = new RegExp(""^(?=.{{7,}})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$"", ""g"");
+ 
+        var okRegex = new RegExp(""(?=.{{{3},}}).*"", ""g"");
+ 
+        if (okRegex.test(password) === false) {{
+            {0}('#passwordStrength').removeClass().addClass('ui-state-error ui-corner-all').html('<p><span class=""PasswordStrengthMessageIcon ui-icon ui-icon-alert"" />{5}</p>');
+ 
+        }} else if (strongRegex.test(password)) {{
+            {0}('#passwordStrength').removeClass().addClass('ui-state-default ui-corner-all').html('<p><span class=""PasswordStrengthMessageIcon ui-icon ui-icon-check"" />{6}</p>');
+        }} else if (mediumRegex.test(password)) {{
+            {0}('#passwordStrength').removeClass().addClass('ui-state-highlight ui-corner-all').html('<p><span class=""PasswordStrengthMessageIcon ui-icon ui-icon-info"" />{7}</p>');
+        }} else {{
+            {0}('#passwordStrength').removeClass().addClass('ui-state-error ui-corner-all').html('<p><span class=""PasswordStrengthMessageIcon ui-icon ui-icon-alert"" />{8}</p>');
+        }}
+
+        {0}('#passwordStrength').parent().parent('.post').show();
+        
+        return true;
+    }});
+}});".FormatWith(
+                Config.JQueryAlias,
+                passwordClientID,
+                confirmPasswordClientID,
+                minimumChars,
+                notMatchText,
+                passwordMinText,
+                passwordGoodText,
+                passwordStrongerText,
+                passwordWeakText);
+        }
+
+        #region BootStrap Script Blocks
 
         /// <summary>
         /// Gets the tool tip load script block.

@@ -4922,8 +4922,13 @@ Spoiler Content
     <Resource tag="NEED_QUESTION">Question de sécurité requise.</Resource>
     <Resource tag="NEED_USERNAME">Nom de l'utilisateur requis.</Resource>
     <Resource tag="PASSWORD">Mot de passe</Resource>
+    <Resource tag="PASSWORD_GOOD">Good Password!</Resource>
+    <Resource tag="PASSWORD_MIN">Password must be {0} characters long.</Resource>
+    <Resource tag="PASSWORD_NOTMATCH">Password and Confirm Password do not match!</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Contraintes mot de passe</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_WARN">Longueur minimale {0}. Minimum de {1} caractères non-alphanumeriques ($#@!).</Resource>
+    <Resource tag="PASSWORD_STRONGER">Make your password stronger with more capital letters, more numbers and special characters!</Resource>
+    <Resource tag="PASSWORD_WEAK">Weak Password, try using numbers and capital letters.</Resource>
     <Resource tag="PREFERENCES">Préférences forum</Resource>
     <Resource tag="PROFILE">Informations pour le profil</Resource>
     <Resource tag="RECAPTCHA_BADSETTING">Recapture settings are bad. Report it to administration.</Resource>

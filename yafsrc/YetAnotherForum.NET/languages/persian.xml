@@ -4925,8 +4925,13 @@
     <Resource tag="NEED_QUESTION">سوال امنیتی ضروری است.</Resource>
     <Resource tag="NEED_USERNAME">نام کاربری ضروری است</Resource>
     <Resource tag="PASSWORD">رمز عبور</Resource>
+    <Resource tag="PASSWORD_GOOD">Good Password!</Resource>
+    <Resource tag="PASSWORD_MIN">Password must be {0} characters long.</Resource>
+    <Resource tag="PASSWORD_NOTMATCH">Password and Confirm Password do not match!</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">نیازمندیهای رمزعبور</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_WARN">($#@!)حداقل کاراکتر مورد نیاز {0}. حداقل کاراکترهای غیر عددی/حرفی مورد نیاز {1}.</Resource>
+    <Resource tag="PASSWORD_STRONGER">Make your password stronger with more capital letters, more numbers and special characters!</Resource>
+    <Resource tag="PASSWORD_WEAK">Weak Password, try using numbers and capital letters.</Resource>
     <Resource tag="PREFERENCES">تنظیمات انجمن</Resource>
     <Resource tag="PROFILE">اطلاعات پروفایل</Resource>
     <Resource tag="RECAPTCHA_BADSETTING">تنظمیات باز پس گیری مناسب نیست. به مدیری گزارش دهید.</Resource>

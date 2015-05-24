@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2015 Ingo Herbote
@@ -544,6 +544,21 @@ namespace YAF.Pages
                 "dropDownJs", 
                 JavaScriptBlocks.SelectMenuWithIconsJs(country.ClientID));
 
+            var password = this.CreateUserStepContainer.FindControlAs<TextBox>("Password");
+            var confirmPassword = this.CreateUserStepContainer.FindControlAs<TextBox>("ConfirmPassword");
+
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "passwordStrengthCheckJs",
+                JavaScriptBlocks.PasswordStrengthCheckerJs(
+                    password.ClientID,
+                    confirmPassword.ClientID,
+                    this.Get<MembershipProvider>().MinRequiredPasswordLength,
+                    this.GetText("PASSWORD_NOTMATCH"),
+                    this.GetTextFormatted("PASSWORD_MIN", this.Get<MembershipProvider>().MinRequiredPasswordLength),
+                    this.GetText("PASSWORD_GOOD"),
+                    this.GetText("PASSWORD_STRONGER"),
+                    this.GetText("PASSWORD_WEAK")));
+
             base.OnPreRender(e);
         }
 
@@ -678,12 +693,6 @@ namespace YAF.Pages
 
             this.CreateUserWizard1.FindWizardControlRecursive("UserName").Focus();
 
-            // password requirement parameters...
-            var requirementText =
-                (LocalizedLabel)this.CreateUserStepContainer.FindControl("LocalizedLabelRequirementsText");
-            requirementText.Param0 = this.Get<MembershipProvider>().MinRequiredPasswordLength.ToString();
-            requirementText.Param1 = this.Get<MembershipProvider>().MinRequiredNonAlphanumericCharacters.ToString();
-            
             if (this.Get<YafBoardSettings>().CaptchaTypeRegister == 2)
             {
                 this.SetupRecaptchaControl();
@@ -780,7 +789,7 @@ namespace YAF.Pages
         {
             return this.PageContext.BoardSettings.RecaptchaPrivateKey;
         }
-        
+
         /// <summary>
         /// The setup create user step.
         /// </summary>
@@ -792,22 +801,23 @@ namespace YAF.Pages
             this.CreateUserStepContainer.FindControlAs<TextBox>("UserName").MaxLength =
                 this.Get<YafBoardSettings>().UserNameMaxLength;
 
-            var passwordNoMatch = (CompareValidator)this.CreateUserStepContainer.FindControl("PasswordCompare");
-            var usernameRequired = (RequiredFieldValidator)this.CreateUserStepContainer.FindControl("UserNameRequired");
-            var passwordRequired = (RequiredFieldValidator)this.CreateUserStepContainer.FindControl("PasswordRequired");
+            var usernameRequired = this.CreateUserStepContainer.FindControlAs<RequiredFieldValidator>(
+                "UserNameRequired");
+            var passwordRequired = this.CreateUserStepContainer.FindControlAs<RequiredFieldValidator>(
+                "PasswordRequired");
             var confirmPasswordRequired =
-                (RequiredFieldValidator)this.CreateUserStepContainer.FindControl("ConfirmPasswordRequired");
-            var emailRequired = (RequiredFieldValidator)this.CreateUserStepContainer.FindControl("EmailRequired");
+                this.CreateUserStepContainer.FindControlAs<RequiredFieldValidator>("ConfirmPasswordRequired");
+            var emailRequired = this.CreateUserStepContainer.FindControlAs<RequiredFieldValidator>("EmailRequired");
             var emailValid = (RegularExpressionValidator)this.CreateUserStepContainer.FindControl("EmailValid");
 
-            var questionRequired = (RequiredFieldValidator)this.CreateUserStepContainer.FindControl("QuestionRequired");
-            var answerRequired = (RequiredFieldValidator)this.CreateUserStepContainer.FindControl("AnswerRequired");
+            var questionRequired = this.CreateUserStepContainer.FindControlAs<RequiredFieldValidator>(
+                "QuestionRequired");
+            var answerRequired = this.CreateUserStepContainer.FindControlAs<RequiredFieldValidator>("AnswerRequired");
             var createUser = (Button)this.CreateUserStepContainer.FindControl("StepNextButton");
-            
+
             usernameRequired.ToolTip = usernameRequired.ErrorMessage = this.GetText("NEED_USERNAME");
             passwordRequired.ToolTip = passwordRequired.ErrorMessage = this.GetText("NEED_PASSWORD");
             confirmPasswordRequired.ToolTip = confirmPasswordRequired.ErrorMessage = this.GetText("RETYPE_PASSWORD");
-            passwordNoMatch.ToolTip = passwordNoMatch.ErrorMessage = this.GetText("NEED_MATCH");
             emailRequired.ToolTip = emailRequired.ErrorMessage = this.GetText("NEED_EMAIL");
             emailValid.ToolTip = emailValid.ErrorMessage = this.GetText("PROFILE", "BAD_EMAIL");
             questionRequired.ToolTip = questionRequired.ErrorMessage = this.GetText("NEED_QUESTION");
@@ -822,7 +832,7 @@ namespace YAF.Pages
                 var imgCaptcha = this.CreateUserStepContainer.FindControlAs<Image>("imgCaptcha");
 
                 imgCaptcha.ImageUrl = "{0}resource.ashx?c=1&t=".FormatWith(
-                    YafForumInfo.ForumClientFileRoot, 
+                    YafForumInfo.ForumClientFileRoot,
                     DateTime.UtcNow);
 
                 var refreshCaptcha = this.CreateUserStepContainer.FindControlAs<LinkButton>("RefreshCaptcha");

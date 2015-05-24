@@ -5261,8 +5261,13 @@ public class Hello1
     <Resource tag="NEED_QUESTION">Pregunta de seguridad requerida.</Resource>
     <Resource tag="NEED_USERNAME">Nombre de usuario requerido.</Resource>
     <Resource tag="PASSWORD">Clave</Resource>
+    <Resource tag="PASSWORD_GOOD">Good Password!</Resource>
+    <Resource tag="PASSWORD_MIN">Password must be {0} characters long.</Resource>
+    <Resource tag="PASSWORD_NOTMATCH">Password and Confirm Password do not match!</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Requerimientos de contraseña</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} min length. {1} minimum non-alphanumeric characters ($#@!).</Resource>
+    <Resource tag="PASSWORD_STRONGER">Make your password stronger with more capital letters, more numbers and special characters!</Resource>
+    <Resource tag="PASSWORD_WEAK">Weak Password, try using numbers and capital letters.</Resource>
     <Resource tag="PREFERENCES">Preferencias del foro</Resource>
     <Resource tag="PROFILE">Informacion del perfil</Resource>
     <Resource tag="RECAPTCHA_BADSETTING">Las especificaciones del Recaptcha están mal. Por favor, informa al administrador.</Resource>
