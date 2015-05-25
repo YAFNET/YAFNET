@@ -2120,6 +2120,7 @@
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">Er is een Bericht gerapporteerd op {0} Forum.</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL">New SPAM Message on {0} Forum needs to be checked</Resource>
     <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registratie op {0} Forum gelukt</Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_USER_SUBJECT">Suspension of your {0} Forum Account</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Nieuwe gebruiker geregistreerd op {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_WELCOME_USER_SUBJECT">Welcome to the {0} Forum</Resource>
     <Resource tag="OK">OK</Resource>
@@ -4173,6 +4174,7 @@ Spoiler Inhoud
     <Resource tag="MODERATED">Omdat je in een gemodereerd forum gepost hebt, zal je bericht pas verschijnen na goedkeuring door een moderator.</Resource>
     <Resource tag="REGISTRATION">Er is een e-mail naar het adres verzonden dat je hebt opgegeven. Lees a.u.b. de instructies in de e-mail om in te loggen.</Resource>
     <Resource tag="SUSPENDED">Je account is tijdelijk geblokkeerd en zal weer actief worden op {0}.</Resource>
+    <Resource tag="SUSPENDED_REASON">&lt;br /&gt;&lt;br /&gt;For the following Reason: "{0}".</Resource>
     <Resource tag="TITLE_ACCESSDENIED">Toegang geweigerd</Resource>
     <Resource tag="TITLE_COOKIES">cookies verplicht</Resource>
     <Resource tag="TITLE_ECMAREQUIRED">JavaScript verplicht</Resource>
@@ -4708,6 +4710,11 @@ Spoiler Inhoud
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
     <Resource tag="STATISTICS">Statistieken</Resource>
     <Resource tag="SUSPEND">Blokkeren</Resource>
+    <Resource tag="SUSPEND_BY">Suspended By:</Resource>
+    <Resource tag="SUSPEND_CURRENT">Current Suspension</Resource>
+    <Resource tag="SUSPEND_INFO">&lt;strong&gt;NOTE&lt;/strong&gt; The Suspension is based on the Users current Date and Time which is Now: {0}.</Resource>
+    <Resource tag="SUSPEND_NEW">New Suspension</Resource>
+    <Resource tag="SUSPEND_REASON">Suspend Reason:</Resource>
     <Resource tag="SUSPEND_USER">Geef een ban:</Resource>
     <Resource tag="SUSPENDLABEL">Beheer ban</Resource>
     <Resource tag="THANKSFROM">Aantal bedankjes</Resource>
@@ -5126,6 +5133,30 @@ Het bericht was gepost op het  {forumname} forum.
       E-mail: {email} (Aub niet wijzigen, anders kun je niet meer inloggen met Facebook)
 	  
     </Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_ENDED_USER">
+    Hello {user},
+
+    The suspension of your forum account has ended or was lifted.
+
+    Thanks!
+    The {forumname} Team
+    {forumurl}
+
+  </Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_USER">
+    Hello {user},
+
+    Your forum account on the {forumname} forum has been temporarily suspended.
+    
+    This suspension is due to end on {suspendedUntil}.
+
+    For the following Reason: '{suspendReason}'
+
+    Thanks!
+    The {forumname} Team
+    {forumurl}
+
+  </Resource>
     <Resource tag="NOTIFICATION_ON_TWITTER_REGISTER">      Je bent met succes geregistreerd op het {forumname} forum via Twitter:
 
       Gebruikersnaam: {user}

@@ -2129,6 +2129,7 @@
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">A Message on {0} Forum was reported</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL">New SPAM Message on {0} Forum needs to be checked</Resource>
     <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registration on {0} Forum successfully</Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_USER_SUBJECT">Suspension of your {0} Forum Account</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Nouvel utilisateur enregistré sur le forum {0}</Resource>
     <Resource tag="NOTIFICATION_ON_WELCOME_USER_SUBJECT">Welcome to the {0} Forum</Resource>
     <Resource tag="OK">OK</Resource>
@@ -4220,6 +4221,7 @@ Spoiler Content
     <Resource tag="MODERATED">Etant donné que vous avez poster dans un forum modéré, un moderateur doit approuver votre message pour qu'il devienne visible.</Resource>
     <Resource tag="REGISTRATION">Un courriel a été envoyé à l'adresse que vous avez fournie. Suivez les instructions dans le courriel pour vous identifier.</Resource>
     <Resource tag="SUSPENDED">Votre compte est temporairement suspendu. Cette suspension devrait être levée le {0}.</Resource>
+    <Resource tag="SUSPENDED_REASON">&lt;br /&gt;&lt;br /&gt;For the following Reason: "{0}".</Resource>
     <Resource tag="TITLE_ACCESSDENIED">Acces refusé</Resource>
     <Resource tag="TITLE_COOKIES">Requires cookies</Resource>
     <Resource tag="TITLE_ECMAREQUIRED">JavaScript required</Resource>
@@ -4762,6 +4764,11 @@ Spoiler Content
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
     <Resource tag="STATISTICS">Statistiques</Resource>
     <Resource tag="SUSPEND">Suspendre</Resource>
+    <Resource tag="SUSPEND_BY">Suspended By:</Resource>
+    <Resource tag="SUSPEND_CURRENT">Current Suspension</Resource>
+    <Resource tag="SUSPEND_INFO">&lt;strong&gt;NOTE&lt;/strong&gt; The Suspension is based on the Users current Date and Time which is Now: {0}.</Resource>
+    <Resource tag="SUSPEND_NEW">New Suspension</Resource>
+    <Resource tag="SUSPEND_REASON">Suspend Reason:</Resource>
     <Resource tag="SUSPEND_USER">Suspendre l'utilisateur:</Resource>
     <Resource tag="THANKSFROM">Nombre de remerciements</Resource>
     <Resource tag="THANKSTOPOSTS">Nombre de messages pour lesquels cet utilisateur a été remercié</Resource>
@@ -5172,6 +5179,30 @@ The Message was posted in the {forumname} forum.
       User Email: {email}
 
     </Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_ENDED_USER">
+    Hello {user},
+
+    The suspension of your forum account has ended or was lifted.
+
+    Thanks!
+    The {forumname} Team
+    {forumurl}
+
+  </Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_USER">
+    Hello {user},
+
+    Your forum account on the {forumname} forum has been temporarily suspended.
+    
+    This suspension is due to end on {suspendedUntil}.
+
+    For the following Reason: '{suspendReason}'
+
+    Thanks!
+    The {forumname} Team
+    {forumurl}
+
+  </Resource>
     <Resource tag="NOTIFICATION_ON_TWITTER_REGISTER">
       Hello {user}.
 

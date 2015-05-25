@@ -23,6 +23,7 @@
  */
 namespace YAF.Types.Interfaces
 {
+    using System;
     using System.Web.Security;
 
     /// <summary>
@@ -136,5 +137,27 @@ namespace YAF.Types.Interfaces
             [NotNull] string email,
             int? userID,
             string newUsername = null);
+
+        /// <summary>
+        /// Sends the user a suspension notification.
+        /// </summary>
+        /// <param name="suspendedUntil">The suspended until.</param>
+        /// <param name="suspendReason">The suspend reason.</param>
+        /// <param name="email">The email.</param>
+        /// <param name="userName">Name of the user.</param>
+        void SendUserSuspensionNotification(
+            [NotNull] DateTime suspendedUntil,
+            [NotNull] string suspendReason,
+            [NotNull] string email,
+            [NotNull] string userName);
+
+        /// <summary>
+        /// Sends the user a suspension ended notification.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <param name="userName">Name of the user.</param>
+        void SendUserSuspensionEndedNotification(
+            [NotNull] string email,
+            [NotNull] string userName);
     }
 }

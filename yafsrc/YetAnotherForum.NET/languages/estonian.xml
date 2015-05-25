@@ -2129,6 +2129,7 @@
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">A Message on {0} Forum was reported</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL">New SPAM Message on {0} Forum needs to be checked</Resource>
     <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registration on {0} Forum successfully</Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_USER_SUBJECT">Suspension of your {0} Forum Account</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Uus kasutaja registreerus {0} foorumil </Resource>
     <Resource tag="NOTIFICATION_ON_WELCOME_USER_SUBJECT">Welcome to the {0} Forum</Resource>
     <Resource tag="OK">OK</Resource>
@@ -4222,6 +4223,7 @@ Spoiler Content
     <Resource tag="MODERATED">Kuna postitasite modereeritavale foorumile, peab moderaator teie postituse kinnitama, et see nähtav oleks.</Resource>
     <Resource tag="REGISTRATION">Teie postkasti on saadetud e-kiri. Sisselogimiseks palun lugegge juhiseid e-kirjas.</Resource>
     <Resource tag="SUSPENDED">Teie konto on ajutiselt blokeeritud. Blokeering lõpeb {0}.</Resource>
+    <Resource tag="SUSPENDED_REASON">&lt;br /&gt;&lt;br /&gt;For the following Reason: "{0}".</Resource>
     <Resource tag="TITLE_ACCESSDENIED">Liigipääs keelatud</Resource>
     <Resource tag="TITLE_COOKIES">Vajab küpsiseid</Resource>
     <Resource tag="TITLE_ECMAREQUIRED">JavaScript on nõutud </Resource>
@@ -4762,6 +4764,11 @@ Spoiler Content
     <Resource tag="SKYPE">Skype(tm) ID:</Resource>
     <Resource tag="STATISTICS">Statistika</Resource>
     <Resource tag="SUSPEND">Lukustamine</Resource>
+    <Resource tag="SUSPEND_BY">Suspended By:</Resource>
+    <Resource tag="SUSPEND_CURRENT">Current Suspension</Resource>
+    <Resource tag="SUSPEND_INFO">&lt;strong&gt;NOTE&lt;/strong&gt; The Suspension is based on the Users current Date and Time which is Now: {0}.</Resource>
+    <Resource tag="SUSPEND_NEW">New Suspension</Resource>
+    <Resource tag="SUSPEND_REASON">Suspend Reason:</Resource>
     <Resource tag="SUSPEND_USER">Lukusta kasutaja:</Resource>
     <Resource tag="THANKSFROM">Tänuavalduste arv</Resource>
     <Resource tag="THANKSTOPOSTS">Postituste arv, mille eest kasutajale avaldati tänu</Resource>
@@ -5169,6 +5176,30 @@ The Message was posted in the {forumname} forum.
       User Email: {email}
 	  
     </Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_ENDED_USER">
+    Hello {user},
+
+    The suspension of your forum account has ended or was lifted.
+
+    Thanks!
+    The {forumname} Team
+    {forumurl}
+
+  </Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_USER">
+    Hello {user},
+
+    Your forum account on the {forumname} forum has been temporarily suspended.
+    
+    This suspension is due to end on {suspendedUntil}.
+
+    For the following Reason: '{suspendReason}'
+
+    Thanks!
+    The {forumname} Team
+    {forumurl}
+
+  </Resource>
     <Resource tag="NOTIFICATION_ON_TWITTER_REGISTER">
       Hello {user}.
 

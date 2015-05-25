@@ -6728,6 +6728,8 @@ begin
         a.AvatarImageType,
         a.RankID,
         a.Suspended,
+		a.SuspendedReason,
+		a.SuspendedBy,
         a.LanguageFile,
         a.ThemeFile,
         a.TextEditor,
@@ -7451,12 +7453,18 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_suspend](@UserID int,@Suspend datetime=null) as
-begin
-    
-    update [{databaseOwner}].[{objectQualifier}User] set Suspended = @Suspend where UserID=@UserID
-end
-GO
+create procedure [{databaseOwner}].[{objectQualifier}user_suspend](@UserID int,@Suspend datetime=null, @SuspendReason ntext = null, @SuspendBy int = 0) as
+    begin
+        update 
+	        [{databaseOwner}].[{objectQualifier}User] 
+	    set 
+		    Suspended = @Suspend, 
+			SuspendedReason = @SuspendReason,
+			SuspendedBy = @SuspendBy
+		where 
+		    UserID=@UserID
+    end
+go
 
 create procedure [{databaseOwner}].[{objectQualifier}user_upgrade](@UserID int) as
 begin
@@ -9674,6 +9682,7 @@ begin
         UserName			= a.Name,
         DisplayName			= a.DisplayName,
         Suspended			= a.Suspended,
+		SuspendedReason     = a.SuspendedReason,
         ThemeFile			= a.ThemeFile,
         LanguageFile		= a.LanguageFile,
         TextEditor		    = a.TextEditor,

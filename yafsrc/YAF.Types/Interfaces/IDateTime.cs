@@ -109,5 +109,16 @@ namespace YAF.Types.Interfaces
         /// <param name="dateTime">The Date Time.</param>
         /// <returns>Returns the user Date Time</returns>
         DateTime GetUserDateTime([NotNull] DateTime dateTime);
+
+        /// <summary>
+        /// Gets the user DateTime.
+        /// </summary>
+        /// <param name="dateTime">The Date Time.</param>
+        /// <param name="timeZone">The time zone.</param>
+        /// <param name="dstUser">if set to <c>true</c> [DST user].</param>
+        /// <returns>
+        /// Returns the user Date Time
+        /// </returns>
+        DateTime GetUserDateTime([NotNull] DateTime dateTime, int timeZone, bool dstUser);
     }
 }

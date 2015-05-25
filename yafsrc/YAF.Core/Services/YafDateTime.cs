@@ -93,7 +93,7 @@ namespace YAF.Core.Services
         public string FormatDateLong(DateTime dateTime)
         {
             string dateFormat;
-            dateTime = this.AccountForDST(dateTime + this.TimeOffset);
+            dateTime = this.AccountForDST(dateTime + this.TimeOffset, YafContext.Current.DSTUser);
 
             try
             {
@@ -125,7 +125,7 @@ namespace YAF.Core.Services
         public string FormatDateShort([NotNull] DateTime dateTime)
         {
             string dateFormat;
-            dateTime = this.AccountForDST(dateTime + this.TimeOffset);
+            dateTime = this.AccountForDST(dateTime + this.TimeOffset, YafContext.Current.DSTUser);
 
             try
             {
@@ -156,7 +156,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string FormatDateTime([NotNull] DateTime dateTime)
         {
-            dateTime = this.AccountForDST(dateTime + this.TimeOffset);
+            dateTime = this.AccountForDST(dateTime + this.TimeOffset, YafContext.Current.DSTUser);
 
             string dateFormat;
 
@@ -193,7 +193,7 @@ namespace YAF.Core.Services
         {
             string dateFormat;
 
-            dateTime = this.AccountForDST(dateTime + this.TimeOffset);
+            dateTime = this.AccountForDST(dateTime + this.TimeOffset, YafContext.Current.DSTUser);
 
             try
             {
@@ -227,8 +227,8 @@ namespace YAF.Core.Services
         /// </returns>
         public string FormatDateTimeTopic([NotNull] DateTime dateTime)
         {
-            dateTime = this.AccountForDST(dateTime + this.TimeOffset);
-            DateTime nowDateTime = this.AccountForDST(DateTime.UtcNow + this.TimeOffset);
+            dateTime = this.AccountForDST(dateTime + this.TimeOffset, YafContext.Current.DSTUser);
+            DateTime nowDateTime = this.AccountForDST(DateTime.UtcNow + this.TimeOffset, YafContext.Current.DSTUser);
 
             string dateFormat;
             try
@@ -281,7 +281,7 @@ namespace YAF.Core.Services
         {
             string dateFormat;
 
-            dateTime = this.AccountForDST(dateTime + this.TimeOffset);
+            dateTime = this.AccountForDST(dateTime + this.TimeOffset, YafContext.Current.DSTUser);
 
             try
             {
@@ -308,7 +308,37 @@ namespace YAF.Core.Services
         /// <returns>Returns the user Date Time</returns>
         public DateTime GetUserDateTime(DateTime dateTime)
         {
-            return this.AccountForDST(dateTime + this.TimeOffset);
+            return this.AccountForDST(dateTime + this.TimeOffset, YafContext.Current.DSTUser);
+        }
+
+        /// <summary>
+        /// Gets the user DateTime.
+        /// </summary>
+        /// <param name="dateTime">The Date Time.</param>
+        /// <param name="timeZone">The time zone.</param>
+        /// <param name="dstUser">if set to <c>true</c> [DST user].</param>
+        /// <returns>
+        /// Returns the user Date Time
+        /// </returns>
+        public DateTime GetUserDateTime(DateTime dateTime, int timeZone, bool dstUser)
+        {
+            TimeSpan timeOffset;
+            if (YafContext.Current.Page == null)
+            {
+                timeOffset = new TimeSpan(0, YafContext.Current.Get<YafBoardSettings>().ServerTimeCorrection, 0);
+            }
+            else
+            {
+                var min = timeZone;
+                var hrs = min / 60;
+
+                timeOffset = new TimeSpan(
+                    hrs,
+                    (min % 60) + YafContext.Current.Get<YafBoardSettings>().ServerTimeCorrection,
+                    0);
+            }
+
+            return this.AccountForDST(dateTime + timeOffset, dstUser);
         }
 
         #endregion
@@ -318,15 +348,14 @@ namespace YAF.Core.Services
         /// <summary>
         /// Determines if the given date falls during DST and updates accordingly if the user chosen to allow for DST.
         /// </summary>
-        /// <param name="dtCurrent">
-        /// The date to be checked
-        /// </param>
+        /// <param name="dtCurrent">The date to be checked</param>
+        /// <param name="dstUser">if set to <c>true</c> [DST user].</param>
         /// <returns>
         /// DateTime object account for DST (if required).
         /// </returns>
-        private DateTime AccountForDST(DateTime dtCurrent)
+        private DateTime AccountForDST(DateTime dtCurrent, bool dstUser)
         {
-            if (!YafContext.Current.DSTUser)
+            if (!dstUser)
             {
                 return dtCurrent;
             }

@@ -117,8 +117,24 @@ namespace YAF.Pages
                         break;
                     case InfoMessage.Suspended: // Suspended
                         this.Title.Text = this.GetText("title_suspended");
-                        this.Info.Text = this.GetTextFormatted(
-                            "suspended", this.Get<IDateTime>().FormatDateTime(this.PageContext.SuspendedUntil));
+
+
+                        if (this.PageContext.SuspendedReason.IsSet())
+                        {
+                            this.Info.Text =
+                                "{0}{1}".FormatWith(
+                                    this.GetTextFormatted(
+                                        "SUSPENDED",
+                                        this.Get<IDateTime>().GetUserDateTime(this.PageContext.SuspendedUntil)),
+                                    this.GetTextFormatted("SUSPENDED_REASON", this.PageContext.SuspendedReason));
+                        }
+                        else
+                        {
+                            this.Info.Text = this.GetTextFormatted(
+                                "SUSPENDED",
+                                this.Get<IDateTime>().GetUserDateTime(this.PageContext.SuspendedUntil));
+                        }
+                            
                         break;
                     case InfoMessage.RegistrationEmail: // Registration email
                         this.Title.Text = this.GetText("title_registration");

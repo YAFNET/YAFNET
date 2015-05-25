@@ -578,7 +578,18 @@ namespace YAF.Core
         {
             get
             {
-                return this.IsSuspended ? Convert.ToDateTime(this.Page["Suspended"]).ToUniversalTime() : DateTime.UtcNow;
+                return this.IsSuspended ? this.Page["Suspended"].ToType<DateTime>() : DateTime.UtcNow;
+            }
+        }
+
+        /// <summary>
+        ///   Gets the DateTime the user is suspended until
+        /// </summary>
+        public string SuspendedReason
+        {
+            get
+            {
+                return this.IsSuspended ? this.Page["SuspendedReason"].ToString() : string.Empty;
             }
         }
 

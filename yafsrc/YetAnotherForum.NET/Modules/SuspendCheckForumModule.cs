@@ -26,10 +26,8 @@ namespace YAF.Modules
     #region Using
 
     using System;
-    using System.Web;
 
     using YAF.Classes.Data;
-    using YAF.Core;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;
@@ -94,7 +92,14 @@ namespace YAF.Modules
             if (this.Get<IDateTime>().GetUserDateTime(this.PageContext.SuspendedUntil)
                 <= this.Get<IDateTime>().GetUserDateTime(DateTime.UtcNow))
             {
-                LegacyDb.user_suspend(this.PageContext.PageUserID, null);
+                LegacyDb.user_suspend(this.PageContext.PageUserID);
+
+                this.Get<ISendNotification>()
+                    .SendUserSuspensionEndedNotification(
+                        this.PageContext.CurrentUserData.Email,
+                        this.PageContext.BoardSettings.EnableDisplayName
+                            ? this.PageContext.CurrentUserData.DisplayName
+                            : this.PageContext.CurrentUserData.UserName);
 
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
             }

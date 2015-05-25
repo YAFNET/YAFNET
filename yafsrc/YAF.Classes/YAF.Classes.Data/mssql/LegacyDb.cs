@@ -8675,21 +8675,23 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The user_suspend.
+        /// Suspends the User
         /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="suspend">
-        /// The suspend.
-        /// </param>
-        public static void user_suspend([NotNull] object userID, [NotNull] object suspend)
+        /// <param name="userID">The user id.</param>
+        /// <param name="suspend">The suspend.</param>
+        /// <param name="suspendReason">The suspend reason.</param>
+        /// <param name="suspendBy">The suspend by.</param>
+        public static void user_suspend([NotNull] object userID, [NotNull] object suspend = null, [NotNull] object suspendReason = null, [NotNull] int suspendBy = 0)
         {
             using (var cmd = DbHelpers.GetCommand("user_suspend"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
+
                 cmd.AddParam("UserID", userID);
                 cmd.AddParam("Suspend", suspend);
+                cmd.AddParam("SuspendReason", suspendReason);
+                cmd.AddParam("SuspendBy", suspendBy);
+                
                 DbAccess.ExecuteNonQuery(cmd);
             }
         }
