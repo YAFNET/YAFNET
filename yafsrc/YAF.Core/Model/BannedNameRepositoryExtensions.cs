@@ -43,6 +43,7 @@ namespace YAF.Core.Model
         /// The list.
         /// </summary>
         /// <param name="repository">The repository.</param>
+        /// <param name="mask">The mask.</param>
         /// <param name="id">The id.</param>
         /// <param name="pageIndex">The page index.</param>
         /// <param name="pageSize">The page size.</param>
@@ -52,6 +53,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static DataTable List(
             this IRepository<BannedName> repository,
+            string mask = null,
             int? id = null,
             int? pageIndex = 0,
             int? pageSize = 1000000,
@@ -61,6 +63,7 @@ namespace YAF.Core.Model
 
             return repository.DbFunction.GetData.bannedname_list(
                 BoardID: boardId ?? repository.BoardID,
+                Mask: mask,
                 ID: id,
                 PageIndex: pageIndex,
                 PageSize: pageSize);
@@ -70,6 +73,7 @@ namespace YAF.Core.Model
         /// The list typed.
         /// </summary>
         /// <param name="repository">The repository.</param>
+        /// <param name="mask">The mask.</param>
         /// <param name="id">The id.</param>
         /// <param name="pageIndex">The page index.</param>
         /// <param name="pageSize">The page size.</param>
@@ -79,6 +83,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static IList<BannedName> ListTyped(
             this IRepository<BannedName> repository,
+            string mask = null,
             int? id = null,
             int pageIndex = 0,
             int pageSize = 1000000,
@@ -93,6 +98,7 @@ namespace YAF.Core.Model
                         r =>
                         r.bannedname_list(
                             BoardID: boardId ?? repository.BoardID,
+                            Mask: mask,
                             ID: id,
                             PageIndex: pageIndex,
                             PageSize: pageSize));

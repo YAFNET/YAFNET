@@ -4,7 +4,31 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
-  <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
+  <table cellspacing="0" cellpadding="0" class="content" width="100%">
+        <tr>
+            <td class="header1" colspan="3">
+                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="BTNSEARCH" LocalizedPage="SEARCH" />
+            </td>
+        </tr>
+        <tr class="header2">
+            <td>
+                <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDIP" />
+            </td>
+            <td>
+                <asp:TextBox ID="SearchInput" runat="server" Width="90%" CssClass="standardTextInput"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td class="footer1" colspan="2" align="center">
+                <YAF:ThemeButton ID="search" runat="server"  CssClass="yaflittlebutton" 
+                    TextLocalizedTag="BTNSEARCH" TextLocalizedPage="SEARCH"
+                    OnClick="Search_Click">
+                </YAF:ThemeButton>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
 		<asp:Repeater ID="list" runat="server" OnItemCommand="List_ItemCommand">
 		<HeaderTemplate>
 				<table class="content" cellspacing="1" cellpadding="0" width="100%">

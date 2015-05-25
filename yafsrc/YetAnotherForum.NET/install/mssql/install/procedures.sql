@@ -709,41 +709,70 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}bannedip_list](@BoardID int,@ID int=null,@PageIndex int=null, @PageSize int=null) as
-begin
-declare @TotalRows int
-declare @FirstSelectRowNumber int
-declare @LastSelectRowNumber int
- if @ID is null
-        begin       
-           set @PageIndex = @PageIndex + 1;
-           set @FirstSelectRowNumber = 0;  
-           set @LastSelectRowNumber = 0;  
-           set @TotalRows = 0;
+create procedure [{databaseOwner}].[{objectQualifier}bannedip_list](@BoardID int, @Mask varchar(57) = null,@ID int=null,@PageIndex int=null, @PageSize int=null) as
+    begin
+	    declare @TotalRows int
+	    declare @FirstSelectRowNumber int
+	    declare @LastSelectRowNumber int
+        
+		if @ID is not null
+            begin
+			    select * from [{databaseOwner}].[{objectQualifier}BannedIP] where ID=@ID and BoardID=@BoardID
+			end
+		else if @Mask is not null
+		    begin
+	            set @PageIndex = @PageIndex + 1;
+                set @FirstSelectRowNumber = 0;  
+                set @LastSelectRowNumber = 0;  
+                set @TotalRows = 0;
            
-           select @TotalRows = count(1) from [{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID;
-           select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1;
-           select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize +  @PageSize;
+                select @TotalRows = count(1) from [{databaseOwner}].[{objectQualifier}BannedIP] where Mask like '%' +@Mask + '%' and BoardID=@BoardID;
+                select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1;
+                select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize +  @PageSize;
            
-           with BannedIps  as 
-           (
-             select ROW_NUMBER() over (order by Mask) as RowNum, Mask 
-             from  [{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID
-           )
-           select
-            a.*,
-            @TotalRows as TotalRows
-            from
-            BannedIps c
-            inner join [{databaseOwner}].[{objectQualifier}BannedIP] a	
-            on 	c.Mask = a.Mask	
-            where c.RowNum between (@FirstSelectRowNumber) and (@LastSelectRowNumber)
-            order by c.RowNum asc
-  end
-  else
-  select * from [{databaseOwner}].[{objectQualifier}BannedIP] where ID=@ID and BoardID=@BoardID
-end
-GO
+                with BannedIPs  as 
+                (
+                  select ROW_NUMBER() over (order by Mask) as RowNum, Mask 
+                  from  [{databaseOwner}].[{objectQualifier}BannedIP] where Mask like '%' +@Mask + '%' and BoardID=@BoardID
+                )
+                select
+                 a.*,
+                 @TotalRows as TotalRows
+                 from
+                 BannedNIPs c
+                 inner join [{databaseOwner}].[{objectQualifier}BannedIP] a	
+                 on 	c.Mask = a.Mask	
+                 where c.RowNum between (@FirstSelectRowNumber) and (@LastSelectRowNumber)
+                 order by c.RowNum asc
+	        end
+		else
+		    begin
+	            set @PageIndex = @PageIndex + 1;
+                set @FirstSelectRowNumber = 0;  
+                set @LastSelectRowNumber = 0;  
+                set @TotalRows = 0;
+           
+                select @TotalRows = count(1) from [{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID;
+                select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1;
+                select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize +  @PageSize;
+           
+                with BannedIPs  as 
+                (
+                  select ROW_NUMBER() over (order by Mask) as RowNum, Mask 
+                  from  [{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID
+                )
+                select
+                 a.*,
+                 @TotalRows as TotalRows
+                 from
+                 BannedIPs c
+                 inner join [{databaseOwner}].[{objectQualifier}BannedIP] a	
+                 on 	c.Mask = a.Mask	
+                 where c.RowNum between (@FirstSelectRowNumber) and (@LastSelectRowNumber)
+                 order by c.RowNum asc
+	        end       
+    end
+go
 
 create procedure [{databaseOwner}].[{objectQualifier}bannedip_save](@ID int=null,@BoardID int,@Mask varchar(57), @Reason nvarchar(128), @UserID int, @UTCTIMESTAMP datetime) as
 begin
@@ -768,41 +797,70 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}bannedname_list](@BoardID int,@ID int=null,@PageIndex int=null, @PageSize int=null) as
-begin
-declare @TotalRows int
-declare @FirstSelectRowNumber int
-declare @LastSelectRowNumber int
- if @ID is null
-        begin       
-           set @PageIndex = @PageIndex + 1;
-           set @FirstSelectRowNumber = 0;  
-           set @LastSelectRowNumber = 0;  
-           set @TotalRows = 0;
+create procedure [{databaseOwner}].[{objectQualifier}bannedname_list](@BoardID int, @Mask varchar(255) = null, @ID int=null,@PageIndex int=null, @PageSize int=null) as
+    begin
+        declare @TotalRows int
+        declare @FirstSelectRowNumber int
+        declare @LastSelectRowNumber int
+  
+        if @ID is not null
+            begin
+	            select * from [{databaseOwner}].[{objectQualifier}BannedName] where ID=@ID and BoardID=@BoardID
+            end       
+        else if @Mask is not null
+            begin
+	            set @PageIndex = @PageIndex + 1;
+                set @FirstSelectRowNumber = 0;  
+                set @LastSelectRowNumber = 0;  
+                set @TotalRows = 0;
            
-           select @TotalRows = count(1) from [{databaseOwner}].[{objectQualifier}BannedName] where BoardID=@BoardID;
-           select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1;
-           select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize +  @PageSize;
+                select @TotalRows = count(1) from [{databaseOwner}].[{objectQualifier}BannedName] where Mask like '%' +@Mask + '%' and BoardID=@BoardID;
+                select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1;
+                select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize +  @PageSize;
            
-           with BannedNames  as 
-           (
-             select ROW_NUMBER() over (order by Mask) as RowNum, Mask 
-             from  [{databaseOwner}].[{objectQualifier}BannedName] where BoardID=@BoardID
-           )
-           select
-            a.*,
-            @TotalRows as TotalRows
-            from
-            BannedNames c
-            inner join [{databaseOwner}].[{objectQualifier}BannedName] a	
-            on 	c.Mask = a.Mask	
-            where c.RowNum between (@FirstSelectRowNumber) and (@LastSelectRowNumber)
-            order by c.RowNum asc
-  end
-  else
-  select * from [{databaseOwner}].[{objectQualifier}BannedName] where ID=@ID and BoardID=@BoardID
-end
-GO
+                with BannedNames  as 
+                (
+                  select ROW_NUMBER() over (order by Mask) as RowNum, Mask 
+                  from  [{databaseOwner}].[{objectQualifier}BannedName] where Mask like '%' +@Mask + '%' and BoardID=@BoardID
+                )
+                select
+                 a.*,
+                 @TotalRows as TotalRows
+                 from
+                 BannedNames c
+                 inner join [{databaseOwner}].[{objectQualifier}BannedName] a	
+                 on 	c.Mask = a.Mask	
+                 where c.RowNum between (@FirstSelectRowNumber) and (@LastSelectRowNumber)
+                 order by c.RowNum asc
+            end
+        else
+            begin
+	            set @PageIndex = @PageIndex + 1;
+                set @FirstSelectRowNumber = 0;  
+                set @LastSelectRowNumber = 0;  
+                set @TotalRows = 0;
+           
+                select @TotalRows = count(1) from [{databaseOwner}].[{objectQualifier}BannedName] where BoardID=@BoardID;
+                select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1;
+                select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize +  @PageSize;
+           
+                with BannedNames  as 
+                (
+                  select ROW_NUMBER() over (order by Mask) as RowNum, Mask 
+                  from  [{databaseOwner}].[{objectQualifier}BannedName] where BoardID=@BoardID
+                )
+                select
+                 a.*,
+                 @TotalRows as TotalRows
+                 from
+                 BannedNames c
+                 inner join [{databaseOwner}].[{objectQualifier}BannedName] a	
+                 on 	c.Mask = a.Mask	
+                 where c.RowNum between (@FirstSelectRowNumber) and (@LastSelectRowNumber)
+                 order by c.RowNum asc
+            end
+    end
+go
 
 create procedure [{databaseOwner}].[{objectQualifier}bannedname_save](@ID int=null,@BoardID int,@Mask varchar(255), @Reason nvarchar(128), @UTCTIMESTAMP datetime) as
 begin
@@ -827,13 +885,44 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}bannedemail_list](@BoardID int,@ID int=null,@PageIndex int=null, @PageSize int=null) as
+create procedure [{databaseOwner}].[{objectQualifier}bannedemail_list](@BoardID int, @Mask varchar(255) = null,@ID int=null,@PageIndex int=null, @PageSize int=null) as
 begin
-declare @TotalRows int
-declare @FirstSelectRowNumber int
-declare @LastSelectRowNumber int
- if @ID is null
-        begin       
+  declare @TotalRows int
+  declare @FirstSelectRowNumber int
+  declare @LastSelectRowNumber int
+
+  if @ID is not null
+      begin
+          select * from [{databaseOwner}].[{objectQualifier}BannedEmail] where ID=@ID and BoardID=@BoardID
+	  end
+  else if @Mask is not null
+      begin
+	       set @PageIndex = @PageIndex + 1;
+           set @FirstSelectRowNumber = 0;  
+           set @LastSelectRowNumber = 0;  
+           set @TotalRows = 0;
+           
+           select @TotalRows = count(1) from [{databaseOwner}].[{objectQualifier}BannedEmail] where Mask like '%' +@Mask + '%' and BoardID=@BoardID;
+           select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1;
+           select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize +  @PageSize;
+           
+           with BannedEmails  as 
+           (
+             select ROW_NUMBER() over (order by Mask) as RowNum, Mask 
+             from  [{databaseOwner}].[{objectQualifier}BannedEmail] where Mask like '%' +@Mask + '%' and BoardID=@BoardID
+           )
+           select
+            a.*,
+            @TotalRows as TotalRows
+            from
+            BannedEmails c
+            inner join [{databaseOwner}].[{objectQualifier}BannedEmail] a	
+            on 	c.Mask = a.Mask	
+            where c.RowNum between (@FirstSelectRowNumber) and (@LastSelectRowNumber)
+            order by c.RowNum asc
+	  end
+  else
+      begin
            set @PageIndex = @PageIndex + 1;
            set @FirstSelectRowNumber = 0;  
            set @LastSelectRowNumber = 0;  
@@ -857,11 +946,9 @@ declare @LastSelectRowNumber int
             on 	c.Mask = a.Mask	
             where c.RowNum between (@FirstSelectRowNumber) and (@LastSelectRowNumber)
             order by c.RowNum asc
-  end
-  else
-  select * from [{databaseOwner}].[{objectQualifier}BannedEmail] where ID=@ID and BoardID=@BoardID
+    end
 end
-GO
+go
 
 create procedure [{databaseOwner}].[{objectQualifier}bannedemail_save](@ID int=null,@BoardID int,@Mask varchar(255), @Reason nvarchar(128), @UTCTIMESTAMP datetime) as
 begin

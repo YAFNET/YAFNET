@@ -44,6 +44,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -68,12 +69,14 @@ namespace YAF.Pages.Admin
 
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
 
             this.PageLinks.AddLink(this.GetText("ADMIN_BANNEDIP", "TITLE"), string.Empty);
 
             this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_BANNEDIP", "TITLE"));
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                this.GetText("ADMIN_BANNEDIP", "TITLE"));
 
             this.BindData();
         }
@@ -195,6 +198,16 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Handles the Click event of the Search control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void Search_Click(object sender, EventArgs e)
+        {
+            this.BindData(true);
+        }
+
+        /// <summary>
         /// Helper to get mask from ID.
         /// </summary>
         /// <param name="id">The ID.</param>
@@ -204,20 +217,26 @@ namespace YAF.Pages.Admin
         private string GetIPFromID(object id)
         {
             return (from RepeaterItem ri in this.list.Items
-                    let chid = ((Label)ri.FindControl("MaskBox")).Text
-                    let fid = ((HiddenField)ri.FindControl("fID")).Value
+                    let chid = ri.FindControlAs<Label>("MaskBox").Text
+                    let fid = ri.FindControlAs<HiddenField>("fID").Value
                     where id.ToString() == fid
                     select chid).FirstOrDefault();
         }
 
         /// <summary>
-        /// The bind data.
+        /// Binds the data.
         /// </summary>
-        private void BindData()
+        /// <param name="isSearch">if set to <c>true</c> [is search].</param>
+        private void BindData(bool isSearch = false)
         {
             this.PagerTop.PageSize = this.Get<YafBoardSettings>().MemberListPageSize;
 
-            var bannedList = this.GetRepository<BannedIP>().List(null, this.PagerTop.CurrentPageIndex, this.PagerTop.PageSize);
+            var bannedList = this.GetRepository<BannedIP>()
+                .List(
+                    mask: isSearch ? this.SearchInput.Text.Trim() : null,
+                    pageIndex: this.PagerTop.CurrentPageIndex,
+                    pageSize: this.PagerTop.PageSize);
+
             this.list.DataSource = bannedList;
 
             this.PagerTop.Count = bannedList != null && bannedList.HasRows()

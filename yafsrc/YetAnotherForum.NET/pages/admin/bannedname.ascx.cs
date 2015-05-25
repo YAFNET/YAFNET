@@ -181,14 +181,30 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The bind data.
+        /// Handles the Click event of the Search control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void Search_Click(object sender, EventArgs e)
+        {
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Binds the data.
         /// </summary>
         private void BindData()
         {
             this.PagerTop.PageSize = this.Get<YafBoardSettings>().MemberListPageSize;
 
+            var searchText = this.SearchInput.Text.Trim();
+
             var bannedList = this.GetRepository<BannedName>()
-                .List(null, this.PagerTop.CurrentPageIndex, this.PagerTop.PageSize);
+                .List(
+                    mask: searchText.IsSet() ? searchText : null,
+                    pageIndex: this.PagerTop.CurrentPageIndex,
+                    pageSize: this.PagerTop.PageSize);
+
             this.list.DataSource = bannedList;
 
             this.PagerTop.Count = bannedList != null && bannedList.HasRows()
