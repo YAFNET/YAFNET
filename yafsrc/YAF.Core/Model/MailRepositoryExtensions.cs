@@ -45,29 +45,57 @@ namespace YAF.Core.Model
         /// <summary>
         /// The create.
         /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="from">
-        /// The from.
-        /// </param>
-        /// <param name="to">
-        /// The to.
-        /// </param>
-        /// <param name="subject">
-        /// The subject.
-        /// </param>
-        /// <param name="body">
-        /// The body.
-        /// </param>
+        /// <param name="repository">The repository.</param>
+        /// <param name="to">The to.</param>
+        /// <param name="toName">To name.</param>
+        /// <param name="subject">The subject.</param>
+        /// <param name="body">The body.</param>
         public static void Create(
             this IRepository<Mail> repository,
-            string from,
             string to,
+            string toName,
             string subject,
             string body)
         {
-            repository.Create(from, null, to, null, subject, body, null, 0, null);
+            repository.Create(
+                YafContext.Current.BoardSettings.ForumEmail,
+                YafContext.Current.BoardSettings.Name,
+                to,
+                toName,
+                subject,
+                body,
+                null,
+                0,
+                null);
+        }
+
+        /// <summary>
+        /// The create.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="to">The to.</param>
+        /// <param name="toName">The to name.</param>
+        /// <param name="subject">The subject.</param>
+        /// <param name="body">The body.</param>
+        /// <param name="bodyHtml">The body html.</param>
+        public static void Create(
+            this IRepository<Mail> repository,
+            string to,
+            string toName,
+            string subject,
+            string body,
+            string bodyHtml)
+        {
+            repository.Create(
+                YafContext.Current.BoardSettings.ForumEmail,
+                YafContext.Current.BoardSettings.Name,
+                to,
+                toName,
+                subject,
+                body,
+                bodyHtml,
+                0,
+                null);
         }
 
         /// <summary>
@@ -171,7 +199,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The list.
+        /// Gets the Mail List
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -180,7 +208,7 @@ namespace YAF.Core.Model
         /// The process id.
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// Returns the Mail List as <see cref="DataTable"/>.
         /// </returns>
         public static DataTable List(this IRepository<Mail> repository, int? processID)
         {
@@ -190,7 +218,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The list typed.
+        /// Gets the Mail List Typed
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -199,7 +227,7 @@ namespace YAF.Core.Model
         /// The process id.
         /// </param>
         /// <returns>
-        /// The <see cref="IList"/>.
+        ///  Returns the Mail List as Typed List
         /// </returns>
         public static IList<Mail> ListTyped(this IRepository<Mail> repository, int? processID)
         {

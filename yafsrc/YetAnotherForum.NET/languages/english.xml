@@ -354,7 +354,7 @@
   <Resource tag="ID">ID</Resource>
   <Resource tag="NAME">Name</Resource>
   <Resource tag="NEW_BOARD">New Board</Resource>
-  <Resource tag="TITLE">Boards</Resource>s
+  <Resource tag="TITLE">Boards</Resource>
  </page>
  <page name="ADMIN_BOARDSETTINGS">
   <Resource tag="BOARD_ALLOW_DIGEST">Allow Digest Email Sending for Users:</Resource>

@@ -48,7 +48,7 @@ namespace YAF.Core.Services
         private bool _htmlEnabled = true;
 
         /// <summary>
-        ///     The _template params.
+        ///     The _template Parameters.
         /// </summary>
         private IDictionary<string, string> _templateParams = new Dictionary<string, string>();
 
@@ -177,7 +177,8 @@ namespace YAF.Core.Services
                 htmlBody = null;
             }
 
-            this.GetRepository<Mail>().CreateWatch(topicID, fromAddress.Address, fromAddress.DisplayName, subject, textBody, htmlBody, userId);
+            this.GetRepository<Mail>()
+                .CreateWatch(topicID, fromAddress.Address, fromAddress.DisplayName, subject, textBody, htmlBody, userId);
         }
 
         /// <summary>
@@ -191,11 +192,13 @@ namespace YAF.Core.Services
         /// </returns>
         public string ProcessTemplate(string templateName)
         {
-            string email = this.ReadTemplate(templateName, this.TemplateLanguageFile);
+            var email = this.ReadTemplate(templateName, this.TemplateLanguageFile);
 
             if (email.IsSet())
             {
-                email = this._templateParams.Keys.Aggregate(email, (current, key) => current.Replace(key, this._templateParams[key]));
+                email = this._templateParams.Keys.Aggregate(
+                    email,
+                    (current, key) => current.Replace(key, this._templateParams[key]));
             }
 
             return email;
@@ -216,7 +219,10 @@ namespace YAF.Core.Services
         public void SendEmail(MailAddress toAddress, string subject, bool useSendThread)
         {
             this.SendEmail(
-                new MailAddress(this.Get<YafBoardSettings>().ForumEmail, this.Get<YafBoardSettings>().Name), toAddress, subject, useSendThread);
+                new MailAddress(this.Get<YafBoardSettings>().ForumEmail, this.Get<YafBoardSettings>().Name),
+                toAddress,
+                subject,
+                useSendThread);
         }
 
         /// <summary>
@@ -249,7 +255,14 @@ namespace YAF.Core.Services
             {
                 // create this email in the send mail table...
                 this.GetRepository<Mail>()
-                    .Create(fromAddress.Address, fromAddress.DisplayName, toAddress.Address, toAddress.DisplayName, subject, textBody, htmlBody);
+                    .Create(
+                        fromAddress.Address,
+                        fromAddress.DisplayName,
+                        toAddress.Address,
+                        toAddress.DisplayName,
+                        subject,
+                        textBody,
+                        htmlBody);
             }
             else
             {

@@ -88,7 +88,7 @@ namespace YAF.Core.Services
         {
             get
             {
-                return this.BoardSettings;
+                return this.Get<YafBoardSettings>();
             }
         }
 
@@ -378,7 +378,11 @@ namespace YAF.Core.Services
                 "m={0}#post{0}",
                 newMessageId);
 
-            watchEmail.CreateWatch(message.TopicID ?? 0, messageAuthorUserID, new MailAddress(forumEmail, boardName), subject);
+            watchEmail.CreateWatch(
+                message.TopicID ?? 0,
+                messageAuthorUserID,
+                new MailAddress(forumEmail, boardName),
+                subject);
 
             // create individual watch emails for all users who have All Posts on...
             foreach (var user in usersWithAll.Where(x => x.UserID != messageAuthorUserID && x.ProviderUserKey != null))
@@ -438,7 +442,12 @@ namespace YAF.Core.Services
 
             var emailBody = notifyUser.ProcessTemplate(templateName);
 
-            this.GetRepository<Mail>().Create(this.BoardSettings.ForumEmail, user.Email, subject, emailBody);
+            this.GetRepository<Mail>()
+                .Create(
+                    user.Email,
+                    user.UserName,
+                    subject,
+                    emailBody);
         }
 
         /// <summary>
@@ -517,7 +526,11 @@ namespace YAF.Core.Services
             foreach (var email in emails.Where(email => email.Trim().IsSet()))
             {
                 this.GetRepository<Mail>()
-                    .Create(this.BoardSettings.ForumEmail, email.Trim(), subject, emailBody);
+                    .Create(
+                        email.Trim(),
+                        null,
+                        subject,
+                        emailBody);
             }
         }
 
@@ -571,7 +584,11 @@ namespace YAF.Core.Services
                     var emailBody = notifyAdmin.ProcessTemplate("NOTIFICATION_ON_BOT_USER_REGISTER");
 
                     this.GetRepository<Mail>()
-                        .Create(this.BoardSettings.ForumEmail, emailAddress, subject, emailBody);
+                        .Create(
+                            emailAddress,
+                            null,
+                            subject,
+                            emailBody);
                 }
             }
         }
@@ -611,7 +628,12 @@ namespace YAF.Core.Services
             }
             else
             {
-                this.GetRepository<Mail>().Create(this.BoardSettings.ForumEmail, user.Email, subject, emailBody);
+                this.GetRepository<Mail>()
+                    .Create(
+                        user.Email,
+                        user.UserName,
+                        subject,
+                        emailBody);
             }
         }
 
@@ -667,7 +689,7 @@ namespace YAF.Core.Services
             [NotNull] string email,
             [NotNull] string userName)
         {
-            var notifyUser = new YafTemplateEmail("NOTIFICATION_ON_SUSPENDING_USER");
+            var notifyUser = new YafTemplateEmail();
 
             var subject =
                 this.Get<ILocalization>()
@@ -682,7 +704,14 @@ namespace YAF.Core.Services
             notifyUser.TemplateParams["{forumname}"] = this.BoardSettings.Name;
             notifyUser.TemplateParams["{forumurl}"] = YafForumInfo.ForumURL;
 
-            notifyUser.SendEmail(new MailAddress(email, userName), subject, true);
+            var emailBody = notifyUser.ProcessTemplate("NOTIFICATION_ON_SUSPENDING_USER");
+
+            this.GetRepository<Mail>()
+                    .Create(
+                        email,
+                        userName,
+                        subject,
+                        emailBody);
         }
 
         /// <summary>
@@ -690,15 +719,13 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="email">The email.</param>
         /// <param name="userName">Name of the user.</param>
-        public void SendUserSuspensionEndedNotification(
-            [NotNull] string email,
-            [NotNull] string userName)
+        public void SendUserSuspensionEndedNotification([NotNull] string email, [NotNull] string userName)
         {
-            var notifyUser = new YafTemplateEmail("NOTIFICATION_ON_SUSPENDING_USER");
+            var notifyUser = new YafTemplateEmail();
 
             var subject =
                 this.Get<ILocalization>()
-                    .GetText("COMMON", "NOTIFICATION_ON_SUSPENDING_ENDED_USER_SUBJECT")
+                    .GetText("COMMON", "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT")
                     .FormatWith(this.BoardSettings.Name);
 
             notifyUser.TemplateParams["{user}"] = userName;
@@ -706,7 +733,14 @@ namespace YAF.Core.Services
             notifyUser.TemplateParams["{forumname}"] = this.BoardSettings.Name;
             notifyUser.TemplateParams["{forumurl}"] = YafForumInfo.ForumURL;
 
-            notifyUser.SendEmail(new MailAddress(email, userName), subject, true);
+            var emailBody = notifyUser.ProcessTemplate("NOTIFICATION_ON_SUSPENDING_ENDED_USER");
+
+            this.GetRepository<Mail>()
+                    .Create(
+                        email,
+                        userName,
+                        subject,
+                        emailBody);
         }
 
         #endregion
