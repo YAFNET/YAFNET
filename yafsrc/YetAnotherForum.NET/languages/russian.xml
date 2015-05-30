@@ -2490,6 +2490,7 @@
     <Resource tag="ERROR_TOOBIG">Размер изображения слишком большой.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Предельное количество разрешённых изображений достигнуто. Вы можете добавить не более чем {0} изображений в каждый альбом.</Resource>
     <Resource tag="IMAGES_INFO">Примечание: В данный момент у Вас {0} изображений, Вам разрешены {1} изображений в каждом альбоме. Максимальный размер файла - {2} КБ</Resource>
+    <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">Добавить/изменить альбом</Resource>
   </page>
   <page name="CP_EDITAVATAR">

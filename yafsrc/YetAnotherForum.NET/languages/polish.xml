@@ -2499,6 +2499,7 @@
     <Resource tag="ERROR_TOOBIG">Nie możesz dodać tak dużych obrazów</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Twój limit obrazów został osiągnięty. Nie możesz dodać więcej niż {0} obrazów do jednego albumu.</Resource>
     <Resource tag="IMAGES_INFO">Informacja: Teraz ten album zawiera {0} obraz(ów), możesz mieć {1} obrazów w jednym albumie. Maksymalny rozmiar jednego obrazu to {2} kb</Resource>
+    <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">Dodaj/Edytuj album</Resource>
   </page>
   <page name="CP_EDITAVATAR">

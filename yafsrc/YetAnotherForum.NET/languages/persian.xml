@@ -2477,6 +2477,7 @@
     <Resource tag="ERROR_TOOBIG">شما مجاز به ارسال تصویری با این حجم نمی باشید.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">تعداد عکسهای مجاز شما به اتمام رسید.شما می توانید حداکثر {0} عکس را ارسال کنید.</Resource>
     <Resource tag="IMAGES_INFO">توجه: هم اکنون این آلبوم {0} تصویر دارد و شما مجاز به داشتن {1} تصویر در هر آلبوم هستید. بیشترین حجم برای تصویرر{2} کیلوبایت است</Resource>
+    <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">افزودن/ویرایش آلبوم</Resource>
   </page>
   <page name="CP_EDITAVATAR">

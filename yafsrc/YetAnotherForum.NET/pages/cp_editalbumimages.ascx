@@ -46,7 +46,7 @@
                     <%# (int)Eval("Bytes") / 1024%> Kb
                 </td>
                 <td class="post">
-                    <asp:LinkButton ID="ImageDelete" runat="server" OnLoad="ImageDelete_Load" CommandName="delete"
+                    <asp:LinkButton ID="ImageDelete" runat="server" CssClass="pbutton" OnLoad="ImageDelete_Load" CommandName="delete"
                         CommandArgument='<%# Eval( "ImageID") %>'><%# this.GetText("DELETE") %></asp:LinkButton>
                 </td>
             </tr>
@@ -59,7 +59,7 @@
     </tr>
     <tr id="selectfiletr" runat="server">
         <td class="postheader">
-            <YAF:LocalizedLabel ID="SelectFile" LocalizedTag="SELECT_FILE" runat="server" />
+            <YAF:LocalizedLabel ID="SelectFile" LocalizedTag="SELECT_FILE" LocalizedPage="CP_EDITALBUMIMAGES" runat="server" />
         </td>
         <td class="post">
             <input type="file" id="File" class="pbutton" runat="server" />

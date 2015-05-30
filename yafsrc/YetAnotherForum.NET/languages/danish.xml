@@ -2495,6 +2495,7 @@
     <Resource tag="ERROR_TOOBIG">Du kan ikke uploade et så stort billede.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Din billede grænse er nået. Du kan ikke tilføje mere end {0} billeder.</Resource>
     <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb</Resource>
+    <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">Tilføj/rediger album</Resource>
   </page>
   <page name="CP_EDITAVATAR">

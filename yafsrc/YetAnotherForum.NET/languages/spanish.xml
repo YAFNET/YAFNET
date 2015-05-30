@@ -2498,6 +2498,7 @@
     <Resource tag="ERROR_TOOBIG">No puedes subir imágenes tan grandes.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Has llegado a tu límite de imágenes. No puedes subir más de {0} imágenes.</Resource>
     <Resource tag="IMAGES_INFO">Nota: Actualmente este álbum contiene {0} imagen(es). Tienes permisos para tener {1} imágenes en cada álbum. El tamaño máximo para una imagen es de {2} KB</Resource>
+    <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">Añadir/editar álbum</Resource>
   </page>
   <page name="CP_EDITAVATAR">

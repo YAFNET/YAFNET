@@ -2483,6 +2483,7 @@
     <Resource tag="ERROR_TOOBIG">Je kunt geen plaatjes uploaden met deze grootte.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Het maxmimum van {0} plaatjes is bereikt.</Resource>
     <Resource tag="IMAGES_INFO">Let op: Dit Album bevat {0} Plaatje(s). Je mag {1} plaatjes in elk album hebben. The max. filesize for an Image is {2} kb</Resource>
+    <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">Album toevoegen/bewerken</Resource>
   </page>
   <page name="CP_EDITAVATAR">
