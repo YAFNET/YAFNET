@@ -170,7 +170,9 @@ namespace YAF.Controls
                 this.Get<ILocalization>().GetText("COMMON", "LOADING"));
             sb.Append("</div>");
             sb.Append("<div id=\"AttachmentsListBox\" class=\"content\">");
-            sb.Append("<div id=\"PostAttachmentListPlaceholder\" style=\"clear: both;\">");
+            sb.AppendFormat(
+                "<div id=\"PostAttachmentListPlaceholder\" data-url=\"{0}\" style=\"clear: both;\">",
+                YafForumInfo.ForumClientFileRoot);
             sb.Append("<ul class=\"AttachmentList\">");
             sb.Append("</ul>");
             sb.Append("</div>");
@@ -188,5 +190,4 @@ namespace YAF.Controls
 
         #endregion
     }
-
 }

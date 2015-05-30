@@ -1,6 +1,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.PostAttachments"
     CodeBehind="PostAttachments.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Utils" %>
 
 <tr class="forumRowCat header2">
         <td colspan="2">
@@ -25,7 +26,7 @@
             </p>
         </div>
         <div id="AttachmentsListBox" class="content">
-            <div id="PostAttachmentListPlaceholder" style="clear: both;">
+            <div id="PostAttachmentListPlaceholder" data-url='<%= YafForumInfo.ForumClientFileRoot %>' style="clear: both;">
                 <ul class="PostAttachmentList">
                 </ul>
             </div>

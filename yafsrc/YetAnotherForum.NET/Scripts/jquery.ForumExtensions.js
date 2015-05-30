@@ -14511,9 +14511,11 @@ jQuery(document).ready(function () {
 function getPaginationData(pageSize, pageNumber) {
     var defaultParameters = "{pageSize:" + pageSize + ",pageNumber:" + pageNumber + "}";
 
+    var ajaxURL = $("#PostAttachmentListPlaceholder").data("url") + "YafAjax.asmx/GetAttachments";
+
     $.ajax({
         type: "POST",
-        url: "YafAjax.asmx/GetAttachments",
+        url: ajaxURL,
         data: defaultParameters,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -14528,7 +14530,7 @@ function getPaginationData(pageSize, pageNumber) {
 
                 listItem.attr("onclick", data.OnClick).attr("title", data.FileName);
                 
-                if (data.dataURL) {
+                if (data.DataURL) {
                     listItem.attr("data-url", data.DataURL);
                 }
 
