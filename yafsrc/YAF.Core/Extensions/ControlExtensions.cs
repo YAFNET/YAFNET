@@ -31,6 +31,7 @@ namespace YAF.Core
     using System.Web.UI;
 
     using YAF.Types.Extensions;
+    using YAF.Utils.Helpers.StringUtils;
 
     #endregion
 
@@ -88,7 +89,9 @@ namespace YAF.Core
         /// </returns>
         public static string HtmlEncode(this Control currentControl, object data)
         {
-            return YafContext.Current.CurrentForumPage.HtmlEncode(data.ToString());
+            return YafContext.Current != null
+                       ? new UnicodeEncoder().XSSEncode(data.ToString())
+                       : YafContext.Current.CurrentForumPage.HtmlEncode(data.ToString());
         }
 
         /// <summary>
