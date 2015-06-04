@@ -4,6 +4,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="System.ComponentModel" %>
+<%@ Import Namespace="YAF.Core" %>
 
 <asp:PlaceHolder id="SimilarTopicsHolder" runat="server" Visible="true">
     <asp:Repeater ID="Topics" runat="server" Visible="true">
@@ -20,7 +21,7 @@
                 <td class="post">
                    <a href="<%# YafBuildLink.GetLink(ForumPages.posts, "t={0}", DataBinder.Eval(Container.DataItem, "TopicID"))%>"
                        class="post_link">
-                       <strong><%# DataBinder.Eval(Container.DataItem, "Topic") %></strong>
+                       <strong><%# this.Get<IBadWordReplace>().Replace(this.HtmlEncode(DataBinder.Eval(Container.DataItem, "Topic"))) %></strong>
                    </a> (<a href="<%# YafBuildLink.GetLink(ForumPages.forum, "f={0}", DataBinder.Eval(Container.DataItem, "ForumID"))%>"><%# DataBinder.Eval(Container.DataItem, "ForumName") %></a>)
                    <br/>
                    <YAF:LocalizedLabel runat="server" LocalizedPage="SEARCH" LocalizedTag="BY"></YAF:LocalizedLabel> <YAF:UserLink ID="UserName" runat="server" 
