@@ -1410,7 +1410,7 @@ end
 GO
 
 -- Only remove User table columns if version is 30+
-IF EXISTS (SELECT ver FROM (SELECT CAST(CAST(value as nvarchar(255)) as int) as ver FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE name = 'version') reg WHERE ver > 30)
+IF EXISTS (SELECT ver FROM (SELECT CAST(CAST(Value as nvarchar(255)) as int) as ver FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE Name = 'version') reg WHERE ver > 30)
 BEGIN
 	if exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Gender')
 	begin

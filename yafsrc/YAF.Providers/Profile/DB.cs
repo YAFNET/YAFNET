@@ -22,9 +22,6 @@
  * under the License.
  */
 
-using YAF.Providers.Utils;
-using YAF.Types.Objects;
-
 namespace YAF.Providers.Profile
 {
     #region Using
@@ -35,11 +32,14 @@ namespace YAF.Providers.Profile
     using System.Data;
     using System.Data.SqlClient;
     using System.Text;
-    using YAF.Classes.Pattern;
-    using YAF.Types.Extensions;
+
     using YAF.Classes.Data;
-    using YAF.Types.Interfaces.Data;
+    using YAF.Classes.Pattern;
+    using YAF.Providers.Utils;
     using YAF.Types;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces.Data;
+    using YAF.Types.Objects;
 
     #endregion
 

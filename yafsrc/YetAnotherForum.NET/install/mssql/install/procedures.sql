@@ -82,7 +82,7 @@ END
     SELECT a.MessageID, b.ThanksFromUserID AS FromUserID, b.ThanksDate,
     (SELECT COUNT(ThanksID) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksFromUserID=d.UserID) AS ThanksFromUserNumber,
     (SELECT COUNT(ThanksID) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksToUserID=d.UserID) AS ThanksToUserNumber,
-    (SELECT COUNT(DISTINCT(MessageID)) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksToUserID=d.userID) AS ThanksToUserPostsNumber
+    (SELECT COUNT(DISTINCT(MessageID)) FROM [{databaseOwner}].[{objectQualifier}Thanks] b WHERE b.ThanksToUserID=d.UserID) AS ThanksToUserPostsNumber
     FROM @ParsedMessageIDs a
     INNER JOIN [{databaseOwner}].[{objectQualifier}Message] d ON (d.MessageID=a.MessageID)
     LEFT JOIN [{databaseOwner}].[{objectQualifier}Thanks] b ON (b.MessageID = a.MessageID)
@@ -158,7 +158,7 @@ AS
         WHERE	
                 c.IsDeleted = 0
                 AND c.IsApproved = 1     				
-                AND (t.ThanksFromUserID = @UserID OR t.thankstouserID = @UserID)
+                AND (t.ThanksFromUserID = @UserID OR t.ThanksToUserID = @UserID)
                 AND a.TopicMovedID IS NULL
                 AND a.IsDeleted = 0     
                 AND x.UserID = @PageUserID	      
@@ -1113,12 +1113,12 @@ begin
     delete from [{databaseOwner}].[{objectQualifier}Group] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}AccessMask] where BoardID=@BoardID	
     delete from [{databaseOwner}].[{objectQualifier}BBCode] where BoardID=@BoardID
-    delete from [{databaseOwner}].[{objectQualifier}Extension] where BoardID=@BoardID
-    delete from [{databaseOwner}].[{objectQualifier}ShoutboxMessage] where BoardID=@BoardID
+    delete from [{databaseOwner}].[{objectQualifier}Extension] where BoardId=@BoardID
+    delete from [{databaseOwner}].[{objectQualifier}ShoutboxMessage] where BoardId=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}Medal] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}Smiley] where BoardID=@BoardID
-    delete from [{databaseOwner}].[{objectQualifier}Replace_Words] where BoardID=@BoardID
-	delete from [{databaseOwner}].[{objectQualifier}Spam_Words] where BoardID=@BoardID
+    delete from [{databaseOwner}].[{objectQualifier}Replace_Words] where BoardId=@BoardID
+	delete from [{databaseOwner}].[{objectQualifier}Spam_Words] where BoardId=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}NntpServer] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}Registry] where BoardID=@BoardID
@@ -1618,7 +1618,7 @@ BEGIN
             FROM
                 [{databaseOwner}].[{objectQualifier}Extension] a
             WHERE
-                a.BoardID = @BoardID AND a.Extension=@Extension
+                a.BoardId = @BoardID AND a.Extension=@Extension
             ORDER BY
                 a.Extension
         END
@@ -1631,7 +1631,7 @@ BEGIN
             FROM
                 [{databaseOwner}].[{objectQualifier}Extension] a
             WHERE
-                a.BoardID = @BoardID	
+                a.BoardId = @BoardID	
             ORDER BY
                 a.Extension
         END
@@ -1954,7 +1954,7 @@ select
         ForumID			= b.ForumID,
         Forum			= b.Name, 
         b.[Description],
-        b.ImageUrl,
+        b.ImageURL,
         b.Styles,
         b.ParentID,
         b.PollGroupID,
@@ -2095,7 +2095,7 @@ BEGIN
                 INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b WITH(NOLOCK) on b.GroupID=a.GroupID
             WHERE 
                 ModeratorAccess <> 0 AND x.AdminGroup = 0
-            GROUP BY a.UserId, x.ForumID
+            GROUP BY a.UserID, x.ForumID
         ) access ON usr.UserID = access.UserID
         JOIN    [{databaseOwner}].[{objectQualifier}Forum] f WITH(NOLOCK) 
         ON f.ForumID = access.ForumID
@@ -2624,12 +2624,12 @@ begin
         delete [{databaseOwner}].[{objectQualifier}Thanks] where MessageID = @MessageID
         delete [{databaseOwner}].[{objectQualifier}MessageHistory] where MessageID = @MessageID
         -- update message positions inside the topic
-		declare @Posted datetime = (select posted from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID)
+		declare @Posted datetime = (select Posted from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID)
 		
 		update [{databaseOwner}].[{objectQualifier}Message] 
 		    set Position = Position-1
 		where    
-		    TopicID = @TopicID and posted > @Posted and MessageID != @MessageID
+		    TopicID = @TopicID and Posted > @Posted and MessageID != @MessageID
 
 		-- update ReplyTo
 		set	@ReplyToID = (select 
@@ -4681,9 +4681,9 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}replace_words_list]
 )
 AS BEGIN
         IF (@ID IS NOT NULL AND @ID <> 0)
-        SELECT * FROM [{databaseOwner}].[{objectQualifier}Replace_Words] WHERE BoardID = @BoardID AND ID = @ID
+        SELECT * FROM [{databaseOwner}].[{objectQualifier}Replace_Words] WHERE BoardId = @BoardID AND ID = @ID
     ELSE
-        SELECT * FROM [{databaseOwner}].[{objectQualifier}Replace_Words] WHERE BoardID = @BoardID
+        SELECT * FROM [{databaseOwner}].[{objectQualifier}Replace_Words] WHERE BoardId = @BoardID
 END
 GO
 
@@ -4702,7 +4702,7 @@ BEGIN
     END
     ELSE BEGIN
         INSERT INTO [{databaseOwner}].[{objectQualifier}Replace_Words]
-            (BoardID,BadWord,GoodWord)
+            (BoardId,BadWord,GoodWord)
         VALUES
             (@BoardID,@BadWord,@GoodWord)
     END
@@ -4722,9 +4722,9 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}spam_words_list]
 )
 AS BEGIN
         IF (@ID IS NOT NULL AND @ID <> 0)
-        SELECT * FROM [{databaseOwner}].[{objectQualifier}Spam_Words] WHERE BoardID = @BoardID AND ID = @ID
+        SELECT * FROM [{databaseOwner}].[{objectQualifier}Spam_Words] WHERE BoardId = @BoardID AND ID = @ID
     ELSE
-        SELECT * FROM [{databaseOwner}].[{objectQualifier}Spam_Words] WHERE BoardID = @BoardID
+        SELECT * FROM [{databaseOwner}].[{objectQualifier}Spam_Words] WHERE BoardId = @BoardID
 END
 GO
 
@@ -4742,7 +4742,7 @@ BEGIN
     END
     ELSE BEGIN
         INSERT INTO [{databaseOwner}].[{objectQualifier}Spam_Words]
-            (BoardID,SpamWord)
+            (BoardId,SpamWord)
         VALUES
             (@BoardID,@SpamWord)
     END
@@ -4994,7 +4994,7 @@ begin
         LastMessageFlags = c.LastMessageFlags,
         LastTopicID = c.TopicID,
         TopicFlags = c.Flags,
-        FavoriteCount = (SELECT COUNT(ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = IsNull(c.TopicMovedID,c.TopicID)),
+        FavoriteCount = (SELECT COUNT(ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicID = IsNull(c.TopicMovedID,c.TopicID)),
         c.Priority,
         c.PollID,
         ForumName = d.Name,
@@ -5120,7 +5120,7 @@ begin
         LastMessageFlags = c.LastMessageFlags,
         LastTopicID = c.TopicID,
         TopicFlags = c.Flags,
-        FavoriteCount = (SELECT COUNT(ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = IsNull(c.TopicMovedID,c.TopicID)),
+        FavoriteCount = (SELECT COUNT(ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicID = IsNull(c.TopicMovedID,c.TopicID)),
         c.Priority,
         c.PollID,
         ForumName = d.Name,
@@ -5738,7 +5738,7 @@ begin
             c.Posted,
             LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
             c.TopicMovedID,
-            FavoriteCount = (SELECT COUNT(1) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = IsNull(c.TopicMovedID,c.TopicID)),
+            FavoriteCount = (SELECT COUNT(1) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicID = IsNull(c.TopicMovedID,c.TopicID)),
             [Subject] = c.Topic,
             c.[Description],
             c.[Status],
@@ -5841,7 +5841,7 @@ begin
             c.Posted,
             LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
             c.TopicMovedID,
-            FavoriteCount = (SELECT COUNT(1) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = IsNull(c.TopicMovedID,c.TopicID)),
+            FavoriteCount = (SELECT COUNT(1) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicID = IsNull(c.TopicMovedID,c.TopicID)),
             [Subject] = c.Topic,
             c.[Description],
             c.[Status],
@@ -6308,7 +6308,7 @@ BEGIN
         
         IF (@DisplayName IS NULL) 
         BEGIN
-            SELECT TOP 1 @DisplayName = DisplayName FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserId = @UserID
+            SELECT TOP 1 @DisplayName = DisplayName FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID
         END
 
         UPDATE [{databaseOwner}].[{objectQualifier}User] SET 
@@ -6733,7 +6733,7 @@ begin
         a.LanguageFile,
         a.ThemeFile,
         a.TextEditor,
-        a.OverrideDefaultThemes,
+        a.OverridedefaultThemes,
         a.[PMNotification],
         a.[AutoWatchTopics],
         a.[DailyDigest],
@@ -6798,7 +6798,7 @@ begin
         a.LanguageFile,
         a.ThemeFile,
         a.TextEditor,
-        a.OverrideDefaultThemes,
+        a.OverridedefaultThemes,
         a.[PMNotification],
         a.[AutoWatchTopics],
         a.[DailyDigest],
@@ -6854,7 +6854,7 @@ begin
         a.LanguageFile,
         a.ThemeFile,
         a.TextEditor,
-        a.OverrideDefaultThemes,
+        a.OverridedefaultThemes,
         a.[PMNotification],
         a.[AutoWatchTopics],
         a.[DailyDigest],
@@ -6917,7 +6917,7 @@ begin
         a.LanguageFile,
         a.ThemeFile,
         a.TextEditor,
-        a.OverrideDefaultThemes,
+        a.OverridedefaultThemes,
         a.[PMNotification],
         a.[AutoWatchTopics],
         a.[DailyDigest],
@@ -7323,7 +7323,7 @@ begin
             ThemeFile = @ThemeFile,
             Culture = @Culture,
             TextEditor = @TextEditor,
-            OverrideDefaultThemes = @OverrideDefaultTheme,
+            OverridedefaultThemes = @OverrideDefaultTheme,
             PMNotification = (CASE WHEN (@PMNotification is not null) THEN  @PMNotification ELSE PMNotification END),
             AutoWatchTopics = (CASE WHEN (@AutoWatchTopics is not null) THEN  @AutoWatchTopics ELSE AutoWatchTopics END),
             NotificationType =  (CASE WHEN (@NotificationType is not null) THEN  @NotificationType ELSE NotificationType END),
@@ -7482,7 +7482,7 @@ begin
         @Flags = b.Flags,
         @MinPosts = b.MinPosts,
         @NumPosts = a.NumPosts,
-        @BoardId = a.BoardId		
+        @BoardId = a.BoardID		
     from
         [{databaseOwner}].[{objectQualifier}User] a
         inner join [{databaseOwner}].[{objectQualifier}Rank] b on b.RankID = a.RankID
@@ -7503,7 +7503,7 @@ begin
         select top 1
                @RankID = RankID
         from   [{databaseOwner}].[{objectQualifier}Rank]
-        where  BoardId = @BoardId
+        where  BoardID = @BoardId
                and (Flags & 2) = 2
                and MinPosts <= @NumPosts
         order by
@@ -7516,7 +7516,7 @@ begin
         from
             [{databaseOwner}].[{objectQualifier}Rank]
         where
-            BoardId = @BoardId and
+            BoardID = @BoardId and
             (Flags & 2) = 2 and
             MinPosts <= @NumPosts and
             MinPosts > @MinPosts
@@ -7868,7 +7868,7 @@ BEGIN
 
 SET 	@NewForumID = (SELECT     ForumID
                 FROM         [{databaseOwner}].[{objectQualifier}Topic]
-                WHERE     (TopicId = @MoveToTopic))
+                WHERE     (TopicID = @MoveToTopic))
 
 
 SET 	@OldTopicID = 	(SELECT     TopicID
@@ -7877,7 +7877,7 @@ SET 	@OldTopicID = 	(SELECT     TopicID
 
 SET 	@OldForumID = (SELECT     ForumID
                 FROM         [{databaseOwner}].[{objectQualifier}Topic]
-                WHERE     (TopicId = @OldTopicID))
+                WHERE     (TopicID = @OldTopicID))
 
 SET	@ReplyToID = (SELECT     MessageID
             FROM         [{databaseOwner}].[{objectQualifier}Message]
@@ -7885,17 +7885,17 @@ SET	@ReplyToID = (SELECT     MessageID
 
 SET	@Position = 	(SELECT     MAX([Position]) + 1 AS Expr1
             FROM         [{databaseOwner}].[{objectQualifier}Message]
-            WHERE     (TopicID = @MoveToTopic) and posted < (select posted from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID ) )
+            WHERE     (TopicID = @MoveToTopic) and Posted < (select Posted from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID ) )
 
 if @Position is null  set @Position = 0
 
 update [{databaseOwner}].[{objectQualifier}Message] set
         Position = Position+1
-     WHERE     (TopicID = @MoveToTopic) and posted > (select posted from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID)
+     WHERE     (TopicID = @MoveToTopic) and Posted > (select Posted from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID)
 
 update [{databaseOwner}].[{objectQualifier}Message] set
         Position = Position-1
-     WHERE     (TopicID = @OldTopicID) and posted > (select posted from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID)
+     WHERE     (TopicID = @OldTopicID) and Posted > (select Posted from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID)
 
     
 
@@ -8201,8 +8201,8 @@ BEGIN
             [DisplayJS] = @DisplayJS,
             [EditJS] = @EditJS,
             [DisplayCSS] = @DisplayCSS,
-            [SearchRegEx] = @SearchRegEx,
-            [ReplaceRegEx] = @ReplaceRegEx,
+            [SearchRegex] = @SearchRegEx,
+            [ReplaceRegex] = @ReplaceRegEx,
             [Variables] = @Variables,
             [UseModule] = @UseModule,
             [ModuleClass] = @ModuleClass,			
@@ -8213,7 +8213,7 @@ BEGIN
     ELSE BEGIN
         IF NOT EXISTS(SELECT 1 FROM [{databaseOwner}].[{objectQualifier}BBCode] WHERE BoardID = @BoardID AND [Name] = @Name)
             INSERT INTO
-                [{databaseOwner}].[{objectQualifier}BBCode] ([BoardID],[Name],[Description],[OnClickJS],[DisplayJS],[EditJS],[DisplayCSS],[SearchRegEx],[ReplaceRegEx],[Variables],[UseModule],[ModuleClass],[ExecOrder])
+                [{databaseOwner}].[{objectQualifier}BBCode] ([BoardID],[Name],[Description],[OnClickJS],[DisplayJS],[EditJS],[DisplayCSS],[SearchRegex],[ReplaceRegex],[Variables],[UseModule],[ModuleClass],[ExecOrder])
             VALUES (@BoardID,@Name,@Description,@OnClickJS,@DisplayJS,@EditJS,@DisplayCSS,@SearchRegEx,@ReplaceRegEx,@Variables,@UseModule,@ModuleClass,@ExecOrder)
     END
 END
@@ -8863,7 +8863,7 @@ BEGIN
 
     SELECT TOP(@NumberOfMessages)
         sh.[ShoutBoxMessageID],
-        sh.Username,
+        sh.UserName,
         sh.UserID,
         sh.[Message],
         sh.[Date], 
@@ -9053,7 +9053,7 @@ AS
                 a.[Name],
                 a.Joined,
                 a.NumPosts,
-                RankName = b.NAME,
+                RankName = b.Name,
                 c.Approved,
                 c.FromUserID,
                 c.Requested
@@ -9068,7 +9068,7 @@ AS
                 a.[Name],
                 a.Joined,
                 a.NumPosts,
-                RankName = b.NAME,
+                RankName = b.Name,
                 c.Approved,
                 c.FromUserID,
                 c.Requested
@@ -9078,7 +9078,7 @@ AS
                                               AND ( c.ToUserID = @FromUserID )
                                               AND ( a.UserID = c.FromUserID )
                                             )
-        ORDER BY a.NAME
+        ORDER BY a.Name
     END
     GO
 
@@ -9148,7 +9148,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_favorite_count](@TopicID int) as
 BEGIN
-    SELECT COUNT(ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = @TopicID
+    SELECT COUNT(ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicID = @TopicID
 END
 GO
 
@@ -9231,7 +9231,7 @@ begin
         LastTopicID = c.TopicID,
         TopicFlags = c.Flags,
         FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
-        FavoriteCount = (SELECT COUNT(ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = IsNull(c.TopicMovedID,c.TopicID)),
+        FavoriteCount = (SELECT COUNT(ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicID = IsNull(c.TopicMovedID,c.TopicID)),
         c.Priority,
         c.PollID,
         ForumName = d.Name,
@@ -9779,7 +9779,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}recent_users](@BoardID int,@TimeSinceLastLogin int,@StyledNicks bit=0) as
 begin  
-    SELECT U.UserId,
+    SELECT U.UserID,
     UserName = U.Name,
     UserDisplayName = U.DisplayName,
     IsCrawler = 0,
@@ -10009,7 +10009,7 @@ begin
         LastTopicID = c.TopicID,
         TopicFlags = c.Flags,
         FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
-        FavoriteCount = (SELECT COUNT(ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = IsNull(c.TopicMovedID,c.TopicID)),
+        FavoriteCount = (SELECT COUNT(ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicID = IsNull(c.TopicMovedID,c.TopicID)),
         c.Priority,
         c.PollID,
         ForumName = d.Name,
@@ -10075,13 +10075,13 @@ GO
 CREATE procedure [{databaseOwner}].[{objectQualifier}TopicStatus_Save] (@TopicStatusID int=null, @BoardID int, @TopicStatusName nvarchar(100),@DefaultDescription nvarchar(100)) as
 begin
         if @TopicStatusID is null or @TopicStatusID = 0 begin
-        insert into [{databaseOwner}].[{objectQualifier}TopicStatus] (BoardID,TopicStatusName,DefaultDescription) 
+        insert into [{databaseOwner}].[{objectQualifier}TopicStatus] (BoardID,TopicStatusName,defaultDescription) 
         values(@BoardID,@TopicStatusName,@DefaultDescription)
     end
     else begin
         update [{databaseOwner}].[{objectQualifier}TopicStatus] 
         set TopicStatusName = @TopicStatusName, 
-            DefaultDescription = @DefaultDescription
+            defaultDescription = @DefaultDescription
         where TopicStatusID = @TopicStatusID
     end
 end
@@ -10224,7 +10224,7 @@ begin
         LastTopicID = c.TopicID,
         TopicFlags = c.Flags,
         FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = IsNull(c.TopicMovedID,c.TopicID) AND mes2.Position = 0),
-        FavoriteCount = (SELECT COUNT(ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicId = IsNull(c.TopicMovedID,c.TopicID)),
+        FavoriteCount = (SELECT COUNT(ID) as [FavoriteCount] FROM [{databaseOwner}].[{objectQualifier}FavoriteTopic] WHERE TopicID = IsNull(c.TopicMovedID,c.TopicID)),
         c.Priority,
         c.PollID,
         ForumName = d.Name,

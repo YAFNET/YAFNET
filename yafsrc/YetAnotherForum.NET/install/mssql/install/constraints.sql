@@ -623,7 +623,7 @@ if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}E
 go
 
 if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Extension_{objectQualifier}Board' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Extension]') and type in (N'F'))
-	alter table [{databaseOwner}].[{objectQualifier}Extension] add constraint [FK_{objectQualifier}Extension_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board](BoardID) on delete cascade
+	alter table [{databaseOwner}].[{objectQualifier}Extension] add constraint [FK_{objectQualifier}Extension_{objectQualifier}Board] foreign key(BoardId) references [{databaseOwner}].[{objectQualifier}Board](BoardID) on delete cascade
 go
 
 if not exists (select top 1 1 from sys.objects where name=N'FK_{objectQualifier}BBCode_Board' and parent_object_id=object_id(N'[{databaseOwner}].[{objectQualifier}BBCode]') and type in (N'F'))

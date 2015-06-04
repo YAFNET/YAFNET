@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using YAF.Providers.Utils;
-
 namespace YAF.Providers.Membership
 {
     #region Using
@@ -32,8 +30,10 @@ namespace YAF.Providers.Membership
     using System.Data;
     using System.Data.SqlClient;
     using System.Web.Security;
-    using YAF.Classes.Pattern;
+
     using YAF.Classes.Data;
+    using YAF.Classes.Pattern;
+    using YAF.Providers.Utils;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces.Data;
@@ -101,7 +101,7 @@ namespace YAF.Providers.Membership
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
 
                 // Nonstandard args
-                cmd.Parameters.AddWithValue("@Username", username);
+                cmd.Parameters.AddWithValue("@UserName", username);
                 cmd.Parameters.AddWithValue("@Password", newPassword);
                 cmd.Parameters.AddWithValue("@PasswordSalt", newSalt);
                 cmd.Parameters.AddWithValue("@PasswordFormat", passwordFormat);
@@ -135,7 +135,7 @@ namespace YAF.Providers.Membership
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
 
                 // Nonstandard args
-                cmd.Parameters.AddWithValue("@Username", username);
+                cmd.Parameters.AddWithValue("@UserName", username);
                 cmd.Parameters.AddWithValue("@PasswordQuestion", passwordQuestion);
                 cmd.Parameters.AddWithValue("@PasswordAnswer", passwordAnswer);
                 this.DbAccess.ExecuteNonQuery(cmd);
@@ -231,7 +231,7 @@ namespace YAF.Providers.Membership
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
 
                 // Nonstandard args
-                cmd.Parameters.AddWithValue("@Username", username);
+                cmd.Parameters.AddWithValue("@UserName", username);
                 cmd.Parameters.AddWithValue("@DeleteAllRelated", deleteAllRelatedData);
                 this.DbAccess.ExecuteNonQuery(cmd);
             }
@@ -296,7 +296,7 @@ namespace YAF.Providers.Membership
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
 
                 // Nonstandard args
-                cmd.Parameters.AddWithValue("@Username", usernameToMatch);
+                cmd.Parameters.AddWithValue("@UserName", usernameToMatch);
                 cmd.Parameters.AddWithValue("@PageIndex", pageIndex);
                 cmd.Parameters.AddWithValue("@PageSize", pageSize);
                 return this.DbAccess.GetData(cmd);
@@ -444,7 +444,7 @@ namespace YAF.Providers.Membership
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
 
                 // Nonstandard args
-                cmd.Parameters.AddWithValue("@Username", username);
+                cmd.Parameters.AddWithValue("@UserName", username);
                 cmd.Parameters.AddWithValue("@UserIsOnline", updateUser);
                 cmd.Parameters.AddWithValue("@UTCTIMESTAMP", DateTime.UtcNow);
                 return this.DbAccess.GetData(cmd);

@@ -22,9 +22,6 @@
  * under the License.
  */
 
-using YAF.Providers.Utils;
-using YAF.Types.Interfaces.Data;
-
 namespace YAF.Providers.Roles
 {
     #region Using
@@ -32,8 +29,11 @@ namespace YAF.Providers.Roles
     using System;
     using System.Data;
     using System.Data.SqlClient;
-    using YAF.Classes.Pattern;
+
     using YAF.Classes.Data;
+    using YAF.Classes.Pattern;
+    using YAF.Providers.Utils;
+    using YAF.Types.Interfaces.Data;
 
     #endregion
 
@@ -86,8 +86,8 @@ namespace YAF.Providers.Roles
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
-                cmd.Parameters.AddWithValue("Username", userName);
-                cmd.Parameters.AddWithValue("RoleName", roleName);
+                cmd.Parameters.AddWithValue("UserName", userName);
+                cmd.Parameters.AddWithValue("Rolename", roleName);
                 this.DbAccess.ExecuteNonQuery(cmd);
             }
         }
@@ -107,7 +107,7 @@ namespace YAF.Providers.Roles
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
-                cmd.Parameters.AddWithValue("RoleName", roleName);
+                cmd.Parameters.AddWithValue("Rolename", roleName);
                 this.DbAccess.ExecuteNonQuery(cmd);
             }
         }
@@ -133,7 +133,7 @@ namespace YAF.Providers.Roles
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
-                cmd.Parameters.AddWithValue("RoleName", roleName);
+                cmd.Parameters.AddWithValue("Rolename", roleName);
                 cmd.Parameters.AddWithValue("DeleteOnlyIfRoleIsEmpty", deleteOnlyIfRoleIsEmpty);
 
                 var p = new SqlParameter("ReturnValue", SqlDbType.Int);
@@ -164,7 +164,7 @@ namespace YAF.Providers.Roles
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
-                cmd.Parameters.AddWithValue("RoleName", roleName);
+                cmd.Parameters.AddWithValue("Rolename", roleName);
                 return this.DbAccess.GetData(cmd);
             }
         }
@@ -210,7 +210,7 @@ namespace YAF.Providers.Roles
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
-                cmd.Parameters.AddWithValue("Username", username);
+                cmd.Parameters.AddWithValue("UserName", username);
                 return this.DbAccess.GetData(cmd);
             }
         }
@@ -236,8 +236,8 @@ namespace YAF.Providers.Roles
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
-                cmd.Parameters.AddWithValue("Username", userName);
-                cmd.Parameters.AddWithValue("RoleName", roleName);
+                cmd.Parameters.AddWithValue("UserName", userName);
+                cmd.Parameters.AddWithValue("Rolename", roleName);
                 return this.DbAccess.GetData(cmd);
             }
         }
@@ -260,8 +260,8 @@ namespace YAF.Providers.Roles
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
-                cmd.Parameters.AddWithValue("Username", userName);
-                cmd.Parameters.AddWithValue("RoleName", roleName);
+                cmd.Parameters.AddWithValue("UserName", userName);
+                cmd.Parameters.AddWithValue("Rolename", roleName);
                 this.DbAccess.ExecuteNonQuery(cmd);
             }
         }
