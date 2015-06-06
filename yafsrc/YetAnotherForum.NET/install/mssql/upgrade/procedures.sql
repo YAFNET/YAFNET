@@ -2046,7 +2046,7 @@ create procedure [{databaseOwner}].[{objectQualifier}bannedip_list](@BoardID int
            
                 with BannedIPs  as 
                 (
-                  select ROW_NUMBER() over (order by Mask) as RowNum, Mask 
+                  select ROW_NUMBER() over (order by ID desc) as RowNum, Mask 
                   from  [{databaseOwner}].[{objectQualifier}BannedIP] where Mask like '%' +@Mask + '%' and BoardID=@BoardID
                 )
                 select
@@ -2072,7 +2072,7 @@ create procedure [{databaseOwner}].[{objectQualifier}bannedip_list](@BoardID int
            
                 with BannedIPs  as 
                 (
-                  select ROW_NUMBER() over (order by Mask) as RowNum, Mask 
+                  select ROW_NUMBER() over (order by ID desc) as RowNum, Mask 
                   from  [{databaseOwner}].[{objectQualifier}BannedIP] where BoardID=@BoardID
                 )
                 select
@@ -2134,7 +2134,7 @@ create procedure [{databaseOwner}].[{objectQualifier}bannedname_list](@BoardID i
            
                 with BannedNames  as 
                 (
-                  select ROW_NUMBER() over (order by Mask) as RowNum, Mask 
+                  select ROW_NUMBER() over (order by ID desc) as RowNum, Mask 
                   from  [{databaseOwner}].[{objectQualifier}BannedName] where Mask like '%' +@Mask + '%' and BoardID=@BoardID
                 )
                 select
@@ -2160,7 +2160,7 @@ create procedure [{databaseOwner}].[{objectQualifier}bannedname_list](@BoardID i
            
                 with BannedNames  as 
                 (
-                  select ROW_NUMBER() over (order by Mask) as RowNum, Mask 
+                  select ROW_NUMBER() over (order by ID desc) as RowNum, Mask 
                   from  [{databaseOwner}].[{objectQualifier}BannedName] where BoardID=@BoardID
                 )
                 select
@@ -2222,7 +2222,7 @@ begin
            
            with BannedEmails  as 
            (
-             select ROW_NUMBER() over (order by Mask) as RowNum, Mask 
+             select ROW_NUMBER() over (order by ID desc) as RowNum, Mask 
              from  [{databaseOwner}].[{objectQualifier}BannedEmail] where Mask like '%' +@Mask + '%' and BoardID=@BoardID
            )
            select
@@ -2248,7 +2248,7 @@ begin
            
            with BannedEmails  as 
            (
-             select ROW_NUMBER() over (order by Mask) as RowNum, Mask 
+             select ROW_NUMBER() over (order by ID desc) as RowNum, Mask 
              from  [{databaseOwner}].[{objectQualifier}BannedEmail] where BoardID=@BoardID
            )
            select
