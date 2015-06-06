@@ -48,6 +48,7 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     using HistoryEventArgs = nStuff.UpdateControls.HistoryEventArgs;
 
@@ -122,7 +123,8 @@ namespace YAF.Pages
             get
             {
                 return this._searchWhatCleaned
-                       ?? (this._searchWhatCleaned = this.txtSearchStringWhat.Text.Trim().RemoveMultipleWhitespace().RemoveMultipleSingleQuotes());
+                       ?? (this._searchWhatCleaned =
+                           this.txtSearchStringWhat.Text.Trim().RemoveMultipleWhitespace().RemoveMultipleSingleQuotes());
             }
 
             set
@@ -139,7 +141,10 @@ namespace YAF.Pages
             get
             {
                 return this._searchWhoCleaned
-                       ?? (this._searchWhoCleaned = this.txtSearchStringFromWho.Text.Trim().RemoveMultipleWhitespace().RemoveMultipleSingleQuotes());
+                       ?? (this._searchWhoCleaned =
+                           this.txtSearchStringFromWho.Text.Trim()
+                               .RemoveMultipleWhitespace()
+                               .RemoveMultipleSingleQuotes());
             }
 
             set
@@ -153,7 +158,7 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// Handles btn Click event for external search button 1
+        /// Handles the Click event for external search button 1
         /// </summary>
         /// <param name="sender">
         /// The source of the event.
@@ -161,17 +166,18 @@ namespace YAF.Pages
         /// <param name="e">
         /// The <see cref="System.EventArgs"/> instance containing the event data.
         /// </param>
-        protected void BtnExtSearch1_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void SearchExt1_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.IsValidSearchRequest())
             {
                 return;
             }
 
-            if (this.Get<YafBoardSettings>().ExternalSearchInNewWindow)
+            if (this.PageContext.BoardSettings.ExternalSearchInNewWindow)
             {
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "openBrowserTabJs", "window.open('{0}', '', '');".FormatWith(this.GetExtSearchLink(1)));
+                    "openBrowserTabJs",
+                    "window.open('{0}', '', '');".FormatWith(this.GetExtSearchLink(1)));
             }
             else
             {
@@ -180,7 +186,7 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Handles btn Click event for external search button 2
+        /// Handles the Click event for external search button 2
         /// </summary>
         /// <param name="sender">
         /// The source of the event.
@@ -188,17 +194,18 @@ namespace YAF.Pages
         /// <param name="e">
         /// The <see cref="System.EventArgs"/> instance containing the event data.
         /// </param>
-        protected void BtnExtSearch2_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void SearchExt2_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.IsValidSearchRequest())
             {
                 return;
             }
 
-            if (this.Get<YafBoardSettings>().ExternalSearchInNewWindow)
+            if (this.PageContext.BoardSettings.ExternalSearchInNewWindow)
             {
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "openBrowserTabJs", "window.open('{0}', '', '');".FormatWith(this.GetExtSearchLink(2)));
+                    "openBrowserTabJs",
+                    "window.open('{0}', '', '');".FormatWith(this.GetExtSearchLink(2)));
             }
             else
             {
@@ -217,7 +224,7 @@ namespace YAF.Pages
         /// </returns>
         protected bool IsSearchTextTooLarge([NotNull] string text)
         {
-            return text.Length > this.Get<YafBoardSettings>().SearchStringMaxLength;
+            return text.Length > this.PageContext.BoardSettings.SearchStringMaxLength;
         }
 
         /// <summary>
@@ -231,7 +238,7 @@ namespace YAF.Pages
         /// </returns>
         protected bool IsSearchTextTooSmall([NotNull] string text)
         {
-            return text.Length < this.Get<YafBoardSettings>().SearchStringMinLength;
+            return text.Length < this.PageContext.BoardSettings.SearchStringMinLength;
         }
 
         /// <summary>
@@ -243,7 +250,7 @@ namespace YAF.Pages
         protected bool IsValidSearchRequest()
         {
             var whatValid = this.IsValidSearchText(this.SearchWhatCleaned.Trim());
-            var whoValid = !string.IsNullOrEmpty(this.SearchWhoCleaned.Trim());
+            var whoValid = this.SearchWhoCleaned.Trim().IsSet();
 
             // they are both valid...
             if (whoValid && whatValid)
@@ -296,13 +303,15 @@ namespace YAF.Pages
             {
                 this.PageContext.AddLoadMessage(
                     this.GetTextFormatted(
-                        "SEARCH_CRITERIA_ERROR_MIN", this.Get<YafBoardSettings>().SearchStringMinLength));
+                        "SEARCH_CRITERIA_ERROR_MIN",
+                        this.PageContext.BoardSettings.SearchStringMinLength));
             }
             else if (searchTooLarge)
             {
                 this.PageContext.AddLoadMessage(
                     this.GetTextFormatted(
-                        "SEARCH_CRITERIA_ERROR_MAX", this.Get<YafBoardSettings>().SearchStringMaxLength));
+                        "SEARCH_CRITERIA_ERROR_MAX",
+                        this.PageContext.BoardSettings.SearchStringMaxLength));
             }
 
             return false;
@@ -321,7 +330,7 @@ namespace YAF.Pages
         {
             return searchText.IsSet() && !this.IsSearchTextTooSmall(searchText)
                    && !this.IsSearchTextTooLarge(searchText)
-                   && Regex.IsMatch(searchText, this.Get<YafBoardSettings>().SearchStringPattern);
+                   && Regex.IsMatch(searchText, this.PageContext.BoardSettings.SearchStringPattern);
         }
 
         /// <summary>
@@ -381,36 +390,36 @@ namespace YAF.Pages
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
             this.btnSearch.Text = "{0}".FormatWith(this.GetText("btnsearch"));
 
-            if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ExternalSearchPermissions))
+            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ExternalSearchPermissions))
             {
                 // vzrus: If an exteranl search only - it should be disabled. YAF doesn't have a forum id as a token in post links. 
-                if (!this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().SearchPermissions))
+                if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
                 {
                     this.listForum.Enabled = false;
                 }
 
-                if (!string.IsNullOrEmpty(this.Get<YafBoardSettings>().SearchEngine1)
-                    && (!string.IsNullOrEmpty(this.Get<YafBoardSettings>().SearchEngine1Parameters)))
+                if (this.PageContext.BoardSettings.SearchEngine1.IsSet()
+                    && this.PageContext.BoardSettings.SearchEngine1Parameters.IsSet())
                 {
                     this.btnSearchExt1.Visible = true;
                     this.btnSearchExt1.Text =
                         this.btnSearchExt1.ToolTip =
-                        this.GetText("btnsearch_external").FormatWith(
-                            this.Get<YafBoardSettings>().SearchEngine1Parameters.Split('^')[0]);
+                        this.GetText("btnsearch_external")
+                            .FormatWith(this.PageContext.BoardSettings.SearchEngine1Parameters.Split('^')[0]);
                 }
 
-                if (!string.IsNullOrEmpty(this.Get<YafBoardSettings>().SearchEngine2)
-                    && (!string.IsNullOrEmpty(this.Get<YafBoardSettings>().SearchEngine2Parameters)))
+                if (this.PageContext.BoardSettings.SearchEngine2.IsSet()
+                    && this.PageContext.BoardSettings.SearchEngine2Parameters.IsSet())
                 {
                     this.btnSearchExt2.Visible = true;
                     this.btnSearchExt2.Text =
                         this.btnSearchExt2.ToolTip =
-                        this.GetText("btnsearch_external").FormatWith(
-                            this.Get<YafBoardSettings>().SearchEngine2Parameters.Split('^')[0]);
+                        this.GetText("btnsearch_external")
+                            .FormatWith(this.PageContext.BoardSettings.SearchEngine2Parameters.Split('^')[0]);
                 }
             }
 
-            if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().SearchPermissions))
+            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
             {
                 this.btnSearch.Visible = true;
             }
@@ -436,9 +445,9 @@ namespace YAF.Pages
             this.listSearchWhat.Items.Add(new ListItem(this.GetText("match_all"), "0"));
 
             // Load TitleOnly dropdown
-            this.TitleOnly.Items.Add(new ListItem(this.GetText("POST_AND_TITLE"), "0")); 
+            this.TitleOnly.Items.Add(new ListItem(this.GetText("POST_AND_TITLE"), "0"));
             this.TitleOnly.Items.Add(new ListItem(this.GetText("TITLE_ONLY"), "1"));
-            
+
             this.listSearchFromWho.SelectedIndex = 0;
             this.listSearchWhat.SelectedIndex = 2;
 
@@ -466,7 +475,8 @@ namespace YAF.Pages
             this.Page.Form.DefaultButton = this.btnSearch.UniqueID;
 
             this.listForum.DataSource = LegacyDb.forum_listall_sorted(
-                this.PageContext.PageBoardID, this.PageContext.PageUserID);
+                this.PageContext.PageBoardID,
+                this.PageContext.PageUserID);
             this.listForum.DataValueField = "ForumID";
             this.listForum.DataTextField = "Title";
             this.listForum.DataBind();
@@ -504,10 +514,10 @@ namespace YAF.Pages
             }
 
             // set the search box size via the max settings in the boardsettings.
-            if (this.Get<YafBoardSettings>().SearchStringMaxLength > 0)
+            if (this.PageContext.BoardSettings.SearchStringMaxLength > 0)
             {
-                this.txtSearchStringWhat.MaxLength = this.Get<YafBoardSettings>().SearchStringMaxLength;
-                this.txtSearchStringFromWho.MaxLength = this.Get<YafBoardSettings>().SearchStringMaxLength;
+                this.txtSearchStringWhat.MaxLength = this.PageContext.BoardSettings.SearchStringMaxLength;
+                this.txtSearchStringFromWho.MaxLength = this.PageContext.BoardSettings.SearchStringMaxLength;
             }
 
             if (doSearch)
@@ -542,7 +552,7 @@ namespace YAF.Pages
         /// </param>
         protected void SearchRes_ItemDataBound([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
         {
-            var cell = (HtmlTableCell)e.Item.FindControl("CounterCol");
+            var cell = e.Item.FindControlAs<HtmlTableCell>("CounterCol");
 
             if (cell == null)
             {
@@ -552,22 +562,33 @@ namespace YAF.Pages
             var messageID = cell.InnerText;
             var rowCount = e.Item.ItemIndex + 1 + (this.Pager.CurrentPageIndex * this.Pager.PageSize);
             cell.InnerHtml = "<a href=\"{1}\">{0}</a><a href=\"{1}\">".FormatWith(
-                rowCount, YafBuildLink.GetLink(ForumPages.posts, "m={0}#{0}", messageID));
+                rowCount,
+                YafBuildLink.GetLink(ForumPages.posts, "m={0}#{0}", messageID));
         }
 
         /// <summary>
-        /// The btn search_ click.
+        /// Handles the Click event of the Search control.
         /// </summary>
-        /// <param name="sender">
-        /// The source of the event.
-        /// </param>
-        /// <param name="e">
-        /// The <see cref="System.EventArgs"/> instance containing the event data.
-        /// </param>
-        protected void btnSearch_Click([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+        protected void Search_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.SearchUpdatePanel.Visible = true;
             this.SearchBindData(true);
+        }
+
+        /// <summary>
+        /// Handles the OnClick event of the CollapsibleImage control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ImageClickEventArgs"/> instance containing the event data.</param>
+        protected void CollapsibleImage_OnClick(object sender, ImageClickEventArgs e)
+        {
+            if (this.Get<IYafSession>().SearchData != null)
+            {
+                // bind existing search
+                this.SearchBindData(false);
+            }
         }
 
         /// <summary>
@@ -588,12 +609,12 @@ namespace YAF.Pages
             switch (i)
             {
                 case 1:
-                    searchEngine = this.Get<YafBoardSettings>().SearchEngine1;
-                    searchParams = this.Get<YafBoardSettings>().SearchEngine1Parameters;
+                    searchEngine = this.PageContext.BoardSettings.SearchEngine1;
+                    searchParams = this.PageContext.BoardSettings.SearchEngine1Parameters;
                     break;
                 case 2:
-                    searchEngine = this.Get<YafBoardSettings>().SearchEngine2;
-                    searchParams = this.Get<YafBoardSettings>().SearchEngine2Parameters;
+                    searchEngine = this.PageContext.BoardSettings.SearchEngine2;
+                    searchParams = this.PageContext.BoardSettings.SearchEngine2Parameters;
                     break;
             }
 
@@ -613,22 +634,22 @@ namespace YAF.Pages
         /// A search word separator
         /// </param>
         private void MatchParameterHelper(
-            [NotNull] ref string searchParamsOptArrayj, 
-            [NotNull] ref string searchEngine, 
+            [NotNull] ref string searchParamsOptArrayj,
+            [NotNull] ref string searchEngine,
             [NotNull] string searchParamsDefArraySep)
         {
             searchParamsOptArrayj = searchParamsOptArrayj.Replace(
-                "{Word}", 
+                "{Word}",
                 this.txtSearchStringWhat.Text
-                +
-                (!string.IsNullOrEmpty(this.txtSearchStringFromWho.Text)
-                     ? " " + this.txtSearchStringFromWho.Text
-                     : string.Empty));
+                + (this.txtSearchStringFromWho.Text.IsSet()
+                       ? " {0}".FormatWith(this.txtSearchStringFromWho.Text)
+                       : string.Empty));
 
             // Add "+"  between words
             searchParamsOptArrayj = searchParamsOptArrayj.Replace(" ", searchParamsDefArraySep);
             searchParamsOptArrayj = searchParamsOptArrayj.Replace(
-                searchParamsDefArraySep + searchParamsDefArraySep, searchParamsDefArraySep);
+                searchParamsDefArraySep + searchParamsDefArraySep,
+                searchParamsDefArraySep);
 
             // Replace here parameters in main string
             searchEngine = searchEngine.Replace(searchParamsOptArrayj.Split('=')[0] + "=", searchParamsOptArrayj);
@@ -646,60 +667,60 @@ namespace YAF.Pages
             try
             {
 #endif
-            if (newSearch && !this.IsValidSearchRequest())
-            {
-                return;
-            }
-
-            if (newSearch || this.Get<IYafSession>().SearchData == null)
-            {
-                var sw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchWhat.SelectedValue);
-                var sfw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchFromWho.SelectedValue);
-                var forumId = int.Parse(this.listForum.SelectedValue);
-                var searchTitleOnly = this.TitleOnly.SelectedValue.Equals("1");
-
-                var context = new CompleteSearchContext(
-                    this.SearchWhatCleaned, 
-                    this.SearchWhoCleaned, 
-                    sfw, 
-                    sw, 
-                    this.PageContext.PageUserID, 
-                    this.PageContext.PageBoardID, 
-                    this.Get<YafBoardSettings>().ReturnSearchMax, 
-                    this.Get<YafBoardSettings>().UseFullTextSearch, 
-                    this.Get<YafBoardSettings>().EnableDisplayName, 
-                    forumId, 
-                    searchTitleOnly);
-
-                var searchResults = this.Get<ISearch>().Execute(context).ToArray();
-
-                if (newSearch)
+                if (newSearch && !this.IsValidSearchRequest())
                 {
-                    // setup highlighting
-                    this.SetupHighlightWords(sw);
+                    return;
                 }
 
-                this.Get<IYafSession>().SearchData = searchResults;
+                if (newSearch || this.Get<IYafSession>().SearchData == null)
+                {
+                    var sw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchWhat.SelectedValue);
+                    var sfw = (SearchWhatFlags)Enum.Parse(typeof(SearchWhatFlags), this.listSearchFromWho.SelectedValue);
+                    var forumId = int.Parse(this.listForum.SelectedValue);
+                    var searchTitleOnly = this.TitleOnly.SelectedValue.Equals("1");
 
-                this.Pager.CurrentPageIndex = 0;
-                this.Pager.PageSize = int.Parse(this.listResInPage.SelectedValue);
-                this.Pager.Count = searchResults.AsEnumerable().Count();
+                    var context = new CompleteSearchContext(
+                        this.SearchWhatCleaned,
+                        this.SearchWhoCleaned,
+                        sfw,
+                        sw,
+                        this.PageContext.PageUserID,
+                        this.PageContext.PageBoardID,
+                        this.PageContext.BoardSettings.ReturnSearchMax,
+                        this.PageContext.BoardSettings.UseFullTextSearch,
+                        this.PageContext.BoardSettings.EnableDisplayName,
+                        forumId,
+                        searchTitleOnly);
 
-                var areResults = this.Pager.Count > 0;
+                    var searchResults = this.Get<ISearch>().Execute(context).ToArray();
 
-                this.SearchRes.Visible = areResults;
-                this.NoResults.Visible = !areResults;
-            }
+                    if (newSearch)
+                    {
+                        // setup highlighting
+                        this.SetupHighlightWords(sw);
+                    }
 
-            this.UpdateHistory.AddEntry("{0}|{1}".FormatWith(this.Pager.CurrentPageIndex, this.Pager.PageSize));
+                    this.Get<IYafSession>().SearchData = searchResults;
 
-            var pagedData = this.Get<IYafSession>().SearchData.GetPaged(this.Pager);
+                    this.Pager.CurrentPageIndex = 0;
+                    this.Pager.PageSize = int.Parse(this.listResInPage.SelectedValue);
+                    this.Pager.Count = searchResults.AsEnumerable().Count();
 
-            // only load required messages
-            this.Get<YafDbBroker>().LoadMessageText(pagedData);
+                    var areResults = this.Pager.Count > 0;
 
-            this.SearchRes.DataSource = pagedData;
-            this.SearchRes.DataBind();
+                    this.SearchRes.Visible = areResults;
+                    this.NoResults.Visible = !areResults;
+                }
+
+                this.UpdateHistory.AddEntry("{0}|{1}".FormatWith(this.Pager.CurrentPageIndex, this.Pager.PageSize));
+
+                var pagedData = this.Get<IYafSession>().SearchData.GetPaged(this.Pager);
+
+                // only load required messages
+                this.Get<YafDbBroker>().LoadMessageText(pagedData);
+
+                this.SearchRes.DataSource = pagedData;
+                this.SearchRes.DataBind();
 #if (!DEBUG)
             }
             catch (Exception x)
@@ -790,7 +811,9 @@ namespace YAF.Pages
                             if (searchParamsAggreageArray[0] == "AllWords")
                             {
                                 this.MatchParameterHelper(
-                                    ref searchParamsOptArray[j], ref searchEngine, searchParamsDefArray[3]);
+                                    ref searchParamsOptArray[j],
+                                    ref searchEngine,
+                                    searchParamsDefArray[3]);
                             }
 
                             break;
@@ -800,7 +823,9 @@ namespace YAF.Pages
                             if (searchParamsAggreageArray[0] == "AnyWord")
                             {
                                 this.MatchParameterHelper(
-                                    ref searchParamsOptArray[j], ref searchEngine, searchParamsDefArray[3]);
+                                    ref searchParamsOptArray[j],
+                                    ref searchEngine,
+                                    searchParamsDefArray[3]);
                             }
 
                             break;
@@ -810,7 +835,9 @@ namespace YAF.Pages
                             if (searchParamsAggreageArray[0] == "ExactFrase")
                             {
                                 this.MatchParameterHelper(
-                                    ref searchParamsOptArray[j], ref searchEngine, searchParamsDefArray[3]);
+                                    ref searchParamsOptArray[j],
+                                    ref searchEngine,
+                                    searchParamsDefArray[3]);
                             }
 
                             break;

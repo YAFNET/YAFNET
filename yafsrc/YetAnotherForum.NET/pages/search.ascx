@@ -47,7 +47,7 @@
             <YAF:CollapsibleImage ID="CollapsibleImage" runat="server" BorderWidth="0" 
                 ImageAlign="Bottom" PanelID='MoreOptions' 
                 AttachedControlID="MoreOptions" ToolTip='<%# this.GetText("COMMON", "SHOWHIDE") %>'
-                DefaultState="Collapsed"  />
+                DefaultState="Collapsed" OnClick="CollapsibleImage_OnClick"  />
             <YAF:LocalizedLabel runat="server" LocalizedTag="SEARCH_OPTIONS" />      
         </td>
     </tr>
@@ -79,12 +79,12 @@
     </asp:PlaceHolder>
     <tr>
         <td class="postfooter centerItem" colspan="2">
-            <asp:Button ID="btnSearch" runat="server" CssClass="pbutton" OnClick="btnSearch_Click"
+            <asp:Button ID="btnSearch" runat="server" CssClass="pbutton" OnClick="Search_Click"
                 OnClientClick="ShowLoadingDialog(); return true;" Visible="false" />
             <asp:Button ID="btnSearchExt1" runat="server" CssClass="pbutton" Visible="false"
-                OnClick="BtnExtSearch1_Click" />
+                OnClick="SearchExt1_Click" />
             <asp:Button ID="btnSearchExt2" runat="server" CssClass="pbutton" Visible="false"
-                OnClick="BtnExtSearch2_Click" />
+                OnClick="SearchExt2_Click" />
         </td>
     </tr>
 </table>
