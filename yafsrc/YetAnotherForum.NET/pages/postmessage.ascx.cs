@@ -212,7 +212,7 @@ namespace YAF.Pages
             var blogPostID = string.Empty;
 
             // Does user wish to post this to their blog?
-            if (!this.Get<YafBoardSettings>().AllowPostToBlog || !this.PostToBlog.Checked)
+            if (!this.PageContext.BoardSettings.AllowPostToBlog || !this.PostToBlog.Checked)
             {
                 return blogPostID;
             }
@@ -246,14 +246,14 @@ namespace YAF.Pages
         {
             // see if there is a post delay
             if (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess
-                || this.Get<YafBoardSettings>().PostFloodDelay <= 0)
+                || this.PageContext.BoardSettings.PostFloodDelay <= 0)
             {
                 return false;
             }
 
             // see if they've past that delay point
             if (this.Get<IYafSession>().LastPost
-                <= DateTime.UtcNow.AddSeconds(-this.Get<YafBoardSettings>().PostFloodDelay)
+                <= DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)
                 || this.EditMessageID != null)
             {
                 return false;
@@ -263,7 +263,7 @@ namespace YAF.Pages
                 this.GetTextFormatted(
                     "wait",
                     (this.Get<IYafSession>().LastPost
-                     - DateTime.UtcNow.AddSeconds(-this.Get<YafBoardSettings>().PostFloodDelay)).Seconds),
+                     - DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)).Seconds),
                 MessageTypes.Warning);
             return true;
         }
@@ -286,8 +286,8 @@ namespace YAF.Pages
             }
 
             // No need to check whitespace if they are actually posting something
-            if (this.Get<YafBoardSettings>().MaxPostSize > 0
-                && this._forumEditor.Text.Length >= this.Get<YafBoardSettings>().MaxPostSize)
+            if (this.PageContext.BoardSettings.MaxPostSize > 0
+                && this._forumEditor.Text.Length >= this.PageContext.BoardSettings.MaxPostSize)
             {
                 this.PageContext.AddLoadMessage(this.GetText("ISEXCEEDED"), MessageTypes.Warning);
                 return false;
@@ -303,48 +303,48 @@ namespace YAF.Pages
             }
 
             // Check if the topic name is not too long
-            if (this.Get<YafBoardSettings>().MaxWordLength > 0
+            if (this.PageContext.BoardSettings.MaxWordLength > 0
                 && this.TopicSubjectTextBox.Text.Trim()
-                    .AreAnyWordsOverMaxLength(this.Get<YafBoardSettings>().MaxWordLength))
+                    .AreAnyWordsOverMaxLength(this.PageContext.BoardSettings.MaxWordLength))
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("TOPIC_NAME_WORDTOOLONG", this.Get<YafBoardSettings>().MaxWordLength),
+                    this.GetTextFormatted("TOPIC_NAME_WORDTOOLONG", this.PageContext.BoardSettings.MaxWordLength),
                     MessageTypes.Warning);
 
                 try
                 {
                     this.TopicSubjectTextBox.Text =
-                        this.TopicSubjectTextBox.Text.Substring(this.Get<YafBoardSettings>().MaxWordLength)
+                        this.TopicSubjectTextBox.Text.Substring(this.PageContext.BoardSettings.MaxWordLength)
                             .Substring(255);
                 }
                 catch (Exception)
                 {
                     this.TopicSubjectTextBox.Text =
-                        this.TopicSubjectTextBox.Text.Substring(this.Get<YafBoardSettings>().MaxWordLength);
+                        this.TopicSubjectTextBox.Text.Substring(this.PageContext.BoardSettings.MaxWordLength);
                 }
 
                 return false;
             }
 
             // Check if the topic description words are not too long
-            if (this.Get<YafBoardSettings>().MaxWordLength > 0
+            if (this.PageContext.BoardSettings.MaxWordLength > 0
                 && this.TopicDescriptionTextBox.Text.Trim()
-                    .AreAnyWordsOverMaxLength(this.Get<YafBoardSettings>().MaxWordLength))
+                    .AreAnyWordsOverMaxLength(this.PageContext.BoardSettings.MaxWordLength))
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("TOPIC_DESCRIPTION_WORDTOOLONG", this.Get<YafBoardSettings>().MaxWordLength),
+                    this.GetTextFormatted("TOPIC_DESCRIPTION_WORDTOOLONG", this.PageContext.BoardSettings.MaxWordLength),
                     MessageTypes.Warning);
 
                 try
                 {
                     this.TopicDescriptionTextBox.Text =
-                        this.TopicDescriptionTextBox.Text.Substring(this.Get<YafBoardSettings>().MaxWordLength)
+                        this.TopicDescriptionTextBox.Text.Substring(this.PageContext.BoardSettings.MaxWordLength)
                             .Substring(255);
                 }
                 catch (Exception)
                 {
                     this.TopicDescriptionTextBox.Text =
-                        this.TopicDescriptionTextBox.Text.Substring(this.Get<YafBoardSettings>().MaxWordLength);
+                        this.TopicDescriptionTextBox.Text.Substring(this.PageContext.BoardSettings.MaxWordLength);
                 }
 
                 return false;
@@ -356,7 +356,7 @@ namespace YAF.Pages
                 return false;
             }
 
-            if (!this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().AllowCreateTopicsSameName)
+            if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.AllowCreateTopicsSameName)
                 && LegacyDb.topic_findduplicate(this.TopicSubjectTextBox.Text.Trim()) == 1 && this.TopicID == null
                 && this.EditMessageID == null)
             {
@@ -364,8 +364,8 @@ namespace YAF.Pages
                 return false;
             }
 
-            if (((this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableCaptchaForGuests)
-                 || (this.Get<YafBoardSettings>().EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
+            if (((this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests)
+                 || (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
                 && !CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
             {
                 this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.Error);
@@ -408,6 +408,9 @@ namespace YAF.Pages
                 this.PageContext.PageElements.RegisterCssIncludeContent("jquery.fileupload.comb.min.css");
 #endif
             }
+
+            // Setup Ceebox js
+            this.PageContext.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
 
             this._forumEditor = ForumEditorHelper.GetCurrentForumEditor();
 
@@ -525,7 +528,7 @@ namespace YAF.Pages
 
             this.Title.Text = this.GetText("NEWTOPIC");
 
-            if (this.Get<YafBoardSettings>().MaxPostSize == 0)
+            if (this.PageContext.BoardSettings.MaxPostSize == 0)
             {
                 this.LocalizedLblMaxNumberOfPost.Visible = false;
             }
@@ -533,14 +536,14 @@ namespace YAF.Pages
             {
                 this.LocalizedLblMaxNumberOfPost.Visible = true;
                 this.LocalizedLblMaxNumberOfPost.Param0 =
-                    this.Get<YafBoardSettings>().MaxPostSize.ToString(CultureInfo.InvariantCulture);
+                    this.PageContext.BoardSettings.MaxPostSize.ToString(CultureInfo.InvariantCulture);
             }
 
             this.HandleUploadControls();
 
             if (!this.IsPostBack)
             {
-                if (this.Get<YafBoardSettings>().EnableTopicDescription)
+                if (this.PageContext.BoardSettings.EnableTopicDescription)
                 {
                     this.DescriptionRow.Visible = true;
                 }
@@ -554,7 +557,7 @@ namespace YAF.Pages
                 this.Priority.Items.Add(new ListItem(this.GetText("announcement"), "2"));
                 this.Priority.SelectedIndex = 0;
 
-                if (this.Get<YafBoardSettings>().EnableTopicStatus)
+                if (this.PageContext.BoardSettings.EnableTopicStatus)
                 {
                     this.StatusRow.Visible = true;
 
@@ -574,7 +577,7 @@ namespace YAF.Pages
                 }
 
                 // Allow the Styling of Topic Titles only for Mods or Admins
-                if (this.Get<YafBoardSettings>().UseStyledTopicTitles
+                if (this.PageContext.BoardSettings.UseStyledTopicTitles
                     && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
                 {
                     this.StyleRow.Visible = true;
@@ -589,7 +592,7 @@ namespace YAF.Pages
                 this.PriorityRow.Visible = this.PageContext.ForumPriorityAccess;
 
                 // Show post to blog option only to a new post
-                this.BlogRow.Visible = this.Get<YafBoardSettings>().AllowPostToBlog && isNewTopic
+                this.BlogRow.Visible = this.PageContext.BoardSettings.AllowPostToBlog && isNewTopic
                                        && !this.PageContext.IsGuest;
 
                 // update options...
@@ -605,8 +608,8 @@ namespace YAF.Pages
                         : new CombinedUserDataHelper(this.PageContext.PageUserID).AutoWatchTopics;
                 }
 
-                if ((this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableCaptchaForGuests)
-                    || (this.Get<YafBoardSettings>().EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
+                if ((this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests)
+                    || (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
                 {
                     this.imgCaptcha.ImageUrl = "{0}resource.ashx?c=1".FormatWith(YafForumInfo.ForumClientFileRoot);
                     this.tr_captcha1.Visible = true;
@@ -1019,7 +1022,7 @@ namespace YAF.Pages
 
             // Check for SPAM
             if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess
-                && !this.Get<YafBoardSettings>().SpamServiceType.Equals(0))
+                && !this.PageContext.BoardSettings.SpamServiceType.Equals(0))
             {
                 var spamChecker = new YafSpamCheck();
                 string spamResult;
@@ -1028,14 +1031,14 @@ namespace YAF.Pages
                 if (
                     spamChecker.CheckPostForSpam(
                         this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
-                        YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                        this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         BBCodeHelper.StripBBCode(
                             HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this._forumEditor.Text)))
                             .RemoveMultipleWhitespace(),
                         this.PageContext.IsGuest ? null : this.PageContext.User.Email,
                         out spamResult))
                 {
-                    switch (this.Get<YafBoardSettings>().SpamMessageHandling)
+                    switch (this.PageContext.BoardSettings.SpamMessageHandling)
                     {
                         case 0:
                             this.Logger.Log(
@@ -1094,7 +1097,7 @@ namespace YAF.Pages
             }
 
             // TODO
-            /*if (this.Get<YafBoardSettings>().UserPostsRequiredForUrls < this.PageContext.CurrentUserData.NumPosts)
+            /*if (this.PageContext.BoardSettings.UserPostsRequiredForUrls < this.PageContext.CurrentUserData.NumPosts)
             {
                 this._forumEditor.Text = BBCodeHelper.StripBBCodeUrls(this._forumEditor.Text);
             }*/
@@ -1188,7 +1191,7 @@ namespace YAF.Pages
             else
             {
                 // Not Approved
-                if (this.Get<YafBoardSettings>().EmailModeratorsOnModeratedPost)
+                if (this.PageContext.BoardSettings.EmailModeratorsOnModeratedPost)
                 {
                     // not approved, notifiy moderators
                     this.Get<ISendNotification>()
@@ -1249,7 +1252,7 @@ namespace YAF.Pages
 
             this.PreviewMessagePost.Message = this._forumEditor.Text;
 
-            if (!this.Get<YafBoardSettings>().AllowSignatures)
+            if (!this.PageContext.BoardSettings.AllowSignatures)
             {
                 return;
             }
@@ -1278,11 +1281,11 @@ namespace YAF.Pages
         {
             var postLocked = false;
 
-            if (!this.PageContext.IsAdmin && this.Get<YafBoardSettings>().LockPosts > 0)
+            if (!this.PageContext.IsAdmin && this.PageContext.BoardSettings.LockPosts > 0)
             {
                 var edited = message.Edited.ToType<DateTime>();
 
-                if (edited.AddDays(this.Get<YafBoardSettings>().LockPosts) < DateTime.UtcNow)
+                if (edited.AddDays(this.PageContext.BoardSettings.LockPosts) < DateTime.UtcNow)
                 {
                     postLocked = true;
                 }
@@ -1387,7 +1390,7 @@ namespace YAF.Pages
                 this.BlogPostID.Value = blogPostID;
                 this.PostToBlog.Checked = true;
 
-                this.BlogRow.Visible = this.Get<YafBoardSettings>().AllowPostToBlog;
+                this.BlogRow.Visible = this.PageContext.BoardSettings.AllowPostToBlog;
             }
 
             this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(currentMessage.Topic);
@@ -1398,12 +1401,12 @@ namespace YAF.Pages
             {
                 // allow editing of the topic subject
                 this.TopicSubjectTextBox.Enabled = true;
-                if (this.Get<YafBoardSettings>().EnableTopicDescription)
+                if (this.PageContext.BoardSettings.EnableTopicDescription)
                 {
                     this.DescriptionRow.Visible = true;
                 }
 
-                if (this.Get<YafBoardSettings>().EnableTopicStatus)
+                if (this.PageContext.BoardSettings.EnableTopicStatus)
                 {
                     this.StatusRow.Visible = true;
                 }
@@ -1418,7 +1421,7 @@ namespace YAF.Pages
             }
 
             // Allow the Styling of Topic Titles only for Mods or Admins
-            if (this.Get<YafBoardSettings>().UseStyledTopicTitles
+            if (this.PageContext.BoardSettings.UseStyledTopicTitles
                 && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
             {
                 this.StyleRow.Visible = true;
@@ -1459,7 +1462,7 @@ namespace YAF.Pages
         {
             var messageContent = message.Message;
 
-            if (this.Get<YafBoardSettings>().RemoveNestedQuotes)
+            if (this.PageContext.BoardSettings.RemoveNestedQuotes)
             {
                 messageContent = this.Get<IFormatMessage>().RemoveNestedQuotes(messageContent);
             }
