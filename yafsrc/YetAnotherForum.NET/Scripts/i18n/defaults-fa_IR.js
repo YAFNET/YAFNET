@@ -22,13 +22,15 @@
 }(this, function () {
 
 (function ($) {
-  $.fn.selectpicker.defaults = {
-    noneSelectedText: 'Niets geselecteerd',
-    noneResultsText: 'Geen resultaten gevonden voor {0}',
-    countSelectedText: '{0} van {1} geselecteerd',
-    maxOptionsText: ['Limiet bereikt ({n} {var} max)', 'Groep limiet bereikt ({n} {var} max)', ['items', 'item']],
-    multipleSeparator: ', '
-  };
+    $.fn.selectpicker.defaults = {
+        noneSelectedText: 'چیزی انتخاب نشده است',
+        noneResultsText: 'هیج مشابهی برای {0} پیدا نشد',
+        countSelectedText: "{0} از {1} مورد انتخاب شده",
+        maxOptionsText: ['بیشتر ممکن نیست {حداکثر {n} عدد}', 'بیشتر ممکن نیست {حداکثر {n} عدد}'],
+        selectAllText: 'انتخاب همه',
+        deselectAllText: 'انتخاب هیچ کدام',
+        multipleSeparator: ', '
+    };
 })(jQuery);
 
 

@@ -257,6 +257,11 @@ namespace YAF.Editors
                                         new HighLightList { BrushAlias = "css", BrushName = "CSS" },
                                         new HighLightList
                                             {
+                                                BrushAlias = "java",
+                                                BrushName = "Java"
+                                            },
+                                        new HighLightList
+                                            {
                                                 BrushAlias = "javascript",
                                                 BrushName = "JavaScript"
                                             },

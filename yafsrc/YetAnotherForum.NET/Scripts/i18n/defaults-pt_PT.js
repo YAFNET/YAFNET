@@ -22,13 +22,13 @@
 }(this, function () {
 
 (function ($) {
-  $.fn.selectpicker.defaults = {
-    noneSelectedText: 'Niets geselecteerd',
-    noneResultsText: 'Geen resultaten gevonden voor {0}',
-    countSelectedText: '{0} van {1} geselecteerd',
-    maxOptionsText: ['Limiet bereikt ({n} {var} max)', 'Groep limiet bereikt ({n} {var} max)', ['items', 'item']],
-    multipleSeparator: ', '
-  };
+$.fn.selectpicker.defaults = {
+noneSelectedText: 'Nenhum seleccionado',
+noneResultsText: 'Sem resultados contendo {0}',
+countSelectedText: 'Selecionado {0} de {1}',
+maxOptionsText: ['Limite ultrapassado (máx. {n} {var})', 'Limite de seleções ultrapassado (máx. {n} {var})', ['itens', 'item']],
+multipleSeparator: ', '
+};
 })(jQuery);
 
 

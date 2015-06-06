@@ -1,12 +1,12 @@
-/* http://prismjs.com/download.html?themes=prism-funky&languages=markup+css+clike+javascript+aspnet+c+csharp+cpp+css-extras+git+python+sql&plugins=line-numbers+autolinker */
+/* http://prismjs.com/download.html?themes=prism-funky&languages=markup+css+clike+javascript+aspnet+c+csharp+cpp+css-extras+git+java+python+sql&plugins=line-numbers+autolinker */
 try {
     self = (typeof window !== 'undefined')
-        ? window   // if in browser
-        : (
-            (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope)
-            ? self // if in worker
-            : {}   // if in node js
-        );
+	? window   // if in browser
+	: (
+		(typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope)
+		? self // if in worker
+		: {}   // if in node js
+	);
 
     /**
      * Prism: Lightweight, robust, elegant syntax highlighting
@@ -658,7 +658,10 @@ try {
     delete Prism.languages.c['boolean'];;
     Prism.languages.csharp = Prism.languages.extend('clike', {
         'keyword': /\b(abstract|as|async|await|base|bool|break|byte|case|catch|char|checked|class|const|continue|decimal|default|delegate|do|double|else|enum|event|explicit|extern|false|finally|fixed|float|for|foreach|goto|if|implicit|in|int|interface|internal|is|lock|long|namespace|new|null|object|operator|out|override|params|private|protected|public|readonly|ref|return|sbyte|sealed|short|sizeof|stackalloc|static|string|struct|switch|this|throw|true|try|typeof|uint|ulong|unchecked|unsafe|ushort|using|virtual|void|volatile|while|add|alias|ascending|async|await|descending|dynamic|from|get|global|group|into|join|let|orderby|partial|remove|select|set|value|var|where|yield)\b/,
-        'string': /@?("|')(\\?.)*?\1/,
+        'string': [
+            /@("|')(\1\1|\\\1|\\?(?!\1)[\s\S])*\1/,
+            /("|')(\\?.)*?\1/
+        ],
         'preprocessor': /^\s*#.*/m,
         'number': /\b-?(0x[\da-f]+|\d*\.?\d+)\b/i
     });
@@ -759,13 +762,21 @@ try {
         'commit_sha1': /^commit \w{40}$/m
     };
     ;
+    Prism.languages.java = Prism.languages.extend('clike', {
+        'keyword': /\b(abstract|continue|for|new|switch|assert|default|goto|package|synchronized|boolean|do|if|private|this|break|double|implements|protected|throw|byte|else|import|public|throws|case|enum|instanceof|return|transient|catch|extends|int|short|try|char|final|interface|static|void|class|finally|long|strictfp|volatile|const|float|native|super|while)\b/,
+        'number': /\b0b[01]+\b|\b0x[\da-f]*\.?[\da-fp\-]+\b|\b\d*\.?\d+[e]?[\d]*[df]\b|\b\d*\.?\d+\b/i,
+        'operator': {
+            pattern: /(^|[^\.])(?:\+=|\+\+?|-=|--?|!=?|<{1,2}=?|>{1,3}=?|==?|&=|&&?|\|=|\|\|?|\?|\*=?|\/=?|%=?|\^=?|:|~)/m,
+            lookbehind: true
+        }
+    });;
     Prism.languages.python = {
         'comment': {
             pattern: /(^|[^\\])#.*?(\r?\n|$)/,
             lookbehind: true
         },
         'string': /"""[\s\S]+?"""|'''[\s\S]+?'''|("|')(\\?.)*?\1/,
-        'keyword': /\b(as|assert|break|class|continue|def|del|elf|else|except|exec|finally|for|from|global|if|import|in|is|lambda|pass|print|raise|return|try|while|with|yield)\b/,
+        'keyword': /\b(as|assert|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|pass|print|raise|return|try|while|with|yield)\b/,
         'boolean': /\b(True|False)\b/,
         'number': /\b-?(0[box])?(?:[\da-f]+\.?\d*|\.\d+)(?:e[+-]?\d+)?j?\b/i,
         'operator': /[-+]|<=?|>=?|!|={1,2}|&{1,2}|\|?\||\?|\*|\/|~|\^|%|\b(or|and|not)\b/,
@@ -791,10 +802,24 @@ try {
         'punctuation': /[;[\]()`,.]/
     };;
     Prism.hooks.add('after-highlight', function (env) {
-        // works only for <code> wrapped inside <pre data-line-numbers> (not inline)
+        // works only for <code> wrapped inside <pre> (not inline)
         var pre = env.element.parentNode;
-        if (!pre || !/pre/i.test(pre.nodeName) || pre.className.indexOf('line-numbers') === -1) {
+        var clsReg = /\s*\bline-numbers\b\s*/;
+        if (
+            !pre || !/pre/i.test(pre.nodeName) ||
+            // Abort only if nor the <pre> nor the <code> have the class
+            (!clsReg.test(pre.className) && !clsReg.test(env.element.className))
+        ) {
             return;
+        }
+
+        if (clsReg.test(env.element.className)) {
+            // Remove the class "line-numbers" from the <code>
+            env.element.className = env.element.className.replace(clsReg, '');
+        }
+        if (!clsReg.test(pre.className)) {
+            // Add the class "line-numbers" to the <pre>
+            pre.className += ' line-numbers';
         }
 
         var linesNum = (1 + env.code.split('\n').length);

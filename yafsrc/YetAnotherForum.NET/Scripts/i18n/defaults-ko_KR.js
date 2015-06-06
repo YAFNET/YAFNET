@@ -23,19 +23,19 @@
 
 (function ($) {
   $.fn.selectpicker.defaults = {
-    noneSelectedText: 'Нищо избрано',
-    noneResultsText: 'Няма резултат за {0}',
+    noneSelectedText: '항목을 선택해주세요',
+    noneResultsText: '{0} 검색 결과가 없습니다',
     countSelectedText: function (numSelected, numTotal) {
-      return (numSelected == 1) ? "{0} избран елемент" : "{0} избрани елемента";
+      return "{0}개를 선택하였습니다";
     },
     maxOptionsText: function (numAll, numGroup) {
       return [
-        (numAll == 1) ? 'Лимита е достигнат ({n} елемент максимум)' : 'Лимита е достигнат ({n} елемента максимум)',
-        (numGroup == 1) ? 'Груповия лимит е достигнат ({n} елемент максимум)' : 'Груповия лимит е достигнат ({n} елемента максимум)'
+        '{n}개까지 선택 가능합니다',
+        '해당 그룹은 {n}개까지 선택 가능합니다'
       ];
     },
-    selectAllText: 'Избери всички',
-    deselectAllText: 'Размаркирай всички',
+    selectAllText: '전체선택',
+    deselectAllText: '전체해제',
     multipleSeparator: ', '
   };
 })(jQuery);

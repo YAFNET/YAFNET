@@ -1057,7 +1057,7 @@ Test out these custom less files live
   cursor: pointer;
   background-color: #e6bf99;
 }
-/* http://prismjs.com/download.html?themes=prism-okaidia&languages=markup+css+css-extras+clike+javascript+java+php+coffeescript+scss+c+cpp+sql+http+csharp+aspnet+scala+apacheconf+git&plugins=line-highlight+line-numbers+show-language */
+/* http://prismjs.com/download.html?themes=prism-funky&languages=markup+css+clike+javascript+aspnet+c+csharp+cpp+css-extras+git+java+python+sql&plugins=line-numbers+autolinker */ 
 /**
  * okaidia theme for JavaScript, CSS and HTML
  * Loosely based on Monokai textmate theme by http://www.monokai.nl/
@@ -1992,7 +1992,6 @@ pre[class*='language-'] > code[data-language]::before {
   float: left;
   width: 150px;
   margin: 5px 5px 5px 0px;
-  width: 19%;
   clear: left;
 }
 .yafnet .RssFeedIcon {
