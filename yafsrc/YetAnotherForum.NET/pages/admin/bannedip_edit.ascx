@@ -13,14 +13,14 @@
 		</tr>
 		<tr>
 			<td class="postheader" width="50%">
-				<YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="MASK" LocalizedPage="ADMIN_EDITACCESSMASKS" />
+				<YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDIP_EDIT" />
             </td>
 			<td class="post" width="50%">
 				<asp:TextBox Style="width: 250px" ID="mask" runat="server"></asp:TextBox></td>
 		</tr>
 			<tr>
 			<td class="postheader" width="50%">
-				<YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="REASON" LocalizedPage="ADMIN_EDITACCESSMASKS" />
+				<YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="REASON" LocalizedPage="ADMIN_BANNEDIP_EDIT" />
             </td>
 			<td class="post" width="50%">
 				<asp:TextBox Style="width: 250px" ID="BanReason" runat="server"></asp:TextBox></td>
