@@ -912,6 +912,7 @@ namespace YAF.Utilities
                 url: '{2}YafAjax.asmx/GetTopics',
                 type: 'POST',
                 dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
                 minimumInputLength: 0,
                 data: function(params) {{
                     return {{
