@@ -1,6 +1,31 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.2.2
+
+## New Features:
+
+* [NEW #204](https://github.com/YAFNET/YAFNET/issues/204): enhancements to the suspension feature
+* [NEW] Image Attachments & Album images are now opening in modal window in editor preview pane
+* [NEW] Added Search Function to Admin Banned Email/IP/Name Pages
+* [NEW] Added new Password strength check to the Register Page
+* Banned IP/Email/Names Admin Pages now are sorted by newest first
+
+## Fixed Issues:
+* [FIXED #275](https://github.com/YAFNET/YAFNET/issues/275) wrong label text
+* [FIXED #277](https://github.com/YAFNET/YAFNET/issues/277) Search form exception
+* [FIXED #272](https://github.com/YAFNET/YAFNET/issues/272) Notification sending and board name was not used in all forum emails
+* [FIXED] Topic Name where not correctly encoded on the Similar topics control
+* [FIXED] Issue with install scripts in case sensitive data bases
+* [FIXED] Fixed Caching issues
+* [FIXED] Wrong label text on the Add/Edit Album Page
+* [FIXED] Issue where New User Email Notification was send after the user was automatically deleted by the spam check system
+* [FIXED] Issue with saving timezone
+* [FIXED] Provider Scripts where not updated on a Upgrade
+
+### Full Change log here:
+https://github.com/YAFNET/YAFNET/commits/master
+
 # YetAnotherForum.NET v2.2.1
 
 ## New Features:
@@ -17,7 +42,7 @@ YetAnotherForum.NET Changelog
 
 ## Fixed Issues:
 * [FIXED #269](https://github.com/YAFNET/YAFNET/issues/269) Some buttons where visible when post is soft deleted
-* [FIXED #268](https://github.com/YAFNET/YAFNET/issues/268) If current culture is RTL page automatically switches to rtl mode
+* [FIXED #268](https://github.com/YAFNET/YAFNET/issues/268) If current culture is RTL page automatically switches to RTL mode
 * [FIXED #265](https://github.com/YAFNET/YAFNET/issues/265) Event/Spam Log Date Time is now displayed in user time
 * [FIXED #262](https://github.com/YAFNET/YAFNET/issues/262) Pagination on search after navigating back to the search results 
 * [FIXED #261](https://github.com/YAFNET/YAFNET/issues/261) Change Password page Enter key and Submit event 
@@ -42,7 +67,7 @@ YetAnotherForum.NET Changelog
 * Better error descriptions for SSO (Facebook,Google,Twitter)
 * Attachment lists are now loaded paged via AJAX to avoid long loading times
 
-###Full Change log here:
+### Full Change log here:
 https://github.com/YAFNET/YAFNET/commits/master
 
 # YetAnotherForum.NET v2.2.0
