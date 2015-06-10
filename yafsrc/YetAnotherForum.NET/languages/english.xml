@@ -208,7 +208,7 @@
  </page>
  <page name="ADMIN_ATTACHMENTS">
   <Resource tag="CONFIRM_DELETE">Delete attachment(s)?</Resource>
-  <Resource tag="CONTENT_TYPE">Content Type</Resource>BUTTON_DELETE
+  <Resource tag="CONTENT_TYPE">Content Type</Resource>
   <Resource tag="DOWNLOADS">Downloads</Resource>
   <Resource tag="POSTED">Posted</Resource>
   <Resource tag="TITLE">Attachments</Resource>

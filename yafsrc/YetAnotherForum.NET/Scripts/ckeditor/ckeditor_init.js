@@ -1,19 +1,8 @@
-function CKEditor_Load() {
-    if (arguments.callee.done) return;
-
-    arguments.callee.done = true;
-
-
-    CKEDITOR.replaceAll(function(textarea, config) {
-
-        config.disableNativeSpellChecker = false;
-        config.scayt_autoStartup = true;
-
-        config.extraPlugins = 'autosave,bbcodehtml,syntaxhighlight,bbcodeselector,codemirror,textselection';
-
-        config.autosave_saveDetectionSelectors = "a[id*='_PostReply'],a[id*='Cancel']";
-
-        config.toolbar = [
+jQuery(document).ready(function() {
+    jQuery('textarea.YafTextEditor').ckeditor({
+        extraPlugins: 'autosave,bbcodehtml,syntaxhighlight,bbcodeselector,codemirror,textselection,wordcount',
+        autosave_saveDetectionSelectors: "a[id*='_PostReply'],a[id*='Cancel']",
+        toolbar: [
             ['Source'],
             ['Cut', 'Copy', 'Paste'], ['Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'],
             ['-', 'NumberedList', 'BulletedList'],
@@ -24,26 +13,15 @@ function CKEditor_Load() {
             '/',
             ['Bold', 'Italic', 'Underline', '-', 'TextColor', 'Font', 'FontSize'],
             ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'PasteText', 'PasteFromWord'],
-            ['Outdent', 'Indent'],
-            ['Scayt']
-        ];
-
-
-        config.entities_greek = false;
-        config.entities_latin = false;
-        config.language = editorLanguage;
-
-        config.contentsCss = 'Scripts/ckeditor/yaf_contents.css';
-
-        config.codemirror =
+            ['Outdent', 'Indent']
+        ],
+        entities_greek: false,
+        entities_latin: false,
+        language: editorLanguage,
+        contentsCss: 'Scripts/ckeditor/yaf_contents.css',
+        codemirror:
         {
             mode: 'bbcodemixed'
         }
     });
-};
-
-if (document.addEventListener) {
-    document.addEventListener("DOMContentLoaded", CKEditor_Load, false);
-}
-
-window.onload = CKEditor_Load;
+});

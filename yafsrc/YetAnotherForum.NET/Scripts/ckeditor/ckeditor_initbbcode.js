@@ -1,17 +1,8 @@
-﻿function CKEditor_Load() {
-    if (arguments.callee.done) return;
-
-    arguments.callee.done = true;
-
-    CKEDITOR.replaceAll(function(textarea, config) {
-
-        config.extraPlugins = 'autosave,bbcode,syntaxhighlight,bbcodeselector,codemirror';
-        config.disableNativeSpellChecker = false;
-        config.scayt_autoStartup = true;
-
-        config.autosave_saveDetectionSelectors = "a[id*='_PostReply'],a[id*='Cancel']";
-
-        config.toolbar = [
+﻿jQuery(document).ready(function () {
+    jQuery('textarea.YafTextEditor').ckeditor({
+        extraPlugins: 'autosave,bbcode,syntaxhighlight,bbcodeselector,codemirror',
+        autosave_saveDetectionSelectors: "a[id*='_PostReply'],a[id*='Cancel']",
+        toolbar: [
             ['Source'],
             ['Undo', 'Redo'],
             ['-', 'NumberedList', 'BulletedList'],
@@ -22,24 +13,20 @@
             '/',
             ['Bold', 'Italic', 'Underline', '-', 'TextColor', 'Font', 'FontSize'],
             ['JustifyLeft', 'JustifyCenter', 'JustifyRight'],
-            ['Outdent', 'Indent'],
-            ['Scayt']
-        ];
-
-        config.entities_greek = false;
-        config.entities_latin = false;
-        config.language = editorLanguage;
-        config.disableObjectResizing = true;
-        config.forcePasteAsPlainText = true;
-
-        config.contentsCss = 'Scripts/ckeditor/yaf_contents.css';
-
-        config.codemirror = 
+            ['Outdent', 'Indent']
+        ],
+        entities_greek: false,
+        entities_latin: false,
+        language: editorLanguage,
+        disableObjectResizing: true,
+        forcePasteAsPlainText: true,
+        contentsCss: 'Scripts/ckeditor/yaf_contents.css',
+        codemirror:
         {
-            mode : 'bbcode'
+            mode: 'bbcode'
         }
     });
-};
+});
 
 CKEDITOR.on( 'dialogDefinition', function(ev) {
     var tab,
@@ -62,9 +49,3 @@ CKEDITOR.on( 'dialogDefinition', function(ev) {
         tab.remove('basic');
     }
 });
-
-if (document.addEventListener) {
-    document.addEventListener("DOMContentLoaded", CKEditor_Load, false);
-}
-
-window.onload = CKEditor_Load;
