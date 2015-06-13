@@ -24,6 +24,7 @@
 namespace YAF.Modules.BBCode
 {
     using System.Linq;
+    using System.Web;
     using System.Web.UI;
 
     using YAF.Classes;
@@ -61,6 +62,29 @@ namespace YAF.Modules.BBCode
             var filename = attachment.FileName.ToLower();
             var showImage = false;
 
+            var session = this.Get<HttpSessionStateBase>();
+            var settings = this.Get<YafBoardSettings>();
+
+            if (session["imagePreviewWidth"] == null)
+            {
+                session["imagePreviewWidth"] = settings.ImageAttachmentResizeWidth;
+            }
+
+            if (session["imagePreviewHeight"] == null)
+            {
+                session["imagePreviewHeight"] = settings.ImageAttachmentResizeHeight;
+            }
+
+            if (session["imagePreviewCropped"] == null)
+            {
+                session["imagePreviewCropped"] = settings.ImageAttachmentResizeCropped;
+            }
+
+            if (session["localizationFile"] == null)
+            {
+                session["localizationFile"] = this.Get<ILocalization>().LanguageFileName;
+            }
+
             // verify it's not too large to display
             // Ederon : 02/17/2009 - made it board setting
             if (attachment.Bytes.ToType<int>() <= this.Get<YafBoardSettings>().PictureAttachmentDisplayTreshold)
@@ -77,7 +101,7 @@ namespace YAF.Modules.BBCode
                     // user has rights to download, show him image
                     writer.Write(
                         !this.Get<YafBoardSettings>().EnableImageAttachmentResize
-                            ? @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""UserPostedImage"" /></div>"
+                            ? @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""UserPostedImage attachedImage"" />"
                             : @"<a href=""{0}resource.ashx?i={1}&b={3}"" date-img=""{0}resource.ashx?a={1}&b={3}"" class=""attachedImage""><img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" title=""{2}"" /></a>",
                         YafForumInfo.ForumClientFileRoot,
                         attachment.ID,

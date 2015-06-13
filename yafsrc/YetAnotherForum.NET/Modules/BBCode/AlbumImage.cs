@@ -24,9 +24,12 @@
 namespace YAF.Modules.BBCode
 {
     using System.Text;
+    using System.Web;
     using System.Web.UI;
 
+    using YAF.Classes;
     using YAF.Controls;
+    using YAF.Types.Interfaces;
     using YAF.Utils;
 
     /// <summary>
@@ -42,17 +45,40 @@ namespace YAF.Modules.BBCode
         /// </param>
         protected override void Render(HtmlTextWriter writer)
         {
+            var session = this.Get<HttpSessionStateBase>();
+            var settings = this.Get<YafBoardSettings>();
+
+            if (session["imagePreviewWidth"] == null)
+            {
+                session["imagePreviewWidth"] = settings.ImageAttachmentResizeWidth;
+            }
+
+            if (session["imagePreviewHeight"] == null)
+            {
+                session["imagePreviewHeight"] = settings.ImageAttachmentResizeHeight;
+            }
+
+            if (session["imagePreviewCropped"] == null)
+            {
+                session["imagePreviewCropped"] = settings.ImageAttachmentResizeCropped;
+            }
+
+            if (session["localizationFile"] == null)
+            {
+                session["localizationFile"] = this.Get<ILocalization>().LanguageFileName;
+            }
+
             var sb = new StringBuilder();
             
             sb.AppendFormat(
-                @"<a href=""{0}resource.ashx?image={1}"" class=""ceebox"">",
+                @"<a href=""{0}resource.ashx?image={1}"" date-img=""{0}resource.ashx?image={1}"" class=""attachedImage"">",
                 YafForumInfo.ForumClientFileRoot,
-                Parameters["inner"]);
+                this.Parameters["inner"]);
 
             sb.AppendFormat(
                 @"<img src=""{0}resource.ashx?imgprv={1}"" />",
                 YafForumInfo.ForumClientFileRoot,
-                Parameters["inner"]);
+                this.Parameters["inner"]);
 
             sb.Append("</a>");
 

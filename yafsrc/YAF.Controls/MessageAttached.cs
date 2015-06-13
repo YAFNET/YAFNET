@@ -27,7 +27,6 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Web;
     using System.Web.UI;
 
     using YAF.Classes;
@@ -117,13 +116,7 @@ namespace YAF.Controls
             var stats = this.GetText("ATTACHMENTINFO");
             var fileIcon = this.Get<ITheme>().GetItem("ICONS", "ATTACHED_FILE");
 
-            var session = this.Get<HttpSessionStateBase>();
             var settings = this.Get<YafBoardSettings>();
-
-            session["imagePreviewWidth"] = settings.ImageAttachmentResizeWidth;
-            session["imagePreviewHeight"] = settings.ImageAttachmentResizeHeight;
-            session["imagePreviewCropped"] = settings.ImageAttachmentResizeCropped;
-            session["localizationFile"] = this.Get<ILocalization>().LanguageFileName;
 
             var attachments = this.GetRepository<Attachment>().ListTyped(messageID: this.MessageID);
 
@@ -174,7 +167,8 @@ namespace YAF.Controls
                                     @"<div class=""attachedimg""><img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" /></div>", 
                                     YafForumInfo.ForumClientFileRoot, 
                                     attachment.ID, 
-                                    this.HtmlEncode(attachment.FileName));
+                                    this.HtmlEncode(attachment.FileName),
+                                    settings.BoardID);
                             }
                             else
                             {
