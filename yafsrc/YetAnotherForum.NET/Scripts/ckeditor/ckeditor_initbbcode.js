@@ -1,5 +1,5 @@
 ﻿jQuery(document).ready(function () {
-    jQuery('textarea.YafTextEditor').ckeditor({
+    var yafCKEditor = jQuery('textarea.YafTextEditor').ckeditor({
         extraPlugins: 'autosave,bbcode,syntaxhighlight,bbcodeselector,codemirror',
         autosave_saveDetectionSelectors: "a[id*='_PostReply'],a[id*='Cancel']",
         toolbar: [
@@ -25,6 +25,10 @@
         {
             mode: 'bbcode'
         }
+    });
+
+    jQuery("a[id*='_PostReply'],a[id*='_Save']").click(function () {
+        yafCKEditor.editor.updateElement();
     });
 });
 
