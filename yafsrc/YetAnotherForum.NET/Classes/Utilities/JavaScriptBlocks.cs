@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2015 Ingo Herbote
@@ -238,7 +238,7 @@ namespace YAF.Utilities
             {0}
 		    {2}('abbr.timeago').timeago();
 
-            Prism.highlightAll();	
+            Prism.highlightAll();
 			      }} 
                    Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
                    }};".FormatWith(
@@ -856,6 +856,10 @@ namespace YAF.Utilities
                     
                     if ({0}('#fileupload').find('.files tr').length == 0) {{
                         {0}('.UploadDialog').dialog('close');
+                        
+                        var pageSize = 5;
+                        var pageNumber = 0;
+                        getPaginationData(pageSize, pageNumber, false);
                     }}
                 }},
                 formData: {{
