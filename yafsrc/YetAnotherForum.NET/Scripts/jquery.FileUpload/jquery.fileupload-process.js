@@ -29,11 +29,11 @@
 }(function ($) {
     //'use strict';
 
-    var originalAdd = $.blueimp.fileupload.prototype.options.add;
+    var originalAdd = $.blueimp.yafFileUpload.prototype.options.add;
 
     // The File Upload Processing plugin extends the fileupload widget
     // with file processing functionality:
-    $.widget('blueimp.fileupload', $.blueimp.fileupload, {
+    $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
 
         options: {
             // The list of processing actions:

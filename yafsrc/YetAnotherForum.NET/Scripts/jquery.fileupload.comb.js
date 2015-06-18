@@ -1771,7 +1771,7 @@
     // By default, files added via file input selection, paste, drag & drop or
     // "add" method are uploaded immediately, but it is possible to override
     // the "add" callback option to queue file uploads.
-    $.widget('blueimp.fileupload', {
+    $.widget('blueimp.yafFileUpload', {
 
         options: {
             // The drop target element(s), by the default the complete document.
@@ -3183,11 +3183,11 @@
 }(function ($) {
     //'use strict';
 
-    var originalAdd = $.blueimp.fileupload.prototype.options.add;
+    var originalAdd = $.blueimp.yafFileUpload.prototype.options.add;
 
     // The File Upload Processing plugin extends the fileupload widget
     // with file processing functionality:
-    $.widget('blueimp.fileupload', $.blueimp.fileupload, {
+    $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
 
         options: {
             // The list of processing actions:
@@ -3363,7 +3363,7 @@
     //'use strict';
 
     // Prepend to the default processQueue:
-    $.blueimp.fileupload.prototype.options.processQueue.unshift(
+    $.blueimp.yafFileUpload.prototype.options.processQueue.unshift(
         {
             action: 'loadImageMetaData',
             disableImageHead: '@',
@@ -3432,7 +3432,7 @@
 
     // The File Upload Resize plugin extends the fileupload widget
     // with image resize functionality:
-    $.widget('blueimp.fileupload', $.blueimp.fileupload, {
+    $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
 
         options: {
             // The regular expression for the types of images to load:
@@ -3672,7 +3672,7 @@
     //'use strict';
 
     // Append to the default processQueue:
-    $.blueimp.fileupload.prototype.options.processQueue.push(
+    $.blueimp.yafFileUpload.prototype.options.processQueue.push(
         {
             action: 'validate',
             // Always trigger this action,
@@ -3689,7 +3689,7 @@
 
     // The File Upload Validation plugin extends the fileupload widget
     // with file validation functionality:
-    $.widget('blueimp.fileupload', $.blueimp.fileupload, {
+    $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
 
         options: {
             /*
@@ -3797,7 +3797,7 @@
 }(function ($, tmpl) {
     //'use strict';
 
-    $.blueimp.fileupload.prototype._specialOptions.push(
+    $.blueimp.yafFileUpload.prototype._specialOptions.push(
         'filesContainer',
         'uploadTemplateId',
         'downloadTemplateId'
@@ -3805,7 +3805,7 @@
 
     // The UI version extends the file upload widget
     // and adds complete user interface interaction:
-    $.widget('blueimp.fileupload', $.blueimp.fileupload, {
+    $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
 
         options: {
             // By default, files added to the widget are uploaded as soon
@@ -4491,7 +4491,7 @@
     }
 }(function ($) {
     //'use strict';
-    $.widget('blueimp.fileupload', $.blueimp.fileupload, {
+    $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
 
         options: {
             processdone: function (e, data) {

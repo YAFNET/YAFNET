@@ -32,7 +32,7 @@
     'use strict';
 
     // Prepend to the default processQueue:
-    $.blueimp.fileupload.prototype.options.processQueue.unshift(
+    $.blueimp.yafFileUpload.prototype.options.processQueue.unshift(
         {
             action: 'loadAudio',
             // Use the action as prefix for the "@" options:
@@ -50,7 +50,7 @@
 
     // The File Upload Audio Preview plugin extends the fileupload widget
     // with audio preview functionality:
-    $.widget('blueimp.fileupload', $.blueimp.fileupload, {
+    $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
 
         options: {
             // The regular expression for the types of audio files to load,

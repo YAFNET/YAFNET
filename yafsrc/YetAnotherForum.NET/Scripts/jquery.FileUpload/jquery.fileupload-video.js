@@ -32,7 +32,7 @@
     'use strict';
 
     // Prepend to the default processQueue:
-    $.blueimp.fileupload.prototype.options.processQueue.unshift(
+    $.blueimp.yafFileUpload.prototype.options.processQueue.unshift(
         {
             action: 'loadVideo',
             // Use the action as prefix for the "@" options:
@@ -50,7 +50,7 @@
 
     // The File Upload Video Preview plugin extends the fileupload widget
     // with video preview functionality:
-    $.widget('blueimp.fileupload', $.blueimp.fileupload, {
+    $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
 
         options: {
             // The regular expression for the types of video files to load,

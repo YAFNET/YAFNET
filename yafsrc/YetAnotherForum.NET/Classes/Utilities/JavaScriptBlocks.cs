@@ -842,7 +842,7 @@ namespace YAF.Utilities
         {
             return @"{0}(function() {{
 
-            {0}('#fileupload').fileupload({{
+            {0}('#fileupload').yafFileUpload({{
                 url: '{3}',
                 acceptFileTypes: new RegExp('(\.|\/)(' + '{2}' + ')', 'i'),
                 dataType: 'json',

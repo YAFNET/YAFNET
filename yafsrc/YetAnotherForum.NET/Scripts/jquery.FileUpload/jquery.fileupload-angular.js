@@ -30,7 +30,7 @@
 }(function () {
     'use strict';
 
-    angular.module('blueimp.fileupload', [])
+    angular.module('blueimp.yafFileUpload', [])
 
         // The fileUpload service provides configuration options
         // for the fileUpload directive and default handlers for

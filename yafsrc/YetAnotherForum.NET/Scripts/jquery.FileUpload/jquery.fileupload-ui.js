@@ -34,7 +34,7 @@
 }(function ($, tmpl) {
     //'use strict';
 
-    $.blueimp.fileupload.prototype._specialOptions.push(
+    $.blueimp.yafFileUpload.prototype._specialOptions.push(
         'filesContainer',
         'uploadTemplateId',
         'downloadTemplateId'
@@ -42,7 +42,7 @@
 
     // The UI version extends the file upload widget
     // and adds complete user interface interaction:
-    $.widget('blueimp.fileupload', $.blueimp.fileupload, {
+    $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
 
         options: {
             // By default, files added to the widget are uploaded as soon

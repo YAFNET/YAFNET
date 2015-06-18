@@ -29,7 +29,7 @@
     //'use strict';
 
     // Append to the default processQueue:
-    $.blueimp.fileupload.prototype.options.processQueue.push(
+    $.blueimp.yafFileUpload.prototype.options.processQueue.push(
         {
             action: 'validate',
             // Always trigger this action,
@@ -46,7 +46,7 @@
 
     // The File Upload Validation plugin extends the fileupload widget
     // with file validation functionality:
-    $.widget('blueimp.fileupload', $.blueimp.fileupload, {
+    $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
 
         options: {
             /*

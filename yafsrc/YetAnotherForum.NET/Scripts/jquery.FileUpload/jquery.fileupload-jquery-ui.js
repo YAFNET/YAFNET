@@ -23,7 +23,7 @@
     }
 }(function ($) {
     //'use strict';
-    $.widget('blueimp.fileupload', $.blueimp.fileupload, {
+    $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
 
         options: {
             processdone: function (e, data) {

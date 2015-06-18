@@ -21,23 +21,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Controls
 {
     #region Using
 
     using System;
-    using System.Data;
-    using System.Linq;
-    using System.Text;
 
-    using YAF.Classes;
     using YAF.Core;
-    using YAF.Core.Model;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
-    using YAF.Utilities;
     using YAF.Utils;
 
     #endregion

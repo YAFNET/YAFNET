@@ -14505,7 +14505,7 @@ jQuery(document).ready(function () {
 
     if (typeof (jQuery.fn.uitooltip) !== 'undefined') {
         jQuery(document).uitooltip({
-            items: "[data-url]",
+            items: "li[data-url]",
             content: function() {
                 var element = $(this);
                 var text = element.text();
@@ -14548,6 +14548,12 @@ function getPaginationData(pageSize, pageNumber) {
             $('#PostAttachmentListPlaceholder ul').empty();
 
             $("#PostAttachmentLoader").hide();
+
+            if (data.d.AttachmentList.length === 0) {
+                var list = $('#PostAttachmentListPlaceholder ul');
+
+                list.append('<li><em>You don\t have any attachments Yet!</em></li>');
+            }
 
             $.each(data.d.AttachmentList, function (id, data) {
                 var list = $('#PostAttachmentListPlaceholder ul'),
