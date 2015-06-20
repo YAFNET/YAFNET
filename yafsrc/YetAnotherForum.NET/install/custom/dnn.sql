@@ -55,10 +55,10 @@ CREATE PROCEDURE [{databaseOwner}].[RemoveUser]
 	@UserID		int,
 	@PortalID   int
 AS
-    DECLARE @UserName  nvarchar(255)
+    DECLARE @Email  nvarchar(255)
 	DECLARE @YafUserID int
 
-	SELECT @UserName = Username FROM [{databaseOwner}].[Users] WHERE UserId = @UserID
+	SELECT @Email = Email FROM [{databaseOwner}].[Users] WHERE UserId = @UserID
 
 	IF @PortalID IS NULL
 		BEGIN
@@ -84,7 +84,7 @@ AS
 		END
 
 -- Delete user in YAF.NET
-SELECT @YafUserID = UserID FROM [{databaseOwner}].[{objectQualifier}User] WHERE Name = @UserName
+SELECT @YafUserID = UserID FROM [{databaseOwner}].[{objectQualifier}User] WHERE Email = @Email
 				   
 DELETE FROM [{databaseOwner}].[{objectQualifier}UserAlbum] WHERE UserID = @YafUserID
 			   
