@@ -9653,6 +9653,14 @@ try {
         'operator': /\b(?:ALL|AND|ANY|BETWEEN|EXISTS|IN|LIKE|NOT|OR|IS|UNIQUE|CHARACTER SET|COLLATE|DIV|OFFSET|REGEXP|RLIKE|SOUNDS LIKE|XOR)\b|[-+]|!|[=<>]{1,2}|(&){1,2}|\|?\||\?|\*|\//i,
         'punctuation': /[;[\]()`,.]/
     };;
+
+    Prism.languages.vb = {
+        comment: /'.*/,
+        string: /\"[^\"\\\n]*(?:\\.[^\"\\\n]*)*\"/,
+        operator: /[-+*\/]|=?\&lt;|=?\&gt;|=/,
+        number: /\b(?:[+-]?(?:\d*\.?\d+|\d+\.?\d*)(?:[eE][+-]?\d+)?)|(?:0x[a-f0-9]+)\b/,
+        keyword: /\b(?:As|Dim|Each|Else|ElseIf|End|Exit|For|Function|If|In|Next|Not|Public|Private|Set|Sub|Then)\b/i
+    };
     Prism.hooks.add('after-highlight', function (env) {
         // works only for <code> wrapped inside <pre> (not inline)
         var pre = env.element.parentNode;

@@ -276,6 +276,11 @@ namespace YAF.Editors
                                                 BrushAlias = "markup",
                                                 BrushName = "XML"
                                             },
+                                            new HighLightList
+                                            {
+                                                BrushAlias = "vb",
+                                                BrushName = "VB.NET"
+                                            },
                                     };
 
             foreach (HighLightList item in highLightList)
