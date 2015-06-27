@@ -304,10 +304,12 @@ jQuery(document).ready(function () {
 });
 $(document).ready(function () {
     $('.BBCodeEditor').keydown(function (e) {
-        if (e.ctrlKey && !e.altKey && (e.which == 66 || e.which == 73 || e.which == 85 || e.which == 81 || e.which == 13)) {
+        if (e.ctrlKey && !e.altKey && (e.which == 66 || e.which == 73 || e.which == 85 || e.which == 81 || e.which == 13 || e.which == 67)) {
             if (e.which == 66) {
                 wrapSelection(this, '[b]', '[/b]');
-            } else if (e.which == 73) {
+            } else if (e.which == 67) {
+                wrapSelection(this, '[code]', '[/code]');
+            }else if (e.which == 73) {
                 wrapSelection(this, '[i]', '[/i]');
             } else if (e.which == 85) {
                 wrapSelection(this, '[u]', '[/u]');

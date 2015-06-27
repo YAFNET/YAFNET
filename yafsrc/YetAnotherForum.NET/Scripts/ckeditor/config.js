@@ -34,4 +34,13 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
+
+	config.keystrokes = [
+    
+    [CKEDITOR.CTRL + 67, 'codeblock'],    // Ctrl+C Code Block
+    [CKEDITOR.CTRL + 81, 'blockquote'],    // Ctrl+Q Quote
+    [CKEDITOR.CTRL + 72, 'highlight'],    // Ctrl+Highlight
+    [CKEDITOR.CTRL + 13, 'postmessage']    // Ctrl+Enter Post Message
+    
+	];
 };
