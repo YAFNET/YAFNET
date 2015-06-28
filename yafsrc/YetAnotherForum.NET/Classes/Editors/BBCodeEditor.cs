@@ -279,7 +279,7 @@ namespace YAF.Editors
                                             new HighLightList
                                             {
                                                 BrushAlias = "vb",
-                                                BrushName = "VB.NET"
+                                                BrushName = "Visual Basic"
                                             },
                                     };
 
