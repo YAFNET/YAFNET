@@ -9,9 +9,15 @@ YetAnotherForum.NET Changelog
 * [NEW] Image Attachments & Album images are now opening in modal window in editor preview pane
 * [NEW] Added Search Function to Admin Banned Email/IP/Name Pages
 * [NEW] Added new Password strength check to the Register Page
+* [NEW] Image Attachments & Album images are now opening in modal window in editor preview pane
+* [NEW] after new attachment upload list with "current attachments" is autom. updated
+* [NEW] CKEditor now has the same keystrokes as the standard YAF Editor
 * Banned IP/Email/Names Admin Pages now are sorted by newest first
 
 ## Fixed Issues:
+* [FIXED #282](https://github.com/YAFNET/YAFNET/issues/290) Code Highlighting on the post message page inside the last posts
+* [FIXED #282](https://github.com/YAFNET/YAFNET/issues/282) Attachment images dimensions where not correctly set
+* [FIXED #276](https://github.com/YAFNET/YAFNET/issues/276) Banned IP/Email/Names now are sorted by newest first
 * [FIXED #275](https://github.com/YAFNET/YAFNET/issues/275) wrong label text
 * [FIXED #277](https://github.com/YAFNET/YAFNET/issues/277) Search form exception
 * [FIXED #272](https://github.com/YAFNET/YAFNET/issues/272) Notification sending and board name was not used in all forum emails
@@ -22,6 +28,9 @@ YetAnotherForum.NET Changelog
 * [FIXED] Issue where New User Email Notification was send after the user was automatically deleted by the spam check system
 * [FIXED] Issue with saving timezone
 * [FIXED] Provider Scripts where not updated on a Upgrade
+* [FIXED] Re-Added VB language for the code Highlighter
+* IMG bbcode tags can now handle images from google shared photos
+
 
 ### Full Change log here:
 https://github.com/YAFNET/YAFNET/commits/master
