@@ -42,19 +42,6 @@ jQuery(document).ready(function() {
         }
     });
 
-    yafCKEditor.editor.addCommand('codeblock', {
-        modes: { wysiwyg: 1, source: 1 },
-        exec: function (editor) {
-            var selection = editor.getSelection();
-            if (!selection) {
-                editor.insertHtml('[code]' + '[/code]');
-            }
-            var text = selection.getSelectedText();
-
-            editor.insertHtml('[code]' + text + '[/code]');
-        }
-    });
-
     yafCKEditor.editor.addCommand('postmessage', {
         modes: { wysiwyg: 1, source: 1 },
         exec: function () {
