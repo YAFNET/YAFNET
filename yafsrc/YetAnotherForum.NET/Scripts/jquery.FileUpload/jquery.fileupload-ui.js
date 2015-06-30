@@ -91,7 +91,7 @@
                     return false;
                 }
                 var $this = $(this),
-                    that = $this.data('blueimp-fileupload') ||
+                    that = $this.data('blueimp-yafFileUpload') ||
                         $this.data('fileupload'),
                     options = that.options;
                 data.context = that._renderUpload(data.files)
@@ -103,7 +103,7 @@
                 that._forceReflow(data.context);
                 that._transition(data.context);
                 data.process(function () {
-                    return $this.fileupload('process', data);
+                    return $this.yafFileUpload('process', data);
                 }).always(function () {
                     data.context.each(function (index) {
                         $(this).find('.size').text(
@@ -134,8 +134,8 @@
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
-                var that = $(this).data('blueimp-fileupload') ||
-                        $(this).data('fileupload');
+                var that = $(this).data('blueimp-yafFileUpload') ||
+                    $(this).data('fileupload');
                 if (data.context && data.dataType &&
                         data.dataType.substr(0, 6) === 'iframe') {
                     // Iframe Transport does not support progress events.
@@ -158,7 +158,7 @@
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
-                var that = $(this).data('blueimp-fileupload') ||
+                var that = $(this).data('blueimp-yafFileUpload') ||
                         $(this).data('fileupload'),
                     getFilesFromResponse = data.getFilesFromResponse ||
                         that.options.getFilesFromResponse,
@@ -208,7 +208,7 @@
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
-                var that = $(this).data('blueimp-fileupload') ||
+                var that = $(this).data('blueimp-yafFileUpload') ||
                         $(this).data('fileupload'),
                     template,
                     deferred;
@@ -297,7 +297,7 @@
                         .find('.progress-extended');
                 if (extendedProgressNode.length) {
                     extendedProgressNode.html(
-                        ($this.data('blueimp-fileupload') || $this.data('fileupload'))
+                        ($this.data('blueimp-yafFileUpload') || $this.data('fileupload'))
                             ._renderExtendedProgress(data)
                     );
                 }
@@ -314,7 +314,7 @@
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
-                var that = $(this).data('blueimp-fileupload') ||
+                var that = $(this).data('blueimp-yafFileUpload') ||
                         $(this).data('fileupload');
                 that._resetFinishedDeferreds();
                 that._transition($(this).find('.fileupload-progress')).done(
@@ -328,7 +328,7 @@
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
-                var that = $(this).data('blueimp-fileupload') ||
+                var that = $(this).data('blueimp-yafFileUpload') ||
                         $(this).data('fileupload'),
                     deferred = that._addFinishedDeferreds();
                 $.when.apply($, that._getFinishedDeferreds())
@@ -362,7 +362,7 @@
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
-                var that = $(this).data('blueimp-fileupload') ||
+                var that = $(this).data('blueimp-yafFileUpload') ||
                         $(this).data('fileupload'),
                     removeNode = function () {
                         that._transition(data.context).done(

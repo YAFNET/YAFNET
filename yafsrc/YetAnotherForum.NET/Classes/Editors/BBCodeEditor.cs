@@ -251,10 +251,23 @@ namespace YAF.Editors
                                             },
                                         new HighLightList
                                             {
+                                                BrushAlias = "bash",
+                                                BrushName = "Bash(shell)"
+                                            },
+                                        new HighLightList { BrushAlias = "c", BrushName = "C" },
+                                        new HighLightList { BrushAlias = "cpp", BrushName = "C++" },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "csharp",
+                                                BrushName = "C#"
+                                            },
+                                        new HighLightList { BrushAlias = "css", BrushName = "CSS" },
+                                        new HighLightList { BrushAlias = "git", BrushName = "Git" },
+                                        new HighLightList
+                                            {
                                                 BrushAlias = "markup",
                                                 BrushName = "HTML"
                                             },
-                                        new HighLightList { BrushAlias = "css", BrushName = "CSS" },
                                         new HighLightList
                                             {
                                                 BrushAlias = "java",
@@ -265,22 +278,22 @@ namespace YAF.Editors
                                                 BrushAlias = "javascript",
                                                 BrushName = "JavaScript"
                                             },
-                                        new HighLightList { BrushAlias = "c", BrushName = "C" },
-                                        new HighLightList { BrushAlias = "cpp", BrushName = "C++" },
-                                        new HighLightList { BrushAlias = "csharp", BrushName = "C#" },
-                                        new HighLightList { BrushAlias = "git", BrushName = "Git" },
-                                        new HighLightList { BrushAlias = "python", BrushName = "Python" },
+                                        new HighLightList
+                                            {
+                                                BrushAlias = "python",
+                                                BrushName = "Python"
+                                            },
                                         new HighLightList { BrushAlias = "sql", BrushName = "SQL" },
                                         new HighLightList
                                             {
                                                 BrushAlias = "markup",
                                                 BrushName = "XML"
                                             },
-                                            new HighLightList
+                                        new HighLightList
                                             {
                                                 BrushAlias = "vb",
                                                 BrushName = "Visual Basic"
-                                            },
+                                            }
                                     };
 
             foreach (HighLightList item in highLightList)

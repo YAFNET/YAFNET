@@ -207,7 +207,7 @@
                     return false;
                 }
                 if (data.autoUpload || (data.autoUpload !== false &&
-                        $(this).fileupload('option', 'autoUpload'))) {
+                        $(this).yafFileUpload('option', 'autoUpload'))) {
                     data.process().done(function () {
                         data.submit();
                     });

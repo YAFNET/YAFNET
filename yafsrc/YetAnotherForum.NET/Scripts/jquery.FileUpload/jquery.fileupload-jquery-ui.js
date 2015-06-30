@@ -48,7 +48,7 @@
                     ).end()
                     .find('.progress-extended').each(function () {
                         $(this).html(
-                            ($this.data('blueimp-fileupload') ||
+                            ($this.data('blueimp-yafFileUpload') ||
                                     $this.data('fileupload'))
                                 ._renderExtendedProgress(data)
                         );
