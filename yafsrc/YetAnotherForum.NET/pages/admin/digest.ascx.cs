@@ -135,36 +135,38 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void TestSend_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.TextSendEmail.Text.IsNotSet())
+            if (this.TextSendEmail.Text.IsSet())
+            {
+                try
+                {
+                    // create and send a test digest to the email provided...
+                    var digestHtml = this.Get<IDigest>()
+                        .GetDigestHtml(this.PageContext.PageUserID, this.PageContext.BoardSettings, true);
+
+                    // send....
+                    this.Get<IDigest>()
+                        .SendDigest(
+                            digestHtml,
+                            this.PageContext.BoardSettings.Name,
+                            this.PageContext.BoardSettings.ForumEmail,
+                            this.TextSendEmail.Text.Trim(),
+                            "Digest Send Test",
+                            this.SendMethod.SelectedItem.Text == "Queued");
+
+                    this.PageContext.AddLoadMessage(
+                        this.GetText("ADMIN_DIGEST", "MSG_SEND_SUC").FormatWith(this.SendMethod.SelectedItem.Text),
+                        MessageTypes.Success);
+                }
+                catch (Exception ex)
+                {
+                    this.PageContext.AddLoadMessage(
+                        this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR").FormatWith(ex),
+                        MessageTypes.Error);
+                }
+            }
+            else
             {
                 this.PageContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_VALID_MAIL"), MessageTypes.Error);
-            }
-
-            try
-            {
-                // create and send a test digest to the email provided...
-                var digestHtml = this.Get<IDigest>().GetDigestHtml(
-                    this.PageContext.PageUserID,
-                    this.PageContext.BoardSettings,
-                    true);
-
-                // send....
-                this.Get<IDigest>().SendDigest(
-                    digestHtml,
-                    this.Get<YafBoardSettings>().Name,
-                    this.Get<YafBoardSettings>().ForumEmail,
-                    this.TextSendEmail.Text.Trim(),
-                    "Digest Send Test",
-                    this.SendMethod.SelectedItem.Text == "Queued");
-
-                this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_DIGEST", "MSG_SEND_SUC").FormatWith(this.SendMethod.SelectedItem.Text),
-                    MessageTypes.Success);
-            }
-            catch (Exception ex)
-            {
-                this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR").FormatWith(ex), MessageTypes.Error);
             }
         }
 

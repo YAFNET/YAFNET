@@ -86,8 +86,9 @@ namespace YAF.Core.Services
 
             var digestHtml = string.Empty;
 
-            // set timeout to max 10 seconds
-            request.Timeout = 10 * 1000;
+            // set timeout to max 45 seconds
+            request.Timeout = 45 * 1000;
+
             var response = request.GetResponse().ToClass<HttpWebResponse>();
 
             if (response.StatusCode == HttpStatusCode.OK)
