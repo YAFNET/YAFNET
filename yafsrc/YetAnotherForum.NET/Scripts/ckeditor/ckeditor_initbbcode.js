@@ -46,7 +46,8 @@
 
     yafCKEditor.editor.addCommand('postmessage', {
         modes: { wysiwyg: 1, source: 1 },
-        exec: function() {
+        exec: function () {
+            yafCKEditor.editor.updateElement();
             if (jQuery("a[id*='_PostReply']").length) {
                 __doPostBack(jQuery("a[id*='_PostReply']").attr('id').replace('_', '$').replace('_', '$'), '');
             } else if (jQuery("a[id*='_Save']").length) {
