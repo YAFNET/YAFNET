@@ -27,6 +27,7 @@ namespace YAF.Core
     using System.Linq;
 
     using YAF.Classes;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;
