@@ -33,7 +33,6 @@ namespace YAF.Pages.Admin
     using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
-    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -149,7 +148,7 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "delete":
-                    this.GetRepository<Attachment>().DeleteByID(e.CommandArgument.ToType<int>());
+                    this.GetRepository<Attachment>().Delete(e.CommandArgument.ToType<int>());
 
                     this.BindData();
                     break;

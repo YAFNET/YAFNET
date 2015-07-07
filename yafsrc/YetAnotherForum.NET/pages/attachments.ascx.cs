@@ -98,7 +98,7 @@ namespace YAF.Pages
             switch (e.CommandName)
             {
                 case "delete":
-                    this.GetRepository<Attachment>().DeleteByID(e.CommandArgument.ToType<int>());
+                    this.GetRepository<Attachment>().Delete(e.CommandArgument.ToType<int>());
 
                     this.BindData();
                     break;

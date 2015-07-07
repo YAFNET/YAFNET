@@ -23,10 +23,14 @@
  */
 namespace YAF.Core.Model
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
 
     using YAF.Core.Data;
+    using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -39,6 +43,37 @@ namespace YAF.Core.Model
     public static class AttachmentRepositoryExtensions
     {
         #region Public Methods and Operators
+
+        /// <summary>
+        /// The delete.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="attachmentID">
+        /// The board id.
+        /// </param>
+        public static void Delete(this IRepository<Attachment> repository, int attachmentID)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var attachment = repository.ListTyped(attachmentID: attachmentID).FirstOrDefault();
+
+            if (attachment != null)
+            {
+                try
+                {
+                    attachment.DeleteFile();
+                }
+                catch (Exception e)
+                {
+                    // error deleting that file... 
+                    YafContext.Current.Get<ILogger>().Warn(e, "Error Deleting Attachment");
+                }
+            }
+
+            repository.DeleteByID(attachmentID);
+        }
 
         /// <summary>
         /// Increments the download counter.

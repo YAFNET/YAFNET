@@ -21,14 +21,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Helpers
 {
-    using System;
     using System.IO;
     using System.Web.Hosting;
 
     using YAF.Classes;
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Models;
 
     /// <summary>
@@ -51,17 +51,22 @@ namespace YAF.Core
         {
             CodeContracts.VerifyNotNull(attachment, "attachment");
 
-            string uploadDir = HostingEnvironment.MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+            var uploadFolder = HostingEnvironment.MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
-            string fileName = string.Format("{0}/{1}.{2}.yafupload", uploadDir, attachment.MessageID, attachment.FileName);
-            if (File.Exists(fileName))
+            var fileName = string.Format(
+                "{0}/{1}.{2}.yafupload",
+                uploadFolder,
+                attachment.MessageID > 0 ? attachment.MessageID.ToString() : "u{0}".FormatWith(attachment.UserID),
+                attachment.FileName);
+
+            if (!File.Exists(fileName))
             {
-                File.Delete(fileName);
-
-                return true;
+                return false;
             }
 
-            return false;
+            File.Delete(fileName);
+
+            return true;
         }
 
         #endregion
