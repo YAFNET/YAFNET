@@ -2818,7 +2818,7 @@ if not exists(select top 1 1 from sys.columns where object_id = object_id(N'[{da
         fetch next from curMessages into @MessageID, @UserID
         while @@FETCH_STATUS = 0
         begin
-            update [dbo].[yaf_Attachment] SET UserID = @UserID where MessageID = @MessageID and UserID = 0
+            update [{databaseOwner}].[{objectQualifier}Attachment] SET UserID = @UserID where MessageID = @MessageID and UserID = 0
 
             fetch next from curMessages into @MessageID, @UserID
         end

@@ -1951,7 +1951,7 @@ declare @FirstSelectRowID int
            select 
                @TotalRows = count(1) 
            from 
-               [dbo].[yaf_Attachment]
+               [{databaseOwner}].[{objectQualifier}Attachment]
            where
                UserID = @UserID
 		   		
