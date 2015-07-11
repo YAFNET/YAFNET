@@ -74,7 +74,7 @@
                             matchTags: config.matchTags,
                             workDelay: 300,
                             workTime: 35,
-                            readOnly: editor.config.readOnly,
+                            readOnly: editor.readOnly,
                             lineNumbers: config.lineNumbers,
                             lineWrapping: config.lineWrapping,
                             autoCloseTags: config.autoCloseTags,
@@ -634,7 +634,9 @@
                     'role': 'textbox',
                     'aria-label': ariaLabel
                 });
-                textarea.addClass('cke_source cke_reset cke_enable_context_menu');
+                textarea.addClass('cke_source');
+                textarea.addClass('cke_reset');
+                textarea.addClass('cke_enable_context_menu');
                 editor.ui.space('contents').append(textarea);
                 window["editable_" + editor.id] = editor.editable(new sourceEditable(editor, textarea));
                 // Fill the textarea with the current editor data.
@@ -711,7 +713,7 @@
                     matchTags: config.matchTags,
                     workDelay: 300,
                     workTime: 35,
-                    readOnly: editor.config.readOnly,
+                    readOnly: editor.readOnly,
                     lineNumbers: config.lineNumbers,
                     lineWrapping: true,
                     autoCloseTags: config.autoCloseTags,
@@ -960,6 +962,7 @@
             }
 
             editor.on('setData', function (data) {
+ 
                 if (window["editable_" + editor.id] && editor.mode === 'source') {
                     window["codemirror_" + editor.id].setValue(data.data.dataValue);
                 }
@@ -970,6 +973,7 @@
         base: CKEDITOR.editable,
         proto: {
             setData: function(data) {
+
                 this.setValue(data);
 
                 if (this.codeMirror != null) {
@@ -1045,7 +1049,7 @@ CKEDITOR.plugins.sourcearea = {
                 source: 1
             },
             editorFocus: false,
-            readOnly: 1,
+            readOnly: 0,
             exec: function (editor) {
                 var range = {
                     from: window["codemirror_" + editor.id].getCursor(true),
@@ -1061,7 +1065,7 @@ CKEDITOR.plugins.sourcearea = {
                 source: 1
             },
             editorFocus: false,
-            readOnly: 1,
+            readOnly: 0,
             exec: function (editor) {
                 var range = {
                     from: window["codemirror_" + editor.id].getCursor(true),
@@ -1077,7 +1081,7 @@ CKEDITOR.plugins.sourcearea = {
                 source: 1
             },
             editorFocus: false,
-            readOnly: 1,
+            readOnly: 0,
             exec: function(editor) {
                 var range = {
                     from: window["codemirror_" + editor.id].getCursor(true),
