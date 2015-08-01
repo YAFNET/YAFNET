@@ -624,7 +624,11 @@ namespace YAF.Core.Services
             if (this.BoardSettings.AllowPrivateMessages
                 && this.BoardSettings.SendWelcomeNotificationAfterRegister.Equals(2))
             {
-                LegacyDb.pmessage_save(2, userId, subject, emailBody, messageFlags.BitValue, -1);
+                var users = LegacyDb.UserList(YafContext.Current.PageBoardID, null, true, null, null, null).ToList();
+
+                var hostUser = users.FirstOrDefault(u => u.IsHostAdmin > 0);
+
+                LegacyDb.pmessage_save(hostUser.UserID.Value, userId, subject, emailBody, messageFlags.BitValue, -1);
             }
             else
             {
