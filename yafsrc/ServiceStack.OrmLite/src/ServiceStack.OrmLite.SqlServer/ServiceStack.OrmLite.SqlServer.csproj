@@ -72,7 +72,7 @@
   <ItemGroup>
     <Reference Include="ServiceStack.Text, Version=3.4.3.1319, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ServiceStack.Text\bin\Release\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\ServiceStack.Text\bin\Debug\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
