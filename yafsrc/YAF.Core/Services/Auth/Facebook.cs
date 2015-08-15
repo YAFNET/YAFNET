@@ -278,8 +278,8 @@ namespace YAF.Core.Services.Auth
                 }
             }
 
-            // Create User if not exists?!
-            if (!YafContext.Current.IsGuest && !YafContext.Current.Get<YafBoardSettings>().DisableRegistrations)
+            // Only validated logins can go here
+            if (!YafContext.Current.IsGuest)
             {
                 // match the email address...
                 if (facebookUser.Email != YafContext.Current.CurrentUserData.Email)
