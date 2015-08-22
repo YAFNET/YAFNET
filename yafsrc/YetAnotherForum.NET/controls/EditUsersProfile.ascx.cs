@@ -569,6 +569,7 @@ namespace YAF.Controls
             }
 
             this.Country.DataSource = StaticDataHelper.Country();
+            this.Country.ImageLocation = YafForumInfo.GetURLToContent("images/flags/{0}.png");
             this.Country.DataValueField = "Value";
             this.Country.DataTextField = "Name";
 

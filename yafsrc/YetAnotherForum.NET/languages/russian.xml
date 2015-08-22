@@ -1699,6 +1699,7 @@
     <Resource tag="MSG_CODE_BRACK">Пожалуйста, используйте код для использования с этой эмоцией в квадратных скобках.</Resource>
     <Resource tag="MSG_CODE_LONG">Код для использования с этой эмоцией не должен превышать 10 символов.</Resource>
     <Resource tag="MSG_CODE_MISSING">Пожалуйста, введите код для использования с этой эмоцией.</Resource>
+    <Resource tag="MSG_CODE_SAME">Please choose a different code, this one is already in use.</Resource>
     <Resource tag="MSG_NO_EMOTICON">Пожалуйста, введите эмоцию для этой иконки.</Resource>
     <Resource tag="MSG_NO_ICON">Пожалуйста, выберите иконку для использования с этой эмоцией.</Resource>
     <Resource tag="MSG_SORT_NMBR">Порядок сортировки должен быть числом от 0 до 255.</Resource>

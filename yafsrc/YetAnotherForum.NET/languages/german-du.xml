@@ -1701,6 +1701,7 @@
     <Resource tag="MSG_CODE_BRACK">Bitte geben Sie den Code für diese Emotion in "[...]" ein.</Resource>
     <Resource tag="MSG_CODE_LONG">Der Code für diese Emotion darf nicht Länger als 10 Zeichen lang sein.</Resource>
     <Resource tag="MSG_CODE_MISSING">Please enter the code to use for this emotion.</Resource>
+    <Resource tag="MSG_CODE_SAME">Please choose a different code, this one is already in use.</Resource>
     <Resource tag="MSG_NO_EMOTICON">Please enter an emotion for this icon.</Resource>
     <Resource tag="MSG_NO_ICON">Please select an icon to use for this emotion.</Resource>
     <Resource tag="MSG_SORT_NMBR">Sort order must be number between 0 and 255.</Resource>

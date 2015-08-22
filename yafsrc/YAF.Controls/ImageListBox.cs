@@ -31,15 +31,26 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Types.Extensions;
-    using YAF.Utils;
 
     #endregion
 
     /// <summary>
     /// Custom DropDown List Controls with Images
     /// </summary>
-    public class CountryListBox : DropDownList
+    public class ImageListBox : DropDownList
     {
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the image location.
+        /// </summary>
+        /// <value>
+        /// The image location.
+        /// </value>
+        public string ImageLocation { get; set; }
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -50,13 +61,13 @@ namespace YAF.Controls
         /// </param>
         protected override void Render(HtmlTextWriter writer)
         {
-            foreach (ListItem item in this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()))
+            foreach (var item in this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()))
             {
                 item.Attributes.Add("data-class", "customicon");
                 item.Attributes.Add(
                     "data-style",
                     "background-image: url('{0}');".FormatWith(
-                        YafForumInfo.GetURLToContent("images/flags/{0}.png").FormatWith(item.Value)));
+                        this.ImageLocation.FormatWith(item.Value)));
             }
 
             base.Render(writer);

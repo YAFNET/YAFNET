@@ -26,7 +26,7 @@
                 </strong>
             </td>
             <td class="post" width="50%">
-                <asp:DropDownList ID="Icon" runat="server" Width="250" CssClass="standardSelectMenu" />
+                <YAF:ImageListBox ID="Icon" AutoPostBack="true" OnTextChanged="ChangePreview" runat="server" CssClass="selectMenuWithIcons" />
                 &nbsp;
 			
                 <img style="vertical-align: middle" runat="server" id="Preview" src="" alt="" />

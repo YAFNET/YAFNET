@@ -1711,6 +1711,7 @@
     <Resource tag="MSG_CODE_BRACK">Geef de code in voor deze smiley tussen blokhaken</Resource>
     <Resource tag="MSG_CODE_LONG">De code voor de smiley mag niet meer zijn dan 10 karakters</Resource>
     <Resource tag="MSG_CODE_MISSING">Geef hier de code die voor de smiley gebruikt wordt</Resource>
+    <Resource tag="MSG_CODE_SAME">Please choose a different code, this one is already in use.</Resource>
     <Resource tag="MSG_NO_EMOTICON">Geef een emotie voor deze smiley</Resource>
     <Resource tag="MSG_NO_ICON">Kies een icoon om te gebruiken voor deze emotie</Resource>
     <Resource tag="MSG_SORT_NMBR">Sorteervolgorde moet liggen tussen 0 en 255.</Resource>

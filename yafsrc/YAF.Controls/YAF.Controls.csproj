@@ -95,7 +95,7 @@
     <Compile Include="ModernButton.cs" />
     <Compile Include="ModernTextBox.cs" />
     <Compile Include="PopupPanel.cs" />
-    <Compile Include="CountryListBox.cs" />
+    <Compile Include="ImageListBox.cs" />
     <Compile Include="ReCAPTCHA\ReCaptchaJson.cs" />
     <Compile Include="UserStyles.cs" />
     <Compile Include="Localized\ILocalizationSupport.cs" />

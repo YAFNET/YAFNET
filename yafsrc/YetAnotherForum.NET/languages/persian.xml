@@ -1717,6 +1717,7 @@
     <Resource tag="MSG_CODE_BRACK">لطفا کدی را برای استفاده از این احساس در براکت وارد کنید.</Resource>
     <Resource tag="MSG_CODE_LONG">کدی که برای این احساس وارد شده نباید بیش از 10 علامت باشد.</Resource>
     <Resource tag="MSG_CODE_MISSING">لطفا کدی را برای استفاده برای این حس وارد کنید.</Resource>
+    <Resource tag="MSG_CODE_SAME">Please choose a different code, this one is already in use.</Resource>
     <Resource tag="MSG_NO_EMOTICON">لطفا احساسی را برای این آیکون وارد کنید.</Resource>
     <Resource tag="MSG_NO_ICON">لطفا آیکونی را برای این حس انتخاب کنید.</Resource>
     <Resource tag="MSG_SORT_NMBR">ترتیب مرتب سازی باید عددی بین 0 تا 255 باشد.</Resource>
