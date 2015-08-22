@@ -110,9 +110,26 @@ namespace Intelligencia.UrlRewriter
                         var queryStringCollection = HttpUtility.ParseQueryString(new Uri(this.ContextFacade.GetRequestUrl(), context.Location).Query);
 
                         StringBuilder builder = new StringBuilder();
-                        foreach (string value in queryStringCollection.AllKeys.Distinct())
+                        foreach (var value in queryStringCollection.AllKeys.Distinct())
                         {
-                            builder.AppendFormat("{0}={1}&", value, queryStringCollection.GetValues(value).FirstOrDefault());
+                            var argument = queryStringCollection.GetValues(value).FirstOrDefault();
+                            if (value == "g")
+                            {
+                                if (context.Location != argument)
+                                {
+                                    builder.AppendFormat(
+                                        "{0}={1}&",
+                                        value,
+                                        argument);
+                                }
+                            }
+                            else
+                            {
+                                builder.AppendFormat(
+                                   "{0}={1}&",
+                                   value,
+                                   argument);
+                            }
                         }
 
                         context.Location = context.Location.Remove(context.Location.IndexOf("?") + 1);

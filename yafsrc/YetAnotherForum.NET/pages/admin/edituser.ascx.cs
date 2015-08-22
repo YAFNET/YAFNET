@@ -116,11 +116,6 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // we're in the admin section...
-            this.ProfileEditControl.InAdminPages = true;
-            this.SignatureEditControl.InAdminPages = true;
-            this.AvatarEditControl.InAdminPages = true;
-
             this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
             DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null);

@@ -65,11 +65,6 @@ namespace YAF.Controls
         #region Constants and Fields
 
         /// <summary>
-        /// The admin edit mode.
-        /// </summary>
-        private bool adminEditMode;
-
-        /// <summary>
         /// The current user id.
         /// </summary>
         private int currentUserID;
@@ -87,22 +82,6 @@ namespace YAF.Controls
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets or sets a value indicating whether InAdminPages.
-        /// </summary>
-        public bool InAdminPages
-        {
-            get
-            {
-                return this.adminEditMode;
-            }
-
-            set
-            {
-                this.adminEditMode = value;
-            }
-        }
 
         /// <summary>
         /// Gets or sets a value indicating whether UpdateEmailFlag.
@@ -165,7 +144,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(this.adminEditMode ? ForumPages.admin_users : ForumPages.cp_profile);
+            YafBuildLink.Redirect(this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.admin_users : ForumPages.cp_profile);
         }
 
         /// <summary>
@@ -215,7 +194,7 @@ namespace YAF.Controls
 
             this.PageContext.QueryIDs = new QueryStringIDHelper("u");
 
-            if (this.adminEditMode && this.PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
+            if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
             {
                 this.currentUserID = this.PageContext.QueryIDs["u"].ToType<int>();
             }
@@ -314,7 +293,7 @@ namespace YAF.Controls
                                 EventLogTypes.SpamBotDetected);
 
                             // Kill user
-                            if (!this.adminEditMode)
+                            if (!this.PageContext.CurrentForumPage.IsAdminPage)
                             {
                                 var user = UserMembershipHelper.GetMembershipUserById(this.currentUserID);
                                 var userId = this.currentUserID;
@@ -530,7 +509,7 @@ namespace YAF.Controls
 
             this.Get<IDataCache>().Clear();
 
-            if (!this.adminEditMode)
+            if (!this.PageContext.CurrentForumPage.IsAdminPage)
             {
                 YafBuildLink.Redirect(ForumPages.cp_profile);
             }

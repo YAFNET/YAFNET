@@ -55,34 +55,9 @@ namespace YAF.Controls
         #region Constants and Fields
 
         /// <summary>
-        ///   The admin edit mode.
-        /// </summary>
-        private bool _adminEditMode;
-
-        /// <summary>
         ///   The current user id.
         /// </summary>
         private int _currentUserID;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether InAdminPages.
-        /// </summary>
-        public bool InAdminPages
-        {
-            get
-            {
-                return this._adminEditMode;
-            }
-
-            set
-            {
-                this._adminEditMode = value;
-            }
-        }
 
         #endregion
 
@@ -95,7 +70,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Back_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(this._adminEditMode ? ForumPages.admin_users : ForumPages.cp_profile);
+            YafBuildLink.Redirect(this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.admin_users : ForumPages.cp_profile);
         }
 
         /// <summary>
@@ -121,7 +96,7 @@ namespace YAF.Controls
         {
             this.PageContext.QueryIDs = new QueryStringIDHelper("u");
 
-            if (this._adminEditMode && this.PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
+            if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
             {
                 this._currentUserID = this.PageContext.QueryIDs["u"].ToType<int>();
             }
@@ -162,7 +137,7 @@ namespace YAF.Controls
                 "return confirm('{0}?')".FormatWith(this.GetText("CP_EDITAVATAR", "AVATARDELETE"));
 
             string addAdminParam = string.Empty;
-            if (this._adminEditMode)
+            if (this.PageContext.CurrentForumPage.IsAdminPage)
             {
                 addAdminParam = "u={0}".FormatWith(this._currentUserID);
             }
@@ -400,16 +375,16 @@ namespace YAF.Controls
 
             int rowSpan = 2;
 
-            this.AvatarUploadRow.Visible = this._adminEditMode || this.Get<YafBoardSettings>().AvatarUpload;
-            this.AvatarRemoteRow.Visible = this._adminEditMode || this.Get<YafBoardSettings>().AvatarRemote;
-            this.AvatarOurs.Visible = this._adminEditMode || this.Get<YafBoardSettings>().AvatarGallery;
+            this.AvatarUploadRow.Visible = this.PageContext.CurrentForumPage.IsAdminPage || this.Get<YafBoardSettings>().AvatarUpload;
+            this.AvatarRemoteRow.Visible = this.PageContext.CurrentForumPage.IsAdminPage || this.Get<YafBoardSettings>().AvatarRemote;
+            this.AvatarOurs.Visible = this.PageContext.CurrentForumPage.IsAdminPage || this.Get<YafBoardSettings>().AvatarGallery;
 
-            if (this._adminEditMode || this.Get<YafBoardSettings>().AvatarUpload)
+            if (this.PageContext.CurrentForumPage.IsAdminPage || this.Get<YafBoardSettings>().AvatarUpload)
             {
                 rowSpan++;
             }
 
-            if (this._adminEditMode || this.Get<YafBoardSettings>().AvatarRemote)
+            if (this.PageContext.CurrentForumPage.IsAdminPage || this.Get<YafBoardSettings>().AvatarRemote)
             {
                 rowSpan++;
             }

@@ -81,11 +81,6 @@ namespace YAF.Controls
         #region Properties
 
         /// <summary>
-        ///   Gets or sets a value indicating whether InAdminPages.
-        /// </summary>
-        public bool InAdminPages { get; set; }
-
-        /// <summary>
         ///   Gets or sets a value indicating whether InModeratorMode.
         /// </summary>
         public bool InModeratorMode { get; set; }
@@ -113,7 +108,7 @@ namespace YAF.Controls
         {
             get
             {
-                if (this.InAdminPages && this.PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
+                if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
                 {
                     return this.PageContext.QueryIDs["u"].ToType<int>();
                 }
@@ -362,7 +357,7 @@ namespace YAF.Controls
                                     EventLogTypes.SpamBotDetected);
 
                                 // Kill user
-                                if (!this.InAdminPages)
+                                if (!this.PageContext.CurrentForumPage.IsAdminPage)
                                 {
                                     var userIp = new CombinedUserDataHelper(user, userId).LastIP;
 
@@ -390,7 +385,7 @@ namespace YAF.Controls
             // clear the cache for this user...
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
 
-            if (this.InAdminPages)
+            if (this.PageContext.CurrentForumPage.IsAdminPage)
             {
                 this.BindData();
             }
