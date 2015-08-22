@@ -526,7 +526,8 @@ namespace YAF.Controls
                 this.panMessage.Visible = true;
             }
 
-            this.Retweet.Visible = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowRetweetMessageTo) && !this.PostData.PostDeleted && !this.PostData.IsLocked;
+            this.Retweet.Visible = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowRetweetMessageTo)
+                                   && !this.PostData.PostDeleted && !this.PostData.IsLocked;
 
             this.Edit.Visible = !this.PostData.PostDeleted && this.PostData.CanEditPost && !this.PostData.IsLocked;
             this.Edit.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
@@ -543,8 +544,6 @@ namespace YAF.Controls
 
             this.Quote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
             this.MultiQuote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
-
-            this.Retweet.Visible = !this.PostData.PostDeleted && !this.PostData.IsLocked;
 
             this.Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                 ForumPages.postmessage,
