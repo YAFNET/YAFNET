@@ -1900,7 +1900,7 @@
     <Resource tag="UsersandRoles">Users and Roles</Resource>
   </page>
   <page name="ALBUM">
-    <Resource tag="ALBUM_CHANGE_TITLE">Inserisci un titolo</Resource>
+    <Resource tag="ALBUM_CHANGE_TITLE">Inserisci titolo</Resource>
     <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">Inserisci didascalia</Resource>
     <Resource tag="ALBUM_IMAGES_NUMBER">{0} immagini</Resource>
     <Resource tag="ALBUM_VIEW">Click per visualizzare gli album</Resource>
@@ -1909,36 +1909,36 @@
     <Resource tag="ALBUMS_INFO">Attualmente hai {0} album su un massimo di {1} permessi.</Resource>
     <Resource tag="ALBUMS_NOTALLOWED">Non puoi avere album.</Resource>
     <Resource tag="ALBUMS_TITLE">{0} album: {1}</Resource>
-    <Resource tag="BACK_ALBUMS">Go Back to Albums</Resource>
+    <Resource tag="BACK_ALBUMS">Torna agli album</Resource>
     <Resource tag="TITLE">Immagini album</Resource>
   </page>
   <page name="APPROVE">
-    <Resource tag="EMAIL_VERIFIED">Il tuo indirizzo e-mail è stato verificato.</Resource>
+    <Resource tag="EMAIL_VERIFIED">Indirizzo e-mail verificato.</Resource>
     <Resource tag="EMAIL_VERIFY_FAILED">Verifica dell'indirizzo e-mail fallita.</Resource>
     <Resource tag="ENTER_KEY">Digita la chiave di verifica ("validation key") </Resource>
     <Resource tag="TITLE">Verifica l'indirizzo e-mail</Resource>
     <Resource tag="VALIDATE">Verifica</Resource>
   </page>
   <page name="ATTACHMENTS">
-    <Resource tag="ADD_FILES">Add file(s)...</Resource>
+    <Resource tag="ADD_FILES">Aggiungi file...</Resource>
     <Resource tag="ALLOWED_EXTENSIONS">Tipi di file consentiti</Resource>
     <Resource tag="ASK_DELETE">Cancello questo allegato?</Resource>
-    <Resource tag="COMPLETE_WARNING">Please wait until all Upload(s) are completed and the Dialog closes itself!</Resource>
-    <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
+    <Resource tag="COMPLETE_WARNING">Per favore attendi il caricamento di tutti i file, la finestra si chiudera' automaticamente.</Resource>
+    <Resource tag="CURRENT_UPLOADS">Caricamenti in corso:</Resource>
     <Resource tag="DELETE">Cancella</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">Tipi di file non consentiti</Resource>
-    <Resource tag="DROP_HERE">Drop file(s) here</Resource>
-    <Resource tag="FILEERROR">'{0}' Non è un file valido per l'upload.</Resource>
+    <Resource tag="DROP_HERE">Trascina qui i file</Resource>
+    <Resource tag="FILEERROR">'{0}' non e' un file che e' possibile caricare.</Resource>
     <Resource tag="FILENAME">Nome del file</Resource>
     <Resource tag="SELECT_FILE">Seleziona il file da allegare.</Resource>
     <Resource tag="SIZE">Dimensione</Resource>
-    <Resource tag="START_UPLOADS">Start upload(s)</Resource>
+    <Resource tag="START_UPLOADS">Avvia caricamento</Resource>
     <Resource tag="TITLE">Allegati</Resource>
     <Resource tag="UPLOAD">Allega</Resource>
-    <Resource tag="UPLOAD_NEW">Upload New File(s)</Resource>
-    <Resource tag="UPLOAD_NOTE">Nota: la dimensione massima di un allegato è {0} KB.</Resource>
+    <Resource tag="UPLOAD_NEW">Carica un nuovo file</Resource>
+    <Resource tag="UPLOAD_NOTE">Nota: la dimensione massima di un allegato e' {0} KB.</Resource>
     <Resource tag="UPLOAD_TITLE">Allega file</Resource>
-    <Resource tag="UPLOAD_TOOBIG">Non puoi allegare file più grandi di {1} KB. La dimensione del tuo file è di {0} KB.</Resource>
+    <Resource tag="UPLOAD_TOOBIG">Non puoi allegare file piu' grandi di {1} KB. La dimensione del tuo file e' {0} KB.</Resource>
   </page>
   <page name="AVATAR">
     <Resource tag="CANCEL_TITLE">Torna alla pagina di modifica avatar senza selezionarne uno.</Resource>
@@ -1947,10 +1947,10 @@
     <Resource tag="UP_TITLE">Vai alla cartella superiore.</Resource>
   </page>
   <page name="BBCODEMODULE">
-    <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
-    <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
-    <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
-    <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
+    <Resource tag="ALBUMIMG_DESCRIPTION">Inserisci un ID immagine album</Resource>
+    <Resource tag="ATTACH_DESCRIPTION">Inserisci un ID allegato</Resource>
+    <Resource tag="DAILYMOTION_DESCRIPTION">Inserisci URL DayliMotion (http://www.dailymotion.com/video/xxxx)</Resource>
+    <Resource tag="GOOGLEMAPS_DESCRIPTION">Inserisci URL Google Maps</Resource>
     <Resource tag="HIDDENMOD_DESC">Testo nascosto agli utenti che non cliccano su Grazie. Aggiorna la pagina dopo aver ringraziato.</Resource>
     <Resource tag="HIDDENMOD_GROUP">Non godi di privilegi sufficienti per visualizzare i testo nascosto.</Resource>
     <Resource tag="HIDDENMOD_GUEST">Devi essere registrato ed aver effettuato l'accesso al sito per leggere i messaggi di questo forum.</Resource>
@@ -1959,7 +1959,7 @@
     <Resource tag="HIDEGROUPMOD_DESCRIPTION">Testo nascosto agli Ospiti od altri gruppi.</Resource>
     <Resource tag="HIDEMOD_DESCRIPTION">Testo nascosto agli utenti che non cliccano su Grazie.</Resource>
     <Resource tag="HIDEMOD_REPLY">Testo nascosto (devi rispondere al messaggio per visualizzarlo).</Resource>
-    <Resource tag="HIDEMOD_REPLYTHANKS">Testo nascosto (devirispondere al messaggio oppure ringraziare per visualizzarlo)-</Resource>
+    <Resource tag="HIDEMOD_REPLYTHANKS">Testo nascosto (devi rispondere al messaggio oppure ringraziare per visualizzarlo).</Resource>
     <Resource tag="HIDEPOSTS_DESCRIPTION">Testo nascosto agli utenti con meno di X messaggi.</Resource>
     <Resource tag="HIDEREPLY_DESCRIPTION">Testo nascosto agli utenti che non scrivono nella discussione.</Resource>
     <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">Testo nascosto agli utenti che non scrivono nella discussione o non cliccano su Grazie.</Resource>
@@ -1968,16 +1968,16 @@
     <Resource tag="SPOILERMOD_HIDE">Nascondi il testo a scomparsa</Resource>
     <Resource tag="SPOILERMOD_SHOW">Mostra il testo a scomparsa</Resource>
     <Resource tag="SPOILERMOD_TOOLTIP">Clicca qui per mostrare o nascondere il testo a scomparsa (spoiler)</Resource>
-    <Resource tag="TWITTER_DESCRIPTION">Enter the Status ID of the Tweet you want to embed</Resource>
+    <Resource tag="TWITTER_DESCRIPTION">Inserisci lo status ID del tweet da pubblicare</Resource>
     <Resource tag="UERLINKMOD_DESCRIPTION">Inserisci qui il nome dell'utente</Resource>
-    <Resource tag="YOUTUBEMOD_DESCRIPTION">URL condividi YouTube.</Resource>
+    <Resource tag="YOUTUBEMOD_DESCRIPTION">URL condividi YouTube. Togliere s da https.</Resource>
   </page>
   <page name="BUDDY">
     <Resource tag="ADDBUDDY">Aggiungi come amico</Resource>
     <Resource tag="AWAIT_BUDDY_APPROVAL">(In attesa di approvazione dall'amico)</Resource>
     <Resource tag="NOTIFICATION_ALL_APPROVED">Tutte le richieste di amicizia approvate.</Resource>
     <Resource tag="NOTIFICATION_ALL_APPROVED_ADDED">Tutte le richieste di amicizia approvate ed aggiunte alla tua lista di amici.</Resource>
-    <Resource tag="NOTIFICATION_ALL_DENIED">Tutte le richieste di amicizia più vecchie di 14 giorni rifiutate.</Resource>
+    <Resource tag="NOTIFICATION_ALL_DENIED">Tutte le richieste di amicizia piu' vecchie di 14 giorni rifiutate.</Resource>
     <Resource tag="NOTIFICATION_BUDDYAPPROVED">Sei stato aggiunto a {0} liste di amici.</Resource>
     <Resource tag="NOTIFICATION_BUDDYAPPROVED_MUTUAL">Tu e {0} ora siete amici.</Resource>
     <Resource tag="NOTIFICATION_BUDDYDENIED">Richiesta di amicizia rifiutata.</Resource>
@@ -1995,8 +1995,8 @@
     <Resource tag="BUTTON_DELETE">Elimina</Resource>
     <Resource tag="BUTTON_DELETE_TT">Elimina questo messaggio</Resource>
     <Resource tag="BUTTON_DELETEALBUM">Elimina album</Resource>
-    <Resource tag="BUTTON_DELETEATTACHMENT">Delete Attachment(s)</Resource>
-    <Resource tag="BUTTON_DELETEATTACHMENT_TT">Delete selected attachment(s)s</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT">Elimina allegati</Resource>
+    <Resource tag="BUTTON_DELETEATTACHMENT_TT">Elimina gli allegati selezionati</Resource>
     <Resource tag="BUTTON_DELETETOPIC">Elimina discussione</Resource>
     <Resource tag="BUTTON_DELETETOPIC_TT">Elimina questa discussione</Resource>
     <Resource tag="BUTTON_EDIT">Modifica</Resource>
@@ -2041,21 +2041,21 @@
   </page>
   <page name="CHARACTER_CHECKER">
     <Resource tag="ISEMPTY">Il corpo del messaggio non può essere vuoto.</Resource>
-    <Resource tag="ISEXCEEDED">Hai superato il limite di caratteri. Per favore accorcia il tuo messaggio ed invialo nuovamente.</Resource>
+    <Resource tag="ISEXCEEDED">Hai superato il limite di caratteri. Per favore accorcia il tuo messaggio.</Resource>
     <Resource tag="MAXNUMBEROF">Il numero di caratteri massimo in un messaggio è: {0}</Resource>
   </page>
   <page name="COMMON">
-    <Resource tag="ALBUMIMG_BBCODE">Inserisci immagine dall'album...</Resource>
+    <Resource tag="ALBUMIMG_BBCODE">Inserisci immagine dall'album</Resource>
     <Resource tag="ALLOWED">Permesso</Resource>
-    <Resource tag="ATTACH_BBCODE">Insert an existing Attachment or upload a new File...</Resource>
+    <Resource tag="ATTACH_BBCODE">Inserisci un allegato esistente oppure carica un nuovo file</Resource>
     <Resource tag="BACK">Indietro</Resource>
     <Resource tag="BAD_CAPTCHA">Il testo inserito non corrisponde a quello presente nell'immagine di sicurezza.</Resource>
-    <Resource tag="BAD_RECAPTCHA">Please re-enter the reCAPTCHA.</Resource>
+    <Resource tag="BAD_RECAPTCHA">Inserisci nuovamente il reCAPTCHA.</Resource>
     <Resource tag="BAD_USERNAME">Il nome utente non può contenere il punto e virgola (;).</Resource>
     <Resource tag="BBCODE_CODE">Codice:</Resource>
     <Resource tag="BBCODE_QUOTE">Citazione:</Resource>
     <Resource tag="BBCODE_QUOTEPOSTED">Postato in origine da: {0}</Resource>
-    <Resource tag="BBCODE_QUOTEPOSTED_TT">Vai al messaggio quotato</Resource>
+    <Resource tag="BBCODE_QUOTEPOSTED_TT">Vai al messaggio citato</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} ha scritto:</Resource>
     <Resource tag="CAL_JQ_CULTURE">it</Resource>
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">dd/MM/YY</Resource>
@@ -2117,14 +2117,14 @@
     <Resource tag="NO">No</Resource>
     <Resource tag="NONE">Nessuno</Resource>
     <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT">New SPAM BOT User Registered on {0} Forum</Resource>
-    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">You have been award on the {0} Forum</Resource>
+    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">Hai ottenuto il riconoscimento {0} sul forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Nuovi messaggi in attesa di approvazione sul forum {0}</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">E' stato segnalato un messaggio sul forum {0}</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL">New SPAM Message on {0} Forum needs to be checked</Resource>
     <Resource tag="NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT">Registrazione al forum {0} completata</Resource>
-    <Resource tag="NOTIFICATION_ON_SUSPENDING_USER_SUBJECT">Suspension of your {0} Forum Account</Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_USER_SUBJECT">Sospensione account sul forum {0}</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Nuovo utente registrato sul forum {0}</Resource>
-    <Resource tag="NOTIFICATION_ON_WELCOME_USER_SUBJECT">Welcome to the {0} Forum</Resource>
+    <Resource tag="NOTIFICATION_ON_WELCOME_USER_SUBJECT">Benvenuto sul forum {0}</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="OR">o</Resource>
     <Resource tag="PAGES">Pagine</Resource>
@@ -2134,7 +2134,7 @@
     <Resource tag="PRIORITY">Priorità</Resource>
     <Resource tag="READ">Leggi</Resource>
     <Resource tag="REGMAIL_SENT">E' stata inviata un'e-mail. Controlla la tua casella di posta (inclusa la cartella posta indesiderata) e clicca sul link contenuto nella mail ricevuta.</Resource>
-    <Resource tag="REGMAIL_WILL_BE_SEND">Ti sarà inviata un'email all'atto della registrazione. Per poter effettuare il login dovrai controllare la tua casella di posta elettronica e cliccare sul link contenuto nel messaggio ricevuto.</Resource>
+    <Resource tag="REGMAIL_WILL_BE_SEND">Ti sara' inviata un'email all'atto della registrazione. Per poter effettuare il login dovrai controllare la tua casella di posta elettronica e cliccare sul link contenuto nel messaggio ricevuto.</Resource>
     <Resource tag="REPLY">Rispondi</Resource>
     <Resource tag="SAVE">Salva</Resource>
     <Resource tag="SELECT_LOCALE_JS">
@@ -2212,12 +2212,12 @@
     <Resource tag="UNREAD_MSG2">Hai {0} nuovi messaggi nella tua cassetta postale. Vuoi leggerli ora?</Resource>
     <Resource tag="UPDATE">Aggiorna</Resource>
     <Resource tag="USERNAME_TOOLONG">Il nome utente od il nome utente da visualizzare non può essere più lungo di {0} caratteri.</Resource>
-    <Resource tag="USERNAME_TOOSMALL">User Name or Display User Name must be more than {0} characters.</Resource>
+    <Resource tag="USERNAME_TOOSMALL">Il nome utente od il nome utente da visualizzare devono essere piu' lunghi di {0} caratteri.</Resource>
     <Resource tag="VIEW_CATEGORY">Mostra categoria</Resource>
     <Resource tag="VIEW_FORUM">Mostra forum</Resource>
     <Resource tag="VIEW_FULLINFO">Mostra informazioni dettagliate</Resource>
     <Resource tag="VIEW_TOPIC">Mostra discussione</Resource>
-    <Resource tag="VIEW_TOPIC_STARTED_BY">View topic started by {0}</Resource>
+    <Resource tag="VIEW_TOPIC_STARTED_BY">Mostra discussioni iniziate da {0}</Resource>
     <Resource tag="VIEW_USRPROFILE">Mostra profilo</Resource>
     <Resource tag="VOTE">Vota</Resource>
     <Resource tag="YES">Sì</Resource>
@@ -2465,7 +2465,7 @@
   </page>
   <page name="CP_CHANGEPASSWORD">
     <Resource tag="CHANGE_BUTTON">Cambia</Resource>
-    <Resource tag="CHANGE_SUCCESS">La password è stata cambiata.</Resource>
+    <Resource tag="CHANGE_SUCCESS">Password cambiata.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Conferma nuova password:</Resource>
     <Resource tag="NEED_NEW_CONFIRM_PASSWORD">E' necessario confermare la nuova password.</Resource>
     <Resource tag="NEED_NEW_PASSWORD">E' necessaria la nuova password.</Resource>
@@ -2482,14 +2482,14 @@
   <page name="CP_EDITALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">Titolo</Resource>
     <Resource tag="ALBUMS">Album</Resource>
-    <Resource tag="ALBUMS_COUNT_LIMIT">Non puoi creare più di {0} album.</Resource>
+    <Resource tag="ALBUMS_COUNT_LIMIT">Non puoi creare piu' di {0} album.</Resource>
     <Resource tag="ASK_DELETEALBUM">Eliminare questo album?</Resource>
     <Resource tag="ASK_DELETEIMAGE">Eliminare questa immagine?</Resource>
     <Resource tag="ERROR_MAXALBUMS">Non puoi aggiungere altri album a questo account.</Resource>
-    <Resource tag="ERROR_TOOBIG">Non puoi caricare immagini così grandi.</Resource>
+    <Resource tag="ERROR_TOOBIG">Non puoi caricare immagini cosi' grandi.</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Hai raggiunto il tuo limite di immagini pari a {0} per album.</Resource>
     <Resource tag="IMAGES_INFO">Nota: al momento questo album contiene {0} immagini. Ogni album può contenere al massimo {1} immagini. La dimensione massima di una singola immagine è di {2} KB.</Resource>
-    <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
+    <Resource tag="SELECT_FILE">Seleziona un'immagine ('.jpg', '.gif', '.png' or '.bmp') che vuoi caricare.</Resource>
     <Resource tag="TITLE">Crea/modifica album</Resource>
   </page>
   <page name="CP_EDITAVATAR">
@@ -2521,7 +2521,7 @@
     <Resource tag="BUDDYLIST">Elenco amici</Resource>
     <Resource tag="BUDDYLIST_TT">Pannello di controllo amici</Resource>
     <Resource tag="DENY">Rifiuta</Resource>
-    <Resource tag="DENY_ALL">Rifiuta tutte più vecchie di 14 giorni</Resource>
+    <Resource tag="DENY_ALL">Rifiuta tutte piu' vecchie di 14 giorni</Resource>
     <Resource tag="EDIT_BUDDIES">Modifica amici</Resource>
     <Resource tag="NOTIFICATION_APPROVEALL">Accetta tutte le richieste?</Resource>
     <Resource tag="NOTIFICATION_APPROVEALLADD">Accetta tutte le richieste ed aggiungi alla tua lista di amici?</Resource>
@@ -2531,16 +2531,16 @@
     <Resource tag="PENDING_REQUESTS">Richieste in attesa</Resource>
     <Resource tag="POSTS">Messaggi</Resource>
     <Resource tag="REQUEST_DATE">Data richiesta</Resource>
-    <Resource tag="YOUR_BUDDYLIST">I miei amici</Resource>
+    <Resource tag="YOUR_BUDDYLIST">I tuoi amici</Resource>
     <Resource tag="YOUR_REQUESTS">Le tue richieste</Resource>
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Su di te...</Resource>
     <Resource tag="AIM">Il tuo nome AIM:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Vuoi seguire tutte le discussioni in cui hai scritto e ricevere un'e-mail di notifica ad ogni nuovo messaggio in esse?</Resource>
-    <Resource tag="BAD_EMAIL">Hai inserito una e-mail non valida.</Resource>
-    <Resource tag="BAD_FACEBOOK">Hai inserito un valore non corretto come tuo URL del profilo Facebook.</Resource>
-    <Resource tag="BAD_GOOGLE">You have entered an illegal value as Google Profile URL.</Resource>
+    <Resource tag="BAD_EMAIL">Hai inserito un'e-mail non valida.</Resource>
+    <Resource tag="BAD_FACEBOOK">Hai inserito URL del profilo Facebook errato.</Resource>
+    <Resource tag="BAD_GOOGLE">Hai inserito un URL del profilo Google errato.</Resource>
     <Resource tag="BAD_HOME">Hai inserito un indirizzo non valido per la tua home page.</Resource>
     <Resource tag="BAD_ICQ">Hai inserito un valore non valido come numero ICQ.</Resource>
     <Resource tag="BAD_MSN">Hai inserito un indirizzo e-mail non valido per il tuo account MSN.</Resource>
@@ -2556,15 +2556,15 @@
     <Resource tag="EDIT_ALBUMS">Modifica album</Resource>
     <Resource tag="EMAIL">Devi sempre avere un indizzo e-mail valido</Resource>
     <Resource tag="FACEBOOK">L'ID del tuo profilo Facebook:</Resource>
-    <Resource tag="FIELD_TOOLONG">{0} length cannot be more than {1} characters.</Resource>
+    <Resource tag="FIELD_TOOLONG">La lunghezza di {0} non puo' superare {1} caratteri.</Resource>
     <Resource tag="FORUM_SETTINGS">Impostazioni forum</Resource>
-    <Resource tag="GOOGLE">Your Google Profile URL:</Resource>
+    <Resource tag="GOOGLE">URL del tuo profilo Google:</Resource>
     <Resource tag="HIDEME">Invisibile</Resource>
     <Resource tag="HOMEPAGE">Home page:</Resource>
     <Resource tag="HOMEPAGE2">Home page personale:</Resource>
     <Resource tag="ICQ">Il tuo numero ICQ:</Resource>
     <Resource tag="LOCATION">Da dove scrivi?</Resource>
-    <Resource tag="MAIL_SENT">Un'e-mail è stata inviata a {0}. Sara' necessario validare il nuovo indirizzo e-mail cliccando sul link nel messaggio affinché le modifiche abbiano effetto.</Resource>
+    <Resource tag="MAIL_SENT">E-mail inviata a {0}. Validare il nuovo indirizzo e-mail cliccando sul link nel messaggio affinche' le modifiche abbiano effetto.</Resource>
     <Resource tag="MESSENGER">Servizi di instant messaging</Resource>
     <Resource tag="METAWEBLOG_API_ID">ID API MetaWeblog:</Resource>
     <Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(Impostazione opzionale che [b]potrebbe[/b] essere necessaria per alcuni blog (non necessaria per SubText). Provare prima senza, in caso di dubbio.</Resource>
@@ -4136,7 +4136,7 @@ Spoiler Content
 </Resource>
     <Resource tag="THREADOPTTITLE">Topic Options</Resource>
     <Resource tag="TITLE">YetAnotherForum.NET Help</Resource>
-    <Resource tag="WELCOME">Here you can find answers to questions about how the board works. Use the links on the left or the search box below to find what you are looking for. </Resource>
+    <Resource tag="WELCOME">Qui puoi trovare le risposte alle domande sul funzionamento del forum. Usa i collegamenti a sinistra o la ricerca qui sotto. </Resource>
   </page>
   <page name="ICONLEGEND">
     <Resource tag="ANNOUNCEMENT">Annuncio</Resource>
@@ -4159,7 +4159,7 @@ Spoiler Content
   </page>
   <page name="IM_EMAIL">
     <Resource tag="BODY">Scrivi qui il tuo messaggio:</Resource>
-    <Resource tag="ERROR">Si è verificato un errore nell'invio della tua e-mail.</Resource>
+    <Resource tag="ERROR">Si e' verificato un errore nell'invio della tua e-mail.</Resource>
     <Resource tag="SEND">Invia e-mail</Resource>
     <Resource tag="SUBJECT">Soggetto:</Resource>
     <Resource tag="TITLE">E-mail</Resource>
@@ -4179,7 +4179,7 @@ Spoiler Content
   </page>
   <page name="IM_XMPP">
     <Resource tag="SERVEROTHER">L'utente utilizza i server {0}. Per comunicare con lui dovresti registrarti presso di essi perché non risulti avere un account.</Resource>
-    <Resource tag="SERVERSAME">L'utente utilizza lo stesso server XMPP. Puoi connetterti con lui tramite un client come Pidgin. Il suo account è {0}</Resource>
+    <Resource tag="SERVERSAME">L'utente utilizza lo stesso server XMPP. Puoi connetterti con lui tramite un client come Pidgin. Il suo account e' {0}</Resource>
     <Resource tag="SERVERYOU">Sei sicuro di voler parlare a te stesso?</Resource>
     <Resource tag="TITLE">XMPP Messenger</Resource>
   </page>
@@ -4190,24 +4190,24 @@ Spoiler Content
     <Resource tag="ACCESSDENIED">Hai provato ad entrare in un'area alla quale non puoi accedere.</Resource>
     <Resource tag="CONTINUE">Continua...</Resource>
     <Resource tag="COOKIES">Devi abilitare i cookie nel browser per usare il forum.</Resource>
-    <Resource tag="DISABLED">L'amministratore del forum ha disabilitato questa funzionalità.</Resource>
+    <Resource tag="DISABLED">L'amministratore del forum ha disabilitato questa funzionalita'.</Resource>
     <Resource tag="ECMAREQUIRED">Devi abilitare JavaScript nel browser per usare il forum.</Resource>
-    <Resource tag="ECMAVERSION">La tua versione di JavaScript non è supportata. Per favore aggiorna il browser.</Resource>
+    <Resource tag="ECMAVERSION">La tua versione di JavaScript non e' supportata. Per favore aggiorna il browser.</Resource>
     <Resource tag="EXCEPTION">Sei loggato come</Resource>
-    <Resource tag="FAILURE">Si è verificato un errore di sistema nell'esecuzione della tua richiesta. Per favore contatta l'amministratore del forum indicando ciò che stavi facendo quando si è verificato questo errore.</Resource>
-    <Resource tag="HOSTADMINPERMISSIONSREQUIRED">To access the area your board's Host Admin should set some extra permissions for you.</Resource>
+    <Resource tag="FAILURE">Si e' verificato un errore di sistema nell'esecuzione della tua richiesta. Per favore contatta l'amministratore del forum indicando cosa che stavi facendo.</Resource>
+    <Resource tag="HOSTADMINPERMISSIONSREQUIRED">L'amministratore deve assegnarti ulteriori permessi per accedere a quest'area.</Resource>
     <Resource tag="INVALID">Hai inserito un valore non valido nel forum.</Resource>
     <Resource tag="MODERATED">Un moderatore deve approvare il tuo post prima che sia reso visibile a tutti quando lo invii ad un forum moderato.</Resource>
-    <Resource tag="REGISTRATION">Un'e-mail è stata inviata all'indirizzo che hai fornito. Per favore leggi le istruzioni  per effettuare il log in.</Resource>
-    <Resource tag="SUSPENDED">Il tuo account è stato sospeso fino a {0}.</Resource>
-    <Resource tag="SUSPENDED_REASON">&lt;br /&gt;&lt;br /&gt;For the following Reason: "{0}".</Resource>
+    <Resource tag="REGISTRATION">Un'e-mail è stata inviata all'indirizzo che hai fornito. Per favore leggi le istruzioni per accedere.</Resource>
+    <Resource tag="SUSPENDED">Il tuo account e' stato sospeso fino a {0}.</Resource>
+    <Resource tag="SUSPENDED_REASON">&lt;br /&gt;&lt;br /&gt;Per il seguente motivo: "{0}".</Resource>
     <Resource tag="TITLE_ACCESSDENIED">Accesso negato</Resource>
     <Resource tag="TITLE_COOKIES">Cookie necessari</Resource>
     <Resource tag="TITLE_ECMAREQUIRED">Javascript necessario</Resource>
     <Resource tag="TITLE_ECMAVERSION">Versione Javascript</Resource>
     <Resource tag="TITLE_EXCEPTION">Informazioni</Resource>
     <Resource tag="TITLE_FAILURE">Non riuscito</Resource>
-    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions reqired!</Resource>
+    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Richiesti diritti di host!</Resource>
     <Resource tag="TITLE_INVALID">Non valido</Resource>
     <Resource tag="TITLE_MODERATED">Informazioni</Resource>
     <Resource tag="TITLE_REGISTRATION">Grazie</Resource>
@@ -4217,44 +4217,44 @@ Spoiler Content
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
   </page>
   <page name="LOGIN">
-    <Resource tag="AUTH_CONNECT">Login or Register with {0}</Resource>
-    <Resource tag="AUTH_CONNECT_ACCOUNT">Connect an Existing forums account with your {0} account You need to login thru the forums first. {1}</Resource>
-    <Resource tag="AUTH_CONNECT_FACEBOOK">&lt;strong&gt;The Facebook email address must match the forum user email address to connect the user.&lt;/strong&gt;</Resource>
-    <Resource tag="AUTH_CONNECT_GOOGLE">&lt;strong&gt;The Google email address must match the forum user email address to connect the user.&lt;/strong&gt;</Resource>
-    <Resource tag="AUTH_CONNECT_HELP">Login or Register with {0} or connect an existing User Account with {0}.</Resource>
-    <Resource tag="AUTH_CONNECT_TWITTER">&lt;strong&gt;The Twitter user name must match the forum user name to connect the user.&lt;/strong&gt;</Resource>
-    <Resource tag="AUTH_LOGIN_EXISTING">Login with an user Account that is connected with {0}. Or if no account is found a new account will be automatically created in the forums.</Resource>
-    <Resource tag="AUTH_NO_ACCESS_TOKEN">Could not get access_token!</Resource>
+    <Resource tag="AUTH_CONNECT">Accedi o registrati tramite {0}</Resource>
+    <Resource tag="AUTH_CONNECT_ACCOUNT">Collega un account forum preesistente con un account {0}. Devi prima accedere al forum. {1}</Resource>
+    <Resource tag="AUTH_CONNECT_FACEBOOK">&lt;strong&gt;L'indirizzo e-mail Facebook deve corrispondere a quello usato sul forum per collegare i due account..&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_CONNECT_GOOGLE">&lt;strong&gt;L'indirizzo e-mail Google deve corrispondere a quello usato sul forum per collegare i due account.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_CONNECT_HELP">Accedi o registrati tramit {0} oppure collega un account forum a {0}.</Resource>
+    <Resource tag="AUTH_CONNECT_TWITTER">&lt;strong&gt;Il nome utente Twitter deve essere uguale a quello del forum per collegare i due account.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_LOGIN_EXISTING">Accedi con un account collegato tramite {0} oppure sara' automaticamente creato un nuovo account forum.</Resource>
+    <Resource tag="AUTH_NO_ACCESS_TOKEN">Impossibile generare il token di accesso!</Resource>
     <Resource tag="AUTO">Ricordami</Resource>
     <Resource tag="BOTH_USERNAME_EMAIL">E' necessario indicare sia il nome utente sia l'indirizzo e-mail.</Resource>
-    <Resource tag="CAPS_LOCK">Caps Lock is on</Resource>
-    <Resource tag="CONNECT_VIA">Or Connect via</Resource>
+    <Resource tag="CAPS_LOCK">Blocco maiuscole inserito</Resource>
+    <Resource tag="CONNECT_VIA">Oppure accedi tramite</Resource>
     <Resource tag="EMAIL">Indirizzo e-mail</Resource>
-    <Resource tag="EMAIL_SENT_PASSWORD">E' stata inviata un'e-ail con la tua nuova password.</Resource>
+    <Resource tag="EMAIL_SENT_PASSWORD">E-mail con nuova password inviata.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Accedi tramite Facebook</Resource>
     <Resource tag="FORUM_LOGIN">Autenticazione forum</Resource>
-    <Resource tag="GOOGLE_LOGIN">Login with Google</Resource>
+    <Resource tag="GOOGLE_LOGIN">Accedi tramite Google</Resource>
     <Resource tag="LOSTPASSWORD">Password perduta</Resource>
     <Resource tag="PASSWORD">Password:</Resource>
     <Resource tag="PASSWORD_ERROR">Nome utente o password non corretti. Per favore riprova.</Resource>
     <Resource tag="RECOVER">Recupera password</Resource>
-    <Resource tag="RECOVER_ERROR">Si è verificato un errore nella creazione della nuova password.</Resource>
-    <Resource tag="REGISTER_INSTEAD">Register Instead as new User</Resource>
+    <Resource tag="RECOVER_ERROR">Errore nella creazione della nuova password.</Resource>
+    <Resource tag="REGISTER_INSTEAD">Registrati come nuovo utente.</Resource>
     <Resource tag="SENDPASSWORD">Invia password</Resource>
-    <Resource tag="SSO_DEACTIVATED">Il single sign-on è stato disabilitato dall'amministratore.</Resource>
-    <Resource tag="SSO_DEACTIVATED_BYUSER">Il single sign-on è disabilitato per questo utente, devi abilitarlo nelle impostazioni del tuo profilo..</Resource>
+    <Resource tag="SSO_DEACTIVATED">Single sign-on disabilitato dall'amministratore.</Resource>
+    <Resource tag="SSO_DEACTIVATED_BYUSER">Single sign-on disabilitato per questo utente, devi abilitarlo nelle impostazioni del tuo profilo..</Resource>
     <Resource tag="SSO_FACEBOOK_FAILED">The Facebook Login failed, User does not exists, or the account is not connected.</Resource>
-    <Resource tag="SSO_FACEBOOK_FAILED2">The Facebook Login failed, an user account with the same email address as the facebook account already exists, please try to connect you your forum account instead.</Resource>
+    <Resource tag="SSO_FACEBOOK_FAILED2">Accesso tramite Facebook non riuscito. Esiste già un account forum con la stessa e-mail dell'account Facebook. Usa un normale account forum.</Resource>
     <Resource tag="SSO_FACEBOOKNAME_NOTMATCH">The Facebook email address must match the Forum email adress!</Resource>
     <Resource tag="SSO_FAILED">New Registrations are disabled.</Resource>
-    <Resource tag="SSO_GOOGLE_FAILED">The Google Login failed, User does not exists, or the account is not connected.</Resource>
-    <Resource tag="SSO_GOOGLE_FAILED2">The Google Login failed, an user account with the same email address as the Google account already exists, please try to connect you your forum account instead.</Resource>
-    <Resource tag="SSO_GOOGLENAME_NOTMATCH">The Google email address must match the Forum email adress!</Resource>
+    <Resource tag="SSO_GOOGLE_FAILED">Accesso tramite Google non riuscito. L'utente non esiste oppore non e' connesso.</Resource>
+    <Resource tag="SSO_GOOGLE_FAILED2">Accesso tramite Google non riuscito. Esiste un utente del forum con lo stesso nome Google. Usa un normale account forum.</Resource>
+    <Resource tag="SSO_GOOGLENAME_NOTMATCH">L'e-mail Google deve corrispondere all'e-mail usata sul forum!</Resource>
     <Resource tag="SSO_ID_NOTMATCH">L'ID utente Facebook non corrisponde!</Resource>
     <Resource tag="SSO_TWITTER_FAILED">Accesso tramite Twitter non riuscito, l'utente non esiste.</Resource>
-    <Resource tag="SSO_TWITTER_FAILED2">The Twitter Login failed, an user account with the same user name as the Twitter account already exists, please try to connect you your forum account instead.</Resource>
+    <Resource tag="SSO_TWITTER_FAILED2">Accesso tramite Twitter non riuscito, esiste un utente del forum con lo stesso nome Twitter. Usa un normale account forum.</Resource>
     <Resource tag="SSO_TWITTERID_NOTMATCH">L'ID ed il nome Twitter non corrispondono!</Resource>
-    <Resource tag="SSO_TWITTERNAME_NOTMATCH">The Twitter User Name must match the Forum Username!</Resource>
+    <Resource tag="SSO_TWITTERNAME_NOTMATCH">Il nome utente Twittere deve corrispondere al nome utente del Forum!</Resource>
     <Resource tag="TITLE">Login</Resource>
     <Resource tag="TWITTER_DM">Hai ricevuto nuove informazioni sul tuo account tramite un messaggio privato sul forum.</Resource>
     <Resource tag="TWITTER_DM_ACCOUNT">Le tue informazioni sull'account {0}: Nome utente "{1}"; password "{2}".</Resource>
@@ -4283,27 +4283,27 @@ Spoiler Content
     <Resource tag="USERNAME">Nome utente</Resource>
   </page>
   <page name="MESSAGEHISTORY">
-    <Resource tag="COMPARE_TITLE">Message Edit History Post Comparsion</Resource>
-    <Resource tag="COMPARE_VERSIONS">Compare versions</Resource>
-    <Resource tag="CONFIRM_RESTORE">Are you really want to restore that Message version?</Resource>
+    <Resource tag="COMPARE_TITLE">Comparazione storico modifiche messaggio</Resource>
+    <Resource tag="COMPARE_VERSIONS">Comparazione versioni</Resource>
+    <Resource tag="CONFIRM_RESTORE">Sicuro di voler ripristinare questa versione?</Resource>
     <Resource tag="CURRENTMESSAGE">Versione corrente</Resource>
     <Resource tag="EDITED">Modificato:</Resource>
     <Resource tag="EDITEDBY">Modificato da:</Resource>
-    <Resource tag="EDITEDBY_MOD">Edited By an Moderator</Resource>
+    <Resource tag="EDITEDBY_MOD">Modificato da un moderatore.</Resource>
     <Resource tag="EDITEREASON">Motivo della modifica:</Resource>
     <Resource tag="GOMODERATE">Continua la moderazione</Resource>
     <Resource tag="HISTORYSTART">Storico versioni</Resource>
-    <Resource tag="MESSAGE_EDITEDAT">Message Edited at </Resource>
-    <Resource tag="MESSAGE_RESTORED">Message was successfully restored!</Resource>
-    <Resource tag="NEW">New</Resource>
-    <Resource tag="NOTHING_SELECTED">Nothing selected</Resource>
-    <Resource tag="OLD">Old</Resource>
+    <Resource tag="MESSAGE_EDITEDAT">Messaggio modificato alle </Resource>
+    <Resource tag="MESSAGE_RESTORED">Messaggio ripristinato!</Resource>
+    <Resource tag="NEW">Nuovo</Resource>
+    <Resource tag="NOTHING_SELECTED">Nessuna selezione</Resource>
+    <Resource tag="OLD">Vecchio</Resource>
     <Resource tag="ORIGINALMESSAGE">Versione originale</Resource>
     <Resource tag="POSTED">Inviato:</Resource>
-    <Resource tag="RESTORE_MESSAGE">Restore Version</Resource>
-    <Resource tag="SELECT_BOTH">Please select one old and one new Message</Resource>
-    <Resource tag="SELECT_DIFFERENT">You must select two different versions to make a valid comparison.</Resource>
-    <Resource tag="TEXT_CHANGES">Text Changes</Resource>
+    <Resource tag="RESTORE_MESSAGE">Ripristina versione</Resource>
+    <Resource tag="SELECT_BOTH">Seleziona un vecchio ed un nuovo messaggio</Resource>
+    <Resource tag="SELECT_DIFFERENT">Devi selezionare due diverse versioni per compararle.</Resource>
+    <Resource tag="TEXT_CHANGES">Modifiche testo</Resource>
     <Resource tag="TITLE">Storico messaggio</Resource>
     <Resource tag="TOMESSAGE">Vai al messaggio</Resource>
   </page>
@@ -4533,11 +4533,11 @@ Spoiler Content
     <Resource tag="STATUS">Statò:</Resource>
     <Resource tag="STICKY">In rilievo</Resource>
     <Resource tag="SUBJECT">Oggetto:</Resource>
-    <Resource tag="SUBJECT_DUPLICATE">Esiste già una discussione con oggetto uguale o molto simile.</Resource>
+    <Resource tag="SUBJECT_DUPLICATE">Esiste gia' una discussione con oggetto uguale o molto simile.</Resource>
     <Resource tag="TOPIC_DESCRIPTION_TOOLONG">La descrizione della discussione non può essere più lunga di 255 caratteri.</Resource>
-    <Resource tag="TOPIC_DESCRIPTION_WORDTOOLONG">Le singole parole usate nella descrizione della discussione non possono essere più lunghe di {0} caratteri. Suggerimento: usa delle abbreviazioni.</Resource>
+    <Resource tag="TOPIC_DESCRIPTION_WORDTOOLONG">Le singole parole usate nella descrizione della discussione non possono essere lunghe oltre {0} caratteri. Suggerimento: usa delle abbreviazioni.</Resource>
     <Resource tag="TOPIC_NAME_TOOLONG">L'oggetto della discussione non può essere più lungo di 255 caratteri.</Resource>
-    <Resource tag="TOPIC_NAME_WORDTOOLONG">Le singole parole usate nell'oggetto della discussione non possono essere più lunghe di {0} caratteri. Suggerimento: usa delle abbreviazioni.</Resource>
+    <Resource tag="TOPIC_NAME_WORDTOOLONG">Le singole parole usate nell'oggetto della discussione non possono essere lunghe oltre {0} caratteri. Suggerimento: usa delle abbreviazioni.</Resource>
     <Resource tag="TOPICATTACH">Vuoi allegare dei file a questo messaggio?</Resource>
     <Resource tag="TOPICWATCH">Segui questa discussione e ricevi notifiche delle attività via e-mail</Resource>
     <Resource tag="WAIT">Non puoi inviare nuovi messaggi per i prossimi {0:N0} secondi.</Resource>
@@ -4589,9 +4589,9 @@ Spoiler Content
     <Resource tag="IMAGE_RESIZE_VIEWS">{0} Visualizzazioni</Resource>
     <Resource tag="IMAGE_TEXT">Immagine</Resource>
     <Resource tag="INFO_NOMORETOPICS">Non ci sono altre discussioni in questo forum.</Resource>
-    <Resource tag="INFO_TOPIC_LOCKED">La discussione è stata bloccata.</Resource>
-    <Resource tag="INFO_TOPIC_UNLOCKED">La discussione è stata sbloccata.</Resource>
-    <Resource tag="INFO_UNWATCH_TOPIC">Non riceverai più notifiche quando saranno inseriti nuovi messaggi in questa discussione.</Resource>
+    <Resource tag="INFO_TOPIC_LOCKED">Discussione bloccata.</Resource>
+    <Resource tag="INFO_TOPIC_UNLOCKED">Discussione sbloccata.</Resource>
+    <Resource tag="INFO_UNWATCH_TOPIC">Non riceverai notifiche quando saranno inseriti nuovi messaggi in questa discussione.</Resource>
     <Resource tag="INFO_VOTED">Grazie per il tuo voto!</Resource>
     <Resource tag="INFO_WATCH_TOPIC">D'ora in poi riceverai una notifica quando saranno inseriti nuovi messaggi in questa discussione.</Resource>
     <Resource tag="IP">IP</Resource>
@@ -4620,7 +4620,7 @@ Spoiler Content
     <Resource tag="QUICKREPLY">Risposta rapida</Resource>
     <Resource tag="QUICKREPLY_HIDE">Nascondi risposta rapida</Resource>
     <Resource tag="QUICKREPLY_SHOW">Mostra risposta rapida</Resource>
-    <Resource tag="QUOTE_SELECTED">Quote Selected Message</Resource>
+    <Resource tag="QUOTE_SELECTED">Cita testo selezionato</Resource>
     <Resource tag="RANK">Rank</Resource>
     <Resource tag="REDDIT_TOPIC">Reddit questa discussione</Resource>
     <Resource tag="REP_VOTE_DOWN_MSG">-1 per il karma di {0} assegnato.</Resource>
@@ -4634,7 +4634,7 @@ Spoiler Content
     <Resource tag="RSSTOPIC">Feed RSS</Resource>
     <Resource tag="SHARE">Condividi</Resource>
     <Resource tag="SHARE_TOOLTIP">Condividi questa discussione tramite e-mail, Twitter, Google+, Facebook, Digg, Reddit o Tumblr.</Resource>
-    <Resource tag="SIMILAR_TOPICS">Similar Topics</Resource>
+    <Resource tag="SIMILAR_TOPICS">Discussioni simili</Resource>
     <Resource tag="SKYPE">Skype</Resource>
     <Resource tag="SKYPE_TITLE">Contata {0} tramite Skype</Resource>
     <Resource tag="STATISTICS">Statistiche</Resource>
@@ -4737,11 +4737,11 @@ Spoiler Content
     <Resource tag="SKYPE">ID Skype:</Resource>
     <Resource tag="STATISTICS">Statistiche</Resource>
     <Resource tag="SUSPEND">Sospendi</Resource>
-    <Resource tag="SUSPEND_BY">Suspended By:</Resource>
-    <Resource tag="SUSPEND_CURRENT">Current Suspension</Resource>
-    <Resource tag="SUSPEND_INFO">&lt;strong&gt;NOTE&lt;/strong&gt; The Suspension is based on the Users current Date and Time which is Now: {0}.</Resource>
+    <Resource tag="SUSPEND_BY">Sospeso da:</Resource>
+    <Resource tag="SUSPEND_CURRENT">Sospensione in corso</Resource>
+    <Resource tag="SUSPEND_INFO">&lt;strong&gt;NOTE&lt;/strong&gt; La sospensione si basa su data e ora locali dell'utente: {0}.</Resource>
     <Resource tag="SUSPEND_NEW">New Suspension</Resource>
-    <Resource tag="SUSPEND_REASON">Suspend Reason:</Resource>
+    <Resource tag="SUSPEND_REASON">Motivo della sospensione:</Resource>
     <Resource tag="SUSPEND_USER">Sospendi utente:</Resource>
     <Resource tag="THANKSFROM">Ringraziamenti:</Resource>
     <Resource tag="THANKSTOPOSTS">Numero di messaggi per i quali questo utente è stato ringraziato:</Resource>
@@ -4873,13 +4873,13 @@ Spoiler Content
   </page>
   <page name="REGISTER">
     <Resource tag="ACCOUNT_CREATED">[center]Il tuo accont è stato creato.[/center]</Resource>
-    <Resource tag="ACCOUNT_CREATED_VERIFICATION">[center]Il tuo account è stato creato, ma devi confermare la tua e-mail prima di accedere. Per favore segui le istruzioni per la verifica che ti sono state inviate tramite posta elettronica.[/center]</Resource>
-    <Resource tag="ALREADY_REGISTERED">Il tuo nome utente od il tuo indirizzo e-mail sono già in uso.</Resource>
-    <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Il tuo nome visualizzato è già in uso.</Resource>
+    <Resource tag="ACCOUNT_CREATED_VERIFICATION">[center]Account creato, ora conferma la tua e-mail seguendo le istruzioni che ti sono state inviate.[/center]</Resource>
+    <Resource tag="ALREADY_REGISTERED">Il tuo nome utente od il tuo indirizzo e-mail sono gia' in uso.</Resource>
+    <Resource tag="ALREADY_REGISTERED_DISPLAYNAME">Il tuo nome visualizzato e' gia' in uso.</Resource>
     <Resource tag="BAD_EMAIL">Hai inserito un indirizzo e-mail non valido.</Resource>
-    <Resource tag="BAD_PASSWORD">Per favore scegli una password più complessa che contenga dei segni di punteggiatura oppure dei numeri.</Resource>
+    <Resource tag="BAD_PASSWORD">Per favore scegli una password piu' complessa che contenga maiuscole, minuscole, numeri e caratteri speciali.</Resource>
     <Resource tag="BASIC_ACCOUNT">Account</Resource>
-    <Resource tag="BOT_MESSAGE">Sorry Spammers are not allowed in the Forum!</Resource>
+    <Resource tag="BOT_MESSAGE">Spiacenti, ma gli spammer non sono ammessi su questo forum!</Resource>
     <Resource tag="CONFIRM_PASSWORD">Conferma password</Resource>
     <Resource tag="CONTINUE">Continua</Resource>
     <Resource tag="CREATE_USER">Crea utente</Resource>
@@ -4893,35 +4893,35 @@ Spoiler Content
     <Resource tag="INVALID_QUESTION">Per favore scegli un'altra domanda.</Resource>
     <Resource tag="INVALID_USERNAME">Per favore scegli un altro nome utente.</Resource>
     <Resource tag="LOCATION">Da dove scrivi?</Resource>
-    <Resource tag="LOGIN_INSTEAD">Already Signed Up? Click Sign In to login your account.</Resource>
-    <Resource tag="NEED_ANSWER">La risposta di sicurezza è obbligatoria.</Resource>
-    <Resource tag="NEED_DISPLAYNAME">Il nome visualizzato è obbligatorio.</Resource>
-    <Resource tag="NEED_EMAIL">L'e-mail è obbligatoria.</Resource>
-    <Resource tag="NEED_MATCH">Le password non corrispondono.</Resource>
+    <Resource tag="LOGIN_INSTEAD">Gia' registrato? Clicca per accedere col tuo account.</Resource>
+    <Resource tag="NEED_ANSWER">La risposta di sicurezza e' obbligatoria.</Resource>
+    <Resource tag="NEED_DISPLAYNAME">Il nome visualizzato e' obbligatorio.</Resource>
+    <Resource tag="NEED_EMAIL">L'e-mail e' obbligatoria.</Resource>
+    <Resource tag="NEED_MATCH">Le due password non coincidono.</Resource>
     <Resource tag="NEED_PASSWORD">La password è obbligatoria.</Resource>
     <Resource tag="NEED_QUESTION">La domanda di sicurezza è obbligatoria.</Resource>
     <Resource tag="NEED_USERNAME">Il nome utente è obbligatorio.</Resource>
     <Resource tag="PASSWORD">Password</Resource>
-    <Resource tag="PASSWORD_GOOD">Good Password!</Resource>
-    <Resource tag="PASSWORD_MIN">Password must be {0} characters long.</Resource>
-    <Resource tag="PASSWORD_NOTMATCH">Password and Confirm Password do not match!</Resource>
+    <Resource tag="PASSWORD_GOOD">Ottima password!</Resource>
+    <Resource tag="PASSWORD_MIN">La password deve avere lunghezza minima di {0} caratteri.</Resource>
+    <Resource tag="PASSWORD_NOTMATCH">Le due password non coincidono.</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_TITLE">Requisiti complessità password</Resource>
     <Resource tag="PASSWORD_REQUIREMENTS_WARN">{0} caratteri di lunghezza minima; minimo {1} caratteri non alfanumerici ($#@!).</Resource>
-    <Resource tag="PASSWORD_STRONGER">Make your password stronger with more capital letters, more numbers and special characters!</Resource>
-    <Resource tag="PASSWORD_WEAK">Weak Password, try using numbers and capital letters.</Resource>
+    <Resource tag="PASSWORD_STRONGER">Crea una password sicura con molti maiuscole, minuscole e caratteri speciali.</Resource>
+    <Resource tag="PASSWORD_WEAK">Password debole. Usa maiuscole, minuscole e numeri.</Resource>
     <Resource tag="PREFERENCES">Opzioni forum</Resource>
     <Resource tag="PROFILE">Informazioni di profilo</Resource>
     <Resource tag="RECAPTCHA_BADSETTING">Le impostazioni Captcha sono errate. Per favore segnala il problema agli amministratori.</Resource>
     <Resource tag="RECATCHA_BADWORDS">Sbagliato! Prova di nuovo.</Resource>
     <Resource tag="REGISTER">Registrati</Resource>
     <Resource tag="REGISTER_AUTH">Register with {0}</Resource>
-    <Resource tag="RETYPE_PASSWORD">La password di conferma è obbligatoria.</Resource>
+    <Resource tag="RETYPE_PASSWORD">La password di conferma e' obbligatoria.</Resource>
     <Resource tag="SECURITY_ANSWER">Risposta di sicurezza</Resource>
     <Resource tag="SECURITY_QUESTION">Domanda di sicurezza</Resource>
     <Resource tag="TERMS_AND_CONDITIONS_TITLE">Condizioni di utilizzo</Resource>
     <Resource tag="TIMEZONE">Fuso orario</Resource>
     <Resource tag="TITLE">Registra nuovo utente</Resource>
-    <Resource tag="TITLE2">Register a new account</Resource>
+    <Resource tag="TITLE2">Registra un nuovo account</Resource>
     <Resource tag="USERNAME">Nome utente</Resource>
     <Resource tag="USERNAME_LENGTH_WARN">Il nome utente non può contenere più di {0} caratteri.</Resource>
     <Resource tag="VERIFICATION_EMAIL_SUBJECT">Verifica registrazione per il forum {0}</Resource>
@@ -5033,13 +5033,13 @@ Questo regolamento potra' essere modificato parzialmente o totalmente dagli ammi
     <Resource tag="BTNSEARCH">Cerca</Resource>
     <Resource tag="BTNSEARCH_EXTERNAL">Cerca su {0}</Resource>
     <Resource tag="BY">di</Resource>
-    <Resource tag="KEYWORDS">Keyword(s)</Resource>
+    <Resource tag="KEYWORDS">Parole chiave</Resource>
     <Resource tag="LOADING_SEARCH">Caricamento risultati ricerca...</Resource>
     <Resource tag="MATCH_ALL">Cerca tutte le parole</Resource>
     <Resource tag="MATCH_ANY">Cerca ogni singola parola</Resource>
     <Resource tag="MATCH_EXACT">Cerca la frase esatta</Resource>
     <Resource tag="NO_SEARCH_RESULTS">[b]Nessun risultato trovato per la ricerca.[/b]</Resource>
-    <Resource tag="POST_AND_TITLE">Search Entire Posts</Resource>
+    <Resource tag="POST_AND_TITLE">Cerca interi messaggi</Resource>
     <Resource tag="POSTED">Inviato:</Resource>
     <Resource tag="POSTEDBY">Inviato da</Resource>
     <Resource tag="POSTS">Messaggi</Resource>
@@ -5050,12 +5050,12 @@ Questo regolamento potra' essere modificato parzialmente o totalmente dagli ammi
     <Resource tag="RESULTS">Risultati</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MAX">Il testo cercato deve essere più corto di {0} caratteri e rispettare le regole per la ricerca del forum (vedi le FAQ per maggiori informazioni).</Resource>
     <Resource tag="SEARCH_CRITERIA_ERROR_MIN">Il testo cercato deve essere lungo almeno {0} caratteri e rispettare le regole per la ricerca del forum (vedi le FAQ per maggiori informazioni).</Resource>
-    <Resource tag="SEARCH_IN">Search in Forum(s)</Resource>
-    <Resource tag="SEARCH_OPTIONS">Search Options</Resource>
-    <Resource tag="SEARCH_RESULTS">Search Results per Page</Resource>
-    <Resource tag="SEARCH_TITLEORBOTH">Search entire Posts or Titles only</Resource>
+    <Resource tag="SEARCH_IN">Cerca nei forum</Resource>
+    <Resource tag="SEARCH_OPTIONS">Parametri ricerca</Resource>
+    <Resource tag="SEARCH_RESULTS">Risultati per pagina</Resource>
+    <Resource tag="SEARCH_TITLEORBOTH">Cerca interi messaggi o solo negli oggetti</Resource>
     <Resource tag="TITLE">Cerca</Resource>
-    <Resource tag="TITLE_ONLY">Search Titles Only</Resource>
+    <Resource tag="TITLE_ONLY">Cerca solo negli oggetti</Resource>
     <Resource tag="TOPIC">Discussioni:</Resource>
   </page>
   <page name="SHOUTBOX">
@@ -5097,7 +5097,7 @@ Questo regolamento potra' essere modificato parzialmente o totalmente dagli ammi
 &lt;/style&gt;
 &lt;/head&gt;&lt;body&gt;
 &lt;p class="style1"&gt; Ciao &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/p&gt;
-&lt;p class="style1"&gt; La tua richiesta di variazione dell'indirizzo e-mail in &lt;strong&gt;{newemail}&lt;/strong&gt; è quasi completata!&lt;/p&gt;
+&lt;p class="style1"&gt; La tua richiesta di variazione dell'indirizzo e-mail in &lt;strong&gt;{newemail}&lt;/strong&gt; e' quasi completata!&lt;/p&gt;
 &lt;p class="style1"&gt; Basta che confermi cliccando sul link seguente:&lt;/p&gt;
 &lt;p class="style1"&gt; &lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
 &lt;p class="style1"&gt; Quindi inserisci la seguente chiave di verifica:&lt;/p&gt;
@@ -5149,24 +5149,24 @@ Ciao!
       Nome utente: {user}
 	  Password generata automaticamente: {pass}
 	  Risposta di sicurezza generata automaticamente: {answer}
-      E-mail: {email} (Per favore non modificare la tua e-mail, altrimenti non potrai più accedere tramite Facebook)
+      E-mail: {email} (Per favore non modificare l'e-mail, altrimenti non riuscirai ad accedere.)
 	  
     </Resource>
     <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER">
-      Hello {user}.
+      Ciao {user}.
 
-      You have been successfully registered on the {forumname} forum using Google Login:
+      Ti sei appena registrato sul forum {forumname} tramite Google:
 
-      User Name: {user}
-	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
-      User Email: {email} (Please don't change your email, or you are unable to login with Google)
+      Nome utente: {user}
+	  Password generata automaticamente: {pass}
+	  Risposta di sicurezza generata automaticamente: {answer}
+      E-mail: {email} (Per favore non modificare l'e-mail, altrimenti non riuscirai ad accedere.)
 	  
     </Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
-    Hello {user}.
+    Ciao {user}.
 
-    Congratulations you have been award with the {medalname} on the {forumname} forum.
+    Congratulazioni, di sei meritato il titolo di {medalname} sul forum {forumname}
   </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
 		E' stato postato un nuovo messaggio che richiede la tua approvazione sul forum {forumname}:
@@ -5197,12 +5197,13 @@ The Message was posted in the {forumname} forum.
 	  
     </Resource>
     <Resource tag="NOTIFICATION_ON_SUSPENDING_ENDED_USER">
-    Hello {user},
+    Ciao {user},
 
-    The suspension of your forum account has ended or was lifted.
+    La sospensione del tuo account e' terminata oppure e' stata annullata.
 
-    Thanks!
-    The {forumname} Team
+    Saluti!
+
+    Il team di {forumname}
     {forumurl}
 
   </Resource>
@@ -5242,19 +5243,19 @@ The Message was posted in the {forumname} forum.
 		Link di amministrazione: {adminlink}
 	</Resource>
     <Resource tag="NOTIFICATION_ON_WELCOME_USER">
-    Hello {user},
+    Benvenuto {user},
 
-    You have been successfully registered on the {forumname} forum. You're all ready to go!
+    Ti sei appena registrato sul forum {forumname}
 
-    Before posting, consider other ways of finding information:
+    Prima di postare, tieni in considerazione alcuni modi per trovare informazioni:
 
-    - Use the help pages to find out how the forum works
-    - Try the Forum Search, often times your questions are already been answered
-    - Do not post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws.
-    Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.
+    - Usa le pagine di aiuto per sapere come funziona il forum.
+    - Prova la ricerca, molto spesso gli argomenti sono già stati trattati.
+    - Non pubblicare materiale offensivo, volgare, osceno, razzista, politico, pornografico o comunque in violazione delle leggi vigenti.
+    Ciò potrebbe portare ad una sospensione temporanea o definitiva dal forum. Gli indirizzi IP sono registrati e possono essere usati per questo.
+    Grazie!
 
-    Thanks!
-    The {forumname} Team
+    Il team di {forumname}
     {forumurl}
 
   </Resource>
@@ -5385,7 +5386,7 @@ Visita il forum {forumname} su {forumlink}
     <Resource tag="INBOX_TITLE">Mostra messaggi in arrivo.</Resource>
     <Resource tag="LOGGED_IN_AS">Accesso effettuato come: {0}</Resource>
     <Resource tag="LOGIN">Accedi</Resource>
-    <Resource tag="LOGIN_CONNECT">Login to your {0} forum account</Resource>
+    <Resource tag="LOGIN_CONNECT">Accedi al tuo account forum {0}</Resource>
     <Resource tag="LOGIN_TITLE">Mostra il controllo per l'accesso al forum.</Resource>
     <Resource tag="LOGOUT">Disconnetti</Resource>
     <Resource tag="LOGOUT_QUESTION">Vuoi davvero disconnetterti?</Resource>
@@ -5402,7 +5403,7 @@ Visita il forum {forumname} su {forumlink}
     <Resource tag="MYTOPICS_TITLE">Mostra discussioni attive e preferite.</Resource>
     <Resource tag="NEWPM">({0} non letti)</Resource>
     <Resource tag="REGISTER">Registrati</Resource>
-    <Resource tag="REGISTER_CONNECT">or Register a new forum account</Resource>
+    <Resource tag="REGISTER_CONNECT">o crea un nuovo account forum.</Resource>
     <Resource tag="REGISTER_TITLE">Mostra il modulo per la registrazione.</Resource>
     <Resource tag="SEARCH">Ricerca</Resource>
     <Resource tag="SEARCH_TITLE">Usa la ricerca del forum.</Resource>
@@ -5411,7 +5412,7 @@ Visita il forum {forumname} su {forumlink}
     <Resource tag="TEAM_TITLE">Mostra la pagina del team del forum con l'elenco amministratori e moderatori.</Resource>
     <Resource tag="UNREADTOPICS">Ci sono {0} discussioni con messaggi da leggere</Resource>
     <Resource tag="WELCOME_GUEST">Benvenuto, ospite.</Resource>
-    <Resource tag="WELCOME_GUEST_CONNECT">Wanna join the discussion?! </Resource>
+    <Resource tag="WELCOME_GUEST_CONNECT">Wanna join the discussion?!</Resource>
     <Resource tag="WELCOME_GUEST_FULL">Benvenuto, ospite. Per favore accedi o registrati per attivare tutte le funzioni:</Resource>
     <Resource tag="WELCOME_GUEST_NO">Benvenuto ospite! &lt;strong&gt;Non&lt;/strong&gt; puoi accedere né registrarti.</Resource>
   </page>
