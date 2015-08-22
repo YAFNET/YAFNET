@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Content/forum.css",
+    "inputFile": "Content/forum.less"
+  },
+  {
+    "outputFile": "Content/InstallWizard.css",
+    "inputFile": "Content/InstallWizard.less"
+  }
+]

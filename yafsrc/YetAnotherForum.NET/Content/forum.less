@@ -5,8 +5,9 @@
 @import "../Content/jsdifflib.less";
 @import "../Content/jquery.tablesorter.less";
 @import (inline)"../Content/prism.css";
-@import (inline)"../Content/select2.css";
+@import (inline)"../Content/css/select2.css";
 @import (inline)"../Content/jquery.selectedQuoting.css";
+@import "forum";
 
 .content {
     padding: 0;
@@ -18,8 +19,8 @@
         .content {
             position:absolute;
             top: 5px;
-            bottom:0px;
-            right:0px;
+            bottom:0;
+            right:0;
             left:5px;
             height:97%;
             width:99%;
@@ -102,7 +103,7 @@
 
     .postsep {
         td {
-            padding: 0px;
+            padding: 0;
         }
     }
 
@@ -112,17 +113,17 @@
     }
 
     .yafpopupmenu {
-        padding: 0px;
+        padding: 0;
     }
 
     .fileattach {
-        margin: 15px 0px 0px 0px;
+        margin: 15px 0 0 0;
     }
 
     #yafprofilemenu {
         float: left;
         width: 150px;
-        margin: 5px 5px 5px 0px;
+        margin: 5px 5px 5px 0;
         clear: left;
     }
 
@@ -175,11 +176,11 @@
     .QuickSearch {
         display: inline;
         float: right;
-        padding: 0px 4px 0px 4px;
+        padding: 0 4px 0 4px;
     }
 
     #yafprofilecontent {
-        margin: 5px 0px 5px 0px;
+        margin: 5px 0 5px 0;
         width: 80%;
         float: right;
     }
@@ -276,8 +277,8 @@
         li {
             list-style: none;
             float: left;
-            padding: 0px;
-            margin: 0px;
+            padding: 0;
+            margin: 0;
             min-width: 40px;
             min-height: 40px;
 
@@ -346,7 +347,7 @@
         background: -o-linear-gradient(top, #ccc, #9a9a9a);
         text-align: center;
         border-color: black;
-        text-shadow: 0px 0px 3px #000;
+        text-shadow: 0 0 3px #000;
     }
 
     .ReputationBarText {

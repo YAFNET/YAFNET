@@ -182,9 +182,7 @@
     <Compile Include="Classes\Editors\RichClassEditor.cs" />
     <Compile Include="Classes\Editors\TextEditor.cs" />
     <Compile Include="Classes\FileUploader.cs" />
-    <Compile Include="Classes\Forum.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    <Compile Include="Classes\Forum.cs" />
     <Compile Include="Classes\ForumPageBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -926,6 +924,8 @@
     <Content Include="Content\bootstrap-select.min.css">
       <DependentUpon>bootstrap-select.less</DependentUpon>
     </Content>
+    <Content Include="Content\css\select2.css" />
+    <Content Include="Content\css\select2.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\jquery.tablesorter.css">
       <DependentUpon>jquery.tablesorter.less</DependentUpon>
@@ -941,16 +941,13 @@
     <Content Include="Content\ladda.min.css">
       <DependentUpon>ladda.css</DependentUpon>
     </Content>
-    <Content Include="Content\select2.css" />
     <Content Include="Content\icons\ipbandetected.png" />
     <Content Include="Content\images\InstallBackground.jpg" />
     <Content Include="Content\images\progressbar.gif" />
     <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-noscript.css" />
     <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-ui-noscript.css" />
     <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-ui.css" />
-    <Content Include="Content\jquery.fileupload.comb.css">
-      <DependentUpon>jquery.fileupload.comb.css.bundle</DependentUpon>
-    </Content>
+    <Content Include="Content\jquery.fileupload.comb.css" />
     <Content Include="Content\jquery.fileupload.comb.min.css">
       <DependentUpon>jquery.fileupload.comb.css</DependentUpon>
     </Content>
@@ -1541,7 +1538,7 @@
     <Content Include="pages\admin\topicstatus_import.ascx" />
     <Content Include="pages\admin\users_import.ascx" />
     <Content Include="Content\forum.min.css">
-      <DependentUpon>forum.less</DependentUpon>
+      <DependentUpon>forum.css</DependentUpon>
     </Content>
     <Content Include="Content\jquery.ceebox.min.css">
       <DependentUpon>jquery.ceebox.less</DependentUpon>
@@ -2156,8 +2153,16 @@
     <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
+    <None Include="bundleconfig.json" />
+    <None Include="compilerconfig.json" />
     <None Include="Scripts\jquery-2.1.4-vsdoc.js" />
     <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\i18n\az.js" />
+    <Content Include="Scripts\i18n\bg.js" />
+    <Content Include="Scripts\i18n\ca.js" />
+    <Content Include="Scripts\i18n\cs.js" />
+    <Content Include="Scripts\i18n\da.js" />
+    <Content Include="Scripts\i18n\de.js" />
     <Content Include="Scripts\i18n\defaults-bg_BG.js" />
     <Content Include="Scripts\i18n\defaults-bg_BG.min.js" />
     <Content Include="Scripts\i18n\defaults-cs_CZ.js" />
@@ -2208,6 +2213,42 @@
     <Content Include="Scripts\i18n\defaults-zh_CN.min.js" />
     <Content Include="Scripts\i18n\defaults-zh_TW.js" />
     <Content Include="Scripts\i18n\defaults-zh_TW.min.js" />
+    <Content Include="Scripts\i18n\en.js" />
+    <Content Include="Scripts\i18n\es.js" />
+    <Content Include="Scripts\i18n\et.js" />
+    <Content Include="Scripts\i18n\eu.js" />
+    <Content Include="Scripts\i18n\fa.js" />
+    <Content Include="Scripts\i18n\fi.js" />
+    <Content Include="Scripts\i18n\fr.js" />
+    <Content Include="Scripts\i18n\gl.js" />
+    <Content Include="Scripts\i18n\he.js" />
+    <Content Include="Scripts\i18n\hi.js" />
+    <Content Include="Scripts\i18n\hr.js" />
+    <Content Include="Scripts\i18n\hu.js" />
+    <Content Include="Scripts\i18n\id.js" />
+    <Content Include="Scripts\i18n\is.js" />
+    <Content Include="Scripts\i18n\it.js" />
+    <Content Include="Scripts\i18n\ja.js" />
+    <Content Include="Scripts\i18n\ko.js" />
+    <Content Include="Scripts\i18n\lt.js" />
+    <Content Include="Scripts\i18n\lv.js" />
+    <Content Include="Scripts\i18n\mk.js" />
+    <Content Include="Scripts\i18n\nb.js" />
+    <Content Include="Scripts\i18n\nl.js" />
+    <Content Include="Scripts\i18n\pl.js" />
+    <Content Include="Scripts\i18n\pt-BR.js" />
+    <Content Include="Scripts\i18n\pt.js" />
+    <Content Include="Scripts\i18n\ro.js" />
+    <Content Include="Scripts\i18n\ru.js" />
+    <Content Include="Scripts\i18n\sk.js" />
+    <Content Include="Scripts\i18n\sr.js" />
+    <Content Include="Scripts\i18n\sv.js" />
+    <Content Include="Scripts\i18n\th.js" />
+    <Content Include="Scripts\i18n\tr.js" />
+    <Content Include="Scripts\i18n\uk.js" />
+    <Content Include="Scripts\i18n\vi.js" />
+    <Content Include="Scripts\i18n\zh-CN.js" />
+    <Content Include="Scripts\i18n\zh-TW.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
@@ -2226,9 +2267,7 @@
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-ui.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-validate.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-video.js" />
-    <Content Include="Scripts\jquery.fileupload.comb.js">
-      <DependentUpon>jquery.fileupload.comb.js.bundle</DependentUpon>
-    </Content>
+    <Content Include="Scripts\jquery.fileupload.comb.js" />
     <Content Include="Scripts\jquery.fileupload.comb.min.js">
       <DependentUpon>jquery.fileupload.comb.js</DependentUpon>
     </Content>
@@ -2522,17 +2561,11 @@
     <Content Include="themes\Fancy\images\title-bg.gif" />
     <Content Include="Scripts\DataPanel.js" />
     <Content Include="Scripts\InstallWizard.js" />
-    <Content Include="Scripts\InstallWizard.comb.js">
-      <DependentUpon>InstallWizard.comb.js.bundle</DependentUpon>
-    </Content>
-    <Content Include="Scripts\InstallWizard.comb.min.js">
-      <DependentUpon>InstallWizard.comb.js</DependentUpon>
-    </Content>
+    <Content Include="Scripts\InstallWizard.comb.js" />
+    <Content Include="Scripts\InstallWizard.comb.min.js" />
     <Content Include="Scripts\jquery.ceebox.js" />
     <Content Include="Scripts\jquery.hovercard.js" />
-    <Content Include="Scripts\jquery.ForumExtensions.js">
-      <DependentUpon>jquery.ForumExtensions.js.bundle</DependentUpon>
-    </Content>
+    <Content Include="Scripts\jquery.ForumExtensions.js" />
     <Content Include="Scripts\jquery.ForumExtensions.min.js">
       <DependentUpon>jquery.ForumExtensions.js</DependentUpon>
     </Content>
@@ -3142,19 +3175,15 @@
       <DependentUpon>InstallWizard.less</DependentUpon>
     </Content>
     <Content Include="Content\InstallWizard.min.css">
-      <DependentUpon>InstallWizard.less</DependentUpon>
+      <DependentUpon>InstallWizard.css</DependentUpon>
     </Content>
     <Content Include="Content\jsdifflib.less" />
     <Content Include="Content\bootstrap-select-variables.less" />
-    <Content Include="Content\jquery.fileupload.comb.css.bundle" />
     <Content Include="YafUploader.ashx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="Scripts\InstallWizard.comb.js.bundle">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Content\forum.less" />
     <None Include="Content\jquery.ceebox.less" />
     <None Include="Content\jquery.hovercard.less" />
@@ -3888,10 +3917,6 @@
     <Content Include="themes\cleanSlate\tab-line.png" />
     <Content Include="themes\cleanSlate\tab.png" />
     <Content Include="recommended.web.config" />
-    <Content Include="Scripts\jquery.ForumExtensions.js.bundle">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Scripts\jquery.fileupload.comb.js.bundle" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <None Include="themes\cleanSlate\theme.less" />
     <Content Include="themes\cleanSlate\theme.css">
@@ -5077,11 +5102,4 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
 </Project>

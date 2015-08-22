@@ -16,7 +16,7 @@
 }
 .progress-animated .progress-bar,
 .progress-animated .bar {
-  background: url(images/progressbar.gif) !important;
+  background: url("../../images/progressbar.gif") !important;
   filter: none;
 }
 .fileupload-process {
@@ -28,7 +28,7 @@
   display: block;
   width: 32px;
   height: 32px;
-  background: url(images/loader.gif) center no-repeat;
+  background: url("../../images/loader.gif") center no-repeat;
   background-size: contain;
 }
 .files audio,
@@ -55,6 +55,7 @@
     max-width: 100%;
   }
 }
+
 @charset "UTF-8";
 /*
  * jQuery File Upload Plugin CSS 1.3.0

@@ -1009,6 +1009,10 @@ namespace YAF.Utilities
                 {0}('#passwordStrength').parent().parent('.post').show();
         	    return false;
     	     }}
+             else {{
+                {0}('#passwordStrength').removeClass().empty();
+                {0}('#passwordStrength').parent().parent('.post').hide();
+             }}
          }}
     }});
  
