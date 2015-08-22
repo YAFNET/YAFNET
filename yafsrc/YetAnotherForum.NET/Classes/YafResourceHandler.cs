@@ -1075,6 +1075,10 @@ namespace YAF
 
                 byte[] data;
 
+
+                this.GetRepository<Attachment>()
+                    .IncrementDownloadCounter(context.Request.QueryString.GetFirstOrDefaultAs<int>("a"));
+
                 if (attachment.FileData == null)
                 {
                     var uploadFolder = YafBoardFolders.Current.Uploads;
@@ -1117,8 +1121,6 @@ namespace YAF
                     "attachment; filename={0}".FormatWith(
                         HttpUtility.UrlPathEncode(attachment.FileName).Replace("+", "_")));
                 context.Response.OutputStream.Write(data, 0, data.Length);
-                this.GetRepository<Attachment>()
-                    .IncrementDownloadCounter(context.Request.QueryString.GetFirstOrDefaultAs<int>("a"));
             }
             catch (Exception x)
             {
@@ -1182,12 +1184,17 @@ namespace YAF
             {
                 var eTag = @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("i"));
 
-                if (CheckETag(context, eTag))
+                if (context.Request.QueryString.GetFirstOrDefault("editor") == null)
                 {
-                    // found eTag... no need to resend/create this image -- just mark another view?
+                    // add a download count...
                     this.GetRepository<Attachment>()
                         .IncrementDownloadCounter(context.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
-                    return;
+                }
+
+                if (CheckETag(context, eTag))
+                {
+                    // found eTag... no need to resend/create this image 
+                   return;
                 }
 
                 // AttachmentID
@@ -1251,13 +1258,6 @@ namespace YAF
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
                 context.Response.Cache.SetETag(eTag);
                 context.Response.OutputStream.Write(data, 0, data.Length);
-
-                if (context.Request.QueryString.GetFirstOrDefault("editor") == null)
-                {
-                    // add a download count...
-                    this.GetRepository<Attachment>()
-                        .IncrementDownloadCounter(context.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
-                }
             }
             catch (Exception x)
             {
