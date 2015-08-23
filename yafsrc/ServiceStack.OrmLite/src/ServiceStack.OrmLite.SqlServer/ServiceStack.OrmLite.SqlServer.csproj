@@ -70,10 +70,6 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ServiceStack.Text, Version=3.4.3.1319, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ServiceStack.Text\bin\Release\ServiceStack.Text.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -125,6 +121,10 @@
     <ProjectReference Include="..\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj">
       <Project>{96179AC6-F6F1-40C3-9FDD-4F6582F54C5C}</Project>
       <Name>ServiceStack.OrmLite</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceStack.Text\ServiceStack.Text.csproj">
+      <Project>{579b3fdb-cdad-44e1-8417-885c38e49a0e}</Project>
+      <Name>ServiceStack.Text</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
