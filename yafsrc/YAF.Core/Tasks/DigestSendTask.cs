@@ -216,7 +216,7 @@ namespace YAF.Core.Tasks
                         continue;
                     }
 
-                    var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey);
+                    var membershipUser = UserMembershipHelper.GetUser(user.Name);
 
                     if (membershipUser == null || membershipUser.Email.IsNotSet())
                     {

@@ -387,7 +387,7 @@ namespace YAF.Core.Services
             // create individual watch emails for all users who have All Posts on...
             foreach (var user in usersWithAll.Where(x => x.UserID != messageAuthorUserID && x.ProviderUserKey != null))
             {
-                var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey);
+                var membershipUser = UserMembershipHelper.GetUser(user.Name);
 
                 if (membershipUser == null || membershipUser.Email.IsNotSet())
                 {
