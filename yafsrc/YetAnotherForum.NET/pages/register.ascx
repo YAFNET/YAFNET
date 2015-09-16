@@ -211,7 +211,7 @@
 								<YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="COUNTRY" />
 						    </td>
 							<td class="post">
-								<YAF:CountryListBox ID="Country" runat="server" DataTextField="Name" DataValueField="Value" CssClass="selectMenuWithIcons" /></td>
+								<YAF:ImageListBox ID="Country" runat="server" DataTextField="Name" DataValueField="Value" CssClass="selectMenuWithIcons" /></td>
 						</tr>
 						<tr>
 							<td align="right" class="postheader">

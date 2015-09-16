@@ -538,7 +538,7 @@ namespace YAF.Pages
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and DatePicker JS...
-            var country = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("Country");
+            var country = (ImageListBox)this.CreateUserWizard1.FindWizardControlRecursive("Country");
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "dropDownJs", 
@@ -633,7 +633,8 @@ namespace YAF.Pages
             timeZones.DataSource = StaticDataHelper.TimeZones();
 
             // get the country data source
-            var country = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("Country");
+            var country = (ImageListBox)this.CreateUserWizard1.FindWizardControlRecursive("Country");
+            country.ImageLocation = YafForumInfo.GetURLToContent("images/flags/{0}.png");
             country.DataSource = StaticDataHelper.Country();
 
             if (this.Get<YafBoardSettings>().EnableIPInfoService && this._UserIpLocator == null)
@@ -976,7 +977,7 @@ namespace YAF.Pages
         {
             // this is the "Profile Information" step. Save the data to their profile (+ defaults).
             var timeZones = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("TimeZones");
-            var country = (DropDownList)this.CreateUserWizard1.FindWizardControlRecursive("Country");
+            var country = (ImageListBox)this.CreateUserWizard1.FindWizardControlRecursive("Country");
             var locationTextBox = (TextBox)this.CreateUserWizard1.FindWizardControlRecursive("Location");
             var homepageTextBox = (TextBox)this.CreateUserWizard1.FindWizardControlRecursive("Homepage");
             var dstUser = (CheckBox)this.CreateUserWizard1.FindWizardControlRecursive("DSTUser");
