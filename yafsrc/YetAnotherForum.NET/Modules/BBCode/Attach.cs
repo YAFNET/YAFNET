@@ -35,6 +35,7 @@ namespace YAF.Modules.BBCode
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     /// <summary>
     /// The Attachment BB Code Module.
@@ -47,10 +48,15 @@ namespace YAF.Modules.BBCode
         /// <param name="writer">The writer.</param>
         protected override void Render(HtmlTextWriter writer)
         {
+            if (!ValidationHelper.IsNumeric(this.Parameters["inner"]))
+            {
+                return;
+            }
+
             var attachment =
-                this.GetRepository<Attachment>()
-                    .ListTyped(attachmentID: this.Parameters["inner"].ToType<int>())
-                    .FirstOrDefault();
+               this.GetRepository<Attachment>()
+                   .ListTyped(attachmentID: this.Parameters["inner"].ToType<int>())
+                   .FirstOrDefault();
 
             if (attachment == null)
             {
