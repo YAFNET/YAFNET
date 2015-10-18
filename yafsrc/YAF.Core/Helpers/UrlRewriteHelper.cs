@@ -28,6 +28,7 @@ namespace YAF.Core.Helpers
     using System.Data;
     using System.Globalization;
     using System.Text;
+    using System.Text.RegularExpressions;
     using System.Web;
     using System.Web.Caching;
 
@@ -45,7 +46,7 @@ namespace YAF.Core.Helpers
     public class UrlRewriteHelper
     {
         #region Constants and Fields
-
+        
         /// <summary>
         /// The cache size.
         /// </summary>
@@ -250,7 +251,9 @@ namespace YAF.Core.Helpers
                       : HttpContext.Current.Server.HtmlDecode(inputString.Trim());
 
             // fix ampersand...
-            inputString = inputString.Replace("&", "and");
+            inputString = inputString.Replace("&", "and").Replace("ـ", string.Empty);
+
+            inputString = Regex.Replace(inputString, @"\p{Cs}", string.Empty);
 
             // normalize the Unicode
             inputString = inputString.Normalize(NormalizationForm.FormD);
