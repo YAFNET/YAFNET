@@ -164,6 +164,11 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
+            if (!this.PageContext.IsForumModerator || !this.PageContext.IsAdmin)
+            {
+                this.ModerateUsersHolder.Visible = false;
+            }
+
             if (!this.IsPostBack)
             {
                 this.AddUser.Text = this.GetText("MODERATE", "INVITE");

@@ -2,6 +2,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <%@ Register TagPrefix="YAF" TagName="TopicLine" Src="../controls/TopicLine.ascx" %>
+<asp:PlaceHolder runat="server" ID="ModerateUsersHolder">
 <table class="content" cellspacing="1" cellpadding="0" width="100%">
     <tr>
         <td class="header1" colspan="4">
@@ -48,6 +49,7 @@
     </tr>
 </table>
 <br />
+</asp:PlaceHolder>
 <YAF:ThemeButton ID="DeleteTopic" runat="server" CssClass="yafcssbigbutton rightItem"
     TextLocalizedTag="BUTTON_DELETETOPIC" TitleLocalizedTag="BUTTON_DELETETOPIC_TT"
     OnLoad="Delete_Load" OnClick="DeleteTopics_Click" />
