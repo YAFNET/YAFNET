@@ -1,10 +1,35 @@
-﻿.bootstrap-select {
+/*!
+ * Bootstrap-select v1.9.4 (http://silviomoreto.github.io/bootstrap-select)
+ *
+ * Copyright 2013-2016 bootstrap-select
+ * Licensed under MIT (https://github.com/silviomoreto/bootstrap-select/blob/master/LICENSE)
+ */
+
+.bootstrap-select {
   width: 220px \0;
   /*IE9 and below*/
 }
 .bootstrap-select > .dropdown-toggle {
   width: 100%;
   padding-right: 25px;
+  z-index: 1;
+}
+.bootstrap-select > select {
+  position: absolute !important;
+  bottom: 0;
+  left: 50%;
+  width: 0.11px !important;
+  height: 100% !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+  border: none;
+}
+.bootstrap-select > select.mobile-device {
+  top: 0;
+  left: 0;
+  display: block !important;
+  width: 100% !important;
+  z-index: 2;
 }
 .has-error .bootstrap-select .dropdown-toggle,
 .error .bootstrap-select .dropdown-toggle {
@@ -63,6 +88,12 @@
 .bootstrap-select.btn-group > .disabled:focus {
   outline: none !important;
 }
+.bootstrap-select.btn-group.bs-container {
+  position: absolute;
+}
+.bootstrap-select.btn-group.bs-container .dropdown-menu {
+  z-index: 1060;
+}
 .bootstrap-select.btn-group .dropdown-toggle .filter-option {
   display: inline-block;
   overflow: hidden;
@@ -81,8 +112,9 @@
 }
 .bootstrap-select.btn-group .dropdown-menu {
   min-width: 100%;
-  z-index: 1035;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .bootstrap-select.btn-group .dropdown-menu.inner {
   position: static;
@@ -91,7 +123,8 @@
   padding: 0;
   margin: 0;
   border-radius: 0;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 .bootstrap-select.btn-group .dropdown-menu li {
   position: relative;
@@ -104,6 +137,10 @@
 }
 .bootstrap-select.btn-group .dropdown-menu li a {
   cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .bootstrap-select.btn-group .dropdown-menu li a.opt {
   position: relative;
@@ -127,10 +164,13 @@
   padding: 3px 5px;
   background: #f5f5f5;
   border: 1px solid #e3e3e3;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   pointer-events: none;
   opacity: 0.9;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .bootstrap-select.btn-group .no-results {
   padding: 3px;
@@ -156,7 +196,7 @@
   margin-right: 34px;
 }
 .bootstrap-select.show-menu-arrow.open > .dropdown-toggle {
-  z-index: 1036;
+  z-index: 1061;
 }
 .bootstrap-select.show-menu-arrow .dropdown-toggle:before {
   content: '';
@@ -208,9 +248,10 @@
   padding: 4px 8px;
 }
 .bs-actionsbox {
-  float: left;
   width: 100%;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .bs-actionsbox .btn-group button {
   width: 50%;
@@ -218,7 +259,9 @@
 .bs-donebutton {
   float: left;
   width: 100%;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .bs-donebutton .btn-group button {
   width: 100%;
@@ -229,17 +272,6 @@
 .bs-searchbox .form-control {
   margin-bottom: 0;
   width: 100%;
+  float: none;
 }
-select.bs-select-hidden,
-select.selectpicker {
-  display: none !important;
-}
-select.mobile-device {
-  position: absolute !important;
-  top: 0;
-  left: 0;
-  display: block !important;
-  width: 100%;
-  height: 100% !important;
-  opacity: 0;
-}
+/*# sourceMappingURL=bootstrap-select.css.map */

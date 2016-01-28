@@ -1900,6 +1900,7 @@
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\eo.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\es.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\et.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\eu.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fa.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fi.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fo.js" />
@@ -1993,6 +1994,7 @@
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\eo.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\es.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\et.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\eu.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fa.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fi.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\fr-ca.js" />
@@ -2041,6 +2043,46 @@
     <Content Include="recommended-azure.web.config">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="bundleconfig.json" />
+    <None Include="compilerconfig.json" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\ciframe.html" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.css" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.js" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
+    <Content Include="Scripts\ckeditor\skins\moono\dialog.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\dialog_ie.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\dialog_ie7.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\dialog_ie8.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\dialog_iequirks.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\editor.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\editor_gecko.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\editor_ie.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\editor_ie7.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\editor_ie8.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\editor_iequirks.css" />
+    <Content Include="Scripts\ckeditor\skins\moono\icons.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\icons_hidpi.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\arrow.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\close.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\close.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\lock-open.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\lock.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\refresh.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\lock-open.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\lock.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\refresh.png" />
+    <Content Include="Scripts\ckeditor\skins\moono\images\spinner.gif" />
+    <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
+    <Content Include="Scripts\ckeditor\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\CHANGELOG.md" />
+    <Content Include="Scripts\ckeditor\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\CHANGES.md" />
+    <Content Include="Scripts\ckeditor\styles.js" />
     <Content Include="Scripts\bootstrap-select.js.map" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
@@ -2087,8 +2129,8 @@
     <Content Include="Content\bootstrap\mixins\labels.less" />
     <Content Include="Content\bootstrap\mixins\image.less" />
     <Content Include="Content\bootstrap\mixins\hide-text.less" />
-    <Content Include="Content\bootstrap\mixins\grid-framework.less" />
     <Content Include="Content\bootstrap\mixins\grid.less" />
+    <Content Include="Content\bootstrap\mixins\grid-framework.less" />
     <Content Include="Content\bootstrap\mixins\gradients.less" />
     <Content Include="Content\bootstrap\mixins\forms.less" />
     <Content Include="Content\bootstrap\mixins\clearfix.less" />
@@ -2117,54 +2159,20 @@
     <Content Include="Content\bootstrap\bootstrap.less" />
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
-    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\ciframe.html" />
-    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
-    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.css" />
-    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.js" />
-    <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
-    <Content Include="Scripts\ckeditor\skins\moono\dialog.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\dialog_ie.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\dialog_ie7.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\dialog_ie8.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\dialog_iequirks.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\editor.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\editor_gecko.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\editor_ie.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\editor_ie7.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\editor_ie8.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\editor_iequirks.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\icons.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\icons_hidpi.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\arrow.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\close.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\close.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\lock-open.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\lock.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\refresh.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\lock-open.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\lock.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\refresh.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\spinner.gif" />
-    <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
-    <Content Include="Scripts\ckeditor\README.md" />
-    <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
-    <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
-    <Content Include="Scripts\ckeditor\plugins\scayt\README.md" />
-    <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
-    <Content Include="Scripts\ckeditor\LICENSE.md" />
-    <Content Include="Scripts\ckeditor\CHANGES.md" />
-    <None Include="bundleconfig.json" />
-    <None Include="compilerconfig.json" />
-    <None Include="Scripts\jquery-2.1.4-vsdoc.js" />
-    <Content Include="Scripts\ckeditor\styles.js" />
+    <None Include="Scripts\jquery-2.2.0.intellisense.js" />
+    <Content Include="Scripts\i18n\ar.js" />
     <Content Include="Scripts\i18n\az.js" />
     <Content Include="Scripts\i18n\bg.js" />
     <Content Include="Scripts\i18n\ca.js" />
     <Content Include="Scripts\i18n\cs.js" />
     <Content Include="Scripts\i18n\da.js" />
     <Content Include="Scripts\i18n\de.js" />
+    <Content Include="Scripts\i18n\defaults-ar_AR.js" />
+    <Content Include="Scripts\i18n\defaults-ar_AR.min.js" />
     <Content Include="Scripts\i18n\defaults-bg_BG.js" />
     <Content Include="Scripts\i18n\defaults-bg_BG.min.js" />
+    <Content Include="Scripts\i18n\defaults-cro_CRO.js" />
+    <Content Include="Scripts\i18n\defaults-cro_CRO.min.js" />
     <Content Include="Scripts\i18n\defaults-cs_CZ.js" />
     <Content Include="Scripts\i18n\defaults-cs_CZ.min.js" />
     <Content Include="Scripts\i18n\defaults-da_DK.js" />
@@ -2179,14 +2187,20 @@
     <Content Include="Scripts\i18n\defaults-eu.min.js" />
     <Content Include="Scripts\i18n\defaults-fa_IR.js" />
     <Content Include="Scripts\i18n\defaults-fa_IR.min.js" />
+    <Content Include="Scripts\i18n\defaults-fi_FI.js" />
+    <Content Include="Scripts\i18n\defaults-fi_FI.min.js" />
     <Content Include="Scripts\i18n\defaults-fr_FR.js" />
     <Content Include="Scripts\i18n\defaults-fr_FR.min.js" />
     <Content Include="Scripts\i18n\defaults-hu_HU.js" />
     <Content Include="Scripts\i18n\defaults-hu_HU.min.js" />
+    <Content Include="Scripts\i18n\defaults-id_ID.js" />
+    <Content Include="Scripts\i18n\defaults-id_ID.min.js" />
     <Content Include="Scripts\i18n\defaults-it_IT.js" />
     <Content Include="Scripts\i18n\defaults-it_IT.min.js" />
     <Content Include="Scripts\i18n\defaults-ko_KR.js" />
     <Content Include="Scripts\i18n\defaults-ko_KR.min.js" />
+    <Content Include="Scripts\i18n\defaults-nb_NO.js" />
+    <Content Include="Scripts\i18n\defaults-nb_NO.min.js" />
     <Content Include="Scripts\i18n\defaults-nl_NL.js" />
     <Content Include="Scripts\i18n\defaults-nl_NL.min.js" />
     <Content Include="Scripts\i18n\defaults-pl_PL.js" />
@@ -2233,6 +2247,7 @@
     <Content Include="Scripts\i18n\lt.js" />
     <Content Include="Scripts\i18n\lv.js" />
     <Content Include="Scripts\i18n\mk.js" />
+    <Content Include="Scripts\i18n\ms.js" />
     <Content Include="Scripts\i18n\nb.js" />
     <Content Include="Scripts\i18n\nl.js" />
     <Content Include="Scripts\i18n\pl.js" />
@@ -2241,6 +2256,7 @@
     <Content Include="Scripts\i18n\ro.js" />
     <Content Include="Scripts\i18n\ru.js" />
     <Content Include="Scripts\i18n\sk.js" />
+    <Content Include="Scripts\i18n\sr-Cyrl.js" />
     <Content Include="Scripts\i18n\sr.js" />
     <Content Include="Scripts\i18n\sv.js" />
     <Content Include="Scripts\i18n\th.js" />
@@ -2249,8 +2265,8 @@
     <Content Include="Scripts\i18n\vi.js" />
     <Content Include="Scripts\i18n\zh-CN.js" />
     <Content Include="Scripts\i18n\zh-TW.js" />
-    <Content Include="Scripts\jquery-2.1.4.js" />
-    <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\jquery-2.2.0.js" />
+    <Content Include="Scripts\jquery-2.2.0.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js">
       <DependentUpon>jquery-ui-1.11.4.js</DependentUpon>
@@ -2286,11 +2302,9 @@
     <Content Include="Scripts\ladda.js" />
     <Content Include="Scripts\ladda.min.js" />
     <Content Include="Scripts\prism.js" />
-    <Content Include="Scripts\select2.js" />
-    <Content Include="Scripts\select2.min.js">
-      <DependentUpon>select2.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\jquery.selectedQuoting.js" />
+    <Content Include="Scripts\select2.js" />
+    <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\yafEditor\attach.png" />
     <Content Include="Scripts\yafEditor\yafEditor.js" />
     <Content Include="Scripts\yafEditor\yafEditor.min.js">
@@ -3917,7 +3931,7 @@
     <Content Include="themes\cleanSlate\tab-line.png" />
     <Content Include="themes\cleanSlate\tab.png" />
     <Content Include="recommended.web.config" />
-    <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="Scripts\jquery-2.2.0.min.map" />
     <None Include="themes\cleanSlate\theme.less" />
     <Content Include="themes\cleanSlate\theme.css">
       <DependentUpon>theme.less</DependentUpon>
@@ -5000,6 +5014,19 @@
     <Content Include="UrlRewriter.config" />
     <None Include="Web References\RegisterV2\RegisterV2.wsdl" />
     <Content Include="v1.9.1.upgrade.web.config" />
+    <Content Include="web.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Deploy.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Package.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\URLRewriter.NET\Intelligencia.UrlRewriter.csproj">

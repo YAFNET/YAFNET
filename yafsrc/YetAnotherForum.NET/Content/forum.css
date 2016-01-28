@@ -1978,8 +1978,8 @@ pre[class*='language-'] > code[data-language]::before {
 .PopupBody .ShoutBoxPanel .content {
   position: absolute;
   top: 5px;
-  bottom: 0px;
-  right: 0px;
+  bottom: 0;
+  right: 0;
   left: 5px;
   height: 97%;
   width: 99%;
@@ -2044,22 +2044,22 @@ pre[class*='language-'] > code[data-language]::before {
   clear: both;
 }
 .yafnet .postsep td {
-  padding: 0px;
+  padding: 0;
 }
 .yafnet .postdiv {
   -ms-word-break: break-word;
   word-break: break-word;
 }
 .yafnet .yafpopupmenu {
-  padding: 0px;
+  padding: 0;
 }
 .yafnet .fileattach {
-  margin: 15px 0px 0px 0px;
+  margin: 15px 0 0 0;
 }
 .yafnet #yafprofilemenu {
   float: left;
   width: 150px;
-  margin: 5px 5px 5px 0px;
+  margin: 5px 5px 5px 0;
   clear: left;
 }
 .yafnet .RssFeedIcon {
@@ -2098,10 +2098,10 @@ pre[class*='language-'] > code[data-language]::before {
 .yafnet .QuickSearch {
   display: inline;
   float: right;
-  padding: 0px 4px 0px 4px;
+  padding: 0 4px 0 4px;
 }
 .yafnet #yafprofilecontent {
-  margin: 5px 0px 5px 0px;
+  margin: 5px 0 5px 0;
   width: 80%;
   float: right;
 }
@@ -2179,8 +2179,8 @@ pre[class*='language-'] > code[data-language]::before {
 .yafnet .SmilieList li {
   list-style: none;
   float: left;
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
   min-width: 40px;
   min-height: 40px;
 }
@@ -2233,7 +2233,7 @@ pre[class*='language-'] > code[data-language]::before {
   background: -o-linear-gradient(top, #cccccc, #9a9a9a);
   text-align: center;
   border-color: black;
-  text-shadow: 0px 0px 3px #000;
+  text-shadow: 0 0 3px #000;
 }
 .yafnet .ReputationBarText {
   margin-top: 5px;
