@@ -1,4 +1,6 @@
 <%@ Control Language="c#" CodeBehind="../../../pages/forum.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.forum" %>
+<%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Core" %>
 <%@ Register TagPrefix="YAF" TagName="ForumWelcome" Src="forumwelcome.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumIconLegend" Src="../../../controls/ForumIconLegend.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumStatistics" Src="../../../controls/ForumStatistics.ascx" %>
@@ -10,7 +12,9 @@
 <YAF:ForumWelcome runat="server" ID="Welcome" />
 <div class="DivTopSeparator">
 </div>
-<YAF:ShoutBox ID="ShoutBox1" Visible='<%# PageContext.BoardSettings.ShowShoutbox %>' runat="server" />
+<YAF:ShoutBox ID="ShoutBox1" 
+    Visible='<%# this.PageContext.BoardSettings.ShowShoutbox && this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShoutboxViewPermissions) %>' 
+    runat="server" />
 <YAF:PollList ID="PollList" runat="server"/>
 <YAF:ForumCategoryList ID="ForumCategoryList" runat="server"></YAF:ForumCategoryList>
 <br />
