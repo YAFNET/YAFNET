@@ -7,7 +7,5 @@ CKEDITOR.plugins.setLang('wordcount', 'hr', {
     CharCount: 'Znakova:',
     CharCountWithHTML: 'Znakova (uključujući HTML):',
     Paragraphs: 'Paragraphs:',
-    pasteWarning: 'Content can not be pasted because it is above the allowed limit',
-    Selected: 'Selected: ',
     title: 'Statistika'
 });

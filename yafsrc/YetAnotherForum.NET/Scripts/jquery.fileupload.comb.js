@@ -1,4 +1,4 @@
-/*
+﻿/*
  * JavaScript Templates 2.4.1
  * https://github.com/blueimp/JavaScript-Templates
  *
@@ -4617,3 +4617,4 @@
     });
 
 }));
+
