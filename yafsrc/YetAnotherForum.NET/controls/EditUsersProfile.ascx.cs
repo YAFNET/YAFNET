@@ -666,9 +666,7 @@ namespace YAF.Controls
             this.HideMe.Checked = this.UserData.IsActiveExcluded
                                   && (this.Get<YafBoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin);
 
-            if (this.Get<YafBoardSettings>().MobileTheme.IsSet()
-                && UserAgentHelper.IsMobileDevice(HttpContext.Current.Request.UserAgent)
-                || HttpContext.Current.Request.Browser.IsMobileDevice)
+            if (this.Get<YafBoardSettings>().MobileTheme.IsSet())
             {
                 this.UseMobileThemeRow.Visible = true;
                 this.UseMobileTheme.Checked = this.UserData.UseMobileTheme;
