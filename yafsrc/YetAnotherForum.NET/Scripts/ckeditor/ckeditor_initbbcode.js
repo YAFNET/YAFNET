@@ -1,7 +1,7 @@
 ﻿jQuery(document).ready(function() {
     var yafCKEditor = jQuery('textarea.YafTextEditor').ckeditor({
         extraPlugins: 'autosave,bbcode,syntaxhighlight,bbcodeselector,codemirror',
-        autosave_saveDetectionSelectors: "a[id*='_PostReply'],a[id*='Cancel']",
+        autosave_saveDetectionSelectors: "a[id*='_PostReply'],a[id*='Cancel'],a[id*='_Preview']",
         toolbar: [
             ['Source'],
             ['Undo', 'Redo'],
@@ -27,7 +27,7 @@
         }
     });
 
-    jQuery("a[id*='_PostReply'],a[id*='_Save']").click(function() {
+    jQuery("a[id*='_PostReply'],a[id*='_Save'],a[id*='_Preview']").click(function () {
         yafCKEditor.editor.updateElement();
     });
 

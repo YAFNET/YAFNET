@@ -1,7 +1,7 @@
 jQuery(document).ready(function() {
     var yafCKEditor = jQuery('textarea.YafTextEditor').ckeditor({
         extraPlugins: 'autosave,bbcodehtml,syntaxhighlight,bbcodeselector,codemirror,textselection,wordcount',
-        autosave_saveDetectionSelectors: "a[id*='_PostReply'],a[id*='Cancel']",
+        autosave_saveDetectionSelectors: "a[id*='_PostReply'],a[id*='Cancel'],a[id*='_Preview']",
         toolbar: [
             ['Source'],
             ['Cut', 'Copy', 'Paste'], ['Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'],
@@ -25,7 +25,7 @@ jQuery(document).ready(function() {
         }
     });
 
-    jQuery("a[id*='_PostReply'],a[id*='_Save']").click(function () {
+    jQuery("a[id*='_PostReply'],a[id*='_Save'],a[id*='_Preview']").click(function () {
         yafCKEditor.editor.updateElement();
     });
 
