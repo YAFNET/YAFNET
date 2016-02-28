@@ -4,7 +4,7 @@
     "inputFiles": [
       "Scripts/spin.js",
       "Scripts/ladda.js",
-      "Scripts/jquery-2.2.0.js",
+      "Scripts/jquery-2.2.1.js",
       "Scripts/bootstrap.js",
       "Scripts/bootstrap-select.js",
       "Scripts/InstallWizard.js"

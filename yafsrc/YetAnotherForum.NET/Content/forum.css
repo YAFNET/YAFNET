@@ -1002,16 +1002,16 @@ Test out these custom less files live
   background-color: rgba(51, 51, 51, 0);
 }
 .tablesorter caption {
-  background: #ffffff;
+  background: #fff;
 }
 .tablesorter .tablesorter-filter-row input,
 .tablesorter .tablesorter-filter-row select {
   width: 98%;
   height: auto;
   margin: 0;
-  color: #333333;
-  background: #ffffff;
-  border: 1px solid #bbbbbb;
+  color: #333;
+  background: #fff;
+  border: 1px solid #bbb;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1021,10 +1021,10 @@ Test out these custom less files live
   transition: line-height 0.1s ease;
 }
 .tablesorter .tablesorter-filter-row {
-  background: #eeeeee;
+  background: #eee;
 }
 .tablesorter .tablesorter-filter-row td {
-  background: #eeeeee;
+  background: #eee;
   line-height: normal;
   text-align: center;
   /* center the input */
@@ -1306,6 +1306,8 @@ pre[class*='language-'] > code[data-language]::before {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap; }
+    .select2-container .select2-selection--single .select2-selection__clear {
+      position: relative; }
   .select2-container[dir="rtl"] .select2-selection--single .select2-selection__rendered {
     padding-right: 8px;
     padding-left: 20px; }
@@ -1328,7 +1330,8 @@ pre[class*='language-'] > code[data-language]::before {
       box-sizing: border-box;
       border: none;
       font-size: 100%;
-      margin-top: 5px; }
+      margin-top: 5px;
+      padding: 0; }
       .select2-container .select2-search--inline .select2-search__field::-webkit-search-cancel-button {
         -webkit-appearance: none; }
 
@@ -1534,7 +1537,8 @@ pre[class*='language-'] > code[data-language]::before {
   background: transparent;
   border: none;
   outline: 0;
-  box-shadow: none; }
+  box-shadow: none;
+  -webkit-appearance: textfield; }
 
 .select2-container--default .select2-results > .select2-results__options {
   max-height: 200px;
@@ -2228,9 +2232,9 @@ pre[class*='language-'] > code[data-language]::before {
   margin-top: 5px;
   width: 98%;
   background-color: #ccc;
-  background: -webkit-gradient(linear, left top, left bottom, from(#cccccc), to(#9a9a9a));
-  background: -moz-linear-gradient(top, #cccccc, #9a9a9a);
-  background: -o-linear-gradient(top, #cccccc, #9a9a9a);
+  background: -webkit-gradient(linear, left top, left bottom, from(#ccc), to(#9a9a9a));
+  background: -moz-linear-gradient(top, #ccc, #9a9a9a);
+  background: -o-linear-gradient(top, #ccc, #9a9a9a);
   text-align: center;
   border-color: black;
   text-shadow: 0 0 3px #000;

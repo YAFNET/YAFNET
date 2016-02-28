@@ -1,4 +1,4 @@
-﻿function DataPanel_ExpandCollapse(hd, cht, cha, st, tc, te) {
+function DataPanel_ExpandCollapse(hd, cht, cha, st, tc, te) {
     if (document.getElementById(hd).style.display == '') {
         document.getElementById(hd).style.display = 'none';
         if (cht != '') {
