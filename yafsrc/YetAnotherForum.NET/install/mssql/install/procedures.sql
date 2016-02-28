@@ -2046,7 +2046,7 @@ SELECT
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}forum_moderators] (@StyledNicks bit) as
+create procedure [{databaseOwner}].[{objectQualifier}forum_moderators] (@BoardID int, @StyledNicks bit) as
 BEGIN
         select
         ForumID = a.ForumID, 
@@ -2067,7 +2067,8 @@ BEGIN
         INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b WITH(NOLOCK) ON b.GroupID = a.GroupID
         INNER JOIN [{databaseOwner}].[{objectQualifier}AccessMask] c WITH(NOLOCK) ON c.AccessMaskID = a.AccessMaskID
     where
-        (c.Flags & 64)<>0
+        b.BoardID = @BoardID and
+		(c.Flags & 64)<>0
     union all
     select 
         ForumID = access.ForumID,
@@ -2094,7 +2095,8 @@ BEGIN
                 INNER JOIN [{databaseOwner}].[{objectQualifier}UserGroup] a WITH(NOLOCK) on a.UserID=x.UserID
                 INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b WITH(NOLOCK) on b.GroupID=a.GroupID
             WHERE 
-                ModeratorAccess <> 0 AND x.AdminGroup = 0
+                b.BoardID = @BoardID and
+		        ModeratorAccess <> 0 AND x.AdminGroup = 0
             GROUP BY a.UserID, x.ForumID
         ) access ON usr.UserID = access.UserID
         JOIN    [{databaseOwner}].[{objectQualifier}Forum] f WITH(NOLOCK) 

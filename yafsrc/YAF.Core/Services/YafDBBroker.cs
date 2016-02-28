@@ -457,7 +457,7 @@ namespace YAF.Core.Services
                     {
                         DataTable moderator =
                             this.DbFunction.GetAsDataTable(
-                                cdb => cdb.forum_moderators(this.BoardSettings.UseStyledNicks));
+                                cdb => cdb.forum_moderators(YafContext.Current.PageBoardID, this.BoardSettings.UseStyledNicks));
                         moderator.TableName = "Moderator";
                         return moderator;
                     },
