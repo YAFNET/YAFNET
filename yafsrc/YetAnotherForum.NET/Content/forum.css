@@ -2050,7 +2050,7 @@ pre[class*='language-'] > code[data-language]::before {
 .yafnet .postsep td {
   padding: 0;
 }
-.yafnet .postdiv {
+.yafnet .yafnet div.postdiv {
   -ms-word-break: break-word;
   word-break: break-word;
 }

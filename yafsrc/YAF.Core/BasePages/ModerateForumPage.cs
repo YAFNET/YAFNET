@@ -24,79 +24,76 @@
 
 namespace YAF.Core
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Types;
-  using YAF.Types.Extensions;
-  using YAF.Utils;
-
-  #endregion
-
-  /// <summary>
-  /// The moderate forum page.
-  /// </summary>
-  public class ModerateForumPage : ForumPage
-  {
-    #region Constructors and Destructors
-
-      /// <summary>
-      /// Initializes a new instance of the <see cref="ModerateForumPage"/> class.
-      /// </summary>
-      public ModerateForumPage()
-      : this(null)
-    {
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ModerateForumPage"/> class.
-    /// </summary>
-    /// <param name="transPage">
-    /// The trans page.
-    /// </param>
-    public ModerateForumPage([CanBeNull] string transPage)
-      : base(transPage)
-    {
-    }
+    using YAF.Types;
+    using YAF.Types.Extensions;
+    using YAF.Utils;
 
     #endregion
 
-    #region Properties
-
     /// <summary>
-    /// Gets PageName.
+    /// The moderate forum page.
     /// </summary>
-    public override string PageName
+    public class ModerateForumPage : ForumPage
     {
-      get
-      {
-        return "moderate_{0}".FormatWith(base.PageName);
-      }
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ModerateForumPage"/> class.
+        /// </summary>
+        public ModerateForumPage()
+        : this(null)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ModerateForumPage"/> class.
+        /// </summary>
+        /// <param name="transPage">
+        /// The trans page.
+        /// </param>
+        public ModerateForumPage([CanBeNull] string transPage)
+          : base(transPage)
+        {
+            this.Load += this.ModeratePage_Load;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets PageName.
+        /// </summary>
+        public override string PageName
+        {
+            get
+            {
+                return "moderate_{0}".FormatWith(base.PageName);
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the Load event of the ModeratePage control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void ModeratePage_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // Only moderators are allowed here
+            if (!this.PageContext.IsModeratorInAnyForum)
+            {
+                YafBuildLink.AccessDenied();
+            }
+        }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      // Only moderators are allowed here
-      if (!this.PageContext.ForumModeratorAccess || !this.PageContext.IsModeratorInAnyForum)
-      {
-        YafBuildLink.AccessDenied();
-      }
-    }
-
-    #endregion
-  }
 }
