@@ -653,6 +653,11 @@ namespace YAF.Controls
                 return;
             }
 
+            if (this.PostData.PostDeleted || this.PostData.IsLocked)
+            {
+                return;
+            }
+
             // Register Javascript
             const string AddThankBoxHTML =
                 "'<a class=\"yaflittlebutton\" href=\"javascript:addThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span>' + res.d.Text + '</span></a>'";
