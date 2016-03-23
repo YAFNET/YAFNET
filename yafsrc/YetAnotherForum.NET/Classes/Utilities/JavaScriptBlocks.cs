@@ -866,6 +866,7 @@ namespace YAF.Utilities
                     forumID: '{4}',
                     boardID: '{5}',
                     userID: '{6}',
+                    uploadFolder: '{7}',
                     allowedUpload: true
                 }},
                 dropZone: {0}('.UploadDialog')
@@ -904,7 +905,8 @@ namespace YAF.Utilities
                 fileUploaderUrl,
                 forumID,
                 boardID,
-                YafContext.Current.PageUserID);
+                YafContext.Current.PageUserID,
+                YafBoardFolders.Current.Uploads);
         }
 
         /// <summary>

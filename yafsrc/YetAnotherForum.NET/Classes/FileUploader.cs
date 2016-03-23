@@ -150,7 +150,8 @@ namespace YAF.Classes
         {
             var forumID = HttpContext.Current.Request["forumID"].ToType<int>();
             var boardID = HttpContext.Current.Request["boardID"].ToType<int>();
-            var yafUserID = HttpContext.Current.Request["userID"].ToType<int>(); 
+            var yafUserID = HttpContext.Current.Request["userID"].ToType<int>();
+            var uploadFolder = HttpContext.Current.Request["uploadFolder"];
 
             if (!this.CheckAccessRights(boardID, forumID))
             {
@@ -218,15 +219,13 @@ namespace YAF.Classes
                     {
                         var previousDirectory =
                             this.Get<HttpRequestBase>()
-                                .MapPath(Path.Combine(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+                                .MapPath(Path.Combine(BaseUrlBuilder.ServerFileRoot, uploadFolder));
 
                         // check if Uploads folder exists
                         if (!Directory.Exists(previousDirectory))
                         {
                             Directory.CreateDirectory(previousDirectory);
                         }
-
-                        file.SaveAs("{0}/u{1}.{2}.yafupload".FormatWith(previousDirectory, yafUserID, fileName));
 
                         newAttachmentID = this.GetRepository<Attachment>()
                             .Save(
@@ -235,6 +234,10 @@ namespace YAF.Classes
                                 fileName: fileName,
                                 bytes: file.ContentLength,
                                 contentType: file.ContentType);
+
+                        file.SaveAs("{0}/u{1}-{2}.{3}.yafupload".FormatWith(previousDirectory, yafUserID, newAttachmentID, fileName));
+
+
                     }
 
                     var fullName = Path.GetFileName(fileName);

@@ -1098,11 +1098,30 @@ namespace YAF
                                 uploadFolder,
                                 attachment.MessageID > 0
                                     ? attachment.MessageID.ToString()
+                                    : "u{0}-{1}".FormatWith(attachment.UserID, attachment.ID),
+                                attachment.FileName));
+
+                    var fileName = oldFileName;
+
+                    if (File.Exists(oldFileName))
+                    {
+                        fileName = oldFileName;
+
+                    }
+                    else
+                    {
+                        oldFileName =
+                        context.Server.MapPath(
+                            "{0}/{1}.{2}.yafupload".FormatWith(
+                                uploadFolder,
+                                attachment.MessageID > 0
+                                    ? attachment.MessageID.ToString()
                                     : "u{0}".FormatWith(attachment.UserID),
                                 attachment.FileName));
 
-                    // use the new fileName (with extension) if it exists...
-                    var fileName = File.Exists(newFileName) ? newFileName : oldFileName;
+                        // use the new fileName (with extension) if it exists...
+                        fileName = File.Exists(newFileName) ? newFileName : oldFileName;
+                    }
 
                     using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                     {
@@ -1224,14 +1243,33 @@ namespace YAF
                     var uploadFolder = YafBoardFolders.Current.Uploads;
 
                     var oldFileName =
+                         context.Server.MapPath(
+                             "{0}/{1}.{2}".FormatWith(
+                                 uploadFolder,
+                                 attachment.MessageID > 0
+                                     ? attachment.MessageID.ToString()
+                                     : "u{0}".FormatWith(attachment.UserID),
+                                 attachment.FileName));
+
+                    var newFileName =
                         context.Server.MapPath(
-                            "{0}/{1}.{2}".FormatWith(
+                            "{0}/{1}.{2}.yafupload".FormatWith(
                                 uploadFolder,
                                 attachment.MessageID > 0
                                     ? attachment.MessageID.ToString()
-                                    : "u{0}".FormatWith(attachment.UserID),
+                                    : "u{0}-{1}".FormatWith(attachment.UserID, attachment.ID),
                                 attachment.FileName));
-                    var newFileName =
+
+                    var fileName = oldFileName;
+
+                    if (File.Exists(oldFileName))
+                    {
+                        fileName = oldFileName;
+
+                    }
+                    else
+                    {
+                        oldFileName =
                         context.Server.MapPath(
                             "{0}/{1}.{2}.yafupload".FormatWith(
                                 uploadFolder,
@@ -1240,8 +1278,9 @@ namespace YAF
                                     : "u{0}".FormatWith(attachment.UserID),
                                 attachment.FileName));
 
-                    // use the new fileName (with extension) if it exists...
-                    var fileName = File.Exists(newFileName) ? newFileName : oldFileName;
+                        // use the new fileName (with extension) if it exists...
+                        fileName = File.Exists(newFileName) ? newFileName : oldFileName;
+                    }
 
                     using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                     {
@@ -1334,27 +1373,47 @@ namespace YAF
 
                 if (attachment.FileData == null)
                 {
-                    var sUpDir = YafBoardFolders.Current.Uploads;
+                    var uploadFolder = YafBoardFolders.Current.Uploads;
 
                     var oldFileName =
-                        context.Server.MapPath(
-                            "{0}/{1}.{2}".FormatWith(
-                                sUpDir,
-                                attachment.MessageID > 0
-                                    ? attachment.MessageID.ToString()
-                                    : "u{0}".FormatWith(attachment.UserID),
-                                attachment.FileName));
+                         context.Server.MapPath(
+                             "{0}/{1}.{2}".FormatWith(
+                                 uploadFolder,
+                                 attachment.MessageID > 0
+                                     ? attachment.MessageID.ToString()
+                                     : "u{0}".FormatWith(attachment.UserID),
+                                 attachment.FileName));
+
                     var newFileName =
                         context.Server.MapPath(
                             "{0}/{1}.{2}.yafupload".FormatWith(
-                                sUpDir,
+                                uploadFolder,
+                                attachment.MessageID > 0
+                                    ? attachment.MessageID.ToString()
+                                    : "u{0}-{1}".FormatWith(attachment.UserID, attachment.ID),
+                                attachment.FileName));
+
+                    var fileName = oldFileName;
+
+                    if (File.Exists(oldFileName))
+                    {
+                        fileName = oldFileName;
+
+                    }
+                    else
+                    {
+                        oldFileName =
+                        context.Server.MapPath(
+                            "{0}/{1}.{2}.yafupload".FormatWith(
+                                uploadFolder,
                                 attachment.MessageID > 0
                                     ? attachment.MessageID.ToString()
                                     : "u{0}".FormatWith(attachment.UserID),
                                 attachment.FileName));
 
-                    // use the new fileName (with extension) if it exists...
-                    var fileName = File.Exists(newFileName) ? newFileName : oldFileName;
+                        // use the new fileName (with extension) if it exists...
+                        fileName = File.Exists(newFileName) ? newFileName : oldFileName;
+                    }
 
                     using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                     {
