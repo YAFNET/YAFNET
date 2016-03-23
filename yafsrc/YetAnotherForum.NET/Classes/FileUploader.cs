@@ -150,6 +150,7 @@ namespace YAF.Classes
         {
             var forumID = HttpContext.Current.Request["forumID"].ToType<int>();
             var boardID = HttpContext.Current.Request["boardID"].ToType<int>();
+            var yafUserID = HttpContext.Current.Request["userID"].ToType<int>(); 
 
             if (!this.CheckAccessRights(boardID, forumID))
             {
@@ -207,7 +208,7 @@ namespace YAF.Classes
                         newAttachmentID = this.GetRepository<Attachment>()
                             .Save(
                                 messageID: 0,
-                                userID: YafContext.Current.PageUserID,
+                                userID: yafUserID,
                                 fileName: fileName,
                                 bytes: file.ContentLength,
                                 contentType: file.ContentType,
@@ -225,12 +226,12 @@ namespace YAF.Classes
                             Directory.CreateDirectory(previousDirectory);
                         }
 
-                        file.SaveAs("{0}/u{1}.{2}.yafupload".FormatWith(previousDirectory, YafContext.Current.PageUserID, fileName));
+                        file.SaveAs("{0}/u{1}.{2}.yafupload".FormatWith(previousDirectory, yafUserID, fileName));
 
                         newAttachmentID = this.GetRepository<Attachment>()
                             .Save(
                                 messageID: 0,
-                                userID: YafContext.Current.PageUserID,
+                                userID: yafUserID,
                                 fileName: fileName,
                                 bytes: file.ContentLength,
                                 contentType: file.ContentType);

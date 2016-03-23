@@ -171,8 +171,8 @@ namespace YAF.Controls
             sb.Append("</div>");
             sb.Append("<div id=\"AttachmentsListBox\" class=\"content\">");
             sb.AppendFormat(
-                "<div id=\"PostAttachmentListPlaceholder\" data-url=\"{0}\" style=\"clear: both;\">",
-                YafForumInfo.ForumClientFileRoot);
+                "<div id=\"PostAttachmentListPlaceholder\" data-url=\"{0}\" data-userid=\"{1}\" style=\"clear: both;\">",
+                YafForumInfo.ForumClientFileRoot, YafContext.Current.PageUserID);
             sb.Append("<ul class=\"AttachmentList\">");
             sb.Append("</ul>");
             sb.Append("</div>");

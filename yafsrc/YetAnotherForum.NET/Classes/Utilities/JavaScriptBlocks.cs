@@ -865,6 +865,7 @@ namespace YAF.Utilities
                 formData: {{
                     forumID: '{4}',
                     boardID: '{5}',
+                    userID: '{6}',
                     allowedUpload: true
                 }},
                 dropZone: {0}('.UploadDialog')
@@ -902,7 +903,8 @@ namespace YAF.Utilities
                 acceptedFileTypes,
                 fileUploaderUrl,
                 forumID,
-                boardID);
+                boardID,
+                YafContext.Current.PageUserID);
         }
 
         /// <summary>

@@ -258,7 +258,8 @@ jQuery(document).ready(function () {
 });
 
 function getPaginationData(pageSize, pageNumber) {
-    var defaultParameters = "{pageSize:" + pageSize + ",pageNumber:" + pageNumber + "}";
+    var yafUserID = $("#PostAttachmentListPlaceholder").data("userid");
+    var defaultParameters = "{userID: " + yafUserID + ", pageSize:" + pageSize + ",pageNumber:" + pageNumber + "}";
 
     var ajaxURL = $("#PostAttachmentListPlaceholder").data("url") + "YafAjax.asmx/GetAttachments";
 

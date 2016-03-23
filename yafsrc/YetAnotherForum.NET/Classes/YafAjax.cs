@@ -76,12 +76,11 @@ namespace YAF.Classes
 
         [WebMethod(EnableSession = true)]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public GridDataSet GetAttachments(int pageSize, int pageNumber)
+        public GridDataSet GetAttachments(int userID, int pageSize, int pageNumber)
         {
             var attachments = YafContext.Current.GetRepository<Attachment>()
-                .List(userID: YafContext.Current.PageUserID, pageIndex: pageNumber, pageSize: pageSize);
-
-
+                .List(userID: userID, pageIndex: pageNumber, pageSize: pageSize);
+            
             var attachmentItems = new List<AttachmentItem>();
 
             foreach (DataRow row in attachments.Rows)
