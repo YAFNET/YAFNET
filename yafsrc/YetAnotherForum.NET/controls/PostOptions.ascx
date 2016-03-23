@@ -5,7 +5,7 @@
     <td class="post" colspan="2">
         <strong><YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" LocalizedTag="NEWPOSTOPTIONS" /></strong>
         <br />
-        <ul style="list-style-type: none; padding-left: 0px;">
+        <ul style="list-style-type: none; padding-left: 0">
             <li id="liAddPoll" runat="server">
                 <asp:CheckBox ID="AddPollCheckBox" runat="server" />
                 <YAF:LocalizedLabel ID="AddPollLabel" runat="server" LocalizedPage="POSTMESSAGE"
@@ -15,7 +15,7 @@
                 <YAF:LocalizedLabel ID="IsQuestionLael" runat="server" LocalizedTag="ISQUESTION"/>
             </li>
             <li id="liPersistency" runat="server">
-                <asp:CheckBox ID="Persistency" runat="server" />
+                <asp:CheckBox ID="Persistency" runat="server" Checked="True" />
                 <YAF:LocalizedLabel ID="PersistencyLabel" runat="server" LocalizedTag="PERSISTENCY" /> (<YAF:LocalizedLabel ID="PersistencyLabel2" runat="server" LocalizedTag="PERSISTENCY_INFO" />)
             </li>
             <li id="liTopicWatch" runat="server">

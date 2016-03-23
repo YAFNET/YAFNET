@@ -442,19 +442,27 @@ namespace YAF.Core.Services
                         }
                     });
 
-            this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(this.PageBoardID));
+            
 
-            // load default bbcode if available...
-            loadWrapper(_BbcodeImport, s => DataImport.BBCodeExtensionImport(this.PageBoardID, s));
+            var boards = this.GetRepository<Board>().ListTyped();
 
-            // load default extensions if available...
-            loadWrapper(_FileImport, s => DataImport.FileExtensionImport(this.PageBoardID, s));
+            // Upgrade all Boards
+            foreach (var board in boards)
+            {
+                this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(board.ID));
 
-            // load default topic status if available...
-            loadWrapper(_TopicStatusImport, s => DataImport.TopicStatusImport(this.PageBoardID, s));
+                // load default bbcode if available...
+                loadWrapper(_BbcodeImport, s => DataImport.BBCodeExtensionImport(board.ID, s));
 
-            // load default spam word if available...
-            loadWrapper(_SpamWordsImport, s => DataImport.SpamWordsImport(this.PageBoardID, s));
+                // load default extensions if available...
+                loadWrapper(_FileImport, s => DataImport.FileExtensionImport(board.ID, s));
+
+                // load default topic status if available...
+                loadWrapper(_TopicStatusImport, s => DataImport.TopicStatusImport(board.ID, s));
+
+                // load default spam word if available...
+                loadWrapper(_SpamWordsImport, s => DataImport.SpamWordsImport(board.ID, s));
+            }
         }
 
         #endregion
