@@ -24,6 +24,7 @@
 
 namespace YAF.Pages.Admin
 {
+    using Core.Services.Import;
     #region Using
 
     using System;
@@ -543,6 +544,38 @@ namespace YAF.Pages.Admin
                     newAdmin.ProviderUserKey.ToString(),
                     this.PageContext().IsHostAdmin,
                     Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
+
+            var loadWrapper = new Action<string, Action<Stream>>(
+                (file, streamAction) =>
+                {
+                    var fullFile = this.Get<HttpRequestBase>().MapPath(file);
+
+                    if (!File.Exists(fullFile))
+                    {
+                        return;
+                    }
+
+                    // import into board...
+                    using (var stream = new StreamReader(fullFile))
+                    {
+                        streamAction(stream.BaseStream);
+                        stream.Close();
+                    }
+                });
+
+            // load default bbcode if available...
+            loadWrapper("install/bbCodeExtensions.xml", s => DataImport.BBCodeExtensionImport(newBoardID, s));
+
+            // load default extensions if available...
+            loadWrapper("install/fileExtensions.xml", s => DataImport.FileExtensionImport(newBoardID, s));
+
+            // load default topic status if available...
+            loadWrapper("install/TopicStatusList.xml", s => DataImport.TopicStatusImport(newBoardID, s));
+
+            // load default spam word if available...
+            loadWrapper("install/SpamWords.xml", s => DataImport.SpamWordsImport(newBoardID, s));
+
+
             return newBoardID;
         }
 
