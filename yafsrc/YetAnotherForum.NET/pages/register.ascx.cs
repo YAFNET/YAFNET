@@ -324,7 +324,7 @@ namespace YAF.Pages
             if (userName.Length < this.Get<YafBoardSettings>().DisplayNameMinLength)
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().DisplayNameMinLength), 
+                    this.GetTextFormatted("USERNAME_TOOSMALL", this.Get<YafBoardSettings>().DisplayNameMinLength), 
                     MessageTypes.Error);
 
                 e.Cancel = true;
@@ -351,7 +351,7 @@ namespace YAF.Pages
                     if (displayName.Text.Trim().Length < this.Get<YafBoardSettings>().DisplayNameMinLength)
                     {
                         this.PageContext.AddLoadMessage(
-                            this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().DisplayNameMinLength), 
+                            this.GetTextFormatted("USERNAME_TOOSMALL", this.Get<YafBoardSettings>().DisplayNameMinLength), 
                             MessageTypes.Warning);
                         e.Cancel = true;
 
