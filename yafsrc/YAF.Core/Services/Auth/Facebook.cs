@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
@@ -59,7 +59,7 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         public string GetAuthorizeUrl(HttpRequest request)
         {
-            const string SCOPE = "email,user_birthday,status_update,publish_stream,user_location";
+            const string SCOPE = "email,user_birthday,publish_actions,user_location";
 
             var redirectUrl = this.GetRedirectURL(request);
 

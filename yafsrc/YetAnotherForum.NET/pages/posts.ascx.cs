@@ -724,40 +724,6 @@ namespace YAF.Pages
             #endregion
 
             this.BindData();
-
-            if (!this.Get<IPermissions>().Check(yafBoardSettings.ShowShareTopicTo) || !Config.FacebookAPIKey.IsSet())
-            {
-                return;
-            }
-
-            YafContext.Current.PageElements.RegisterJsBlockStartup("facebookInitJs", JavaScriptBlocks.FacebookInitJs);
-
-            var message =
-                BBCodeHelper.StripBBCode(
-                    HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this._topic["Topic"]))).RemoveMultipleWhitespace();
-
-            var meta = this.Page.Header.FindControlType<HtmlMeta>().ToList();
-
-            string description = string.Empty;
-
-            if (meta.Any(x => x.Name.Equals("description")))
-            {
-                var descriptionMeta = meta.FirstOrDefault(x => x.Name.Equals("description"));
-                if (descriptionMeta != null)
-                {
-                    description = descriptionMeta.Content;
-                }
-            }
-
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "facebookPostJs",
-                JavaScriptBlocks.FacebookPostJs(
-                    this.Server.HtmlEncode(message),
-                    this.Server.HtmlEncode(description),
-                    this.Get<HttpRequestBase>().Url.ToString(),
-                    "{0}/YAFLogo.jpg".FormatWith(
-                        Path.Combine(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Images)),
-                    "Logo"));
         }
 
         /// <summary>
@@ -1882,25 +1848,28 @@ namespace YAF.Pages
                     "retweet", this.GetText("RETWEET_TOPIC"), this.Get<ITheme>().GetItem("ICONS", "TWITTER"));
                 this.ShareMenu.AddPostBackItem(
                     "googleplus", this.GetText("GOOGLEPLUS_TOPIC"), this.Get<ITheme>().GetItem("ICONS", "GOOGLEPLUS"));
-                /* this.ShareMenu.AddPostBackItem(
-                 * "facebook", this.GetText("FACEBOOK_TOPIC"), this.Get<ITheme>().GetItem("ICONS", "FACEBOOK"));*/
 
                 var facebookUrl =
                     "http://www.facebook.com/plugins/like.php?href={0}".FormatWith(
-                        this.Server.UrlEncode(topicUrl), this.Server.UrlEncode((string)this._topic["Topic"]));
+                        this.Server.UrlEncode(topicUrl));
 
                 this.ShareMenu.AddClientScriptItem(
                     this.GetText("FACEBOOK_TOPIC"),
-                    @"window.open('{0}','Facebook','width=300,height=200,resizable=yes');".FormatWith(facebookUrl),
+                    @"window.open('{0}','{1}','width=300,height=200,resizable=yes');".FormatWith(
+                        facebookUrl, 
+                        this.GetText("FACEBOOK_TOPIC")),
                     this.Get<ITheme>().GetItem("ICONS", "FACEBOOK"));
 
-                if (Config.FacebookAPIKey.IsSet())
-                {
-                    this.ShareMenu.AddClientScriptItem(
-                        this.GetText("FACEBOOK_SHARE_TOPIC"),
-                        "postToFacebook()",
-                        this.Get<ITheme>().GetItem("ICONS", "FACEBOOK"));
-                }
+                var facebookShareUrl =
+                   "https://www.facebook.com/sharer/sharer.php?u={0}".FormatWith(
+                       this.Server.UrlEncode(topicUrl));
+
+                this.ShareMenu.AddClientScriptItem(
+                    this.GetText("FACEBOOK_SHARE_TOPIC"),
+                    @"window.open('{0}','{1}','width=550,height=690,resizable=yes');".FormatWith(
+                        facebookShareUrl,
+                        this.GetText("FACEBOOK_SHARE_TOPIC")),
+                    this.Get<ITheme>().GetItem("ICONS", "FACEBOOK"));
 
                 this.ShareMenu.AddPostBackItem(
                     "digg", this.GetText("DIGG_TOPIC"), this.Get<ITheme>().GetItem("ICONS", "DIGG"));

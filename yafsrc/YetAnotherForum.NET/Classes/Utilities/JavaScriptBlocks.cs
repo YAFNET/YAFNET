@@ -42,21 +42,6 @@ namespace YAF.Utilities
         #region Properties
 
         /// <summary>
-        /// Gets Facebook Init Js.
-        /// </summary>
-        public static string FacebookInitJs
-        {
-            get
-            {
-                return @"{1}(document).ready(function() {{
-                         {1}.getScript('//connect.facebook.net/en_US/all.js', function(data, textStatus, jqxhr) {{
-                            FB.init({{appId:'{0}',status:true,cookie:true,xfbml:true}});
-                         }});
-                     }});".FormatWith(Config.FacebookAPIKey, Config.JQueryAlias);
-            }
-        }
-
-        /// <summary>
         ///   Gets the script for album/image title/image callback.
         /// </summary>
         /// <returns>
@@ -277,73 +262,6 @@ namespace YAF.Utilities
         #endregion
 
         #region Public Methods
-
-        /// <summary>
-        /// The Post to Facebook Js
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        /// <param name="link">
-        /// The link.
-        /// </param>
-        /// <param name="picture">
-        /// The picture.
-        /// </param>
-        /// <param name="caption">
-        /// The caption.
-        /// </param>
-        /// <returns>
-        /// Returns the The Post to Facebook Js
-        /// </returns>
-        [NotNull]
-        public static string FacebookPostJs(
-            string message,
-            string description,
-            string link,
-            string picture,
-            string caption)
-        {
-            return @"function postToFacebook() {{
-
-                   FB.getLoginStatus(function(response) {{
-  if (response.status === 'connected') {{
-    
-    FB.ui(
-                                {{ method: 'feed', name: '{0}', link: '{2}', picture: '{3}', caption: '{4}', description: '{1}', message: '{0}'
-                                }},
-                                function(response) {{
-                                  if (response && response.post_id) {{
-                                    alert('Post was published.');
-                                  }} else {{
-                                    alert('Post was not published.');
-                                  }}
-                                }});
-  }} else {{
-     FB.login(function(response) {{
-                       if (response.authResponse) {{
-                             FB.ui(
-                                {{ method: 'feed', name: '{0}', link: '{2}', picture: '{3}', caption: '{4}', description: '{1}', message: '{0}'
-                                }},
-                                function(response) {{
-                                  if (response && response.post_id) {{
-                                    alert('Post was published.');
-                                  }} else {{
-                                    alert('Post was not published.');
-                                  }}
-                                }});
-                             }}else {{
-                                 alert('Not Logged in on Facebook!');
-                                }}
-                             }});
-  }}
- }});
-
-                         }}".FormatWith(message, description, link, picture, caption);
-        }
 
         /// <summary>
         /// Javascript events for Album pages.
