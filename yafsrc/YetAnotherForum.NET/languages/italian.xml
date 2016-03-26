@@ -1931,6 +1931,7 @@
     <Resource tag="DROP_HERE">Trascina qui i file</Resource>
     <Resource tag="FILEERROR">'{0}' non e' un file che e' possibile caricare.</Resource>
     <Resource tag="FILENAME">Nome del file</Resource>
+    <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
     <Resource tag="SELECT_FILE">Seleziona il file da allegare.</Resource>
     <Resource tag="SIZE">Dimensione</Resource>
     <Resource tag="START_UPLOADS">Avvia caricamento</Resource>

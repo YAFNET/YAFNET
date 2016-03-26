@@ -1919,6 +1919,7 @@
     <Resource tag="DROP_HERE">Drop file(s) here</Resource>
     <Resource tag="FILEERROR">'{0}' ist kein gültiger Dateiname.</Resource>
     <Resource tag="FILENAME">Dateiname</Resource>
+    <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
     <Resource tag="SELECT_FILE">Bitte wähle die hochzuladende Datei aus.</Resource>
     <Resource tag="SIZE">Größe</Resource>
     <Resource tag="START_UPLOADS">Start upload(s)</Resource>

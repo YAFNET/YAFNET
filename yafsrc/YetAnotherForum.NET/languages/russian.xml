@@ -1917,6 +1917,7 @@
     <Resource tag="DROP_HERE">Drop file(s) here</Resource>
     <Resource tag="FILEERROR">Файла типа '{0}' не разрешены для загрузки.</Resource>
     <Resource tag="FILENAME">Название файла</Resource>
+    <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
     <Resource tag="SELECT_FILE">Выберите файл для загрузки.</Resource>
     <Resource tag="SIZE">Размер</Resource>
     <Resource tag="START_UPLOADS">Start upload(s)</Resource>

@@ -1938,6 +1938,7 @@
     <Resource tag="ERROR_TOOBIG">Takto veliké soubory nelze přiložit.</Resource>
     <Resource tag="FILEERROR">'{0}' není platný soubor pro nahrání.</Resource>
     <Resource tag="FILENAME">Jméno souboru</Resource>
+    <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
     <Resource tag="SELECT_FILE">Zvolte soubor, který chcete nahrát.</Resource>
     <Resource tag="SIZE">Velikost</Resource>
     <Resource tag="START_UPLOADS">Start upload(s)</Resource>

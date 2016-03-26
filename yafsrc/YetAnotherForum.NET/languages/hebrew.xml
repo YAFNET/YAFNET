@@ -1960,6 +1960,7 @@
     <Resource tag="ERROR_TOOBIG">לא ניתן לצרף קבצים כל כך גדולים.</Resource>
     <Resource tag="FILEERROR">'{0}' אינו קובץ חוקי להעלאה.</Resource>
     <Resource tag="FILENAME">שם קובץ</Resource>
+    <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
     <Resource tag="SELECT_FILE">בחר את הקובץ שברצונך להעלות.</Resource>
     <Resource tag="SIZE">גודל</Resource>
     <Resource tag="START_UPLOADS">Start upload(s)</Resource>

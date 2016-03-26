@@ -1938,6 +1938,7 @@
     <Resource tag="ERROR_TOOBIG">Du kan ikke tilføje filer, der er så store.</Resource>
     <Resource tag="FILEERROR">'{0}' er ikke en gyldig fil.</Resource>
     <Resource tag="FILENAME">Filnavn</Resource>
+    <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
     <Resource tag="SELECT_FILE">Vælg filen du vil uploade.</Resource>
     <Resource tag="SIZE">Størrelse</Resource>
     <Resource tag="START_UPLOADS">Start upload(s)</Resource>

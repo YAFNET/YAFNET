@@ -1942,6 +1942,7 @@
     <Resource tag="ERROR_TOOBIG">Jūs negalite pridėti failus, kad didelis. </Resource>
     <Resource tag="FILEERROR">"{0}" yra neteisingas failo įkėlimui. </Resource>
     <Resource tag="FILENAME">Failo vardas </Resource>
+    <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
     <Resource tag="SELECT_FILE">Pasirinkite failą, kurį norite įkelti. </Resource>
     <Resource tag="SIZE">Dydis </Resource>
     <Resource tag="START_UPLOADS">Start upload(s)</Resource>

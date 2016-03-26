@@ -773,7 +773,7 @@ function DataPanel_ExpandCollapseImage(hd, cht, cha, st, ex, cl, tc, te) {
     };
 })(jQuery);
 /*!
- * Select2 4.0.1
+ * Select2 4.0.2
  * https://select2.github.io
  *
  * Released under the MIT license
@@ -1916,11 +1916,7 @@ S2.define('select2/results',[
       this.$results.on('mousewheel', function (e) {
         var top = self.$results.scrollTop();
 
-        var bottom = (
-          self.$results.get(0).scrollHeight -
-          self.$results.scrollTop() +
-          e.deltaY
-        );
+        var bottom = self.$results.get(0).scrollHeight - top + e.deltaY;
 
         var isAtTop = e.deltaY > 0 && top - e.deltaY <= 0;
         var isAtBottom = e.deltaY < 0 && bottom <= self.$results.height();
@@ -4106,7 +4102,7 @@ S2.define('select2/data/array',[
         var $existingOption = $existing.filter(onlyItem(item));
 
         var existingData = this.item($existingOption);
-        var newData = $.extend(true, {}, existingData, item);
+        var newData = $.extend(true, {}, item, existingData);
 
         var $newOption = this.option(newData);
 
@@ -4214,7 +4210,9 @@ S2.define('select2/data/ajax',[
 
         callback(results);
       }, function () {
-        // TODO: Handle AJAX errors
+        self.trigger('results:message', {
+          message: 'errorLoading'
+        });
       });
 
       self._request = $request;
@@ -4244,6 +4242,12 @@ S2.define('select2/data/tags',[
 
     if (createTag !== undefined) {
       this.createTag = createTag;
+    }
+
+    var insertTag = options.get('insertTag');
+
+    if (insertTag !== undefined) {
+        this.insertTag = insertTag;
     }
 
     decorated.call(this, $element, options);
@@ -4945,7 +4949,6 @@ S2.define('select2/dropdown/attachBody',[
 
     var newDirection = null;
 
-    var position = this.$container.position();
     var offset = this.$container.offset();
 
     offset.bottom = offset.top + this.$container.outerHeight(false);
@@ -4974,13 +4977,19 @@ S2.define('select2/dropdown/attachBody',[
       top: container.bottom
     };
 
-    // Fix positioning with static parents
-    if (this.$dropdownParent[0].style.position !== 'static') {
-      var parentOffset = this.$dropdownParent.offset();
+    // Determine what the parent element is to use for calciulating the offset
+    var $offsetParent = this.$dropdownParent;
 
-      css.top -= parentOffset.top;
-      css.left -= parentOffset.left;
+    // For statically positoned elements, we need to get the element
+    // that is determining the offset
+    if ($offsetParent.css('position') === 'static') {
+      $offsetParent = $offsetParent.offsetParent();
     }
+
+    var parentOffset = $offsetParent.offset();
+
+    css.top -= parentOffset.top;
+    css.left -= parentOffset.left;
 
     if (!isCurrentlyAbove && !isCurrentlyBelow) {
       newDirection = 'below';
@@ -5248,7 +5257,7 @@ S2.define('select2/defaults',[
   }
 
   Defaults.prototype.apply = function (options) {
-    options = $.extend({}, this.defaults, options);
+    options = $.extend(true, {}, this.defaults, options);
 
     if (options.dataAdapter == null) {
       if (options.ajax != null) {
@@ -5812,6 +5821,7 @@ S2.define('select2/core',[
       id = Utils.generateChars(4);
     }
 
+    id = id.replace(/(:|\.|\[|\]|,)/g, '');
     id = 'select2-' + id;
 
     return id;
@@ -15186,8 +15196,9 @@ function getPaginationData(pageSize, pageNumber) {
 
             if (data.d.AttachmentList.length === 0) {
                 var list = $('#PostAttachmentListPlaceholder ul');
+                var notext = $("#PostAttachmentListPlaceholder").data("notext");
 
-                list.append('<li><em>You don\t have any attachments Yet!</em></li>');
+                list.append('<li><em>' + notext + '</em></li>');
             }
 
             $.each(data.d.AttachmentList, function (id, data) {

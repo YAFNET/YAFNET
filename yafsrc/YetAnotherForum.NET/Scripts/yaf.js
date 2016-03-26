@@ -276,8 +276,9 @@ function getPaginationData(pageSize, pageNumber) {
 
             if (data.d.AttachmentList.length === 0) {
                 var list = $('#PostAttachmentListPlaceholder ul');
+                var notext = $("#PostAttachmentListPlaceholder").data("notext");
 
-                list.append('<li><em>You don\t have any attachments Yet!</em></li>');
+                list.append('<li><em>' + notext + '</em></li>');
             }
 
             $.each(data.d.AttachmentList, function (id, data) {

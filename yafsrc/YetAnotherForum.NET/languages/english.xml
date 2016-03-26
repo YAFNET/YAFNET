@@ -1929,6 +1929,7 @@
   <Resource tag="DROP_HERE">Drop file(s) here</Resource>
   <Resource tag="FILEERROR">'{0}' is not an allowed file type for upload.</Resource>
   <Resource tag="FILENAME">File Name</Resource>
+  <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
   <Resource tag="SELECT_FILE">Select the file(s) you want to upload.</Resource>
   <Resource tag="SIZE">Size</Resource>
   <Resource tag="START_UPLOADS">Start upload(s)</Resource>

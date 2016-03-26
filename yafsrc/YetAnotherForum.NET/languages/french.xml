@@ -1938,6 +1938,7 @@
     <Resource tag="ERROR_TOOBIG">Vous ne pouvez pas attacher un fichier aussi gros.</Resource>
     <Resource tag="FILEERROR">'{0}' n'est pas un fichier valide pour le téléchargement.</Resource>
     <Resource tag="FILENAME">Nom du fichier</Resource>
+    <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
     <Resource tag="SELECT_FILE">Sélectionnez le fichier que vous voulez télécharger.</Resource>
     <Resource tag="SIZE">Taille</Resource>
     <Resource tag="START_UPLOADS">Start upload(s)</Resource>
