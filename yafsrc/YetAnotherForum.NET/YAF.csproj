@@ -1813,6 +1813,8 @@
     <Content Include="Resources\ProviderExceptions.xml" />
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap-select.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
     <Content Include="Scripts\ckeditor\config.js" />
@@ -2075,6 +2077,7 @@
     <Content Include="Scripts\ckeditor\skins\moono\images\refresh.png" />
     <Content Include="Scripts\ckeditor\skins\moono\images\spinner.gif" />
     <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\i18n\ar.js" />
     <Content Include="Scripts\i18n\az.js" />
     <Content Include="Scripts\i18n\bg.js" />
     <Content Include="Scripts\i18n\ca.js" />
@@ -2227,7 +2230,6 @@
     <Content Include="Content\bootstrap\badges.less" />
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Scripts\bootstrap-select.js.map" />
-    <Content Include="Scripts\i18n\ar.js" />
     <Content Include="Scripts\i18n\en.js" />
     <Content Include="Scripts\i18n\es.js" />
     <Content Include="Scripts\i18n\et.js" />
