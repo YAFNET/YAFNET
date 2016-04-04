@@ -190,6 +190,8 @@ jQuery(document).ready(function () {
 
     jQuery('.postdiv div').has('.attachedImage').addClass('ceebox');
 
+    jQuery('.postdiv div').has('.UserPostedImage').addClass('ceebox');
+
     jQuery(".standardSelectMenu").selectmenu({
         change: function() {
             if (typeof (jQuery(this).attr('onchange')) !== 'undefined') {
