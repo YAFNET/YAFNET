@@ -46,13 +46,42 @@ namespace YAF.Controls
         #region Properties
 
         /// <summary>
+        /// Gets the board identifier.
+        /// </summary>
+        /// <value>
+        /// The board identifier.
+        /// </value>
+        protected int BoardID
+        {
+            get
+            {
+                try
+                {
+                    if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("board").IsSet())
+                    {
+                        return this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("board").ToType<int>();
+                    }
+                    else
+                    {
+                        return YafContext.Current.PageBoardID;
+                    }
+                   
+                }
+                catch (Exception)
+                {
+                    return YafContext.Current.PageBoardID;
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets ShoutBoxMessages.
         /// </summary>
         public IEnumerable<DataRow> ShoutBoxMessages
         {
             get
             {
-                return this.Get<YafDbBroker>().GetShoutBoxMessages(YafContext.Current.PageBoardID);
+                return this.Get<YafDbBroker>().GetShoutBoxMessages(this.BoardID);
             }
         }
 
@@ -157,7 +186,7 @@ namespace YAF.Controls
             if (username != null && this.messageTextBox.Text != string.Empty)
             {
                 LegacyDb.shoutbox_savemessage(
-                    this.PageContext.PageBoardID,
+                    this.BoardID,
                     this.messageTextBox.Text,
                     username,
                     this.PageContext.PageUserID,
@@ -184,7 +213,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Clear_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            LegacyDb.shoutbox_clearmessages(this.PageContext.PageBoardID);
+            LegacyDb.shoutbox_clearmessages(this.BoardID);
 
             // cleared... re-load from cache...
             this.Get<IDataCache>().Remove(Constants.Cache.Shoutbox);
@@ -215,7 +244,7 @@ namespace YAF.Controls
 
             if (this.Get<YafBoardSettings>().ShowShoutboxSmiles)
             {
-                this.smiliesRepeater.DataSource = this.GetRepository<Smiley>().ListUnique(this.PageContext.PageBoardID);
+                this.smiliesRepeater.DataSource = this.GetRepository<Smiley>().ListUnique(this.BoardID);
             }
         }
 

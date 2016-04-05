@@ -23,17 +23,17 @@
     }
     function openShoutBoxWin() {
         //var hostname = window.location.hostname;
-        window.open("<%=YafForumInfo.ForumClientFileRoot %>popup.aspx?g=shoutbox", "mywindow", "location=0,status=0,scrollbars=0,resizable=1,width=555,height=400");
+        window.open("<%=YafForumInfo.ForumClientFileRoot %>popup.aspx?g=shoutbox&board=<%=YafControlSettings.Current.BoardID %>", "mywindow", "location=0,status=0,scrollbars=0,resizable=1,width=555,height=400");
         return false;
     }
 
     function refreshShoutBoxFailed(err)
     {
-        jQuery('#shoutBoxChatArea').html("Error refreshing chat: " + err);
+        <%=YAF.Classes.Config.JQueryAlias %>('#shoutBoxChatArea').html("Error refreshing chat: " + err);
     }
 
     function checkForNewMessages() {
-        <%=YAF.Classes.Config.JQueryAlias %>.PageMethod('<%= YafForumInfo.ForumClientFileRoot %>YafAjax.asmx', 'RefreshShoutBox', refreshShoutBoxPanel, refreshShoutBoxFailed, 'boardId', <%=this.PageContext.PageBoardID %>);
+        <%=YAF.Classes.Config.JQueryAlias %>.PageMethod('<%= YafForumInfo.ForumClientFileRoot %>YafAjax.asmx', 'RefreshShoutBox', refreshShoutBoxPanel, refreshShoutBoxFailed, 'boardId', <%=this.BoardID %>);
 
         setTimeout('checkForNewMessages()', 2000);
     }
