@@ -2261,8 +2261,9 @@
     <Content Include="Scripts\i18n\vi.js" />
     <Content Include="Scripts\i18n\zh-CN.js" />
     <Content Include="Scripts\i18n\zh-TW.js" />
-    <Content Include="Scripts\jquery-2.2.1.js" />
-    <Content Include="Scripts\jquery-2.2.1.min.js" />
+    <None Include="Scripts\jquery-2.2.2.intellisense.js" />
+    <Content Include="Scripts\jquery-2.2.2.js" />
+    <Content Include="Scripts\jquery-2.2.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js">
       <DependentUpon>jquery-ui-1.11.4.js</DependentUpon>
@@ -3996,7 +3997,6 @@
     <Content Include="themes\cleanSlate\tab-line.png" />
     <Content Include="themes\cleanSlate\tab.png" />
     <Content Include="recommended.web.config" />
-    <Content Include="Scripts\jquery-2.2.1.min.map" />
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
     <Content Include="Scripts\ckeditor\README.md" />
     <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
@@ -4007,6 +4007,7 @@
     <Content Include="Scripts\ckeditor\package.json" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
+    <Content Include="Scripts\jquery-2.2.2.min.map" />
     <None Include="themes\cleanSlate\theme.less" />
     <Content Include="themes\cleanSlate\theme.css">
       <DependentUpon>theme.less</DependentUpon>
