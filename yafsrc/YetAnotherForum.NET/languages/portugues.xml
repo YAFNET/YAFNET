@@ -5297,12 +5297,16 @@ To read the message, open the following link in your browser:
 </Resource>
     <Resource tag="TOPICPOST_HTML" />
     <Resource tag="TOPICPOST_TEXT">
-A new message has been posted in the thread {topic} at {forumname}.
+      A new message has been posted in the thread {topic} at {forumname}.
 
-To read the message, open the following link in your browser:
+      To read the message, open the following link in your browser:
 
-{link}
-</Resource>
+      {link}
+
+      You can manage your subscriptions here:
+
+      {subscriptionlink}
+    </Resource>
     <Resource tag="VERIFYEMAIL_HTML" />
     <Resource tag="VERIFYEMAIL_TEXT">
 You have requested to join {forumname}, but before you can join your email address must be verified.

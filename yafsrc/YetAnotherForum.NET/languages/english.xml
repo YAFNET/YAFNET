@@ -5269,6 +5269,10 @@ By {postedby}:
 To read more, click or copy and paste the following link into your browser:
 
 {link}
+
+You can manage your subscriptions here:
+
+{subscriptionlink}
 </Resource>
   <Resource tag="VERIFYEMAIL_HTML"></Resource>
   <Resource tag="VERIFYEMAIL_TEXT">

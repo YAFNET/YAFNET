@@ -5312,12 +5312,16 @@ Utilizza il seguente link per leggerlo:
 </Resource>
     <Resource tag="TOPICPOST_HTML" />
     <Resource tag="TOPICPOST_TEXT">
-Un nuovo messaggio e` stato inserito nella discussione {topic} del forum {forumname}.
+      Un nuovo messaggio e` stato inserito nella discussione {topic} del forum {forumname}.
 
-Per leggerlo, utilizza il seguente link:
+      Per leggerlo, utilizza il seguente link:
 
-{link}
-</Resource>
+      {link}
+
+      You can manage your subscriptions here:
+
+      {subscriptionlink}
+    </Resource>
     <Resource tag="VERIFYEMAIL_HTML" />
     <Resource tag="VERIFYEMAIL_TEXT">
 Hai richiesto di iscriverti al forum {forumname}, ma prima deve essere verificata la tua e-mail.

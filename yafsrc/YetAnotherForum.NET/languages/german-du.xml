@@ -5224,6 +5224,10 @@ Eine neue Antwort wurde im Thema {topic} auf {forumname} geschrieben.
 Um die Antwort zu lesen, öffne diesen Link mit Deinem Browser:
 
 {link}
+
+      You can manage your subscriptions here:
+      
+      {subscriptionlink}
     </Resource>
     <Resource tag="VERIFYEMAIL_HTML" />
     <Resource tag="VERIFYEMAIL_TEXT">

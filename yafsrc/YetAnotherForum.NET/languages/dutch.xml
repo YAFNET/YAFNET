@@ -5241,12 +5241,17 @@ Om dit bericht te lezen, gebruik de volgende link:
 {link}
 </Resource>
     <Resource tag="TOPICPOST_HTML" />
-    <Resource tag="TOPICPOST_TEXT">Er is een nieuw bericht geplaatst in het {topic} topic op {forumname}.
+    <Resource tag="TOPICPOST_TEXT">
+      Er is een nieuw bericht geplaatst in het {topic} topic op {forumname}.
 
-Om dit topic te lezen, gebruik de volgende link:
+      Om dit topic te lezen, gebruik de volgende link:
 
-{link}
-</Resource>
+      {link}
+
+      You can manage your subscriptions here:
+      
+      {subscriptionlink}
+    </Resource>
     <Resource tag="VERIFYEMAIL_HTML" />
     <Resource tag="VERIFYEMAIL_TEXT">Om je te registreren op {forumname}, moet je e-mailadres gecontroleerd worden.
 

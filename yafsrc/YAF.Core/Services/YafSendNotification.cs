@@ -377,6 +377,7 @@ namespace YAF.Core.Services
                 true,
                 "m={0}#post{0}",
                 newMessageId);
+            watchEmail.TemplateParams["{subscriptionlink}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.cp_subscriptions, true);
 
             watchEmail.CreateWatch(
                 message.TopicID ?? 0,

@@ -5274,6 +5274,10 @@ Password: {password}
       Для прочтения этого сообщения, перейдите по следующей ссылке в вашем браузере:
 
       {link}
+
+      You can manage your subscriptions here:
+      
+      {subscriptionlink}
     </Resource>
     <Resource tag="VERIFYEMAIL_HTML" />
     <Resource tag="VERIFYEMAIL_TEXT">

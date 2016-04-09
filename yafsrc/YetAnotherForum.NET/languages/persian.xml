@@ -5296,6 +5296,10 @@
       "{bodytruncated}"
       برای خواندن بیشتر، لینک زیر را در مرورگر خود بگشایید.
       {link}
+
+      You can manage your subscriptions here:
+
+      {subscriptionlink}
     </Resource>
     <Resource tag="VERIFYEMAIL_HTML" />
     <Resource tag="VERIFYEMAIL_TEXT">

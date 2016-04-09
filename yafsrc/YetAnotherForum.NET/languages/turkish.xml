@@ -5286,6 +5286,10 @@ Mesajı okumak için tarayıcınızda bu linki açın
 Mesajı okumak için tarayıcınızda bu linki açın.
 
 {link}
+
+      You can manage your subscriptions here:
+      
+      {subscriptionlink}
     </Resource>
     <Resource tag="VERIFYEMAIL_HTML" />
     <Resource tag="VERIFYEMAIL_TEXT">

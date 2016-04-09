@@ -5276,15 +5276,19 @@ To read the message, open the following link in your browser:
 </Resource>
     <Resource tag="TOPICPOST_HTML" />
     <Resource tag="TOPICPOST_TEXT">
-There's a new post in topic "{topic}" at {forumname}:
+      There's a new post in topic "{topic}" at {forumname}:
 
-By {postedby}: 
-"{bodytruncated}"
+      By {postedby}:
+      "{bodytruncated}"
 
-To read more, click or copy and paste the following link into your browser:
+      To read more, click or copy and paste the following link into your browser:
 
-{link}
-</Resource>
+      {link
+
+      You can manage your subscriptions here:
+      
+      {subscriptionlink}
+    </Resource>
     <Resource tag="VERIFYEMAIL_HTML" />
     <Resource tag="VERIFYEMAIL_TEXT">
 You have requested to join {forumname}, but before you can join your email address must be verified.

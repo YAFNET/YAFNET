@@ -5638,6 +5638,10 @@ Un nuevo mensaje ha sido publicado en el hilo {topic} en {forumname}.
 Para leer el mensaje, abre el siguiente enlace en tu navegador:
 
 {link}
+
+      You can manage your subscriptions here:
+      
+      {subscriptionlink}
 		</Resource>
     <Resource tag="VERIFYEMAIL_HTML" />
     <Resource tag="VERIFYEMAIL_TEXT">

@@ -5289,15 +5289,20 @@ Sõnumi lugemiseks avage allolev link:
 {link}
 </Resource>
     <Resource tag="TOPICPOST_HTML" />
-    <Resource tag="TOPICPOST_TEXT">Foorumi {forumname} teemas "{topic}" on uus postitus:
+    <Resource tag="TOPICPOST_TEXT">
+      Foorumi {forumname} teemas "{topic}" on uus postitus:
 
-{postedby}: 
-"{bodytruncated}"
+      {postedby}:
+      "{bodytruncated}"
 
-Lugemiseks vajutage allolevale lingile või kopeerige link oma veebilehitsejasse:
+      Lugemiseks vajutage allolevale lingile või kopeerige link oma veebilehitsejasse:
 
-{link}
-</Resource>
+      {link}
+
+      You can manage your subscriptions here:
+
+      {subscriptionlink}
+    </Resource>
     <Resource tag="VERIFYEMAIL_HTML" />
     <Resource tag="VERIFYEMAIL_TEXT">Te taotlesite {forumname} foorumiga liitumist, kuid kõigepealt on vaja kontrollida Teie e-posti aadressi.
 

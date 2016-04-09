@@ -5381,6 +5381,10 @@ The Message was posted in the {forumname} forum.
 על מנת לקרוא את ההודעה, לחץ על פתח את הקישור הבא:
 
 {link}
+
+      You can manage your subscriptions here:
+      
+      {subscriptionlink}
 </Resource>
     <Resource tag="VERIFYEMAIL_HTML" editType="html">
 &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;

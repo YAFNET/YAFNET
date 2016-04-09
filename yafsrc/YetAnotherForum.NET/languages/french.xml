@@ -5295,12 +5295,16 @@ Pour lire ce message, ouvrez le lien suivant dans votre navigateur :
 </Resource>
     <Resource tag="TOPICPOST_HTML" />
     <Resource tag="TOPICPOST_TEXT">
-Un nouveau message a été écrit dans le sujet {topic} sur {forumname}.
+      Un nouveau message a été écrit dans le sujet {topic} sur {forumname}.
 
-Pour lire ce message, ouvrez le lien suivant dans votre navigateur :
+      Pour lire ce message, ouvrez le lien suivant dans votre navigateur :
 
-{link}
-</Resource>
+      {link}
+
+      You can manage your subscriptions here:
+
+      {subscriptionlink}
+    </Resource>
     <Resource tag="VERIFYEMAIL_HTML" />
     <Resource tag="VERIFYEMAIL_TEXT">
 Vous avez demandé à rejoindre {forumname}, mais avant de pouvoir vous connecter votre adresse email doit être vérifiée.

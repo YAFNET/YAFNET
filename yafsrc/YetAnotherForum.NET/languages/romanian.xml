@@ -5281,13 +5281,17 @@ Pentru a va putea citi mesajul, deschideti urmatorul link in browserul dumneavoa
 </Resource>
     <Resource tag="TOPICPOST_HTML" />
     <Resource tag="TOPICPOST_TEXT">
-Un nou mesaj a fost postat in topicul {topic} de pe forumul {forumname}.
+      Un nou mesaj a fost postat in topicul {topic} de pe forumul {forumname}.
 
-Pentru a putea citi mesajul, deschideti urmatorul link in browserul dumneavoastra:
+      Pentru a putea citi mesajul, deschideti urmatorul link in browserul dumneavoastra:
 
 
-{link}
-</Resource>
+      {link}
+
+      You can manage your subscriptions here:
+
+      {subscriptionlink}
+    </Resource>
     <Resource tag="VERIFYEMAIL_HTML" />
     <Resource tag="VERIFYEMAIL_TEXT">
 Ati cerut inregistrarea pe forum {forumname}. Inainte de a putea fi inregistrat, adresa de mail trebuie verificata.	

@@ -5293,6 +5293,10 @@ A new message has been posted in the thread {topic} at {forumname}.
 To read the message, open the following link in your browser:
 
 {link}
+
+You can manage your subscriptions here:
+
+{subscriptionlink}
 </Resource>
     <Resource tag="VERIFYEMAIL_HTML" />
     <Resource tag="VERIFYEMAIL_TEXT">
