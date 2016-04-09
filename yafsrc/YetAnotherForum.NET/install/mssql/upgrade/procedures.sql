@@ -1468,7 +1468,7 @@ AS
                 join [{databaseOwner}].[{objectQualifier}Message] c  on c.MessageID = t.MessageID		 
                 join [{databaseOwner}].[{objectQualifier}Topic] a on a.TopicID = c.TopicID
                 join [{databaseOwner}].[{objectQualifier}User] b on c.UserID = b.UserID
-                join [{databaseOwner}].[{objectQualifier}ActiveAccess] x with(nolock) on x.ForumID = a.ForumID
+                join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  on x.ForumID = a.ForumID
         WHERE	
                 c.IsDeleted = 0
                 AND c.IsApproved = 1     				
@@ -1718,7 +1718,7 @@ begin
             JOIN [{databaseOwner}].[{objectQualifier}Rank] r on r.RankID=a.RankID
             inner join [{databaseOwner}].[{objectQualifier}Active] c 
             ON c.UserID = a.UserID
-            inner join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock)
+            inner join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  
             ON (x.ForumID = ISNULL(c.ForumID,0))						
         where		
             c.BoardID = @BoardID AND x.UserID = @UserID		
@@ -1755,7 +1755,7 @@ begin
             JOIN [{databaseOwner}].[{objectQualifier}Rank] r on r.RankID=a.RankID
             inner join [{databaseOwner}].[{objectQualifier}Active] c 
             ON c.UserID = a.UserID
-            inner join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock)
+            inner join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  
             ON (x.ForumID = ISNULL(c.ForumID,0))						
         where		
             c.BoardID = @BoardID AND x.UserID = @UserID	     
@@ -1794,7 +1794,7 @@ begin
             JOIN [{databaseOwner}].[{objectQualifier}Rank] r on r.RankID=a.RankID
             INNER JOIN [{databaseOwner}].[{objectQualifier}Active] c 
             ON c.UserID = a.UserID
-            inner join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock)
+            inner join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  
             ON (x.ForumID = ISNULL(c.ForumID,0))
             where		
             c.BoardID = @BoardID  AND x.UserID = @UserID				      
@@ -1822,7 +1822,7 @@ begin
         when 1 then  b.UserStyle
         else ''	 end, 			
         UserCount   = (SELECT COUNT(ac.UserID) from
-        [{databaseOwner}].[{objectQualifier}Active] ac with(nolock) where ac.UserID = a.UserID and ac.ForumID = @ForumID),
+        [{databaseOwner}].[{objectQualifier}Active] ac  where ac.UserID = a.UserID and ac.ForumID = @ForumID),
         Browser = a.Browser
     from
         [{databaseOwner}].[{objectQualifier}Active] a 
@@ -1855,10 +1855,10 @@ begin
             when 1 then  b.UserStyle
             else ''	 end, 	
         UserCount   = (SELECT COUNT(ac.UserID) from
-        [{databaseOwner}].[{objectQualifier}Active] ac with(nolock) where ac.UserID = a.UserID and ac.TopicID = @TopicID),
+        [{databaseOwner}].[{objectQualifier}Active] ac  where ac.UserID = a.UserID and ac.TopicID = @TopicID),
         Browser = a.Browser
     from
-        [{databaseOwner}].[{objectQualifier}Active] a with(nolock)
+        [{databaseOwner}].[{objectQualifier}Active] a 
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID		
     where
         a.TopicID = @TopicID
@@ -1894,7 +1894,7 @@ AS
 BEGIN
         DECLARE @count int, @max int, @maxStr nvarchar(255), @countStr nvarchar(255), @dtStr nvarchar(255)
     
-    SET @count = ISNULL((SELECT COUNT(DISTINCT IP + '.' + CAST(UserID as varchar(10))) FROM [{databaseOwner}].[{objectQualifier}Active] WITH (NOLOCK) WHERE BoardID = @BoardID),0)
+    SET @count = ISNULL((SELECT COUNT(DISTINCT IP + '.' + CAST(UserID as varchar(10))) FROM [{databaseOwner}].[{objectQualifier}Active]  WHERE BoardID = @BoardID),0)
     SET @maxStr = (SELECT ISNULL([{databaseOwner}].[{objectQualifier}registry_value](N'maxusers', @BoardID), '1'))
     SET @max = CAST(@maxStr AS int)
     SET @countStr = CAST(@count AS nvarchar)
@@ -2468,7 +2468,7 @@ BEGIN
         LastUser	= e.Name,
         LastUserDisplayName	= e.DisplayName,
         LastUserStyle =  case(@StyledNicks)
-            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = a.UserID)
+            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = a.UserID)
             else ''	 end
             FROM 
                 [{databaseOwner}].[{objectQualifier}Message] a 
@@ -2612,7 +2612,7 @@ begin
     from 
         [{databaseOwner}].[{objectQualifier}Category] a
         join [{databaseOwner}].[{objectQualifier}Forum] b on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] v  with(nolock) on v.ForumID=b.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] v   on v.ForumID=b.ForumID
     where
         a.BoardID=@BoardID and
         v.UserID=@UserID and
@@ -3036,7 +3036,7 @@ begin
     from
         [{databaseOwner}].[{objectQualifier}Forum] a
         join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c  with(nolock) on c.ForumID=a.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c   on c.ForumID=a.ForumID
     where
         c.UserID=@UserID and
         b.BoardID=@BoardID and
@@ -3059,7 +3059,7 @@ begin
     from
         [{databaseOwner}].[{objectQualifier}Forum] a
         join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c  with(nolock) on c.ForumID=a.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c   on c.ForumID=a.ForumID
     where
         c.UserID=@UserID and
         b.BoardID=@BoardID and
@@ -3084,7 +3084,7 @@ begin
     from
         [{databaseOwner}].[{objectQualifier}Forum] a
         join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c  with(nolock) on c.ForumID=a.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c   on c.ForumID=a.ForumID
     where
         c.UserID=@UserID and
         b.BoardID=@BoardID and
@@ -3162,7 +3162,7 @@ begin
         ) as x
         join [{databaseOwner}].[{objectQualifier}Forum] a on a.ForumID=x.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c  with(nolock) on c.ForumID=a.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c   on c.ForumID=a.ForumID
     where
         c.UserID=@UserID and
         b.BoardID=@BoardID and
@@ -3226,9 +3226,9 @@ select
         b.ForumID,
         b.ParentID		
     from 
-        [{databaseOwner}].[{objectQualifier}Category] a with(nolock) 
-        join [{databaseOwner}].[{objectQualifier}Forum] b  with(nolock) on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=b.ForumID	
+        [{databaseOwner}].[{objectQualifier}Category] a  
+        join [{databaseOwner}].[{objectQualifier}Forum] b   on b.CategoryID=a.CategoryID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=b.ForumID	
     where 
         a.BoardID = @BoardID and
         ((b.Flags & 2)=0 or x.ReadAccess<>0) and
@@ -3245,9 +3245,9 @@ select
         b.ForumID,
         b.ParentID		
     from 
-        [{databaseOwner}].[{objectQualifier}Category] a  with(nolock)
-        join [{databaseOwner}].[{objectQualifier}Forum] b  with(nolock) on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=b.ForumID		
+        [{databaseOwner}].[{objectQualifier}Category] a  
+        join [{databaseOwner}].[{objectQualifier}Forum] b   on b.CategoryID=a.CategoryID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=b.ForumID		
     where 
         a.BoardID = @BoardID and
         ((b.Flags & 2)=0 or x.ReadAccess<>0) and
@@ -3278,33 +3278,33 @@ select
         LastMessageID	= t.LastMessageID,
         LastMessageFlags = t.LastMessageFlags,
         LastUserID		= t.LastUserID,
-        LastUser		= IsNull(t.LastUserName,(select x.[Name] from [{databaseOwner}].[{objectQualifier}User] x with(nolock) where x.UserID=t.LastUserID)),
-        LastUserDisplayName	= IsNull(t.LastUserDisplayName,(select x.[DisplayName] from [{databaseOwner}].[{objectQualifier}User] x with(nolock) where x.UserID=t.LastUserID)),
+        LastUser		= IsNull(t.LastUserName,(select x.[Name] from [{databaseOwner}].[{objectQualifier}User] x  where x.UserID=t.LastUserID)),
+        LastUserDisplayName	= IsNull(t.LastUserDisplayName,(select x.[DisplayName] from [{databaseOwner}].[{objectQualifier}User] x  where x.UserID=t.LastUserID)),
         LastTopicID		= t.TopicID,
         TopicMovedID    = t.TopicMovedID,
         LastTopicName	= t.Topic,
         LastTopicStatus = t.Status,
         LastTopicStyles = t.Styles,
         b.Flags,
-        Viewing			= (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x with(nolock) JOIN [{databaseOwner}].[{objectQualifier}User] usr with(nolock) ON x.UserID = usr.UserID where x.ForumID=b.ForumID AND usr.IsActiveExcluded = 0),
+        Viewing			= (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x  JOIN [{databaseOwner}].[{objectQualifier}User] usr  ON x.UserID = usr.UserID where x.ForumID=b.ForumID AND usr.IsActiveExcluded = 0),
         b.RemoteURL,		
         ReadAccess = CONVERT(int,x.ReadAccess),
         Style = case(@StyledNicks)
-            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = t.LastUserID)
+            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = t.LastUserID)
             else ''	 end,
         LastForumAccess = case(@FindLastRead)
              when 1 then
-               (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x with(nolock) WHERE x.ForumID=b.ForumID AND x.UserID = @UserID)
+               (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}ForumReadTracking] x  WHERE x.ForumID=b.ForumID AND x.UserID = @UserID)
              else ''	 end,
         LastTopicAccess = case(@FindLastRead)
              when 1 then
-               (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y with(nolock) WHERE y.TopicID=t.TopicID AND y.UserID = @UserID)
+               (SELECT top 1 LastAccessDate FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] y  WHERE y.TopicID=t.TopicID AND y.UserID = @UserID)
              else ''	 end 					
     from 
-        [{databaseOwner}].[{objectQualifier}Category] a with(nolock)
-        join [{databaseOwner}].[{objectQualifier}Forum] b with(nolock) on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x with(nolock) on x.ForumID=b.ForumID
-        left outer join [{databaseOwner}].[{objectQualifier}Topic] t with(nolock) ON t.TopicID = [{databaseOwner}].[{objectQualifier}forum_lasttopic](b.ForumID,@UserID,b.LastTopicID,b.LastPosted)
+        [{databaseOwner}].[{objectQualifier}Category] a 
+        join [{databaseOwner}].[{objectQualifier}Forum] b  on b.CategoryID=a.CategoryID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  on x.ForumID=b.ForumID
+        left outer join [{databaseOwner}].[{objectQualifier}Topic] t  ON t.TopicID = [{databaseOwner}].[{objectQualifier}forum_lasttopic](b.ForumID,@UserID,b.LastTopicID,b.LastPosted)
     where 		
         (@CategoryID is null or a.CategoryID=@CategoryID) and		
          x.UserID = @UserID and		
@@ -3348,7 +3348,7 @@ SELECT
         [{databaseOwner}].[{objectQualifier}Category] a
 
     JOIN [{databaseOwner}].[{objectQualifier}Forum] b ON b.CategoryID=a.CategoryID
-    JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] c  with(nolock) ON c.ForumID=b.ForumID
+    JOIN [{databaseOwner}].[{objectQualifier}ActiveAccess] c   ON c.ForumID=b.ForumID
 
     WHERE
         a.BoardID=@BoardID AND
@@ -3376,10 +3376,10 @@ BEGIN
             else ''	 end,						
         IsGroup=1
     from
-        [{databaseOwner}].[{objectQualifier}Forum] f WITH(NOLOCK) 
-        INNER JOIN [{databaseOwner}].[{objectQualifier}ForumAccess] a WITH(NOLOCK) ON a.ForumID = f.ForumID
-        INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b WITH(NOLOCK) ON b.GroupID = a.GroupID
-        INNER JOIN [{databaseOwner}].[{objectQualifier}AccessMask] c WITH(NOLOCK) ON c.AccessMaskID = a.AccessMaskID
+        [{databaseOwner}].[{objectQualifier}Forum] f  
+        INNER JOIN [{databaseOwner}].[{objectQualifier}ForumAccess] a  ON a.ForumID = f.ForumID
+        INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b  ON b.GroupID = a.GroupID
+        INNER JOIN [{databaseOwner}].[{objectQualifier}AccessMask] c  ON c.AccessMaskID = a.AccessMaskID
     where
         b.BoardID = @BoardID and
 		(c.Flags & 64)<>0
@@ -3398,22 +3398,22 @@ BEGIN
             else ''	 end,						
         IsGroup=0
     from
-        [{databaseOwner}].[{objectQualifier}User] usr WITH(NOLOCK)
+        [{databaseOwner}].[{objectQualifier}User] usr 
         INNER JOIN (
             select
                 UserID				= a.UserID,
                 ForumID				= x.ForumID,
                 ModeratorAccess		= MAX(ModeratorAccess)						
             from
-                [{databaseOwner}].[{objectQualifier}vaccessfull] as x WITH(NOLOCK)		       				
-                INNER JOIN [{databaseOwner}].[{objectQualifier}UserGroup] a WITH(NOLOCK) on a.UserID=x.UserID
-                INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b WITH(NOLOCK) on b.GroupID=a.GroupID
+                [{databaseOwner}].[{objectQualifier}vaccessfull] as x 		       				
+                INNER JOIN [{databaseOwner}].[{objectQualifier}UserGroup] a  on a.UserID=x.UserID
+                INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b  on b.GroupID=a.GroupID
             WHERE 
                 b.BoardID = @BoardID and
 		        ModeratorAccess <> 0 AND x.AdminGroup = 0
             GROUP BY a.UserID, x.ForumID
         ) access ON usr.UserID = access.UserID
-        JOIN    [{databaseOwner}].[{objectQualifier}Forum] f WITH(NOLOCK) 
+        JOIN    [{databaseOwner}].[{objectQualifier}Forum] f  
         ON f.ForumID = access.ForumID
                    
         JOIN [{databaseOwner}].[{objectQualifier}Rank] r
@@ -4151,7 +4151,7 @@ SELECT
         [{databaseOwner}].[{objectQualifier}Topic] t 
         join  [{databaseOwner}].[{objectQualifier}Message] m ON m.TopicID = t.TopicID
         join  [{databaseOwner}].[{objectQualifier}User] u ON u.UserID = t.UserID
-        left join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=IsNull(t.ForumID,0)
+        left join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=IsNull(t.ForumID,0)
     WHERE
         m.MessageID = @MessageID AND x.UserID=@PageUserID  AND  CONVERT(int,x.ReadAccess) > 0
 END
@@ -4669,7 +4669,7 @@ begin
     -- ensure that access right are in place		
         if not exists (select top 1
             UserID	
-            from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) 
+            from [{databaseOwner}].[{objectQualifier}ActiveAccess]  
             where UserID = @UserID )		
             begin
             insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
@@ -4719,7 +4719,7 @@ begin
     select   
         x.*
     from
-     [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock)
+     [{databaseOwner}].[{objectQualifier}ActiveAccess] x  
     where
         x.UserID = @UserID
 end
@@ -4789,7 +4789,7 @@ begin
     end 
     else	
     begin
-        select @UserID = UserID, @UserBoardID = BoardID from [{databaseOwner}].[{objectQualifier}User] with(nolock) where BoardID=@BoardID and ProviderUserKey=@UserKey
+        select @UserID = UserID, @UserBoardID = BoardID from [{databaseOwner}].[{objectQualifier}User]  where BoardID=@BoardID and ProviderUserKey=@UserKey
         set @IsGuest = 0
         -- make sure that registered users are not crawlers
         set @IsCrawler = 0
@@ -4997,7 +4997,7 @@ begin
     set @ActiveFlags = 1;
 
       -- find a guest id should do it every time to be sure that guest access rights are in ActiveAccess table
-    select top 1 @GuestID = UserID from [{databaseOwner}].[{objectQualifier}User] WITH(NOLOCK) where BoardID=@BoardID and (Flags & 4)=4 ORDER BY Joined DESC
+    select top 1 @GuestID = UserID from [{databaseOwner}].[{objectQualifier}User]  where BoardID=@BoardID and (Flags & 4)=4 ORDER BY Joined DESC
         set @rowcount=@@rowcount
         if (@rowcount > 1)
         begin
@@ -5027,7 +5027,7 @@ begin
     end 
     else	
     begin
-        select @UserID = UserID, @UserBoardID = BoardID from [{databaseOwner}].[{objectQualifier}User] with(nolock) where BoardID=@BoardID and ProviderUserKey=@UserKey
+        select @UserID = UserID, @UserBoardID = BoardID from [{databaseOwner}].[{objectQualifier}User]  where BoardID=@BoardID and ProviderUserKey=@UserKey
         set @IsGuest = 0
         -- make sure that registered users are not crawlers
         set @IsCrawler = 0
@@ -5096,7 +5096,7 @@ begin
     -- ensure that access right are in place		
         if not exists (select top 1
             UserID	
-            from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) 
+            from [{databaseOwner}].[{objectQualifier}ActiveAccess]  
             where UserID = @UserID )		
             begin
             insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
@@ -5146,7 +5146,7 @@ begin
                 -- ensure that guest access right are in place		
         if @UserID != @GuestID and not exists (select top 1
             UserID	
-            from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) 
+            from [{databaseOwner}].[{objectQualifier}ActiveAccess]  
             where UserID = @GuestID )		
             begin
             insert into [{databaseOwner}].[{objectQualifier}ActiveAccess](
@@ -5195,7 +5195,7 @@ begin
 
         if exists (select top 1
             UserID	
-            from [{databaseOwner}].[{objectQualifier}ActiveAccess] WITH(NOLOCK) 
+            from [{databaseOwner}].[{objectQualifier}ActiveAccess]  
             where UserID = @UserID and ForumID= ISNULL(@ForumID,0) and (ISNULL(@ForumID,0) = 0 OR ReadAccess = 1))		
             begin
                  -- verify that there's not the sane session for other board and drop it if required. Test code for portals with many boards
@@ -5314,7 +5314,7 @@ begin
         TopicName			= (select Topic from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID),
         ForumTheme			= (select ThemeURL from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID)	 
     from
-     [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock)
+     [{databaseOwner}].[{objectQualifier}ActiveAccess] x  
     where
         x.UserID = @UserID and x.ForumID=IsNull(@ForumID,0)
 end
@@ -5597,7 +5597,7 @@ begin
         join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID=a.TopicID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID=d.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=d.ForumID
     where
         a.UserID = @UserID and
         x.UserID = @PageUserID and
@@ -6243,7 +6243,7 @@ begin
         [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
     where
         (c.LastPosted between @SinceDate and @ToDate) and
@@ -6269,7 +6269,7 @@ begin
             [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
     where
         (c.LastPosted between @SinceDate and @ToDate) and
@@ -6322,7 +6322,7 @@ begin
             when 1 then  b.UserStyle
             else ''	 end,
         LastUserStyle= case(@StyledNicks)
-            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.LastUserID)
+            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = c.LastUserID)
             else ''	 end,
         LastForumAccess = case(@FindLastRead)
              when 1 then
@@ -6338,7 +6338,7 @@ begin
         [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
     where
         c.LastPosted <= @firstselectposted and
@@ -6382,7 +6382,7 @@ begin
         [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
     where
         (c.LastPosted between @SinceDate and @ToDate) and
@@ -6402,7 +6402,7 @@ begin
      select ROW_NUMBER() over (order by cat.SortOrder asc, d.SortOrder asc, c.LastPosted desc) as RowNum, c.TopicID
      from  [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
      where
         (c.LastPosted between @SinceDate and @ToDate) and
@@ -6448,7 +6448,7 @@ begin
             when 1 then  b.UserStyle
             else ''	 end,
         LastUserStyle= case(@StyledNicks)
-            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.LastUserID)
+            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = c.LastUserID)
             else ''	 end,
         LastForumAccess = case(@FindLastRead)
              when 1 then
@@ -6779,7 +6779,7 @@ BEGIN
     INNER JOIN [{databaseOwner}].[{objectQualifier}Forum] f ON t.ForumID = f.ForumID
     INNER JOIN [{databaseOwner}].[{objectQualifier}Category] c 
     ON c.CategoryID = f.CategoryID 
-    join [{databaseOwner}].[{objectQualifier}ActiveAccess] v  with(nolock) on v.ForumID=f.ForumID
+    join [{databaseOwner}].[{objectQualifier}ActiveAccess] v   on v.ForumID=f.ForumID
     WHERE c.BoardID = @BoardID AND v.UserID=@PageUserID AND (CONVERT(int,v.ReadAccess) <> 0 or (f.Flags & 2) = 0) AND t.IsDeleted=0 AND t.TopicMovedID IS NULL AND (t.Priority = 2) ORDER BY t.LastPosted DESC;
 END
 GO
@@ -6822,7 +6822,7 @@ BEGIN
     INNER JOIN
         [{databaseOwner}].[{objectQualifier}Category] c ON c.CategoryID = f.CategoryID
     JOIN
-        [{databaseOwner}].[{objectQualifier}ActiveAccess] v  with(nolock) ON v.ForumID=f.ForumID
+        [{databaseOwner}].[{objectQualifier}ActiveAccess] v   ON v.ForumID=f.ForumID
     WHERE	
         c.BoardID = @BoardID
         AND t.TopicMovedID is NULL
@@ -6871,7 +6871,7 @@ BEGIN
         LastUserName = IsNull(t.LastUserName,(select x.[Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
         LastUserDisplayName = IsNull(t.LastUserDisplayName,(select x.[DisplayName] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
         LastUserStyle = case(@StyledNicks)
-            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = t.LastUserID)
+            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = t.LastUserID)
             else ''	 end,
         LastForumAccess = case(@FindLastRead)
              when 1 then
@@ -6889,7 +6889,7 @@ BEGIN
     INNER JOIN
         [{databaseOwner}].[{objectQualifier}Category] c ON c.CategoryID = f.CategoryID
     JOIN
-        [{databaseOwner}].[{objectQualifier}ActiveAccess] v  with(nolock) ON v.ForumID=f.ForumID
+        [{databaseOwner}].[{objectQualifier}ActiveAccess] v   ON v.ForumID=f.ForumID
     WHERE	
         c.BoardID = @BoardID
         AND t.TopicMovedID is NULL
@@ -6972,7 +6972,7 @@ BEGIN
         LastUserName = IsNull(t.LastUserName,(select x.[Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
         LastUserDisplayName = IsNull(t.LastUserDisplayName,(select x.[DisplayName] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
         LastUserStyle = case(@StyledNicks)
-            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = t.LastUserID)
+            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = t.LastUserID)
             else ''	 end,
         LastForumAccess = case(@FindLastRead)
              when 1 then
@@ -6990,7 +6990,7 @@ BEGIN
     INNER JOIN
         [{databaseOwner}].[{objectQualifier}Category] c ON c.CategoryID = f.CategoryID
     JOIN
-        [{databaseOwner}].[{objectQualifier}ActiveAccess] v  with(nolock) ON v.ForumID=f.ForumID
+        [{databaseOwner}].[{objectQualifier}ActiveAccess] v   ON v.ForumID=f.ForumID
     WHERE	
 	    c.BoardID = @BoardID
         AND c.CategoryID = @CategoryID
@@ -7082,7 +7082,7 @@ begin
             when 1 then  b.UserStyle
             else ''	 end,
             LastUserStyle= case(@StyledNicks)
-            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.LastUserID)
+            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = c.LastUserID)
             else ''	 end,
             LastForumAccess = case(@FindLastRead)
              when 1 then
@@ -7185,7 +7185,7 @@ begin
             when 1 then  b.UserStyle
             else ''	 end,
             LastUserStyle= case(@StyledNicks)
-            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.LastUserID)
+            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = c.LastUserID)
             else ''	 end,
             LastForumAccess = case(@FindLastRead)
              when 1 then
@@ -7938,7 +7938,7 @@ begin
                 IsAdmin = (select count(1) from [{databaseOwner}].[{objectQualifier}UserGroup] x join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 1)<>0)
 	        from 
                 [{databaseOwner}].[{objectQualifier}User] a
-				join [{databaseOwner}].[{objectQualifier}vaccess] x with(nolock) on x.ForumID = @ForumID
+				join [{databaseOwner}].[{objectQualifier}vaccess] x  on x.ForumID = @ForumID
 	        where 
                 a.BoardID=@BoardID and
 				x.UserID = a.UserID and    
@@ -8342,8 +8342,8 @@ begin
     -- find total returned count
 
     select @TotalRows = count(a.UserID) 
-    from [{databaseOwner}].[{objectQualifier}User] a  with(nolock) 
-      join [{databaseOwner}].[{objectQualifier}Rank] b with(nolock)
+    from [{databaseOwner}].[{objectQualifier}User] a   
+      join [{databaseOwner}].[{objectQualifier}Rank] b 
       on b.RankID=a.RankID 
       where
        a.BoardID = @BoardID	   
@@ -8397,8 +8397,8 @@ begin
          when @SortPosts = 2 then a.NumPosts end) DESC, 
         (case
          when @SortPosts = 1 then a.NumPosts end) ASC ) as RowNum, a.UserID
-     from [{databaseOwner}].[{objectQualifier}User] a with(nolock)
-            join [{databaseOwner}].[{objectQualifier}Rank] b with(nolock) on b.RankID=a.RankID	
+     from [{databaseOwner}].[{objectQualifier}User] a 
+            join [{databaseOwner}].[{objectQualifier}Rank] b  on b.RankID=a.RankID	
      where
        a.BoardID = @BoardID	   
        and
@@ -8438,9 +8438,9 @@ begin
             TotalCount =  @TotalRows 
             from 
             UserIds ti inner join
-            [{databaseOwner}].[{objectQualifier}User] a with(nolock)
+            [{databaseOwner}].[{objectQualifier}User] a 
             on a.UserID = ti.UserID
-            join [{databaseOwner}].[{objectQualifier}Rank] b with(nolock) on b.RankID=a.RankID	
+            join [{databaseOwner}].[{objectQualifier}Rank] b  on b.RankID=a.RankID	
     
     where ti.RowNum between @FirstSelectRowNumber and @LastSelectRowNumber
         order by
@@ -9430,7 +9430,7 @@ as
         from     [{databaseOwner}].[{objectQualifier}Topic] t
 		inner join [{databaseOwner}].[{objectQualifier}Forum] f on t.ForumID= f.ForumID
         inner join [{databaseOwner}].[{objectQualifier}User] u on t.UserID = u.UserID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=f.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=f.ForumID
         where    t.[Topic] like '%' + @Topic + '%'
         and t.[TopicID] != @TopicID
         and x.UserID = @PageUserID
@@ -10490,7 +10490,7 @@ begin
         [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
         JOIN [{databaseOwner}].[{objectQualifier}FavoriteTopic] z ON z.TopicID=c.TopicID AND z.UserID=@PageUserID
     where
@@ -10510,7 +10510,7 @@ begin
      select ROW_NUMBER() over (order by cat.SortOrder asc, d.SortOrder asc, c.LastPosted desc) as RowNum, c.TopicID
      from  [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
         JOIN [{databaseOwner}].[{objectQualifier}FavoriteTopic] z ON z.TopicID=c.TopicID AND z.UserID=@PageUserID
     where
@@ -10557,7 +10557,7 @@ begin
             when 1 then  b.UserStyle
             else ''	 end,
         LastUserStyle= case(@StyledNicks)
-            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.LastUserID)
+            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = c.LastUserID)
             else ''	 end,
         LastForumAccess = case(@FindLastRead)
              when 1 then
@@ -11012,7 +11012,7 @@ begin
         LastUnreadPm		= CASE WHEN @ShowUnreadPMs > 0 THEN (SELECT TOP 1 Created FROM [{databaseOwner}].[{objectQualifier}PMessage] pm INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] upm ON pm.PMessageID = upm.PMessageID WHERE upm.UserID=@UserID and upm.IsRead=0  and upm.IsDeleted = 0 and upm.IsArchived = 0 ORDER BY pm.Created DESC) ELSE NULL END,		
         PendingBuddies      = CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT COUNT(ID) FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID = @UserID AND Approved = 0) ELSE 0 END,
         LastPendingBuddies	= CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT TOP 1 Requested FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID=@UserID and Approved = 0 ORDER BY Requested DESC) ELSE NULL END,
-        UserStyle 		    = CASE WHEN @ShowUserStyle > 0 THEN (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = @UserID) ELSE '' END,			
+        UserStyle 		    = CASE WHEN @ShowUserStyle > 0 THEN (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = @UserID) ELSE '' END,			
         NumAlbums  = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}UserAlbum] ua
         WHERE ua.UserID = @UserID),
         UsrAlbums  = (CASE WHEN @G_UsrAlbums > @R_UsrAlbums THEN @G_UsrAlbums ELSE @R_UsrAlbums END),
@@ -11265,7 +11265,7 @@ begin
         [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
     where
         (c.LastPosted between @SinceDate and @ToDate) and
@@ -11286,7 +11286,7 @@ begin
      select ROW_NUMBER() over (order by cat.SortOrder asc, d.SortOrder asc, c.LastPosted desc) as RowNum, c.TopicID
      from  [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
   where
         (c.LastPosted between @SinceDate and @ToDate) and
@@ -11335,7 +11335,7 @@ begin
             when 1 then  b.UserStyle
             else ''	 end,
         LastUserStyle= case(@StyledNicks)
-            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.LastUserID)
+            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = c.LastUserID)
             else ''	 end,
         LastForumAccess = case(@FindLastRead)
              when 1 then
@@ -11481,7 +11481,7 @@ begin
         [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
     where
         c.LastPosted IS NOT NULL and (c.LastPosted between @SinceDate and @ToDate) and
@@ -11502,7 +11502,7 @@ begin
      select ROW_NUMBER() over (order by cat.SortOrder asc, d.SortOrder asc, c.LastPosted desc) as RowNum, c.TopicID
      from  [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  with(nolock) on x.ForumID=d.ForumID
+        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
     where
         c.LastPosted IS NOT NULL and (c.LastPosted between @SinceDate and @ToDate) and
@@ -11550,7 +11550,7 @@ begin
             when 1 then  b.UserStyle
             else ''	 end,
         LastUserStyle= case(@StyledNicks)
-            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr with(nolock) where usr.UserID = c.LastUserID)
+            when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = c.LastUserID)
             else ''	 end,
         LastForumAccess = case(@FindLastRead)
              when 1 then
@@ -11733,10 +11733,10 @@ begin
         declare c cursor for
             select us.UserID, us.NewUserStyle from (
                 select uu.UserID, uu.UserStyle, NewUserStyle = ISNULL(
-                    (SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e WITH (NOLOCK) join [{databaseOwner}].[{objectQualifier}Group] f WITH (NOLOCK) on f.GroupID=e.GroupID WHERE e.UserID=uu.UserID AND f.Style != '' ORDER BY f.SortOrder),
-                    (SELECT TOP 1 r.Style FROM [{databaseOwner}].[{objectQualifier}Rank] r WITH (NOLOCK) where RankID = uu.RankID))
-                from [{databaseOwner}].[{objectQualifier}User] uu WITH (NOLOCK)
-                JOIN [{databaseOwner}].[{objectQualifier}UserGroup] ug WITH (NOLOCK) ON ug.UserID = uu.UserID
+                    (SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e  join [{databaseOwner}].[{objectQualifier}Group] f  on f.GroupID=e.GroupID WHERE e.UserID=uu.UserID AND f.Style != '' ORDER BY f.SortOrder),
+                    (SELECT TOP 1 r.Style FROM [{databaseOwner}].[{objectQualifier}Rank] r  where RankID = uu.RankID))
+                from [{databaseOwner}].[{objectQualifier}User] uu 
+                JOIN [{databaseOwner}].[{objectQualifier}UserGroup] ug  ON ug.UserID = uu.UserID
                 where
                 (@RankID IS NULL OR uu.RankID = @RankID) AND
                 (@GroupID IS NULL OR ug.GroupID = @GroupID)) us
