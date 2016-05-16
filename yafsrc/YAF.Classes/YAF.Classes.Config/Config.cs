@@ -436,7 +436,7 @@ namespace YAF.Classes
         {
             get
             {
-                return HttpContext.Current != null && HttpContext.Current.Session["YetAnotherPortal.net"] != null;
+                return HttpContext.Current.Session != null && HttpContext.Current.Session["YetAnotherPortal.net"] != null;
             }
         }
 
@@ -447,7 +447,7 @@ namespace YAF.Classes
         {
             get
             {
-                return HttpContext.Current != null && HttpContext.Current.Session["Portalomatic.NET"] != null;
+                return HttpContext.Current.Session != null && HttpContext.Current.Session["Portalomatic.NET"] != null;
             }
         }
 
