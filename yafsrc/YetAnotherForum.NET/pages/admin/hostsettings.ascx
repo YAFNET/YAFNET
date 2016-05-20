@@ -1417,6 +1417,14 @@
                     </tr>
                     
                     <tr>
+                        <td class="postheader">
+                            <YAF:HelpLabel ID="HelpLabel240" runat="server" LocalizedTag="SHOW_EDIT_MESSAGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        </td>
+                        <td class="post">
+                            <asp:CheckBox ID="ShowEditedMessage" runat="server"></asp:CheckBox>
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="header1" colspan="2">
                             <YAF:LocalizedLabel ID="LocalizedLabel36" runat="server" LocalizedTag="HEADER_SHOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>

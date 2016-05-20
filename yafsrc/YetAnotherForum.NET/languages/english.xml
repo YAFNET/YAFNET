@@ -1372,6 +1372,8 @@
   <Resource tag="SHOW_DEL_MESSAGES_HELP">If this is checked, messages that are deleted will leave with some notes</Resource>
   <Resource tag="SHOW_DEL_MESSAGES_TOALL">Show Deleted Messages to All:</Resource>
   <Resource tag="SHOW_DEL_MESSAGES_TOALL_HELP">If Show Deleted Messages is checked above, checking this will force showing the delete message stub to all users.&lt;br /&gt; If it remains unchecked, the deleted message stub will only show to administrators, moderators, and the owner of the deleted message.</Resource>
+  <Resource tag="SHOW_EDIT_MESSAGE">Show Edit Message:</Resource>
+  <Resource tag="SHOW_EDIT_MESSAGE_HELP">If enabled it shows a Note in the footer of the Message if the Message was edited (incl. the Reason and Time)</Resource>
   <Resource tag="SHOW_FORUM_JUMP">Show Forum Jump Box:</Resource>
   <Resource tag="SHOW_FORUM_JUMP_HELP">Enable or disable display of the Forum Jump Box throughout the forum.</Resource>
   <Resource tag="SHOW_FORUM_STATS">Show Forum Statistics:</Resource>

@@ -1387,6 +1387,8 @@
     <Resource tag="SHOW_DEL_MESSAGES_HELP">Si está marcado, los mensajes eliminados se dejarán con algunas notas.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">Mostrar mensajes eliminados a todos:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL_HELP">Si mostrar mensajes eliminados está marcado más arriba, marcando esta opción forzarán el mostrar los resguardos de los mensajes eliminados a todos los usuarios.&lt;br /&gt; Si se mantiene sin marcar, los resguardos de los mensajes eliminados solo se mostrarán a los administradores, moderadores y el creador del mensaje borrado.</Resource>
+    <Resource tag="SHOW_EDIT_MESSAGE">Show Edit Message:</Resource>
+    <Resource tag="SHOW_EDIT_MESSAGE_HELP">If enabled it shows a Note in the footer of the Message if the Message was edited (incl. the Reason and Time)</Resource>
     <Resource tag="SHOW_FORUM_JUMP">Mostrar Jump Box del foro:</Resource>
     <Resource tag="SHOW_FORUM_JUMP_HELP">Activar o desactivar el mostrar la Jump Box del foro a lo largo del foro.</Resource>
     <Resource tag="SHOW_FORUM_STATS">Mostrar estadísticas del foro:</Resource>

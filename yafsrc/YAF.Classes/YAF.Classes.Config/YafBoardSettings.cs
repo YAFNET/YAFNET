@@ -2123,6 +2123,25 @@ namespace YAF.Classes
         #region boolean settings
 
         /// <summary>
+        /// Gets or sets a value indicating whether show the edited message.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [show edited message]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ShowEditedMessage
+        {
+            get
+            {
+                return this._reg.GetValue("ShowEditedMessage", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("ShowEditedMessage", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether Show Notification Messages as alerts
         /// on Mobile Devices.
         /// </summary>
@@ -4602,7 +4621,8 @@ namespace YAF.Classes
         /// <summary>
         ///  Gets or sets the roles app name.
         /// </summary>
-        protected virtual string _rolesAppName { get; set; }        
+        protected virtual string _rolesAppName { get; set; }
+        
 
         #region Nested type: YafLegacyBoardSettings
 

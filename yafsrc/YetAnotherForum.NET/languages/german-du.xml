@@ -1374,6 +1374,8 @@
     <Resource tag="SHOW_DEL_MESSAGES_HELP">Wenn aktiviert werden Beiträge die Gelöscht wurden mit einer Nachricht hinterlassen</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">Alle Gelöschte Nachrichten zeigen:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL_HELP">Wenn "Gelöschte Beiträge zeigen" aktivieren ist, wird diese Option, wenn aktiviert allen Benutzern die gelöschten Beiträge zeigen.&lt;br /&gt; Ansonsten werden die Gelöschten Beiträge nur den Administratoren, Moderatoren und dem Autor des Beitrags gezeigt.</Resource>
+    <Resource tag="SHOW_EDIT_MESSAGE">Show Edit Message:</Resource>
+    <Resource tag="SHOW_EDIT_MESSAGE_HELP">If enabled it shows a Note in the footer of the Message if the Message was edited (incl. the Reason and Time)</Resource>
     <Resource tag="SHOW_FORUM_JUMP">Gehe zu Forum Box Anzeigen:</Resource>
     <Resource tag="SHOW_FORUM_JUMP_HELP">Aktivieren oder deaktivieren der Anzeige Gehe zu Forum Box im Forum.</Resource>
     <Resource tag="SHOW_FORUM_STATS">Forum Statistiken anzeigen:</Resource>

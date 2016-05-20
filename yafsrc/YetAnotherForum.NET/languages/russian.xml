@@ -1375,6 +1375,8 @@
     <Resource tag="SHOW_DEL_MESSAGES_HELP">Удалённые сообщения(пустые) будут видны с уведомлением. Не включайте обе опции одновременно.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">Показывать удалённые сообщения для всех:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL_HELP">Это покажет пустое сообщение с уведомлением всем пользователям.&lt;br /&gt; Если не выбрано, то администраторы, модераторы и автор будут видеть это сообщение.</Resource>
+    <Resource tag="SHOW_EDIT_MESSAGE">Show Edit Message:</Resource>
+    <Resource tag="SHOW_EDIT_MESSAGE_HELP">If enabled it shows a Note in the footer of the Message if the Message was edited (incl. the Reason and Time)</Resource>
     <Resource tag="SHOW_FORUM_JUMP">Показывать список быстрого перехода:</Resource>
     <Resource tag="SHOW_FORUM_JUMP_HELP">Показывать список быстрого перехода в разных местах форума.</Resource>
     <Resource tag="SHOW_FORUM_STATS">Показывать статистику конференции:</Resource>

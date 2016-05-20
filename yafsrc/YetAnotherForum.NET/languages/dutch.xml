@@ -1376,6 +1376,8 @@
     <Resource tag="SHOW_DEL_MESSAGES_HELP">Als deze is aangevinkt, blijven verwijderde berichten staan met een notitie.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">Laat verwijderde berichten zien aan Iedereen:</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL_HELP">Als Verwijderde berichten blijven staan, zorgt deze optie ervoor, dat alle gebruikers de berichten blijven zien.&lt;br /&gt; Als deze is uitgevinkt, zijn de verwijderde berichten alleen zichtbaar voor Administrators, Moderators, en de gebruiker van het verwijderde bericht.</Resource>
+    <Resource tag="SHOW_EDIT_MESSAGE">Show Edit Message:</Resource>
+    <Resource tag="SHOW_EDIT_MESSAGE_HELP">If enabled it shows a Note in the footer of the Message if the Message was edited (incl. the Reason and Time)</Resource>
     <Resource tag="SHOW_FORUM_JUMP">Laat de 'Snel naar...' optie zien:</Resource>
     <Resource tag="SHOW_FORUM_JUMP_HELP">Zet de 'Snel naar...' keuzelijst aan of uit.</Resource>
     <Resource tag="SHOW_FORUM_STATS">Laat Forum Statistieken zien:</Resource>

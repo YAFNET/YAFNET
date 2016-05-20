@@ -1378,6 +1378,8 @@
     <Resource tag="SHOW_DEL_MESSAGES_HELP">با انتخاب این گزینه، پیام های حذف شدهبا یادداشتی رها می شوند.</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL">نمایش پیام های حذف شده به همه :</Resource>
     <Resource tag="SHOW_DEL_MESSAGES_TOALL_HELP">در صورت علامت زدن این گزینه همه کاربران پیام های حذف شده را خواهند دید. در غیر اینصورت فقط مدیران ، ناظران و صاحب پیام آنرا خواهند دید.</Resource>
+    <Resource tag="SHOW_EDIT_MESSAGE">Show Edit Message:</Resource>
+    <Resource tag="SHOW_EDIT_MESSAGE_HELP">If enabled it shows a Note in the footer of the Message if the Message was edited (incl. the Reason and Time)</Resource>
     <Resource tag="SHOW_FORUM_JUMP">نمایش کادر پرش انجمن:</Resource>
     <Resource tag="SHOW_FORUM_JUMP_HELP">نمایش یا عدم نمایش کادر پرش در میان انجمن.</Resource>
     <Resource tag="SHOW_FORUM_STATS">نمایش آمار انجمن :</Resource>

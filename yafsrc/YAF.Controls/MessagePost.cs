@@ -30,6 +30,7 @@ namespace YAF.Controls
     using System.Web;
     using System.Web.UI;
 
+    using YAF.Classes;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -295,8 +296,10 @@ namespace YAF.Controls
 
             writer.Write(
                 @"<span class=""MessageDetails""><em>{1}{0}</em></span>",
-                !string.IsNullOrEmpty(deleteText)
-                    ? @"&nbsp;|&nbsp;<span class=""editedinfo"" title=""{1}"">{0}: {1}</span>".FormatWith(this.GetText("EDIT_REASON"), deleteText)
+                deleteText.IsSet()
+                    ? @"&nbsp;|&nbsp;<span class=""editedinfo"" title=""{1}"">{0}: {1}</span>".FormatWith(
+                        this.GetText("EDIT_REASON"),
+                        deleteText)
                     : string.Empty,
                 this.IsModeratorChanged
                     ? this.GetText("POSTS", "MESSAGEDELETED_MOD")
@@ -313,13 +316,18 @@ namespace YAF.Controls
         protected virtual void RenderEditedMessage(
             [NotNull] HtmlTextWriter writer, [NotNull] DateTime edited, [NotNull] string editReason, int? messageId)
         {
+            if (!this.Get<YafBoardSettings>().ShowEditedMessage)
+            {
+                return;
+            }
+
             var editedDateTime = new DisplayDateTime { DateTime = edited }.RenderToString();
 
             // vzrus: TODO:  Guests doesn't have right to view change history
             // reason was specified ?!
             var editReasonText = "{0}: {1}".FormatWith(
                 this.GetText("EDIT_REASON"),
-                !string.IsNullOrEmpty(this.Get<HttpContextBase>().Server.HtmlDecode(editReason))
+                this.Get<HttpContextBase>().Server.HtmlDecode(editReason).IsSet()
                     ? this.Get<IFormatMessage>().RepairHtml(editReason, true)
                     : this.GetText("EDIT_REASON_NA"));
 
