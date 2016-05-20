@@ -160,7 +160,7 @@ namespace YAF.Utils
                 const byte Build = 3;
                 const byte Sub = 0;
 
-                const ReleaseType ReleaseType = ReleaseType.BETA;
+                const ReleaseType ReleaseType = ReleaseType.RC;
                 const byte ReleaseNumber = 0;
                 
                 var version = Major.ToType<long>() << 24;
@@ -189,7 +189,7 @@ namespace YAF.Utils
         {
             get
             {
-                return new DateTime(2016, 03, 23);
+                return new DateTime(2016, 05, 20);
             }
         }
 
