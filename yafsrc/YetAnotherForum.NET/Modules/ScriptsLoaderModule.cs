@@ -144,11 +144,11 @@ namespace YAF.Modules
                 else
                 {
                     jqueryUrl = YafContext.Current.Get<YafBoardSettings>().JqueryCDNHosted
-                                    ? "//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.2.min.js"
+                                    ? "//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.3.min.js"
 #if DEBUG
-                                    : YafForumInfo.GetURLToScripts("jquery-2.2.2.js");
+                                    : YafForumInfo.GetURLToScripts("jquery-2.2.3.js");
 #else
-                                    : YafForumInfo.GetURLToScripts("jquery-2.2.2.min.js");
+                                    : YafForumInfo.GetURLToScripts("jquery-2.2.3.min.js");
 #endif
                 }
 
