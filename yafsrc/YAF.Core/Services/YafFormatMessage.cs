@@ -368,7 +368,7 @@ namespace YAF.Core.Services
 
                 // get rules for YafBBCode and Smilies
                 this.Get<IBBCode>()
-                    .CreateBBCodeRules(ruleEngine, true /*messageFlags.IsBBCode*/, targetBlankOverride, useNoFollow);
+                    .CreateBBCodeRules(ruleEngine, messageFlags.IsHtml, true, targetBlankOverride, useNoFollow);
 
                 // add email rule
                 // vzrus: it's freezing  when post body contains full email address.

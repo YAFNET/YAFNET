@@ -56,26 +56,20 @@ namespace YAF.Core
       return message;
     }
 
-    /// <summary>
-    /// Creates the rules that convert <see cref="YafBBCode"/> to HTML
-    /// </summary>
-    /// <param name="ruleEngine">
-    /// The rule Engine.
-    /// </param>
-    /// <param name="doFormatting">
-    /// The do Formatting.
-    /// </param>
-    /// <param name="targetBlankOverride">
-    /// The target Blank Override.
-    /// </param>
-    /// <param name="useNoFollow">
-    /// The use No Follow.
-    /// </param>
-    public static void CreateBBCodeRules(this IBBCode bbcode, IProcessReplaceRules ruleEngine, bool doFormatting, bool targetBlankOverride, bool useNoFollow)
-    {
-      bbcode.CreateBBCodeRules(ruleEngine, doFormatting, targetBlankOverride, useNoFollow, true);
-    }
+        /// <summary>
+        /// Creates the rules that convert <see cref="YafBBCode" /> to HTML
+        /// </summary>
+        /// <param name="bbcode">The bbcode.</param>
+        /// <param name="ruleEngine">The rule Engine.</param>
+        /// <param name="isHtml">if set to <c>true</c> [is HTML].</param>
+        /// <param name="doFormatting">The do Formatting.</param>
+        /// <param name="targetBlankOverride">The target Blank Override.</param>
+        /// <param name="useNoFollow">The use No Follow.</param>
+        public static void CreateBBCodeRules(this IBBCode bbcode, IProcessReplaceRules ruleEngine, bool isHtml, bool doFormatting, bool targetBlankOverride, bool useNoFollow)
+        {
+            bbcode.CreateBBCodeRules(ruleEngine, isHtml, doFormatting, targetBlankOverride, useNoFollow, true);
+        }
 
-    #endregion
-  }
+        #endregion
+    }
 }

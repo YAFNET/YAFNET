@@ -437,28 +437,20 @@ namespace YAF.Core.BBCode
         }
 
         /// <summary>
-        /// Creates the rules that convert <see cref="YafBBCode"/> to HTML
+        /// Creates the rules that convert <see cref="YafBBCode" /> to HTML
         /// </summary>
-        /// <param name="ruleEngine">
-        /// The rule Engine.
-        /// </param>
-        /// <param name="doFormatting">
-        /// The do Formatting.
-        /// </param>
-        /// <param name="targetBlankOverride">
-        /// The target Blank Override.
-        /// </param>
-        /// <param name="useNoFollow">
-        /// The use No Follow.
-        /// </param>
-        /// <param name="convertBBQuotes">
-        /// The convert BB Quotes.
-        /// </param>
+        /// <param name="ruleEngine">The rule Engine.</param>
+        /// <param name="isHtml">if set to <c>true</c> [is HTML].</param>
+        /// <param name="doFormatting">The do Formatting.</param>
+        /// <param name="targetBlankOverride">The target Blank Override.</param>
+        /// <param name="useNoFollow">The use No Follow.</param>
+        /// <param name="convertBBQuotes">The convert BB Quotes.</param>
         public void CreateBBCodeRules(
-            IProcessReplaceRules ruleEngine, 
-            bool doFormatting, 
-            bool targetBlankOverride, 
-            bool useNoFollow, 
+            IProcessReplaceRules ruleEngine,
+            bool isHtml,
+            bool doFormatting,
+            bool targetBlankOverride,
+            bool useNoFollow,
             bool convertBBQuotes)
         {
             string target = (this.Get<YafBoardSettings>().BlankLinks || targetBlankOverride)
@@ -479,10 +471,10 @@ namespace YAF.Core.BBCode
 
             if (doFormatting)
             {
-                 ruleEngine.AddRule(
-                    new CodeRegexReplaceRule(
-                       _rgxNoParse,
-                        @"${inner}"));
+                ruleEngine.AddRule(
+                   new CodeRegexReplaceRule(
+                      _rgxNoParse,
+                       @"${inner}"));
 
                 ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxBold, "<strong>${inner}</strong>"));
                 ruleEngine.AddRule(new SimpleRegexReplaceRule(_RgxStrike, "<s>${inner}</s>", _Options));
@@ -511,7 +503,8 @@ namespace YAF.Core.BBCode
                         new[]
                             {
                                 string.Empty, string.Empty // "http://"
-                            }) { RuleRank = 10 });
+                            })
+                    { RuleRank = 10 });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
@@ -525,27 +518,28 @@ namespace YAF.Core.BBCode
                             {
                                 string.Empty, string.Empty // "http://"
                             },
-                        50) { RuleRank = 11 });
+                        50)
+                    { RuleRank = 11 });
 
                 // urls
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
-                        _rgxModalUrl2, 
-                        "<a {0} {1} {2} href=\"${http}${url}\" title=\"${http}${url}\">${inner}</a>".Replace("{0}", target).Replace("{1}", nofollow).Replace("{2}", ClassModal), 
-                        new[] { "url", "http" }, 
+                        _rgxModalUrl2,
+                        "<a {0} {1} {2} href=\"${http}${url}\" title=\"${http}${url}\">${inner}</a>".Replace("{0}", target).Replace("{1}", nofollow).Replace("{2}", ClassModal),
+                        new[] { "url", "http" },
                         new[]
                             {
                                 string.Empty, string.Empty // "http://"
                             }));
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
-                        _rgxModalUrl1, 
+                        _rgxModalUrl1,
                         "<a {0} {1} {2} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow).Replace("{2}", ClassModal),
                         new[] { "http" },
                         new[]
                             {
                                 string.Empty, string.Empty // "http://"
-                            }, 
+                            },
                         50));
 
                 // font
@@ -567,7 +561,7 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(new SimpleRegexReplaceRule(_RgxListUpperRoman, "<ol style=\"list-style-type:upper-roman\">${inner}</ol>", RegexOptions.Singleline));
                 ruleEngine.AddRule(new SimpleRegexReplaceRule(_RgxListLowerAlpha, "<ol style=\"list-style-type:lower-alpha\">${inner}</ol>", RegexOptions.Singleline));
                 ruleEngine.AddRule(new SimpleRegexReplaceRule(_RgxListUpperAlpha, "<ol style=\"list-style-type:upper-alpha\">${inner}</ol>", RegexOptions.Singleline));
-                
+
                 // bullets
                 ruleEngine.AddRule(new SingleRegexReplaceRule(_RgxBullet, "<li>", _Options));
 
@@ -601,7 +595,8 @@ namespace YAF.Core.BBCode
                             {
                                 "http"
                             },
-                        new[] { "http://" }) { RuleRank = 70 });
+                        new[] { "http://" })
+                    { RuleRank = 70 });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
@@ -612,7 +607,8 @@ namespace YAF.Core.BBCode
                             {
                                 "http"
                             },
-                        new[] { "http://" }) { RuleRank = 71 });
+                        new[] { "http://" })
+                    { RuleRank = 71 });
 
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
@@ -623,7 +619,8 @@ namespace YAF.Core.BBCode
                             {
                                 "http", "description"
                             },
-                        new[] { "http://", string.Empty }) { RuleRank = 72 });
+                        new[] { "http://", string.Empty })
+                    { RuleRank = 72 });
 
                 // basic hr and br rules
                 var hrRule = new SingleRegexReplaceRule(
@@ -632,13 +629,17 @@ namespace YAF.Core.BBCode
                 // Multiline, since ^ must match beginning of line
                 var brRule = new SingleRegexReplaceRule(
                     _RgxBr, "<br />", RegexOptions.IgnoreCase | RegexOptions.Multiline)
-                    {
-                       RuleRank = hrRule.RuleRank + 1 
-                    };
+                {
+                    RuleRank = hrRule.RuleRank + 1
+                };
 
                 // Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match
                 ruleEngine.AddRule(hrRule);
-                ruleEngine.AddRule(brRule);
+
+                if (!isHtml)
+                {
+                    ruleEngine.AddRule(brRule);
+                }
             }
 
             // add smilies
@@ -651,9 +652,9 @@ namespace YAF.Core.BBCode
                     new SyntaxHighlightedCodeRegexReplaceRule(
                         _regexCodeWithLanguage,
                         @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}", localCodeStr))
-                        {
-                            RuleRank = 30
-                        });
+                    {
+                        RuleRank = 30
+                    });
 
                 // handle custom YafBBCode
                 this.AddCustomBBCodeRules(ruleEngine);
@@ -661,7 +662,7 @@ namespace YAF.Core.BBCode
                 // add rule for code block type with no syntax highlighting
                 ruleEngine.AddRule(
                     new SyntaxHighlightedCodeRegexReplaceRule(
-                        _rgxCode1, 
+                        _rgxCode1,
                         @"<div class=""code""><strong>{0}</strong><div class=""innercode"">${inner}</div></div>".Replace("{0}", localCodeStr)));
 
                 ruleEngine.AddRule(
@@ -923,7 +924,7 @@ namespace YAF.Core.BBCode
         /// <returns>
         /// The make html.
         /// </returns>
-        public string MakeHtml(string inputString, bool doFormatting, bool targetBlankOverride)
+        public string MakeHtml(string inputString, bool isHtml, bool doFormatting, bool targetBlankOverride)
         {
             var ruleEngine =
                 this.ProcessReplaceRulesFactory(
@@ -932,7 +933,7 @@ namespace YAF.Core.BBCode
             if (!ruleEngine.HasRules)
             {
                 this.CreateBBCodeRules(
-                    ruleEngine, doFormatting, targetBlankOverride, this.Get<YafBoardSettings>().UseNoFollowLinks);
+                    ruleEngine, isHtml, doFormatting, targetBlankOverride, this.Get<YafBoardSettings>().UseNoFollowLinks);
             }
 
             ruleEngine.Process(ref inputString);

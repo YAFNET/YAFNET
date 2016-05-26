@@ -93,6 +93,7 @@ namespace YAF.Types.Interfaces
     /// </param>
     void CreateBBCodeRules(
         [NotNull] IProcessReplaceRules ruleEngine,
+        bool isHtml,
         bool doFormatting,
         bool targetBlankOverride, 
         bool useNoFollow, 
@@ -131,7 +132,7 @@ namespace YAF.Types.Interfaces
     /// <returns>
     /// The make html.
     /// </returns>
-    string MakeHtml([NotNull] string inputString, bool doFormatting, bool targetBlankOverride);
+    string MakeHtml([NotNull] string inputString, bool isHtml, bool doFormatting, bool targetBlankOverride);
 
     /// <summary>
     /// Helper function that dandles registering "custom bbcode" javascript (if there is any)
