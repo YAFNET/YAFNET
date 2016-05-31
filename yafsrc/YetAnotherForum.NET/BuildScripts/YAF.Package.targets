@@ -92,7 +92,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\ladda-themeless.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\ladda-themeless.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\prism.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\select2.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\css\select2.css" />
     </ItemGroup>
 
     <ItemGroup>
