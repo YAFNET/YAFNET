@@ -125,7 +125,7 @@ namespace YAF.Core.Extensions
                 sourceDescription = source.ToString().Truncate(50);
             }
 
-            logger.Log("Exception", eventType, username, sourceDescription, exception);
+            logger.Log(source.ToString(), eventType, username, sourceDescription, exception);
         }
 
         #endregion

@@ -45,12 +45,6 @@ using System.Security;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("044215c6-2ab2-436f-ad1b-eee219956b1c")]
 
-#if (!COMPACT_FRAMEWORK)
-
-[assembly: AllowPartiallyTrustedCallers]
-#endif
-
-
 #if !NCRUNCH
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("..\\..\\YetAnotherForum.NET.snk")]

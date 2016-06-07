@@ -31,7 +31,6 @@ namespace YAF.Pages
   using System.Web.Security;
 
   using YAF.Core;
-  using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.EventProxies;

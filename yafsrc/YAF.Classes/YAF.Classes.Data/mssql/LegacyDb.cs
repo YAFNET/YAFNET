@@ -9607,6 +9607,7 @@ namespace YAF.Classes.Data
                                 uploadDir,
                                 messageID,
                                 row["FileName"]);
+
                             if (File.Exists(fileName))
                             {
                                 File.Delete(fileName);

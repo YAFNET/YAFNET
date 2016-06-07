@@ -68,13 +68,11 @@ namespace YAF.Core.Tasks
         #region Public Methods
 
         /// <summary>
-        /// The start.
+        /// Starts the Migrate User Task
         /// </summary>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
+        /// <param name="boardId">The board id.</param>
         /// <returns>
-        /// The start.
+        /// Returns if the task was started or not
         /// </returns>
         public static bool Start(int boardId)
         {
@@ -83,7 +81,8 @@ namespace YAF.Core.Tasks
                 return false;
             }
 
-            YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, () => new MigrateUsersTask { Data = boardId });
+            YafContext.Current.Get<ITaskModuleManager>()
+                .StartTask(TaskName, () => new MigrateUsersTask { Data = boardId });
 
             return true;
         }

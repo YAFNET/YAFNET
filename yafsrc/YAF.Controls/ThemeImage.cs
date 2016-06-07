@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Controls
 {
   #region Using
@@ -28,19 +29,18 @@ namespace YAF.Controls
     using System.Web;
     using System.Web.UI;
 
-  using YAF.Core;
+    using YAF.Core;
+    using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces; using YAF.Types.Constants;
-    using YAF.Utils;
-  using YAF.Types;
-  using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Provides a image with themed src
   /// </summary>
-  public class ThemeImage : BaseControl
+  public class // Render [LASTPOSTICON]
+            ThemeImage : BaseControl
   {
     #region Constants and Fields
 

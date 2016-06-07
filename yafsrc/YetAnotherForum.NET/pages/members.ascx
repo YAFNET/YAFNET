@@ -73,15 +73,15 @@
         </td>
         <td class="header2">
             <img runat="server" id="SortRank" alt="Sort Rank" style="vertical-align: middle" />
-            <asp:LinkButton runat="server" ID="Rank" Enabled="false" OnClick="Rank_Click" />
+            <asp:LinkButton runat="server" ID="Rank" OnClick="Rank_Click" />
         </td>
         <td class="header2">
             <img runat="server" id="SortJoined" alt="Sort Joined" style="vertical-align: middle" />
             <asp:LinkButton runat="server" ID="Joined" OnClick="Joined_Click" />
         </td>
         <td class="header2" style="text-align:center">
-            <img runat="server" id="SortPosts" alt="Sort Posts" style="vertical-align: middle" Visible="False" />
-            <asp:LinkButton runat="server" ID="Posts"  Enabled="false"  OnClick="Posts_Click" />
+            <img runat="server" id="SortPosts" alt="Sort Posts" style="vertical-align: middle" />
+            <asp:LinkButton runat="server" ID="Posts"  OnClick="Posts_Click" />
         </td>
         <td class="header2">
             <img runat="server" id="SortLastVisit" alt="Sort Last Visit" style="vertical-align: middle" />

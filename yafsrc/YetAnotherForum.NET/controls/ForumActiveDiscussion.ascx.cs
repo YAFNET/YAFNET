@@ -198,9 +198,9 @@ namespace YAF.Controls
                     "ICONS", (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead) ? "TOPIC_NEW" : "TOPIC");
             }
 
-            forumLink.Text = this.Page.HtmlEncode(currentRow["Forum"].ToString());
+            forumLink.Text = this.HtmlEncode(currentRow["Forum"].ToString());
             forumLink.ToolTip = this.GetText("COMMON", "VIEW_FORUM");
-            forumLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}", currentRow["ForumID"]);
+            forumLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}&name={1}", currentRow["ForumID"], currentRow["Forum"].ToString());
         }
 
         /// <summary>

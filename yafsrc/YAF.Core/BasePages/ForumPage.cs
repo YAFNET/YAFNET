@@ -526,6 +526,9 @@ namespace YAF.Core
         /// </summary>
         protected virtual void CreatePageLinks()
         {
+            // forum index
+            //this.PageLinks.AddRoot();
+
             // Page link creation goes to this method (overloads in descendant classes)
         }
 
@@ -576,7 +579,7 @@ namespace YAF.Core
         protected void SetupHeaderElements()
         {
             this.InsertCssRefresh(this.TopPageControl);
-            string themeHeader = this.Get<ITheme>().GetItem("THEME", "HEADER", string.Empty);
+            var themeHeader = this.Get<ITheme>().GetItem("THEME", "HEADER", string.Empty);
 
             if (!themeHeader.IsSet())
             {
@@ -623,6 +626,8 @@ namespace YAF.Core
             {
                 Security.CheckRequestValidity(this.Request);
             }
+
+           // this.CreatePageLinks(); 
 
             // fire preload event...
             this.Get<IRaiseEvent>().Raise(new ForumPagePostLoadEvent());

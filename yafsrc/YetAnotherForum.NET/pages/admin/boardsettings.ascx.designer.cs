@@ -220,24 +220,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.DropDownList JqueryUITheme;
         
         /// <summary>
-        /// LocalizedLabel9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel LocalizedLabel9;
-        
-        /// <summary>
-        /// JqueryUIThemeCDNHosted control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox JqueryUIThemeCDNHosted;
-        
-        /// <summary>
         /// LocalizedLabel10 control.
         /// </summary>
         /// <remarks>

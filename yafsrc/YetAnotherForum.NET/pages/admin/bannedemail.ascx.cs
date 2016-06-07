@@ -187,20 +187,21 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Search_Click(object sender, EventArgs e)
         {
-            this.BindData(true);
+            this.BindData();
         }
 
         /// <summary>
         /// Binds the data.
         /// </summary>
-        /// <param name="isSearch">if set to <c>true</c> [is search].</param>
-        private void BindData(bool isSearch = false)
+        private void BindData()
         {
             this.PagerTop.PageSize = this.Get<YafBoardSettings>().MemberListPageSize;
 
+            var searchText = this.SearchInput.Text.Trim();
+
             var bannedList = this.GetRepository<BannedEmail>()
                 .List(
-                    mask: isSearch ? this.SearchInput.Text.Trim() : null,
+                    mask: searchText.IsSet() ? searchText : null,
                     pageIndex: this.PagerTop.CurrentPageIndex,
                     pageSize: this.PagerTop.PageSize);
 

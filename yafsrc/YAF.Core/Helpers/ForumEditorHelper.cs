@@ -98,7 +98,7 @@ namespace YAF.Core.Helpers
         public static DataTable GetFilteredEditorList()
         {
             var editorList = YafContext.Current.Get<IModuleManager<ForumEditor>>().ActiveAsDataTable("Editors");
-
+            
             // Check if TinyMCE exists
             if (File.Exists(HttpContext.Current.Server.MapPath("{0}{1}Scripts/tinymce/tinymce.min.js".FormatWith(
                         Config.ServerFileRoot,
@@ -108,6 +108,7 @@ namespace YAF.Core.Helpers
                return editorList;
             }
 
+
             var filterList = new ArrayList();
 
             foreach (DataRow drow in editorList.Rows.Cast<DataRow>().Where(drow => drow["Name"].ToString().Contains("TinyMCE")))
@@ -115,9 +116,9 @@ namespace YAF.Core.Helpers
                 filterList.Add(drow);
             }
 
-            foreach (DataRow dRow in filterList)
+            foreach (DataRow row in filterList)
             {
-                editorList.Rows.Remove(dRow);
+                editorList.Rows.Remove(row);
             }
 
             editorList.AcceptChanges();

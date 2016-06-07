@@ -49,7 +49,7 @@ namespace YAF.Utils
     /// <summary>
     ///   The _url parameters.
     /// </summary>
-    private readonly string _urlParameters = string.Empty;
+    private readonly string _urlParameters;
 
     /// <summary>
     ///   The _url anchor.
@@ -125,11 +125,13 @@ namespace YAF.Utils
     #region Indexers
 
     /// <summary>
-    ///   The this.
+    /// The this.
     /// </summary>
-    /// <param name = "name">
-    ///   The name.
-    /// </param>
+    /// <value>
+    /// The <see cref="System.String"/>.
+    /// </value>
+    /// <param name="name">The name.</param>
+    /// <returns></returns>
     public string this[string name]
     {
       get
@@ -139,11 +141,13 @@ namespace YAF.Utils
     }
 
     /// <summary>
-    ///   The this.
+    /// The this.
     /// </summary>
-    /// <param name = "index">
-    ///   The index.
-    /// </param>
+    /// <value>
+    /// The <see cref="System.String"/>.
+    /// </value>
+    /// <param name="index">The index.</param>
+    /// <returns></returns>
     public string this[int index]
     {
       get
@@ -157,13 +161,11 @@ namespace YAF.Utils
     #region Public Methods
 
     /// <summary>
-    /// The create query string.
+    /// Creates the query string.
     /// </summary>
-    /// <param name="excludeValues">
-    /// The exclude values.
-    /// </param>
+    /// <param name="excludeValues">The exclude values.</param>
     /// <returns>
-    /// The create query string.
+    /// Returns the created query string.
     /// </returns>
     [NotNull]
     public string CreateQueryString([NotNull] string[] excludeValues)
@@ -172,20 +174,21 @@ namespace YAF.Utils
 
       var queryBuilder = new StringBuilder();
 
-      for (int i = 0; i < this._nameValues.Count; i++)
+      foreach (string key in this._nameValues)
       {
-        string key = this._nameValues.Keys[i].ToLower();
-        string value = this._nameValues[i];
+          var value = this._nameValues[key];
 
-        if (!excludeValues.Contains(key))
-        {
+          if (excludeValues.Contains(key))
+          {
+              continue;
+          }
+
           if (queryBuilder.Length > 0)
           {
-            queryBuilder.Append("&");
+              queryBuilder.Append("&");
           }
 
           queryBuilder.AppendFormat("{0}={1}", key, value);
-        }
       }
 
       return queryBuilder.ToString();
@@ -196,28 +199,28 @@ namespace YAF.Utils
     #region Methods
 
     /// <summary>
-    /// The parse url parameters.
+    /// Parses the URL parameters.
     /// </summary>
     private void ParseURLParameters()
     {
-      string urlTemp = this._urlParameters;
+      var urlTemp = this._urlParameters;
 
-      // get the url end anchor (#blah) if there is one...
+      // get the URL end anchor (#blah) if there is one...
       this._urlAnchor = string.Empty;
-      int index = urlTemp.LastIndexOf('#');
+      var index = urlTemp.LastIndexOf('#');
 
       if (index > 0)
       {
         // there's an anchor
         this._urlAnchor = urlTemp.Substring(index + 1);
 
-        // remove the anchor from the url...
+        // remove the anchor from the URL...
         urlTemp = urlTemp.Remove(index);
       }
 
       this._nameValues.Clear();
 
-      string[] arrayPairs = urlTemp.Split('&');
+      var arrayPairs = urlTemp.Split('&');
 
       foreach (var nvalue in from pair in arrayPairs where pair.IsSet() select pair.Trim().Split('='))
       {

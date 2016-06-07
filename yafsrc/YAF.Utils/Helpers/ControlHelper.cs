@@ -426,7 +426,7 @@ namespace YAF.Utils.Helpers
         /// </summary>
         /// <param name="href">
         /// The href to the javascript script file.
-        /// </param>
+        /// </param>s
         /// <returns>
         /// Returns the JS Include Control
         /// </returns>

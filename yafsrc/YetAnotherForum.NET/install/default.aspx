@@ -116,7 +116,7 @@
                     </p>
                     <div class="infoMessage">
                         <span class="infoLabel">Note</span> 
-                        If this is an upgrade, please enter the configuration password you created when the forum was first installed, not the admin user password.
+                        If this is an upgrade, please enter the configuration ad you created when the forum was first installed, not the admin user password.
                     </div>
                     <YAF:ModernTextBox ID="txtEnteredPassword" runat="server" TextMode="Password" Type="Password" 
                         PlaceHolder="Enter the Config Password" RenderWrapper="True" 

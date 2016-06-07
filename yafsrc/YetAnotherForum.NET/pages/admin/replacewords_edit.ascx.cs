@@ -44,7 +44,7 @@ namespace YAF.Pages.Admin
   #endregion
 
   /// <summary>
-  /// Summary description for bannedip_edit.
+  /// Admin Page for adding/editing an Replace Word
   /// </summary>
   public partial class replacewords_edit : AdminPage
   {

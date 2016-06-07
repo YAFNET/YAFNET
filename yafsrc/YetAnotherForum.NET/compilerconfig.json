@@ -1,10 +1,50 @@
 ﻿[
   {
     "outputFile": "Content/forum.css",
-    "inputFile": "Content/forum.less"
+    "inputFile": "Content/forum.scss"
   },
   {
     "outputFile": "Content/InstallWizard.css",
-    "inputFile": "Content/InstallWizard.less"
+    "inputFile": "Content/InstallWizard.scss"
+  },
+  {
+    "outputFile": "Content/jquery.ceebox.css",
+    "inputFile": "Content/jquery.ceebox.scss"
+  },
+  {
+    "outputFile": "Content/bootstrap-forum.css",
+    "inputFile": "Content/bootstrap-forum.scss"
+  },
+  {
+    "outputFile": "Content/bootstrap-select.css",
+    "inputFile": "Content/bootstrap-select.scss"
+  },
+  {
+    "outputFile": "Content/jquery.hovercard.css",
+    "inputFile": "Content/jquery.hovercard.scss"
+  },
+  {
+    "outputFile": "Content/jquery.notification.css",
+    "inputFile": "Content/jquery.notification.scss"
+  },
+  {
+    "outputFile": "Content/jquery.yafmodaldialog.css",
+    "inputFile": "Content/jquery.yafmodaldialog.scss"
+  },
+  {
+    "outputFile": "Content/jsdifflib.css",
+    "inputFile": "Content/jsdifflib.scss"
+  },
+  {
+    "outputFile": "Content/jquery.tablesorter.css",
+    "inputFile": "Content/jquery.tablesorter.scss"
+  },
+  {
+    "outputFile": "Scripts/jquery.timeago.es5.js",
+    "inputFile": "Scripts/jquery.timeago.js"
+  },
+  {
+    "outputFile": "Scripts/jquery.ForumExtensions.es5.js",
+    "inputFile": "Scripts/jquery.ForumExtensions.js"
   }
 ]

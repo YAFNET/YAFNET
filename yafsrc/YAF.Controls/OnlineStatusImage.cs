@@ -49,19 +49,22 @@ namespace YAF.Controls
   {
     #region Properties
 
-    /// <summary>
-    ///   The userid of the user.
-    /// </summary>
+      /// <summary>
+      /// Gets or sets the user identifier.
+      /// </summary>
+      /// <value>
+      /// The user identifier.
+      /// </value>
     public int UserID
     {
       get
       {
-        return ViewState["UserID"].ToType<int>();
+        return this.ViewState["UserID"].ToType<int>();
       }
 
       set
       {
-        ViewState["UserID"] = value;
+          this.ViewState["UserID"] = value;
       }
     }
 
@@ -79,12 +82,12 @@ namespace YAF.Controls
     {
       this.LocalizedTitlePage = "POSTS";
 
-      if (Visible)
+      if (this.Visible)
       {
         DataTable activeUsers = this.Get<IDataCache>().GetOrSet(
           Constants.Cache.UsersOnlineStatus,
           () => this.Get<YafDbBroker>().GetActiveList(false, YafContext.Current.BoardSettings.ShowCrawlersInActiveList),
-          TimeSpan.FromMilliseconds((double)YafContext.Current.BoardSettings.OnlineStatusCacheTimeout));
+          TimeSpan.FromMilliseconds(YafContext.Current.BoardSettings.OnlineStatusCacheTimeout));
 
         if (activeUsers.AsEnumerable().Any(x => x.Field<int>("UserId") == this.UserID && !x.Field<bool>("IsHidden")))
         {

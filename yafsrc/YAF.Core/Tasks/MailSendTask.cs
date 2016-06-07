@@ -39,25 +39,10 @@ namespace YAF.Core.Tasks
     /// </summary>
     public class MailSendTask : IntermittentBackgroundTask
     {
-        #region Constants and Fields
-
         /// <summary>
-        ///   The _send mail threaded.
+        /// The _send mail threaded
         /// </summary>
-        [Inject]
-        public IServiceLocator ServiceLocator { get; set; }
-
         private ISendMailThreaded _sendMailThreaded = null;
-
-        public ISendMailThreaded SendMailThreaded
-        {
-            get
-            {
-                return this._sendMailThreaded ?? (this._sendMailThreaded = this.ServiceLocator.Get<ISendMailThreaded>());
-            }
-        }
-
-        #endregion
 
         #region Constructors and Destructors
 
@@ -72,6 +57,31 @@ namespace YAF.Core.Tasks
             // set interval values...
             this.RunPeriodMs = (rand.Next(10) + 5) * 1000;
             this.StartDelayMs = (rand.Next(30) + 15) * 1000;
+        }
+
+        #endregion
+
+        #region Constants and Fields
+
+
+        /// <summary>
+        /// Gets or sets the ServiceLocator.
+        /// </summary>
+        [Inject]
+        public IServiceLocator ServiceLocator { get; set; }
+
+        /// <summary>
+        /// Gets the send mail threaded.
+        /// </summary>
+        /// <value>
+        /// The send mail threaded.
+        /// </value>
+        public ISendMailThreaded SendMailThreaded
+        {
+            get
+            {
+                return this._sendMailThreaded ?? (this._sendMailThreaded = this.ServiceLocator.Get<ISendMailThreaded>());
+            }
         }
 
         #endregion

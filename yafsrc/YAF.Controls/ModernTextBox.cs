@@ -184,7 +184,7 @@ namespace YAF.Controls
         /// <param name="writer">An <see cref="T:System.Web.UI.HtmlTextWriter" /> that represents the output stream to render HTML content on the client.</param>
         protected override void AddAttributesToRender(HtmlTextWriter writer)
         {
-            if (CssClass.IsNotSet())
+            if (this.CssClass.IsNotSet())
             {
                 this.CssClass = DEFAULTCSSCLASS;
             }

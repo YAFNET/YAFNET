@@ -257,8 +257,7 @@ namespace YAF.Pages
 
             this.EditorLine.Controls.Add(this._editor);
 
-            // TODO : Handle Attachments for pm's
-            this._editor.UserCanUpload = false;
+            this._editor.UserCanUpload = true;
 
             // add editor to the page
             this.EditorLine.Controls.Add(this._editor);

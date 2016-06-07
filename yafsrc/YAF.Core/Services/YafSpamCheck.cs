@@ -70,6 +70,8 @@ namespace YAF.Core.Services
                 return false;
             }
 
+            // TODO : Handle urls
+
             switch (YafContext.Current.Get<YafBoardSettings>().SpamServiceType)
             {
                 case 1:

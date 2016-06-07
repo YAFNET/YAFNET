@@ -24,7 +24,7 @@
         <%
             if (this.Get<YafBoardSettings>().ShowAvatarsInTopic)
             {
-                var avatarUrl = this.GetAvatarUrlFromID(this.TopicRow["UserID"].ToType<int>());
+                 var avatarUrl = this.GetAvatarUrlFromID(this.TopicRow["UserID"].ToType<int>());
 
                 var avatarTitle = this.GetTextFormatted(
                     "USER_AVATAR",
@@ -136,13 +136,14 @@
         <%
             }
 
+                var unreadMessageId = -1;
+
             DateTime lastRead =
                 this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
                 forumId: this.TopicRow["ForumID"].ToType<int>(),
                 topicId: this.TopicRow["TopicID"].ToType<int>(),
                 forumReadOverride: this.TopicRow["LastForumAccess"].ToType<DateTime?>() ?? YAF.Utils.Helpers.DateTimeHelper.SqlDbMinTime(),
                 topicReadOverride: this.TopicRow["LastTopicAccess"].ToType<DateTime?>() ?? YAF.Utils.Helpers.DateTimeHelper.SqlDbMinTime()); 
-
 
         string strMiniPost = this.Get<ITheme>().GetItem(
           "ICONS",

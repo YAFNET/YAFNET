@@ -261,7 +261,7 @@ namespace YAF.Types.Constants
             ///   The location.
             /// </summary>
             public const string Location = @"<yaf:location\s*/>";
-
+            
             /// <summary>
             ///   The rank image.
             /// </summary>
@@ -305,10 +305,16 @@ namespace YAF.Types.Constants
             #endregion
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public struct ForumRebuild
         {
-            public static readonly string[] BlockingTaskNames = new[] { "BoardDeleteTask", "BoardCreateTask", "ForumDeleteTask", "ForumSaveTask", "CategoryDeleteTask", "CategorySaveTask" };
+            public static readonly string[] BlockingTaskNames = {
+                                                                    "BoardDeleteTask", "BoardCreateTask",
+                                                                    "ForumDeleteTask", "ForumSaveTask",
+                                                                    "CategoryDeleteTask", "CategorySaveTask"
+                                                                };
         }
-
     }
 }

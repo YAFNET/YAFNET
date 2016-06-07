@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
@@ -24,10 +24,10 @@
 
 namespace YAF.Data.MsSql.Search
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
-
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -122,7 +122,7 @@ namespace YAF.Data.MsSql.Search
             builtStatements.Add("ORDER BY c.Posted DESC");
 
             string builtSql = builtStatements.ToDelimitedString("\r\n");
-            
+
             Debug.WriteLine("Build Sql: [{0}]".FormatWith(builtSql));
 
             return builtSql;

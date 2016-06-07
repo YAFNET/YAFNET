@@ -72,13 +72,6 @@ namespace YAF.Utils.Extensions
         /// </returns>
         public static string Serialize(object obj)
         {
-            /*var serializer = new DataContractJsonSerializer(obj.GetType());
-            using (MemoryStream ms = new MemoryStream())
-            {
-                serializer.WriteObject(ms, obj);
-                return Encoding.Default.GetString(ms.ToArray());
-            }*/
-
             var serializer = new JavaScriptSerializer();
             return serializer.Serialize(obj);
         }

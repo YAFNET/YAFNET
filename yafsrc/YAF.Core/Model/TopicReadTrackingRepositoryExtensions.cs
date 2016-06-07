@@ -10,6 +10,9 @@ namespace YAF.Core.Model
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
+    /// <summary>
+    /// The TopicRead Repository Extensions
+    /// </summary>
     public static class TopicReadTrackingRepositoryExtensions
     {
         #region Public Methods and Operators

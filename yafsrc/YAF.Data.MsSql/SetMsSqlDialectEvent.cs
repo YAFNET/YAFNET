@@ -1,6 +1,7 @@
 namespace YAF.Data.MsSql
 {
     using ServiceStack.OrmLite;
+    using ServiceStack.Text;
     using ServiceStack.OrmLite.SqlServer;
 
     using YAF.Classes;
@@ -58,6 +59,26 @@ namespace YAF.Data.MsSql
         public string GetTableName(ModelDefinition modelDef)
         {
             return this.GetTableName(modelDef.ModelName);
+        }
+
+        /// <summary>
+        /// Gets the name of the schema.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
+        public string GetSchemaName(string name)
+        {
+            return name;
+        }
+
+        /// <summary>
+        /// Gets the name of the schema.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns></returns>
+        public string GetSchemaName(ModelDefinition modelDef)
+        {
+            return this.GetSchemaName(modelDef.Schema);
         }
 
         /// <summary>

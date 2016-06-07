@@ -32,15 +32,10 @@ namespace YAF.Controls
     using YAF.Classes;
     using YAF.Core;
     using YAF.Core.Model;
+    using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Constants;
-    using YAF.Classes.Data;
-    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Types;
-    using YAF.Types.Interfaces;
 
     #endregion
 

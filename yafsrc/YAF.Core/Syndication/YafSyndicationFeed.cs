@@ -115,8 +115,6 @@ namespace YAF.Core.Syndication
       this.Authors.Add(
         new SyndicationPerson(YafContext.Current.BoardSettings.ForumEmail, "Forum Admin", BaseUrlBuilder.BaseUrl));
       this.Categories.Add(new SyndicationCategory(FeedCategories));
-
-      // writer.WriteRaw("<?xml-stylesheet type=\"text/xsl\" href=\"" + YafForumInfo.ForumClientFileRoot + "rss.xsl\" media=\"screen\"?>");
     }
 
     #endregion

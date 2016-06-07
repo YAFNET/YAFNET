@@ -23,17 +23,16 @@
  */
 namespace YAF.Modules
 {
-  using System.Text;
-  using System.Web.UI;
+    using System.Text;
+    using System.Web.UI;
 
-  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Controls;
-  using YAF.Types.Constants;
+    using YAF.Core;
+    using YAF.Controls;
 
-  /// <summary>
-  /// The spoiler bb code module.
-  /// </summary>
-  public class SpoilerBBCodeModule : YafBBCodeControl
+    /// <summary>
+    /// The spoiler bb code module.
+    /// </summary>
+    public class SpoilerBBCodeModule : YafBBCodeControl
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="SpoilerBBCodeModule"/> class.

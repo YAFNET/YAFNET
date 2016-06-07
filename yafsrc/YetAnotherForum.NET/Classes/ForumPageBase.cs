@@ -100,7 +100,11 @@ namespace YAF
             }
             else
             {
-                this.Get<ILogger>().Log(YafContext.Current.PageUserID, error.Source, error);
+                this.Get<ILogger>()
+                    .Log(
+                        YafContext.Current.PageUserID,
+                        error.Source,
+                        error);
             }
         }
 

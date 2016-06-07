@@ -211,15 +211,9 @@ namespace YAF.Utils.Helpers
         /// <summary>
         /// The write connection string.
         /// </summary>
-        /// <param name="keyName">
-        /// The key name.
-        /// </param>
-        /// <param name="keyValue">
-        /// The key value.
-        /// </param>
-        /// <param name="providerValue">
-        /// The provider value.
-        /// </param>
+        /// <param name="keyName">The key name.</param>
+        /// <param name="keyValue">The key value.</param>
+        /// <param name="providerValue">The provider value.</param>
         /// <returns>
         /// The write connection string.
         /// </returns>

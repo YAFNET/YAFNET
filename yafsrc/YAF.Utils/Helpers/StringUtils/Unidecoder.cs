@@ -24,57 +24,58 @@ it under the same terms as Perl.
 
 namespace YAF.Utils.Helpers.StringUtils
 {
-	#region Using
+    #region Using
 
-	using System;
-	using System.Text;
+    using System.Text;
 
-	#endregion
+    using YAF.Types.Extensions;
 
-	/// <summary>
-	/// ASCII transliterations of Unicode text
-	/// </summary>
-	public static partial class Unidecoder
-	{
-		#region Public Methods
+    #endregion
 
-		/// <summary>
-		/// Transliterate an Unicode object into an ASCII string
-		/// </summary>
-		/// <remarks>
-		/// unidecode(u"\u5317\u4EB0") == "Bei Jing "
-		/// </remarks>
-		/// <param name="input">
-		/// The input. 
-		/// </param>
-		/// <returns>
-		/// The unidecode.
-		/// </returns>
-		public static string Unidecode(this string input)
-		{
-			if (string.IsNullOrEmpty(input))
-			{
-				return input;
-			}
+    /// <summary>
+    /// ASCII transliterations of Unicode text
+    /// </summary>
+    public static partial class Unidecoder
+    {
+        #region Public Methods
 
-			var output = new StringBuilder();
-			foreach (var c in input.ToCharArray())
-			{
-				if (c < 0x80)
-				{
-					output.Append(c);
-					continue;
-				}
+        /// <summary>
+        /// Transliterate an UniCode object into an ASCII string
+        /// </summary>
+        /// <remarks>
+        /// Unidecode(u"\u5317\u4EB0") == "Bei Jing "
+        /// </remarks>
+        /// <param name="input">
+        /// The input. 
+        /// </param>
+        /// <returns>
+        /// Returns the translated string
+        /// </returns>
+        public static string Unidecode(this string input)
+        {
+            if (input.IsNotSet())
+            {
+                return input;
+            }
 
-				var h = c >> 8;
-				var l = c & 0xff;
+            var output = new StringBuilder();
+            foreach (var c in input.ToCharArray())
+            {
+                if (c < 0x80)
+                {
+                    output.Append(c);
+                    continue;
+                }
 
-				output.Append(characters.ContainsKey(h) ? characters[h][l] : string.Empty);
-			}
+                var h = c >> 8;
+                var l = c & 0xff;
 
-			return output.ToString();
-		}
+                output.Append(characters.ContainsKey(h) ? characters[h][l] : string.Empty);
+            }
 
-		#endregion
-	}
+            return output.ToString();
+        }
+
+        #endregion
+    }
 }

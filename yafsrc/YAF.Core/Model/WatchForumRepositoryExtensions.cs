@@ -33,6 +33,9 @@ namespace YAF.Core.Model
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
+    /// <summary>
+    /// The WatchForum Repository Extensions
+    /// </summary>
     public static class WatchForumRepositoryExtensions
     {
         #region Public Methods and Operators

@@ -23,134 +23,107 @@
  */
 namespace YAF.Core.Tasks
 {
-  using System.Security.Principal;
-  using System.Threading;
+    using System.Security.Principal;
+    using System.Threading;
 
-  using YAF.Core;
-  using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces;
 
     /// <summary>
-  /// The intermittent background task.
-  /// </summary>
-  public class IntermittentBackgroundTask : BaseBackgroundTask
-  {
-    /// <summary>
-    /// The _intermittent timer.
+    /// The intermittent background task.
     /// </summary>
-    protected Timer _intermittentTimer = null;
-
-    /// <summary>
-    /// The _run period ms.
-    /// </summary>
-    private long _runPeriodMs;
-
-    /// <summary>
-    /// The _start delay ms.
-    /// </summary>
-    private long _startDelayMs;
-
-    private WindowsIdentity _primaryThreadIdentity;
-
-    /// <summary>
-    /// Gets or sets StartDelayMs.
-    /// </summary>
-    public long StartDelayMs
+    public class IntermittentBackgroundTask : BaseBackgroundTask
     {
-      get
-      {
-        return this._startDelayMs;
-      }
+        /// <summary>
+        /// The _intermittent timer.
+        /// </summary>
+        protected Timer _intermittentTimer = null;
 
-      set
-      {
-        this._startDelayMs = value;
-      }
-    }
+        /// <summary>
+        /// The _primary thread identity
+        /// </summary>
+        private WindowsIdentity _primaryThreadIdentity;
 
-    /// <summary>
-    /// Gets or sets RunPeriodMs.
-    /// </summary>
-    public long RunPeriodMs
-    {
-      get
-      {
-        return this._runPeriodMs;
-      }
+        /// <summary>
+        /// Gets or sets StartDelayMs.
+        /// </summary>
+        public long StartDelayMs { get; set; }
 
-      set
-      {
-        this._runPeriodMs = value;
-      }
-    }
+        /// <summary>
+        /// Gets or sets RunPeriodMs.
+        /// </summary>
+        public long RunPeriodMs { get; set; }
 
-
-    /// <summary>
-    /// The run once.
-    /// </summary>
-    public override void RunOnce()
-    {
-
-    }
-
-    /// <summary>
-    /// The run.
-    /// </summary>
-    public override void Run()
-    {
-      if (!this.IsRunning)
-      {
-        // keep the context...
-        this._primaryThreadIdentity = WindowsIdentity.GetCurrent();
-
-        // we're running this thread now...
-        this.IsRunning = true;
-
-        this.Logger.Debug("Starting Background Task {0} Now", this.GetType().Name);
-
-        // create the timer...);
-        this._intermittentTimer = new Timer(this.TimerCallback, null, this.StartDelayMs, this.RunPeriodMs);
-      }
-    }
-
-    /// <summary>
-    /// The timer callback.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    protected virtual void TimerCallback(object sender)
-    {
-      if (Monitor.TryEnter(this))
-      {
-        WindowsImpersonationContext impersonationContext = null;
-
-        if (this._primaryThreadIdentity != null)
+        /// <summary>
+        /// The run once.
+        /// </summary>
+        public override void RunOnce()
         {
-          impersonationContext = this._primaryThreadIdentity.Impersonate();
+
         }
 
-        try
+        /// <summary>
+        /// The run.
+        /// </summary>
+        public override void Run()
         {
-          this.RunOnce();
+            if (this.IsRunning)
+            {
+                return;
+            }
+
+            // keep the context...
+            this._primaryThreadIdentity = WindowsIdentity.GetCurrent();
+
+            // we're running this thread now...
+            this.IsRunning = true;
+
+            this.Logger.Debug("Starting Background Task {0} Now", this.GetType().Name);
+
+            // create the timer...);
+            this._intermittentTimer = new Timer(this.TimerCallback, null, this.StartDelayMs, this.RunPeriodMs);
         }
-        finally
+
+        /// <summary>
+        /// The timer callback.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        protected virtual void TimerCallback(object sender)
         {
-          Monitor.Exit(this);
+            if (!Monitor.TryEnter(this))
+            {
+                return;
+            }
 
-          if (impersonationContext != null)
-          {
-            impersonationContext.Undo();
-          }
+            WindowsImpersonationContext impersonationContext = null;
+
+            if (this._primaryThreadIdentity != null)
+            {
+                impersonationContext = this._primaryThreadIdentity.Impersonate();
+            }
+
+            try
+            {
+                this.RunOnce();
+            }
+            finally
+            {
+                Monitor.Exit(this);
+
+                if (impersonationContext != null)
+                {
+                    impersonationContext.Undo();
+                }
+            }
         }
-      }
-    }
 
-    /// <summary>
-    /// The dispose.
-    /// </summary>
-    public override void Dispose()
-    {
-      base.Dispose();
+        /// <summary>
+        /// The dispose.
+        /// </summary>
+        public override void Dispose()
+        {
+            base.Dispose();
+        }
     }
-  }
 }

@@ -23,6 +23,5 @@ using System.Security.Permissions;
 [assembly: AssemblyVersion("2.0.0.6")]
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyName("")]
-[assembly: AllowPartiallyTrustedCallers]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]

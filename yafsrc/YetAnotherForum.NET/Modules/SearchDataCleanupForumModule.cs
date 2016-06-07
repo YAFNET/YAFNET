@@ -67,18 +67,14 @@ namespace YAF.Modules
         #region Methods
 
         /// <summary>
-        ///     The _page pre load_ handle event.
+        /// _pages the pre load_ handle event.
         /// </summary>
-        /// <param name="sender">
-        ///     The sender.
-        /// </param>
-        /// <param name="e">
-        ///     The e.
-        /// </param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The e.</param>
         private void _pagePreLoad_HandleEvent([NotNull] object sender, [NotNull] EventConverterArgs<ForumPagePreLoadEvent> e)
         {
             // no security features for login/logout pages
-            if (this.ForumPageType == ForumPages.search)
+            if (this.ForumPageType == ForumPages.search || this.ForumPageType == ForumPages.posts)
             {
                 return;
             }

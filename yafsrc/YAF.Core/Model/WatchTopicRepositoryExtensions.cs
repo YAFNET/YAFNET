@@ -28,14 +28,22 @@ namespace YAF.Core.Model
     using System.Collections.Generic;
     using System.Data;
 
-    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
+    /// <summary>
+    /// The WatchTopic Repository Extensions
+    /// </summary>
     public static class WatchTopicRepositoryExtensions
     {
+        /// <summary>
+        /// Adds the specified repository.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <param name="topicID">The topic identifier.</param>
         public static void Add(this IRepository<WatchTopic> repository, int userID, int topicID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -45,6 +53,13 @@ namespace YAF.Core.Model
             repository.FireNew();
         }
 
+        /// <summary>
+        /// Checks the specified repository.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <param name="topicID">The topic identifier.</param>
+        /// <returns></returns>
         public static int? Check(this IRepository<WatchTopic> repository, int userID, int topicID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -52,6 +67,12 @@ namespace YAF.Core.Model
             return (int?)repository.DbFunction.Scalar.watchtopic_check(UserID: userID, TopicID: topicID);
         }
 
+        /// <summary>
+        /// Lists the specified repository.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <returns></returns>
         public static DataTable List(this IRepository<WatchTopic> repository, int userID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -59,6 +80,12 @@ namespace YAF.Core.Model
             return repository.DbFunction.GetData.watchtopic_list(UserID: userID);
         }
 
+        /// <summary>
+        /// Lists the typed.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <returns></returns>
         public static IList<WatchTopic> ListTyped(this IRepository<WatchTopic> repository, int userID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");

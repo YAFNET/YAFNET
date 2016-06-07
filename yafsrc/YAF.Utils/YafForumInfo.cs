@@ -67,47 +67,23 @@ namespace YAF.Utils
         /// Gets the forum path (client-side).
         /// May not be the actual URL of the forum.
         /// </summary>
-        public static string ForumClientFileRoot
-        {
-            get
-            {
-                return BaseUrlBuilder.ClientFileRoot;
-            }
-        }
+        public static string ForumClientFileRoot => BaseUrlBuilder.ClientFileRoot;
 
         /// <summary>
         /// Gets the forum path (server-side).
         /// May not be the actual URL of the forum.
         /// </summary>
-        public static string ForumServerFileRoot
-        {
-            get
-            {
-                return BaseUrlBuilder.ServerFileRoot;
-            }
-        }
+        public static string ForumServerFileRoot => BaseUrlBuilder.ServerFileRoot;
 
         /// <summary>
         /// Gets complete application external (client-side) URL of the forum. (e.g. http://domain.com/forum
         /// </summary>
-        public static string ForumBaseUrl
-        {
-            get
-            {
-                return "{0}{1}".FormatWith(BaseUrlBuilder.BaseUrl, BaseUrlBuilder.AppPath);
-            }
-        }
+        public static string ForumBaseUrl => "{0}{1}".FormatWith(BaseUrlBuilder.BaseUrl, BaseUrlBuilder.AppPath);
 
         /// <summary>
         /// Gets full URL to the Root of the Forum
         /// </summary>
-        public static string ForumURL
-        {
-            get
-            {
-                return YafBuildLink.GetLink(ForumPages.forum, true);
-            }
-        }
+        public static string ForumURL => YafBuildLink.GetLink(ForumPages.forum, true);
 
         /// <summary>
         /// Gets a value indicating whether this instance is local.
@@ -129,24 +105,12 @@ namespace YAF.Utils
         /// <summary>
         /// Gets the Current YAF Application Version string
         /// </summary>
-        public static string AppVersionName
-        {
-            get
-            {
-                return AppVersionNameFromCode(AppVersionCode);
-            }
-        }
+        public static string AppVersionName => AppVersionNameFromCode(AppVersionCode);
 
         /// <summary>
         /// Gets the Current YAF Database Version
         /// </summary>
-        public static int AppVersion
-        {
-            get
-            {
-                return 60;
-            }
-        }
+        public static int AppVersion => 60;
 
         /// <summary>
         /// Gets the Current YAF Application Version
@@ -185,13 +149,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets the Current YAF Build Date
         /// </summary>
-        public static DateTime AppVersionDate
-        {
-            get
-            {
-                return new DateTime(2016, 06, 07);
-            }
-        }
+        public static DateTime AppVersionDate => new DateTime(2016, 06, 07);
 
         /// <summary>
         /// Creates a string that is the YAF Application Version from a long value

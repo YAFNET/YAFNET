@@ -29,6 +29,7 @@ namespace YAF.Core.Services.Logger
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+    using System.Web;
 
     using YAF.Classes;
     using YAF.Core.Extensions;
@@ -146,7 +147,12 @@ namespace YAF.Core.Services.Logger
                 exceptionDescription = exception.ToString();
             }
 
-            var formattedDescription = string.Format("{0}\r\n{1}", message, exceptionDescription);
+            var formattedDescription = HttpContext.Current != null
+                                           ? "{0} (URL:'{1}')\r\n{2}".FormatWith(
+                                               message,
+                                               HttpContext.Current.Request.Url,
+                                               exceptionDescription)
+                                           : "{0}\r\n{1}".FormatWith(message, exceptionDescription);
 
             if (source.IsNotSet())
             {

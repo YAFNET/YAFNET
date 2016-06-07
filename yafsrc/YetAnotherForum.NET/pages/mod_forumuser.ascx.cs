@@ -77,7 +77,7 @@ namespace YAF.Pages
             if (!this.PageContext.IsAdmin)
             {
                 // do not include access masks with this flags set
-                var flags = (int)AccessFlags.Flags.ModeratorAccess;
+                var flags = AccessFlags.Flags.ModeratorAccess.ToType<int>();
 
                 // non-admins cannot assign moderation access masks
                 dataTable = this.GetRepository<AccessMask>().List(excludeFlags: flags);
@@ -100,14 +100,10 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// Handles click event of cancel button.
+        /// Handles the Click event of the Cancel control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to forum moderation page

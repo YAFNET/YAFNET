@@ -69,7 +69,7 @@ namespace YAF.Core
         #region Properties
 
         /// <summary>
-        /// Gets PageName.
+        /// Gets the Page Name.
         /// </summary>
         public override string PageName
         {
@@ -84,14 +84,10 @@ namespace YAF.Core
         #region Methods
 
         /// <summary>
-        /// The admin page_ load.
+        /// Handles the Load event of the AdminPage control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void AdminPage_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // not admins are forbidden

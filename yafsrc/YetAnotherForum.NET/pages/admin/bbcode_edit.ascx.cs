@@ -28,7 +28,6 @@ namespace YAF.Pages.Admin
 
     using System;
 
-    using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
@@ -50,7 +49,7 @@ namespace YAF.Pages.Admin
         #region Constants and Fields
 
         /// <summary>
-        ///   The _bbcode id.
+        ///   The _BBCode id.
         /// </summary>
         private int? _bbcodeId;
 
@@ -70,17 +69,20 @@ namespace YAF.Pages.Admin
                     return this._bbcodeId;
                 }
 
-                if (this.Request.QueryString.GetFirstOrDefault("b") != null)
+                if (this.Request.QueryString.GetFirstOrDefault("b") == null)
                 {
-                    int id;
-                    if (int.TryParse(this.Request.QueryString.GetFirstOrDefault("b"), out id))
-                    {
-                        this._bbcodeId = id;
-                        return id;
-                    }
+                    return null;
                 }
 
-                return null;
+                int id;
+
+                if (!int.TryParse(this.Request.QueryString.GetFirstOrDefault("b"), out id))
+                {
+                    return null;
+                }
+
+                this._bbcodeId = id;
+                return id;
             }
         }
 
@@ -109,20 +111,21 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.GetRepository<BBCode>().Save(
-                this.BBCodeID,
-                this.txtName.Text.Trim(),
-                this.txtDescription.Text,
-                this.txtOnClickJS.Text,
-                this.txtDisplayJS.Text,
-                this.txtEditJS.Text,
-                this.txtDisplayCSS.Text,
-                this.txtSearchRegEx.Text,
-                this.txtReplaceRegEx.Text,
-                this.txtVariables.Text,
-                this.chkUseModule.Checked,
-                this.txtModuleClass.Text,
-                sortOrder);
+            this.GetRepository<BBCode>()
+                .Save(
+                    this.BBCodeID,
+                    this.txtName.Text.Trim(),
+                    this.txtDescription.Text,
+                    this.txtOnClickJS.Text,
+                    this.txtDisplayJS.Text,
+                    this.txtEditJS.Text,
+                    this.txtDisplayCSS.Text,
+                    this.txtSearchRegEx.Text,
+                    this.txtReplaceRegEx.Text,
+                    this.txtVariables.Text,
+                    this.chkUseModule.Checked,
+                    this.txtModuleClass.Text,
+                    sortOrder);
 
             this.Get<IDataCache>().Remove(Constants.Cache.CustomBBCode);
             this.Get<IObjectStore>().RemoveOf<IProcessReplaceRules>();
@@ -179,14 +182,18 @@ namespace YAF.Pages.Admin
             if (!this.IsPostBack)
             {
                 this.PageLinks.AddRoot();
-                this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-                this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_bbcode));
+                this.PageLinks.AddLink(
+                    this.GetText("ADMIN_ADMIN", "Administration"),
+                    YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.PageLinks.AddLink(
+                    this.GetText("ADMIN_BBCODE", "TITLE"),
+                    YafBuildLink.GetLink(ForumPages.admin_bbcode));
                 this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE_EDIT", "TITLE").FormatWith(strAddEdit), string.Empty);
 
                 this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                      this.GetText("ADMIN_ADMIN", "Administration"),
-                      this.GetText("ADMIN_BBCODE", "TITLE"),
-                      this.GetText("ADMIN_BBCODE_EDIT", "TITLE").FormatWith(strAddEdit));
+                    this.GetText("ADMIN_ADMIN", "Administration"),
+                    this.GetText("ADMIN_BBCODE", "TITLE"),
+                    this.GetText("ADMIN_BBCODE_EDIT", "TITLE").FormatWith(strAddEdit));
                 this.save.Text = this.GetText("ADMIN_COMMON", "SAVE");
                 this.cancel.Text = this.GetText("ADMIN_COMMON", "CANCEL");
                 this.BindData();

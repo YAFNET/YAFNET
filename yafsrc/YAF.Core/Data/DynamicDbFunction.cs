@@ -248,7 +248,7 @@ namespace YAF.Core.Data
             where T : new()
         {
             var objectList = new List<T>();
-
+            
             using (var dataReader = (IDataReader)getFunction(this.GetReader))
             {
                 while (dataReader.Read())
@@ -260,7 +260,7 @@ namespace YAF.Core.Data
 
                 dataReader.Close();
             }
-
+             
             return objectList;
         }
 

@@ -207,7 +207,7 @@ namespace YAF.Core
                     this.Get<HttpRequestBase>().Url.ToString());
 
                 // log the user out...
-                FormsAuthentication.SignOut();
+                //FormsAuthentication.SignOut();
 
                 if (YafContext.Current.ForumPageType != ForumPages.info)
                 {

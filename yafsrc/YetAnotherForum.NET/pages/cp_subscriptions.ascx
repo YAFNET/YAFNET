@@ -79,7 +79,7 @@
                             Visible="false" />
                         <tr>
                             <td class="post">
-                                <a href="<%# YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}",  Container.DataItemToField<int>("ForumID"))%>">
+                                <a href="<%# YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}&name={1}",  Container.DataItemToField<int>("ForumID"), Container.DataItemToField<string>("ForumName"))%>">
                                     <%# HtmlEncode(Container.DataItemToField<string>("ForumName"))%></a>
                             </td>
                             <td class="post" align="center">
