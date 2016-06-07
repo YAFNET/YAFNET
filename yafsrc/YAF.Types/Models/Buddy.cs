@@ -24,55 +24,67 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the Mail table.
+    /// A class which represents the Buddy table.
     /// </summary>
     [Serializable]
-    [Table(Name = "Mail")]
-    public partial class Mail : IEntity, IHaveID
+    public partial class Buddy : IEntity, IHaveID
     {
         partial void OnCreated();
 
-        public Mail()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Buddy"/> class.
+        /// </summary>
+        public Buddy()
         {
             this.OnCreated();
         }
 
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [AutoIncrement]
-        [Alias("MailID")]
+        [Alias("BuddyID")]
         public int ID { get; set; }
 
-        public string FromUser { get; set; }
+        /// <summary>
+        /// Gets or sets from user identifier.
+        /// </summary>
+        /// <value>
+        /// From user identifier.
+        /// </value>
+        public int FromUserID { get; set; }
 
-        public string ToUser { get; set; }
+        /// <summary>
+        /// Gets or sets to user identifier.
+        /// </summary>
+        /// <value>
+        /// To user identifier.
+        /// </value>
+        public int ToUserID { get; set; }
 
-        public DateTime Created { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="Buddy"/> is approved.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if approved; otherwise, <c>false</c>.
+        /// </value>
+        public bool Approved { get; set; }
 
-        public string Subject { get; set; }
-
-        public string Body { get; set; }
-
-        public string FromUserName { get; set; }
-
-        public string ToUserName { get; set; }
-
-        public string BodyHtml { get; set; }
-
-        public int SendTries { get; set; }
-
-        public DateTime? SendAttempt { get; set; }
-
-        public int? ProcessID { get; set; }
-
+        /// <summary>
+        /// Gets or sets the requested.
+        /// </summary>
+        /// <value>
+        /// The requested.
+        /// </value>
+        public DateTime Requested { get; set; }
 
         #endregion
     }

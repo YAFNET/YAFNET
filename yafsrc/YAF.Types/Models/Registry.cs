@@ -23,56 +23,74 @@
  */
 namespace YAF.Types.Models
 {
+    #region Using
+
     using System;
-    using System.Data;
     using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
+    #endregion
+
     /// <summary>
-    /// A class which represents the Mail table.
+    ///     A class which represents the YAF_Registry table in the YAF Database.
     /// </summary>
     [Serializable]
-    [Table(Name = "Mail")]
-    public partial class Mail : IEntity, IHaveID
+    public partial class Registry : IEntity, IHaveID, IHaveBoardID
     {
-        partial void OnCreated();
+        #region Constructors and Destructors
 
-        public Mail()
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="Registry" /> class.
+        /// </summary>
+        public Registry()
         {
             this.OnCreated();
         }
 
-        #region Properties
+        #endregion
 
+        #region Public Properties
+
+        /// <summary>
+        ///     Gets or sets the Registry ID.
+        /// </summary>
         [AutoIncrement]
-        [Alias("MailID")]
+        [Alias("RegistryID")]
         public int ID { get; set; }
 
-        public string FromUser { get; set; }
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        public string Name { get; set; }
 
-        public string ToUser { get; set; }
+        /// <summary>
+        /// Gets or sets the value.
+        /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
+        public string Value { get; set; }
 
-        public DateTime Created { get; set; }
+        /// <summary>
+        ///     Gets or sets the board id.
+        /// </summary>
+        public int BoardID { get; set; }
 
-        public string Subject { get; set; }
+        #endregion
 
-        public string Body { get; set; }
+        #region Methods
 
-        public string FromUserName { get; set; }
-
-        public string ToUserName { get; set; }
-
-        public string BodyHtml { get; set; }
-
-        public int SendTries { get; set; }
-
-        public DateTime? SendAttempt { get; set; }
-
-        public int? ProcessID { get; set; }
-
+        /// <summary>
+        ///     The on created.
+        /// </summary>
+        partial void OnCreated();
 
         #endregion
     }
