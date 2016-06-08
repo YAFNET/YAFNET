@@ -25,6 +25,7 @@ namespace YAF.Core.Helpers
 {
     #region Using
 
+    using System;
     using System.Collections;
     using System.Data;
     using System.IO;
@@ -90,7 +91,6 @@ namespace YAF.Core.Helpers
             return forumEditor;
         }
 
-
         /// <summary>
         /// Gets the filtered editor list.
         /// </summary>
@@ -100,14 +100,29 @@ namespace YAF.Core.Helpers
             var editorList = YafContext.Current.Get<IModuleManager<ForumEditor>>().ActiveAsDataTable("Editors");
             
             // Check if TinyMCE exists
-            if (File.Exists(HttpContext.Current.Server.MapPath("{0}{1}Scripts/tinymce/tinymce.min.js".FormatWith(
-                        Config.ServerFileRoot,
-                        Config.ServerFileRoot.EndsWith("/") ? string.Empty : "/"))))
-           
+            var tinyMCEExists = false;
+
+            try
             {
-               return editorList;
+                if (
+                    File.Exists(
+                        HttpContext.Current.Server.MapPath(
+                            "{0}{1}Scripts/tinymce/tinymce.min.js".FormatWith(
+                                Config.ServerFileRoot,
+                                Config.ServerFileRoot.EndsWith("/") ? string.Empty : "/"))))
+                {
+                    tinyMCEExists = true;
+                }
+            }
+            catch (Exception)
+            {
+                tinyMCEExists = false;
             }
 
+            if (!tinyMCEExists)
+            {
+                return editorList;
+            }
 
             var filterList = new ArrayList();
 
