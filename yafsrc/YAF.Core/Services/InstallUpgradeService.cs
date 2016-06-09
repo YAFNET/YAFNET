@@ -301,12 +301,25 @@ namespace YAF.Core.Services
                         ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
                     }
 
-                    // Check if BaskeUrlMask is set and if not automatically write it
-                    if (this.Get<YafBoardSettings>().BaseUrlMask.IsNotSet())
+                    try
                     {
-                        this.Get<YafBoardSettings>().BaseUrlMask = BaseUrlBuilder.GetBaseUrlFromVariables();
+                        // Check if BaskeUrlMask is set and if not automatically write it
+                        if (this.Get<YafBoardSettings>().BaseUrlMask.IsNotSet())
+                        {
+                            this.Get<YafBoardSettings>().BaseUrlMask = BaseUrlBuilder.GetBaseUrlFromVariables();
 
-                        ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
+                            ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        var boardSettings = new YafLoadBoardSettings(this.PageBoardID)
+                                                {
+                                                    BaseUrlMask =
+                                                        BaseUrlBuilder
+                                                        .GetBaseUrlFromVariables()
+                                                };
+                        boardSettings.SaveRegistry();
                     }
                 }
 
