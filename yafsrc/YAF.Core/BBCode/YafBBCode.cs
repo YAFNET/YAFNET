@@ -861,7 +861,7 @@ namespace YAF.Core.BBCode
 
             // Remove remaining tags.
             ruleEngine.AddRule(new SimpleRegexReplaceRule("<p>", string.Empty, _Options));
-            ruleEngine.AddRule(new SimpleRegexReplaceRule("</p>", string.Empty, _Options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule("</p>", "\r\n\r\n", _Options));
             ruleEngine.AddRule(new SimpleRegexReplaceRule("&nbsp;", string.Empty, _Options));
 
             // remove remaining tags
