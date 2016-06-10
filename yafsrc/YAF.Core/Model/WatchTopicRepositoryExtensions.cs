@@ -48,6 +48,11 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
+            if (repository.Check(userID, topicID).HasValue)
+            {
+                return;
+            }
+
             repository.DbFunction.Query.watchtopic_add(UserID: userID, TopicID: topicID, UTCTIMESTAMP: DateTime.UtcNow);
 
             repository.FireNew();

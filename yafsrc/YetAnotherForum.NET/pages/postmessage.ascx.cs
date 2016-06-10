@@ -604,7 +604,7 @@ namespace YAF.Pages
                 if (!this.PageContext.IsGuest)
                 {
                     this.PostOptions1.WatchChecked = this.PageContext.PageTopicID > 0
-                        ? this.TopicWatchedId(this.PageContext.PageUserID, this.PageContext.PageTopicID).HasValue
+                        ? this.GetRepository<WatchTopic>().Check(this.PageContext.PageUserID, this.PageContext.PageTopicID).HasValue
                         : new CombinedUserDataHelper(this.PageContext.PageUserID).AutoWatchTopics;
                 }
 
@@ -1530,23 +1530,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Returns true if the topic is set to watch for userId
-        /// </summary>
-        /// <param name="userId">
-        /// The user Id. 
-        /// </param>
-        /// <param name="topicId">
-        /// The topic Id. 
-        /// </param>
-        /// <returns>
-        /// The topic watched id. 
-        /// </returns>
-        private int? TopicWatchedId(int userId, int topicId)
-        {
-            return this.GetRepository<WatchTopic>().Check(userId, topicId);
-        }
-
-        /// <summary>
         /// Updates Watch Topic based on controls/settings for user...
         /// </summary>
         /// <param name="userId">
@@ -1557,7 +1540,7 @@ namespace YAF.Pages
         /// </param>
         private void UpdateWatchTopic(int userId, int topicId)
         {
-            var topicWatchedID = this.TopicWatchedId(userId, topicId);
+            var topicWatchedID = this.GetRepository<WatchTopic>().Check(userId, topicId);
 
             if (topicWatchedID.HasValue && !this.PostOptions1.WatchChecked)
             {
@@ -1567,23 +1550,6 @@ namespace YAF.Pages
             else if (!topicWatchedID.HasValue && this.PostOptions1.WatchChecked)
             {
                 // subscribe to this topic...
-                this.WatchTopic(userId, topicId);
-            }
-        }
-
-        /// <summary>
-        /// Checks if this topic is watched, if not, adds it.
-        /// </summary>
-        /// <param name="userId">
-        /// The user Id. 
-        /// </param>
-        /// <param name="topicId">
-        /// The topic Id. 
-        /// </param>
-        private void WatchTopic(int userId, int topicId)
-        {
-            if (!this.TopicWatchedId(userId, topicId).HasValue)
-            {
                 this.GetRepository<WatchTopic>().Add(userId, topicId);
             }
         }

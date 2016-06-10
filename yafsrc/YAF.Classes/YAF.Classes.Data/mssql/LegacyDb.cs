@@ -3019,25 +3019,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The forum_moderators.
-        /// </summary>
-        /// <param name="useStyledNicks">
-        /// The use Styled Nicks.
-        /// </param>
-        /// <returns>
-        ///  Returns Data Table with all Mods
-        /// </returns>
-        public static DataTable forum_moderators(bool useStyledNicks)
-        {
-            using (var cmd = DbHelpers.GetCommand("forum_moderators"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("StyledNicks", useStyledNicks);
-                return DbAccess.GetData(cmd);
-            }
-        }
-
-        /// <summary>
         /// The moderators_team_list
         /// </summary>
         /// <param name="useStyledNicks">

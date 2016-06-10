@@ -604,6 +604,15 @@ namespace YAF.Pages
                 this.DataPanel1.ExpandText = this.GetText("QUICKREPLY_SHOW");
                 this.DataPanel1.CollapseText = this.GetText("QUICKREPLY_HIDE");
 
+                this.QuickReplyWatchTopic.Visible = !this.PageContext.IsGuest;
+
+                if (!this.PageContext.IsGuest)
+                {
+                    this.TopicWatch.Checked = this.PageContext.PageTopicID > 0
+                        ? this.GetRepository<WatchTopic>().Check(this.PageContext.PageUserID, this.PageContext.PageTopicID).HasValue
+                        : new CombinedUserDataHelper(this.PageContext.PageUserID).AutoWatchTopics;
+                }
+
                 this.PageLinks.AddForum(this.PageContext.PageForumID);
                 this.PageLinks.AddLink(
                     this.Get<IBadWordReplace>().Replace(this.Server.HtmlDecode(this.PageContext.PageTopicName)),
@@ -861,6 +870,31 @@ namespace YAF.Pages
             this.UnlockTopic2.Visible = this.UnlockTopic1.Visible;
             this.PostReplyLink1.Visible = this.PageContext.ForumReplyAccess;
             this.PostReplyLink2.Visible = this.PageContext.ForumReplyAccess;
+        }
+
+        /// <summary>
+        /// Updates Watch Topic based on controls/settings for user...
+        /// </summary>
+        /// <param name="userId">
+        /// The user Id. 
+        /// </param>
+        /// <param name="topicId">
+        /// The topic Id. 
+        /// </param>
+        private void UpdateWatchTopic(int userId, int topicId)
+        {
+            var topicWatchedID = this.GetRepository<WatchTopic>().Check(userId, topicId);
+
+            if (topicWatchedID.HasValue && !this.TopicWatch.Checked)
+            {
+                // unsubscribe...
+                this.GetRepository<WatchTopic>().DeleteByID(topicWatchedID.Value);
+            }
+            else if (!topicWatchedID.HasValue && this.TopicWatch.Checked)
+            {
+                // subscribe to this topic...
+                this.GetRepository<WatchTopic>().Add(userId, topicId);
+            }
         }
 
         /// <summary>
@@ -1689,6 +1723,11 @@ namespace YAF.Pages
 
                             return;
                     }
+                }
+
+                if (!this.PageContext.IsGuest)
+                {
+                    this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
                 }
             }
 
