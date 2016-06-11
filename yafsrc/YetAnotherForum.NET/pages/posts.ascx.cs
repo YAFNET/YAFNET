@@ -1725,6 +1725,78 @@ namespace YAF.Pages
                     }
                 }
 
+                // Check posts for urls if the user has only x posts
+                if (this.PageContext.BoardSettings.IgnoreSpamWordCheckPostCount < this.PageContext.CurrentUserData.NumPosts)
+                {
+                    var urlCount = UrlHelper.CountUrls(this._quickReplyEditor.Text);
+
+                    if (urlCount
+                        > this.PageContext.BoardSettings.AllowedNumberOfUrls)
+                    {
+                        spamResult = "The user posted {0} urls but allowed only {1}".FormatWith(
+                            urlCount,
+                            this.PageContext.BoardSettings.AllowedNumberOfUrls);
+
+                        switch (this.Get<YafBoardSettings>().SpamMessageHandling)
+                        {
+                            case 0:
+                                this.Logger.Log(
+                                    this.PageContext.PageUserID,
+                                    "Spam Message Detected",
+                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}"
+                                        .FormatWith(
+                                            this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                                            spamResult),
+                                    EventLogTypes.SpamMessageDetected);
+                                break;
+                            case 1:
+                                spamApproved = false;
+                                isPossibleSpamMessage = true;
+                                this.Logger.Log(
+                                    this.PageContext.PageUserID,
+                                    "Spam Message Detected",
+                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post"
+                                        .FormatWith(
+                                            this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                                            spamResult),
+                                    EventLogTypes.SpamMessageDetected);
+                                break;
+                            case 2:
+                                this.Logger.Log(
+                                    this.PageContext.PageUserID,
+                                    "Spam Message Detected",
+                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected"
+                                        .FormatWith(
+                                            this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                                            spamResult),
+                                    EventLogTypes.SpamMessageDetected);
+                                this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
+                                return;
+                            case 3:
+                                this.Logger.Log(
+                                    this.PageContext.PageUserID,
+                                    "Spam Message Detected",
+                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and bannded"
+                                        .FormatWith(
+                                            this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                                            spamResult),
+                                    EventLogTypes.SpamMessageDetected);
+
+                                var userIp =
+                                    new CombinedUserDataHelper(
+                                        this.PageContext.CurrentUserData.Membership,
+                                        this.PageContext.PageUserID).LastIP;
+
+                                UserMembershipHelper.DeleteAndBanUser(
+                                    this.PageContext.PageUserID,
+                                    this.PageContext.CurrentUserData.Membership,
+                                    userIp);
+
+                                return;
+                        }
+                    }
+                }
+
                 if (!this.PageContext.IsGuest)
                 {
                     this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);

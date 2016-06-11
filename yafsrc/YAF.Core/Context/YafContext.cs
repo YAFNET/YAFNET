@@ -27,7 +27,6 @@ namespace YAF.Core
     #region Using
 
     using System;
-    using System.Runtime.CompilerServices;
     using System.Web;
     using System.Web.Security;
 
@@ -43,7 +42,6 @@ namespace YAF.Core
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
-    using YAF.Utils.Helpers.StringUtils;
 
     #endregion
 
@@ -112,10 +110,7 @@ namespace YAF.Core
             this._repository = new ContextVariableRepository(this._variables);
 
             // init context...
-            if (this.Init != null)
-            {
-                this.Init(this, new EventArgs());
-            }
+            this.Init?.Invoke(this, new EventArgs());
         }
 
         #endregion
@@ -149,13 +144,7 @@ namespace YAF.Core
         /// <summary>
         /// Gets the instance of the Forum Context
         /// </summary>
-        public static YafContext Current
-        {
-            get
-            {
-                return GlobalContainer.Container.Resolve<YafContext>();
-            }
-        }
+        public static YafContext Current => GlobalContainer.Container.Resolve<YafContext>();
 
         /// <summary>
         /// Gets or sets the Current Board Settings
@@ -192,13 +181,7 @@ namespace YAF.Core
         /// <summary>
         /// Gets the Instance of the Combined UserData for the current user.
         /// </summary>
-        public IUserData CurrentUserData
-        {
-            get
-            {
-                return this._combinedUserData ?? (this._combinedUserData = new CombinedUserDataHelper());
-            }
-        }
+        public IUserData CurrentUserData => this._combinedUserData ?? (this._combinedUserData = new CombinedUserDataHelper());
 
         /// <summary>
         /// Gets the current page as the forumPage Enum (for comparison)
@@ -226,46 +209,22 @@ namespace YAF.Core
         /// <summary>
         /// Gets the Access to the Context Global Variable Repository Class which is a helper class that accesses YafContext.Vars with strongly typed properties for primary variables.
         /// </summary>
-        public ContextVariableRepository Globals
-        {
-            get
-            {
-                return this._repository;
-            }
-        }
+        public ContextVariableRepository Globals => this._repository;
 
         /// <summary>
         /// Gets the current Page Load Message
         /// </summary>
-        public LoadMessage LoadMessage
-        {
-            get
-            {
-                return this._loadMessage ?? (this._loadMessage = new LoadMessage());
-            }
-        }
+        public LoadMessage LoadMessage => this._loadMessage ?? (this._loadMessage = new LoadMessage());
 
         /// <summary>
         /// Gets the Current Page Elements
         /// </summary>
-        public PageElementRegister PageElements
-        {
-            get
-            {
-                return this._pageElements ?? (this._pageElements = new PageElementRegister());
-            }
-        }
+        public PageElementRegister PageElements => this._pageElements ?? (this._pageElements = new PageElementRegister());
 
         /// <summary>
         /// Gets the Current Page User Profile
         /// </summary>
-        public YafUserProfile Profile
-        {
-            get
-            {
-                return (YafUserProfile)HttpContext.Current.Profile;
-            }
-        }
+        public YafUserProfile Profile => (YafUserProfile)HttpContext.Current.Profile;
 
         /// <summary>
         /// Gets or sets the Current Page Query ID Helper
@@ -275,35 +234,17 @@ namespace YAF.Core
         /// <summary>
         /// Gets the Provides access to the Service Locator
         /// </summary>
-        public IServiceLocator ServiceLocator
-        {
-            get
-            {
-                return this._contextLifetimeContainer.Resolve<IServiceLocator>();
-            }
-        }
+        public IServiceLocator ServiceLocator => this._contextLifetimeContainer.Resolve<IServiceLocator>();
 
         /// <summary>
         /// Gets the Current Page Control Settings from Forum Control
         /// </summary>
-        public YafControlSettings Settings
-        {
-            get
-            {
-                return YafControlSettings.Current;
-            }
-        }
+        public YafControlSettings Settings => YafControlSettings.Current;
 
         /// <summary>
         /// Gets the UrlBuilder
         /// </summary>
-        public IUrlBuilder UrlBuilder
-        {
-            get
-            {
-                return YafFactoryProvider.UrlBuilder;
-            }
-        }
+        public IUrlBuilder UrlBuilder => YafFactoryProvider.UrlBuilder;
 
         /// <summary>
         /// Gets or sets the Current Membership User
@@ -324,13 +265,7 @@ namespace YAF.Core
         /// <summary>
         /// Gets the YafContext Global Instance Variables Use for plugins or other situations where a value is needed per instance.
         /// </summary>
-        public TypeDictionary Vars
-        {
-            get
-            {
-                return this._variables;
-            }
-        }
+        public TypeDictionary Vars => this._variables;
 
         #endregion
 

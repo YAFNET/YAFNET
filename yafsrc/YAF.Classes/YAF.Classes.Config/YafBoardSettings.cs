@@ -915,15 +915,28 @@ namespace YAF.Classes
         /// Gets SQLVersion.
         /// NOTE : didn't know where else to put this :)
         /// </summary>
-        public string SQLVersion
+        public string SQLVersion => this._legacyBoardSettings.SqlVersion;
+
+        #region int settings
+
+        /// <summary>
+        /// Gets or sets the allowed number of URLs before the message is flagged as spam.
+        /// </summary>
+        /// <value>
+        /// The allowed number of URLs.
+        /// </value>
+        public int AllowedNumberOfUrls
         {
             get
             {
-                return this._legacyBoardSettings.SqlVersion;
+                return this._reg.GetValue("AllowedNumberOfUrls", 1);
+            }
+
+            set
+            {
+                this._reg.SetValue("AllowedNumberOfUrls", value);
             }
         }
-
-        #region int settings
 
         /// <summary>
         /// Gets or sets a value indicating whether Show Share Topic To.

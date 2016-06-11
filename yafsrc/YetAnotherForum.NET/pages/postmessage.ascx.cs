@@ -1096,12 +1096,76 @@ namespace YAF.Pages
                 }
             }
 
-            // TODO
-            /*if (this.PageContext.BoardSettings.UserPostsRequiredForUrls < this.PageContext.CurrentUserData.NumPosts)
+            // Check posts for urls if the user has only x posts
+            if (this.PageContext.BoardSettings.IgnoreSpamWordCheckPostCount < this.PageContext.CurrentUserData.NumPosts)
             {
-                this._forumEditor.Text = BBCodeHelper.StripBBCodeUrls(this._forumEditor.Text);
-            }*/
+                var urlCount = UrlHelper.CountUrls(this._forumEditor.Text);
 
+                if (urlCount
+                    > this.PageContext.BoardSettings.AllowedNumberOfUrls)
+                {
+                    var spamResult = "The user posted {0} urls but allowed only {1}".FormatWith(
+                        urlCount,
+                        this.PageContext.BoardSettings.AllowedNumberOfUrls);
+
+                    switch (this.PageContext.BoardSettings.SpamMessageHandling)
+                    {
+                        case 0:
+                            this.Logger.Log(
+                                this.PageContext.PageUserID,
+                                "Spam Message Detected",
+                                "Spam Check detected possible SPAM ({1}) posted by User: {0}".FormatWith(
+                                    this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName),
+                                EventLogTypes.SpamMessageDetected);
+                            break;
+                        case 1:
+                            this.spamApproved = false;
+                            isPossibleSpamMessage = true;
+                            this.Logger.Log(
+                                this.PageContext.PageUserID,
+                                "Spam Message Detected",
+                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post."
+                                    .FormatWith(
+                                        this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
+                                        spamResult),
+                                EventLogTypes.SpamMessageDetected);
+                            break;
+                        case 2:
+                            this.Logger.Log(
+                                this.PageContext.PageUserID,
+                                "Spam Message Detected",
+                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected"
+                                    .FormatWith(
+                                        this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
+                                        spamResult),
+                                EventLogTypes.SpamMessageDetected);
+                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
+                            return;
+                        case 3:
+                            this.Logger.Log(
+                                this.PageContext.PageUserID,
+                                "Spam Message Detected",
+                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and banned"
+                                    .FormatWith(
+                                        this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
+                                        spamResult),
+                                EventLogTypes.SpamMessageDetected);
+
+                            var userIp =
+                                new CombinedUserDataHelper(
+                                    this.PageContext.CurrentUserData.Membership,
+                                    this.PageContext.PageUserID).LastIP;
+
+                            UserMembershipHelper.DeleteAndBanUser(
+                                this.PageContext.PageUserID,
+                                this.PageContext.CurrentUserData.Membership,
+                                userIp);
+
+                            return;
+                    }
+                }
+            }
+            
             // update the last post time...
             this.Get<IYafSession>().LastPost = DateTime.UtcNow.AddSeconds(30);
 

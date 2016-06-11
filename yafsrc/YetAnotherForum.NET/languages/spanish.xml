@@ -1454,6 +1454,8 @@
     <Resource tag="SPAM_SERVICE_TYP_1">BlogSpam.NET API</Resource>
     <Resource tag="SPAM_SERVICE_TYP_2">Akismet API (Needs Registration)</Resource>
     <Resource tag="SPAM_SERVICE_TYP_3">Internal Spam Check Words</Resource>
+    <Resource tag="SPAMCHECK_ALLOWED_URLS">Allowed Number of URLs before flagged as SPAM:</Resource>
+    <Resource tag="SPAMCHECK_ALLOWED_URLS_HELP">If the user posts in one Message more then the allowed URLs the message is flagged as spam. This Check also depends how many user the posts have.</Resource>
     <Resource tag="SQL_FULLTEXT">Usar búsqueda de texto completo SQL:</Resource>
     <Resource tag="SQL_FULLTEXT_HELP">Cambiar el si las búsquedas de texto completo SQL son soportadas en las búsquedas.</Resource>
     <Resource tag="SSL_LOGIN">Usar SSL mientras se está iniciando sesión:</Resource>

@@ -1337,8 +1337,10 @@
   <Resource tag="SERVER_VERSION_HELP">What version of SQL Server is running.</Resource>
   <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>
   <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource> 
-  <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
-  <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;</Resource>
+  <Resource tag="SERVER_VERSION">SQL Server Version:</Resource>
+  <Resource tag="SERVER_VERSION_HELP">What version of SQL Server is running.</Resource>
+  <Resource tag="SPAMCHECK_ALLOWED_URLS">Allowed Number of URLs before flagged as SPAM:</Resource>
+  <Resource tag="SPAMCHECK_ALLOWED_URLS_HELP">If the user posts in one Message more then the allowed URLs the message is flagged as spam. This Check also depends how many user the posts have.</Resource>
   <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
   <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
   <Resource tag="APP_OS_NAME">Operating System:</Resource>

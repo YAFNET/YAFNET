@@ -688,6 +688,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox BanBotIpOnDetection;
         
         /// <summary>
+        /// HelpLabel242-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel242;
+        
+        /// <summary>
+        /// AllowedNumberOfUrls-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AllowedNumberOfUrls;
+        
+        /// <summary>
         /// LoginSettings-Steuerelement
         /// </summary>
         /// <remarks>
