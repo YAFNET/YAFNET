@@ -296,9 +296,15 @@ namespace YAF.Core.Services
                     if (prevVersion < 49)
                     {
                         // Reset The UserBox Template
-                        this.Get<YafBoardSettings>().UserBox = Constants.UserBox.DisplayTemplateDefault;
-
-                        ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
+                        try
+                        {
+                            this.Get<YafBoardSettings>().UserBox = Constants.UserBox.DisplayTemplateDefault;
+                            ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
+                        }
+                        catch (Exception)
+                        {
+                            LegacyDb.registry_save("userbox", Constants.UserBox.DisplayTemplateDefault);
+                        }
                     }
 
                     try
@@ -313,13 +319,7 @@ namespace YAF.Core.Services
                     }
                     catch (Exception)
                     {
-                        var boardSettings = new YafLoadBoardSettings(this.PageBoardID)
-                                                {
-                                                    BaseUrlMask =
-                                                        BaseUrlBuilder
-                                                        .GetBaseUrlFromVariables()
-                                                };
-                        boardSettings.SaveRegistry();
+                        LegacyDb.registry_save("baseurlmask", BaseUrlBuilder.GetBaseUrlFromVariables());
                     }
                 }
 
