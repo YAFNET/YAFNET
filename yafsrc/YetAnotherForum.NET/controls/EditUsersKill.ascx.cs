@@ -69,16 +69,10 @@ namespace YAF.Controls
         ///   Gets AllPostsByUser.
         /// </summary>
         public DataTable AllPostsByUser
-        {
-            get
-            {
-                return this._allPostsByUser
-                       ?? (this._allPostsByUser =
-                           LegacyDb.post_alluser_simple(
-                               this.PageContext.PageBoardID,
-                               this.CurrentUserID));
-            }
-        }
+            =>
+                this._allPostsByUser
+                ?? (this._allPostsByUser =
+                    LegacyDb.post_alluser_simple(this.PageContext.PageBoardID, this.CurrentUserID));
 
         /// <summary>
         ///   Gets IPAddresses.
@@ -88,14 +82,14 @@ namespace YAF.Controls
         {
             get
             {
-                var ipList = this.AllPostsByUser.GetColumnAsList<string>("IP").OrderBy(x => x).Distinct().ToList();
+                var list = this.AllPostsByUser.GetColumnAsList<string>("IP").OrderBy(x => x).Distinct().ToList();
 
-                if (ipList.Count.Equals(0))
+                if (list.Count.Equals(0))
                 {
-                    ipList.Add(this.CurrentUserDataHelper.LastIP);
+                    list.Add(this.CurrentUserDataHelper.LastIP);
                 }
 
-                return ipList;
+                return list;
             }
         }
 
@@ -121,13 +115,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets CurrentUserID.
         /// </summary>
-        protected long? CurrentUserID
-        {
-            get
-            {
-                return this.PageContext.QueryIDs["u"];
-            }
-        }
+        protected long? CurrentUserID => this.PageContext.QueryIDs["u"];
 
         /// <summary>
         /// Gets or sets the current user.
@@ -325,19 +313,20 @@ namespace YAF.Controls
             var allIps = this.GetRepository<BannedIP>().ListTyped().Select(x => x.Mask).ToList();
 
             // ban user ips...
-            var name =
-                UserMembershipHelper.GetDisplayNameFromID(
-                    this.CurrentUserID == null ? -1 : this.CurrentUserID.ToType<int>());
+            var name = UserMembershipHelper.GetDisplayNameFromID(this.CurrentUserID?.ToType<int>() ?? -1);
 
             if (name.IsNotSet())
             {
-                name =
-                    UserMembershipHelper.GetUserNameFromID(
-                        this.CurrentUserID == null ? -1 : this.CurrentUserID.ToType<int>());
+                name = UserMembershipHelper.GetUserNameFromID(this.CurrentUserID?.ToType<int>() ?? -1);
             }
 
             foreach (var ip in this.IPAddresses.Except(allIps).ToList())
             {
+                if (!ip.IsSet())
+                {
+                    continue;
+                }
+
                 var linkUserBan =
                     this.Get<ILocalization>()
                         .GetText("ADMIN_EDITUSER", "LINK_USER_BAN")
@@ -404,7 +393,7 @@ namespace YAF.Controls
                     false).FirstOrDefault();
 
             // there is no such user
-            if (this.CurrentUser != null && this.CurrentUser.Suspended.HasValue)
+            if (this.CurrentUser?.Suspended != null)
             {
                 this.SuspendedTo.Visible = true;
 
