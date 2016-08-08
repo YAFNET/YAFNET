@@ -5,15 +5,14 @@
 <%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Types.Models" %>
-<%@ Register TagPrefix="YAF" TagName="DialogBox" Src="../controls/DialogBox.ascx" %>
 <%@ Register Namespace="nStuff.UpdateControls" Assembly="nStuff.UpdateControls" TagPrefix="nStuff" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <script type="text/javascript">
     function EndRequestHandler(sender, args) {
-        jQuery().YafModalDialog.Close({ Dialog: '#<%=LoadingModal.ClientID%>' });
+        jQuery('#<%=this.LoadingModal.ClientID%>').modal('hide');
     }
     function ShowLoadingDialog() {
-        jQuery().YafModalDialog.Show({ Dialog: '#<%=LoadingModal.ClientID%>', ImagePath: '<%=YafForumInfo.GetURLToContent("images/")%>' }); 
+        jQuery('#<%=this.LoadingModal.ClientID%>').modal('show');
     }
     Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
 </script>
@@ -44,11 +43,11 @@
     </tr>
     <tr class="forumRowCat header2">
         <td colspan="2">
-            <YAF:CollapsibleImage ID="CollapsibleImage" runat="server" BorderWidth="0" 
-                ImageAlign="Bottom" PanelID='MoreOptions' 
+            <YAF:CollapsibleImage ID="CollapsibleImage" runat="server" BorderWidth="0"
+                ImageAlign="Bottom" PanelID='MoreOptions'
                 AttachedControlID="MoreOptions" ToolTip='<%# this.GetText("COMMON", "SHOWHIDE") %>'
                 DefaultState="Collapsed" OnClick="CollapsibleImage_OnClick"  />
-            <YAF:LocalizedLabel runat="server" LocalizedTag="SEARCH_OPTIONS" />      
+            <YAF:LocalizedLabel runat="server" LocalizedTag="SEARCH_OPTIONS" />
         </td>
     </tr>
     <asp:PlaceHolder ID="MoreOptions" runat="server">
@@ -105,7 +104,7 @@
                     </tr>
             </HeaderTemplate>
             <ItemTemplate>
-                <tr class="header2">           
+                <tr class="header2">
                     <td colspan="2">
                         <strong>
                             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="topic" />
@@ -208,7 +207,20 @@
     </ContentTemplate>
 </asp:UpdatePanel>
 
-<YAF:MessageBox ID="LoadingModal" runat="server"></YAF:MessageBox>
+<asp:Panel ID="LoadingModal" runat="server" CssClass="modal fade" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><asp:label id="Header" runat="server"></asp:label></h4>
+            </div>
+            <div id="YafPopupErrorMessageOuter" class="modal-body">
+                <p id="YafPopupErrorMessageInner">
+                    <asp:Literal ID="MessageText" runat="server"></asp:Literal>
+                </p>
+            </div>
+        </div>
+    </div>
+</asp:Panel>
 
 <div id="DivSmartScroller">
     <YAF:SmartScroller ID="SmartScroller1" runat="server" />

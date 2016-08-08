@@ -120,7 +120,7 @@ namespace YAF.Pages
             this.Get<MembershipProvider>().UpdateUser(user);
 
             // now redirect to main site...
-            this.PageContext.LoadMessage.AddSession(this.GetText("EMAIL_VERIFIED"), MessageTypes.Information);
+            this.PageContext.LoadMessage.AddSession(this.GetText("EMAIL_VERIFIED"), MessageTypes.info);
 
             // default redirect -- because if may not want to redirect to login.
             YafBuildLink.Redirect(ForumPages.forum);

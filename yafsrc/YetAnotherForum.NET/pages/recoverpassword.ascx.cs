@@ -129,7 +129,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void PasswordRecovery1_AnswerLookupError([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.LoadMessage.AddSession(this.GetText("QUESTION_FAILURE"), MessageTypes.Error);
+            this.PageContext.LoadMessage.AddSession(this.GetText("QUESTION_FAILURE"), MessageTypes.danger);
         }
 
         /// <summary>
@@ -291,13 +291,13 @@ namespace YAF.Pages
                     verifyEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
 
                     this.PageContext.LoadMessage.AddSession(
-                        this.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email), MessageTypes.Warning);
+                        this.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email), MessageTypes.warning);
                 }
             }
             else
             {
                 // explain they are not approved yet...
-                this.PageContext.LoadMessage.AddSession(this.GetText("ACCOUNT_NOT_APPROVED"), MessageTypes.Warning);
+                this.PageContext.LoadMessage.AddSession(this.GetText("ACCOUNT_NOT_APPROVED"), MessageTypes.warning);
             }
 
             // just in case cancel the verification...

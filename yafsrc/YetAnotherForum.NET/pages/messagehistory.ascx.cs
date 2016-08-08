@@ -220,7 +220,7 @@ namespace YAF.Pages
                             currentMessage.Message,
                             this.PageContext.PageUserID);
 
-                        this.PageContext.AddLoadMessage(this.GetText("MESSAGE_RESTORED"), MessageTypes.Success);
+                        this.PageContext.AddLoadMessage(this.GetText("MESSAGE_RESTORED"), MessageTypes.success);
                     }
 
                     break;

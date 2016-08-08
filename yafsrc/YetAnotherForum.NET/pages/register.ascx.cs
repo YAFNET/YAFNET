@@ -202,7 +202,7 @@ namespace YAF.Pages
                     break;
             }
 
-            this.PageContext.AddLoadMessage(createUserError, MessageTypes.Error);
+            this.PageContext.AddLoadMessage(createUserError, MessageTypes.danger);
         }
 
         /// <summary>
@@ -316,7 +316,7 @@ namespace YAF.Pages
 
             if (userName.Contains(";") || badWord || userName.ToLower().Equals(guestUserName))
             {
-                this.PageContext.AddLoadMessage(this.GetText("BAD_USERNAME"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("BAD_USERNAME"), MessageTypes.warning);
                 e.Cancel = true;
                 return;
             }
@@ -325,7 +325,7 @@ namespace YAF.Pages
             {
                 this.PageContext.AddLoadMessage(
                     this.GetTextFormatted("USERNAME_TOOSMALL", this.Get<YafBoardSettings>().DisplayNameMinLength), 
-                    MessageTypes.Error);
+                    MessageTypes.danger);
 
                 e.Cancel = true;
                 return;
@@ -335,7 +335,7 @@ namespace YAF.Pages
             {
                 this.PageContext.AddLoadMessage(
                     this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().UserNameMaxLength), 
-                    MessageTypes.Error);
+                    MessageTypes.danger);
 
                 e.Cancel = true;
                 return;
@@ -352,7 +352,7 @@ namespace YAF.Pages
                     {
                         this.PageContext.AddLoadMessage(
                             this.GetTextFormatted("USERNAME_TOOSMALL", this.Get<YafBoardSettings>().DisplayNameMinLength), 
-                            MessageTypes.Warning);
+                            MessageTypes.warning);
                         e.Cancel = true;
 
                         return;
@@ -363,7 +363,7 @@ namespace YAF.Pages
                     {
                         this.PageContext.AddLoadMessage(
                             this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().UserNameMaxLength), 
-                            MessageTypes.Warning);
+                            MessageTypes.warning);
 
                         e.Cancel = true;
 
@@ -374,7 +374,7 @@ namespace YAF.Pages
                     {
                         this.PageContext.AddLoadMessage(
                             this.GetText("ALREADY_REGISTERED_DISPLAYNAME"), 
-                            MessageTypes.Warning);
+                            MessageTypes.warning);
 
                         e.Cancel = true;
                     }
@@ -404,7 +404,7 @@ namespace YAF.Pages
 
                 if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.Error);
+                    this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.danger);
 
                     if (this.Get<YafBoardSettings>().BanBotIpOnDetection)
                     {
@@ -443,7 +443,7 @@ namespace YAF.Pages
 
                         if (!CaptchaHelper.IsValid(yafCaptchaText.Text.Trim()))
                         {
-                            this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.Error);
+                            this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.danger);
                             e.Cancel = true;
                         }
                     }
@@ -460,7 +460,7 @@ namespace YAF.Pages
                         // Recupt;
                         if (!recaptcha.IsValid)
                         {
-                            this.PageContext.AddLoadMessage(this.GetText("BAD_RECAPTCHA"), MessageTypes.Error);
+                            this.PageContext.AddLoadMessage(this.GetText("BAD_RECAPTCHA"), MessageTypes.danger);
                             e.Cancel = true;
                         }
                     }
@@ -539,10 +539,6 @@ namespace YAF.Pages
         {
             // setup jQuery and DatePicker JS...
             var country = (ImageListBox)this.CreateUserWizard1.FindWizardControlRecursive("Country");
-
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "dropDownJs", 
-                JavaScriptBlocks.SelectMenuWithIconsJs(country.ClientID));
 
             var password = this.CreateUserStepContainer.FindControlAs<TextBox>("Password");
             var confirmPassword = this.CreateUserStepContainer.FindControlAs<TextBox>("ConfirmPassword");
@@ -1010,7 +1006,7 @@ namespace YAF.Pages
                     // Kill user
                     UserMembershipHelper.DeleteAndBanUser(userId, user, userIpAddress);
 
-                    this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.Error);
+                    this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.danger);
                 }
 
                 this.Logger.Log(

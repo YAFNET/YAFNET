@@ -25,7 +25,7 @@
              		 	    <HeaderStyle HorizontalAlign="Center" CssClass="header2"></HeaderStyle>
 			  			    <ItemStyle CssClass="post" Width="150px"></ItemStyle>
 			  				    <ItemTemplate>
-               				        <YAF:UserLink ID="AdminLink" runat="server" IsGuest="False" UserID='<%# this.Eval("UserID").ToType<int>() %>' Style='<%# Eval("Style") %>'  />
+               				        <YAF:UserLink ID="AdminLink" runat="server" IsGuest="False" UserID='<%# this.Eval("UserID").ToType<int>() %>' Style='<%# this.Eval("Style") %>'  />
 			  				    </ItemTemplate>
              		 	</asp:TemplateColumn>
              		 	<asp:TemplateColumn HeaderText="Forums">
@@ -74,7 +74,7 @@
              		 	    <HeaderStyle HorizontalAlign="Center" CssClass="header2"></HeaderStyle>
 			  			    <ItemStyle CssClass="post" Width="150px"></ItemStyle>
 			  				    <ItemTemplate>
-               				        <YAF:UserLink ID="ModLink" runat="server" ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName ? Eval("DisplayName").ToString() : Eval("Name").ToString() %>' UserID='<%# this.Eval("ModeratorID").ToType<int>() %>' IsGuest="False" Style='<%# Eval("Style") %>'  />
+               				        <YAF:UserLink ID="ModLink" runat="server" ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval("DisplayName").ToString() : this.Eval("Name").ToString() %>' UserID='<%# this.Eval("ModeratorID").ToType<int>() %>' IsGuest="False" Style='<%# this.Eval("Style") %>'  />
 			  				    </ItemTemplate>
              		 	</asp:TemplateColumn>
              		 	<asp:TemplateColumn HeaderText="Forums">

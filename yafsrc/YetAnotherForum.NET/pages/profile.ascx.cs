@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
@@ -261,20 +261,20 @@ namespace YAF.Pages
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(strBuddyRequest[0]),
-                        MessageTypes.Success);
+                        MessageTypes.success);
                 }
                 else
                 {
                     var literal = (Literal)this.ProfileTabs.FindControl("ltrApproval");
                     literal.Visible = true;
-                    this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYREQUEST"), MessageTypes.Success);
+                    this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYREQUEST"), MessageTypes.success);
                 }
             }
             else
             {
                 this.PageContext.AddLoadMessage(
                     this.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(this.Get<IBuddy>().Remove(this.UserId)),
-                    MessageTypes.Success);
+                    MessageTypes.success);
             }
 
             this.BindData();
@@ -827,7 +827,7 @@ namespace YAF.Pages
                     // Setup UserBox Reputation Script Block
                     YafContext.Current.PageElements.RegisterJsBlockStartup(
                         "reputationprogressjs",
-                        JavaScriptBlocks.RepuatationProgressLoadJs);
+                        JavaScriptBlocks.ReputationProgressLoadJs);
                 }
             }
 

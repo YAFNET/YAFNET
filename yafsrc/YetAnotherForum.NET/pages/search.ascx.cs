@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -76,7 +76,7 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "search" /> class. 
+        ///   Initializes a new instance of the <see cref = "search" /> class.
         ///   The search page constructor.
         /// </summary>
         public search()
@@ -392,7 +392,7 @@ namespace YAF.Pages
 
             if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ExternalSearchPermissions))
             {
-                // vzrus: If an exteranl search only - it should be disabled. YAF doesn't have a forum id as a token in post links. 
+                // vzrus: If an exteranl search only - it should be disabled. YAF doesn't have a forum id as a token in post links.
                 if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
                 {
                     this.listForum.Enabled = false;
@@ -466,9 +466,8 @@ namespace YAF.Pages
             // }
             // listForum.Items.Add( new ListItem( " - " + ( string ) row ["Forum"], row ["ForumID"].ToString() ) );
             // }
-            this.LoadingModal.Title = this.GetText("LOADING");
-            this.LoadingModal.MessageText = this.GetText("LOADING_SEARCH");
-            this.LoadingModal.Icon = YafForumInfo.GetURLToContent("images/loader.gif");
+            this.Header.Text = this.GetText("LOADING");
+            this.MessageText.Text = this.GetText("LOADING_SEARCH");
 
             this.txtSearchStringWhat.Focus();
 
@@ -783,10 +782,10 @@ namespace YAF.Pages
             // int forumID = int.Parse(this.listForum.SelectedValue);
             searchEngine = searchEngine.Replace("{Site}", url);
 
-            //// searchEngine = searchEngine.Replace("{Language}", this.PageContext.CultureUser.Substring(0,2));           
+            //// searchEngine = searchEngine.Replace("{Language}", this.PageContext.CultureUser.Substring(0,2));
             var searchParamsDefArray = searchParams.Split('^');
 
-            // some parameters are reserved for future use                  
+            // some parameters are reserved for future use
             // the search engine name (Google)
             // symbol to separate a forum name (?)
             // parameters common delimiter (&)
@@ -794,7 +793,7 @@ namespace YAF.Pages
             // Example: "Google^?^&^+^;^AnyWord:as_oq={Word}^AllWords:as_q={Word}^ExactFrase:as_epq={Word}^WithoutWords:as_eq={Word}"
             for (var i = 5; i < searchParamsDefArray.Length; i++)
             {
-                // Example: AnyWord:as_oq={Word}^AllWords:as_q={Word}^ExactFrase:as_epq={Word}^WithoutWords:as_eq={Word}              
+                // Example: AnyWord:as_oq={Word}^AllWords:as_q={Word}^ExactFrase:as_epq={Word}^WithoutWords:as_eq={Word}
                 var searchParamsAggreageArray = searchParamsDefArray[i].Split(':');
 
                 // Parameter Name  like  AnyWord   -    searchParamsAggreageArray[0] - AnyWord
@@ -802,7 +801,7 @@ namespace YAF.Pages
                 for (var j = 0; j < searchParamsOptArray.Length; j++)
                 {
                     // Example: as_oq={Word}
-                    // Example: text={Word}/wordforms=all 
+                    // Example: text={Word}/wordforms=all
                     switch (this.listSearchWhat.SelectedValue)
                     {
                         case "0":

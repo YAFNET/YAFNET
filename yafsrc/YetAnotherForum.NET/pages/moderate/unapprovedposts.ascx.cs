@@ -198,7 +198,7 @@ namespace YAF.Pages.moderate
                     this.BindData();
 
                     // tell user message was approved
-                    this.PageContext.AddLoadMessage(this.GetText("APPROVED"), MessageTypes.Success);
+                    this.PageContext.AddLoadMessage(this.GetText("APPROVED"), MessageTypes.success);
 
                     // send notification to watching users...
                     this.Get<ISendNotification>().ToWatchingUsers(e.CommandArgument.ToType<int>());

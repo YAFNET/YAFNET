@@ -27,17 +27,17 @@
         <ItemTemplate>
             <tr class="post">
                 <td>
-                    <%# this.Get<YafBoardSettings>().EnableDisplayName ? Eval("DisplayName") : Eval("DisplayName") %>
+                    <%# this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval("DisplayName") : this.Eval("DisplayName") %>
                 </td>
                 <td align="center">
-                    <%# Eval("Accepted") %>
+                    <%# this.Eval("Accepted") %>
                 </td>
                 <td>
-                    <%# Eval("Access") %>
+                    <%# this.Eval("Access") %>
                 </td>
                 <td>
-                     <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# Eval("UserID") %>' TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButtonRemove" CssClass="yaflittlebutton" OnLoad="DeleteUser_Load"  CommandName='remove' CommandArgument='<%#Eval("UserID") %>' TitleLocalizedTag="REMOVE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" runat="server"></YAF:ThemeButton>
+                     <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# this.Eval("UserID") %>' TitleLocalizedTag="EDIT" Icon="edit" runat="server"></YAF:ThemeButton>
+                    <YAF:ThemeButton ID="ThemeButtonRemove" CssClass="yaflittlebutton" OnLoad="DeleteUser_Load"  CommandName='remove' CommandArgument='<%#Eval("UserID") %>' TitleLocalizedTag="REMOVE" Icon="trash" runat="server"></YAF:ThemeButton>
                 </td>
             </tr>
         </ItemTemplate>

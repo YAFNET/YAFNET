@@ -207,7 +207,7 @@ namespace YAF.Pages
             if (this.To.Text.Length < 2)
             {
                 // need at least 2 latters of user's name
-                YafContext.Current.AddLoadMessage(this.GetText("NEED_MORE_LETTERS"), MessageTypes.Warning);
+                YafContext.Current.AddLoadMessage(this.GetText("NEED_MORE_LETTERS"), MessageTypes.warning);
                 return;
             }
 
@@ -236,7 +236,7 @@ namespace YAF.Pages
             else
             {
                 // user not found
-                YafContext.Current.AddLoadMessage(this.GetText("USER_NOTFOUND"), MessageTypes.Error);
+                YafContext.Current.AddLoadMessage(this.GetText("USER_NOTFOUND"), MessageTypes.danger);
                 return;
             }
 
@@ -534,21 +534,21 @@ namespace YAF.Pages
             if (this.To.Text.Length <= 0)
             {
                 // recipient is required field
-                YafContext.Current.AddLoadMessage(this.GetText("need_to"), MessageTypes.Warning);
+                YafContext.Current.AddLoadMessage(this.GetText("need_to"), MessageTypes.warning);
                 return;
             }
 
             // subject is required
             if (this.PmSubjectTextBox.Text.Trim().Length <= 0)
             {
-                YafContext.Current.AddLoadMessage(this.GetText("need_subject"), MessageTypes.Warning);
+                YafContext.Current.AddLoadMessage(this.GetText("need_subject"), MessageTypes.warning);
                 return;
             }
 
             // message is required
             if (this._editor.Text.Trim().Length <= 0)
             {
-                YafContext.Current.AddLoadMessage(this.GetText("need_message"), MessageTypes.Warning);
+                YafContext.Current.AddLoadMessage(this.GetText("need_message"), MessageTypes.warning);
                 return;
             }
 
@@ -609,7 +609,7 @@ namespace YAF.Pages
                         this.GetTextFormatted(
                             "TOO_MANY_RECIPIENTS",
                             this.Get<YafBoardSettings>().PrivateMessageMaxRecipients),
-                        MessageTypes.Warning);
+                        MessageTypes.warning);
 
                     return;
                 }
@@ -631,13 +631,13 @@ namespace YAF.Pages
                     {
                         YafContext.Current.AddLoadMessage(
                             this.GetTextFormatted("NO_SUCH_USER", recipient),
-                            MessageTypes.Warning);
+                            MessageTypes.warning);
                         return;
                     }
 
                     if (UserMembershipHelper.IsGuestUser(userId.Value))
                     {
-                        YafContext.Current.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.Error);
+                        YafContext.Current.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.danger);
                         return;
                     }
 
@@ -663,7 +663,7 @@ namespace YAF.Pages
                     // recipient has full PM box
                     YafContext.Current.AddLoadMessage(
                         this.GetTextFormatted("RECIPIENTS_PMBOX_FULL", recipient),
-                        MessageTypes.Error);
+                        MessageTypes.danger);
                     return;
                 }
 
@@ -721,7 +721,7 @@ namespace YAF.Pages
             // user has full PM box
             YafContext.Current.AddLoadMessage(
                 this.GetTextFormatted("OWN_PMBOX_FULL", drPMInfo["NumberAllowed"]),
-                MessageTypes.Error);
+                MessageTypes.danger);
             return false;
         }
 

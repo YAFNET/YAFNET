@@ -41,7 +41,7 @@
             <asp:DropDownList ID="NumPostDDL" runat="server" Width="200px" CssClass="standardSelectMenu">
             </asp:DropDownList>
             &nbsp;
-            <asp:TextBox ID="NumPostsTB" runat="server" Width="70px" CssClass="Numeric"></asp:TextBox>
+            <asp:TextBox ID="NumPostsTB" runat="server" Width="70px" CssClass="Numeric" TextMode="Number"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -92,15 +92,15 @@
         <ItemTemplate>
             <tr>
                 <td class="post">
-                   <img src="<%# this.GetAvatarUrlFileName(this.Eval("UserID").ToType<int>(), Eval("Avatar").ToString(),Eval("AvatarImage").ToString().IsSet(), Eval("Email").ToString()) %>" alt="<%# this.HtmlEncode(DataBinder.Eval(Container.DataItem,"Name").ToString()) %>"
+                   <img src="<%# this.GetAvatarUrlFileName(this.Eval("UserID").ToType<int>(), this.Eval("Avatar").ToString(),Eval("AvatarImage").ToString().IsSet(), this.Eval("Email").ToString()) %>" alt="<%# this.HtmlEncode(DataBinder.Eval(Container.DataItem,"Name").ToString()) %>"
                         title="<%# this.HtmlEncode(this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval("DisplayName").ToString() : this.Eval("Name").ToString()) %>" class="avatarimage img-rounded" />
                 </td>
                 <td class="post">
                     <YAF:UserLink ID="UserProfileLink" runat="server" IsGuest="False" ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval("DisplayName").ToString() : this.Eval("Name").ToString() %>'  UserID='<%# this.Eval("UserID").ToType<int>() %>'
-                        Style='<%# Eval("Style") %>' />
+                        Style='<%# this.Eval("Style") %>' />
                 </td>
                 <td class="post">
-                    <%# Eval("RankName") %>
+                    <%# this.Eval("RankName") %>
                 </td>
                 <td class="post">
                     <%# this.Get<IDateTime>().FormatDateLong((DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %>

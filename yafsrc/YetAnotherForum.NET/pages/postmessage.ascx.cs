@@ -230,7 +230,7 @@ namespace YAF.Pages
             }
             catch
             {
-                this.PageContext.AddLoadMessage(this.GetText("POSTTOBLOG_FAILED"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("POSTTOBLOG_FAILED"), MessageTypes.danger);
             }
 
             return blogPostID;
@@ -264,7 +264,7 @@ namespace YAF.Pages
                     "wait",
                     (this.Get<IYafSession>().LastPost
                      - DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)).Seconds),
-                MessageTypes.Warning);
+                MessageTypes.warning);
             return true;
         }
 
@@ -281,7 +281,7 @@ namespace YAF.Pages
 
             if (postedMessage.IsNotSet())
             {
-                this.PageContext.AddLoadMessage(this.GetText("ISEMPTY"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("ISEMPTY"), MessageTypes.warning);
                 return false;
             }
 
@@ -289,14 +289,14 @@ namespace YAF.Pages
             if (this.PageContext.BoardSettings.MaxPostSize > 0
                 && this._forumEditor.Text.Length >= this.PageContext.BoardSettings.MaxPostSize)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ISEXCEEDED"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("ISEXCEEDED"), MessageTypes.warning);
                 return false;
             }
 
             // Check if the Entered Guest Username is not too long
             if (this.FromRow.Visible && this.From.Text.Trim().Length > 100)
             {
-                this.PageContext.AddLoadMessage(this.GetText("GUEST_NAME_TOOLONG"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("GUEST_NAME_TOOLONG"), MessageTypes.warning);
 
                 this.From.Text = this.From.Text.Substring(100);
                 return false;
@@ -309,7 +309,7 @@ namespace YAF.Pages
             {
                 this.PageContext.AddLoadMessage(
                     this.GetTextFormatted("TOPIC_NAME_WORDTOOLONG", this.PageContext.BoardSettings.MaxWordLength),
-                    MessageTypes.Warning);
+                    MessageTypes.warning);
 
                 try
                 {
@@ -333,7 +333,7 @@ namespace YAF.Pages
             {
                 this.PageContext.AddLoadMessage(
                     this.GetTextFormatted("TOPIC_DESCRIPTION_WORDTOOLONG", this.PageContext.BoardSettings.MaxWordLength),
-                    MessageTypes.Warning);
+                    MessageTypes.warning);
 
                 try
                 {
@@ -352,7 +352,7 @@ namespace YAF.Pages
 
             if (this.SubjectRow.Visible && this.TopicSubjectTextBox.Text.IsNotSet())
             {
-                this.PageContext.AddLoadMessage(this.GetText("NEED_SUBJECT"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("NEED_SUBJECT"), MessageTypes.warning);
                 return false;
             }
 
@@ -360,7 +360,7 @@ namespace YAF.Pages
                 && LegacyDb.topic_findduplicate(this.TopicSubjectTextBox.Text.Trim()) == 1 && this.TopicID == null
                 && this.EditMessageID == null)
             {
-                this.PageContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
                 return false;
             }
 
@@ -368,7 +368,7 @@ namespace YAF.Pages
                  || (this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
                 && !CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.danger);
                 return false;
             }
 
@@ -1069,7 +1069,7 @@ namespace YAF.Pages
                                         this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
                                         spamResult),
                                 EventLogTypes.SpamMessageDetected);
-                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
+                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
                             return;
                         case 3:
                             this.Logger.Log(
@@ -1139,7 +1139,7 @@ namespace YAF.Pages
                                         this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
                                         spamResult),
                                 EventLogTypes.SpamMessageDetected);
-                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
+                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
                             return;
                         case 3:
                             this.Logger.Log(

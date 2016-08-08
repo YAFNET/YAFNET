@@ -223,7 +223,7 @@ namespace YAF.Pages
         {
             if (this.User == null)
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_EMAILLOGIN"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("WARN_EMAILLOGIN"), MessageTypes.warning);
                 return;
             }
 
@@ -1589,7 +1589,7 @@ namespace YAF.Pages
 
             if (this._quickReplyEditor.Text.Length <= 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("EMPTY_MESSAGE"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("EMPTY_MESSAGE"), MessageTypes.warning);
                 return;
             }
 
@@ -1597,7 +1597,7 @@ namespace YAF.Pages
             if (this.Get<YafBoardSettings>().MaxPostSize > 0
                 && this._quickReplyEditor.Text.Length >= this.Get<YafBoardSettings>().MaxPostSize)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ISEXCEEDED"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("ISEXCEEDED"), MessageTypes.warning);
                 return;
             }
 
@@ -1605,7 +1605,7 @@ namespace YAF.Pages
                  || (this.Get<YafBoardSettings>().EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded))
                 && !CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.warning);
                 return;
             }
 
@@ -1620,7 +1620,7 @@ namespace YAF.Pages
                             "wait",
                             (YafContext.Current.Get<IYafSession>().LastPost
                              - DateTime.UtcNow.AddSeconds(-this.Get<YafBoardSettings>().PostFloodDelay)).Seconds),
-                        MessageTypes.Warning);
+                        MessageTypes.warning);
                     return;
                 }
             }
@@ -1699,7 +1699,7 @@ namespace YAF.Pages
                                         this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
                                         spamResult),
                                 EventLogTypes.SpamMessageDetected);
-                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
+                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
                             return;
                         case 3:
                             this.Logger.Log(
@@ -1770,7 +1770,7 @@ namespace YAF.Pages
                                             this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
                                             spamResult),
                                     EventLogTypes.SpamMessageDetected);
-                                this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
+                                this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
                                 return;
                             case 3:
                                 this.Logger.Log(

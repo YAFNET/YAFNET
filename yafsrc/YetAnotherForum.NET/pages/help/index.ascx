@@ -11,12 +11,12 @@
 			<ItemTemplate>
 				<tr>
 					<td class="header2">
-						<%# Eval("HelpTitle") %>
+						<%# this.Eval("HelpTitle") %>
 					</td>
                 </tr>
                 <tr>
 					<td class="post">
-						<%# Eval("HelpContent") %>
+						<%# this.Eval("HelpContent") %>
 					</td>
 				</tr>
 			</ItemTemplate>

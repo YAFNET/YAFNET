@@ -234,7 +234,7 @@ namespace YAF.Pages.moderate
                     this.BindData();
 
                     // tell user message was flagged as resolved
-                    this.PageContext.AddLoadMessage(this.GetText("RESOLVEDFEEDBACK"), MessageTypes.Success);
+                    this.PageContext.AddLoadMessage(this.GetText("RESOLVEDFEEDBACK"), MessageTypes.success);
                     break;
                 case "spam":
 

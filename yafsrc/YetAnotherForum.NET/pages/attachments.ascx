@@ -39,7 +39,7 @@
 					<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" 
                                     CommandName='delete' CommandArgument='<%# this.Eval( "AttachmentID") %>' 
                                     TitleLocalizedTag="DELETE" 
-                                    ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON"
+                                    Icon="trash"
                                     TextLocalizedTag="DELETE"
                                     OnLoad="Delete_Load"  runat="server">
                                 </YAF:ThemeButton>

@@ -29,7 +29,7 @@
 				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="POINTER_DAYS" />
 			</td>
 			<td class="post" width="50%">
-				<asp:TextBox ID="LinkDays" runat="server" CssClass="Numeric" />
+				<asp:TextBox ID="LinkDays" runat="server" CssClass="Numeric" TextMode="Number" />
 			</td>
 		</tr>
 	<tr>   

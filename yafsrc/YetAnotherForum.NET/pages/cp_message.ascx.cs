@@ -120,7 +120,7 @@ namespace YAF.Pages
                     }
 
                     this.BindData();
-                    this.PageContext.AddLoadMessage(this.GetText("msg_deleted"), MessageTypes.Success);
+                    this.PageContext.AddLoadMessage(this.GetText("msg_deleted"), MessageTypes.success);
                     YafBuildLink.Redirect(ForumPages.cp_pm);
                     break;
                 case "reply":

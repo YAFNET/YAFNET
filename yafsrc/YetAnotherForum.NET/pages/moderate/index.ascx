@@ -11,7 +11,7 @@
 		<ItemTemplate>
 			<tr>
 				<td class="header2">
-					<%# Eval( "Name") %>
+					<%# this.Eval( "Name") %>
 				</td>
 				<td class="header2" width="15%" align="center">
 					<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="UNAPPROVED" />
@@ -33,7 +33,7 @@
 						</td>
 						<td align="center">
 							<asp:LinkButton ID="ViewUnapprovedPostsBtn" runat='server' CommandName='viewunapprovedposts'
-								CommandArgument='<%# Eval( "[\"ForumID\"]") %>' Text='<%# Eval( "[\"MessageCount\"]") %>'
+								CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>' Text='<%# this.Eval( "[\"MessageCount\"]") %>'
 								Visible='<%# ((this.Eval( "[\"MessageCount\"]").ToType<int>() > 0)) %>' CssClass="yaflittlebutton"></asp:LinkButton>
                             <YAF:LocalizedLabel ID="NoUnapprovedInfo" LocalizedTag="NO_POSTS" LocalizedPage="MODERATE" runat="server" 
                                 Visible='<%# ((this.Eval( "[\"MessageCount\"]").ToType<int>() == 0)) %>'>
@@ -41,7 +41,7 @@
 						</td>				
 						<td align="center">
 							<asp:LinkButton ID="ViewReportedBtn" runat='server' CommandName='viewreportedposts'
-								CommandArgument='<%# Eval( "[\"ForumID\"]") %>' Text='<%# Eval( "[\"ReportedCount\"]") %>'
+								CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>' Text='<%# this.Eval( "[\"ReportedCount\"]") %>'
 								Visible='<%# ((this.Eval( "[\"ReportedCount\"]").ToType<int>() > 0)) %>' CssClass="yaflittlebutton"></asp:LinkButton>
                             <YAF:LocalizedLabel ID="NoReportedInfo" LocalizedTag="NO_POSTS" LocalizedPage="MODERATE" runat="server" 
                                 Visible='<%# ((this.Eval( "[\"ReportedCount\"]").ToType<int>() == 0)) %>'>
