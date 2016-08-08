@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -126,7 +126,7 @@ namespace YAF.Utils
 
                 const ReleaseType ReleaseType = ReleaseType.BETA;
                 const byte ReleaseNumber = 0;
-                
+
                 var version = Major.ToType<long>() << 24;
                 version |= Minor.ToType<long>() << 16;
                 version |= (Build & 0x0F).ToType<long>() << 12;
@@ -149,7 +149,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets the Current YAF Build Date
         /// </summary>
-        public static DateTime AppVersionDate => new DateTime(2016, 06, 07);
+        public static DateTime AppVersionDate => new DateTime(2016, 08, 08);
 
         /// <summary>
         /// Creates a string that is the YAF Application Version from a long value

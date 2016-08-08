@@ -303,7 +303,7 @@ namespace YAF.Core
         /// <param name="messageType">
         /// The message type. 
         /// </param>
-        public void AddLoadMessage([NotNull] string message, MessageTypes messageType = MessageTypes.Information)
+        public void AddLoadMessage([NotNull] string message, MessageTypes messageType = MessageTypes.info)
         {
             this.LoadMessage.Add(message, messageType);
         }

@@ -325,7 +325,7 @@ namespace YAF.Core.Services
                 // tell user about failure
                 YafContext.Current.AddLoadMessage(
                     this.Get<ILocalization>().GetTextFormatted("Failed", x.Message),
-                    MessageTypes.Error);
+                    MessageTypes.danger);
             }
         }
 

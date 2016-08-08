@@ -182,60 +182,6 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Register the jQueryUI date picker language file.
-        /// </summary>
-        /// <param name="currentCulture">The current culture.</param>
-        public void RegisterJQueryUILanguageFile(CultureInfo currentCulture)
-        {
-            this.RegisterJQueryUILanguageFile(YafContext.Current.CurrentForumPage.TopPageControl, currentCulture);
-        }
-
-        /// <summary>
-        /// Register the jQueryUI date picker language file.
-        /// </summary>
-        /// <param name="element">Control element to put in</param>
-        /// <param name="currentCulture">The current culture.</param>
-        public void RegisterJQueryUILanguageFile(Control element, CultureInfo currentCulture)
-        {
-            // If registered or told not to register, don't bother
-            if (this.PageElementExists("datepickerlang"))
-            {
-                return;
-            }
-
-            string jqueryUILangUrl;
-
-            // Check if override file is set ?
-            if (Config.JQueryUIOverrideLangFile.IsSet())
-            {
-                jqueryUILangUrl = !Config.JQueryUIOverrideLangFile.StartsWith("http")
-                                  && !Config.JQueryUIOverrideLangFile.StartsWith("//")
-                                      ? YafForumInfo.GetURLToScripts(Config.JQueryUIOverrideLangFile)
-                                      : Config.JQueryUIOverrideLangFile;
-            }
-            else
-            {
-                jqueryUILangUrl = YafContext.Current.Get<YafBoardSettings>().JqueryUICDNHosted
-                                      ? "//ajax.aspnetcdn.com/ajax/jquery.ui/1.11.4/i18n/jquery-ui-i18n.min.js"
-#if DEBUG
-                                      : YafForumInfo.GetURLToScripts("jquery-ui-i18n.js");
-#else
-                                      : YafForumInfo.GetURLToScripts("jquery-ui-i18n.min.js");
-#endif
-            }
-
-            // load jQuery UI from google...
-            element.Controls.Add(ControlHelper.MakeJsIncludeControl(jqueryUILangUrl));
-
-            this.AddPageElement("datepickerlang");
-
-            if (currentCulture.IsFarsiCulture())
-            {
-                this.RegisterJsScriptsInclude("datepicker-farsi", "jquery.ui.datepicker-farsi.min.js");
-            }
-        }
-
-        /// <summary>
         /// Registers a Java Script block using the script manager. Adds script tags.
         /// </summary>
         /// <param name="name">
