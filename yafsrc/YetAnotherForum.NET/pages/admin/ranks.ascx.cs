@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -61,10 +61,10 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// Set values  are rendered green if true, and if not red
         /// </returns>
-        protected Color GetItemColorString(string item)
+        protected string GetItemColorString(string item)
         {
             // show enabled flag red
-            return item.IsSet() ? Color.Green : Color.Red;
+            return item.IsSet() ? "tag tag-success" : "tag tag-danger";
         }
 
         /// <summary>
@@ -76,10 +76,10 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// Set access mask flags  are rendered green if true, and if not red
         /// </returns>
-        protected Color GetItemColor(bool enabled)
+        protected string GetItemColor(bool enabled)
         {
             // show enabled flag red
-            return enabled ? Color.Green : Color.Red;
+            return enabled ? "tag tag-success" : "tag tag-danger";
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace YAF.Pages.Admin
             var dr = (DataRowView)_o;
 
             // object IsLadder,object MinPosts
-            // Eval( "IsLadder"),Eval( "MinPosts")
+            // this.Eval( "IsLadder"),Eval( "MinPosts")
             bool isLadder = dr["Flags"].BinaryAnd(RankFlags.Flags.IsLadder);
 
             return isLadder
@@ -189,7 +189,7 @@ namespace YAF.Pages.Admin
                this.GetText("ADMIN_ADMIN", "Administration"),
                this.GetText("ADMIN_RANKS", "TITLE"));
 
-            this.NewRank.Text = this.GetText("ADMIN_RANKS", "NEW_RANK");
+            this.NewRank.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_RANKS", "NEW_RANK"));
 
             this.BindData();
         }

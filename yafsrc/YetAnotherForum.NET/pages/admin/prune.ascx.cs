@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -38,6 +38,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -71,7 +72,7 @@ namespace YAF.Pages.Admin
                       this.GetText("ADMIN_ADMIN", "Administration"),
                       this.GetText("ADMIN_PRUNE", "TITLE"));
 
-                this.commit.Text = this.GetText("ADMIN_PRUNE", "PRUNE_START");
+                this.commit.Text = "<i class=\"fa fa-trash fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_PRUNE", "PRUNE_START"));
 
                 this.days.Text = "60";
                 this.BindData();
@@ -84,6 +85,21 @@ namespace YAF.Pages.Admin
                 this.lblPruneInfo.Text = this.GetText("ADMIN_PRUNE", "PRUNE_INFO");
                 this.commit.Enabled = false;
             }
+        }
+
+        /// <summary>
+        /// Registers the needed Java Scripts
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "TouchSpinLoadJs",
+                JavaScriptBlocks.LoadTouchSpin(
+                    ".DaysInput",
+                    "postfix: '{0}'".FormatWith(this.GetText("ADMIN_PM", "DAYS"))));
+
+            base.OnPreRender(e);
         }
 
         /// <summary>

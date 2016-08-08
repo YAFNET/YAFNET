@@ -173,11 +173,7 @@ namespace YAF.Pages.Admin
             // setup jQuery and Jquery Ui Tabs.
             YafContext.Current.PageElements.RegisterJsBlock(
                 "TestDataTabsJs",
-                JavaScriptBlocks.JqueryUITabsLoadJs(
-                    this.TestDataTabs.ClientID,
-                    this.hidLastTab.ClientID,
-                    this.hidLastTabId.ClientID,
-                    false));
+                JavaScriptBlocks.BootstrapTabsLoadJs(this.TestDataTabs.ClientID, this.hidLastTab.ClientID));
 
             base.OnPreRender(e);
         }

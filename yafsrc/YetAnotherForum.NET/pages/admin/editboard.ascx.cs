@@ -182,7 +182,7 @@ namespace YAF.Pages.Admin
                 {
                     this.PageContext.AddLoadMessage(
                         "Create User Failed: {0}".FormatWith(this.GetMembershipErrorMessage(createStatus)),
-                        MessageTypes.Error);
+                        MessageTypes.danger);
 
                     return false;
                 }
@@ -326,8 +326,8 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_BOARDS", "TITLE"),
                 this.GetText("ADMIN_EDITBOARD", "TITLE"));
 
-            this.Save.Text = this.GetText("SAVE");
-            this.Cancel.Text = this.GetText("CANCEL");
+            this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
+            this.Cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
 
             this.Culture.DataSource =
                 StaticDataHelper.Cultures()
@@ -388,7 +388,7 @@ namespace YAF.Pages.Admin
         {
             if (this.Name.Text.Trim().Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITBOARD", "MSG_NAME_BOARD"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITBOARD", "MSG_NAME_BOARD"), MessageTypes.warning);
                 return;
             }
 
@@ -398,7 +398,7 @@ namespace YAF.Pages.Admin
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITBOARD", "MSG_NAME_ADMIN"),
-                        MessageTypes.Warning);
+                        MessageTypes.warning);
                     return;
                 }
 
@@ -406,7 +406,7 @@ namespace YAF.Pages.Admin
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITBOARD", "MSG_EMAIL_ADMIN"),
-                        MessageTypes.Warning);
+                        MessageTypes.warning);
                     return;
                 }
 
@@ -414,7 +414,7 @@ namespace YAF.Pages.Admin
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITBOARD", "MSG_PASS_ADMIN"),
-                        MessageTypes.Warning);
+                        MessageTypes.warning);
                     return;
                 }
 
@@ -422,7 +422,7 @@ namespace YAF.Pages.Admin
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITBOARD", "MSG_PASS_MATCH"),
-                        MessageTypes.Warning);
+                        MessageTypes.warning);
                     return;
                 }
             }

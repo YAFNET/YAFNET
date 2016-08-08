@@ -2,70 +2,84 @@
     CodeBehind="nntpforums.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
-    <table class="content" width="100%" cellspacing="1" cellpadding="0">
-        <tr>
-            <td class="header1" colspan="6">
-                 <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_NNTPFORUMS" />
-            </td>
-        </tr>
-        <asp:Repeater ID="RankList" OnItemCommand="RankList_ItemCommand" runat="server">
+    <div class="row">
+    <div class="col-xl-12">
+        <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_NNTPFORUMS" /></h1>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card card-primary-outline">
+                <div class="card-header card-primary">
+                    <i class="fa fa-newspaper-o fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_NNTPFORUMS" />
+                    </div>
+                <div class="card-block">
+                    <asp:Repeater ID="RankList" OnItemCommand="RankList_ItemCommand" runat="server">
             <HeaderTemplate>
+                <div class="alert alert-info hidden-sm-up" role="alert">
+                            <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
+                            <span class="pull-right"><i class="fa fa-hand-o-left fa-fw"></i></span>
+                        </div><div class="table-responsive">
+                <table class="table">
                 <tr>
-                    <td class="header2">
+                    <thead>
+                    <th>
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="Server" LocalizedPage="ADMIN_NNTPFORUMS" />
-                    </td>
-                    <td class="header2">
+                    </th>
+                    <th>
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="Group" LocalizedPage="ADMIN_NNTPFORUMS" />
-                    </td>
-                    <td class="header2">
+                    </th>
+                    <th>
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="Forum" LocalizedPage="ADMIN_NNTPFORUMS" />
-                    </td>
-                    <td class="header2">
+                    </th>
+                    <th>
                         <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="Active" LocalizedPage="ADMIN_NNTPFORUMS" />
-                    </td>
-                    <td class="header2">
+                    </th>
+                    <th>
                         &nbsp;
-                    </td>
+                    </th>
+                    </thead>
                 </tr>
             </HeaderTemplate>
             <ItemTemplate>
                 <tr>
-                    <td class="post">
-                        <%# Eval( "Name") %>
+                    <td>
+                        <%# this.Eval( "Name") %>
                     </td>
-                    <td class="post">
-                        <%# Eval( "GroupName") %>
+                    <td>
+                        <%# this.Eval( "GroupName") %>
                     </td>
-                    <td class="post">
-                        <%# Eval( "ForumName") %>
+                    <td>
+                        <%# this.Eval( "ForumName") %>
                     </td>
-                    <td class="post">
-                        <%# Eval( "Active") %>
+                    <td>
+                        <%# this.Eval( "Active") %>
                     </td>
-                    <td class="post" align="right">
-                        <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" 
-                            CommandName='edit' CommandArgument='<%# Eval( "NntpForumID") %>' 
-                            TitleLocalizedTag="EDIT" 
-                            ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON"
-                            TextLocalizedTag="EDIT" 
-                            runat="server">
-					    </YAF:ThemeButton>
-                        <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" 
-                                    CommandName='delete' CommandArgument='<%# Eval( "NntpForumID") %>' 
-                                    TitleLocalizedTag="DELETE" 
-                                    ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON"
-                                    TextLocalizedTag="DELETE"
-                                    OnLoad="Delete_Load"  runat="server">
-                                </YAF:ThemeButton>
+                    <td>
+					    <span class="pull-right">
+                        <asp:LinkButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm" runat="server"
+                            CommandName='edit' CommandArgument='<%# this.Eval("NntpForumID") %>'>
+                            <i class="fa fa-edit fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="EDIT"
+                            ></YAF:LocalizedLabel>
+					    </asp:LinkButton>&nbsp;
+                        <asp:LinkButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm" OnLoad="Delete_Load"   runat="server"
+                                    CommandName='delete' CommandArgument='<%# this.Eval("NntpForumID") %>'>
+                                    <i class="fa fa-trash fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DELETE"></YAF:LocalizedLabel>
+
+                                </asp:LinkButton>
+
+					    </span>
                     </td>
                 </tr>
             </ItemTemplate>
+            <FooterTemplate></table></div></FooterTemplate>
         </asp:Repeater>
-        <tr>
-            <td class="footer1" colspan="5" align="center">
-                <asp:Button ID="NewForum" runat="server" CssClass="pbutton" OnClick="NewForum_Click" />
-            </td>
-        </tr>
-    </table>
+                </div>
+                <div class="card-footer text-xs-center">
+                    <asp:LinkButton ID="NewForum" runat="server" CssClass="btn btn-primary" OnClick="NewForum_Click" />
+                </div>
+            </div>
+        </div>
+    </div>
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

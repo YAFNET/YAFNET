@@ -403,6 +403,7 @@
     <Resource tag="DISABLED">Disabled</Resource>
     <Resource tag="NO">No</Resource>
     <Resource tag="SAVE">Save</Resource>
+    <Resource tag="TABLE_RESPONSIVE">Swipe Table to the left to Reveal More Data</Resource>
     <Resource tag="YES">Yes</Resource>
   </page>
   <page name="ADMIN_DELETEFORUM">
@@ -960,7 +961,7 @@
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Active Topics Feeds Access:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Restrict display of active topics feeds.</Resource>
     <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
-    <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href="https://akismet.com/signup/"&gt;Sign Up here&lt;a&gt;</Resource>
+    <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href="https://akismet.com/signup/"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Albums Per Page:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Number of albums to show per page.</Resource>
     <Resource tag="ALL_USERS">All Users</Resource>
@@ -1054,7 +1055,7 @@
     <Resource tag="BOT_MESSAGE_1">Approve User &amp; Log User &amp; Send Admin an Email</Resource>
     <Resource tag="BOT_MESSAGE_2">Block User</Resource>
     <Resource tag="BOTSCOUT_KEY">BotScout.com API Key:</Resource>
-    <Resource tag="BOTSCOUT_KEY_HELP">To Use the BotScout Bot Service you need an API Key &lt;a href="http://botscout.com/getkey.htm"&gt;Sign Up here&lt;a&gt;</Resource>
+    <Resource tag="BOTSCOUT_KEY_HELP">To Use the BotScout Bot Service you need an API Key &lt;a href="http://botscout.com/getkey.htm"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER">Enable CAPTCHA/reCAPTCHA for Register:</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER_HELP">Require users to enter the CAPTCHA when they register for the forum.</Resource>
     <Resource tag="CAPTCHA_GUEST_POSTING">Enable CAPTCHA for Guest Posting:</Resource>
@@ -1460,7 +1461,7 @@
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistics Cache Timeout:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In minutes</Resource>
     <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
-    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;</Resource>
+    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="STYLED_NICKS">Use styled nicks:</Resource>
     <Resource tag="STYLED_NICKS_HELP">If checked, you can use colors, font size change etc. for active users nicks.</Resource>
     <Resource tag="STYLED_TOPIC_TITLES">Use styled Topic Titles:</Resource>
@@ -2071,7 +2072,7 @@
     <Resource tag="BBCODE_QUOTEPOSTED_TT">Go to Quoted Post</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
     <Resource tag="CAL_JQ_CULTURE">no</Resource>
-    <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>
+    <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YYYY</Resource>
     <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">Du [b]kan[/b] slette dine innlegg i dette forumet.</Resource>
     <Resource tag="CAN_EDIT">Du [b]kan[/b] endre dine innlegg i dette forumet.</Resource>
@@ -2099,8 +2100,8 @@
     <Resource tag="EDIT">Edit</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
     <Resource tag="EXTERNALUSER">(External User)</Resource>
-    <Resource tag="FONT_COLOR">Font Color:</Resource>
-    <Resource tag="FONT_SIZE">Font Size:</Resource>
+    <Resource tag="FONT_COLOR">Font Color</Resource>
+    <Resource tag="FONT_SIZE">Font Size</Resource>
     <Resource tag="FOR">For</Resource>
     <Resource tag="FORMAT_DATE_LONG">D</Resource>
     <Resource tag="FORMAT_DATE_SHORT">d</Resource>
@@ -2121,6 +2122,7 @@
     <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
     <Resource tag="LOADING">Loading...</Resource>
     <Resource tag="MAX_ONLINE">Maksimalt antall brukere innlogget var {0:N0} on {1}.</Resource>
+    <Resource tag="MENU">Menu</Resource>
     <Resource tag="MESSAGE">Message</Resource>
     <Resource tag="MOBILE_FULLSITE">View Full Site</Resource>
     <Resource tag="MOBILE_VIEWSITE">View Mobile Site</Resource>

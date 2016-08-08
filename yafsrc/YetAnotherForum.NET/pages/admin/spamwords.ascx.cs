@@ -68,8 +68,8 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void AddLoad(object sender, EventArgs e)
         {
-            var add = (Button)sender;
-            add.Text = this.GetText("ADMIN_SPAMWORDS", "ADD");
+            var add = (LinkButton)sender;
+            add.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_SPAMWORDS", "ADD"));
         }
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace YAF.Pages.Admin
         /// <param name="e">The e.</param>
         protected void ExportLoad(object sender, EventArgs e)
         {
-            var export = (Button)sender;
-            export.Text = this.GetText("ADMIN_SPAMWORDS", "EXPORT");
+            var export = (LinkButton)sender;
+            export.Text = "<i class=\"fa fa-download fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_SPAMWORDS", "EXPORT"));
         }
 
         /// <summary>
@@ -90,8 +90,8 @@ namespace YAF.Pages.Admin
         /// <param name="e">The e.</param>
         protected void ImportLoad(object sender, EventArgs e)
         {
-            var import = (Button)sender;
-            import.Text = this.GetText("ADMIN_SPAMWORDS", "IMPORT");
+            var import = (LinkButton)sender;
+            import.Text = "<i class=\"fa fa-upload fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_SPAMWORDS", "IMPORT"));
         }
 
         /// <summary>

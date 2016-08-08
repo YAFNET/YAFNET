@@ -337,6 +337,8 @@ namespace YAF.Controls.YafAdminMenu {
             
             private global::System.Data.DataColumn columnTag;
             
+            private global::System.Data.DataColumn columnIcon;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public YafMenuSectionDataTable() {
@@ -404,6 +406,14 @@ namespace YAF.Controls.YafAdminMenu {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IconColumn {
+                get {
+                    return this.columnIcon;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -439,13 +449,14 @@ namespace YAF.Controls.YafAdminMenu {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public YafMenuSectionRow AddYafMenuSectionRow(string Title, string HostAdminOnly, string Tag) {
+            public YafMenuSectionRow AddYafMenuSectionRow(string Title, string HostAdminOnly, string Tag, string Icon) {
                 YafMenuSectionRow rowYafMenuSectionRow = ((YafMenuSectionRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Title,
                         null,
                         HostAdminOnly,
-                        Tag};
+                        Tag,
+                        Icon};
                 rowYafMenuSectionRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowYafMenuSectionRow);
                 return rowYafMenuSectionRow;
@@ -472,6 +483,7 @@ namespace YAF.Controls.YafAdminMenu {
                 this.columnYafMenuSection_Id = base.Columns["YafMenuSection_Id"];
                 this.columnHostAdminOnly = base.Columns["HostAdminOnly"];
                 this.columnTag = base.Columns["Tag"];
+                this.columnIcon = base.Columns["Icon"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -485,6 +497,8 @@ namespace YAF.Controls.YafAdminMenu {
                 base.Columns.Add(this.columnHostAdminOnly);
                 this.columnTag = new global::System.Data.DataColumn("Tag", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTag);
+                this.columnIcon = new global::System.Data.DataColumn("Icon", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIcon);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnYafMenuSection_Id}, true));
                 this.columnTitle.Namespace = "";
@@ -1056,6 +1070,22 @@ namespace YAF.Controls.YafAdminMenu {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Icon {
+                get {
+                    try {
+                        return ((string)(this[this.tableYafMenuSection.IconColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte Icon in Tabelle YafMenuSection ist DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableYafMenuSection.IconColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsTitleNull() {
                 return this.IsNull(this.tableYafMenuSection.TitleColumn);
             }
@@ -1088,6 +1118,18 @@ namespace YAF.Controls.YafAdminMenu {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetTagNull() {
                 this[this.tableYafMenuSection.TagColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIconNull() {
+                return this.IsNull(this.tableYafMenuSection.IconColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIconNull() {
+                this[this.tableYafMenuSection.IconColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

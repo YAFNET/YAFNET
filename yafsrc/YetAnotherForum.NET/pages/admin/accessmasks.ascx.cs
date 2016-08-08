@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -117,10 +117,10 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// Set access mask flags are rendered green if true, and if not red
         /// </returns>
-        protected Color GetItemColor(bool enabled)
+        protected string GetItemColor(bool enabled)
         {
             // show enabled flag red
-            return enabled ? Color.Green : Color.Red;
+            return enabled ? "tag tag-success" : "tag tag-danger";
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.New.Text = this.GetText("ADMIN_ACCESSMASKS", "NEW_MASK");
+            this.New.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_ACCESSMASKS", "NEW_MASK"));
 
             // create links
             this.CreatePageLinks();

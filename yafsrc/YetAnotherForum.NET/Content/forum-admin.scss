@@ -1,0 +1,232 @@
+﻿@import "jquery.hovercard.scss";
+@import "bootstrap-notify";
+@import "jquery.tablesorter.scss";
+
+@import "css/select2";
+@import "css/select2-bootstrap";
+@import "font-awesome";
+@import "jquery.bootstrap-touchspin";
+@import "bootstrap-datetimepicker";
+
+// --Forum imports
+@import "forum/attachments-upload.scss";
+@import "forum/user-albums.scss";
+@import "forum/dropdowns.scss";
+
+// --Editor
+.BBCodeEditor {
+    margin-top: 10px;
+}
+
+// --Pager
+.gotoPageForm {
+    z-index: 99999;
+}
+
+// --Topbar
+ .navbar {
+        padding: 0;
+}
+ .breadcrumb {
+     padding:0 0 0 1rem;
+     margin:0;
+     background-color: transparent;
+ }
+.navbar-top-links {
+	margin-right: 0;
+	li {
+		display: inline-block;
+		&:last-child {
+			margin-right: 15px;
+		}
+		a {
+			padding: 15px;
+			min-height: 50px;
+		}
+	}
+	.dropdown-user {
+		right: 0;
+		left: auto;
+	}
+	.dropdown-menu li {
+		display: block;
+		&:last-child {
+			margin-right: 0;
+		}
+		a {
+			padding: 3px 20px;
+			min-height: 0;
+			div {
+				white-space: normal;
+			}
+		}
+	}
+}
+
+
+
+// --Admin Sidebar
+
+.sidebar {
+    padding: 0;
+    margin: 0!important;
+    left:0;
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.sidebar ul li {
+    border-bottom: 1px solid #e7e7e7;
+    padding: 10px 15px;
+    li {
+        padding: 0;
+    }
+    a {
+        padding: 10px 15px;
+        &.active {
+            color: black;
+        }
+    }
+}
+
+.sidebar .arrow {
+    float: right;
+}
+
+.sidebar .fa.arrow:before {
+    content: "\f104";
+}
+
+.sidebar .active > a > .fa.arrow:before {
+    content: "\f107";
+}
+
+.sidebar .nav-second-level li,
+.sidebar .nav-third-level li {
+    border-bottom: none !important;
+}
+
+.sidebar .nav-second-level li a {
+    padding-left: 37px;
+}
+
+.sidebar .nav-third-level li a {
+    padding-left: 52px;
+}
+
+@media(min-width:768px) {
+    .sidebar {
+        z-index: 1;
+        position: absolute;
+        width: 250px;
+        margin-top: 51px;
+    }
+
+    .navbar-top-links .dropdown-messages,
+    .navbar-top-links .dropdown-tasks,
+    .navbar-top-links .dropdown-alerts {
+        margin-left: auto;
+    }
+}
+
+#wrapper {
+    width: 100%;
+}
+
+#page-wrapper {
+    padding: 0 15px;
+    min-height: 568px;
+    background-color: white;
+}
+
+@media(min-width:768px) {
+    #page-wrapper {
+        position: inherit;
+        margin: 0 0 0 250px;
+        padding: 0 30px;
+    }
+}
+
+.card-primary-outline,
+.card-info-outline {
+    .card-header {
+        color: white;
+    }
+}
+.card-blue  {
+	border-color: #0275d8;
+	.card-header {
+		border-color: #0275d8;
+		color: white;
+		background-color: #0275d8;
+	}
+	a {
+		color: #0275d8;
+		&:hover {
+			color: #0275d8;
+		}
+	}
+}
+
+.card-green {
+	border-color: #5cb85c;
+	.card-header {
+		border-color: #5cb85c;
+		color: white;
+		background-color: #5cb85c;
+	}
+	a {
+		color: #5cb85c;
+		&:hover {
+			color: #3d8b3d;
+		}
+	}
+}
+.card-red {
+	border-color: #d9534f;
+	.card-header {
+		border-color: #d9534f;
+		color: white;
+		background-color: #d9534f;
+	}
+	a {
+		color: #d9534f;
+		&:hover {
+			color: #b52b27;
+		}
+	}
+}
+.card-yellow {
+	border-color: #f0ad4e;
+	.card-header {
+		border-color: #f0ad4e;
+		color: white;
+		background-color: #f0ad4e;
+	}
+	a {
+		color: #f0ad4e;
+		&:hover {
+			color: #df8a13;
+		}
+	}
+}
+
+// --Help Label
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.428571429;
+}
+
+// --Spinner Input
+.bootstrap-touchspin {
+    width: 250px;
+}
+

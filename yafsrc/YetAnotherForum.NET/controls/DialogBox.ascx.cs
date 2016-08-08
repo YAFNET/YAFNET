@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -47,37 +47,6 @@ namespace YAF.Controls
     {
         #region Enums
 
-        /// <summary>
-        /// Dialog Icon
-        /// </summary>
-        public enum DialogIcon
-        {
-            /// <summary>
-            ///   Mail Icon
-            /// </summary>
-            Mail = 1,
-
-            /// <summary>
-            ///   Info Icon
-            /// </summary>
-            Info = 2,
-
-            /// <summary>
-            ///   Error Icon
-            /// </summary>
-            Error = 3,
-
-            /// <summary>
-            ///   Warning Icon
-            /// </summary>
-            Warning = 4,
-
-            /// <summary>
-            ///   Question Icon
-            /// </summary>
-            Question = 5
-        }
-        
         #endregion
 
         #region Properties
@@ -131,9 +100,6 @@ namespace YAF.Controls
         /// <param name="title">
         /// The Message title.
         /// </param>
-        /// <param name="icon">
-        /// The Message icon.
-        /// </param>
         /// <param name="okButton">
         /// The ok button.
         /// </param>
@@ -143,9 +109,8 @@ namespace YAF.Controls
         public void Show(
             [NotNull] string message,
             [NotNull] string title,
-            [CanBeNull] DialogIcon icon,
             [NotNull] DialogButton okButton,
-            [NotNull] DialogButton cancelButton) 
+            [NotNull] DialogButton cancelButton)
         {
             // Message Header
             this.Header.Text = !string.IsNullOrEmpty(title)
@@ -154,35 +119,6 @@ namespace YAF.Controls
 
             // Message Text
             this.MessageText.Text = message;
-
-            // Message Icon
-            if (!icon.IsNullOrEmptyDBField())
-            {
-                switch (icon)
-                {
-                    case DialogIcon.Mail:
-                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToContent("icons/EmailBig.png");
-                        break;
-                    case DialogIcon.Info:
-                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToContent("icons/InfoBig.png");
-                        break;
-                    case DialogIcon.Warning:
-                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToContent("icons/WarningBig.png");
-                        break;
-                    case DialogIcon.Error:
-                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToContent("icons/ErrorBig.png");
-                        break;
-                    case DialogIcon.Question:
-                        this.ImageIcon.ImageUrl = YafForumInfo.GetURLToContent("icons/QuestionBig.png");
-                        break;
-                }
-
-                this.ImageIcon.Visible = true;
-            }
-            else
-            {
-                this.ImageIcon.Visible = false;
-            }
 
             // OK/Yes Message Button
             if (okButton != null)
@@ -199,7 +135,7 @@ namespace YAF.Controls
                     okButton.Text = this.GetText("COMMON", "OK");
                 }
 
-                this.OkButton.CssClass = okButton.CssClass.IsSet() ? okButton.CssClass : "LoginButton";
+                this.OkButton.CssClass = okButton.CssClass.IsSet() ? okButton.CssClass : "btn btn-primary";
             }
 
             // Cancel/No Message Button
@@ -214,7 +150,7 @@ namespace YAF.Controls
                                              ? cancelButton.Text
                                              : this.GetText("COMMON", "CANCEL");
 
-                this.CancelButton.CssClass = cancelButton.CssClass.IsSet() ? cancelButton.CssClass : "StandardButton CancelButton";
+                this.CancelButton.CssClass = cancelButton.CssClass.IsSet() ? cancelButton.CssClass : "btn btn-secondary";
 
                 if (this.CancelButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
                 {
@@ -236,27 +172,26 @@ namespace YAF.Controls
                 this.CancelButtonLink = new ForumLink { ForumPage = YafContext.Current.ForumPageType };
             }
 
-            var sbScript = new StringBuilder();
+            var script = new StringBuilder();
 
-            sbScript.Append("Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(ShowNotificationPopup);");
+            script.Append("Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(ShowNotificationPopup);");
 
-            sbScript.AppendFormat(
-                "function ShowNotificationPopup() {{ jQuery(document).ready(function() {{jQuery().YafModalDialog.Show({{Dialog : '#{0}',ImagePath : '{1}'}});return false; }});}}",
-                this.YafForumPageErrorPopup.ClientID,
-                YafForumInfo.GetURLToContent("images/"));
+            script.AppendFormat(
+                "function ShowNotificationPopup() {{ jQuery(document).ready(function() {{jQuery('#{0}').modal('show');return false; }});}}",
+                this.YafForumPageErrorPopup.ClientID);
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(this.Page, "PopUp{0}".FormatWith(Guid.NewGuid()), sbScript.ToString());
+            this.PageContext.PageElements.RegisterJsBlockStartup(this.Page, "PopUp{0}".FormatWith(Guid.NewGuid()), script.ToString());
 
             if (this.OkButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
             {
                 this.OkButton.OnClientClick =
-                    "jQuery().YafModalDialog.Close({{ Dialog: '#{0}' }});return false;".FormatWith(
+                    "jQuery('#{0}').modal('hide');return false;".FormatWith(
                         this.YafForumPageErrorPopup.ClientID);
             }
             else
             {
                 this.OkButton.OnClientClick =
-                    "jQuery().YafModalDialog.Close({{ Dialog: '#{0}' }});".FormatWith(
+                    "jQuery('#{0}').modal('hide');".FormatWith(
                         this.YafForumPageErrorPopup.ClientID);
             }
         }

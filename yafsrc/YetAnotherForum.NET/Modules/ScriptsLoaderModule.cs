@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -91,7 +91,7 @@ namespace YAF.Modules
 #if DEBUG
             YafContext.Current.PageElements.RegisterJsScriptsInclude("yafForumExtensions", "jquery.ForumExtensions.js");
 #else
-                YafContext.Current.PageElements.RegisterJsScriptsInclude("yafForumExtensions", "jquery.ForumExtensions.min.js");
+            YafContext.Current.PageElements.RegisterJsScriptsInclude("yafForumExtensions", "jquery.ForumExtensions.min.js");
 #endif
 
             this.PageContext.Vars["yafForumExtensions"] = true;
@@ -144,11 +144,11 @@ namespace YAF.Modules
                 else
                 {
                     jqueryUrl = YafContext.Current.Get<YafBoardSettings>().JqueryCDNHosted
-                                    ? "//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.3.min.js"
+                                    ? "//ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.0.min.js"
 #if DEBUG
-                                    : YafForumInfo.GetURLToScripts("jquery-2.2.3.js");
+                                    : YafForumInfo.GetURLToScripts("jquery-3.1.0.js");
 #else
-                                    : YafForumInfo.GetURLToScripts("jquery-2.2.3.min.js");
+                                    : YafForumInfo.GetURLToScripts("jquery-3.1.0.min.js");
 #endif
                 }
 
@@ -158,7 +158,7 @@ namespace YAF.Modules
 
             YafContext.Current.PageElements.AddPageElement("jquery");
         }
-        
+
         /// <summary>
         /// Register the jQuery UI script library in the header.
         /// </summary>
@@ -185,11 +185,11 @@ namespace YAF.Modules
             else
             {
                 jqueryUIUrl = YafContext.Current.Get<YafBoardSettings>().JqueryUICDNHosted
-                                  ? "//ajax.aspnetcdn.com/ajax/jquery.ui/1.11.4/jquery-ui.min.js"
+                                  ? "//ajax.aspnetcdn.com/ajax/jquery.ui/1.12.0/jquery-ui.min.js"
 #if DEBUG
-                                  : YafForumInfo.GetURLToScripts("jquery-ui-1.11.4.js");
+                                  : YafForumInfo.GetURLToScripts("jquery-ui-1.12.0.js");
 #else
-                                  : YafForumInfo.GetURLToScripts("jquery-ui-1.11.4.min.js");
+                                  : YafForumInfo.GetURLToScripts("jquery-ui-1.12.0.min.js");
 #endif
             }
 
@@ -206,12 +206,13 @@ namespace YAF.Modules
         {
             var element = YafContext.Current.CurrentForumPage.TopPageControl;
 
+            element.Controls.Add(ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToContent("bootstrap-forum.min.css")));
+
             // make the style sheet link controls.
-#if DEBUG
-            element.Controls.Add(ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToContent("forum.css")));
-#else
-            element.Controls.Add(ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToContent("forum.min.css")));
-#endif
+            element.Controls.Add(
+                this.PageContext.CurrentForumPage.IsAdminPage
+                    ? ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToContent("forum-admin.min.css"))
+                    : ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToContent("forum.min.css")));
 
             element.Controls.Add(ControlHelper.MakeCssIncludeControl(this.Get<ITheme>().BuildThemePath("theme.css")));
 
@@ -219,7 +220,7 @@ namespace YAF.Modules
             if (YafContext.Current.Get<YafBoardSettings>().JqueryUIThemeCDNHosted)
             {
                 YafContext.Current.PageElements.RegisterCssInclude(
-                     "//code.jquery.com/ui/1.11.4/themes/{0}/jquery-ui.min.css".FormatWith(
+                     "//code.jquery.com/ui/1.12.0/themes/{0}/jquery-ui.min.css".FormatWith(
                          YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
             }
             else

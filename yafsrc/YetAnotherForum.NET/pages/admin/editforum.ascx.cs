@@ -211,8 +211,8 @@ namespace YAF.Pages.Admin
               this.GetText("TEAM", "FORUMS"), 
               this.GetText("ADMIN_EDITFORUM", "TITLE"));
 
-            this.Save.Text = this.GetText("SAVE");
-            this.Cancel.Text = this.GetText("CANCEL");
+            this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
+            this.Cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
 
             this.ModerateAllPosts.Text = this.GetText("MODERATE_ALL_POSTS");
 
@@ -262,7 +262,7 @@ namespace YAF.Pages.Admin
                 this.HideNoAccess.Checked = flags.IsHidden;
                 this.Locked.Checked = flags.IsLocked;
                 this.IsTest.Checked = flags.IsTest;
-                this.ForumNameTitle.Text = this.Name.Text;
+                this.ForumNameTitle.Text = this.Label1.Text = this.Name.Text;
                 this.Moderated.Checked = flags.IsModerated;
 
                 this.ModeratedPostCountRow.Visible = this.Moderated.Checked;

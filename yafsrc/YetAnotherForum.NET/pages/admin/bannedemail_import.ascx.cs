@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -84,14 +84,14 @@ namespace YAF.Pages.Admin
                     importedCount > 0
                         ? this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT_SUCESS").FormatWith(importedCount)
                         : this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT_NOTHING"),
-                    MessageTypes.Information);
+                    MessageTypes.info);
 
                 YafBuildLink.Redirect(ForumPages.admin_bannedemail);
             }
             catch (Exception x)
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT_FAILED").FormatWith(x.Message));
+                    this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT_FAILED").FormatWith(x.Message), MessageTypes.danger);
             }
         }
 
@@ -121,8 +121,8 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_BANNEDEMAIL", "TITLE"),
                 this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "TITLE"));
 
-            this.Import.Text = this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT");
-            this.cancel.Text = this.GetText("CANCEL");
+            this.Import.Text = "<i class=\"fa fa-upload fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT"));
+            this.cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
         }
 
         #endregion

@@ -58,11 +58,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-           this.PageContext.PageElements.RegisterJsBlockStartup(
-                "dropDownJs",
-                JavaScriptBlocks.SelectMenuWithIconsJs(this.Icon.ClientID));
-
-            base.OnPreRender(e);
+           base.OnPreRender(e);
         }
 
         /// <summary>
@@ -91,8 +87,8 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_SMILIES", "TITLE"), 
                 this.GetText("ADMIN_SMILIES_EDIT", "TITLE"));
 
-            this.cancel.Text = this.GetText("COMMON", "CANCEL");
-            this.save.Text = this.GetText("COMMON", "SAVE");
+            this.cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
+            this.save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
 
             this.BindData();
         }
@@ -113,13 +109,6 @@ namespace YAF.Pages.Admin
                     YafForumInfo.ForumClientFileRoot,
                     YafBoardFolders.Current.Emoticons,
                     "{0}");
-
-            this.Preview.Src = this.Icon.SelectedValue.IsSet()
-                                   ? "{0}{1}/{2}".FormatWith(
-                                       YafForumInfo.ForumClientFileRoot,
-                                       YafBoardFolders.Current.Emoticons,
-                                       this.Icon.SelectedValue)
-                                   : YafForumInfo.GetURLToContent("images/spacer.gif");
         }
 
         /// <summary>
@@ -146,54 +135,53 @@ namespace YAF.Pages.Admin
 
             if (emotion.Length > 50)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_TOO_LONG"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_TOO_LONG"), MessageTypes.danger);
                 return;
             }
 
             if (code.Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_CODE_MISSING"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_CODE_MISSING"), MessageTypes.danger);
                 return;
             }
 
             if (code.Length > 10)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_CODE_LONG"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_CODE_LONG"), MessageTypes.danger);
                 return;
             }
 
             if (!new Regex(@"\[.+\]").IsMatch(code))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_CODE_BRACK"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_CODE_BRACK"), MessageTypes.danger);
                 return;
             }
 
             if (emotion.Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_NO_EMOTICON"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_NO_EMOTICON"), MessageTypes.danger);
                 return;
             }
 
             if (this.Icon.SelectedIndex < 1)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_NO_ICON"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_NO_ICON"), MessageTypes.danger);
                 return;
             }
 
             // Ederon 9/4/2007
             if (!byte.TryParse(this.SortOrder.Text, out sortOrder) || sortOrder > 255)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_SORT_NMBR"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_SORT_NMBR"), MessageTypes.danger);
                 return;
             }
 
             // Check if the same bbcode exist
             if (this.GetRepository<Smiley>().ListTyped().Any(smiley => smiley.Code.Equals(code)))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_CODE_SAME"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_SMILIES_EDIT", "MSG_CODE_SAME"), MessageTypes.danger);
                 return;
             }
-
 
             if (this.Request["s"] != null)
             {
@@ -220,7 +208,7 @@ namespace YAF.Pages.Admin
                 dt.Columns.Add("Description", typeof(string));
                 DataRow dr = dt.NewRow();
                 dr["FileID"] = 0;
-                dr["FileName"] = YafForumInfo.GetURLToContent("images/spacer.gif"); // use blank.gif for Description Entry
+                dr["FileName"] = string.Empty;
                 dr["Description"] = "[ {0} ]".FormatWith(this.GetText("ADMIN_SMILIES_EDIT", "SELECT_SMILEY"));
                 dt.Rows.Add(dr);
 
@@ -271,10 +259,6 @@ namespace YAF.Pages.Admin
                         this.Icon.Items.FindByText(smiley.Icon).Selected = true;
                     }
 
-                    this.Preview.Src = "{0}{1}/{2}".FormatWith(
-                        YafForumInfo.ForumClientFileRoot,
-                        YafBoardFolders.Current.Emoticons,
-                        smiley.Icon);
                     this.SortOrder.Text = smiley.SortOrder.ToString(); // Ederon : 9/4/2007
                 }
             }
@@ -285,8 +269,6 @@ namespace YAF.Pages.Admin
                 if (smilies.Any())
                 {
                     this.SortOrder.Text = (smilies.Max(s => s.SortOrder) + 1).ToString();
-
-                    this.Preview.Src = YafForumInfo.GetURLToContent("images/spacer.gif");
                 }
             }
         }

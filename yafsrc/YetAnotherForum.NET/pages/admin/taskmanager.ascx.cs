@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -56,11 +56,11 @@ namespace YAF.Pages.Admin
       /// <returns>
       /// Set access mask flags are rendered green, rest black.
       /// </returns>
-      protected Color GetItemColor(bool enabled)
+      protected string GetItemColor(bool enabled)
       {
           // show enabled flag red
-          return enabled ? Color.Green : Color.Black;
-      }
+          return enabled ? "tag tag-success" : "tag tag-default";
+        }
 
       /// <summary>
       /// Get a user friendly item name.
@@ -75,6 +75,7 @@ namespace YAF.Pages.Admin
       {
           return enabled ? this.GetText("DEFAULT", "YES") : this.GetText("DEFAULT", "NO");
       }
+
     /// <summary>
     /// binds data for this control
     /// </summary>

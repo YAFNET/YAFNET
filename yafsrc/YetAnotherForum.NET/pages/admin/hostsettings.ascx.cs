@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -101,7 +101,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void UserLazyDataCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // vzrus: remove all users lazy data 
+            // vzrus: remove all users lazy data
             this.Get<IDataCache>()
                 .RemoveOf<object>(k => k.Key.StartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(string.Empty)));
             this.CheckCache();
@@ -151,15 +151,9 @@ namespace YAF.Pages.Admin
             // setup jQuery and YAF JS...
             YafContext.Current.PageElements.RegisterJsBlock(
                 "yafTabsJs",
-                JavaScriptBlocks.JqueryUITabsLoadJs(
+                JavaScriptBlocks.BootstrapTabsLoadJs(
                     this.HostSettingsTabs.ClientID,
-                    this.hidLastTab.ClientID,
-                    this.hidLastTabId.ClientID,
-                    false));
-
-            YafContext.Current.PageElements.RegisterJsBlock(
-                "spinnerForTimeCorrectionJs",
-                JavaScriptBlocks.LoadSpinnerWidgetForTimeCorrection());
+                    this.hidLastTab.ClientID));
 
             base.OnPreRender(e);
         }
@@ -203,27 +197,13 @@ namespace YAF.Pages.Admin
             txtBoxes.ForEach(x => x.Width = Unit.Percentage(100));
 
             // vzrus : 13/5/2010
-            this.ServerTimeCorrection.AddStyleAttributeWidth("50px");
             this.ServerTimeCorrection.AddAttributeMaxWidth("4");
 
-            this.ImageAttachmentResizeHeight.AddStyleAttributeWidth("50px");
-
-            this.MaxPostSize.AddStyleAttributeWidth("50px");
             this.UserNameMaxLength.AddAttributeMaxWidth("5");
 
-            this.UserNameMaxLength.AddStyleAttributeWidth("50px");
             this.UserNameMaxLength.AddAttributeMaxWidth("3");
 
-            this.ActiveListTime.AddStyleAttributeWidth("50px");
-
-            this.PictureAttachmentDisplayTreshold.AddStyleAttributeWidth("100px");
             this.PictureAttachmentDisplayTreshold.AddAttributeMaxWidth("11");
-
-            this.ImageAttachmentResizeWidth.AddStyleAttributeWidth("50px");
-            this.DisableNoFollowLinksAfterDay.AddStyleAttributeWidth("100px");
-
-            // Ederon : 7/14/2007
-            this.UserBox.AddStyleAttributeSize("350px", "100px");
 
             // CheckCache
             this.CheckCache();
@@ -400,11 +380,6 @@ namespace YAF.Pages.Admin
             this.BotHandlingOnRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_1"), "1"));
             this.BotHandlingOnRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_2"), "2"));
 
-            this.MessageNotificationSystem.Items.Add(
-                new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "MODAL_DIALOG"), "0"));
-            this.MessageNotificationSystem.Items.Add(
-                new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "NOTIFICATION_BAR"), "1"));
-
             this.ShoutboxDefaultState.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "EXPANDED"), "0"));
             this.ShoutboxDefaultState.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "COLLAPSED"), "1"));
 
@@ -480,9 +455,10 @@ namespace YAF.Pages.Admin
 
                 if (control is TextBox && settingCollection.SettingsInt[name].CanRead)
                 {
-                    ((TextBox)control).CssClass = name.Equals("ServerTimeCorrection")
-                                                      ? "NumericServerTimeCorrection"
-                                                      : "Numeric";
+                    if (!name.Equals("ServerTimeCorrection"))
+                    {
+                        ((TextBox)control).TextMode = TextBoxMode.Number;
+                    }
 
                     // get the value from the property...
                     ((TextBox)control).Text =

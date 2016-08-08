@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
@@ -318,7 +318,7 @@ namespace YAF.Controls
                     "REP_VOTE_UP_MSG",
                     this.Get<HttpServerUtilityBase>().HtmlEncode(
                         this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"].ToString())),
-                MessageTypes.Success);
+                MessageTypes.success);
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "reputationprogressjs",
@@ -361,7 +361,7 @@ namespace YAF.Controls
                    "REP_VOTE_DOWN_MSG",
                    this.Get<HttpServerUtilityBase>().HtmlEncode(
                         this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"].ToString())),
-                MessageTypes.Success);
+                MessageTypes.success);
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "reputationprogressjs",
@@ -579,7 +579,7 @@ namespace YAF.Controls
             {
                 // Setup UserBox Reputation Script Block
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "reputationprogressjs", JavaScriptBlocks.RepuatationProgressLoadJs);
+                    "reputationprogressjs", JavaScriptBlocks.ReputationProgressLoadJs);
 
                 this.AddReputationControls();
             }
@@ -744,7 +744,7 @@ namespace YAF.Controls
                     if (Convert.ToBoolean(strBuddyRequest[1]))
                     {
                         this.PageContext.AddLoadMessage(
-                            this.GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", strBuddyRequest[0]), MessageTypes.Success);
+                            this.GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", strBuddyRequest[0]), MessageTypes.success);
 
                         this.PopMenu1.AddClientScriptItemWithPostback(
                             this.GetText("BUDDY", "REMOVEBUDDY"),
@@ -765,7 +765,7 @@ namespace YAF.Controls
                         this.PageContext.AddLoadMessage(
                             this.GetTextFormatted(
                                 "REMOVEBUDDY_NOTIFICATION", this.Get<IBuddy>().Remove(this.PostData.UserId)),
-                            MessageTypes.Success);
+                            MessageTypes.success);
                         break;
                     }
 

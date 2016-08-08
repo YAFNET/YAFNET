@@ -61,8 +61,6 @@ namespace YAF.Modules
                 this.AddErrorPopup();
             }
 
-            this._errorPopup.Title = this.GetText("COMMON", "MODAL_NOTIFICATION_HEADER");
-
             this.CurrentForumPage.PreRender += this.CurrentForumPage_PreRender;
         }
 
@@ -120,8 +118,7 @@ namespace YAF.Modules
                 // add error control...
                 this._errorPopup = new PopupDialogNotification
                     {
-                        ID = "YafForumPageErrorPopup1", 
-                        Title = this.GetText("COMMON", "MODAL_NOTIFICATION_HEADER")
+                        ID = "YafForumPageErrorPopup1"
                     };
 
                 this.ForumControl.Controls.Add(this._errorPopup);
@@ -130,7 +127,6 @@ namespace YAF.Modules
             {
                 // reference existing control...
                 this._errorPopup = (PopupDialogNotification)this.ForumControl.FindControl("YafForumPageErrorPopup1");
-                this._errorPopup.Title = this.GetText("COMMON", "MODAL_NOTIFICATION_HEADER");
             }
         }
 

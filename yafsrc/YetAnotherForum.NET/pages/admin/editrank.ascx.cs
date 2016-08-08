@@ -98,8 +98,8 @@ namespace YAF.Pages.Admin
                     this.GetText("ADMIN_RANKS", "TITLE"),
                     this.GetText("ADMIN_EDITRANK", "TITLE"));
 
-                this.Save.Text = this.GetText("COMMON", "SAVE");
-                this.Cancel.Text = this.GetText("COMMON", "CANCEL");
+                this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
+                this.Cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
 
                 this.BindData();
 
@@ -159,31 +159,31 @@ namespace YAF.Pages.Admin
         {
             if (!ValidationHelper.IsValidInt(this.PMLimit.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_VALID_NUMBER"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_VALID_NUMBER"), MessageTypes.danger);
                 return;
             }
 
             if (!ValidationHelper.IsValidInt(this.RankPriority.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITRANK", "MSG_RANK_INTEGER"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITRANK", "MSG_RANK_INTEGER"), MessageTypes.danger);
                 return;
             }
 
             if (!ValidationHelper.IsValidInt(this.UsrAlbums.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_ALBUM_NUMBER"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_ALBUM_NUMBER"), MessageTypes.danger);
                 return;
             }
 
             if (!ValidationHelper.IsValidInt(this.UsrSigChars.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_SIG_NUMBER"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_SIG_NUMBER"), MessageTypes.danger);
                 return;
             }
 
             if (!ValidationHelper.IsValidInt(this.UsrAlbumImages.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_TOTAL_NUMBER"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_TOTAL_NUMBER"), MessageTypes.danger);
                 return;
             }
 

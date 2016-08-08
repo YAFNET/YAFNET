@@ -163,22 +163,11 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            // setup jQuery and DatePicker JS...
-            if (this.GetText("COMMON", "CAL_JQ_CULTURE").IsSet())
-            {
-                this.PageContext.PageElements.RegisterJQueryUILanguageFile(this.CurrentCultureInfo);
-            }
-
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "DatePickerJs",
                 JavaScriptBlocks.DatePickerLoadJs(
-                    this.Birthday.ClientID,
                     this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
                     this.GetText("COMMON", "CAL_JQ_CULTURE")));
-
-            this.PageContext.PageElements.RegisterJsBlockStartup(
-                "dropDownJs",
-                JavaScriptBlocks.SelectMenuWithIconsJs(this.Country.ClientID));
 
             base.OnPreRender(e);
         }
@@ -216,8 +205,8 @@ namespace YAF.Controls
             this.Gender.Items.Add(this.GetText("PROFILE", "gender2"));
 
             // End Modifications for enhanced profile
-            this.UpdateProfile.Text = this.GetText("COMMON", "SAVE");
-            this.Cancel.Text = this.GetText("COMMON", "CANCEL");
+            this.UpdateProfile.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "SAVE"));
+            this.Cancel.Text = "<i class=\"fa fa-trash fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "CANCEL"));
 
             this.ForumSettingsRows.Visible = this.Get<YafBoardSettings>().AllowUserTheme
                                              || this.Get<YafBoardSettings>().AllowUserLanguage;
@@ -262,7 +251,7 @@ namespace YAF.Controls
 
                 if (!ValidationHelper.IsValidURL(this.HomePage.Text))
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_HOME"), MessageTypes.Warning);
+                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_HOME"), MessageTypes.warning);
                     return;
                 }
 
@@ -309,38 +298,38 @@ namespace YAF.Controls
 
             if (this.Weblog.Text.IsSet() && !ValidationHelper.IsValidURL(this.Weblog.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_WEBLOG"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_WEBLOG"), MessageTypes.warning);
                 return;
             }
 
             if (this.MSN.Text.IsSet() && !ValidationHelper.IsValidEmail(this.MSN.Text))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_MSN"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_MSN"), MessageTypes.warning);
                 return;
             }
 
             if (this.Xmpp.Text.IsSet() && !ValidationHelper.IsValidXmpp(this.Xmpp.Text))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.warning);
                 return;
             }
 
             if (this.ICQ.Text.IsSet()
                 && !(ValidationHelper.IsValidEmail(this.ICQ.Text) || ValidationHelper.IsNumeric(this.ICQ.Text)))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_ICQ"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_ICQ"), MessageTypes.warning);
                 return;
             }
 
             if (this.Facebook.Text.IsSet() && !ValidationHelper.IsValidURL(this.Facebook.Text))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_FACEBOOK"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_FACEBOOK"), MessageTypes.warning);
                 return;
             }
 
             if (this.Google.Text.IsSet() && !ValidationHelper.IsValidURL(this.Google.Text))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_GOOGLE"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_GOOGLE"), MessageTypes.warning);
                 return;
             }
 
@@ -354,7 +343,7 @@ namespace YAF.Controls
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().DisplayNameMinLength),
-                        MessageTypes.Warning);
+                        MessageTypes.warning);
 
                     return;
                 }
@@ -364,7 +353,7 @@ namespace YAF.Controls
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().UserNameMaxLength),
-                        MessageTypes.Warning);
+                        MessageTypes.warning);
 
                     return;
                 }
@@ -375,7 +364,7 @@ namespace YAF.Controls
                     {
                         this.PageContext.AddLoadMessage(
                             this.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"),
-                            MessageTypes.Warning);
+                            MessageTypes.warning);
 
                         return;
                     }
@@ -390,7 +379,7 @@ namespace YAF.Controls
 
                 if (!ValidationHelper.IsValidEmail(newEmail))
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.Warning);
+                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                     return;
                 }
 
@@ -398,7 +387,7 @@ namespace YAF.Controls
 
                 if (userNameFromEmail.IsSet() && userNameFromEmail != userName)
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.Warning);
+                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                     return;
                 }
 
@@ -417,7 +406,7 @@ namespace YAF.Controls
                     {
                         this.PageContext.AddLoadMessage(
                             this.GetText("PROFILE", "DUPLICATED_EMAIL"),
-                            MessageTypes.Warning);
+                            MessageTypes.warning);
 
                         return;
                     }
@@ -428,7 +417,7 @@ namespace YAF.Controls
             {
                 this.PageContext.AddLoadMessage(
                     this.GetTextFormatted("FIELD_TOOLONG", this.GetText("CP_EDITPROFILE", "INTERESTS"), 400),
-                    MessageTypes.Warning);
+                    MessageTypes.warning);
 
                 return;
             }
@@ -437,7 +426,7 @@ namespace YAF.Controls
             {
                 this.PageContext.AddLoadMessage(
                     this.GetTextFormatted("FIELD_TOOLONG", this.GetText("CP_EDITPROFILE", "OCCUPATION"), 400),
-                    MessageTypes.Warning);
+                    MessageTypes.warning);
 
                 return;
             }

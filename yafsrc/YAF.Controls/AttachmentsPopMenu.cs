@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -42,15 +42,6 @@ namespace YAF.Controls
     /// </summary>
     public class AttachmentsPopMenu : BaseControl, IPostBackEventHandler
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _control.
-        /// </summary>
-        private string _control = string.Empty;
-
-        #endregion
-
         #region Events
 
         /// <summary>
@@ -65,40 +56,17 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets or sets Control.
         /// </summary>
-        public string Control
-        {
-            get
-            {
-                return this._control;
-            }
-
-            set
-            {
-                this._control = value;
-            }
-        }
+        public string Control { get; set; } = string.Empty;
 
         /// <summary>
         ///   Gets ControlOnClick.
         /// </summary>
-        public string ControlOnClick
-        {
-            get
-            {
-                return "yaf_popit('{0}')".FormatWith(this.ClientID);
-            }
-        }
+        public string ControlOnClick => "yaf_popit('{0}')".FormatWith(this.ClientID);
 
         /// <summary>
         ///   Gets ControlOnMouseOver.
         /// </summary>
-        public string ControlOnMouseOver
-        {
-            get
-            {
-                return "yaf_mouseover('{0}')".FormatWith(this.ClientID);
-            }
-        }
+        public string ControlOnMouseOver => "yaf_mouseover('{0}')".FormatWith(this.ClientID);
 
         #endregion
 
@@ -107,13 +75,13 @@ namespace YAF.Controls
         /// <summary>
         /// The attach.
         /// </summary>
-        /// <param name="ctl">
-        /// The ctl.
+        /// <param name="control">
+        /// The control.
         /// </param>
-        public void Attach([NotNull] WebControl ctl)
+        public void Attach([NotNull] WebControl control)
         {
-            ctl.Attributes["onclick"] = this.ControlOnClick;
-            ctl.Attributes["onmouseover"] = this.ControlOnMouseOver;
+            control.Attributes["onclick"] = this.ControlOnClick;
+            control.Attributes["onmouseover"] = this.ControlOnMouseOver;
         }
 
         #endregion
@@ -130,10 +98,7 @@ namespace YAF.Controls
         /// </param>
         public void RaisePostBackEvent([NotNull] string eventArgument)
         {
-            if (this.ItemClick != null)
-            {
-                this.ItemClick(this, new PopEventArgs(eventArgument));
-            }
+            this.ItemClick?.Invoke(this, new PopEventArgs(eventArgument));
         }
 
         #endregion
@@ -157,7 +122,7 @@ namespace YAF.Controls
 
             var sb = new StringBuilder();
             sb.AppendFormat(
-                @"<div class=""yafpopupmenu AttachmentListMenu"" id=""{0}"" style=""position:absolute;z-index:100;left:0;top:0;display:none;"">",
+                @"<div class=""AttachmentListMenu dropdown-item"" id=""{0}"">",
                 this.ClientID);
 
             sb.Append("<div id=\"AttachmentsListBox\" class=\"content\">");
@@ -172,13 +137,17 @@ namespace YAF.Controls
             sb.Append("<div id=\"AttachmentsListBox\" class=\"content\">");
             sb.AppendFormat(
                 "<div id=\"PostAttachmentListPlaceholder\" data-url=\"{0}\" data-userid=\"{1}\" data-notext=\"{2}\" style=\"clear: both;\">",
-                YafForumInfo.ForumClientFileRoot, YafContext.Current.PageUserID, this.Get<ILocalization>().GetText("ATTACHMENTS", "NO_ATTACHMENTS"));
+                YafForumInfo.ForumClientFileRoot,
+                YafContext.Current.PageUserID,
+                this.Get<ILocalization>().GetText("ATTACHMENTS", "NO_ATTACHMENTS"));
             sb.Append("<ul class=\"AttachmentList\">");
             sb.Append("</ul>");
             sb.Append("</div>");
+            sb.Append("<div class=\"m-x-auto OpenUploadDialog\">");
             sb.AppendFormat(
-                "<span class=\"UploadNewFileLine\"><a class=\"OpenUploadDialog yaflittlebutton\" onclick=\"jQuery('.UploadDialog').dialog('open');\"><span>{0}</span></a></span>",
+                "<button type=\"button\" class=\"btn btn-primary btn-sm\" onclick=\"jQuery('.UploadDialog').dialog('open');\">{0}</button>",
                 this.Get<ILocalization>().GetText("ATTACHMENTS", "UPLOAD_NEW"));
+            sb.Append("</div>");
 
             sb.Append("</div>");
             sb.AppendFormat("</div>");

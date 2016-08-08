@@ -7,7 +7,7 @@
     <GetAssemblyIdentity AssemblyFiles="$(MSBuildProjectDirectory)\bin\YAF.dll">
       <Output TaskParameter="Assemblies" ItemName="AssemblyIdentities"/>
     </GetAssemblyIdentity>
-    
+
     <ItemGroup>
       <DefaultExclude Include="**\.svn\**" />
       <DefaultExclude Include="**\bin\**" />
@@ -39,8 +39,6 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.fileupload.comb.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumExtensions.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.hovercard.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.msDropDown.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.notification.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.pagemethod.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.pagination.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.selectedQuoting.js" />
@@ -50,10 +48,9 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.tablesorter.pager.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.timeago.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ui.datepicker-farsi.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.yafmodaldialog.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-2.1.4.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-2.1.4-vsdoc.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-ui-1.11.4.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.1.0.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.1.0-vsdoc.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-ui-1.12.0.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-ui-i18n.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jsdifflib.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jsdifflib.min.js" />
@@ -97,13 +94,13 @@
 
     <ItemGroup>
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.ascx" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
-      <yafInstall-Include 
-        Include="$(MSBuildProjectDirectory)\**\*.js" 
-        Exclude="@(DefaultExclude)" 
+      <yafInstall-Include
+        Include="$(MSBuildProjectDirectory)\**\*.js"
+        Exclude="@(DefaultExclude)"
       />
-      <yafInstall-Include 
-        Include="$(MSBuildProjectDirectory)\**\*.css" 
-        Exclude="@(DefaultExclude)" 
+      <yafInstall-Include
+        Include="$(MSBuildProjectDirectory)\**\*.css"
+        Exclude="@(DefaultExclude)"
       />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.html" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.htm" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
@@ -135,7 +132,7 @@
     <CreateItem Include="$(MSBuildProjectDirectory)\bin\*.dll">
       <Output TaskParameter="Include" ItemName="LibaryFiles" />
     </CreateItem>
-    
+
     <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\CHANGES.md" DestinationFolder="$(MSBuildProjectDirectory)\Package\" />
     <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\LICENSE.md" DestinationFolder="$(MSBuildProjectDirectory)\Package\" />
     <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\README.md" DestinationFolder="$(MSBuildProjectDirectory)\Package\" />
@@ -143,7 +140,7 @@
     <Copy SourceFiles="@(LibaryFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package\bin"/>
     <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended.web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\recommended.web.config"/>
     <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended-azure.web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\recommended-azure.web.config"/>
-    
+
     <!-- Minify JS and CSS Files -->
     <ItemGroup>
       <JS Include="$(MSBuildProjectDirectory)\Package\**\*.js" Exclude="**\*.min.js;**\*-min.js;**\*_src.js;$(MSBuildProjectDirectory)\Package\Scripts\**\*.js;" />
@@ -158,19 +155,19 @@
     </CreateItem>
 
     <!-- Create the Install package -->
-    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create" 
+    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create"
                         CompressFiles="@(OutputContentInstall)" CompressionLevel="BestCompression" RemoveRoot="$(MSBuildProjectDirectory)\Package\" ZipFileName="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Install.$(Extension)" />
 
     <!-- Copy the Install package to the Packages folder -->
     <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Install.$(Extension)" DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
-    
+
     <!--Create Deploy Package -->
-    
+
     <ItemGroup>
       <yafDeploy-Include Include="$(MSBuildProjectDirectory)\Package\**\*.*" />
      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.mdf" />
     </ItemGroup>
-    
+
     <Copy SourceFiles="@(yafInstall-Include)" DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\%(RecursiveDir)" />
     <Copy SourceFiles="@(LibaryFiles)" DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\bin"/>
     <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended.web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\web.config"/>
@@ -178,20 +175,20 @@
     <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\InstallSQL.sql" DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy" />
     <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\Manifest.xml" DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy" />
     <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\Parameters.xml" DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy" />
-    
+
     <CreateItem Include="$(MSBuildProjectDirectory)\Package\deploy\**\*.*">
       <Output TaskParameter="Include" ItemName="OutputContentDeploy" />
     </CreateItem>
 
     <!-- Create the Deploy package -->
-    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create" 
+    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create"
                         CompressFiles="@(OutputContentDeploy)" CompressionLevel="BestCompression" RemoveRoot="$(MSBuildProjectDirectory)\Package\deploy" ZipFileName="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Deploy.$(Extension)" />
-    
+
     <!-- Copy the Deploy package to the Packages folder -->
     <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Deploy.$(Extension)" DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
-    
+
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\Package\deploy" />
-    
+
     <!-- / END Deploy Package-->
 
     <Move SourceFiles="$(MSBuildProjectDirectory)\Package\app.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\app.config"/>
@@ -199,7 +196,7 @@
     <Move SourceFiles="$(MSBuildProjectDirectory)\Package\mail.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\mail.config"/>
     <Move SourceFiles="$(MSBuildProjectDirectory)\Package\recommended.web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\recommended.web.config"/>
     <Move SourceFiles="$(MSBuildProjectDirectory)\Package\recommended-azure.web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\recommended-azure.web.config"/>
-    
+
     <Copy SourceFiles="$(MSBuildProjectDirectory)\v1.9.1.upgrade.web.config" DestinationFiles="$(MSBuildProjectDirectory)\Package\v1.9.1.upgrade.web.config"/>
 
     <CreateItem Include="$(MSBuildProjectDirectory)\Package\**\*.*">
@@ -207,14 +204,14 @@
     </CreateItem>
 
     <!-- Create the Upgrade package -->
-    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create" 
+    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create"
                         CompressFiles="@(OutputContentUpgrade)" CompressionLevel="BestCompression" RemoveRoot="$(MSBuildProjectDirectory)\Package\" ZipFileName="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Upgrade.$(Extension)" />
-    
+
     <!-- Copy the Upgrade package to the Packages folder -->
     <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Upgrade.$(Extension)" DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
 
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\Package" />
 
-    
+
   </Target>
 </Project>

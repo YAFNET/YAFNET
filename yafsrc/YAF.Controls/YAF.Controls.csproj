@@ -107,7 +107,6 @@
     <Compile Include="Localized\LocalizedCustomValidator.cs" />
     <Compile Include="Localized\LocalizedRequiredFieldValidator.cs" />
     <Compile Include="HelpLabel.cs" />
-    <Compile Include="MessageBox.cs" />
     <Compile Include="PopEventArgs.cs" />
     <Compile Include="ReCAPTCHA\Recaptcha.cs" />
     <Compile Include="ReCAPTCHA\RecaptchaResponse.cs" />

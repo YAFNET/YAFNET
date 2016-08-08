@@ -87,9 +87,10 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Add_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var addButton = (Button)sender;
+            var addButton = (LinkButton)sender;
 
-            addButton.Text = addButton.ToolTip = this.GetText("ADMIN_BANNEDEMAIL", "ADD_IP");
+            addButton.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_BANNEDEMAIL", "ADD_IP"));
+            addButton.ToolTip = this.GetText("ADMIN_BANNEDEMAIL", "ADD_IP");
         }
 
         /// <summary>
@@ -99,9 +100,10 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Import_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var importButton = (Button)sender;
+            var importButton = (LinkButton)sender;
 
-            importButton.Text = importButton.ToolTip = this.GetText("ADMIN_BANNEDEMAIL", "IMPORT_IPS");
+            importButton.Text = "<i class=\"fa fa-upload fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_BANNEDEMAIL", "IMPORT_IPS"));
+            importButton.ToolTip = this.GetText("ADMIN_BANNEDEMAIL", "IMPORT_IPS");
         }
 
         /// <summary>
@@ -111,8 +113,10 @@ namespace YAF.Pages.Admin
         /// <param name="e">The e.</param>
         protected void ExportLoad(object sender, EventArgs e)
         {
-            var exportButton = (Button)sender;
-            exportButton.Text = exportButton.ToolTip = this.GetText("ADMIN_BANNEDIP", "EXPORT");
+            var exportButton = (LinkButton)sender;
+
+            exportButton.Text = "<i class=\"fa fa-download fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_BANNEDIP", "EXPORT"));
+            exportButton.ToolTip = this.GetText("ADMIN_BANNEDIP", "EXPORT");
         }
 
         /// <summary>

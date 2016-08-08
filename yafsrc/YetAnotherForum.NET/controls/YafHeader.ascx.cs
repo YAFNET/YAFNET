@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -94,7 +94,6 @@ namespace YAF.Controls
             notification.Show(
                 this.GetText("TOOLBAR", "LOGOUT_QUESTION"),
                 "Logout?",
-                DialogBox.DialogIcon.Question,
                 new DialogBox.DialogButton
                     {
                         Text = this.GetText("TOOLBAR", "LOGOUT"),
@@ -117,7 +116,7 @@ namespace YAF.Controls
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             this.RenderQuickSearch();
-           
+
             base.OnPreRender(e);
         }
 
@@ -235,7 +234,7 @@ namespace YAF.Controls
             else
             {
                 liElement.Controls.Add(link);
-            } 
+            }
 
             if (showUnread)
             {
@@ -422,7 +421,7 @@ namespace YAF.Controls
                     this.GetText("TOOLBAR", "MEMBERS"),
                     this.GetText("TOOLBAR", "MEMBERS_TITLE"),
                     YafBuildLink.GetLink(ForumPages.members),
-                    false, 
+                    false,
                     false,
                     null,
                     null);
@@ -438,7 +437,7 @@ namespace YAF.Controls
                     this.GetText("TOOLBAR", "TEAM"),
                     this.GetText("TOOLBAR", "TEAM_TITLE"),
                     YafBuildLink.GetLink(ForumPages.team),
-                    false, 
+                    false,
                     false,
                     null,
                     null);
@@ -454,7 +453,7 @@ namespace YAF.Controls
                     this.GetText("TOOLBAR", "HELP"),
                     this.GetText("TOOLBAR", "HELP_TITLE"),
                     YafBuildLink.GetLink(ForumPages.help_index),
-                    false, 
+                    false,
                     false,
                     null,
                     null);
@@ -606,7 +605,7 @@ namespace YAF.Controls
                 false,//this.PageContext.UnreadTopics > 0,
                 string.Empty,//this.PageContext.UnreadTopics.ToString(),
                 string.Empty);//this.GetText("TOOLBAR", "UNREADTOPICS").FormatWith(this.PageContext.UnreadTopics));
-            
+
             // Logout
             if (!Config.IsAnyPortal && Config.AllowLoginAndLogoff)
             {
@@ -628,7 +627,7 @@ namespace YAF.Controls
 
             var userLink = new UserLink
                 {
-                    ID = "UserLoggedIn", 
+                    ID = "UserLoggedIn",
                     UserID = this.PageContext.PageUserID,
                     CssClass = "currentUser",
                     EnableHoverCard = false
@@ -737,7 +736,7 @@ namespace YAF.Controls
                 this.GuestUserMessage.Controls.Clear();
                 this.GuestUserMessage.Controls.Add(
                     new Label { Text = this.GetText("TOOLBAR", "WELCOME_GUEST_NO") });
-            }           
+            }
         }
 
         #endregion

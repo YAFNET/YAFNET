@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -77,7 +77,7 @@ namespace YAF.Pages.Admin
             this.Page.Header.Title = "{0} - {1}".FormatWith(
                 this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_BOARDSETTINGS", "TITLE"));
 
-            this.Save.Text = this.GetText("COMMON", "SAVE");
+            this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
 
             // create list boxes by populating datasources from Data class
             var themeData = StaticDataHelper.Themes().AsEnumerable().Where(x => !x.Field<bool>("IsMobile"));
@@ -168,7 +168,7 @@ namespace YAF.Pages.Admin
 
             // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
             /* SetSelectedOnList(
-                ref this.Culture, 
+                ref this.Culture,
                 langFileCulture.Substring(0, 2) == this.Get<YafBoardSettings>().Culture
                   ? this.Get<YafBoardSettings>().Culture
                   : langFileCulture);*/
@@ -306,7 +306,29 @@ namespace YAF.Pages.Admin
         {
             var selItem = list.Items.FindByValue(value);
 
-            list.ClearSelection(); 
+            list.ClearSelection();
+
+            if (selItem != null)
+            {
+                selItem.Selected = true;
+            }
+            else if (list.Items.Count > 0)
+            {
+                // select the first...
+                list.SelectedIndex = 0;
+            }
+        }
+
+        /// <summary>
+        /// The set selected on list.
+        /// </summary>
+        /// <param name="list">The list.</param>
+        /// <param name="value">The value.</param>
+        private static void SetSelectedOnList([NotNull] ref RadioButtonList list, [NotNull] string value)
+        {
+            var selItem = list.Items.FindByValue(value);
+
+            list.ClearSelection();
 
             if (selItem != null)
             {

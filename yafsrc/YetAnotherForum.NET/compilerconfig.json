@@ -46,5 +46,29 @@
   {
     "outputFile": "Scripts/jquery.ForumExtensions.es5.js",
     "inputFile": "Scripts/jquery.ForumExtensions.js"
+  },
+  {
+    "outputFile": "Content/forum-admin.css",
+    "inputFile": "Content/forum-admin.scss"
+  },
+  {
+    "outputFile": "Content/_bootstrap-datetimepicker.css",
+    "inputFile": "Content/_bootstrap-datetimepicker.less"
+  },
+  {
+    "outputFile": "Content/bootstrap-datetimepicker.css",
+    "inputFile": "Content/bootstrap-datetimepicker.less"
+  },
+  {
+    "outputFile": "Content/bootstrap/bootstrap.css",
+    "inputFile": "Content/bootstrap/bootstrap.scss"
+  },
+  {
+    "outputFile": "Content/bootstrap-datetimepicker-build.css",
+    "inputFile": "Content/bootstrap-datetimepicker-build.scss"
+  },
+  {
+    "outputFile": "Scripts/yafEditor/yafEditor.es5.js",
+    "inputFile": "Scripts/yafEditor/yafEditor.js"
   }
 ]

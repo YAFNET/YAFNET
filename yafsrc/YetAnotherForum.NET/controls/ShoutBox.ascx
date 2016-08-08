@@ -146,8 +146,8 @@
                                 <asp:Repeater ID="smiliesRepeater" Visible="<%# this.Get<YafBoardSettings>().ShowShoutboxSmiles %>"
                                     runat="server">
                                     <ItemTemplate>
-                                        <asp:ImageButton ID="ImageButton1" ImageUrl='<%# YafForumInfo.ForumClientFileRoot + YafBoardFolders.Current.Emoticons + "/" + Eval("Icon") %>'
-                                            ToolTip='<%# Eval("Code") %>' OnClientClick='<%# FormatSmiliesOnClickString(Eval("Code").ToString(),Eval("Icon").ToString()) %>'
+                                        <asp:ImageButton ID="ImageButton1" ImageUrl='<%# YafForumInfo.ForumClientFileRoot + YafBoardFolders.Current.Emoticons + "/" + this.Eval("Icon") %>'
+                                            ToolTip='<%# this.Eval("Code") %>' OnClientClick='<%# FormatSmiliesOnClickString(Eval("Code").ToString(),Eval("Icon").ToString()) %>'
                                             runat="server" />
                                     </ItemTemplate>
                                 </asp:Repeater>

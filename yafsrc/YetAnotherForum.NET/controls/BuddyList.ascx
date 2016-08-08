@@ -33,12 +33,12 @@
         <ItemTemplate>
             <tr>
                 <td class="post">
-                    <YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%# CurrentUserID == Convert.ToInt32(Eval("UserID")) ? Eval("FromUserID") : Eval("UserID") %>' />
-                    <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( Eval("UserID") )%>'
-                        Style="vertical-align: bottom" UserID='<%# Eval("UserID") %>' />
+                    <YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%# CurrentUserID == Convert.ToInt32(Eval("UserID")) ? this.Eval("FromUserID") : this.Eval("UserID") %>' />
+                    <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( this.Eval("UserID") )%>'
+                        Style="vertical-align: bottom" UserID='<%# this.Eval("UserID") %>' />
                 </td>
                 <td class="post">
-                    <%# Eval("RankName") %>
+                    <%# this.Eval("RankName") %>
                 </td>
                 <td class="post">
                     <%# this.Get<IDateTime>().FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %>
@@ -52,16 +52,16 @@
                 <td class="post" runat="server" id="tdLastCol">
                     <asp:Panel ID="pnlRemove" runat="server" Visible="false">
                         <asp:LinkButton ID="lnkRemove" runat="server" Text='<%# this.GetText("REMOVEBUDDY") %>'
-                           OnLoad="Remove_Load"  CommandName="remove" CommandArgument='<%# Eval("UserID") %>'></asp:LinkButton>
+                           OnLoad="Remove_Load"  CommandName="remove" CommandArgument='<%# this.Eval("UserID") %>'></asp:LinkButton>
                     </asp:Panel>
                     <asp:Panel ID="pnlPending" runat="server" Visible="false">
-                        <asp:LinkButton runat="server" CommandName="approve" CommandArgument='<%# Eval("FromUserID") %>'
+                        <asp:LinkButton runat="server" CommandName="approve" CommandArgument='<%# this.Eval("FromUserID") %>'
                             Text='<%# this.GetText("APPROVE") %>' />
                         |
-                        <asp:LinkButton runat="server" OnLoad="Deny_Load" CommandName="deny" CommandArgument='<%# Eval("FromUserID") %>'
+                        <asp:LinkButton runat="server" OnLoad="Deny_Load" CommandName="deny" CommandArgument='<%# this.Eval("FromUserID") %>'
                             Text='<%# this.GetText("DENY") %>' />
                         |
-                        <asp:LinkButton runat="server" CommandName="approveadd" CommandArgument='<%# Eval("FromUserID") %>'
+                        <asp:LinkButton runat="server" CommandName="approveadd" CommandArgument='<%# this.Eval("FromUserID") %>'
                             Text='<%# this.GetText("APPROVE_ADD") %>' />
                     </asp:Panel>
                     <asp:Panel ID="pnlRequests" runat="server" Visible="false">

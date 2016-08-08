@@ -403,6 +403,7 @@
     <Resource tag="DISABLED">Disabled</Resource>
     <Resource tag="NO">No</Resource>
     <Resource tag="SAVE">Save</Resource>
+    <Resource tag="TABLE_RESPONSIVE">Swipe Table to the left to Reveal More Data</Resource>
     <Resource tag="YES">Yes</Resource>
   </page>
   <page name="ADMIN_DELETEFORUM">
@@ -953,7 +954,7 @@
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Active Topics Feeds Access:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Restrict display of active topics feeds.</Resource>
     <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
-    <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href="https://akismet.com/signup/"&gt;Sign Up here&lt;a&gt;</Resource>
+    <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href="https://akismet.com/signup/"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Albums Per Page:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Number of albums to show per page.</Resource>
     <Resource tag="ALL_USERS">All Users</Resource>
@@ -1047,7 +1048,7 @@
     <Resource tag="BOT_MESSAGE_1">Approve User &amp; Log User &amp; Send Admin an Email</Resource>
     <Resource tag="BOT_MESSAGE_2">Block User</Resource>
     <Resource tag="BOTSCOUT_KEY">BotScout.com API Key:</Resource>
-    <Resource tag="BOTSCOUT_KEY_HELP">To Use the BotScout Bot Service you need an API Key &lt;a href="http://botscout.com/getkey.htm"&gt;Sign Up here&lt;a&gt;</Resource>
+    <Resource tag="BOTSCOUT_KEY_HELP">To Use the BotScout Bot Service you need an API Key &lt;a href="http://botscout.com/getkey.htm"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER">Enable CAPTCHA/reCAPTCHA for Register:</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER_HELP">Require users to enter the CAPTCHA when they register for the forum.</Resource>
     <Resource tag="CAPTCHA_GUEST_POSTING">Enable CAPTCHA for Guest Posting:</Resource>
@@ -1454,7 +1455,7 @@
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistics Cache Timeout:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In minutes</Resource>
     <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
-    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;</Resource>
+    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="STYLED_NICKS">Use styled nicks:</Resource>
     <Resource tag="STYLED_NICKS_HELP">If checked, you can use colors, font size change etc. for active users nicks.</Resource>
     <Resource tag="STYLED_TOPIC_TITLES">Use styled Topic Titles:</Resource>
@@ -2064,7 +2065,7 @@
     <Resource tag="BBCODE_QUOTEPOSTED_TT">Vai al messaggio citato</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} ha scritto:</Resource>
     <Resource tag="CAL_JQ_CULTURE">it</Resource>
-    <Resource tag="CAL_JQ_CULTURE_DFORMAT">dd/MM/YY</Resource>
+    <Resource tag="CAL_JQ_CULTURE_DFORMAT">dd/MM/YYYY</Resource>
     <Resource tag="CAL_JQ_TT">Click per selezionare la data</Resource>
     <Resource tag="CAN_DELETE">Tu [b]puoi[/b] cancellare messaggi in questo forum.</Resource>
     <Resource tag="CAN_EDIT">Tu [b]puoi[/b] modificare messaggi in questo forum.</Resource>
@@ -2114,6 +2115,7 @@
     <Resource tag="HTMLTAG_WRONG">Il testo inserito contiene il tag HTML proibito {0}.</Resource>
     <Resource tag="LOADING">In caricamento...</Resource>
     <Resource tag="MAX_ONLINE">Il numero massimo di utenti registrati in linea è stato {0} il {1}. Ora sul forum:</Resource>
+    <Resource tag="MENU">Menu</Resource>
     <Resource tag="MESSAGE">Messaggio</Resource>
     <Resource tag="MOBILE_FULLSITE">Mostra sito completo</Resource>
     <Resource tag="MOBILE_VIEWSITE">Mostra sito mobile</Resource>

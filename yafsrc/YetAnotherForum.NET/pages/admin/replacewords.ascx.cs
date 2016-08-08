@@ -68,8 +68,8 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void addLoad(object sender, EventArgs e)
         {
-            var add = (Button)sender;
-            add.Text = this.GetText("ADMIN_REPLACEWORDS", "ADD");
+            var add = (LinkButton)sender;
+            add.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_REPLACEWORDS", "ADD"));
         }
 
         /// <summary>
@@ -83,8 +83,8 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void exportLoad(object sender, EventArgs e)
         {
-            var export = (Button)sender;
-            export.Text = this.GetText("ADMIN_REPLACEWORDS", "EXPORT");
+            var export = (LinkButton)sender;
+            export.Text = "<i class=\"fa fa-download fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_REPLACEWORDS", "EXPORT"));
         }
 
         /// <summary>
@@ -98,8 +98,8 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void importLoad(object sender, EventArgs e)
         {
-            var import = (Button)sender;
-            import.Text = this.GetText("ADMIN_REPLACEWORDS", "IMPORT");
+            var import = (LinkButton)sender;
+            import.Text = "<i class=\"fa fa-upload fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_REPLACEWORDS", "IMPORT"));
         }
 
         /// <summary>

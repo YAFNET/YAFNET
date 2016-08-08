@@ -403,6 +403,7 @@
     <Resource tag="DISABLED">Отключено</Resource>
     <Resource tag="NO">Нет</Resource>
     <Resource tag="SAVE">Сохранить</Resource>
+    <Resource tag="TABLE_RESPONSIVE">Swipe Table to the left to Reveal More Data</Resource>
     <Resource tag="YES">Да</Resource>
   </page>
   <page name="ADMIN_DELETEFORUM">
@@ -953,7 +954,7 @@
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Доступ к ленте Активных тем:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Ограничить/запретить показ лент активных тем.</Resource>
     <Resource tag="AKISMET_KEY">Ключ Akismet API:</Resource>
-    <Resource tag="AKISMET_KEY_HELP">Чтобы использовать службу антиспама Akismet необходим ключ API Key &lt;a href="https://akismet.com/signup/"&gt;Подпишитесь здесь&lt;a&gt;</Resource>
+    <Resource tag="AKISMET_KEY_HELP">Чтобы использовать службу антиспама Akismet необходим ключ API Key &lt;a href="https://akismet.com/signup/"&gt;Подпишитесь здесь&lt;a&gt;.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Кол-во альбомов на странице:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Кол-во альбомов отображаемых на одной странице.</Resource>
     <Resource tag="ALL_USERS">Все пользователи</Resource>
@@ -1047,7 +1048,7 @@
     <Resource tag="BOT_MESSAGE_1">Approve User &amp; Log User &amp; Send Admin an Email</Resource>
     <Resource tag="BOT_MESSAGE_2">Block User</Resource>
     <Resource tag="BOTSCOUT_KEY">BotScout.com API Key:</Resource>
-    <Resource tag="BOTSCOUT_KEY_HELP">To Use the BotScout Bot Service you need an API Key &lt;a href="http://botscout.com/getkey.htm"&gt;Sign Up here&lt;a&gt;</Resource>
+    <Resource tag="BOTSCOUT_KEY_HELP">To Use the BotScout Bot Service you need an API Key &lt;a href="http://botscout.com/getkey.htm"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER">Включить CAPTCHA/reCAPTCHA при регистрации:</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER_HELP">Требовать от пользователей ввести данные CAPTCHA при регистрации на форуме.</Resource>
     <Resource tag="CAPTCHA_GUEST_POSTING">Включить CAPTCHA при постах гостей:</Resource>
@@ -1453,7 +1454,7 @@
     <Resource tag="STATS_CACHE_TIMEOUT">Таймаут кэша статистики форума:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">В минутах</Resource>
     <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
-    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;</Resource>
+    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="STYLED_NICKS">Использовать стилизированные ники:</Resource>
     <Resource tag="STYLED_NICKS_HELP">Если включено, вы можете использовать цвета или иное форматирование для ников пользователей. Может быть индивидуальным для каждого скина.</Resource>
     <Resource tag="STYLED_TOPIC_TITLES">Использовать стилизированные названия тем:</Resource>
@@ -2100,6 +2101,7 @@
     <Resource tag="HTMLTAG_WRONG">Введённые данные содержат запрещённый HTML тег {0}.</Resource>
     <Resource tag="LOADING">Загрузка...</Resource>
     <Resource tag="MAX_ONLINE">{1} было больше всего пользователей - {0}.</Resource>
+    <Resource tag="MENU">Menu</Resource>
     <Resource tag="MESSAGE">Сообщение</Resource>
     <Resource tag="MOBILE_FULLSITE">Просмотр всего сайта</Resource>
     <Resource tag="MOBILE_VIEWSITE">Мобильная версия</Resource>

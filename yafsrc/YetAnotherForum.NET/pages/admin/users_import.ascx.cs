@@ -116,7 +116,7 @@ namespace YAF.Pages.Admin
                     default:
                         {
                             this.PageContext.AddLoadMessage(
-                                this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED_FORMAT"), MessageTypes.Error);
+                                this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED_FORMAT"), MessageTypes.danger);
                             return;
                         }
                 }
@@ -125,14 +125,14 @@ namespace YAF.Pages.Admin
                     importedCount > 0
                         ? this.GetText("ADMIN_USERS_IMPORT", "IMPORT_SUCESS").FormatWith(importedCount)
                         : this.GetText("ADMIN_USERS_IMPORT", "IMPORT_NOTHING"),
-                    importedCount > 0 ? MessageTypes.Success : MessageTypes.Information);
+                    importedCount > 0 ? MessageTypes.success : MessageTypes.info);
 
                 YafBuildLink.Redirect(ForumPages.admin_users);
             }
             catch (Exception x)
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED").FormatWith(x.Message), MessageTypes.Error);
+                    this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED").FormatWith(x.Message), MessageTypes.danger);
             }
         }
 
@@ -173,8 +173,8 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_USERS", "TITLE"),
                 this.GetText("ADMIN_USERS_IMPORT", "TITLE"));
 
-            this.Import.Text = this.GetText("ADMIN_USERS_IMPORT", "IMPORT");
-            this.cancel.Text = this.GetText("CANCEL");
+            this.Import.Text = "<i class=\"fa fa-upload fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_USERS_IMPORT", "IMPORT"));
+            this.cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
         }
 
         /// <summary>

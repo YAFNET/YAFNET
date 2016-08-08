@@ -82,7 +82,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow HideTr;
+        protected global::System.Web.UI.WebControls.PlaceHolder HideTr;
         
         /// <summary>
         /// LocalizedLabel35-Steuerelement
@@ -172,7 +172,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Gender;
+        protected global::System.Web.UI.WebControls.RadioButtonList Gender;
         
         /// <summary>
         /// LocalizedLabel6-Steuerelement
@@ -208,7 +208,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow RegionTr;
+        protected global::System.Web.UI.WebControls.PlaceHolder RegionTr;
         
         /// <summary>
         /// LocalizedLabel41-Steuerelement
@@ -622,7 +622,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow ForumSettingsRows;
+        protected global::System.Web.UI.WebControls.PlaceHolder ForumSettingsRows;
         
         /// <summary>
         /// LocalizedLabel23-Steuerelement
@@ -640,7 +640,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow UserThemeRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder UserThemeRow;
         
         /// <summary>
         /// LocalizedLabel22-Steuerelement
@@ -667,7 +667,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow TrTextEditors;
+        protected global::System.Web.UI.WebControls.PlaceHolder TrTextEditors;
         
         /// <summary>
         /// LocalizedLabel19-Steuerelement
@@ -694,7 +694,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow UseMobileThemeRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder UseMobileThemeRow;
         
         /// <summary>
         /// LocalizedLabel21-Steuerelement
@@ -721,7 +721,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow UserLanguageRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder UserLanguageRow;
         
         /// <summary>
         /// LocalizedLabel20-Steuerelement
@@ -784,7 +784,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button UpdateProfile;
+        protected global::System.Web.UI.WebControls.LinkButton UpdateProfile;
         
         /// <summary>
         /// Cancel-Steuerelement
@@ -793,6 +793,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Cancel;
+        protected global::System.Web.UI.WebControls.LinkButton Cancel;
     }
 }

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -47,36 +47,17 @@ namespace YAF.Editors
         ///   Gets Description.
         /// </summary>
         [NotNull]
-        public override string Description
-        {
-            get
-            {
-                return "Basic BBCode Editor";
-            }
-        }
+        public override string Description => "Basic BBCode Editor";
 
         /// <summary>
         ///   Gets ModuleId.
         /// </summary>
-        public override string ModuleId
-        {
-            get
-            {
-                // backward compatibility...
-                return "5";
-            }
-        }
+        public override string ModuleId => "5";
 
         /// <summary>
         ///   Gets a value indicating whether UsesBBCode.
         /// </summary>
-        public override bool UsesBBCode
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool UsesBBCode => true;
 
         #endregion
 
@@ -99,7 +80,7 @@ namespace YAF.Editors
                 this.ResolveUrl("yafEditor/yafEditor.min.js"));
 #endif
 
-YafContext.Current.PageElements.RegisterJsBlock(
+            YafContext.Current.PageElements.RegisterJsBlock(
                 "CreateYafEditorJs",
                 "var {0}=new yafEditor('{0}');\nfunction setStyle(style,option) {{\n{0}.FormatText(style,option);\n}}\nfunction insertAttachment(id,url) {{\n{0}.FormatText('attach', id);\n}}\n"
                     .FormatWith(this.SafeID));
@@ -117,7 +98,7 @@ YafContext.Current.PageElements.RegisterJsBlock(
         protected override void OnInit([NotNull] EventArgs e)
         {
             base.OnInit(e);
-            this._textCtl.Attributes.Add("class", "basicBBCodeEditor");
+            this._textCtl.Attributes.Add("class", "basicBBCodeEditor form-control");
         }
 
         #endregion

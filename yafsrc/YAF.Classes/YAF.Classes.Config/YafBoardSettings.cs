@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -698,7 +698,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether send an 
+        /// Gets or sets a value indicating whether send an
         /// Email when a Single User is awarded with an Medal.
         /// </summary>
         public bool EmailUserOnMedalAward
@@ -715,7 +715,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether 
+        /// Gets or sets a value indicating whether
         /// sending the user a welcome notification after register
         /// 0 = No Mail
         /// 1 = Send as Mail Message
@@ -735,7 +735,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether 
+        /// Gets or sets a value indicating whether
         /// which Spam Service Type should been used
         /// 0 = No Service
         /// 1 = BlogSpam.NET Service
@@ -756,7 +756,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether 
+        /// Gets or sets a value indicating whether
         /// which Spam Service Type should been used
         /// 0 = No Service
         /// 1 = StopForumSpam.com Service
@@ -778,7 +778,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether 
+        /// Gets or sets a value indicating whether
         /// what to to with a SPAM Message
         /// 0 = Do nothing
         /// 1 = Flag Message as Unapproved
@@ -799,7 +799,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether 
+        /// Gets or sets a value indicating whether
         /// what to to with Bots during Registration
         /// 0 = Disabled
         /// 1 = Log and Send Message to Admins
@@ -819,7 +819,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets the amount of posts a user has to have to be ignored 
+        /// Gets or sets the amount of posts a user has to have to be ignored
         /// by the spam check
         /// </summary>
         /// <value>
@@ -2112,25 +2112,6 @@ namespace YAF.Classes
             }
         }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether 
-        /// which Message Notification System should been used
-        /// 0 = Modal Dialog
-        /// 1 = Notification Bar
-        /// </summary>
-        public int MessageNotificationSystem
-        {
-            get
-            {
-                return this._reg.GetValue("MessageNotificationSystem", 1);
-            }
-
-            set
-            {
-                this._reg.SetValue("MessageNotificationSystem", value);
-            }
-        }
-
         #endregion
 
         #region boolean settings
@@ -2559,7 +2540,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether AllowPollChangesAfterFirstVote. 
+        /// Gets or sets a value indicating whether AllowPollChangesAfterFirstVote.
         /// A poll creator can't change choices after the first vote.
         /// </summary>
         public bool AllowPollChangesAfterFirstVote
@@ -2576,7 +2557,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether AllowUsersHidePollResults. 
+        /// Gets or sets a value indicating whether AllowUsersHidePollResults.
         /// </summary>
         public bool AllowUsersHidePollResults
         {
@@ -2640,7 +2621,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether AllowMultipleChoices. 
+        /// Gets or sets a value indicating whether AllowMultipleChoices.
         /// </summary>
         public bool AllowMultipleChoices
         {
@@ -2656,7 +2637,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether AllowGuestsViewPollOptions. 
+        /// Gets or sets a value indicating whether AllowGuestsViewPollOptions.
         /// </summary>
         public bool AllowGuestsViewPollOptions
         {
@@ -2672,7 +2653,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether AllowUsersImagedPoll. 
+        /// Gets or sets a value indicating whether AllowUsersImagedPoll.
         /// </summary>
         public bool AllowUsersImagedPoll
         {
@@ -3520,7 +3501,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets sets the Number of Views a Topic must have to became 
+        /// Gets or sets sets the Number of Views a Topic must have to became
         /// Hot.
         /// </summary>
         public int PopularTopicViews
@@ -3537,7 +3518,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets the Number of Replies a Topic must have to became 
+        /// Gets or sets the Number of Replies a Topic must have to became
         /// Hot.
         /// </summary>
         public int PopularTopicReplys
@@ -3602,6 +3583,25 @@ namespace YAF.Classes
             set
             {
                 this._regBoard.SetValue("DNNPageTab", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the DNN portal identifier.
+        /// </summary>
+        /// <value>
+        /// The DNN portal identifier.
+        /// </value>
+        public int DNNPortalId
+        {
+            get
+            {
+                return this._regBoard.GetValue("DNNPortalId", -1);
+            }
+
+            set
+            {
+                this._regBoard.SetValue("DNNPortalId", value);
             }
         }
 
@@ -3762,7 +3762,7 @@ namespace YAF.Classes
         /// <summary>
         /// Gets or sets IP Locator Results Mapping.
         /// </summary>
-        public string IPLocatorResultsMapping 
+        public string IPLocatorResultsMapping
         {
             get
             {
@@ -4635,7 +4635,7 @@ namespace YAF.Classes
         ///  Gets or sets the roles app name.
         /// </summary>
         protected virtual string _rolesAppName { get; set; }
-        
+
 
         #region Nested type: YafLegacyBoardSettings
 

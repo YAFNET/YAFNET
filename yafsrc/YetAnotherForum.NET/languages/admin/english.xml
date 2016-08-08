@@ -1355,7 +1355,7 @@
      <Resource tag="CHECK_FOR_SPAM">Choose a SPAM Service for Automatically SPAM Checking:</Resource>
      <Resource tag="CHECK_FOR_SPAM_HELP">Enables/disables automatically SPAM Checking via the &lt;a href=&quot;http://blogspam.net/&quot;&gt;BlogSpam.net API&lt;/a&gt; or Akismet.com. If enabled SPAM Post gets rejected if detected.</Resource>
 	 <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
-     <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href=&quot;https://akismet.com/signup/&quot;&gt;Sign Up here&lt;a&gt;</Resource>
+     <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href=&quot;https://akismet.com/signup/&quot;&gt;Sign Up here&lt;a&gt;.</Resource>
 	 <Resource tag="SPAM_MESSAGE_HANDLING">Handling of as SPAM Detected Messages</Resource>
      <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Choose what to do when a Message was detected a SPAM, You can choose between Do Nothing, Flag Message as Unapproved, or reject the Message.</Resource>
 	 <Resource tag="SPAM_MESSAGE_0">Do nothing</Resource>

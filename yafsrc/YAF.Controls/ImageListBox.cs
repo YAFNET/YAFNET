@@ -47,7 +47,18 @@ namespace YAF.Controls
         /// <value>
         /// The image location.
         /// </value>
-        public string ImageLocation { get; set; }
+        public string ImageLocation
+        {
+            get
+            {
+                return this.ViewState["ImageLocation"].ToString();
+            }
+
+            set
+            {
+                this.ViewState["ImageLocation"] = value;
+            }
+        }
 
         #endregion
 
@@ -63,11 +74,11 @@ namespace YAF.Controls
         {
             foreach (var item in this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()))
             {
-                item.Attributes.Add("data-class", "customicon");
                 item.Attributes.Add(
-                    "data-style",
-                    "background-image: url('{0}');".FormatWith(
-                        this.ImageLocation.FormatWith(item.Value)));
+                    "data-content",
+                    "<image src=\"{0}\" alt=\"{1}\" class=\"standardSelectMenu-Icon\" /><span>&nbsp;{1}</span>".FormatWith(
+                        this.ImageLocation.FormatWith(item.Value),
+                        item.Text));
             }
 
             base.Render(writer);

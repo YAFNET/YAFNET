@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,12 +25,12 @@ namespace YAF.Controls
 {
     #region Using
 
+    using System;
     using System.Web.UI;
 
     using YAF.Core;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 
@@ -81,7 +81,7 @@ namespace YAF.Controls
         /// </summary>
         protected string _param2 = string.Empty;
 
-         /// <summary>
+        /// <summary>
         /// The _param 0.
         /// </summary>
         protected string _paramHelp0 = string.Empty;
@@ -297,17 +297,21 @@ namespace YAF.Controls
         /// <summary>
         /// Shows the localized text string (if available)
         /// </summary>
-        /// <param name="output">
-        /// </param>
+        /// <param name="output">The output.</param>
         protected override void Render(HtmlTextWriter output)
         {
             output.BeginRender();
-            output.Write("<strong>");
+
+            var text = this.GetText(this.LocalizedPage, this.LocalizedTag)
+                    .FormatWith(this.Param0, this.Param1, this.Param2);
+
+            if (text.IsSet() && text.EndsWith(":"))
+            {
+                text = text.Remove(text.Length - 1, 1);
+            }
 
             // Write Title
-            output.Write(
-                this.GetText(this.LocalizedPage, this.LocalizedTag).FormatWith(
-                    this.Param0, this.Param1, this.Param2));
+            output.Write(text);
 
             // Append Suffix
             if (this.Suffix.IsSet())
@@ -315,17 +319,14 @@ namespace YAF.Controls
                 output.Write(this.Suffix);
             }
 
-            output.Write("</strong>");
-            output.Write("<br />");
+            var tooltip = this.GetText(this.LocalizedPage, this.LocalizedHelpTag)
+                .FormatWith(this.ParamHelp0, this.ParamHelp1, this.ParamHelp2);
 
-            output.Write("<em>");
+            tooltip = tooltip.IsSet() ? this.HtmlEncode(tooltip) : text;
 
-            // Write Help Text
             output.Write(
-                this.GetText(this.LocalizedPage, this.LocalizedHelpTag).FormatWith(
-                    this.ParamHelp0, this.ParamHelp1, this.ParamHelp2));
-
-            output.Write("</em>");
+                "&nbsp;<button type=\"button\" class=\"btn btn-primary btn-circle\" data-toggle=\"tooltip\" data-placement=\"right\" title=\"{0}\"><i class=\"fa fa-question\"></i></button>",
+                tooltip);
 
             output.EndRender();
         }

@@ -2,8 +2,8 @@
 <%@ Register TagPrefix="YAF" Assembly="YAF" Namespace="YAF" %>
 <%@ Register TagPrefix="YAF" Assembly="YAF.Controls" Namespace="YAF" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html lang="en">
 <head id="Head1" runat="server">
     <meta id="YafMetaScriptingLanguage" http-equiv="Content-Script-Type" runat="server"
         name="scriptlanguage" content="text/javascript" />
@@ -21,7 +21,7 @@
         <br />
         <form id="Form1" runat="server" enctype="multipart/form-data">
         <br />
-        <table border="0" width="100%" cellpadding="0" cellspacing="0">           
+        <table border="0" width="100%" cellpadding="0" cellspacing="0">
             <tr>
                 <td valign="top">
                     <YAF:Forum runat="server" ID="yafForum" />
@@ -32,7 +32,7 @@
                 <td width="200" valign="top">
                     <YAF:MostActiveUsers ID="MostActiveList" runat="server" DisplayNumber="10" />
                 </td>
-            </tr>          
+            </tr>
         </table>
         </form>
     </div>

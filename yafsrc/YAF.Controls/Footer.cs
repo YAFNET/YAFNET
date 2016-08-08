@@ -27,17 +27,12 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
     using System.Text;
     using System.Web;
     using System.Web.UI;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
-    using YAF.Core.Data.Profiling;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -62,13 +57,7 @@ namespace YAF.Controls
         ///   Gets ThisControl.
         /// </summary>
         [NotNull]
-        public Control ThisControl
-        {
-            get
-            {
-                return this;
-            }
-        }
+        public Control ThisControl => this;
 
         #endregion
 
@@ -104,14 +93,6 @@ namespace YAF.Controls
             this.Get<IStopWatch>().Stop();
 
             footer.Append(@"<br /><div class=""content"" style=""text-align:right;font-size:7pt"">");
-
-            if (this.PageContext.CurrentForumPage.IsAdminPage)
-            {
-                // show admin icons license...
-                footer.Append(
-                    @"<span style=""color:#999999""><a target=""_blank"" href=""http://www.pinvoke.com/"">Fugue Icons</a> &copy; 2009 Yusuke Kamiyamane</span>");
-                footer.Append("<br />");
-            }
 
             this.RenderMobileLink(footer);
 

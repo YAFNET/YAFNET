@@ -1,32 +1,40 @@
 <%@ Control language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.smilies_import" Codebehind="smilies_import.ascx.cs" %>
 
+
 <YAF:PageLinks runat="server" id="PageLinks"/>
-
-<YAF:adminmenu runat="server">
-
-<table class="content" width="100%" cellspacing="1" cellpadding="0">
-<tr>
-	<td class="header1" colspan="2"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_SMILIES_IMPORT" /></td>
-</tr>
-<tr>
-	      <td class="header2" height="30" colspan="2"></td>
-		</tr>
-<tr>
-	<td class="postheader" width="50%"><YAF:HelpLabel ID="LocalizedLabel2" runat="server" LocalizedTag="CHOOSE_PAK" LocalizedPage="ADMIN_SMILIES_IMPORT" /></td>
-	<td class="post" width="50"><asp:dropdownlist id="File" runat="server" Width="250"/></td>
-</tr>
-<tr>
-	<td class="postheader" width="50%"><YAF:HelpLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETE_EXISTING" LocalizedPage="ADMIN_SMILIES_IMPORT" /></td>
-	<td class="post" width="50%"><asp:checkbox id="DeleteExisting" runat="server"/></td>
-</tr>
-<tr>
-	<td class="footer1" colspan="2" align="center">
-		<asp:button id="import" runat="server"  CssClass="pbutton"/>
-		<asp:button id="cancel" runat="server"  CssClass="pbutton"/>
-	</td>
-</tr>
-</table>
-
-</YAF:adminmenu>
+<YAF:AdminMenu runat="server">
+<div class="row">
+    <div class="col-xl-12">
+        <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_SMILIES_IMPORT" /></h1>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card card-primary-outline">
+                <div class="card-header card-primary">
+                    <i class="fa fa-smile-o fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_SMILIES_IMPORT" />
+                </div>
+                <div class="card-block">
+                    <h4>
+                        <YAF:HelpLabel ID="LocalizedLabel2" runat="server" LocalizedTag="CHOOSE_PAK" LocalizedPage="ADMIN_SMILIES_IMPORT" />
+                    </h4>
+	                <p>
+	                    <asp:dropdownlist id="File" runat="server" CssClass="custom-select"/>
+	                </p>
+	                <h4>
+	                    <YAF:HelpLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DELETE_EXISTING" LocalizedPage="ADMIN_SMILIES_IMPORT" />
+	                </h4>
+	                <p>
+	                    <asp:checkbox id="DeleteExisting" runat="server" CssClass="form-control"/>
+	                </p>
+                </div>
+                <div class="card-footer text-lg-center">
+                    <asp:LinkButton id="import" runat="server"  CssClass="btn btn-primary"/>
+		            <asp:LinkButton id="cancel" runat="server"  CssClass="btn btn-secondary"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</YAF:AdminMenu>
 
 <YAF:SmartScroller id="SmartScroller1" runat = "server" />

@@ -1,34 +1,38 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.topicstatus_edit" Codebehind="topicstatus_edit.ascx.cs" %>
+
 <YAF:PageLinks runat="server" id="PageLinks" />
-<YAF:adminmenu runat="server" id="Adminmenu1">
-	<table class="content" cellspacing="1" cellpadding="0" width="100%">
-		<tr>
-			<td class="header1" colspan="2">
-              <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_TOPICSTATUS_EDIT" />
-            </td>
-		</tr>
-        <tr>
-	      <td class="header2" style="height:30px" colspan="2"></td>
-		</tr>
-		<tr>
-			<td class="postheader" width="50%">
+<YAF:AdminMenu runat="server" id="Adminmenu1">
+    <div class="row">
+        <div class="col-xl-12">
+            <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_TOPICSTATUS_EDIT" /></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card card-primary-outline">
+                <div class="card-header card-primary">
+                    <i class="fa fa-warning fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_TOPICSTATUS_EDIT" />
+			</div>
+                <div class="card-block">
+                    <h4>
                 <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="TOPICSTATUS_NAME" LocalizedPage="ADMIN_TOPICSTATUS_EDIT" />
-            </td>
-			<td class="post" width="50%">
-				<asp:textbox id="TopicStatusName" runat="server" Width="250" MaxLength="100"></asp:textbox></td>
-		</tr>
-        <tr>
-			<td class="postheader" width="50%">
+            </h4>
+			<p>
+				<asp:textbox id="TopicStatusName" runat="server" CssClass="form-control" MaxLength="100"></asp:textbox></p>
+            <hr />
+			<h4>
                 <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="DEFAULT_DESCRIPTION" LocalizedPage="ADMIN_TOPICSTATUS_EDIT" />
-            </td>
-			<td class="post" width="50%">
-				<asp:textbox id="DefaultDescription" runat="server" Width="250" MaxLength="100"></asp:textbox></td>
-		</tr>
-		<tr>
-			<td class="postfooter" style="text-align:center" colspan="2">
-				<asp:button id="save" runat="server" CssClass="pbutton"></asp:button>
-				<asp:button id="cancel" runat="server" CssClass="pbutton"></asp:button></td>
-		</tr>
-	</table>
-</YAF:adminmenu>
+            </h4>
+			<p>
+				<asp:textbox id="DefaultDescription" runat="server" CssClass="form-control" MaxLength="100"></asp:textbox></p>
+		 </div>
+                <div class="card-footer text-lg-center">
+				<asp:LinkButton id="save" runat="server" CssClass="btn btn-primary"></asp:LinkButton>
+                &nbsp;
+				<asp:LinkButton id="cancel" runat="server" CssClass="btn btn-secondary"></asp:LinkButton>
+                </div>
+            </div>
+        </div>
+    </div>
+</YAF:AdminMenu>
 <YAF:SmartScroller id="SmartScroller1" runat = "server" />

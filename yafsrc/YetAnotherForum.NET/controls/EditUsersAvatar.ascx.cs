@@ -29,6 +29,7 @@ namespace YAF.Controls
     using System;
     using System.Data;
     using System.Drawing;
+    using System.Drawing.Imaging;
     using System.IO;
     using System.Security.Cryptography;
     using System.Text;
@@ -126,13 +127,13 @@ namespace YAF.Controls
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this._currentUserID));
             }
 
-            this.UpdateRemote.Text = this.GetText("COMMON", "UPDATE");
-            this.UpdateUpload.Text = this.GetText("COMMON", "UPDATE");
-            this.Back.Text = this.GetText("COMMON", "BACK");
+            this.UpdateRemote.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "UPDATE"));
+            this.UpdateUpload.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "UPDATE"));
+            this.Back.Text = "<i class=\"fa fa-reply fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "BACK"));
 
             this.NoAvatar.Text = this.GetText("CP_EDITAVATAR", "NOAVATAR");
 
-            this.DeleteAvatar.Text = this.GetText("CP_EDITAVATAR", "AVATARDELETE");
+            this.DeleteAvatar.Text = "<i class=\"fa fa-trash fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CP_EDITAVATAR", "AVATARDELETE"));
             this.DeleteAvatar.Attributes["onclick"] =
                 "return confirm('{0}?')".FormatWith(this.GetText("CP_EDITAVATAR", "AVATARDELETE"));
 
@@ -257,7 +258,7 @@ namespace YAF.Controls
                         fileName = fileName.Substring(fileName.Length - 255);
                     }
 
-                    var newFileName = "{0}{1}".FormatWith(_currentUserID, Path.GetExtension(fileName));
+                    var newFileName = "{0}{1}".FormatWith(this._currentUserID, Path.GetExtension(fileName));
 
                     var filePath = Path.Combine(uploadFolderPath, newFileName);
 
@@ -269,13 +270,22 @@ namespace YAF.Controls
 
                     var avatarImage = Image.FromStream(resized ?? this.File.PostedFile.InputStream);
 
-                    avatarImage.Save(filePath, avatarImage.RawFormat);
+                    using (MemoryStream memory = new MemoryStream())
+                    {
+                        using (FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite))
+                        {
+                            avatarImage.Save(memory, avatarImage.RawFormat);
+                            byte[] bytes = memory.ToArray();
+                            fs.Write(bytes, 0, bytes.Length);
+                        }
+                    }
 
                     LegacyDb.user_saveavatar(
                         this._currentUserID,
                         "{0}{1}/{2}".FormatWith(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Uploads, newFileName),
                         null,
                         null);
+
                 }
 
                 // clear the cache for this user...
@@ -291,8 +301,16 @@ namespace YAF.Controls
 
                 this.BindData();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+                this.Logger
+                    .Log(
+                        exception.Message,
+                        EventLogTypes.Error,
+                        this.PageContext.CurrentUserData.UserName,
+                        string.Empty,
+                        exception);
+
                 // image is probably invalid...
                 this.PageContext.AddLoadMessage(this.GetText("CP_EDITAVATAR", "INVALID_FILE"));
             }
@@ -373,23 +391,9 @@ namespace YAF.Controls
                 this.NoAvatar.Visible = true;
             }
 
-            int rowSpan = 2;
-
             this.AvatarUploadRow.Visible = this.PageContext.CurrentForumPage.IsAdminPage || this.Get<YafBoardSettings>().AvatarUpload;
             this.AvatarRemoteRow.Visible = this.PageContext.CurrentForumPage.IsAdminPage || this.Get<YafBoardSettings>().AvatarRemote;
             this.AvatarOurs.Visible = this.PageContext.CurrentForumPage.IsAdminPage || this.Get<YafBoardSettings>().AvatarGallery;
-
-            if (this.PageContext.CurrentForumPage.IsAdminPage || this.Get<YafBoardSettings>().AvatarUpload)
-            {
-                rowSpan++;
-            }
-
-            if (this.PageContext.CurrentForumPage.IsAdminPage || this.Get<YafBoardSettings>().AvatarRemote)
-            {
-                rowSpan++;
-            }
-
-            this.avatarImageTD.RowSpan = rowSpan;
         }
 
         #endregion

@@ -1,30 +1,33 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.extensions_import" Codebehind="extensions_import.ascx.cs" %>
+
 <YAF:PageLinks ID="PageLinks" runat="server" />
-<YAF:AdminMenu ID="Adminmenu1" runat="server">
-	
-	<table class="content" cellspacing="1" cellpadding="0" width="100%">
-		<tr>
-			<td class="header1" colspan="2">
-              <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_EXTENSIONS_IMPORT" />
-            </td>
-		</tr>
-		<tr>
-			<td class="postheader" width="50%">
-              <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="IMPORT_FILE" LocalizedPage="ADMIN_EXTENSIONS_IMPORT" />
-            </td>
-			<td class="post" width="50%">
-			  <input type="file" id="importFile" class="pbutton" runat="server" style="width:250px" />
-			</td>
-		</tr>
-		<tr>
-			<td class="postfooter" align="center" colspan="2">
-				<asp:button id="Import" runat="server" CssClass="pbutton" OnClick="Import_OnClick"></asp:button>
-			
-			
-				<asp:button id="cancel" runat="server" CssClass="pbutton" OnClick="Cancel_OnClick"></asp:button></td>
-			
-			
-		</tr>
-	</table>
+<YAF:AdminMenu runat="server">
+    <div class="row">
+    <div class="col-xl-12">
+        <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_EXTENSIONS_IMPORT" /></h1>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card card-primary-outline">
+                <div class="card-header card-primary">
+                    <i class="fa fa-puzzle-piece fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_EXTENSIONS_IMPORT" />
+                </div>
+                <div class="card-block">
+			        <h4>
+                        <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="IMPORT_FILE" LocalizedPage="ADMIN_EXTENSIONS_IMPORT" />
+			        </h4>
+			        <p>
+                        <input type="file" id="importFile" class="form-control-file" runat="server" />
+			        </p>
+                </div>
+                <div class="card-footer text-lg-center">
+				<asp:LinkButton id="Import" runat="server" CssClass="btn btn-primary" OnClick="Import_OnClick"></asp:LinkButton>
+		        &nbsp;
+				<asp:LinkButton id="cancel" runat="server" CssClass="btn btn-secondary" OnClick="Cancel_OnClick"></asp:LinkButton>
+                </div>
+            </div>
+        </div>
+    </div>
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

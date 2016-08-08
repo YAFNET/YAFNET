@@ -2,18 +2,14 @@
   {
     "outputFileName": "Scripts/InstallWizard.comb.js",
     "inputFiles": [
+      "Scripts/jquery-3.1.0.js",
       "Scripts/spin.js",
       "Scripts/ladda.js",
-      "Scripts/jquery-2.2.3.js",
+      "Scripts/select2.js",
+      "Scripts/tether/tether.js",
       "Scripts/bootstrap.js",
-      "Scripts/bootstrap-select.js",
-      "Scripts/InstallWizard.js"
-    ],
-    "minify": {
-      "enabled": true
-    },
-    "includeInProject": true,
-    "sourceMaps": false
+      "Scripts/forum/InstallWizard.js"
+    ]
   },
   {
     "outputFileName": "Scripts/jquery.fileupload.comb.js",
@@ -28,50 +24,49 @@
       "Scripts/jquery.FileUpload/jquery.fileupload-validate.js",
       "Scripts/jquery.FileUpload/jquery.fileupload-ui.js",
       "Scripts/jquery.FileUpload/jquery.fileupload-jquery-ui.js"
-    ],
-    "minify": {
-      "enabled": true
-    },
-    "includeInProject": true,
-    "sourceMaps": false
+    ]
   },
   {
     "outputFileName": "Scripts/jquery.ForumExtensions.js",
     "inputFiles": [
-      "Scripts/DataPanel.js",
+      "Scripts/moment-with-locales.js",
+      "Scripts/metisMenu.js",
+      "Scripts/tether/tether.js",
+      "Scripts/bootstrap.js",
+      "Scripts/jquery.bootstrap-touchspin.js",
+      "Scripts/bootstrap-datetimepicker.js",
+      "Scripts/bootstrap-notify.js",
       "Scripts/jquery.ceebox.js",
       "Scripts/select2.js",
       "Scripts/jquery.blockUI.js",
       "Scripts/jquery.hovercard.js",
-      "Scripts/jquery.msDropDown.js",
-      "Scripts/jquery.notification.js",
       "Scripts/jquery.pagemethod.js",
       "Scripts/jquery.pagination.js",
       "Scripts/prism.js",
       "Scripts/jquery.selectedQuoting.js",
-      "Scripts/jquery.tablesorter.js",
-      "Scripts/jquery.tablesorter.pager.js",
+      "Scripts/tablesorter/jquery.tablesorter.combined.js",
+      "Scripts/tablesorter/jquery.tablesorter.pager.js",
       "Scripts/jquery.timeago.js",
-      "Scripts/jquery.yafmodaldialog.js",
       "Scripts/jsdifflib.js",
-      "Scripts/yaf.js"
-    ],
-    "minify": {
-      "enabled": true
-    },
-    "includeInProject": true,
-    "sourceMaps": false
+      "Scripts/forum/yaf.DataPanel.js",
+      "Scripts/forum/yaf.Utilities.js",
+      "Scripts/forum/yaf.ReputationBar.js",
+      "Scripts/forum/yaf.MessageHistory.js",
+      "Scripts/forum/yaf.Attachments.js",
+      "Scripts/forum/yaf.Main.js"
+    ]
   },
   {
     "outputFileName": "Content/jquery.fileupload.comb.css",
     "inputFiles": [
       "Content/jQuery.FileUpload/css/jquery.fileupload-ui.css",
       "Content/jQuery.FileUpload/css/jquery.fileupload.css"
-    ],
-    "minify": {
-      "enabled": true
-    },
-    "includeInProject": true,
-    "sourceMaps": false
+    ]
+  },
+  {
+    "outputFileName": "Scripts/yafEditor/yafEditor.min.js",
+    "inputFiles": [
+      "Scripts/yafEditor/yafEditor.js"
+    ]
   }
 ]

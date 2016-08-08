@@ -1,3 +1,4 @@
+/// <reference path="select2.js" />
 /*!
  * Select2 4.0.3
  * https://select2.github.io

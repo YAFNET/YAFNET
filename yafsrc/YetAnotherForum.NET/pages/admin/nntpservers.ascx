@@ -1,59 +1,75 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.nntpservers"
     CodeBehind="nntpservers.ascx.cs" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
-    <table class="content" width="100%" cellspacing="1" cellpadding="0">
-        <tr>
-            <td class="header1" colspan="6">
-                <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_NNTPSERVERS" />
-            </td>
-        </tr>
-        <asp:Repeater ID="RankList" runat="server">
+    <div class="row">
+    <div class="col-xl-12">
+        <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_NNTPSERVERS" /></h1>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card card-primary-outline">
+                <div class="card-header card-primary">
+                    <i class="fa fa-newspaper-o fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_NNTPSERVERS" />
+                </div>
+                <div class="card-block">
+                    <asp:Repeater ID="RankList" runat="server">
             <HeaderTemplate>
+                <div class="alert alert-info hidden-sm-up" role="alert">
+                            <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
+                            <span class="pull-right"><i class="fa fa-hand-o-left fa-fw"></i></span>
+                        </div><div class="table-responsive">
+                <table class="table">
+                <thead>
                 <tr>
-                    <td class="header2">
+                    <th>
                         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_NNTPSERVERS" />
-                    </td>
-                    <td class="header2">
+                    </th>
+                    <th>
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ADRESS" LocalizedPage="ADMIN_NNTPSERVERS" />
-                    </td>
-                    <td class="header2">
+                    </th>
+                    <th>
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="USERNAME" LocalizedPage="ADMIN_NNTPSERVERS" />
-                    </td>
-                    <td class="header2">
+                    </th>
+                    <th>
                         &nbsp;
-                    </td>
+                    </th>
                 </tr>
+                    </thead>
             </HeaderTemplate>
             <ItemTemplate>
                 <tr>
-                    <td class="post">
-                        <%# Eval( "Name") %>
+                    <td>
+                        <%# this.Eval("Name") %>
                     </td>
-                    <td class="post">
-                        <%# Eval( "Address") %>
+                    <td>
+                        <%# this.Eval("Address") %>
                     </td>
-                    <td class="post">
-                        <%# Eval( "UserName") %>
+                    <td>
+                        <%# this.Eval("UserName") %>
                     </td>
-                    <td class="post rightItem">
-                        <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval( "NntpServerID") %>'>
-                            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="EDIT" LocalizedPage="ADMIN_NNTPFORUMS" />
+                    <td>
+					    <span class="pull-right">
+                        <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# this.Eval( "NntpServerID") %>' CssClass="btn btn-info btn-sm">
+                            <i class="fa fa-edit fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="EDIT" LocalizedPage="ADMIN_NNTPFORUMS" />
                         </asp:LinkButton>
-                        |
-                        <asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval( "NntpServerID") %>'>
-                            <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DELETE" LocalizedPage="ADMIN_NNTPFORUMS" />
+                        &nbsp;
+                        <asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# this.Eval( "NntpServerID") %>' CssClass="btn btn-danger btn-sm">
+                            <i class="fa fa-trash fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DELETE" LocalizedPage="ADMIN_NNTPFORUMS" />
                         </asp:LinkButton>
+					    </span>
                     </td>
                 </tr>
             </ItemTemplate>
+                        <FooterTemplate></table></div></FooterTemplate>
         </asp:Repeater>
-        <tr>
-            <td class="footer1" colspan="5" align="center">
-                <asp:Button ID="NewServer" runat="server" CssClass="pbutton" OnClick="NewServer_Click" />
-            </td>
-        </tr>
-    </table>
+                    </div>
+                    <div class="card-footer text-xs-center">
+                    <asp:LinkButton ID="NewServer" runat="server" CssClass="btn btn-primary" OnClick="NewServer_Click" />
+                </div>
+            </div>
+        </div>
+    </div>
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

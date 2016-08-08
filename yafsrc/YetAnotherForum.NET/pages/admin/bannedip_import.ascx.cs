@@ -82,7 +82,7 @@ namespace YAF.Pages.Admin
                     importedCount > 0
                         ? this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_SUCESS").FormatWith(importedCount)
                         : this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_NOTHING"),
-                    MessageTypes.Information);
+                    MessageTypes.info);
 
                 YafBuildLink.Redirect(ForumPages.admin_bannedip);
             }
@@ -117,8 +117,8 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_BANNEDIP", "TITLE"),
                 this.GetText("ADMIN_BANNEDIP_IMPORT", "TITLE"));
 
-            this.Import.Text = this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT");
-            this.cancel.Text = this.GetText("CANCEL");
+            this.Import.Text = "<i class=\"fa fa-upload fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT"));
+            this.cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
         }
 
         #endregion

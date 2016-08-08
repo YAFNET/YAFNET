@@ -41,6 +41,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
@@ -321,6 +322,13 @@
     <Compile Include="controls\TopicLine.ascx.designer.cs">
       <DependentUpon>TopicLine.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\AdminHeader.ascx.cs">
+      <DependentUpon>AdminHeader.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\AdminHeader.ascx.designer.cs">
+      <DependentUpon>AdminHeader.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\YafHeader.ascx.cs">
       <DependentUpon>YafHeader.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -346,7 +354,9 @@
     <Compile Include="Modules\Events\ClearCacheOnEvents.cs" />
     <Compile Include="Modules\Events\LastVisitEventHandler.cs" />
     <Compile Include="Modules\LanguageDirectionModule.cs" />
-    <Compile Include="Modules\PopupDialogNotification.cs" />
+    <Compile Include="Modules\PopupDialogNotification.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Modules\ScriptsLoaderModule.cs" />
     <Compile Include="Modules\TimeAgoForumModule.cs" />
     <Compile Include="Modules\PageBBCodeRegistration.cs" />
@@ -915,33 +925,54 @@
     </Compile>
     <Content Include="advanced.aspx" />
     <Content Include="auth.aspx" />
+    <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-forum.min.css">
       <DependentUpon>bootstrap-forum.css</DependentUpon>
     </Content>
-    <Content Include="Content\bootstrap-select.css">
-      <DependentUpon>bootstrap-select.scss</DependentUpon>
+    <Content Include="Content\bootstrap-notify.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.css.map">
+      <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
-    <Content Include="Content\bootstrap-select.min.css">
-      <DependentUpon>bootstrap-select.css</DependentUpon>
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.min.css.map">
+      <DependentUpon>bootstrap.min.css</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap\bootstrap.css">
+      <DependentUpon>bootstrap.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap\bootstrap.min.css">
+      <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
     <Content Include="Content\css\select2.css" />
-    <Content Include="Content\css\select2.min.css" />
+    <Content Include="Content\css\select2.min.css">
+      <DependentUpon>select2.css</DependentUpon>
+    </Content>
+    <Content Include="Content\font-awesome.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\forum-admin.css">
+      <DependentUpon>forum-admin.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\forum-admin.min.css">
+      <DependentUpon>forum-admin.css</DependentUpon>
+    </Content>
     <Content Include="Content\forum.css">
       <DependentUpon>forum.scss</DependentUpon>
     </Content>
     <Content Include="Content\forum.min.css">
       <DependentUpon>forum.css</DependentUpon>
     </Content>
+    <None Include="Content\forum\attachments-upload.scss" />
     <Content Include="Content\InstallWizard.css">
       <DependentUpon>InstallWizard.scss</DependentUpon>
     </Content>
     <Content Include="Content\InstallWizard.min.css">
       <DependentUpon>InstallWizard.css</DependentUpon>
     </Content>
+    <Content Include="Content\jquery.bootstrap-touchspin.css" />
     <Content Include="Content\jquery.ceebox.css">
       <DependentUpon>jquery.ceebox.scss</DependentUpon>
     </Content>
@@ -954,23 +985,11 @@
     <Content Include="Content\jquery.hovercard.min.css">
       <DependentUpon>jquery.hovercard.css</DependentUpon>
     </Content>
-    <Content Include="Content\jquery.notification.css">
-      <DependentUpon>jquery.notification.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\jquery.notification.min.css">
-      <DependentUpon>jquery.notification.css</DependentUpon>
-    </Content>
     <Content Include="Content\jquery.tablesorter.css">
       <DependentUpon>jquery.tablesorter.scss</DependentUpon>
     </Content>
     <Content Include="Content\jquery.tablesorter.min.css">
       <DependentUpon>jquery.tablesorter.css</DependentUpon>
-    </Content>
-    <Content Include="Content\jquery.yafmodaldialog.css">
-      <DependentUpon>jquery.yafmodaldialog.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\jquery.yafmodaldialog.min.css">
-      <DependentUpon>jquery.yafmodaldialog.css</DependentUpon>
     </Content>
     <Content Include="Content\jsdifflib.css">
       <DependentUpon>jsdifflib.scss</DependentUpon>
@@ -986,7 +1005,6 @@
     <Content Include="Content\ladda.min.css">
       <DependentUpon>ladda.css</DependentUpon>
     </Content>
-    <Content Include="Content\icons\ipbandetected.png" />
     <Content Include="Content\images\InstallBackground.jpg" />
     <Content Include="Content\images\progressbar.gif" />
     <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-noscript.css" />
@@ -999,8 +1017,23 @@
     <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload.css" />
     <Content Include="Content\jQuery.FileUpload\img\loading.gif" />
     <Content Include="Content\jQuery.FileUpload\img\progressbar.gif" />
+    <Content Include="Content\metisMenu.css" />
+    <Content Include="Content\metisMenu.min.css">
+      <DependentUpon>metisMenu.css</DependentUpon>
+    </Content>
     <Content Include="Content\prism.css" />
     <Content Include="Content\jquery.selectedQuoting.css" />
+    <Content Include="Content\css\select2-bootstrap.css" />
+    <Content Include="Content\styles\alert-bangtidy.css" />
+    <Content Include="Content\styles\alert-blackgloss.css" />
+    <Content Include="Content\tether\tether-theme-arrows-dark.css" />
+    <Content Include="Content\tether\tether-theme-arrows-dark.min.css" />
+    <Content Include="Content\tether\tether-theme-arrows.css" />
+    <Content Include="Content\tether\tether-theme-arrows.min.css" />
+    <Content Include="Content\tether\tether-theme-basic.css" />
+    <Content Include="Content\tether\tether-theme-basic.min.css" />
+    <Content Include="Content\tether\tether.css" />
+    <Content Include="Content\tether\tether.min.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -1020,9 +1053,17 @@
     <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
     <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
     <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
     <Content Include="Content\themes\base\menu.css" />
     <Content Include="Content\themes\base\progressbar.css" />
     <Content Include="Content\themes\base\resizable.css" />
@@ -1496,10 +1537,12 @@
     </Content>
     <Content Include="controls\TopicLine.ascx" />
     <Content Include="controls\ViewThanksList.ascx" />
+    <Content Include="controls\AdminHeader.ascx" />
     <Content Include="controls\YafHeader.ascx" />
     <Content Include="digest.aspx" />
     <Content Include="default.aspx" />
     <Content Include="error.aspx" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="forumlogo.jpg" />
     <Content Include="Images\Avatars\Common\SampleAvatar.gif" />
     <Content Include="Images\Medals\award_star_bronze_3.png" />
@@ -1576,20 +1619,6 @@
     <Content Include="pages\admin\topicstatus_edit.ascx" />
     <Content Include="pages\admin\topicstatus_import.ascx" />
     <Content Include="pages\admin\users_import.ascx" />
-    <Content Include="Content\icons\authIcons.png" />
-    <Content Include="Content\icons\ipbanlifted.png" />
-    <Content Include="Content\icons\ipbanset.png" />
-    <Content Include="Content\icons\radioactivity.png" />
-    <Content Include="Content\icons\shield--exclamation.png" />
-    <Content Include="Content\icons\spambotdetected.png" />
-    <Content Include="Content\icons\spambotreported.png" />
-    <Content Include="Content\icons\spammessagedetected.png" />
-    <Content Include="Content\icons\spammessagereported.png" />
-    <Content Include="Content\icons\user-thief-baldie.png" />
-    <Content Include="Content\icons\userdeleted.png" />
-    <Content Include="Content\icons\usersuspended.png" />
-    <Content Include="Content\icons\userunsuspended.png" />
-    <Content Include="Content\icons\wall-small-brick.png" />
     <Content Include="Content\ceebox\cee-close-btn.png" />
     <Content Include="Content\ceebox\cee-next-btn.gif" />
     <Content Include="Content\ceebox\cee-next-btn.png" />
@@ -1769,61 +1798,20 @@
     <Content Include="pages\topics.ascx" />
     <Content Include="pages\viewthanks.ascx" />
     <Content Include="popup.aspx" />
-    <Content Include="Content\icons\applications-stack.png" />
-    <Content Include="Content\icons\balloon.png" />
-    <Content Include="Content\icons\bin.png" />
-    <Content Include="Content\icons\book-open-next.png" />
-    <Content Include="Content\icons\database-import.png" />
-    <Content Include="Content\icons\document.png" />
-    <Content Include="Content\icons\EmailBig.png" />
-    <Content Include="Content\icons\error.png" />
-    <Content Include="Content\icons\ErrorBig.png" />
-    <Content Include="Content\icons\folders-stack.png" />
-    <Content Include="Content\icons\gear--pencil.png" />
-    <Content Include="Content\icons\gear.png" />
-    <Content Include="Content\icons\globe-green.png" />
-    <Content Include="Content\icons\hammer-screwdriver.png" />
-    <Content Include="Content\icons\InfoBig.png" />
-    <Content Include="Content\icons\information.png" />
-    <Content Include="Content\icons\lightning.png" />
-    <Content Include="Content\icons\lock.png" />
-    <Content Include="Content\icons\mail.png" />
-    <Content Include="Content\icons\mails.png" />
-    <Content Include="Content\icons\marker.png" />
-    <Content Include="Content\icons\megaphone.png" />
-    <Content Include="Content\icons\newspaper.png" />
-    <Content Include="Content\icons\node-design.png" />
-    <Content Include="Content\icons\plug.png" />
-    <Content Include="Content\icons\puzzle.png" />
-    <Content Include="Content\icons\question-balloon.png" />
-    <Content Include="Content\icons\QuestionBig.png" />
-    <Content Include="Content\icons\readme.txt" />
-    <Content Include="Content\icons\RssFeed.png" />
-    <Content Include="Content\icons\script-text.png" />
-    <Content Include="Content\icons\smiley.png" />
-    <Content Include="Content\icons\sql.png" />
-    <Content Include="Content\icons\sticky-note-text.png" />
-    <Content Include="Content\icons\sticky-note.png" />
-    <Content Include="Content\icons\sticky-notes-pin.png" />
-    <Content Include="Content\icons\switch.png" />
-    <Content Include="Content\icons\tables.png" />
-    <Content Include="Content\icons\target.png" />
-    <Content Include="Content\icons\test_data.png" />
-    <Content Include="Content\icons\tick.png" />
-    <Content Include="Content\icons\trophy.png" />
-    <Content Include="Content\icons\user.png" />
-    <Content Include="Content\icons\warning.png" />
-    <Content Include="Content\icons\WarningBig.png" />
-    <Content Include="Content\icons\wrench.png" />
     <Content Include="Content\images\closelabel.png" />
     <Content Include="Content\images\asc.gif" />
     <Content Include="Content\images\bg.gif" />
     <Content Include="Resources\HelpMenuList.xml" />
     <Content Include="Resources\ProviderExceptions.xml" />
-    <Content Include="Scripts\bootstrap-select.js" />
-    <Content Include="Scripts\bootstrap-select.min.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js">
+      <DependentUpon>bootstrap-datetimepicker.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\bootstrap-notify.js" />
     <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap.min.js">
+      <DependentUpon>bootstrap.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
     <Content Include="Scripts\ckeditor\config.js" />
@@ -2050,12 +2038,143 @@
     <Content Include="Scripts\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
     <Content Include="Scripts\ckeditor\plugins\table\dialogs\table.js" />
     <Content Include="Scripts\ckeditor\plugins\textselection\plugin.js" />
-    <None Include="Content\jquery.tablesorter.scss" />
+    <Content Include="Content\bootstrap\bootstrap-flex.scss" />
+    <Content Include="Content\bootstrap\bootstrap-grid.scss" />
+    <Content Include="Content\bootstrap\bootstrap-reboot.scss" />
+    <Content Include="Content\bootstrap\bootstrap.scss" />
+    <Content Include="Content\bootstrap\mixins\_alert.scss" />
+    <Content Include="Content\bootstrap\mixins\_background-variant.scss" />
+    <Content Include="Content\bootstrap\mixins\_border-radius.scss" />
+    <Content Include="Content\bootstrap\mixins\_breakpoints.scss" />
+    <Content Include="Content\bootstrap\mixins\_buttons.scss" />
+    <Content Include="Content\bootstrap\mixins\_cards.scss" />
+    <Content Include="Content\bootstrap\mixins\_clearfix.scss" />
+    <Content Include="Content\bootstrap\mixins\_forms.scss" />
+    <Content Include="Content\bootstrap\mixins\_gradients.scss" />
+    <Content Include="Content\bootstrap\mixins\_grid-framework.scss" />
+    <Content Include="Content\bootstrap\mixins\_grid.scss" />
+    <Content Include="Content\bootstrap\mixins\_hover.scss" />
+    <Content Include="Content\bootstrap\mixins\_image.scss" />
+    <Content Include="Content\bootstrap\mixins\_list-group.scss" />
+    <Content Include="Content\bootstrap\mixins\_lists.scss" />
+    <Content Include="Content\bootstrap\mixins\_nav-divider.scss" />
+    <Content Include="Content\bootstrap\mixins\_navbar-align.scss" />
+    <Content Include="Content\bootstrap\mixins\_pagination.scss" />
+    <Content Include="Content\bootstrap\mixins\_progress.scss" />
+    <Content Include="Content\bootstrap\mixins\_pulls.scss" />
+    <Content Include="Content\bootstrap\mixins\_reset-filter.scss" />
+    <Content Include="Content\bootstrap\mixins\_reset-text.scss" />
+    <Content Include="Content\bootstrap\mixins\_resize.scss" />
+    <Content Include="Content\bootstrap\mixins\_screen-reader.scss" />
+    <Content Include="Content\bootstrap\mixins\_size.scss" />
+    <Content Include="Content\bootstrap\mixins\_tab-focus.scss" />
+    <Content Include="Content\bootstrap\mixins\_table-row.scss" />
+    <Content Include="Content\bootstrap\mixins\_text-emphasis.scss" />
+    <Content Include="Content\bootstrap\mixins\_text-hide.scss" />
+    <Content Include="Content\bootstrap\mixins\_text-truncate.scss" />
+    <Content Include="Content\bootstrap\_alert.scss" />
+    <Content Include="Content\bootstrap\_animation.scss" />
+    <Content Include="Content\bootstrap\_breadcrumb.scss" />
+    <Content Include="Content\bootstrap\_button-group.scss" />
+    <Content Include="Content\bootstrap\_buttons.scss" />
+    <Content Include="Content\bootstrap\_card.scss" />
+    <Content Include="Content\bootstrap\_carousel.scss" />
+    <Content Include="Content\bootstrap\_close.scss" />
+    <Content Include="Content\bootstrap\_code.scss" />
+    <Content Include="Content\bootstrap\_custom-forms.scss" />
+    <Content Include="Content\bootstrap\_dropdown.scss" />
+    <Content Include="Content\bootstrap\_forms.scss" />
+    <Content Include="Content\bootstrap\_grid.scss" />
+    <Content Include="Content\bootstrap\_images.scss" />
+    <Content Include="Content\bootstrap\_input-group.scss" />
+    <Content Include="Content\bootstrap\_jumbotron.scss" />
+    <Content Include="Content\bootstrap\_list-group.scss" />
+    <Content Include="Content\bootstrap\_media.scss" />
+    <Content Include="Content\bootstrap\_mixins.scss" />
+    <Content Include="Content\bootstrap\_modal.scss" />
+    <Content Include="Content\bootstrap\_nav.scss" />
+    <Content Include="Content\bootstrap\_navbar.scss" />
+    <Content Include="Content\bootstrap\_normalize.scss" />
+    <Content Include="Content\bootstrap\_pagination.scss" />
+    <Content Include="Content\bootstrap\_popover.scss" />
+    <Content Include="Content\bootstrap\_print.scss" />
+    <Content Include="Content\bootstrap\_progress.scss" />
+    <Content Include="Content\bootstrap\_reboot.scss" />
+    <Content Include="Content\bootstrap\_responsive-embed.scss" />
+    <Content Include="Content\bootstrap\_tables.scss" />
+    <Content Include="Content\bootstrap\_tooltip.scss" />
+    <Content Include="Content\bootstrap\_type.scss" />
+    <Content Include="Content\bootstrap\_utilities.scss" />
+    <Content Include="Content\bootstrap\_variables.scss" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap\wells.less" />
+    <Content Include="Content\bootstrap\variables.less" />
+    <Content Include="Content\bootstrap\utilities.less" />
+    <Content Include="Content\bootstrap\type.less" />
+    <Content Include="Content\bootstrap\tooltip.less" />
+    <Content Include="Content\bootstrap\thumbnails.less" />
+    <Content Include="Content\bootstrap\theme.less" />
+    <Content Include="Content\bootstrap\tables.less" />
+    <Content Include="Content\bootstrap\scaffolding.less" />
+    <Content Include="Content\bootstrap\responsive-utilities.less" />
+    <Content Include="Content\bootstrap\responsive-embed.less" />
+    <Content Include="Content\bootstrap\progress-bars.less" />
+    <Content Include="Content\bootstrap\print.less" />
+    <Content Include="Content\bootstrap\popovers.less" />
+    <Content Include="Content\bootstrap\panels.less" />
+    <Content Include="Content\bootstrap\pagination.less" />
+    <Content Include="Content\bootstrap\pager.less" />
+    <Content Include="Content\bootstrap\normalize.less" />
+    <Content Include="Content\bootstrap\navs.less" />
+    <Content Include="Content\bootstrap\navbar.less" />
+    <Content Include="Content\bootstrap\modals.less" />
+    <Content Include="Content\bootstrap\mixins.less" />
+    <Content Include="Content\bootstrap\media.less" />
+    <Content Include="Content\bootstrap\list-group.less" />
+    <Content Include="Content\bootstrap\labels.less" />
+    <Content Include="Content\bootstrap\jumbotron.less" />
+    <Content Include="Content\bootstrap\input-groups.less" />
+    <Content Include="Content\bootstrap\grid.less" />
+    <Content Include="Content\bootstrap\glyphicons.less" />
+    <Content Include="Content\bootstrap\forms.less" />
+    <Content Include="Content\bootstrap\dropdowns.less" />
+    <Content Include="Content\bootstrap\component-animations.less" />
+    <Content Include="Content\bootstrap\code.less" />
+    <Content Include="Content\bootstrap\close.less" />
+    <Content Include="Content\bootstrap\carousel.less" />
+    <Content Include="Content\bootstrap\buttons.less" />
+    <Content Include="Content\bootstrap\button-groups.less" />
+    <Content Include="Content\bootstrap\breadcrumbs.less" />
+    <Content Include="Content\bootstrap\bootstrap.less" />
+    <Content Include="Content\bootstrap\badges.less" />
+    <Content Include="Content\bootstrap\alerts.less" />
+    <Content Include="Content\bootstrap\mixins\_tag.scss" />
+    <Content Include="Content\bootstrap\utilities\_background.scss" />
+    <Content Include="Content\bootstrap\utilities\_clearfix.scss" />
+    <Content Include="Content\bootstrap\utilities\_display.scss" />
+    <Content Include="Content\bootstrap\utilities\_flex.scss" />
+    <Content Include="Content\bootstrap\utilities\_pulls.scss" />
+    <Content Include="Content\bootstrap\utilities\_screenreaders.scss" />
+    <Content Include="Content\bootstrap\utilities\_spacing.scss" />
+    <Content Include="Content\bootstrap\utilities\_text.scss" />
+    <Content Include="Content\bootstrap\utilities\_visibility.scss" />
+    <Content Include="Content\bootstrap\_custom.scss" />
+    <Content Include="Content\bootstrap\_tags.scss" />
+    <None Include="Content\forum-admin.scss" />
     <Content Include="recommended-azure.web.config">
       <SubType>Designer</SubType>
     </Content>
     <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\jquery.tablesorter.scss" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\ciframe.html" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.css" />
@@ -2092,153 +2211,6 @@
     <Content Include="Scripts\i18n\cs.js" />
     <Content Include="Scripts\i18n\da.js" />
     <Content Include="Scripts\i18n\de.js" />
-    <Content Include="Scripts\i18n\defaults-ar_AR.js" />
-    <Content Include="Scripts\i18n\defaults-ar_AR.min.js" />
-    <Content Include="Scripts\i18n\defaults-bg_BG.js" />
-    <Content Include="Scripts\i18n\defaults-bg_BG.min.js" />
-    <Content Include="Scripts\i18n\defaults-cro_CRO.js" />
-    <Content Include="Scripts\i18n\defaults-cro_CRO.min.js" />
-    <Content Include="Scripts\i18n\defaults-cs_CZ.js" />
-    <Content Include="Scripts\i18n\defaults-cs_CZ.min.js" />
-    <Content Include="Scripts\i18n\defaults-da_DK.js" />
-    <Content Include="Scripts\i18n\defaults-da_DK.min.js" />
-    <Content Include="Scripts\i18n\defaults-de_DE.js" />
-    <Content Include="Scripts\i18n\defaults-de_DE.min.js" />
-    <Content Include="Scripts\i18n\defaults-en_US.js" />
-    <Content Include="Scripts\i18n\defaults-en_US.min.js" />
-    <Content Include="Scripts\i18n\defaults-es_CL.js" />
-    <Content Include="Scripts\i18n\defaults-es_CL.min.js" />
-    <Content Include="Scripts\i18n\defaults-eu.js" />
-    <Content Include="Scripts\i18n\defaults-eu.min.js" />
-    <Content Include="Scripts\i18n\defaults-fa_IR.js" />
-    <Content Include="Scripts\i18n\defaults-fa_IR.min.js" />
-    <Content Include="Scripts\i18n\defaults-fi_FI.js" />
-    <Content Include="Scripts\i18n\defaults-fi_FI.min.js" />
-    <Content Include="Scripts\i18n\defaults-fr_FR.js" />
-    <Content Include="Scripts\i18n\defaults-fr_FR.min.js" />
-    <Content Include="Scripts\i18n\defaults-hu_HU.js" />
-    <Content Include="Scripts\i18n\defaults-hu_HU.min.js" />
-    <Content Include="Scripts\i18n\defaults-id_ID.js" />
-    <Content Include="Scripts\i18n\defaults-id_ID.min.js" />
-    <Content Include="Scripts\i18n\defaults-it_IT.js" />
-    <Content Include="Scripts\i18n\defaults-it_IT.min.js" />
-    <Content Include="Scripts\i18n\defaults-ko_KR.js" />
-    <Content Include="Scripts\i18n\defaults-ko_KR.min.js" />
-    <Content Include="Scripts\i18n\defaults-lt_LT.js" />
-    <Content Include="Scripts\i18n\defaults-lt_LT.min.js" />
-    <Content Include="Scripts\i18n\defaults-nb_NO.js" />
-    <Content Include="Scripts\i18n\defaults-nb_NO.min.js" />
-    <Content Include="Scripts\i18n\defaults-nl_NL.js" />
-    <Content Include="Scripts\i18n\defaults-nl_NL.min.js" />
-    <Content Include="Scripts\i18n\defaults-pl_PL.js" />
-    <Content Include="Scripts\i18n\defaults-pl_PL.min.js" />
-    <Content Include="Scripts\i18n\defaults-pt_BR.js" />
-    <Content Include="Scripts\i18n\defaults-pt_BR.min.js" />
-    <Content Include="Scripts\i18n\defaults-pt_PT.js" />
-    <Content Include="Scripts\i18n\defaults-pt_PT.min.js" />
-    <Content Include="Scripts\i18n\defaults-ro_RO.js" />
-    <Content Include="Scripts\i18n\defaults-ro_RO.min.js" />
-    <Content Include="Scripts\i18n\defaults-ru_RU.js" />
-    <Content Include="Scripts\i18n\defaults-ru_RU.min.js" />
-    <Content Include="Scripts\i18n\defaults-sk_SK.js" />
-    <Content Include="Scripts\i18n\defaults-sk_SK.min.js" />
-    <Content Include="Scripts\i18n\defaults-sl_SI.js" />
-    <Content Include="Scripts\i18n\defaults-sl_SI.min.js" />
-    <Content Include="Scripts\i18n\defaults-sv_SE.js" />
-    <Content Include="Scripts\i18n\defaults-sv_SE.min.js" />
-    <Content Include="Scripts\i18n\defaults-tr_TR.js" />
-    <Content Include="Scripts\i18n\defaults-tr_TR.min.js" />
-    <Content Include="Scripts\i18n\defaults-ua_UA.js" />
-    <Content Include="Scripts\i18n\defaults-ua_UA.min.js" />
-    <Content Include="Scripts\i18n\defaults-zh_CN.js" />
-    <Content Include="Scripts\i18n\defaults-zh_CN.min.js" />
-    <Content Include="Scripts\i18n\defaults-zh_TW.js" />
-    <Content Include="Scripts\i18n\defaults-zh_TW.min.js" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Content\bootstrap\wells.less" />
-    <Content Include="Content\bootstrap\variables.less" />
-    <Content Include="Content\bootstrap\utilities.less" />
-    <Content Include="Content\bootstrap\type.less" />
-    <Content Include="Content\bootstrap\tooltip.less" />
-    <Content Include="Content\bootstrap\thumbnails.less" />
-    <Content Include="Content\bootstrap\theme.less" />
-    <Content Include="Content\bootstrap\tables.less" />
-    <Content Include="Content\bootstrap\scaffolding.less" />
-    <Content Include="Content\bootstrap\responsive-utilities.less" />
-    <Content Include="Content\bootstrap\responsive-embed.less" />
-    <Content Include="Content\bootstrap\progress-bars.less" />
-    <Content Include="Content\bootstrap\print.less" />
-    <Content Include="Content\bootstrap\popovers.less" />
-    <Content Include="Content\bootstrap\panels.less" />
-    <Content Include="Content\bootstrap\pagination.less" />
-    <Content Include="Content\bootstrap\pager.less" />
-    <Content Include="Content\bootstrap\normalize.less" />
-    <Content Include="Content\bootstrap\navs.less" />
-    <Content Include="Content\bootstrap\navbar.less" />
-    <Content Include="Content\bootstrap\modals.less" />
-    <Content Include="Content\bootstrap\mixins\vendor-prefixes.less" />
-    <Content Include="Content\bootstrap\mixins\text-overflow.less" />
-    <Content Include="Content\bootstrap\mixins\text-emphasis.less" />
-    <Content Include="Content\bootstrap\mixins\table-row.less" />
-    <Content Include="Content\bootstrap\mixins\tab-focus.less" />
-    <Content Include="Content\bootstrap\mixins\size.less" />
-    <Content Include="Content\bootstrap\mixins\responsive-visibility.less" />
-    <Content Include="Content\bootstrap\mixins\resize.less" />
-    <Content Include="Content\bootstrap\mixins\reset-text.less" />
-    <Content Include="Content\bootstrap\mixins\reset-filter.less" />
-    <Content Include="Content\bootstrap\mixins\progress-bar.less" />
-    <Content Include="Content\bootstrap\mixins\panels.less" />
-    <Content Include="Content\bootstrap\mixins\pagination.less" />
-    <Content Include="Content\bootstrap\mixins\opacity.less" />
-    <Content Include="Content\bootstrap\mixins\nav-vertical-align.less" />
-    <Content Include="Content\bootstrap\mixins\nav-divider.less" />
-    <Content Include="Content\bootstrap\mixins\list-group.less" />
-    <Content Include="Content\bootstrap\mixins\labels.less" />
-    <Content Include="Content\bootstrap\mixins\image.less" />
-    <Content Include="Content\bootstrap\mixins\hide-text.less" />
-    <Content Include="Content\bootstrap\mixins\grid.less" />
-    <Content Include="Content\bootstrap\mixins\grid-framework.less" />
-    <Content Include="Content\bootstrap\mixins\gradients.less" />
-    <Content Include="Content\bootstrap\mixins\forms.less" />
-    <Content Include="Content\bootstrap\mixins\clearfix.less" />
-    <Content Include="Content\bootstrap\mixins\center-block.less" />
-    <Content Include="Content\bootstrap\mixins\buttons.less" />
-    <Content Include="Content\bootstrap\mixins\border-radius.less" />
-    <Content Include="Content\bootstrap\mixins\background-variant.less" />
-    <Content Include="Content\bootstrap\mixins\alerts.less" />
-    <Content Include="Content\bootstrap\mixins.less" />
-    <Content Include="Content\bootstrap\media.less" />
-    <Content Include="Content\bootstrap\list-group.less" />
-    <Content Include="Content\bootstrap\labels.less" />
-    <Content Include="Content\bootstrap\jumbotron.less" />
-    <Content Include="Content\bootstrap\input-groups.less" />
-    <Content Include="Content\bootstrap\grid.less" />
-    <Content Include="Content\bootstrap\glyphicons.less" />
-    <Content Include="Content\bootstrap\forms.less" />
-    <Content Include="Content\bootstrap\dropdowns.less" />
-    <Content Include="Content\bootstrap\component-animations.less" />
-    <Content Include="Content\bootstrap\code.less" />
-    <Content Include="Content\bootstrap\close.less" />
-    <Content Include="Content\bootstrap\carousel.less" />
-    <Content Include="Content\bootstrap\buttons.less" />
-    <Content Include="Content\bootstrap\button-groups.less" />
-    <Content Include="Content\bootstrap\breadcrumbs.less" />
-    <Content Include="Content\bootstrap\bootstrap.less" />
-    <Content Include="Content\bootstrap\badges.less" />
-    <Content Include="Content\bootstrap\alerts.less" />
-    <Content Include="Scripts\bootstrap-select.js.map" />
-    <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
-    <Content Include="Scripts\ckeditor\README.md" />
-    <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
-    <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
-    <Content Include="Scripts\ckeditor\plugins\scayt\README.md" />
-    <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
-    <Content Include="Scripts\ckeditor\plugins\scayt\CHANGELOG.md" />
-    <Content Include="Scripts\ckeditor\package.json" />
-    <Content Include="Scripts\ckeditor\LICENSE.md" />
-    <Content Include="Scripts\ckeditor\CHANGES.md" />
-    <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\i18n\el.js" />
     <Content Include="Scripts\i18n\en.js" />
     <Content Include="Scripts\i18n\es.js" />
@@ -2279,13 +2251,26 @@
     <Content Include="Scripts\i18n\vi.js" />
     <Content Include="Scripts\i18n\zh-CN.js" />
     <Content Include="Scripts\i18n\zh-TW.js" />
-    <Content Include="Scripts\jquery-2.2.3.js" />
-    <Content Include="Scripts\jquery-2.2.3.min.js" />
-    <Content Include="Scripts\jquery-ui-1.11.4.js" />
-    <Content Include="Scripts\jquery-ui-1.11.4.min.js">
-      <DependentUpon>jquery-ui-1.11.4.js</DependentUpon>
+    <Content Include="Scripts\jquery-3.1.0.js" />
+    <Content Include="Scripts\jquery-3.1.0.min.js">
+      <DependentUpon>jquery-3.1.0.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-3.1.0.min.map">
+      <DependentUpon>jquery-3.1.0.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-3.1.0.slim.js" />
+    <Content Include="Scripts\jquery-3.1.0.slim.min.js">
+      <DependentUpon>jquery-3.1.0.slim.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-3.1.0.slim.min.map">
+      <DependentUpon>jquery-3.1.0.slim.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-ui-1.12.0.js" />
+    <Content Include="Scripts\jquery-ui-1.12.0.min.js">
+      <DependentUpon>jquery-ui-1.12.0.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery.blockUI.js" />
+    <Content Include="Scripts\jquery.bootstrap-touchspin.js" />
     <Content Include="Scripts\jquery.FileUpload\canvas-to-blob.min.js" />
     <Content Include="Scripts\jquery.FileUpload\cors\jquery.postmessage-transport.js" />
     <Content Include="Scripts\jquery.FileUpload\cors\jquery.xdr-transport.js" />
@@ -2305,23 +2290,65 @@
     <Content Include="Scripts\jquery.FileUpload\jquery.iframe-transport.js" />
     <Content Include="Scripts\jquery.FileUpload\load-image.all.min.js" />
     <Content Include="Scripts\jquery.FileUpload\tmpl.min.js" />
-    <Content Include="Scripts\jquery.tablesorter.min.js">
-      <DependentUpon>jquery.tablesorter.js</DependentUpon>
+    <Content Include="Scripts\jquery.ForumExtensions.es5.js">
+      <DependentUpon>jquery.ForumExtensions.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery.tablesorter.pager.js" />
+    <Content Include="Scripts\jquery.ForumExtensions.es5.min.js">
+      <DependentUpon>jquery.ForumExtensions.es5.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.ForumExtensions.min.js">
+      <DependentUpon>jquery.ForumExtensions.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\ladda.min.js">
+      <DependentUpon>ladda.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\moment-with-locales.min.js">
+      <DependentUpon>moment-with-locales.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\moment.min.js">
+      <DependentUpon>moment.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\select2.min.js">
+      <DependentUpon>select2.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\spin.min.js">
+      <DependentUpon>spin.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\tablesorter\jquery.tablesorter.combined.min.js">
+      <DependentUpon>jquery.tablesorter.combined.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\tablesorter\jquery.tablesorter.pager.js" />
+    <Content Include="Scripts\jquery.timeago.es5.js">
+      <DependentUpon>jquery.timeago.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.timeago.es5.min.js">
+      <DependentUpon>jquery.timeago.es5.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jsdifflib.js" />
     <Content Include="Scripts\jsdifflib.min.js">
       <DependentUpon>jsdifflib.js</DependentUpon>
     </Content>
     <Content Include="Scripts\ladda.js" />
-    <Content Include="Scripts\ladda.min.js" />
+    <Content Include="Scripts\metisMenu.js" />
+    <Content Include="Scripts\metisMenu.min.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\jquery.selectedQuoting.js" />
     <Content Include="Scripts\select2.js" />
-    <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\spin.js" />
-    <Content Include="Scripts\spin.min.js" />
-    <Content Include="Scripts\yafEditor\attach.png" />
+    <Content Include="Scripts\tablesorter\jquery.tablesorter.combined.js" />
+    <Content Include="Scripts\tether\tether.js" />
+    <Content Include="Scripts\tether\tether.min.js">
+      <DependentUpon>tether.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\forum\yaf.Utilities.js" />
+    <Content Include="Scripts\yafEditor\yafEditor.es5.js">
+      <DependentUpon>yafEditor.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\yafEditor\yafEditor.es5.min.js">
+      <DependentUpon>yafEditor.es5.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\yafEditor\yafEditor.js" />
     <Content Include="Scripts\yafEditor\yafEditor.min.js">
       <DependentUpon>yafEditor.js</DependentUpon>
@@ -2589,30 +2616,21 @@
     <Content Include="Content\images\HiddenWarnDescription.png" />
     <Content Include="Content\images\loader.gif" />
     <Content Include="themes\Fancy\images\title-bg.gif" />
-    <Content Include="Scripts\DataPanel.js" />
-    <Content Include="Scripts\InstallWizard.js" />
+    <Content Include="Scripts\forum\yaf.DataPanel.js" />
+    <Content Include="Scripts\forum\InstallWizard.js" />
     <Content Include="Scripts\InstallWizard.comb.js" />
-    <Content Include="Scripts\InstallWizard.comb.min.js" />
+    <Content Include="Scripts\InstallWizard.comb.min.js">
+      <DependentUpon>InstallWizard.comb.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.ceebox.js" />
     <Content Include="Scripts\jquery.hovercard.js" />
     <Content Include="Scripts\jquery.ForumExtensions.js" />
-    <Content Include="Scripts\jquery.ForumExtensions.min.js">
-      <DependentUpon>jquery.ForumExtensions.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery.msDropDown.js" />
-    <Content Include="Scripts\jquery.notification.js" />
     <Content Include="Scripts\jquery.pagemethod.js" />
     <Content Include="Scripts\jquery.pagination.js" />
     <Content Include="Scripts\jquery.pagemethod.readme.txt">
       <DependentUpon>jquery.pagemethod.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery.tablesorter.js" />
-    <Content Include="Scripts\jquery.ui.datepicker-farsi.js" />
-    <Content Include="Scripts\jquery.ui.datepicker-farsi.min.js">
-      <DependentUpon>jquery.ui.datepicker-farsi.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery.yafmodaldialog.js" />
-    <Content Include="Scripts\yaf.js" />
+    <Content Include="Scripts\forum\yaf.Main.js" />
     <Compile Include="controls\AlbumImageList.ascx.cs">
       <DependentUpon>AlbumImageList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3198,98 +3216,22 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Content\bootstrap-select.scss" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <Content Include="Content\bootstrap-forum.scss" />
-    <Content Include="Content\bootstrap\mixins\_alerts.scss" />
-    <Content Include="Content\bootstrap\mixins\_background-variant.scss" />
-    <Content Include="Content\bootstrap\mixins\_border-radius.scss" />
-    <Content Include="Content\bootstrap\mixins\_buttons.scss" />
-    <Content Include="Content\bootstrap\mixins\_center-block.scss" />
-    <Content Include="Content\bootstrap\mixins\_clearfix.scss" />
-    <Content Include="Content\bootstrap\mixins\_forms.scss" />
-    <Content Include="Content\bootstrap\mixins\_gradients.scss" />
-    <Content Include="Content\bootstrap\mixins\_grid-framework.scss" />
-    <Content Include="Content\bootstrap\mixins\_grid.scss" />
-    <Content Include="Content\bootstrap\mixins\_hide-text.scss" />
-    <Content Include="Content\bootstrap\mixins\_image.scss" />
-    <Content Include="Content\bootstrap\mixins\_labels.scss" />
-    <Content Include="Content\bootstrap\mixins\_list-group.scss" />
-    <Content Include="Content\bootstrap\mixins\_nav-divider.scss" />
-    <Content Include="Content\bootstrap\mixins\_nav-vertical-align.scss" />
-    <Content Include="Content\bootstrap\mixins\_opacity.scss" />
-    <Content Include="Content\bootstrap\mixins\_pagination.scss" />
-    <Content Include="Content\bootstrap\mixins\_panels.scss" />
-    <Content Include="Content\bootstrap\mixins\_progress-bar.scss" />
-    <Content Include="Content\bootstrap\mixins\_reset-filter.scss" />
-    <Content Include="Content\bootstrap\mixins\_reset-text.scss" />
-    <Content Include="Content\bootstrap\mixins\_resize.scss" />
-    <Content Include="Content\bootstrap\mixins\_responsive-visibility.scss" />
-    <Content Include="Content\bootstrap\mixins\_size.scss" />
-    <Content Include="Content\bootstrap\mixins\_tab-focus.scss" />
-    <Content Include="Content\bootstrap\mixins\_table-row.scss" />
-    <Content Include="Content\bootstrap\mixins\_text-emphasis.scss" />
-    <Content Include="Content\bootstrap\mixins\_text-overflow.scss" />
-    <Content Include="Content\bootstrap\mixins\_vendor-prefixes.scss" />
-    <Content Include="Content\bootstrap\_alerts.scss" />
-    <Content Include="Content\bootstrap\_badges.scss" />
-    <Content Include="Content\bootstrap\_breadcrumbs.scss" />
-    <Content Include="Content\bootstrap\_button-groups.scss" />
-    <Content Include="Content\bootstrap\_buttons.scss" />
-    <Content Include="Content\bootstrap\_carousel.scss" />
-    <Content Include="Content\bootstrap\_close.scss" />
-    <Content Include="Content\bootstrap\_code.scss" />
-    <Content Include="Content\bootstrap\_component-animations.scss" />
-    <Content Include="Content\bootstrap\_dropdowns.scss" />
-    <Content Include="Content\bootstrap\_forms.scss" />
-    <Content Include="Content\bootstrap\_glyphicons.scss" />
-    <Content Include="Content\bootstrap\_grid.scss" />
-    <Content Include="Content\bootstrap\_input-groups.scss" />
-    <Content Include="Content\bootstrap\_jumbotron.scss" />
-    <Content Include="Content\bootstrap\_labels.scss" />
-    <Content Include="Content\bootstrap\_list-group.scss" />
-    <Content Include="Content\bootstrap\_media.scss" />
-    <Content Include="Content\bootstrap\_mixins.scss" />
-    <Content Include="Content\bootstrap\_modals.scss" />
-    <Content Include="Content\bootstrap\_navbar.scss" />
-    <Content Include="Content\bootstrap\_navs.scss" />
-    <Content Include="Content\bootstrap\_normalize.scss" />
-    <Content Include="Content\bootstrap\_pager.scss" />
-    <Content Include="Content\bootstrap\_pagination.scss" />
-    <Content Include="Content\bootstrap\_panels.scss" />
-    <Content Include="Content\bootstrap\_popovers.scss" />
-    <Content Include="Content\bootstrap\_print.scss" />
-    <Content Include="Content\bootstrap\_progress-bars.scss" />
-    <Content Include="Content\bootstrap\_responsive-embed.scss" />
-    <Content Include="Content\bootstrap\_responsive-utilities.scss" />
-    <Content Include="Content\bootstrap\_scaffolding.scss" />
-    <Content Include="Content\bootstrap\_tables.scss" />
-    <Content Include="Content\bootstrap\_theme.scss" />
-    <Content Include="Content\bootstrap\_thumbnails.scss" />
-    <Content Include="Content\bootstrap\_tooltip.scss" />
-    <Content Include="Content\bootstrap\_type.scss" />
-    <Content Include="Content\bootstrap\_utilities.scss" />
-    <Content Include="Content\bootstrap\_variables.scss" />
-    <Content Include="Content\bootstrap\_wells.scss" />
+    <Content Include="Content\forum\dropdowns.scss" />
+    <None Include="Content\forum\user-albums.scss" />
     <None Include="Content\InstallWizard.scss" />
     <None Include="Content\jsdifflib.scss" />
-    <None Include="Content\bootstrap-select-variables.scss" />
     <Content Include="YafUploader.ashx" />
     <Content Include="Content\jquery.ceebox.scss" />
-    <Content Include="Content\_bootstrap-compass.scss" />
-    <Content Include="Content\_bootstrap-mincer.scss" />
-    <Content Include="Content\_bootstrap-sprockets.scss" />
-    <Content Include="Content\_bootstrap.scss" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Content\forum.scss" />
     <None Include="Content\jquery.hovercard.scss" />
-    <None Include="Content\jquery.notification.scss" />
-    <None Include="Content\jquery.yafmodaldialog.scss" />
     <Content Include="Scripts\ckeditor\ckeditor_init.js" />
     <Content Include="Scripts\ckeditor\ckeditor_initbbcode.js" />
     <Content Include="Scripts\ckeditor\plugins\bbcodehtml\plugin.js" />
@@ -3426,27 +3368,6 @@
     <Content Include="Scripts\radEditor\toolsFile.xml" />
     <Content Include="Scripts\tinymce\tinymce_init.js" />
     <Content Include="Scripts\tinymce\tinymce_initbbcode.js" />
-    <Content Include="Scripts\yafEditor\albums.gif" />
-    <Content Include="Scripts\yafEditor\backcolor.gif" />
-    <Content Include="Scripts\yafEditor\bbcode.gif" />
-    <Content Include="Scripts\yafEditor\bold.gif" />
-    <Content Include="Scripts\yafEditor\code.gif" />
-    <Content Include="Scripts\yafEditor\forecolor.gif" />
-    <Content Include="Scripts\yafEditor\highlight.gif" />
-    <Content Include="Scripts\yafEditor\image.gif" />
-    <Content Include="Scripts\yafEditor\indent.gif" />
-    <Content Include="Scripts\yafEditor\italic.gif" />
-    <Content Include="Scripts\yafEditor\justifycenter.gif" />
-    <Content Include="Scripts\yafEditor\justifyleft.gif" />
-    <Content Include="Scripts\yafEditor\justifyright.gif" />
-    <Content Include="Scripts\yafEditor\link.gif" />
-    <Content Include="Scripts\yafEditor\orderedlist.gif" />
-    <Content Include="Scripts\yafEditor\outdent.gif" />
-    <Content Include="Scripts\yafEditor\quote.gif" />
-    <Content Include="Scripts\yafEditor\smiley.gif" />
-    <Content Include="Scripts\yafEditor\spellcheck.gif" />
-    <Content Include="Scripts\yafEditor\underline.gif" />
-    <Content Include="Scripts\yafEditor\unorderedlist.gif" />
     <Content Include="themes\BlackGrey.xml" />
     <Content Include="themes\BlackGrey\albums.png" />
     <Content Include="themes\BlackGrey\arrow_up_button.png" />
@@ -4013,8 +3934,25 @@
     <Content Include="themes\cleanSlate\status_solved.png" />
     <Content Include="themes\cleanSlate\tab-line.png" />
     <Content Include="themes\cleanSlate\tab.png" />
-    <Content Include="recommended.web.config" />
-    <Content Include="Scripts\jquery-2.2.3.min.map" />
+    <Content Include="recommended.web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\forum\yaf.ReputationBar.js" />
+    <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
+    <Content Include="Scripts\ckeditor\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\CHANGELOG.md" />
+    <Content Include="Scripts\ckeditor\package.json" />
+    <Content Include="Scripts\ckeditor\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\CHANGES.md" />
+    <Content Include="Scripts\forum\yaf.MessageHistory.js" />
+    <Content Include="Scripts\forum\yaf.Attachments.js" />
+    <None Include="Scripts\jquery-3.1.0.intellisense.js">
+      <DependentUpon>jquery-3.1.0.js</DependentUpon>
+    </None>
     <None Include="themes\cleanSlate\theme.less" />
     <Content Include="themes\cleanSlate\theme.css">
       <DependentUpon>theme.less</DependentUpon>
@@ -5097,19 +5035,9 @@
     <Content Include="UrlRewriter.config" />
     <None Include="Web References\RegisterV2\RegisterV2.wsdl" />
     <Content Include="v1.9.1.upgrade.web.config" />
-    <Content Include="web.config" />
-    <None Include="web.Debug.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
-    <None Include="web.Deploy.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
-    <None Include="web.Package.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
-    <None Include="web.Release.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\URLRewriter.NET\Intelligencia.UrlRewriter.csproj">
@@ -5161,6 +5089,9 @@
       <CachedSettingsPropName>YAF_RegisterV2_RegisterV2</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Package|AnyCPU'">
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -5178,6 +5109,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
@@ -5211,6 +5143,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

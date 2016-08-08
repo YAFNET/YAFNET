@@ -53,11 +53,6 @@ namespace YAF
     {
         #region Constants and Fields
 
-        /// <summary>
-        ///   The _title.
-        /// </summary>
-        private readonly string _title;
-
         #endregion
 
         #region Constructors and Destructors
@@ -70,7 +65,7 @@ namespace YAF
         /// </param>
         public ForumPageTitleArgs([NotNull] string title)
         {
-            this._title = title;
+            this.Title = title;
         }
 
         #endregion
@@ -80,13 +75,7 @@ namespace YAF
         /// <summary>
         ///   Gets Title.
         /// </summary>
-        public string Title
-        {
-            get
-            {
-                return this._title;
-            }
-        }
+        public string Title { get; }
 
         #endregion
     }
@@ -287,24 +276,12 @@ namespace YAF
         /// <summary>
         ///   Gets UserID for the current User (Read Only)
         /// </summary>
-        public int PageUserID
-        {
-            get
-            {
-                return YafContext.Current.PageUserID;
-            }
-        }
+        public int PageUserID => YafContext.Current.PageUserID;
 
         /// <summary>
         ///   Gets UserName for the current User (Read Only)
         /// </summary>
-        public string PageUserName
-        {
-            get
-            {
-                return YafContext.Current.User == null ? "Guest" : YafContext.Current.User.UserName;
-            }
-        }
+        public string PageUserName => YafContext.Current.User == null ? "Guest" : YafContext.Current.User.UserName;
 
         /// <summary>
         ///   Gets or sets a value indicating whether Popup.
@@ -325,13 +302,7 @@ namespace YAF
         /// <summary>
         ///   Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator
-        {
-            get
-            {
-                return YafContext.Current.ServiceLocator;
-            }
-        }
+        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
 
         #endregion
 
@@ -382,7 +353,12 @@ namespace YAF
         {
             // wrap the forum in one main div and then a page div for better CSS selection
             writer.WriteLine();
-            writer.Write(@"<div class=""yafnet"" id=""{0}"">".FormatWith(this.ClientID));
+
+            writer.Write(
+                this.PageContext().CurrentForumPage.IsAdminPage
+                    ? @"<div class=""yafnet-bs"" id=""{0}"">".FormatWith(this.ClientID)
+                    : @"<div class=""yafnet"" id=""{0}"">".FormatWith(this.ClientID));
+
             writer.Write(
                 @"<div id=""yafpage_{0}"" class=""{1}"">".FormatWith(
                     this._page.ToString(), this._page.ToString().Replace(".", "_")));
@@ -435,10 +411,7 @@ namespace YAF
         protected override void OnLoad(EventArgs e)
         {
             // context is ready to be loaded, call the before page load event...
-            if (this.BeforeForumPageLoad != null)
-            {
-                this.BeforeForumPageLoad(this, new YafBeforeForumPageLoad());
-            }
+            this.BeforeForumPageLoad?.Invoke(this, new YafBeforeForumPageLoad());
 
             // "forum load" should be done by now, load the user and page...
             var userId = YafContext.Current.PageUserID;
@@ -455,7 +428,7 @@ namespace YAF
                 this._currentForumPage = (ForumPage)this.LoadControl(src);
 
                 this._header =
-                    this.LoadControl("{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "YafHeader"));
+                    this.LoadControl("{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, this._currentForumPage.IsAdminPage ? "AdminHeader" : "YafHeader"));
 
                 this._footer = new Footer();
             }
@@ -512,11 +485,8 @@ namespace YAF
             }
 
             // load plugins/functionality modules
-            if (this.AfterForumPageLoad != null)
-            {
-                this.AfterForumPageLoad(this, new YafAfterForumPageLoad());
-            }
-            
+            this.AfterForumPageLoad?.Invoke(this, new YafAfterForumPageLoad());
+
             base.OnLoad(e);
         }
 

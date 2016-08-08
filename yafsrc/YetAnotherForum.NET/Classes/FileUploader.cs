@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,7 +28,6 @@ namespace YAF.Classes
     using System.Collections.Generic;
     using System.Data;
     using System.IO;
-    using System.Text.RegularExpressions;
     using System.Web;
     using System.Web.Script.Serialization;
     using System.Web.SessionState;
@@ -43,7 +42,6 @@ namespace YAF.Classes
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils.Helpers;
-    using YAF.Utils.Helpers.StringUtils;
 
     /// <summary>
     /// The File Upload Handler
@@ -55,24 +53,12 @@ namespace YAF.Classes
         /// <summary>
         /// Gets a value indicating whether another request can use the <see cref="T:System.Web.IHttpHandler" /> instance.
         /// </summary>
-        public bool IsReusable
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public bool IsReusable => false;
 
         /// <summary>
         /// Gets the ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator
-        {
-            get
-            {
-                return YafContext.Current.ServiceLocator;
-            }
-        }
+        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
 
         #endregion
 
@@ -168,17 +154,13 @@ namespace YAF.Classes
 
                     if (fileName.IsSet())
                     {
-                        // Replace dots in the name with underscores (only one dot can be there... security issue).
-                        // NOTE: Not needed in ASP.NET
-                        //fileName = Regex.Replace(fileName, @"\.(?![^.]*$)", "_", RegexOptions.None);
-
                         // Check for Illegal Chars
                         if (FileHelper.ValidateFileName(fileName))
                         {
                             fileName = FileHelper.CleanFileName(fileName);
                         }
 
-                        fileName = fileName.Unidecode();
+                        //fileName = fileName.Unidecode();
                     }
                     else
                     {
@@ -235,9 +217,12 @@ namespace YAF.Classes
                                 bytes: file.ContentLength,
                                 contentType: file.ContentType);
 
-                        file.SaveAs("{0}/u{1}-{2}.{3}.yafupload".FormatWith(previousDirectory, yafUserID, newAttachmentID, fileName));
-
-
+                        file.SaveAs(
+                            "{0}/u{1}-{2}.{3}.yafupload".FormatWith(
+                                previousDirectory,
+                                yafUserID,
+                                newAttachmentID,
+                                fileName));
                     }
 
                     var fullName = Path.GetFileName(fileName);
@@ -258,7 +243,7 @@ namespace YAF.Classes
         private void WriteJsonIframeSafe(HttpContext context, List<FilesUploadStatus> statuses)
         {
             context.Response.AddHeader("Vary", "Accept");
-            
+
             context.Response.ContentType = "application/json";
 
             var jsonObject = new JavaScriptSerializer().Serialize(statuses.ToArray());
@@ -286,7 +271,7 @@ namespace YAF.Classes
             bool dontTrack;
             var userAgent = HttpContext.Current.Request.UserAgent;
 
-            // try and get more verbose platform name by ref and other parameters             
+            // try and get more verbose platform name by ref and other parameters
             UserAgentHelper.Platform(
                 userAgent,
                 HttpContext.Current.Request.Browser.Crawler,

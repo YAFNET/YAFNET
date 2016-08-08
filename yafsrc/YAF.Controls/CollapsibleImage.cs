@@ -54,12 +54,7 @@ namespace YAF.Controls
     {
       get
       {
-        if (this.ViewState["AttachedControlID"] != null)
-        {
-          return this.ViewState["AttachedControlID"].ToString();
-        }
-
-        return null;
+          return this.ViewState["AttachedControlID"]?.ToString();
       }
 
       set

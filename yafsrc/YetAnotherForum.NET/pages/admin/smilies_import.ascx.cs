@@ -93,8 +93,8 @@ namespace YAF.Pages.Admin
                   this.GetText("ADMIN_SMILIES", "TITLE"),
                   this.GetText("ADMIN_SMILIES_IMPORT", "TITLE"));
 
-            this.import.Text = this.GetText("ADMIN_SMILIES_IMPORT", "IMPORT");
-            this.cancel.Text = this.GetText("COMMON", "CANCEL");
+            this.import.Text = "<i class=\"fa fa-upload fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_SMILIES_IMPORT", "IMPORT"));
+            this.cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
 
             this.BindData();
         }

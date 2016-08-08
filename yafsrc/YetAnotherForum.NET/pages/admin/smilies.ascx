@@ -1,97 +1,114 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.smilies" CodeBehind="smilies.ascx.cs" %>
-<%@ Import Namespace="YAF.Utils" %>
+
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu runat="server">
     <asp:UpdatePanel ID="SmilesUpdatePanel" runat="server">
         <ContentTemplate>
+                <div class="row">
+    <div class="col-xl-12">
+        <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SMILIES" /></h1>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
             <YAF:Pager ID="Pager" runat="server" />
-            <table width="100%" cellspacing="1" cellpadding="0" class="content">
+            <div class="card card-primary-outline">
+                <div class="card-header card-primary">
+                    <i class="fa fa-smile-o fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SMILIES" />
+                    </div>
+                <div class="card-block">
+                 <div class="alert alert-info hidden-sm-up" role="alert">
+                            <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
+                            <span class="pull-right"><i class="fa fa-hand-o-left fa-fw"></i></span>
+                        </div><div class="table-responsive">
+            <table class="table">
                 <asp:Repeater runat="server" ID="List">
                     <HeaderTemplate>
                         <tr>
-                            <td class="header1" colspan="5">
-                                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SMILIES" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="header2">
+                            <thead>
+                            <th>
                                 <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="ORDER" LocalizedPage="ADMIN_SMILIES" />
-                            </td>
-                            <td class="header2">
+                            </th>
+                            <th>
                                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="CODE" LocalizedPage="ADMIN_SMILIES" />
-                            </td>
-                            <td class="header2" align="center">
+                            </th>
+                            <th>
                                 <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="SMILEY" LocalizedPage="ADMIN_SMILIES" />
-                            </td>
-                            <td class="header2">
+                            </th>
+                            <th>
                                 <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="EMOTION" LocalizedPage="ADMIN_SMILIES" />
-                            </td>
-                            <td class="header2">
+                            </th>
+                            <th>
                                 &nbsp;
-                            </td>
+                            </th>
+                            </thead>
                         </tr>
                     </HeaderTemplate>
                     <ItemTemplate>
                         <tr>
-                            <td class="post">
-                                <%# Eval("SortOrder") %>
+                            <td>
+                                <%# this.Eval("SortOrder") %>
                             </td>
-                            <td class="post">
-                                <%# Eval("Code") %>
+                            <td>
+                                <%# this.Eval("Code") %>
                             </td>
-                            <td class="post" align="center">
-                                <img src="<%# YafForumInfo.ForumClientFileRoot + YafBoardFolders.Current.Emoticons %>/<%# Eval("Icon") %>" alt="<%# Eval("Icon") %>" />
+                            <td>
+                                <img src="<%# YafForumInfo.ForumClientFileRoot + YafBoardFolders.Current.Emoticons %>/<%# this.Eval("Icon") %>" alt="<%# this.Eval("Icon") %>" />
                             </td>
-                            <td class="post">
-                                <%# Eval("Emoticon") %>
+                            <td>
+                                <%# this.Eval("Emoticon") %>
                             </td>
-                            <td class="post" align="right">
-                                <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" 
-                                    CommandName='edit' CommandArgument='<%# Eval( "ID") %>' 
-                                    TitleLocalizedTag="EDIT" 
-                                    ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON"
-                                    TextLocalizedTag="EDIT" 
+                            <td>
+                                <span class="pull-right">
+                                <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm"
+                                    CommandName='edit' CommandArgument='<%# this.Eval( "ID") %>'
+                                    TitleLocalizedTag="EDIT"
+                                    Icon="edit"
+                                    TextLocalizedTag="EDIT"
                                     runat="server">
                                 </YAF:ThemeButton>
-                                <YAF:ThemeButton ID="ThemeButtonMoveUp" CssClass="yaflittlebutton" 
-                            CommandName='moveup' CommandArgument='<%# Eval("ID") %>' 
-					        TitleLocalizedTag="MOVE_UP" 
+                                <YAF:ThemeButton ID="ThemeButtonMoveUp" CssClass="btn btn-warning btn-sm"
+                            CommandName='moveup' CommandArgument='<%# this.Eval("ID") %>'
+					        TitleLocalizedTag="MOVE_UP"
                             TitleLocalizedPage="ADMIN_SMILIES"
-					        ImageThemePage="SORT" ImageThemeTag="ASCENDING"
-					        TextLocalizedTag="MOVE_UP" 
+					        Icon="level-up"
+					        TextLocalizedTag="MOVE_UP"
                             TextLocalizedPage="ADMIN_SMILIES"
 					        runat="server"/>
-					    <YAF:ThemeButton ID="ThemeButtonMoveDown" CssClass="yaflittlebutton" 
-					        CommandName='movedown' CommandArgument='<%# Eval("ID") %>' 
-					        TitleLocalizedTag="MOVE_DOWN" 
+					    <YAF:ThemeButton ID="ThemeButtonMoveDown" CssClass="btn btn-warning btn-sm"
+					        CommandName='movedown' CommandArgument='<%# this.Eval("ID") %>'
+					        TitleLocalizedTag="MOVE_DOWN"
                             TitleLocalizedPage="ADMIN_SMILIES"
-					        ImageThemePage="SORT" ImageThemeTag="DESCENDING"
-					        TextLocalizedTag="MOVE_DOWN" 
+					        Icon="level-down"
+					        TextLocalizedTag="MOVE_DOWN"
                             TextLocalizedPage="ADMIN_SMILIES"
 					        runat="server" />
-						
-                                <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" 
-                                    CommandName='delete' CommandArgument='<%# Eval( "ID") %>' 
-                                    TitleLocalizedTag="DELETE" 
-                                    ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON"
+
+                                <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm"
+                                    CommandName='delete' CommandArgument='<%# this.Eval( "ID") %>'
+                                    TitleLocalizedTag="DELETE"
+                                    Icon="trash"
                                     TextLocalizedTag="DELETE"
                                     OnLoad="Delete_Load"  runat="server">
                                 </YAF:ThemeButton>
+                                    </span>
                             </td>
                         </tr>
                     </ItemTemplate>
                     <FooterTemplate>
-                        <tr>
-                            <td class="footer1" colspan="5" align="center">
-                                <asp:Button runat="server" CommandName="add" CssClass="pbutton" OnLoad="addLoad"> </asp:Button>
-                                |
-                                <asp:Button runat="server" CommandName="import" CssClass="pbutton" OnLoad="importLoad"></asp:Button>
-                            </td>
-                        </tr>
+                        </table></div>
+                </div>
+                <div class="card-footer text-lg-center">
+                                <asp:LinkButton runat="server" CommandName="add" CssClass="btn btn-primary" OnLoad="addLoad"> </asp:LinkButton>
+                                &nbsp;
+                                <asp:LinkButton runat="server" CommandName="import" CssClass="btn btn-info" OnLoad="importLoad"></asp:LinkButton>
                     </FooterTemplate>
-                </asp:Repeater>
-            </table>
-            <YAF:Pager ID="Pager1" runat="server" LinkedPager="Pager" />
+                </asp:Repeater>                </div>
+            </div>
+             <YAF:Pager ID="Pager1" runat="server" LinkedPager="Pager" />
+        </div>
+    </div>
+
         </ContentTemplate>
     </asp:UpdatePanel>
 </YAF:AdminMenu>

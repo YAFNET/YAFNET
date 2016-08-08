@@ -1,46 +1,42 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.pm" Codebehind="pm.ascx.cs" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
-	<table class="content" cellspacing="1" cellpadding="0" width="100%">
-		<tr>
-			<td class="header1" colspan="2">
-				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_PM" />
-            </td>
-		</tr>
-        <tr>
-			    <td class="header2" height="30" colspan="2"></td>
-		</tr>
-		<tr>
-			<td class="postheader" width="50%">
+    <div class="row">
+    <div class="col-xl-12">
+        <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_PM" /></h1>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card card-primary-outline">
+                <div class="card-header card-primary">
+                    <i class="fa fa-envelope-square fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_PM" />
+                </div>
+                <div class="card-block">
+			<h4>
                 <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="PM_NUMBER" LocalizedPage="ADMIN_PM" />
-            </td>
-			<td class="post" width="50%">
-				<asp:Label runat="server" ID="Count" />
-            </td>
-		</tr>
-		<tr>
-			<td class="postheader" width="50%">
+                &nbsp;<small><asp:Label runat="server" ID="Count" /></small>
+            </h4>
+            <hr />
+			<h4>
                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="DELETE_READ" LocalizedPage="ADMIN_PM" />
-                </td>
-			<td class="post" width="50%">
-				<asp:TextBox runat="server" ID="Days1" CssClass="Numeric" />
-				<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DAYS" LocalizedPage="ADMIN_PM" />
-            </td>
-		</tr>
-		<tr>
-			<td class="postheader" width="50%">
+                </h4>
+			<p>
+				<asp:TextBox runat="server" ID="Days1" CssClass="form-control DaysInput" TextMode="Number" />
+           </p>
+			<h4>
                 <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="DELETE_UNREAD" LocalizedPage="ADMIN_PM" />
-            </td>
-			<td class="post" width="50%">
-				<asp:TextBox runat="server" ID="Days2" CssClass="Numeric" />
-				<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="DAYS" LocalizedPage="ADMIN_PM" />
-            </td>
-		</tr>
-		<tr>
-			<td class="footer1" colspan="2" align="center">
-				<asp:Button ID="commit" CssClass="pbutton" runat="server" OnLoad="DeleteButton_Load" />
-			</td>
-		</tr>
-	</table>
+            </h4>
+			<p>
+				<asp:TextBox runat="server" ID="Days2" CssClass="form-control DaysInput" TextMode="Number" />
+            </p>
+                </div>
+                <div class="card-footer text-lg-center">
+				    <asp:LinkButton ID="commit" CssClass="btn btn-primary" runat="server" OnLoad="DeleteButton_Load" />
+                </div>
+            </div>
+        </div>
+    </div>
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

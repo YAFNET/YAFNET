@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -59,49 +59,50 @@ namespace YAF.Pages.Admin
     /// </summary>
     private readonly StringCollection _availableRoles = new StringCollection();
 
-    #endregion
+        #endregion
 
-    #region Methods
-    /// <summary>
-    /// Format access mask setting color formatting.
-    /// </summary>
-    /// <param name="enabled">
-    /// The enabled.
-    /// </param>
-    /// <returns>
-    /// Set access mask flags are rendered green if true, and if not red
-    /// </returns>
-    protected Color GetItemColor(bool enabled)
-    {
-        // show enabled flag red
-        return enabled ? Color.Green : Color.Red;
-    }
+        #region Methods
 
-    /// <summary>
-    /// Format string color.
-    /// </summary>
-    /// <param name="item">
-    /// The item.
-    /// </param>
-    /// <returns>
-    /// Set values are are rendered green if true, and if not red
-    /// </returns>
-    protected Color GetItemColorString(string item)
-    {
-        // show enabled flag red
-        return item.IsSet() ? Color.Green : Color.Red;
-    }
+        /// <summary>
+        /// Format string color.
+        /// </summary>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// Set values  are rendered green if true, and if not red
+        /// </returns>
+        protected string GetItemColorString(string item)
+        {
+            // show enabled flag red
+            return item.IsSet() ? "tag tag-success" : "tag tag-danger";
+        }
 
-    /// <summary>
-    /// Get a user friendly item name.
-    /// </summary>
-    /// <param name="enabled">
-    /// The enabled.
-    /// </param>
-    /// <returns>
-    /// Item Name.
-    /// </returns>
-    protected string GetItemName(bool enabled)
+        /// <summary>
+        /// Format access mask setting color formatting.
+        /// </summary>
+        /// <param name="enabled">
+        /// The enabled.
+        /// </param>
+        /// <returns>
+        /// Set access mask flags  are rendered green if true, and if not red
+        /// </returns>
+        protected string GetItemColor(bool enabled)
+        {
+            // show enabled flag red
+            return enabled ? "tag tag-success" : "tag tag-danger";
+        }
+
+        /// <summary>
+        /// Get a user friendly item name.
+        /// </summary>
+        /// <param name="enabled">
+        /// The enabled.
+        /// </param>
+        /// <returns>
+        /// Item Name.
+        /// </returns>
+        protected string GetItemName(bool enabled)
     {
         return enabled ? this.GetText("DEFAULT", "YES") : this.GetText("DEFAULT", "NO");
     }
@@ -191,7 +192,7 @@ namespace YAF.Pages.Admin
         // create page links
         this.CreatePageLinks();
 
-        this.NewGroup.Text = this.GetText("ADMIN_GROUPS", "NEW_ROLE");
+        this.NewGroup.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_GROUPS", "NEW_ROLE"));
 
         // sync roles just in case...
         RoleMembershipHelper.SyncRoles(YafContext.Current.PageBoardID);
@@ -220,22 +221,22 @@ namespace YAF.Pages.Admin
           const int _initialPMessages = 0;
 
           long groupID = LegacyDb.group_save(
-            DBNull.Value, 
-            this.PageContext.PageBoardID, 
-            e.CommandArgument.ToString(), 
-            false, 
-            false, 
-            false, 
-            false, 
-            1, 
-            _initialPMessages, 
-            null, 
-            100, 
-            null, 
-            0, 
-            null, 
-            null, 
-            0, 
+            DBNull.Value,
+            this.PageContext.PageBoardID,
+            e.CommandArgument.ToString(),
+            false,
+            false,
+            false,
+            false,
+            1,
+            _initialPMessages,
+            null,
+            100,
+            null,
+            0,
+            null,
+            null,
+            0,
             0);
 
           // redirect to newly created role

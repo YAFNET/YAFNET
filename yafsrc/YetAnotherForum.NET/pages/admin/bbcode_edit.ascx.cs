@@ -194,8 +194,8 @@ namespace YAF.Pages.Admin
                     this.GetText("ADMIN_ADMIN", "Administration"),
                     this.GetText("ADMIN_BBCODE", "TITLE"),
                     this.GetText("ADMIN_BBCODE_EDIT", "TITLE").FormatWith(strAddEdit));
-                this.save.Text = this.GetText("ADMIN_COMMON", "SAVE");
-                this.cancel.Text = this.GetText("ADMIN_COMMON", "CANCEL");
+                this.save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
+                this.cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
                 this.BindData();
             }
 

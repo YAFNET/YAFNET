@@ -106,10 +106,10 @@ namespace YAF.Pages.Admin
                                           ? this.GetText("COMMON", "YES")
                                           : this.GetText("COMMON", "NO");
 
-            this.TestSend.Text = this.GetText("ADMIN_DIGEST", "SEND_TEST");
+            this.TestSend.Text = "<i class=\"fa fa-send fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_DIGEST", "SEND_TEST"));
 
-            this.GenerateDigest.Text = this.GetText("ADMIN_DIGEST", "GENERATE_DIGEST");
-            this.Button2.Text = this.GetText("ADMIN_DIGEST", "FORCE_SEND");
+            this.GenerateDigest.Text = "<i class=\"fa fa-envelope fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_DIGEST", "GENERATE_DIGEST"));
+            this.Button2.Text = "<i class=\"fa fa-send fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_DIGEST", "FORCE_SEND"));
 
             this.Button2.OnClientClick =
                 "return confirm('{0}');".FormatWith(this.GetText("ADMIN_DIGEST", "CONFIRM_FORCE"));
@@ -155,18 +155,18 @@ namespace YAF.Pages.Admin
 
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_DIGEST", "MSG_SEND_SUC").FormatWith(this.SendMethod.SelectedItem.Text),
-                        MessageTypes.Success);
+                        MessageTypes.success);
                 }
                 catch (Exception ex)
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR").FormatWith(ex),
-                        MessageTypes.Error);
+                        MessageTypes.danger);
                 }
             }
             else
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_VALID_MAIL"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_VALID_MAIL"), MessageTypes.danger);
             }
         }
 

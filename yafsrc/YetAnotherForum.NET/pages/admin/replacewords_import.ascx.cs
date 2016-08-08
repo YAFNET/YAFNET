@@ -110,7 +110,7 @@ namespace YAF.Pages.Admin
                         importedCount > 0
                             ? this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED").FormatWith(importedCount)
                             : this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_NOTHING"),
-                        importedCount > 0 ? MessageTypes.Success : MessageTypes.Warning);
+                        importedCount > 0 ? MessageTypes.success : MessageTypes.warning);
 
                     YafBuildLink.Redirect(ForumPages.admin_replacewords);
                 }
@@ -154,8 +154,8 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_REPLACEWORDS", "TITLE"),
                 this.GetText("ADMIN_REPLACEWORDS_IMPORT", "TITLE"));
 
-            this.Import.Text = this.GetText("COMMON", "IMPORT");
-            this.cancel.Text = this.GetText("COMMON", "CANCEL");
+            this.Import.Text = "<i class=\"fa fa-upload fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT"));
+            this.cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
         }
 
         #endregion

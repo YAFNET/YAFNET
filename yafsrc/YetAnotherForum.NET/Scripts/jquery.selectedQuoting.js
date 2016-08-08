@@ -1,7 +1,7 @@
 /*
  * Selected-Quoting for Messages based on the
  * selection-sharer Plugin by
- *  Xavier Damman (@xdamman) at 
+ *  Xavier Damman (@xdamman) at
     https://github.com/xdamman/share-selection
  *
  * Author: Xavier Damman (@xdamman)
@@ -184,7 +184,7 @@
             e.preventDefault();
 
             var messageID = $(this).attr("id").replace("Message", "");
-            
+
             var text = self.htmlSelection.replace(/<p[^>]*>/ig, '\n').replace(/<\/p>|  /ig, '').trim();
             var url = self.URL + '&q=' + messageID + '&text=' + encodeURIComponent(text);
 

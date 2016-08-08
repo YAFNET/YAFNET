@@ -80,7 +80,7 @@ namespace YAF.Controls
                 return;
             }
 
-            this.Save.Text = this.Get<ILocalization>().GetText("COMMON", "SAVE");
+            this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "SAVE"));
 
             this.BindData();
         }
@@ -100,7 +100,7 @@ namespace YAF.Controls
                 string userName = this.Get<MembershipProvider>().GetUserNameByEmail(this.Email.Text.Trim());
                 if (userName.IsSet() && userName != user.UserName)
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.Warning);
+                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                     return;
                 }
 
@@ -120,7 +120,7 @@ namespace YAF.Controls
                 if (!this.IsApproved.Checked)
                 {
                     this.PageContext.AddLoadMessage(
-                        this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_GUEST_APPROVED"), MessageTypes.Success);
+                        this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_GUEST_APPROVED"), MessageTypes.success);
                     return;
                 }
             }

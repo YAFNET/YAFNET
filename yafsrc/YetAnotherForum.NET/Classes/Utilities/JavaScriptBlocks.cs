@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -48,35 +48,25 @@ namespace YAF.Utilities
         ///   the callback success js.
         /// </returns>
         [NotNull]
-        public static string AlbumCallbackSuccessJS
-        {
-            get
-            {
-                return @"function changeTitleSuccess(res){{
+        public static string AlbumCallbackSuccessJS => @"function changeTitleSuccess(res){{
                   spnTitleVar = document.getElementById('spnTitle' + res.d.Id);
                   txtTitleVar =  document.getElementById('txtTitle' + res.d.Id);
                   spnTitleVar.firstChild.nodeValue = res.d.NewTitle;
                   txtTitleVar.disabled = false;
                   spnTitleVar.style.display = 'inline';
                   txtTitleVar.style.display='none';}}";
-            }
-        }
 
         /// <summary>
         ///   Gets Pagination Load JS.
         /// </summary>
         [NotNull]
-        public static string PaginationLoadJs
-        {
-            get
-            {
-                return @"function pageselectCallback(page_index, jq){{
+        public static string PaginationLoadJs => @"function pageselectCallback(page_index, jq){{
                 var new_content = {0}('#SmiliesPagerHidden div.result:eq('+page_index+')').clone();
                 {0}('#SmiliesPagerResult').empty().append(new_content);
                 return false;
             }}
-           
-            {0}(document).ready(function(){{      
+
+            {0}(document).ready(function(){{
                 var num_entries = {0}('#SmiliesPagerHidden div.result').length;
                 {0}('#SmiliesPager').pagination(num_entries, {{
                     callback: pageselectCallback,
@@ -89,53 +79,32 @@ namespace YAF.Utilities
 					next_text: '&raquo;'
                 }});
             }});".FormatWith(Config.JQueryAlias);
-            }
-        }
 
         /// <summary>
         ///   Gets CeeBox Load JS.
         /// </summary>
         [NotNull]
-        public static string CeeBoxLoadJs
-        {
-            get
-            {
-                return @"{0}(document).ready(function() {{ 
+        public static string CeeBoxLoadJs => @"{0}(document).ready(function() {{
 					{0}('.ceebox').ceebox({{titles:true}});}});".FormatWith(Config.JQueryAlias);
-            }
-        }
 
         /// <summary>
         /// Gets the multi quote callback success JS.
         /// </summary>
         [NotNull]
-        public static string MultiQuoteCallbackSuccessJS
-        {
-            get
-            {
-                return @"function multiQuoteSuccess(res){{
+        public static string MultiQuoteCallbackSuccessJS => @"function multiQuoteSuccess(res){{
                   var multiQuoteButton = {0}('#' + res.d.Id).parent('span');
                   multiQuoteButton.removeClass(multiQuoteButton.attr('class')).addClass(res.d.NewTitle);
                   {0}(document).scrollTop(multiQuoteButton.offset().top - 20);
                       }}".FormatWith(Config.JQueryAlias);
-            }
-        }
 
         /// <summary>
         /// Gets the multi quote button JS.
         /// </summary>
         [NotNull]
-        public static string MultiQuoteButtonJs
-        {
-            get
-            {
-                return
-                    @"function handleMultiQuoteButton(button, msgId, tpId){{
+        public static string MultiQuoteButtonJs => @"function handleMultiQuoteButton(button, msgId, tpId){{
                      var messageId = msgId,topicId = tpId, cssClass = {1}('#' + button.id).parent('span').attr('class');
                      {1}.PageMethod('{0}YafAjax.asmx', 'HandleMultiQuote', multiQuoteSuccess, CallFailed, 'buttonId', button.id, 'multiquoteButton', button.checked, 'messageId', messageId, 'topicId', topicId, 'buttonCssClass', cssClass);}}"
-                        .FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
-            }
-        }
+            .FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
 
         /// <summary>
         ///   Gets the script for changing the album title.
@@ -144,44 +113,26 @@ namespace YAF.Utilities
         ///   the change album title js.
         /// </returns>
         [NotNull]
-        public static string ChangeAlbumTitleJs
-        {
-            get
-            {
-                return
-                    @"function changeAlbumTitle(albumId, txtTitleId){{
+        public static string ChangeAlbumTitleJs => @"function changeAlbumTitle(albumId, txtTitleId){{
                      var albId = albumId;var newTitleTxt = {1}('#' + txtTitleId).val();
                      {1}.PageMethod('{0}YafAjax.asmx', 'ChangeAlbumTitle', changeTitleSuccess, CallFailed, 'albumID', albId, 'newTitle', newTitleTxt);}}"
-                        .FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
-            }
-        }
+            .FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
 
         /// <summary>
         ///   Gets the script for changing the image caption.
         /// </summary>
         /// <returns></returns>
         [NotNull]
-        public static string ChangeImageCaptionJs
-        {
-            get
-            {
-                return
-                    @"function changeImageCaption(imageID, txtTitleId){{
+        public static string ChangeImageCaptionJs => @"function changeImageCaption(imageID, txtTitleId){{
               var imgId = imageID;var newImgTitleTxt = {1}('#' + txtTitleId).val();
               {1}.PageMethod('{0}YafAjax.asmx', 'ChangeImageCaption', changeTitleSuccess, CallFailed, 'imageID', imgId, 'newCaption', newImgTitleTxt);}}"
-                        .FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
-            }
-        }
+            .FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
 
         /// <summary>
         ///   Gets DisablePageManagerScrollJs.
         /// </summary>
         [NotNull]
-        public static string DisablePageManagerScrollJs
-        {
-            get
-            {
-                return @"
+        public static string DisablePageManagerScrollJs => @"
 	var prm = Sys.WebForms.PageRequestManager.getInstance();
 
 	prm.add_beginRequest(beginRequest);
@@ -190,74 +141,48 @@ namespace YAF.Utilities
 		prm._scrollPosition = null;
 	}
 ";
-            }
-        }
 
         /// <summary>
         ///   Gets Repuatation Progress Load JS.
         /// </summary>
         [NotNull]
-        public static string RepuatationProgressLoadJs
-        {
-            get
-            {
-                return @"{0}(document).ready(function() {{
+        public static string ReputationProgressLoadJs => @"{0}(document).ready(function() {{
 					{0}('.ReputationBar').progressbar({{
 			            create: function(event, ui) {{
 			                    ChangeReputationBarColor({0}(this).attr('data-percent'),{0}(this).attr('data-text'), this);
 			                    }}
 		             }});}});".FormatWith(Config.JQueryAlias);
-            }
-        }
 
         /// <summary>
         ///   Gets TimeagoLoadJs.
         /// </summary>
-        public static string TimeagoLoadJs
-        {
-            get
-            {
-                return @" if( typeof(CKEDITOR) == 'undefined') {{
-            function loadTimeAgo() {{	
-            {2}.timeago.settings.refreshMillis = {1};			      	
+        public static string TimeagoLoadJs => @" if( typeof(CKEDITOR) == 'undefined') {{
+            function loadTimeAgo() {{
+            {2}.timeago.settings.refreshMillis = {1};
             {0}
 		    {2}('abbr.timeago').timeago();
 
             Prism.highlightAll();
-			      }} 
+			      }}
                    Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
                    }};".FormatWith(
-                    YafContext.Current.Get<ILocalization>().GetText("TIMEAGO_JS"),
-                    YafContext.Current.Get<YafBoardSettings>().RelativeTimeRefreshTime,
-                    Config.JQueryAlias);
-            }
-        }
+            YafContext.Current.Get<ILocalization>().GetText("TIMEAGO_JS"),
+            YafContext.Current.Get<YafBoardSettings>().RelativeTimeRefreshTime,
+            Config.JQueryAlias);
 
         /// <summary>
         ///   Gets ToggleMessageJs.
         /// </summary>
         [NotNull]
-        public static string ToggleMessageJs
-        {
-            get
-            {
-                return @"
+        public static string ToggleMessageJs => @"
                       function toggleMessage(divId)
                       {{ {0}('#' + divId).toggle(); }}".FormatWith(Config.JQueryAlias);
-            }
-        }
 
         /// <summary>
         ///  Gets the If asynchronous callback encounters any problem, this javascript function will be called.
         /// </summary>
         [NotNull]
-        public static string AsynchCallFailedJs
-        {
-            get
-            {
-                return "function CallFailed(res){{alert('Error Occurred');}}";
-            }
-        }
+        public static string AsynchCallFailedJs => "function CallFailed(res){{alert('Error Occurred');}}";
 
         #endregion
 
@@ -319,65 +244,40 @@ namespace YAF.Utilities
         }
 
         /// <summary>
-        /// Generates jQuery UI DatePicker Script
+        /// Generates a BootStrap DateTimePicker Script
         /// </summary>
-        /// <param name="fieldId">
-        /// The Id of the Control to Bind the DatePicker
-        /// </param>
-        /// <param name="dateFormat">
-        /// Localized Date Format
-        /// </param>
-        /// <param name="culture">
-        /// Current Culture
-        /// </param>
+        /// <param name="dateFormat">Localized Date Format</param>
+        /// <param name="culture">Current Culture</param>
         /// <returns>
         /// The Load JS.
         /// </returns>
         public static string DatePickerLoadJs(
-            [NotNull] string fieldId,
             [NotNull] string dateFormat,
             [NotNull] string culture)
         {
             var cultureJs = string.Empty;
 
-            dateFormat = dateFormat.ToLower();
-
-            dateFormat = dateFormat.Replace("yyyy", "yy");
+            dateFormat = dateFormat.ToUpper();
 
             if (culture.IsSet())
             {
-                cultureJs = @"{2}('#{0}').datepicker('option', {2}.datepicker.regional['{1}']);".FormatWith(
-                    fieldId,
-                    culture,
-                    Config.JQueryAlias);
+                cultureJs = ", locale: '{0}'".FormatWith(culture);
             }
 
             return
                 @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadDatePicker);
-                  function loadDatePicker() {{	{3}(document).ready(function() {{ {3}('#{0}').datepicker({{showButtonPanel: true,changeMonth:true,changeYear:true,yearRange: '-100:+0',maxDate:'+0d',dateFormat:'{1}',}}); {2} }});}} "
-                    .FormatWith(fieldId, dateFormat, cultureJs, Config.JQueryAlias);
-        }
-
-        /// <summary>
-        /// Generates jQuery Select Menu (with icons) load JS
-        /// </summary>
-        /// <param name="dropDownId">
-        /// The drop Down client Id.
-        /// </param>
-        /// <returns>
-        /// The Load JS.
-        /// </returns>
-        public static string SelectMenuWithIconsJs([NotNull] string dropDownId)
-        {
-            return @"Sys.Application.add_load(render_IconSelectMenu);function render_IconSelectMenu() {{ 
-                                    {0}('#{1}').iconselectmenu({{
-            change: function() {{
-                if (typeof ({0}(this).attr('onchange')) !== 'undefined') {{
-                            __doPostBack({0}(this).attr('name'),'');
-                        }}
-        }}
-        }}).iconselectmenu('menuWidget').addClass('ui-menu-icons customicon'); 
-                     }} ".FormatWith(Config.JQueryAlias, dropDownId);
+                  function loadDatePicker() {{	{2}(document).ready(function() {{ {2}('.datepickerinput').datetimepicker({{format: '{0}'{1},icons:{{
+            time: 'fa fa-clock-o fa-fw',
+            date: 'fa fa-calendar fa-fw',
+            up: 'fa fa-chevron-up fa-fw',
+            down: 'fa fa-chevron-down fa-fw',
+            previous: 'fa fa-chevron-left fa-fw',
+            next: 'fa fa-chevron-right fa-fw',
+            today: 'fa fa-sun-o fa-fw',
+            clear: 'fa fa-trash fa-fw',
+            close: 'fa fa-remove fa-fw'
+        }}}}); }});}} "
+                    .FormatWith(dateFormat, cultureJs, Config.JQueryAlias);
         }
 
         /// <summary>
@@ -468,16 +368,25 @@ namespace YAF.Utilities
         }
 
         /// <summary>
-        /// Loads the spinner widget for time correction.
+        /// Gets the Bootstrap Tab Load JS.
         /// </summary>
-        /// <returns>Returns the spinner widget for time correction.</returns>
-        public static string LoadSpinnerWidgetForTimeCorrection()
+        /// <param name="tabId">The tab Id.</param>
+        /// <param name="hiddenId">The hidden field id.</param>
+        /// <returns>
+        /// Returns the the Bootstrap Tab Load JS string
+        /// </returns>
+        public static string BootstrapTabsLoadJs(
+            [NotNull] string tabId,
+            string hiddenId)
         {
-            return @"{0}(document).ready(function() {{
-                        if (typeof (jQuery.fn.spinner) !== 'undefined') {{
-                            {0}('.NumericServerTimeCorrection').spinner({{min: -720, max: 720}});
-                        }}
-                    }});".FormatWith(Config.JQueryAlias);
+            return @"{2}(document).ready(function() {{
+            var selectedTab = {2}(""#{1}"");
+            var tabId = selectedTab.val() != """" ? selectedTab.val() : ""View1"";
+            {2}('#{0} a[href=""#' + tabId + '""]').tab('show');
+            {2}(""#{0} a"").click(function() {{
+                selectedTab.val({2}(this).attr(""href"").substring(1));
+            }});
+                           }});".FormatWith(tabId, hiddenId, Config.JQueryAlias);
         }
 
         /// <summary>
@@ -525,6 +434,24 @@ namespace YAF.Utilities
         }
 
         /// <summary>
+        /// Loads the touch spin.
+        /// </summary>
+        /// <param name="selector">The selector.</param>
+        /// <param name="options">The options.</param>
+        /// <returns></returns>
+        public static string LoadTouchSpin(
+            [NotNull] string selector,
+            [CanBeNull] string options)
+        {
+            return @"{0}(document).ready(function() {{
+                        {0}('{1}').TouchSpin( {2} );
+                    }});".FormatWith(
+                Config.JQueryAlias,
+                selector,
+                options.IsSet() ? "{{ {0} }}".FormatWith(options) : string.Empty);
+        }
+
+        /// <summary>
         /// Load Go to Anchor
         /// </summary>
         /// <param name="anchor">
@@ -537,7 +464,7 @@ namespace YAF.Utilities
         {
             return @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadGotoAnchor);
             function loadGotoAnchor() {{
-               document.getElementById('{0}').scrollIntoView();       
+               document.getElementById('{0}').scrollIntoView();
 			      }}".FormatWith(anchor);
         }
 
@@ -662,23 +589,6 @@ namespace YAF.Utilities
 		             }});}});".FormatWith(Config.JQueryAlias, userId, generateReputationBar);
         }
 
-        /// <summary>
-        /// Toggle Event Log Item Js Scripts
-        /// used to show/hide event log item
-        /// </summary>
-        /// <param name="showText">The show text.</param>
-        /// <param name="hideText">The hide text.</param>
-        /// <returns>Toggle Event Log Item Js</returns>
-        [NotNull]
-        public static string ToggleEventLogItemJs([NotNull] string showText, [NotNull] string hideText)
-        {
-            return @"function toggleEventLogItem(detailId) {{
-                           var show = '{1}';var hide = '{2}';
-	                       {0}('#Show'+ detailId).text({0}('#Show'+ detailId).text() == show ? hide : show);
-                           {0}('#eventDetails' + detailId).slideToggle('slow'); return false;
-                  }}".FormatWith(Config.JQueryAlias, showText, hideText);
-        }
-
         #endregion
 
         /// <summary>
@@ -771,10 +681,10 @@ namespace YAF.Utilities
                 done: function (e, data) {{
                     insertAttachment(data.result[0].fileID, data.result[0].fileID);
                     {0}('#fileupload').find('.files tr:first').remove();
-                    
+
                     if ({0}('#fileupload').find('.files tr').length == 0) {{
                         {0}('.UploadDialog').dialog('close');
-                        
+
                         var pageSize = 5;
                         var pageNumber = 0;
                         getPaginationData(pageSize, pageNumber, false);
@@ -921,10 +831,10 @@ namespace YAF.Utilities
         if(password == '' && passwordConfirm == '') {{
             {0}('#passwordStrength').removeClass().empty();
             {0}('#passwordStrength').parent().parent('.post').hide();
- 
+
             return false;
         }}
-        else 
+        else
         {{
              if(password != passwordConfirm) {{
     		    {0}('#passwordStrength').removeClass().addClass('ui-state-error ui-corner-all').html('<p><span class=""PasswordStrengthMessageIcon ui-icon ui-icon-alert"" />{4}</p>');
@@ -937,29 +847,29 @@ namespace YAF.Utilities
              }}
          }}
     }});
- 
+
     {0}('#{1}').on('keyup', function(e) {{
 
         var password = {0}('#{1}').val();
         var passwordConfirm = {0}('#{2}').val();
- 
+
         if(password == '' && passwordConfirm == '')
         {{
             {0}('#passwordStrength').removeClass().empty();
             {0}('#passwordStrength').parent().parent('.post').hide();
- 
+
             return false;
         }}
 
         var strongRegex = new RegExp(""^(?=.{{8,}})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$"", ""g"");
- 
+
         var mediumRegex = new RegExp(""^(?=.{{7,}})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$"", ""g"");
- 
+
         var okRegex = new RegExp(""(?=.{{{3},}}).*"", ""g"");
- 
+
         if (okRegex.test(password) === false) {{
             {0}('#passwordStrength').removeClass().addClass('ui-state-error ui-corner-all').html('<p><span class=""PasswordStrengthMessageIcon ui-icon ui-icon-alert"" />{5}</p>');
- 
+
         }} else if (strongRegex.test(password)) {{
             {0}('#passwordStrength').removeClass().addClass('ui-state-default ui-corner-all').html('<p><span class=""PasswordStrengthMessageIcon ui-icon ui-icon-check"" />{6}</p>');
         }} else if (mediumRegex.test(password)) {{
@@ -969,7 +879,7 @@ namespace YAF.Utilities
         }}
 
         {0}('#passwordStrength').parent().parent('.post').show();
-        
+
         return true;
     }});
 }});".FormatWith(
@@ -983,23 +893,5 @@ namespace YAF.Utilities
                 passwordStrongerText,
                 passwordWeakText);
         }
-
-        #region BootStrap Script Blocks
-
-        /// <summary>
-        /// Gets the tool tip load script block.
-        /// </summary>
-        /// <value>
-        /// The tool tip load script block.
-        /// </value>
-        public static string ToolTipLoadScriptBlock
-        {
-            get
-            {
-                return "{0}('img, input, a').tooltip();".FormatWith(Config.JQueryAlias);
-            }
-        }
-
-        #endregion
     }
 }

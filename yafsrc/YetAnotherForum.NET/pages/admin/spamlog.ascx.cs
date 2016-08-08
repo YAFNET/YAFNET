@@ -106,34 +106,6 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// return HTML code of event log entry image
         /// </returns>
-        protected string EventImageCode([NotNull] object dataRow)
-        {
-            // cast object to the DataRowView
-            var row = (DataRowView)dataRow;
-
-            // set defaults
-            string imageType = Enum.GetName(typeof(EventLogTypes), (int)row["Type"]);
-
-            if (imageType.IsNotSet())
-            {
-                imageType = "Error";
-            }
-
-            // return HTML code of event log entry image
-            return
-                @"<img src=""{0}"" alt=""{1}"" title=""{1}"" />".FormatWith(
-                    YafForumInfo.GetURLToContent("icons/{0}.png".FormatWith(imageType.ToLowerInvariant())), imageType);
-        }
-
-        /// <summary>
-        /// Gets HTML IMG code representing given log event icon.
-        /// </summary>
-        /// <param name="dataRow">
-        /// Data row containing event log entry data.
-        /// </param>
-        /// <returns>
-        /// return HTML code of event log entry image
-        /// </returns>
         protected string EventCssClass([NotNull] object dataRow)
         {
             // cast object to the DataRowView
@@ -149,22 +121,22 @@ namespace YAF.Pages.Admin
                 switch (eventType)
                 {
                     case EventLogTypes.Error:
-                        cssClass = "ui-state-error";
+                        cssClass = "danger";
                         break;
                     case EventLogTypes.Warning:
-                        cssClass = "ui-state-warning";
+                        cssClass = "warning";
                         break;
                     case EventLogTypes.Information:
-                        cssClass = "ui-state-highlight";
+                        cssClass = "info";
                         break;
                     default:
-                        cssClass = "ui-state-highlight";
+                        cssClass = "active";
                         break;
                 }
             }
             catch (Exception)
             {
-                return "ui-state-highlight";
+                return "active";
             }
 
             return cssClass;
@@ -189,23 +161,11 @@ namespace YAF.Pages.Admin
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            // setup jQuery and DatePicker JS...
-            if (this.GetText("COMMON", "CAL_JQ_CULTURE").IsSet())
-            {
-                YafContext.Current.PageElements.RegisterJQueryUILanguageFile(this.Get<ILocalization>().Culture);
-            }
-
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                "DatePickerJs",
                JavaScriptBlocks.DatePickerLoadJs(
-                   "{0}, #{1}".FormatWith(this.ToDate.ClientID, this.SinceDate.ClientID),
                    this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
                    this.GetText("COMMON", "CAL_JQ_CULTURE")));
-
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "ToggleEventLogItemJs",
-                JavaScriptBlocks.ToggleEventLogItemJs(
-                    this.GetText("ADMIN_EVENTLOG", "SHOW").ToJsString(), this.GetText("ADMIN_EVENTLOG", "HIDE").ToJsString()));
 
             base.OnPreRender(e);
         }

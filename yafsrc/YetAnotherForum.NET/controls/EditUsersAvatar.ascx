@@ -1,64 +1,71 @@
 <%@ Control Language="C#" AutoEventWireup="true"
     Inherits="YAF.Controls.EditUsersAvatar" Codebehind="EditUsersAvatar.ascx.cs" %>
-<table width="100%" class="content" cellspacing="1" cellpadding="4">
-    <tr>
-        <td class="header1" colspan="4">
+
+
+        <h2>
             <YAF:LocalizedLabel runat="server" LocalizedPage="CP_EDITAVATAR" LocalizedTag="title" />
-        </td>
-    </tr>
-    <tr runat="server" id="AvatarCurrentText">
-        <td class="header2">
+        </h2>
+    <hr />
+    <asp:PlaceHolder runat="server" id="AvatarCurrentText">
+        <h4>
             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="CP_EDITAVATAR"
                 LocalizedTag="AvatarCurrent" />
-        </td>
-        <td class="header2" colspan="3">
+        </h4>
+        <p>
             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="CP_EDITAVATAR"
                 LocalizedTag="AvatarNew" />
-        </td>
-    </tr>
-    <tr>
-        <td class="post" align="center" rowspan="4" runat="server" id="avatarImageTD">
+        </p>
+    <hr />
+    </asp:PlaceHolder>
+        <asp:PlaceHolder runat="server" id="avatarImageTD">
             <asp:Image ID="AvatarImg" runat="server" Visible="true" AlternateText="Avatar Image" />
             <br />
             <br />
             <asp:Label runat="server" ID="NoAvatar" Visible="false" />
-            <asp:Button runat="server" ID="DeleteAvatar" CssClass="pbutton" Visible="false" OnClick="DeleteAvatar_Click" /></td>
-    </tr>
-    <tr runat="server" id="AvatarOurs">
-        <td class="postheader">
+            <asp:LinkButton runat="server" ID="DeleteAvatar" CssClass="btn btn-primary" Visible="false" OnClick="DeleteAvatar_Click" />
+    <hr />
+            </asp:PlaceHolder>
+    <asp:PlaceHolder runat="server" id="AvatarOurs">
+        <h4>
             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="CP_EDITAVATAR"
                 LocalizedTag="ouravatar" />
-        </td>
-        <td class="post" colspan="2">
+        </h4>
+        <p>
             [
             <asp:HyperLink ID="OurAvatar" runat="server" />
-            ]</td>
-    </tr>
-    <tr runat="server" id="AvatarRemoteRow">
-        <td class="postheader">
+            ]</p>
+    <hr />
+    </asp:PlaceHolder>
+    <asp:PlaceHolder runat="server" id="AvatarRemoteRow">
+        <h4>
             <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedPage="CP_EDITAVATAR"
                 LocalizedTag="avatarremote" />
-        </td>
-        <td class="post">
-            <asp:TextBox CssClass="edit" ID="Avatar" runat="server" /> <br />
-             <em><asp:Label id="noteRemote" runat="server"></asp:Label></em></td>
-        <td class="post">
-            <asp:Button ID="UpdateRemote" CssClass="pbutton" runat="server" OnClick="RemoteUpdate_Click" /></td>
-    </tr>
-    <tr runat="server" id="AvatarUploadRow">
-        <td class="postheader">
+        </h4>
+        <p>
+            <asp:TextBox CssClass="form-control" ID="Avatar" runat="server" TextMode="Url" />
+        </p>
+        <div class="alert alert-info" role="alert">
+            <asp:Label id="noteRemote" runat="server"></asp:Label>
+        </div>
+        <p>
+            <asp:LinkButton ID="UpdateRemote" CssClass="btn btn-primary" runat="server" OnClick="RemoteUpdate_Click" />
+        </p>
+    <hr />
+    </asp:PlaceHolder>
+    <asp:PlaceHolder runat="server" id="AvatarUploadRow">
+        <h4>
             <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="CP_EDITAVATAR"
                 LocalizedTag="avatarupload" />
-        </td>
-        <td class="post">
-            <input type="file" id="File" runat="server" /> <br />
-             <em><asp:Label id="noteLocal" runat="server"></asp:Label></em></td>
-        <td class="post">
-            <asp:Button ID="UpdateUpload" CssClass="pbutton" runat="server" OnClick="UploadUpdate_Click" /></td>
-    </tr>
-    <tr>
-        <td class="footer1" colspan="4" align="center">
-            <asp:Button ID="Back" CssClass="pbutton" runat="server" OnClick="Back_Click" />
-        </td>
-    </tr>
-</table>
+        </h4>
+        <p>
+            <input type="file" id="File" runat="server" class="form-control-file" />
+        </p>
+        <div class="alert alert-info" role="alert">
+            <asp:Label id="noteLocal" runat="server"></asp:Label>
+        </div>
+        </asp:PlaceHolder>
+
+                <div class="text-lg-center">
+                     <asp:LinkButton ID="UpdateUpload" CssClass="btn btn-primary" runat="server" OnClick="UploadUpdate_Click" />&nbsp;
+            <asp:LinkButton ID="Back" CssClass="btn btn-secondary" runat="server" OnClick="Back_Click" />
+            </div>

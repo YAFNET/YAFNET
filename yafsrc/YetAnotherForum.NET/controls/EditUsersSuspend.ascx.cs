@@ -241,7 +241,7 @@ namespace YAF.Controls
                         // tell user he can't suspend admin
                         this.PageContext.AddLoadMessage(
                             this.GetText("PROFILE", "ERROR_ADMINISTRATORS"),
-                            MessageTypes.Error);
+                            MessageTypes.danger);
                         return;
                     }
 
@@ -251,7 +251,7 @@ namespace YAF.Controls
                         // tell user he can't suspend forum moderator when he's not admin
                         this.PageContext.AddLoadMessage(
                             this.GetText("PROFILE", "ERROR_FORUMMODERATORS"),
-                            MessageTypes.Error);
+                            MessageTypes.danger);
                         return;
                     }
 
@@ -262,7 +262,7 @@ namespace YAF.Controls
                     {
                         this.PageContext.AddLoadMessage(
                             this.GetText("PROFILE", "ERROR_GUESTACCOUNT"),
-                            MessageTypes.Error);
+                            MessageTypes.danger);
                         return;
                     }
                 }
@@ -380,7 +380,7 @@ namespace YAF.Controls
                                 this.UserData.DSTUser);
 
                     // localize remove suspension button
-                    this.RemoveSuspension.Text = this.GetText("PROFILE", "REMOVESUSPENSION");
+                    this.RemoveSuspension.Text = "<i class=\"fa fa-flag-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("PROFILE", "REMOVESUSPENSION"));
 
                     this.CurrentSuspendedReason.Text = user["SuspendedReason"].ToString();
 
@@ -388,7 +388,7 @@ namespace YAF.Controls
                 }
 
                 // localize suspend button
-                this.Suspend.Text = this.GetText("PROFILE", "SUSPEND");
+                this.Suspend.Text = "<i class=\"fa fa-flag fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("PROFILE", "SUSPEND"));
             }
         }
 

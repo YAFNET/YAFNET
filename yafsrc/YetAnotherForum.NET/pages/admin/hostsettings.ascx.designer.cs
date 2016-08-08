@@ -31,6 +31,24 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.AdminMenu Adminmenu1;
         
         /// <summary>
+        /// LocalizedLabel41-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel41;
+        
+        /// <summary>
+        /// LocalizedLabel42-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel42;
+        
+        /// <summary>
         /// HostSettingsTabs-Steuerelement
         /// </summary>
         /// <remarks>
@@ -2551,24 +2569,6 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel35;
         
         /// <summary>
-        /// HelpLabel216-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel216;
-        
-        /// <summary>
-        /// MessageNotificationSystem-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList MessageNotificationSystem;
-        
-        /// <summary>
         /// HelpLabel214-Steuerelement
         /// </summary>
         /// <remarks>
@@ -4915,7 +4915,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Save;
+        protected global::System.Web.UI.WebControls.LinkButton Save;
         
         /// <summary>
         /// hidLastTab-Steuerelement
@@ -4925,15 +4925,6 @@ namespace YAF.Pages.Admin {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidLastTab;
-        
-        /// <summary>
-        /// hidLastTabId-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hidLastTabId;
         
         /// <summary>
         /// SmartScroller1-Steuerelement

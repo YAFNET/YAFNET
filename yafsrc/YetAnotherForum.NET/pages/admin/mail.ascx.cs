@@ -74,7 +74,7 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_ADMIN", "Administration"), 
                 this.GetText("ADMIN_MAIL", "TITLE"));
 
-            this.Send.Text = this.GetText("ADMIN_MAIL", "SEND_MAIL");
+            this.Send.Text = "<i class=\"fa fa-send fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_MAIL", "SEND_MAIL"));
             this.Send.OnClientClick = "return confirm('{0}');".FormatWith(this.GetText("ADMIN_MAIL", "CONFIRM_SEND"));
 
             this.BindData();

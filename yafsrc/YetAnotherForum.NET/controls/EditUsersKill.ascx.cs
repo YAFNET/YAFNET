@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -199,7 +199,7 @@ namespace YAF.Controls
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITUSER", "BOT_REPORTED_FAILED"),
-                        MessageTypes.Error);
+                        MessageTypes.danger);
 
                     this.Logger.Log(
                         this.PageContext.PageUserID,
@@ -221,11 +221,11 @@ namespace YAF.Controls
                             // deleting yourself isn't an option
                             this.PageContext.AddLoadMessage(
                                 this.GetText("ADMIN_USERS", "MSG_SELF_DELETE"),
-                                MessageTypes.Error);
+                                MessageTypes.danger);
                             return;
                         }
 
-                        // get user(s) we are about to delete                
+                        // get user(s) we are about to delete
                         using (
                             DataTable dt = LegacyDb.user_list(
                                 this.PageContext.PageBoardID,
@@ -240,7 +240,7 @@ namespace YAF.Controls
                                     // we cannot detele guest
                                     this.PageContext.AddLoadMessage(
                                         this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
-                                        MessageTypes.Error);
+                                        MessageTypes.danger);
                                     return;
                                 }
 
@@ -253,7 +253,7 @@ namespace YAF.Controls
                                 // admin are not deletable either
                                 this.PageContext.AddLoadMessage(
                                     this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
-                                    MessageTypes.Error);
+                                    MessageTypes.danger);
                                 return;
                             }
                         }
@@ -300,6 +300,8 @@ namespace YAF.Controls
             this.SuspendOrDelete.Items.Add(new ListItem(this.GetText("ADMIN_EDITUSER", "DELETE_ACCOUNT"), "delete"));
             this.SuspendOrDelete.Items.Add(
                 new ListItem(this.GetText("ADMIN_EDITUSER", "SUSPEND_ACCOUNT_USER"), "suspend"));
+
+            this.SuspendOrDelete.Items[0].Selected = true;
 
             // bind data
             this.BindData();
@@ -356,7 +358,7 @@ namespace YAF.Controls
                            : this.CurrentUserDataHelper.UserName)
                     : UserMembershipHelper.GuestUserName);
 
-            this.Kill.Text = this.GetText("ADMIN_EDITUSER", "HEAD_KILL_USER");
+            this.Kill.Text = "<i class=\"fa fa-ban fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EDITUSER", "HEAD_KILL_USER"));
             ControlHelper.AddOnClickConfirmDialog(this.Kill, this.GetText("ADMIN_EDITUSER", "KILL_USER_CONFIRM"));
 
             this.ReportUserRow.Visible = this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet();

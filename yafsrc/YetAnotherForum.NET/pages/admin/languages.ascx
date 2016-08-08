@@ -1,20 +1,28 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.languages" Codebehind="languages.ascx.cs" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
-	<table class="content" width="100%" cellspacing="1" cellpadding="0">
-		<tr>
-			<td class="header1" colspan="8">
-				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_LANGUAGES" />
-			</td>
-		</tr>
-        <tr>
-            <td style="padding:0">
+    <div class="row">
+    <div class="col-xl-12">
+        <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_LANGUAGES" /></h1>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card card-primary-outline">
+                <div class="card-header card-primary">
+                    <i class="fa fa-language fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_LANGUAGES" />
+                </div>
+                <div class="card-block">
 		<asp:Repeater runat="server" ID="List">
 			<HeaderTemplate>
-			    <table style="width:100%"  cellspacing="1" cellpadding="0" class="sortable tablesorter">
+			    <div class="alert alert-info hidden-sm-up" role="alert">
+                            <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
+                            <span class="pull-right"><i class="fa fa-hand-o-left fa-fw"></i></span>
+                        </div><div class="table-responsive">
+			    <table class="table sortable tablesorter">
                     <thead>
-                        <tr class="header2">
+                        <tr>
                             <th>
                                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="LANG_NAME" LocalizedPage="ADMIN_LANGUAGES" />
                             </th>
@@ -35,43 +43,42 @@
                 <tbody>
 			</HeaderTemplate>
 			<ItemTemplate>
-				<tr class="post">
+				<tr>
                     <td>
-						<%# Eval("CultureEnglishName")%>
+						<%# this.Eval("CultureEnglishName")%>
 					</td>
                     <td>
-						<%# Eval("CultureTag")%>
+						<%# this.Eval("CultureTag")%>
 					</td>
                      <td>
-						<%# Eval("CultureNativeName")%>
+						<%# this.Eval("CultureNativeName")%>
 					</td>
 					<td>
-						<%# Eval("CultureFile")%>
+						<%# this.Eval("CultureFile")%>
 					</td>
-                    <td class="rightItem">
-                        <YAF:ThemeButton ID="btnEdit" 
-                            CssClass="yaflittlebutton" 
-                            CommandName='edit' 
-                            CommandArgument='<%# Eval("CultureFile")%>' 
-                            TitleLocalizedTag="EDIT" 
-                            ImageThemePage="ICONS" 
+                    <td>
+                        <span class="pull-right">
+                        <YAF:ThemeButton ID="btnEdit"
+                            CssClass="btn btn-info btn-sm"
+                            CommandName='edit'
+                            CommandArgument='<%# this.Eval("CultureFile")%>'
+                            TitleLocalizedTag="EDIT"
+                            Icon="edit"
                             TextLocalizedTag="EDIT"
-                            ImageThemeTag="EDIT_SMALL_ICON" 
                             runat="server">
                         </YAF:ThemeButton>
+                            </span>
 					</td>
 				</tr>
 			</ItemTemplate>
             <FooterTemplate>
                 </tbody>
-        </table>
+        </table></div>
                 </FooterTemplate>
 		</asp:Repeater>
-                </td>
-         </tr>
-         <tr>
-           <td class="footer1" align="center" colspan="8" style="height:30px"></td>
-         </tr>
-	</table>
+            </div>
+        </div>
+    </div>
+    </div>
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

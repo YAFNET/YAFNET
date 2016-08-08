@@ -139,8 +139,8 @@ namespace YAF.Pages.Admin
                  this.GetText("TEAM", "FORUMS"),
                  this.GetText("ADMIN_EDITCATEGORY", "TITLE"));
 
-            this.Save.Text = this.GetText("SAVE");
-            this.Cancel.Text = this.GetText("CANCEL");
+            this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
+            this.Cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
 
             // Populate Category Table
             this.CreateImagesDataTable();
@@ -181,21 +181,21 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_POSITIVE_VALUE"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_POSITIVE_VALUE"), MessageTypes.danger);
                 return;
             }
 
             if (!short.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
             {
                 // error...
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_NUMBER"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_NUMBER"), MessageTypes.danger);
                 return;
             }
 
             if (string.IsNullOrEmpty(name))
             {
                 // error...
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_VALUE"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_VALUE"), MessageTypes.danger);
                 return;
             }
 
@@ -245,7 +245,7 @@ namespace YAF.Pages.Admin
                 DataRow row = dt.Rows[0];
                 this.Name.Text = (string)row["Name"];
                 this.SortOrder.Text = row["SortOrder"].ToString();
-                this.CategoryNameTitle.Text = this.Name.Text;
+                this.CategoryNameTitle.Text = this.Label1.Text = this.Name.Text;
 
                 ListItem item = this.CategoryImages.Items.FindByText(row["CategoryImage"].ToString());
 

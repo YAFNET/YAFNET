@@ -1,6 +1,6 @@
 ﻿jQuery.PageMethod = function (pagePath, fn, successFn, errorFn) {
    if (pagePath == null) {
-        // Initialize the page path. (Current page if we have the 
+        // Initialize the page path. (Current page if we have the
         // pagepath in the pathname, or "default.aspx" as default.
         pagePath = window.location.pathname;
 
@@ -9,8 +9,8 @@
         }
     }
 
-    // Check to see if we have any parameter list to pass to web method. 
-    // if so, serialize them in the JSON format: {"paramName1":"paramValue1","paramName2":"paramValue2"} 
+    // Check to see if we have any parameter list to pass to web method.
+    // if so, serialize them in the JSON format: {"paramName1":"paramValue1","paramName2":"paramValue2"}
     var jsonParams = '';
     var paramLength = arguments.length;
     if (paramLength > 4) {
@@ -25,8 +25,7 @@
 
 
 jQuery.PageMethodToPage = function (pagePath, fn, successFn, errorFn, jsonParams) {
-    
-    //Call the page method 
+    //Call the page method
     jQuery.ajax({
         type: "POST",
         url: pagePath + "/" + fn,

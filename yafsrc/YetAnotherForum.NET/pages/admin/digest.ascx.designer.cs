@@ -22,15 +22,6 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.PageLinks PageLinks;
         
         /// <summary>
-        /// AdminMenu1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.AdminMenu AdminMenu1;
-        
-        /// <summary>
         /// LocalizedLabel1-Steuerelement
         /// </summary>
         /// <remarks>
@@ -38,6 +29,15 @@ namespace YAF.Pages.Admin {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        
+        /// <summary>
+        /// LocalizedLabel9-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel9;
         
         /// <summary>
         /// LocalizedLabel4-Steuerelement
@@ -82,7 +82,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
+        protected global::System.Web.UI.WebControls.LinkButton Button2;
         
         /// <summary>
         /// LocalizedLabel2-Steuerelement
@@ -127,7 +127,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button GenerateDigest;
+        protected global::System.Web.UI.WebControls.LinkButton GenerateDigest;
         
         /// <summary>
         /// LocalizedLabel3-Steuerelement
@@ -181,7 +181,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button TestSend;
+        protected global::System.Web.UI.WebControls.LinkButton TestSend;
         
         /// <summary>
         /// SmartScroller1-Steuerelement

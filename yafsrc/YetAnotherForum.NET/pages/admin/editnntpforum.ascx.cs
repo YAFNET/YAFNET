@@ -87,8 +87,8 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_NNTPFORUMS", "TITLE"),
                 this.GetText("ADMIN_EDITNNTPFORUM", "TITLE"));
 
-            this.Save.Text = this.GetText("COMMON", "SAVE");
-            this.Cancel.Text = this.GetText("COMMON", "CANCEL");
+            this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
+            this.Cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
 
             this.BindData();
 
@@ -127,7 +127,7 @@ namespace YAF.Pages.Admin
             if (this.GroupName.Text.Trim().IsNotSet())
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_EDITNNTPFORUM", "MSG_VALID_GROUP"), MessageTypes.Warning);
+                    this.GetText("ADMIN_EDITNNTPFORUM", "MSG_VALID_GROUP"), MessageTypes.warning);
                 return;
             }
 

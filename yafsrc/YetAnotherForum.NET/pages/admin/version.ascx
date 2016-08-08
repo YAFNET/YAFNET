@@ -1,34 +1,38 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.version"
     CodeBehind="version.ascx.cs" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu ID="adminmenu1" runat="server">
-    <table style="width:100%" class="content">
-        <tr>
-            <td class="header1">
-                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_VERSION" />
-            </td>
-        </tr>
-        <tr>
-            <td class="post">
-                <asp:PlaceHolder runat="server" ID="UpgradeVersionHolder" Visible="false">
-                <div class="ui-widget">
-                    <div class="ui-state-highlight ui-corner-all">
-                        <p>
-                            <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-                            <YAF:LocalizedLabel ID="Upgrade" runat="server" LocalizedTag="UPGRADE_VERSION" 
-                                LocalizedPage="ADMIN_VERSION" />
-                        </p>
+    <div class="row">
+    <div class="col-xl-12">
+         <h1 class="page-header"><yaf:localizedlabel id="LocalizedLabel1" runat="server" localizedtag="TITLE" localizedpage="ADMIN_VERSION"></yaf:localizedlabel></h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card card-primary-outline">
+            <div class="card-header card-primary"> <i class="fa fa-info fa-fw"></i>&nbsp;
+                <yaf:localizedlabel id="LocalizedLabel2"
+                runat="server" localizedtag="TITLE" localizedpage="ADMIN_VERSION"></yaf:localizedlabel>
+            </div>
+            <div class="card-block">
+                <asp:placeholder runat="server" id="UpgradeVersionHolder" visible="false">
+                    <div class="alert alert-info">
+                        <yaf:localizedlabel id="Upgrade" runat="server" localizedtag="UPGRADE_VERSION"
+                        localizedpage="ADMIN_VERSION"></yaf:localizedlabel>
                     </div>
-                </div> 
-                </asp:PlaceHolder>
-                <div style="font-size: 11pt;">
-                    <img src="~/Images/YafLogoSmall.png" alt="YAF.NET" style="float:left; padding: 10px" runat="server" />
-                    <p>
-                        <asp:Label ID="RunningVersion" runat="server"></asp:Label></p>
-                    <p>
-                        <asp:Label ID="LatestVersion" runat="server"></asp:Label></p>
-                </div>
-            </td>
-        </tr>
-    </table>
+                </asp:placeholder>
+                <p class="card-text">
+                    <img src="~/Images/YafLogoSmall.png" alt="YAF.NET" style="float: left; padding: 10px;"
+                    runat="server" /></p>
+                    <p class="card-text">
+                        <asp:label id="RunningVersion" runat="server"></asp:label>
+                    </p>
+                    <p class="card-text">
+                        <asp:label id="LatestVersion" runat="server"></asp:label>
+                    </p>
+            </div>
+        </div>
+    </div>
+</div>
 </YAF:AdminMenu>

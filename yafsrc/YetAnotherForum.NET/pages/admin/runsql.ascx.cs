@@ -74,7 +74,7 @@ namespace YAF.Pages.Admin
             this.GetText("ADMIN_RUNSQL", "TITLE"));
 
         this.chkRunInTransaction.Text = this.GetText("ADMIN_RUNSQL", "RUN_TRANSCATION");
-        this.btnRunQuery.Text = this.GetText("ADMIN_RUNSQL", "RUN_QUERY");
+        this.btnRunQuery.Text = "<i class=\"fa fa-rocket fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_RUNSQL", "RUN_QUERY"));
 
         this.BindData();
     }

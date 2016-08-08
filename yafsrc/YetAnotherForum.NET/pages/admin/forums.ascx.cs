@@ -160,8 +160,8 @@ namespace YAF.Pages.Admin
 
             this.Page.Header.Title = "{0} - {1}".FormatWith(this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("TEAM", "FORUMS"));
 
-            this.NewCategory.Text = this.GetText("ADMIN_FORUMS", "NEW_CATEGORY");
-            this.NewForum.Text = this.GetText("ADMIN_FORUMS", "NEW_FORUM");
+            this.NewCategory.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_FORUMS", "NEW_CATEGORY"));
+            this.NewForum.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_FORUMS", "NEW_FORUM"));
 
             this.BindData();
         }

@@ -120,11 +120,11 @@ namespace YAF.Utils
             get
             {
                 const int Major = 2;
-                const byte Minor = 2;
-                const byte Build = 3;
+                const byte Minor = 3;
+                const byte Build = 0;
                 const byte Sub = 0;
 
-                const ReleaseType ReleaseType = ReleaseType.Regular;
+                const ReleaseType ReleaseType = ReleaseType.BETA;
                 const byte ReleaseNumber = 0;
                 
                 var version = Major.ToType<long>() << 24;

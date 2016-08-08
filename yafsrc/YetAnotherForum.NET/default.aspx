@@ -2,18 +2,17 @@
 <%@ Register TagPrefix="YAF" Assembly="YAF" Namespace="YAF" %>
 <script runat="server">
 </script>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html lang="en">
 <head id="YafHead" runat="server">
-    <meta id="YafMetaScriptingLanguage" http-equiv="Content-Script-Type" runat="server"
+     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge"><meta id="YafMetaScriptingLanguage" http-equiv="Content-Script-Type" runat="server"
         name="scriptlanguage" content="text/javascript" />
     <meta id="YafMetaStyles" http-equiv="Content-Style-Type" runat="server" name="styles"
         content="text/css" />
     <meta id="YafMetaDescription" runat="server" name="description" content="Yet Another Forum.NET -- A bulletin board system written in ASP.NET" />
     <meta id="YafMetaKeywords" runat="server" name="keywords" content="Yet Another Forum.net, Forum, ASP.NET, BB, Bulletin Board, opensource" />
-    <meta name="HandheldFriendly" content="true"/>
-    <meta name="viewport" content="width=device-width,user-scalable=yes"/>
-    <link rel="shortcut icon" href="favicon.ico" />
     <title></title>
 </head>
 <body id="YafBody" runat="server" style="margin: 0; padding: 5px">

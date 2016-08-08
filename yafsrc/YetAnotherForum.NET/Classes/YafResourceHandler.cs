@@ -71,24 +71,12 @@ namespace YAF
         /// <summary>
         ///   Gets a value indicating whether IsReusable.
         /// </summary>
-        public bool IsReusable
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public bool IsReusable => false;
 
         /// <summary>
         /// Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator
-        {
-            get
-            {
-                return YafContext.Current.ServiceLocator;
-            }
-        }
+        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
 
         #endregion
 
@@ -1502,13 +1490,10 @@ namespace YAF
 
             try
             {
-                using (var avatarStream = webClient.OpenRead(avatarUrl))
-                {
-                    if (avatarStream == null)
-                    {
-                        return;
-                    }
+                var originalData = webClient.DownloadData(avatarUrl);
 
+                using (var avatarStream = new MemoryStream(originalData))
+                {
                     using (var img = new Bitmap(avatarStream))
                     {
                         var width = img.Width;
@@ -1568,7 +1553,7 @@ namespace YAF
                         this,
                         "URL: {0}<br />Referer URL: {1}<br />Exception: {2}".FormatWith(
                             avatarUrl,
-                            context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty,
+                            context.Request.UrlReferrer?.AbsoluteUri ?? string.Empty,
                             exception));
             }
         }

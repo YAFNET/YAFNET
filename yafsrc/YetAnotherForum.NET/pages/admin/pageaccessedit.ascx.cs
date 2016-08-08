@@ -23,31 +23,28 @@
  */
 // written by vzrus
 
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Web.UI.WebControls;
-
 namespace YAF.Pages.Admin
 {
   #region Using
 
-  using System;
-  using System.Data;
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Web.UI.WebControls;
 
-  using YAF.Classes.Data;
-  using YAF.Controls;
-  using YAF.Core;
-  using YAF.Core.Services;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Extensions;
-  using YAF.Types.Flags;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-  using YAF.Utils.Helpers;
+    using YAF.Classes.Data;
+    using YAF.Controls;
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
+    using YAF.Types.Flags;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
-  #endregion
+    #endregion
 
   /// <summary>
   /// Summary description for WebForm1.
@@ -111,10 +108,11 @@ namespace YAF.Pages.Admin
             return;
         }
 
-        this.Save.Text = this.GetText("ADMIN_PAGEACCESSEDIT", "SAVE");
-        this.Cancel.Text = this.GetText("ADMIN_PAGEACCESSEDIT", "CANCEL");
-        this.GrantAll.Text = this.GetText("ADMIN_PAGEACCESSEDIT", "GRANTALL");
-        this.RevokeAll.Text = this.GetText("ADMIN_PAGEACCESSEDIT", "REVOKEALL");
+        this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_PAGEACCESSEDIT", "SAVE"));
+        this.Cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_PAGEACCESSEDIT", "CANCEL"));
+        this.GrantAll.Text = "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_PAGEACCESSEDIT", "GRANTALL"));
+        this.RevokeAll.Text = "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_PAGEACCESSEDIT", "REVOKEALL"));
+
         // create page links
         this.CreatePageLinks();
 

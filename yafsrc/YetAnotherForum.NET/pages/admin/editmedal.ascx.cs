@@ -76,15 +76,9 @@ namespace YAF.Pages.Admin
         /// <value>
         /// The current medal identifier.
         /// </value>
-        protected int? CurrentMedalID
-        {
-            get
-            {
-                return this.Request.QueryString.GetFirstOrDefault("medalid") != null
-                           ? this.Request.QueryString.GetFirstOrDefault("medalid").ToType<int?>()
-                           : null;
-            }
-        }
+        protected int? CurrentMedalID => this.Request.QueryString.GetFirstOrDefault("medalid") != null
+                                             ? this.Request.QueryString.GetFirstOrDefault("medalid").ToType<int?>()
+                                             : null;
 
         #region Methods
 
@@ -114,7 +108,7 @@ namespace YAF.Pages.Admin
             if (this.AvailableGroupList.SelectedIndex < 0)
             {
                 // no group selected
-                this.PageContext.AddLoadMessage("Please select user group!", MessageTypes.Warning);
+                this.PageContext.AddLoadMessage("Please select user group!", MessageTypes.warning);
                 return;
             }
 
@@ -194,7 +188,7 @@ namespace YAF.Pages.Admin
             if (this.UserID.Text.IsNotSet() && this.UserNameList.SelectedValue.IsNotSet() && this.UserName.Text.IsNotSet())
             {
                 // no username, nor userID specified
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"), MessageTypes.warning);
                 return;
             }
 
@@ -207,14 +201,14 @@ namespace YAF.Pages.Admin
                 if (users.Count() > 1)
                 {
                     // more than one user is avalilable for this username
-                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_AMBIGOUS_USER"), MessageTypes.Warning);
+                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_AMBIGOUS_USER"), MessageTypes.warning);
                     return;
                 }
 
                 if (!users.Any())
                 {
                     // no user found
-                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"), MessageTypes.Warning);
+                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"), MessageTypes.warning);
                     return;
                 }
 
@@ -488,17 +482,25 @@ namespace YAF.Pages.Admin
                 // create page links
                 this.CreatePageLinks();
 
-                this.Save.Text = this.GetText("COMMON", "SAVE");
-                this.Cancel.Text = this.GetText("COMMON", "CANCEL");
+                this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
+                this.Cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
 
-                this.AddGroupSave.Text = this.GetText("COMMON", "SAVE");
-                this.AddGroupCancel.Text = this.GetText("COMMON", "CANCEL");
+                this.AddGroupSave.Text =
+                    "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "SAVE"));
+                this.AddGroupCancel.Text =
+                    "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "CANCEL"));
 
-                this.AddUserSave.Text = this.GetText("COMMON", "SAVE");
-                this.AddUserCancel.Text = this.GetText("COMMON", "CANCEL");
+                this.AddUserSave.Text =
+                    "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "SAVE"));
+                this.AddUserCancel.Text =
+                    "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "CANCEL"));
 
-                this.AddGroup.Text = this.GetText("ADMIN_EDITMEDAL", "ADD_GROUP");
-                this.AddUser.Text = this.GetText("ADMIN_EDITMEDAL", "ADD_USER");
+                this.AddGroup.Text =
+                    "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(
+                        this.GetText("ADMIN_EDITMEDAL", "ADD_GROUP"));
+                this.AddUser.Text =
+                    "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(
+                        this.GetText("ADMIN_EDITMEDAL", "ADD_USER"));
 
                 // bind data
                 this.BindData();
@@ -539,19 +541,19 @@ namespace YAF.Pages.Admin
         {
             if (this.MedalImage.SelectedIndex <= 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_IMAGE"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_IMAGE"), MessageTypes.warning);
                 return;
             }
 
             if (this.SmallMedalImage.SelectedIndex <= 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_SMALL_IMAGE"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_SMALL_IMAGE"), MessageTypes.warning);
                 return;
             }
 
             if (this.SortOrder.Text.Trim().Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_VALUE"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_VALUE"), MessageTypes.warning);
                 return;
             }
 
@@ -559,13 +561,13 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_POSITIVE_VALUE"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_POSITIVE_VALUE"), MessageTypes.warning);
                 return;
             }
 
             if (!byte.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_CATEGORY"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_CATEGORY"), MessageTypes.warning);
                 return;
             }
 

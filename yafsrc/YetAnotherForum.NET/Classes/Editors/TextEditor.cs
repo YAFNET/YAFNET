@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -53,37 +53,18 @@ namespace YAF.Classes.Editors
         /// <summary>
         ///   Gets a value indicating whether Active.
         /// </summary>
-        public override bool Active
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool Active => true;
 
         /// <summary>
         ///   Gets the Editor Description.
         /// </summary>
         [NotNull]
-        public override string Description
-        {
-            get
-            {
-                return "Plain Text Editor";
-            }
-        }
+        public override string Description => "Plain Text Editor";
 
         /// <summary>
         ///   Gets the Module Id.
         /// </summary>
-        public override string ModuleId
-        {
-            get
-            {
-                // backward compatibility...
-                return "0";
-            }
-        }
+        public override string ModuleId => "0";
 
         /// <summary>
         ///   Gets or sets Text.
@@ -104,24 +85,12 @@ namespace YAF.Classes.Editors
         /// <summary>
         ///   Gets a value indicating whether UsesBBCode.
         /// </summary>
-        public override bool UsesBBCode
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public override bool UsesBBCode => false;
 
         /// <summary>
         ///   Gets a value indicating whether UsesHTML.
         /// </summary>
-        public override bool UsesHTML
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public override bool UsesHTML => false;
 
         /// <summary>
         /// Gets a value indicating whether [allows uploads].
@@ -129,25 +98,13 @@ namespace YAF.Classes.Editors
         /// <value>
         ///   <c>true</c> if [allows uploads]; otherwise, <c>false</c>.
         /// </value>
-        public override bool AllowsUploads
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public override bool AllowsUploads => false;
 
         /// <summary>
         ///   Gets the Safe ID.
         /// </summary>
         [NotNull]
-        protected string SafeID
-        {
-            get
-            {
-                return this._textCtl.ClientID.Replace("$", "_");
-            }
-        }
+        protected string SafeID => this._textCtl.ClientID.Replace("$", "_");
 
         #endregion
 
@@ -172,7 +129,7 @@ namespace YAF.Classes.Editors
             this.PreRender += this.Editor_PreRender;
 
             this._textCtl = new HtmlTextArea { ID = "YafTextEditor", Rows = 15, Cols = 100 };
-            this._textCtl.Attributes.Add("class", "YafTextEditor");
+            this._textCtl.Attributes.Add("class", "YafTextEditor form-control");
 
             this.AddEditorControl(this._textCtl);
 

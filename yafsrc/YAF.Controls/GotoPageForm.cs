@@ -124,13 +124,7 @@ namespace YAF.Controls
         ///     Gets GotoButtonClientID.
         /// </summary>
         [NotNull]
-        public string GotoButtonClientID
-        {
-            get
-            {
-                return this._gotoButton.ClientID;
-            }
-        }
+        public string GotoButtonClientID => this._gotoButton.ClientID;
 
         /// <summary>
         ///     Gets or sets GotoPageValue.
@@ -152,35 +146,17 @@ namespace YAF.Controls
         ///     Gets GotoTextBoxClientID.
         /// </summary>
         [NotNull]
-        public string GotoTextBoxClientID
-        {
-            get
-            {
-                return this._gotoTextBox.ClientID;
-            }
-        }
+        public string GotoTextBoxClientID => this._gotoTextBox.ClientID;
 
         /// <summary>
         ///     Gets InnerDiv.
         /// </summary>
-        public HtmlGenericControl InnerDiv
-        {
-            get
-            {
-                return this._divInner;
-            }
-        }
+        public HtmlGenericControl InnerDiv => this._divInner;
 
         /// <summary>
         ///     Gets MainPanel.
         /// </summary>
-        public Panel MainPanel
-        {
-            get
-            {
-                return this._mainPanel;
-            }
-        }
+        public Panel MainPanel => this._mainPanel;
 
         #endregion
 
@@ -193,12 +169,12 @@ namespace YAF.Controls
         {
             this.Controls.Add(this._mainPanel);
 
-            this._mainPanel.CssClass = "gotoBase";
+            this._mainPanel.CssClass = "card";
             this._mainPanel.ID = this.GetExtendedID("gotoBase");
 
             var divHeader = new HtmlGenericControl("div");
 
-            divHeader.Attributes.Add("class", "gotoHeader");
+            divHeader.Attributes.Add("class", "card-header");
             divHeader.ID = this.GetExtendedID("divHeader");
 
             this._mainPanel.Controls.Add(divHeader);
@@ -207,25 +183,25 @@ namespace YAF.Controls
 
             divHeader.Controls.Add(this._headerText);
 
-            this._divInner.Attributes.Add("class", "gotoInner");
+            this._divInner.Attributes.Add("class", "card-block");
             this._divInner.ID = this.GetExtendedID("gotoInner");
 
             this._mainPanel.Controls.Add(this._divInner);
 
             this._gotoButton.ID = this.GetExtendedID("GotoButton");
-            this._gotoButton.Style.Add(HtmlTextWriterStyle.Width, "70px");
+            this._gotoButton.CssClass = "btn btn-primary";
             this._gotoButton.CausesValidation = false;
             this._gotoButton.UseSubmitBehavior = false;
             this._gotoButton.Click += this.GotoButtonClick;
 
             // text box...
             this._gotoTextBox.ID = this.GetExtendedID("GotoTextBox");
-            this._gotoTextBox.Style.Add(HtmlTextWriterStyle.Width, "30px");
+            this._gotoTextBox.CssClass = "form-control";
 
             this._divInner.Controls.Add(this._gotoTextBox);
             this._divInner.Controls.Add(this._gotoButton);
 
-            var replaceItems = new Dictionary<string, string>()
+            var replaceItems = new Dictionary<string, string>
                                {
                                    { "TEXTBOXID", this._gotoTextBox.ClientID },
                                    { "BUTTONID", this._gotoButton.ClientID }

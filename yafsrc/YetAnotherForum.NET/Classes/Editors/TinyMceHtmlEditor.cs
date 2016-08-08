@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -40,47 +40,22 @@ namespace YAF.Editors
         ///   Gets Description.
         /// </summary>
         [NotNull]
-        public override string Description
-        {
-            get
-            {
-                return "TinyMCE (HTML)";
-            }
-        }
+        public override string Description => "TinyMCE (HTML)";
 
         /// <summary>
         ///   Gets ModuleId.
         /// </summary>
-        public override string ModuleId
-        {
-            get
-            {
-                // backward compatibility...
-                return "7";
-            }
-        }
+        public override string ModuleId => "7";
 
         /// <summary>
         ///   Gets a value indicating whether UsesBBCode.
         /// </summary>
-        public override bool UsesBBCode
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public override bool UsesBBCode => false;
 
         /// <summary>
         ///   Gets a value indicating whether UsesHTML.
         /// </summary>
-        public override bool UsesHTML
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool UsesHTML => true;
 
         #endregion
 

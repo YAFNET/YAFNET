@@ -1,0 +1,50 @@
+﻿/* Select Drop downs */
+
+.standardSelectMenu-Icon {
+    margin-left: 4px;
+    padding-right: 5px;
+}
+.dropdown-menu>li>a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+    font-size:14px
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: #262626;
+  text-decoration: none;
+  background-color: #f5f5f5;
+}
+
+/* TABS */
+.tab-content {
+    padding-top: 10px;
+}
+
+/* Drop Downs Editor */
+
+.fill-width.dropdown-menu {
+    left: auto;
+    position: absolute;
+        height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+.fill-width.dropdown-menu > .dropdown-item {
+   white-space: normal;
+   word-break: break-all;
+   max-width: 300px;
+   min-width: 300px;
+   font-size: 10px;
+}
+
+.yafalbumlistmenu {
+    padding: 0;
+    max-width: 300px;
+    min-width: 300px;
+}

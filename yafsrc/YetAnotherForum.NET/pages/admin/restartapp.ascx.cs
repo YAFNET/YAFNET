@@ -64,8 +64,6 @@ namespace YAF.Pages.Admin
 
                 this.Page.Header.Title = "{0} - {1}".FormatWith(
                     this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_RESTARTAPP", "TITLE"));
-
-                this.RestartApp.Text = this.GetText("ADMIN_RESTARTAPP", "TITLE");
             }
 
             this.DataBind();
@@ -90,7 +88,7 @@ namespace YAF.Pages.Admin
                 }
                 catch (Exception)
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_RESTARTAPP", "MSG_TRUST"), MessageTypes.Error);
+                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_RESTARTAPP", "MSG_TRUST"), MessageTypes.danger);
                 }
             }
         }

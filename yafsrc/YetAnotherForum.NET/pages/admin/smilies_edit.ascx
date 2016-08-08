@@ -1,61 +1,51 @@
 <%@ Control Language="c#" AutoEventWireup="True"
     Inherits="YAF.Pages.Admin.smilies_edit" CodeBehind="smilies_edit.ascx.cs" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
-    <table class="content" width="100%" cellspacing="1" cellpadding="0">
-        <tr>
-            <td class="header1" colspan="2">
-                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SMILIES_EDIT" />
-            </td>
-        </tr>
-        <tr>
-            <td class="header2" height="30" colspan="2"></td>
-        </tr>
-        <tr>
-            <td class="postheader" width="50%">
-                <strong>
+<div class="row">
+    <div class="col-xl-12">
+        <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SMILIES_EDIT" /></h1>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card card-primary-outline">
+                <div class="card-header card-primary">
+                    <i class="fa fa-smile-o fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SMILIES_EDIT" />
+</div>
+                <div class="card-block">
+            <h4>
                     <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="CODE" LocalizedPage="ADMIN_SMILIES_EDIT" />
-                </strong></td>
-            <td class="post" width="50%">
-                <asp:TextBox ID="Code" runat="server" Width="250" /></td>
-        </tr>
-        <tr>
-            <td class="postheader" width="50%">
-                <strong>
+                </h4>
+            <p>
+                <asp:TextBox ID="Code" runat="server" CssClass="form-control" /></p>
+            <hr />
+            <h4>
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ICON" LocalizedPage="ADMIN_SMILIES_EDIT" />
-                </strong>
-            </td>
-            <td class="post" width="50%">
-                <YAF:ImageListBox ID="Icon" AutoPostBack="true" OnTextChanged="ChangePreview" runat="server" CssClass="selectMenuWithIcons" />
-                &nbsp;
-			
-                <img style="vertical-align: middle" runat="server" id="Preview" src="" alt="" />
-            </td>
-        </tr>
-        <tr>
-            <td class="postheader" width="50%">
-                <strong>
+            </h4>
+            <p>
+                <YAF:ImageListBox ID="Icon" AutoPostBack="true" OnTextChanged="ChangePreview" runat="server" CssClass="selectpicker" />
+            </p>
+            <hr />
+            <h4>
                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="EMOTION" LocalizedPage="ADMIN_SMILIES_EDIT" />
-                </strong>
-            </td>
-            <td class="post" width="50%">
-                <asp:TextBox ID="Emotion" runat="server" Width="250" /></td>
-        </tr>
-        <tr>
-            <td class="postheader" width="50%">
-                <strong>
+            </h4>
+            <p>
+                <asp:TextBox ID="Emotion" runat="server" CssClass="form-control" /></p>
+            <hr />
+            <h4>
                     <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="SORT_ORDER" LocalizedPage="ADMIN_SMILIES_EDIT" />
-                </strong>
-            </td>
-            <td class="post" width="50%">
-                <asp:TextBox ID="SortOrder" runat="server" Text="0" MaxLength="3" Width="250" CssClass="Numeric" /></td>
-        </tr>
-        <tr>
-            <td class="footer1" colspan="2" align="center">
-                <asp:Button ID="save" runat="server" Text="Save" CssClass="pbutton" OnClick="save_Click" />
-                <asp:Button ID="cancel" runat="server" Text="Cancel" CssClass="pbutton" OnClick="cancel_Click"  />
-            </td>
-        </tr>
-    </table>
+            </h4>
+            <p>
+                <asp:TextBox ID="SortOrder" runat="server" Text="0" MaxLength="3" CssClass="form-control" TextMode="Number" /></p>
+                </div>
+                <div class="card-footer text-lg-center">
+                <asp:LinkButton ID="save" runat="server" Text="Save" CssClass="btn btn-primary" OnClick="save_Click" />&nbsp;
+                <asp:LinkButton ID="cancel" runat="server" Text="Cancel" CssClass="btn btn-secondary" OnClick="cancel_Click"  />
+                </div>
+            </div>
+        </div>
+    </div>
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

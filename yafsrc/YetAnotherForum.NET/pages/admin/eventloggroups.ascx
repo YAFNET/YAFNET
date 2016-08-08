@@ -1,48 +1,58 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.eventloggroups" Codebehind="eventloggroups.ascx.cs" %>
-<%@ Import Namespace="YAF.Types" %>
-<%@ Import Namespace="YAF.Types.Flags" %>
-<%@ Import Namespace="YAF.Types.Interfaces" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
-	<table class="content" cellspacing="1" cellpadding="0" width="100%">
-		<tr>
-			<td class="header1" colspan="3">
-				  <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EVENTLOGGROUPS" />
-			</td>
-		</tr>
-		<tr>
-			<td class="header2" style="width:15%">
+    <div class="row">
+    <div class="col-xl-12">
+        <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EVENTLOGGROUPS" /></h1>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card card-primary-outline">
+                <div class="card-header card-primary">
+                    <i class="fa fa-group fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EVENTLOGGROUPS" />
+                </div>
+                <div class="card-block">
+                    <div class="alert alert-info hidden-sm-up" role="alert">
+                            <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
+                            <span class="pull-right"><i class="fa fa-hand-o-left fa-fw"></i></span>
+                        </div><div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <thead>
+                                <th>
 				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="GROUPNAME"  LocalizedPage="ADMIN_EVENTLOGGROUPS" />
-			</td>	
-            <td class="header2" colspan="2">
+			</th>
+            <th colspan="2">
 				<YAF:LocalizedLabel ID="BoardNameLabel" runat="server" LocalizedTag="BOARDNAME"  LocalizedPage="ADMIN_EVENTLOGGROUPS" />
-			</td>	
+			</th>
+                                    </thead>
 		</tr>
 		<asp:Repeater ID="List" runat="server" OnItemCommand="List_ItemCommand">
 			<ItemTemplate>
 				<tr class="post">
 				    <td>
 					    <!-- Group Name -->
-					  <img alt='<%# this.HtmlEncode(Eval("Name")) %>'
-                                    title='<%# this.HtmlEncode(Eval("Name")) %>'
-                                    src='<%# this.Get<ITheme>().GetItem("VOTE","VOTE_USERS")  %>' />&nbsp;<%# this.HtmlEncode(Eval("Name"))%>
+					  <i class="fa fa-group fa-fw"></i>&nbsp;<%# this.HtmlEncode(this.Eval("Name"))%>
 					</td>
                     	<td>
-                    	 <%# this.HtmlEncode(Eval( "BoardName")) %>
-                        </td>		
-					<td class="rightItem">
-						  <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" 
+                    	 <%# this.HtmlEncode(this.Eval( "BoardName")) %>
+                        </td>
+					<td>
+					    <span class="pull-right">
+						  <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm"
                               TitleLocalizedPage="ADMIN_EVENTLOGGROUPS" TitleLocalizedTag="EDIT"
-                              CommandName='edit' CommandArgument='<%# Eval( "GroupID") %>' TextLocalizedTag="EDIT" 
-                              ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
+                              CommandName='edit' CommandArgument='<%# this.Eval( "GroupID") %>' TextLocalizedTag="EDIT"
+                              Icon="edit" runat="server"></YAF:ThemeButton>
+                            </span>
 					</td>
 				</tr>
 			</ItemTemplate>
-		</asp:Repeater>
-		<tr class="footer1" style="text-align: center;">
-			<td colspan="3">
-			</td>
-		</tr>
-	</table>
+		</asp:Repeater></table></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

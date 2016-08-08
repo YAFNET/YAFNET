@@ -28,12 +28,12 @@ namespace YAF.Controls
     using System;
     using System.Web;
     using System.Web.UI;
+    using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 
@@ -140,13 +140,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets Attributes.
         /// </summary>
-        public AttributeCollection Attributes
-        {
-            get
-            {
-                return this._attributeCollection;
-            }
-        }
+        public AttributeCollection Attributes => this._attributeCollection;
 
         /// <summary>
         ///   Gets or sets CommandArgument.
@@ -155,7 +149,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this.ViewState["commandArgument"] != null ? this.ViewState["commandArgument"].ToString() : null;
+                return this.ViewState["commandArgument"]?.ToString();
             }
 
             set
@@ -171,7 +165,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this.ViewState["commandName"] != null ? this.ViewState["commandName"].ToString() : null;
+                return this.ViewState["commandName"]?.ToString();
             }
 
             set
@@ -188,12 +182,31 @@ namespace YAF.Controls
         {
             get
             {
-                return (this.ViewState["CssClass"] != null) ? ViewState["CssClass"] as string : "yafcssbutton";
+                return (this.ViewState["CssClass"] != null) ? this.ViewState["CssClass"] as string : "yafcssbutton";
             }
 
             set
             {
                 this.ViewState["CssClass"] = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the icon.
+        /// </summary>
+        /// <value>
+        /// The icon.
+        /// </value>
+        public string Icon
+        {
+            get
+            {
+                return (this.ViewState["Icon"] != null) ? this.ViewState["Icon"] as string : string.Empty;
+            }
+
+            set
+            {
+                this.ViewState["Icon"] = value;
             }
         }
 
@@ -230,7 +243,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        ///    Gets or sets the Setting the link property will make this control non-postback.
+        ///    Gets or sets the Setting the link property will make this control non postback.
         /// </summary>
         [CanBeNull]
         public string NavigateUrl
@@ -482,11 +495,8 @@ namespace YAF.Controls
         /// </param>
         protected virtual void OnClick([NotNull] EventArgs e)
         {
-            var handler = (EventHandler)Events[_clickEvent];
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            var handler = (EventHandler)this.Events[_clickEvent];
+            handler?.Invoke(this, e);
         }
 
         /// <summary>
@@ -497,12 +507,9 @@ namespace YAF.Controls
         /// </param>
         protected virtual void OnCommand([NotNull] CommandEventArgs e)
         {
-            var handler = (CommandEventHandler)Events[_commandEvent];
+            var handler = (CommandEventHandler)this.Events[_commandEvent];
 
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            handler?.Invoke(this, e);
 
             this.RaiseBubbleEvent(this, e);
         }
@@ -578,6 +585,11 @@ namespace YAF.Controls
             output.WriteBeginTag("span");
             output.Write(HtmlTextWriter.TagRightChar);
 
+            if (this.Icon.IsSet())
+            {
+                output.Write("<i class=\"fa fa-{0} fa-fw\"></i>&nbsp;", this.Icon);
+            }
+
             // render the optional controls (if any)
             base.Render(output);
             output.WriteEndTag("span");
@@ -596,13 +608,13 @@ namespace YAF.Controls
             if (this._themeImage.ThemeTag.IsSet())
             {
                 // add the theme image...
-                Controls.Add(this._themeImage);
+                this.Controls.Add(this._themeImage);
             }
 
             // render the text if available
             if (this._localizedLabel.LocalizedTag.IsSet())
             {
-                Controls.Add(this._localizedLabel);
+               this.Controls.Add(this._localizedLabel);
             }
         }
 

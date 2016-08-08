@@ -403,6 +403,7 @@
     <Resource tag="DISABLED">Deaktiviert</Resource>
     <Resource tag="NO">Nein </Resource>
     <Resource tag="SAVE">Speichern</Resource>
+    <Resource tag="TABLE_RESPONSIVE">Swipe Table to the left to Reveal More Data</Resource>
     <Resource tag="YES">Ja</Resource>
   </page>
   <page name="ADMIN_DELETEFORUM">
@@ -952,7 +953,7 @@
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Aktive Themen Feeds-Zugang:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Anzeige Beschränken für den Feed.</Resource>
     <Resource tag="AKISMET_KEY">Akismet API Schlüssel:</Resource>
-    <Resource tag="AKISMET_KEY_HELP">Um den Akismet SPAM Service benutzen zu können benötigen Sie einen API Schlüssel  &lt;a href="https://akismet.com/signup/"&gt;Hier anmelden&lt;a&gt;</Resource>
+    <Resource tag="AKISMET_KEY_HELP">Um den Akismet SPAM Service benutzen zu können benötigen Sie einen API Schlüssel  &lt;a href="https://akismet.com/signup/"&gt;Hier anmelden&lt;a&gt;.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Alben pro Seite:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Anzahl an Alben die pro Seite gezeigt werden.</Resource>
     <Resource tag="ALL_USERS">Alle Benutzer</Resource>
@@ -1046,7 +1047,7 @@
     <Resource tag="BOT_MESSAGE_1">Benutzer registrien aber loggen und Admin benachrichtigen</Resource>
     <Resource tag="BOT_MESSAGE_2">Benutzer nicht registrieren</Resource>
     <Resource tag="BOTSCOUT_KEY">BotScout.com API Schlüssel:</Resource>
-    <Resource tag="BOTSCOUT_KEY_HELP">Um den BotScout.com Bot Service benutzen zu können benötigen Sie einen API Schlüssel  &lt;a href="http://botscout.com/getkey.htm"&gt;Hier anmelden&lt;a&gt;</Resource>
+    <Resource tag="BOTSCOUT_KEY_HELP">Um den BotScout.com Bot Service benutzen zu können benötigen Sie einen API Schlüssel  &lt;a href="http://botscout.com/getkey.htm"&gt;Hier anmelden&lt;a&gt;.</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER">CAPTCHA/reCAPTCHA für die Registrierung aktivieren:</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER_HELP">Wenn der Benutzer sich im Forum registrieren will muss er ein CAPTCHA eingeben.</Resource>
     <Resource tag="CAPTCHA_GUEST_POSTING">CAPTCHA für Gastbeiträge aktivieren:</Resource>
@@ -1452,7 +1453,7 @@
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistiken Speicher Ablaufzeit:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In Minuten</Resource>
     <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
-    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;</Resource>
+    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="STYLED_NICKS">Gestylte Nicks verwenden:</Resource>
     <Resource tag="STYLED_NICKS_HELP">Wenn diese Option aktiviert, können Sie Farben, die Schriftgröße, usw. ändern für aktive Benutzer Nicknamen.</Resource>
     <Resource tag="STYLED_TOPIC_TITLES">Themen Titel Stil verwenden:</Resource>
@@ -2102,6 +2103,7 @@
     <Resource tag="HTMLTAG_WRONG">Ihre eingegebenen Daten enthält verbotenen {0} HTML-Tag.</Resource>
     <Resource tag="LOADING">Lade...</Resource>
     <Resource tag="MAX_ONLINE">Mitgliederrekord: {0} gleichzeitig online ({1}).</Resource>
+    <Resource tag="MENU">Menu</Resource>
     <Resource tag="MESSAGE">Nachricht</Resource>
     <Resource tag="MOBILE_FULLSITE">Volle Seite Ansehen</Resource>
     <Resource tag="MOBILE_VIEWSITE">Mobile Seite Ansehen</Resource>

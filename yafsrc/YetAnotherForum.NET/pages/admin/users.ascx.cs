@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -101,11 +101,11 @@ namespace YAF.Pages.Admin
                         // deleting yourself isn't an option
                         this.PageContext.AddLoadMessage(
                             this.GetText("ADMIN_USERS", "MSG_SELF_DELETE"),
-                            MessageTypes.Error);
+                            MessageTypes.danger);
                         return;
                     }
 
-                    // get user(s) we are about to delete                
+                    // get user(s) we are about to delete
                     using (
                         DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, e.CommandArgument, DBNull.Value))
                     {
@@ -117,7 +117,7 @@ namespace YAF.Pages.Admin
                                 // we cannot detele guest
                                 this.PageContext.AddLoadMessage(
                                     this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
-                                    MessageTypes.Error);
+                                    MessageTypes.danger);
                                 return;
                             }
 
@@ -130,7 +130,7 @@ namespace YAF.Pages.Admin
                             // admin are not deletable either
                             this.PageContext.AddLoadMessage(
                                 this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
-                                MessageTypes.Error);
+                                MessageTypes.danger);
                             return;
                         }
                     }
@@ -297,14 +297,14 @@ namespace YAF.Pages.Admin
             // create page links
             this.CreatePageLinks();
 
-            this.search.Text = this.GetText("ADMIN_USERS", "SEARCH");
+            this.search.Text = "<i class=\"fa fa-search fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_USERS", "SEARCH"));
 
-            this.NewUser.Text = this.GetText("ADMIN_USERS", "NEW_USER");
-            this.SyncUsers.Text = this.GetText("ADMIN_USERS", "SYNC_ALL");
+            this.NewUser.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_USERS", "NEW_USER"));
+            this.SyncUsers.Text = "<i class=\"fa fa-refresh fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_USERS", "SYNC_ALL"));
 
-            this.ImportUsers.Text = this.GetText("ADMIN_USERS", "IMPORT");
-            this.ExportUsersXml.Text = this.GetText("ADMIN_USERS", "EXPORT_XML");
-            this.ExportUsersCsv.Text = this.GetText("ADMIN_USERS", "EXPORT_CSV");
+            this.ImportUsers.Text = "<i class=\"fa fa-upload fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_USERS", "IMPORT"));
+            this.ExportUsersXml.Text = "<i class=\"fa fa-download fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_USERS", "EXPORT_XML"));
+            this.ExportUsersCsv.Text = "<i class=\"fa fa-download fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_USERS", "EXPORT_CSV"));
 
             this.SuspendedOnly.Text = this.GetText("ADMIN_USERS", "SUSPENDED_ONLY");
 
@@ -328,10 +328,10 @@ namespace YAF.Pages.Admin
             {
                 // add empty item for no filtering
                 DataRow newRow = dt.NewRow();
-                
+
                 newRow["Name"] = this.GetText("FILTER_NO");
                 newRow["GroupID"] = 0;
-                
+
                 dt.Rows.InsertAt(newRow, 0);
 
                 this.group.DataSource = dt;
@@ -432,6 +432,8 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
+            this.SearchResults.Visible = true;
+
             // default since date is now
             var sinceDate = DateTime.UtcNow;
 

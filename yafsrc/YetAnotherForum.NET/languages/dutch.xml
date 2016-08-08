@@ -403,6 +403,7 @@
     <Resource tag="DISABLED">Uit</Resource>
     <Resource tag="NO">Nee</Resource>
     <Resource tag="SAVE">Bewaar</Resource>
+    <Resource tag="TABLE_RESPONSIVE">Swipe Table to the left to Reveal More Data</Resource>
     <Resource tag="YES">Ja</Resource>
   </page>
   <page name="ADMIN_DELETEFORUM">
@@ -1047,7 +1048,7 @@
     <Resource tag="BOT_MESSAGE_1">Approve User &amp; Log User &amp; Send Admin an Email</Resource>
     <Resource tag="BOT_MESSAGE_2">Block User</Resource>
     <Resource tag="BOTSCOUT_KEY">BotScout.com API Key:</Resource>
-    <Resource tag="BOTSCOUT_KEY_HELP">To Use the BotScout Bot Service you need an API Key &lt;a href="http://botscout.com/getkey.htm"&gt;Sign Up here&lt;a&gt;</Resource>
+    <Resource tag="BOTSCOUT_KEY_HELP">To Use the BotScout Bot Service you need an API Key &lt;a href="http://botscout.com/getkey.htm"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER">Gebruik CAPTCHA/reCAPTCHA bij het Registratieproces:</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER_HELP">Eis dat gebruikers de CAPTCHA invullen wanneer ze het registratieproces doorlopen.</Resource>
     <Resource tag="CAPTCHA_GUEST_POSTING">Gebruik CAPTCHA voor berichten door Gasten:</Resource>
@@ -1454,7 +1455,7 @@
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistieken Cache Timeout:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In minuten</Resource>
     <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
-    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;</Resource>
+    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="STYLED_NICKS">Gebruik opgemaakte aliassen:</Resource>
     <Resource tag="STYLED_NICKS_HELP">Als aangevinkt, kun je kleuren, lettergroottes, etc. gebruiken voor actieve gebruikers.</Resource>
     <Resource tag="STYLED_TOPIC_TITLES">Gebruik opgemaakte topictitels:</Resource>
@@ -2062,7 +2063,7 @@
     <Resource tag="BBCODE_QUOTEPOSTED_TT">Ga naar gequote bericht</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} schreef:</Resource>
     <Resource tag="CAL_JQ_CULTURE">nl</Resource>
-    <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YY</Resource>
+    <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YYYY</Resource>
     <Resource tag="CAL_JQ_TT">Klik hier om een datum te kiezen</Resource>
     <Resource tag="CAN_DELETE">Je [b]kunt[/b] hier je eigen berichten verwijderen.</Resource>
     <Resource tag="CAN_EDIT">Je [b]kunt[/b] hier je eigen berichten bewerken.</Resource>
@@ -2112,6 +2113,7 @@
     <Resource tag="HTMLTAG_WRONG">Je tekst bevat een verboden {0} HTML tag.</Resource>
     <Resource tag="LOADING">Bezig met laden...</Resource>
     <Resource tag="MAX_ONLINE">Grootste aantal gebruikers ooit online was {0:N0} on {1}.</Resource>
+    <Resource tag="MENU">Menu</Resource>
     <Resource tag="MESSAGE">Bericht</Resource>
     <Resource tag="MOBILE_FULLSITE">Bekijk volledige site</Resource>
     <Resource tag="MOBILE_VIEWSITE">Bekijk mobiele site</Resource>

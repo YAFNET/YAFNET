@@ -31,6 +31,15 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
         
         /// <summary>
+        /// LocalizedLabel6-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
+        
+        /// <summary>
         /// LocalizedLabel5-Steuerelement
         /// </summary>
         /// <remarks>
@@ -65,15 +74,6 @@ namespace YAF.Pages.Admin {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Controls.ImageListBox Icon;
-        
-        /// <summary>
-        /// Preview-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage Preview;
         
         /// <summary>
         /// LocalizedLabel3-Steuerelement
@@ -118,7 +118,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button save;
+        protected global::System.Web.UI.WebControls.LinkButton save;
         
         /// <summary>
         /// cancel-Steuerelement
@@ -127,7 +127,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button cancel;
+        protected global::System.Web.UI.WebControls.LinkButton cancel;
         
         /// <summary>
         /// SmartScroller1-Steuerelement

@@ -1,55 +1,64 @@
 <%@ Control Language="c#" AutoEventWireup="True"
 	Inherits="YAF.Pages.Admin.nntpretrieve" Codebehind="nntpretrieve.ascx.cs" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" %>
-<%@ Import Namespace="YAF.Core"%>
-<%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
-	<table class="content" width="100%" cellspacing="1" cellpadding="0">
-		<tr>
-			<td colspan="3" class="header1">
-                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_NNTPRETRIEVE" />
-			</td>
-		</tr>
-		<asp:Repeater runat="server" ID="List">  
-			<HeaderTemplate>  
-				<tr class="header2">
-					<td>
+    <div class="row">
+    <div class="col-xl-12">
+        <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_NNTPRETRIEVE" /></h1>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card card-primary-outline">
+                <div class="card-header card-primary">
+                    <i class="fa fa-newspaper-o fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_NNTPRETRIEVE" />
+                    </div>
+                <div class="card-block">
+                    <asp:Repeater runat="server" ID="List">
+			<HeaderTemplate>
+                <div class="alert alert-info hidden-sm-up" role="alert">
+                            <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
+                            <span class="pull-right"><i class="fa fa-hand-o-left fa-fw"></i></span>
+                        </div><div class="table-responsive">
+                <table class="table">
+				<tr>
+                    <thead>
+					<th>
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="GROUPS" LocalizedPage="ADMIN_NNTPRETRIEVE" />
-					</td>
-					<td align="right">
+					</th>
+					<th>
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="LAST_MESSAGE" LocalizedPage="ADMIN_NNTPRETRIEVE" />
-					</td>
-					<td>
+					</th>
+					<th>
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="LAST_UPDATE" LocalizedPage="ADMIN_NNTPRETRIEVE" />
-					</td>
+					</th>
+                    </thead>
 				</tr>
 			</HeaderTemplate>
 			<ItemTemplate>
-				<tr class="post">
+				<tr>
 					<td>
-						<%# Eval("GroupName") %>
-					</td>
-					<td align="right">
-						<%# LastMessageNo(Container.DataItem) %>
+						<%# this.Eval("GroupName") %>
 					</td>
 					<td>
-						<%# this.Get<IDateTime>().FormatDateTime(Eval("LastUpdate")) %>
+						<%# this.LastMessageNo(Container.DataItem) %>
+					</td>
+					<td>
+						<%# this.Get<IDateTime>().FormatDateTime(this.Eval("LastUpdate")) %>
 					</td>
 				</tr>
 			</ItemTemplate>
+            <FooterTemplate></table></div></FooterTemplate>
 		</asp:Repeater>
-		<tr>
-			<td colspan="2" class="postheader" width="50%">
-                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TIME" LocalizedPage="ADMIN_NNTPRETRIEVE" />
-				</td>
-			<td class="post" width="50%">
-				<asp:TextBox runat="server" ID="Seconds" Text="30" CssClass="Numeric" />&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="SECONDS" LocalizedPage="ADMIN_NNTPRETRIEVE" /></td>
-		</tr>
-		<tr>
-			<td colspan="3" align="center" class="footer1">
-				<asp:Button runat="server" ID="Retrieve" Text="Retrieve" CssClass="pbutton" OnClick="Retrieve_Click" /></td>
-		</tr>
-	</table>
+                        <hr class="col-lg-12" />
+                        <h4><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TIME" LocalizedPage="ADMIN_NNTPRETRIEVE" /></h4>
+                        <p><asp:TextBox runat="server" ID="Seconds" Text="30" CssClass="form-control SecondsInput" TextMode="Number" /></p>
+                    </div>
+                <div class="card-footer text-xs-center">
+                    <asp:LinkButton runat="server" ID="Retrieve" Text="Retrieve" CssClass="btn btn-primary" OnClick="Retrieve_Click" />
+                </div>
+            </div>
+            </div>
+        </div>
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

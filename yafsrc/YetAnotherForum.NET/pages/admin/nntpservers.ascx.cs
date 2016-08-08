@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -89,16 +89,16 @@ namespace YAF.Pages.Admin
       base.OnInit(e);
     }
 
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -114,7 +114,7 @@ namespace YAF.Pages.Admin
             this.GetText("ADMIN_ADMIN", "Administration"),
             this.GetText("ADMIN_NNTPSERVERS", "TITLE"));
 
-        this.NewServer.Text = this.GetText("ADMIN_NNTPSERVERS", "NEW_SERVER");
+        this.NewServer.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_NNTPSERVERS", "NEW_SERVER"));
 
         this.BindData();
     }

@@ -46,7 +46,7 @@ namespace YAF.Utils.Helpers.StringUtils
         /// Unidecode(u"\u5317\u4EB0") == "Bei Jing "
         /// </remarks>
         /// <param name="input">
-        /// The input. 
+        /// The input.
         /// </param>
         /// <returns>
         /// Returns the translated string

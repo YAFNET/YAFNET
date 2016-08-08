@@ -1,0 +1,118 @@
+﻿/* Attachments List Drop Down */
+
+.AttachmentListMenu {
+  width: 300px;
+  padding:0;
+  li {
+    width: 280px;
+    list-style: none;
+    span {
+      padding: 0 0 0 10px;
+      vertical-align: super;
+    }
+  }
+}
+.AttachmentList {
+    padding: 10px 0 4px 5px;
+
+  span {
+      width: 210px;
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      -ms-text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+  }
+}
+
+.AttachmentList li img, .PostAttachmentList li img {
+  width: 24px;
+  height: 24px;
+  vertical-align: top;
+  padding-left:5px;
+}
+
+
+
+.PostAttachmentList {
+  padding: 0;
+  list-style: none;
+  li {
+    border-bottom: 1px dotted black;
+    padding: 5px 0 5px 0;
+    span {
+      text-decoration: underline;
+      padding: 0 0 0 5px;
+      vertical-align: super;
+      width: 400px;
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      -ms-text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.UploadNewFileLine {
+  text-align: center;
+  display: block;
+}
+
+.OpenUploadDialog {
+    width: 150px;margin-top: -25px;padding-bottom:10px
+}
+
+#dropzone {
+  width: auto;
+  padding: 30px 0;
+  text-align: center;
+  margin: 20px auto;
+}
+
+/* Attachments Upload Dialog */
+
+#UploadFilesBox {
+  -moz-min-width: 480px;
+  -ms-min-width: 480px;
+  -o-min-width: 480px;
+  -webkit-min-width: 480px;
+  min-width: 480px;
+  width: 480px;
+  float: left;
+  overflow: auto;
+  padding: 5px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  max-height: 275px;
+  border-top: 1px dotted grey;
+  border-bottom: 1px dotted grey;
+}
+
+#fileupload {
+  .preview {
+    -moz-min-width: 80px;
+    -ms-min-width: 80px;
+    -o-min-width: 80px;
+    -webkit-min-width: 80px;
+    min-width: 80px;
+    display: block;
+  }
+  .name {
+    width: 288px;
+    -ms-word-break: break-all;
+    -moz-word-break: break-all;
+    -o-word-break: break-all;
+    word-break: break-all;
+    font-weight: bold;
+  }
+  .size {
+    font-style: italic;
+  }
+  .error {
+    color: red;
+  }
+}
+

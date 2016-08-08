@@ -109,24 +109,12 @@ namespace YAF.Controls
         /// <value>
         /// <c>true</c> if the user can view profiles; otherwise, <c>false</c>.
         /// </value>
-        private bool CanViewProfile
-        {
-            get
-            {
-                return this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ProfileViewPermissions);
-            }
-        }
+        private bool CanViewProfile => this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ProfileViewPermissions);
 
         /// <summary>
         /// Gets a value indicating whether is hover card enabled.
         /// </summary>
-        private bool IsHoverCardEnabled
-        {
-            get
-            {
-                return this.Get<YafBoardSettings>().EnableUserInfoHoverCards && this.EnableHoverCard;
-            }
-        }
+        private bool IsHoverCardEnabled => this.Get<YafBoardSettings>().EnableUserInfoHoverCards && this.EnableHoverCard;
 
         #endregion
 
@@ -198,7 +186,7 @@ namespace YAF.Controls
                     output.WriteAttribute(
                         "data-hovercard",
                         "{0}resource.ashx?userinfo={1}&boardId={2}&type=json&forumUrl={3}".FormatWith(
-                            Config.IsDotNetNuke ? YafBuildLink.GetBasePath() + BaseUrlBuilder.AppPath : YafForumInfo.ForumClientFileRoot,
+                            Config.IsDotNetNuke ? BaseUrlBuilder.GetBaseUrlFromVariables() + BaseUrlBuilder.AppPath : YafForumInfo.ForumClientFileRoot,
                             this.UserID,
                             YafContext.Current.PageBoardID,
                             HttpUtility.UrlEncode(YafBuildLink.GetBasePath())));

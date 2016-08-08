@@ -403,6 +403,7 @@
     <Resource tag="DISABLED">Desactivado</Resource>
     <Resource tag="NO">No</Resource>
     <Resource tag="SAVE">Guardar</Resource>
+    <Resource tag="TABLE_RESPONSIVE">Swipe Table to the left to Reveal More Data</Resource>
     <Resource tag="YES">Si</Resource>
   </page>
   <page name="ADMIN_DELETEFORUM">
@@ -954,7 +955,7 @@
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Acceso a los feeds de temas activos:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Restringe la visualización de feeds de temas activos.</Resource>
     <Resource tag="AKISMET_KEY">Llave API para Akismet:</Resource>
-    <Resource tag="AKISMET_KEY_HELP">Para usar el servicio de comentado de SPAM de Akismet necesitas una llave API &lt;a href="https://akismet.com/signup/"&gt;Regístrate aquí&lt;a&gt;</Resource>
+    <Resource tag="AKISMET_KEY_HELP">Para usar el servicio de comentado de SPAM de Akismet necesitas una llave API &lt;a href="https://akismet.com/signup/"&gt;Regístrate aquí&lt;a&gt;.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Álbumes por página:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Número de álbumes para mostrar por página.</Resource>
     <Resource tag="ALL_USERS">Todos los usuarios</Resource>
@@ -1048,7 +1049,7 @@
     <Resource tag="BOT_MESSAGE_1">Aprobar usuario, registrarlo y enviar un email al administrador.</Resource>
     <Resource tag="BOT_MESSAGE_2">Bloquear usuario.</Resource>
     <Resource tag="BOTSCOUT_KEY">Llave API para BotScout.com:</Resource>
-    <Resource tag="BOTSCOUT_KEY_HELP">Para usar el servicio de BotScout necesitas una llave API &lt;a href="http://botscout.com/getkey.htm"&gt;Regístrate aquí&lt;a&gt;</Resource>
+    <Resource tag="BOTSCOUT_KEY_HELP">Para usar el servicio de BotScout necesitas una llave API &lt;a href="http://botscout.com/getkey.htm"&gt;Regístrate aquí&lt;a&gt;.</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER">Activar CAPTCHA/reCAPTCHA en el registro:</Resource>
     <Resource tag="CAPTCHA_FOR_REGISTER_HELP">Obliga a los usuarios a introducir el CAPTCHA cuando se registran en el foro.</Resource>
     <Resource tag="CAPTCHA_GUEST_POSTING">Activar CAPTCHA para publicación como invitado:</Resource>
@@ -1465,7 +1466,7 @@
     <Resource tag="STATS_CACHE_TIMEOUT">Caducidad de la caché de las estadísticas del foro.</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">En minutos</Resource>
     <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
-    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;</Resource>
+    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="STYLED_NICKS">Usar nicks con estilo:</Resource>
     <Resource tag="STYLED_NICKS_HELP">Si está marcado, puedes usar colores, cambiar tamaño de fuentes, etc. para los nicks de los usuarios activos.</Resource>
     <Resource tag="STYLED_TOPIC_TITLES">Usar títulos de temas con estilo:</Resource>
@@ -2074,7 +2075,7 @@
     <Resource tag="BBCODE_QUOTEPOSTED_TT">Ir a la publicación citada</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} escribió:</Resource>
     <Resource tag="CAL_JQ_CULTURE">es</Resource>
-    <Resource tag="CAL_JQ_CULTURE_DFORMAT">dd/MM/yy</Resource>
+    <Resource tag="CAL_JQ_CULTURE_DFORMAT">dd/MM/YYYY</Resource>
     <Resource tag="CAL_JQ_TT">Haz click aquí para elegir fecha</Resource>
     <Resource tag="CAN_DELETE">[b]Puedes[/b] eliminar sus temas en este foro.</Resource>
     <Resource tag="CAN_EDIT">[b]Puedes[/b] editar sus temas en este foro.</Resource>
@@ -2124,6 +2125,7 @@
     <Resource tag="HTMLTAG_WRONG">Los datos que has introducido contienen {0} etiquetas HTML no permitidas.</Resource>
     <Resource tag="LOADING">Cargando...</Resource>
     <Resource tag="MAX_ONLINE">El número máximo de usuarios activos fue {0:N0} on {1}.</Resource>
+    <Resource tag="MENU">Menu</Resource>
     <Resource tag="MESSAGE">Mensaje</Resource>
     <Resource tag="MOBILE_FULLSITE">Ver el sitio completo</Resource>
     <Resource tag="MOBILE_VIEWSITE">Ver el sitio para móviles</Resource>

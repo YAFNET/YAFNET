@@ -28,6 +28,7 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Data;
+    using System.Web.DynamicData;
     using System.Web.Security;
 
     using YAF.Classes;
@@ -100,11 +101,7 @@ namespace YAF.Pages.Admin
             // setup jQuery and Jquery Ui Tabs.
             YafContext.Current.PageElements.RegisterJsBlock(
                 "EditUserTabsJs",
-                JavaScriptBlocks.JqueryUITabsLoadJs(
-                    this.EditUserTabs.ClientID,
-                    this.hidLastTab.ClientID,
-                    this.hidLastTabId.ClientID,
-                    false));
+                JavaScriptBlocks.BootstrapTabsLoadJs(this.EditUserTabs.ClientID, this.hidLastTab.ClientID));
 
             base.OnPreRender(e);
         }
@@ -149,9 +146,13 @@ namespace YAF.Pages.Admin
                                ? userRow["DisplayName"].ToString()
                                : userRow["Name"].ToString();
 
+            var header = this.GetText("ADMIN_EDITUSER", "TITLE").FormatWith(userName);
+
+            this.Header.Text = this.Header2.Text = header;
+
             // current page label (no link)
             this.PageLinks.AddLink(
-                this.GetText("ADMIN_EDITUSER", "TITLE").FormatWith(userName),
+                header,
                 string.Empty);
 
             this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(

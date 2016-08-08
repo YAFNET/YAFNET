@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -31,6 +31,8 @@ namespace YAF.Pages.Admin
     using System.Data.SqlClient;
     using System.Linq;
     using System.Net.Mail;
+    using System.ServiceModel.Channels;
+    using System.Web.Security;
     using System.Web.UI.WebControls;
 
     using FarsiLibrary;
@@ -110,7 +112,15 @@ namespace YAF.Pages.Admin
 
                         this.PageContext.AddLoadMessage(this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"));
                     }
-                    
+                    else
+                    {
+                        var userFound = this.Get<IUserDisplayName>().Find(commandArgument[1]).FirstOrDefault();
+
+                        var user = this.Get<MembershipProvider>().GetUser(userFound.Value, false);
+
+                        this.Get<ISendNotification>().SendVerificationEmail(user, commandArgument[0], userFound.Key);
+                    }
+
                     break;
                 case "delete":
                     var daysValue =
@@ -179,7 +189,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ApproveAll_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            ((Button)sender).Text = this.GetText("ADMIN_ADMIN", "APROVE_ALL");
+            ((LinkButton)sender).Text = "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_ADMIN", "APROVE_ALL"));
             ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL"));
         }
 
@@ -200,7 +210,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            ((Button)sender).Text = this.GetText("ADMIN_ADMIN", "DELETE_ALL");
+            ((LinkButton)sender).Text = "<i class=\"fa fa-trash fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_ADMIN", "DELETE_ALL"));
 
             ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL"));
         }
@@ -297,7 +307,7 @@ namespace YAF.Pages.Admin
         {
             base.OnPreRender(e);
         }
-        
+
         /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
@@ -319,33 +329,15 @@ namespace YAF.Pages.Admin
 
             this.BindData();
 
-            var latestInfo = new LatestInformationService().GetLatestVersionInformation();
-
-            if (latestInfo == null || latestInfo.Version <= YafForumInfo.AppVersionCode)
+            try
             {
-                return;
+                this.ShowUpgradeMessage();
             }
-
-            // updateLink
-            var updateLink = new Action<HyperLink>(
-                link =>
-                    {
-                        link.Text = latestInfo.Message;
-                        link.NavigateUrl = latestInfo.Link;
-                    });
-
-            if (latestInfo.IsWarning)
+            catch (Exception)
             {
-                this.UpdateWarning.Visible = true;
-                updateLink(this.UpdateLinkWarning);
+                this.UpdateHightlight.Visible = false;
+                this.UpdateWarning.Visible = false;
             }
-            else
-            {
-                this.UpdateHightlight.Visible = true;
-                updateLink(this.UpdateLinkHighlight);
-            }
-
-            // UpgradeNotice.Visible = install._default.GetCurrentVersion() < Data.AppVersion;
         }
 
         /// <summary>
@@ -357,6 +349,38 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
 
             this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+        }
+
+        /// <summary>
+        /// Shows the upgrade message.
+        /// </summary>
+        private void ShowUpgradeMessage()
+        {
+            var latestInfo = new LatestInformationService().GetLatestVersionInformation();
+
+            if (latestInfo == null || latestInfo.Version <= YafForumInfo.AppVersionCode)
+            {
+                return;
+            }
+
+            // updateLink
+            var updateLink = new Action<HyperLink>(
+                link =>
+                {
+                    link.Text = latestInfo.Message;
+                    link.NavigateUrl = latestInfo.Link;
+                });
+
+            if (latestInfo.IsWarning)
+            {
+                this.UpdateWarning.Visible = true;
+                updateLink(this.UpdateLinkWarning);
+            }
+            else
+            {
+                this.UpdateHightlight.Visible = true;
+                updateLink(this.UpdateLinkHighlight);
+            }
         }
 
         /// <summary>
@@ -491,7 +515,7 @@ namespace YAF.Pages.Admin
         /// </returns>
         private DataTable GetActiveUsersData(bool showGuests, bool showCrawlers)
         {
-            // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.        
+            // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.
             var activeUsers = this.GetRepository<Active>()
                 .ListUser(
                     userID: this.PageContext.PageUserID,

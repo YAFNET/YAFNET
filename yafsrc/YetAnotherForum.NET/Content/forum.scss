@@ -1,7 +1,6 @@
 ﻿@import "jquery.ceebox.scss";
 @import "jquery.hovercard.scss";
-@import "jquery.notification.scss";
-@import "jquery.yafmodaldialog.scss";
+@import "bootstrap-notify";
 @import "jsdifflib.scss";
 @import "jquery.tablesorter.scss";
 @import "prism";
@@ -164,26 +163,6 @@
   }
   .adminContainer {
     width: 100%;
-  }
-  .adminMenu {
-    padding: 5px;
-    ul {
-      margin: 0;
-      padding: 0;
-    }
-    li {
-      white-space: nowrap;
-      font-size: 10pt;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 4px;
-      margin-bottom: 5px;
-      img {
-        vertical-align: bottom;
-      }
-    }
-  }
-  .adminMenuAccordian {
-    width: 200px;
   }
   .quotetitle {
     font-weight: bold;
@@ -417,16 +396,6 @@
   }
   .emailConfirmation {
     display: none;
-  }
-  .selectMenuWithIcons {
-    width: 500px;
-  }
-  option.customicon {
-    background-repeat: no-repeat !important;
-    padding-left: 20px;
-  }
-  .customicon .ui-icon {
-    background-position: left top;
   }
   #yafheader {
     .loggedInUser, .menuContainer {
@@ -719,132 +688,6 @@
   content: '';
 }
 
-/* Drop Downs */
-
-.standardSelectMenu {
-  width: 350px;
-}
-
-.ui-selectmenu-button {
-  vertical-align: middle;
-}
-
-.ui-menu, .ui-menu-icons {
-  max-height: 200px;
-}
-
-/* Attachments List Drop Down */
-
-.AttachmentListMenu {
-  width: 300px;
-  height: 250px;
-  li {
-    width: 280px;
-    span {
-      padding: 0 0 0 5px;
-      vertical-align: super;
-    }
-  }
-}
-
-.AttachmentList li img, .PostAttachmentList li img {
-  width: 24px;
-  height: 24px;
-}
-
-.AttachmentList span {
-  width: 210px;
-  display: inline-block;
-  white-space: nowrap;
-  overflow: hidden;
-  -ms-text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-}
-
-.PostAttachmentList {
-  padding: 0;
-  list-style: none;
-  li {
-    border-bottom: 1px dotted black;
-    padding: 5px 0 5px 0;
-    span {
-      text-decoration: underline;
-      padding: 0 0 0 5px;
-      vertical-align: super;
-      width: 400px;
-      display: inline-block;
-      white-space: nowrap;
-      overflow: hidden;
-      -ms-text-overflow: ellipsis;
-      -o-text-overflow: ellipsis;
-      text-overflow: ellipsis;
-    }
-  }
-}
-
-.UploadNewFileLine {
-  text-align: center;
-  display: block;
-}
-
-a.OpenUploadDialog {
-  float: none !important;
-  margin: 0 !important;
-  padding: 0;
-  cursor: pointer;
-}
-
-#dropzone {
-  width: auto;
-  padding: 30px 0;
-  text-align: center;
-  margin: 20px auto;
-}
-
-/* Attachments Upload Dialog */
-
-#UploadFilesBox {
-  -moz-min-width: 480px;
-  -ms-min-width: 480px;
-  -o-min-width: 480px;
-  -webkit-min-width: 480px;
-  min-width: 480px;
-  width: 480px;
-  float: left;
-  overflow: auto;
-  padding: 5px;
-  margin-bottom: 5px;
-  margin-top: 5px;
-  max-height: 275px;
-  border-top: 1px dotted grey;
-  border-bottom: 1px dotted grey;
-}
-
-#fileupload {
-  .preview {
-    -moz-min-width: 80px;
-    -ms-min-width: 80px;
-    -o-min-width: 80px;
-    -webkit-min-width: 80px;
-    min-width: 80px;
-    display: block;
-  }
-  .name {
-    width: 288px;
-    -ms-word-break: break-all;
-    -moz-word-break: break-all;
-    -o-word-break: break-all;
-    word-break: break-all;
-    font-weight: bold;
-  }
-  .size {
-    font-style: italic;
-  }
-  .error {
-    color: red;
-  }
-}
 
 #passwordStrength {
   padding: 0 .7em;

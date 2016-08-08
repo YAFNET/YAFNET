@@ -110,8 +110,8 @@ namespace YAF.Pages.Admin
                 this.GetText("TEAM", "FORUMS"),
                 this.GetText("ADMIN_DELETEFORUM", "TITLE"));
 
-            this.Delete.Text = this.GetText("ADMIN_DELETEFORUM", "DELETE_FORUM");
-            this.Cancel.Text = this.GetText("CANCEL");
+            this.Delete.Text = "<i class=\"fa fa-trash fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_DELETEFORUM", "DELETE_FORUM"));
+            this.Cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
 
             this.Delete.Attributes["onclick"] =
                 "return (confirm('{0}') && confirm('{1}'));".FormatWith(
@@ -280,7 +280,7 @@ namespace YAF.Pages.Admin
 
             if (errorMessage.IsSet())
             {
-                this.PageContext.AddLoadMessage(errorMessage, MessageTypes.Error);
+                this.PageContext.AddLoadMessage(errorMessage, MessageTypes.danger);
             }
         }
 

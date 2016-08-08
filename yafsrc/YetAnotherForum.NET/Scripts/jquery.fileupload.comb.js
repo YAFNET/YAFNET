@@ -1,4 +1,4 @@
-﻿/*
+/*
  * JavaScript Templates 2.4.1
  * https://github.com/blueimp/JavaScript-Templates
  *
@@ -3854,8 +3854,7 @@
                     return false;
                 }
                 var $this = $(this),
-                    that = $this.data('blueimp-yafFileUpload') ||
-                        $this.data('fileupload'),
+                    that = $this.data('blueimp-yafFileUpload'),
                     options = that.options;
                 data.context = that._renderUpload(data.files)
                     .data('data', data)
@@ -3897,8 +3896,7 @@
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
-                var that = $(this).data('blueimp-yafFileUpload') ||
-                    $(this).data('fileupload');
+                var that = $(this).data('blueimp-yafFileUpload');
                 if (data.context && data.dataType &&
                         data.dataType.substr(0, 6) === 'iframe') {
                     // Iframe Transport does not support progress events.
@@ -3921,8 +3919,7 @@
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
-                var that = $(this).data('blueimp-yafFileUpload') ||
-                        $(this).data('fileupload'),
+                var that = $(this).data('blueimp-yafFileUpload'),
                     getFilesFromResponse = data.getFilesFromResponse ||
                         that.options.getFilesFromResponse,
                     files = getFilesFromResponse(data),
@@ -3971,8 +3968,7 @@
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
-                var that = $(this).data('blueimp-yafFileUpload') ||
-                        $(this).data('fileupload'),
+                var that = $(this).data('blueimp-yafFileUpload'),
                     template,
                     deferred;
                 if (data.context) {
@@ -4060,7 +4056,7 @@
                         .find('.progress-extended');
                 if (extendedProgressNode.length) {
                     extendedProgressNode.html(
-                        ($this.data('blueimp-yafFileUpload') || $this.data('fileupload'))
+                        ($this.data('blueimp-yafFileUpload'))
                             ._renderExtendedProgress(data)
                     );
                 }
@@ -4077,8 +4073,7 @@
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
-                var that = $(this).data('blueimp-yafFileUpload') ||
-                        $(this).data('fileupload');
+                var that = $(this).data('blueimp-yafFileUpload');
                 that._resetFinishedDeferreds();
                 that._transition($(this).find('.fileupload-progress')).done(
                     function () {
@@ -4091,8 +4086,7 @@
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
-                var that = $(this).data('blueimp-yafFileUpload') ||
-                        $(this).data('fileupload'),
+                var that = $(this).data('blueimp-yafFileUpload'),
                     deferred = that._addFinishedDeferreds();
                 $.when.apply($, that._getFinishedDeferreds())
                     .done(function () {
@@ -4125,8 +4119,7 @@
                 if (e.isDefaultPrevented()) {
                     return false;
                 }
-                var that = $(this).data('blueimp-yafFileUpload') ||
-                        $(this).data('fileupload'),
+                var that = $(this).data('blueimp-yafFileUpload'),
                     removeNode = function () {
                         that._transition(data.context).done(
                             function () {
@@ -4516,8 +4509,7 @@
                     ).end()
                     .find('.progress-extended').each(function () {
                         $(this).html(
-                            ($this.data('blueimp-yafFileUpload') ||
-                                    $this.data('fileupload'))
+                            ($this.data('blueimp-yafFileUpload'))
                                 ._renderExtendedProgress(data)
                         );
                     });
@@ -4617,4 +4609,3 @@
     });
 
 }));
-

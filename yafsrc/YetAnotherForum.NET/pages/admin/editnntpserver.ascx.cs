@@ -87,10 +87,10 @@ namespace YAF.Pages.Admin
              this.GetText("ADMIN_NNTPSERVERS", "TITLE"),
              this.GetText("ADMIN_EDITNNTPSERVER", "TITLE"));
 
-        this.Save.Text = this.GetText("COMMON", "SAVE");
-        this.Cancel.Text = this.GetText("COMMON", "CANCEL");
+            this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
+            this.Cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
 
-        this.BindData();
+            this.BindData();
         if (this.Request.QueryString.GetFirstOrDefault("s") != null)
         {
             using (

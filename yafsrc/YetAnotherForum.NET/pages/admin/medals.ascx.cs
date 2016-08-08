@@ -154,7 +154,7 @@ namespace YAF.Pages.Admin
             // create page links
             this.CreatePageLinks();
 
-            this.NewMedal.Text = this.GetText("ADMIN_MEDALS", "NEW_MEDAL");
+            this.NewMedal.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_MEDALS", "NEW_MEDAL"));
 
             // bind data
             this.BindData();

@@ -154,14 +154,11 @@ namespace YAF.Pages.Admin
               this.GetText("ADMIN_REPLACEWORDS", "TITLE"),
               this.GetText("ADMIN_REPLACEWORDS_EDIT", "TITLE"));
 
-          this.save.Text = this.GetText("COMMON", "SAVE");
-          this.cancel.Text = this.GetText("COMMON", "CANCEL");
+                this.save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
+                this.cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
 
-          this.BindData();
+                this.BindData();
       }
-
-        this.badword.Attributes.Add("style", "width:250px");
-      this.goodword.Attributes.Add("style", "width:250px");
     }
 
     /// <summary>

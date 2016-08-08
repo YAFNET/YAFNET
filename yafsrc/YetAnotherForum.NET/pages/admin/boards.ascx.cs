@@ -99,7 +99,7 @@ namespace YAF.Pages.Admin
                   this.GetText("ADMIN_ADMIN", "Administration"),
                   this.GetText("ADMIN_BOARDS", "TITLE"));
 
-            this.New.Text = this.GetText("ADMIN_BOARDS", "NEW_BOARD");
+            this.New.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_BOARDS", "NEW_BOARD"));
 
             this.BindData();
         }

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -114,7 +114,7 @@ namespace YAF.Modules
                 (!this.PageContext.ForumPageType.Equals(ForumPages.cp_pm)
                  || !this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies)))
             {
-                if (this.Get<YafBoardSettings>().MessageNotificationSystem.Equals(0)
+                /*if (this.Get<YafBoardSettings>().MessageNotificationSystem.Equals(0)
                     &&
                     !(this.Get<YafBoardSettings>().NotifcationNativeOnMobile
                       && this.Get<HttpRequestBase>().Browser.IsMobileDevice))
@@ -131,15 +131,15 @@ namespace YAF.Modules
                             },
                         new DialogBox.DialogButton
                             {
-                                Text = this.GetText("COMMON", "NO"), 
+                                Text = this.GetText("COMMON", "NO"),
                                 CssClass = "StandardButton CancelButton"
                             });
                 }
                 else
-                {
+                {*/
                     this.PageContext.AddLoadMessage(
                         this.GetText("COMMON", "UNREAD_MSG").FormatWith(this.PageContext.UnreadPrivate));
-                }
+                //}
 
                 this.Get<IYafSession>().LastPm = this.PageContext.LastUnreadPm;
 
@@ -155,7 +155,7 @@ namespace YAF.Modules
                 return;
             }
 
-            if (this.Get<YafBoardSettings>().MessageNotificationSystem.Equals(0)
+           /* if (this.Get<YafBoardSettings>().MessageNotificationSystem.Equals(0)
                 &&
                 !(this.Get<YafBoardSettings>().NotifcationNativeOnMobile
                   && this.Get<HttpRequestBase>().Browser.IsMobileDevice))
@@ -178,10 +178,10 @@ namespace YAF.Modules
                         });
             }
             else
-            {
+            {*/
                 this.PageContext.AddLoadMessage(
                     this.GetText("BUDDY", "PENDINGBUDDIES2").FormatWith(this.PageContext.PendingBuddies));
-            }
+            //}
 
             this.Get<IYafSession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
         }

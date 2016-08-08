@@ -89,8 +89,8 @@ namespace YAF.Controls
             this.rblPasswordResetFunction.SelectedIndex = 0;
 
 
-            this.btnResetPassword.Text = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "RESET_PASS");
-            this.btnChangePassword.Text = this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "CHANGE_PASS");
+            this.btnResetPassword.Text = "<i class=\"fa fa-refresh fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EDITUSER", "RESET_PASS"));
+            this.btnChangePassword.Text = "<i class=\"fa fa-exchange fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EDITUSER", "CHANGE_PASS"));
 
             this.lblPassRequirements.Text =
                 this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "PASS_REQUIREMENT").FormatWith(
