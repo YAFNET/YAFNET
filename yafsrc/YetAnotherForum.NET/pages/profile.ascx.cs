@@ -814,14 +814,6 @@ namespace YAF.Pages
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "hovercardtwitterfacebookjs",
                     hoverCardLoadJs.ToString());
-
-                if (this.Get<YafBoardSettings>().EnableUserReputation)
-                {
-                    // Setup UserBox Reputation Script Block
-                    YafContext.Current.PageElements.RegisterJsBlockStartup(
-                        "reputationprogressjs",
-                        JavaScriptBlocks.ReputationProgressLoadJs);
-                }
             }
 
             if (this.User != null && userData.Profile.Birthday >= DateTimeHelper.SqlDbMinTime())

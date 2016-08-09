@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -171,7 +171,7 @@ namespace YAF.Controls
         /// The get indent cell.
         /// </summary>
         /// <returns>
-        /// Returns indent cell. 
+        /// Returns indent cell.
         /// </returns>
         protected string GetIndentCell()
         {
@@ -196,7 +196,7 @@ namespace YAF.Controls
         /// Get Row Span
         /// </summary>
         /// <returns>
-        /// Returns the row Span value 
+        /// Returns the row Span value
         /// </returns>
         [NotNull]
         protected string GetRowSpan()
@@ -216,7 +216,7 @@ namespace YAF.Controls
         /// The get indent span.
         /// </summary>
         /// <returns>
-        /// Returns the indent span. 
+        /// Returns the indent span.
         /// </returns>
         [NotNull]
         protected string GetIndentSpan()
@@ -242,7 +242,7 @@ namespace YAF.Controls
         /// The get user box height.
         /// </summary>
         /// <returns>
-        /// Returns a fake user box height (Not the Real one). 
+        /// Returns a fake user box height (Not the Real one).
         /// </returns>
         [NotNull]
         protected string GetUserBoxHeight()
@@ -264,10 +264,10 @@ namespace YAF.Controls
         /// The page_ load.
         /// </summary>
         /// <param name="sender">
-        /// The sender. 
+        /// The sender.
         /// </param>
         /// <param name="e">
-        /// The e. 
+        /// The e.
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
@@ -288,10 +288,10 @@ namespace YAF.Controls
         /// Adds the user reputation.
         /// </summary>
         /// <param name="sender">
-        /// The sender. 
+        /// The sender.
         /// </param>
         /// <param name="e">
-        /// The <see cref="System.EventArgs"/> instance containing the event data. 
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
         /// </param>
         protected void AddUserReputation(object sender, EventArgs e)
         {
@@ -319,22 +319,16 @@ namespace YAF.Controls
                     this.Get<HttpServerUtilityBase>().HtmlEncode(
                         this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"].ToString())),
                 MessageTypes.success);
-
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "reputationprogressjs",
-                JavaScriptBlocks.ReputationProgressChangeJs(
-                    YafReputation.GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.PostData.UserId),
-                    this.PostData.UserId.ToString()));
         }
 
         /// <summary>
         /// Removes the user reputation.
         /// </summary>
         /// <param name="sender">
-        /// The sender. 
+        /// The sender.
         /// </param>
         /// <param name="e">
-        /// The <see cref="System.EventArgs"/> instance containing the event data. 
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
         /// </param>
         protected void RemoveUserReputation(object sender, EventArgs e)
         {
@@ -362,22 +356,16 @@ namespace YAF.Controls
                    this.Get<HttpServerUtilityBase>().HtmlEncode(
                         this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"].ToString())),
                 MessageTypes.success);
-
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "reputationprogressjs",
-                JavaScriptBlocks.ReputationProgressChangeJs(
-                    YafReputation.GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.PostData.UserId),
-                    this.PostData.UserId.ToString()));
         }
 
         /// <summary>
         /// Re-tweets Message thru the Twitter API
         /// </summary>
         /// <param name="sender">
-        /// The source of the event. 
+        /// The source of the event.
         /// </param>
         /// <param name="e">
-        /// The <see cref="System.EventArgs"/> instance containing the event data. 
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
         /// </param>
         protected void Retweet_Click(object sender, EventArgs e)
         {
@@ -502,10 +490,10 @@ namespace YAF.Controls
         /// The display post_ pre render.
         /// </summary>
         /// <param name="sender">
-        /// The sender. 
+        /// The sender.
         /// </param>
         /// <param name="e">
-        /// The e. 
+        /// The e.
         /// </param>
         private void DisplayPost_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
@@ -577,10 +565,6 @@ namespace YAF.Controls
 
             if (this.Get<YafBoardSettings>().EnableUserReputation)
             {
-                // Setup UserBox Reputation Script Block
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "reputationprogressjs", JavaScriptBlocks.ReputationProgressLoadJs);
-
                 this.AddReputationControls();
             }
 
@@ -598,7 +582,7 @@ namespace YAF.Controls
             }
 
             YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", "function CallFailed(res){ alert('Error Occurred'); }");
-            
+
             this.FormatThanksRow();
 
             this.ShowIPInfo();

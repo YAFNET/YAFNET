@@ -143,17 +143,6 @@ namespace YAF.Utilities
 ";
 
         /// <summary>
-        ///   Gets Repuatation Progress Load JS.
-        /// </summary>
-        [NotNull]
-        public static string ReputationProgressLoadJs => @"{0}(document).ready(function() {{
-					{0}('.ReputationBar').progressbar({{
-			            create: function(event, ui) {{
-			                    ChangeReputationBarColor({0}(this).attr('data-percent'),{0}(this).attr('data-text'), this);
-			                    }}
-		             }});}});".FormatWith(Config.JQueryAlias);
-
-        /// <summary>
         ///   Gets TimeagoLoadJs.
         /// </summary>
         public static string TimeagoLoadJs => @" if( typeof(CKEDITOR) == 'undefined') {{
@@ -292,14 +281,32 @@ namespace YAF.Utilities
             [NotNull] string tabId,
             string hiddenId)
         {
+            return BootstrapTabsLoadJs(tabId, hiddenId, string.Empty);
+        }
+
+        /// <summary>
+        /// Gets the Bootstrap Tab Load JS.
+        /// </summary>
+        /// <param name="tabId">The tab Id.</param>
+        /// <param name="hiddenId">The hidden field id.</param>
+        /// <param name="onClickEvent">The on click event.</param>
+        /// <returns>
+        /// Returns the the Bootstrap Tab Load JS string
+        /// </returns>
+        public static string BootstrapTabsLoadJs(
+            [NotNull] string tabId,
+            string hiddenId,
+            string onClickEvent)
+        {
             return @"{2}(document).ready(function() {{
             var selectedTab = {2}(""#{1}"");
             var tabId = selectedTab.val() != """" ? selectedTab.val() : ""View1"";
             {2}('#{0} a[href=""#' + tabId + '""]').tab('show');
             {2}(""#{0} a"").click(function() {{
                 selectedTab.val({2}(this).attr(""href"").substring(1));
+                {3}
             }});
-                           }});".FormatWith(tabId, hiddenId, Config.JQueryAlias);
+                           }});".FormatWith(tabId, hiddenId, Config.JQueryAlias, onClickEvent);
         }
 
         /// <summary>
@@ -480,26 +487,6 @@ namespace YAF.Utilities
                 addThankBoxHTML,
                 YafForumInfo.ForumClientFileRoot,
                 Config.JQueryAlias);
-        }
-
-        /// <summary>
-        /// The Reputation Progress Bar Change Js Code
-        /// </summary>
-        /// <param name="generateReputationBar">The generate reputation bar.</param>
-        /// <param name="userId">The user id.</param>
-        /// <returns>Returns the JS Code string</returns>
-        [NotNull]
-        public static string ReputationProgressChangeJs([NotNull] string generateReputationBar, [NotNull] string userId)
-        {
-            return @"{0}(document).ready(function() {{
-                    {0}('.AddReputation_{1}').remove();
-                    {0}('.RemoveReputation_{1}').remove();
-                    {0}('.ReputationUser_{1}').replaceWith('{2}');
-					{0}('.ReputationBar').progressbar({{
-			            create: function(event, ui) {{
-			                    ChangeReputationBarColor({0}(this).attr('data-percent'),{0}(this).attr('data-text'), this);
-			                    }}
-		             }});}});".FormatWith(Config.JQueryAlias, userId, generateReputationBar);
         }
 
         #endregion

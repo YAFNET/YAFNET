@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -548,8 +548,6 @@ namespace YAF.Controls
                     ? this.NavigateUrl.Replace("&", "&amp;")
                     : this.Page.ClientScript.GetPostBackClientHyperlink(this, string.Empty));
 
-            var wroteOnClick = false;
-
             // handle additional attributes (if any)
             if (this._attributeCollection.Count > 0)
             {
@@ -560,11 +558,7 @@ namespace YAF.Controls
                     if (key.ToLower() == "onclick")
                     {
                         // special handling... add to it...
-                        output.WriteAttribute(
-                          key,
-                          "{0};{1}".FormatWith(
-                            this._attributeCollection[key], "this.blur(); this.onclick = function() { return false; }; return true;"));
-                        wroteOnClick = true;
+                        output.WriteAttribute(key, "{0};".FormatWith(this._attributeCollection[key]));
                     }
                     else if (key.ToLower().StartsWith("data-") || key.ToLower().StartsWith("on") || key.ToLower() == "rel" || key.ToLower() == "target")
                     {
@@ -572,12 +566,6 @@ namespace YAF.Controls
                         output.WriteAttribute(key, this._attributeCollection[key]);
                     }
                 }
-            }
-
-            // IE fix
-            if (!wroteOnClick)
-            {
-                output.WriteAttribute("onclick", "this.blur(); this.onclick = function() { return false; }; return true;");
             }
 
             output.Write(HtmlTextWriter.TagRightChar);

@@ -50,7 +50,6 @@
       "Scripts/jsdifflib.js",
       "Scripts/forum/yaf.DataPanel.js",
       "Scripts/forum/yaf.Utilities.js",
-      "Scripts/forum/yaf.ReputationBar.js",
       "Scripts/forum/yaf.MessageHistory.js",
       "Scripts/forum/yaf.Attachments.js",
       "Scripts/forum/yaf.Main.js"
