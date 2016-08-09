@@ -2,26 +2,30 @@
     CodeBehind="AttachmentsUploadDialog.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 
-<div class="UploadDialog" title='<%= this.Get<ILocalization>().GetText("ATTACHMENTS", "UPLOAD_TITLE") %>' style="display: none;">
-    <fieldset>
-        <p><strong><YAF:LocalizedLabel ID="SelectFile" LocalizedTag="SELECT_FILE" LocalizedPage="ATTACHMENTS" runat="server" /></strong></p>
+<div class="UploadDialog modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "UPLOAD_TITLE") %></h4>
+      </div>
+      <div class="modal-body" style="min-height:485px">
+        <h4><YAF:LocalizedLabel ID="SelectFile" LocalizedTag="SELECT_FILE" LocalizedPage="ATTACHMENTS" runat="server" /></h4>
         <div>
             <div id="fileupload">
                       <div class="fileupload-buttonbar">
                           <div id="dropzone" class="fade-ui ui-widget-header"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "DROP_HERE") %></div>
-                          <div class="ui-widget">
-                              <div class="ui-state-error ui-corner-all uploadCompleteWarning" style="padding: 0 .7em; margin-bottom: 15px;display:none">
-                                  <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em"></span>
-                                      <%= this.Get<ILocalization>().GetText("ATTACHMENTS", "COMPLETE_WARNING") %>
-                                  </p>
-                              </div>
+                          <div class="alert alert-danger uploadCompleteWarning" role="alert" style="display: none">
+                              <%= this.Get<ILocalization>().GetText("ATTACHMENTS", "COMPLETE_WARNING") %>
                           </div>
                           <div class="fileupload-buttons">
-                              <span class="fileinput-button">
-                                  <YAF:LocalizedLabel id="AddFiles" runat="server" LocalizedPage="ATTACHMENTS" LocalizedTag="ADD_FILES" />
+                              <span class="btn btn-success fileinput-button">
+                                  <i class="fa fa-plus fa-fw"></i>&nbsp;<YAF:LocalizedLabel id="AddFiles" runat="server" LocalizedPage="ATTACHMENTS" LocalizedTag="ADD_FILES" />
                                   <input type="file" name="files[]" multiple>
                               </span>
-                              <button type="submit" class="start"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "START_UPLOADS") %></button>
+                              <button type="submit" class="btn btn-primary start"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "START_UPLOADS") %></button>
                               <span class="fileupload-process"></span>
                           </div>
                           <div class="fileupload-progress fade-ui" style="display:none">
@@ -50,22 +54,28 @@
                 <button class="start" disabled style="display:none">Start</button>
             {% } %}
                       {% if (!i) { %}
-                                      <button class="cancel"><%= this.Get<ILocalization>().GetText("COMMON", "CANCEL") %></button>
+                                      <button class="btn btn-danger cancel"><i class="fa fa-remove fa-fw"></i>&nbsp;<%= this.Get<ILocalization>().GetText("COMMON", "CANCEL") %></button>
                                   {% } %}
                               </td>
                           </tr>
                       {% } %}
                   </script>
-                  
+
                   <script id="template-download" type="text/x-tmpl">
                   </script>
         </div>
-        <div style="padding: 5px;margin:5px">
+
             <asp:PlaceHolder ID="UploadNodePlaceHold" runat="server">
-                <br />
-                <em><asp:Label ID="UploadNote" runat="server"></asp:Label></em><br/><br />
+                <div class="alert alert-info" role="alert">
+                    <asp:Label ID="UploadNote" runat="server"></asp:Label>
+                </div>
             </asp:PlaceHolder>
-            <strong><YAF:LocalizedLabel ID="ExtensionTitle" LocalizedTag="ALLOWED_EXTENSIONS" runat="server" />:</strong>&nbsp;<asp:Label ID="ExtensionsList" runat="server"></asp:Label>
+      </div>
+      <div class="modal-footer">
+        <div class="alert alert-info" role="alert">
+                <strong><YAF:LocalizedLabel ID="ExtensionTitle" LocalizedTag="ALLOWED_EXTENSIONS" runat="server" />:</strong>&nbsp;<asp:Label ID="ExtensionsList" runat="server"></asp:Label>
         </div>
-    </fieldset>
+      </div>
+    </div>
+  </div>
 </div>

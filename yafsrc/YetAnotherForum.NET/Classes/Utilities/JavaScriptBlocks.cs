@@ -583,7 +583,7 @@ namespace YAF.Utilities
                     {0}('#fileupload').find('.files tr:first').remove();
 
                     if ({0}('#fileupload').find('.files tr').length == 0) {{
-                        {0}('.UploadDialog').dialog('close');
+                        {0}('.UploadDialog').modal('hide');
 
                         var pageSize = 5;
                         var pageNumber = 0;

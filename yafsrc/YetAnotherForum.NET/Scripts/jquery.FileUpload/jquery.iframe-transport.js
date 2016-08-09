@@ -1,5 +1,5 @@
 /*
- * jQuery Iframe Transport Plugin 1.8.2
+ * jQuery Iframe Transport Plugin
  * https://github.com/blueimp/jQuery-File-Upload
  *
  * Copyright 2011, Sebastian Tschan
@@ -9,19 +9,22 @@
  * http://www.opensource.org/licenses/MIT
  */
 
-/* global define, window, document */
+/* global define, require, window, document */
 
 (function (factory) {
-    //'use strict';
+    /*'use strict';*/
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
         define(['jquery'], factory);
+    } else if (typeof exports === 'object') {
+        // Node/CommonJS:
+        factory(require('jquery'));
     } else {
         // Browser globals:
         factory(window.jQuery);
     }
 }(function ($) {
-    //'use strict';
+    'use strict';
 
     // Helper variable to create unique names for the transport iframes:
     var counter = 0;

@@ -1815,11 +1815,10 @@
     <Content Include="Scripts\jquery.bootstrap-touchspin.js" />
     <Content Include="Scripts\jquery.FileUpload\canvas-to-blob.min.js" />
     <Content Include="Scripts\jquery.FileUpload\cors\jquery.postmessage-transport.js" />
+    <Content Include="Scripts\jquery.FileUpload\cors\jquery.ui.widget.js" />
     <Content Include="Scripts\jquery.FileUpload\cors\jquery.xdr-transport.js" />
-    <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-angular.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-audio.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-image.js" />
-    <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-jquery-ui.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-process.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-ui.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-validate.js" />

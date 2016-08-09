@@ -4065,26 +4065,16 @@ Test out these custom less files live
 
 /* Attachments Upload Dialog */
 #UploadFilesBox {
-  -moz-min-width: 480px;
-  -ms-min-width: 480px;
-  -o-min-width: 480px;
-  -webkit-min-width: 480px;
-  min-width: 480px;
-  width: 480px;
+  min-width: 570px;
+  width: 570px;
   float: left;
   overflow: auto;
   padding: 5px;
   margin-bottom: 5px;
   margin-top: 5px;
-  max-height: 275px;
-  border-top: 1px dotted grey;
-  border-bottom: 1px dotted grey; }
+  max-height: 275px; }
 
 #fileupload .preview {
-  -moz-min-width: 80px;
-  -ms-min-width: 80px;
-  -o-min-width: 80px;
-  -webkit-min-width: 80px;
   min-width: 80px;
   display: block; }
 

@@ -14,6 +14,7 @@
   {
     "outputFileName": "Scripts/jquery.fileupload.comb.js",
     "inputFiles": [
+      "Scripts/jquery.FileUpload/cors/jquery.ui.widget.js",
       "Scripts/jquery.FileUpload/tmpl.min.js",
       "Scripts/jquery.FileUpload/load-image.all.min.js",
       "Scripts/jquery.FileUpload/canvas-to-blob.min.js",
@@ -22,8 +23,7 @@
       "Scripts/jquery.FileUpload/jquery.fileupload-process.js",
       "Scripts/jquery.FileUpload/jquery.fileupload-image.js",
       "Scripts/jquery.FileUpload/jquery.fileupload-validate.js",
-      "Scripts/jquery.FileUpload/jquery.fileupload-ui.js",
-      "Scripts/jquery.FileUpload/jquery.fileupload-jquery-ui.js"
+      "Scripts/jquery.FileUpload/jquery.fileupload-ui.js"
     ]
   },
   {

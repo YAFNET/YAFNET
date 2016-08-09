@@ -1,5 +1,5 @@
 /*
- * jQuery File Upload Processing Plugin 1.3.0
+ * jQuery File Upload Processing Plugin
  * https://github.com/blueimp/jQuery-File-Upload
  *
  * Copyright 2012, Sebastian Tschan
@@ -10,16 +10,19 @@
  */
 
 /* jshint nomen:false */
-/* global define, window */
+/* global define, require, window */
 
 (function (factory) {
-    //'use strict';
+    'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
         define([
             'jquery',
             './jquery.fileupload'
         ], factory);
+    } else if (typeof exports === 'object') {
+        // Node/CommonJS:
+        factory(require('jquery'));
     } else {
         // Browser globals:
         factory(
@@ -27,7 +30,7 @@
         );
     }
 }(function ($) {
-    //'use strict';
+    'use strict';
 
     var originalAdd = $.blueimp.yafFileUpload.prototype.options.add;
 
@@ -81,7 +84,7 @@
                         settings
                     );
                 };
-                chain = chain.pipe(func, settings.always && func);
+                chain = chain.then(func, settings.always && func);
             });
             chain
                 .done(function () {
@@ -148,7 +151,7 @@
                         };
                     opts.index = index;
                     that._processing += 1;
-                    that._processingQueue = that._processingQueue.pipe(func, func)
+                    that._processingQueue = that._processingQueue.then(func, func)
                         .always(function () {
                             that._processing -= 1;
                             if (that._processing === 0) {

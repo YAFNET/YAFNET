@@ -33,26 +33,6 @@ jQuery(document).ready(function () {
 
     jQuery('.postdiv div').has('.UserPostedImage').addClass('ceebox');
 
-    jQuery.widget.bridge('uibutton', $.ui.button);
-
-    var dialog = jQuery(".UploadDialog").dialog({
-        autoOpen: false,
-        width: 530,
-
-        modal: true,
-        buttons: {
-            Cancel: function () {
-                dialog.dialog("close");
-            }
-        },
-        close: function () {
-        }
-    });
-
-    jQuery(".OpenUploadDialog,.UploadNewFileLine").on("click", function () {
-        dialog.dialog("open");
-    });
-
     // Show caps lock info on password fields
     jQuery("input[type='password']").keypress(function (e) {
         var s = String.fromCharCode(e.which);
