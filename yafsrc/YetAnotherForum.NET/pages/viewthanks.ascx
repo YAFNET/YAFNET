@@ -7,18 +7,28 @@
 
         <br style="clear: both" />
        <asp:Panel id="ThanksTabs" runat="server">
-               <ul>
-                 <li><a href="#ThanksFromTab"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ThanksFromUser" LocalizedPage="VIEWTHANKS" /></a></li>
-		         <li><a href="#ThanksToTab"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="ThanksToUser" LocalizedPage="VIEWTHANKS" /></a></li>		        
+               <ul class="nav nav-tabs" role="tablist">
+                 <li class="nav-item">
+                     <a href="#ThanksFromTab" class="nav-link" data-toggle="tab" role="tab">
+                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ThanksFromUser" LocalizedPage="VIEWTHANKS" />
+                     </a>
+                 </li>
+		         <li class="nav-item">
+		             <a href="#ThanksToTab" class="nav-link" data-toggle="tab" role="tab">
+		                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="ThanksToUser" LocalizedPage="VIEWTHANKS" />
+		             </a>
+		         </li>
                </ul>
-                <div id="ThanksFromTab">
+              <div class="tab-content">
+              <div id="ThanksFromTab" class="tab-pane" role="tabpanel">
                    <YAF:ViewThanksList runat="server" ID="ThanksFromList" CurrentMode="FromUser" />
                 </div>
-                <div id="ThanksToTab">
+                <div id="ThanksToTab" class="tab-pane" role="tabpanel">
                   <YAF:ViewThanksList runat="server" ID="ThanksToList" CurrentMode="ToUser" />
                 </div>
+             </div>
              </asp:Panel>
-        <asp:HiddenField runat="server" ID="hidLastTab" Value="0" />
+        <asp:HiddenField runat="server" ID="hidLastTab" Value="ThanksFromTab" />
 <div id="Div1">
     <YAF:SmartScroller ID="SmartScroller2" runat="server" />
 </div>

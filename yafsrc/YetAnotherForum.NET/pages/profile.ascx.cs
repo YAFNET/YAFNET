@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -109,7 +109,7 @@ namespace YAF.Pages
                 albumUser = this.UserId;
             }
 
-            // Add check if Albums Tab is visible 
+            // Add check if Albums Tab is visible
             if (this.PageContext.IsGuest || !this.Get<YafBoardSettings>().EnableAlbum)
             {
                 return false;
@@ -123,7 +123,7 @@ namespace YAF.Pages
                 return true;
             }
 
-            // If this is the album owner we show him the tab, else it should be hidden 
+            // If this is the album owner we show him the tab, else it should be hidden
             if ((albumUser != this.PageContext.PageUserID) && !this.PageContext.IsAdmin)
             {
                 return false;
@@ -162,13 +162,7 @@ namespace YAF.Pages
             // setup jQuery and Jquery Ui Tabs.
             YafContext.Current.PageElements.RegisterJsBlock(
                 "ProfileTabsJs",
-                JavaScriptBlocks.JqueryUITabsLoadJs(
-                    this.ProfileTabs.ClientID,
-                    this.hidLastTab.ClientID,
-                    this.hidLastTabId.ClientID,
-                    string.Empty,
-                    false,
-                    true));
+                JavaScriptBlocks.BootstrapTabsLoadJs(this.ProfileTabs.ClientID, this.hidLastTab.ClientID));
 
             base.OnPreRender(e);
         }
@@ -323,7 +317,7 @@ namespace YAF.Pages
 
             var userData = new CombinedUserDataHelper(user, this.UserId);
 
-            // populate user information controls...      
+            // populate user information controls...
             // Is BuddyList feature enabled?
             if (this.Get<YafBoardSettings>().EnableBuddyList)
             {
@@ -722,7 +716,6 @@ namespace YAF.Pages
                 this.ThemeImgSuspended.Visible = false;
                 this.OnlineStatusImage1.Visible = false;
             }
-            
 
             if (this.User != null && userData.Profile.XMPP.IsSet())
             {

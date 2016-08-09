@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -50,7 +50,7 @@ namespace YAF.Pages
     #region Constructors and Destructors
 
     /// <summary>
-    ///   Initializes a new instance of the <see cref = "ViewThanks" /> class. 
+    ///   Initializes a new instance of the <see cref = "ViewThanks" /> class.
     ///   Initializes a new instance of the viewthanks class.
     /// </summary>
     public ViewThanks()
@@ -99,8 +99,9 @@ namespace YAF.Pages
     protected override void OnPreRender([NotNull] EventArgs e)
     {
       // setup jQuery and Jquery Ui Tabs.
-      YafContext.Current.PageElements.RegisterJsBlock(
-        "ThanksTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.ThanksTabs.ClientID, this.hidLastTab.ClientID, false));
+        YafContext.Current.PageElements.RegisterJsBlock(
+            "ThanksTabsJs",
+            JavaScriptBlocks.BootstrapTabsLoadJs(this.ThanksTabs.ClientID, this.hidLastTab.ClientID));
 
       base.OnPreRender(e);
     }

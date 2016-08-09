@@ -1,9 +1,5 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.profile" Codebehind="profile.ascx.cs" %>
-<%@ Import Namespace="YAF.Core" %>
-<%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
-<%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Register TagPrefix="YAF" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
@@ -37,7 +33,7 @@
 			<YAF:ThemeButton ID="ICQ" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
 				TextLocalizedTag="ICQ" ImageThemeTag="ICQ" TitleLocalizedTag="ICQ_TITLE" TitleLocalizedPage="POSTS" />
 			<YAF:ThemeButton ID="XMPP" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
-				TextLocalizedTag="XMPP" ImageThemeTag="XMPP" TitleLocalizedTag="XMPP_TITLE" TitleLocalizedPage="POSTS" />	
+				TextLocalizedTag="XMPP" ImageThemeTag="XMPP" TitleLocalizedTag="XMPP_TITLE" TitleLocalizedPage="POSTS" />
 			<YAF:ThemeButton ID="Skype" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
 				TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" TitleLocalizedTag="SKYPE_TITLE" TitleLocalizedPage="POSTS" />
             <YAF:ThemeButton ID="Facebook" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
@@ -54,16 +50,45 @@
 	<tr class="post">
 		<td valign="top">
 			<asp:Panel id="ProfileTabs" runat="server">
-               <ul>
-                 <li><a href="#AboutTab"><YAF:LocalizedLabel ID="LocalizedLabel40" runat="server" LocalizedTag="ABOUT" /></a></li>
-		 <li><a href="#StatisticsTab"><YAF:LocalizedLabel ID="LocalizedLabel41" runat="server" LocalizedTag="STATISTICS" /></a></li>
-		 <li runat="server" id="AvatarLi"><a href='#<%# this.AvatarTab.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel42" runat="server" LocalizedTag="AVATAR" /></a></li>
-		 <li><a href="#Last10PostsTab"><YAF:LocalizedLabel ID="LocalizedLabel43" runat="server" LocalizedTag="LAST10" /></a></li>
-		 <li runat="server" id="BuddyLi"><a href='#<%# this.BuddyListTab.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel44" runat="server" LocalizedTag='<%# this.UserId == this.PageContext.PageUserID ? "BUDDIES" : "BUDDIESTITLE"%>' /></a></li>		        
-		 <li runat="server" id="AlbumListLi"><a href='#<%# this.AlbumListTab.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel45" runat="server" LocalizedTag="ALBUMS" /></a></li>	
-		 <li runat="server" id="ModerateLi"><a href='#<%# this.ModerateTab.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel46" runat="server" LocalizedTag="MODERATION" /></a></li>	
-               </ul>
-                <div id="AboutTab">
+                <ul class="nav nav-tabs" role="tablist">
+                     <li class="nav-item">
+                         <a href="#AboutTab" class="nav-link" data-toggle="tab" role="tab">
+                             <YAF:LocalizedLabel ID="LocalizedLabel40" runat="server" LocalizedTag="ABOUT" />
+                         </a>
+                     </li>
+		             <li class="nav-item">
+		                 <a href="#StatisticsTab" class="nav-link" data-toggle="tab" role="tab">
+		                     <YAF:LocalizedLabel ID="LocalizedLabel41" runat="server" LocalizedTag="STATISTICS" />
+		                 </a>
+		             </li>
+		             <li class="nav-item" runat="server" id="AvatarLi">
+		                 <a href='#<%# this.AvatarTab.ClientID %>' class="nav-link" data-toggle="tab" role="tab">
+		                     <YAF:LocalizedLabel ID="LocalizedLabel42" runat="server" LocalizedTag="AVATAR" />
+		                 </a>
+		             </li>
+		             <li class="nav-item">
+		                 <a href="#Last10PostsTab">
+		                     <YAF:LocalizedLabel ID="LocalizedLabel43" runat="server" LocalizedTag="LAST10" />
+		                 </a>
+		             </li>
+		             <li class="nav-item" runat="server" id="BuddyLi">
+		                 <a href='#<%# this.BuddyListTab.ClientID %>' class="nav-link" data-toggle="tab" role="tab">
+		                     <YAF:LocalizedLabel ID="LocalizedLabel44" runat="server" LocalizedTag='<%# this.UserId == YafContext.Current.PageUserID ? "BUDDIES" : "BUDDIESTITLE"%>' />
+		                 </a>
+		             </li>
+		             <li class="nav-item" runat="server" id="AlbumListLi">
+		                 <a href='#<%# this.AlbumListTab.ClientID %>' class="nav-link" data-toggle="tab" role="tab">
+		                     <YAF:LocalizedLabel ID="LocalizedLabel45" runat="server" LocalizedTag="ALBUMS" />
+		                 </a>
+		             </li>
+		             <li class="nav-item" runat="server" id="ModerateLi">
+		                 <a href='#<%# this.ModerateTab.ClientID %>' class="nav-link" data-toggle="tab" role="tab">
+		                     <YAF:LocalizedLabel ID="LocalizedLabel46" runat="server" LocalizedTag="MODERATION" />
+		                 </a>
+		             </li>
+                </ul>
+              <div class="tab-content">
+                <div id="AboutTab" class="tab-pane" role="tabpanel">
                    <table width="100%" cellspacing="1" cellpadding="0">
 							<tr>
 								<td width="50%" class="postheader">
@@ -74,7 +99,7 @@
 								<td width="50%" class="post">
 									<asp:Label ID="Name" runat="server" />
 									<YAF:OnlineStatusImage id="OnlineStatusImage1" runat="server" Style="vertical-align: bottom" />
-                                    <YAF:ThemeImage ID="ThemeImgSuspended" runat="server" ThemePage="ICONS" ThemeTag="USER_SUSPENDED"></YAF:ThemeImage> 
+                                    <YAF:ThemeImage ID="ThemeImgSuspended" runat="server" ThemePage="ICONS" ThemeTag="USER_SUSPENDED"></YAF:ThemeImage>
                             <asp:LinkButton ID="lnkBuddy" runat="server" OnCommand="lnk_AddBuddy"/>
                                 <asp:literal ID="ltrApproval" runat="server" Text='<%# this.GetText("BUDDY","AWAIT_BUDDY_APPROVAL") %>'
                                 Visible="false">
@@ -143,7 +168,7 @@
 								<td class="post">
 									<asp:Label ID="Location" runat="server" />
 								</td>
-							</tr>                            
+							</tr>
 							<tr runat="server" id="BirthdayTR" visible="false">
 								<td class="postheader">
 									<YAF:LocalizedLabel ID="LocalizedLabel23" runat="server" LocalizedTag="BIRTHDAY" />
@@ -236,7 +261,7 @@
 							</tr>
                         </table>
                 </div>
-                <div id="StatisticsTab">
+                <div id="StatisticsTab" class="tab-pane" role="tabpanel">
                   <table width="100%" cellspacing="1" cellpadding="0">
 							<tr>
 								<td width="50%" class="postheader">
@@ -304,7 +329,7 @@
                             </tr>
 						</table>
                 </div>
-                <div runat="server" id="AvatarTab">
+                <div runat="server" id="AvatarTab" class="tab-pane" role="tabpanel">
                   <table align="center" width="100%" cellspacing="1" cellpadding="0">
 							<tr>
 								<td class="post" colspan="2" align="center">
@@ -313,7 +338,7 @@
 							</tr>
 						</table>
                 </div>
-                <div id="Last10PostsTab">
+                <div id="Last10PostsTab" class="tab-pane" role="tabpanel">
                   <YAF:ThemeButton ID="SearchUser" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
 							TextLocalizedTag="SEARCHUSER" ImageThemeTag="SEARCH" />
 						<br style="clear: both" />
@@ -325,7 +350,7 @@
 											<strong>
 												<YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="topic" />
 											</strong><a title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' href='<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}",Container.DataItemToField<int>("TopicID")) %>'>
-												<%# this.Get<IBadWordReplace>().Replace(HtmlEncode(Container.DataItemToField<string>("Subject"))) %>
+												<%# this.Get<IBadWordReplace>().Replace(this.HtmlEncode(Container.DataItemToField<string>("Subject"))) %>
 											</a>&nbsp;
                                             <a href='<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}",Container.DataItemToField<int>("MessageID")) %>'>
 												<YAF:ThemeImage ID="ThisPostImage" ThemeTag="ICON_LATEST" LocalizedTitle='<%# this.GetText("DEFAULT", "GO_LAST_POST") %>' UseTitleForEmptyAlt="true"  runat="server" Style="border: 0" />
@@ -347,13 +372,13 @@
 							</asp:Repeater>
 						</table>
                 </div>
-                <div runat="server" id="BuddyListTab">
+                <div runat="server" id="BuddyListTab" class="tab-pane" role="tabpanel">
                   <YAF:BuddyList runat="server" ID="BuddyList" />
                 </div>
-                <div runat="server" id="AlbumListTab">
+                <div runat="server" id="AlbumListTab" class="tab-pane" role="tabpanel">
                   <YAF:AlbumList runat="server" ID="AlbumList1" Mode="1"/>
                 </div>
-                <div runat="server" id="ModerateTab">
+                <div runat="server" id="ModerateTab" class="tab-pane" role="tabpanel">
                   <YAF:ForumAccess runat="server" ID="ForumAccessControl" />
 						<table width="100%" cellspacing="1" cellpadding="0">
 							<tr class="header2">
@@ -365,9 +390,9 @@
 						<YAF:SuspendUser runat="server" ID="SuspendUserControl" ShowHeader="False" />
 						<YAF:SignatureEdit runat="server" ID="SignatureEditControl" ShowHeader="False" />
                 </div>
+             </div>
              </asp:Panel>
-            <asp:HiddenField runat="server" ID="hidLastTab" Value="0" />
-            <asp:HiddenField runat="server" ID="hidLastTabId" Value="0" />
+            <asp:HiddenField runat="server" ID="hidLastTab" Value="#AboutTab" />
 		</td>
 	</tr>
 </table>

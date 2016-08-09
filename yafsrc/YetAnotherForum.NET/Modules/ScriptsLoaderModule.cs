@@ -82,8 +82,6 @@ namespace YAF.Modules
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.RegisterJQueryUI();
-
             if (this.PageContext.Vars.ContainsKey("yafForumExtensions"))
             {
                 return;
@@ -157,46 +155,6 @@ namespace YAF.Modules
             }
 
             YafContext.Current.PageElements.AddPageElement("jquery");
-        }
-
-        /// <summary>
-        /// Register the jQuery UI script library in the header.
-        /// </summary>
-        private void RegisterJQueryUI()
-        {
-            var element = YafContext.Current.CurrentForumPage.TopPageControl;
-
-            // If registered or told not to register, don't bother
-            if (YafContext.Current.PageElements.PageElementExists("jqueryui"))
-            {
-                return;
-            }
-
-            string jqueryUIUrl;
-
-            // Check if override file is set ?
-            if (Config.JQueryUIOverrideFile.IsSet())
-            {
-                jqueryUIUrl = !Config.JQueryUIOverrideFile.StartsWith("http")
-                              && !Config.JQueryUIOverrideFile.StartsWith("//")
-                                  ? YafForumInfo.GetURLToScripts(Config.JQueryOverrideFile)
-                                  : Config.JQueryUIOverrideFile;
-            }
-            else
-            {
-                jqueryUIUrl = YafContext.Current.Get<YafBoardSettings>().JqueryUICDNHosted
-                                  ? "//ajax.aspnetcdn.com/ajax/jquery.ui/1.12.0/jquery-ui.min.js"
-#if DEBUG
-                                  : YafForumInfo.GetURLToScripts("jquery-ui-1.12.0.js");
-#else
-                                  : YafForumInfo.GetURLToScripts("jquery-ui-1.12.0.min.js");
-#endif
-            }
-
-            // load jQuery UI from google...
-            element.Controls.Add(ControlHelper.MakeJsIncludeControl(jqueryUIUrl));
-
-            YafContext.Current.PageElements.AddPageElement("jqueryui");
         }
 
         /// <summary>

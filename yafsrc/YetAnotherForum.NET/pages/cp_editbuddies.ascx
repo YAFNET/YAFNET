@@ -12,26 +12,39 @@
     <tr>
         <td valign="top" rowspan="2">
              <asp:Panel id="BuddiesTabs" runat="server">
-               <ul>
-                 <li><a href="#BuddyListTab"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BUDDYLIST" LocalizedPage="CP_EDITBUDDIES" /></a></li>
-		         <li><a href="#PendingRequestsTab"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="PENDING_REQUESTS" LocalizedPage="CP_EDITBUDDIES" /></a></li>
-		         <li><a href="#YourRequestsTab"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="YOUR_REQUESTS" LocalizedPage="CP_EDITBUDDIES" /></a></li>
+               <ul class="nav nav-tabs" role="tablist">
+                 <li class="nav-item">
+                     <a href="#BuddyListTab" class="nav-link" data-toggle="tab" role="tab">
+                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BUDDYLIST" LocalizedPage="CP_EDITBUDDIES" />
+                     </a>
+                 </li>
+		         <li class="nav-item">
+		             <a href="#PendingRequestsTab" class="nav-link" data-toggle="tab" role="tab">
+		                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="PENDING_REQUESTS" LocalizedPage="CP_EDITBUDDIES" />
+		             </a>
+		         </li>
+		         <li class="nav-item">
+		             <a href="#YourRequestsTab" class="nav-link" data-toggle="tab" role="tab">
+		                 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="YOUR_REQUESTS" LocalizedPage="CP_EDITBUDDIES" />
+		             </a>
+		         </li>
                </ul>
-                <div id="BuddyListTab">
+              <div class="tab-content">
+                <div id="BuddyListTab" class="tab-pane" role="tabpanel">
                   <YAF:BuddyList runat="server" ID="BuddyList1" />
                 </div>
-                <div id="PendingRequestsTab">
+                <div id="PendingRequestsTab" class="tab-pane" role="tabpanel">
                   <YAF:BuddyList runat="server" ID="PendingBuddyList" />
                 </div>
-                <div id="YourRequestsTab">
+                <div id="YourRequestsTab" class="tab-pane" role="tabpanel">
                   <YAF:BuddyList runat="server" ID="BuddyRequested" />
                 </div>
+             </div>
              </asp:Panel>
         </td>
     </tr>
 </table>
-<asp:HiddenField runat="server" ID="hidLastTab" Value="0" />
-<asp:HiddenField runat="server" ID="hidLastTabId" Value="0" />
+<asp:HiddenField runat="server" ID="hidLastTab" Value="BuddyListTab" />
 <div id="DivSmartScroller">
     <YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>
