@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -59,13 +59,13 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         public string GetAuthorizeUrl(HttpRequest request)
         {
-            var redirectUrl = this.GetRedirectURL(request);
+            var redirectUrl = GetRedirectURL(request);
 
             return
                 "https://accounts.google.com/o/oauth2/auth?client_id={0}&redirect_uri={1}&scope={2}&response_type=code"
                     .FormatWith(
-                        Config.GoogleClientID, 
-                        HttpUtility.UrlEncode(redirectUrl), 
+                        Config.GoogleClientID,
+                        HttpUtility.UrlEncode(redirectUrl),
                         HttpUtility.UrlEncode(
                             "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"));
         }
@@ -88,13 +88,13 @@ namespace YAF.Core.Services.Auth
 
             return
                AuthUtilities.WebRequest(
-                AuthUtilities.Method.POST, 
-                "https://accounts.google.com/o/oauth2/token", 
+                AuthUtilities.Method.POST,
+                "https://accounts.google.com/o/oauth2/token",
                 "{0}&client_id={1}&client_secret={2}&redirect_uri={3}&grant_type={4}".FormatWith(
-                    code, 
-                    Config.GoogleClientID, 
-                    Config.GoogleClientSecret, 
-                    HttpUtility.UrlEncode(this.GetRedirectURL(request)), 
+                    code,
+                    Config.GoogleClientID,
+                    Config.GoogleClientSecret,
+                    HttpUtility.UrlEncode(GetRedirectURL(request)),
                     "authorization_code")).FromJson<GoogleTokens>();
         }
 
@@ -117,15 +117,15 @@ namespace YAF.Core.Services.Auth
             var headers = new List<KeyValuePair<string, string>>
                               {
                                   new KeyValuePair<string, string>(
-                                      "Authorization", 
+                                      "Authorization",
                                       "OAuth {0}".FormatWith(access_token))
                               };
 
             return
                 AuthUtilities.WebRequest(
-                    AuthUtilities.Method.GET, 
-                    "https://www.googleapis.com/oauth2/v1/userinfo?alt=json", 
-                    string.Empty, 
+                    AuthUtilities.Method.GET,
+                    "https://www.googleapis.com/oauth2/v1/userinfo?alt=json",
+                    string.Empty,
                     headers).FromJson<GoogleUser>();
         }
 
@@ -146,8 +146,8 @@ namespace YAF.Core.Services.Auth
         public string GenerateLoginUrl(bool generatePopUpUrl, bool connectCurrentUser = false)
         {
             var authUrl = "{0}auth.aspx?auth={1}{2}".FormatWith(
-                YafForumInfo.ForumBaseUrl, 
-                AuthService.google, 
+                YafForumInfo.ForumBaseUrl,
+                AuthService.google,
                 connectCurrentUser ? "&connectCurrent=true" : string.Empty);
 
             return authUrl;
@@ -215,7 +215,7 @@ namespace YAF.Core.Services.Auth
                 return false;
             }
 
-            YafSingleSignOnUser.LoginSuccess(AuthService.google, userName, yafUserData.UserID, true);    
+            YafSingleSignOnUser.LoginSuccess(AuthService.google, userName, yafUserData.UserID, true);
 
             message = string.Empty;
 
@@ -301,7 +301,7 @@ namespace YAF.Core.Services.Auth
         /// <returns>
         /// Returns the Redirect URL
         /// </returns>
-        private string GetRedirectURL(HttpRequest request)
+        private static string GetRedirectURL(HttpRequest request)
         {
             var urlCurrentPage = request.Url.AbsoluteUri.IndexOf('?') == -1
                                      ? request.Url.AbsoluteUri
@@ -359,10 +359,10 @@ namespace YAF.Core.Services.Auth
             if (spamChecker.CheckUserForSpamBot(googleUser.UserName, googleUser.Email, userIpAddress, out result))
             {
                 YafContext.Current.Get<ILogger>().Log(
-                    null, 
-                    "Bot Detected", 
+                    null,
+                    "Bot Detected",
                     "Bot Check detected a possible SPAM BOT: (user name : '{0}', email : '{1}', ip: '{2}', reason : {3}), user was rejected."
-                        .FormatWith(googleUser.UserName, googleUser.Email, userIpAddress, result), 
+                        .FormatWith(googleUser.UserName, googleUser.Email, userIpAddress, result),
                     EventLogTypes.SpamBotDetected);
 
                 if (YafContext.Current.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
@@ -381,9 +381,9 @@ namespace YAF.Core.Services.Auth
 
                     YafContext.Current.GetRepository<BannedIP>()
                         .Save(
-                            null, 
-                            userIpAddress, 
-                            "A spam Bot who was trying to register was banned by IP {0}".FormatWith(userIpAddress), 
+                            null,
+                            userIpAddress,
+                            "A spam Bot who was trying to register was banned by IP {0}".FormatWith(userIpAddress),
                             YafContext.Current.PageUserID);
 
                     // Clear cache
@@ -393,10 +393,10 @@ namespace YAF.Core.Services.Auth
                     {
                         YafContext.Current.Get<ILogger>()
                             .Log(
-                                null, 
-                                "IP BAN of Bot During Registration", 
+                                null,
+                                "IP BAN of Bot During Registration",
                                 "A spam Bot who was trying to register was banned by IP {0}".FormatWith(
-                                    userIpAddress), 
+                                    userIpAddress),
                                 EventLogTypes.IpBanSet);
                     }
 
@@ -467,22 +467,22 @@ namespace YAF.Core.Services.Auth
             var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
 
             LegacyDb.user_save(
-                userId, 
-                YafContext.Current.PageBoardID, 
-                googleUser.UserName, 
-                googleUser.UserName, 
-                googleUser.Email, 
-                0, 
-                null, 
-                null, 
-                true, 
-                null, 
-                null, 
-                null, 
-                null, 
-                null, 
-                null, 
-                null, 
+                userId,
+                YafContext.Current.PageBoardID,
+                googleUser.UserName,
+                googleUser.UserName,
+                googleUser.Email,
+                0,
+                null,
+                null,
+                true,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
                 null);
 
             var autoWatchTopicsEnabled = YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting
@@ -490,10 +490,10 @@ namespace YAF.Core.Services.Auth
 
             // save the settings...
             LegacyDb.user_savenotification(
-                userId, 
-                true, 
-                autoWatchTopicsEnabled, 
-                YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting, 
+                userId,
+                true,
+                autoWatchTopicsEnabled,
+                YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
                 YafContext.Current.Get<YafBoardSettings>().DefaultSendDigestEmail);
 
             // save avatar
@@ -501,7 +501,7 @@ namespace YAF.Core.Services.Auth
 
             YafContext.Current.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
 
-            YafSingleSignOnUser.LoginSuccess(AuthService.google, user.UserName, userId, true);    
+            YafSingleSignOnUser.LoginSuccess(AuthService.google, user.UserName, userId, true);
 
             message = string.Empty;
 

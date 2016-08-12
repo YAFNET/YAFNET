@@ -4253,6 +4253,7 @@ Spoiler Content
     <Resource tag="SSO_DEACTIVATED_BYUSER">Single sign-on disabilitato per questo utente, devi abilitarlo nelle impostazioni del tuo profilo..</Resource>
     <Resource tag="SSO_FACEBOOK_FAILED">The Facebook Login failed, User does not exists, or the account is not connected.</Resource>
     <Resource tag="SSO_FACEBOOK_FAILED2">Accesso tramite Facebook non riuscito. Esiste già un account forum con la stessa e-mail dell'account Facebook. Usa un normale account forum.</Resource>
+    <Resource tag="SSO_FACEBOOK_FAILED3">The Facebook Login failed, because the user does not provide a email address for the account.</Resource>
     <Resource tag="SSO_FACEBOOKNAME_NOTMATCH">The Facebook email address must match the Forum email adress!</Resource>
     <Resource tag="SSO_FAILED">New Registrations are disabled.</Resource>
     <Resource tag="SSO_GOOGLE_FAILED">Accesso tramite Google non riuscito. L'utente non esiste oppore non e' connesso.</Resource>

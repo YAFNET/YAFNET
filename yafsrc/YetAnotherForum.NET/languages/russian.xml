@@ -4254,6 +4254,7 @@ Spoiler Content
     <Resource tag="SSO_DEACTIVATED_BYUSER">Единая регистрация отключена, Вам необходимо включить её в своём профиле.</Resource>
     <Resource tag="SSO_FACEBOOK_FAILED">The Facebook Login failed, User does not exists, or the account is not connected.</Resource>
     <Resource tag="SSO_FACEBOOK_FAILED2">The Facebook Login failed, an user account with the same email address as the facebook account already exists, please try to connect you your forum account instead.</Resource>
+    <Resource tag="SSO_FACEBOOK_FAILED3">The Facebook Login failed, because the user does not provide a email address for the account.</Resource>
     <Resource tag="SSO_FACEBOOKNAME_NOTMATCH">The Facebook email address must match the Forum email adress!</Resource>
     <Resource tag="SSO_FAILED">New Registrations are disabled.</Resource>
     <Resource tag="SSO_GOOGLE_FAILED">The Google Login failed, User does not exists, or the account is not connected.</Resource>
