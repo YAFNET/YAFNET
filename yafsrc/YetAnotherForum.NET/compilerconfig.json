@@ -16,20 +16,8 @@
     "inputFile": "Content/bootstrap-forum.scss"
   },
   {
-    "outputFile": "Content/bootstrap-select.css",
-    "inputFile": "Content/bootstrap-select.scss"
-  },
-  {
     "outputFile": "Content/jquery.hovercard.css",
     "inputFile": "Content/jquery.hovercard.scss"
-  },
-  {
-    "outputFile": "Content/jquery.notification.css",
-    "inputFile": "Content/jquery.notification.scss"
-  },
-  {
-    "outputFile": "Content/jquery.yafmodaldialog.css",
-    "inputFile": "Content/jquery.yafmodaldialog.scss"
   },
   {
     "outputFile": "Content/jsdifflib.css",
@@ -52,20 +40,8 @@
     "inputFile": "Content/forum-admin.scss"
   },
   {
-    "outputFile": "Content/_bootstrap-datetimepicker.css",
-    "inputFile": "Content/_bootstrap-datetimepicker.less"
-  },
-  {
-    "outputFile": "Content/bootstrap-datetimepicker.css",
-    "inputFile": "Content/bootstrap-datetimepicker.less"
-  },
-  {
     "outputFile": "Content/bootstrap/bootstrap.css",
     "inputFile": "Content/bootstrap/bootstrap.scss"
-  },
-  {
-    "outputFile": "Content/bootstrap-datetimepicker-build.css",
-    "inputFile": "Content/bootstrap-datetimepicker-build.scss"
   },
   {
     "outputFile": "Scripts/yafEditor/yafEditor.es5.js",

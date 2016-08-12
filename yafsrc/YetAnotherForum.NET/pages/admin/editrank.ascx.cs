@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -221,6 +221,9 @@ namespace YAF.Pages.Admin
             // Clearing cache with old permisssions data...
             this.Get<IDataCache>()
                 .RemoveOf<object>(k => k.Key.StartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(string.Empty)));
+
+            // Clear Styling Caching
+            this.Get<IDataCache>().Remove(Constants.Cache.GroupRankStyles);
 
             YafBuildLink.Redirect(ForumPages.admin_ranks);
         }

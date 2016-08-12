@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -119,8 +119,8 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITGROUP", "TITLE"), string.Empty);
 
             this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-               this.GetText("ADMIN_ADMIN", "Administration"), 
-               this.GetText("ADMIN_GROUPS", "TITLE"), 
+               this.GetText("ADMIN_ADMIN", "Administration"),
+               this.GetText("ADMIN_GROUPS", "TITLE"),
                this.GetText("ADMIN_EDITGROUP", "TITLE"));
         }
 
@@ -163,7 +163,7 @@ namespace YAF.Pages.Admin
             using (
                 var dt = this.GetRepository<Group>()
                     .List(
-                        boardId: this.PageContext.PageBoardID, 
+                        boardId: this.PageContext.PageBoardID,
                         groupID: this.Request.QueryString.GetFirstOrDefaultAs<int>("i")))
             {
                 // get it as row
@@ -289,22 +289,22 @@ namespace YAF.Pages.Admin
 
             // save role and get its ID if it's new (if it's old role, we get it anyway)
             roleID = LegacyDb.group_save(
-              roleID, 
-              this.PageContext.PageBoardID, 
-              roleName, 
-              this.IsAdminX.Checked, 
-              this.IsGuestX.Checked, 
-              this.IsStartX.Checked, 
-              this.IsModeratorX.Checked, 
-              this.AccessMaskID.SelectedValue, 
-              this.PMLimit.Text.Trim(), 
-              this.StyleTextBox.Text.Trim(), 
-              this.Priority.Text.Trim(), 
-              this.Description.Text, 
-              this.UsrSigChars.Text, 
-              this.UsrSigBBCodes.Text, 
-              this.UsrSigHTMLTags.Text, 
-              this.UsrAlbums.Text.Trim(), 
+              roleID,
+              this.PageContext.PageBoardID,
+              roleName,
+              this.IsAdminX.Checked,
+              this.IsGuestX.Checked,
+              this.IsStartX.Checked,
+              this.IsModeratorX.Checked,
+              this.AccessMaskID.SelectedValue,
+              this.PMLimit.Text.Trim(),
+              this.StyleTextBox.Text.Trim(),
+              this.Priority.Text.Trim(),
+              this.Description.Text,
+              this.UsrSigChars.Text,
+              this.UsrSigBBCodes.Text,
+              this.UsrSigHTMLTags.Text,
+              this.UsrAlbums.Text.Trim(),
               this.UsrAlbumImages.Text.Trim());
 
             // empty out access table(s)
@@ -347,13 +347,13 @@ namespace YAF.Pages.Admin
                         var item = this.AccessList.Items[i];
 
                         // get forum ID
-                        var forumID = int.Parse(((Label)item.FindControl("ForumID")).Text);
+                        var forumID = int.Parse(item.FindControlAs<Label>("ForumID").Text);
 
                         // save forum access maks for this role
                         LegacyDb.forumaccess_save(
                             forumID,
                             roleID,
-                            ((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
+                            item.FindControlAs<DropDownList>("AccessmaskID").SelectedValue);
                     }
 
                 YafBuildLink.Redirect(ForumPages.admin_groups);
@@ -364,6 +364,9 @@ namespace YAF.Pages.Admin
 
             // Clearing cache with old permissions data...
             this.Get<IDataCache>().Remove(k => k.StartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(string.Empty)));
+
+            // Clear Styling Caching
+            this.Get<IDataCache>().Remove(Constants.Cache.GroupRankStyles);
 
             // Done, redirect to role editing page
             YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", roleID);
