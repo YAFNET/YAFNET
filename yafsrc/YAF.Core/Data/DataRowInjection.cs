@@ -4,12 +4,16 @@ namespace YAF.Core.Data
     using System.ComponentModel;
     using System.Data;
     using System.Linq;
+    using System.Reflection;
 
-    using Omu.ValueInjecter;
+    using Omu.ValueInjecter.Injections;
+    using Omu.ValueInjecter.Utils;
 
     using ServiceStack.DataAnnotations;
 
-    public class DataRowInjection : KnownSourceValueInjection<DataRow>
+    using YAF.Types.Extensions;
+
+    public class DataRowInjection : KnownSourceInjection<DataRow>
     {
         #region Methods
 
@@ -23,9 +27,9 @@ namespace YAF.Core.Data
 
             var nameMap = new Func<string, string>(inputName => aliasMapping.ContainsKey(inputName) ? aliasMapping[inputName] : inputName);
 
-            for (var i = 0; i < source.ItemArray.Count(); i++)
+            for (var i = 0; i < source.ItemArray.Length; i++)
             {
-                PropertyDescriptor activeTarget = props.GetByName(nameMap(source.Table.Columns[i].ColumnName), true);
+                var activeTarget = props.FirstOrDefault(p => p.Name == nameMap(source.Table.Columns[i].ColumnName));
 
                 if (activeTarget == null)
                 {

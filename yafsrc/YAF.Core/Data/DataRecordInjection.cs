@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,8 +28,10 @@ namespace YAF.Core.Data
     using System.ComponentModel;
     using System.Data;
     using System.Linq;
+    using System.Reflection;
 
-    using Omu.ValueInjecter;
+    using Omu.ValueInjecter.Injections;
+    using Omu.ValueInjecter.Utils;
 
     using ServiceStack.DataAnnotations;
 
@@ -38,7 +40,7 @@ namespace YAF.Core.Data
     /// <summary>
     ///     The data record injection.
     /// </summary>
-    public class DataRecordInjection : KnownSourceValueInjection<IDataRecord>
+    public class DataRecordInjection : KnownSourceInjection<IDataRecord>
     {
         #region Methods
 
@@ -65,7 +67,7 @@ namespace YAF.Core.Data
 
             for (var i = 0; i < source.FieldCount; i++)
             {
-                PropertyDescriptor activeTarget = props.GetByName(nameMap(source.GetName(i)), true);
+                var activeTarget = props.FirstOrDefault(p => p.Name == nameMap(source.GetName(i)));
 
                 if (activeTarget == null)
                 {

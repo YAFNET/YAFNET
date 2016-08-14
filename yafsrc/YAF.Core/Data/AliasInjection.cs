@@ -5,11 +5,12 @@ namespace YAF.Core.Data
     using System.ComponentModel;
     using System.Linq;
 
-    using Omu.ValueInjecter;
+    using Omu.ValueInjecter.Injections;
+    using Omu.ValueInjecter.Utils;
 
     using ServiceStack.DataAnnotations;
 
-    public class AliasInjection : LoopValueInjection
+    public class AliasInjection : LoopInjection
     {
         private Dictionary<string, string> aliasMapping = null;
 
@@ -28,14 +29,14 @@ namespace YAF.Core.Data
             base.Inject(source, target);
         }
 
-        protected override string TargetPropName(string sourcePropName)
+        protected override string GetTargetProp(string sourcePropName)
         {
             if (this.nameMap != null)
             {
-                return base.TargetPropName(this.nameMap(sourcePropName));
+                return base.GetTargetProp(this.nameMap(sourcePropName));
             }
 
-            return base.TargetPropName(sourcePropName);
+            return base.GetTargetProp(sourcePropName);
         }
     }
 }
