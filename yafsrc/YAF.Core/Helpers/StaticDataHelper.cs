@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -219,7 +219,7 @@ namespace YAF.Core.Helpers
                 // Create an array with tags
                 var tags = new string[2, files.Length];
 
-                // Extract available language tags into the array          
+                // Extract available language tags into the array
                 for (var i = 0; i < files.Length; i++)
                 {
                     try
@@ -393,39 +393,6 @@ namespace YAF.Core.Helpers
                     }
                     catch (Exception)
                     {
-                    }
-                }
-
-                return dt;
-            }
-        }
-
-        /// <summary>
-        /// Gets all jQuery-UI Themes
-        /// </summary>
-        /// <returns>
-        /// Returns a Data Table with all jQuery-UI Themes
-        /// </returns>
-        public static DataTable JqueryUIThemes()
-        {
-            using (var dt = new DataTable("JqueryUIThemes"))
-            {
-                dt.Columns.Add("Theme", typeof(string));
-
-                var themeDir = new DirectoryInfo(HttpContext.Current.Request.MapPath(YafForumInfo.GetURLToContent("themes")));
-
-                foreach (var dir in themeDir.GetDirectories())
-                {
-                    try
-                    {
-                        var dr = dt.NewRow();
-                        dr["Theme"] = dir.Name;
-
-                        dt.Rows.Add(dr);
-                    }
-                    catch (Exception)
-                    {
-                        continue;
                     }
                 }
 

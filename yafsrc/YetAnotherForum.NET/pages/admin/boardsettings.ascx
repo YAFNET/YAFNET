@@ -79,17 +79,6 @@
                 <asp:CheckBox ID="AllowThemedLogo" runat="server" CssClass="form-control"></asp:CheckBox>
             </p><hr />
 
-
-            <h4>
-                <YAF:HelpLabel ID="LocalizedLabel8" runat="server" LocalizedTag="BOARD_JQ_THEME"
-                    LocalizedPage="ADMIN_BOARDSETTINGS" />
-            </h4>
-            <p>
-                <asp:DropDownList ID="JqueryUITheme" runat="server" CssClass="custom-select">
-                </asp:DropDownList>
-            </p><hr />
-
-
             <h4>
                 <YAF:HelpLabel ID="LocalizedLabel10" runat="server" LocalizedTag="BOARD_CULTURE"
                     LocalizedPage="ADMIN_BOARDSETTINGS" />

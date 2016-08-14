@@ -202,24 +202,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox AllowThemedLogo;
         
         /// <summary>
-        /// LocalizedLabel8-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel LocalizedLabel8;
-        
-        /// <summary>
-        /// JqueryUITheme-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList JqueryUITheme;
-        
-        /// <summary>
         /// LocalizedLabel10-Steuerelement
         /// </summary>
         /// <remarks>

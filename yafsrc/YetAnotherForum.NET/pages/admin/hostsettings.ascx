@@ -434,14 +434,6 @@
                     </p><hr />
 
                         <h4>
-                            <YAF:HelpLabel ID="HelpLabel229" runat="server" LocalizedTag="CDN_JQUERY_UI" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="JqueryUICDNHosted" runat="server" />
-
-                    </p><hr />
-
-                        <h4>
                             <YAF:HelpLabel ID="HelpLabel230" runat="server" LocalizedTag="BOARD_CDN_HOSTED" />
                         </h4>
                         <p>

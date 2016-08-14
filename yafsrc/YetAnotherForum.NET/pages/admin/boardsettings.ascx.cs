@@ -126,10 +126,6 @@ namespace YAF.Pages.Admin
             this.FileExtensionAllow.DataTextField = "Text";
             this.FileExtensionAllow.DataValueField = "Value";
 
-            this.JqueryUITheme.DataSource = StaticDataHelper.JqueryUIThemes();
-            this.JqueryUITheme.DataTextField = "Theme";
-            this.JqueryUITheme.DataValueField = "Theme";
-
             this.BindData();
 
             // bind poll group list
@@ -156,8 +152,6 @@ namespace YAF.Pages.Admin
                 items.Select(x => new ListItem(HtmlHelper.StripHtml(this.GetText("CP_SUBSCRIPTIONS", x.Value)), x.Key.ToString())).ToArray();
 
             this.DefaultNotificationSetting.Items.AddRange(notificationItems);
-
-            SetSelectedOnList(ref this.JqueryUITheme, boardSettings.JqueryUITheme);
 
             // Get first default full culture from a language file tag.
             string langFileCulture = StaticDataHelper.CultureDefaultFromFile(boardSettings.Language)
@@ -275,7 +269,6 @@ namespace YAF.Pages.Admin
             boardSettings.ForumEmail = this.ForumEmail.Text;
             boardSettings.BaseUrlMask = this.ForumBaseUrlMask.Text;
             boardSettings.CopyrightRemovalDomainKey = this.CopyrightRemovalKey.Text.Trim();
-            boardSettings.JqueryUITheme = this.JqueryUITheme.SelectedValue;
 
             int hours;
 
