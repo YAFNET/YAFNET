@@ -1972,8 +1972,10 @@
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="ActiveUserLazyDataCacheTimeout" />
-                            <asp:Button CssClass="btn btn-primary" ID="ActiveUserLazyDataCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>' runat="server" OnClick="UserLazyDataCacheReset_Click" />
 
+                    </p>
+                    <p>
+                        <asp:Button CssClass="btn btn-primary" ID="ActiveUserLazyDataCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>' runat="server" OnClick="UserLazyDataCacheReset_Click" />
                     </p>
 
                         <span class="text-lg-center">

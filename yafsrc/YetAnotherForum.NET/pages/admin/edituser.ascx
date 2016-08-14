@@ -25,16 +25,52 @@
                 <div class="card-block">
                     <asp:Panel id="EditUserTabs" runat="server">
                         <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item"><a class="nav-link" href="#View1" data-toggle="tab" role="tab"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="USER_DETAILS" LocalizedPage="ADMIN_EDITUSER" /></a></li>
-                            <li class="nav-item"><a class="nav-link" href="#View2" data-toggle="tab" role="tab"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="USER_ROLES" LocalizedPage="ADMIN_EDITUSER" /></a></li>
-                            <li class="nav-item"><a class="nav-link" href="#View3" data-toggle="tab" role="tab"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="USER_PROFILE" LocalizedPage="ADMIN_EDITUSER" /></a></li>
-                            <li class="nav-item"><a class="nav-link" href="#View4" data-toggle="tab" role="tab"><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="USER_AVATAR" LocalizedPage="ADMIN_EDITUSER" /></a></li>
-                            <li class="nav-item"><a class="nav-link" href="#View5" data-toggle="tab" role="tab"><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="USER_SIG" LocalizedPage="ADMIN_EDITUSER" /></a></li>
-                            <li class="nav-item"><a class="nav-link" href="#View6" data-toggle="tab" role="tab"><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="USER_REPUTATION" LocalizedPage="ADMIN_EDITUSER" /></a></li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#View1" data-toggle="tab" role="tab">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="USER_DETAILS" LocalizedPage="ADMIN_EDITUSER" />
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#View2" data-toggle="tab" role="tab">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="USER_ROLES" LocalizedPage="ADMIN_EDITUSER" />
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#View3" data-toggle="tab" role="tab">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="USER_PROFILE" LocalizedPage="ADMIN_EDITUSER" />
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#View4" data-toggle="tab" role="tab">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="USER_AVATAR" LocalizedPage="ADMIN_EDITUSER" />
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#View5" data-toggle="tab" role="tab">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="USER_SIG" LocalizedPage="ADMIN_EDITUSER" />
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#View6" data-toggle="tab" role="tab">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="USER_REPUTATION" LocalizedPage="ADMIN_EDITUSER" />
+                                </a>
+                            </li>
                             <asp:PlaceHolder runat="server" Visible="<%#!this.IsGuestUser%>">
-                            <li class="nav-item"><a class="nav-link" href="#View7" data-toggle="tab" role="tab"><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="USER_PASS" LocalizedPage="ADMIN_EDITUSER" /></a></li>
-                            <li class="nav-item"><a class="nav-link" href="#View8" data-toggle="tab" role="tab"><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="USER_SUSPEND" LocalizedPage="ADMIN_EDITUSER" /></a></li>
-                            <li class="nav-item"><a class="nav-link" href="#View9" data-toggle="tab" role="tab"><YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="USER_KILL" LocalizedPage="ADMIN_EDITUSER" /></a></li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#View7" data-toggle="tab" role="tab">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="USER_PASS" LocalizedPage="ADMIN_EDITUSER" />
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#View8" data-toggle="tab" role="tab">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="USER_SUSPEND" LocalizedPage="ADMIN_EDITUSER" />
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#View9" data-toggle="tab" role="tab">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="USER_KILL" LocalizedPage="ADMIN_EDITUSER" />
+                                </a>
+                            </li>
                             </asp:PlaceHolder>
                         </ul>
                         <div class="tab-content">

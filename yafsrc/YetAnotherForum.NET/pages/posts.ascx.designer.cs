@@ -31,15 +31,6 @@ namespace YAF.Pages {
         protected global::YAF.Controls.PollList PollList;
         
         /// <summary>
-        /// Pager-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.Pager Pager;
-        
-        /// <summary>
         /// TagFavorite1-Steuerelement
         /// </summary>
         /// <remarks>
@@ -47,6 +38,15 @@ namespace YAF.Pages {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Controls.ThemeButton TagFavorite1;
+        
+        /// <summary>
+        /// NoButtonsMobile-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder NoButtonsMobile;
         
         /// <summary>
         /// MoveTopic1-Steuerelement
@@ -103,6 +103,15 @@ namespace YAF.Pages {
         protected global::YAF.Controls.ThemeButton PostReplyLink1;
         
         /// <summary>
+        /// Pager-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.Pager Pager;
+        
+        /// <summary>
         /// TopicLink-Steuerelement
         /// </summary>
         /// <remarks>
@@ -139,15 +148,6 @@ namespace YAF.Pages {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
         
         /// <summary>
-        /// ShareMenu-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.PopMenu ShareMenu;
-        
-        /// <summary>
         /// OptionsLink-Steuerelement
         /// </summary>
         /// <remarks>
@@ -164,33 +164,6 @@ namespace YAF.Pages {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel5;
-        
-        /// <summary>
-        /// PopupMenuUpdatePanel-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel PopupMenuUpdatePanel;
-        
-        /// <summary>
-        /// WatchTopicID-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl WatchTopicID;
-        
-        /// <summary>
-        /// OptionsMenu-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.PopMenu OptionsMenu;
         
         /// <summary>
         /// ViewOptions-Steuerelement
@@ -218,15 +191,6 @@ namespace YAF.Pages {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
-        
-        /// <summary>
-        /// ViewMenu-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.PopMenu ViewMenu;
         
         /// <summary>
         /// ImageMessageLink-Steuerelement
@@ -299,6 +263,15 @@ namespace YAF.Pages {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel8;
+        
+        /// <summary>
+        /// Div1-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
         
         /// <summary>
         /// TrackTopic-Steuerelement
@@ -490,31 +463,22 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.Button QuickReply;
         
         /// <summary>
-        /// tbFeeds-Steuerelement
+        /// PagerBottom-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable tbFeeds;
+        protected global::YAF.Controls.Pager PagerBottom;
         
         /// <summary>
-        /// RssFeed-Steuerelement
+        /// mobileHolder-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.RssFeedLink RssFeed;
-        
-        /// <summary>
-        /// AtomFeed-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.RssFeedLink AtomFeed;
+        protected global::System.Web.UI.WebControls.PlaceHolder mobileHolder;
         
         /// <summary>
         /// ForumUsers1-Steuerelement
@@ -524,24 +488,6 @@ namespace YAF.Pages {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Controls.ForumUsers ForumUsers1;
-        
-        /// <summary>
-        /// SimilarTopics-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.SimilarTopics SimilarTopics;
-        
-        /// <summary>
-        /// PagerBottom-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.Pager PagerBottom;
         
         /// <summary>
         /// TagFavorite2-Steuerelement
@@ -659,5 +605,50 @@ namespace YAF.Pages {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Controls.SmartScroller SmartScroller1;
+        
+        /// <summary>
+        /// ShareMenu-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.PopMenu ShareMenu;
+        
+        /// <summary>
+        /// PopupMenuUpdatePanel-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel PopupMenuUpdatePanel;
+        
+        /// <summary>
+        /// OptionsMenu-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.PopMenu OptionsMenu;
+        
+        /// <summary>
+        /// WatchTopicID-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl WatchTopicID;
+        
+        /// <summary>
+        /// ViewMenu-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.PopMenu ViewMenu;
     }
 }

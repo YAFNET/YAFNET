@@ -72,9 +72,6 @@ namespace YAF.Pages
             // setup jQuery and YAF JS...
             YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
 
-            // ceebox Js
-            YafContext.Current.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
-
             base.OnPreRender(e);
         }
 

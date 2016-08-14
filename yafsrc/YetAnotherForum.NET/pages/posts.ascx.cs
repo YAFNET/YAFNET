@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -313,7 +313,7 @@ namespace YAF.Pages
             html.Append(
                 new UserLink
                     {
-                        ID = "UserLinkForRow{0}".FormatWith(messageId), 
+                        ID = "UserLinkForRow{0}".FormatWith(messageId),
                         UserID = row.Field<int>("UserID")
                     }.RenderToString());
 
@@ -876,10 +876,10 @@ namespace YAF.Pages
         /// Updates Watch Topic based on controls/settings for user...
         /// </summary>
         /// <param name="userId">
-        /// The user Id. 
+        /// The user Id.
         /// </param>
         /// <param name="topicId">
-        /// The topic Id. 
+        /// The topic Id.
         /// </param>
         private void UpdateWatchTopic(int userId, int topicId)
         {
@@ -1058,8 +1058,8 @@ namespace YAF.Pages
 
             if (this.Get<YafBoardSettings>().EnableThanksMod)
             {
-                // Add nescessary columns for later use in displaypost.ascx (Prevent repetitive 
-                // calls to database.)  
+                // Add nescessary columns for later use in displaypost.ascx (Prevent repetitive
+                // calls to database.)
                 if (!postListDataTable.Columns.Contains("ThanksInfo"))
                 {
                     postListDataTable.Columns.Add("ThanksInfo", Type.GetType("System.String"));
@@ -1072,13 +1072,13 @@ namespace YAF.Pages
                             // new DataColumn("ThanksInfo", Type.GetType("System.String")),
                             // How many times has this message been thanked.
                             new DataColumn("IsThankedByUser", Type.GetType("System.Boolean")),
-                            //// How many times has the message poster thanked others?   
+                            //// How many times has the message poster thanked others?
                             new DataColumn("MessageThanksNumber", Type.GetType("System.Int32")),
                             //// How many times has the message poster been thanked?
                             new DataColumn("ThanksFromUserNumber", Type.GetType("System.Int32")),
-                            //// In how many posts has the message poster been thanked? 
+                            //// In how many posts has the message poster been thanked?
                             new DataColumn("ThanksToUserNumber", Type.GetType("System.Int32")),
-                            //// In how many posts has the message poster been thanked? 
+                            //// In how many posts has the message poster been thanked?
                             new DataColumn("ThanksToUserPostsNumber", Type.GetType("System.Int32"))
                         });
 
@@ -1148,7 +1148,7 @@ namespace YAF.Pages
             if (findMessageId > 0)
             {
                 this.Pager.CurrentPageIndex = firstPost.Field<int>(columnName: "PageIndex");
-                
+
                 // move to this message on load...
                 if (!this.PageContext.IsCrawler)
                 {
@@ -1710,7 +1710,7 @@ namespace YAF.Pages
                                         this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
                                         spamResult),
                                 EventLogTypes.SpamMessageDetected);
-                            
+
                             var userIp =
                                 new CombinedUserDataHelper(
                                     this.PageContext.CurrentUserData.Membership,
@@ -1967,7 +1967,7 @@ namespace YAF.Pages
                 this.ShareMenu.AddClientScriptItem(
                     this.GetText("FACEBOOK_TOPIC"),
                     @"window.open('{0}','{1}','width=300,height=200,resizable=yes');".FormatWith(
-                        facebookUrl, 
+                        facebookUrl,
                         this.GetText("FACEBOOK_TOPIC")),
                     this.Get<ITheme>().GetItem("ICONS", "FACEBOOK"));
 

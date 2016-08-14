@@ -35,7 +35,6 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\InstallWizard.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\InstallWizard.comb.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.blockUI.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ceebox.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.fileupload.comb.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumExtensions.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.hovercard.js" />
@@ -69,8 +68,6 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\forum.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\InstallWizard.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.fileupload.comb.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.ceebox.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.ceebox.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.hovercard.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.hovercard.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.notification.css" />

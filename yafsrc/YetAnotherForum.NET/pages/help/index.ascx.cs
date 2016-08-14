@@ -90,8 +90,6 @@ namespace YAF.Pages.help
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            this.PreRender += Index_PreRender;
-
             this.DoSearch.Click += this.DoSearch_Click;
             base.OnInit(e);
 
@@ -156,17 +154,6 @@ namespace YAF.Pages.help
                 this.SubTitle.Text = this.GetText("subtitle");
                 this.HelpContent.Text = this.GetText("welcome");
             }
-        }
-
-        /// <summary>
-        /// Load the Javascript files
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private static void Index_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // Setup Ceebox js
-            YafContext.Current.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
         }
 
         /// <summary>

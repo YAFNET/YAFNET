@@ -224,6 +224,13 @@
     <Compile Include="controls\DisplayConnect.ascx.designer.cs">
       <DependentUpon>DisplayConnect.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\ImageGallery.ascx.cs">
+      <DependentUpon>ImageGallery.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ImageGallery.ascx.designer.cs">
+      <DependentUpon>ImageGallery.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\PollChoiceList.ascx.cs">
       <DependentUpon>PollChoiceList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -925,6 +932,7 @@
     </Compile>
     <Content Include="advanced.aspx" />
     <Content Include="auth.aspx" />
+    <Content Include="Content\blueimp-gallery.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
@@ -973,12 +981,6 @@
       <DependentUpon>InstallWizard.css</DependentUpon>
     </Content>
     <Content Include="Content\jquery.bootstrap-touchspin.css" />
-    <Content Include="Content\jquery.ceebox.css">
-      <DependentUpon>jquery.ceebox.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\jquery.ceebox.min.css">
-      <DependentUpon>jquery.ceebox.css</DependentUpon>
-    </Content>
     <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-noscript.css" />
     <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-ui-noscript.css" />
     <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload.css" />
@@ -1040,6 +1042,7 @@
     <Content Include="controls\BuddyList.ascx" />
     <Content Include="controls\DialogBox.ascx" />
     <Content Include="controls\DisplayConnect.ascx" />
+    <Content Include="controls\ImageGallery.ascx" />
     <Content Include="controls\PollChoiceList.ascx" />
     <Content Include="controls\DisplayAd.ascx" />
     <Content Include="controls\DisplayPost.ascx">
@@ -1165,12 +1168,6 @@
     <Content Include="pages\admin\topicstatus_edit.ascx" />
     <Content Include="pages\admin\topicstatus_import.ascx" />
     <Content Include="pages\admin\users_import.ascx" />
-    <Content Include="Content\ceebox\cee-close-btn.png" />
-    <Content Include="Content\ceebox\cee-next-btn.gif" />
-    <Content Include="Content\ceebox\cee-next-btn.png" />
-    <Content Include="Content\ceebox\cee-prev-btn.gif" />
-    <Content Include="Content\ceebox\cee-prev-btn.png" />
-    <Content Include="Content\ceebox\loader.gif" />
     <Content Include="Images\Categories\categoryImageSample.gif" />
     <Content Include="Images\folder.gif" />
     <Content Include="Images\Forums\forumImageSample.gif" />
@@ -1812,6 +1809,7 @@
       <DependentUpon>jquery-3.1.0.slim.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery.blockUI.js" />
+    <Content Include="Scripts\jquery.blueimp-gallery.js" />
     <Content Include="Scripts\jquery.bootstrap-touchspin.js" />
     <Content Include="Scripts\jquery.FileUpload\canvas-to-blob.min.js" />
     <Content Include="Scripts\jquery.FileUpload\cors\jquery.postmessage-transport.js" />
@@ -2163,7 +2161,6 @@
     <Content Include="Scripts\InstallWizard.comb.min.js">
       <DependentUpon>InstallWizard.comb.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery.ceebox.js" />
     <Content Include="Scripts\jquery.hovercard.js" />
     <Content Include="Scripts\jquery.ForumExtensions.js" />
     <Content Include="Scripts\jquery.pagemethod.js" />
@@ -2762,11 +2759,11 @@
     </None>
     <Content Include="Content\bootstrap-forum.scss" />
     <Content Include="Content\forum\dropdowns.scss" />
+    <Content Include="Content\forum\editor.scss" />
     <None Include="Content\forum\user-albums.scss" />
     <None Include="Content\InstallWizard.scss" />
     <None Include="Content\jsdifflib.scss" />
     <Content Include="YafUploader.ashx" />
-    <Content Include="Content\jquery.ceebox.scss" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

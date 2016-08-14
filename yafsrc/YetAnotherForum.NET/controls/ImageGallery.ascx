@@ -1,0 +1,28 @@
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.ImageGallery" CodeBehind="ImageGallery.ascx.cs" %>
+
+<div id="blueimp-gallery" class="blueimp-gallery "data-use-bootstrap-modal="true">
+    <div class="slides"></div>
+    <div class="modal fade">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body next"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left prev">
+                        <i class="fa fa-chevron-left fa-fw"></i>
+                        Previous
+                    </button>
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="fa fa-chevron-right fa-fw"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

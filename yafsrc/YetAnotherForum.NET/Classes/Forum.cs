@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -61,7 +61,7 @@ namespace YAF
         /// Initializes a new instance of the <see cref="ForumPageTitleArgs"/> class.
         /// </summary>
         /// <param name="title">
-        /// The title. 
+        /// The title.
         /// </param>
         public ForumPageTitleArgs([NotNull] string title)
         {
@@ -312,10 +312,10 @@ namespace YAF
         /// Called when the forum control sets it's Page Title
         /// </summary>
         /// <param name="sender">
-        /// The sender. 
+        /// The sender.
         /// </param>
         /// <param name="e">
-        /// The e. 
+        /// The e.
         /// </param>
         public void FirePageTitleSet([NotNull] object sender, [NotNull] ForumPageTitleArgs e)
         {
@@ -347,7 +347,7 @@ namespace YAF
         /// The render.
         /// </summary>
         /// <param name="writer">
-        /// The writer. 
+        /// The writer.
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
@@ -483,6 +483,10 @@ namespace YAF
             {
                 this.Controls.Add(this._footer);
             }
+
+            // Add image gallery dialog
+            this.Controls.Add(
+                this.LoadControl("{0}controls/ImageGallery.ascx".FormatWith(YafForumInfo.ForumServerFileRoot)));
 
             // load plugins/functionality modules
             this.AfterForumPageLoad?.Invoke(this, new YafAfterForumPageLoad());

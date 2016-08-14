@@ -17,7 +17,7 @@ CKEDITOR.plugins.add( 'bbcode',
 
 function addEventOn(editor) {
   editor.on('paste', function (evt){
-    
+
   evt.data['html'] = ConvertHtmlToBBCode(evt.data.dataValue);
   });
 }
@@ -73,14 +73,14 @@ function ConvertHtmlToBBCode(html) {
         // [youtube]
         //html = html.replace(/<object.*?><param name="movie" value="(.*?)">.*?<\/object>/gi, "[youtube]$1[/youtube]");
 
-        // [indent] 
+        // [indent]
         //html = html.replace(/<p style=\"margin-left:40px\">(.*?)<\/p>/gi, '[indent]$1[/indent]');
         //html = html.replace(/<div style=\"margin-left:40px\">(.*?)<\/div>/gi, '[indent]$1[/indent]');
 
         html = html.replace(/<p style=\"margin-left:(.*?)\">(.*?)<\/p>/gi, '[indent]$2[/indent]');
         html = html.replace(/<div style=\"margin-left:(.*?)\">(.*?)<\/div>/gi, '[indent]$2[/indent]');
 
-        // [left], [center] and [right] 
+        // [left], [center] and [right]
         html = html.replace(/<p style=\"text-align: (.*?);\">(.*?)<\/p>/gi, '[$1]$2[/$2]');
         html = html.replace(/<div style=\"text-align: (.*?);\">(.*?)<\/div>/gi, '[$1]$2[/$1]');
 
@@ -190,15 +190,15 @@ CKEDITOR.htmlDataProcessor.prototype =
         data = data.replace(/\[indent\]/gi, '<div style="margin-left:40px">');
         data = data.replace(/\[\/indent\]/gi, '</div>');
 
-        // [left] 
+        // [left]
         data = data.replace(/\[indent\]/gi, '<div style="text-align: left;">');
         data = data.replace(/\[\/indent\]/gi, '</div>');
 
-        // [center] 
+        // [center]
         data = data.replace(/\[center\]/gi, '<div style="text-align: center;">');
         data = data.replace(/\[\/center\]/gi, '</div>');
 
-        // [right] 
+        // [right]
         data = data.replace(/\[right\]/gi, '<div style="text-align: right;">');
         data = data.replace(/\[\/right\]/gi, '</div>');
 
@@ -233,7 +233,7 @@ CKEDITOR.htmlDataProcessor.prototype =
         data = data.replace(/\[font=(.*?)\](((\n|.)*).*?)\[\/font\]/gi, '<span style="font-family:$1">$2</span>');
 
         // [attach]
-        data = data.replace(/\[attach\](.+?)\[\/attach]/gi, '<a href="resource.ashx?i=$1" date-img="resource.ashx?a=$1" class="attachedImage"><img src="resource.ashx?p=$1" alt="Attached Image" class="UserPostedImage" /></a>');
+        data = data.replace(/\[attach\](.+?)\[\/attach]/gi, '<a href="resource.ashx?i=$1" class="attachedImage" data-gallery><img src="resource.ashx?p=$1" alt="Attached Image" class="UserPostedImage" /></a>');
 
         return data;
     },

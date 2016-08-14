@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -123,7 +123,7 @@ namespace YAF.Controls
             // show file then image attachments...
             var tmpDisplaySort = 0;
 
-            writer.Write(@"<div class=""fileattach smallfont ceebox"">");
+            writer.Write(@"<div class=""fileattach smallfont"">");
 
             while (tmpDisplaySort <= 1)
             {
@@ -149,7 +149,7 @@ namespace YAF.Controls
                             writer.Write(@"<div class=""imgtitle"">");
 
                             writer.Write(
-                                this.GetText("IMAGE_ATTACHMENT_TEXT"), 
+                                this.GetText("IMAGE_ATTACHMENT_TEXT"),
                                 this.HtmlEncode(Convert.ToString(this.UserName)));
 
                             writer.Write("</div>");
@@ -164,9 +164,9 @@ namespace YAF.Controls
                             if (!settings.EnableImageAttachmentResize)
                             {
                                 writer.Write(
-                                    @"<div class=""attachedimg""><img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" /></div>", 
-                                    YafForumInfo.ForumClientFileRoot, 
-                                    attachment.ID, 
+                                    @"<div class=""attachedimg""><img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" /></div>",
+                                    YafForumInfo.ForumClientFileRoot,
+                                    attachment.ID,
                                     this.HtmlEncode(attachment.FileName),
                                     settings.BoardID);
                             }
@@ -175,15 +175,15 @@ namespace YAF.Controls
                                 var attachFilesText =
                                     "{0} {1}".FormatWith(
                                         this.GetText("IMAGE_ATTACHMENT_TEXT")
-                                            .FormatWith(this.HtmlEncode(Convert.ToString(this.UserName))), 
+                                            .FormatWith(this.HtmlEncode(Convert.ToString(this.UserName))),
                                         this.HtmlEncode(attachment.FileName));
 
                                 // TommyB: Start MOD: Preview Images
                                 writer.Write(
-                                    @"<div class=""attachedimg"" style=""display: inline;""><a href=""{0}resource.ashx?i={1}&b={4}"" title=""{2}"" title=""{2}"" date-img=""{0}resource.ashx?a={1}&b={4}""><img src=""{0}resource.ashx?p={1}&b={4}"" alt=""{3}"" title=""{2}"" /></a></div>", 
-                                    YafForumInfo.ForumClientFileRoot, 
-                                    attachment.ID, 
-                                    attachFilesText, 
+                                    @"<div class=""attachedimg"" style=""display: inline;""><a href=""{0}resource.ashx?i={1}&b={4}"" title=""{2}"" title=""{2}"" data-gallery><img src=""{0}resource.ashx?p={1}&b={4}"" alt=""{3}"" title=""{2}"" /></a></div>",
+                                    YafForumInfo.ForumClientFileRoot,
+                                    attachment.ID,
+                                    attachFilesText,
                                     this.HtmlEncode(attachment.FileName),
                                     settings.BoardID);
 
@@ -198,9 +198,9 @@ namespace YAF.Controls
                             writer.Write(@"<div class=""attachedfile"">");
 
                             writer.Write(
-                                @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""attachmentinfo"">{2}</span>", 
-                                fileIcon, 
-                                attachment.FileName, 
+                                @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""attachmentinfo"">{2}</span>",
+                                fileIcon,
+                                attachment.FileName,
                                 stats.FormatWith(kb, attachment.Downloads));
 
                             writer.Write(@"</div>");
@@ -223,20 +223,20 @@ namespace YAF.Controls
                         if (this.PageContext.ForumDownloadAccess || this.PageContext.ForumModeratorAccess)
                         {
                             writer.Write(
-                                @"<img border=""0"" alt="""" src=""{0}"" /> <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{1}resource.ashx?a={2}&b={5}"">{3}</a> <span class=""attachmentinfo"">{4}</span>", 
-                                fileIcon, 
-                                YafForumInfo.ForumClientFileRoot, 
-                                attachment.ID, 
-                                attachment.FileName, 
+                                @"<img border=""0"" alt="""" src=""{0}"" /> <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{1}resource.ashx?a={2}&b={5}"">{3}</a> <span class=""attachmentinfo"">{4}</span>",
+                                fileIcon,
+                                YafForumInfo.ForumClientFileRoot,
+                                attachment.ID,
+                                attachment.FileName,
                                 stats.FormatWith(kb, attachment.Downloads),
                                 settings.BoardID);
                         }
                         else
                         {
                             writer.Write(
-                                @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""attachmentinfo"">{2}</span>", 
-                                fileIcon, 
-                                attachment.FileName, 
+                                @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""attachmentinfo"">{2}</span>",
+                                fileIcon,
+                                attachment.FileName,
                                 stats.FormatWith(kb, attachment.Downloads));
                         }
 

@@ -409,9 +409,6 @@ namespace YAF.Pages
 #endif
             }
 
-            // Setup Ceebox js
-            this.PageContext.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
-
             this._forumEditor = ForumEditorHelper.GetCurrentForumEditor();
 
             this.EditorLine.Controls.Add(this._forumEditor);

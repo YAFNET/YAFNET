@@ -8,10 +8,6 @@
     "inputFile": "Content/InstallWizard.scss"
   },
   {
-    "outputFile": "Content/jquery.ceebox.css",
-    "inputFile": "Content/jquery.ceebox.scss"
-  },
-  {
     "outputFile": "Content/bootstrap-forum.css",
     "inputFile": "Content/bootstrap-forum.scss"
   },

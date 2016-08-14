@@ -23,7 +23,7 @@
 <asp:Repeater runat="server" ID="AlbumImages" OnItemDataBound="AlbumImages_ItemDataBound"
     OnItemCommand="AlbumImages_ItemCommand">
     <HeaderTemplate>
-        <div class="fileattach ceebox">
+        <div class="fileattach">
     </HeaderTemplate>
     <ItemTemplate>
         <div class="attachedimg" style="display: inline;">
@@ -31,8 +31,8 @@
                 <tr>
                     <td class="albumimagebox">
                         <a href='<%# "{0}resource.ashx?image={1}".FormatWith(YafForumInfo.ForumClientFileRoot, this.Eval("ImageID")) %>'
-                            title='<%# this.Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption")) + "&lt;br /&gt; Album IMG Code: [ALBUMIMG]" + AlbumID + "[/ALBUMIMG]"%>' 
-                            title='<%# this.Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption")) + "&lt;br /&gt; Album IMG Code: [ALBUMIMG]" + AlbumID + "[/ALBUMIMG]"%>'>
+                            title='<%# this.Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption")) + "&lt;br /&gt; Album IMG Code: [ALBUMIMG]" + AlbumID + "[/ALBUMIMG]"%>'
+                            data-gallery>
                             <img src='<%# "{0}resource.ashx?imgprv={1}".FormatWith(YafForumInfo.ForumClientFileRoot, this.Eval("ImageID")) %>'
                                 alt='<%# this.Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption"))%>' title='<%# this.Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption"))%>' />
                         </a>

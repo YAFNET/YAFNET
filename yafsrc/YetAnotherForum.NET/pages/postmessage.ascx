@@ -14,12 +14,12 @@
 			<asp:Label ID="Title" runat="server" />
 		</td>
 	</tr>
-          
+
 	<tr id="PreviewRow" runat="server" visible="false">
 		<td class="postformheader" valign="top">
 			<YAF:LocalizedLabel runat="server" LocalizedTag="previewtitle" />
 		</td>
-		<td id="PreviewCell" runat="server" class="post previewPostContent ceebox" valign="top">
+		<td id="PreviewCell" runat="server" class="post previewPostContent" valign="top">
 			<YAF:MessagePost ID="PreviewMessagePost" runat="server" />
 		</td>
 	</tr>
@@ -66,7 +66,7 @@
 			<asp:DropDownList ID="TopicStatus" runat="server" CssClass="standardSelectMenu" Width="400">
             </asp:DropDownList>
 		</td>
-	</tr>	
+	</tr>
 	<tr id="PriorityRow" runat="server">
 		<td class="postformheader" width="20%">
 			<YAF:LocalizedLabel runat="server" LocalizedTag="priority" />
@@ -82,7 +82,7 @@
 		<td class="post" width="80%">
 			<asp:TextBox id="TopicStylesTextBox" runat="server" CssClass="edit" Width="400" />
 		</td>
-	</tr>	
+	</tr>
 	<tr>
 		<td class="postformheader" valign="top" width="20%">
 			<YAF:LocalizedLabel runat="server" LocalizedTag="message" />
@@ -95,10 +95,10 @@
 			<!-- editor goes here -->
 		</td>
 	</tr>
-    
+
     <YAF:PostOptions id="PostOptions1" runat="server">
     </YAF:PostOptions>
-    
+
     <YAF:PostAttachments id="PostAttachments1" runat="server" Visible="False">
     </YAF:PostAttachments>
 

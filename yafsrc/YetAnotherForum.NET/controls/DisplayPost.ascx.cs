@@ -543,9 +543,6 @@ namespace YAF.Controls
             // setup jQuery and YAF JS...
             YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
 
-            // Setup Ceebox js
-            YafContext.Current.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
-
             if (this.MultiQuote.Visible)
             {
                 this.MultiQuote.Attributes.Add(

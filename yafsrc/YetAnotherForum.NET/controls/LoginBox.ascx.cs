@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -164,7 +164,7 @@ namespace YAF.Controls
         {
             // setup jQuery and YAF JS...
             YafContext.Current.PageElements.RegisterJsBlock(
-              "yafmodaldialogJs", JavaScriptBlocks.YafModalDialogLoadJs(".LoginLink", "#LoginBox"));
+              "yafmodaldialogJs", JavaScriptBlocks.LoginBoxLoadJs(".LoginLink", "#LoginBox"));
 
             base.OnPreRender(e);
         }
@@ -200,7 +200,7 @@ namespace YAF.Controls
 
             var faceBookHolder = this.Login1.FindControlAs<PlaceHolder>("FaceBookHolder");
             var facebookRegister = this.Login1.FindControlAs<LinkButton>("FacebookRegister");
-            
+
             var twitterHolder = this.Login1.FindControlAs<PlaceHolder>("TwitterHolder");
             var twitterRegister = this.Login1.FindControlAs<LinkButton>("TwitterRegister");
 

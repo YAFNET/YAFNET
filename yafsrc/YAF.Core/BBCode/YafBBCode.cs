@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -135,7 +135,7 @@ namespace YAF.Core.BBCode
         /// </summary>
         private static readonly Regex _rgxImg =
             new Regex(
-                @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>((?!.+logout)[^""\r\n\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\[]*)|(jpeg[^\[]*)|(bmp[^\[]*)|(png[^\[]*)|(gif[^\[]*)|(tif[^\[]*)|(ashx[^\[]*)|(php[^\[]*)|(aspx[^\[]*))))\[/img\]", 
+                @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>((?!.+logout)[^""\r\n\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\[]*)|(jpeg[^\[]*)|(bmp[^\[]*)|(png[^\[]*)|(gif[^\[]*)|(tif[^\[]*)|(ashx[^\[]*)|(php[^\[]*)|(aspx[^\[]*))))\[/img\]",
                 _Options | RegexOptions.Compiled);
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace YAF.Core.BBCode
         /// </summary>
         private static readonly Regex _rgxImgTitle =
             new Regex(
-                @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>((?!.+logout)[^""\r\n\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\]]*)|(jpeg[^\]]*)|(bmp[^\]]*)|(png[^\]]*)|(gif[^\]]*)|(tif[^\]]*)|(ashx[^\]]*)|(php[^\]]*)|(aspx[^\]]*))))\](?<description>[^\[]*)\[/img\]", 
+                @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>((?!.+logout)[^""\r\n\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\]]*)|(jpeg[^\]]*)|(bmp[^\]]*)|(png[^\]]*)|(gif[^\]]*)|(tif[^\]]*)|(ashx[^\]]*)|(php[^\]]*)|(aspx[^\]]*))))\](?<description>[^\[]*)\[/img\]",
                 _Options | RegexOptions.Compiled);
 
         /// <summary>
@@ -202,7 +202,7 @@ namespace YAF.Core.BBCode
         /// <summary>
         /// The List Upper Roman Regex
         /// </summary>
-        private const string _RgxListUpperRoman = @"\[list=I\](?<inner>(.*?))\[/list\]"; 
+        private const string _RgxListUpperRoman = @"\[list=I\](?<inner>(.*?))\[/list\]";
 
         /// <summary>
         ///   The List Lower Alphabet Regex
@@ -275,7 +275,7 @@ namespace YAF.Core.BBCode
         /// </summary>
         private static readonly Regex _rgxUrl1 =
             new Regex(
-                @"\[url\](?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://)|(mailto:))?(?<inner>([^javascript:])(.+?))\[/url\]", 
+                @"\[url\](?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://)|(mailto:))?(?<inner>([^javascript:])(.+?))\[/url\]",
                 _Options | RegexOptions.Compiled);
 
         /// <summary>
@@ -283,7 +283,7 @@ namespace YAF.Core.BBCode
         /// </summary>
         private static readonly Regex _rgxUrl2 =
             new Regex(
-                @"\[url\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^javascript:])([^""\r\n\]\[]*?))\](?<inner>(.+?))\[/url\]", 
+                @"\[url\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^javascript:])([^""\r\n\]\[]*?))\](?<inner>(.+?))\[/url\]",
                 _Options | RegexOptions.Compiled);
 
         #endregion
@@ -354,7 +354,7 @@ namespace YAF.Core.BBCode
                         YafBuildLink.Smiley(smile.Icon), HttpContext.Current.Server.HtmlEncode(smile.Emoticon)));
 
                 var upperRule = new SimpleReplaceRule(
-                    code.ToUpper(), 
+                    code.ToUpper(),
                     @"<img src=""{0}"" alt=""{1}"" />".FormatWith(
                         YafBuildLink.Smiley(smile.Icon), HttpContext.Current.Server.HtmlEncode(smile.Emoticon)));
 
@@ -374,7 +374,7 @@ namespace YAF.Core.BBCode
         /// Converts a message containing YafBBCode to HTML appropriate for editing in a rich text editor.
         /// </summary>
         /// <remarks>
-        /// YafBBCode quotes are not converted to HTML.  "[quote]...[/quote]" will remain in the string 
+        /// YafBBCode quotes are not converted to HTML.  "[quote]...[/quote]" will remain in the string
         ///   returned, as to appear in plain text in rich text editors.
         /// </remarks>
         /// <param name="message">
@@ -422,7 +422,7 @@ namespace YAF.Core.BBCode
                 this.ProcessReplaceRulesFactory(
                     new[]
                         {
-                            DoFormatting, TargetBlankOverride, this.Get<YafBoardSettings>().UseNoFollowLinks, 
+                            DoFormatting, TargetBlankOverride, this.Get<YafBoardSettings>().UseNoFollowLinks,
                             ForBBCodeEditing
                         });
 
@@ -459,7 +459,7 @@ namespace YAF.Core.BBCode
 
             string nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
 
-            const string ClassModal = "class=\"ceebox\"";
+            const string ClassModal = "";
 
             // pull localized strings
             string localQuoteStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTE");
@@ -525,7 +525,7 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxModalUrl2,
-                        "<a {0} {1} {2} href=\"${http}${url}\" title=\"${http}${url}\">${inner}</a>".Replace("{0}", target).Replace("{1}", nofollow).Replace("{2}", ClassModal),
+                        "<a {0} {1} {2} href=\"#\" data-href=\"${http}${url}\" title=\"${http}${url}\">${inner}</a>".Replace("{0}", target).Replace("{1}", nofollow).Replace("{2}", ClassModal),
                         new[] { "url", "http" },
                         new[]
                             {
@@ -534,7 +534,7 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new VariableRegexReplaceRule(
                         _rgxModalUrl1,
-                        "<a {0} {1} {2} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow).Replace("{2}", ClassModal),
+                        "<a {0} {1} {2} href=\"#\" data-href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${innertrunc}</a>".Replace("{0}", target).Replace("{1}", nofollow).Replace("{2}", ClassModal),
                         new[] { "http" },
                         new[]
                             {
@@ -1058,7 +1058,7 @@ namespace YAF.Core.BBCode
                     // just standard replace...
                     var rule = new SimpleRegexReplaceRule(codeRow.SearchRegex, codeRow.ReplaceRegex, _Options)
                         {
-                           RuleRank = 50 
+                           RuleRank = 50
                         };
 
                     rulesEngine.AddRule(rule);

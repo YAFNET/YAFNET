@@ -1,11 +1,24 @@
-﻿@import "jquery.ceebox.scss";
+﻿@import "jsdifflib.scss";
+@import "prism";
+@import "jquery.selectedQuoting";
 @import "jquery.hovercard.scss";
 @import "bootstrap-notify";
-@import "jsdifflib.scss";
 @import "jquery.tablesorter.scss";
-@import "prism";
+
+// --Bootstrap extensions
 @import "css/select2";
-@import "jquery.selectedQuoting";
+@import "css/select2-bootstrap";
+@import "font-awesome";
+@import "jquery.bootstrap-touchspin";
+@import "bootstrap-datetimepicker";
+@import "blueimp-gallery";
+@import "bootstrap-image-gallery";
+
+// --Forum imports
+@import "forum/attachments-upload.scss";
+@import "forum/dropdowns.scss";
+@import "forum/editor.scss";
+@import "forum/user-albums.scss";
 
 .content {
   padding: 0;

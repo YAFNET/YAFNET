@@ -81,13 +81,6 @@ namespace YAF.Utilities
             }});".FormatWith(Config.JQueryAlias);
 
         /// <summary>
-        ///   Gets CeeBox Load JS.
-        /// </summary>
-        [NotNull]
-        public static string CeeBoxLoadJs => @"{0}(document).ready(function() {{
-					{0}('.ceebox').ceebox({{titles:true}});}});".FormatWith(Config.JQueryAlias);
-
-        /// <summary>
         /// Gets the multi quote callback success JS.
         /// </summary>
         [NotNull]
@@ -400,11 +393,11 @@ namespace YAF.Utilities
         /// <returns>
         /// The yaf modal dialog Load JS.
         /// </returns>
-        public static string YafModalDialogLoadJs([NotNull] string openLink, [NotNull] string dialogId)
+        public static string LoginBoxLoadJs([NotNull] string openLink, [NotNull] string dialogId)
         {
             return
-                @"{3}(document).ready(function() {{{3}('{0}').YafModalDialog({{Dialog : '{1}',ImagePath : '{2}'}}); }});"
-                    .FormatWith(openLink, dialogId, YafForumInfo.GetURLToContent("images/"), Config.JQueryAlias);
+                @"{2}(document).ready(function() {{  {2}('{0}').click(function () {{ {2}('{1}').modal('show')   }}); }});"
+                    .FormatWith(openLink, dialogId, Config.JQueryAlias);
         }
 
         /// <summary>
