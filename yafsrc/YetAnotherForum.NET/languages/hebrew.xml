@@ -1088,8 +1088,8 @@
     <Resource tag="CAT_CACHE_TIMEOUT_HELP">In minutes</Resource>
     <Resource tag="CDN_JQUERY">Use Google Hosted CDN jQuery Script File?</Resource>
     <Resource tag="CDN_JQUERY_HELP">You can use the Google Hosted Script File, or instead use internal.</Resource>
-    <Resource tag="CDN_JQUERY_UI">Use Google Hosted CDN jQuery-UI Script File?</Resource>
-    <Resource tag="CDN_JQUERY_UI_HELP">You can use the Google Hosted Script File, or instead use internal.</Resource>
+    
+    
     <Resource tag="CDN_SCRIPTMANAGER">Use CDN Hosted Script Manager JS Files?</Resource>
     <Resource tag="CDN_SCRIPTMANAGER_HELP">You can use the CDN Hosted Script Files, or instead use internal.</Resource>
     <Resource tag="CHECK_FOR_BOTSPAM">Choose a Service for Automatically User Bot Checking:</Resource>

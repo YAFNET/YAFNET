@@ -1058,8 +1058,6 @@
     <Resource tag="CAT_CACHE_TIMEOUT_HELP">به دقیقه</Resource>
     <Resource tag="CDN_JQUERY">استفاه از فایل اسکریپت Jquery موجود در سایت گوگل؟</Resource>
     <Resource tag="CDN_JQUERY_HELP">شما می توانید از فایل های اسکریپت موجود در سرورهای گوگل استفاده کنید. و یا می توانید از فایل های موجود در سرور سایت استفاده کنید</Resource>
-    <Resource tag="CDN_JQUERY_UI">استفاده از فایل اسکریپت jQuery-UI موجود در سایت گوگل</Resource>
-    <Resource tag="CDN_JQUERY_UI_HELP">شما می توانید از فایل های اسکریپت موجود در سرورهای گوگل استفاده کنید. و یا می توانید از فایل های موجود در سرور سایت استفاده کنید</Resource>
     <Resource tag="CDN_SCRIPTMANAGER">استفاده از فایل های JS موجود در CDN؟</Resource>
     <Resource tag="CDN_SCRIPTMANAGER_HELP">شما می توانید از فایل های JS موجود در CDN استفاده نمایید و یا بصورت ساده می توانید از فایل های JS موجود استفاده کنید</Resource>
     <Resource tag="CHECK_FOR_BOTSPAM">یک سرویس برای بررسی خودکار کاربران روبات انتخاب کنید:</Resource>
@@ -1071,7 +1069,7 @@
     <Resource tag="COUNTRYIMAGE_TEMPLATE">قالب تصویر کشور</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE_HELP">قالب برای نمایش تصویر کشور</Resource>
     <Resource tag="CREATE_NNTPNAMES">ساخت نام های کاربری NNTP:</Resource>
-    <Resource tag="CREATE_NNTPNAMES_HELP">در صورت انتخاب کاربران بصورت خود کار هنگام 
+    <Resource tag="CREATE_NNTPNAMES_HELP">در صورت انتخاب کاربران بصورت خود کار هنگام
 دانلود پیام های یوزنت ایجاد خواهند شد. این ویژگی را فقط در محیط تست فعال کنید و  &lt;em&gt;هیچ‌گاه&lt;/em&gt; در روی سایت فعال و اصلی فعال نکنید. هدف اصلی این گزینه برای تست پرفورمنس و سرعت است</Resource>
     <Resource tag="CROP_IMAGE_ATTACH">برش پیش نمایش فایل تصویر ضمیمه شده:</Resource>
     <Resource tag="CROP_IMAGE_ATTACH_HELP">برش تصویر پیش نمایش و استفاده از ابعاد بالا به عنوان اندازه تصویر</Resource>
@@ -1686,7 +1684,7 @@
     <Resource tag="GOOD_HELP">عبارات منظم.</Resource>
     <Resource tag="MSG_REGEX_BAD">
 عبارات منظم. از نقطه گذاری بپرهیزید و برای نقطه ای یک بک اسلش و نقطه استفاده کنید
- 
+
 </Resource>
     <Resource tag="TITLE">افزودن/ویرایش کلمه جایگزینی</Resource>
   </page>

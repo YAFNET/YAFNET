@@ -173,19 +173,6 @@ namespace YAF.Modules
                     : ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToContent("forum.min.css")));
 
             element.Controls.Add(ControlHelper.MakeCssIncludeControl(this.Get<ITheme>().BuildThemePath("theme.css")));
-
-            // Register the jQueryUI Theme CSS
-            if (YafContext.Current.Get<YafBoardSettings>().JqueryUIThemeCDNHosted)
-            {
-                YafContext.Current.PageElements.RegisterCssInclude(
-                     "//code.jquery.com/ui/1.12.0/themes/{0}/jquery-ui.min.css".FormatWith(
-                         YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
-            }
-            else
-            {
-                YafContext.Current.PageElements.RegisterCssIncludeContent(
-                    "themes/{0}/jquery-ui.min.css".FormatWith(YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
-            }
         }
 
         #endregion

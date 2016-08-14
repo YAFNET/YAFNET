@@ -377,8 +377,6 @@
     <Resource tag="BOARD_EMAIL_REPORTMODS_HELP">Sollen alle Moderatoren eines Forums eine Benachrichtigung kriegen wenn ein Beitrag gemeldet wurde?</Resource>
     <Resource tag="BOARD_FILE_EXTENSIONS">Dateierweiterungen Liste ist:</Resource>
     <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Ist die Liste der Dateierweiterungen erlaubt oder nicht erlaubt Dateien Dateien (weniger sicher)?</Resource>
-    <Resource tag="BOARD_JQ_THEME">jQuery-UI Skin:</Resource>
-    <Resource tag="BOARD_JQ_THEME_HELP">Das jQuery UI Skin das in diesem Board verwendet werden soll für die Reiter und das Admin Menu Accordion.</Resource>
     <Resource tag="BOARD_MOBILE_THEME">Mobiles Skin:</Resource>
     <Resource tag="BOARD_MOBILE_THEME_HELP">Das Mobile Skin das in diesem Board verwendet wird</Resource>
     <Resource tag="BOARD_NAME">Boardname:</Resource>
@@ -1058,8 +1056,8 @@
     <Resource tag="CAT_CACHE_TIMEOUT_HELP">In Minuten</Resource>
     <Resource tag="CDN_JQUERY">Use Google Hosted CDN jQuery Script File?</Resource>
     <Resource tag="CDN_JQUERY_HELP">You can use the Google Hosted Script File, or instead use internal.</Resource>
-    <Resource tag="CDN_JQUERY_UI">Use Google Hosted CDN jQuery-UI Script File?</Resource>
-    <Resource tag="CDN_JQUERY_UI_HELP">You can use the Google Hosted Script File, or instead use internal.</Resource>
+
+
     <Resource tag="CDN_SCRIPTMANAGER">Use CDN Hosted Script Manager JS Files?</Resource>
     <Resource tag="CDN_SCRIPTMANAGER_HELP">You can use the CDN Hosted Script Files, or instead use internal.</Resource>
     <Resource tag="CHECK_FOR_BOTSPAM">Dienst für das automatische Checken von automatischen Spammern:</Resource>
@@ -3519,7 +3517,7 @@ public class Hello1
     &lt;/td&gt;
     &lt;td&gt;
     &lt;p&gt;Wenn Sie keine Berechtigung haben den Versteckten Inhalt sehen zu können, Sehen Sie stattdessen eine Info warum Sie keine Berechtigung haben.&lt;/p&gt;
-    &lt;img src="{0}Content/images/HiddenWarnDescription.png" alt="Der Inhalt dieses Beitrages ist versteckt. Nachdem Sie dem Autor DANKE Gesagt haben, und die Seite neugeladen haben, können Sie den Inhalt sehen." title="Der Inhalt dieses Beitrages ist versteckt. Nachdem Sie dem Autor DANKE Gesagt haben, und die Seite neugeladen haben, können Sie den Inhalt sehen." /&gt;   
+    &lt;img src="{0}Content/images/HiddenWarnDescription.png" alt="Der Inhalt dieses Beitrages ist versteckt. Nachdem Sie dem Autor DANKE Gesagt haben, und die Seite neugeladen haben, können Sie den Inhalt sehen." title="Der Inhalt dieses Beitrages ist versteckt. Nachdem Sie dem Autor DANKE Gesagt haben, und die Seite neugeladen haben, können Sie den Inhalt sehen." /&gt;
     &lt;p&gt;Ansonsten als Gast sehen sie diese Info...&lt;/p&gt;
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Das Forum verlangt das Sie registriert sind und angemeldet bevor Sie die Versteckten Beiträge sehen können&lt;/div&gt;&lt;/div&gt;
     &lt;p&gt;Wenn Sie die ausreichene Berechtigung besitzen um den Inhalt sehen zu können dann sehen Sie einfach den Inhalt...&lt;/p&gt;&lt;br /&gt;
@@ -3549,13 +3547,13 @@ public class Hello1
     &lt;/td&gt;
     &lt;td&gt;
     &lt;p&gt;Wenn Sie keine Berechtigung haben den Versteckten Inhalt sehen zu können, Sehen Sie stattdessen eine Info warum Sie keine Berechtigung haben.&lt;/p&gt;
-    
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Sie haben nicht die nötigen Rechte den Versteckten Inhalt sehen zu können.    
+
+    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Sie haben nicht die nötigen Rechte den Versteckten Inhalt sehen zu können.
     &lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Ansonsten als Gast sehen sie diese Info...&lt;/p&gt;
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Das Forum verlangt das Sie registriert sind und angemeldet bevor Sie die Versteckten Beiträge sehen können&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Wenn Sie die ausreichene Berechtigung besitzen um den Inhalt sehen zu können dann sehen Sie einfach den Inhalt...&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Versteckter Inhalt&lt;/p&gt;
 	&lt;/td&gt;
@@ -3583,19 +3581,19 @@ public class Hello1
     &lt;/td&gt;
     &lt;td&gt;
     &lt;p&gt;Wenn Sie keine Berechtigung haben den Versteckten Inhalt sehen zu können, Sehen Sie stattdessen eine Info warum Sie keine Berechtigung haben.&lt;/p&gt;
-    
+
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;
-      &lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Versteckter Inhalt  (Sie müssen registriert sein, und ihnen muss min. 2 gedankt worden sein).    
+      &lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Versteckter Inhalt  (Sie müssen registriert sein, und ihnen muss min. 2 gedankt worden sein).
     &lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Ansonsten als Gast sehen sie diese Info...&lt;/p&gt;
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Das Forum verlangt das Sie registriert sind und angemeldet bevor Sie die Versteckten Beiträge sehen können&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Wenn Sie die ausreichene Berechtigung besitzen um den Inhalt sehen zu können dann sehen Sie einfach den Inhalt...&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Versteckter Inhalt&lt;/p&gt;
 	&lt;/td&gt;
   &lt;/tr&gt;
-  
+
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Hide-Posts&lt;/td&gt;
   &lt;/tr&gt;
@@ -3619,19 +3617,19 @@ public class Hello1
     &lt;/td&gt;
     &lt;td&gt;
     &lt;p&gt;Wenn Sie keine Berechtigung haben den Versteckten Inhalt sehen zu können, Sehen Sie stattdessen eine Info warum Sie keine Berechtigung haben.&lt;/p&gt;
-    
+
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;
-      &lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Versteckter Inhalt  (Sie müssen registriert sein,  und Sie müssen min 10 Beiträge verfasst haben).    
+      &lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Versteckter Inhalt  (Sie müssen registriert sein,  und Sie müssen min 10 Beiträge verfasst haben).
     &lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Ansonsten als Gast sehen sie diese Info...&lt;/p&gt;
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Das Forum verlangt das Sie registriert sind und angemeldet bevor Sie die Versteckten Beiträge sehen können&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Wenn Sie die ausreichene Berechtigung besitzen um den Inhalt sehen zu können dann sehen Sie einfach den Inhalt...&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Versteckter Inhalt&lt;/p&gt;
 	&lt;/td&gt;
   &lt;/tr&gt;
-  
+
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Hide-Reply&lt;/td&gt;
   &lt;/tr&gt;
@@ -3655,13 +3653,13 @@ public class Hello1
     &lt;/td&gt;
     &lt;td&gt;
     &lt;p&gt;Wenn Sie keine Berechtigung haben den Versteckten Inhalt sehen zu können, Sehen Sie stattdessen eine Info warum Sie keine Berechtigung haben.&lt;/p&gt;
-    
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Versteckter Inhalt  (Sie müssen registriert sein,  und müssen eine Antwort in diesem Thema schreiben).    
+
+    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Versteckter Inhalt  (Sie müssen registriert sein,  und müssen eine Antwort in diesem Thema schreiben).
     &lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Ansonsten als Gast sehen sie diese Info...&lt;/p&gt;
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Das Forum verlangt das Sie registriert sind und angemeldet bevor Sie die Versteckten Beiträge sehen können&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Wenn Sie die ausreichene Berechtigung besitzen um den Inhalt sehen zu können dann sehen Sie einfach den Inhalt...&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Versteckter Inhalt&lt;/p&gt;
 	&lt;/td&gt;
@@ -3689,13 +3687,13 @@ public class Hello1
     &lt;/td&gt;
     &lt;td&gt;
     &lt;p&gt;Wenn Sie keine Berechtigung haben den Versteckten Inhalt sehen zu können, Sehen Sie stattdessen eine Info warum Sie keine Berechtigung haben.&lt;/p&gt;
-    
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Versteckter Inhalt  (Sie müssen registriert sein,  und müssen eine Antwort in diesem Thema schreiben, oder sich für diesen Beitrag bedanken).    
+
+    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Versteckter Inhalt  (Sie müssen registriert sein,  und müssen eine Antwort in diesem Thema schreiben, oder sich für diesen Beitrag bedanken).
     &lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Ansonsten als Gast sehen sie diese Info...&lt;/p&gt;
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Das Forum verlangt das Sie registriert sind und angemeldet bevor Sie die Versteckten Beiträge sehen können&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Wenn Sie die ausreichene Berechtigung besitzen um den Inhalt sehen zu können dann sehen Sie einfach den Inhalt...&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Versteckter Inhalt&lt;/p&gt;
 	&lt;/td&gt;
@@ -4932,7 +4930,7 @@ Spoiler Content
     <Resource tag="RULES_TEXT">
 [size=5]Die Administratoren und Moderatoren dieses Forums bemühen sich, Beiträge mit fragwürdigem Inhalt so schnell wie möglich zu bearbeiten oder ganz zu löschen, aber es ist nicht möglich, jede einzelne Nachricht zu überprüfen. Du bestätigst mit Absenden dieser Einverständniserklärung, dass du akzeptierst, dass jeder Beitrag in diesem Forum die Meinung des Urhebers wiedergibt und dass die Administratoren, Moderatoren und Betreiber dieses Forums nur für ihre eigenen Beiträge verantwortlich sind.
 
-Du verpflichtest dich, keine beleidigenden, obszönen, vulgären, verleumdenden, gewaltverherrlichenden oder aus anderen Gründen strafbaren Inhalte in diesem Forum zu veröffentlichen. Verstöße gegen diese Regel führen zu sofortiger und permanenter Sperrung, wir behalten uns vor Verbindungsdaten u.ä. an die strafverfolgenden Behörden weiterzugeben. 
+Du verpflichtest dich, keine beleidigenden, obszönen, vulgären, verleumdenden, gewaltverherrlichenden oder aus anderen Gründen strafbaren Inhalte in diesem Forum zu veröffentlichen. Verstöße gegen diese Regel führen zu sofortiger und permanenter Sperrung, wir behalten uns vor Verbindungsdaten u.ä. an die strafverfolgenden Behörden weiterzugeben.
 
 Du räumst den Betreibern, Administratoren und Moderatoren dieses Forums das Recht ein, Beiträge nach eigenem Ermessen zu entfernen, zu bearbeiten, zu verschieben oder zu sperren. Du stimmst zu, dass die im Rahmen der Registrierung erhobenen Daten in einer Datenbank gespeichert werden.
 
@@ -5067,7 +5065,7 @@ Hallo!
 	  Automatisch generiertes Passwort: {pass}
 	  Automatisch generierte Sicherheits Antwort: {answer}
       E-Mail: {email} (Bitte ändern Sie nicht ihre E-Mail Adresse, ansonsten können Sie sich nicht mehr über Facebook anmelden)
-	  
+
     </Resource>
     <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER">
       Hallo {user}.
@@ -5087,19 +5085,19 @@ Hallo!
     </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
 		Eine neue Nachricht muß bestätigt werden die im forum {forumname} geschrieben wurde:
-		
+
 		Administration Link: {adminlink}
 	</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT">
       Ein Beitrag wurde durch {reporter} gemeldet mit der folgenden Begründung: {reason}
-	  
+
 Der Beitrag wurde im {forumname} forum veröffentlicht.
-      
+
       Administrations Link: {adminlink}
    </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL_TEXT">
       A new message (posted in the {forumname} forum) was detected as SPAM, needs to be checked:
-      
+
       Administration Link: {adminlink}
    </Resource>
     <Resource tag="NOTIFICATION_ON_REGISTER">
@@ -5127,7 +5125,7 @@ Der Beitrag wurde im {forumname} forum veröffentlicht.
     Hello {user},
 
     Your forum account on the {forumname} forum has been temporarily suspended.
-    
+
     This suspension is due to end on {suspendedUntil}.
 
     For the following Reason: '{suspendReason}'
@@ -5146,16 +5144,16 @@ Der Beitrag wurde im {forumname} forum veröffentlicht.
 	  Automatisch generiertes Passwort: {pass}
 	  Automatisch generierte Sicherheits Antwort: {answer}
       E-Mail: {email} (Bitte ändern umgehend ihre E-Mail Adresse.)
-	  
+
     </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
 Hallo,
 
 ein neuer Benutzer hat sich im Forum {forumname} angemeldet:
-		
+
 Benutzername: {user}
 E-Mail: {email}
-		
+
 Admin-Link: {adminlink}
 	</Resource>
     <Resource tag="NOTIFICATION_ON_WELCOME_USER">
@@ -5233,7 +5231,7 @@ Um die Antwort zu lesen, öffne diesen Link mit Deinem Browser:
 {link}
 
       You can manage your subscriptions here:
-      
+
       {subscriptionlink}
     </Resource>
     <Resource tag="VERIFYEMAIL_HTML" />

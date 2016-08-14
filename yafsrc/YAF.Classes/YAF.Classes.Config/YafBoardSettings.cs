@@ -262,44 +262,6 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to use the jQuery-UI scripts from a CDN or locally.
-        /// </summary>
-        /// <value>
-        /// <c>If true use CDN if not use locally</c>.
-        /// </value>
-        public bool JqueryUICDNHosted
-        {
-            get
-            {
-                return this._reg.GetValue("JqueryUICDNHosted", true);
-            }
-
-            set
-            {
-                this._reg.SetValue("JqueryUICDNHosted", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether to use the jQuery-UI Theme files from a CDN or locally.
-        /// </summary>
-        /// <value>
-        /// <c>If true use CDN if not use locally</c>.
-        /// </value>
-        public bool JqueryUIThemeCDNHosted
-        {
-            get
-            {
-                return this._reg.GetValue("JqueryUIThemeCDNHosted", true);
-            }
-
-            set
-            {
-                this._reg.SetValue("JqueryUIThemeCDNHosted", value);
-            }
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether to use the script manager scripts from a CDN or locally.
         /// </summary>
         /// <value>
@@ -353,22 +315,6 @@ namespace YAF.Classes
             set
             {
                 this._regBoard.SetValue("MobileTheme", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets jQuery-UI Theme.
-        /// </summary>
-        public string JqueryUITheme
-        {
-            get
-            {
-                return this._regBoard.GetValue("JqueryUITheme", "smoothness");
-            }
-
-            set
-            {
-                this._regBoard.SetValue("JqueryUITheme", value);
             }
         }
 
