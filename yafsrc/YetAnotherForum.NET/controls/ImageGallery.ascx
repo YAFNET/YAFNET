@@ -13,7 +13,7 @@
                 </div>
                 <div class="modal-body next"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left prev">
+                    <button type="button" class="btn btn-secondary pull-left prev">
                         <i class="fa fa-chevron-left fa-fw"></i>
                         Previous
                     </button>

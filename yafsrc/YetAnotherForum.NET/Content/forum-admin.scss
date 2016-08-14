@@ -2,6 +2,7 @@
 @import "bootstrap-notify";
 @import "jquery.tablesorter.scss";
 
+// --Bootstrap extensions
 @import "css/select2";
 @import "css/select2-bootstrap";
 @import "font-awesome";
@@ -10,13 +11,11 @@
 
 // --Forum imports
 @import "forum/attachments-upload.scss";
-@import "forum/user-albums.scss";
 @import "forum/dropdowns.scss";
+@import "forum/editor.scss";
+@import "forum/user-albums.scss";
 
-// --Editor
-.BBCodeEditor {
-    margin-top: 10px;
-}
+
 
 // --Pager
 .gotoPageForm {

@@ -34,7 +34,6 @@
     position: absolute;
     top: 11px;
     right: 8px;
-    background: url("images/closelabel.png") no-repeat;
     width: 8px;
     height: 8px; }
     .hc-details .s-close:hover {
@@ -4092,15 +4091,6 @@ Test out these custom less files live
 #fileupload .error {
   color: red; }
 
-.AlbumImageList li {
-  width: 60px;
-  height: 80px;
-  float: left;
-  list-style: none; }
-  .AlbumImageList li img {
-    max-width: 60px;
-    max-height: 80px; }
-
 /* Select Drop downs */
 .standardSelectMenu-Icon {
   margin-left: 4px;
@@ -4148,6 +4138,15 @@ Test out these custom less files live
 
 .BBCodeEditor {
   margin-top: 10px; }
+
+.AlbumImageList li {
+  width: 60px;
+  height: 80px;
+  float: left;
+  list-style: none; }
+  .AlbumImageList li img {
+    max-width: 60px;
+    max-height: 80px; }
 
 .gotoPageForm {
   z-index: 99999; }

@@ -940,6 +940,7 @@
     <Content Include="Content\bootstrap-forum.min.css">
       <DependentUpon>bootstrap-forum.css</DependentUpon>
     </Content>
+    <Content Include="Content\bootstrap-image-gallery.css" />
     <Content Include="Content\bootstrap-notify.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.css.map">
@@ -974,6 +975,10 @@
       <DependentUpon>forum.css</DependentUpon>
     </Content>
     <None Include="Content\forum\attachments-upload.scss" />
+    <Content Include="Content\images\error.png" />
+    <Content Include="Content\images\error.svg" />
+    <Content Include="Content\images\play-pause.png" />
+    <Content Include="Content\images\play-pause.svg" />
     <Content Include="Content\InstallWizard.css">
       <DependentUpon>InstallWizard.scss</DependentUpon>
     </Content>
@@ -1341,15 +1346,15 @@
     <Content Include="pages\topics.ascx" />
     <Content Include="pages\viewthanks.ascx" />
     <Content Include="popup.aspx" />
-    <Content Include="Content\images\closelabel.png" />
     <Content Include="Content\images\asc.gif" />
-    <Content Include="Content\images\bg.gif" />
     <Content Include="Resources\HelpMenuList.xml" />
     <Content Include="Resources\ProviderExceptions.xml" />
+    <Content Include="Scripts\blueimp-gallery.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js">
       <DependentUpon>bootstrap-datetimepicker.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\bootstrap-image-gallery.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js">
