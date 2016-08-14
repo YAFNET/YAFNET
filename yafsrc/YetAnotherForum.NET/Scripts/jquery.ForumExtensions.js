@@ -37335,7 +37335,7 @@ function RenderMessageDiff(messageEditedAtText, nothingSelectedText, selectBothT
         alert(nothingSelectedText);
     }
 }
-function getPaginationData(pageSize, pageNumber) {
+function getPaginationData(pageSize, pageNumber, isPageChange) {
     var yafUserID = $("#PostAttachmentListPlaceholder").data("userid");
 	var defaultParameters = "{userID:" + yafUserID + ", pageSize:" + pageSize + ",pageNumber:" + pageNumber + "}";
 
@@ -37378,12 +37378,14 @@ function getPaginationData(pageSize, pageNumber) {
 
 			setPageNumber(pageSize, pageNumber, data.d.TotalRecords);
 
-			jQuery(".attachments-toggle").dropdown('toggle');
-		    jQuery('[data-toggle="tooltip"]').tooltip({
-		        html: true,
-		        template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
-		        placement: 'top'
-		    });
+			if (isPageChange) {
+			    jQuery(".attachments-toggle").dropdown('toggle');
+			    jQuery('[data-toggle="tooltip"]').tooltip({
+			        html: true,
+			        template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
+			        placement: 'top'
+			    });
+			}
 		}),
 		error: (function Error(request, status, error) {
 			$("#PostAttachmentLoader").hide();
@@ -37401,7 +37403,7 @@ function setPageNumber(pageSize, pageNumber, total) {
 	pagerHolder.empty();
 
 	if (pageNumber > 0) {
-		pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' + pageSize + ',' + (pageNumber - 1) + ',' + total + ')" class="page-link">&laquo;</a></li>');
+		pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' + pageSize + ',' + (pageNumber - 1) + ',' + total + ',true)" class="page-link">&laquo;</a></li>');
 	}
 
 	var start = pageNumber - 2;
@@ -37416,7 +37418,7 @@ function setPageNumber(pageSize, pageNumber, total) {
 	}
 
 	if (start > 0) {
-		pagination.append('<a href="javascript:getPaginationData(' + pageSize + ',' + 0 + ',' + total + ')">1</a>');
+		pagination.append('<a href="javascript:getPaginationData(' + pageSize + ',' + 0 + ',' + total + ', true)">1</a>');
 		pagination.append('<span>...</span>');
 	}
 
@@ -37424,17 +37426,17 @@ function setPageNumber(pageSize, pageNumber, total) {
 		if (i === pageNumber) {
 		    pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + '</span>');
 		} else {
-		    pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' + pageSize + ',' + i + ',' + total + ');" class="page-link">' + (i + 1) + '</a></li>');
+		    pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' + pageSize + ',' + i + ',' + total + ',true);" class="page-link">' + (i + 1) + '</a></li>');
 		}
 	}
 
 	if (end < pages) {
 		pagination.append('<span>...</span>');
-		pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' + pageSize + ',' + (pages - 1) + ',' + total + ')" class="page-link">' + pages + '</a></li>');
+		pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' + pageSize + ',' + (pages - 1) + ',' + total + ',true)" class="page-link">' + pages + '</a></li>');
 	}
 
 	if (pageNumber < pages - 1) {
-	    pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' + pageSize + ',' + (pageNumber + 1) + ',' + total + ')" class="page-link">&raquo;</a></li>');
+	    pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' + pageSize + ',' + (pageNumber + 1) + ',' + total + ',true)" class="page-link">&raquo;</a></li>');
 	}
 
 	pagerHolder.append(pagination);
@@ -37479,24 +37481,6 @@ jQuery(document).ready(function () {
     jQuery('.postdiv div').has('.attachedImage').addClass('ceebox');
 
     jQuery('.postdiv div').has('.UserPostedImage').addClass('ceebox');
-
-    /*var dialog = jQuery(".UploadDialog").dialog({
-        autoOpen: false,
-        width: 530,
-
-        modal: true,
-        buttons: {
-            Cancel: function () {
-                dialog.dialog("close");
-            }
-        },
-        close: function () {
-        }
-    });
-
-    jQuery(".OpenUploadDialog,.UploadNewFileLine").on("click", function () {
-        dialog.dialog("open");
-    });*/
 
     // Show caps lock info on password fields
     jQuery("input[type='password']").keypress(function (e) {
