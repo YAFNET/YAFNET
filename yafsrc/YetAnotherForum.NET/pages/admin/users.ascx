@@ -12,75 +12,59 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card card-info-outline">
-                <div class="card-header card-info">
-                    <i class="fa fa-search fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_USERS" />
-                                    </div>
-                <div class="card-block">
-                 <div class="table-responsive">
-                     <table class="table">
-        <tr>
-            <thead>
-            <th>
-                <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="ROLE" LocalizedPage="ADMIN_USERS" />
-            </th>
-            <th>
-                <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="RANK" LocalizedPage="ADMIN_USERS" />
-            </th>
-            <th>
-                <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="NAME_CONTAINS" LocalizedPage="ADMIN_USERS" />
-            </th>
-            <th>
-                <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="EMAIL_CONTAINS" LocalizedPage="ADMIN_USERS" />
-            </th>
-            </thead>
-        </tr>
-        <tr>
-            <td>
-                <asp:DropDownList ID="group" runat="server" CssClass="standardSelectMenu" data-placeholder='<%# this.GetText("ADMIN_USERS", "FILTER_BY_GROUP") %>'>
-                </asp:DropDownList>
-            </td>
-            <td>
-                <asp:DropDownList ID="rank" runat="server" CssClass="standardSelectMenu" data-placeholder='<%# this.GetText("ADMIN_USERS", "FILTER_BY_RANK") %>'>
-                </asp:DropDownList>
-            </td>
-            <td>
-                <asp:TextBox ID="name" runat="server" CssClass="form-control"></asp:TextBox>
-            </td>
-            <td>
-                <asp:TextBox ID="Email" runat="server" CssClass="form-control"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="4">
-                <h4>
-                <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="FILTER" LocalizedPage="ADMIN_USERS" />
-                </h4>
-                <asp:DropDownList ID="Since" runat="server" AutoPostBack="True"
-                    OnSelectedIndexChanged="Since_SelectedIndexChanged"
-                    CssClass="custom-select"/>
-            </td>
-
-        </tr>
-        <tr>
-            <td colspan="4">
-                <asp:CheckBox CssClass="form-control" ID="SuspendedOnly" runat="server" AutoPostBack="True"
-                    OnSelectedIndexChanged="Since_SelectedIndexChanged"/>
-            </td>
-
-        </tr>
-                         </table></div>
-        </div>
-                <div class="card-footer text-lg-center">
-                <asp:LinkButton ID="search" runat="server" OnClick="Search_Click" CssClass="btn btn-primary"></asp:LinkButton>
-    </div>
-    </div>
     <asp:PlaceHolder runat="server" ID="SearchResults" Visible="False">
 
     <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" UsePostBack="True" />
     <div class="card card-primary-outline">
-                <div class="card-header card-primary"><i class="fa fa-user fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_USERS" />
-  </div>
+                <div class="card-header card-primary">
+                    <i class="fa fa-user fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_USERS" />
+                    <div class="input-group pull-right user-search-dropdown">
+                        <asp:TextBox ID="name" runat="server" CssClass="form-control"></asp:TextBox>
+                        <div class="input-group-btn">
+                            <asp:LinkButton ID="search" runat="server" OnClick="Search_Click" CssClass="btn btn-success"></asp:LinkButton>
+                            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li class="form-group dropdown-item">
+                                    <label for='<%= this.Email.ClientID %>'>
+                                        <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="EMAIL_CONTAINS" LocalizedPage="ADMIN_USERS" />
+                                    </label>
+                                    <asp:TextBox ID="Email" runat="server" CssClass="form-control"></asp:TextBox>
+                                </li>
+                                <li class="form-group dropdown-item">
+                                    <label for='<%= this.group.ClientID %>'>
+                                        <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="ROLE" LocalizedPage="ADMIN_USERS" />
+                                    </label>
+                                    <asp:DropDownList ID="group" runat="server" CssClass="form-control" data-placeholder='<%# this.GetText("ADMIN_USERS", "FILTER_BY_GROUP") %>'>
+                                    </asp:DropDownList>
+                                </li>
+                                <li class="form-group dropdown-item">
+                                    <label for='<%= this.rank.ClientID %>'>
+                                        <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="RANK" LocalizedPage="ADMIN_USERS" />
+                                    </label>
+                                    <asp:DropDownList ID="rank" runat="server" CssClass="form-control" data-placeholder='<%# this.GetText("ADMIN_USERS", "FILTER_BY_RANK") %>'>
+                                    </asp:DropDownList>
+                                </li>
+                                <li class="form-group dropdown-item">
+                                    <label for='<%= this.Since.ClientID %>'>
+                                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="FILTER" LocalizedPage="ADMIN_USERS" />
+                                    </label>
+                                    <asp:DropDownList ID="Since" runat="server" AutoPostBack="True"
+                                        OnSelectedIndexChanged="Since_SelectedIndexChanged"
+                                        CssClass="form-control"/>
+                                </li>
+                                <li class="form-group dropdown-item">
+                                    <label for='<%= this.SuspendedOnly.ClientID %>'>
+                                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SUSPENDED_ONLY" LocalizedPage="ADMIN_USERS" />
+                                    </label>
+                                    <asp:CheckBox CssClass="form-control" ID="SuspendedOnly" runat="server" AutoPostBack="True"
+                                        OnSelectedIndexChanged="Since_SelectedIndexChanged"/>
+                                  </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
                 <div class="card-block">
                                      <div class="alert alert-info hidden-sm-up" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />

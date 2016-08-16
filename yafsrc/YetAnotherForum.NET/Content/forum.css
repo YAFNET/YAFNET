@@ -4763,6 +4763,17 @@ body:last-child .blueimp-gallery-playing > .play-pause {
   text-decoration: none;
   background-color: #f5f5f5; }
 
+.dropdown-item label {
+  font-weight: 700; }
+
+.user-search-dropdown {
+  width: 500px; }
+
+@media (max-width: 767px) {
+  .user-search-dropdown {
+    width: 300px;
+    float: none; } }
+
 /* TABS */
 .tab-content {
   padding-top: 10px; }

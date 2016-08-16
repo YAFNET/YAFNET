@@ -285,10 +285,6 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Page.Form.DefaultButton = this.search.UniqueID;
-
-            this.search.Focus();
-
             if (this.IsPostBack)
             {
                 return;
@@ -305,8 +301,6 @@ namespace YAF.Pages.Admin
             this.ImportUsers.Text = "<i class=\"fa fa-upload fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_USERS", "IMPORT"));
             this.ExportUsersXml.Text = "<i class=\"fa fa-download fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_USERS", "EXPORT_XML"));
             this.ExportUsersCsv.Text = "<i class=\"fa fa-download fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_USERS", "EXPORT_CSV"));
-
-            this.SuspendedOnly.Text = this.GetText("ADMIN_USERS", "SUSPENDED_ONLY");
 
             if (Config.IsAnyPortal)
             {
@@ -361,6 +355,8 @@ namespace YAF.Pages.Admin
 
             // Hide "New User" & Sync Button on DotNetNuke
             this.ImportAndSyncHolder.Visible = !Config.IsDotNetNuke;
+
+            this.BindData();
         }
 
         /// <summary>
