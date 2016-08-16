@@ -22,7 +22,7 @@
         <!-- /.dropdown -->
         <li class="dropdown nav-item"> <a class="nav-link" data-toggle="dropdown" href="#">
 
-                        <i class="fa fa-user fa-fw"></i>&nbsp;<%= this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName  %>  <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw"></i><span class="hidden-sm-down">&nbsp;<%= this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName  %></span>  <i class="fa fa-caret-down"></i>
 
                     </a>
             <ul class="dropdown-menu dropdown-user">
