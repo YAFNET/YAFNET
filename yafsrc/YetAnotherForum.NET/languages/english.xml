@@ -1043,8 +1043,8 @@
   <Resource tag="CDN_SCRIPTMANAGER_HELP">You can use the CDN Hosted Script Files, or instead use internal.</Resource>
   <Resource tag="CDN_JQUERY">Use Google Hosted CDN jQuery Script File?</Resource>
   <Resource tag="CDN_JQUERY_HELP">You can use the Google Hosted Script File, or instead use internal.</Resource>
-  
-  
+
+
   <Resource tag="CHECK_FOR_BOTSPAM">Choose a Service for Automatically User Bot Checking:</Resource>
   <Resource tag="CHECK_FOR_BOTSPAM_HELP">Enables/disables automatically Bot SPAM Checking via the &lt;a href="http://stopforumspam.com/"&gt;StopForumSpam.com API&lt;/a&gt; , BotScout.com API, or both together.</Resource>
   <Resource tag="CHECK_FOR_SPAM">Choose a SPAM Service for Automatically SPAM Checking:</Resource>
@@ -1819,6 +1819,7 @@
   <Resource tag="FILTER">Filter by join date since:</Resource>
   <Resource tag="FILTER_BY_RANK">Filter by Rank...</Resource>
   <Resource tag="FILTER_BY_GROUP">Filter by Group...</Resource>
+  <Resource tag="FILTER_DROPDOWN">Filter</Resource>
   <Resource tag="FILTER_NO">[No Filter]</Resource>
   <Resource tag="HEADER">Search Users</Resource>
   <Resource tag="IMPORT">Import User(s)</Resource>

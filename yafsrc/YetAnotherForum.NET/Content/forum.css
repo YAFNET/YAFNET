@@ -4768,6 +4768,9 @@ body:last-child .blueimp-gallery-playing > .play-pause {
 
 .user-search-dropdown {
   width: 500px; }
+  .user-search-dropdown .btn-primary {
+    color: white;
+    margin-top: 10px; }
 
 @media (max-width: 767px) {
   .user-search-dropdown {

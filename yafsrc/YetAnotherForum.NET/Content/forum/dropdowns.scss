@@ -27,7 +27,11 @@
     }
 }
 .user-search-dropdown {
-    width: 500px
+    width: 500px;
+    .btn-primary {
+        color: white;
+        margin-top: 10px
+    }
 }
 @media (max-width: 767px) {
     .user-search-dropdown {

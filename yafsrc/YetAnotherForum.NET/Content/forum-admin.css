@@ -4117,6 +4117,9 @@ Test out these custom less files live
 
 .user-search-dropdown {
   width: 500px; }
+  .user-search-dropdown .btn-primary {
+    color: white;
+    margin-top: 10px; }
 
 @media (max-width: 767px) {
   .user-search-dropdown {
