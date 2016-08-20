@@ -213,16 +213,21 @@ namespace YAF.Utilities
         /// <summary>
         /// Blocks the UI js.
         /// </summary>
-        /// <param name="elementId">The element Id.</param>
+        /// <param name="messageId">The message identifier.</param>
+        /// <param name="buttonId">The button identifier.</param>
         /// <returns>
         /// The block ui execute js.
         /// </returns>
-        public static string BlockUIExecuteJs([NotNull] string elementId)
+        public static string BlockUIExecuteJs([NotNull] string messageId, [NotNull] string buttonId)
         {
             return
-                @"{1}(document).ready(function() {{ {1}.blockUI({{ message: {1}('#{0}') }}); }});".FormatWith(
-                    elementId,
-                    Config.JQueryAlias);
+                @"{1}(document).ready(function() {{
+                      {1}('{2}').click(function() {{ {1}.blockUI({{ message: {1}('#{0}') }});
+                       }});
+                      }});".FormatWith(
+                    messageId,
+                    Config.JQueryAlias,
+                    buttonId);
         }
 
         /// <summary>

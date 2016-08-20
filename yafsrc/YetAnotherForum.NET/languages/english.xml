@@ -1652,6 +1652,8 @@
   <Resource tag="RECOVERY2">Simple (Simple Recovery allows the database to be recovered to the most recent backup.You need to backup your DB regularly.)</Resource>
   <Resource tag="RECOVERY3">Bulk-Logged (Bulk-Logged Recovery allows bulk-logged operations.)</Resource>
   <Resource tag="REINDEX">With any data modification operations, table fragmentation can occur. This command can be used to rebuild all the indexes on all the tables in database to boost performance.</Resource>
+  <Resource tag="REINDEX_MSG">Please do not navigate away from this page...</Resource>
+  <Resource tag="REINDEX_TITLE">Updating Tables</Resource>
   <Resource tag="REINDEXTBL_BTN">Reindex tables</Resource>
   <Resource tag="SETRECOVERY_BTN">Set recovery mode</Resource>
   <Resource tag="SHOW_STATS">Show statistical information about YAF table indexes.</Resource>
@@ -1835,6 +1837,8 @@
   <Resource tag="SEARCH">Search</Resource>
   <Resource tag="SUSPENDED_ONLY">Show only suspended users?</Resource>
   <Resource tag="SYNC_ALL">Sync All Membership Users</Resource>
+  <Resource tag="SYNC_MSG">Please do not navigate away from this page while the sync is in progress...</Resource>
+  <Resource tag="SYNC_TITLE">Syncing Users</Resource>
   <Resource tag="TITLE">Users</Resource>
   <Resource tag="TWITTER_USER">Twitter User</Resource>
   <Resource tag="USER_NAME">User Name</Resource>

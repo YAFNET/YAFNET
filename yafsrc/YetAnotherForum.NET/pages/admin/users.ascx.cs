@@ -206,6 +206,20 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
+        /// Registers the needed Java Scripts
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "BlockUIExecuteJs",
+                JavaScriptBlocks.BlockUIExecuteJs("SyncUsersMessage", this.SyncUsers.ClientID));
+
+
+            base.OnPreRender(e);
+        }
+
+        /// <summary>
         /// The bit set.
         /// </summary>
         /// <param name="_o">
@@ -382,11 +396,6 @@ namespace YAF.Pages.Admin
 
             // enable timer...
             this.UpdateStatusTimer.Enabled = true;
-
-            // show blocking ui...
-            this.PageContext.PageElements.RegisterJsBlockStartup(
-                "BlockUIExecuteJs",
-                JavaScriptBlocks.BlockUIExecuteJs("SyncUsersMessage"));
         }
 
         /// <summary>

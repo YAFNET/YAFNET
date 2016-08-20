@@ -1659,6 +1659,8 @@
     <Resource tag="RECOVERY2">Simple (La recuperación simple permite que la base de datos sea recuperada a la copia de seguridad más reciente. Necesitas hacer copias de tu BD regularmente.)</Resource>
     <Resource tag="RECOVERY3">Registro masivo (La recuperación de registro masivo permite las operaciones de registro masivo.)</Resource>
     <Resource tag="REINDEX">Con cualquier operación de modificación de datos puede ocurrir una fragmentación de tabla. Este comando puede ser usado para reconstruir todos los índices de las tables de la base de datos para mejorar el rendimiento.</Resource>
+    <Resource tag="REINDEX_MSG">Please do not navigate away from this page...</Resource>
+    <Resource tag="REINDEX_TITLE">Updating Tables</Resource>
     <Resource tag="REINDEXTBL_BTN">Reindexar tablas</Resource>
     <Resource tag="SETRECOVERY_BTN">Fijar el modo de recuperación</Resource>
     <Resource tag="SHOW_STATS">Muestra información estadísticas sobre los índices de las tablas YAF.</Resource>
@@ -1842,6 +1844,8 @@
     <Resource tag="SEARCH">Buscar</Resource>
     <Resource tag="SUSPENDED_ONLY">Show only suspended users?</Resource>
     <Resource tag="SYNC_ALL">Sincronizar todos los usuarios suscritos</Resource>
+    <Resource tag="SYNC_MSG">Please do not navigate away from this page while the sync is in progress...</Resource>
+    <Resource tag="SYNC_TITLE">Syncing Users</Resource>
     <Resource tag="TITLE">Usuarios</Resource>
     <Resource tag="TWITTER_USER">Usuario de Twitter</Resource>
     <Resource tag="USER_NAME">Nombre de usuario</Resource>

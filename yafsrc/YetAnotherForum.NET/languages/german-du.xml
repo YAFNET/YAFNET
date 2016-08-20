@@ -1637,6 +1637,8 @@
     <Resource tag="RECOVERY2">Einfach (Simple Recovery verwendet die Letzte Sicherung für die Wiederherstellung. Sie müssen regelmäßig eine Sicherung ihrer Datenbank machen.)</Resource>
     <Resource tag="RECOVERY3">Massenprotokollieren (Massenprotokolliertes Wiederherstellen ermöglicht Massenprotokollierte Vorgänge)</Resource>
     <Resource tag="REINDEX">Bei jeder Datenänderung kann Tabellen Fragmentierung auftreten. Dieser Befehl kann verwendet werden, um alle Indizes auf alle Tabellen in der Datenbank neu zu erstellen, um die Leistung zu steigern.</Resource>
+    <Resource tag="REINDEX_MSG">Please do not navigate away from this page...</Resource>
+    <Resource tag="REINDEX_TITLE">Updating Tables</Resource>
     <Resource tag="REINDEXTBL_BTN">Tabellen reindizieren</Resource>
     <Resource tag="SETRECOVERY_BTN">Wiederherstellungsmodus wählen</Resource>
     <Resource tag="SHOW_STATS">Statistische Informationen über alle YAF Tabellen Indizes anzeigen.</Resource>
@@ -1820,6 +1822,8 @@
     <Resource tag="SEARCH">Suche</Resource>
     <Resource tag="SUSPENDED_ONLY">Show only suspended users?</Resource>
     <Resource tag="SYNC_ALL">Alle Membership Benutzer synchronisieren</Resource>
+    <Resource tag="SYNC_MSG">Please do not navigate away from this page while the sync is in progress...</Resource>
+    <Resource tag="SYNC_TITLE">Syncing Users</Resource>
     <Resource tag="TITLE">Benutzer</Resource>
     <Resource tag="TWITTER_USER">Twitter Benutzer</Resource>
     <Resource tag="USER_NAME">Benutzername</Resource>

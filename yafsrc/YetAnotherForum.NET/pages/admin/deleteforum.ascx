@@ -51,8 +51,12 @@
 		<div class="card card-inverse card-danger text-xs-center">
 		    <div class="card-block">
 		        <blockquote class="card-blockquote">
-                    <p><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DELETE_TITLE" LocalizedPage="ADMIN_DELETEFORUM" /></p>
-                    <p><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="DELETE_MSG" LocalizedPage="ADMIN_DELETEFORUM" /></p>
+                    <p>
+                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DELETE_TITLE" LocalizedPage="ADMIN_DELETEFORUM" />
+                    </p>
+                    <p>
+                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="DELETE_MSG" LocalizedPage="ADMIN_DELETEFORUM" />
+                    </p>
                     <footer>
                         <asp:Image ID="LoadingImage" runat="server" alt="Processing..." />
                     </footer>

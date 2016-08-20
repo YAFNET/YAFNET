@@ -152,16 +152,21 @@
     </ContentTemplate>
 </asp:UpdatePanel>
 <div>
-    <div id="SyncUsersMessage" style="display: none" class="ui-overlay">
-        <div class="ui-widget ui-widget-content ui-corner-all">
-            <h2>
-                Syncing Users</h2>
-            <p>
-                Please do not navigate away from this page while the sync is in progress...</p>
-            <div align="center">
-                <asp:Image ID="LoadingImage" runat="server" alt="Processing..." />
+    <div id="SyncUsersMessage" style="display: none">
+		<div class="card card-inverse card-danger text-xs-center">
+		    <div class="card-block">
+		        <blockquote class="card-blockquote">
+                    <p>
+                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="SYNC_TITLE" LocalizedPage="ADMIN_USERS" />
+                    </p>
+                    <p>
+                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SYNC_MSG" LocalizedPage="ADMIN_USERS" />
+                    </p>
+                    <footer>
+                        <asp:Image ID="LoadingImage" runat="server" alt="Processing..." />
+                    </footer>
+                </blockquote>
             </div>
-            <br />
         </div>
     </div>
 </div>

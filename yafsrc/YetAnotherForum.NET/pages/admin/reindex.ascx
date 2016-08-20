@@ -55,3 +55,23 @@
     </div>
 </div>
 </YAF:AdminMenu>
+
+<div>
+	<div id="DeleteForumMessage" style="display:none">
+		<div class="card card-inverse card-danger text-xs-center">
+		    <div class="card-block">
+		        <blockquote class="card-blockquote">
+                    <p>
+                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="REINDEX_TITLE" LocalizedPage="ADMIN_REINDEX" />
+                    </p>
+                    <p>
+                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="REINDEX_MSG" LocalizedPage="ADMIN_REINDEX" />
+                    </p>
+                    <footer>
+                        <asp:Image ID="LoadingImage" runat="server" alt="Processing..." />
+                    </footer>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div>

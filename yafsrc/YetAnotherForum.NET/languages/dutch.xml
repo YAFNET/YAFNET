@@ -1647,6 +1647,8 @@
     <Resource tag="RECOVERY2">Simple (met Simple Recovery kun je de DB terughalen tot het moment van de laatste backup. Je moet dus regelmatig backuppen.)</Resource>
     <Resource tag="RECOVERY3">Bulk-Logged (met Bulk-Logged Recovery kun je de DB terughalen tot het moment van een willekeurige backup.)</Resource>
     <Resource tag="REINDEX">Met elke data-wijziging kunnen de tabellen gefragmenteerd raken. Deze actie kan door het opnieuw indexeren van de tabellen een snelheidswinst opleveren.</Resource>
+    <Resource tag="REINDEX_MSG">Please do not navigate away from this page...</Resource>
+    <Resource tag="REINDEX_TITLE">Updating Tables</Resource>
     <Resource tag="REINDEXTBL_BTN">Tabellen herindexeren</Resource>
     <Resource tag="SETRECOVERY_BTN">Recovery mode instellen</Resource>
     <Resource tag="SHOW_STATS">Show statistiekenover de YAF tabel indexen.</Resource>
@@ -1830,6 +1832,8 @@
     <Resource tag="SEARCH">Zoeken</Resource>
     <Resource tag="SUSPENDED_ONLY">Show only suspended users?</Resource>
     <Resource tag="SYNC_ALL">Synchroniseer alle Membership Gebruikers</Resource>
+    <Resource tag="SYNC_MSG">Please do not navigate away from this page while the sync is in progress...</Resource>
+    <Resource tag="SYNC_TITLE">Syncing Users</Resource>
     <Resource tag="TITLE">Gebruikers</Resource>
     <Resource tag="TWITTER_USER">Twitter Gebruiker</Resource>
     <Resource tag="USER_NAME">Gebruikersnaam</Resource>

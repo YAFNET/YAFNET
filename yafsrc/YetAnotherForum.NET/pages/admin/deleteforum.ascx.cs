@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -48,6 +48,19 @@ namespace YAF.Pages.Admin
     public partial class deleteforum : AdminPage
     {
         #region Methods
+
+        /// <summary>
+        /// Registers the needed Java Scripts
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "BlockUIExecuteJs",
+                JavaScriptBlocks.BlockUIExecuteJs("DeleteForumMessage", this.Delete.ClientID));
+
+            base.OnPreRender(e);
+        }
 
         /// <summary>
         /// Get query string as integer.
@@ -251,10 +264,6 @@ namespace YAF.Pages.Admin
                 this.UpdateStatusTimer.Enabled = true;
 
                 this.LocalizedLabel6.LocalizedTag = "DELETE_MOVE_TITLE";
-
-                // show blocking ui...
-                this.PageContext.PageElements.RegisterJsBlockStartup(
-                    "BlockUIExecuteJs", JavaScriptBlocks.BlockUIExecuteJs("DeleteForumMessage"));
             }
             else
             {
@@ -268,15 +277,7 @@ namespace YAF.Pages.Admin
                 this.UpdateStatusTimer.Enabled = true;
 
                 this.LocalizedLabel6.LocalizedTag = "DELETE_TITLE";
-
-                // show blocking ui...
-                this.PageContext.PageElements.RegisterJsBlockStartup(
-                    "BlockUIExecuteJs", JavaScriptBlocks.BlockUIExecuteJs("DeleteForumMessage"));
             }
-
-            // show blocking ui...
-            this.PageContext.PageElements.RegisterJsBlockStartup(
-                "BlockUIExecuteJs", JavaScriptBlocks.BlockUIExecuteJs("DeleteForumMessage"));
 
             if (errorMessage.IsSet())
             {

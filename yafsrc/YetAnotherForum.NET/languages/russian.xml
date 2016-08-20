@@ -1635,6 +1635,8 @@
     <Resource tag="RECOVERY2">Простое (Простое восстановление позволяет восстановить копию последнего резервного бэкапа. Вы должны делать регулярные бэкапы.)</Resource>
     <Resource tag="RECOVERY3">Bulk-Logged (Восстановление в режиме Bulk-Logged выполняет такие операции.)</Resource>
     <Resource tag="REINDEX">При любых модификациях данных происходит фрагментация данных в таблицах. Эта команда может быть использована для воссоздания индексов во всех таблицах БД, чтобы увеличить скорость.</Resource>
+    <Resource tag="REINDEX_MSG">Please do not navigate away from this page...</Resource>
+    <Resource tag="REINDEX_TITLE">Updating Tables</Resource>
     <Resource tag="REINDEXTBL_BTN">Реиндексировать таблицы</Resource>
     <Resource tag="SETRECOVERY_BTN">Установить режим</Resource>
     <Resource tag="SHOW_STATS">Показать статистическую информацию об индексах таблиц YAF.</Resource>
@@ -1818,6 +1820,8 @@
     <Resource tag="SEARCH">Поиск</Resource>
     <Resource tag="SUSPENDED_ONLY">Show only suspended users?</Resource>
     <Resource tag="SYNC_ALL">Синхронизировать всех пользователей в Membership</Resource>
+    <Resource tag="SYNC_MSG">Please do not navigate away from this page while the sync is in progress...</Resource>
+    <Resource tag="SYNC_TITLE">Syncing Users</Resource>
     <Resource tag="TITLE">Пользователи</Resource>
     <Resource tag="TWITTER_USER">Пользователь Twitter</Resource>
     <Resource tag="USER_NAME">Ник пользователя</Resource>

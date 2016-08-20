@@ -1660,6 +1660,8 @@
       با هر عملیات اصلاحیه، تکه تکه شدن جداول ممکن است رخ دهد.
       این فرمان می تواند به منظور ساخت مجدد شاخص های جداول برای سرعت بخشیدن و افزایش راندمان استفاده گردد.
     </Resource>
+    <Resource tag="REINDEX_MSG">Please do not navigate away from this page...</Resource>
+    <Resource tag="REINDEX_TITLE">Updating Tables</Resource>
     <Resource tag="REINDEXTBL_BTN">شاخص سازی مجدد جدول</Resource>
     <Resource tag="SETRECOVERY_BTN">تنظیم حالت بازیابی</Resource>
     <Resource tag="SHOW_STATS">اطلاعات آماری درباره جداول YAF را نمایش می دهد.</Resource>
@@ -1848,6 +1850,8 @@
     <Resource tag="SEARCH">جستجو</Resource>
     <Resource tag="SUSPENDED_ONLY">فقط نمایش کاربران معلق؟</Resource>
     <Resource tag="SYNC_ALL">همسان سازی عضویت تمام گروه ها</Resource>
+    <Resource tag="SYNC_MSG">Please do not navigate away from this page while the sync is in progress...</Resource>
+    <Resource tag="SYNC_TITLE">Syncing Users</Resource>
     <Resource tag="TITLE">کاربران</Resource>
     <Resource tag="TWITTER_USER">کاربر توئیتر</Resource>
     <Resource tag="USER_NAME">نام کاربری</Resource>
