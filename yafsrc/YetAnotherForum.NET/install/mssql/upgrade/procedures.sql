@@ -9434,6 +9434,7 @@ as
         join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=f.ForumID
         where    t.[Topic] like '%' + @Topic + '%'
         and t.[TopicID] != @TopicID
+		and t.NumPosts > 0
         and x.UserID = @PageUserID
         and CONVERT(int,x.ReadAccess) <> 0
         order by t.[Posted] DESC
