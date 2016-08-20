@@ -371,20 +371,6 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The since_ selected index changed.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Since_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // Set the controls' pager index to 0.
-            this.PagerTop.CurrentPageIndex = 0;
-
-            // re-bind data
-            this.BindData();
-        }
-
-        /// <summary>
         /// The sync users_ click.
         /// </summary>
         /// <param name="sender">The source of the event.</param>

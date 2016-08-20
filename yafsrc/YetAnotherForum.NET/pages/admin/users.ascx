@@ -19,19 +19,25 @@
                 <div class="card-header card-primary">
                     <i class="fa fa-user fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_USERS" />
                     <div class="input-group pull-right user-search-dropdown">
-                        <asp:TextBox ID="name" runat="server" CssClass="form-control"></asp:TextBox>
+                        &nbsp;
                         <div class="input-group-btn">
-                            <asp:LinkButton ID="search" runat="server" OnClick="Search_Click" CssClass="btn btn-success"></asp:LinkButton>
                             <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="sr-only">Toggle Dropdown</span>
+                                <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="FILTER_DROPDOWN" LocalizedPage="ADMIN_USERS" />
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right">
+                                <li class="form-group dropdown-item">
+                                    <label for='<%= this.name.ClientID %>'>
+                                        <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="NAME_CONTAINS" LocalizedPage="ADMIN_USERS" />
+                                    </label>
+                                    <asp:TextBox ID="name" runat="server" CssClass="form-control"></asp:TextBox>
+                                </li>
                                 <li class="form-group dropdown-item">
                                     <label for='<%= this.Email.ClientID %>'>
                                         <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="EMAIL_CONTAINS" LocalizedPage="ADMIN_USERS" />
                                     </label>
                                     <asp:TextBox ID="Email" runat="server" CssClass="form-control"></asp:TextBox>
                                 </li>
+
                                 <li class="form-group dropdown-item">
                                     <label for='<%= this.group.ClientID %>'>
                                         <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="ROLE" LocalizedPage="ADMIN_USERS" />
@@ -50,17 +56,18 @@
                                     <label for='<%= this.Since.ClientID %>'>
                                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="FILTER" LocalizedPage="ADMIN_USERS" />
                                     </label>
-                                    <asp:DropDownList ID="Since" runat="server" AutoPostBack="True"
-                                        OnSelectedIndexChanged="Since_SelectedIndexChanged"
+                                    <asp:DropDownList ID="Since" runat="server"
                                         CssClass="form-control"/>
                                 </li>
                                 <li class="form-group dropdown-item">
                                     <label for='<%= this.SuspendedOnly.ClientID %>'>
                                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SUSPENDED_ONLY" LocalizedPage="ADMIN_USERS" />
                                     </label>
-                                    <asp:CheckBox CssClass="form-control" ID="SuspendedOnly" runat="server" AutoPostBack="True"
-                                        OnSelectedIndexChanged="Since_SelectedIndexChanged"/>
+                                    <asp:CheckBox CssClass="form-control" ID="SuspendedOnly" runat="server"/>
                                   </li>
+                                <li class="dropdown-item">
+                                    <asp:LinkButton ID="search" runat="server" OnClick="Search_Click" CssClass="btn btn-primary "></asp:LinkButton>
+                                </li>
                             </ul>
                         </div>
                     </div>
