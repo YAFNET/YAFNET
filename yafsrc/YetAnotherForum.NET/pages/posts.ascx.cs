@@ -1726,12 +1726,13 @@ namespace YAF.Pages
                 }
 
                 // Check posts for urls if the user has only x posts
-                if (this.PageContext.BoardSettings.IgnoreSpamWordCheckPostCount < this.PageContext.CurrentUserData.NumPosts)
+                if (YafContext.Current.CurrentUserData.NumPosts
+                <= YafContext.Current.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount &&
+                !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
                 {
                     var urlCount = UrlHelper.CountUrls(this._quickReplyEditor.Text);
 
-                    if (urlCount
-                        > this.PageContext.BoardSettings.AllowedNumberOfUrls)
+                    if (urlCount > this.PageContext.BoardSettings.AllowedNumberOfUrls)
                     {
                         spamResult = "The user posted {0} urls but allowed only {1}".FormatWith(
                             urlCount,
@@ -1743,10 +1744,9 @@ namespace YAF.Pages
                                 this.Logger.Log(
                                     this.PageContext.PageUserID,
                                     "Spam Message Detected",
-                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}"
-                                        .FormatWith(
-                                            this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                                            spamResult),
+                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}".FormatWith(
+                                        this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                                        spamResult),
                                     EventLogTypes.SpamMessageDetected);
                                 break;
                             case 1:

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -69,8 +69,6 @@ namespace YAF.Core.Services
             {
                 return false;
             }
-
-            // TODO : Handle urls
 
             switch (YafContext.Current.Get<YafBoardSettings>().SpamServiceType)
             {

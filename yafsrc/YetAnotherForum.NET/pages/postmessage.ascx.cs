@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -188,7 +188,7 @@ namespace YAF.Pages
         /// The get poll group id.
         /// </summary>
         /// <returns>
-        /// Returns the PollGroup Id 
+        /// Returns the PollGroup Id
         /// </returns>
         protected int? GetPollGroupID()
         {
@@ -199,13 +199,13 @@ namespace YAF.Pages
         /// The handle post to blog.
         /// </summary>
         /// <param name="message">
-        /// The message. 
+        /// The message.
         /// </param>
         /// <param name="subject">
-        /// The subject. 
+        /// The subject.
         /// </param>
         /// <returns>
-        /// Returns the Blog Post ID 
+        /// Returns the Blog Post ID
         /// </returns>
         protected string HandlePostToBlog([NotNull] string message, [NotNull] string subject)
         {
@@ -240,7 +240,7 @@ namespace YAF.Pages
         /// Verifies the user isn't posting too quickly, if so, tells them to wait.
         /// </summary>
         /// <returns>
-        /// True if there is a delay in effect. 
+        /// True if there is a delay in effect.
         /// </returns>
         protected bool IsPostReplyDelay()
         {
@@ -272,7 +272,7 @@ namespace YAF.Pages
         /// Handles verification of the PostReply. Adds java script message if there is a problem.
         /// </summary>
         /// <returns>
-        /// true if everything is verified 
+        /// true if everything is verified
         /// </returns>
         protected bool IsPostReplyVerified()
         {
@@ -379,7 +379,7 @@ namespace YAF.Pages
         /// The new topic.
         /// </summary>
         /// <returns>
-        /// Returns if New Topic 
+        /// Returns if New Topic
         /// </returns>
         protected bool NewTopic()
         {
@@ -412,7 +412,7 @@ namespace YAF.Pages
             this._forumEditor = ForumEditorHelper.GetCurrentForumEditor();
 
             this.EditorLine.Controls.Add(this._forumEditor);
-            
+
             base.OnInit(e);
         }
 
@@ -491,7 +491,7 @@ namespace YAF.Pages
                                            ? 0
                                            : currentMessage.PollID;
 
-                    // we edit message and should transfer both the message ID and TopicID for PageLinks. 
+                    // we edit message and should transfer both the message ID and TopicID for PageLinks.
                     this.PollList.EditMessageId = this.EditMessageID.ToType<int>();
 
                     if (this.TopicID == null)
@@ -734,7 +734,7 @@ namespace YAF.Pages
         /// The post reply handle edit post.
         /// </summary>
         /// <returns>
-        /// Returns the Message Id 
+        /// Returns the Message Id
         /// </returns>
         protected long PostReplyHandleEditPost()
         {
@@ -798,7 +798,7 @@ namespace YAF.Pages
                     .PostOptions1
                     .PersistantChecked
             };
-                               
+
             var isModeratorChanged = this.PageContext.PageUserID != this._ownerUserId;
 
             LegacyDb.message_update(
@@ -835,10 +835,10 @@ namespace YAF.Pages
         /// The post reply handle new post.
         /// </summary>
         /// <param name="topicId">
-        /// The topic Id. 
+        /// The topic Id.
         /// </param>
         /// <returns>
-        /// Returns the Message Id. 
+        /// Returns the Message Id.
         /// </returns>
         protected long PostReplyHandleNewPost(out long topicId)
         {
@@ -921,10 +921,10 @@ namespace YAF.Pages
         /// The post reply handle reply to topic.
         /// </summary>
         /// <param name="isSpamApproved">
-        /// The is Spam Approved. 
+        /// The is Spam Approved.
         /// </param>
         /// <returns>
-        /// Returns the Message Id. 
+        /// Returns the Message Id.
         /// </returns>
         protected long PostReplyHandleReplyToTopic(bool isSpamApproved)
         {
@@ -963,7 +963,7 @@ namespace YAF.Pages
 
             object replyTo = this.QuotedMessageID ?? -1;
 
-            // make message flags 
+            // make message flags
             var messageFlags = new MessageFlags
                                {
                                    IsHtml = this._forumEditor.UsesHTML,
@@ -998,10 +998,10 @@ namespace YAF.Pages
         /// Handles the PostReply click including: Replying, Editing and New post.
         /// </summary>
         /// <param name="sender">
-        /// The Sender Object. 
+        /// The Sender Object.
         /// </param>
         /// <param name="e">
-        /// The Event Arguments. 
+        /// The Event Arguments.
         /// </param>
         protected void PostReply_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
@@ -1094,12 +1094,13 @@ namespace YAF.Pages
             }
 
             // Check posts for urls if the user has only x posts
-            if (this.PageContext.BoardSettings.IgnoreSpamWordCheckPostCount < this.PageContext.CurrentUserData.NumPosts)
+            if (YafContext.Current.CurrentUserData.NumPosts
+                <= YafContext.Current.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount &&
+                !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
             {
                 var urlCount = UrlHelper.CountUrls(this._forumEditor.Text);
 
-                if (urlCount
-                    > this.PageContext.BoardSettings.AllowedNumberOfUrls)
+                if (urlCount > this.PageContext.BoardSettings.AllowedNumberOfUrls)
                 {
                     var spamResult = "The user posted {0} urls but allowed only {1}".FormatWith(
                         urlCount,
@@ -1162,7 +1163,7 @@ namespace YAF.Pages
                     }
                 }
             }
-            
+
             // update the last post time...
             this.Get<IYafSession>().LastPost = DateTime.UtcNow.AddSeconds(30);
 
@@ -1296,10 +1297,10 @@ namespace YAF.Pages
         /// Previews the new Message
         /// </summary>
         /// <param name="sender">
-        /// The Sender Object. 
+        /// The Sender Object.
         /// </param>
         /// <param name="e">
-        /// The Event Arguments. 
+        /// The Event Arguments.
         /// </param>
         protected void Preview_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
@@ -1330,13 +1331,13 @@ namespace YAF.Pages
         /// The can edit post check.
         /// </summary>
         /// <param name="message">
-        /// The message. 
+        /// The message.
         /// </param>
         /// <param name="topicInfo">
-        /// The topic Info. 
+        /// The topic Info.
         /// </param>
         /// <returns>
-        /// Returns if user can edit post check. 
+        /// Returns if user can edit post check.
         /// </returns>
         private bool CanEditPostCheck([NotNull] TypedMessageList message, DataRow topicInfo)
         {
@@ -1371,10 +1372,10 @@ namespace YAF.Pages
         /// Determines whether this instance [can quote post check] the specified topic info.
         /// </summary>
         /// <param name="topicInfo">
-        /// The topic info. 
+        /// The topic info.
         /// </param>
         /// <returns>
-        /// The can quote post check. 
+        /// The can quote post check.
         /// </returns>
         private bool CanQuotePostCheck(DataRow topicInfo)
         {
@@ -1401,7 +1402,7 @@ namespace YAF.Pages
         /// The init edited post.
         /// </summary>
         /// <param name="currentMessage">
-        /// The current message. 
+        /// The current message.
         /// </param>
         private void InitEditedPost([NotNull] TypedMessageList currentMessage)
         {
@@ -1517,7 +1518,7 @@ namespace YAF.Pages
         /// The init quoted reply.
         /// </summary>
         /// <param name="message">
-        /// The current TypedMessage. 
+        /// The current TypedMessage.
         /// </param>
         private void InitQuotedReply(TypedMessageList message)
         {
@@ -1594,10 +1595,10 @@ namespace YAF.Pages
         /// Updates Watch Topic based on controls/settings for user...
         /// </summary>
         /// <param name="userId">
-        /// The user Id. 
+        /// The user Id.
         /// </param>
         /// <param name="topicId">
-        /// The topic Id. 
+        /// The topic Id.
         /// </param>
         private void UpdateWatchTopic(int userId, int topicId)
         {

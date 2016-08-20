@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,7 +28,6 @@ namespace YAF.Controls
     using System;
     using System.Web;
     using System.Web.UI;
-    using System.Web.UI.WebControls;
 
     using YAF.Core;
     using YAF.Types;
@@ -36,6 +35,7 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -47,23 +47,14 @@ namespace YAF.Controls
         #region Constants and Fields
 
         /// <summary>
-        ///   The _goto page form.
-        /// </summary>
-        private readonly GotoPageForm _gotoPageForm = new GotoPageForm();
-
-        /// <summary>
-        ///   The _page label.
-        /// </summary>
-        private readonly Label _pageLabel = new Label();
-
-        /// <summary>
         ///   The _ignore page index.
         /// </summary>
-        private bool _ignorePageIndex;
+        private bool ignorePageIndex;
 
-        #endregion
-
-        #region Events
+        /// <summary>
+        ///   The _goto page form.
+        /// </summary>
+        private readonly GotoPageForm gotoPageForm = new GotoPageForm();
 
         /// <summary>
         ///   The page change.
@@ -75,13 +66,18 @@ namespace YAF.Controls
         #region Properties
 
         /// <summary>
+        ///     Gets or sets GotoPageValue.
+        /// </summary>
+        public int GotoPageValue { get; set; }
+
+        /// <summary>
         ///   Gets or sets Count.
         /// </summary>
         public int Count
         {
             get
             {
-                return (int?)this.ViewState["Count"] ?? 0;
+                return this.ViewState["Count"].ToType<int?>() ?? 0;
             }
 
             set
@@ -156,7 +152,7 @@ namespace YAF.Controls
                     return null;
                 }
 
-                var linkedPager = (Pager)this.Parent.FindControl(this.LinkedPager);
+                var linkedPager = this.Parent.FindControlAs<Pager>(this.LinkedPager);
 
                 if (linkedPager == null)
                 {
@@ -189,7 +185,7 @@ namespace YAF.Controls
             else if (this.PageChange != null)
             {
                 this.CurrentPageIndex = int.Parse(eventArgument) - 1;
-                this._ignorePageIndex = true;
+                this.ignorePageIndex = true;
                 this.PageChange(this, new EventArgs());
             }
         }
@@ -257,7 +253,7 @@ namespace YAF.Controls
         {
             base.OnInit(e);
 
-            if (!this._ignorePageIndex && this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p") != null)
+            if (!this.ignorePageIndex && this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p") != null)
             {
                 // set a new page...
                 this.CurrentPageIndex =
@@ -265,61 +261,13 @@ namespace YAF.Controls
                         .ToType<int>() - 1;
             }
 
-            this._pageLabel.ID = this.GetExtendedID("PageLabel");
-            this._gotoPageForm.ID = this.GetExtendedID("GotoPageForm");
 
-            this.Controls.Add(this._pageLabel);
-            this.Controls.Add(this._gotoPageForm);
+            this.gotoPageForm.ID = this.GetExtendedID("GotoPageForm");
+
+            this.Controls.Add(this.gotoPageForm);
 
             // hook up events...
-            this._gotoPageForm.GotoPageClick += this._gotoPageForm_GotoPageClick;
-        }
-
-        /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.Load" /> event.
-        /// </summary>
-        /// <param name="e">The <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-        protected override void OnLoad([NotNull] EventArgs e)
-        {
-            base.OnLoad(e);
-
-            // init the necessary js...
-            this.PageContext.PageElements.RegisterCssBlock("PagerCss", "#simplemodal-overlay {background-color:#000;}");
-            this._pageLabel.Attributes.Add("style", "cursor: pointer");
-
-            const string GetBoxFunction = @"
-                  var gotoForumSuppressClick = false;  openGotoPageClick = function(e) {return false;};";
-
-            string modalFunction =
-                @"openGotoPageForm{2} = function(id) {{
-
-var gotoForm = jQuery('#{0}');
-
-gotoForm.css({{position:'absolute',zindex:999}});
-gotoForm.fadeIn( 'slow', function() {{
-	jQuery('#{0}').bind('click', openGotoPageClick);  
-	jQuery(document).bind('click', function(e) {{
-		jQuery('#{0}').hide();
-		var fn = arguments.callee;
-		jQuery(document).unbind('click', fn);
-		jQuery('#{0}').unbind('click', openGotoPageClick);
-	}});
-  jQuery('#{1}').focus();
-
-}});
-
-}};
-".FormatWith(this._gotoPageForm.ClientID, this._gotoPageForm.GotoTextBoxClientID, this.ClientID);
-
-            // register...
-            this.PageContext.PageElements.RegisterJsBlock(
-               "getBoxJs{0}", GetBoxFunction);
-            this.PageContext.PageElements.RegisterJsBlock(
-                "OpenGotoPageFormJs{0}".FormatWith(this.ClientID), modalFunction);
-            this.PageContext.PageElements.RegisterJsBlockStartup(
-                @"LoadPagerForm_{0}".FormatWith(this.ClientID),
-                @"Sys.Application.add_load(function() {{ jQuery('#{0}').click(function() {{ openGotoPageForm{1}('{0}'); }}); }});"
-                    .FormatWith(this._pageLabel.ClientID, this.ClientID));
+            this.gotoPageForm.GotoPageClick += this.GotoPageClick;
         }
 
         /// <summary>
@@ -341,65 +289,39 @@ gotoForm.fadeIn( 'slow', function() {{
                 return;
             }
 
-            if (this.PageContext.CurrentForumPage.IsAdminPage)
-            {
-                output.Write(@"<div class=""btn-toolbar pagination"" role=""toolbar"">");
+            output.Write(@"<div class=""btn-toolbar pagination"" role=""toolbar"">");
 
-                output.WriteLine(
-                @"<div class=""yafpager btn-group"" role=""group""><span title=""{0}"" id=""{1}"" class=""btn btn-secondary"">".FormatWith(
-                    this.Get<ILocalization>().TransPage.IsSet()
-                        ? this.GetText("COMMON", "GOTOPAGE_HEADER")
-                        : "Go to page...",
-                    this.ClientID));
-            }
-            else
-            {
-                output.WriteLine(
-                @"<div class=""yafpager"" title=""{0}"" id=""{1}"">".FormatWith(
-                    this.Get<ILocalization>().TransPage.IsSet()
-                        ? this.GetText("COMMON", "GOTOPAGE_HEADER")
-                        : "Go to page...",
-                    this.ClientID));
+            output.WriteLine(
+                @"<div class=""btn-group"" role=""group"">
+                      <button type=""button"" title=""{0}"" class=""btn btn-secondary dropdown-toggle"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
+                      {1:N0} {2}</button>",
+                this.Get<ILocalization>().TransPage.IsSet()
+                    ? this.GetText("COMMON", "GOTOPAGE_HEADER")
+                    : "Go to page...",
+                this.PageCount(),
+                this.GetText("COMMON", "PAGES"));
 
-                this._pageLabel.CssClass = "pagecount";
-            }
-            
 
-            // have to be careful about localization because the pager is used in the admin pages...
-            string pagesText = "Pages";
-            if (this.Get<ILocalization>().TransPage.IsSet())
-            {
-                pagesText = this.GetText("COMMON", "PAGES");
-            }
+            output.Write(@"<ul class=""dropdown-menu dropdown-menu-right"">");
 
-            this._pageLabel.Text = @"{0:N0} {1}".FormatWith(this.PageCount(), pagesText);
+            output.Write(@"<li class=""dropdown-item"">");
 
-            // render this control...
-            this._pageLabel.RenderControl(output);
+            this.gotoPageForm.RenderControl(output);
 
-            if (this.PageContext.CurrentForumPage.IsAdminPage)
-            {
-                output.Write(@"</span></div><div class=""btn-group"" role=""group"">");
+            output.Write("</li>");
 
-                this.OutputLinksAdmin(output, this.UsePostBack);
+            output.Write("</ul></div>");
 
-                output.WriteLine("</div></div>");
+            output.Write(@"<div class=""btn-group"" role=""group"">");
 
-                this._gotoPageForm.RenderControl(output);
-            }
-            else
-            {
-                this.OutputLinks(output, this.UsePostBack);
+            this.OutputLinks(output, this.UsePostBack);
 
-                this._gotoPageForm.RenderControl(output);
-
-                output.WriteLine("</div>");
-            }
+            output.WriteLine("</div></div>");
         }
 
         /// <summary>
         /// Gets the link URL.
-        /// </summary
+        /// </summary>
         /// <param name="pageNum">The page number.</param>
         /// <param name="postBack">The post back.</param>
         /// <returns>
@@ -422,114 +344,6 @@ gotoForm.fadeIn( 'slow', function() {{
         /// The post back.
         /// </param>
         private void OutputLinks([NotNull] HtmlTextWriter output, bool postBack)
-        {
-            var start = this.CurrentPageIndex - 2;
-            var end = this.CurrentPageIndex + 3;
-
-            if (start < 0)
-            {
-                start = 0;
-            }
-
-            if (end > this.PageCount())
-            {
-                end = this.PageCount();
-            }
-
-            if (start > 0)
-            {
-                output.RenderAnchorBegin(
-                    this.GetLinkUrl(1, postBack), "pagelinkfirst", this.GetText("COMMON", "GOTOFIRSTPAGE_TT"));
-
-                output.WriteBeginTag("span");
-                output.Write(HtmlTextWriter.TagRightChar);
-
-                output.Write("&laquo;");
-                output.WriteEndTag("span");
-                output.WriteEndTag("a");
-            }
-
-            if (this.CurrentPageIndex > start)
-            {
-                output.RenderAnchorBegin(
-                    this.GetLinkUrl(this.CurrentPageIndex, postBack),
-                    "pagelink",
-                    this.GetText("COMMON", "GOTOPREVPAGE_TT"));
-
-                output.WriteBeginTag("span");
-                output.Write(HtmlTextWriter.TagRightChar);
-
-                output.Write("&lt;");
-                output.WriteEndTag("span");
-                output.WriteEndTag("a");
-            }
-
-            for (int i = start; i < end; i++)
-            {
-                if (i == this.CurrentPageIndex)
-                {
-                    output.WriteBeginTag("span");
-                    output.WriteAttribute("class", "pagecurrent");
-                    output.Write(HtmlTextWriter.TagRightChar);
-                    output.Write(i + 1);
-                    output.WriteEndTag("span");
-                }
-                else
-                {
-                    string page = (i + 1).ToString();
-
-                    output.RenderAnchorBegin(this.GetLinkUrl(i + 1, postBack), "pagelink", page);
-
-                    output.WriteBeginTag("span");
-                    output.Write(HtmlTextWriter.TagRightChar);
-
-                    output.Write(page);
-                    output.WriteEndTag("span");
-                    output.WriteEndTag("a");
-                }
-            }
-
-            if (this.CurrentPageIndex < (this.PageCount() - 1))
-            {
-                output.RenderAnchorBegin(
-                    this.GetLinkUrl(this.CurrentPageIndex + 2, postBack),
-                    "pagelink",
-                    this.GetText("COMMON", "GOTONEXTPAGE_TT"));
-
-                output.WriteBeginTag("span");
-                output.Write(HtmlTextWriter.TagRightChar);
-
-                output.Write("&gt;");
-                output.WriteEndTag("span");
-                output.WriteEndTag("a");
-            }
-
-            if (end >= this.PageCount())
-            {
-                return;
-            }
-
-            output.RenderAnchorBegin(
-                this.GetLinkUrl(this.PageCount(), postBack), "pagelinklast", this.GetText("COMMON", "GOTOLASTPAGE_TT"));
-
-            output.WriteBeginTag("span");
-            output.Write(HtmlTextWriter.TagRightChar);
-
-            output.Write("&raquo;");
-            output.WriteEndTag("span");
-            output.WriteEndTag("a");
-        }
-
-        /// <summary>
-        /// The output links.
-        /// </summary>
-        /// <param name="output">
-        /// The output.
-        /// </param>
-        /// <param name="postBack">
-        /// The post back.
-        /// </param>
-        private void OutputLinksAdmin([NotNull] HtmlTextWriter output, bool postBack)
         {
             var start = this.CurrentPageIndex - 2;
             var end = this.CurrentPageIndex + 3;
@@ -633,7 +447,7 @@ gotoForm.fadeIn( 'slow', function() {{
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="GotoPageForumEventArgs"/> instance containing the event data.</param>
-        private void _gotoPageForm_GotoPageClick([NotNull] object sender, [NotNull] GotoPageForumEventArgs e)
+        private void GotoPageClick([NotNull] object sender, [NotNull] GotoPageForumEventArgs e)
         {
             int newPage = e.GotoPage - 1;
 
@@ -641,17 +455,17 @@ gotoForm.fadeIn( 'slow', function() {{
             {
                 // set a new page index...
                 this.CurrentPageIndex = newPage;
-                this._ignorePageIndex = true;
+                this.ignorePageIndex = true;
             }
 
             if (this.LinkedPager != null)
             {
                 // raise post back event on the linked pager...
-                this.CurrentLinkedPager._gotoPageForm_GotoPageClick(sender, e);
+                this.CurrentLinkedPager.GotoPageClick(sender, e);
             }
-            else if (this.PageChange != null)
+            else
             {
-                this.PageChange(this, new EventArgs());
+                this.PageChange?.Invoke(this, new EventArgs());
             }
         }
 

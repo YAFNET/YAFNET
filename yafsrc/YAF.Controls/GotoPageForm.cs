@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -11,9 +11,7 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
-
  * http://www.apache.org/licenses/LICENSE-2.0
-
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -27,15 +25,12 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Web.UI;
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
     using YAF.Core;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -78,34 +73,19 @@ namespace YAF.Controls
         #region Fields
 
         /// <summary>
-        ///     The _div inner.
-        /// </summary>
-        private readonly HtmlGenericControl _divInner = new HtmlGenericControl();
-
-        /// <summary>
         ///     The _goto button.
         /// </summary>
-        private readonly Button _gotoButton = new Button();
+        private readonly Button gotoButton = new Button();
 
         /// <summary>
         ///     The _goto text box.
         /// </summary>
-        private readonly TextBox _gotoTextBox = new TextBox();
-
-        /// <summary>
-        ///     The _header text.
-        /// </summary>
-        private readonly Label _headerText = new Label();
-
-        /// <summary>
-        ///     The _main panel.
-        /// </summary>
-        private readonly Panel _mainPanel = new Panel();
+        private readonly TextBox gotoTextBox = new TextBox();
 
         /// <summary>
         ///     The _goto page value.
         /// </summary>
-        private int _gotoPageValue;
+        private int gotoPageValue;
 
         #endregion
 
@@ -124,7 +104,7 @@ namespace YAF.Controls
         ///     Gets GotoButtonClientID.
         /// </summary>
         [NotNull]
-        public string GotoButtonClientID => this._gotoButton.ClientID;
+        public string GotoButtonClientID => this.gotoButton.ClientID;
 
         /// <summary>
         ///     Gets or sets GotoPageValue.
@@ -133,12 +113,12 @@ namespace YAF.Controls
         {
             get
             {
-                return this._gotoPageValue;
+                return this.gotoPageValue;
             }
 
             set
             {
-                this._gotoPageValue = value;
+                this.gotoPageValue = value;
             }
         }
 
@@ -146,17 +126,7 @@ namespace YAF.Controls
         ///     Gets GotoTextBoxClientID.
         /// </summary>
         [NotNull]
-        public string GotoTextBoxClientID => this._gotoTextBox.ClientID;
-
-        /// <summary>
-        ///     Gets InnerDiv.
-        /// </summary>
-        public HtmlGenericControl InnerDiv => this._divInner;
-
-        /// <summary>
-        ///     Gets MainPanel.
-        /// </summary>
-        public Panel MainPanel => this._mainPanel;
+        public string GotoTextBoxClientID => this.gotoTextBox.ClientID;
 
         #endregion
 
@@ -167,58 +137,37 @@ namespace YAF.Controls
         /// </summary>
         protected void BuildForm()
         {
-            this.Controls.Add(this._mainPanel);
+            var headerLabel = new HtmlGenericControl("label");
 
-            this._mainPanel.CssClass = "card";
-            this._mainPanel.ID = this.GetExtendedID("gotoBase");
+            headerLabel.Controls.Add(new Literal { Text = this.GetText("COMMON", "GOTOPAGE_HEADER") });
 
-            var divHeader = new HtmlGenericControl("div");
+            this.Controls.Add(headerLabel);
 
-            divHeader.Attributes.Add("class", "card-header");
-            divHeader.ID = this.GetExtendedID("divHeader");
+            var inputGroup = new HtmlGenericControl("div");
 
-            this._mainPanel.Controls.Add(divHeader);
-
-            this._headerText.ID = this.GetExtendedID("headerText");
-
-            divHeader.Controls.Add(this._headerText);
-
-            this._divInner.Attributes.Add("class", "card-block");
-            this._divInner.ID = this.GetExtendedID("gotoInner");
-
-            this._mainPanel.Controls.Add(this._divInner);
-
-            this._gotoButton.ID = this.GetExtendedID("GotoButton");
-            this._gotoButton.CssClass = "btn btn-primary";
-            this._gotoButton.CausesValidation = false;
-            this._gotoButton.UseSubmitBehavior = false;
-            this._gotoButton.Click += this.GotoButtonClick;
+            inputGroup.Attributes.Add("class", "input-group");
 
             // text box...
-            this._gotoTextBox.ID = this.GetExtendedID("GotoTextBox");
-            this._gotoTextBox.CssClass = "form-control";
+            this.gotoTextBox.ID = this.GetExtendedID("GotoTextBox");
+            this.gotoTextBox.CssClass = "form-control";
 
-            this._divInner.Controls.Add(this._gotoTextBox);
-            this._divInner.Controls.Add(this._gotoButton);
+            inputGroup.Controls.Add(this.gotoTextBox);
 
-            var replaceItems = new Dictionary<string, string>
-                               {
-                                   { "TEXTBOXID", this._gotoTextBox.ClientID },
-                                   { "BUTTONID", this._gotoButton.ClientID }
-                               };
+            var groupBtn = new HtmlGenericControl("span");
+            groupBtn.Attributes.Add("class", "input-group-btn");
 
-            var script = replaceItems.Aggregate(@"(function(app, $){
-                app.add_load(function() {
-                    $('#TEXTBOXID').bind('keydown', function(e) {        
-                        if (e.keyCode == 13) { 
-                            $('#BUTTONID').click();
-                            return false;
-                        } 
-                    });
-                });
-                })(Sys.Application, jQuery);", (current, replaceItem) => current.Replace(replaceItem.Key, replaceItem.Value));
+            this.gotoButton.ID = this.GetExtendedID("GotoButton");
+            this.gotoButton.CssClass = "btn btn-primary";
+            this.gotoButton.CausesValidation = false;
+            this.gotoButton.UseSubmitBehavior = false;
+            this.gotoButton.Click += this.GotoButtonClick;
+            this.gotoButton.Text = this.GetText("COMMON", "GO");
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(@"GotoPageFormKeyUp_{0}".FormatWith(this.ClientID), script);
+            groupBtn.Controls.Add(this.gotoButton);
+
+            inputGroup.Controls.Add(groupBtn);
+
+            this.Controls.Add(inputGroup);
         }
 
         /// <summary>
@@ -235,7 +184,7 @@ namespace YAF.Controls
             if (this.GotoPageClick != null)
             {
                 // attempt to parse the page value...
-                if (int.TryParse(this._gotoTextBox.Text.Trim(), out this._gotoPageValue))
+                if (int.TryParse(this.gotoTextBox.Text.Trim(), out this.gotoPageValue))
                 {
                     // valid, fire the event...
                     this.GotoPageClick(this, new GotoPageForumEventArgs(this.GotoPageValue));
@@ -243,7 +192,7 @@ namespace YAF.Controls
             }
 
             // clear the old value...
-            this._gotoTextBox.Text = string.Empty;
+            this.gotoTextBox.Text = string.Empty;
         }
 
         /// <summary>
@@ -268,20 +217,6 @@ namespace YAF.Controls
         protected override void OnLoad([NotNull] EventArgs e)
         {
             base.OnLoad(e);
-
-            // localization has to be done in here so as to not attempt
-            // to localize before the class has been created
-            if (this.Get<ILocalization>().TransPage.IsSet())
-            {
-                this._headerText.Text = this.GetText("COMMON", "GOTOPAGE_HEADER");
-                this._gotoButton.Text = this.GetText("COMMON", "GO");
-            }
-            else
-            {
-                // non-localized for admin pages
-                this._headerText.Text = "Goto Page...";
-                this._gotoButton.Text = "Go";
-            }
         }
 
         /// <summary>
@@ -292,11 +227,7 @@ namespace YAF.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            writer.WriteLine(@"<div id=""{0}"" style=""display:none"" class=""gotoPageForm"">".FormatWith(this.ClientID));
-
             base.Render(writer);
-
-            writer.WriteLine("</div>");
         }
 
         #endregion
