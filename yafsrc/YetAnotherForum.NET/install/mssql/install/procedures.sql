@@ -2096,7 +2096,7 @@ BEGIN
                 INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b  on b.GroupID=a.GroupID
             WHERE
                 b.BoardID = @BoardID and
-		        ModeratorAccess <> 0 AND x.AdminGroup = 0
+		        ModeratorAccess <> 0
             GROUP BY a.UserID, x.ForumID
         ) access ON usr.UserID = access.UserID
         JOIN    [{databaseOwner}].[{objectQualifier}Forum] f

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -123,7 +123,7 @@ namespace YAF.Core
 
         /// <summary>
         /// For the admin function: approve all users. Approves all
-        /// users waiting for approval 
+        /// users waiting for approval
         /// </summary>
         public static void ApproveAll()
         {
@@ -248,7 +248,7 @@ namespace YAF.Core
         /// </returns>
         public static bool DeleteUser(int userID, bool isBotAutoDelete = false)
         {
-            string userName = GetUserNameFromID(userID);
+            var userName = GetUserNameFromID(userID);
 
             if (userName.IsNotSet())
             {
@@ -272,24 +272,14 @@ namespace YAF.Core
             if (!YafContext.Current.Get<YafBoardSettings>().UseFileTable
                 && YafContext.Current.Get<YafBoardSettings>().AvatarUpload)
             {
-                if (File.Exists(Path.Combine(uploadFolderPath, "{0}.png".FormatWith(userID))))
-                {
-                    File.Delete(Path.Combine(uploadFolderPath, "{0}.png".FormatWith(userID)));
-                }
+                string[] imageExtensions = { "jpg", "jpeg", "gif", "png", "bmp" };
 
-                if (File.Exists(Path.Combine(uploadFolderPath, "{0}.jpg".FormatWith(userID))))
+                foreach (var extension in imageExtensions)
                 {
-                    File.Delete(Path.Combine(uploadFolderPath, "{0}.jpg".FormatWith(userID)));
-                }
-
-                if (File.Exists(Path.Combine(uploadFolderPath, "{0}.jpeg".FormatWith(userID))))
-                {
-                    File.Delete(Path.Combine(uploadFolderPath, "{0}.jpeg".FormatWith(userID)));
-                }
-
-                if (File.Exists(Path.Combine(uploadFolderPath, "{0}.gif".FormatWith(userID))))
-                {
-                    File.Delete(Path.Combine(uploadFolderPath, "{0}.gif".FormatWith(userID)));
+                    if (File.Exists(Path.Combine(uploadFolderPath, "{0}.{1}".FormatWith(userID, extension))))
+                    {
+                        File.Delete(Path.Combine(uploadFolderPath, "{0}.{1}".FormatWith(userID, extension)));
+                    }
                 }
             }
 
@@ -573,10 +563,10 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// Method returns MembershipUser 
+        /// Method returns MembershipUser
         /// </summary>
         /// <returns>
-        /// Returns MembershipUser 
+        /// Returns MembershipUser
         /// </returns>
         public static MembershipUser GetUser()
         {
@@ -621,10 +611,10 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// Method returns Application Name 
+        /// Method returns Application Name
         /// </summary>
         /// <returns>
-        /// Returns Application Name 
+        /// Returns Application Name
         /// </returns>
         public static string ApplicationName()
         {
