@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -189,18 +189,16 @@ namespace YAF.Modules
                     default:
                         var pageLinks = this.CurrentForumPage.FindControlAs<PageLinks>("PageLinks");
 
-                        if (pageLinks != null)
+                        var activePageLink = pageLinks?.PageLinkList?.FirstOrDefault(link => link.URL.IsNotSet());
+
+                        if (activePageLink != null)
                         {
-                            var activePageLink = pageLinks.PageLinkList.FirstOrDefault(link => link.URL.IsNotSet());
+                            addBoardName = false;
 
-                            if (activePageLink != null)
-                            {
-                                addBoardName = false;
-
-                                // Tack on the forum we're viewing
-                                title.Append(this.CurrentForumPage.HtmlEncode(activePageLink.Title.Truncate(80)));
-                            }
+                            // Tack on the forum we're viewing
+                            title.Append(this.CurrentForumPage.HtmlEncode(activePageLink.Title.Truncate(80)));
                         }
+
                         break;
                 }
             }
