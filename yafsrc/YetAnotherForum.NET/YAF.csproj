@@ -358,6 +358,7 @@
     <Compile Include="Modules\BBCode\HideReplyThanksModule.cs" />
     <Compile Include="Modules\BBCode\SpoilerBBCodeModule.cs" />
     <Compile Include="Modules\BBCode\UserLinkBBCodeModule.cs" />
+    <Compile Include="Modules\CanonicalMetaTagModule.cs" />
     <Compile Include="Modules\Events\ClearCacheOnEvents.cs" />
     <Compile Include="Modules\Events\LastVisitEventHandler.cs" />
     <Compile Include="Modules\LanguageDirectionModule.cs" />
