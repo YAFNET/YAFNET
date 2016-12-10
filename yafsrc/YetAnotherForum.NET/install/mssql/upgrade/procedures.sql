@@ -2498,7 +2498,9 @@ BEGIN
         LastUserStyle = ''
         END
         -- this can be in any very rare updatable cached place
-        DELETE FROM [{databaseOwner}].[{objectQualifier}Topic] where TopicMovedID IS NOT NULL AND LinkDate IS NOT NULL AND LinkDate < GETUTCDATE()
+        DECLARE @linkDate datetime = GETUTCDATE()
+        DELETE FROM [{databaseOwner}].[{objectQualifier}TopicReadTracking] where TopicID IN (SELECT TopicID FROM [{databaseOwner}].[{objectQualifier}Topic] where TopicMovedID IS NOT NULL AND LinkDate IS NOT NULL AND LinkDate < @linkDate)
+        DELETE FROM [{databaseOwner}].[{objectQualifier}Topic] where TopicMovedID IS NOT NULL AND LinkDate IS NOT NULL AND LinkDate < @linkDate
 
 END
 GO
