@@ -120,7 +120,7 @@ namespace Intelligencia.UrlRewriter
                                     builder.AppendFormat(
                                         "{0}={1}&",
                                         value,
-                                        argument);
+                                        HttpUtility.UrlEncode(argument));
                                 }
                             }
                             else
@@ -128,7 +128,7 @@ namespace Intelligencia.UrlRewriter
                                 builder.AppendFormat(
                                    "{0}={1}&",
                                    value,
-                                   argument);
+                                   HttpUtility.UrlEncode(argument));
                             }
                         }
 
