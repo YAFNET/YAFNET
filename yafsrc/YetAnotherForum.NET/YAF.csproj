@@ -935,22 +935,22 @@
     <Content Include="auth.aspx" />
     <Content Include="Content\blueimp-gallery.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap-flex.css" />
+    <Content Include="Content\bootstrap-flex.min.css" />
     <Content Include="Content\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-forum.min.css">
       <DependentUpon>bootstrap-forum.css</DependentUpon>
     </Content>
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-image-gallery.css" />
     <Content Include="Content\bootstrap-notify.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.css.map">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\bootstrap.min.css.map">
-      <DependentUpon>bootstrap.min.css</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap\bootstrap.css">
       <DependentUpon>bootstrap.scss</DependentUpon>
     </Content>
@@ -962,6 +962,7 @@
       <DependentUpon>select2.css</DependentUpon>
     </Content>
     <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\forum-admin.css">
       <DependentUpon>forum-admin.scss</DependentUpon>
@@ -975,6 +976,15 @@
     <Content Include="Content\forum.min.css">
       <DependentUpon>forum.css</DependentUpon>
     </Content>
+    <Content Include="Content\bootstrap-datetimepicker-build.less" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Content\bootstrap-flex.min.css.map" />
+    <Content Include="Content\bootstrap-flex.css.map" />
     <None Include="Content\forum\attachments-upload.scss" />
     <Content Include="Content\images\error.png" />
     <Content Include="Content\images\error.svg" />
@@ -1098,6 +1108,7 @@
     <Content Include="default.aspx" />
     <Content Include="error.aspx" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="forumlogo.jpg" />
     <Content Include="Images\Avatars\Common\SampleAvatar.gif" />
     <Content Include="Images\Medals\award_star_bronze_3.png" />
@@ -1358,9 +1369,7 @@
     <Content Include="Scripts\bootstrap-image-gallery.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
     <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js">
-      <DependentUpon>bootstrap.js</DependentUpon>
-    </Content>
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
     <Content Include="Scripts\ckeditor\config.js" />
@@ -1412,6 +1421,7 @@
     <Content Include="Scripts\ckeditor\lang\nb.js" />
     <Content Include="Scripts\ckeditor\lang\nl.js" />
     <Content Include="Scripts\ckeditor\lang\no.js" />
+    <Content Include="Scripts\ckeditor\lang\oc.js" />
     <Content Include="Scripts\ckeditor\lang\pl.js" />
     <Content Include="Scripts\ckeditor\lang\pt-br.js" />
     <Content Include="Scripts\ckeditor\lang\pt.js" />
@@ -1473,6 +1483,7 @@
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\nb.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\nl.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\no.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\oc.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pl.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pt-br.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pt.js" />
@@ -1514,6 +1525,9 @@
     <Content Include="Scripts\ckeditor\plugins\clipboard\dialogs\paste.js" />
     <Content Include="Scripts\ckeditor\plugins\colordialog\dialogs\colordialog.css" />
     <Content Include="Scripts\ckeditor\plugins\colordialog\dialogs\colordialog.js" />
+    <Content Include="Scripts\ckeditor\plugins\copyformatting\cursors\cursor-disabled.svg" />
+    <Content Include="Scripts\ckeditor\plugins\copyformatting\cursors\cursor.svg" />
+    <Content Include="Scripts\ckeditor\plugins\copyformatting\styles\copyformatting.css" />
     <Content Include="Scripts\ckeditor\plugins\dialog\dialogDefinition.js" />
     <Content Include="Scripts\ckeditor\plugins\icons.png" />
     <Content Include="Scripts\ckeditor\plugins\icons_hidpi.png" />
@@ -1530,6 +1544,7 @@
     <Content Include="Scripts\ckeditor\plugins\pastefromword\filter\default.js" />
     <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\options.js" />
     <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\toolbar.css" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\skins\moono-lisa\scayt.css" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\af.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ar.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\bg.js" />
@@ -1565,6 +1580,7 @@
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\nb.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\nl.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\no.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\oc.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\pl.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\pt-br.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\pt.js" />
@@ -1729,29 +1745,28 @@
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.css" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.js" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
-    <Content Include="Scripts\ckeditor\skins\moono\dialog.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\dialog_ie.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\dialog_ie7.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\dialog_ie8.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\dialog_iequirks.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\editor.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\editor_gecko.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\editor_ie.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\editor_ie7.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\editor_ie8.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\editor_iequirks.css" />
-    <Content Include="Scripts\ckeditor\skins\moono\icons.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\icons_hidpi.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\arrow.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\close.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\close.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\lock-open.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\lock.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\hidpi\refresh.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\lock-open.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\lock.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\refresh.png" />
-    <Content Include="Scripts\ckeditor\skins\moono\images\spinner.gif" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\skins\moono-lisa\wsc.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\dialog.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\dialog_ie.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\dialog_ie8.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\dialog_iequirks.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\editor.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\editor_gecko.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\editor_ie.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\editor_ie8.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\editor_iequirks.css" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\icons.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\icons_hidpi.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\arrow.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\close.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\hidpi\close.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\hidpi\lock-open.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\hidpi\lock.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\hidpi\refresh.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\lock-open.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\lock.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\refresh.png" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\images\spinner.gif" />
     <Content Include="Scripts\ckeditor\styles.js" />
     <Content Include="Scripts\i18n\ar.js" />
     <Content Include="Scripts\i18n\az.js" />
@@ -1800,20 +1815,11 @@
     <Content Include="Scripts\i18n\vi.js" />
     <Content Include="Scripts\i18n\zh-CN.js" />
     <Content Include="Scripts\i18n\zh-TW.js" />
-    <Content Include="Scripts\jquery-3.1.0.js" />
-    <Content Include="Scripts\jquery-3.1.0.min.js">
-      <DependentUpon>jquery-3.1.0.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery-3.1.0.min.map">
-      <DependentUpon>jquery-3.1.0.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery-3.1.0.slim.js" />
-    <Content Include="Scripts\jquery-3.1.0.slim.min.js">
-      <DependentUpon>jquery-3.1.0.slim.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery-3.1.0.slim.min.map">
-      <DependentUpon>jquery-3.1.0.slim.min.js</DependentUpon>
-    </Content>
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.blueimp-gallery.js" />
     <Content Include="Scripts\jquery.bootstrap-touchspin.js" />
@@ -1847,12 +1853,10 @@
     <Content Include="Scripts\ladda.min.js">
       <DependentUpon>ladda.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\moment-with-locales.min.js">
-      <DependentUpon>moment-with-locales.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\moment.min.js">
-      <DependentUpon>moment.js</DependentUpon>
-    </Content>
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\select2.min.js">
       <DependentUpon>select2.js</DependentUpon>
     </Content>
@@ -1876,8 +1880,6 @@
     <Content Include="Scripts\ladda.js" />
     <Content Include="Scripts\metisMenu.js" />
     <Content Include="Scripts\metisMenu.min.js" />
-    <Content Include="Scripts\moment-with-locales.js" />
-    <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\jquery.selectedQuoting.js" />
     <Content Include="Scripts\select2.js" />
@@ -2770,6 +2772,12 @@
     <None Include="Content\InstallWizard.scss" />
     <None Include="Content\jsdifflib.scss" />
     <Content Include="YafUploader.ashx" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\_bootstrap-datetimepicker.less" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -3477,7 +3485,9 @@
     <Content Include="recommended.web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
+    <Content Include="Scripts\forum\yaf.MessageHistory.js" />
+    <Content Include="Scripts\forum\yaf.Attachments.js" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="Scripts\ckeditor\README.md" />
     <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
     <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
@@ -3487,11 +3497,8 @@
     <Content Include="Scripts\ckeditor\package.json" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
-    <Content Include="Scripts\forum\yaf.MessageHistory.js" />
-    <Content Include="Scripts\forum\yaf.Attachments.js" />
-    <None Include="Scripts\jquery-3.1.0.intellisense.js">
-      <DependentUpon>jquery-3.1.0.js</DependentUpon>
-    </None>
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
     <None Include="themes\cleanSlate\theme.less" />
     <Content Include="themes\cleanSlate\theme.css">
       <DependentUpon>theme.less</DependentUpon>

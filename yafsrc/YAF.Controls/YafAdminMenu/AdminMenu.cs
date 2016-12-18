@@ -79,11 +79,12 @@ namespace YAF.Controls
             {
 #if !DEBUG
                 var isVisible = !(item.Debug.IsSet() && Convert.ToBoolean(item.Debug));
-#endif
+
                 if (!isVisible)
                 {
                     continue;
                 }
+#endif
 
                 string url = string.Empty;
                 bool highlightPage = false;

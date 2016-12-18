@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,9 +24,13 @@
 
 namespace YAF.Controls
 {
+    using Core.Data.Profiling;
     #region Using
 
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
     using System.Text;
     using System.Web;
     using System.Web.UI;
@@ -141,15 +145,15 @@ namespace YAF.Controls
 			if (extensions.Any(x => x.Contains(".Module")))
 			{
 				footer.AppendFormat(
-					@"<br /><br />Extensions Loaded: <span style=""color: green"">{0}</span>", 
+					@"<br /><br />Extensions Loaded: <span style=""color: green"">{0}</span>",
 					extensions.Where(x => x.Contains(".Module")).ToDelimitedString("<br />"));
 			}
 
 			footer.AppendFormat(
-				@"<br /><br /><b>{0}</b> SQL Queries: <b>{1:N3}</b> Seconds (<b>{2:N2}%</b> of Total Page Load Time).<br />{3}", 
-				QueryCounter.Count, 
-				QueryCounter.Duration, 
-				(100 * QueryCounter.Duration) / this.Get<IStopWatch>().Duration, 
+				@"<br /><br /><b>{0}</b> SQL Queries: <b>{1:N3}</b> Seconds (<b>{2:N2}%</b> of Total Page Load Time).<br />{3}",
+				QueryCounter.Count,
+				QueryCounter.Duration,
+				(100 * QueryCounter.Duration) / this.Get<IStopWatch>().Duration,
 				QueryCounter.Commands);
 			footer.Append("</div>");
 #endif
