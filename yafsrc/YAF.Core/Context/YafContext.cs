@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -275,7 +275,7 @@ namespace YAF.Core
         /// Returns a value from the YafContext Global Instance Variables (Vars) collection.
         /// </summary>
         /// <returns>
-        /// Value if it's found, null if it doesn't exist. 
+        /// Value if it's found, null if it doesn't exist.
         /// </returns>
         public object this[[NotNull] string varName]
         {
@@ -298,10 +298,10 @@ namespace YAF.Core
         /// Helper Function that adds a "load message" to the load message class.
         /// </summary>
         /// <param name="message">
-        /// The message. 
+        /// The message.
         /// </param>
         /// <param name="messageType">
-        /// The message type. 
+        /// The message type.
         /// </param>
         public void AddLoadMessage([NotNull] string message, MessageTypes messageType = MessageTypes.info)
         {
@@ -313,12 +313,10 @@ namespace YAF.Core
         /// </summary>
         public void Dispose()
         {
-            if (this.Unload != null)
-            {
-                this.Unload(this, new EventArgs());
-            }
+            this.Unload?.Invoke(this, new EventArgs());
 
-            this._contextLifetimeContainer.Dispose();
+            // No need to dispose the container here
+            //this._contextLifetimeContainer.Dispose();
         }
 
         #endregion
@@ -335,10 +333,7 @@ namespace YAF.Core
                 return;
             }
 
-            if (this.BeforeInit != null)
-            {
-                this.BeforeInit(this, new EventArgs());
-            }
+            this.BeforeInit?.Invoke(this, new EventArgs());
 
             if (this.User != null
                 && (this.Get<HttpSessionStateBase>()["UserUpdated"] == null
@@ -354,10 +349,7 @@ namespace YAF.Core
 
             this.Page = pageLoadEvent.DataDictionary;
 
-            if (this.AfterInit != null)
-            {
-                this.AfterInit(this, new EventArgs());
-            }
+            this.AfterInit?.Invoke(this, new EventArgs());
         }
 
         #endregion
