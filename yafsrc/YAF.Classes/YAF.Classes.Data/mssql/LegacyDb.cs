@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -901,7 +901,7 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// Retuns All the Thanks for the Message IDs which are in the 
+        /// Retuns All the Thanks for the Message IDs which are in the
         ///   delimited string variable MessageIDs
         /// </summary>
         /// <param name="messageIdsSeparatedWithColon">
@@ -1023,13 +1023,13 @@ namespace YAF.Classes.Data
                 cmd.AddParam("BoardID", boardId);
                 cmd.AddParam("StyledNicks", useStyledNicks);
                 cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
-            
+
                 return DbAccess.GetData(cmd);
             }
         }
 
         /// <summary>
-        /// Saves access for an admin user for an admin page.  
+        /// Saves access for an admin user for an admin page.
         /// </summary>
         /// <param name="userId">
         /// The user ID.
@@ -1038,7 +1038,7 @@ namespace YAF.Classes.Data
         /// The page name/
         /// </param>
         /// <param name="readAccess">
-        /// The read access. 
+        /// The read access.
         /// </param>
         public static void adminpageaccess_save([NotNull] object userId, [NotNull] object pageName)
         {
@@ -1090,7 +1090,7 @@ namespace YAF.Classes.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.AddParam("UserID", userId);
                 cmd.AddParam("PageName", pageName);
-                  
+
                 return DbAccess.GetData(cmd);
             }
         }
@@ -1782,10 +1782,10 @@ namespace YAF.Classes.Data
                     connMan.InfoMessage += new YafDBConnInfoMessageEventHandler(recoveryDbMode_InfoMessage);
                     var RecoveryModeConn = new SqlConnection(Config.ConnectionString);
                     RecoveryModeConn.Open();
-                   
+
                     string RecoveryMode = "ALTER DATABASE " + connMan.DBConnection.Database + " SET RECOVERY " + dbRecoveryMode;
                     var RecoveryModeCmd = new SqlCommand(RecoveryMode, RecoveryModeConn);
-                   
+
                     RecoveryModeCmd.ExecuteNonQuery();
                     RecoveryModeConn.Close();
                     using (var cmd = new SqlCommand(RecoveryMode, connMan.OpenDBConnection))
@@ -1808,14 +1808,14 @@ namespace YAF.Classes.Data
                 recoveryDbModeMessage += "\r\n{0}\r\n{1}".FormatWith(error.Message, expressDb);
                 return recoveryDbModeMessage;
             }
-           
+
             finally
             {
                 recoveryDbModeMessage = string.Empty;
             }
 
-            
-            
+
+
         }
         /// <summary>
         /// The recoveryDbMode_InfoMessage.
@@ -1854,7 +1854,7 @@ namespace YAF.Classes.Data
         /// </param>
         public static void db_reindex([NotNull] MsSqlDbConnectionManager connectionManager)
         {
-           
+
             // create statistic getting SQL...
             var sb = new StringBuilder();
 
@@ -1888,7 +1888,7 @@ namespace YAF.Classes.Data
                 cmd.ExecuteNonQuery();
             }
         }
-        
+
         /// <summary>
         /// The db_recovery_mode_warning.
         /// </summary>
@@ -2053,8 +2053,8 @@ namespace YAF.Classes.Data
             {
                 messageRunSql = string.Empty;
             }
-  
-           
+
+
         }
 
         /// <summary>
@@ -2274,7 +2274,7 @@ namespace YAF.Classes.Data
                 DbAccess.ExecuteNonQuery(cmd);
             }
         }
-       
+
         /// <summary>
         /// Deletes event log access entries from table.
         /// </summary>
@@ -2321,7 +2321,7 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// Lists group for the board Id handy to display on the calling admin page. 
+        /// Lists group for the board Id handy to display on the calling admin page.
         /// </summary>
         /// <param name="boardId">
         /// The board Id.
@@ -2438,7 +2438,7 @@ namespace YAF.Classes.Data
                 }
 
                 forum_deleteAttachments(forumID);
-                
+
                 using (SqlCommand cmd_new = DbHelpers.GetCommand("forum_delete"))
                 {
                     cmd_new.CommandType = CommandType.StoredProcedure;
@@ -2519,7 +2519,7 @@ namespace YAF.Classes.Data
         // END ABOT CHANGE 16.04.04
         // ABOT NEW 16.04.04: This new function lists all moderated topic by the specified user
 
-       
+
         /// <summary>
         /// Gets a max id of forums.
         /// </summary>
@@ -3137,7 +3137,7 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The method returns an integer value for a  found parent forum 
+        /// The method returns an integer value for a  found parent forum
         ///   if a forum is a parent of an existing child to avoid circular dependency
         ///   while creating a new forum
         /// </summary>
@@ -3447,7 +3447,7 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// Returns info about all Groups and Rank styles. 
+        /// Returns info about all Groups and Rank styles.
         ///   Used in GroupRankStyles cache.
         ///   Usage: LegendID = 1 - Select Groups, LegendID = 2 - select Ranks by Name
         /// </summary>
@@ -3507,10 +3507,10 @@ namespace YAF.Classes.Data
         /// The usrSigChars defines number of allowed characters in user signature.
         /// </param>
         /// <param name="usrSigBBCodes">
-        /// The UsrSigBBCodes.defines comma separated bbcodes allowed for a rank, i.e in a user signature 
+        /// The UsrSigBBCodes.defines comma separated bbcodes allowed for a rank, i.e in a user signature
         /// </param>
         /// <param name="usrSigHTMLTags">
-        /// The UsrSigHTMLTags defines comma separated tags allowed for a rank, i.e in a user signature 
+        /// The UsrSigHTMLTags defines comma separated tags allowed for a rank, i.e in a user signature
         /// </param>
         /// <param name="usrAlbums">
         /// The UsrAlbums defines allowed number of albums.
@@ -3631,9 +3631,9 @@ namespace YAF.Classes.Data
                 cmd.AddParam("MessageID", MessageID);
                 cmd.AddParam("UseDisplayName", useDisplayName);
                 cmd.Parameters.Add(paramOutput);
-                
+
                 DbAccess.ExecuteNonQuery(cmd);
-                
+
                 return paramOutput.Value.ToString();
             }
         }
@@ -4157,7 +4157,7 @@ namespace YAF.Classes.Data
                 cmd.AddParam("OverrideApproval", overrideApproval);
                 cmd.AddParam("OriginalMessage", originalMessage);
                 cmd.AddParam("CurrentUtcTimestamp", DateTime.UtcNow);
-                
+
                 DbAccess.ExecuteNonQuery(cmd);
             }
         }
@@ -4230,7 +4230,7 @@ namespace YAF.Classes.Data
         /// Days to clean.
         /// </param>
         /// <returns>
-        /// List of all message changes. 
+        /// List of all message changes.
         /// </returns>
         public static DataTable messagehistory_list(int messageId, int daysToClean)
         {
@@ -4563,7 +4563,7 @@ namespace YAF.Classes.Data
         /// The location.
         /// </param>
         /// <param name="forumPage">
-        /// The forum page name.   
+        /// The forum page name.
         /// </param>
         /// <param name="browser">
         /// The browser.
@@ -4819,17 +4819,17 @@ namespace YAF.Classes.Data
         /// The poll_remove.
         /// </summary>
         /// <param name="pollGroupID">
-        /// The poll group id. The parameter should always be present. 
+        /// The poll group id. The parameter should always be present.
         /// </param>
         /// <param name="pollID">
-        /// The poll id. If null all polls in a group a deleted. 
+        /// The poll id. If null all polls in a group a deleted.
         /// </param>
         /// <param name="boardId">
-        /// The BoardID id. 
+        /// The BoardID id.
         /// </param>
         /// <param name="removeCompletely">
-        /// The RemoveCompletely. If true and pollID is null , all polls in a group are deleted completely, 
-        ///   else only one poll is deleted completely. 
+        /// The RemoveCompletely. If true and pollID is null , all polls in a group are deleted completely,
+        ///   else only one poll is deleted completely.
         /// </param>
         public static void poll_remove([NotNull] object pollGroupID, [NotNull] object pollID, [NotNull] object boardId, bool removeCompletely)
         {
@@ -4920,10 +4920,10 @@ namespace YAF.Classes.Data
                     sb.Append("); ");
                 }
 
-                // we don't update if no new group is created 
+                // we don't update if no new group is created
                 sb.Append("IF  @PollGroupID IS NULL BEGIN  ");
 
-                // fill a pollgroup field - double work if a poll exists 
+                // fill a pollgroup field - double work if a poll exists
                 if (question.TopicId > 0)
                 {
                     sb.Append("UPDATE ");
@@ -4931,7 +4931,7 @@ namespace YAF.Classes.Data
                     sb.Append(" SET PollID = @NewPollGroupID WHERE TopicID = @TopicID; ");
                 }
 
-                // fill a pollgroup field in Forum Table if the call comes from a forum's topic list 
+                // fill a pollgroup field in Forum Table if the call comes from a forum's topic list
                 if (question.ForumId > 0)
                 {
                     sb.Append("UPDATE ");
@@ -4939,7 +4939,7 @@ namespace YAF.Classes.Data
                     sb.Append(" SET PollGroupID= @NewPollGroupID WHERE ForumID= @ForumID; ");
                 }
 
-                // fill a pollgroup field in Category Table if the call comes from a category's topic list 
+                // fill a pollgroup field in Category Table if the call comes from a category's topic list
                 if (question.CategoryId > 0)
                 {
                     sb.Append("UPDATE ");
@@ -4947,7 +4947,7 @@ namespace YAF.Classes.Data
                     sb.Append(" SET PollGroupID= @NewPollGroupID WHERE CategoryID= @CategoryID; ");
                 }
 
-                // fill a pollgroup field in Board Table if the call comes from the main page poll 
+                // fill a pollgroup field in Board Table if the call comes from the main page poll
                 sb.Append("END;  ");
 
                 using (var cmd = DbHelpers.GetCommand(sb.ToString(), true))
@@ -5300,10 +5300,10 @@ namespace YAF.Classes.Data
             using (var cmd = DbHelpers.GetCommand("post_alluser_simple"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                
+
                 cmd.AddParam("BoardID", boardID);
                 cmd.AddParam("UserID", userID);
-                
+
                 return DbAccess.GetData(cmd);
             }
         }
@@ -5386,9 +5386,9 @@ namespace YAF.Classes.Data
         /// <returns>
         /// </returns>
         public static DataTable post_list(
-            [NotNull] object topicId, 
+            [NotNull] object topicId,
             object currentUserID,
-            [NotNull] object authorUserID, 
+            [NotNull] object authorUserID,
             [NotNull] object updateViewCount,
                                           bool showDeleted,
                                           bool styledNicks,
@@ -5528,10 +5528,10 @@ namespace YAF.Classes.Data
         /// The usrSigChars defines number of allowed characters in user signature.
         /// </param>
         /// <param name="usrSigBBCodes">
-        /// The UsrSigBBCodes.defines comma separated bbcodes allowed for a rank, i.e in a user signature 
+        /// The UsrSigBBCodes.defines comma separated bbcodes allowed for a rank, i.e in a user signature
         /// </param>
         /// <param name="usrSigHTMLTags">
-        /// The UsrSigHTMLTags defines comma separated tags allowed for a rank, i.e in a user signature 
+        /// The UsrSigHTMLTags defines comma separated tags allowed for a rank, i.e in a user signature
         /// </param>
         /// <param name="usrAlbums">
         /// The UsrAlbums defines allowed number of albums.
@@ -6106,7 +6106,7 @@ namespace YAF.Classes.Data
         /// </param>
         /// <param name="toDate">
         /// The to Date.
-        /// </param> 
+        /// </param>
         /// <param name="pageIndex">
         /// The page Index.
         /// </param>
@@ -6158,7 +6158,7 @@ namespace YAF.Classes.Data
         /// </param>
         /// <param name="toDate">
         /// The to Date.
-        /// </param> 
+        /// </param>
         /// <param name="pageIndex">
         /// The page Index.
         /// </param>
@@ -6209,7 +6209,7 @@ namespace YAF.Classes.Data
         /// </param>
         /// <param name="toDate">
         /// The to Date.
-        /// </param> 
+        /// </param>
         /// <param name="pageIndex">
         /// The page Index.
         /// </param>
@@ -6260,7 +6260,7 @@ namespace YAF.Classes.Data
         /// </param>
         /// <param name="toDate">
         /// The to Date.
-        /// </param> 
+        /// </param>
         /// <param name="pageIndex">
         /// The page Index.
         /// </param>
@@ -6474,7 +6474,7 @@ namespace YAF.Classes.Data
         /// The num of posts to retrieve.
         /// </param>
         /// <param name="pageUserId">
-        /// The page UserId id. 
+        /// The page UserId id.
         /// </param>
         /// <param name="useStyledNicks">
         /// If true returns string for userID style.
@@ -6849,13 +6849,13 @@ namespace YAF.Classes.Data
             using (var cmd = DbHelpers.GetCommand("topic_similarlist"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                
+
                 cmd.AddParam("PageUserID", userID);
                 cmd.AddParam("Topic", topicTitle);
                 cmd.AddParam("TopicID", topicID);
                 cmd.AddParam("Count", count);
                 cmd.AddParam("StyledNicks", styledNicks);
-                
+
                 return DbAccess.GetData(cmd);
             }
         }
@@ -7011,7 +7011,7 @@ namespace YAF.Classes.Data
                 cmd.AddParam("BoardID", boardID);
                 cmd.AddParam("UserID", userID);
 
-                ///TODO: Recursion doesn't work here correctly at all because of UNION in underlying sql script. Possibly the only acceptable solution will be splitting the UNIONed queries and displaying 2 "trees". Maybe another solution exists.  
+                ///TODO: Recursion doesn't work here correctly at all because of UNION in underlying sql script. Possibly the only acceptable solution will be splitting the UNIONed queries and displaying 2 "trees". Maybe another solution exists.
                return userforumaccess_sort_list(DbAccess.GetData(cmd), 0, 0, 0);
             }
         }
@@ -7100,7 +7100,7 @@ namespace YAF.Classes.Data
             }
         }
 
-        
+
 
         /// <summary>
         /// The user_adminsave.
@@ -7477,7 +7477,7 @@ namespace YAF.Classes.Data
             }
         }
 
-        // <summary> Returns the number of times and posts that other users have thanked the 
+        // <summary> Returns the number of times and posts that other users have thanked the
         // user with the provided userID.
         /// <summary>
         /// The user_getthanks_to.
@@ -7849,7 +7849,7 @@ namespace YAF.Classes.Data
             catch (Exception e)
             {
                 LegacyDb.eventlog_create(null, e.Source, e.Message,EventLogTypes.Error);
-            } 
+            }
 
             return null;
         }
@@ -8352,24 +8352,30 @@ namespace YAF.Classes.Data
         /// The notification Type.
         /// </param>
         public static void user_save(
-            [NotNull] object userID, 
-            [NotNull] object boardID, 
-            [NotNull] object userName, 
-            [NotNull] object displayName, 
-            [NotNull] object email, 
-            [NotNull] object timeZone, 
-            [NotNull] object languageFile, 
-            [NotNull] object culture, 
-            [NotNull] object themeFile, 
-            [NotNull] object textEditor, 
-            [NotNull] object useMobileTheme, 
-            [NotNull] object approved, 
-            [NotNull] object pmNotification, 
-            [NotNull] object autoWatchTopics, 
-            [NotNull] object dSTUser, 
-            [NotNull] object hideUser, 
-            [NotNull] object notificationType)
+            [NotNull] object userID,
+            [NotNull] object boardID,
+            [NotNull] object userName,
+            [NotNull] object displayName,
+            [NotNull] object email,
+            [NotNull] object timeZone,
+            [NotNull] object languageFile,
+            [NotNull] object culture,
+            [NotNull] object themeFile,
+            [NotNull] object textEditor,
+            [NotNull] object useMobileTheme,
+            [NotNull] object approved,
+            [NotNull] object pmNotification,
+            [NotNull] object autoWatchTopics,
+            [NotNull] object dSTUser,
+            [NotNull] object hideUser,
+            [NotNull] object notificationType,
+            [CanBeNull] object utcTimeStamp = null)
         {
+            if (utcTimeStamp == null)
+            {
+                utcTimeStamp = DateTime.UtcNow;
+            }
+
             using (var cmd = DbHelpers.GetCommand("user_save"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -8672,13 +8678,13 @@ namespace YAF.Classes.Data
                 cmd.AddParam("Suspend", suspend);
                 cmd.AddParam("SuspendReason", suspendReason);
                 cmd.AddParam("SuspendBy", suspendBy);
-                
+
                 DbAccess.ExecuteNonQuery(cmd);
             }
         }
 
         /// <summary>
-        /// Returns the posts which is thanked by the user + the posts which are posted by the user and 
+        /// Returns the posts which is thanked by the user + the posts which are posted by the user and
         ///   are thanked by other users.
         /// </summary>
         /// <param name="UserID">
@@ -8856,10 +8862,10 @@ namespace YAF.Classes.Data
             {
                 return;
             }
-            
+
             // load the data for the configuration
             List<SettingsPropertyColumn> spc = LoadFromPropertyValueCollection(collection);
-            
+
             if (spc != null && spc.Count > 0)
             {
                 // start saving...
@@ -9256,7 +9262,7 @@ namespace YAF.Classes.Data
                 {
                     reader.Close();
                 }
-                
+
                 results.AppendLine();
                 results.AppendFormat("SQL ERROR: {0}", x);
             }
@@ -9596,7 +9602,7 @@ namespace YAF.Classes.Data
                         }
                         catch
                         {
-                            // error deleting that file... 
+                            // error deleting that file...
                         }
                     }
                 }
@@ -9710,7 +9716,7 @@ namespace YAF.Classes.Data
             listDestination.Columns.Add("ForumID", typeof(String));
             listDestination.Columns.Add("ForumName", typeof(String));
 
-            // it is uset in two different procedures with different tables, 
+            // it is uset in two different procedures with different tables,
             // so, we must add correct columns
             if (listSource.Columns.IndexOf("AccessMaskName") >= 0)
             {
