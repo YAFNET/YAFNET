@@ -8396,7 +8396,7 @@ namespace YAF.Classes.Data
                 cmd.AddParam("DSTUser", dSTUser);
                 cmd.AddParam("HideUser", hideUser);
                 cmd.AddParam("NotificationType", notificationType);
-                cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
+                cmd.AddParam("UTCTIMESTAMP", utcTimeStamp);
                 DbAccess.ExecuteNonQuery(cmd);
             }
         }
