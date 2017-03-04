@@ -1,11 +1,20 @@
 // Generic Functions
 jQuery(document).ready(function () {
     // Numeric Spinner Inputs
-    jQuery("input[type='number']").TouchSpin();
+    jQuery("input[type='number']").TouchSpin({
+        max: 2147483647
+    });
 
-    jQuery(".serverTime-Input").TouchSpin({ min: -720, max: 720 });
+    jQuery(".serverTime-Input").TouchSpin({
+        min: -720,
+        max: 720
+    });
 
-    jQuery(".yafnet-bs .standardSelectMenu").select2({ theme: "bootstrap", dropdownAutoWidth: true, width: 'style' });
+    jQuery(".yafnet-bs .standardSelectMenu").select2({
+        theme: "bootstrap",
+        dropdownAutoWidth: true,
+        width: 'style'
+    });
 
     jQuery(".yafnet-bs .selectpicker").select2({
         theme: "bootstrap",
