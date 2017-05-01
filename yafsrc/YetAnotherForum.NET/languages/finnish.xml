@@ -2729,7 +2729,7 @@
     <Resource tag="STATS">Tilastotietoa</Resource>
     <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
     <Resource tag="STATS_LASTMEMBER">Uusin jäsen on</Resource>
-    <Resource tag="STATS_LASTPOST">Viimeisin viesti on kirjoitettu {0}, lähettäjänä {1}.</Resource>
+    <Resource tag="STATS_LASTPOST">Viimeisin viesti {0} mennessä</Resource>
     <Resource tag="STATS_MEMBERS">Keskustelualueella on {0:N0} rekisteröitynyttä jäsentä.</Resource>
     <Resource tag="STATS_POSTS">Keskustelualueella on {0:N0} viestiä, {1:N0} aihetta ja {2:N0} aluetta.</Resource>
     <Resource tag="TOPICS">Aiheita</Resource>
