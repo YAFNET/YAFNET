@@ -6,4 +6,4 @@
 @SET CONFIGURATION=Release
 
 .nuget\nuget.exe restore YetAnotherForum.NET.sln
-msbuild.exe YetAnotherForum.NET.sln /p:Configuration=%CONFIGURATION% /p:Platform="Any CPU" /p:WarningLevel=0 /flp1:logfile=errors.txt;errorsonly %1 %2 %3 %4 %5 %6 %7 %8 %9
+"C:\Program Files (x86)\MSBuild\14.0\Bin\MsBuild.exe" YetAnotherForum.NET.sln /p:Configuration=%CONFIGURATION% /p:Platform="Any CPU" /p:WarningLevel=0 /flp1:logfile=errors.txt;errorsonly %1 %2 %3 %4 %5 %6 %7 %8 %9

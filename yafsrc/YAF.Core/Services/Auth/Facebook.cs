@@ -65,7 +65,7 @@ namespace YAF.Core.Services.Auth
             var redirectUrl = GetRedirectURL(request);
 
             return
-                "https://graph.facebook.com/oauth/authorize?client_id={0}&redirect_uri={1}{2}&scope={3}".FormatWith(
+                "https://graph.facebook.com/v2.9/oauth/authorize?client_id={0}&redirect_uri={1}{2}&scope={3}".FormatWith(
                     Config.FacebookAPIKey,
                     redirectUrl,
                     redirectUrl.Contains("connectCurrent") ? "&state=connectCurrent" : string.Empty,
@@ -87,7 +87,7 @@ namespace YAF.Core.Services.Auth
         public string GetAccessToken(string authorizationCode, HttpRequest request)
         {
             var urlGetAccessToken =
-                "https://graph.facebook.com/oauth/access_token?client_id={0}&client_secret={1}&redirect_uri={2}&code={3}"
+                "https://graph.facebook.com/v2.9/oauth/access_token?client_id={0}&client_secret={1}&redirect_uri={2}&code={3}"
                     .FormatWith(
                         Config.FacebookAPIKey,
                         Config.FacebookSecretKey,
@@ -101,9 +101,7 @@ namespace YAF.Core.Services.Auth
                 return string.Empty;
             }
 
-            var queryStringCollection = HttpUtility.ParseQueryString(responseData);
-
-            return queryStringCollection["access_token"] ?? string.Empty;
+            return responseData.FromJson<FacebookAccessToken>().AccessToken ?? string.Empty;
         }
 
         #region Get Current Facebook User Profile
