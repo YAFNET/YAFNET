@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -84,13 +84,7 @@ namespace YAF.Core.Services
         /// <value>
         /// The board settings.
         /// </value>
-        public YafBoardSettings BoardSettings
-        {
-            get
-            {
-                return this.Get<YafBoardSettings>();
-            }
-        }
+        public YafBoardSettings BoardSettings => this.Get<YafBoardSettings>();
 
         #endregion
 
@@ -147,12 +141,19 @@ namespace YAF.Core.Services
                             : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL")
                         {
                             // get the user localization...
-                            TemplateLanguageFile = languageFile
+                            TemplateLanguageFile = languageFile,
+                            TemplateParams =
+                                {
+                                    ["{adminlink}"] =
+                                    YafBuildLink.GetLinkNotEscaped(
+                                        ForumPages.moderate_unapprovedposts,
+                                        true,
+                                        "f={0}",
+                                        forumId),
+                                    ["{forumname}"] = this.BoardSettings.Name
+                                }
                         };
 
-                notifyModerators.TemplateParams["{adminlink}"] =
-                    YafBuildLink.GetLinkNotEscaped(ForumPages.moderate_unapprovedposts, true, "f={0}", forumId);
-                notifyModerators.TemplateParams["{forumname}"] = this.BoardSettings.Name;
 
                 notifyModerators.SendEmail(
                     new MailAddress(membershipUser.Email, membershipUser.UserName),
@@ -217,16 +218,22 @@ namespace YAF.Core.Services
                     var notifyModerators = new YafTemplateEmail("NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE")
                                                {
                                                    // get the user localization...
-                                                   TemplateLanguageFile
-                                                       =
-                                                       languageFile
+                                                   TemplateLanguageFile = languageFile,
+                                                   TemplateParams =
+                                                       {
+                                                           ["{reason}"] = reportText,
+                                                           ["{reporter}"] =
+                                                           this.Get<IUserDisplayName>().GetName(reporter),
+                                                           ["{adminlink}"] =
+                                                           YafBuildLink.GetLinkNotEscaped(
+                                                               ForumPages.moderate_reportedposts,
+                                                               true,
+                                                               "f={0}",
+                                                               pageForumID),
+                                                           ["{forumname}"] = this.BoardSettings.Name
+                                                       }
                                                };
 
-                    notifyModerators.TemplateParams["{reason}"] = reportText;
-                    notifyModerators.TemplateParams["{reporter}"] = this.Get<IUserDisplayName>().GetName(reporter);
-                    notifyModerators.TemplateParams["{adminlink}"] =
-                        YafBuildLink.GetLinkNotEscaped(ForumPages.moderate_reportedposts, true, "f={0}", pageForumID);
-                    notifyModerators.TemplateParams["{forumname}"] = this.BoardSettings.Name;
 
                     notifyModerators.SendEmail(
                         new MailAddress(membershipUser.Email, membershipUser.UserName),
@@ -357,9 +364,9 @@ namespace YAF.Core.Services
             var watchEmail = new YafTemplateEmail("TOPICPOST") { TemplateLanguageFile = languageFile };
 
             // cleaned body as text...
-            var bodyText =
-                BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(message.Message)))
-                    .RemoveMultipleWhitespace();
+            var bodyText = this.Get<IBadWordReplace>()
+                .Replace(BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(message.Message))))
+                .RemoveMultipleWhitespace();
 
             // Send track mails
             var subject =
@@ -368,7 +375,7 @@ namespace YAF.Core.Services
                     .FormatWith(boardName);
 
             watchEmail.TemplateParams["{forumname}"] = boardName;
-            watchEmail.TemplateParams["{topic}"] = HttpUtility.HtmlDecode(message.Topic);
+            watchEmail.TemplateParams["{topic}"] = HttpUtility.HtmlDecode(this.Get<IBadWordReplace>().Replace(message.Topic));
             watchEmail.TemplateParams["{postedby}"] = UserMembershipHelper.GetDisplayNameFromID(messageAuthorUserID);
             watchEmail.TemplateParams["{body}"] = bodyText;
             watchEmail.TemplateParams["{bodytruncated}"] = bodyText.Truncate(160);
