@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -40,16 +40,16 @@ namespace YAF.Utils.Helpers
     #endregion
 
     /// <summary>
-    ///     The ip helper.
+    ///     The IP Helper Class.
     /// </summary>
     public static class IPHelper
     {
         #region Static Fields
 
         /// <summary>
-        /// The non routable i pv 4 networks.
+        /// The non routable IP v4 networks.
         /// </summary>
-        private static readonly List<string> nonRoutableIPv4Networks = new List<string>
+        private static readonly List<string> NonRoutableIPv4Networks = new List<string>
                                                                            {
                                                                                "10.0.0.0/8",
                                                                                "172.16.0.0/12",
@@ -60,9 +60,9 @@ namespace YAF.Utils.Helpers
                                                                            };
 
         /// <summary>
-        /// The non routable i pv 6 networks.
+        /// The non routable IP v6 networks.
         /// </summary>
-        private static readonly List<string> nonRoutableIPv6Networks = new List<string>
+        private static readonly List<string> NonRoutableIPv6Networks = new List<string>
                                                                            {
                                                                                "::/128",
                                                                                "::1/128",
@@ -76,16 +76,15 @@ namespace YAF.Utils.Helpers
         #region Public Methods and Operators
 
         /// <summary>
-        /// Converts Ipv6 or hostname to IpV4.
+        /// Converts IP v6 or hostname to IP v4.
         /// </summary>
-        /// <param name="addressIpv6">
-        /// </param>
+        /// <param name="addressIpv6">The address IP v6.</param>
         /// <returns>
-        /// IPv4 address string.
+        /// IP v4 address string.
         /// </returns>
         public static string GetIp4Address(string addressIpv6)
         {
-            string ip4Address = string.Empty;
+            var ip4Address = string.Empty;
 
             // don't resolve nntp
             if (addressIpv6.IsSet() && addressIpv6.ToLower().Contains("nntp"))
@@ -110,7 +109,7 @@ namespace YAF.Utils.Helpers
                     return ip4Address;
                 }
 
-                // to find by host name - is not in use so far. 
+                // to find by host name - is not in use so far.
                 foreach (
                     var ipAddress in
                         Dns.GetHostAddresses(Dns.GetHostName())
@@ -131,14 +130,13 @@ namespace YAF.Utils.Helpers
         /// <summary>
         /// Gets User IP considering X-Forwarded-For and X-Real-IP HTTP headers
         /// </summary>
-        /// <see cref="http://wiki.nginx.org/HttpRealipModule"/>
-        /// <see cref="http://en.wikipedia.org/wiki/X-Forwarded-For"/>
-        /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for"/>
-        /// <param name="httpRequest">
-        /// </param>
+        /// <param name="httpRequest">The HTTP request.</param>
         /// <returns>
-        /// Client ip
+        /// Client IP
         /// </returns>
+        /// <see cref="http://wiki.nginx.org/HttpRealipModule" />
+        /// <see cref="http://en.wikipedia.org/wiki/X-Forwarded-For" />
+        /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for" />
         public static string GetUserRealIPAddress([NotNull] this HttpRequest httpRequest)
         {
             CodeContracts.VerifyNotNull(httpRequest, "httpRequest");
@@ -149,14 +147,13 @@ namespace YAF.Utils.Helpers
         /// <summary>
         /// Gets User IP considering X-Forwarded-For and X-Real-IP HTTP headers
         /// </summary>
-        /// <see cref="http://wiki.nginx.org/HttpRealipModule"/>
-        /// <see cref="http://en.wikipedia.org/wiki/X-Forwarded-For"/>
-        /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for"/>
-        /// <param name="httpRequest">
-        /// </param>
+        /// <param name="httpRequest">The HTTP request.</param>
         /// <returns>
-        /// Client ip
+        /// Client IP
         /// </returns>
+        /// <see cref="http://wiki.nginx.org/HttpRealipModule" />
+        /// <see cref="http://en.wikipedia.org/wiki/X-Forwarded-For" />
+        /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for" />
         public static string GetUserRealIPAddress([NotNull] this HttpRequestBase httpRequest)
         {
             CodeContracts.VerifyNotNull(httpRequest, "httpRequest");
@@ -190,13 +187,13 @@ namespace YAF.Utils.Helpers
         }
 
         /// <summary>
-        /// The ip str to long.
+        /// The IP String to long.
         /// </summary>
         /// <param name="ipAddress">
-        /// The ip address.
+        /// The IP address.
         /// </param>
         /// <returns>
-        /// The ip str to long.
+        /// The IP as long.
         /// </returns>
         public static ulong IPStringToLong([NotNull] string ipAddress)
         {
@@ -229,7 +226,7 @@ namespace YAF.Utils.Helpers
             CodeContracts.VerifyNotNull(ban, "ban");
             CodeContracts.VerifyNotNull(chk, "chk");
 
-            string bannedIP = ban.Trim();
+            var bannedIP = ban.Trim();
 
             if (chk == "::1")
             {
@@ -241,8 +238,12 @@ namespace YAF.Utils.Helpers
                 bannedIP = "127.0.0.1";
             }
 
-            string[] ipmask = bannedIP.Split('.');
-            string[] ip = bannedIP.Split('.');
+            // handle IP v6 Addresses
+            var splitCharBannedIp = bannedIP.Contains(".") ? '.' : ':';
+            var splitCharChk = chk.Contains(".") ? '.' : ':';
+
+            string[] ipmask = bannedIP.Split(splitCharBannedIp);
+            string[] ip = bannedIP.Split(splitCharBannedIp);
 
             for (int i = 0; i < ipmask.Length; i++)
             {
@@ -259,7 +260,7 @@ namespace YAF.Utils.Helpers
 
             ulong banmask = StringToIP(ip);
             ulong banchk = StringToIP(ipmask);
-            ulong ipchk = StringToIP(chk.Split('.'));
+            ulong ipchk = StringToIP(chk.Split(splitCharChk));
 
             return (ipchk & banchk) == banmask;
         }
@@ -279,7 +280,10 @@ namespace YAF.Utils.Helpers
 
             if (ip.Length != 4)
             {
-                throw new ArgumentOutOfRangeException("ip", "Invalid ip address.");
+                if (ip.Length != 8)
+                {
+                    throw new ArgumentOutOfRangeException("ip", "Invalid ip address.");
+                }
             }
 
             ulong num = 0;
@@ -425,12 +429,12 @@ namespace YAF.Utils.Helpers
 
             if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
             {
-                return !nonRoutableIPv4Networks.Any(network => IsIpAddressInRange(ipAddressBytes, network));
+                return !NonRoutableIPv4Networks.Any(network => IsIpAddressInRange(ipAddressBytes, network));
             }
 
             if (ipAddress.AddressFamily == AddressFamily.InterNetworkV6)
             {
-                return !nonRoutableIPv6Networks.Any(network => IsIpAddressInRange(ipAddressBytes, network));
+                return !NonRoutableIPv6Networks.Any(network => IsIpAddressInRange(ipAddressBytes, network));
             }
 
             return false;
