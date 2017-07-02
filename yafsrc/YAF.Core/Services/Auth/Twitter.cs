@@ -381,6 +381,9 @@ namespace YAF.Core.Services.Auth
             // send user register notification to the following admin users...
             SendRegistrationMessageToTwitterUser(user, pass, securityAnswer, userId, oAuth);
 
+            var autoWatchTopicsEnabled = YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting
+                                         == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
+
             LegacyDb.user_save(
                 userId, 
                 YafContext.Current.PageBoardID, 
@@ -393,15 +396,12 @@ namespace YAF.Core.Services.Auth
                 null, 
                 null, 
                 null, 
-                null, 
-                null, 
-                null, 
-                null, 
-                null, 
+                null,
+                YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
+                autoWatchTopicsEnabled,
+                null,
+                null,
                 null);
-
-            var autoWatchTopicsEnabled = YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting
-                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
             // save the settings...
             LegacyDb.user_savenotification(

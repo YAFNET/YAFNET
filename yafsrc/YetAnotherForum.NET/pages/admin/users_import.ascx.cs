@@ -470,6 +470,9 @@ namespace YAF.Pages.Admin
                 int.TryParse((string)row["Timezone"], out timeZone);
             }
 
+            var autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting
+                                         == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
+
             LegacyDb.user_save(
                 userId,
                 YafContext.Current.PageBoardID,
@@ -483,14 +486,11 @@ namespace YAF.Pages.Admin
                 row.Table.Columns.Contains("TextEditor") ? row["TextEditor"] : null,
                 null,
                 null,
-                null,
-                null,
+                this.Get<YafBoardSettings>().DefaultNotificationSetting,
+                autoWatchTopicsEnabled,
                 isDST,
                 null,
                 null);
-
-            var autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting
-                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
             // save the settings...
             LegacyDb.user_savenotification(

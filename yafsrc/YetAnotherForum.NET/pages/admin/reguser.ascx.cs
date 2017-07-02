@@ -114,6 +114,10 @@ namespace YAF.Pages.Admin
             userProfile.Homepage = this.HomePage.Text.Trim();
             userProfile.Save();
 
+            var autoWatchTopicsEnabled =
+                this.Get<YafBoardSettings>()
+                    .DefaultNotificationSetting.Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
+
             // save the time zone...
             LegacyDb.user_save(
                 UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey),
@@ -128,8 +132,8 @@ namespace YAF.Pages.Admin
                 null,
                 null,
                 null,
-                null,
-                null,
+                this.Get<YafBoardSettings>().DefaultNotificationSetting,
+                autoWatchTopicsEnabled,
                 null,
                 null,
                 null);
@@ -138,10 +142,6 @@ namespace YAF.Pages.Admin
             {
                 this.Get<ISendNotification>().SendVerificationEmail(user, newEmail, userID, newUsername);
             }
-
-            var autoWatchTopicsEnabled =
-                this.Get<YafBoardSettings>()
-                    .DefaultNotificationSetting.Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
 
             LegacyDb.user_savenotification(
                 UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey),
