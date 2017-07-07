@@ -203,6 +203,13 @@
     <Compile Include="Classes\YafWebService.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="controls\MoveTopic.ascx.cs">
+      <DependentUpon>MoveTopic.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\MoveTopic.ascx.designer.cs">
+      <DependentUpon>MoveTopic.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\AttachmentsUploadDialog.ascx.cs">
       <DependentUpon>AttachmentsUploadDialog.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -945,12 +952,8 @@
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-image-gallery.css" />
     <Content Include="Content\bootstrap-notify.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\bootstrap\bootstrap-grid.scss" />
-    <Content Include="Content\bootstrap\bootstrap-reboot.scss" />
     <Content Include="Content\bootstrap\bootstrap.scss" />
     <Content Include="Content\bootstrap\mixins\_alert.scss" />
     <Content Include="Content\bootstrap\mixins\_background-variant.scss" />
@@ -1025,7 +1028,9 @@
       <DependentUpon>select2.css</DependentUpon>
     </Content>
     <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\font-awesome.min.css">
+      <DependentUpon>font-awesome.css</DependentUpon>
+    </Content>
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\forum-admin.css">
       <DependentUpon>forum-admin.scss</DependentUpon>
@@ -1039,8 +1044,6 @@
     <Content Include="Content\forum.min.css">
       <DependentUpon>forum.css</DependentUpon>
     </Content>
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
@@ -1125,6 +1128,7 @@
     <Content Include="Content\tether\tether-theme-basic.min.css" />
     <Content Include="Content\tether\tether.css" />
     <Content Include="Content\tether\tether.min.css" />
+    <Content Include="controls\MoveTopic.ascx" />
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
     <Content Include="controls\AttachmentsUploadDialog.ascx" />
@@ -1181,7 +1185,6 @@
     <Content Include="default.aspx" />
     <Content Include="error.aspx" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
-    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="forumlogo.jpg" />
     <Content Include="Images\Avatars\Common\SampleAvatar.gif" />
     <Content Include="Images\Medals\award_star_bronze_3.png" />
@@ -1436,17 +1439,22 @@
     <Content Include="Resources\ProviderExceptions.xml" />
     <Content Include="Scripts\blueimp-gallery.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
-    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js">
+      <DependentUpon>bootstrap-datetimepicker.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\bootstrap-image-gallery.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
     <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap.min.js">
+      <DependentUpon>bootstrap.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
     <Content Include="Scripts\ckeditor\config.js" />
     <Content Include="Scripts\ckeditor\contents.css" />
     <Content Include="Scripts\ckeditor\lang\af.js" />
     <Content Include="Scripts\ckeditor\lang\ar.js" />
+    <Content Include="Scripts\ckeditor\lang\az.js" />
     <Content Include="Scripts\ckeditor\lang\bg.js" />
     <Content Include="Scripts\ckeditor\lang\bn.js" />
     <Content Include="Scripts\ckeditor\lang\bs.js" />
@@ -1516,6 +1524,7 @@
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\af.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
+    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\az.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\bg.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ca.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\cs.js" />
@@ -1593,7 +1602,6 @@
     <Content Include="Scripts\ckeditor\plugins\autosave\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\plugins\autosave\lang\zh.js" />
     <Content Include="Scripts\ckeditor\plugins\autosave\plugin.js" />
-    <Content Include="Scripts\ckeditor\plugins\clipboard\dialogs\paste.js" />
     <Content Include="Scripts\ckeditor\plugins\colordialog\dialogs\colordialog.css" />
     <Content Include="Scripts\ckeditor\plugins\colordialog\dialogs\colordialog.js" />
     <Content Include="Scripts\ckeditor\plugins\copyformatting\cursors\cursor-disabled.svg" />
@@ -1613,11 +1621,13 @@
     <Content Include="Scripts\ckeditor\plugins\magicline\images\icon-rtl.png" />
     <Content Include="Scripts\ckeditor\plugins\magicline\images\icon.png" />
     <Content Include="Scripts\ckeditor\plugins\pastefromword\filter\default.js" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\dialog.css" />
     <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\options.js" />
     <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\toolbar.css" />
     <Content Include="Scripts\ckeditor\plugins\scayt\skins\moono-lisa\scayt.css" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\af.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ar.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\az.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\bg.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ca.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\cs.js" />
@@ -1626,6 +1636,8 @@
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\de-ch.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\de.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\el.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\en-au.js" />
+    <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\en-ca.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\en-gb.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\en.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\eo.js" />
@@ -1671,6 +1683,7 @@
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\zh.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
+    <Content Include="Scripts\ckeditor\plugins\tableselection\styles\tableselection.css" />
     <Content Include="Scripts\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
     <Content Include="Scripts\ckeditor\plugins\table\dialogs\table.js" />
     <Content Include="Scripts\ckeditor\plugins\textselection\plugin.js" />
@@ -1766,11 +1779,31 @@
     <Content Include="Scripts\i18n\zh-CN.js" />
     <Content Include="Scripts\i18n\zh-TW.js" />
     <Content Include="Content\_bootstrap-datetimepicker.less" />
+    <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
+    <Content Include="Scripts\ckeditor\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\plugins\scayt\CHANGELOG.md" />
+    <Content Include="Scripts\ckeditor\package.json" />
+    <Content Include="Scripts\ckeditor\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\CHANGES.md" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
-    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js">
+      <DependentUpon>jquery-3.1.1.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-3.1.1.min.map">
+      <DependentUpon>jquery-3.1.1.min.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js">
+      <DependentUpon>jquery-3.1.1.slim.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map">
+      <DependentUpon>jquery-3.1.1.slim.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.blueimp-gallery.js" />
     <Content Include="Scripts\jquery.bootstrap-touchspin.js" />
@@ -1804,10 +1837,23 @@
     <Content Include="Scripts\ladda.min.js">
       <DependentUpon>ladda.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\metisMenu.es5.js">
+      <DependentUpon>metisMenu.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\metisMenu.es5.min.js">
+      <DependentUpon>metisMenu.es5.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\metisMenu.min.js">
+      <DependentUpon>metisMenu.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\moment-with-locales.js" />
-    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment-with-locales.min.js">
+      <DependentUpon>moment-with-locales.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\moment.js" />
-    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\moment.min.js">
+      <DependentUpon>moment.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\select2.min.js">
       <DependentUpon>select2.js</DependentUpon>
     </Content>
@@ -1830,7 +1876,6 @@
     </Content>
     <Content Include="Scripts\ladda.js" />
     <Content Include="Scripts\metisMenu.js" />
-    <Content Include="Scripts\metisMenu.min.js" />
     <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\jquery.selectedQuoting.js" />
     <Content Include="Scripts\select2.js" />
@@ -2723,11 +2768,6 @@
     <None Include="Content\InstallWizard.scss" />
     <None Include="Content\jsdifflib.scss" />
     <Content Include="YafUploader.ashx" />
-    <Content Include="fonts\FontAwesome.otf" />
-    <Content Include="fonts\fontawesome-webfont.woff2" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -3437,18 +3477,6 @@
     </Content>
     <Content Include="Scripts\forum\yaf.MessageHistory.js" />
     <Content Include="Scripts\forum\yaf.Attachments.js" />
-    <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
-    <Content Include="Scripts\ckeditor\README.md" />
-    <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
-    <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
-    <Content Include="Scripts\ckeditor\plugins\scayt\README.md" />
-    <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
-    <Content Include="Scripts\ckeditor\plugins\scayt\CHANGELOG.md" />
-    <Content Include="Scripts\ckeditor\package.json" />
-    <Content Include="Scripts\ckeditor\LICENSE.md" />
-    <Content Include="Scripts\ckeditor\CHANGES.md" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.1.1.min.map" />
     <None Include="themes\cleanSlate\theme.less" />
     <Content Include="themes\cleanSlate\theme.css">
       <DependentUpon>theme.less</DependentUpon>
@@ -4530,7 +4558,9 @@
     <Content Include="themes\yafvision\voting_bar.gif" />
     <Content Include="UrlRewriter.config" />
     <None Include="Web References\RegisterV2\RegisterV2.wsdl" />
-    <Content Include="v1.9.1.upgrade.web.config" />
+    <Content Include="v1.9.1.upgrade.web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="web.config">
       <SubType>Designer</SubType>
     </Content>

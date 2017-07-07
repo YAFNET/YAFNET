@@ -42,5 +42,9 @@
   {
     "outputFile": "Scripts/yafEditor/yafEditor.es5.js",
     "inputFile": "Scripts/yafEditor/yafEditor.js"
+  },
+  {
+    "outputFile": "Scripts/metisMenu.es5.js",
+    "inputFile": "Scripts/metisMenu.js"
   }
 ]
