@@ -1,6 +1,42 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.2.4
+
+## New Features:
+
+* [NEW] Impoved spam detection now you can define how many urls are allowed inside a message before flagged a spam
+* [NEW] Sitemap Provider for DNN Platform
+* [NEW] Redirect Forum Remote URL to new Window
+
+
+## Fixed Issues:
+
+* [FIXED #329] check box to enable topic watching and receive notification in quick reply form
+* [FIXED] Unable to Cast to object error during install.
+* [FIXED] when converting from html to bbcode preserve paragraphs
+* [FIXED] unable to cast object issue
+* [FIXED #334] Error on Ban User Page when there is no IP Address
+* [FIXED] user style cache was not cleared after changing Rank/Group
+* [FIXED] added a check if email address is provided when connect via Facebook
+* [FIXED #338] user was not deleted when have attachments
+* [FIXED #337] similar topics shows topics with no posts
+* [FIXED #342] url encode values when rewriting querystring
+* [FIXED] admins are not listed as mods and don't receive mod emails
+* [FIXED] board_poststats SP which do not delete readtracking before trying to delete removed topics
+* Added Canonical Meta Tag Module
+* [FIXED] issue with url search when use the word install or error
+* [FIXED] little issue with the finish language
+* [FIXED] updated SSO Facebook API to version 2.9
+* [FIXED] Issue with IP v6 Addresses
+* [FIXED #357] Quoting when user name contains html code
+
+
+### Full Change log here:
+https://github.com/YAFNET/YAFNET/commits/master
+
+
+
 # YetAnotherForum.NET v2.2.3
 
 ## New Features:

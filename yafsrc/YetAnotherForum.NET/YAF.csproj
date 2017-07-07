@@ -203,13 +203,6 @@
     <Compile Include="Classes\YafWebService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="controls\MoveTopic.ascx.cs">
-      <DependentUpon>MoveTopic.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\MoveTopic.ascx.designer.cs">
-      <DependentUpon>MoveTopic.ascx</DependentUpon>
-    </Compile>
     <Compile Include="controls\AttachmentsUploadDialog.ascx.cs">
       <DependentUpon>AttachmentsUploadDialog.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1128,7 +1121,6 @@
     <Content Include="Content\tether\tether-theme-basic.min.css" />
     <Content Include="Content\tether\tether.css" />
     <Content Include="Content\tether\tether.min.css" />
-    <Content Include="controls\MoveTopic.ascx" />
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
     <Content Include="controls\AttachmentsUploadDialog.ascx" />
