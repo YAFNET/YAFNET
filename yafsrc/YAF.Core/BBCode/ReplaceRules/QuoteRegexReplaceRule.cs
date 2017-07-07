@@ -97,8 +97,8 @@ namespace YAF.Core.BBCode.ReplaceRules
 
                     try
                     {
-                        postId = quote.Substring(quote.IndexOf(";") + 1);
-                        userName = quote = quote.Remove(quote.IndexOf(";"));
+                        postId = quote.Substring(quote.LastIndexOf(";") + 1);
+                        userName = quote = quote.Remove(quote.LastIndexOf(";"));
                     }
                     catch (Exception)
                     {
