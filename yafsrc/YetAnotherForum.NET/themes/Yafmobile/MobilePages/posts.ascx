@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="c#" CodeBehind="../../../pages/posts.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.posts" %>
 <%@ Import Namespace="YAF.Core" %>
+<%@ Import Namespace="YAF.Controls" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayPost" Src="DisplayPost.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayAd" Src="DisplayAd.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PollList" Src="../../../controls/PollList.ascx" %>
@@ -12,7 +13,7 @@
             <span id="dvFavorite1">
                 <YAF:ThemeButton ID="TagFavorite1" runat="server" CssClass="yafcssbigbutton rightItem"
                     TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT" />
-            </span>
+            </span>        
             <asp:PlaceHolder ID="NoButtonsMobile" runat="server" Visible="false">
             <YAF:ThemeButton ID="MoveTopic1" runat="server" CssClass="yafcssbigbutton rightItem"
                 OnClick="MoveTopic_Click" TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT" />
@@ -133,10 +134,12 @@
                         </table>
                         <br />
                     </div>
-                    <asp:PlaceHolder runat="server" ID="QuickReplyWatchTopic">
-                            <asp:CheckBox ID="TopicWatch" runat="server" />
-                            <YAF:LocalizedLabel ID="TopicWatchLabel" runat="server" LocalizedTag="TOPICWATCH" />
-                        </asp:PlaceHolder>
+                    <div>
+                         <asp:PlaceHolder runat="server" ID="QuickReplyWatchTopic">
+                             <asp:CheckBox ID="TopicWatch" runat="server" />
+                             <YAF:LocalizedLabel ID="TopicWatchLabel" runat="server" LocalizedTag="TOPICWATCH" />
+                         </asp:PlaceHolder>
+                     </div>
                     &nbsp;<div align="center" style="margin: 7px;">
                         <asp:Button ID="QuickReply" CssClass="pbutton" runat="server" />
                         &nbsp;</div>
@@ -156,7 +159,7 @@
             <span id="dvFavorite2">
                 <YAF:ThemeButton ID="TagFavorite2" runat="server" CssClass="yafcssbigbutton rightItem"
                     TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT" />
-            </span>
+            </span>        
             <YAF:ThemeButton ID="MoveTopic2" runat="server" CssClass="yafcssbigbutton rightItem"
                 OnClick="MoveTopic_Click" TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT" />
             <YAF:ThemeButton ID="UnlockTopic2" runat="server" CssClass="yafcssbigbutton rightItem"
