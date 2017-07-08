@@ -5,43 +5,44 @@
 // Copyright 2007 Seth Yates
 // 
 
-using System;
-using System.Resources;
-using System.Reflection;
-using System.Collections;
-
 namespace Intelligencia.UrlRewriter.Utilities
 {
-	/// <summary>
-	/// Message provider.
-	/// </summary>
-	internal sealed class MessageProvider
-	{
-		private MessageProvider()
-		{
-		}
+    using System.Collections;
+    using System.Reflection;
+    using System.Resources;
 
-		public static string FormatString(Message message, params object[] args)
-		{
-			string format;
+    /// <summary>
+    /// Message provider.
+    /// </summary>
+    internal sealed class MessageProvider
+    {
+        private MessageProvider()
+        {
+        }
 
-			lock (_messageCache.SyncRoot)
-			{
-				if (_messageCache.ContainsKey(message))
-				{
-					format = (string)_messageCache[message];
-				}
-				else
-				{
-					format = _resources.GetString(message.ToString());
-					_messageCache.Add(message, format);
-				}
-			}
+        public static string FormatString(Message message, params object[] args)
+        {
+            string format;
 
-			return String.Format(format, args);
-		}
+            lock (_messageCache.SyncRoot)
+            {
+                if (_messageCache.ContainsKey(message))
+                {
+                    format = (string)_messageCache[message];
+                }
+                else
+                {
+                    format = _resources.GetString(message.ToString());
+                    _messageCache.Add(message, format);
+                }
+            }
 
-		private static Hashtable _messageCache = new Hashtable();
-		private static ResourceManager _resources = new ResourceManager(Constants.Messages, Assembly.GetExecutingAssembly());
-	}
+            return string.Format(format, args);
+        }
+
+        private static Hashtable _messageCache = new Hashtable();
+
+        private static ResourceManager _resources =
+            new ResourceManager(Constants.Messages, Assembly.GetExecutingAssembly());
+    }
 }

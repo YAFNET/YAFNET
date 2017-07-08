@@ -6,11 +6,11 @@
 // 
 
 using System;
-using System.Xml;
 using System.Configuration;
-using Intelligencia.UrlRewriter.Utilities;
+using System.Xml;
+
 using Intelligencia.UrlRewriter.Actions;
-using Intelligencia.UrlRewriter.Configuration;
+using Intelligencia.UrlRewriter.Utilities;
 
 namespace Intelligencia.UrlRewriter.Parsers
 {
@@ -29,37 +29,19 @@ namespace Intelligencia.UrlRewriter.Parsers
 		/// <summary>
 		/// The name of the action.
 		/// </summary>
-		public override string Name
-		{
-			get
-			{
-				return Constants.ElementAdd;
-			}
-		}
+		public override string Name => Constants.ElementAdd;
 
-		/// <summary>
+	    /// <summary>
 		/// Whether the action allows nested actions.
 		/// </summary>
-		public override bool AllowsNestedActions
-		{
-			get
-			{
-				return false;
-			}
-		}
+		public override bool AllowsNestedActions => false;
 
-		/// <summary>
+	    /// <summary>
 		/// Whether the action allows attributes.
 		/// </summary>
-		public override bool AllowsAttributes
-		{
-			get
-			{
-				return true;
-			}
-		}
+		public override bool AllowsAttributes => true;
 
-		/// <summary>
+	    /// <summary>
 		/// Parses the node.
 		/// </summary>
 		/// <param name="node">The node to parse.</param>
@@ -71,18 +53,19 @@ namespace Intelligencia.UrlRewriter.Parsers
             {
                 throw new ArgumentNullException("node");
             }
+
             if (config == null)
             {
                 throw new ArgumentNullException("config");
             }
 
-            XmlNode headerNameNode = node.Attributes.GetNamedItem(Constants.AttrHeader);
+            var headerNameNode = node.Attributes.GetNamedItem(Constants.AttrHeader);
 			if (headerNameNode == null)
 			{
                 throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.AttributeRequired, Constants.AttrHeader), node);
 			}
 
-			XmlNode headerValueNode = node.Attributes.GetNamedItem(Constants.AttrValue);
+			var headerValueNode = node.Attributes.GetNamedItem(Constants.AttrValue);
 			if (headerValueNode == null)
 			{
                 throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.AttributeRequired, Constants.AttrValue), node);

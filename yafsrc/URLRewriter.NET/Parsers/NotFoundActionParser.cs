@@ -5,12 +5,10 @@
 // Copyright 2007 Seth Yates
 // 
 
-using System;
 using System.Xml;
-using System.Configuration;
+
 using Intelligencia.UrlRewriter.Actions;
 using Intelligencia.UrlRewriter.Utilities;
-using Intelligencia.UrlRewriter.Configuration;
 
 namespace Intelligencia.UrlRewriter.Parsers
 {
@@ -29,37 +27,19 @@ namespace Intelligencia.UrlRewriter.Parsers
 		/// <summary>
 		/// The name of the action.
 		/// </summary>
-		public override string Name
-		{
-			get
-			{
-				return Constants.ElementNotFound;
-			}
-		}
+		public override string Name => Constants.ElementNotFound;
 
-		/// <summary>
+	    /// <summary>
 		/// Whether the action allows nested actions.
 		/// </summary>
-		public override bool AllowsNestedActions
-		{
-			get
-			{
-				return false;
-			}
-		}
+		public override bool AllowsNestedActions => false;
 
-		/// <summary>
+	    /// <summary>
 		/// Whether the action allows attributes.
 		/// </summary>
-		public override bool AllowsAttributes
-		{
-			get
-			{
-				return false;
-			}
-		}
+		public override bool AllowsAttributes => false;
 
-		/// <summary>
+	    /// <summary>
 		/// Parses the node.
 		/// </summary>
 		/// <param name="node">The node to parse.</param>

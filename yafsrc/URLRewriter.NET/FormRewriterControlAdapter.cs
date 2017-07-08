@@ -1,12 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.Adapters;
+/* UrlRewriter - A .NET URL Rewriter module
+// Version 2.0
+//
+// Copyright 2007 Intelligencia
+// Copyright 2007 Seth Yates
+*/
 
 namespace Intelligencia.UrlRewriter
 {
+    using System.Web.UI;
+    using System.Web.UI.Adapters;
+
     /// <summary>
     /// ControlAdapter for rewriting form actions
     /// </summary>
@@ -16,7 +19,7 @@ namespace Intelligencia.UrlRewriter
         /// Renders the control.
         /// </summary>
         /// <param name="writer">The writer to write to</param>
-        protected override void Render(System.Web.UI.HtmlTextWriter writer)
+        protected override void Render(HtmlTextWriter writer)
         {
             base.Render(new RewriteFormHtmlTextWriter(writer));
         }

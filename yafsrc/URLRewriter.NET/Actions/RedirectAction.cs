@@ -6,10 +6,8 @@
 // 
 
 using System;
-using System.Net;
-using System.Web;
 using System.Collections;
-using Intelligencia.UrlRewriter.Conditions;
+using System.Net;
 
 namespace Intelligencia.UrlRewriter.Actions
 {
@@ -29,7 +27,8 @@ namespace Intelligencia.UrlRewriter.Actions
             {
                 throw new ArgumentNullException("location");
             }
-            _permanent = permanent;
+
+		    this._permanent = permanent;
 		}
 
 		/// <summary>
@@ -42,8 +41,9 @@ namespace Intelligencia.UrlRewriter.Actions
             {
                 throw new ArgumentNullException("context");
             }
+
             base.Execute(context);
-			if (_permanent)
+			if (this._permanent)
 			{
 				context.StatusCode = HttpStatusCode.Moved;
 			}
@@ -63,7 +63,7 @@ namespace Intelligencia.UrlRewriter.Actions
 		public bool IsMatch(RewriteContext context)
 		{
 			// Ensure the conditions are met.
-			foreach (IRewriteCondition condition in Conditions)
+			foreach (IRewriteCondition condition in this.Conditions)
 			{
 				if (!condition.IsMatch(context))
 				{
@@ -77,15 +77,9 @@ namespace Intelligencia.UrlRewriter.Actions
 		/// <summary>
 		/// Conditions that must hold for the rule to fire.
 		/// </summary>
-		public IList Conditions
-		{
-			get
-			{
-				return _conditions;
-			}
-		}
+		public IList Conditions => this._conditions;
 
-		private ArrayList _conditions = new ArrayList();
+	    private ArrayList _conditions = new ArrayList();
 		private bool _permanent;
 	}
 }

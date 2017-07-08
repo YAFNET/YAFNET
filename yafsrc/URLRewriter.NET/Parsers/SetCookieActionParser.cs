@@ -6,11 +6,11 @@
 // 
 
 using System;
-using System.Xml;
 using System.Configuration;
-using Intelligencia.UrlRewriter.Utilities;
+using System.Xml;
+
 using Intelligencia.UrlRewriter.Actions;
-using Intelligencia.UrlRewriter.Configuration;
+using Intelligencia.UrlRewriter.Utilities;
 
 namespace Intelligencia.UrlRewriter.Parsers
 {
@@ -29,36 +29,19 @@ namespace Intelligencia.UrlRewriter.Parsers
 		/// <summary>
 		/// The name of the action.
 		/// </summary>
-		public override string Name
-		{
-			get
-			{
-				return Constants.ElementSet;
-			}
-		}
+		public override string Name => Constants.ElementSet;
 
-		/// <summary>
+	    /// <summary>
 		/// Whether the action allows nested actions.
 		/// </summary>
-		public override bool AllowsNestedActions
-		{
-			get
-			{
-				return false;
-			}
-		}
+		public override bool AllowsNestedActions => false;
 
-		/// <summary>
+	    /// <summary>
 		/// Whether the action allows attributes.
 		/// </summary>
-		public override bool AllowsAttributes
-		{
-			get
-			{
-				return true;
-			}
-		}
-		/// <summary>
+		public override bool AllowsAttributes => true;
+
+	    /// <summary>
 		/// Parses the node.
 		/// </summary>
 		/// <param name="node">The node to parse.</param>
@@ -70,18 +53,19 @@ namespace Intelligencia.UrlRewriter.Parsers
             {
                 throw new ArgumentNullException("node");
             }
+
             if (config == null)
             {
                 throw new ArgumentNullException("config");
             }
             
-            XmlNode cookieNameNode = node.Attributes.GetNamedItem(Constants.AttrCookie);
+            var cookieNameNode = node.Attributes.GetNamedItem(Constants.AttrCookie);
 			if (cookieNameNode == null)
 			{
 				return null;
 			}
 
-			XmlNode cookieValueNode = node.Attributes.GetNamedItem(Constants.AttrValue);
+			var cookieValueNode = node.Attributes.GetNamedItem(Constants.AttrValue);
 			if (cookieValueNode == null)
 			{
                 throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.AttributeRequired, Constants.AttrValue), node);

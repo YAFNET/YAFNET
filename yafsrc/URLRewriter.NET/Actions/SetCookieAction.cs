@@ -26,37 +26,27 @@ namespace Intelligencia.UrlRewriter.Actions
             {
                 throw new ArgumentNullException("cookieName");
             }
+
             if (cookieValue == null)
             {
                 throw new ArgumentNullException("cookieValue");
             }
-            _name = cookieName;
-			_value = cookieValue;
+
+		    this._name = cookieName;
+		    this._value = cookieValue;
 		}
 
 		/// <summary>
 		/// The name of the variable.
 		/// </summary>
-		public string Name
-		{
-			get
-			{
-				return _name;
-			}
-		}
+		public string Name => this._name;
 
-		/// <summary>
+	    /// <summary>
 		/// The value of the variable.
 		/// </summary>
-		public string Value
-		{
-			get
-			{
-				return _value;
-			}
-		}
+		public string Value => this._value;
 
-		/// <summary>
+	    /// <summary>
 		/// Executes the action.
 		/// </summary>
 		/// <param name="context">The rewrite context.</param>
@@ -66,7 +56,8 @@ namespace Intelligencia.UrlRewriter.Actions
             {
                 throw new ArgumentNullException("context");
             }
-            HttpCookie cookie = new HttpCookie(Name, Value);
+
+            var cookie = new HttpCookie(this.Name, this.Value);
 			context.Cookies.Add(cookie);
             return RewriteProcessing.ContinueProcessing;
 		}

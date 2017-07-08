@@ -7,7 +7,6 @@
 
 using System;
 using System.Net;
-using System.Web;
 
 namespace Intelligencia.UrlRewriter.Actions
 {
@@ -22,21 +21,15 @@ namespace Intelligencia.UrlRewriter.Actions
 		/// <param name="statusCode">The status code to set.</param>
 		public SetStatusAction(HttpStatusCode statusCode)
 		{
-			_statusCode = statusCode;
+		    this._statusCode = statusCode;
 		}
 
 		/// <summary>
 		/// The status code.
 		/// </summary>
-		public HttpStatusCode StatusCode
-		{
-			get
-			{
-				return _statusCode;
-			}
-		}
+		public HttpStatusCode StatusCode => this._statusCode;
 
-		/// <summary>
+	    /// <summary>
 		/// Executes the action.
 		/// </summary>
 		/// <param name="context">The rewriting context.</param>
@@ -46,16 +39,15 @@ namespace Intelligencia.UrlRewriter.Actions
             {
                 throw new ArgumentNullException("context");
             }
-            context.StatusCode = StatusCode;
-            if ((int)StatusCode >= 300)
+
+            context.StatusCode = this.StatusCode;
+            if ((int)this.StatusCode >= 300)
             {
                 return RewriteProcessing.StopProcessing;
             }
-            else
-            {
-                return RewriteProcessing.ContinueProcessing;
-            }
-        }
+
+		    return RewriteProcessing.ContinueProcessing;
+		}
 
 		private HttpStatusCode _statusCode;
 	}

@@ -6,19 +6,19 @@
 // 
 
 using System;
-using System.IO;
-using System.Xml;
-using System.Web;
-using System.Web.Caching;
-using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.IO;
 using System.Reflection;
+using System.Web;
+using System.Web.Caching;
+using System.Xml;
+
+using Intelligencia.UrlRewriter.Logging;
 using Intelligencia.UrlRewriter.Parsers;
 using Intelligencia.UrlRewriter.Transforms;
 using Intelligencia.UrlRewriter.Utilities;
-using Intelligencia.UrlRewriter.Logging;
 
 namespace Intelligencia.UrlRewriter.Configuration
 {
@@ -32,133 +32,85 @@ namespace Intelligencia.UrlRewriter.Configuration
 		/// </summary>
 		internal RewriterConfiguration()
 		{
-			_xPoweredBy = MessageProvider.FormatString(Message.ProductName, Assembly.GetExecutingAssembly().GetName().Version.ToString(3));
+		    this._xPoweredBy = MessageProvider.FormatString(Message.ProductName, Assembly.GetExecutingAssembly().GetName().Version.ToString(3));
 
-			_actionParserFactory = new ActionParserFactory();
-			_actionParserFactory.AddParser(new IfConditionActionParser());
-            _actionParserFactory.AddParser(new UnlessConditionActionParser());
-			_actionParserFactory.AddParser(new AddHeaderActionParser());
-			_actionParserFactory.AddParser(new SetCookieActionParser());
-			_actionParserFactory.AddParser(new SetPropertyActionParser());
-			_actionParserFactory.AddParser(new RewriteActionParser());
-			_actionParserFactory.AddParser(new RedirectActionParser());
-			_actionParserFactory.AddParser(new SetStatusActionParser());
-			_actionParserFactory.AddParser(new ForbiddenActionParser());
-			_actionParserFactory.AddParser(new GoneActionParser());
-			_actionParserFactory.AddParser(new NotAllowedActionParser());
-			_actionParserFactory.AddParser(new NotFoundActionParser());
-			_actionParserFactory.AddParser(new NotImplementedActionParser());
+		    this._actionParserFactory = new ActionParserFactory();
+		    this._actionParserFactory.AddParser(new IfConditionActionParser());
+		    this._actionParserFactory.AddParser(new UnlessConditionActionParser());
+		    this._actionParserFactory.AddParser(new AddHeaderActionParser());
+		    this._actionParserFactory.AddParser(new SetCookieActionParser());
+		    this._actionParserFactory.AddParser(new SetPropertyActionParser());
+		    this._actionParserFactory.AddParser(new RewriteActionParser());
+		    this._actionParserFactory.AddParser(new RedirectActionParser());
+		    this._actionParserFactory.AddParser(new SetStatusActionParser());
+		    this._actionParserFactory.AddParser(new ForbiddenActionParser());
+		    this._actionParserFactory.AddParser(new GoneActionParser());
+		    this._actionParserFactory.AddParser(new NotAllowedActionParser());
+		    this._actionParserFactory.AddParser(new NotFoundActionParser());
+		    this._actionParserFactory.AddParser(new NotImplementedActionParser());
 
-			_conditionParserPipeline = new ConditionParserPipeline();
-			_conditionParserPipeline.AddParser(new AddressConditionParser());
-			_conditionParserPipeline.AddParser(new HeaderMatchConditionParser());
-			_conditionParserPipeline.AddParser(new MethodConditionParser());
-			_conditionParserPipeline.AddParser(new PropertyMatchConditionParser());
-			_conditionParserPipeline.AddParser(new ExistsConditionParser());
-			_conditionParserPipeline.AddParser(new UrlMatchConditionParser());
+		    this._conditionParserPipeline = new ConditionParserPipeline();
+		    this._conditionParserPipeline.AddParser(new AddressConditionParser());
+		    this._conditionParserPipeline.AddParser(new HeaderMatchConditionParser());
+		    this._conditionParserPipeline.AddParser(new MethodConditionParser());
+		    this._conditionParserPipeline.AddParser(new PropertyMatchConditionParser());
+		    this._conditionParserPipeline.AddParser(new ExistsConditionParser());
+		    this._conditionParserPipeline.AddParser(new UrlMatchConditionParser());
 
-			_transformFactory = new TransformFactory();
-			_transformFactory.AddTransform(new DecodeTransform());
-			_transformFactory.AddTransform(new EncodeTransform());
-			_transformFactory.AddTransform(new LowerTransform());
-			_transformFactory.AddTransform(new UpperTransform());
-			_transformFactory.AddTransform(new Base64Transform());
-			_transformFactory.AddTransform(new Base64DecodeTransform());
+		    this._transformFactory = new TransformFactory();
+		    this._transformFactory.AddTransform(new DecodeTransform());
+		    this._transformFactory.AddTransform(new EncodeTransform());
+		    this._transformFactory.AddTransform(new LowerTransform());
+		    this._transformFactory.AddTransform(new UpperTransform());
+		    this._transformFactory.AddTransform(new Base64Transform());
+		    this._transformFactory.AddTransform(new Base64DecodeTransform());
 
-			_defaultDocuments = new StringCollection();
+		    this._defaultDocuments = new StringCollection();
 		}
 
 		/// <summary>
 		/// The rules.
 		/// </summary>
-		public IList Rules
-		{
-			get
-			{
-				return _rules;
-			}
-		}
+		public IList Rules => this._rules;
 
-		/// <summary>
+	    /// <summary>
 		/// The action parser factory.
 		/// </summary>
-		public ActionParserFactory ActionParserFactory
-		{
-			get
-			{
-				return _actionParserFactory;
-			}
-		}
+		public ActionParserFactory ActionParserFactory => this._actionParserFactory;
 
-		/// <summary>
+	    /// <summary>
 		/// The transform factory.
 		/// </summary>
-		public TransformFactory TransformFactory
-		{
-			get
-			{
-				return _transformFactory;
-			}
-		}
+		public TransformFactory TransformFactory => this._transformFactory;
 
-		/// <summary>
+	    /// <summary>
 		/// The condition parser pipeline.
 		/// </summary>
-		public ConditionParserPipeline ConditionParserPipeline
-		{
-			get
-			{
-				return _conditionParserPipeline;
-			}
-		}
+		public ConditionParserPipeline ConditionParserPipeline => this._conditionParserPipeline;
 
-		/// <summary>
+	    /// <summary>
 		/// Dictionary of error handlers.
 		/// </summary>
-		public IDictionary ErrorHandlers
-		{
-			get
-			{
-				return _errorHandlers;
-			}
-		}
+		public IDictionary ErrorHandlers => this._errorHandlers;
 
-		/// <summary>
+	    /// <summary>
 		/// Logger to use for logging information.
 		/// </summary>
 		public IRewriteLogger Logger
 		{
-			get
-			{
-				return _logger;
-			}
-			set
-			{
-				_logger = value;
-			}
-		}
+			get => this._logger;
+	        set => this._logger = value;
+	    }
 
 		/// <summary>
 		/// Collection of default document names to use if the result of a rewriting
 		/// is a directory name.
 		/// </summary>
-		public StringCollection DefaultDocuments
-		{
-			get
-			{
-				return _defaultDocuments;
-			}
-		}
+		public StringCollection DefaultDocuments => this._defaultDocuments;
 
-		internal string XPoweredBy
-		{
-			get
-			{
-				return _xPoweredBy;
-			}
-		}
+	    internal string XPoweredBy => this._xPoweredBy;
 
-		/// <summary>
+	    /// <summary>
 		/// Creates a new configuration with only the default entries.
 		/// </summary>
 		/// <returns></returns>
@@ -174,7 +126,7 @@ namespace Intelligencia.UrlRewriter.Configuration
 		{
 			get
 			{
-				RewriterConfiguration configuration = HttpRuntime.Cache.Get(_cacheName) as RewriterConfiguration;
+				var configuration = HttpRuntime.Cache.Get(_cacheName) as RewriterConfiguration;
 				if (configuration == null)
 				{
 					lock (SyncObject)
@@ -199,17 +151,17 @@ namespace Intelligencia.UrlRewriter.Configuration
 		/// <returns>The configuration.</returns>
 		public static RewriterConfiguration Load()
 		{
-			XmlNode section = ConfigurationManager.GetSection(Constants.RewriterNode) as XmlNode;
+			var section = ConfigurationManager.GetSection(Constants.RewriterNode) as XmlNode;
 			RewriterConfiguration config = null;
 
-			XmlNode filenameNode = section.Attributes.GetNamedItem(Constants.AttrFile);
+			var filenameNode = section.Attributes.GetNamedItem(Constants.AttrFile);
 			if (filenameNode != null)
 			{
-				string filename = HttpContext.Current.Server.MapPath(filenameNode.Value);
+				var filename = HttpContext.Current.Server.MapPath(filenameNode.Value);
 				config = LoadFromFile(filename);
 				if (config != null)
 				{
-					CacheDependency fileDependency = new CacheDependency(filename);
+					var fileDependency = new CacheDependency(filename);
 					HttpRuntime.Cache.Add(_cacheName, config, fileDependency, DateTime.UtcNow.AddHours(1.0), TimeSpan.Zero, CacheItemPriority.Default, null);
 				}
 			}
@@ -232,7 +184,7 @@ namespace Intelligencia.UrlRewriter.Configuration
 		{
 			if (File.Exists(filename))
 			{
-				XmlDocument document = new XmlDocument();
+				var document = new XmlDocument();
 				document.Load(filename);
 
 				return LoadFromNode(document.DocumentElement);

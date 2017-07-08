@@ -6,11 +6,11 @@
 // 
 
 using System;
-using System.Xml;
 using System.Configuration;
+using System.Xml;
+
 using Intelligencia.UrlRewriter.Actions;
 using Intelligencia.UrlRewriter.Utilities;
-using Intelligencia.UrlRewriter.Configuration;
 
 namespace Intelligencia.UrlRewriter.Parsers
 {
@@ -29,37 +29,19 @@ namespace Intelligencia.UrlRewriter.Parsers
 		/// <summary>
 		/// The name of the action.
 		/// </summary>
-		public override string Name
-		{
-			get
-			{
-				return Constants.ElementRewrite;
-			}
-		}
+		public override string Name => Constants.ElementRewrite;
 
-		/// <summary>
+	    /// <summary>
 		/// Whether the action allows nested actions.
 		/// </summary>
-		public override bool AllowsNestedActions
-		{
-			get
-			{
-				return false;
-			}
-		}
+		public override bool AllowsNestedActions => false;
 
-		/// <summary>
+	    /// <summary>
 		/// Whether the action allows attributes.
 		/// </summary>
-		public override bool AllowsAttributes
-		{
-			get
-			{
-				return true;
-			}
-		}
+		public override bool AllowsAttributes => true;
 
-		/// <summary>
+	    /// <summary>
 		/// Parses the node.
 		/// </summary>
 		/// <param name="node">The node to parse.</param>
@@ -71,6 +53,7 @@ namespace Intelligencia.UrlRewriter.Parsers
             {
                 throw new ArgumentNullException("node");
             }
+
             if (config == null)
             {
                 throw new ArgumentNullException("config");
@@ -84,7 +67,7 @@ namespace Intelligencia.UrlRewriter.Parsers
 
 			XmlNode processingNode = node.Attributes[Constants.AttrProcessing];
 
-			RewriteProcessing processing = RewriteProcessing.ContinueProcessing;
+			var processing = RewriteProcessing.ContinueProcessing;
 			if (processingNode != null)
 			{
 				if (processingNode.Value == Constants.AttrValueRestart)
@@ -101,8 +84,8 @@ namespace Intelligencia.UrlRewriter.Parsers
 				}
 			}
 
-			RewriteAction action = new RewriteAction(toNode.Value, processing);
-			ParseConditions(node, action.Conditions, false, config);
+			var action = new RewriteAction(toNode.Value, processing);
+		    this.ParseConditions(node, action.Conditions, false, config);
 			return action;
 		}
 	}

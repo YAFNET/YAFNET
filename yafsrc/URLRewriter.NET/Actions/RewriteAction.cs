@@ -5,10 +5,7 @@
 // Copyright 2007 Seth Yates
 // 
 
-using System;
-using System.Web;
 using System.Collections;
-using Intelligencia.UrlRewriter.Conditions;
 
 namespace Intelligencia.UrlRewriter.Actions
 {
@@ -24,7 +21,7 @@ namespace Intelligencia.UrlRewriter.Actions
 		/// <param name="processing">The processing directive.</param>
 		public RewriteAction(string location, RewriteProcessing processing) : base(location)
 		{
-			_processing = processing;
+		    this._processing = processing;
 		}
 
 		/// <summary>
@@ -34,7 +31,7 @@ namespace Intelligencia.UrlRewriter.Actions
 		public override RewriteProcessing Execute(RewriteContext context)
 		{
 			base.Execute(context);
-            return _processing;
+            return this._processing;
 		}
 
 		/// <summary>
@@ -45,7 +42,7 @@ namespace Intelligencia.UrlRewriter.Actions
 		public bool IsMatch(RewriteContext context)
 		{
 			// Ensure the conditions are met.
-			foreach (IRewriteCondition condition in Conditions)
+			foreach (IRewriteCondition condition in this.Conditions)
 			{
 				if (!condition.IsMatch(context))
 				{
@@ -59,15 +56,9 @@ namespace Intelligencia.UrlRewriter.Actions
 		/// <summary>
 		/// Conditions that must hold for the rule to fire.
 		/// </summary>
-		public IList Conditions
-		{
-			get
-			{
-				return _conditions;
-			}
-		}
+		public IList Conditions => this._conditions;
 
-		private ArrayList _conditions = new ArrayList();
+	    private ArrayList _conditions = new ArrayList();
 		private RewriteProcessing _processing;
 	}
 }

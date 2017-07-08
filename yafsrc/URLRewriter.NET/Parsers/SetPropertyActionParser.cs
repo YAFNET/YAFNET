@@ -5,16 +5,16 @@
 // Copyright 2007 Seth Yates
 // 
 
-using System;
-using System.Xml;
-using System.Configuration;
-using Intelligencia.UrlRewriter.Actions;
-using Intelligencia.UrlRewriter.Utilities;
-using Intelligencia.UrlRewriter.Configuration;
-
 namespace Intelligencia.UrlRewriter.Parsers
 {
-	/// <summary>
+    using System;
+    using System.Configuration;
+    using System.Xml;
+
+    using Intelligencia.UrlRewriter.Actions;
+    using Intelligencia.UrlRewriter.Utilities;
+
+    /// <summary>
 	/// Action parser for the set-Property action.
 	/// </summary>
 	public sealed class SetPropertyActionParser : RewriteActionParserBase
@@ -29,37 +29,19 @@ namespace Intelligencia.UrlRewriter.Parsers
 		/// <summary>
 		/// The name of the action.
 		/// </summary>
-		public override string Name
-		{
-			get
-			{
-				return Constants.ElementSet;
-			}
-		}
+		public override string Name => Constants.ElementSet;
 
-		/// <summary>
+	    /// <summary>
 		/// Whether the action allows nested actions.
 		/// </summary>
-		public override bool AllowsNestedActions
-		{
-			get
-			{
-				return false;
-			}
-		}
+		public override bool AllowsNestedActions => false;
 
-		/// <summary>
+	    /// <summary>
 		/// Whether the action allows attributes.
 		/// </summary>
-		public override bool AllowsAttributes
-		{
-			get
-			{
-				return true;
-			}
-		}
+		public override bool AllowsAttributes => true;
 
-		/// <summary>
+	    /// <summary>
 		/// Parses the node.
 		/// </summary>
 		/// <param name="node">The node to parse.</param>
@@ -71,18 +53,19 @@ namespace Intelligencia.UrlRewriter.Parsers
             {
                 throw new ArgumentNullException("node");
             }
+
             if (config == null)
             {
                 throw new ArgumentNullException("config");
             }
             
-            XmlNode propertyNameNode = node.Attributes.GetNamedItem(Constants.AttrProperty);
+            var propertyNameNode = node.Attributes.GetNamedItem(Constants.AttrProperty);
 			if (propertyNameNode == null)
 			{
 				return null;
 			}
 
-			XmlNode propertyValueNode = node.Attributes.GetNamedItem(Constants.AttrValue);
+			var propertyValueNode = node.Attributes.GetNamedItem(Constants.AttrValue);
 			if (propertyValueNode == null)
 			{
                 throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.AttributeRequired, Constants.AttrValue), node);

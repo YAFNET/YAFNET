@@ -25,21 +25,16 @@ namespace Intelligencia.UrlRewriter.Conditions
             {
                 throw new ArgumentNullException("pattern");
             }
-            _pattern = new Regex(pattern, RegexOptions.IgnoreCase);
+
+		    this._pattern = new Regex(pattern, RegexOptions.IgnoreCase);
 		}
 
 		/// <summary>
 		/// The pattern to match.
 		/// </summary>
-		public Regex Pattern
-		{
-			get
-			{
-				return _pattern;
-			}
-		}
+		public Regex Pattern => this._pattern;
 
-		/// <summary>
+	    /// <summary>
 		/// Determines if the condition is matched.
 		/// </summary>
 		/// <param name="context">The rewriting context.</param>

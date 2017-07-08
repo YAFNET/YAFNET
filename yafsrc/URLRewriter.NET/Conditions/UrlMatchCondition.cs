@@ -6,7 +6,6 @@
 // 
 
 using System;
-using System.Web;
 using System.Text.RegularExpressions;
 
 namespace Intelligencia.UrlRewriter.Conditions
@@ -26,7 +25,8 @@ namespace Intelligencia.UrlRewriter.Conditions
             {
                 throw new ArgumentNullException("pattern");
             }
-            _pattern = pattern;
+
+		    this._pattern = pattern;
 		}
 
 		/// <summary>
@@ -40,41 +40,34 @@ namespace Intelligencia.UrlRewriter.Conditions
             {
                 throw new ArgumentNullException("context");
             }
-            if (_regex == null)
+
+            if (this._regex == null)
 			{
 				lock (this)
 				{
-					if (_regex == null)
+					if (this._regex == null)
 					{
-						_regex = new Regex(context.ResolveLocation(Pattern), RegexOptions.IgnoreCase);
+					    this._regex = new Regex(context.ResolveLocation(this.Pattern), RegexOptions.IgnoreCase);
 					}
 				}
 			}
 
-			Match match = _regex.Match(context.Location);
+			var match = this._regex.Match(context.Location);
 			if (match.Success)
 			{
 				context.LastMatch = match;
 				return true;
 			}
-			else
-			{
-				return false;
-			}
+
+		    return false;
 		}
 
 		/// <summary>
 		/// The pattern to match.
 		/// </summary>
-		public string Pattern
-		{
-			get
-			{
-				return _pattern;
-			}
-		}
+		public string Pattern => this._pattern;
 
-		private Regex _regex;
+	    private Regex _regex;
 		private string _pattern;
 	}
 }

@@ -6,11 +6,11 @@
 // 
 
 using System;
-using System.Xml;
 using System.Configuration;
+using System.Xml;
+
 using Intelligencia.UrlRewriter.Actions;
 using Intelligencia.UrlRewriter.Utilities;
-using Intelligencia.UrlRewriter.Configuration;
 
 namespace Intelligencia.UrlRewriter.Parsers
 {
@@ -29,37 +29,19 @@ namespace Intelligencia.UrlRewriter.Parsers
 		/// <summary>
 		/// The name of the action.
 		/// </summary>
-		public override string Name
-		{
-			get
-			{
-				return Constants.ElementRedirect;
-			}
-		}
+		public override string Name => Constants.ElementRedirect;
 
-		/// <summary>
+	    /// <summary>
 		/// Whether the action allows nested actions.
 		/// </summary>
-		public override bool AllowsNestedActions
-		{
-			get
-			{
-				return false;
-			}
-		}
+		public override bool AllowsNestedActions => false;
 
-		/// <summary>
+	    /// <summary>
 		/// Whether the action allows attributes.
 		/// </summary>
-		public override bool AllowsAttributes
-		{
-			get
-			{
-				return true;
-			}
-		}
+		public override bool AllowsAttributes => true;
 
-		/// <summary>
+	    /// <summary>
 		/// Parses the node.
 		/// </summary>
 		/// <param name="node">The node to parse.</param>
@@ -72,21 +54,21 @@ namespace Intelligencia.UrlRewriter.Parsers
                 throw new ArgumentNullException("node");
             }
             
-            XmlNode toNode = node.Attributes.GetNamedItem(Constants.AttrTo);
+            var toNode = node.Attributes.GetNamedItem(Constants.AttrTo);
 			if (toNode == null)
 			{
 				throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.AttributeRequired, Constants.AttrTo), node);
 			}
 
-			bool permanent = true;
-			XmlNode permanentNode = node.Attributes.GetNamedItem(Constants.AttrPermanent);
+			var permanent = true;
+			var permanentNode = node.Attributes.GetNamedItem(Constants.AttrPermanent);
 			if (permanentNode != null)
 			{
 				permanent = Convert.ToBoolean(permanentNode.Value);
 			}
 
-			RedirectAction action = new RedirectAction(toNode.Value, permanent);
-			ParseConditions(node, action.Conditions, false, config);
+			var action = new RedirectAction(toNode.Value, permanent);
+		    this.ParseConditions(node, action.Conditions, false, config);
 			return action;
 		}
 	}

@@ -25,38 +25,27 @@ namespace Intelligencia.UrlRewriter.Actions
             {
                 throw new ArgumentNullException("header");
             }
+
             if (value == null)
             {
                 throw new ArgumentNullException("value");
             }
-            
-            _header = header;
-			_value = value;
+
+		    this._header = header;
+		    this._value = value;
 		}
 
 		/// <summary>
 		/// The header name.
 		/// </summary>
-		public string Header
-		{
-			get
-			{
-				return _header;
-			}
-		}
+		public string Header => this._header;
 
-		/// <summary>
+	    /// <summary>
 		/// The header value.
 		/// </summary>
-		public string Value
-		{
-			get
-			{
-				return _value;
-			}
-		}
+		public string Value => this._value;
 
-		/// <summary>
+	    /// <summary>
 		/// Executes the action.
 		/// </summary>
 		/// <param name="context">The rewrite context.</param>
@@ -66,7 +55,8 @@ namespace Intelligencia.UrlRewriter.Actions
             {
                 throw new ArgumentNullException("context");
             }
-            context.Headers.Add(Header, Value);
+
+            context.Headers.Add(this.Header, this.Value);
             return RewriteProcessing.ContinueProcessing;
 		}
 

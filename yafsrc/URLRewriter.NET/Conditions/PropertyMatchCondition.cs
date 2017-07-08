@@ -6,7 +6,6 @@
 // 
 
 using System;
-using System.Text.RegularExpressions;
 
 namespace Intelligencia.UrlRewriter.Conditions
 {
@@ -26,26 +25,21 @@ namespace Intelligencia.UrlRewriter.Conditions
             {
                 throw new ArgumentNullException("propertyName");
             }
+
             if (pattern == null)
             {
                 throw new ArgumentNullException("pattern");
             }
-            
-            _propertyName = propertyName;
+
+		    this._propertyName = propertyName;
 		}
 
 		/// <summary>
 		/// The property name.
 		/// </summary>
-		public string PropertyName
-		{
-			get
-			{
-				return _propertyName;
-			}
-		}
+		public string PropertyName => this._propertyName;
 
-		/// <summary>
+	    /// <summary>
 		/// Determines if the condition is matched.
 		/// </summary>
 		/// <param name="context">The rewriting context.</param>
@@ -56,26 +50,23 @@ namespace Intelligencia.UrlRewriter.Conditions
             {
                 throw new ArgumentNullException("context");
             }
-            string property = context.Properties[PropertyName];
+
+            var property = context.Properties[this.PropertyName];
 			if (property != null)
 			{
-				Match match = Pattern.Match(property);
+				var match = this.Pattern.Match(property);
 				if (match.Success)
 				{
 					context.LastMatch = match;
 					return true;
 				}
-				else
-				{
-					return false;
-				}
+
+			    return false;
 			}
-			else
-			{
-				return false;
-			}
+
+		    return false;
 		}
 
-		private string _propertyName = String.Empty;
+		private string _propertyName = string.Empty;
 	}
 }

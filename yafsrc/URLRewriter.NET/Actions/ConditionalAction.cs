@@ -5,9 +5,7 @@
 // Copyright 2007 Seth Yates
 // 
 
-using System;
 using System.Collections;
-using Intelligencia.UrlRewriter.Conditions;
 
 namespace Intelligencia.UrlRewriter.Actions
 {
@@ -26,26 +24,14 @@ namespace Intelligencia.UrlRewriter.Actions
 		/// <summary>
 		/// Conditions that must hold for the rule to fire.
 		/// </summary>
-		public IList Conditions
-		{
-			get
-			{
-				return _conditions;
-			}
-		}
+		public IList Conditions => this._conditions;
 
-		/// <summary>
+	    /// <summary>
 		/// Child rules.
 		/// </summary>
-		public IList Actions
-		{
-			get
-			{
-				return _actions;
-			}
-		}
+		public IList Actions => this._actions;
 
-		/// <summary>
+	    /// <summary>
 		/// Determines if the action matches the current context.
 		/// </summary>
 		/// <param name="context">The context to match on.</param>
@@ -53,7 +39,7 @@ namespace Intelligencia.UrlRewriter.Actions
 		public virtual bool IsMatch(RewriteContext context)
 		{
 			// Ensure the conditions are met.
-			foreach (IRewriteCondition condition in Conditions)
+			foreach (IRewriteCondition condition in this.Conditions)
 			{
 				if (!condition.IsMatch(context))
 				{
@@ -71,13 +57,13 @@ namespace Intelligencia.UrlRewriter.Actions
         public virtual RewriteProcessing Execute(RewriteContext context)
 		{
 			// Execute the actions.
-			for (int i = 0; i < Actions.Count; i++)
+			for (var i = 0; i < this.Actions.Count; i++)
 			{
-				IRewriteCondition condition = Actions[i] as IRewriteCondition;
+				var condition = this.Actions[i] as IRewriteCondition;
 				if (condition == null || condition.IsMatch(context))
 				{
-					IRewriteAction action = Actions[i] as IRewriteAction;
-                    RewriteProcessing processing = action.Execute(context);
+					var action = this.Actions[i] as IRewriteAction;
+                    var processing = action.Execute(context);
 					if (processing != RewriteProcessing.ContinueProcessing)
 					{
 						return processing;

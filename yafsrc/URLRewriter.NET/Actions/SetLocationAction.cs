@@ -24,7 +24,8 @@ namespace Intelligencia.UrlRewriter.Actions
             {
                 throw new ArgumentNullException("location");
             }
-            _location = location;
+
+		    this._location = location;
 		}
 
 		/// <summary>
@@ -32,15 +33,9 @@ namespace Intelligencia.UrlRewriter.Actions
 		/// for example $1, $2, ... $n and ${group} as well as ${ServerVariable} and mapping, e.g., 
 		/// ${MapName:$1}.
 		/// </summary>
-		public string Location
-		{
-			get
-			{
-				return _location;
-			}
-		}
+		public string Location => this._location;
 
-		/// <summary>
+	    /// <summary>
 		/// Executes the action.
 		/// </summary>
 		/// <param name="context">The rewriting context.</param>
@@ -50,7 +45,8 @@ namespace Intelligencia.UrlRewriter.Actions
             {
                 throw new ArgumentNullException("context");
             }
-            context.Location = context.ResolveLocation(context.Expand(Location));
+
+            context.Location = context.ResolveLocation(context.Expand(this.Location));
             return RewriteProcessing.StopProcessing;
 		}
 

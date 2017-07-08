@@ -5,206 +5,169 @@
 // Copyright 2007 Seth Yates
 // 
 
-using System;
-using System.IO;
-using System.Net;
-using System.Xml;
-using System.Web;
-using System.Web.Caching;
-using System.Configuration;
-using System.Text.RegularExpressions;
-using System.Collections.Specialized;
-using Intelligencia.UrlRewriter.Configuration;
-using Intelligencia.UrlRewriter.Utilities;
-
 namespace Intelligencia.UrlRewriter
 {
-	/// <summary>
-	/// Encapsulates all rewriting information about an individual rewrite request.  This class cannot be inherited.
-	/// </summary>
-	/// <remarks>
-	/// This class cannot be created directly.  It will be provided to actions and conditions
-	/// by the framework.
-	/// </remarks>
-	public sealed class RewriteContext
-	{
-		/// <summary>
-		/// Default constructor.
-		/// </summary>
-		/// <param name="engine">The rewriting engine.</param>
-		/// <param name="rawUrl">The initial, raw URL.</param>
-		/// <param name="httpMethod">The HTTP method used (GET, POST, ...)</param>
-		/// <param name="mapPath">The method to use for mapping paths.</param>
-		/// <param name="serverVariables">Collection of server variables.</param>
-		/// <param name="headers">Collection of headers.</param>
-		/// <param name="cookies">Collection of cookies.</param>
-		internal RewriteContext(RewriterEngine engine,
-			string rawUrl, string httpMethod,
-			MapPath mapPath,
-			NameValueCollection serverVariables,
-			NameValueCollection headers,
-			HttpCookieCollection cookies)
-		{
-			_engine = engine;
-			_location = rawUrl;
-			_method = httpMethod;
-			_mapPath = mapPath;
+    using System.Collections.Specialized;
+    using System.Net;
+    using System.Text.RegularExpressions;
+    using System.Web;
 
-			foreach (string key in serverVariables)
-			{
-				_properties.Add(key, serverVariables[key]);
-			}
+    using Intelligencia.UrlRewriter.Utilities;
 
-			foreach (string key in headers)
-			{
-				_properties.Add(key, headers[key]);
-			}
+    /// <summary>
+    /// Encapsulates all rewriting information about an individual rewrite request.  This class cannot be inherited.
+    /// </summary>
+    /// <remarks>
+    /// This class cannot be created directly.  It will be provided to actions and conditions
+    /// by the framework.
+    /// </remarks>
+    public sealed class RewriteContext
+    {
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// <param name="engine">The rewriting engine.</param>
+        /// <param name="rawUrl">The initial, raw URL.</param>
+        /// <param name="httpMethod">The HTTP method used (GET, POST, ...)</param>
+        /// <param name="mapPath">The method to use for mapping paths.</param>
+        /// <param name="serverVariables">Collection of server variables.</param>
+        /// <param name="headers">Collection of headers.</param>
+        /// <param name="cookies">Collection of cookies.</param>
+        internal RewriteContext(
+            RewriterEngine engine,
+            string rawUrl,
+            string httpMethod,
+            MapPath mapPath,
+            NameValueCollection serverVariables,
+            NameValueCollection headers,
+            HttpCookieCollection cookies)
+        {
+            this._engine = engine;
+            this._location = rawUrl;
+            this._method = httpMethod;
+            this._mapPath = mapPath;
 
-			foreach (string key in cookies)
-			{
-				_properties.Add(key, cookies[key].Value);
-			}
-		}
+            foreach (string key in serverVariables)
+            {
+                this._properties.Add(key, serverVariables[key]);
+            }
 
-		/// <summary>
-		/// Maps the given URL to the absolute local path.
-		/// </summary>
-		/// <param name="url">The URL to map.</param>
-		/// <returns>The absolute local file path relating to the url.</returns>
-		public string MapPath(string url)
-		{
-			return _mapPath(url);
-		}
+            foreach (string key in headers)
+            {
+                this._properties.Add(key, headers[key]);
+            }
 
-		/// <summary>
-		/// The current location being rewritten.
-		/// </summary>
-		/// <remarks>
-		/// This property starts out as Request.RawUrl and is altered by various
-		/// rewrite actions.
-		/// </remarks>
-		public string Location
-		{
-			get
-			{
-				return _location;
-			}
-			set
-			{
-				_location = value;
-			}
-		}
+            foreach (string key in cookies)
+            {
+                this._properties.Add(key, cookies[key].Value);
+            }
+        }
 
-		/// <summary>
-		/// The request method (GET, PUT, POST, HEAD, DELETE).
-		/// </summary>
-		public string Method
-		{
-			get
-			{
-				return _method;
-			}
-		}
+        /// <summary>
+        /// Maps the given URL to the absolute local path.
+        /// </summary>
+        /// <param name="url">The URL to map.</param>
+        /// <returns>The absolute local file path relating to the url.</returns>
+        public string MapPath(string url)
+        {
+            return this._mapPath(url);
+        }
 
-		/// <summary>
-		/// The properties for the context, including headers and cookie values.
-		/// </summary>
-		public NameValueCollection Properties
-		{
-			get
-			{
-				return _properties;
-			}
-		}
+        /// <summary>
+        /// The current location being rewritten.
+        /// </summary>
+        /// <remarks>
+        /// This property starts out as Request.RawUrl and is altered by various
+        /// rewrite actions.
+        /// </remarks>
+        public string Location
+        {
+            get => this._location;
+            set => this._location = value;
+        }
 
-		/// <summary>
-		/// Output headers.
-		/// </summary>
-		/// <remarks>
-		/// This collection is the collection of headers to add to the response.
-		/// For the headers sent in the request, use the <see cref="RewriteContext.Properties">Properties</see> property.
-		/// </remarks>
-		public NameValueCollection Headers
-		{
-			get
-			{
-				return _headers;
-			}
-		}
+        /// <summary>
+        /// The request method (GET, PUT, POST, HEAD, DELETE).
+        /// </summary>
+        public string Method => this._method;
 
-		/// <summary>
-		/// The status code to send in the response.
-		/// </summary>
-		public HttpStatusCode StatusCode
-		{
-			get
-			{
-				return _statusCode;
-			}
-			set
-			{
-				_statusCode = value;
-			}
-		}
+        /// <summary>
+        /// The properties for the context, including headers and cookie values.
+        /// </summary>
+        public NameValueCollection Properties => this._properties;
 
-		/// <summary>
-		/// Collection of output cookies.
-		/// </summary>
-		/// <remarks>
-		/// This is the collection of cookies to send in the response.  For the cookies
-		/// received in the request, use the <see cref="RewriteContext.Properties">Properties</see> property.
-		/// </remarks>
-		public HttpCookieCollection Cookies
-		{
-			get
-			{
-				return _cookies;
-			}
-		}
+        /// <summary>
+        /// Output headers.
+        /// </summary>
+        /// <remarks>
+        /// This collection is the collection of headers to add to the response.
+        /// For the headers sent in the request, use the <see cref="RewriteContext.Properties">Properties</see> property.
+        /// </remarks>
+        public NameValueCollection Headers => this._headers;
 
-		/// <summary>
-		/// Last matching pattern from a match (if any).
-		/// </summary>
-		public Match LastMatch
-		{
-			get
-			{
-				return _lastMatch;
-			}
-			set
-			{
-				_lastMatch = value;
-			}
-		}
+        /// <summary>
+        /// The status code to send in the response.
+        /// </summary>
+        public HttpStatusCode StatusCode
+        {
+            get => this._statusCode;
+            set => this._statusCode = value;
+        }
 
-		/// <summary>
-		/// Expands the given input using the last match, properties, maps and transforms.
-		/// </summary>
-		/// <param name="input">The input to expand.</param>
-		/// <returns>The expanded form of the input.</returns>
-		public string Expand(string input)
-		{
-			return _engine.Expand(this, input);
-		}
+        /// <summary>
+        /// Collection of output cookies.
+        /// </summary>
+        /// <remarks>
+        /// This is the collection of cookies to send in the response.  For the cookies
+        /// received in the request, use the <see cref="RewriteContext.Properties">Properties</see> property.
+        /// </remarks>
+        public HttpCookieCollection Cookies => this._cookies;
 
-		/// <summary>
-		/// Resolves the location to an absolute reference.
-		/// </summary>
-		/// <param name="location">The application-referenced location.</param>
-		/// <returns>The absolute location.</returns>
-		public string ResolveLocation(string location)
-		{
-			return _engine.ResolveLocation(location);
-		}
+        /// <summary>
+        /// Last matching pattern from a match (if any).
+        /// </summary>
+        public Match LastMatch
+        {
+            get => this._lastMatch;
+            set => this._lastMatch = value;
+        }
 
-		private RewriterEngine _engine;
-		private string _method = String.Empty;
-		private HttpStatusCode _statusCode = HttpStatusCode.OK;
-		private string _location;
-		private NameValueCollection _properties = new NameValueCollection();
-		private NameValueCollection _headers = new NameValueCollection();
-		private HttpCookieCollection _cookies = new HttpCookieCollection();
-		private Match _lastMatch;
-		private MapPath _mapPath;
-	}
+        /// <summary>
+        /// Expands the given input using the last match, properties, maps and transforms.
+        /// </summary>
+        /// <param name="input">The input to expand.</param>
+        /// <returns>The expanded form of the input.</returns>
+        public string Expand(string input)
+        {
+            return this._engine.Expand(this, input);
+        }
+
+        /// <summary>
+        /// Resolves the location to an absolute reference.
+        /// </summary>
+        /// <param name="location">The application-referenced location.</param>
+        /// <returns>The absolute location.</returns>
+        public string ResolveLocation(string location)
+        {
+            return this._engine.ResolveLocation(location);
+        }
+
+        private RewriterEngine _engine;
+
+        private string _method = string.Empty;
+
+        private HttpStatusCode _statusCode = HttpStatusCode.OK;
+
+        private string _location;
+
+        private NameValueCollection _properties = new NameValueCollection();
+
+        private NameValueCollection _headers = new NameValueCollection();
+
+        private HttpCookieCollection _cookies = new HttpCookieCollection();
+
+        private Match _lastMatch;
+
+        private MapPath _mapPath;
+    }
 }
