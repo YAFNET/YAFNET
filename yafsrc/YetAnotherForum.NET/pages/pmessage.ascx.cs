@@ -38,7 +38,9 @@ namespace YAF.Pages
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -555,7 +557,7 @@ namespace YAF.Pages
             if (this.ToList.SelectedItem != null && this.ToList.SelectedItem.Value == "0")
             {
                 // administrator is sending PMs to all users           
-                string body = this._editor.Text;
+                var body = this._editor.Text;
                 var messageFlags = new MessageFlags
                                        {
                                            IsHtml = this._editor.UsesHTML,
@@ -563,7 +565,7 @@ namespace YAF.Pages
                                        };
                 
                 // test user's PM count
-                if (!this.VerifyMessageAllowed(1))
+                if (!this.VerifyMessageAllowed(1, body))
                 {
                     return;
                 }
@@ -614,7 +616,7 @@ namespace YAF.Pages
                     return;
                 }
 
-                if (!this.VerifyMessageAllowed(recipients.Count))
+                if (!this.VerifyMessageAllowed(recipients.Count, this._editor.Text))
                 {
                     return;
                 }
@@ -705,9 +707,167 @@ namespace YAF.Pages
         /// Verifies the message allowed.
         /// </summary>
         /// <param name="count">The recipients count.</param>
-        /// <returns>Returns if the user is allowed to send a message or not</returns>
-        private bool VerifyMessageAllowed(int count)
+        /// <param name="message">The message.</param>
+        /// <returns>
+        /// Returns if the user is allowed to send a message or not
+        /// </returns>
+        private bool VerifyMessageAllowed(int count, string message)
         {
+            // Check if SPAM Message first...
+            if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess && !this.Get<YafBoardSettings>().SpamServiceType.Equals(0))
+            {
+                var spamChecker = new YafSpamCheck();
+                string spamResult;
+
+                // Check content for spam
+                if (spamChecker.CheckPostForSpam(
+                    this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                    YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                    message,
+                    this.PageContext.User.Email,
+                    out spamResult))
+                {
+                    switch (this.Get<YafBoardSettings>().SpamMessageHandling)
+                    {
+                        case 0:
+                            this.Logger.Log(
+                                this.PageContext.PageUserID,
+                                "Spam Message Detected",
+                                "Spam Check detected possible SPAM ({1}) posted by User: {0}"
+                                    .FormatWith(
+                                        this.PageContext.PageUserName,
+                                        spamResult),
+                                EventLogTypes.SpamMessageDetected);
+                            break;
+                        case 1:
+                            this.Logger.Log(
+                                this.PageContext.PageUserID,
+                                "Spam Message Detected",
+                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post"
+                                    .FormatWith(
+                                        this.PageContext.PageUserName,
+                                        spamResult),
+                                EventLogTypes.SpamMessageDetected);
+                            break;
+                        case 2:
+                            this.Logger.Log(
+                                this.PageContext.PageUserID,
+                                "Spam Message Detected",
+                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected"
+                                    .FormatWith(
+                                        this.PageContext.PageUserName,
+                                        spamResult),
+                                EventLogTypes.SpamMessageDetected);
+
+                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
+
+                            break;
+                        case 3:
+                            this.Logger.Log(
+                                this.PageContext.PageUserID,
+                                "Spam Message Detected",
+                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and bannded"
+                                    .FormatWith(
+                                        this.PageContext.PageUserName,
+                                        spamResult),
+                                EventLogTypes.SpamMessageDetected);
+
+                            var userIp =
+                                new CombinedUserDataHelper(
+                                    this.PageContext.CurrentUserData.Membership,
+                                    this.PageContext.PageUserID).LastIP;
+
+                            UserMembershipHelper.DeleteAndBanUser(
+                                this.PageContext.PageUserID,
+                                this.PageContext.CurrentUserData.Membership,
+                                userIp);
+
+                            break;
+                    }
+
+                    return false;
+                }
+
+                // Check posts for urls if the user has only x posts
+                if (YafContext.Current.CurrentUserData.NumPosts
+                    <= YafContext.Current.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount &&
+                    !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
+                {
+                    var urlCount = UrlHelper.CountUrls(message);
+
+                    if (urlCount > this.PageContext.BoardSettings.AllowedNumberOfUrls)
+                    {
+                        spamResult = "The user posted {0} urls but allowed only {1}".FormatWith(
+                            urlCount,
+                            this.PageContext.BoardSettings.AllowedNumberOfUrls);
+
+                        switch (this.Get<YafBoardSettings>().SpamMessageHandling)
+                        {
+                            case 0:
+                                this.Logger.Log(
+                                    this.PageContext.PageUserID,
+                                    "Spam Message Detected",
+                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}".FormatWith(
+                                        this.PageContext.PageUserName,
+                                        spamResult),
+                                    EventLogTypes.SpamMessageDetected);
+                                break;
+                            case 1:
+                                this.Logger.Log(
+                                    this.PageContext.PageUserID,
+                                    "Spam Message Detected",
+                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post"
+                                        .FormatWith(
+                                            this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
+                                            spamResult),
+                                    EventLogTypes.SpamMessageDetected);
+                                break;
+                            case 2:
+                                this.Logger.Log(
+                                    this.PageContext.PageUserID,
+                                    "Spam Message Detected",
+                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected"
+                                        .FormatWith(
+                                            this.PageContext.PageUserName,
+                                            spamResult),
+                                    EventLogTypes.SpamMessageDetected);
+
+                                this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
+
+                                break;
+                            case 3:
+                                this.Logger.Log(
+                                    this.PageContext.PageUserID,
+                                    "Spam Message Detected",
+                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and bannded"
+                                        .FormatWith(
+                                            this.PageContext.PageUserName,
+                                            spamResult),
+                                    EventLogTypes.SpamMessageDetected);
+
+                                var userIp =
+                                    new CombinedUserDataHelper(
+                                        this.PageContext.CurrentUserData.Membership,
+                                        this.PageContext.PageUserID).LastIP;
+
+                                UserMembershipHelper.DeleteAndBanUser(
+                                    this.PageContext.PageUserID,
+                                    this.PageContext.CurrentUserData.Membership,
+                                    userIp);
+
+                                break;
+                        }
+
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            ///////////////////////////////
+
+
             // test sending user's PM count
             // get user's name
             var drPMInfo = LegacyDb.user_pmcount(YafContext.Current.PageUserID).Rows[0];
@@ -722,6 +882,7 @@ namespace YAF.Pages
             YafContext.Current.AddLoadMessage(
                 this.GetTextFormatted("OWN_PMBOX_FULL", drPMInfo["NumberAllowed"]),
                 MessageTypes.danger);
+
             return false;
         }
 
