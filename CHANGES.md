@@ -8,6 +8,7 @@ YetAnotherForum.NET Changelog
 * [NEW] Impoved spam detection now you can define how many urls are allowed inside a message before flagged a spam
 * [NEW] Sitemap Provider for DNN Platform
 * [NEW] Redirect Forum Remote URL to new Window
+* [NEW #353] Added Spam Check when sending PM's
 
 
 ## Fixed Issues:

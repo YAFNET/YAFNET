@@ -33,9 +33,15 @@ namespace Intelligencia.UrlRewriter
         /// </summary>
         public static string OriginalQueryString
         {
-            get => _Rewriter.OriginalQueryString;
+            get
+            {
+                return _Rewriter.OriginalQueryString;
+            }
 
-            set => _Rewriter.OriginalQueryString = value;
+            set
+            {
+                _Rewriter.OriginalQueryString = value;
+            }
         }
 
         /// <summary>
@@ -43,9 +49,15 @@ namespace Intelligencia.UrlRewriter
         /// </summary>
         public static string QueryString
         {
-            get => _Rewriter.QueryString;
+            get
+            {
+                return _Rewriter.QueryString;
+            }
 
-            set => _Rewriter.QueryString = value;
+            set
+            {
+                _Rewriter.QueryString = value;
+            }
         }
 
         /// <summary>
@@ -53,9 +65,15 @@ namespace Intelligencia.UrlRewriter
         /// </summary>
         public static string RawUrl
         {
-            get => _Rewriter.RawUrl;
+            get
+            {
+                return _Rewriter.RawUrl;
+            }
 
-            set => _Rewriter.RawUrl = value;
+            set
+            {
+                _Rewriter.RawUrl = value;
+            }
         }
 
         /// <summary>
@@ -64,7 +82,13 @@ namespace Intelligencia.UrlRewriter
         /// <value>
         /// The configuration.
         /// </value>
-        public static RewriterConfiguration Configuration => RewriterConfiguration.Current;
+        public static RewriterConfiguration Configuration
+        {
+            get
+            {
+                return RewriterConfiguration.Current;
+            }
+        }
 
         /// <summary>
         /// Resolves an Application-path relative location
