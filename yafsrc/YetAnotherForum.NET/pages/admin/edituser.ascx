@@ -13,12 +13,12 @@
 <YAF:AdminMenu runat="server">
     <div class="row">
         <div class="col-xl-12">
-            <h1 class="page-header"><asp:Label runat="server" ID="Header"></asp:Label></h1>
+            <h1><asp:Label runat="server" ID="Header"></asp:Label></h1>
         </div>
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card card-primary-outline">
+            <div class="card mb-3 card-outline-primary">
                 <div class="card-header card-primary">
                     <i class="fa fa-user fa-fw"></i>&nbsp;<asp:Label  runat="server" ID="Header2"/>
                 </div>

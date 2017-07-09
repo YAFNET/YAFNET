@@ -7,7 +7,7 @@
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
 <div class="row">
     <div class="col-xl-12">
-        <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_USERS" /></h1>
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_USERS" /></h1>
     </div>
     </div>
     <div class="row">
@@ -15,7 +15,7 @@
     <asp:PlaceHolder runat="server" ID="SearchResults" Visible="False">
 
     <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" UsePostBack="True" />
-    <div class="card card-primary-outline">
+    <div class="card mb-3 card-outline-primary">
                 <div class="card-header card-primary">
                     <i class="fa fa-user fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_USERS" />
                     <div class="input-group pull-right user-search-dropdown">
@@ -153,7 +153,7 @@
 </asp:UpdatePanel>
 <div>
     <div id="SyncUsersMessage" style="display: none">
-		<div class="card card-inverse card-danger text-xs-center">
+		<div class="card mb-3 card-inverse card-danger text-center">
 		    <div class="card-block">
 		        <blockquote class="card-blockquote">
                     <p>

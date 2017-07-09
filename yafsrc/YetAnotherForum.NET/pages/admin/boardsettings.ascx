@@ -3,12 +3,12 @@
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
 <div class="row">
     <div class="col-xl-12">
-        <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_BOARDSETTINGS" /></h1>
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_BOARDSETTINGS" /></h1>
     </div>
 </div>
 <div class="row">
                 <div class="col-xl-12">
-                    <div class="card card-primary-outline">
+                    <div class="card mb-3 card-outline-primary">
                         <div class="card-header card-primary">
                              <i class="fa fa-gears fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BOARD_SETUP"
                                  LocalizedPage="ADMIN_BOARDSETTINGS" />
@@ -180,7 +180,7 @@
                 </asp:DropDownList>
             </p>
                             </div>
-                        <div class="card-footer text-xs-center">
+                        <div class="card-footer text-center">
                             <asp:LinkButton ID="Save" CssClass="btn btn-primary" runat="server" Text="Save" OnClick="Save_Click">
                             </asp:LinkButton>
                         </div>

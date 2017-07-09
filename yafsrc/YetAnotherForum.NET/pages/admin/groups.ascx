@@ -8,12 +8,12 @@
 <YAF:AdminMenu runat="server">
     <div class="row">
     <div class="col-xl-12">
-        <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_GROUPS" /></h1>
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_GROUPS" /></h1>
     </div>
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card card-primary-outline">
+            <div class="card mb-3 card-outline-primary">
                 <div class="card-header card-primary">
                     <i class="fa fa-group fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="PROVIDER_ROLES" LocalizedPage="ADMIN_GROUPS" />
                 </div>
@@ -70,7 +70,7 @@
             </FooterTemplate>
 		</asp:Repeater>
                 </div></div>
-                        <div class="card card-primary-outline">
+                        <div class="card mb-3 card-outline-primary">
                 <div class="card-header card-primary">
                     <i class="fa fa-group fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_GROUPS" />
                 </div>

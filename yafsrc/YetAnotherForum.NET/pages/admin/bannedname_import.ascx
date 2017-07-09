@@ -4,7 +4,7 @@
 <YAF:AdminMenu runat="server">
     <div class="row">
     <div class="col-xl-12">
-        <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_BANNEDNAME_IMPORT" /></h1>
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_BANNEDNAME_IMPORT" /></h1>
     </div>
     </div>
     <div class="row">
@@ -17,7 +17,7 @@
                     LocalizedTag="NOTE" LocalizedPage="ADMIN_BANNEDNAME_IMPORT">
                 </YAF:LocalizedLabel>
             </div>
-            <div class="card card-primary-outline">
+            <div class="card mb-3 card-outline-primary">
                 <div class="card-header card-primary">
                     <i class="fa fa-hand-stop-o fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_BANNEDNAME_IMPORT" />
                 </div>

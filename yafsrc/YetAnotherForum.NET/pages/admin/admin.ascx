@@ -7,7 +7,7 @@
 <YAF:AdminMenu ID="Adminmenu1" runat="server">
                 <div class="row">
                 <div class="col-xl-12">
-                    <h1 class="page-header">Dashboard</h1>
+                    <h1>Dashboard</h1>
                 </div>
             </div>
     <asp:PlaceHolder ID="UpdateHightlight" runat="server" Visible="false">
@@ -20,157 +20,141 @@
             <asp:HyperLink ID="UpdateLinkWarning" runat="server" Target="_blank"></asp:HyperLink>
         </div>
     </asp:PlaceHolder>
-
     <div class="row">
              <div class="col-xl-12">
-                    <div class="card card-info-outline">
+                    <div class="card mb-3 card-info-outline">
                         <div class="card-header card-info form-inline">
-                            <i class="fa fa-dashboard fa-fw"></i> <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER3" LocalizedPage="ADMIN_ADMIN" />
+                            <i class="fa fa-dashboard fa-fw"></i> <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER3" LocalizedPage="ADMIN_ADMIN" />&nbsp;
                 <span runat="server" id="boardSelector" visible='<%# this.PageContext.IsHostAdmin %>'>
                     <asp:DropDownList ID="BoardStatsSelect" runat="server" DataTextField="Name" DataValueField="BoardID"
                         OnSelectedIndexChanged="BoardStatsSelect_Changed" AutoPostBack="true" CssClass="custom-select" Width="300" />
                 </span>
                         </div>
                         <div class="card-block">
-                            <div class="row">
-                                <div class="col-lg-11">
 
-                                    <div class="col-lg-4 col-md-6">
-                    <div class="card card-blue">
+                            <div class="card-columns">
+
+                    <div class="card mb-3 card-blue">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-xs-3">
+                                <div class="col-sm-3">
                                     <i class="fa fa-comment fa-3x"></i>
                                 </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge"><YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="NUM_POSTS"
+                                <div class="col-sm-9 text-right">
+                                    <div><YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="NUM_POSTS"
                     LocalizedPage="ADMIN_ADMIN" /></div>
-                                    <div><asp:Label ID="NumPosts" runat="server"></asp:Label></div>
+                                    <h4 class="card-title"><asp:Label ID="NumPosts" runat="server"></asp:Label></h4>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   </div>
-                    <div class="col-lg-4 col-md-6">
-                    <div class="card card-blue">
+
+                     <div class="card mb-3 card-blue">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-xs-3">
+                                <div class="col-sm-3">
                                     <i class="fa fa-comment-o fa-3x"></i>
                                 </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge"><YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="POSTS_DAY"
+                                <div class="col-sm-9 text-right">
+                                    <div><YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="POSTS_DAY"
                     LocalizedPage="ADMIN_ADMIN" /></div>
-                                    <div><asp:Label ID="DayPosts" runat="server"></asp:Label></div>
+                                    <h4 class="card-title"><asp:Label ID="DayPosts" runat="server"></asp:Label></h4>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   </div>
-
-<div class="col-lg-4 col-md-6">
-                    <div class="card card-blue">
+                     <div class="card mb-3 card-blue">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-xs-3">
+                                <div class="col-sm-3">
                                     <i class="fa fa-comments fa-3x"></i>
                                 </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge"><YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="NUM_TOPICS"
+                                <div class="col-sm-9 text-right">
+                                    <div><YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="NUM_TOPICS"
                     LocalizedPage="ADMIN_ADMIN" /></div>
-                                    <div><asp:Label ID="NumTopics" runat="server"></asp:Label></div>
+                                    <h4 class="card-title"><asp:Label ID="NumTopics" runat="server"></asp:Label></h4>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   </div>
 
-<div class="col-lg-4 col-md-6">
-                    <div class="card card-blue">
+                    <div class="card mb-3 card-blue">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-xs-3">
+                                <div class="col-sm-3">
                                     <i class="fa fa-comments-o fa-3x"></i>
                                 </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge"><YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="TOPICS_DAY"
+                                <div class="col-sm-9 text-right">
+                                    <div><YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="TOPICS_DAY"
                     LocalizedPage="ADMIN_ADMIN" /></div>
-                                    <div><asp:Label ID="DayTopics" runat="server"></asp:Label></div>
+                                    <h4 class="card-title"><asp:Label ID="DayTopics" runat="server"></asp:Label></h4>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   </div>
 
-<div class="col-lg-4 col-md-6">
-                    <div class="card card-green">
+                    <div class="card mb-3 card-green">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-xs-3">
+                                <div class="col-sm-3">
                                     <i class="fa fa-user fa-3x"></i>
                                 </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge"><YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="NUM_USERS"
+                                <div class="col-sm-9 text-right">
+                                    <div><YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="NUM_USERS"
                     LocalizedPage="ADMIN_ADMIN" /></div>
-                                    <div> <asp:Label ID="NumUsers" runat="server"></asp:Label></div>
+                                    <h4 class="card-title"> <asp:Label ID="NumUsers" runat="server"></asp:Label></h4>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   </div>
 
-<div class="col-lg-4 col-md-6">
-                    <div class="card card-green">
+                    <div class="card mb-3 card-green">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-xs-3">
+                                <div class="col-sm-3">
                                     <i class="fa fa-users fa-3x"></i>
                                 </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge"><YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="USERS_DAY"
+                                <div class="col-sm-9 text-right">
+                                    <div><YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="USERS_DAY"
                     LocalizedPage="ADMIN_ADMIN" /></div>
-                                    <div><asp:Label ID="DayUsers" runat="server"></asp:Label></div>
+                                    <h4 class="card-title"><asp:Label ID="DayUsers" runat="server"></asp:Label></h4>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   </div>
 
-<div class="col-lg-4 col-md-6">
-                    <div class="card card-yellow">
+                    <div class="card mb-3 card-yellow">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-xs-3">
+                                <div class="col-sm-3">
                                     <i class="fa fa-life-ring fa-3x"></i>
                                 </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge"> <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="BOARD_STARTED"
+                                <div class="col-sm-9 text-right">
+                                    <div> <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="BOARD_STARTED"
                     LocalizedPage="ADMIN_ADMIN" /></div>
-                                    <div><asp:Label ID="BoardStart" runat="server"></asp:Label></div>
+                                    <h4 class="card-title"><asp:Label ID="BoardStart" runat="server"></asp:Label></h4>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   </div>
-<div class="col-lg-4 col-md-6">
-                    <div class="card card-red">
+
+                    <div class="card mb-3 card-red">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-xs-3">
+                                <div class="col-sm-3">
                                     <i class="fa fa-database fa-3x"></i>
                                 </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge"><YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="SIZE_DATABASE"
+                                <div class="col-sm-9 text-right">
+                                    <div><YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="SIZE_DATABASE"
                     LocalizedPage="ADMIN_ADMIN" /></div>
-                                    <div> <asp:Label ID="DBSize" runat="server"></asp:Label></div>
+                                    <h4 class="card-title"> <asp:Label ID="DBSize" runat="server"></asp:Label></h4>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   </div>
-                </div>
 
                             </div>
+
                         </div>
 
                         <div class="card-footer">
@@ -190,7 +174,7 @@
 
     <div class="row">
              <div class="col-xl-12">
-                    <div class="card card-primary-outline">
+                    <div class="card mb-3 card-outline-primary">
                         <div class="card-header card-primary">
                             <i class="fa fa-users fa-fw"></i> <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="HEADER1" LocalizedPage="ADMIN_ADMIN" />
                         </div>
@@ -280,7 +264,7 @@
     <asp:PlaceHolder runat="server" ID="UnverifiedUsersHolder">
         <div class="row">
              <div class="col-xl-12">
-                    <div class="card card-primary-outline">
+                    <div class="card mb-3 card-outline-primary">
                         <div class="card-header card-primary">
                             <i class="fa fa-user-plus fa-fw"></i> <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedTag="HEADER2" LocalizedPage="ADMIN_ADMIN" />
                         </div>

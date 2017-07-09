@@ -66,13 +66,17 @@ namespace YAF.Controls
         /// <summary>
         /// Builds a Url List
         /// </summary>
+        /// <param name="activeMenu">if set to <c>true</c> [active menu].</param>
         /// <param name="listItems">Menu Items</param>
         /// <param name="page">The page.</param>
-        /// <returns>Returns the Url List</returns>
-        protected string BuildUrlList([NotNull] IEnumerable<YafMenuYafMenuSectionYafMenuItem> listItems, string page)
+        /// <returns>
+        /// Returns the Url List
+        /// </returns>
+        protected string BuildUrlList(out bool activeMenu, [NotNull] IEnumerable<YafMenuYafMenuSectionYafMenuItem> listItems, string page)
         {
             var itemsList = new StringBuilder();
             var isActive = false;
+            activeMenu = false;
 
 
             foreach (var item in listItems.ToList())
@@ -84,10 +88,11 @@ namespace YAF.Controls
                 {
                     continue;
                 }
+
 #endif
 
-                string url = string.Empty;
-                bool highlightPage = false;
+                var url = string.Empty;
+                var highlightPage = false;
 
                 if (item.Link.IsSet())
                 {
@@ -119,32 +124,37 @@ namespace YAF.Controls
                 {
                     activeClass = " class=\"active\"";
                     isActive = true;
+                    activeMenu = true;
                 }
 
                 if (item.Image.IsSet())
                 {
                     itemsList.AppendFormat(
-                        @"<li><a href=""{0}""{3}>
+                        @"<li{4}><a href=""{0}"" aria-expanded=""{3}""{4}>
                           <i class=""fa fa-{2} fa-fw""></i>&nbsp;{1}</a></li>",
                         url,
                         this.GetText("ADMINMENU", item.ForumPage.IsSet() ? item.ForumPage : "admin_install"),
                         item.Image,
-                        activeClass);
+                        isActive.ToString().ToLower(),
+                        isActive ? activeClass : string.Empty);
                 }
                 else
                 {
                     // just add the item regular style..
                     itemsList.AppendFormat(
-                        @"<li><a href=""{0}""{2}> {1}</a></li>",
+                        @"<li{3}><a href=""{0}"" aria-expanded=""{2}""{3}> {1}</a></li>",
                         url,
                         this.GetText("ADMINMENU", "admin_install"),
-                        activeClass);
+                        isActive.ToString().ToLower(),
+                        isActive ? activeClass : string.Empty);
                 }
             }
 
-            return "<ul class=\"nav nav-second-level collapse{1}\">{0}</ul></li>".FormatWith(
+            return "<ul id=\"#{2}\" class=\"nav-second-level collapse {3}\" aria-expanded=\"{1}\">{0}</ul></li>".FormatWith(
                 itemsList,
-                isActive ? " in" : string.Empty);
+                isActive.ToString().ToLower(),
+                page,
+                isActive ? "show" : "in");
         }
 
         /// <summary>
@@ -156,10 +166,10 @@ namespace YAF.Controls
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             //// select the view that has the current page...
-            string currentPage = this.PageContext.ForumPageType.ToString();
+            var currentPage = this.PageContext.ForumPageType.ToString();
 
             // build menu...
-            int viewIndex =
+            var viewIndex =
                 this.GetMenuSections()
                     .TakeWhile(
                         value =>
@@ -208,9 +218,9 @@ namespace YAF.Controls
             // render the contents of the admin menu....
             writer.WriteLine(@"<div class=""navbar-light bg-faded sidebar"" role=""navigation"">");
 
-            writer.WriteLine(@"<div class=""collapse sidebar-nav navbar-toggleable-xs"">");
+            writer.WriteLine(@"<div class=""collapse show sidebar-nav navbar-toggleable-xs"">");
 
-            writer.WriteLine(@"<ul id=""nav"" class=""side-menu"">");
+            writer.WriteLine(@"<ul id=""nav"" class=""side-menu metismenu"">");
 
             this.RenderAccordian(writer);
 
@@ -279,7 +289,7 @@ namespace YAF.Controls
 
             // load menu definition...
             var deserializer = new XmlSerializer(typeof(YafMenu));
-            using (Stream resourceStream = Assembly.GetAssembly(this.GetType()).GetManifestResourceStream(defFile))
+            using (var resourceStream = Assembly.GetAssembly(this.GetType()).GetManifestResourceStream(defFile))
             {
                 if (resourceStream != null)
                 {
@@ -296,7 +306,7 @@ namespace YAF.Controls
         /// </param>
         private void RenderAccordian([NotNull] HtmlTextWriter writer)
         {
-            bool show = false;
+            var show = false;
 
             IEnumerable<DataRow> dt = !this.PageContext.IsHostAdmin
                                           ? LegacyDb.adminpageaccess_list(this.PageContext.PageUserID, null)
@@ -355,16 +365,31 @@ namespace YAF.Controls
                                     dt.Any() && va.ForumPage.IsSet() && va.ForumPage == row["PageName"].ToString()));
                     }
 
-                    var ret = this.BuildUrlList(g, value.Tag);
+                    // Highlight the Current Page
+                    bool highlightPage;
+
+                    var ret = this.BuildUrlList(out highlightPage, g, value.Tag);
 
                     if (!ret.IsSet())
                     {
                         continue;
                     }
 
+                    var activeClass = string.Empty;
+
+                    if (highlightPage)
+                    {
+                        activeClass = " class=\"active\"";
+                    }
+
                     writer.WriteLine(
-                        @"<li><a href=""#""><i class=""fa fa-{1} fa-fw""></i>&nbsp;{0}<span class=""fa arrow""></span></a>"
-                            .FormatWith(this.GetText("ADMINMENU", value.Tag), value.Icon));
+                        @"<li{3}><a aria-expanded=""{4}"" href=""#{2}""{3}><i class=""fa fa-{1} fa-fw""></i>&nbsp;{0}<span class=""fa arrow""></span></a>"
+                            .FormatWith(
+                                this.GetText("ADMINMENU", value.Tag),
+                                value.Icon,
+                                value.Tag,
+                                activeClass,
+                                highlightPage.ToString().ToLower()));
 
                     writer.WriteLine(ret);
                 }

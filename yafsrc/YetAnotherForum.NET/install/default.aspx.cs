@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -115,48 +115,23 @@ namespace YAF.Install
         /// <summary>
         ///     Gets the install upgrade service.
         /// </summary>
-        public InstallUpgradeService InstallUpgradeService
-        {
-            get
-            {
-                return this.Get<InstallUpgradeService>();
-            }
-        }
+        public InstallUpgradeService InstallUpgradeService => this.Get<InstallUpgradeService>();
 
         /// <summary>
         ///     Gets a value indicating whether IsInstalled.
         /// </summary>
-        public bool IsConfigPasswordSet
-        {
-            get
-            {
-                return this._config.GetConfigValueAsString(_AppPasswordKey).IsSet();
-            }
-        }
+        public bool IsConfigPasswordSet => this._config.GetConfigValueAsString(_AppPasswordKey).IsSet();
 
         /// <summary>
         /// Gets a value indicating whether is forum installed.
         /// </summary>
-        public bool IsForumInstalled
-        {
-            get
-            {
-                return
-                    (this._isForumInstalled ?? (this._isForumInstalled = this.InstallUpgradeService.IsForumInstalled))
-                        .Value;
-            }
-        }
+        public bool IsForumInstalled => (this._isForumInstalled ?? (this._isForumInstalled = this.InstallUpgradeService.IsForumInstalled))
+            .Value;
 
         /// <summary>
         ///     Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator
-        {
-            get
-            {
-                return YafContext.Current.ServiceLocator;
-            }
-        }
+        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
 
         #endregion
 
@@ -566,7 +541,7 @@ namespace YAF.Install
 
                         if (!this.IsForumInstalled)
                         {
-                            // Skip enter the password on a new install when 
+                            // Skip enter the password on a new install when
                             // the app.config password is already set
                             this.CurrentWizardStepID = "WizDatabaseConnection";
                         }
@@ -985,7 +960,7 @@ namespace YAF.Install
             {
                 return;
             }
-            
+
             var errorMessage = this.InstallWizard.FindControlAs<PlaceHolder>("ErrorMessage");
             var errorMessageContent = this.InstallWizard.FindControlAs<Literal>("ErrorMessageContent");
 

@@ -5,12 +5,12 @@
 <YAF:AdminMenu runat="server">
     <div class="row">
         <div class="col-xl-12">
-            <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITMEDAL" /></h1>
+            <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITMEDAL" /></h1>
         </div>
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card card-primary-outline">
+            <div class="card mb-3 card-outline-primary">
                 <div class="card-header card-primary">
                     <i class="fa fa-trophy fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITMEDAL" />
                 </div>
@@ -115,7 +115,7 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card card-primary-outline">
+            <div class="card mb-3 card-outline-primary">
                 <div class="card-header card-primary">
                     <i class="fa fa-trophy fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="HEADER2" LocalizedPage="ADMIN_EDITMEDAL" />
                 </div>
@@ -222,7 +222,7 @@
     </div>
      <div class="row">
         <div class="col-xl-12">
-            <div class="card card-primary-outline">
+            <div class="card mb-3 card-outline-primary">
                 <div class="card-header card-primary">
                     <i class="fa fa-trophy fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="HEADER3" LocalizedPage="ADMIN_EDITMEDAL" />
                     </div>

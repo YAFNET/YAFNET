@@ -7,7 +7,8 @@
 		<HeaderTemplate>
     <div class="row">
     <div class="col-xl-12">
-        <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMWORDS" /></h1>
+
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMWORDS" /></h1>
     </div>
     </div>
     <div class="row">
@@ -16,8 +17,7 @@
                             <YAF:LocalizedLabel ID="LocalizedLabelRequirementsText" runat="server"
                                 LocalizedTag="NOTE" LocalizedPage="ADMIN_SPAMWORDS">
                             </YAF:LocalizedLabel>
-                        </div>
-            <div class="card card-primary-outline">
+            <div class="card mb-3 card-outline-primary">
                 <div class="card-header card-primary">
                     <i class="fa fa-shield fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMWORDS" />
 					</div>
@@ -69,6 +69,7 @@
 					<asp:LinkButton runat="server" CommandName='export' ID="Linkbutton4" CssClass="btn btn-warning" OnLoad="ExportLoad"></asp:LinkButton>
                 </div>
             </div>
+            <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
         </div>
     </div>
 		</FooterTemplate>

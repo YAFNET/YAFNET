@@ -7,12 +7,12 @@
 <YAF:AdminMenu runat="server">
 <div class="row">
     <div class="col-xl-12">
-        <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_TASKMANAGER" /></h1>
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_TASKMANAGER" /></h1>
     </div>
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card card-primary-outline">
+            <div class="card mb-3 card-outline-primary">
                 <div class="card-header card-primary">
                     <i class="fa fa-tasks fa-fw"></i>&nbsp;<asp:Label ID="lblTaskCount" runat="server"></asp:Label>
                     </div>

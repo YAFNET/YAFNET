@@ -4,12 +4,12 @@
 <YAF:AdminMenu runat="server">
     <div class="row">
     <div class="col-xl-12">
-        <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_NNTPSERVERS" /></h1>
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_NNTPSERVERS" /></h1>
     </div>
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card card-primary-outline">
+            <div class="card mb-3 card-outline-primary">
                 <div class="card-header card-primary">
                     <i class="fa fa-newspaper-o fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_NNTPSERVERS" />
                 </div>
@@ -65,7 +65,7 @@
                         <FooterTemplate></table></div></FooterTemplate>
         </asp:Repeater>
                     </div>
-                    <div class="card-footer text-xs-center">
+                    <div class="card-footer text-center">
                     <asp:LinkButton ID="NewServer" runat="server" CssClass="btn btn-primary" OnClick="NewServer_Click" />
                 </div>
             </div>

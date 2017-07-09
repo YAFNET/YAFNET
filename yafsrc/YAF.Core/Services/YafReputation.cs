@@ -89,7 +89,7 @@ namespace YAF.Core.Services
             }
 
             return
-                @"<div class=""text-xs-center"">{1}</div>
+                @"<div class=""text-center"">{1}</div>
                   <progress class=""progress progress-striped{2}"" value=""{0}"" max=""100"" aria-describedby=""{3}{4}"">
                   <div class=""progress"">
                       <span class=""progress-bar"" style=""width:25%;""></style>

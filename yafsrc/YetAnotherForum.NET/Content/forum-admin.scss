@@ -149,7 +149,7 @@
     }
 }
 
-.card-primary-outline,
+.card-outline-primary,
 .card-info-outline {
     .card-header {
         color: white;
@@ -229,3 +229,14 @@
     width: 250px;
 }
 
+// user search
+.user-search-dropdown {
+    .form-control {
+        width: inherit;
+    }
+}
+
+// pagination
+.pagination {
+    margin-bottom: 0.30rem;
+}

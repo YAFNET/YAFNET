@@ -9,6 +9,7 @@ YetAnotherForum.NET Changelog
 * [NEW] Sitemap Provider for DNN Platform
 * [NEW] Redirect Forum Remote URL to new Window
 * [NEW #353] Added Spam Check when sending PM's
+* [NEW #341] IP lookup also in the banned IP section
 
 
 ## Fixed Issues:

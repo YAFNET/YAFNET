@@ -155,13 +155,13 @@ namespace YAF.Controls
                 if (this.CancelButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
                 {
                     this.CancelButton.OnClientClick =
-                        "jQuery().YafModalDialog.Close({{ Dialog: '#{0}' }});return false;".FormatWith(
+                        "jQuery('#{0}').modal('hide');return false;".FormatWith(
                             this.YafForumPageErrorPopup.ClientID);
                 }
                 else
                 {
                     this.CancelButton.OnClientClick =
-                        "jQuery().YafModalDialog.Close({{ Dialog: '#{0}' }});".FormatWith(
+                        "jQuery('#{0}').modal('hide');".FormatWith(
                             this.YafForumPageErrorPopup.ClientID);
                 }
             }

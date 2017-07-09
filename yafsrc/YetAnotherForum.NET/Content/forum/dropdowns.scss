@@ -1,5 +1,8 @@
-﻿/* Select Drop downs */
+﻿.dropdown-toggle {
+    margin-right: 0.30rem;
+}
 
+/* Select Drop downs */
 .standardSelectMenu-Icon {
     margin-left: 4px;
     padding-right: 5px;
@@ -27,7 +30,7 @@
     }
 }
 .user-search-dropdown {
-    width: 500px;
+    width: 100px;
     .btn-primary {
         color: white;
         margin-top: 10px

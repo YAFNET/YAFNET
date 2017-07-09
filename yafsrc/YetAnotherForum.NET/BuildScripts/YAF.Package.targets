@@ -73,16 +73,10 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.selectedQuoting.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.syntaxhighligher.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.syntaxhighligher.min.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.yafmodaldialog.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.yafmodaldialog.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.tablesorter.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.tablesorter.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jsdifflib.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jsdifflib.min.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\ladda.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\ladda.min.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\ladda-themeless.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\ladda-themeless.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\prism.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\css\select2.css" />
     </ItemGroup>

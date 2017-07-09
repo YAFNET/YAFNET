@@ -5,12 +5,12 @@
 <YAF:AdminMenu ID="adminmenu1" runat="server">
     <div class="row">
     <div class="col-xl-12">
-         <h1 class="page-header"><yaf:localizedlabel id="LocalizedLabel1" runat="server" localizedtag="TITLE" localizedpage="ADMIN_VERSION"></yaf:localizedlabel></h1>
+         <h1><yaf:localizedlabel id="LocalizedLabel1" runat="server" localizedtag="TITLE" localizedpage="ADMIN_VERSION"></yaf:localizedlabel></h1>
     </div>
 </div>
 <div class="row">
     <div class="col-xl-12">
-        <div class="card card-primary-outline">
+        <div class="card mb-3 card-outline-primary">
             <div class="card-header card-primary"> <i class="fa fa-info fa-fw"></i>&nbsp;
                 <yaf:localizedlabel id="LocalizedLabel2"
                 runat="server" localizedtag="TITLE" localizedpage="ADMIN_VERSION"></yaf:localizedlabel>
