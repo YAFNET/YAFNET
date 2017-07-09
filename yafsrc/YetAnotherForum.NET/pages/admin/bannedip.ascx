@@ -3,11 +3,12 @@
 <%@ Import Namespace="YAF.Core"%>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Utils.Helpers" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
     <div class="row">
     <div class="col-xl-12">
-        <h1 class="page-header"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_BANNEDIP" /></h1>
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_BANNEDIP" /></h1>
     </div>
     </div>
     <div class="row">
@@ -68,7 +69,12 @@
 			<tr>
 				<td>
 				<asp:HiddenField ID="fID" Value='<%# this.Eval("ID") %>' runat="server"/>
-				<asp:Label ID="MaskBox" Text='<%# this.Eval("Mask") %>' runat="server"></asp:Label>
+				<asp:HyperLink runat="server" ID="Mask" 
+                    Href='<%# this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(IPHelper.GetIp4Address(this.Eval("Mask").ToString())) %>'
+                    ToolTip='<%#this.GetText("COMMON", "TT_IPDETAILS") %>'
+                    Target="_blank">
+                    <%# this.HtmlEncode(IPHelper.GetIp4Address(this.Eval("Mask").ToString())) %>
+                </asp:HyperLink>
 				</td>
 				<td>
 					<%# this.Get<IDateTime>().FormatDateTime(this.Eval("Since")) %>
