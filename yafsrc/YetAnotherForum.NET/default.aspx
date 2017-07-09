@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" Inherits="YAF.ForumPageBase" %>
 <%@ Register TagPrefix="YAF" Assembly="YAF" Namespace="YAF" %>
+<%@ Register TagPrefix="url" Namespace="Intelligencia.UrlRewriter" Assembly="Intelligencia.UrlRewriter" %>
 <script runat="server">
 </script>
 <!doctype html>
@@ -20,9 +21,9 @@
         <img src="~/forumlogo.jpg" runat="server" alt="logo" style="border: 0;" id="imgBanner" />
     </asp:HyperLink>
     <br />
-    <form id="form1" runat="server" enctype="multipart/form-data">
+    <url:Form id="form1" runat="server" enctype="multipart/form-data">
     <YAF:Forum runat="server" ID="forum" BoardID="1">
     </YAF:Forum>
-    </form>
+    </url:Form>
 </body>
 </html>

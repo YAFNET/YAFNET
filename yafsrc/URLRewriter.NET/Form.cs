@@ -31,7 +31,7 @@ namespace Intelligencia.UrlRewriter
     /// </code>
     /// </remarks>
     [ComVisible(false)]
-    [ToolboxData("<{0}:Form runat=server></{0}:RewrittenForm>")]
+    [ToolboxData("<{0}:Form runat=server></{0}:Form>")]
     public class Form : HtmlForm
     {
         /// <summary>
@@ -70,21 +70,37 @@ namespace Intelligencia.UrlRewriter
             }
         }
 
+        /// <summary>
+        /// Gets the identifier.
+        /// </summary>
+        /// <returns></returns>
         private string GetID()
         {
             return this.ClientID;
         }
 
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <returns></returns>
         private string GetName()
         {
             return this.Name;
         }
 
+        /// <summary>
+        /// Gets the method.
+        /// </summary>
+        /// <returns></returns>
         private string GetMethod()
         {
             return this.Method;
         }
 
+        /// <summary>
+        /// Gets the action.
+        /// </summary>
+        /// <returns></returns>
         private string GetAction()
         {
             return RewriterHttpModule.RawUrl;
