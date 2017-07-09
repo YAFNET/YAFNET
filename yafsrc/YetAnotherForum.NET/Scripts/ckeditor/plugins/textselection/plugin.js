@@ -1,18 +1,23 @@
 ﻿/* 
-Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved. 
-For licensing, see LICENSE.html or http://ckeditor.com/license 
+ * @license Copyright (c) CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.html or http://ckeditor.com/license
 */
     /** 
      * Represent plain text selection range. 
      */
     CKEDITOR.plugins.add('textselection',
     {
-        version: 1.04,
+        version: 1.06,
         init: function (editor) {
-            // Corresponding text range of wysiwyg bookmark.
+
+            if (editor.config.fullPage) {
+                return;
+            }
+
+            // Corresponding text range of WYSIWYG bookmark.
             var wysiwygBookmark;
 
-            // Auto sync text selection with 'WYSIWYG' mode selection range.
+            // Auto sync text selection with 'wysiwyg' mode selection range.
             if (editor.config.syncSelection
                     && CKEDITOR.plugins.sourcearea) {
                 editor.on('beforeModeUnload', function (evt) {
@@ -85,8 +90,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
                                 startNode.remove();
                                 endNode.remove();
                             }
-                        } catch (excec)  {
-                            
+                        } catch (excec) {
                         }
                         
                     }
@@ -103,7 +107,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
                         }
                     }
                 });
-                // Build text range right after wysiwyg has unloaded. 
+                // Build text range right after WYSIWYG has unloaded. 
                 editor.on('afterModeUnload', function (evt) {
                     if (editor.mode === 'wysiwyg' && wysiwygBookmark) {
                         textRange = new CKEDITOR.dom.textRange(evt.data);
@@ -129,7 +133,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
     /** 
      * Gets the current text selection from the editing area when in Source mode. 
-     * @returns {CKEDITOR.dom.textRange} Text range represent the caret positoins. 
+     * @returns {CKEDITOR.dom.textRange} Text range represent the caret positions. 
      * @example 
      * var textSelection = CKEDITOR.instances.editor1.<b>getTextSelection()</b>; 
      * alert( textSelection.startOffset ); 
@@ -175,7 +179,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
     }
 
     /** 
-     * Represent the selection range within a html textfield/textarea element, 
+     * Represent the selection range within a HTML textfield/textarea element, 
      * or even a flyweight string content represent the text content. 
      * @constructor 
      * @param {CKEDITOR.dom.element|String} element 
@@ -191,7 +195,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
         } else if (typeof element == 'string')
             this.content = element;
         else
-            throw 'Unkown "element" type.';
+            throw 'Unknown "element" type.';
         this.startOffset = start || 0;
         this.endOffset = end || 0;
     };
@@ -204,8 +208,8 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
      *
      *                // Switch to "source" view.
      *                CKEDITOR.instances.editor1.setMode( 'source' );
-     *                // Switch to "wysiwyg" view and be notified on completion.
-     *                CKEDITOR.instances.editor1.setMode( 'wysiwyg', function() { alert( 'wysiwyg mode loaded!' ); } );
+     *                // Switch to "WYSIWYG" view and be notified on completion.
+     *                CKEDITOR.instances.editor1.setMode( 'wysiwyg', function() { alert( 'WYSIWYG mode loaded!' ); } );
      *
      * @param {String} [newMode] If not specified, the {@link CKEDITOR.config#startupMode} will be used.
      * @param {Function} [callback] Optional callback function which is invoked once the mode switch has succeeded.
@@ -314,6 +318,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
          */
         moveToBookmark: function(bookmark, editor) {
             var content = this.content;
+
             function removeBookmarkText(bookmarkId) {
 
                 var bookmarkRegex = new RegExp('<span[^<]*?' + bookmarkId + '.*?/span>'),
@@ -348,41 +353,37 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
                 tagStartIndex,
                 tagEndIndex;
 
-            // Adjust offset position on parsing result. 
-             while (match = htmlCloseTagRegexp.exec(content)) {
+            while (match = htmlCloseTagRegexp.exec(content)) {
 
-                 tagStartIndex = match.index;
+                tagStartIndex = match.index;
+                tagEndIndex = tagStartIndex + match[0].length;
 
-                 if (start > tagStartIndex) {
-                     start = tagStartIndex;
-                 }
+                if (tagEndIndex < start) {
+                    continue;
+                }
 
-                 if (end > tagStartIndex) {
-                     end = tagStartIndex;
-                     break;
-                 }
+                if (tagStartIndex <= start) {
+                    start = tagStartIndex;
+                    end = tagStartIndex;
+                    break;
+                }
+            }
 
-                break;
-             }
+            while (match = htmlOpenTagRegexp.exec(content)) {
 
-             while (match = htmlOpenTagRegexp.exec(content)) {
+                tagStartIndex = match.index;
+                tagEndIndex = tagStartIndex + match[0].length;
 
-                 tagStartIndex = match.index;
+                if (tagEndIndex < start) {
+                    continue;
+                }
 
-                 tagEndIndex = tagStartIndex + match[0].length;
-
-                 if (start < tagEndIndex) {
-                     start = tagEndIndex;
-                 }
-
-                 if (end < tagEndIndex) {
-                     end = tagEndIndex;
-                     break;
-                 }
-
-                 break;
-             }
-            
+                if (tagStartIndex <= start) {
+                    start = tagEndIndex;
+                    end = tagEndIndex;
+                    break;
+                }
+            }
 
             this.startOffset = start;
             this.endOffset = end;

@@ -8,6 +8,7 @@ CKEDITOR.plugins.setLang('autosave', 'fr', {
     loadSavedContent: 'Une précédente version a été sauvegardée le "{0}". Voulez-vous l\'afficher et la comparer avec le document en cours ?',
     title: 'Comparaison du document en cours et du document sauvegardé',
     loadedContent: 'Document en cours',
+    localStorageFull: 'Browser localStorage is full, clear your storage or Increase database size',
     autoSavedContent: 'Document sauvegardé le : \'',
     ok: 'Oui, charger le document sauvegardé',
     no: 'Non, continuer avec le document en cours',

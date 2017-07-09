@@ -7,5 +7,7 @@ CKEDITOR.plugins.setLang('wordcount', 'el', {
     CharCount: 'Χαρακτήρες:',
     CharCountWithHTML: 'Χαρακτήρες (μαζί με HTML):',
     Paragraphs: 'Paragraphs:',
+    pasteWarning: 'Content can not be pasted because it is above the allowed limit',
+    Selected: 'Selected: ',
     title: 'Στατιστικά'
 });
