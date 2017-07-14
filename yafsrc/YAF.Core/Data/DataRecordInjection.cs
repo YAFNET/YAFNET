@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,8 +28,10 @@ namespace YAF.Core.Data
     using System.ComponentModel;
     using System.Data;
     using System.Linq;
+    using System.Reflection;
 
-    using Omu.ValueInjecter;
+    using Omu.ValueInjecter.Injections;
+    using Omu.ValueInjecter.Utils;
 
     using ServiceStack.DataAnnotations;
 
@@ -38,7 +40,7 @@ namespace YAF.Core.Data
     /// <summary>
     ///     The data record injection.
     /// </summary>
-    public class DataRecordInjection : KnownSourceValueInjection<IDataRecord>
+    public class DataRecordInjection : KnownSourceInjection<IDataRecord>
     {
         #region Methods
 
@@ -61,11 +63,15 @@ namespace YAF.Core.Data
                 .Where(p => p.Attributes.OfType<AliasAttribute>().Any())
                 .ToDictionary(k => k.Attributes.OfType<AliasAttribute>().FirstOrDefault().Name, v => v.Name);
 
-            var nameMap = new Func<string, string>(inputName => aliasMapping.ContainsKey(inputName) ? aliasMapping[inputName] : inputName);
+            var nameMap = new Func<string, string>(
+                inputName => aliasMapping.ContainsKey(inputName) ? aliasMapping[inputName] : inputName);
 
             for (var i = 0; i < source.FieldCount; i++)
             {
-                PropertyDescriptor activeTarget = props.GetByName(nameMap(source.GetName(i)), true);
+                var activeTarget = target.GetType()
+                    .GetProperty(
+                        nameMap(source.GetName(i)),
+                        BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
 
                 if (activeTarget == null)
                 {
@@ -84,11 +90,11 @@ namespace YAF.Core.Data
                 }
                 else
                 {
-                    Type conversionType = activeTarget.PropertyType;
+                    var conversionType = activeTarget.PropertyType;
 
                     if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition() == typeof(Nullable<>))
                     {
-                        conversionType = (new NullableConverter(conversionType)).UnderlyingType;
+                        conversionType = new NullableConverter(conversionType).UnderlyingType;
                     }
 
                     activeTarget.SetValue(target, Convert.ChangeType(value, conversionType));
