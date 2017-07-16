@@ -2,6 +2,24 @@
 ** DNN Custom SQL Procedures
 */
 
+-- PRINT 'Temporarily add referring columns to YAF.Net tables:';
+IF NOT Exists (SELECT * FROM sys.columns where object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}yaf_Board]')    AND name = N'oModuleID')
+   ALTER TABLE [{databaseOwner}].[{objectQualifier}Board] ADD oModuleID     Int Null
+
+IF NOT Exists (SELECT * FROM sys.columns where object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Category]') AND name = N'oGroupID')
+   ALTER TABLE [{databaseOwner}].[{objectQualifier}Category] ADD oGroupID   Int Null
+
+IF NOT Exists (SELECT * FROM sys.columns where object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Forum]')    AND name = N'oForumID')
+   ALTER TABLE [{databaseOwner}].[{objectQualifier}Forum]    ADD oForumID   Int Null
+
+IF NOT Exists (SELECT * FROM sys.columns where object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Topic]')    AND name = N'oTopicID')
+   ALTER TABLE [{databaseOwner}].[{objectQualifier}Topic]    ADD oTopicID   Int Null
+
+IF NOT Exists (SELECT * FROM sys.columns where object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Message]')  AND name = N'oContentID')
+   ALTER TABLE [{databaseOwner}].[{objectQualifier}Message]  ADD oContentID Int Null
+
+GO
+
 IF  EXISTS (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}YafDnn_Messages]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}YafDnn_Messages]
 GO
