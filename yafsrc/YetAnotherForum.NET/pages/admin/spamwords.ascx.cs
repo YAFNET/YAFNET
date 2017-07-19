@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,8 +28,10 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Data;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
+    using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -49,6 +51,17 @@ namespace YAF.Pages.Admin
     public partial class spamwords : AdminPage
     {
         #region Methods
+
+        /// <summary>
+        /// The pager top_ page change.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // rebind
+            this.BindData();
+        }
 
         /// <summary>
         /// Handles the Load event of the Delete control.
@@ -135,8 +148,21 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.list.DataSource = this.GetRepository<Spam_Words>().List();
-            this.DataBind();
+            //this.list.DataSource = this.GetRepository<Spam_Words>().List();
+            /*this.PPageSize = this.Get<YafBoardSettings>().MemberListPageSize;
+
+            var bannedList = this.GetRepository<BannedIP>()
+                .List(
+                    mask: searchText.IsSet() ? searchText : null,
+                    pageIndex: this.PagerTop.CurrentPageIndex,
+                    pageSize: this.PagerTop.PageSize);
+
+            this.list.DataSource = bannedList
+
+            this.PagerTop.Count = bannedList != null && bannedList.HasRows()
+                                      ? bannedList.AsEnumerable().First().Field<int>("TotalRows")
+                                      : 0;
+            this.DataBind();*/
         }
 
         /// <summary>

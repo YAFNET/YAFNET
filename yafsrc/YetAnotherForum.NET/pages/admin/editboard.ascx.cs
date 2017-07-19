@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -436,7 +436,7 @@ namespace YAF.Pages.Admin
                     cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue)
                     )
                 {
-                    langFile = (string)drow["CultureFile"];
+                    langFile = drow["CultureFile"].ToString();
                 }
 
                 // Save current board settings
@@ -485,28 +485,6 @@ namespace YAF.Pages.Admin
             this.PageContext.BoardSettings = null;
             YafBuildLink.Redirect(ForumPages.admin_boards);
         }
-
-        /*/// <summary>
-        /// The set drop down index.
-        /// Not used
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void SetDropDownIndex([NotNull] object sender, [NotNull] EventArgs e)
-        {
-          try
-          {
-            var list = (DropDownList)sender;
-            list.Items.FindByValue(list.Attributes["value"]).Selected = true;
-          }
-          catch (Exception)
-          {
-          }
-        }*/
 
         /// <summary>
         /// Binds the data.
