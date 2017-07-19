@@ -430,15 +430,15 @@ namespace YAF.Core.Services.Auth
             // create empty profile just so they have one
             var userProfile = YafUserProfile.GetProfile(googleUser.UserName);
 
+            // setup their initial profile information
+            userProfile.Save();
+
             userProfile.Google = googleUser.ProfileURL;
             userProfile.GoogleId = googleUser.UserID;
             userProfile.Homepage = googleUser.ProfileURL;
 
             userProfile.Gender = userGender;
 
-            userProfile.Save();
-
-            // setup their initial profile information
             userProfile.Save();
 
             if (userID == null)

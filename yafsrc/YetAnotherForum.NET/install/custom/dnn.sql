@@ -1,5 +1,11 @@
 ﻿/*
-** DNN Custom SQL Procedures
+   *******************************************************************
+   *  SQL Script to migrate DNN active Forum to YAF.Net DNN module   *
+   *  ============================================================   *
+   *                                                                 *
+   *  (c) Sebastian Leupold, dnnWerk, 2016                           *
+   *                                                                 *
+   *******************************************************************
 */
 
 IF NOT Exists (SELECT * FROM sys.columns where object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Board]')    AND name = N'oModuleID')
@@ -184,8 +190,8 @@ BEGIN TRY
 		)
         MERGE INTO  [{databaseOwner}].[{objectQualifier}prov_Profile] T
 		USING xProfile S ON T.UserID = S.UserID
-		WHEN NOT MATCHED THEN INSERT (  UserID,   LastUpdatedDate,   Gender,   Blog,      RealName, Interests, Skype, Facebook, Location, BlogServiceUrl,   Birthday, LastSyncedWithDNN, ICQ,   City, MSN, TwitterId, Twitter, BlogServicePassword,   Country, Occupation,   Region, AIM, XMPP, YIM, Google, BlogServiceUsername, GoogleId,  Homepage, FacebookId)
-							  VALUES (S.UserID, S.LastUpdatedDate,        0,    N'', S.DisplayName,       N'',   N'',      N'',      N'',            N'', S.Birthday,              Null, N'', S.City, N'',      Null,     N'',                 N'', S.Country,        N'', S.Region, N'',  N'', N'',    N'',                 N'',     Null, S.Website,       Null);
+		WHEN NOT MATCHED THEN INSERT (  UserID,   LastUpdatedDate)
+							  VALUES (S.UserID, S.LastUpdatedDate);
 
 	-- PRINT N'Add Guests Membership for Guest User;';
 	With S AS
@@ -493,6 +499,10 @@ END
 end
 GO
 
+/*
+** DNN Custom SQL Procedures
+*/
+
 IF  EXISTS (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}YafDnn_Messages]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}YafDnn_Messages]
 GO
@@ -540,7 +550,6 @@ GO
 IF  EXISTS (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[RemoveUser]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[RemoveUser]
 GO
-
 
 CREATE PROCEDURE [{databaseOwner}].[RemoveUser]
 	@UserID		int,

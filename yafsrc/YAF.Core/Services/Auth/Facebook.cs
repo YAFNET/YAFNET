@@ -1,6 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -478,6 +479,9 @@ namespace YAF.Core.Services.Auth
 
             // create empty profile just so they have one
             var userProfile = YafUserProfile.GetProfile(facebookUser.UserName);
+
+            // setup their initial profile information
+            userProfile.Save();
 
             userProfile.Facebook = facebookUser.ProfileURL;
             userProfile.FacebookId = facebookUser.UserID;

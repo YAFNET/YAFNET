@@ -347,6 +347,9 @@ namespace YAF.Core.Services.Auth
             // create empty profile just so they have one
             YafUserProfile userProfile = YafUserProfile.GetProfile(twitterUser.UserName);
 
+            // setup their initial profile information
+            userProfile.Save();
+
             userProfile.TwitterId = twitterUser.UserId.ToString();
             userProfile.Twitter = twitterUser.UserName;
             userProfile.Homepage = twitterUser.Url.IsSet()
@@ -356,9 +359,6 @@ namespace YAF.Core.Services.Auth
             userProfile.Interests = twitterUser.Description;
             userProfile.Location = twitterUser.Location;
 
-            userProfile.Save();
-
-            // setup their initial profile information
             userProfile.Save();
 
             if (userID == null)
