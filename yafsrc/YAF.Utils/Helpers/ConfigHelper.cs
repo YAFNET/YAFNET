@@ -60,51 +60,21 @@ namespace YAF.Utils.Helpers
         /// <summary>
         ///     Gets AppSettings.
         /// </summary>
-        public NameValueCollection AppSettings
-        {
-            get
-            {
-                return WebConfigurationManager.AppSettings;
-            }
-        }
+        public NameValueCollection AppSettings => WebConfigurationManager.AppSettings;
 
         /// <summary>
         ///     Gets AppSettingsFull.
         /// </summary>
-        public AppSettingsSection AppSettingsFull
-        {
-            get
-            {
-                return this._appSettingsFull ?? (this._appSettingsFull = this.GetConfigSectionFull<AppSettingsSection>("appSettings"));
-            }
-        }
-
-        /// <summary>
-        ///     Gets TrustLevel.
-        /// </summary>
-        public AspNetHostingPermissionLevel TrustLevel
-        {
-            get
-            {
-                if (!this._trustLevel.HasValue)
-                {
-                    this._trustLevel = General.GetCurrentTrustLevel();
-                }
-
-                return this._trustLevel.Value;
-            }
-        }
+        public AppSettingsSection AppSettingsFull => this._appSettingsFull
+                                                     ?? (this._appSettingsFull =
+                                                             this.GetConfigSectionFull<AppSettingsSection>(
+                                                                 "appSettings"));
 
         /// <summary>
         ///     Gets WebConfigFull.
         /// </summary>
-        public Configuration WebConfigFull
-        {
-            get
-            {
-                return this._webConfig ?? (this._webConfig = WebConfigurationManager.OpenWebConfiguration("~/"));
-            }
-        }
+        public Configuration WebConfigFull => this._webConfig
+                                              ?? (this._webConfig = WebConfigurationManager.OpenWebConfiguration("~/"));
 
         #endregion
 
@@ -121,7 +91,8 @@ namespace YAF.Utils.Helpers
         /// <returns>
         /// The <see cref="T"/>.
         /// </returns>
-        public T GetConfigSection<T>(string sectionName) where T : class
+        public T GetConfigSection<T>(string sectionName)
+            where T : class
         {
             var section = WebConfigurationManager.GetWebApplicationSection(sectionName) as T;
             return section;
@@ -139,15 +110,11 @@ namespace YAF.Utils.Helpers
         /// The <see cref="T"/>.
         /// </returns>
         [AspNetHostingPermission(SecurityAction.Demand, Level = AspNetHostingPermissionLevel.High)]
-        public T GetConfigSectionFull<T>(string sectionName) where T : class
+        public T GetConfigSectionFull<T>(string sectionName)
+            where T : class
         {
-            ConfigurationSection section = this.WebConfigFull.GetSection(sectionName);
-            if (section is T)
-            {
-                return section as T;
-            }
-
-            return null;
+            var section = this.WebConfigFull.GetSection(sectionName);
+            return section as T;
         }
 
         /// <summary>
@@ -161,13 +128,10 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public string GetConfigValueAsString(string keyName)
         {
-            string[] allKeys = this.TrustLevel == AspNetHostingPermissionLevel.High
-                                   ? this.AppSettingsFull.Settings.AllKeys
-                                   : this.AppSettings.AllKeys;
-            return
-                allKeys.Where(key => key.Equals(keyName, StringComparison.OrdinalIgnoreCase))
-                       .Select(key => this.AppSettings[key])
-                       .FirstOrDefault();
+            var allKeys = this.AppSettingsFull.Settings.AllKeys;
+            return allKeys.Where(key => key.Equals(keyName, StringComparison.OrdinalIgnoreCase))
+                .Select(key => this.AppSettings[key])
+                .FirstOrDefault();
         }
 
         /// <summary>
@@ -185,7 +149,7 @@ namespace YAF.Utils.Helpers
         [AspNetHostingPermission(SecurityAction.Demand, Level = AspNetHostingPermissionLevel.High)]
         public bool WriteAppSetting(string keyName, string keyValue)
         {
-            bool writtenSuccessfully = false;
+            bool writtenSuccessfully;
 
             try
             {
@@ -227,7 +191,7 @@ namespace YAF.Utils.Helpers
                 return false;
             }
 
-            bool writtenSuccessfully = false;
+            bool writtenSuccessfully;
             try
             {
                 if (connStrings.ConnectionStrings[keyName] != null)
