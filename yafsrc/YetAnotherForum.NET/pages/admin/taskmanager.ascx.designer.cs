@@ -40,6 +40,15 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.Label lblTaskCount;
         
         /// <summary>
+        /// LocalizedLabel220-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel220;
+        
+        /// <summary>
         /// LocalizedLabel1-Steuerelement
         /// </summary>
         /// <remarks>

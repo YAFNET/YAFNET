@@ -362,11 +362,6 @@ namespace YAF.Classes
         public static string NntpPostDomain => GetConfigValueAsString("YAF.NntpPostDomain") ?? "myforum.com";
 
         /// <summary>
-        ///     Gets OverrideTrustLevel.
-        /// </summary>
-        public static string OverrideTrustLevel => GetConfigValueAsString("YAF.OverrideTrustLevel");
-
-        /// <summary>
         ///     Gets ProviderKeyType.
         /// </summary>
         [NotNull]

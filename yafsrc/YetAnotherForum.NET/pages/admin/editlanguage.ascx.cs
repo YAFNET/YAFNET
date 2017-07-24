@@ -527,10 +527,7 @@ namespace YAF.Pages.Admin
             xw.WriteEndDocument();
             xw.Close();
 
-            if (General.GetCurrentTrustLevel() >= AspNetHostingPermissionLevel.High)
-            {
-                HttpRuntime.UnloadAppDomain();
-            }
+            HttpRuntime.UnloadAppDomain();
         }
 
         /// <summary>

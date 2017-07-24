@@ -23,140 +23,181 @@
  */
 namespace YAF.Utils
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Types;
+    using Microsoft.Win32;
 
-  #endregion
-
-  /// <summary>
-  /// The class gets common system info. Used in data layers other than MSSQL. Created by vzrus 2010
-  /// </summary>
-  public static class Platform
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    /// The inited.
-    /// </summary>
-    private static bool inited;
-
-    /// <summary>
-    /// The is mono.
-    /// </summary>
-    private static bool isMono;
+    using YAF.Types;
+    using YAF.Types.Extensions;
 
     #endregion
 
-    #region Properties
-
     /// <summary>
-    /// Gets the number of memory bytes currently thought to be allocated.
+    /// The class gets common system info. Used in data layers other than MSSQL. Created by vzrus 2010
     /// </summary>
-    public static long AllocatedMemory
+    public static class Platform
     {
-      get
-      {
-          return GC.GetTotalMemory(false);
-      }
-    }
+        #region Constants and Fields
 
-    /// <summary>
-    /// Gets the amount of physical memory mapped to the process context.
-    /// </summary>
-    public static long MappedMemory
-    {
-        get
+        /// <summary>
+        /// The inited.
+        /// </summary>
+        private static bool inited;
+
+        /// <summary>
+        /// The is mono.
+        /// </summary>
+        private static bool isMono;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the number of memory bytes currently thought to be allocated.
+        /// </summary>
+        public static long AllocatedMemory => GC.GetTotalMemory(false);
+
+        /// <summary>
+        /// Gets the amount of physical memory mapped to the process context.
+        /// </summary>
+        public static long MappedMemory => Environment.WorkingSet;
+
+        /// <summary>
+        /// Gets a value indicating whether IsMono.
+        /// </summary>
+        public static bool IsMono
         {
-            return Environment.WorkingSet;
-        }
-    }
+            get
+            {
+                if (!inited)
+                {
+                    Init();
+                }
 
-    /// <summary>
-    /// Gets a value indicating whether IsMono.
-    /// </summary>
-    public static bool IsMono
-    {
-      get
-      {
-        if (!inited)
-        {
-          Init();
+                return isMono;
+            }
         }
 
-        return isMono;
-      }
+        /// <summary>
+        /// Gets Processors.
+        /// </summary>
+        [NotNull]
+        public static string Processors => Environment.ProcessorCount.ToString();
+
+        /// <summary>
+        /// Gets RuntimeName.
+        /// </summary>
+        [NotNull]
+        public static string RuntimeName
+        {
+            get
+            {
+                if (!inited)
+                {
+                    Init();
+                }
+
+                return isMono ? "Mono" : ".NET";
+            }
+        }
+
+        /// <summary>
+        /// Gets Runtime String.
+        /// </summary>
+        /// <value>
+        /// The runtime string.
+        /// </value>
+        [NotNull]
+        public static string RuntimeString
+        {
+            get
+            {
+                try
+                {
+                    const string SubKey = @"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\";
+
+                    using (var openSubKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(SubKey))
+                    {
+                        if (openSubKey?.GetValue("Release") != null)
+                        {
+                            return "Framework Version: {0}".FormatWith(
+                                CheckFor45PlusVersion(openSubKey.GetValue("Release").ToType<int>()));
+                        }
+
+                        return Environment.Version.ToString();
+                    }
+                }
+                catch (Exception)
+                {
+                    return Environment.Version.ToString();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the version string.
+        /// </summary>
+        /// <value>
+        /// The version string.
+        /// </value>
+        public static string VersionString => Environment.OSVersion.VersionString;
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        private static void Init()
+        {
+            var t = Type.GetType("Mono.Runtime");
+            isMono = t != null;
+        }
+
+        /// <summary>
+        /// Checking the version using >= will enable forward compatibility.
+        /// </summary>
+        /// <param name="releaseKey">The release key.</param>
+        /// <returns>Returns the version string.</returns>
+        private static string CheckFor45PlusVersion(int releaseKey)
+        {
+            if (releaseKey >= 460798)
+            {
+                return "4.7 or later";
+            }
+
+            if (releaseKey >= 394802)
+            {
+                return "4.6.2";
+            }
+
+            if (releaseKey >= 394254)
+            {
+                return "4.6.1";
+            }
+
+            if (releaseKey >= 393295)
+            {
+                return "4.6";
+            }
+
+            if (releaseKey >= 379893)
+            {
+                return "4.5.2";
+            }
+
+            if (releaseKey >= 378675)
+            {
+                return "4.5.1";
+            }
+
+            return releaseKey >= 378389 ? "4.5" : "No 4.5 or later version detected";
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// Gets Processors.
-    /// </summary>
-    [NotNull]
-    public static string Processors
-    {
-      get
-      {
-        return Environment.ProcessorCount.ToString();
-      }
-    }
-
-      /// <summary>
-      /// Gets RuntimeName.
-      /// </summary>
-      [NotNull]
-      public static string RuntimeName
-      {
-          get
-          {
-              if (!inited)
-              {
-                  Init();
-              }
-
-              return isMono ? "Mono" : ".NET";
-          }
-      }
-
-      /// <summary>
-    /// Gets RuntimeString.
-    /// </summary>
-    [NotNull]
-    public static string RuntimeString
-    {
-      get
-      {
-        Version os = Environment.Version;
-        return os.ToString();
-      }
-    }
-
-    /// <summary>
-    /// Gets VersionString.
-    /// </summary>
-    public static string VersionString
-    {
-      get
-      {
-        OperatingSystem os = Environment.OSVersion;
-        return os.VersionString;
-      }
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The init.
-    /// </summary>
-    private static void Init()
-    {
-      Type t = Type.GetType("Mono.Runtime");
-      isMono = t != null;
-    }
-
-    #endregion
-  }
 }

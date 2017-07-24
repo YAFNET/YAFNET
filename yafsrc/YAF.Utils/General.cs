@@ -25,25 +25,21 @@ namespace YAF.Utils
 {
     #region Using
 
-    using System;
     using System.Linq;
     using System.Reflection;
-    using System.Security;
     using System.Web;
 
-    using YAF.Classes;
     using YAF.Types;
     using YAF.Types.Extensions;
 
     #endregion
 
     /// <summary>
-    /// Summary description for General Utils.
+    /// General Utils.
     /// </summary>
     public static class General
     {
         /* Ederon : 9/12/2007 */
-
         #region Public Methods
 
         /// <summary>
@@ -67,14 +63,10 @@ namespace YAF.Utils
         }
 
         /// <summary>
-        /// The encode message.
+        /// Encodes the message.
         /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <returns>
-        /// The encode message.
-        /// </returns>
+        /// <param name="message">The message.</param>
+        /// <returns>Returns the encoded message</returns>
         public static string EncodeMessage([NotNull] string message)
         {
             CodeContracts.VerifyNotNull(message, "message");
@@ -83,50 +75,9 @@ namespace YAF.Utils
         }
 
         /// <summary>
-        /// Gets the current ASP.NET Hosting Security Level.
+        /// Gets the safe raw URL.
         /// </summary>
-        /// <returns>
-        /// The get current trust level.
-        /// </returns>
-        public static AspNetHostingPermissionLevel GetCurrentTrustLevel()
-        {
-            // Gets an override value, useful for Custom Trust Levels
-            if (!string.IsNullOrEmpty(Config.OverrideTrustLevel)) 
-            {
-                return
-                    (AspNetHostingPermissionLevel)
-                    Enum.Parse(typeof(AspNetHostingPermissionLevel), Config.OverrideTrustLevel, true); // return non custom trust level
-            }
-
-            foreach (AspNetHostingPermissionLevel trustLevel in
-                new[]
-                    {
-                        AspNetHostingPermissionLevel.Unrestricted, AspNetHostingPermissionLevel.High,
-                        AspNetHostingPermissionLevel.Medium, AspNetHostingPermissionLevel.Low,
-                        AspNetHostingPermissionLevel.Minimal
-                    })
-            {
-                try
-                {
-                    new AspNetHostingPermission(trustLevel).Demand();
-                }
-                catch (SecurityException)
-                {
-                    continue;
-                }
-
-                return trustLevel;
-            }
-
-            return AspNetHostingPermissionLevel.None;
-        }
-
-        /// <summary>
-        /// The get safe raw url.
-        /// </summary>
-        /// <returns>
-        /// The get safe raw url.
-        /// </returns>
+        /// <returns>Returns the safe raw URL</returns>
         public static string GetSafeRawUrl()
         {
             return GetSafeRawUrl(HttpContext.Current.Request.RawUrl);
@@ -135,40 +86,37 @@ namespace YAF.Utils
         /// <summary>
         /// Cleans up a URL so that it doesn't contain any problem characters.
         /// </summary>
-        /// <param name="url">
-        /// </param>
+        /// <param name="url">The URL.</param>
         /// <returns>
-        /// The get safe raw url.
+        /// The get safe raw URL.
         /// </returns>
         [NotNull]
         public static string GetSafeRawUrl([NotNull] string url)
         {
             CodeContracts.VerifyNotNull(url, "url");
 
-            string tProcessedRaw = url;
-            tProcessedRaw = tProcessedRaw.Replace("\"", string.Empty);
-            tProcessedRaw = tProcessedRaw.Replace("<", "%3C");
-            tProcessedRaw = tProcessedRaw.Replace(">", "%3E");
-            tProcessedRaw = tProcessedRaw.Replace("&", "%26");
-            return tProcessedRaw.Replace("'", string.Empty);
+            var processedRaw = url;
+            processedRaw = processedRaw.Replace("\"", string.Empty);
+            processedRaw = processedRaw.Replace("<", "%3C");
+            processedRaw = processedRaw.Replace(">", "%3E");
+            processedRaw = processedRaw.Replace("&", "%26");
+            return processedRaw.Replace("'", string.Empty);
         }
 
         /// <summary>
-        /// The trace resources.
+        /// Traces the resources.
         /// </summary>
-        /// <returns>
-        /// The trace resources.
-        /// </returns>
+        /// <returns>Returns the founded Resources</returns>
         public static string TraceResources()
         {
-            Assembly a = Assembly.GetExecutingAssembly();
+            var a = Assembly.GetExecutingAssembly();
 
             // get a list of resource names from the manifest
-            string[] resNames = a.GetManifestResourceNames();
+            var resNames = a.GetManifestResourceNames();
 
             // populate the textbox with information about our resources
             // also look for images and put them in our arraylist
-            string txtInfo = string.Empty;
+            var txtInfo = string.Empty;
 
             txtInfo += "Found {0} resources\r\n".FormatWith(resNames.Length);
             txtInfo += "----------\r\n";

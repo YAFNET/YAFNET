@@ -189,7 +189,7 @@ namespace YAF.Pages.Admin
 
             var txtBoxes =
                 this.ControlListRecursive(
-                    c => (c.GetType() == typeof(TextBox) && ((TextBox)c).TextMode == TextBoxMode.SingleLine))
+                    c => c.GetType() == typeof(TextBox) && ((TextBox)c).TextMode == TextBoxMode.SingleLine)
                     .Cast<TextBox>()
                     .ToList();
 
@@ -505,19 +505,14 @@ namespace YAF.Pages.Admin
             }
 
             // special field handling...
-            this.AvatarSize.Text = (this.Get<YafBoardSettings>().AvatarSize != 0)
+            this.AvatarSize.Text = this.Get<YafBoardSettings>().AvatarSize != 0
                                        ? this.Get<YafBoardSettings>().AvatarSize.ToString()
                                        : string.Empty;
-            this.MaxFileSize.Text = (this.Get<YafBoardSettings>().MaxFileSize != 0)
+            this.MaxFileSize.Text = this.Get<YafBoardSettings>().MaxFileSize != 0
                                         ? this.Get<YafBoardSettings>().MaxFileSize.ToString()
                                         : string.Empty;
 
             this.SQLVersion.Text = this.HtmlEncode(this.Get<YafBoardSettings>().SQLVersion);
-
-            if (General.GetCurrentTrustLevel() <= AspNetHostingPermissionLevel.Medium)
-            {
-                return;
-            }
 
             this.AppCores.Text = Platform.Processors;
             this.AppMemory.Text = "{0} MB of {1} MB".FormatWith(

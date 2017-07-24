@@ -120,12 +120,12 @@ namespace YAF
                 {
                     localizationFile = context.Session["localizationFile"].ToString();
                 }
-                /////////////
 
+                /////////////
                 if (context.Request.QueryString.GetFirstOrDefault("twitterinfo") != null)
                 {
                     this.GetTwitterUserInfo(context);
-                } 
+                }
                 else if (context.Request.QueryString.GetFirstOrDefault("userinfo") != null)
                 {
                     this.GetUserInfo(context);
@@ -155,8 +155,7 @@ namespace YAF
                 }
                 else if (context.Request.QueryString.GetFirstOrDefault("p") != null)
                 {
-                    this.GetResponseImagePreview(
-                        context, localizationFile, previewCropped);
+                    this.GetResponseImagePreview(context, localizationFile, previewCropped);
                 }
                 else if (context.Request.QueryString.GetFirstOrDefault("c") != null)
                 {
@@ -331,7 +330,7 @@ namespace YAF
                     var rDstTxt1 = new Rectangle(3, rDstImg.Height + 3, newImgSize.Width, BottomSize - 13);
                     var rDstTxt2 = new Rectangle(3, rDstImg.Height + 16, newImgSize.Width, BottomSize - 13);
 
-                    using (Graphics g = Graphics.FromImage(dst))
+                    using (var g = Graphics.FromImage(dst))
                     {
                         g.Clear(Color.FromArgb(64, 64, 64));
                         g.FillRectangle(Brushes.White, rDstImg);
@@ -350,7 +349,9 @@ namespace YAF
                             using (var brush = new SolidBrush(Color.FromArgb(191, 191, 191)))
                             {
                                 var sf = new StringFormat
-                                    { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
+                                    {
+                                       Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center 
+                                    };
 
                                 g.DrawString(localization.GetText("IMAGE_RESIZE_ENLARGE"), f, brush, rDstTxt1, sf);
 
@@ -440,7 +441,7 @@ namespace YAF
 
                 var boardId = context.Request.QueryString.GetFirstOrDefault("boardId").ToType<int>();
 
-                MembershipUser user = UserMembershipHelper.GetMembershipUserById(userId, boardId);
+                var user = UserMembershipHelper.GetMembershipUserById(userId, boardId);
 
                 if (user == null || user.ProviderUserKey.ToString() == "0")
                 {
@@ -535,9 +536,10 @@ namespace YAF
                                        Name = userName,
                                        RealName = HttpUtility.HtmlEncode(userData.Profile.RealName),
                                        Avatar = avatarUrl,
+
                                        /*profilelink =
-                                           Config.IsAnyPortal ? userlinkUrl : YafBuildLink.GetLink(ForumPages.profile, true, "u={0}&name={1}", userId).Replace(
-                                               "resource.ashx", "default.aspx"),*/
+                                                                                  Config.IsAnyPortal ? userlinkUrl : YafBuildLink.GetLink(ForumPages.profile, true, "u={0}&name={1}", userId).Replace(
+                                                                                      "resource.ashx", "default.aspx"),*/
                                        Interests = HttpUtility.HtmlEncode(userData.Profile.Interests),
                                        HomePage = userData.Profile.Homepage,
                                        Posts = "{0:N0}".FormatWith(userData.NumPosts),
@@ -657,7 +659,7 @@ namespace YAF
         {
             try
             {
-                using (DataTable dt = LegacyDb.user_avatarimage(context.Request.QueryString.GetFirstOrDefault("u")))
+                using (var dt = LegacyDb.user_avatarimage(context.Request.QueryString.GetFirstOrDefault("u")))
                 {
                     foreach (DataRow row in dt.Rows)
                     {
@@ -742,7 +744,7 @@ namespace YAF
                 userKey = user.ProviderUserKey;
             }
 
-            DataRow pageRow = LegacyDb.pageload(
+            var pageRow = LegacyDb.pageload(
                 HttpContext.Current.Session.SessionID,
                 boardID,
                 userKey,
@@ -796,12 +798,12 @@ namespace YAF
                 else
                 {
                     using (
-                        DataTable dt = LegacyDb.album_image_list(
+                        var dt = LegacyDb.album_image_list(
                             null, context.Request.QueryString.GetFirstOrDefault("cover")))
                     {
                         if (dt.HasRows())
                         {
-                            DataRow row = dt.Rows[0];
+                            var row = dt.Rows[0];
                             var sUpDir = YafBoardFolders.Current.Uploads;
 
                             var oldFileName =
@@ -830,7 +832,7 @@ namespace YAF
                 data.Position = 0;
                 var imagesNumber =
                     LegacyDb.album_getstats(null, context.Request.QueryString.GetFirstOrDefault("album"))[1];
-                MemoryStream ms = GetAlbumOrAttachmentImageResized(
+                var ms = GetAlbumOrAttachmentImageResized(
                     data,
                     this.Get<YafBoardSettings>().ImageAttachmentResizeWidth,
                     this.Get<YafBoardSettings>().ImageAttachmentResizeHeight,
@@ -880,7 +882,7 @@ namespace YAF
 
                 // ImageID
                 using (
-                    DataTable dt = LegacyDb.album_image_list(
+                    var dt = LegacyDb.album_image_list(
                         null, context.Request.QueryString.GetFirstOrDefault("image")))
                 {
                     foreach (DataRow row in dt.Rows)
@@ -960,7 +962,7 @@ namespace YAF
             {
                 // ImageID
                 using (
-                    DataTable dt = LegacyDb.album_image_list(
+                    var dt = LegacyDb.album_image_list(
                         null, context.Request.QueryString.GetFirstOrDefault("imgprv")))
                 {
                     foreach (DataRow row in dt.Rows)
@@ -991,7 +993,7 @@ namespace YAF
                         // reset position...
                         data.Position = 0;
 
-                        MemoryStream ms = GetAlbumOrAttachmentImageResized(
+                        var ms = GetAlbumOrAttachmentImageResized(
                             data,
                             this.Get<YafBoardSettings>().ImageAttachmentResizeWidth,
                             this.Get<YafBoardSettings>().ImageAttachmentResizeHeight,
@@ -1420,7 +1422,7 @@ namespace YAF
                 // reset position...
                 data.Position = 0;
 
-                MemoryStream ms = GetAlbumOrAttachmentImageResized(
+                var ms = GetAlbumOrAttachmentImageResized(
                     data,
                     previewMaxWidth,
                     previewMaxHeight,
@@ -1481,12 +1483,8 @@ namespace YAF
                 return;
             }
 
-            var webClient = new WebClient();
+            var webClient = new WebClient { Credentials = CredentialCache.DefaultCredentials };
 
-            if (General.GetCurrentTrustLevel() >= AspNetHostingPermissionLevel.High)
-            {
-                webClient.Credentials = CredentialCache.DefaultCredentials;
-            }
 
             try
             {

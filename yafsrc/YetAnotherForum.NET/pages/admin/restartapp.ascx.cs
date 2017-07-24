@@ -76,21 +76,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void RestartApp_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (General.GetCurrentTrustLevel() >= AspNetHostingPermissionLevel.High)
-            {
-                HttpRuntime.UnloadAppDomain();
-            }
-            else
-            {
-                try
-                {
-                    File.SetLastWriteTime(this.Server.MapPath("~/web.config"), DateTime.Now);
-                }
-                catch (Exception)
-                {
-                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_RESTARTAPP", "MSG_TRUST"), MessageTypes.danger);
-                }
-            }
+            HttpRuntime.UnloadAppDomain();
         }
 
         #endregion

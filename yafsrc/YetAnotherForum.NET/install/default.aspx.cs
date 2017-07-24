@@ -424,11 +424,9 @@ namespace YAF.Install
                 this.lblPermissionUpload,
                 DirectoryHasWritePermission(this.Server.MapPath(YafBoardFolders.Current.Uploads)) ? 2 : 0);
 
-            UpdateStatusLabel(
-                this.lblHostingTrust,
-                this._config.TrustLevel >= AspNetHostingPermissionLevel.High ? 2 : 0);
+            UpdateStatusLabel(this.lblHostingTrust, 2);
 
-            this.lblHostingTrust.Text = this._config.TrustLevel.GetStringValue();
+            this.lblHostingTrust.Text = "High";
         }
 
         /// <summary>
@@ -708,16 +706,10 @@ namespace YAF.Install
 
                     e.Cancel = false;
 
-                    if (this._config.TrustLevel >= AspNetHostingPermissionLevel.High
-                        && this._config.WriteAppSetting(_AppPasswordKey, this.txtCreatePassword1.Text))
-                    {
-                        // advance to the testing section since the password is now set...
-                        this.CurrentWizardStepID = "WizDatabaseConnection";
-                    }
-                    else
-                    {
-                        this.CurrentWizardStepID = "WizManuallySetPassword";
-                    }
+                    this.CurrentWizardStepID =
+                        this._config.WriteAppSetting(_AppPasswordKey, this.txtCreatePassword1.Text)
+                            ? "WizDatabaseConnection"
+                            : "WizManuallySetPassword";
 
                     break;
                 case "WizManuallySetPassword":
