@@ -417,7 +417,7 @@ namespace YAF.Controls
             var messageIds =
                 (from m in this.AllPostsByUser.AsEnumerable() select m.Field<int>("MessageID")).Distinct().ToList();
 
-            messageIds.ForEach(x => LegacyDb.message_delete(x, true, string.Empty, 1, true));
+            messageIds.ForEach(x => LegacyDb.message_delete(x, true, string.Empty, 1, true, true));
         }
 
         #endregion
