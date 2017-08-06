@@ -84,13 +84,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets Order.
         /// </summary>
-        public int Order
-        {
-            get
-            {
-                return 2000;
-            }
-        }
+        public int Order => 2000;
 
         /// <summary>
         ///   Gets or sets ServiceLocator.
@@ -115,6 +109,11 @@ namespace YAF.Core
                 return;
             }
 
+            if (this.HttpRequestBase.Url.ToString().Contains("digest"))
+            {
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(@event.Data.UserAgent))
             {
                 this.Logger.Warn("UserAgent string is empty.");
@@ -122,7 +121,7 @@ namespace YAF.Core
 
             if ((@event.Data.Platform.ToLower().Contains("unknown")
                  || @event.Data.Browser.ToLower().Contains("unknown"))
-                && (!UserAgentHelper.IsSearchEngineSpider(@event.Data.UserAgent)))
+                && !UserAgentHelper.IsSearchEngineSpider(@event.Data.UserAgent))
             {
                 this.Logger.Log(
                     YafContext.Current.User != null ? YafContext.Current.User.UserName : string.Empty,
