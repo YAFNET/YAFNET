@@ -56,7 +56,9 @@
                 &nbsp;
             </td>
             <td class="post" valign="top">
-                <%# this.Get<IFormatMessage>().FormatMessage(Eval("Body") as string, new MessageFlags(Eval("Flags"))) %>
+                <YAF:MessagePost ID="Message" runat="server" 
+                    MessageFlags='<%# new MessageFlags(this.Eval("Flags")) %>' 
+                    Message='<%# this.Eval("Body").ToType<string>()%>' />
             </td>
         </tr>
         <tr class="postfooter">
