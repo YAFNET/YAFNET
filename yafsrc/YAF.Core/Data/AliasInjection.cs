@@ -26,11 +26,10 @@ namespace YAF.Core.Data
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.Linq;
+    using System.Reflection;
 
     using Omu.ValueInjecter.Injections;
-    using Omu.ValueInjecter.Utils;
 
     using ServiceStack.DataAnnotations;
 
@@ -57,17 +56,16 @@ namespace YAF.Core.Data
         /// <param name="target">The target.</param>
         protected override void Inject(object source, object target)
         {
-            var props = target.GetProps();
+            var type = target.GetType();
 
-            this.aliasMapping = props.OfType<PropertyDescriptor>()
-                .Where(p => p.Attributes.OfType<AliasAttribute>().Any())
-                .ToDictionary(k => k.Attributes.OfType<AliasAttribute>().FirstOrDefault().Name, v => v.Name);
+            var aliasMapping = type.GetProperties()
+                .Where(p => p.GetCustomAttributes().OfType<AliasAttribute>().Any())
+                .ToDictionary(k => k.GetCustomAttributes().OfType<AliasAttribute>().FirstOrDefault().Name, v => v.Name);
 
             this.nameMap = inputName => this.aliasMapping.ContainsKey(inputName)
                                             ? this.aliasMapping[inputName]
                                             : inputName;
-
-            base.Inject(source, target);
+           base.Inject(source, target);
         }
 
         /// <summary>

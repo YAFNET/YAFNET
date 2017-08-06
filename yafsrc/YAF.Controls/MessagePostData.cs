@@ -34,7 +34,6 @@ namespace YAF.Controls
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
@@ -53,16 +52,6 @@ namespace YAF.Controls
         ///   The _row.
         /// </summary>
         private Message _message;
-
-        /// <summary>
-        ///   The _show attachments.
-        /// </summary>
-        private bool _showAttachments = true;
-
-        /// <summary>
-        ///   The _show signature.
-        /// </summary>
-        private bool _showSignature = true;
 
         #endregion
 
@@ -85,7 +74,15 @@ namespace YAF.Controls
         {
             set
             {
-                this.CurrentMessage = value != null ? value.ToTyped<Message>() : null;
+                if (value != null)
+                {
+                    var dataRow = value.ToType<DataRow>();
+                    this.CurrentMessage = dataRow.ToTyped<Message>();
+                }
+                else
+                {
+                    this.CurrentMessage = null;
+                }
             }
         }
 
@@ -97,10 +94,7 @@ namespace YAF.Controls
         /// </value>
         public Message CurrentMessage
         {
-            get
-            {
-                return this._message;
-            }
+            get => this._message;
 
             set
             {
@@ -117,55 +111,28 @@ namespace YAF.Controls
         /// </value>
         public SearchResult SearchResult
         {
-            set
-            {
-                this.CurrentMessage = value != null ? value.ToTyped<Message>() : null;
-            }
+            set => this.CurrentMessage = value?.ToTyped<Message>();
         }
 
         /// <summary>
         ///   Gets Edited.
         /// </summary>
-        public DateTime Edited
-        {
-            get
-            {
-                return this.CurrentMessage.Edited ?? DateTime.UtcNow;
-            }
-        }
+        public DateTime Edited => this.CurrentMessage.Edited ?? DateTime.UtcNow;
 
         /// <summary>
         ///   Gets Message.
         /// </summary>
-        public override string Message
-        {
-            get
-            {
-                return TruncateMessage(this.CurrentMessage.MessageText ?? string.Empty);
-            }
-        }
+        public override string Message => TruncateMessage(this.CurrentMessage.MessageText ?? string.Empty);
 
         /// <summary>
         ///   Gets Message Id.
         /// </summary>
-        public int? MessageId
-        {
-            get
-            {
-                return this.CurrentMessage.ID == 0 ? null : (int?)this.CurrentMessage.ID;
-            }
-        }
+        public int? MessageId => this.CurrentMessage.ID == 0 ? null : (int?)this.CurrentMessage.ID;
 
         /// <summary>
         ///   Gets Posted.
         /// </summary>
-        public DateTime Posted
-        {
-            get
-            {
-                return this.CurrentMessage.Posted;
-            }
-        }
+        public DateTime Posted => this.CurrentMessage.Posted;
 
         /// <summary>
         ///   Gets or sets a value indicating whether Show the Edit Message if needed.
@@ -175,34 +142,12 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets or sets a value indicating whether ShowAttachments.
         /// </summary>
-        public bool ShowAttachments
-        {
-            get
-            {
-                return this._showAttachments;
-            }
-
-            set
-            {
-                this._showAttachments = value;
-            }
-        }
+        public bool ShowAttachments { get; set; } = true;
 
         /// <summary>
         ///   Gets or sets a value indicating whether ShowSignature.
         /// </summary>
-        public bool ShowSignature
-        {
-            get
-            {
-                return this._showSignature;
-            }
-
-            set
-            {
-                this._showSignature = value;
-            }
-        }
+        public bool ShowSignature { get; set; } = true;
 
         /// <summary>
         ///   Gets Signature.

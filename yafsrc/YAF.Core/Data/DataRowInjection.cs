@@ -31,7 +31,6 @@ namespace YAF.Core.Data
     using System.Reflection;
 
     using Omu.ValueInjecter.Injections;
-    using Omu.ValueInjecter.Utils;
 
     using ServiceStack.DataAnnotations;
 
@@ -49,11 +48,11 @@ namespace YAF.Core.Data
         /// <param name="target">The target.</param>
         protected override void Inject(DataRow source, object target)
         {
-            var props = target.GetProps();
+            var type = target.GetType();
 
-            var aliasMapping = props.OfType<PropertyDescriptor>()
-                .Where(p => p.Attributes.OfType<AliasAttribute>().Any())
-                .ToDictionary(k => k.Attributes.OfType<AliasAttribute>().FirstOrDefault().Name, v => v.Name);
+            var aliasMapping = type.GetProperties()
+                .Where(p => p.GetCustomAttributes().OfType<AliasAttribute>().Any())
+                .ToDictionary(k => k.GetCustomAttributes().OfType<AliasAttribute>().FirstOrDefault().Name, v => v.Name);
 
             var nameMap = new Func<string, string>(
                 inputName => aliasMapping.ContainsKey(inputName) ? aliasMapping[inputName] : inputName);
