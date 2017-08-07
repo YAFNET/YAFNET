@@ -162,9 +162,15 @@ namespace YAF.Controls
         /// </summary>
         public virtual string Message
         {
-            get => ViewState["Message"]?.ToString();
+            get
+            {
+                return this.ViewState["Message"] != null ? this.ViewState["Message"].ToString() : null;
+            }
 
-            set => this.ViewState["Message"] = value;
+            set
+            {
+                this.ViewState["Message"] = value;
+            }
         }
 
         /// <summary>

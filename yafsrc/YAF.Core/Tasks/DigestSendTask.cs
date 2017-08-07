@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,6 +33,7 @@ namespace YAF.Core.Tasks
     using YAF.Classes;
     using YAF.Core.Model;
     using YAF.Types;
+    using YAF.Types.Attributes;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -71,13 +72,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         ///   Gets TaskName.
         /// </summary>
-        public static string TaskName
-        {
-            get
-            {
-                return _TaskName;
-            }
-        }
+        public static string TaskName => _TaskName;
 
         #endregion
 
@@ -177,16 +172,21 @@ namespace YAF.Core.Tasks
                             .Where(x => !x.IsGuest && (x.IsApproved ?? false));
 
                     var typedUserFinds = usersWithDigest as IList<User> ?? usersWithDigest.ToList();
+
                     if (typedUserFinds.Any())
                     {
                         // start sending...
                         this.SendDigestToUsers(typedUserFinds, boardSettings);
                     }
+                    else
+                    {
+                        this.Get<ILogger>().Info("no user found");
+                    }
                 }
             }
             catch (Exception ex)
             {
-                this.Logger.Error(ex, "Error In {0} Task".FormatWith(TaskName));
+                this.Get<ILogger>().Error(ex, "Error In {0} Task".FormatWith(TaskName));
             }
         }
 
@@ -199,6 +199,8 @@ namespace YAF.Core.Tasks
             IList<User> usersWithDigest,
             YafBoardSettings boardSettings)
         {
+            var usersSendCount = 0;
+
             foreach (var user in usersWithDigest)
             {
                 try
@@ -232,12 +234,16 @@ namespace YAF.Core.Tasks
                             membershipUser.Email,
                             user.DisplayName,
                             true);
+
+                    usersSendCount++;
                 }
                 catch (Exception e)
                 {
-                    this.Logger.Error(e, "Error In Creating Digest for User {0}".FormatWith(user.UserID));
+                    this.Get<ILogger>().Error(e, "Error In Creating Digest for User {0}".FormatWith(user.UserID));
                 }
             }
+
+            this.Get<ILogger>().Info("Digest send to {0} user(s)".FormatWith(usersSendCount));
         }
 
         #endregion
