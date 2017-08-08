@@ -2040,7 +2040,7 @@ create procedure [{databaseOwner}].[{objectQualifier}bannedip_list](@BoardID int
                 set @LastSelectRowNumber = 0;
                 set @TotalRows = 0;
 
-                select @TotalRows = count(1) from [{databaseOwner}].[{objectQualifier}BannedName] where Mask like '%' +@Mask + '%' and BoardID=@BoardID;
+                select @TotalRows = count(1) from [{databaseOwner}].[{objectQualifier}BannedIP] where Mask like '%' +@Mask + '%' and BoardID=@BoardID;
                 select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1;
                 select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize +  @PageSize;
 
