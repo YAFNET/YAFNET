@@ -6034,18 +6034,70 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}spam_words_list]
-(
-    @BoardID int,
-    @ID int = null
-)
-AS BEGIN
-        IF (@ID IS NOT NULL AND @ID <> 0)
-        SELECT * FROM [{databaseOwner}].[{objectQualifier}Spam_Words] WHERE BoardId = @BoardID AND ID = @ID
-    ELSE
-        SELECT * FROM [{databaseOwner}].[{objectQualifier}Spam_Words] WHERE BoardId = @BoardID
-END
-GO
+create procedure [{databaseOwner}].[{objectQualifier}spam_words_list](@BoardID int, @Mask varchar(57) = null,@ID int=null,@PageIndex int=null, @PageSize int=null) as
+    begin
+	    declare @TotalRows int
+	    declare @FirstSelectRowNumber int
+	    declare @LastSelectRowNumber int
+
+		if @ID is not null
+            begin
+			    select * from [{databaseOwner}].[{objectQualifier}Spam_Words] where ID=@ID and BoardID=@BoardID
+			end
+		else if @Mask is not null
+		    begin
+	            set @PageIndex = @PageIndex + 1;
+                set @FirstSelectRowNumber = 0;
+                set @LastSelectRowNumber = 0;
+                set @TotalRows = 0;
+
+                select @TotalRows = count(1) from [{databaseOwner}].[{objectQualifier}Spam_Words] where SpamWord like '%' +@Mask + '%' and BoardID=@BoardID;
+                select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1;
+                select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize +  @PageSize;
+
+                with SpamWords  as
+                (
+                  select ROW_NUMBER() over (order by ID desc) as RowNum, SpamWord
+                  from  [{databaseOwner}].[{objectQualifier}Spam_Words] where SpamWord like '%' +@Mask + '%' and BoardID=@BoardID
+                )
+                select
+                 a.*,
+                 @TotalRows as TotalRows
+                 from
+                 SpamWords c
+                 inner join [{databaseOwner}].[{objectQualifier}Spam_Words] a
+                 on 	c.SpamWord = a.SpamWord
+                 where c.RowNum between (@FirstSelectRowNumber) and (@LastSelectRowNumber)
+                 order by c.RowNum asc
+	        end
+		else
+		    begin
+	            set @PageIndex = @PageIndex + 1;
+                set @FirstSelectRowNumber = 0;
+                set @LastSelectRowNumber = 0;
+                set @TotalRows = 0;
+
+                select @TotalRows = count(1) from [{databaseOwner}].[{objectQualifier}Spam_Words] where BoardID=@BoardID;
+                select @FirstSelectRowNumber = (@PageIndex - 1) * @PageSize + 1;
+                select @LastSelectRowNumber = (@PageIndex - 1) * @PageSize +  @PageSize;
+
+                with SpamWords  as
+                (
+                  select ROW_NUMBER() over (order by ID desc) as RowNum, SpamWord
+                  from  [{databaseOwner}].[{objectQualifier}Spam_Words] where BoardID=@BoardID
+                )
+                select
+                 a.*,
+                 @TotalRows as TotalRows
+                 from
+                 SpamWords c
+                 inner join [{databaseOwner}].[{objectQualifier}Spam_Words] a
+                 on 	c.SpamWord = a.SpamWord
+                 where c.RowNum between (@FirstSelectRowNumber) and (@LastSelectRowNumber)
+                 order by c.RowNum asc
+	        end
+    end
+go
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}spam_words_save]
 (

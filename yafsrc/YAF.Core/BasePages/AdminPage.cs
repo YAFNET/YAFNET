@@ -27,10 +27,12 @@ namespace YAF.Core
     #region Using
 
     using System;
+    using System.Web.UI;
 
     using YAF.Classes.Data;
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
     using YAF.Utils;
 
     #endregion
@@ -79,6 +81,13 @@ namespace YAF.Core
             }
         }
 
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+        }
+
         #endregion
 
         #region Methods
@@ -90,6 +99,8 @@ namespace YAF.Core
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void AdminPage_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            this.CreatePageLinks();
+            
             // not admins are forbidden
             if (!this.PageContext.IsAdmin)
             {

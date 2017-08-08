@@ -3,20 +3,42 @@
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
-	<asp:Repeater ID="list" runat="server">
-		<HeaderTemplate>
-    <div class="row">
-    <div class="col-xl-12">
-
-        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMWORDS" /></h1>
-    </div>
-    </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="alert alert-warning" role="alert">
-                            <YAF:LocalizedLabel ID="LocalizedLabelRequirementsText" runat="server"
+
+            <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMWORDS" /></h1>
+        </div>
+    </div>
+    <div class="row">
+    <div class="col-xl-12">
+        <div class="alert alert-warning" role="alert">
+            <YAF:LocalizedLabel ID="LocalizedLabelRequirementsText" runat="server"
                                 LocalizedTag="NOTE" LocalizedPage="ADMIN_SPAMWORDS">
-                            </YAF:LocalizedLabel>
+            </YAF:LocalizedLabel>
+        </div>
+        <div class="card mb-3 card-info-outline">
+            <div class="card-header card-info">
+                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="SEARCH" LocalizedPage="TOOLBAR" />
+            </div>
+            <div class="card-block">
+                <h4>
+                    <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="SPAM" LocalizedPage="ADMIN_SPAMWORDS_EDIT" />
+                </h4>
+                <p>
+                    <asp:TextBox ID="SearchInput" runat="server" Width="90%" CssClass="form-control"></asp:TextBox>
+                </p>
+            </div>
+            <div class="card-footer text-lg-center">
+                <YAF:ThemeButton ID="search" runat="server"  CssClass="btn btn-primary btn-sm"
+                                 TextLocalizedTag="BTNSEARCH" TextLocalizedPage="SEARCH" Icon="search"
+                                 OnClick="Search_Click">
+                </YAF:ThemeButton>
+            </div>
+        </div>
+
+    <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
+            <asp:Repeater ID="list" runat="server">
+                <HeaderTemplate>
             <div class="card mb-3 card-outline-primary">
                 <div class="card-header card-primary">
                     <i class="fa fa-shield fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMWORDS" />
@@ -69,10 +91,9 @@
 					<asp:LinkButton runat="server" CommandName='export' ID="Linkbutton4" CssClass="btn btn-warning" OnLoad="ExportLoad"></asp:LinkButton>
                 </div>
             </div>
-            <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
-        </div>
-    </div>
 		</FooterTemplate>
-	</asp:Repeater>
+            </asp:Repeater>
+	    <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
+	    </div>
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

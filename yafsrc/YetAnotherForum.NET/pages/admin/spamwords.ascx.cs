@@ -28,7 +28,9 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Data;
+    using System.IO;
     using System.Linq;
+    using System.Web;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
@@ -60,6 +62,16 @@ namespace YAF.Pages.Admin
         protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
             // rebind
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Handles the Click event of the Search control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void Search_Click(object sender, EventArgs e)
+        {
             this.BindData();
         }
 
@@ -132,6 +144,14 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddRoot()
                 .AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin))
                 .AddLink(this.GetText("ADMIN_SPAMWORDS", "TITLE"));
@@ -139,8 +159,6 @@ namespace YAF.Pages.Admin
             this.Page.Header.Title = "{0} - {1}".FormatWith(
                 this.GetText("ADMIN_ADMIN", "Administration"),
                 this.GetText("ADMIN_SPAMWORDS", "TITLE"));
-
-            this.BindData();
         }
 
         /// <summary>
@@ -148,21 +166,22 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            //this.list.DataSource = this.GetRepository<Spam_Words>().List();
-            /*this.PPageSize = this.Get<YafBoardSettings>().MemberListPageSize;
+            this.PagerTop.PageSize = this.Get<YafBoardSettings>().MemberListPageSize;
 
-            var bannedList = this.GetRepository<BannedIP>()
+            var searchText = this.SearchInput.Text.Trim();
+
+            var bannedList = this.GetRepository<Spam_Words>()
                 .List(
                     mask: searchText.IsSet() ? searchText : null,
                     pageIndex: this.PagerTop.CurrentPageIndex,
                     pageSize: this.PagerTop.PageSize);
 
-            this.list.DataSource = bannedList
+            this.list.DataSource = bannedList;
 
             this.PagerTop.Count = bannedList != null && bannedList.HasRows()
                                       ? bannedList.AsEnumerable().First().Field<int>("TotalRows")
                                       : 0;
-            this.DataBind();*/
+            this.DataBind();
         }
 
         /// <summary>
@@ -195,15 +214,26 @@ namespace YAF.Pages.Admin
                     break;
                 case "export":
                     {
-                        DataTable spamwordDataTable = this.GetRepository<Spam_Words>().List();
-                        spamwordDataTable.DataSet.DataSetName = "YafSpamWordsList";
-                        spamwordDataTable.TableName = "YafSpamWords";
-                        spamwordDataTable.Columns.Remove("ID");
-                        spamwordDataTable.Columns.Remove("BoardID");
+                        var spamWords = this.GetRepository<Spam_Words>().ListTyped();
 
-                        this.Response.ContentType = "text/xml";
-                        this.Response.AppendHeader("Content-Disposition", "attachment; filename=YafSpamWordsExport.xml");
-                        spamwordDataTable.DataSet.WriteXml(this.Response.OutputStream);
+                        this.Get<HttpResponseBase>().Clear();
+                        this.Get<HttpResponseBase>().ClearContent();
+                        this.Get<HttpResponseBase>().ClearHeaders();
+
+                        this.Get<HttpResponseBase>().ContentType = "application/vnd.text";
+                        this.Get<HttpResponseBase>()
+                            .AppendHeader("content-disposition", "attachment; filename=YafSpamWordsExport.txt");
+
+                        var streamWriter = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
+
+                        foreach (var word in spamWords)
+                        {
+                            streamWriter.Write(word.SpamWord);
+                            streamWriter.Write(streamWriter.NewLine);
+                        }
+
+                        streamWriter.Close();
+
                         this.Response.End();
                     }
 
