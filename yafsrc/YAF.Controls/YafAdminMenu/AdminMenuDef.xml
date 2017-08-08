@@ -177,11 +177,6 @@
       <Image>envelope-square</Image>
     </YafMenuItem>
     <YafMenuItem>
-      <Title>Attachments</Title>
-      <ForumPage>admin_attachments</ForumPage>
-      <Image>paperclip</Image>
-    </YafMenuItem>
-    <YafMenuItem>
       <Title>Task Manager</Title>
       <ForumPage>admin_taskmanager</ForumPage>
       <Image>tasks</Image>

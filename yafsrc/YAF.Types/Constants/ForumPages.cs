@@ -429,11 +429,6 @@ namespace YAF.Types.Constants
     admin_pm, 
 
     /// <summary>
-    /// The admin_attachments.
-    /// </summary>
-    admin_attachments,
-
-    /// <summary>
     /// The admin_eventlog.
     /// </summary>
     admin_eventlog,

@@ -4,7 +4,6 @@
     <Resource tag="ACTIVEUSERS">Просматривает список активных пользователей</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">Просматривает маски доступа</Resource>
     <Resource tag="ADMIN_ADMIN">Просматривает главную страницу администратора</Resource>
-    <Resource tag="ADMIN_ATTACHMENTS">Администрирует прикреплённые файлы</Resource>
     <Resource tag="ADMIN_BANNEDEMAIL">Views banned Emails list</Resource>
     <Resource tag="ADMIN_BANNEDEMAIL_EDIT">Edits banned Emails</Resource>
     <Resource tag="ADMIN_BANNEDEMAIL_IMPORT">Imports banned Emails</Resource>
@@ -205,13 +204,6 @@
     <Resource tag="STATS_DONTCOUNT">Эта статистика не учитывает удалённые посты и темы.</Resource>
     <Resource tag="TOPICS_DAY">Тем в день:</Resource>
     <Resource tag="USERS_DAY">Пользователей в день:</Resource>
-  </page>
-  <page name="ADMIN_ATTACHMENTS">
-    <Resource tag="CONFIRM_DELETE">Удалить это вложение?</Resource>
-    <Resource tag="CONTENT_TYPE">Тип контента</Resource>
-    <Resource tag="DOWNLOADS">Загрузки</Resource>
-    <Resource tag="POSTED">Оставлено</Resource>
-    <Resource tag="TITLE">Вложения</Resource>
   </page>
   <page name="ADMIN_BANNEDEMAIL">
     <Resource tag="ADD_IP">Add New Email</Resource>
@@ -1846,7 +1838,6 @@
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">Маски доступа</Resource>
     <Resource tag="admin_admin">Индекс админа</Resource>
-    <Resource tag="admin_attachments">Вложения</Resource>
     <Resource tag="admin_bannedemail">Banned Emails</Resource>
     <Resource tag="admin_bannedip">Запрещённые IP</Resource>
     <Resource tag="admin_bannedname">Banned Names</Resource>
@@ -1919,6 +1910,7 @@
     <Resource tag="ALLOWED_EXTENSIONS">Разрешённые типы файлов</Resource>
     <Resource tag="ASK_DELETE">Удалить это вложение?</Resource>
     <Resource tag="COMPLETE_WARNING">Please wait until all Upload(s) are completed and the Dialog closes itself!</Resource>
+    <Resource tag="CONFIRM_DELETE">Delete attachment(s)?</Resource>
     <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
     <Resource tag="DELETE">Удалить</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">Запрещённые типы файлов</Resource>

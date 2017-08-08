@@ -4,7 +4,6 @@
     <Resource tag="ACTIVEUSERS">Betrachtet Aktive Benutzerliste</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">Betrachtet Zugriffssmasken im Adminbereich</Resource>
     <Resource tag="ADMIN_ADMIN">Betrachtet Admin Index</Resource>
-    <Resource tag="ADMIN_ATTACHMENTS">Betrachte Anhänge</Resource>
     <Resource tag="ADMIN_BANNEDEMAIL">Views banned Emails list</Resource>
     <Resource tag="ADMIN_BANNEDEMAIL_EDIT">Edits banned Emails</Resource>
     <Resource tag="ADMIN_BANNEDEMAIL_IMPORT">Imports banned Emails</Resource>
@@ -205,13 +204,6 @@
     <Resource tag="STATS_DONTCOUNT">Diese Statistiken zählen nicht für gelöschte Themen und Beiträge.</Resource>
     <Resource tag="TOPICS_DAY">Themen pro Tag:</Resource>
     <Resource tag="USERS_DAY">Benutzer pro Tag:</Resource>
-  </page>
-  <page name="ADMIN_ATTACHMENTS">
-    <Resource tag="CONFIRM_DELETE">Diesen Anhang löschen?</Resource>
-    <Resource tag="CONTENT_TYPE">Content-Typ</Resource>
-    <Resource tag="DOWNLOADS">Downloads</Resource>
-    <Resource tag="POSTED">Geschrieben</Resource>
-    <Resource tag="TITLE">Anhänge</Resource>
   </page>
   <page name="ADMIN_BANNEDEMAIL">
     <Resource tag="ADD_IP">Add New Email</Resource>
@@ -1848,7 +1840,6 @@
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">Zugriffsmasken</Resource>
     <Resource tag="admin_admin">Admin-Index</Resource>
-    <Resource tag="admin_attachments">Anhänge</Resource>
     <Resource tag="admin_bannedemail">Gebannte Emails</Resource>
     <Resource tag="admin_bannedip">Gesperrte IPs</Resource>
     <Resource tag="admin_bannedname">Gebannte Names</Resource>
@@ -1921,6 +1912,7 @@
     <Resource tag="ALLOWED_EXTENSIONS">Erlaubte Dateitypen</Resource>
     <Resource tag="ASK_DELETE">Möchtest du diesen Anhang löschen?</Resource>
     <Resource tag="COMPLETE_WARNING">Please wait until all Upload(s) are completed and the Dialog closes itself!</Resource>
+    <Resource tag="CONFIRM_DELETE">Delete attachment(s)?</Resource>
     <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
     <Resource tag="DELETE">Löschen</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">Verbotene Dateitypen</Resource>

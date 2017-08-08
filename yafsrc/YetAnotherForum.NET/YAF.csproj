@@ -203,6 +203,13 @@
     <Compile Include="Classes\YafWebService.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="controls\MoveTopic.ascx.cs">
+      <DependentUpon>MoveTopic.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\MoveTopic.ascx.designer.cs">
+      <DependentUpon>MoveTopic.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\AttachmentsUploadDialog.ascx.cs">
       <DependentUpon>AttachmentsUploadDialog.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -387,9 +394,6 @@
     </Compile>
     <Compile Include="pages\admin\admin.ascx.designer.cs">
       <DependentUpon>admin.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\admin\attachments.ascx.designer.cs">
-      <DependentUpon>attachments.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\admin\bannedemail.ascx.cs">
       <DependentUpon>bannedemail.ascx</DependentUpon>
@@ -1121,6 +1125,7 @@
     <Content Include="Content\tether\tether-theme-basic.min.css" />
     <Content Include="Content\tether\tether.css" />
     <Content Include="Content\tether\tether.min.css" />
+    <Content Include="controls\MoveTopic.ascx" />
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
     <Content Include="controls\AttachmentsUploadDialog.ascx" />
@@ -1316,7 +1321,6 @@
     <Content Include="pages\activeusers.ascx" />
     <Content Include="pages\admin\accessmasks.ascx" />
     <Content Include="pages\admin\admin.ascx" />
-    <Content Include="pages\admin\attachments.ascx" />
     <Content Include="pages\admin\bannedip.ascx" />
     <Content Include="pages\admin\bannedip_import.ascx" />
     <Content Include="pages\admin\bannedip_edit.ascx" />
@@ -1781,7 +1785,6 @@
     <Content Include="Scripts\ckeditor\package.json" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
-    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js">
       <DependentUpon>jquery-3.1.1.js</DependentUpon>
@@ -1789,7 +1792,9 @@
     <Content Include="Scripts\jquery-3.1.1.min.map">
       <DependentUpon>jquery-3.1.1.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js">
+      <DependentUpon>jquery-3.1.1.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery-3.1.1.slim.min.js">
       <DependentUpon>jquery-3.1.1.slim.js</DependentUpon>
     </Content>
@@ -1828,15 +1833,6 @@
     </Content>
     <Content Include="Scripts\ladda.min.js">
       <DependentUpon>ladda.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\metisMenu.es5.js">
-      <DependentUpon>metisMenu.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\metisMenu.es5.min.js">
-      <DependentUpon>metisMenu.es5.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\metisMenu.min.js">
-      <DependentUpon>metisMenu.js</DependentUpon>
     </Content>
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js">
@@ -2365,10 +2361,6 @@
     </Compile>
     <Compile Include="pages\admin\admin.ascx.cs">
       <DependentUpon>admin.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\attachments.ascx.cs">
-      <DependentUpon>attachments.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\bannedip.ascx.cs">
@@ -3469,6 +3461,9 @@
     </Content>
     <Content Include="Scripts\forum\yaf.MessageHistory.js" />
     <Content Include="Scripts\forum\yaf.Attachments.js" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js">
+      <DependentUpon>jquery-3.1.1.js</DependentUpon>
+    </None>
     <None Include="themes\cleanSlate\theme.less" />
     <Content Include="themes\cleanSlate\theme.css">
       <DependentUpon>theme.less</DependentUpon>

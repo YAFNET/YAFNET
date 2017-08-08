@@ -4,7 +4,6 @@
     <Resource tag="ACTIVEUSERS">Przegląda listę aktywnych użytkowników</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">Przegląda maski uprawnień</Resource>
     <Resource tag="ADMIN_ADMIN">Przegląda informacje w panelu administracyjnym</Resource>
-    <Resource tag="ADMIN_ATTACHMENTS">Przegląda załączniki</Resource>
     <Resource tag="ADMIN_BANNEDEMAIL">Views banned Emails list</Resource>
     <Resource tag="ADMIN_BANNEDEMAIL_EDIT">Edits banned Emails</Resource>
     <Resource tag="ADMIN_BANNEDEMAIL_IMPORT">Imports banned Emails</Resource>
@@ -205,13 +204,6 @@
     <Resource tag="STATS_DONTCOUNT">Te statystyki nie zawierają usuniętych tematów i postów.</Resource>
     <Resource tag="TOPICS_DAY">Tematów na dzień:</Resource>
     <Resource tag="USERS_DAY">Użytkowników na dzień:</Resource>
-  </page>
-  <page name="ADMIN_ATTACHMENTS">
-    <Resource tag="CONFIRM_DELETE">Usunąć ten załącznik?</Resource>
-    <Resource tag="CONTENT_TYPE">Typ zawartości</Resource>
-    <Resource tag="DOWNLOADS">Pobrań</Resource>
-    <Resource tag="POSTED">Wysłany</Resource>
-    <Resource tag="TITLE">Załączniki</Resource>
   </page>
   <page name="ADMIN_BANNEDEMAIL">
     <Resource tag="ADD_IP">Add New Email</Resource>
@@ -1858,7 +1850,6 @@
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">Maski uprawnień</Resource>
     <Resource tag="admin_admin">Informacje</Resource>
-    <Resource tag="admin_attachments">Załączniki</Resource>
     <Resource tag="admin_bannedemail">Banned Emails</Resource>
     <Resource tag="admin_bannedip">Zbanowane adresy IP</Resource>
     <Resource tag="admin_bannedname">Banned Names</Resource>
@@ -1931,6 +1922,7 @@
     <Resource tag="ALLOWED_EXTENSIONS">Dozwolone typy plików</Resource>
     <Resource tag="ASK_DELETE">Usunąć ten załącznik?</Resource>
     <Resource tag="COMPLETE_WARNING">Please wait until all Upload(s) are completed and the Dialog closes itself!</Resource>
+    <Resource tag="CONFIRM_DELETE">Delete attachment(s)?</Resource>
     <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
     <Resource tag="DELETE">Usuń</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">Zabronione typy plków</Resource>

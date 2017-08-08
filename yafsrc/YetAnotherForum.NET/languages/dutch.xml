@@ -4,7 +4,6 @@
     <Resource tag="ACTIVEUSERS">Bekijkt Actieve Gebruikers</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">Bekijkt toegangsmaskers</Resource>
     <Resource tag="ADMIN_ADMIN">Bekijkt admin index</Resource>
-    <Resource tag="ADMIN_ATTACHMENTS">Bekijkt attachments</Resource>
     <Resource tag="ADMIN_BANNEDEMAIL">Views banned Emails list</Resource>
     <Resource tag="ADMIN_BANNEDEMAIL_EDIT">Edits banned Emails</Resource>
     <Resource tag="ADMIN_BANNEDEMAIL_IMPORT">Imports banned Emails</Resource>
@@ -205,13 +204,6 @@
     <Resource tag="STATS_DONTCOUNT">Deze cijfers tellen niet de verwijderde topics en posts mee.</Resource>
     <Resource tag="TOPICS_DAY">Topics per dag:</Resource>
     <Resource tag="USERS_DAY">Nieuwe gebruikers per dag:</Resource>
-  </page>
-  <page name="ADMIN_ATTACHMENTS">
-    <Resource tag="CONFIRM_DELETE">Verwijder deze bijlage?</Resource>
-    <Resource tag="CONTENT_TYPE">Content Type</Resource>
-    <Resource tag="DOWNLOADS">Downloads</Resource>
-    <Resource tag="POSTED">Geplaatst</Resource>
-    <Resource tag="TITLE">Bijlagen</Resource>
   </page>
   <page name="ADMIN_BANNEDEMAIL">
     <Resource tag="ADD_IP">Add New Email</Resource>
@@ -1858,7 +1850,6 @@
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">Toegangsmaskers</Resource>
     <Resource tag="admin_admin">Beheerdersindex</Resource>
-    <Resource tag="admin_attachments">Bijlagen</Resource>
     <Resource tag="admin_bannedemail">Banned Emails</Resource>
     <Resource tag="admin_bannedip">Geblokkeerde IPs</Resource>
     <Resource tag="admin_bannedname">Banned Names</Resource>
@@ -1931,6 +1922,7 @@
     <Resource tag="ALLOWED_EXTENSIONS">Toegestane bestandstypen</Resource>
     <Resource tag="ASK_DELETE">Bijlage verwijderen?</Resource>
     <Resource tag="COMPLETE_WARNING">Please wait until all Upload(s) are completed and the Dialog closes itself!</Resource>
+    <Resource tag="CONFIRM_DELETE">Delete attachment(s)?</Resource>
     <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
     <Resource tag="DELETE">Verwijderen</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">Verbonden bestandstypen</Resource>

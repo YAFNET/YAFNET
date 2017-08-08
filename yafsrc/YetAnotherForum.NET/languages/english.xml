@@ -4,7 +4,6 @@
   <Resource tag="ACTIVEUSERS">Views Active Users list</Resource>
   <Resource tag="ADMIN_ACCESSMASKS">Views access masks</Resource>
   <Resource tag="ADMIN_ADMIN">Views admin index</Resource>
-  <Resource tag="ADMIN_ATTACHMENTS">Views attachments</Resource>
   <Resource tag="ADMIN_BANNEDEMAIL">Views banned Emails list</Resource>
   <Resource tag="ADMIN_BANNEDEMAIL_EDIT">Edits banned Emails</Resource>
   <Resource tag="ADMIN_BANNEDEMAIL_IMPORT">Imports banned Emails</Resource>
@@ -205,13 +204,6 @@
   <Resource tag="STATS_DONTCOUNT">These statistics don't count deleted topics and posts.</Resource>
   <Resource tag="TOPICS_DAY">Topics per day:</Resource>
   <Resource tag="USERS_DAY">Users per day:</Resource>
- </page>
- <page name="ADMIN_ATTACHMENTS">
-  <Resource tag="CONFIRM_DELETE">Delete attachment(s)?</Resource>
-  <Resource tag="CONTENT_TYPE">Content Type</Resource>
-  <Resource tag="DOWNLOADS">Downloads</Resource>
-  <Resource tag="POSTED">Posted</Resource>
-  <Resource tag="TITLE">Attachments</Resource>
  </page>
  <page name="ADMIN_BANNEDEMAIL">
   <Resource tag="ADD_IP">Add New Email</Resource>
@@ -1863,7 +1855,6 @@
  <page name="ADMINMENU">
   <Resource tag="admin_accessmasks">Access Masks</Resource>
   <Resource tag="admin_admin">Admin Index</Resource>
-  <Resource tag="admin_attachments">Attachments</Resource>
   <Resource tag="admin_bannedemail">Banned Emails</Resource>
   <Resource tag="admin_bannedip">Banned IPs</Resource>
   <Resource tag="admin_bannedname">Banned Names</Resource>
@@ -1952,6 +1943,7 @@
   <Resource tag="UPLOAD_NOTE">Note: Max. File Size of an Attachment is {0} KB.</Resource>
   <Resource tag="UPLOAD_TITLE">Upload File(s)</Resource>
   <Resource tag="UPLOAD_TOOBIG">You cannot attach files that are bigger than {1} KB. Your File size is {0} KB.</Resource>
+  <Resource tag="CONFIRM_DELETE">Delete attachment(s)?</Resource>
  </page>
  <page name="AVATAR">
   <Resource tag="CANCEL_TITLE">Go Back to the Modify Avatar Page without selecting an Avatar.</Resource>

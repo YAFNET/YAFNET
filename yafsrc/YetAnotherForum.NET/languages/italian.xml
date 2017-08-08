@@ -4,7 +4,6 @@
     <Resource tag="ACTIVEUSERS">Views Active Users list</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">Views access masks in admin section</Resource>
     <Resource tag="ADMIN_ADMIN">Views admin index</Resource>
-    <Resource tag="ADMIN_ATTACHMENTS">Views attachments</Resource>
     <Resource tag="ADMIN_BANNEDEMAIL">Views banned Emails list</Resource>
     <Resource tag="ADMIN_BANNEDEMAIL_EDIT">Edits banned Emails</Resource>
     <Resource tag="ADMIN_BANNEDEMAIL_IMPORT">Imports banned Emails</Resource>
@@ -205,13 +204,6 @@
     <Resource tag="STATS_DONTCOUNT">These statistics don't count deleted topics and posts.</Resource>
     <Resource tag="TOPICS_DAY">Topics per day:</Resource>
     <Resource tag="USERS_DAY">Users per day:</Resource>
-  </page>
-  <page name="ADMIN_ATTACHMENTS">
-    <Resource tag="CONFIRM_DELETE">Delete this attachment?</Resource>
-    <Resource tag="CONTENT_TYPE">Content Type</Resource>
-    <Resource tag="DOWNLOADS">Downloads</Resource>
-    <Resource tag="POSTED">Posted</Resource>
-    <Resource tag="TITLE">Attachments</Resource>
   </page>
   <page name="ADMIN_BANNEDEMAIL">
     <Resource tag="ADD_IP">Add New Email</Resource>
@@ -1860,7 +1852,6 @@
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">Access Masks</Resource>
     <Resource tag="admin_admin">Admin Index</Resource>
-    <Resource tag="admin_attachments">Attachments</Resource>
     <Resource tag="admin_bannedemail">Banned Emails</Resource>
     <Resource tag="admin_bannedip">Banned IPs</Resource>
     <Resource tag="admin_bannedname">Banned Names</Resource>
@@ -1933,6 +1924,7 @@
     <Resource tag="ALLOWED_EXTENSIONS">Tipi di file consentiti</Resource>
     <Resource tag="ASK_DELETE">Cancello questo allegato?</Resource>
     <Resource tag="COMPLETE_WARNING">Per favore attendi il caricamento di tutti i file, la finestra si chiudera' automaticamente.</Resource>
+    <Resource tag="CONFIRM_DELETE">Delete attachment(s)?</Resource>
     <Resource tag="CURRENT_UPLOADS">Caricamenti in corso:</Resource>
     <Resource tag="DELETE">Cancella</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">Tipi di file non consentiti</Resource>

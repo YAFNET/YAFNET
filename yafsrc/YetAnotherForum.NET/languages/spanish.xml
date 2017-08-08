@@ -4,7 +4,6 @@
     <Resource tag="ACTIVEUSERS">Ver lista de usuarios activos</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">Ver máscara de acceso</Resource>
     <Resource tag="ADMIN_ADMIN">Ver índice de administrador</Resource>
-    <Resource tag="ADMIN_ATTACHMENTS">Ver adjuntos</Resource>
     <Resource tag="ADMIN_BANNEDEMAIL">Views banned Emails list</Resource>
     <Resource tag="ADMIN_BANNEDEMAIL_EDIT">Edits banned Emails</Resource>
     <Resource tag="ADMIN_BANNEDEMAIL_IMPORT">Imports banned Emails</Resource>
@@ -205,13 +204,6 @@
     <Resource tag="STATS_DONTCOUNT">Estas estadísticas no contabilizan temas y publicaciones eliminadas.</Resource>
     <Resource tag="TOPICS_DAY">Temas por día:</Resource>
     <Resource tag="USERS_DAY">Usuarios por día:</Resource>
-  </page>
-  <page name="ADMIN_ATTACHMENTS">
-    <Resource tag="CONFIRM_DELETE">¿Eliminar este adjunto?</Resource>
-    <Resource tag="CONTENT_TYPE">Tipo de contenido</Resource>
-    <Resource tag="DOWNLOADS">Descargas</Resource>
-    <Resource tag="POSTED">Publicado</Resource>
-    <Resource tag="TITLE">Adjuntos</Resource>
   </page>
   <page name="ADMIN_BANNEDEMAIL">
     <Resource tag="ADD_IP">Add New Email</Resource>
@@ -1870,7 +1862,6 @@
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">Máscaras de acceso</Resource>
     <Resource tag="admin_admin">Índice de admin</Resource>
-    <Resource tag="admin_attachments">Adjuntos</Resource>
     <Resource tag="admin_bannedemail">Banned Emails</Resource>
     <Resource tag="admin_bannedip">IPs baneadas</Resource>
     <Resource tag="admin_bannedname">Banned Names</Resource>
@@ -1943,6 +1934,7 @@
     <Resource tag="ALLOWED_EXTENSIONS">Extensiones de archivo permitidas</Resource>
     <Resource tag="ASK_DELETE">¿Eliminar este adjunto?</Resource>
     <Resource tag="COMPLETE_WARNING">Please wait until all Upload(s) are completed and the Dialog closes itself!</Resource>
+    <Resource tag="CONFIRM_DELETE">Delete attachment(s)?</Resource>
     <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
     <Resource tag="DELETE">Eliminar</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">Extensiones de archivo no permitidas</Resource>
