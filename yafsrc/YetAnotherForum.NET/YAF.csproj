@@ -203,13 +203,6 @@
     <Compile Include="Classes\YafWebService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="controls\MoveTopic.ascx.cs">
-      <DependentUpon>MoveTopic.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\MoveTopic.ascx.designer.cs">
-      <DependentUpon>MoveTopic.ascx</DependentUpon>
-    </Compile>
     <Compile Include="controls\AttachmentsUploadDialog.ascx.cs">
       <DependentUpon>AttachmentsUploadDialog.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
