@@ -1113,7 +1113,8 @@ namespace YAF.Pages
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
                                 "Spam Check detected possible SPAM ({1}) posted by User: {0}".FormatWith(
-                                    this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName),
+                                    this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUserName,
+                                    spamResult),
                                 EventLogTypes.SpamMessageDetected);
                             break;
                         case 1:
