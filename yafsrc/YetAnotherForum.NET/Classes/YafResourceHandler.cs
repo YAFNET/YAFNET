@@ -1541,9 +1541,6 @@ namespace YAF
             }
             catch (Exception exception)
             {
-                // Output the data
-                context.Response.Redirect("{0}/Images/{1}".FormatWith(YafForumInfo.ForumClientFileRoot, "noavatar.gif"));
-
                 // issue getting access to the avatar...
                 this.Get<ILogger>()
                     .Log(
@@ -1553,6 +1550,9 @@ namespace YAF
                             avatarUrl,
                             context.Request.UrlReferrer?.AbsoluteUri ?? string.Empty,
                             exception));
+
+                // Output the data
+                context.Response.Redirect("{0}/Images/{1}".FormatWith(YafForumInfo.ForumClientFileRoot, "noavatar.gif"));s
             }
         }
 
