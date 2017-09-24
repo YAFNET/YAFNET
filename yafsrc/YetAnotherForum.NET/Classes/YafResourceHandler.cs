@@ -1552,7 +1552,7 @@ namespace YAF
                             exception));
 
                 // Output the data
-                context.Response.Redirect("{0}/Images/{1}".FormatWith(YafForumInfo.ForumClientFileRoot, "noavatar.gif"));s
+                context.Response.Redirect("{0}/Images/{1}".FormatWith(YafForumInfo.ForumClientFileRoot, "noavatar.gif"));
             }
         }
 
