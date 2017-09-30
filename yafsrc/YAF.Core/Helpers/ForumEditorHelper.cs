@@ -68,12 +68,6 @@ namespace YAF.Core.Helpers
             var forumEditor = YafContext.Current.Get<IModuleManager<ForumEditor>>().GetBy(editorId, false)
                               ?? YafContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("1");
 
-            // Override Editor when mobile device with default Yaf BBCode Editor
-            if (YafContext.Current.IsMobileDevice)
-            {
-                forumEditor = YafContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("1");
-            }
-
             // Check if tinymce is used and if it exists
             if (forumEditor.Description.Contains("TinyMCE"))
             {
