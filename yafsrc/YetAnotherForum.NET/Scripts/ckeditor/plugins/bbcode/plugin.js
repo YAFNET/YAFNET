@@ -23,116 +23,119 @@ function addEventOn(editor) {
 }
 
 function ConvertHtmlToBBCode(html) {
-        // [attach]
-        html = html.replace(/<a href="resource.ashx\?i=(.+?)".*?class="attachedImage">.*?<\/a>/gi, '[attach]$1[/attach]');
+    // [attach]
+    html = html.replace(/<a href="resource.ashx\?i=(.+?)".*?class="attachedImage">.*?<\/a>/gi, '[attach]$1[/attach]');
 
-        // [url]
-        html = html.replace(/<a .*?href=(["'])(.+?)\1.*?>(.+?)<\/a>/gi, '[url=$2]$3[/url]');
-        //html = html.replace(/<a.*?href=\"(.*?)\".*?>(.*?)<\/a>/gi,"[url=$1]$2[/url]");
+    // [email]
+    html = html.replace(/<a .*?href=(["'])mailto:(.+?)\1.*?>(.+?)<\/a>/gi, '[email=$2]$3[/email]');
 
-        // [b]
-        html = html.replace(/<(?:b|strong)>/gi, '[b]');
-        html = html.replace(/<\/(?:b|strong)>/gi, '[/b]');
+    // [url]
+    html = html.replace(/<a .*?href=(["'])(.+?)\1.*?>(.+?)<\/a>/gi, '[url=$2]$3[/url]');
+    //html = html.replace(/<a.*?href=\"(.*?)\".*?>(.*?)<\/a>/gi,"[url=$1]$2[/url]");
 
-        // [i]
-        html = html.replace(/<(?:i|em)>/gi, '[i]');
-        html = html.replace(/<\/(?:i|em)>/gi, '[/i]');
+    // [b]
+    html = html.replace(/<(?:b|strong)>/gi, '[b]');
+    html = html.replace(/<\/(?:b|strong)>/gi, '[/b]');
 
-        // [u]
-        html = html.replace(/<u>/gi, '[u]');
-        html = html.replace(/<\/u>/gi, '[/u]');
+    // [i]
+    html = html.replace(/<(?:i|em)>/gi, '[i]');
+    html = html.replace(/<\/(?:i|em)>/gi, '[/i]');
 
-        // [h]
-        html = html.replace(/<span style=\"background:yellow\">(.+?)<\/span>/gi, '[h]$1[/h]');
-        html = html.replace(/<span class=\"highlight\">(.+?)<\/span>/gi, '[h]$1[/h]');
+    // [u]
+    html = html.replace(/<u>/gi, '[u]');
+    html = html.replace(/<\/u>/gi, '[/u]');
 
-        // [img]
-        html = html.replace(/<img alt=(["'])(.+?)[^"'] src=(["'])(.+?)\1.*?.*?>/gi, '[img=$4]$2[/img]');
-        html = html.replace(/<img .*?src=(["'])(.+?)\1.*?alt=(["'])(.+?)\1.*?>/gi, '[img=$2]$4[/img]');
-        html = html.replace(/<img .*?src=(["'])(.+?)\1.*?\/>/gi, '[img]$2[/img]');
-        html = html.replace(/<img .*?src=(["'])(.+?)\1.*?>/gi, '[img]$2[/img]');
+    // [h]
+    html = html.replace(/<span style=\"background:yellow\">(.+?)<\/span>/gi, '[h]$1[/h]');
+    html = html.replace(/<span class=\"highlight\">(.+?)<\/span>/gi, '[h]$1[/h]');
 
-        // [quote=username;1234]
-        html = html.replace(/<blockquote title=\"(.*?)\">/gi, "[quote=$1]");
+    // [img]
+    html = html.replace(/<img alt=(["'])(.+?)[^"'] src=(["'])(.+?)\1.*?.*?>/gi, '[img=$4]$2[/img]');
+    html = html.replace(/<img .*?src=(["'])(.+?)\1.*?alt=(["'])(.+?)\1.*?>/gi, '[img=$2]$4[/img]');
+    html = html.replace(/<img .*?src=(["'])(.+?)\1.*?\/>/gi, '[img]$2[/img]');
+    html = html.replace(/<img .*?src=(["'])(.+?)\1.*?>/gi, '[img]$2[/img]');
 
-        // [quote]
-        html = html.replace(/<blockquote>/gi, '[quote]');
+    // [quote=username;1234]
+    html = html.replace(/<blockquote title=\"(.*?)\">/gi, "[quote=$1]");
 
-        html = html.replace(/<\/blockquote>/gi, '[/quote]');
+    // [quote]
+    html = html.replace(/<blockquote>/gi, '[quote]');
 
-        // [code]
-        html = html.replace(/<code>/gi, '[code]');
-        // [code=language]
-        html = html.replace(/<code title=\"brush\:(.*?)\">/gi, "[code=$1]");
-        html = html.replace(/<\/code>/gi, '[/code]');
+    html = html.replace(/<\/blockquote>/gi, '[/quote]');
 
-        // [color]
-        html = html.replace(/<span style=\"color: ?(.*?);\">(.*?)<\/span>/gi, "[color=$1]$2[/color]");
-        html = html.replace(/<font.*?color=\"(.*?)\".*?>(.*?)<\/font>/gi, "[color=$1]$2[/color]");
+    // [code]
+    html = html.replace(/<code>/gi, '[code]');
+    // [code=language]
+    html = html.replace(/<code title=\"brush\:(.*?)\">/gi, "[code=$1]");
+    html = html.replace(/<\/code>/gi, '[/code]');
 
-        // [youtube]
-        //html = html.replace(/<object.*?><param name="movie" value="(.*?)">.*?<\/object>/gi, "[youtube]$1[/youtube]");
+    // [color]
+    html = html.replace(/<span style=\"color: ?(.*?);\">(.*?)<\/span>/gi, "[color=$1]$2[/color]");
+    html = html.replace(/<font.*?color=\"(.*?)\".*?>(.*?)<\/font>/gi, "[color=$1]$2[/color]");
 
-        // [indent]
-        //html = html.replace(/<p style=\"margin-left:40px\">(.*?)<\/p>/gi, '[indent]$1[/indent]');
-        //html = html.replace(/<div style=\"margin-left:40px\">(.*?)<\/div>/gi, '[indent]$1[/indent]');
+    // [youtube]
+    //html = html.replace(/<object.*?><param name="movie" value="(.*?)">.*?<\/object>/gi, "[youtube]$1[/youtube]");
 
-        html = html.replace(/<p style=\"margin-left:(.*?)\">(.*?)<\/p>/gi, '[indent]$2[/indent]');
-        html = html.replace(/<div style=\"margin-left:(.*?)\">(.*?)<\/div>/gi, '[indent]$2[/indent]');
+    // [indent]
+    //html = html.replace(/<p style=\"margin-left:40px\">(.*?)<\/p>/gi, '[indent]$1[/indent]');
+    //html = html.replace(/<div style=\"margin-left:40px\">(.*?)<\/div>/gi, '[indent]$1[/indent]');
 
-        // [left], [center] and [right]
-        html = html.replace(/<p style=\"text-align: (.*?);\">(.*?)<\/p>/gi, '[$1]$2[/$2]');
-        html = html.replace(/<div style=\"text-align: (.*?);\">(.*?)<\/div>/gi, '[$1]$2[/$1]');
+    html = html.replace(/<p style=\"margin-left:(.*?)\">(.*?)<\/p>/gi, '[indent]$2[/indent]');
+    html = html.replace(/<div style=\"margin-left:(.*?)\">(.*?)<\/div>/gi, '[indent]$2[/indent]');
 
-        // [list=1]
-        html = html.replace(/<ol style=\"list-style-type:number\">(.*?)<\/ol>/gi, '[list=1]$1[/list]');
-        html = html.replace(/<ol type=\"1\">(.*?)<\/ol>/gi, '[list=1]$1[/list]');
-        html = html.replace(/<ol>(.*?)<\/ol>/gi, '[list=1]$1[/list]');
+    // [left], [center] and [right]
+    html = html.replace(/<p style=\"text-align: (.*?);\">(.*?)<\/p>/gi, '[$1]$2[/$2]');
+    html = html.replace(/<div style=\"text-align: (.*?);\">(.*?)<\/div>/gi, '[$1]$2[/$1]');
 
-        // [list=a]
-        html = html.replace(/<ol style=\"list-style-type:lower-alpha\">(.*?)<\/ol>/gi, '[list=a]$1[/list]');
-        html = html.replace(/<ol type=\"a\">(.*?)<\/ol>/gi, '[list=a]$1[/list]');
+    // [list=1]
+    html = html.replace(/<ol style=\"list-style-type:number\">(.*?)<\/ol>/gi, '[list=1]$1[/list]');
+    html = html.replace(/<ol type=\"1\">(.*?)<\/ol>/gi, '[list=1]$1[/list]');
+    html = html.replace(/<ol>(.*?)<\/ol>/gi, '[list=1]$1[/list]');
 
-        // [list=A]
-        html = html.replace(/<ol style=\"list-style-type:upper-alpha\">(.*?)<\/ol>/gi, '[list=A]$1[/list]');
-        html = html.replace(/<ol type=\"A\">(.*?)<\/ol>/gi, '[list=A]$1[/list]');
+    // [list=a]
+    html = html.replace(/<ol style=\"list-style-type:lower-alpha\">(.*?)<\/ol>/gi, '[list=a]$1[/list]');
+    html = html.replace(/<ol type=\"a\">(.*?)<\/ol>/gi, '[list=a]$1[/list]');
 
-        // [list=i]
-        html = html.replace(/<ol style=\"list-style-type:lower-roman\">(.*?)<\/ol>/gi, '[list=i]$1[/list]');
-        html = html.replace(/<ol type=\"i\">(.*?)<\/ol>/gi, '[list=i]$1[/list]');
+    // [list=A]
+    html = html.replace(/<ol style=\"list-style-type:upper-alpha\">(.*?)<\/ol>/gi, '[list=A]$1[/list]');
+    html = html.replace(/<ol type=\"A\">(.*?)<\/ol>/gi, '[list=A]$1[/list]');
 
-        // [list=I]
-        html = html.replace(/<ol style=\"list-style-type:upper-roman\">(.*?)<\/ol>/gi, '[list=I]$1[/list]');
-        html = html.replace(/<ol type=\"I\">(.*?)<\/ol>/gi, '[list=I]$1[/list]');
+    // [list=i]
+    html = html.replace(/<ol style=\"list-style-type:lower-roman\">(.*?)<\/ol>/gi, '[list=i]$1[/list]');
+    html = html.replace(/<ol type=\"i\">(.*?)<\/ol>/gi, '[list=i]$1[/list]');
 
-        // [list]
-        html = html.replace(/<ul>(.*?)<\/ul>/gi, '[list]$1[/list]');
+    // [list=I]
+    html = html.replace(/<ol style=\"list-style-type:upper-roman\">(.*?)<\/ol>/gi, '[list=I]$1[/list]');
+    html = html.replace(/<ol type=\"I\">(.*?)<\/ol>/gi, '[list=I]$1[/list]');
 
-        // [*]
-        html = html.replace(/<li>(.*?)<\/li>/gi, '[*]$1');
-        html = html.replace(/<li>/gi, '[*]');
+    // [list]
+    html = html.replace(/<ul>(.*?)<\/ul>/gi, '[list]$1[/list]');
 
-        // [size=1]
-        html = html.replace(/<span style=\"font-size:(.*?);\">(((\n|.)*).*?)<\/span>/gi, "[size=$1]$2[/size]");
-        html = html.replace(/<p style=\"font-size:(.*?);\">(((\n|.)*).*?)<\/p>/gi, "[size=$1]$2[/size]");
-        html = html.replace(/<span style=\"font-size:(.*?)\">(((\n|.)*).*?)<\/span>/gi, "[size=$1]$2[/size]");
-        html = html.replace(/<p style=\"font-size:(.*?)\">(((\n|.)*).*?)<\/p>/gi, "[size=$1]$2[/size]");
+    // [*]
+    html = html.replace(/<li>(.*?)<\/li>/gi, '[*]$1');
+    html = html.replace(/<li>/gi, '[*]');
 
-        // [font]
-        html = html.replace(/<span style=\"font-family:(.*?);\">(((\n|.)*).*?)<\/span>/gi, "[font=$1]$2[/font]");
-        html = html.replace(/<p style=\"font-family:(.*?);\">(((\n|.)*).*?)<\/p>/gi, "[font=$1]$2[/font]");
-        html = html.replace(/<span style=\"font-family:(.*?)\">(((\n|.)*).*?)<\/span>/gi, "[font=$1]$2[/font]");
-        html = html.replace(/<p style=\"font-family:(.*?)\">(((\n|.)*).*?)<\/p>/gi, "[font=$1]$2[/font]");
+    // [size=1]
+    html = html.replace(/<span style=\"font-size:(.*?)px;\">(.*?)<\/span>/gi, "[size=$1]$2[/size]");
+    html = html.replace(/<p style=\"font-size:(.*?)px;\">(.*?)<\/p>/gi, "[size=$1]$2[/size]");
+    html = html.replace(/<span style=\"font-size:(.*?)px\">(.*?)<\/span>/gi, "[size=$1]$2[/size]");
+    html = html.replace(/<p style=\"font-size:(.*?)px\">(.*?)<\/p>/gi, "[size=$1]$2[/size]");
 
-        // Convert <br> to line breaks.
-        html = html.replace(/<br(?=[ \/>]).*?>/gi, '\r\n');
+    // [font]
+    html = html.replace(/<span style=\"font-family:(.*?);\">(((\n|.)*).*?)<\/span>/gi, "[font=$1]$2[/font]");
+    html = html.replace(/<p style=\"font-family:(.*?);\">(((\n|.)*).*?)<\/p>/gi, "[font=$1]$2[/font]");
+    html = html.replace(/<span style=\"font-family:(.*?)\">(((\n|.)*).*?)<\/span>/gi, "[font=$1]$2[/font]");
+    html = html.replace(/<p style=\"font-family:(.*?)\">(((\n|.)*).*?)<\/p>/gi, "[font=$1]$2[/font]");
 
-        // Remove remaining tags.
-        html = html.replace(/<p>/gi, "");
-        html = html.replace(/<\/p>/gi, "\n");
-        html = html.replace(/&nbsp;/gi, " ");
+    // Convert <br> to line breaks.
+    html = html.replace(/<br(?=[ \/>]).*?>/gi, '\r\n');
 
-        html = html.replace(/<[^>]+>/g, '');
+    // Remove remaining tags.
+    html = html.replace(/<p>/gi, "\r\n");
+    html = html.replace(/<\/p>/gi, "[br]");
+    html = html.replace(/&nbsp;/gi, " ");
+
+    html = html.replace(/<[^>]+>/g, '');
 
     return html;
 }
@@ -145,12 +148,17 @@ CKEDITOR.htmlDataProcessor.prototype =
         data = data.replace(/</g, '&lt;');
         data = data.replace(/>/g, '&gt;');
 
-        // Convert line breaks to <br>.
-        data = data.replace(/(?:\r\n|\n|\r)/g, '<br>');
+        // Convert line breaks to paragraphs.
+        //data = data.replace(/(?:\r\n|\n|\r)/g, '<br>');
+        data = data.replace(/[\r\n\r\n]/g, '<p>');
+        data = data.replace(/\[br\]/gi, '</p>');
 
         // [url]
         data = data.replace(/\[url\](.+?)\[\/url]/gi, '<a href="$1">$1</a>');
         data = data.replace(/\[url\=([^\]]+)](.+?)\[\/url]/gi, '<a href="$1">$2</a>');
+
+        // [email]
+        data = data.replace(/\[email\=(.+?)\](.+?)\[\/email]/gi, '<a href="mailto:$1">$2</a>');
 
         // [b]
         data = data.replace(/\[b\](.+?)\[\/b]/gi, '<b>$1</b>');
@@ -227,7 +235,8 @@ CKEDITOR.htmlDataProcessor.prototype =
         data = data.replace(/\[\*]/gi, '<li>');
 
         // [size=1]
-        data = data.replace(/\[size=(.*?)\](((\n|.)*).*?)\[\/size\]/gi, '<span style="font-size:$1">$2</span>');
+        data = data.replace(/\[size=(.*?)\]/gi, '<span style="font-size:$1px;">');
+        data = data.replace(/\[\/size\]/gi, '</span>');
 
         // [font=?]
         data = data.replace(/\[font=(.*?)\](((\n|.)*).*?)\[\/font\]/gi, '<span style="font-family:$1">$2</span>');
