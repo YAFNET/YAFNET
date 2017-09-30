@@ -788,10 +788,18 @@ namespace YAF.Controls
 
             if (this.Get<YafBoardSettings>().UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
             {
-                var persianDate = new PersianDate(this.Birthday.Text);
-                userBirthdate = PersianDateConverter.ToGregorianDateTime(persianDate);
+                try
+                {
+                    var persianDate = new PersianDate(this.Birthday.Text);
 
-                if (userBirthdate > DateTime.MinValue.Date)
+                    userBirthdate = PersianDateConverter.ToGregorianDateTime(persianDate);
+                }
+                catch (Exception)
+                {
+                    userBirthdate = DateTimeHelper.SqlDbMinTime().Date;
+                }
+
+                if (userBirthdate >= DateTimeHelper.SqlDbMinTime().Date)
                 {
                     userProfile.Birthday = userBirthdate.Date;
                 }
@@ -800,7 +808,7 @@ namespace YAF.Controls
             {
                 DateTime.TryParse(this.Birthday.Text, this.CurrentCultureInfo, DateTimeStyles.None, out userBirthdate);
 
-                if (userBirthdate > DateTime.MinValue.Date)
+                if (userBirthdate >= DateTimeHelper.SqlDbMinTime().Date)
                 {
                     // Attention! This is stored in profile in the user timezone date
                     userProfile.Birthday = userBirthdate.Date;
