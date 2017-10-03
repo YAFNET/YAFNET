@@ -85,20 +85,20 @@ namespace YAF.Core.BBCode.ReplaceRules
 
             if (size > 9)
             {
-                if (size < 1)
-                {
-                    size = 1;
-                }
-
-                if (size > sizes.Length)
-                {
-                    size = 5;
-                }
-
-                return "{0}%".FormatWith(sizes[size - 1]);
+                return "{0}px".FormatWith(size); 
             }
 
-            return "{0}px".FormatWith(size);
+            if (size < 1)
+            {
+                size = 1;
+            }
+
+            if (size > sizes.Length)
+            {
+                size = 5;
+            }
+
+            return "{0}%".FormatWith(sizes[size - 1]);
         }
 
         #endregion
