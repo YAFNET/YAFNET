@@ -469,11 +469,10 @@ namespace YAF.Core.BBCode
 
             // handle font sizes -- this rule class internally handles the "size" variable
             ruleEngine.AddRule(
-                new VariableRegexReplaceRule(
-                    new Regex(
-                @"\[size=(?<size>(.*?))\](?<inner>(.*?))\[/size\]", _Options | RegexOptions.Compiled),
-                    @"<span style=""font-size:${size}px"">${inner}</span>",
-                     new[] { "size" }));
+                new FontSizeRegexReplaceRule(
+                    @"\[size=(?<size>(.*?))\](?<inner>(.*?))\[/size\]",
+                    @"<span style=""font-size:${size}"">${inner}</span>",
+                    _Options));
 
             if (doFormatting)
             {
