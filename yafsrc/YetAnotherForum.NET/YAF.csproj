@@ -1056,13 +1056,13 @@
     <Content Include="Content\bootstrap\utilities\_sizing.scss" />
     <Content Include="Content\bootstrap\_badge.scss" />
     <Content Include="Content\bootstrap\_transitions.scss" />
-    <Content Include="Content\bootstrap-datetimepicker-build.less" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-reboot.min.css.map" />
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Content\bootstrap-datetimepicker-build.less" />
     <None Include="Content\forum\attachments-upload.scss" />
     <Content Include="Content\images\error.png" />
     <Content Include="Content\images\error.svg" />
@@ -1780,7 +1780,6 @@
     <Content Include="Scripts\i18n\vi.js" />
     <Content Include="Scripts\i18n\zh-CN.js" />
     <Content Include="Scripts\i18n\zh-TW.js" />
-    <Content Include="Content\_bootstrap-datetimepicker.less" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js">
       <DependentUpon>jquery-3.2.1.js</DependentUpon>
@@ -2746,6 +2745,7 @@
     <None Include="Content\InstallWizard.scss" />
     <None Include="Content\jsdifflib.scss" />
     <Content Include="YafUploader.ashx" />
+    <Content Include="Content\_bootstrap-datetimepicker.less" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
