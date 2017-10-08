@@ -947,20 +947,43 @@
       <DependentUpon>bootstrap-forum.css</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-grid.css.map">
+      <DependentUpon>bootstrap-grid.css</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap-grid.min.css">
+      <DependentUpon>bootstrap-grid.css</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap-grid.min.css.map">
+      <DependentUpon>bootstrap-grid.min.css</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-image-gallery.css" />
     <Content Include="Content\bootstrap-notify.css" />
     <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap-reboot.css.map">
+      <DependentUpon>bootstrap-reboot.css</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap-reboot.min.css">
+      <DependentUpon>bootstrap-reboot.css</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap-reboot.min.css.map">
+      <DependentUpon>bootstrap-reboot.min.css</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.css.map">
+      <DependentUpon>bootstrap.css</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap.min.css">
+      <DependentUpon>bootstrap.css</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap.min.css.map">
+      <DependentUpon>bootstrap.min.css</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap\bootstrap.scss" />
     <Content Include="Content\bootstrap\mixins\_alert.scss" />
     <Content Include="Content\bootstrap\mixins\_background-variant.scss" />
     <Content Include="Content\bootstrap\mixins\_border-radius.scss" />
     <Content Include="Content\bootstrap\mixins\_breakpoints.scss" />
     <Content Include="Content\bootstrap\mixins\_buttons.scss" />
-    <Content Include="Content\bootstrap\mixins\_cards.scss" />
     <Content Include="Content\bootstrap\mixins\_clearfix.scss" />
     <Content Include="Content\bootstrap\mixins\_forms.scss" />
     <Content Include="Content\bootstrap\mixins\_gradients.scss" />
@@ -998,7 +1021,6 @@
     <Content Include="Content\bootstrap\_close.scss" />
     <Content Include="Content\bootstrap\_code.scss" />
     <Content Include="Content\bootstrap\_custom-forms.scss" />
-    <Content Include="Content\bootstrap\_custom.scss" />
     <Content Include="Content\bootstrap\_dropdown.scss" />
     <Content Include="Content\bootstrap\_forms.scss" />
     <Content Include="Content\bootstrap\_grid.scss" />
@@ -1011,13 +1033,11 @@
     <Content Include="Content\bootstrap\_modal.scss" />
     <Content Include="Content\bootstrap\_nav.scss" />
     <Content Include="Content\bootstrap\_navbar.scss" />
-    <Content Include="Content\bootstrap\_normalize.scss" />
     <Content Include="Content\bootstrap\_pagination.scss" />
     <Content Include="Content\bootstrap\_popover.scss" />
     <Content Include="Content\bootstrap\_print.scss" />
     <Content Include="Content\bootstrap\_progress.scss" />
     <Content Include="Content\bootstrap\_reboot.scss" />
-    <Content Include="Content\bootstrap\_responsive-embed.scss" />
     <Content Include="Content\bootstrap\_tables.scss" />
     <Content Include="Content\bootstrap\_tooltip.scss" />
     <Content Include="Content\bootstrap\_type.scss" />
@@ -1044,10 +1064,8 @@
     <Content Include="Content\forum.min.css">
       <DependentUpon>forum.css</DependentUpon>
     </Content>
-    <Content Include="Content\bootstrap\.scss-lint.yml" />
     <Content Include="Content\bootstrap\mixins\_badge.scss" />
     <Content Include="Content\bootstrap\mixins\_float.scss" />
-    <Content Include="Content\bootstrap\mixins\_transforms.scss" />
     <Content Include="Content\bootstrap\mixins\_visibility.scss" />
     <Content Include="Content\bootstrap\utilities\_align.scss" />
     <Content Include="Content\bootstrap\utilities\_borders.scss" />
@@ -1056,14 +1074,14 @@
     <Content Include="Content\bootstrap\utilities\_sizing.scss" />
     <Content Include="Content\bootstrap\_badge.scss" />
     <Content Include="Content\bootstrap\_transitions.scss" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Content\bootstrap-datetimepicker-build.less" />
+    <Content Include="Content\bootstrap\mixins\_box-shadow.scss" />
+    <Content Include="Content\bootstrap\mixins\_transition.scss" />
+    <Content Include="Content\bootstrap\utilities\_embed.scss" />
+    <Content Include="Content\bootstrap\_functions.scss" />
+    <Content Include="Content\bootstrap\bootstrap-grid.scss" />
+    <Content Include="Content\bootstrap\bootstrap-reboot.scss" />
     <None Include="Content\forum\attachments-upload.scss" />
+    <Content Include="Content\icons\authIcons.png" />
     <Content Include="Content\images\error.png" />
     <Content Include="Content\images\error.svg" />
     <Content Include="Content\images\play-pause.png" />
@@ -1446,7 +1464,9 @@
     <Content Include="Scripts\bootstrap-image-gallery.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
     <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap.min.js">
+      <DependentUpon>bootstrap.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
     <Content Include="Scripts\ckeditor\config.js" />
@@ -1733,6 +1753,10 @@
     <Content Include="Scripts\ckeditor\skins\moono-lisa\images\refresh.png" />
     <Content Include="Scripts\ckeditor\skins\moono-lisa\images\spinner.gif" />
     <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
     <Content Include="Scripts\i18n\ar.js" />
     <Content Include="Scripts\i18n\az.js" />
     <Content Include="Scripts\i18n\bg.js" />
@@ -1835,6 +1859,26 @@
     <Content Include="Scripts\moment.min.js">
       <DependentUpon>moment.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.js.map">
+      <DependentUpon>popper-utils.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\popper-utils.min.js">
+      <DependentUpon>popper-utils.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\popper-utils.min.js.map">
+      <DependentUpon>popper-utils.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.js.map">
+      <DependentUpon>popper.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\popper.min.js">
+      <DependentUpon>popper.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\popper.min.js.map">
+      <DependentUpon>popper.min.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\select2.min.js">
       <DependentUpon>select2.js</DependentUpon>
     </Content>
@@ -1867,6 +1911,26 @@
       <DependentUpon>tether.js</DependentUpon>
     </Content>
     <Content Include="Scripts\forum\yaf.Utilities.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.js.map">
+      <DependentUpon>popper-utils.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\umd\popper-utils.min.js">
+      <DependentUpon>popper-utils.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\umd\popper-utils.min.js.map">
+      <DependentUpon>popper-utils.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.js.map">
+      <DependentUpon>popper.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\umd\popper.min.js">
+      <DependentUpon>popper.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\umd\popper.min.js.map">
+      <DependentUpon>popper.min.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\yafEditor\yafEditor.es5.js">
       <DependentUpon>yafEditor.js</DependentUpon>
     </Content>
@@ -2745,7 +2809,6 @@
     <None Include="Content\InstallWizard.scss" />
     <None Include="Content\jsdifflib.scss" />
     <Content Include="YafUploader.ashx" />
-    <Content Include="Content\_bootstrap-datetimepicker.less" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -3465,6 +3528,10 @@
     <Content Include="Scripts\ckeditor\package.json" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js">
       <DependentUpon>jquery-3.2.1.js</DependentUpon>
     </None>
@@ -4608,6 +4675,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Package|AnyCPU'">
     <OutputPath>bin\</OutputPath>

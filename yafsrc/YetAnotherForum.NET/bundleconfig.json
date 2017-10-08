@@ -5,6 +5,7 @@
       "Scripts/jquery-3.2.1.js",
       "Scripts/spin.js",
       "Scripts/ladda.js",
+      "Scripts/umd/popper.js",
       "Scripts/select2.js",
       "Scripts/tether/tether.js",
       "Scripts/bootstrap.js",
