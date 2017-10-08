@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -45,35 +45,23 @@ namespace YAF.Utils.Helpers
         /// <summary>
         /// The spider contains.
         /// </summary>
-        private static readonly string[] spiderContains =
+        private static readonly string[] SpiderContains =
             {
-                "abachoBOT", "abcdatos_botlink", "ah-ha.com crawler",
-                "antibot", "appie", "AltaVista-Intranet", "Acoon Robot",
-                "Atomz", "Arachnoidea", "AESOP_com_SpiderMan", "AxmoRobot",
-                "ArchitextSpider", "AlkalineBOT", "Aranha", "asterias",
-                "Baidu", "Bingbot", "Buscaplus Robi", "CanSeek",
-                "ChristCRAWLER", "Clushbot", "Crawler", "CrawlerBoy",
-                "DeepIndex", "DefaultCrawler", "DittoSpyder", "DIIbot",
-                "EZResult", "EARTHCOM.info", "EuripBot", "ESISmartSpider",
-                "FAST-WebCrawler", "FyberSearch", "Findexa Crawler",
-                "Fluffy", "Googlebot", "geckobot", "GenCrawler", "GeonaBot",
-                "getRAX", "Gulliver", "Hubater", "ia_archiver", "Slurp",
-                "Scooter", "Mercator", "RaBot", "Jack", "Speedy Spider",
-                "moget", "Toutatis", "IlTrovatore-Setaccio", "IncyWincy",
-                "UltraSeek", "InfoSeek Sidewinder", "Mole2", "MP3Bot",
-                "Knowledge.com", "kuloko-bot", "LNSpiderguy", "Linknzbot",
-                "lookbot", "MantraAgent", "NetResearchServer", "Lycos",
-                "JoocerBot", "HenryTheMiragoRobot", "MojeekBot", "mozDex",
-                "MSNBOT", "Navadoo Crawler", "ObjectsSearch", "OnetSzukaj",
-                "PicoSearch", "PJspider", "nttdirectory_robot", "maxbot.com", 
-                "Openfind", "psbot", "QweeryBot", "StackRambler",
-                "SeznamBot", "Search-10", "Scrubby",
-                "speedfind ramBot xtreme", "Kototoi", "SearchByUsa",
-                "Searchspider", "SightQuestBot", "Spider_Monkey",
-                "Surfnomore", "teoma", "UK Searcher Spider", "Nazilla",
-                "MuscatFerret", "ZyBorg", "WIRE WebRefiner", "WSCbot",
-                "Yandex", "Yellopet-Spider", "YBSbot", "OceanSpiders",
-                "MozSpider"
+                "abachoBOT", "abcdatos_botlink", "ah-ha.com crawler", "antibot", "appie", "AltaVista-Intranet",
+                "Acoon Robot", "Atomz", "Arachnoidea", "AESOP_com_SpiderMan", "AxmoRobot", "ArchitextSpider",
+                "AlkalineBOT", "Aranha", "asterias", "Baidu", "Bingbot", "Buscaplus Robi", "CanSeek", "ChristCRAWLER",
+                "Clushbot", "Crawler", "CrawlerBoy", "DeepIndex", "DefaultCrawler", "DittoSpyder", "DIIbot", "EZResult",
+                "EARTHCOM.info", "EuripBot", "ESISmartSpider", "FAST-WebCrawler", "FyberSearch", "Findexa Crawler",
+                "Fluffy", "Googlebot", "geckobot", "GenCrawler", "GeonaBot", "getRAX", "Gulliver", "Hubater",
+                "ia_archiver", "Slurp", "Scooter", "Mercator", "RaBot", "Jack", "Speedy Spider", "moget", "Toutatis",
+                "IlTrovatore-Setaccio", "IncyWincy", "UltraSeek", "InfoSeek Sidewinder", "Mole2", "MP3Bot",
+                "Knowledge.com", "kuloko-bot", "LNSpiderguy", "Linknzbot", "lookbot", "MantraAgent",
+                "NetResearchServer", "Lycos", "JoocerBot", "HenryTheMiragoRobot", "MojeekBot", "mozDex", "MSNBOT",
+                "Navadoo Crawler", "ObjectsSearch", "OnetSzukaj", "PicoSearch", "PJspider", "nttdirectory_robot",
+                "maxbot.com", "Openfind", "psbot", "QweeryBot", "StackRambler", "SeznamBot", "Search-10", "Scrubby",
+                "speedfind ramBot xtreme", "Kototoi", "SearchByUsa", "Searchspider", "SightQuestBot", "Spider_Monkey",
+                "Surfnomore", "teoma", "UK Searcher Spider", "Nazilla", "MuscatFerret", "ZyBorg", "WIRE WebRefiner",
+                "WSCbot", "Yandex", "Yellopet-Spider", "YBSbot", "OceanSpiders", "MozSpider"
             };
 
         #endregion
@@ -103,8 +91,7 @@ namespace YAF.Utils.Helpers
         {
             string[] agentContains = { "Windows-RSS-Platform", "FeedDemon", "Feedreader", "Apple-PubSub" };
 
-            return userAgent.IsSet()
-                   && agentContains.Any(
+            return userAgent.IsSet() && agentContains.Any(
                        agentContain => userAgent.ToLowerInvariant().Contains(agentContain.ToLowerInvariant()));
         }
 
@@ -137,8 +124,8 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static bool IsMobileDevice([CanBeNull] string userAgent)
         {
-            var mobileContains =
-                Config.MobileUserAgents.Split(',').Where(m => m.IsSet()).Select(m => m.Trim().ToLowerInvariant());
+            var mobileContains = Config.MobileUserAgents.Split(',').Where(m => m.IsSet())
+                .Select(m => m.Trim().ToLowerInvariant());
 
             return userAgent.IsSet()
                    && mobileContains.Any(s => userAgent.IndexOf(s, StringComparison.OrdinalIgnoreCase) > 0);
@@ -172,7 +159,7 @@ namespace YAF.Utils.Helpers
         public static bool IsSearchEngineSpider([CanBeNull] string userAgent)
         {
             return userAgent.IsSet()
-                   && spiderContains.Any(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()));
+                   && SpiderContains.Any(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()));
         }
 
         /// <summary>
@@ -205,25 +192,40 @@ namespace YAF.Utils.Helpers
                 return;
             }
 
-            if (userAgent.IndexOf("Windows NT 6.1") >= 0)
+            if (userAgent.IndexOf("Windows NT ") >= 0)
             {
-                platform = "Win7";
-            }
-            else if (userAgent.IndexOf("Windows NT 6.0") >= 0)
-            {
-                platform = "Vista";
-            }
-            else if (userAgent.IndexOf("Windows NT 5.1") >= 0)
-            {
-                platform = "WinXP";
+                if (userAgent.IndexOf("Windows NT 10") >= 0)
+                {
+                    platform = "Windows 10";
+                }
+                else if (userAgent.IndexOf("Windows NT 6.3") >= 0)
+                {
+                    platform = "Windows 8.1";
+                }
+                else if (userAgent.IndexOf("Windows NT 6.2") >= 0)
+                {
+                    platform = "Windows 8";
+                }
+                else if (userAgent.IndexOf("Windows NT 6.1") >= 0)
+                {
+                    platform = "Windows 7";
+                }
+                else if (userAgent.IndexOf("Windows NT 6.0") >= 0)
+                {
+                    platform = "Windows Vista";
+                }
+                else if (userAgent.IndexOf("Windows NT 5.1") >= 0)
+                {
+                    platform = "Windows XP";
+                }
+                else if (userAgent.IndexOf("Windows NT 5.2") >= 0)
+                {
+                    platform = "Windows 2003";
+                }
             }
             else if (userAgent.IndexOf("Linux") >= 0)
             {
                 platform = "Linux";
-            }
-            else if (userAgent.IndexOf("Windows NT 5.2") >= 0)
-            {
-                platform = "Win2003";
             }
             else if (userAgent.IndexOf("FreeBSD") >= 0)
             {
@@ -285,7 +287,7 @@ namespace YAF.Utils.Helpers
         public static string SearchEngineSpiderName([CanBeNull] string userAgent)
         {
             return userAgent.IsSet()
-                       ? spiderContains.FirstOrDefault(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()))
+                       ? SpiderContains.FirstOrDefault(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()))
                        : null;
         }
 
