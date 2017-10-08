@@ -631,10 +631,6 @@ namespace YAF.Core.BBCode
                 var hrRule = new SingleRegexReplaceRule(
                     _RgxHr, "<hr />", RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-                // handle paragraphs
-                ruleEngine.AddRule(
-                    new SingleRegexReplaceRule(@"\r\n", "<p>", _Options));
-
                 ruleEngine.AddRule(
                     new SingleRegexReplaceRule(@"\[br\]", "</p>", _Options));
 
@@ -652,6 +648,14 @@ namespace YAF.Core.BBCode
                 {
                     ruleEngine.AddRule(brRule);
                 }
+                else
+                {
+                    // handle paragraphs
+                    ruleEngine.AddRule(
+                        new SingleRegexReplaceRule(@"\r\n", "<p>", _Options));
+                }
+
+
             }
 
             // add smilies
