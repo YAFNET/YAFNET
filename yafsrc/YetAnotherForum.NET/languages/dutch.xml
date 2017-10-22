@@ -4309,8 +4309,11 @@ Spoiler Inhoud
     <Resource tag="LASTPOST">Laatste bericht</Resource>
     <Resource tag="MEMBERS">Leden</Resource>
     <Resource tag="MODERATEINDEX_TITLE">Modereer Gerapporteerde Berichten en Niet-Goedgekeurde Berichten.</Resource>
+    <Resource tag="MOVE_TO_DIFFERENT">The forum you want to move the topic(s) must be different then the current forum.</Resource>
+    <Resource tag="MOVED">Topic(s) Moved</Resource>
     <Resource tag="NO_POSTS">Geen berichten</Resource>
     <Resource tag="NOMODERATION">Er zijn momenteel geen berichten die wachten op goedkeuring. En er zijn ook geen berichten gerapporteerd.</Resource>
+    <Resource tag="NOTHING">You need to select atleast one topic</Resource>
     <Resource tag="REMOVE">Verwijderen</Resource>
     <Resource tag="REPLIES">Reacties</Resource>
     <Resource tag="TITLE">Moderatie</Resource>

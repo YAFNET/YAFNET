@@ -4360,8 +4360,11 @@ Spoiler Content
     <Resource tag="LASTPOST">Sidste Indlæg</Resource>
     <Resource tag="MEMBERS">Medlemmer</Resource>
     <Resource tag="MODERATEINDEX_TITLE">Moderate Reported Posts and Not Approved Posts</Resource>
+    <Resource tag="MOVE_TO_DIFFERENT">The forum you want to move the topic(s) must be different then the current forum.</Resource>
+    <Resource tag="MOVED">Topic(s) Moved</Resource>
     <Resource tag="NO_POSTS">Ingen Indlæg</Resource>
     <Resource tag="NOMODERATION">Currently there are no Posts that need approval. And there are also no Posts that were reported.</Resource>
+    <Resource tag="NOTHING">You need to select atleast one topic</Resource>
     <Resource tag="REMOVE">Fjern</Resource>
     <Resource tag="REPLIES">Svar</Resource>
     <Resource tag="TITLE">Moderer</Resource>

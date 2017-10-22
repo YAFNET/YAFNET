@@ -4285,8 +4285,11 @@ Spoiler Content
     <Resource tag="LASTPOST">Letzter Beitrag</Resource>
     <Resource tag="MEMBERS">Mitglieder</Resource>
     <Resource tag="MODERATEINDEX_TITLE">Beiträge Moderieren die Gemeldet wurden oder noch nicht freigeschaltet sind</Resource>
+    <Resource tag="MOVE_TO_DIFFERENT">The forum you want to move the topic(s) must be different then the current forum.</Resource>
+    <Resource tag="MOVED">Topic(s) Moved</Resource>
     <Resource tag="NO_POSTS">Keine Beiträge</Resource>
     <Resource tag="NOMODERATION">Derzeit gibt es keine  Beiträge die freigeschaltet werden müssen. Und auch keine Beiträge die Gemeldet wurden.</Resource>
+    <Resource tag="NOTHING">You need to select atleast one topic</Resource>
     <Resource tag="REMOVE">entfernen</Resource>
     <Resource tag="REPLIES">Antworten</Resource>
     <Resource tag="TITLE">Moderieren</Resource>

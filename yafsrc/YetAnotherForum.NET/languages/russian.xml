@@ -4336,8 +4336,11 @@ Spoiler Content
     <Resource tag="LASTPOST">Последнее сообщение</Resource>
     <Resource tag="MEMBERS">Пользователи</Resource>
     <Resource tag="MODERATEINDEX_TITLE">Модерировать посты с жалобами и неодобренные посты</Resource>
+    <Resource tag="MOVE_TO_DIFFERENT">The forum you want to move the topic(s) must be different then the current forum.</Resource>
+    <Resource tag="MOVED">Topic(s) Moved</Resource>
     <Resource tag="NO_POSTS">Нет сообщений</Resource>
     <Resource tag="NOMODERATION">В данный момент нет постов, нуждающихся в одобрении или модерации.</Resource>
+    <Resource tag="NOTHING">You need to select atleast one topic</Resource>
     <Resource tag="REMOVE">Удалить</Resource>
     <Resource tag="REPLIES">Ответы</Resource>
     <Resource tag="TITLE">Модерировать</Resource>

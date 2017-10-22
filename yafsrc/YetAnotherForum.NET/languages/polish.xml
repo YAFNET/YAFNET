@@ -4342,8 +4342,11 @@ Spoiler Content
     <Resource tag="LASTPOST">Ostatni Post</Resource>
     <Resource tag="MEMBERS">Użytkownicy</Resource>
     <Resource tag="MODERATEINDEX_TITLE">Moderuj zgłoszone i niezatwierdzone posty</Resource>
+    <Resource tag="MOVE_TO_DIFFERENT">The forum you want to move the topic(s) must be different then the current forum.</Resource>
+    <Resource tag="MOVED">Topic(s) Moved</Resource>
     <Resource tag="NO_POSTS">Nie ma Postów</Resource>
     <Resource tag="NOMODERATION">Aktualnie nie ma tutaj postów wymagających zatwierdzenia oraz nie ma zgłoszonych postów.</Resource>
+    <Resource tag="NOTHING">You need to select atleast one topic</Resource>
     <Resource tag="REMOVE">Usuń</Resource>
     <Resource tag="REPLIES">Odpowiedzi</Resource>
     <Resource tag="TITLE">Moderowany</Resource>

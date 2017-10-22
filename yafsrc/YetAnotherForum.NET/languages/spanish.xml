@@ -4702,8 +4702,11 @@ public class Hello1
     <Resource tag="LASTPOST">Ultimo mensaje</Resource>
     <Resource tag="MEMBERS">Miembros</Resource>
     <Resource tag="MODERATEINDEX_TITLE">Moderar publicaciones denunciadas o no aprobadas.</Resource>
+    <Resource tag="MOVE_TO_DIFFERENT">The forum you want to move the topic(s) must be different then the current forum.</Resource>
+    <Resource tag="MOVED">Topic(s) Moved</Resource>
     <Resource tag="NO_POSTS">No hay mensajes</Resource>
     <Resource tag="NOMODERATION">Actualmente no hay publicaciones que necesiten aprobación y no hay ninguna publicación denunciada.</Resource>
+    <Resource tag="NOTHING">You need to select atleast one topic</Resource>
     <Resource tag="REMOVE">Eliminar</Resource>
     <Resource tag="REPLIES">Respuestas</Resource>
     <Resource tag="TITLE">Moderar</Resource>

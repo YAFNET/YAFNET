@@ -4378,8 +4378,11 @@
     <Resource tag="LASTPOST">آخرین ارسال</Resource>
     <Resource tag="MEMBERS">اعضا</Resource>
     <Resource tag="MODERATEINDEX_TITLE">مدیریت مطالب گزارش شده و تائید نشده</Resource>
+    <Resource tag="MOVE_TO_DIFFERENT">The forum you want to move the topic(s) must be different then the current forum.</Resource>
+    <Resource tag="MOVED">Topic(s) Moved</Resource>
     <Resource tag="NO_POSTS">ارسالی موجود نمی باشد</Resource>
     <Resource tag="NOMODERATION">درحال حاضر مطلبی نیازمند تائید نمی باشد. و مطلب گزارش شده ای هم وجود دارد</Resource>
+    <Resource tag="NOTHING">You need to select atleast one topic</Resource>
     <Resource tag="REMOVE">حذف</Resource>
     <Resource tag="REPLIES">پاسخ ها</Resource>
     <Resource tag="TITLE">نظارت</Resource>

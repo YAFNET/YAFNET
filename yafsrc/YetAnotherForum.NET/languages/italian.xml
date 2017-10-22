@@ -4335,8 +4335,11 @@ Spoiler Content
     <Resource tag="LASTPOST">Ultimo messaggio</Resource>
     <Resource tag="MEMBERS">Utenti</Resource>
     <Resource tag="MODERATEINDEX_TITLE">Esamina messaggi in attesa di moderazione e segnalati</Resource>
+    <Resource tag="MOVE_TO_DIFFERENT">The forum you want to move the topic(s) must be different then the current forum.</Resource>
+    <Resource tag="MOVED">Topic(s) Moved</Resource>
     <Resource tag="NO_POSTS">Nessun messaggio</Resource>
     <Resource tag="NOMODERATION">Al momento non ci sono messaggi in attesa di approvazione né segnalati.</Resource>
+    <Resource tag="NOTHING">You need to select atleast one topic</Resource>
     <Resource tag="REMOVE">Rimuovi</Resource>
     <Resource tag="REPLIES">Risposte</Resource>
     <Resource tag="TITLE">Moderazione</Resource>
