@@ -588,13 +588,13 @@ BEGIN
 
     IF NOT EXISTS ( SELECT 1 FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE BoardID = @BoardID and [Name] = N'maxusers')
     BEGIN
-        INSERT INTO [{databaseOwner}].[{objectQualifier}Registry](BoardID,[Name],[Value]) VALUES (@BoardID,N'maxusers',CAST(@countStr AS ntext))
-        INSERT INTO [{databaseOwner}].[{objectQualifier}Registry](BoardID,[Name],[Value]) VALUES (@BoardID,N'maxuserswhen',CAST(@dtStr AS ntext))
+        INSERT INTO [{databaseOwner}].[{objectQualifier}Registry](BoardID,[Name],[Value]) VALUES (@BoardID,N'maxusers',CAST(@countStr AS nvarchar(max)))
+        INSERT INTO [{databaseOwner}].[{objectQualifier}Registry](BoardID,[Name],[Value]) VALUES (@BoardID,N'maxuserswhen',CAST(@dtStr AS nvarchar(max)))
     END
     ELSE IF (@count > @max)
     BEGIN
-        UPDATE [{databaseOwner}].[{objectQualifier}Registry] SET [Value] = CAST(@countStr AS ntext) WHERE BoardID = @BoardID AND [Name] = N'maxusers'
-        UPDATE [{databaseOwner}].[{objectQualifier}Registry] SET [Value] = CAST(@dtStr AS ntext) WHERE BoardID = @BoardID AND [Name] = N'maxuserswhen'
+        UPDATE [{databaseOwner}].[{objectQualifier}Registry] SET [Value] = CAST(@countStr AS nvarchar(max)) WHERE BoardID = @BoardID AND [Name] = N'maxusers'
+        UPDATE [{databaseOwner}].[{objectQualifier}Registry] SET [Value] = CAST(@dtStr AS nvarchar(max)) WHERE BoardID = @BoardID AND [Name] = N'maxuserswhen'
     END
 END
 GO
@@ -1435,7 +1435,7 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}eventlog_create](@UserID int,@Source nvarchar(50),@Description ntext,@Type int,@UTCTIMESTAMP datetime) as
+create procedure [{databaseOwner}].[{objectQualifier}eventlog_create](@UserID int,@Source nvarchar(50),@Description nvarchar(max),@Type int,@UTCTIMESTAMP datetime) as
 begin
         insert into [{databaseOwner}].[{objectQualifier}EventLog](UserID,Source,[Description],[Type])
     values(@UserID,@Source,@Description,@Type)
@@ -2387,8 +2387,8 @@ create procedure [{databaseOwner}].[{objectQualifier}mail_create]
     @To nvarchar(255),
     @ToName nvarchar(255) = NULL,
     @Subject nvarchar(100),
-    @Body ntext,
-    @BodyHtml ntext = NULL,
+    @Body nvarchar(max),
+    @BodyHtml nvarchar(max) = NULL,
 	@SendTries int,
 	@SendAttempt datetime,
     @UTCTIMESTAMP datetime
@@ -2423,8 +2423,8 @@ create procedure [{databaseOwner}].[{objectQualifier}mail_createwatch]
     @From nvarchar(255),
     @FromName nvarchar(255) = NULL,
     @Subject nvarchar(100),
-    @Body ntext,
-    @BodyHtml ntext = null,
+    @Body nvarchar(max),
+    @BodyHtml nvarchar(max) = null,
     @UserID int,
     @UTCTIMESTAMP datetime
 )
@@ -3072,12 +3072,12 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}message_update](
 @Status nvarchar(255),
 @Styles nvarchar(255),
 @Flags int,
-@Message ntext,
+@Message nvarchar(max),
 @Reason nvarchar(100),
 @EditedBy int,
 @IsModeratorChanged bit,
 @OverrideApproval bit = null,
-@OriginalMessage ntext,
+@OriginalMessage nvarchar(max),
 @CurrentUtcTimestamp datetime) as
 begin
         declare @TopicID	int
@@ -4648,7 +4648,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}registry_save](
     @Name nvarchar(50),
-    @Value ntext = NULL,
+    @Value nvarchar(max) = NULL,
     @BoardID int = null
 ) AS
 BEGIN
@@ -7446,7 +7446,7 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_savesignature](@UserID int,@Signature ntext) as
+create procedure [{databaseOwner}].[{objectQualifier}user_savesignature](@UserID int,@Signature nvarchar(max)) as
 begin
 
     update [{databaseOwner}].[{objectQualifier}User] set Signature = @Signature where UserID = @UserID
@@ -7510,7 +7510,7 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_suspend](@UserID int,@Suspend datetime=null, @SuspendReason ntext = null, @SuspendBy int = 0) as
+create procedure [{databaseOwner}].[{objectQualifier}user_suspend](@UserID int,@Suspend datetime=null, @SuspendReason nvarchar(max) = null, @SuspendBy int = 0) as
     begin
         update
 	        [{databaseOwner}].[{objectQualifier}User]
@@ -8236,11 +8236,11 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_save]
     @Name nvarchar(255),
     @Description nvarchar(4000) = null,
     @OnClickJS nvarchar(1000) = null,
-    @DisplayJS ntext = null,
-    @EditJS ntext = null,
-    @DisplayCSS ntext = null,
-    @SearchRegEx ntext,
-    @ReplaceRegEx ntext,
+    @DisplayJS nvarchar(max) = null,
+    @EditJS nvarchar(max) = null,
+    @DisplayCSS nvarchar(max) = null,
+    @SearchRegEx nvarchar(max),
+    @ReplaceRegEx nvarchar(max),
     @Variables nvarchar(1000) = null,
     @UseModule bit = null,
     @ModuleClass nvarchar(255) = null,
@@ -8665,7 +8665,7 @@ CREATE proc [{databaseOwner}].[{objectQualifier}medal_save]
     @BoardID int = NULL,
     @MedalID int = NULL,
     @Name nvarchar(100),
-    @Description ntext,
+    @Description nvarchar(max),
     @Message nvarchar(100),
     @Category nvarchar(50) = NULL,
     @MedalURL nvarchar(250),
@@ -9751,6 +9751,7 @@ begin
         IsFacebookUser      = a.IsFacebookUser,
         IsTwitterUser       = a.IsTwitterUser,
         MailsPending		= CASE WHEN @ShowPendingMails > 0 THEN (select count(1) from [{databaseOwner}].[{objectQualifier}Mail] WHERE [ToUserName] = a.Name) ELSE 0 END,
+		ModeratePosts       = CASE WHEN @ShowUnreadPMs > 0 THEN (select count(1) from [{databaseOwner}].[{objectQualifier}Message] where (Flags & 128)=128 and IsDeleted = 0 or IsApproved=0 and IsDeleted = 0) ELSE 0 END,
         UnreadPrivate		= CASE WHEN @ShowUnreadPMs > 0 THEN (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=@UserID and IsRead=0 and IsDeleted = 0 and IsArchived = 0) ELSE 0 END,
         LastUnreadPm		= CASE WHEN @ShowUnreadPMs > 0 THEN (SELECT TOP 1 Created FROM [{databaseOwner}].[{objectQualifier}PMessage] pm INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] upm ON pm.PMessageID = upm.PMessageID WHERE upm.UserID=@UserID and upm.IsRead=0  and upm.IsDeleted = 0 and upm.IsArchived = 0 ORDER BY pm.Created DESC) ELSE NULL END,
         PendingBuddies      = CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT COUNT(ID) FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID = @UserID AND Approved = 0) ELSE 0 END,

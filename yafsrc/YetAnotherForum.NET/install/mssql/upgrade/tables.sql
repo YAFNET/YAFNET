@@ -388,6 +388,7 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 GO
 
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Mail]') and type in (N'U'))
+begin
 	create table [{databaseOwner}].[{objectQualifier}Mail](
 		[MailID] [int] IDENTITY(1,1) NOT NULL,
 		[FromUser] [nvarchar](255) NOT NULL,
@@ -396,8 +397,8 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		[ToUserName] [nvarchar](255) NULL,
 		[Created] [datetime] NOT NULL,
 		[Subject] [nvarchar](100) NOT NULL,
-		[Body] [ntext] NOT NULL,
-		[BodyHtml] [ntext] NULL,
+		[Body] [nvarchar](max) NOT NULL,
+		[BodyHtml] [nvarchar](max) NULL,
 		[SendTries] [int] NOT NULL constraint [DF_{objectQualifier}Mail_SendTries]  default (0),
 		[SendAttempt] [datetime] NULL,
 		[ProcessID] [int] NULL,
@@ -406,6 +407,7 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 	[MailID] ASC
 )WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
 	)
+end
 GO
 
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Message]') and type in (N'U'))
@@ -419,7 +421,7 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		UserName		    nvarchar (255) NULL,
 		UserDisplayName		nvarchar (255) NULL,
 		Posted			    datetime NOT NULL,
-		[Message]		    ntext NOT NULL,
+		[Message]		    nvarchar(max) NOT NULL,
 		IP				    varchar (39) NOT NULL,
 		Edited			    datetime NULL,
 		Flags			    int NOT NULL,
@@ -442,7 +444,7 @@ GO
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}MessageHistory]') and type in (N'U'))
 	create table [{databaseOwner}].[{objectQualifier}MessageHistory](
 		MessageID		    int NOT NULL,
-		[Message]		    ntext NOT NULL,
+		[Message]		    nvarchar(max) NOT NULL,
 		IP				    varchar (39) NOT NULL,
 		Edited			    datetime NOT NULL,
 		EditedBy		    int NULL,	
@@ -463,7 +465,7 @@ GO
 IF NOT EXISTS (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}MessageReported]') and type in (N'U'))
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}MessageReported](
 		[MessageID] [int] NOT NULL,
-		[Message] [ntext] NULL,
+		[Message] [nvarchar](max) NULL,
 		[Resolved] [bit] NULL,
 		[ResolvedBy] [int] NULL,
 		[ResolvedDate] [datetime] NULL,
@@ -492,7 +494,7 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		ReplyTo			int NULL,
 		Created			datetime NOT NULL,
 		[Subject]		nvarchar (100) NOT NULL,
-		Body			ntext NOT NULL,
+		Body			nvarchar(max) NOT NULL,
 		Flags			int NOT NULL constraint [DF_{objectQualifier}Message_Flags] default (23),
  constraint [PK_{objectQualifier}PMessage] PRIMARY KEY CLUSTERED 
 (
@@ -606,12 +608,12 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		NumPosts		int NOT NULL,
 		TimeZone		int NOT NULL,
 		Avatar			nvarchar (255) NULL,
-		[Signature]		ntext NULL,
+		[Signature]		nvarchar(max) NULL,
 		AvatarImage		image NULL,
 		AvatarImageType	nvarchar (50) NULL,
 		RankID			[int] NOT NULL,
 		Suspended		[datetime] NULL,
-		SuspendedReason ntext NULL,
+		SuspendedReason nvarchar(max) NULL,
 		SuspendedBy     int not null default (0),
 		LanguageFile	nvarchar(50) NULL,
 		ThemeFile		nvarchar(50) NULL,
@@ -912,7 +914,7 @@ begin
 	create table [{databaseOwner}].[{objectQualifier}Registry](
 		RegistryID		int IDENTITY(1,1) NOT NULL,
 		Name			nvarchar(50) NOT NULL,
-		Value			ntext,
+		Value			nvarchar(max),
 		BoardID			int,
 		constraint [PK_{objectQualifier}Registry] PRIMARY KEY (RegistryID)
 	)
@@ -927,7 +929,7 @@ begin
 		UserID		int, -- deprecated
 		UserName	nvarchar(100) null,
 		[Source]	nvarchar(50) not null,
-		Description	ntext not null,
+		Description	nvarchar(max) not null,
 		[Type] [int] NOT NULL constraint [DF_{objectQualifier}EventLog_Type] default (0),
 		constraint [PK_{objectQualifier}EventLog] primary key(EventLogID)
 	)
@@ -953,11 +955,11 @@ begin
 		[Name] [nvarchar](255) NOT NULL,
 		[Description] [nvarchar](4000) NULL,
 		[OnClickJS] [nvarchar](1000) NULL,
-		[DisplayJS] [ntext] NULL,
-		[EditJS] [ntext] NULL,
-		[DisplayCSS] [ntext] NULL,
-		[SearchRegex] [ntext] NULL,
-		[ReplaceRegex] [ntext] NULL,
+		[DisplayJS] [nvarchar](max) NULL,
+		[EditJS] [nvarchar](max) NULL,
+		[DisplayCSS] [nvarchar](max) NULL,
+		[SearchRegex] [nvarchar](max) NULL,
+		[ReplaceRegex] [nvarchar](max) NULL,
 		[Variables] [nvarchar](1000) NULL,
 		[UseModule] [bit] NULL,
 		[ModuleClass] [nvarchar](255) NULL,		
@@ -974,7 +976,7 @@ begin
 		[BoardID] [int] NOT NULL,
 		[MedalID] [int] IDENTITY(1,1) NOT NULL,
 		[Name] [nvarchar](100) NOT NULL,
-		[Description] [ntext] NOT NULL,
+		[Description] [nvarchar](max) NOT NULL,
 		[Message] [nvarchar](100) NOT NULL,
 		[Category] [nvarchar](50) NULL,
 		[MedalURL] [nvarchar](250) NOT NULL,
@@ -1082,7 +1084,7 @@ begin
 		[UserID] [int] NULL,
 		[UserName] [nvarchar](255) NOT NULL,
 		[UserDisplayName] [nvarchar](255) NOT NULL,
-		[Message] [ntext] NULL,
+		[Message] [nvarchar](max) NULL,
 		[Date] [datetime] NOT NULL,
 		[IP] [varchar](50) NOT NULL,
  constraint [PK_{objectQualifier}ShoutboxMessage] PRIMARY KEY CLUSTERED 
@@ -1107,7 +1109,7 @@ if not exists (select top 1 1 from sys.columns where object_id = object_id('[{da
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Mail] add [FromUserName] [nvarchar](255) NULL
 	alter table [{databaseOwner}].[{objectQualifier}Mail] add [ToUserName] [nvarchar](255) NULL
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [BodyHtml] [ntext] NULL		
+	alter table [{databaseOwner}].[{objectQualifier}Mail] add [BodyHtml] [nvarchar](max) NULL		
 	alter table [{databaseOwner}].[{objectQualifier}Mail] add [SendTries] [int] NOT NULL constraint [DF_{objectQualifier}Mail_SendTries]  default ((0))		
 	alter table [{databaseOwner}].[{objectQualifier}Mail] add [SendAttempt] [datetime] NULL
 	alter table [{databaseOwner}].[{objectQualifier}Mail] add [ProcessID] [int] NULL	
@@ -1257,7 +1259,7 @@ end
 GO
 
 if exists(select top 1 1 from sys.columns where object_id =  object_id(N'[{databaseOwner}].[{objectQualifier}User]') and name=N'Signature' and system_type_id<>99)
-	alter table [{databaseOwner}].[{objectQualifier}User] alter column Signature ntext null
+	alter table [{databaseOwner}].[{objectQualifier}User] alter column Signature nvarchar(max) null
 go
 
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Flags')
@@ -1929,7 +1931,7 @@ if not exists (select top 1 1 from sys.columns where object_id=object_id('[{data
 GO
 
 if exists (select top 1 1 from sys.columns where object_id=object_id(N'[{databaseOwner}].[{objectQualifier}Registry]') and name=N'Value' and system_type_id<>99)
-	alter table [{databaseOwner}].[{objectQualifier}Registry] alter column Value ntext null
+	alter table [{databaseOwner}].[{objectQualifier}Registry] alter column Value nvarchar(max) null
 GO
 
 -- PMessage Table
@@ -2829,7 +2831,110 @@ go
 
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='SuspendedReason')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}User] add SuspendedReason ntext NULL
+	alter table [{databaseOwner}].[{objectQualifier}User] add SuspendedReason nvarchar(max) NULL
 	alter table [{databaseOwner}].[{objectQualifier}User] add SuspendedBy     int not null default (0)
 end
 GO
+
+-- Convert all ntext columns to nvarchar(max)
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name = 'Body' and system_type_id = 99)
+begin
+    alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [Body] nvarchar(max)
+end
+go
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name = 'BodyHtml' and system_type_id = 99)
+begin
+    alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [BodyHtml] nvarchar(max)
+end
+go
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Message]') and name = 'Message' and system_type_id = 99)
+begin
+    alter table [{databaseOwner}].[{objectQualifier}Message] alter column [Message] nvarchar(max)
+end
+go
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}MessageHistory]') and name = 'Message' and system_type_id = 99)
+begin
+    alter table [{databaseOwner}].[{objectQualifier}MessageHistory] alter column [Message] nvarchar(max)
+end
+go
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}MessageReported]') and name = 'Message' and system_type_id = 99)
+begin
+    alter table [{databaseOwner}].[{objectQualifier}MessageReported] alter column [Message] nvarchar(max)
+end
+go
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}PMessage]') and name = 'Body' and system_type_id = 99)
+begin
+    alter table [{databaseOwner}].[{objectQualifier}PMessage] alter column [Body] nvarchar(max)
+end
+go
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name = 'Signature' and system_type_id = 99)
+begin
+    alter table [{databaseOwner}].[{objectQualifier}User] alter column [Signature] nvarchar(max)
+end
+go
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name = 'SuspendedReason' and system_type_id = 99)
+begin
+    alter table [{databaseOwner}].[{objectQualifier}User] alter column [SuspendedReason] nvarchar(max)
+end
+go
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Registry]') and name = 'Value' and system_type_id = 99)
+begin
+    alter table [{databaseOwner}].[{objectQualifier}Registry] alter column [Value] nvarchar(max)
+end
+go
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Eventlog]') and name = 'Description' and system_type_id = 99)
+begin
+    alter table [{databaseOwner}].[{objectQualifier}Eventlog] alter column [Description] nvarchar(max)
+end
+go
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}BBCode]') and name = 'DisplayJS' and system_type_id = 99)
+begin
+    alter table [{databaseOwner}].[{objectQualifier}BBCode] alter column [DisplayJS] nvarchar(max)
+end
+go
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}BBCode]') and name = 'EditJS' and system_type_id = 99)
+begin
+    alter table [{databaseOwner}].[{objectQualifier}BBCode] alter column [EditJS] nvarchar(max)
+end
+go
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}BBCode]') and name = 'DisplayCSS' and system_type_id = 99)
+begin
+    alter table [{databaseOwner}].[{objectQualifier}BBCode] alter column [DisplayCSS] nvarchar(max)
+end
+go
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}BBCode]') and name = 'SearchRegex' and system_type_id = 99)
+begin
+    alter table [{databaseOwner}].[{objectQualifier}BBCode] alter column [SearchRegex] nvarchar(max)
+end
+go
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}BBCode]') and name = 'ReplaceRegex' and system_type_id = 99)
+begin
+    alter table [{databaseOwner}].[{objectQualifier}BBCode] alter column [ReplaceRegex] nvarchar(max)
+end
+go
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Medal]') and name = 'Description' and system_type_id = 99)
+begin
+    alter table [{databaseOwner}].[{objectQualifier}Medal] alter column [Description] nvarchar(max)
+end
+go
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and name = 'Message' and system_type_id = 99)
+begin
+    alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] alter column [Message] nvarchar(max)
+end
+go
