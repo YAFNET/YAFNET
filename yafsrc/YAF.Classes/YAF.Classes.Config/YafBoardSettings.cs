@@ -875,7 +875,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("AllowedNumberOfUrls", 1);
+                return this._reg.GetValue("AllowedNumberOfUrls", 10);
             }
 
             set
