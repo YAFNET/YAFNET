@@ -209,6 +209,7 @@
     <Resource tag="ADD_IP">Add New Email</Resource>
     <Resource tag="IMPORT_IPS">Import Email(s)</Resource>
     <Resource tag="MASK">Mask</Resource>
+    <Resource tag="MSG_REMOVEBAN_EMAIL">Email was successfully deleted</Resource>
     <Resource tag="REASON">Reason</Resource>
     <Resource tag="SINCE">Since</Resource>
     <Resource tag="TITLE">Banned Email Addresses</Resource>
@@ -237,6 +238,7 @@
     <Resource tag="EXPORT">Export to Text File</Resource>
     <Resource tag="IMPORT_IPS">Import Address(es)</Resource>
     <Resource tag="MASK">Маска</Resource>
+    <Resource tag="MSG_REMOVEBAN_IP">IP Address or Mask '{0}' was successfully deleted</Resource>
     <Resource tag="REASON">Причина</Resource>
     <Resource tag="SINCE">С</Resource>
     <Resource tag="TITLE">Запрещённые адреса IP</Resource>
@@ -267,6 +269,7 @@
     <Resource tag="ADD_IP">Add New User Name</Resource>
     <Resource tag="IMPORT_IPS">Import Name(s)</Resource>
     <Resource tag="MASK">Mask</Resource>
+    <Resource tag="MSG_REMOVEBAN_NAME">The user name was successfully deleted</Resource>
     <Resource tag="REASON">Reason</Resource>
     <Resource tag="SINCE">Since</Resource>
     <Resource tag="TITLE">Banned Names</Resource>

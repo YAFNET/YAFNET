@@ -212,6 +212,7 @@
   <Resource tag="REASON">Reason</Resource>
   <Resource tag="SINCE">Since</Resource>
   <Resource tag="TITLE">Banned Email Addresses</Resource>
+  <Resource tag="MSG_REMOVEBAN_EMAIL">Email was successfully deleted</Resource>
  </page>
  <page name="ADMIN_BANNEDEMAIL_EDIT">
   <Resource tag="MASK">Mask:</Resource>
@@ -240,6 +241,7 @@
   <Resource tag="REASON">Reason</Resource>
   <Resource tag="SINCE">Since</Resource>
   <Resource tag="TITLE">Banned IP Addresses</Resource>
+   <Resource tag="MSG_REMOVEBAN_IP">IP Address or Mask '{0}' was successfully deleted</Resource>
  </page>
  <page name="ADMIN_BANNEDIP_EDIT">
   <Resource tag="INVALID_ADRESS">Invalid IP address.</Resource>
@@ -270,6 +272,7 @@
   <Resource tag="REASON">Reason</Resource>
   <Resource tag="SINCE">Since</Resource>
   <Resource tag="TITLE">Banned Names</Resource>
+  <Resource tag="MSG_REMOVEBAN_NAME">The user name was successfully deleted</Resource>
  </page>
  <page name="ADMIN_BANNEDNAME_EDIT">
   <Resource tag="MASK">Mask:</Resource>

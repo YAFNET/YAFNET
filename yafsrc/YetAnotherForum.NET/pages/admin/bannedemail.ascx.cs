@@ -166,6 +166,11 @@ namespace YAF.Pages.Admin
                 case "delete":
                     {
                         this.GetRepository<BannedEmail>().DeleteByID(e.CommandArgument.ToType<int>());
+
+                        this.PageContext.AddLoadMessage(
+                            this.GetText("ADMIN_BANNEDEMAIL", "MSG_REMOVEBAN_EMAIL"),
+                            MessageTypes.success);
+
                         this.BindData();
                     }
 
