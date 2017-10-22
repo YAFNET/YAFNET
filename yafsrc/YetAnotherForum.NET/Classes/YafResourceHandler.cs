@@ -1111,6 +1111,16 @@ namespace YAF
 
                         // use the new fileName (with extension) if it exists...
                         fileName = File.Exists(newFileName) ? newFileName : oldFileName;
+                        
+                        // its an old extension
+                        if (!File.Exists(fileName))
+                        {
+                            fileName = context.Server.MapPath(
+                                "{0}/{1}.{2}.yafupload".FormatWith(
+                                    uploadFolder,
+                                    attachment.MessageID.ToString(),
+                                    attachment.FileName));
+                        }
                     }
 
                     using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -1539,7 +1549,7 @@ namespace YAF
                     }
                 }
             }
-            catch (Exception exception)
+            catch (WebException exception)
             {
                 // issue getting access to the avatar...
                 this.Get<ILogger>()

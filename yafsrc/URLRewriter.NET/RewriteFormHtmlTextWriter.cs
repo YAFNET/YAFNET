@@ -1,15 +1,16 @@
-/* UrlRewriter - A .NET URL Rewriter module
+// UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2007 Intelligencia
-// Copyright 2007 Seth Yates
-*/
+// Copyright 2011 Intelligencia
+// Copyright 2011 Seth Yates
+// 
+
+using System;
+using System.Web;
+using System.Web.UI;
 
 namespace Intelligencia.UrlRewriter
 {
-    using System.Web;
-    using System.Web.UI;
-
     /// <summary>
     /// The HTML Text Writer to use for rewriting form actions.
     /// </summary>
@@ -22,7 +23,7 @@ namespace Intelligencia.UrlRewriter
         public RewriteFormHtmlTextWriter(HtmlTextWriter writer)
             : base(writer)
         {
-            this.InnerWriter = writer.InnerWriter;
+            InnerWriter = writer.InnerWriter;
         }
 
         /// <summary>

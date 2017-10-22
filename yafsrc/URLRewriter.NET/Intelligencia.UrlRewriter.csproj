@@ -132,6 +132,7 @@
     <Compile Include="Actions\RewriteAction.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Actions\SetAppSettingPropertyAction.cs" />
     <Compile Include="Actions\SetCookieAction.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -144,7 +145,15 @@
     <Compile Include="Actions\SetStatusAction.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AssemblyInfo.cs">
+    <Compile Include="Configuration\ConfigurationManagerFacade.cs" />
+    <Compile Include="Configuration\IConfigurationManager.cs" />
+    <Compile Include="Configuration\IRewriterConfiguration.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\XmlNodeExtensions.cs" />
+    <Compile Include="IRewriteContext.cs" />
+    <Compile Include="Logging\TraceLogger.cs" />
+    <Compile Include="Parsers\SetAppSettingPropertyActionParser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Conditions\NegativeCondition.cs" />
@@ -313,9 +322,7 @@
     <Compile Include="Utilities\HttpContextFacade.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Utilities\IContextFacade.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Utilities\IHttpContext.cs" />
     <Compile Include="Utilities\IPRange.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -331,7 +338,6 @@
     <EmbeddedResource Include="Messages.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="UrlRewriter.ndoc" />
     <None Include="UrlRewriter.snk" />
   </ItemGroup>
   <ItemGroup>
@@ -356,6 +362,9 @@
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="License.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

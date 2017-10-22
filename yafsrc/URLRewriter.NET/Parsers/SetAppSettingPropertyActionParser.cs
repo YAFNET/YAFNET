@@ -1,4 +1,4 @@
-// UrlRewriter - A .NET URL Rewriter module
+﻿// UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
 // Copyright 2011 Intelligencia
@@ -14,16 +14,16 @@ using Intelligencia.UrlRewriter.Utilities;
 namespace Intelligencia.UrlRewriter.Parsers
 {
     /// <summary>
-    /// Parser for not allowed actions.
+    /// Action parser for the set-appsetting property action.
     /// </summary>
-    public sealed class NotAllowedActionParser : RewriteActionParserBase
+    public sealed class SetAppSettingPropertyActionParser : RewriteActionParserBase
     {
         /// <summary>
         /// The name of the action.
         /// </summary>
         public override string Name
         {
-            get { return Constants.ElementNotAllowed; }
+            get { return Constants.ElementSetAppSetting; }
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Intelligencia.UrlRewriter.Parsers
         /// </summary>
         public override bool AllowsAttributes
         {
-            get { return false; }
+            get { return true; }
         }
 
         /// <summary>
@@ -50,7 +50,19 @@ namespace Intelligencia.UrlRewriter.Parsers
         /// <returns>The parsed action, or null if no action parsed.</returns>
         public override IRewriteAction Parse(XmlNode node, IRewriterConfiguration config)
         {
-            return new MethodNotAllowedAction();
+            if (node == null)
+            {
+                throw new ArgumentNullException("node");
+            }
+            if (config == null)
+            {
+                throw new ArgumentNullException("config");
+            }
+
+            string propertyName = node.GetRequiredAttribute(Constants.AttrProperty);
+            string appSettingKey = node.GetRequiredAttribute(Constants.AttrKey);
+
+            return new SetAppSettingPropertyAction(propertyName, appSettingKey);
         }
     }
 }

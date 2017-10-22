@@ -1,16 +1,23 @@
+// UrlRewriter - A .NET URL Rewriter module
+// Version 2.0
+//
+// Copyright 2011 Intelligencia
+// Copyright 2011 Seth Yates
+// 
+
+using System;
+using System.Runtime.InteropServices;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using Intelligencia.UrlRewriter.Utilities;
+
 namespace Intelligencia.UrlRewriter
 {
-    using System.Runtime.InteropServices;
-    using System.Web.UI;
-    using System.Web.UI.HtmlControls;
-
-    using Intelligencia.UrlRewriter.Utilities;
-
     /// <summary>
     /// Replacement for &lt;asp:form&gt; to handle rewritten form postback.
     /// </summary>
     /// <remarks>
-    /// <p>This form should be used for pages that use the url rewriter and have
+    /// <p>This form should be used for pages that use the URL Rewriter and have
     /// forms that are posted back.  If you use the normal ASP.NET <see cref="System.Web.UI.HtmlControls.HtmlForm">HtmlForm</see>,
     /// then the postback will not be able to correctly resolve the postback data to the form data.
     /// </p>
@@ -31,7 +38,7 @@ namespace Intelligencia.UrlRewriter
     /// </code>
     /// </remarks>
     [ComVisible(false)]
-    [ToolboxData("<{0}:Form runat=server></{0}:Form>")]
+    [ToolboxData("<{0}:Form runat=\"server\"></{0}:Form>")]
     public class Form : HtmlForm
     {
         /// <summary>
@@ -53,54 +60,38 @@ namespace Intelligencia.UrlRewriter
         /// <exclude />
         protected override void RenderAttributes(HtmlTextWriter writer)
         {
-            writer.WriteAttribute(Constants.AttrName, this.GetName());
-            this.Attributes.Remove(Constants.AttrName);
+            writer.WriteAttribute(Constants.AttrName, GetName());
+            Attributes.Remove(Constants.AttrName);
 
-            writer.WriteAttribute(Constants.AttrMethod, this.GetMethod());
-            this.Attributes.Remove(Constants.AttrMethod);
+            writer.WriteAttribute(Constants.AttrMethod, GetMethod());
+            Attributes.Remove(Constants.AttrMethod);
 
-            writer.WriteAttribute(Constants.AttrAction, this.GetAction(), true);
-            this.Attributes.Remove(Constants.AttrAction);
+            writer.WriteAttribute(Constants.AttrAction, GetAction(), true);
+            Attributes.Remove(Constants.AttrAction);
 
-            this.Attributes.Render(writer);
+            Attributes.Render(writer);
 
-            if (this.ID != null)
+            if (ID != null)
             {
-                writer.WriteAttribute(Constants.AttrID, this.GetID());
+                writer.WriteAttribute(Constants.AttrID, GetID());
             }
         }
 
-        /// <summary>
-        /// Gets the identifier.
-        /// </summary>
-        /// <returns></returns>
         private string GetID()
         {
-            return this.ClientID;
+            return ClientID;
         }
 
-        /// <summary>
-        /// Gets the name.
-        /// </summary>
-        /// <returns></returns>
         private string GetName()
         {
-            return this.Name;
+            return Name;
         }
 
-        /// <summary>
-        /// Gets the method.
-        /// </summary>
-        /// <returns></returns>
         private string GetMethod()
         {
-            return this.Method;
+            return Method;
         }
 
-        /// <summary>
-        /// Gets the action.
-        /// </summary>
-        /// <returns></returns>
         private string GetAction()
         {
             return RewriterHttpModule.RawUrl;

@@ -1,28 +1,30 @@
 // UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2007 Intelligencia
-// Copyright 2007 Seth Yates
+// Copyright 2011 Intelligencia
+// Copyright 2011 Seth Yates
 // 
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using Intelligencia.UrlRewriter.Utilities;
 
 namespace Intelligencia.UrlRewriter.Configuration
 {
-    using System.Collections;
-
-    using Intelligencia.UrlRewriter.Utilities;
-
     /// <summary>
     /// Pipeline for creating the Condition parsers.
     /// </summary>
-    public class ConditionParserPipeline : CollectionBase
+    public class ConditionParserPipeline : List<IRewriteConditionParser>
     {
+        /*
         /// <summary>
         /// Adds a parser.
         /// </summary>
         /// <param name="parserType">The parser type.</param>
         public void AddParser(string parserType)
         {
-            this.AddParser((IRewriteConditionParser)TypeHelper.Activate(parserType, null));
+            AddParser((IRewriteConditionParser)TypeHelper.Activate(parserType, null));
         }
 
         /// <summary>
@@ -31,7 +33,8 @@ namespace Intelligencia.UrlRewriter.Configuration
         /// <param name="parser">The parser.</param>
         public void AddParser(IRewriteConditionParser parser)
         {
-            this.InnerList.Add(parser);
+            Add(parser);
         }
+         */
     }
 }

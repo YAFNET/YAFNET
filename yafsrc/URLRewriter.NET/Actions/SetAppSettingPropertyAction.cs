@@ -1,4 +1,4 @@
-// UrlRewriter - A .NET URL Rewriter module
+﻿// UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
 // Copyright 2011 Intelligencia
@@ -10,28 +10,29 @@ using System;
 namespace Intelligencia.UrlRewriter.Actions
 {
     /// <summary>
-    /// Action that sets properties in the context.
+    /// Action that sets a property in the context from AppSettings, i.e the appSettings collection
+    /// in web.config.
     /// </summary>
-    public class SetPropertyAction : IRewriteAction
+    public class SetAppSettingPropertyAction : IRewriteAction
     {
         /// <summary>
         /// Default constructor.
         /// </summary>
         /// <param name="name">The name of the variable.</param>
-        /// <param name="value">The name of the value.</param>
-        public SetPropertyAction(string name, string value)
+        /// <param name="appSettingsKey">The name of the key in AppSettings.</param>
+        public SetAppSettingPropertyAction(string name, string appSettingsKey)
         {
             if (name == null)
             {
                 throw new ArgumentNullException("name");
             }
-            if (value == null)
+            if (appSettingsKey == null)
             {
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException("appSettingsKey");
             }
 
             _name = name;
-            _value = value;
+            _appSettingsKey = appSettingsKey;
         }
 
         /// <summary>
@@ -43,11 +44,11 @@ namespace Intelligencia.UrlRewriter.Actions
         }
 
         /// <summary>
-        /// The value of the variable.
+        /// The name of the key in AppSettings.
         /// </summary>
-        public string Value
+        public string AppSettingKey
         {
-            get { return _value; }
+            get { return _appSettingsKey; }
         }
 
         /// <summary>
@@ -61,12 +62,14 @@ namespace Intelligencia.UrlRewriter.Actions
                 throw new ArgumentNullException("context");
             }
 
-            context.Properties.Set(Name, context.Expand(Value));
+            // If the value cannot be found in AppSettings, default to an empty string.
+            string appSettingValue = context.ConfigurationManager.AppSettings[_appSettingsKey] ?? String.Empty;
+            context.Properties.Set(Name, appSettingValue);
 
             return RewriteProcessing.ContinueProcessing;
         }
 
         private string _name;
-        private string _value;
+        private string _appSettingsKey;
     }
 }

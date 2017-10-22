@@ -1,15 +1,15 @@
 // UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2007 Intelligencia
-// Copyright 2007 Seth Yates
+// Copyright 2011 Intelligencia
+// Copyright 2011 Seth Yates
 // 
+
+using System;
+using System.IO;
 
 namespace Intelligencia.UrlRewriter.Conditions
 {
-    using System;
-    using System.IO;
-
     /// <summary>
     /// Condition that tests the existence of a file.
     /// </summary>
@@ -18,7 +18,7 @@ namespace Intelligencia.UrlRewriter.Conditions
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="location"></param>
+        /// <param name="location">The file location</param>
         public ExistsCondition(string location)
         {
             if (location == null)
@@ -26,7 +26,7 @@ namespace Intelligencia.UrlRewriter.Conditions
                 throw new ArgumentNullException("location");
             }
 
-            this._location = location;
+            _location = location;
         }
 
         /// <summary>
@@ -34,15 +34,24 @@ namespace Intelligencia.UrlRewriter.Conditions
         /// </summary>
         /// <param name="context">The rewriting context.</param>
         /// <returns>True if the condition is met.</returns>
-        public bool IsMatch(RewriteContext context)
+        public bool IsMatch(IRewriteContext context)
         {
             if (context == null)
             {
                 throw new ArgumentNullException("context");
             }
 
-            var filename = context.MapPath(context.Expand(this._location));
-            return File.Exists(filename) || Directory.Exists(filename);
+            try
+            {
+                string filename = context.HttpContext.MapPath(context.Expand(_location));
+                return File.Exists(filename) || Directory.Exists(filename);
+            }
+            catch
+            {
+                // An HTTP exception or an I/O exception indicates that the file definitely
+                // does not exist.
+                return false;
+            }
         }
 
         private string _location;

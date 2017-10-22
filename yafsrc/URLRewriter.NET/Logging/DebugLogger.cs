@@ -1,14 +1,14 @@
-/* UrlRewriter - A .NET URL Rewriter module
+// UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2007 Intelligencia
-// Copyright 2007 Seth Yates
-*/
+// Copyright 2011 Intelligencia
+// Copyright 2011 Seth Yates
+// 
+
+using System;
 
 namespace Intelligencia.UrlRewriter.Logging
 {
-    using System;
-
     /// <summary>
     /// A logger which writes out to the Debug window.
     /// </summary>
@@ -23,7 +23,6 @@ namespace Intelligencia.UrlRewriter.Logging
             System.Diagnostics.Debug.WriteLine(message);
         }
 
-
         /// <summary>
         /// Writes an informational message.
         /// </summary>
@@ -32,7 +31,6 @@ namespace Intelligencia.UrlRewriter.Logging
         {
             System.Diagnostics.Debug.WriteLine(message);
         }
-
 
         /// <summary>
         /// Writes a warning message.
@@ -43,7 +41,6 @@ namespace Intelligencia.UrlRewriter.Logging
             System.Diagnostics.Debug.WriteLine(message);
         }
 
-
         /// <summary>
         /// Writes an error.
         /// </summary>
@@ -53,7 +50,6 @@ namespace Intelligencia.UrlRewriter.Logging
             System.Diagnostics.Debug.WriteLine(message);
         }
 
-
         /// <summary>
         /// Writes an error.
         /// </summary>
@@ -62,8 +58,11 @@ namespace Intelligencia.UrlRewriter.Logging
         public void Error(object message, Exception exception)
         {
             System.Diagnostics.Debug.WriteLine(message);
+            if (exception != null)
+            {
+                System.Diagnostics.Debug.WriteLine(String.Format("Exception: {0}\r\nError Message: {1}", exception.GetType(), exception.Message));
+            }
         }
-
 
         /// <summary>
         /// Writes a fatal error.
@@ -73,6 +72,10 @@ namespace Intelligencia.UrlRewriter.Logging
         public void Fatal(object message, Exception exception)
         {
             System.Diagnostics.Debug.WriteLine(message);
+            if (exception != null)
+            {
+                System.Diagnostics.Debug.WriteLine(String.Format("Exception: {0}\r\nError Message: {1}", exception.GetType(), exception.Message));
+            }
         }
     }
 }

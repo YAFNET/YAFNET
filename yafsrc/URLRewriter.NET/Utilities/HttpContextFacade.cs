@@ -1,102 +1,92 @@
-/* UrlRewriter - A .NET URL Rewriter module
+// UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2007 Intelligencia
-// Copyright 2007 Seth Yates
-*/
+// Copyright 2011 Intelligencia
+// Copyright 2011 Seth Yates
+// 
+
+using System;
+using System.Collections;
+using System.Collections.Specialized;
+using System.Net;
+using System.Web;
 
 namespace Intelligencia.UrlRewriter.Utilities
 {
-    using System;
-    using System.Collections.Specialized;
-    using System.Web;
-
-    using Intelligencia.UrlRewriter;
-
     /// <summary>
-    /// A naive pass-through implementation of the ContextFacade on the HttpContext.
-    /// Mock implementations would want to do something more interesting like implement checks that
-    /// the actions were called.
+    /// A naive pass-through implementation of the IHttpContext facade that proxys calls to HttpContext.Current.
+    /// Mock implementations would want to do something more interesting like implement checks that the actions
+    /// were called.
     /// </summary>
-    internal class HttpContextFacade : IContextFacade
+    internal class HttpContextFacade : IHttpContext
     {
-        public HttpContextFacade()
+        /// <summary>
+        /// Maps the given URL to the absolute local path.
+        /// </summary>
+        /// <param name="url">The URL to map.</param>
+        /// <returns>The absolute local file path relating to the URL.</returns>
+        public string MapPath(string url)
         {
-            this._mapPath = new MapPath(this.InternalMapPath);
+            return HttpContext.Current.Server.MapPath(url);
         }
-
-        public MapPath MapPath => this._mapPath;
 
         /// <summary>
         /// Retrieves the application path.
         /// </summary>
-        /// <returns>The application path.</returns>
-        public string GetApplicationPath()
+        public string ApplicationPath
         {
-            return HttpContext.Current.Request.ApplicationPath;
+            get { return HttpContext.Current.Request.ApplicationPath; }
         }
 
         /// <summary>
-        /// Retrieves the raw url.
+        /// Retrieves the raw URL.
         /// </summary>
-        /// <returns>The raw url.</returns>
-        public string GetRawUrl()
+        public string RawUrl
         {
-            return HttpContext.Current.Request.RawUrl;
+            get { return HttpContext.Current.Request.RawUrl; }
         }
 
         /// <summary>
-        /// Retrieves the current request url.
+        /// Retrieves the current request URL.
         /// </summary>
-        /// <returns>The request url.</returns>
-        public Uri GetRequestUrl()
+        public Uri RequestUrl
         {
-            return HttpContext.Current.Request.Url;
-        }
-
-        /// <summary>
-        /// Maps the url to the local file path.
-        /// </summary>
-        /// <param name="url">The url to map.</param>
-        /// <returns>The local file path.</returns>
-        private string InternalMapPath(string url)
-        {
-            return HttpContext.Current.Server.MapPath(url);
+            get { return HttpContext.Current.Request.Url; }
         }
 
         /// <summary>
         /// Sets the status code for the response.
         /// </summary>
         /// <param name="code">The status code.</param>
-        public void SetStatusCode(int code)
+        public void SetStatusCode(HttpStatusCode code)
         {
-            HttpContext.Current.Response.StatusCode = code;
+            HttpContext.Current.Response.StatusCode = (int)code;
         }
 
         /// <summary>
-        /// Rewrites the request to the new url.
+        /// Rewrites the request to the new URL.
         /// </summary>
-        /// <param name="url">The new url to rewrite to.</param>
+        /// <param name="url">The new URL to rewrite to.</param>
         public void RewritePath(string url)
         {
             HttpContext.Current.RewritePath(url, false);
         }
 
         /// <summary>
-        /// Sets the redirection location to the given url.
+        /// Sets the redirection location to the given URL.
         /// </summary>
-        /// <param name="url">The url of the redirection location.</param>
+        /// <param name="url">The URL of the redirection location.</param>
         public void SetRedirectLocation(string url)
         {
             HttpContext.Current.Response.RedirectLocation = url;
         }
 
         /// <summary>
-        /// Appends a header to the response.
+        /// Adds a header to the response.
         /// </summary>
         /// <param name="name">The header name.</param>
         /// <param name="value">The header value.</param>
-        public void AppendHeader(string name, string value)
+        public void SetResponseHeader(string name, string value)
         {
             HttpContext.Current.Response.AppendHeader(name, value);
         }
@@ -105,7 +95,7 @@ namespace Intelligencia.UrlRewriter.Utilities
         /// Adds a cookie to the response.
         /// </summary>
         /// <param name="cookie">The cookie to add.</param>
-        public void AppendCookie(HttpCookie cookie)
+        public void SetResponseCookie(HttpCookie cookie)
         {
             HttpContext.Current.Response.AppendCookie(cookie);
         }
@@ -120,61 +110,43 @@ namespace Intelligencia.UrlRewriter.Utilities
         }
 
         /// <summary>
-        /// Sets a context item.
+        /// The Items collection for the current request.
         /// </summary>
-        /// <param name="item">The item key</param>
-        /// <param name="value">The item value</param>
-        public void SetItem(object item, object value)
+        public IDictionary Items
         {
-            HttpContext.Current.Items[item] = value;
+            get { return HttpContext.Current.Items; }
         }
 
         /// <summary>
-        /// Retrieves a context item.
+        /// Retrieves the HTTP method used by the request (GET, POST, HEAD, PUT, DELETE).
         /// </summary>
-        /// <param name="item">The item key.</param>
-        /// <returns>The item value.</returns>
-        public object GetItem(object item)
+        public string HttpMethod
         {
-            return HttpContext.Current.Items[item];
-        }
-
-        /// <summary>
-        /// Retrieves the HTTP method used by the request.
-        /// </summary>
-        /// <returns>The HTTP method.</returns>
-        public string GetHttpMethod()
-        {
-            return HttpContext.Current.Request.HttpMethod;
+            get { return HttpContext.Current.Request.HttpMethod; }
         }
 
         /// <summary>
         /// Gets a collection of server variables.
         /// </summary>
-        /// <returns></returns>
-        public NameValueCollection GetServerVariables()
+        public NameValueCollection ServerVariables
         {
-            return HttpContext.Current.Request.ServerVariables;
+            get { return HttpContext.Current.Request.ServerVariables; }
         }
 
         /// <summary>
-        /// Gets a collection of headers.
+        /// Gets a collection of the request headers.
         /// </summary>
-        /// <returns></returns>
-        public NameValueCollection GetHeaders()
+        public NameValueCollection RequestHeaders
         {
-            return HttpContext.Current.Request.Headers;
+            get { return HttpContext.Current.Request.Headers; }
         }
 
         /// <summary>
-        /// Gets a collection of cookies.
+        /// Gets a collection of request cookies.
         /// </summary>
-        /// <returns></returns>
-        public HttpCookieCollection GetCookies()
+        public HttpCookieCollection RequestCookies
         {
-            return HttpContext.Current.Request.Cookies;
+            get { return HttpContext.Current.Request.Cookies; }
         }
-
-        private MapPath _mapPath;
     }
 }

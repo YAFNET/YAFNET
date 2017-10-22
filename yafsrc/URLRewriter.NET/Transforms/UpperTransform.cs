@@ -1,17 +1,16 @@
-/* UrlRewriter - A .NET URL Rewriter module
+// UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2007 Intelligencia
-// Copyright 2007 Seth Yates
-*/
+// Copyright 2011 Intelligencia
+// Copyright 2011 Seth Yates
+// 
+
+using System;
+using System.Threading;
+using Intelligencia.UrlRewriter.Utilities;
 
 namespace Intelligencia.UrlRewriter.Transforms
 {
-    using System;
-    using System.Threading;
-
-    using Intelligencia.UrlRewriter.Utilities;
-
     /// <summary>
     /// Transforms the input to upper case.
     /// </summary>
@@ -35,6 +34,9 @@ namespace Intelligencia.UrlRewriter.Transforms
         /// <summary>
         /// The name of the action.
         /// </summary>
-        public string Name => Constants.TransformUpper;
+        public string Name
+        {
+            get { return Constants.TransformUpper; }
+        }
     }
 }
