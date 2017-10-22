@@ -166,10 +166,15 @@ namespace YAF.Pages.Admin
                     break;
                 case "delete":
                     {
-                        var ip = this.GetIPFromID(e.CommandArgument);
-                        this.GetRepository<BannedIP>().DeleteByID(e.CommandArgument.ToType<int>());
+                        var id = e.CommandArgument.ToType<int>();
+                        var ipAddress = this.GetIPFromID(id);
+
+                        this.GetRepository<BannedIP>().DeleteByID(id);
+
+                        this.PageContext.AddLoadMessage(
+                            this.GetTextFormatted("MSG_REMOVEBAN_IP", ipAddress), MessageTypes.success);
+
                         this.BindData();
-                        this.PageContext.AddLoadMessage(this.GetText("ADMIN_BANNEDIP", "MSG_REMOVEBAN"));
 
                         if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
                         {
@@ -178,7 +183,7 @@ namespace YAF.Pages.Admin
                                     this.PageContext.PageUserID,
                                     " YAF.Pages.Admin.bannedip",
                                     "IP or mask {0} was deleted by {1}.".FormatWith(
-                                        ip,
+                                        ipAddress,
                                         this.Get<YafBoardSettings>().EnableDisplayName
                                             ? this.PageContext.CurrentUserData.DisplayName
                                             : this.PageContext.CurrentUserData.UserName),
@@ -218,13 +223,9 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// Returns the IP
         /// </returns>
-        private string GetIPFromID(object id)
+        private string GetIPFromID(int id)
         {
-            return (from RepeaterItem ri in this.list.Items
-                    let chid = ri.FindControlAs<Label>("MaskBox").Text
-                    let fid = ri.FindControlAs<HiddenField>("fID").Value
-                    where id.ToString() == fid
-                    select chid).FirstOrDefault();
+            return this.GetRepository<BannedIP>().GetByID(id).Mask;
         }
 
         /// <summary>
