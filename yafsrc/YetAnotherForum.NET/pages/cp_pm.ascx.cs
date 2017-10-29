@@ -50,7 +50,7 @@ namespace YAF.Pages
         /// <summary>
         ///   The _view.
         /// </summary>
-        private PMView _view;
+        private PmView _view;
 
         #endregion
 
@@ -71,7 +71,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets View.
         /// </summary>
-        protected PMView View => this._view;
+        protected PmView View => this._view;
 
         #endregion
 
@@ -118,12 +118,6 @@ namespace YAF.Pages
                 this.hidLastTab.Value = ((int)this._view).ToString();
             }
 
-            // if (_view == PMView.Inbox)
-            // this.PMTabs.ActiveTab = this.InboxTab;
-            // else if (_view == PMView.Outbox)
-            // this.PMTabs.ActiveTab = this.OutboxTab;
-            // else if (_view == PMView.Archive)
-            // this.PMTabs.ActiveTab = this.ArchiveTab;
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.Get<YafBoardSettings>().EnableDisplayName
@@ -137,13 +131,6 @@ namespace YAF.Pages
             // ArchiveTab.HeaderText = GetText("ARCHIVE");
             this.NewPM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage);
             this.NewPM2.NavigateUrl = this.NewPM.NavigateUrl;
-
-            // inbox tab
-            // ScriptManager.RegisterClientScriptBlock(InboxTabUpdatePanel, typeof(UpdatePanel), "InboxTabRefresh", String.Format("function InboxTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", InboxTabUpdatePanel.ClientID, '{', '}'), true);
-            // sent tab
-            // ScriptManager.RegisterClientScriptBlock(SentTabUpdatePanel, typeof(UpdatePanel), "SentTabRefresh", String.Format("function SentTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", SentTabUpdatePanel.ClientID, '{', '}'), true);
-            // archive tab
-            // ScriptManager.RegisterClientScriptBlock(ArchiveTabUpdatePanel, typeof(UpdatePanel), "ArchiveTabRefresh", String.Format("function ArchiveTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", ArchiveTabUpdatePanel.ClientID, '{', '}'), true);
         }
 
         #endregion

@@ -23,15 +23,15 @@
                 <asp:UpdatePanel ID="upPanExport" runat="server">
                 <ContentTemplate>
                   <YAF:ThemeButton runat="server" ID="MarkAsRead" CssClass="yafcssbigbutton leftItem"
-					TextLocalizedTag="MARK_ALL_ASREAD" OnClick="MarkAsRead_Click" Visible="<%#this.View != PMView.Outbox %>" />
+					TextLocalizedTag="MARK_ALL_ASREAD" OnClick="MarkAsRead_Click" />
 				  <YAF:ThemeButton runat="server" ID="ArchiveSelected" CssClass="yafcssbigbutton leftItem"
-					TextLocalizedTag="ARCHIVESELECTED" OnClick="ArchiveSelected_Click" Visible="<%#this.View == PMView.Inbox %>" />
+					TextLocalizedTag="ARCHIVESELECTED" OnClick="ArchiveSelected_Click" />
                      <YAF:ThemeButton runat="server" ID="ExportSelected" CssClass="yafcssbigbutton leftItem"
 					TextLocalizedTag="EXPORTSELECTED" OnClick="ExportSelected_Click" OnLoad="ExportAll_Load" />
 				  <YAF:ThemeButton runat="server" ID="DeleteSelected" CssClass="yafcssbigbutton leftItem"
 					TextLocalizedTag="DELETESELECTED" OnLoad="DeleteSelected_Load" OnClick="DeleteSelected_Click" />
 				  <YAF:ThemeButton runat="server" ID="ArchiveAll" CssClass="yafcssbigbutton leftItem"
-					TextLocalizedTag="ARCHIVEALL" OnLoad="ArchiveAll_Load" OnClick="ArchiveAll_Click" Visible="<%#this.View == PMView.Inbox %>" />
+					TextLocalizedTag="ARCHIVEALL" OnLoad="ArchiveAll_Load" OnClick="ArchiveAll_Click" />
                   <YAF:ThemeButton runat="server" ID="ExportAll" CssClass="yafcssbigbutton leftItem"
 					TextLocalizedTag="EXPORTALL" OnClick="ExportAll_Click" OnLoad="ExportAll_Load" />
 				  <YAF:ThemeButton runat="server" ID="DeleteAll" CssClass="yafcssbigbutton leftItem"
