@@ -37,6 +37,7 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Utilities;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -50,7 +51,7 @@ namespace YAF.Pages
         /// <summary>
         ///   The _view.
         /// </summary>
-        private PmView _view;
+        private PmView view;
 
         #endregion
 
@@ -71,7 +72,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets View.
         /// </summary>
-        protected PmView View => this._view;
+        protected PmView View => this.view;
 
         #endregion
 
@@ -113,9 +114,9 @@ namespace YAF.Pages
 
             if (this.Request.QueryString.GetFirstOrDefault("v").IsSet())
             {
-                this._view = PMViewConverter.FromQueryString(this.Request.QueryString.GetFirstOrDefault("v"));
+                this.view = PmViewConverter.FromQueryString(this.Request.QueryString.GetFirstOrDefault("v"));
 
-                this.hidLastTab.Value = ((int)this._view).ToString();
+                this.hidLastTab.Value = ((int)this.view).ToString();
             }
 
             this.PageLinks.AddRoot();

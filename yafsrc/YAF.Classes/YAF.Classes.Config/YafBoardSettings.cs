@@ -2823,6 +2823,25 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [allow private message attachments].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [allow private message attachments]; otherwise, <c>false</c>.
+        /// </value>
+        public bool AllowPrivateMessageAttachments
+        {
+            get
+            {
+                return this._reg.GetValue("AllowPrivateMessageAttachments", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("AllowPrivateMessageeAttachments", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether AllowEmailSending.
         /// </summary>
         public bool AllowEmailSending

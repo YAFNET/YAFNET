@@ -1138,6 +1138,7 @@
     <Resource tag="GROUPS_TEMPLATE_HELP">Шаблон для отображения ролей.</Resource>
     <Resource tag="HEADER_ADVERTS">Настройки рекламы</Resource>
     <Resource tag="HEADER_ALBUM">Настройки альбомов</Resource>
+    <Resource tag="HEADER_ATTACHMENTS">Attachments Settings</Resource>
     <Resource tag="HEADER_AVATARS">Настройки аватара</Resource>
     <Resource tag="HEADER_BOTSPAM">Bot Spam Settings (User Checking)</Resource>
     <Resource tag="HEADER_CACHE">Настройки кэша</Resource>
@@ -1269,6 +1270,8 @@
     <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notifcation Dialogs on Mobile Devices.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Таймаут кэша пользователя онлайн:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Вы можете устанавливать это значение в зависимости от активности на сайте(в миллисекундах)</Resource>
+    <Resource tag="PM_ATTACHMENTS">Allow attachments in Private Messages</Resource>
+    <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Размер файла изображения в опросах:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Максимальный размер файла в опросах в КБ.</Resource>
     <Resource tag="POLLVOTING_PERIP">Голосование зависит от IP:</Resource>

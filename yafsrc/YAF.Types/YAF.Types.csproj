@@ -78,6 +78,7 @@
     <Compile Include="Attributes\AssemblyModuleSortOrder.cs" />
     <Compile Include="Attributes\ExcludeAttribute.cs" />
     <Compile Include="Attributes\ExportServiceAttribute.cs" />
+    <Compile Include="Constants\PmView.cs" />
     <Compile Include="Exceptions\BaseUrlMaskRequiredException.cs" />
     <Compile Include="Exceptions\CantLoadThemeException.cs" />
     <Compile Include="Exceptions\DbFunctionCancelledException.cs" />

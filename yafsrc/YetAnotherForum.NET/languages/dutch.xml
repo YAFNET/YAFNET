@@ -1139,6 +1139,7 @@
     <Resource tag="GROUPS_TEMPLATE_HELP">Sjabloon om de groepen van de gebruiker op te bouwen.</Resource>
     <Resource tag="HEADER_ADVERTS">Advertentie instellingen</Resource>
     <Resource tag="HEADER_ALBUM">Album instellingen</Resource>
+    <Resource tag="HEADER_ATTACHMENTS">Attachments Settings</Resource>
     <Resource tag="HEADER_AVATARS">Avatar instellingen</Resource>
     <Resource tag="HEADER_BOTSPAM">Bot Spam Settings (User Checking)</Resource>
     <Resource tag="HEADER_CACHE">Cache instellingen</Resource>
@@ -1270,6 +1271,8 @@
     <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notifcation Dialogs on Mobile Devices.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Online Gebruiker Status Cache Timeout:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Dit kun je Fine-tunen afhankelijk van de activiteit op je forum in milliseconden)</Resource>
+    <Resource tag="PM_ATTACHMENTS">Allow attachments in Private Messages</Resource>
+    <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Poll Afbeelding Bestandsgrootte:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Max. bestandsgrootte voor plaatjes die bij Polls worden gebruikt in KB.</Resource>
     <Resource tag="POLLVOTING_PERIP">Poll Stemmen op basis van IP:</Resource>

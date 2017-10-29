@@ -230,7 +230,7 @@ namespace YAF.Pages.Admin
             // handle checked fields...
             foreach (var name in settingCollection.SettingsBool.Keys)
             {
-                Control control = this.HostSettingsTabs.FindControlRecursive(name);
+                var control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is CheckBox && settingCollection.SettingsBool[name].CanWrite)
                 {
@@ -244,7 +244,7 @@ namespace YAF.Pages.Admin
             // handle string fields...
             foreach (var name in settingCollection.SettingsString.Keys)
             {
-                Control control = this.HostSettingsTabs.FindControlRecursive(name);
+                var control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is TextBox && settingCollection.SettingsString[name].CanWrite)
                 {
@@ -265,7 +265,7 @@ namespace YAF.Pages.Admin
             // handle int fields...
             foreach (var name in settingCollection.SettingsInt.Keys)
             {
-                Control control = this.HostSettingsTabs.FindControlRecursive(name);
+                var control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is TextBox && settingCollection.SettingsInt[name].CanWrite)
                 {
@@ -295,7 +295,7 @@ namespace YAF.Pages.Admin
             // handle double fields...
             foreach (var name in settingCollection.SettingsDouble.Keys)
             {
-                Control control = this.HostSettingsTabs.FindControlRecursive(name);
+                var control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is TextBox && settingCollection.SettingsDouble[name].CanWrite)
                 {
@@ -407,7 +407,7 @@ namespace YAF.Pages.Admin
             // handle checked fields...
             foreach (var name in settingCollection.SettingsBool.Keys)
             {
-                Control control = this.HostSettingsTabs.FindControlRecursive(name);
+                var control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is CheckBox && settingCollection.SettingsBool[name].CanRead)
                 {
@@ -423,7 +423,7 @@ namespace YAF.Pages.Admin
             // handle string fields...
             foreach (var name in settingCollection.SettingsString.Keys)
             {
-                Control control = this.HostSettingsTabs.FindControlRecursive(name);
+                var control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is TextBox && settingCollection.SettingsString[name].CanRead)
                 {
@@ -436,7 +436,7 @@ namespace YAF.Pages.Admin
                 }
                 else if (control is DropDownList && settingCollection.SettingsString[name].CanRead)
                 {
-                    ListItem listItem =
+                    var listItem =
                         ((DropDownList)control).Items.FindByValue(
                             settingCollection.SettingsString[name].GetValue(this.Get<YafBoardSettings>(), null)
                                 .ToString());
@@ -451,7 +451,7 @@ namespace YAF.Pages.Admin
             // handle int fields...
             foreach (var name in settingCollection.SettingsInt.Keys)
             {
-                Control control = this.HostSettingsTabs.FindControlRecursive(name);
+                var control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is TextBox && settingCollection.SettingsInt[name].CanRead)
                 {
@@ -466,7 +466,7 @@ namespace YAF.Pages.Admin
                 }
                 else if (control is DropDownList && settingCollection.SettingsInt[name].CanRead)
                 {
-                    ListItem listItem =
+                    var listItem =
                         ((DropDownList)control).Items.FindByValue(
                             settingCollection.SettingsInt[name].GetValue(this.Get<YafBoardSettings>(), null).ToString());
 
@@ -480,7 +480,7 @@ namespace YAF.Pages.Admin
             // handle double fields...
             foreach (var name in settingCollection.SettingsDouble.Keys)
             {
-                Control control = this.HostSettingsTabs.FindControlRecursive(name);
+                var control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is TextBox && settingCollection.SettingsDouble[name].CanRead)
                 {
@@ -492,7 +492,7 @@ namespace YAF.Pages.Admin
                 }
                 else if (control is DropDownList && settingCollection.SettingsDouble[name].CanRead)
                 {
-                    ListItem listItem =
+                    var listItem =
                         ((DropDownList)control).Items.FindByValue(
                             settingCollection.SettingsDouble[name].GetValue(this.Get<YafBoardSettings>(), null)
                                 .ToString());

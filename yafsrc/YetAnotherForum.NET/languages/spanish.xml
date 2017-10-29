@@ -1143,6 +1143,7 @@
     <Resource tag="GUESTS_VIEW_IRKOO_HELP">Si está seleccionado, los invitados pueden ver la reputación de los miembros.</Resource>
     <Resource tag="HEADER_ADVERTS">Configuración de anuncios</Resource>
     <Resource tag="HEADER_ALBUM">Configuración de álbum</Resource>
+    <Resource tag="HEADER_ATTACHMENTS">Attachments Settings</Resource>
     <Resource tag="HEADER_AVATARS">Configuración de avatar</Resource>
     <Resource tag="HEADER_BOTSPAM">Configuración de bots de spam (Comprobaciones de usuario)</Resource>
     <Resource tag="HEADER_CACHE">Configuración de caché</Resource>
@@ -1281,6 +1282,8 @@
     <Resource tag="NOTIFICATION_MOBILE_HELP">Opción para mostrar ventanas de notificación nativas en dispositivos móviles.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Caducidad de la caché de estado de usuarios online:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Puedes afinarla dependiendo de la actividad de tu sitio (en milisegundos)</Resource>
+    <Resource tag="PM_ATTACHMENTS">Allow attachments in Private Messages</Resource>
+    <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Tamaño de los ficheros de imagen en encuestas:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Tamaño máximo de imágenes en encuestas en kilobytes.</Resource>
     <Resource tag="POLLVOTING_PERIP">Las votaciones de encuestan depende de la IP:</Resource>

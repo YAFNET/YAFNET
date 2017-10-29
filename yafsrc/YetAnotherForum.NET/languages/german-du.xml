@@ -1137,6 +1137,7 @@
     <Resource tag="GROUPS_TEMPLATE_HELP">Vorlage für die Darstellung von Benutzer-Gruppen.</Resource>
     <Resource tag="HEADER_ADVERTS">Werbeeinstellungen</Resource>
     <Resource tag="HEADER_ALBUM">Albumeinstellungen</Resource>
+    <Resource tag="HEADER_ATTACHMENTS">Attachments Settings</Resource>
     <Resource tag="HEADER_AVATARS">Avatar Einstellungen</Resource>
     <Resource tag="HEADER_BOTSPAM">Bot Spam Einstellungen (Benuzterüberprüfung)</Resource>
     <Resource tag="HEADER_CACHE">Speichereinstellungen</Resource>
@@ -1268,6 +1269,8 @@
     <Resource tag="NOTIFICATION_MOBILE_HELP">Option um die Native Benachrichtungs Dialoge zuverwenden anstelle der Benachrichtigungsleiste bzw den Modalen Dialogen.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Online Benutzer Status Speicher Ablaufzeit:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Sie können eine Feinabstimmung je nach der Webseiten Aktivität (in Millisekunden)</Resource>
+    <Resource tag="PM_ATTACHMENTS">Allow attachments in Private Messages</Resource>
+    <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Max. Dateigröße für Benutzer definierte Umfrage Bilder:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Definieren Sie die Maximale Dateigröße in Kilo Bytes.</Resource>
     <Resource tag="POLLVOTING_PERIP">Umfragestimmen Abhängig von IP:</Resource>

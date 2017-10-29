@@ -105,23 +105,6 @@
 
                     </p><hr />
 
-
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="MAX_ATTACHMENTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:TextBox CssClass="form-control" ID="MaxNumberOfAttachments" runat="server"></asp:TextBox>
-
-                    </p><hr />
-
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel8" runat="server" LocalizedTag="MAX_FILESIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:TextBox CssClass="form-control" ID="MaxFileSize" runat="server"></asp:TextBox>
-
-                    </p><hr />
-
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel9" runat="server" LocalizedTag="POSTEDIT_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
@@ -358,6 +341,36 @@
 
                     </p><hr />
                     </asp:PlaceHolder>
+    <h2>
+        <YAF:LocalizedLabel ID="LocalizedLabel43" runat="server" LocalizedTag="HEADER_ATTACHMENTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+    </h2>
+    <hr />
+
+        
+                        
+    <h4>
+        <YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="MAX_ATTACHMENTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+    </h4>
+    <p>
+        <asp:TextBox CssClass="form-control" ID="MaxNumberOfAttachments" runat="server"></asp:TextBox>
+
+    </p><hr />
+        
+    <h4>
+        <YAF:HelpLabel ID="HelpLabel216" runat="server" LocalizedTag="PM_ATTACHMENTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+    </h4>
+    <p>
+        <asp:CheckBox CssClass="form-control" ID="AllowPrivateMessageAttachments" runat="server"></asp:CheckBox>
+
+    </p><hr />
+
+    <h4>
+        <YAF:HelpLabel ID="HelpLabel8" runat="server" LocalizedTag="MAX_FILESIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+    </h4>
+    <p>
+        <asp:TextBox CssClass="form-control" ID="MaxFileSize" runat="server"></asp:TextBox>
+
+    </p><hr />
 
                         <h2>
                             <YAF:LocalizedLabel ID="LocalizedLabel22" runat="server" LocalizedTag="HEADER_IMAGE_ATTACH" LocalizedPage="ADMIN_HOSTSETTINGS" />
