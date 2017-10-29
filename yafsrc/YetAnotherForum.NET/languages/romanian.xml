@@ -5380,6 +5380,7 @@ Vizitati forumul {forumname} la adresa {forumlink}
     <Resource tag="MEMBERS">Membrii</Resource>
     <Resource tag="MEMBERS_TITLE">Opens the Member list page.</Resource>
     <Resource tag="MODERATE">Modereaza</Resource>
+    <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Shows the Moderate Page where you can view unapproved and reported Posts..</Resource>
     <Resource tag="MYALBUMS">Albumele mele</Resource>
     <Resource tag="MYALBUMS_TITLE">Shows the Albums Page which shows all your albums.</Resource>

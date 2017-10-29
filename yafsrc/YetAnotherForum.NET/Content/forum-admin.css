@@ -3771,13 +3771,14 @@ Test out these custom less files live
 
 /*!
  * Datetimepicker for Bootstrap 3
- * version : 4.17.37
+ * version : 4.17.45
  * https://github.com/Eonasdan/bootstrap-datetimepicker/
  */
 .bootstrap-datetimepicker-widget {
   list-style: none; }
 
 .bootstrap-datetimepicker-widget.dropdown-menu {
+  display: block;
   margin: 2px 0;
   padding: 4px;
   width: 19em; }
@@ -3803,7 +3804,7 @@ Test out these custom less files live
 .bootstrap-datetimepicker-widget.dropdown-menu.bottom:before {
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-bottom: 7px solid #cccccc;
+  border-bottom: 7px solid #ccc;
   border-bottom-color: rgba(0, 0, 0, 0.2);
   top: -7px;
   left: 7px; }
@@ -3818,7 +3819,7 @@ Test out these custom less files live
 .bootstrap-datetimepicker-widget.dropdown-menu.top:before {
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-top: 7px solid #cccccc;
+  border-top: 7px solid #ccc;
   border-top-color: rgba(0, 0, 0, 0.2);
   bottom: -7px;
   left: 6px; }
@@ -4078,7 +4079,7 @@ Test out these custom less files live
 .bootstrap-datetimepicker-widget table td.active,
 .bootstrap-datetimepicker-widget table td.active:hover {
   background-color: #337ab7;
-  color: #ffffff;
+  color: #fff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); }
 
 .bootstrap-datetimepicker-widget table td.active.today:before {
@@ -4104,7 +4105,7 @@ Test out these custom less files live
 
 .bootstrap-datetimepicker-widget table td span.active {
   background-color: #337ab7;
-  color: #ffffff;
+  color: #fff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); }
 
 .bootstrap-datetimepicker-widget table td span.old {
@@ -4238,14 +4239,7 @@ Test out these custom less files live
   padding-right: 5px; }
 
 .dropdown-menu > li > a {
-  display: block;
-  padding: 3px 20px;
-  clear: both;
-  font-weight: 400;
-  line-height: 1.42857143;
-  color: #333;
-  white-space: nowrap;
-  font-size: 14px; }
+  color: #333; }
 
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
@@ -4313,28 +4307,6 @@ Test out these custom less files live
   padding: 0 0 0 1rem;
   margin: 0;
   background-color: transparent; }
-
-.navbar-top-links {
-  margin-right: 0; }
-  .navbar-top-links li {
-    display: inline-block; }
-    .navbar-top-links li:last-child {
-      margin-right: 15px; }
-    .navbar-top-links li a {
-      padding: 15px;
-      min-height: 50px; }
-  .navbar-top-links .dropdown-user {
-    right: 0;
-    left: auto; }
-  .navbar-top-links .dropdown-menu li {
-    display: block; }
-    .navbar-top-links .dropdown-menu li:last-child {
-      margin-right: 0; }
-    .navbar-top-links .dropdown-menu li a {
-      padding: 3px 20px;
-      min-height: 0; }
-      .navbar-top-links .dropdown-menu li a div {
-        white-space: normal; }
 
 .sidebar {
   padding: 0;
@@ -4464,4 +4436,7 @@ Test out these custom less files live
 
 .pagination {
   margin-bottom: 0.30rem; }
+
+.dropdown-menu > li > span > a {
+  color: #333; }
 

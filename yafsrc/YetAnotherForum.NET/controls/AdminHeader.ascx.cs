@@ -8,7 +8,7 @@
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
  * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
+ * to you under the Apache License, Version 2.0 (thehttp://localhost:50165/controls/AdminHeader.ascx.cs
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
@@ -89,7 +89,7 @@ namespace YAF.Controls
                 YafBuildLink.Redirect(ForumPages.logout);
             }
 
-            var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
+            var notification = this.PageContext.CurrentForumPage.Notification.ToType<DialogBox>();
 
             notification.Show(
                 this.GetText("TOOLBAR", "LOGOUT_QUESTION"),
@@ -164,6 +164,8 @@ namespace YAF.Controls
         {
             var element = new HtmlGenericControl("li");
 
+            element.Attributes.Add("class", "dropdown-item");
+
             if (linkToolTip.IsNotSet())
             {
                 linkToolTip = linkText;
@@ -182,37 +184,34 @@ namespace YAF.Controls
                 link.Attributes.Add("rel", "nofollow");
             }
 
-            var unreadDiv = new HtmlGenericControl("div");
+            var unreadButton = new HtmlGenericControl("span");
 
             if (showUnread)
             {
-                unreadDiv.Attributes.Add("class", "UnreadBox");
+                element.Controls.Add(unreadButton);
+                unreadButton.Controls.Add(link);
 
-                element.Controls.Add(unreadDiv);
-                unreadDiv.Controls.Add(link);
+                var unreadLabel = new HtmlGenericControl("span");
+
+                unreadLabel.Attributes.Add("class", "badge badge-danger");
+
+                unreadLabel.Attributes.Add("title", unreadText);
+                
+                unreadLabel.InnerText = unread;
+
+                var unreadLabelText = new HtmlGenericControl("span");
+
+                unreadLabelText.Attributes.Add("class", "sr-only");
+
+                unreadLabelText.InnerText = unreadText;
+
+                unreadButton.Controls.Add(unreadLabel);
+
+                unreadButton.Controls.Add(unreadLabelText);
             }
             else
             {
                 element.Controls.Add(link);
-            }
-
-            if (showUnread)
-            {
-                var unreadLabel = new HtmlGenericControl("span");
-
-                unreadLabel.Attributes.Add("class", "Unread");
-
-                var unreadlink = new HyperLink
-                {
-                    Target = "_top",
-                    ToolTip = unreadText,
-                    NavigateUrl = linkUrl,
-                    Text = unread
-                };
-
-                unreadLabel.Controls.Add(unreadlink);
-
-                unreadDiv.Controls.Add(unreadLabel);
             }
 
             holder.Controls.Add(element);
@@ -263,9 +262,9 @@ namespace YAF.Controls
                     this.GetText("TOOLBAR", "MODERATE_TITLE"),
                     YafBuildLink.GetLink(ForumPages.moderate_index),
                     false,
-                    false,
-                    null,
-                    null);
+                    this.PageContext.ModeratePosts > 0,
+                    this.PageContext.ModeratePosts.ToString(),
+                    this.GetText("TOOLBAR", "MODERATE_NEW").FormatWith(this.PageContext.ModeratePosts));
             }
         }
 

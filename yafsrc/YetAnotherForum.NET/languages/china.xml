@@ -5396,6 +5396,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="MEMBERS">会员</Resource>
     <Resource tag="MEMBERS_TITLE">打开会员列表.</Resource>
     <Resource tag="MODERATE">版主审核</Resource>
+    <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Shows the Moderate Page where you can view unapproved and reported Posts..</Resource>
     <Resource tag="MYALBUMS">My Albums</Resource>
     <Resource tag="MYALBUMS_TITLE">Shows the Albums Page which shows all your albums.</Resource>

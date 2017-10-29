@@ -5370,6 +5370,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="MEMBERS">Użytkownicy</Resource>
     <Resource tag="MEMBERS_TITLE">Pokazuje listę użytkowników forum.</Resource>
     <Resource tag="MODERATE">Moderuj</Resource>
+    <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Pokazuje stronę moderacyjną, na której możesz znaleźć listę niezaakceptowanych i zgłoszonych postów...</Resource>
     <Resource tag="MYALBUMS">Moje albumy</Resource>
     <Resource tag="MYALBUMS_TITLE">Pokazuje stronę z listą Twoich albumów.</Resource>

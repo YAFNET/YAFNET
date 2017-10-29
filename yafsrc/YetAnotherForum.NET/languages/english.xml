@@ -5365,13 +5365,14 @@ Visit {forumname} at {forumlink}
   <Resource tag="MEMBERS">Members</Resource>
   <Resource tag="MEMBERS_TITLE">Opens the Member list page.</Resource>
   <Resource tag="MODERATE">Moderate</Resource>
+  <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
   <Resource tag="MODERATE_TITLE">Shows the Moderate Page where you can view unapproved and reported Posts..</Resource>
   <Resource tag="MYALBUMS">My Albums</Resource>
   <Resource tag="MYALBUMS_TITLE">Shows the Albums Page which shows all your albums.</Resource>
   <Resource tag="MYPROFILE">My Profile</Resource>
   <Resource tag="MYPROFILE_TITLE">Shows the User Control Panel.</Resource>
   <Resource tag="MYTOPICS">My Topics</Resource>
-  <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>
+  <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>esource>
   <Resource tag="NEWPM">({0} Unread)</Resource>
   <Resource tag="REGISTER">Register</Resource>
   <Resource tag="REGISTER_CONNECT">or Register a new forum account</Resource>

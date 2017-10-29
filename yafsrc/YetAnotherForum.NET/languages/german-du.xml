@@ -5315,6 +5315,7 @@ Der Bestätigungscode lautet
     <Resource tag="MEMBERS">Mitglieder</Resource>
     <Resource tag="MEMBERS_TITLE">Öffnet die die Mitgliederliste.</Resource>
     <Resource tag="MODERATE">Moderieren</Resource>
+    <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Öffnet die Moderieren Seite wo sie alle Unbestätigten und gemeldeten Beiträge ansehen können.</Resource>
     <Resource tag="MYALBUMS">Meine Alben</Resource>
     <Resource tag="MYALBUMS_TITLE">Öffnet die Alben Seite mit ihren Alben.</Resource>

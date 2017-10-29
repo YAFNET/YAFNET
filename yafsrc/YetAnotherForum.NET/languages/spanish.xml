@@ -5727,6 +5727,7 @@ Visita {forumname} en {forumlink}
     <Resource tag="MEMBERS">Miembros</Resource>
     <Resource tag="MEMBERS_TITLE">Abre la página con el listado de miembros.</Resource>
     <Resource tag="MODERATE">Moderar</Resource>
+    <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Muestra la página de moderación donde puedes ver publicaciones no aprobadas o denunciadas.</Resource>
     <Resource tag="MYALBUMS">Mis álbumes</Resource>
     <Resource tag="MYALBUMS_TITLE">Muestra la página con tus álbums.</Resource>

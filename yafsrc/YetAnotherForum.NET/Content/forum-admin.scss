@@ -31,36 +31,6 @@
      margin:0;
      background-color: transparent;
  }
-.navbar-top-links {
-	margin-right: 0;
-	li {
-		display: inline-block;
-		&:last-child {
-			margin-right: 15px;
-		}
-		a {
-			padding: 15px;
-			min-height: 50px;
-		}
-	}
-	.dropdown-user {
-		right: 0;
-		left: auto;
-	}
-	.dropdown-menu li {
-		display: block;
-		&:last-child {
-			margin-right: 0;
-		}
-		a {
-			padding: 3px 20px;
-			min-height: 0;
-			div {
-				white-space: normal;
-			}
-		}
-	}
-}
 
 
 
@@ -239,4 +209,9 @@
 // pagination
 .pagination {
     margin-bottom: 0.30rem;
+}
+
+// menu dropdown
+.dropdown-menu > li > span > a {
+    color: #333;
 }

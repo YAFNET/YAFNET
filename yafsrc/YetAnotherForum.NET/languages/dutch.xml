@@ -5337,6 +5337,7 @@ Bezoek {forumname} op {forumlink}
     <Resource tag="MEMBERS">Leden</Resource>
     <Resource tag="MEMBERS_TITLE">Laat de Ledenlijst zien.</Resource>
     <Resource tag="MODERATE">Moderatie</Resource>
+    <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Laat de Moderatiepagina zien, waar je gerapporteerde en niet-goedgekeurde berichten kunt zien.</Resource>
     <Resource tag="MYALBUMS">Mijn Albums</Resource>
     <Resource tag="MYALBUMS_TITLE">Laat de Album-pagina met al je albums zien.</Resource>

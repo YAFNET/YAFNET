@@ -5365,6 +5365,7 @@ Password: {password}
     <Resource tag="MEMBERS">Участники</Resource>
     <Resource tag="MEMBERS_TITLE">Просмотр списка участников.</Resource>
     <Resource tag="MODERATE">Модерировать</Resource>
+    <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Посмотреть страницу модератора.</Resource>
     <Resource tag="MYALBUMS">Альбомы</Resource>
     <Resource tag="MYALBUMS_TITLE">Посмотреть страницу альбомов.</Resource>

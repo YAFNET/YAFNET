@@ -5392,6 +5392,7 @@ Password: {password}
     <Resource tag="MEMBERS">Thành viên</Resource>
     <Resource tag="MEMBERS_TITLE">Opens the Member list page.</Resource>
     <Resource tag="MODERATE">Điều hành</Resource>
+    <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Shows the Moderate Page where you can view unapproved and reported Posts..</Resource>
     <Resource tag="MYALBUMS">My Albums</Resource>
     <Resource tag="MYALBUMS_TITLE">Shows the Albums Page which shows all your albums.</Resource>

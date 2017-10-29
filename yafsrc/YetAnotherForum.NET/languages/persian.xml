@@ -5382,6 +5382,7 @@
     <Resource tag="MEMBERS">اعضا</Resource>
     <Resource tag="MEMBERS_TITLE">باز کردن صفحه لیست کاربران</Resource>
     <Resource tag="MODERATE">مدیریت</Resource>
+    <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">نمایش صفحه مدیر زمانی که می توانید موضوعات گزارش شده و تائید نشده را ببینید</Resource>
     <Resource tag="MYALBUMS">آلبوم‌های من</Resource>
     <Resource tag="MYALBUMS_TITLE">نمایش صفحه آلبوم ها برای نمایش تمام آلبوم ها</Resource>

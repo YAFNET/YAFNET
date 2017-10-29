@@ -121,15 +121,6 @@ namespace YAF.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl trLeaveLink;
         
         /// <summary>
-        /// LocalizedLabel11-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel11;
-        
-        /// <summary>
         /// LeavePointer-Steuerelement
         /// </summary>
         /// <remarks>
@@ -137,6 +128,15 @@ namespace YAF.Pages {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox LeavePointer;
+        
+        /// <summary>
+        /// LocalizedLabel11-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel11;
         
         /// <summary>
         /// trLeaveLinkDays-Steuerelement

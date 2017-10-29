@@ -45,19 +45,19 @@ namespace YAF.Core
         #region Constants and Fields
 
         /// <summary>
-        ///   The _init user page.
+        ///   The init user page.
         /// </summary>
-        protected bool _initUserPage;
+        protected bool InitUserPage;
 
         /// <summary>
-        ///   The _page.
+        /// The page
         /// </summary>
-        protected IDictionary<string, object> _page;
+        private IDictionary<string, object> page;
 
         /// <summary>
-        ///   The _user flags.
+        ///   The user flags.
         /// </summary>
-        protected UserFlags _userFlags;
+        private UserFlags userFlags;
 
         #endregion
 
@@ -66,347 +66,162 @@ namespace YAF.Core
         /// <summary>
         ///   Gets a value indicating whether the current user has access to vote on polls in the current BoardVoteAccess (True).
         /// </summary>
-        public bool BoardVoteAccess
-        {
-            get
-            {
-                return this.AccessNotNull("BoardVoteAccess");
-            }
-        }
+        public bool BoardVoteAccess => this.AccessNotNull("BoardVoteAccess");
 
         /// <summary>
         ///   Gets the culture code for the user
         /// </summary>
-        public string CultureUser
-        {
-            get
-            {
-                return this.PageValueAsString("CultureUser");
-            }
-        }
+        public string CultureUser => this.PageValueAsString("CultureUser");
 
         /// <summary>
         ///   Gets a value indicating whether the time zone offset for the user
         /// </summary>
-        public bool DSTUser
-        {
-            get
-            {
-                return this._userFlags != null && this._userFlags.IsDST;
-            }
-        }
+        public bool DSTUser => this.userFlags != null && this.userFlags.IsDST;
 
         /// <summary>
         ///   Gets a value indicating whether the current user can delete own messages in the current forum (True).
         /// </summary>
-        public bool ForumDeleteAccess
-        {
-            get
-            {
-                return this.AccessNotNull("DeleteAccess");
-            }
-        }
+        public bool ForumDeleteAccess => this.AccessNotNull("DeleteAccess");
 
         /// <summary>
         ///   Gets a value indicating whether the current user can download attachments (True).
         /// </summary>
-        public bool ForumDownloadAccess
-        {
-            get
-            {
-                return this.AccessNotNull("DownloadAccess");
-            }
-        }
+        public bool ForumDownloadAccess => this.AccessNotNull("DownloadAccess");
 
         /// <summary>
         ///   Gets a value indicating whether the current user can edit own messages in the current forum (True).
         /// </summary>
-        public bool ForumEditAccess
-        {
-            get
-            {
-                return this.AccessNotNull("EditAccess");
-            }
-        }
+        public bool ForumEditAccess => this.AccessNotNull("EditAccess");
 
         /// <summary>
         ///   Gets a value indicating whether the current user is a moderator of the current forum (True).
         /// </summary>
-        public bool ForumModeratorAccess
-        {
-            get
-            {
-                return this.AccessNotNull("ModeratorAccess");
-            }
-        }
+        public bool ForumModeratorAccess => this.AccessNotNull("ModeratorAccess");
 
         /// <summary>
         ///   Gets a value indicating whether the current user has access to create polls in the current forum (True).
         /// </summary>
-        public bool ForumPollAccess
-        {
-            get
-            {
-                return this.AccessNotNull("PollAccess");
-            }
-        }
+        public bool ForumPollAccess => this.AccessNotNull("PollAccess");
 
         /// <summary>
         ///   Gets a value indicating whether the current user has post access in the current forum (True).
         /// </summary>
-        public bool ForumPostAccess
-        {
-            get
-            {
-                return this.AccessNotNull("PostAccess");
-            }
-        }
+        public bool ForumPostAccess => this.AccessNotNull("PostAccess");
 
         /// <summary>
         ///   Gets a value indicating whether the current user has access to create priority topics in the current forum (True).
         /// </summary>
-        public bool ForumPriorityAccess
-        {
-            get
-            {
-                return this.AccessNotNull("PriorityAccess");
-            }
-        }
+        public bool ForumPriorityAccess => this.AccessNotNull("PriorityAccess");
 
         /// <summary>
         ///   Gets a value indicating whether the current user has read access in the current forum (True)
         /// </summary>
-        public bool ForumReadAccess
-        {
-            get
-            {
-                return this.AccessNotNull("ReadAccess");
-            }
-        }
+        public bool ForumReadAccess => this.AccessNotNull("ReadAccess");
 
         /// <summary>
         ///   Gets a value indicating whether the current user has reply access in the current forum (True)
         /// </summary>
-        public bool ForumReplyAccess
-        {
-            get
-            {
-                return this.AccessNotNull("ReplyAccess");
-            }
-        }
+        public bool ForumReplyAccess => this.AccessNotNull("ReplyAccess");
 
         /// <summary>
         ///   Gets a value indicating whether the current user can upload attachments (True).
         /// </summary>
-        public bool ForumUploadAccess
-        {
-            get
-            {
-                return this.AccessNotNull("UploadAccess");
-            }
-        }
+        public bool ForumUploadAccess => this.AccessNotNull("UploadAccess");
 
         /// <summary>
         ///   Gets a value indicating whether the current user has access to vote on polls in the current forum (True).
         /// </summary>
-        public bool ForumVoteAccess
-        {
-            get
-            {
-                return this.AccessNotNull("VoteAccess");
-            }
-        }
+        public bool ForumVoteAccess => this.AccessNotNull("VoteAccess");
 
         /// <summary>
         ///   Gets a value indicating whether the  current user is an administrator (True).
         /// </summary>
-        public bool IsAdmin
-        {
-            get
-            {
-                return this.IsHostAdmin || this.PageValueAsBool("IsAdmin");
-            }
-        }
+        public bool IsAdmin => this.IsHostAdmin || this.PageValueAsBool("IsAdmin");
 
         /// <summary>
         ///   Gets a value indicating whether the user is excluded from CAPTCHA check (True).
         /// </summary>
-        public bool IsCaptchaExcluded
-        {
-            get
-            {
-                return this._userFlags != null && this._userFlags.IsCaptchaExcluded;
-            }
-        }
+        public bool IsCaptchaExcluded => this.userFlags != null && this.userFlags.IsCaptchaExcluded;
 
         /// <summary>
         ///   Gets a value indicating whether the current user IsCrawler (True).
         /// </summary>
-        public bool IsCrawler
-        {
-            get
-            {
-                return this.AccessNotNull("IsCrawler");
-            }
-        }
+        public bool IsCrawler => this.AccessNotNull("IsCrawler");
 
         /// <summary>
         ///   Gets a value indicating whether the current user is a forum moderator (mini-admin) (True).
         /// </summary>
-        public bool IsForumModerator
-        {
-            get
-            {
-                return this.PageValueAsBool("IsForumModerator");
-            }
-        }
+        public bool IsForumModerator => this.PageValueAsBool("IsForumModerator");
 
         /// <summary>
         ///   Gets a value indicating whether the current user is a guest (True).
         /// </summary>
-        public bool IsGuest
-        {
-            get
-            {
-                return this.PageValueAsBool("IsGuest");
-            }
-        }
+        public bool IsGuest => this.PageValueAsBool("IsGuest");
 
         /// <summary>
         ///   Gets a value indicating whether the current user host admin (True).
         /// </summary>
-        public bool IsHostAdmin
-        {
-            get
-            {
-                return this._userFlags != null && this._userFlags.IsHostAdmin;
-            }
-        }
+        public bool IsHostAdmin => this.userFlags != null && this.userFlags.IsHostAdmin;
 
         /// <summary>
         ///   Gets a value indicating whether the current user uses a mobile device (True).
         /// </summary>
-        public bool IsMobileDevice
-        {
-            get
-            {
-                return this.AccessNotNull("IsMobileDevice");
-            }
-        }
+        public bool IsMobileDevice => this.AccessNotNull("IsMobileDevice");
 
         /// <summary>
         ///   Gets a value indicating whether the current user is a moderator for at least one forum (True);
         /// </summary>
-        public bool IsModeratorInAnyForum
-        {
-            get
-            {
-                return this.PageValueAsBool("IsModerator") || this.PageValueAsBool("IsModeratorAny");
-            }
-        }
+        public bool IsModeratorInAnyForum =>
+            this.PageValueAsBool("IsModerator") || this.PageValueAsBool("IsModeratorAny");
 
         /// <summary>
         ///   Gets a value indicating whether the current user personal data was changed and not handled by a code;
         /// </summary>
-        public bool IsDirty
-        {
-            get
-            {
-                return this.PageValueAsBool("IsDirty");
-            }
-        }
+        public bool IsDirty => this.PageValueAsBool("IsDirty");
 
         /// <summary>
         ///   Gets a value indicating whether the current user is logged in via Facebook
         /// </summary>
-        public bool IsFacebookUser
-        {
-            get
-            {
-                return this.PageValueAsBool("IsFacebookUser");
-            }
-        }
+        public bool IsFacebookUser => this.PageValueAsBool("IsFacebookUser");
 
         /// <summary>
         ///   Gets a value indicating whether the current user is logged in via Twitter
         /// </summary>
-        public bool IsTwitterUser
-        {
-            get
-            {
-                return this.PageValueAsBool("IsTwitterUser");
-            }
-        }
+        public bool IsTwitterUser => this.PageValueAsBool("IsTwitterUser");
 
         /// <summary>
         ///   Gets a value indicating whether the current user is logged in via Google
         /// </summary>
-        public bool IsGoogleUser
-        {
-            get
-            {
-                return this.PageValueAsBool("IsGoogleUser");
-            }
-        }
+        public bool IsGoogleUser => this.PageValueAsBool("IsGoogleUser");
 
         /// <summary>
         ///   Gets a value indicating whether the current user is suspended (True).
         /// </summary>
-        public bool IsSuspended
-        {
-            get
-            {
-                return this.Page != null && this.Page["Suspended"] is DateTime;
-            }
-        }
+        public bool IsSuspended => this.Page?["Suspended"] is DateTime;
 
         /// <summary>
         ///   Gets the language file name for the user
         /// </summary>
-        public string LanguageFile
-        {
-            get
-            {
-                return this.PageValueAsString("LanguageFile");
-            }
-        }
+        public string LanguageFile => this.PageValueAsString("LanguageFile");
 
         /// <summary>
         ///   Gets the number of pending buddy requests.
         /// </summary>
-        public DateTime LastPendingBuddies
-        {
-            get
-            {
-                return this.Page["LastPendingBuddies"].ToString().IsNotSet()
-                           ? DateTimeHelper.SqlDbMinTime()
-                           : Convert.ToDateTime(this.Page["LastPendingBuddies"]);
-            }
-        }
+        public DateTime LastPendingBuddies => this.Page["LastPendingBuddies"].ToString().IsNotSet()
+                                                  ? DateTimeHelper.SqlDbMinTime()
+                                                  : Convert.ToDateTime(this.Page["LastPendingBuddies"]);
 
         /// <summary>
         ///   Gets LastUnreadPm.
         /// </summary>
-        public DateTime LastUnreadPm
-        {
-            get
-            {
-                return this.Page["LastUnreadPm"].ToString().IsNotSet()
-                           ? DateTimeHelper.SqlDbMinTime()
-                           : Convert.ToDateTime(this.Page["LastUnreadPm"]);
-            }
-        }
+        public DateTime LastUnreadPm => this.Page["LastUnreadPm"].ToString().IsNotSet()
+                                            ? DateTimeHelper.SqlDbMinTime()
+                                            : Convert.ToDateTime(this.Page["LastUnreadPm"]);
 
         /// <summary>
         ///   Gets the number of albums which a user already has
         /// </summary>
-        public int NumAlbums
-        {
-            get
-            {
-                return this.Page["NumAlbums"].ToType<int>();
-            }
-        }
+        public int NumAlbums => this.Page["NumAlbums"].ToType<int>();
 
         /// <summary>
         ///   Gets or sets Page.
@@ -415,71 +230,57 @@ namespace YAF.Core
         {
             get
             {
-                if (!this._initUserPage)
+                if (this.InitUserPage)
                 {
-                    if (Monitor.TryEnter(this))
-                    {
-                        try
-                        {
-                            if (!this._initUserPage)
-                            {
-                                this.InitUserAndPage();
-                            }
-                        }
-                        finally
-                        {
-                            Monitor.Exit(this);
-                        }
-                    }
+                    return this.page;
                 }
 
-                return this._page;
+                if (!Monitor.TryEnter(this))
+                {
+                    return this.page;
+                }
+
+                try
+                {
+                    if (!this.InitUserPage)
+                    {
+                        this.InitUserAndPage();
+                    }
+                }
+                finally
+                {
+                    Monitor.Exit(this);
+                }
+
+                return this.page;
             }
 
             set
             {
-                this._page = value;
-                this._initUserPage = value != null;
+                this.page = value;
+                this.InitUserPage = value != null;
 
                 // get user flags
-                this._userFlags = this._page != null ? new UserFlags(this._page["UserFlags"]) : null;
+                this.userFlags = this.page != null ? new UserFlags(this.page["UserFlags"]) : null;
             }
         }
 
         /// <summary>
         ///   Gets PageBoardID.
         /// </summary>
-        public int PageBoardID
-        {
-            get
-            {
-                return YafControlSettings.Current == null ? 1 : YafControlSettings.Current.BoardID;
-            }
-        }
+        public int PageBoardID => YafControlSettings.Current == null ? 1 : YafControlSettings.Current.BoardID;
 
         /// <summary>
         ///   Gets the CategoryID for the current page, or 0 if not in any category
         /// </summary>
-        public int PageCategoryID
-        {
-            get
-            {
-                return YafContext.Current.Settings.CategoryID != 0
-                           ? YafContext.Current.Settings.CategoryID
-                           : this.PageValueAsInt("CategoryID");
-            }
-        }
+        public int PageCategoryID => YafContext.Current.Settings.CategoryID != 0
+                                         ? YafContext.Current.Settings.CategoryID
+                                         : this.PageValueAsInt("CategoryID");
 
         /// <summary>
         ///   Gets the Name of category for the current page, or an empty string if not in any category
         /// </summary>
-        public string PageCategoryName
-        {
-            get
-            {
-                return this.PageValueAsString("CategoryName");
-            }
-        }
+        public string PageCategoryName => this.PageValueAsString("CategoryName");
 
         /// <summary>
         ///   Gets the ForumID for the current page, or 0 if not in any forum
@@ -488,7 +289,7 @@ namespace YAF.Core
         {
             get
             {
-                int isLockedForum = YafContext.Current.Settings.LockedForum;
+                var isLockedForum = YafContext.Current.Settings.LockedForum;
 
                 return isLockedForum != 0 ? isLockedForum : this.PageValueAsInt("ForumID");
             }
@@ -497,167 +298,83 @@ namespace YAF.Core
         /// <summary>
         ///   Gets the Name of forum for the current page, or an empty string if not in any forum
         /// </summary>
-        public string PageForumName
-        {
-            get
-            {
-                return this.PageValueAsString("ForumName");
-            }
-        }
+        public string PageForumName => this.PageValueAsString("ForumName");
 
         /// <summary>
         ///   Gets the  TopicID of the current page, or 0 if not in any topic
         /// </summary>
-        public int PageTopicID
-        {
-            get
-            {
-                return this.PageValueAsInt("TopicID");
-            }
-        }
+        public int PageTopicID => this.PageValueAsInt("TopicID");
 
         /// <summary>
         ///   Gets the Name of topic for the current page, or an empty string if not in any topic
         /// </summary>
-        public string PageTopicName
-        {
-            get
-            {
-                return this.PageValueAsString("TopicName");
-            }
-        }
+        public string PageTopicName => this.PageValueAsString("TopicName");
 
         /// <summary>
         ///   Gets the UserID of the current user.
         /// </summary>
-        public int PageUserID
-        {
-            get
-            {
-                return this.PageValueAsInt("UserID");
-            }
-        }
+        public int PageUserID => this.PageValueAsInt("UserID");
 
         /// <summary>
         ///   Gets PageUserName.
         /// </summary>
-        public string PageUserName
-        {
-            get
-            {
-                return this.PageValueAsString("UserName");
-            }
-        }
+        public string PageUserName => this.PageValueAsString("UserName");
 
         /// <summary>
         ///   Gets the number of pending buddy requests
         /// </summary>
-        public int PendingBuddies
-        {
-            get
-            {
-                return this.Page["PendingBuddies"].ToType<int>();
-            }
-        }
+        public int PendingBuddies => this.Page["PendingBuddies"].ToType<int>();
 
         /// <summary>
         ///   Gets the number of Reputation Points
         /// </summary>
-        public int Reputation
-        {
-            get
-            {
-                return this.Page["Reputation"].ToType<int>();
-            }
-        }
+        public int Reputation => this.Page["Reputation"].ToType<int>();
 
         /// <summary>
         ///   Gets the DateTime the user is suspended until
         /// </summary>
-        public DateTime SuspendedUntil
-        {
-            get
-            {
-                return this.IsSuspended ? this.Page["Suspended"].ToType<DateTime>() : DateTime.UtcNow;
-            }
-        }
+        public DateTime SuspendedUntil =>
+            this.IsSuspended ? this.Page["Suspended"].ToType<DateTime>() : DateTime.UtcNow;
 
         /// <summary>
         ///   Gets the DateTime the user is suspended until
         /// </summary>
-        public string SuspendedReason
-        {
-            get
-            {
-                return this.IsSuspended ? this.Page["SuspendedReason"].ToString() : string.Empty;
-            }
-        }
+        public string SuspendedReason => this.IsSuspended ? this.Page["SuspendedReason"].ToString() : string.Empty;
 
         /// <summary>
         ///   Gets the user text editor
         /// </summary>
-        public string TextEditor
-        {
-            get
-            {
-                return this.PageValueAsString("TextEditor");
-            }
-        }
+        public string TextEditor => this.PageValueAsString("TextEditor");
 
         /// <summary>
         ///   Gets the time zone offset for the user
         /// </summary>
-        public int TimeZoneUser
-        {
-            get
-            {
-                return this.Page["TimeZoneUser"].ToType<int>();
-            }
-        }
+        public int TimeZoneUser => this.Page["TimeZoneUser"].ToType<int>();
 
         /// <summary>
         ///   Gets the number of private messages that are unread
         /// </summary>
-        public int UnreadPrivate
-        {
-            get
-            {
-                return this.Page["UnreadPrivate"].ToType<int>();
-            }
-        }
+        public int UnreadPrivate => this.Page["UnreadPrivate"].ToType<int>();
+
+        /// <summary>
+        ///   Gets the number of posts that needs moderating
+        /// </summary>
+        public int ModeratePosts => this.Page["ModeratePosts"].ToType<int>();
 
         /// <summary>
         ///   Gets a value indicating whether a user has buddies
         /// </summary>
-        public bool UserHasBuddies
-        {
-            get
-            {
-                return this.PageValueAsBool("UserHasBuddies");
-            }
-        }
+        public bool UserHasBuddies => this.PageValueAsBool("UserHasBuddies");
 
         /// <summary>
         ///   Gets the UserStyle for the user
         /// </summary>
-        public string UserStyle
-        {
-            get
-            {
-                return this.PageValueAsString("UserStyle");
-            }
-        }
+        public string UserStyle => this.PageValueAsString("UserStyle");
 
         /// <summary>
         ///   Gets the number of albums which a user can have
         /// </summary>
-        public int UsrAlbums
-        {
-            get
-            {
-                return this.Page["UsrAlbums"].ToType<int>();
-            }
-        }
+        public int UsrAlbums => this.Page["UsrAlbums"].ToType<int>();
 
         #endregion
 
@@ -753,12 +470,7 @@ namespace YAF.Core
         /// </returns>
         private string PageValueAsString(string field)
         {
-            if (this.Page != null && this.Page[field] != null)
-            {
-                return this.Page[field].ToString();
-            }
-
-            return string.Empty;
+            return this.Page?[field] != null ? this.Page[field].ToString() : string.Empty;
         }
 
         #endregion

@@ -30,7 +30,6 @@ namespace YAF.Modules
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
 
     #endregion
 
@@ -45,7 +44,7 @@ namespace YAF.Modules
         /// <summary>
         ///   The _error popup.
         /// </summary>
-        private PopupDialogNotification _errorPopup;
+        private PopupDialogNotification errorPopup;
 
         #endregion
 
@@ -56,7 +55,7 @@ namespace YAF.Modules
         /// </summary>
         public override void InitAfterPage()
         {
-            if (this._errorPopup == null)
+            if (this.errorPopup == null)
             {
                 this.AddErrorPopup();
             }
@@ -105,7 +104,7 @@ namespace YAF.Modules
                 this.ForumControl.Page,
                 "modalNotification",
                 "var fpModal = function() {{ {2}('{0}', '{1}'); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);"
-                    .FormatWith(message.Message, message.MessageType.ToString().ToLower(), this._errorPopup.ShowModalFunction));
+                    .FormatWith(message.Message, message.MessageType.ToString().ToLower(), this.errorPopup.ShowModalFunction));
         }
 
         /// <summary>
@@ -116,17 +115,17 @@ namespace YAF.Modules
             if (this.ForumControl.FindControl("YafForumPageErrorPopup1") == null)
             {
                 // add error control...
-                this._errorPopup = new PopupDialogNotification
+                this.errorPopup = new PopupDialogNotification
                     {
                         ID = "YafForumPageErrorPopup1"
                     };
 
-                this.ForumControl.Controls.Add(this._errorPopup);
+                this.ForumControl.Controls.Add(this.errorPopup);
             }
             else
             {
                 // reference existing control...
-                this._errorPopup = (PopupDialogNotification)this.ForumControl.FindControl("YafForumPageErrorPopup1");
+                this.errorPopup = (PopupDialogNotification)this.ForumControl.FindControl("YafForumPageErrorPopup1");
             }
         }
 

@@ -89,7 +89,7 @@ namespace YAF.Controls
                 YafBuildLink.Redirect(ForumPages.logout);
             }
 
-            var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
+            var notification = this.PageContext.CurrentForumPage.Notification.ToType<DialogBox>();
 
             notification.Show(
                 this.GetText("TOOLBAR", "LOGOUT_QUESTION"),
@@ -97,13 +97,13 @@ namespace YAF.Controls
                 new DialogBox.DialogButton
                     {
                         Text = this.GetText("TOOLBAR", "LOGOUT"),
-                        CssClass = "StandardButton OkButton",
+                        CssClass = "btn btn-primary",
                         ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.logout }
                     },
                 new DialogBox.DialogButton
                     {
                         Text = this.GetText("COMMON", "CANCEL"),
-                        CssClass = "StandardButton CancelButton"
+                        CssClass = "btn btn-secondary"
                     });
         }
 
@@ -159,36 +159,16 @@ namespace YAF.Controls
         /// <summary>
         /// Render Li and a Item
         /// </summary>
-        /// <param name="holder">
-        /// The holder.
-        /// </param>
-        /// <param name="liCssClass">
-        /// The li CSS Class.
-        /// </param>
-        /// <param name="linkCssClass">
-        /// The link CSS Class.
-        /// </param>
-        /// <param name="linkText">
-        /// The link text.
-        /// </param>
-        /// <param name="linkToolTip">
-        /// The link tool tip.
-        /// </param>
-        /// <param name="linkUrl">
-        /// The link URL.
-        /// </param>
-        /// <param name="noFollow">
-        /// Add rel="nofollow" to the link
-        /// </param>
-        /// <param name="showUnread">
-        /// The show unread.
-        /// </param>
-        /// <param name="unread">
-        /// The unread.
-        /// </param>
-        /// <param name="unreadText">
-        /// The unread text.
-        /// </param>
+        /// <param name="holder">The holder.</param>
+        /// <param name="liCssClass">The li CSS Class.</param>
+        /// <param name="linkCssClass">The link CSS Class.</param>
+        /// <param name="linkText">The link text.</param>
+        /// <param name="linkToolTip">The link tool tip.</param>
+        /// <param name="linkUrl">The link URL.</param>
+        /// <param name="noFollow">Add rel="nofollow" to the link</param>
+        /// <param name="showUnread">The show unread.</param>
+        /// <param name="unread">The unread.</param>
+        /// <param name="unreadText">The unread text.</param>
         private static void RenderMenuItem(
             Control holder, string liCssClass, string linkCssClass, string linkText, string linkToolTip, string linkUrl, bool noFollow, bool showUnread, string unread, string unreadText)
         {
@@ -222,37 +202,34 @@ namespace YAF.Controls
                 link.CssClass = linkCssClass;
             }
 
-            var unreadDiv = new HtmlGenericControl("div");
+            var unreadButton = new HtmlGenericControl("span");
 
             if (showUnread)
             {
-                unreadDiv.Attributes.Add("class", "UnreadBox");
+                liElement.Controls.Add(unreadButton);
+                unreadButton.Controls.Add(link);
 
-                liElement.Controls.Add(unreadDiv);
-                unreadDiv.Controls.Add(link);
+                var unreadLabel = new HtmlGenericControl("span");
+
+                unreadLabel.Attributes.Add("class", "badge badge-danger");
+
+                unreadLabel.Attributes.Add("title", unreadText);
+                
+                unreadLabel.InnerText = unread;
+
+                var unreadLabelText = new HtmlGenericControl("span");
+
+                unreadLabelText.Attributes.Add("class", "sr-only");
+
+                unreadLabelText.InnerText = unreadText;
+
+                unreadButton.Controls.Add(unreadLabel);
+
+                unreadButton.Controls.Add(unreadLabelText);
             }
             else
             {
                 liElement.Controls.Add(link);
-            }
-
-            if (showUnread)
-            {
-                var unreadLabel = new HtmlGenericControl("span");
-
-                unreadLabel.Attributes.Add("class", "Unread");
-
-                var unreadlink = new HyperLink
-                {
-                    Target = "_top",
-                    ToolTip = unreadText,
-                    NavigateUrl = linkUrl,
-                    Text = unread
-                };
-
-                unreadLabel.Controls.Add(unreadlink);
-
-                unreadDiv.Controls.Add(unreadLabel);
             }
 
             holder.Controls.Add(liElement);
@@ -355,9 +332,9 @@ namespace YAF.Controls
                     this.GetText("TOOLBAR", "MODERATE_TITLE"),
                     YafBuildLink.GetLink(ForumPages.moderate_index),
                     false,
-                    false,
-                    null,
-                    null);
+                    this.PageContext.ModeratePosts > 0,
+                    this.PageContext.ModeratePosts.ToString(),
+                    this.GetText("TOOLBAR", "MODERATE_NEW").FormatWith(this.PageContext.ModeratePosts));
             }
         }
 
@@ -591,10 +568,11 @@ namespace YAF.Controls
             }
 
             var unread = this.PageContext.UnreadPrivate > 0 || this.PageContext.PendingBuddies > 0/* ||
-                          this.PageContext.UnreadTopics > 0*/;
+                          this.PageContext.UnreadTopics > 0*/
+                ;
 
-            // My Topics
-            RenderMenuItem(
+                // My Topics
+                RenderMenuItem(
                 this.MyTopicItem,
                 "menuMy myTopics",
                 null,

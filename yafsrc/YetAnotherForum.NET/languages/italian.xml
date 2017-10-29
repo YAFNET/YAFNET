@@ -5408,6 +5408,7 @@ Visita il forum {forumname} su {forumlink}
     <Resource tag="MEMBERS">Utenti</Resource>
     <Resource tag="MEMBERS_TITLE">Apri l'elenco utenti.</Resource>
     <Resource tag="MODERATE">Moderazione</Resource>
+    <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Mostra la pagina di moderazione dove si possono visualizzare i messaggi non approvati e segnalati.</Resource>
     <Resource tag="MYALBUMS">Album</Resource>
     <Resource tag="MYALBUMS_TITLE">Mostra la pagina dei tuoi album.</Resource>
