@@ -328,7 +328,7 @@ namespace YAF.Core
         /// </summary>
         protected override void InitUserAndPage()
         {
-            if (this._initUserPage)
+            if (this.InitUserPage)
             {
                 return;
             }
