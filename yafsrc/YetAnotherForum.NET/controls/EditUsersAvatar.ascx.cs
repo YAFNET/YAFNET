@@ -29,7 +29,6 @@ namespace YAF.Controls
     using System;
     using System.Data;
     using System.Drawing;
-    using System.Drawing.Imaging;
     using System.IO;
     using System.Security.Cryptography;
     using System.Text;
@@ -58,7 +57,7 @@ namespace YAF.Controls
         /// <summary>
         ///   The current user id.
         /// </summary>
-        private int _currentUserID;
+        private int currentUserId;
 
         #endregion
 
@@ -81,10 +80,10 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void DeleteAvatar_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            LegacyDb.user_deleteavatar(this._currentUserID);
+            LegacyDb.user_deleteavatar(this.currentUserId);
 
             // clear the cache for this user...
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this._currentUserID));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
             this.BindData();
         }
 
@@ -99,11 +98,11 @@ namespace YAF.Controls
 
             if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
             {
-                this._currentUserID = this.PageContext.QueryIDs["u"].ToType<int>();
+                this.currentUserId = this.PageContext.QueryIDs["u"].ToType<int>();
             }
             else
             {
-                this._currentUserID = this.PageContext.PageUserID;
+                this.currentUserId = this.PageContext.PageUserID;
             }
 
             if (this.IsPostBack)
@@ -116,7 +115,7 @@ namespace YAF.Controls
             {
                 // save the avatar right now...
                 LegacyDb.user_saveavatar(
-                    this._currentUserID,
+                    this.currentUserId,
                     "{0}{1}".FormatWith(
                         BaseUrlBuilder.BaseUrl,
                         this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("av")),
@@ -124,7 +123,7 @@ namespace YAF.Controls
                     null);
 
                 // clear the cache for this user...
-                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this._currentUserID));
+                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
             }
 
             this.UpdateRemote.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "UPDATE"));
@@ -137,10 +136,10 @@ namespace YAF.Controls
             this.DeleteAvatar.Attributes["onclick"] =
                 "return confirm('{0}?')".FormatWith(this.GetText("CP_EDITAVATAR", "AVATARDELETE"));
 
-            string addAdminParam = string.Empty;
+            var addAdminParam = string.Empty;
             if (this.PageContext.CurrentForumPage.IsAdminPage)
             {
-                addAdminParam = "u={0}".FormatWith(this._currentUserID);
+                addAdminParam = "u={0}".FormatWith(this.currentUserId);
             }
 
             this.OurAvatar.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.avatar, addAdminParam);
@@ -173,10 +172,10 @@ namespace YAF.Controls
             }
 
             // update
-            LegacyDb.user_saveavatar(this._currentUserID, this.Avatar.Text.Trim(), null, null);
+            LegacyDb.user_saveavatar(this.currentUserId, this.Avatar.Text.Trim(), null, null);
 
             // clear the cache for this user...
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this._currentUserID));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
 
             // clear the URL out...
             this.Avatar.Text = string.Empty;
@@ -199,13 +198,13 @@ namespace YAF.Controls
 
             long x = this.Get<YafBoardSettings>().AvatarWidth;
             long y = this.Get<YafBoardSettings>().AvatarHeight;
-            int nAvatarSize = this.Get<YafBoardSettings>().AvatarSize;
+            var avatarSize = this.Get<YafBoardSettings>().AvatarSize;
 
             Stream resized = null;
 
             try
             {
-                using (Image img = Image.FromStream(this.File.PostedFile.InputStream))
+                using (var img = Image.FromStream(this.File.PostedFile.InputStream))
                 {
                     if (img.Width > x || img.Height > y)
                     {
@@ -220,7 +219,7 @@ namespace YAF.Controls
                 }
 
                 // Delete old first...
-                LegacyDb.user_deleteavatar(this._currentUserID);
+                LegacyDb.user_deleteavatar(this.currentUserId);
 
                 if (this.Get<YafBoardSettings>().UseFileTable)
                 {
@@ -230,7 +229,7 @@ namespace YAF.Controls
                     image.Save(memoryStream, image.RawFormat);
                     memoryStream.Position = 0;
 
-                    LegacyDb.user_saveavatar(this._currentUserID, null, memoryStream, this.File.PostedFile.ContentType);
+                    LegacyDb.user_saveavatar(this.currentUserId, null, memoryStream, this.File.PostedFile.ContentType);
                 }
                 else
                 {
@@ -246,7 +245,8 @@ namespace YAF.Controls
 
                     var fileName = this.File.PostedFile.FileName;
 
-                    int pos = fileName.LastIndexOfAny(new[] { '/', '\\' });
+                    var pos = fileName.LastIndexOfAny(new[] { '/', '\\' });
+
                     if (pos >= 0)
                     {
                         fileName = fileName.Substring(pos + 1);
@@ -258,7 +258,7 @@ namespace YAF.Controls
                         fileName = fileName.Substring(fileName.Length - 255);
                     }
 
-                    var newFileName = "{0}{1}".FormatWith(this._currentUserID, Path.GetExtension(fileName));
+                    var newFileName = "{0}{1}".FormatWith(this.currentUserId, Path.GetExtension(fileName));
 
                     var filePath = Path.Combine(uploadFolderPath, newFileName);
 
@@ -270,33 +270,33 @@ namespace YAF.Controls
 
                     var avatarImage = Image.FromStream(resized ?? this.File.PostedFile.InputStream);
 
-                    using (MemoryStream memory = new MemoryStream())
+                    using (var memory = new MemoryStream())
                     {
-                        using (FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite))
+                        using (var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite))
                         {
                             avatarImage.Save(memory, avatarImage.RawFormat);
-                            byte[] bytes = memory.ToArray();
+                            var bytes = memory.ToArray();
                             fs.Write(bytes, 0, bytes.Length);
                         }
                     }
 
                     LegacyDb.user_saveavatar(
-                        this._currentUserID,
+                        this.currentUserId,
                         "{0}{1}/{2}".FormatWith(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Uploads, newFileName),
                         null,
                         null);
-
                 }
 
                 // clear the cache for this user...
-                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this._currentUserID));
+                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
 
-                if (nAvatarSize > 0 && this.File.PostedFile.ContentLength >= nAvatarSize && resized == null)
+                if (avatarSize > 0 && this.File.PostedFile.ContentLength >= avatarSize && resized == null)
                 {
                     this.PageContext.AddLoadMessage(
                         "{0} {1}".FormatWith(
-                            this.GetTextFormatted("WARN_BIGFILE", nAvatarSize),
-                            this.GetTextFormatted("WARN_FILESIZE", this.File.PostedFile.ContentLength)));
+                            this.GetTextFormatted("WARN_BIGFILE", avatarSize),
+                            this.GetTextFormatted("WARN_FILESIZE", this.File.PostedFile.ContentLength)),
+                        MessageTypes.warning);
                 }
 
                 this.BindData();
@@ -312,7 +312,7 @@ namespace YAF.Controls
                         exception);
 
                 // image is probably invalid...
-                this.PageContext.AddLoadMessage(this.GetText("CP_EDITAVATAR", "INVALID_FILE"));
+                this.PageContext.AddLoadMessage(this.GetText("CP_EDITAVATAR", "INVALID_FILE"), MessageTypes.danger);
             }
         }
 
@@ -323,7 +323,7 @@ namespace YAF.Controls
         {
             DataRow row;
 
-            using (DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, this._currentUserID, null))
+            using (var dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.currentUserId, null))
             {
                 row = dt.Rows[0];
             }
@@ -338,7 +338,7 @@ namespace YAF.Controls
             {
                 this.AvatarImg.ImageUrl = "{0}resource.ashx?u={1}&v={2}".FormatWith(
                     YafForumInfo.ForumClientFileRoot,
-                    this._currentUserID,
+                    this.currentUserId,
                     DateTime.Now.Ticks);
                 this.Avatar.Text = string.Empty;
                 this.DeleteAvatar.Visible = true;
@@ -360,17 +360,17 @@ namespace YAF.Controls
             else if (this.Get<YafBoardSettings>().AvatarGravatar)
             {
                 var x = new MD5CryptoServiceProvider();
-                byte[] bs = Encoding.UTF8.GetBytes(this.PageContext.User.Email);
+                var bs = Encoding.UTF8.GetBytes(this.PageContext.User.Email);
                 bs = x.ComputeHash(bs);
                 var s = new StringBuilder();
-                foreach (byte b in bs)
+                foreach (var b in bs)
                 {
                     s.Append(b.ToString("x2").ToLower());
                 }
 
-                string emailHash = s.ToString();
+                var emailHash = s.ToString();
 
-                string gravatarUrl = "http://www.gravatar.com/avatar/{0}.jpg?r={1}".FormatWith(
+                var gravatarUrl = "http://www.gravatar.com/avatar/{0}.jpg?r={1}".FormatWith(
                     emailHash,
                     this.Get<YafBoardSettings>().GravatarRating);
 
