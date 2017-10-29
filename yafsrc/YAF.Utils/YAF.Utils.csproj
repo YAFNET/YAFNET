@@ -82,6 +82,7 @@
     <Compile Include="Helpers\ImageUtils\GetImageParameters.cs" />
     <Compile Include="Helpers\IPHelper.cs" />
     <Compile Include="Helpers\JsAndCssHelper.cs" />
+    <Compile Include="Helpers\PmViewConverter.cs" />
     <Compile Include="Helpers\QueryStringIDHelper.cs" />
     <Compile Include="Helpers\MinifyUtils\JSMinify.cs" />
     <Compile Include="Helpers\StringUtils\Characters.cs" />
