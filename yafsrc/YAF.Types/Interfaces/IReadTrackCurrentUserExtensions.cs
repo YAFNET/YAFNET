@@ -30,6 +30,7 @@ namespace YAF.Types.Interfaces
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Runtime.CompilerServices;
 
     #endregion
 
@@ -43,23 +44,12 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// The get forum topic read.
         /// </summary>
-        /// <param name="readTrackCurrentUser">
-        /// The read track current user.
-        /// </param>
-        /// <param name="forumId">
-        /// The forum id.
-        /// </param>
-        /// <param name="topicId">
-        /// The topic id.
-        /// </param>
-        /// <param name="forumReadOverride">
-        /// The forum read override.
-        /// </param>
-        /// <param name="topicReadOverride">
-        /// The topic read override.
-        /// </param>
-        /// <returns>
-        /// </returns>
+        /// <param name="readTrackCurrentUser">The read track current user.</param>
+        /// <param name="forumId">The forum id.</param>
+        /// <param name="topicId">The topic id.</param>
+        /// <param name="forumReadOverride">The forum read override.</param>
+        /// <param name="topicReadOverride">The topic read override.</param>
+        /// <returns></returns>
         public static DateTime GetForumTopicRead(
             this IReadTrackCurrentUser readTrackCurrentUser,
             int forumId,
@@ -71,6 +61,7 @@ namespace YAF.Types.Interfaces
 
             DateTime lastRead = readTrackCurrentUser.GetTopicRead(topicId, topicReadOverride);
             DateTime lastReadForum = readTrackCurrentUser.GetForumRead(forumId, forumReadOverride);
+
 
             if (lastReadForum > lastRead)
             {

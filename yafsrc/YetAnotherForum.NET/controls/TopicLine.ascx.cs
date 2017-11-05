@@ -221,8 +221,8 @@ namespace YAF.Controls
         {
             if (lastPosted > DateTime.Now.AddDays(-this.Get<YafBoardSettings>().PopularTopicDays))
             {
-                return (row["Replies"].ToType<int>() >= this.Get<YafBoardSettings>().PopularTopicReplys)
-                       || (row["Views"].ToType<int>() >= this.Get<YafBoardSettings>().PopularTopicViews);
+                return row["Replies"].ToType<int>() >= this.Get<YafBoardSettings>().PopularTopicReplys
+                       || row["Views"].ToType<int>() >= this.Get<YafBoardSettings>().PopularTopicViews;
             }
 
             return false;

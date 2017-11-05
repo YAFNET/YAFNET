@@ -24,65 +24,63 @@
 
 namespace YAF.Types.Interfaces
 {
-	#region Using
+    #region Using
 
-	using System;
+    using System;
 
-	#endregion
+    #endregion
 
-	/// <summary>
-	/// Read Tracking Interface for the Current User
-	/// </summary>
-	public interface IReadTrackCurrentUser
-	{
-		#region Public Methods
+    /// <summary>
+    /// Read Tracking Interface for the Current User
+    /// </summary>
+    public interface IReadTrackCurrentUser
+    {
+        #region Public Methods
 
-		/// <summary>
-		/// Returns the last time that the forum was read or marked as Read.
-		/// </summary>
-		/// <param name="forumID">
-		/// The forum ID of the Forum 
-		/// </param>
-		/// <returns>
-		/// Returns the DateTime object from the Forum ID. 
-		/// </returns>
-		DateTime GetForumRead(int forumID, DateTime? readTimeOverride = null);
+        /// <summary>
+        /// Returns the last time that the forum was read or marked as Read.
+        /// </summary>
+        /// <param name="forumID">The forum ID of the Forum</param>
+        /// <param name="readTimeOverride">The read time override.</param>
+        /// <returns>
+        /// Returns the DateTime object from the Forum ID.
+        /// </returns>
+        DateTime GetForumRead(int forumID, DateTime? readTimeOverride = null);
 
-		/// <summary>
-		/// Returns the last time that the Topic was read.
-		/// </summary>
-		/// <param name="topicID">
-		/// The topicID you wish to find the DateTime object for. 
-		/// </param>
-		/// <returns>
-		/// Returns the DateTime object from the topicID. 
-		/// </returns>
-		DateTime GetTopicRead(int topicID, DateTime? readTimeOverride = null);
+        /// <summary>
+        /// Returns the last time that the Topic was read.
+        /// </summary>
+        /// <param name="topicID">The topicID you wish to find the DateTime object for.</param>
+        /// <param name="readTimeOverride">The read time override.</param>
+        /// <returns>
+        /// Returns the DateTime object from the topicID.
+        /// </returns>
+        DateTime GetTopicRead(int topicID, DateTime? readTimeOverride = null);
 
-		/// <summary>
-		/// Get the Global Last Read DateTime a user Reads a topic or marks a forum as read
-		/// </summary>
-		/// <returns>
-		/// Returns the DateTime object with the last read date. 
-		/// </returns>
-		DateTime LastRead { get; }
+        /// <summary>
+        /// Get the Global Last Read DateTime a user Reads a topic or marks a forum as read
+        /// </summary>
+        /// <value>
+        /// The last read.
+        /// </value>
+        DateTime LastRead { get; }
 
-		/// <summary>
-		/// Add Or Update The Forum Read DateTime
-		/// </summary>
-		/// <param name="forumID">
-		/// The forum ID of the Forum 
-		/// </param>
-		void SetForumRead(int forumID);
+        /// <summary>
+        /// Add Or Update The Forum Read DateTime
+        /// </summary>
+        /// <param name="forumID">
+        /// The forum ID of the Forum 
+        /// </param>
+        void SetForumRead(int forumID);
 
-		/// <summary>
-		/// Add Or Update The topic Read DateTime
-		/// </summary>
-		/// <param name="topicID">
-		/// The topic id to mark read.
-		/// </param>
-		void SetTopicRead(int topicID);
+        /// <summary>
+        /// Add Or Update The topic Read DateTime
+        /// </summary>
+        /// <param name="topicID">
+        /// The topic id to mark read.
+        /// </param>
+        void SetTopicRead(int topicID);
 
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -27,7 +27,6 @@ namespace YAF.Core.Services
     #region Using
 
     using System;
-    using System.Collections;
     using System.Web;
 
     using YAF.Classes;
@@ -35,7 +34,6 @@ namespace YAF.Core.Services
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Utils.Helpers;
 
@@ -44,53 +42,28 @@ namespace YAF.Core.Services
     /// <summary>
     ///     YAF Read Tracking Methods
     /// </summary>
-    public class YafReadTrackCurrentUser : IReadTrackCurrentUser
+    public class YafReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
     {
         #region Fields
 
         /// <summary>
-        ///     The _board settings.
+        ///     The session state.
         /// </summary>
-        private readonly YafBoardSettings _boardSettings;
-
-        private readonly IRepository<ForumReadTracking> _forumReadRepository;
-
-        /// <summary>
-        ///     The _session state.
-        /// </summary>
-        private readonly HttpSessionStateBase _sessionState;
-
-        private readonly IRepository<TopicReadTracking> _topicReadRepository;
-
-        /// <summary>
-        ///     The _yaf session.
-        /// </summary>
-        private readonly IYafSession _yafSession;
+        private readonly HttpSessionStateBase sessionState;
 
         #endregion
 
         #region Constructors and Destructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="YafReadTrackCurrentUser" /> class. The yaf read track current user.
+        /// Initializes a new instance of the <see cref="YafReadTrackCurrentUser" /> class. The yaf read track current user.
         /// </summary>
-        /// <param name="yafSession">The yaf session.</param>
-        /// <param name="boardSettings">The board settings.</param>
+        /// <param name="serviceLocator">The service locator.</param>
         /// <param name="sessionState">The session State.</param>
-        /// <param name="forumReadRepository"></param>
-        /// <param name="topicReadRepository"></param>
-        public YafReadTrackCurrentUser(
-            IYafSession yafSession,
-            YafBoardSettings boardSettings,
-            HttpSessionStateBase sessionState,
-            IRepository<ForumReadTracking> forumReadRepository,
-            IRepository<TopicReadTracking> topicReadRepository)
+        public YafReadTrackCurrentUser(IServiceLocator serviceLocator, HttpSessionStateBase sessionState)
         {
-            this._yafSession = yafSession;
-            this._boardSettings = boardSettings;
-            this._sessionState = sessionState;
-            this._forumReadRepository = forumReadRepository;
-            this._topicReadRepository = topicReadRepository;
+            this.ServiceLocator = serviceLocator;
+            this.sessionState = sessionState;
         }
 
         #endregion
@@ -104,17 +77,17 @@ namespace YAF.Core.Services
         {
             get
             {
-                DateTime? lastRead = this._sessionState["LastRead"] == null
-                                         ? null
-                                         : this._sessionState["LastRead"].ToType<DateTime?>();
+                var lastRead = this.sessionState["LastRead"] == null
+                                   ? null
+                                   : this.sessionState["LastRead"].ToType<DateTime?>();
 
-                if (!lastRead.HasValue && this._boardSettings.UseReadTrackingByDatabase && !this.IsGuest)
+                if (!lastRead.HasValue && this.UseDatabaseReadTracking)
                 {
-                    lastRead = LegacyDb.User_LastRead(this.CurrentUserID);
+                    lastRead = LegacyDb.User_LastRead(this.CurrentUserId);
                 }
                 else
                 {
-                    lastRead = this._yafSession.LastVisit;
+                    lastRead = this.Get<IYafSession>().LastVisit;
                 }
 
                 return lastRead ?? DateTimeHelper.SqlDbMinTime();
@@ -126,9 +99,14 @@ namespace YAF.Core.Services
         #region Properties
 
         /// <summary>
+        /// Gets or sets ServiceLocator.
+        /// </summary>
+        public IServiceLocator ServiceLocator { get; set; }
+
+        /// <summary>
         ///     Gets the current user id.
         /// </summary>
-        protected int CurrentUserID
+        protected int CurrentUserId
         {
             get
             {
@@ -150,6 +128,20 @@ namespace YAF.Core.Services
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether [use database read tracking].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [use database read tracking]; otherwise, <c>false</c>.
+        /// </value>
+        protected bool UseDatabaseReadTracking
+        {
+            get
+            {
+                return this.Get<YafBoardSettings>().UseReadTrackingByDatabase && !this.IsGuest;
+            }
+        }
+
         #endregion
 
         #region Public Methods and Operators
@@ -157,37 +149,36 @@ namespace YAF.Core.Services
         /// <summary>
         ///     The get forum read.
         /// </summary>
-        /// <param name="forumID">The forum ID of the Forum</param>
+        /// <param name="forumId">The forum ID of the Forum</param>
         /// <param name="readTimeOverride">The read Time Override.</param>
         /// <returns>
         ///     Returns the DateTime object from the Forum ID.
         /// </returns>
-        public DateTime GetForumRead(int forumID, DateTime? readTimeOverride = null)
+        public DateTime GetForumRead(int forumId, DateTime? readTimeOverride = null)
         {
-            DateTime? readTime = this.GetSessionForumRead(forumID);
+            DateTime? readTime;
 
-            if (!readTime.HasValue)
+            if (this.UseDatabaseReadTracking)
             {
-                if (this._boardSettings.UseReadTrackingByDatabase && !this.IsGuest)
+                if (readTimeOverride.HasValue)
                 {
-                    if (readTimeOverride.HasValue)
-                    {
-                        // use it if it's not the min value...
-                        if (readTimeOverride.Value != DateTimeHelper.SqlDbMinTime())
-                        {
-                            readTime = readTimeOverride.Value;
-                        }
-                    }
-                    else
-                    {
-                        // last option is to load from the forum...
-                        readTime = this._forumReadRepository.Lastread(this.CurrentUserID, forumID);
-                    }
-
-                    // save value in session so that the db doesn't get called again...
-                    this._yafSession.SetForumRead(forumID, readTime ?? DateTimeHelper.SqlDbMinTime());
+                    // use it if it's not the min value...
+                    readTime = readTimeOverride.Value > DateTimeHelper.SqlDbMinTime()
+                                   ? readTimeOverride.Value
+                                   : this.GetRepository<ForumReadTracking>().Lastread(this.CurrentUserId, forumId);
                 }
                 else
+                {
+                    readTime = this.GetRepository<ForumReadTracking>().Lastread(this.CurrentUserId, forumId);
+                }
+            }
+            else
+            {
+                this.Get<ILogger>().Info("3");
+
+                readTime = this.GetSessionForumRead(forumId);
+
+                if (!readTime.HasValue)
                 {
                     // use the last visit...
                     readTime = this.LastRead;
@@ -200,39 +191,37 @@ namespace YAF.Core.Services
         /// <summary>
         ///     The get topic read.
         /// </summary>
-        /// <param name="topicID">The topicID you wish to find the DateTime object for.</param>
+        /// <param name="topicId">The topicID you wish to find the DateTime object for.</param>
         /// <param name="readTimeOverride">The read Time Override.</param>
         /// <returns>
         ///     Returns the DateTime object from the topicID.
         /// </returns>
-        public DateTime GetTopicRead(int topicID, DateTime? readTimeOverride = null)
+        public DateTime GetTopicRead(int topicId, DateTime? readTimeOverride = null)
         {
-            DateTime? readTime = this.GetSessionTopicRead(topicID);
+            DateTime? readTime;
 
-            if (!readTime.HasValue)
+            if (this.UseDatabaseReadTracking)
             {
-                if (this._boardSettings.UseReadTrackingByDatabase && !this.IsGuest)
+                if (readTimeOverride.HasValue)
                 {
-                    if (readTimeOverride.HasValue)
-                    {
-                        // use it if it's not the min value...
-                        if (readTimeOverride.Value != DateTimeHelper.SqlDbMinTime())
-                        {
-                            readTime = readTimeOverride.Value;
-                        }
-                    }
-                    else
-                    {
-                        // last option is to load from the forum...
-                        readTime = this._topicReadRepository.Lastread(this.CurrentUserID, topicID);
-                    }
-
-                    // save value in session so that the db doesn't get called again...
-                    this._yafSession.SetTopicRead(topicID, readTime ?? DateTimeHelper.SqlDbMinTime());
+                    // use it if it's not the min value...
+                    readTime = readTimeOverride.Value > DateTimeHelper.SqlDbMinTime()
+                                   ? readTimeOverride.Value
+                                   : this.GetRepository<TopicReadTracking>().Lastread(this.CurrentUserId, topicId);
                 }
                 else
                 {
-                    // use last visit...
+                    // last option is to load from the forum...
+                    readTime = this.GetRepository<TopicReadTracking>().Lastread(this.CurrentUserId, topicId);
+                }
+            }
+            else
+            {
+                readTime = this.GetSessionTopicRead(topicId);
+
+                if (!readTime.HasValue)
+                {
+                    // use the last visit...
                     readTime = this.LastRead;
                 }
             }
@@ -243,29 +232,33 @@ namespace YAF.Core.Services
         /// <summary>
         ///     The set forum read.
         /// </summary>
-        /// <param name="forumID">The forum ID of the Forum</param>
-        public void SetForumRead(int forumID)
+        /// <param name="forumId">The forum ID of the Forum</param>
+        public void SetForumRead(int forumId)
         {
-            if (this._boardSettings.UseReadTrackingByDatabase && !this.IsGuest)
+            if (this.UseDatabaseReadTracking)
             {
-                this._forumReadRepository.AddOrUpdate(this.CurrentUserID, forumID);
+                this.GetRepository<ForumReadTracking>().AddOrUpdate(this.CurrentUserId, forumId);
             }
-
-            this._yafSession.SetForumRead(forumID, DateTime.UtcNow);
+            else
+            {
+                this.Get<IYafSession>().SetForumRead(forumId, DateTime.UtcNow);
+            }
         }
 
         /// <summary>
         ///     The set topic read.
         /// </summary>
-        /// <param name="topicID">The topic id to mark read.</param>
-        public void SetTopicRead(int topicID)
+        /// <param name="topicId">The topic id to mark read.</param>
+        public void SetTopicRead(int topicId)
         {
-            if (this._boardSettings.UseReadTrackingByDatabase && !this.IsGuest)
+            if (this.UseDatabaseReadTracking)
             {
-                this._topicReadRepository.AddOrUpdate(this.CurrentUserID, topicID);
+                this.GetRepository<TopicReadTracking>().AddOrUpdate(this.CurrentUserId, topicId);
             }
-
-            this._yafSession.SetTopicRead(topicID, DateTime.UtcNow);
+            else
+            {
+                this.Get<IYafSession>().SetTopicRead(topicId, DateTime.UtcNow);
+            }
         }
 
         #endregion
@@ -281,7 +274,7 @@ namespace YAF.Core.Services
         /// </returns>
         private DateTime? GetSessionForumRead(int forumId)
         {
-            Hashtable forumReadHashtable = this._yafSession.ForumRead;
+            var forumReadHashtable = this.Get<IYafSession>().ForumRead;
 
             if (forumReadHashtable != null && forumReadHashtable.ContainsKey(forumId))
             {
@@ -300,7 +293,7 @@ namespace YAF.Core.Services
         /// </returns>
         private DateTime? GetSessionTopicRead(int topicId)
         {
-            Hashtable topicReadHashtable = this._yafSession.TopicRead;
+            var topicReadHashtable = this.Get<IYafSession>().TopicRead;
 
             if (topicReadHashtable != null && topicReadHashtable.ContainsKey(topicId))
             {
