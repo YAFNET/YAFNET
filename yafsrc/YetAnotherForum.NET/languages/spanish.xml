@@ -5035,6 +5035,8 @@ public class Hello1
     <Resource tag="TOGGLEUSERPOSTS_HIDE">Oculta mensajes de usuario</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Muestra mensajes de usuario</Resource>
     <Resource tag="TOP">Volver arriba</Resource>
+    <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
+    <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>
     <Resource tag="TOPICBROWSERS">Usuarios navegando este tema</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="TUMBLR_TOPIC">Compartir en Tumblr</Resource>

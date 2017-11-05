@@ -4678,6 +4678,8 @@ Spoiler Content
     <Resource tag="TOGGLEUSERPOSTS_HIDE">Hide User Posts</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Show User Posts</Resource>
     <Resource tag="TOP">Til toppen</Resource>
+    <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
+    <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>
     <Resource tag="TOPICBROWSERS">Brukere av dette temaet</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="TUMBLR_TOPIC">Share on Tumblr</Resource>

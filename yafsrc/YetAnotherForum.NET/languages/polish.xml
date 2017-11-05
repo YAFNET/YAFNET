@@ -4676,6 +4676,8 @@ Spoiler Content
     <Resource tag="TOGGLEUSERPOSTS_HIDE">Ukryj posty użytkownika</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Pokaż posty użytkownika</Resource>
     <Resource tag="TOP">Powrót do początku</Resource>
+    <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
+    <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>
     <Resource tag="TOPICBROWSERS">Użytkownicy przeglądający ten temat</Resource>
     <Resource tag="TOTAL">Łącznie</Resource>
     <Resource tag="TUMBLR_TOPIC">Podziel się na Tumblr</Resource>

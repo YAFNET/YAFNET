@@ -4700,6 +4700,8 @@ Spoiler Content
     <Resource tag="TOGGLEUSERPOSTS_HIDE">Skjul bruger indlæg</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Vis bruger indlæg</Resource>
     <Resource tag="TOP">Tilbage til toppen</Resource>
+    <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
+    <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>
     <Resource tag="TOPICBROWSERS">Brugere som besøger dette emne nu:</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="TUMBLR_TOPIC">Share on Tumblr</Resource>

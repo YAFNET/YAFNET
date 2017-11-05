@@ -4642,6 +4642,8 @@ Spoiler Inhoud
     <Resource tag="TOGGLEUSERPOSTS_HIDE">Verberg posts van gebruiker</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Laat Posts van gebruiker zien</Resource>
     <Resource tag="TOP">Terug naar boven</Resource>
+    <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
+    <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>
     <Resource tag="TOPICBROWSERS">Gebruikers aanwezig in dit topic</Resource>
     <Resource tag="TOTAL">Totaal</Resource>
     <Resource tag="TUMBLR_TOPIC">Deel op Tumblr</Resource>

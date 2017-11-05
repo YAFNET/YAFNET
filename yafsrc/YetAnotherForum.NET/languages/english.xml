@@ -4670,6 +4670,8 @@ Spoiler Content
   <Resource tag="TOGGLEUSERPOSTS_SHOW">Show User Posts</Resource>
   <Resource tag="TOP">Back to top</Resource>
   <Resource tag="TOPICBROWSERS">Users browsing this topic</Resource>
+  <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
+  <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>
   <Resource tag="TOTAL">Total</Resource>
   <Resource tag="TUMBLR_TOPIC">Share on Tumblr</Resource>
   <Resource tag="TWITTER">Twitter</Resource>

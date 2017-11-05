@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -1096,7 +1096,6 @@ namespace YAF
                     if (File.Exists(oldFileName))
                     {
                         fileName = oldFileName;
-
                     }
                     else
                     {
@@ -1111,7 +1110,7 @@ namespace YAF
 
                         // use the new fileName (with extension) if it exists...
                         fileName = File.Exists(newFileName) ? newFileName : oldFileName;
-                        
+
                         // its an old extension
                         if (!File.Exists(fileName))
                         {
@@ -1480,12 +1479,20 @@ namespace YAF
         {
             var avatarUrl = context.Request.QueryString.GetFirstOrDefault("url");
 
+            if (avatarUrl.StartsWith("/"))
+            {
+                var basePath = "{0}://{1}".FormatWith(
+                    HttpContext.Current.Request.Url.Scheme,
+                    HttpContext.Current.Request.Url.Host);
+
+                avatarUrl = "{0}{1}".FormatWith(basePath, avatarUrl);
+            }
+
             var maxwidth = int.Parse(context.Request.QueryString.GetFirstOrDefault("width"));
             var maxheight = int.Parse(context.Request.QueryString.GetFirstOrDefault("height"));
 
-            var eTag =
-                @"""{0}""".FormatWith(
-                    (context.Request.QueryString.GetFirstOrDefault("url") + maxheight + maxwidth).GetHashCode());
+            var eTag = @"""{0}""".FormatWith(
+                (context.Request.QueryString.GetFirstOrDefault("url") + maxheight + maxwidth).GetHashCode());
 
             if (CheckETag(context, eTag))
             {
@@ -1495,9 +1502,12 @@ namespace YAF
 
             var webClient = new WebClient { Credentials = CredentialCache.DefaultCredentials };
 
-
             try
             {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+                ServicePointManager.ServerCertificateValidationCallback += (send, certificate, chain, sslPolicyErrors) => true;
+
                 var originalData = webClient.DownloadData(avatarUrl);
 
                 using (var avatarStream = new MemoryStream(originalData))
@@ -1552,17 +1562,17 @@ namespace YAF
             catch (WebException exception)
             {
                 // issue getting access to the avatar...
-                this.Get<ILogger>()
-                    .Log(
-                        YafContext.Current.PageUserID,
-                        this,
-                        "URL: {0}<br />Referer URL: {1}<br />Exception: {2}".FormatWith(
-                            avatarUrl,
-                            context.Request.UrlReferrer?.AbsoluteUri ?? string.Empty,
-                            exception));
+                this.Get<ILogger>().Log(
+                    YafContext.Current.PageUserID,
+                    this,
+                    "URL: {0}<br />Referer URL: {1}<br />Exception: {2}".FormatWith(
+                        avatarUrl,
+                        context.Request.UrlReferrer?.AbsoluteUri ?? string.Empty,
+                        exception));
 
                 // Output the data
-                context.Response.Redirect("{0}/Images/{1}".FormatWith(YafForumInfo.ForumClientFileRoot, "noavatar.gif"));
+                context.Response.Redirect(
+                    "{0}/Images/{1}".FormatWith(YafForumInfo.ForumClientFileRoot, "noavatar.gif"));
             }
         }
 

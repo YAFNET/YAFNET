@@ -4696,6 +4696,8 @@ Spoiler Content
     <Resource tag="TOGGLEUSERPOSTS_HIDE">Masquer messages utilisateur</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Afficher messages utilisateur</Resource>
     <Resource tag="TOP">Retour en haut</Resource>
+    <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
+    <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>
     <Resource tag="TOPICBROWSERS">Utilisateurs actuellement sur ce sujet</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="TUMBLR_TOPIC">Share on Tumblr</Resource>

@@ -4674,6 +4674,8 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="TOGGLEUSERPOSTS_HIDE">اخفاء مشاركة عضو</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">إضهار مشاركة عضو</Resource>
     <Resource tag="TOP">الذهاب الى اعلى </Resource>
+    <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
+    <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>
     <Resource tag="TOPICBROWSERS">المشتركة يتصفح حاليا </Resource>
     <Resource tag="TOTAL">المجموع</Resource>
     <Resource tag="TUMBLR_TOPIC">Share on Tumblr</Resource>

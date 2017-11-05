@@ -4683,6 +4683,8 @@ Spoiler Content
     <Resource tag="TOGGLEUSERPOSTS_HIDE">Ẩn bài viết này</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Hiện bài viết này</Resource>
     <Resource tag="TOP">Chuyển lên trên</Resource>
+    <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
+    <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>
     <Resource tag="TOPICBROWSERS">Ai đang xem chủ đề này?</Resource>
     <Resource tag="TOTAL">Tổng</Resource>
     <Resource tag="TUMBLR_TOPIC">Share on Tumblr</Resource>
