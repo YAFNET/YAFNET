@@ -25,7 +25,6 @@
 namespace YAF.Core.Data
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
 
@@ -39,11 +38,6 @@ namespace YAF.Core.Data
     /// <seealso cref="Omu.ValueInjecter.Injections.LoopInjection" />
     public class AliasInjection : LoopInjection
     {
-        /// <summary>
-        /// The alias mapping
-        /// </summary>
-        private Dictionary<string, string> aliasMapping;
-
         /// <summary>
         /// The name map
         /// </summary>
@@ -62,8 +56,8 @@ namespace YAF.Core.Data
                 .Where(p => p.GetCustomAttributes().OfType<AliasAttribute>().Any())
                 .ToDictionary(k => k.GetCustomAttributes().OfType<AliasAttribute>().FirstOrDefault().Name, v => v.Name);
 
-            this.nameMap = inputName => this.aliasMapping.ContainsKey(inputName)
-                                            ? this.aliasMapping[inputName]
+            this.nameMap = inputName => aliasMapping.ContainsKey(inputName)
+                                            ? aliasMapping[inputName]
                                             : inputName;
            base.Inject(source, target);
         }
