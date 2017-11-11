@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -74,41 +74,54 @@ namespace YAF.Core.Services
                 foreach (DataRow dr in dt.Rows)
                 {
                     var fullName = "{0}/{1}.{2}.{3}.yafalbum".FormatWith(upDir, userID, albumID, dr["FileName"]);
-                    FileInfo file = new FileInfo(fullName);
+                    var file = new FileInfo(fullName);
 
-                    if (file.Exists)
+                    try
                     {
-                        File.Delete(fullName);
+                        if (file.Exists)
+                        {
+                            File.SetAttributes(fullName, FileAttributes.Normal);
+                            File.Delete(fullName);
+                        }
                     }
-
-                    LegacyDb.album_image_delete(dr["ImageID"]);
+                    finally
+                    {
+                        LegacyDb.album_image_delete(dr["ImageID"]);
+                    }
                 }
 
                 LegacyDb.album_delete(albumID);
             }
             else
             {
-                using (DataTable dt = LegacyDb.album_image_list(null, imageID))
+                using (var dt = LegacyDb.album_image_list(null, imageID))
                 {
                     var dr = dt.Rows[0];
                     var fileName = dr["FileName"].ToString();
-                    var imgAlbumID = dr["albumID"].ToString();
-                    var fullName = "{0}/{1}.{2}.{3}.yafalbum".FormatWith(upDir, userID, imgAlbumID, fileName);
+                    var imgAlbumId = dr["albumID"].ToString();
+                    var fullName = "{0}/{1}.{2}.{3}.yafalbum".FormatWith(upDir, userID, imgAlbumId, fileName);
                     var file = new FileInfo(fullName);
-                    if (file.Exists)
+
+                    try
                     {
-                        File.Delete(fullName);
+                        if (file.Exists)
+                        {
+                            File.SetAttributes(fullName, FileAttributes.Normal);
+                            File.Delete(fullName);
+                        }
+                    }
+                    finally 
+                    {
+                        LegacyDb.album_image_delete(imageID);
                     }
                 }
-
-                LegacyDb.album_image_delete(imageID);
             }
         }
 
         /// <summary>
         /// The change album title.
         /// </summary>
-        /// <param name="albumID">
+        /// <param name="albumId">
         /// The album id.
         /// </param>
         /// <param name="newTitle">
@@ -117,7 +130,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// the return object.
         /// </returns>
-        public static ReturnClass ChangeAlbumTitle(int albumID, [NotNull] string newTitle)
+        public static ReturnClass ChangeAlbumTitle(int albumId, [NotNull] string newTitle)
         {
             // load the DB so YafContext can work...
             CodeContracts.VerifyNotNull(newTitle, "newTitle");
@@ -125,21 +138,21 @@ namespace YAF.Core.Services
             YafContext.Current.Get<StartupInitializeDb>().Run();
 
             // newTitle = System.Web.HttpUtility.HtmlEncode(newTitle);
-            LegacyDb.album_save(albumID, null, newTitle, null);
+            LegacyDb.album_save(albumId, null, newTitle, null);
 
             var returnObject = new ReturnClass { NewTitle = newTitle };
 
             returnObject.NewTitle = (newTitle == string.Empty)
                                         ? YafContext.Current.Get<ILocalization>().GetText("ALBUM", "ALBUM_CHANGE_TITLE")
                                         : newTitle;
-            returnObject.Id = "0{0}".FormatWith(albumID.ToString());
+            returnObject.Id = "0{0}".FormatWith(albumId.ToString());
             return returnObject;
         }
 
         /// <summary>
         /// The change image caption.
         /// </summary>
-        /// <param name="imageID">
+        /// <param name="imageId">
         /// The Image id.
         /// </param>
         /// <param name="newCaption">
@@ -148,7 +161,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// the return object.
         /// </returns>
-        public static ReturnClass ChangeImageCaption(int imageID, [NotNull] string newCaption)
+        public static ReturnClass ChangeImageCaption(int imageId, [NotNull] string newCaption)
         {
             // load the DB so YafContext can work...
             CodeContracts.VerifyNotNull(newCaption, "newCaption");
@@ -156,14 +169,14 @@ namespace YAF.Core.Services
             YafContext.Current.Get<StartupInitializeDb>().Run();
 
             // newCaption = System.Web.HttpUtility.HtmlEncode(newCaption);
-            LegacyDb.album_image_save(imageID, null, newCaption, null, null, null);
+            LegacyDb.album_image_save(imageId, null, newCaption, null, null, null);
             var returnObject = new ReturnClass { NewTitle = newCaption };
 
             returnObject.NewTitle = (newCaption == string.Empty)
                                         ? YafContext.Current.Get<ILocalization>()
                                               .GetText("ALBUM", "ALBUM_IMAGE_CHANGE_CAPTION")
                                         : newCaption;
-            returnObject.Id = imageID.ToString();
+            returnObject.Id = imageId.ToString();
             return returnObject;
         }
 
