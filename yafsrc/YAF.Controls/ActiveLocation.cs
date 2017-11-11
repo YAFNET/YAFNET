@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -325,7 +325,7 @@ namespace YAF.Controls
                         outText.Append(this.GetText("ACTIVELOCATION", "TOPICINFORUM"));
                         outText.Append(
                             @"<a href=""{0}"" id=""forumidtopic_{1}"" title=""{2}"" runat=""server""> {3} </a>".FormatWith(
-                                    YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", this.ForumID, this.ForumName),
+                                    YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID),
                                     this.UserID,
                                     this.GetText("COMMON", "VIEW_FORUM"),
                                     HttpUtility.HtmlEncode(this.ForumName)));
@@ -343,7 +343,7 @@ namespace YAF.Controls
                     {
                         outText.Append(
                             @"<a href=""{0}"" id=""forumid_{1}"" title=""{2}"" runat=""server""> {3} </a>".FormatWith(
-                                YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", this.ForumID, this.ForumName),
+                                YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID),
                                 this.UserID,
                                 this.GetText("COMMON", "VIEW_FORUM"),
                                 HttpUtility.HtmlEncode(this.ForumName)));
@@ -409,7 +409,7 @@ namespace YAF.Controls
                         this.Logger.Log(
                             this.UserID,
                             this,
-                            "Incorrect active location string: ForumID = {0}; ForumName= {1}; ForumPage={2}; TopicID={3}; TopicName={4}; UserID={5}; UserName={6}; Attributes={7}; ForumPageName={8}"
+                            "Incorrect active location string: ForumID = {0}; ForumName= {1}; ForumPage={2}; TopicID={3}; TopicName={4}; UserID={5}; UserName={6}; Attributes={7}; ForumPageName={8}; URL={9}"
                                 .FormatWith(
                                     this.ForumID,
                                     this.ForumName,
@@ -419,7 +419,8 @@ namespace YAF.Controls
                                     this.UserID,
                                     this.UserName,
                                     forumPageAttributes,
-                                    forumPageName),
+                                    forumPageName,
+                                    this.Get<HttpRequestBase>().Url.AbsoluteUri),
                             EventLogTypes.Error);
                     }
 

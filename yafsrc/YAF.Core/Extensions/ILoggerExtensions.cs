@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,6 +24,7 @@
 namespace YAF.Core.Extensions
 {
     using System;
+    using System.Web;
 
     using YAF.Types;
     using YAF.Types.Constants;
@@ -125,7 +126,12 @@ namespace YAF.Core.Extensions
                 sourceDescription = source.ToString().Truncate(50);
             }
 
-            logger.Log(source.ToString(), eventType, username, sourceDescription, exception);
+            logger.Log(
+                "Exception at URL: {0}".FormatWith(YafContext.Current.Get<HttpRequestBase>().Url.ToString()),
+                eventType,
+                username,
+                sourceDescription,
+                exception);
         }
 
         #endregion
