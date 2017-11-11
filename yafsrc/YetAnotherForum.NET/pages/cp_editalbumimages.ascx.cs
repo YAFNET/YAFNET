@@ -28,6 +28,7 @@ namespace YAF.Pages
     using System;
     using System.Data;
     using System.IO;
+    using System.Threading;
     using System.Web;
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;

@@ -29,6 +29,7 @@ namespace YAF.Pages
     using System;
     using System.Data;
     using System.Globalization;
+    using System.IO;
     using System.Linq;
     using System.Web;
     using System.Web.UI.WebControls;
@@ -773,6 +774,26 @@ namespace YAF.Pages
                 attachments.ForEach(
                     attach =>
                         {
+                            // Rename filename
+                            if (attach.FileData == null)
+                            {
+                                var oldFilePath = this.Get<HttpRequestBase>().MapPath(
+                                    "{0}/{1}.{2}.yafupload".FormatWith(
+                                        YafBoardFolders.Current.Uploads,
+                                        attach.MessageID.ToString(),
+                                        attach.FileName));
+
+                                var newFilePath =
+                                    this.Get<HttpRequestBase>().MapPath(
+                                        "{0}/u{1}.{2}.yafupload".FormatWith(
+                                            YafBoardFolders.Current.Uploads,
+                                            attach.UserID,
+                                            attach.FileName));
+
+                                File.Move(oldFilePath, newFilePath);
+                            }
+
+
                             attach.MessageID = 0;
                             this.GetRepository<Attachment>().Update(attach);
                         });
@@ -1429,7 +1450,7 @@ namespace YAF.Pages
                 attachments.ForEach(
                     attach =>
                         {
-                            this._forumEditor.Text += "[ATTACH]{0}[/Attach] ".FormatWith(attach.ID);
+                            this._forumEditor.Text += " [ATTACH]{0}[/Attach] ".FormatWith(attach.ID);
                         });
             }
 

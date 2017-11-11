@@ -54,7 +54,7 @@ namespace YAF.Core.Data
 
             var aliasMapping = type.GetProperties()
                 .Where(p => p.GetCustomAttributes().OfType<AliasAttribute>().Any())
-                .ToDictionary(k => k.GetCustomAttributes().OfType<AliasAttribute>().FirstOrDefault().Name, v => v.Name);
+                .ToDictionary(k => k.GetCustomAttributes().OfType<AliasAttribute>().FirstOrDefault()?.Name, v => v.Name);
 
             this.nameMap = inputName => aliasMapping.ContainsKey(inputName)
                                             ? aliasMapping[inputName]

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -1397,7 +1397,6 @@ namespace YAF
                     if (File.Exists(oldFileName))
                     {
                         fileName = oldFileName;
-
                     }
                     else
                     {
@@ -1412,6 +1411,15 @@ namespace YAF
 
                         // use the new fileName (with extension) if it exists...
                         fileName = File.Exists(newFileName) ? newFileName : oldFileName;
+
+                        // Find wrongly converted attachments
+                        if (!File.Exists(fileName) && attachment.MessageID.Equals(0))
+                        {
+                            var file = Directory.EnumerateFiles(context.Server.MapPath(uploadFolder)).FirstOrDefault(
+                                f => f.Contains("{0}.yafupload".FormatWith(attachment.FileName)));
+
+                            fileName = file;
+                        }
                     }
 
                     using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
