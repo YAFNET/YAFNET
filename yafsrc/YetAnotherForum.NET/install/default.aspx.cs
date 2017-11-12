@@ -1186,7 +1186,7 @@ namespace YAF.Install
 
                 this.FullTextSupport.Visible = this.DbAccess.Information.FullTextScript.IsSet() && this.Get<IDbFunction>().IsFullTextSupported();
 
-                this.TimeZones.DataSource = StaticDataHelper.TimeZones("english.xml");
+                this.TimeZones.DataSource = StaticDataHelper.TimeZones();
 
                 this.Culture.DataSource = StaticDataHelper.Cultures();
                 this.Culture.DataValueField = "CultureTag";
