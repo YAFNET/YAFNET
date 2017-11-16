@@ -27,12 +27,17 @@ function isObject(input) {
 }
 
 function isObjectEmpty(obj) {
-    var k;
-    for (k in obj) {
-        // even if its not own property I'd still call it non-empty
-        return false;
+    if (Object.getOwnPropertyNames) {
+        return (Object.getOwnPropertyNames(obj).length === 0);
+    } else {
+        var k;
+        for (k in obj) {
+            if (obj.hasOwnProperty(k)) {
+                return false;
+            }
+        }
+        return true;
     }
-    return true;
 }
 
 function isUndefined(input) {
@@ -137,6 +142,7 @@ function isValid(m) {
             !flags.empty &&
             !flags.invalidMonth &&
             !flags.invalidWeekday &&
+            !flags.weekdayMismatch &&
             !flags.nullInput &&
             !flags.invalidFormat &&
             !flags.userInvalidated &&
@@ -527,56 +533,6 @@ function getPrioritizedUnits(unitsObj) {
     return units;
 }
 
-function makeGetSet (unit, keepTime) {
-    return function (value) {
-        if (value != null) {
-            set$1(this, unit, value);
-            hooks.updateOffset(this, keepTime);
-            return this;
-        } else {
-            return get(this, unit);
-        }
-    };
-}
-
-function get (mom, unit) {
-    return mom.isValid() ?
-        mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]() : NaN;
-}
-
-function set$1 (mom, unit, value) {
-    if (mom.isValid()) {
-        mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
-    }
-}
-
-// MOMENTS
-
-function stringGet (units) {
-    units = normalizeUnits(units);
-    if (isFunction(this[units])) {
-        return this[units]();
-    }
-    return this;
-}
-
-
-function stringSet (units, value) {
-    if (typeof units === 'object') {
-        units = normalizeObjectUnits(units);
-        var prioritized = getPrioritizedUnits(units);
-        for (var i = 0; i < prioritized.length; i++) {
-            this[prioritized[i].unit](units[prioritized[i].unit]);
-        }
-    } else {
-        units = normalizeUnits(units);
-        if (isFunction(this[units])) {
-            return this[units](value);
-        }
-    }
-    return this;
-}
-
 function zeroFill(number, targetLength, forceSign) {
     var absNumber = '' + Math.abs(number),
         zerosToFill = targetLength - absNumber.length,
@@ -767,6 +723,131 @@ var MILLISECOND = 6;
 var WEEK = 7;
 var WEEKDAY = 8;
 
+// FORMATTING
+
+addFormatToken('Y', 0, 0, function () {
+    var y = this.year();
+    return y <= 9999 ? '' + y : '+' + y;
+});
+
+addFormatToken(0, ['YY', 2], 0, function () {
+    return this.year() % 100;
+});
+
+addFormatToken(0, ['YYYY',   4],       0, 'year');
+addFormatToken(0, ['YYYYY',  5],       0, 'year');
+addFormatToken(0, ['YYYYYY', 6, true], 0, 'year');
+
+// ALIASES
+
+addUnitAlias('year', 'y');
+
+// PRIORITIES
+
+addUnitPriority('year', 1);
+
+// PARSING
+
+addRegexToken('Y',      matchSigned);
+addRegexToken('YY',     match1to2, match2);
+addRegexToken('YYYY',   match1to4, match4);
+addRegexToken('YYYYY',  match1to6, match6);
+addRegexToken('YYYYYY', match1to6, match6);
+
+addParseToken(['YYYYY', 'YYYYYY'], YEAR);
+addParseToken('YYYY', function (input, array) {
+    array[YEAR] = input.length === 2 ? hooks.parseTwoDigitYear(input) : toInt(input);
+});
+addParseToken('YY', function (input, array) {
+    array[YEAR] = hooks.parseTwoDigitYear(input);
+});
+addParseToken('Y', function (input, array) {
+    array[YEAR] = parseInt(input, 10);
+});
+
+// HELPERS
+
+function daysInYear(year) {
+    return isLeapYear(year) ? 366 : 365;
+}
+
+function isLeapYear(year) {
+    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+}
+
+// HOOKS
+
+hooks.parseTwoDigitYear = function (input) {
+    return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
+};
+
+// MOMENTS
+
+var getSetYear = makeGetSet('FullYear', true);
+
+function getIsLeapYear () {
+    return isLeapYear(this.year());
+}
+
+function makeGetSet (unit, keepTime) {
+    return function (value) {
+        if (value != null) {
+            set$1(this, unit, value);
+            hooks.updateOffset(this, keepTime);
+            return this;
+        } else {
+            return get(this, unit);
+        }
+    };
+}
+
+function get (mom, unit) {
+    return mom.isValid() ?
+        mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]() : NaN;
+}
+
+function set$1 (mom, unit, value) {
+    if (mom.isValid() && !isNaN(value)) {
+        if (unit === 'FullYear' && isLeapYear(mom.year()) && mom.month() === 1 && mom.date() === 29) {
+            mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value, mom.month(), daysInMonth(value, mom.month()));
+        }
+        else {
+            mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
+        }
+    }
+}
+
+// MOMENTS
+
+function stringGet (units) {
+    units = normalizeUnits(units);
+    if (isFunction(this[units])) {
+        return this[units]();
+    }
+    return this;
+}
+
+
+function stringSet (units, value) {
+    if (typeof units === 'object') {
+        units = normalizeObjectUnits(units);
+        var prioritized = getPrioritizedUnits(units);
+        for (var i = 0; i < prioritized.length; i++) {
+            this[prioritized[i].unit](units[prioritized[i].unit]);
+        }
+    } else {
+        units = normalizeUnits(units);
+        if (isFunction(this[units])) {
+            return this[units](value);
+        }
+    }
+    return this;
+}
+
+function mod(n, x) {
+    return ((n % x) + x) % x;
+}
+
 var indexOf;
 
 if (Array.prototype.indexOf) {
@@ -785,7 +866,12 @@ if (Array.prototype.indexOf) {
 }
 
 function daysInMonth(year, month) {
-    return new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+    if (isNaN(year) || isNaN(month)) {
+        return NaN;
+    }
+    var modMonth = mod(month, 12);
+    year += (month - modMonth) / 12;
+    return modMonth === 1 ? (isLeapYear(year) ? 29 : 28) : (31 - modMonth % 7 % 2);
 }
 
 // FORMATTING
@@ -1050,72 +1136,6 @@ function computeMonthsParse () {
     this._monthsShortRegex = this._monthsRegex;
     this._monthsStrictRegex = new RegExp('^(' + longPieces.join('|') + ')', 'i');
     this._monthsShortStrictRegex = new RegExp('^(' + shortPieces.join('|') + ')', 'i');
-}
-
-// FORMATTING
-
-addFormatToken('Y', 0, 0, function () {
-    var y = this.year();
-    return y <= 9999 ? '' + y : '+' + y;
-});
-
-addFormatToken(0, ['YY', 2], 0, function () {
-    return this.year() % 100;
-});
-
-addFormatToken(0, ['YYYY',   4],       0, 'year');
-addFormatToken(0, ['YYYYY',  5],       0, 'year');
-addFormatToken(0, ['YYYYYY', 6, true], 0, 'year');
-
-// ALIASES
-
-addUnitAlias('year', 'y');
-
-// PRIORITIES
-
-addUnitPriority('year', 1);
-
-// PARSING
-
-addRegexToken('Y',      matchSigned);
-addRegexToken('YY',     match1to2, match2);
-addRegexToken('YYYY',   match1to4, match4);
-addRegexToken('YYYYY',  match1to6, match6);
-addRegexToken('YYYYYY', match1to6, match6);
-
-addParseToken(['YYYYY', 'YYYYYY'], YEAR);
-addParseToken('YYYY', function (input, array) {
-    array[YEAR] = input.length === 2 ? hooks.parseTwoDigitYear(input) : toInt(input);
-});
-addParseToken('YY', function (input, array) {
-    array[YEAR] = hooks.parseTwoDigitYear(input);
-});
-addParseToken('Y', function (input, array) {
-    array[YEAR] = parseInt(input, 10);
-});
-
-// HELPERS
-
-function daysInYear(year) {
-    return isLeapYear(year) ? 366 : 365;
-}
-
-function isLeapYear(year) {
-    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-}
-
-// HOOKS
-
-hooks.parseTwoDigitYear = function (input) {
-    return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
-};
-
-// MOMENTS
-
-var getSetYear = makeGetSet('FullYear', true);
-
-function getIsLeapYear () {
-    return isLeapYear(this.year());
 }
 
 function createDate (y, m, d, h, M, s, ms) {
@@ -1815,11 +1835,10 @@ function loadLocale(name) {
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            require('./locale/' + name);
-            // because defineLocale currently also sets the global locale, we
-            // want to undo that for lazy loaded locales
+            var aliasedRequire = require;
+            aliasedRequire('./locale/' + name);
             getSetGlobalLocale(oldLocale);
-        } catch (e) { }
+        } catch (e) {}
     }
     return locales[name];
 }
@@ -1895,10 +1914,11 @@ function defineLocale (name, config) {
 
 function updateLocale(name, config) {
     if (config != null) {
-        var locale, parentConfig = baseConfig;
+        var locale, tmpLocale, parentConfig = baseConfig;
         // MERGE
-        if (locales[name] != null) {
-            parentConfig = locales[name]._config;
+        tmpLocale = loadLocale(name);
+        if (tmpLocale != null) {
+            parentConfig = tmpLocale._config;
         }
         config = mergeConfigs(parentConfig, config);
         locale = new Locale(config);
@@ -1976,6 +1996,154 @@ function checkOverflow (m) {
     }
 
     return m;
+}
+
+// Pick the first defined of two or three arguments.
+function defaults(a, b, c) {
+    if (a != null) {
+        return a;
+    }
+    if (b != null) {
+        return b;
+    }
+    return c;
+}
+
+function currentDateArray(config) {
+    // hooks is actually the exported moment object
+    var nowValue = new Date(hooks.now());
+    if (config._useUTC) {
+        return [nowValue.getUTCFullYear(), nowValue.getUTCMonth(), nowValue.getUTCDate()];
+    }
+    return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
+}
+
+// convert an array to a date.
+// the array should mirror the parameters below
+// note: all values past the year are optional and will default to the lowest possible value.
+// [year, month, day , hour, minute, second, millisecond]
+function configFromArray (config) {
+    var i, date, input = [], currentDate, yearToUse;
+
+    if (config._d) {
+        return;
+    }
+
+    currentDate = currentDateArray(config);
+
+    //compute day of the year from weeks and weekdays
+    if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
+        dayOfYearFromWeekInfo(config);
+    }
+
+    //if the day of the year is set, figure out what it is
+    if (config._dayOfYear != null) {
+        yearToUse = defaults(config._a[YEAR], currentDate[YEAR]);
+
+        if (config._dayOfYear > daysInYear(yearToUse) || config._dayOfYear === 0) {
+            getParsingFlags(config)._overflowDayOfYear = true;
+        }
+
+        date = createUTCDate(yearToUse, 0, config._dayOfYear);
+        config._a[MONTH] = date.getUTCMonth();
+        config._a[DATE] = date.getUTCDate();
+    }
+
+    // Default to current date.
+    // * if no year, month, day of month are given, default to today
+    // * if day of month is given, default month and year
+    // * if month is given, default only year
+    // * if year is given, don't default anything
+    for (i = 0; i < 3 && config._a[i] == null; ++i) {
+        config._a[i] = input[i] = currentDate[i];
+    }
+
+    // Zero out whatever was not defaulted, including time
+    for (; i < 7; i++) {
+        config._a[i] = input[i] = (config._a[i] == null) ? (i === 2 ? 1 : 0) : config._a[i];
+    }
+
+    // Check for 24:00:00.000
+    if (config._a[HOUR] === 24 &&
+            config._a[MINUTE] === 0 &&
+            config._a[SECOND] === 0 &&
+            config._a[MILLISECOND] === 0) {
+        config._nextDay = true;
+        config._a[HOUR] = 0;
+    }
+
+    config._d = (config._useUTC ? createUTCDate : createDate).apply(null, input);
+    // Apply timezone offset from input. The actual utcOffset can be changed
+    // with parseZone.
+    if (config._tzm != null) {
+        config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
+    }
+
+    if (config._nextDay) {
+        config._a[HOUR] = 24;
+    }
+
+    // check for mismatching day of week
+    if (config._w && typeof config._w.d !== 'undefined' && config._w.d !== config._d.getDay()) {
+        getParsingFlags(config).weekdayMismatch = true;
+    }
+}
+
+function dayOfYearFromWeekInfo(config) {
+    var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow;
+
+    w = config._w;
+    if (w.GG != null || w.W != null || w.E != null) {
+        dow = 1;
+        doy = 4;
+
+        // TODO: We need to take the current isoWeekYear, but that depends on
+        // how we interpret now (local, utc, fixed offset). So create
+        // a now version of current config (take local/utc/offset flags, and
+        // create now).
+        weekYear = defaults(w.GG, config._a[YEAR], weekOfYear(createLocal(), 1, 4).year);
+        week = defaults(w.W, 1);
+        weekday = defaults(w.E, 1);
+        if (weekday < 1 || weekday > 7) {
+            weekdayOverflow = true;
+        }
+    } else {
+        dow = config._locale._week.dow;
+        doy = config._locale._week.doy;
+
+        var curWeek = weekOfYear(createLocal(), dow, doy);
+
+        weekYear = defaults(w.gg, config._a[YEAR], curWeek.year);
+
+        // Default to current week.
+        week = defaults(w.w, curWeek.week);
+
+        if (w.d != null) {
+            // weekday -- low day numbers are considered next week
+            weekday = w.d;
+            if (weekday < 0 || weekday > 6) {
+                weekdayOverflow = true;
+            }
+        } else if (w.e != null) {
+            // local weekday -- counting starts from begining of week
+            weekday = w.e + dow;
+            if (w.e < 0 || w.e > 6) {
+                weekdayOverflow = true;
+            }
+        } else {
+            // default to begining of week
+            weekday = dow;
+        }
+    }
+    if (week < 1 || week > weeksInYear(weekYear, dow, doy)) {
+        getParsingFlags(config)._overflowWeeks = true;
+    } else if (weekdayOverflow != null) {
+        getParsingFlags(config)._overflowWeekday = true;
+    } else {
+        temp = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy);
+        config._a[YEAR] = temp.year;
+        config._dayOfYear = temp.dayOfYear;
+    }
 }
 
 // iso 8601 regex
@@ -2069,70 +2237,94 @@ function configFromISO(config) {
 }
 
 // RFC 2822 regex: For details see https://tools.ietf.org/html/rfc2822#section-3.3
-var basicRfcRegex = /^((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d?\d\s(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(?:\d\d)?\d\d\s)(\d\d:\d\d)(\:\d\d)?(\s(?:UT|GMT|[ECMP][SD]T|[A-IK-Za-ik-z]|[+-]\d{4}))$/;
+var rfc2822 = /^(?:(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d{1,2})\s(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(\d{2,4})\s(\d\d):(\d\d)(?::(\d\d))?\s(?:(UT|GMT|[ECMP][SD]T)|([Zz])|([+-]\d{4}))$/;
+
+function extractFromRFC2822Strings(yearStr, monthStr, dayStr, hourStr, minuteStr, secondStr) {
+    var result = [
+        untruncateYear(yearStr),
+        defaultLocaleMonthsShort.indexOf(monthStr),
+        parseInt(dayStr, 10),
+        parseInt(hourStr, 10),
+        parseInt(minuteStr, 10)
+    ];
+
+    if (secondStr) {
+        result.push(parseInt(secondStr, 10));
+    }
+
+    return result;
+}
+
+function untruncateYear(yearStr) {
+    var year = parseInt(yearStr, 10);
+    if (year <= 49) {
+        return 2000 + year;
+    } else if (year <= 999) {
+        return 1900 + year;
+    }
+    return year;
+}
+
+function preprocessRFC2822(s) {
+    // Remove comments and folding whitespace and replace multiple-spaces with a single space
+    return s.replace(/\([^)]*\)|[\n\t]/g, ' ').replace(/(\s\s+)/g, ' ').trim();
+}
+
+function checkWeekday(weekdayStr, parsedInput, config) {
+    if (weekdayStr) {
+        // TODO: Replace the vanilla JS Date object with an indepentent day-of-week check.
+        var weekdayProvided = defaultLocaleWeekdaysShort.indexOf(weekdayStr),
+            weekdayActual = new Date(parsedInput[0], parsedInput[1], parsedInput[2]).getDay();
+        if (weekdayProvided !== weekdayActual) {
+            getParsingFlags(config).weekdayMismatch = true;
+            config._isValid = false;
+            return false;
+        }
+    }
+    return true;
+}
+
+var obsOffsets = {
+    UT: 0,
+    GMT: 0,
+    EDT: -4 * 60,
+    EST: -5 * 60,
+    CDT: -5 * 60,
+    CST: -6 * 60,
+    MDT: -6 * 60,
+    MST: -7 * 60,
+    PDT: -7 * 60,
+    PST: -8 * 60
+};
+
+function calculateOffset(obsOffset, militaryOffset, numOffset) {
+    if (obsOffset) {
+        return obsOffsets[obsOffset];
+    } else if (militaryOffset) {
+        // the only allowed military tz is Z
+        return 0;
+    } else {
+        var hm = parseInt(numOffset, 10);
+        var m = hm % 100, h = (hm - m) / 100;
+        return h * 60 + m;
+    }
+}
 
 // date and time from ref 2822 format
 function configFromRFC2822(config) {
-    var string, match, dayFormat,
-        dateFormat, timeFormat, tzFormat;
-    var timezones = {
-        ' GMT': ' +0000',
-        ' EDT': ' -0400',
-        ' EST': ' -0500',
-        ' CDT': ' -0500',
-        ' CST': ' -0600',
-        ' MDT': ' -0600',
-        ' MST': ' -0700',
-        ' PDT': ' -0700',
-        ' PST': ' -0800'
-    };
-    var military = 'YXWVUTSRQPONZABCDEFGHIKLM';
-    var timezone, timezoneIndex;
-
-    string = config._i
-        .replace(/\([^\)]*\)|[\n\t]/g, ' ') // Remove comments and folding whitespace
-        .replace(/(\s\s+)/g, ' ') // Replace multiple-spaces with a single space
-        .replace(/^\s|\s$/g, ''); // Remove leading and trailing spaces
-    match = basicRfcRegex.exec(string);
-
+    var match = rfc2822.exec(preprocessRFC2822(config._i));
     if (match) {
-        dayFormat = match[1] ? 'ddd' + ((match[1].length === 5) ? ', ' : ' ') : '';
-        dateFormat = 'D MMM ' + ((match[2].length > 10) ? 'YYYY ' : 'YY ');
-        timeFormat = 'HH:mm' + (match[4] ? ':ss' : '');
-
-        // TODO: Replace the vanilla JS Date object with an indepentent day-of-week check.
-        if (match[1]) { // day of week given
-            var momentDate = new Date(match[2]);
-            var momentDay = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][momentDate.getDay()];
-
-            if (match[1].substr(0,3) !== momentDay) {
-                getParsingFlags(config).weekdayMismatch = true;
-                config._isValid = false;
-                return;
-            }
+        var parsedArray = extractFromRFC2822Strings(match[4], match[3], match[2], match[5], match[6], match[7]);
+        if (!checkWeekday(match[1], parsedArray, config)) {
+            return;
         }
 
-        switch (match[5].length) {
-            case 2: // military
-                if (timezoneIndex === 0) {
-                    timezone = ' +0000';
-                } else {
-                    timezoneIndex = military.indexOf(match[5][1].toUpperCase()) - 12;
-                    timezone = ((timezoneIndex < 0) ? ' -' : ' +') +
-                        (('' + timezoneIndex).replace(/^-?/, '0')).match(/..$/)[0] + '00';
-                }
-                break;
-            case 4: // Zone
-                timezone = timezones[match[5]];
-                break;
-            default: // UT or +/-9999
-                timezone = timezones[' GMT'];
-        }
-        match[5] = timezone;
-        config._i = match.splice(1).join('');
-        tzFormat = ' ZZ';
-        config._f = dayFormat + dateFormat + timeFormat + tzFormat;
-        configFromStringAndFormat(config);
+        config._a = parsedArray;
+        config._tzm = calculateOffset(match[8], match[9], match[10]);
+
+        config._d = createUTCDate.apply(null, config._a);
+        config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
+
         getParsingFlags(config).rfc2822 = true;
     } else {
         config._isValid = false;
@@ -2175,149 +2367,6 @@ hooks.createFromInputFallback = deprecate(
         config._d = new Date(config._i + (config._useUTC ? ' UTC' : ''));
     }
 );
-
-// Pick the first defined of two or three arguments.
-function defaults(a, b, c) {
-    if (a != null) {
-        return a;
-    }
-    if (b != null) {
-        return b;
-    }
-    return c;
-}
-
-function currentDateArray(config) {
-    // hooks is actually the exported moment object
-    var nowValue = new Date(hooks.now());
-    if (config._useUTC) {
-        return [nowValue.getUTCFullYear(), nowValue.getUTCMonth(), nowValue.getUTCDate()];
-    }
-    return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
-}
-
-// convert an array to a date.
-// the array should mirror the parameters below
-// note: all values past the year are optional and will default to the lowest possible value.
-// [year, month, day , hour, minute, second, millisecond]
-function configFromArray (config) {
-    var i, date, input = [], currentDate, yearToUse;
-
-    if (config._d) {
-        return;
-    }
-
-    currentDate = currentDateArray(config);
-
-    //compute day of the year from weeks and weekdays
-    if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
-        dayOfYearFromWeekInfo(config);
-    }
-
-    //if the day of the year is set, figure out what it is
-    if (config._dayOfYear != null) {
-        yearToUse = defaults(config._a[YEAR], currentDate[YEAR]);
-
-        if (config._dayOfYear > daysInYear(yearToUse) || config._dayOfYear === 0) {
-            getParsingFlags(config)._overflowDayOfYear = true;
-        }
-
-        date = createUTCDate(yearToUse, 0, config._dayOfYear);
-        config._a[MONTH] = date.getUTCMonth();
-        config._a[DATE] = date.getUTCDate();
-    }
-
-    // Default to current date.
-    // * if no year, month, day of month are given, default to today
-    // * if day of month is given, default month and year
-    // * if month is given, default only year
-    // * if year is given, don't default anything
-    for (i = 0; i < 3 && config._a[i] == null; ++i) {
-        config._a[i] = input[i] = currentDate[i];
-    }
-
-    // Zero out whatever was not defaulted, including time
-    for (; i < 7; i++) {
-        config._a[i] = input[i] = (config._a[i] == null) ? (i === 2 ? 1 : 0) : config._a[i];
-    }
-
-    // Check for 24:00:00.000
-    if (config._a[HOUR] === 24 &&
-            config._a[MINUTE] === 0 &&
-            config._a[SECOND] === 0 &&
-            config._a[MILLISECOND] === 0) {
-        config._nextDay = true;
-        config._a[HOUR] = 0;
-    }
-
-    config._d = (config._useUTC ? createUTCDate : createDate).apply(null, input);
-    // Apply timezone offset from input. The actual utcOffset can be changed
-    // with parseZone.
-    if (config._tzm != null) {
-        config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
-    }
-
-    if (config._nextDay) {
-        config._a[HOUR] = 24;
-    }
-}
-
-function dayOfYearFromWeekInfo(config) {
-    var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow;
-
-    w = config._w;
-    if (w.GG != null || w.W != null || w.E != null) {
-        dow = 1;
-        doy = 4;
-
-        // TODO: We need to take the current isoWeekYear, but that depends on
-        // how we interpret now (local, utc, fixed offset). So create
-        // a now version of current config (take local/utc/offset flags, and
-        // create now).
-        weekYear = defaults(w.GG, config._a[YEAR], weekOfYear(createLocal(), 1, 4).year);
-        week = defaults(w.W, 1);
-        weekday = defaults(w.E, 1);
-        if (weekday < 1 || weekday > 7) {
-            weekdayOverflow = true;
-        }
-    } else {
-        dow = config._locale._week.dow;
-        doy = config._locale._week.doy;
-
-        var curWeek = weekOfYear(createLocal(), dow, doy);
-
-        weekYear = defaults(w.gg, config._a[YEAR], curWeek.year);
-
-        // Default to current week.
-        week = defaults(w.w, curWeek.week);
-
-        if (w.d != null) {
-            // weekday -- low day numbers are considered next week
-            weekday = w.d;
-            if (weekday < 0 || weekday > 6) {
-                weekdayOverflow = true;
-            }
-        } else if (w.e != null) {
-            // local weekday -- counting starts from begining of week
-            weekday = w.e + dow;
-            if (w.e < 0 || w.e > 6) {
-                weekdayOverflow = true;
-            }
-        } else {
-            // default to begining of week
-            weekday = dow;
-        }
-    }
-    if (week < 1 || week > weeksInYear(weekYear, dow, doy)) {
-        getParsingFlags(config)._overflowWeeks = true;
-    } else if (weekdayOverflow != null) {
-        getParsingFlags(config)._overflowWeekday = true;
-    } else {
-        temp = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy);
-        config._a[YEAR] = temp.year;
-        config._dayOfYear = temp.dayOfYear;
-    }
-}
 
 // constant that refers to the ISO standard
 hooks.ISO_8601 = function () {};
@@ -2643,7 +2692,7 @@ var ordering = ['year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'se
 
 function isDurationValid(m) {
     for (var key in m) {
-        if (!(ordering.indexOf(key) !== -1 && (m[key] == null || !isNaN(m[key])))) {
+        if (!(indexOf.call(ordering, key) !== -1 && (m[key] == null || !isNaN(m[key])))) {
             return false;
         }
     }
@@ -2694,7 +2743,7 @@ function Duration (duration) {
     // day when working around DST, we need to store them separately
     this._days = +days +
         weeks * 7;
-    // It is impossible translate months into days without knowing
+    // It is impossible to translate months into days without knowing
     // which months you are are talking about, so we have to store
     // it separately.
     this._months = +months +
@@ -2941,12 +2990,12 @@ function isUtc () {
 }
 
 // ASP.NET json date format regex
-var aspNetRegex = /^(\-)?(?:(\d*)[. ])?(\d+)\:(\d+)(?:\:(\d+)(\.\d*)?)?$/;
+var aspNetRegex = /^(\-|\+)?(?:(\d*)[. ])?(\d+)\:(\d+)(?:\:(\d+)(\.\d*)?)?$/;
 
 // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
 // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
 // and further modified to allow for strings containing both week and day
-var isoRegex = /^(-)?P(?:(-?[0-9,.]*)Y)?(?:(-?[0-9,.]*)M)?(?:(-?[0-9,.]*)W)?(?:(-?[0-9,.]*)D)?(?:T(?:(-?[0-9,.]*)H)?(?:(-?[0-9,.]*)M)?(?:(-?[0-9,.]*)S)?)?$/;
+var isoRegex = /^(-|\+)?P(?:([-+]?[0-9,.]*)Y)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)W)?(?:([-+]?[0-9,.]*)D)?(?:T(?:([-+]?[0-9,.]*)H)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)S)?)?$/;
 
 function createDuration (input, key) {
     var duration = input,
@@ -2980,7 +3029,7 @@ function createDuration (input, key) {
             ms : toInt(absRound(match[MILLISECOND] * 1000)) * sign // the millisecond decimal point is included in the match
         };
     } else if (!!(match = isoRegex.exec(input))) {
-        sign = (match[1] === '-') ? -1 : 1;
+        sign = (match[1] === '-') ? -1 : (match[1] === '+') ? 1 : 1;
         duration = {
             y : parseIso(match[2], sign),
             M : parseIso(match[3], sign),
@@ -3083,14 +3132,14 @@ function addSubtract (mom, duration, isAdding, updateOffset) {
 
     updateOffset = updateOffset == null ? true : updateOffset;
 
-    if (milliseconds) {
-        mom._d.setTime(mom._d.valueOf() + milliseconds * isAdding);
+    if (months) {
+        setMonth(mom, get(mom, 'Month') + months * isAdding);
     }
     if (days) {
         set$1(mom, 'Date', get(mom, 'Date') + days * isAdding);
     }
-    if (months) {
-        setMonth(mom, get(mom, 'Month') + months * isAdding);
+    if (milliseconds) {
+        mom._d.setTime(mom._d.valueOf() + milliseconds * isAdding);
     }
     if (updateOffset) {
         hooks.updateOffset(mom, days || months);
@@ -3200,22 +3249,18 @@ function diff (input, units, asFloat) {
 
     units = normalizeUnits(units);
 
-    if (units === 'year' || units === 'month' || units === 'quarter') {
-        output = monthDiff(this, that);
-        if (units === 'quarter') {
-            output = output / 3;
-        } else if (units === 'year') {
-            output = output / 12;
-        }
-    } else {
-        delta = this - that;
-        output = units === 'second' ? delta / 1e3 : // 1000
-            units === 'minute' ? delta / 6e4 : // 1000 * 60
-            units === 'hour' ? delta / 36e5 : // 1000 * 60 * 60
-            units === 'day' ? (delta - zoneDelta) / 864e5 : // 1000 * 60 * 60 * 24, negate dst
-            units === 'week' ? (delta - zoneDelta) / 6048e5 : // 1000 * 60 * 60 * 24 * 7, negate dst
-            delta;
+    switch (units) {
+        case 'year': output = monthDiff(this, that) / 12; break;
+        case 'month': output = monthDiff(this, that); break;
+        case 'quarter': output = monthDiff(this, that) / 3; break;
+        case 'second': output = (this - that) / 1e3; break; // 1000
+        case 'minute': output = (this - that) / 6e4; break; // 1000 * 60
+        case 'hour': output = (this - that) / 36e5; break; // 1000 * 60 * 60
+        case 'day': output = (this - that - zoneDelta) / 864e5; break; // 1000 * 60 * 60 * 24, negate dst
+        case 'week': output = (this - that - zoneDelta) / 6048e5; break; // 1000 * 60 * 60 * 24 * 7, negate dst
+        default: output = this - that;
     }
+
     return asFloat ? output : absFloor(output);
 }
 
@@ -4193,6 +4238,10 @@ var asWeeks        = makeAs('w');
 var asMonths       = makeAs('M');
 var asYears        = makeAs('y');
 
+function clone$1 () {
+    return createDuration(this);
+}
+
 function get$2 (units) {
     units = normalizeUnits(units);
     return this.isValid() ? this[units + 's']() : NaN;
@@ -4302,6 +4351,10 @@ function humanize (withSuffix) {
 
 var abs$1 = Math.abs;
 
+function sign(x) {
+    return ((x > 0) - (x < 0)) || +x;
+}
+
 function toISOString$1() {
     // for ISO strings we do not use the normal bubbling rules:
     //  * milliseconds bubble up until they become hours
@@ -4336,7 +4389,7 @@ function toISOString$1() {
     var D = days;
     var h = hours;
     var m = minutes;
-    var s = seconds;
+    var s = seconds ? seconds.toFixed(3).replace(/\.?0+$/, '') : '';
     var total = this.asSeconds();
 
     if (!total) {
@@ -4345,15 +4398,19 @@ function toISOString$1() {
         return 'P0D';
     }
 
-    return (total < 0 ? '-' : '') +
-        'P' +
-        (Y ? Y + 'Y' : '') +
-        (M ? M + 'M' : '') +
-        (D ? D + 'D' : '') +
+    var totalSign = total < 0 ? '-' : '';
+    var ymSign = sign(this._months) !== sign(total) ? '-' : '';
+    var daysSign = sign(this._days) !== sign(total) ? '-' : '';
+    var hmsSign = sign(this._milliseconds) !== sign(total) ? '-' : '';
+
+    return totalSign + 'P' +
+        (Y ? ymSign + Y + 'Y' : '') +
+        (M ? ymSign + M + 'M' : '') +
+        (D ? daysSign + D + 'D' : '') +
         ((h || m || s) ? 'T' : '') +
-        (h ? h + 'H' : '') +
-        (m ? m + 'M' : '') +
-        (s ? s + 'S' : '');
+        (h ? hmsSign + h + 'H' : '') +
+        (m ? hmsSign + m + 'M' : '') +
+        (s ? hmsSign + s + 'S' : '');
 }
 
 var proto$2 = Duration.prototype;
@@ -4373,6 +4430,7 @@ proto$2.asMonths       = asMonths;
 proto$2.asYears        = asYears;
 proto$2.valueOf        = valueOf$1;
 proto$2._bubble        = bubble;
+proto$2.clone          = clone$1;
 proto$2.get            = get$2;
 proto$2.milliseconds   = milliseconds;
 proto$2.seconds        = seconds;
@@ -4414,12 +4472,12 @@ addParseToken('x', function (input, array, config) {
 // Side effect imports
 
 //! moment.js
-//! version : 2.18.2
+//! version : 2.19.2
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
 
-hooks.version = '2.18.2';
+hooks.version = '2.19.2';
 
 setHookCallback(createLocal);
 
@@ -4446,7 +4504,7 @@ hooks.updateLocale          = updateLocale;
 hooks.locales               = listLocales;
 hooks.weekdaysShort         = listWeekdaysShort;
 hooks.normalizeUnits        = normalizeUnits;
-hooks.relativeTimeRounding = getSetRelativeTimeRounding;
+hooks.relativeTimeRounding  = getSetRelativeTimeRounding;
 hooks.relativeTimeThreshold = getSetRelativeTimeThreshold;
 hooks.calendarFormat        = getCalendarFormat;
 hooks.prototype             = proto;
@@ -4711,7 +4769,7 @@ hooks.defineLocale('ar-ly', {
         yy : pluralize('y')
     },
     preparse: function (string) {
-        return string.replace(/\u200f/g, '').replace(/،/g, ',');
+        return string.replace(/،/g, ',');
     },
     postformat: function (string) {
         return string.replace(/\d/g, function (match) {
@@ -5031,7 +5089,7 @@ hooks.defineLocale('ar', {
         yy : pluralize$1('y')
     },
     preparse: function (string) {
-        return string.replace(/\u200f/g, '').replace(/[١٢٣٤٥٦٧٨٩٠]/g, function (match) {
+        return string.replace(/[١٢٣٤٥٦٧٨٩٠]/g, function (match) {
             return numberMap$1[match];
         }).replace(/،/g, ',');
     },
@@ -5339,6 +5397,54 @@ hooks.defineLocale('bg', {
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
+    }
+});
+
+//! moment.js locale configuration
+//! locale : Bambara [bm]
+//! author : Estelle Comment : https://github.com/estellecomment
+// Language contact person : Abdoufata Kane : https://github.com/abdoufata
+
+hooks.defineLocale('bm', {
+    months : 'Zanwuyekalo_Fewuruyekalo_Marisikalo_Awirilikalo_Mɛkalo_Zuwɛnkalo_Zuluyekalo_Utikalo_Sɛtanburukalo_ɔkutɔburukalo_Nowanburukalo_Desanburukalo'.split('_'),
+    monthsShort : 'Zan_Few_Mar_Awi_Mɛ_Zuw_Zul_Uti_Sɛt_ɔku_Now_Des'.split('_'),
+    weekdays : 'Kari_Ntɛnɛn_Tarata_Araba_Alamisa_Juma_Sibiri'.split('_'),
+    weekdaysShort : 'Kar_Ntɛ_Tar_Ara_Ala_Jum_Sib'.split('_'),
+    weekdaysMin : 'Ka_Nt_Ta_Ar_Al_Ju_Si'.split('_'),
+    longDateFormat : {
+        LT : 'HH:mm',
+        LTS : 'HH:mm:ss',
+        L : 'DD/MM/YYYY',
+        LL : 'MMMM [tile] D [san] YYYY',
+        LLL : 'MMMM [tile] D [san] YYYY [lɛrɛ] HH:mm',
+        LLLL : 'dddd MMMM [tile] D [san] YYYY [lɛrɛ] HH:mm'
+    },
+    calendar : {
+        sameDay : '[Bi lɛrɛ] LT',
+        nextDay : '[Sini lɛrɛ] LT',
+        nextWeek : 'dddd [don lɛrɛ] LT',
+        lastDay : '[Kunu lɛrɛ] LT',
+        lastWeek : 'dddd [tɛmɛnen lɛrɛ] LT',
+        sameElse : 'L'
+    },
+    relativeTime : {
+        future : '%s kɔnɔ',
+        past : 'a bɛ %s bɔ',
+        s : 'sanga dama dama',
+        m : 'miniti kelen',
+        mm : 'miniti %d',
+        h : 'lɛrɛ kelen',
+        hh : 'lɛrɛ %d',
+        d : 'tile kelen',
+        dd : 'tile %d',
+        M : 'kalo kelen',
+        MM : 'kalo %d',
+        y : 'san kelen',
+        yy : 'san %d'
+    },
+    week : {
+        dow : 1, // Monday is the first day of the week.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 
@@ -5801,17 +5907,17 @@ hooks.defineLocale('ca', {
     monthsParseExact : true,
     weekdays : 'diumenge_dilluns_dimarts_dimecres_dijous_divendres_dissabte'.split('_'),
     weekdaysShort : 'dg._dl._dt._dc._dj._dv._ds.'.split('_'),
-    weekdaysMin : 'Dg_Dl_Dt_Dc_Dj_Dv_Ds'.split('_'),
+    weekdaysMin : 'dg_dl_dt_dc_dj_dv_ds'.split('_'),
     weekdaysParseExact : true,
     longDateFormat : {
         LT : 'H:mm',
         LTS : 'H:mm:ss',
         L : 'DD/MM/YYYY',
-        LL : '[el] D MMMM [de] YYYY',
+        LL : 'D MMMM [de] YYYY',
         ll : 'D MMM YYYY',
-        LLL : '[el] D MMMM [de] YYYY [a les] H:mm',
+        LLL : 'D MMMM [de] YYYY [a les] H:mm',
         lll : 'D MMM YYYY, H:mm',
-        LLLL : '[el] dddd D MMMM [de] YYYY [a les] H:mm',
+        LLLL : 'dddd D MMMM [de] YYYY [a les] H:mm',
         llll : 'ddd D MMM YYYY, H:mm'
     },
     calendar : {
@@ -6160,7 +6266,7 @@ hooks.defineLocale('da', {
     longDateFormat : {
         LT : 'HH:mm',
         LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
+        L : 'DD.MM.YYYY',
         LL : 'D. MMMM YYYY',
         LLL : 'D. MMMM YYYY HH:mm',
         LLLL : 'dddd [d.] D. MMMM YYYY [kl.] HH:mm'
@@ -6219,7 +6325,7 @@ function processRelativeTime(number, withoutSuffix, key, isFuture) {
 
 hooks.defineLocale('de-at', {
     months : 'Jänner_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember'.split('_'),
-    monthsShort : 'Jän._Febr._Mrz._Apr._Mai_Jun._Jul._Aug._Sept._Okt._Nov._Dez.'.split('_'),
+    monthsShort : 'Jän._Feb._März_Apr._Mai_Juni_Juli_Aug._Sep._Okt._Nov._Dez.'.split('_'),
     monthsParseExact : true,
     weekdays : 'Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag'.split('_'),
     weekdaysShort : 'So._Mo._Di._Mi._Do._Fr._Sa.'.split('_'),
@@ -6286,7 +6392,7 @@ function processRelativeTime$1(number, withoutSuffix, key, isFuture) {
 
 hooks.defineLocale('de-ch', {
     months : 'Januar_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember'.split('_'),
-    monthsShort : 'Jan._Febr._März_April_Mai_Juni_Juli_Aug._Sept._Okt._Nov._Dez.'.split('_'),
+    monthsShort : 'Jan._Feb._März_Apr._Mai_Juni_Juli_Aug._Sep._Okt._Nov._Dez.'.split('_'),
     monthsParseExact : true,
     weekdays : 'Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag'.split('_'),
     weekdaysShort : 'So_Mo_Di_Mi_Do_Fr_Sa'.split('_'),
@@ -6353,7 +6459,7 @@ function processRelativeTime$2(number, withoutSuffix, key, isFuture) {
 
 hooks.defineLocale('de', {
     months : 'Januar_Februar_März_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember'.split('_'),
-    monthsShort : 'Jan._Febr._Mrz._Apr._Mai_Jun._Jul._Aug._Sept._Okt._Nov._Dez.'.split('_'),
+    monthsShort : 'Jan._Feb._März_Apr._Mai_Juni_Juli_Aug._Sep._Okt._Nov._Dez.'.split('_'),
     monthsParseExact : true,
     weekdays : 'Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag'.split('_'),
     weekdaysShort : 'So._Mo._Di._Mi._Do._Fr._Sa.'.split('_'),
@@ -6497,7 +6603,7 @@ hooks.defineLocale('el', {
     months : function (momentToFormat, format) {
         if (!momentToFormat) {
             return this._monthsNominativeEl;
-        } else if (/D/.test(format.substring(0, format.indexOf('MMMM')))) { // if there is a day number before 'MMMM'
+        } else if (typeof format === 'string' && /D/.test(format.substring(0, format.indexOf('MMMM')))) { // if there is a day number before 'MMMM'
             return this._monthsGenitiveEl[momentToFormat.month()];
         } else {
             return this._monthsNominativeEl[momentToFormat.month()];
@@ -6916,6 +7022,9 @@ hooks.defineLocale('eo', {
 var monthsShortDot = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split('_');
 var monthsShort$1 = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_');
 
+var monthsParse = [/^ene/i, /^feb/i, /^mar/i, /^abr/i, /^may/i, /^jun/i, /^jul/i, /^ago/i, /^sep/i, /^oct/i, /^nov/i, /^dic/i];
+var monthsRegex$1 = /^(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre|ene\.?|feb\.?|mar\.?|abr\.?|may\.?|jun\.?|jul\.?|ago\.?|sep\.?|oct\.?|nov\.?|dic\.?)/i;
+
 hooks.defineLocale('es-do', {
     months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
     monthsShort : function (m, format) {
@@ -6927,7 +7036,13 @@ hooks.defineLocale('es-do', {
             return monthsShortDot[m.month()];
         }
     },
-    monthsParseExact : true,
+    monthsRegex: monthsRegex$1,
+    monthsShortRegex: monthsRegex$1,
+    monthsStrictRegex: /^(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)/i,
+    monthsShortStrictRegex: /^(ene\.?|feb\.?|mar\.?|abr\.?|may\.?|jun\.?|jul\.?|ago\.?|sep\.?|oct\.?|nov\.?|dic\.?)/i,
+    monthsParse: monthsParse,
+    longMonthsParse: monthsParse,
+    shortMonthsParse: monthsParse,
     weekdays : 'domingo_lunes_martes_miércoles_jueves_viernes_sábado'.split('_'),
     weekdaysShort : 'dom._lun._mar._mié._jue._vie._sáb.'.split('_'),
     weekdaysMin : 'do_lu_ma_mi_ju_vi_sá'.split('_'),
@@ -6982,13 +7097,13 @@ hooks.defineLocale('es-do', {
 });
 
 //! moment.js locale configuration
-//! locale : Spanish [es]
-//! author : Julio Napurí : https://github.com/julionc
+//! locale : Spanish(United State) [es-us]
+//! author : bustta : https://github.com/bustta
 
 var monthsShortDot$1 = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split('_');
 var monthsShort$2 = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_');
 
-hooks.defineLocale('es', {
+hooks.defineLocale('es-us', {
     months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
     monthsShort : function (m, format) {
         if (!m) {
@@ -7000,6 +7115,87 @@ hooks.defineLocale('es', {
         }
     },
     monthsParseExact : true,
+    weekdays : 'domingo_lunes_martes_miércoles_jueves_viernes_sábado'.split('_'),
+    weekdaysShort : 'dom._lun._mar._mié._jue._vie._sáb.'.split('_'),
+    weekdaysMin : 'do_lu_ma_mi_ju_vi_sá'.split('_'),
+    weekdaysParseExact : true,
+    longDateFormat : {
+        LT : 'H:mm',
+        LTS : 'H:mm:ss',
+        L : 'MM/DD/YYYY',
+        LL : 'MMMM [de] D [de] YYYY',
+        LLL : 'MMMM [de] D [de] YYYY H:mm',
+        LLLL : 'dddd, MMMM [de] D [de] YYYY H:mm'
+    },
+    calendar : {
+        sameDay : function () {
+            return '[hoy a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+        },
+        nextDay : function () {
+            return '[mañana a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+        },
+        nextWeek : function () {
+            return 'dddd [a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+        },
+        lastDay : function () {
+            return '[ayer a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+        },
+        lastWeek : function () {
+            return '[el] dddd [pasado a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+        },
+        sameElse : 'L'
+    },
+    relativeTime : {
+        future : 'en %s',
+        past : 'hace %s',
+        s : 'unos segundos',
+        m : 'un minuto',
+        mm : '%d minutos',
+        h : 'una hora',
+        hh : '%d horas',
+        d : 'un día',
+        dd : '%d días',
+        M : 'un mes',
+        MM : '%d meses',
+        y : 'un año',
+        yy : '%d años'
+    },
+    dayOfMonthOrdinalParse : /\d{1,2}º/,
+    ordinal : '%dº',
+    week : {
+        dow : 0, // Sunday is the first day of the week.
+        doy : 6  // The week that contains Jan 1st is the first week of the year.
+    }
+});
+
+//! moment.js locale configuration
+//! locale : Spanish [es]
+//! author : Julio Napurí : https://github.com/julionc
+
+var monthsShortDot$2 = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split('_');
+var monthsShort$3 = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_');
+
+var monthsParse$1 = [/^ene/i, /^feb/i, /^mar/i, /^abr/i, /^may/i, /^jun/i, /^jul/i, /^ago/i, /^sep/i, /^oct/i, /^nov/i, /^dic/i];
+var monthsRegex$2 = /^(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre|ene\.?|feb\.?|mar\.?|abr\.?|may\.?|jun\.?|jul\.?|ago\.?|sep\.?|oct\.?|nov\.?|dic\.?)/i;
+
+hooks.defineLocale('es', {
+    months : 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split('_'),
+    monthsShort : function (m, format) {
+        if (!m) {
+            return monthsShortDot$2;
+        } else if (/-MMM-/.test(format)) {
+            return monthsShort$3[m.month()];
+        } else {
+            return monthsShortDot$2[m.month()];
+        }
+    },
+    monthsRegex : monthsRegex$2,
+    monthsShortRegex : monthsRegex$2,
+    monthsStrictRegex : /^(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)/i,
+    monthsShortStrictRegex : /^(ene\.?|feb\.?|mar\.?|abr\.?|may\.?|jun\.?|jul\.?|ago\.?|sep\.?|oct\.?|nov\.?|dic\.?)/i,
+    monthsParse : monthsParse$1,
+    longMonthsParse : monthsParse$1,
+    shortMonthsParse : monthsParse$1,
     weekdays : 'domingo_lunes_martes_miércoles_jueves_viernes_sábado'.split('_'),
     weekdaysShort : 'dom._lun._mar._mié._jue._vie._sáb.'.split('_'),
     weekdaysMin : 'do_lu_ma_mi_ju_vi_sá'.split('_'),
@@ -7692,7 +7888,7 @@ var months$5 = [
     'Am Faoilleach', 'An Gearran', 'Am Màrt', 'An Giblean', 'An Cèitean', 'An t-Ògmhios', 'An t-Iuchar', 'An Lùnastal', 'An t-Sultain', 'An Dàmhair', 'An t-Samhain', 'An Dùbhlachd'
 ];
 
-var monthsShort$3 = ['Faoi', 'Gear', 'Màrt', 'Gibl', 'Cèit', 'Ògmh', 'Iuch', 'Lùn', 'Sult', 'Dàmh', 'Samh', 'Dùbh'];
+var monthsShort$4 = ['Faoi', 'Gear', 'Màrt', 'Gibl', 'Cèit', 'Ògmh', 'Iuch', 'Lùn', 'Sult', 'Dàmh', 'Samh', 'Dùbh'];
 
 var weekdays$1 = ['Didòmhnaich', 'Diluain', 'Dimàirt', 'Diciadain', 'Diardaoin', 'Dihaoine', 'Disathairne'];
 
@@ -7702,7 +7898,7 @@ var weekdaysMin = ['Dò', 'Lu', 'Mà', 'Ci', 'Ar', 'Ha', 'Sa'];
 
 hooks.defineLocale('gd', {
     months : months$5,
-    monthsShort : monthsShort$3,
+    monthsShort : monthsShort$4,
     monthsParseExact : true,
     weekdays : weekdays$1,
     weekdaysShort : weekdaysShort,
@@ -7927,6 +8123,119 @@ hooks.defineLocale('gom-latn', {
 });
 
 //! moment.js locale configuration
+//! locale : Gujarati [gu]
+//! author : Kaushik Thanki : https://github.com/Kaushik1987
+
+var symbolMap$6 = {
+        '1': '૧',
+        '2': '૨',
+        '3': '૩',
+        '4': '૪',
+        '5': '૫',
+        '6': '૬',
+        '7': '૭',
+        '8': '૮',
+        '9': '૯',
+        '0': '૦'
+    };
+var numberMap$5 = {
+        '૧': '1',
+        '૨': '2',
+        '૩': '3',
+        '૪': '4',
+        '૫': '5',
+        '૬': '6',
+        '૭': '7',
+        '૮': '8',
+        '૯': '9',
+        '૦': '0'
+    };
+
+hooks.defineLocale('gu', {
+    months: 'જાન્યુઆરી_ફેબ્રુઆરી_માર્ચ_એપ્રિલ_મે_જૂન_જુલાઈ_ઑગસ્ટ_સપ્ટેમ્બર_ઑક્ટ્બર_નવેમ્બર_ડિસેમ્બર'.split('_'),
+    monthsShort: 'જાન્યુ._ફેબ્રુ._માર્ચ_એપ્રિ._મે_જૂન_જુલા._ઑગ._સપ્ટે._ઑક્ટ્._નવે._ડિસે.'.split('_'),
+    monthsParseExact: true,
+    weekdays: 'રવિવાર_સોમવાર_મંગળવાર_બુધ્વાર_ગુરુવાર_શુક્રવાર_શનિવાર'.split('_'),
+    weekdaysShort: 'રવિ_સોમ_મંગળ_બુધ્_ગુરુ_શુક્ર_શનિ'.split('_'),
+    weekdaysMin: 'ર_સો_મં_બુ_ગુ_શુ_શ'.split('_'),
+    longDateFormat: {
+        LT: 'A h:mm વાગ્યે',
+        LTS: 'A h:mm:ss વાગ્યે',
+        L: 'DD/MM/YYYY',
+        LL: 'D MMMM YYYY',
+        LLL: 'D MMMM YYYY, A h:mm વાગ્યે',
+        LLLL: 'dddd, D MMMM YYYY, A h:mm વાગ્યે'
+    },
+    calendar: {
+        sameDay: '[આજ] LT',
+        nextDay: '[કાલે] LT',
+        nextWeek: 'dddd, LT',
+        lastDay: '[ગઇકાલે] LT',
+        lastWeek: '[પાછલા] dddd, LT',
+        sameElse: 'L'
+    },
+    relativeTime: {
+        future: '%s મા',
+        past: '%s પેહલા',
+        s: 'અમુક પળો',
+        m: 'એક મિનિટ',
+        mm: '%d મિનિટ',
+        h: 'એક કલાક',
+        hh: '%d કલાક',
+        d: 'એક દિવસ',
+        dd: '%d દિવસ',
+        M: 'એક મહિનો',
+        MM: '%d મહિનો',
+        y: 'એક વર્ષ',
+        yy: '%d વર્ષ'
+    },
+    preparse: function (string) {
+        return string.replace(/[૧૨૩૪૫૬૭૮૯૦]/g, function (match) {
+            return numberMap$5[match];
+        });
+    },
+    postformat: function (string) {
+        return string.replace(/\d/g, function (match) {
+            return symbolMap$6[match];
+        });
+    },
+    // Gujarati notation for meridiems are quite fuzzy in practice. While there exists
+    // a rigid notion of a 'Pahar' it is not used as rigidly in modern Gujarati.
+    meridiemParse: /રાત|બપોર|સવાર|સાંજ/,
+    meridiemHour: function (hour, meridiem) {
+        if (hour === 12) {
+            hour = 0;
+        }
+        if (meridiem === 'રાત') {
+            return hour < 4 ? hour : hour + 12;
+        } else if (meridiem === 'સવાર') {
+            return hour;
+        } else if (meridiem === 'બપોર') {
+            return hour >= 10 ? hour : hour + 12;
+        } else if (meridiem === 'સાંજ') {
+            return hour + 12;
+        }
+    },
+    meridiem: function (hour, minute, isLower) {
+        if (hour < 4) {
+            return 'રાત';
+        } else if (hour < 10) {
+            return 'સવાર';
+        } else if (hour < 17) {
+            return 'બપોર';
+        } else if (hour < 20) {
+            return 'સાંજ';
+        } else {
+            return 'રાત';
+        }
+    },
+    week: {
+        dow: 0, // Sunday is the first day of the week.
+        doy: 6 // The week that contains Jan 1st is the first week of the year.
+    }
+});
+
+//! moment.js locale configuration
 //! locale : Hebrew [he]
 //! author : Tomer Cohen : https://github.com/tomer
 //! author : Moshe Simantov : https://github.com/DevelopmentIL
@@ -8018,7 +8327,7 @@ hooks.defineLocale('he', {
 //! locale : Hindi [hi]
 //! author : Mayank Singhal : https://github.com/mayanksinghal
 
-var symbolMap$6 = {
+var symbolMap$7 = {
     '1': '१',
     '2': '२',
     '3': '३',
@@ -8030,7 +8339,7 @@ var symbolMap$6 = {
     '9': '९',
     '0': '०'
 };
-var numberMap$5 = {
+var numberMap$6 = {
     '१': '1',
     '२': '2',
     '३': '3',
@@ -8083,12 +8392,12 @@ hooks.defineLocale('hi', {
     },
     preparse: function (string) {
         return string.replace(/[१२३४५६७८९०]/g, function (match) {
-            return numberMap$5[match];
+            return numberMap$6[match];
         });
     },
     postformat: function (string) {
         return string.replace(/\d/g, function (match) {
-            return symbolMap$6[match];
+            return symbolMap$7[match];
         });
     },
     // Hindi notation for meridiems are quite fuzzy in practice. While there exists
@@ -9036,7 +9345,7 @@ hooks.defineLocale('km', {
 //! locale : Kannada [kn]
 //! author : Rajeev Naik : https://github.com/rajeevnaikte
 
-var symbolMap$7 = {
+var symbolMap$8 = {
     '1': '೧',
     '2': '೨',
     '3': '೩',
@@ -9048,7 +9357,7 @@ var symbolMap$7 = {
     '9': '೯',
     '0': '೦'
 };
-var numberMap$6 = {
+var numberMap$7 = {
     '೧': '1',
     '೨': '2',
     '೩': '3',
@@ -9101,12 +9410,12 @@ hooks.defineLocale('kn', {
     },
     preparse: function (string) {
         return string.replace(/[೧೨೩೪೫೬೭೮೯೦]/g, function (match) {
-            return numberMap$6[match];
+            return numberMap$7[match];
         });
     },
     postformat: function (string) {
         return string.replace(/\d/g, function (match) {
-            return symbolMap$7[match];
+            return symbolMap$8[match];
         });
     },
     meridiemParse: /ರಾತ್ರಿ|ಬೆಳಿಗ್ಗೆ|ಮಧ್ಯಾಹ್ನ|ಸಂಜೆ/,
@@ -9194,8 +9503,22 @@ hooks.defineLocale('ko', {
         y : '일 년',
         yy : '%d년'
     },
-    dayOfMonthOrdinalParse : /\d{1,2}일/,
-    ordinal : '%d일',
+    dayOfMonthOrdinalParse : /\d{1,2}(일|월|주)/,
+    ordinal : function (number, period) {
+        switch (period) {
+            case 'd':
+            case 'D':
+            case 'DDD':
+                return number + '일';
+            case 'M':
+                return number + '월';
+            case 'w':
+            case 'W':
+                return number + '주';
+            default:
+                return number;
+        }
+    },
     meridiemParse : /오전|오후/,
     isPM : function (token) {
         return token === '오후';
@@ -9966,7 +10289,7 @@ hooks.defineLocale('ml', {
 //! author : Harshad Kale : https://github.com/kalehv
 //! author : Vivek Athalye : https://github.com/vnathalye
 
-var symbolMap$8 = {
+var symbolMap$9 = {
     '1': '१',
     '2': '२',
     '3': '३',
@@ -9978,7 +10301,7 @@ var symbolMap$8 = {
     '9': '९',
     '0': '०'
 };
-var numberMap$7 = {
+var numberMap$8 = {
     '१': '1',
     '२': '2',
     '३': '3',
@@ -10067,12 +10390,12 @@ hooks.defineLocale('mr', {
     },
     preparse: function (string) {
         return string.replace(/[१२३४५६७८९०]/g, function (match) {
-            return numberMap$7[match];
+            return numberMap$8[match];
         });
     },
     postformat: function (string) {
         return string.replace(/\d/g, function (match) {
-            return symbolMap$8[match];
+            return symbolMap$9[match];
         });
     },
     meridiemParse: /रात्री|सकाळी|दुपारी|सायंकाळी/,
@@ -10258,7 +10581,7 @@ hooks.defineLocale('ms', {
 //! author : David Rossellat : https://github.com/gholadr
 //! author : Tin Aung Lin : https://github.com/thanyawzinmin
 
-var symbolMap$9 = {
+var symbolMap$10 = {
     '1': '၁',
     '2': '၂',
     '3': '၃',
@@ -10270,7 +10593,7 @@ var symbolMap$9 = {
     '9': '၉',
     '0': '၀'
 };
-var numberMap$8 = {
+var numberMap$9 = {
     '၁': '1',
     '၂': '2',
     '၃': '3',
@@ -10323,12 +10646,12 @@ hooks.defineLocale('my', {
     },
     preparse: function (string) {
         return string.replace(/[၁၂၃၄၅၆၇၈၉၀]/g, function (match) {
-            return numberMap$8[match];
+            return numberMap$9[match];
         });
     },
     postformat: function (string) {
         return string.replace(/\d/g, function (match) {
-            return symbolMap$9[match];
+            return symbolMap$10[match];
         });
     },
     week: {
@@ -10393,7 +10716,7 @@ hooks.defineLocale('nb', {
 //! locale : Nepalese [ne]
 //! author : suvash : https://github.com/suvash
 
-var symbolMap$10 = {
+var symbolMap$11 = {
     '1': '१',
     '2': '२',
     '3': '३',
@@ -10405,7 +10728,7 @@ var symbolMap$10 = {
     '9': '९',
     '0': '०'
 };
-var numberMap$9 = {
+var numberMap$10 = {
     '१': '1',
     '२': '2',
     '३': '3',
@@ -10436,12 +10759,12 @@ hooks.defineLocale('ne', {
     },
     preparse: function (string) {
         return string.replace(/[१२३४५६७८९०]/g, function (match) {
-            return numberMap$9[match];
+            return numberMap$10[match];
         });
     },
     postformat: function (string) {
         return string.replace(/\d/g, function (match) {
-            return symbolMap$10[match];
+            return symbolMap$11[match];
         });
     },
     meridiemParse: /राति|बिहान|दिउँसो|साँझ/,
@@ -10509,8 +10832,8 @@ hooks.defineLocale('ne', {
 var monthsShortWithDots$1 = 'jan._feb._mrt._apr._mei_jun._jul._aug._sep._okt._nov._dec.'.split('_');
 var monthsShortWithoutDots$1 = 'jan_feb_mrt_apr_mei_jun_jul_aug_sep_okt_nov_dec'.split('_');
 
-var monthsParse = [/^jan/i, /^feb/i, /^maart|mrt.?$/i, /^apr/i, /^mei$/i, /^jun[i.]?$/i, /^jul[i.]?$/i, /^aug/i, /^sep/i, /^okt/i, /^nov/i, /^dec/i];
-var monthsRegex$1 = /^(januari|februari|maart|april|mei|april|ju[nl]i|augustus|september|oktober|november|december|jan\.?|feb\.?|mrt\.?|apr\.?|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i;
+var monthsParse$2 = [/^jan/i, /^feb/i, /^maart|mrt.?$/i, /^apr/i, /^mei$/i, /^jun[i.]?$/i, /^jul[i.]?$/i, /^aug/i, /^sep/i, /^okt/i, /^nov/i, /^dec/i];
+var monthsRegex$3 = /^(januari|februari|maart|april|mei|april|ju[nl]i|augustus|september|oktober|november|december|jan\.?|feb\.?|mrt\.?|apr\.?|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i;
 
 hooks.defineLocale('nl-be', {
     months : 'januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december'.split('_'),
@@ -10524,18 +10847,18 @@ hooks.defineLocale('nl-be', {
         }
     },
 
-    monthsRegex: monthsRegex$1,
-    monthsShortRegex: monthsRegex$1,
+    monthsRegex: monthsRegex$3,
+    monthsShortRegex: monthsRegex$3,
     monthsStrictRegex: /^(januari|februari|maart|mei|ju[nl]i|april|augustus|september|oktober|november|december)/i,
     monthsShortStrictRegex: /^(jan\.?|feb\.?|mrt\.?|apr\.?|mei|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i,
 
-    monthsParse : monthsParse,
-    longMonthsParse : monthsParse,
-    shortMonthsParse : monthsParse,
+    monthsParse : monthsParse$2,
+    longMonthsParse : monthsParse$2,
+    shortMonthsParse : monthsParse$2,
 
     weekdays : 'zondag_maandag_dinsdag_woensdag_donderdag_vrijdag_zaterdag'.split('_'),
     weekdaysShort : 'zo._ma._di._wo._do._vr._za.'.split('_'),
-    weekdaysMin : 'Zo_Ma_Di_Wo_Do_Vr_Za'.split('_'),
+    weekdaysMin : 'zo_ma_di_wo_do_vr_za'.split('_'),
     weekdaysParseExact : true,
     longDateFormat : {
         LT : 'HH:mm',
@@ -10586,8 +10909,8 @@ hooks.defineLocale('nl-be', {
 var monthsShortWithDots$2 = 'jan._feb._mrt._apr._mei_jun._jul._aug._sep._okt._nov._dec.'.split('_');
 var monthsShortWithoutDots$2 = 'jan_feb_mrt_apr_mei_jun_jul_aug_sep_okt_nov_dec'.split('_');
 
-var monthsParse$1 = [/^jan/i, /^feb/i, /^maart|mrt.?$/i, /^apr/i, /^mei$/i, /^jun[i.]?$/i, /^jul[i.]?$/i, /^aug/i, /^sep/i, /^okt/i, /^nov/i, /^dec/i];
-var monthsRegex$2 = /^(januari|februari|maart|april|mei|april|ju[nl]i|augustus|september|oktober|november|december|jan\.?|feb\.?|mrt\.?|apr\.?|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i;
+var monthsParse$3 = [/^jan/i, /^feb/i, /^maart|mrt.?$/i, /^apr/i, /^mei$/i, /^jun[i.]?$/i, /^jul[i.]?$/i, /^aug/i, /^sep/i, /^okt/i, /^nov/i, /^dec/i];
+var monthsRegex$4 = /^(januari|februari|maart|april|mei|april|ju[nl]i|augustus|september|oktober|november|december|jan\.?|feb\.?|mrt\.?|apr\.?|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i;
 
 hooks.defineLocale('nl', {
     months : 'januari_februari_maart_april_mei_juni_juli_augustus_september_oktober_november_december'.split('_'),
@@ -10601,18 +10924,18 @@ hooks.defineLocale('nl', {
         }
     },
 
-    monthsRegex: monthsRegex$2,
-    monthsShortRegex: monthsRegex$2,
+    monthsRegex: monthsRegex$4,
+    monthsShortRegex: monthsRegex$4,
     monthsStrictRegex: /^(januari|februari|maart|mei|ju[nl]i|april|augustus|september|oktober|november|december)/i,
     monthsShortStrictRegex: /^(jan\.?|feb\.?|mrt\.?|apr\.?|mei|ju[nl]\.?|aug\.?|sep\.?|okt\.?|nov\.?|dec\.?)/i,
 
-    monthsParse : monthsParse$1,
-    longMonthsParse : monthsParse$1,
-    shortMonthsParse : monthsParse$1,
+    monthsParse : monthsParse$3,
+    longMonthsParse : monthsParse$3,
+    shortMonthsParse : monthsParse$3,
 
     weekdays : 'zondag_maandag_dinsdag_woensdag_donderdag_vrijdag_zaterdag'.split('_'),
     weekdaysShort : 'zo._ma._di._wo._do._vr._za.'.split('_'),
-    weekdaysMin : 'Zo_Ma_Di_Wo_Do_Vr_Za'.split('_'),
+    weekdaysMin : 'zo_ma_di_wo_do_vr_za'.split('_'),
     weekdaysParseExact : true,
     longDateFormat : {
         LT : 'HH:mm',
@@ -10708,7 +11031,7 @@ hooks.defineLocale('nn', {
 //! locale : Punjabi (India) [pa-in]
 //! author : Harpreet Singh : https://github.com/harpreetkhalsagtbit
 
-var symbolMap$11 = {
+var symbolMap$12 = {
     '1': '੧',
     '2': '੨',
     '3': '੩',
@@ -10720,7 +11043,7 @@ var symbolMap$11 = {
     '9': '੯',
     '0': '੦'
 };
-var numberMap$10 = {
+var numberMap$11 = {
     '੧': '1',
     '੨': '2',
     '੩': '3',
@@ -10773,12 +11096,12 @@ hooks.defineLocale('pa-in', {
     },
     preparse: function (string) {
         return string.replace(/[੧੨੩੪੫੬੭੮੯੦]/g, function (match) {
-            return numberMap$10[match];
+            return numberMap$11[match];
         });
     },
     postformat: function (string) {
         return string.replace(/\d/g, function (match) {
-            return symbolMap$11[match];
+            return symbolMap$12[match];
         });
     },
     // Punjabi notation for meridiems are quite fuzzy in practice. While there exists
@@ -10874,7 +11197,24 @@ hooks.defineLocale('pl', {
     calendar : {
         sameDay: '[Dziś o] LT',
         nextDay: '[Jutro o] LT',
-        nextWeek: '[W] dddd [o] LT',
+        nextWeek: function () {
+            switch (this.day()) {
+                case 0:
+                    return '[W niedzielę o] LT';
+
+                case 2:
+                    return '[We wtorek o] LT';
+
+                case 3:
+                    return '[W środę o] LT';
+
+                case 6:
+                    return '[W sobotę o] LT';
+
+                default:
+                    return '[W] dddd [o] LT';
+            }
+        },
         lastDay: '[Wczoraj o] LT',
         lastWeek: function () {
             switch (this.day()) {
@@ -10918,8 +11258,8 @@ hooks.defineLocale('pl', {
 //! author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 
 hooks.defineLocale('pt-br', {
-    months : 'Janeiro_Fevereiro_Março_Abril_Maio_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro'.split('_'),
-    monthsShort : 'Jan_Fev_Mar_Abr_Mai_Jun_Jul_Ago_Set_Out_Nov_Dez'.split('_'),
+    months : 'janeiro_fevereiro_março_abril_maio_junho_julho_agosto_setembro_outubro_novembro_dezembro'.split('_'),
+    monthsShort : 'jan_fev_mar_abr_mai_jun_jul_ago_set_out_nov_dez'.split('_'),
     weekdays : 'Domingo_Segunda-feira_Terça-feira_Quarta-feira_Quinta-feira_Sexta-feira_Sábado'.split('_'),
     weekdaysShort : 'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'),
     weekdaysMin : 'Do_2ª_3ª_4ª_5ª_6ª_Sá'.split('_'),
@@ -10948,6 +11288,7 @@ hooks.defineLocale('pt-br', {
         future : 'em %s',
         past : '%s atrás',
         s : 'poucos segundos',
+        ss : '%d segundos',
         m : 'um minuto',
         mm : '%d minutos',
         h : 'uma hora',
@@ -10968,9 +11309,9 @@ hooks.defineLocale('pt-br', {
 //! author : Jefferson : https://github.com/jalex79
 
 hooks.defineLocale('pt', {
-    months : 'Janeiro_Fevereiro_Março_Abril_Maio_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro'.split('_'),
-    monthsShort : 'Jan_Fev_Mar_Abr_Mai_Jun_Jul_Ago_Set_Out_Nov_Dez'.split('_'),
-    weekdays : 'Domingo_Segunda-Feira_Terça-Feira_Quarta-Feira_Quinta-Feira_Sexta-Feira_Sábado'.split('_'),
+    months : 'janeiro_fevereiro_março_abril_maio_junho_julho_agosto_setembro_outubro_novembro_dezembro'.split('_'),
+    monthsShort : 'jan_fev_mar_abr_mai_jun_jul_ago_set_out_nov_dez'.split('_'),
+    weekdays : 'Domingo_Segunda-feira_Terça-feira_Quarta-feira_Quinta-feira_Sexta-feira_Sábado'.split('_'),
     weekdaysShort : 'Dom_Seg_Ter_Qua_Qui_Sex_Sáb'.split('_'),
     weekdaysMin : 'Do_2ª_3ª_4ª_5ª_6ª_Sá'.split('_'),
     weekdaysParseExact : true,
@@ -11106,7 +11447,7 @@ function relativeTimeWithPlural$3(number, withoutSuffix, key) {
         return number + ' ' + plural$4(format[key], +number);
     }
 }
-var monthsParse$2 = [/^янв/i, /^фев/i, /^мар/i, /^апр/i, /^ма[йя]/i, /^июн/i, /^июл/i, /^авг/i, /^сен/i, /^окт/i, /^ноя/i, /^дек/i];
+var monthsParse$4 = [/^янв/i, /^фев/i, /^мар/i, /^апр/i, /^ма[йя]/i, /^июн/i, /^июл/i, /^авг/i, /^сен/i, /^окт/i, /^ноя/i, /^дек/i];
 
 // http://new.gramota.ru/spravka/rules/139-prop : § 103
 // Сокращения месяцев: http://new.gramota.ru/spravka/buro/search-answer?s=242637
@@ -11128,9 +11469,9 @@ hooks.defineLocale('ru', {
     },
     weekdaysShort : 'вс_пн_вт_ср_чт_пт_сб'.split('_'),
     weekdaysMin : 'вс_пн_вт_ср_чт_пт_сб'.split('_'),
-    monthsParse : monthsParse$2,
-    longMonthsParse : monthsParse$2,
-    shortMonthsParse : monthsParse$2,
+    monthsParse : monthsParse$4,
+    longMonthsParse : monthsParse$4,
+    shortMonthsParse : monthsParse$4,
 
     // полные названия с падежами, по три буквы, для некоторых, по 4 буквы, сокращения с точкой и без точки
     monthsRegex: /^(январ[ья]|янв\.?|феврал[ья]|февр?\.?|марта?|мар\.?|апрел[ья]|апр\.?|ма[йя]|июн[ья]|июн\.?|июл[ья]|июл\.?|августа?|авг\.?|сентябр[ья]|сент?\.?|октябр[ья]|окт\.?|ноябр[ья]|нояб?\.?|декабр[ья]|дек\.?)/i,
@@ -11249,7 +11590,7 @@ hooks.defineLocale('ru', {
     },
     week : {
         dow : 1, // Monday is the first day of the week.
-        doy : 7  // The week that contains Jan 1st is the first week of the year.
+        doy : 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 
@@ -11456,7 +11797,7 @@ hooks.defineLocale('si', {
 //! based on work of petrbela : https://github.com/petrbela
 
 var months$7 = 'január_február_marec_apríl_máj_jún_júl_august_september_október_november_december'.split('_');
-var monthsShort$4 = 'jan_feb_mar_apr_máj_jún_júl_aug_sep_okt_nov_dec'.split('_');
+var monthsShort$5 = 'jan_feb_mar_apr_máj_jún_júl_aug_sep_okt_nov_dec'.split('_');
 function plural$5(n) {
     return (n > 1) && (n < 5);
 }
@@ -11515,7 +11856,7 @@ function translate$8(number, withoutSuffix, key, isFuture) {
 
 hooks.defineLocale('sk', {
     months : months$7,
-    monthsShort : monthsShort$4,
+    monthsShort : monthsShort$5,
     weekdays : 'nedeľa_pondelok_utorok_streda_štvrtok_piatok_sobota'.split('_'),
     weekdaysShort : 'ne_po_ut_st_št_pi_so'.split('_'),
     weekdaysMin : 'ne_po_ut_st_št_pi_so'.split('_'),
@@ -12185,7 +12526,7 @@ hooks.defineLocale('sw', {
 //! locale : Tamil [ta]
 //! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 
-var symbolMap$12 = {
+var symbolMap$13 = {
     '1': '௧',
     '2': '௨',
     '3': '௩',
@@ -12197,7 +12538,7 @@ var symbolMap$12 = {
     '9': '௯',
     '0': '௦'
 };
-var numberMap$11 = {
+var numberMap$12 = {
     '௧': '1',
     '௨': '2',
     '௩': '3',
@@ -12253,12 +12594,12 @@ hooks.defineLocale('ta', {
     },
     preparse: function (string) {
         return string.replace(/[௧௨௩௪௫௬௭௮௯௦]/g, function (match) {
-            return numberMap$11[match];
+            return numberMap$12[match];
         });
     },
     postformat: function (string) {
         return string.replace(/\d/g, function (match) {
-            return symbolMap$12[match];
+            return symbolMap$13[match];
         });
     },
     // refer http://ta.wikipedia.org/s/1er1
@@ -12694,9 +13035,9 @@ hooks.defineLocale('tr', {
     calendar : {
         sameDay : '[bugün saat] LT',
         nextDay : '[yarın saat] LT',
-        nextWeek : '[haftaya] dddd [saat] LT',
+        nextWeek : '[gelecek] dddd [saat] LT',
         lastDay : '[dün] LT',
-        lastWeek : '[geçen hafta] dddd [saat] LT',
+        lastWeek : '[geçen] dddd [saat] LT',
         sameElse : 'L'
     },
     relativeTime : {
@@ -15750,7 +16091,7 @@ return Tether;
 
 /**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.12.6
+ * @version 1.12.9
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *
@@ -15778,7 +16119,7 @@ return Tether;
 	(global.Popper = factory());
 }(this, (function () { 'use strict';
 
-var isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
+var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
 var longerTimeoutBrowsers = ['Edge', 'Trident', 'Firefox'];
 var timeoutDuration = 0;
 for (var i = 0; i < longerTimeoutBrowsers.length; i += 1) {
@@ -15795,7 +16136,7 @@ function microtaskDebounce(fn) {
       return;
     }
     called = true;
-    Promise.resolve().then(function () {
+    window.Promise.resolve().then(function () {
       called = false;
       fn();
     });
@@ -15852,7 +16193,7 @@ function getStyleComputedProperty(element, property) {
     return [];
   }
   // NOTE: 1 DOM access here
-  var css = window.getComputedStyle(element, null);
+  var css = getComputedStyle(element, null);
   return property ? css[property] : css;
 }
 
@@ -15880,7 +16221,7 @@ function getParentNode(element) {
 function getScrollParent(element) {
   // Return body, `getScroll` will take care to get the correct `scrollTop` from it
   if (!element) {
-    return window.document.body;
+    return document.body;
   }
 
   switch (element.nodeName) {
@@ -15922,7 +16263,7 @@ function getOffsetParent(element) {
       return element.ownerDocument.documentElement;
     }
 
-    return window.document.documentElement;
+    return document.documentElement;
   }
 
   // .offsetParent will return the closest TD or TABLE in case
@@ -15969,7 +16310,7 @@ function getRoot(node) {
 function findCommonOffsetParent(element1, element2) {
   // This check is needed to avoid errors in case one of the elements isn't defined for any reason
   if (!element1 || !element1.nodeType || !element2 || !element2.nodeType) {
-    return window.document.documentElement;
+    return document.documentElement;
   }
 
   // Here we make sure to give as "start" the element that comes first in the DOM
@@ -16061,7 +16402,7 @@ function getBordersSize(styles, axis) {
   var sideA = axis === 'x' ? 'Left' : 'Top';
   var sideB = sideA === 'Left' ? 'Right' : 'Bottom';
 
-  return +styles['border' + sideA + 'Width'].split('px')[0] + +styles['border' + sideB + 'Width'].split('px')[0];
+  return parseFloat(styles['border' + sideA + 'Width'], 10) + parseFloat(styles['border' + sideB + 'Width'], 10);
 }
 
 /**
@@ -16084,9 +16425,9 @@ function getSize(axis, body, html, computedStyle) {
 }
 
 function getWindowSizes() {
-  var body = window.document.body;
-  var html = window.document.documentElement;
-  var computedStyle = isIE10$1() && window.getComputedStyle(html);
+  var body = document.body;
+  var html = document.documentElement;
+  var computedStyle = isIE10$1() && getComputedStyle(html);
 
   return {
     height: getSize('Height', body, html, computedStyle),
@@ -16229,8 +16570,8 @@ function getOffsetRectRelativeToArbitraryNode(children, parent) {
   var scrollParent = getScrollParent(children);
 
   var styles = getStyleComputedProperty(parent);
-  var borderTopWidth = +styles.borderTopWidth.split('px')[0];
-  var borderLeftWidth = +styles.borderLeftWidth.split('px')[0];
+  var borderTopWidth = parseFloat(styles.borderTopWidth, 10);
+  var borderLeftWidth = parseFloat(styles.borderLeftWidth, 10);
 
   var offsets = getClientRect({
     top: childrenRect.top - parentRect.top - borderTopWidth,
@@ -16246,8 +16587,8 @@ function getOffsetRectRelativeToArbitraryNode(children, parent) {
   // differently when margins are applied to it. The margins are included in
   // the box of the documentElement, in the other cases not.
   if (!isIE10 && isHTML) {
-    var marginTop = +styles.marginTop.split('px')[0];
-    var marginLeft = +styles.marginLeft.split('px')[0];
+    var marginTop = parseFloat(styles.marginTop, 10);
+    var marginLeft = parseFloat(styles.marginLeft, 10);
 
     offsets.top -= borderTopWidth - marginTop;
     offsets.bottom -= borderTopWidth - marginTop;
@@ -16326,7 +16667,7 @@ function getBoundaries(popper, reference, padding, boundariesElement) {
     // Handle other cases based on DOM element used as boundaries
     var boundariesNode = void 0;
     if (boundariesElement === 'scrollParent') {
-      boundariesNode = getScrollParent(getParentNode(popper));
+      boundariesNode = getScrollParent(getParentNode(reference));
       if (boundariesNode.nodeName === 'BODY') {
         boundariesNode = popper.ownerDocument.documentElement;
       }
@@ -16452,7 +16793,7 @@ function getReferenceOffsets(state, popper, reference) {
  * @returns {Object} object containing width and height properties
  */
 function getOuterSizes(element) {
-  var styles = window.getComputedStyle(element);
+  var styles = getComputedStyle(element);
   var x = parseFloat(styles.marginTop) + parseFloat(styles.marginBottom);
   var y = parseFloat(styles.marginLeft) + parseFloat(styles.marginRight);
   var result = {
@@ -16669,7 +17010,7 @@ function getSupportedPropertyName(property) {
   for (var i = 0; i < prefixes.length - 1; i++) {
     var prefix = prefixes[i];
     var toCheck = prefix ? '' + prefix + upperProp : property;
-    if (typeof window.document.body.style[toCheck] !== 'undefined') {
+    if (typeof document.body.style[toCheck] !== 'undefined') {
       return toCheck;
     }
   }
@@ -16788,7 +17129,7 @@ function removeEventListeners(reference, state) {
  */
 function disableEventListeners() {
   if (this.state.eventsEnabled) {
-    window.cancelAnimationFrame(this.scheduleUpdate);
+    cancelAnimationFrame(this.scheduleUpdate);
     this.state = removeEventListeners(this.reference, this.state);
   }
 }
@@ -17028,6 +17369,8 @@ function isModifierRequired(modifiers, requestingName, requestedName) {
  * @returns {Object} The data object, properly modified
  */
 function arrow(data, options) {
+  var _data$offsets$arrow;
+
   // arrow depends on keepTogether in order to work
   if (!isModifierRequired(data.instance.modifiers, 'arrow', 'keepTogether')) {
     return data;
@@ -17079,22 +17422,23 @@ function arrow(data, options) {
   if (reference[side] + arrowElementSize > popper[opSide]) {
     data.offsets.popper[side] += reference[side] + arrowElementSize - popper[opSide];
   }
+  data.offsets.popper = getClientRect(data.offsets.popper);
 
   // compute center of the popper
   var center = reference[side] + reference[len] / 2 - arrowElementSize / 2;
 
   // Compute the sideValue using the updated popper offsets
   // take popper margin in account because we don't have this info available
-  var popperMarginSide = getStyleComputedProperty(data.instance.popper, 'margin' + sideCapitalized).replace('px', '');
-  var sideValue = center - getClientRect(data.offsets.popper)[side] - popperMarginSide;
+  var css = getStyleComputedProperty(data.instance.popper);
+  var popperMarginSide = parseFloat(css['margin' + sideCapitalized], 10);
+  var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width'], 10);
+  var sideValue = center - data.offsets.popper[side] - popperMarginSide - popperBorderSide;
 
   // prevent arrowElement from being placed not contiguously to its popper
   sideValue = Math.max(Math.min(popper[len] - arrowElementSize, sideValue), 0);
 
   data.arrowElement = arrowElement;
-  data.offsets.arrow = {};
-  data.offsets.arrow[side] = Math.round(sideValue);
-  data.offsets.arrow[altSide] = ''; // make sure to unset any eventual altSide value from the DOM node
+  data.offsets.arrow = (_data$offsets$arrow = {}, defineProperty(_data$offsets$arrow, side, Math.round(sideValue)), defineProperty(_data$offsets$arrow, altSide, ''), _data$offsets$arrow);
 
   return data;
 }
@@ -25700,31 +26044,44 @@ var Popover = function ($) {
 	};
 
 }));
-/// <reference path="select2.js" />
 /*!
- * Select2 4.0.3
+ * Select2 4.0.6-rc.0
  * https://select2.github.io
  *
  * Released under the MIT license
  * https://github.com/select2/select2/blob/master/LICENSE.md
  */
-(function (factory) {
+;(function (factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
     define(['jquery'], factory);
-  } else if (typeof exports === 'object') {
+  } else if (typeof module === 'object' && module.exports) {
     // Node/CommonJS
-    factory(require('jquery'));
+    module.exports = function (root, jQuery) {
+      if (jQuery === undefined) {
+        // require('jQuery') returns a factory that requires window to
+        // build a jQuery instance, we normalize how we use modules
+        // that require this pattern but the window provided is a noop
+        // if it's defined (how jquery works)
+        if (typeof window !== 'undefined') {
+          jQuery = require('jquery');
+        }
+        else {
+          jQuery = require('jquery')(root);
+        }
+      }
+      factory(jQuery);
+      return jQuery;
+    };
   } else {
     // Browser globals
     factory(jQuery);
   }
-}(function (jQuery) {
+} (function (jQuery) {
   // This is needed so we can catch the AMD loader configuration and use it
   // The inner file should be wrapped (by `banner.start.js`) in a function that
   // returns the AMD loader references.
-  var S2 =
-(function () {
+  var S2 =(function () {
   // Restore the Select2 AMD loader so it can be used
   // Needed mostly in the language files, where the loader is not inserted
   if (jQuery && jQuery.fn && jQuery.fn.select2 && jQuery.fn.select2.amd) {
@@ -25733,13 +26090,11 @@ var Popover = function ($) {
 var S2;(function () { if (!S2 || !S2.requirejs) {
 if (!S2) { S2 = {}; } else { require = S2; }
 /**
- * @license almond 0.3.1 Copyright (c) 2011-2014, The Dojo Foundation All Rights Reserved.
- * Available via the MIT or new BSD license.
- * see: http://github.com/jrburke/almond for details
+ * @license almond 0.3.3 Copyright jQuery Foundation and other contributors.
+ * Released under MIT license, http://github.com/requirejs/almond/LICENSE
  */
 //Going sloppy to avoid 'use strict' string cost, but strict practices should
 //be followed.
-/*jslint sloppy: true */
 /*global setTimeout: false */
 
 var requirejs, require, define;
@@ -25767,60 +26122,58 @@ var requirejs, require, define;
      */
     function normalize(name, baseName) {
         var nameParts, nameSegment, mapValue, foundMap, lastIndex,
-            foundI, foundStarMap, starI, i, j, part,
+            foundI, foundStarMap, starI, i, j, part, normalizedBaseParts,
             baseParts = baseName && baseName.split("/"),
             map = config.map,
             starMap = (map && map['*']) || {};
 
         //Adjust any relative paths.
-        if (name && name.charAt(0) === ".") {
-            //If have a base name, try to normalize against it,
-            //otherwise, assume it is a top-level require that will
-            //be relative to baseUrl in the end.
-            if (baseName) {
-                name = name.split('/');
-                lastIndex = name.length - 1;
+        if (name) {
+            name = name.split('/');
+            lastIndex = name.length - 1;
 
-                // Node .js allowance:
-                if (config.nodeIdCompat && jsSuffixRegExp.test(name[lastIndex])) {
-                    name[lastIndex] = name[lastIndex].replace(jsSuffixRegExp, '');
-                }
+            // If wanting node ID compatibility, strip .js from end
+            // of IDs. Have to do this here, and not in nameToUrl
+            // because node allows either .js or non .js to map
+            // to same file.
+            if (config.nodeIdCompat && jsSuffixRegExp.test(name[lastIndex])) {
+                name[lastIndex] = name[lastIndex].replace(jsSuffixRegExp, '');
+            }
 
-                //Lop off the last part of baseParts, so that . matches the
-                //"directory" and not name of the baseName's module. For instance,
-                //baseName of "one/two/three", maps to "one/two/three.js", but we
-                //want the directory, "one/two" for this normalization.
-                name = baseParts.slice(0, baseParts.length - 1).concat(name);
+            // Starts with a '.' so need the baseName
+            if (name[0].charAt(0) === '.' && baseParts) {
+                //Convert baseName to array, and lop off the last part,
+                //so that . matches that 'directory' and not name of the baseName's
+                //module. For instance, baseName of 'one/two/three', maps to
+                //'one/two/three.js', but we want the directory, 'one/two' for
+                //this normalization.
+                normalizedBaseParts = baseParts.slice(0, baseParts.length - 1);
+                name = normalizedBaseParts.concat(name);
+            }
 
-                //start trimDots
-                for (i = 0; i < name.length; i += 1) {
-                    part = name[i];
-                    if (part === ".") {
-                        name.splice(i, 1);
-                        i -= 1;
-                    } else if (part === "..") {
-                        if (i === 1 && (name[2] === '..' || name[0] === '..')) {
-                            //End of the line. Keep at least one non-dot
-                            //path segment at the front so it can be mapped
-                            //correctly to disk. Otherwise, there is likely
-                            //no path mapping for a path starting with '..'.
-                            //This can still fail, but catches the most reasonable
-                            //uses of ..
-                            break;
-                        } else if (i > 0) {
-                            name.splice(i - 1, 2);
-                            i -= 2;
-                        }
+            //start trimDots
+            for (i = 0; i < name.length; i++) {
+                part = name[i];
+                if (part === '.') {
+                    name.splice(i, 1);
+                    i -= 1;
+                } else if (part === '..') {
+                    // If at the start, or previous value is still ..,
+                    // keep them so that when converted to a path it may
+                    // still work when converted to a path, even though
+                    // as an ID it is less than ideal. In larger point
+                    // releases, may be better to just kick out an error.
+                    if (i === 0 || (i === 1 && name[2] === '..') || name[i - 1] === '..') {
+                        continue;
+                    } else if (i > 0) {
+                        name.splice(i - 1, 2);
+                        i -= 2;
                     }
                 }
-                //end trimDots
-
-                name = name.join("/");
-            } else if (name.indexOf('./') === 0) {
-                // No baseName, so this is ID is resolved relative
-                // to baseUrl, pull off the leading dot.
-                name = name.substring(2);
             }
+            //end trimDots
+
+            name = name.join('/');
         }
 
         //Apply map config if available.
@@ -25933,32 +26286,39 @@ var requirejs, require, define;
         return [prefix, name];
     }
 
+    //Creates a parts array for a relName where first part is plugin ID,
+    //second part is resource ID. Assumes relName has already been normalized.
+    function makeRelParts(relName) {
+        return relName ? splitPrefix(relName) : [];
+    }
+
     /**
      * Makes a name map, normalizing the name, and using a plugin
      * for normalization if necessary. Grabs a ref to plugin
      * too, as an optimization.
      */
-    makeMap = function (name, relName) {
+    makeMap = function (name, relParts) {
         var plugin,
             parts = splitPrefix(name),
-            prefix = parts[0];
+            prefix = parts[0],
+            relResourceName = relParts[1];
 
         name = parts[1];
 
         if (prefix) {
-            prefix = normalize(prefix, relName);
+            prefix = normalize(prefix, relResourceName);
             plugin = callDep(prefix);
         }
 
         //Normalize according
         if (prefix) {
             if (plugin && plugin.normalize) {
-                name = plugin.normalize(name, makeNormalize(relName));
+                name = plugin.normalize(name, makeNormalize(relResourceName));
             } else {
-                name = normalize(name, relName);
+                name = normalize(name, relResourceName);
             }
         } else {
-            name = normalize(name, relName);
+            name = normalize(name, relResourceName);
             parts = splitPrefix(name);
             prefix = parts[0];
             name = parts[1];
@@ -26005,13 +26365,14 @@ var requirejs, require, define;
     };
 
     main = function (name, deps, callback, relName) {
-        var cjsModule, depName, ret, map, i,
+        var cjsModule, depName, ret, map, i, relParts,
             args = [],
             callbackType = typeof callback,
             usingExports;
 
         //Use name if no relName
         relName = relName || name;
+        relParts = makeRelParts(relName);
 
         //Call the callback to define the module, if necessary.
         if (callbackType === 'undefined' || callbackType === 'function') {
@@ -26020,7 +26381,7 @@ var requirejs, require, define;
             //Default to [require, exports, module] if no deps
             deps = !deps.length && callback.length ? ['require', 'exports', 'module'] : deps;
             for (i = 0; i < deps.length; i += 1) {
-                map = makeMap(deps[i], relName);
+                map = makeMap(deps[i], relParts);
                 depName = map.f;
 
                 //Fast path CommonJS standard dependencies.
@@ -26076,7 +26437,7 @@ var requirejs, require, define;
             //deps arg is the module name, and second arg (if passed)
             //is just the relName.
             //Normalize module name, if it contains . or ..
-            return callDep(makeMap(deps, callback).f);
+            return callDep(makeMap(deps, makeRelParts(callback)).f);
         } else if (!deps.splice) {
             //deps is a config object, not an array.
             config = deps;
@@ -26259,10 +26620,10 @@ S2.define('select2/utils',[
     DecoratedClass.prototype = new ctr();
 
     for (var m = 0; m < superMethods.length; m++) {
-        var superMethod = superMethods[m];
+      var superMethod = superMethods[m];
 
-        DecoratedClass.prototype[superMethod] =
-          SuperClass.prototype[superMethod];
+      DecoratedClass.prototype[superMethod] =
+        SuperClass.prototype[superMethod];
     }
 
     var calledMethod = function (methodName) {
@@ -26457,6 +26818,67 @@ S2.define('select2/utils',[
     $element.append($nodes);
   };
 
+  // Cache objects in Utils.__cache instead of $.data (see #4346)
+  Utils.__cache = {};
+
+  var id = 0;
+  Utils.GetUniqueElementId = function (element) {
+    // Get a unique element Id. If element has no id, 
+    // creates a new unique number, stores it in the id 
+    // attribute and returns the new id. 
+    // If an id already exists, it simply returns it.
+
+    var select2Id = element.getAttribute('data-select2-id');
+    if (select2Id == null) {
+      // If element has id, use it.
+      if (element.id) {
+        select2Id = element.id;
+        element.setAttribute('data-select2-id', select2Id);
+      } else {
+        element.setAttribute('data-select2-id', ++id);
+        select2Id = id.toString();
+      }
+    }
+    return select2Id;
+  };
+
+  Utils.StoreData = function (element, name, value) {
+    // Stores an item in the cache for a specified element.
+    // name is the cache key.    
+    var id = Utils.GetUniqueElementId(element);
+    if (!Utils.__cache[id]) {
+      Utils.__cache[id] = {};
+    }
+
+    Utils.__cache[id][name] = value;
+  };
+
+  Utils.GetData = function (element, name) {
+    // Retrieves a value from the cache by its key (name)
+    // name is optional. If no name specified, return 
+    // all cache items for the specified element.
+    // and for a specified element.
+    var id = Utils.GetUniqueElementId(element);
+    if (name) {
+      if (Utils.__cache[id]) {
+        return Utils.__cache[id][name] != null ? 
+	      Utils.__cache[id][name]:
+	      $(element).data(name); // Fallback to HTML5 data attribs.
+      }
+      return $(element).data(name); // Fallback to HTML5 data attribs.
+    } else {
+      return Utils.__cache[id];			   
+    }
+  };
+
+  Utils.RemoveData = function (element) {
+    // Removes all cached items for a specified element.
+    var id = Utils.GetUniqueElementId(element);
+    if (Utils.__cache[id] != null) {
+      delete Utils.__cache[id];
+    }
+  };
+
   return Utils;
 });
 
@@ -26592,7 +27014,7 @@ S2.define('select2/results',[
       $options.each(function () {
         var $option = $(this);
 
-        var item = $.data(this, 'data');
+        var item = Utils.GetData(this, 'data');
 
         // id needs to be converted to a string when comparing
         var id = '' + item.id;
@@ -26697,7 +27119,7 @@ S2.define('select2/results',[
       this.template(data, option);
     }
 
-    $.data(option, 'data', data);
+    Utils.StoreData(option, 'data', data);
 
     return option;
   };
@@ -26783,7 +27205,7 @@ S2.define('select2/results',[
         return;
       }
 
-      var data = $highlighted.data('data');
+      var data = Utils.GetData($highlighted[0], 'data');
 
       if ($highlighted.attr('aria-selected') == 'true') {
         self.trigger('close', {});
@@ -26895,7 +27317,7 @@ S2.define('select2/results',[
       function (evt) {
       var $this = $(this);
 
-      var data = $this.data('data');
+      var data = Utils.GetData(this, 'data');
 
       if ($this.attr('aria-selected') === 'true') {
         if (self.options.get('multiple')) {
@@ -26918,7 +27340,7 @@ S2.define('select2/results',[
 
     this.$results.on('mouseenter', '.select2-results__option[aria-selected]',
       function (evt) {
-      var data = $(this).data('data');
+      var data = Utils.GetData(this, 'data');
 
       self.getHighlightedResults()
           .removeClass('select2-results__option--highlighted');
@@ -27033,8 +27455,8 @@ S2.define('select2/selection/base',[
 
     this._tabindex = 0;
 
-    if (this.$element.data('old-tabindex') != null) {
-      this._tabindex = this.$element.data('old-tabindex');
+    if (Utils.GetData(this.$element[0], 'old-tabindex') != null) {
+      this._tabindex = Utils.GetData(this.$element[0], 'old-tabindex');
     } else if (this.$element.attr('tabindex') != null) {
       this._tabindex = this.$element.attr('tabindex');
     }
@@ -27142,7 +27564,7 @@ S2.define('select2/selection/base',[
           return;
         }
 
-        var $element = $this.data('element');
+        var $element = Utils.GetData(this, 'element');
 
         $element.select2('close');
       });
@@ -27203,7 +27625,10 @@ S2.define('select2/selection/single',[
 
     var id = container.id + '-container';
 
-    this.$selection.find('.select2-selection__rendered').attr('id', id);
+    this.$selection.find('.select2-selection__rendered')
+      .attr('id', id)
+      .attr('role', 'textbox')
+      .attr('aria-readonly', 'true');
     this.$selection.attr('aria-labelledby', id);
 
     this.$selection.on('mousedown', function (evt) {
@@ -27230,14 +27655,12 @@ S2.define('select2/selection/single',[
         self.$selection.focus();
       }
     });
-
-    container.on('selection:update', function (params) {
-      self.update(params.data);
-    });
   };
 
   SingleSelection.prototype.clear = function () {
-    this.$selection.find('.select2-selection__rendered').empty();
+    var $rendered = this.$selection.find('.select2-selection__rendered');
+    $rendered.empty();
+    $rendered.removeAttr('title'); // clear tooltip on empty
   };
 
   SingleSelection.prototype.display = function (data, container) {
@@ -27263,7 +27686,7 @@ S2.define('select2/selection/single',[
     var formatted = this.display(selection, $rendered);
 
     $rendered.empty().append(formatted);
-    $rendered.prop('title', selection.title || selection.text);
+    $rendered.attr('title', selection.title || selection.text);
   };
 
   return SingleSelection;
@@ -27315,7 +27738,7 @@ S2.define('select2/selection/multiple',[
         var $remove = $(this);
         var $selection = $remove.parent();
 
-        var data = $selection.data('data');
+        var data = Utils.GetData($selection[0], 'data');
 
         self.trigger('unselect', {
           originalEvent: evt,
@@ -27326,7 +27749,9 @@ S2.define('select2/selection/multiple',[
   };
 
   MultipleSelection.prototype.clear = function () {
-    this.$selection.find('.select2-selection__rendered').empty();
+    var $rendered = this.$selection.find('.select2-selection__rendered');
+    $rendered.empty();
+    $rendered.removeAttr('title');
   };
 
   MultipleSelection.prototype.display = function (data, container) {
@@ -27364,9 +27789,9 @@ S2.define('select2/selection/multiple',[
       var formatted = this.display(selection, $selection);
 
       $selection.append(formatted);
-      $selection.prop('title', selection.title || selection.text);
+      $selection.attr('title', selection.title || selection.text);
 
-      $selection.data('data', selection);
+      Utils.StoreData($selection[0], 'data', selection);
 
       $selections.push($selection);
     }
@@ -27431,8 +27856,9 @@ S2.define('select2/selection/placeholder',[
 
 S2.define('select2/selection/allowClear',[
   'jquery',
-  '../keys'
-], function ($, KEYS) {
+  '../keys',
+  '../utils'
+], function ($, KEYS, Utils) {
   function AllowClear () { }
 
   AllowClear.prototype.bind = function (decorated, container, $container) {
@@ -27474,10 +27900,22 @@ S2.define('select2/selection/allowClear',[
 
     evt.stopPropagation();
 
-    var data = $clear.data('data');
+    var data = Utils.GetData($clear[0], 'data');
+
+    var previousVal = this.$element.val();
+    this.$element.val(this.placeholder.id);
+
+    var unselectData = {
+      data: data
+    };
+    this.trigger('clear', unselectData);
+    if (unselectData.prevented) {
+      this.$element.val(previousVal);
+      return;
+    }
 
     for (var d = 0; d < data.length; d++) {
-      var unselectData = {
+      unselectData = {
         data: data[d]
       };
 
@@ -27487,11 +27925,12 @@ S2.define('select2/selection/allowClear',[
 
       // If the event was prevented, don't clear it out.
       if (unselectData.prevented) {
+        this.$element.val(previousVal);
         return;
       }
     }
 
-    this.$element.val(this.placeholder.id).trigger('change');
+    this.$element.trigger('change');
 
     this.trigger('toggle', {});
   };
@@ -27519,7 +27958,7 @@ S2.define('select2/selection/allowClear',[
         '&times;' +
       '</span>'
     );
-    $remove.data('data', data);
+    Utils.StoreData($remove[0], 'data', data);
 
     this.$selection.find('.select2-selection__rendered').prepend($remove);
   };
@@ -27540,7 +27979,7 @@ S2.define('select2/selection/search',[
     var $search = $(
       '<li class="select2-search select2-search--inline">' +
         '<input class="select2-search__field" type="search" tabindex="-1"' +
-        ' autocomplete="off" autocorrect="off" autocapitalize="off"' +
+        ' autocomplete="off" autocorrect="off" autocapitalize="none"' +
         ' spellcheck="false" role="textbox" aria-autocomplete="list" />' +
       '</li>'
     );
@@ -27610,7 +28049,7 @@ S2.define('select2/selection/search',[
           .prev('.select2-selection__choice');
 
         if ($previousChoice.length > 0) {
-          var item = $previousChoice.data('data');
+          var item = Utils.GetData($previousChoice[0], 'data');
 
           self.searchRemoveChoice(item);
 
@@ -27761,10 +28200,13 @@ S2.define('select2/selection/eventRelay',[
       'open', 'opening',
       'close', 'closing',
       'select', 'selecting',
-      'unselect', 'unselecting'
+      'unselect', 'unselecting',
+      'clear', 'clearing'
     ];
 
-    var preventableEvents = ['opening', 'closing', 'selecting', 'unselecting'];
+    var preventableEvents = [
+      'opening', 'closing', 'selecting', 'unselecting', 'clearing'
+    ];
 
     decorated.call(this, container, $container);
 
@@ -28843,7 +29285,7 @@ S2.define('select2/data/select',[
     // Remove anything added to child elements
     this.$element.find('*').each(function () {
       // Remove any custom data set by Select2
-      $.removeData(this, 'data');
+      Utils.RemoveData(this);
     });
   };
 
@@ -28894,7 +29336,7 @@ S2.define('select2/data/select',[
       }
     }
 
-    if (data.id) {
+    if (data.id !== undefined) {
       option.value = data.id;
     }
 
@@ -28916,7 +29358,7 @@ S2.define('select2/data/select',[
     normalizedData.element = option;
 
     // Override the option's data with the combined data
-    $.data(option, 'data', normalizedData);
+    Utils.StoreData(option, 'data', normalizedData);
 
     return $option;
   };
@@ -28924,7 +29366,7 @@ S2.define('select2/data/select',[
   SelectAdapter.prototype.item = function ($option) {
     var data = {};
 
-    data = $.data($option[0], 'data');
+    data = Utils.GetData($option[0], 'data');
 
     if (data != null) {
       return data;
@@ -28962,13 +29404,13 @@ S2.define('select2/data/select',[
     data = this._normalizeItem(data);
     data.element = $option[0];
 
-    $.data($option[0], 'data', data);
+    Utils.StoreData($option[0], 'data', data);
 
     return data;
   };
 
   SelectAdapter.prototype._normalizeItem = function (item) {
-    if (!$.isPlainObject(item)) {
+    if (item !== Object(item)) {
       item = {
         id: item,
         text: item
@@ -29172,7 +29614,8 @@ S2.define('select2/data/ajax',[
       }, function () {
         // Attempt to detect if a request was aborted
         // Only works if the transport exposes a status property
-        if ($request.status && $request.status === '0') {
+        if ('status' in $request &&
+            ($request.status === 0 || $request.status === '0')) {
           return;
         }
 
@@ -29253,7 +29696,10 @@ S2.define('select2/data/tags',[
           }, true)
         );
 
-        var checkText = option.text === params.term;
+        var optionText = (option.text || '').toUpperCase();
+        var paramsTerm = (params.term || '').toUpperCase();
+
+        var checkText = optionText === paramsTerm;
 
         if (checkText || checkChildren) {
           if (child) {
@@ -29591,7 +30037,7 @@ S2.define('select2/dropdown/search',[
     var $search = $(
       '<span class="select2-search select2-search--dropdown">' +
         '<input class="select2-search__field" type="search" tabindex="-1"' +
-        ' autocomplete="off" autocorrect="off" autocapitalize="off"' +
+        ' autocomplete="off" autocorrect="off" autocapitalize="none"' +
         ' spellcheck="false" role="textbox" />' +
       '</span>'
     );
@@ -29641,10 +30087,11 @@ S2.define('select2/dropdown/search',[
       self.$search.attr('tabindex', -1);
 
       self.$search.val('');
+      self.$search.blur();
     });
 
     container.on('focus', function () {
-      if (container.isOpen()) {
+      if (!container.isOpen()) {
         self.$search.focus();
       }
     });
@@ -29906,14 +30353,14 @@ S2.define('select2/dropdown/attachBody',[
 
     var $watchers = this.$container.parents().filter(Utils.hasScroll);
     $watchers.each(function () {
-      $(this).data('select2-scroll-position', {
+      Utils.StoreData(this, 'select2-scroll-position', {
         x: $(this).scrollLeft(),
         y: $(this).scrollTop()
       });
     });
 
     $watchers.on(scrollEvent, function (ev) {
-      var position = $(this).data('select2-scroll-position');
+      var position = Utils.GetData(this, 'select2-scroll-position');
       $(this).scrollTop(position.y);
     });
 
@@ -30078,8 +30525,8 @@ S2.define('select2/dropdown/minimumResultsForSearch',[
 });
 
 S2.define('select2/dropdown/selectOnClose',[
-
-], function () {
+  '../utils'
+], function (Utils) {
   function SelectOnClose () { }
 
   SelectOnClose.prototype.bind = function (decorated, container, $container) {
@@ -30110,7 +30557,7 @@ S2.define('select2/dropdown/selectOnClose',[
       return;
     }
 
-    var data = $highlightedResults.data('data');
+    var data = Utils.GetData($highlightedResults[0], 'data');
 
     // Don't re-select already selected resulte
     if (
@@ -30598,7 +31045,7 @@ S2.define('select2/defaults',[
 
     var convertedData = Utils._convertData(data);
 
-    $.extend(this.defaults, convertedData);
+    $.extend(true, this.defaults, convertedData);
   };
 
   var defaults = new Defaults();
@@ -30663,7 +31110,7 @@ S2.define('select2/options',[
     $e.prop('disabled', this.options.disabled);
     $e.prop('multiple', this.options.multiple);
 
-    if ($e.data('select2Tags')) {
+    if (Utils.GetData($e[0], 'select2Tags')) {
       if (this.options.debug && window.console && console.warn) {
         console.warn(
           'Select2: The `data-select2-tags` attribute has been changed to ' +
@@ -30672,11 +31119,11 @@ S2.define('select2/options',[
         );
       }
 
-      $e.data('data', $e.data('select2Tags'));
-      $e.data('tags', true);
+      Utils.StoreData($e[0], 'data', Utils.GetData($e[0], 'select2Tags'));
+      Utils.StoreData($e[0], 'tags', true);
     }
 
-    if ($e.data('ajaxUrl')) {
+    if (Utils.GetData($e[0], 'ajaxUrl')) {
       if (this.options.debug && window.console && console.warn) {
         console.warn(
           'Select2: The `data-ajax-url` attribute has been changed to ' +
@@ -30685,8 +31132,9 @@ S2.define('select2/options',[
         );
       }
 
-      $e.attr('ajax--url', $e.data('ajaxUrl'));
-      $e.data('ajax--url', $e.data('ajaxUrl'));
+      $e.attr('ajax--url', Utils.GetData($e[0], 'ajaxUrl'));
+      Utils.StoreData($e[0], 'ajax-Url', Utils.GetData($e[0], 'ajaxUrl'));
+	  
     }
 
     var dataset = {};
@@ -30694,9 +31142,9 @@ S2.define('select2/options',[
     // Prefer the element's `dataset` attribute if it exists
     // jQuery 1.x does not correctly handle data attributes with multiple dashes
     if ($.fn.jquery && $.fn.jquery.substr(0, 2) == '1.' && $e[0].dataset) {
-      dataset = $.extend(true, {}, $e[0].dataset, $e.data());
+      dataset = $.extend(true, {}, $e[0].dataset, Utils.GetData($e[0]));
     } else {
-      dataset = $e.data();
+      dataset = Utils.GetData($e[0]);
     }
 
     var data = $.extend(true, {}, dataset);
@@ -30736,8 +31184,8 @@ S2.define('select2/core',[
   './keys'
 ], function ($, Options, Utils, KEYS) {
   var Select2 = function ($element, options) {
-    if ($element.data('select2') != null) {
-      $element.data('select2').destroy();
+    if (Utils.GetData($element[0], 'select2') != null) {
+      Utils.GetData($element[0], 'select2').destroy();
     }
 
     this.$element = $element;
@@ -30753,7 +31201,7 @@ S2.define('select2/core',[
     // Set up the tabindex
 
     var tabindex = $element.attr('tabindex') || 0;
-    $element.data('old-tabindex', tabindex);
+    Utils.StoreData($element[0], 'old-tabindex', tabindex);
     $element.attr('tabindex', '-1');
 
     // Set up containers and adapters
@@ -30814,7 +31262,7 @@ S2.define('select2/core',[
     // Synchronize any monitored attributes
     this._syncAttributes();
 
-    $element.data('select2', this);
+    Utils.StoreData($element[0], 'select2', this);
   };
 
   Utils.Extend(Select2, Utils.Observable);
@@ -31148,7 +31596,8 @@ S2.define('select2/core',[
       'open': 'opening',
       'close': 'closing',
       'select': 'selecting',
-      'unselect': 'unselecting'
+      'unselect': 'unselecting',
+      'clear': 'clearing'
     };
 
     if (args === undefined) {
@@ -31303,11 +31752,12 @@ S2.define('select2/core',[
     this._syncS = null;
 
     this.$element.off('.select2');
-    this.$element.attr('tabindex', this.$element.data('old-tabindex'));
+    this.$element.attr('tabindex',
+    Utils.GetData(this.$element[0], 'old-tabindex'));
 
     this.$element.removeClass('select2-hidden-accessible');
     this.$element.attr('aria-hidden', 'false');
-    this.$element.removeData('select2');
+    Utils.RemoveData(this.$element[0]);
 
     this.dataAdapter.destroy();
     this.selection.destroy();
@@ -31334,7 +31784,7 @@ S2.define('select2/core',[
 
     this.$container.addClass('select2-container--' + this.options.get('theme'));
 
-    $container.data('element', this.$element);
+    Utils.StoreData($container[0], 'element', this.$element);
 
     return $container;
   };
@@ -31354,8 +31804,9 @@ S2.define('jquery.select2',[
   'jquery-mousewheel',
 
   './select2/core',
-  './select2/defaults'
-], function ($, _, Select2, Defaults) {
+  './select2/defaults',
+  './select2/utils'
+], function ($, _, Select2, Defaults, Utils) {
   if ($.fn.select2 == null) {
     // All methods that should return the element
     var thisMethods = ['open', 'close', 'destroy'];
@@ -31376,7 +31827,7 @@ S2.define('jquery.select2',[
         var args = Array.prototype.slice.call(arguments, 1);
 
         this.each(function () {
-          var instance = $(this).data('select2');
+          var instance = Utils.GetData(this, 'select2');
 
           if (instance == null && window.console && console.error) {
             console.error(
@@ -34338,470 +34789,488 @@ jQuery.PageMethodToPage = function (pagePath, fn, successFn, errorFn, jsonParams
 
 })(jQuery);
 
-/* http://prismjs.com/download.html?themes=prism-funky&languages=markup+css+clike+javascript+aspnet+bash+c+csharp+cpp+css-extras+git+java+python+sql&plugins=line-numbers+autolinker */
-try {
-    var _self = (typeof window !== 'undefined')
-	? window   // if in browser
-	: (
-		(typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope)
-		? self // if in worker
-		: {}   // if in node js
-	);
+/* http://prismjs.com/download.html?themes=prism-funky&languages=markup+css+clike+javascript+c+aspnet+bash+cpp+csharp+css-extras+git+java+python+sql&plugins=line-numbers+autolinker */
+var _self = (typeof window !== 'undefined')
+    ? window   // if in browser
+    : (
+        (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope)
+            ? self // if in worker
+            : {}   // if in node js
+    );
 
-    /**
-     * Prism: Lightweight, robust, elegant syntax highlighting
-     * MIT license http://www.opensource.org/licenses/mit-license.php/
-     * @author Lea Verou http://lea.verou.me
-     */
+/**
+ * Prism: Lightweight, robust, elegant syntax highlighting
+ * MIT license http://www.opensource.org/licenses/mit-license.php/
+ * @author Lea Verou http://lea.verou.me
+ */
 
-    var Prism = (function () {
+var Prism = (function () {
 
-        // Private helper vars
-        var lang = /\blang(?:uage)?-(\w+)\b/i;
-        var uniqueId = 0;
+    // Private helper vars
+    var lang = /\blang(?:uage)?-(\w+)\b/i;
+    var uniqueId = 0;
 
-        var _ = _self.Prism = {
-            util: {
-                encode: function (tokens) {
-                    if (tokens instanceof Token) {
-                        return new Token(tokens.type, _.util.encode(tokens.content), tokens.alias);
-                    } else if (_.util.type(tokens) === 'Array') {
-                        return tokens.map(_.util.encode);
-                    } else {
-                        return tokens.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\u00a0/g, ' ');
+    var _ = _self.Prism = {
+        manual: _self.Prism && _self.Prism.manual,
+        disableWorkerMessageHandler: _self.Prism && _self.Prism.disableWorkerMessageHandler,
+        util: {
+            encode: function (tokens) {
+                if (tokens instanceof Token) {
+                    return new Token(tokens.type, _.util.encode(tokens.content), tokens.alias);
+                } else if (_.util.type(tokens) === 'Array') {
+                    return tokens.map(_.util.encode);
+                } else {
+                    return tokens.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\u00a0/g, ' ');
+                }
+            },
+
+            type: function (o) {
+                return Object.prototype.toString.call(o).match(/\[object (\w+)\]/)[1];
+            },
+
+            objId: function (obj) {
+                if (!obj['__id']) {
+                    Object.defineProperty(obj, '__id', { value: ++uniqueId });
+                }
+                return obj['__id'];
+            },
+
+            // Deep clone a language definition (e.g. to extend it)
+            clone: function (o) {
+                var type = _.util.type(o);
+
+                switch (type) {
+                    case 'Object':
+                        var clone = {};
+
+                        for (var key in o) {
+                            if (o.hasOwnProperty(key)) {
+                                clone[key] = _.util.clone(o[key]);
+                            }
+                        }
+
+                        return clone;
+
+                    case 'Array':
+                        return o.map(function (v) { return _.util.clone(v); });
+                }
+
+                return o;
+            }
+        },
+
+        languages: {
+            extend: function (id, redef) {
+                var lang = _.util.clone(_.languages[id]);
+
+                for (var key in redef) {
+                    lang[key] = redef[key];
+                }
+
+                return lang;
+            },
+
+            /**
+             * Insert a token before another token in a language literal
+             * As this needs to recreate the object (we cannot actually insert before keys in object literals),
+             * we cannot just provide an object, we need anobject and a key.
+             * @param inside The key (or language id) of the parent
+             * @param before The key to insert before. If not provided, the function appends instead.
+             * @param insert Object with the key/value pairs to insert
+             * @param root The object that contains `inside`. If equal to Prism.languages, it can be omitted.
+             */
+            insertBefore: function (inside, before, insert, root) {
+                root = root || _.languages;
+                var grammar = root[inside];
+
+                if (arguments.length == 2) {
+                    insert = arguments[1];
+
+                    for (var newToken in insert) {
+                        if (insert.hasOwnProperty(newToken)) {
+                            grammar[newToken] = insert[newToken];
+                        }
                     }
-                },
 
-                type: function (o) {
-                    return Object.prototype.toString.call(o).match(/\[object (\w+)\]/)[1];
-                },
+                    return grammar;
+                }
 
-                objId: function (obj) {
-                    if (!obj['__id']) {
-                        Object.defineProperty(obj, '__id', { value: ++uniqueId });
-                    }
-                    return obj['__id'];
-                },
+                var ret = {};
 
-                // Deep clone a language definition (e.g. to extend it)
-                clone: function (o) {
-                    var type = _.util.type(o);
+                for (var token in grammar) {
 
-                    switch (type) {
-                        case 'Object':
-                            var clone = {};
+                    if (grammar.hasOwnProperty(token)) {
 
-                            for (var key in o) {
-                                if (o.hasOwnProperty(key)) {
-                                    clone[key] = _.util.clone(o[key]);
+                        if (token == before) {
+
+                            for (var newToken in insert) {
+
+                                if (insert.hasOwnProperty(newToken)) {
+                                    ret[newToken] = insert[newToken];
                                 }
                             }
+                        }
 
-                            return clone;
-
-                        case 'Array':
-                            // Check for existence for IE8
-                            return o.map && o.map(function (v) { return _.util.clone(v); });
+                        ret[token] = grammar[token];
                     }
-
-                    return o;
                 }
+
+                // Update references in other language definitions
+                _.languages.DFS(_.languages, function (key, value) {
+                    if (value === root[inside] && key != inside) {
+                        this[key] = ret;
+                    }
+                });
+
+                return root[inside] = ret;
             },
 
-            languages: {
-                extend: function (id, redef) {
-                    var lang = _.util.clone(_.languages[id]);
+            // Traverse a language definition with Depth First Search
+            DFS: function (o, callback, type, visited) {
+                visited = visited || {};
+                for (var i in o) {
+                    if (o.hasOwnProperty(i)) {
+                        callback.call(o, i, o[i], type || i);
 
-                    for (var key in redef) {
-                        lang[key] = redef[key];
-                    }
-
-                    return lang;
-                },
-
-                /**
-                 * Insert a token before another token in a language literal
-                 * As this needs to recreate the object (we cannot actually insert before keys in object literals),
-                 * we cannot just provide an object, we need anobject and a key.
-                 * @param inside The key (or language id) of the parent
-                 * @param before The key to insert before. If not provided, the function appends instead.
-                 * @param insert Object with the key/value pairs to insert
-                 * @param root The object that contains `inside`. If equal to Prism.languages, it can be omitted.
-                 */
-                insertBefore: function (inside, before, insert, root) {
-                    root = root || _.languages;
-                    var grammar = root[inside];
-
-                    if (arguments.length == 2) {
-                        insert = arguments[1];
-
-                        for (var newToken in insert) {
-                            if (insert.hasOwnProperty(newToken)) {
-                                grammar[newToken] = insert[newToken];
-                            }
+                        if (_.util.type(o[i]) === 'Object' && !visited[_.util.objId(o[i])]) {
+                            visited[_.util.objId(o[i])] = true;
+                            _.languages.DFS(o[i], callback, null, visited);
                         }
-
-                        return grammar;
-                    }
-
-                    var ret = {};
-
-                    for (var token in grammar) {
-
-                        if (grammar.hasOwnProperty(token)) {
-
-                            if (token == before) {
-
-                                for (var newToken in insert) {
-
-                                    if (insert.hasOwnProperty(newToken)) {
-                                        ret[newToken] = insert[newToken];
-                                    }
-                                }
-                            }
-
-                            ret[token] = grammar[token];
-                        }
-                    }
-
-                    // Update references in other language definitions
-                    _.languages.DFS(_.languages, function (key, value) {
-                        if (value === root[inside] && key != inside) {
-                            this[key] = ret;
-                        }
-                    });
-
-                    return root[inside] = ret;
-                },
-
-                // Traverse a language definition with Depth First Search
-                DFS: function (o, callback, type, visited) {
-                    visited = visited || {};
-                    for (var i in o) {
-                        if (o.hasOwnProperty(i)) {
-                            callback.call(o, i, o[i], type || i);
-
-                            if (_.util.type(o[i]) === 'Object' && !visited[_.util.objId(o[i])]) {
-                                visited[_.util.objId(o[i])] = true;
-                                _.languages.DFS(o[i], callback, null, visited);
-                            }
-                            else if (_.util.type(o[i]) === 'Array' && !visited[_.util.objId(o[i])]) {
-                                visited[_.util.objId(o[i])] = true;
-                                _.languages.DFS(o[i], callback, i, visited);
-                            }
+                        else if (_.util.type(o[i]) === 'Array' && !visited[_.util.objId(o[i])]) {
+                            visited[_.util.objId(o[i])] = true;
+                            _.languages.DFS(o[i], callback, i, visited);
                         }
                     }
                 }
-            },
-            plugins: {},
+            }
+        },
+        plugins: {},
 
-            highlightAll: function (async, callback) {
-                var env = {
-                    callback: callback,
-                    selector: 'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'
-                };
+        highlightAll: function (async, callback) {
+            var env = {
+                callback: callback,
+                selector: 'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'
+            };
 
-                _.hooks.run("before-highlightall", env);
+            _.hooks.run("before-highlightall", env);
 
-                var elements = env.elements || document.querySelectorAll(env.selector);
+            var elements = env.elements || document.querySelectorAll(env.selector);
 
-                for (var i = 0, element; element = elements[i++];) {
-                    _.highlightElement(element, async === true, env.callback);
-                }
-            },
+            for (var i = 0, element; element = elements[i++];) {
+                _.highlightElement(element, async === true, env.callback);
+            }
+        },
 
-            highlightElement: function (element, async, callback) {
-                // Find language
-                var language, grammar, parent = element;
+        highlightElement: function (element, async, callback) {
+            // Find language
+            var language, grammar, parent = element;
 
-                while (parent && !lang.test(parent.className)) {
-                    parent = parent.parentNode;
-                }
+            while (parent && !lang.test(parent.className)) {
+                parent = parent.parentNode;
+            }
 
-                if (parent) {
-                    language = (parent.className.match(lang) || [, ''])[1].toLowerCase();
-                    grammar = _.languages[language];
-                }
+            if (parent) {
+                language = (parent.className.match(lang) || [, ''])[1].toLowerCase();
+                grammar = _.languages[language];
+            }
 
-                // Set language on the element, if not present
-                element.className = element.className.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
+            // Set language on the element, if not present
+            element.className = element.className.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
 
+            if (element.parentNode) {
                 // Set language on the parent, for styling
                 parent = element.parentNode;
 
                 if (/pre/i.test(parent.nodeName)) {
                     parent.className = parent.className.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
                 }
+            }
 
-                var code = element.textContent;
+            var code = element.textContent;
 
-                var env = {
-                    element: element,
-                    language: language,
-                    grammar: grammar,
-                    code: code
-                };
+            var env = {
+                element: element,
+                language: language,
+                grammar: grammar,
+                code: code
+            };
 
-                _.hooks.run('before-sanity-check', env);
+            _.hooks.run('before-sanity-check', env);
 
-                if (!env.code || !env.grammar) {
-                    _.hooks.run('complete', env);
-                    return;
+            if (!env.code || !env.grammar) {
+                if (env.code) {
+                    _.hooks.run('before-highlight', env);
+                    env.element.textContent = env.code;
+                    _.hooks.run('after-highlight', env);
                 }
+                _.hooks.run('complete', env);
+                return;
+            }
 
-                _.hooks.run('before-highlight', env);
+            _.hooks.run('before-highlight', env);
 
-                if (async && _self.Worker) {
-                    var worker = new Worker(_.filename);
+            if (async && _self.Worker) {
+                var worker = new Worker(_.filename);
 
-                    worker.onmessage = function (evt) {
-                        env.highlightedCode = evt.data;
-
-                        _.hooks.run('before-insert', env);
-
-                        env.element.innerHTML = env.highlightedCode;
-
-                        callback && callback.call(env.element);
-                        _.hooks.run('after-highlight', env);
-                        _.hooks.run('complete', env);
-                    };
-
-                    worker.postMessage(JSON.stringify({
-                        language: env.language,
-                        code: env.code,
-                        immediateClose: true
-                    }));
-                }
-                else {
-                    env.highlightedCode = _.highlight(env.code, env.grammar, env.language);
+                worker.onmessage = function (evt) {
+                    env.highlightedCode = evt.data;
 
                     _.hooks.run('before-insert', env);
 
                     env.element.innerHTML = env.highlightedCode;
 
-                    callback && callback.call(element);
-
+                    callback && callback.call(env.element);
                     _.hooks.run('after-highlight', env);
                     _.hooks.run('complete', env);
+                };
+
+                worker.postMessage(JSON.stringify({
+                    language: env.language,
+                    code: env.code,
+                    immediateClose: true
+                }));
+            }
+            else {
+                env.highlightedCode = _.highlight(env.code, env.grammar, env.language);
+
+                _.hooks.run('before-insert', env);
+
+                env.element.innerHTML = env.highlightedCode;
+
+                callback && callback.call(element);
+
+                _.hooks.run('after-highlight', env);
+                _.hooks.run('complete', env);
+            }
+        },
+
+        highlight: function (text, grammar, language) {
+            var tokens = _.tokenize(text, grammar);
+            return Token.stringify(_.util.encode(tokens), language);
+        },
+
+        matchGrammar: function (text, strarr, grammar, index, startPos, oneshot, target) {
+            var Token = _.Token;
+
+            for (var token in grammar) {
+                if (!grammar.hasOwnProperty(token) || !grammar[token]) {
+                    continue;
                 }
-            },
 
-            highlight: function (text, grammar, language) {
-                var tokens = _.tokenize(text, grammar);
-                return Token.stringify(_.util.encode(tokens), language);
-            },
+                if (token == target) {
+                    return;
+                }
 
-            tokenize: function (text, grammar, language) {
-                var Token = _.Token;
+                var patterns = grammar[token];
+                patterns = (_.util.type(patterns) === "Array") ? patterns : [patterns];
 
-                var strarr = [text];
+                for (var j = 0; j < patterns.length; ++j) {
+                    var pattern = patterns[j],
+                        inside = pattern.inside,
+                        lookbehind = !!pattern.lookbehind,
+                        greedy = !!pattern.greedy,
+                        lookbehindLength = 0,
+                        alias = pattern.alias;
 
-                var rest = grammar.rest;
-
-                if (rest) {
-                    for (var token in rest) {
-                        grammar[token] = rest[token];
+                    if (greedy && !pattern.pattern.global) {
+                        // Without the global flag, lastIndex won't work
+                        var flags = pattern.pattern.toString().match(/[imuy]*$/)[0];
+                        pattern.pattern = RegExp(pattern.pattern.source, flags + "g");
                     }
 
-                    delete grammar.rest;
-                }
+                    pattern = pattern.pattern || pattern;
 
-                tokenloop: for (var token in grammar) {
-                    if (!grammar.hasOwnProperty(token) || !grammar[token]) {
-                        continue;
-                    }
+                    // Don�t cache length as it changes during the loop
+                    for (var i = index, pos = startPos; i < strarr.length; pos += strarr[i].length, ++i) {
 
-                    var patterns = grammar[token];
-                    patterns = (_.util.type(patterns) === "Array") ? patterns : [patterns];
+                        var str = strarr[i];
 
-                    for (var j = 0; j < patterns.length; ++j) {
-                        var pattern = patterns[j],
-                            inside = pattern.inside,
-                            lookbehind = !!pattern.lookbehind,
-                            greedy = !!pattern.greedy,
-                            lookbehindLength = 0,
-                            alias = pattern.alias;
-
-                        if (greedy && !pattern.pattern.global) {
-                            // Without the global flag, lastIndex won't work
-                            var flags = pattern.pattern.toString().match(/[imuy]*$/)[0];
-                            pattern.pattern = RegExp(pattern.pattern.source, flags + "g");
+                        if (strarr.length > text.length) {
+                            // Something went terribly wrong, ABORT, ABORT!
+                            return;
                         }
 
-                        pattern = pattern.pattern || pattern;
+                        if (str instanceof Token) {
+                            continue;
+                        }
 
-                        // Don�t cache length as it changes during the loop
-                        for (var i = 0, pos = 0; i < strarr.length; pos += (strarr[i].matchedStr || strarr[i]).length, ++i) {
+                        pattern.lastIndex = 0;
 
-                            var str = strarr[i];
+                        var match = pattern.exec(str),
+                            delNum = 1;
 
-                            if (strarr.length > text.length) {
-                                // Something went terribly wrong, ABORT, ABORT!
-                                break tokenloop;
-                            }
-
-                            if (str instanceof Token) {
-                                continue;
-                            }
-
-                            pattern.lastIndex = 0;
-
-                            var match = pattern.exec(str),
-                                delNum = 1;
-
-                            // Greedy patterns can override/remove up to two previously matched tokens
-                            if (!match && greedy && i != strarr.length - 1) {
-                                pattern.lastIndex = pos;
-                                match = pattern.exec(text);
-                                if (!match) {
-                                    break;
-                                }
-
-                                var from = match.index + (lookbehind ? match[1].length : 0),
-                                    to = match.index + match[0].length,
-                                    k = i,
-                                    p = pos;
-
-                                for (var len = strarr.length; k < len && p < to; ++k) {
-                                    p += (strarr[k].matchedStr || strarr[k]).length;
-                                    // Move the index i to the element in strarr that is closest to from
-                                    if (from >= p) {
-                                        ++i;
-                                        pos = p;
-                                    }
-                                }
-
-                                /*
-                                 * If strarr[i] is a Token, then the match starts inside another Token, which is invalid
-                                 * If strarr[k - 1] is greedy we are in conflict with another greedy pattern
-                                 */
-                                if (strarr[i] instanceof Token || strarr[k - 1].greedy) {
-                                    continue;
-                                }
-
-                                // Number of tokens to delete and replace with the new match
-                                delNum = k - i;
-                                str = text.slice(pos, p);
-                                match.index -= pos;
-                            }
-
+                        // Greedy patterns can override/remove up to two previously matched tokens
+                        if (!match && greedy && i != strarr.length - 1) {
+                            pattern.lastIndex = pos;
+                            match = pattern.exec(text);
                             if (!match) {
+                                break;
+                            }
+
+                            var from = match.index + (lookbehind ? match[1].length : 0),
+                                to = match.index + match[0].length,
+                                k = i,
+                                p = pos;
+
+                            for (var len = strarr.length; k < len && (p < to || (!strarr[k].type && !strarr[k - 1].greedy)); ++k) {
+                                p += strarr[k].length;
+                                // Move the index i to the element in strarr that is closest to from
+                                if (from >= p) {
+                                    ++i;
+                                    pos = p;
+                                }
+                            }
+
+                            /*
+                             * If strarr[i] is a Token, then the match starts inside another Token, which is invalid
+                             * If strarr[k - 1] is greedy we are in conflict with another greedy pattern
+                             */
+                            if (strarr[i] instanceof Token || strarr[k - 1].greedy) {
                                 continue;
                             }
 
-                            if (lookbehind) {
-                                lookbehindLength = match[1].length;
-                            }
-
-                            var from = match.index + lookbehindLength,
-                                match = match[0].slice(lookbehindLength),
-                                to = from + match.length,
-                                before = str.slice(0, from),
-                                after = str.slice(to);
-
-                            var args = [i, delNum];
-
-                            if (before) {
-                                args.push(before);
-                            }
-
-                            var wrapped = new Token(token, inside ? _.tokenize(match, inside) : match, alias, match, greedy);
-
-                            args.push(wrapped);
-
-                            if (after) {
-                                args.push(after);
-                            }
-
-                            Array.prototype.splice.apply(strarr, args);
+                            // Number of tokens to delete and replace with the new match
+                            delNum = k - i;
+                            str = text.slice(pos, p);
+                            match.index -= pos;
                         }
+
+                        if (!match) {
+                            if (oneshot) {
+                                break;
+                            }
+
+                            continue;
+                        }
+
+                        if (lookbehind) {
+                            lookbehindLength = match[1].length;
+                        }
+
+                        var from = match.index + lookbehindLength,
+                            match = match[0].slice(lookbehindLength),
+                            to = from + match.length,
+                            before = str.slice(0, from),
+                            after = str.slice(to);
+
+                        var args = [i, delNum];
+
+                        if (before) {
+                            ++i;
+                            pos += before.length;
+                            args.push(before);
+                        }
+
+                        var wrapped = new Token(token, inside ? _.tokenize(match, inside) : match, alias, match, greedy);
+
+                        args.push(wrapped);
+
+                        if (after) {
+                            args.push(after);
+                        }
+
+                        Array.prototype.splice.apply(strarr, args);
+
+                        if (delNum != 1)
+                            _.matchGrammar(text, strarr, grammar, i, pos, true, token);
+
+                        if (oneshot)
+                            break;
                     }
                 }
+            }
+        },
 
-                return strarr;
+        tokenize: function (text, grammar, language) {
+            var strarr = [text];
+
+            var rest = grammar.rest;
+
+            if (rest) {
+                for (var token in rest) {
+                    grammar[token] = rest[token];
+                }
+
+                delete grammar.rest;
+            }
+
+            _.matchGrammar(text, strarr, grammar, 0, 0, false);
+
+            return strarr;
+        },
+
+        hooks: {
+            all: {},
+
+            add: function (name, callback) {
+                var hooks = _.hooks.all;
+
+                hooks[name] = hooks[name] || [];
+
+                hooks[name].push(callback);
             },
 
-            hooks: {
-                all: {},
+            run: function (name, env) {
+                var callbacks = _.hooks.all[name];
 
-                add: function (name, callback) {
-                    var hooks = _.hooks.all;
+                if (!callbacks || !callbacks.length) {
+                    return;
+                }
 
-                    hooks[name] = hooks[name] || [];
-
-                    hooks[name].push(callback);
-                },
-
-                run: function (name, env) {
-                    var callbacks = _.hooks.all[name];
-
-                    if (!callbacks || !callbacks.length) {
-                        return;
-                    }
-
-                    for (var i = 0, callback; callback = callbacks[i++];) {
-                        callback(env);
-                    }
+                for (var i = 0, callback; callback = callbacks[i++];) {
+                    callback(env);
                 }
             }
+        }
+    };
+
+    var Token = _.Token = function (type, content, alias, matchedStr, greedy) {
+        this.type = type;
+        this.content = content;
+        this.alias = alias;
+        // Copy of the full string this token was created from
+        this.length = (matchedStr || "").length | 0;
+        this.greedy = !!greedy;
+    };
+
+    Token.stringify = function (o, language, parent) {
+        if (typeof o == 'string') {
+            return o;
+        }
+
+        if (_.util.type(o) === 'Array') {
+            return o.map(function (element) {
+                return Token.stringify(element, language, o);
+            }).join('');
+        }
+
+        var env = {
+            type: o.type,
+            content: Token.stringify(o.content, language, parent),
+            tag: 'span',
+            classes: ['token', o.type],
+            attributes: {},
+            language: language,
+            parent: parent
         };
 
-        var Token = _.Token = function (type, content, alias, matchedStr, greedy) {
-            this.type = type;
-            this.content = content;
-            this.alias = alias;
-            // Copy of the full string this token was created from
-            this.matchedStr = matchedStr || null;
-            this.greedy = !!greedy;
-        };
+        if (o.alias) {
+            var aliases = _.util.type(o.alias) === 'Array' ? o.alias : [o.alias];
+            Array.prototype.push.apply(env.classes, aliases);
+        }
 
-        Token.stringify = function (o, language, parent) {
-            if (typeof o == 'string') {
-                return o;
-            }
+        _.hooks.run('wrap', env);
 
-            if (_.util.type(o) === 'Array') {
-                return o.map(function (element) {
-                    return Token.stringify(element, language, o);
-                }).join('');
-            }
+        var attributes = Object.keys(env.attributes).map(function (name) {
+            return name + '="' + (env.attributes[name] || '').replace(/"/g, '&quot;') + '"';
+        }).join(' ');
 
-            var env = {
-                type: o.type,
-                content: Token.stringify(o.content, language, parent),
-                tag: 'span',
-                classes: ['token', o.type],
-                attributes: {},
-                language: language,
-                parent: parent
-            };
+        return '<' + env.tag + ' class="' + env.classes.join(' ') + '"' + (attributes ? ' ' + attributes : '') + '>' + env.content + '</' + env.tag + '>';
 
-            if (env.type == 'comment') {
-                env.attributes['spellcheck'] = 'true';
-            }
+    };
 
-            if (o.alias) {
-                var aliases = _.util.type(o.alias) === 'Array' ? o.alias : [o.alias];
-                Array.prototype.push.apply(env.classes, aliases);
-            }
-
-            _.hooks.run('wrap', env);
-
-            var attributes = '';
-
-            for (var name in env.attributes) {
-                attributes += (attributes ? ' ' : '') + name + '="' + (env.attributes[name] || '') + '"';
-            }
-
-            return '<' + env.tag + ' class="' + env.classes.join(' ') + '"' + (attributes ? ' ' + attributes : '') + '>' + env.content + '</' + env.tag + '>';
-
-        };
-
-        if (!_self.document) {
-            if (!_self.addEventListener) {
-                // in Node.js
-                return _self.Prism;
-            }
+    if (!_self.document) {
+        if (!_.disableWorkerMessageHandler) {
             // In worker
             _self.addEventListener('message', function (evt) {
                 var message = JSON.parse(evt.data),
@@ -34814,696 +35283,782 @@ try {
                     _self.close();
                 }
             }, false);
-
-            return _self.Prism;
-        }
-
-        //Get current script and highlight
-        var script = document.currentScript || [].slice.call(document.getElementsByTagName("script")).pop();
-
-        if (script) {
-            _.filename = script.src;
-
-            if (document.addEventListener && !script.hasAttribute('data-manual')) {
-                if (document.readyState !== "loading") {
-                    if (window.requestAnimationFrame) {
-                        window.requestAnimationFrame(_.highlightAll);
-                    } else {
-                        window.setTimeout(_.highlightAll, 16);
-                    }
-                }
-                else {
-                    document.addEventListener('DOMContentLoaded', _.highlightAll);
-                }
-            }
         }
 
         return _self.Prism;
-
-    })();
-
-    if (typeof module !== 'undefined' && module.exports) {
-        module.exports = Prism;
     }
 
-    // hack for components to work correctly in node.js
-    if (typeof global !== 'undefined') {
-        global.Prism = Prism;
-    }
-    ;
-    Prism.languages.markup = {
-        'comment': /<!--[\w\W]*?-->/,
-        'prolog': /<\?[\w\W]+?\?>/,
-        'doctype': /<!DOCTYPE[\w\W]+?>/,
-        'cdata': /<!\[CDATA\[[\w\W]*?]]>/i,
-        'tag': {
-            pattern: /<\/?(?!\d)[^\s>\/=$<]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\\1|\\?(?!\1)[\w\W])*\1|[^\s'">=]+))?)*\s*\/?>/i,
-            inside: {
-                'tag': {
-                    pattern: /^<\/?[^\s>\/]+/i,
-                    inside: {
-                        'punctuation': /^<\/?/,
-                        'namespace': /^[^\s>\/:]+:/
-                    }
-                },
-                'attr-value': {
-                    pattern: /=(?:('|")[\w\W]*?(\1)|[^\s>]+)/i,
-                    inside: {
-                        'punctuation': /[=>"']/
-                    }
-                },
-                'punctuation': /\/?>/,
-                'attr-name': {
-                    pattern: /[^\s>\/]+/,
-                    inside: {
-                        'namespace': /^[^\s>\/:]+:/
-                    }
+    //Get current script and highlight
+    var script = document.currentScript || [].slice.call(document.getElementsByTagName("script")).pop();
+
+    if (script) {
+        _.filename = script.src;
+
+        if (!_.manual && !script.hasAttribute('data-manual')) {
+            if (document.readyState !== "loading") {
+                if (window.requestAnimationFrame) {
+                    window.requestAnimationFrame(_.highlightAll);
+                } else {
+                    window.setTimeout(_.highlightAll, 16);
                 }
-
             }
-        },
-        'entity': /&#?[\da-z]{1,8};/i
-    };
-
-    // Plugin to make entity title show the real entity, idea by Roman Komarov
-    Prism.hooks.add('wrap', function (env) {
-
-        if (env.type === 'entity') {
-            env.attributes['title'] = env.content.replace(/&amp;/, '&');
-        }
-    });
-
-    Prism.languages.xml = Prism.languages.markup;
-    Prism.languages.html = Prism.languages.markup;
-    Prism.languages.mathml = Prism.languages.markup;
-    Prism.languages.svg = Prism.languages.markup;
-
-    Prism.languages.css = {
-        'comment': /\/\*[\w\W]*?\*\//,
-        'atrule': {
-            pattern: /@[\w-]+?.*?(;|(?=\s*\{))/i,
-            inside: {
-                'rule': /@[\w-]+/
-                // See rest below
-            }
-        },
-        'url': /url\((?:(["'])(\\(?:\r\n|[\w\W])|(?!\1)[^\\\r\n])*\1|.*?)\)/i,
-        'selector': /[^\{\}\s][^\{\};]*?(?=\s*\{)/,
-        'string': /("|')(\\(?:\r\n|[\w\W])|(?!\1)[^\\\r\n])*\1/,
-        'property': /(\b|\B)[\w-]+(?=\s*:)/i,
-        'important': /\B!important\b/i,
-        'function': /[-a-z0-9]+(?=\()/i,
-        'punctuation': /[(){};:]/
-    };
-
-    Prism.languages.css['atrule'].inside.rest = Prism.util.clone(Prism.languages.css);
-
-    if (Prism.languages.markup) {
-        Prism.languages.insertBefore('markup', 'tag', {
-            'style': {
-                pattern: /(<style[\w\W]*?>)[\w\W]*?(?=<\/style>)/i,
-                lookbehind: true,
-                inside: Prism.languages.css,
-                alias: 'language-css'
-            }
-        });
-
-        Prism.languages.insertBefore('inside', 'attr-value', {
-            'style-attr': {
-                pattern: /\s*style=("|').*?\1/i,
-                inside: {
-                    'attr-name': {
-                        pattern: /^\s*style/i,
-                        inside: Prism.languages.markup.tag.inside
-                    },
-                    'punctuation': /^\s*=\s*['"]|['"]\s*$/,
-                    'attr-value': {
-                        pattern: /.+/i,
-                        inside: Prism.languages.css
-                    }
-                },
-                alias: 'language-css'
-            }
-        }, Prism.languages.markup.tag);
-    };
-    Prism.languages.clike = {
-        'comment': [
-            {
-                pattern: /(^|[^\\])\/\*[\w\W]*?\*\//,
-                lookbehind: true
-            },
-            {
-                pattern: /(^|[^\\:])\/\/.*/,
-                lookbehind: true
-            }
-        ],
-        'string': {
-            pattern: /(["'])(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
-            greedy: true
-        },
-        'class-name': {
-            pattern: /((?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/i,
-            lookbehind: true,
-            inside: {
-                punctuation: /(\.|\\)/
-            }
-        },
-        'keyword': /\b(if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/,
-        'boolean': /\b(true|false)\b/,
-        'function': /[a-z0-9_]+(?=\()/i,
-        'number': /\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)\b/i,
-        'operator': /--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*|\/|~|\^|%/,
-        'punctuation': /[{}[\];(),.:]/
-    };
-
-    Prism.languages.javascript = Prism.languages.extend('clike', {
-        'keyword': /\b(as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|var|void|while|with|yield)\b/,
-        'number': /\b-?(0x[\dA-Fa-f]+|0b[01]+|0o[0-7]+|\d*\.?\d+([Ee][+-]?\d+)?|NaN|Infinity)\b/,
-        // Allow for all non-ASCII characters (See http://stackoverflow.com/a/2008444)
-        'function': /[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*(?=\()/i,
-        'operator': /--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*\*?|\/|~|\^|%|\.{3}/
-    });
-
-    Prism.languages.insertBefore('javascript', 'keyword', {
-        'regex': {
-            pattern: /(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\\\r\n])+\/[gimyu]{0,5}(?=\s*($|[\r\n,.;})]))/,
-            lookbehind: true,
-            greedy: true
-        }
-    });
-
-    Prism.languages.insertBefore('javascript', 'string', {
-        'template-string': {
-            pattern: /`(?:\\\\|\\?[^\\])*?`/,
-            greedy: true,
-            inside: {
-                'interpolation': {
-                    pattern: /\$\{[^}]+\}/,
-                    inside: {
-                        'interpolation-punctuation': {
-                            pattern: /^\$\{|\}$/,
-                            alias: 'punctuation'
-                        },
-                        rest: Prism.languages.javascript
-                    }
-                },
-                'string': /[\s\S]+/
+            else {
+                document.addEventListener('DOMContentLoaded', _.highlightAll);
             }
         }
-    });
-
-    if (Prism.languages.markup) {
-        Prism.languages.insertBefore('markup', 'tag', {
-            'script': {
-                pattern: /(<script[\w\W]*?>)[\w\W]*?(?=<\/script>)/i,
-                lookbehind: true,
-                inside: Prism.languages.javascript,
-                alias: 'language-javascript'
-            }
-        });
     }
 
-    Prism.languages.js = Prism.languages.javascript;
-    Prism.languages.aspnet = Prism.languages.extend('markup', {
-        'page-directive tag': {
-            pattern: /<%\s*@.*%>/i,
-            inside: {
-                'page-directive tag': /<%\s*@\s*(?:Assembly|Control|Implements|Import|Master(?:Type)?|OutputCache|Page|PreviousPageType|Reference|Register)?|%>/i,
-                rest: Prism.languages.markup.tag.inside
-            }
-        },
-        'directive tag': {
-            pattern: /<%.*%>/i,
-            inside: {
-                'directive tag': /<%\s*?[$=%#:]{0,2}|%>/i,
-                rest: Prism.languages.csharp
-            }
-        }
-    });
-    // Regexp copied from prism-markup, with a negative look-ahead added
-    Prism.languages.aspnet.tag.pattern = /<(?!%)\/?[^\s>\/]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\\1|\\?(?!\1)[\w\W])*\1|[^\s'">=]+))?)*\s*\/?>/i;
+    return _self.Prism;
 
-    // match directives of attribute value foo="<% Bar %>"
-    Prism.languages.insertBefore('inside', 'punctuation', {
-        'directive tag': Prism.languages.aspnet['directive tag']
-    }, Prism.languages.aspnet.tag.inside["attr-value"]);
+})();
 
-    Prism.languages.insertBefore('aspnet', 'comment', {
-        'asp comment': /<%--[\w\W]*?--%>/
-    });
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = Prism;
+}
 
-    // script runat="server" contains csharp, not javascript
-    Prism.languages.insertBefore('aspnet', Prism.languages.javascript ? 'script' : 'tag', {
-        'asp script': {
-            pattern: /(<script(?=.*runat=['"]?server['"]?)[\w\W]*?>)[\w\W]*?(?=<\/script>)/i,
-            lookbehind: true,
-            inside: Prism.languages.csharp || {}
-        }
-    });
-    (function (Prism) {
-        var insideString = {
-            variable: [
-                // Arithmetic Environment
-                {
-                    pattern: /\$?\(\([\w\W]+?\)\)/,
-                    inside: {
-                        // If there is a $ sign at the beginning highlight $(( and )) as variable
-                        variable: [{
-                            pattern: /(^\$\(\([\w\W]+)\)\)/,
-                            lookbehind: true
-                        },
-                            /^\$\(\(/,
-                        ],
-                        number: /\b-?(?:0x[\dA-Fa-f]+|\d*\.?\d+(?:[Ee]-?\d+)?)\b/,
-                        // Operators according to https://www.gnu.org/software/bash/manual/bashref.html#Shell-Arithmetic
-                        operator: /--?|-=|\+\+?|\+=|!=?|~|\*\*?|\*=|\/=?|%=?|<<=?|>>=?|<=?|>=?|==?|&&?|&=|\^=?|\|\|?|\|=|\?|:/,
-                        // If there is no $ sign at the beginning highlight (( and )) as punctuation
-                        punctuation: /\(\(?|\)\)?|,|;/
-                    }
-                },
-                // Command Substitution
-                {
-                    pattern: /\$\([^)]+\)|`[^`]+`/,
-                    inside: {
-                        variable: /^\$\(|^`|\)$|`$/
-                    }
-                },
-                /\$(?:[a-z0-9_#\?\*!@]+|\{[^}]+\})/i
-            ],
-        };
-
-        Prism.languages.bash = {
-            'shebang': {
-                pattern: /^#!\s*\/bin\/bash|^#!\s*\/bin\/sh/,
-                alias: 'important'
-            },
-            'comment': {
-                pattern: /(^|[^"{\\])#.*/,
-                lookbehind: true
-            },
-            'string': [
-                //Support for Here-Documents https://en.wikipedia.org/wiki/Here_document
-                {
-                    pattern: /((?:^|[^<])<<\s*)(?:"|')?(\w+?)(?:"|')?\s*\r?\n(?:[\s\S])*?\r?\n\2/g,
-                    lookbehind: true,
-                    greedy: true,
-                    inside: insideString
-                },
-                {
-                    pattern: /(["'])(?:\\\\|\\?[^\\])*?\1/g,
-                    greedy: true,
-                    inside: insideString
-                }
-            ],
-            'variable': insideString.variable,
-            // Originally based on http://ss64.com/bash/
-            'function': {
-                pattern: /(^|\s|;|\||&)(?:alias|apropos|apt-get|aptitude|aspell|awk|basename|bash|bc|bg|builtin|bzip2|cal|cat|cd|cfdisk|chgrp|chmod|chown|chroot|chkconfig|cksum|clear|cmp|comm|command|cp|cron|crontab|csplit|cut|date|dc|dd|ddrescue|df|diff|diff3|dig|dir|dircolors|dirname|dirs|dmesg|du|egrep|eject|enable|env|ethtool|eval|exec|expand|expect|export|expr|fdformat|fdisk|fg|fgrep|file|find|fmt|fold|format|free|fsck|ftp|fuser|gawk|getopts|git|grep|groupadd|groupdel|groupmod|groups|gzip|hash|head|help|hg|history|hostname|htop|iconv|id|ifconfig|ifdown|ifup|import|install|jobs|join|kill|killall|less|link|ln|locate|logname|logout|look|lpc|lpr|lprint|lprintd|lprintq|lprm|ls|lsof|make|man|mkdir|mkfifo|mkisofs|mknod|more|most|mount|mtools|mtr|mv|mmv|nano|netstat|nice|nl|nohup|notify-send|npm|nslookup|open|op|passwd|paste|pathchk|ping|pkill|popd|pr|printcap|printenv|printf|ps|pushd|pv|pwd|quota|quotacheck|quotactl|ram|rar|rcp|read|readarray|readonly|reboot|rename|renice|remsync|rev|rm|rmdir|rsync|screen|scp|sdiff|sed|seq|service|sftp|shift|shopt|shutdown|sleep|slocate|sort|source|split|ssh|stat|strace|su|sudo|sum|suspend|sync|tail|tar|tee|test|time|timeout|times|touch|top|traceroute|trap|tr|tsort|tty|type|ulimit|umask|umount|unalias|uname|unexpand|uniq|units|unrar|unshar|uptime|useradd|userdel|usermod|users|uuencode|uudecode|v|vdir|vi|vmstat|wait|watch|wc|wget|whereis|which|who|whoami|write|xargs|xdg-open|yes|zip)(?=$|\s|;|\||&)/,
-                lookbehind: true
-            },
-            'keyword': {
-                pattern: /(^|\s|;|\||&)(?:let|:|\.|if|then|else|elif|fi|for|break|continue|while|in|case|function|select|do|done|until|echo|exit|return|set|declare)(?=$|\s|;|\||&)/,
-                lookbehind: true
-            },
-            'boolean': {
-                pattern: /(^|\s|;|\||&)(?:true|false)(?=$|\s|;|\||&)/,
-                lookbehind: true
-            },
-            'operator': /&&?|\|\|?|==?|!=?|<<<?|>>|<=?|>=?|=~/,
-            'punctuation': /\$?\(\(?|\)\)?|\.\.|[{}[\];]/
-        };
-
-        var inside = insideString.variable[1].inside;
-        inside['function'] = Prism.languages.bash['function'];
-        inside.keyword = Prism.languages.bash.keyword;
-        inside.boolean = Prism.languages.bash.boolean;
-        inside.operator = Prism.languages.bash.operator;
-        inside.punctuation = Prism.languages.bash.punctuation;
-    })(Prism);
-
-    Prism.languages.c = Prism.languages.extend('clike', {
-        'keyword': /\b(asm|typeof|inline|auto|break|case|char|const|continue|default|do|double|else|enum|extern|float|for|goto|if|int|long|register|return|short|signed|sizeof|static|struct|switch|typedef|union|unsigned|void|volatile|while)\b/,
-        'operator': /\-[>-]?|\+\+?|!=?|<<?=?|>>?=?|==?|&&?|\|?\||[~^%?*\/]/,
-        'number': /\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)[ful]*\b/i
-    });
-
-    Prism.languages.insertBefore('c', 'string', {
-        'macro': {
-            // allow for multiline macro definitions
-            // spaces after the # character compile fine with gcc
-            pattern: /(^\s*)#\s*[a-z]+([^\r\n\\]|\\.|\\(?:\r\n?|\n))*/im,
-            lookbehind: true,
-            alias: 'property',
-            inside: {
-                // highlight the path of the include statement as a string
-                'string': {
-                    pattern: /(#\s*include\s*)(<.+?>|("|')(\\?.)+?\3)/,
-                    lookbehind: true
-                },
-                // highlight macro directives as keywords
-                'directive': {
-                    pattern: /(#\s*)\b(define|elif|else|endif|error|ifdef|ifndef|if|import|include|line|pragma|undef|using)\b/,
-                    lookbehind: true,
-                    alias: 'keyword'
-                }
-            }
-        },
-        // highlight predefined macros as constants
-        'constant': /\b(__FILE__|__LINE__|__DATE__|__TIME__|__TIMESTAMP__|__func__|EOF|NULL|stdin|stdout|stderr)\b/
-    });
-
-    delete Prism.languages.c['class-name'];
-    delete Prism.languages.c['boolean'];
-
-    Prism.languages.csharp = Prism.languages.extend('clike', {
-        'keyword': /\b(abstract|as|async|await|base|bool|break|byte|case|catch|char|checked|class|const|continue|decimal|default|delegate|do|double|else|enum|event|explicit|extern|false|finally|fixed|float|for|foreach|goto|if|implicit|in|int|interface|internal|is|lock|long|namespace|new|null|object|operator|out|override|params|private|protected|public|readonly|ref|return|sbyte|sealed|short|sizeof|stackalloc|static|string|struct|switch|this|throw|true|try|typeof|uint|ulong|unchecked|unsafe|ushort|using|virtual|void|volatile|while|add|alias|ascending|async|await|descending|dynamic|from|get|global|group|into|join|let|orderby|partial|remove|select|set|value|var|where|yield)\b/,
-        'string': [
-            /@("|')(\1\1|\\\1|\\?(?!\1)[\s\S])*\1/,
-            /("|')(\\?.)*?\1/
-        ],
-        'number': /\b-?(0x[\da-f]+|\d*\.?\d+f?)\b/i
-    });
-
-    Prism.languages.insertBefore('csharp', 'keyword', {
-        'generic-method': {
-            pattern: /[a-z0-9_]+\s*<[^>\r\n]+?>\s*(?=\()/i,
-            alias: 'function',
-            inside: {
-                keyword: Prism.languages.csharp.keyword,
-                punctuation: /[<>(),.:]/
-            }
-        },
-        'preprocessor': {
-            pattern: /(^\s*)#.*/m,
-            lookbehind: true,
-            alias: 'property',
-            inside: {
-                // highlight preprocessor directives as keywords
-                'directive': {
-                    pattern: /(\s*#)\b(define|elif|else|endif|endregion|error|if|line|pragma|region|undef|warning)\b/,
-                    lookbehind: true,
-                    alias: 'keyword'
-                }
-            }
-        }
-    });
-
-    Prism.languages.cpp = Prism.languages.extend('c', {
-        'keyword': /\b(alignas|alignof|asm|auto|bool|break|case|catch|char|char16_t|char32_t|class|compl|const|constexpr|const_cast|continue|decltype|default|delete|do|double|dynamic_cast|else|enum|explicit|export|extern|float|for|friend|goto|if|inline|int|long|mutable|namespace|new|noexcept|nullptr|operator|private|protected|public|register|reinterpret_cast|return|short|signed|sizeof|static|static_assert|static_cast|struct|switch|template|this|thread_local|throw|try|typedef|typeid|typename|union|unsigned|using|virtual|void|volatile|wchar_t|while)\b/,
-        'boolean': /\b(true|false)\b/,
-        'operator': /[-+]{1,2}|!=?|<{1,2}=?|>{1,2}=?|\->|:{1,2}|={1,2}|\^|~|%|&{1,2}|\|?\||\?|\*|\/|\b(and|and_eq|bitand|bitor|not|not_eq|or|or_eq|xor|xor_eq)\b/
-    });
-
-    Prism.languages.insertBefore('cpp', 'keyword', {
-        'class-name': {
-            pattern: /(class\s+)[a-z0-9_]+/i,
-            lookbehind: true
-        }
-    });
-    Prism.languages.css.selector = {
-        pattern: /[^\{\}\s][^\{\}]*(?=\s*\{)/,
+// hack for components to work correctly in node.js
+if (typeof global !== 'undefined') {
+    global.Prism = Prism;
+}
+;
+Prism.languages.markup = {
+    'comment': /<!--[\s\S]*?-->/,
+    'prolog': /<\?[\s\S]+?\?>/,
+    'doctype': /<!DOCTYPE[\s\S]+?>/i,
+    'cdata': /<!\[CDATA\[[\s\S]*?]]>/i,
+    'tag': {
+        pattern: /<\/?(?!\d)[^\s>\/=$<]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\[\s\S]|(?!\1)[^\\])*\1|[^\s'">=]+))?)*\s*\/?>/i,
         inside: {
-            'pseudo-element': /:(?:after|before|first-letter|first-line|selection)|::[-\w]+/,
-            'pseudo-class': /:[-\w]+(?:\(.*\))?/,
-            'class': /\.[-:\.\w]+/,
-            'id': /#[-:\.\w]+/,
-            'attribute': /\[[^\]]+\]/
-        }
-    };
-
-    Prism.languages.insertBefore('css', 'function', {
-        'hexcode': /#[\da-f]{3,6}/i,
-        'entity': /\\[\da-f]{1,8}/i,
-        'number': /[\d%\.]+/
-    });
-    Prism.languages.git = {
-        /*
-         * A simple one line comment like in a git status command
-         * For instance:
-         * $ git status
-         * # On branch infinite-scroll
-         * # Your branch and 'origin/sharedBranches/frontendTeam/infinite-scroll' have diverged,
-         * # and have 1 and 2 different commits each, respectively.
-         * nothing to commit (working directory clean)
-         */
-        'comment': /^#.*/m,
-
-        /*
-         * Regexp to match the changed lines in a git diff output. Check the example below.
-         */
-        'deleted': /^[-�].*/m,
-        'inserted': /^\+.*/m,
-
-        /*
-         * a string (double and simple quote)
-         */
-        'string': /("|')(\\?.)*?\1/m,
-
-        /*
-         * a git command. It starts with a random prompt finishing by a $, then "git" then some other parameters
-         * For instance:
-         * $ git add file.txt
-         */
-        'command': {
-            pattern: /^.*\$ git .*$/m,
-            inside: {
-                /*
-                 * A git command can contain a parameter starting by a single or a double dash followed by a string
-                 * For instance:
-                 * $ git diff --cached
-                 * $ git log -p
-                 */
-                'parameter': /\s(--|-)\w+/m
+            'tag': {
+                pattern: /^<\/?[^\s>\/]+/i,
+                inside: {
+                    'punctuation': /^<\/?/,
+                    'namespace': /^[^\s>\/:]+:/
+                }
+            },
+            'attr-value': {
+                pattern: /=(?:("|')(?:\\[\s\S]|(?!\1)[^\\])*\1|[^\s'">=]+)/i,
+                inside: {
+                    'punctuation': [
+                        /^=/,
+                        {
+                            pattern: /(^|[^\\])["']/,
+                            lookbehind: true
+                        }
+                    ]
+                }
+            },
+            'punctuation': /\/?>/,
+            'attr-name': {
+                pattern: /[^\s>\/]+/,
+                inside: {
+                    'namespace': /^[^\s>\/:]+:/
+                }
             }
+
+        }
+    },
+    'entity': /&#?[\da-z]{1,8};/i
+};
+
+Prism.languages.markup['tag'].inside['attr-value'].inside['entity'] =
+    Prism.languages.markup['entity'];
+
+// Plugin to make entity title show the real entity, idea by Roman Komarov
+Prism.hooks.add('wrap', function (env) {
+
+    if (env.type === 'entity') {
+        env.attributes['title'] = env.content.replace(/&amp;/, '&');
+    }
+});
+
+Prism.languages.xml = Prism.languages.markup;
+Prism.languages.html = Prism.languages.markup;
+Prism.languages.mathml = Prism.languages.markup;
+Prism.languages.svg = Prism.languages.markup;
+
+Prism.languages.css = {
+    'comment': /\/\*[\s\S]*?\*\//,
+    'atrule': {
+        pattern: /@[\w-]+?.*?(?:;|(?=\s*\{))/i,
+        inside: {
+            'rule': /@[\w-]+/
+            // See rest below
+        }
+    },
+    'url': /url\((?:(["'])(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1|.*?)\)/i,
+    'selector': /[^{}\s][^{};]*?(?=\s*\{)/,
+    'string': {
+        pattern: /("|')(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
+        greedy: true
+    },
+    'property': /[\w-]+(?=\s*:)/i,
+    'important': /\B!important\b/i,
+    'function': /[-a-z0-9]+(?=\()/i,
+    'punctuation': /[(){};:]/
+};
+
+Prism.languages.css['atrule'].inside.rest = Prism.util.clone(Prism.languages.css);
+
+if (Prism.languages.markup) {
+    Prism.languages.insertBefore('markup', 'tag', {
+        'style': {
+            pattern: /(<style[\s\S]*?>)[\s\S]*?(?=<\/style>)/i,
+            lookbehind: true,
+            inside: Prism.languages.css,
+            alias: 'language-css'
+        }
+    });
+
+    Prism.languages.insertBefore('inside', 'attr-value', {
+        'style-attr': {
+            pattern: /\s*style=("|')(?:\\[\s\S]|(?!\1)[^\\])*\1/i,
+            inside: {
+                'attr-name': {
+                    pattern: /^\s*style/i,
+                    inside: Prism.languages.markup.tag.inside
+                },
+                'punctuation': /^\s*=\s*['"]|['"]\s*$/,
+                'attr-value': {
+                    pattern: /.+/i,
+                    inside: Prism.languages.css
+                }
+            },
+            alias: 'language-css'
+        }
+    }, Prism.languages.markup.tag);
+};
+Prism.languages.clike = {
+    'comment': [
+        {
+            pattern: /(^|[^\\])\/\*[\s\S]*?(?:\*\/|$)/,
+            lookbehind: true
         },
+        {
+            pattern: /(^|[^\\:])\/\/.*/,
+            lookbehind: true
+        }
+    ],
+    'string': {
+        pattern: /(["'])(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
+        greedy: true
+    },
+    'class-name': {
+        pattern: /((?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[\w.\\]+/i,
+        lookbehind: true,
+        inside: {
+            punctuation: /[.\\]/
+        }
+    },
+    'keyword': /\b(?:if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/,
+    'boolean': /\b(?:true|false)\b/,
+    'function': /[a-z0-9_]+(?=\()/i,
+    'number': /\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)\b/i,
+    'operator': /--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*|\/|~|\^|%/,
+    'punctuation': /[{}[\];(),.:]/
+};
 
-        /*
-         * Coordinates displayed in a git diff command
-         * For instance:
-         * $ git diff
-         * diff --git file.txt file.txt
-         * index 6214953..1d54a52 100644
-         * --- file.txt
-         * +++ file.txt
-         * @@ -1 +1,2 @@
-         * -Here's my tetx file
-         * +Here's my text file
-         * +And this is the second line
-         */
-        'coord': /^@@.*@@$/m,
+Prism.languages.javascript = Prism.languages.extend('clike', {
+    'keyword': /\b(?:as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|var|void|while|with|yield)\b/,
+    'number': /\b-?(?:0[xX][\dA-Fa-f]+|0[bB][01]+|0[oO][0-7]+|\d*\.?\d+(?:[Ee][+-]?\d+)?|NaN|Infinity)\b/,
+    // Allow for all non-ASCII characters (See http://stackoverflow.com/a/2008444)
+    'function': /[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*(?=\s*\()/i,
+    'operator': /-[-=]?|\+[+=]?|!=?=?|<<?=?|>>?>?=?|=(?:==?|>)?|&[&=]?|\|[|=]?|\*\*?=?|\/=?|~|\^=?|%=?|\?|\.{3}/
+});
 
-        /*
-         * Match a "commit [SHA1]" line in a git log output.
-         * For instance:
-         * $ git log
-         * commit a11a14ef7e26f2ca62d4b35eac455ce636d0dc09
-         * Author: lgiraudel
-         * Date:   Mon Feb 17 11:18:34 2014 +0100
-         *
-         *     Add of a new line
-         */
-        'commit_sha1': /^commit \w{40}$/m
+Prism.languages.insertBefore('javascript', 'keyword', {
+    'regex': {
+        pattern: /(^|[^/])\/(?!\/)(\[[^\]\r\n]+]|\\.|[^/\\\[\r\n])+\/[gimyu]{0,5}(?=\s*($|[\r\n,.;})]))/,
+        lookbehind: true,
+        greedy: true
+    },
+    // This must be declared before keyword because we use "function" inside the look-forward
+    'function-variable': {
+        pattern: /[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*(?=\s*=\s*(?:function\b|(?:\([^()]*\)|[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*)\s*=>))/i,
+        alias: 'function'
+    }
+});
+
+Prism.languages.insertBefore('javascript', 'string', {
+    'template-string': {
+        pattern: /`(?:\\[\s\S]|[^\\`])*`/,
+        greedy: true,
+        inside: {
+            'interpolation': {
+                pattern: /\$\{[^}]+\}/,
+                inside: {
+                    'interpolation-punctuation': {
+                        pattern: /^\$\{|\}$/,
+                        alias: 'punctuation'
+                    },
+                    rest: Prism.languages.javascript
+                }
+            },
+            'string': /[\s\S]+/
+        }
+    }
+});
+
+if (Prism.languages.markup) {
+    Prism.languages.insertBefore('markup', 'tag', {
+        'script': {
+            pattern: /(<script[\s\S]*?>)[\s\S]*?(?=<\/script>)/i,
+            lookbehind: true,
+            inside: Prism.languages.javascript,
+            alias: 'language-javascript'
+        }
+    });
+}
+
+Prism.languages.js = Prism.languages.javascript;
+
+Prism.languages.c = Prism.languages.extend('clike', {
+    'keyword': /\b(?:_Alignas|_Alignof|_Atomic|_Bool|_Complex|_Generic|_Imaginary|_Noreturn|_Static_assert|_Thread_local|asm|typeof|inline|auto|break|case|char|const|continue|default|do|double|else|enum|extern|float|for|goto|if|int|long|register|return|short|signed|sizeof|static|struct|switch|typedef|union|unsigned|void|volatile|while)\b/,
+    'operator': /-[>-]?|\+\+?|!=?|<<?=?|>>?=?|==?|&&?|\|\|?|[~^%?*\/]/,
+    'number': /\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)[ful]*\b/i
+});
+
+Prism.languages.insertBefore('c', 'string', {
+    'macro': {
+        // allow for multiline macro definitions
+        // spaces after the # character compile fine with gcc
+        pattern: /(^\s*)#\s*[a-z]+(?:[^\r\n\\]|\\(?:\r\n|[\s\S]))*/im,
+        lookbehind: true,
+        alias: 'property',
+        inside: {
+            // highlight the path of the include statement as a string
+            'string': {
+                pattern: /(#\s*include\s*)(?:<.+?>|("|')(?:\\?.)+?\2)/,
+                lookbehind: true
+            },
+            // highlight macro directives as keywords
+            'directive': {
+                pattern: /(#\s*)\b(?:define|defined|elif|else|endif|error|ifdef|ifndef|if|import|include|line|pragma|undef|using)\b/,
+                lookbehind: true,
+                alias: 'keyword'
+            }
+        }
+    },
+    // highlight predefined macros as constants
+    'constant': /\b(?:__FILE__|__LINE__|__DATE__|__TIME__|__TIMESTAMP__|__func__|EOF|NULL|SEEK_CUR|SEEK_END|SEEK_SET|stdin|stdout|stderr)\b/
+});
+
+delete Prism.languages.c['class-name'];
+delete Prism.languages.c['boolean'];
+
+Prism.languages.aspnet = Prism.languages.extend('markup', {
+    'page-directive tag': {
+        pattern: /<%\s*@.*%>/i,
+        inside: {
+            'page-directive tag': /<%\s*@\s*(?:Assembly|Control|Implements|Import|Master(?:Type)?|OutputCache|Page|PreviousPageType|Reference|Register)?|%>/i,
+            rest: Prism.languages.markup.tag.inside
+        }
+    },
+    'directive tag': {
+        pattern: /<%.*%>/i,
+        inside: {
+            'directive tag': /<%\s*?[$=%#:]{0,2}|%>/i,
+            rest: Prism.languages.csharp
+        }
+    }
+});
+// Regexp copied from prism-markup, with a negative look-ahead added
+Prism.languages.aspnet.tag.pattern = /<(?!%)\/?[^\s>\/]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\[\s\S]|(?!\1)[^\\])*\1|[^\s'">=]+))?)*\s*\/?>/i;
+
+// match directives of attribute value foo="<% Bar %>"
+Prism.languages.insertBefore('inside', 'punctuation', {
+    'directive tag': Prism.languages.aspnet['directive tag']
+}, Prism.languages.aspnet.tag.inside["attr-value"]);
+
+Prism.languages.insertBefore('aspnet', 'comment', {
+    'asp comment': /<%--[\s\S]*?--%>/
+});
+
+// script runat="server" contains csharp, not javascript
+Prism.languages.insertBefore('aspnet', Prism.languages.javascript ? 'script' : 'tag', {
+    'asp script': {
+        pattern: /(<script(?=.*runat=['"]?server['"]?)[\s\S]*?>)[\s\S]*?(?=<\/script>)/i,
+        lookbehind: true,
+        inside: Prism.languages.csharp || {}
+    }
+});
+(function (Prism) {
+    var insideString = {
+        variable: [
+            // Arithmetic Environment
+            {
+                pattern: /\$?\(\([\s\S]+?\)\)/,
+                inside: {
+                    // If there is a $ sign at the beginning highlight $(( and )) as variable
+                    variable: [{
+                        pattern: /(^\$\(\([\s\S]+)\)\)/,
+                        lookbehind: true
+                    },
+                        /^\$\(\(/
+                    ],
+                    number: /\b-?(?:0x[\dA-Fa-f]+|\d*\.?\d+(?:[Ee]-?\d+)?)\b/,
+                    // Operators according to https://www.gnu.org/software/bash/manual/bashref.html#Shell-Arithmetic
+                    operator: /--?|-=|\+\+?|\+=|!=?|~|\*\*?|\*=|\/=?|%=?|<<=?|>>=?|<=?|>=?|==?|&&?|&=|\^=?|\|\|?|\|=|\?|:/,
+                    // If there is no $ sign at the beginning highlight (( and )) as punctuation
+                    punctuation: /\(\(?|\)\)?|,|;/
+                }
+            },
+            // Command Substitution
+            {
+                pattern: /\$\([^)]+\)|`[^`]+`/,
+                inside: {
+                    variable: /^\$\(|^`|\)$|`$/
+                }
+            },
+            /\$(?:[\w#?*!@]+|\{[^}]+\})/i
+        ]
     };
 
-    Prism.languages.java = Prism.languages.extend('clike', {
-        'keyword': /\b(abstract|continue|for|new|switch|assert|default|goto|package|synchronized|boolean|do|if|private|this|break|double|implements|protected|throw|byte|else|import|public|throws|case|enum|instanceof|return|transient|catch|extends|int|short|try|char|final|interface|static|void|class|finally|long|strictfp|volatile|const|float|native|super|while)\b/,
-        'number': /\b0b[01]+\b|\b0x[\da-f]*\.?[\da-fp\-]+\b|\b\d*\.?\d+(?:e[+-]?\d+)?[df]?\b/i,
-        'operator': {
-            pattern: /(^|[^.])(?:\+[+=]?|-[-=]?|!=?|<<?=?|>>?>?=?|==?|&[&=]?|\|[|=]?|\*=?|\/=?|%=?|\^=?|[?:~])/m,
-            lookbehind: true
-        }
-    });
-
-    Prism.languages.insertBefore('java', 'function', {
-        'annotation': {
-            alias: 'punctuation',
-            pattern: /(^|[^.])@\w+/,
-            lookbehind: true
-        }
-    });
-
-    Prism.languages.python = {
-        'triple-quoted-string': {
-            pattern: /"""[\s\S]+?"""|'''[\s\S]+?'''/,
-            alias: 'string'
+    Prism.languages.bash = {
+        'shebang': {
+            pattern: /^#!\s*\/bin\/bash|^#!\s*\/bin\/sh/,
+            alias: 'important'
         },
         'comment': {
-            pattern: /(^|[^\\])#.*/,
+            pattern: /(^|[^"{\\])#.*/,
             lookbehind: true
         },
-        'string': {
-            pattern: /("|')(?:\\\\|\\?[^\\\r\n])*?\1/,
+        'string': [
+            //Support for Here-Documents https://en.wikipedia.org/wiki/Here_document
+            {
+                pattern: /((?:^|[^<])<<\s*)["']?(\w+?)["']?\s*\r?\n(?:[\s\S])*?\r?\n\2/,
+                lookbehind: true,
+                greedy: true,
+                inside: insideString
+            },
+            {
+                pattern: /(["'])(?:\\[\s\S]|(?!\1)[^\\])*\1/,
+                greedy: true,
+                inside: insideString
+            }
+        ],
+        'variable': insideString.variable,
+        // Originally based on http://ss64.com/bash/
+        'function': {
+            pattern: /(^|[\s;|&])(?:alias|apropos|apt-get|aptitude|aspell|awk|basename|bash|bc|bg|builtin|bzip2|cal|cat|cd|cfdisk|chgrp|chmod|chown|chroot|chkconfig|cksum|clear|cmp|comm|command|cp|cron|crontab|csplit|cut|date|dc|dd|ddrescue|df|diff|diff3|dig|dir|dircolors|dirname|dirs|dmesg|du|egrep|eject|enable|env|ethtool|eval|exec|expand|expect|export|expr|fdformat|fdisk|fg|fgrep|file|find|fmt|fold|format|free|fsck|ftp|fuser|gawk|getopts|git|grep|groupadd|groupdel|groupmod|groups|gzip|hash|head|help|hg|history|hostname|htop|iconv|id|ifconfig|ifdown|ifup|import|install|jobs|join|kill|killall|less|link|ln|locate|logname|logout|look|lpc|lpr|lprint|lprintd|lprintq|lprm|ls|lsof|make|man|mkdir|mkfifo|mkisofs|mknod|more|most|mount|mtools|mtr|mv|mmv|nano|netstat|nice|nl|nohup|notify-send|npm|nslookup|open|op|passwd|paste|pathchk|ping|pkill|popd|pr|printcap|printenv|printf|ps|pushd|pv|pwd|quota|quotacheck|quotactl|ram|rar|rcp|read|readarray|readonly|reboot|rename|renice|remsync|rev|rm|rmdir|rsync|screen|scp|sdiff|sed|seq|service|sftp|shift|shopt|shutdown|sleep|slocate|sort|source|split|ssh|stat|strace|su|sudo|sum|suspend|sync|tail|tar|tee|test|time|timeout|times|touch|top|traceroute|trap|tr|tsort|tty|type|ulimit|umask|umount|unalias|uname|unexpand|uniq|units|unrar|unshar|uptime|useradd|userdel|usermod|users|uuencode|uudecode|v|vdir|vi|vmstat|wait|watch|wc|wget|whereis|which|who|whoami|write|xargs|xdg-open|yes|zip)(?=$|[\s;|&])/,
+            lookbehind: true
+        },
+        'keyword': {
+            pattern: /(^|[\s;|&])(?:let|:|\.|if|then|else|elif|fi|for|break|continue|while|in|case|function|select|do|done|until|echo|exit|return|set|declare)(?=$|[\s;|&])/,
+            lookbehind: true
+        },
+        'boolean': {
+            pattern: /(^|[\s;|&])(?:true|false)(?=$|[\s;|&])/,
+            lookbehind: true
+        },
+        'operator': /&&?|\|\|?|==?|!=?|<<<?|>>|<=?|>=?|=~/,
+        'punctuation': /\$?\(\(?|\)\)?|\.\.|[{}[\];]/
+    };
+
+    var inside = insideString.variable[1].inside;
+    inside['function'] = Prism.languages.bash['function'];
+    inside.keyword = Prism.languages.bash.keyword;
+    inside.boolean = Prism.languages.bash.boolean;
+    inside.operator = Prism.languages.bash.operator;
+    inside.punctuation = Prism.languages.bash.punctuation;
+})(Prism);
+
+Prism.languages.cpp = Prism.languages.extend('c', {
+    'keyword': /\b(?:alignas|alignof|asm|auto|bool|break|case|catch|char|char16_t|char32_t|class|compl|const|constexpr|const_cast|continue|decltype|default|delete|do|double|dynamic_cast|else|enum|explicit|export|extern|float|for|friend|goto|if|inline|int|long|mutable|namespace|new|noexcept|nullptr|operator|private|protected|public|register|reinterpret_cast|return|short|signed|sizeof|static|static_assert|static_cast|struct|switch|template|this|thread_local|throw|try|typedef|typeid|typename|union|unsigned|using|virtual|void|volatile|wchar_t|while)\b/,
+    'boolean': /\b(?:true|false)\b/,
+    'operator': /--?|\+\+?|!=?|<{1,2}=?|>{1,2}=?|->|:{1,2}|={1,2}|\^|~|%|&{1,2}|\|\|?|\?|\*|\/|\b(?:and|and_eq|bitand|bitor|not|not_eq|or|or_eq|xor|xor_eq)\b/
+});
+
+Prism.languages.insertBefore('cpp', 'keyword', {
+    'class-name': {
+        pattern: /(class\s+)\w+/i,
+        lookbehind: true
+    }
+});
+Prism.languages.csharp = Prism.languages.extend('clike', {
+    'keyword': /\b(abstract|as|async|await|base|bool|break|byte|case|catch|char|checked|class|const|continue|decimal|default|delegate|do|double|else|enum|event|explicit|extern|false|finally|fixed|float|for|foreach|goto|if|implicit|in|int|interface|internal|is|lock|long|namespace|new|null|object|operator|out|override|params|private|protected|public|readonly|ref|return|sbyte|sealed|short|sizeof|stackalloc|static|string|struct|switch|this|throw|true|try|typeof|uint|ulong|unchecked|unsafe|ushort|using|virtual|void|volatile|while|add|alias|ascending|async|await|descending|dynamic|from|get|global|group|into|join|let|orderby|partial|remove|select|set|value|var|where|yield)\b/,
+    'string': [
+        {
+            pattern: /@("|')(?:\1\1|\\[\s\S]|(?!\1)[^\\])*\1/,
             greedy: true
         },
-        'function': {
-            pattern: /((?:^|\s)def[ \t]+)[a-zA-Z_][a-zA-Z0-9_]*(?=\()/g,
-            lookbehind: true
-        },
-        'class-name': {
-            pattern: /(\bclass\s+)[a-z0-9_]+/i,
-            lookbehind: true
-        },
-        'keyword': /\b(?:as|assert|async|await|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|pass|print|raise|return|try|while|with|yield)\b/,
-        'boolean': /\b(?:True|False)\b/,
-        'number': /\b-?(?:0[bo])?(?:(?:\d|0x[\da-f])[\da-f]*\.?\d*|\.\d+)(?:e[+-]?\d+)?j?\b/i,
-        'operator': /[-+%=]=?|!=|\*\*?=?|\/\/?=?|<[<=>]?|>[=>]?|[&|^~]|\b(?:or|and|not)\b/,
-        'punctuation': /[{}[\];(),.:]/
+        {
+            pattern: /("|')(?:\\.|(?!\1)[^\\\r\n])*?\1/,
+            greedy: true
+        }
+    ],
+    'number': /\b-?(?:0x[\da-f]+|\d*\.?\d+f?)\b/i
+});
+
+Prism.languages.insertBefore('csharp', 'keyword', {
+    'generic-method': {
+        pattern: /[a-z0-9_]+\s*<[^>\r\n]+?>\s*(?=\()/i,
+        alias: 'function',
+        inside: {
+            keyword: Prism.languages.csharp.keyword,
+            punctuation: /[<>(),.:]/
+        }
+    },
+    'preprocessor': {
+        pattern: /(^\s*)#.*/m,
+        lookbehind: true,
+        alias: 'property',
+        inside: {
+            // highlight preprocessor directives as keywords
+            'directive': {
+                pattern: /(\s*#)\b(?:define|elif|else|endif|endregion|error|if|line|pragma|region|undef|warning)\b/,
+                lookbehind: true,
+                alias: 'keyword'
+            }
+        }
+    }
+});
+
+Prism.languages.css.selector = {
+    pattern: /[^{}\s][^{}]*(?=\s*\{)/,
+    inside: {
+        'pseudo-element': /:(?:after|before|first-letter|first-line|selection)|::[-\w]+/,
+        'pseudo-class': /:[-\w]+(?:\(.*\))?/,
+        'class': /\.[-:.\w]+/,
+        'id': /#[-:.\w]+/,
+        'attribute': /\[[^\]]+\]/
+    }
+};
+
+Prism.languages.insertBefore('css', 'function', {
+    'hexcode': /#[\da-f]{3,8}/i,
+    'entity': /\\[\da-f]{1,8}/i,
+    'number': /[\d%.]+/
+});
+Prism.languages.git = {
+	/*
+	 * A simple one line comment like in a git status command
+	 * For instance:
+	 * $ git status
+	 * # On branch infinite-scroll
+	 * # Your branch and 'origin/sharedBranches/frontendTeam/infinite-scroll' have diverged,
+	 * # and have 1 and 2 different commits each, respectively.
+	 * nothing to commit (working directory clean)
+	 */
+    'comment': /^#.*/m,
+
+	/*
+	 * Regexp to match the changed lines in a git diff output. Check the example below.
+	 */
+    'deleted': /^[-�].*/m,
+    'inserted': /^\+.*/m,
+
+	/*
+	 * a string (double and simple quote)
+	 */
+    'string': /("|')(?:\\.|(?!\1)[^\\\r\n])*\1/m,
+
+	/*
+	 * a git command. It starts with a random prompt finishing by a $, then "git" then some other parameters
+	 * For instance:
+	 * $ git add file.txt
+	 */
+    'command': {
+        pattern: /^.*\$ git .*$/m,
+        inside: {
+			/*
+			 * A git command can contain a parameter starting by a single or a double dash followed by a string
+			 * For instance:
+			 * $ git diff --cached
+			 * $ git log -p
+			 */
+            'parameter': /\s--?\w+/m
+        }
+    },
+
+	/*
+	 * Coordinates displayed in a git diff command
+	 * For instance:
+	 * $ git diff
+	 * diff --git file.txt file.txt
+	 * index 6214953..1d54a52 100644
+	 * --- file.txt
+	 * +++ file.txt
+	 * @@ -1 +1,2 @@
+	 * -Here's my tetx file
+	 * +Here's my text file
+	 * +And this is the second line
+	 */
+    'coord': /^@@.*@@$/m,
+
+	/*
+	 * Match a "commit [SHA1]" line in a git log output.
+	 * For instance:
+	 * $ git log
+	 * commit a11a14ef7e26f2ca62d4b35eac455ce636d0dc09
+	 * Author: lgiraudel
+	 * Date:   Mon Feb 17 11:18:34 2014 +0100
+	 *
+	 *     Add of a new line
+	 */
+    'commit_sha1': /^commit \w{40}$/m
+};
+
+Prism.languages.java = Prism.languages.extend('clike', {
+    'keyword': /\b(?:abstract|continue|for|new|switch|assert|default|goto|package|synchronized|boolean|do|if|private|this|break|double|implements|protected|throw|byte|else|import|public|throws|case|enum|instanceof|return|transient|catch|extends|int|short|try|char|final|interface|static|void|class|finally|long|strictfp|volatile|const|float|native|super|while)\b/,
+    'number': /\b0b[01]+\b|\b0x[\da-f]*\.?[\da-fp\-]+\b|\b\d*\.?\d+(?:e[+-]?\d+)?[df]?\b/i,
+    'operator': {
+        pattern: /(^|[^.])(?:\+[+=]?|-[-=]?|!=?|<<?=?|>>?>?=?|==?|&[&=]?|\|[|=]?|\*=?|\/=?|%=?|\^=?|[?:~])/m,
+        lookbehind: true
+    }
+});
+
+Prism.languages.insertBefore('java', 'function', {
+    'annotation': {
+        alias: 'punctuation',
+        pattern: /(^|[^.])@\w+/,
+        lookbehind: true
+    }
+});
+
+Prism.languages.python = {
+    'comment': {
+        pattern: /(^|[^\\])#.*/,
+        lookbehind: true
+    },
+    'triple-quoted-string': {
+        pattern: /("""|''')[\s\S]+?\1/,
+        greedy: true,
+        alias: 'string'
+    },
+    'string': {
+        pattern: /("|')(?:\\.|(?!\1)[^\\\r\n])*\1/,
+        greedy: true
+    },
+    'function': {
+        pattern: /((?:^|\s)def[ \t]+)[a-zA-Z_]\w*(?=\s*\()/g,
+        lookbehind: true
+    },
+    'class-name': {
+        pattern: /(\bclass\s+)\w+/i,
+        lookbehind: true
+    },
+    'keyword': /\b(?:as|assert|async|await|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|nonlocal|pass|print|raise|return|try|while|with|yield)\b/,
+    'builtin': /\b(?:__import__|abs|all|any|apply|ascii|basestring|bin|bool|buffer|bytearray|bytes|callable|chr|classmethod|cmp|coerce|compile|complex|delattr|dict|dir|divmod|enumerate|eval|execfile|file|filter|float|format|frozenset|getattr|globals|hasattr|hash|help|hex|id|input|int|intern|isinstance|issubclass|iter|len|list|locals|long|map|max|memoryview|min|next|object|oct|open|ord|pow|property|range|raw_input|reduce|reload|repr|reversed|round|set|setattr|slice|sorted|staticmethod|str|sum|super|tuple|type|unichr|unicode|vars|xrange|zip)\b/,
+    'boolean': /\b(?:True|False|None)\b/,
+    'number': /\b-?(?:0[bo])?(?:(?:\d|0x[\da-f])[\da-f]*\.?\d*|\.\d+)(?:e[+-]?\d+)?j?\b/i,
+    'operator': /[-+%=]=?|!=|\*\*?=?|\/\/?=?|<[<=>]?|>[=>]?|[&|^~]|\b(?:or|and|not)\b/,
+    'punctuation': /[{}[\];(),.:]/
+};
+
+Prism.languages.sql = {
+    'comment': {
+        pattern: /(^|[^\\])(?:\/\*[\s\S]*?\*\/|(?:--|\/\/|#).*)/,
+        lookbehind: true
+    },
+    'string': {
+        pattern: /(^|[^@\\])("|')(?:\\[\s\S]|(?!\2)[^\\])*\2/,
+        greedy: true,
+        lookbehind: true
+    },
+    'variable': /@[\w.$]+|@(["'`])(?:\\[\s\S]|(?!\1)[^\\])+\1/,
+    'function': /\b(?:COUNT|SUM|AVG|MIN|MAX|FIRST|LAST|UCASE|LCASE|MID|LEN|ROUND|NOW|FORMAT)(?=\s*\()/i, // Should we highlight user defined functions too?
+    'keyword': /\b(?:ACTION|ADD|AFTER|ALGORITHM|ALL|ALTER|ANALYZE|ANY|APPLY|AS|ASC|AUTHORIZATION|AUTO_INCREMENT|BACKUP|BDB|BEGIN|BERKELEYDB|BIGINT|BINARY|BIT|BLOB|BOOL|BOOLEAN|BREAK|BROWSE|BTREE|BULK|BY|CALL|CASCADED?|CASE|CHAIN|CHAR VARYING|CHARACTER (?:SET|VARYING)|CHARSET|CHECK|CHECKPOINT|CLOSE|CLUSTERED|COALESCE|COLLATE|COLUMN|COLUMNS|COMMENT|COMMIT|COMMITTED|COMPUTE|CONNECT|CONSISTENT|CONSTRAINT|CONTAINS|CONTAINSTABLE|CONTINUE|CONVERT|CREATE|CROSS|CURRENT(?:_DATE|_TIME|_TIMESTAMP|_USER)?|CURSOR|DATA(?:BASES?)?|DATE(?:TIME)?|DBCC|DEALLOCATE|DEC|DECIMAL|DECLARE|DEFAULT|DEFINER|DELAYED|DELETE|DELIMITER(?:S)?|DENY|DESC|DESCRIBE|DETERMINISTIC|DISABLE|DISCARD|DISK|DISTINCT|DISTINCTROW|DISTRIBUTED|DO|DOUBLE(?: PRECISION)?|DROP|DUMMY|DUMP(?:FILE)?|DUPLICATE KEY|ELSE|ENABLE|ENCLOSED BY|END|ENGINE|ENUM|ERRLVL|ERRORS|ESCAPE(?:D BY)?|EXCEPT|EXEC(?:UTE)?|EXISTS|EXIT|EXPLAIN|EXTENDED|FETCH|FIELDS|FILE|FILLFACTOR|FIRST|FIXED|FLOAT|FOLLOWING|FOR(?: EACH ROW)?|FORCE|FOREIGN|FREETEXT(?:TABLE)?|FROM|FULL|FUNCTION|GEOMETRY(?:COLLECTION)?|GLOBAL|GOTO|GRANT|GROUP|HANDLER|HASH|HAVING|HOLDLOCK|IDENTITY(?:_INSERT|COL)?|IF|IGNORE|IMPORT|INDEX|INFILE|INNER|INNODB|INOUT|INSERT|INT|INTEGER|INTERSECT|INTO|INVOKER|ISOLATION LEVEL|JOIN|KEYS?|KILL|LANGUAGE SQL|LAST|LEFT|LIMIT|LINENO|LINES|LINESTRING|LOAD|LOCAL|LOCK|LONG(?:BLOB|TEXT)|MATCH(?:ED)?|MEDIUM(?:BLOB|INT|TEXT)|MERGE|MIDDLEINT|MODIFIES SQL DATA|MODIFY|MULTI(?:LINESTRING|POINT|POLYGON)|NATIONAL(?: CHAR VARYING| CHARACTER(?: VARYING)?| VARCHAR)?|NATURAL|NCHAR(?: VARCHAR)?|NEXT|NO(?: SQL|CHECK|CYCLE)?|NONCLUSTERED|NULLIF|NUMERIC|OFF?|OFFSETS?|ON|OPEN(?:DATASOURCE|QUERY|ROWSET)?|OPTIMIZE|OPTION(?:ALLY)?|ORDER|OUT(?:ER|FILE)?|OVER|PARTIAL|PARTITION|PERCENT|PIVOT|PLAN|POINT|POLYGON|PRECEDING|PRECISION|PREV|PRIMARY|PRINT|PRIVILEGES|PROC(?:EDURE)?|PUBLIC|PURGE|QUICK|RAISERROR|READ(?:S SQL DATA|TEXT)?|REAL|RECONFIGURE|REFERENCES|RELEASE|RENAME|REPEATABLE|REPLICATION|REQUIRE|RESTORE|RESTRICT|RETURNS?|REVOKE|RIGHT|ROLLBACK|ROUTINE|ROW(?:COUNT|GUIDCOL|S)?|RTREE|RULE|SAVE(?:POINT)?|SCHEMA|SELECT|SERIAL(?:IZABLE)?|SESSION(?:_USER)?|SET(?:USER)?|SHARE MODE|SHOW|SHUTDOWN|SIMPLE|SMALLINT|SNAPSHOT|SOME|SONAME|START(?:ING BY)?|STATISTICS|STATUS|STRIPED|SYSTEM_USER|TABLES?|TABLESPACE|TEMP(?:ORARY|TABLE)?|TERMINATED BY|TEXT(?:SIZE)?|THEN|TIMESTAMP|TINY(?:BLOB|INT|TEXT)|TOP?|TRAN(?:SACTIONS?)?|TRIGGER|TRUNCATE|TSEQUAL|TYPES?|UNBOUNDED|UNCOMMITTED|UNDEFINED|UNION|UNIQUE|UNPIVOT|UPDATE(?:TEXT)?|USAGE|USE|USER|USING|VALUES?|VAR(?:BINARY|CHAR|CHARACTER|YING)|VIEW|WAITFOR|WARNINGS|WHEN|WHERE|WHILE|WITH(?: ROLLUP|IN)?|WORK|WRITE(?:TEXT)?)\b/i,
+    'boolean': /\b(?:TRUE|FALSE|NULL)\b/i,
+    'number': /\b-?(?:0x)?\d*\.?[\da-f]+\b/,
+    'operator': /[-+*\/=%^~]|&&?|\|\|?|!=?|<(?:=>?|<|>)?|>[>=]?|\b(?:AND|BETWEEN|IN|LIKE|NOT|OR|IS|DIV|REGEXP|RLIKE|SOUNDS LIKE|XOR)\b/i,
+    'punctuation': /[;[\]()`,.]/
+};
+(function () {
+
+    if (typeof self === 'undefined' || !self.Prism || !self.document) {
+        return;
+    }
+
+	/**
+	 * Class name for <pre> which is activating the plugin
+	 * @type {String}
+	 */
+    var PLUGIN_CLASS = 'line-numbers';
+
+	/**
+	 * Resizes line numbers spans according to height of line of code
+	 * @param  {Element} element <pre> element
+	 */
+    var _resizeElement = function (element) {
+        var codeStyles = getStyles(element);
+        var whiteSpace = codeStyles['white-space'];
+
+        if (whiteSpace === 'pre-wrap' || whiteSpace === 'pre-line') {
+            var codeElement = element.querySelector('code');
+            var lineNumbersWrapper = element.querySelector('.line-numbers-rows');
+            var lineNumberSizer = element.querySelector('.line-numbers-sizer');
+            var codeLines = element.textContent.split('\n');
+
+            if (!lineNumberSizer) {
+                lineNumberSizer = document.createElement('span');
+                lineNumberSizer.className = 'line-numbers-sizer';
+
+                codeElement.appendChild(lineNumberSizer);
+            }
+
+            lineNumberSizer.style.display = 'block';
+
+            codeLines.forEach(function (line, lineNumber) {
+                lineNumberSizer.textContent = line || '\n';
+                var lineSize = lineNumberSizer.getBoundingClientRect().height;
+                lineNumbersWrapper.children[lineNumber].style.height = lineSize + 'px';
+            });
+
+            lineNumberSizer.textContent = '';
+            lineNumberSizer.style.display = 'none';
+        }
     };
 
-    Prism.languages.sql = {
-        'comment': {
-            pattern: /(^|[^\\])(?:\/\*[\w\W]*?\*\/|(?:--|\/\/|#).*)/,
-            lookbehind: true
-        },
-        'string': {
-            pattern: /(^|[^@\\])("|')(?:\\?[\s\S])*?\2/,
-            lookbehind: true
-        },
-        'variable': /@[\w.$]+|@("|'|`)(?:\\?[\s\S])+?\1/,
-        'function': /\b(?:COUNT|SUM|AVG|MIN|MAX|FIRST|LAST|UCASE|LCASE|MID|LEN|ROUND|NOW|FORMAT)(?=\s*\()/i, // Should we highlight user defined functions too?
-        'keyword': /\b(?:ACTION|ADD|AFTER|ALGORITHM|ALL|ALTER|ANALYZE|ANY|APPLY|AS|ASC|AUTHORIZATION|AUTO_INCREMENT|BACKUP|BDB|BEGIN|BERKELEYDB|BIGINT|BINARY|BIT|BLOB|BOOL|BOOLEAN|BREAK|BROWSE|BTREE|BULK|BY|CALL|CASCADED?|CASE|CHAIN|CHAR VARYING|CHARACTER (?:SET|VARYING)|CHARSET|CHECK|CHECKPOINT|CLOSE|CLUSTERED|COALESCE|COLLATE|COLUMN|COLUMNS|COMMENT|COMMIT|COMMITTED|COMPUTE|CONNECT|CONSISTENT|CONSTRAINT|CONTAINS|CONTAINSTABLE|CONTINUE|CONVERT|CREATE|CROSS|CURRENT(?:_DATE|_TIME|_TIMESTAMP|_USER)?|CURSOR|DATA(?:BASES?)?|DATE(?:TIME)?|DBCC|DEALLOCATE|DEC|DECIMAL|DECLARE|DEFAULT|DEFINER|DELAYED|DELETE|DELIMITER(?:S)?|DENY|DESC|DESCRIBE|DETERMINISTIC|DISABLE|DISCARD|DISK|DISTINCT|DISTINCTROW|DISTRIBUTED|DO|DOUBLE(?: PRECISION)?|DROP|DUMMY|DUMP(?:FILE)?|DUPLICATE KEY|ELSE|ENABLE|ENCLOSED BY|END|ENGINE|ENUM|ERRLVL|ERRORS|ESCAPE(?:D BY)?|EXCEPT|EXEC(?:UTE)?|EXISTS|EXIT|EXPLAIN|EXTENDED|FETCH|FIELDS|FILE|FILLFACTOR|FIRST|FIXED|FLOAT|FOLLOWING|FOR(?: EACH ROW)?|FORCE|FOREIGN|FREETEXT(?:TABLE)?|FROM|FULL|FUNCTION|GEOMETRY(?:COLLECTION)?|GLOBAL|GOTO|GRANT|GROUP|HANDLER|HASH|HAVING|HOLDLOCK|IDENTITY(?:_INSERT|COL)?|IF|IGNORE|IMPORT|INDEX|INFILE|INNER|INNODB|INOUT|INSERT|INT|INTEGER|INTERSECT|INTO|INVOKER|ISOLATION LEVEL|JOIN|KEYS?|KILL|LANGUAGE SQL|LAST|LEFT|LIMIT|LINENO|LINES|LINESTRING|LOAD|LOCAL|LOCK|LONG(?:BLOB|TEXT)|MATCH(?:ED)?|MEDIUM(?:BLOB|INT|TEXT)|MERGE|MIDDLEINT|MODIFIES SQL DATA|MODIFY|MULTI(?:LINESTRING|POINT|POLYGON)|NATIONAL(?: CHAR VARYING| CHARACTER(?: VARYING)?| VARCHAR)?|NATURAL|NCHAR(?: VARCHAR)?|NEXT|NO(?: SQL|CHECK|CYCLE)?|NONCLUSTERED|NULLIF|NUMERIC|OFF?|OFFSETS?|ON|OPEN(?:DATASOURCE|QUERY|ROWSET)?|OPTIMIZE|OPTION(?:ALLY)?|ORDER|OUT(?:ER|FILE)?|OVER|PARTIAL|PARTITION|PERCENT|PIVOT|PLAN|POINT|POLYGON|PRECEDING|PRECISION|PREV|PRIMARY|PRINT|PRIVILEGES|PROC(?:EDURE)?|PUBLIC|PURGE|QUICK|RAISERROR|READ(?:S SQL DATA|TEXT)?|REAL|RECONFIGURE|REFERENCES|RELEASE|RENAME|REPEATABLE|REPLICATION|REQUIRE|RESTORE|RESTRICT|RETURNS?|REVOKE|RIGHT|ROLLBACK|ROUTINE|ROW(?:COUNT|GUIDCOL|S)?|RTREE|RULE|SAVE(?:POINT)?|SCHEMA|SELECT|SERIAL(?:IZABLE)?|SESSION(?:_USER)?|SET(?:USER)?|SHARE MODE|SHOW|SHUTDOWN|SIMPLE|SMALLINT|SNAPSHOT|SOME|SONAME|START(?:ING BY)?|STATISTICS|STATUS|STRIPED|SYSTEM_USER|TABLES?|TABLESPACE|TEMP(?:ORARY|TABLE)?|TERMINATED BY|TEXT(?:SIZE)?|THEN|TIMESTAMP|TINY(?:BLOB|INT|TEXT)|TOP?|TRAN(?:SACTIONS?)?|TRIGGER|TRUNCATE|TSEQUAL|TYPES?|UNBOUNDED|UNCOMMITTED|UNDEFINED|UNION|UNIQUE|UNPIVOT|UPDATE(?:TEXT)?|USAGE|USE|USER|USING|VALUES?|VAR(?:BINARY|CHAR|CHARACTER|YING)|VIEW|WAITFOR|WARNINGS|WHEN|WHERE|WHILE|WITH(?: ROLLUP|IN)?|WORK|WRITE(?:TEXT)?)\b/i,
-        'boolean': /\b(?:TRUE|FALSE|NULL)\b/i,
-        'number': /\b-?(?:0x)?\d*\.?[\da-f]+\b/,
-        'operator': /[-+*\/=%^~]|&&?|\|?\||!=?|<(?:=>?|<|>)?|>[>=]?|\b(?:AND|BETWEEN|IN|LIKE|NOT|OR|IS|DIV|REGEXP|RLIKE|SOUNDS LIKE|XOR)\b/i,
-        'punctuation': /[;[\]()`,.]/
-    };
-    (function () {
+	/**
+	 * Returns style declarations for the element
+	 * @param {Element} element
+	 */
+    var getStyles = function (element) {
+        if (!element) {
+            return null;
+        }
 
-        if (typeof self === 'undefined' || !self.Prism || !self.document) {
+        return window.getComputedStyle ? getComputedStyle(element) : (element.currentStyle || null);
+    };
+
+    window.addEventListener('resize', function () {
+        Array.prototype.forEach.call(document.querySelectorAll('pre.' + PLUGIN_CLASS), _resizeElement);
+    });
+
+    Prism.hooks.add('complete', function (env) {
+        if (!env.code) {
             return;
         }
 
-        Prism.hooks.add('complete', function (env) {
-            if (!env.code) {
-                return;
-            }
-
-            // works only for <code> wrapped inside <pre> (not inline)
-            var pre = env.element.parentNode;
-            var clsReg = /\s*\bline-numbers\b\s*/;
-            if (
-                !pre || !/pre/i.test(pre.nodeName) ||
-                // Abort only if nor the <pre> nor the <code> have the class
-                (!clsReg.test(pre.className) && !clsReg.test(env.element.className))
-            ) {
-                return;
-            }
-
-            if (env.element.querySelector(".line-numbers-rows")) {
-                // Abort if line numbers already exists
-                return;
-            }
-
-            if (clsReg.test(env.element.className)) {
-                // Remove the class "line-numbers" from the <code>
-                env.element.className = env.element.className.replace(clsReg, '');
-            }
-            if (!clsReg.test(pre.className)) {
-                // Add the class "line-numbers" to the <pre>
-                pre.className += ' line-numbers';
-            }
-
-            var match = env.code.match(/\n(?!$)/g);
-            var linesNum = match ? match.length + 1 : 1;
-            var lineNumbersWrapper;
-
-            var lines = new Array(linesNum + 1);
-            lines = lines.join('<span></span>');
-
-            lineNumbersWrapper = document.createElement('span');
-            lineNumbersWrapper.setAttribute('aria-hidden', 'true');
-            lineNumbersWrapper.className = 'line-numbers-rows';
-            lineNumbersWrapper.innerHTML = lines;
-
-            if (pre.hasAttribute('data-start')) {
-                pre.style.counterReset = 'linenumber ' + (parseInt(pre.getAttribute('data-start'), 10) - 1);
-            }
-
-            env.element.appendChild(lineNumbersWrapper);
-
-        });
-
-    }());
-    (function () {
-
+        // works only for <code> wrapped inside <pre> (not inline)
+        var pre = env.element.parentNode;
+        var clsReg = /\s*\bline-numbers\b\s*/;
         if (
-            typeof self !== 'undefined' && !self.Prism ||
-            typeof global !== 'undefined' && !global.Prism
+            !pre || !/pre/i.test(pre.nodeName) ||
+            // Abort only if nor the <pre> nor the <code> have the class
+            (!clsReg.test(pre.className) && !clsReg.test(env.element.className))
         ) {
             return;
         }
 
-        var url = /\b([a-z]{3,7}:\/\/|tel:)[\w\-+%~/.:#=?&amp;]+/,
-            email = /\b\S+@[\w.]+[a-z]{2}/,
-            linkMd = /\[([^\]]+)]\(([^)]+)\)/,
+        if (env.element.querySelector(".line-numbers-rows")) {
+            // Abort if line numbers already exists
+            return;
+        }
 
-            // Tokens that may contain URLs and emails
-            candidates = ['comment', 'url', 'attr-value', 'string'];
+        if (clsReg.test(env.element.className)) {
+            // Remove the class "line-numbers" from the <code>
+            env.element.className = env.element.className.replace(clsReg, ' ');
+        }
+        if (!clsReg.test(pre.className)) {
+            // Add the class "line-numbers" to the <pre>
+            pre.className += ' line-numbers';
+        }
 
-        Prism.plugins.autolinker = {
-            processGrammar: function (grammar) {
-                // Abort if grammar has already been processed
-                if (!grammar || grammar['url-link']) {
-                    return;
-                }
-                Prism.languages.DFS(grammar, function (key, def, type) {
-                    if (candidates.indexOf(type) > -1 && Prism.util.type(def) !== 'Array') {
-                        if (!def.pattern) {
-                            def = this[key] = {
-                                pattern: def
-                            };
-                        }
+        var match = env.code.match(/\n(?!$)/g);
+        var linesNum = match ? match.length + 1 : 1;
+        var lineNumbersWrapper;
 
-                        def.inside = def.inside || {};
+        var lines = new Array(linesNum + 1);
+        lines = lines.join('<span></span>');
 
-                        if (type == 'comment') {
-                            def.inside['md-link'] = linkMd;
-                        }
-                        if (type == 'attr-value') {
-                            Prism.languages.insertBefore('inside', 'punctuation', { 'url-link': url }, def);
-                        }
-                        else {
-                            def.inside['url-link'] = url;
-                        }
+        lineNumbersWrapper = document.createElement('span');
+        lineNumbersWrapper.setAttribute('aria-hidden', 'true');
+        lineNumbersWrapper.className = 'line-numbers-rows';
+        lineNumbersWrapper.innerHTML = lines;
 
-                        def.inside['email-link'] = email;
+        if (pre.hasAttribute('data-start')) {
+            pre.style.counterReset = 'linenumber ' + (parseInt(pre.getAttribute('data-start'), 10) - 1);
+        }
+
+        env.element.appendChild(lineNumbersWrapper);
+
+        _resizeElement(pre);
+    });
+
+}());
+(function () {
+
+    if (
+        typeof self !== 'undefined' && !self.Prism ||
+        typeof global !== 'undefined' && !global.Prism
+    ) {
+        return;
+    }
+
+    var url = /\b([a-z]{3,7}:\/\/|tel:)[\w\-+%~/.:#=?&amp;]+/,
+        email = /\b\S+@[\w.]+[a-z]{2}/,
+        linkMd = /\[([^\]]+)]\(([^)]+)\)/,
+
+        // Tokens that may contain URLs and emails
+        candidates = ['comment', 'url', 'attr-value', 'string'];
+
+    Prism.plugins.autolinker = {
+        processGrammar: function (grammar) {
+            // Abort if grammar has already been processed
+            if (!grammar || grammar['url-link']) {
+                return;
+            }
+            Prism.languages.DFS(grammar, function (key, def, type) {
+                if (candidates.indexOf(type) > -1 && Prism.util.type(def) !== 'Array') {
+                    if (!def.pattern) {
+                        def = this[key] = {
+                            pattern: def
+                        };
                     }
-                });
-                grammar['url-link'] = url;
-                grammar['email-link'] = email;
-            }
-        };
 
-        Prism.hooks.add('before-highlight', function (env) {
-            Prism.plugins.autolinker.processGrammar(env.grammar);
-        });
+                    def.inside = def.inside || {};
 
-        Prism.hooks.add('wrap', function (env) {
-            if (/-link$/.test(env.type)) {
-                env.tag = 'a';
+                    if (type == 'comment') {
+                        def.inside['md-link'] = linkMd;
+                    }
+                    if (type == 'attr-value') {
+                        Prism.languages.insertBefore('inside', 'punctuation', { 'url-link': url }, def);
+                    }
+                    else {
+                        def.inside['url-link'] = url;
+                    }
 
-                var href = env.content;
-
-                if (env.type == 'email-link' && href.indexOf('mailto:') != 0) {
-                    href = 'mailto:' + href;
+                    def.inside['email-link'] = email;
                 }
-                else if (env.type == 'md-link') {
-                    // Markdown
-                    var match = env.content.match(linkMd);
+            });
+            grammar['url-link'] = url;
+            grammar['email-link'] = email;
+        }
+    };
 
-                    href = match[2];
-                    env.content = match[1];
-                }
+    Prism.hooks.add('before-highlight', function (env) {
+        Prism.plugins.autolinker.processGrammar(env.grammar);
+    });
 
-                env.attributes.href = href;
+    Prism.hooks.add('wrap', function (env) {
+        if (/-link$/.test(env.type)) {
+            env.tag = 'a';
+
+            var href = env.content;
+
+            if (env.type == 'email-link' && href.indexOf('mailto:') != 0) {
+                href = 'mailto:' + href;
             }
-        });
+            else if (env.type == 'md-link') {
+                // Markdown
+                var match = env.content.match(linkMd);
 
-    })();
+                href = match[2];
+                env.content = match[1];
+            }
 
-} catch (Exception) {
-    // throw if ie bellow 9
-}
+            env.attributes.href = href;
+        }
+
+        // Silently catch any error thrown by decodeURIComponent (#1186)
+        try {
+            env.content = decodeURIComponent(env.content);
+        } catch (e) { }
+    });
+
+})();
 
 /*
  * Selected-Quoting for Messages based on the
@@ -42869,10 +43424,7 @@ jQuery(document).ready(function () {
 
     jQuery('[data-toggle="tooltip"]').tooltip();
 
-    /// <summary>
-    /// Convert user posted image to modal images
-    /// </summary>
-    /// <returns></returns>
+    // Convert user posted image to modal images
     jQuery(".postContainer .UserPostedImage,.postContainer_Alt .UserPostedImage, .previewPostContent .UserPostedImage").each(function () {
         var image = jQuery(this);
 

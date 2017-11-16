@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Third-Party Libs", "Third-Party Libs", "{CFC7B19E-F7F2-41F1-B709-5C1D72A9BAD0}"
 EndProject
@@ -368,6 +368,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D} = {CFC7B19E-F7F2-41F1-B709-5C1D72A9BAD0}
 		{900B3FCF-BD78-4718-A34D-2662576565C8} = {BDA94567-4516-4110-9743-085C36B24E35}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {054A8305-B197-4A6B-9218-29A2456037AB}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = ServiceStack.OrmLite.Sqlite\ServiceStack.OrmLite.Sqlite.csproj

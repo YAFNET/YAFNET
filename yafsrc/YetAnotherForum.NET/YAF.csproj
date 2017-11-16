@@ -1037,9 +1037,7 @@
     <Content Include="Content\bootstrap\_utilities.scss" />
     <Content Include="Content\bootstrap\_variables.scss" />
     <Content Include="Content\css\select2.css" />
-    <Content Include="Content\css\select2.min.css">
-      <DependentUpon>select2.css</DependentUpon>
-    </Content>
+    <Content Include="Content\css\select2.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css">
       <DependentUpon>font-awesome.css</DependentUpon>
@@ -1749,13 +1747,16 @@
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
     <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\i18n\af.js" />
     <Content Include="Scripts\i18n\ar.js" />
     <Content Include="Scripts\i18n\az.js" />
     <Content Include="Scripts\i18n\bg.js" />
+    <Content Include="Scripts\i18n\bs.js" />
     <Content Include="Scripts\i18n\ca.js" />
     <Content Include="Scripts\i18n\cs.js" />
     <Content Include="Scripts\i18n\da.js" />
     <Content Include="Scripts\i18n\de.js" />
+    <Content Include="Scripts\i18n\dsb.js" />
     <Content Include="Scripts\i18n\el.js" />
     <Content Include="Scripts\i18n\en.js" />
     <Content Include="Scripts\i18n\es.js" />
@@ -1768,7 +1769,9 @@
     <Content Include="Scripts\i18n\he.js" />
     <Content Include="Scripts\i18n\hi.js" />
     <Content Include="Scripts\i18n\hr.js" />
+    <Content Include="Scripts\i18n\hsb.js" />
     <Content Include="Scripts\i18n\hu.js" />
+    <Content Include="Scripts\i18n\hy.js" />
     <Content Include="Scripts\i18n\id.js" />
     <Content Include="Scripts\i18n\is.js" />
     <Content Include="Scripts\i18n\it.js" />
@@ -1782,11 +1785,13 @@
     <Content Include="Scripts\i18n\nb.js" />
     <Content Include="Scripts\i18n\nl.js" />
     <Content Include="Scripts\i18n\pl.js" />
+    <Content Include="Scripts\i18n\ps.js" />
     <Content Include="Scripts\i18n\pt-BR.js" />
     <Content Include="Scripts\i18n\pt.js" />
     <Content Include="Scripts\i18n\ro.js" />
     <Content Include="Scripts\i18n\ru.js" />
     <Content Include="Scripts\i18n\sk.js" />
+    <Content Include="Scripts\i18n\sl.js" />
     <Content Include="Scripts\i18n\sr-Cyrl.js" />
     <Content Include="Scripts\i18n\sr.js" />
     <Content Include="Scripts\i18n\sv.js" />
@@ -1831,12 +1836,6 @@
     <Content Include="Scripts\jquery.FileUpload\jquery.iframe-transport.js" />
     <Content Include="Scripts\jquery.FileUpload\load-image.all.min.js" />
     <Content Include="Scripts\jquery.FileUpload\tmpl.min.js" />
-    <Content Include="Scripts\jquery.ForumExtensions.es5.js">
-      <DependentUpon>jquery.ForumExtensions.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery.ForumExtensions.es5.min.js">
-      <DependentUpon>jquery.ForumExtensions.es5.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\jquery.ForumExtensions.min.js">
       <DependentUpon>jquery.ForumExtensions.js</DependentUpon>
     </Content>
@@ -1844,13 +1843,9 @@
       <DependentUpon>ladda.js</DependentUpon>
     </Content>
     <Content Include="Scripts\moment-with-locales.js" />
-    <Content Include="Scripts\moment-with-locales.min.js">
-      <DependentUpon>moment-with-locales.js</DependentUpon>
-    </Content>
+    <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
-    <Content Include="Scripts\moment.min.js">
-      <DependentUpon>moment.js</DependentUpon>
-    </Content>
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />

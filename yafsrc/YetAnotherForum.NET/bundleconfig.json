@@ -33,6 +33,7 @@
       "Scripts/moment-with-locales.js",
       "Scripts/metisMenu.js",
       "Scripts/tether/tether.js",
+      "Scripts/umd/popper.js",
       "Scripts/bootstrap.js",
       "Scripts/jquery.bootstrap-touchspin.js",
       "Scripts/bootstrap-datetimepicker.js",
