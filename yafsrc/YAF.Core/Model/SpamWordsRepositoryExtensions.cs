@@ -72,23 +72,30 @@ namespace YAF.Core.Model
         /// Gets a list of spam words
         /// </summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="spamWordID">The spam word identifier.</param>
+        /// <param name="spamWordId">The spam word identifier.</param>
+        /// <param name="pageIndex">Index of the page.</param>
+        /// <param name="pageSize">Size of the page.</param>
         /// <param name="boardId">The board identifier.</param>
         /// <returns>
         /// List with spam words
         /// </returns>
         public static IList<Spam_Words> ListTyped(
             this IRepository<Spam_Words> repository,
-            int? spamWordID = null,
+            int? spamWordId = null,
+            int? pageIndex = 0,
+            int? pageSize = 10000000,
             int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             using (var session = repository.DbFunction.CreateSession())
             {
-                return
-                    session.GetTyped<Spam_Words>(
-                        r => r.spam_words_list(BoardID: boardId ?? repository.BoardID, ID: spamWordID));
+                return session.GetTyped<Spam_Words>(
+                    r => r.spam_words_list(
+                        BoardID: boardId ?? repository.BoardID,
+                        ID: spamWordId,
+                        PageIndex: pageIndex,
+                        PageSize: pageSize));
             }
         }
 
