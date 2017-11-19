@@ -1,5 +1,5 @@
 /*!
- * jQuery UI Widget @VERSION
+ * jQuery UI Widget 1.12.1
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
@@ -145,11 +145,11 @@
             // don't prefix for widgets that aren't DOM-based
             widgetEventPrefix: existingConstructor ? (basePrototype.widgetEventPrefix || name) : name
         }, proxiedPrototype, {
-            constructor: constructor,
-            namespace: namespace,
-            widgetName: name,
-            widgetFullName: fullName
-        });
+                constructor: constructor,
+                namespace: namespace,
+                widgetName: name,
+                widgetFullName: fullName
+            });
 
         // If this widget is being redefined then we need to find all widgets that
         // are inheriting from it and redefine all of them so that they inherit from
@@ -445,8 +445,8 @@
             for (classKey in value) {
                 currentElements = this.classesElementLookup[classKey];
                 if (value[classKey] === this.options.classes[classKey] ||
-                        !currentElements ||
-                        !currentElements.length) {
+                    !currentElements ||
+                    !currentElements.length) {
                     continue;
                 }
 
@@ -514,6 +514,10 @@
                 }
             }
 
+            this._on(options.element, {
+                "remove": "_untrackClassesElement"
+            });
+
             if (options.keys) {
                 processClassString(options.keys.match(/\S+/g) || [], true);
             }
@@ -522,6 +526,15 @@
             }
 
             return full.join(" ");
+        },
+
+        _untrackClassesElement: function (event) {
+            var that = this;
+            $.each(that.classesElementLookup, function (key, value) {
+                if ($.inArray(event.target, value) !== -1) {
+                    that.classesElementLookup[key] = $(value.not(event.target).get());
+                }
+            });
         },
 
         _removeClass: function (element, keys, extra) {
@@ -573,7 +586,7 @@
                     // - disabled as an array instead of boolean
                     // - disabled class as method for disabling individual parts
                     if (!suppressDisabledCheck &&
-                            (instance.options.disabled === true ||
+                        (instance.options.disabled === true ||
                             $(this).hasClass("ui-state-disabled"))) {
                         return;
                     }
@@ -684,7 +697,7 @@
             var effectName = !options ?
                 method :
                 options === true || typeof options === "number" ?
-                defaultEffect :
+                    defaultEffect :
                     options.effect || defaultEffect;
 
             options = options || {};
