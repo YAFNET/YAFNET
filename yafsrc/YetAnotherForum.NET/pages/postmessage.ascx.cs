@@ -210,19 +210,19 @@ namespace YAF.Pages
         /// </returns>
         protected string HandlePostToBlog([NotNull] string message, [NotNull] string subject)
         {
-            var blogPostID = string.Empty;
+            var blogPostId = string.Empty;
 
             // Does user wish to post this to their blog?
             if (!this.PageContext.BoardSettings.AllowPostToBlog || !this.PostToBlog.Checked)
             {
-                return blogPostID;
+                return blogPostId;
             }
 
             try
             {
                 // Post to blogblog
                 var blog = new MetaWeblog(this.PageContext.Profile.BlogServiceUrl);
-                blogPostID = blog.newPost(
+                blogPostId = blog.newPost(
                     this.PageContext.Profile.BlogServicePassword,
                     this.PageContext.Profile.BlogServiceUsername,
                     this.BlogPassword.Text,
@@ -234,7 +234,7 @@ namespace YAF.Pages
                 this.PageContext.AddLoadMessage(this.GetText("POSTTOBLOG_FAILED"), MessageTypes.danger);
             }
 
-            return blogPostID;
+            return blogPostId;
         }
 
         /// <summary>
@@ -427,7 +427,7 @@ namespace YAF.Pages
             this.PageContext.QueryIDs = new QueryStringIDHelper(new[] { "m", "t", "q" }, false);
 
             TypedMessageList currentMessage = null;
-            DataRow topicInfo = LegacyDb.topic_info(this.PageContext.PageTopicID);
+            var topicInfo = LegacyDb.topic_info(this.PageContext.PageTopicID);
 
             // we reply to a post with a quote
             if (this.QuotedMessageID != null)
@@ -675,7 +675,7 @@ namespace YAF.Pages
 
                             // quoting a reply to a topic...
                             foreach (
-                                TypedMessageList msg in
+                                var msg in
                                     this.Get<IYafSession>()
                                         .MultiQuoteIds.Select(
                                             item =>
@@ -802,7 +802,7 @@ namespace YAF.Pages
             // Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
             // Ederon : now it should be better, but all this code around forum/topic/message flags needs revamp
             // retrieve message flags
-            var messageFlags = new MessageFlags(LegacyDb.message_list(this.EditMessageID).Rows[0]["Flags"])
+            var messageFlags = new MessageFlags(LegacyDb.MessageList(this.EditMessageID.ToType<int>()).FirstOrDefault().Flags)
             {
                 IsHtml =
                     this
@@ -874,7 +874,7 @@ namespace YAF.Pages
             DataRow forumInfo;
             var isForumModerated = false;
 
-            using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+            using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
             {
                 forumInfo = dt.Rows[0];
             }
@@ -905,7 +905,7 @@ namespace YAF.Pages
                                    IsApproved = this.spamApproved
                                };
 
-            var blogPostID = this.HandlePostToBlog(this._forumEditor.Text, this.TopicSubjectTextBox.Text);
+            var blogPostId = this.HandlePostToBlog(this._forumEditor.Text, this.TopicSubjectTextBox.Text);
 
             // Save to Db
             topicId = LegacyDb.topic_save(
@@ -922,18 +922,20 @@ namespace YAF.Pages
                 this.User != null ? null : this.From.Text,
                 this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                 DateTime.UtcNow,
-                blogPostID,
+                blogPostId,
                 messageFlags.BitValue,
                 ref messageId);
 
             this.UpdateWatchTopic(this.PageContext.PageUserID, (int)topicId);
 
             // clear caches as stats changed
-            if (messageFlags.IsApproved)
+            if (!messageFlags.IsApproved)
             {
-                this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
-                this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
+                return messageId;
             }
+
+            this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
+            this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
 
             return messageId;
         }
@@ -960,7 +962,7 @@ namespace YAF.Pages
             DataRow forumInfo;
             var isForumModerated = false;
 
-            using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+            using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
             {
                 forumInfo = dt.Rows[0];
             }
@@ -1211,7 +1213,7 @@ namespace YAF.Pages
 
             // Check if message is approved
             var isApproved = false;
-            using (DataTable dt = LegacyDb.message_list(messageId))
+            using (var dt = LegacyDb.message_list(messageId))
             {
                 foreach (DataRow row in dt.Rows)
                 {
@@ -1378,7 +1380,7 @@ namespace YAF.Pages
             DataRow forumInfo;
 
             // get  forum information
-            using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+            using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
             {
                 forumInfo = dt.Rows[0];
             }
@@ -1404,7 +1406,7 @@ namespace YAF.Pages
             DataRow forumInfo;
 
             // get topic and forum information
-            using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+            using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
             {
                 forumInfo = dt.Rows[0];
             }
@@ -1582,7 +1584,7 @@ namespace YAF.Pages
         /// </summary>
         private void InitReplyToTopic()
         {
-            DataRow topic = LegacyDb.topic_info(this.TopicID);
+            var topic = LegacyDb.topic_info(this.TopicID);
             var topicFlags = new TopicFlags(topic["Flags"].ToType<int>());
 
             // Ederon : 9/9/2007 - moderators can reply in locked topics
@@ -1678,7 +1680,7 @@ namespace YAF.Pages
             this._forumEditor.UserCanUpload = this.PageContext.ForumUploadAccess;
             this.UploadDialog.Visible = this.PageContext.ForumUploadAccess;
 
-            this.PostAttachments1.Visible = !this._forumEditor.AllowsUploads;
+            this.PostAttachments1.Visible = !this._forumEditor.AllowsUploads && this.PageContext.ForumUploadAccess;
         }
 
         #endregion
