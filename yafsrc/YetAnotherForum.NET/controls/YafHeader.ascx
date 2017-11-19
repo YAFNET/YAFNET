@@ -1,7 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="YafHeader.ascx.cs" Inherits="YAF.Controls.YafHeader" %>
 <div id="yafheader">
-    <asp:Panel id="GuestUserMessage" CssClass="guestUser" runat="server" Visible="false">
+    <asp:Panel id="GuestUserMessage" CssClass="alert alert-info alert-dismissible fade show" runat="server" Visible="false" role="alert">
        <asp:Label id="GuestMessage" runat="server"></asp:Label>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </asp:Panel>
    
     <div class="outerMenuContainer">

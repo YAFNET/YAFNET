@@ -160,7 +160,7 @@ namespace YAF.Controls
         /// Render Li and a Item
         /// </summary>
         /// <param name="holder">The holder.</param>
-        /// <param name="liCssClass">The li CSS Class.</param>
+        /// <param name="cssClass">The li CSS Class.</param>
         /// <param name="linkCssClass">The link CSS Class.</param>
         /// <param name="linkText">The link text.</param>
         /// <param name="linkToolTip">The link tool tip.</param>
@@ -170,13 +170,13 @@ namespace YAF.Controls
         /// <param name="unread">The unread.</param>
         /// <param name="unreadText">The unread text.</param>
         private static void RenderMenuItem(
-            Control holder, string liCssClass, string linkCssClass, string linkText, string linkToolTip, string linkUrl, bool noFollow, bool showUnread, string unread, string unreadText)
+            Control holder, string cssClass, string linkCssClass, string linkText, string linkToolTip, string linkUrl, bool noFollow, bool showUnread, string unread, string unreadText)
         {
-            var liElement = new HtmlGenericControl("li");
+            var element = new HtmlGenericControl("li");
 
-            if (liCssClass.IsSet())
+            if (cssClass.IsSet())
             {
-                liElement.Attributes.Add("class", liCssClass);
+                element.Attributes.Add("class", cssClass);
             }
 
             if (linkToolTip.IsNotSet())
@@ -206,7 +206,7 @@ namespace YAF.Controls
 
             if (showUnread)
             {
-                liElement.Controls.Add(unreadButton);
+                element.Controls.Add(unreadButton);
                 unreadButton.Controls.Add(link);
 
                 var unreadLabel = new HtmlGenericControl("span");
@@ -229,10 +229,10 @@ namespace YAF.Controls
             }
             else
             {
-                liElement.Controls.Add(link);
+                element.Controls.Add(link);
             }
 
-            holder.Controls.Add(liElement);
+            holder.Controls.Add(element);
         }
 
         /// <summary>
@@ -568,10 +568,9 @@ namespace YAF.Controls
             }
 
             var unread = this.PageContext.UnreadPrivate > 0 || this.PageContext.PendingBuddies > 0/* ||
-                          this.PageContext.UnreadTopics > 0*/
-                ;
+                          this.PageContext.UnreadTopics > 0*/;
 
-                // My Topics
+            // My Topics
                 RenderMenuItem(
                 this.MyTopicItem,
                 "menuMy myTopics",
@@ -645,14 +644,14 @@ namespace YAF.Controls
                     var loginLink = new HyperLink
                     {
                         Text = this.GetText("TOOLBAR", "LOGIN"),
-                        ToolTip = this.GetText("TOOLBAR", "LOGIN")
+                        ToolTip = this.GetText("TOOLBAR", "LOGIN"),
+                        CssClass = "alert-link"
                     };
 
                     if (this.Get<YafBoardSettings>().UseLoginBox && !(this.Get<IYafSession>().UseMobileTheme ?? false))
                     {
                         loginLink.NavigateUrl = "javascript:void(0);";
-
-                        loginLink.CssClass = "LoginLink";
+                        loginLink.CssClass = "alert-link LoginLink";
                     }
                     else
                     {
@@ -688,7 +687,8 @@ namespace YAF.Controls
                                 ? YafBuildLink.GetLink(ForumPages.rules)
                                 : (!this.Get<YafBoardSettings>().UseSSLToRegister
                                        ? YafBuildLink.GetLink(ForumPages.register)
-                                       : YafBuildLink.GetLink(ForumPages.register, true).Replace("http:", "https:"))
+                                       : YafBuildLink.GetLink(ForumPages.register, true).Replace("http:", "https:")),
+                        CssClass = "alert-link"
                     };
 
                     this.GuestUserMessage.Controls.Add(registerLink);
