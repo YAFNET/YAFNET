@@ -96,7 +96,7 @@ namespace YAF.Core.Helpers
                 // Add empty row to data table for dropdown lists with empty selection option.
                 var drow = dt.NewRow();
                 drow["Value"] = null;
-                drow["Name"] = "None";
+                drow["Name"] = localization.GetText("COMMON", "NONE");
                 dt.Rows.Add(drow);
 
                 var countries = localization.GetRegionNodesUsingQuery("COUNTRY", x => x.tag.StartsWith(string.Empty))
