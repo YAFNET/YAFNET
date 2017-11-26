@@ -1,6 +1,6 @@
 /**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.12.6
+ * @version 1.12.9
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *
@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
+const isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
 const longerTimeoutBrowsers = ['Edge', 'Trident', 'Firefox'];
 let timeoutDuration = 0;
 for (let i = 0; i < longerTimeoutBrowsers.length; i += 1) {
@@ -39,7 +39,7 @@ function microtaskDebounce(fn) {
       return;
     }
     called = true;
-    Promise.resolve().then(() => {
+    window.Promise.resolve().then(() => {
       called = false;
       fn();
     });
@@ -96,7 +96,7 @@ function getStyleComputedProperty(element, property) {
     return [];
   }
   // NOTE: 1 DOM access here
-  const css = window.getComputedStyle(element, null);
+  const css = getComputedStyle(element, null);
   return property ? css[property] : css;
 }
 
@@ -124,7 +124,7 @@ function getParentNode(element) {
 function getScrollParent(element) {
   // Return body, `getScroll` will take care to get the correct `scrollTop` from it
   if (!element) {
-    return window.document.body;
+    return document.body;
   }
 
   switch (element.nodeName) {
@@ -161,7 +161,7 @@ function getOffsetParent(element) {
       return element.ownerDocument.documentElement;
     }
 
-    return window.document.documentElement;
+    return document.documentElement;
   }
 
   // .offsetParent will return the closest TD or TABLE in case
@@ -207,7 +207,7 @@ function getRoot(node) {
 function findCommonOffsetParent(element1, element2) {
   // This check is needed to avoid errors in case one of the elements isn't defined for any reason
   if (!element1 || !element1.nodeType || !element2 || !element2.nodeType) {
-    return window.document.documentElement;
+    return document.documentElement;
   }
 
   // Here we make sure to give as "start" the element that comes first in the DOM
@@ -294,7 +294,7 @@ function getBordersSize(styles, axis) {
   const sideA = axis === 'x' ? 'Left' : 'Top';
   const sideB = sideA === 'Left' ? 'Right' : 'Bottom';
 
-  return +styles[`border${sideA}Width`].split('px')[0] + +styles[`border${sideB}Width`].split('px')[0];
+  return parseFloat(styles[`border${sideA}Width`], 10) + parseFloat(styles[`border${sideB}Width`], 10);
 }
 
 /**
@@ -317,9 +317,9 @@ function getSize(axis, body, html, computedStyle) {
 }
 
 function getWindowSizes() {
-  const body = window.document.body;
-  const html = window.document.documentElement;
-  const computedStyle = isIE10$1() && window.getComputedStyle(html);
+  const body = document.body;
+  const html = document.documentElement;
+  const computedStyle = isIE10$1() && getComputedStyle(html);
 
   return {
     height: getSize('Height', body, html, computedStyle),
@@ -419,8 +419,8 @@ function getOffsetRectRelativeToArbitraryNode(children, parent) {
   const scrollParent = getScrollParent(children);
 
   const styles = getStyleComputedProperty(parent);
-  const borderTopWidth = +styles.borderTopWidth.split('px')[0];
-  const borderLeftWidth = +styles.borderLeftWidth.split('px')[0];
+  const borderTopWidth = parseFloat(styles.borderTopWidth, 10);
+  const borderLeftWidth = parseFloat(styles.borderLeftWidth, 10);
 
   let offsets = getClientRect({
     top: childrenRect.top - parentRect.top - borderTopWidth,
@@ -436,8 +436,8 @@ function getOffsetRectRelativeToArbitraryNode(children, parent) {
   // differently when margins are applied to it. The margins are included in
   // the box of the documentElement, in the other cases not.
   if (!isIE10 && isHTML) {
-    const marginTop = +styles.marginTop.split('px')[0];
-    const marginLeft = +styles.marginLeft.split('px')[0];
+    const marginTop = parseFloat(styles.marginTop, 10);
+    const marginLeft = parseFloat(styles.marginLeft, 10);
 
     offsets.top -= borderTopWidth - marginTop;
     offsets.bottom -= borderTopWidth - marginTop;
@@ -516,7 +516,7 @@ function getBoundaries(popper, reference, padding, boundariesElement) {
     // Handle other cases based on DOM element used as boundaries
     let boundariesNode;
     if (boundariesElement === 'scrollParent') {
-      boundariesNode = getScrollParent(getParentNode(popper));
+      boundariesNode = getScrollParent(getParentNode(reference));
       if (boundariesNode.nodeName === 'BODY') {
         boundariesNode = popper.ownerDocument.documentElement;
       }
@@ -626,7 +626,7 @@ function getReferenceOffsets(state, popper, reference) {
  * @returns {Object} object containing width and height properties
  */
 function getOuterSizes(element) {
-  const styles = window.getComputedStyle(element);
+  const styles = getComputedStyle(element);
   const x = parseFloat(styles.marginTop) + parseFloat(styles.marginBottom);
   const y = parseFloat(styles.marginLeft) + parseFloat(styles.marginRight);
   const result = {
@@ -833,7 +833,7 @@ function getSupportedPropertyName(property) {
   for (let i = 0; i < prefixes.length - 1; i++) {
     const prefix = prefixes[i];
     const toCheck = prefix ? `${prefix}${upperProp}` : property;
-    if (typeof window.document.body.style[toCheck] !== 'undefined') {
+    if (typeof document.body.style[toCheck] !== 'undefined') {
       return toCheck;
     }
   }
@@ -952,7 +952,7 @@ function removeEventListeners(reference, state) {
  */
 function disableEventListeners() {
   if (this.state.eventsEnabled) {
-    window.cancelAnimationFrame(this.scheduleUpdate);
+    cancelAnimationFrame(this.scheduleUpdate);
     this.state = removeEventListeners(this.reference, this.state);
   }
 }
@@ -1232,22 +1232,26 @@ function arrow(data, options) {
   if (reference[side] + arrowElementSize > popper[opSide]) {
     data.offsets.popper[side] += reference[side] + arrowElementSize - popper[opSide];
   }
+  data.offsets.popper = getClientRect(data.offsets.popper);
 
   // compute center of the popper
   const center = reference[side] + reference[len] / 2 - arrowElementSize / 2;
 
   // Compute the sideValue using the updated popper offsets
   // take popper margin in account because we don't have this info available
-  const popperMarginSide = getStyleComputedProperty(data.instance.popper, `margin${sideCapitalized}`).replace('px', '');
-  let sideValue = center - getClientRect(data.offsets.popper)[side] - popperMarginSide;
+  const css = getStyleComputedProperty(data.instance.popper);
+  const popperMarginSide = parseFloat(css[`margin${sideCapitalized}`], 10);
+  const popperBorderSide = parseFloat(css[`border${sideCapitalized}Width`], 10);
+  let sideValue = center - data.offsets.popper[side] - popperMarginSide - popperBorderSide;
 
   // prevent arrowElement from being placed not contiguously to its popper
   sideValue = Math.max(Math.min(popper[len] - arrowElementSize, sideValue), 0);
 
   data.arrowElement = arrowElement;
-  data.offsets.arrow = {};
-  data.offsets.arrow[side] = Math.round(sideValue);
-  data.offsets.arrow[altSide] = ''; // make sure to unset any eventual altSide value from the DOM node
+  data.offsets.arrow = {
+    [side]: Math.round(sideValue),
+    [altSide]: '' // make sure to unset any eventual altSide value from the DOM node
+  };
 
   return data;
 }

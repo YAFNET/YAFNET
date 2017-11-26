@@ -84,7 +84,7 @@ ins {
   background-color: #99EE99 !important;
   text-decoration: underline !important; }
 
-/* http://prismjs.com/download.html?themes=prism-funky&languages=markup+css+clike+javascript+aspnet+c+csharp+cpp+css-extras+git+java+python+sql&plugins=line-numbers+autolinker */
+/* http://prismjs.com/download.html?themes=prism-funky&languages=markup+css+clike+javascript+c+aspnet+bash+cpp+csharp+css-extras+git+java+python+sql&plugins=line-numbers+autolinker */
 /**
  * prism.js Funky theme
  * Based on “Polyfilling the gaps” talk slides http://lea.verou.me/polyfilling-the-gaps/
@@ -190,7 +190,8 @@ pre.line-numbers {
   counter-reset: linenumber; }
 
 pre.line-numbers > code {
-  position: relative; }
+  position: relative;
+  white-space: inherit; }
 
 .line-numbers .line-numbers-rows {
   position: absolute;
@@ -4890,14 +4891,7 @@ body:last-child .blueimp-gallery-playing > .play-pause {
   padding-right: 5px; }
 
 .dropdown-menu > li > a {
-  display: block;
-  padding: 3px 20px;
-  clear: both;
-  font-weight: 400;
-  line-height: 1.42857143;
-  color: #333;
-  white-space: nowrap;
-  font-size: 14px; }
+  color: #333; }
 
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {

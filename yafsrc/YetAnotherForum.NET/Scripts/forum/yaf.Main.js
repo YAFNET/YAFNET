@@ -26,10 +26,7 @@ jQuery(document).ready(function () {
 
     jQuery('[data-toggle="tooltip"]').tooltip();
 
-    /// <summary>
-    /// Convert user posted image to modal images
-    /// </summary>
-    /// <returns></returns>
+    // Convert user posted image to modal images
     jQuery(".postContainer .UserPostedImage,.postContainer_Alt .UserPostedImage, .previewPostContent .UserPostedImage").each(function () {
         var image = jQuery(this);
 
