@@ -10,11 +10,11 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
+            <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-group fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITGROUP" />
                 </div>
-                <div class="card-block">
+                <div class="card-body">
             <h4>
                 <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="ROLE_NAME" LocalizedPage="ADMIN_EDITGROUP" />
             </h4>

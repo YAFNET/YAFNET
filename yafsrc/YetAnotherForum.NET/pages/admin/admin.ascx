@@ -22,19 +22,19 @@
     </asp:PlaceHolder>
     <div class="row">
              <div class="col-xl-12">
-                    <div class="card mb-3 card-info-outline">
-                        <div class="card-header card-info form-inline">
+                    <div class="card mb-3">
+                        <div class="card-header form-inline">
                             <i class="fa fa-dashboard fa-fw"></i> <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER3" LocalizedPage="ADMIN_ADMIN" />&nbsp;
                 <span runat="server" id="boardSelector" visible='<%# this.PageContext.IsHostAdmin %>'>
                     <asp:DropDownList ID="BoardStatsSelect" runat="server" DataTextField="Name" DataValueField="BoardID"
-                        OnSelectedIndexChanged="BoardStatsSelect_Changed" AutoPostBack="true" CssClass="custom-select" Width="300" />
+                        OnSelectedIndexChanged="BoardStatsSelectChanged" AutoPostBack="true" CssClass="custom-select" Width="300" />
                 </span>
                         </div>
-                        <div class="card-block">
+                        <div class="card-body">
 
                             <div class="card-columns">
 
-                    <div class="card mb-3 card-blue">
+                    <div class="card mb-3 text-white bg-primary">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-sm-3">
@@ -49,7 +49,7 @@
                         </div>
                     </div>
 
-                     <div class="card mb-3 card-blue">
+                     <div class="card mb-3 text-white bg-primary">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-sm-3">
@@ -63,7 +63,7 @@
                             </div>
                         </div>
                     </div>
-                     <div class="card mb-3 card-blue">
+                     <div class="card mb-3 text-white bg-primary">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-sm-3">
@@ -78,7 +78,7 @@
                         </div>
                     </div>
 
-                    <div class="card mb-3 card-blue">
+                    <div class="card mb-3 text-white bg-primary">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-sm-3">
@@ -93,7 +93,7 @@
                         </div>
                     </div>
 
-                    <div class="card mb-3 card-green">
+                    <div class="card mb-3 text-white bg-success">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-sm-3">
@@ -108,7 +108,7 @@
                         </div>
                     </div>
 
-                    <div class="card mb-3 card-green">
+                    <div class="card mb-3 text-white bg-success">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-sm-3">
@@ -123,7 +123,7 @@
                         </div>
                     </div>
 
-                    <div class="card mb-3 card-yellow">
+                    <div class="card mb-3 text-white bg-warning">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-sm-3">
@@ -138,7 +138,7 @@
                         </div>
                     </div>
 
-                    <div class="card mb-3 card-red">
+                    <div class="card mb-3  text-white bg-danger">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-sm-3">
@@ -157,7 +157,7 @@
 
                         </div>
 
-                        <div class="card-footer">
+                        <div class="card-footer text-muted">
                             <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server"
                                 LocalizedTag="STATS_DONTCOUNT" LocalizedPage="ADMIN_ADMIN" />
                         </div>
@@ -174,14 +174,14 @@
 
     <div class="row">
              <div class="col-xl-12">
-                    <div class="card mb-3 card-outline-primary">
-                        <div class="card-header card-primary">
+                    <div class="card mb-3">
+                        <div class="card-header">
                             <i class="fa fa-users fa-fw"></i> <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="HEADER1" LocalizedPage="ADMIN_ADMIN" />
                         </div>
-                        <div class="card-block">
+                        <div class="card-body">
                             <asp:Repeater ID="ActiveList" runat="server">
                     <HeaderTemplate>
-                        <div class="alert alert-info hidden-sm-up" role="alert">
+                        <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
                             <span class="pull-right"><i class="fa fa-hand-o-left fa-fw"></i></span>
                         </div>
@@ -264,14 +264,14 @@
     <asp:PlaceHolder runat="server" ID="UnverifiedUsersHolder">
         <div class="row">
              <div class="col-xl-12">
-                    <div class="card mb-3 card-outline-primary">
-                        <div class="card-header card-primary">
+                    <div class="card mb-3">
+                        <div class="card-header">
                             <i class="fa fa-user-plus fa-fw"></i> <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedTag="HEADER2" LocalizedPage="ADMIN_ADMIN" />
                         </div>
-                        <div class="card-block">
-                                    <asp:Repeater ID="UserList" runat="server" OnItemCommand="UserList_ItemCommand">
+                        <div class="card-body">
+                                    <asp:Repeater ID="UserList" runat="server" OnItemCommand="UserListItemCommand">
             <HeaderTemplate>
-                                        <div class="alert alert-info hidden-sm-up" role="alert">
+                                        <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
                             <span class="pull-right"><i class="fa fa-hand-o-left fa-fw"></i></span>
                         </div>
@@ -318,22 +318,18 @@
                     </td>
                     <td>
 					    <span class="pull-right">
-                        <asp:LinkButton runat="server" CommandName="resendEmail" CommandArgument='<%# this.Eval("Email") + ";" + this.Eval("Name") %>'
+                        <YAF:ThemeButton runat="server" CommandName="resendEmail" CommandArgument='<%# this.Eval("Email") + ";" + this.Eval("Name") %>' 
+                            Icon="mail-forward" TextLocalizedTag="ADMIN_RESEND_EMAIL"
                             CssClass="btn btn-info btn-sm">
-                            <i class="fa fa-mail-forward fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedTag="ADMIN_RESEND_EMAIL"
-                                LocalizedPage="ADMIN_ADMIN" />
-                        </asp:LinkButton>
-                        <asp:LinkButton OnLoad="Approve_Load" runat="server" CommandName="approve" CommandArgument='<%# this.Eval("UserID") %>'
-                            CssClass="btn btn-info btn-sm">
-                            <i class="fa fa-check fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="ADMIN_APPROVE"
-                                LocalizedPage="ADMIN_ADMIN">
-                            </YAF:LocalizedLabel>
-                        </asp:LinkButton>
-                        <asp:LinkButton OnLoad="Delete_Load" runat="server" CommandName="delete" CommandArgument='<%# this.Eval("UserID") %>'
-                            CssClass="btn btn-danger btn-sm">
-                            <i class="fa fa-trash fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="ADMIN_DELETE"
-                                LocalizedPage="ADMIN_ADMIN" />
-                        </asp:LinkButton>
+                        </YAF:ThemeButton>&nbsp;
+                        <YAF:ThemeButton runat="server" CommandName="approve" CommandArgument='<%# this.Eval("UserID") %>'
+                            CssClass="btn btn-primary btn-sm" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APPROVE") %>'
+                            Icon="check" TextLocalizedTag="ADMIN_APPROVE">
+                        </YAF:ThemeButton>&nbsp;
+                        <YAF:ThemeButton runat="server" CommandName="delete" CommandArgument='<%# this.Eval("UserID") %>'
+                            CssClass="btn btn-danger btn-sm" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
+                            Icon="trash" TextLocalizedTag="ADMIN_DELETE">
+                        </YAF:ThemeButton>
 
 					    </span>
                     </td>
@@ -361,12 +357,15 @@
                     </div>
                </div>
                 <div class="card-footer form-inline">
-                    <asp:LinkButton OnLoad="ApproveAll_Load" CommandName="approveall" CssClass="btn btn-primary btn-sm" data-icon="check"
-                                runat="server"/>
-                        <asp:LinkButton OnLoad="DeleteAll_Load" CommandName="deleteall" CssClass="btn btn-danger btn-sm" data-icon="trash"
-                            runat="server" />
-                        <asp:TextBox ID="DaysOld" runat="server" MaxLength="5" Text="14" CssClass="form-control Numeric" TextMode="Number"></asp:TextBox>
-                    </div>
+                    <YAF:ThemeButton CommandName="approveall" CssClass="btn btn-primary btn-sm" 
+                        Icon="check" TextLocalizedTag="APROVE_ALL" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL") %>'
+                        runat="server"/>&nbsp;
+                    <YAF:ThemeButton CommandName="deleteall" CssClass="btn btn-danger btn-sm" 
+                        Icon="trash" TextLocalizedTag="DELETE_ALL" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
+                        runat="server" />&nbsp;
+                    <asp:TextBox ID="DaysOld" runat="server" MaxLength="5" Text="14" CssClass="form-control Numeric" 
+                        TextMode="Number"></asp:TextBox>
+                </div>
             </FooterTemplate>
         </asp:Repeater>
 

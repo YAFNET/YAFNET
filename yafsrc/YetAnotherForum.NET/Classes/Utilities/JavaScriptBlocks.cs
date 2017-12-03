@@ -791,5 +791,22 @@ namespace YAF.Utilities
                 passwordStrongerText,
                 passwordWeakText);
         }
+
+        /// <summary>
+        /// Renders Modal open JS.
+        /// </summary>
+        /// <param name="clientId">The client id.</param>
+        /// <returns>
+        /// Returns the JS String
+        /// </returns>
+        [NotNull]
+        public static string OpenModalJs(
+            [NotNull] string clientId)
+        {
+            return
+                "{0}('#{1}').modal('show');".FormatWith(
+                    Config.JQueryAlias,
+                    clientId);
+        }
     }
 }

@@ -9,11 +9,11 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
+            <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-envelope-square fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_PM" />
                 </div>
-                <div class="card-block">
+                <div class="card-body">
 			<h4>
                 <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="PM_NUMBER" LocalizedPage="ADMIN_PM" />
                 &nbsp;<small><asp:Label runat="server" ID="Count" /></small>
@@ -33,7 +33,10 @@
             </p>
                 </div>
                 <div class="card-footer text-lg-center">
-				    <asp:LinkButton ID="commit" CssClass="btn btn-primary" runat="server" OnLoad="DeleteButton_Load" />
+				    <YAF:ThemeButton ID="commit" CssClass="btn btn-primary" runat="server"
+                        Icon="trash" TextLocalizedTag="DELETE" TextLocalizedPage="COMMON" 
+                        ReturnConfirmText='<%# this.GetText("ADMIN_PM", "CONFIRM_DELETE") %>'>
+				    </YAF:ThemeButton>
                 </div>
             </div>
         </div>

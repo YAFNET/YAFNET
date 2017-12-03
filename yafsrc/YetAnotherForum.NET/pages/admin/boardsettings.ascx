@@ -8,12 +8,12 @@
 </div>
 <div class="row">
                 <div class="col-xl-12">
-                    <div class="card mb-3 card-outline-primary">
-                        <div class="card-header card-primary">
+                    <div class="card mb-3">
+                        <div class="card-header">
                              <i class="fa fa-gears fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BOARD_SETUP"
                                  LocalizedPage="ADMIN_BOARDSETTINGS" />
                         </div>
-                        <div class="card-block">
+                        <div class="card-body">
                                 <h4>
                 <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="BOARD_NAME" LocalizedPage="ADMIN_BOARDSETTINGS" />
             </h4>

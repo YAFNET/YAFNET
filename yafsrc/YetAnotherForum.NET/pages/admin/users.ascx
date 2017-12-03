@@ -15,8 +15,8 @@
     <asp:PlaceHolder runat="server" ID="SearchResults" Visible="False">
 
     <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" UsePostBack="True" />
-    <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
+    <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-user fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_USERS" />
                     <div class="input-group pull-right user-search-dropdown">
                         &nbsp;
@@ -72,8 +72,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-block">
-                                     <div class="alert alert-info hidden-sm-up" role="alert">
+                <div class="card-body">
+                                     <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
                             <span class="pull-right"><i class="fa fa-hand-o-left fa-fw"></i></span>
                         </div><div class="table-responsive">
@@ -154,7 +154,7 @@
 <div>
     <div id="SyncUsersMessage" style="display: none">
 		<div class="card mb-3 card-inverse card-danger text-center">
-		    <div class="card-block">
+		    <div class="card-body">
 		        <blockquote class="card-blockquote">
                     <p>
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="SYNC_TITLE" LocalizedPage="ADMIN_USERS" />

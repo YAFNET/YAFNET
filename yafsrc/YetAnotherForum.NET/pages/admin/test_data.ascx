@@ -9,11 +9,11 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
+            <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-gear fa-fw"></i>&nbsp;Create Test
                                     </div>
-                <div class="card-block">
+                <div class="card-body">
 	<asp:Panel id="TestDataTabs" runat="server">
                <ul class="nav nav-tabs" role="tablist">
                  <li class="nav-item"><a href="#View1" class="nav-link" data-toggle="tab" role="tab">Users</a></li>

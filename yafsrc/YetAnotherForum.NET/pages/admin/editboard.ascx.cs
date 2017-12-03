@@ -58,7 +58,7 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///   Gets BoardID.
         /// </summary>
-        protected int? BoardID
+        protected int? BoardId
         {
             get
             {
@@ -103,7 +103,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.admin_boards);
         }
@@ -344,11 +344,11 @@ namespace YAF.Pages.Admin
                 this.Culture.Items.FindByValue(this.Get<YafBoardSettings>().Culture).Selected = true;
             }
 
-            if (this.BoardID != null)
+            if (this.BoardId != null)
             {
                 this.CreateNewAdminHolder.Visible = false;
 
-                using (DataTable dt = this.GetRepository<Board>().List(this.BoardID))
+                using (DataTable dt = this.GetRepository<Board>().List(this.BoardId))
                 {
                     DataRow row = dt.Rows[0];
                     this.Name.Text = (string)row["Name"];
@@ -392,7 +392,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            if (this.BoardID == null && this.CreateAdminUser.Checked)
+            if (this.BoardId == null && this.CreateAdminUser.Checked)
             {
                 if (this.UserName.Text.Trim().Length == 0)
                 {
@@ -427,7 +427,7 @@ namespace YAF.Pages.Admin
                 }
             }
 
-            if (this.BoardID != null)
+            if (this.BoardId != null)
             {
                 DataTable cult = StaticDataHelper.Cultures();
                 string langFile = "en-US";
@@ -442,7 +442,7 @@ namespace YAF.Pages.Admin
                 // Save current board settings
                 this.GetRepository<Board>()
                     .Save(
-                        this.BoardID ?? 0,
+                        this.BoardId ?? 0,
                         this.Name.Text.Trim(),
                         langFile,
                         this.Culture.SelectedItem.Value,

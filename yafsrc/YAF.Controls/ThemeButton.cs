@@ -28,7 +28,6 @@ namespace YAF.Controls
     using System;
     using System.Web;
     using System.Web.UI;
-    using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
     using YAF.Core;
     using YAF.Types;
@@ -94,7 +93,7 @@ namespace YAF.Controls
         public ThemeButton()
         {
             this.Load += this.ThemeButton_Load;
-            this._attributeCollection = new AttributeCollection(ViewState);
+            this._attributeCollection = new AttributeCollection(this.ViewState);
         }
 
         #endregion
@@ -108,12 +107,12 @@ namespace YAF.Controls
         {
             add
             {
-                Events.AddHandler(_clickEvent, value);
+                this.Events.AddHandler(_clickEvent, value);
             }
 
             remove
             {
-                Events.RemoveHandler(_clickEvent, value);
+                this.Events.RemoveHandler(_clickEvent, value);
             }
         }
 
@@ -124,12 +123,12 @@ namespace YAF.Controls
         {
             add
             {
-                Events.AddHandler(_commandEvent, value);
+                this.Events.AddHandler(_commandEvent, value);
             }
 
             remove
             {
-                Events.RemoveHandler(_commandEvent, value);
+                this.Events.RemoveHandler(_commandEvent, value);
             }
         }
 
@@ -182,7 +181,7 @@ namespace YAF.Controls
         {
             get
             {
-                return (this.ViewState["CssClass"] != null) ? this.ViewState["CssClass"] as string : "yafcssbutton";
+                return this.ViewState["CssClass"] != null ? this.ViewState["CssClass"] as string : "yafcssbutton";
             }
 
             set
@@ -197,16 +196,57 @@ namespace YAF.Controls
         /// <value>
         /// The icon.
         /// </value>
+        [CanBeNull]
         public string Icon
         {
             get
             {
-                return (this.ViewState["Icon"] != null) ? this.ViewState["Icon"] as string : string.Empty;
+                return this.ViewState["Icon"] != null ? this.ViewState["Icon"] as string : string.Empty;
             }
 
             set
             {
                 this.ViewState["Icon"] = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the return confirm text.
+        /// </summary>
+        /// <value>
+        /// The return confirm text.
+        /// </value>
+        [CanBeNull]
+        public string ReturnConfirmText
+        {
+            get
+            {
+                return this.ViewState["ReturnConfirmText"] != null ? this.ViewState["ReturnConfirmText"] as string : string.Empty;
+            }
+
+            set
+            {
+                this.ViewState["ReturnConfirmText"] = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the data target.
+        /// </summary>
+        /// <value>
+        /// The data target.
+        /// </value>
+        [CanBeNull]
+        public string DataTarget
+        {
+            get
+            {
+                return this.ViewState["DataTarget"] != null ? this.ViewState["DataTarget"] as string : string.Empty;
+            }
+
+            set
+            {
+                this.ViewState["DataTarget"] = value;
             }
         }
 
@@ -250,7 +290,7 @@ namespace YAF.Controls
         {
             get
             {
-                return (this.ViewState["NavigateUrl"] != null) ? this.ViewState["NavigateUrl"] as string : string.Empty;
+                return this.ViewState["NavigateUrl"] != null ? this.ViewState["NavigateUrl"] as string : string.Empty;
             }
 
             set
@@ -299,7 +339,7 @@ namespace YAF.Controls
         {
             get
             {
-                return (this.ViewState["TitleLocalizedPage"] != null) ? this.ViewState["TitleLocalizedPage"] as string : "BUTTON";
+                return this.ViewState["TitleLocalizedPage"] != null ? this.ViewState["TitleLocalizedPage"] as string : "BUTTON";
             }
 
             set
@@ -412,7 +452,7 @@ namespace YAF.Controls
         {
             get
             {
-                return (this.ViewState["TitleLocalizedTag"] != null) ? this.ViewState["TitleLocalizedTag"] as string : string.Empty;
+                return this.ViewState["TitleLocalizedTag"] != null ? this.ViewState["TitleLocalizedTag"] as string : string.Empty;
             }
 
             set
@@ -429,7 +469,7 @@ namespace YAF.Controls
         {
             get
             {
-                return (this.ViewState["TitleNonLocalized"] != null) ? this.ViewState["TitleNonLocalized"] as string : string.Empty;
+                return this.ViewState["TitleNonLocalized"] != null ? this.ViewState["TitleNonLocalized"] as string : string.Empty;
             }
 
             set
@@ -568,6 +608,20 @@ namespace YAF.Controls
                 }
             }
 
+
+            // Write Confirm Dialog
+            if (this.ReturnConfirmText.IsSet())
+            {
+                output.WriteAttribute("onclick", "return confirm('{0}')".FormatWith(this.ReturnConfirmText));
+            }
+
+            // Write Modal
+            if (this.DataTarget.IsSet())
+            {
+                output.WriteAttribute("data-toggle", "modal");
+                output.WriteAttribute("data-target", "#{0}".FormatWith(this.DataTarget));
+            }
+            
             output.Write(HtmlTextWriter.TagRightChar);
 
             output.WriteBeginTag("span");

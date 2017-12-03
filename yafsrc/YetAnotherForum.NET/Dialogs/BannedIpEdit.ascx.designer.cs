@@ -7,90 +7,63 @@
 // </automatisch generiert>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.Admin {
+namespace YAF.Dialogs {
     
     
-    public partial class spamwords_edit {
+    public partial class BannedIpEdit {
         
         /// <summary>
-        /// PageLinks-Steuerelement
+        /// Title-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.PageLinks PageLinks;
+        protected global::YAF.Controls.LocalizedLabel Title;
         
         /// <summary>
-        /// Adminmenu1-Steuerelement
+        /// HelpLabel1-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.AdminMenu Adminmenu1;
+        protected global::YAF.Controls.HelpLabel HelpLabel1;
         
         /// <summary>
-        /// LocalizedLabel1-Steuerelement
+        /// mask-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        protected global::System.Web.UI.WebControls.TextBox mask;
         
         /// <summary>
-        /// LocalizedLabel3-Steuerelement
+        /// HelpLabel2-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
+        protected global::YAF.Controls.HelpLabel HelpLabel2;
         
         /// <summary>
-        /// LocalizedLabel2-Steuerelement
+        /// BanReason-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.HelpLabel LocalizedLabel2;
+        protected global::System.Web.UI.WebControls.TextBox BanReason;
         
         /// <summary>
-        /// spamword-Steuerelement
+        /// Save-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox spamword;
-        
-        /// <summary>
-        /// save-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton save;
-        
-        /// <summary>
-        /// cancel-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton cancel;
-        
-        /// <summary>
-        /// SmartScroller1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.SmartScroller SmartScroller1;
+        protected global::YAF.Controls.ThemeButton Save;
     }
 }

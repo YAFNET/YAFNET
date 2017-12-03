@@ -43,6 +43,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -67,6 +68,14 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+           this.BindData();
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
@@ -77,47 +86,6 @@ namespace YAF.Pages.Admin
             this.Page.Header.Title = "{0} - {1}".FormatWith(
                 this.GetText("ADMIN_ADMIN", "Administration"),
                 this.GetText("ADMIN_BANNEDIP", "TITLE"));
-
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Adds text to the Add Button
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Add_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var addButton = (LinkButton)sender;
-
-            addButton.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_BANNEDIP", "ADD_IP"));
-            addButton.ToolTip = this.GetText("ADMIN_BANNEDIP", "ADD_IP");
-        }
-
-        /// <summary>
-        /// Adds text to the Import Button
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Import_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var importButton = (LinkButton)sender;
-
-            importButton.Text = "<i class=\"fa fa-upload fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_BANNEDIP", "IMPORT_IPS"));
-            importButton.ToolTip = this.GetText("ADMIN_BANNEDIP", "IMPORT_IPS");
-        }
-
-        /// <summary>
-        /// Adds Localized Text to Button
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The e.</param>
-        protected void ExportLoad(object sender, EventArgs e)
-        {
-            var exportButton = (LinkButton)sender;
-
-            exportButton.Text = "<i class=\"fa fa-download fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_BANNEDIP", "EXPORT"));
-            exportButton.ToolTip = this.GetText("ADMIN_BANNEDIP", "EXPORT");
         }
 
         /// <summary>
@@ -129,14 +97,19 @@ namespace YAF.Pages.Admin
         {
             switch (e.CommandName)
             {
-                case "import":
-                    YafBuildLink.Redirect(ForumPages.admin_bannedip_import);
-                    break;
                 case "add":
-                    YafBuildLink.Redirect(ForumPages.admin_bannedip_edit);
+                    this.EditDialog.BindData(null);
+
+                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                        "openModalJs",
+                        JavaScriptBlocks.OpenModalJs("EditDialog"));
                     break;
                 case "edit":
-                    YafBuildLink.Redirect(ForumPages.admin_bannedip_edit, "i={0}", e.CommandArgument);
+                    this.EditDialog.BindData(e.CommandArgument.ToType<int>());
+
+                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                        "openModalJs",
+                        JavaScriptBlocks.OpenModalJs("EditDialog"));
                     break;
                 case "export":
                     {

@@ -59,14 +59,13 @@ namespace YAF
             if (this.Session["StartupException"] != null)
             {
                 errorMessage =
-                    "<span class=\"label label-danger\">Error</span> {0}".FormatWith(
+                    "<strong>Error:</strong> {0}".FormatWith(
                         this.Server.HtmlEncode(this.Session["StartupException"].ToString()));
 
                 this.Session["StartupException"] = null;
             }
 
             this.ErrorMessage.Text = errorMessage;
-            //////////
         }
 
         #endregion

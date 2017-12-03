@@ -9,11 +9,11 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
+            <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-newspaper-o fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="FORUMS" LocalizedPage="TEAM" />
                  </div>
-                <div class="card-block">
+                <div class="card-body">
 		<asp:Repeater ID="CategoryList" runat="server" OnItemCommand="CategoryList_ItemCommand">
 			<HeaderTemplate>
 			    <div class="table-responsive">

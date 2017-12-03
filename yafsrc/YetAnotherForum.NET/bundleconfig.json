@@ -7,7 +7,6 @@
       "Scripts/ladda.js",
       "Scripts/umd/popper.js",
       "Scripts/select2.js",
-      "Scripts/tether/tether.js",
       "Scripts/bootstrap.js",
       "Scripts/forum/InstallWizard.js"
     ]
@@ -32,7 +31,6 @@
     "inputFiles": [
       "Scripts/moment-with-locales.js",
       "Scripts/metisMenu.js",
-      "Scripts/tether/tether.js",
       "Scripts/umd/popper.js",
       "Scripts/bootstrap.js",
       "Scripts/jquery.bootstrap-touchspin.js",

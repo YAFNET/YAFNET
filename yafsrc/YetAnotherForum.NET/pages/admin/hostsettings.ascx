@@ -11,11 +11,11 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
+            <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-gear fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel42" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                     </div>
-                <div class="card-block">
+                <div class="card-body">
   <asp:Panel id="HostSettingsTabs" runat="server">
     <ul class="nav nav-tabs" role="tablist">
 		<li class="nav-item"><a href="#View1" class="nav-link" data-toggle="tab" role="tab"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
@@ -1907,7 +1907,7 @@
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="ForumStatisticsCacheTimeout" />
-                            <asp:Button CssClass="btn btn-primary" ID="ForumStatisticsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="ForumStatisticsCacheReset_Click" />
+                            <asp:Button CssClass="btn btn-primary" ID="ForumStatisticsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="ForumStatisticsCacheResetClick" />
 
                     </p><hr />
 
@@ -1916,7 +1916,7 @@
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="BoardUserStatsCacheTimeout" />
-                            <asp:Button CssClass="btn btn-primary" ID="BoardUserStatsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="BoardUserStatsCacheReset_Click" />
+                            <asp:Button CssClass="btn btn-primary" ID="BoardUserStatsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="BoardUserStatsCacheResetClick" />
 
                     </p><hr />
 
@@ -1925,7 +1925,7 @@
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="ActiveDiscussionsCacheTimeout" />
-                            <asp:Button CssClass="btn btn-primary" ID="ActiveDiscussionsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="ActiveDiscussionsCacheReset_Click" />
+                            <asp:Button CssClass="btn btn-primary" ID="ActiveDiscussionsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="ActiveDiscussionsCacheResetClick" />
 
                     </p><hr />
 
@@ -1934,7 +1934,7 @@
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="BoardCategoriesCacheTimeout" />
-                            <asp:Button CssClass="btn btn-primary" ID="BoardCategoriesCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="BoardCategoriesCacheReset_Click" />
+                            <asp:Button CssClass="btn btn-primary" ID="BoardCategoriesCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="BoardCategoriesCacheResetClick" />
 
                     </p><hr />
 
@@ -1943,7 +1943,7 @@
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="BoardModeratorsCacheTimeout" />
-                            <asp:Button CssClass="btn btn-primary" ID="BoardModeratorsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="BoardModeratorsCacheReset_Click" />
+                            <asp:Button CssClass="btn btn-primary" ID="BoardModeratorsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="BoardModeratorsCacheResetClick" />
 
                     </p><hr />
 
@@ -1952,7 +1952,7 @@
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="ReplaceRulesCacheTimeout" />
-                            <asp:Button CssClass="btn btn-primary" ID="ReplaceRulesCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="ReplaceRulesCacheReset_Click" />
+                            <asp:Button CssClass="btn btn-primary" ID="ReplaceRulesCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="ReplaceRulesCacheResetClick" />
 
                     </p><hr />
 
@@ -1984,7 +1984,7 @@
                     </p>
 
                         <span class="text-lg-center">
-                           <asp:Button  CssClass="btn btn-primary" runat="server" ID="ResetCacheAll" Text='<%# this.GetText("ADMIN_HOSTSETTINGS", "CLEAR_CACHE") %>'  OnClick="ResetCacheAll_Click" />
+                           <asp:Button  CssClass="btn btn-primary" runat="server" ID="ResetCacheAll" Text='<%# this.GetText("ADMIN_HOSTSETTINGS", "CLEAR_CACHE") %>'  OnClick="ResetCacheAllClick" />
                         </span>
 
 	</div>
@@ -2218,9 +2218,9 @@
     </asp:Panel>
                 </div>
                 <div class="card-footer text-lg-center">
-                <asp:LinkButton ID="Save" runat="server"  CssClass="btn btn-primary" OnClick="Save_Click">
-                    <i class="fa fa-floppy-o fa-fw"></i>&nbsp;<%# this.GetText("ADMIN_HOSTSETTINGS", "SAVE_SETTINGS") %>
-                </asp:LinkButton>
+                <YAF:ThemeButton ID="Save" runat="server"  CssClass="btn btn-primary" OnClick="SaveClick"
+                    Icon="floppy-o" TextLocalizedTag="SAVE_SETTINGS" TextLocalizedPage="ADMIN_HOSTSETTINGS">
+                </YAF:ThemeButton>
                 </div>
             </div>
         </div>

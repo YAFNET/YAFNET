@@ -1,6 +1,9 @@
 <%@ Control Language="c#" Debug="true" AutoEventWireup="True"
 	Inherits="YAF.Pages.Admin.spamwords" Codebehind="spamwords.ascx.cs" %>
 
+<%@ Register TagPrefix="modal" TagName="Import" Src="../../Dialogs/SpamWordsImport.ascx" %>
+<%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/SpamWordsEdit.ascx" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
     <div class="row">
@@ -16,11 +19,11 @@
                                 LocalizedTag="NOTE" LocalizedPage="ADMIN_SPAMWORDS">
             </YAF:LocalizedLabel>
         </div>
-        <div class="card mb-3 card-info-outline">
-            <div class="card-header card-info">
+        <div class="card mb-3">
+            <div class="card-header">
                 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="SEARCH" LocalizedPage="TOOLBAR" />
             </div>
-            <div class="card-block">
+            <div class="card-body">
                 <h4>
                     <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="SPAM" LocalizedPage="ADMIN_SPAMWORDS_EDIT" />
                 </h4>
@@ -31,20 +34,20 @@
             <div class="card-footer text-lg-center">
                 <YAF:ThemeButton ID="search" runat="server"  CssClass="btn btn-primary btn-sm"
                                  TextLocalizedTag="BTNSEARCH" TextLocalizedPage="SEARCH" Icon="search"
-                                 OnClick="Search_Click">
+                                 OnClick="SearchClick">
                 </YAF:ThemeButton>
             </div>
         </div>
 
-    <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
+    <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTopChange" />
             <asp:Repeater ID="list" runat="server">
                 <HeaderTemplate>
-            <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
+            <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-shield fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMWORDS" />
 					</div>
-                <div class="card-block">
-                    <div class="alert alert-info hidden-sm-up" role="alert">
+                <div class="card-body">
+                    <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
                             <span class="pull-right"><i class="fa fa-hand-o-left fa-fw"></i></span>
                         </div><div class="table-responsive">
@@ -68,10 +71,11 @@
 				<td>
 				    <span class="pull-right">
 					<YAF:ThemeButton ID="btnEdit" CssClass="btn btn-info btn-sm" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
-                        TextLocalizedTag="EDIT"
-                        TitleLocalizedTag="EDIT" Icon="edit" runat="server">
+                        TextLocalizedTag="EDIT" TitleLocalizedTag="EDIT" Icon="edit" 
+                        runat="server">
 					</YAF:ThemeButton>
-					<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm" OnLoad="Delete_Load"  CommandName='delete'
+					<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm" 
+                        ReturnConfirmText='<%# this.GetText("ADMIN_SPAMWORDS", "MSG_DELETE") %>' CommandName='delete'
                         TextLocalizedTag="DELETE"
                         CommandArgument='<%# this.Eval( "ID") %>' TitleLocalizedTag="DELETE" Icon="trash" runat="server">
 					</YAF:ThemeButton>
@@ -84,11 +88,14 @@
                 </div>
 			</div>
                 <div class="card-footer text-lg-center">
-					<asp:LinkButton runat="server" CommandName='add' ID="Linkbutton3" CssClass="btn btn-primary" OnLoad="AddLoad"> </asp:LinkButton>
+                    <YAF:ThemeButton runat="server" Icon="plus-square" CssClass="btn btn-primary"
+                                     TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_SPAMWORDS" CommandName="add"></YAF:ThemeButton>
 					&nbsp;
-					<asp:LinkButton runat="server" CommandName='import' ID="Linkbutton5" CssClass="btn btn-info" OnLoad="ImportLoad"></asp:LinkButton>
+                    <YAF:ThemeButton runat="server" Icon="upload" DataTarget="SpamWordsImportDialog" CssClass="btn btn-info"
+                        TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_SPAMWORDS"></YAF:ThemeButton>
 					&nbsp;
-					<asp:LinkButton runat="server" CommandName='export' ID="Linkbutton4" CssClass="btn btn-warning" OnLoad="ExportLoad"></asp:LinkButton>
+					<YAF:ThemeButton runat="server" CommandName='export' ID="Linkbutton4" 
+                        CssClass="btn btn-warning" Icon="download" TextLocalizedPage="ADMIN_SPAMWORDS" TextLocalizedTag="EXPORT"></YAF:ThemeButton>
                 </div>
             </div>
 		</FooterTemplate>
@@ -97,3 +104,6 @@
 	    </div>
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+
+<modal:Import ID="ImportDialog" runat="server" />
+<modal:Edit ID="EditDialog" runat="server" />

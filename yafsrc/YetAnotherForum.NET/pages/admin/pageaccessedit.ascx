@@ -10,12 +10,12 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
+            <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-building fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="TITLE"  LocalizedPage="ADMIN_PAGEACCESSEDIT" />
                 </div>
-                <div class="card-block">
-                    <div class="alert alert-info hidden-sm-up" role="alert">
+                <div class="card-body">
+                    <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
                             <span class="pull-right"><i class="fa fa-hand-o-left fa-fw"></i></span>
                         </div><div class="table-responsive">

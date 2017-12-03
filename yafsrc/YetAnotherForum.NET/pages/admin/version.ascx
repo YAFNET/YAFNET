@@ -10,12 +10,12 @@
 </div>
 <div class="row">
     <div class="col-xl-12">
-        <div class="card mb-3 card-outline-primary">
-            <div class="card-header card-primary"> <i class="fa fa-info fa-fw"></i>&nbsp;
+        <div class="card mb-3">
+            <div class="card-header"> <i class="fa fa-info fa-fw"></i>&nbsp;
                 <yaf:localizedlabel id="LocalizedLabel2"
                 runat="server" localizedtag="TITLE" localizedpage="ADMIN_VERSION"></yaf:localizedlabel>
             </div>
-            <div class="card-block">
+            <div class="card-body">
                 <asp:placeholder runat="server" id="UpgradeVersionHolder" visible="false">
                     <div class="alert alert-info">
                         <yaf:localizedlabel id="Upgrade" runat="server" localizedtag="UPGRADE_VERSION"

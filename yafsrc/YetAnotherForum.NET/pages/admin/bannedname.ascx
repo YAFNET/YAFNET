@@ -2,6 +2,11 @@
 
 <%@ Import Namespace="YAF.Core"%>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+
+<%@ Register TagPrefix="modal" TagName="Import" Src="../../Dialogs/BannedNameImport.ascx" %>
+<%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/BannedNameEdit.ascx" %>
+
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
     <div class="row">
@@ -11,11 +16,11 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card mb-3 card-info-outline">
-                <div class="card-header card-info">
+            <div class="card mb-3">
+                <div class="card-header">
                      <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="SEARCH" LocalizedPage="TOOLBAR" />
                 </div>
-                <div class="card-block">
+                <div class="card-body">
                     <h4>
                         <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDIP" />
                     </h4>
@@ -31,14 +36,14 @@
                 </div>
             </div>
              <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
-            <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
+            <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-hand-stop-o fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_BANNEDNAME" />
                 </div>
-                <div class="card-block">
+                <div class="card-body">
     <asp:Repeater ID="list" runat="server" OnItemCommand="List_ItemCommand">
 		<HeaderTemplate>
-				<div class="alert alert-info hidden-sm-up" role="alert">
+				<div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
                             <span class="pull-right"><i class="fa fa-hand-o-left fa-fw"></i></span>
                         </div><div class="table-responsive">
@@ -77,7 +82,7 @@
                     TextLocalizedTag="EDIT"
                     TitleLocalizedTag="EDIT" Icon="edit" runat="server"></YAF:ThemeButton>
                     <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm" CommandName='delete' CommandArgument='<%# this.Eval("ID") %>'
-                    TextLocalizedTag="DELETE"
+                    TextLocalizedTag="DELETE" ReturnConfirmText='<%# this.GetText("ADMIN_BANNEDIP", "MSG_DELETE") %>'
                     TitleLocalizedTag="DELETE" Icon="trash" runat="server"></YAF:ThemeButton>
 
 					    </span>
@@ -88,11 +93,14 @@
                 </table></div>
                 </div>
                 <div class="card-footer text-lg-center">
-					<asp:LinkButton runat="server" OnLoad="Import_Load" CommandName='import' CssClass="btn btn-primary"></asp:LinkButton>
+                    <YAF:ThemeButton runat="server" Icon="plus-square" CssClass="btn btn-primary"
+                                     TextLocalizedTag="ADD_IP" TextLocalizedPage="ADMIN_BANNEDNAME" CommandName="add"></YAF:ThemeButton>
                     &nbsp;
-                    <asp:LinkButton runat="server" OnLoad="Add_Load" CommandName='add' CssClass="btn btn-info"></asp:LinkButton>
+                    <YAF:ThemeButton runat="server" Icon="upload" DataTarget="ImportDialog" CssClass="btn btn-info"
+                                     TextLocalizedTag="IMPORT_IPS" TextLocalizedPage="ADMIN_BANNEDNAME"></YAF:ThemeButton>
                     &nbsp;
-					<asp:LinkButton runat="server" CommandName='export' ID="Linkbutton4" CssClass="btn btn-warning" OnLoad="ExportLoad"></asp:LinkButton>
+                    <YAF:ThemeButton runat="server" CommandName='export' ID="Linkbutton4" 
+                                     CssClass="btn btn-warning" Icon="download" TextLocalizedPage="ADMIN_BANNEDIP" TextLocalizedTag="EXPORT"></YAF:ThemeButton>
                 </div>
             </div>
 
@@ -103,3 +111,6 @@
     </div>
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+
+<modal:Import ID="ImportDialog" runat="server" />
+<modal:Edit ID="EditDialog" runat="server" />

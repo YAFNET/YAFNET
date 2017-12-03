@@ -29,11 +29,11 @@ function toggleItem(detailId)
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card mb-3 card-info-outline">
-                <div class="card-header card-info">
+            <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-shield fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMLOG" />
             </div>
-                <div class="card-block">
+                <div class="card-body">
                     <h4>
                         <YAF:HelpLabel ID="SinceDateLabel" runat="server" LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="SINCEDATE" />
                     </h4>
@@ -69,14 +69,14 @@ function toggleItem(detailId)
         <div class="row">
         <div class="col-xl-12">
                 <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
-            <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
+            <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-shield fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMLOG" />
             </div>
-                <div class="card-block">
+                <div class="card-body">
                      <asp:Repeater runat="server" ID="List">
             <HeaderTemplate>
-                <div class="alert alert-info hidden-sm-up" role="alert">
+                <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
                             <span class="pull-right"><i class="fa fa-hand-o-left fa-fw"></i></span>
                         </div><div class="table-responsive"><table class="table">

@@ -31,24 +31,21 @@ namespace YAF.Pages.Admin
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
     /// <summary>
-    /// The bbcode.
+    /// The Admin bbcode Page.
     /// </summary>
     public partial class bbcode : AdminPage
     {
@@ -121,7 +118,7 @@ namespace YAF.Pages.Admin
         /// The Id of the BB Code
         /// </returns>
         [NotNull]
-        protected List<int> GetSelectedBBCodeIDs()
+        protected List<int> GetSelectedBbCodeIDs()
         {
             // get checked items....
             return (from RepeaterItem item in this.bbCodeList.Items
@@ -147,15 +144,21 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE", "TITLE"), string.Empty);
 
             this.Page.Header.Title = "{0} - {1}".FormatWith(
-                  this.GetText("ADMIN_ADMIN", "Administration"),
-                  this.GetText("ADMIN_BBCODE", "TITLE"));
-
-            this.BindData();
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                this.GetText("ADMIN_BBCODE", "TITLE"));
         }
 
         /// <summary>
@@ -167,7 +170,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void bbCodeList_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
+        protected void BbCodeListItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {
@@ -184,18 +187,18 @@ namespace YAF.Pages.Admin
                     break;
                 case "export":
                     {
-                        List<int> bbCodeIds = this.GetSelectedBBCodeIDs();
+                        var codeIDs = this.GetSelectedBbCodeIDs();
 
-                        if (bbCodeIds.Count > 0)
+                        if (codeIDs.Count > 0)
                         {
                             // export this list as XML...
-                            DataTable dtBBCode = this.GetRepository<BBCode>().List();
+                            var dataTable = this.GetRepository<BBCode>().List();
 
                             // remove all but required bbcodes...
-                            foreach (DataRow row in
-                                from DataRow row in dtBBCode.Rows
+                            foreach (var row in
+                                from DataRow row in dataTable.Rows
                                 let id = row["BBCodeID"].ToType<int>()
-                                where !bbCodeIds.Contains(id)
+                                where !codeIDs.Contains(id)
                                 select row)
                             {
                                 // remove from this table...
@@ -203,17 +206,17 @@ namespace YAF.Pages.Admin
                             }
 
                             // store delete changes...
-                            dtBBCode.AcceptChanges();
+                            dataTable.AcceptChanges();
 
                             // export...
-                            dtBBCode.DataSet.DataSetName = "YafBBCodeList";
-                            dtBBCode.TableName = "YafBBCode";
-                            dtBBCode.Columns.Remove("BBCodeID");
-                            dtBBCode.Columns.Remove("BoardID");
+                            dataTable.DataSet.DataSetName = "YafBBCodeList";
+                            dataTable.TableName = "YafBBCode";
+                            dataTable.Columns.Remove("BBCodeID");
+                            dataTable.Columns.Remove("BoardID");
 
                             this.Response.ContentType = "text/xml";
                             this.Response.AppendHeader("Content-Disposition", "attachment; filename=YafBBCodeExport.xml");
-                            dtBBCode.DataSet.WriteXml(this.Response.OutputStream);
+                            dataTable.DataSet.WriteXml(this.Response.OutputStream);
                             this.Response.End();
                         }
                         else

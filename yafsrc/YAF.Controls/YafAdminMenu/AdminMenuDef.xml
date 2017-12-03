@@ -95,8 +95,6 @@
     <YafMenuItem>
       <Title>Spam Check Words</Title>
       <ForumPage>admin_spamwords</ForumPage>
-      <SubForumPage_0>admin_spamwords_edit</SubForumPage_0>
-      <SubForumPage_1>admin_spamwords_import</SubForumPage_1>
       <Image>shield</Image>
     </YafMenuItem>
     <YafMenuItem>

@@ -53,7 +53,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
+        protected void DeleteLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
                    "return (confirm('{0}') && confirm('{1}'))".FormatWith(
@@ -67,7 +67,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            this.List.ItemCommand += this.List_ItemCommand;
+            this.List.ItemCommand += this.ListItemCommand;
             this.New.Click += this.New_Click;
 
             // CODEGEN: This call is required by the ASP.NET Web Form Designer.
@@ -91,17 +91,21 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_BOARDS", "TITLE"), string.Empty);
 
             this.Page.Header.Title = "{0} - {1}".FormatWith(
-                  this.GetText("ADMIN_ADMIN", "Administration"),
-                  this.GetText("ADMIN_BOARDS", "TITLE"));
-
-            this.New.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_BOARDS", "NEW_BOARD"));
-
-            this.BindData();
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                this.GetText("ADMIN_BOARDS", "TITLE"));
         }
 
         /// <summary>
@@ -118,7 +122,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        private void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        private void ListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {

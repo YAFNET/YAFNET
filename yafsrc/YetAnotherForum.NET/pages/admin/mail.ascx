@@ -9,11 +9,11 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
+            <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-envelope-o fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_MAIL" />
 			     </div>
-                <div class="card-block">
+                <div class="card-body">
                     <h4>
 			  <strong><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="MAIL_TO" LocalizedPage="ADMIN_MAIL" /></strong>
             </h4>

@@ -9,11 +9,11 @@
 </div>
 <div class="row">
     <div class="col-xl-12">
-        <div class="card mb-3 card-outline-primary">
-            <div class="card-header card-primary">
+        <div class="card mb-3">
+            <div class="card-header">
                 <i class="fa fa-database fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_REINDEX" />
             </div>
-            <div class="card-block">
+            <div class="card-body">
                 <asp:TextBox ID="txtIndexStatistics" runat="server" Height="400px" TextMode="MultiLine"
                     CssClass="form-control"></asp:TextBox>
                 <asp:Placeholder ID="PanelGetStats" runat="server" Visible="False">
@@ -59,7 +59,7 @@
 <div>
 	<div id="DeleteForumMessage" style="display:none">
 		<div class="card mb-3 card-inverse card-danger text-center">
-		    <div class="card-block">
+		    <div class="card-body">
 		        <blockquote class="card-blockquote">
                     <p>
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="REINDEX_TITLE" LocalizedPage="ADMIN_REINDEX" />

@@ -13,11 +13,11 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
+            <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-group fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="PROVIDER_ROLES" LocalizedPage="ADMIN_GROUPS" />
                 </div>
-                <div class="card-block">
+                <div class="card-body">
                     <div class="alert alert-danger" role="alert">
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NOTE_DELETE" LocalizedPage="ADMIN_GROUPS" />
                     </div>
@@ -70,11 +70,11 @@
             </FooterTemplate>
 		</asp:Repeater>
                 </div></div>
-                        <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
+                        <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-group fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_GROUPS" />
                 </div>
-                <div class="card-block">
+                <div class="card-body">
                     <div class="alert alert-danger" role="alert">
                         <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NOTE_DELETE_LINKED" LocalizedPage="ADMIN_GROUPS" />
                     </div>

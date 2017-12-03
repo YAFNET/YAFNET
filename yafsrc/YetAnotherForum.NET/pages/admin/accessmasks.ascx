@@ -10,12 +10,12 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
+            <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-universal-access fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE"  LocalizedPage="ADMIN_ACCESSMASKS" />
                 </div>
-                <div class="card-block">
-		<asp:Repeater ID="List" runat="server" OnItemCommand="List_ItemCommand">
+                <div class="card-body">
+		<asp:Repeater ID="List" runat="server" OnItemCommand="ListItemCommand">
 		    <HeaderTemplate>
 		        <div class="table-responsive">
                     <table class="table">
@@ -35,7 +35,7 @@
 					<td>
 					    <span class="pull-right">
 					    <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm"
-                            CommandName='edit' CommandArgument='<%# this.Eval( "AccessMaskID") %>'
+                            CommandName="edit" CommandArgument='<%# this.Eval( "AccessMaskID") %>'
                             TitleLocalizedTag="EDIT"
                             Icon="edit"
                             TextLocalizedTag="EDIT"
@@ -46,7 +46,7 @@
                                     TitleLocalizedTag="DELETE"
                                     Icon="trash"
                                     TextLocalizedTag="DELETE"
-                                    OnLoad="Delete_Load"  runat="server">
+                                    ReturnConfirmText='<%# this.GetText("ADMIN_ACCESSMASKS", "CONFIRM_DELETE") %>'  runat="server">
                                 </YAF:ThemeButton>
 					    </span>
                     </td>
@@ -95,7 +95,8 @@
 		</asp:Repeater>
                 </div>
                 <div class="card-footer text-lg-center">
-				    <asp:LinkButton ID="New" runat="server" OnClick="New_Click" CssClass="btn btn-primary" />
+				    <YAF:ThemeButton ID="New" runat="server" OnClick="NewClick" CssClass="btn btn-primary" 
+                        Icon="plus-square" TextLocalizedTag="NEW_MASK" />
                 </div>
             </div>
         </div>

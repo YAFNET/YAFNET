@@ -56,7 +56,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // get back to access masks administration
             YafBuildLink.Redirect(ForumPages.admin_accessmasks);
@@ -100,12 +100,6 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
-            this.Cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
-
-            // create page links
-            this.CreatePageLinks();
-
             // bind data
             this.BindData();
         }
@@ -115,14 +109,14 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // retrieve access mask ID from parameter (if applicable)
-            int? accessMaskID = null;
+            int? accessMaskId = null;
 
             if (this.Request.QueryString.GetFirstOrDefault("i") != null)
             {
-                accessMaskID = this.Request.QueryString.GetFirstOrDefaultAs<int>("i");
+                accessMaskId = this.Request.QueryString.GetFirstOrDefaultAs<int>("i");
             }
 
             if (this.Name.Text.Trim().Length <= 0)
@@ -148,7 +142,7 @@ namespace YAF.Pages.Admin
             // save it
             this.GetRepository<AccessMask>()
                 .Save(
-                    accessMaskID,
+                    accessMaskId,
                     this.Name.Text,
                     this.ReadAccess.Checked,
                     this.PostAccess.Checked,
@@ -181,28 +175,33 @@ namespace YAF.Pages.Admin
         {
             if (this.Request.QueryString.GetFirstOrDefault("i") != null)
             {
-                var accessMask =
-                    this.GetRepository<AccessMask>()
-                        .ListTyped(this.Request.QueryString.GetFirstOrDefaultAs<int>("i"))
-                        .FirstOrDefault();
+                var accessMask = this.GetRepository<AccessMask>()
+                    .ListTyped(this.Request.QueryString.GetFirstOrDefaultAs<int>("i")).FirstOrDefault();
 
-                // get access mask properties
-                this.Name.Text = accessMask.Name;
-                this.SortOrder.Text = accessMask.SortOrder.ToString();
+                if (accessMask != null)
+                {
+                    // get access mask properties
+                    this.Name.Text = accessMask.Name;
+                    this.SortOrder.Text = accessMask.SortOrder.ToString();
 
-                // get flags
-                var flags = new AccessFlags(accessMask.Flags);
-                this.ReadAccess.Checked = flags.ReadAccess;
-                this.PostAccess.Checked = flags.PostAccess;
-                this.ReplyAccess.Checked = flags.ReplyAccess;
-                this.PriorityAccess.Checked = flags.PriorityAccess;
-                this.PollAccess.Checked = flags.PollAccess;
-                this.VoteAccess.Checked = flags.VoteAccess;
-                this.ModeratorAccess.Checked = flags.ModeratorAccess;
-                this.EditAccess.Checked = flags.EditAccess;
-                this.DeleteAccess.Checked = flags.DeleteAccess;
-                this.UploadAccess.Checked = flags.UploadAccess;
-                this.DownloadAccess.Checked = flags.DownloadAccess;
+                    // get flags
+                    var flags = new AccessFlags(accessMask.Flags);
+                    this.ReadAccess.Checked = flags.ReadAccess;
+                    this.PostAccess.Checked = flags.PostAccess;
+                    this.ReplyAccess.Checked = flags.ReplyAccess;
+                    this.PriorityAccess.Checked = flags.PriorityAccess;
+                    this.PollAccess.Checked = flags.PollAccess;
+                    this.VoteAccess.Checked = flags.VoteAccess;
+                    this.ModeratorAccess.Checked = flags.ModeratorAccess;
+                    this.EditAccess.Checked = flags.EditAccess;
+                    this.DeleteAccess.Checked = flags.DeleteAccess;
+                    this.UploadAccess.Checked = flags.UploadAccess;
+                    this.DownloadAccess.Checked = flags.DownloadAccess;
+                }
+            }
+            else
+            {
+                this.SortOrder.Text = (this.GetRepository<AccessMask>().ListTyped().Count + 1).ToString();
             }
 
             this.DataBind();

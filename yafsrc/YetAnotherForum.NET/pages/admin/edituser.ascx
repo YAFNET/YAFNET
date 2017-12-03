@@ -18,11 +18,11 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
+            <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-user fa-fw"></i>&nbsp;<asp:Label  runat="server" ID="Header2"/>
                 </div>
-                <div class="card-block">
+                <div class="card-body">
                     <asp:Panel id="EditUserTabs" runat="server">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">

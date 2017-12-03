@@ -11,11 +11,11 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
+            <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-globe fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITBOARD" />
                 </div>
-                <div class="card-block">
+                <div class="card-body">
             <h4>
                 <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_EDITBOARD" />
             </h4>
@@ -95,7 +95,7 @@
                 </div>
                 <div class="card-footer text-lg-center">
                     <asp:LinkButton ID="Save" runat="server" OnClick="Save_Click" CssClass="btn btn-primary" />
-                    <asp:LinkButton ID="Cancel" runat="server" OnClick="Cancel_Click" CssClass="btn btn-secondary" />
+                    <asp:LinkButton ID="Cancel" runat="server" OnClick="CancelClick" CssClass="btn btn-secondary" />
                 </div>
             </div>
         </div>

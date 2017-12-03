@@ -10,11 +10,11 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
+            <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-globe fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_BOARDS" />
                 </div>
-                <div class="card-block">
+                <div class="card-body">
                     <p class="card-text">
                         		<asp:Repeater ID="List" runat="server">
 		    <HeaderTemplate>
@@ -55,7 +55,7 @@
                             TitleLocalizedTag="DELETE"
                             TextLocalizedTag="DELETE"
                             Icon="trash"
-                            OnLoad="Delete_Load"  runat="server">
+                            OnLoad="DeleteLoad"  runat="server">
                         </YAF:ThemeButton>
                             </span>
 					</td>
@@ -69,7 +69,9 @@
                     </p>
                 </div>
                 <div class="card-footer text-center">
-                    <asp:LinkButton ID="New" runat="server" CssClass="btn btn-primary" />
+                    <YAF:ThemeButton ID="New" runat="server" CssClass="btn btn-primary" 
+                        TextLocalizedTag="NEW_BOARD"
+                        Icon="plus-square"></YAF:ThemeButton>
                 </div>
             </div>
         </div>

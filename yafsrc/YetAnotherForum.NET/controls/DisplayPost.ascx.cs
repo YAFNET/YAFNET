@@ -34,6 +34,7 @@ namespace YAF.Controls
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Helpers;
     using YAF.Core.Services;
     using YAF.Core.Services.Auth;
     using YAF.Types;
@@ -56,7 +57,7 @@ namespace YAF.Controls
         /// <summary>
         ///   The current Post Data for this post.
         /// </summary>
-        private PostDataHelperWrapper _postDataHelperWrapper;
+        private PostDataHelperWrapper postDataHelperWrapper;
 
         #endregion
 
@@ -81,13 +82,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets a value indicating whether IsGuest.
         /// </summary>
-        public bool IsGuest
-        {
-            get
-            {
-                return this.PostData == null || UserMembershipHelper.IsGuestUser(this.PostData.UserId);
-            }
-        }
+        public bool IsGuest => this.PostData == null || UserMembershipHelper.IsGuestUser(this.PostData.UserId);
 
         /// <summary>
         ///   Gets or sets a value indicating whether IsThreaded.
@@ -106,12 +101,12 @@ namespace YAF.Controls
         {
             get
             {
-                if (this._postDataHelperWrapper == null && this.DataRow != null)
+                if (this.postDataHelperWrapper == null && this.DataRow != null)
                 {
-                    this._postDataHelperWrapper = new PostDataHelperWrapper(this.DataRow);
+                    this.postDataHelperWrapper = new PostDataHelperWrapper(this.DataRow);
                 }
 
-                return this._postDataHelperWrapper;
+                return this.postDataHelperWrapper;
             }
         }
 
@@ -385,7 +380,7 @@ namespace YAF.Controls
                 this.Get<IYafSession>().TwitterToken.IsSet() && this.Get<IYafSession>().TwitterTokenSecret.IsSet() &&
                 this.Get<IYafSession>().TwitterTokenSecret.IsSet() && this.PageContext.IsTwitterUser)
             {
-                var oAuth = new OAuthTwitter
+                var auth = new OAuthTwitter
                 {
                     ConsumerKey = Config.TwitterConsumerKey,
                     ConsumerSecret = Config.TwitterConsumerSecret,
@@ -393,7 +388,7 @@ namespace YAF.Controls
                     TokenSecret = this.Get<IYafSession>().TwitterTokenSecret
                 };
 
-                var tweets = new TweetAPI(oAuth);
+                var tweets = new TweetAPI(auth);
 
                 tweets.UpdateStatus(
                     TweetAPI.ResponseFormat.json,
@@ -413,7 +408,7 @@ namespace YAF.Controls
         /// <summary>
         /// Shows the IP information.
         /// </summary>
-        private void ShowIPInfo()
+        private void ShowIpInfo()
         {
             // Display admin/moderator only info
             if (!this.PageContext.IsAdmin
@@ -462,17 +457,17 @@ namespace YAF.Controls
                 }
             }
 
-            var userID = this.DataRow["UserID"].ToType<int>();
+            var userId = this.DataRow["UserID"].ToType<int>();
 
             if (this.Get<YafBoardSettings>().EnableBuddyList &&
-                this.PageContext.PageUserID != userID)
+                this.PageContext.PageUserID != userId)
             {
                 // Should we add the "Add Buddy" item?
-                if (!this.Get<IBuddy>().IsBuddy(userID, false) && !this.PageContext.IsGuest)
+                if (!this.Get<IBuddy>().IsBuddy(userId, false) && !this.PageContext.IsGuest)
                 {
                     this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"));
                 }
-                else if (this.Get<IBuddy>().IsBuddy(userID, true) && !this.PageContext.IsGuest)
+                else if (this.Get<IBuddy>().IsBuddy(userId, true) && !this.PageContext.IsGuest)
                 {
                     // Are the users approved buddies? Add the "Remove buddy" item.
                     this.PopMenu1.AddClientScriptItemWithPostback(
@@ -582,7 +577,7 @@ namespace YAF.Controls
 
             this.FormatThanksRow();
 
-            this.ShowIPInfo();
+            this.ShowIpInfo();
         }
 
         /// <summary>

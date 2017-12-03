@@ -28,7 +28,6 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Data;
-    using System.IO;
     using System.Linq;
     using System.Web;
     using System.Web.UI.WebControls;
@@ -43,6 +42,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Utilities;
     using YAF.Utils;
 
     #endregion
@@ -59,7 +59,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+        protected void PagerTopChange([NotNull] object sender, [NotNull] EventArgs e)
         {
             // rebind
             this.BindData();
@@ -70,53 +70,9 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Search_Click(object sender, EventArgs e)
+        protected void SearchClick(object sender, EventArgs e)
         {
             this.BindData();
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Delete control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_SPAMWORDS", "MSG_DELETE"));
-        }
-
-        /// <summary>
-        /// Adds Localized Text to Button
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void AddLoad(object sender, EventArgs e)
-        {
-            var add = (LinkButton)sender;
-            add.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_SPAMWORDS", "ADD"));
-        }
-
-        /// <summary>
-        /// Adds Localized Text to Button
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The e.</param>
-        protected void ExportLoad(object sender, EventArgs e)
-        {
-            var export = (LinkButton)sender;
-            export.Text = "<i class=\"fa fa-download fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_SPAMWORDS", "EXPORT"));
-        }
-
-        /// <summary>
-        /// Adds Localized Text to Button
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The e.</param>
-        protected void ImportLoad(object sender, EventArgs e)
-        {
-            var import = (LinkButton)sender;
-            import.Text = "<i class=\"fa fa-upload fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_SPAMWORDS", "IMPORT"));
         }
 
         /// <summary>
@@ -125,10 +81,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            this.list.ItemCommand += this.List_ItemCommand;
-
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            this.InitializeComponent();
+            this.list.ItemCommand += this.ListItemCommand;
             base.OnInit(e);
         }
 
@@ -162,7 +115,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The bind data.
+        /// Loads the Data
         /// </summary>
         private void BindData()
         {
@@ -185,11 +138,33 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Required method for Designer support - do not modify
-        ///   the contents of this method with the code editor.
+        /// Exports the spam words.
         /// </summary>
-        private void InitializeComponent()
+        private void ExportWords()
         {
+            this.Get<HttpResponseBase>().Clear();
+            this.Get<HttpResponseBase>().ClearContent();
+            this.Get<HttpResponseBase>().ClearHeaders();
+
+            this.Get<HttpResponseBase>().ContentType = "text/xml";
+            this.Get<HttpResponseBase>().AppendHeader(
+                "content-disposition",
+                "attachment; filename=SpamWordsExport.xml");
+
+            var spamwordDataTable = this.GetRepository<Spam_Words>().List();
+
+            spamwordDataTable.DataSet.DataSetName = "YafSpamWordsList";
+
+            spamwordDataTable.TableName = "YafSpamWords";
+
+            spamwordDataTable.Columns.Remove("ID");
+            spamwordDataTable.Columns.Remove("BoardID");
+            spamwordDataTable.Columns.Remove("TotalRows");
+
+            spamwordDataTable.DataSet.WriteXml(this.Response.OutputStream);
+
+            this.Get<HttpResponseBase>().Flush();
+            this.Get<HttpResponseBase>().End();
         }
 
         /// <summary>
@@ -197,15 +172,25 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        private void List_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
+        private void ListItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {
                 case "add":
-                    YafBuildLink.Redirect(ForumPages.admin_spamwords_edit);
+                    this.EditDialog.BindData(null);
+
+                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                        "openModalJs",
+                        JavaScriptBlocks.OpenModalJs("SpamWordsEditDialog"));
+
                     break;
                 case "edit":
-                    YafBuildLink.Redirect(ForumPages.admin_spamwords_edit, "i={0}", e.CommandArgument);
+                    this.EditDialog.BindData(e.CommandArgument.ToType<int>());
+
+                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                        "openModalJs",
+                        JavaScriptBlocks.OpenModalJs("SpamWordsEditDialog"));
+
                     break;
                 case "delete":
                     this.GetRepository<Spam_Words>().DeleteByID(e.CommandArgument.ToType<int>());
@@ -214,32 +199,9 @@ namespace YAF.Pages.Admin
                     break;
                 case "export":
                     {
-                        var spamWords = this.GetRepository<Spam_Words>().ListTyped();
-
-                        this.Get<HttpResponseBase>().Clear();
-                        this.Get<HttpResponseBase>().ClearContent();
-                        this.Get<HttpResponseBase>().ClearHeaders();
-
-                        this.Get<HttpResponseBase>().ContentType = "application/vnd.text";
-                        this.Get<HttpResponseBase>()
-                            .AppendHeader("content-disposition", "attachment; filename=YafSpamWordsExport.txt");
-
-                        var streamWriter = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
-
-                        foreach (var word in spamWords)
-                        {
-                            streamWriter.Write(word.SpamWord);
-                            streamWriter.Write(streamWriter.NewLine);
-                        }
-
-                        streamWriter.Close();
-
-                        this.Response.End();
+                        this.ExportWords();
                     }
 
-                    break;
-                case "import":
-                    YafBuildLink.Redirect(ForumPages.admin_spamwords_import);
                     break;
             }
         }

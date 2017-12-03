@@ -344,6 +344,55 @@
     <Compile Include="controls\YafHeader.ascx.designer.cs">
       <DependentUpon>YafHeader.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\BannedIpEdit.ascx.cs">
+      <DependentUpon>BannedIpEdit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\BannedIpEdit.ascx.designer.cs">
+      <DependentUpon>BannedIpEdit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\BannedNameEdit.ascx.cs">
+      <DependentUpon>BannedNameEdit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\BannedNameEdit.ascx.designer.cs">
+      <DependentUpon>BannedNameEdit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\BannedIpImport.ascx.cs">
+      <DependentUpon>BannedIpImport.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\BannedIpImport.ascx.designer.cs">
+      <DependentUpon>BannedIpImport.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\BannedNameImport.ascx.cs">
+      <DependentUpon>BannedNameImport.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\BannedNameImport.ascx.designer.cs">
+      <DependentUpon>BannedNameImport.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\BannedEmailEdit.ascx.cs">
+      <DependentUpon>BannedEmailEdit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\BannedEmailEdit.ascx.designer.cs">
+      <DependentUpon>BannedEmailEdit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SpamWordsEdit.ascx.cs">
+      <DependentUpon>SpamWordsEdit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SpamWordsEdit.ascx.designer.cs">
+      <DependentUpon>SpamWordsEdit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\BannedEmailImport.ascx.cs">
+      <DependentUpon>BannedEmailImport.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\BannedEmailImport.ascx.designer.cs">
+      <DependentUpon>BannedEmailImport.ascx</DependentUpon>
+    </Compile>
     <Compile Include="error.aspx.designer.cs">
       <DependentUpon>error.aspx</DependentUpon>
     </Compile>
@@ -396,32 +445,8 @@
     <Compile Include="pages\admin\bannedemail.ascx.designer.cs">
       <DependentUpon>bannedemail.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\admin\bannedemail_edit.ascx.cs">
-      <DependentUpon>bannedemail_edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\bannedemail_edit.ascx.designer.cs">
-      <DependentUpon>bannedemail_edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\admin\bannedemail_import.ascx.cs">
-      <DependentUpon>bannedemail_import.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\bannedemail_import.ascx.designer.cs">
-      <DependentUpon>bannedemail_import.ascx</DependentUpon>
-    </Compile>
     <Compile Include="pages\admin\bannedip.ascx.designer.cs">
       <DependentUpon>bannedip.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\admin\bannedip_edit.ascx.designer.cs">
-      <DependentUpon>bannedip_edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\admin\bannedip_import.ascx.cs">
-      <DependentUpon>bannedip_import.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\bannedip_import.ascx.designer.cs">
-      <DependentUpon>bannedip_import.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\admin\bannedname.ascx.cs">
       <DependentUpon>bannedname.ascx</DependentUpon>
@@ -429,20 +454,6 @@
     </Compile>
     <Compile Include="pages\admin\bannedname.ascx.designer.cs">
       <DependentUpon>bannedname.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\admin\bannedname_edit.ascx.cs">
-      <DependentUpon>bannedname_edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\bannedname_edit.ascx.designer.cs">
-      <DependentUpon>bannedname_edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\admin\bannedname_import.ascx.cs">
-      <DependentUpon>bannedname_import.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\bannedname_import.ascx.designer.cs">
-      <DependentUpon>bannedname_import.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\admin\bbcode.ascx.designer.cs">
       <DependentUpon>bbcode.ascx</DependentUpon>
@@ -638,19 +649,12 @@
     <Compile Include="pages\admin\spamwords.ascx.designer.cs">
       <DependentUpon>spamwords.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\admin\spamwords_edit.ascx.cs">
-      <DependentUpon>spamwords_edit.ascx</DependentUpon>
+    <Compile Include="Dialogs\SpamWordsImport.ascx.cs">
+      <DependentUpon>SpamWordsImport.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\admin\spamwords_edit.ascx.designer.cs">
-      <DependentUpon>spamwords_edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\admin\spamwords_import.ascx.cs">
-      <DependentUpon>spamwords_import.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\spamwords_import.ascx.designer.cs">
-      <DependentUpon>spamwords_import.ascx</DependentUpon>
+    <Compile Include="Dialogs\SpamWordsImport.ascx.designer.cs">
+      <DependentUpon>SpamWordsImport.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\admin\taskmanager.ascx.cs">
       <DependentUpon>taskmanager.ascx</DependentUpon>
@@ -940,37 +944,13 @@
       <DependentUpon>bootstrap-forum.css</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.css.map">
-      <DependentUpon>bootstrap-grid.css</DependentUpon>
-    </Content>
-    <Content Include="Content\bootstrap-grid.min.css">
-      <DependentUpon>bootstrap-grid.css</DependentUpon>
-    </Content>
-    <Content Include="Content\bootstrap-grid.min.css.map">
-      <DependentUpon>bootstrap-grid.min.css</DependentUpon>
-    </Content>
+    <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-image-gallery.css" />
     <Content Include="Content\bootstrap-notify.css" />
     <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.css.map">
-      <DependentUpon>bootstrap-reboot.css</DependentUpon>
-    </Content>
-    <Content Include="Content\bootstrap-reboot.min.css">
-      <DependentUpon>bootstrap-reboot.css</DependentUpon>
-    </Content>
-    <Content Include="Content\bootstrap-reboot.min.css.map">
-      <DependentUpon>bootstrap-reboot.min.css</DependentUpon>
-    </Content>
+    <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.css.map">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\bootstrap.min.css.map">
-      <DependentUpon>bootstrap.min.css</DependentUpon>
-    </Content>
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap\bootstrap.scss" />
     <Content Include="Content\bootstrap\mixins\_alert.scss" />
     <Content Include="Content\bootstrap\mixins\_background-variant.scss" />
@@ -1071,6 +1051,14 @@
     <Content Include="Content\bootstrap\_functions.scss" />
     <Content Include="Content\bootstrap\bootstrap-grid.scss" />
     <Content Include="Content\bootstrap\bootstrap-reboot.scss" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Content\bootstrap\mixins\_caret.scss" />
+    <Content Include="Content\bootstrap\_root.scss" />
     <None Include="Content\forum\attachments-upload.scss" />
     <Content Include="Content\icons\authIcons.png" />
     <Content Include="Content\images\error.png" />
@@ -1131,14 +1119,6 @@
     <Content Include="Content\css\select2-bootstrap.css" />
     <Content Include="Content\styles\alert-bangtidy.css" />
     <Content Include="Content\styles\alert-blackgloss.css" />
-    <Content Include="Content\tether\tether-theme-arrows-dark.css" />
-    <Content Include="Content\tether\tether-theme-arrows-dark.min.css" />
-    <Content Include="Content\tether\tether-theme-arrows.css" />
-    <Content Include="Content\tether\tether-theme-arrows.min.css" />
-    <Content Include="Content\tether\tether-theme-basic.css" />
-    <Content Include="Content\tether\tether-theme-basic.min.css" />
-    <Content Include="Content\tether\tether.css" />
-    <Content Include="Content\tether\tether.min.css" />
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
     <Content Include="controls\AttachmentsUploadDialog.ascx" />
@@ -1191,6 +1171,13 @@
     <Content Include="controls\ViewThanksList.ascx" />
     <Content Include="controls\AdminHeader.ascx" />
     <Content Include="controls\YafHeader.ascx" />
+    <Content Include="Dialogs\BannedIpEdit.ascx" />
+    <Content Include="Dialogs\BannedNameEdit.ascx" />
+    <Content Include="Dialogs\BannedIpImport.ascx" />
+    <Content Include="Dialogs\BannedNameImport.ascx" />
+    <Content Include="Dialogs\BannedEmailEdit.ascx" />
+    <Content Include="Dialogs\SpamWordsEdit.ascx" />
+    <Content Include="Dialogs\BannedEmailImport.ascx" />
     <Content Include="digest.aspx" />
     <Content Include="default.aspx" />
     <Content Include="error.aspx" />
@@ -1253,11 +1240,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="pages\admin\bannedemail.ascx" />
-    <Content Include="pages\admin\bannedemail_edit.ascx" />
-    <Content Include="pages\admin\bannedemail_import.ascx" />
     <Content Include="pages\admin\bannedname.ascx" />
-    <Content Include="pages\admin\bannedname_edit.ascx" />
-    <Content Include="pages\admin\bannedname_import.ascx" />
     <Content Include="pages\admin\spamlog.ascx" />
     <Content Include="pages\admin\eventloggroupaccess.ascx" />
     <Content Include="pages\admin\eventloggroups.ascx" />
@@ -1265,8 +1248,7 @@
     <Content Include="pages\admin\pageaccesslist.ascx" />
     <Content Include="pages\admin\deleteforum.ascx" />
     <Content Include="pages\admin\spamwords.ascx" />
-    <Content Include="pages\admin\spamwords_edit.ascx" />
-    <Content Include="pages\admin\spamwords_import.ascx" />
+    <Content Include="Dialogs\SpamWordsImport.ascx" />
     <Content Include="pages\admin\topicstatus.ascx" />
     <Content Include="pages\admin\topicstatus_edit.ascx" />
     <Content Include="pages\admin\topicstatus_import.ascx" />
@@ -1335,8 +1317,6 @@
     <Content Include="pages\admin\accessmasks.ascx" />
     <Content Include="pages\admin\admin.ascx" />
     <Content Include="pages\admin\bannedip.ascx" />
-    <Content Include="pages\admin\bannedip_import.ascx" />
-    <Content Include="pages\admin\bannedip_edit.ascx" />
     <Content Include="pages\admin\bbcode.ascx" />
     <Content Include="pages\admin\bbcode_edit.ascx" />
     <Content Include="pages\admin\bbcode_import.ascx" />
@@ -1453,6 +1433,10 @@
     </Content>
     <Content Include="Scripts\bootstrap-image-gallery.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js">
+      <DependentUpon>bootstrap.bundle.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js">
       <DependentUpon>bootstrap.js</DependentUpon>
@@ -1871,10 +1855,6 @@
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\spin.js" />
     <Content Include="Scripts\tablesorter\jquery.tablesorter.combined.js" />
-    <Content Include="Scripts\tether\tether.js" />
-    <Content Include="Scripts\tether\tether.min.js">
-      <DependentUpon>tether.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\forum\yaf.Utilities.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
@@ -2371,10 +2351,6 @@
     </Compile>
     <Compile Include="pages\admin\bannedip.ascx.cs">
       <DependentUpon>bannedip.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\bannedip_edit.ascx.cs">
-      <DependentUpon>bannedip_edit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\bbcode.ascx.cs">

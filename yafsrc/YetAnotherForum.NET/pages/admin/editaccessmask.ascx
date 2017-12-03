@@ -10,11 +10,11 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
-                    <i class="fa universal-access fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITACCESSMASKS" />
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fa fa-universal-access fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITACCESSMASKS" />
                 </div>
-                <div class="card-block">
+                <div class="card-body">
 			<h4>
                 <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="MASK_NAME" LocalizedPage="ADMIN_EDITACCESSMASKS" />
 			</h4>
@@ -77,7 +77,7 @@
 				<YAF:HelpLabel ID="HelpLabel9" runat="server" LocalizedTag="MODERATOR_ACCESS" LocalizedPage="ADMIN_EDITACCESSMASKS" />
             </h4>
 			<p>
-				<asp:CheckBox runat="server" ID="ModeratorAccess" />
+				<asp:CheckBox runat="server" ID="ModeratorAccess" CssClass="form-control" />
 		</p>
 		
 			<h4>
@@ -109,8 +109,10 @@
 		</p>
                 </div>
                 <div class="card-footer text-lg-center">
-				    <asp:LinkButton ID="Save" runat="server" OnClick="Save_Click" CssClass="btn btn-primary" />
-				    <asp:LinkButton ID="Cancel" runat="server" OnClick="Cancel_Click" CausesValidation="false" CssClass="btn btn-secondary" />
+				    <YAF:ThemeButton ID="Save" runat="server" OnClick="SaveClick" 
+                        CssClass="btn btn-primary" Icon="floppy-o" TextLocalizedTag="SAVE" />
+				    <YAF:ThemeButton ID="Cancel" runat="server" OnClick="CancelClick"
+                        CssClass="btn btn-secondary" Icon="remove" TextLocalizedTag="CANCEL" />
                 </div>
             </div>
         </div>

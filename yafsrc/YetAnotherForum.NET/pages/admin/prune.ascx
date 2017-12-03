@@ -9,11 +9,11 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
+            <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-trash fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_PRUNE" />
                 </div>
-                <div class="card-block">
+                <div class="card-body">
                     <asp:Label ID="lblPruneInfo" runat="server"></asp:Label>
             <h4>
                 <YAF:HelpLabel ID="LocalizedLabel4" runat="server" LocalizedTag="PRUNE_FORUM" LocalizedPage="ADMIN_PRUNE" />
@@ -38,7 +38,8 @@
             </p>
                 </div>
                 <div class="card-footer text-lg-center">
-                <asp:LinkButton ID="commit" runat="server" class="btn btn-primary" OnClick="commit_Click" OnLoad="PruneButton_Load"></asp:LinkButton>
+                <YAF:ThemeButton ID="commit" runat="server" class="btn btn-primary" OnClick="CommitClick"
+                    Icon="trash" TextLocalizedTag="PRUNE_START" ReturnConfirmText='<%# this.GetText("ADMIN_PRUNE", "CONFIRM_PRUNE") %>'></YAF:ThemeButton>
                 </div>
             </div>
         </div>

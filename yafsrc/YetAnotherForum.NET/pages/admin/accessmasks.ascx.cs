@@ -46,11 +46,10 @@ namespace YAF.Pages.Admin
     #endregion
 
     /// <summary>
-    /// Summary description for forums.
+    /// The Admin Access Masks Page.
     /// </summary>
     public partial class accessmasks : AdminPage
     {
-        /* Construction */
         #region Methods
 
         /// <summary>
@@ -90,24 +89,6 @@ namespace YAF.Pages.Admin
                this.GetText("ADMIN_ACCESSMASKS", "TITLE"));
         }
 
-        /* Event Handlers */
-
-        /// <summary>
-        /// The delete_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // add on click confirm dialog
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_ACCESSMASKS", "CONFIRM_DELETE"));
-        }
-
         /// <summary>
         /// Format access mask setting color formatting.
         /// </summary>
@@ -138,15 +119,11 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The list_ item command.
+        /// Lists the item command.
         /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        /// <param name="source">The source.</param>
+        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
+        protected void ListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {
@@ -176,29 +153,21 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The new_ click.
+        /// Handles the Click event of the New control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void New_Click([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void NewClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to page for access mask creation
             YafBuildLink.Redirect(ForumPages.admin_editaccessmask);
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -206,16 +175,9 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.New.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_ACCESSMASKS", "NEW_MASK"));
-
-            // create links
-            this.CreatePageLinks();
-
             // bind data
             this.BindData();
         }
-
-        /* Methods */
 
         /// <summary>
         /// The bind data.

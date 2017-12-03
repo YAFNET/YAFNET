@@ -31,7 +31,6 @@ namespace YAF.Pages.Admin
     using System.Data.SqlClient;
     using System.Linq;
     using System.Net.Mail;
-    using System.ServiceModel.Channels;
     using System.Web.Security;
     using System.Web.UI.WebControls;
 
@@ -69,7 +68,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        public void BoardStatsSelect_Changed([NotNull] object sender, [NotNull] EventArgs e)
+        public void BoardStatsSelectChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
             // re-bind data
             this.BindData();
@@ -80,7 +79,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        public void UserList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        public void UserListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {
@@ -183,52 +182,9 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// Adds Confirmation Dialog to the Approve All Button
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ApproveAll_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((LinkButton)sender).Text = "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_ADMIN", "APROVE_ALL"));
-            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL"));
-        }
-
-        /// <summary>
-        /// Adds Confirmation Dialog to the Approve Button
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Approve_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE"));
-        }
-
-        /// <summary>
-        /// Adds Confirmation Dialog to the Delete All Button
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((LinkButton)sender).Text = "<i class=\"fa fa-trash fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_ADMIN", "DELETE_ALL"));
-
-            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL"));
-        }
-
-        /// <summary>
-        /// Adds Confirmation Dialog to the Delete Button
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE"));
-        }
-
-        /// <summary>
         /// Formats the forum link.
         /// </summary>
-        /// <param name="forumID">
+        /// <param name="forumId">
         /// The forum ID.
         /// </param>
         /// <param name="forumName">
@@ -237,22 +193,22 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// The format forum link.
         /// </returns>
-        protected string FormatForumLink([NotNull] object forumID, [NotNull] object forumName)
+        protected string FormatForumLink([NotNull] object forumId, [NotNull] object forumName)
         {
-            if (forumID.ToString() == string.Empty || forumName.ToString() == string.Empty)
+            if (forumId.ToString() == string.Empty || forumName.ToString() == string.Empty)
             {
                 return string.Empty;
             }
 
             return
                 "<a target=\"_top\" href=\"{0}\">{1}</a>".FormatWith(
-                    YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, forumName), forumName);
+                    YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumId, forumName), forumName);
         }
 
         /// <summary>
         /// Formats the topic link.
         /// </summary>
-        /// <param name="topicID">
+        /// <param name="topicId">
         /// The topic ID.
         /// </param>
         /// <param name="topicName">
@@ -261,16 +217,16 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// The format topic link.
         /// </returns>
-        protected string FormatTopicLink([NotNull] object topicID, [NotNull] object topicName)
+        protected string FormatTopicLink([NotNull] object topicId, [NotNull] object topicName)
         {
-            if (topicID.ToString() == string.Empty || topicName.ToString() == string.Empty)
+            if (topicId.ToString() == string.Empty || topicName.ToString() == string.Empty)
             {
                 return string.Empty;
             }
 
             return
                 "<a target=\"_top\" href=\"{0}\">{1}</a>".FormatWith(
-                    YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicID), topicName);
+                    YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicId), topicName);
         }
 
         /// <summary>
@@ -415,18 +371,18 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            DataTable dt = this.GetRepository<Board>().List();
+            var table = this.GetRepository<Board>().List();
 
             // add row for "all boards" (null value)
-            DataRow r = dt.NewRow();
+            var row = table.NewRow();
 
-            r["BoardID"] = -1;
-            r["Name"] = this.GetText("ADMIN_ADMIN", "ALL_BOARDS");
+            row["BoardID"] = -1;
+            row["Name"] = this.GetText("ADMIN_ADMIN", "ALL_BOARDS");
 
-            dt.Rows.InsertAt(r, 0);
+            table.Rows.InsertAt(row, 0);
 
             // set datasource
-            this.BoardStatsSelect.DataSource = dt;
+            this.BoardStatsSelect.DataSource = table;
             this.BoardStatsSelect.DataBind();
 
             // select current board as default
@@ -462,13 +418,13 @@ namespace YAF.Pages.Admin
             }
 
             // get stats for current board, selected board or all boards (see function)
-            var row = this.GetRepository<Board>().Stats(this.GetSelectedBoardID());
+            var row = this.GetRepository<Board>().Stats(this.GetSelectedBoardId());
 
             this.NumPosts.Text = "{0:N0}".FormatWith(row["NumPosts"]);
             this.NumTopics.Text = "{0:N0}".FormatWith(row["NumTopics"]);
             this.NumUsers.Text = "{0:N0}".FormatWith(row["NumUsers"]);
 
-            TimeSpan span = DateTime.UtcNow - (DateTime)row["BoardStart"];
+            var span = DateTime.UtcNow - (DateTime)row["BoardStart"];
             double days = span.Days;
 
             this.BoardStart.Text =
@@ -533,7 +489,7 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// Returns ID of selected board (for host admin), ID of current board (for admin), null if all boards is selected.
         /// </returns>
-        private int? GetSelectedBoardID()
+        private int? GetSelectedBoardId()
         {
             // check dropdown only if user is hostadmin
             if (!this.PageContext.IsHostAdmin)

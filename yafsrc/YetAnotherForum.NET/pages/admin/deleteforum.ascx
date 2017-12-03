@@ -10,12 +10,12 @@
     </div>
     <div class="row">
         <div class="col-xl-12">
-            <div class="card mb-3 card-outline-primary">
-                <div class="card-header card-primary">
+            <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-comments-o fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="HEADER1" LocalizedPage="ADMIN_DELETEFORUM" />
                     <asp:Label ID="ForumNameTitle" runat="server"></asp:Label>
                 </div>
-                <div class="card-block">
+                <div class="card-body">
             <h4 class="postheader">
                 <YAF:HelpLabel ID="HelpLabel11" runat="server" LocalizedTag="MOVE_TOPICS" LocalizedPage="ADMIN_DELETEFORUM" />
             </h4>
@@ -49,7 +49,7 @@
 <div>
 	<div id="DeleteForumMessage" style="display:none">
 		<div class="card mb-3 card-inverse card-danger text-center">
-		    <div class="card-block">
+		    <div class="card-body">
 		        <blockquote class="card-blockquote">
                     <p>
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DELETE_TITLE" LocalizedPage="ADMIN_DELETEFORUM" />

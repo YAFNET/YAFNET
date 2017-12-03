@@ -28,8 +28,6 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Linq;
-    using System.Web;
-    using System.Web.UI;
     using System.Web.UI.WebControls;
     using YAF.Classes;
     using YAF.Controls;
@@ -39,7 +37,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -58,7 +55,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ActiveDiscussionsCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void ActiveDiscussionsCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RemoveCacheKey(Constants.Cache.ActiveDiscussions);
             this.RemoveCacheKey(Constants.Cache.ForumActiveDiscussions);
@@ -69,7 +66,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void BoardCategoriesCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void BoardCategoriesCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RemoveCacheKey(Constants.Cache.ForumCategory);
         }
@@ -79,7 +76,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void BoardModeratorsCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void BoardModeratorsCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RemoveCacheKey(Constants.Cache.ForumModerators);
         }
@@ -89,7 +86,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void BoardUserStatsCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void BoardUserStatsCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RemoveCacheKey(Constants.Cache.BoardUserStats);
         }
@@ -112,7 +109,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ReplaceRulesCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void ReplaceRulesCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<IObjectStore>().RemoveOf<IProcessReplaceRules>();
             this.CheckCache();
@@ -123,7 +120,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ForumStatisticsCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void ForumStatisticsCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RemoveCacheKey(Constants.Cache.BoardStats);
         }
@@ -133,7 +130,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ResetCacheAll_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void ResetCacheAllClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // clear all cache keys
             this.Get<IObjectStore>().Clear();
@@ -172,16 +169,6 @@ namespace YAF.Pages.Admin
 
             if (!this.IsPostBack)
             {
-                this.PageLinks.AddRoot();
-                this.PageLinks.AddLink(
-                    this.GetText("ADMIN_ADMIN", "Administration"),
-                    YafBuildLink.GetLink(ForumPages.admin_admin));
-                this.PageLinks.AddLink(this.GetText("ADMIN_HOSTSETTINGS", "TITLE"), string.Empty);
-
-                this.Page.Header.Title = "{0} - {1}".FormatWith(
-                    this.GetText("ADMIN_ADMIN", "Administration"),
-                    this.GetText("ADMIN_HOSTSETTINGS", "TITLE"));
-
                 this.RenderListItems();
 
                 this.BindData();
@@ -216,14 +203,28 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Saves the Host Settings
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(this.GetText("ADMIN_HOSTSETTINGS", "TITLE"), string.Empty);
+
+            this.Page.Header.Title = "{0} - {1}".FormatWith(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                this.GetText("ADMIN_HOSTSETTINGS", "TITLE"));
+        }
+
+        /// <summary>
+        /// Saves the Host Settings (write all the settings back to the settings class)
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // write all the settings back to the settings class
-
             // load Board Setting collection information...
             var settingCollection = new YafBoardSettingCollection(this.Get<YafBoardSettings>());
 
@@ -246,19 +247,20 @@ namespace YAF.Pages.Admin
             {
                 var control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                if (control is TextBox && settingCollection.SettingsString[name].CanWrite)
+                switch (control)
                 {
-                    settingCollection.SettingsString[name].SetValue(
-                        this.Get<YafBoardSettings>(),
-                        ((TextBox)control).Text.Trim(),
-                        null);
-                }
-                else if (control is DropDownList && settingCollection.SettingsString[name].CanWrite)
-                {
-                    settingCollection.SettingsString[name].SetValue(
-                        this.Get<YafBoardSettings>(),
-                        Convert.ToString(((DropDownList)control).SelectedItem.Value),
-                        null);
+                    case TextBox _ when settingCollection.SettingsString[name].CanWrite:
+                        settingCollection.SettingsString[name].SetValue(
+                            this.Get<YafBoardSettings>(),
+                            ((TextBox)control).Text.Trim(),
+                            null);
+                        break;
+                    case DropDownList _ when settingCollection.SettingsString[name].CanWrite:
+                        settingCollection.SettingsString[name].SetValue(
+                            this.Get<YafBoardSettings>(),
+                            Convert.ToString(((DropDownList)control).SelectedItem.Value),
+                            null);
+                        break;
                 }
             }
 
@@ -267,28 +269,29 @@ namespace YAF.Pages.Admin
             {
                 var control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                if (control is TextBox && settingCollection.SettingsInt[name].CanWrite)
+                switch (control)
                 {
-                    var value = ((TextBox)control).Text.Trim();
-                    int i;
+                    case TextBox _ when settingCollection.SettingsInt[name].CanWrite:
+                        var value = ((TextBox)control).Text.Trim();
+                        int i;
 
-                    if (value.IsNotSet())
-                    {
-                        i = 0;
-                    }
-                    else
-                    {
-                        int.TryParse(value, out i);
-                    }
+                        if (value.IsNotSet())
+                        {
+                            i = 0;
+                        }
+                        else
+                        {
+                            int.TryParse(value, out i);
+                        }
 
-                    settingCollection.SettingsInt[name].SetValue(this.Get<YafBoardSettings>(), i, null);
-                }
-                else if (control is DropDownList && settingCollection.SettingsInt[name].CanWrite)
-                {
-                    settingCollection.SettingsInt[name].SetValue(
-                        this.Get<YafBoardSettings>(),
-                        ((DropDownList)control).SelectedItem.Value.ToType<int>(),
-                        null);
+                        settingCollection.SettingsInt[name].SetValue(this.Get<YafBoardSettings>(), i, null);
+                        break;
+                    case DropDownList _ when settingCollection.SettingsInt[name].CanWrite:
+                        settingCollection.SettingsInt[name].SetValue(
+                            this.Get<YafBoardSettings>(),
+                            ((DropDownList)control).SelectedItem.Value.ToType<int>(),
+                            null);
+                        break;
                 }
             }
 
@@ -297,28 +300,29 @@ namespace YAF.Pages.Admin
             {
                 var control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                if (control is TextBox && settingCollection.SettingsDouble[name].CanWrite)
+                switch (control)
                 {
-                    var value = ((TextBox)control).Text.Trim();
-                    double i;
+                    case TextBox _ when settingCollection.SettingsDouble[name].CanWrite:
+                        var value = ((TextBox)control).Text.Trim();
+                        double i;
 
-                    if (value.IsNotSet())
-                    {
-                        i = 0;
-                    }
-                    else
-                    {
-                        double.TryParse(value, out i);
-                    }
+                        if (value.IsNotSet())
+                        {
+                            i = 0;
+                        }
+                        else
+                        {
+                            double.TryParse(value, out i);
+                        }
 
-                    settingCollection.SettingsDouble[name].SetValue(this.Get<YafBoardSettings>(), i, null);
-                }
-                else if (control is DropDownList && settingCollection.SettingsDouble[name].CanWrite)
-                {
-                    settingCollection.SettingsDouble[name].SetValue(
-                        this.Get<YafBoardSettings>(),
-                        Convert.ToDouble(((DropDownList)control).SelectedItem.Value),
-                        null);
+                        settingCollection.SettingsDouble[name].SetValue(this.Get<YafBoardSettings>(), i, null);
+                        break;
+                    case DropDownList _ when settingCollection.SettingsDouble[name].CanWrite:
+                        settingCollection.SettingsDouble[name].SetValue(
+                            this.Get<YafBoardSettings>(),
+                            Convert.ToDouble(((DropDownList)control).SelectedItem.Value),
+                            null);
+                        break;
                 }
             }
 
@@ -425,26 +429,28 @@ namespace YAF.Pages.Admin
             {
                 var control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                if (control is TextBox && settingCollection.SettingsString[name].CanRead)
+                switch (control)
                 {
-                    // get the value from the property...
-                    ((TextBox)control).Text =
-                        (string)
-                        Convert.ChangeType(
-                            settingCollection.SettingsString[name].GetValue(this.Get<YafBoardSettings>(), null),
-                            typeof(string));
-                }
-                else if (control is DropDownList && settingCollection.SettingsString[name].CanRead)
-                {
-                    var listItem =
-                        ((DropDownList)control).Items.FindByValue(
-                            settingCollection.SettingsString[name].GetValue(this.Get<YafBoardSettings>(), null)
-                                .ToString());
+                    case TextBox _ when settingCollection.SettingsString[name].CanRead:
+                        // get the value from the property...
+                        ((TextBox)control).Text =
+                            (string)
+                            Convert.ChangeType(
+                                settingCollection.SettingsString[name].GetValue(this.Get<YafBoardSettings>(), null),
+                                typeof(string));
+                        break;
+                    case DropDownList _ when settingCollection.SettingsString[name].CanRead:
+                        var listItem =
+                            ((DropDownList)control).Items.FindByValue(
+                                settingCollection.SettingsString[name].GetValue(this.Get<YafBoardSettings>(), null)
+                                    .ToString());
 
-                    if (listItem != null)
-                    {
-                        listItem.Selected = true;
-                    }
+                        if (listItem != null)
+                        {
+                            listItem.Selected = true;
+                        }
+
+                        break;
                 }
             }
 
@@ -453,27 +459,28 @@ namespace YAF.Pages.Admin
             {
                 var control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                if (control is TextBox && settingCollection.SettingsInt[name].CanRead)
+                switch (control)
                 {
-                    if (!name.Equals("ServerTimeCorrection"))
-                    {
-                        ((TextBox)control).TextMode = TextBoxMode.Number;
-                    }
+                    case TextBox _ when settingCollection.SettingsInt[name].CanRead:
+                        if (!name.Equals("ServerTimeCorrection"))
+                        {
+                            ((TextBox)control).TextMode = TextBoxMode.Number;
+                        }
 
-                    // get the value from the property...
-                    ((TextBox)control).Text =
-                        settingCollection.SettingsInt[name].GetValue(this.Get<YafBoardSettings>(), null).ToString();
-                }
-                else if (control is DropDownList && settingCollection.SettingsInt[name].CanRead)
-                {
-                    var listItem =
-                        ((DropDownList)control).Items.FindByValue(
-                            settingCollection.SettingsInt[name].GetValue(this.Get<YafBoardSettings>(), null).ToString());
+                        // get the value from the property...
+                        ((TextBox)control).Text =
+                            settingCollection.SettingsInt[name].GetValue(this.Get<YafBoardSettings>(), null).ToString();
+                        break;
+                    case DropDownList _ when settingCollection.SettingsInt[name].CanRead:
+                        var listItem =
+                            ((DropDownList)control).Items.FindByValue(
+                                settingCollection.SettingsInt[name].GetValue(this.Get<YafBoardSettings>(), null).ToString());
 
-                    if (listItem != null)
-                    {
-                        listItem.Selected = true;
-                    }
+                        if (listItem != null)
+                        {
+                            listItem.Selected = true;
+                        }
+                        break;
                 }
             }
 
@@ -482,25 +489,26 @@ namespace YAF.Pages.Admin
             {
                 var control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                if (control is TextBox && settingCollection.SettingsDouble[name].CanRead)
+                switch (control)
                 {
-                    ((TextBox)control).CssClass = "Numeric";
+                    case TextBox _ when settingCollection.SettingsDouble[name].CanRead:
+                        ((TextBox)control).CssClass = "Numeric";
 
-                    // get the value from the property...
-                    ((TextBox)control).Text =
-                        settingCollection.SettingsDouble[name].GetValue(this.Get<YafBoardSettings>(), null).ToString();
-                }
-                else if (control is DropDownList && settingCollection.SettingsDouble[name].CanRead)
-                {
-                    var listItem =
-                        ((DropDownList)control).Items.FindByValue(
-                            settingCollection.SettingsDouble[name].GetValue(this.Get<YafBoardSettings>(), null)
-                                .ToString());
+                        // get the value from the property...
+                        ((TextBox)control).Text =
+                            settingCollection.SettingsDouble[name].GetValue(this.Get<YafBoardSettings>(), null).ToString();
+                        break;
+                    case DropDownList _ when settingCollection.SettingsDouble[name].CanRead:
+                        var listItem =
+                            ((DropDownList)control).Items.FindByValue(
+                                settingCollection.SettingsDouble[name].GetValue(this.Get<YafBoardSettings>(), null)
+                                    .ToString());
 
-                    if (listItem != null)
-                    {
-                        listItem.Selected = true;
-                    }
+                        if (listItem != null)
+                        {
+                            listItem.Selected = true;
+                        }
+                        break;
                 }
             }
 
