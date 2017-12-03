@@ -189,9 +189,6 @@ namespace YAF.Pages.Admin
             return;
         }
 
-        // create page links
-        this.CreatePageLinks();
-
         this.NewGroup.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_GROUPS", "NEW_ROLE"));
 
         // sync roles just in case...

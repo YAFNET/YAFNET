@@ -101,14 +101,8 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            // create links
-            this.CreatePageLinks();
-
-            // bind data
             this.BindData();
         }
-
-        /* Methods */
 
         /// <summary>
         /// Binds the data.

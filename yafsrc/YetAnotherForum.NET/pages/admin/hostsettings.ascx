@@ -1980,7 +1980,7 @@
 
                     </p>
                     <p>
-                        <asp:Button CssClass="btn btn-primary" ID="ActiveUserLazyDataCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>' runat="server" OnClick="UserLazyDataCacheReset_Click" />
+                        <asp:Button CssClass="btn btn-primary" ID="ActiveUserLazyDataCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>' runat="server" OnClick="UserLazyDataCacheResetClick" />
                     </p>
 
                         <span class="text-lg-center">

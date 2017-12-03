@@ -479,9 +479,6 @@ namespace YAF.Pages.Admin
             // this needs to be done just once, not during postbacks
             if (!this.IsPostBack)
             {
-                // create page links
-                this.CreatePageLinks();
-
                 this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
                 this.Cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
 

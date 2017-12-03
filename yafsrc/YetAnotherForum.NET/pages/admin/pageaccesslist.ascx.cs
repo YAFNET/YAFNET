@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-// written by vzrus
+
 namespace YAF.Pages.Admin
 {
   #region Using
@@ -110,10 +110,6 @@ namespace YAF.Pages.Admin
             return;
         }
 
-        // create links
-        this.CreatePageLinks();
-
-        // bind data
         this.BindData();
     }
 

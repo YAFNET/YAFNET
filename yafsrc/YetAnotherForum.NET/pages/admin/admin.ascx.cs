@@ -276,10 +276,6 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.CreatePageLinks();
-
-           this.Page.Header.Title = this.GetText("ADMIN_ADMIN", "Administration");
-
             // bind data
             this.BindBoardsList();
 
@@ -305,6 +301,8 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
 
             this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+
+            this.Page.Header.Title = this.GetText("ADMIN_ADMIN", "Administration");
         }
 
         /// <summary>

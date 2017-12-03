@@ -91,11 +91,6 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.CreatePageLinks();
-
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_DIGEST", "TITLE"));
-
             this.LastDigestSendLabel.Text = this.Get<YafBoardSettings>().LastDigestSend.IsNotSet()
                                                 ? this.GetText("ADMIN_DIGEST", "DIGEST_NEVER")
                                                 : Convert.ToDateTime(
@@ -126,6 +121,9 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_DIGEST", "TITLE"), string.Empty);
+
+            this.Page.Header.Title = "{0} - {1}".FormatWith(
+                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_DIGEST", "TITLE"));
         }
 
         /// <summary>

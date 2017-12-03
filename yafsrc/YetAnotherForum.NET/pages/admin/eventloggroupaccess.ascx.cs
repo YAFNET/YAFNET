@@ -105,9 +105,6 @@ namespace YAF.Pages.Admin
             this.GrantAllDelete.Text = "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EVENTLOGROUPACCESS", "GRANTALLDELETE"));
             this.RevokeAllDelete.Text = "<i class=\"fa fa-trash fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EVENTLOGROUPACCESS", "REVOKEALLDELETE"));
 
-            // create page links
-            this.CreatePageLinks();
-
             // bind data
             this.BindData();
         }

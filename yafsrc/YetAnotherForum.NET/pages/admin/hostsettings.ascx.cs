@@ -11,9 +11,7 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
-
  * http://www.apache.org/licenses/LICENSE-2.0
-
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -96,7 +94,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void UserLazyDataCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void UserLazyDataCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // vzrus: remove all users lazy data
             this.Get<IDataCache>()
@@ -219,12 +217,14 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Saves the Host Settings (write all the settings back to the settings class)
+        /// Saves the Host Settings
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
         {
+            // write all the settings back to the settings class
+
             // load Board Setting collection information...
             var settingCollection = new YafBoardSettingCollection(this.Get<YafBoardSettings>());
 
@@ -247,20 +247,19 @@ namespace YAF.Pages.Admin
             {
                 var control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                switch (control)
+                if (control is TextBox && settingCollection.SettingsString[name].CanWrite)
                 {
-                    case TextBox _ when settingCollection.SettingsString[name].CanWrite:
-                        settingCollection.SettingsString[name].SetValue(
-                            this.Get<YafBoardSettings>(),
-                            ((TextBox)control).Text.Trim(),
-                            null);
-                        break;
-                    case DropDownList _ when settingCollection.SettingsString[name].CanWrite:
-                        settingCollection.SettingsString[name].SetValue(
-                            this.Get<YafBoardSettings>(),
-                            Convert.ToString(((DropDownList)control).SelectedItem.Value),
-                            null);
-                        break;
+                    settingCollection.SettingsString[name].SetValue(
+                        this.Get<YafBoardSettings>(),
+                        ((TextBox)control).Text.Trim(),
+                        null);
+                }
+                else if (control is DropDownList && settingCollection.SettingsString[name].CanWrite)
+                {
+                    settingCollection.SettingsString[name].SetValue(
+                        this.Get<YafBoardSettings>(),
+                        Convert.ToString(((DropDownList)control).SelectedItem.Value),
+                        null);
                 }
             }
 
@@ -269,29 +268,28 @@ namespace YAF.Pages.Admin
             {
                 var control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                switch (control)
+                if (control is TextBox && settingCollection.SettingsInt[name].CanWrite)
                 {
-                    case TextBox _ when settingCollection.SettingsInt[name].CanWrite:
-                        var value = ((TextBox)control).Text.Trim();
-                        int i;
+                    var value = ((TextBox)control).Text.Trim();
+                    int i;
 
-                        if (value.IsNotSet())
-                        {
-                            i = 0;
-                        }
-                        else
-                        {
-                            int.TryParse(value, out i);
-                        }
+                    if (value.IsNotSet())
+                    {
+                        i = 0;
+                    }
+                    else
+                    {
+                        int.TryParse(value, out i);
+                    }
 
-                        settingCollection.SettingsInt[name].SetValue(this.Get<YafBoardSettings>(), i, null);
-                        break;
-                    case DropDownList _ when settingCollection.SettingsInt[name].CanWrite:
-                        settingCollection.SettingsInt[name].SetValue(
-                            this.Get<YafBoardSettings>(),
-                            ((DropDownList)control).SelectedItem.Value.ToType<int>(),
-                            null);
-                        break;
+                    settingCollection.SettingsInt[name].SetValue(this.Get<YafBoardSettings>(), i, null);
+                }
+                else if (control is DropDownList && settingCollection.SettingsInt[name].CanWrite)
+                {
+                    settingCollection.SettingsInt[name].SetValue(
+                        this.Get<YafBoardSettings>(),
+                        ((DropDownList)control).SelectedItem.Value.ToType<int>(),
+                        null);
                 }
             }
 
@@ -300,29 +298,28 @@ namespace YAF.Pages.Admin
             {
                 var control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                switch (control)
+                if (control is TextBox && settingCollection.SettingsDouble[name].CanWrite)
                 {
-                    case TextBox _ when settingCollection.SettingsDouble[name].CanWrite:
-                        var value = ((TextBox)control).Text.Trim();
-                        double i;
+                    var value = ((TextBox)control).Text.Trim();
+                    double i;
 
-                        if (value.IsNotSet())
-                        {
-                            i = 0;
-                        }
-                        else
-                        {
-                            double.TryParse(value, out i);
-                        }
+                    if (value.IsNotSet())
+                    {
+                        i = 0;
+                    }
+                    else
+                    {
+                        double.TryParse(value, out i);
+                    }
 
-                        settingCollection.SettingsDouble[name].SetValue(this.Get<YafBoardSettings>(), i, null);
-                        break;
-                    case DropDownList _ when settingCollection.SettingsDouble[name].CanWrite:
-                        settingCollection.SettingsDouble[name].SetValue(
-                            this.Get<YafBoardSettings>(),
-                            Convert.ToDouble(((DropDownList)control).SelectedItem.Value),
-                            null);
-                        break;
+                    settingCollection.SettingsDouble[name].SetValue(this.Get<YafBoardSettings>(), i, null);
+                }
+                else if (control is DropDownList && settingCollection.SettingsDouble[name].CanWrite)
+                {
+                    settingCollection.SettingsDouble[name].SetValue(
+                        this.Get<YafBoardSettings>(),
+                        Convert.ToDouble(((DropDownList)control).SelectedItem.Value),
+                        null);
                 }
             }
 
@@ -429,28 +426,26 @@ namespace YAF.Pages.Admin
             {
                 var control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                switch (control)
+                if (control is TextBox && settingCollection.SettingsString[name].CanRead)
                 {
-                    case TextBox _ when settingCollection.SettingsString[name].CanRead:
-                        // get the value from the property...
-                        ((TextBox)control).Text =
-                            (string)
-                            Convert.ChangeType(
-                                settingCollection.SettingsString[name].GetValue(this.Get<YafBoardSettings>(), null),
-                                typeof(string));
-                        break;
-                    case DropDownList _ when settingCollection.SettingsString[name].CanRead:
-                        var listItem =
-                            ((DropDownList)control).Items.FindByValue(
-                                settingCollection.SettingsString[name].GetValue(this.Get<YafBoardSettings>(), null)
-                                    .ToString());
+                    // get the value from the property...
+                    ((TextBox)control).Text =
+                        (string)
+                        Convert.ChangeType(
+                            settingCollection.SettingsString[name].GetValue(this.Get<YafBoardSettings>(), null),
+                            typeof(string));
+                }
+                else if (control is DropDownList && settingCollection.SettingsString[name].CanRead)
+                {
+                    var listItem =
+                        ((DropDownList)control).Items.FindByValue(
+                            settingCollection.SettingsString[name].GetValue(this.Get<YafBoardSettings>(), null)
+                                .ToString());
 
-                        if (listItem != null)
-                        {
-                            listItem.Selected = true;
-                        }
-
-                        break;
+                    if (listItem != null)
+                    {
+                        listItem.Selected = true;
+                    }
                 }
             }
 
@@ -459,28 +454,27 @@ namespace YAF.Pages.Admin
             {
                 var control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                switch (control)
+                if (control is TextBox && settingCollection.SettingsInt[name].CanRead)
                 {
-                    case TextBox _ when settingCollection.SettingsInt[name].CanRead:
-                        if (!name.Equals("ServerTimeCorrection"))
-                        {
-                            ((TextBox)control).TextMode = TextBoxMode.Number;
-                        }
+                    if (!name.Equals("ServerTimeCorrection"))
+                    {
+                        ((TextBox)control).TextMode = TextBoxMode.Number;
+                    }
 
-                        // get the value from the property...
-                        ((TextBox)control).Text =
-                            settingCollection.SettingsInt[name].GetValue(this.Get<YafBoardSettings>(), null).ToString();
-                        break;
-                    case DropDownList _ when settingCollection.SettingsInt[name].CanRead:
-                        var listItem =
-                            ((DropDownList)control).Items.FindByValue(
-                                settingCollection.SettingsInt[name].GetValue(this.Get<YafBoardSettings>(), null).ToString());
+                    // get the value from the property...
+                    ((TextBox)control).Text =
+                        settingCollection.SettingsInt[name].GetValue(this.Get<YafBoardSettings>(), null).ToString();
+                }
+                else if (control is DropDownList && settingCollection.SettingsInt[name].CanRead)
+                {
+                    var listItem =
+                        ((DropDownList)control).Items.FindByValue(
+                            settingCollection.SettingsInt[name].GetValue(this.Get<YafBoardSettings>(), null).ToString());
 
-                        if (listItem != null)
-                        {
-                            listItem.Selected = true;
-                        }
-                        break;
+                    if (listItem != null)
+                    {
+                        listItem.Selected = true;
+                    }
                 }
             }
 
@@ -489,26 +483,25 @@ namespace YAF.Pages.Admin
             {
                 var control = this.HostSettingsTabs.FindControlRecursive(name);
 
-                switch (control)
+                if (control is TextBox && settingCollection.SettingsDouble[name].CanRead)
                 {
-                    case TextBox _ when settingCollection.SettingsDouble[name].CanRead:
-                        ((TextBox)control).CssClass = "Numeric";
+                    ((TextBox)control).CssClass = "Numeric";
 
-                        // get the value from the property...
-                        ((TextBox)control).Text =
-                            settingCollection.SettingsDouble[name].GetValue(this.Get<YafBoardSettings>(), null).ToString();
-                        break;
-                    case DropDownList _ when settingCollection.SettingsDouble[name].CanRead:
-                        var listItem =
-                            ((DropDownList)control).Items.FindByValue(
-                                settingCollection.SettingsDouble[name].GetValue(this.Get<YafBoardSettings>(), null)
-                                    .ToString());
+                    // get the value from the property...
+                    ((TextBox)control).Text =
+                        settingCollection.SettingsDouble[name].GetValue(this.Get<YafBoardSettings>(), null).ToString();
+                }
+                else if (control is DropDownList && settingCollection.SettingsDouble[name].CanRead)
+                {
+                    var listItem =
+                        ((DropDownList)control).Items.FindByValue(
+                            settingCollection.SettingsDouble[name].GetValue(this.Get<YafBoardSettings>(), null)
+                                .ToString());
 
-                        if (listItem != null)
-                        {
-                            listItem.Selected = true;
-                        }
-                        break;
+                    if (listItem != null)
+                    {
+                        listItem.Selected = true;
+                    }
                 }
             }
 

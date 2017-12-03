@@ -113,10 +113,6 @@ namespace YAF.Pages.Admin
         this.GrantAll.Text = "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_PAGEACCESSEDIT", "GRANTALL"));
         this.RevokeAll.Text = "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_PAGEACCESSEDIT", "REVOKEALL"));
 
-        // create page links
-        this.CreatePageLinks();
-
-        // bind data
         this.BindData();
     }
 

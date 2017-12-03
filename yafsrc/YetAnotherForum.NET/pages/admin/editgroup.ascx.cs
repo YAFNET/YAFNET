@@ -141,9 +141,6 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            // create page links
-            this.CreatePageLinks();
-
             this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
             this.Cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
 
