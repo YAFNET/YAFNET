@@ -4271,7 +4271,7 @@ Spoiler Content
     <Resource tag="TITLE_ECMAVERSION">JavaScript version</Resource>
     <Resource tag="TITLE_EXCEPTION">מידע</Resource>
     <Resource tag="TITLE_FAILURE">כשלון</Resource>
-    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions reqired!</Resource>
+    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions required!</Resource>
     <Resource tag="TITLE_INVALID">לא תקין</Resource>
     <Resource tag="TITLE_MODERATED">מידע</Resource>
     <Resource tag="TITLE_REGISTRATION">תודה</Resource>

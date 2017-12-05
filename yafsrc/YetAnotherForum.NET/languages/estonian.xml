@@ -4246,7 +4246,7 @@ Spoiler Content
     <Resource tag="TITLE_ECMAVERSION">JavaScript versioon</Resource>
     <Resource tag="TITLE_EXCEPTION">Informatsioon</Resource>
     <Resource tag="TITLE_FAILURE">Viga</Resource>
-    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions reqired!</Resource>
+    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions required!</Resource>
     <Resource tag="TITLE_INVALID">Kehtetu</Resource>
     <Resource tag="TITLE_MODERATED">Informatsioon</Resource>
     <Resource tag="TITLE_REGISTRATION">Tänuavaldused</Resource>

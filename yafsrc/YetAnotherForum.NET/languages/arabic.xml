@@ -4225,7 +4225,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="TITLE_ECMAVERSION">(JavaScript) إصدار</Resource>
     <Resource tag="TITLE_EXCEPTION">معلومات </Resource>
     <Resource tag="TITLE_FAILURE">فشل الطلب</Resource>
-    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions reqired!</Resource>
+    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions required!</Resource>
     <Resource tag="TITLE_INVALID">غير صحيح</Resource>
     <Resource tag="TITLE_MODERATED">معلومات المشرف</Resource>
     <Resource tag="TITLE_REGISTRATION">الشكر</Resource>

@@ -4197,7 +4197,7 @@ Spoiler Inhoud
     <Resource tag="TITLE_ECMAVERSION">JavaScript versie</Resource>
     <Resource tag="TITLE_EXCEPTION">Informatie</Resource>
     <Resource tag="TITLE_FAILURE">Fout</Resource>
-    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions reqired!</Resource>
+    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions required!</Resource>
     <Resource tag="TITLE_INVALID">Ongeldig</Resource>
     <Resource tag="TITLE_MODERATED">Informatie</Resource>
     <Resource tag="TITLE_REGISTRATION">Bedankt</Resource>

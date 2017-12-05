@@ -4231,7 +4231,7 @@ Spoiler Content
     <Resource tag="TITLE_ECMAVERSION">JavaScript versiyonu</Resource>
     <Resource tag="TITLE_EXCEPTION">Bilgi</Resource>
     <Resource tag="TITLE_FAILURE">Hata</Resource>
-    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions reqired!</Resource>
+    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions required!</Resource>
     <Resource tag="TITLE_INVALID">Hatalı</Resource>
     <Resource tag="TITLE_MODERATED">Bilgi</Resource>
     <Resource tag="TITLE_REGISTRATION">Teşekkürler</Resource>

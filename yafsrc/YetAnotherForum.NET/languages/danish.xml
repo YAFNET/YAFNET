@@ -4248,7 +4248,7 @@ Spoiler Content
     <Resource tag="TITLE_ECMAVERSION">JavaScript version</Resource>
     <Resource tag="TITLE_EXCEPTION">Information</Resource>
     <Resource tag="TITLE_FAILURE">Fejl</Resource>
-    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions reqired!</Resource>
+    <Resource tag="TITLE_HOSTADMINPERMISSIONSREQUIRED">Host Admin permissions required!</Resource>
     <Resource tag="TITLE_INVALID">Ugyldig</Resource>
     <Resource tag="TITLE_MODERATED">Information</Resource>
     <Resource tag="TITLE_REGISTRATION">Tak</Resource>
