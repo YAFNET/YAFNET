@@ -1,5 +1,5 @@
 /*
- * metismenu - v2.7.0
+ * metismenu - v2.7.1
  * A jQuery menu plugin
  * https://github.com/onokumus/metismenu#readme
  *
@@ -220,15 +220,17 @@
           this._hide(_el.parent(this._config.parentTrigger).siblings().children(this._config.subMenu + '.' + this._config.collapseInClass).attr('aria-expanded', false));
         }
 
-          _el.removeClass(this._config.collapseClass).addClass(this._config.collapsingClass).height(0);
+        _el.removeClass(this._config.collapseClass).addClass(this._config.collapsingClass).height(0);
 
         this.setTransitioning(true);
 
         var complete = function complete() {
-
-            _el.removeClass(_this._config.collapsingClass)
-                .addClass(_this._config.collapseClass + ' ' + _this._config.collapseInClass).height('').addClass('show')
-                .attr('aria-expanded', true);
+          // check if disposed
+          if (!_this._config || !_this._element) {
+            return;
+          }
+          //_el.removeClass(_this._config.collapsingClass).addClass(_this._config.collapseClass + ' ' + _this._config.collapseInClass).height('').attr('aria-expanded', true);
+          _el.removeClass(_this._config.collapsingClass).addClass(_this._config.collapseClass + ' ' + _this._config.collapseInClass).height('').addClass('show').attr('aria-expanded', true);
 
           _this.setTransitioning(false);
 
@@ -266,12 +268,18 @@
         this.setTransitioning(true);
 
         var complete = function complete() {
+          // check if disposed
+          if (!_this._config || !_this._element) {
+            return;
+          }
           if (_this._transitioning && _this._config.onTransitionEnd) {
             _this._config.onTransitionEnd();
           }
 
           _this.setTransitioning(false);
           _el.trigger(Event.HIDDEN);
+
+          //_el.removeClass(_this._config.collapsingClass).addClass(_this._config.collapseClass).attr('aria-expanded', false);
 
           _el.removeClass(_this._config.collapsingClass).removeClass('show').addClass(_this._config.collapseClass).attr('aria-expanded', false);
         };
