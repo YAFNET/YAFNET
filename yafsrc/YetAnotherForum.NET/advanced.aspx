@@ -1,7 +1,7 @@
 <%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" Inherits="YAF.ForumPageBase" %>
 <%@ Register TagPrefix="YAF" Assembly="YAF" Namespace="YAF" %>
 <%@ Register TagPrefix="YAF" Assembly="YAF.Controls" Namespace="YAF" %>
-<%@ Register TagPrefix="url" Namespace="Intelligencia.UrlRewriter" Assembly="Intelligencia.UrlRewriter %>
+<%@ Register TagPrefix="url" Namespace="Intelligencia.UrlRewriter" Assembly="Intelligencia.UrlRewriter" %>
 
 <!doctype html>
 <html lang="en">
