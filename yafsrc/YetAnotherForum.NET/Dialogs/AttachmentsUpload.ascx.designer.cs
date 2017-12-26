@@ -7,10 +7,10 @@
 // </automatisch generiert>
 //------------------------------------------------------------------------------
 
-namespace YAF.Controls {
+namespace YAF.Dialogs {
     
     
-    public partial class AttachmentsUploadDialog {
+    public partial class AttachmentsUpload {
         
         /// <summary>
         /// SelectFile-Steuerelement

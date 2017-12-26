@@ -5,7 +5,7 @@
 <%@ Register TagPrefix="YAF" TagName="PostOptions" Src="../controls/PostOptions.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PostAttachments" Src="../controls/PostAttachments.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PollList" Src="../controls/PollList.ascx" %>
-<%@ Register TagPrefix="YAF" TagName="AttachmentsUploadDialog" Src="../controls/AttachmentsUploadDialog.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="AttachmentsUploadDialog" Src="../Dialogs/AttachmentsUpload.ascx" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:PollList ID="PollList"  ShowButtons="true" PollGroupId='<%# GetPollGroupID() %>'  runat="server"/>
 <table align="center" cellpadding="4" cellspacing="1" class="content" width="100%">

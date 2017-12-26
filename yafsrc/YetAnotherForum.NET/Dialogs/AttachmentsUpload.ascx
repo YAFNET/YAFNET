@@ -1,22 +1,24 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.AttachmentsUploadDialog"
-    CodeBehind="AttachmentsUploadDialog.ascx.cs" %>
-<%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Dialogs.AttachmentsUpload" CodeBehind="AttachmentsUpload.ascx.cs" %>
 
-<div class="UploadDialog modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="UploadDialog modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <h5 class="modal-title" id="myModalLabel"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "UPLOAD_TITLE") %></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title" id="myModalLabel"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "UPLOAD_TITLE") %></h4>
       </div>
       <div class="modal-body" style="min-height:485px">
         <h4><YAF:LocalizedLabel ID="SelectFile" LocalizedTag="SELECT_FILE" LocalizedPage="ATTACHMENTS" runat="server" /></h4>
         <div>
             <div id="fileupload">
                       <div class="fileupload-buttonbar">
-                          <div id="dropzone" class="fade-ui ui-widget-header"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "DROP_HERE") %></div>
+                          <div id="dropzone" class="card text-white bg-dark border-danger mb-3">
+                              <div class="card-body">
+                                  <p class="card-text"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "DROP_HERE") %></p>
+                              </div>
+                          </div>
                           <div class="alert alert-danger uploadCompleteWarning" role="alert" style="display: none">
                               <%= this.Get<ILocalization>().GetText("ATTACHMENTS", "COMPLETE_WARNING") %>
                           </div>
@@ -25,7 +27,9 @@
                                   <i class="fa fa-plus fa-fw"></i>&nbsp;<YAF:LocalizedLabel id="AddFiles" runat="server" LocalizedPage="ATTACHMENTS" LocalizedTag="ADD_FILES" />
                                   <input type="file" name="files[]" multiple>
                               </span>
-                              <button type="submit" class="btn btn-primary start"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "START_UPLOADS") %></button>
+                              <button type="submit" class="btn btn-primary start">
+                                  <i class="fa fa-upload fa-fw"></i><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "START_UPLOADS") %>
+                              </button>
                               <span class="fileupload-process"></span>
                           </div>
                           <div class="fileupload-progress fade-ui" style="display:none">

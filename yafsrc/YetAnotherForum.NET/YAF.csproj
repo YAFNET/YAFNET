@@ -204,12 +204,12 @@
     <Compile Include="Classes\YafWebService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="controls\AttachmentsUploadDialog.ascx.cs">
-      <DependentUpon>AttachmentsUploadDialog.ascx</DependentUpon>
+    <Compile Include="Dialogs\AttachmentsUpload.ascx.cs">
+      <DependentUpon>AttachmentsUpload.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\AttachmentsUploadDialog.ascx.designer.cs">
-      <DependentUpon>AttachmentsUploadDialog.ascx</DependentUpon>
+    <Compile Include="Dialogs\AttachmentsUpload.ascx.designer.cs">
+      <DependentUpon>AttachmentsUpload.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\DialogBox.ascx.cs">
       <DependentUpon>DialogBox.ascx</DependentUpon>
@@ -1121,7 +1121,7 @@
     <Content Include="Content\styles\alert-blackgloss.css" />
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
-    <Content Include="controls\AttachmentsUploadDialog.ascx" />
+    <Content Include="Dialogs\AttachmentsUpload.ascx" />
     <Content Include="controls\BuddyList.ascx" />
     <Content Include="controls\DialogBox.ascx" />
     <Content Include="controls\DisplayConnect.ascx" />

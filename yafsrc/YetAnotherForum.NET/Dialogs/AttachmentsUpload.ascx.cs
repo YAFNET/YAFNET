@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Controls
+namespace YAF.Dialogs
 {
     #region Using
 
@@ -44,7 +44,7 @@ namespace YAF.Controls
     /// <summary>
     /// The Attachments Upload Dialog.
     /// </summary>
-    public partial class AttachmentsUploadDialog : BaseUserControl
+    public partial class AttachmentsUpload : BaseUserControl
     {
         /// <summary>
         /// Gets the file extensions.
@@ -52,7 +52,7 @@ namespace YAF.Controls
         /// <value>
         /// The file extensions.
         /// </value>
-        private IList<FileExtension> FileExentsions
+        private IEnumerable<FileExtension> FileExentsions
         {
             get
             {
@@ -68,7 +68,7 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            this.PreRender += this.AttachmentsUploadDialog_PreRender;
+            this.PreRender += this.AttachmentsUploadDialogPreRender;
             base.OnInit(e);
         }
 
@@ -120,7 +120,7 @@ namespace YAF.Controls
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void AttachmentsUploadDialog_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+        private void AttachmentsUploadDialogPreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Setup Hover Card JS
             YafContext.Current.PageElements.RegisterJsBlockStartup(
