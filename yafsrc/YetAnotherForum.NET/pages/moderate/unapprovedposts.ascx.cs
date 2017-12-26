@@ -33,11 +33,13 @@ namespace YAF.Pages.moderate
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -189,7 +191,7 @@ namespace YAF.Pages.moderate
                 case "approve":
 
                     // approve post
-                    LegacyDb.message_approve(e.CommandArgument);
+                    this.GetRepository<Message>().ApproveMessage(e.CommandArgument.ToType<int>());
 
                     // Update statistics
                     this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);

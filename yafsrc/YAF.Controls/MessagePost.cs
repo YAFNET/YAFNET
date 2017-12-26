@@ -295,9 +295,9 @@ namespace YAF.Controls
             }
 
             writer.Write(
-                @"<span class=""MessageDetails""><em>{1}{0}</em></span>",
+                @"<div class=""alert alert-danger"" role=""alert""><strong>{1}</strong>{0}</div>",
                 deleteText.IsSet()
-                    ? @"&nbsp;|&nbsp;<span class=""editedinfo"" title=""{1}"">{0}: {1}</span>".FormatWith(
+                    ? @"&nbsp;<span class=""editedinfo"" title=""{1}"">{0}: {1}</span>".FormatWith(
                         this.GetText("EDIT_REASON"),
                         deleteText)
                     : string.Empty,
@@ -338,7 +338,11 @@ namespace YAF.Controls
                                  : this.GetText("POSTS", "EDITED_BY_USER");
 
             writer.Write(
-                @"<p class=""MessageDetails""><em><a title=""{3}"" alt=""title=""{3}"" href=""{4}"">{0} {1}</a>&nbsp;{2}&nbsp;|&nbsp;<span class=""editedinfo"">{3}</span></em></p>"
+                @"<div class=""alert alert-light"" role=""alert"">
+                      <a title=""{3}"" alt=""title=""{3}"" href=""{4}""><strong>{0}</strong> {1}</a>&nbsp;{2}&nbsp;|&nbsp;<em>{3}</em>
+                      <button type=""button"" class=""close"" data-dismiss=""alert"" aria-label=""Close"">
+                          <span aria-hidden=""true"">&times;</span>
+                      </button></div>"
                     .FormatWith(
                         this.GetText("EDITED"),
                         whoChanged,
@@ -347,6 +351,25 @@ namespace YAF.Controls
                         this.PageContext.IsGuest
                             ? "#"
                             : YafBuildLink.GetLink(ForumPages.messagehistory, "m={0}", messageId.ToType<int>())));
+        }
+
+        /// <summary>
+        /// Renders the answer message.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="messageId">The message identifier.</param>
+        protected virtual void RenderAnswerMessage(
+           [NotNull] HtmlTextWriter writer, int messageId)
+        {
+            writer.Write(
+                @"<div class=""alert alert-success"" role=""alert"">
+                      <a title=""{0}"" alt=""title=""{0}"" href=""{1}""><i class=""fa fa-check fa-fw""></i>{0}</a>
+                      <button type=""button"" class=""close"" data-dismiss=""alert"" aria-label=""Close"">
+                          <span aria-hidden=""true"">&times;</span>
+                      </button></div>"
+                    .FormatWith(
+                        this.GetText("GO_TO_ANSWER"),
+                        YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", messageId)));
         }
 
         /// <summary>

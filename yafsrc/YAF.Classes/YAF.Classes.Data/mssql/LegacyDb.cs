@@ -41,6 +41,7 @@ namespace YAF.Classes.Data
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Handlers;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -3662,22 +3663,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// Set flag on message to approved and store in DB
-        /// </summary>
-        /// <param name="messageID">
-        /// The message id.
-        /// </param>
-        public static void message_approve([NotNull] object messageID)
-        {
-            using (var cmd = DbHelpers.GetCommand("message_approve"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("MessageID", messageID);
-                DbAccess.ExecuteNonQuery(cmd);
-            }
-        }
-
-        /// <summary>
         /// The message_delete.
         /// </summary>
         /// <param name="messageID">
@@ -3991,8 +3976,8 @@ namespace YAF.Classes.Data
         /// <param name="message">
         /// The message.
         /// </param>
-        /// <param name="userName">
-        /// The user name.
+        /// <param name="guestUserName">
+        /// The guest user name.
         /// </param>
         /// <param name="ip">
         /// The ip.
@@ -4012,7 +3997,7 @@ namespace YAF.Classes.Data
         /// <returns>
         /// The message_save.
         /// </returns>
-        public static bool message_save([NotNull] object topicID, [NotNull] object userID, [NotNull] object message, [NotNull] object userName, [NotNull] object ip, [NotNull] object posted, [NotNull] object replyTo, [NotNull] object flags,
+        public static bool message_save([NotNull] object topicID, [NotNull] object userID, [NotNull] object message, [NotNull] object guestUserName, [NotNull] object ip, [NotNull] object posted, [NotNull] object replyTo, [NotNull] object flags,
                                         ref long messageID)
         {
             using (var cmd = DbHelpers.GetCommand("message_save"))
@@ -4023,7 +4008,7 @@ namespace YAF.Classes.Data
                 cmd.AddParam("TopicID", topicID);
                 cmd.AddParam("UserID", userID);
                 cmd.AddParam("Message", message);
-                cmd.AddParam("UserName", userName);
+                cmd.AddParam("UserName", guestUserName);
                 cmd.AddParam("IP", ip);
                 cmd.AddParam("Posted", posted);
                 cmd.AddParam("ReplyTo", replyTo);

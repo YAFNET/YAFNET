@@ -33,6 +33,12 @@
             ToolTip='<%# this.GetText("POSTS","TOPIC_STARTER_HELP") %>'>
             <YAF:LocalizedLabel ID="TopicStarterText" runat="server" LocalizedTag="TOPIC_STARTER" LocalizedPage="POSTS" />
         </asp:Label>
+        <asp:Label runat="server" CssClass="badge badge-success" ID="MessageIsAnswerBadge" 
+                   Visible='<%# this.PostData.PostIsAnswer %>'
+                   ToolTip='<%# this.GetText("POSTS","MESSAGE_ANSWER_HELP") %>'>
+            <i class="fa fa-check fa-fw"></i>
+            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="MESSAGE_ANSWER" LocalizedPage="POSTS" />
+        </asp:Label>
     </td>
     <td width="80%" class="postPosted" colspan='<%#GetIndentSpan()%>'>
         <div class="leftItem postedLeft">        

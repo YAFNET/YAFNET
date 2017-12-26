@@ -763,13 +763,13 @@ namespace YAF.Pages
                 stylesSave = this.TopicStylesTextBox.Text;
             }
 
-            var currentMessage =
-                LegacyDb.MessageList(this.EditMessageID.ToType<int>()).FirstOrDefault();
+            var editMessage = this.GetRepository<Message>().ListTyped(this.EditMessageID.ToType<int>())
+                .FirstOrDefault();
 
             // Remove Message Attachments
-            if (currentMessage.HasAttachments.HasValue && currentMessage.HasAttachments.Value)
+            if (editMessage.HasAttachments.HasValue && editMessage.HasAttachments.Value)
             {
-                var attachments = this.GetRepository<Attachment>().ListTyped(messageID: currentMessage.MessageID);
+                var attachments = this.GetRepository<Attachment>().ListTyped(this.EditMessageID.ToType<int>());
 
                 attachments.ForEach(
                     attach =>
@@ -802,7 +802,7 @@ namespace YAF.Pages
             // Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
             // Ederon : now it should be better, but all this code around forum/topic/message flags needs revamp
             // retrieve message flags
-            var messageFlags = new MessageFlags(LegacyDb.MessageList(this.EditMessageID.ToType<int>()).FirstOrDefault().Flags)
+            var messageFlags = new MessageFlags(editMessage.Flags)
             {
                 IsHtml =
                     this
@@ -995,7 +995,7 @@ namespace YAF.Pages
                                    IsApproved = isSpamApproved
                                };
 
-            LegacyDb.message_save(
+             LegacyDb.message_save(
                 this.TopicID.Value,
                 this.PageContext.PageUserID,
                 this._forumEditor.Text,

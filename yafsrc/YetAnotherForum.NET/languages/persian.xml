@@ -4636,6 +4636,7 @@
     <Resource tag="FACEBOOK_TITLE">نمایش پروفایل فیسبوک {0}</Resource>
     <Resource tag="FACEBOOK_TOPIC">پسندیدن این موضوع</Resource>
     <Resource tag="FORUM_JUMP">رفتن به انجمن</Resource>
+    <Resource tag="GO_TO_ANSWER">Go to the topic answer</Resource>
     <Resource tag="GOOGLE">Google+</Resource>
     <Resource tag="GOOGLE_TITLE">نمایش  پروفایل Google+ {0} </Resource>
     <Resource tag="GOOGLEPLUS_TOPIC">اشتراک در Google+</Resource>
@@ -4661,7 +4662,11 @@
     <Resource tag="LINKBACK_TOPIC_PROMT">استفاده از آدرس زیر به عنوان بکلینک برای استفاده در سایت دیگر</Resource>
     <Resource tag="LOCATION">مکان</Resource>
     <Resource tag="MARK_ANSWER">Mark As Answer</Resource>
+    <Resource tag="MARK_ANSWER_REMOVE">Remove As Answer</Resource>
+    <Resource tag="MARK_ANSWER_REMOVE_TITLE">Unmark this Message as answer</Resource>
     <Resource tag="MARK_ANSWER_TITLE">Mark this Message as answer</Resource>
+    <Resource tag="MESSAGE_ANSWER">Answer</Resource>
+    <Resource tag="MESSAGE_ANSWER_HELP">Marked as answer</Resource>
     <Resource tag="MESSAGEDELETED_MOD">پیغام بوسیله یک ناظر حذف شده است.</Resource>
     <Resource tag="MESSAGEDELETED_USER">پیغام بوسیله کاربر حذف شده است.</Resource>
     <Resource tag="MSN">MSN</Resource>

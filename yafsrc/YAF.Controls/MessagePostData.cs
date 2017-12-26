@@ -33,8 +33,8 @@ namespace YAF.Controls
     using YAF.Classes;
     using YAF.Core;
     using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
@@ -354,6 +354,14 @@ namespace YAF.Controls
                     && this.Edited > this.Posted.AddSeconds(this.Get<YafBoardSettings>().EditTimeOut))
                 {
                     this.RenderEditedMessage(writer, this.Edited, this.CurrentMessage.EditReason, this.MessageId);
+                }
+
+                // Render Go to Answer Message
+                var answerMessageId = this.GetRepository<Message>().FindAnswerMessage(this.PageContext.PageTopicID);
+
+                if (answerMessageId.HasValue && this.CurrentMessage.Position.Equals(0))
+                {
+                    this.RenderAnswerMessage(writer, answerMessageId.Value);
                 }
             }
             else

@@ -4602,6 +4602,7 @@ Spoiler Content
     <Resource tag="FACEBOOK_TITLE">Odwiedź użytkownika {0} na Facebooku</Resource>
     <Resource tag="FACEBOOK_TOPIC">Polub ten Temat</Resource>
     <Resource tag="FORUM_JUMP">Skok do forum</Resource>
+    <Resource tag="GO_TO_ANSWER">Go to the topic answer</Resource>
     <Resource tag="GOOGLE">Google+</Resource>
     <Resource tag="GOOGLE_TITLE">Odwiedź użytkownika {0} na Google+</Resource>
     <Resource tag="GOOGLEPLUS_TOPIC">Podziel się na Google+</Resource>
@@ -4627,7 +4628,11 @@ Spoiler Content
     <Resource tag="LINKBACK_TOPIC_PROMT">Użyj podanego adresu, aby podzielić się tematem na innych stronach.</Resource>
     <Resource tag="LOCATION">Lokalizacja</Resource>
     <Resource tag="MARK_ANSWER">Mark As Answer</Resource>
+    <Resource tag="MARK_ANSWER_REMOVE">Remove As Answer</Resource>
+    <Resource tag="MARK_ANSWER_REMOVE_TITLE">Unmark this Message as answer</Resource>
     <Resource tag="MARK_ANSWER_TITLE">Mark this Message as answer</Resource>
+    <Resource tag="MESSAGE_ANSWER">Answer</Resource>
+    <Resource tag="MESSAGE_ANSWER_HELP">Marked as answer</Resource>
     <Resource tag="MESSAGEDELETED_MOD">Wiadomość usunięta przez Moderatora.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Wiadomość usunięta przez użytkownika.</Resource>
     <Resource tag="MSN">MSN</Resource>

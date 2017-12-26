@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true"
 	Inherits="YAF.Controls.DisplayPostFooter" Codebehind="DisplayPostFooter.ascx.cs" %>
-<%@ Import Namespace="YAF.Types.Interfaces" %>
 <div class="displayPostFooter">
 	<div class="leftItem postInfoLeft">
 		<YAF:ThemeButton ID="btnTogglePost" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
@@ -35,7 +34,14 @@
 				TextLocalizedTag="GOOGLE" ImageThemeTag="Google2" TitleLocalizedTag="GOOGLE_TITLE" TitleLocalizedPage="POSTS" />
 	</div>
 	<div class="rightItem postInfoRight">
-        <YAF:ThemeButton ID="ReportPost" runat="server" CssClass="yafcssimagebutton" Visible="false" TextLocalizedPage="POSTS"
-				TextLocalizedTag="REPORTPOST" ImageThemeTag="REPORT_POST" TitleLocalizedTag="REPORTPOST_TITLE"></YAF:ThemeButton>		
+        <YAF:ThemeButton ID="ReportPost" runat="server" 
+            CssClass="yafcssimagebutton" Visible="false" 
+            TextLocalizedPage="POSTS" TextLocalizedTag="REPORTPOST" 
+            ImageThemeTag="REPORT_POST" TitleLocalizedTag="REPORTPOST_TITLE">
+        </YAF:ThemeButton>
+	    <YAF:ThemeButton ID="MarkAsAnswer" runat="server" Visible="false" CssClass="btn btn-primary btn-sm"
+            TextLocalizedPage="POSTS" TextLocalizedTag="MARK_ANSWER" TitleLocalizedTag="MARK_ANSWER_TITLE"
+            Icon="check-square-o" OnClick="MarkAsAnswerClick">
+	    </YAF:ThemeButton>	
 	</div>
 </div>

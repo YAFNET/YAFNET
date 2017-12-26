@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Core
+namespace YAF.Core.Helpers
 {
     using System;
     using System.Data;
@@ -40,27 +40,27 @@ namespace YAF.Core
         /// <summary>
         /// The _forum flags.
         /// </summary>
-        private ForumFlags _forumFlags;
+        private ForumFlags forumFlags;
 
         /// <summary>
         /// The _message flags.
         /// </summary>
-        private MessageFlags _messageFlags;
+        private MessageFlags messageFlags;
 
         /// <summary>
         /// The current data row for this post.
         /// </summary>
-        private DataRow _row;
+        private DataRow row;
 
         /// <summary>
         /// The _topic flags.
         /// </summary>
-        private TopicFlags _topicFlags;
+        private TopicFlags topicFlags;
 
         /// <summary>
         /// The _user profile.
         /// </summary>
-        private YafUserProfile _userProfile;
+        private YafUserProfile userProfile;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PostDataHelperWrapper"/> class.
@@ -78,7 +78,7 @@ namespace YAF.Core
         public PostDataHelperWrapper(DataRow dataRow)
             : this()
         {
-            DataRow = dataRow;
+            this.DataRow = dataRow;
         }
 
         /// <summary>
@@ -88,25 +88,25 @@ namespace YAF.Core
         {
             get
             {
-                return this._row;
+                return this.row;
             }
 
             set
             {
-                this._row = value;
+                this.row = value;
 
                 // get all flags for forum, topic and message
-                if (this._row != null)
+                if (this.row != null)
                 {
-                    this._forumFlags = new ForumFlags(this._row["ForumFlags"]);
-                    this._topicFlags = new TopicFlags(this._row["TopicFlags"]);
-                    this._messageFlags = new MessageFlags(this._row["Flags"]);
+                    this.forumFlags = new ForumFlags(this.row["ForumFlags"]);
+                    this.topicFlags = new TopicFlags(this.row["TopicFlags"]);
+                    this.messageFlags = new MessageFlags(this.row["Flags"]);
                 }
                 else
                 {
-                    this._forumFlags = new ForumFlags(0);
-                    this._topicFlags = new TopicFlags(0);
-                    this._messageFlags = new MessageFlags(0);
+                    this.forumFlags = new ForumFlags(0);
+                    this.topicFlags = new TopicFlags(0);
+                    this.messageFlags = new MessageFlags(0);
                 }
             }
         }
@@ -118,18 +118,18 @@ namespace YAF.Core
         {
             get
             {
-                if (this._userProfile != null)
+                if (this.userProfile != null)
                 {
-                    return this._userProfile;
+                    return this.userProfile;
                 }
 
                 // setup instance of the user profile...
                 if (this.DataRow != null)
                 {
-                    this._userProfile = YafUserProfile.GetProfile(UserMembershipHelper.GetUserNameFromID(this.UserId));
+                    this.userProfile = YafUserProfile.GetProfile(UserMembershipHelper.GetUserNameFromID(this.UserId));
                 }
 
-                return this._userProfile;
+                return this.userProfile;
             }
         }
 
@@ -154,7 +154,7 @@ namespace YAF.Core
         {
             get
             {
-                return this.DataRow != null ? this.DataRow["MessageID"].ToType<int>() : 0;
+                return this.DataRow?["MessageID"].ToType<int>() ?? 0;
             }
         }
 
@@ -168,7 +168,7 @@ namespace YAF.Core
         {
             get
             {
-                return this.DataRow != null ? this.DataRow["TopicID"].ToType<int>() : 0;
+                return this.DataRow?["TopicID"].ToType<int>() ?? 0;
             }
         }
 
@@ -180,7 +180,7 @@ namespace YAF.Core
         {
             get
             {
-                return this._messageFlags != null && this._messageFlags.IsLocked;
+                return this.messageFlags != null && this.messageFlags.IsLocked;
             }
         }
 
@@ -194,7 +194,7 @@ namespace YAF.Core
         {
             get
             {
-                return DataRow["IP"].ToString() == "none";
+                return this.DataRow["IP"].ToString() == "none";
             }
         }
 
@@ -205,7 +205,7 @@ namespace YAF.Core
         {
             get
             {
-                return DataRow["UserID"].ToType<int>() != YafContext.Current.PageUserID;
+                return this.DataRow["UserID"].ToType<int>() != YafContext.Current.PageUserID;
             }
         }
 
@@ -218,11 +218,10 @@ namespace YAF.Core
             {
                 // Ederon : 9/9/2007 - moderaotrs can edit locked posts
                 // Ederon : 12/5/2007 - new flags implementation
-                return ((!this.PostLocked && !this._forumFlags.IsLocked && !this._topicFlags.IsLocked
-                         && (((this.UserId == YafContext.Current.PageUserID) && !DataRow["IsGuest"].ToType<bool>())
-                             || (DataRow["IsGuest"].ToType<bool>()
-                                 && (DataRow["IP"].ToString()
-                                     == YafContext.Current.CurrentForumPage.Request.GetUserRealIPAddress()))))
+                return (!this.PostLocked && !this.forumFlags.IsLocked && !this.topicFlags.IsLocked
+                        && (this.UserId == YafContext.Current.PageUserID && !this.DataRow["IsGuest"].ToType<bool>()
+                            || this.DataRow["IsGuest"].ToType<bool>() && this.DataRow["IP"].ToString()
+                            == YafContext.Current.CurrentForumPage.Request.GetUserRealIPAddress())
                         || YafContext.Current.ForumModeratorAccess) && YafContext.Current.ForumEditAccess;
             }
         }
@@ -235,7 +234,7 @@ namespace YAF.Core
             get
             {
                 // post is explicitly locked
-                if (this._messageFlags.IsLocked)
+                if (this.messageFlags.IsLocked)
                 {
                     return true;
                 }
@@ -254,13 +253,24 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// Gets a value indicating whether PostDeleted.
+        /// Gets a value indicating whether Post is Deleted.
         /// </summary>
         public bool PostDeleted
         {
             get
             {
-                return this._messageFlags.IsDeleted;
+                return this.messageFlags.IsDeleted;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether PostDeleted.
+        /// </summary>
+        public bool PostIsAnswer
+        {
+            get
+            {
+                return this.messageFlags.IsAnswer;
             }
         }
 
@@ -272,8 +282,8 @@ namespace YAF.Core
             get
             {
                 // Ederon : 9/9/2007 - moderaotrs can attack to locked posts
-                return ((!this.PostLocked && !this._forumFlags.IsLocked && !this._topicFlags.IsLocked
-                         && this.UserId == YafContext.Current.PageUserID) || YafContext.Current.ForumModeratorAccess)
+                return (!this.PostLocked && !this.forumFlags.IsLocked && !this.topicFlags.IsLocked
+                        && this.UserId == YafContext.Current.PageUserID || YafContext.Current.ForumModeratorAccess)
                        && YafContext.Current.ForumUploadAccess;
             }
         }
@@ -287,11 +297,10 @@ namespace YAF.Core
             {
                 // Ederon : 9/9/2007 - moderators can delete in locked posts
                 // vzrus : only guests with the same IP can delete guest posts 
-                return ((!this.PostLocked && !this._forumFlags.IsLocked && !this._topicFlags.IsLocked
-                         && (((this.UserId == YafContext.Current.PageUserID) && !DataRow["IsGuest"].ToType<bool>())
-                             || (DataRow["IsGuest"].ToType<bool>()
-                                 && (DataRow["IP"].ToString()
-                                     == YafContext.Current.CurrentForumPage.Request.GetUserRealIPAddress()))))
+                return (!this.PostLocked && !this.forumFlags.IsLocked && !this.topicFlags.IsLocked
+                        && (this.UserId == YafContext.Current.PageUserID && !this.DataRow["IsGuest"].ToType<bool>()
+                            || this.DataRow["IsGuest"].ToType<bool>() && this.DataRow["IP"].ToString()
+                            == YafContext.Current.CurrentForumPage.Request.GetUserRealIPAddress())
                         || YafContext.Current.ForumModeratorAccess) && YafContext.Current.ForumDeleteAccess;
             }
         }
@@ -315,7 +324,7 @@ namespace YAF.Core
             get
             {
                 // Ederon : 9/9/2007 - moderaotrs can reply in locked posts
-                return ((!this._messageFlags.IsLocked && !this._forumFlags.IsLocked && !this._topicFlags.IsLocked)
+                return (!this.messageFlags.IsLocked && !this.forumFlags.IsLocked && !this.topicFlags.IsLocked
                         || YafContext.Current.ForumModeratorAccess) && YafContext.Current.ForumReplyAccess;
             }
         }

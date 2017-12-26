@@ -10467,6 +10467,12 @@ if @EventTypeID is null
 end
 GO
 
+create procedure [{databaseOwner}].[{objectQualifier}message_update_flags](@MessageID int, @Flags int) as
+begin
+        update [{databaseOwner}].[{objectQualifier}Message] set Flags=@Flags where MessageID=@MessageID
+end
+GO
+
 create procedure [{databaseOwner}].[{objectQualifier}user_savestyle](@GroupID int, @RankID int)  as
 
 begin

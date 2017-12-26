@@ -4961,6 +4961,7 @@ public class Hello1
     <Resource tag="FACEBOOK_TITLE">Visita el perfil de Facebook de {0}</Resource>
     <Resource tag="FACEBOOK_TOPIC">"Me gusta" a este tema</Resource>
     <Resource tag="FORUM_JUMP">Salto de foro</Resource>
+    <Resource tag="GO_TO_ANSWER">Go to the topic answer</Resource>
     <Resource tag="GOOGLE">Google+</Resource>
     <Resource tag="GOOGLE_TITLE">Visita el perfil de Google+ de {0}</Resource>
     <Resource tag="GOOGLEPLUS_TOPIC">Compartir en Google+</Resource>
@@ -4986,7 +4987,11 @@ public class Hello1
     <Resource tag="LINKBACK_TOPIC_PROMT">Usa la URL de abajo si quieres "LinkBack" la URL del tema en otro sitio web.</Resource>
     <Resource tag="LOCATION">Ubicación</Resource>
     <Resource tag="MARK_ANSWER">Mark As Answer</Resource>
+    <Resource tag="MARK_ANSWER_REMOVE">Remove As Answer</Resource>
+    <Resource tag="MARK_ANSWER_REMOVE_TITLE">Unmark this Message as answer</Resource>
     <Resource tag="MARK_ANSWER_TITLE">Mark this Message as answer</Resource>
+    <Resource tag="MESSAGE_ANSWER">Answer</Resource>
+    <Resource tag="MESSAGE_ANSWER_HELP">Marked as answer</Resource>
     <Resource tag="MESSAGEDELETED_MOD">Mensaje eliminado por el Moderador.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Mensaje eliminado por el usuario.</Resource>
     <Resource tag="MSN">MSN</Resource>
