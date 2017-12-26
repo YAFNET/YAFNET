@@ -12,24 +12,42 @@
     CKEDITOR.plugins.add("autosave", {
         lang: 'ca,cs,de,en,es,fr,it,ja,nl,pl,pt-br,ru,sk,sv,zh,zh-cn', // %REMOVE_LINE_CORE%
         requires: 'notification',
-        version: "0.18.0",
+        version: "0.18.2",
         init: function (editor) {
-            // Default Config
+
+            // Look for autosave from config.js - this is a bit redundant but necessary
+            editor.config.autosave = 'autosave' in editor.config ? editor.config.autosave : {};
+            
+            // Prepare temp vars for constructing local storage SaveKey name
+            var _saveKeyPrefix = 'saveKeyPrefix' in editor.config.autosave ? editor.config.autosave.saveKeyPrefix : 'autosave',
+                _saveKeyIgnoreProto = 'saveKeyIgnoreProtocol' in editor.config.autosave ? editor.config.autosave.saveKeyIgnoreProtocol : false,
+                _saveKeyUrl = _saveKeyIgnoreProto ? window.location.href.replace(/https?:\/\//, '') : window.location.href,
+                _saveKeyDelimiter = 'saveKeyDelimiter' in editor.config.autosave ? editor.config.autosave.saveKeyDelimiter : '_',
+                _saveKeyAttribute = 'saveKeyAttribute' in editor.config.autosave ? editor.config.autosave.saveKeyAttribute : 'name';
+
+            if ('saveKeyIgnoreParams' in editor.config.autosave) {
+                CKEDITOR.tools.array.forEach(editor.config.autosave.saveKeyIgnoreParams,
+                    function() {
+                        _saveKeyUrl = autosaveRemoveUrlParam(this, null, _saveKeyUrl);
+                    });
+            }
+
+            // Construct default configuration
             var defaultConfig = {
                 delay: 10,
                 messageType: "notification",
                 saveDetectionSelectors: "a[href^='javascript:__doPostBack'][id*='Save'],a[id*='Cancel']",
                 saveOnDestroy: false,
                 NotOlderThen: 1440,
-                SaveKey: 'autosave_' + window.location + "_" + $('#' + editor.name).attr('name'),
+                SaveKey: _saveKeyPrefix + _saveKeyDelimiter + _saveKeyUrl + _saveKeyDelimiter + document.getElementById(editor.name).getAttribute(_saveKeyAttribute),
                 diffType: "sideBySide",
                 autoLoad: false
             };
 
-            // Get Config & Lang
+            // Extend CKEDITOR config and lang  - config also available at loadPlugin()
             var config = CKEDITOR.tools.extend(defaultConfig, editor.config.autosave || {}, true);
 
-            if (editor.plugins.textselection && config.messageType == "statusbar") {
+            if (editor.plugins.wordcount && config.messageType == "statusbar") {
                 config.messageType = "notification";
             }
 
@@ -47,37 +65,23 @@
             }, editor, null, 100);
 
             editor.on('instanceReady', function(){
-                if (typeof (jQuery) === 'undefined') {
-                    CKEDITOR.scriptLoader.load('//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js', function() {
-                        jQuery.noConflict();
-
-                        loadPlugin(editor, config);
-                    });
-
-                } else {
-                    CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('autosave') + 'js/extensions.min.js'), function() {
-                        loadPlugin(editor, config);
-                    });
-                }
+                CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('autosave') + 'js/extensions.min.js'), function() {
+                    loadPlugin(editor, config);
+                });
             }, editor, null, 100);
         }
     });
 
     function loadPlugin(editorInstance, config) {
-        var autoSaveKey = config.SaveKey != null ? config.SaveKey : 'autosave_' + window.location + "_" + $('#' + editorInstance.name).attr('name');
-        var notOlderThen = config.NotOlderThen != null ? config.NotOlderThen : 1440;
-        var saveOnDestroy = config.saveOnDestroy != null ? config.saveOnDestroy : false;
-        var saveDetectionSelectors =
-            config.saveDetectionSelectors != null ? config.saveDetectionSelectors : "a[href^='javascript:__doPostBack'][id*='Save'],a[id*='Cancel']";
 
-        CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(CKEDITOR.plugins.getPath('autosave') + 'js/extensions.min.js'), function() {
-            GenerateAutoSaveDialog(editorInstance, config, autoSaveKey);
+        GenerateAutoSaveDialog(editorInstance, config, config.SaveKey);
 
-            CheckForAutoSavedContent(editorInstance, config, autoSaveKey, notOlderThen);
-        });
+        CheckForAutoSavedContent(editorInstance, config, config.SaveKey, config.NotOlderThen);
 
-        jQuery(saveDetectionSelectors).click(function() {
-            RemoveStorage(autoSaveKey, editorInstance);
+        CKEDITOR.tools.array.forEach(CKEDITOR.document.find(config.saveDetectionSelectors).toArray(), function(el) {
+            el.$.addEventListener('click', function () {
+                RemoveStorage(config.SaveKey, editorInstance);
+            });
         });
 
         editorInstance.on('change', function() {
@@ -85,8 +89,8 @@
         });
 
         editorInstance.on('destroy', function() {
-            if (saveOnDestroy) {
-                SaveData(autoSaveKey, editorInstance, config);
+            if (config.saveOnDestroy) {
+                SaveData(config.SaveKey, editorInstance, config);
             }
         });
     }
@@ -109,7 +113,7 @@
             var editor = editorInstance,
                 autoSaveKey = configAutosave.SaveKey != null
                     ? configAutosave.SaveKey
-                    : 'autosave_' + window.location + "_" + $('#' + editor.name).attr('name');
+                    : 'autosave_' + window.location + "_" + document.getElementById(editor.name).getAttribute('name');
 
             SaveData(autoSaveKey, editor, configAutosave);
 
@@ -274,7 +278,7 @@
         } else {
             var messageType = config.messageType != null ? config.messageType : "notification";
 
-            if (editorInstance.plugins.textselection && messageType == "statusbar") {
+            if (editorInstance.plugins.wordcount && messageType == "statusbar") {
                 messageType = "notification";
             }
 
@@ -343,5 +347,38 @@
             }
         }
         return quotaExceeded;
+    }
+    // Querystring mitigator - Quick and dirty paste.
+    // I don't know who original author is for creds.
+    // https://stackoverflow.com/a/11654436/2418655
+    function autosaveRemoveUrlParam(key, value, url) {
+        if (!url) url = window.location.href;
+        var re = new RegExp("([?&])" + key + "=.*?(&|#|$)(.*)", "gi"),
+            hash;
+
+        if (re.test(url)) {
+            if (typeof value !== 'undefined' && value !== null) {
+                return url.replace(re, '$1' + key + "=" + value + '$2$3');
+            } else {
+                hash = url.split('#');
+                url = hash[0].replace(re, '$1$3').replace(/(&|\?)$/, '');
+                if (typeof hash[1] !== 'undefined' && hash[1] !== null) {
+                    url += '#' + hash[1];
+                }
+                return url;
+            }
+        } else {
+            if (typeof value !== 'undefined' && value !== null) {
+                var separator = url.indexOf('?') !== -1 ? '&' : '?';
+                hash = url.split('#');
+                url = hash[0] + separator + key + '=' + value;
+                if (typeof hash[1] !== 'undefined' && hash[1] !== null) {
+                    url += '#' + hash[1];
+                }
+                return url;
+            } else {
+                return url;
+            }
+        }
     }
 })();

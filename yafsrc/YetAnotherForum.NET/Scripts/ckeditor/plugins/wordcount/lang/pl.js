@@ -6,8 +6,8 @@ CKEDITOR.plugins.setLang('wordcount', 'pl', {
     WordCount: 'Słów:',
     CharCount: 'Znaków:',
     CharCountWithHTML: 'Znaków (wraz z kodem HTML):',
-    Paragraphs: 'Paragraphs:',
+    Paragraphs: 'Paragrafy:',
     pasteWarning: 'Zawartość nie może zostać wklejona, ponieważ przekracza dozwolony limit',
-    Selected: 'Selected: ',
+    Selected: 'Zaznaczono: ',
     title: 'Statystyka'
 });

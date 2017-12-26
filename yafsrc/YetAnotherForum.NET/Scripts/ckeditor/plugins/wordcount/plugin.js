@@ -4,8 +4,8 @@
  */
 
 CKEDITOR.plugins.add("wordcount", {
-    lang: "ar,ca,cs,da,de,el,en,es,eu,fa,fi,fr,he,hr,hu,it,ja,nl,no,pl,pt,pt-br,ru,sk,sv,tr,zh-cn", // %REMOVE_LINE_CORE%
-    version: 1.17,
+    lang: "ar,ca,cs,da,de,el,en,es,eu,fa,fi,fr,he,hr,hu,it,ja,nl,no,pl,pt,pt-br,ru,sk,sv,tr,zh-cn,zh", // %REMOVE_LINE_CORE%
+    version: "1.17.2",
     requires: 'htmlwriter,notification,undo',
     bbcodePluginLoaded: false,
     onLoad: function(editor) {
@@ -281,6 +281,10 @@ CKEDITOR.plugins.add("wordcount", {
         }
 
         function updateCounter(editorInstance) {
+            if(!counterElement(editorInstance)){
+                return;
+            }
+
             var paragraphs = 0,
                 wordCount = 0,
                 charCount = 0,

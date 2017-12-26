@@ -5,9 +5,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 CKEDITOR.plugins.setLang('wordcount', 'ja', {
     WordCount: '単語数:',
     CharCount: '文字数:',
-    CharCountWithHTML: '文字数 (with HTML):',
-    Paragraphs: 'Paragraphs:',
-    pasteWarning: 'Content can not be pasted because it is above the allowed limit',
-    Selected: 'Selected: ',
+    CharCountWithHTML: '文字数 (HTMLタグを含む):',
+    Paragraphs: '段落数:',
+    pasteWarning: '文字数/単語数の上限を超えるため、貼り付けできません。',
+    Selected: '選択中の字数:',
     title: 'ワードカウント'
 });

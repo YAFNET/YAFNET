@@ -58,7 +58,6 @@
     </Reference>
     <Reference Include="FarsiLibrary, Version=2.5.1.5, Culture=neutral, PublicKeyToken=d1bcbd1937c9d5a3, processorArchitecture=MSIL">
       <HintPath>..\packages\Farsi.Library.2.5.1.5\lib\net35\FarsiLibrary.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Omu.ValueInjecter, Version=3.1.1.0, Culture=neutral, PublicKeyToken=c7694541b0ac80e4, processorArchitecture=MSIL">
@@ -67,8 +66,8 @@
     <Reference Include="ServiceStack.Common, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
       <HintPath>..\packages\ServiceStack.Common.Signed.4.5.14\lib\net45\ServiceStack.Common.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
-      <HintPath>..\packages\ServiceStack.Interfaces.4.5.14\lib\portable-wp80+sl5+net45+win8+wpa81+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
+    <Reference Include="ServiceStack.Interfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Interfaces.5.0.0\lib\net45\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.OrmLite, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
       <HintPath>..\packages\ServiceStack.OrmLite.Signed.4.5.14\lib\net45\ServiceStack.OrmLite.dll</HintPath>
@@ -139,6 +138,7 @@
     <Compile Include="Helpers\DbInformationHelper.cs" />
     <Compile Include="Model\BannedEmailRepositoryExtensions.cs" />
     <Compile Include="Model\BannedNameRepositoryExtensions.cs" />
+    <Compile Include="Model\MessageRepositoryExtensions.cs" />
     <Compile Include="Model\ReplaceWordsRepositoryExtensions.cs" />
     <Compile Include="Model\SpamWordsRepositoryExtensions.cs" />
     <Compile Include="Model\UserRepositoryExtensions.cs" />
