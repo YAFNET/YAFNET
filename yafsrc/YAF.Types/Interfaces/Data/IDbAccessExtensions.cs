@@ -276,9 +276,13 @@ namespace YAF.Types.Interfaces.Data
                     OrmLiteConfig.DialectProvider.PrepareParameterizedInsertStatement<T>(command);
                     OrmLiteConfig.DialectProvider.SetParameterValues<T>(command, insert);
 
-                    return selectIdentity
-                               ? OrmLiteConfig.DialectProvider.InsertAndGetLastInsertId<T>(command)
-                               : dbAccess.ExecuteNonQuery(command, transaction);
+                    if (!selectIdentity)
+                    {
+                        return dbAccess.ExecuteNonQuery(command, transaction);
+                    }
+
+                    command.CommandText += OrmLiteConfig.DialectProvider.GetLastInsertIdSqlSuffix<T>();
+                    return command.ExecLongScalar();
                 }
             }
 
@@ -290,9 +294,14 @@ namespace YAF.Types.Interfaces.Data
                     OrmLiteConfig.DialectProvider.PrepareParameterizedInsertStatement<T>(command);
                     OrmLiteConfig.DialectProvider.SetParameterValues<T>(command, insert);
 
-                    return selectIdentity
-                               ? OrmLiteConfig.DialectProvider.InsertAndGetLastInsertId<T>(command)
-                               : dbAccess.ExecuteNonQuery(command, transaction);
+
+                    if (!selectIdentity)
+                    {
+                        return dbAccess.ExecuteNonQuery(command, transaction);
+                    }
+
+                    command.CommandText += OrmLiteConfig.DialectProvider.GetLastInsertIdSqlSuffix<T>();
+                    return command.ExecLongScalar();
                 }
             }
         }
