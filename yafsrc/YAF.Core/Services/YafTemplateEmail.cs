@@ -43,14 +43,9 @@ namespace YAF.Core.Services
         #region Fields
 
         /// <summary>
-        /// The _html enabled.
-        /// </summary>
-        private bool _htmlEnabled = true;
-
-        /// <summary>
         ///     The _template Parameters.
         /// </summary>
-        private IDictionary<string, string> _templateParams = new Dictionary<string, string>();
+        private IDictionary<string, string> templateParams = new Dictionary<string, string>();
 
         #endregion
 
@@ -97,18 +92,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///     Gets or sets a value indicating whether HtmlEnabled.
         /// </summary>
-        public bool HtmlEnabled
-        {
-            get
-            {
-                return this._htmlEnabled;
-            }
-
-            set
-            {
-                this._htmlEnabled = value;
-            }
-        }
+        public bool HtmlEnabled { get; set; }
 
         /// <summary>
         ///     Gets the service locator.
@@ -138,12 +122,12 @@ namespace YAF.Core.Services
         {
             get
             {
-                return this._templateParams;
+                return this.templateParams;
             }
 
             set
             {
-                this._templateParams = value;
+                this.templateParams = value;
             }
         }
 
@@ -154,7 +138,7 @@ namespace YAF.Core.Services
         /// <summary>
         /// The create watch.
         /// </summary>
-        /// <param name="topicID">
+        /// <param name="topicId">
         /// The topic id.
         /// </param>
         /// <param name="userId">
@@ -166,7 +150,7 @@ namespace YAF.Core.Services
         /// <param name="subject">
         /// The subject.
         /// </param>
-        public void CreateWatch(int topicID, int userId, MailAddress fromAddress, string subject)
+        public void CreateWatch(int topicId, int userId, MailAddress fromAddress, string subject)
         {
             var textBody = this.ProcessTemplate("{0}_TEXT".FormatWith(this.TemplateName)).Trim();
             var htmlBody = this.ProcessTemplate("{0}_HTML".FormatWith(this.TemplateName)).Trim();
@@ -178,7 +162,7 @@ namespace YAF.Core.Services
             }
 
             this.GetRepository<Mail>()
-                .CreateWatch(topicID, fromAddress.Address, fromAddress.DisplayName, subject, textBody, htmlBody, userId);
+                .CreateWatch(topicId, fromAddress.Address, fromAddress.DisplayName, subject, textBody, htmlBody, userId);
         }
 
         /// <summary>
@@ -196,9 +180,9 @@ namespace YAF.Core.Services
 
             if (email.IsSet())
             {
-                email = this._templateParams.Keys.Aggregate(
+                email = this.templateParams.Keys.Aggregate(
                     email,
-                    (current, key) => current.Replace(key, this._templateParams[key]));
+                    (current, key) => current.Replace(key, this.templateParams[key]));
             }
 
             return email;
@@ -267,7 +251,7 @@ namespace YAF.Core.Services
             else
             {
                 // just send directly
-                this.Get<ISendMail>().Send(fromAddress, toAddress, subject, textBody, htmlBody);
+                this.Get<ISendMail>().Send(fromAddress, toAddress, fromAddress, subject, textBody, htmlBody);
             }
         }
 

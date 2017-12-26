@@ -158,21 +158,21 @@ namespace YAF.Core.Services
                     {
                         if (ex is FormatException)
                         {
-#if (DEBUG)
-                            // email address is no good -- delete this email...
+#if (DEBUG) // email address is no good -- delete this email...
                             this.Logger.Debug(
                                 "Invalid Email Address: {0}, Exception: {1}",
                                 mailMessages[message].ToUser,
                                 ex.ToString());
 #else
-    // email address is no good -- delete this email...
-                                this.Logger.Log(
-                                    null,
-                                    this,
-                                    "Invalid Email Address: {0}, Exception: {1}".FormatWith(
-                                        mailMessages[message].ToUser,
-                                        ex.ToString()),
-                                    EventLogTypes.Warning);
+
+                            // email address is no good -- delete this email...
+                            this.Logger.Log(
+                                null,
+                                this,
+                                "Invalid Email Address: {0}, Exception: {1}".FormatWith(
+                                    mailMessages[message].ToUser,
+                                    ex.ToString()),
+                                EventLogTypes.Warning);
 #endif
                         }
                         else if (ex is SmtpException)
@@ -221,24 +221,23 @@ namespace YAF.Core.Services
                         }
                         else
                         {
-#if (DEBUG)
-                            // general exception...
+#if (DEBUG) // general exception...
                             this.Logger.Debug("SendMailThread General Exception: {0}", ex.ToString());
 #else
-    // general exception...
-                                this.Logger.Log(
-                                    null,
-                                    this,
-                                    "Exception Thrown in SendMail Thread: {0}".FormatWith(ex.ToString()),
-                                    EventLogTypes.Warning);
+
+                            // general exception...
+                            this.Logger.Log(
+                                null,
+                                this,
+                                "Exception Thrown in SendMail Thread: {0}".FormatWith(ex.ToString()),
+                                EventLogTypes.Warning);
 #endif
                         }
                     });
             }
             catch (Exception ex)
             {
-#if (DEBUG)
-                // general exception...
+#if (DEBUG) // general exception...
                 this.Logger.Debug("SendMailThread General Exception: {0}", ex.ToString());
 #else
 
@@ -281,16 +280,24 @@ namespace YAF.Core.Services
 
                 try
                 {
-                    MailAddress toEmailAddress = mail.ToUserName.IsSet()
+                    var toEmailAddress = mail.ToUserName.IsSet()
                                                      ? new MailAddress(mail.ToUser, mail.ToUserName)
                                                      : new MailAddress(mail.ToUser);
-                    MailAddress fromEmailAddress = mail.FromUserName.IsSet()
+                    var fromEmailAddress = mail.FromUserName.IsSet()
                                                        ? new MailAddress(mail.FromUser, mail.FromUserName)
                                                        : new MailAddress(mail.FromUser);
 
                     var newMessage = new MailMessage();
+
                     mailMessages.Add(newMessage, mail);
-                    newMessage.Populate(fromEmailAddress, toEmailAddress, mail.Subject, mail.Body, mail.BodyHtml);
+
+                    newMessage.Populate(
+                        fromEmailAddress,
+                        toEmailAddress,
+                        fromEmailAddress,
+                        mail.Subject,
+                        mail.Body,
+                        mail.BodyHtml);
                 }
                 catch (FormatException ex)
                 {

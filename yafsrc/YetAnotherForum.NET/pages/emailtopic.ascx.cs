@@ -24,28 +24,25 @@
 
 namespace YAF.Pages
 {
-    // YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
     using System.Web;
 
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Core.Extensions;
 
     #endregion
 
     /// <summary>
-    /// Summary description for emailtopic.
+    /// The Share Topic via email
     /// </summary>
     public partial class emailtopic : ForumPage
     {
@@ -64,59 +61,62 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Get<HttpRequestBase>().QueryString["t"] == null || !this.PageContext.ForumReadAccess ||
-                !this.PageContext.BoardSettings.AllowEmailTopic)
+            if (this.Get<HttpRequestBase>().QueryString["t"] == null || !this.PageContext.ForumReadAccess
+                || !this.PageContext.BoardSettings.AllowEmailTopic)
             {
                 YafBuildLink.AccessDenied();
             }
 
-            if (!this.IsPostBack)
+            if (this.IsPostBack)
             {
-                if (this.PageContext.Settings.LockedForum == 0)
-                {
-                    this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-                    this.PageLinks.AddLink(
-                      this.PageContext.PageCategoryName,
-                      YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
-                }
-
-                this.PageLinks.AddForum(this.PageContext.PageForumID);
-                this.PageLinks.AddLink(
-                  this.PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
-
-                this.SendEmail.Text = this.GetText("send");
-
-                this.Subject.Text = this.PageContext.PageTopicName;
-
-                var emailTopic = new YafTemplateEmail();
-
-                emailTopic.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
-                  ForumPages.posts, true, "t={0}", this.PageContext.PageTopicID);
-                emailTopic.TemplateParams["{user}"] = this.PageContext.PageUserName;
-
-                this.Message.Text = emailTopic.ProcessTemplate("EMAILTOPIC");
+                return;
             }
+
+            if (this.PageContext.Settings.LockedForum == 0)
+            {
+                this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+                this.PageLinks.AddLink(
+                    this.PageContext.PageCategoryName,
+                    YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+            }
+
+            this.PageLinks.AddForum(this.PageContext.PageForumID);
+            this.PageLinks.AddLink(
+                this.PageContext.PageTopicName,
+                YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
+
+            this.SendEmail.Text = this.GetText("send");
+
+            this.Subject.Text = this.PageContext.PageTopicName;
+
+            var emailTopic = new YafTemplateEmail
+                                 {
+                                     TemplateParams =
+                                         {
+                                             ["{link}"] =
+                                             YafBuildLink.GetLinkNotEscaped(
+                                                 ForumPages.posts,
+                                                 true,
+                                                 "t={0}",
+                                                 this.PageContext.PageTopicID),
+                                             ["{user}"] = this.PageContext.PageUserName
+                                         }
+                                 };
+
+            this.Message.Text = emailTopic.ProcessTemplate("EMAILTOPIC");
         }
 
         /// <summary>
-        /// The send email_ click.
+        /// Handles the Click event of the SendEmail control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void SendEmail_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.EmailAddress.Text.Length == 0)
@@ -127,16 +127,23 @@ namespace YAF.Pages
 
             try
             {
-                string senderEmail = null;
+                string senderEmail;
 
-                using (DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.PageContext.PageUserID, true))
+                using (var dataTable = LegacyDb.user_list(
+                    this.PageContext.PageBoardID,
+                    this.PageContext.PageUserID,
+                    true))
                 {
-                    senderEmail = (string)dt.Rows[0]["Email"];
+                    senderEmail = (string)dataTable.Rows[0]["Email"];
                 }
 
                 // send the email...
                 this.Get<ISendMail>().Send(
-                  senderEmail, this.EmailAddress.Text.Trim(), this.Subject.Text.Trim(), this.Message.Text.Trim());
+                    senderEmail,
+                    this.EmailAddress.Text.Trim(),
+                    this.PageContext.BoardSettings.ForumEmail,
+                    this.Subject.Text.Trim(),
+                    this.Message.Text.Trim());
 
                 YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
             }

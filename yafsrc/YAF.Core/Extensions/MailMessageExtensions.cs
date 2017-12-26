@@ -48,6 +48,7 @@ namespace YAF.Core.Extensions
         /// <param name="mailMessage">The mail message.</param>
         /// <param name="fromAddress">The from address.</param>
         /// <param name="toAddress">The to address.</param>
+        /// <param name="senderAddress">The sender address.</param>
         /// <param name="subject">The subject.</param>
         /// <param name="bodyText">The body text.</param>
         /// <param name="bodyHtml">The body html.</param>
@@ -56,6 +57,7 @@ namespace YAF.Core.Extensions
             [NotNull] this MailMessage mailMessage, 
             [NotNull] MailAddress fromAddress, 
             [NotNull] MailAddress toAddress, 
+            [NotNull] MailAddress senderAddress,
             [CanBeNull] string subject, 
             [CanBeNull] string bodyText, 
             [CanBeNull] string bodyHtml)
@@ -66,6 +68,9 @@ namespace YAF.Core.Extensions
 
             mailMessage.To.Add(toAddress);
             mailMessage.From = fromAddress;
+
+            mailMessage.Sender = senderAddress;
+
             mailMessage.Subject = subject;
 
             mailMessage.HeadersEncoding = Encoding.UTF8;

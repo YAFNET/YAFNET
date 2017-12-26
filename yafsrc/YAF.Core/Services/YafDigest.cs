@@ -187,6 +187,8 @@ namespace YAF.Core.Services
                     forumName,
                     toEmail,
                     toName,
+                    forumEmail,
+                    forumName,
                     subject,
                     "You must have HTML Email Viewer to View.",
                     digestHtml);

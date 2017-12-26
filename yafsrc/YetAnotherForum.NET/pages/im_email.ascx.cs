@@ -24,8 +24,6 @@
 
 namespace YAF.Pages
 {
-    // YAF.Pages
-
     #region Using
 
     using System;
@@ -65,7 +63,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets UserID.
         /// </summary>
-        public int UserID
+        public int UserId
         {
             get
             {
@@ -95,26 +93,28 @@ namespace YAF.Pages
             }
 
             // get user data...
-            var user = UserMembershipHelper.GetMembershipUserById(this.UserID);
+            var user = UserMembershipHelper.GetMembershipUserById(this.UserId);
 
             if (user == null)
             {
-                YafBuildLink.AccessDenied( /*No such user exists*/);
+                YafBuildLink.AccessDenied(/*No such user exists*/);
             }
+            else
+            {
+                var displayName = UserMembershipHelper.GetDisplayNameFromID(this.UserId);
 
-            var displayName = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
+                this.PageLinks.AddRoot();
+                this.PageLinks.AddLink(
+                    this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName,
+                    YafBuildLink.GetLink(
+                        ForumPages.profile,
+                        "u={0}&name={1}",
+                        this.UserId,
+                        this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName));
+                this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName,
-                YafBuildLink.GetLink(
-                    ForumPages.profile,
-                    "u={0}&name={1}",
-                    this.UserID,
-                    this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName));
-            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-
-            this.Send.Text = this.GetText("SEND");
+                this.Send.Text = this.GetText("SEND");
+            }
         }
 
         /// <summary>
@@ -127,18 +127,19 @@ namespace YAF.Pages
             try
             {
                 // get "to" user...
-                var toUser = UserMembershipHelper.GetMembershipUserById(this.UserID);
+                var toUser = UserMembershipHelper.GetMembershipUserById(this.UserId);
 
                 // send it...
                 this.Get<ISendMail>()
                     .Send(
                         new MailAddress(this.PageContext.User.Email, this.PageContext.User.UserName),
                         new MailAddress(toUser.Email.Trim(), toUser.UserName.Trim()),
+                        new MailAddress(this.PageContext.BoardSettings.ForumEmail, this.PageContext.BoardSettings.Name), 
                         this.Subject.Text.Trim(),
                         this.Body.Text.Trim());
 
                 // redirect to profile page...
-                YafBuildLink.Redirect(ForumPages.profile, false, "u={0}", this.UserID);
+                YafBuildLink.Redirect(ForumPages.profile, false, "u={0}", this.UserId);
             }
             catch (Exception x)
             {

@@ -43,129 +43,102 @@ namespace YAF.Core.Extensions
         /// <summary>
         /// The send.
         /// </summary>
-        /// <param name="sendMail">
-        /// The send Mail.
-        /// </param>
-        /// <param name="fromEmail">
-        /// The from email.
-        /// </param>
-        /// <param name="toEmail">
-        /// The to email.
-        /// </param>
-        /// <param name="subject">
-        /// The subject.
-        /// </param>
-        /// <param name="body">
-        /// The body.
-        /// </param>
+        /// <param name="sendMail">The send Mail.</param>
+        /// <param name="fromEmail">The from email.</param>
+        /// <param name="toEmail">The to email.</param>
+        /// <param name="senderEmail">The sender email.</param>
+        /// <param name="subject">The subject.</param>
+        /// <param name="body">The body.</param>
         public static void Send(
-            [NotNull] this ISendMail sendMail, 
-            [NotNull] string fromEmail, 
-            [NotNull] string toEmail, 
-            [CanBeNull] string subject, 
+            [NotNull] this ISendMail sendMail,
+            [NotNull] string fromEmail,
+            [NotNull] string toEmail,
+            [NotNull] string senderEmail,
+            [CanBeNull] string subject,
             [CanBeNull] string body)
         {
             CodeContracts.VerifyNotNull(fromEmail, "fromEmail");
             CodeContracts.VerifyNotNull(toEmail, "toEmail");
 
-            sendMail.Send(new MailAddress(fromEmail), new MailAddress(toEmail), subject, body);
+            sendMail.Send(
+                new MailAddress(fromEmail),
+                new MailAddress(toEmail),
+                new MailAddress(senderEmail),
+                subject,
+                body);
         }
 
         /// <summary>
         /// The send.
         /// </summary>
-        /// <param name="sendMail">
-        /// The send mail.
-        /// </param>
-        /// <param name="fromEmail">
-        /// The from email.
-        /// </param>
-        /// <param name="fromName">
-        /// The from name.
-        /// </param>
-        /// <param name="toEmail">
-        /// The to email.
-        /// </param>
-        /// <param name="toName">
-        /// The to name.
-        /// </param>
-        /// <param name="subject">
-        /// The subject.
-        /// </param>
-        /// <param name="bodyText">
-        /// The body text.
-        /// </param>
-        /// <param name="bodyHtml">
-        /// The body html.
-        /// </param>
+        /// <param name="sendMail">The send mail.</param>
+        /// <param name="fromEmail">The from email.</param>
+        /// <param name="fromName">The from name.</param>
+        /// <param name="toEmail">The to email.</param>
+        /// <param name="toName">The to name.</param>
+        /// <param name="senderEmail">The sender email.</param>
+        /// <param name="senderName">Name of the sender.</param>
+        /// <param name="subject">The subject.</param>
+        /// <param name="bodyText">The body text.</param>
+        /// <param name="bodyHtml">The body html.</param>
         public static void Send(
-            [NotNull] this ISendMail sendMail, 
-            [NotNull] string fromEmail, 
-            [CanBeNull] string fromName, 
-            [NotNull] string toEmail, 
-            [CanBeNull] string toName, 
-            [CanBeNull] string subject, 
-            [CanBeNull] string bodyText, 
+            [NotNull] this ISendMail sendMail,
+            [NotNull] string fromEmail,
+            [CanBeNull] string fromName,
+            [NotNull] string toEmail,
+            [CanBeNull] string toName,
+            [NotNull] string senderEmail,
+            [CanBeNull] string senderName,
+            [CanBeNull] string subject,
+            [CanBeNull] string bodyText,
             [CanBeNull] string bodyHtml)
         {
-            sendMail.Send(new MailAddress(fromEmail, fromName), new MailAddress(toEmail, toName), subject, bodyText, bodyHtml);
+            sendMail.Send(
+                new MailAddress(fromEmail, fromName),
+                new MailAddress(toEmail, toName),
+                new MailAddress(senderEmail, senderName),
+                subject,
+                bodyText,
+                bodyHtml);
         }
 
         /// <summary>
         /// The send.
         /// </summary>
-        /// <param name="sendMail">
-        /// The send Mail.
-        /// </param>
-        /// <param name="fromAddress">
-        /// The from address.
-        /// </param>
-        /// <param name="toAddress">
-        /// The to address.
-        /// </param>
-        /// <param name="subject">
-        /// The subject.
-        /// </param>
-        /// <param name="bodyText">
-        /// The body text.
-        /// </param>
+        /// <param name="sendMail">The send Mail.</param>
+        /// <param name="fromAddress">The from address.</param>
+        /// <param name="toAddress">The to address.</param>
+        /// <param name="senderAddress">The sender address.</param>
+        /// <param name="subject">The subject.</param>
+        /// <param name="bodyText">The body text.</param>
         public static void Send(
-            [NotNull] this ISendMail sendMail, 
-            [NotNull] MailAddress fromAddress, 
-            [NotNull] MailAddress toAddress, 
-            [CanBeNull] string subject, 
+            [NotNull] this ISendMail sendMail,
+            [NotNull] MailAddress fromAddress,
+            [NotNull] MailAddress toAddress,
+            [NotNull] MailAddress senderAddress,
+            [CanBeNull] string subject,
             [CanBeNull] string bodyText)
         {
-            sendMail.Send(fromAddress, toAddress, subject, bodyText, null);
+            sendMail.Send(fromAddress, toAddress, senderAddress, subject, bodyText, null);
         }
 
         /// <summary>
         /// The send.
         /// </summary>
-        /// <param name="sendMail">
-        /// The send mail.
-        /// </param>
-        /// <param name="fromAddress">
-        /// The from address.
-        /// </param>
-        /// <param name="toAddress">
-        /// The to address.
-        /// </param>
-        /// <param name="subject">
-        /// The subject.
-        /// </param>
-        /// <param name="bodyText">
-        /// The body text.
-        /// </param>
-        /// <param name="bodyHtml">
-        /// The body html.
-        /// </param>
+        /// <param name="sendMail">The send mail.</param>
+        /// <param name="fromAddress">The from address.</param>
+        /// <param name="toAddress">The to address.</param>
+        /// <param name="senderAddress">The sender address.</param>
+        /// <param name="subject">The subject.</param>
+        /// <param name="bodyText">The body text.</param>
+        /// <param name="bodyHtml">The body html.</param>
         public static void Send(
-            [NotNull] this ISendMail sendMail, 
-            [NotNull] MailAddress fromAddress, 
-            [NotNull] MailAddress toAddress, 
-            [CanBeNull] string subject, 
-            [CanBeNull] string bodyText, 
+            [NotNull] this ISendMail sendMail,
+            [NotNull] MailAddress fromAddress,
+            [NotNull] MailAddress toAddress,
+            [NotNull] MailAddress senderAddress,
+            [CanBeNull] string subject,
+            [CanBeNull] string bodyText,
             [CanBeNull] string bodyHtml)
         {
             CodeContracts.VerifyNotNull(sendMail, "sendMail");
@@ -173,7 +146,7 @@ namespace YAF.Core.Extensions
             CodeContracts.VerifyNotNull(toAddress, "toAddress");
 
             var mailMessage = new MailMessage();
-            mailMessage.Populate(fromAddress, toAddress, subject, bodyText, bodyHtml);
+            mailMessage.Populate(fromAddress, toAddress, senderAddress, subject, bodyText, bodyHtml);
             sendMail.SendAll(new List<MailMessage> { mailMessage });
         }
 

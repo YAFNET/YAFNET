@@ -446,6 +446,7 @@ namespace YAF.Install
                     .Send(
                         this.txtTestFromEmail.Text.Trim(),
                         this.txtTestToEmail.Text.Trim(),
+                        this.txtTestFromEmail.Text.Trim(),
                         "Test Email From Yet Another Forum.NET",
                         "The email sending appears to be working from your YAF installation.");
 
