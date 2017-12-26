@@ -60,8 +60,8 @@
   {
     "outputFileName": "Content/jquery.fileupload.comb.css",
     "inputFiles": [
-      "Content/jQuery.FileUpload/css/jquery.fileupload-ui.css",
-      "Content/jQuery.FileUpload/css/jquery.fileupload.css"
+      "Content/jQuery.FileUpload/jquery.fileupload-ui.css",
+      "Content/jQuery.FileUpload/jquery.fileupload.css"
     ]
   },
   {

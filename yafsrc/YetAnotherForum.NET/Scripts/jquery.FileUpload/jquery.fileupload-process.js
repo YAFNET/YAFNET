@@ -6,13 +6,13 @@
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  */
 
 /* jshint nomen:false */
 /* global define, require, window */
 
-(function (factory) {
+;(function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
@@ -22,7 +22,10 @@
         ], factory);
     } else if (typeof exports === 'object') {
         // Node/CommonJS:
-        factory(require('jquery'));
+        factory(
+            require('jquery'),
+            require('./jquery.fileupload')
+        );
     } else {
         // Browser globals:
         factory(
@@ -51,7 +54,7 @@
             add: function (e, data) {
                 var $this = $(this);
                 data.process(function () {
-                    return $this.yafFileUpload('process', data);
+                    return $this.fileupload('process', data);
                 });
                 originalAdd.call(this, e, data);
             }

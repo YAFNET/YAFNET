@@ -1,4 +1,5 @@
-﻿/*
+@charset "UTF-8";
+/*
  * jQuery File Upload Plugin CSS
  * https://github.com/blueimp/jQuery-File-Upload
  *
@@ -6,7 +7,7 @@
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  */
 
 .fileinput-button {

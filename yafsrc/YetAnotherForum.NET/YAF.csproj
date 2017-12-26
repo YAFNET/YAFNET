@@ -1072,11 +1072,7 @@
       <DependentUpon>InstallWizard.css</DependentUpon>
     </Content>
     <Content Include="Content\jquery.bootstrap-touchspin.css" />
-    <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-noscript.css" />
-    <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-ui-noscript.css" />
-    <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload.css" />
-    <Content Include="Content\jQuery.FileUpload\img\loading.gif" />
-    <Content Include="Content\jQuery.FileUpload\img\progressbar.gif" />
+    <Content Include="Content\jQuery.FileUpload\jquery.fileupload.css" />
     <Content Include="Content\jquery.hovercard.css">
       <DependentUpon>jquery.hovercard.scss</DependentUpon>
     </Content>
@@ -1105,7 +1101,7 @@
     </Content>
     <Content Include="Content\images\InstallBackground.jpg" />
     <Content Include="Content\images\progressbar.gif" />
-    <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-ui.css" />
+    <Content Include="Content\jQuery.FileUpload\jquery.fileupload-ui.css" />
     <Content Include="Content\jquery.fileupload.comb.css" />
     <Content Include="Content\jquery.fileupload.comb.min.css">
       <DependentUpon>jquery.fileupload.comb.css</DependentUpon>
@@ -1825,8 +1821,10 @@
     <Content Include="Scripts\jquery.FileUpload\cors\jquery.postmessage-transport.js" />
     <Content Include="Scripts\jquery.FileUpload\cors\jquery.ui.widget.js" />
     <Content Include="Scripts\jquery.FileUpload\cors\jquery.xdr-transport.js" />
+    <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-angular.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-audio.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-image.js" />
+    <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-jquery-ui.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-process.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-ui.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-validate.js" />

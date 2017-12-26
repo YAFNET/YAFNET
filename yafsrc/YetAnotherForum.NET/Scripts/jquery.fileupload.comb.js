@@ -828,13 +828,13 @@
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  */
 
-/* global define, require, window, document */
+/* global define, require, window, document, JSON */
 
-(function (factory) {
-    /*'use strict';*/
+;(function (factory) {
+    'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
         define(['jquery'], factory);
@@ -849,7 +849,14 @@
     'use strict';
 
     // Helper variable to create unique names for the transport iframes:
-    var counter = 0;
+    var counter = 0,
+        jsonAPI = $,
+        jsonParse = 'parseJSON';
+
+    if ('JSON' in window && 'parse' in JSON) {
+      jsonAPI = JSON;
+      jsonParse = 'parse';
+    }
 
     // The iframe transport accepts four additional options:
     // options.fileInput: a jQuery collection of file input fields
@@ -1019,7 +1026,7 @@
                 return iframe && $(iframe[0].body).text();
             },
             'iframe json': function (iframe) {
-                return iframe && $.parseJSON($(iframe[0].body).text());
+                return iframe && jsonAPI[jsonParse]($(iframe[0].body).text());
             },
             'iframe html': function (iframe) {
                 return iframe && $(iframe[0].body).html();
@@ -1046,19 +1053,19 @@
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  */
 
 /* jshint nomen:false */
 /* global define, require, window, document, location, Blob, FormData */
 
-(function (factory) {
-    /*'use strict';*/
+;(function (factory) {
+    'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
         define([
             'jquery',
-            'jquery.ui.widget'
+            'jquery-ui/ui/widget'
         ], factory);
     } else if (typeof exports === 'object') {
         // Node/CommonJS:
@@ -1253,7 +1260,7 @@
                     return false;
                 }
                 if (data.autoUpload || (data.autoUpload !== false &&
-                        $(this).yafFileUpload('option', 'autoUpload'))) {
+                    $(this).yafFileUpload('option', 'autoUpload'))) {
                     data.process().done(function () {
                         data.submit();
                     });
@@ -1770,7 +1777,7 @@
                 promise = dfd.promise(),
                 jqXHR,
                 upload;
-            if (!(this._isXHRUpload(options) && slice && (ub || mcs < fs)) ||
+            if (!(this._isXHRUpload(options) && slice && (ub || ($.type(mcs) === 'function' ? mcs(options) : mcs) < fs)) ||
                     options.data) {
                 return false;
             }
@@ -1793,7 +1800,7 @@
                 o.blob = slice.call(
                     file,
                     ub,
-                    ub + mcs,
+                    ub + ($.type(mcs) === 'function' ? mcs(o) : mcs),
                     file.type
                 );
                 // Store the current chunk size, as the blob itself
@@ -2120,6 +2127,8 @@
         _handleFileTreeEntry: function (entry, path) {
             var that = this,
                 dfd = $.Deferred(),
+                entries = [],
+                dirReader,
                 errorHandler = function (e) {
                     if (e && !e.entry) {
                         e.entry = entry;
@@ -2147,8 +2156,7 @@
                             readEntries();
                         }
                     }, errorHandler);
-                },
-                dirReader, entries = [];
+                };
             path = path || '';
             if (entry.isFile) {
                 if (entry._file) {
@@ -2351,6 +2359,10 @@
             this._off(this.options.fileInput, 'change');
         },
 
+        _destroy: function () {
+            this._destroyEventHandlers();
+        },
+
         _setOption: function (key, value) {
             var reinit = $.inArray(key, this._specialOptions) !== -1;
             if (reinit) {
@@ -2524,13 +2536,13 @@
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  */
 
 /* jshint nomen:false */
 /* global define, require, window */
 
-(function (factory) {
+;(function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
@@ -2540,7 +2552,10 @@
         ], factory);
     } else if (typeof exports === 'object') {
         // Node/CommonJS:
-        factory(require('jquery'));
+        factory(
+            require('jquery'),
+            require('./jquery.fileupload')
+        );
     } else {
         // Browser globals:
         factory(
@@ -2569,7 +2584,7 @@
             add: function (e, data) {
                 var $this = $(this);
                 data.process(function () {
-                    return $this.yafFileUpload('process', data);
+                    return $this.fileupload('process', data);
                 });
                 originalAdd.call(this, e, data);
             }
@@ -2700,13 +2715,13 @@
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  */
 
 /* jshint nomen:false */
 /* global define, require, window, Blob */
 
-(function (factory) {
+;(function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
@@ -2714,6 +2729,7 @@
             'jquery',
             'load-image',
             'load-image-meta',
+            'load-image-scale',
             'load-image-exif',
             'canvas-to-blob',
             './jquery.fileupload-process'
@@ -2724,6 +2740,7 @@
             require('jquery'),
             require('blueimp-load-image/js/load-image'),
             require('blueimp-load-image/js/load-image-meta'),
+            require('blueimp-load-image/js/load-image-scale'),
             require('blueimp-load-image/js/load-image-exif'),
             require('blueimp-canvas-to-blob'),
             require('./jquery.fileupload-process')
@@ -3025,12 +3042,12 @@
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  */
 
 /* global define, require, window */
 
-(function (factory) {
+;(function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
@@ -3040,7 +3057,10 @@
         ], factory);
     } else if (typeof exports === 'object') {
         // Node/CommonJS:
-        factory(require('jquery'));
+        factory(
+            require('jquery'),
+            require('./jquery.fileupload-process')
+        );
     } else {
         // Browser globals:
         factory(
@@ -3148,19 +3168,19 @@
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  */
 
 /* jshint nomen:false */
 /* global define, require, window */
 
-(function (factory) {
+;(function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
         define([
             'jquery',
-            'tmpl',
+            'blueimp-tmpl',
             './jquery.fileupload-image',
             './jquery.fileupload-audio',
             './jquery.fileupload-video',
@@ -3170,7 +3190,11 @@
         // Node/CommonJS:
         factory(
             require('jquery'),
-            require('tmpl')
+            require('blueimp-tmpl'),
+            require('./jquery.fileupload-image'),
+            require('./jquery.fileupload-audio'),
+            require('./jquery.fileupload-video'),
+            require('./jquery.fileupload-validate')
         );
     } else {
         // Browser globals:
@@ -3239,7 +3263,7 @@
                     return false;
                 }
                 var $this = $(this),
-                    that = $this.data('blueimp-yafFileUpload'),
+                    that = $this.data('blueimp-yafFileUpload') ,
                     options = that.options;
                 data.context = that._renderUpload(data.files)
                     .data('data', data)
