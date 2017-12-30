@@ -1,6 +1,7 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjï¿½rnar Henden
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -20,44 +21,33 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Data.MsSql
 {
-    using ServiceStack.OrmLite;
-
-    using YAF.Core.Data;
-    using YAF.Types.Attributes;
-    using YAF.Types.Interfaces;
+    using ServiceStack.OrmLite.SqlServer;
 
     /// <summary>
-    /// The set MS SQL dialect event.
+    /// The YAF SQL Server 2012 ORM lite dialect provider.
     /// </summary>
-    [ExportService(ServiceLifetimeScope.InstancePerDependancy, new[] { typeof(IHandleEvent<InitDatabaseProviderEvent>) })]
-    public class SetMsSqlDialectEvent : IHandleEvent<InitDatabaseProviderEvent>
+    public class YafSqlServer2012OrmLiteDialectProvider : SqlServer2012OrmLiteDialectProvider
     {
-        #region Public Properties
+        #region Static Fields
 
         /// <summary>
-        ///     Gets the order.
+        /// The instance.
         /// </summary>
-        public int Order => 1000;
+        public static new YafSqlServer2012OrmLiteDialectProvider Instance = new YafSqlServer2012OrmLiteDialectProvider();
 
         #endregion
 
-        #region Public Methods and Operators
+        #region Constructors and Destructors
 
         /// <summary>
-        /// The handle.
+        /// Initializes a new instance of the <see cref="YafSqlServer2012OrmLiteDialectProvider"/> class.
         /// </summary>
-        /// <param name="event">
-        /// The event.
-        /// </param>
-        public void Handle(InitDatabaseProviderEvent @event)
+        public YafSqlServer2012OrmLiteDialectProvider()
         {
-            if (@event.ProviderName == MsSqlDbAccess.ProviderTypeName)
-            {
-                // set the OrmLite dialect provider...
-                OrmLiteConfig.DialectProvider = YafSqlServer2012OrmLiteDialectProvider.Instance;
-            }
+            this.NamingStrategy = new YafNamingStrategyBaseOverride();
         }
 
         #endregion

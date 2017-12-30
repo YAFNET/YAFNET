@@ -98,6 +98,8 @@
     <Compile Include="Search\SearchCondition.cs" />
     <Compile Include="Search\SearchConditionType.cs" />
     <Compile Include="SetMsSqlDialectEvent.cs" />
+    <Compile Include="YafNamingStrategyBaseOverride.cs" />
+    <Compile Include="YafSqlServer2012OrmLiteDialectProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">

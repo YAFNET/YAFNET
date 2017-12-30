@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="BaseMsSqlFunction.cs" company="">
-//   
+//
 // </copyright>
 // <summary>
 //   The base ms sql function.
@@ -13,10 +13,7 @@ namespace YAF.Data.MsSql
 	using System.Data;
 	using System.Data.SqlClient;
 
-	using ServiceStack.OrmLite;
-
 	using YAF.Types;
-	using YAF.Types.Interfaces;
 	using YAF.Types.Interfaces.Data;
 
 	/// <summary>
@@ -113,9 +110,9 @@ namespace YAF.Data.MsSql
 	    /// The execute.
 	    /// </returns>
 	    public virtual bool Execute(
-			DbFunctionType dbfunctionType, 
-			[NotNull] string operationName, 
-			[NotNull] IEnumerable<KeyValuePair<string, object>> parameters, 
+			DbFunctionType dbfunctionType,
+			[NotNull] string operationName,
+			[NotNull] IEnumerable<KeyValuePair<string, object>> parameters,
 			[CanBeNull] out object result,
             IDbTransaction transaction = null)
 		{
@@ -203,10 +200,10 @@ namespace YAF.Data.MsSql
 		/// </returns>
 		protected abstract bool RunOperation(
 			[NotNull] SqlConnection sqlConnection,
-            [NotNull] IDbTransaction dbTransaction, 
-			DbFunctionType dbfunctionType, 
-			[NotNull] string operationName, 
-			[NotNull] IEnumerable<KeyValuePair<string, object>> parameters, 
+            [NotNull] IDbTransaction dbTransaction,
+			DbFunctionType dbfunctionType,
+			[NotNull] string operationName,
+			[NotNull] IEnumerable<KeyValuePair<string, object>> parameters,
 			[CanBeNull] out object result);
 
 		/// <summary>
