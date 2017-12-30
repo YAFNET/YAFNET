@@ -39,6 +39,10 @@ IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{data
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}eventloggroupaccess_list]
 GO
 
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_update_flags]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_update_flags]
+GO
+
 IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_savestyle]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_savestyle]
 GO
@@ -6028,12 +6032,6 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}spam_words_delete](@ID int) AS
-BEGIN
-        DELETE FROM [{databaseOwner}].[{objectQualifier}Spam_Words] WHERE ID = @ID
-END
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}spam_words_list](@BoardID int, @Mask varchar(57) = null,@ID int=null,@PageIndex int=null, @PageSize int=null) as
     begin
 	    declare @TotalRows int
@@ -6098,27 +6096,6 @@ create procedure [{databaseOwner}].[{objectQualifier}spam_words_list](@BoardID i
 	        end
     end
 go
-
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}spam_words_save]
-(
-    @BoardID int,
-    @ID int = null,
-    @SpamWord nvarchar(255)
-)
-AS
-BEGIN
-        IF (@ID IS NOT NULL AND @ID <> 0)
-    BEGIN
-        UPDATE [{databaseOwner}].[{objectQualifier}Spam_Words] SET SpamWord = @SpamWord WHERE ID = @ID
-    END
-    ELSE BEGIN
-        INSERT INTO [{databaseOwner}].[{objectQualifier}Spam_Words]
-            (BoardId,SpamWord)
-        VALUES
-            (@BoardID,@SpamWord)
-    END
-END
-GO
 
 create procedure [{databaseOwner}].[{objectQualifier}smiley_delete](@SmileyID int=null) as begin
         if @SmileyID is not null

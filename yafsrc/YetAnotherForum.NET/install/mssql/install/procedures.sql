@@ -4713,12 +4713,6 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}spam_words_delete](@ID int) AS
-BEGIN
-        DELETE FROM [{databaseOwner}].[{objectQualifier}Spam_Words] WHERE ID = @ID
-END
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}spam_words_list](@BoardID int, @Mask varchar(57) = null,@ID int=null,@PageIndex int=null, @PageSize int=null) as
     begin
 	    declare @TotalRows int
@@ -4783,27 +4777,6 @@ create procedure [{databaseOwner}].[{objectQualifier}spam_words_list](@BoardID i
 	        end
     end
 go
-
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}spam_words_save]
-(
-    @BoardID int,
-    @ID int = null,
-    @SpamWord nvarchar(255)
-)
-AS
-BEGIN
-        IF (@ID IS NOT NULL AND @ID <> 0)
-    BEGIN
-        UPDATE [{databaseOwner}].[{objectQualifier}Spam_Words] SET SpamWord = @SpamWord WHERE ID = @ID
-    END
-    ELSE BEGIN
-        INSERT INTO [{databaseOwner}].[{objectQualifier}Spam_Words]
-            (BoardId,SpamWord)
-        VALUES
-            (@BoardID,@SpamWord)
-    END
-END
-GO
 
 create procedure [{databaseOwner}].[{objectQualifier}smiley_delete](@SmileyID int=null) as begin
         if @SmileyID is not null
