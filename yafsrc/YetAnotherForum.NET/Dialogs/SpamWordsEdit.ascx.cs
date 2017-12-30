@@ -131,7 +131,7 @@ namespace YAF.Dialogs
             else
             {
                 this.GetRepository<Spam_Words>().Save(
-                     spamWordID: this.SpamWordId,
+                     spamWordId: this.SpamWordId,
                      spamWord: this.spamword.Text);
 
                  this.Get<IDataCache>().Remove(Constants.Cache.SpamWords);

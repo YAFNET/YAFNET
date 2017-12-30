@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,12 +27,10 @@ namespace YAF.Core
     #region Using
 
     using System;
-    using System.Web.UI;
 
     using YAF.Classes.Data;
     using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
     using YAF.Utils;
 
     #endregion
@@ -63,7 +61,7 @@ namespace YAF.Core
             : base(transPage)
         {
             this.IsAdminPage = true;
-            this.Load += this.AdminPage_Load;
+            this.Load += this.AdminPageLoad;
         }
 
         #endregion
@@ -97,9 +95,12 @@ namespace YAF.Core
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void AdminPage_Load([NotNull] object sender, [NotNull] EventArgs e)
+        private void AdminPageLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.CreatePageLinks();
+            if (!this.IsPostBack)
+            {
+                this.CreatePageLinks();
+            }
             
             // not admins are forbidden
             if (!this.PageContext.IsAdmin)

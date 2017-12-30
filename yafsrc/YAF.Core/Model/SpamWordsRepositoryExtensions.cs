@@ -26,6 +26,7 @@ namespace YAF.Core.Model
     using System.Collections.Generic;
     using System.Data;
 
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -103,28 +104,28 @@ namespace YAF.Core.Model
         /// Saves changes to a word.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="spamWordID">The spam word identifier.</param>
+        /// <param name="spamWordId">The spam word identifier.</param>
         /// <param name="spamWord">The spam word.</param>
         /// <param name="boardId">The board identifier.</param>
         public static void Save(
             this IRepository<Spam_Words> repository,
-            int? spamWordID,
+            int? spamWordId,
             string spamWord,
             int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Query.spam_words_save(
-                ID: spamWordID,
-                BoardID: boardId ?? repository.BoardID,
-                spamword: spamWord);
-
-            if (spamWordID.HasValue)
+            if (spamWordId.HasValue)
             {
-                repository.FireUpdated(spamWordID);
+                repository.Update(
+                    new Spam_Words { BoardID = boardId ?? repository.BoardID, ID = spamWordId.Value, SpamWord = spamWord });
+
+                repository.FireUpdated(spamWordId);
             }
             else
             {
+                repository.Insert(new Spam_Words { BoardID = boardId ?? repository.BoardID, SpamWord = spamWord });
+
                 repository.FireNew();
             }
         }

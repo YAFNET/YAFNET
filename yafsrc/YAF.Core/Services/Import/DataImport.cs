@@ -398,7 +398,7 @@ namespace YAF.Core.Services.Import
                     .Where(row => spamWordsList.Select("spamword = '{0}'".FormatWith(row["spamword"])).Length == 0))
             {
                 // add this...
-                repository.Save(spamWordID: null, spamWord: row["spamword"].ToString());
+                repository.Save(spamWordId: null, spamWord: row["spamword"].ToString());
                 importedCount++;
             }
 
