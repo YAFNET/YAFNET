@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdminHeader.ascx.cs" Inherits="YAF.Controls.AdminHeader" %>
 <%@ Import Namespace="YAF.Classes" %>
 
-<a class="nav-link navbar-toggler hidden-sm-up" data-toggle="collapse" data-target=".navbar-toggleable-xs" aria-expanded="false" aria-label="Toggle navigation" href="#">
+<a class="nav-link navbar-toggler d-sm-none" data-toggle="collapse" data-target=".navbar-toggleable-xs" aria-expanded="false" aria-label="Toggle navigation" href="#">
                <i class="fa fa-navicon fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server" LocalizedPage="COMMON" LocalizedTag="MENU"></YAF:LocalizedLabel>
             </a>
 

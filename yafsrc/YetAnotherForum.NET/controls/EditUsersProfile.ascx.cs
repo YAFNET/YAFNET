@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,7 +33,6 @@ namespace YAF.Controls
     using System.Linq;
     using System.Net.Mail;
     using System.Text.RegularExpressions;
-    using System.Web;
     using System.Web.Security;
     using System.Web.UI.WebControls;
 
@@ -67,17 +66,17 @@ namespace YAF.Controls
         /// <summary>
         /// The current user id.
         /// </summary>
-        private int currentUserID;
+        private int currentUserId;
 
         /// <summary>
         /// The _user data.
         /// </summary>
-        private CombinedUserDataHelper _userData;
+        private CombinedUserDataHelper userData;
 
         /// <summary>
         /// The current culture information
         /// </summary>
-        private CultureInfo _currentCultureInfo;
+        private CultureInfo currentCultureInfo;
 
         #endregion
 
@@ -110,14 +109,14 @@ namespace YAF.Controls
         {
             get
             {
-                if (this._currentCultureInfo != null)
+                if (this.currentCultureInfo != null)
                 {
-                    return this._currentCultureInfo;
+                    return this.currentCultureInfo;
                 }
 
-                this._currentCultureInfo = CultureInfo.CreateSpecificCulture(this.GetCulture(true));
+                this.currentCultureInfo = CultureInfo.CreateSpecificCulture(this.GetCulture(true));
 
-                return this._currentCultureInfo;
+                return this.currentCultureInfo;
             }
         }
 
@@ -129,7 +128,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this._userData ?? (this._userData = new CombinedUserDataHelper(this.currentUserID));
+                return this.userData ?? (this.userData = new CombinedUserDataHelper(this.currentUserId));
             }
         }
 
@@ -185,11 +184,11 @@ namespace YAF.Controls
 
             if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
             {
-                this.currentUserID = this.PageContext.QueryIDs["u"].ToType<int>();
+                this.currentUserId = this.PageContext.QueryIDs["u"].ToType<int>();
             }
             else
             {
-                this.currentUserID = this.PageContext.PageUserID;
+                this.currentUserId = this.PageContext.PageUserID;
             }
 
             if (this.IsPostBack)
@@ -239,7 +238,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void UpdateProfile_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var userName = UserMembershipHelper.GetUserNameFromID(this.currentUserID);
+            var userName = UserMembershipHelper.GetUserNameFromID(this.currentUserId);
 
             if (this.HomePage.Text.IsSet())
             {
@@ -269,7 +268,7 @@ namespace YAF.Controls
                                 null,
                                 "Bot Detected",
                                 "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user changed the profile Homepage url to: {2}"
-                                    .FormatWith(userName, this.currentUserID, this.HomePage.Text),
+                                    .FormatWith(userName, this.currentUserId, this.HomePage.Text),
                                 EventLogTypes.SpamBotDetected);
                         }
                         else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
@@ -278,18 +277,18 @@ namespace YAF.Controls
                                 null,
                                 "Bot Detected",
                                 "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user changed the profile Homepage url to: {2}, user was deleted and the name, email and IP Address are banned."
-                                    .FormatWith(userName, this.currentUserID, this.HomePage.Text),
+                                    .FormatWith(userName, this.currentUserId, this.HomePage.Text),
                                 EventLogTypes.SpamBotDetected);
 
                             // Kill user
                             if (!this.PageContext.CurrentForumPage.IsAdminPage)
                             {
-                                var user = UserMembershipHelper.GetMembershipUserById(this.currentUserID);
-                                var userId = this.currentUserID;
+                                var user = UserMembershipHelper.GetMembershipUserById(this.currentUserId);
+                                var userId = this.currentUserId;
 
                                 var userIp = new CombinedUserDataHelper(user, userId).LastIP;
 
-                                UserMembershipHelper.DeleteAndBanUser(this.currentUserID, user, userIp);
+                                UserMembershipHelper.DeleteAndBanUser(this.currentUserId, user, userIp);
                             }
                         }
                     }
@@ -400,7 +399,7 @@ namespace YAF.Controls
                     // just update the e-mail...
                     try
                     {
-                        UserMembershipHelper.UpdateEmail(this.currentUserID, this.Email.Text.Trim());
+                        UserMembershipHelper.UpdateEmail(this.currentUserId, this.Email.Text.Trim());
                     }
                     catch (ApplicationException)
                     {
@@ -456,7 +455,7 @@ namespace YAF.Controls
             }
             else
             {
-                foreach (DataRow row in
+                foreach (var row in
                     StaticDataHelper.Cultures()
                         .Rows.Cast<DataRow>()
                         .Where(row => culture.ToString() == row["CultureTag"].ToString()))
@@ -467,7 +466,7 @@ namespace YAF.Controls
 
             // save remaining settings to the DB
             LegacyDb.user_save(
-                this.currentUserID,
+                this.currentUserId,
                 this.PageContext.PageBoardID,
                 null,
                 displayName,
@@ -486,7 +485,7 @@ namespace YAF.Controls
                 null);
 
             // vzrus: If it's a guest edited by an admin registry value should be changed
-            DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.currentUserID, true, null, null, false);
+            var dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.currentUserId, true, null, null, false);
 
             if (dt.HasRows() && dt.Rows[0]["IsGuest"].ToType<bool>())
             {
@@ -494,7 +493,7 @@ namespace YAF.Controls
             }
 
             // clear the cache for this user...)
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserID));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
 
             this.Get<IDataCache>().Clear();
 
@@ -504,7 +503,7 @@ namespace YAF.Controls
             }
             else
             {
-                this._userData = null;
+                this.userData = null;
                 this.BindData();
             }
         }
@@ -543,6 +542,7 @@ namespace YAF.Controls
         private void BindData()
         {
             this.TimeZones.DataSource = StaticDataHelper.TimeZones();
+
             if (this.Get<YafBoardSettings>().AllowUserTheme)
             {
                 this.Theme.DataSource = StaticDataHelper.Themes();
@@ -629,7 +629,7 @@ namespace YAF.Controls
 
             if (this.UserData.Profile.Country.IsSet())
             {
-                ListItem countryItem = this.Country.Items.FindByValue(this.UserData.Profile.Country.Trim());
+                var countryItem = this.Country.Items.FindByValue(this.UserData.Profile.Country.Trim());
                 if (countryItem != null)
                 {
                     countryItem.Selected = true;
@@ -638,14 +638,14 @@ namespace YAF.Controls
 
             if (this.UserData.Profile.Region.IsSet())
             {
-                ListItem regionItem = this.Region.Items.FindByValue(this.UserData.Profile.Region.Trim());
+                var regionItem = this.Region.Items.FindByValue(this.UserData.Profile.Region.Trim());
                 if (regionItem != null)
                 {
                     regionItem.Selected = true;
                 }
             }
 
-            ListItem timeZoneItem = this.TimeZones.Items.FindByValue(this.UserData.TimeZone.ToString());
+            var timeZoneItem = this.TimeZones.Items.FindByValue(this.UserData.TimeZone.ToString());
             if (timeZoneItem != null)
             {
                 timeZoneItem.Selected = true;
@@ -672,7 +672,7 @@ namespace YAF.Controls
                     themeFile = this.UserData.ThemeFile;
                 }
 
-                ListItem themeItem = this.Theme.Items.FindByValue(themeFile);
+                var themeItem = this.Theme.Items.FindByValue(themeFile);
                 if (themeItem != null)
                 {
                     themeItem.Selected = true;
@@ -704,7 +704,7 @@ namespace YAF.Controls
             }
 
             // If 2-letter language code is the same we return Culture, else we return a default full culture from language file
-            ListItem foundCultItem = this.Culture.Items.FindByValue(this.GetCulture(true));
+            var foundCultItem = this.Culture.Items.FindByValue(this.GetCulture(true));
 
             if (foundCultItem != null)
             {
@@ -729,18 +729,36 @@ namespace YAF.Controls
             var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
 
             // Create Email
-            var changeEmail = new YafTemplateEmail("CHANGEEMAIL");
+            var changeEmail = new YafTemplateEmail("CHANGEEMAIL")
+                                  {
+                                      TemplateParams =
+                                          {
+                                              ["{user}"] =
+                                              this.PageContext
+                                                  .PageUserName,
+                                              ["{link}"] =
+                                              "{0}\r\n\r\n".FormatWith(
+                                                  YafBuildLink
+                                                      .GetLinkNotEscaped(
+                                                          ForumPages
+                                                              .approve,
+                                                          true,
+                                                          "k={0}",
+                                                          hash)),
+                                              ["{newemail}"] =
+                                              this.Email.Text,
+                                              ["{key}"] = hash,
+                                              ["{forumname}"] =
+                                              this.Get<YafBoardSettings>()
+                                                  .Name,
+                                              ["{forumlink}"] =
+                                              YafForumInfo.ForumURL
+                                          }
+                                  };
 
-            changeEmail.TemplateParams["{user}"] = this.PageContext.PageUserName;
-            changeEmail.TemplateParams["{link}"] =
-                "{0}\r\n\r\n".FormatWith(YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash));
-            changeEmail.TemplateParams["{newemail}"] = this.Email.Text;
-            changeEmail.TemplateParams["{key}"] = hash;
-            changeEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-            changeEmail.TemplateParams["{forumlink}"] = YafForumInfo.ForumURL;
 
             // save a change email reference to the db
-            this.GetRepository<CheckEmail>().Save(this.currentUserID, hash, newEmail);
+            this.GetRepository<CheckEmail>().Save(this.currentUserId, hash, newEmail);
 
             // send a change email message...
             changeEmail.SendEmail(new MailAddress(newEmail), this.GetText("COMMON", "CHANGEEMAIL_SUBJECT"), true);
@@ -757,7 +775,7 @@ namespace YAF.Controls
         /// </param>
         private void UpdateUserProfile([NotNull] string userName)
         {
-            YafUserProfile userProfile = YafUserProfile.GetProfile(userName);
+            var userProfile = YafUserProfile.GetProfile(userName);
 
             userProfile.Country = this.Country.SelectedItem != null
                                       ? this.Country.SelectedItem.Value.Trim()
@@ -822,12 +840,12 @@ namespace YAF.Controls
             try
             {
                 // Sync to User Profile Mirror table while it's dirty
-                SettingsPropertyValueCollection settingsPropertyValueCollection = userProfile.PropertyValues;
+                var settingsPropertyValueCollection = userProfile.PropertyValues;
 
                 LegacyDb.SetPropertyValues(
                     this.PageContext.PageBoardID,
                     UserMembershipHelper.ApplicationName(),
-                    this.currentUserID,
+                    this.currentUserId,
                     settingsPropertyValueCollection);
             }
             catch (Exception ex)
@@ -849,7 +867,7 @@ namespace YAF.Controls
         /// <param name="country">The country.</param>
         private void LookForNewRegionsBind(string country)
         {
-            DataTable dt = StaticDataHelper.Region(country);
+            var dt = StaticDataHelper.Region(country);
 
             // The first row is empty
             if (dt.Rows.Count > 1)

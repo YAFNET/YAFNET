@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,6 +31,7 @@ namespace YAF.Pages.Admin
 
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -130,7 +131,7 @@ namespace YAF.Pages.Admin
                     YafBuildLink.Redirect(ForumPages.admin_editboard, "b={0}", e.CommandArgument);
                     break;
                 case "delete":
-                    this.GetRepository<Board>().Delete(e.CommandArgument.ToType<int>());
+                    this.GetRepository<Board>().DeleteById(e.CommandArgument.ToType<int>());
                     this.BindData();
                     break;
             }

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,7 +27,7 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Web;
@@ -37,7 +37,6 @@ namespace YAF.Pages.Admin
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -112,7 +111,7 @@ namespace YAF.Pages.Admin
                     break;
                 case "export":
                     {
-                        var bannedEmails = this.GetRepository<BannedEmail>().ListTyped();
+                        var bannedEmails = this.GetRepository<BannedEmail>().GetByBoardId();
 
                         this.Get<HttpResponseBase>().Clear();
                         this.Get<HttpResponseBase>().ClearContent();
@@ -138,7 +137,7 @@ namespace YAF.Pages.Admin
                     break;
                 case "delete":
                     {
-                        this.GetRepository<BannedEmail>().DeleteByID(e.CommandArgument.ToType<int>());
+                        this.GetRepository<BannedEmail>().DeleteById(e.CommandArgument.ToType<int>());
 
                         this.PageContext.AddLoadMessage(
                             this.GetText("ADMIN_BANNEDEMAIL", "MSG_REMOVEBAN_EMAIL"),
@@ -181,16 +180,28 @@ namespace YAF.Pages.Admin
 
             var searchText = this.SearchInput.Text.Trim();
 
-            var bannedList = this.GetRepository<BannedEmail>()
-                .List(
-                    mask: searchText.IsSet() ? searchText : null,
-                    pageIndex: this.PagerTop.CurrentPageIndex,
-                    pageSize: this.PagerTop.PageSize);
+            List<BannedEmail> bannedList;
+
+            if (searchText.IsSet())
+            {
+                bannedList = this.GetRepository<BannedEmail>().GetPaged(
+                    x => x.BoardID == this.PageContext.PageBoardID && x.Mask == searchText,
+                    this.PagerTop.CurrentPageIndex,
+                    this.PagerTop.PageSize);
+            }
+            else
+            {
+                bannedList = this.GetRepository<BannedEmail>().GetPaged(
+                    x => x.BoardID == this.PageContext.PageBoardID,
+                    this.PagerTop.CurrentPageIndex,
+                    this.PagerTop.PageSize);
+            }
 
             this.list.DataSource = bannedList;
 
-            this.PagerTop.Count = bannedList != null && bannedList.HasRows()
-                                      ? bannedList.AsEnumerable().First().Field<int>("TotalRows")
+            this.PagerTop.Count = bannedList != null && bannedList.Any()
+                                      ? this.GetRepository<BannedEmail>()
+                                          .Count(x => x.BoardID == this.PageContext.PageBoardID).ToType<int>()
                                       : 0;
 
             this.DataBind();

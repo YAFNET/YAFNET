@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,16 +27,16 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web;
     using System.Web.UI.WebControls;
+    using System.Xml.Linq;
 
     using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -123,16 +123,28 @@ namespace YAF.Pages.Admin
 
             var searchText = this.SearchInput.Text.Trim();
 
-            var bannedList = this.GetRepository<Spam_Words>()
-                .List(
-                    mask: searchText.IsSet() ? searchText : null,
-                    pageIndex: this.PagerTop.CurrentPageIndex,
-                    pageSize: this.PagerTop.PageSize);
+            List<Spam_Words> bannedList;
+
+            if (searchText.IsSet())
+            {
+                bannedList = this.GetRepository<Spam_Words>().GetPaged(
+                    x => x.BoardID == this.PageContext.PageBoardID && x.SpamWord == searchText,
+                    this.PagerTop.CurrentPageIndex,
+                    this.PagerTop.PageSize);
+            }
+            else
+            {
+                bannedList = this.GetRepository<Spam_Words>().GetPaged(
+                    x => x.BoardID == this.PageContext.PageBoardID,
+                    this.PagerTop.CurrentPageIndex,
+                    this.PagerTop.PageSize);
+            }
 
             this.list.DataSource = bannedList;
 
-            this.PagerTop.Count = bannedList != null && bannedList.HasRows()
-                                      ? bannedList.AsEnumerable().First().Field<int>("TotalRows")
+            this.PagerTop.Count = bannedList != null && bannedList.Any()
+                                      ? this.GetRepository<Spam_Words>()
+                                          .Count(x => x.BoardID == this.PageContext.PageBoardID).ToType<int>()
                                       : 0;
             this.DataBind();
         }
@@ -151,17 +163,15 @@ namespace YAF.Pages.Admin
                 "content-disposition",
                 "attachment; filename=SpamWordsExport.xml");
 
-            var spamwordDataTable = this.GetRepository<Spam_Words>().List();
+            var spamwordList =
+                this.GetRepository<Spam_Words>().GetByBoardId();
 
-            spamwordDataTable.DataSet.DataSetName = "YafSpamWordsList";
+            var element = new XElement(
+                "YafSpamWordsList",
+                from spamWord in spamwordList
+                select new XElement("YafSpamWords", new XElement("SpamWord", spamWord.SpamWord)));
 
-            spamwordDataTable.TableName = "YafSpamWords";
-
-            spamwordDataTable.Columns.Remove("ID");
-            spamwordDataTable.Columns.Remove("BoardID");
-            spamwordDataTable.Columns.Remove("TotalRows");
-
-            spamwordDataTable.DataSet.WriteXml(this.Response.OutputStream);
+            element.Save(this.Response.OutputStream);
 
             this.Get<HttpResponseBase>().Flush();
             this.Get<HttpResponseBase>().End();
@@ -193,7 +203,7 @@ namespace YAF.Pages.Admin
 
                     break;
                 case "delete":
-                    this.GetRepository<Spam_Words>().DeleteByID(e.CommandArgument.ToType<int>());
+                    this.GetRepository<Spam_Words>().DeleteById(e.CommandArgument.ToType<int>());
                     this.Get<IObjectStore>().Remove(Constants.Cache.SpamWords);
                     this.BindData();
                     break;

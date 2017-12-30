@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,6 +32,7 @@ namespace YAF.Pages.Admin
 
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -88,22 +89,17 @@ namespace YAF.Pages.Admin
                 {
                     int importedCount = 0;
 
-                    DataTable replaceWordsList = this.GetRepository<Replace_Words>().List();
+                    var replaceWordsList = this.GetRepository<Replace_Words>().GetByBoardId();
 
                     // import any extensions that don't exist...
-                    foreach (DataRow row in
-                        dsReplaceWords.Tables["YafReplaceWords"].Rows.Cast<DataRow>().Where(
-                            row =>
-                            replaceWordsList.Select(
-                                "badword = '{0}' AND goodword = '{1}'".FormatWith(row["badword"], row["goodword"])).Length == 0))
+                    foreach (DataRow row in dsReplaceWords.Tables["YafReplaceWords"].Rows)
                     {
-                        // add this...
-                        this.GetRepository<Replace_Words>()
-                            .Save(
-                                replaceWordID: null,
-                                badWord: row["badword"].ToString(),
-                                goodWord: row["goodword"].ToString());
-                        importedCount++;
+                        if (!replaceWordsList.Any(w => w.BadWord == row["badword"].ToString() && w.GoodWord == row["goodword"].ToString()))
+                        {
+                            // add this...
+                            this.GetRepository<Replace_Words>().Save(replaceWordId: null, badWord: row["badword"].ToString(), goodWord: row["goodword"].ToString());
+                            importedCount++;
+                        }
                     }
 
                     this.PageContext.LoadMessage.AddSession(

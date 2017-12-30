@@ -211,7 +211,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"><asp:label id="Header" runat="server"></asp:label></h4>
+                <h5 class="modal-title"><asp:label id="Header" runat="server"></asp:label></h5>
             </div>
             <div id="YafPopupErrorMessageOuter" class="modal-body">
                 <p id="YafPopupErrorMessageInner">

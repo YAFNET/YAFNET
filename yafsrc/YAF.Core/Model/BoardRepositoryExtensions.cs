@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -171,7 +171,7 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository, "repository");
 
             return boardID.HasValue
-                ? new List<Board> { repository.GetByID(boardID.Value) }
+                ? new List<Board> { repository.GetById(boardID.Value) }
                 : repository.DbAccess.Execute(cmd => cmd.Connection.Select<Board>());
         }
 

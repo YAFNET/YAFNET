@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,6 +33,7 @@ namespace YAF.Pages.Admin
   using YAF.Classes.Data;
   using YAF.Controls;
   using YAF.Core;
+  using YAF.Core.Extensions;
   using YAF.Core.Model;
   using YAF.Types;
   using YAF.Types.Constants;
@@ -179,8 +180,8 @@ namespace YAF.Pages.Admin
             return;
         }
 
-        var replaceWord =
-                this.GetRepository<Replace_Words>().ListTyped(this.ReplaceWordID.Value, this.PageContext.PageBoardID)[0];
+        var replaceWord = this.GetRepository<Replace_Words>().GetById(this.ReplaceWordID.Value);
+
         this.badword.Text = replaceWord.BadWord;
         this.goodword.Text = replaceWord.GoodWord;
     }
@@ -212,7 +213,7 @@ namespace YAF.Pages.Admin
         {
             this.GetRepository<Replace_Words>()
                 .Save(
-                    replaceWordID: this.Request.QueryString.GetFirstOrDefaultAs<int>("i"),
+                    replaceWordId: this.Request.QueryString.GetFirstOrDefaultAs<int>("i"),
                     badWord: this.badword.Text,
                     goodWord: this.goodword.Text);
 

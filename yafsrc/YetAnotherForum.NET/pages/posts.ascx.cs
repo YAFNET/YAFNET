@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -841,7 +841,7 @@ namespace YAF.Pages
             {
                 int tmpID = this.WatchTopicID.InnerText.ToType<int>();
 
-                this.GetRepository<WatchTopic>().DeleteByID(tmpID);
+                this.GetRepository<WatchTopic>().DeleteById(tmpID);
 
                 this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_TOPIC"));
             }
@@ -888,7 +888,7 @@ namespace YAF.Pages
             if (topicWatchedID.HasValue && !this.TopicWatch.Checked)
             {
                 // unsubscribe...
-                this.GetRepository<WatchTopic>().DeleteByID(topicWatchedID.Value);
+                this.GetRepository<WatchTopic>().DeleteById(topicWatchedID.Value);
             }
             else if (!topicWatchedID.HasValue && this.TopicWatch.Checked)
             {

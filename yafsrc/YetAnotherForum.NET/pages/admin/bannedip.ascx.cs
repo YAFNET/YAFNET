@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,7 +27,7 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Web;
@@ -37,7 +37,6 @@ namespace YAF.Pages.Admin
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -45,7 +44,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -113,7 +111,7 @@ namespace YAF.Pages.Admin
                     break;
                 case "export":
                     {
-                        var bannedIps = this.GetRepository<BannedIP>().ListTyped();
+                        var bannedIps = this.GetRepository<BannedIP>().GetByBoardId();
 
                         this.Get<HttpResponseBase>().Clear();
                         this.Get<HttpResponseBase>().ClearContent();
@@ -142,7 +140,7 @@ namespace YAF.Pages.Admin
                         var id = e.CommandArgument.ToType<int>();
                         var ipAddress = this.GetIPFromID(id);
 
-                        this.GetRepository<BannedIP>().DeleteByID(id);
+                        this.GetRepository<BannedIP>().DeleteById(id);
 
                         this.PageContext.AddLoadMessage(
                             this.GetTextFormatted("MSG_REMOVEBAN_IP", ipAddress), MessageTypes.success);
@@ -198,7 +196,7 @@ namespace YAF.Pages.Admin
         /// </returns>
         private string GetIPFromID(int id)
         {
-            return this.GetRepository<BannedIP>().GetByID(id).Mask;
+            return this.GetRepository<BannedIP>().GetById(id).Mask;
         }
 
         /// <summary>
@@ -210,16 +208,28 @@ namespace YAF.Pages.Admin
 
             var searchText = this.SearchInput.Text.Trim();
 
-            var bannedList = this.GetRepository<BannedIP>()
-                .List(
-                    mask: searchText.IsSet() ? searchText : null,
-                    pageIndex: this.PagerTop.CurrentPageIndex,
-                    pageSize: this.PagerTop.PageSize);
+            List<BannedIP> bannedList;
+
+            if (searchText.IsSet())
+            {
+                bannedList = this.GetRepository<BannedIP>().GetPaged(
+                    x => x.BoardID == this.PageContext.PageBoardID && x.Mask == searchText,
+                    this.PagerTop.CurrentPageIndex,
+                    this.PagerTop.PageSize);
+            }
+            else
+            {
+                bannedList = this.GetRepository<BannedIP>().GetPaged(
+                    x => x.BoardID == this.PageContext.PageBoardID,
+                    this.PagerTop.CurrentPageIndex,
+                    this.PagerTop.PageSize);
+            }
 
             this.list.DataSource = bannedList;
 
-            this.PagerTop.Count = bannedList != null && bannedList.HasRows()
-                                      ? bannedList.AsEnumerable().First().Field<int>("TotalRows")
+            this.PagerTop.Count = bannedList != null && bannedList.Any()
+                                      ? this.GetRepository<BannedIP>()
+                                          .Count(x => x.BoardID == this.PageContext.PageBoardID).ToType<int>()
                                       : 0;
 
             this.DataBind();

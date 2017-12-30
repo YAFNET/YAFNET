@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,13 +27,14 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
+    using System.Linq;
+    using System.Web;
     using System.Web.UI.WebControls;
+    using System.Xml.Linq;
 
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -143,7 +144,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.list.DataSource = this.GetRepository<Replace_Words>().List();
+            this.list.DataSource = this.GetRepository<Replace_Words>().GetByBoardId();
             this.DataBind();
         }
 
@@ -171,24 +172,13 @@ namespace YAF.Pages.Admin
                     YafBuildLink.Redirect(ForumPages.admin_replacewords_edit, "i={0}", e.CommandArgument);
                     break;
                 case "delete":
-                    this.GetRepository<Replace_Words>().DeleteByID(e.CommandArgument.ToType<int>());
+                    this.GetRepository<Replace_Words>().DeleteById(e.CommandArgument.ToType<int>());
                     this.Get<IObjectStore>().Remove(Constants.Cache.ReplaceWords);
                     this.BindData();
                     break;
                 case "export":
                     {
-                        DataTable replaceDT = this.GetRepository<Replace_Words>().List();
-                        replaceDT.DataSet.DataSetName = "YafReplaceWordsList";
-                        replaceDT.TableName = "YafReplaceWords";
-                        replaceDT.Columns.Remove("ID");
-                        replaceDT.Columns.Remove("BoardID");
-
-                        this.Response.ContentType = "text/xml";
-                        this.Response.AppendHeader(
-                            "Content-Disposition",
-                            "attachment; filename=YafReplaceWordsExport.xml");
-                        replaceDT.DataSet.WriteXml(this.Response.OutputStream);
-                        this.Response.End();
+                        this.ExportWords();
                     }
 
                     break;
@@ -196,6 +186,36 @@ namespace YAF.Pages.Admin
                     YafBuildLink.Redirect(ForumPages.admin_replacewords_import);
                     break;
             }
+        }
+
+        /// <summary>
+        /// Exports the spam words.
+        /// </summary>
+        private void ExportWords()
+        {
+            this.Get<HttpResponseBase>().Clear();
+            this.Get<HttpResponseBase>().ClearContent();
+            this.Get<HttpResponseBase>().ClearHeaders();
+
+            this.Get<HttpResponseBase>().ContentType = "text/xml";
+            this.Get<HttpResponseBase>().AppendHeader(
+                "content-disposition",
+                "attachment; filename=ReplaceWordsExport.xml");
+
+            var spamwordList = this.GetRepository<Replace_Words>().GetByBoardId();
+
+            var element = new XElement(
+                "YafReplaceWordsList",
+                from spamWord in spamwordList
+                select new XElement(
+                    "YafReplaceWords",
+                    new XElement("BadWord", spamWord.BadWord),
+                    new XElement("GoodWord", spamWord.GoodWord)));
+
+            element.Save(this.Response.OutputStream);
+
+            this.Get<HttpResponseBase>().Flush();
+            this.Get<HttpResponseBase>().End();
         }
 
         #endregion

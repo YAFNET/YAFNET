@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,9 +27,9 @@ namespace YAF.Dialogs
     #region Using
 
     using System;
-    using System.Linq;
 
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -80,8 +80,7 @@ namespace YAF.Dialogs
             if (this.BannedId.HasValue)
             {
                 // Edit
-                var banned = this.GetRepository<BannedEmail>()
-                    .ListTyped(id: this.BannedId.Value).FirstOrDefault();
+                var banned = this.GetRepository<BannedEmail>().GetById(this.BannedId.Value);
 
                 if (banned != null)
                 {

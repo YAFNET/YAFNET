@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -307,7 +307,16 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.UserId);
+            MembershipUser user = null;
+
+            try
+            {
+                user = UserMembershipHelper.GetMembershipUserById(this.UserId);
+            }
+            catch (Exception ex)
+            {
+                this.Get<ILogger>().Error(ex, this.UserId.ToString());
+            }
 
             if (user == null || user.ProviderUserKey.ToString() == "0")
             {

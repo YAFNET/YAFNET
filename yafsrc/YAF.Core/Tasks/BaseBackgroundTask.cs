@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,11 +27,10 @@ namespace YAF.Core.Tasks
   using System.Web;
 
   using YAF.Classes;
-  using YAF.Core;
   using YAF.Types.Attributes;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Types.Interfaces;
 
-  /// <summary>
+    /// <summary>
   /// The base background task.
   /// </summary>
   public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
@@ -155,6 +154,6 @@ namespace YAF.Core.Tasks
     [Inject]
     public ILogger Logger { get; set; }
 
-    #endregion
-  }
+        #endregion
+    }
 }

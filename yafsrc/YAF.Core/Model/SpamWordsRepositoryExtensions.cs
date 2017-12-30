@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,12 +23,8 @@
  */
 namespace YAF.Core.Model
 {
-    using System.Collections.Generic;
-    using System.Data;
-
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -38,67 +34,6 @@ namespace YAF.Core.Model
     public static class SpamWordsRepositoryExtensions
     {
         #region Public Methods and Operators
-
-        /// <summary>
-        /// Gets a list of spam words
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="mask">The mask.</param>
-        /// <param name="spamWordId">The spam word identifier.</param>
-        /// <param name="pageIndex">Index of the page.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="boardId">The board identifier.</param>
-        /// <returns>
-        /// DataTable with spam words
-        /// </returns>
-        public static DataTable List(
-            this IRepository<Spam_Words> repository,
-            string mask = null,
-            int? spamWordId = null,
-            int? pageIndex = 0,
-            int? pageSize = 1000000,
-            int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.spam_words_list(
-                BoardID: boardId ?? repository.BoardID,
-                Mask: mask,
-                ID: spamWordId,
-                PageIndex: pageIndex,
-                PageSize: pageSize);
-        }
-
-        /// <summary>
-        /// Gets a list of spam words
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="spamWordId">The spam word identifier.</param>
-        /// <param name="pageIndex">Index of the page.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="boardId">The board identifier.</param>
-        /// <returns>
-        /// List with spam words
-        /// </returns>
-        public static IList<Spam_Words> ListTyped(
-            this IRepository<Spam_Words> repository,
-            int? spamWordId = null,
-            int? pageIndex = 0,
-            int? pageSize = 10000000,
-            int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            using (var session = repository.DbFunction.CreateSession())
-            {
-                return session.GetTyped<Spam_Words>(
-                    r => r.spam_words_list(
-                        BoardID: boardId ?? repository.BoardID,
-                        ID: spamWordId,
-                        PageIndex: pageIndex,
-                        PageSize: pageSize));
-            }
-        }
 
         /// <summary>
         /// Saves changes to a word.
@@ -115,19 +50,13 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            if (spamWordId.HasValue)
-            {
-                repository.Update(
-                    new Spam_Words { BoardID = boardId ?? repository.BoardID, ID = spamWordId.Value, SpamWord = spamWord });
-
-                repository.FireUpdated(spamWordId);
-            }
-            else
-            {
-                repository.Insert(new Spam_Words { BoardID = boardId ?? repository.BoardID, SpamWord = spamWord });
-
-                repository.FireNew();
-            }
+            repository.Upsert(
+                new Spam_Words
+                    {
+                        BoardID = boardId ?? repository.BoardID,
+                        ID = spamWordId ?? 0,
+                        SpamWord = spamWord
+                    });
         }
 
         #endregion

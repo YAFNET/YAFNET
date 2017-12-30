@@ -25,6 +25,7 @@ namespace YAF.Core.Services.CheckForSpam
     using System.Linq;
     using System.Text.RegularExpressions;
 
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -84,13 +85,13 @@ namespace YAF.Core.Services.CheckForSpam
                 var bannedIpList = YafContext.Current.Get<IDataCache>()
                     .GetOrSet(
                         Constants.Cache.BannedIP,
-                        () => bannedIPRepository.ListTyped().Select(x => x.Mask.Trim()).ToList());
+                        () => bannedIPRepository.Get(x => x.BoardID == YafContext.Current.PageBoardID).Select(x => x.Mask.Trim()).ToList());
 
                 var bannedNameRepository = YafContext.Current.Get<IRepository<BannedName>>();
 
                 var isBot = false;
 
-                foreach (BannedEmail email in bannedEmailRepository.ListTyped())
+                foreach (BannedEmail email in bannedEmailRepository.Get(x => x.BoardID == YafContext.Current.PageBoardID))
                 {
                     try
                     {
@@ -116,7 +117,7 @@ namespace YAF.Core.Services.CheckForSpam
                     isBot = true;
                 }
 
-                foreach (BannedName name in bannedNameRepository.ListTyped())
+                foreach (BannedName name in bannedNameRepository.Get(x => x.BoardID == YafContext.Current.PageBoardID))
                 {
                     try
                     {

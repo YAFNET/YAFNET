@@ -1,7 +1,6 @@
 namespace YAF.Core.Model
 {
     using System;
-    using System.CodeDom;
 
     using ServiceStack.OrmLite;
 

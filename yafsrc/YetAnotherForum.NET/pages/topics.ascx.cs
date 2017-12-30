@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -267,7 +267,7 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+            using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
             {
                 this._forum = dt.Rows[0];
             }
@@ -331,7 +331,7 @@ namespace YAF.Pages
             else
             {
                 var tmpID = this.WatchForumID.InnerText.ToType<int>();
-                this.GetRepository<WatchForum>().DeleteByID(tmpID);
+                this.GetRepository<WatchForum>().DeleteById(tmpID);
 
                 this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_FORUM"));
             }
@@ -344,7 +344,7 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            DataSet ds = this.Get<YafDbBroker>().BoardLayout(
+            var ds = this.Get<YafDbBroker>().BoardLayout(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID,
                 this.PageContext.PageCategoryID,
@@ -358,7 +358,7 @@ namespace YAF.Pages
             this.Pager.PageSize = this.Get<YafBoardSettings>().TopicsPerPage;
 
             // when userId is null it returns the count of all deleted messages
-            int? userId = null;
+            /*int? userId = null;
 
             // get the userID to use for the deleted posts count...
             if (!this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
@@ -368,9 +368,11 @@ namespace YAF.Pages
                 {
                     userId = this.PageContext.PageUserID;
                 }
-            }
+            }*/
 
-            DataTable dt = LegacyDb.announcements_list(
+            int? userId = this.PageContext.PageUserID;
+
+            var dt = LegacyDb.announcements_list(
                 this.PageContext.PageForumID,
                 userId,
                 null,
@@ -385,21 +387,21 @@ namespace YAF.Pages
                 dt = this.StyleTransformDataTable(dt);
             }
 
-            int baseSize = this.Get<YafBoardSettings>().TopicsPerPage;
+            var baseSize = this.Get<YafBoardSettings>().TopicsPerPage;
 
             this.Announcements.DataSource = dt;
+
             /*if (!m_bIgnoreQueryString && Request.QueryString["p"] != null)
-            {
-                    // show specific page (p is 1 based)
-                    int tPage = (int)Security.StringToLongOrRedirect(Request.QueryString["p"]);
-
-                    if (tPage > 0)
-                    {
-                            Pager.CurrentPageIndex = tPage - 1;
-                    }
-            }*/
-
-            int nCurrentPageIndex = this.Pager.CurrentPageIndex;
+                        {
+                                // show specific page (p is 1 based)
+                                int tPage = (int)Security.StringToLongOrRedirect(Request.QueryString["p"]);
+            
+                                if (tPage > 0)
+                                {
+                                        Pager.CurrentPageIndex = tPage - 1;
+                                }
+                        }*/
+            var pagerCurrentPageIndex = this.Pager.CurrentPageIndex;
 
             DataTable dtTopics;
 
@@ -410,7 +412,7 @@ namespace YAF.Pages
                     userId,
                     DateTimeHelper.SqlDbMinTime(),
                     DateTime.UtcNow,
-                    nCurrentPageIndex,
+                    pagerCurrentPageIndex,
                     baseSize,
                     this.Get<YafBoardSettings>().UseStyledNicks,
                     true,
@@ -424,14 +426,14 @@ namespace YAF.Pages
             {
                 int[] days = { 1, 2, 7, 14, 31, 2 * 31, 6 * 31, 356 };
 
-                DateTime date = DateTime.UtcNow.AddDays(-days[this._showTopicListSelected]);
+                var date = DateTime.UtcNow.AddDays(-days[this._showTopicListSelected]);
 
                 dtTopics = LegacyDb.topic_list(
                     this.PageContext.PageForumID,
                     userId,
                     date,
                     DateTime.UtcNow,
-                    nCurrentPageIndex,
+                    pagerCurrentPageIndex,
                     baseSize,
                     this.Get<YafBoardSettings>().UseStyledNicks,
                     true,

@@ -133,6 +133,7 @@
     <Compile Include="Events\AttachmentEventHandleFileDelete.cs" />
     <Compile Include="Extensions\HaveSortOrderExtensions.cs" />
     <Compile Include="Extensions\InjectionExtensions.cs" />
+    <Compile Include="Extensions\SqlExpressionExtensions.cs" />
     <Compile Include="Helpers\ForumEditorHelper.cs" />
     <Compile Include="Helpers\DbFunctionHelpers.cs" />
     <Compile Include="Helpers\DbInformationHelper.cs" />

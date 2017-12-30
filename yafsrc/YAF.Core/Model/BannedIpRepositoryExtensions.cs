@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,12 +23,8 @@
  */
 namespace YAF.Core.Model
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-
+    using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -38,72 +34,6 @@ namespace YAF.Core.Model
     public static class BannedIpRepositoryExtensions
     {
         #region Public Methods and Operators
-
-        /// <summary>
-        /// The list.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="mask">The mask.</param>
-        /// <param name="id">The id.</param>
-        /// <param name="pageIndex">The page index.</param>
-        /// <param name="pageSize">The page size.</param>
-        /// <param name="boardId">The board Id.</param>
-        /// <returns>
-        /// The <see cref="DataTable" /> .
-        /// </returns>
-        public static DataTable List(
-            this IRepository<BannedIP> repository,
-            string mask = null,
-            int? id = null,
-            int? pageIndex = 0,
-            int? pageSize = 1000000,
-            int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.bannedip_list(
-                BoardID: boardId ?? repository.BoardID,
-                Mask: mask,
-                ID: id,
-                PageIndex: pageIndex,
-                PageSize: pageSize);
-        }
-
-        /// <summary>
-        /// The list typed.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="mask">The mask.</param>
-        /// <param name="id">The id.</param>
-        /// <param name="pageIndex">The page index.</param>
-        /// <param name="pageSize">The page size.</param>
-        /// <param name="boardId">The board id.</param>
-        /// <returns>
-        /// The <see cref="IList" />.
-        /// </returns>
-        public static IList<BannedIP> ListTyped(
-            this IRepository<BannedIP> repository,
-            string mask = null,
-            int? id = null,
-            int pageIndex = 0,
-            int pageSize = 1000000,
-            int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            using (var session = repository.DbFunction.CreateSession())
-            {
-                return
-                    session.GetTyped<BannedIP>(
-                        r =>
-                        r.bannedip_list(
-                            BoardID: boardId ?? repository.BoardID,
-                            Mask: mask,
-                            ID: id,
-                            PageIndex: pageIndex,
-                            PageSize: pageSize));
-            }
-        }
 
         /// <summary>
         /// The save.
@@ -120,7 +50,7 @@ namespace YAF.Core.Model
         /// <param name="reason">
         /// The reason. 
         /// </param>
-        /// <param name="userID">
+        /// <param name="userId">
         /// The user id. 
         /// </param>
         /// <param name="boardId">
@@ -131,27 +61,20 @@ namespace YAF.Core.Model
             int? id,
             string mask,
             string reason,
-            int userID,
+            int userId,
             int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Query.bannedip_save(
-                ID: id,
-                BoardID: boardId ?? repository.BoardID,
-                Mask: mask,
-                Reason: reason,
-                UserID: userID,
-                UTCTIMESTAMP: DateTime.UtcNow);
-
-            if (id.HasValue)
-            {
-                repository.FireUpdated(id);
-            }
-            else
-            {
-                repository.FireNew();
-            }
+            repository.Upsert(
+                new BannedIP
+                    {
+                        BoardID = boardId ?? repository.BoardID,
+                        ID = id ?? 0,
+                        Mask = mask,
+                        Reason = reason,
+                        UserID = userId
+                    });
         }
 
         #endregion
