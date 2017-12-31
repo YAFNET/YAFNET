@@ -19,7 +19,7 @@ namespace YAF.Core.Tasks
     /// <summary>
     /// The forum delete task.
     /// </summary>
-    public class BoardDeleteTask : LongBackgroundTask, ICriticalBackgroundTask, IBlockableTask
+    public class BoardDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
     {
         #region Constants and Fields
 

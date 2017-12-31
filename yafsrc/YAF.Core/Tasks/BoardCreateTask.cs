@@ -41,7 +41,7 @@ namespace YAF.Core.Tasks
     /// <summary>
     /// Run when we want to do migration of users in the background...
     /// </summary>
-    public class BoardCreateTask : LongBackgroundTask, ICriticalBackgroundTask, IBlockableTask
+    public class BoardCreateTask : LongBackgroundTask, ICriticalBackgroundTask
     {
         private static long _boardOut;
 

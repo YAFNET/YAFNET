@@ -337,7 +337,6 @@
     <Compile Include="Extensions\BackgroundTaskExtensions.cs" />
     <Compile Include="Tasks\BaseBackgroundTask.cs" />
     <Compile Include="BaseModules\BaseForumModule.cs" />
-    <Compile Include="Tasks\IBlockableTask.cs" />
     <Compile Include="Tasks\CleanUpTask.cs" />
     <Compile Include="Tasks\CategoryDeleteTask.cs" />
     <Compile Include="Tasks\CategorySaveTask.cs" />
