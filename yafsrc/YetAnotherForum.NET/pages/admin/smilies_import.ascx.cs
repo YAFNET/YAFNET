@@ -35,6 +35,7 @@ namespace YAF.Pages.Admin
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
@@ -179,7 +180,7 @@ namespace YAF.Pages.Admin
                 // Delete existing smilies?
                 if (this.DeleteExisting.Checked)
                 {
-                    this.GetRepository<Smiley>().Delete();
+                    this.GetRepository<Smiley>().DeleteAll();
                 }
                 else
                 {

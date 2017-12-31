@@ -25,7 +25,6 @@
 namespace YAF.Core.Model
 {
     using System;
-    using System.Data;
 
     using ServiceStack.OrmLite;
 
@@ -34,6 +33,9 @@ namespace YAF.Core.Model
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
+    /// <summary>
+    /// The ForumReadTracking Repository Extensions
+    /// </summary>
     public static class ForumReadTrackingRepositoryExtensions
     {
         #region Public Methods and Operators

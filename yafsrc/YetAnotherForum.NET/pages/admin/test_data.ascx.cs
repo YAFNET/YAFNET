@@ -233,7 +233,7 @@ namespace YAF.Pages.Admin
             this.PostsCategory.DataSource = categories;
 
             // Access Mask Lists               
-            this.ForumsStartMask.DataSource = this.GetRepository<AccessMask>().List();
+            this.ForumsStartMask.DataSource = this.GetRepository<AccessMask>().GetByBoardId();
             this.ForumsAdminMask.DataSource = this.ForumsStartMask.DataSource;
 
             this.ForumsGroups.DataSource = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);

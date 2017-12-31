@@ -37,7 +37,7 @@ namespace YAF.Classes
 
     using YAF.Classes.Data;
     using YAF.Core;
-    using YAF.Core.Model;
+    using YAF.Core.Extensions;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -78,37 +78,35 @@ namespace YAF.Classes
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public GridDataSet GetAttachments(int userID, int pageSize, int pageNumber)
         {
-            var attachments = YafContext.Current.GetRepository<Attachment>()
-                .List(userID: userID, pageIndex: pageNumber, pageSize: pageSize);
+            var attachments = YafContext.Current.GetRepository<Attachment>().GetPaged(
+                a => a.UserID == userID, pageIndex: pageNumber, pageSize: pageSize);
             
             var attachmentItems = new List<AttachmentItem>();
 
-            foreach (DataRow row in attachments.Rows)
+            foreach (var attach in attachments)
             {
-                var url = row["FileName"].ToString().IsImageName()
+                var url = attach.FileName.IsImageName()
                               ? "{0}resource.ashx?i={1}&b={2}&editor=true".FormatWith(
                                   YafForumInfo.ForumClientFileRoot,
-                                  row["AttachmentID"],
+                                  attach.ID,
                                   YafContext.Current.PageBoardID)
                               : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot);
 
-                var attachment = new AttachmentItem()
+                var attachment = new AttachmentItem
                                      {
-                                         FileName = row["FileName"].ToString(),
+                                         FileName = attach.FileName,
                                          OnClick =
-                                             "insertAttachment('{0}', '{1}')".FormatWith(
-                                                 row["AttachmentID"],
-                                                 url),
+                                             "insertAttachment('{0}', '{1}')".FormatWith(attach.ID, url),
                                          IconImage =
                                              @"<img class=""popupitemIcon"" src=""{0}"" alt=""{1}"" title=""{1}"" /><span>{1}</span>"
-                                             .FormatWith(
-                                                 url,
-                                                 "{0} ({1} kb)".FormatWith(
-                                                     row["FileName"].ToString(),
-                                                     row["Bytes"].ToType<int>() / 1024))
+                                                 .FormatWith(
+                                                     url,
+                                                     "{0} ({1} kb)".FormatWith(
+                                                         attach.FileName,
+                                                         attach.Bytes / 1024))
                                      };
 
-                if (row["FileName"].ToString().IsImageName())
+                if (attach.FileName.IsImageName())
                 {
                     attachment.DataURL = url;
                 }
@@ -120,8 +118,9 @@ namespace YAF.Classes
                        {
                            PageNumber = pageNumber,
                            TotalRecords =
-                               attachments.HasRows()
-                                   ? attachments.AsEnumerable().First().Field<int>("TotalRows")
+                               attachments.Any()
+                                   ? YafContext.Current.GetRepository<Attachment>().Count(
+                                       a => a.UserID == userID).ToType<int>()
                                    : 0,
                            PageSize = pageSize,
                            AttachmentList = attachmentItems

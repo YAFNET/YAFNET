@@ -1486,90 +1486,6 @@ AS
 Go
 /* End of procedures for "Thanks" Mod */
 
-create procedure [{databaseOwner}].[{objectQualifier}accessmask_delete](@AccessMaskID int) as
-begin
-        declare @flag int
-
-    set @flag=1
-    if exists(select 1 from [{databaseOwner}].[{objectQualifier}ForumAccess] where AccessMaskID=@AccessMaskID) or exists(select 1 from [{databaseOwner}].[{objectQualifier}UserForum] where AccessMaskID=@AccessMaskID)
-        set @flag=0
-    else
-        delete from [{databaseOwner}].[{objectQualifier}AccessMask] where AccessMaskID=@AccessMaskID
-
-    select @flag
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}accessmask_list](@BoardID int,@AccessMaskID int=null,@ExcludeFlags int = 0) as
-begin
-        if @AccessMaskID is null
-        select
-            a.*
-        from
-            [{databaseOwner}].[{objectQualifier}AccessMask] a
-        where
-            a.BoardID = @BoardID and
-            (a.Flags & @ExcludeFlags) = 0
-        order by
-            a.SortOrder
-    else
-        select
-            a.*
-        from
-            [{databaseOwner}].[{objectQualifier}AccessMask] a
-        where
-            a.BoardID = @BoardID and
-            a.AccessMaskID = @AccessMaskID
-        order by
-            a.SortOrder
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}accessmask_save](
-    @AccessMaskID		int=null,
-    @BoardID			int,
-    @Name				nvarchar(50),
-    @ReadAccess			bit,
-    @PostAccess			bit,
-    @ReplyAccess		bit,
-    @PriorityAccess		bit,
-    @PollAccess			bit,
-    @VoteAccess			bit,
-    @ModeratorAccess	bit,
-    @EditAccess			bit,
-    @DeleteAccess		bit,
-    @UploadAccess		bit,
-    @DownloadAccess		bit,
-    @SortOrder          smallint
-) as
-begin
-        declare @Flags	int
-
-    set @Flags = 0
-    if @ReadAccess<>0 set @Flags = @Flags | 1
-    if @PostAccess<>0 set @Flags = @Flags | 2
-    if @ReplyAccess<>0 set @Flags = @Flags | 4
-    if @PriorityAccess<>0 set @Flags = @Flags | 8
-    if @PollAccess<>0 set @Flags = @Flags | 16
-    if @VoteAccess<>0 set @Flags = @Flags | 32
-    if @ModeratorAccess<>0 set @Flags = @Flags | 64
-    if @EditAccess<>0 set @Flags = @Flags | 128
-    if @DeleteAccess<>0 set @Flags = @Flags | 256
-    if @UploadAccess<>0 set @Flags = @Flags | 512
-    if @DownloadAccess<>0 set @Flags = @Flags | 1024
-
-    if @AccessMaskID is null
-        insert into [{databaseOwner}].[{objectQualifier}AccessMask](Name,BoardID,Flags,SortOrder)
-        values(@Name,@BoardID,@Flags,@SortOrder)
-    else
-        update [{databaseOwner}].[{objectQualifier}AccessMask] set
-            Name			= @Name,
-            Flags			= @Flags,
-            SortOrder       = @SortOrder
-        where AccessMaskID=@AccessMaskID
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}active_list](@BoardID int,@Guests bit=0,@ShowCrawlers bit=0,@ActiveTime int,@StyledNicks bit=0,@UTCTIMESTAMP datetime) as
 begin
     delete from [{databaseOwner}].[{objectQualifier}Active] where DATEDIFF(minute,LastActive,@UTCTIMESTAMP )>@ActiveTime
@@ -1915,12 +1831,6 @@ BEGIN
         UPDATE [{databaseOwner}].[{objectQualifier}Registry] SET [Value] = CAST(@dtStr AS nvarchar(max)) WHERE BoardID = @BoardID AND [Name] = N'maxuserswhen'
     END
 END
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}attachment_download](@AttachmentID int) as
-begin
-        update [{databaseOwner}].[{objectQualifier}Attachment] set Downloads=Downloads+1 where AttachmentID=@AttachmentID
-end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}attachment_list](@MessageID int=null,@UserID int=null,@AttachmentID int=null,@BoardID int=null,@PageIndex int = null, @PageSize int = 0) as begin
@@ -2319,23 +2229,6 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}category_delete](@CategoryID int) as
-begin
-        declare @flag int
-
-    if exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where CategoryID = @CategoryID)
-    begin
-        set @flag = 0
-    end else
-    begin
-        delete from [{databaseOwner}].[{objectQualifier}Category] where CategoryID = @CategoryID
-        set @flag = 1
-    end
-
-    select @flag
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}category_list](@BoardID int,@CategoryID int=null) as
 begin
         if @CategoryID is null
@@ -2663,36 +2556,7 @@ begin
 end
 GO
 
-CREATE procedure [{databaseOwner}].[{objectQualifier}extension_list] (@BoardID int, @Extension nvarchar(10)) as
-BEGIN
 
-    -- If an extension is passed, then we want to check for THAT extension
-    IF LEN(@Extension) > 0
-        BEGIN
-            SELECT
-                a.*
-            FROM
-                [{databaseOwner}].[{objectQualifier}Extension] a
-            WHERE
-                a.BoardId = @BoardID AND a.Extension=@Extension
-            ORDER BY
-                a.Extension
-        END
-
-    ELSE
-        -- Otherwise, just get a list for the given @BoardId
-        BEGIN
-            SELECT
-                a.*
-            FROM
-                [{databaseOwner}].[{objectQualifier}Extension] a
-            WHERE
-                a.BoardId = @BoardID
-            ORDER BY
-                a.Extension
-        END
-END
-GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}forum_delete](@ForumID int) as
 begin
@@ -9116,85 +8980,6 @@ AS
         AND a.[UserID] < (@StartID + @Limit)
         ORDER BY a.[UserID]
     END
-GO
-
--- BBCode
-
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_delete]
-(
-    @BBCodeID int = NULL
-)
-AS
-BEGIN
-
-    IF @BBCodeID IS NOT NULL
-        DELETE FROM [{databaseOwner}].[{objectQualifier}BBCode] WHERE BBCodeID = @BBCodeID
-    ELSE
-        DELETE FROM [{databaseOwner}].[{objectQualifier}BBCode]
-END
-GO
-
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_list]
-(
-    @BoardID int,
-    @BBCodeID int = null
-)
-AS
-BEGIN
-
-    IF @BBCodeID IS NULL
-        SELECT * FROM [{databaseOwner}].[{objectQualifier}BBCode] WHERE BoardID = @BoardID ORDER BY ExecOrder, [Name] DESC
-    ELSE
-        SELECT * FROM [{databaseOwner}].[{objectQualifier}BBCode] WHERE BBCodeID = @BBCodeID ORDER BY ExecOrder
-END
-GO
-
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_save]
-(
-    @BBCodeID int = null,
-    @BoardID int,
-    @Name nvarchar(255),
-    @Description nvarchar(4000) = null,
-    @OnClickJS nvarchar(1000) = null,
-    @DisplayJS nvarchar(max) = null,
-    @EditJS nvarchar(max) = null,
-    @DisplayCSS nvarchar(max) = null,
-    @SearchRegEx nvarchar(max),
-    @ReplaceRegEx nvarchar(max),
-    @Variables nvarchar(1000) = null,
-    @UseModule bit = null,
-    @ModuleClass nvarchar(255) = null,
-    @ExecOrder int = 1
-)
-AS
-BEGIN
-
-    IF @BBCodeID IS NOT NULL BEGIN
-        UPDATE
-            [{databaseOwner}].[{objectQualifier}BBCode]
-        SET
-            [Name] = @Name,
-            [Description] = @Description,
-            [OnClickJS] = @OnClickJS,
-            [DisplayJS] = @DisplayJS,
-            [EditJS] = @EditJS,
-            [DisplayCSS] = @DisplayCSS,
-            [SearchRegex] = @SearchRegEx,
-            [ReplaceRegex] = @ReplaceRegEx,
-            [Variables] = @Variables,
-            [UseModule] = @UseModule,
-            [ModuleClass] = @ModuleClass,
-            [ExecOrder] = @ExecOrder
-        WHERE
-            BBCodeID = @BBCodeID
-    END
-    ELSE BEGIN
-        IF NOT EXISTS(SELECT 1 FROM [{databaseOwner}].[{objectQualifier}BBCode] WHERE BoardID = @BoardID AND [Name] = @Name)
-            INSERT INTO
-                [{databaseOwner}].[{objectQualifier}BBCode] ([BoardID],[Name],[Description],[OnClickJS],[DisplayJS],[EditJS],[DisplayCSS],[SearchRegex],[ReplaceRegex],[Variables],[UseModule],[ModuleClass],[ExecOrder])
-            VALUES (@BoardID,@Name,@Description,@OnClickJS,@DisplayJS,@EditJS,@DisplayCSS,@SearchRegEx,@ReplaceRegEx,@Variables,@UseModule,@ModuleClass,@ExecOrder)
-    END
-END
 GO
 
 -- polls

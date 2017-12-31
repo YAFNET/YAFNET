@@ -157,14 +157,14 @@ namespace YAF.Pages
         /// <returns>Returns the Preview Image</returns>
         protected string GetPreviewImage([NotNull] object o)
         {
-            var row = o.ToType<DataRowView>();
+            var attach = o.ToType<Attachment>();
 
-            var fileName = row["FileName"].ToString();
+            var fileName = attach.FileName;
             var isImage = fileName.IsImageName();
             var url = isImage
                           ? "{0}resource.ashx?i={1}&b={2}&editor=true".FormatWith(
                               YafForumInfo.ForumClientFileRoot,
-                              row["AttachmentID"],
+                              attach.ID,
                               this.PageContext.PageBoardID)
                           : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot);
 
@@ -175,7 +175,7 @@ namespace YAF.Pages
 
         protected void DeleteAttachments_Click(object sender, EventArgs e)
         {
-            foreach (RepeaterItem item in from RepeaterItem item in this.List.Items
+            foreach (var item in from RepeaterItem item in this.List.Items
                                           where
                                               item.ItemType == ListItemType.Item
                                               || item.ItemType == ListItemType.AlternatingItem
@@ -196,15 +196,14 @@ namespace YAF.Pages
         {
             this.PagerTop.PageSize = this.Get<YafBoardSettings>().MemberListPageSize;
 
-            var dt = this.GetRepository<Attachment>()
-                .List(
-                    userID: this.PageContext.PageUserID,
-                    pageIndex: this.PagerTop.CurrentPageIndex,
-                    pageSize: this.PagerTop.PageSize);
+            var dt = this.GetRepository<Attachment>().GetPaged(
+                a => a.UserID == this.PageContext.PageUserID,
+                pageIndex: this.PagerTop.CurrentPageIndex,
+                pageSize: this.PagerTop.PageSize);
 
             this.List.DataSource = dt;
-            this.PagerTop.Count = dt != null && dt.HasRows()
-                                      ? dt.AsEnumerable().First().Field<int>("TotalRows")
+            this.PagerTop.Count = dt != null && dt.Any()
+                                      ? this.GetRepository<Attachment>().Count(a => a.UserID == this.PageContext.PageUserID).ToType<int>()
                                       : 0;
 
             this.DataBind();

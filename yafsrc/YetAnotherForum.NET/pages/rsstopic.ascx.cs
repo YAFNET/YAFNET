@@ -39,6 +39,7 @@ namespace YAF.Pages
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Syndication;
     using YAF.Types;
@@ -764,8 +765,7 @@ namespace YAF.Pages
         private List<SyndicationLink> GetMediaLinks(int messageId)
         {
             var attachementLinks = new List<SyndicationLink>();
-            var attachments = this.GetRepository<Attachment>()
-                .ListTyped(messageID: messageId, pageIndex: 0, pageSize: 1000);
+            var attachments = this.GetRepository<Attachment>().Get(a => a.MessageID == messageId);
 
             if (attachments.Any())
             {

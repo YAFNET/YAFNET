@@ -24,216 +24,245 @@
 
 namespace YAF.Pages.Admin
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Data;
-  using System.Web.UI.WebControls;
+    using System;
+    using System.Data;
+    using System.Linq;
+    using System.Runtime.Serialization;
+    using System.Web;
+    using System.Web.UI.WebControls;
+    using System.Xml.Linq;
 
-  using YAF.Classes.Data;
-  using YAF.Controls;
-  using YAF.Core;
-  using YAF.Core.Extensions;
-  using YAF.Core.Model;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces;
-  using YAF.Types.Models;
-  using YAF.Utils;
-  using YAF.Utils.Helpers;
+    using YAF.Classes.Data;
+    using YAF.Controls;
+    using YAF.Core;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Models;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
-  /// <summary>
-  /// Summary description for bannedip.
-  /// </summary>
-  public partial class extensions : AdminPage
-  {
-    #region Methods
-
     /// <summary>
-    /// The delete_ load.
+    /// Summary description for bannedip.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
+    public partial class extensions : AdminPage
     {
-        ((ThemeButton)sender).Attributes["onclick"] =
+        #region Methods
+
+        /// <summary>
+        /// The delete_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            ((ThemeButton)sender).Attributes["onclick"] =
                 "return confirm('{0}')".FormatWith(this.GetText("ADMIN_EXTENSIONS", "CONFIRM_DELETE"));
-    }
+        }
 
-    /// <summary>
-    /// Add Localized Text to Button
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void addLoad(object sender, EventArgs e)
-    {
-        var add = (LinkButton)sender;
-        add.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EXTENSIONS", "ADD"));
-    }
+        /// <summary>
+        /// Add Localized Text to Button
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void addLoad(object sender, EventArgs e)
+        {
+            var add = (LinkButton)sender;
+            add.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(
+                this.GetText("ADMIN_EXTENSIONS", "ADD"));
+        }
 
-    /// <summary>
-    /// Add Localized Text to Button
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void exportLoad(object sender, EventArgs e)
-    {
-        var export = (LinkButton)sender;
-        export.Text = "<i class=\"fa fa-download fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EXTENSIONS", "EXPORT"));
-    }
+        /// <summary>
+        /// Add Localized Text to Button
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void exportLoad(object sender, EventArgs e)
+        {
+            var export = (LinkButton)sender;
+            export.Text =
+                "<i class=\"fa fa-download fa-fw\"></i>&nbsp;{0}".FormatWith(
+                    this.GetText("ADMIN_EXTENSIONS", "EXPORT"));
+        }
 
-    /// <summary>
-    /// Add Localized Text to Button
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void importLoad(object sender, EventArgs e)
-    {
-        var import = (LinkButton)sender;
-        import.Text = "<i class=\"fa fa-upload fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EXTENSIONS", "IMPORT"));
-    }
+        /// <summary>
+        /// Add Localized Text to Button
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void importLoad(object sender, EventArgs e)
+        {
+            var import = (LinkButton)sender;
+            import.Text =
+                "<i class=\"fa fa-upload fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EXTENSIONS", "IMPORT"));
+        }
 
-    /// <summary>
-    /// The extension title_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void ExtensionTitle_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        ((Label)sender).Text = "{0} {1}".FormatWith(
-            this.PageContext.BoardSettings.FileExtensionAreAllowed
-                ? this.GetText("COMMON", "ALLOWED")
-                : this.GetText("COMMON", "DISALLOWED"),
+        /// <summary>
+        /// The extension title_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void ExtensionTitle_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            ((Label)sender).Text = "{0} {1}".FormatWith(
+                this.PageContext.BoardSettings.FileExtensionAreAllowed
+                    ? this.GetText("COMMON", "ALLOWED")
+                    : this.GetText("COMMON", "DISALLOWED"),
                 this.GetText("ADMIN_EXTENSIONS", "TITLE"));
-    }
-
-    /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit([NotNull] EventArgs e)
-    {
-      this.list.ItemCommand += this.list_ItemCommand;
-
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      this.InitializeComponent();
-      base.OnInit(e);
-    }
-
-    /// <summary>
-    /// The page_ load.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        if (this.IsPostBack)
-        {
-            return;
         }
 
-        this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-        this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-        this.PageLinks.AddLink(this.GetText("ADMIN_EXTENSIONS", "TITLE"), string.Empty);
-
-        this.Page.Header.Title = "{0} - {1}".FormatWith(
-              this.GetText("ADMIN_ADMIN", "Administration"),
-              this.GetText("ADMIN_EXTENSIONS", "TITLE"));
-
-        this.BindData();
-    }
-
-    /// <summary>
-    /// The bind data.
-    /// </summary>
-    private void BindData()
-    {
-      this.list.DataSource = this.GetRepository<FileExtension>().List();
-      this.DataBind();
-    }
-
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    ///   the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent()
-    {
-    }
-
-    /// <summary>
-    /// The list_ item command.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void list_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
-    {
-        switch (e.CommandName)
+        /// <summary>
+        /// The on init.
+        /// </summary>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected override void OnInit([NotNull] EventArgs e)
         {
-            case "add":
-                YafBuildLink.Redirect(ForumPages.admin_extensions_edit);
-                break;
-            case "edit":
-                YafBuildLink.Redirect(ForumPages.admin_extensions_edit, "i={0}", e.CommandArgument);
-                break;
-            case "delete":
-                this.GetRepository<FileExtension>().DeleteById(e.CommandArgument.ToType<int>());
-                this.BindData();
-                break;
-            case "export":
-                {
-                    // export this list as XML...
-                    var extensionList = this.GetRepository<FileExtension>().List();
-                    extensionList.DataSet.DataSetName = "YafExtensionList";
-                    extensionList.TableName = "YafExtension";
-                    extensionList.Columns.Remove("ExtensionID");
-                    extensionList.Columns.Remove("BoardID");
+            this.list.ItemCommand += this.list_ItemCommand;
 
-                    this.Response.ContentType = "text/xml";
-                    this.Response.AppendHeader("Content-Disposition", "attachment; filename=YafExtensionExport.xml");
-                    extensionList.DataSet.WriteXml(this.Response.OutputStream);
-                    this.Response.End();
-                }
-
-                break;
-            case "import":
-                YafBuildLink.Redirect(ForumPages.admin_extensions_import);
-                break;
+            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+            this.InitializeComponent();
+            base.OnInit(e);
         }
-    }
 
-      #endregion
-  }
+        /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (this.IsPostBack)
+            {
+                return;
+            }
+
+            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(this.GetText("ADMIN_EXTENSIONS", "TITLE"), string.Empty);
+
+            this.Page.Header.Title = "{0} - {1}".FormatWith(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                this.GetText("ADMIN_EXTENSIONS", "TITLE"));
+
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The bind data.
+        /// </summary>
+        private void BindData()
+        {
+            this.list.DataSource =
+                this.GetRepository<FileExtension>().Get(e => e.BoardId == this.PageContext.PageBoardID);
+            this.DataBind();
+        }
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        ///   the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+        }
+
+        /// <summary>
+        /// The list_ item command.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void list_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
+        {
+            switch (e.CommandName)
+            {
+                case "add":
+                    YafBuildLink.Redirect(ForumPages.admin_extensions_edit);
+                    break;
+                case "edit":
+                    YafBuildLink.Redirect(ForumPages.admin_extensions_edit, "i={0}", e.CommandArgument);
+                    break;
+                case "delete":
+                    this.GetRepository<FileExtension>().DeleteById(e.CommandArgument.ToType<int>());
+                    this.BindData();
+                    break;
+                case "export":
+                    {
+                        this.ExportList();
+                    }
+
+                    break;
+                case "import":
+                    YafBuildLink.Redirect(ForumPages.admin_extensions_import);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Exports the list.
+        /// </summary>
+        private void ExportList()
+        {
+            this.Get<HttpResponseBase>().Clear();
+            this.Get<HttpResponseBase>().ClearContent();
+            this.Get<HttpResponseBase>().ClearHeaders();
+
+            this.Get<HttpResponseBase>().ContentType = "text/xml";
+            this.Get<HttpResponseBase>().AppendHeader(
+                "content-disposition",
+                "attachment; filename=YafExtensionExport.xml");
+
+            var extensionList = this.GetRepository<FileExtension>()
+                .Get(e => e.BoardId == this.PageContext.PageBoardID);
+
+            var element = new XElement(
+                "YafSpamWordsList",
+                from extension in extensionList
+                select new XElement("YafExtension", new XElement("Extension", extension.Extension)));
+
+            element.Save(this.Response.OutputStream);
+
+            this.Get<HttpResponseBase>().Flush();
+            this.Get<HttpResponseBase>().End();
+        }
+
+        #endregion
+    }
 }

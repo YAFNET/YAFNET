@@ -37,7 +37,6 @@ namespace YAF
     using System.Net;
     using System.Text;
     using System.Web;
-    using System.Web.Security;
     using System.Web.SessionState;
     using YAF.Classes;
     using YAF.Classes.Data;
@@ -1047,8 +1046,7 @@ namespace YAF
                 // AttachmentID
                 var attachment =
                     this.GetRepository<Attachment>()
-                        .ListTyped(attachmentID: context.Request.QueryString.GetFirstOrDefaultAs<int>("a"))
-                        .FirstOrDefault();
+                        .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("a"));
 
                 var boardID = context.Request.QueryString.GetFirstOrDefault("b") != null
                                   ? context.Request.QueryString.GetFirstOrDefaultAs<int>("b")
@@ -1067,7 +1065,7 @@ namespace YAF
 
 
                 this.GetRepository<Attachment>()
-                    .IncrementDownloadCounter(context.Request.QueryString.GetFirstOrDefaultAs<int>("a"));
+                    .IncrementDownloadCounter(attachment);
 
                 if (attachment.FileData == null)
                 {
@@ -1202,11 +1200,17 @@ namespace YAF
             {
                 var eTag = @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("i"));
 
+                // AttachmentID
+                var attachment =
+                    this.GetRepository<Attachment>()
+                        .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
+
+
                 if (context.Request.QueryString.GetFirstOrDefault("editor") == null)
                 {
                     // add a download count...
                     this.GetRepository<Attachment>()
-                        .IncrementDownloadCounter(context.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
+                        .IncrementDownloadCounter(attachment);
                 }
 
                 if (CheckETag(context, eTag))
@@ -1214,12 +1218,6 @@ namespace YAF
                     // found eTag... no need to resend/create this image 
                    return;
                 }
-
-                // AttachmentID
-                var attachment =
-                    this.GetRepository<Attachment>()
-                        .ListTyped(attachmentID: context.Request.QueryString.GetFirstOrDefaultAs<int>("i"))
-                        .FirstOrDefault();
 
                 var boardID = context.Request.QueryString.GetFirstOrDefault("b") != null
                                   ? context.Request.QueryString.GetFirstOrDefaultAs<int>("b")
@@ -1352,8 +1350,7 @@ namespace YAF
                 // AttachmentID
                 var attachment =
                     this.GetRepository<Attachment>()
-                        .ListTyped(attachmentID: context.Request.QueryString.GetFirstOrDefaultAs<int>("p"))
-                        .FirstOrDefault();
+                        .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("p"));
 
                 var boardID = context.Request.QueryString.GetFirstOrDefault("b") != null
                                   ? context.Request.QueryString.GetFirstOrDefaultAs<int>("b")

@@ -27,6 +27,7 @@ namespace YAF.Core
     using System.Linq;
 
     using YAF.Classes;
+    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types.Attributes;
@@ -115,7 +116,7 @@ namespace YAF.Core
 
             if (@event.Entity == null)
             {
-                @event.Entity = this._attachmentRepository.ListTyped(attachmentID: @event.EntityId).FirstOrDefault();
+                @event.Entity = this._attachmentRepository.GetById(@event.EntityId.ToTyped<int>());
             }
 
             if (@event.Entity == null)

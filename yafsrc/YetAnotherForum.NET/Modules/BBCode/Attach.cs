@@ -23,14 +23,13 @@
  */
 namespace YAF.Modules.BBCode
 {
-    using System.Linq;
     using System.Web;
     using System.Web.UI;
 
     using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
-    using YAF.Core.Model;
+    using YAF.Core.Extensions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -53,10 +52,7 @@ namespace YAF.Modules.BBCode
                 return;
             }
 
-            var attachment =
-               this.GetRepository<Attachment>()
-                   .ListTyped(attachmentID: this.Parameters["inner"].ToType<int>())
-                   .FirstOrDefault();
+            var attachment = this.GetRepository<Attachment>().GetById(this.Parameters["inner"].ToType<int>());
 
             if (attachment == null)
             {

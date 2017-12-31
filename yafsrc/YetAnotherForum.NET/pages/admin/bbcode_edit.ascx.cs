@@ -30,6 +30,7 @@ namespace YAF.Pages.Admin
 
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -143,7 +144,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            var bbCode = this.GetRepository<BBCode>().ListTyped(this.BBCodeID.Value, this.PageContext.PageBoardID)[0];
+            var bbCode = this.GetRepository<BBCode>().GetById(this.BBCodeID.Value);
 
             // fill the control values...
             this.txtName.Text = bbCode.Name;

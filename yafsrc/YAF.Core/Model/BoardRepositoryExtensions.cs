@@ -118,24 +118,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The delete.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardID">
-        /// The board id.
-        /// </param>
-        public static void Delete(this IRepository<Board> repository, int boardID)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            repository.DbFunction.Query.board_delete(BoardID: boardID);
-
-            repository.FireDeleted(boardID);
-        }
-
-        /// <summary>
         /// The list.
         /// </summary>
         /// <param name="repository">

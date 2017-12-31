@@ -24,17 +24,16 @@
 
 namespace YAF.Pages
 {
-    // YAF.Pages
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Data;
 
-    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
-    using YAF.Core.Model;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -71,7 +70,7 @@ namespace YAF.Pages
         public override void DataBind()
         {
             // load data
-            DataTable dataTable;
+            IList<AccessMask> dataTable;
 
             // only admin can assign all access masks
             if (!this.PageContext.IsAdmin)
@@ -80,16 +79,17 @@ namespace YAF.Pages
                 var flags = AccessFlags.Flags.ModeratorAccess.ToType<int>();
 
                 // non-admins cannot assign moderation access masks
-                dataTable = this.GetRepository<AccessMask>().List(excludeFlags: flags);
+                dataTable = this.GetRepository<AccessMask>()
+                    .Get(a => a.BoardID == this.PageContext.PageBoardID && a.Flags == flags);
             }
             else
             {
-                dataTable = this.GetRepository<AccessMask>().List();
+                dataTable = this.GetRepository<AccessMask>().GetByBoardId();
             }
 
             // setup datasource for access masks dropdown
             this.AccessMaskID.DataSource = dataTable;
-            this.AccessMaskID.DataValueField = "AccessMaskID";
+            this.AccessMaskID.DataValueField = "ID";
             this.AccessMaskID.DataTextField = "Name";
 
             base.DataBind();
@@ -118,7 +118,9 @@ namespace YAF.Pages
             if (this.PageContext.Settings.LockedForum == 0)
             {
                 // forum index
-                this.PageLinks.AddRoot().AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
+                this.PageLinks.AddRoot().AddCategory(
+                    this.PageContext.PageCategoryName,
+                    this.PageContext.PageCategoryID);
             }
 
             // forum page
@@ -206,14 +208,16 @@ namespace YAF.Pages
                 return;
             }
 
-            using (
-                DataTable dt = LegacyDb.userforum_list(
-                    this.Request.QueryString.GetFirstOrDefault("u"), this.PageContext.PageForumID))
+            using (DataTable dt = LegacyDb.userforum_list(
+                this.Request.QueryString.GetFirstOrDefault("u"),
+                this.PageContext.PageForumID))
             {
                 foreach (DataRow row in dt.Rows)
                 {
                     // set username and disable its editing
-                    this.UserName.Text = PageContext.BoardSettings.EnableDisplayName ? row["DisplayName"].ToString() : row["Name"].ToString();
+                    this.UserName.Text = PageContext.BoardSettings.EnableDisplayName
+                                             ? row["DisplayName"].ToString()
+                                             : row["Name"].ToString();
                     this.UserName.Enabled = false;
 
                     // we don't need to find users now

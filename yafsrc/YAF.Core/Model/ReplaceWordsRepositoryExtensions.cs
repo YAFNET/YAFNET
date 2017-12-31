@@ -23,11 +23,8 @@
  */
 namespace YAF.Core.Model
 {
-    using System.Collections.Generic;
-    using System.Data;
-
+    using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -39,77 +36,30 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// Gets a list of replace words
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="replaceWordID">The replace word identifier.</param>
-        /// <param name="boardId">The board identifier.</param>
-        /// <returns>DataTable with replace words</returns>
-        public static DataTable List(
-            this IRepository<Replace_Words> repository,
-            int? replaceWordID = null,
-            int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.replace_words_list(
-                BoardID: boardId ?? repository.BoardID,
-                ID: replaceWordID);
-        }
-
-        /// <summary>
-        /// Gets a list of replace words
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="replaceWordID">The replace word identifier.</param>
-        /// <param name="boardId">The board identifier.</param>
-        /// <returns>List with replace words</returns>
-        public static IList<Replace_Words> ListTyped(
-            this IRepository<Replace_Words> repository,
-            int? replaceWordID = null,
-            int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            using (var session = repository.DbFunction.CreateSession())
-            {
-                return
-                    session.GetTyped<Replace_Words>(
-                        r => r.replace_words_list(BoardID: boardId ?? repository.BoardID, ID: replaceWordID));
-            }
-        }
-
-        /// <summary>
         /// Saves changes to a word.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="replaceWordID">The replace word identifier.</param>
+        /// <param name="replaceWordId">The replace word identifier.</param>
         /// <param name="badWord">The bad word.</param>
         /// <param name="goodWord">The good word.</param>
         /// <param name="boardId">The board identifier.</param>
         public static void Save(
             this IRepository<Replace_Words> repository,
-            int? replaceWordID,
+            int? replaceWordId,
             string badWord,
             string goodWord,
             int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Query.replace_words_save(
-                ID: replaceWordID,
-                BoardID: boardId ?? repository.BoardID,
-                badWord: badWord,
-                goodword: goodWord);
-
-            if (replaceWordID.HasValue)
-            {
-                repository.FireUpdated(replaceWordID);
-            }
-            else
-            {
-                repository.FireNew();
-            }
+            repository.Upsert(
+                new Replace_Words
+                    {
+                        BoardID = boardId ?? repository.BoardID,
+                        ID = replaceWordId ?? 0,
+                        BadWord = badWord,
+                        GoodWord = goodWord
+                });
         }
 
         #endregion

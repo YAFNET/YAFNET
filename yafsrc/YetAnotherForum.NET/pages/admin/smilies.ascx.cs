@@ -34,6 +34,7 @@ namespace YAF.Pages.Admin
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
@@ -177,7 +178,7 @@ namespace YAF.Pages.Admin
                     this.BindData();
                     break;
                 case "delete":
-                    this.GetRepository<Smiley>().Delete(e.CommandArgument.ToType<int>());
+                    this.GetRepository<Smiley>().DeleteById(e.CommandArgument.ToType<int>());
                     this.BindData();
                     break;
                 case "import":

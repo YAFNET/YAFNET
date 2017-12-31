@@ -769,7 +769,7 @@ namespace YAF.Pages
             // Remove Message Attachments
             if (editMessage.HasAttachments.HasValue && editMessage.HasAttachments.Value)
             {
-                var attachments = this.GetRepository<Attachment>().ListTyped(this.EditMessageID.ToType<int>());
+                var attachments = this.GetRepository<Attachment>().Get(a => a.MessageID == this.EditMessageID.ToType<int>());
 
                 attachments.ForEach(
                     attach =>
@@ -1447,7 +1447,7 @@ namespace YAF.Pages
             // Convert Message Attachments to new [Attach] BBCode Attachments
             if (currentMessage.HasAttachments.HasValue && currentMessage.HasAttachments.Value)
             {
-                var attachments = this.GetRepository<Attachment>().ListTyped(messageID: currentMessage.MessageID);
+                var attachments = this.GetRepository<Attachment>().Get(a => a.MessageID == currentMessage.MessageID);
 
                 attachments.ForEach(
                     attach =>

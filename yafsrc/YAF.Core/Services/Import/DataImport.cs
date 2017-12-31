@@ -71,7 +71,7 @@ namespace YAF.Core.Services.Import
                                                      && dsBBCode.Tables["YafBBCode"].Columns["SearchRegex"] != null
                                                      && dsBBCode.Tables["YafBBCode"].Columns["ExecOrder"] != null)
             {
-                var bbcodeList = repository.ListTyped(boardId: boardId);
+                var bbcodeList = repository.GetByBoardId();
 
                 // import any extensions that don't exist...
                 foreach (DataRow row in dsBBCode.Tables["YafBBCode"].Rows)
@@ -156,7 +156,7 @@ namespace YAF.Core.Services.Import
             {
                 var repository = YafContext.Current.Get<IRepository<FileExtension>>();
 
-                var extensionList = repository.ListTyped(boardId: boardId);
+                var extensionList = repository.Get(e => e.BoardId == boardId);
 
                 // import any extensions that don't exist...
                 var extensionsToImport = dsExtensions.Tables["YafExtension"].Rows.Cast<DataRow>()

@@ -34,6 +34,7 @@ namespace YAF.Pages.Admin
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -109,7 +110,7 @@ namespace YAF.Pages.Admin
                     YafBuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", e.CommandArgument);
                     break;
                 case "delete":
-                    if (this.GetRepository<Category>().Delete(e.CommandArgument.ToType<int>()))
+                    if (this.GetRepository<Category>().DeleteById(e.CommandArgument.ToType<int>()))
                     {
                         this.BindData();
                     }

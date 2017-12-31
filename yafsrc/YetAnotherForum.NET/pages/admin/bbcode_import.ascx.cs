@@ -28,7 +28,6 @@ namespace YAF.Pages.Admin
 
     using System;
 
-    using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Services.Import;
@@ -76,7 +75,7 @@ namespace YAF.Pages.Admin
 
             try
             {
-                int importedCount = DataImport.BBCodeExtensionImport(
+                var importedCount = DataImport.BBCodeExtensionImport(
                     this.PageContext.PageBoardID, this.importFile.PostedFile.InputStream);
 
                 this.PageContext.LoadMessage.AddSession(

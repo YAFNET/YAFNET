@@ -27,21 +27,17 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Drawing;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
-    using YAF.Core.Model;
-    using YAF.Core.Services;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -135,7 +131,7 @@ namespace YAF.Pages.Admin
                 case "delete":
 
                     // attmempt to delete access masks
-                    if (this.GetRepository<AccessMask>().Delete(e.CommandArgument.ToType<int>()))
+                    if (this.GetRepository<AccessMask>().DeleteById(e.CommandArgument.ToType<int>()))
                     {
                         // remove cache of forum moderators
                         this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
@@ -185,7 +181,7 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             // list all access masks for this board
-            this.List.DataSource = this.GetRepository<AccessMask>().List();
+            this.List.DataSource = this.GetRepository<AccessMask>().GetByBoardId();
             this.DataBind();
         }
 

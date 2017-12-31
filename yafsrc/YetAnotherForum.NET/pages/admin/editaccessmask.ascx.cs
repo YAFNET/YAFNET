@@ -176,7 +176,7 @@ namespace YAF.Pages.Admin
             if (this.Request.QueryString.GetFirstOrDefault("i") != null)
             {
                 var accessMask = this.GetRepository<AccessMask>()
-                    .ListTyped(this.Request.QueryString.GetFirstOrDefaultAs<int>("i")).FirstOrDefault();
+                    .GetById(this.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
 
                 if (accessMask != null)
                 {
@@ -201,7 +201,9 @@ namespace YAF.Pages.Admin
             }
             else
             {
-                this.SortOrder.Text = (this.GetRepository<AccessMask>().ListTyped().Count + 1).ToString();
+                this.SortOrder.Text =
+                    (this.GetRepository<AccessMask>().Count(x => x.BoardID == this.PageContext.PageBoardID) + 1)
+                    .ToString();
             }
 
             this.DataBind();

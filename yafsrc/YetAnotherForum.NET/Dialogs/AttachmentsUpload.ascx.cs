@@ -31,6 +31,7 @@ namespace YAF.Dialogs
 
     using YAF.Classes;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -56,7 +57,7 @@ namespace YAF.Dialogs
         {
             get
             {
-                return this.GetRepository<FileExtension>().ListTyped();
+                return this.GetRepository<FileExtension>().Get(e => e.BoardId == this.PageContext.PageBoardID);
             }
         }
 

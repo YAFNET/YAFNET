@@ -38,28 +38,6 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// The delete.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="categoryID">The category id.</param>
-        /// <returns>Returns if Category was deleted or not</returns>
-        public static bool Delete(this IRepository<Category> repository, int categoryID)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            int success = repository.DbFunction.Scalar.category_delete(CategoryID: categoryID);
-
-            if (success == 0)
-            {
-                return false;
-            }
-
-            repository.FireDeleted(categoryID);
-
-            return true;
-        }
-
-        /// <summary>
         /// The list.
         /// </summary>
         /// <param name="repository">The repository.</param>

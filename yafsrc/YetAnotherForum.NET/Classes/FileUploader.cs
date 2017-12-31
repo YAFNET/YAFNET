@@ -190,8 +190,8 @@ namespace YAF.Classes
                     {
                         newAttachmentID = this.GetRepository<Attachment>()
                             .Save(
-                                messageID: 0,
-                                userID: yafUserID,
+                                messageId: 0,
+                                userId: yafUserID,
                                 fileName: fileName,
                                 bytes: file.ContentLength,
                                 contentType: file.ContentType,
@@ -211,8 +211,8 @@ namespace YAF.Classes
 
                         newAttachmentID = this.GetRepository<Attachment>()
                             .Save(
-                                messageID: 0,
-                                userID: yafUserID,
+                                messageId: 0,
+                                userId: yafUserID,
                                 fileName: fileName,
                                 bytes: file.ContentLength,
                                 contentType: file.ContentType);

@@ -26,6 +26,7 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using System.Web.Security;
@@ -57,7 +58,7 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Gets or sets the access masks list.
         /// </summary>
-        public DataTable AccessMasksList { get; set; }
+        public IList<AccessMask> AccessMasksList { get; set; }
 
         /// <summary>
         /// Handles databinding event of initial access maks dropdown control.
@@ -83,7 +84,7 @@ namespace YAF.Pages.Admin
             c.DataSource = this.AccessMasksList;
 
             // set value and text field names
-            c.DataValueField = "AccessMaskID";
+            c.DataValueField = "ID";
             c.DataTextField = "Name";
         }
 
@@ -404,7 +405,7 @@ namespace YAF.Pages.Admin
                 this.AccessList.DataSource = LegacyDb.forumaccess_group(this.Request.QueryString.GetFirstOrDefault("i"));
             }
 
-            this.AccessMasksList = this.GetRepository<AccessMask>().List();
+            this.AccessMasksList = this.GetRepository<AccessMask>().GetByBoardId();
 
             // bind data to controls
             this.DataBind();

@@ -45,23 +45,6 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// The delete.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository. 
-        /// </param>
-        /// <param name="smileyID">
-        /// The smiley id. 
-        /// </param>
-        public static void Delete(this IRepository<Smiley> repository, int? smileyID = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            repository.DbFunction.Query.smiley_delete(SmileyID: smileyID);
-            repository.FireDeleted(smileyID);
-        }
-
-        /// <summary>
         /// The list.
         /// </summary>
         /// <param name="repository">

@@ -24,7 +24,6 @@
 
 namespace YAF.Pages.Admin
 {
-    using Core.Services.Import;
     #region Using
 
     using System;
@@ -34,9 +33,13 @@ namespace YAF.Pages.Admin
     using System.Web;
     using System.Web.Security;
     using System.Web.UI.WebControls;
+
+    using Core.Services.Import;
+
     using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
@@ -93,8 +96,8 @@ namespace YAF.Pages.Admin
         protected void BindData_AccessMaskID([NotNull] object sender, [NotNull] EventArgs e)
         {
             var dropDownList = sender as DropDownList;
-            dropDownList.DataSource = this.GetRepository<AccessMask>().List();
-            dropDownList.DataValueField = "AccessMaskID";
+            dropDownList.DataSource = this.GetRepository<AccessMask>().GetByBoardId();
+            dropDownList.DataValueField = "ID";
             dropDownList.DataTextField = "Name";
         }
 

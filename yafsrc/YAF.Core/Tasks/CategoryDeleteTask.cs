@@ -25,6 +25,7 @@ namespace YAF.Core.Tasks
 {
     using System;
 
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -124,7 +125,7 @@ namespace YAF.Core.Tasks
             try
             {
                 this.Logger.Info("Starting Category {0} delete task.", this.CategoryId);
-                this.GetRepository<Category>().Delete(this.CategoryId);
+                this.GetRepository<Category>().DeleteById(this.CategoryId);
                 this.Logger.Info("Category (ID: {0}) Delete Task Complete.", this.CategoryId);
             }
             catch (Exception x)

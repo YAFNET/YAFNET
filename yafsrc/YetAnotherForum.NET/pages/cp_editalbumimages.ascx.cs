@@ -28,6 +28,7 @@ namespace YAF.Pages
     using System;
     using System.Data;
     using System.IO;
+    using System.Linq;
     using System.Threading;
     using System.Web;
     using System.Web.UI.HtmlControls;
@@ -432,10 +433,9 @@ namespace YAF.Pages
             string[] aImageExtensions = { "jpg", "gif", "png", "bmp" };
 
             // If we don't get a match from the db, then the extension is not allowed
-            DataTable dt = this.GetRepository<FileExtension>().List(extension);
-
             // also, check to see an image is being uploaded.
-            if (Array.IndexOf(aImageExtensions, extension) == -1 || dt.Rows.Count == 0)
+            if (Array.IndexOf(aImageExtensions, extension) == -1 || this.GetRepository<FileExtension>()
+                    .Get(e => e.BoardId == this.PageContext.PageBoardID && e.Extension == extension).Count == 0)
             {
                 this.PageContext.AddLoadMessage(this.GetTextFormatted("FILEERROR", extension));
                 return false;

@@ -27,14 +27,14 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
+    using System.Web;
     using System.Web.UI.WebControls;
+    using System.Xml.Linq;
 
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -187,42 +187,7 @@ namespace YAF.Pages.Admin
                     break;
                 case "export":
                     {
-                        var codeIDs = this.GetSelectedBbCodeIDs();
-
-                        if (codeIDs.Count > 0)
-                        {
-                            // export this list as XML...
-                            var dataTable = this.GetRepository<BBCode>().List();
-
-                            // remove all but required bbcodes...
-                            foreach (var row in
-                                from DataRow row in dataTable.Rows
-                                let id = row["BBCodeID"].ToType<int>()
-                                where !codeIDs.Contains(id)
-                                select row)
-                            {
-                                // remove from this table...
-                                row.Delete();
-                            }
-
-                            // store delete changes...
-                            dataTable.AcceptChanges();
-
-                            // export...
-                            dataTable.DataSet.DataSetName = "YafBBCodeList";
-                            dataTable.TableName = "YafBBCode";
-                            dataTable.Columns.Remove("BBCodeID");
-                            dataTable.Columns.Remove("BoardID");
-
-                            this.Response.ContentType = "text/xml";
-                            this.Response.AppendHeader("Content-Disposition", "attachment; filename=YafBBCodeExport.xml");
-                            dataTable.DataSet.WriteXml(this.Response.OutputStream);
-                            this.Response.End();
-                        }
-                        else
-                        {
-                            this.PageContext.AddLoadMessage(this.GetText("ADMIN_BBCODE", "MSG_NOTHING_SELECTED"));
-                        }
+                        this.ExportList();
                     }
 
                     break;
@@ -233,11 +198,73 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Exports the selected list.
+        /// </summary>
+        private void ExportList()
+        {
+
+            var codeIDs = this.GetSelectedBbCodeIDs();
+
+            if (codeIDs.Count > 0)
+            {
+
+                this.Get<HttpResponseBase>().Clear();
+                this.Get<HttpResponseBase>().ClearContent();
+                this.Get<HttpResponseBase>().ClearHeaders();
+
+                this.Get<HttpResponseBase>().ContentType = "text/xml";
+                this.Get<HttpResponseBase>().AppendHeader(
+                    "content-disposition",
+                    "attachment; filename=BBCodeExport.xml");
+
+                // export this list as XML...
+                var list =
+                    this.GetRepository<BBCode>().GetByBoardId();
+
+                var selectedList = new List<BBCode>();
+
+                foreach (var id in codeIDs)
+                {
+                    var found = list.First(e => e.ID == id);
+
+                    selectedList.Add(found);
+                }
+
+                var element = new XElement(
+                    "YafBBCodeList",
+                    from bbCode in selectedList
+                    select new XElement(
+                        "YafBBCode",
+                        new XElement("Name", bbCode.Name),
+                        new XElement("Description", bbCode.Description),
+                        new XElement("OnClickJS", bbCode.OnClickJS),
+                        new XElement("DisplayJS", bbCode.DisplayJS),
+                        new XElement("EditJS", bbCode.EditJS),
+                        new XElement("DisplayCSS", bbCode.DisplayCSS),
+                        new XElement("SearchRegex", bbCode.SearchRegex),
+                        new XElement("ReplaceRegex", bbCode.ReplaceRegex),
+                        new XElement("Variables", bbCode.Variables),
+                        new XElement("UseModule", bbCode.UseModule),
+                        new XElement("ModuleClass", bbCode.ModuleClass),
+                        new XElement("ExecOrder", bbCode.ExecOrder)));
+
+                element.Save(this.Response.OutputStream);
+
+                this.Get<HttpResponseBase>().Flush();
+                this.Get<HttpResponseBase>().End();
+            }
+            else
+            {
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_BBCODE", "MSG_NOTHING_SELECTED"));
+            }
+        }
+
+        /// <summary>
         /// The bind data.
         /// </summary>
         private void BindData()
         {
-            this.bbCodeList.DataSource = this.GetRepository<BBCode>().List();
+            this.bbCodeList.DataSource = this.GetRepository<BBCode>().GetByBoardId();
             this.DataBind();
         }
 

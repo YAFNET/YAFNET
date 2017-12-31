@@ -23,9 +23,7 @@
  */
 namespace YAF.Core.Model
 {
-    using System.Collections.Generic;
-    using System.Data;
-
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
@@ -38,50 +36,28 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// The list.
+        /// Saves or add new entity.
         /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="extension">
-        /// The extension.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable List(this IRepository<FileExtension> repository, string extension = null, int? boardId = null)
+        /// <param name="repository">The repository.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="extension">The extension.</param>
+        /// <param name="boardId">The board identifier.</param>
+        public static void Save(
+            this IRepository<FileExtension> repository,
+            int? id,
+            string extension,
+            int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.GetData.extension_list(BoardID: boardId ?? repository.BoardID, Extension: extension);
-        }
-
-        /// <summary>
-        /// The list typed.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="extension">
-        /// The extension.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IList"/>.
-        /// </returns>
-        public static IList<FileExtension> ListTyped(this IRepository<FileExtension> repository, string extension = null, int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            using (var functionSession = repository.DbFunction.CreateSession())
+             var entity = new FileExtension
             {
-                return functionSession.GetTyped<FileExtension>(r => r.extension_list(BoardID: boardId ?? repository.BoardID, Extension: extension));
-            }
+                ID = id ?? 0,
+                BoardId = boardId ?? repository.BoardID,
+                Extension = extension
+            };
+
+            repository.Upsert(entity);
         }
 
         #endregion

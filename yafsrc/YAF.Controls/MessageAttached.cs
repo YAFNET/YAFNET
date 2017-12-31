@@ -31,7 +31,7 @@ namespace YAF.Controls
 
     using YAF.Classes;
     using YAF.Core;
-    using YAF.Core.Model;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -118,7 +118,7 @@ namespace YAF.Controls
 
             var settings = this.Get<YafBoardSettings>();
 
-            var attachments = this.GetRepository<Attachment>().ListTyped(messageID: this.MessageID);
+            var attachments = this.GetRepository<Attachment>().Get(a => a.MessageID == this.MessageID);
 
             // show file then image attachments...
             var tmpDisplaySort = 0;

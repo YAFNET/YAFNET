@@ -34,6 +34,7 @@ namespace YAF.Pages.Admin
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -104,8 +105,6 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            //string strAddEdit = (this.Request.QueryString.GetFirstOrDefault("i") == null) ? "Add" : "Edit";
-
             if (this.IsPostBack)
             {
                 return;
@@ -130,32 +129,25 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The add_ click.
+        /// Handles the Click event of the Add control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void Add_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            string ext = this.extension.Text.Trim();
+            var fileExtension = this.extension.Text.Trim();
 
-            if (!this.IsValidExtension(ext))
+            if (!this.IsValidExtension(fileExtension))
             {
                 this.BindData();
             }
             else
             {
-                var entity = new FileExtension()
-                                    {
-                                        ID = this.Request.QueryString.GetFirstOrDefaultAs<int?>("i") ?? 0,
-                                        BoardId = this.PageContext.PageBoardID,
-                                        Extension = ext
-                                    };
+                this.GetRepository<FileExtension>().Save(
+                    this.Request.QueryString.GetFirstOrDefaultAs<int?>("i") ?? 0,
+                    fileExtension,
+                    this.PageContext.PageBoardID);
 
-                this.GetRepository<FileExtension>().Upsert(entity);
                 YafBuildLink.Redirect(ForumPages.admin_extensions);
             }
         }
