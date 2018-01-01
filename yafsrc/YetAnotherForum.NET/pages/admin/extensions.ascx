@@ -29,14 +29,14 @@
                 <td>
                     <span class="pull-right">
                     <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm"
-                            CommandName='edit' CommandArgument='<%# this.Eval( "extensionId") %>'
+                            CommandName='edit' CommandArgument='<%# this.Eval( "ID") %>'
                             TitleLocalizedTag="EDIT"
                             Icon="edit"
                             TextLocalizedTag="EDIT"
                             runat="server">
 					    </YAF:ThemeButton>
                     <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm"
-                                    CommandName='delete' CommandArgument='<%# this.Eval( "extensionId") %>'
+                                    CommandName='delete' CommandArgument='<%# this.Eval( "ID") %>'
                                     TitleLocalizedTag="DELETE"
                                     Icon="trash"
                                     TextLocalizedTag="DELETE"
