@@ -7277,25 +7277,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The user_ignoredlist.
-        /// </summary>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static DataTable user_ignoredlist([NotNull] object userId)
-        {
-            using (var cmd = DbHelpers.GetCommand("user_ignoredlist"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("UserId", userId);
-
-                return DbAccess.GetData(cmd);
-            }
-        }
-
-        /// <summary>
         /// The user_isuserignored.
         /// </summary>
         /// <param name="userId">
@@ -8010,26 +7991,6 @@ namespace YAF.Classes.Data
             }
 
             return true;
-        }
-
-        /// <summary>
-        /// The user_removeignoreduser.
-        /// </summary>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="ignoredUserId">
-        /// The ignored user id.
-        /// </param>
-        public static void user_removeignoreduser([NotNull] object userId, [NotNull] object ignoredUserId)
-        {
-            using (var cmd = DbHelpers.GetCommand("user_removeignoreduser"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("UserId", userId);
-                cmd.AddParam("IgnoredUserId", ignoredUserId);
-                DbAccess.ExecuteNonQuery(cmd);
-            }
         }
 
         /// <summary>

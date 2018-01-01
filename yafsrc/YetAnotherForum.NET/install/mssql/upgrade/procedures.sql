@@ -9343,15 +9343,6 @@ AS BEGIN
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_removeignoreduser]
-    @UserID int,
-    @IgnoredUserId int
-AS BEGIN
-        DELETE FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @UserID AND IgnoredUserID = @IgnoredUserId
-
-END
-GO
-
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_isuserignored]
     @UserID int,
     @IgnoredUserId int
