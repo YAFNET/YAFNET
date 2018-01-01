@@ -50,9 +50,9 @@
 				</td>
                 <td>
                     <span class="pull-right">
-                    <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm" CommandName='edit' CommandArgument='<%# this.Eval("TopicStatusId") %>'
+                    <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
                         TextLocalizedTag="EDIT" TitleLocalizedTag="EDIT" Icon="edit" runat="server"></YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm" OnLoad="Delete_Load"  CommandName='delete' CommandArgument='<%# this.Eval("TopicStatusId") %>'
+                    <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm" OnLoad="Delete_Load"  CommandName='delete' CommandArgument='<%# this.Eval("ID") %>'
                         TextLocalizedTag="DELETE" TitleLocalizedTag="DELETE" Icon="trash" runat="server"></YAF:ThemeButton>
                         </span>
                 </td>

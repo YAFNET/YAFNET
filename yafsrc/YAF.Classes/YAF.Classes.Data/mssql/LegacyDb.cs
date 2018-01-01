@@ -1552,22 +1552,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The choice_delete.
-        /// </summary>
-        /// <param name="choiceID">
-        /// The choice id.
-        /// </param>
-        public static void choice_delete([NotNull] object choiceID)
-        {
-            using (var cmd = DbHelpers.GetCommand("choice_delete"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("ChoiceID", choiceID);
-                DbAccess.ExecuteNonQuery(cmd);
-            }
-        }
-
-        /// <summary>
         /// The choice_update.
         /// </summary>
         /// <param name="choiceID">
@@ -2340,84 +2324,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// Delete a topic status.
-        /// </summary>
-        /// <param name="topicStatusID">The topic status ID.</param>
-        public static void TopicStatus_Delete([NotNull] object topicStatusID)
-        {
-            try
-            {
-                using (var cmd = DbHelpers.GetCommand("TopicStatus_Delete"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.AddParam("TopicStatusID", topicStatusID);
-                    DbAccess.ExecuteNonQuery(cmd);
-                }
-            }
-            catch
-            {
-                // Ignore any errors in this method
-            }
-        }
-
-        /// <summary>
-        /// Get a Topic Status by topicStatusID
-        /// </summary>
-        /// <param name="topicStatusID">The topic status ID.</param>
-        /// <returns></returns>
-        public static DataTable TopicStatus_Edit([NotNull] object topicStatusID)
-        {
-            using (var cmd = DbHelpers.GetCommand("TopicStatus_Edit"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("TopicStatusID", topicStatusID);
-                return DbAccess.GetData(cmd);
-            }
-        }
-
-        /// <summary>
-        /// List all Topics of the Current Board
-        /// </summary>
-        /// <param name="boardID">The board ID.</param>
-        /// <returns></returns>
-        public static DataTable TopicStatus_List([NotNull] object boardID)
-        {
-            using (var cmd = DbHelpers.GetCommand("TopicStatus_List"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("BoardID", boardID);
-                return DbAccess.GetData(cmd);
-            }
-        }
-
-        /// <summary>
-        /// Saves a topic status
-        /// </summary>
-        /// <param name="topicStatusID">The topic status ID.</param>
-        /// <param name="boardID">The board ID.</param>
-        /// <param name="topicStatusName">Name of the topic status.</param>
-        /// <param name="defaultDescription">The default description.</param>
-        public static void TopicStatus_Save([NotNull] object topicStatusID, [NotNull] object boardID, [NotNull] object topicStatusName, [NotNull] object defaultDescription)
-        {
-            try
-            {
-                using (var cmd = DbHelpers.GetCommand("TopicStatus_Save"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.AddParam("TopicStatusID", topicStatusID);
-                    cmd.AddParam("BoardId", boardID);
-                    cmd.AddParam("TopicStatusName", topicStatusName);
-                    cmd.AddParam("DefaultDescription", defaultDescription);
-                    DbAccess.ExecuteNonQuery(cmd);
-                }
-            }
-            catch
-            {
-                // Ignore any errors in this method
-            }
-        }
-
-        /// <summary>
         /// Deletes a forum
         /// </summary>
         /// <param name="forumID">
@@ -2520,25 +2426,6 @@ namespace YAF.Classes.Data
         // END ABOT CHANGE 16.04.04
         // ABOT NEW 16.04.04: This new function lists all moderated topic by the specified user
 
-
-        /// <summary>
-        /// Gets a max id of forums.
-        /// </summary>
-        /// <param name="boardID">
-        /// boardID
-        /// </param>
-        /// <returns>
-        /// DataTable with list of topics from a forum
-        /// </returns>
-        public static int forum_maxid([NotNull] object boardID)
-        {
-            using (var cmd = DbHelpers.GetCommand("forum_maxid"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("BoardID", boardID);
-                return Convert.ToInt32(DbAccess.ExecuteScalar(cmd));
-            }
-        }
 
         /// <summary>
         /// Listes all forums accessible to a user
@@ -3640,29 +3527,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The message_ thanks number.
-        /// </summary>
-        /// <param name="messageID">
-        /// The message id.
-        /// </param>
-        /// <returns>
-        /// The message_ thanks number.
-        /// </returns>
-        public static int message_ThanksNumber([NotNull] object messageID)
-        {
-            using (var cmd = DbHelpers.GetCommand("message_thanksnumber"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                var paramOutput = new SqlParameter();
-                paramOutput.Direction = ParameterDirection.ReturnValue;
-                cmd.AddParam("MessageID", messageID);
-                cmd.Parameters.Add(paramOutput);
-                DbAccess.ExecuteNonQuery(cmd);
-                return Convert.ToInt32(paramOutput.Value);
-            }
-        }
-
-        /// <summary>
         /// The message_delete.
         /// </summary>
         /// <param name="messageID">
@@ -3750,25 +3614,6 @@ namespace YAF.Classes.Data
                 cmd.AddParam("LastRead", lastRead);
                 cmd.AddParam("ShowDeleted", showDeleted);
                 cmd.AddParam("AuthorUserID", authorUserID);
-                return DbAccess.GetData(cmd);
-            }
-        }
-
-        /// <summary>
-        /// gets list of replies to message
-        /// </summary>
-        /// <param name="messageID">
-        /// The message id.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        [NotNull]
-        public static DataTable message_getRepliesList([NotNull] object messageID)
-        {
-            using (var cmd = DbHelpers.GetCommand("message_reply_list"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("MessageID", messageID);
                 return DbAccess.GetData(cmd);
             }
         }
@@ -5432,22 +5277,6 @@ namespace YAF.Classes.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.AddParam("TopicID", topicID);
                 return DbAccess.GetData(cmd);
-            }
-        }
-
-        /// <summary>
-        /// The rank_delete.
-        /// </summary>
-        /// <param name="rankID">
-        /// The rank id.
-        /// </param>
-        public static void rank_delete([NotNull] object rankID)
-        {
-            using (var cmd = DbHelpers.GetCommand("rank_delete"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("RankID", rankID);
-                DbAccess.ExecuteNonQuery(cmd);
             }
         }
 
@@ -7210,24 +7039,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The user_avatarimage.
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static DataTable user_avatarimage([NotNull] object userID)
-        {
-            using (var cmd = DbHelpers.GetCommand("user_avatarimage"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("UserID", userID);
-                return DbAccess.GetData(cmd);
-            }
-        }
-
-        /// <summary>
         /// The user_changepassword.
         /// </summary>
         /// <param name="userID">
@@ -7378,45 +7189,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The user_getpoints.
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// The user_getpoints.
-        /// </returns>
-        public static int user_getpoints([NotNull] object userID)
-        {
-            using (var cmd = DbHelpers.GetCommand("user_getpoints"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("UserID", userID);
-                return (int)DbAccess.ExecuteScalar(cmd);
-            }
-        }
-
-        /// <summary>
-        /// The user_getsignature.
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// The user_getsignature.
-        /// </returns>
-        [NotNull]
-        public static string user_getsignature([NotNull] object userID)
-        {
-            using (var cmd = DbHelpers.GetCommand("user_getsignature"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("UserID", userID);
-                return DbAccess.ExecuteScalar(cmd).ToString();
-            }
-        }
-
-        /// <summary>
         /// Returns data about allowed signature tags and character limits
         /// </summary>
         /// <param name="userID">
@@ -7436,29 +7208,6 @@ namespace YAF.Classes.Data
                 cmd.AddParam("BoardID", boardID);
                 cmd.AddParam("UserID", userID);
                 return DbAccess.GetData(cmd);
-            }
-        }
-
-        /// <summary>
-        /// The user_getthanks_from.
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="pageUserId">
-        /// The page User Id.
-        /// </param>
-        /// <returns>
-        /// The user_getthanks_from.
-        /// </returns>
-        public static int user_getthanks_from([NotNull] object userID, [NotNull] object pageUserId)
-        {
-            using (var cmd = DbHelpers.GetCommand("user_getthanks_from"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("UserID", userID);
-                cmd.AddParam("PageUserID", pageUserId);
-                return (int)DbAccess.ExecuteScalar(cmd);
             }
         }
 
@@ -8462,27 +8211,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The user_savepassword.
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="password">
-        /// The password.
-        /// </param>
-        public static void user_savepassword([NotNull] object userID, [NotNull] object password)
-        {
-            using (var cmd = DbHelpers.GetCommand("user_savepassword"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("UserID", userID);
-                cmd.AddParam(
-                  "Password", FormsAuthentication.HashPasswordForStoringInConfigFile(password.ToString(), "md5"));
-                DbAccess.ExecuteNonQuery(cmd);
-            }
-        }
-
-        /// <summary>
         /// Update the single Sign on Status
         /// </summary>
         /// <param name="userID">The user ID.</param>
@@ -8518,26 +8246,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The user_savesignature.
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="signature">
-        /// The signature.
-        /// </param>
-        public static void user_savesignature([NotNull] object userID, [NotNull] object signature)
-        {
-            using (var cmd = DbHelpers.GetCommand("user_savesignature"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("UserID", userID);
-                cmd.AddParam("Signature", signature);
-                DbAccess.ExecuteNonQuery(cmd);
-            }
-        }
-
-        /// <summary>
         /// The user_setinfo.
         /// </summary>
         /// <param name="boardID">
@@ -8559,26 +8267,6 @@ namespace YAF.Classes.Data
                 cmd.AddParam("Email", user.Email);
                 cmd.AddParam("BoardID", boardID);
                 cmd.AddParam("ProviderUserKey", user.ProviderUserKey);
-                DbAccess.ExecuteNonQuery(cmd);
-            }
-        }
-
-        /// <summary>
-        /// Set the User Reputation Points to a specific value
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="points">
-        /// The points.
-        /// </param>
-        public static void user_setpoints([NotNull] object userID, [NotNull] object points)
-        {
-            using (var cmd = DbHelpers.GetCommand("user_setpoints"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("UserID", userID);
-                cmd.AddParam("Points", points);
                 DbAccess.ExecuteNonQuery(cmd);
             }
         }
@@ -8646,27 +8334,7 @@ namespace YAF.Classes.Data
             }
         }
 
-        /// <summary>
-        /// Suspends the User
-        /// </summary>
-        /// <param name="userID">The user id.</param>
-        /// <param name="suspend">The suspend.</param>
-        /// <param name="suspendReason">The suspend reason.</param>
-        /// <param name="suspendBy">The suspend by.</param>
-        public static void user_suspend([NotNull] object userID, [NotNull] object suspend = null, [NotNull] object suspendReason = null, [NotNull] int suspendBy = 0)
-        {
-            using (var cmd = DbHelpers.GetCommand("user_suspend"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.AddParam("UserID", userID);
-                cmd.AddParam("Suspend", suspend);
-                cmd.AddParam("SuspendReason", suspendReason);
-                cmd.AddParam("SuspendBy", suspendBy);
-
-                DbAccess.ExecuteNonQuery(cmd);
-            }
-        }
+        
 
         /// <summary>
         /// Returns the posts which is thanked by the user + the posts which are posted by the user and
@@ -8688,26 +8356,6 @@ namespace YAF.Classes.Data
                 cmd.AddParam("UserID", UserID);
                 cmd.AddParam("PageUserID", pageUserID);
                 return DbAccess.GetData(cmd);
-            }
-        }
-
-        /// <summary>
-        /// The userforum_delete.
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="forumID">
-        /// The forum id.
-        /// </param>
-        public static void userforum_delete([NotNull] object userID, [NotNull] object forumID)
-        {
-            using (var cmd = DbHelpers.GetCommand("userforum_delete"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("UserID", userID);
-                cmd.AddParam("ForumID", forumID);
-                DbAccess.ExecuteNonQuery(cmd);
             }
         }
 

@@ -29,9 +29,11 @@ namespace YAF.Controls
 
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -98,9 +100,15 @@ namespace YAF.Controls
                 return;
             }
 
-            this.Button1.Text = "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(this.Get<ILocalization>().GetText("COMMON", "GO"));
-            this.btnAddPoints.Text = "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(this.Get<ILocalization>().GetText("COMMON", "GO"));
-            this.btnUserPoints.Text = "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(this.Get<ILocalization>().GetText("COMMON", "GO"));
+            this.Button1.Text =
+                "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(
+                    this.Get<ILocalization>().GetText("COMMON", "GO"));
+            this.btnAddPoints.Text =
+                "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(
+                    this.Get<ILocalization>().GetText("COMMON", "GO"));
+            this.btnUserPoints.Text =
+                "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(
+                    this.Get<ILocalization>().GetText("COMMON", "GO"));
 
             this.BindData();
         }
@@ -141,7 +149,8 @@ namespace YAF.Controls
                 return;
             }
 
-            LegacyDb.user_setpoints(this.CurrentUserID, this.txtUserPoints.Text);
+            this.GetRepository<User>().SetPoints(this.CurrentUserID, this.txtUserPoints.Text.ToType<int>());
+
             this.BindData();
         }
 
@@ -150,7 +159,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.ltrCurrentPoints.Text = LegacyDb.user_getpoints(this.CurrentUserID).ToString();
+            this.ltrCurrentPoints.Text = this.GetRepository<User>().GetPoints(this.CurrentUserID).ToString();
         }
 
         #endregion

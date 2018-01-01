@@ -27,7 +27,9 @@ namespace YAF.Core.Model
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Web.Security;
 
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
@@ -93,6 +95,86 @@ namespace YAF.Core.Model
                             NotificationType: notificationType,
                             DailyDigest: dailyDigest));
             }
+        }
+
+        /// <summary>
+        /// Gets the user signature.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns>Returns the user points</returns>
+        public static string GetSignature(
+            this IRepository<User> repository,
+            int userId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.GetById(userId).Signature;
+        }
+
+        /// <summary>
+        /// Saves the signature.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="signature">The signature.</param>
+        public static void SaveSignature(
+            this IRepository<User> repository,
+            [NotNull] int userId,
+            [CanBeNull] string signature)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            repository.UpdateOnly(() => new User { Signature = signature }, where: u => u.ID == userId);
+        }
+
+        /// <summary>
+        /// Gets the user points.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns>Returns the user points</returns>
+        public static int GetPoints(
+            this IRepository<User> repository,
+            int userId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.GetById(userId).Points;
+        }
+
+        /// <summary>
+        /// Sets the points.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="points">The points.</param>
+        public static void SetPoints(
+            this IRepository<User> repository,
+            [NotNull] int userId,
+            [NotNull] int points)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            repository.UpdateOnly(() => new User { Points = points }, where: u => u.ID == userId);
+        }
+
+        /// <summary>
+        /// Suspends the User
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="suspend">The suspend.</param>
+        /// <param name="suspendReason">The suspend reason.</param>
+        /// <param name="suspendBy">The suspend by.</param>
+        public static void Suspend(
+            this IRepository<User> repository, [NotNull] int userId, [NotNull] DateTime? suspend = null, string suspendReason = null, [NotNull] int suspendBy = 0)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            repository.UpdateOnly(
+                () => new User { Suspended = suspend, SuspendedReason = suspendReason, SuspendedBy = suspendBy },
+                where: u => u.ID == userId);
         }
     }
 }

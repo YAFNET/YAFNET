@@ -21,12 +21,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 namespace YAF.Core.Model
 {
-    using System;
+    #region Using
+
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
 
     using YAF.Core.Extensions;
     using YAF.Types;
@@ -34,45 +35,20 @@ namespace YAF.Core.Model
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
+    #endregion
+
     /// <summary>
-    /// The WatchForum Repository Extensions
+    ///     The Thanks repository extensions.
     /// </summary>
-    public static class WatchForumRepositoryExtensions
+    public static class ThanksRepositoryExtensions
     {
         #region Public Methods and Operators
 
-        public static void Add(this IRepository<WatchForum> repository, int userID, int forumID)
+        public static long ThanksFromUser(this IRepository<Thanks> repository, int thanksFromUserId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Query.watchforum_add(UserID: userID, ForumID: forumID, UTCTIMESTAMP: DateTime.UtcNow);
-            repository.FireNew();
-        }
-
-        public static int? Check(this IRepository<WatchForum> repository, int userId, int forumId)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            var forum = repository.GetSingle(w => w.UserID == userId && w.ForumID == forumId);
-
-            return forum?.ID;
-        }
-
-        public static DataTable List(this IRepository<WatchForum> repository, int userID)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.watchforum_list(UserID: userID);
-        }
-
-        public static IList<WatchForum> ListTyped(this IRepository<WatchTopic> repository, int userID)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            using (var session = repository.DbFunction.CreateSession())
-            {
-                return session.GetTyped<WatchForum>(r => r.watchtopic_list(UserID: userID));
-            }
+            return repository.Count(thanks => thanks.ThanksFromUserID == thanksFromUserId);
         }
 
         #endregion

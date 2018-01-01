@@ -35,11 +35,13 @@ namespace YAF.Pages.Admin
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -211,7 +213,7 @@ namespace YAF.Pages.Admin
                     YafBuildLink.Redirect(ForumPages.admin_editrank, "r={0}", e.CommandArgument);
                     break;
                 case "delete":
-                    LegacyDb.rank_delete(e.CommandArgument);
+                    this.GetRepository<Rank>().DeleteById(e.CommandArgument.ToType<int>());
                     this.BindData();
                     break;
             }

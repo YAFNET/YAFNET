@@ -226,7 +226,7 @@ namespace YAF.Pages.Admin
 
             this.TimeZones.DataSource = StaticDataHelper.TimeZones();
 
-            DataTable categories = this.GetRepository<Category>().List();
+            var categories = this.GetRepository<Category>().List();
 
             this.ForumsCategory.DataSource = categories;
             this.TopicsCategory.DataSource = categories;

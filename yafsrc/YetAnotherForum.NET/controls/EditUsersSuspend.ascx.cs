@@ -36,11 +36,13 @@ namespace YAF.Controls
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -186,7 +188,8 @@ namespace YAF.Controls
         protected void RemoveSuspension_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // un-suspend user
-            LegacyDb.user_suspend(this.CurrentUserID);
+            this.GetRepository<User>().Suspend(this.CurrentUserID.ToType<int>());
+
             var usr =
                 LegacyDb.UserList(this.PageContext.PageBoardID, (int?)this.CurrentUserID, null, null, null, false)
                     .ToList();
@@ -301,8 +304,8 @@ namespace YAF.Controls
             }
 
             // suspend user by calling appropriate method
-            LegacyDb.user_suspend(
-                this.CurrentUserID,
+            this.GetRepository<User>().Suspend(
+                this.CurrentUserID.ToType<int>(),
                 suspend,
                 this.SuspendedReason.Text.Trim(),
                 this.PageContext.PageUserID);

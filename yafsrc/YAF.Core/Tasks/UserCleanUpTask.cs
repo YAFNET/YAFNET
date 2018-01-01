@@ -93,7 +93,7 @@ namespace YAF.Core.Tasks
                     // unsuspend these users...
                     foreach (var user in suspendedUsers)
                     {
-                        LegacyDb.user_suspend(user["UserId"], null);
+                        this.GetRepository<User>().Suspend(user["UserId"].ToType<int>(), null);
 
                         // sleep for a quarter of a second so we don't pound the server...
                         Thread.Sleep(250);

@@ -28,6 +28,7 @@ namespace YAF.Core.Model
     using System.Collections.Generic;
     using System.Data;
 
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -62,14 +63,16 @@ namespace YAF.Core.Model
         /// Checks the specified repository.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="userID">The user identifier.</param>
-        /// <param name="topicID">The topic identifier.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="topicId">The topic identifier.</param>
         /// <returns></returns>
-        public static int? Check(this IRepository<WatchTopic> repository, int userID, int topicID)
+        public static int? Check(this IRepository<WatchTopic> repository, int userId, int topicId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return (int?)repository.DbFunction.Scalar.watchtopic_check(UserID: userID, TopicID: topicID);
+            var topic = repository.GetSingle(w => w.UserID == userId && w.TopicID == topicId);
+
+            return topic?.ID;
         }
 
         /// <summary>

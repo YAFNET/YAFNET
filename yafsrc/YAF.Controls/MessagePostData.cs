@@ -39,6 +39,7 @@ namespace YAF.Controls
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Utils.Helpers.StringUtils;
 
     #endregion
 
@@ -357,7 +358,7 @@ namespace YAF.Controls
                 }
 
                 // Render Go to Answer Message
-                var answerMessageId = this.GetRepository<Message>().FindAnswerMessage(this.PageContext.PageTopicID);
+                var answerMessageId = this.GetRepository<Topic>().GetAnswerMessage(this.PageContext.PageTopicID);
 
                 if (answerMessageId.HasValue && this.CurrentMessage.Position.Equals(0))
                 {

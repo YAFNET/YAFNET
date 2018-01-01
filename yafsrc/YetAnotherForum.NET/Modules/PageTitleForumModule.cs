@@ -203,7 +203,6 @@ namespace YAF.Modules
                 }
             }
 
-
             if (addBoardName)
             {
                 // and lastly, tack on the board's name

@@ -658,28 +658,27 @@ namespace YAF
         {
             try
             {
-                using (var dt = LegacyDb.user_avatarimage(context.Request.QueryString.GetFirstOrDefault("u")))
+                var user = YafContext.Current.GetRepository<User>()
+                    .GetById(context.Request.QueryString.GetFirstOrDefault("u").ToType<int>());
+
+                if (user != null)
                 {
-                    foreach (DataRow row in dt.Rows)
+                    var data = user.AvatarImage;
+                    var contentType = user.AvatarImageType;
+
+                    context.Response.Clear();
+                    if (contentType.IsNotSet())
                     {
-                        var data = (byte[])row["AvatarImage"];
-                        var contentType = row["AvatarImageType"].ToString();
-
-                        context.Response.Clear();
-                        if (contentType.IsNotSet())
-                        {
-                            contentType = "image/jpeg";
-                        }
-
-                        context.Response.ContentType = contentType;
-                        context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                        context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
-                        context.Response.Cache.SetLastModified(DateTime.UtcNow);
-
-                        // context.Response.Cache.SetETag( eTag );
-                        context.Response.OutputStream.Write(data, 0, data.Length);
-                        break;
+                        contentType = "image/jpeg";
                     }
+
+                    context.Response.ContentType = contentType;
+                    context.Response.Cache.SetCacheability(HttpCacheability.Public);
+                    context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
+                    context.Response.Cache.SetLastModified(DateTime.UtcNow);
+
+                    // context.Response.Cache.SetETag( eTag );
+                    context.Response.OutputStream.Write(data, 0, data.Length);
                 }
             }
             catch (Exception x)

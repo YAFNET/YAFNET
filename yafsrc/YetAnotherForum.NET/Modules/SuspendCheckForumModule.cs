@@ -28,10 +28,12 @@ namespace YAF.Modules
     using System;
 
     using YAF.Classes.Data;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -92,7 +94,7 @@ namespace YAF.Modules
             if (this.Get<IDateTime>().GetUserDateTime(this.PageContext.SuspendedUntil)
                 <= this.Get<IDateTime>().GetUserDateTime(DateTime.UtcNow))
             {
-                LegacyDb.user_suspend(this.PageContext.PageUserID);
+                this.GetRepository<User>().Suspend(this.PageContext.PageUserID);
 
                 this.Get<ISendNotification>()
                     .SendUserSuspensionEndedNotification(

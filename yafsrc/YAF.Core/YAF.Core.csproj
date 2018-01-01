@@ -139,10 +139,15 @@
     <Compile Include="Helpers\DbInformationHelper.cs" />
     <Compile Include="Model\BannedEmailRepositoryExtensions.cs" />
     <Compile Include="Model\BannedNameRepositoryExtensions.cs" />
+    <Compile Include="Model\RankRepositoryExtensions.cs" />
     <Compile Include="Model\MessageRepositoryExtensions.cs" />
     <Compile Include="Model\ReplaceWordsRepositoryExtensions.cs" />
+    <Compile Include="Model\TopicStatusRepositoryExtensions.cs" />
+    <Compile Include="Model\TopicRepositoryExtensions.cs" />
+    <Compile Include="Model\ThanksRepositoryExtensions.cs" />
     <Compile Include="Model\SpamWordsRepositoryExtensions.cs" />
     <Compile Include="Model\UserRepositoryExtensions.cs" />
+    <Compile Include="Model\UserForumRepositoryExtensions.cs" />
     <Compile Include="Modules\BootstrapModule.cs" />
     <Compile Include="Modules\DynamicServicesModule.cs" />
     <Compile Include="Modules\GeneralModule.cs" />

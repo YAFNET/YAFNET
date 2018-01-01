@@ -21,40 +21,57 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 namespace YAF.Types.Models
 {
     using System;
 
     using ServiceStack.DataAnnotations;
 
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the Extension table.
+    ///     A class which represents the yaf_Choice table.
     /// </summary>
     [Serializable]
-    [Alias("Extension")]
-    public partial class FileExtension : IEntity, IHaveID
+    public partial class Choice : IEntity, IHaveID
     {
-        partial void OnCreated();
+        #region Constructors and Destructors
 
-        public FileExtension()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Choice"/> class.
+        /// </summary>
+        public Choice()
         {
-            OnCreated();
+            this.OnCreated();
         }
 
-        #region Properties
+        #endregion
+
+        #region Public Properties
 
         [AutoIncrement]
-        [Alias("ExtensionID")]
+        [Alias("ChoiceID")]
         public int ID { get; set; }
 
-        public int BoardId { get; set; }
+        public int PollID { get; set; }
 
-        public string Extension { get; set; }
+        [Alias("Choice")]
+        public string ChoiceName { get; set; }
 
+        public int Votes { get; set; }
+
+        public string ObjectPath { get; set; }
+
+        public string MimeType { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The on created.
+        /// </summary>
+        partial void OnCreated();
 
         #endregion
     }

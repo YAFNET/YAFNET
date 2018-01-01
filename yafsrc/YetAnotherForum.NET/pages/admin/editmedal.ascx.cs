@@ -213,7 +213,7 @@ namespace YAF.Pages.Admin
                 }
 
                 // save id to the control
-                this.UserID.Text = users.First().UserID.ToString();
+                this.UserID.Text = users.First().ID.ToString();
             }
             else if (this.UserID.Text.IsNotSet())
             {

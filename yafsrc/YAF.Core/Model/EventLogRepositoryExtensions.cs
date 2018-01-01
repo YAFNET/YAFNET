@@ -26,6 +26,7 @@ namespace YAF.Core.Model
     using System;
     using System.Data;
 
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -39,41 +40,6 @@ namespace YAF.Core.Model
     public static class EventLogRepositoryExtensions
     {
         #region Public Methods and Operators
-
-        /// <summary>
-        /// The create.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        /// <param name="type">
-        /// The type.
-        /// </param>
-        /// <returns>
-        /// The <see cref="int"/>.
-        /// </returns>
-        public static int Create(this IRepository<EventLog> repository, int? userID, object source, string description, EventLogTypes logType = EventLogTypes.Information)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            var returnValue =
-                (int)
-                repository.DbFunction.Scalar.eventlog_create(
-                    UserID: userID, Source: source.GetType().ToString(), Description: description, Type: logType.ToInt(), UTCTIMESTAMP: DateTime.UtcNow);
-
-            repository.FireNew();
-
-            return returnValue;
-        }
 
         /// <summary>
         /// The delete by user.

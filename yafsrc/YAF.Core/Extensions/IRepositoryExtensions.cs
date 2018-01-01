@@ -262,6 +262,31 @@ namespace YAF.Core.Extensions
         }
 
         /// <summary>
+        ///  Update only fields in the specified expression that matches the where condition (if any), E.g:
+        ///   
+        ///   db.UpdateOnly(() => new Person { FirstName = "JJ" }, where: p => p.LastName == "Hendrix");
+        ///   UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
+        ///
+        ///   db.UpdateOnly(() => new Person { FirstName = "JJ" });
+        ///   UPDATE "Person" SET "FirstName" = 'JJ'
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="repository">The repository.</param>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="where">The where.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns></returns>
+        public static int UpdateOnly<T>([NotNull] this IRepository<T> repository, Expression<Func<T>> updateFields,
+                                         Expression<Func<T, bool>> where = null,
+                                         Action<IDbCommand> commandFilter = null)
+            where T : class, IEntity, IHaveID, new()
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbAccess.UpdateOnly(updateFields, where, commandFilter);
+        }
+
+        /// <summary>
         /// Counts the specified criteria.
         /// </summary>
         /// <typeparam name="T">The type parameter.</typeparam>
@@ -297,6 +322,22 @@ namespace YAF.Core.Extensions
             CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbAccess.Execute(db => db.Connection.SingleById<T>(id));
+        }
+
+        /// <summary>
+        /// Gets a single entity by its ID.
+        /// </summary>
+        /// <typeparam name="T">The type parameter.</typeparam>
+        /// <param name="repository">The repository.</param>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>
+        /// The <see cref="T" /> .
+        /// </returns>
+        public static T GetSingle<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria) where T : IEntity, IHaveID, new()
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbAccess.Execute(db => db.Connection.Single<T>(criteria));
         }
 
         /// <summary>

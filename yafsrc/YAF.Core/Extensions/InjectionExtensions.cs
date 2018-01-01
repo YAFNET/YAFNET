@@ -30,10 +30,19 @@ namespace YAF.Core.Extensions
 
     using YAF.Core.Data;
 
+    /// <summary>
+    /// The Inject Extensions
+    /// </summary>
     public static class InjectionExtensions
     {
         #region Public Methods and Operators
 
+        /// <summary>
+        /// To the typed.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dataRow">The data row.</param>
+        /// <returns></returns>
         public static T ToTyped<T>(this DataRow dataRow)
             where T : new()
         {
@@ -44,6 +53,12 @@ namespace YAF.Core.Extensions
             return o;
         }
 
+        /// <summary>
+        /// To the typed.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The object.</param>
+        /// <returns></returns>
         public static T ToTyped<T>(this object obj)
             where T : new()
         {

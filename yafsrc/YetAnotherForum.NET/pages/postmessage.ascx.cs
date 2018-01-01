@@ -561,14 +561,12 @@ namespace YAF.Pages
 
                     this.TopicStatus.Items.Add(new ListItem("[{0}]".FormatWith(this.GetText("COMMON", "NONE")), "-1"));
 
-                    foreach (DataRow row in LegacyDb.TopicStatus_List(this.PageContext.PageBoardID).Rows)
+                    foreach (var item in this.GetRepository<TopicStatus>().GetByBoardId())
                     {
-                        var text = this.GetText("TOPIC_STATUS", row["TopicStatusName"].ToString());
+                        var text = this.GetText("TOPIC_STATUS", item.TopicStatusName);
 
                         this.TopicStatus.Items.Add(
-                            new ListItem(
-                                text.IsSet() ? text : row["DefaultDescription"].ToString(),
-                                row["TopicStatusName"].ToString()));
+                            new ListItem(text.IsSet() ? text : item.DefaultDescription, item.TopicStatusName));
                     }
 
                     this.TopicStatus.SelectedIndex = 0;
@@ -1343,7 +1341,7 @@ namespace YAF.Pages
                 return;
             }
 
-            var userSig = LegacyDb.user_getsignature(this.PageContext.PageUserID);
+            var userSig = this.GetRepository<User>().GetSignature(this.PageContext.PageUserID);
 
             if (userSig.IsSet())
             {

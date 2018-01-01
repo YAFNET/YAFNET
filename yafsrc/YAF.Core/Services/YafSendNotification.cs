@@ -393,7 +393,7 @@ namespace YAF.Core.Services
                 subject);
 
             // create individual watch emails for all users who have All Posts on...
-            foreach (var user in usersWithAll.Where(x => x.UserID != messageAuthorUserID && x.ProviderUserKey != null))
+            foreach (var user in usersWithAll.Where(x => x.ID != messageAuthorUserID && x.ProviderUserKey != null))
             {
                 var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey.ToType<object>());
 
@@ -654,12 +654,12 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="email">The email.</param>
-        /// <param name="userID">The user identifier.</param>
+        /// <param name="userId">The user identifier.</param>
         /// <param name="newUsername">The new username.</param>
         public void SendVerificationEmail(
             [NotNull] MembershipUser user,
             [NotNull] string email,
-            int? userID,
+            int? userId,
             string newUsername = null)
         {
             CodeContracts.VerifyNotNull(email, "email");
@@ -669,7 +669,7 @@ namespace YAF.Core.Services
             var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
 
             // save verification record...
-            this.GetRepository<CheckEmail>().Save(userID, hash, user.Email);
+            this.GetRepository<CheckEmail>().Save(userId, hash, user.Email);
 
             var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
 

@@ -37,6 +37,7 @@ namespace YAF.Pages
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -460,7 +461,7 @@ namespace YAF.Pages
                     else if (!string.IsNullOrEmpty(chid) && string.IsNullOrEmpty(choice))
                     {
                         // remove choice
-                        LegacyDb.choice_delete(chid);
+                        this.GetRepository<Choice>().DeleteById(chid.ToType<int>());
                     }
                 }
 

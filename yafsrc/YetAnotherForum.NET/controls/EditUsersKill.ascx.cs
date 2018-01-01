@@ -268,7 +268,7 @@ namespace YAF.Controls
                 case "suspend":
                     if (this.CurrentUserID > 0)
                     {
-                        LegacyDb.user_suspend(this.CurrentUserID, DateTime.UtcNow.AddYears(5));
+                        this.GetRepository<User>().Suspend(this.CurrentUserID.ToType<int>(), DateTime.UtcNow.AddYears(5));
                     }
 
                     break;

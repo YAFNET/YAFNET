@@ -37,12 +37,14 @@ namespace YAF.Pages
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -692,8 +694,8 @@ namespace YAF.Pages
                     this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Occupation));
             }
 
-            this.ThanksFrom.Text =
-                LegacyDb.user_getthanks_from(userData.DBRow["userID"], this.PageContext.PageUserID).ToString();
+            this.ThanksFrom.Text = this.GetRepository<Thanks>().ThanksFromUser(userData.DBRow["userID"].ToType<int>())
+                .ToString();
             int[] thanksToArray = LegacyDb.user_getthanks_to(userData.DBRow["userID"], this.PageContext.PageUserID);
             this.ThanksToTimes.Text = thanksToArray[0].ToString();
             this.ThanksToPosts.Text = thanksToArray[1].ToString();

@@ -35,10 +35,12 @@ namespace YAF.Pages
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -304,7 +306,8 @@ namespace YAF.Pages
                         ForumPages.mod_forumuser, "f={0}&u={1}", this.PageContext.PageForumID, e.CommandArgument);
                     break;
                 case "remove":
-                    LegacyDb.userforum_delete(e.CommandArgument, this.PageContext.PageForumID);
+                    this.GetRepository<UserForum>().Delete(e.CommandArgument.ToType<int>(), this.PageContext.PageForumID);
+
                     this.BindData();
 
                     // clear moderatorss cache

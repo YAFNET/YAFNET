@@ -33,12 +33,14 @@ namespace YAF.Controls
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Editors;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -132,7 +134,7 @@ namespace YAF.Controls
         /// </summary>
         protected void BindData()
         {
-            this._sig.Text = LegacyDb.user_getsignature(this.CurrentUserID);
+            this._sig.Text = this.GetRepository<User>().GetSignature(this.CurrentUserID);
 
             this.signaturePreview.Signature = this._sig.Text;
             this.signaturePreview.DisplayUserID = this.CurrentUserID;
@@ -367,7 +369,7 @@ namespace YAF.Controls
                         }
                     }
 
-                    LegacyDb.user_savesignature(this.CurrentUserID, this.Get<IBadWordReplace>().Replace(body));
+                    this.GetRepository<User>().SaveSignature(this.CurrentUserID, this.Get<IBadWordReplace>().Replace(body));
                 }
                 else
                 {
@@ -379,7 +381,7 @@ namespace YAF.Controls
             }
             else
             {
-                LegacyDb.user_savesignature(this.CurrentUserID, DBNull.Value);
+                this.GetRepository<User>().SaveSignature(this.CurrentUserID, null);
             }
 
             // clear the cache for this user...

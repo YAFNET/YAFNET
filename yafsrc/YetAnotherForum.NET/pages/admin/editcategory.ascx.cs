@@ -219,35 +219,33 @@ namespace YAF.Pages.Admin
             if (this.Request.QueryString.GetFirstOrDefault("c") == null)
             {
                 // Currently creating a New Category, and auto fill the Category Sort Order + 1
-                using (DataTable dt = this.GetRepository<Category>().List())
+                int sortOrder = 1;
+
+                try
                 {
-                    int sortOrder = 1;
-
-                    try
-                    {
-                        DataRow highestRow = dt.Rows[dt.Rows.Count - 1];
-
-                        sortOrder = (short)highestRow["SortOrder"] + sortOrder;
-                    }
-                    catch
-                    {
-                        sortOrder = 1;
-                    }
-
-                    this.SortOrder.Text = sortOrder.ToString();
-
-                    return;
+                    sortOrder = this.GetRepository<Category>().GetHighestSortOrder() + sortOrder;
                 }
+                catch
+                {
+                    sortOrder = 1;
+                }
+
+                this.SortOrder.Text = sortOrder.ToString();
+
+                return;
             }
 
-            using (DataTable dt = this.GetRepository<Category>().List(this.Request.QueryString.GetFirstOrDefaultAs<int>("c")))
+            var category = this.GetRepository<Category>().List(this.Request.QueryString.GetFirstOrDefaultAs<int>("c")).FirstOrDefault();
+
+            if (category != null)
             {
-                DataRow row = dt.Rows[0];
-                this.Name.Text = (string)row["Name"];
-                this.SortOrder.Text = row["SortOrder"].ToString();
+                this.Name.Text = category.Name;
+                this.SortOrder.Text = category.SortOrder.ToString();
+
+
                 this.CategoryNameTitle.Text = this.Label1.Text = this.Name.Text;
 
-                ListItem item = this.CategoryImages.Items.FindByText(row["CategoryImage"].ToString());
+                ListItem item = this.CategoryImages.Items.FindByText(category.CategoryImage);
 
                 if (item == null)
                 {
@@ -256,9 +254,9 @@ namespace YAF.Pages.Admin
 
                 item.Selected = true;
                 this.Preview.Src = "{0}{2}/{1}".FormatWith(
-                    YafForumInfo.ForumClientFileRoot, row["CategoryImage"], YafBoardFolders.Current.Categories);
-
-                // path corrected
+                    YafForumInfo.ForumClientFileRoot,
+                    category.CategoryImage,
+                    YafBoardFolders.Current.Categories);
             }
         }
 

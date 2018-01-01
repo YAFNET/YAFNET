@@ -22,39 +22,44 @@
  * under the License.
  */
 
-namespace YAF.Types.Models
+namespace YAF.Core.Model
 {
-    using System;
+    using ServiceStack.OrmLite;
 
-    using ServiceStack.DataAnnotations;
-
+    using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
 
     /// <summary>
-    /// A class which represents the Extension table.
+    /// The UserForum Repository Extensions
     /// </summary>
-    [Serializable]
-    [Alias("Extension")]
-    public partial class FileExtension : IEntity, IHaveID
+    public static class UserForumRepositoryExtensions
     {
-        partial void OnCreated();
+        #region Public Methods and Operators
 
-        public FileExtension()
+        /// <summary>
+        /// Deletes the specified user identifier.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="forumId">The forum identifier.</param>
+        /// <returns>Returns if deleting was successfull or not</returns>
+        public static bool Delete(this IRepository<UserForum> repository, int? userId, int? forumId)
         {
-            OnCreated();
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var success = repository.DbAccess.Execute(
+                              db => db.Connection.Delete<UserForum>(x => x.UserID == userId && x.ForumID == forumId))
+                          == 1;
+
+            if (success)
+            {
+                repository.FireDeleted();
+            }
+
+            return success;
         }
-
-        #region Properties
-
-        [AutoIncrement]
-        [Alias("ExtensionID")]
-        public int ID { get; set; }
-
-        public int BoardId { get; set; }
-
-        public string Extension { get; set; }
-
 
         #endregion
     }

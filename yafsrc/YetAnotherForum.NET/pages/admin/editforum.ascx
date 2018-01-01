@@ -20,7 +20,7 @@
             </h4>
             <p>
                 <asp:DropDownList ID="CategoryList" runat="server" OnSelectedIndexChanged="Category_Change"
-                    DataValueField="CategoryID" DataTextField="Name" CssClass="custom-select">
+                    DataValueField="ID" DataTextField="Name" CssClass="custom-select">
                 </asp:DropDownList>
             </p><hr />
       

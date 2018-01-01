@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2018 Ingo Herbote
@@ -21,54 +21,45 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 namespace YAF.Core.Model
 {
-    using System;
-
-    using ServiceStack.OrmLite;
-
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
     /// <summary>
-    /// The ForumReadTracking Repository Extensions
+    ///     The TopicStatus repository extensions.
     /// </summary>
-    public static class ForumReadTrackingRepositoryExtensions
+    public static class TopicStatusRepositoryExtensions
     {
         #region Public Methods and Operators
 
-        public static void AddOrUpdate(this IRepository<ForumReadTracking> repository, int userID, int forumID)
+        /// <summary>
+        /// Add Or Update the entity
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="topicStatusId">The topic status identifier.</param>
+        /// <param name="topicStatusName">Name of the topic status.</param>
+        /// <param name="defaultDescription">The default description.</param>
+        /// <param name="boardId">The board identifier.</param>
+        public static void Save(
+            this IRepository<TopicStatus> repository,
+            int? topicStatusId,
+            string topicStatusName,
+            string defaultDescription,
+            int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Query.readforum_addorupdate(UserID: userID, ForumID: forumID, UTCTIMESTAMP: DateTime.UtcNow);
-        }
-
-        public static bool Delete(this IRepository<ForumReadTracking> repository, int userID)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            var success = repository.DbAccess.Execute(db => db.Connection.Delete<ForumReadTracking>(x => x.UserID == userID)) == 1;
-
-            if (success)
-            {
-                repository.FireDeleted();
-            }
-
-            return success;
-        }
-
-        public static DateTime? Lastread(this IRepository<ForumReadTracking> repository, int userId, int forumId)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            var forum = repository.GetSingle(t => t.UserID == userId && t.ID == forumId);
-
-            return forum?.LastAccessDate;
+            repository.Upsert(
+                new TopicStatus
+                    {
+                        BoardID = boardId ?? repository.BoardID,
+                        ID = topicStatusId ?? 0,
+                        TopicStatusName = topicStatusName,
+                        DefaultDescription = defaultDescription
+                    });
         }
 
         #endregion

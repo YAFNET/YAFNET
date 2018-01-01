@@ -27,6 +27,7 @@ namespace YAF.Core.Model
     using System.Collections.Generic;
     using System.Data;
 
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
@@ -55,6 +56,20 @@ namespace YAF.Core.Model
             {
                 return functionSession.GetTyped<Message>(r => r.message_list(MessageID: messageId));
             }
+        }
+
+        /// <summary>
+        /// Get the replies message(s)
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="messageId">The message identifier.</param>
+        /// <returns>Returns Typed Message List</returns>
+        public static DataTable GetReplies(this IRepository<Message> repository, int messageId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbFunction.GetData.message_getReplies(
+                MessageID: messageId);
         }
 
         /// <summary>
@@ -124,56 +139,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Query.message_update_flags(MessageID: messageId, Flags: flags);
-        }
-
-        /// <summary>
-        /// Removes all Answer Flags
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="topicId">The topic identifier.</param>
-        public static void RemoveMessageAnswers(this IRepository<Message> repository, int topicId)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            foreach (DataRow dataRow in repository.DbFunction.GetData.topic_listmessages(TopicID: topicId).Rows)
-            {
-                var messageFlags = new MessageFlags(dataRow["Flags"]);
-
-                if (!messageFlags.IsAnswer)
-                {
-                    continue;
-                }
-
-                messageFlags.IsAnswer = false;
-
-                repository.UpdateFlags(messageId: dataRow["MessageID"].ToType<int>(), flags: messageFlags.BitValue);
-
-                repository.FireUpdated();
-            }
-        }
-
-        /// <summary>
-        /// Finds the answer message.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="topicId">The topic identifier.</param>
-        /// <returns>Returns the message identifier when found</returns>
-        public static int? FindAnswerMessage(this IRepository<Message> repository, int topicId)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            foreach (DataRow dataRow in repository.DbFunction.GetData.topic_listmessages(TopicID: topicId).Rows)
-            {
-                var messageFlags = new MessageFlags(dataRow["Flags"]);
-
-                if (messageFlags.IsAnswer)
-                {
-                    return dataRow["MessageID"].ToType<int>();
-                }
-            }
-
-            return null;
+            repository.UpdateOnly(() => new Message { Flags = flags }, where: u => u.ID == messageId);
         }
 
         #endregion

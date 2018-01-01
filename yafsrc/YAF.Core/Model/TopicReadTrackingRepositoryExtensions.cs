@@ -4,6 +4,7 @@ namespace YAF.Core.Model
 
     using ServiceStack.OrmLite;
 
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -37,11 +38,14 @@ namespace YAF.Core.Model
             return success;
         }
 
-        public static DateTime? Lastread(this IRepository<TopicReadTracking> repository, int userID, int topicID)
+        public static DateTime? Lastread(this IRepository<TopicReadTracking> repository, int userId, int topicId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.Scalar.readtopic_lastread(UserID: userID, TopicID: topicID);
+            var topic = repository.GetSingle(t => t.UserID == userId && t.ID == topicId);
+
+            return topic?.LastAccessDate;
+
         }
 
         #endregion

@@ -34,11 +34,13 @@ namespace YAF.Pages
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -287,8 +289,8 @@ namespace YAF.Pages
             // delete message...
             this.PreviewRow.Visible = true;
 
-            DataTable tempdb =
-                LegacyDb.message_getRepliesList(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
+            DataTable tempdb = this.GetRepository<Message>().GetReplies(
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").ToType<int>());
 
             if (tempdb.HasRows() && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
             {

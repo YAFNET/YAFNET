@@ -29,7 +29,6 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
@@ -38,7 +37,7 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "User")]
-    public partial class User : IEntity, IHaveBoardID
+    public partial class User : IEntity, IHaveBoardID, IHaveID
     {
         partial void OnCreated();
 
@@ -60,7 +59,8 @@ namespace YAF.Types.Models
         #region Properties
 
         [AutoIncrement]
-        public int UserID { get; set; }
+        [Alias("UserID")]
+        public int ID { get; set; }
 
         public int BoardID { get; set; }
 
@@ -90,6 +90,10 @@ namespace YAF.Types.Models
 
         public DateTime? Suspended { get; set; }
 
+        public string SuspendedReason { get; set; }
+
+        public int SuspendedBy { get; set; }
+
         public string LanguageFile { get; set; }
 
         public string ThemeFile { get; set; }
@@ -100,7 +104,7 @@ namespace YAF.Types.Models
 
         public int Points { get; set; }
 
-        public bool? IsAdmin { get; set; }
+        //public bool? IsAdmin { get; set; }
 
         public bool? IsApproved { get; set; }
 
@@ -116,7 +120,7 @@ namespace YAF.Types.Models
 
         public string DisplayName { get; set; }
 
-        [Alias("CultureUser")]
+       // [Alias("CultureUser")]
         public string Culture { get; set; }
 
         public int? NotificationType { get; set; }

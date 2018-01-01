@@ -23,10 +23,14 @@
  */
 namespace YAF.Core.Model
 {
+    using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
 
+    using ServiceStack.OrmLite;
+
+    using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -38,19 +42,42 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
+        /// Gets the highest sort order.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <returns>Returns the highest sort order.</returns>
+        public static int GetHighestSortOrder(
+            this IRepository<Category> repository)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbAccess.Execute(
+                cmd => cmd.Connection.Scalar<int>(
+                    "select MAX(SortOrder) from " + repository.DbAccess.GetTableName<Category>()));
+        }
+
+
+        /// <summary>
         /// The list.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="categoryID">The category id.</param>
+        /// <param name="categoryId">The category id.</param>
         /// <param name="boardId">The board id.</param>
         /// <returns>
         /// The <see cref="DataTable" />.
         /// </returns>
-        public static DataTable List(this IRepository<Category> repository, int? categoryID = null, int? boardId = null)
+        public static List<Category> List(
+            this IRepository<Category> repository,
+            int? categoryId = null,
+            int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.GetData.category_list(BoardID: boardId ?? repository.BoardID, CategoryID: categoryID);
+            return categoryId.HasValue
+                       ? repository.Get(
+                           category => category.BoardID == (boardId ?? repository.BoardID)
+                                       && category.ID == categoryId.Value).OrderBy(o => o.SortOrder).ToList()
+                       : repository.Get(category => category.BoardID == (boardId ?? repository.BoardID));
         }
 
         /// <summary>
@@ -74,27 +101,25 @@ namespace YAF.Core.Model
         /// Save a Category
         /// </summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="categoryID">The category id.</param>
+        /// <param name="categoryId">The category id.</param>
         /// <param name="name">The name.</param>
         /// <param name="categoryImage">The category image.</param>
         /// <param name="sortOrder">The sort order.</param>
         /// <param name="boardId">The board id.</param>
         public static void Save(
-            this IRepository<Category> repository, int? categoryID, string name, string categoryImage, short sortOrder, int? boardId = null)
+            this IRepository<Category> repository, int? categoryId, string name, string categoryImage, short sortOrder, int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            int newId = (int)repository.DbFunction.Scalar.category_save(
-                BoardID: boardId ?? repository.BoardID, CategoryID: categoryID ?? 0, Name: name, SortOrder: sortOrder, CategoryImage: categoryImage);
-
-            if (categoryID.HasValue)
-            {
-                repository.FireUpdated(categoryID);
-            }
-            else
-            {
-                repository.FireNew(newId);
-            }
+            repository.Upsert(
+                new Category
+                    {
+                        BoardID = boardId ?? repository.BoardID,
+                        ID = categoryId ?? 0,
+                        Name = name,
+                        SortOrder = sortOrder,
+                        CategoryImage = categoryImage
+                });
         }
 
         /// <summary>

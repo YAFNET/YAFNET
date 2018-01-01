@@ -144,6 +144,7 @@
     <Compile Include="Interfaces\IStyleTransform.cs" />
     <Compile Include="Interfaces\LoggerExtensions.cs" />
     <Compile Include="Models\AccessMask.cs" />
+    <Compile Include="Models\Choice.cs" />
     <Compile Include="Models\Active.cs" />
     <Compile Include="Models\ActiveAccess.cs" />
     <Compile Include="Models\Attachment.cs" />
@@ -164,14 +165,19 @@
     <Compile Include="Models\Mail.cs" />
     <Compile Include="Models\Medal.cs" />
     <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\Rank.cs" />
     <Compile Include="Models\Replace_Words.cs" />
     <Compile Include="Models\SearchResult.cs" />
     <Compile Include="Models\ShoutboxMessage.cs" />
     <Compile Include="Models\Registry.cs" />
+    <Compile Include="Models\Thanks.cs" />
     <Compile Include="Models\Smiley.cs" />
     <Compile Include="Models\Spam_Words.cs" />
+    <Compile Include="Models\TopicStatus.cs" />
+    <Compile Include="Models\Topic.cs" />
     <Compile Include="Models\TopicReadTracking.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserForum.cs" />
     <Compile Include="Models\WatchForum.cs" />
     <Compile Include="Models\WatchTopic.cs" />
     <Compile Include="Objects\FacebookAccessToken.cs" />

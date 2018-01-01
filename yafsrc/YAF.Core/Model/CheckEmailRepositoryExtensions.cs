@@ -27,7 +27,9 @@ namespace YAF.Core.Model
     using System.Collections.Generic;
     using System.Data;
 
+    using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
@@ -38,25 +40,6 @@ namespace YAF.Core.Model
     public static class CheckEmailRepositoryExtensions
     {
         #region Public Methods and Operators
-
-        /// <summary>
-        /// The list.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="email">
-        /// The email.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable List(this IRepository<CheckEmail> repository, string email = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.checkemail_list(Email: email);
-        }
 
         /// <summary>
         /// The list typed.
@@ -74,10 +57,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            using (var session = repository.DbFunction.CreateSession())
-            {
-                return session.GetTyped<CheckEmail>(r => r.checkemail_list(Email: email));
-            }
+           return email.IsSet() ? repository.Get(mail => mail.Email == email) : repository.Get(null);
         }
 
         /// <summary>
@@ -86,7 +66,7 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="userID">
+        /// <param name="userId">
         /// The user id.
         /// </param>
         /// <param name="hash">
@@ -95,14 +75,20 @@ namespace YAF.Core.Model
         /// <param name="email">
         /// The email.
         /// </param>
-        public static void Save(this IRepository<CheckEmail> repository, int? userID, [NotNull] string hash, [NotNull] string email)
+        public static void Save(this IRepository<CheckEmail> repository, int? userId, [NotNull] string hash, [NotNull] string email)
         {
             CodeContracts.VerifyNotNull(hash, "hash");
             CodeContracts.VerifyNotNull(email, "email");
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Query.checkemail_save(UserID: userID, Hash: hash, Email: email.ToLower(), UTCTIMESTAMP: DateTime.UtcNow);
-            repository.FireNew();
+            repository.Insert(
+                new CheckEmail
+                    {
+                        UserID = userId.Value,
+                        Email = email.ToLower(),
+                        Created = DateTime.UtcNow,
+                        Hash = hash
+                    });
         }
 
         /// <summary>

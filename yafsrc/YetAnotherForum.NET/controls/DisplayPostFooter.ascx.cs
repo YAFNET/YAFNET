@@ -176,17 +176,24 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void MarkAsAnswerClick([NotNull] object sender, [NotNull] EventArgs e)
         {
+            var messageFlags =
+                new MessageFlags(this.PostData.DataRow["Flags"]) { IsAnswer = true };
+
+            // Remove Answer from other messages to avoid duplicate answers!
+            this.GetRepository<Topic>().RemoveAnswerMessage(topicId: this.PageContext.PageTopicID);
+
             if (this.PostData.PostIsAnswer)
             {
-                this.GetRepository<Message>().RemoveMessageAnswers(topicId: this.PageContext.PageTopicID);
+                // Remove Current Message 
+                messageFlags.IsAnswer = false;
+
+                this.GetRepository<Message>().UpdateFlags(messageId: this.PostData.MessageId, flags: messageFlags.BitValue);
             }
             else
             {
-                // Remove Answer from other messages to avoid duplicate answers!
-                this.GetRepository<Message>().RemoveMessageAnswers(topicId: this.PageContext.PageTopicID);
+                messageFlags.IsAnswer = true;
 
-                var messageFlags =
-                    new MessageFlags(this.PostData.DataRow["Flags"]) { IsAnswer = true };
+                this.GetRepository<Topic>().SetAnswerMessage(topicId: this.PageContext.PageTopicID, messageId: this.PostData.MessageId);
 
                 this.GetRepository<Message>().UpdateFlags(messageId: this.PostData.MessageId, flags: messageFlags.BitValue);
             }

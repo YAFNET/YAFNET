@@ -21,40 +21,36 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 namespace YAF.Types.Models
 {
     using System;
 
-    using ServiceStack.DataAnnotations;
-
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the Extension table.
+    /// A class which represents the WatchForum table.
     /// </summary>
     [Serializable]
-    [Alias("Extension")]
-    public partial class FileExtension : IEntity, IHaveID
+    public partial class UserForum : IEntity
     {
         partial void OnCreated();
 
-        public FileExtension()
+        public UserForum()
         {
-            OnCreated();
+            this.OnCreated();
         }
 
         #region Properties
 
-        [AutoIncrement]
-        [Alias("ExtensionID")]
-        public int ID { get; set; }
+        public int UserID { get; set; }
 
-        public int BoardId { get; set; }
+        public int ForumID { get; set; }
 
-        public string Extension { get; set; }
+        public int AccessMaskID { get; set; }
 
+        public DateTime Invited { get; set; }
+
+        public int Accepted { get; set; }
 
         #endregion
     }

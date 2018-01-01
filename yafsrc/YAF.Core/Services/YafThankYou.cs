@@ -30,10 +30,12 @@ namespace YAF.Core.Services
     using System.Web.Security;
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     /// <summary>
@@ -59,7 +61,7 @@ namespace YAF.Core.Services
         {
             var filler = new StringBuilder();
 
-            using (DataTable dt = LegacyDb.message_GetThanks(messageId))
+            using (var dt = LegacyDb.message_GetThanks(messageId))
             {
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -143,13 +145,13 @@ namespace YAF.Core.Services
         /// </returns>
         protected static string ThanksNumber([NotNull] string username, int messageID)
         {
-            int thanksNumber = LegacyDb.message_ThanksNumber(messageID);
+            var thanksNumber = YafContext.Current.GetRepository<Thanks>().Count(t => t.MessageID == messageID);
 
-            string displayName = username;
+            var displayName = username;
             if (YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
             {
                 // get the user's display name.
-                MembershipUser mu = UserMembershipHelper.GetMembershipUserByName(username);
+                var mu = UserMembershipHelper.GetMembershipUserByName(username);
                 if (mu != null)
                 {
                     displayName = YafContext.Current.Get<IUserDisplayName>().GetName(

@@ -27,17 +27,18 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
     using System.Web;
 
-    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -118,11 +119,11 @@ namespace YAF.Pages.Admin
             }
             else
             {
-                LegacyDb.TopicStatus_Save(
-                    this.Request.QueryString.GetFirstOrDefault("i"),
-                    this.PageContext.PageBoardID,
-                    TopicStatusName.Text.Trim(),
-                    DefaultDescription.Text.Trim());
+                this.GetRepository<TopicStatus>().Save(
+                    this.Request.QueryString.GetFirstOrDefault("i").ToType<int>(),
+                    this.TopicStatusName.Text.Trim(),
+                    this.DefaultDescription.Text.Trim(),
+                    this.PageContext.PageBoardID);
 
                 YafBuildLink.Redirect(ForumPages.admin_topicstatus);
             }
@@ -138,12 +139,10 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            DataRow row =
-                LegacyDb.TopicStatus_Edit(
-                    Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("i"))).Rows[0];
+            var topicStatus = this.GetRepository<TopicStatus>().GetById(this.Request.QueryString.GetFirstOrDefault("i").ToType<int>());
 
-            this.TopicStatusName.Text = (string)row["TopicStatusName"];
-            this.DefaultDescription.Text = (string)row["DefaultDescription"];
+            this.TopicStatusName.Text = topicStatus.TopicStatusName;
+            this.DefaultDescription.Text = topicStatus.DefaultDescription;
         }
 
         /// <summary>

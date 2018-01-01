@@ -21,40 +21,28 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-namespace YAF.Types.Models
+namespace YAF.Core.Model
 {
     using System;
+    using System.Collections.Generic;
+    using System.Data;
 
-    using ServiceStack.DataAnnotations;
-
+    using YAF.Core.Extensions;
+    using YAF.Types;
+    using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
 
     /// <summary>
-    /// A class which represents the Extension table.
+    ///     The Rank repository extensions.
     /// </summary>
-    [Serializable]
-    [Alias("Extension")]
-    public partial class FileExtension : IEntity, IHaveID
+    public static class RankRepositoryExtensions
     {
-        partial void OnCreated();
+        #region Public Methods and Operators
 
-        public FileExtension()
-        {
-            OnCreated();
-        }
-
-        #region Properties
-
-        [AutoIncrement]
-        [Alias("ExtensionID")]
-        public int ID { get; set; }
-
-        public int BoardId { get; set; }
-
-        public string Extension { get; set; }
-
+        
 
         #endregion
     }

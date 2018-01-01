@@ -21,58 +21,56 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 namespace YAF.Core.Model
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
+    #region Using
 
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
+    #endregion
+
     /// <summary>
-    /// The WatchForum Repository Extensions
+    ///     The Topic repository extensions.
     /// </summary>
-    public static class WatchForumRepositoryExtensions
+    public static class TopicRepositoryExtensions
     {
         #region Public Methods and Operators
 
-        public static void Add(this IRepository<WatchForum> repository, int userID, int forumID)
+        /// <summary>
+        /// Sets the answer message.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="topicId">The topic identifier.</param>
+        /// <param name="messageId">The message identifier.</param>
+        public static void SetAnswerMessage(this IRepository<Topic> repository, [NotNull] int topicId, [NotNull] int messageId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Query.watchforum_add(UserID: userID, ForumID: forumID, UTCTIMESTAMP: DateTime.UtcNow);
-            repository.FireNew();
+            repository.UpdateOnly(() => new Topic { AnswerMessageId = messageId }, where: t => t.ID == topicId);
         }
 
-        public static int? Check(this IRepository<WatchForum> repository, int userId, int forumId)
+        /// <summary>
+        /// Removes answer message.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="topicId">The topic identifier.</param>
+        public static void RemoveAnswerMessage(this IRepository<Topic> repository, [NotNull] int topicId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var forum = repository.GetSingle(w => w.UserID == userId && w.ForumID == forumId);
-
-            return forum?.ID;
+            repository.UpdateOnly(() => new Topic { AnswerMessageId = null }, where: t => t.ID == topicId);
         }
 
-        public static DataTable List(this IRepository<WatchForum> repository, int userID)
+        public static int? GetAnswerMessage(this IRepository<Topic> repository, [NotNull] int topicId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.GetData.watchforum_list(UserID: userID);
-        }
+            var topic = repository.GetSingle(t => t.ID == topicId);
 
-        public static IList<WatchForum> ListTyped(this IRepository<WatchTopic> repository, int userID)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            using (var session = repository.DbFunction.CreateSession())
-            {
-                return session.GetTyped<WatchForum>(r => r.watchtopic_list(UserID: userID));
-            }
+            return topic?.AnswerMessageId;
         }
 
         #endregion

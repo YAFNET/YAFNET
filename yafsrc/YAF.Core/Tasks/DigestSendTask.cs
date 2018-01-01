@@ -206,7 +206,7 @@ namespace YAF.Core.Tasks
                 try
                 {
                     var digestHtml = this.Get<IDigest>()
-                        .GetDigestHtml(user.UserID, boardSettings);
+                        .GetDigestHtml(user.ID, boardSettings);
 
                     if (!digestHtml.IsSet())
                     {
@@ -239,7 +239,7 @@ namespace YAF.Core.Tasks
                 }
                 catch (Exception e)
                 {
-                    this.Get<ILogger>().Error(e, "Error In Creating Digest for User {0}".FormatWith(user.UserID));
+                    this.Get<ILogger>().Error(e, "Error In Creating Digest for User {0}".FormatWith(user.ID));
                 }
             }
 

@@ -130,12 +130,12 @@ namespace YAF.Types.Interfaces
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="email">The email.</param>
-        /// <param name="userID">The user identifier.</param>
+        /// <param name="userId">The user identifier.</param>
         /// <param name="newUsername">The new username.</param>
         void SendVerificationEmail(
             [NotNull] MembershipUser user,
             [NotNull] string email,
-            int? userID,
+            int? userId,
             string newUsername = null);
 
         /// <summary>
