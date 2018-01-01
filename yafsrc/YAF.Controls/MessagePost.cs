@@ -39,6 +39,7 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Utils.Helpers.StringUtils;
 
     #endregion
 
@@ -338,7 +339,7 @@ namespace YAF.Controls
                                  : this.GetText("POSTS", "EDITED_BY_USER");
 
             writer.Write(
-                @"<div class=""alert alert-light"" role=""alert"">
+                @"<div class=""alert alert-secondary"" role=""alert"">
                       <a title=""{3}"" alt=""title=""{3}"" href=""{4}""><strong>{0}</strong> {1}</a>&nbsp;{2}&nbsp;|&nbsp;<em>{3}</em>
                       <button type=""button"" class=""close"" data-dismiss=""alert"" aria-label=""Close"">
                           <span aria-hidden=""true"">&times;</span>
