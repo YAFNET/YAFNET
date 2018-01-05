@@ -282,6 +282,10 @@ function getCurrentSelection(input) {
     }
 }
 
+function toggleEmojiPicker() {
+    $('.BBCodeEditor').emojiPicker('toggle');
+}
+
 function AlbumsPageSelectCallback(page_index) {
     var albumsContent = jQuery('#AlbumsPagerHidden div.result:eq(' + page_index + ')').clone();
     jQuery('#AlbumsPagerResult').empty().append(albumsContent);
@@ -299,6 +303,11 @@ jQuery(document).ready(function () {
             next_text: '&raquo;'
         });
     }
+
+    // Render emojipicker
+    $('.BBCodeEditor').emojiPicker({
+        button: false
+    });
 });
 $(document).ready(function () {
     $('.BBCodeEditor').keydown(function (e) {

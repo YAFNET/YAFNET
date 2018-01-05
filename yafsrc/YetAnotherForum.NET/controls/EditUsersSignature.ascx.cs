@@ -191,8 +191,8 @@ namespace YAF.Controls
                 return;
             }
 
-            this.save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "SAVE"));
-            this.preview.Text = "<i class=\"fa fa-picture-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "PREVIEW"));
+            this.save.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "SAVE"));
+            this.preview.Text = "<i class=\"fa fa-picture fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "PREVIEW"));
             this.cancel.Text = "<i class=\"fa fa-trash fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "CANCEL"));
 
             var warningMessage = new StringBuilder();

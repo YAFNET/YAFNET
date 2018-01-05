@@ -34,10 +34,12 @@ namespace YAF.Pages.Admin
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -87,8 +89,8 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_NNTPFORUMS", "TITLE"),
                 this.GetText("ADMIN_EDITNNTPFORUM", "TITLE"));
 
-            this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
-            this.Cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
+            this.Save.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
+            this.Cancel.Text = "<i class=\"fa fa-times fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
 
             this.BindData();
 
@@ -97,19 +99,16 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            using (
-                DataTable dt = LegacyDb.nntpforum_list(
-                    this.PageContext.PageBoardID,
-                    null,
-                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("s"),
-                    DBNull.Value))
+            var forum = this.GetRepository<NntpForum>().GetById(
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("s").ToType<int>());
+
+            if (forum != null)
             {
-                DataRow row = dt.Rows[0];
-                this.NntpServerID.Items.FindByValue(row["NntpServerID"].ToString()).Selected = true;
-                this.GroupName.Text = row["GroupName"].ToString();
-                this.ForumID.Items.FindByValue(row["ForumID"].ToString()).Selected = true;
-                this.Active.Checked = (bool)row["Active"];
-                this.DateCutOff.Text = row["DateCutOff"].ToString();
+                this.NntpServerID.Items.FindByValue(forum.NntpServerID.ToString()).Selected = true;
+                this.GroupName.Text = forum.GroupName;
+                this.ForumID.Items.FindByValue(forum.ForumID.ToString()).Selected = true;
+                this.Active.Checked = forum.Active;
+                this.DateCutOff.Text = forum.DateCutOff.ToString();
             }
         }
 

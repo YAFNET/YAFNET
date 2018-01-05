@@ -34,12 +34,14 @@ namespace YAF.Core.Services
     using YAF.Classes;
     using YAF.Core;
     using YAF.Core.BBCode.ReplaceRules;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Utils.Helpers;
+    using YAF.Utils.Helpers.StringUtils;
 
     #endregion
 
@@ -53,7 +55,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///   format message regex
         /// </summary>
-        private const RegexOptions _Options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
+        private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
 
         /// <summary>
         /// The mail regex
@@ -61,7 +63,7 @@ namespace YAF.Core.Services
         private static readonly Regex _RgxEmail =
             new Regex(
                 @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<inner>(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})",
-                _Options | RegexOptions.Compiled);
+                Options | RegexOptions.Compiled);
 
         /// <summary>
         /// The YouTube Regex
@@ -69,7 +71,7 @@ namespace YAF.Core.Services
         private static readonly Regex _RgxYoutube1 =
             new Regex(
                 @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://)(www.)?youtube\.com\/watch\?v=(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)",
-                _Options | RegexOptions.Compiled);
+                Options | RegexOptions.Compiled);
 
         /// <summary>
         /// The YouTube (Short URL) Regex
@@ -77,7 +79,7 @@ namespace YAF.Core.Services
         private static readonly Regex _RgxYoutube2 =
             new Regex(
                 @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://)youtu\.be\/(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)",
-                _Options | RegexOptions.Compiled);
+                Options | RegexOptions.Compiled);
 
         /// <summary>
         /// The URL Regex
@@ -85,7 +87,7 @@ namespace YAF.Core.Services
         private static readonly Regex _RgxUrl1 =
             new Regex(
                 @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,~/(/)]*)?)",
-                _Options | RegexOptions.Compiled);
+                Options | RegexOptions.Compiled);
 
         /// <summary>
         /// The URL Regex
@@ -93,7 +95,7 @@ namespace YAF.Core.Services
         private static readonly Regex _RgxUrl2 =
             new Regex(
                 @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~/(/)$]*[^.<|^.\[])?)",
-                _Options | RegexOptions.Compiled);
+                Options | RegexOptions.Compiled);
 
         /// <summary>
         /// The URL Regex
@@ -101,7 +103,7 @@ namespace YAF.Core.Services
         private static readonly Regex _RgxUrl3 =
             new Regex(
                 @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,~]*)?)",
-                _Options | RegexOptions.Compiled);
+                Options | RegexOptions.Compiled);
 
         #endregion
 
@@ -445,6 +447,9 @@ namespace YAF.Core.Services
 
             // process...
             ruleEngine.Process(ref message);
+
+            // Format Emoticons
+            message = EmojiOne.ShortnameToUnicode(message, true);
 
             return message;
         }

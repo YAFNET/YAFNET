@@ -53,9 +53,6 @@
     <Resource tag="ADMIN_REPLACEWORDS_IMPORT">جلب  الكلمات المستبدلة</Resource>
     <Resource tag="ADMIN_RESTARTAPP">اعادة تشغيل التطبيق</Resource>
     <Resource tag="ADMIN_RUNSQL"> SQL تنفيذ  أوامر </Resource>
-    <Resource tag="ADMIN_SMILIES">عرض رموز الابتسامات</Resource>
-    <Resource tag="ADMIN_SMILIES_EDIT">تعديل  الابتسامات</Resource>
-    <Resource tag="ADMIN_SMILIES_IMPORT">إدخال  إبتسامات </Resource>
     <Resource tag="ADMIN_SPAMLOG">Views/edits the spam log</Resource>
     <Resource tag="ADMIN_SPAMWORDS">Views spam words list</Resource>
     <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
@@ -134,7 +131,6 @@
     <Resource tag="RULES">عرض قواعد المنتدى</Resource>
     <Resource tag="SEARCH">بحث عن مستخدم</Resource>
     <Resource tag="SHOUTBOX">استخدام  الدردشة </Resource>
-    <Resource tag="SHOWSMILIES">لا يوجد بيانات</Resource>
     <Resource tag="TEAM">Views team page</Resource>
     <Resource tag="TOPICINFORUM"> في المنتدى </Resource>
     <Resource tag="TOPICS">مشاهدات الموضوع </Resource>
@@ -1323,7 +1319,7 @@
     <Resource tag="REMOVE_NESTED_QUOTES">Remove Nested Quotes:</Resource>
     <Resource tag="REMOVE_NESTED_QUOTES_HELP">Automatically remove nested [quote] tags from replies.</Resource>
     <Resource tag="REPLACE_CACHE_TIMEOUT">Replace Rules Cache Timeout:</Resource>
-    <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> Smilies, BB code, bad words, etc. (in minutes)</Resource>
+    <Resource tag="REPLACE_CACHE_TIMEOUT_HELP">BB code, bad words, etc. (in minutes)</Resource>
     <Resource tag="REPORT_POST_PERMISSION">Report Post Permissions:</Resource>
     <Resource tag="REPORT_POST_PERMISSION_HELP">Allow reporting posts to:</Resource>
     <Resource tag="REPUTATION_ALLOWNEGATIVE">Allow Negative Reputation:</Resource>
@@ -1419,8 +1415,6 @@
     <Resource tag="SHOW_RSS_LINKS_HELP">Enable or disable display of RSS links throughout the forum.</Resource>
     <Resource tag="SHOW_SHOUTBOX">Show Shoutbox:</Resource>
     <Resource tag="SHOW_SHOUTBOX_HELP">Enable or disable display of the Shoutbox (Chat Module) in the forum page.</Resource>
-    <Resource tag="SHOW_SHOUTBOX_SMILIES">Show Shoutbox Smiles:</Resource>
-    <Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">Enable or disable display of the Shoutbox (Chat Module) smiles.</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
     <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">Show The Date on Which Users Have Thanked Posts:</Resource>
@@ -1706,46 +1700,6 @@
     <Resource tag="SQL_COMMAND">SQL Command:</Resource>
     <Resource tag="TITLE">Run SQL Code</Resource>
   </page>
-  <page name="ADMIN_SMILIES">
-    <Resource tag="ADD">Add Smiley</Resource>
-    <Resource tag="CODE">Code</Resource>
-    <Resource tag="COMANDS">Emotion</Resource>
-    <Resource tag="EMOTION">Emotion</Resource>
-    <Resource tag="IMPORT">Import Smiley Pack</Resource>
-    <Resource tag="MOVE_DOWN">Move Down</Resource>
-    <Resource tag="MOVE_UP">Move Up</Resource>
-    <Resource tag="MSG_DELETE">Delete this smiley?</Resource>
-    <Resource tag="ORDER">Order</Resource>
-    <Resource tag="SMILEY">Smiley</Resource>
-    <Resource tag="TITLE">Smilies</Resource>
-  </page>
-  <page name="ADMIN_SMILIES_EDIT">
-    <Resource tag="CODE">Code:</Resource>
-    <Resource tag="EMOTION">Emotion:</Resource>
-    <Resource tag="ICON">Icon:</Resource>
-    <Resource tag="MSG_CODE_BRACK">Please enter the code to use for this emotion in square brackets.</Resource>
-    <Resource tag="MSG_CODE_LONG">The code to use for this emotion should not be more then 10 symbols.</Resource>
-    <Resource tag="MSG_CODE_MISSING">Please enter the code to use for this emotion.</Resource>
-    <Resource tag="MSG_CODE_SAME">Please choose a different code, this one is already in use.</Resource>
-    <Resource tag="MSG_NO_EMOTICON">Please enter an emotion for this icon.</Resource>
-    <Resource tag="MSG_NO_ICON">Please select an icon to use for this emotion.</Resource>
-    <Resource tag="MSG_SORT_NMBR">Sort order must be number between 0 and 255.</Resource>
-    <Resource tag="MSG_TOO_LONG">An emotion description is too long.</Resource>
-    <Resource tag="SELECT_SMILEY">Select Smiley Image</Resource>
-    <Resource tag="SORT_ORDER">Sort Order:</Resource>
-    <Resource tag="TITLE">Add/Edit Smiley</Resource>
-  </page>
-  <page name="ADMIN_SMILIES_IMPORT">
-    <Resource tag="CHOOSE_PAK">Choose .pak file:</Resource>
-    <Resource tag="CHOOSE_PAK_HELP">You'll have to unpack the smiley package and upload all files to your smiley directory (Boards/BoardNo/Images/Emoticons).</Resource>
-    <Resource tag="DELETE_EXISTING">Delete existing smilies:</Resource>
-    <Resource tag="DELETE_EXISTING_HELP">Will DELETE ALL existing smilies if you check this.</Resource>
-    <Resource tag="ERROR_SELECT_FILE">You must select a .pak file to import.</Resource>
-    <Resource tag="HEADER">Import Smiley Pack</Resource>
-    <Resource tag="IMPORT">Import</Resource>
-    <Resource tag="SELECT_FILE">Select File (*.pak)</Resource>
-    <Resource tag="TITLE">Smilies Import</Resource>
-  </page>
   <page name="ADMIN_SPAMLOG">
     <Resource tag="TITLE">Spam Event Log</Resource>
   </page>
@@ -1900,7 +1854,6 @@
     <Resource tag="admin_replacewords">Replace Words</Resource>
     <Resource tag="admin_restartapp">Restart App</Resource>
     <Resource tag="admin_runsql">Run SQL Query</Resource>
-    <Resource tag="admin_smilies">Smilies</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
     <Resource tag="admin_taskmanager">Task Manager</Resource>
@@ -2138,6 +2091,7 @@
     <Resource tag="NAME">Name</Resource>
     <Resource tag="NO">No</Resource>
     <Resource tag="NONE">None</Resource>
+    <Resource tag="NOTE">Note:</Resource>
     <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT">New SPAM BOT User Registered on {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">You have been award on the {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">يوجد رسالة  جديدة في  {0} المنتدى  تحتاج الى التثبيت</Resource>
@@ -4551,8 +4505,6 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="REPLY">الرد بمشاركة</Resource>
     <Resource tag="SAVE">حفظ</Resource>
     <Resource tag="SAVE_TITLE">Post/Edit the Message</Resource>
-    <Resource tag="SMILIES_HEADER">[b]إضافة ابتسامة[/b]</Resource>
-    <Resource tag="SMILIES_MORE">المزيد من  الابتسامات ...</Resource>
     <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
     <Resource tag="STATUS">Status:</Resource>
     <Resource tag="STICKY">مثبت</Resource>
@@ -5055,13 +5007,6 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="MUSTBELOGGEDIN">يجب عليك تسجيل الدخول اولا  </Resource>
     <Resource tag="SUBMIT">أرسال</Resource>
     <Resource tag="TITLE">دردشة </Resource>
-  </page>
-  <page name="SHOWSMILIES">
-    <Resource tag="CLOSE_WINDOW">إغلاق الصفحة </Resource>
-    <Resource tag="HEADER_CODE">كود</Resource>
-    <Resource tag="HEADER_MEANING">المعنى </Resource>
-    <Resource tag="HEADER_SMILE">رموز إبتسمات </Resource>
-    <Resource tag="TITLE">رموز  الابتسامات  المتوفرة </Resource>
   </page>
   <page name="TEAM">
     <Resource tag="ADMINS">Administrators</Resource>

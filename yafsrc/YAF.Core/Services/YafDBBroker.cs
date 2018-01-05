@@ -575,20 +575,6 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Gets the smilies.
-        /// </summary>
-        /// <returns>
-        /// Table with list of smilies
-        /// </returns>
-        public IList<Smiley> GetSmilies()
-        {
-            return this.DataCache.GetOrSet(
-                Constants.Cache.Smilies,
-                () => this.GetRepository<Smiley>().ListTyped(),
-                TimeSpan.FromMinutes(60));
-        }
-
-        /// <summary>
         ///     Loads the message text into the paged data if "Message" and
         ///     "MessageID" exists.
         /// </summary>

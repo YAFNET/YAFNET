@@ -10,7 +10,7 @@
                 <div class="col-xl-12">
                     <div class="card mb-3">
                         <div class="card-header">
-                             <i class="fa fa-gears fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BOARD_SETUP"
+                             <i class="fa fa-cogs fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BOARD_SETUP"
                                  LocalizedPage="ADMIN_BOARDSETTINGS" />
                         </div>
                         <div class="card-body">

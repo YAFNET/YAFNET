@@ -31,7 +31,7 @@ function toggleItem(detailId)
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-shield fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMLOG" />
+                    <i class="fa fa-shield-alt fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMLOG" />
             </div>
                 <div class="card-body">
                     <h4>
@@ -71,14 +71,14 @@ function toggleItem(detailId)
                 <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-shield fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMLOG" />
+                    <i class="fa fa-shield-alt fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMLOG" />
             </div>
                 <div class="card-body">
                      <asp:Repeater runat="server" ID="List">
             <HeaderTemplate>
                 <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="pull-right"><i class="fa fa-hand-o-left fa-fw"></i></span>
+                            <span class="pull-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                         </div><div class="table-responsive"><table class="table">
             </HeaderTemplate>
             <ItemTemplate>

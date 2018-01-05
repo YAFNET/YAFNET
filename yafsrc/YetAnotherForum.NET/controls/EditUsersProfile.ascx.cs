@@ -204,7 +204,7 @@ namespace YAF.Controls
             this.Gender.Items.Add(this.GetText("PROFILE", "gender2"));
 
             // End Modifications for enhanced profile
-            this.UpdateProfile.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "SAVE"));
+            this.UpdateProfile.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "SAVE"));
             this.Cancel.Text = "<i class=\"fa fa-trash fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "CANCEL"));
 
             this.ForumSettingsRows.Visible = this.Get<YafBoardSettings>().AllowUserTheme

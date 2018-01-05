@@ -141,18 +141,7 @@
                             </td>
                         </tr>
                         <tr style="height:30px">
-                            <%--<td colspan="2" class="post" style="overflow-y: scroll; height: 10px; width: 99%; padding: 0px 0px 0px 5px; margin: 0;">--%>
-                            <td class="post" style="padding-left: 5px; margin: 0;">
-                                <asp:Repeater ID="smiliesRepeater" Visible="<%# this.Get<YafBoardSettings>().ShowShoutboxSmiles %>"
-                                    runat="server">
-                                    <ItemTemplate>
-                                        <asp:ImageButton ID="ImageButton1" ImageUrl='<%# YafForumInfo.ForumClientFileRoot + YafBoardFolders.Current.Emoticons + "/" + this.Eval("Icon") %>'
-                                            ToolTip='<%# this.Eval("Code") %>' OnClientClick='<%# FormatSmiliesOnClickString(Eval("Code").ToString(),Eval("Icon").ToString()) %>'
-                                            runat="server" />
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </td>
-                            <td class="post" style="text-align: center;">
+                            <td class="post" style="text-align: center;" colspan="2">
                                 <asp:PlaceHolder ID="FlyOutHolder" runat="server">
                                     <asp:Button ID="btnFlyOut" OnClientClick="openShoutBoxWin(); return false;" CssClass="pbutton" OnClick="Refresh_Click"
                                         Text="FlyOut" runat="server" />

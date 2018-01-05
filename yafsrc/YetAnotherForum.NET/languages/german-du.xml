@@ -53,9 +53,6 @@
     <Resource tag="ADMIN_REPLACEWORDS_IMPORT">Importiert Ersatzwörter</Resource>
     <Resource tag="ADMIN_RESTARTAPP">Anwendung Neustarten</Resource>
     <Resource tag="ADMIN_RUNSQL">Führt SQL Query aus</Resource>
-    <Resource tag="ADMIN_SMILIES">Betrachtet Smileys</Resource>
-    <Resource tag="ADMIN_SMILIES_EDIT">Bearbeitet Smileys</Resource>
-    <Resource tag="ADMIN_SMILIES_IMPORT">Importiert Smileys</Resource>
     <Resource tag="ADMIN_SPAMLOG">Views/edits the spam log</Resource>
     <Resource tag="ADMIN_SPAMWORDS">Views spam words list</Resource>
     <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
@@ -134,7 +131,6 @@
     <Resource tag="RULES">Betrachtet Forum Regeln</Resource>
     <Resource tag="SEARCH">Benutzt Suche</Resource>
     <Resource tag="SHOUTBOX">Benutzt Shoutbox</Resource>
-    <Resource tag="SHOWSMILIES">Keine Daten</Resource>
     <Resource tag="TEAM">Betrachtet Teamseite</Resource>
     <Resource tag="TOPICINFORUM"> im Forum</Resource>
     <Resource tag="TOPICS">Betrachtet Themen </Resource>
@@ -1411,8 +1407,6 @@
     <Resource tag="SHOW_RSS_LINKS_HELP">Aktivieren oder deaktivieren Anzeige von RSS-Links im Forum.</Resource>
     <Resource tag="SHOW_SHOUTBOX">Shoutbox Anzeigen:</Resource>
     <Resource tag="SHOW_SHOUTBOX_HELP">Aktivieren oder deaktivieren Anzeige der Shoutbox (Chat-Modul) im Forum.</Resource>
-    <Resource tag="SHOW_SHOUTBOX_SMILIES">Zeige Shoutbox Smileys:</Resource>
-    <Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">Aktivieren oder deaktivieren der Anzeige der Shoutbox (Chat-Modul) Smileys.</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
     <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">Das Datum, an dem der Benutzer sich bedankt hat:</Resource>
@@ -1688,46 +1682,6 @@
     <Resource tag="SQL_COMMAND">SQL-Befehl:</Resource>
     <Resource tag="TITLE">SQL Code ausführen</Resource>
   </page>
-  <page name="ADMIN_SMILIES">
-    <Resource tag="ADD">Smiley hinzufügen</Resource>
-    <Resource tag="CODE">Code</Resource>
-    <Resource tag="COMANDS">Emotion</Resource>
-    <Resource tag="EMOTION">Emotion</Resource>
-    <Resource tag="IMPORT">Smiley Packet Importieren</Resource>
-    <Resource tag="MOVE_DOWN">Nach oben</Resource>
-    <Resource tag="MOVE_UP">Nach unten</Resource>
-    <Resource tag="MSG_DELETE">Dieses Smiley löschen?</Resource>
-    <Resource tag="ORDER">Reihenfolge</Resource>
-    <Resource tag="SMILEY">Smiley</Resource>
-    <Resource tag="TITLE">Smileys</Resource>
-  </page>
-  <page name="ADMIN_SMILIES_EDIT">
-    <Resource tag="CODE">Code:</Resource>
-    <Resource tag="EMOTION">Emotion:</Resource>
-    <Resource tag="ICON">Icon:</Resource>
-    <Resource tag="MSG_CODE_BRACK">Bitte geben Sie den Code für diese Emotion in "[...]" ein.</Resource>
-    <Resource tag="MSG_CODE_LONG">Der Code für diese Emotion darf nicht Länger als 10 Zeichen lang sein.</Resource>
-    <Resource tag="MSG_CODE_MISSING">Please enter the code to use for this emotion.</Resource>
-    <Resource tag="MSG_CODE_SAME">Please choose a different code, this one is already in use.</Resource>
-    <Resource tag="MSG_NO_EMOTICON">Please enter an emotion for this icon.</Resource>
-    <Resource tag="MSG_NO_ICON">Please select an icon to use for this emotion.</Resource>
-    <Resource tag="MSG_SORT_NMBR">Sort order must be number between 0 and 255.</Resource>
-    <Resource tag="MSG_TOO_LONG">An emotion description is too long.</Resource>
-    <Resource tag="SELECT_SMILEY">Smiley Bild Wählen</Resource>
-    <Resource tag="SORT_ORDER">Sortierreihenfolge:</Resource>
-    <Resource tag="TITLE">Smiley Bearbeiten/Hinzufügen</Resource>
-  </page>
-  <page name="ADMIN_SMILIES_IMPORT">
-    <Resource tag="CHOOSE_PAK">.pak Datei wählen:</Resource>
-    <Resource tag="CHOOSE_PAK_HELP">Sie müssen das Smiley Packet entpacken und all Dateien in den Smiley Ordner hochladen (Boards/BoardNr/Images/Emoticons).</Resource>
-    <Resource tag="DELETE_EXISTING">Exestierende Smileys löschen:</Resource>
-    <Resource tag="DELETE_EXISTING_HELP">Will DELETE ALL existing smilies if you check this.</Resource>
-    <Resource tag="ERROR_SELECT_FILE">You must select a .pak file to import.</Resource>
-    <Resource tag="HEADER">Smiley Packet importien</Resource>
-    <Resource tag="IMPORT">Importieren</Resource>
-    <Resource tag="SELECT_FILE">Datei (*.pak) wählen</Resource>
-    <Resource tag="TITLE">Smileys Importieren</Resource>
-  </page>
   <page name="ADMIN_SPAMLOG">
     <Resource tag="TITLE">Spam Ereignisprotokoll</Resource>
   </page>
@@ -1882,7 +1836,6 @@
     <Resource tag="admin_replacewords">Ersetzen von Wörtern</Resource>
     <Resource tag="admin_restartapp">Anwendung neustarten</Resource>
     <Resource tag="admin_runsql">SQL Query ausführen</Resource>
-    <Resource tag="admin_smilies">Smileys</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Ereignisprotokoll</Resource>
     <Resource tag="admin_spamwords">Spam Check Wörter</Resource>
     <Resource tag="admin_taskmanager">Task-Manager</Resource>
@@ -2119,6 +2072,7 @@
     <Resource tag="NAME">Name</Resource>
     <Resource tag="NO">Nein</Resource>
     <Resource tag="NONE">Keine</Resource>
+    <Resource tag="NOTE">Note:</Resource>
     <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT">Ein SPAM BOT Benutzer hat sich im Forum {0} registriert</Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">Sie haben eine Auszeichnung erhalten im {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Neue Nachricht im Forum {0} Forum muss genehmigt werden.</Resource>
@@ -4497,8 +4451,6 @@ Spoiler Content
     <Resource tag="REPLY">Eine Antwort schreiben</Resource>
     <Resource tag="SAVE">Senden</Resource>
     <Resource tag="SAVE_TITLE">Beitrag veröffentlichen/aktualisieren</Resource>
-    <Resource tag="SMILIES_HEADER">[b]Smiley Hinzufügen[/b]</Resource>
-    <Resource tag="SMILIES_MORE">Mehr Smileys...</Resource>
     <Resource tag="SPAM_MESSAGE">Ihr Beitrag wurde abgelehnt dar er als SPAM erkannt wurde!</Resource>
     <Resource tag="STATUS">Status:</Resource>
     <Resource tag="STICKY">Wichtig</Resource>
@@ -5001,13 +4953,6 @@ Durch das Abschließen der Registrierung stimmst Du diesen Nutzungsbedingungen z
     <Resource tag="MUSTBELOGGEDIN">Sie müssen eingeloggt sein um die Shoutbox benutzen zu können.</Resource>
     <Resource tag="SUBMIT">Absenden</Resource>
     <Resource tag="TITLE">ShoutBox (Mini-Chat)</Resource>
-  </page>
-  <page name="SHOWSMILIES">
-    <Resource tag="CLOSE_WINDOW">Fenster Schließen</Resource>
-    <Resource tag="HEADER_CODE">Code</Resource>
-    <Resource tag="HEADER_MEANING">Meint</Resource>
-    <Resource tag="HEADER_SMILE">Smiley</Resource>
-    <Resource tag="TITLE">Verfügbare Smileys</Resource>
   </page>
   <page name="TEAM">
     <Resource tag="ADMINS">Admins</Resource>

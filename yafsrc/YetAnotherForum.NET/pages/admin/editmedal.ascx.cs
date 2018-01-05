@@ -479,18 +479,18 @@ namespace YAF.Pages.Admin
             // this needs to be done just once, not during postbacks
             if (!this.IsPostBack)
             {
-                this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
-                this.Cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
+                this.Save.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
+                this.Cancel.Text = "<i class=\"fa fa-times fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
 
                 this.AddGroupSave.Text =
-                    "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "SAVE"));
+                    "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "SAVE"));
                 this.AddGroupCancel.Text =
-                    "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "CANCEL"));
+                    "<i class=\"fa fa-times fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "CANCEL"));
 
                 this.AddUserSave.Text =
-                    "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "SAVE"));
+                    "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "SAVE"));
                 this.AddUserCancel.Text =
-                    "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "CANCEL"));
+                    "<i class=\"fa fa-times fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "CANCEL"));
 
                 this.AddGroup.Text =
                     "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(

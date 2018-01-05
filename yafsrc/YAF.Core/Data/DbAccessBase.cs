@@ -30,6 +30,8 @@ namespace YAF.Core.Data
     using System.Data;
     using System.Data.Common;
 
+    using ServiceStack.OrmLite;
+
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Types;
@@ -117,6 +119,8 @@ namespace YAF.Core.Data
         public virtual T Execute<T>(Func<IDbCommand, T> execFunc, IDbCommand cmd = null, IDbTransaction dbTransaction = null)
         {
             var command = cmd ?? this.GetCommand(string.Empty, CommandType.Text);
+
+            OrmLiteConfig.ClearCache();
 
             using (var p = this._profiler.Start(command.CommandText))
             {

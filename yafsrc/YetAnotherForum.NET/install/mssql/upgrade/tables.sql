@@ -537,24 +537,8 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 	)
 GO
 
-if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Smiley]') and type in (N'U'))
-	create table [{databaseOwner}].[{objectQualifier}Smiley](
-		SmileyID		int IDENTITY (1,1) NOT NULL,
-		BoardID			int NOT NULL,
-		Code			nvarchar (10) NOT NULL,
-		Icon			nvarchar (50) NOT NULL,
-		Emoticon		nvarchar (50) NULL,
-		SortOrder		tinyint	NOT NULL default 0,
- constraint [PK_{objectQualifier}Smiley] PRIMARY KEY CLUSTERED 
-(
-	[SmileyID] ASC
-)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF),
- constraint [IX_{objectQualifier}Smiley] UNIQUE NONCLUSTERED 
-(
-	[BoardID] ASC,
-	[Code] ASC
-)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
-	)
+if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Smiley]') and type in (N'U'))
+	drop table [{databaseOwner}].[{objectQualifier}Smiley]
 GO
 
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Topic]') and type in (N'U'))
@@ -2430,13 +2414,6 @@ GO
 if exists(select top 1 1 from sys.columns where object_id =  object_id(N'[{databaseOwner}].[{objectQualifier}EventLog]') and name=N'UserID' and is_nullable=0)
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] alter column UserID int null
 GO	
-
--- Smiley Table
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Smiley]') and name='SortOrder')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}Smiley] add SortOrder tinyint NOT NULL default 0
-end
-GO
 
 -- Category Table
 IF NOT exists (select top 1 1 from sys.columns where object_id =  Object_id(N'[{databaseOwner}].[{objectQualifier}Category]') AND name = N'CategoryImage')

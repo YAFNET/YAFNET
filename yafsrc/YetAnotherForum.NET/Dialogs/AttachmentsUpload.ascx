@@ -58,7 +58,7 @@
                 <button class="start" disabled style="display:none">Start</button>
             {% } %}
                       {% if (!i) { %}
-                                      <button class="btn btn-danger cancel"><i class="fa fa-remove fa-fw"></i>&nbsp;<%= this.Get<ILocalization>().GetText("COMMON", "CANCEL") %></button>
+                                      <button class="btn btn-danger cancel"><i class="fa fa-times fa-fw"></i>&nbsp;<%= this.Get<ILocalization>().GetText("COMMON", "CANCEL") %></button>
                                   {% } %}
                               </td>
                           </tr>

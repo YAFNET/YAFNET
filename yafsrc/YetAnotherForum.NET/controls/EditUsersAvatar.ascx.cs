@@ -126,8 +126,8 @@ namespace YAF.Controls
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
             }
 
-            this.UpdateRemote.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "UPDATE"));
-            this.UpdateUpload.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "UPDATE"));
+            this.UpdateRemote.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "UPDATE"));
+            this.UpdateUpload.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "UPDATE"));
             this.Back.Text = "<i class=\"fa fa-reply fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "BACK"));
 
             this.NoAvatar.Text = this.GetText("CP_EDITAVATAR", "NOAVATAR");

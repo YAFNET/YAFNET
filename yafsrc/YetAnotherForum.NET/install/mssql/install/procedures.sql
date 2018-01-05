@@ -759,7 +759,6 @@ begin
     delete from [{databaseOwner}].[{objectQualifier}Extension] where BoardId=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}ShoutboxMessage] where BoardId=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}Medal] where BoardID=@BoardID
-    delete from [{databaseOwner}].[{objectQualifier}Smiley] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}Replace_Words] where BoardId=@BoardID
 	delete from [{databaseOwner}].[{objectQualifier}Spam_Words] where BoardId=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}NntpServer] where BoardID=@BoardID
@@ -4185,98 +4184,6 @@ BEGIN
         end
     end
 END
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}smiley_list](@BoardID int,@SmileyID int=null) as
-begin
-        if @SmileyID is null
-        select
-        SmileyID,
-        BoardID,
-        Code,
-        Icon,
-        Emoticon,
-        SortOrder = CONVERT(int,SortOrder)
-        from [{databaseOwner}].[{objectQualifier}Smiley] where BoardID=@BoardID order by SortOrder, LEN(Code) desc
-    else
-        select
-        SmileyID,
-        BoardID,
-        Code,
-        Icon,
-        Emoticon,
-        SortOrder = CONVERT(int,SortOrder)
-        from [{databaseOwner}].[{objectQualifier}Smiley] where SmileyID=@SmileyID order by SortOrder
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}smiley_listunique](@BoardID int) as
-begin
-        select
-        Icon,
-        Emoticon,
-        Code = (select top 1 Code from [{databaseOwner}].[{objectQualifier}Smiley] x where x.Icon=[{databaseOwner}].[{objectQualifier}Smiley].Icon),
-        SortOrder = (select top 1 SortOrder from [{databaseOwner}].[{objectQualifier}Smiley] x where x.Icon=[{databaseOwner}].[{objectQualifier}Smiley].Icon order by x.SortOrder asc)
-    from
-        [{databaseOwner}].[{objectQualifier}Smiley]
-    where
-        BoardID=@BoardID
-    group by
-        Icon,
-        Emoticon
-    order by
-        SortOrder,
-        Code
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}smiley_save](@SmileyID int=null,@BoardID int,@Code nvarchar(10),@Icon nvarchar(50),@Emoticon nvarchar(50),@SortOrder tinyint,@Replace smallint=0) as begin
-        if @SmileyID is not null begin
-        update [{databaseOwner}].[{objectQualifier}Smiley] set Code = @Code, Icon = @Icon, Emoticon = @Emoticon, SortOrder = @SortOrder where SmileyID = @SmileyID
-    end
-    else begin
-        if @Replace>0
-            delete from [{databaseOwner}].[{objectQualifier}Smiley] where Code=@Code
-
-        if not exists(select 1 from [{databaseOwner}].[{objectQualifier}Smiley] where BoardID=@BoardID and Code=@Code)
-            insert into [{databaseOwner}].[{objectQualifier}Smiley](BoardID,Code,Icon,Emoticon,SortOrder) values(@BoardID,@Code,@Icon,@Emoticon,@SortOrder)
-    end
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}smiley_resort](@BoardID int,@SmileyID int,@Move int) as
-begin
-        declare @Position int
-
-    SELECT @Position=SortOrder FROM [{databaseOwner}].[{objectQualifier}Smiley] WHERE BoardID=@BoardID and SmileyID=@SmileyID
-
-    if (@Position is null) return
-
-    if (@Move > 0) begin
-        update [{databaseOwner}].[{objectQualifier}Smiley]
-            set SortOrder=SortOrder-1
-            where BoardID=@BoardID and
-                SortOrder between @Position and (@Position + @Move) and
-                SortOrder between 1 and 255
-    end
-    else if (@Move < 0) begin
-        update [{databaseOwner}].[{objectQualifier}Smiley]
-            set SortOrder=SortOrder+1
-            where BoardID=@BoardID and
-                SortOrder between (@Position+@Move) and @Position and
-                SortOrder between 0 and 254
-    end
-
-    SET @Position = @Position + @Move
-
-    if (@Position>255) SET @Position = 255
-    else if (@Position<0) SET @Position = 0
-
-    update [{databaseOwner}].[{objectQualifier}Smiley]
-        set SortOrder=@Position
-        where BoardID=@BoardID and
-            SmileyID=@SmileyID
-end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}system_initialize](

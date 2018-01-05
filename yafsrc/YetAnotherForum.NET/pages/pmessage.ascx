@@ -1,5 +1,4 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.pmessage" Codebehind="pmessage.ascx.cs" %>
-<%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
@@ -40,7 +39,6 @@
 	<tr>
 		<td class="postformheader" valign="top"  width="20%">
 			<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="message" />
-			<uc1:smileys runat="server" OnClick="insertsmiley" ID="SmileysBox" />
 		</td>
 		<td id="EditorLine" class="post" runat="server">
 			<!-- editor goes here -->

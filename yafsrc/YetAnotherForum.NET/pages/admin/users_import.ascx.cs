@@ -174,7 +174,7 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_USERS_IMPORT", "TITLE"));
 
             this.Import.Text = "<i class=\"fa fa-upload fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_USERS_IMPORT", "IMPORT"));
-            this.cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
+            this.cancel.Text = "<i class=\"fa fa-times fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
         }
 
         /// <summary>

@@ -82,5 +82,8 @@
 
                 <div class="text-lg-center">
 
-            <asp:LinkButton runat="server" ID="Kill" Text="Kill User" CssClass="btn btn-primary" OnClick="Kill_OnClick" />
+            <YAF:ThemeButton runat="server" ID="Kill" CssClass="btn btn-primary" OnClick="Kill_OnClick"
+                             Icon="ban" TextLocalizedPage="ADMIN_EDITUSER" TextLocalizedTag="HEAD_KILL_USER"
+                             ReturnConfirmText='<%# this.GetText("ADMIN_EDITUSER", "KILL_USER_CONFIRM") %>'>
+            </YAF:ThemeButton>
             </div>

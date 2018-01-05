@@ -191,7 +191,6 @@
     <Compile Include="Models\ShoutboxMessage.cs" />
     <Compile Include="Models\Registry.cs" />
     <Compile Include="Models\Thanks.cs" />
-    <Compile Include="Models\Smiley.cs" />
     <Compile Include="Models\Spam_Words.cs" />
     <Compile Include="Models\Forum.cs" />
     <Compile Include="Models\TopicStatus.cs" />
@@ -214,6 +213,7 @@
     <Compile Include="Objects\GoogleUser.cs" />
     <Compile Include="Objects\MessageNotification.cs" />
     <Compile Include="Objects\SettingsProfilePropertyColumn.cs" />
+    <Compile Include="Objects\TypedAllThanks.cs" />
     <Compile Include="ThemeResources.cs" />
     <Compile Include="CodeContracts.cs" />
     <Compile Include="Constants\CollapsiblePanelState.cs" />
@@ -332,7 +332,6 @@
     <Compile Include="Objects\SimpleModerator.cs" />
     <Compile Include="Objects\SimpleTopic.cs" />
     <Compile Include="Objects\TwitterUser.cs" />
-    <Compile Include="Objects\TypedAllThanks.cs" />
     <Compile Include="Objects\TypedForumListAll.cs" />
     <Compile Include="Objects\TypedMessageList.cs" />
     <Compile Include="Objects\TypedNntpForum.cs" />

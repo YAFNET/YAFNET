@@ -57,13 +57,13 @@ namespace YAF.Types.Models
 
         public int ForumID { get; set; }
 
-        public int LastMessageNo { get; set; }
+        public int? LastMessageNo { get; set; }
 
         public DateTime LastUpdate { get; set; }
 
         public bool Active { get; set; }
 
-        public DateTime DateCutOff { get; set; }
+        public DateTime? DateCutOff { get; set; }
 
         #endregion
     }

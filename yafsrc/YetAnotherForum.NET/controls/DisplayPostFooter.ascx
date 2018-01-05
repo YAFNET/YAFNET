@@ -41,7 +41,7 @@
         </YAF:ThemeButton>
 	    <YAF:ThemeButton ID="MarkAsAnswer" runat="server" Visible="false" CssClass="btn btn-primary btn-sm"
             TextLocalizedPage="POSTS" TextLocalizedTag="MARK_ANSWER" TitleLocalizedTag="MARK_ANSWER_TITLE"
-            Icon="check-square-o" OnClick="MarkAsAnswerClick">
+            Icon="check-square" OnClick="MarkAsAnswerClick">
 	    </YAF:ThemeButton>	
 	</div>
 </div>

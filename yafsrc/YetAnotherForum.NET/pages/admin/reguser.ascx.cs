@@ -188,7 +188,7 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_REGUSER", "TITLE"));
 
             this.ForumRegister.Text = "<i class=\"fa fa-user-plus fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_REGUSER", "REGISTER"));
-            this.cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
+            this.cancel.Text = "<i class=\"fa fa-times fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
 
             this.TimeZones.DataSource = StaticDataHelper.TimeZones();
             this.DataBind();

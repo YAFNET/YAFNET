@@ -136,12 +136,7 @@ namespace YAF.Pages.Admin
                     }
 
                     LegacyDb.user_delete(e.CommandArgument);
-                    this.Get<ILogger>()
-                        .Log(
-                            this.PageContext.PageUserID,
-                            "YAF.Pages.Admin.admin",
-                            "User {0} was deleted by {1}.".FormatWith(e.CommandArgument.ToType<int>(), this.PageContext.PageUserID),
-                            EventLogTypes.UserDeleted);
+
                     this.BindData();
                     break;
                 case "approve":

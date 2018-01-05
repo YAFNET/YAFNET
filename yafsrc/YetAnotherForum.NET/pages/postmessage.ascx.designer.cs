@@ -58,15 +58,6 @@ namespace YAF.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell PreviewCell;
         
         /// <summary>
-        /// LocalizedLabel9-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel9;
-        
-        /// <summary>
         /// PreviewMessagePost-Steuerelement
         /// </summary>
         /// <remarks>
@@ -175,15 +166,6 @@ namespace YAF.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow FromRow;
         
         /// <summary>
-        /// LocalizedLabel3-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
-        
-        /// <summary>
         /// From-Steuerelement
         /// </summary>
         /// <remarks>
@@ -227,15 +209,6 @@ namespace YAF.Pages {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow PriorityRow;
-        
-        /// <summary>
-        /// LocalizedLabel4-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
         
         /// <summary>
         /// Priority-Steuerelement
@@ -283,31 +256,22 @@ namespace YAF.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell EditorLine;
         
         /// <summary>
-        /// LocalizedLabel5-Steuerelement
+        /// maxCharRow-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel5;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow maxCharRow;
         
         /// <summary>
-        /// SmilesHolder-Steuerelement
+        /// LocalizedLabel3-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder SmilesHolder;
-        
-        /// <summary>
-        /// Smileys1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.smileys Smileys1;
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
         
         /// <summary>
         /// LocalizedLblMaxNumberOfPost-Steuerelement
@@ -346,15 +310,6 @@ namespace YAF.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow tr_captcha1;
         
         /// <summary>
-        /// LocalizedLabel6-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel6;
-        
-        /// <summary>
         /// imgCaptcha-Steuerelement
         /// </summary>
         /// <remarks>
@@ -373,15 +328,6 @@ namespace YAF.Pages {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow tr_captcha2;
         
         /// <summary>
-        /// LocalizedLabel7-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel7;
-        
-        /// <summary>
         /// tbCaptcha-Steuerelement
         /// </summary>
         /// <remarks>
@@ -398,15 +344,6 @@ namespace YAF.Pages {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow EditReasonRow;
-        
-        /// <summary>
-        /// LocalizedLabel8-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel8;
         
         /// <summary>
         /// ReasonEditor-Steuerelement
@@ -443,15 +380,6 @@ namespace YAF.Pages {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Controls.ThemeButton Cancel;
-        
-        /// <summary>
-        /// LastPostsHolder-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder LastPostsHolder;
         
         /// <summary>
         /// LastPosts1-Steuerelement

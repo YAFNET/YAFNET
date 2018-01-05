@@ -57,30 +57,6 @@ namespace YAF.Utilities
                   txtTitleVar.style.display='none';}}";
 
         /// <summary>
-        ///   Gets Pagination Load JS.
-        /// </summary>
-        [NotNull]
-        public static string PaginationLoadJs => @"function pageselectCallback(page_index, jq){{
-                var new_content = {0}('#SmiliesPagerHidden div.result:eq('+page_index+')').clone();
-                {0}('#SmiliesPagerResult').empty().append(new_content);
-                return false;
-            }}
-
-            {0}(document).ready(function(){{
-                var num_entries = {0}('#SmiliesPagerHidden div.result').length;
-                {0}('#SmiliesPager').pagination(num_entries, {{
-                    callback: pageselectCallback,
-                    items_per_page:1,
-					num_display_entries: 3,
-					num_edge_entries: 1,
-                    prev_class: 'smiliesPagerPrev',
-					next_class: 'smiliesPagerNext',
-					prev_text: '&laquo;',
-					next_text: '&raquo;'
-                }});
-            }});".FormatWith(Config.JQueryAlias);
-
-        /// <summary>
         /// Gets the multi quote callback success JS.
         /// </summary>
         [NotNull]

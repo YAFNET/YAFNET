@@ -98,8 +98,8 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EVENTLOGROUPACCESS", "SAVE"));
-            this.Cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EVENTLOGROUPACCESS", "CANCEL"));
+            this.Save.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EVENTLOGROUPACCESS", "SAVE"));
+            this.Cancel.Text = "<i class=\"fa fa-times fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EVENTLOGROUPACCESS", "CANCEL"));
             this.GrantAll.Text = "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EVENTLOGROUPACCESS", "GRANTALL"));
             this.RevokeAll.Text = "<i class=\"fa fa-trash fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EVENTLOGROUPACCESS", "REVOKEALL"));
             this.GrantAllDelete.Text = "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EVENTLOGROUPACCESS", "GRANTALLDELETE"));

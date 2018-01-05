@@ -53,9 +53,6 @@
     <Resource tag="ADMIN_REPLACEWORDS_IMPORT">Importeert vervanwoorden</Resource>
     <Resource tag="ADMIN_RESTARTAPP">Herstart applicatie</Resource>
     <Resource tag="ADMIN_RUNSQL">Runt SQL query</Resource>
-    <Resource tag="ADMIN_SMILIES">Bekijkt smilies</Resource>
-    <Resource tag="ADMIN_SMILIES_EDIT">Bewerkt smilies</Resource>
-    <Resource tag="ADMIN_SMILIES_IMPORT">Importeert smilies</Resource>
     <Resource tag="ADMIN_SPAMLOG">Views/edits the spam log</Resource>
     <Resource tag="ADMIN_SPAMWORDS">Views spam words list</Resource>
     <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
@@ -134,7 +131,6 @@
     <Resource tag="RULES">Bekijkt forumregels</Resource>
     <Resource tag="SEARCH">Gebruikt de zoekfunctie</Resource>
     <Resource tag="SHOUTBOX">Gebruikt shoutbox</Resource>
-    <Resource tag="SHOWSMILIES">Onbekend</Resource>
     <Resource tag="TEAM">Bekijkt team pagina</Resource>
     <Resource tag="TOPICINFORUM"> in forum </Resource>
     <Resource tag="TOPICS">Bekijkt topic</Resource>
@@ -1317,7 +1313,7 @@
     <Resource tag="REMOVE_NESTED_QUOTES">Verwijder Geneste Quotes:</Resource>
     <Resource tag="REMOVE_NESTED_QUOTES_HELP">Verwijder geneste [quote] tags van antwoorden automatisch.</Resource>
     <Resource tag="REPLACE_CACHE_TIMEOUT">Vervangregels Cache Timeout:</Resource>
-    <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> Smilies, BB code, vervangwoorden, etc. (in minuten)</Resource>
+    <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> BB code, vervangwoorden, etc. (in minuten)</Resource>
     <Resource tag="REPORT_POST_PERMISSION">machtigingen van Berichten Rapporteren:</Resource>
     <Resource tag="REPORT_POST_PERMISSION_HELP">Sta het rapporteren van berichten toe aan:</Resource>
     <Resource tag="REPUTATION_ALLOWNEGATIVE">Sta Negatiev Reputatie toe:</Resource>
@@ -1413,8 +1409,6 @@
     <Resource tag="SHOW_RSS_LINKS_HELP">Laat RSS links zien door het forum heen.</Resource>
     <Resource tag="SHOW_SHOUTBOX">Laat de Shoutbox zien:</Resource>
     <Resource tag="SHOW_SHOUTBOX_HELP">Zet de ShoutBox (Chat Module) aan of uit.</Resource>
-    <Resource tag="SHOW_SHOUTBOX_SMILIES">Laat Shoutbox Smilies zien:</Resource>
-    <Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">Verberg of laat de Shoutbox (Chat Module) smilies zien.</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
     <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">Laat de datum zien wanneer gebruikers bedankt hebben:</Resource>
@@ -1698,46 +1692,6 @@
     <Resource tag="SQL_COMMAND">SQL Commando:</Resource>
     <Resource tag="TITLE">Voer SQL Code uit</Resource>
   </page>
-  <page name="ADMIN_SMILIES">
-    <Resource tag="ADD">Voeg Smiley toe</Resource>
-    <Resource tag="CODE">Code</Resource>
-    <Resource tag="COMANDS">Emotie</Resource>
-    <Resource tag="EMOTION">Emotie</Resource>
-    <Resource tag="IMPORT">Importeer Smiley Pack</Resource>
-    <Resource tag="MOVE_DOWN">Move Down</Resource>
-    <Resource tag="MOVE_UP">Move Up</Resource>
-    <Resource tag="MSG_DELETE">Smiley verwijderen?</Resource>
-    <Resource tag="ORDER">Sorteer</Resource>
-    <Resource tag="SMILEY">Smiley</Resource>
-    <Resource tag="TITLE">Smiley's</Resource>
-  </page>
-  <page name="ADMIN_SMILIES_EDIT">
-    <Resource tag="CODE">Code:</Resource>
-    <Resource tag="EMOTION">Emotie:</Resource>
-    <Resource tag="ICON">Icoon:</Resource>
-    <Resource tag="MSG_CODE_BRACK">Geef de code in voor deze smiley tussen blokhaken</Resource>
-    <Resource tag="MSG_CODE_LONG">De code voor de smiley mag niet meer zijn dan 10 karakters</Resource>
-    <Resource tag="MSG_CODE_MISSING">Geef hier de code die voor de smiley gebruikt wordt</Resource>
-    <Resource tag="MSG_CODE_SAME">Please choose a different code, this one is already in use.</Resource>
-    <Resource tag="MSG_NO_EMOTICON">Geef een emotie voor deze smiley</Resource>
-    <Resource tag="MSG_NO_ICON">Kies een icoon om te gebruiken voor deze emotie</Resource>
-    <Resource tag="MSG_SORT_NMBR">Sorteervolgorde moet liggen tussen 0 en 255.</Resource>
-    <Resource tag="MSG_TOO_LONG">De beschrijving is te lang</Resource>
-    <Resource tag="SELECT_SMILEY">Kies smiley plaatje</Resource>
-    <Resource tag="SORT_ORDER">Sorteervolgorde:</Resource>
-    <Resource tag="TITLE">Voeg toe/bewerk Smiley</Resource>
-  </page>
-  <page name="ADMIN_SMILIES_IMPORT">
-    <Resource tag="CHOOSE_PAK">Kies een .pak bestand:</Resource>
-    <Resource tag="CHOOSE_PAK_HELP">Je moet het smileypakket uitpakken en alle smilies uploaden naar je smileyfolder.(Boards/BoardNo/Images/Emoticons).</Resource>
-    <Resource tag="DELETE_EXISTING">Verwijder bestaande smilies:</Resource>
-    <Resource tag="DELETE_EXISTING_HELP">Als je dit aanvinkt worden ALLE bestaande smilies VERWIJDERD.</Resource>
-    <Resource tag="ERROR_SELECT_FILE">Je hebt een .pak bestand  nodig om te importeren.</Resource>
-    <Resource tag="HEADER">Importeer Smiley Pack</Resource>
-    <Resource tag="IMPORT">Importeer</Resource>
-    <Resource tag="SELECT_FILE">Selecteer Bestand (*.pak)</Resource>
-    <Resource tag="TITLE">Smilies Importeren</Resource>
-  </page>
   <page name="ADMIN_SPAMLOG">
     <Resource tag="TITLE">Spam Event Log</Resource>
   </page>
@@ -1892,7 +1846,6 @@
     <Resource tag="admin_replacewords">Vervangwoorden</Resource>
     <Resource tag="admin_restartapp">Herstart Forum</Resource>
     <Resource tag="admin_runsql">Draai SQL Query</Resource>
-    <Resource tag="admin_smilies">Smiley's</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
     <Resource tag="admin_taskmanager">Taakbeheer</Resource>
@@ -2129,6 +2082,7 @@
     <Resource tag="NAME">Naam</Resource>
     <Resource tag="NO">Nee</Resource>
     <Resource tag="NONE">Geen</Resource>
+    <Resource tag="NOTE">Note:</Resource>
     <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT">New SPAM BOT User Registered on {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">You have been award on the {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Nieuw bericht op {0} Forum heeft goedkeuring nodig</Resource>
@@ -4520,8 +4474,6 @@ Spoiler Inhoud
     <Resource tag="REPLY">Antwoord verzenden</Resource>
     <Resource tag="SAVE">Plaatsen</Resource>
     <Resource tag="SAVE_TITLE">Plaats/Bewerk het bericht</Resource>
-    <Resource tag="SMILIES_HEADER">[b]Smiley invoegen[/b]</Resource>
-    <Resource tag="SMILIES_MORE">Meer smiley's...</Resource>
     <Resource tag="SPAM_MESSAGE">Je bericht is afgewezen, omdat het is herkend als SPAM!</Resource>
     <Resource tag="STATUS">Status:</Resource>
     <Resource tag="STICKY">Sticky</Resource>
@@ -5037,13 +4989,6 @@ Spoiler Inhoud
     <Resource tag="MUSTBELOGGEDIN">Je moet ingelogd zijn om de shoutbox te gebruiken.</Resource>
     <Resource tag="SUBMIT">Voeg toe</Resource>
     <Resource tag="TITLE">ShoutBox</Resource>
-  </page>
-  <page name="SHOWSMILIES">
-    <Resource tag="CLOSE_WINDOW">Sluit</Resource>
-    <Resource tag="HEADER_CODE">Code</Resource>
-    <Resource tag="HEADER_MEANING">Betekenis</Resource>
-    <Resource tag="HEADER_SMILE">Smiley</Resource>
-    <Resource tag="TITLE">Beschikbare smiley's</Resource>
   </page>
   <page name="TEAM">
     <Resource tag="ADMINS">Beheerders</Resource>

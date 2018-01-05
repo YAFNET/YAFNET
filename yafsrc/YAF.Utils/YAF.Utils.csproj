@@ -86,6 +86,8 @@
     <Compile Include="Helpers\QueryStringIDHelper.cs" />
     <Compile Include="Helpers\MinifyUtils\JSMinify.cs" />
     <Compile Include="Helpers\StringUtils\Characters.cs" />
+    <Compile Include="Helpers\StringUtils\EmojiOne.cs" />
+    <Compile Include="Helpers\StringUtils\EmojiOne.generated.cs" />
     <Compile Include="Helpers\StringUtils\Unidecoder.cs" />
     <Compile Include="Helpers\StringUtils\UnicodeEncoder.cs" />
     <Compile Include="Helpers\UrlHelper.cs" />

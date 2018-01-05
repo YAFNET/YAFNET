@@ -12,7 +12,7 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-comments-o fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_EDITCATEGORY" />&nbsp;<asp:Label ID="CategoryNameTitle" runat="server"></asp:Label>
+                    <i class="fa fa-comments fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_EDITCATEGORY" />&nbsp;<asp:Label ID="CategoryNameTitle" runat="server"></asp:Label>
                 </div>
                 <div class="card-body">
 			<h4>

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <YafMenu>
-  <YafMenuSection Title="Host Administration" Tag="HostAdministration" Icon="dashboard" HostAdminOnly="True">
+  <YafMenuSection Title="Host Administration" Tag="HostAdministration" Icon="tachometer-alt" HostAdminOnly="True">
     <YafMenuItem>
       <Title>Host Settings</Title>
       <ForumPage>admin_hostsettings</ForumPage>
-      <Image>gear</Image>
+      <Image>cog</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>Boards</Title>
@@ -22,19 +22,19 @@
       <Title>Role Log Access</Title>
       <ForumPage>admin_eventloggroups</ForumPage>
       <SubForumPage_0>admin_eventloggroupaccess</SubForumPage_0>
-      <Image>group</Image>
+      <Image>users</Image>
     </YafMenuItem>
   </YafMenuSection>
-  <YafMenuSection Title="Settings" Tag="Settings" Icon="gears" HostAdminOnly="False">
+  <YafMenuSection Title="Settings" Tag="Settings" Icon="cogs" HostAdminOnly="False">
     <YafMenuItem>
       <Title>Admin Index</Title>
       <ForumPage>admin_admin</ForumPage>
-      <Image>dashboard</Image>
+      <Image>tachometer-alt</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>Board Settings</Title>
       <ForumPage>admin_boardsettings</ForumPage>
-      <Image>gears</Image>
+      <Image>cogs</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>Forums</Title>
@@ -42,14 +42,7 @@
       <SubForumPage_0>admin_editcategory</SubForumPage_0>
       <SubForumPage_1>admin_editforum</SubForumPage_1>
       <SubForumPage_2>admin_deleteforum</SubForumPage_2>
-      <Image>comments-o</Image>
-    </YafMenuItem>
-    <YafMenuItem>
-      <Title>Smiles</Title>
-      <ForumPage>admin_smilies</ForumPage>
-      <SubForumPage_0>admin_smilies_edit</SubForumPage_0>
-      <SubForumPage_1>admin_smilies_import</SubForumPage_1>
-      <Image>smile-o</Image>
+      <Image>comments</Image>
     </YafMenuItem>
 		<YafMenuItem>
 			<Title>Replace Words</Title>
@@ -77,7 +70,7 @@
       <ForumPage>admin_topicstatus</ForumPage>
       <SubForumPage_0>admin_topicstatus_edit</SubForumPage_0>
       <SubForumPage_1>admin_topicstatus_import</SubForumPage_1>
-      <Image>warning</Image>
+      <Image>exclamation-triangle</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>Languages</Title>
@@ -86,7 +79,7 @@
       <Image>language</Image>
     </YafMenuItem>
   </YafMenuSection>
-  <YafMenuSection Title="Spam Protection" Tag="Spam_Protection" Icon="shield" HostAdminOnly="False">
+  <YafMenuSection Title="Spam Protection" Tag="Spam_Protection" Icon="shield-alt" HostAdminOnly="False">
     <YafMenuItem>
       <Title>Spam Log</Title>
       <ForumPage>admin_spamlog</ForumPage>
@@ -95,28 +88,22 @@
     <YafMenuItem>
       <Title>Spam Check Words</Title>
       <ForumPage>admin_spamwords</ForumPage>
-      <Image>shield</Image>
+      <Image>shield-alt</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>Banned Emails</Title>
       <ForumPage>admin_bannedemail</ForumPage>
-      <SubForumPage_0>admin_bannedemail_edit</SubForumPage_0>
-      <SubForumPage_1>admin_bannedemail_import</SubForumPage_1>
-      <Image>hand-stop-o</Image>
+      <Image>hand-paper</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>Banned IPs</Title>
       <ForumPage>admin_bannedip</ForumPage>
-      <SubForumPage_0>admin_bannedip_edit</SubForumPage_0>
-      <SubForumPage_1>admin_bannedip_import</SubForumPage_1>
-      <Image>hand-stop-o</Image>
+      <Image>hand-paper</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>Banned Names</Title>
       <ForumPage>admin_bannedname</ForumPage>
-      <SubForumPage_0>admin_bannedname_edit</SubForumPage_0>
-      <SubForumPage_1>admin_bannedname_import</SubForumPage_1>
-      <Image>hand-stop-o</Image>
+      <Image>hand-paper</Image>
     </YafMenuItem>
   </YafMenuSection>
   <YafMenuSection Title="Users and Roles" Tag="UsersandRoles" Icon="users" HostAdminOnly="false">
@@ -130,7 +117,7 @@
       <Title>Roles</Title>
       <ForumPage>admin_groups</ForumPage>
       <SubForumPage_0>admin_editgroup</SubForumPage_0>
-      <Image>group</Image>
+      <Image>users</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>Users</Title>
@@ -144,7 +131,7 @@
 			<Title>Ranks</Title>
 			<ForumPage>admin_ranks</ForumPage>
       <SubForumPage_0>admin_editrank</SubForumPage_0>
-			<Image>mortar-board</Image>
+			<Image>graduation-cap</Image>
 		</YafMenuItem>
     <YafMenuItem>
       <Title>Medals</Title>
@@ -155,7 +142,7 @@
     <YafMenuItem>
       <Title>Mail</Title>
       <ForumPage>admin_mail</ForumPage>
-      <Image>envelope-o</Image>
+      <Image>envelope</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>Digest</Title>
@@ -187,7 +174,7 @@
     <YafMenuItem>
 			<Title>Restart App</Title>
 			<ForumPage>admin_restartapp</ForumPage>
-			<Image>refresh</Image>
+			<Image>sync</Image>
 		</YafMenuItem>
 	</YafMenuSection>
   <YafMenuSection Title="Database" Tag="Database" Icon="database" HostAdminOnly="false">
@@ -208,23 +195,23 @@
       <Debug>True</Debug>
      </YafMenuItem>
   </YafMenuSection>
-  <YafMenuSection Title="NNTP" Tag="NNTP" Icon="newspaper-o" HostAdminOnly="false">
+  <YafMenuSection Title="NNTP" Tag="NNTP" Icon="newspaper" HostAdminOnly="false">
     <YafMenuItem>
       <Title>NNTP Servers</Title>
       <ForumPage>admin_nntpservers</ForumPage>
       <SubForumPage_0>admin_editnntpserver</SubForumPage_0>
-      <Image>newspaper-o</Image>
+      <Image>newspaper</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>NNTP Forums</Title>
       <ForumPage>admin_nntpforums</ForumPage>
       <SubForumPage_0>admin_editnntpforum</SubForumPage_0>
-      <Image>newspaper-o</Image>
+      <Image>newspaper</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>Retrieve Articles</Title>
       <ForumPage>admin_nntpretrieve</ForumPage>
-      <Image>newspaper-o</Image>
+      <Image>newspaper</Image>
     </YafMenuItem>
   </YafMenuSection>
   <YafMenuSection Title="Upgrade" Tag="Upgrade" Icon="download" HostAdminOnly="false">

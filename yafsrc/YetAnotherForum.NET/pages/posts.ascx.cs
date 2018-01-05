@@ -285,7 +285,6 @@ namespace YAF.Pages
                         HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(row["Message"].ToString())))).RemoveMultipleWhitespace();
 
             brief = this.Get<IBadWordReplace>().Replace(brief).Truncate(100);
-            brief = this.Get<IBBCode>().AddSmiles(brief);
 
             if (brief.IsNotSet())
             {

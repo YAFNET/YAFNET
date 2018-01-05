@@ -98,8 +98,8 @@ namespace YAF.Pages.Admin
                     this.GetText("ADMIN_RANKS", "TITLE"),
                     this.GetText("ADMIN_EDITRANK", "TITLE"));
 
-                this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
-                this.Cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
+                this.Save.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
+                this.Cancel.Text = "<i class=\"fa fa-times fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
 
                 this.BindData();
 

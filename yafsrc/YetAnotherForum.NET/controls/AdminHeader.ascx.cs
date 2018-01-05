@@ -228,7 +228,7 @@ namespace YAF.Controls
                 // Admin
                 RenderMenuItem(
                     this.menuAdminItems,
-                    "<i class=\"fa fa-dashboard fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "ADMIN")),
+                    "<i class=\"fa fa-tachometer-alt fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "ADMIN")),
                     this.GetText("TOOLBAR", "ADMIN_TITLE"),
                     YafBuildLink.GetLink(ForumPages.admin_admin),
                     false,
@@ -243,7 +243,7 @@ namespace YAF.Controls
                 // Admin
                 RenderMenuItem(
                     this.menuAdminItems,
-                    "<i class=\"fa fa-gear fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "HOST")),
+                    "<i class=\"fa fa-cog fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "HOST")),
                     this.GetText("TOOLBAR", "HOST_TITLE"),
                     YafBuildLink.GetLink(ForumPages.admin_hostsettings),
                     false,
@@ -258,7 +258,7 @@ namespace YAF.Controls
                 // Admin
                 RenderMenuItem(
                     this.menuAdminItems,
-                    "<i class=\"fa fa-institution fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "MODERATE")),
+                    "<i class=\"fa fa-university fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "MODERATE")),
                     this.GetText("TOOLBAR", "MODERATE_TITLE"),
                     YafBuildLink.GetLink(ForumPages.moderate_index),
                     false,
@@ -276,7 +276,7 @@ namespace YAF.Controls
             // Forum
             RenderMenuItem(
                     this.menuListItems,
-                    "<i class=\"fa fa-comments-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("DEFAULT", "FORUM")),
+                    "<i class=\"fa fa-comments fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("DEFAULT", "FORUM")),
                     this.GetText("TOOLBAR", "FORUM_TITLE"),
                     YafBuildLink.GetLink(ForumPages.forum),
                     false,
@@ -331,7 +331,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     this.menuListItems,
-                    "<i class=\"fa fa-group fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "TEAM")),
+                    "<i class=\"fa fa-users fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "TEAM")),
                     this.GetText("TOOLBAR", "TEAM_TITLE"),
                     YafBuildLink.GetLink(ForumPages.team),
                     false,
@@ -375,7 +375,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     this.MyInboxItem,
-                    "<i class=\"fa fa-envelope-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "INBOX")),
+                    "<i class=\"fa fa-envelope fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "INBOX")),
                     this.GetText("TOOLBAR", "INBOX_TITLE"),
                     YafBuildLink.GetLink(ForumPages.cp_pm),
                     false,
@@ -403,7 +403,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     this.MyAlbumsItem,
-                     "<i class=\"fa fa-picture-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "MYALBUMS")),
+                     "<i class=\"fa fa-image fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "MYALBUMS")),
                     this.GetText("TOOLBAR", "MYALBUMS_TITLE"),
                     YafBuildLink.GetLinkNotEscaped(ForumPages.albums, "u={0}", this.PageContext.PageUserID),
                     false,
@@ -415,7 +415,7 @@ namespace YAF.Controls
             // My Topics
             RenderMenuItem(
                 this.MyTopicItem,
-                 "<i class=\"fa fa-comment-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "MYTOPICS")),
+                 "<i class=\"fa fa-comment fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "MYTOPICS")),
                 this.GetText("TOOLBAR", "MYTOPICS"),
                 YafBuildLink.GetLink(ForumPages.mytopics),
                 false,
@@ -427,7 +427,7 @@ namespace YAF.Controls
             if (!Config.IsAnyPortal && Config.AllowLoginAndLogoff)
             {
                 this.LogoutItem.Visible = true;
-                this.LogOutButton.Text = "<i class=\"fa fa-sign-out fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "LOGOUT"));
+                this.LogOutButton.Text = "<i class=\"fa fa-sign-out-alt fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "LOGOUT"));
                 this.LogOutButton.ToolTip = this.GetText("TOOLBAR", "LOGOUT");
             }
         }

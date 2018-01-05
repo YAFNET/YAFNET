@@ -21,40 +21,17 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Extensions
 {
     using YAF.Core.BBCode;
-    using YAF.Types;
-  using YAF.Types.Interfaces;
-
-  /// <summary>
-  /// The ibb code extensions.
-  /// </summary>
-  public static class IBBCodeExtensions
-  {
-    #region Public Methods
+    using YAF.Types.Interfaces;
 
     /// <summary>
-    /// For backwards compatibility
+    /// The ibb code extensions.
     /// </summary>
-    /// <param name="bbCode">
-    /// The bb Code.
-    /// </param>
-    /// <param name="message">
-    /// the message to add smiles to.
-    /// </param>
-    /// <returns>
-    /// The add smiles.
-    /// </returns>
-    public static string AddSmiles([NotNull] this IBBCode bbCode, [NotNull] string message)
+    public static class IBBCodeExtensions
     {
-      var layers = new ProcessReplaceRules();
-      bbCode.AddSmiles(layers);
-
-      // apply...
-      layers.Process(ref message);
-      return message;
-    }
+        #region Public Methods
 
         /// <summary>
         /// Creates the rules that convert <see cref="YafBBCode" /> to HTML
@@ -65,7 +42,13 @@ namespace YAF.Core
         /// <param name="doFormatting">The do Formatting.</param>
         /// <param name="targetBlankOverride">The target Blank Override.</param>
         /// <param name="useNoFollow">The use No Follow.</param>
-        public static void CreateBBCodeRules(this IBBCode bbcode, IProcessReplaceRules ruleEngine, bool isHtml, bool doFormatting, bool targetBlankOverride, bool useNoFollow)
+        public static void CreateBBCodeRules(
+            this IBBCode bbcode,
+            IProcessReplaceRules ruleEngine,
+            bool isHtml,
+            bool doFormatting,
+            bool targetBlankOverride,
+            bool useNoFollow)
         {
             bbcode.CreateBBCodeRules(ruleEngine, isHtml, doFormatting, targetBlankOverride, useNoFollow, true);
         }

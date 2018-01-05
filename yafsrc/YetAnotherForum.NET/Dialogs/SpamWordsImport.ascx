@@ -29,7 +29,7 @@
                             CssClass="btn btn-primary" Icon="upload">
                         </YAF:ThemeButton>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <i class="fa fa-remove fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server" LocalizedTag="CANCEL"></YAF:LocalizedLabel>
+                            <i class="fa fa-times fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server" LocalizedTag="CANCEL"></YAF:LocalizedLabel>
                         </button>
                     </div>
                 </div>

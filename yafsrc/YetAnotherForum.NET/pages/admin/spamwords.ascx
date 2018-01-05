@@ -44,12 +44,12 @@
                 <HeaderTemplate>
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-shield fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMWORDS" />
+                    <i class="fa fa-shield-alt fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_SPAMWORDS" />
 					</div>
                 <div class="card-body">
                     <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="pull-right"><i class="fa fa-hand-o-left fa-fw"></i></span>
+                            <span class="pull-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                         </div><div class="table-responsive">
                         <table class="table">
                             <tr>

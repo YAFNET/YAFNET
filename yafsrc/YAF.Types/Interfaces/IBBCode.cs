@@ -40,14 +40,6 @@ namespace YAF.Types.Interfaces
     #region Public Methods
 
     /// <summary>
-    /// Adds smiles replacement rules to the collection from the DB
-    /// </summary>
-    /// <param name="rules">
-    /// The rules.
-    /// </param>
-    void AddSmiles([NotNull] IProcessReplaceRules rules);
-
-    /// <summary>
     /// Converts a message containing YafBBCode to HTML appropriate for editing in a rich text editor.
     /// </summary>
     /// <remarks>

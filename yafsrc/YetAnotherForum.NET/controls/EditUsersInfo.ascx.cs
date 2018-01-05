@@ -80,7 +80,7 @@ namespace YAF.Controls
                 return;
             }
 
-            this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "SAVE"));
+            this.Save.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "SAVE"));
 
             this.BindData();
         }

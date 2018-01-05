@@ -307,7 +307,7 @@ namespace YAF.Pages.Admin
             this.search.Text = "<i class=\"fa fa-search fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_USERS", "SEARCH"));
 
             this.NewUser.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_USERS", "NEW_USER"));
-            this.SyncUsers.Text = "<i class=\"fa fa-refresh fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_USERS", "SYNC_ALL"));
+            this.SyncUsers.Text = "<i class=\"fa fa-sync fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_USERS", "SYNC_ALL"));
 
             this.ImportUsers.Text = "<i class=\"fa fa-upload fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_USERS", "IMPORT"));
             this.ExportUsersXml.Text = "<i class=\"fa fa-download fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_USERS", "EXPORT_XML"));

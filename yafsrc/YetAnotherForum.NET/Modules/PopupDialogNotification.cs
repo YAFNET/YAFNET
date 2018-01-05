@@ -60,10 +60,10 @@ namespace YAF.Modules
                       var iconFA = '';
 
                       if (newErrorType == 'warning') {{
-                          iconFA = 'fa fa-warning';
+                          iconFA = 'fa fa-exclamation-triangle';
                       }}
                       else if (newErrorType == 'danger') {{
-                          iconFA = 'fa fa-warning';
+                          iconFA = 'fa fa-exclamation-triangle';
                       }}
                       else if (newErrorType == 'info') {{
                           iconFA = 'fa fa-info-circle';

@@ -53,9 +53,6 @@
     <Resource tag="ADMIN_REPLACEWORDS_IMPORT">Импортирует список слов заменителей</Resource>
     <Resource tag="ADMIN_RESTARTAPP">Администрирует форум</Resource>
     <Resource tag="ADMIN_RUNSQL">Выполняет SQL запросы</Resource>
-    <Resource tag="ADMIN_SMILIES">Просматривает смайлы</Resource>
-    <Resource tag="ADMIN_SMILIES_EDIT">Редактирует смайлы</Resource>
-    <Resource tag="ADMIN_SMILIES_IMPORT">Импортирует смайлы</Resource>
     <Resource tag="ADMIN_SPAMLOG">Views/edits the spam log</Resource>
     <Resource tag="ADMIN_SPAMWORDS">Views spam words list</Resource>
     <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
@@ -134,7 +131,6 @@
     <Resource tag="RULES">Просматривает правила форума</Resource>
     <Resource tag="SEARCH">Использует поиск</Resource>
     <Resource tag="SHOUTBOX">Использует чат</Resource>
-    <Resource tag="SHOWSMILIES">Показ смайлов</Resource>
     <Resource tag="TEAM">Просматривает список команды форума</Resource>
     <Resource tag="TOPICINFORUM"> в форуме </Resource>
     <Resource tag="TOPICS">Просматривает тему </Resource>
@@ -1412,8 +1408,6 @@
     <Resource tag="SHOW_RSS_LINKS_HELP">Разрешить ссылки RSS. Вы также должны установить разрешения для каждой ленты</Resource>
     <Resource tag="SHOW_SHOUTBOX">Включить чат:</Resource>
     <Resource tag="SHOW_SHOUTBOX_HELP">Включить чат на главной странице форума.</Resource>
-    <Resource tag="SHOW_SHOUTBOX_SMILIES">Показывать смайлы в чате:</Resource>
-    <Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">Включить отображение смайлов в чате.</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
     <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">Показывать дату, когда пользователя сказали «Спасибо»:</Resource>
@@ -1686,46 +1680,6 @@
     <Resource tag="SQL_COMMAND">Команда SQL :</Resource>
     <Resource tag="TITLE">Выполнить код SQL</Resource>
   </page>
-  <page name="ADMIN_SMILIES">
-    <Resource tag="ADD">Добавить смайл</Resource>
-    <Resource tag="CODE">Код</Resource>
-    <Resource tag="COMANDS">Эмоция</Resource>
-    <Resource tag="EMOTION">Эмоция</Resource>
-    <Resource tag="IMPORT">Импортировать архив смайлов</Resource>
-    <Resource tag="MOVE_DOWN">Move Down</Resource>
-    <Resource tag="MOVE_UP">Move Up</Resource>
-    <Resource tag="MSG_DELETE">Удалить этот смайл?</Resource>
-    <Resource tag="ORDER">Порядок</Resource>
-    <Resource tag="SMILEY">Смайл</Resource>
-    <Resource tag="TITLE">Смайлы</Resource>
-  </page>
-  <page name="ADMIN_SMILIES_EDIT">
-    <Resource tag="CODE">Код:</Resource>
-    <Resource tag="EMOTION">Эмоция:</Resource>
-    <Resource tag="ICON">Иконка:</Resource>
-    <Resource tag="MSG_CODE_BRACK">Пожалуйста, используйте код для использования с этой эмоцией в квадратных скобках.</Resource>
-    <Resource tag="MSG_CODE_LONG">Код для использования с этой эмоцией не должен превышать 10 символов.</Resource>
-    <Resource tag="MSG_CODE_MISSING">Пожалуйста, введите код для использования с этой эмоцией.</Resource>
-    <Resource tag="MSG_CODE_SAME">Please choose a different code, this one is already in use.</Resource>
-    <Resource tag="MSG_NO_EMOTICON">Пожалуйста, введите эмоцию для этой иконки.</Resource>
-    <Resource tag="MSG_NO_ICON">Пожалуйста, выберите иконку для использования с этой эмоцией.</Resource>
-    <Resource tag="MSG_SORT_NMBR">Порядок сортировки должен быть числом от 0 до 255.</Resource>
-    <Resource tag="MSG_TOO_LONG">Описание эмоции слишком длинное.</Resource>
-    <Resource tag="SELECT_SMILEY">Выберите изображение смайла</Resource>
-    <Resource tag="SORT_ORDER">Порядок сортировки:</Resource>
-    <Resource tag="TITLE">Добавить/Редактировать смайл</Resource>
-  </page>
-  <page name="ADMIN_SMILIES_IMPORT">
-    <Resource tag="CHOOSE_PAK">Выберите файл .pak :</Resource>
-    <Resource tag="CHOOSE_PAK_HELP">Вы можете распаковать этот архив смайлов и добавить их в папку активных(Boards/BoardNo/Images/Emoticons).</Resource>
-    <Resource tag="DELETE_EXISTING">Удалить существующие смайлы:</Resource>
-    <Resource tag="DELETE_EXISTING_HELP">Удалит существующие файлы, если вы выберите это</Resource>
-    <Resource tag="ERROR_SELECT_FILE">Вы должны выбрать файл .pak для экспорта.</Resource>
-    <Resource tag="HEADER">Импортировать архив смайлов</Resource>
-    <Resource tag="IMPORT">Импортировать</Resource>
-    <Resource tag="SELECT_FILE">Выберите файл (*.pak)</Resource>
-    <Resource tag="TITLE">Импорт смайлов</Resource>
-  </page>
   <page name="ADMIN_SPAMLOG">
     <Resource tag="TITLE">Spam Event Log</Resource>
   </page>
@@ -1880,7 +1834,6 @@
     <Resource tag="admin_replacewords">Замена слов</Resource>
     <Resource tag="admin_restartapp">Перезапуск приложения</Resource>
     <Resource tag="admin_runsql">Выполнить запрос SQL</Resource>
-    <Resource tag="admin_smilies">Смайлы</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
     <Resource tag="admin_taskmanager">Менеджер задач</Resource>
@@ -2117,6 +2070,7 @@
     <Resource tag="NAME">Имя</Resource>
     <Resource tag="NO">Нет</Resource>
     <Resource tag="NONE">Ничего</Resource>
+    <Resource tag="NOTE">Note:</Resource>
     <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT">New SPAM BOT User Registered on {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">You have been award on the {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Новое сообщение на форуме {0} должно быть Вами одобрено</Resource>
@@ -4548,8 +4502,6 @@ Spoiler Content
     <Resource tag="REPLY">Ответить</Resource>
     <Resource tag="SAVE">Сохранить</Resource>
     <Resource tag="SAVE_TITLE">Разместить/Редактировать сообщение</Resource>
-    <Resource tag="SMILIES_HEADER">[b]Добавить смайлик[/b]</Resource>
-    <Resource tag="SMILIES_MORE">Ещё смайлики...</Resource>
     <Resource tag="SPAM_MESSAGE">Ваше сообщение было определено как СПАМ!</Resource>
     <Resource tag="STATUS">Статус:</Resource>
     <Resource tag="STICKY">Прикреплённое</Resource>
@@ -5051,13 +5003,6 @@ Spoiler Content
     <Resource tag="MUSTBELOGGEDIN">Для использования чата вам необходимо войти в систему.</Resource>
     <Resource tag="SUBMIT">Отправить</Resource>
     <Resource tag="TITLE">Чат</Resource>
-  </page>
-  <page name="SHOWSMILIES">
-    <Resource tag="CLOSE_WINDOW">Закрыть окно</Resource>
-    <Resource tag="HEADER_CODE">Код</Resource>
-    <Resource tag="HEADER_MEANING">Значение</Resource>
-    <Resource tag="HEADER_SMILE">Смайл</Resource>
-    <Resource tag="TITLE">Доступные смайлы</Resource>
   </page>
   <page name="TEAM">
     <Resource tag="ADMINS">Администраторы</Resource>

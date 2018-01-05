@@ -53,9 +53,6 @@
     <Resource tag="ADMIN_REPLACEWORDS_IMPORT">در حال وارد کردن لیست کلمات غیر مجاز</Resource>
     <Resource tag="ADMIN_RESTARTAPP">شروع مجدد برنامه</Resource>
     <Resource tag="ADMIN_RUNSQL">در حال اجرای دستورات بانک داده</Resource>
-    <Resource tag="ADMIN_SMILIES">در حال مشاهده خندانک ها</Resource>
-    <Resource tag="ADMIN_SMILIES_EDIT">در حال ویرایش خندانک ها</Resource>
-    <Resource tag="ADMIN_SMILIES_IMPORT">وارد کردن خندانک ها</Resource>
     <Resource tag="ADMIN_SPAMLOG">نمایش/ویرایش لاگ اسپم</Resource>
     <Resource tag="ADMIN_SPAMWORDS">نمایش لیست کلمات اسپم</Resource>
     <Resource tag="ADMIN_SPAMWORDS_EDIT">نمایش لیست کلمات اسپم</Resource>
@@ -134,7 +131,6 @@
     <Resource tag="RULES">نمایش قوانین انجمن</Resource>
     <Resource tag="SEARCH">استفاده از جستجو</Resource>
     <Resource tag="SHOUTBOX">استفاده از جعبه گفتگو</Resource>
-    <Resource tag="SHOWSMILIES">بدون داده</Resource>
     <Resource tag="TEAM">نمایش صفحه گروه</Resource>
     <Resource tag="TOPICINFORUM"> در انجمن </Resource>
     <Resource tag="TOPICS">نمایش موضوع </Resource>
@@ -1415,8 +1411,6 @@
     <Resource tag="SHOW_RSS_LINKS_HELP">فعال/غیرفعال کردن پیوند های RSS در انجمن.</Resource>
     <Resource tag="SHOW_SHOUTBOX">نمایش کادر گفتگو:</Resource>
     <Resource tag="SHOW_SHOUTBOX_HELP">فعال یا غیرفعال گردن ماژوول چت.</Resource>
-    <Resource tag="SHOW_SHOUTBOX_SMILIES">نمایش خندانک های جعبه گفتگو:</Resource>
-    <Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">نمایش یا عدم نمایش خندانک های اتاق گفتگو (چت روم).</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
     <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">نمایش تاریخ تشکر کاربر:</Resource>
@@ -1715,46 +1709,6 @@
     <Resource tag="SQL_COMMAND">دستور اس کیو ال:</Resource>
     <Resource tag="TITLE">اجرای  کد اس کیو ال</Resource>
   </page>
-  <page name="ADMIN_SMILIES">
-    <Resource tag="ADD">افزودن خندانک</Resource>
-    <Resource tag="CODE">کد</Resource>
-    <Resource tag="COMANDS">احساس</Resource>
-    <Resource tag="EMOTION">احساس</Resource>
-    <Resource tag="IMPORT">وارد کردن بسته خندانک</Resource>
-    <Resource tag="MOVE_DOWN">انتقال به انتها</Resource>
-    <Resource tag="MOVE_UP">انتقال به ابتدا</Resource>
-    <Resource tag="MSG_DELETE">حذف این خندانک؟</Resource>
-    <Resource tag="ORDER">ترتیب</Resource>
-    <Resource tag="SMILEY">خندانک</Resource>
-    <Resource tag="TITLE">خندانک ها</Resource>
-  </page>
-  <page name="ADMIN_SMILIES_EDIT">
-    <Resource tag="CODE">کد:</Resource>
-    <Resource tag="EMOTION">احساس:</Resource>
-    <Resource tag="ICON">آیکون:</Resource>
-    <Resource tag="MSG_CODE_BRACK">لطفا کدی را برای استفاده از این احساس در براکت وارد کنید.</Resource>
-    <Resource tag="MSG_CODE_LONG">کدی که برای این احساس وارد شده نباید بیش از 10 علامت باشد.</Resource>
-    <Resource tag="MSG_CODE_MISSING">لطفا کدی را برای استفاده برای این حس وارد کنید.</Resource>
-    <Resource tag="MSG_CODE_SAME">Please choose a different code, this one is already in use.</Resource>
-    <Resource tag="MSG_NO_EMOTICON">لطفا احساسی را برای این آیکون وارد کنید.</Resource>
-    <Resource tag="MSG_NO_ICON">لطفا آیکونی را برای این حس انتخاب کنید.</Resource>
-    <Resource tag="MSG_SORT_NMBR">ترتیب مرتب سازی باید عددی بین 0 تا 255 باشد.</Resource>
-    <Resource tag="MSG_TOO_LONG">توضیح در مورد احساس خیلی طولانی است.</Resource>
-    <Resource tag="SELECT_SMILEY">تصویر خندانک را انتخاب کنید</Resource>
-    <Resource tag="SORT_ORDER">ترتیب:</Resource>
-    <Resource tag="TITLE">افزودن/ویرایش خندانک</Resource>
-  </page>
-  <page name="ADMIN_SMILIES_IMPORT">
-    <Resource tag="CHOOSE_PAK">یک فایل pak. انتخاب کنید:</Resource>
-    <Resource tag="CHOOSE_PAK_HELP">شما مجبور می شوید بسته خندانک را باز کنید و تک تک فایل ها را در مسیر پوشه خندانک ها بارگذاری کنید.(Boards/BoardNo/Images/Emoticons).</Resource>
-    <Resource tag="DELETE_EXISTING">حذف خندانک های موجود:</Resource>
-    <Resource tag="DELETE_EXISTING_HELP">اگر این گزینه را علامت بزنید تمام خندانک های موجود حذف خواهند شد.</Resource>
-    <Resource tag="ERROR_SELECT_FILE">شما می بایست یک فایل با پسوند pak برای وارد کردن انتخاب کنید.</Resource>
-    <Resource tag="HEADER">وارد کردن بسته خندانک</Resource>
-    <Resource tag="IMPORT">ورود</Resource>
-    <Resource tag="SELECT_FILE">انتخاب کنید(pak.*)</Resource>
-    <Resource tag="TITLE">وارد کردن خندانک</Resource>
-  </page>
   <page name="ADMIN_SPAMLOG">
     <Resource tag="TITLE">نمایش لاگ های اسپم</Resource>
   </page>
@@ -1912,7 +1866,6 @@
     <Resource tag="admin_replacewords">جایگزینی کلمات</Resource>
     <Resource tag="admin_restartapp">شروع مجدد برنامه</Resource>
     <Resource tag="admin_runsql">اجرای کوئری SQL</Resource>
-    <Resource tag="admin_smilies">خندانک ها</Resource>
     <Resource tag="ADMIN_SPAMLOG">لاگ اسپم</Resource>
     <Resource tag="admin_spamwords">بررسی کلمات اسپم</Resource>
     <Resource tag="admin_taskmanager">مدیریت کارها</Resource>
@@ -2152,6 +2105,7 @@
     <Resource tag="NAME">نام</Resource>
     <Resource tag="NO">خیر</Resource>
     <Resource tag="NONE">هیچ</Resource>
+    <Resource tag="NOTE">Note:</Resource>
     <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT">کاربر جدید اسپم در انجمن {0} ثبت نام کرده است</Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">You have been award on the {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">پیام جدید در انجمن {0} نیاز به تائید دارد</Resource>
@@ -4588,8 +4542,6 @@
     <Resource tag="REPLY">ارسال پاسخ</Resource>
     <Resource tag="SAVE">ارسال</Resource>
     <Resource tag="SAVE_TITLE">ارسال/ویرایش پیام</Resource>
-    <Resource tag="SMILIES_HEADER">[b]اضافه کردن خندانک[/b]</Resource>
-    <Resource tag="SMILIES_MORE">خندانک‌های بیشتر...</Resource>
     <Resource tag="SPAM_MESSAGE">پیام شما به عنوان اسپم شناسایی شده و لذا رد شده است</Resource>
     <Resource tag="STATUS">وضعیت:</Resource>
     <Resource tag="STICKY">مهم</Resource>
@@ -5085,13 +5037,6 @@
     <Resource tag="MUSTBELOGGEDIN">برای استفاده از گفتگو می بایست عضو باشید.</Resource>
     <Resource tag="SUBMIT">ارسال</Resource>
     <Resource tag="TITLE">گفتگو</Resource>
-  </page>
-  <page name="SHOWSMILIES">
-    <Resource tag="CLOSE_WINDOW">بستن پنجره</Resource>
-    <Resource tag="HEADER_CODE">کد</Resource>
-    <Resource tag="HEADER_MEANING">معنی</Resource>
-    <Resource tag="HEADER_SMILE">خندانک</Resource>
-    <Resource tag="TITLE">خندانکهای موجود</Resource>
   </page>
   <page name="TEAM">
     <Resource tag="ADMINS">مدیران</Resource>

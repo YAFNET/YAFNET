@@ -241,11 +241,6 @@ namespace YAF.Controls
             }
 
             this.shoutBoxRepeater.DataSource = this.ShoutBoxMessages;
-
-            if (this.Get<YafBoardSettings>().ShowShoutboxSmiles)
-            {
-                this.smiliesRepeater.DataSource = this.GetRepository<Smiley>().ListUnique(this.BoardID);
-            }
         }
 
         #endregion

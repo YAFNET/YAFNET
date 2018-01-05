@@ -30,6 +30,7 @@ namespace YAF.Editors
     using System.Data;
     using System.IO;
     using System.Linq;
+    using System.Web;
     using System.Web.UI;
 
     using YAF.Classes;
@@ -154,7 +155,7 @@ namespace YAF.Editors
             }
 
             writer.Write("<div class=\"btn-toolbar\" role=\"toolbar\">");
-            writer.Write("<div class=\"btn-group\" role =\"group\">");
+            writer.Write("<div class=\"btn-group mr-2\" role =\"group\">");
 
             RenderButton(writer, "setStyle('bold','')", this.GetText("COMMON", "TT_BOLD"), "bold");
             RenderButton(writer, "setStyle('italic','')", this.GetText("COMMON", "TT_ITALIC"), "italic");
@@ -162,18 +163,27 @@ namespace YAF.Editors
             RenderButton(writer, "setStyle('underline','')", this.GetText("COMMON", "TT_UNDERLINE"), "underline");
 
             writer.Write("</div>");
-            writer.Write("<div class=\"btn-group\" role =\"group\">");
+            writer.Write("<div class=\"btn-group mr-2\" role =\"group\">");
 
             RenderButton(
                 writer,
                 "setStyle('highlight','')",
                 this.GetText("COMMON", "TT_HIGHLIGHT"),
-                "pencil-square-o");
+                "pen-square");
+
+            writer.Write("</div>");
+
+            writer.Write("<div class=\"btn-group\" role =\"group\">");
+
+            if (!this.Get<HttpRequestBase>().Browser.IsMobileDevice)
+            {
+                RenderButton(writer, "toggleEmojiPicker()", this.GetText("COMMON", "TT_QUOTE"), "smile", "emoji");
+            }
 
             RenderButton(writer, "setStyle('quote','')", this.GetText("COMMON", "TT_QUOTE"), "quote-left");
 
             // add drop down for optional "extra" codes...
-            writer.WriteLine(@"<div class=""btn-group"" role=""group""><button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
+            writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
                        data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
                   <i class=""fa fa-code fa-fw""></i></button>".FormatWith(this.GetText("COMMON", "TT_CODE")));
 
@@ -244,6 +254,8 @@ namespace YAF.Editors
             writer.Write("</div>");
             writer.Write("</div>");
 
+            writer.Write("<div class=\"btn-group\" role =\"group\">");
+
             RenderButton(writer, "setStyle('img','')", this.GetText("COMMON", "TT_IMAGE"), "image");
 
             if (this.Get<YafBoardSettings>().EnableAlbum
@@ -252,7 +264,7 @@ namespace YAF.Editors
                 var albumImageList = LegacyDb.album_images_by_user(this.PageContext.PageUserID);
 
                 // add drop down for optional "extra" codes...
-                writer.WriteLine(@"<div class=""btn-group"" role=""group""><button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
+                writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
                        data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
                   <i class=""fa fa-image fa-fw""></i></button>".FormatWith(this.GetText("COMMON", "ALBUMIMG_CODE")));
 
@@ -269,13 +281,15 @@ namespace YAF.Editors
                 this.popMenuAlbums.RenderControl(writer);
 
                 writer.Write("</div>");
-                writer.Write("</div>");
             }
 
             if (this.UserCanUpload)
             {
+                writer.Write("</div>");
+                writer.Write("<div class=\"btn-group\" role =\"group\">");
+
                 // add drop down for optional "extra" codes...
-                writer.WriteLine(@"<div class=""btn-group"" role=""group""><button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle attachments-toggle"" title=""{0}""
+                writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle attachments-toggle"" title=""{0}""
                        data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
                   <i class=""fa fa-paperclip fa-fw""></i></button>".FormatWith(this.GetText("COMMON", "ATTACH_BBCODE")));
 
@@ -287,10 +301,13 @@ namespace YAF.Editors
                 writer.Write("</div>");
             }
 
+            writer.Write("</div>");
+            writer.Write("<div class=\"btn-group mr-2\" role =\"group\">");
+
             RenderButton(writer, "setStyle('createlink','')", this.GetText("COMMON", "TT_CREATELINK"), "link");
 
             writer.Write("</div>");
-            writer.Write("<div class=\"btn-group\" role =\"group\">");
+            writer.Write("<div class=\"btn-group  mr-2\" role =\"group\">");
 
             RenderButton(
                 writer,
@@ -301,7 +318,7 @@ namespace YAF.Editors
             RenderButton(writer, "setStyle('orderedlist','')", this.GetText("COMMON", "TT_LISTORDERED"), "list-ol");
 
             writer.Write("</div>");
-            writer.Write("<div class=\"btn-group\" role =\"group\">");
+            writer.Write("<div class=\"btn-group  mr-2\" role =\"group\">");
 
             RenderButton(writer, "setStyle('justifyleft','')", this.GetText("COMMON", "TT_ALIGNLEFT"), "align-left");
 
@@ -318,7 +335,7 @@ namespace YAF.Editors
                 "align-right");
 
             writer.Write("</div>");
-            writer.Write("<div class=\"btn-group\" role =\"group\">");
+            writer.Write("<div class=\"btn-group  mr-2\" role =\"group\">");
 
             RenderButton(writer, "setStyle('outdent','')", this.GetText("COMMON", "OUTDENT"), "outdent");
 
@@ -363,7 +380,7 @@ namespace YAF.Editors
             writer.Write("<div class=\"btn-group\" role =\"group\">");
 
             // add drop down for optional "extra" codes...
-            writer.WriteLine(@"<div class=""btn-group"" role=""group""><button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
+            writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
                        data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
                   {0}</button>".FormatWith(this.GetText("COMMON", "FONT_COLOR")));
 
@@ -384,10 +401,12 @@ namespace YAF.Editors
             }
 
             writer.Write("</div>");
+
             writer.Write("</div>");
+            writer.Write("<div class=\"btn-group\" role =\"group\">");
 
             // add drop down for optional "extra" codes...
-            writer.WriteLine(@"<div class=""btn-group"" role=""group""><button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
+            writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
                        data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
                   {0}</button>".FormatWith(this.GetText("COMMON", "FONT_SIZE")));
 
@@ -402,7 +421,6 @@ namespace YAF.Editors
             }
 
             writer.Write("</div>");
-            writer.Write("</div>");
 
             writer.Write("</div></div>");
 
@@ -412,29 +430,24 @@ namespace YAF.Editors
         /// <summary>
         /// The render button.
         /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
-        /// <param name="command">
-        /// The command.
-        /// </param>
-        /// <param name="title">
-        /// The title.
-        /// </param>
-        /// <param name="icon">
-        /// The icon.
-        /// </param>
+        /// <param name="writer">The writer.</param>
+        /// <param name="command">The command.</param>
+        /// <param name="title">The title.</param>
+        /// <param name="icon">The icon.</param>
+        /// <param name="id">The identifier.</param>
         private static void RenderButton(
             [NotNull] TextWriter writer,
             [NotNull] string command,
             [NotNull] string title,
-            [NotNull] string icon)
+            [NotNull] string icon,
+            [CanBeNull] string id = null)
         {
-            writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm"" onload=""Button_Load(this)"" onclick=""{2}"" title=""{1}"">
+            writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm"" onload=""Button_Load(this)"" onclick=""{2}"" title=""{1}""{3}>
                   <i class=""fa fa-{0} fa-fw""></i></button>",
                 icon,
                 title,
-                command);
+                command,
+                id.IsSet() ? @" id=""{0}""".FormatWith(id) : string.Empty);
         }
 
         #endregion

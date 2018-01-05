@@ -77,7 +77,7 @@ namespace YAF.Pages.Admin
             this.Page.Header.Title = "{0} - {1}".FormatWith(
                 this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_BOARDSETTINGS", "TITLE"));
 
-            this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
+            this.Save.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
 
             // create list boxes by populating datasources from Data class
             var themeData = StaticDataHelper.Themes().AsEnumerable().Where(x => !x.Field<bool>("IsMobile"));

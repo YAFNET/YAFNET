@@ -4,11 +4,12 @@
 @import "jquery.hovercard.scss";
 @import "bootstrap-notify";
 @import "jquery.tablesorter.scss";
+@import "jquery.emojipicker";
 
 // --Bootstrap extensions
 @import "css/select2";
 @import "css/select2-bootstrap";
-@import "font-awesome";
+@import "fontawesome-all";
 @import "jquery.bootstrap-touchspin";
 @import "bootstrap-datetimepicker";
 @import "blueimp-gallery";
@@ -188,44 +189,6 @@
     margin-left: 5px;
     padding: 2px 15px 2px 4px;
     float: right;
-  }
-  .pagination {
-    font-size: 90%;
-    text-align: center;
-    margin: 0 0 0 4px;
-    position: relative;
-    .smiliesPagerNext {
-      float: right;
-    }
-  }
-  #SmiliesBox {
-    display: block;
-    overflow: auto;
-    min-width: 180px;
-    min-height: 100px;
-  }
-  .smilesBox {
-    padding: 0 !important;
-  }
-  .SmilieList {
-    margin: 4px;
-    padding: 4px;
-    li {
-      list-style: none;
-      float: left;
-      padding: 0;
-      margin: 0;
-      min-width: 40px;
-      min-height: 40px;
-      img {
-        max-width: 80px;
-        max-height: 80px;
-      }
-      a {
-        display: block;
-        text-decoration: none;
-      }
-    }
   }
   .edit {
     width: 98%;
@@ -445,17 +408,6 @@
     cursor: pointer;
     margin: 0 0 0 5px;
     padding: 2px 15px 2px 4px;
-  }
-  .pagination {
-    a, span {
-      display: block;
-      float: left;
-      padding: 0.3em 0.5em;
-      margin-right: 5px;
-      margin-bottom: 5px;
-      min-width: 1em;
-      text-align: center;
-    }
   }
 }
 

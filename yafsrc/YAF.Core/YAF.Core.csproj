@@ -143,6 +143,7 @@
     <Compile Include="Model\MessageRepositoryExtensions.cs" />
     <Compile Include="Model\ReplaceWordsRepositoryExtensions.cs" />
     <Compile Include="Model\IgnoreUserRepositoryExtensions.cs" />
+    <Compile Include="Model\NntpForumRepositoryExtensions.cs" />
     <Compile Include="Model\TopicStatusRepositoryExtensions.cs" />
     <Compile Include="Model\TopicRepositoryExtensions.cs" />
     <Compile Include="Model\ThanksRepositoryExtensions.cs" />
@@ -160,7 +161,6 @@
     <Compile Include="Data\CommandTextHelpers.cs" />
     <Compile Include="Services\Cache\NewUserClearActiveLazyEvent.cs" />
     <Compile Include="Services\Cache\ShoutboxMessageCacheInvalidate.cs" />
-    <Compile Include="Services\Cache\SmileyEventCacheInvalidate.cs" />
     <Compile Include="Extensions\ILoggerExtensions.cs" />
     <Compile Include="Extensions\IRegistrationBuilderExtension.cs" />
     <Compile Include="Model\BoardRepositoryExtensions.cs" />
@@ -199,7 +199,6 @@
     <Compile Include="Model\EventLogRepositoryExtensions.cs" />
     <Compile Include="Model\MedalRepositoryExtensions.cs" />
     <Compile Include="Model\AttachmentRepositoryExtensions.cs" />
-    <Compile Include="Model\SmileyRepositoryExtensions.cs" />
     <Compile Include="Services\InstallUpgradeService.cs" />
     <Compile Include="Services\YafSpamWordCheck.cs" />
     <Compile Include="Services\YafSingleSignOnUser.cs" />

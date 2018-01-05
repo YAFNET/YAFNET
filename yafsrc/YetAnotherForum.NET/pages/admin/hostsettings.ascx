@@ -13,7 +13,7 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-gear fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel42" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                    <i class="fa fa-cog fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel42" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                     </div>
                 <div class="card-body">
   <asp:Panel id="HostSettingsTabs" runat="server">
@@ -1469,14 +1469,6 @@
                     </p><hr />
 
                         <h4>
-                            <YAF:HelpLabel ID="HelpLabel166" runat="server" LocalizedTag="SHOW_SHOUTBOX_SMILIES" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowShoutboxSmiles" runat="server"></asp:CheckBox>
-
-                    </p><hr />
-
-                        <h4>
                             <YAF:HelpLabel ID="HelpLabel219" runat="server" LocalizedTag="SHOUTBOX_COUNT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
                         <p>
@@ -2219,7 +2211,7 @@
                 </div>
                 <div class="card-footer text-lg-center">
                 <YAF:ThemeButton ID="Save" runat="server"  CssClass="btn btn-primary" OnClick="SaveClick"
-                    Icon="floppy-o" TextLocalizedTag="SAVE_SETTINGS" TextLocalizedPage="ADMIN_HOSTSETTINGS">
+                    Icon="floppy" TextLocalizedTag="SAVE_SETTINGS" TextLocalizedPage="ADMIN_HOSTSETTINGS">
                 </YAF:ThemeButton>
                 </div>
             </div>

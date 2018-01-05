@@ -216,8 +216,8 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_EDITLANGUAGE", "TITLE"));
 
             this.btnLoadPageLocalization.Text = "<i class=\"fa fa-share fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EDITLANGUAGE", "LOAD_PAGE"));
-            this.btnSave.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
-            this.btnCancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
+            this.btnSave.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
+            this.btnCancel.Text = "<i class=\"fa fa-times fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
 
             this.dDLPages.Items.FindByText("DEFAULT").Selected = true;
 

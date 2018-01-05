@@ -108,8 +108,8 @@ namespace YAF.Pages.Admin
             return;
         }
 
-        this.Save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_PAGEACCESSEDIT", "SAVE"));
-        this.Cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_PAGEACCESSEDIT", "CANCEL"));
+        this.Save.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_PAGEACCESSEDIT", "SAVE"));
+        this.Cancel.Text = "<i class=\"fa fa-times fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_PAGEACCESSEDIT", "CANCEL"));
         this.GrantAll.Text = "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_PAGEACCESSEDIT", "GRANTALL"));
         this.RevokeAll.Text = "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_PAGEACCESSEDIT", "REVOKEALL"));
 

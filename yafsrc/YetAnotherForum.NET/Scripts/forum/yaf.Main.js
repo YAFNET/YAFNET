@@ -53,11 +53,5 @@ jQuery(document).ready(function () {
     }
 });
 
-jQuery(document).on('click', function (event) {
-    if (!$(event.target).parent().is('.pagination')) {
-        yaf_hidemenu();
-    }
-});
-
 if (document.addEventListener) document.addEventListener("click", function (e) { window.event = e; }, true);
 if (document.addEventListener) document.addEventListener("mouseover", function(e) { window.event = e; }, true);

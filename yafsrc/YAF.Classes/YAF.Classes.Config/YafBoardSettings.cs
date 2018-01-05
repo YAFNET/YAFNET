@@ -1205,38 +1205,6 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets Smilies Columns.
-        /// </summary>
-        public int SmiliesColumns
-        {
-            get
-            {
-                return this._reg.GetValue("SmiliesColumns", 3);
-            }
-
-            set
-            {
-                this._reg.SetValue("SmiliesColumns", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets SmiliesPerRow.
-        /// </summary>
-        public int SmiliesPerRow
-        {
-            get
-            {
-                return this._reg.GetValue("SmiliesPerRow", 6);
-            }
-
-            set
-            {
-                this._reg.SetValue("SmiliesPerRow", value);
-            }
-        }
-
-        /// <summary>
         /// Gets or sets Message History Days To Trace.
         /// </summary>
         public int MessageHistoryDaysToLog
@@ -3222,22 +3190,6 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("ShowShoutbox", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether Show smiles in ShoutBox.
-        /// </summary>
-        public bool ShowShoutboxSmiles
-        {
-            get
-            {
-                return this._reg.GetValue("ShowShoutboxSmiles", true);
-            }
-
-            set
-            {
-                this._reg.SetValue("ShowShoutboxSmiles", value);
             }
         }
 

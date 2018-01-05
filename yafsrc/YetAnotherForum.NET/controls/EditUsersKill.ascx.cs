@@ -358,9 +358,6 @@ namespace YAF.Controls
                            : this.CurrentUserDataHelper.UserName)
                     : UserMembershipHelper.GuestUserName);
 
-            this.Kill.Text = "<i class=\"fa fa-ban fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EDITUSER", "HEAD_KILL_USER"));
-            ControlHelper.AddOnClickConfirmDialog(this.Kill, this.GetText("ADMIN_EDITUSER", "KILL_USER_CONFIRM"));
-
             this.ReportUserRow.Visible = this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet();
 
             // load ip address history for user...

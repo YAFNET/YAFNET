@@ -2,7 +2,7 @@
 <%@ Import Namespace="YAF.Classes" %>
 
 <a class="nav-link navbar-toggler d-sm-none" data-toggle="collapse" data-target=".navbar-toggleable-xs" aria-expanded="false" aria-label="Toggle navigation" href="#">
-               <i class="fa fa-navicon fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server" LocalizedPage="COMMON" LocalizedTag="MENU"></YAF:LocalizedLabel>
+               <i class="fa fa-bars fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server" LocalizedPage="COMMON" LocalizedTag="MENU"></YAF:LocalizedLabel>
             </a>
 
 <nav class="navbar navbar-light bg-faded" role="navigation" style="margin-bottom: 0">
@@ -10,7 +10,7 @@
         <!-- /.dropdown -->
         <li class="dropdown nav-item">
              <a class="nav-link" data-toggle="dropdown" href="#">
-                 <i class="fa fa-life-saver fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                 <i class="fa fa-life-ring fa-fw"></i>  <i class="fa fa-caret-down"></i>
              </a>
             <ul class="dropdown-menu">
                 <asp:placeholder id="menuListItems" runat="server"></asp:placeholder>

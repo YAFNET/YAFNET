@@ -11,7 +11,7 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-gear fa-fw"></i>&nbsp;Create Test
+                    <i class="fa fa-cog fa-fw"></i>&nbsp;Create Test
                                     </div>
                 <div class="card-body">
 	<asp:Panel id="TestDataTabs" runat="server">

@@ -120,8 +120,8 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_EXTENSIONS", "TITLE"),
                 this.GetText("ADMIN_EXTENSIONS_EDIT", "TITLE"));
 
-            this.save.Text = "<i class=\"fa fa-floppy-o fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
-            this.cancel.Text = "<i class=\"fa fa-remove fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
+            this.save.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
+            this.cancel.Text = "<i class=\"fa fa-times fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
 
             this.BindData();
 

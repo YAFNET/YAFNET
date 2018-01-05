@@ -162,11 +162,6 @@ namespace YAF.Types.Constants
             public const string Shoutbox = "Shoutbox";
 
             /// <summary>
-            ///   The smilies.
-            /// </summary>
-            public const string Smilies = "Smilies";
-
-            /// <summary>
             /// The task module.
             /// </summary>
             public const string TaskModule = "YafTaskModule";

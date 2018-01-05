@@ -11,7 +11,7 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-refresh fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_RESTARTAPP" />
+                    <i class="fa fa-sync fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_RESTARTAPP" />
                 </div>
                 <div class="card-block text-center">
                     <p class="card-text">
@@ -20,7 +20,7 @@
                 </div>
                 <div class="card-footer text-center">
                     <asp:LinkButton ID="RestartApp" runat="server" CssClass="btn btn-primary" OnClick="RestartApp_Click">
-                        <i class="fa fa-refresh fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_RESTARTAPP" />
+                        <i class="fa fa-sync fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_RESTARTAPP" />
                     </asp:LinkButton>
                 </div>
             </div>

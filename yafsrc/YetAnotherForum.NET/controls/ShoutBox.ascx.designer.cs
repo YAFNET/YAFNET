@@ -130,15 +130,6 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.Button btnRefresh;
         
         /// <summary>
-        /// smiliesRepeater-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater smiliesRepeater;
-        
-        /// <summary>
         /// FlyOutHolder-Steuerelement
         /// </summary>
         /// <remarks>

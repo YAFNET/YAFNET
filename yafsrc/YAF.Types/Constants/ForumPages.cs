@@ -359,11 +359,6 @@ namespace YAF.Types.Constants
     admin_bannedname, 
 
     /// <summary>
-    /// The admin_smilies.
-    /// </summary>
-    admin_smilies, 
-
-    /// <summary>
     /// The admin_accessmasks.
     /// </summary>
     admin_accessmasks, 
@@ -459,36 +454,6 @@ namespace YAF.Types.Constants
     admin_version,
 
     /// <summary>
-    /// The admin_bannedemail_edit.
-    /// </summary>
-    admin_bannedemail_edit,
-
-    /// <summary>
-    /// The admin_bannedemail_import.
-    /// </summary>
-    admin_bannedemail_import,
-
-    /// <summary>
-    /// The admin_bannedip_edit.
-    /// </summary>
-    admin_bannedip_edit,
-
-    /// <summary>
-    /// The admin_bannedip_import.
-    /// </summary>
-    admin_bannedip_import, 
-      
-    /// <summary>
-    /// The admin_bannedname_edit.
-    /// </summary>
-    admin_bannedname_edit,
-
-    /// <summary>
-    /// The admin_bannedname_import.
-    /// </summary>
-    admin_bannedname_import, 
-
-    /// <summary>
     /// The admin_editaccessmask.
     /// </summary>
     admin_editaccessmask, 
@@ -549,16 +514,6 @@ namespace YAF.Types.Constants
     admin_reguser, 
 
     /// <summary>
-    /// The admin_smilies_edit.
-    /// </summary>
-    admin_smilies_edit, 
-
-    /// <summary>
-    /// The admin_smilies_import.
-    /// </summary>
-    admin_smilies_import, 
-
-    /// <summary>
     /// The admin_replacewords.
     /// </summary>
     admin_replacewords, 
@@ -577,16 +532,6 @@ namespace YAF.Types.Constants
     /// The admin spam words
     /// </summary>
     admin_spamwords,
-
-    /// <summary>
-    /// The admin spam words edit
-    /// </summary>
-    admin_spamwords_edit,
-
-    /// <summary>
-    /// The admin spam words import
-    /// </summary>
-    admin_spamwords_import, 
 
     /// <summary>
     /// The admin_extensions.

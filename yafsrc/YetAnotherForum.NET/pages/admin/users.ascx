@@ -75,7 +75,7 @@
                 <div class="card-body">
                                      <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="pull-right"><i class="fa fa-hand-o-left fa-fw"></i></span>
+                            <span class="pull-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                         </div><div class="table-responsive">
                      <table class="table">
         <tr>
@@ -153,9 +153,9 @@
 </asp:UpdatePanel>
 <div>
     <div id="SyncUsersMessage" style="display: none">
-		<div class="card mb-3 card-inverse card-danger text-center">
+		<div class="card text-white bg-danger mb-3 text-center">
 		    <div class="card-body">
-		        <blockquote class="card-blockquote">
+		        <blockquote class="blockquote mb-0 card-body">
                     <p>
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="SYNC_TITLE" LocalizedPage="ADMIN_USERS" />
                     </p>

@@ -234,13 +234,13 @@ namespace YAF.Controls
                 {
                     this.MarkAsAnswer.TextLocalizedTag = "MARK_ANSWER_REMOVE";
                     this.MarkAsAnswer.TitleLocalizedTag = "MARK_ANSWER_REMOVE_TITLE";
-                    this.MarkAsAnswer.Icon = "square-o";
+                    this.MarkAsAnswer.Icon = "square";
                 }
                 else
                 {
                     this.MarkAsAnswer.TextLocalizedTag = "MARK_ANSWER";
                     this.MarkAsAnswer.TitleLocalizedTag = "MARK_ANSWER_TITLE";
-                    this.MarkAsAnswer.Icon = "check-square-o";
+                    this.MarkAsAnswer.Icon = "check-square";
                 }
             }
 

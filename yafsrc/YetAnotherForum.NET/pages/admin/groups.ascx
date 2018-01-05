@@ -15,7 +15,7 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-group fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="PROVIDER_ROLES" LocalizedPage="ADMIN_GROUPS" />
+                    <i class="fa fa-users fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="PROVIDER_ROLES" LocalizedPage="ADMIN_GROUPS" />
                 </div>
                 <div class="card-body">
                     <div class="alert alert-danger" role="alert">
@@ -72,7 +72,7 @@
                 </div></div>
                         <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-group fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_GROUPS" />
+                    <i class="fa fa-users fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_GROUPS" />
                 </div>
                 <div class="card-body">
                     <div class="alert alert-danger" role="alert">
@@ -97,7 +97,7 @@
 			<ItemTemplate>
 				<tr>
 					<td>
-                       <i class="fa fa-group fa-fw"></i>&nbsp;
+                       <i class="fa fa-users fa-fw"></i>&nbsp;
 						<%# this.Eval( "Name" ) %>
 						(<%# this.GetLinkedStatus( (DataRowView) Container.DataItem )%>)&nbsp;&nbsp;
 					</td>
