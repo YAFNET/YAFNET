@@ -166,18 +166,7 @@ namespace YAF.Editors
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            this.RegisterSmilieyScript();
             base.OnPreRender(e);
-        }
-
-        /// <summary>
-        /// The register smiliey script.
-        /// </summary>
-        protected virtual void RegisterSmilieyScript()
-        {
-            YafContext.Current.PageElements.RegisterJsBlock("InsertSmileyJs",
-                @"function insertsmiley(code){{FTB_InsertText('{0}',code);}}
-                  function insertAttachment(id,url){{FTB_InsertText('{0}','[attach]' + id + '[/attach]');}}".FormatWith(this.SafeID));
         }
 
         #endregion

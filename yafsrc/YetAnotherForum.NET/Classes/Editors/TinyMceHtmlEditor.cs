@@ -62,17 +62,6 @@ namespace YAF.Editors
         #region Methods
 
         /// <summary>
-        /// The register Smiley script.
-        /// </summary>
-        protected override void RegisterSmilieyScript()
-        {
-            YafContext.Current.PageElements.RegisterJsBlock(
-                "InsertSmileyJs",
-                @"function insertsmiley(code,img) {tinyMCE.execCommand('mceInsertContent',false,'<img src=""' + img + '"" alt="""" />');}
-                  function insertAttachment(id,url) {tinyMCE.execCommand('mceInsertContent',false,'[attach]' + id + '[/attach]');}");
-        }
-
-        /// <summary>
         /// The register tiny mce custom js.
         /// </summary>
         protected override void RegisterTinyMceCustomJS()

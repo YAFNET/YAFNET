@@ -103,21 +103,6 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// Formats the Smilies on click string.
-        /// </summary>
-        /// <param name="code">The code.</param>
-        /// <param name="path">The path.</param>
-        /// <returns>
-        /// The format smilies on click string.
-        /// </returns>
-        protected static string FormatSmiliesOnClickString([NotNull] string code, [NotNull] string path)
-        {
-            code = Regex.Replace(code, "['\")(\\\\]", "\\$0");
-            string onClickScript = "insertsmiley('{0}','{1}');return false;".FormatWith(code, path);
-            return onClickScript;
-        }
-
-        /// <summary>
         /// Changes The CollapsiblePanelState of the ShoutBox
         /// </summary>
         /// <param name="sender">The source of the event.</param>

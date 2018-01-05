@@ -1,13 +1,13 @@
 jQuery(document).ready(function() {
     var yafCKEditor = jQuery('textarea.YafTextEditor').ckeditor({
-        extraPlugins: 'autosave,bbcodehtml,syntaxhighlight,bbcodeselector,codemirror,textselection,wordcount',
+        extraPlugins: 'autosave,bbcodehtml,syntaxhighlight,bbcodeselector,codemirror,textselection,wordcount,emojione',
         autosave_saveDetectionSelectors: "a[id*='_PostReply'],a[id*='Cancel'],a[id*='_Preview']",
         toolbar: [
             ['Source'],
             ['Cut', 'Copy', 'Paste'], ['Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'],
             ['-', 'NumberedList', 'BulletedList'],
             ['-', 'Link', 'Unlink', 'Image'],
-            ['Blockquote', 'syntaxhighlight', 'bbcodeselector'],
+            ['Emojione','Blockquote', 'syntaxhighlight', 'bbcodeselector'],
             ['SelectAll', 'RemoveFormat'],
             ['About'],
             '/',

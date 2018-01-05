@@ -7,12 +7,6 @@
     var lastMessageId = 0;
     var clearOnEndRequest = false;
 
-    function insertsmiley(code, path) {
-        InsertSmileyForShoutBox(code, path);
-    }
-    function InsertSmileyForShoutBox(code, path) {
-        InsertStringAtCurrentCursorPositionOrOverwriteSelectedText(document.getElementById('<%=messageTextBox.ClientID %>'), code);
-    }
     function InsertStringAtCurrentCursorPositionOrOverwriteSelectedText(control, insertionText) {
         control.focus();
         if (control.value == '') {

@@ -111,39 +111,17 @@ namespace YAF.Classes.Editors
         #region Methods
 
         /// <summary>
-        /// Handles the PreRender event of the Editor control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected virtual void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.RegisterSmilieyScript();
-        }
-
-        /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            this.PreRender += this.Editor_PreRender;
-
             this._textCtl = new HtmlTextArea { ID = "YafTextEditor", Rows = 15, Cols = 100 };
             this._textCtl.Attributes.Add("class", "YafTextEditor form-control");
 
             this.AddEditorControl(this._textCtl);
 
             base.OnInit(e);
-        }
-
-        /// <summary>
-        /// Registers the smiliey script.
-        /// </summary>
-        protected virtual void RegisterSmilieyScript()
-        {
-            YafContext.Current.PageElements.RegisterJsBlock(
-                "InsertSmileyJs",
-                "function insertsmiley(code) {{\n {0}.InsertSmiley(code);\n}}\n".FormatWith(this.SafeID));
         }
 
         #endregion
