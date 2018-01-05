@@ -1771,6 +1771,22 @@
     <Content Include="Scripts\esm\popper.min.js.map">
       <DependentUpon>popper.min.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\fontawesome\fa-brands.js" />
+    <Content Include="Scripts\fontawesome\fa-brands.min.js" />
+    <Content Include="Scripts\fontawesome\fa-regular.js" />
+    <Content Include="Scripts\fontawesome\fa-regular.min.js" />
+    <Content Include="Scripts\fontawesome\fa-solid.js" />
+    <Content Include="Scripts\fontawesome\fa-solid.min.js" />
+    <Content Include="Scripts\fontawesome\fa-v4-shims.js" />
+    <Content Include="Scripts\fontawesome\fa-v4-shims.min.js" />
+    <Content Include="Scripts\fontawesome\fontawesome-all.js" />
+    <Content Include="Scripts\fontawesome\fontawesome-all.min.js">
+      <DependentUpon>fontawesome-all.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\fontawesome\fontawesome.js" />
+    <Content Include="Scripts\fontawesome\fontawesome.min.js">
+      <DependentUpon>fontawesome.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\i18n\af.js" />
     <Content Include="Scripts\i18n\ar.js" />
     <Content Include="Scripts\i18n\az.js" />

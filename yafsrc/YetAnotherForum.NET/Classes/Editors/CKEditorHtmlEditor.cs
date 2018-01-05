@@ -87,18 +87,6 @@ namespace YAF.Editors
         #region Methods
 
         /// <summary>
-        /// The register smiliey script.
-        /// </summary>
-        protected override void RegisterSmilieyScript()
-        {
-            YafContext.Current.PageElements.RegisterJsBlock(
-                "InsertSmileyJs",
-                @"function insertsmiley(code,img) {{ var ckEditor = CKEDITOR.instances.{0}; ckEditor.insertHtml('<img src=""' + img + '"" alt="""" />'); }}
-                  function insertAttachment(id,url) {{ var ckEditor = CKEDITOR.instances.{0}; ckEditor.insertHtml('[attach]' + id + '[/attach]');}}"
-                    .FormatWith(this._textCtl.ClientID));
-        }
-
-        /// <summary>
         /// The register ckeditor custom js.
         /// </summary>
         protected override void RegisterCKEditorCustomJS()

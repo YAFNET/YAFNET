@@ -78,7 +78,6 @@ namespace YAF.Editors
             YafContext.Current.PageElements.RegisterJsInclude("tinymce", this.ResolveUrl("tinymce/tinymce.min.js"));
 
             this.RegisterTinyMceCustomJS();
-            this.RegisterSmilieyScript();
 
             // register custom YafBBCode javascript (if there is any)
             // this call is supposed to be after editor load since it may use

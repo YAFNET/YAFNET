@@ -111,11 +111,23 @@ namespace YAF.Classes.Editors
         #region Methods
 
         /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+        /// Handles the PreRender event of the Editor control.
         /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected virtual void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            
+        }
+        
+        /// <summary>
+         /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+         /// </summary>
+         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
+            this.PreRender += this.Editor_PreRender;
+
             this._textCtl = new HtmlTextArea { ID = "YafTextEditor", Rows = 15, Cols = 100 };
             this._textCtl.Attributes.Add("class", "YafTextEditor form-control");
 

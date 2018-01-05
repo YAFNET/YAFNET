@@ -80,8 +80,6 @@ namespace YAF.Editors
 
             this.RegisterCKEditorCustomJS();
 
-            this.RegisterSmilieyScript();
-
             // register custom YafBBCode javascript (if there is any)
             // this call is supposed to be after editor load since it may use
             // JS variables created in editor_load...

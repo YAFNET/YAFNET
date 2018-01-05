@@ -319,7 +319,7 @@
                     <td>
 					    <span class="pull-right">
                         <YAF:ThemeButton runat="server" CommandName="resendEmail" CommandArgument='<%# this.Eval("Email") + ";" + this.Eval("Name") %>' 
-                            Icon="mail-forward" TextLocalizedTag="ADMIN_RESEND_EMAIL"
+                            Icon="share" TextLocalizedTag="ADMIN_RESEND_EMAIL"
                             CssClass="btn btn-info btn-sm">
                         </YAF:ThemeButton>&nbsp;
                         <YAF:ThemeButton runat="server" CommandName="approve" CommandArgument='<%# this.Eval("UserID") %>'
