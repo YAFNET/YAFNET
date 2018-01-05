@@ -720,13 +720,13 @@ Test out these custom less files live
   font-family: Helvetica, Arial, sans-serif; }
 
 .emojiPicker div.emoji {
-  width: 1.3em;
+  width: 1.5em;
   height: 1.3em;
   position: relative;
   display: inline-block; }
 
 .emojiPicker span.emoji {
-  width: 1.3em;
+  width: 1.5em;
   height: 1.3em;
   position: relative;
   overflow: hidden;

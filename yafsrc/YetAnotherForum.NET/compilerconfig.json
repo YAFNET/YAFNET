@@ -24,27 +24,11 @@
     "inputFile": "Content/jquery.tablesorter.scss"
   },
   {
-    "outputFile": "Scripts/jquery.timeago.es5.js",
-    "inputFile": "Scripts/jquery.timeago.js"
-  },
-  {
-    "outputFile": "Scripts/jquery.ForumExtensions.es5.js",
-    "inputFile": "Scripts/jquery.ForumExtensions.js"
-  },
-  {
     "outputFile": "Content/forum-admin.css",
     "inputFile": "Content/forum-admin.scss"
   },
   {
     "outputFile": "Content/bootstrap/bootstrap.css",
     "inputFile": "Content/bootstrap/bootstrap.scss"
-  },
-  {
-    "outputFile": "Scripts/yafEditor/yafEditor.es5.js",
-    "inputFile": "Scripts/yafEditor/yafEditor.js"
-  },
-  {
-    "outputFile": "Scripts/metisMenu.es5.js",
-    "inputFile": "Scripts/metisMenu.js"
   }
 ]

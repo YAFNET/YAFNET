@@ -960,6 +960,12 @@
     <Content Include="Content\bootstrap.min.css.map">
       <DependentUpon>bootstrap.min.css</DependentUpon>
     </Content>
+    <Content Include="Content\bootstrap\bootstrap.css">
+      <DependentUpon>bootstrap.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap\bootstrap.min.css">
+      <DependentUpon>bootstrap.css</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap\bootstrap.scss" />
     <Content Include="Content\bootstrap\mixins\_alert.scss" />
     <Content Include="Content\bootstrap\mixins\_background-variant.scss" />
@@ -1027,24 +1033,24 @@
     <Content Include="Content\bootstrap\_variables.scss" />
     <Content Include="Content\css\select2.css" />
     <Content Include="Content\css\select2.min.css" />
-    <Content Include="Content\fa-brands.css" />
-    <Content Include="Content\fa-brands.min.css">
+    <Content Include="Content\fontawesome\fa-brands.css" />
+    <Content Include="Content\fontawesome\fa-brands.min.css">
       <DependentUpon>fa-brands.css</DependentUpon>
     </Content>
-    <Content Include="Content\fa-regular.css" />
-    <Content Include="Content\fa-regular.min.css">
+    <Content Include="Content\fontawesome\fa-regular.css" />
+    <Content Include="Content\fontawesome\fa-regular.min.css">
       <DependentUpon>fa-regular.css</DependentUpon>
     </Content>
-    <Content Include="Content\fa-solid.css" />
-    <Content Include="Content\fa-solid.min.css">
+    <Content Include="Content\fontawesome\fa-solid.css" />
+    <Content Include="Content\fontawesome\fa-solid.min.css">
       <DependentUpon>fa-solid.css</DependentUpon>
     </Content>
-    <Content Include="Content\fontawesome-all.css" />
-    <Content Include="Content\fontawesome-all.min.css">
+    <Content Include="Content\fontawesome\fontawesome-all.css" />
+    <Content Include="Content\fontawesome\fontawesome-all.min.css">
       <DependentUpon>fontawesome-all.css</DependentUpon>
     </Content>
-    <Content Include="Content\fontawesome.css" />
-    <Content Include="Content\fontawesome.min.css">
+    <Content Include="Content\fontawesome\fontawesome.css" />
+    <Content Include="Content\fontawesome\fontawesome.min.css">
       <DependentUpon>fontawesome.css</DependentUpon>
     </Content>
     <Content Include="Content\forum-admin.css">
@@ -1854,8 +1860,20 @@
     <Content Include="Scripts\jquery.FileUpload\jquery.iframe-transport.js" />
     <Content Include="Scripts\jquery.FileUpload\load-image.all.min.js" />
     <Content Include="Scripts\jquery.FileUpload\tmpl.min.js" />
+    <Content Include="Scripts\jquery.ForumExtensions.es5.js">
+      <DependentUpon>jquery.ForumExtensions.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.ForumExtensions.es5.min.js">
+      <DependentUpon>jquery.ForumExtensions.es5.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.ForumExtensions.min.js">
       <DependentUpon>jquery.ForumExtensions.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.timeago.es5.js">
+      <DependentUpon>jquery.timeago.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.timeago.es5.min.js">
+      <DependentUpon>jquery.timeago.es5.js</DependentUpon>
     </Content>
     <Content Include="Scripts\ladda.min.js">
       <DependentUpon>ladda.js</DependentUpon>
@@ -1932,12 +1950,6 @@
     </Content>
     <Content Include="Scripts\umd\popper.min.js.map">
       <DependentUpon>popper.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\yafEditor\yafEditor.es5.js">
-      <DependentUpon>yafEditor.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\yafEditor\yafEditor.es5.min.js">
-      <DependentUpon>yafEditor.es5.js</DependentUpon>
     </Content>
     <Content Include="Scripts\yafEditor\yafEditor.js" />
     <Content Include="Scripts\yafEditor\yafEditor.min.js">
