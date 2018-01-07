@@ -124,9 +124,8 @@ namespace YAF.Pages
             var dirName = e.Item.FindControl("dirName") as LinkButton;
             dirName.CommandArgument = directory + Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name"));
             dirName.Text =
-                @"<p style=""text-align:center""><img src=""{0}images/folder.gif"" alt=""{1}"" title=""{1}"" /><br />{1}</p>"
+                @"<p style=""text-align:center""><i class=""far fa-folder"" alt=""{0}"" title=""{0}"" style=""font-size:50px"" /></i><br />{0}</p>"
                     .FormatWith(
-                        YafForumInfo.ForumClientFileRoot,
                         Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
         }
 
@@ -195,8 +194,9 @@ namespace YAF.Pages
             var up = e.Item.FindControl("up") as LinkButton;
             up.CommandArgument = previousDirectory;
             up.Text =
-                @"<p style=""text-align:center""><img src=""{0}images/folder.gif"" alt=""Up"" /><br />UP</p>".FormatWith
-                    (YafForumInfo.ForumClientFileRoot);
+                @"<p style=""text-align:center"">
+                     <i class=""far fa-folder-open""style=""font-size:50px""></i><br />
+                     <button type=""button"" class=""btn btn-primary btn-sm""><i class=""fas fa-arrow-left""></i>&nbsp;{0}</button></p>".FormatWith(this.GetText("UP"));
             up.ToolTip = this.GetText("UP_TITLE");
 
             // Hide if Top Folder
