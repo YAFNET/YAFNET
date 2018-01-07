@@ -382,9 +382,9 @@ namespace YAF.Editors
             // add drop down for optional "extra" codes...
             writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
                        data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
-                  {0}</button>".FormatWith(this.GetText("COMMON", "FONT_COLOR")));
+                  <i class=""fa fa-font fa-fw""></i> {0}</button>".FormatWith(this.GetText("COMMON", "FONT_COLOR")));
 
-            writer.Write("<div class=\"dropdown-menu\">");
+            writer.Write("<div class=\"dropdown-menu editorColorMenu\">");
 
             string[] colors =
                 {
@@ -408,7 +408,7 @@ namespace YAF.Editors
             // add drop down for optional "extra" codes...
             writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
                        data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
-                  {0}</button>".FormatWith(this.GetText("COMMON", "FONT_SIZE")));
+                  <i class=""fa fa-font fa-fw""></i> {0}</button>".FormatWith(this.GetText("COMMON", "FONT_SIZE")));
 
             writer.Write("<div class=\"dropdown-menu\">");
 

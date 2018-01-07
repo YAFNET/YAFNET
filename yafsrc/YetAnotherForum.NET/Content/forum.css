@@ -3988,7 +3988,7 @@ readers do not read off random characters that represent icons */
 .fa-shekel-sign:before {
   content: "\f20b"; }
 
-.fa-shield-alt-alt:before {
+.fa-shield-alt:before {
   content: "\f3ed"; }
 
 .fa-ship:before {
@@ -5445,6 +5445,9 @@ body:last-child .blueimp-gallery-playing > .play-pause {
 
 .BBCodeEditor {
   margin-top: 10px; }
+
+.editorColorMenu {
+  background-color: #ccc; }
 
 .AlbumImageList li {
   width: 60px;
