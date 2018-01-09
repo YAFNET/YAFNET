@@ -13,7 +13,7 @@
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <OldToolsVersion>4.0</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>publish\</PublishUrl>
@@ -96,6 +96,7 @@
     <Compile Include="ActiveUsers.cs" />
     <Compile Include="AttachmentsPopMenu.cs" />
     <Compile Include="AlbumListPopMenu.cs" />
+    <Compile Include="GoToPageForm.cs" />
     <Compile Include="ModernButton.cs" />
     <Compile Include="ModernTextBox.cs" />
     <Compile Include="PopupPanel.cs" />
@@ -135,7 +136,6 @@
     <Compile Include="Footer.cs" />
     <Compile Include="ForumJump.cs" />
     <Compile Include="ForumUsers.cs" />
-    <Compile Include="GotoPageForm.cs" />
     <Compile Include="Header.cs" />
     <Compile Include="HelpMenu.cs" />
     <Compile Include="IconLegend.cs" />
