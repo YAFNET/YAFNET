@@ -5,10 +5,9 @@
 // Copyright 2011 Seth Yates
 // 
 
-using System.Reflection;
 using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Security;
 
 [assembly: AssemblyTitle("UrlRewriter 2.1")]
 [assembly: AssemblyDescription("An extendible, rule-based URL Rewriter for .NET")]
@@ -21,6 +20,5 @@ using System.Security;
 [assembly: AssemblyVersion("2.1.0.2")]
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyName("")]
-[assembly: AllowPartiallyTrustedCallers]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
