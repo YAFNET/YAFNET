@@ -31,9 +31,10 @@ namespace YAF.Pages.Admin
     using System.Globalization;
     using System.Linq;
     using System.Web.UI.WebControls;
-    using FarsiLibrary;
+
+    using FarsiLibrary.Utils;
+
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
