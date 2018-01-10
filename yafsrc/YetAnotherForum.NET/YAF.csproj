@@ -41,7 +41,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
-    <TypeScriptToolsVersion>2.2</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -97,6 +97,19 @@
     <ExcludeFilesFromDeployment>Content\jquery.fileupload.comb.css.bundle;Content\bootstrap-forum.css;Content\bootstrap-select.css;Content\bootstrap-select.min.css;Content\bootstrap-select.min.css;Content\forum.css;Content\InstallWizard.css;Content\jquery.fileupload.comb.css;Content\jquery.ceebox.css;Content\jquery.ceebox.min.css;Content\jquery.hovercard.css;Content\jquery.hovercard.min.css;Content\jquery.notification.css;Content\jquery.notification.min.css;Content\jquery.selectedQuoting.css;Content\jquery.syntaxhighligher.css;Content\jquery.syntaxhighligher.min.css;Content\jquery.yafmodaldialog.css;Content\jquery.yafmodaldialog.min.css;Content\jquery.tablesorter.css;Content\jquery.tablesorter.min.css;Content\jsdifflib.css;Content\jsdifflib.min.css;Content\ladda.css;Content\ladda.min.css;Content\ladda-themeless.css;Content\ladda-themeless.min.css;Content\prism.css;Content\select2.css;Content\*.less;Content\bootstrap-select.css.map;Scripts\bootstrap.js;Scripts\bootstrap.min.js;Scripts\bootstrap-select.js;Scripts\bootstrap-select.min.js;Scripts\DataPanel.js;Scripts\InstallWizard.js;Scripts\InstallWizard.comb.js;Scripts\jquery.blockUI.js;Scripts\jquery.ceebox.js;Scripts\jquery.fileupload.comb.js;Scripts\jquery.ForumExtensions.js;Scripts\jquery.hovercard.js;Scripts\jquery.msDropDown.js;Scripts\jquery.notification.js;Scripts\jquery.pagemethod.js;Scripts\jquery.pagination.js;Scripts\jquery.selectedQuoting.js;Scripts\jquery.syntaxhighligher.js;Scripts\jquery.tablesorter.js;Scripts\jquery.tablesorter.min.js;Scripts\jquery.tablesorter.pager.js;Scripts\jquery.timeago.js;Scripts\jquery.ui.datepicker-farsi.js;Scripts\jquery.yafmodaldialog.js;Scripts\jquery-2.1.3.js;Scripts\jquery-2.1.3.intellisense.js;Scripts\jquery-ui-1.11.4.js;Scripts\jquery-ui-i18n.js;Scripts\jsdifflib.js;Scripts\jsdifflib.min.js;Scripts\ladda.js;Scripts\ladda.min.js;Scripts\prism.js;Scripts\select2.js;Scripts\select2.min.js;Scripts\spin.js;Scripts\spin.min.js;Scripts\yaf.js;Scripts\yafEditor\yafEditor.js;Scripts\*.js.bundle</ExcludeFilesFromDeployment>
     <ExcludeFoldersFromDeployment>Content\bootstrap;Content\jQuery.FileUpload;Scripts\jQuery.FileUpload</ExcludeFoldersFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
+    <TypeScriptTarget>ES2015</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptModuleKind>ES6</TypeScriptModuleKind>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -143,8 +156,6 @@
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
     </Reference>
-    <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web">
@@ -152,8 +163,6 @@
     </Reference>
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Services">
       <Name>System.Web.Services</Name>
