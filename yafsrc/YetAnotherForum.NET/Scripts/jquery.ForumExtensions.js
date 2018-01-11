@@ -21233,20 +21233,36 @@ Object.defineProperty(exports, '__esModule', { value: true });
                         settings.verticaldownclass +
                         '"></i></button></span></div>';
                 } else {
-                    html =
-                        '<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"><button class="' +
-                        settings.buttondown_class +
-                        ' bootstrap-touchspin-down" type="button">' +
-                        settings.buttondown_txt +
-                        '</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' +
-                        settings.prefix +
-                        '</span><span class="input-group-append"><button class="btn btn-secondary" disabled>' +
-                        settings.postfix +
-                        '</button><button class="' +
-                        settings.buttonup_class +
-                        ' bootstrap-touchspin-up" type="button">' +
-                        settings.buttonup_txt +
-                        '</button></span></div>';
+                    if (settings.postfix === '') {
+                        html =
+                            '<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"><button class="' +
+                            settings.buttondown_class +
+                            ' bootstrap-touchspin-down" type="button">' +
+                            settings.buttondown_txt +
+                            '</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' +
+                            settings.prefix +
+                            '</span><span class="input-group-append"><button class="' +
+                            settings.buttonup_class +
+                            ' bootstrap-touchspin-up" type="button">' +
+                            settings.buttonup_txt +
+                            '</button></span></div>';
+                    } else {
+                        html =
+                            '<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"><button class="' +
+                            settings.buttondown_class +
+                            ' bootstrap-touchspin-down" type="button">' +
+                            settings.buttondown_txt +
+                            '</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' +
+                            settings.prefix +
+                            '</span><span class="input-group-append"><button class="btn btn-secondary" disabled>' +
+                            settings.postfix +
+                            '</button><button class="' +
+                            settings.buttonup_class +
+                            ' bootstrap-touchspin-up" type="button">' +
+                            settings.buttonup_txt +
+                            '</button></span></div>';
+                    }
+                    
                 }
 
                 container = $(html).insertBefore(originalinput);
@@ -34983,7 +34999,7 @@ Prism.languages.sql = {
 
 
 
-/*! tablesorter (FORK) - updated 07-11-2016 (v2.26.6)*/
+/*! tablesorter (FORK) - updated 01-10-2018 (v2.29.3)*/
 /* Includes widgets ( storage,uitheme,columns,filter,stickyHeaders,resizable,saveSort ) */
 (function(factory) {
 	if (typeof define === 'function' && define.amd) {
@@ -34993,16 +35009,16 @@ Prism.languages.sql = {
 	} else {
 		factory(jQuery);
 	}
-}(function($) {
+}(function(jQuery) {
 
-/*! TableSorter (FORK) v2.26.6 *//*
+/*! TableSorter (FORK) v2.29.3 *//*
 * Client-side table sorting with ease!
 * @requires jQuery v1.2.6+
 *
 * Copyright (c) 2007 Christian Bach
 * fork maintained by Rob Garrison
 *
-* Examples and docs at: http://tablesorter.com
+* Examples and original docs at: http://tablesorter.com
 * Dual licensed under the MIT and GPL licenses:
 * http://www.opensource.org/licenses/mit-license.php
 * http://www.gnu.org/licenses/gpl.html
@@ -35012,13 +35028,14 @@ Prism.languages.sql = {
 * @cat Plugins/Tablesorter
 * @author Christian Bach - christian.bach@polyester.se
 * @contributor Rob Garrison - https://github.com/Mottie/tablesorter
+* @docs (fork) - https://mottie.github.io/tablesorter/docs/
 */
 /*jshint browser:true, jquery:true, unused:false, expr: true */
 ;( function( $ ) {
 	'use strict';
 	var ts = $.tablesorter = {
 
-		version : '2.26.6',
+		version : '2.29.3',
 
 		parsers : [],
 		widgets : [],
@@ -35070,7 +35087,7 @@ Prism.languages.sql = {
 			widgetClass      : 'widget-{name}', // table class name template to match to include a widget
 			widgets          : [],         // method to add widgets, e.g. widgets: ['zebra']
 			widgetOptions    : {
-				zebra : [ 'even', 'odd' ]    // zebra widget alternating row class names
+				zebra : [ 'even', 'odd' ]  // zebra widget alternating row class names
 			},
 
 			// *** callbacks
@@ -35087,13 +35104,14 @@ Prism.languages.sql = {
 
 			cssChildRow      : 'tablesorter-childRow', // class name indiciating that a row is to be attached to its parent
 			cssInfoBlock     : 'tablesorter-infoOnly', // don't sort tbody with this class name (only one class name allowed here!)
-			cssNoSort        : 'tablesorter-noSort',      // class name added to element inside header; clicking on it won't cause a sort
-			cssIgnoreRow     : 'tablesorter-ignoreRow',   // header row to ignore; cells within this row will not be added to c.$headers
+			cssNoSort        : 'tablesorter-noSort',   // class name added to element inside header; clicking on it won't cause a sort
+			cssIgnoreRow     : 'tablesorter-ignoreRow',// header row to ignore; cells within this row will not be added to c.$headers
 
 			cssIcon          : 'tablesorter-icon', // if this class does not exist, the {icon} will not be added from the headerTemplate
 			cssIconNone      : '', // class name added to the icon when there is no column sort
 			cssIconAsc       : '', // class name added to the icon when the column has an ascending sort
 			cssIconDesc      : '', // class name added to the icon when the column has a descending sort
+			cssIconDisabled  : '', // class name added to the icon when the column has a disabled sort
 
 			// *** events
 			pointerClick     : 'click',
@@ -35102,7 +35120,7 @@ Prism.languages.sql = {
 
 			// *** selectors
 			selectorHeaders  : '> thead th, > thead td',
-			selectorSort     : 'th, td',   // jQuery selector of content within selectorHeaders that is clickable to trigger a sort
+			selectorSort     : 'th, td', // jQuery selector of content within selectorHeaders that is clickable to trigger a sort
 			selectorRemove   : '.remove-me',
 
 			// *** advanced
@@ -35112,7 +35130,11 @@ Prism.languages.sql = {
 			headerList: [],
 			empties: {},
 			strings: {},
-			parsers: []
+			parsers: [],
+
+			// *** parser options for validator; values must be falsy!
+			globalize: 0,
+			imgAttr: 0
 
 			// removed: widgetZebra: { css: ['even', 'odd'] }
 
@@ -35229,7 +35251,7 @@ Prism.languages.sql = {
 			// save the settings where they read
 			$.data( table, 'tablesorter', c );
 			if ( c.debug ) {
-				console[ console.group ? 'group' : 'log' ]( 'Initializing tablesorter' );
+				console[ console.group ? 'group' : 'log' ]( 'Initializing tablesorter v' + ts.version );
 				$.data( table, 'startoveralltimer', new Date() );
 			}
 
@@ -35246,11 +35268,6 @@ Prism.languages.sql = {
 			if ( !/tablesorter\-/.test( $table.attr( 'class' ) ) ) {
 				tmp = ( c.theme !== '' ? ' tablesorter-' + c.theme : '' );
 			}
-			c.table = table;
-			c.$table = $table
-				.addClass( ts.css.table + ' ' + c.tableClass + tmp )
-				.attr( 'role', 'grid' );
-			c.$headers = $table.find( c.selectorHeaders );
 
 			// give the table a unique id, which will be used in namespace binding
 			if ( !c.namespace ) {
@@ -35259,6 +35276,14 @@ Prism.languages.sql = {
 				// make sure namespace starts with a period & doesn't have weird characters
 				c.namespace = '.' + c.namespace.replace( ts.regex.nonWord, '' );
 			}
+
+			c.table = table;
+			c.$table = $table
+				// add namespace to table to allow bindings on extra elements to target
+				// the parent table (e.g. parser-input-select)
+				.addClass( ts.css.table + ' ' + c.tableClass + tmp + ' ' + c.namespace.slice(1) )
+				.attr( 'role', 'grid' );
+			c.$headers = $table.find( c.selectorHeaders );
 
 			c.$table.children().children( 'tr' ).attr( 'role', 'row' );
 			c.$tbodies = $table.children( 'tbody:not(.' + c.cssInfoBlock + ')' ).attr({
@@ -35286,6 +35311,7 @@ Prism.languages.sql = {
 			ts.setupParsers( c );
 			// start total row count at zero
 			c.totalRows = 0;
+			ts.validateOptions( c );
 			// build the cache for the tbody cells
 			// delayInit will delay building the cache until the user starts a sort
 			if ( !c.delayInit ) { ts.buildCache( c ); }
@@ -35331,7 +35357,7 @@ Prism.languages.sql = {
 			table.hasInitialized = true;
 			table.isProcessing = false;
 			if ( c.debug ) {
-				console.log( 'Overall initialization time: ' + ts.benchmark( $.data( table, 'startoveralltimer' ) ) );
+				console.log( 'Overall initialization time:' + ts.benchmark( $.data( table, 'startoveralltimer' ) ) );
 				if ( c.debug && console.groupEnd ) { console.groupEnd(); }
 			}
 			$table.triggerHandler( 'tablesorter-initialized', table );
@@ -35353,7 +35379,17 @@ Prism.languages.sql = {
 			.bind( 'sortReset' + namespace, function( e, callback ) {
 				e.stopPropagation();
 				// using this.config to ensure functions are getting a non-cached version of the config
-				ts.sortReset( this.config, callback );
+				ts.sortReset( this.config, function( table ) {
+					if (table.isApplyingWidgets) {
+						// multiple triggers in a row... filterReset, then sortReset - see #1361
+						// wait to update widgets
+						setTimeout( function() {
+							ts.applyWidget( table, '', callback );
+						}, 100 );
+					} else {
+						ts.applyWidget( table, '', callback );
+					}
+				});
 			})
 			.bind( 'updateAll' + namespace, function( e, resort, callback ) {
 				e.stopPropagation();
@@ -35398,10 +35434,10 @@ Prism.languages.sql = {
 				e.stopPropagation();
 				ts.applyWidgetId( this, id );
 			})
-			.bind( 'applyWidgets' + namespace, function( e, init ) {
+			.bind( 'applyWidgets' + namespace, function( e, callback ) {
 				e.stopPropagation();
-				// apply widgets
-				ts.applyWidget( this, init );
+				// apply widgets (false = not initializing)
+				ts.applyWidget( this, false, callback );
 			})
 			.bind( 'refreshWidgets' + namespace, function( e, all, dontapply ) {
 				e.stopPropagation();
@@ -35419,9 +35455,11 @@ Prism.languages.sql = {
 				e.stopPropagation();
 				// remove all widgets
 				ts.removeWidget( this, true, false );
+				var tmp = $.extend( true, {}, c.originalSettings );
 				// restore original settings; this clears out current settings, but does not clear
 				// values saved to storage.
-				c = $.extend( true, ts.defaults, c.originalSettings );
+				c = $.extend( true, {}, ts.defaults, tmp );
+				c.originalSettings = tmp;
 				this.hasInitialized = false;
 				// setup the entire table again
 				ts.setup( this, c );
@@ -35436,9 +35474,9 @@ Prism.languages.sql = {
 				downTarget = null;
 			if ( core !== true ) {
 				$headers.addClass( namespace.slice( 1 ) + '_extra_headers' );
-				tmp = $.fn.closest ? $headers.closest( 'table' )[ 0 ] : $headers.parents( 'table' )[ 0 ];
-				if ( tmp && tmp.nodeName === 'TABLE' && tmp !== table ) {
-					$( tmp ).addClass( namespace.slice( 1 ) + '_extra_table' );
+				tmp = ts.getClosest( $headers, 'table' );
+				if ( tmp.length && tmp[ 0 ].nodeName === 'TABLE' && tmp[ 0 ] !== table ) {
+					$( tmp[ 0 ] ).addClass( namespace.slice( 1 ) + '_extra_table' );
 				}
 			}
 			tmp = ( c.pointerDown + ' ' + c.pointerUp + ' ' + c.pointerClick + ' sort keyup ' )
@@ -35489,9 +35527,7 @@ Prism.languages.sql = {
 				if ( c.delayInit && ts.isEmptyObject( c.cache ) ) {
 					ts.buildCache( c );
 				}
-				// jQuery v1.2.6 doesn't have closest()
-				$cell = $.fn.closest ? $( this ).closest( 'th, td' ) :
-					/TH|TD/.test( this.nodeName ) ? $( this ) : $( this ).parents( 'th, td' );
+				$cell = ts.getClosest( $( this ), '.' + ts.css.header );
 				// reference original table headers and find the same cell
 				// don't use $headers or IE8 throws an error - see #987
 				temp = $headers.index( $cell );
@@ -35534,7 +35570,12 @@ Prism.languages.sql = {
 				var configHeaders, header, column, template, tmp,
 					$elem = $( elem );
 				// ignore cell (don't add it to c.$headers) if row has ignoreRow class
-				if ( $elem.parent().hasClass( c.cssIgnoreRow ) ) { return; }
+				if ( ts.getClosest( $elem, 'tr' ).hasClass( c.cssIgnoreRow ) ) { return; }
+				// transfer data-column to element if not th/td - #1459
+				if ( !/(th|td)/i.test( elem.nodeName ) ) {
+					tmp = ts.getClosest( $elem, 'th, td' );
+					$elem.attr( 'data-column', tmp.attr( 'data-column' ) );
+				}
 				// make sure to get header cell & not column indexed cell
 				configHeaders = ts.getColumnData( c.table, c.headers, index, true );
 				// save original header content
@@ -35559,26 +35600,25 @@ Prism.languages.sql = {
 				}
 				column = parseInt( $elem.attr( 'data-column' ), 10 );
 				elem.column = column;
-				tmp = ts.getData( $elem, configHeaders, 'sortInitialOrder' ) || c.sortInitialOrder;
+				tmp = ts.getOrder( ts.getData( $elem, configHeaders, 'sortInitialOrder' ) || c.sortInitialOrder );
 				// this may get updated numerous times if there are multiple rows
 				c.sortVars[ column ] = {
 					count : -1, // set to -1 because clicking on the header automatically adds one
-					order: ts.getOrder( tmp ) ?
-						[ 1, 0, 2 ] : // desc, asc, unsorted
-						[ 0, 1, 2 ],  // asc, desc, unsorted
+					order:  tmp ?
+						( c.sortReset ? [ 1, 0, 2 ] : [ 1, 0 ] ) : // desc, asc, unsorted
+						( c.sortReset ? [ 0, 1, 2 ] : [ 0, 1 ] ),  // asc, desc, unsorted
 					lockedOrder : false
 				};
 				tmp = ts.getData( $elem, configHeaders, 'lockedOrder' ) || false;
 				if ( typeof tmp !== 'undefined' && tmp !== false ) {
 					c.sortVars[ column ].lockedOrder = true;
-					c.sortVars[ column ].order = ts.getOrder( tmp ) ? [ 1, 1, 1 ] : [ 0, 0, 0 ];
+					c.sortVars[ column ].order = ts.getOrder( tmp ) ? [ 1, 1 ] : [ 0, 0 ];
 				}
 				// add cell to headerList
 				c.headerList[ index ] = elem;
+				$elem.addClass( ts.css.header + ' ' + c.cssHeader );
 				// add to parent in case there are multiple rows
-				$elem
-					.addClass( ts.css.header + ' ' + c.cssHeader )
-					.parent()
+				ts.getClosest( $elem, 'tr' )
 					.addClass( ts.css.headerRow + ' ' + c.cssHeaderRow )
 					.attr( 'role', 'row' );
 				// allow keyboard cursor to focus on element
@@ -35594,6 +35634,7 @@ Prism.languages.sql = {
 				if ( ts.isEmptyObject( c.sortVars[ indx ] ) ) {
 					c.sortVars[ indx ] = {};
 				}
+				// Use c.$headers.parent() in case selectorHeaders doesn't point to the th/td
 				$temp = c.$headers.filter( '[data-column="' + indx + '"]' );
 				// target sortable column cells, unless there are none, then use non-sortable cells
 				// .last() added in jQuery 1.4; use .filter(':last') to maintain compatibility with jQuery v1.2.6
@@ -35655,8 +35696,9 @@ Prism.languages.sql = {
 					for ( indx = 0; indx < max; indx++ ) {
 						header = c.$headerIndexed[ colIndex ];
 						if ( header && header.length ) {
-							// get column indexed table cell
-							configHeaders = ts.getColumnData( table, c.headers, colIndex );
+							// get column indexed table cell; adding true parameter fixes #1362 but
+							// it would break backwards compatibility...
+							configHeaders = ts.getColumnData( table, c.headers, colIndex ); // , true );
 							// get column parser/extractor
 							extractor = ts.getParserById( ts.getData( header, configHeaders, 'extractor' ) );
 							parser = ts.getParserById( ts.getData( header, configHeaders, 'sorter' ) );
@@ -35879,6 +35921,10 @@ Prism.languages.sql = {
 					/** Add the table data to main data array */
 					$row = $( $tbody[ tbodyIndex ].rows[ rowIndex ] );
 					cols = [];
+					// ignore "remove-me" rows
+					if ( $row.hasClass( c.selectorRemove.slice(1) ) ) {
+						continue;
+					}
 					// if this is a child row, add it to the last row's children and continue to the next row
 					// ignore child row class, if it is the first row
 					if ( $row.hasClass( c.cssChildRow ) && rowIndex !== 0 ) {
@@ -35970,7 +36016,8 @@ Prism.languages.sql = {
 			if ( c.debug ) {
 				len = Math.min( 5, c.cache[ 0 ].normalized.length );
 				console[ console.group ? 'group' : 'log' ]( 'Building cache for ' + c.totalRows +
-					' rows (showing ' + len + ' rows in log)' + ts.benchmark( cacheTime ) );
+					' rows (showing ' + len + ' rows in log) and ' + c.columns + ' columns' +
+					ts.benchmark( cacheTime ) );
 				val = {};
 				for ( colIndex = 0; colIndex < c.columns; colIndex++ ) {
 					for ( cacheIndex = 0; cacheIndex < len; cacheIndex++ ) {
@@ -36044,27 +36091,49 @@ Prism.languages.sql = {
 		▀████▀ ██     █████▀ ██  ██   ██   ██████
 		*/
 		setHeadersCss : function( c ) {
-			var $sorted, indx, column,
+			var indx, column,
 				list = c.sortList,
 				len = list.length,
 				none = ts.css.sortNone + ' ' + c.cssNone,
 				css = [ ts.css.sortAsc + ' ' + c.cssAsc, ts.css.sortDesc + ' ' + c.cssDesc ],
 				cssIcon = [ c.cssIconAsc, c.cssIconDesc, c.cssIconNone ],
 				aria = [ 'ascending', 'descending' ],
+				updateColumnSort = function($el, index) {
+					$el
+						.removeClass( none )
+						.addClass( css[ index ] )
+						.attr( 'aria-sort', aria[ index ] )
+						.find( '.' + ts.css.icon )
+						.removeClass( cssIcon[ 2 ] )
+						.addClass( cssIcon[ index ] );
+				},
 				// find the footer
-				$headers = c.$table
+				$extras = c.$table
 					.find( 'tfoot tr' )
 					.children( 'td, th' )
 					.add( $( c.namespace + '_extra_headers' ) )
-					.removeClass( css.join( ' ' ) );
-			// remove all header information
-			c.$headers
-				.removeClass( css.join( ' ' ) )
-				.addClass( none )
-				.attr( 'aria-sort', 'none' )
+					.removeClass( css.join( ' ' ) ),
+				// remove all header information
+				$sorted = c.$headers
+					.add( $( 'thead ' + c.namespace + '_extra_headers' ) )
+					.removeClass( css.join( ' ' ) )
+					.addClass( none )
+					.attr( 'aria-sort', 'none' )
+					.find( '.' + ts.css.icon )
+					.removeClass( cssIcon.join( ' ' ) )
+					.end();
+			// add css none to all sortable headers
+			$sorted
+				.not( '.sorter-false' )
 				.find( '.' + ts.css.icon )
-				.removeClass( cssIcon.join( ' ' ) )
 				.addClass( cssIcon[ 2 ] );
+			// add disabled css icon class
+			if ( c.cssIconDisabled ) {
+				$sorted
+					.filter( '.sorter-false' )
+					.find( '.' + ts.css.icon )
+					.addClass( c.cssIconDisabled );
+			}
 			for ( indx = 0; indx < len; indx++ ) {
 				// direction = 2 means reset!
 				if ( list[ indx ][ 1 ] !== 2 ) {
@@ -36076,7 +36145,7 @@ Prism.languages.sql = {
 						var include = true,
 							$el = c.$headers.eq( i ),
 							col = parseInt( $el.attr( 'data-column' ), 10 ),
-							end = col + c.$headers[ i ].colSpan;
+							end = col + ts.getClosest( $el, 'th, td' )[0].colSpan;
 						for ( ; col < end; col++ ) {
 							include = include ? include || ts.isValueInArray( col, c.sortList ) > -1 : false;
 						}
@@ -36090,23 +36159,13 @@ Prism.languages.sql = {
 					if ( $sorted.length ) {
 						for ( column = 0; column < $sorted.length; column++ ) {
 							if ( !$sorted[ column ].sortDisabled ) {
-								$sorted
-									.eq( column )
-									.removeClass( none )
-									.addClass( css[ list[ indx ][ 1 ] ] )
-									.attr( 'aria-sort', aria[ list[ indx ][ 1 ] ] )
-									.find( '.' + ts.css.icon )
-									.removeClass( cssIcon[ 2 ] )
-									.addClass( cssIcon[ list[ indx ][ 1 ] ] );
+								updateColumnSort( $sorted.eq( column ), list[ indx ][ 1 ] );
 							}
 						}
-						// add sorted class to footer & extra headers, if they exist
-						if ( $headers.length ) {
-							$headers
-								.filter( '[data-column="' + list[ indx ][ 0 ] + '"]' )
-								.removeClass( none )
-								.addClass( css[ list[ indx ][ 1 ] ] );
-						}
+					}
+					// add sorted class to footer & extra headers, if they exist
+					if ( $extras.length ) {
+						updateColumnSort( $extras.filter( '[data-column="' + list[ indx ][ 0 ] + '"]' ), list[ indx ][ 1 ] );
 					}
 				}
 			}
@@ -36117,10 +36176,21 @@ Prism.languages.sql = {
 			}
 		},
 
+		getClosest : function( $el, selector ) {
+			// jQuery v1.2.6 doesn't have closest()
+			if ( $.fn.closest ) {
+				return $el.closest( selector );
+			}
+			return $el.is( selector ) ?
+				$el :
+				$el.parents( selector ).filter( ':first' );
+		},
+
 		// nextSort (optional), lets you disable next sort text
 		setColumnAriaLabel : function( c, $header, nextSort ) {
 			if ( $header.length ) {
 				var column = parseInt( $header.attr( 'data-column' ), 10 ),
+					vars = c.sortVars[ column ],
 					tmp = $header.hasClass( ts.css.sortAsc ) ?
 						'sortAsc' :
 						$header.hasClass( ts.css.sortDesc ) ? 'sortDesc' : 'sortNone',
@@ -36128,7 +36198,8 @@ Prism.languages.sql = {
 				if ( $header.hasClass( 'sorter-false' ) || nextSort === false ) {
 					txt += ts.language.sortDisabled;
 				} else {
-					nextSort = c.sortVars[ column ].order[ ( c.sortVars[ column ].count + 1 ) % ( c.sortReset ? 3 : 2 ) ];
+					tmp = ( vars.count + 1 ) % vars.order.length;
+					nextSort = vars.order[ tmp ];
 					// if nextSort
 					txt += ts.language[ nextSort === 0 ? 'nextAsc' : nextSort === 1 ? 'nextDesc' : 'nextNone' ];
 				}
@@ -36187,7 +36258,12 @@ Prism.languages.sql = {
 					// set order if not already defined - due to colspan header without associated header cell
 					// adding this check prevents a javascript error
 					if ( !c.sortVars[ col ].order ) {
-						order = c.sortVars[ col ].order = ts.getOrder( c.sortInitialOrder ) ? [ 1, 0, 2 ] : [ 0, 1, 2 ];
+						if ( ts.getOrder( c.sortInitialOrder ) ) {
+							order = c.sortReset ? [ 1, 0, 2 ] : [ 1, 0 ];
+						} else {
+							order = c.sortReset ? [ 0, 1, 2 ] : [ 0, 1 ];
+						}
+						c.sortVars[ col ].order = order;
 						c.sortVars[ col ].count = 0;
 					}
 
@@ -36204,12 +36280,12 @@ Prism.languages.sql = {
 							dir = primary || 0;
 							break;
 						case 'o' :
-							temp = order[ ( primary || 0 ) % ( c.sortReset ? 3 : 2 ) ];
+							temp = order[ ( primary || 0 ) % order.length ];
 							// opposite of primary column; but resets if primary resets
 							dir = temp === 0 ? 1 : temp === 1 ? 0 : 2;
 							break;
 						case 'n' :
-							dir = order[ ( ++c.sortVars[ col ].count ) % ( c.sortReset ? 3 : 2 ) ];
+							dir = order[ ( ++c.sortVars[ col ].count ) % order.length ];
 							break;
 						default : // ascending
 							dir = 0;
@@ -36219,7 +36295,7 @@ Prism.languages.sql = {
 					group = [ col, parseInt( dir, 10 ) || 0 ];
 					c.sortList[ c.sortList.length ] = group;
 					dir = $.inArray( group[ 1 ], order ); // fixes issue #167
-					c.sortVars[ col ].count = dir >= 0 ? dir : group[ 1 ] % ( c.sortReset ? 3 : 2 );
+					c.sortVars[ col ].count = dir >= 0 ? dir : group[ 1 ] % order.length;
 				}
 			}
 		},
@@ -36251,6 +36327,12 @@ Prism.languages.sql = {
 		},
 
 		updateCell : function( c, cell, resort, callback ) {
+			// updateCell for child rows is a mess - we'll ignore them for now
+			// eventually I'll break out the "update" row cache code to make everything consistent
+			if ( $( cell ).closest( 'tr' ).hasClass( c.cssChildRow ) ) {
+				console.warn('Tablesorter Warning! "updateCell" for child row content has been disabled, use "update" instead');
+				return;
+			}
 			if ( ts.isEmptyObject( c.cache ) ) {
 				// empty table, do an update instead - fixes #1099
 				ts.updateHeader( c );
@@ -36265,14 +36347,13 @@ Prism.languages.sql = {
 				$cell = $( cell ),
 				// update cache - format: function( s, table, cell, cellIndex )
 				// no closest in jQuery v1.2.6
-				tbodyIndex = $tbodies
-					.index( $.fn.closest ? $cell.closest( 'tbody' ) : $cell.parents( 'tbody' ).filter( ':first' ) ),
+				tbodyIndex = $tbodies.index( ts.getClosest( $cell, 'tbody' ) ),
 				tbcache = c.cache[ tbodyIndex ],
-				$row = $.fn.closest ? $cell.closest( 'tr' ) : $cell.parents( 'tr' ).filter( ':first' );
+				$row = ts.getClosest( $cell, 'tr' );
 			cell = $cell[ 0 ]; // in case cell is a jQuery object
 			// tbody may not exist if update is initialized while tbody is removed for processing
 			if ( $tbodies.length && tbodyIndex >= 0 ) {
-				row = $tbodies.eq( tbodyIndex ).find( 'tr' ).index( $row );
+				row = $tbodies.eq( tbodyIndex ).find( 'tr' ).not( '.' + c.cssChildRow ).index( $row );
 				cache = tbcache.normalized[ row ];
 				len = $row[ 0 ].cells.length;
 				if ( len !== c.columns ) {
@@ -36293,7 +36374,6 @@ Prism.languages.sql = {
 				cache[ c.columns ].raw[ icell ] = tmp;
 				tmp = ts.getParsedText( c, cell, icell, tmp );
 				cache[ icell ] = tmp; // parsed
-				cache[ c.columns ].$row = $row;
 				if ( ( c.parsers[ icell ].type || '' ).toLowerCase() === 'numeric' ) {
 					// update column max value (ignore sign)
 					tbcache.colMax[ icell ] = Math.max( Math.abs( tmp ) || 0, tbcache.colMax[ icell ] || 0 );
@@ -36324,11 +36404,13 @@ Prism.languages.sql = {
 			if ( valid ) {
 				$row = $( $row );
 				c.$tbodies.append( $row );
-			} else if ( !$row ||
+			} else if (
+				!$row ||
 				// row is a jQuery object?
 				!( $row instanceof jQuery ) ||
 				// row contained in the table?
-				( $.fn.closest ? $row.closest( 'table' )[ 0 ] : $row.parents( 'table' )[ 0 ] ) !== c.table ) {
+				( ts.getClosest( $row, 'table' )[ 0 ] !== c.table )
+			) {
 				if ( c.debug ) {
 					console.error( 'addRows method requires (1) a jQuery selector reference to rows that have already ' +
 						'been added to the table, or (2) row HTML string to be added to a table with only one tbody' );
@@ -36475,15 +36557,15 @@ Prism.languages.sql = {
 				notMultiSort = !event[ c.sortMultiSortKey ],
 				table = c.table,
 				len = c.$headers.length,
-				// get current column index
-				col = parseInt( $( cell ).attr( 'data-column' ), 10 ),
+				th = ts.getClosest( $( cell ), 'th, td' ),
+				col = parseInt( th.attr( 'data-column' ), 10 ),
 				order = c.sortVars[ col ].order;
-
+			th = th[0];
 			// Only call sortStart if sorting is enabled
 			c.$table.triggerHandler( 'sortStart', table );
 			// get current column sort order
-			c.sortVars[ col ].count =
-				event[ c.sortResetKey ] ? 2 : ( c.sortVars[ col ].count + 1 ) % ( c.sortReset ? 3 : 2 );
+			tmp = ( c.sortVars[ col ].count + 1 ) % order.length;
+			c.sortVars[ col ].count = event[ c.sortResetKey ] ? 2 : tmp;
 			// reset all sorts on non-current column - issue #30
 			if ( c.sortRestart ) {
 				for ( headerIndx = 0; headerIndx < len; headerIndx++ ) {
@@ -36513,8 +36595,8 @@ Prism.languages.sql = {
 				if ( dir < 2 ) {
 					c.sortList[ c.sortList.length ] = [ col, dir ];
 					// add other columns if header spans across multiple
-					if ( cell.colSpan > 1 ) {
-						for ( indx = 1; indx < cell.colSpan; indx++ ) {
+					if ( th.colSpan > 1 ) {
+						for ( indx = 1; indx < th.colSpan; indx++ ) {
 							c.sortList[ c.sortList.length ] = [ col + indx, dir ];
 							// update count on columns in colSpan
 							c.sortVars[ col + indx ].count = $.inArray( dir, order );
@@ -36546,8 +36628,8 @@ Prism.languages.sql = {
 					if ( dir < 2 ) {
 						c.sortList[ c.sortList.length ] = [ col, dir ];
 						// add other columns if header spans across multiple
-						if ( cell.colSpan > 1 ) {
-							for ( indx = 1; indx < cell.colSpan; indx++ ) {
+						if ( th.colSpan > 1 ) {
+							for ( indx = 1; indx < th.colSpan; indx++ ) {
 								c.sortList[ c.sortList.length ] = [ col + indx, dir ];
 								// update count on columns in colSpan
 								c.sortVars[ col + indx ].count = $.inArray( dir, order );
@@ -36578,7 +36660,7 @@ Prism.languages.sql = {
 										dir = tmp === 0 ? 1 : 0;
 										break;
 									case 'n' :
-										dir = ( tmp + 1 ) % ( c.sortReset ? 3 : 2 );
+										dir = ( tmp + 1 ) % order.length;
 										break;
 									default:
 										dir = 0;
@@ -36605,8 +36687,9 @@ Prism.languages.sql = {
 
 		// sort multiple columns
 		multisort : function( c ) { /*jshint loopfunc:true */
-			var tbodyIndex, sortTime, colMax, rows,
+			var tbodyIndex, sortTime, colMax, rows, tmp,
 				table = c.table,
+				sorter = [],
 				dir = 0,
 				textSorter = c.textSorter || '',
 				sortList = c.sortList,
@@ -36617,6 +36700,16 @@ Prism.languages.sql = {
 				return;
 			}
 			if ( c.debug ) { sortTime = new Date(); }
+			// cache textSorter to optimize speed
+			if ( typeof textSorter === 'object' ) {
+				colMax = c.columns;
+				while ( colMax-- ) {
+					tmp = ts.getColumnData( table, textSorter, colMax );
+					if ( typeof tmp === 'function' ) {
+						sorter[ colMax ] = tmp;
+					}
+				}
+			}
 			for ( tbodyIndex = 0; tbodyIndex < len; tbodyIndex++ ) {
 				colMax = c.cache[ tbodyIndex ].colMax;
 				rows = c.cache[ tbodyIndex ].normalized;
@@ -36655,9 +36748,9 @@ Prism.languages.sql = {
 							if ( typeof textSorter === 'function' ) {
 								// custom OVERALL text sorter
 								sort = textSorter( x[ col ], y[ col ], dir, col, table );
-							} else if ( typeof textSorter === 'object' && textSorter.hasOwnProperty( col ) ) {
+							} else if ( typeof sorter[ col ] === 'function' ) {
 								// custom text sorter for a SPECIFIC COLUMN
-								sort = textSorter[ col ]( x[ col ], y[ col ], dir, col, table );
+								sort = sorter[ col ]( x[ col ], y[ col ], dir, col, table );
 							} else {
 								// fall back to natural sort
 								sort = ts[ 'sortNatural' + ( dir ? 'Asc' : 'Desc' ) ]( a[ col ], b[ col ], col, c );
@@ -36733,6 +36826,10 @@ Prism.languages.sql = {
 			ts.setHeadersCss( c );
 			ts.multisort( c );
 			ts.appendCache( c );
+			var indx;
+			for (indx = 0; indx < c.columns; indx++) {
+				c.sortVars[ indx ].count = -1;
+			}
 			if ( $.isFunction( callback ) ) {
 				callback( c.table );
 			}
@@ -36748,10 +36845,10 @@ Prism.languages.sql = {
 		},
 
 		// Natural sort - https://github.com/overset/javascript-natural-sort (date sorting removed)
-		// this function will only accept strings, or you'll see 'TypeError: undefined is not a function'
-		// I could add a = a.toString(); b = b.toString(); but it'll slow down the sort overall
 		sortNatural : function( a, b ) {
 			if ( a === b ) { return 0; }
+			a = a.toString();
+			b = b.toString();
 			var aNum, bNum, aFloat, bFloat, indx, max,
 				regex = ts.regex;
 			// first try and sort Hex codes
@@ -36875,14 +36972,17 @@ Prism.languages.sql = {
 		},
 
 		applyWidgetOptions : function( table ) {
-			var indx, widget,
+			var indx, widget, wo,
 				c = table.config,
 				len = c.widgets.length;
 			if ( len ) {
 				for ( indx = 0; indx < len; indx++ ) {
 					widget = ts.getWidgetById( c.widgets[ indx ] );
 					if ( widget && widget.options ) {
-						c.widgetOptions = $.extend( true, {}, widget.options, c.widgetOptions );
+						wo = $.extend( true, {}, widget.options );
+						c.widgetOptions = $.extend( true, wo, c.widgetOptions );
+						// add widgetOptions to defaults for option validator
+						$.extend( true, ts.defaults.widgetOptions, widget.options );
 					}
 				}
 			}
@@ -36984,7 +37084,7 @@ Prism.languages.sql = {
 						if ( !widget.priority ) { widget.priority = 10; }
 						widgets[ indx ] = widget;
 					} else if ( c.debug ) {
-						console.warn( '"' + names[ indx ] + '" widget code does not exist!' );
+						console.warn( '"' + names[ indx ] + '" was enabled, but the widget code has not been loaded!' );
 					}
 				}
 				// sort widgets by priority
@@ -37003,22 +37103,22 @@ Prism.languages.sql = {
 					}
 				}
 				if ( c.debug && console.groupEnd ) { console.groupEnd(); }
-				// callback executed on init only
-				if ( !init && typeof callback === 'function' ) {
-					callback( table );
-				}
 			}
 			c.timerReady = setTimeout( function() {
 				table.isApplyingWidgets = false;
 				$.data( table, 'lastWidgetApplication', new Date() );
 				c.$table.triggerHandler( 'tablesorter-ready' );
+				// callback executed on init only
+				if ( !init && typeof callback === 'function' ) {
+					callback( table );
+				}
+				if ( c.debug ) {
+					widget = c.widgets.length;
+					console.log( 'Completed ' +
+						( init === true ? 'initializing ' : 'applying ' ) + widget +
+						' widget' + ( widget !== 1 ? 's' : '' ) + ts.benchmark( time ) );
+				}
 			}, 10 );
-			if ( c.debug ) {
-				widget = c.widgets.length;
-				console.log( 'Completed ' +
-					( init === true ? 'initializing ' : 'applying ' ) + widget +
-					' widget' + ( widget !== 1 ? 's' : '' ) + ts.benchmark( time ) );
-			}
 		},
 
 		removeWidget : function( table, name, refreshing ) {
@@ -37056,6 +37156,7 @@ Prism.languages.sql = {
 					c.widgetInit[ name[ index ] ] = false;
 				}
 			}
+			c.$table.triggerHandler( 'widgetRemoveEnd', table );
 		},
 
 		refreshWidgets : function( table, doAll, dontapply ) {
@@ -37096,7 +37197,7 @@ Prism.languages.sql = {
 		▀████▀   ██   ██ ██████ ██   ██   ██ ██████ █████▀
 		*/
 		benchmark : function( diff ) {
-			return ( ' ( ' + ( new Date().getTime() - diff.getTime() ) + 'ms )' );
+			return ( ' (' + ( new Date().getTime() - diff.getTime() ) + ' ms)' );
 		},
 		// deprecated ts.log
 		log : function() {
@@ -37166,7 +37267,7 @@ Prism.languages.sql = {
 				cells = $rows[ i ].cells;
 				for ( j = 0; j < cells.length; j++ ) {
 					cell = cells[ j ];
-					rowIndex = cell.parentNode.rowIndex;
+					rowIndex = i;
 					rowSpan = cell.rowSpan || 1;
 					colSpan = cell.colSpan || 1;
 					if ( typeof matrix[ rowIndex ] === 'undefined' ) {
@@ -37201,7 +37302,40 @@ Prism.languages.sql = {
 					}
 				}
 			}
+			ts.checkColumnCount($rows, matrix, matrixrow.length);
 			return matrixrow.length;
+		},
+
+		checkColumnCount : function($rows, matrix, columns) {
+			// this DOES NOT report any tbody column issues, except for the math and
+			// and column selector widgets
+			var i, len,
+				valid = true,
+				cells = [];
+			for ( i = 0; i < matrix.length; i++ ) {
+				// some matrix entries are undefined when testing the footer because
+				// it is using the rowIndex property
+				if ( matrix[i] ) {
+					len = matrix[i].length;
+					if ( matrix[i].length !== columns ) {
+						valid = false;
+						break;
+					}
+				}
+			}
+			if ( !valid ) {
+				$rows.each( function( indx, el ) {
+					var cell = el.parentElement.nodeName;
+					if ( cells.indexOf( cell ) < 0 ) {
+						cells.push( cell );
+					}
+				});
+				console.error(
+					'Invalid or incorrect number of columns in the ' +
+					cells.join( ' or ' ) + '; expected ' + columns +
+					', but found ' + len + ' columns'
+				);
+			}
 		},
 
 		// automatically add a colgroup with col elements set to a percentage width
@@ -37255,15 +37389,17 @@ Prism.languages.sql = {
 		},
 
 		getColumnData : function( table, obj, indx, getCell, $headers ) {
-			if ( typeof obj === 'undefined' || obj === null ) { return; }
+			if ( typeof obj !== 'object' || obj === null ) {
+				return obj;
+			}
 			table = $( table )[ 0 ];
 			var $header, key,
 				c = table.config,
 				$cells = ( $headers || c.$headers ),
 				// c.$headerIndexed is not defined initially
 				$cell = c.$headerIndexed && c.$headerIndexed[ indx ] ||
-					$cells.filter( '[data-column="' + indx + '"]:last' );
-			if ( obj[ indx ] ) {
+					$cells.find( '[data-column="' + indx + '"]:last' );
+			if ( typeof obj[ indx ] !== 'undefined' ) {
 				return getCell ? obj[ indx ] : obj[ $cells.index( $cell ) ];
 			}
 			for ( key in obj ) {
@@ -37366,6 +37502,34 @@ Prism.languages.sql = {
 			return str;
 		},
 
+		validateOptions : function( c ) {
+			var setting, setting2, typ, timer,
+				// ignore options containing an array
+				ignore = 'headers sortForce sortList sortAppend widgets'.split( ' ' ),
+				orig = c.originalSettings;
+			if ( orig ) {
+				if ( c.debug ) {
+					timer = new Date();
+				}
+				for ( setting in orig ) {
+					typ = typeof ts.defaults[setting];
+					if ( typ === 'undefined' ) {
+						console.warn( 'Tablesorter Warning! "table.config.' + setting + '" option not recognized' );
+					} else if ( typ === 'object' ) {
+						for ( setting2 in orig[setting] ) {
+							typ = ts.defaults[setting] && typeof ts.defaults[setting][setting2];
+							if ( $.inArray( setting, ignore ) < 0 && typ === 'undefined' ) {
+								console.warn( 'Tablesorter Warning! "table.config.' + setting + '.' + setting2 + '" option not recognized' );
+							}
+						}
+					}
+				}
+				if ( c.debug ) {
+					console.log( 'validate options time:' + ts.benchmark( timer ) );
+				}
+			}
+		},
+
 		// restore headers
 		restoreHeaders : function( table ) {
 			var index, $cell,
@@ -37422,6 +37586,7 @@ Prism.languages.sql = {
 				.unbind( ( 'mousedown mouseup keypress '.split( ' ' ).join( c.namespace + ' ' ) ).replace( ts.regex.spaces, ' ' ) );
 			ts.restoreHeaders( table );
 			$t.toggleClass( ts.css.table + ' ' + c.tableClass + ' tablesorter-' + c.theme, removeClasses === false );
+			$t.removeClass(c.namespace.slice(1));
 			// clear flag in case the plugin is initialized again
 			table.hasInitialized = false;
 			delete table.config.cache;
@@ -37525,8 +37690,8 @@ Prism.languages.sql = {
 
 	// too many protocols to add them all https://en.wikipedia.org/wiki/URI_scheme
 	// now, this regex can be updated before initialization
-	ts.regex.urlProtocolTest =   /^(https?|ftp|file):\/\//;
-	ts.regex.urlProtocolReplace = /(https?|ftp|file):\/\//;
+	ts.regex.urlProtocolTest = /^(https?|ftp|file):\/\//;
+	ts.regex.urlProtocolReplace = /(https?|ftp|file):\/\/(www\.)?/;
 	ts.addParser({
 		id : 'url',
 		is : function( str ) {
@@ -37535,7 +37700,6 @@ Prism.languages.sql = {
 		format : function( str ) {
 			return str ? $.trim( str.replace( ts.regex.urlProtocolReplace, '' ) ) : str;
 		},
-		parsed : true, // filter widget flag
 		type : 'text'
 	});
 
@@ -37643,8 +37807,8 @@ Prism.languages.sql = {
 	});
 
 	// match 24 hour time & 12 hours time + am/pm - see http://regexr.com/3c3tk
-	ts.regex.timeTest = /^([1-9]|1[0-2]):([0-5]\d)(\s[AP]M)$|^((?:[01]\d|[2][0-4]):[0-5]\d)$/i;
-	ts.regex.timeMatch = /([1-9]|1[0-2]):([0-5]\d)(\s[AP]M)|((?:[01]\d|[2][0-4]):[0-5]\d)/i;
+	ts.regex.timeTest = /^(0?[1-9]|1[0-2]):([0-5]\d)(\s[AP]M)$|^((?:[01]\d|[2][0-4]):[0-5]\d)$/i;
+	ts.regex.timeMatch = /(0?[1-9]|1[0-2]):([0-5]\d)(\s[AP]M)|((?:[01]\d|[2][0-4]):[0-5]\d)/i;
 	ts.addParser({
 		id : 'time',
 		is : function( str ) {
@@ -37727,12 +37891,26 @@ Prism.languages.sql = {
 
 })( jQuery );
 
-/*! Widget: storage - updated 3/1/2016 (v2.25.5) */
+/*! Widget: storage - updated 4/18/2017 (v2.28.8) */
 /*global JSON:false */
 ;(function ($, window, document) {
 	'use strict';
 
 	var ts = $.tablesorter || {};
+
+	// update defaults for validator; these values must be falsy!
+	$.extend(true, ts.defaults, {
+		fixedUrl: '',
+		widgetOptions: {
+			storage_fixedUrl: '',
+			storage_group: '',
+			storage_page: '',
+			storage_storageType: '',
+			storage_tableId: '',
+			storage_useSessionStorage: ''
+		}
+	});
+
 	// *** Store data in local storage, with a cookie fallback ***
 	/* IE7 needs JSON library for JSON.stringify - (http://caniuse.com/#search=json)
 	   if you need it, then include https://github.com/douglascrockford/JSON-js
@@ -37759,8 +37937,12 @@ Prism.languages.sql = {
 			values = {},
 			c = table.config,
 			wo = c && c.widgetOptions,
-			storageType = ( options && options.useSessionStorage ) || ( wo && wo.storage_useSessionStorage ) ?
-				'sessionStorage' : 'localStorage',
+			storageType = (
+				( options && options.storageType ) || ( wo && wo.storage_storageType )
+			).toString().charAt(0).toLowerCase(),
+			// deprecating "useSessionStorage"; any storageType setting overrides it
+			session = storageType ? '' :
+				( options && options.useSessionStorage ) || ( wo && wo.storage_useSessionStorage ),
 			$table = $(table),
 			// id from (1) options ID, (2) table 'data-table-group' attribute, (3) widgetOptions.storage_tableId,
 			// (4) table ID, then (5) table index
@@ -37772,17 +37954,25 @@ Prism.languages.sql = {
 			url = options && options.url ||
 				$table.attr(options && options.page || wo && wo.storage_page || 'data-table-page') ||
 				wo && wo.storage_fixedUrl || c && c.fixedUrl || window.location.pathname;
-		// https://gist.github.com/paulirish/5558557
-		if (storageType in window) {
-			try {
-				window[storageType].setItem('_tmptest', 'temp');
-				hasStorage = true;
-				window[storageType].removeItem('_tmptest');
-			} catch (error) {
-				if (c && c.debug) {
-					console.warn( storageType + ' is not supported in this browser' );
+
+		// skip if using cookies
+		if (storageType !== 'c') {
+			storageType = (storageType === 's' || session) ? 'sessionStorage' : 'localStorage';
+			// https://gist.github.com/paulirish/5558557
+			if (storageType in window) {
+				try {
+					window[storageType].setItem('_tmptest', 'temp');
+					hasStorage = true;
+					window[storageType].removeItem('_tmptest');
+				} catch (error) {
+					if (c && c.debug) {
+						console.warn( storageType + ' is not supported in this browser' );
+					}
 				}
 			}
+		}
+		if (c.debug) {
+			console.log('Storage widget using', hasStorage ? storageType : 'cookies');
 		}
 		// *** get value ***
 		if ($.parseJSON) {
@@ -37818,7 +38008,7 @@ Prism.languages.sql = {
 
 })(jQuery, window, document);
 
-/*! Widget: uitheme - updated 7/11/2016 (v2.26.6) */
+/*! Widget: uitheme - updated 9/27/2017 (v2.29.0) */
 ;(function ($) {
 	'use strict';
 	var ts = $.tablesorter || {};
@@ -37835,10 +38025,10 @@ Prism.languages.sql = {
 			active       : '', // applied when column is sorted
 			hover        : '', // custom css required - a defined bootstrap style may not override other classes
 			// icon class names
-			icons        : '', // add 'icon-white' to make them white; this icon class is added to the <i> in the header
+			icons        : '', // add 'bootstrap-icon-white' to make them white; this icon class is added to the <i> in the header
 			iconSortNone : 'bootstrap-icon-unsorted', // class name added to icon when column is not sorted
-			iconSortAsc  : 'icon-chevron-up glyphicon glyphicon-chevron-up', // class name added to icon when column has ascending sort
-			iconSortDesc : 'icon-chevron-down glyphicon glyphicon-chevron-down', // class name added to icon when column has descending sort
+			iconSortAsc  : 'glyphicon glyphicon-chevron-up', // class name added to icon when column has ascending sort
+			iconSortDesc : 'glyphicon glyphicon-chevron-down', // class name added to icon when column has descending sort
 			filterRow    : '', // filter row class
 			footerRow    : '',
 			footerCells  : '',
@@ -37857,9 +38047,9 @@ Prism.languages.sql = {
 			hover        : 'ui-state-hover',  // hover class
 			// icon class names
 			icons        : 'ui-icon', // icon class added to the <i> in the header
-			iconSortNone : 'ui-icon-carat-2-n-s', // class name added to icon when column is not sorted
-			iconSortAsc  : 'ui-icon-carat-1-n', // class name added to icon when column has ascending sort
-			iconSortDesc : 'ui-icon-carat-1-s', // class name added to icon when column has descending sort
+			iconSortNone : 'ui-icon-carat-2-n-s ui-icon-caret-2-n-s', // class name added to icon when column is not sorted
+			iconSortAsc  : 'ui-icon-carat-1-n ui-icon-caret-1-n', // class name added to icon when column has ascending sort
+			iconSortDesc : 'ui-icon-carat-1-s ui-icon-caret-1-s', // class name added to icon when column has descending sort
 			filterRow    : '',
 			footerRow    : '',
 			footerCells  : '',
@@ -37944,7 +38134,7 @@ Prism.languages.sql = {
 						.addClass(themes.icons || '');
 				}
 				// filter widget initializes after uitheme
-				if (c.widgets.indexOf('filter') > -1) {
+				if (ts.hasWidget( c.table, 'filter' )) {
 					tmp = function() {
 						$table.children('thead').children('.' + ts.css.filterRow)
 							.removeClass(hasOldTheme ? oldtheme.filterRow || '' : '')
@@ -38014,14 +38204,14 @@ Prism.languages.sql = {
 
 })(jQuery);
 
-/*! Widget: columns */
+/*! Widget: columns - updated 5/24/2017 (v2.28.11) */
 ;(function ($) {
 	'use strict';
 	var ts = $.tablesorter || {};
 
 	ts.addWidget({
 		id: 'columns',
-		priority: 30,
+		priority: 65,
 		options : {
 			columns : [ 'primary', 'secondary', 'tertiary' ]
 		},
@@ -38093,7 +38283,7 @@ Prism.languages.sql = {
 
 })(jQuery);
 
-/*! Widget: filter - updated 7/11/2016 (v2.26.6) *//*
+/*! Widget: filter - updated 12/13/2017 (v2.29.1) *//*
  * Requires tablesorter v2.8+ and jQuery 1.7+
  * by Rob Garrison
  */
@@ -38164,8 +38354,10 @@ Prism.languages.sql = {
 			var tbodyIndex, $tbody,
 				$table = c.$table,
 				$tbodies = c.$tbodies,
-				events = 'addRows updateCell update updateRows updateComplete appendCache filterReset filterEnd search '
-					.split( ' ' ).join( c.namespace + 'filter ' );
+				events = (
+					'addRows updateCell update updateRows updateComplete appendCache filterReset ' +
+					'filterAndSortReset filterFomatterUpdate filterEnd search stickyHeadersInit '
+				).split( ' ' ).join( c.namespace + 'filter ' );
 			$table
 				.removeClass( 'hasFilters' )
 				// add filter namespace to all BUT search
@@ -38189,7 +38381,7 @@ Prism.languages.sql = {
 
 		// regex used in filter 'check' functions - not for general use and not documented
 		regex: {
-			regex     : /^\/((?:\\\/|[^\/])+)\/([mig]{0,3})?$/, // regex to test for regex
+			regex     : /^\/((?:\\\/|[^\/])+)\/([migyu]{0,5})?$/, // regex to test for regex
 			child     : /tablesorter-childRow/, // child row class name; this gets updated in the script
 			filtered  : /filtered/, // filtered (hidden) row class name; updated in the script
 			type      : /undefined|number/, // check type
@@ -38505,7 +38697,7 @@ Prism.languages.sql = {
 			}
 
 			txt = 'addRows updateCell update updateRows updateComplete appendCache filterReset ' +
-				'filterResetSaved filterEnd search '.split( ' ' ).join( c.namespace + 'filter ' );
+				'filterAndSortReset filterResetSaved filterEnd search '.split( ' ' ).join( c.namespace + 'filter ' );
 			c.$table.bind( txt, function( event, filter ) {
 				val = wo.filter_hideEmpty &&
 					$.isEmptyObject( c.cache ) &&
@@ -38516,9 +38708,16 @@ Prism.languages.sql = {
 					event.stopPropagation();
 					tsf.buildDefault( table, true );
 				}
-				if ( event.type === 'filterReset' ) {
+				// Add filterAndSortReset - see #1361
+				if ( event.type === 'filterReset' || event.type === 'filterAndSortReset' ) {
 					c.$table.find( '.' + tscss.filter ).add( wo.filter_$externalFilters ).val( '' );
-					tsf.searching( table, [] );
+					if ( event.type === 'filterAndSortReset' ) {
+						ts.sortReset( this.config, function() {
+							tsf.searching( table, [] );
+						});
+					} else {
+						tsf.searching( table, [] );
+					}
 				} else if ( event.type === 'filterResetSaved' ) {
 					ts.storage( table, 'tablesorter-filters', '' );
 				} else if ( event.type === 'filterEnd' ) {
@@ -38532,6 +38731,10 @@ Prism.languages.sql = {
 						// force a new search since content has changed
 						c.lastCombinedFilter = null;
 						c.lastSearch = [];
+						// update filterFormatters after update (& small delay) - Fixes #1237
+						setTimeout(function(){
+							c.$table.triggerHandler( 'filterFomatterUpdate' );
+						}, 100);
 					}
 					// pass true ( skipFirst ) to prevent the tablesorter.setFilters function from skipping the first
 					// input ensures all inputs are updated when a search is triggered on the table
@@ -38683,7 +38886,9 @@ Prism.languages.sql = {
 		// so we have to work with it instead
 		formatterUpdated: function( $cell, column ) {
 			// prevent error if $cell is undefined - see #1056
-			var wo = $cell && $cell.closest( 'table' )[0].config.widgetOptions;
+			var $table = $cell && $cell.closest( 'table' );
+			var config = $table.length && $table[0].config,
+				wo = config && config.widgetOptions;
 			if ( wo && !wo.filter_initialized ) {
 				// add updates by column since this function
 				// may be called numerous times before initialization
@@ -38696,8 +38901,10 @@ Prism.languages.sql = {
 				count = 0,
 				completed = function() {
 					wo.filter_initialized = true;
+					// update lastSearch - it gets cleared often
+					c.lastSearch = c.$table.data( 'lastSearch' );
 					c.$table.triggerHandler( 'filterInit', c );
-					tsf.findRows( c.table, c.$table.data( 'lastSearch' ) || [] );
+					tsf.findRows( c.table, c.lastSearch || [] );
 				};
 			if ( $.isEmptyObject( wo.filter_formatter ) ) {
 				completed();
@@ -38887,63 +39094,108 @@ Prism.languages.sql = {
 			})
 			.bind( 'keyup' + namespace, function( event ) {
 				wo = table.config.widgetOptions; // make sure "wo" isn't cached
-				var column = parseInt( $( this ).attr( 'data-column' ), 10 );
+				var column = parseInt( $( this ).attr( 'data-column' ), 10 ),
+					liveSearch = typeof wo.filter_liveSearch === 'boolean' ? wo.filter_liveSearch :
+						ts.getColumnData( table, wo.filter_liveSearch, column );
+				if ( typeof liveSearch === 'undefined' ) {
+					liveSearch = wo.filter_liveSearch.fallback || false;
+				}
 				$( this ).attr( 'data-lastSearchTime', new Date().getTime() );
 				// emulate what webkit does.... escape clears the filter
 				if ( event.which === tskeyCodes.escape ) {
 					// make sure to restore the last value on escape
 					this.value = wo.filter_resetOnEsc ? '' : c.lastSearch[column];
-				// live search
-				} else if ( wo.filter_liveSearch === false ) {
-					return;
 					// don't return if the search value is empty ( all rows need to be revealed )
 				} else if ( this.value !== '' && (
 					// liveSearch can contain a min value length; ignore arrow and meta keys, but allow backspace
-					( typeof wo.filter_liveSearch === 'number' && this.value.length < wo.filter_liveSearch ) ||
+					( typeof liveSearch === 'number' && this.value.length < liveSearch ) ||
 					// let return & backspace continue on, but ignore arrows & non-valid characters
 					( event.which !== tskeyCodes.enter && event.which !== tskeyCodes.backSpace &&
 						( event.which < tskeyCodes.space || ( event.which >= tskeyCodes.left && event.which <= tskeyCodes.down ) ) ) ) ) {
 					return;
+					// live search
+				} else if ( liveSearch === false ) {
+					if ( this.value !== '' && event.which !== tskeyCodes.enter ) {
+						return;
+					}
 				}
 				// change event = no delay; last true flag tells getFilters to skip newest timed input
-				tsf.searching( table, true, true );
+				tsf.searching( table, true, true, column );
 			})
 			// include change for select - fixes #473
-			.bind( 'search change keypress input '.split( ' ' ).join( namespace + ' ' ), function( event ) {
+			.bind( 'search change keypress input blur '.split( ' ' ).join( namespace + ' ' ), function( event ) {
 				// don't get cached data, in case data-column changes dynamically
-				var column = parseInt( $( this ).attr( 'data-column' ), 10 );
-				// don't allow 'change' event to process if the input value is the same - fixes #685
+				var column = parseInt( $( this ).attr( 'data-column' ), 10 ),
+					eventType = event.type,
+					liveSearch = typeof wo.filter_liveSearch === 'boolean' ?
+						wo.filter_liveSearch :
+						ts.getColumnData( table, wo.filter_liveSearch, column );
 				if ( table.config.widgetOptions.filter_initialized &&
-					( event.which === tskeyCodes.enter || event.type === 'search' ||
-					( event.type === 'change' ) && this.value !== c.lastSearch[column] ) ||
-					// only "input" event fires in MS Edge when clicking the "x" to clear the search
-					( event.type === 'input' && this.value === '' ) ) {
+					// immediate search if user presses enter
+					( event.which === tskeyCodes.enter ||
+						// immediate search if a "search" or "blur" is triggered on the input
+						( eventType === 'search' || eventType === 'blur' ) ||
+						// change & input events must be ignored if liveSearch !== true
+						( eventType === 'change' || eventType === 'input' ) &&
+						// prevent search if liveSearch is a number
+						( liveSearch === true || liveSearch !== true && event.target.nodeName !== 'INPUT' ) &&
+						// don't allow 'change' or 'input' event to process if the input value
+						// is the same - fixes #685
+						this.value !== c.lastSearch[column]
+					)
+				) {
 					event.preventDefault();
 					// init search with no delay
 					$( this ).attr( 'data-lastSearchTime', new Date().getTime() );
-					tsf.searching( table, event.type !== 'keypress', true );
+					tsf.searching( table, eventType !== 'keypress', true, column );
 				}
 			});
 		},
-		searching: function( table, filter, skipFirst ) {
-			var wo = table.config.widgetOptions;
+		searching: function( table, filter, skipFirst, column ) {
+			var liveSearch,
+				wo = table.config.widgetOptions;
+			if (typeof column === 'undefined') {
+				// no delay
+				liveSearch = false;
+			} else {
+				liveSearch = typeof wo.filter_liveSearch === 'boolean' ?
+					wo.filter_liveSearch :
+					// get column setting, or set to fallback value, or default to false
+					ts.getColumnData( table, wo.filter_liveSearch, column );
+				if ( typeof liveSearch === 'undefined' ) {
+					liveSearch = wo.filter_liveSearch.fallback || false;
+				}
+			}
 			clearTimeout( wo.filter_searchTimer );
 			if ( typeof filter === 'undefined' || filter === true ) {
 				// delay filtering
 				wo.filter_searchTimer = setTimeout( function() {
 					tsf.checkFilters( table, filter, skipFirst );
-				}, wo.filter_liveSearch ? wo.filter_searchDelay : 10 );
+				}, liveSearch ? wo.filter_searchDelay : 10 );
 			} else {
 				// skip delay
 				tsf.checkFilters( table, filter, skipFirst );
 			}
+		},
+		equalFilters: function (c, filter1, filter2) {
+			var indx,
+				f1 = [],
+				f2 = [],
+				len = c.columns + 1; // add one to include anyMatch filter
+			filter1 = $.isArray(filter1) ? filter1 : [];
+			filter2 = $.isArray(filter2) ? filter2 : [];
+			for (indx = 0; indx < len; indx++) {
+				f1[indx] = filter1[indx] || '';
+				f2[indx] = filter2[indx] || '';
+			}
+			return f1.join(',') === f2.join(',');
 		},
 		checkFilters: function( table, filter, skipFirst ) {
 			var c = table.config,
 				wo = c.widgetOptions,
 				filterArray = $.isArray( filter ),
 				filters = ( filterArray ) ? filter : ts.getFilters( table, true ),
-				combinedFilters = ( filters || [] ).join( '' ); // combined filter values
+				currentFilters = filters || []; // current filter values
 			// prevent errors if delay init is set
 			if ( $.isEmptyObject( c.cache ) ) {
 				// update cache if delayInit set & pager has initialized ( after user initiates a search )
@@ -38957,7 +39209,10 @@ Prism.languages.sql = {
 			// add filter array back into inputs
 			if ( filterArray ) {
 				ts.setFilters( table, filters, false, skipFirst !== true );
-				if ( !wo.filter_initialized ) { c.lastCombinedFilter = ''; }
+				if ( !wo.filter_initialized ) {
+					c.lastSearch = [];
+					c.lastCombinedFilter = '';
+				}
 			}
 			if ( wo.filter_hideFilters ) {
 				// show/hide filter row as needed
@@ -38967,11 +39222,11 @@ Prism.languages.sql = {
 			}
 			// return if the last search is the same; but filter === false when updating the search
 			// see example-widget-filter.html filter toggle buttons
-			if ( c.lastCombinedFilter === combinedFilters && filter !== false ) {
+			if ( tsf.equalFilters(c, c.lastSearch, currentFilters) && filter !== false ) {
 				return;
 			} else if ( filter === false ) {
 				// force filter refresh
-				c.lastCombinedFilter = null;
+				c.lastCombinedFilter = '';
 				c.lastSearch = [];
 			}
 			// define filter inside it is false
@@ -38988,11 +39243,11 @@ Prism.languages.sql = {
 			if ( c.showProcessing ) {
 				// give it time for the processing icon to kick in
 				setTimeout( function() {
-					tsf.findRows( table, filters, combinedFilters );
+					tsf.findRows( table, filters, currentFilters );
 					return false;
 				}, 30 );
 			} else {
-				tsf.findRows( table, filters, combinedFilters );
+				tsf.findRows( table, filters, currentFilters );
 				return false;
 			}
 		},
@@ -39145,6 +39400,7 @@ Prism.languages.sql = {
 				if ( $.inArray( ffxn, vars.excludeMatch ) < 0 && matches === null ) {
 					matches = tsf.types[ffxn]( c, data, vars );
 					if ( matches !== null ) {
+						data.matchedOn = ffxn;
 						filterMatched = matches;
 					}
 				}
@@ -39182,6 +39438,7 @@ Prism.languages.sql = {
 				fxn, ffxn, txt,
 				wo = c.widgetOptions,
 				showRow = true,
+				hasAnyMatchInput = wo.filter_$anyMatch && wo.filter_$anyMatch.length,
 
 				// if wo.filter_$anyMatch data-column attribute is changed dynamically
 				// we don't want to do an "anyMatch" search on one column using data
@@ -39191,11 +39448,12 @@ Prism.languages.sql = {
 					tsf.multipleColumns( c, wo.filter_$anyMatch ) :
 					[];
 			data.$cells = data.$row.children();
-			if ( data.anyMatchFlag && columnIndex.length > 1 || data.anyMatchFilter ) {
+			data.matchedOn = null;
+			if ( data.anyMatchFlag && columnIndex.length > 1 || ( data.anyMatchFilter && !hasAnyMatchInput ) ) {
 				data.anyMatch = true;
 				data.isMatch = true;
 				data.rowArray = data.$cells.map( function( i ) {
-					if ( $.inArray( i, columnIndex ) > -1 || data.anyMatchFilter ) {
+					if ( $.inArray( i, columnIndex ) > -1 || ( data.anyMatchFilter && !hasAnyMatchInput ) ) {
 						if ( data.parsed[ i ] ) {
 							txt = data.cacheArray[ i ];
 						} else {
@@ -39277,13 +39535,7 @@ Prism.languages.sql = {
 					fxn = vars.functions[ columnIndex ];
 					filterMatched = null;
 					if ( fxn ) {
-						if ( fxn === true ) {
-							// default selector uses exact match unless 'filter-match' class is found
-							filterMatched = data.isMatch ?
-								// data.iExact may be a number
-								( '' + data.iExact ).search( data.iFilter ) >= 0 :
-								data.filter === data.exact;
-						} else if ( typeof fxn === 'function' ) {
+						if ( typeof fxn === 'function' ) {
 							// filter callback( exact cell content, parser normalized content,
 							// filter input value, column index, jQuery row object )
 							filterMatched = fxn( data.exact, data.cache, data.filter, columnIndex, data.$row, c, data );
@@ -39298,12 +39550,24 @@ Prism.languages.sql = {
 						// cycle through the different filters
 						// filters return a boolean or null if nothing matches
 						filterMatched = tsf.processTypes( c, data, vars );
-						if ( filterMatched !== null ) {
+						// select with exact match; ignore "and" or "or" within the text; fixes #1486
+						txt = fxn === true && (data.matchedOn === 'and' || data.matchedOn === 'or');
+						if ( filterMatched !== null && !txt) {
 							result = filterMatched;
 						// Look for match, and add child row data for matching
 						} else {
-							txt = ( data.iExact + data.childRowText ).indexOf( tsf.parseFilter( c, data.iFilter, data ) );
-							result = ( ( !wo.filter_startsWith && txt >= 0 ) || ( wo.filter_startsWith && txt === 0 ) );
+							// check fxn (filter-select in header) after filter types are checked
+							// without this, the filter + jQuery UI selectmenu demo was breaking
+							if ( fxn === true ) {
+								// default selector uses exact match unless 'filter-match' class is found
+								result = data.isMatch ?
+									// data.iExact may be a number
+									( '' + data.iExact ).search( data.iFilter ) >= 0 :
+									data.filter === data.exact;
+							} else {
+								txt = ( data.iExact + data.childRowText ).indexOf( tsf.parseFilter( c, data.iFilter, data ) );
+								result = ( ( !wo.filter_startsWith && txt >= 0 ) || ( wo.filter_startsWith && txt === 0 ) );
+							}
 						}
 					} else {
 						result = filterMatched;
@@ -39313,9 +39577,11 @@ Prism.languages.sql = {
 			}
 			return showRow;
 		},
-		findRows: function( table, filters, combinedFilters ) {
-			if ( table.config.lastCombinedFilter === combinedFilters ||
-				!table.config.widgetOptions.filter_initialized ) {
+		findRows: function( table, filters, currentFilters ) {
+			if (
+				tsf.equalFilters(table.config, table.config.lastSearch, currentFilters) ||
+				!table.config.widgetOptions.filter_initialized
+			) {
 				return;
 			}
 			var len, norm_rows, rowData, $rows, $row, rowIndex, tbodyIndex, $tbody, columnIndex,
@@ -39369,8 +39635,7 @@ Prism.languages.sql = {
 			// filtered rows count
 			c.filteredRows = 0;
 			c.totalRows = 0;
-			// combindedFilters are undefined on init
-			combinedFilters = ( storedFilters || [] ).join( '' );
+			currentFilters = ( storedFilters || [] );
 
 			for ( tbodyIndex = 0; tbodyIndex < c.$tbodies.length; tbodyIndex++ ) {
 				$tbody = ts.processTbody( table, c.$tbodies.eq( tbodyIndex ), true );
@@ -39383,7 +39648,7 @@ Prism.languages.sql = {
 					return el[ columnIndex ].$row.get();
 				}) );
 
-				if ( combinedFilters === '' || wo.filter_serversideFiltering ) {
+				if ( currentFilters.join('') === '' || wo.filter_serversideFiltering ) {
 					$rows
 						.removeClass( wo.filter_filteredRow )
 						.not( '.' + c.cssChildRow )
@@ -39409,7 +39674,17 @@ Prism.languages.sql = {
 								res = query[ indx ].split( ':' );
 								if ( res.length > 1 ) {
 									// make the column a one-based index ( non-developers start counting from one :P )
-									id = parseInt( res[0], 10 ) - 1;
+									if ( isNaN( res[0] ) ) {
+										$.each( c.headerContent, function( i, txt ) {
+											// multiple matches are possible
+											if ( txt.toLowerCase().indexOf( res[0] ) > -1 ) {
+												id = i;
+												filters[ id ] = res[1];
+											}
+										});
+									} else {
+										id = parseInt( res[0], 10 ) - 1;
+									}
 									if ( id >= 0 && id < c.columns ) { // if id is an integer
 										filters[ id ] = res[1];
 										query.splice( indx, 1 );
@@ -39485,6 +39760,7 @@ Prism.languages.sql = {
 						}
 
 						data.$row = $rows.eq( rowIndex );
+						data.rowIndex = rowIndex;
 						data.cacheArray = norm_rows[ rowIndex ];
 						rowData = data.cacheArray[ c.columns ];
 						data.rawArray = rowData.raw;
@@ -39547,7 +39823,8 @@ Prism.languages.sql = {
 				c.totalRows += $rows.length;
 				ts.processTbody( table, $tbody, false );
 			}
-			c.lastCombinedFilter = combinedFilters; // save last search
+			// lastCombinedFilter is no longer used internally
+			c.lastCombinedFilter = storedFilters.join(''); // save last search
 			// don't save 'filters' directly since it may have altered ( AnyMatch column searches )
 			c.lastSearch = storedFilters;
 			c.$table.data( 'lastSearch', storedFilters );
@@ -39590,6 +39867,10 @@ Prism.languages.sql = {
 			} else if ( $.type( source ) === 'object' && fxn ) {
 				// custom select source function for a SPECIFIC COLUMN
 				arry = fxn( table, column, onlyAvail );
+				// abort - updating the selects from an external method
+				if (arry === null) {
+					return null;
+				}
 			}
 			if ( arry === false ) {
 				// fall back to original method
@@ -39607,6 +39888,7 @@ Prism.languages.sql = {
 			var cts, txt, indx, len, parsedTxt, str,
 				c = table.config,
 				validColumn = typeof column !== 'undefined' && column !== null && column >= 0 && column < c.columns,
+				direction = validColumn ? c.$headerIndexed[ column ].hasClass( 'filter-select-sort-desc' ) : false,
 				parsed = [];
 			// get unique elements and sort the list
 			// if $.tablesorter.sortText exists ( not in the original tablesorter ),
@@ -39647,8 +39929,8 @@ Prism.languages.sql = {
 				// sort parsed select options
 				cts = c.textSorter || '';
 				parsed.sort( function( a, b ) {
-					var x = a.parsed,
-						y = b.parsed;
+					var x = direction ? b.parsed : a.parsed,
+						y = direction ? a.parsed : b.parsed;
 					if ( validColumn && typeof cts === 'function' ) {
 						// custom OVERALL text sorter
 						return cts( x, y, true, column, table );
@@ -39746,6 +40028,10 @@ Prism.languages.sql = {
 			// filter_selectSource or column data
 			if ( typeof arry === 'undefined' || arry === '' ) {
 				arry = tsf.getOptionSource( table, column, onlyAvail );
+				// abort, selects are updated by an external method
+				if (arry === null) {
+					return;
+				}
 			}
 
 			if ( $.isArray( arry ) ) {
@@ -39840,14 +40126,15 @@ Prism.languages.sql = {
 
 	ts.getFilters = function( table, getRaw, setFilters, skipFirst ) {
 		var i, $filters, $column, cols,
-			filters = false,
+			filters = [],
 			c = table ? $( table )[0].config : '',
 			wo = c ? c.widgetOptions : '';
 		if ( ( getRaw !== true && wo && !wo.filter_columnFilters ) ||
 			// setFilters called, but last search is exactly the same as the current
 			// fixes issue #733 & #903 where calling update causes the input values to reset
-			( $.isArray(setFilters) && setFilters.join('') === c.lastCombinedFilter ) ) {
-			return $( table ).data( 'lastSearch' );
+			( $.isArray(setFilters) && tsf.equalFilters(c, setFilters, c.lastSearch) )
+		) {
+			return $( table ).data( 'lastSearch' ) || [];
 		}
 		if ( c ) {
 			if ( c.$filters ) {
@@ -39906,9 +40193,6 @@ Prism.languages.sql = {
 				}
 			}
 		}
-		if ( filters.length === 0 ) {
-			filters = false;
-		}
 		return filters;
 	};
 
@@ -39926,12 +40210,12 @@ Prism.languages.sql = {
 			tsf.searching( c.table, filter, skipFirst );
 			c.$table.triggerHandler( 'filterFomatterUpdate' );
 		}
-		return !!valid;
+		return valid.length !== 0;
 	};
 
 })( jQuery );
 
-/*! Widget: stickyHeaders - updated 5/1/2016 (v2.26.0) *//*
+/*! Widget: stickyHeaders - updated 9/27/2017 (v2.29.0) *//*
  * Requires tablesorter v2.8+ and jQuery 1.4.3+
  * by Rob Garrison
  */
@@ -39988,16 +40272,24 @@ Prism.languages.sql = {
 		}, options.timer);
 	};
 
+	function getStickyOffset(c, wo) {
+		var $el = isNaN(wo.stickyHeaders_offset) ? $(wo.stickyHeaders_offset) : [];
+		return $el.length ?
+			$el.height() || 0 :
+			parseInt(wo.stickyHeaders_offset, 10) || 0;
+	}
+
 	// Sticky headers based on this awesome article:
 	// http://css-tricks.com/13465-persistent-headers/
 	// and https://github.com/jmosbech/StickyTableHeaders by Jonas Mosbech
 	// **************************
 	ts.addWidget({
 		id: 'stickyHeaders',
-		priority: 60, // sticky widget must be initialized after the filter widget!
+		priority: 54, // sticky widget must be initialized after the filter & before pager widget!
 		options: {
 			stickyHeaders : '',       // extra class name added to the sticky header row
-			stickyHeaders_attachTo : null, // jQuery selector or object to attach sticky header to
+			stickyHeaders_appendTo : null, // jQuery selector or object to phycially attach the sticky headers
+			stickyHeaders_attachTo : null, // jQuery selector or object to attach scroll listener to (overridden by xScroll & yScroll settings)
 			stickyHeaders_xScroll : null, // jQuery selector or object to monitor horizontal scroll position (defaults: xScroll > attachTo > window)
 			stickyHeaders_yScroll : null, // jQuery selector or object to monitor vertical scroll position (defaults: yScroll > attachTo > window)
 			stickyHeaders_offset : 0, // number or jquery selector targeting the position:fixed element
@@ -40023,8 +40315,7 @@ Prism.languages.sql = {
 				$thead = $table.children('thead:first'),
 				$header = $thead.children('tr').not('.sticky-false').children(),
 				$tfoot = $table.children('tfoot'),
-				$stickyOffset = isNaN(wo.stickyHeaders_offset) ? $(wo.stickyHeaders_offset) : '',
-				stickyOffset = $stickyOffset.length ? $stickyOffset.height() || 0 : parseInt(wo.stickyHeaders_offset, 10) || 0,
+				stickyOffset = getStickyOffset(c, wo),
 				// is this table nested? If so, find parent sticky header wrapper (div, not table)
 				$nestedSticky = $table.parent().closest('.' + ts.css.table).hasClass('hasStickyHeaders') ?
 					$table.parent().closest('table.tablesorter')[0].config.widgetOptions.$sticky.parent() : [],
@@ -40046,7 +40337,6 @@ Prism.languages.sql = {
 				$stickyThead = $stickyTable.children('thead:first'),
 				$stickyCells,
 				laststate = '',
-				spacing = 0,
 				setWidth = function($orig, $clone){
 					var index, width, border, $cell, $this,
 						$cells = $orig.filter(':visible'),
@@ -40077,12 +40367,14 @@ Prism.languages.sql = {
 						});
 					}
 				},
+				getLeftPosition = function() {
+					return $attach.length ?
+						parseInt($attach.css('padding-left'), 10) || 0 :
+						$table.offset().left - parseInt($table.css('margin-left'), 10) - $(window).scrollLeft();
+				},
 				resizeHeader = function() {
-					stickyOffset = $stickyOffset.length ? $stickyOffset.height() || 0 : parseInt(wo.stickyHeaders_offset, 10) || 0;
-					spacing = 0;
 					$stickyWrap.css({
-						left : $attach.length ? parseInt($attach.css('padding-left'), 10) || 0 :
-								$table.offset().left - parseInt($table.css('margin-left'), 10) - $xScroll.scrollLeft() - spacing,
+						left : getLeftPosition(),
 						width: $table.outerWidth()
 					});
 					setWidth( $table, $stickyTable );
@@ -40092,9 +40384,10 @@ Prism.languages.sql = {
 					if (!$table.is(':visible')) { return; } // fixes #278
 					// Detect nested tables - fixes #724
 					nestedStickyTop = $nestedSticky.length ? $nestedSticky.offset().top - $yScroll.scrollTop() + $nestedSticky.height() : 0;
-					var offset = $table.offset(),
+					var tmp,
+						offset = $table.offset(),
+						stickyOffset = getStickyOffset(c, wo),
 						yWindow = $.isWindow( $yScroll[0] ), // $.isWindow needs jQuery 1.4.3
-						xWindow = $.isWindow( $xScroll[0] ),
 						attachTop = $attach.length ?
 							( yWindow ? $yScroll.scrollTop() : $yScroll.offset().top ) :
 							$yScroll.scrollTop(),
@@ -40102,21 +40395,27 @@ Prism.languages.sql = {
 						scrollTop = attachTop + stickyOffset + nestedStickyTop - captionHeight,
 						tableHeight = $table.height() - ($stickyWrap.height() + ($tfoot.height() || 0)) - captionHeight,
 						isVisible = ( scrollTop > offset.top ) && ( scrollTop < offset.top + tableHeight ) ? 'visible' : 'hidden',
+						state = isVisible === 'visible' ? ts.css.stickyVis : ts.css.stickyHide,
+						needsUpdating = !$stickyWrap.hasClass( state ),
 						cssSettings = { visibility : isVisible };
 					if ($attach.length) {
+						// attached sticky headers always need updating
+						needsUpdating = true;
 						cssSettings.top = yWindow ? scrollTop - $attach.offset().top : $attach.scrollTop();
 					}
-					if (xWindow) {
-						// adjust when scrolling horizontally - fixes issue #143
-						cssSettings.left = $table.offset().left - parseInt($table.css('margin-left'), 10) - $xScroll.scrollLeft() - spacing;
+					// adjust when scrolling horizontally - fixes issue #143
+					tmp = getLeftPosition();
+					if (tmp !== parseInt($stickyWrap.css('left'), 10)) {
+						needsUpdating = true;
+						cssSettings.left = tmp;
 					}
-					if ($nestedSticky.length) {
-						cssSettings.top = ( cssSettings.top || 0 ) + stickyOffset + nestedStickyTop;
+					cssSettings.top = ( cssSettings.top || 0 ) + stickyOffset + nestedStickyTop;
+					if (needsUpdating) {
+						$stickyWrap
+							.removeClass( ts.css.stickyVis + ' ' + ts.css.stickyHide )
+							.addClass( state )
+							.css(cssSettings);
 					}
-					$stickyWrap
-						.removeClass( ts.css.stickyVis + ' ' + ts.css.stickyHide )
-						.addClass( isVisible === 'visible' ? ts.css.stickyVis : ts.css.stickyHide )
-						.css(cssSettings);
 					if (isVisible !== laststate || resizing) {
 						// make sure the column widths match
 						resizeHeader();
@@ -40148,8 +40447,12 @@ Prism.languages.sql = {
 
 			ts.bindEvents(table, $stickyThead.children().children('.' + ts.css.header));
 
-			// add stickyheaders AFTER the table. If the table is selected by ID, the original one (first) will be returned.
-			$table.after( $stickyWrap );
+			if (wo.stickyHeaders_appendTo) {
+				$(wo.stickyHeaders_appendTo).append( $stickyWrap );
+			} else {
+				// add stickyheaders AFTER the table. If the table is selected by ID, the original one (first) will be returned.
+				$table.after( $stickyWrap );
+			}
 
 			// onRenderHeader is defined, we need to do something about it (fixes #641)
 			if (c.onRenderHeader) {
@@ -40208,6 +40511,8 @@ Prism.languages.sql = {
 				});
 			}
 
+			// make sure sticky is visible if page is partially scrolled
+			scrollSticky( true );
 			$table.triggerHandler('stickyHeadersInit');
 
 		},
@@ -40229,7 +40534,7 @@ Prism.languages.sql = {
 
 })(jQuery, window);
 
-/*! Widget: resizable - updated 6/28/2016 (v2.26.5) */
+/*! Widget: resizable - updated 12/13/2017 (v2.29.1) */
 /*jshint browser:true, jquery:true, unused:false */
 ;(function ($, window) {
 	'use strict';
@@ -40252,7 +40557,7 @@ Prism.languages.sql = {
 			'.' + ts.css.resizableHandle + ' { position: absolute; display: inline-block; width: 8px;' +
 				'top: 1px; cursor: ew-resize; z-index: 3; user-select: none; -moz-user-select: none; }' +
 			'</style>';
-		$(s).appendTo('body');
+		$('head').append(s);
 	});
 
 	ts.resizable = {
@@ -40394,6 +40699,10 @@ Prism.languages.sql = {
 					tableHeight += $this.filter('[style*="height"]').length ? $this.height() : $this.children('table').height();
 				});
 			}
+
+			if ( !wo.resizable_includeFooter && c.$table.children('tfoot').length ) {
+				tableHeight -= c.$table.children('tfoot').height();
+			}
 			// subtract out table left position from resizable handles. Fixes #864
 			startPosition = c.$table.position().left;
 			$handles.each( function() {
@@ -40402,7 +40711,10 @@ Prism.languages.sql = {
 					columns = c.columns - 1,
 					$header = $this.data( 'header' );
 				if ( !$header ) { return; } // see #859
-				if ( !$header.is(':visible') ) {
+				if (
+					!$header.is(':visible') ||
+					( !wo.resizable_addLastColumn && ts.resizable.checkVisibleColumns(c, column) )
+				) {
 					$this.hide();
 				} else if ( column < columns || column === columns && wo.resizable_addLastColumn ) {
 					$this.css({
@@ -40412,6 +40724,16 @@ Prism.languages.sql = {
 					});
 				}
 			});
+		},
+
+		// Fixes #1485
+		checkVisibleColumns: function( c, column ) {
+			var i,
+				len = 0;
+			for ( i = column + 1; i < c.columns; i++ ) {
+				len += c.$headerIndexed[i].is( ':visible' ) ? 1 : 0;
+			}
+			return len === 0;
 		},
 
 		// prevent text selection while dragging resize bar
@@ -40485,8 +40807,11 @@ Prism.languages.sql = {
 
 			// right click to reset columns to default widths
 			c.$table
-				.bind( 'columnUpdate' + namespace + ' pagerComplete' + namespace, function() {
+				.bind( 'columnUpdate pagerComplete resizableUpdate '.split( ' ' ).join( namespace + ' ' ), function() {
 					ts.resizable.setHandlePosition( c, wo );
+				})
+				.bind( 'resizableReset' + namespace, function() {
+					ts.resizableReset( c.table );
 				})
 				.find( 'thead:first' )
 				.add( $( c.namespace + '_extra_table' ).find( 'thead:first' ) )
@@ -40549,6 +40874,7 @@ Prism.languages.sql = {
 			vars.$target = vars.$next = null;
 			// will update stickyHeaders, just in case, see #912
 			c.$table.triggerHandler('stickyHeadersUpdate');
+			c.$table.triggerHandler('resizableComplete');
 		}
 	};
 
@@ -40561,10 +40887,10 @@ Prism.languages.sql = {
 		options: {
 			resizable : true, // save column widths to storage
 			resizable_addLastColumn : false,
+			resizable_includeFooter: true,
 			resizable_widths : [],
 			resizable_throttle : false, // set to true (5ms) or any number 0-10 range
-			resizable_targetLast : false,
-			resizable_fullWidth : null
+			resizable_targetLast : false
 		},
 		init: function(table, thisWidget, c, wo) {
 			ts.resizable.init( c, wo );
@@ -40695,14 +41021,14 @@ Prism.languages.sql = {
 
 })(jQuery);
 
-return $.tablesorter;
+return jQuery.tablesorter;
 }));
 
 /*!
 * tablesorter (FORK) pager plugin
-* updated 7/11/2016 (v2.26.6)
+* updated 4/18/2017 (v2.28.8)
 */
-!function(a){"use strict";var b=a.tablesorter;a.extend({tablesorterPager:new function(){this.defaults={container:null,ajaxUrl:null,customAjaxUrl:function(a,b){return b},ajaxError:null,ajaxObject:{dataType:"json"},processAjaxOnInit:!0,ajaxProcessing:function(a){return[0,[],null]},output:"{startRow} to {endRow} of {totalRows} rows",updateArrows:!0,page:0,pageReset:0,size:10,maxOptionSize:20,savePages:!0,storageKey:"tablesorter-pager",fixedHeight:!1,countChildRows:!1,removeRows:!1,cssFirst:".first",cssPrev:".prev",cssNext:".next",cssLast:".last",cssGoto:".gotoPage",cssPageDisplay:".pagedisplay",cssPageSize:".pagesize",cssErrorRow:"tablesorter-errorRow",cssDisabled:"disabled",totalRows:0,totalPages:0,filteredRows:0,filteredPages:0,ajaxCounter:0,currentFilters:[],startRow:0,endRow:0,$size:null,last:{}};var c="filterInit filterStart filterEnd sortEnd disablePager enablePager destroyPager updateComplete pageSize pageSet pageAndSize pagerUpdate refreshComplete ",d=this,e=function(a,b,c){var d="addClass",e="removeClass",f=b.cssDisabled,g=!!c,h=g||0===b.page,i=t(a,b),j=g||b.page===i-1||0===i;b.updateArrows&&(b.$container.find(b.cssFirst+","+b.cssPrev)[h?d:e](f).attr("aria-disabled",h),b.$container.find(b.cssNext+","+b.cssLast)[j?d:e](f).attr("aria-disabled",j))},f=function(a,c){var d,e,f,g=a.config,h=g.$table.hasClass("hasFilters");if(h&&!c.ajaxUrl)if(b.isEmptyObject(g.cache))c.filteredRows=c.totalRows=g.$tbodies.eq(0).children("tr").not(c.countChildRows?"":"."+g.cssChildRow).length;else for(c.filteredRows=0,d=g.cache[0].normalized,f=d.length,e=0;f>e;e++)c.filteredRows+=c.regexRows.test(d[e][g.columns].$row[0].className)?0:1;else h||(c.filteredRows=c.totalRows)},g=function(c,d,g){if(!d.initializing){var j,k,l,m,n,o,p=c.config,q=p.namespace+"pager",r=u(d,d.size,"get");if("all"===r&&(r=d.totalRows),d.countChildRows&&(k[k.length]=p.cssChildRow),d.totalPages=Math.ceil(d.totalRows/r),p.totalRows=d.totalRows,v(c,d),f(c,d),p.filteredRows=d.filteredRows,d.filteredPages=Math.ceil(d.filteredRows/r)||0,t(c,d)>=0){if(k=r*d.page>d.filteredRows&&g,d.page=k?d.pageReset||0:d.page,d.startRow=k?r*d.page+1:0===d.filteredRows?0:r*d.page+1,d.endRow=Math.min(d.filteredRows,d.totalRows,r*(d.page+1)),l=d.$container.find(d.cssPageDisplay),j=(d.ajaxData&&d.ajaxData.output?d.ajaxData.output||d.output:d.output).replace(/\{page([\-+]\d+)?\}/gi,function(a,b){return d.totalPages?d.page+(b?parseInt(b,10):1):0}).replace(/\{\w+(\s*:\s*\w+)?\}/gi,function(a){var b,c,e=a.replace(/[{}\s]/g,""),f=e.split(":"),g=d.ajaxData,h=/(rows?|pages?)$/i.test(e)?0:"";return/(startRow|page)/.test(f[0])&&"input"===f[1]?(b=(""+("page"===f[0]?d.totalPages:d.totalRows)).length,c="page"===f[0]?d.page+1:d.startRow,'<input type="text" class="ts-'+f[0]+'" style="max-width:'+b+'em" value="'+c+'"/>'):f.length>1&&g&&g[f[0]]?g[f[0]][f[1]]:d[e]||(g?g[e]:h)||h}),d.$goto.length){for(k="",o=h(c,d),n=o.length,m=0;n>m;m++)k+='<option value="'+o[m]+'">'+o[m]+"</option>";d.$goto.html(k).val(d.page+1)}l.length&&(l["INPUT"===l[0].nodeName?"val":"html"](j),l.find(".ts-startRow, .ts-page").unbind("change"+q).bind("change"+q,function(){var b=a(this).val(),c=a(this).hasClass("ts-startRow")?Math.floor(b/r)+1:b;p.$table.triggerHandler("pageSet"+q,[c])}))}e(c,d),i(c,d),d.initialized&&g!==!1&&(p.debug&&console.log("Pager: Triggering pagerComplete"),p.$table.triggerHandler("pagerComplete",d),d.savePages&&b.storage&&b.storage(c,d.storageKey,{page:d.page,size:r===d.totalRows?"all":r}))}},h=function(b,c){var d,e,f,g,h,i,j=t(b,c)||1,k=5*Math.ceil(j/c.maxOptionSize/5),l=j>c.maxOptionSize,m=c.page+1,n=k,o=j-k,p=[1],q=l?k:1;for(d=q;j>=d;)p[p.length]=d,d+=l?k:1;if(p[p.length]=j,l){for(f=[],e=Math.max(Math.floor(c.maxOptionSize/k)-1,5),n=m-e,1>n&&(n=1),o=m+e,o>j&&(o=j),d=n;o>=d;d++)f[f.length]=d;p=a.grep(p,function(b,c){return a.inArray(b,p)===c}),h=p.length,i=f.length,h-i>k/2&&h+i>c.maxOptionSize&&(g=Math.floor(h/2)-Math.floor(i/2),Array.prototype.splice.apply(p,[g,i])),p=p.concat(f)}return p=a.grep(p,function(b,c){return a.inArray(b,p)===c}).sort(function(a,b){return a-b})},i=function(b,c){var d,e,f=b.config,g=f.$tbodies.eq(0);g.find("tr.pagerSavedHeightSpacer").remove(),c.fixedHeight&&!c.isDisabled&&(e=a.data(b,"pagerSavedHeight"),e&&(d=e-g.height(),d>5&&a.data(b,"pagerLastSize")===c.size&&g.children("tr:visible").length<("all"===c.size?c.totalRows:c.size)&&g.append('<tr class="pagerSavedHeightSpacer '+f.selectorRemove.slice(1)+'" style="height:'+d+'px;"></tr>')))},j=function(b,c){var d,e=b.config,f=e.$tbodies.eq(0);f.find("tr.pagerSavedHeightSpacer").remove(),f.children("tr:visible").length||f.append('<tr class="pagerSavedHeightSpacer '+e.selectorRemove.slice(1)+'"><td>&nbsp</td></tr>'),d=f.children("tr").eq(0).height()*("all"===c.size?c.totalRows:c.size),a.data(b,"pagerSavedHeight",d),i(b,c),a.data(b,"pagerLastSize",c.size)},k=function(a,c){if(!c.ajaxUrl){var d,e=0,f=a.config,g=f.$tbodies.eq(0).children("tr"),h=g.length,i="all"===c.size?c.totalRows:c.size,j=c.page*i,k=j+i,l=0,m=0;for(c.cacheIndex=[],d=0;h>d;d++)c.regexFiltered.test(g[d].className)||(m===j&&g[d].className.match(f.cssChildRow)?g[d].style.display="none":(g[d].style.display=m>=j&&k>m?"":"none",l!==m&&m>=j&&k>m&&(c.cacheIndex[c.cacheIndex.length]=d,l=m),m+=g[d].className.match(f.cssChildRow+"|"+f.selectorRemove.slice(1))&&!c.countChildRows?0:1,m===k&&"none"!==g[d].style.display&&g[d].className.match(b.css.cssHasChild)&&(e=d)));if(e>0&&g[e].className.match(b.css.cssHasChild))for(;++e<h&&g[e].className.match(f.cssChildRow);)g[e].style.display=""}},l=function(b,c){c.size=u(c,c.$size.val(),"get"),c.$size.val(c.size),a.data(b,"pagerLastSize",c.size),e(b,c),c.removeRows||(k(b,c),a(b).bind("sortEnd filterEnd ".split(" ").join(b.config.namespace+"pager "),function(){k(b,c)}))},m=function(c,d,e,f,h,i){if("function"==typeof e.ajaxProcessing){d.config.$tbodies.eq(0).empty();var j,k,l,m,n,o,p,q,r,s,t,v,w,x,y,z=d.config,A=z.$table,C="",D=e.ajaxProcessing(c,d,f)||[0,[]],E=A.find("thead th").length;if(b.showError(d),i)z.debug&&console.error("Pager: >> Ajax Error",f,h,i),b.showError(d,f,h,i),z.$tbodies.eq(0).children("tr").detach(),e.totalRows=0;else{if(a.isArray(D)?(l=isNaN(D[0])&&!isNaN(D[1]),w=D[l?1:0],e.totalRows=isNaN(w)?e.totalRows||0:w,z.totalRows=z.filteredRows=e.filteredRows=e.totalRows,t=0===e.totalRows?[]:D[l?0:1]||[],s=D[2]):(e.ajaxData=D,z.totalRows=e.totalRows=D.total,z.filteredRows=e.filteredRows="undefined"!=typeof D.filteredRows?D.filteredRows:D.total,s=D.headers,t=D.rows||[]),v=t&&t.length,t instanceof jQuery)e.processAjaxOnInit&&(z.$tbodies.eq(0).empty(),z.$tbodies.eq(0).append(t));else if(v){for(j=0;v>j;j++){for(C+="<tr>",k=0;k<t[j].length;k++)C+=/^\s*<td/.test(t[j][k])?a.trim(t[j][k]):"<td>"+t[j][k]+"</td>";C+="</tr>"}e.processAjaxOnInit&&z.$tbodies.eq(0).html(C)}if(e.processAjaxOnInit=!0,s&&s.length===E)for(m=A.hasClass("hasStickyHeaders"),o=m?z.widgetOptions.$sticky.children("thead:first").children("tr").children():"",n=A.find("tfoot tr:first").children(),p=z.$headers.filter("th "),x=p.length,k=0;x>k;k++)q=p.eq(k),q.find("."+b.css.icon).length?(r=q.find("."+b.css.icon).clone(!0),q.find(".tablesorter-header-inner").html(s[k]).append(r),m&&o.length&&(r=o.eq(k).find("."+b.css.icon).clone(!0),o.eq(k).find(".tablesorter-header-inner").html(s[k]).append(r))):(q.find(".tablesorter-header-inner").html(s[k]),m&&o.length&&o.eq(k).find(".tablesorter-header-inner").html(s[k])),n.eq(k).html(s[k])}z.showProcessing&&b.isProcessing(d),y=u(e,e.size,"get"),e.totalPages="all"===y?1:Math.ceil(e.totalRows/y),e.last.totalRows=e.totalRows,e.last.currentFilters=e.currentFilters,e.last.sortList=(z.sortList||[]).join(","),g(d,e,!1),b.updateCache(z,function(){e.initialized&&setTimeout(function(){z.debug&&console.log("Pager: Triggering pagerChange"),A.triggerHandler("pagerChange",e),b.applyWidget(d),g(d,e,!0)},0)})}e.initialized||B(d,e)},n=function(c,d){var e,f=o(c,d),g=a(document),h=c.config,i=h.namespace+"pager";""!==f&&(h.showProcessing&&b.isProcessing(c,!0),g.bind("ajaxError"+i,function(a,b,e,f){m(null,c,d,b,e,f),g.unbind("ajaxError"+i)}),e=++d.ajaxCounter,d.last.ajaxUrl=f,d.ajaxObject.url=f,d.ajaxObject.success=function(a,b,f){e<d.ajaxCounter||(m(a,c,d,f),g.unbind("ajaxError"+i),"function"==typeof d.oldAjaxSuccess&&d.oldAjaxSuccess(a))},h.debug&&console.log("Pager: Ajax initialized",d.ajaxObject),a.ajax(d.ajaxObject))},o=function(b,c){var d,e,f=b.config,g=c.ajaxUrl?c.ajaxUrl.replace(/\{page([\-+]\d+)?\}/,function(a,b){return c.page+(b?parseInt(b,10):0)}).replace(/\{size\}/g,c.size):"",h=f.sortList,i=c.currentFilters||a(b).data("lastSearch")||[],j=g.match(/\{\s*sort(?:List)?\s*:\s*(\w*)\s*\}/),k=g.match(/\{\s*filter(?:List)?\s*:\s*(\w*)\s*\}/),l=[];if(j){for(j=j[1],e=h.length,d=0;e>d;d++)l[l.length]=j+"["+h[d][0]+"]="+h[d][1];g=g.replace(/\{\s*sort(?:List)?\s*:\s*(\w*)\s*\}/g,l.length?l.join("&"):j),l=[]}if(k){for(k=k[1],e=i.length,d=0;e>d;d++)i[d]&&(l[l.length]=k+"["+d+"]="+encodeURIComponent(i[d]));g=g.replace(/\{\s*filter(?:List)?\s*:\s*(\w*)\s*\}/g,l.length?l.join("&"):k),c.currentFilters=i}return"function"==typeof c.customAjaxUrl&&(g=c.customAjaxUrl(b,g)),f.debug&&console.log("Pager: Ajax url = "+g),g},p=function(c,d,e){var f,h,i,j,l=a(c),m=c.config,n=m.$table.hasClass("hasFilters"),o=d&&d.length||0,p="all"===e.size?e.totalRows:e.size,q=e.page*p;if(1>o)return void(m.debug&&console.warn("Pager: >> No rows for pager to render"));if(e.page>=e.totalPages&&y(c,e),e.cacheIndex=[],e.isDisabled=!1,e.initialized&&(m.debug&&console.log("Pager: Triggering pagerChange"),l.triggerHandler("pagerChange",e)),e.removeRows){for(b.clearTableBody(c),f=b.processTbody(c,m.$tbodies.eq(0),!0),h=n?0:q,i=n?0:q,j=0;p>j&&h<d.length;)n&&e.regexFiltered.test(d[h][0].className)||(i++,i>q&&p>=j&&(j++,e.cacheIndex[e.cacheIndex.length]=h,f.append(d[h]))),h++;b.processTbody(c,f,!1)}else k(c,e);g(c,e),c.isUpdating&&(m.debug&&console.log("Pager: Triggering updateComplete"),l.triggerHandler("updateComplete",[c,!0]))},q=function(c,d){var f,g,h;for(d.ajax?e(c,d,!0):(a.data(c,"pagerLastPage",d.page),a.data(c,"pagerLastSize",d.size),d.page=0,d.size="all",d.totalPages=1,a(c).addClass("pagerDisabled").removeAttr("aria-describedby").find("tr.pagerSavedHeightSpacer").remove(),p(c,c.config.rowsCopy,d),d.isDisabled=!0,b.applyWidget(c),c.config.debug&&console.log("Pager: Disabled")),g=d.$size.add(d.$goto).add(d.$container.find(".ts-startRow, .ts-page")),h=g.length,f=0;h>f;f++)g.eq(f).attr("aria-disabled","true").addClass(d.cssDisabled)[0].disabled=!0},r=function(a){var c=a.config,d=c.pager;b.updateCache(c,function(){var b,e=[],f=a.config.cache[0].normalized;for(d.totalRows=f.length,b=0;b<d.totalRows;b++)e[e.length]=f[b][c.columns].$row;c.rowsCopy=e,s(a,d,!0)})},s=function(c,d,e){if(!d.isDisabled){var g,h=c.config,i=a(c),j=d.last;return e!==!1&&d.initialized&&b.isEmptyObject(h.cache)?r(c):void(d.ajax&&b.hasWidget(c,"filter")&&!h.widgetOptions.filter_initialized||(v(c,d),f(c,d),j.currentFilters=""===(j.currentFilters||[]).join("")?[]:j.currentFilters,d.currentFilters=""===(d.currentFilters||[]).join("")?[]:d.currentFilters,j.page===d.page&&j.size===d.size&&j.totalRows===d.totalRows&&(j.currentFilters||[]).join(",")===(d.currentFilters||[]).join(",")&&(j.ajaxUrl||"")===(d.ajaxObject.url||"")&&(j.optAjaxUrl||"")===(d.ajaxUrl||"")&&j.sortList===(h.sortList||[]).join(",")||(h.debug&&console.log("Pager: Changing to page "+d.page),d.last={page:d.page,size:d.size,sortList:(h.sortList||[]).join(","),totalRows:d.totalRows,currentFilters:d.currentFilters||[],ajaxUrl:d.ajaxObject.url||"",optAjaxUrl:d.ajaxUrl||""},d.ajax?d.processAjaxOnInit||b.isEmptyObject(d.initialRows)?n(c,d):(d.processAjaxOnInit=!0,g=d.initialRows,d.totalRows="undefined"!=typeof g.total?g.total:h.debug?console.error("Pager: no initial total page set!")||0:0,d.filteredRows="undefined"!=typeof g.filtered?g.filtered:h.debug?console.error("Pager: no initial filtered page set!")||0:0,B(c,d)):d.ajax||p(c,h.rowsCopy,d),a.data(c,"pagerLastPage",d.page),d.initialized&&e!==!1&&(h.debug&&console.log("Pager: Triggering pageMoved"),i.triggerHandler("pageMoved",d),b.applyWidget(c),c.isUpdating&&(h.debug&&console.log("Pager: Triggering updateComplete"),i.triggerHandler("updateComplete",[c,!0]))))))}},t=function(a,c){return b.hasWidget(a,"filter")?Math.min(c.totalPages,c.filteredPages):c.totalPages},u=function(a,b,c){var d=parseInt(b,10)||a.size||a.settings.size||10;return a.initialized&&(/all/i.test(b)||d===a.totalRows)?"all":"get"===c?d:a.size},v=function(a,b){var c=t(a,b)-1;return b.page=parseInt(b.page,10),(b.page<0||isNaN(b.page))&&(b.page=0),b.page>c&&c>=0&&(b.page=c),b.page},w=function(b,c,d){d.size=u(d,c,"get"),d.$size.val(u(d,d.size,"set")),a.data(b,"pagerLastPage",v(b,d)),a.data(b,"pagerLastSize",d.size),d.totalPages="all"===d.size?1:Math.ceil(d.totalRows/d.size),d.filteredPages="all"===d.size?1:Math.ceil(d.filteredRows/d.size),s(b,d)},x=function(a,b){b.page=0,s(a,b)},y=function(a,b){b.page=t(a,b)-1,s(a,b)},z=function(a,b){b.page++;var c=t(a,b)-1;b.page>=c&&(b.page=c),s(a,b)},A=function(a,b){b.page--,b.page<=0&&(b.page=0),s(a,b)},B=function(c,d){d.initialized=!0,d.initializing=!1,c.config.debug&&console.log("Pager: Triggering pagerInitialized"),a(c).triggerHandler("pagerInitialized",d),b.applyWidget(c),g(c,d)},C=function(a,c){var d=a.config,e=d.namespace+"pager",f=[c.cssFirst,c.cssPrev,c.cssNext,c.cssLast,c.cssGoto,c.cssPageSize].join(",");q(a,c),c.$container.hide().find(f).unbind(e),d.appender=null,d.$table.unbind(e),b.storage&&b.storage(a,c.storageKey,""),delete d.pager,delete d.rowsCopy},D=function(c,d,e){var f,g,h=c.config;d.$size.add(d.$goto).add(d.$container.find(".ts-startRow, .ts-page")).removeClass(d.cssDisabled).removeAttr("disabled").attr("aria-disabled","false"),d.isDisabled=!1,d.page=a.data(c,"pagerLastPage")||d.page||0,g=d.$size.find("option[selected]").val(),d.size=a.data(c,"pagerLastSize")||u(d,g,"get"),d.$size.val(d.size),d.totalPages="all"===d.size?1:Math.ceil(t(c,d)/d.size),c.id&&(f=c.id+"_pager_info",d.$container.find(d.cssPageDisplay).attr("id",f),h.$table.attr("aria-describedby",f)),j(c,d),e&&(b.update(h),w(c,d.size,d),l(c,d),h.debug&&console.log("Pager: Enabled"))};d.appender=function(b,c){var d=b.config,e=d.pager;e.ajax||(d.rowsCopy=c,e.totalRows=e.countChildRows?d.$tbodies.eq(0).children("tr").length:c.length,e.size=a.data(b,"pagerLastSize")||e.size||e.settings.size||10,e.totalPages="all"===e.size?1:Math.ceil(e.totalRows/e.size),p(b,c,e),g(b,e,!1))},d.construct=function(e){return this.each(function(){if(this.config&&this.hasInitialized){var f,h,i,m=this,n=m.config,o=n.widgetOptions,p=n.pager=a.extend(!0,{},a.tablesorterPager.defaults,e),t=n.$table,v=n.namespace+"pager",B=p.$container=a(p.container).addClass("tablesorter-pager").show();p.settings=a.extend(!0,{},a.tablesorterPager.defaults,e),n.debug&&console.log("Pager: Initializing"),p.oldAjaxSuccess=p.oldAjaxSuccess||p.ajaxObject.success,n.appender=d.appender,p.initializing=!0,p.savePages&&b.storage&&(f=b.storage(m,p.storageKey)||{},p.page=isNaN(f.page)?p.page:f.page,p.size="all"===f.size?f.size:(isNaN(f.size)?p.size:f.size)||p.setSize||10,a.data(m,"pagerLastSize",p.size),B.find(p.cssPageSize).val(p.size)),p.regexRows=new RegExp("("+(o.filter_filteredRow||"filtered")+"|"+n.selectorRemove.slice(1)+"|"+n.cssChildRow+")"),p.regexFiltered=new RegExp(o.filter_filteredRow||"filtered"),t.unbind(c.split(" ").join(v+" ").replace(/\s+/g," ")).bind("filterInit filterStart ".split(" ").join(v+" "),function(b,c){p.currentFilters=a.isArray(c)?c:n.$table.data("lastSearch"),"filterStart"===b.type&&p.pageReset!==!1&&(n.lastCombinedFilter||"")!==(p.currentFilters||[]).join("")&&(p.page=p.pageReset)}).bind("filterEnd sortEnd ".split(" ").join(v+" "),function(){p.currentFilters=n.$table.data("lastSearch"),(p.initialized||p.initializing)&&(n.delayInit&&n.rowsCopy&&0===n.rowsCopy.length&&r(m),g(m,p,!1),s(m,p,!1),b.applyWidget(m))}).bind("disablePager"+v,function(a){a.stopPropagation(),q(m,p)}).bind("enablePager"+v,function(a){a.stopPropagation(),D(m,p,!0)}).bind("destroyPager"+v,function(a){a.stopPropagation(),C(m,p)}).bind("updateComplete"+v,function(a,b,c){if(a.stopPropagation(),b&&!c&&!p.ajax){var d=n.$tbodies.eq(0).children("tr").not(n.selectorRemove);p.totalRows=d.length-(p.countChildRows?0:d.filter("."+n.cssChildRow).length),p.totalPages="all"===p.size?1:Math.ceil(p.totalRows/p.size),d.length&&n.rowsCopy&&0===n.rowsCopy.length&&r(b),p.page>=p.totalPages&&y(b,p),k(b,p),j(b,p),g(b,p,!0)}}).bind("pageSize refreshComplete ".split(" ").join(v+" "),function(a,b){a.stopPropagation(),w(m,u(p,b,"get"),p),k(m,p),g(m,p,!1)}).bind("pageSet pagerUpdate ".split(" ").join(v+" "),function(a,b){a.stopPropagation(),"pagerUpdate"===a.type&&(b="undefined"==typeof b?p.page+1:b,p.last.page=!0),p.page=(parseInt(b,10)||1)-1,s(m,p,!0),g(m,p,!1)}).bind("pageAndSize"+v,function(a,b,c){a.stopPropagation(),p.page=(parseInt(b,10)||1)-1,w(m,u(p,c,"get"),p),s(m,p,!0),k(m,p),g(m,p,!1)}),h=[p.cssFirst,p.cssPrev,p.cssNext,p.cssLast],i=[x,A,z,y],n.debug&&!B.length&&console.warn("Pager: >> Container not found"),B.find(h.join(",")).attr("tabindex",0).unbind("click"+v).bind("click"+v,function(b){b.stopPropagation();var c,d=a(this),e=h.length;if(!d.hasClass(p.cssDisabled))for(c=0;e>c;c++)if(d.is(h[c])){i[c](m,p);break}}),p.$goto=B.find(p.cssGoto),p.$goto.length?p.$goto.unbind("change"+v).bind("change"+v,function(){p.page=a(this).val()-1,s(m,p,!0),g(m,p,!1)}):n.debug&&console.warn("Pager: >> Goto selector not found"),p.$size=B.find(p.cssPageSize),p.$size.length?(p.$size.find("option").removeAttr("selected"),p.$size.unbind("change"+v).bind("change"+v,function(){if(!a(this).hasClass(p.cssDisabled)){var b=a(this).val();p.$size.val(b),w(m,b,p),j(m,p)}return!1})):n.debug&&console.warn("Pager: >> Size selector not found"),p.initialized=!1,t.triggerHandler("pagerBeforeInitialized",p),D(m,p,!1),"string"==typeof p.ajaxUrl?(p.ajax=!0,n.widgetOptions.filter_serversideFiltering=!0,n.serverSideSorting=!0,s(m,p)):(p.ajax=!1,b.appendCache(n,!0),l(m,p)),p.ajax||p.initialized||(p.initializing=!1,p.initialized=!0,s(m,p),n.debug&&console.log("Pager: Triggering pagerInitialized"),n.$table.triggerHandler("pagerInitialized",p),n.widgetOptions.filter_initialized&&b.hasWidget(m,"filter")||g(m,p,!1)),n.widgetInit.pager=!0}})}}}),b.showError=function(b,c,d,e){var f,g=a(b),h=g[0].config,i=h&&h.widgetOptions,j=h.pager&&h.pager.cssErrorRow||i&&i.pager_css&&i.pager_css.errorRow||"tablesorter-errorRow",k=typeof c,l=!0,m="",n=function(){h.$table.find("thead").find("."+j).remove()};if(!g.length)return void console.error("tablesorter showError: no table parameter passed");if("function"==typeof h.pager.ajaxError){if(l=h.pager.ajaxError(h,c,d,e),l===!1)return n();m=l}else if("function"==typeof i.pager_ajaxError){if(l=i.pager_ajaxError(h,c,d,e),l===!1)return n();m=l}if(""===m)if("object"===k)m=0===c.status?"Not connected, verify Network":404===c.status?"Requested page not found [404]":500===c.status?"Internal Server Error [500]":"parsererror"===e?"Requested JSON parse failed":"timeout"===e?"Time out error":"abort"===e?"Ajax Request aborted":"Uncaught error: "+c.statusText+" ["+c.status+"]";else{if("string"!==k)return n();m=c}f=a(/tr\>/.test(m)?m:'<tr><td colspan="'+h.columns+'">'+m+"</td></tr>").click(function(){a(this).remove()}).appendTo(h.$table.find("thead:first")).addClass(j+" "+h.selectorRemove.slice(1)).attr({role:"alert","aria-live":"assertive"})},a.fn.extend({tablesorterPager:a.tablesorterPager.construct})}(jQuery);
+!function(e){"use strict";var t=e.tablesorter;e.extend({tablesorterPager:new function(){this.defaults={container:null,ajaxUrl:null,customAjaxUrl:function(e,t){return t},ajaxError:null,ajaxObject:{dataType:"json"},processAjaxOnInit:!0,ajaxProcessing:function(e){return[0,[],null]},output:"{startRow} to {endRow} of {totalRows} rows",updateArrows:!0,page:0,pageReset:0,size:10,maxOptionSize:20,savePages:!0,storageKey:"tablesorter-pager",fixedHeight:!1,countChildRows:!1,removeRows:!1,cssFirst:".first",cssPrev:".prev",cssNext:".next",cssLast:".last",cssGoto:".gotoPage",cssPageDisplay:".pagedisplay",cssPageSize:".pagesize",cssErrorRow:"tablesorter-errorRow",cssDisabled:"disabled",totalRows:0,totalPages:0,filteredRows:0,filteredPages:0,ajaxCounter:0,currentFilters:[],startRow:0,endRow:0,$size:null,last:{}};var a="filterInit filterStart filterEnd sortEnd disablePager enablePager destroyPager updateComplete pageSize pageSet pageAndSize pagerUpdate refreshComplete ",i=this,s=function(e,t,a){var i,s="addClass",r="removeClass",o=t.cssDisabled,n=!!a,l=n||0===t.page,g=z(e,t),c=n||t.page===g-1||0===g;t.updateArrows&&((i=t.$container.find(t.cssFirst+","+t.cssPrev))[l?s:r](o),i.each(function(){this.ariaDisabled=l}),(i=t.$container.find(t.cssNext+","+t.cssLast))[c?s:r](o),i.each(function(){this.ariaDisabled=c}))},r=function(e,a){var i,s,r,o=e.config,n=o.$table.hasClass("hasFilters");if(n&&!a.ajax)if(t.isEmptyObject(o.cache))a.filteredRows=a.totalRows=o.$tbodies.eq(0).children("tr").not(a.countChildRows?"":"."+o.cssChildRow).length;else for(a.filteredRows=0,r=(i=o.cache[0].normalized).length,s=0;s<r;s++)a.filteredRows+=a.regexRows.test(i[s][o.columns].$row[0].className)?0:1;else n||(a.filteredRows=a.totalRows)},o=function(a,i,o){if(!i.initializing){var g,c,d,p,f,u,h,w,b=a.config,R=b.namespace+"pager",P=j(i,i.size,"get");if("all"===P&&(P=i.totalRows),i.countChildRows&&(c[c.length]=b.cssChildRow),i.totalPages=Math.ceil(i.totalRows/P),b.totalRows=i.totalRows,x(a,i),r(a,i),b.filteredRows=i.filteredRows,i.filteredPages=Math.ceil(i.filteredRows/P)||0,z(a,i)>=0){if(c=P*i.page>i.filteredRows&&o,i.page=c?i.pageReset||0:i.page,i.startRow=c?P*i.page+1:0===i.filteredRows?0:P*i.page+1,i.endRow=Math.min(i.filteredRows,i.totalRows,P*(i.page+1)),d=i.$container.find(i.cssPageDisplay),"function"==typeof i.output?g=i.output(a,i):(w=d.attr("data-pager-output"+(i.filteredRows<i.totalRows?"-filtered":""))||i.output,g=(i.ajaxData&&i.ajaxData.output?i.ajaxData.output||w:w).replace(/\{page([\-+]\d+)?\}/gi,function(e,t){return i.totalPages?i.page+(t?parseInt(t,10):1):0}).replace(/\{\w+(\s*:\s*\w+)?\}/gi,function(e){var t,a,s=e.replace(/[{}\s]/g,""),r=s.split(":"),o=i.ajaxData,n=/(rows?|pages?)$/i.test(s)?0:"";return/(startRow|page)/.test(r[0])&&"input"===r[1]?(t=(""+("page"===r[0]?i.totalPages:i.totalRows)).length,a="page"===r[0]?i.page+1:i.startRow,'<input type="text" class="ts-'+r[0]+'" style="max-width:'+t+'em" value="'+a+'"/>'):r.length>1&&o&&o[r[0]]?o[r[0]][r[1]]:i[s]||(o?o[s]:n)||n})),(p=i.$container.find(i.cssGoto)).length){for(c="",u=(h=n(a,i)).length,f=0;f<u;f++)c+='<option value="'+h[f]+'">'+h[f]+"</option>";p.html(c).val(i.page+1)}d.length&&(d["INPUT"===d[0].nodeName?"val":"html"](g),d.find(".ts-startRow, .ts-page").unbind("change"+R).bind("change"+R,function(){var t=e(this).val(),a=e(this).hasClass("ts-startRow")?Math.floor(t/P)+1:t;b.$table.triggerHandler("pageSet"+R,[a])}))}s(a,i),l(a,i),i.initialized&&!1!==o&&(b.debug&&console.log("Pager: Triggering pagerComplete"),b.$table.triggerHandler("pagerComplete",i),i.savePages&&t.storage&&t.storage(a,i.storageKey,{page:i.page,size:P===i.totalRows?"all":P}))}},n=function(t,a){var i,s,r,o,n,l,g=z(t,a)||1,c=5*Math.ceil(g/a.maxOptionSize/5),d=g>a.maxOptionSize,p=a.page+1,f=c,u=g-c,h=[1];for(i=d?c:1;i<=g;)h[h.length]=i,i+=d?c:1;if(h[h.length]=g,d){for(r=[],(f=p-(s=Math.max(Math.floor(a.maxOptionSize/c)-1,5)))<1&&(f=1),(u=p+s)>g&&(u=g),i=f;i<=u;i++)r[r.length]=i;(n=(h=e.grep(h,function(t,a){return e.inArray(t,h)===a})).length)-(l=r.length)>c/2&&n+l>a.maxOptionSize&&(o=Math.floor(n/2)-Math.floor(l/2),Array.prototype.splice.apply(h,[o,l])),h=h.concat(r)}return h=e.grep(h,function(t,a){return e.inArray(t,h)===a}).sort(function(e,t){return e-t})},l=function(t,a){var i,s,r,o=t.config,n=o.$tbodies.eq(0);n.find("tr.pagerSavedHeightSpacer").remove(),a.fixedHeight&&!a.isDisabled&&(s=e.data(t,"pagerSavedHeight"))&&(r=0,e(t).css("border-spacing").split(" ").length>1&&(r=e(t).css("border-spacing").split(" ")[1].replace(/[^-\d\.]/g,"")),(i=s-n.height()+r*a.size-r)>5&&e.data(t,"pagerLastSize")===a.size&&n.children("tr:visible").length<("all"===a.size?a.totalRows:a.size)&&n.append('<tr class="pagerSavedHeightSpacer '+o.selectorRemove.slice(1)+'" style="height:'+i+'px;"></tr>'))},g=function(t,a){var i,s=t.config,r=s.$tbodies.eq(0);r.find("tr.pagerSavedHeightSpacer").remove(),r.children("tr:visible").length||r.append('<tr class="pagerSavedHeightSpacer '+s.selectorRemove.slice(1)+'"><td>&nbsp</td></tr>'),i=r.children("tr").eq(0).height()*("all"===a.size?a.totalRows:a.size),e.data(t,"pagerSavedHeight",i),l(t,a),e.data(t,"pagerLastSize",a.size)},c=function(e,a){if(!a.ajaxUrl){var i,s=0,r=e.config,o=r.$tbodies.eq(0).children("tr"),n=o.length,l="all"===a.size?a.totalRows:a.size,g=a.page*l,c=g+l,d=0,p=0;for(a.cacheIndex=[],i=0;i<n;i++)a.regexFiltered.test(o[i].className)||(p===g&&o[i].className.match(r.cssChildRow)?o[i].style.display="none":(o[i].style.display=p>=g&&p<c?"":"none",d!==p&&p>=g&&p<c&&(a.cacheIndex[a.cacheIndex.length]=i,d=p),(p+=o[i].className.match(r.cssChildRow+"|"+r.selectorRemove.slice(1))&&!a.countChildRows?0:1)===c&&"none"!==o[i].style.display&&o[i].className.match(t.css.cssHasChild)&&(s=i)));if(s>0&&o[s].className.match(t.css.cssHasChild))for(;++s<n&&o[s].className.match(r.cssChildRow);)o[s].style.display=""}},d=function(t,a){a.size=j(a,a.$container.find(a.cssPageSize).val(),"get"),P(t,a.size,a),s(t,a),a.removeRows||(c(t,a),e(t).bind("sortEnd filterEnd ".split(" ").join(t.config.namespace+"pager "),function(){c(t,a)}))},p=function(a,i,s,r,n,l){if("function"==typeof s.ajaxProcessing){i.config.$tbodies.eq(0).empty();var g,c,d,p,f,u,h,w,b,R,z,x,P,v,m,y=i.config,C=y.$table,$="",I=s.ajaxProcessing(a,i,r)||[0,[]];C.find("thead th").length;if(t.showError(i),l)y.debug&&console.error("Pager: >> Ajax Error",r,n,l),t.showError(i,r,n,l),y.$tbodies.eq(0).children("tr").detach(),s.totalRows=0;else{if(e.isArray(I)?(P=I[(d=isNaN(I[0])&&!isNaN(I[1]))?1:0],s.totalRows=isNaN(P)?s.totalRows||0:P,y.totalRows=y.filteredRows=s.filteredRows=s.totalRows,z=0===s.totalRows?[]:I[d?0:1]||[],R=I[2]):(s.ajaxData=I,y.totalRows=s.totalRows=I.total,y.filteredRows=s.filteredRows=void 0!==I.filteredRows?I.filteredRows:I.total,R=I.headers,z=I.rows||[]),x=z&&z.length,z instanceof jQuery)s.processAjaxOnInit&&(y.$tbodies.eq(0).empty(),y.$tbodies.eq(0).append(z));else if(x){for(g=0;g<x;g++){for($+="<tr>",c=0;c<z[g].length;c++)$+=/^\s*<td/.test(z[g][c])?e.trim(z[g][c]):"<td>"+z[g][c]+"</td>";$+="</tr>"}s.processAjaxOnInit&&y.$tbodies.eq(0).html($)}if(s.processAjaxOnInit=!0,R)for(u=(p=C.hasClass("hasStickyHeaders"))?y.widgetOptions.$sticky.children("thead:first").children("tr:not(."+y.cssIgnoreRow+")").children():"",f=C.find("tfoot tr:first").children(),v=(h=y.$headers.filter("th ")).length,c=0;c<v;c++)(w=h.eq(c)).find("."+t.css.icon).length?(b=w.find("."+t.css.icon).clone(!0),w.find("."+t.css.headerIn).html(R[c]).append(b),p&&u.length&&(b=u.eq(c).find("."+t.css.icon).clone(!0),u.eq(c).find("."+t.css.headerIn).html(R[c]).append(b))):(w.find("."+t.css.headerIn).html(R[c]),p&&u.length&&(s.$container=s.$container.add(y.widgetOptions.$sticky),u.eq(c).find("."+t.css.headerIn).html(R[c]))),f.eq(c).html(R[c])}y.showProcessing&&t.isProcessing(i),m=j(s,s.size,"get"),s.totalPages="all"===m?1:Math.ceil(s.totalRows/m),s.last.totalRows=s.totalRows,s.last.currentFilters=s.currentFilters,s.last.sortList=(y.sortList||[]).join(","),o(i,s,!1),t.updateCache(y,function(){s.initialized&&setTimeout(function(){y.debug&&console.log("Pager: Triggering pagerChange"),C.triggerHandler("pagerChange",s),t.applyWidget(i),o(i,s,!0)},0)})}s.initialized||S(i,s)},f=function(a,i){var s,r=u(a,i),o=e(document),n=a.config,l=n.namespace+"pager";""!==r&&(n.showProcessing&&t.isProcessing(a,!0),o.bind("ajaxError"+l,function(e,t,s,r){p(null,a,i,t,s,r),o.unbind("ajaxError"+l)}),s=++i.ajaxCounter,i.last.ajaxUrl=r,i.ajaxObject.url=r,i.ajaxObject.success=function(e,t,r){s<i.ajaxCounter||(p(e,a,i,r),o.unbind("ajaxError"+l),"function"==typeof i.oldAjaxSuccess&&i.oldAjaxSuccess(e))},n.debug&&console.log("Pager: Ajax initialized",i.ajaxObject),e.ajax(i.ajaxObject))},u=function(t,a){var i,s,r=t.config,o=a.ajaxUrl?a.ajaxUrl.replace(/\{page([\-+]\d+)?\}/,function(e,t){return a.page+(t?parseInt(t,10):0)}).replace(/\{size\}/g,a.size):"",n=r.sortList,l=a.currentFilters||e(t).data("lastSearch")||[],g=o.match(/\{\s*sort(?:List)?\s*:\s*(\w*)\s*\}/),c=o.match(/\{\s*filter(?:List)?\s*:\s*(\w*)\s*\}/),d=[];if(g){for(g=g[1],s=n.length,i=0;i<s;i++)d[d.length]=g+"["+n[i][0]+"]="+n[i][1];o=o.replace(/\{\s*sort(?:List)?\s*:\s*(\w*)\s*\}/g,d.length?d.join("&"):g),d=[]}if(c){for(c=c[1],s=l.length,i=0;i<s;i++)l[i]&&(d[d.length]=c+"["+i+"]="+encodeURIComponent(l[i]));o=o.replace(/\{\s*filter(?:List)?\s*:\s*(\w*)\s*\}/g,d.length?d.join("&"):c),a.currentFilters=l}return"function"==typeof a.customAjaxUrl&&(o=a.customAjaxUrl(t,o)),r.debug&&console.log("Pager: Ajax url = "+o),o},h=function(a,i,s){var r,n,l,g,d=e(a),p=a.config,f=p.$table.hasClass("hasFilters"),u=i&&i.length||0,h="all"===s.size?s.totalRows:s.size,w=s.page*h;if(u<1)p.debug&&console.warn("Pager: >> No rows for pager to render");else{if(s.page>=s.totalPages&&m(a,s),s.cacheIndex=[],s.isDisabled=!1,s.initialized&&(p.debug&&console.log("Pager: Triggering pagerChange"),d.triggerHandler("pagerChange",s)),s.removeRows){for(t.clearTableBody(a),r=t.processTbody(a,p.$tbodies.eq(0),!0),n=f?0:w,l=f?0:w,g=0;g<h&&n<i.length;)f&&s.regexFiltered.test(i[n][0].className)||++l>w&&g<=h&&(g++,s.cacheIndex[s.cacheIndex.length]=n,r.append(i[n])),n++;t.processTbody(a,r,!1)}else c(a,s);o(a,s),a.isUpdating&&(p.debug&&console.log("Pager: Triggering updateComplete"),d.triggerHandler("updateComplete",[a,!0]))}},w=function(a,i){var r,o,n;for(i.ajax?s(a,i,!0):(e.data(a,"pagerLastPage",i.page),e.data(a,"pagerLastSize",i.size),i.page=0,i.size=i.totalPages,i.totalPages=1,e(a).addClass("pagerDisabled").removeAttr("aria-describedby").find("tr.pagerSavedHeightSpacer").remove(),h(a,a.config.rowsCopy,i),i.isDisabled=!0,t.applyWidget(a),a.config.debug&&console.log("Pager: Disabled")),n=(o=i.$container.find(i.cssGoto+","+i.cssPageSize+", .ts-startRow, .ts-page")).length,r=0;r<n;r++)o.eq(r).addClass(i.cssDisabled)[0].disabled=!0,o[r].ariaDisabled=!0},b=function(e){var a=e.config,i=a.pager;t.updateCache(a,function(){var t,s=[],r=e.config.cache[0].normalized;for(i.totalRows=r.length,t=0;t<i.totalRows;t++)s[s.length]=r[t][a.columns].$row;a.rowsCopy=s,R(e,i,!0)})},R=function(a,i,s){if(!i.isDisabled){var o,n=a.config,l=e(a),g=i.last;if(!1!==s&&i.initialized&&t.isEmptyObject(n.cache))return b(a);i.ajax&&t.hasWidget(a,"filter")&&!n.widgetOptions.filter_initialized||(x(a,i),r(a,i),g.currentFilters=""===(g.currentFilters||[]).join("")?[]:g.currentFilters,i.currentFilters=""===(i.currentFilters||[]).join("")?[]:i.currentFilters,g.page===i.page&&g.size===i.size&&g.totalRows===i.totalRows&&(g.currentFilters||[]).join(",")===(i.currentFilters||[]).join(",")&&(g.ajaxUrl||"")===(i.ajaxObject.url||"")&&(g.optAjaxUrl||"")===(i.ajaxUrl||"")&&g.sortList===(n.sortList||[]).join(",")||(n.debug&&console.log("Pager: Changing to page "+i.page),i.last={page:i.page,size:i.size,sortList:(n.sortList||[]).join(","),totalRows:i.totalRows,currentFilters:i.currentFilters||[],ajaxUrl:i.ajaxObject.url||"",optAjaxUrl:i.ajaxUrl||""},i.ajax?i.processAjaxOnInit||t.isEmptyObject(i.initialRows)?f(a,i):(i.processAjaxOnInit=!0,o=i.initialRows,i.totalRows=void 0!==o.total?o.total:n.debug?console.error("Pager: no initial total page set!")||0:0,i.filteredRows=void 0!==o.filtered?o.filtered:n.debug?console.error("Pager: no initial filtered page set!")||0:0,S(a,i)):i.ajax||h(a,n.rowsCopy,i),e.data(a,"pagerLastPage",i.page),i.initialized&&!1!==s&&(n.debug&&console.log("Pager: Triggering pageMoved"),l.triggerHandler("pageMoved",i),t.applyWidget(a),a.isUpdating&&(n.debug&&console.log("Pager: Triggering updateComplete"),l.triggerHandler("updateComplete",[a,!0])))))}},z=function(e,a){return t.hasWidget(e,"filter")?Math.min(a.totalPages,a.filteredPages):a.totalPages},x=function(e,t){var a=z(e,t)-1;return t.page=parseInt(t.page,10),(t.page<0||isNaN(t.page))&&(t.page=0),t.page>a&&a>=0&&(t.page=a),t.page},j=function(e,t,a){var i=parseInt(t,10)||e.size||e.settings.size||10;return e.initialized&&(/all/i.test(i+" "+t)||i===e.totalRows)?e.$container.find(e.cssPageSize+' option[value="all"]').length?"all":e.totalRows:"get"===a?i:e.size},P=function(t,a,i){i.size=j(i,a,"get"),i.$container.find(i.cssPageSize).val(i.size),e.data(t,"pagerLastPage",x(t,i)),e.data(t,"pagerLastSize",i.size),i.totalPages="all"===i.size?1:Math.ceil(i.totalRows/i.size),i.filteredPages="all"===i.size?1:Math.ceil(i.filteredRows/i.size)},v=function(e,t){t.page=0,R(e,t)},m=function(e,t){t.page=z(e,t)-1,R(e,t)},y=function(e,t){t.page++;var a=z(e,t)-1;t.page>=a&&(t.page=a),R(e,t)},C=function(e,t){--t.page<=0&&(t.page=0),R(e,t)},S=function(a,i){i.initialized=!0,i.initializing=!1,a.config.debug&&console.log("Pager: Triggering pagerInitialized"),e(a).triggerHandler("pagerInitialized",i),t.applyWidget(a),o(a,i)},$=function(t,a){t.config.pager=e.extend(!0,{},e.tablesorterPager.defaults,a.settings),F(t,a.settings)},I=function(e,a){var i=e.config,s=i.namespace+"pager",r=[a.cssFirst,a.cssPrev,a.cssNext,a.cssLast,a.cssGoto,a.cssPageSize].join(",");w(e,a),a.$container.hide().find(r).unbind(s),i.appender=null,i.$table.unbind(s),t.storage&&t.storage(e,a.storageKey,""),delete i.pager,delete i.rowsCopy},A=function(a,i,s){var r,o,n,l=a.config;i.$container.find(i.cssGoto+","+i.cssPageSize+",.ts-startRow, .ts-page").removeClass(i.cssDisabled).removeAttr("disabled").each(function(){this.ariaDisabled=!1}),i.isDisabled=!1,i.page=e.data(a,"pagerLastPage")||i.page||0,o=(n=i.$container.find(i.cssPageSize)).find("option[selected]").val(),i.size=e.data(a,"pagerLastSize")||j(i,o,"get"),i.totalPages="all"===i.size?1:Math.ceil(z(a,i)/i.size),P(a,i.size,i),a.id&&!l.$table.attr("aria-describedby")&&((r=(n=i.$container.find(i.cssPageDisplay)).attr("id"))||(r=a.id+"_pager_info",n.attr("id",r)),l.$table.attr("aria-describedby",r)),g(a,i),s&&(t.update(l),P(a,i.size,i),R(a,i),d(a,i),l.debug&&console.log("Pager: Enabled"))},F=function(s,r){var n,l,p,f,u=s.config,h=u.widgetOptions,z=u.pager=e.extend(!0,{},e.tablesorterPager.defaults,r),x=u.$table,S=u.namespace+"pager",F=z.$container=e(z.container).addClass("tablesorter-pager").show();z.settings=e.extend(!0,{},e.tablesorterPager.defaults,r),u.debug&&console.log("Pager: Initializing"),z.oldAjaxSuccess=z.oldAjaxSuccess||z.ajaxObject.success,u.appender=i.appender,z.initializing=!0,z.savePages&&t.storage&&(n=t.storage(s,z.storageKey)||{},z.page=isNaN(n.page)?z.page:n.page,z.size="all"===n.size?n.size:(isNaN(n.size)?z.size:n.size)||z.setSize||10,P(s,z.size,z)),z.regexRows=new RegExp("("+(h.filter_filteredRow||"filtered")+"|"+u.selectorRemove.slice(1)+"|"+u.cssChildRow+")"),z.regexFiltered=new RegExp(h.filter_filteredRow||"filtered"),x.unbind(a.split(" ").join(S+" ").replace(/\s+/g," ")).bind("filterInit filterStart ".split(" ").join(S+" "),function(a,i){z.currentFilters=e.isArray(i)?i:u.$table.data("lastSearch");var r;if(z.ajax&&"filterInit"===a.type)return R(s,z,!1);r=t.filter.equalFilters?t.filter.equalFilters(u,u.lastSearch,z.currentFilters):(u.lastSearch||[]).join("")!==(z.currentFilters||[]).join(""),"filterStart"!==a.type||!1===z.pageReset||r||(z.page=z.pageReset)}).bind("filterEnd sortEnd ".split(" ").join(S+" "),function(){z.currentFilters=u.$table.data("lastSearch"),(z.initialized||z.initializing)&&(u.delayInit&&u.rowsCopy&&0===u.rowsCopy.length&&b(s),o(s,z,!1),R(s,z,!1),t.applyWidget(s))}).bind("disablePager"+S,function(e){e.stopPropagation(),w(s,z)}).bind("enablePager"+S,function(e){e.stopPropagation(),A(s,z,!0)}).bind("destroyPager"+S,function(e){e.stopPropagation(),I(s,z)}).bind("resetToLoadState"+S,function(e){e.stopPropagation(),$(s,z)}).bind("updateComplete"+S,function(e,t,a){if(e.stopPropagation(),t&&!a&&!z.ajax){var i=u.$tbodies.eq(0).children("tr").not(u.selectorRemove);z.totalRows=i.length-(z.countChildRows?0:i.filter("."+u.cssChildRow).length),z.totalPages="all"===z.size?1:Math.ceil(z.totalRows/z.size),i.length&&u.rowsCopy&&0===u.rowsCopy.length&&b(t),z.page>=z.totalPages&&m(t,z),c(t,z),g(t,z),o(t,z,!0)}}).bind("pageSize refreshComplete ".split(" ").join(S+" "),function(e,t){e.stopPropagation(),P(s,j(z,t,"get"),z),R(s,z),c(s,z),o(s,z,!1)}).bind("pageSet pagerUpdate ".split(" ").join(S+" "),function(e,t){e.stopPropagation(),"pagerUpdate"===e.type&&(t=void 0===t?z.page+1:t,z.last.page=!0),z.page=(parseInt(t,10)||1)-1,R(s,z,!0),o(s,z,!1)}).bind("pageAndSize"+S,function(e,t,a){e.stopPropagation(),z.page=(parseInt(t,10)||1)-1,P(s,j(z,a,"get"),z),R(s,z,!0),c(s,z),o(s,z,!1)}),l=[z.cssFirst,z.cssPrev,z.cssNext,z.cssLast],p=[v,C,y,m],u.debug&&!F.length&&console.warn("Pager: >> Container not found"),F.find(l.join(",")).attr("tabindex",0).unbind("click"+S).bind("click"+S,function(t){t.stopPropagation();var a,i=e(this),r=l.length;if(!i.hasClass(z.cssDisabled))for(a=0;a<r;a++)if(i.is(l[a])){p[a](s,z);break}}),(f=F.find(z.cssGoto)).length?f.unbind("change"+S).bind("change"+S,function(){z.page=e(this).val()-1,R(s,z,!0),o(s,z,!1)}):u.debug&&console.warn("Pager: >> Goto selector not found"),(f=F.find(z.cssPageSize)).length?(f.find("option").removeAttr("selected"),f.unbind("change"+S).bind("change"+S,function(){if(!e(this).hasClass(z.cssDisabled)){var t=e(this).val();P(s,t,z),R(s,z),g(s,z)}return!1})):u.debug&&console.warn("Pager: >> Size selector not found"),z.initialized=!1,x.triggerHandler("pagerBeforeInitialized",z),A(s,z,!1),"string"==typeof z.ajaxUrl?(z.ajax=!0,u.widgetOptions.filter_serversideFiltering=!0,u.serverSideSorting=!0,R(s,z)):(z.ajax=!1,t.appendCache(u,!0),d(s,z)),z.ajax||z.initialized||(z.initializing=!1,z.initialized=!0,P(s,z.size,z),R(s,z),u.debug&&console.log("Pager: Triggering pagerInitialized"),u.$table.triggerHandler("pagerInitialized",z),u.widgetOptions.filter_initialized&&t.hasWidget(s,"filter")||o(s,z,!1)),u.widgetInit.pager=!0};i.appender=function(t,a){var i=t.config,s=i.pager;s.ajax||(i.rowsCopy=a,s.totalRows=s.countChildRows?i.$tbodies.eq(0).children("tr").length:a.length,s.size=e.data(t,"pagerLastSize")||s.size||s.settings.size||10,s.totalPages="all"===s.size?1:Math.ceil(s.totalRows/s.size),h(t,a,s),o(t,s,!1))},i.construct=function(e){return this.each(function(){this.config&&this.hasInitialized&&F(this,e)})}}}),t.showError=function(t,a,i,s){var r=e(t),o=r[0].config,n=o&&o.widgetOptions,l=o.pager&&o.pager.cssErrorRow||n&&n.pager_css&&n.pager_css.errorRow||"tablesorter-errorRow",g=typeof a,c=!0,d="",p=function(){o.$table.find("thead").find(o.selectorRemove).remove()};if(r.length){if("function"==typeof o.pager.ajaxError){if(!1===(c=o.pager.ajaxError(o,a,i,s)))return p();d=c}else if("function"==typeof n.pager_ajaxError){if(!1===(c=n.pager_ajaxError(o,a,i,s)))return p();d=c}if(""===d)if("object"===g)d=0===a.status?"Not connected, verify Network":404===a.status?"Requested page not found [404]":500===a.status?"Internal Server Error [500]":"parsererror"===s?"Requested JSON parse failed":"timeout"===s?"Time out error":"abort"===s?"Ajax Request aborted":"Uncaught error: "+a.statusText+" ["+a.status+"]";else{if("string"!==g)return p();d=a}e(/tr\>/.test(d)?d:'<tr><td colspan="'+o.columns+'">'+d+"</td></tr>").click(function(){e(this).remove()}).appendTo(o.$table.find("thead:first")).addClass(l+" "+o.selectorRemove.slice(1)).attr({role:"alert","aria-live":"assertive"})}else console.error("tablesorter showError: no table parameter passed")},e.fn.extend({tablesorterPager:e.tablesorterPager.construct})}(jQuery);
 /**
  * Timeago is a jQuery plugin that makes it easy to support automatically
  * updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").

@@ -260,20 +260,36 @@
                         settings.verticaldownclass +
                         '"></i></button></span></div>';
                 } else {
-                    html =
-                        '<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"><button class="' +
-                        settings.buttondown_class +
-                        ' bootstrap-touchspin-down" type="button">' +
-                        settings.buttondown_txt +
-                        '</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' +
-                        settings.prefix +
-                        '</span><span class="input-group-append"><button class="btn btn-secondary" disabled>' +
-                        settings.postfix +
-                        '</button><button class="' +
-                        settings.buttonup_class +
-                        ' bootstrap-touchspin-up" type="button">' +
-                        settings.buttonup_txt +
-                        '</button></span></div>';
+                    if (settings.postfix === '') {
+                        html =
+                            '<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"><button class="' +
+                            settings.buttondown_class +
+                            ' bootstrap-touchspin-down" type="button">' +
+                            settings.buttondown_txt +
+                            '</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' +
+                            settings.prefix +
+                            '</span><span class="input-group-append"><button class="' +
+                            settings.buttonup_class +
+                            ' bootstrap-touchspin-up" type="button">' +
+                            settings.buttonup_txt +
+                            '</button></span></div>';
+                    } else {
+                        html =
+                            '<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"><button class="' +
+                            settings.buttondown_class +
+                            ' bootstrap-touchspin-down" type="button">' +
+                            settings.buttondown_txt +
+                            '</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' +
+                            settings.prefix +
+                            '</span><span class="input-group-append"><button class="btn btn-secondary" disabled>' +
+                            settings.postfix +
+                            '</button><button class="' +
+                            settings.buttonup_class +
+                            ' bootstrap-touchspin-up" type="button">' +
+                            settings.buttonup_txt +
+                            '</button></span></div>';
+                    }
+                    
                 }
 
                 container = $(html).insertBefore(originalinput);

@@ -1,7 +1,11 @@
 ﻿@import "jquery.hovercard.scss";
 @import "bootstrap-notify";
-@import "jquery.tablesorter.scss";
+
 @import "jquery.emojipicker";
+
+// -- TableSorter Plugin
+@import "tablesorter/theme.bootstrap_4.min";
+@import "tablesorter/jquery.tablesorter.pager.min";
 
 // --Bootstrap extensions
 @import "css/select2";

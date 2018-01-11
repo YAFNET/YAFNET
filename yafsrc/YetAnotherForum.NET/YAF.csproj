@@ -1114,12 +1114,6 @@
     <Content Include="Content\jquery.hovercard.min.css">
       <DependentUpon>jquery.hovercard.css</DependentUpon>
     </Content>
-    <Content Include="Content\jquery.tablesorter.css">
-      <DependentUpon>jquery.tablesorter.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\jquery.tablesorter.min.css">
-      <DependentUpon>jquery.tablesorter.css</DependentUpon>
-    </Content>
     <Content Include="Content\jsdifflib.css">
       <DependentUpon>jsdifflib.scss</DependentUpon>
     </Content>
@@ -1150,6 +1144,8 @@
     <Content Include="Content\css\select2-bootstrap.css" />
     <Content Include="Content\styles\alert-bangtidy.css" />
     <Content Include="Content\styles\alert-blackgloss.css" />
+    <Content Include="Content\tablesorter\jquery.tablesorter.pager.min.css" />
+    <Content Include="Content\tablesorter\theme.bootstrap_4.min.css" />
     <Content Include="Content\webfonts\fa-brands-400.svg" />
     <Content Include="Content\webfonts\fa-regular-400.svg" />
     <Content Include="Content\webfonts\fa-solid-900.svg" />
@@ -1729,7 +1725,6 @@
     </Content>
     <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
-    <Content Include="Content\jquery.tablesorter.scss" />
     <Content Include="Scripts\ckeditor\plugins\widget\images\handle.png" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\ciframe.html" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
@@ -1851,6 +1846,9 @@
     <Content Include="Scripts\i18n\vi.js" />
     <Content Include="Scripts\i18n\zh-CN.js" />
     <Content Include="Scripts\i18n\zh-TW.js" />
+    <None Include="Scripts\jquery-1.4.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.4.1.js" />
+    <Content Include="Scripts\jquery-1.4.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js">
       <DependentUpon>jquery-3.2.1.js</DependentUpon>
@@ -1886,20 +1884,8 @@
     <Content Include="Scripts\jquery.FileUpload\jquery.iframe-transport.js" />
     <Content Include="Scripts\jquery.FileUpload\load-image.all.min.js" />
     <Content Include="Scripts\jquery.FileUpload\tmpl.min.js" />
-    <Content Include="Scripts\jquery.ForumExtensions.es5.js">
-      <DependentUpon>jquery.ForumExtensions.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery.ForumExtensions.es5.min.js">
-      <DependentUpon>jquery.ForumExtensions.es5.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\jquery.ForumExtensions.min.js">
       <DependentUpon>jquery.ForumExtensions.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery.timeago.es5.js">
-      <DependentUpon>jquery.timeago.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery.timeago.es5.min.js">
-      <DependentUpon>jquery.timeago.es5.js</DependentUpon>
     </Content>
     <Content Include="Scripts\ladda.min.js">
       <DependentUpon>ladda.js</DependentUpon>
@@ -1941,10 +1927,10 @@
     <Content Include="Scripts\spin.min.js">
       <DependentUpon>spin.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.min.js" />
     <Content Include="Scripts\tablesorter\jquery.tablesorter.combined.min.js">
       <DependentUpon>jquery.tablesorter.combined.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\tablesorter\jquery.tablesorter.pager.js" />
     <Content Include="Scripts\jsdifflib.js" />
     <Content Include="Scripts\jsdifflib.min.js">
       <DependentUpon>jsdifflib.js</DependentUpon>
@@ -4752,7 +4738,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

@@ -230,15 +230,15 @@ namespace YAF.Utilities
             return
                 @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadDatePicker);
                   function loadDatePicker() {{	{2}(document).ready(function() {{ {2}('.datepickerinput').datetimepicker({{format: '{0}'{1},icons:{{
-            time: 'fa fa-clock-o fa-fw',
+            time: 'fa fa-clock fa-fw',
             date: 'fa fa-calendar fa-fw',
             up: 'fa fa-chevron-up fa-fw',
             down: 'fa fa-chevron-down fa-fw',
             previous: 'fa fa-chevron-left fa-fw',
             next: 'fa fa-chevron-right fa-fw',
-            today: 'fa fa-sun-o fa-fw',
+            today: 'fa fa-sun fa-fw',
             clear: 'fa fa-trash fa-fw',
-            close: 'fa fa-remove fa-fw'
+            close: 'fa fa-times fa-fw'
         }}}}); }});}} "
                     .FormatWith(dateFormat, cultureJs, Config.JQueryAlias);
         }
@@ -298,7 +298,7 @@ namespace YAF.Utilities
                     }});".FormatWith(
                 Config.JQueryAlias,
                 selector,
-                options.IsSet() ? "{{ {0} }}".FormatWith(options) : string.Empty);
+                options.IsSet() ? "{{ theme: 'bootstrap', {0} }}".FormatWith(options) : "{{ theme: 'bootstrap' }}");
         }
 
         /// <summary>
