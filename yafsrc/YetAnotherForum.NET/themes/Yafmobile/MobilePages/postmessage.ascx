@@ -1,7 +1,6 @@
 <%@ Control Language="c#" CodeBehind="../../../pages/postmessage.ascx.cs" AutoEventWireup="True"Inherits="YAF.Pages.postmessage" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Register TagPrefix="YAF" TagName="PollList" Src="../../../controls/PollList.ascx" %>
-<%@ Register TagPrefix="YAF" TagName="smileys" Src="../../../controls/smileys.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="LastPosts" Src="../../../controls/LastPosts.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PostOptions" Src="../../../controls/PostOptions.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PostAttachments" Src="../../../controls/PostAttachments.ascx" %>
@@ -87,11 +86,7 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="message" />
             </b>
             <br />
-            <asp:PlaceHolder runat="server" Visible="false" ID="SmilesHolder">
-                <YAF:smileys ID="Smileys1" runat="server" OnClick="insertsmiley" />
-                <br />
-                <YAF:LocalizedLabel ID="LocalizedLblMaxNumberOfPost" runat="server" LocalizedTag="MAXNUMBEROF" />
-            </asp:PlaceHolder>
+            <YAF:LocalizedLabel ID="LocalizedLblMaxNumberOfPost" runat="server" LocalizedTag="MAXNUMBEROF" />
             <!-- editor goes here -->
         </td>
     </tr>

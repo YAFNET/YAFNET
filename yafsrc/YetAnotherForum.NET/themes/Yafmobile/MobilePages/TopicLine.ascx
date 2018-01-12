@@ -15,14 +15,14 @@
         </td>
     </asp:PlaceHolder>
     <td class="topicImage">
-        <%  string imgTitle = string.Empty;
-            string imgSrc = this.GetTopicImage(this.TopicRow, ref imgTitle);
+        <%  var imgTitle = string.Empty;
+            var imgSrc = this.GetTopicImage(this.TopicRow, ref imgTitle);
         %>
         <img src="<%=imgSrc%>" alt="<%=imgTitle%>" title="<%=imgTitle%>" />
     </td>
     <td class="topicMain">
         <%
-            string priorityMessage = this.GetPriorityMessage(this.TopicRow);
+            var priorityMessage = this.GetPriorityMessage(this.TopicRow);
             if (priorityMessage.IsSet())
             {
         %>
@@ -75,7 +75,7 @@
         <%
             }
     
-            int actualPostCount = this.TopicRow["Replies"].ToType<int>() + 1;
+            var actualPostCount = this.TopicRow["Replies"].ToType<int>() + 1;
 
             if (this.PageContext.BoardSettings.ShowDeletedMessages)
             {
@@ -83,12 +83,12 @@
                 actualPostCount += this.TopicRow["NumPostsDeleted"].ToType<int>();
             }     
 
-      string tPager = this.CreatePostPager(
+      var tPager = this.CreatePostPager(
         actualPostCount, this.PageContext.BoardSettings.PostsPerPage, this.TopicRow["LinkTopicID"].ToType<int>());
 
       if (tPager != String.Empty)
       {
-           string altMultipages = this.GetText("GOTO_POST_PAGER").FormatWith(string.Empty);
+           var altMultipages = this.GetText("GOTO_POST_PAGER").FormatWith(string.Empty);
         %>
         <span class="topicPager smallfont">- <img src="<%=this.Get<ITheme>().GetItem(
           "ICONS","MULTIPAGES_SMALL")%>" alt="<%=altMultipages%>" title="<%=altMultipages%>" />  
