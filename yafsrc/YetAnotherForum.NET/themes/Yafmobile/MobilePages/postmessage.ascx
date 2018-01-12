@@ -86,8 +86,15 @@
                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="message" />
             </b>
             <br />
-            <YAF:LocalizedLabel ID="LocalizedLblMaxNumberOfPost" runat="server" LocalizedTag="MAXNUMBEROF" />
             <!-- editor goes here -->
+        </td>
+    </tr>
+    <tr runat="server" id="maxCharRow">
+        <td class="post" colspan="2">
+            <div class="alert alert-secondary" role="alert">
+                <strong><YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="NOTE" LocalizedPage="COMMON" /></strong>
+                <YAF:LocalizedLabel ID="LocalizedLblMaxNumberOfPost" runat="server" LocalizedTag="MAXNUMBEROF" />
+            </div>
         </td>
     </tr>
     <YAF:PostOptions ID="PostOptions1" runat="server"></YAF:PostOptions>
