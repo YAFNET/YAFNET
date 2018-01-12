@@ -183,7 +183,7 @@ namespace YAF.Pages
             }
 
             // Get reported message text for better quoting                    
-            DataTable messageRow = LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID);
+            var messageRow = LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID);
 
             // Checking if the user has a right to view the message and getting data  
             if (messageRow.HasRows())

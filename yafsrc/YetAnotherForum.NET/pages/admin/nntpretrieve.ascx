@@ -18,7 +18,7 @@
 			<HeaderTemplate>
                 <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="pull-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                         </div><div class="table-responsive">
                 <table class="table">
 				<tr>
@@ -55,7 +55,8 @@
                         <p><asp:TextBox runat="server" ID="Seconds" Text="30" CssClass="form-control SecondsInput" TextMode="Number" /></p>
                     </div>
                 <div class="card-footer text-center">
-                    <asp:LinkButton runat="server" ID="Retrieve" Text="Retrieve" CssClass="btn btn-primary" OnClick="Retrieve_Click" />
+                    <YAF:ThemeButton runat="server" ID="Retrieve" CssClass="btn btn-primary" OnClick="RetrieveClick"
+                                     Icon="download" TextLocalizedTag="RETRIEVE"/>
                 </div>
             </div>
             </div>

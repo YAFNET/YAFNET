@@ -90,8 +90,8 @@ namespace YAF.Pages.Admin
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            this.MoveTopics.CheckedChanged += this.MoveTopics_CheckedChanged;
-            this.Delete.Click += this.Save_Click;
+            this.MoveTopics.CheckedChanged += this.MoveTopicsCheckedChanged;
+            this.Delete.Click += this.SaveClick;
             this.Cancel.Click += this.Cancel_Click;
 
             base.OnInit(e);
@@ -111,6 +111,26 @@ namespace YAF.Pages.Admin
 
             this.LoadingImage.ImageUrl = YafForumInfo.GetURLToContent("images/loader.gif");
 
+            this.BindData();
+
+            var forumId = this.GetQueryStringAsInt("fa");
+
+            using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, forumId.Value))
+            {
+                var row = dt.Rows[0];
+
+                this.ForumNameTitle.Text = (string)row["Name"];
+
+                // populate parent forums list with forums according to selected category
+                this.BindParentList();
+            }
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
@@ -122,28 +142,6 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_ADMIN", "Administration"),
                 this.GetText("TEAM", "FORUMS"),
                 this.GetText("ADMIN_DELETEFORUM", "TITLE"));
-
-            this.Delete.Text = "<i class=\"fa fa-trash fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_DELETEFORUM", "DELETE_FORUM"));
-            this.Cancel.Text = "<i class=\"fa fa-times fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
-
-            this.Delete.Attributes["onclick"] =
-                "return (confirm('{0}') && confirm('{1}'));".FormatWith(
-                    this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE"),
-                    this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE"));
-
-            this.BindData();
-
-            var forumId = this.GetQueryStringAsInt("fa");
-
-            using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, forumId.Value))
-            {
-                DataRow row = dt.Rows[0];
-
-                this.ForumNameTitle.Text = (string)row["Name"];
-
-                // populate parent forums list with forums according to selected category
-                this.BindParentList();
-            }
         }
 
         /// <summary>
@@ -151,7 +149,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void UpdateStatusTimer_Tick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void UpdateStatusTimerTick([NotNull] object sender, [NotNull] EventArgs e)
         {
             IBackgroundTask task;
 
@@ -200,7 +198,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void MoveTopics_CheckedChanged(object sender, EventArgs e)
+        private void MoveTopicsCheckedChanged(object sender, EventArgs e)
         {
             if (this.MoveTopics.Checked)
             {
@@ -247,7 +245,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+        private void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             string errorMessage;
 

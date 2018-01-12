@@ -14,11 +14,18 @@
                              <i class="fa fa-database fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="SQL_COMMAND" LocalizedPage="ADMIN_RUNSQL" />
                         </div>
                         <div class="card-body">
-                            <asp:TextBox ID="txtQuery" runat="server" TextMode="MultiLine" Width="100%" Height="100px" CssClass="form-control"></asp:TextBox>
-                            <asp:Checkbox ID="chkRunInTransaction" runat="server" Text="Run In Transaction" Checked="true" CssClass="form-control" />
+                            <div class="form-group">
+                                <asp:TextBox ID="txtQuery" runat="server" TextMode="MultiLine" Width="100%" Height="100px" CssClass="form-control"></asp:TextBox>
+                            </div>
+                            <div class="form-group">
+                                <asp:Checkbox ID="chkRunInTransaction" runat="server" Text="Run In Transaction" Checked="true" CssClass="form-control" />
+                            </div>
                         </div>
                         <div class="card-footer text-center">
-                            <asp:LinkButton ID="btnRunQuery" runat="server" CssClass="btn btn-primary" Text="Run Query" OnClick="btnRunQuery_Click" />
+                            <YAF:ThemeButton ID="RunQuery" runat="server" CssClass="btn btn-primary" OnClick="RunQueryClick"
+                                             Icon="rocket"
+                                             TextLocalizedTag="RUN_QUERY" TextLocalizedPage="ADMIN_RUNSQL">
+                            </YAF:ThemeButton>
                         </div>
                     </div>
                 </div>

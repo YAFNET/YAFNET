@@ -27,20 +27,18 @@
 			</th>
             </thead>
 		</tr>
-		<asp:Repeater ID="List" runat="server" OnItemCommand="List_ItemCommand">
+		<asp:Repeater ID="List" runat="server" OnItemCommand="ListItemCommand">
 			<ItemTemplate>
 				<tr class="post">
 					<td>
 					    <!-- User Name -->
-					  <img alt='<%# this.HtmlEncode(this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval( "DisplayName") : this.Eval( "Name")) %>'
-                                    title='<%# this.HtmlEncode(this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval( "DisplayName") : this.Eval( "Name")) %>'
-                                    src='<%# this.Get<ITheme>().GetItem("ICONS","USER_BUSINESS") %>' />&nbsp;<%# this.HtmlEncode(this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval("DisplayName") : this.Eval("Name"))%>
+					    <i class="fa fa-user-secret fa-fw"></i>&nbsp;<%# this.HtmlEncode(this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval("DisplayName") : this.Eval("Name"))%>
 					</td>
                     	<td>
                     	 <%# this.HtmlEncode(this.Eval( "BoardName")) %>
                         </td>
                     <td>
-                        <span class="pull-right">
+                        <span class="float-right">
 						  <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm"
                               TitleLocalizedPage="ADMIN_PAGEACCESSLIST" CommandName='edit' CommandArgument='<%# this.Eval( "UserID") %>'
                               TitleLocalizedTag="EDIT"

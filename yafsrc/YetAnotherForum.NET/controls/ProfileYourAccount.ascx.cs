@@ -66,7 +66,7 @@ namespace YAF.Controls
     /// </summary>
     private void BindData()
     {
-      DataTable dt = LegacyDb.usergroup_list(this.PageContext.PageUserID);
+      var dt = LegacyDb.usergroup_list(this.PageContext.PageUserID);
 
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
@@ -92,7 +92,7 @@ namespace YAF.Controls
           this.HtmlEncode(this.Get<IUserDisplayName>().GetName(this.PageContext.PageUserID));
       }
 
-      string avatarImg = this.Get<IAvatars>().GetAvatarUrlForCurrentUser();
+      var avatarImg = this.Get<IAvatars>().GetAvatarUrlForCurrentUser();
 
       if (avatarImg.IsSet())
       {

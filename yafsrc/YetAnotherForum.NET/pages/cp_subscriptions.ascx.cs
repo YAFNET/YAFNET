@@ -107,10 +107,10 @@ namespace YAF.Pages
                                   ? this.HtmlEncode(row["LastUserDisplayName"])
                                   : this.HtmlEncode(row["LastUserName"]);
 
-            string link = @"<a href=""{0}"">{1}</a>".FormatWith(YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", row["LastUserID"], displayName), displayName);
-            string by = this.GetTextFormatted("lastpostlink", this.Get<IDateTime>().FormatDateTime((DateTime)row["LastPosted"]), link);
+            var link = @"<a href=""{0}"">{1}</a>".FormatWith(YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", row["LastUserID"], displayName), displayName);
+            var by = this.GetTextFormatted("lastpostlink", this.Get<IDateTime>().FormatDateTime((DateTime)row["LastPosted"]), link);
 
-            string html = @"{0} <a href=""{1}""><img src=""{2}"" alt="""" /></a>".FormatWith(
+            var html = @"{0} <a href=""{1}""><img src=""{2}"" alt="""" /></a>".FormatWith(
                 @by,
                 YafBuildLink.GetLink(ForumPages.posts, "m={0}&find=lastpost", row["LastMessageID"]),
                 this.GetThemeContents("ICONS", "ICON_LATEST"));
@@ -195,7 +195,7 @@ namespace YAF.Pages
                 return;
             }
 
-            bool autoWatchTopicsEnabled = false;
+            var autoWatchTopicsEnabled = false;
 
             var value = this.rblNotificationType.SelectedValue.ToEnum<UserNotificationSetting>();
 
@@ -337,7 +337,7 @@ namespace YAF.Pages
         /// </param>
         private void UpdateSubscribeUI(UserNotificationSetting selectedValue)
         {
-            bool showSubscribe =
+            var showSubscribe =
               !(selectedValue == UserNotificationSetting.AllTopics || selectedValue == UserNotificationSetting.NoNotification);
 
             this.SubscribeHolder.Visible = showSubscribe;

@@ -97,14 +97,14 @@ namespace YAF.Pages
         this.Email.Text = this.PageContext.User.Email;
 
         // get user data...
-        MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.UserID);
+        var user = UserMembershipHelper.GetMembershipUserById(this.UserID);
 
         if (user == null)
         {
           YafBuildLink.AccessDenied( /*No such user exists*/);
         }
 
-        string displayName = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
+        var displayName = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
 
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
           this.PageLinks.AddLink(
@@ -135,7 +135,7 @@ namespace YAF.Pages
     /// </param>
     protected void Send_Click([NotNull] object sender, [NotNull] EventArgs e)
     {
-      string html =
+      var html =
         "http://wwp.icq.com/scripts/WWPMsg.dll?from={0}&fromemail={1}&subject={2}&to={3}&body={4}".FormatWith(
           this.Server.UrlEncode(this.From.Text), 
           this.Server.UrlEncode(this.Email.Text), 

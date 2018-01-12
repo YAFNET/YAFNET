@@ -175,7 +175,7 @@ namespace YAF.Controls
             this._sig.BaseDir = "{0}Scripts".FormatWith(YafForumInfo.ForumClientFileRoot);
             this._sig.StyleSheet = this.Get<ITheme>().BuildThemePath("theme.css");
 
-            DataTable sigData = LegacyDb.user_getsignaturedata(this.CurrentUserID, this.PageContext.PageBoardID);
+            var sigData = LegacyDb.user_getsignaturedata(this.CurrentUserID, this.PageContext.PageBoardID);
 
             if (sigData.HasRows())
             {

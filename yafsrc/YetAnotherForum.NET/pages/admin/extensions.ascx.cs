@@ -27,25 +27,21 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
     using System.Linq;
-    using System.Runtime.Serialization;
     using System.Web;
     using System.Web.UI.WebControls;
     using System.Xml.Linq;
 
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Utilities;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -57,70 +53,6 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// The delete_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_EXTENSIONS", "CONFIRM_DELETE"));
-        }
-
-        /// <summary>
-        /// Add Localized Text to Button
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void addLoad(object sender, EventArgs e)
-        {
-            var add = (LinkButton)sender;
-            add.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(
-                this.GetText("ADMIN_EXTENSIONS", "ADD"));
-        }
-
-        /// <summary>
-        /// Add Localized Text to Button
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void exportLoad(object sender, EventArgs e)
-        {
-            var export = (LinkButton)sender;
-            export.Text =
-                "<i class=\"fa fa-download fa-fw\"></i>&nbsp;{0}".FormatWith(
-                    this.GetText("ADMIN_EXTENSIONS", "EXPORT"));
-        }
-
-        /// <summary>
-        /// Add Localized Text to Button
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void importLoad(object sender, EventArgs e)
-        {
-            var import = (LinkButton)sender;
-            import.Text =
-                "<i class=\"fa fa-upload fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_EXTENSIONS", "IMPORT"));
-        }
-
-        /// <summary>
         /// The extension title_ load.
         /// </summary>
         /// <param name="sender">
@@ -129,7 +61,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void ExtensionTitle_Load([NotNull] object sender, [NotNull] EventArgs e)
+        protected void ExtensionTitleLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((Label)sender).Text = "{0} {1}".FormatWith(
                 this.PageContext.BoardSettings.FileExtensionAreAllowed
@@ -139,29 +71,22 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The on init.
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            this.list.ItemCommand += this.list_ItemCommand;
+            this.list.ItemCommand += this.ListItemCommand;
 
             // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            this.InitializeComponent();
             base.OnInit(e);
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -169,6 +94,14 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
@@ -178,26 +111,16 @@ namespace YAF.Pages.Admin
             this.Page.Header.Title = "{0} - {1}".FormatWith(
                 this.GetText("ADMIN_ADMIN", "Administration"),
                 this.GetText("ADMIN_EXTENSIONS", "TITLE"));
-
-            this.BindData();
         }
 
         /// <summary>
-        /// The bind data.
+        /// Binds the data.
         /// </summary>
         private void BindData()
         {
             this.list.DataSource =
                 this.GetRepository<FileExtension>().Get(e => e.BoardId == this.PageContext.PageBoardID);
             this.DataBind();
-        }
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        ///   the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
         }
 
         /// <summary>
@@ -209,15 +132,24 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// The e.
         /// </param>
-        private void list_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
+        private void ListItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {
                 case "add":
-                    YafBuildLink.Redirect(ForumPages.admin_extensions_edit);
+                    this.EditDialog.BindData(null);
+
+                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                        "openModalJs",
+                        JavaScriptBlocks.OpenModalJs("ExtensionsEditDialog"));
+
                     break;
                 case "edit":
-                    YafBuildLink.Redirect(ForumPages.admin_extensions_edit, "i={0}", e.CommandArgument);
+                    this.EditDialog.BindData(e.CommandArgument.ToType<int>());
+
+                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                        "openModalJs",
+                        JavaScriptBlocks.OpenModalJs("ExtensionsEditDialog"));
                     break;
                 case "delete":
                     this.GetRepository<FileExtension>().DeleteById(e.CommandArgument.ToType<int>());
@@ -228,9 +160,6 @@ namespace YAF.Pages.Admin
                         this.ExportList();
                     }
 
-                    break;
-                case "import":
-                    YafBuildLink.Redirect(ForumPages.admin_extensions_import);
                     break;
             }
         }

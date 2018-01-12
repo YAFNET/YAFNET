@@ -55,7 +55,7 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///   Gets user ID of edited user.
         /// </summary>
-        protected int CurrentUserID
+        protected int CurrentUserId
         {
             get
             {
@@ -70,7 +70,7 @@ namespace YAF.Pages.Admin
         {
             get
             {
-                return UserMembershipHelper.IsGuestUser(this.CurrentUserID);
+                return UserMembershipHelper.IsGuestUser(this.CurrentUserId);
             }
         }
 
@@ -114,14 +114,14 @@ namespace YAF.Pages.Admin
         {
             this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-            DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null);
+            var dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.CurrentUserId, null);
 
             if (dt.Rows.Count != 1)
             {
                 return;
             }
 
-            DataRow userRow = dt.Rows[0];
+            var userRow = dt.Rows[0];
 
             // do admin permission check...
             if (!this.PageContext.IsHostAdmin && this.IsUserHostAdmin(userRow))
@@ -134,12 +134,6 @@ namespace YAF.Pages.Admin
             {
                 return;
             }
-
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-
-            this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_users));
 
             var userName = this.Get<YafBoardSettings>().EnableDisplayName
                                ? userRow["DisplayName"].ToString()
@@ -160,7 +154,7 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_EDITUSER", "TITLE").FormatWith(userName));
 
             // do a quick user membership sync...
-            MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
+            var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserId);
 
             // update if the user is not Guest
             if (!this.IsGuestUser)
@@ -169,6 +163,18 @@ namespace YAF.Pages.Admin
             }
 
             this.EditUserTabs.DataBind();
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+
+            this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_users));
         }
 
         #endregion

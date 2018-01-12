@@ -307,10 +307,10 @@ namespace YAF.Pages
             {
                 // PM is a reply or quoted reply (isQuoting)
                 // to the given message id "p"
-                bool isQuoting = this.Request.QueryString.GetFirstOrDefault("q") == "1";
+                var isQuoting = this.Request.QueryString.GetFirstOrDefault("q") == "1";
 
                 // get quoted message
-                DataRow row =
+                var row =
                     LegacyDb.pmessage_list(
                         Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("p"))).GetFirstRow();
 
@@ -339,7 +339,7 @@ namespace YAF.Pages
 
                 this.PmSubjectTextBox.Text = subject;
 
-                string displayName = this.Get<IUserDisplayName>().GetName(fromUserId);
+                var displayName = this.Get<IUserDisplayName>().GetName(fromUserId);
 
                 // set "To" user and disable changing...
                 this.To.Text = displayName;
@@ -354,7 +354,7 @@ namespace YAF.Pages
                 }
 
                 // PM is a quoted reply
-                string body = row["Body"].ToString();
+                var body = row["Body"].ToString();
 
                 if (this.Get<YafBoardSettings>().RemoveNestedQuotes)
                 {
@@ -390,7 +390,7 @@ namespace YAF.Pages
                 }
 
                 // get quoted message
-                DataRow messagesRow =
+                var messagesRow =
                     LegacyDb.message_listreporters(
                         Security.StringToLongOrRedirect(
                             this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r")).ToType<int>(),
@@ -408,7 +408,7 @@ namespace YAF.Pages
                 // handle subject                                           
                 this.PmSubjectTextBox.Text = this.GetText("REPORTED_SUBJECT");
 
-                string displayName =
+                var displayName =
                     this.Get<IUserDisplayName>().GetName(messagesRow.Field<int>("UserID"));
 
                 // set "To" user and disable changing...
@@ -419,12 +419,12 @@ namespace YAF.Pages
                 this.AllBuddies.Enabled = false;
 
                 // Parse content with delimiter '|'  
-                string[] quoteList = messagesRow.Field<string>("ReportText").Split('|');
+                var quoteList = messagesRow.Field<string>("ReportText").Split('|');
 
                 // Quoted replies should have bad words in them
                 // Reply to report PM is always a quoted reply
                 // Quote the original message in a cycle
-                for (int i = 0; i < quoteList.Length; i++)
+                for (var i = 0; i < quoteList.Length; i++)
                 {
                     // Add quote codes
                     quoteList[i] = "[QUOTE={0}]{1}[/QUOTE]".FormatWith(displayName, quoteList[i]);
@@ -446,7 +446,7 @@ namespace YAF.Pages
                     return;
                 }
 
-                DataRow currentRow =
+                var currentRow =
                     LegacyDb.user_list(YafContext.Current.PageBoardID, toUserId, true).GetFirstRow();
 
                 if (currentRow == null)
@@ -504,7 +504,7 @@ namespace YAF.Pages
             }
 
             using (
-                DataTable userDT = LegacyDb.user_list(
+                var userDT = LegacyDb.user_list(
                     YafContext.Current.PageBoardID,
                     YafContext.Current.PageUserID,
                     true))
@@ -625,9 +625,9 @@ namespace YAF.Pages
                 var recipientIds = new List<int>();
 
                 // get recipients' IDs
-                foreach (string recipient in recipients)
+                foreach (var recipient in recipients)
                 {
-                    int? userId = this.Get<IUserDisplayName>().GetId(recipient);
+                    var userId = this.Get<IUserDisplayName>().GetId(recipient);
 
                     if (!userId.HasValue)
                     {
@@ -672,7 +672,7 @@ namespace YAF.Pages
                 // send PM to all recipients
                 foreach (var userId in recipientIds)
                 {
-                    string body = this._editor.Text;
+                    var body = this._editor.Text;
 
                     var messageFlags = new MessageFlags
                                            {

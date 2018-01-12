@@ -74,7 +74,7 @@ namespace YAF.Pages
         {
             var row = (DataRow)o;
 
-            string message = row["Message"].ToString();
+            var message = row["Message"].ToString();
 
             message = this.Get<IFormatMessage>().FormatMessage(message, new MessageFlags(row["Flags"].ToType<int>()));
 
@@ -146,8 +146,8 @@ namespace YAF.Pages
             this.PageLinks.AddForum(this.PageContext.PageForumID);
             this.PageLinks.AddLink(
                 this.PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
-            bool showDeleted = false;
-            int userId = 0;
+            var showDeleted = false;
+            var userId = 0;
             if (this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
             {
                 showDeleted = true;

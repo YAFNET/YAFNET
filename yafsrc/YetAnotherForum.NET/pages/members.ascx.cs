@@ -219,19 +219,19 @@ namespace YAF.Pages
             this.Posts.Text = this.GetText("posts");
             this.LastVisitLB.Text = this.GetText("members", "lastvisit");
        
-            using (DataTable dt = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.group_list(this.PageContext.PageBoardID, null)))
+            using (var dt = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.group_list(this.PageContext.PageBoardID, null)))
             {
                 // add empty item for no filtering
-                DataRow newRow = dt.NewRow();
+                var newRow = dt.NewRow();
                 newRow["Name"] = this.GetText("ALL");
                 newRow["GroupID"] = DBNull.Value;
                 dt.Rows.InsertAt(newRow, 0);
 
-                DataRow[] guestRows = dt.Select("Name='Guests'");
+                var guestRows = dt.Select("Name='Guests'");
 
                 if (guestRows.Length > 0)
                 {
-                    foreach (DataRow row in guestRows)
+                    foreach (var row in guestRows)
                     {
                         row.Delete();
                     }
@@ -253,19 +253,19 @@ namespace YAF.Pages
             this.NumPostDDL.DataBind();
 
             // get list of user ranks for filtering
-            using (DataTable dt = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.rank_list(this.PageContext.PageBoardID, null)))
+            using (var dt = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.rank_list(this.PageContext.PageBoardID, null)))
             {
                 // add empty for for no filtering
-                DataRow newRow = dt.NewRow();
+                var newRow = dt.NewRow();
                 newRow["Name"] = this.GetText("ALL");
                 newRow["RankID"] = DBNull.Value;
                 dt.Rows.InsertAt(newRow, 0);
 
-                DataRow[] guestRows = dt.Select("Name='Guest'");
+                var guestRows = dt.Select("Name='Guest'");
 
                 if (guestRows.Length > 0)
                 {
-                    foreach (DataRow row in guestRows)
+                    foreach (var row in guestRows)
                     {
                         row.Delete();
                     }

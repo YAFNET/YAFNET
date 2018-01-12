@@ -40,6 +40,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Utilities;
     using YAF.Utils;
 
     #endregion
@@ -50,66 +51,6 @@ namespace YAF.Pages.Admin
     public partial class bbcode : AdminPage
     {
         #region Methods
-
-        /// <summary>
-        /// The delete_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_BBCODE", "CONFIRM_DELETE"));
-        }
-
-        /// <summary>
-        /// Add Localized Text to Button
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void addLoad(object sender, EventArgs e)
-        {
-            var add = (LinkButton)sender;
-            add.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_BBCODE", "ADD"));
-        }
-
-        /// <summary>
-        /// Add Localized Text to Button
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void exportLoad(object sender, EventArgs e)
-        {
-            var export = (LinkButton)sender;
-            export.Text = "<i class=\"fa fa-download fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_BBCODE", "EXPORT"));
-        }
-
-        /// <summary>
-        /// Add Localized Text to Button
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void importLoad(object sender, EventArgs e)
-        {
-            var import = (LinkButton)sender;
-            import.Text = "<i class=\"fa fa-upload fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_BBCODE", "IMPORT"));
-        }
 
         /// <summary>
         /// The get selected bb code i ds.
@@ -129,14 +70,10 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -162,14 +99,10 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The bb code list_ item command.
+        /// Bbs the code list item command.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
         protected void BbCodeListItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
@@ -191,9 +124,6 @@ namespace YAF.Pages.Admin
                     }
 
                     break;
-                case "import":
-                    YafBuildLink.Redirect(ForumPages.admin_bbcode_import);
-                    break;
             }
         }
 
@@ -202,12 +132,10 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void ExportList()
         {
-
             var codeIDs = this.GetSelectedBbCodeIDs();
 
             if (codeIDs.Count > 0)
             {
-
                 this.Get<HttpResponseBase>().Clear();
                 this.Get<HttpResponseBase>().ClearContent();
                 this.Get<HttpResponseBase>().ClearHeaders();

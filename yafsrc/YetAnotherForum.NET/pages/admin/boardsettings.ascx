@@ -181,8 +181,9 @@
             </p>
                             </div>
                         <div class="card-footer text-center">
-                            <asp:LinkButton ID="Save" CssClass="btn btn-primary" runat="server" Text="Save" OnClick="Save_Click">
-                            </asp:LinkButton>
+                            <YAF:ThemeButton ID="Save" CssClass="btn btn-primary" runat="server" OnClick="SaveClick"
+                                             Icon="save" TextLocalizedTag="SAVE">
+                            </YAF:ThemeButton>
                         </div>
                     </div>
                 </div>

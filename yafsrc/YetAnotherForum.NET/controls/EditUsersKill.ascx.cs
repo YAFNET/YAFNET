@@ -227,7 +227,7 @@ namespace YAF.Controls
 
                         // get user(s) we are about to delete
                         using (
-                            DataTable dt = LegacyDb.user_list(
+                            var dt = LegacyDb.user_list(
                                 this.PageContext.PageBoardID,
                                 this.CurrentUserId,
                                 DBNull.Value))

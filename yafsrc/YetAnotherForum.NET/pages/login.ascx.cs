@@ -94,7 +94,7 @@ namespace YAF.Pages
             if (username.Contains("@") && this.Get<MembershipProvider>().RequiresUniqueEmail)
             {
                 // attempt Email Login
-                string realUsername = this.Get<MembershipProvider>().GetUserNameByEmail(username);
+                var realUsername = this.Get<MembershipProvider>().GetUserNameByEmail(username);
 
                 if (realUsername.IsSet() && this.Get<MembershipProvider>().ValidateUser(realUsername, password))
                 {
@@ -117,7 +117,7 @@ namespace YAF.Pages
                 if (id.HasValue)
                 {
                     // get the username associated with this id...
-                    string realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
+                    var realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
 
                     // validate again...
                     if (this.Get<MembershipProvider>().ValidateUser(realUsername, password))
@@ -183,7 +183,7 @@ namespace YAF.Pages
         /// </param>
         protected void Login1_LoginError([NotNull] object sender, [NotNull] EventArgs e)
         {
-            bool emptyFields = false;
+            var emptyFields = false;
 
             var userName = this.Login1.FindControlAs<TextBox>("UserName");
             var password = this.Login1.FindControlAs<TextBox>("Password");
@@ -319,7 +319,7 @@ namespace YAF.Pages
                 var twitterEnabled = Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet();
                 var googleEnabled = Config.GoogleClientID.IsSet() && Config.GoogleClientSecret.IsSet();
 
-                string loginAuth = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("auth");
+                var loginAuth = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("auth");
 
                 if (loginAuth.IsNotSet())
                 {

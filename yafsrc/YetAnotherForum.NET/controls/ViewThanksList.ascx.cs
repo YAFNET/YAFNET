@@ -250,7 +250,7 @@ namespace YAF.Controls
         /// </param>
         private void DistinctMessageID([NotNull] IEnumerable<DataRow> thanksData)
         {
-            int previousId = 0;
+            var previousId = 0;
             int tempId;
 
             foreach (var dr in thanksData.OrderBy(x => x.Field<int>("MessageID")))

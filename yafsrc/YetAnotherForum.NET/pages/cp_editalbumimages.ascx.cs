@@ -106,7 +106,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void DeleteAlbum_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            string sUpDir =
+            var sUpDir =
               this.Get<HttpRequestBase>().MapPath(
                 string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
@@ -149,7 +149,7 @@ namespace YAF.Pages
             switch (e.CommandName)
             {
                 case "delete":
-                    string sUpDir =
+                    var sUpDir =
                       this.Get<HttpRequestBase>().MapPath(
                         String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
@@ -158,7 +158,7 @@ namespace YAF.Pages
                     // If the user is trying to edit an existing album, initialize the repeater.
                     this.BindVariousControls(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a").Equals("new"));
 
-                    DataTable sigData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+                    var sigData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
 
                     //int[] albumSize = LegacyDb.album_getstats(this.PageContext.PageUserID, null);
 
@@ -209,11 +209,11 @@ namespace YAF.Pages
                 return;
             }
 
-            DataTable sigData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+            var sigData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
 
             var usrAlbumsAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
 
-            int[] albumSize = LegacyDb.album_getstats(this.PageContext.PageUserID, null);
+            var albumSize = LegacyDb.album_getstats(this.PageContext.PageUserID, null);
             int userID;
             switch (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"))
             {
@@ -309,7 +309,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void UpdateTitle_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            string albumID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a");
+            var albumID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a");
             this.txtTitle.Text = HttpUtility.HtmlEncode(this.txtTitle.Text);
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") == "new")
@@ -340,7 +340,7 @@ namespace YAF.Pages
 
                 this.BindData();
 
-                DataTable sigData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+                var sigData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
 
                 // int[] albumSize = LegacyDb.album_getstats(this.PageContext.PageUserID, null);
                 var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
@@ -419,14 +419,14 @@ namespace YAF.Pages
         /// </returns>
         private bool CheckValidFile([NotNull] HtmlInputFile uploadedFile)
         {
-            string filePath = uploadedFile.PostedFile.FileName.Trim();
+            var filePath = uploadedFile.PostedFile.FileName.Trim();
 
             if (filePath.IsNotSet() || uploadedFile.PostedFile.ContentLength == 0)
             {
                 return false;
             }
 
-            string extension = Path.GetExtension(filePath).ToLower();
+            var extension = Path.GetExtension(filePath).ToLower();
 
             // remove the "period"
             extension = extension.Replace(".", string.Empty);
@@ -456,7 +456,7 @@ namespace YAF.Pages
                 return;
             }
 
-            string sUpDir =
+            var sUpDir =
               this.Get<HttpRequestBase>().MapPath(
                 string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
@@ -466,9 +466,9 @@ namespace YAF.Pages
                 Directory.CreateDirectory(sUpDir);
             }
 
-            string filename = file.PostedFile.FileName;
+            var filename = file.PostedFile.FileName;
 
-            int pos = filename.LastIndexOfAny(new[] { '/', '\\' });
+            var pos = filename.LastIndexOfAny(new[] { '/', '\\' });
             if (pos >= 0)
             {
                 filename = filename.Substring(pos + 1);
@@ -488,7 +488,7 @@ namespace YAF.Pages
             }
 
             // vzrus: the checks here are useless but in a case...
-            DataTable sigData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
+            var sigData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
 
             var usrAlbumsAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
             var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
@@ -496,7 +496,7 @@ namespace YAF.Pages
             // if (!usrAlbums.HasValue || usrAlbums <= 0) return;
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") == "new")
             {
-                int[] alstats = LegacyDb.album_getstats(this.PageContext.PageUserID, null);
+                var alstats = LegacyDb.album_getstats(this.PageContext.PageUserID, null);
 
                 // Albums count. If we reached limit then we exit.
                 if (alstats[0] >= usrAlbumsAllowed)
@@ -518,7 +518,7 @@ namespace YAF.Pages
             else
             {
                 // vzrus: the checks here are useless but in a case...
-                int[] alstats = LegacyDb.album_getstats(
+                var alstats = LegacyDb.album_getstats(
                   this.PageContext.PageUserID, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
 
                 /*

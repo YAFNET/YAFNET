@@ -386,6 +386,69 @@
     <Compile Include="Dialogs\BannedEmailEdit.ascx.designer.cs">
       <DependentUpon>BannedEmailEdit.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\NntpForumEdit.ascx.cs">
+      <DependentUpon>NntpForumEdit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\NntpForumEdit.ascx.designer.cs">
+      <DependentUpon>NntpForumEdit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\NntpServerEdit.ascx.cs">
+      <DependentUpon>NntpServerEdit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\NntpServerEdit.ascx.designer.cs">
+      <DependentUpon>NntpServerEdit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\TopicStatusEdit.ascx.cs">
+      <DependentUpon>TopicStatusEdit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\TopicStatusEdit.ascx.designer.cs">
+      <DependentUpon>TopicStatusEdit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ExtensionsEdit.ascx.cs">
+      <DependentUpon>ExtensionsEdit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ExtensionsEdit.ascx.designer.cs">
+      <DependentUpon>ExtensionsEdit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ReplaceWordsEdit.ascx.cs">
+      <DependentUpon>ReplaceWordsEdit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ReplaceWordsEdit.ascx.designer.cs">
+      <DependentUpon>ReplaceWordsEdit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\UsersImport.ascx.cs">
+      <DependentUpon>UsersImport.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\UsersImport.ascx.designer.cs">
+      <DependentUpon>UsersImport.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ExtensionsImport.ascx.cs">
+      <DependentUpon>ExtensionsImport.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ExtensionsImport.ascx.designer.cs">
+      <DependentUpon>ExtensionsImport.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\TopicStatusImport.ascx.cs">
+      <DependentUpon>TopicStatusImport.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\TopicStatusImport.ascx.designer.cs">
+      <DependentUpon>TopicStatusImport.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ReplaceWordsImport.ascx.cs">
+      <DependentUpon>ReplaceWordsImport.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ReplaceWordsImport.ascx.designer.cs">
+      <DependentUpon>ReplaceWordsImport.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\SpamWordsEdit.ascx.cs">
       <DependentUpon>SpamWordsEdit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -399,6 +462,13 @@
     </Compile>
     <Compile Include="Dialogs\BannedEmailImport.ascx.designer.cs">
       <DependentUpon>BannedEmailImport.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\BBCodeImport.ascx.cs">
+      <DependentUpon>BBCodeImport.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\BBCodeImport.ascx.designer.cs">
+      <DependentUpon>BBCodeImport.ascx</DependentUpon>
     </Compile>
     <Compile Include="error.aspx.designer.cs">
       <DependentUpon>error.aspx</DependentUpon>
@@ -467,9 +537,6 @@
     </Compile>
     <Compile Include="pages\admin\bbcode_edit.ascx.designer.cs">
       <DependentUpon>bbcode_edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\admin\bbcode_import.ascx.designer.cs">
-      <DependentUpon>bbcode_import.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\admin\boards.ascx.designer.cs">
       <DependentUpon>boards.ascx</DependentUpon>
@@ -551,12 +618,6 @@
     <Compile Include="pages\admin\editmedal.ascx.designer.cs">
       <DependentUpon>editmedal.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\admin\editnntpforum.ascx.designer.cs">
-      <DependentUpon>editnntpforum.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\admin\editnntpserver.ascx.designer.cs">
-      <DependentUpon>editnntpserver.ascx</DependentUpon>
-    </Compile>
     <Compile Include="pages\admin\editrank.ascx.designer.cs">
       <DependentUpon>editrank.ascx</DependentUpon>
     </Compile>
@@ -568,12 +629,6 @@
     </Compile>
     <Compile Include="pages\admin\extensions.ascx.designer.cs">
       <DependentUpon>extensions.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\admin\extensions_edit.ascx.designer.cs">
-      <DependentUpon>extensions_edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\admin\extensions_import.ascx.designer.cs">
-      <DependentUpon>extensions_import.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\admin\forums.ascx.designer.cs">
       <DependentUpon>forums.ascx</DependentUpon>
@@ -624,12 +679,6 @@
     <Compile Include="pages\admin\replacewords.ascx.designer.cs">
       <DependentUpon>replacewords.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\admin\replacewords_edit.ascx.designer.cs">
-      <DependentUpon>replacewords_edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\admin\replacewords_import.ascx.designer.cs">
-      <DependentUpon>replacewords_import.ascx</DependentUpon>
-    </Compile>
     <Compile Include="pages\admin\restartapp.ascx.cs">
       <DependentUpon>restartapp.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -675,29 +724,8 @@
     <Compile Include="pages\admin\topicstatus.ascx.designer.cs">
       <DependentUpon>topicstatus.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\admin\topicstatus_edit.ascx.cs">
-      <DependentUpon>topicstatus_edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\topicstatus_edit.ascx.designer.cs">
-      <DependentUpon>topicstatus_edit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\admin\topicstatus_import.ascx.cs">
-      <DependentUpon>topicstatus_import.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\topicstatus_import.ascx.designer.cs">
-      <DependentUpon>topicstatus_import.ascx</DependentUpon>
-    </Compile>
     <Compile Include="pages\admin\users.ascx.designer.cs">
       <DependentUpon>users.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\admin\users_import.ascx.cs">
-      <DependentUpon>users_import.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\users_import.ascx.designer.cs">
-      <DependentUpon>users_import.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\admin\version.ascx.designer.cs">
       <DependentUpon>version.ascx</DependentUpon>
@@ -1203,8 +1231,18 @@
     <Content Include="Dialogs\BannedIpImport.ascx" />
     <Content Include="Dialogs\BannedNameImport.ascx" />
     <Content Include="Dialogs\BannedEmailEdit.ascx" />
+    <Content Include="Dialogs\NntpForumEdit.ascx" />
+    <Content Include="Dialogs\NntpServerEdit.ascx" />
+    <Content Include="Dialogs\TopicStatusEdit.ascx" />
+    <Content Include="Dialogs\ExtensionsEdit.ascx" />
+    <Content Include="Dialogs\ReplaceWordsEdit.ascx" />
+    <Content Include="Dialogs\UsersImport.ascx" />
+    <Content Include="Dialogs\ExtensionsImport.ascx" />
+    <Content Include="Dialogs\TopicStatusImport.ascx" />
+    <Content Include="Dialogs\ReplaceWordsImport.ascx" />
     <Content Include="Dialogs\SpamWordsEdit.ascx" />
     <Content Include="Dialogs\BannedEmailImport.ascx" />
+    <Content Include="Dialogs\BBCodeImport.ascx" />
     <Content Include="digest.aspx" />
     <Content Include="default.aspx" />
     <Content Include="error.aspx" />
@@ -1276,9 +1314,6 @@
     <Content Include="pages\admin\spamwords.ascx" />
     <Content Include="Dialogs\SpamWordsImport.ascx" />
     <Content Include="pages\admin\topicstatus.ascx" />
-    <Content Include="pages\admin\topicstatus_edit.ascx" />
-    <Content Include="pages\admin\topicstatus_import.ascx" />
-    <Content Include="pages\admin\users_import.ascx" />
     <Content Include="Images\Categories\categoryImageSample.gif" />
     <Content Include="Images\folder.gif" />
     <Content Include="Images\Forums\forumImageSample.gif" />
@@ -1345,7 +1380,6 @@
     <Content Include="pages\admin\bannedip.ascx" />
     <Content Include="pages\admin\bbcode.ascx" />
     <Content Include="pages\admin\bbcode_edit.ascx" />
-    <Content Include="pages\admin\bbcode_import.ascx" />
     <Content Include="pages\admin\boards.ascx" />
     <Content Include="pages\admin\boardsettings.ascx" />
     <Content Include="pages\admin\digest.ascx" />
@@ -1356,14 +1390,10 @@
     <Content Include="pages\admin\editgroup.ascx" />
     <Content Include="pages\admin\editlanguage.ascx" />
     <Content Include="pages\admin\editmedal.ascx" />
-    <Content Include="pages\admin\editnntpforum.ascx" />
-    <Content Include="pages\admin\editnntpserver.ascx" />
     <Content Include="pages\admin\editrank.ascx" />
     <Content Include="pages\admin\edituser.ascx" />
     <Content Include="pages\admin\eventlog.ascx" />
     <Content Include="pages\admin\extensions.ascx" />
-    <Content Include="pages\admin\extensions_edit.ascx" />
-    <Content Include="pages\admin\extensions_import.ascx" />
     <Content Include="pages\admin\forums.ascx" />
     <Content Include="pages\admin\groups.ascx" />
     <Content Include="pages\admin\hostsettings.ascx" />
@@ -1379,8 +1409,6 @@
     <Content Include="pages\admin\reguser.ascx" />
     <Content Include="pages\admin\reindex.ascx" />
     <Content Include="pages\admin\replacewords.ascx" />
-    <Content Include="pages\admin\replacewords_edit.ascx" />
-    <Content Include="pages\admin\replacewords_import.ascx" />
     <Content Include="pages\admin\restartapp.ascx" />
     <Content Include="pages\admin\runsql.ascx" />
     <Content Include="pages\admin\taskmanager.ascx" />
@@ -2453,10 +2481,6 @@
       <DependentUpon>bbcode_edit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\admin\bbcode_import.ascx.cs">
-      <DependentUpon>bbcode_import.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="pages\admin\boards.ascx.cs">
       <DependentUpon>boards.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2489,14 +2513,6 @@
       <DependentUpon>editmedal.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\admin\editnntpforum.ascx.cs">
-      <DependentUpon>editnntpforum.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\editnntpserver.ascx.cs">
-      <DependentUpon>editnntpserver.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="pages\admin\editrank.ascx.cs">
       <DependentUpon>editrank.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2511,14 +2527,6 @@
     </Compile>
     <Compile Include="pages\admin\extensions.ascx.cs">
       <DependentUpon>extensions.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\extensions_edit.ascx.cs">
-      <DependentUpon>extensions_edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\extensions_import.ascx.cs">
-      <DependentUpon>extensions_import.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\forums.ascx.cs">
@@ -2575,14 +2583,6 @@
     </Compile>
     <Compile Include="pages\admin\replacewords.ascx.cs">
       <DependentUpon>replacewords.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\replacewords_edit.ascx.cs">
-      <DependentUpon>replacewords_edit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\admin\replacewords_import.ascx.cs">
-      <DependentUpon>replacewords_import.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\admin\runsql.ascx.cs">

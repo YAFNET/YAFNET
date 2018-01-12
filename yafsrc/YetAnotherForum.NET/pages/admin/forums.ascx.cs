@@ -70,10 +70,9 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void DeleteForum_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return (confirm('{0}') && confirm('{1}'))".FormatWith(
-                    this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE"),
-                    this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE"));
+            ((ThemeButton)sender).Attributes["onclick"] = "return (confirm('{0}') && confirm('{1}'))".FormatWith(
+                this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE"),
+                this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE"));
         }
 
         /// <summary>
@@ -155,16 +154,23 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("TEAM", "FORUMS"));
-
-            this.NewCategory.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_FORUMS", "NEW_CATEGORY"));
-            this.NewForum.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_FORUMS", "NEW_FORUM"));
-
-            this.BindData();
+            this.Page.Header.Title = "{0} - {1}".FormatWith(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                this.GetText("TEAM", "FORUMS"));
         }
 
         /// <summary>
@@ -172,7 +178,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            using (DataSet ds = LegacyDb.ds_forumadmin(this.PageContext.PageBoardID))
+            using (var ds = LegacyDb.ds_forumadmin(this.PageContext.PageBoardID))
             {
                 this.CategoryList.DataSource = ds.Tables[DbHelpers.GetObjectName("Category")];
             }

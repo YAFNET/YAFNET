@@ -107,7 +107,7 @@
                 <YAF:HelpLabel ID="HelpLabel15" runat="server" LocalizedTag="INITIAL_MASK" LocalizedPage="ADMIN_EDITGROUP" />
             </h4>
             <p>
-                <asp:DropDownList runat="server" ID="AccessMaskID" OnDataBinding="BindData_AccessMaskID" CssClass="custom-select" />
+                <asp:DropDownList runat="server" ID="AccessMaskID" OnDataBinding="BindDataAccessMaskId" CssClass="custom-select" />
             </p>
         </asp:PlaceHolder>
         <asp:Repeater ID="AccessList" runat="server">
@@ -123,7 +123,7 @@
                         <%# this.Eval( "CategoryName") %>
                         </em></small>
                     <p>
-                        <asp:DropDownList runat="server" ID="AccessMaskID" OnDataBinding="BindData_AccessMaskID" CssClass="custom-select"
+                        <asp:DropDownList runat="server" ID="AccessMaskID" OnDataBinding="BindDataAccessMaskId" CssClass="custom-select"
                             OnPreRender="SetDropDownIndex" value='<%# this.Eval("AccessMaskID") %>' />
                         ...
                     </p>
@@ -134,8 +134,10 @@
                
                 </div>
                 <div class="card-footer text-lg-center">
-                    <asp:LinkButton ID="Save" runat="server" OnClick="Save_Click" CssClass="btn btn-primary"></asp:LinkButton>&nbsp;
-                    <asp:LinkButton ID="Cancel" runat="server" OnClick="Cancel_Click" CssClass="btn btn-secondary"></asp:LinkButton>
+                    <YAF:ThemeButton ID="Save" runat="server" OnClick="SaveClick" CssClass="btn btn-primary"
+                                    Icon="save" TextLocalizedTag="SAVE"></YAF:ThemeButton>&nbsp;
+                    <YAF:ThemeButton ID="Cancel" runat="server" OnClick="CancelClick" CssClass="btn btn-secondary"
+                                    Icon="times" TextLocalizedTag="CANCEL"></YAF:ThemeButton>
                 </div>
             </div>
         </div>

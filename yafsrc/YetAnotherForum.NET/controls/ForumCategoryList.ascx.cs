@@ -56,7 +56,7 @@ namespace YAF.Controls
 		/// </returns>
 		protected int ColumnCount()
 		{
-			int cnt = 5;
+			var cnt = 5;
 
 			if (this.Get<YafBoardSettings>().ShowModeratorList && this.Get<YafBoardSettings>().ShowModeratorListAsColumn)
 			{
@@ -87,7 +87,7 @@ namespace YAF.Controls
 				categoryId = icategoryId;
 			}
 
-			DataTable dt = LegacyDb.forum_listread(
+			var dt = LegacyDb.forum_listread(
 				boardID: this.PageContext.PageBoardID,
 				userID: this.PageContext.PageUserID,
 				categoryID: categoryId,
@@ -119,7 +119,7 @@ namespace YAF.Controls
 		/// </summary>
 		private void BindData()
 		{
-			DataSet ds = this.Get<YafDbBroker>().BoardLayout(
+			var ds = this.Get<YafDbBroker>().BoardLayout(
 					this.PageContext.PageBoardID, this.PageContext.PageUserID, this.PageContext.PageCategoryID, null);
 
 			this.CategoryList.DataSource = ds.Tables["Category"];

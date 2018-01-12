@@ -59,7 +59,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ForceSend_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void ForceSendClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<YafBoardSettings>().ForceDigestSend = true;
             ((YafLoadBoardSettings)YafContext.Current.BoardSettings).SaveRegistry();
@@ -72,7 +72,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void GenerateDigest_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void GenerateDigestClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.DigestHtmlPlaceHolder.Visible = true;
             this.DigestFrame.Attributes["src"] = this.Get<IDigest>()
@@ -100,14 +100,6 @@ namespace YAF.Pages.Admin
             this.DigestEnabled.Text = this.Get<YafBoardSettings>().AllowDigestEmail
                                           ? this.GetText("COMMON", "YES")
                                           : this.GetText("COMMON", "NO");
-
-            this.TestSend.Text = "<i class=\"fa fa-send fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_DIGEST", "SEND_TEST"));
-
-            this.GenerateDigest.Text = "<i class=\"fa fa-envelope fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_DIGEST", "GENERATE_DIGEST"));
-            this.Button2.Text = "<i class=\"fa fa-send fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_DIGEST", "FORCE_SEND"));
-
-            this.Button2.OnClientClick =
-                "return confirm('{0}');".FormatWith(this.GetText("ADMIN_DIGEST", "CONFIRM_FORCE"));
         }
 
         /// <summary>
@@ -131,7 +123,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void TestSend_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void TestSendClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.TextSendEmail.Text.IsSet())
             {

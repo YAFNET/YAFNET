@@ -216,7 +216,7 @@ namespace YAF.Pages
         /// </param>
         protected void CreateUserWizard1_CreatedUser([NotNull] object sender, [NotNull] EventArgs e)
         {
-            MembershipUser user = UserMembershipHelper.GetUser(this.CreateUserWizard1.UserName);
+            var user = UserMembershipHelper.GetUser(this.CreateUserWizard1.UserName);
 
             // setup inital roles (if any) for this user
             RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, this.CreateUserWizard1.UserName);
@@ -229,10 +229,10 @@ namespace YAF.Pages
             }
 
             // create the user in the YAF DB as well as sync roles...
-            int? userID = RoleMembershipHelper.CreateForumUser(user, displayName, YafContext.Current.PageBoardID);
+            var userID = RoleMembershipHelper.CreateForumUser(user, displayName, YafContext.Current.PageBoardID);
 
             // create empty profile just so they have one
-            YafUserProfile userProfile = YafUserProfile.GetProfile(this.CreateUserWizard1.UserName);
+            var userProfile = YafUserProfile.GetProfile(this.CreateUserWizard1.UserName);
 
             // setup their inital profile information
             userProfile.Save();
@@ -503,7 +503,7 @@ namespace YAF.Pages
                 return;
             }
 
-            MembershipUser user = UserMembershipHelper.GetUser(this.CreateUserWizard1.UserName);
+            var user = UserMembershipHelper.GetUser(this.CreateUserWizard1.UserName);
 
             // save the time zone...
             var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
@@ -979,7 +979,7 @@ namespace YAF.Pages
             var dstUser = (CheckBox)this.CreateUserWizard1.FindWizardControlRecursive("DSTUser");
 
             // setup/save the profile
-            YafUserProfile userProfile = YafUserProfile.GetProfile(this.CreateUserWizard1.UserName);
+            var userProfile = YafUserProfile.GetProfile(this.CreateUserWizard1.UserName);
 
             if (country.SelectedValue != null)
             {

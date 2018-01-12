@@ -281,7 +281,7 @@ namespace YAF.Pages
                     // re-send verification email instead of lost password...
                     var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
 
-                    string subject = this.GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
+                    var subject = this.GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
 
                     verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", checkTyped.Hash);
                     verifyEmail.TemplateParams["{key}"] = checkTyped.Hash;

@@ -51,15 +51,11 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// The forum register_ click.
+        /// Handles the Click event of the ForumRegister control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void ForumRegister_Click([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void ForumRegisterClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.Page.IsValid)
             {
@@ -82,7 +78,7 @@ namespace YAF.Pages.Admin
             }
 
             MembershipCreateStatus status;
-            MembershipUser user = this.Get<MembershipProvider>()
+            var user = this.Get<MembershipProvider>()
                 .CreateUser(
                     newUsername,
                     this.Password.Text.Trim(),
@@ -104,10 +100,10 @@ namespace YAF.Pages.Admin
             RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, newUsername);
 
             // create the user in the YAF DB as well as sync roles...
-            int? userID = RoleMembershipHelper.CreateForumUser(user, YafContext.Current.PageBoardID);
+            var userId = RoleMembershipHelper.CreateForumUser(user, YafContext.Current.PageBoardID);
 
             // create profile
-            YafUserProfile userProfile = YafUserProfile.GetProfile(newUsername);
+            var userProfile = YafUserProfile.GetProfile(newUsername);
 
             // setup their inital profile information
             userProfile.Location = this.Location.Text.Trim();
@@ -140,7 +136,7 @@ namespace YAF.Pages.Admin
 
             if (this.Get<YafBoardSettings>().EmailVerification)
             {
-                this.Get<ISendNotification>().SendVerificationEmail(user, newEmail, userID, newUsername);
+                this.Get<ISendNotification>().SendVerificationEmail(user, newEmail, userId, newUsername);
             }
 
             LegacyDb.user_savenotification(
@@ -157,14 +153,10 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -172,6 +164,16 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.TimeZones.DataSource = StaticDataHelper.TimeZones();
+            this.DataBind();
+            this.TimeZones.Items.FindByValue("0").Selected = true;
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
@@ -186,13 +188,6 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_ADMIN", "Administration"),
                 this.GetText("ADMIN_USERS", "TITLE"),
                 this.GetText("ADMIN_REGUSER", "TITLE"));
-
-            this.ForumRegister.Text = "<i class=\"fa fa-user-plus fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_REGUSER", "REGISTER"));
-            this.cancel.Text = "<i class=\"fa fa-times fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
-
-            this.TimeZones.DataSource = StaticDataHelper.TimeZones();
-            this.DataBind();
-            this.TimeZones.Items.FindByValue("0").Selected = true;
         }
 
         /// <summary>
@@ -204,7 +199,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// The <see cref="EventArgs"/> instance containing the event data.
         /// </param>
-        protected void cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.admin_users);
         }

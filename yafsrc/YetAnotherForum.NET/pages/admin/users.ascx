@@ -2,7 +2,9 @@
     CodeBehind="users.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
-<%@ Import Namespace="System.Drawing" %>
+
+<%@ Register TagPrefix="modal" TagName="Import" Src="../../Dialogs/UsersImport.ascx" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
 <div class="row">
@@ -14,11 +16,11 @@
         <div class="col-xl-12">
     <asp:PlaceHolder runat="server" ID="SearchResults" Visible="False">
 
-    <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" UsePostBack="True" />
+    <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTopPageChange" UsePostBack="True" />
     <div class="card mb-3">
                 <div class="card-header">
                     <i class="fa fa-user fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_USERS" />
-                    <div class="input-group pull-right user-search-dropdown">
+                    <div class="input-group float-right user-search-dropdown">
                         &nbsp;
                         <div class="input-group-btn">
                             <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -66,7 +68,8 @@
                                     <asp:CheckBox CssClass="form-control" ID="SuspendedOnly" runat="server"/>
                                   </li>
                                 <li class="dropdown-item">
-                                    <asp:LinkButton ID="search" runat="server" OnClick="Search_Click" CssClass="btn btn-primary "></asp:LinkButton>
+                                    <YAF:ThemeButton ID="search" runat="server" OnClick="SearchClick" CssClass="btn btn-primary"
+                                                     Icon="search" TextLocalizedTag="SEARCH" TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                                 </li>
                             </ul>
                         </div>
@@ -75,7 +78,7 @@
                 <div class="card-body">
                                      <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="pull-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                         </div><div class="table-responsive">
                      <table class="table">
         <tr>
@@ -86,7 +89,7 @@
             </th>
             </thead>
         </tr>
-        <asp:Repeater ID="UserList" runat="server" OnItemCommand="UserList_ItemCommand">
+        <asp:Repeater ID="UserList" runat="server" OnItemCommand="UserListItemCommand">
             <ItemTemplate>
                 <tr>
                     <td>
@@ -113,11 +116,17 @@
                         </div>
                     </td>
                     <td>
-                        <span class="pull-right">
+                        <span class="float-right">
                        <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm" CommandName='edit' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
                            TextLocalizedTag="EDIT" TitleLocalizedTag="EDIT" Icon="edit" runat="server"></YAF:ThemeButton>
-                       <YAF:ThemeButton ID="ThemeButtonDelete" OnLoad="Delete_Load" CssClass="btn btn-danger btn-sm" CommandName='delete' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
-                           TextLocalizedTag="DELETE" TitleLocalizedTag="DELETE" Icon="trash" Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !YAF.Classes.Config.IsDotNetNuke %>' runat="server"></YAF:ThemeButton>
+                       <YAF:ThemeButton ID="ThemeButtonDelete" 
+                                        ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_DELETE") %>' 
+                                        CssClass="btn btn-danger btn-sm" 
+                                        CommandName='delete' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
+                                        TextLocalizedTag="DELETE" TitleLocalizedTag="DELETE"
+                                        Icon="trash" 
+                                        Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !YAF.Classes.Config.IsDotNetNuke %>' 
+                                        runat="server"></YAF:ThemeButton>
                     </span>
                             </td>
                 </tr>
@@ -127,16 +136,21 @@
                 </div>
                 <div class="card-footer text-lg-center">
                 <asp:PlaceHolder runat="server" ID="ImportAndSyncHolder">
-                    <asp:LinkButton id="NewUser" OnClick="NewUser_Click" runat="server" CssClass="btn btn-primary"></asp:LinkButton>
+                    <YAF:ThemeButton id="NewUser" OnClick="NewUserClick" runat="server" CssClass="btn btn-primary"
+                                     Icon="plus-square" TextLocalizedTag="NEW_USER" TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                 &nbsp;
-                    <asp:LinkButton id="SyncUsers" OnClick="SyncUsers_Click" runat="server" CssClass="btn btn-secondary"></asp:LinkButton>
+                    <YAF:ThemeButton id="SyncUsers" OnClick="SyncUsersClick" runat="server" CssClass="btn btn-secondary"
+                                     Icon="sync" TextLocalizedTag="SYNC_ALL" TextLocalizedPage="ADMIN_USERS" ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_SYNC") %>'></YAF:ThemeButton>
                 &nbsp;
-                    <asp:LinkButton id="ImportUsers" OnClick="ImportUsers_Click" runat="server" CssClass="btn btn-info"></asp:LinkButton>
+                    <YAF:ThemeButton id="ImportUsers" Icon="upload" DataTarget="UsersImportDialog" runat="server" CssClass="btn btn-info"
+                                     TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                 &nbsp;
                 </asp:PlaceHolder>
-                    <asp:LinkButton id="ExportUsersXml" OnClick="ExportUsersXml_Click" runat="server" CssClass="btn btn-warning"></asp:LinkButton>
+                    <YAF:ThemeButton id="ExportUsersXml" OnClick="ExportUsersXmlClick" runat="server" CssClass="btn btn-warning"
+                                     Icon="download" TextLocalizedTag="EXPORT_XML" TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                 &nbsp;
-                    <asp:LinkButton id="ExportUsersCsv" OnClick="ExportUsersCsv_Click" runat="server" CssClass="btn btn-warning"></asp:LinkButton>
+                    <YAF:ThemeButton id="ExportUsersCsv" OnClick="ExportUsersCsvClick" runat="server" CssClass="btn btn-warning"
+                                     Icon="download" TextLocalizedTag="EXPORT_CSV" TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                 </div>
             </div>
         </div>
@@ -148,7 +162,7 @@
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <asp:Timer ID="UpdateStatusTimer" runat="server" Enabled="false" Interval="4000"
-            OnTick="UpdateStatusTimer_Tick" />
+            OnTick="UpdateStatusTimerTick" />
     </ContentTemplate>
 </asp:UpdatePanel>
 <div>
@@ -171,3 +185,5 @@
     </div>
 </div>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+
+<modal:Import ID="ImportDialog" runat="server" />

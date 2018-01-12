@@ -51,7 +51,7 @@
 <br />
 </asp:PlaceHolder>
 <!-- Move Topic Button -->
-<div class="btn-toolbar pagination pull-right" role="toolbar">
+<div class="btn-toolbar pagination float-right" role="toolbar">
     <div class="dropdown btn-group" role="group">
         <button type="button" title="Go to Page..."
                 class="btn btn-primary dropdown-toggle"

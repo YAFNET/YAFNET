@@ -137,7 +137,7 @@ namespace YAF.Controls
                 return;
             }
 
-            string umhdn = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
+            var umhdn = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
             this.AlbumHeaderLabel.Param0 = this.Get<YafBoardSettings>().EnableDisplayName
                                                ? this.HtmlEncode(umhdn)
                                                : this.HtmlEncode(UserMembershipHelper.GetUserNameFromID(this.UserID));

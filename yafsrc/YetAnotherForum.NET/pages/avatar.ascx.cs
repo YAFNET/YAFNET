@@ -150,7 +150,7 @@ namespace YAF.Pages
                     directoryPath = this.CurrentDirectory;
                 }
 
-                string tmpExt = finfo.Extension.ToLower();
+                var tmpExt = finfo.Extension.ToLower();
 
                 if (tmpExt == ".gif" || tmpExt == ".jpg" || tmpExt == ".jpeg" || tmpExt == ".png" || tmpExt == ".bmp")
                 {
@@ -189,7 +189,7 @@ namespace YAF.Pages
             }
 
             // get the previous directory...
-            string previousDirectory = Path.Combine(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars);
+            var previousDirectory = Path.Combine(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars);
 
             var up = e.Item.FindControl("up") as LinkButton;
             up.CommandArgument = previousDirectory;
@@ -220,7 +220,7 @@ namespace YAF.Pages
         [NotNull]
         protected List<DirectoryInfo> DirectoryListClean([NotNull] DirectoryInfo baseDir)
         {
-            DirectoryInfo[] avatarDirectories = baseDir.GetDirectories();
+            var avatarDirectories = baseDir.GetDirectories();
 
             return
                 avatarDirectories.Where(
@@ -237,7 +237,7 @@ namespace YAF.Pages
         [NotNull]
         protected List<FileInfo> FilesListClean([NotNull] DirectoryInfo baseDir)
         {
-            FileInfo[] avatarfiles = baseDir.GetFiles("*.*");
+            var avatarfiles = baseDir.GetFiles("*.*");
 
             return
                 avatarfiles.Where(

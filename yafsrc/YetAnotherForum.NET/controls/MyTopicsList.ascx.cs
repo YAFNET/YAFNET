@@ -192,11 +192,11 @@ namespace YAF.Controls
             DataTable topicList = null;
             
             // set the page size here
-            int basePageSize = this.Get<YafBoardSettings>().MyTopicsListPageSize;
+            var basePageSize = this.Get<YafBoardSettings>().MyTopicsListPageSize;
             this.PagerTop.PageSize = basePageSize;
 
             // page index in db which is returned back  is +1 based!
-            int nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
+            var nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
 
             // now depending on mode fill the table
             switch (this.CurrentMode)
@@ -280,7 +280,7 @@ namespace YAF.Controls
 
             this.topics = topicList;
 
-            DataTable topicsNew = topicList.Copy();
+            var topicsNew = topicList.Copy();
 
             foreach (var thisTableRow in topicsNew
                 .Rows.Cast<DataRow>()
@@ -420,7 +420,7 @@ namespace YAF.Controls
                 if (previousSince.HasValue)
                 {
                     // look for value previously selected
-                    ListItem sinceItem = this.Since.Items.FindByValue(previousSince.Value.ToString());
+                    var sinceItem = this.Since.Items.FindByValue(previousSince.Value.ToString());
 
                     // and select it if found
                     if (sinceItem != null)
@@ -458,7 +458,7 @@ namespace YAF.Controls
         protected string PrintForumName([NotNull] DataRowView row)
         {
             var forumName = this.HtmlEncode(row["ForumName"]);
-            string html = string.Empty;
+            var html = string.Empty;
 
             if (forumName == this._lastForumName)
             {
@@ -515,8 +515,8 @@ namespace YAF.Controls
         /// </summary>
         private void BindFeeds()
         {
-            bool accessActive = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ActiveTopicFeedAccess);
-            bool accessFavorite = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().FavoriteTopicFeedAccess);
+            var accessActive = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ActiveTopicFeedAccess);
+            var accessFavorite = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().FavoriteTopicFeedAccess);
 
             // RSS link setup 
             if (this.Get<YafBoardSettings>().ShowRSSLink)

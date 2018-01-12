@@ -14,11 +14,11 @@
                     <i class="fa fa-trophy fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_MEDALS" />
                 </div>
                 <div class="card-body">
-		<asp:Repeater ID="MedalList" OnItemCommand="MedalList_ItemCommand" runat="server">
+		<asp:Repeater ID="MedalList" OnItemCommand="MedalListItemCommand" runat="server">
 			<HeaderTemplate>
 			    <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="pull-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                         </div><div class="table-responsive">
                     <table class="table">
 				<tr>
@@ -30,7 +30,7 @@
 					<th>
 						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NAME" LocalizedPage="COMMON" /></th>
 					<th>
-						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="CATEGORY" /></th>
+						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="CATEGORY" LocalizedPage="MODERATE_DEFAULT" /></th>
 					<th>
 						<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="DESCRIPTION" LocalizedPage="ADMIN_BBCODE" /></th>
 					<th>
@@ -56,7 +56,7 @@
 						<%# ((string)this.Eval( "Description")).Substring(0, Math.Min(this.Eval( "Description").ToString().Length, 100)) + "..." %>
 					</td>
 					<td>
-					    <span class="pull-right">
+					    <span class="float-right">
 					    <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm"
                             CommandName='edit' CommandArgument='<%# this.Eval( "MedalID") %>'
                             TitleLocalizedTag="EDIT"
@@ -68,7 +68,7 @@
                             CommandName='moveup' CommandArgument='<%# this.Eval("MedalID") %>'
 					        TitleLocalizedTag="MOVE_UP"
                             TitleLocalizedPage="ADMIN_SMILIES"
-					        Icon="level-up"
+					        Icon="level-up-alt"
 					        TextLocalizedTag="MOVE_UP"
                             TextLocalizedPage="ADMIN_SMILIES"
 					        runat="server"/>
@@ -76,7 +76,7 @@
 					        CommandName='movedown' CommandArgument='<%# this.Eval("MedalID") %>'
 					        TitleLocalizedTag="MOVE_DOWN"
                             TitleLocalizedPage="ADMIN_SMILIES"
-					        Icon="level-down"
+					        Icon="level-down-alt"
 					        TextLocalizedTag="MOVE_DOWN"
                             TextLocalizedPage="ADMIN_SMILIES"
 					        runat="server" />
@@ -85,7 +85,8 @@
                                     TitleLocalizedTag="DELETE"
                                     Icon="trash"
                                     TextLocalizedTag="DELETE"
-                                    OnLoad="Delete_Load"  runat="server">
+                                    ReturnConfirmText='<%# this.GetText("ADMIN_MEDALS", "CONFIRM_DELETE") %>'
+                                    runat="server">
                                 </YAF:ThemeButton>
                             </span>
 					</td>
@@ -97,7 +98,8 @@
 		</asp:Repeater>
                 </div>
                 <div class="card-footer text-lg-center">
-				    <asp:LinkButton ID="NewMedal" runat="server" OnClick="NewMedal_Click" CssClass="btn btn-primary" />
+				    <YAF:ThemeButton ID="NewMedal" runat="server" OnClick="NewMedalClick" CssClass="btn btn-primary"
+				                     Icon="plus-square" TextLocalizedTag="NEW_MEDAL" />
                 </div>
             </div>
         </div>

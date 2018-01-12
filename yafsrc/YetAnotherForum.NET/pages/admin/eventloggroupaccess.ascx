@@ -17,7 +17,7 @@
                 <div class="card-body">
                     <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="pull-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                         </div><div class="table-responsive">
                         <table class="table">
                             <tr>
@@ -65,12 +65,18 @@
                  </div>
                 </div>
                     <div class="card-footer text-lg-center">
-				    <asp:LinkButton ID="Save" runat="server" OnClick="Save_Click" CssClass="btn btn-primary" />
-                    <asp:LinkButton ID="GrantAll" runat="server" OnClick="GrantAll_Click" CssClass="btn btn-info" />
-                    <asp:LinkButton ID="RevokeAll" runat="server" OnClick="RevokeAll_Click" CssClass="btn btn-danger" />
-                    <asp:LinkButton ID="GrantAllDelete" runat="server" OnClick="GrantAllDelete_Click" CssClass="btn btn-info" />
-                    <asp:LinkButton ID="RevokeAllDelete" runat="server" OnClick="RevokeAllDelete_Click" CssClass="btn btn-danger" />
-				    <asp:LinkButton ID="Cancel" runat="server" OnClick="Cancel_Click" CausesValidation="false" CssClass="btn btn-secondary" />
+				    <YAF:ThemeButton ID="Save" runat="server" OnClick="Save_Click" CssClass="btn btn-primary"            
+				                     Icon="save" TextLocalizedTag="SAVE" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
+                    <YAF:ThemeButton ID="GrantAll" runat="server" OnClick="GrantAll_Click" CssClass="btn btn-info"
+                                     Icon="check" TextLocalizedTag="GRANTALL" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
+                    <YAF:ThemeButton ID="RevokeAll" runat="server" OnClick="RevokeAll_Click" CssClass="btn btn-danger"
+                                     Icon="trash" TextLocalizedTag="REVOKEALL" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
+                    <YAF:ThemeButton ID="GrantAllDelete" runat="server" OnClick="GrantAllDelete_Click" CssClass="btn btn-info"
+                                     Icon="check" TextLocalizedTag="GRANTALLDELETE" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
+                    <YAF:ThemeButton ID="RevokeAllDelete" runat="server" OnClick="RevokeAllDelete_Click" CssClass="btn btn-danger"
+                                     Icon="trash" TextLocalizedTag="REVOKEALLDELETE" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
+				    <YAF:ThemeButton ID="Cancel" runat="server" OnClick="Cancel_Click" CausesValidation="false" CssClass="btn btn-secondary"
+				                     Icon="times" TextLocalizedTag="CANCEL" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
                 </div>
             </div>
         </div>

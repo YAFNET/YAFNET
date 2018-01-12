@@ -69,16 +69,6 @@ namespace YAF.Pages.Admin
 
             var boardSettings = this.Get<YafBoardSettings>();
 
-            this.PageLinks.AddLink(boardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-            this.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "TITLE"), string.Empty);
-
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_BOARDSETTINGS", "TITLE"));
-
-            this.Save.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
-
             // create list boxes by populating datasources from Data class
             var themeData = StaticDataHelper.Themes().AsEnumerable().Where(x => !x.Field<bool>("IsMobile"));
 
@@ -96,7 +86,7 @@ namespace YAF.Pages.Admin
                 var mobileThemes = mobileThemeData.CopyToDataTable();
 
                 // Add Dummy Disabled Mobile Theme Item to allow disabling the Mobile Theme
-                DataRow dr = mobileThemes.NewRow();
+                var dr = mobileThemes.NewRow();
                 dr["Theme"] = "[ {0} ]".FormatWith(this.GetText("ADMIN_COMMON", "DISABLED"));
 
                 dr["FileName"] = string.Empty;
@@ -154,7 +144,7 @@ namespace YAF.Pages.Admin
             this.DefaultNotificationSetting.Items.AddRange(notificationItems);
 
             // Get first default full culture from a language file tag.
-            string langFileCulture = StaticDataHelper.CultureDefaultFromFile(boardSettings.Language)
+            var langFileCulture = StaticDataHelper.CultureDefaultFromFile(boardSettings.Language)
                                      ?? "en-US";
 
             SetSelectedOnList(ref this.Theme, boardSettings.Theme);
@@ -213,13 +203,27 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "TITLE"), string.Empty);
+
+            this.Page.Header.Title = "{0} - {1}".FormatWith(
+                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_BOARDSETTINGS", "TITLE"));
+        }
+
+        /// <summary>
         /// Save the Board Settings
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            string languageFile = "english.xml";
+            var languageFile = "english.xml";
 
             var cultures =
                 StaticDataHelper.Cultures().AsEnumerable().Where(
@@ -340,7 +344,7 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             DataRow row;
-            using (DataTable dt = this.GetRepository<Board>().List(this.PageContext.PageBoardID))
+            using (var dt = this.GetRepository<Board>().List(this.PageContext.PageBoardID))
             {
                 row = dt.Rows[0];
             }

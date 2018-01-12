@@ -107,8 +107,10 @@
 		    </p>
           </div>
                 <div class="card-footer text-lg-center">
-				<asp:LinkButton ID="Save" runat="server" OnClick="Save_Click" ValidationGroup="Medal" CssClass="btn btn-primary" />&nbsp;
-				<asp:LinkButton ID="Cancel" runat="server" OnClick="Cancel_Click" CssClass="btn btn-secondary" />
+				<YAF:ThemeButton ID="Save" runat="server" OnClick="SaveClick" CssClass="btn btn-primary"            
+				                Icon="save" TextLocalizedTag="SAVE" />&nbsp;
+				<YAF:ThemeButton ID="Cancel" runat="server" OnClick="CancelClick" CssClass="btn btn-secondary"
+				                Icon="times" TextLocalizedTag="CANCEL" />
                 </div>
             </div>
         </div>
@@ -120,11 +122,11 @@
                     <i class="fa fa-trophy fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="HEADER2" LocalizedPage="ADMIN_EDITMEDAL" />
                 </div>
                 <div class="card-body">
-		<asp:Repeater ID="GroupList" runat="server" OnItemCommand="GroupList_ItemCommand">
+		<asp:Repeater ID="GroupList" runat="server" OnItemCommand="GroupListItemCommand">
 			<HeaderTemplate>
 				<div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="pull-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                         </div><div class="table-responsive">
                    <table class="table">
                        <thead>
@@ -150,7 +152,7 @@
 						<%# this.Eval("Message") %>
 					</td>
 					<td>
-					    <span class="pull-right">
+					    <span class="float-right">
 					    <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm"
                             CommandName='edit' CommandArgument='<%# this.Eval( "GroupID") %>'
                             TitleLocalizedTag="EDIT"
@@ -163,7 +165,7 @@
                                     TitleLocalizedTag="DELETE"
                                     Icon="trash"
                                     TextLocalizedTag="DELETE"
-                                    OnLoad="GroupRemove_Load"  runat="server">
+                                    OnLoad="GroupRemoveLoad"  runat="server">
                                 </YAF:ThemeButton>
 					</td>
 				</tr>
@@ -175,7 +177,8 @@
 		<asp:PlaceHolder runat="server" ID="AddGroupRow" Visible="false">
 			</div>
                 <div class="card-footer text-lg-center">
-				   <asp:LinkButton runat="server" OnClick="AddGroup_Click" ID="AddGroup" CssClass="btn btn-primary"></asp:LinkButton>
+				   <YAF:ThemeButton runat="server" OnClick="AddGroupClick" ID="AddGroup" CssClass="btn btn-primary"            
+				                   Icon="plus-square" TextLocalizedTag="ADD_GROUP"></YAF:ThemeButton>
 			    </div>
              </div>
 		</asp:PlaceHolder>
@@ -213,8 +216,10 @@
 				</p>
                 </div>
                 <div class="card-footer text-lg-center">
-					<asp:LinkButton runat="server"  OnClick="AddGroupSave_Click" ID="AddGroupSave" CssClass="btn btn-primary" />&nbsp;
-					<asp:LinkButton runat="server"  OnClick="AddGroupCancel_Click" ID="AddGroupCancel" CssClass="btn btn-secondary" />
+					<YAF:ThemeButton runat="server"  OnClick="AddGroupSaveClick" ID="AddGroupSave" CssClass="btn btn-primary"            
+					                Icon="save" TextLocalizedTag="SAVE" />&nbsp;
+					<YAF:ThemeButton runat="server"  OnClick="AddGroupCancelClick" ID="AddGroupCancel" CssClass="btn btn-secondary"
+					                Icon="times" TextLocalizedTag="CANCEL" />
 				</div>
               </div>
 		</asp:PlaceHolder>
@@ -227,7 +232,7 @@
                     <i class="fa fa-trophy fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="HEADER3" LocalizedPage="ADMIN_EDITMEDAL" />
                     </div>
                 <div class="card-body">
-        <asp:Repeater ID="UserList" runat="server" OnItemCommand="UserList_ItemCommand">
+        <asp:Repeater ID="UserList" runat="server" OnItemCommand="UserListItemCommand">
 			<HeaderTemplate>
 				<div class="table-responsive"><table class="table">
                     <tr>
@@ -257,10 +262,10 @@
 						<%# this.Get<IDateTime>().FormatDateTimeTopic((DateTime)this.Eval("DateAwarded")) %>
 					</td>
 					<td>
-					    <span class="pull-right">
+					    <span class="float-right">
 						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# this.Eval("UserID") %>'  CssClass="btn btn-info btn-sm"> <i class="fa fa-edit fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="EDIT" /></asp:LinkButton>
 						&nbsp;<asp:LinkButton runat="server" CommandName="remove" CommandArgument='<%# this.Eval("UserID") %>'  CssClass="btn btn-danger btn-sm"
-							OnLoad="UserRemove_Load"> <i class="fa fa-trash fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="REMOVE" /></asp:LinkButton>
+							OnLoad="UserRemoveLoad"> <i class="fa fa-trash fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="REMOVE" /></asp:LinkButton>
 
 					    </span>
                     </td>
@@ -273,7 +278,8 @@
 		<asp:PlaceHolder runat="server" id="AddUserRow" visible="false">
 			</div>
                 <div class="card-footer text-lg-center">
-				   <asp:LinkButton runat="server" OnClick="AddUser_Click" ID="AddUser" CssClass="btn btn-primary"></asp:LinkButton>
+				   <YAF:ThemeButton runat="server" OnClick="AddUserClick" ID="AddUser" CssClass="btn btn-primary"
+				                    Icon="plus-square" TextLocalizedTag="ADD_USER"></YAF:ThemeButton>
 			    </div>
              </div>
 		</asp:PlaceHolder>
@@ -285,8 +291,8 @@
 				<p>
 					<asp:TextBox ID="UserName" runat="server" CssClass="form-control" />
 					<asp:DropDownList  runat="server" ID="UserNameList" Visible="false" CssClass="custom-select" />
-					<asp:Button runat="server" ID="FindUsers" Text="Find Users" OnClick="FindUsers_Click" CssClass="btn btn-info btn-sm" />
-					<asp:Button runat="server" ID="Clear" Text="Clear" OnClick="Clear_Click" Visible="false" CssClass="btn btn-info btn-sm" />
+					<asp:Button runat="server" ID="FindUsers" Text="Find Users" OnClick="FindUsersClick" CssClass="btn btn-info btn-sm" />
+					<asp:Button runat="server" ID="Clear" Text="Clear" OnClick="ClearClick" Visible="false" CssClass="btn btn-info btn-sm" />
 					<asp:TextBox Visible="false" ID="UserID" runat="server" CssClass="form-control" />
 				</p><hr />
 			    <h4>
@@ -315,8 +321,10 @@
 				</p>
                 </div>
                 <div class="card-footer text-lg-center">
-					<asp:LinkButton runat="server" OnClick="AddUserSave_Click" ID="AddUserSave" CssClass="btn btn-primary" />&nbsp;
-					<asp:LinkButton runat="server" OnClick="AddUserCancel_Click" ID="AddUserCancel" CssClass="btn btn-secondary" />
+					<YAF:ThemeButton runat="server" OnClick="AddUserSaveClick" ID="AddUserSave" CssClass="btn btn-primary"
+					                Icon="save" TextLocalizedTag="SAVE" />&nbsp;
+					<YAF:ThemeButton runat="server" OnClick="AddUserCancelClick" ID="AddUserCancel" CssClass="btn btn-secondary"
+					                Icon="times" TextLocalizedTag="CANCEL" />
                 </div>
             </div>
 		</asp:PlaceHolder>

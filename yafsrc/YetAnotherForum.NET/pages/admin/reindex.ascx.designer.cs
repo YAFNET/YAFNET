@@ -76,13 +76,13 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
         
         /// <summary>
-        /// btnGetStats-Steuerelement
+        /// GetStats-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnGetStats;
+        protected global::YAF.Controls.ThemeButton GetStats;
         
         /// <summary>
         /// PanelRecoveryMode-Steuerelement
@@ -94,13 +94,13 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.PlaceHolder PanelRecoveryMode;
         
         /// <summary>
-        /// btnRecoveryMode-Steuerelement
+        /// RecoveryMode-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnRecoveryMode;
+        protected global::YAF.Controls.ThemeButton RecoveryMode;
         
         /// <summary>
         /// RadioButtonList1-Steuerelement
@@ -130,13 +130,13 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
         
         /// <summary>
-        /// btnReindex-Steuerelement
+        /// Reindex-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnReindex;
+        protected global::YAF.Controls.ThemeButton Reindex;
         
         /// <summary>
         /// PanelShrink-Steuerelement
@@ -157,13 +157,13 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
         
         /// <summary>
-        /// btnShrink-Steuerelement
+        /// Shrink-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnShrink;
+        protected global::YAF.Controls.ThemeButton Shrink;
         
         /// <summary>
         /// LocalizedLabel6-Steuerelement

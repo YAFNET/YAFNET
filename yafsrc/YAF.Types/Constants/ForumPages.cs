@@ -374,11 +374,6 @@ namespace YAF.Types.Constants
     admin_users,
 
     /// <summary>
-    /// The admin_users_import.
-    /// </summary>
-    admin_users_import, 
-
-    /// <summary>
     /// The admin_ranks.
     /// </summary>
     admin_ranks, 
@@ -489,16 +484,6 @@ namespace YAF.Types.Constants
     admin_editmedal, 
 
     /// <summary>
-    /// The admin_editnntpforum.
-    /// </summary>
-    admin_editnntpforum, 
-
-    /// <summary>
-    /// The admin_editnntpserver.
-    /// </summary>
-    admin_editnntpserver, 
-
-    /// <summary>
     /// The admin_editrank.
     /// </summary>
     admin_editrank, 
@@ -519,16 +504,6 @@ namespace YAF.Types.Constants
     admin_replacewords, 
 
     /// <summary>
-    /// The admin_replacewords_edit.
-    /// </summary>
-    admin_replacewords_edit, 
-
-    /// <summary>
-    /// The admin_replacewords_import.
-    /// </summary>
-    admin_replacewords_import,
-
-    /// <summary>
     /// The admin spam words
     /// </summary>
     admin_spamwords,
@@ -537,16 +512,6 @@ namespace YAF.Types.Constants
     /// The admin_extensions.
     /// </summary>
     admin_extensions, 
-
-    /// <summary>
-    /// The admin_extensions_edit.
-    /// </summary>
-    admin_extensions_edit, 
-
-    /// <summary>
-    /// The admin_extensions_import.
-    /// </summary>
-    admin_extensions_import, 
 
     /// <summary>
     /// The admin_bbcode.
@@ -559,24 +524,9 @@ namespace YAF.Types.Constants
     admin_bbcode_edit, 
 
     /// <summary>
-    /// The admin_bbcode_import.
-    /// </summary>
-    admin_bbcode_import,
-
-    /// <summary>
     /// The admin_topicstatus.
     /// </summary>
     admin_topicstatus,
-
-    /// <summary>
-    /// The admin_topicstatus_edit.
-    /// </summary>
-    admin_topicstatus_edit,
-
-    /// <summary>
-    /// The admin_topicstatus_import.
-    /// </summary>
-    admin_topicstatus_import, 
 
     /// <summary>
     /// The admin_languages.

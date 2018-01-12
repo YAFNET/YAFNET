@@ -76,7 +76,7 @@ namespace YAF.Pages.Admin
         /// <value>
         /// The current medal identifier.
         /// </value>
-        protected int? CurrentMedalID => this.Request.QueryString.GetFirstOrDefault("medalid") != null
+        protected int? CurrentMedalId => this.Request.QueryString.GetFirstOrDefault("medalid") != null
                                              ? this.Request.QueryString.GetFirstOrDefault("medalid").ToType<int?>()
                                              : null;
 
@@ -87,14 +87,11 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void AddGroupCancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void AddGroupCancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // set visibility
             this.AddGroupRow.Visible = true;
             this.AddGroupPanel.Visible = false;
-
-            // re-enable global save button
-            this.Save.Enabled = true;
         }
 
         /// <summary>
@@ -102,7 +99,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void AddGroupSave_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void AddGroupSaveClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // test if there is specified unsername/user id
             if (this.AvailableGroupList.SelectedIndex < 0)
@@ -115,14 +112,14 @@ namespace YAF.Pages.Admin
             // save group, if there is no message specified, pass null
             LegacyDb.group_medal_save(
               this.AvailableGroupList.SelectedValue,
-              this.CurrentMedalID,
+              this.CurrentMedalId,
               this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
               this.GroupHide.Checked,
               this.GroupOnlyRibbon.Checked,
               this.GroupSortOrder.Text);
 
             // disable/hide edit controls
-            this.AddGroupCancel_Click(sender, e);
+            this.AddGroupCancelClick(sender, e);
 
             // re-bind data
             this.BindData();
@@ -136,7 +133,7 @@ namespace YAF.Pages.Admin
         /// <remarks>
         /// Shows user-medal adding/editing controls.
         /// </remarks>
-        protected void AddGroup_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void AddGroupClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // set title
             this.GroupMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "ADD_TOGROUP");
@@ -157,9 +154,6 @@ namespace YAF.Pages.Admin
 
             // focus on save button
             this.AddGroupSave.Focus();
-
-            // disable global save button to prevent confusion
-            this.Save.Enabled = false;
         }
 
         /// <summary>
@@ -167,14 +161,11 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void AddUserCancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void AddUserCancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // set visibility
             this.AddUserRow.Visible = true;
             this.AddUserPanel.Visible = false;
-
-            // re-enable global save button
-            this.Save.Enabled = true;
         }
 
         /// <summary>
@@ -182,7 +173,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void AddUserSave_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void AddUserSaveClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // test if there is specified unsername/user id
             if (this.UserID.Text.IsNotSet() && this.UserNameList.SelectedValue.IsNotSet() && this.UserName.Text.IsNotSet())
@@ -198,7 +189,7 @@ namespace YAF.Pages.Admin
                 var users = this.GetRepository<User>()
                     .FindUserTyped(filter: true, userName: this.UserName.Text, displayName: this.UserName.Text);
 
-                if (users.Count() > 1)
+                if (users.Count > 1)
                 {
                     // more than one user is avalilable for this username
                     this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_AMBIGOUS_USER"), MessageTypes.warning);
@@ -224,7 +215,7 @@ namespace YAF.Pages.Admin
             // save user, if there is no message specified, pass null
             LegacyDb.user_medal_save(
               this.UserID.Text,
-              this.CurrentMedalID,
+              this.CurrentMedalId,
               this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text,
               this.UserHide.Checked,
               this.UserOnlyRibbon.Checked,
@@ -238,7 +229,7 @@ namespace YAF.Pages.Admin
             }
 
             // disable/hide edit controls
-            this.AddUserCancel_Click(sender, e);
+            this.AddUserCancelClick(sender, e);
 
             // clear cache...
             this.RemoveUserFromCache(this.UserID.Text.ToType<int>());
@@ -255,7 +246,7 @@ namespace YAF.Pages.Admin
         /// <remarks>
         /// Shows user-medal adding/editing controls.
         /// </remarks>
-        protected void AddUser_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void AddUserClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // set title
             this.UserMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "ADD_TOUSER");
@@ -284,7 +275,7 @@ namespace YAF.Pages.Admin
             this.AddUserSave.Focus();
 
             // disable global save button to prevent confusion
-            this.Save.Enabled = false;
+            // this.Save.Enabled = false;
         }
 
         /// <summary>
@@ -292,7 +283,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // go back to medals administration
             YafBuildLink.Redirect(ForumPages.admin_medals);
@@ -303,7 +294,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Clear_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void ClearClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // clear drop down
             this.UserNameList.Items.Clear();
@@ -348,7 +339,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void FindUsers_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void FindUsersClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // try to find users by user name
             var users = this.GetRepository<User>()
@@ -415,24 +406,24 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        protected void GroupList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        protected void GroupListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {
                 case "edit":
 
                     // load group-medal to the controls
-                    using (DataTable dt = LegacyDb.group_medal_list(e.CommandArgument, this.CurrentMedalID))
+                    using (var dt = LegacyDb.group_medal_list(e.CommandArgument, this.CurrentMedalId))
                     {
                         // prepare editing interface
-                        this.AddGroup_Click(null, e);
+                        this.AddGroupClick(null, e);
 
                         // tweak it for editing
                         this.GroupMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "EDIT_MEDAL_GROUP");
                         this.AvailableGroupList.Enabled = false;
 
                         // we are intereseted inly in first row
-                        DataRow r = dt.Rows[0];
+                        var r = dt.Rows[0];
 
                         // load data to controls
                         this.AvailableGroupList.SelectedIndex = -1;
@@ -448,7 +439,7 @@ namespace YAF.Pages.Admin
 
                     break;
                 case "remove":
-                    LegacyDb.group_medal_delete(e.CommandArgument, this.CurrentMedalID);
+                    LegacyDb.group_medal_delete(e.CommandArgument, this.CurrentMedalId);
 
                     // remove all user medals...
                     this.RemoveMedalsFromCache();
@@ -463,7 +454,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void GroupRemove_Load([NotNull] object sender, [NotNull] EventArgs e)
+        protected void GroupRemoveLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
                 "return confirm('{0}')".FormatWith(this.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_GROUP"));
@@ -479,26 +470,6 @@ namespace YAF.Pages.Admin
             // this needs to be done just once, not during postbacks
             if (!this.IsPostBack)
             {
-                this.Save.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
-                this.Cancel.Text = "<i class=\"fa fa-times fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
-
-                this.AddGroupSave.Text =
-                    "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "SAVE"));
-                this.AddGroupCancel.Text =
-                    "<i class=\"fa fa-times fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "CANCEL"));
-
-                this.AddUserSave.Text =
-                    "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "SAVE"));
-                this.AddUserCancel.Text =
-                    "<i class=\"fa fa-times fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "CANCEL"));
-
-                this.AddGroup.Text =
-                    "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(
-                        this.GetText("ADMIN_EDITMEDAL", "ADD_GROUP"));
-                this.AddUser.Text =
-                    "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(
-                        this.GetText("ADMIN_EDITMEDAL", "ADD_USER"));
-
                 // bind data
                 this.BindData();
             }
@@ -534,7 +505,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.MedalImage.SelectedIndex <= 0)
             {
@@ -569,7 +540,7 @@ namespace YAF.Pages.Admin
             }
 
             // data
-            string ribbonURL = null, smallRibbonURL = null;
+            string ribbonUrl = null, smallRibbonUrl = null;
             short? ribbonWidth = null, ribbonHeight = null;
             Size imageSize;
             
@@ -583,36 +554,36 @@ namespace YAF.Pages.Admin
                             };
 
             // get medal images
-            var imageURL = this.MedalImage.SelectedValue;
-            var smallImageURL = this.SmallMedalImage.SelectedValue;
+            var imageUrl = this.MedalImage.SelectedValue;
+            var smallImageUrl = this.SmallMedalImage.SelectedValue;
             if (this.RibbonImage.SelectedIndex > 0)
             {
-                ribbonURL = this.RibbonImage.SelectedValue;
+                ribbonUrl = this.RibbonImage.SelectedValue;
             }
 
             if (this.SmallRibbonImage.SelectedIndex > 0)
             {
-                smallRibbonURL = this.SmallRibbonImage.SelectedValue;
+                smallRibbonUrl = this.SmallRibbonImage.SelectedValue;
 
-                imageSize = this.GetImageSize(smallRibbonURL);
+                imageSize = this.GetImageSize(smallRibbonUrl);
                 ribbonWidth = imageSize.Width.ToType<short>();
                 ribbonHeight = imageSize.Height.ToType<short>();
             }
 
             // get size of small image
-            imageSize = this.GetImageSize(smallImageURL);
+            imageSize = this.GetImageSize(smallImageUrl);
 
             // save medal
             this.GetRepository<Medal>().Save(
-                this.CurrentMedalID,
+                this.CurrentMedalId,
                 this.Name.Text,
                 this.Description.Text,
                 this.Message.Text,
                 this.Category.Text,
-                imageURL,
-                ribbonURL,
-                smallImageURL,
-                smallRibbonURL,
+                imageUrl,
+                ribbonUrl,
+                smallImageUrl,
+                smallRibbonUrl,
                 (short)imageSize.Width,
                 (short)imageSize.Height,
                 ribbonWidth,
@@ -629,17 +600,17 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        protected void UserList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        protected void UserListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {
                 case "edit":
 
                     // load user-medal to the controls
-                    using (DataTable dt = LegacyDb.user_medal_list(e.CommandArgument, this.CurrentMedalID))
+                    using (var dt = LegacyDb.user_medal_list(e.CommandArgument, this.CurrentMedalId))
                     {
                         // prepare editing interface
-                        this.AddUser_Click(null, e);
+                        this.AddUserClick(null, e);
 
                         // tweak it for editing
                         this.UserMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "EDIT_MEDAL_USER");
@@ -647,7 +618,7 @@ namespace YAF.Pages.Admin
                         this.FindUsers.Visible = false;
 
                         // we are intereseted inly in first row
-                        DataRow r = dt.Rows[0];
+                        var r = dt.Rows[0];
 
                         // load data to controls
                         this.UserID.Text = r["UserID"].ToString();
@@ -662,10 +633,10 @@ namespace YAF.Pages.Admin
                 case "remove":
 
                     // delete user-medal
-                    LegacyDb.user_medal_delete(e.CommandArgument, this.CurrentMedalID);
+                    LegacyDb.user_medal_delete(e.CommandArgument, this.CurrentMedalId);
 
                     // clear cache...
-                    this.RemoveUserFromCache(this.CurrentMedalID.Value);
+                    this.RemoveUserFromCache(this.CurrentMedalId.Value);
                     this.BindData();
                     break;
             }
@@ -676,7 +647,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void UserRemove_Load([NotNull] object sender, [NotNull] EventArgs e)
+        protected void UserRemoveLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
             ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_USER"));
         }
@@ -704,7 +675,7 @@ namespace YAF.Pages.Admin
                 dt.Columns.Add("Description", typeof(string));
 
                 // add blank row
-                DataRow dr = dt.NewRow();
+                var dr = dt.NewRow();
                 dr["FileID"] = 0;
                 dr["FileName"] = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
                 dr["Description"] = this.GetText("ADMIN_EDITMEDAL", "SELECT_IMAGE");
@@ -714,17 +685,17 @@ namespace YAF.Pages.Admin
                 var dir =
                   new DirectoryInfo(
                     this.Request.MapPath("{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Medals)));
-                FileInfo[] files = dir.GetFiles("*.*");
+                var files = dir.GetFiles("*.*");
 
-                long nFileID = 1;
+                long fileId = 1;
 
-                foreach (FileInfo file in from file in files
+                foreach (var file in from file in files
                                           let sExt = file.Extension.ToLower()
                                           where sExt == ".png" || sExt == ".gif" || sExt == ".jpg"
                                           select file)
                 {
                     dr = dt.NewRow();
-                    dr["FileID"] = nFileID++;
+                    dr["FileID"] = fileId++;
                     dr["FileName"] = file.Name;
                     dr["Description"] = file.Name;
                     dt.Rows.Add(dr);
@@ -755,22 +726,22 @@ namespace YAF.Pages.Admin
             this.DataBind();
 
             // load existing medal if we are editing one
-            if (this.CurrentMedalID.HasValue)
+            if (this.CurrentMedalId.HasValue)
             {
                 // load users and groups who has been assigned this medal
-                this.UserList.DataSource = LegacyDb.user_medal_list(null, this.CurrentMedalID);
+                this.UserList.DataSource = LegacyDb.user_medal_list(null, this.CurrentMedalId);
                 this.UserList.DataBind();
-                this.GroupList.DataSource = LegacyDb.group_medal_list(null, this.CurrentMedalID);
+                this.GroupList.DataSource = LegacyDb.group_medal_list(null, this.CurrentMedalId);
                 this.GroupList.DataBind();
 
                 // enable adding users/groups
                 this.AddUserRow.Visible = true;
                 this.AddGroupRow.Visible = true;
 
-                using (DataTable dt = this.GetRepository<Medal>().List(this.CurrentMedalID))
+                using (var dt = this.GetRepository<Medal>().List(this.CurrentMedalId))
                 {
                     // get data row
-                    DataRow row = dt.Rows[0];
+                    var row = dt.Rows[0];
 
                     // load flags
                     var flags = new MedalFlags(row["Flags"]);
@@ -825,7 +796,7 @@ namespace YAF.Pages.Admin
         private Size GetImageSize([NotNull] string filename)
         {
             using (
-              Image img =
+              var img =
                 Image.FromFile(
                   this.Server.MapPath(
                     "{0}{1}/{2}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Medals, filename))))
@@ -843,12 +814,12 @@ namespace YAF.Pages.Admin
         /// <param name="preview">
         /// Preview image.
         /// </param>
-        /// <param name="imageURL">
+        /// <param name="imageUrl">
         /// URL to search for.
         /// </param>
-        private void SelectImage([NotNull] DropDownList list, [NotNull] HtmlImage preview, [NotNull] object imageURL)
+        private void SelectImage([NotNull] DropDownList list, [NotNull] HtmlImage preview, [NotNull] object imageUrl)
         {
-            this.SelectImage(list, preview, imageURL.ToString());
+            this.SelectImage(list, preview, imageUrl.ToString());
         }
 
         /// <summary>
@@ -860,13 +831,13 @@ namespace YAF.Pages.Admin
         /// <param name="preview">
         /// Preview image.
         /// </param>
-        /// <param name="imageURL">
+        /// <param name="imageUrl">
         /// URL to search for.
         /// </param>
-        private void SelectImage([NotNull] DropDownList list, [NotNull] HtmlImage preview, [NotNull] string imageURL)
+        private void SelectImage([NotNull] DropDownList list, [NotNull] HtmlImage preview, [NotNull] string imageUrl)
         {
             // try to find item in a list
-            ListItem item = list.Items.FindByText(imageURL);
+            var item = list.Items.FindByText(imageUrl);
 
             if (item != null)
             {
@@ -875,7 +846,7 @@ namespace YAF.Pages.Admin
 
                 // set preview image
                 preview.Src = "{0}{1}/{2}".FormatWith(
-                  YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Medals, imageURL);
+                  YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Medals, imageUrl);
             }
             else
             {

@@ -192,7 +192,7 @@ namespace YAF.Pages
 
             this.Question.Text = HtmlHelper.StripHtml(this.Question.Text);
 
-            int notNullcount =
+            var notNullcount =
                 (from RepeaterItem ri in this.ChoiceRepeater.Items
                  select ((TextBox)ri.FindControl("PollChoice")).Text.Trim()).Count(
                      value => !string.IsNullOrEmpty(value));
@@ -342,13 +342,13 @@ namespace YAF.Pages
             if (this._boardId > 0 || this._categoryId > 0)
             {
                 // invalid category
-                bool categoryVars = this._categoryId > 0 &&
+                var categoryVars = this._categoryId > 0 &&
                                     (this._topicId > 0 || this._editTopicId > 0 || this._editMessageId > 0 ||
                                      this.editForumId > 0 || this._editBoardId > 0 || this._forumId > 0 ||
                                      this._boardId > 0);
 
                 // invalid board vars
-                bool boardVars = this._boardId > 0 &&
+                var boardVars = this._boardId > 0 &&
                                  (this._topicId > 0 || this._editTopicId > 0 || this._editMessageId > 0 ||
                                   this.editForumId > 0 || this._editBoardId > 0 || this._forumId > 0 ||
                                   this._categoryId > 0);
@@ -379,8 +379,8 @@ namespace YAF.Pages
             // we are just using existing poll
             if (this.PollId != null)
             {
-                string questionPath = this.QuestionObjectPath.Text.Trim();
-                string questionMime = string.Empty;
+                var questionPath = this.QuestionObjectPath.Text.Trim();
+                var questionMime = string.Empty;
 
                 if (questionPath.IsSet())
                 {
@@ -418,12 +418,12 @@ namespace YAF.Pages
 
                 foreach (RepeaterItem ri in this.ChoiceRepeater.Items)
                 {
-                    string choice = ((TextBox)ri.FindControl("PollChoice")).Text.Trim();
-                    string chid = ((HiddenField)ri.FindControl("PollChoiceID")).Value;
+                    var choice = ((TextBox)ri.FindControl("PollChoice")).Text.Trim();
+                    var chid = ((HiddenField)ri.FindControl("PollChoiceID")).Value;
 
-                    string choiceObjectPath = ((TextBox)ri.FindControl("ObjectPath")).Text.Trim();
+                    var choiceObjectPath = ((TextBox)ri.FindControl("ObjectPath")).Text.Trim();
 
-                    string choiceImageMime = string.Empty;
+                    var choiceImageMime = string.Empty;
 
                     // update choice
                     if (choiceObjectPath.IsSet())
@@ -473,7 +473,7 @@ namespace YAF.Pages
                 // The value was selected, we attach an existing poll
                 if (this.PollGroupListDropDown.SelectedIndex.ToType<int>() > 0)
                 {
-                    int result = LegacyDb.pollgroup_attach(
+                    var result = LegacyDb.pollgroup_attach(
                         this.PollGroupListDropDown.SelectedValue.ToType<int>(), 
                         this._topicId, 
                         this._forumId, 
@@ -488,8 +488,8 @@ namespace YAF.Pages
                     return true;
                 }
 
-                string questionPath = this.QuestionObjectPath.Text.Trim();
-                string questionMime = string.Empty;
+                var questionPath = this.QuestionObjectPath.Text.Trim();
+                var questionMime = string.Empty;
 
                 if (questionPath.IsSet())
                 {
@@ -516,13 +516,13 @@ namespace YAF.Pages
                 var pollSaveList = new List<PollSaveList>();
 
                 var rawChoices = new string[3, this.ChoiceRepeater.Items.Count];
-                int j = 0;
+                var j = 0;
                 
                 foreach (RepeaterItem ri in this.ChoiceRepeater.Items)
                 {
-                    string choiceObjectPath = ((TextBox)ri.FindControl("ObjectPath")).Text.Trim();
+                    var choiceObjectPath = ((TextBox)ri.FindControl("ObjectPath")).Text.Trim();
 
-                    string choiceObjectMime = string.Empty;
+                    var choiceObjectMime = string.Empty;
 
                     if (choiceObjectPath.IsSet())
                     {
@@ -553,7 +553,7 @@ namespace YAF.Pages
                     j++;
                 }
 
-                int? realTopic = this._topicId;
+                var realTopic = this._topicId;
 
                 if (this._topicId == null)
                 {
@@ -600,8 +600,8 @@ namespace YAF.Pages
             this._choices.Columns.Add("ChoiceOrderID", typeof(int));
 
             // First existing values alway 1!
-            int existingRowsCount = 1;
-            int allExistingRowsCount = this._choices.Rows.Count;
+            var existingRowsCount = 1;
+            var allExistingRowsCount = this._choices.Rows.Count;
 
             // we edit existing poll 
             if (this._choices.HasRows())
@@ -622,7 +622,7 @@ namespace YAF.Pages
 
                 if (this._choices.Rows[0]["Closes"] != DBNull.Value)
                 {
-                    TimeSpan closing = (DateTime)this._choices.Rows[0]["Closes"] - DateTime.UtcNow;
+                    var closing = (DateTime)this._choices.Rows[0]["Closes"] - DateTime.UtcNow;
 
                     this.PollExpire.Text = (closing.TotalDays + 1).ToType<int>().ToString();
                 }
@@ -648,7 +648,7 @@ namespace YAF.Pages
                 }
                 
                 // Get isBound value using page variables. They are initialized here.
-                int pgidt = 0;
+                var pgidt = 0;
 
                 // If a topic poll is edited or new topic created
                 if (this._topicId > 0 && this._topicInfo != null)
@@ -658,7 +658,7 @@ namespace YAF.Pages
                     {
                         pgidt = (int)this._topicInfo["PollID"];
 
-                        DataTable pollGroupData = LegacyDb.pollgroup_stats(pgidt);
+                        var pollGroupData = LegacyDb.pollgroup_stats(pgidt);
 
                         this.IsBoundCheckBox.Checked = Convert.ToBoolean(pollGroupData.Rows[0]["IsBound"]);
                         //// this.IsClosedBoundCheckBox.Checked = Convert.ToBoolean(DB.pollgroup_stats(pgidt).Rows[0]["IsClosedBound"]);
@@ -697,10 +697,10 @@ namespace YAF.Pages
             }
 
             // we add dummy rows to data table to fill in repeater empty fields   
-            int dummyRowsCount = this.Get<YafBoardSettings>().AllowedPollChoiceNumber - allExistingRowsCount - 1;
-            for (int i = 0; i <= dummyRowsCount; i++)
+            var dummyRowsCount = this.Get<YafBoardSettings>().AllowedPollChoiceNumber - allExistingRowsCount - 1;
+            for (var i = 0; i <= dummyRowsCount; i++)
             {
-                DataRow drow = this._choices.NewRow();
+                var drow = this._choices.NewRow();
                 drow["ChoiceOrderID"] = existingRowsCount + i;
                 this._choices.Rows.Add(drow);
             }
@@ -886,7 +886,7 @@ namespace YAF.Pages
             if (this._topicUnapproved)
             {
                 // Tell user that his message will have to be approved by a moderator
-                string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this._returnForum);
+                var url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this._returnForum);
 
                 if (Config.IsRainbow)
                 {
@@ -980,7 +980,7 @@ namespace YAF.Pages
             // Remove repeating PollID values   
             var hTable = new Hashtable();
             var duplicateList = new ArrayList();
-            DataTable dtPollGroup = LegacyDb.pollgroup_stats(pollGroupId);
+            var dtPollGroup = LegacyDb.pollgroup_stats(pollGroupId);
 
             foreach (DataRow drow in dtPollGroup.Rows)
             {
@@ -1002,7 +1002,7 @@ namespace YAF.Pages
             dtPollGroup.AcceptChanges();
 
             // frequently used
-            int pollNumber = dtPollGroup.Rows.Count;
+            var pollNumber = dtPollGroup.Rows.Count;
 
             return (pollNumber < this.Get<YafBoardSettings>().AllowedPollNumber) &&
                    (this.Get<YafBoardSettings>().AllowedPollChoiceNumber > 0);

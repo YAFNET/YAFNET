@@ -58,10 +58,10 @@ namespace YAF.Controls
 
             var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
 
-            using (DataTable dt2 = LegacyDb.user_accessmasks(this.PageContext.PageBoardID, userID))
+            using (var dt2 = LegacyDb.user_accessmasks(this.PageContext.PageBoardID, userID))
             {
                 var html = new StringBuilder();
-                int nLastForumID = 0;
+                var nLastForumID = 0;
                 foreach (DataRow row in dt2.Rows)
                 {
                     if (nLastForumID != row["ForumID"].ToType<int>())

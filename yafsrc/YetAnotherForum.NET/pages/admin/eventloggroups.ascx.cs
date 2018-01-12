@@ -47,8 +47,6 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class eventloggroups : AdminPage
     {
-        /* Construction */
-
         #region Methods
 
         /// <summary>
@@ -70,14 +68,12 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_EVENTLOGGROUPS", "TITLE"));
         }
 
-        /* Event Handlers */
-
         /// <summary>
         /// Handles the ItemCommand event of the List control.
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        protected void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        protected void ListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {

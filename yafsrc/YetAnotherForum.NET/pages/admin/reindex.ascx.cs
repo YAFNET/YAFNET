@@ -22,9 +22,6 @@
  * under the License.
  */
 
-using System.Collections.Generic;
-using YAF.Types.Interfaces.Data;
-
 namespace YAF.Pages.Admin
 {
     #region Using
@@ -39,8 +36,8 @@ namespace YAF.Pages.Admin
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Handlers;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Data;
     using YAF.Utilities;
     using YAF.Utils;
 
@@ -63,20 +60,16 @@ namespace YAF.Pages.Admin
                 "BlockUIExecuteJs",
                 JavaScriptBlocks.BlockUIExecuteJs(
                     "DeleteForumMessage",
-                    "#{0},#{1}".FormatWith(this.btnReindex.ClientID, this.btnShrink.ClientID)));
+                    "#{0},#{1}".FormatWith(this.Reindex.ClientID, this.Shrink.ClientID)));
 
             base.OnPreRender(e);
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -92,38 +85,9 @@ namespace YAF.Pages.Admin
             this.PanelRecoveryMode.Visible = LegacyDb.PanelRecoveryMode;
             this.PanelGetStats.Visible = LegacyDb.PanelGetStats;
 
-            // Get the name of buttons
-            this.btnReindex.Text =
-                "<i class=\"fa fa-database fa-fw\"></i>&nbsp;{0}".FormatWith(
-                    this.GetText("ADMIN_REINDEX", "REINDEXTBL_BTN"));
-            this.btnGetStats.Text =
-                "<i class=\"fa fa-database fa-fw\"></i>&nbsp;{0}".FormatWith(
-                    this.GetText("ADMIN_REINDEX", "TBLINDEXSTATS_BTN"));
-            this.btnShrink.Text =
-                "<i class=\"fa fa-database fa-fw\"></i>&nbsp;{0}".FormatWith(
-                    this.GetText("ADMIN_REINDEX", "SHRINK_BTN"));
-            this.btnRecoveryMode.Text =
-                "<i class=\"fa fa-database fa-fw\"></i>&nbsp;{0}".FormatWith(
-                    this.GetText("ADMIN_REINDEX", "SETRECOVERY_BTN"));
-
-            this.btnShrink.OnClientClick =
-                "return confirm('{0}');".FormatWith(this.GetText("ADMIN_REINDEX", "CONFIRM_SHRINK"));
-
-            this.btnReindex.OnClientClick =
-                "return confirm('{0}');".FormatWith(this.GetText("ADMIN_REINDEX", "CONFIRM_REINDEX"));
-
-            this.btnRecoveryMode.OnClientClick =
-                "return confirm('{0}');".FormatWith(this.GetText("ADMIN_REINDEX", "CONFIRM_RECOVERY"));
-
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
-            this.PageLinks.AddLink(this.GetText("ADMIN_REINDEX", "TITLE"), string.Empty);
-
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_REINDEX", "TITLE"));
+            this.Shrink.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_SHRINK");
+            this.Reindex.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_REINDEX");
+            this.RecoveryMode.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_RECOVERY");
 
             this.RadioButtonList1.Items.Add(new ListItem(this.GetText("ADMIN_REINDEX", "RECOVERY1")));
             this.RadioButtonList1.Items.Add(new ListItem(this.GetText("ADMIN_REINDEX", "RECOVERY2")));
@@ -135,15 +99,27 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The btn get stats_ click.
+        /// Creates page links for this page.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void btnGetStats_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(this.GetText("ADMIN_REINDEX", "TITLE"), string.Empty);
+
+            this.Page.Header.Title = "{0} - {1}".FormatWith(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                this.GetText("ADMIN_REINDEX", "TITLE"));
+        }
+
+        /// <summary>
+        /// Gets the stats click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void GetStatsClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             try
             {
@@ -156,30 +132,29 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The btn recovery mode_ click.
+        /// Sets the Revovery mode
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void btnRecoveryMode_Click([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void RecoveryModeClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            string dbRecoveryMode = string.Empty;
+            var recoveryMode = string.Empty;
+
             switch (this.RadioButtonList1.SelectedIndex)
             {
                 case 0:
-                    dbRecoveryMode = "FULL";
+                    recoveryMode = "FULL";
                     break;
                 case 1:
-                    dbRecoveryMode = "SIMPLE";
+                    recoveryMode = "SIMPLE";
                     break;
                 case 2:
-                    dbRecoveryMode = "BULK_LOGGED";
+                    recoveryMode = "BULK_LOGGED";
                     break;
             }
-            string error = LegacyDb.db_recovery_mode_new(dbRecoveryMode);
+
+            var error = LegacyDb.db_recovery_mode_new(recoveryMode);
+
             if (error.IsSet())
             {
                 this.txtIndexStatistics.Text = LegacyDb.db_recovery_mode_warning()
@@ -187,22 +162,18 @@ namespace YAF.Pages.Admin
             }
             else
             {
-                this.txtIndexStatistics.Text = this.GetText("ADMIN_REINDEX", "INDEX_STATS").FormatWith(dbRecoveryMode);
+                this.txtIndexStatistics.Text = this.GetText("ADMIN_REINDEX", "INDEX_STATS").FormatWith(recoveryMode);
                 this.txtIndexStatistics.Text = LegacyDb.db_recovery_mode_warning()
-                                               + "\r\n{0}".FormatWith(LegacyDb.db_recovery_mode_new(dbRecoveryMode));
+                                               + "\r\n{0}".FormatWith(LegacyDb.db_recovery_mode_new(recoveryMode));
             }
         }
 
         /// <summary>
         /// Reindexing Database
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void btnReindex_Click([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void ReindexClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.txtIndexStatistics.Text = LegacyDb.db_reindex_warning() + LegacyDb.db_reindex_new();
         }
@@ -211,13 +182,9 @@ namespace YAF.Pages.Admin
         /// Mod By Touradg (herman_herman) 2009/10/19
         /// Shrinking Database
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void btnShrink_Click([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void ShrinkClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             try
             {
@@ -236,7 +203,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The bind data.
+        /// Binds the data.
         /// </summary>
         private void BindData()
         {

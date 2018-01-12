@@ -260,12 +260,12 @@ namespace YAF.Controls
                 strReturn.AppendLine(
                     this.MakeLink("1", YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicID), 1));
                 strReturn.AppendLine(" ... ");
-                bool bFirst = true;
+                var bFirst = true;
 
                 // show links from the end
-                for (int i = pageCount - (NumToDisplay - 1); i < pageCount; i++)
+                for (var i = pageCount - (NumToDisplay - 1); i < pageCount; i++)
                 {
-                    int iPost = i + 1;
+                    var iPost = i + 1;
 
                     if (bFirst)
                     {
@@ -285,10 +285,10 @@ namespace YAF.Controls
             }
             else
             {
-                bool bFirst = true;
-                for (int i = 0; i < pageCount; i++)
+                var bFirst = true;
+                for (var i = 0; i < pageCount; i++)
                 {
-                    int iPost = i + 1;
+                    var iPost = i + 1;
 
                     if (bFirst)
                     {
@@ -318,10 +318,10 @@ namespace YAF.Controls
         /// </returns>
         protected string FormatReplies()
         {
-            string repStr = "&nbsp;";
+            var repStr = "&nbsp;";
 
-            int nReplies = this.TopicRow["Replies"].ToType<int>();
-            int numDeleted = this.TopicRow["NumPostsDeleted"].ToType<int>();
+            var nReplies = this.TopicRow["Replies"].ToType<int>();
+            var numDeleted = this.TopicRow["NumPostsDeleted"].ToType<int>();
 
             if (nReplies < 0)
             {
@@ -408,7 +408,7 @@ namespace YAF.Controls
         /// </returns>
         protected string GetAvatarUrlFromID(int userID)
         {
-            string avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
+            var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
 
             if (avatarUrl.IsNotSet())
             {
@@ -431,7 +431,7 @@ namespace YAF.Controls
         {
             CodeContracts.VerifyNotNull(row, "row");
 
-            string strReturn = string.Empty;
+            var strReturn = string.Empty;
 
             if (row["TopicMovedID"].ToString().Length > 0)
             {
@@ -475,7 +475,7 @@ namespace YAF.Controls
             CodeContracts.VerifyNotNull(row, "row");
             CodeContracts.VerifyNotNull(imgTitle, "imgTitle");
 
-            DateTime lastPosted = row["LastPosted"] != DBNull.Value
+            var lastPosted = row["LastPosted"] != DBNull.Value
                                       ? (DateTime)row["LastPosted"]
                                       : DateTimeHelper.SqlDbMinTime();
 
@@ -491,7 +491,7 @@ namespace YAF.Controls
                 return theme.GetItem("ICONS", "TOPIC_MOVED");
             }
 
-            DateTime lastRead = this.Get<IReadTrackCurrentUser>()
+            var lastRead = this.Get<IReadTrackCurrentUser>()
                 .GetForumTopicRead(
                     row["ForumID"].ToType<int>(),
                     row["TopicID"].ToType<int>(),

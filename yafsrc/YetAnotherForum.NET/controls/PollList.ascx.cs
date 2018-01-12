@@ -225,7 +225,7 @@ namespace YAF.Controls
     /// </returns>
     protected bool CanRemoveGroup()
     {
-        bool hasNoVotes = !this._dtPollAllChoices.Rows.Cast<DataRow>().Any(dr => dr["Votes"].ToType<int>() > 0);
+        var hasNoVotes = !this._dtPollAllChoices.Rows.Cast<DataRow>().Any(dr => dr["Votes"].ToType<int>() > 0);
 
         if (!this.Get<YafBoardSettings>().AllowPollChangesAfterFirstVote)
       {
@@ -312,7 +312,7 @@ namespace YAF.Controls
     {
       soon = false;
 
-      foreach (TimeSpan ts in from DataRow dr in this._dtPollGroupAllChoices.Rows
+      foreach (var ts in from DataRow dr in this._dtPollGroupAllChoices.Rows
                               where dr["Closes"] != DBNull.Value && pollId.ToType<int>() == dr["PollID"].ToType<int>()
                               select Convert.ToDateTime(dr["Closes"]) - DateTime.UtcNow)
       {
@@ -342,7 +342,7 @@ namespace YAF.Controls
     /// </returns>
     protected int GetImageHeight([NotNull] object mimeType)
     {
-      string[] attrs = mimeType.ToString().Split('!')[1].Split(';');
+      var attrs = mimeType.ToString().Split('!')[1].Split(';');
 
       return attrs[1].ToType<int>();
     }
@@ -356,7 +356,7 @@ namespace YAF.Controls
     /// </returns>
     protected string GetPollIsClosed([NotNull] object pollId)
     {
-      string strPollClosed = string.Empty;
+      var strPollClosed = string.Empty;
       if (this.IsPollClosed(pollId))
       {
         strPollClosed = this.GetText("POLL_CLOSED");
@@ -374,7 +374,7 @@ namespace YAF.Controls
     /// </returns>
     protected string GetPollQuestion([NotNull] object pollId)
     {
-      foreach (DataRow dr in
+      foreach (var dr in
         this._dtPollGroupAllChoices.Rows.Cast<DataRow>().Where(dr => pollId.ToType<int>() == dr["PollID"].ToType<int>()))
       {
         return this.HtmlEncode(this.Get<IBadWordReplace>().Replace(dr["Question"].ToString()));
@@ -405,7 +405,7 @@ namespace YAF.Controls
     /// </returns>
     protected string GetTotal([NotNull] object pollId)
     {
-      foreach (DataRow dr in
+      foreach (var dr in
         this._dtPollGroupAllChoices.Rows.Cast<DataRow>().Where(dr => pollId.ToType<int>() == dr["PollID"].ToType<int>()))
       {
         return this.HtmlEncode(dr["Total"].ToString());
@@ -429,19 +429,19 @@ namespace YAF.Controls
       pollChoices = null;
 
       // check for voting cookie
-      HttpCookie httpCookie = this.Request.Cookies[this.VotingCookieName(pollId.ToType<int>())];
+      var httpCookie = this.Request.Cookies[this.VotingCookieName(pollId.ToType<int>())];
       if (httpCookie != null && httpCookie.Value != null)
       {
-        int pchcntr1 = 0;
-        int choicescount = 0;
-        string[] choiceArray = httpCookie.Value.Split(',');
+        var pchcntr1 = 0;
+        var choicescount = 0;
+        var choiceArray = httpCookie.Value.Split(',');
         if (choiceArray.GetLength(0) > 0)
         {
           pollChoices = new int?[choiceArray.GetLength(0)];
-          foreach (DataRow drch in
+          foreach (var drch in
             this._dtPollAllChoices.Rows.Cast<DataRow>().Where(drch => (int)drch["PollID"] == pollId))
           {
-            for (int j = 0; j < choiceArray.GetLength(0); j++)
+            for (var j = 0; j < choiceArray.GetLength(0); j++)
             {
               int pollChoicesFromCookie;
 
@@ -486,7 +486,7 @@ namespace YAF.Controls
       }
 
       // Check if a user already voted
-      int pchcntr = this._dtAllPollGroupVotes.Rows.Cast<DataRow>().Count(drch => (int)drch["PollID"] == pollId);
+      var pchcntr = this._dtAllPollGroupVotes.Rows.Cast<DataRow>().Count(drch => (int)drch["PollID"] == pollId);
 
       if (pchcntr == 0)
       {
@@ -495,19 +495,19 @@ namespace YAF.Controls
       }
 
       pollChoices = new int?[pchcntr];
-      int choicescount1 = 0;
+      var choicescount1 = 0;
       pchcntr = 0;
 
       // tha_watcha: Added some IsNullOrEmptyDBField checks otherwise it would throw an System.InvalidCastException: Specified cast is not valid, on older polls.
-      foreach (DataRow drch in from DataRow drch in this._dtPollAllChoices.Rows
+      foreach (var drch in from DataRow drch in this._dtPollAllChoices.Rows
                                where !drch["PollID"].IsNullOrEmptyDBField()
                                where (int)drch["PollID"] == pollId
                                select drch)
       {
-        DataRow drch2 = drch;
-        DataRow drch3 = drch;
+        var drch2 = drch;
+        var drch3 = drch;
 
-        foreach (DataRow drch1 in from DataRow drch1 in this._dtAllPollGroupVotes.Rows
+        foreach (var drch1 in from DataRow drch1 in this._dtAllPollGroupVotes.Rows
                                   where
                                     !drch2["ChoiceID"].IsNullOrEmptyDBField() &&
                                     !drch1["ChoiceID"].IsNullOrEmptyDBField()
@@ -550,7 +550,7 @@ namespace YAF.Controls
     protected bool IsPollClosed([NotNull] object pollId)
     {
       bool soon;
-      int? dtr = this.DaysToRun(pollId, out soon);
+      var dtr = this.DaysToRun(pollId, out soon);
       return dtr == 0;
     }
 
@@ -637,7 +637,7 @@ namespace YAF.Controls
     /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterItemEventArgs"/> instance containing the event data.</param>
     protected void PollGroup_OnItemDataBound([NotNull] object source, [NotNull] RepeaterItemEventArgs e)
     {
-      RepeaterItem item = e.Item;
+      var item = e.Item;
       var drowv = (DataRowView)e.Item.DataItem;
       if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
       {
@@ -657,23 +657,23 @@ namespace YAF.Controls
         var pollId = drowv.Row["PollID"].ToType<int>();
         int?[] choicePId;
         bool hasVote;
-        bool isNotVoted = this.IsNotVoted(
+        var isNotVoted = this.IsNotVoted(
           pollId, drowv.Row["AllowMultipleChoices"].ToType<bool>(), out choicePId, out hasVote);
-        bool cvote = this.HasVoteAccess(pollId) && isNotVoted;
+        var cvote = this.HasVoteAccess(pollId) && isNotVoted;
         pollChoiceList.ChoiceId = choicePId;
 
         // If guest are not allowed to view options we don't render them
         pollChoiceList.Visible = !(!cvote && !this.Get<YafBoardSettings>().AllowGuestsViewPollOptions &&
                                    this.PageContext.IsGuest);
 
-        bool isClosedBound = false;
-        bool allowsMultipleChoices = false;
-        bool showVoters = false;
+        var isClosedBound = false;
+        var allowsMultipleChoices = false;
+        var showVoters = false;
 
         // This is not a guest w/o poll option view permissions, we bind the control.
         if (pollChoiceList.Visible)
         {
-          DataTable thisPollTable = this._dtPollAllChoices.Copy();
+          var thisPollTable = this._dtPollAllChoices.Copy();
           foreach (DataRow thisPollTableRow in thisPollTable.Rows)
           {
             if (thisPollTableRow["PollID"].ToType<int>() != pollId.ToType<int>())
@@ -685,7 +685,7 @@ namespace YAF.Controls
               // in this section we get a custom image aspect, the option is argueable
               if (!thisPollTableRow["MimeType"].IsNullOrEmptyDBField())
               {
-                decimal currentAspect = GetImageAspect(thisPollTableRow["MimeType"]);
+                var currentAspect = GetImageAspect(thisPollTableRow["MimeType"]);
                 if (currentAspect > this.MaxImageAspect)
                 {
                   this.MaxImageAspect = currentAspect;
@@ -703,7 +703,7 @@ namespace YAF.Controls
 
         if (showVoters)
         {
-            DataTable dtAllPollGroupVotesShow = LegacyDb.pollgroup_votecheck(drowv.Row["PollGroupID"].ToType<int>(), null, null);
+            var dtAllPollGroupVotesShow = LegacyDb.pollgroup_votecheck(drowv.Row["PollGroupID"].ToType<int>(), null, null);
             dtAllPollGroupVotesShow.Rows.Cast<DataRow>().Count(drch => (int)drch["PollID"] == pollId);
             pollChoiceList.Voters = dtAllPollGroupVotesShow;
         }
@@ -713,8 +713,8 @@ namespace YAF.Controls
 
         // returns number of day to run - null if poll has no expiration date 
         bool soon;
-        int? daystorun = this.DaysToRun(pollId, out soon);
-        bool isPollClosed = this.IsPollClosed(pollId);
+        var daystorun = this.DaysToRun(pollId, out soon);
+        var isPollClosed = this.IsPollClosed(pollId);
 
         // *************************
         // Show|hide results section
@@ -722,15 +722,15 @@ namespace YAF.Controls
         // this._canVote = this.HasVoteAccess(pollId) && isNotVoted;
 
         // Poll voting is bounded - you can't see results before voting in each poll
-        int hasVoteEmptyCounter = 0;
-        int cnt = 0;
+        var hasVoteEmptyCounter = 0;
+        var cnt = 0;
 
         // compare a number of voted polls with number of polls
         foreach (DataRow dr in this._dtPollGroupAllChoices.Rows)
         {
           bool hasVoteEmpty;
 
-          bool voted =
+          var voted =
             !this.IsNotVoted(
               (int)dr["PollID"], dr["AllowMultipleChoices"].ToType<bool>(), out choicePId, out hasVoteEmpty);
           if (hasVoteEmpty)
@@ -738,7 +738,7 @@ namespace YAF.Controls
             hasVoteEmptyCounter++;
           }
 
-          bool isclosedbound = !dr["Closes"].IsNullOrEmptyDBField() && Convert.ToBoolean(dr["IsClosedBound"]) && dr["Closes"].ToType<DateTime>() < DateTime.UtcNow;
+          var isclosedbound = !dr["Closes"].IsNullOrEmptyDBField() && Convert.ToBoolean(dr["IsClosedBound"]) && dr["Closes"].ToType<DateTime>() < DateTime.UtcNow;
 
           if (voted || isclosedbound)
           {
@@ -746,7 +746,7 @@ namespace YAF.Controls
           }
         }
 
-        bool warningMultiplePolls = hasVoteEmptyCounter >= this._dtPollGroupAllChoices.Rows.Count &&
+        var warningMultiplePolls = hasVoteEmptyCounter >= this._dtPollGroupAllChoices.Rows.Count &&
                                     hasVoteEmptyCounter > 0;
         if (this._isBound)
         {
@@ -796,7 +796,7 @@ namespace YAF.Controls
         // *************************
         // Poll warnings section
         // *************************
-        string notificationString = string.Empty;
+        var notificationString = string.Empty;
 
         // Here warning labels are treated
         if (cvote)
@@ -985,7 +985,7 @@ namespace YAF.Controls
     {
       if (!mimeType.IsNullOrEmptyDBField())
       {
-        string[] attrs = mimeType.ToString().Split('!')[1].Split(';');
+        var attrs = mimeType.ToString().Split('!')[1].Split(';');
         var width = attrs[0].ToType<decimal>();
         return width / attrs[1].ToType<decimal>();
       }
@@ -1172,7 +1172,7 @@ namespace YAF.Controls
 
         if (!drowv.Row["QuestionMimeType"].IsNullOrEmptyDBField())
         {
-          decimal aspect = GetImageAspect(drowv.Row["QuestionMimeType"]);
+          var aspect = GetImageAspect(drowv.Row["QuestionMimeType"]);
 
           questionImage.Width = 80;
 
@@ -1257,7 +1257,7 @@ namespace YAF.Controls
         // Only if this control is in a topic we find the topic creator
         if (this.TopicId > 0)
         {
-            DataRow dti = LegacyDb.topic_info(this.TopicId);
+            var dti = LegacyDb.topic_info(this.TopicId);
             this._topicUser = dti["UserID"].ToType<int>();
             if (!dti["PollID"].IsNullOrEmptyDBField())
             {
@@ -1266,14 +1266,14 @@ namespace YAF.Controls
         }
 
         // We check here various variants if a poll exists, as we don't know from which place comes the call
-        bool existingPoll = (this.PollGroupId > 0) && ((this.TopicId > 0) || (this.ForumId > 0) || (this.BoardId > 0));
+        var existingPoll = (this.PollGroupId > 0) && ((this.TopicId > 0) || (this.ForumId > 0) || (this.BoardId > 0));
 
         // Here we'll find whether we should display create new poll button only 
-        bool topicPoll = this.PageContext.ForumPollAccess &&
+        var topicPoll = this.PageContext.ForumPollAccess &&
                          (this.EditMessageId > 0 || (this.TopicId > 0 && this.ShowButtons));
-        bool forumPoll = this.EditForumId > 0 || (this.ForumId > 0 && this.ShowButtons);
-        bool categoryPoll = this.EditCategoryId > 0 || (this.CategoryId > 0 && this.ShowButtons);
-        bool boardPoll = this.PageContext.BoardVoteAccess &&
+        var forumPoll = this.EditForumId > 0 || (this.ForumId > 0 && this.ShowButtons);
+        var categoryPoll = this.EditCategoryId > 0 || (this.CategoryId > 0 && this.ShowButtons);
+        var boardPoll = this.PageContext.BoardVoteAccess &&
                          (this.EditBoardId > 0 || (this.BoardId > 0 && this.ShowButtons));
 
         this.NewPollRow.Visible = this.ShowButtons && (topicPoll || forumPoll || categoryPoll || boardPoll) &&
@@ -1311,7 +1311,7 @@ namespace YAF.Controls
     /// </returns>
     private string ParamsToSend()
     {
-      string sb = string.Empty;
+      var sb = string.Empty;
 
       if (this.TopicId > 0)
       {

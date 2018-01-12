@@ -40,6 +40,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Utilities;
     using YAF.Utils;
 
     #endregion
@@ -52,67 +53,14 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// Handles the Load event of the Delete control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_REPLACEWORDS", "MSG_DELETE"));
-        }
-
-        /// <summary>
-        /// Adds the load.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void addLoad(object sender, EventArgs e)
-        {
-            var add = (LinkButton)sender;
-            add.Text = "<i class=\"fa fa-plus-square fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_REPLACEWORDS", "ADD"));
-        }
-
-        /// <summary>
-        /// Add Localized Text to Button
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void exportLoad(object sender, EventArgs e)
-        {
-            var export = (LinkButton)sender;
-            export.Text = "<i class=\"fa fa-download fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_REPLACEWORDS", "EXPORT"));
-        }
-
-        /// <summary>
-        /// Add Localized Text to Button
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void importLoad(object sender, EventArgs e)
-        {
-            var import = (LinkButton)sender;
-            import.Text = "<i class=\"fa fa-upload fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("ADMIN_REPLACEWORDS", "IMPORT"));
-        }
-
-        /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            this.list.ItemCommand += this.List_ItemCommand;
+            this.list.ItemCommand += this.ListItemCommand;
 
             // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            this.InitializeComponent();
             base.OnInit(e);
         }
 
@@ -149,27 +97,28 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Required method for Designer support - do not modify
-        ///   the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-        }
-
-        /// <summary>
         /// Handles the ItemCommand event of the List control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        private void List_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
+        private void ListItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {
                 case "add":
-                    YafBuildLink.Redirect(ForumPages.admin_replacewords_edit);
+                    this.EditDialog.BindData(null);
+
+                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                        "openModalJs",
+                        JavaScriptBlocks.OpenModalJs("ReplaceWordsEditDialog"));
+
                     break;
                 case "edit":
-                    YafBuildLink.Redirect(ForumPages.admin_replacewords_edit, "i={0}", e.CommandArgument);
+                    this.EditDialog.BindData(e.CommandArgument.ToType<int>());
+
+                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                        "openModalJs",
+                        JavaScriptBlocks.OpenModalJs("ReplaceWordsEditDialog"));
                     break;
                 case "delete":
                     this.GetRepository<Replace_Words>().DeleteById(e.CommandArgument.ToType<int>());
@@ -181,9 +130,6 @@ namespace YAF.Pages.Admin
                         this.ExportWords();
                     }
 
-                    break;
-                case "import":
-                    YafBuildLink.Redirect(ForumPages.admin_replacewords_import);
                     break;
             }
         }

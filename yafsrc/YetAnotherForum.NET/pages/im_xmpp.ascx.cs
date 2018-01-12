@@ -93,9 +93,9 @@ namespace YAF.Pages
       if (!this.IsPostBack)
       {
         // get user data...
-        MembershipUser userHe = UserMembershipHelper.GetMembershipUserById(this.UserID);
+        var userHe = UserMembershipHelper.GetMembershipUserById(this.UserID);
 
-        string displayNameHe = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
+        var displayNameHe = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
 
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
           this.PageLinks.AddLink(
@@ -119,14 +119,14 @@ namespace YAF.Pages
           }
 
           // Data for current page user
-          MembershipUser userMe = UserMembershipHelper.GetMembershipUserById(this.PageContext.PageUserID);
+          var userMe = UserMembershipHelper.GetMembershipUserById(this.PageContext.PageUserID);
 
           // get full user data...
           var userDataHe = new CombinedUserDataHelper(userHe, this.UserID);
           var userDataMe = new CombinedUserDataHelper(userMe, this.PageContext.PageUserID);
 
-          string serverHe = userDataHe.Profile.XMPP.Substring(userDataHe.Profile.XMPP.IndexOf("@") + 1).Trim();
-          string serverMe = userDataMe.Profile.XMPP.Substring(userDataMe.Profile.XMPP.IndexOf("@") + 1).Trim();
+          var serverHe = userDataHe.Profile.XMPP.Substring(userDataHe.Profile.XMPP.IndexOf("@") + 1).Trim();
+          var serverMe = userDataMe.Profile.XMPP.Substring(userDataMe.Profile.XMPP.IndexOf("@") + 1).Trim();
           if (serverMe == serverHe)
           {
             this.NotifyLabel.Text = this.GetTextFormatted("SERVERSAME", userDataHe.Profile.XMPP);

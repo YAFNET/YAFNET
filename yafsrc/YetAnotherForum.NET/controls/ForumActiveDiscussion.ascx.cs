@@ -83,7 +83,7 @@ namespace YAF.Controls
             var currentRow = (DataRowView)e.Item.DataItem;
 
             // make message url...
-            string messageUrl = YafBuildLink.GetLinkNotEscaped(
+            var messageUrl = YafBuildLink.GetLinkNotEscaped(
                 ForumPages.posts, "m={0}#post{0}", currentRow["LastMessageID"]);
 
             // get the controls
@@ -175,7 +175,7 @@ namespace YAF.Controls
             {
                 lastPostedDateLabel.DateTime = currentRow["LastPosted"];
 
-                DateTime lastRead =
+                var lastRead =
                     this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
                         forumId: currentRow["ForumID"].ToType<int>(),
                         topicId: currentRow["TopicID"].ToType<int>(),
@@ -269,7 +269,7 @@ namespace YAF.Controls
 
             this.CollapsibleImage.ToolTip = this.GetText("COMMON", "SHOWHIDE");
 
-            bool groupAccess = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostLatestFeedAccess);
+            var groupAccess = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostLatestFeedAccess);
             this.AtomFeed.Visible = this.Get<YafBoardSettings>().ShowAtomLink && groupAccess;
             this.RssFeed.Visible = this.Get<YafBoardSettings>().ShowRSSLink && groupAccess;
 

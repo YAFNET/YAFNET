@@ -144,16 +144,16 @@ namespace YAF.Controls
       // change password...
       try
       {
-        MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID.Value);
+        var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID.Value);
 
         if (user != null)
         {
           // new password...
-          string newPass = this.txtNewPassword.Text.Trim();
+          var newPass = this.txtNewPassword.Text.Trim();
 
           // reset the password...
           user.UnlockUser();
-          string tempPass = user.ResetPassword();
+          var tempPass = user.ResetPassword();
 
           // change to new password...
           user.ChangePassword(tempPass, newPass);
@@ -163,7 +163,7 @@ namespace YAF.Controls
             // email a notification...
             var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
 
-            string subject =
+            var subject =
               this.Get<ILocalization>().GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT").FormatWith(
                 this.PageContext.BoardSettings.Name);
 
@@ -202,18 +202,18 @@ namespace YAF.Controls
       // reset password...
       try
       {
-        MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID.Value);
+        var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID.Value);
 
         if (user != null)
         {
           // reset the password...
           user.UnlockUser();
-          string newPassword = user.ResetPassword();
+          var newPassword = user.ResetPassword();
 
           // email a notification...
           var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
 
-          string subject =
+          var subject =
             this.Get<ILocalization>().GetText("RECOVER_PASSWORD", "PASSWORDRETRIEVAL_EMAIL_SUBJECT").FormatWith(
               this.PageContext.BoardSettings.Name);
 

@@ -130,8 +130,8 @@ namespace YAF.Controls
         {
             if (this.TopicID.HasValue)
             {
-                bool showDeleted = false;
-                int userId = 0;
+                var showDeleted = false;
+                var userId = 0;
 
                 if (this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
                 {
@@ -146,7 +146,7 @@ namespace YAF.Controls
                     userId = this.PageContext.PageUserID;
                 }
 
-                DataTable dt = LegacyDb.post_list(
+                var dt = LegacyDb.post_list(
                     this.TopicID,
                     this.PageContext.PageUserID,
                     userId,

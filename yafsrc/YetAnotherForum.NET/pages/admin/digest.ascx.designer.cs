@@ -82,7 +82,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton Button2;
+        protected global::YAF.Controls.ThemeButton Button2;
         
         /// <summary>
         /// LocalizedLabel2-Steuerelement
@@ -127,7 +127,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton GenerateDigest;
+        protected global::YAF.Controls.ThemeButton GenerateDigest;
         
         /// <summary>
         /// LocalizedLabel3-Steuerelement
@@ -181,7 +181,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton TestSend;
+        protected global::YAF.Controls.ThemeButton TestSend;
         
         /// <summary>
         /// SmartScroller1-Steuerelement

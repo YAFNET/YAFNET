@@ -18,7 +18,8 @@
                 <div class="card-body">
   <asp:Panel id="HostSettingsTabs" runat="server">
     <ul class="nav nav-tabs" role="tablist">
-		<li class="nav-item"><a href="#View1" class="nav-link" data-toggle="tab" role="tab"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
+        <li class="nav-item"><a href="#View0" class="nav-link" data-toggle="tab" role="tab"><YAF:LocalizedLabel ID="LocalizedLabel44" runat="server" LocalizedTag="HEADER_SERVER_INFO" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
+        <li class="nav-item"><a href="#View1" class="nav-link" data-toggle="tab" role="tab"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
 		<li class="nav-item"><a href="#View2" class="nav-link" data-toggle="tab" role="tab"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="HOST_FEATURES" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
 		<li class="nav-item"><a href="#View3" class="nav-link" data-toggle="tab" role="tab"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="HOST_DISPLAY" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
         <li class="nav-item"><a href="#View4" class="nav-link" data-toggle="tab" role="tab"><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="HOST_ADVERTS" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
@@ -31,8 +32,8 @@
         <li class="nav-item"><a href="#View11" class="nav-link" data-toggle="tab" role="tab"><YAF:LocalizedLabel ID="LocalizedLabel34" runat="server" LocalizedTag="HOST_LOG" LocalizedPage="ADMIN_HOSTSETTINGS" /></a></li>
 	</ul>
       <div class="tab-content">
-    <div id="View1" class="tab-pane" role="tabpanel">
-                        <h2>
+      <div id="View0" class="tab-pane" role="tabpanel">
+                 <h2>
                            <YAF:LocalizedLabel ID="LocalizedLabel37" runat="server" LocalizedTag="HEADER_SERVER_INFO" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h2>
                     <hr />
@@ -74,8 +75,9 @@
                         <p>
                             <asp:Label ID="AppMemory" runat="server" CssClass="smallfont"></asp:Label>
 
-                    </p><hr />
-
+                    </p>
+      </div>
+    <div id="View1" class="tab-pane" role="tabpanel">
                         <h2>
                            <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="HEADER_SETUP" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h2>
@@ -83,11 +85,11 @@
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="SERVERTIME_CORRECT" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                            <strong><%# DateTime.UtcNow %></strong>.
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control serverTime-Input" ID="ServerTimeCorrection" runat="server"></asp:TextBox>
-                        </p><hr />
+                        </p>
+    <strong><%# DateTime.UtcNow %></strong><hr />
 
                         <h4>
                            <YAF:HelpLabel ID="HelpLabel5" runat="server" LocalizedTag="FILE_TABLE" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -2211,7 +2213,7 @@
                 </div>
                 <div class="card-footer text-lg-center">
                 <YAF:ThemeButton ID="Save" runat="server"  CssClass="btn btn-primary" OnClick="SaveClick"
-                    Icon="floppy" TextLocalizedTag="SAVE_SETTINGS" TextLocalizedPage="ADMIN_HOSTSETTINGS">
+                    Icon="save" TextLocalizedTag="SAVE_SETTINGS" TextLocalizedPage="ADMIN_HOSTSETTINGS">
                 </YAF:ThemeButton>
                 </div>
             </div>

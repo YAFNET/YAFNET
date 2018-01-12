@@ -71,16 +71,16 @@
                     </p>
                     <ul class="standardList">
                         <li>
-                            <asp:Label ID="lblHostingTrust" runat="server" CssClass="infoLabel pull-right">Unchecked</asp:Label>
+                            <asp:Label ID="lblHostingTrust" runat="server" CssClass="infoLabel float-right">Unchecked</asp:Label>
                             Asp.Net Hosting Trust Level (if trust level is not "Full" or "Unrestricted" you will need to manually
                             modify all configuration files) ...
                         </li>
                         <li>
-                            <asp:Label ID="lblPermissionApp" runat="server" CssClass="infoLabel pull-right">Unchecked</asp:Label>
+                            <asp:Label ID="lblPermissionApp" runat="server" CssClass="infoLabel float-right">Unchecked</asp:Label>
                             YAF.NET Has Write Access to Root Application Directory ("~/") ...
                         </li>
                         <li>
-                            <asp:Label ID="lblPermissionUpload" runat="server" CssClass="infoLabel pull-right">Unchecked</asp:Label>
+                            <asp:Label ID="lblPermissionUpload" runat="server" CssClass="infoLabel float-right">Unchecked</asp:Label>
                             YAF.NET Has Write Access to "~/Upload" directory ...
                         </li>
                     </ul>

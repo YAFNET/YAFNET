@@ -289,7 +289,7 @@ namespace YAF.Pages
             // delete message...
             this.PreviewRow.Visible = true;
 
-            DataTable tempdb = this.GetRepository<Message>().GetReplies(
+            var tempdb = this.GetRepository<Message>().GetReplies(
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").ToType<int>());
 
             if (tempdb.HasRows() && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
@@ -337,9 +337,9 @@ namespace YAF.Pages
             }
 
             // Create objects for easy access
-            object tmpMessageID = this._messageRow["MessageID"];
-            object tmpForumID = this._messageRow["ForumID"];
-            object tmpTopicID = this._messageRow["TopicID"];
+            var tmpMessageID = this._messageRow["MessageID"];
+            var tmpForumID = this._messageRow["ForumID"];
+            var tmpTopicID = this._messageRow["TopicID"];
 
             var deleteAllLinked = false;
 
@@ -368,7 +368,7 @@ namespace YAF.Pages
                 this.EraseMessage.Checked);
 
             // retrieve topic information.
-            DataRow topic = LegacyDb.topic_info(tmpTopicID);
+            var topic = LegacyDb.topic_info(tmpTopicID);
 
             // If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
             if (topic == null)

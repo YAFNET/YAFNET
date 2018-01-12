@@ -89,9 +89,11 @@
                 </p>
                 </div>
                 <div class="card-footer text-lg-center">
-			<asp:LinkButton id="ForumRegister" runat="server" onclick="ForumRegister_Click" CssClass="btn btn-primary"></asp:LinkButton>
+			<YAF:ThemeButton id="ForumRegister" runat="server" onclick="ForumRegisterClick" CssClass="btn btn-primary"
+			                 Icon="user-plus" TextLocalizedTag="REGISTER" TextLocalizedPage="ADMIN_REGUSER"></YAF:ThemeButton>
 			&nbsp;
-			<asp:Linkbutton id="cancel" runat="server" onclick="cancel_Click" CssClass="btn btn-secondary"></asp:Linkbutton>
+			<YAF:Themebutton id="cancel" runat="server" onclick="CancelClick" CssClass="btn btn-secondary"
+			                 Icon="times" TextLocalizedTag="CANCEL"></YAF:Themebutton>
                 </div>
             </div>
         </div>

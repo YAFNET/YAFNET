@@ -190,7 +190,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton search;
+        protected global::YAF.Controls.ThemeButton search;
         
         /// <summary>
         /// LocalizedLabel220-Steuerelement
@@ -244,7 +244,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton NewUser;
+        protected global::YAF.Controls.ThemeButton NewUser;
         
         /// <summary>
         /// SyncUsers-Steuerelement
@@ -253,7 +253,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton SyncUsers;
+        protected global::YAF.Controls.ThemeButton SyncUsers;
         
         /// <summary>
         /// ImportUsers-Steuerelement
@@ -262,7 +262,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton ImportUsers;
+        protected global::YAF.Controls.ThemeButton ImportUsers;
         
         /// <summary>
         /// ExportUsersXml-Steuerelement
@@ -271,7 +271,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton ExportUsersXml;
+        protected global::YAF.Controls.ThemeButton ExportUsersXml;
         
         /// <summary>
         /// ExportUsersCsv-Steuerelement
@@ -280,7 +280,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton ExportUsersCsv;
+        protected global::YAF.Controls.ThemeButton ExportUsersCsv;
         
         /// <summary>
         /// PagerBottom-Steuerelement
@@ -344,5 +344,14 @@ namespace YAF.Pages.Admin {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Controls.SmartScroller SmartScroller1;
+        
+        /// <summary>
+        /// ImportDialog-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Dialogs.UsersImport ImportDialog;
     }
 }

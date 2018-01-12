@@ -184,7 +184,7 @@ namespace YAF.Controls
         private void BindData()
         {
             this.PagerTop.PageSize = this.Get<YafBoardSettings>().AlbumImagesPerPage;
-            string albumTitle = LegacyDb.album_gettitle(this.AlbumID);
+            var albumTitle = LegacyDb.album_gettitle(this.AlbumID);
 
             // if (UserID == PageContext.PageUserID)
             // ltrTitle.Visible = false;

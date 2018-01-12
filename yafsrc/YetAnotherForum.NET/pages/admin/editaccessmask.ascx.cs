@@ -27,7 +27,6 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Linq;
 
     using YAF.Controls;
     using YAF.Core;

@@ -19,7 +19,7 @@
                 <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedTag="CATEGORY" LocalizedPage="ADMIN_EDITFORUM" />
             </h4>
             <p>
-                <asp:DropDownList ID="CategoryList" runat="server" OnSelectedIndexChanged="Category_Change"
+                <asp:DropDownList ID="CategoryList" runat="server" OnSelectedIndexChanged="CategoryChange"
                     DataValueField="ID" DataTextField="Name" CssClass="custom-select">
                 </asp:DropDownList>
             </p><hr />
@@ -136,8 +136,10 @@
                 <YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="FORUM_IMAGE" LocalizedPage="ADMIN_EDITFORUM" />
             </h4>
             <p>
-                <asp:DropDownList ID="ForumImages" runat="server" CssClass="custom-select" />
                 <img align="middle" runat="server" id="Preview" alt="" />
+            </p>
+            <p>
+                <asp:DropDownList ID="ForumImages" runat="server" CssClass="custom-select" />
             </p><hr />
             <h4>
                 <YAF:HelpLabel ID="HelpLabel6" runat="server" LocalizedTag="STYLES" LocalizedPage="ADMIN_EDITFORUM" />
@@ -151,7 +153,7 @@
                 <YAF:HelpLabel ID="HelpLabel5" runat="server" LocalizedTag="INITAL_MASK" LocalizedPage="ADMIN_EDITFORUM" />
             </h4>
             <p>
-                <asp:DropDownList ID="AccessMaskID" OnDataBinding="BindData_AccessMaskID" CssClass="custom-select"
+                <asp:DropDownList ID="AccessMaskID" OnDataBinding="BindDataAccessMaskId" CssClass="custom-select"
                     runat="server">
                 </asp:DropDownList>
             </p><hr />
@@ -166,7 +168,7 @@
                         <%# this.Eval( "GroupName") %>
                     </h4>
                     <p>
-                        <asp:DropDownList runat="server" ID="AccessMaskID" OnDataBinding="BindData_AccessMaskID" CssClass="custom-select"
+                        <asp:DropDownList runat="server" ID="AccessMaskID" OnDataBinding="BindDataAccessMaskId" CssClass="custom-select"
                             OnPreRender="SetDropDownIndex" value='<%# this.Eval("AccessMaskID") %>' />
                         ...
                    </p><hr />  
@@ -174,8 +176,10 @@
         </asp:Repeater>
                 </div>
                 <div class="card-footer text-lg-center">
-                <asp:LinkButton ID="Save" runat="server" CssClass="btn btn-primary"></asp:LinkButton>&nbsp;
-                <asp:LinkButton ID="Cancel" runat="server" CssClass="btn btn-secondary"></asp:LinkButton>
+                <YAF:ThemeButton ID="Save" runat="server" CssClass="btn btn-primary"
+                                 Icon="save" TextLocalizedTag="SAVE"></YAF:ThemeButton>&nbsp;
+                <YAF:ThemeButton ID="Cancel" runat="server" CssClass="btn btn-secondary"
+                                 Icon="times" TextLocalizedTag="CANCEL"></YAF:ThemeButton>
                 </div>
             </div>
         </div>

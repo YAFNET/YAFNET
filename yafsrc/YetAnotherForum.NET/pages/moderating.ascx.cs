@@ -155,7 +155,7 @@ namespace YAF.Pages
         protected void Move_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             int? linkDays = null;
-            int ld = -2;
+            var ld = -2;
 
             if (this.LeavePointer.Checked && this.LinkDays.Text.IsSet() && !int.TryParse(this.LinkDays.Text, out ld))
             {

@@ -1,5 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.topicstatus" Codebehind="topicstatus.ascx.cs" %>
 
+<%@ Register TagPrefix="modal" TagName="Import" Src="../../Dialogs/TopicStatusImport.ascx" %>
+<%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/TopicStatusEdit.ascx" %>
+
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu ID="Adminmenu1" runat="server">
 	  <asp:Repeater ID="list" runat="server">
@@ -18,13 +21,14 @@
                 <div class="card-body">
                     <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="pull-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                         </div><div class="table-responsive">
                         <table class="table">
                 <tr>
                     <thead>
                     <th>
-                        &nbsp;</th>
+                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="ICON" LocalizedPage="ADMIN_TOPICSTATUS" />
+                    </th>
                     <th>
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TOPICSTATUS_NAME" LocalizedPage="ADMIN_TOPICSTATUS" />
                     </th>
@@ -49,11 +53,12 @@
 						<%# this.HtmlEncode(this.Eval("DefaultDescription"))%>
 				</td>
                 <td>
-                    <span class="pull-right">
+                    <span class="float-right">
                     <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
                         TextLocalizedTag="EDIT" TitleLocalizedTag="EDIT" Icon="edit" runat="server"></YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm" OnLoad="Delete_Load"  CommandName='delete' CommandArgument='<%# this.Eval("ID") %>'
-                        TextLocalizedTag="DELETE" TitleLocalizedTag="DELETE" Icon="trash" runat="server"></YAF:ThemeButton>
+                    <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm" CommandName='delete' CommandArgument='<%# this.Eval("ID") %>'
+                        TextLocalizedTag="DELETE" TitleLocalizedTag="DELETE" Icon="trash" runat="server"
+                                     ReturnConfirmText='<%# this.GetText("ADMIN_TOPICSTATUS", "CONFIRM_DELETE") %>'></YAF:ThemeButton>
                         </span>
                 </td>
             </tr>
@@ -62,11 +67,14 @@
             </table></div>
                 </div>
                 <div class="card-footer text-lg-center">
-                    <asp:LinkButton runat="server" CommandName='add' ID="Linkbutton3" CssClass="btn btn-primary" OnLoad="addLoad"></asp:LinkButton>
+                    <YAF:ThemeButton runat="server" CommandName='add' ID="Linkbutton3" CssClass="btn btn-primary"
+                                     Icon="plus-square" TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_TOPICSTATUS"></YAF:ThemeButton>
                     &nbsp;
-                    <asp:LinkButton runat="server" CommandName='import' ID="Linkbutton5" CssClass="btn btn-info" OnLoad="importLoad"> </asp:LinkButton>
+                    <YAF:ThemeButton runat="server" Icon="upload" DataTarget="TopicStatusImportDialog" ID="Linkbutton5" CssClass="btn btn-info"
+                                     TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_TOPICSTATUS"> </YAF:ThemeButton>
                     &nbsp;
-                    <asp:LinkButton runat="server" CommandName='export' ID="Linkbutton4" CssClass="btn btn-warning" OnLoad="exportLoad"></asp:LinkButton>
+                    <YAF:ThemeButton runat="server" CommandName='export' ID="Linkbutton4" CssClass="btn btn-warning"
+                                     Icon="download" TextLocalizedTag="EXPORT" TextLocalizedPage="ADMIN_TOPICSTATUS"></YAF:ThemeButton>
                                     </div>
             </div>
         </div>
@@ -76,3 +84,6 @@
 
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+
+<modal:Import ID="ImportDialog" runat="server" />
+<modal:Edit ID="EditDialog" runat="server" />

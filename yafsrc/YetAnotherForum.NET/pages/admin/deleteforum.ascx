@@ -32,8 +32,11 @@
             </p>
                 </div>
                 <div class="card-footer text-lg-center">
-                    <asp:LinkButton ID="Delete" runat="server" CssClass="btn btn-danger"></asp:LinkButton>&nbsp;
-                    <asp:LinkButton ID="Cancel" runat="server" CssClass="btn btn-secondary"></asp:LinkButton>
+                    <YAF:ThemeButton ID="Delete" runat="server" CssClass="btn btn-danger"
+                                     Icon="trash" TextLocalizedTag="DELETE_FORUM" TextLocalizedPage="ADMIN_DELETEFORUM"
+                                     ReturnConfirmText='<%# this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE") %>'></YAF:ThemeButton>&nbsp;
+                    <YAF:ThemeButton ID="Cancel" runat="server" CssClass="btn btn-secondary"
+                                     Icon="times" TextLocalizedTag="CANCEL"></YAF:ThemeButton>
                 </div>
             </div>
         </div>
@@ -42,15 +45,15 @@
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
 	<ContentTemplate>
-		<asp:Timer ID="UpdateStatusTimer" runat="server" Enabled="false" Interval="4000" OnTick="UpdateStatusTimer_Tick" />
+		<asp:Timer ID="UpdateStatusTimer" runat="server" Enabled="false" Interval="4000" OnTick="UpdateStatusTimerTick" />
 	</ContentTemplate>
 </asp:UpdatePanel>
 
 <div>
 	<div id="DeleteForumMessage" style="display:none">
-		<div class="card mb-3 card-inverse card-danger text-center">
+		<div class="card text-white text-center bg-danger mb-3">
 		    <div class="card-body">
-		        <blockquote class="card-blockquote">
+		        <blockquote class="blockquote">
                     <p>
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DELETE_TITLE" LocalizedPage="ADMIN_DELETEFORUM" />
                     </p>

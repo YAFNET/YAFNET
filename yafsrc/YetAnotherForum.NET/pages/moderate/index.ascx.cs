@@ -121,7 +121,7 @@ namespace YAF.Pages.moderate
         private void BindData()
         {
             // get list of forums and their moderating data
-            using (DataSet ds = LegacyDb.forum_moderatelist(this.PageContext.PageUserID, this.PageContext.PageBoardID))
+            using (var ds = LegacyDb.forum_moderatelist(this.PageContext.PageUserID, this.PageContext.PageBoardID))
             {
                 this.CategoryList.DataSource = ds.Tables[DbHelpers.GetObjectName("Category")];
             }

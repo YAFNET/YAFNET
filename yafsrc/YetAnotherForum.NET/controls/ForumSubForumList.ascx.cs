@@ -77,10 +77,10 @@ namespace YAF.Controls
         /// </returns>
         public string GetForumLink([NotNull] DataRow row)
         {
-            int forumID = row["ForumID"].ToType<int>();
+            var forumID = row["ForumID"].ToType<int>();
 
             // get the Forum Description
-            string output = Convert.ToString(row["Forum"]);
+            var output = Convert.ToString(row["Forum"]);
 
             if (int.Parse(row["ReadAccess"].ToString()) > 0)
             {

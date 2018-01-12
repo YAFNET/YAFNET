@@ -47,29 +47,22 @@
 		<YafMenuItem>
 			<Title>Replace Words</Title>
 			<ForumPage>admin_replacewords</ForumPage>
-      <SubForumPage_0>admin_replacewords_edit</SubForumPage_0>
-      <SubForumPage_1>admin_replacewords_import</SubForumPage_1>
 			<Image>sticky-note</Image>
 		</YafMenuItem>
 		<YafMenuItem>
       <Title>File Extensions</Title>
       <ForumPage>admin_extensions</ForumPage>
-      <SubForumPage_0>admin_extensions_edit</SubForumPage_0>
-      <SubForumPage_1>admin_extensions_import</SubForumPage_1>
       <Image>puzzle-piece</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>BBCode Extensions</Title>
       <ForumPage>admin_bbcode</ForumPage>
       <SubForumPage_0>admin_bbcode_edit</SubForumPage_0>
-      <SubForumPage_1>admin_bbcode_import</SubForumPage_1>
       <Image>plug</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>Topic Statuses</Title>
       <ForumPage>admin_topicstatus</ForumPage>
-      <SubForumPage_0>admin_topicstatus_edit</SubForumPage_0>
-      <SubForumPage_1>admin_topicstatus_import</SubForumPage_1>
       <Image>exclamation-triangle</Image>
     </YafMenuItem>
     <YafMenuItem>
@@ -124,7 +117,6 @@
       <ForumPage>admin_users</ForumPage>
       <SubForumPage_0>admin_edituser</SubForumPage_0>
       <SubForumPage_1>admin_reguser</SubForumPage_1>
-      <SubForumPage_2>admin_users_import</SubForumPage_2>
       <Image>user</Image>			
     </YafMenuItem>
 		<YafMenuItem>
@@ -199,13 +191,11 @@
     <YafMenuItem>
       <Title>NNTP Servers</Title>
       <ForumPage>admin_nntpservers</ForumPage>
-      <SubForumPage_0>admin_editnntpserver</SubForumPage_0>
       <Image>newspaper</Image>
     </YafMenuItem>
     <YafMenuItem>
       <Title>NNTP Forums</Title>
       <ForumPage>admin_nntpforums</ForumPage>
-      <SubForumPage_0>admin_editnntpforum</SubForumPage_0>
       <Image>newspaper</Image>
     </YafMenuItem>
     <YafMenuItem>

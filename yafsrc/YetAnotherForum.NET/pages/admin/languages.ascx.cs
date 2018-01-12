@@ -29,7 +29,6 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Helpers;
@@ -57,8 +56,6 @@ namespace YAF.Pages.Admin
         {
             this.List.ItemCommand += this.List_ItemCommand;
 
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            this.InitializeComponent();
             base.OnInit(e);
         }
 
@@ -83,6 +80,14 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
@@ -90,8 +95,6 @@ namespace YAF.Pages.Admin
 
             this.Page.Header.Title = "{0} - {1}".FormatWith(
                 this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_LANGUAGES", "TITLE"));
-
-            this.BindData();
         }
 
         /// <summary>
@@ -109,16 +112,7 @@ namespace YAF.Pages.Admin
                    ".sortable",
                    cultureTable.HasRows() ? "headers: { 4: { sorter: false }}" : null));
 
-
             this.DataBind();
-        }
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        ///   the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
         }
 
         /// <summary>

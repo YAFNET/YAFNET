@@ -279,7 +279,7 @@ namespace YAF.Pages
             var html = new StringBuilder();
 
             // Threaded
-            string brief =
+            var brief =
                 BBCodeHelper.StripBBCode(
                     BBCodeHelper.StripBBCodeQuotes(
                         HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(row["Message"].ToString())))).RemoveMultipleWhitespace();
@@ -294,7 +294,7 @@ namespace YAF.Pages
             html.AppendFormat(@"<tr class=""post""><td colspan=""3"" style=""white-space:nowrap;"">");
             html.AppendFormat(this.GetIndentImage(row["Indent"]));
 
-            string avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(row.Field<int>("UserID"));
+            var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(row.Field<int>("UserID"));
 
             if (avatarUrl.IsNotSet())
             {
@@ -435,7 +435,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void NextTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            using (DataTable dt = LegacyDb.topic_findnext(this.PageContext.PageTopicID))
+            using (var dt = LegacyDb.topic_findnext(this.PageContext.PageTopicID))
             {
                 if (dt.Rows.Count == 0)
                 {
@@ -484,10 +484,10 @@ namespace YAF.Pages
             if (!this.PageContext.IsGuest)
             {
                 // The html code for "Favorite Topic" theme buttons.
-                string tagButtonHTML =
+                var tagButtonHTML =
                     "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:addFavoriteTopic(' + res.d + ');\" onclick=\"jQuery(this).blur();\" title=\"{0}\"><span>{1}</span></a>'"
                         .FormatWith(this.GetText("BUTTON_TAGFAVORITE_TT"), this.GetText("BUTTON_TAGFAVORITE"));
-                string untagButtonHTML =
+                var untagButtonHTML =
                     "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:removeFavoriteTopic(' + res.d + ');\" onclick=\"jQuery(this).blur();\" title=\"{0}\"><span>{1}</span></a>'"
                         .FormatWith(this.GetText("BUTTON_UNTAGFAVORITE_TT"), this.GetText("BUTTON_UNTAGFAVORITE"));
 
@@ -544,7 +544,7 @@ namespace YAF.Pages
             // get topic flags
             this._topicFlags = new TopicFlags(this._topic["Flags"]);
 
-            using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+            using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
             {
                 this._forum = dt.Rows[0];
             }
@@ -779,7 +779,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void PrevTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            using (DataTable dt = LegacyDb.topic_findprev(this.PageContext.PageTopicID))
+            using (var dt = LegacyDb.topic_findprev(this.PageContext.PageTopicID))
             {
                 if (dt.Rows.Count == 0)
                 {
@@ -838,7 +838,7 @@ namespace YAF.Pages
             }
             else
             {
-                int tmpID = this.WatchTopicID.InnerText.ToType<int>();
+                var tmpID = this.WatchTopicID.InnerText.ToType<int>();
 
                 this.GetRepository<WatchTopic>().DeleteById(tmpID);
 
@@ -914,7 +914,7 @@ namespace YAF.Pages
                 return;
             }
 
-            MessageCleaned message = this.Get<IFormatMessage>().GetCleanedTopicMessage(
+            var message = this.Get<IFormatMessage>().GetCleanedTopicMessage(
                 firstMessage, this.PageContext.PageTopicID);
             var meta = this.Page.Header.FindControlType<HtmlMeta>();
 
@@ -1009,8 +1009,8 @@ namespace YAF.Pages
 
             this._dataBound = true;
 
-            bool showDeleted = false;
-            int userId = this.PageContext.PageUserID;
+            var showDeleted = false;
+            var userId = this.PageContext.PageUserID;
 
             if ((this.PageContext.IsAdmin
                 || this.PageContext.ForumModeratorAccess) || this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
@@ -1025,7 +1025,7 @@ namespace YAF.Pages
                userId = -1;
            }
 
-            int findMessageId = this.GetFindMessageId(showDeleted, userId, out messagePosition);
+            var findMessageId = this.GetFindMessageId(showDeleted, userId, out messagePosition);
             if (findMessageId > 0)
             {
                 this.CurrentMessage = findMessageId;
@@ -1035,7 +1035,7 @@ namespace YAF.Pages
             this.Get<IReadTrackCurrentUser>().SetTopicRead(this.PageContext.PageTopicID);
             this.Pager.PageSize = this.Get<YafBoardSettings>().PostsPerPage;
 
-            DataTable postListDataTable = LegacyDb.post_list(
+            var postListDataTable = LegacyDb.post_list(
                 this.PageContext.PageTopicID,
                 this.PageContext.PageUserID,
                 userId,
@@ -1214,7 +1214,7 @@ namespace YAF.Pages
 
             if (this._topic["LastPosted"] != DBNull.Value)
             {
-                DateTime lastRead =
+                var lastRead =
                     this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
                         forumId: this.PageContext.PageForumID, topicId: this.PageContext.PageTopicID);
 
@@ -1247,7 +1247,7 @@ namespace YAF.Pages
         /// </returns>
         private int GetFindMessageId(bool showDeleted, int userId, out int messagePosition)
         {
-            int findMessageId = 0;
+            var findMessageId = 0;
             messagePosition = -1;
 
             try
@@ -1265,7 +1265,7 @@ namespace YAF.Pages
                         {
                             // we find message position always by time.
                             using (
-                                DataTable lastPost = LegacyDb.message_findunread(
+                                var lastPost = LegacyDb.message_findunread(
                                     topicID: this.PageContext.PageTopicID,
                                     messageId: messageID,
                                     lastRead: DateTimeHelper.SqlDbMinTime(),
@@ -1276,7 +1276,7 @@ namespace YAF.Pages
                                 if (unreadFirst != null)
                                 {
                                     findMessageId = unreadFirst.Field<int>("MessageID");
-                                    DataRow first = lastPost.AsEnumerable().FirstOrDefault();
+                                    var first = lastPost.AsEnumerable().FirstOrDefault();
                                     if (first != null)
                                     {
                                         // if Message is deleted
@@ -1299,7 +1299,7 @@ namespace YAF.Pages
                             case "unread":
                                 {
                                     // find first unread message
-                                    DateTime lastRead = !this.PageContext.IsCrawler
+                                    var lastRead = !this.PageContext.IsCrawler
                                                             ? this.Get<IReadTrackCurrentUser>()
                                                                   .GetForumTopicRead(
                                                                       forumId: this.PageContext.PageForumID,
@@ -1307,7 +1307,7 @@ namespace YAF.Pages
                                                             : DateTime.UtcNow;
 
                                     using (
-                                        DataTable unread =
+                                        var unread =
                                             LegacyDb.message_findunread(
                                                 topicID: this.PageContext.PageTopicID,
                                                 messageId: 0,
@@ -1334,7 +1334,7 @@ namespace YAF.Pages
                                 break;
                             case "lastpost":
                                 using (
-                                    DataTable unread = LegacyDb.message_findunread(
+                                    var unread = LegacyDb.message_findunread(
                                         topicID: this.PageContext.PageTopicID,
                                         messageId: 0,
                                         lastRead: DateTime.UtcNow,
@@ -1437,7 +1437,7 @@ namespace YAF.Pages
 
                         var meta = this.Page.Header.FindControlType<HtmlMeta>();
 
-                        string description = string.Empty;
+                        var description = string.Empty;
 
                         if (meta.Any(x => x.Name.Equals("description")))
                         {
@@ -1636,9 +1636,9 @@ namespace YAF.Pages
 
             // Check if Forum is Moderated
             DataRow forumInfo;
-            bool isForumModerated = false;
+            var isForumModerated = false;
 
-            using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+            using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
             {
                 forumInfo = dt.Rows[0];
             }
@@ -1849,9 +1849,9 @@ namespace YAF.Pages
                 }
             }
 
-            bool bApproved = false;
+            var bApproved = false;
 
-            using (DataTable dt = LegacyDb.message_list(messageId))
+            using (var dt = LegacyDb.message_list(messageId))
             {
                 foreach (DataRow row in dt.Rows)
                 {
@@ -1890,7 +1890,7 @@ namespace YAF.Pages
                             isPossibleSpamMessage);
                 }
 
-                string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+                var url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
                 if (Config.IsRainbow)
                 {
                     YafBuildLink.Redirect(ForumPages.info, "i=1");
@@ -1931,7 +1931,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void posts_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            bool isWatched = this.HandleWatchTopic();
+            var isWatched = this.HandleWatchTopic();
 
             // share menu...
             this.ShareMenu.Visible = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowShareTopicTo);

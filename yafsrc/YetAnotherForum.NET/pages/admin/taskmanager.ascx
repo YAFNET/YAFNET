@@ -19,11 +19,11 @@
                 <div class="card-body">
               <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="pull-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                         </div><div class="table-responsive">
                         <table class="table">
-        <tr>
-            <thead>
+                            <thead>
+                               <tr>
             <th>
                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_NNTPSERVERS" />
             </th>
@@ -33,16 +33,21 @@
             <th>
                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="DURATION" LocalizedPage="ADMIN_TASKMANAGER" />
             </th>
+
+</tr>
             </thead>
-        </tr>
-        <asp:Repeater ID="taskRepeater" runat="server" OnItemCommand="taskRepeater_ItemCommand">
+        <asp:Repeater ID="taskRepeater" runat="server" OnItemCommand="TaskRepeaterItemCommand">
             <ItemTemplate>
                 <tr>
                     <td>
                         <strong>
                             <%# this.Eval("Key") %></strong>
                             <asp:PlaceHolder ID="StopTaskHolder" runat="server" Visible="<%# Container.ToDataItemType<KeyValuePair<string, IBackgroundTask>>().Value.IsStoppable() %>">
-                            [<asp:LinkButton ID="stop" runat="server" CommandName="stop" CommandArgument='<%# this.Eval("Key") %>'><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="STOP_TASK" LocalizedPage="ADMIN_TASKMANAGER" /></asp:LinkButton>]
+                            <YAF:ThemeButton ID="stop" runat="server" 
+                                             CommandName="stop" CommandArgument='<%# this.Eval("Key") %>'
+                                             TextLocalizedTag="STOP_TASK" TextLocalizedPage="ADMIN_TASKMANAGER"
+                                             Icon="hand-paper" CssClass="btn btn-danger btn-sm">
+                            </YAF:ThemeButton>
                         </asp:PlaceHolder>
                     </td>
                     <td>

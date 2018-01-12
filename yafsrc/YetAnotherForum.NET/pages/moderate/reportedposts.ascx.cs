@@ -221,7 +221,7 @@ namespace YAF.Pages.moderate
                 case "viewhistory":
 
                     // go to history page
-                    string[] ff = e.CommandArgument.ToString().Split(',');
+                    var ff = e.CommandArgument.ToString().Split(',');
                     YafContext.Current.Get<HttpResponseBase>().Redirect(
                       YafBuildLink.GetLinkNotEscaped(ForumPages.messagehistory, "f={0}&m={1}", ff[0], ff[1]));
                     break;
@@ -244,7 +244,7 @@ namespace YAF.Pages.moderate
             }
 
             // see if there are any items left...
-            DataTable dt = LegacyDb.message_listreported(this.PageContext.PageForumID);
+            var dt = LegacyDb.message_listreported(this.PageContext.PageForumID);
 
             if (dt.Rows.Count == 0)
             {

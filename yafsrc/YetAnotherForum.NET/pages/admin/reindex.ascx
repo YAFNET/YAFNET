@@ -21,13 +21,15 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SHOW_STATS" LocalizedPage="ADMIN_REINDEX" />
                     </p>
                     <p class="card-text">
-                        <asp:LinkButton ID="btnGetStats" CssClass="btn btn-primary" runat="server" OnClick="btnGetStats_Click" />
+                        <YAF:ThemeButton ID="GetStats" CssClass="btn btn-primary" runat="server" OnClick="GetStatsClick" 
+                                         Icon="database" TextLocalizedTag="TBLINDEXSTATS_BTN" />
                     </p>
                     <hr />
                 </asp:Placeholder>
                 <asp:Placeholder ID="PanelRecoveryMode" runat="server" Visible="False">
                     <p class="card-text">
-                        <asp:LinkButton ID="btnRecoveryMode" CssClass="btn btn-primary" runat="server" OnClick="btnRecoveryMode_Click" />
+                        <YAF:ThemeButton ID="RecoveryMode" CssClass="btn btn-primary" runat="server" OnClick="RecoveryModeClick"
+                                         Icon="database" TextLocalizedTag="SETRECOVERY_BTN" />
 					    <asp:RadioButtonList ID="RadioButtonList1" runat="server" CssClass="form-control">
 					    </asp:RadioButtonList>
                     </p>
@@ -38,7 +40,8 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="REINDEX" LocalizedPage="ADMIN_REINDEX" />
                     </p>
                     <p class="card-text">
-                        <asp:LinkButton ID="btnReindex" CssClass="btn btn-primary" runat="server" OnClick="btnReindex_Click" />
+                        <YAF:ThemeButton ID="Reindex" CssClass="btn btn-primary" runat="server" OnClick="ReindexClick"
+                                         Icon="database" TextLocalizedTag="REINDEXTBL_BTN" />
                     </p>
                     <hr />
                 </asp:Placeholder>
@@ -47,7 +50,8 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="SHRINK" LocalizedPage="ADMIN_REINDEX" />
 					</p>
                     <p class="card-text">
-                        <asp:LinkButton ID="btnShrink" CssClass="btn btn-primary" runat="server" OnClick="btnShrink_Click" />
+                        <YAF:ThemeButton ID="Shrink" CssClass="btn btn-primary" runat="server" OnClick="ShrinkClick"
+                                         Icon="database" TextLocalizedTag="SHRINK_BTN" />
                     </p>
                 </asp:Placeholder>
             </div>
@@ -58,9 +62,9 @@
 
 <div>
 	<div id="DeleteForumMessage" style="display:none">
-		<div class="card mb-3 card-inverse card-danger text-center">
+		<div class="card text-white text-center bg-danger mb-3">
 		    <div class="card-body">
-		        <blockquote class="card-blockquote">
+		        <blockquote class="blockquote">
                     <p>
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="REINDEX_TITLE" LocalizedPage="ADMIN_REINDEX" />
                     </p>

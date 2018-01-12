@@ -406,12 +406,12 @@ namespace YAF.Controls
       this.Pager.PageSize = 20;
 
       // set the Datatable
-      DataTable buddyListDataTable = this.Get<IBuddy>().GetForUser(this.CurrentUserID);
+      var buddyListDataTable = this.Get<IBuddy>().GetForUser(this.CurrentUserID);
 
       if ((buddyListDataTable != null) && buddyListDataTable.HasRows())
       {
         // get the view from the datatable
-        DataView buddyListDataView = buddyListDataTable.DefaultView;
+        var buddyListDataView = buddyListDataTable.DefaultView;
 
         // In what mode should this control work?
         // Refer to "rptBuddy_ItemCreate" event for more info.

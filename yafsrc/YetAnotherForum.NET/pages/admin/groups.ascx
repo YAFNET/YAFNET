@@ -21,7 +21,7 @@
                     <div class="alert alert-danger" role="alert">
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NOTE_DELETE" LocalizedPage="ADMIN_GROUPS" />
                     </div>
-		<asp:Repeater ID="RoleListNet" runat="server" OnItemCommand="RoleListNet_ItemCommand">
+		<asp:Repeater ID="RoleListNet" runat="server" OnItemCommand="RoleListNetItemCommand">
 			<HeaderTemplate>
 			    <div class="table-responsive">
 	<table class="table">
@@ -43,7 +43,7 @@
 						(<YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedPage="ADMIN_GROUPS" LocalizedTag="UNLINKED" />)
 					</td>
 					<td>
-					    <span class="pull-right">
+					    <span class="float-right">
 						<YAF:ThemeButton ID="ThemeButtonAdd" CssClass="btn btn-info btn-sm"
                             CommandName='add' CommandArgument='<%# Container.DataItem %>'
                             TitleLocalizedTag="ADD_ROLETOYAF"
@@ -58,7 +58,8 @@
                                     TitleLocalizedTag="DELETE"
                                     Icon="trash"
                                     TextLocalizedTag="DELETE"
-                                    OnLoad="Delete_Load"  runat="server">
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_GROUPS", "CONFIRM_DELETE") %>'
+						            runat="server">
                                 </YAF:ThemeButton>
                             </span>
 					</td>
@@ -78,7 +79,7 @@
                     <div class="alert alert-danger" role="alert">
                         <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NOTE_DELETE_LINKED" LocalizedPage="ADMIN_GROUPS" />
                     </div>
-		<asp:Repeater ID="RoleListYaf" runat="server" OnItemCommand="RoleListYaf_ItemCommand">
+		<asp:Repeater ID="RoleListYaf" runat="server" OnItemCommand="RoleListYafItemCommand">
 			<HeaderTemplate>
                 <div class="table-responsive">
 	<table class="table">
@@ -102,7 +103,7 @@
 						(<%# this.GetLinkedStatus( (DataRowView) Container.DataItem )%>)&nbsp;&nbsp;
 					</td>
                     <td>
-                        <span class="pull-right">
+                        <span class="float-right">
 						<YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm"
                             CommandName='edit' CommandArgument='<%# this.Eval( "GroupID") %>'
                             TitleLocalizedTag="EDIT"
@@ -164,7 +165,8 @@
             </FooterTemplate>
 		</asp:Repeater>
                      <div class="card-footer text-lg-center">
-				    <asp:LinkButton ID="NewGroup" runat="server" OnClick="NewGroup_Click" CssClass="btn btn-primary"></asp:LinkButton>
+				    <YAF:ThemeButton ID="NewGroup" runat="server" OnClick="NewGroupClick" CssClass="btn btn-primary"
+				                     Icon="plus-square" TextLocalizedTag="NEW_ROLE"></YAF:ThemeButton>
                 </div>
             </div>
         </div>

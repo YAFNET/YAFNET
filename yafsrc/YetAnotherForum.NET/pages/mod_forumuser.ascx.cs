@@ -208,7 +208,7 @@ namespace YAF.Pages
                 return;
             }
 
-            using (DataTable dt = LegacyDb.userforum_list(
+            using (var dt = LegacyDb.userforum_list(
                 this.Request.QueryString.GetFirstOrDefault("u"),
                 this.PageContext.PageForumID))
             {

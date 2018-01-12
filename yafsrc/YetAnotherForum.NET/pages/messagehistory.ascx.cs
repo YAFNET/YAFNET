@@ -197,7 +197,7 @@ namespace YAF.Pages
                         this.messageID,
                         this.PageContext.BoardSettings.MessageHistoryDaysToLog).AsEnumerable();
 
-                    foreach (DataRow row in Enumerable.Where(revisionsTable, row => row["Edited"].ToType<string>().Equals(e.CommandArgument.ToType<string>())))
+                    foreach (var row in Enumerable.Where(revisionsTable, row => row["Edited"].ToType<string>().Equals(e.CommandArgument.ToType<string>())))
                     {
                         restoreMessage = row;
                     }

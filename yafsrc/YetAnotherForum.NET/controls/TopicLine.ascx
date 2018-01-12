@@ -15,8 +15,8 @@
         </td>
     </asp:PlaceHolder>
     <td class="topicImage">
-        <%  string imgTitle = string.Empty;
-            string imgSrc = this.GetTopicImage(this.TopicRow, ref imgTitle);
+        <%  var imgTitle = string.Empty;
+            var imgSrc = this.GetTopicImage(this.TopicRow, ref imgTitle);
         %>
         <img src="<%=imgSrc%>" alt="<%=imgTitle%>" title="<%=imgTitle%>" />
     </td>
@@ -35,7 +35,7 @@
             class="avatarimage img-rounded" />
         <%}
 
-            string priorityMessage = this.GetPriorityMessage(this.TopicRow);
+            var priorityMessage = this.GetPriorityMessage(this.TopicRow);
             if (priorityMessage.IsSet())
             {
         %>
@@ -90,7 +90,7 @@
         <%
             }
     
-            int actualPostCount = this.TopicRow["Replies"].ToType<int>() + 1;
+            var actualPostCount = this.TopicRow["Replies"].ToType<int>() + 1;
 
             if (this.Get<YafBoardSettings>().ShowDeletedMessages)
             {
@@ -98,12 +98,12 @@
                 actualPostCount += this.TopicRow["NumPostsDeleted"].ToType<int>();
             }     
 
-      string tPager = this.CreatePostPager(
+      var tPager = this.CreatePostPager(
         actualPostCount, this.Get<YafBoardSettings>().PostsPerPage, this.TopicRow["LinkTopicID"].ToType<int>());
 
       if (tPager != String.Empty)
       {
-          string altMultipages = this.GetText("GOTO_POST_PAGER").FormatWith(string.Empty);
+          var altMultipages = this.GetText("GOTO_POST_PAGER").FormatWith(string.Empty);
         %>
         <span class="topicPager smallfont">- <img src="<%=this.Get<ITheme>().GetItem(
           "ICONS","MULTIPAGES_SMALL")%>" alt="<%=altMultipages%>" title="<%=altMultipages%>" />  
@@ -122,7 +122,7 @@
         <%
             if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
             {
-                int userID = this.TopicRow["LastUserID"].ToType<int>();
+                var userID = this.TopicRow["LastUserID"].ToType<int>();
 
                 var lastAvatarTitle = this.GetTextFormatted(
                     "USER_AVATAR",
@@ -138,19 +138,19 @@
 
                 var unreadMessageId = -1;
 
-            DateTime lastRead =
+            var lastRead =
                 this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
                 forumId: this.TopicRow["ForumID"].ToType<int>(),
                 topicId: this.TopicRow["TopicID"].ToType<int>(),
                 forumReadOverride: this.TopicRow["LastForumAccess"].ToType<DateTime?>() ?? YAF.Utils.Helpers.DateTimeHelper.SqlDbMinTime(),
                 topicReadOverride: this.TopicRow["LastTopicAccess"].ToType<DateTime?>() ?? YAF.Utils.Helpers.DateTimeHelper.SqlDbMinTime()); 
 
-        string strMiniPost = this.Get<ITheme>().GetItem(
+        var strMiniPost = this.Get<ITheme>().GetItem(
           "ICONS",
           (this.TopicRow["LastPosted"].ToType<DateTime>() > lastRead)
             ? "ICON_NEWEST"
             : "ICON_LATEST");
-        string strMiniUnreadPost = this.Get<ITheme>().GetItem(
+        var strMiniUnreadPost = this.Get<ITheme>().GetItem(
           "ICONS",
           (this.TopicRow["LastPosted"].ToType<DateTime>() > lastRead)
           ? "ICON_NEWEST_UNREAD"

@@ -28,8 +28,9 @@
                     <asp:Label ID="LastDigestSendLabel" runat="server"></asp:Label></p>
             </div>
                 <div class="card-footer text-lg-center">
-                <asp:LinkButton ID="Button2" runat="server" OnClick="ForceSend_Click" CssClass="btn btn-primary">
-                </asp:LinkButton>
+                <YAF:ThemeButton ID="Button2" runat="server" OnClick="ForceSendClick" CssClass="btn btn-primary"
+                                 Icon="paper-plane" TextLocalizedTag="FORCE_SEND">
+                </YAF:ThemeButton>
             </div>
         </div>
             <div class="card mb-3">
@@ -48,8 +49,9 @@
         </asp:PlaceHolder>
 </div>
                 <div class="card-footer text-lg-center">
-                    <asp:LinkButton ID="GenerateDigest" runat="server" OnClick="GenerateDigest_Click" CssClass="btn btn-primary">
-                    </asp:LinkButton>
+                    <YAF:ThemeButton ID="GenerateDigest" runat="server" OnClick="GenerateDigestClick" CssClass="btn btn-primary"
+                                     Icon="envelope" TextLocalizedTag="GENERATE_DIGEST">
+                    </YAF:ThemeButton>
             </div>
         </div>
                 <div class="card mb-3">
@@ -75,8 +77,9 @@
             </p>
                 </div>
                 <div class="card-footer text-lg-center">
-                    <asp:LinkButton ID="TestSend" runat="server" OnClick="TestSend_Click" CssClass="btn btn-primary">
-                    </asp:LinkButton>
+                    <YAF:ThemeButton ID="TestSend" runat="server" OnClick="TestSendClick" CssClass="btn btn-primary"
+                                     Icon="paper-plane" TextLocalizedTag="SEND_TEST">
+                    </YAF:ThemeButton>
                 </div>
             </div>
         </div>

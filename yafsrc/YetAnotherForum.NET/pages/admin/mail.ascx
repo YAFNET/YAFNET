@@ -37,7 +37,10 @@
             </p>
 		 </div>
                 <div class="card-footer text-lg-center">
-			  <asp:LinkButton ID="Send" runat="server" Text="Send" OnClick="Send_Click" CssClass="btn btn-primary"></asp:LinkButton>
+                    <YAF:ThemeButton ID="Send" runat="server" OnClick="SendClick" CssClass="btn btn-primary"
+                                     Icon="send"
+                                     TextLocalizedTag="SEND_MAIL" TextLocalizedPage="ADMIN_MAIL"
+                                     ReturnConfirmText='<%# this.GetText("ADMIN_MAIL", "CONFIRM_SEND") %>'></YAF:ThemeButton>
                 </div>
             </div>
         </div>

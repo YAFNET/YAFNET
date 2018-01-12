@@ -33,7 +33,7 @@
 					  <h5><%# this.Eval( "Name") %></h5>
 					</td>
 					<td>
-					    <span class="pull-right">
+					    <span class="float-right">
 					    <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm"
                             CommandName="edit" CommandArgument='<%# this.Eval( "ID") %>'
                             TitleLocalizedTag="EDIT"

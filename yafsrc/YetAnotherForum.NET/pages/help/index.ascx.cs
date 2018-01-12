@@ -161,7 +161,7 @@ namespace YAF.Pages.help
         /// </summary>
         private void BindData()
         {
-            string faqPage = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq");
+            var faqPage = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq");
 
             switch (faqPage)
             {
@@ -232,7 +232,7 @@ namespace YAF.Pages.help
                 check.HelpContent.ToLower().Contains(this.search.Text.ToLower()) ||
                 check.HelpTitle.ToLower().Contains(this.search.Text.ToLower()));
 
-            foreach (YafHelpContent item in searchlist)
+            foreach (var item in searchlist)
             {
                 item.HelpContent = this.Get<IFormatMessage>().SurroundWordList(
                   item.HelpContent, highlightWords, @"<span class=""highlight"">", @"</span>");

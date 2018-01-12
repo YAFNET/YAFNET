@@ -13,7 +13,7 @@
                 <div class="card-header">
                     <i class="fa fa-language fa-fw"></i>&nbsp;<asp:Label runat="server" id="lblPageName"></asp:Label>
                 </div>
-                <div class="card-block text-lg-center">
+                <div class="card-body text-lg-center">
                 <h4>
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SELECT_PAGE" LocalizedPage="ADMIN_EDITLANGUAGE" />
                 </h4>
@@ -21,7 +21,8 @@
 	                <asp:DropDownList runat="server" id="dDLPages" CssClass="custom-select"></asp:DropDownList>
                 </p>
                 <p>
-	                <asp:LinkButton runat="server" id="btnLoadPageLocalization" CssClass="btn btn-primary" />
+	                <YAF:ThemeButton runat="server" id="btnLoadPageLocalization" CssClass="btn btn-primary" 
+	                                 Icon="share" TextLocalizedTag="LOAD_PAGE" TextLocalizedPage="ADMIN_EDITLANGUAGE" />
                 </p>
                 <p>
                     <asp:Label runat="server" id="lblInfo" ForeColor="Red" Font-Bold="true"></asp:Label>
@@ -29,7 +30,7 @@
                 <hr />
                 <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="pull-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                         </div><div class="table-responsive">
                     <asp:DataGrid id="grdLocals" CssClass="table" runat="server" AutoGenerateColumns="False">
 		  <Columns>
@@ -65,8 +66,10 @@
                     </div>
                 </div>
                 <div class="card-footer text-lg-center">
-	                <asp:LinkButton runat="server" CssClass="btn btn-primary" id="btnSave" />&nbsp;
-	                <asp:LinkButton runat="server" CssClass="btn btn-secondary" id="btnCancel" />
+	                <YAF:ThemeButton runat="server" CssClass="btn btn-primary" id="btnSave"
+	                                 Icon="save" TextLocalizedTag="SAVE" />&nbsp;
+	                <YAF:ThemeButton runat="server" CssClass="btn btn-secondary" id="btnCancel"
+	                                 Icon="times" TextLocalizedTag="CANCEL" />
                 </div>
             </div>
         </div>

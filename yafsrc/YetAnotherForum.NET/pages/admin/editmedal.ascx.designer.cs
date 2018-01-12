@@ -316,7 +316,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton Save;
+        protected global::YAF.Controls.ThemeButton Save;
         
         /// <summary>
         /// Cancel-Steuerelement
@@ -325,7 +325,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton Cancel;
+        protected global::YAF.Controls.ThemeButton Cancel;
         
         /// <summary>
         /// LocalizedLabel11-Steuerelement
@@ -361,7 +361,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton AddGroup;
+        protected global::YAF.Controls.ThemeButton AddGroup;
         
         /// <summary>
         /// AddGroupPanel-Steuerelement
@@ -478,7 +478,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton AddGroupSave;
+        protected global::YAF.Controls.ThemeButton AddGroupSave;
         
         /// <summary>
         /// AddGroupCancel-Steuerelement
@@ -487,7 +487,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton AddGroupCancel;
+        protected global::YAF.Controls.ThemeButton AddGroupCancel;
         
         /// <summary>
         /// LocalizedLabel12-Steuerelement
@@ -523,7 +523,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton AddUser;
+        protected global::YAF.Controls.ThemeButton AddUser;
         
         /// <summary>
         /// AddUserPanel-Steuerelement
@@ -676,7 +676,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton AddUserSave;
+        protected global::YAF.Controls.ThemeButton AddUserSave;
         
         /// <summary>
         /// AddUserCancel-Steuerelement
@@ -685,7 +685,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton AddUserCancel;
+        protected global::YAF.Controls.ThemeButton AddUserCancel;
         
         /// <summary>
         /// SmartScroller1-Steuerelement

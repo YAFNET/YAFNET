@@ -48,7 +48,7 @@
                 <YAF:HelpLabel ID="HelpLabel5" runat="server" LocalizedTag="ADMIN_USER" LocalizedPage="ADMIN_EDITBOARD" />
             </h4>
             <p>
-                <asp:CheckBox runat="server" ID="CreateAdminUser" AutoPostBack="true" OnCheckedChanged="CreateAdminUser_CheckedChanged" CssClass="form-control" />
+                <asp:CheckBox runat="server" ID="CreateAdminUser" AutoPostBack="true" OnCheckedChanged="CreateAdminUserCheckedChanged" CssClass="form-control" />
             </p><hr />
         </asp:PlaceHolder>
         <asp:PlaceHolder runat="server" ID="AdminInfo" Visible="false">
@@ -94,8 +94,10 @@
         </asp:PlaceHolder>
                 </div>
                 <div class="card-footer text-lg-center">
-                    <asp:LinkButton ID="Save" runat="server" OnClick="Save_Click" CssClass="btn btn-primary" />
-                    <asp:LinkButton ID="Cancel" runat="server" OnClick="CancelClick" CssClass="btn btn-secondary" />
+                    <YAF:ThemeButton ID="Save" runat="server" OnClick="SaveClick" CssClass="btn btn-primary"
+                                     Icon="save" TextLocalizedTag="SAVE"/>
+                    <YAF:ThemeButton ID="Cancel" runat="server" OnClick="CancelClick" CssClass="btn btn-secondary"
+                                     Icon="times" TextLocalizedTag="CANCEL" />
                 </div>
             </div>
         </div>

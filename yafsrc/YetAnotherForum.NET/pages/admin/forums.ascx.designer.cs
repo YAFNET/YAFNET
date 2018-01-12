@@ -55,7 +55,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton NewCategory;
+        protected global::YAF.Controls.ThemeButton NewCategory;
         
         /// <summary>
         /// NewForum-Steuerelement
@@ -64,7 +64,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton NewForum;
+        protected global::YAF.Controls.ThemeButton NewForum;
         
         /// <summary>
         /// SmartScroller1-Steuerelement

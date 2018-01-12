@@ -1,6 +1,9 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.bbcode" Codebehind="BBCode.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+
+<%@ Register TagPrefix="modal" TagName="Import" Src="../../Dialogs/BBCodeImport.ascx" %>
+
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:AdminMenu runat="server">
     <div class="row">
@@ -19,7 +22,7 @@
                         <HeaderTemplate>
                             <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="pull-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                         </div><div class="table-responsive">
                                 <table class="table">
                                     <thead>
@@ -50,7 +53,7 @@
                 <td>
                     <strong><%# this.Get<IBBCode>().LocalizeCustomBBCodeElement(this.Eval("Description").ToString())%></strong></td>
                 <td>
-                    <span class="pull-right">
+                    <span class="float-right">
                     <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm"
                             CommandName='edit' CommandArgument='<%# this.Eval( "ID") %>'
                             TitleLocalizedTag="EDIT"
@@ -63,7 +66,7 @@
                                     TitleLocalizedTag="DELETE"
                                     Icon="trash"
                                     TextLocalizedTag="DELETE"
-                                    OnLoad="Delete_Load"  runat="server">
+                                    ReturnConfirmText='<%# this.GetText("ADMIN_BBCODE", "CONFIRM_DELETE") %>'  runat="server">
                                 </YAF:ThemeButton>
                         </span>
                 </td>
@@ -73,11 +76,14 @@
                             </table></div>
                                             </div>
                 <div class="card-footer text-lg-center">
-                    <asp:LinkButton runat="server" CommandName='add' ID="Linkbutton3" CssClass="btn btn-primary" OnLoad="addLoad"></asp:LinkButton>
+                    <YAF:ThemeButton runat="server" CommandName='add' ID="Linkbutton3" CssClass="btn btn-primary"
+                                     Icon="plus-square" TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_BBCODE"></YAF:ThemeButton>
                     &nbsp;
-                    <asp:LinkButton runat="server" CommandName='import' ID="Linkbutton5" CssClass="btn btn-info" OnLoad="importLoad"></asp:LinkButton>
+                    <YAF:ThemeButton runat="server" Icon="upload" DataTarget="BBCodeImportDialog" ID="Linkbutton5" CssClass="btn btn-info"
+                                     TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_BBCODE"></YAF:ThemeButton>
                     &nbsp;
-                    <asp:LinkButton runat="server" CommandName='export' ID="Linkbutton4" CssClass="btn btn-warning" OnLoad="exportLoad"></asp:LinkButton>
+                    <YAF:ThemeButton runat="server" CommandName='export' ID="Linkbutton4" CssClass="btn btn-warning"
+                                     Icon="download" TextLocalizedTag="EXPORT" TextLocalizedPage="ADMIN_BBCODE"></YAF:ThemeButton>
                 </div>
         	            </FooterTemplate>
     	            </asp:Repeater>
@@ -86,3 +92,5 @@
     </div>
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+
+<modal:Import ID="ImportDialog" runat="server" />

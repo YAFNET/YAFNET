@@ -83,33 +83,15 @@ namespace YAF.Pages.Admin
         {
             if (!this.IsPostBack)
             {
-                this.PageLinks.AddRoot();
-                this.PageLinks.AddLink(
-                    this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-
-                this.PageLinks.AddLink(
-                    this.GetText("ADMIN_RANKS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_ranks));
-
-                // current page label (no link)
-                this.PageLinks.AddLink(this.GetText("ADMIN_EDITRANK", "TITLE"), string.Empty);
-
-                this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                    this.GetText("ADMIN_ADMIN", "Administration"),
-                    this.GetText("ADMIN_RANKS", "TITLE"),
-                    this.GetText("ADMIN_EDITRANK", "TITLE"));
-
-                this.Save.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
-                this.Cancel.Text = "<i class=\"fa fa-times fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
-
                 this.BindData();
 
                 if (this.Request.QueryString.GetFirstOrDefault("r") != null)
                 {
                     using (
-                        DataTable dt = LegacyDb.rank_list(
+                        var dt = LegacyDb.rank_list(
                             this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("r")))
                     {
-                        DataRow row = dt.Rows[0];
+                        var row = dt.Rows[0];
                         var flags = new RankFlags(row["Flags"]);
                         this.Name.Text = (string)row["Name"];
                         this.IsStart.Checked = flags.IsStart;
@@ -125,7 +107,7 @@ namespace YAF.Pages.Admin
                         this.UsrSigHTMLTags.Text = row["UsrSigHTMLTags"].ToString();
                         this.Description.Text = row["Description"].ToString();
 
-                        ListItem item = this.RankImage.Items.FindByText(row["RankImage"].ToString());
+                        var item = this.RankImage.Items.FindByText(row["RankImage"].ToString());
 
                         if (item != null)
                         {
@@ -146,15 +128,38 @@ namespace YAF.Pages.Admin
             }
 
             this.RankImage.Attributes["onchange"] =
-                "getElementById('{2}_ctl01_Preview').src='{0}{1}/' + this.value".FormatWith(
-                    YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Ranks, this.Parent.ID);
+                "getElementById('{2}').src='{0}{1}/' + this.value".FormatWith(
+                    YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Ranks, this.Preview.ClientID);
         }
 
+
+
         /// <summary>
-        /// Save (New) Rank
+        /// Creates page links for this page.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_RANKS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_ranks));
+
+            // current page label (no link)
+            this.PageLinks.AddLink(this.GetText("ADMIN_EDITRANK", "TITLE"), string.Empty);
+
+            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                this.GetText("ADMIN_RANKS", "TITLE"),
+                this.GetText("ADMIN_EDITRANK", "TITLE"));
+        }
+        
+        /// <summary>
+         /// Save (New) Rank
+         /// </summary>
+         /// <param name="sender">The source of the event.</param>
+         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!ValidationHelper.IsValidInt(this.PMLimit.Text.Trim()))
@@ -188,7 +193,7 @@ namespace YAF.Pages.Admin
             }
 
             // Group
-            int rankID = 0;
+            var rankID = 0;
             if (this.Request.QueryString.GetFirstOrDefault("r") != null)
             {
                 rankID = int.Parse(this.Request.QueryString.GetFirstOrDefault("r"));
@@ -238,7 +243,7 @@ namespace YAF.Pages.Admin
                 dt.Columns.Add("FileID", typeof(long));
                 dt.Columns.Add("FileName", typeof(string));
                 dt.Columns.Add("Description", typeof(string));
-                DataRow dr = dt.NewRow();
+                var dr = dt.NewRow();
                 dr["FileID"] = 0;
                 dr["FileName"] = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
                 dr["Description"] = this.GetText("ADMIN_EDITRANK", "SELECT_IMAGE");
@@ -248,10 +253,10 @@ namespace YAF.Pages.Admin
                     new DirectoryInfo(
                         this.Request.MapPath(
                             "{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Ranks)));
-                FileInfo[] files = dir.GetFiles("*.*");
+                var files = dir.GetFiles("*.*");
                 long nFileID = 1;
 
-                foreach (FileInfo file in from file in files
+                foreach (var file in from file in files
                                           let sExt = file.Extension.ToLower()
                                           where sExt == ".png" || sExt == ".gif" || sExt == ".jpg"
                                           select file)

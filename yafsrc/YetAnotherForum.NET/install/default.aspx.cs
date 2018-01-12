@@ -670,7 +670,7 @@ namespace YAF.Install
                 case "WizDatabaseConnection":
 
                     // save the database settings...
-                    UpdateDBFailureType type = this.UpdateDatabaseConnection();
+                    var type = this.UpdateDatabaseConnection();
                     e.Cancel = false;
 
                     switch (type)
@@ -923,15 +923,15 @@ namespace YAF.Install
             {
                 case 0:
                     theLabel.Text = "No";
-                    theLabel.CssClass = "errorLabel pull-right";
+                    theLabel.CssClass = "errorLabel float-right";
                     break;
                 case 1:
                     theLabel.Text = "Unchcked";
-                    theLabel.CssClass = "infoLabel pull-right";
+                    theLabel.CssClass = "infoLabel float-right";
                     break;
                 case 2:
                     theLabel.Text = "YES";
-                    theLabel.CssClass = "successLabel pull-right";
+                    theLabel.CssClass = "successLabel float-right";
                     break;
             }
         }
@@ -1119,7 +1119,7 @@ namespace YAF.Install
                 this.lbConnections.Items.Add(connectionString.Name);
             }
 
-            ListItem item = this.lbConnections.Items.FindByText("yafnet");
+            var item = this.lbConnections.Items.FindByText("yafnet");
 
             if (item != null)
             {

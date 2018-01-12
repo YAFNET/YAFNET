@@ -24,7 +24,6 @@ namespace YAF.Pages.Admin
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -137,7 +136,7 @@ namespace YAF.Pages.Admin
             sb.AppendFormat("{0} Messages, ", this.CreatePosts(0, 0, 0));
             sb.AppendFormat("{0} Private Messages, ", this.CreatePMessages());
 
-            string mesRetStr = sb.ToString();
+            var mesRetStr = sb.ToString();
 
             this.Logger.Log(this.PageContext.PageUserID, this, mesRetStr, EventLogTypes.Information);
 
@@ -156,7 +155,7 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void ForumsCategory_OnSelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
-            DataTable forums_category = LegacyDb.forum_listall_fromCat(
+            var forums_category = LegacyDb.forum_listall_fromCat(
                 this.PageContext.PageBoardID, this.ForumsCategory.SelectedValue.ToType<int>());
             this.ForumsParent.DataSource = forums_category;
             this.ForumsParent.DataBind();
@@ -304,7 +303,7 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void PostsCategory_OnSelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
-            DataTable posts_category = LegacyDb.forum_listall_fromCat(
+            var posts_category = LegacyDb.forum_listall_fromCat(
                 this.PageContext.PageBoardID, this.PostsCategory.SelectedValue.ToType<int>());
             this.PostsForum.DataSource = posts_category;
             this.PostsForum.DataBind();
@@ -328,7 +327,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            DataTable topics = LegacyDb.topic_list(
+            var topics = LegacyDb.topic_list(
                 this.PostsForum.SelectedValue.ToType<int>(),
                 this.PageContext.PageUserID,
                 DateTimeHelper.SqlDbMinTime(),
@@ -354,7 +353,7 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void TopicsCategory_OnSelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
-            DataTable topic_forums = LegacyDb.forum_listall_fromCat(
+            var topic_forums = LegacyDb.forum_listall_fromCat(
                 this.PageContext.PageBoardID, this.TopicsCategory.SelectedValue.ToType<int>());
             this.TopicsForum.DataSource = topic_forums;
             this.TopicsForum.DataBind();
@@ -414,8 +413,8 @@ namespace YAF.Pages.Admin
             int i;
             for (i = 0; i < _boardNumber; i++)
             {
-                string boardName = this.BoardPrefixTB.Text.Trim() + Guid.NewGuid();
-                int curboard = this.GetRepository<Board>().Create(
+                var boardName = this.BoardPrefixTB.Text.Trim() + Guid.NewGuid();
+                var curboard = this.GetRepository<Board>().Create(
                     boardName,
                     "en-US",
                     "english.xml",
@@ -444,10 +443,10 @@ namespace YAF.Pages.Admin
         /// </returns>
         private string CreateCategories(int boardID)
         {
-            string noCategories = "0 categories";
-            bool excludeCurrentBoardB = false;
-            bool useListB = false;
-            int numCategoriesInt = 0;
+            var noCategories = "0 categories";
+            var excludeCurrentBoardB = false;
+            var useListB = false;
+            var numCategoriesInt = 0;
             if (!int.TryParse(this.BoardsCategoriesNumber.Text.Trim(), out numCategoriesInt))
             {
                 return noCategories;
@@ -509,10 +508,10 @@ namespace YAF.Pages.Admin
         private string CreateCategories()
         {
             const string noCategories = "0 categories";
-            int boardID = 0;
+            var boardID = 0;
 
             // int categoriesLimit = 1;
-            bool _excludeCurrentBoard = false;
+            var _excludeCurrentBoard = false;
 
             int _numForums;
             if (!int.TryParse(this.CategoriesForumsNumber.Text.Trim(), out _numForums))
@@ -548,8 +547,8 @@ namespace YAF.Pages.Admin
             }
 
             int _numCategories;
-            int _boardCount = 1;
-            bool _useList = false;
+            var _boardCount = 1;
+            var _useList = false;
             switch (this.CategoriesBoardsOptions.SelectedIndex)
             {
                 case 0:
@@ -648,13 +647,13 @@ namespace YAF.Pages.Admin
                 {
                     for (i = 0; i < numCategories; i++)
                     {
-                        string catName = this.CategoryPrefixTB.Text.Trim() + Guid.NewGuid();
+                        var catName = this.CategoryPrefixTB.Text.Trim() + Guid.NewGuid();
 
                         // TODO: should return number of categories created 
                         this.GetRepository<Category>().Save(null, catName, null, 100, boardID);
-                        DataTable dt = this.GetRepository<Category>().Simplelist(0, 10000);
+                        var dt = this.GetRepository<Category>().Simplelist(0, 10000);
 
-                        foreach (DataRow dr in dt.Rows.Cast<DataRow>().Where(dr => dr["Name"].ToString() == catName))
+                        foreach (var dr in dt.Rows.Cast<DataRow>().Where(dr => dr["Name"].ToString() == catName))
                         {
                             this.CreateForums(dr["CategoryID"].ToType<int>(), null, numForums, numTopics, numMessages);
                         }
@@ -754,9 +753,9 @@ namespace YAF.Pages.Admin
         private int CreateForums(
             int categoryID, [NotNull] object parentID, int numForums, int _topicsToCreate, int _messagesToCreate)
         {
-            bool countMessagesInStatistics = this.ForumsCountMessages.Text.Trim().IsNotSet();
+            var countMessagesInStatistics = this.ForumsCountMessages.Text.Trim().IsNotSet();
 
-            bool isHiddenIfNoAccess = this.ForumsHideNoAccess.Text.Trim().IsNotSet();
+            var isHiddenIfNoAccess = this.ForumsHideNoAccess.Text.Trim().IsNotSet();
 
             isHiddenIfNoAccess = true;
 
@@ -767,7 +766,7 @@ namespace YAF.Pages.Admin
             {
                 long _forumID = 0;
                 this.randomGuid = Guid.NewGuid().ToString();
-                DataTable _accessForumList = LegacyDb.forumaccess_list(_forumID);
+                var _accessForumList = LegacyDb.forumaccess_list(_forumID);
                 _forumID = LegacyDb.forum_save(
                     _forumID,
                     categoryID,
@@ -793,7 +792,7 @@ namespace YAF.Pages.Admin
                     continue;
                 }
 
-                for (int i1 = 0; i1 < _accessForumList.Rows.Count; i1++)
+                for (var i1 = 0; i1 < _accessForumList.Rows.Count; i1++)
                 {
                     LegacyDb.forumaccess_save(
                         _forumID,
@@ -828,7 +827,7 @@ namespace YAF.Pages.Admin
         /// </returns>
         private int CreatePMessages()
         {
-            int userID = this.PageContext.PageUserID;
+            var userID = this.PageContext.PageUserID;
             int numPMessages;
             if (!int.TryParse(this.PMessagesNumber.Text.Trim(), out numPMessages))
             {
@@ -840,8 +839,8 @@ namespace YAF.Pages.Admin
                 return 0;
             }
 
-            string _fromUser = this.From.Text.Trim();
-            string _toUser = this.To.Text.Trim();
+            var _fromUser = this.From.Text.Trim();
+            var _toUser = this.To.Text.Trim();
             if (numPMessages > createCommonLimit)
             {
                 numPMessages = createCommonLimit;
@@ -862,7 +861,7 @@ namespace YAF.Pages.Admin
 
             if (this.MarkRead.Checked)
             {
-                int userAID = LegacyDb.user_get(
+                var userAID = LegacyDb.user_get(
                     YafContext.Current.PageBoardID, Membership.GetUser(_toUser).ProviderUserKey);
                 foreach (DataRow dr in LegacyDb.pmessage_list(null, userAID, null).Rows)
                 {
@@ -1024,7 +1023,7 @@ namespace YAF.Pages.Admin
                 this.randomGuid = Guid.NewGuid().ToString();
                 object pollID = null;
 
-                long topicID = LegacyDb.topic_save(
+                var topicID = LegacyDb.topic_save(
                     forumID,
                     this.TopicPrefixTB.Text.Trim() + this.randomGuid,
                     string.Empty,
@@ -1096,11 +1095,11 @@ namespace YAF.Pages.Admin
         /// </returns>
         private string CreateUsers()
         {
-            int boardID = 0;
+            var boardID = 0;
             int _users_Number;
             const int _outCounter = 0;
-            int _countLimit = 1;
-            bool _excludeCurrentBoard = false;
+            var _countLimit = 1;
+            var _excludeCurrentBoard = false;
 
             if (!int.TryParse(this.UsersNumber.Text.Trim(), out _users_Number))
             {
@@ -1141,9 +1140,9 @@ namespace YAF.Pages.Admin
         /// </param>
         private void CreateUsers(int boardID, int _users_Number)
         {
-            int _outCounter = 0;
-            int _countLimit = 1;
-            bool _excludeCurrentBoard = false;
+            var _outCounter = 0;
+            var _countLimit = 1;
+            var _excludeCurrentBoard = false;
 
             this.CreateUsers(boardID, _users_Number, _outCounter, _countLimit, _excludeCurrentBoard);
             return;
@@ -1183,19 +1182,19 @@ namespace YAF.Pages.Admin
                 for (i = 0; i < this.UsersNumber.Text.Trim().ToType<int>(); i++)
                 {
                     this.randomGuid = Guid.NewGuid().ToString();
-                    string newEmail = this.UserPrefixTB.Text.Trim() + this.randomGuid + "@test.info";
-                    string newUsername = this.UserPrefixTB.Text.Trim() + this.randomGuid;
+                    var newEmail = this.UserPrefixTB.Text.Trim() + this.randomGuid + "@test.info";
+                    var newUsername = this.UserPrefixTB.Text.Trim() + this.randomGuid;
 
                     if (UserMembershipHelper.UserExists(newUsername, newEmail))
                     {
                         continue;
                     }
 
-                    string hashinput = DateTime.UtcNow + newEmail + Security.CreatePassword(20);
-                    string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
+                    var hashinput = DateTime.UtcNow + newEmail + Security.CreatePassword(20);
+                    var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
 
                     MembershipCreateStatus status;
-                    MembershipUser user = this.Get<MembershipProvider>().CreateUser(
+                    var user = this.Get<MembershipProvider>().CreateUser(
                         newUsername,
                         this.Password.Text.Trim(),
                         newEmail,
@@ -1214,10 +1213,10 @@ namespace YAF.Pages.Admin
                     RoleMembershipHelper.SetupUserRoles(boardID, newUsername);
 
                     // create the user in the YAF DB as well as sync roles...
-                    int? userID = RoleMembershipHelper.CreateForumUser(user, boardID);
+                    var userID = RoleMembershipHelper.CreateForumUser(user, boardID);
 
                     // create profile
-                    YafUserProfile userProfile = YafUserProfile.GetProfile(newUsername);
+                    var userProfile = YafUserProfile.GetProfile(newUsername);
 
                     // setup their inital profile information
                     userProfile.Location = this.Location.Text.Trim();

@@ -48,7 +48,7 @@
 		<HeaderTemplate>
 		    <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="pull-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                         </div><div class="table-responsive">
 				<table class="table">
                 <tr>
@@ -91,7 +91,7 @@
 				<YAF:UserLink ID="UserLink1" runat="server" UserID='<%# this.Eval("UserID").ToString().IsNotSet() ? -1 : this.Eval("UserID").ToType<int>() %>' />
 				</td>
 				<td>
-					    <span class="pull-right">
+					    <span class="float-right">
 				<YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
                     TextLocalizedTag="EDIT"
                     TitleLocalizedTag="EDIT" Icon="edit" runat="server"></YAF:ThemeButton>

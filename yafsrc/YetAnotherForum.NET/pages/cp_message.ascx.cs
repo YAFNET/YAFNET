@@ -186,13 +186,13 @@ namespace YAF.Pages
         private void BindData()
         {
             using (
-                DataTable dt =
+                var dt =
                     LegacyDb.pmessage_list(
                         Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm"))))
             {
                 if (dt.HasRows())
                 {
-                    DataRow row = dt.Rows[0];
+                    var row = dt.Rows[0];
 
                     // if the pm isn't from or two the current user--then it's access denied
                     if ((int)row["ToUserID"] != this.PageContext.PageUserID
@@ -269,8 +269,8 @@ namespace YAF.Pages
         private void SetMessageView(
             [NotNull] object fromUserID, [NotNull] object toUserID, bool messageIsInOutbox, bool messageIsArchived)
         {
-            bool isCurrentUserFrom = fromUserID.Equals(this.PageContext.PageUserID);
-            bool isCurrentUserTo = toUserID.Equals(this.PageContext.PageUserID);
+            var isCurrentUserFrom = fromUserID.Equals(this.PageContext.PageUserID);
+            var isCurrentUserTo = toUserID.Equals(this.PageContext.PageUserID);
 
             // check if it's the same user...
             if (isCurrentUserFrom && isCurrentUserTo)

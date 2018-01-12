@@ -55,7 +55,7 @@
 								<%# DataBinder.Eval(Container.DataItem, "[\"SortOrder\"]") %>
 							</td>
 							<td>
-					    <span class="pull-right">
+					    <span class="float-right">
                              <YAF:ThemeButton ID="btnEdit" CssClass="btn btn-info btn-sm"
                                  CommandName='edit' CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>'
                                  TextLocalizedTag="EDIT"
@@ -81,9 +81,11 @@
 		</asp:Repeater>
                 </div>
                 <div class="card-footer text-lg-center">
-				<asp:LinkButton ID="NewCategory" runat="server" OnClick="NewCategory_Click" CssClass="btn btn-primary"></asp:LinkButton>
+				<YAF:ThemeButton ID="NewCategory" runat="server" OnClick="NewCategory_Click" CssClass="btn btn-primary"
+				                 Icon="plus-square" TextLocalizedTag="NEW_CATEGORY"></YAF:ThemeButton>
 				&nbsp;
-				<asp:LinkButton ID="NewForum" runat="server" OnClick="NewForum_Click" CssClass="btn btn-primary"></asp:LinkButton>
+				<YAF:ThemeButton ID="NewForum" runat="server" OnClick="NewForum_Click" CssClass="btn btn-primary"
+				                 Icon="plus-square" TextLocalizedTag="NEW_FORUM"></YAF:ThemeButton>
 
                 </div>
             </div>

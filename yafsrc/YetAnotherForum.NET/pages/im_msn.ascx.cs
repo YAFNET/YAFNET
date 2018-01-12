@@ -92,14 +92,14 @@ namespace YAF.Pages
       if (!this.IsPostBack)
       {
         // get user data...
-        MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.UserID);
+        var user = UserMembershipHelper.GetMembershipUserById(this.UserID);
 
         if (user == null)
         {
           YafBuildLink.AccessDenied( /*No such user exists*/);
         }
 
-        string displayName = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
+        var displayName = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
 
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
           this.PageLinks.AddLink(

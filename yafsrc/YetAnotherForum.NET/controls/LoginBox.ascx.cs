@@ -85,7 +85,7 @@ namespace YAF.Controls
             if (username.Contains("@") && this.Get<MembershipProvider>().RequiresUniqueEmail)
             {
                 // attempt Email Login
-                string realUsername = this.Get<MembershipProvider>().GetUserNameByEmail(username);
+                var realUsername = this.Get<MembershipProvider>().GetUserNameByEmail(username);
 
                 if (realUsername.IsSet() && this.Get<MembershipProvider>().ValidateUser(realUsername, password))
                 {
@@ -111,7 +111,7 @@ namespace YAF.Controls
             if (id.HasValue)
             {
                 // get the username associated with this id...
-                string realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
+                var realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
 
                 // validate again...
                 if (this.Get<MembershipProvider>().ValidateUser(realUsername, password))
@@ -131,7 +131,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Login1_LoginError([NotNull] object sender, [NotNull] EventArgs e)
         {
-            bool emptyFields = false;
+            var emptyFields = false;
 
             var userName = this.Login1.FindControlAs<TextBox>("UserName");
             var password = this.Login1.FindControlAs<TextBox>("Password");

@@ -166,7 +166,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Submit_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            string username = this.PageContext.PageUserName;
+            var username = this.PageContext.PageUserName;
 
             if (username != null && this.messageTextBox.Text != string.Empty)
             {
@@ -183,7 +183,7 @@ namespace YAF.Controls
             this.DataBind();
             this.messageTextBox.Text = string.Empty;
 
-            ScriptManager scriptManager = ScriptManager.GetCurrent(this.Page);
+            var scriptManager = ScriptManager.GetCurrent(this.Page);
 
             if (scriptManager != null)
             {

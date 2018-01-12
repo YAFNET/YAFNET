@@ -29,7 +29,6 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
@@ -40,7 +39,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Utilities;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -66,11 +64,13 @@ namespace YAF.Pages.Admin
 
             this.lblPruneInfo.Text = string.Empty;
 
-            if (this.Get<ITaskModuleManager>().IsTaskRunning(PruneTopicTask.TaskName))
+            if (!this.Get<ITaskModuleManager>().IsTaskRunning(PruneTopicTask.TaskName))
             {
-                this.lblPruneInfo.Text = this.GetText("ADMIN_PRUNE", "PRUNE_INFO");
-                this.commit.Visible = false;
+                return;
             }
+
+            this.lblPruneInfo.Text = this.GetText("ADMIN_PRUNE", "PRUNE_INFO");
+            this.commit.Visible = false;
         }
 
         /// <summary>
@@ -103,6 +103,22 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Handles the Click event of the commit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void CommitClick([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            PruneTopicTask.Start(
+                this.PageContext.PageBoardID,
+                this.forumlist.SelectedValue.ToType<int>(),
+                this.days.Text.ToType<int>(),
+                this.permDeleteChkBox.Checked);
+
+            this.PageContext.AddLoadMessage(this.GetText("ADMIN_PRUNE", "MSG_TASK"));
+        }
+
+        /// <summary>
         /// The bind data.
         /// </summary>
         private void BindData()
@@ -116,22 +132,6 @@ namespace YAF.Pages.Admin
             this.DataBind();
 
             this.forumlist.Items.Insert(0, new ListItem(this.GetText("ADMIN_PRUNE", "ALL_FORUMS"), "0"));
-        }
-
-        /// <summary>
-        /// Handles the Click event of the commit control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void CommitClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            PruneTopicTask.Start(
-              this.PageContext.PageBoardID,
-              this.forumlist.SelectedValue.ToType<int>(),
-              this.days.Text.ToType<int>(),
-              this.permDeleteChkBox.Checked);
-
-            this.PageContext.AddLoadMessage(this.GetText("ADMIN_PRUNE", "MSG_TASK"));
         }
 
         #endregion

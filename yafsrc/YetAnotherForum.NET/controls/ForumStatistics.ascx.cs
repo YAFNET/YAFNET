@@ -80,10 +80,10 @@ namespace YAF.Controls
         {
             var sb = new StringBuilder();
 
-            int activeUsers = activeStats["ActiveUsers"].ToType<int>();
-            int activeHidden = activeStats["ActiveHidden"].ToType<int>();
-            int activeMembers = activeStats["ActiveMembers"].ToType<int>();
-            int activeGuests = activeStats["ActiveGuests"].ToType<int>();
+            var activeUsers = activeStats["ActiveUsers"].ToType<int>();
+            var activeHidden = activeStats["ActiveHidden"].ToType<int>();
+            var activeMembers = activeStats["ActiveMembers"].ToType<int>();
+            var activeGuests = activeStats["ActiveGuests"].ToType<int>();
 
             // show hidden count to admin...
             if (this.PageContext.IsAdmin)
@@ -91,11 +91,11 @@ namespace YAF.Controls
                 activeUsers += activeHidden;
             }
 
-            bool canViewActive = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ActiveUsersViewPermissions);
-            bool showGuestTotal = (activeGuests > 0) &&
+            var canViewActive = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ActiveUsersViewPermissions);
+            var showGuestTotal = (activeGuests > 0) &&
                                   (this.Get<YafBoardSettings>().ShowGuestsInDetailedActiveList ||
                                    this.Get<YafBoardSettings>().ShowCrawlersInActiveList);
-            bool showActiveHidden = (activeHidden > 0) && this.PageContext.IsAdmin;
+            var showActiveHidden = (activeHidden > 0) && this.PageContext.IsAdmin;
             if (canViewActive &&
                 (showGuestTotal || (activeMembers > 0 && (activeGuests <= 0)) ||
                  (showActiveHidden && (activeMembers > 0) && showGuestTotal)))
@@ -269,7 +269,7 @@ namespace YAF.Controls
         private void ForumStatistics_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Active users : Call this before forum_stats to clean up active users
-            DataTable activeUsers = this.Get<IDataCache>().GetOrSet(
+            var activeUsers = this.Get<IDataCache>().GetOrSet(
               Constants.Cache.UsersOnlineStatus,
               () => this.Get<YafDbBroker>().GetActiveList(false, this.Get<YafBoardSettings>().ShowCrawlersInActiveList),
               TimeSpan.FromMilliseconds(this.Get<YafBoardSettings>().OnlineStatusCacheTimeout));
@@ -277,7 +277,7 @@ namespace YAF.Controls
             this.ActiveUsers1.ActiveUserTable = activeUsers;
 
             // "Active Users" Count and Most Users Count 
-            DataRow activeStats = this.GetRepository<Active>().Stats();
+            var activeStats = this.GetRepository<Active>().Stats();
 
             this.ActiveUserCount.Text = this.FormatActiveUsers(activeStats);
 
@@ -328,7 +328,7 @@ namespace YAF.Controls
               () =>
               {
                   // get the post stats
-                  DataRow dr = this.GetRepository<Board>().Poststats(this.PageContext.PageBoardID, this.Get<YafBoardSettings>().UseStyledNicks, true);
+                  var dr = this.GetRepository<Board>().Poststats(this.PageContext.PageBoardID, this.Get<YafBoardSettings>().UseStyledNicks, true);
 
                   // Set colorOnly parameter to false, as we get here color from data field in the place
                   dr["LastUserStyle"] = this.Get<YafBoardSettings>().UseStyledNicks

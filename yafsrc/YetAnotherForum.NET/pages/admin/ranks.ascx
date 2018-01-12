@@ -17,7 +17,7 @@
                     <i class="fa fa-graduation-cap fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_RANKS" />
                 </div>
                 <div class="card-body">
-		<asp:Repeater ID="RankList" OnItemCommand="RankList_ItemCommand" runat="server">
+		<asp:Repeater ID="RankList" OnItemCommand="RankListItemCommand" runat="server">
 			<HeaderTemplate>
 			    <div class="table-responsive">
                     <table class="table">
@@ -72,7 +72,7 @@
                     <asp:Label ID="Label8" runat="server" CssClass='<%# this.GetItemColorString(this.Eval( "UsrSigHTMLTags" ).ToString()) %>'><%#  this.Eval("UsrSigHTMLTags").ToString().IsSet() ? this.Eval("UsrSigHTMLTags").ToString() : this.GetItemName(false)%></asp:Label>&nbsp;|&nbsp;
                     </td>
 					<td>
-					    <span class="pull-right">
+					    <span class="float-right">
 					    <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm"
                             CommandName='edit' CommandArgument='<%# this.Eval( "RankID") %>'
                             TitleLocalizedTag="EDIT"
@@ -85,7 +85,8 @@
                                     TitleLocalizedTag="DELETE"
                                     Icon="trash"
                                     TextLocalizedTag="DELETE"
-                                    OnLoad="Delete_Load"  runat="server">
+                                    ReturnConfirmText='<%# this.GetText("ADMIN_RANKS", "CONFIRM_DELETE") %>'
+                                    runat="server">
                                 </YAF:ThemeButton>
                             </span>
 					</td>
@@ -97,7 +98,9 @@
 		</asp:Repeater>
                 </div>
                 <div class="card-footer text-lg-center">
-				   <asp:LinkButton ID="NewRank" runat="server" OnClick="NewRank_Click" CssClass="btn btn-primary" />
+				   <YAF:ThemeButton ID="NewRank" runat="server" OnClick="NewRankClick" CssClass="btn btn-primary"
+				                    Icon="plus-square"
+				                    TextLocalizedTag="NEW_RANK" />
                 </div>
             </div>
         </div>

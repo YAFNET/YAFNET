@@ -127,7 +127,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton Save;
+        protected global::YAF.Controls.ThemeButton Save;
         
         /// <summary>
         /// Cancel-Steuerelement
@@ -136,7 +136,7 @@ namespace YAF.Pages.Admin {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton Cancel;
+        protected global::YAF.Controls.ThemeButton Cancel;
         
         /// <summary>
         /// SmartScroller1-Steuerelement

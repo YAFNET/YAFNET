@@ -130,7 +130,7 @@ namespace YAF.Controls
     /// </returns>
     protected int GetImageHeight([NotNull] object mimeType)
     {
-      string[] attrs = mimeType.ToString().Split('!')[1].Split(';');
+      var attrs = mimeType.ToString().Split('!')[1].Split(';');
       return attrs[1].ToType<int>();
     }
 
@@ -243,7 +243,7 @@ namespace YAF.Controls
       LegacyDb.choice_vote(e.CommandArgument, userID, remoteIP);
 
       // save the voting cookie...
-      string cookieCurrent = String.Empty;
+      var cookieCurrent = String.Empty;
 
       // We check whether is a vote for an option  
       if (this.Request.Cookies[VotingCookieName(Convert.ToInt32(this.PollId))] != null)
@@ -262,7 +262,7 @@ namespace YAF.Controls
       this.Response.Cookies.Add(c);
 
       // show an info that the user is voted 
-      string msg = this.GetText("INFO_VOTED");
+      var msg = this.GetText("INFO_VOTED");
 
       this.BindData();
 
@@ -287,7 +287,7 @@ namespace YAF.Controls
     /// </param>
     protected void Poll_OnItemDataBound([NotNull] object source, [NotNull] RepeaterItemEventArgs e)
     {
-      RepeaterItem item = e.Item;
+      var item = e.Item;
       var drowv = (DataRowView)e.Item.DataItem;
       var trow = item.FindControlRecursiveAs<HtmlTableRow>("VoteTr");
 
@@ -347,8 +347,8 @@ namespace YAF.Controls
 
         if (!drowv.Row["MimeType"].IsNullOrEmptyDBField())
         {
-          decimal aspect = GetImageAspect(drowv.Row["MimeType"]);
-          int imageWidth = 80;
+          var aspect = GetImageAspect(drowv.Row["MimeType"]);
+          var imageWidth = 80;
 
           if (this.Get<IYafSession>().UseMobileTheme ?? false)
           {
@@ -362,7 +362,7 @@ namespace YAF.Controls
             imageWidth, choiceImage.Height);
 
           // reserved to get equal row heights
-          int height = Convert.ToInt32(this.MaxImageAspect * choiceImage.Width);
+          var height = Convert.ToInt32(this.MaxImageAspect * choiceImage.Width);
           trow.Attributes["style"] = "height:{0}px;".FormatWith(height);
         }
       }
@@ -438,7 +438,7 @@ namespace YAF.Controls
     {
       if (!mimeType.IsNullOrEmptyDBField())
       {
-        string[] attrs = mimeType.ToString().Split('!')[1].Split(';');
+        var attrs = mimeType.ToString().Split('!')[1].Split(';');
         var width = attrs[0].ToType<decimal>();
         return width / attrs[1].ToType<decimal>();
       }
@@ -476,7 +476,7 @@ namespace YAF.Controls
     /// </returns>
     private string GetPollIsClosed()
     {
-      string strPollClosed = string.Empty;
+      var strPollClosed = string.Empty;
       if (this.IsClosed)
       {
         strPollClosed = this.GetText("POLL_CLOSED");

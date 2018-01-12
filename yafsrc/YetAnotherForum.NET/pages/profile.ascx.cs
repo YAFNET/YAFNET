@@ -104,7 +104,7 @@ namespace YAF.Pages
         /// </returns>
         protected bool AlbumsTabIsVisible()
         {
-            int albumUser = this.PageContext.PageUserID;
+            var albumUser = this.PageContext.PageUserID;
 
             if (this.PageContext.IsAdmin && this.UserId > 0)
             {
@@ -117,7 +117,7 @@ namespace YAF.Pages
                 return false;
             }
 
-            int albumCount = LegacyDb.album_getstats(albumUser, null)[0];
+            var albumCount = LegacyDb.album_getstats(albumUser, null)[0];
 
             // Check if the user already has albums.
             if (albumCount > 0)
@@ -219,7 +219,7 @@ namespace YAF.Pages
         {
             if (linkUrl.IsSet())
             {
-                string link = linkUrl.Replace("\"", string.Empty);
+                var link = linkUrl.Replace("\"", string.Empty);
                 if (!link.ToLower().StartsWith("http"))
                 {
                     link = "http://" + link;
@@ -247,7 +247,7 @@ namespace YAF.Pages
         {
             if (e.CommandArgument.ToString() == "addbuddy")
             {
-                string[] strBuddyRequest = this.Get<IBuddy>().AddRequest(this.UserId);
+                var strBuddyRequest = this.Get<IBuddy>().AddRequest(this.UserId);
 
                 var linkButton = (LinkButton)this.ProfileTabs.FindControl("lnkBuddy");
 
@@ -667,8 +667,8 @@ namespace YAF.Pages
 
             if (this.User != null && (userData.Profile.Gender > 0))
             {
-                string imagePath = string.Empty;
-                string imageAlt = string.Empty;
+                var imagePath = string.Empty;
+                var imageAlt = string.Empty;
 
                 this.GenderTR.Visible = true;
                 switch (userData.Profile.Gender)
@@ -696,7 +696,7 @@ namespace YAF.Pages
 
             this.ThanksFrom.Text = this.GetRepository<Thanks>().ThanksFromUser(userData.DBRow["userID"].ToType<int>())
                 .ToString();
-            int[] thanksToArray = LegacyDb.user_getthanks_to(userData.DBRow["userID"], this.PageContext.PageUserID);
+            var thanksToArray = LegacyDb.user_getthanks_to(userData.DBRow["userID"], this.PageContext.PageUserID);
             this.ThanksToTimes.Text = thanksToArray[0].ToString();
             this.ThanksToPosts.Text = thanksToArray[1].ToString();
             this.ReputationReceived.Text = YafReputation.GenerateReputationBar(userData.Points.Value, userData.UserID);
@@ -857,8 +857,8 @@ namespace YAF.Pages
                 DataRow r;
                 MedalFlags f;
 
-                int i = 0;
-                int inRow = 0;
+                var i = 0;
+                var inRow = 0;
 
                 // do ribbon bar first
                 while (userMedalsTable.Rows.Count > i)
@@ -939,7 +939,7 @@ namespace YAF.Pages
         /// </param>
         private void SetupUserStatistics([NotNull] CombinedUserDataHelper userData)
         {
-            double allPosts = 0.0;
+            var allPosts = 0.0;
 
             if (userData.DBRow["NumPostsForum"].ToType<int>() > 0)
             {

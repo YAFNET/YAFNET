@@ -25,6 +25,8 @@
 			</h4>
 			<p>
 				<img align="middle" alt="Preview" runat="server" id="Preview" />
+                </p>
+                    <p>
                 <asp:DropDownList ID="CategoryImages" runat="server" CssClass="custom-select" />
 		</p><hr />
 		   <h4>
@@ -34,8 +36,10 @@
 			<asp:TextBox ID="SortOrder" runat="server" MaxLength="5" CssClass="form-control" TextMode="Number"></asp:TextBox></p>
                 </div>
                 <div class="card-footer text-lg-center">
-			  <asp:LinkButton ID="Save" runat="server" OnClick="Save_Click" CssClass="btn btn-primary"></asp:LinkButton>
-			  <asp:LinkButton ID="Cancel" runat="server" OnClick="Cancel_Click" CssClass="btn btn-secondary"></asp:LinkButton>
+                    <YAF:ThemeButton ID="Save" runat="server" OnClick="SaveClick" CssClass="btn btn-primary"
+                                     Icon="save" TextLocalizedTag="Save"></YAF:ThemeButton>
+                    <YAF:ThemeButton ID="Cancel" runat="server" OnClick="CancelClick" CssClass="btn btn-secondary"
+                                     Icon="times" TextLocalizedTag="CANCEL"></YAF:ThemeButton>
                 </div>
             </div>
         </div>

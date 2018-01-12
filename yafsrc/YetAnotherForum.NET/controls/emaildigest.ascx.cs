@@ -337,9 +337,9 @@ namespace YAF.Controls
                         this.BoardSettings.AllowUserTheme,
                         this.BoardSettings.Theme));
 
-            string subject = this.GetText("SUBJECT").FormatWith(this.BoardSettings.Name);
+            var subject = this.GetText("SUBJECT").FormatWith(this.BoardSettings.Name);
 
-            string digestHead = this._theme.GetItem("THEME", "DIGESTHEAD", null);
+            var digestHead = this._theme.GetItem("THEME", "DIGESTHEAD", null);
 
             if (digestHead.IsSet())
             {

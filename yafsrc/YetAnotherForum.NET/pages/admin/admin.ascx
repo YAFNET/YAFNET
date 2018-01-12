@@ -183,7 +183,7 @@
                     <HeaderTemplate>
                         <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="pull-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                         </div>
                         <div class="table-responsive">
                         <table class="table tablesorter" id="ActiveUsers">
@@ -273,7 +273,7 @@
             <HeaderTemplate>
                                         <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="pull-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                         </div>
                 <div class="table-responsive">
                 <table class="table tablesorter" id="UnverifiedUsers">
@@ -317,7 +317,7 @@
                         <%# this.Get<IDateTime>().FormatDateTime((DateTime)this.Eval("Joined")) %>
                     </td>
                     <td>
-					    <span class="pull-right">
+					    <span class="float-right">
                         <YAF:ThemeButton runat="server" CommandName="resendEmail" CommandArgument='<%# this.Eval("Email") + ";" + this.Eval("Name") %>' 
                             Icon="share" TextLocalizedTag="ADMIN_RESEND_EMAIL"
                             CssClass="btn btn-info btn-sm">

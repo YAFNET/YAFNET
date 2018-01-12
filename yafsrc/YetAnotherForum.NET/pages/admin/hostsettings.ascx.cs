@@ -172,15 +172,6 @@ namespace YAF.Pages.Admin
                 this.BindData();
             }
 
-            var txtBoxes =
-                this.ControlListRecursive(
-                    c => c.GetType() == typeof(TextBox) && ((TextBox)c).TextMode == TextBoxMode.SingleLine)
-                    .Cast<TextBox>()
-                    .ToList();
-
-            // default to 100% width...
-            txtBoxes.ForEach(x => x.Width = Unit.Percentage(100));
-
             // vzrus : 13/5/2010
             this.ServerTimeCorrection.AddAttributeMaxWidth("4");
 

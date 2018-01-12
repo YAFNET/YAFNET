@@ -114,8 +114,10 @@
 			</p>
                 </div>
                 <div class="card-footer text-lg-center">
-				<asp:LinkButton id="save" runat="server"  OnClick="Add_Click" CssClass="btn btn-primary"></asp:LinkButton>
-				<asp:LinkButton id="cancel" runat="server"  CausesValidation="False" OnClick="Cancel_Click" CssClass="btn btn-secondary"></asp:LinkButton>
+				<YAF:ThemeButton id="save" runat="server"  OnClick="Add_Click" CssClass="btn btn-primary"
+				                 Icon="save" TextLocalizedTag="SAVE"></YAF:ThemeButton>
+				<YAF:ThemeButton id="cancel" runat="server"  CausesValidation="False" OnClick="Cancel_Click" CssClass="btn btn-secondary"
+				                 Icon="times" TextLocalizedTag="CANCEL"></YAF:ThemeButton>
                 </div>
             </div>
         </div>

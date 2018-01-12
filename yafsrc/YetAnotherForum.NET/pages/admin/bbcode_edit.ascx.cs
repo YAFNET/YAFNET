@@ -178,7 +178,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            string strAddEdit = (this.BBCodeID == null) ? this.GetText("COMMON", "ADD") : this.GetText("COMMON", "EDIT");
+            var strAddEdit = (this.BBCodeID == null) ? this.GetText("COMMON", "ADD") : this.GetText("COMMON", "EDIT");
 
             if (!this.IsPostBack)
             {
@@ -195,8 +195,6 @@ namespace YAF.Pages.Admin
                     this.GetText("ADMIN_ADMIN", "Administration"),
                     this.GetText("ADMIN_BBCODE", "TITLE"),
                     this.GetText("ADMIN_BBCODE_EDIT", "TITLE").FormatWith(strAddEdit));
-                this.save.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("SAVE"));
-                this.cancel.Text = "<i class=\"fa fa-times fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("CANCEL"));
                 this.BindData();
             }
 

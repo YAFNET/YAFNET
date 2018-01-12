@@ -16,7 +16,7 @@
                 <div class="card-body">
                     <div class="alert alert-info d-sm-none" role="alert">
                             <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="pull-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
                         </div><div class="table-responsive">
                         <table class="table">
                             <tr>
@@ -29,7 +29,7 @@
 			</th>
                                     </thead>
 		</tr>
-		<asp:Repeater ID="List" runat="server" OnItemCommand="List_ItemCommand">
+		<asp:Repeater ID="List" runat="server" OnItemCommand="ListItemCommand">
 			<ItemTemplate>
 				<tr class="post">
 				    <td>
@@ -40,7 +40,7 @@
                     	 <%# this.HtmlEncode(this.Eval( "BoardName")) %>
                         </td>
 					<td>
-					    <span class="pull-right">
+					    <span class="float-right">
 						  <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm"
                               TitleLocalizedPage="ADMIN_EVENTLOGGROUPS" TitleLocalizedTag="EDIT"
                               CommandName='edit' CommandArgument='<%# this.Eval( "GroupID") %>' TextLocalizedTag="EDIT"
