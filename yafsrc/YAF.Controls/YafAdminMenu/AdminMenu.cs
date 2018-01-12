@@ -216,7 +216,7 @@ namespace YAF.Controls
             writer.BeginRender();
 
             // render the contents of the admin menu....
-            writer.WriteLine(@"<div class=""navbar-light bg-faded sidebar"" role=""navigation"">");
+            writer.WriteLine(@"<div class=""navbar-light bg-light sidebar"" role=""navigation"">");
 
             writer.WriteLine(@"<div class=""collapse show sidebar-nav navbar-toggleable-xs"">");
 

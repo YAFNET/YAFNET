@@ -212,6 +212,8 @@ namespace YAF.Dialogs
                 }
             }
 
+            MembershipCreateStatus status;
+
             var pass = Membership.GeneratePassword(32, 16);
             var securityAnswer = Membership.GeneratePassword(64, 30);
             var securityQuestion = "Answer is a generated Pass";
@@ -235,7 +237,7 @@ namespace YAF.Dialogs
                 this.Get<MembershipProvider>().RequiresQuestionAndAnswer ? securityAnswer : null,
                 true,
                 null,
-                out _);
+                out status);
 
             // setup inital roles (if any) for this user
             RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, (string)row["Name"]);

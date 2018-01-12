@@ -5,7 +5,7 @@
                <i class="fa fa-bars fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server" LocalizedPage="COMMON" LocalizedTag="MENU"></YAF:LocalizedLabel>
             </a>
 
-<nav class="navbar navbar-light bg-faded" role="navigation" style="margin-bottom: 0">
+<nav class="navbar navbar-light bg-light" role="navigation" style="margin-bottom: 0">
     <ul class="nav navbar-top-links justify-content-end">
         <!-- /.dropdown -->
         <li class="dropdown nav-item">
