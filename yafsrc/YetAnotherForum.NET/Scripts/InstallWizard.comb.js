@@ -10631,126 +10631,468 @@ return jQuery;
 }));
 
 /*!
- * Ladda 0.9.8 (2015-04-08, 11:38)
+ * Ladda
  * http://lab.hakim.se/ladda
  * MIT licensed
  *
- * Copyright (C) 2015 Hakim El Hattab, http://hakim.se
+ * Copyright (C) 2016 Hakim El Hattab, http://hakim.se
  */
-(function(t, e) {
-    "object" == typeof exports ? module.exports = e(require("spin.js")) : "function" == typeof define && define.amd ? define([ "spin" ], e) : t.Ladda = e(t.Spinner);
-})(this, function(t) {
-    "use strict";
-    function e(t) {
-        if (t === void 0) return console.warn("Ladda button target must be defined."), void 0;
-        t.querySelector(".ladda-label") || (t.innerHTML = '<span class="ladda-label">' + t.innerHTML + "</span>");
-        var e, n = t.querySelector(".ladda-spinner");
-        n || (n = document.createElement("span"), n.className = "ladda-spinner"), t.appendChild(n);
-        var r, a = {
-            start: function() {
-                return e || (e = o(t)), t.setAttribute("disabled", ""), t.setAttribute("data-loading", ""), 
-                clearTimeout(r), e.spin(n), this.setProgress(0), this;
-            },
-            startAfter: function(t) {
-                return clearTimeout(r), r = setTimeout(function() {
-                    a.start();
-                }, t), this;
-            },
-            stop: function() {
-                return t.removeAttribute("disabled"), t.removeAttribute("data-loading"), clearTimeout(r), 
-                e && (r = setTimeout(function() {
-                    e.stop();
-                }, 1e3)), this;
-            },
-            toggle: function() {
-                return this.isLoading() ? this.stop() : this.start(), this;
-            },
-            setProgress: function(e) {
-                e = Math.max(Math.min(e, 1), 0);
-                var n = t.querySelector(".ladda-progress");
-                0 === e && n && n.parentNode ? n.parentNode.removeChild(n) : (n || (n = document.createElement("div"), 
-                n.className = "ladda-progress", t.appendChild(n)), n.style.width = (e || 0) * t.offsetWidth + "px");
-            },
-            enable: function() {
-                return this.stop(), this;
-            },
-            disable: function() {
-                return this.stop(), t.setAttribute("disabled", ""), this;
-            },
-            isLoading: function() {
-                return t.hasAttribute("data-loading");
-            },
-            remove: function() {
-                clearTimeout(r), t.removeAttribute("disabled", ""), t.removeAttribute("data-loading", ""), 
-                e && (e.stop(), e = null);
-                for (var n = 0, i = u.length; i > n; n++) if (a === u[n]) {
-                    u.splice(n, 1);
-                    break;
-                }
-            }
-        };
-        return u.push(a), a;
-    }
-    function n(t, e) {
-        for (;t.parentNode && t.tagName !== e; ) t = t.parentNode;
-        return e === t.tagName ? t : void 0;
-    }
-    function r(t) {
-        for (var e = [ "input", "textarea", "select" ], n = [], r = 0; e.length > r; r++) for (var a = t.getElementsByTagName(e[r]), i = 0; a.length > i; i++) a[i].hasAttribute("required") && n.push(a[i]);
-        return n;
-    }
-    function a(t, a) {
-        a = a || {};
-        var i = [];
-        "string" == typeof t ? i = s(document.querySelectorAll(t)) : "object" == typeof t && "string" == typeof t.nodeName && (i = [ t ]);
-        for (var o = 0, u = i.length; u > o; o++) (function() {
-            var t = i[o];
-            if ("function" == typeof t.addEventListener) {
-                var s = e(t), u = -1;
-                t.addEventListener("click", function() {
-                    var e = !0, i = n(t, "FORM");
-                    if (i !== void 0) for (var o = r(i), d = 0; o.length > d; d++) "" === o[d].value.replace(/^\s+|\s+$/g, "") && (e = !1), 
-                    "checkbox" !== o[d].type && "radio" !== o[d].type || o[d].checked || (e = !1), "email" === o[d].type && (e = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(o[d].value));
-                    e && (s.startAfter(1), "number" == typeof a.timeout && (clearTimeout(u), u = setTimeout(s.stop, a.timeout)), 
-                    "function" == typeof a.callback && a.callback.apply(null, [ s ]));
-                }, !1);
-            }
-        })();
-    }
-    function i() {
-        for (var t = 0, e = u.length; e > t; t++) u[t].stop();
-    }
-    function o(e) {
-        var n, r = e.offsetHeight;
-        0 === r && (r = parseFloat(window.getComputedStyle(e).height)), r > 32 && (r *= .8), 
-        e.hasAttribute("data-spinner-size") && (r = parseInt(e.getAttribute("data-spinner-size"), 10)), 
-        e.hasAttribute("data-spinner-color") && (n = e.getAttribute("data-spinner-color"));
-        var a = 12, i = .2 * r, o = .6 * i, s = 7 > i ? 2 : 3;
-        return new t({
-            color: n || "#fff",
-            lines: a,
-            radius: i,
-            length: o,
-            width: s,
-            zIndex: "auto",
-            top: "auto",
-            left: "auto",
-            className: ""
-        });
-    }
-    function s(t) {
-        for (var e = [], n = 0; t.length > n; n++) e.push(t[n]);
-        return e;
-    }
-    var u = [];
-    return {
-        bind: a,
-        create: e,
-        stopAll: i
-    };
-});
+(function( root, factory ) {
+	'use strict';
+
+	// CommonJS
+	if( typeof exports === 'object' )  {
+		module.exports = factory(require('spin.js'));
+	}
+	// AMD module
+	else if( typeof define === 'function' && define.amd ) {
+		define( [ 'spin' ], factory );
+	}
+	// Browser global
+	else {
+		root.Ladda = factory( root.Spinner );
+	}
+
+}
+(this, function( Spinner ) {
+	'use strict';
+
+	// All currently instantiated instances of Ladda
+	var ALL_INSTANCES = [];
+
+	/**
+	 * Creates a new instance of Ladda which wraps the
+	 * target button element.
+	 *
+	 * @return An API object that can be used to control
+	 * the loading animation state.
+	 */
+	function create( button ) {
+
+		if( typeof button === 'undefined' ) {
+			console.warn( "Ladda button target must be defined." );
+			return;
+		}
+
+		// The button must have the class "ladda-button"
+		if( !/ladda-button/i.test( button.className ) ) {
+			button.className += ' ladda-button';
+		}
+
+		// Style is required, default to "expand-right"
+		if( !button.hasAttribute( 'data-style' ) ) {
+			button.setAttribute( 'data-style', 'expand-right' );
+		}
+
+		// The text contents must be wrapped in a ladda-label
+		// element, create one if it doesn't already exist
+		if( !button.querySelector( '.ladda-label' ) ) {
+			var laddaLabel = document.createElement( 'span' );
+			laddaLabel.className = 'ladda-label';
+			wrapContent( button, laddaLabel );
+		}
+
+		// The spinner component
+		var spinner,
+			spinnerWrapper = button.querySelector( '.ladda-spinner' );
+
+		// Wrapper element for the spinner
+		if( !spinnerWrapper ) {
+			spinnerWrapper = document.createElement( 'span' );
+			spinnerWrapper.className = 'ladda-spinner';
+		}
+
+		button.appendChild( spinnerWrapper );
+
+		// Timer used to delay starting/stopping
+		var timer;
+
+		var instance = {
+
+			/**
+			 * Enter the loading state.
+			 */
+			start: function() {
+
+				// Create the spinner if it doesn't already exist
+				if( !spinner ) {
+					spinner = createSpinner( button );
+				}
+
+				button.disabled = true;
+				button.setAttribute( 'data-loading', '' );
+
+				clearTimeout( timer );
+				spinner.spin( spinnerWrapper );
+
+				this.setProgress( 0 );
+
+				return this; // chain
+
+			},
+
+			/**
+			 * Enter the loading state, after a delay.
+			 */
+			startAfter: function( delay ) {
+
+				clearTimeout( timer );
+				timer = setTimeout( function() { instance.start(); }, delay );
+
+				return this; // chain
+
+			},
+
+			/**
+			 * Exit the loading state.
+			 */
+			stop: function() {
+
+				if (instance.isLoading()) {
+					button.disabled = false;
+					button.removeAttribute( 'data-loading' );	
+				}
+
+				// Kill the animation after a delay to make sure it
+				// runs for the duration of the button transition
+				clearTimeout( timer );
+
+				if( spinner ) {
+					timer = setTimeout( function() { spinner.stop(); }, 1000 );
+				}
+
+				return this; // chain
+
+			},
+
+			/**
+			 * Toggle the loading state on/off.
+			 */
+			toggle: function() {
+				return this.isLoading() ? this.stop() : this.start();
+			},
+
+			/**
+			 * Sets the width of the visual progress bar inside of
+			 * this Ladda button
+			 *
+			 * @param {Number} progress in the range of 0-1
+			 */
+			setProgress: function( progress ) {
+
+				// Cap it
+				progress = Math.max( Math.min( progress, 1 ), 0 );
+
+				var progressElement = button.querySelector( '.ladda-progress' );
+
+				// Remove the progress bar if we're at 0 progress
+				if( progress === 0 && progressElement && progressElement.parentNode ) {
+					progressElement.parentNode.removeChild( progressElement );
+				}
+				else {
+					if( !progressElement ) {
+						progressElement = document.createElement( 'div' );
+						progressElement.className = 'ladda-progress';
+						button.appendChild( progressElement );
+					}
+
+					progressElement.style.width = ( ( progress || 0 ) * button.offsetWidth ) + 'px';
+				}
+
+			},
+
+			/**
+			 * @deprecated
+			 */
+			enable: function() {
+
+				return this.stop();
+
+			},
+
+			/**
+			 * @deprecated
+			 */
+			disable: function () {
+
+				this.stop();
+				button.disabled = true;
+
+				return this; // chain
+
+			},
+
+			isLoading: function() {
+
+				return button.hasAttribute( 'data-loading' );
+
+			},
+
+			remove: function() {
+
+				clearTimeout( timer );
+
+				button.disabled = false;
+				button.removeAttribute( 'data-loading' );
+
+				if( spinner ) {
+					spinner.stop();
+					spinner = null;
+				}
+
+				ALL_INSTANCES.splice( ALL_INSTANCES.indexOf(instance), 1 );
+
+			}
+
+		};
+
+		ALL_INSTANCES.push( instance );
+
+		return instance;
+
+	}
+
+	/**
+	* Get the first ancestor node from an element, having a
+	* certain type.
+	*
+	* @param elem An HTML element
+	* @param type an HTML tag type (uppercased)
+	*
+	* @return An HTML element
+	*/
+	function getAncestorOfTagType( elem, type ) {
+
+		while ( elem.parentNode && elem.tagName !== type ) {
+			elem = elem.parentNode;
+		}
+
+		return ( type === elem.tagName ) ? elem : undefined;
+
+	}
+
+	/**
+	 * Returns a list of all inputs in the given form that
+	 * have their `required` attribute set.
+	 *
+	 * @param form The from HTML element to look in
+	 *
+	 * @return A list of elements
+	 */
+	function getRequiredFields( form ) {
+
+		var requirables = [ 'input', 'textarea', 'select' ];
+		var inputs = [];
+
+		requirables.forEach(function (r) {
+			var candidates = form.getElementsByTagName( r );
+
+			for( var j = 0; j < candidates.length; j++ ) {
+				// legacy browsers don't support required property
+				if ( candidates[j].hasAttribute('required') ) {
+					inputs.push( candidates[j] );
+				}
+			}
+		});
+
+		return inputs;
+
+	}
+
+
+	/**
+	 * Binds the target buttons to automatically enter the
+	 * loading state when clicked.
+	 *
+	 * @param target Either an HTML element or a CSS selector.
+	 * @param options
+	 *          - timeout Number of milliseconds to wait before
+	 *            automatically cancelling the animation.
+	 */
+	function bind( target, options ) {
+
+		var targets;
+
+		if( typeof target === 'string' ) {
+			targets = document.querySelectorAll( target );
+		}
+		else if( typeof target === 'object' ) {
+			targets = [ target ];
+		} else {
+			throw new Error('target must be string or object');
+		}
+
+		options = options || {};
+
+		for( var i = 0; i < targets.length; i++ ) {
+			bindElement(targets[i], options);
+		}
+
+	}
+
+	/**
+	 * Stops ALL current loading animations.
+	 */
+	function stopAll() {
+
+		for( var i = 0, len = ALL_INSTANCES.length; i < len; i++ ) {
+			ALL_INSTANCES[i].stop();
+		}
+
+	}
+
+	function createSpinner( button ) {
+
+		var height = button.offsetHeight,
+			spinnerColor,
+			spinnerLines;
+
+		if( height === 0 ) {
+			// We may have an element that is not visible so
+			// we attempt to get the height in a different way
+			height = parseFloat( window.getComputedStyle( button ).height );
+		}
+
+		// If the button is tall we can afford some padding
+		if( height > 32 ) {
+			height *= 0.8;
+		}
+
+		// Prefer an explicit height if one is defined
+		if( button.hasAttribute( 'data-spinner-size' ) ) {
+			height = parseInt( button.getAttribute( 'data-spinner-size' ), 10 );
+		}
+
+		// Allow buttons to specify the color of the spinner element
+		if( button.hasAttribute( 'data-spinner-color' ) ) {
+			spinnerColor = button.getAttribute( 'data-spinner-color' );
+		}
+
+		// Allow buttons to specify the number of lines of the spinner
+		if( button.hasAttribute( 'data-spinner-lines' ) ) {
+			spinnerLines = parseInt( button.getAttribute( 'data-spinner-lines' ), 10 );
+		}
+
+		var radius = height * 0.2,
+			length = radius * 0.6,
+			width = radius < 7 ? 2 : 3;
+
+		return new Spinner( {
+			color: spinnerColor || '#fff',
+			lines: spinnerLines || 12,
+			radius: radius,
+			length: length,
+			width: width,
+			zIndex: 'auto',
+			top: 'auto',
+			left: 'auto',
+			className: ''
+		} );
+
+	}
+
+	function wrapContent( node, wrapper ) {
+
+		var r = document.createRange();
+		r.selectNodeContents( node );
+		r.surroundContents( wrapper );
+		node.appendChild( wrapper );
+
+	}
+
+	function bindElement( element, options ) {
+		if( typeof element.addEventListener !== 'function' ) {
+			return;
+		}
+
+		var instance = create( element );
+		var timeout = -1;
+
+		element.addEventListener( 'click', function() {
+
+			// If the button belongs to a form, make sure all the
+			// fields in that form are filled out
+			var valid = true;
+			var form = getAncestorOfTagType( element, 'FORM' );
+
+			if( typeof form !== 'undefined' ) {
+				// Modern form validation
+				if( typeof form.checkValidity === 'function' ) {
+					valid = form.checkValidity();
+				}
+				// Fallback to manual validation for old browsers
+				else {
+					var requireds = getRequiredFields( form );
+					for( var i = 0; i < requireds.length; i++ ) {
+						var field = requireds[i];
+
+						// The input type property will always return "text" for email and url fields in IE 9.
+						// Note that emulating IE 9 in IE 11 will also return "text" for the type attribute,
+						// but the actual IE 9 browser will return the correct attribute.
+						var fieldType = field.getAttribute('type');
+
+						if( field.value.replace( /^\s+|\s+$/g, '' ) === '' ) {
+							valid = false;
+						}
+
+						// Radiobuttons and Checkboxes need to be checked for the "checked" attribute
+						if( (fieldType === 'checkbox' || fieldType === 'radio' ) && !field.checked ) {
+							valid = false;
+						}
+
+						// Email field validation
+						if( fieldType === 'email' ) {
+							// regex from https://stackoverflow.com/a/7786283/1170489
+							valid = /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i.test( field.value );
+						}
+
+						// URL field validation
+						if (fieldType === 'url') {
+							// regex from https://stackoverflow.com/a/10637803/1170489
+							valid = /^([a-z]([a-z]|\d|\+|-|\.)*):(\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?((\[(|(v[\da-f]{1,}\.(([a-z]|\d|-|\.|_|~)|[!\$&'\(\)\*\+,;=]|:)+))\])|((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=])*)(:\d*)?)(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*|(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)|((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)|((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)){0})(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test( field.value );
+						}
+
+						if (!valid) {
+							break;
+						}
+					}
+				}
+			}
+
+			if( valid ) {
+				// This is asynchronous to avoid an issue where disabling
+				// the button prevents forms from submitting
+				instance.startAfter( 1 );
+
+				// Set a loading timeout if one is specified
+				if( typeof options.timeout === 'number' ) {
+					clearTimeout( timeout );
+					timeout = setTimeout( instance.stop, options.timeout );
+				}
+
+				// Invoke callbacks
+				if( typeof options.callback === 'function' ) {
+					options.callback.apply( null, [ instance ] );
+				}
+			}
+
+		}, false );
+
+	}
+
+	// Public API
+	return {
+
+		bind: bind,
+		create: create,
+		stopAll: stopAll
+
+	};
+
+}));
+
 /*!
- * Select2 4.0.6-rc.0
+ * Select2 4.0.6-rc.1
  * https://select2.github.io
  *
  * Released under the MIT license
@@ -11929,7 +12271,8 @@ S2.define('select2/results',[
       var currentIndex = $options.index($highlighted);
 
       // If we are already at te top, don't move further
-      if (currentIndex === 0) {
+      // If no options, currentIndex will be -1
+      if (currentIndex <= 0) {
         return;
       }
 
@@ -12221,6 +12564,9 @@ S2.define('select2/selection/base',[
       self.$selection.removeAttr('aria-owns');
 
       self.$selection.focus();
+      window.setTimeout(function () {
+        self.$selection.focus();
+      }, 0);
 
       self._detachCloseHandler(container);
     });
@@ -12848,7 +13194,13 @@ S2.define('select2/selection/search',[
 
     this.resizeSearch();
     if (searchHadFocus) {
-      this.$search.focus();
+      var isTagInput = this.$element.find('[data-select2-tag]').length;
+      if (isTagInput) {
+        // fix IE11 bug where tag input lost focus
+        this.$element.focus();
+      } else {
+        this.$search.focus();
+      }
     }
   };
 
@@ -15968,6 +16320,9 @@ S2.define('select2/core',[
     this._syncAttributes();
 
     Utils.StoreData($element[0], 'select2', this);
+
+    // Ensure backwards compatibility with $element.data('select2').
+    $element.data('select2', this);
   };
 
   Utils.Extend(Select2, Utils.Observable);
@@ -16463,6 +16818,7 @@ S2.define('select2/core',[
     this.$element.removeClass('select2-hidden-accessible');
     this.$element.attr('aria-hidden', 'false');
     Utils.RemoveData(this.$element[0]);
+    this.$element.removeData('select2');
 
     this.dataAdapter.destroy();
     this.selection.destroy();

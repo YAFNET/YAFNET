@@ -1957,7 +1957,7 @@ readers do not read off random characters that represent icons */
 .fa-shekel-sign:before {
   content: "\f20b"; }
 
-.fa-shield-alt-alt:before {
+.fa-shield-alt:before {
   content: "\f3ed"; }
 
 .fa-ship:before {
