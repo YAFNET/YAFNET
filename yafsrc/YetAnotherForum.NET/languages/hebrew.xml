@@ -721,6 +721,7 @@
     <Resource tag="SERVER">Server:</Resource>
     <Resource tag="SERVER_HELP">What server this groups is located.</Resource>
     <Resource tag="TITLE">Add/Edit NNTP Forum</Resource>
+    <Resource tag="TITLE_EDIT">Edit NNTP Forum</Resource>
   </page>
   <page name="ADMIN_EDITNNTPSERVER">
     <Resource tag="MSG_SERVER_ADR">Missing server address.</Resource>
@@ -736,6 +737,7 @@
     <Resource tag="NNTP_USERNAME">User Name:</Resource>
     <Resource tag="NNTP_USERNAME_HELP">The user name used to log on to the nntp server.</Resource>
     <Resource tag="TITLE">Add/Edit NNTP Server</Resource>
+    <Resource tag="TITLE_EDIT">Edit NNTP Server</Resource>
   </page>
   <page name="ADMIN_EDITRANK">
     <Resource tag="ALBUMS_NUMBER">User Albums Number:</Resource>
@@ -917,6 +919,7 @@
     <Resource tag="EXPORT">Export to XML</Resource>
     <Resource tag="HEADER">Allowed File Extensions</Resource>
     <Resource tag="IMPORT">Import from XML</Resource>
+    <Resource tag="SAVE">Save Extension</Resource>
     <Resource tag="TITLE">File Extensions</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_EDIT">
@@ -926,6 +929,7 @@
     <Resource tag="MSG_ENTER">You must enter something.</Resource>
     <Resource tag="MSG_REMOVE">Remove the period in the extension.</Resource>
     <Resource tag="TITLE">Add/Edit File Extensions</Resource>
+    <Resource tag="TITLE_EDIT">Edit File Extension</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_IMPORT">
     <Resource tag="HEADER">Import Extension List</Resource>
@@ -1560,6 +1564,7 @@
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="GROUP">Group</Resource>
     <Resource tag="NEW_FORUM">New Forum</Resource>
+    <Resource tag="SAVE">Save Forum</Resource>
     <Resource tag="SERVER">Server</Resource>
     <Resource tag="TITLE">NNTP Forums</Resource>
   </page>
@@ -1595,6 +1600,7 @@
     <Resource tag="DELETE_SERVER">Delete this server?</Resource>
     <Resource tag="NAME">Name</Resource>
     <Resource tag="NEW_SERVER">New Server</Resource>
+    <Resource tag="SAVE_SERVER">Save Server</Resource>
     <Resource tag="TITLE">NNTP Servers</Resource>
     <Resource tag="USERNAME">User Name</Resource>
   </page>
@@ -1699,6 +1705,7 @@
     <Resource tag="GOOD_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. '\.').</Resource>
     <Resource tag="MSG_REGEX_BAD">The Regular expression statement you have entered is invalid.</Resource>
     <Resource tag="TITLE">Add/Edit Word Replace</Resource>
+    <Resource tag="TITLE_EDIT">Edit Word Replace</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_IMPORT">
     <Resource tag="HEADER">Import Replace Word List</Resource>
@@ -1768,6 +1775,7 @@
     <Resource tag="DEFAULT_DESCRIPTION">Status</Resource>
     <Resource tag="EXPORT">Export to XML</Resource>
     <Resource tag="HEADER">Allowed File Extensions</Resource>
+    <Resource tag="ICON">Icon</Resource>
     <Resource tag="IMPORT">Import from XML</Resource>
     <Resource tag="TITLE">Topic Status</Resource>
     <Resource tag="TOPICSTATUS_NAME">Status Name</Resource>
@@ -1778,6 +1786,7 @@
     <Resource tag="HEADER">Add/Edit Topic Status</Resource>
     <Resource tag="MSG_ENTER">You must enter something.</Resource>
     <Resource tag="TITLE">Add/Edit Topic Status</Resource>
+    <Resource tag="TITLE_EDIT">Edit Topic Status</Resource>
     <Resource tag="TOPICSTATUS_NAME">Topic Status Value:</Resource>
     <Resource tag="TOPICSTATUS_NAME_HELP">This is the Value that is used to retrieve the Topic Status Icon and/or Text. That needs to be defined in the Theme Files and languages.</Resource>
   </page>

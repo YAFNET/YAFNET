@@ -697,6 +697,7 @@
     <Resource tag="SERVER">Сервер:</Resource>
     <Resource tag="SERVER_HELP">На каком сервере находится эта группа новостей.</Resource>
     <Resource tag="TITLE">Добавить/Изменить форум NNTP</Resource>
+    <Resource tag="TITLE_EDIT">Edit NNTP Forum</Resource>
   </page>
   <page name="ADMIN_EDITNNTPSERVER">
     <Resource tag="MSG_SERVER_ADR">Отсутствует адрес сервера.</Resource>
@@ -712,6 +713,7 @@
     <Resource tag="NNTP_USERNAME">Имя пользователя:</Resource>
     <Resource tag="NNTP_USERNAME_HELP">Имя пользователя для входа на сервер nntp.</Resource>
     <Resource tag="TITLE">Добавить/Изменить сервер NNTP</Resource>
+    <Resource tag="TITLE_EDIT">Edit NNTP Server</Resource>
   </page>
   <page name="ADMIN_EDITRANK">
     <Resource tag="ALBUMS_NUMBER">Число альбомов:</Resource>
@@ -890,6 +892,7 @@
     <Resource tag="EXPORT">Экспорт в формат XML</Resource>
     <Resource tag="HEADER">Разрешённые расширения файлов</Resource>
     <Resource tag="IMPORT">Импортировать из XML</Resource>
+    <Resource tag="SAVE">Save Extension</Resource>
     <Resource tag="TITLE">Расширения файлов</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_EDIT">
@@ -899,6 +902,7 @@
     <Resource tag="MSG_ENTER">Вы должно что-нибудь ввести.</Resource>
     <Resource tag="MSG_REMOVE">Удалите точку в расширении.</Resource>
     <Resource tag="TITLE">Добавить/Изменить расширения файлов</Resource>
+    <Resource tag="TITLE_EDIT">Edit File Extension</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_IMPORT">
     <Resource tag="HEADER">Импорт списка расширений</Resource>
@@ -1531,6 +1535,7 @@
     <Resource tag="FORUM">Форум</Resource>
     <Resource tag="GROUP">Группа</Resource>
     <Resource tag="NEW_FORUM">Новый форум</Resource>
+    <Resource tag="SAVE">Save Forum</Resource>
     <Resource tag="SERVER">Сервер</Resource>
     <Resource tag="TITLE">Форумы NNTP</Resource>
   </page>
@@ -1553,6 +1558,7 @@
     <Resource tag="DELETE_SERVER">Удалить этот сервер?</Resource>
     <Resource tag="NAME">Название</Resource>
     <Resource tag="NEW_SERVER">Новый сервер</Resource>
+    <Resource tag="SAVE_SERVER">Save Server</Resource>
     <Resource tag="TITLE">Серверы NNTP</Resource>
     <Resource tag="USERNAME">Имя пользователя</Resource>
   </page>
@@ -1657,6 +1663,7 @@
     <Resource tag="GOOD_HELP">Слово, фраза или регулярное выражение. Пунктуация вводится слешем  (например '\.').</Resource>
     <Resource tag="MSG_REGEX_BAD">Введённое регулярное выражение недействительно.</Resource>
     <Resource tag="TITLE">Добавить/Изменить замену</Resource>
+    <Resource tag="TITLE_EDIT">Edit Word Replace</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_IMPORT">
     <Resource tag="HEADER">Импорт словаря замен</Resource>
@@ -1726,6 +1733,7 @@
     <Resource tag="DEFAULT_DESCRIPTION">Статус</Resource>
     <Resource tag="EXPORT">Экспортировать в XML</Resource>
     <Resource tag="HEADER">Разрешённые расширения файлов</Resource>
+    <Resource tag="ICON">Icon</Resource>
     <Resource tag="IMPORT">Импортировать из XML</Resource>
     <Resource tag="TITLE">Статус темы</Resource>
     <Resource tag="TOPICSTATUS_NAME">Название статуса</Resource>
@@ -1736,6 +1744,7 @@
     <Resource tag="HEADER">Добавить/Изменить статус темы</Resource>
     <Resource tag="MSG_ENTER">Поле не должно быть пустым.</Resource>
     <Resource tag="TITLE">Добавить/Изменить статус темы</Resource>
+    <Resource tag="TITLE_EDIT">Edit Topic Status</Resource>
     <Resource tag="TOPICSTATUS_NAME">Значение статуса темы:</Resource>
     <Resource tag="TOPICSTATUS_NAME_HELP">Это значение используется для получения иконки или текста, оно должно быть определено в темах и иметь соответствующую иконку.</Resource>
   </page>

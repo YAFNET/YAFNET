@@ -698,6 +698,7 @@
     <Resource tag="SERVER">Servidor:</Resource>
     <Resource tag="SERVER_HELP">En que servidor está localizado este grupo.</Resource>
     <Resource tag="TITLE">Añadir/Editar foro NNTP</Resource>
+    <Resource tag="TITLE_EDIT">Edit NNTP Forum</Resource>
   </page>
   <page name="ADMIN_EDITNNTPSERVER">
     <Resource tag="MSG_SERVER_ADR">Falta la dirección del servidor.</Resource>
@@ -713,6 +714,7 @@
     <Resource tag="NNTP_USERNAME">Nombre de usuario:</Resource>
     <Resource tag="NNTP_USERNAME_HELP">El nombre de usuario para iniciar sesión en el servidor NNTP.</Resource>
     <Resource tag="TITLE">Añadir/Editar servidor NNTP</Resource>
+    <Resource tag="TITLE_EDIT">Edit NNTP Server</Resource>
   </page>
   <page name="ADMIN_EDITRANK">
     <Resource tag="ALBUMS_NUMBER">Número de álbumes por usuario:</Resource>
@@ -891,6 +893,7 @@
     <Resource tag="EXPORT">Exportar a XML</Resource>
     <Resource tag="HEADER">Extensiones de fichero permitidas</Resource>
     <Resource tag="IMPORT">Importar desde XML</Resource>
+    <Resource tag="SAVE">Save Extension</Resource>
     <Resource tag="TITLE">Extensiones de fichero</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_EDIT">
@@ -900,6 +903,7 @@
     <Resource tag="MSG_ENTER">Debes introducir algo.</Resource>
     <Resource tag="MSG_REMOVE">Quitar el período en la extensión.</Resource>
     <Resource tag="TITLE">Añadir/Editar extensiones de fichero</Resource>
+    <Resource tag="TITLE_EDIT">Edit File Extension</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_IMPORT">
     <Resource tag="HEADER">Importar lista de extensiones</Resource>
@@ -1543,6 +1547,7 @@
     <Resource tag="FORUM">Foro</Resource>
     <Resource tag="GROUP">Grupo</Resource>
     <Resource tag="NEW_FORUM">Nuevo Foro</Resource>
+    <Resource tag="SAVE">Save Forum</Resource>
     <Resource tag="SERVER">Servidor</Resource>
     <Resource tag="TITLE">Foro NNTP</Resource>
   </page>
@@ -1577,6 +1582,7 @@
     <Resource tag="DELETE_SERVER">¿Eliminar este servidor?</Resource>
     <Resource tag="NAME">Nombre</Resource>
     <Resource tag="NEW_SERVER">Nuevo Servidor</Resource>
+    <Resource tag="SAVE_SERVER">Save Server</Resource>
     <Resource tag="TITLE">Servidores NNTP</Resource>
     <Resource tag="USERNAME">Nombre de usuario</Resource>
   </page>
@@ -1681,6 +1687,7 @@
     <Resource tag="GOOD_HELP">Declaración de expresión regular. Finalizar puntuando con una barra precedente (Ejemplo: '\.').</Resource>
     <Resource tag="MSG_REGEX_BAD">La declaración de expresión regular que has introducido es inválida.</Resource>
     <Resource tag="TITLE">Añadir/Editar reemplazo de palabra</Resource>
+    <Resource tag="TITLE_EDIT">Edit Word Replace</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_IMPORT">
     <Resource tag="HEADER">Importar lista de palabras de reemplazo</Resource>
@@ -1750,6 +1757,7 @@
     <Resource tag="DEFAULT_DESCRIPTION">Estado</Resource>
     <Resource tag="EXPORT">Exportar a XML</Resource>
     <Resource tag="HEADER">Extensiones de fichero permitidas</Resource>
+    <Resource tag="ICON">Icon</Resource>
     <Resource tag="IMPORT">Importar desde XML</Resource>
     <Resource tag="TITLE">Estados de temas</Resource>
     <Resource tag="TOPICSTATUS_NAME">Nombre de estado</Resource>
@@ -1760,6 +1768,7 @@
     <Resource tag="HEADER">Añadir/editar estado de tema</Resource>
     <Resource tag="MSG_ENTER">Debes introducir algo.</Resource>
     <Resource tag="TITLE">Añadir/editar estado de tema</Resource>
+    <Resource tag="TITLE_EDIT">Edit Topic Status</Resource>
     <Resource tag="TOPICSTATUS_NAME">Valor del estado de tema:</Resource>
     <Resource tag="TOPICSTATUS_NAME_HELP">Este es el valor que se usa para obtener el icono del estado de tema y/o el texto. Necesita ser definido en los archivos de tema e idiomas.</Resource>
   </page>

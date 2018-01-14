@@ -697,6 +697,7 @@
     <Resource tag="SERVER">سرور:</Resource>
     <Resource tag="SERVER_HELP">این گروه در چه سروری است.</Resource>
     <Resource tag="TITLE">افزودن/ویرایش انجمن NTP</Resource>
+    <Resource tag="TITLE_EDIT">Edit NNTP Forum</Resource>
   </page>
   <page name="ADMIN_EDITNNTPSERVER">
     <Resource tag="MSG_SERVER_ADR">آدرس سرور نامفهوم است.</Resource>
@@ -712,6 +713,7 @@
     <Resource tag="NNTP_USERNAME">نام کاربری:</Resource>
     <Resource tag="NNTP_USERNAME_HELP">نام کاربری برای ورود به سرور.</Resource>
     <Resource tag="TITLE">افزودن/ویرایش سرور NNTP</Resource>
+    <Resource tag="TITLE_EDIT">Edit NNTP Server</Resource>
   </page>
   <page name="ADMIN_EDITRANK">
     <Resource tag="ALBUMS_NUMBER">تعداد آلبوم های مجاز:</Resource>
@@ -889,6 +891,7 @@
     <Resource tag="EXPORT">برون‌بری به XML</Resource>
     <Resource tag="HEADER">پسوند های مجاز فایل</Resource>
     <Resource tag="IMPORT">درون‌ریزی از XML</Resource>
+    <Resource tag="SAVE">Save Extension</Resource>
     <Resource tag="TITLE">پسوند‌های فایل</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_EDIT">
@@ -898,6 +901,7 @@
     <Resource tag="MSG_ENTER">شما باید چیزی وارد کنید.</Resource>
     <Resource tag="MSG_REMOVE">حذف تناوب از پسوند.</Resource>
     <Resource tag="TITLE">افزودن/ویرایش پسوند فایل</Resource>
+    <Resource tag="TITLE_EDIT">Edit File Extension</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_IMPORT">
     <Resource tag="HEADER">درون‌ریزی لیست پسوندها</Resource>
@@ -1534,6 +1538,7 @@
     <Resource tag="FORUM">انحمن</Resource>
     <Resource tag="GROUP">گروه</Resource>
     <Resource tag="NEW_FORUM">انجمن جدید</Resource>
+    <Resource tag="SAVE">Save Forum</Resource>
     <Resource tag="SERVER">سرور</Resource>
     <Resource tag="TITLE">انجمن های NNTP</Resource>
   </page>
@@ -1567,6 +1572,7 @@
     <Resource tag="DELETE_SERVER">حذف این سرور؟</Resource>
     <Resource tag="NAME">نام</Resource>
     <Resource tag="NEW_SERVER">سرور جدید</Resource>
+    <Resource tag="SAVE_SERVER">Save Server</Resource>
     <Resource tag="TITLE">سرور های NNTP</Resource>
     <Resource tag="USERNAME">نام کاربری</Resource>
   </page>
@@ -1685,6 +1691,7 @@
 
 </Resource>
     <Resource tag="TITLE">افزودن/ویرایش کلمه جایگزینی</Resource>
+    <Resource tag="TITLE_EDIT">Edit Word Replace</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_IMPORT">
     <Resource tag="HEADER">وارد کردن فهرست کلمات جایگزینی</Resource>
@@ -1756,6 +1763,7 @@
     <Resource tag="DEFAULT_DESCRIPTION">وضعیت</Resource>
     <Resource tag="EXPORT">برون‌بری به XML</Resource>
     <Resource tag="HEADER">پسوند فایل‌های مجاز</Resource>
+    <Resource tag="ICON">Icon</Resource>
     <Resource tag="IMPORT">درون‌ریزی از XML</Resource>
     <Resource tag="TITLE">وضعیت موضوع</Resource>
     <Resource tag="TOPICSTATUS_NAME">نام وضعیت</Resource>
@@ -1766,6 +1774,7 @@
     <Resource tag="HEADER">افزودن/ویرایش وضعیت موضوع</Resource>
     <Resource tag="MSG_ENTER">شما باید چیزی وارد کنید.</Resource>
     <Resource tag="TITLE">افزودن/ ویرایش وضعیت موضوع</Resource>
+    <Resource tag="TITLE_EDIT">Edit Topic Status</Resource>
     <Resource tag="TOPICSTATUS_NAME">مقدار وضعیت موضوع:</Resource>
     <Resource tag="TOPICSTATUS_NAME_HELP">این مقدار (value) برای گرفتن آیکون یا متن وضعیت موضوع استفاده می شود و نیاز است که در فایل های قالب و یا زبان تعریف شده باشد</Resource>
   </page>
