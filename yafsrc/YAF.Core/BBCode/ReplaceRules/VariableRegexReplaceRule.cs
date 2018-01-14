@@ -218,26 +218,26 @@ namespace YAF.Core.BBCode.ReplaceRules
     {
       var sb = new StringBuilder(text);
 
-      Match m = this._regExSearch.Match(text);
+      var m = this._regExSearch.Match(text);
       while (m.Success)
       {
         var innerReplace = new StringBuilder(this._regExReplace);
-        int i = 0;
+        var i = 0;
 
-        foreach (string tVar in this._variables)
+        foreach (var tVar in this._variables)
         {
-          string varName = tVar;
-          string handlingValue = String.Empty;
+          var varName = tVar;
+          var handlingValue = String.Empty;
 
           if (varName.Contains(":"))
           {
             // has handling section
-            string[] tmpSplit = varName.Split(':');
+            var tmpSplit = varName.Split(':');
             varName = tmpSplit[0];
             handlingValue = tmpSplit[1];
           }
 
-          string tValue = m.Groups[varName].Value;
+          var tValue = m.Groups[varName].Value;
 
           if (this._variableDefaults != null && tValue.Length == 0)
           {

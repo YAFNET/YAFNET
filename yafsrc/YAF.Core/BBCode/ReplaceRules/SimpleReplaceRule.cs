@@ -95,7 +95,7 @@ namespace YAF.Core.BBCode.ReplaceRules
     /// </param>
     public override void Replace(ref string text, IReplaceBlocks replacement)
     {
-      int index = -1;
+      var index = -1;
 
       do
       {
@@ -105,7 +105,7 @@ namespace YAF.Core.BBCode.ReplaceRules
         if (index >= 0)
         {
           // replace it...
-          int replaceIndex = replacement.Add(this._replace);
+          var replaceIndex = replacement.Add(this._replace);
           text = text.Substring(0, index) + replacement.Get(replaceIndex) +
                  text.Substring(index + this._find.Length);
         }

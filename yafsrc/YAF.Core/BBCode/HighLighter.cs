@@ -98,8 +98,8 @@ namespace YAF.Core.BBCode
             // extract highlight
             if (language.Contains(";"))
             {
-                highlight = language.Substring(language.IndexOf(";") + 1);
-                language = language.Remove(language.IndexOf(";"));
+                highlight = language.Substring(language.IndexOf(";", StringComparison.Ordinal) + 1);
+                language = language.Remove(language.IndexOf(";", StringComparison.Ordinal));
             }
 
             // Create Output

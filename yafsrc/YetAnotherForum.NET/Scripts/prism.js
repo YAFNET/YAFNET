@@ -1,4 +1,5 @@
-/* http://prismjs.com/download.html?themes=prism-funky&languages=markup+css+clike+javascript+c+aspnet+bash+cpp+csharp+css-extras+git+java+python+sql&plugins=line-numbers+autolinker */
+/* PrismJS 1.9.0
+http://prismjs.com/download.html?themes=prism-funky&languages=markup+css+clike+javascript+c+aspnet+bash+cpp+csharp+css-extras+git+java+python+sql&plugins=line-highlight+line-numbers+autolinker */
 var _self = (typeof window !== 'undefined')
     ? window   // if in browser
     : (
@@ -156,6 +157,10 @@ var Prism = (function () {
         plugins: {},
 
         highlightAll: function (async, callback) {
+            _.highlightAllUnder(document, async, callback);
+        },
+
+        highlightAllUnder: function (container, async, callback) {
             var env = {
                 callback: callback,
                 selector: 'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'
@@ -163,7 +168,7 @@ var Prism = (function () {
 
             _.hooks.run("before-highlightall", env);
 
-            var elements = env.elements || document.querySelectorAll(env.selector);
+            var elements = env.elements || container.querySelectorAll(env.selector);
 
             for (var i = 0, element; element = elements[i++];) {
                 _.highlightElement(element, async === true, env.callback);
@@ -479,6 +484,11 @@ var Prism = (function () {
     };
 
     if (!_self.document) {
+        if (!_self.addEventListener) {
+            // in Node.js
+            return _self.Prism;
+        }
+
         if (!_.disableWorkerMessageHandler) {
             // In worker
             _self.addEventListener('message', function (evt) {
@@ -601,7 +611,7 @@ Prism.languages.css = {
         pattern: /("|')(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
         greedy: true
     },
-    'property': /[\w-]+(?=\s*:)/i,
+    'property': /[-_a-z\xA0-\uFFFF][-\w\xA0-\uFFFF]*(?=\s*:)/i,
     'important': /\B!important\b/i,
     'function': /[-a-z0-9]+(?=\()/i,
     'punctuation': /[(){};:]/
@@ -615,7 +625,8 @@ if (Prism.languages.markup) {
             pattern: /(<style[\s\S]*?>)[\s\S]*?(?=<\/style>)/i,
             lookbehind: true,
             inside: Prism.languages.css,
-            alias: 'language-css'
+            alias: 'language-css',
+            greedy: true
         }
     });
 
@@ -671,7 +682,7 @@ Prism.languages.javascript = Prism.languages.extend('clike', {
     'keyword': /\b(?:as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|var|void|while|with|yield)\b/,
     'number': /\b-?(?:0[xX][\dA-Fa-f]+|0[bB][01]+|0[oO][0-7]+|\d*\.?\d+(?:[Ee][+-]?\d+)?|NaN|Infinity)\b/,
     // Allow for all non-ASCII characters (See http://stackoverflow.com/a/2008444)
-    'function': /[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*(?=\s*\()/i,
+    'function': /[_$a-z\xA0-\uFFFF][$\w\xA0-\uFFFF]*(?=\s*\()/i,
     'operator': /-[-=]?|\+[+=]?|!=?=?|<<?=?|>>?>?=?|=(?:==?|>)?|&[&=]?|\|[|=]?|\*\*?=?|\/=?|~|\^=?|%=?|\?|\.{3}/
 });
 
@@ -683,7 +694,7 @@ Prism.languages.insertBefore('javascript', 'keyword', {
     },
     // This must be declared before keyword because we use "function" inside the look-forward
     'function-variable': {
-        pattern: /[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*(?=\s*=\s*(?:function\b|(?:\([^()]*\)|[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*)\s*=>))/i,
+        pattern: /[_$a-z\xA0-\uFFFF][$\w\xA0-\uFFFF]*(?=\s*=\s*(?:function\b|(?:\([^()]*\)|[_$a-z\xA0-\uFFFF][$\w\xA0-\uFFFF]*)\s*=>))/i,
         alias: 'function'
     }
 });
@@ -714,7 +725,8 @@ if (Prism.languages.markup) {
             pattern: /(<script[\s\S]*?>)[\s\S]*?(?=<\/script>)/i,
             lookbehind: true,
             inside: Prism.languages.javascript,
-            alias: 'language-javascript'
+            alias: 'language-javascript',
+            greedy: true
         }
     });
 }
@@ -882,6 +894,14 @@ Prism.languages.insertBefore('cpp', 'keyword', {
     'class-name': {
         pattern: /(class\s+)\w+/i,
         lookbehind: true
+    }
+});
+
+Prism.languages.insertBefore('cpp', 'string', {
+    'raw-string': {
+        pattern: /R"([^()\\ ]{0,16})\([\s\S]*?\)\1"/,
+        alias: 'string',
+        greedy: true
     }
 });
 Prism.languages.csharp = Prism.languages.extend('clike', {
@@ -1075,19 +1095,206 @@ Prism.languages.sql = {
 };
 (function () {
 
+    if (typeof self === 'undefined' || !self.Prism || !self.document || !document.querySelector) {
+        return;
+    }
+
+    function $$(expr, con) {
+        return Array.prototype.slice.call((con || document).querySelectorAll(expr));
+    }
+
+    function hasClass(element, className) {
+        className = " " + className + " ";
+        return (" " + element.className + " ").replace(/[\n\t]/g, " ").indexOf(className) > -1
+    }
+
+    // Some browsers round the line-height, others don't.
+    // We need to test for it to position the elements properly.
+    var isLineHeightRounded = (function () {
+        var res;
+        return function () {
+            if (typeof res === 'undefined') {
+                var d = document.createElement('div');
+                d.style.fontSize = '13px';
+                d.style.lineHeight = '1.5';
+                d.style.padding = 0;
+                d.style.border = 0;
+                d.innerHTML = '&nbsp;<br />&nbsp;';
+                document.body.appendChild(d);
+                // Browsers that round the line-height should have offsetHeight === 38
+                // The others should have 39.
+                res = d.offsetHeight === 38;
+                document.body.removeChild(d);
+            }
+            return res;
+        }
+    }());
+
+    function highlightLines(pre, lines, classes) {
+        lines = typeof lines === 'string' ? lines : pre.getAttribute('data-line');
+
+        var ranges = lines.replace(/\s+/g, '').split(','),
+            offset = +pre.getAttribute('data-line-offset') || 0;
+
+        var parseMethod = isLineHeightRounded() ? parseInt : parseFloat;
+        var lineHeight = parseMethod(getComputedStyle(pre).lineHeight);
+        var hasLineNumbers = hasClass(pre, 'line-numbers');
+
+        for (var i = 0, currentRange; currentRange = ranges[i++];) {
+            var range = currentRange.split('-');
+
+            var start = +range[0],
+                end = +range[1] || start;
+
+            var line = pre.querySelector('.line-highlight[data-range="' + currentRange + '"]') || document.createElement('div');
+
+            line.setAttribute('aria-hidden', 'true');
+            line.setAttribute('data-range', currentRange);
+            line.className = (classes || '') + ' line-highlight';
+
+            //if the line-numbers plugin is enabled, then there is no reason for this plugin to display the line numbers
+            if (hasLineNumbers && Prism.plugins.lineNumbers) {
+                var startNode = Prism.plugins.lineNumbers.getLine(pre, start);
+                var endNode = Prism.plugins.lineNumbers.getLine(pre, end);
+
+                if (startNode) {
+                    line.style.top = startNode.offsetTop + 'px';
+                }
+
+                if (endNode) {
+                    line.style.height = (endNode.offsetTop - startNode.offsetTop) + endNode.offsetHeight + 'px';
+                }
+            } else {
+                line.setAttribute('data-start', start);
+
+                if (end > start) {
+                    line.setAttribute('data-end', end);
+                }
+
+                line.style.top = (start - offset - 1) * lineHeight + 'px';
+
+                line.textContent = new Array(end - start + 2).join(' \n');
+            }
+
+            //allow this to play nicely with the line-numbers plugin
+            if (hasLineNumbers) {
+                //need to attack to pre as when line-numbers is enabled, the code tag is relatively which screws up the positioning
+                pre.appendChild(line);
+            } else {
+                (pre.querySelector('code') || pre).appendChild(line);
+            }
+        }
+    }
+
+    function applyHash() {
+        var hash = location.hash.slice(1);
+
+        // Remove pre-existing temporary lines
+        $$('.temporary.line-highlight').forEach(function (line) {
+            line.parentNode.removeChild(line);
+        });
+
+        var range = (hash.match(/\.([\d,-]+)$/) || [, ''])[1];
+
+        if (!range || document.getElementById(hash)) {
+            return;
+        }
+
+        var id = hash.slice(0, hash.lastIndexOf('.')),
+            pre = document.getElementById(id);
+
+        if (!pre) {
+            return;
+        }
+
+        if (!pre.hasAttribute('data-line')) {
+            pre.setAttribute('data-line', '');
+        }
+
+        highlightLines(pre, range, 'temporary ');
+
+        document.querySelector('.temporary.line-highlight').scrollIntoView();
+    }
+
+    var fakeTimer = 0; // Hack to limit the number of times applyHash() runs
+
+    Prism.hooks.add('before-sanity-check', function (env) {
+        var pre = env.element.parentNode;
+        var lines = pre && pre.getAttribute('data-line');
+
+        if (!pre || !lines || !/pre/i.test(pre.nodeName)) {
+            return;
+        }
+
+        /*
+        * Cleanup for other plugins (e.g. autoloader).
+         *
+         * Sometimes <code> blocks are highlighted multiple times. It is necessary
+         * to cleanup any left-over tags, because the whitespace inside of the <div>
+         * tags change the content of the <code> tag.
+         */
+        var num = 0;
+        $$('.line-highlight', pre).forEach(function (line) {
+            num += line.textContent.length;
+            line.parentNode.removeChild(line);
+        });
+        // Remove extra whitespace
+        if (num && /^( \n)+$/.test(env.code.slice(-num))) {
+            env.code = env.code.slice(0, -num);
+        }
+    });
+
+    Prism.hooks.add('complete', function completeHook(env) {
+        var pre = env.element.parentNode;
+        var lines = pre && pre.getAttribute('data-line');
+
+        if (!pre || !lines || !/pre/i.test(pre.nodeName)) {
+            return;
+        }
+
+        clearTimeout(fakeTimer);
+
+        var hasLineNumbers = Prism.plugins.lineNumbers;
+        var isLineNumbersLoaded = env.plugins && env.plugins.lineNumbers;
+
+        if (hasClass(pre, 'line-numbers') && hasLineNumbers && !isLineNumbersLoaded) {
+            Prism.hooks.add('line-numbers', completeHook);
+        } else {
+            highlightLines(pre, lines);
+            fakeTimer = setTimeout(applyHash, 1);
+        }
+    });
+
+    window.addEventListener('hashchange', applyHash);
+    window.addEventListener('resize', function () {
+        var preElements = document.querySelectorAll('pre[data-line]');
+        Array.prototype.forEach.call(preElements, function (pre) {
+            highlightLines(pre);
+        });
+    });
+
+})();
+(function () {
+
     if (typeof self === 'undefined' || !self.Prism || !self.document) {
         return;
     }
 
 	/**
-	 * Class name for <pre> which is activating the plugin
+	 * Plugin name which is used as a class name for <pre> which is activating the plugin
 	 * @type {String}
 	 */
-    var PLUGIN_CLASS = 'line-numbers';
+    var PLUGIN_NAME = 'line-numbers';
+
+	/**
+	 * Regular expression used for determining line breaks
+	 * @type {RegExp}
+	 */
+    var NEW_LINE_EXP = /\n(?!$)/g;
 
 	/**
 	 * Resizes line numbers spans according to height of line of code
-	 * @param  {Element} element <pre> element
+	 * @param {Element} element <pre> element
 	 */
     var _resizeElement = function (element) {
         var codeStyles = getStyles(element);
@@ -1097,7 +1304,7 @@ Prism.languages.sql = {
             var codeElement = element.querySelector('code');
             var lineNumbersWrapper = element.querySelector('.line-numbers-rows');
             var lineNumberSizer = element.querySelector('.line-numbers-sizer');
-            var codeLines = element.textContent.split('\n');
+            var codeLines = codeElement.textContent.split(NEW_LINE_EXP);
 
             if (!lineNumberSizer) {
                 lineNumberSizer = document.createElement('span');
@@ -1132,7 +1339,7 @@ Prism.languages.sql = {
     };
 
     window.addEventListener('resize', function () {
-        Array.prototype.forEach.call(document.querySelectorAll('pre.' + PLUGIN_CLASS), _resizeElement);
+        Array.prototype.forEach.call(document.querySelectorAll('pre.' + PLUGIN_NAME), _resizeElement);
     });
 
     Prism.hooks.add('complete', function (env) {
@@ -1151,21 +1358,21 @@ Prism.languages.sql = {
             return;
         }
 
-        if (env.element.querySelector(".line-numbers-rows")) {
+        if (env.element.querySelector('.line-numbers-rows')) {
             // Abort if line numbers already exists
             return;
         }
 
         if (clsReg.test(env.element.className)) {
-            // Remove the class "line-numbers" from the <code>
+            // Remove the class 'line-numbers' from the <code>
             env.element.className = env.element.className.replace(clsReg, ' ');
         }
         if (!clsReg.test(pre.className)) {
-            // Add the class "line-numbers" to the <pre>
+            // Add the class 'line-numbers' to the <pre>
             pre.className += ' line-numbers';
         }
 
-        var match = env.code.match(/\n(?!$)/g);
+        var match = env.code.match(NEW_LINE_EXP);
         var linesNum = match ? match.length + 1 : 1;
         var lineNumbersWrapper;
 
@@ -1184,7 +1391,46 @@ Prism.languages.sql = {
         env.element.appendChild(lineNumbersWrapper);
 
         _resizeElement(pre);
+
+        Prism.hooks.run('line-numbers', env);
     });
+
+    Prism.hooks.add('line-numbers', function (env) {
+        env.plugins = env.plugins || {};
+        env.plugins.lineNumbers = true;
+    });
+
+	/**
+	 * Global exports
+	 */
+    Prism.plugins.lineNumbers = {
+		/**
+		 * Get node for provided line number
+		 * @param {Element} element pre element
+		 * @param {Number} number line number
+		 * @return {Element|undefined}
+		 */
+        getLine: function (element, number) {
+            if (element.tagName !== 'PRE' || !element.classList.contains(PLUGIN_NAME)) {
+                return;
+            }
+
+            var lineNumberRows = element.querySelector('.line-numbers-rows');
+            var lineNumberStart = parseInt(element.getAttribute('data-start'), 10) || 1;
+            var lineNumberEnd = lineNumberStart + (lineNumberRows.children.length - 1);
+
+            if (number < lineNumberStart) {
+                number = lineNumberStart;
+            }
+            if (number > lineNumberEnd) {
+                number = lineNumberEnd;
+            }
+
+            var lineIndex = number - lineNumberStart;
+
+            return lineNumberRows.children[lineIndex];
+        }
+    };
 
 }());
 (function () {

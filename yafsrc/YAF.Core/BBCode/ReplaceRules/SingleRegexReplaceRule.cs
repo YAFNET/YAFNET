@@ -69,11 +69,11 @@ namespace YAF.Core.BBCode.ReplaceRules
     {
       var sb = new StringBuilder(text);
 
-      Match m = this._regExSearch.Match(text);
+      var m = this._regExSearch.Match(text);
       while (m.Success)
       {
         // just replaces with no "inner"
-        int replaceIndex = replacement.Add(this._regExReplace);
+        var replaceIndex = replacement.Add(this._regExReplace);
 
         // remove old bbcode...
         sb.Remove(m.Groups[0].Index, m.Groups[0].Length);

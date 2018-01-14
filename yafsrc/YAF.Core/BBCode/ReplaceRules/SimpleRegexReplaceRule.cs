@@ -115,10 +115,10 @@ namespace YAF.Core.BBCode.ReplaceRules
     {
       var sb = new StringBuilder(text);
 
-      Match m = this._regExSearch.Match(text);
+      var m = this._regExSearch.Match(text);
       while (m.Success)
       {
-        string replaceString = this._regExReplace.Replace("${inner}", this.GetInnerValue(m.Groups["inner"].Value));
+        var replaceString = this._regExReplace.Replace("${inner}", this.GetInnerValue(m.Groups["inner"].Value));
 
         // pulls the htmls into the replacement collection before it's inserted back into the main text
         replacement.ReplaceHtmlFromText(ref replaceString);

@@ -73,7 +73,7 @@ namespace YAF.Core.BBCode.ReplaceRules
             while (match.Success)
             {
                 var innerReplace = new StringBuilder(this._regExReplace);
-                int i = 0;
+                var i = 0;
 
                 if (this._truncateLength > 0)
                 {
@@ -128,20 +128,20 @@ namespace YAF.Core.BBCode.ReplaceRules
 
                 innerReplace.Replace("${quote}", quote);
 
-                foreach (string tVar in this._variables)
+                foreach (var tVar in this._variables)
                 {
-                    string varName = tVar;
-                    string handlingValue = string.Empty;
+                    var varName = tVar;
+                    var handlingValue = string.Empty;
 
                     if (varName.Contains(":"))
                     {
                         // has handling section
-                        string[] tmpSplit = varName.Split(':');
+                        var tmpSplit = varName.Split(':');
                         varName = tmpSplit[0];
                         handlingValue = tmpSplit[1];
                     }
 
-                    string tValue = match.Groups[varName].Value;
+                    var tValue = match.Groups[varName].Value;
 
                     if (this._variableDefaults != null && tValue.Length == 0)
                     {

@@ -76,7 +76,7 @@ namespace YAF.Core.BBCode.ReplaceRules
     {
       if (variableName == "post" || variableName == "topic")
       {
-        int id = 0;
+        var id = 0;
         if (int.TryParse(variableValue, out id))
         {
           if (variableName == "post")
