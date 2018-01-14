@@ -1,4 +1,4 @@
-/*! version : 4.17.45
+/*! version : 4.17.47
  =========================================================
  bootstrap-datetimejs
  https://github.com/Eonasdan/bootstrap-datetimepicker
@@ -947,7 +947,6 @@
 
                 input.blur();
 
-                currentViewMode = 0;
                 viewDate = date.clone();
 
                 return picker;
@@ -2343,7 +2342,7 @@
         if (element.hasClass('input-group')) {
             // in case there is more then one 'input-group-addon' Issue #48
             if (element.find('.datepickerbutton').length === 0) {
-                component = element.find('.input-group-addon');
+                component = element.find('.input-group-append');
             } else {
                 component = element.find('.datepickerbutton');
             }

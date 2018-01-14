@@ -21745,7 +21745,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
     };
 
 })(jQuery);
-/*! version : 4.17.45
+/*! version : 4.17.47
  =========================================================
  bootstrap-datetimejs
  https://github.com/Eonasdan/bootstrap-datetimepicker
@@ -22694,7 +22694,6 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
                 input.blur();
 
-                currentViewMode = 0;
                 viewDate = date.clone();
 
                 return picker;

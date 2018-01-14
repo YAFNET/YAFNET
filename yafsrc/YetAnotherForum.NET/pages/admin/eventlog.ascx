@@ -37,26 +37,27 @@ function toggleItem(detailId)
                     <h4>
                         <YAF:HelpLabel ID="SinceDateLabel" runat="server" LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="SINCEDATE" />
                     </h4>
-                    <div class="form-group">
-                        <div class='input-group date datepickerinput'>
-                            <span class="input-group-addon">
-                                <span class="fa fa-calendar fa-fw"></span>
+                        <div class='input-group mb-3 date datepickerinput'>
+                            <span class="input-group-prepend">
+                                <button class="btn btn-secondary datepickerbutton" type="button">
+                                    <i class="fa fa-calendar fa-fw"></i>
+                                </button>
                             </span>
                             <asp:TextBox ID="SinceDate" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
-                   </div>
+
                    <hr />
                     <h4>
                 <YAF:HelpLabel ID="ToDateLabel" runat="server" LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TODATE" />
                         </h4>
-                    <div class="form-group">
-                        <div class='input-group date datepickerinput'>
-                            <span class="input-group-addon">
-                                <span class="fa fa-calendar fa-fw"></span>
-                            </span>
+                    <div class='input-group mb-3 date datepickerinput'>
+                        <span class="input-group-prepend">
+                            <button class="btn btn-secondary datepickerbutton" type="button">
+                                <i class="fa fa-calendar fa-fw"></i>
+                            </button>
+                        </span>
                             <asp:TextBox ID="ToDate" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
-                   </div>
                    <hr />
             <h4>
                 <YAF:HelpLabel ID="HelpLabel1" runat="server" LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TYPES" />
@@ -111,7 +112,7 @@ function toggleItem(detailId)
                               <td>
                                 <span class="float-right">
                                     <a class="showEventItem btn btn-info btn-sm" href="#event<%# this.Eval("EventLogID")%>" id="Show<%# this.Eval("EventLogID") %>"><i class="fa fa-caret-square-down fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="SHOW" LocalizedPage="ADMIN_EVENTLOG" /></a>&nbsp;&nbsp;
-                                    <YAF:ThemeButton runat="server" OnLoad="Delete_Load" CssClass="deleteEventItem btn btn-danger btn-sm" 
+                                    <YAF:ThemeButton runat="server" CssClass="deleteEventItem btn btn-danger btn-sm" 
                                                      CommandName="delete" CommandArgument='<%# this.Eval( "EventLogID") %>'
                                                      ReturnConfirmText='<%# this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE") %>'
                                                      Icon="Trash" TextLocalizedTag="DELETE">
@@ -136,7 +137,7 @@ function toggleItem(detailId)
                 </table></div>
                 </div>
                 <div class="card-footer text-lg-center">
-                        <YAF:ThemeButton runat="server" Visible="<%# this.List.Items.Count > 0 %>" OnLoad="DeleteAll_Load" CssClass="btn btn-primary"
+                        <YAF:ThemeButton runat="server" Visible="<%# this.List.Items.Count > 0 %>" CssClass="btn btn-primary"
                                          Icon="trash" OnClick="DeleteAllClick" 
                                          TextLocalizedPage="ADMIN_EVENTLOG" TextLocalizedTag="DELETE_ALLOWED"
                                          ReturnConfirmText='<%#this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL") %>'>

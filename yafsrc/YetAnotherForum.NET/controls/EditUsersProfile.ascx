@@ -45,14 +45,14 @@
             <YAF:LocalizedLabel ID="BirthdayLabel" runat="server" LocalizedPage="CP_EDITPROFILE"
                 LocalizedTag="BIRTHDAY" />
         </h4>
-        <div class="form-group">
-                        <div class='input-group date datepickerinput'>
-                            <span class="input-group-addon">
-                                <span class="fa fa-calendar fa-fw"></span>
-                            </span>
+        <div class='input-group mb-3 date datepickerinput'>
+            <span class="input-group-prepend">
+                <button class="btn btn-secondary datepickerbutton" type="button">
+                    <i class="fa fa-calendar fa-fw"></i>
+                </button>
+            </span>
             <asp:TextBox ID="Birthday" runat="server" CssClass="form-control"></asp:TextBox>
                             </div>
-            </div>
     <hr />
 
         <h4>
@@ -378,7 +378,10 @@
 
                 <div class="text-lg-center">
 
-            <asp:LinkButton ID="UpdateProfile" CssClass="btn btn-primary" runat="server" OnClick="UpdateProfile_Click" />
+            <YAF:ThemeButton ID="UpdateProfile" CssClass="btn btn-primary" runat="server" OnClick="UpdateProfile_Click"
+                             Icon="save" TextLocalizedTag="SAVE" TextLocalizedPage="COMMON" />
             &nbsp;
-            <asp:LinkButton ID="Cancel" CssClass="btn btn-secondary" runat="server" OnClick="Cancel_Click" />
+            <YAF:ThemeButton ID="Cancel" CssClass="btn btn-secondary" runat="server" OnClick="Cancel_Click"
+                             Icon="trash" TextLocalizedTag="CANCEL" TextLocalizedPage="COMMON" />
+                    &nbsp;
             </div>
