@@ -1148,14 +1148,6 @@
     <Content Include="Content\jsdifflib.min.css">
       <DependentUpon>jsdifflib.css</DependentUpon>
     </Content>
-    <Content Include="Content\ladda-themeless.css" />
-    <Content Include="Content\ladda-themeless.min.css">
-      <DependentUpon>ladda-themeless.css</DependentUpon>
-    </Content>
-    <Content Include="Content\ladda.css" />
-    <Content Include="Content\ladda.min.css">
-      <DependentUpon>ladda.css</DependentUpon>
-    </Content>
     <Content Include="Content\images\InstallBackground.jpg" />
     <Content Include="Content\images\progressbar.gif" />
     <Content Include="Content\jQuery.FileUpload\jquery.fileupload-ui.css" />
@@ -1170,8 +1162,6 @@
     <Content Include="Content\prism.css" />
     <Content Include="Content\jquery.selectedQuoting.css" />
     <Content Include="Content\css\select2-bootstrap.css" />
-    <Content Include="Content\styles\alert-bangtidy.css" />
-    <Content Include="Content\styles\alert-blackgloss.css" />
     <Content Include="Content\tablesorter\jquery.tablesorter.pager.min.css" />
     <Content Include="Content\tablesorter\theme.bootstrap_4.min.css" />
     <Content Include="Content\webfonts\fa-brands-400.svg" />
@@ -1781,26 +1771,6 @@
     <Content Include="Scripts\ckeditor\styles.js" />
     <Content Include="Scripts\emojipicker\jquery.emojipicker.js" />
     <Content Include="Scripts\emojipicker\jquery.emojis.js" />
-    <Content Include="Scripts\esm\popper-utils.js" />
-    <Content Include="Scripts\esm\popper-utils.js.map">
-      <DependentUpon>popper-utils.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\esm\popper-utils.min.js">
-      <DependentUpon>popper-utils.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\esm\popper-utils.min.js.map">
-      <DependentUpon>popper-utils.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\esm\popper.js" />
-    <Content Include="Scripts\esm\popper.js.map">
-      <DependentUpon>popper.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\esm\popper.min.js">
-      <DependentUpon>popper.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\esm\popper.min.js.map">
-      <DependentUpon>popper.min.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\fontawesome\fa-brands.js" />
     <Content Include="Scripts\fontawesome\fa-brands.min.js" />
     <Content Include="Scripts\fontawesome\fa-regular.js" />
@@ -1871,9 +1841,6 @@
     <Content Include="Scripts\i18n\vi.js" />
     <Content Include="Scripts\i18n\zh-CN.js" />
     <Content Include="Scripts\i18n\zh-TW.js" />
-    <None Include="Scripts\jquery-1.4.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.4.1.js" />
-    <Content Include="Scripts\jquery-1.4.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js">
       <DependentUpon>jquery-3.2.1.js</DependentUpon>
@@ -1912,9 +1879,6 @@
     <Content Include="Scripts\jquery.ForumExtensions.min.js">
       <DependentUpon>jquery.ForumExtensions.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\ladda.min.js">
-      <DependentUpon>ladda.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\metisMenu.min.js">
       <DependentUpon>metisMenu.js</DependentUpon>
     </Content>
@@ -1946,9 +1910,6 @@
     <Content Include="Scripts\popper.min.js.map">
       <DependentUpon>popper.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\select2.min.js">
-      <DependentUpon>select2.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\spin.min.js">
       <DependentUpon>spin.js</DependentUpon>
     </Content>
@@ -1968,26 +1929,6 @@
     <Content Include="Scripts\spin.js" />
     <Content Include="Scripts\tablesorter\jquery.tablesorter.combined.js" />
     <Content Include="Scripts\forum\yaf.Utilities.js" />
-    <Content Include="Scripts\umd\popper-utils.js" />
-    <Content Include="Scripts\umd\popper-utils.js.map">
-      <DependentUpon>popper-utils.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\umd\popper-utils.min.js">
-      <DependentUpon>popper-utils.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\umd\popper-utils.min.js.map">
-      <DependentUpon>popper-utils.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\umd\popper.js" />
-    <Content Include="Scripts\umd\popper.js.map">
-      <DependentUpon>popper.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\umd\popper.min.js">
-      <DependentUpon>popper.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\umd\popper.min.js.map">
-      <DependentUpon>popper.min.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\yafEditor\yafEditor.js" />
     <Content Include="Scripts\yafEditor\yafEditor.min.js">
       <DependentUpon>yafEditor.js</DependentUpon>
@@ -2819,6 +2760,7 @@
     <Content Include="Content\webfonts\fa-solid-900.ttf" />
     <Content Include="Content\webfonts\fa-solid-900.woff" />
     <Content Include="Content\webfonts\fa-solid-900.woff2" />
+    <Content Include="Content\forum\Install\ladda.scss" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
