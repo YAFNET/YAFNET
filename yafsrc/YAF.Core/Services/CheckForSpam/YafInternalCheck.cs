@@ -91,7 +91,7 @@ namespace YAF.Core.Services.CheckForSpam
 
                 var isBot = false;
 
-                foreach (BannedEmail email in bannedEmailRepository.Get(x => x.BoardID == YafContext.Current.PageBoardID))
+                foreach (var email in bannedEmailRepository.Get(x => x.BoardID == YafContext.Current.PageBoardID))
                 {
                     try
                     {
@@ -117,7 +117,7 @@ namespace YAF.Core.Services.CheckForSpam
                     isBot = true;
                 }
 
-                foreach (BannedName name in bannedNameRepository.Get(x => x.BoardID == YafContext.Current.PageBoardID))
+                foreach (var name in bannedNameRepository.Get(x => x.BoardID == YafContext.Current.PageBoardID))
                 {
                     try
                     {

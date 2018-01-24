@@ -32,6 +32,8 @@ namespace YAF.Core.Model
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
+    using YAF.Utils.Helpers;
 
     /// <summary>
     ///     The Message repository extensions.
@@ -39,6 +41,20 @@ namespace YAF.Core.Model
     public static class MessageRepositoryExtensions
     {
         #region Public Methods and Operators
+
+        /// <summary>
+        /// Gets all messages by board as Typed Search Message List.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="boardId">The board identifier.</param>
+        /// <returns>Returns all Messages as Typed Search Message List</returns>
+        public static IEnumerable<SearchMessage> GetAllMessagesByBoard(this IRepository<Message> repository, int? boardId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbFunction.GetAsDataTable(cdb => cdb.message_list_search(BoardID: boardId ?? repository.BoardID))
+                .SelectTypedList(t => new SearchMessage(t));
+        }
 
         /// <summary>
         /// A list of messages.
@@ -66,8 +82,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.GetData.message_getReplies(
-                MessageID: messageId);
+            return repository.DbFunction.GetData.message_getReplies(MessageID: messageId);
         }
 
         /// <summary>

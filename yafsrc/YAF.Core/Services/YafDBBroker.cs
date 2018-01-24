@@ -167,7 +167,7 @@ namespace YAF.Core.Services
 
             var thanksFieldNames = new[] { "ThanksFromUserNumber", "ThanksToUserNumber", "ThanksToUserPostsNumber" };
 
-            foreach (DataRow postRow in dataRows)
+            foreach (var postRow in dataRows)
             {
                 var messageId = postRow.Field<int>("MessageID");
 
@@ -185,7 +185,7 @@ namespace YAF.Core.Services
                 }
                 else
                 {
-                    DataRow row = postRow;
+                    var row = postRow;
                     thanksFieldNames.ForEach(f => row[f] = 0);
                 }
 
@@ -243,7 +243,7 @@ namespace YAF.Core.Services
                 ds.Tables.Add(moderator.Copy());
 
                 // get the Category Table
-                DataTable category = this.DataCache.GetOrSet(
+                var category = this.DataCache.GetOrSet(
                     Constants.Cache.ForumCategory,
                     () =>
                         {
@@ -256,13 +256,13 @@ namespace YAF.Core.Services
                 // add it to this dataset
                 ds.Tables.Add(category.Copy());
 
-                DataTable categoryTable = ds.Tables["Category"];
+                var categoryTable = ds.Tables["Category"];
 
                 if (categoryID.HasValue)
                 {
                     // make sure this only has the category desired in the dataset
                     foreach (
-                        DataRow row in
+                        var row in
                             categoryTable.AsEnumerable().Where(row => row.Field<int>("CategoryID") != categoryID))
                     {
                         // delete it...
@@ -272,7 +272,7 @@ namespace YAF.Core.Services
                     categoryTable.AcceptChanges();
                 }
 
-                DataTable forum = LegacyDb.forum_listread(
+                var forum = LegacyDb.forum_listread(
                     boardID,
                     userID,
                     categoryID,
@@ -295,11 +295,11 @@ namespace YAF.Core.Services
                     ds.Tables["Moderator"].Columns["ForumID"],
                     false);
 
-                bool deletedCategory = false;
+                var deletedCategory = false;
 
                 // remove empty categories...
                 foreach (
-                    DataRow row in
+                    var row in
                         categoryTable.SelectTypedList(
                             row => new { row, childRows = row.GetChildRows("FK_Forum_Category") })
                             .Where(@t => !@t.childRows.Any())
@@ -326,7 +326,7 @@ namespace YAF.Core.Services
         /// <returns> Returns The favorite topic list. </returns>
         public List<int> FavoriteTopicList(int userID)
         {
-            string key = this.Get<ITreatCacheKey>().Treat(Constants.Cache.FavoriteTopicList.FormatWith(userID));
+            var key = this.Get<ITreatCacheKey>().Treat(Constants.Cache.FavoriteTopicList.FormatWith(userID));
 
             // stored in the user session...
             var favoriteTopicList = this.HttpSessionState[key] as List<int>;
@@ -338,7 +338,7 @@ namespace YAF.Core.Services
             }
 
             // get fresh values
-            DataTable favoriteTopicListDt = this.DbFunction.GetAsDataTable(o => o.topic_favorite_list(userID));
+            var favoriteTopicListDt = this.DbFunction.GetAsDataTable(o => o.topic_favorite_list(userID));
 
             // convert to list...
             favoriteTopicList = favoriteTopicListDt.GetColumnAsList<int>("TopicID");
@@ -456,7 +456,7 @@ namespace YAF.Core.Services
                 Constants.Cache.ForumModerators,
                 () =>
                     {
-                        DataTable moderator =
+                        var moderator =
                             this.DbFunction.GetAsDataTable(
                                 cdb => cdb.forum_moderators(YafContext.Current.PageBoardID, this.BoardSettings.UseStyledNicks));
                         moderator.TableName = "Moderator";
@@ -505,7 +505,7 @@ namespace YAF.Core.Services
 
                         foreach (var row in messages.AsEnumerable())
                         {
-                            string formattedMessage =
+                            var formattedMessage =
                                 this.Get<IFormatMessage>().FormatMessage(row.Field<string>("Message"), flags);
 
                             // Extra Formating not needed already done tru this.Get<IFormatMessage>().FormatMessage
@@ -549,7 +549,7 @@ namespace YAF.Core.Services
             // get topics for all forums...
             foreach (var forum in forumData)
             {
-                SimpleForum forum1 = forum;
+                var forum1 = forum;
 
                 // add topics
                 var topics =
@@ -666,7 +666,7 @@ namespace YAF.Core.Services
         /// <returns> Returns the user ignored list. </returns>
         public List<int> UserIgnoredList(int userId)
         {
-            string key = Constants.Cache.UserIgnoreList.FormatWith(userId);
+            var key = Constants.Cache.UserIgnoreList.FormatWith(userId);
 
             // stored in the user session...
             var userList = this.HttpSessionState[key] as List<int>;
@@ -678,7 +678,7 @@ namespace YAF.Core.Services
             }
 
             // get fresh values
-            DataTable userListDt = this.DbFunction.GetAsDataTable(cdb => cdb.user_ignoredlist(userId));
+            var userListDt = this.DbFunction.GetAsDataTable(cdb => cdb.user_ignoredlist(userId));
 
             // convert to list...
             userList = userListDt.GetColumnAsList<int>("IgnoredUserID");
@@ -696,10 +696,10 @@ namespace YAF.Core.Services
         /// <returns> Returns the User Medals </returns>
         public DataTable UserMedals(int userId)
         {
-            string key = Constants.Cache.UserMedals.FormatWith(userId);
+            var key = Constants.Cache.UserMedals.FormatWith(userId);
 
             // get the medals cached...
-            DataTable dt = this.DataCache.GetOrSet(
+            var dt = this.DataCache.GetOrSet(
                 key,
                 () => this.DbFunction.GetAsDataTable(cdb => cdb.user_listmedals(userId)),
                 TimeSpan.FromMinutes(10));

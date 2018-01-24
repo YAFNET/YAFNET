@@ -59,8 +59,8 @@ namespace YAF.Types.Interfaces
         {
             CodeContracts.VerifyNotNull(readTrackCurrentUser, "readTrackCurrentUser");
 
-            DateTime lastRead = readTrackCurrentUser.GetTopicRead(topicId, topicReadOverride);
-            DateTime lastReadForum = readTrackCurrentUser.GetForumRead(forumId, forumReadOverride);
+            var lastRead = readTrackCurrentUser.GetTopicRead(topicId, topicReadOverride);
+            var lastReadForum = readTrackCurrentUser.GetForumRead(forumId, forumReadOverride);
 
 
             if (lastReadForum > lastRead)

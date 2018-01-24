@@ -52,22 +52,17 @@ namespace YAF.Core.Services.Localization
         /// <summary>
         ///   The _culture.
         /// </summary>
-        private CultureInfo _culture;
+        private CultureInfo culture;
 
         /// <summary>
         ///   The _default locale.
         /// </summary>
-        private Localizer _defaultLocale;
-
-        /// <summary>
-        ///   The _language file name.
-        /// </summary>
-        private string _languageFileName;
+        private Localizer defaultLocale;
 
         /// <summary>
         ///   The _localizer.
         /// </summary>
-        private Localizer _localizer;
+        private Localizer localizer;
 
         #endregion
 
@@ -105,15 +100,15 @@ namespace YAF.Core.Services.Localization
         {
             get
             {
-                if (this._culture != null)
+                if (this.culture != null)
                 {
-                    return this._culture;
+                    return this.culture;
                 }
 
-                if (this._localizer == null)
+                if (this.localizer == null)
                 {
-                    this._culture = this.LoadTranslation();
-                    return this._culture;
+                    this.culture = this.LoadTranslation();
+                    return this.culture;
                 }
 
                 // fall back to current culture if there is some error
@@ -129,8 +124,8 @@ namespace YAF.Core.Services.Localization
         {
             get
             {
-                return this._localizer != null
-                           ? this._localizer.CurrentCulture.TwoLetterISOLanguageName
+                return this.localizer != null
+                           ? this.localizer.CurrentCulture.TwoLetterISOLanguageName
                            : this.LoadTranslation().TwoLetterISOLanguageName;
             }
         }
@@ -138,13 +133,7 @@ namespace YAF.Core.Services.Localization
         /// <summary>
         ///   Gets LanguageFileName.
         /// </summary>
-        public string LanguageFileName
-        {
-            get
-            {
-                return this._languageFileName;
-            }
-        }
+        public string LanguageFileName { get; private set; }
 
         /// <summary>
         ///   Gets or sets What section of the xml is used to translate this page
@@ -158,7 +147,7 @@ namespace YAF.Core.Services.Localization
         {
             get
             {
-                return this._localizer != null;
+                return this.localizer != null;
             }
         }
 
@@ -227,8 +216,8 @@ namespace YAF.Core.Services.Localization
         {
             this.LoadTranslation();
 
-            this._localizer.SetPage(page);
-            return this._localizer.GetNodesUsingQuery(predicate);
+            this.localizer.SetPage(page);
+            return this.localizer.GetNodesUsingQuery(predicate);
         }
 
         /// <summary>
@@ -249,8 +238,8 @@ namespace YAF.Core.Services.Localization
         {
             this.LoadTranslation();
 
-            this._localizer.SetPage(page);
-            return this._localizer.GetCountryNodesUsingQuery(predicate);
+            this.localizer.SetPage(page);
+            return this.localizer.GetCountryNodesUsingQuery(predicate);
         }
 
         /// <summary>
@@ -271,8 +260,8 @@ namespace YAF.Core.Services.Localization
         {
             this.LoadTranslation();
 
-            this._localizer.SetPage(page);
-            return this._localizer.GetCountryNodesUsingQuery(predicate);
+            this.localizer.SetPage(page);
+            return this.localizer.GetCountryNodesUsingQuery(predicate);
         }
 
         /// <summary>
@@ -305,7 +294,7 @@ namespace YAF.Core.Services.Localization
         /// </returns>
         public string GetText([NotNull] string page, [NotNull] string tag)
         {
-            string localizedText = this.GetLocalizedTextInternal(page, tag);
+            var localizedText = this.GetLocalizedTextInternal(page, tag);
 
             if (localizedText == null)
             {
@@ -453,29 +442,13 @@ namespace YAF.Core.Services.Localization
             CodeContracts.VerifyNotNull(text, "text");
             CodeContracts.VerifyNotNull(args, "args");
 
-            string localizedText = this.GetText(this.TransPage, text);
+            var localizedText = this.GetText(this.TransPage, text);
 
-            /* get the localization string parameter count...
-         int iParamCount = 0;
-         for (; iParamCount<10; iParamCount++)
-		{
-				if (!localizedText.Contains("{" + iParamCount.ToString()))
-				{
-					break;
-				}
-			}
-#if DEBUG
-					localizedText = String.Format( "[INVALID: {1}.{0} -- NEEDS {2} PARAMETERS HAS {3}]", text.ToUpper(), TransPage.ToUpper(), args.Length, i );
-#endif
-					 inform that the value is wrong to the admin and don't format the string...
-					Data.DB.eventlog_create(YafContext.Current.PageUserID, TransPage.ToLower() + ".ascx", String.Format("Not enough parameters for localization entry {1}.{0} -- Needs {2} parameters, has {3}.", text.ToUpper(), TransPage.ToUpper(), args.Length, i), Data.EventLogTypes.Warning);
-			*/
-
-            int arraySize = Math.Max(args.Length, 10);
+            var arraySize = Math.Max(args.Length, 10);
             var copiedArgs = new object[arraySize];
             args.CopyTo(copiedArgs, 0);
 
-            for (int arrayIndex = args.Length; arrayIndex < arraySize; arrayIndex++)
+            for (var arrayIndex = args.Length; arrayIndex < arraySize; arrayIndex++)
             {
                 copiedArgs[arrayIndex] = "[INVALID: {1}.{0} -- EMPTY PARAM #{2}]".FormatWith(
                     text.ToUpper(),
@@ -502,23 +475,23 @@ namespace YAF.Core.Services.Localization
         {
             CodeContracts.VerifyNotNull(fileName, "fileName");
 
-            if (this._localizer != null)
+            if (this.localizer != null)
             {
-                return this._localizer.CurrentCulture;
+                return this.localizer.CurrentCulture;
             }
 
 #if !DEBUG
-            if (_localizer == null && HttpContext.Current.Cache["Localizer." + fileName] != null) _localizer = (Localizer)HttpContext.Current.Cache["Localizer." + fileName];
+            if (this.localizer == null && HttpContext.Current.Cache["Localizer." + fileName] != null) this.localizer = (Localizer)HttpContext.Current.Cache["Localizer." + fileName];
 #endif
-            if (this._localizer == null)
+            if (this.localizer == null)
             {
-                this._localizer =
+                this.localizer =
                     new Localizer(
                         HttpContext.Current.Server.MapPath(
                             "{0}languages/{1}".FormatWith(YafForumInfo.ForumServerFileRoot, fileName)));
 
 #if !DEBUG
-                HttpContext.Current.Cache["Localizer." + fileName] = _localizer;
+                HttpContext.Current.Cache["Localizer." + fileName] = this.localizer;
 #endif
             }
 
@@ -526,17 +499,17 @@ namespace YAF.Core.Services.Localization
             if (fileName.ToLower() != "english.xml")
             {
 #if !DEBUG
-                if (_defaultLocale == null && HttpContext.Current.Cache["DefaultLocale"] != null) _defaultLocale = (Localizer)HttpContext.Current.Cache["DefaultLocale"];
+                if (this.defaultLocale == null && HttpContext.Current.Cache["DefaultLocale"] != null) this.defaultLocale = (Localizer)HttpContext.Current.Cache["DefaultLocale"];
 #endif
 
-                if (this._defaultLocale == null)
+                if (this.defaultLocale == null)
                 {
-                    this._defaultLocale =
+                    this.defaultLocale =
                         new Localizer(
                             HttpContext.Current.Server.MapPath(
                                 "{0}languages/english.xml".FormatWith(YafForumInfo.ForumServerFileRoot)));
 #if !DEBUG
-                    HttpContext.Current.Cache["DefaultLocale"] = _defaultLocale;
+                    HttpContext.Current.Cache["DefaultLocale"] = this.defaultLocale;
 #endif
                 }
             }
@@ -544,17 +517,17 @@ namespace YAF.Core.Services.Localization
             try
             {
                 // try to load culture info defined in localization file
-                this._culture = this._localizer.CurrentCulture;
+                this.culture = this.localizer.CurrentCulture;
             }
             catch
             {
                 // if it's wrong, fall back to current culture
-                this._culture = CultureInfo.CurrentCulture;
+                this.culture = CultureInfo.CurrentCulture;
             }
 
-            this._languageFileName = fileName.ToLower();
+            this.LanguageFileName = fileName.ToLower();
 
-            return this._culture;
+            return this.culture;
         }
 
         /// <summary>
@@ -565,9 +538,9 @@ namespace YAF.Core.Services.Localization
         /// </returns>
         public CultureInfo LoadTranslation()
         {
-            if (this._localizer != null)
+            if (this.localizer != null)
             {
-                return this._localizer.CurrentCulture;
+                return this.localizer.CurrentCulture;
             }
 
             string filename;
@@ -614,17 +587,17 @@ namespace YAF.Core.Services.Localization
 
             this.LoadTranslation();
 
-            this._localizer.SetPage(page);
-            this._localizer.GetText(tag, out localizedText);
+            this.localizer.SetPage(page);
+            this.localizer.GetText(tag, out localizedText);
 
             // If not default language, try to use that instead
-            if (localizedText != null || this._defaultLocale == null)
+            if (localizedText != null || this.defaultLocale == null)
             {
                 return localizedText;
             }
 
-            this._defaultLocale.SetPage(page);
-            this._defaultLocale.GetText(tag, out localizedText);
+            this.defaultLocale.SetPage(page);
+            this.defaultLocale.GetText(tag, out localizedText);
             if (localizedText != null)
             {
                 localizedText = '[' + localizedText + ']';

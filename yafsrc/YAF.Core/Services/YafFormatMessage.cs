@@ -168,7 +168,7 @@ namespace YAF.Core.Services
             [NotNull] string stringToMatch,
             char delim)
         {
-            string[] codes = stringToMatch.Split(delim);
+            var codes = stringToMatch.Split(delim);
 
             var forbiddenTagList = new List<string>();
 
@@ -303,7 +303,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string CheckHtmlTags([NotNull] string checkString, [NotNull] string acceptedTags, char delim)
         {
-            string detectedHtmlTag = this.HtmlTagForbiddenDetector(checkString, acceptedTags, delim);
+            var detectedHtmlTag = this.HtmlTagForbiddenDetector(checkString, acceptedTags, delim);
 
             if (!string.IsNullOrEmpty(detectedHtmlTag) && detectedHtmlTag != "ALL")
             {
@@ -342,12 +342,12 @@ namespace YAF.Core.Services
         {
             var boardSettings = this.Get<YafBoardSettings>();
 
-            bool useNoFollow = boardSettings.UseNoFollowLinks;
+            var useNoFollow = boardSettings.UseNoFollowLinks;
 
             // check to see if no follow should be disabled since the message is properly aged
             if (useNoFollow && boardSettings.DisableNoFollowLinksAfterDay > 0)
             {
-                TimeSpan messageAge = messageLastEdited - DateTime.UtcNow;
+                var messageAge = messageLastEdited - DateTime.UtcNow;
                 if (messageAge.Days > boardSettings.DisableNoFollowLinksAfterDay)
                 {
                     // disable no follow
@@ -368,7 +368,7 @@ namespace YAF.Core.Services
             {
                 // populate
 
-                // get rules for YafBBCode and Smilies
+                // get rules for YafBBCode
                 this.Get<IBBCode>()
                     .CreateBBCodeRules(ruleEngine, messageFlags.IsHtml, true, targetBlankOverride, useNoFollow);
 
@@ -383,9 +383,9 @@ namespace YAF.Core.Services
                 ruleEngine.AddRule(email);
 
                 // URLs Rules
-                string target = (boardSettings.BlankLinks || targetBlankOverride) ? "target=\"_blank\"" : string.Empty;
+                var target = (boardSettings.BlankLinks || targetBlankOverride) ? "target=\"_blank\"" : string.Empty;
 
-                string nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
+                var nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
 
                 var youtubeVideo1 = new VariableRegexReplaceRule(
                     _RgxYoutube1,
@@ -512,9 +512,9 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(topicId, "topicId");
 
             // get the common words for the language -- should be all lower case.
-            List<string> commonWords = this.Get<ILocalization>().GetText("COMMON", "COMMON_WORDS").StringToList(',');
+            var commonWords = this.Get<ILocalization>().GetText("COMMON", "COMMON_WORDS").StringToList(',');
 
-            string cacheKey = Constants.Cache.FirstPostCleaned.FormatWith(YafContext.Current.PageBoardID, topicId);
+            var cacheKey = Constants.Cache.FirstPostCleaned.FormatWith(YafContext.Current.PageBoardID, topicId);
             var message = new MessageCleaned();
 
             if (!topicMessage.IsNullOrEmptyDBField())
@@ -523,7 +523,7 @@ namespace YAF.Core.Services
                     cacheKey,
                     () =>
                         {
-                            string returnMsg = topicMessage.ToString();
+                            var returnMsg = topicMessage.ToString();
                             var keywordList = new List<string>();
 
                             if (returnMsg.IsSet())
@@ -544,7 +544,7 @@ namespace YAF.Core.Services
                                 else
                                 {
                                     // get string without punctuation
-                                    string keywordCleaned =
+                                    var keywordCleaned =
                                         new string(
                                             returnMsg.Where(c => !char.IsPunctuation(c) || char.IsWhiteSpace(c))
                                                 .ToArray()).Trim().ToLower();
@@ -603,7 +603,7 @@ namespace YAF.Core.Services
             [NotNull] string stringToMatch,
             char delim)
         {
-            string[] codes = stringToMatch.Split(delim);
+            var codes = stringToMatch.Split(delim);
 
             var forbiddenTagList = new List<string>();
 
@@ -754,7 +754,7 @@ namespace YAF.Core.Services
                     @"\[hide-reply\](?<inner>(.|\n)*?)\[\/hide-reply\]|\[hide-reply-thanks\](?<inner>(.|\n)*?)\[\/hide-reply-thanks\]|\[group-hide\](?<inner>(.|\n)*?)\[\/group-hide\]|\[hide\](?<inner>(.|\n)*?)\[\/hide\]|\[group-hide(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/group-hide\]|\[hide-thanks(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/hide-thanks\]|\[hide-posts(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/hide-posts\]",
                     Options);
 
-            Match hiddenTagMatch = hiddenRegex.Match(body);
+            var hiddenTagMatch = hiddenRegex.Match(body);
 
             if (hiddenTagMatch.Success)
             {
@@ -780,7 +780,7 @@ namespace YAF.Core.Services
 
             var spoilerRegex = new Regex(@"\[SPOILER\](?<inner>(.|\n)*?)\[\/SPOILER\]", Options);
 
-            Match spoilerTagMatch = spoilerRegex.Match(body);
+            var spoilerTagMatch = spoilerRegex.Match(body);
 
             if (spoilerTagMatch.Success)
             {
@@ -806,14 +806,14 @@ namespace YAF.Core.Services
         {
             // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
             // These are '\n\r' things related to multiline regexps.
-            MatchCollection mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
-            for (int i = mc1.Count - 1; i >= 0; i--)
+            var mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
+            for (var i = mc1.Count - 1; i >= 0; i--)
             {
                 html = html.Insert(mc1[i].Index + 1, " \r");
             }
 
-            MatchCollection mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
-            for (int i = mc2.Count - 1; i >= 0; i--)
+            var mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
+            for (var i = mc2.Count - 1; i >= 0; i--)
             {
                 html = html.Insert(mc2[i].Index + 1, " \r");
             }
@@ -847,14 +847,14 @@ namespace YAF.Core.Services
         {
             // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
             // These are '\n\r' things related to multiline regexps.
-            MatchCollection mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
-            for (int i = mc1.Count - 1; i >= 0; i--)
+            var mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
+            for (var i = mc1.Count - 1; i >= 0; i--)
             {
                 html = html.Insert(mc1[i].Index + 1, " \r");
             }
 
-            MatchCollection mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
-            for (int i = mc2.Count - 1; i >= 0; i--)
+            var mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
+            for (var i = mc2.Count - 1; i >= 0; i--)
             {
                 html = html.Insert(mc2[i].Index + 1, " \r");
             }
@@ -880,14 +880,14 @@ namespace YAF.Core.Services
         {
             // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
             // These are '\n\r' things related to multiline regexps.
-            MatchCollection mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
-            for (int i = mc1.Count - 1; i >= 0; i--)
+            var mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
+            for (var i = mc1.Count - 1; i >= 0; i--)
             {
                 html = html.Insert(mc1[i].Index + 1, " \r");
             }
 
-            MatchCollection mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
-            for (int i = mc2.Count - 1; i >= 0; i--)
+            var mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
+            for (var i = mc2.Count - 1; i >= 0; i--)
             {
                 html = html.Insert(mc2[i].Index + 1, " \r");
             }
@@ -928,7 +928,7 @@ namespace YAF.Core.Services
 
             //// const RegexOptions regexOptions = RegexOptions.IgnoreCase;
 
-            foreach (string word in wordList.Where(w => w.Length > 3))
+            foreach (var word in wordList.Where(w => w.Length > 3))
             {
                 MatchAndPerformAction(
                     "({0})".FormatWith(word.ToLower().ToRegExString()),
@@ -982,7 +982,7 @@ namespace YAF.Core.Services
 
             foreach (var match in matches)
             {
-                string inner = text.Substring(match.Index + 1, match.Length - 1).Trim().ToLower();
+                var inner = text.Substring(match.Index + 1, match.Length - 1).Trim().ToLower();
                 matchAction(inner, match.Index, match.Length);
             }
         }

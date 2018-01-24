@@ -159,7 +159,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage, string email)
         {
-            string avatarUrl = string.Empty;
+            var avatarUrl = string.Empty;
 
             if (this._yafBoardSettings.AvatarUpload && hasAvatarImage)
             {
@@ -180,7 +180,7 @@ namespace YAF.Core.Services
                 // JoeOuts added 8/17/09 for Gravatar use
 
                 // string noAvatarGraphicUrl = HttpContext.Current.Server.UrlEncode( string.Format( "{0}/images/avatars/{1}", YafForumInfo.ForumBaseUrl, "NoAvatar.gif" ) );
-                string gravatarUrl =
+                var gravatarUrl =
                     @"http://www.gravatar.com/avatar/{0}.jpg?r={1}".FormatWith(
                         email.StringToHexBytes(), this._yafBoardSettings.GravatarRating);
 

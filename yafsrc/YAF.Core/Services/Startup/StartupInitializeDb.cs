@@ -71,7 +71,7 @@ namespace YAF.Core.Services.Startup
         {
             // init the db...
             string errorString;
-            bool debugging = false;
+            var debugging = false;
 
 #if DEBUG
             debugging = true;

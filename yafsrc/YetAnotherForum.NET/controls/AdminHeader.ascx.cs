@@ -299,7 +299,7 @@ namespace YAF.Controls
             }
 
             // Search
-            if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ExternalSearchPermissions) || this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().SearchPermissions))
+            if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().SearchPermissions))
             {
                 RenderMenuItem(
                     this.menuListItems,

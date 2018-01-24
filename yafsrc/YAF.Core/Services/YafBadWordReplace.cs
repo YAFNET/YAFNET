@@ -142,9 +142,9 @@ namespace YAF.Core.Services
         return searchText;
       }
 
-      string strReturn = searchText;
+      var strReturn = searchText;
 
-      foreach (BadWordReplaceItem item in this.ReplaceItems)
+      foreach (var item in this.ReplaceItems)
       {
         try
         {

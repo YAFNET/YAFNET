@@ -55,7 +55,7 @@ namespace YAF.Core.Services
     {
       get
       {
-        double duration = (double) this._stopWatch.ElapsedMilliseconds/1000.0;
+        var duration = (double) this._stopWatch.ElapsedMilliseconds/1000.0;
         return duration;
       }
     }

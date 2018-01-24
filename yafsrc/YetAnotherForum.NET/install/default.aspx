@@ -325,10 +325,6 @@
                         Clicking "Next" will <%# IsForumInstalled ? "upgrade" : "initialize"%> your database to the latest version.
                     </p>
                     <div class="checkbox">
-                        <asp:CheckBox ID="FullTextSupport" runat="server" 
-                            Text="Attempt to Install FullText Search Support" />
-                    </div>
-                    <div class="checkbox">
                         <asp:CheckBox ID="UpgradeExtensions" Checked="True" Visible="<%# IsForumInstalled %>" runat="server" 
                             Text="Upgrade BBCode Extensions, File Extensions, Topic Status Lists and Spam Words" />
                     </div>

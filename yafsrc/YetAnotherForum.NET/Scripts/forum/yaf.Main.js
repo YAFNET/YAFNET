@@ -51,6 +51,22 @@ jQuery(document).ready(function () {
         var pageNumber = 0;
         getPaginationData(pageSize, pageNumber, false);
     }
+
+    if (jQuery('#SearchResultsPlaceholder').length) {
+
+         jQuery(".searchInput").keypress(function (e) {
+
+            var code = e.which;
+
+            if (code === 13) {
+                e.preventDefault();
+
+                var pageNumberSearch = 0;
+                getSeachResultsData(pageNumberSearch);
+            }
+
+        });
+    }
 });
 
 if (document.addEventListener) document.addEventListener("click", function (e) { window.event = e; }, true);

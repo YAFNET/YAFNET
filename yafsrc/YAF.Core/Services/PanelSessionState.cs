@@ -47,7 +47,7 @@ namespace YAF.Core.Services
       // Ederon : 7/14/2007
       get
       {
-        string sessionPanelID = "panelstate_" + panelID;
+        var sessionPanelID = "panelstate_" + panelID;
 
         // try to get panel state from session state first
         if (YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] != null)
@@ -84,7 +84,7 @@ namespace YAF.Core.Services
       // Ederon : 7/14/2007
       set
       {
-        string sessionPanelID = "panelstate_" + panelID;
+        var sessionPanelID = "panelstate_" + panelID;
 
         YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] = value;
 
@@ -109,7 +109,7 @@ namespace YAF.Core.Services
     /// </param>
     public void TogglePanelState([NotNull] string panelID, CollapsiblePanelState defaultState)
     {
-      CollapsiblePanelState currentState = this[panelID];
+      var currentState = this[panelID];
 
       if (currentState == CollapsiblePanelState.None)
       {

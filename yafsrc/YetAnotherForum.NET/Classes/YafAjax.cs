@@ -74,6 +74,44 @@ namespace YAF.Classes
 
         #endregion
 
+        #region Get Paged Search Results Function
+
+        /// <summary>
+        /// Gets the search results.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="forumId">The forum identifier.</param>
+        /// <param name="pageSize">Size of the page.</param>
+        /// <param name="pageNumber">The page number.</param>
+        /// <param name="searchInput">The search input.</param>
+        /// <returns>Returns the search Results.</returns>
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public SearchGridDataSet GetSearchResults(int userId, int forumId, int pageSize, int pageNumber, string searchInput)
+        {
+            int totalHits;
+            var results = this.Get<ISearch>().SearchPaged(out totalHits, forumId, userId, searchInput, pageNumber, pageSize);
+
+            return new SearchGridDataSet
+                       {
+                           PageNumber = pageNumber,
+                           TotalRecords = totalHits,
+                           PageSize = pageSize,
+                           SearchResults = results
+            };
+        }
+
+        #endregion
+
+        #region Get Paged Attachments Function
+
+        /// <summary>
+        /// Gets the paged attachments.
+        /// </summary>
+        /// <param name="userID">The user identifier.</param>
+        /// <param name="pageSize">Size of the page.</param>
+        /// <param name="pageNumber">The page number.</param>
+        /// <returns>Returns the Attachment List as Grid Data Set</returns>
         [WebMethod(EnableSession = true)]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public GridDataSet GetAttachments(int userID, int pageSize, int pageNumber)
@@ -127,6 +165,7 @@ namespace YAF.Classes
                        };
         }
 
+        #endregion
 
         /// <summary>
         /// Gets the topics by forum.
@@ -420,21 +459,5 @@ namespace YAF.Classes
         #endregion
 
         #endregion
-    }
-
-    public class AttachmentItem
-    {
-        public string FileName { get; set; }
-        public string OnClick { get; set; }
-        public string DataURL { get; set; }
-        public string IconImage { get; set; }
-    }
-
-    public class GridDataSet
-    {
-        public int PageNumber { get; set; }
-        public int TotalRecords { get; set; }
-        public int PageSize { get; set; }
-        public List<AttachmentItem> AttachmentList { get; set; }
     }
 }

@@ -92,6 +92,7 @@
     <Compile Include="Exceptions\YafTaskModuleNotRegisteredException.cs" />
     <Compile Include="Extensions\DataTableExtensions.cs" />
     <Compile Include="Interfaces\IAdd.cs" />
+    <Compile Include="Interfaces\ISearch.cs" />
     <Compile Include="Interfaces\IHaveSortOrder.cs" />
     <Compile Include="Constants\AuthService.cs" />
     <Compile Include="Constants\MessageTypes.cs" />
@@ -116,8 +117,6 @@
     <Compile Include="Interfaces\Data\IDbInformation.cs" />
     <Compile Include="Interfaces\Data\IDbSortableOperationExtensions.cs" />
     <Compile Include="Interfaces\Data\IHaveID.cs" />
-    <Compile Include="Interfaces\Data\ISearch.cs" />
-    <Compile Include="Interfaces\Data\ISearchContext.cs" />
     <Compile Include="Interfaces\IPagerExtensions.cs" />
     <Compile Include="Interfaces\IProfileQuery.cs" />
     <Compile Include="Interfaces\IRepositoryExtensions.cs" />
@@ -144,6 +143,7 @@
     <Compile Include="Interfaces\IStyleTransform.cs" />
     <Compile Include="Interfaces\LoggerExtensions.cs" />
     <Compile Include="Models\AccessMask.cs" />
+    <Compile Include="Models\vaccess.cs" />
     <Compile Include="Models\ForumAccess.cs" />
     <Compile Include="Models\UserMedal.cs" />
     <Compile Include="Models\NntpTopic.cs" />
@@ -202,9 +202,13 @@
     <Compile Include="Models\UserForum.cs" />
     <Compile Include="Models\WatchForum.cs" />
     <Compile Include="Models\WatchTopic.cs" />
+    <Compile Include="Objects\AttachmentItem.cs" />
     <Compile Include="Objects\FacebookAccessToken.cs" />
     <Compile Include="Objects\FileUploadStatus.cs" />
     <Compile Include="Objects\ForumUserInfo.cs" />
+    <Compile Include="Objects\SearchGridDataSet.cs" />
+    <Compile Include="Objects\GridDataSet.cs" />
+    <Compile Include="Objects\SearchMessage.cs" />
     <Compile Include="Objects\MultiQuote.cs" />
     <Compile Include="Objects\SelectOptions.cs" />
     <Compile Include="Objects\SelectPagedOptions.cs" />
@@ -221,8 +225,6 @@
     <Compile Include="Constants\DateTimeFormat.cs" />
     <Compile Include="Constants\EventLogTypes.cs" />
     <Compile Include="Constants\ForumPages.cs" />
-    <Compile Include="Constants\SearchFieldFlags.cs" />
-    <Compile Include="Constants\SearchWhatFlags.cs" />
     <Compile Include="Constants\UserNotificationSetting.cs" />
     <Compile Include="Constants\ViewPermissions.cs" />
     <Compile Include="Constants\YafRssFeeds.cs" />

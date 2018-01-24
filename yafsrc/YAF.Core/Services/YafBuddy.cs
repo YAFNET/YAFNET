@@ -112,8 +112,8 @@ namespace YAF.Core.Services
         /// </param>
         public void ApproveAllRequests(bool mutual)
         {
-            DataTable dt = this.All();
-            DataView dv = dt.DefaultView;
+            var dt = this.All();
+            var dv = dt.DefaultView;
             dv.RowFilter = "Approved = 0 AND UserID = {0}".FormatWith(YafContext.Current.PageUserID);
             foreach (DataRowView drv in dv)
             {
@@ -169,12 +169,12 @@ namespace YAF.Core.Services
         /// </summary>
         public void DenyAllRequests()
         {
-            DataTable dt = this.All();
-            DataView dv = dt.DefaultView;
+            var dt = this.All();
+            var dv = dt.DefaultView;
             dv.RowFilter = "Approved = 0 AND UserID = {0}".FormatWith(YafContext.Current.PageUserID);
 
             foreach (
-                DataRowView drv in
+                var drv in
                     dv.Cast<DataRowView>()
                         .Where(drv => Convert.ToDateTime(drv["Requested"]).AddDays(14) < DateTime.UtcNow))
             {
@@ -233,7 +233,7 @@ namespace YAF.Core.Services
                 return true;
             }
 
-            DataTable userBuddyList = this._dbBroker.UserBuddyList(YafContext.Current.PageUserID);
+            var userBuddyList = this._dbBroker.UserBuddyList(YafContext.Current.PageUserID);
 
             if ((userBuddyList == null) || (userBuddyList.Rows.Count <= 0))
             {

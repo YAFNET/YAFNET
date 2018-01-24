@@ -124,7 +124,7 @@ namespace YAF.Data.MsSql.Functions
                     continue;
                 }
 
-                ParameterInfo param1 = param;
+                var param1 = param;
                 var matchedNameParam = incomingParameters.FirstOrDefault(x => x.Key == param1.Name);
 
                 if (matchedNameParam.IsNotDefault())

@@ -316,7 +316,7 @@ namespace YAF.Core.Services.Auth
                 case SignatureTypes.PLAINTEXT:
                     return HttpUtility.UrlEncode("{0}&{1}".FormatWith(consumerSecret, tokenSecret));
                 case SignatureTypes.HMACSHA1:
-                    string signatureBase = this.GenerateSignatureBase(
+                    var signatureBase = this.GenerateSignatureBase(
                         url,
                         consumerKey,
                         token,
@@ -330,7 +330,7 @@ namespace YAF.Core.Services.Auth
                         out normalizedUrl,
                         out normalizedRequestParameters);
 
-                    HMACSHA1 hmacsha1 = new HMACSHA1
+                    var hmacsha1 = new HMACSHA1
                                         {
                                             Key =
                                                 Encoding.ASCII.GetBytes(
@@ -424,7 +424,7 @@ namespace YAF.Core.Services.Auth
                 throw new ArgumentNullException("signatureType");
             }
 
-            List<QueryParameter> parameters = this.GetQueryParameters(url.Query);
+            var parameters = this.GetQueryParameters(url.Query);
             parameters.Add(new QueryParameter(OAuthVersionKey, OAuthVersion));
             parameters.Add(new QueryParameter(OAuthNonceKey, nonce));
             parameters.Add(new QueryParameter(OAuthTimestampKey, timeStamp));
@@ -458,7 +458,7 @@ namespace YAF.Core.Services.Auth
             normalizedUrl += url.AbsolutePath;
             normalizedRequestParameters = this.NormalizeRequestParameters(parameters);
 
-            StringBuilder signatureBase = new StringBuilder();
+            var signatureBase = new StringBuilder();
             signatureBase.AppendFormat("{0}&", httpMethod.ToUpper());
             signatureBase.AppendFormat("{0}&", this.UrlEncode(normalizedUrl));
             signatureBase.AppendFormat("{0}", this.UrlEncode(normalizedRequestParameters));
@@ -491,7 +491,7 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         public virtual string GenerateTimeStamp()
         {
-            TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            var ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
             return ts.TotalSeconds.ToType<long>().ToString();
         }
 
@@ -510,10 +510,10 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         protected string NormalizeRequestParameters(IList<QueryParameter> parameters)
         {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < parameters.Count; i++)
+            var sb = new StringBuilder();
+            for (var i = 0; i < parameters.Count; i++)
             {
-                QueryParameter p = parameters[i];
+                var p = parameters[i];
                 sb.AppendFormat("{0}={1}", p.Name, p.Value);
 
                 if (i < parameters.Count - 1)
@@ -537,9 +537,9 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         protected string UrlEncode(string value)
         {
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
 
-            foreach (char symbol in value)
+            foreach (var symbol in value)
             {
                 if (UnreservedChars.IndexOf(symbol) != -1)
                 {
@@ -579,8 +579,8 @@ namespace YAF.Core.Services.Auth
                 throw new ArgumentNullException("data");
             }
 
-            byte[] dataBuffer = Encoding.ASCII.GetBytes(data);
-            byte[] hashBytes = hashAlgorithm.ComputeHash(dataBuffer);
+            var dataBuffer = Encoding.ASCII.GetBytes(data);
+            var hashBytes = hashAlgorithm.ComputeHash(dataBuffer);
 
             return Convert.ToBase64String(hashBytes);
         }
@@ -601,19 +601,19 @@ namespace YAF.Core.Services.Auth
                 parameters = parameters.Remove(0, 1);
             }
 
-            List<QueryParameter> result = new List<QueryParameter>();
+            var result = new List<QueryParameter>();
 
             if (string.IsNullOrEmpty(parameters))
             {
                 return result;
             }
 
-            string[] p = parameters.Split('&');
-            foreach (string s in p.Where(s => !string.IsNullOrEmpty(s) && !s.StartsWith(OAuthParameterPrefix)))
+            var p = parameters.Split('&');
+            foreach (var s in p.Where(s => !string.IsNullOrEmpty(s) && !s.StartsWith(OAuthParameterPrefix)))
             {
                 if (s.IndexOf('=') > -1)
                 {
-                    string[] temp = s.Split('=');
+                    var temp = s.Split('=');
                     result.Add(new QueryParameter(temp[0], temp[1]));
                 }
                 else

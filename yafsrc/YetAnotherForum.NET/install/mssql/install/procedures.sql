@@ -9476,6 +9476,40 @@ if @EventTypeID is null
 end
 GO
 
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_list_search](@BoardID int) AS
+BEGIN
+    select
+        m.MessageID,
+		m.[Message],
+		m.Flags,
+		m.Posted,
+		m.UserDisplayName,
+		m.UserID,
+        t.TopicID,
+		t.Topic,
+        f.ForumID,
+		t.[Description]
+    from
+        [{databaseOwner}].[{objectQualifier}Forum] f
+        join [{databaseOwner}].[{objectQualifier}Category] c on c.CategoryID = f.CategoryID
+		join [{databaseOwner}].[{objectQualifier}Topic] t on t.ForumID = f.ForumID
+		join [{databaseOwner}].[{objectQualifier}Message] m on m.TopicID = t.TopicID
+    where
+        c.BoardID=1 and
+		t.IsDeleted = 0 and
+		m.IsDeleted = 0 and
+		m.IsApproved = 1 and
+		t.TopicMovedID is null 
+    order by
+        c.SortOrder,
+        f.SortOrder,
+        c.CategoryID,
+        f.ForumID,
+		t.TopicID,
+		m.MessageID
+END
+GO
+
 create procedure [{databaseOwner}].[{objectQualifier}user_savestyle](@GroupID int, @RankID int)  as
 
 begin

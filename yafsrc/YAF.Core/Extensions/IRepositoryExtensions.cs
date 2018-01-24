@@ -348,7 +348,7 @@ namespace YAF.Core.Extensions
         /// <param name="criteria">The criteria.</param>
         /// <returns>Returns the list of entities</returns>
         public static List<T> Get<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria)
-            where T : class, IEntity, IHaveID, new()
+            where T : class, IEntity, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");
             CodeContracts.VerifyNotNull(criteria, "criteria");

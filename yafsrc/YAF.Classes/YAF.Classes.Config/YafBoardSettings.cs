@@ -1451,7 +1451,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("ReturnSearchMax", 100);
+                return this._reg.GetValue("ReturnSearchMax", 1000);
             }
 
             set
@@ -1541,22 +1541,6 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets SearchStringMaxLength.
-        /// </summary>
-        public int SearchStringMaxLength
-        {
-            get
-            {
-                return this._reg.GetValue("SearchStringMaxLength", 50);
-            }
-
-            set
-            {
-                this._reg.SetValue("SearchStringMaxLength", value);
-            }
-        }
-
-        /// <summary>
         /// Gets or sets SearchPermissions.
         /// </summary>
         public int SearchPermissions
@@ -1585,22 +1569,6 @@ namespace YAF.Classes
             set
             {
                 this._regBoard.SetValue("BoardPollID", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets ExternalSearchPermissions.
-        /// </summary>
-        public int ExternalSearchPermissions
-        {
-            get
-            {
-                return this._reg.GetValue("ExternalSearchPermissions", (int)ViewPermissions.Nobody);
-            }
-
-            set
-            {
-                this._reg.SetValue("ExternalSearchPermissions", value);
             }
         }
 
@@ -2127,22 +2095,6 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("AllowForumsWithSameName", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether UseFullTextSearch.
-        /// </summary>
-        public bool UseFullTextSearch
-        {
-            get
-            {
-                return this._reg.GetValue("UseFullTextSearch", false);
-            }
-
-            set
-            {
-                this._reg.SetValue("UseFullTextSearch", value);
             }
         }
 
@@ -2838,22 +2790,6 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("AllowSignatures", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether ExternalSearchInNewWindow.
-        /// </summary>
-        public bool ExternalSearchInNewWindow
-        {
-            get
-            {
-                return this._reg.GetValue("ExternalSearchInNewWindow", false);
-            }
-
-            set
-            {
-                this._reg.SetValue("ExternalSearchInNewWindow", value);
             }
         }
 
@@ -3853,70 +3789,6 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets SearchEngine1.
-        /// </summary>
-        public string SearchEngine1
-        {
-            get
-            {
-                return this._reg.GetValue("SearchEngine1", "http://google.com/search?as_q={Word}&hl={Language}&num={ResultsPerPage}&btnG={ButtonName}&as_epq={Word}&as_oq={Word}&as_eq={Word}&lr=&cr=&as_ft=i&as_filetype=&as_qdr=&as_occt=&as_dt=i&as_sitesearch={Site}&as_rights=&safe=off");
-            }
-
-            set
-            {
-                this._reg.SetValue("SearchEngine1", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets SearchEngine2.
-        /// </summary>
-        public string SearchEngine2
-        {
-            get
-            {
-                return this._reg.GetValue("SearchEngine2", "http://yandex.ru/yandsearch?date=all&text=&site={Site}&rstr=&zone=all&wordforms=&lang={Language}&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&mime=&numdoc={ResultsPerPage}&lr=");
-            }
-
-            set
-            {
-                this._reg.SetValue("SearchEngine2", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets SearchEngine1Parameters.
-        /// </summary>
-        public string SearchEngine1Parameters
-        {
-            get
-            {
-                return this._reg.GetValue("SearchEngine1Parameters", "Google^?^&^+^;^AnyWord:as_oq={Word}^AllWords:as_q={Word}^ExactFrase:as_epq={Word}^WithoutWords:as_eq={Word}");
-            }
-
-            set
-            {
-                this._reg.SetValue("SearchEngine1Parameters", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets SearchEngine2Parameters.
-        /// </summary>
-        public string SearchEngine2Parameters
-        {
-            get
-            {
-                return this._reg.GetValue("SearchEngine2Parameters", "Yandex^?^&^+^;^AnyWord:text={Word}/wordforms=any^AllWords:text={Word}/wordforms=all^ExactFrase:text={Word}/wordforms=exact^WithoutWords:text=~~{Word}");
-            }
-
-            set
-            {
-                this._reg.SetValue("SearchEngine2Parameters", value);
-            }
-        }
-
-        /// <summary>
         /// Gets or sets GravatarRating.
         /// </summary>
         public string GravatarRating
@@ -4009,22 +3881,6 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("WebServiceToken", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets SearchStringPattern.
-        /// </summary>
-        public string SearchStringPattern
-        {
-            get
-            {
-                return this._reg.GetValue("SearchStringPattern", ".*");
-            }
-
-            set
-            {
-                this._reg.SetValue("SearchStringPattern", value);
             }
         }
 

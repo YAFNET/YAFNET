@@ -510,7 +510,7 @@ namespace YAF.Core.Services
         /// <param name="userId">The user id.</param>
         public void SendRegistrationNotificationEmail([NotNull] MembershipUser user, int userId)
         {
-            string[] emails = this.BoardSettings.NotificationOnUserRegisterEmailList.Split(';');
+            var emails = this.BoardSettings.NotificationOnUserRegisterEmailList.Split(';');
 
             var notifyAdmin = new YafTemplateEmail();
 
@@ -562,7 +562,7 @@ namespace YAF.Core.Services
                 return;
             }
 
-            using (DataTable dt = LegacyDb.user_emails(YafContext.Current.PageBoardID, adminGroupID))
+            using (var dt = LegacyDb.user_emails(YafContext.Current.PageBoardID, adminGroupID))
             {
                 foreach (DataRow row in dt.Rows)
                 {

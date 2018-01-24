@@ -139,7 +139,7 @@ namespace YAF.Core.Services
                 return false;
             }
 
-            foreach (SpamWordCheckItem item in this.SpamWordItems)
+            foreach (var item in this.SpamWordItems)
             {
                 try
                 {

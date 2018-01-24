@@ -285,7 +285,7 @@ namespace YAF.Core.Services.Localization
                 this._currentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
             }
 
-            string cultureUser = YafContext.Current.CultureUser;
+            var cultureUser = YafContext.Current.CultureUser;
 
             if (!cultureUser.IsSet())
             {

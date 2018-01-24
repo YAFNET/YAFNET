@@ -21,56 +21,48 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-namespace YAF.Data.MsSql.Search
+namespace YAF.Core.Tasks
 {
-    using System.Collections.Generic;
+    #region Using
 
+    using System;
+
+    using YAF.Types;
     using YAF.Types.Attributes;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+    using YAF.Types.Interfaces;
+
+    #endregion
 
     /// <summary>
-    /// 
+    /// The Update Search Index Rask
     /// </summary>
-    [ExportService(ServiceLifetimeScope.OwnedByContainer, new[] { typeof(ISearch) })]
-    public class MsSqlSearch : ISearch
+    /// <seealso cref="YAF.Core.BaseForumModule" />
+    [YafModule("Update Search Index Task Forum Module", "Tiny Gecko", 1)]
+    public class UpdateSearchIndexTaskForumModule : BaseForumModule
     {
-        #region Fields
+        #region Public Methods
 
         /// <summary>
-        /// The _DB function
+        /// The init.
         /// </summary>
-        private readonly IDbFunction _dbFunction;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MsSqlSearch"/> class.
-        /// </summary>
-        /// <param name="dbFunction">The database function.</param>
-        public MsSqlSearch(IDbFunction dbFunction)
+        public override void Init()
         {
-            this._dbFunction = dbFunction;
+            // hook the page init for mail sending...
+            this.PageContext.AfterInit += this.CurrentAfterInit;
         }
 
         #endregion
 
-        #region Public Methods and Operators
+        #region Methods
 
         /// <summary>
-        /// Executes the specified context.
+        /// Currents the after initialize.
         /// </summary>
-        /// <param name="context">The context.</param>
-        /// <returns></returns>
-        public IEnumerable<SearchResult> Execute(ISearchContext context)
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void CurrentAfterInit([NotNull] object sender, [NotNull] EventArgs e)
         {
-            using (var session = this._dbFunction.CreateSession())
-            {
-                return session.GetTyped<SearchResult>(r => r.executesearch(context));
-            }
+            this.Get<ITaskModuleManager>().StartTask(UpdateSearchIndexTask.TaskName, () => new UpdateSearchIndexTask());
         }
 
         #endregion

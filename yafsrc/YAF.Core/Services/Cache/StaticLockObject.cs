@@ -79,7 +79,7 @@ namespace YAF.Core.Services.Cache
     {
       CodeContracts.VerifyNotNull(originalKey, "key");
 
-      int keyHash = originalKey.GetHashCode();
+      var keyHash = originalKey.GetHashCode();
 
       // make positive if negative...
       if (keyHash < 0)
@@ -88,7 +88,7 @@ namespace YAF.Core.Services.Cache
       }
 
       // get the lock item id (value between 0 and objectCount)
-      int lockItemId = keyHash % LockObjectCount;
+      var lockItemId = keyHash % LockObjectCount;
 
       // init the lock object if it hasn't been created yet...
       return this.LockCacheItems[lockItemId] ?? (this.LockCacheItems[lockItemId] = new object());

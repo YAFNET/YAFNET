@@ -22,31 +22,22 @@ namespace YAF.Pages {
         protected global::YAF.Controls.PageLinks PageLinks;
         
         /// <summary>
-        /// UpdateHistory-Steuerelement
+        /// searchInput-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::nStuff.UpdateControls.UpdateHistory UpdateHistory;
+        protected global::System.Web.UI.WebControls.TextBox searchInput;
         
         /// <summary>
-        /// txtSearchStringWhat-Steuerelement
+        /// GoSearch-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSearchStringWhat;
-        
-        /// <summary>
-        /// listSearchWhat-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList listSearchWhat;
+        protected global::YAF.Controls.ThemeButton GoSearch;
         
         /// <summary>
         /// txtSearchStringFromWho-Steuerelement
@@ -58,31 +49,13 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.TextBox txtSearchStringFromWho;
         
         /// <summary>
-        /// listSearchFromWho-Steuerelement
+        /// listSearchWhat-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList listSearchFromWho;
-        
-        /// <summary>
-        /// CollapsibleImage-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.CollapsibleImage CollapsibleImage;
-        
-        /// <summary>
-        /// MoreOptions-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder MoreOptions;
+        protected global::System.Web.UI.WebControls.DropDownList listSearchWhat;
         
         /// <summary>
         /// listForum-Steuerelement
@@ -110,105 +83,6 @@ namespace YAF.Pages {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList listResInPage;
-        
-        /// <summary>
-        /// btnSearch-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearch;
-        
-        /// <summary>
-        /// btnSearchExt1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearchExt1;
-        
-        /// <summary>
-        /// btnSearchExt2-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearchExt2;
-        
-        /// <summary>
-        /// SearchUpdatePanel-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel SearchUpdatePanel;
-        
-        /// <summary>
-        /// Pager-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.Pager Pager;
-        
-        /// <summary>
-        /// SearchRes-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater SearchRes;
-        
-        /// <summary>
-        /// NoResults-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder NoResults;
-        
-        /// <summary>
-        /// Pager1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.Pager Pager1;
-        
-        /// <summary>
-        /// LoadingModal-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel LoadingModal;
-        
-        /// <summary>
-        /// Header-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Header;
-        
-        /// <summary>
-        /// MessageText-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal MessageText;
         
         /// <summary>
         /// SmartScroller1-Steuerelement

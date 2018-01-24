@@ -170,8 +170,7 @@ namespace YAF.Pages
             YafBuildLink.Redirect(
                 ForumPages.search,
                 "search={0}&forum={1}",
-                this.forumSearch.Text.TrimWordsOverMaxLengthWordsPreserved(
-                    this.Get<YafBoardSettings>().SearchStringMaxLength),
+                this.forumSearch.Text,
                 this.PageContext.PageForumID);
         }
 

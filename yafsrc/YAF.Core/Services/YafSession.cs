@@ -484,7 +484,7 @@ namespace YAF.Core.Services
         /// </returns>
         public DateTime GetForumRead(int forumID)
         {
-            Hashtable t = this.ForumRead;
+            var t = this.ForumRead;
             if (t == null || !t.ContainsKey(forumID))
             {
                 return this.LastVisit ?? DateTimeHelper.SqlDbMinTime();
@@ -504,7 +504,7 @@ namespace YAF.Core.Services
         /// </returns>
         public DateTime GetTopicRead(int topicID)
         {
-            Hashtable t = this.TopicRead;
+            var t = this.TopicRead;
 
             if (t == null || !t.ContainsKey(topicID))
             {
@@ -525,7 +525,7 @@ namespace YAF.Core.Services
         /// </param>
         public void SetForumRead(int forumID, DateTime date)
         {
-            Hashtable t = this.ForumRead ?? new Hashtable();
+            var t = this.ForumRead ?? new Hashtable();
 
             t[forumID] = date;
             this.ForumRead = t;
@@ -542,7 +542,7 @@ namespace YAF.Core.Services
         /// </param>
         public void SetTopicRead(int topicID, DateTime date)
         {
-            Hashtable t = this.TopicRead ?? new Hashtable();
+            var t = this.TopicRead ?? new Hashtable();
 
             t[topicID] = date;
             this.TopicRead = t;

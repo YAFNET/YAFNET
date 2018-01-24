@@ -91,12 +91,6 @@
     <Compile Include="MsSqlDbInformation.cs" />
     <Compile Include="MsSqlModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Search\MsSqlSearch.cs" />
-    <Compile Include="Functions\MsSqlSearchFunction.cs" />
-    <Compile Include="Search\SearchBuilder.cs" />
-    <Compile Include="Search\SearchBuilderExtensions.cs" />
-    <Compile Include="Search\SearchCondition.cs" />
-    <Compile Include="Search\SearchConditionType.cs" />
     <Compile Include="SetMsSqlDialectEvent.cs" />
     <Compile Include="YafNamingStrategyBaseOverride.cs" />
     <Compile Include="YafSqlServer2012OrmLiteDialectProvider.cs" />

@@ -130,17 +130,6 @@ namespace YAF.Data.MsSql
         public string ProviderName { get; protected set; }
 
         /// <summary>
-        /// Gets Full Text Script.
-        /// </summary>
-        public string FullTextScript
-        {
-            get
-            {
-                return "mssql/install/fulltext.sql";
-            }
-        }
-
-        /// <summary>
         /// Gets the Azure Script List.
         /// </summary>
         public IEnumerable<string> AzureScripts

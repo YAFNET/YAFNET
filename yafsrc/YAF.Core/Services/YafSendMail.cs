@@ -45,16 +45,18 @@ namespace YAF.Core.Services
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Sends all MailMessages via the SmtpClient. Doesn't handle any exceptions.
+        /// Sends all MailMessages via the SmtpClient. Doesn't handle any exceptions.
         /// </summary>
-        /// <param name="messages">
-        ///     The messages.
-        /// </param>
+        /// <param name="messages">The messages.</param>
+        /// <param name="handleException"></param>
         public void SendAll([NotNull] IEnumerable<MailMessage> messages, [CanBeNull] Action<MailMessage, Exception> handleException = null)
         {
             CodeContracts.VerifyNotNull(messages, "messages");
 
-            using (var smtpClient = new SmtpClient { EnableSsl = Config.UseSMTPSSL })
+            using (var smtpClient = new SmtpClient
+                                        {
+                                            EnableSsl = Config.UseSMTPSSL
+                                        })
             {
                 // send the message...
                 foreach (var m in messages.ToList())

@@ -761,7 +761,6 @@ namespace YAF.Install
                     break;
                 case "WizInitDatabase":
                     if (this.InstallUpgradeService.UpgradeDatabase(
-                        this.FullTextSupport.Checked,
                         this.UpgradeExtensions.Checked))
                     {
                         e.Cancel = false;
@@ -1184,8 +1183,6 @@ namespace YAF.Install
                     // fake the board settings
                     YafContext.Current.BoardSettings = new YafBoardSettings();
                 }
-
-                this.FullTextSupport.Visible = this.DbAccess.Information.FullTextScript.IsSet() && this.Get<IDbFunction>().IsFullTextSupported();
 
                 this.TimeZones.DataSource = StaticDataHelper.TimeZones();
 

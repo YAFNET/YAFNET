@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2018 Ingo Herbote
@@ -21,21 +21,44 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Data.MsSql.Search
-{
-  /// <summary>
-  /// The search condition type.
-  /// </summary>
-  public enum SearchConditionType
-  {
-    /// <summary>
-    ///   The and.
-    /// </summary>
-    AND, 
 
+namespace YAF.Types.Objects
+{
     /// <summary>
-    ///   The or.
+    /// The Attachment Item
     /// </summary>
-    OR
-  }
+    public class AttachmentItem
+    {
+        /// <summary>
+        /// Gets or sets the name of the file.
+        /// </summary>
+        /// <value>
+        /// The name of the file.
+        /// </value>
+        public string FileName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the on click.
+        /// </summary>
+        /// <value>
+        /// The on click.
+        /// </value>
+        public string OnClick { get; set; }
+
+        /// <summary>
+        /// Gets or sets the data URL.
+        /// </summary>
+        /// <value>
+        /// The data URL.
+        /// </value>
+        public string DataURL { get; set; }
+
+        /// <summary>
+        /// Gets or sets the icon image.
+        /// </summary>
+        /// <value>
+        /// The icon image.
+        /// </value>
+        public string IconImage { get; set; }
+    }
 }

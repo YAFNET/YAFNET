@@ -201,7 +201,7 @@ namespace YAF.Core.Services.Auth
                         }
 
                         // Update profile with twitter informations
-                        YafUserProfile userProfile = YafContext.Current.Profile;
+                        var userProfile = YafContext.Current.Profile;
 
                         userProfile.TwitterId = twitterUser.UserId.ToString();
                         userProfile.Twitter = twitterUser.UserName;
@@ -342,10 +342,10 @@ namespace YAF.Core.Services.Auth
             RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, twitterUser.UserName);
 
             // create the user in the YAF DB as well as sync roles...
-            int? userID = RoleMembershipHelper.CreateForumUser(user, YafContext.Current.PageBoardID);
+            var userID = RoleMembershipHelper.CreateForumUser(user, YafContext.Current.PageBoardID);
 
             // create empty profile just so they have one
-            YafUserProfile userProfile = YafUserProfile.GetProfile(twitterUser.UserName);
+            var userProfile = YafUserProfile.GetProfile(twitterUser.UserName);
 
             // setup their initial profile information
             userProfile.Save();

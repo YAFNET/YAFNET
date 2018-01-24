@@ -46,7 +46,7 @@ namespace YAF.Modules
     /// <summary>
     /// The _permissions.
     /// </summary>
-    private readonly IPermissions _permissions;
+    private readonly IPermissions permissions;
 
     #endregion
 
@@ -60,7 +60,7 @@ namespace YAF.Modules
     /// </param>
     public PagePermissionForumModule([NotNull] IPermissions permissions)
     {
-      this._permissions = permissions;
+      this.permissions = permissions;
     }
 
     #endregion
@@ -72,7 +72,7 @@ namespace YAF.Modules
     /// </summary>
     public override void InitAfterPage()
     {
-      this.CurrentForumPage.Load += this.CurrentPage_Load;
+      this.CurrentForumPage.Load += this.CurrentPageLoad;
     }
 
     #endregion
@@ -88,29 +88,24 @@ namespace YAF.Modules
     /// <param name="e">
     /// The e.
     /// </param>
-    private void CurrentPage_Load([NotNull] object sender, [NotNull] EventArgs e)
+    private void CurrentPageLoad([NotNull] object sender, [NotNull] EventArgs e)
     {
       // check access permissions for specific pages...
       switch (this.ForumPageType)
       {
         case ForumPages.activeusers:
-          this._permissions.HandleRequest(this.PageContext.BoardSettings.ActiveUsersViewPermissions);
+          this.permissions.HandleRequest(this.PageContext.BoardSettings.ActiveUsersViewPermissions);
           break;
         case ForumPages.members:
-          this._permissions.HandleRequest(this.PageContext.BoardSettings.MembersListViewPermissions);
+          this.permissions.HandleRequest(this.PageContext.BoardSettings.MembersListViewPermissions);
           break;
         case ForumPages.profile:
         case ForumPages.albums:
         case ForumPages.album:
-          this._permissions.HandleRequest(this.PageContext.BoardSettings.ProfileViewPermissions);
+          this.permissions.HandleRequest(this.PageContext.BoardSettings.ProfileViewPermissions);
           break;
         case ForumPages.search:
-          this._permissions.HandleRequest(
-            this._permissions.Check(this.PageContext.BoardSettings.SearchPermissions)
-              ? this.PageContext.BoardSettings.SearchPermissions
-              : this.PageContext.BoardSettings.ExternalSearchPermissions);
-          break;
-        default:
+          this.permissions.HandleRequest(this.PageContext.BoardSettings.SearchPermissions);
           break;
       }
     }

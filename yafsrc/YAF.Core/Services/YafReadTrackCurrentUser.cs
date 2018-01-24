@@ -34,6 +34,7 @@ namespace YAF.Core.Services
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Utils.Helpers;
 
@@ -83,7 +84,7 @@ namespace YAF.Core.Services
 
                 if (!lastRead.HasValue && this.UseDatabaseReadTracking)
                 {
-                    lastRead = LegacyDb.User_LastRead(this.CurrentUserId);
+                    lastRead = this.Get<IDbFunction>().GetData.user_lastread(this.CurrentUserId);
                 }
                 else
                 {

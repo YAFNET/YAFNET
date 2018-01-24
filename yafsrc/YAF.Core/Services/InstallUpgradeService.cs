@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -116,7 +116,7 @@ namespace YAF.Core.Services
                 }
                 catch
                 {
-                    // failure... no boards.    
+                    // failure... no boards.
                 }
 
                 return false;
@@ -126,13 +126,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///     Gets the messages.
         /// </summary>
-        public string[] Messages
-        {
-            get
-            {
-                return this._messages.ToArray();
-            }
-        }
+        public string[] Messages => this._messages.ToArray();
 
         /// <summary>
         ///     Gets or sets the raise event.
@@ -156,24 +150,6 @@ namespace YAF.Core.Services
 
         #region Properties
 
-        /// <summary>
-        ///     Gets PageBoardID.
-        /// </summary>
-        private int PageBoardID
-        {
-            get
-            {
-                try
-                {
-                    return int.Parse(Config.BoardID);
-                }
-                catch
-                {
-                    return 1;
-                }
-            }
-        }
-
         #endregion
 
         #region Public Methods and Operators
@@ -195,22 +171,22 @@ namespace YAF.Core.Services
             var cult = StaticDataHelper.Cultures();
             var langFile = "english.xml";
 
-            foreach (DataRow drow in cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == culture))
+            foreach (var drow in cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == culture))
             {
                 langFile = (string)drow["CultureFile"];
             }
-            
+
             LegacyDb.system_initialize(
-                forumName, 
-                timeZone, 
-                culture, 
-                langFile, 
-                forumEmail, 
+                forumName,
+                timeZone,
+                culture,
+                langFile,
+                forumEmail,
                 forumBaseUrlMask,
-                string.Empty, 
-                adminUserName, 
-                adminEmail, 
-                adminProviderUserKey, 
+                string.Empty,
+                adminUserName,
+                adminEmail,
+                adminProviderUserKey,
                 Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
 
             LegacyDb.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
@@ -237,16 +213,13 @@ namespace YAF.Core.Services
         /// <summary>
         /// The upgrade database.
         /// </summary>
-        /// <param name="fullText">
-        /// The full text.
-        /// </param>
         /// <param name="upgradeExtensions">
         /// The upgrade Extensions.
         /// </param>
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public bool UpgradeDatabase(bool fullText, bool upgradeExtensions)
+        public bool UpgradeDatabase(bool upgradeExtensions)
         {
             this._messages.Clear();
             {
@@ -263,7 +236,7 @@ namespace YAF.Core.Services
                 }
                 else
                 {
-                    this.ExecuteUpgradeScripts(isAzureEngine);   
+                    this.ExecuteUpgradeScripts(isAzureEngine);
                 }
 
                 this.FixAccess(true);
@@ -323,22 +296,8 @@ namespace YAF.Core.Services
                     }
                 }
 
-                // vzrus: uncomment it to not keep install/upgrade objects in DB and for better security 
+                // vzrus: uncomment it to not keep install/upgrade objects in DB and for better security
                 // DB.system_deleteinstallobjects();
-            }
-
-            // attempt to apply fulltext support if desired
-            if (fullText && this.DbAccess.Information.FullTextScript.IsSet())
-            {
-                try
-                {
-                    this.ExecuteScript(this.DbAccess.Information.FullTextScript, false);
-                }
-                catch (Exception x)
-                {
-                    // just a warning...
-                    this._messages.Add("Warning: FullText Support wasn't installed: {0}".FormatWith(x.Message));
-                }
             }
 
             // run custom script...
@@ -372,7 +331,7 @@ namespace YAF.Core.Services
             {
                 this.DbAccess.Information.YAFProviderInstallScripts.ForEach(script => this.ExecuteScript(script, true));
             }
-            
+
             // Run other
             this.DbAccess.Information.InstallScripts.ForEach(script => this.ExecuteScript(script, true));
         }
@@ -454,8 +413,6 @@ namespace YAF.Core.Services
                             stream.Close();
                         }
                     });
-
-            
 
             var boards = this.GetRepository<Board>().ListTyped();
 

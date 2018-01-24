@@ -55,7 +55,7 @@ namespace YAF.Controls
         /// </returns>
         protected string GetReturnUrl()
         {
-            string returnUrl = string.Empty;
+            var returnUrl = string.Empty;
 
             if (this.PageContext.ForumPageType != ForumPages.login)
             {
@@ -102,11 +102,11 @@ namespace YAF.Controls
             buildHeader.AppendFormat(
                 @"<table width=""100%"" cellspacing=""0"" class=""content"" cellpadding=""0"" id=""yafheader""><tr>");
 
-            MembershipUser user = UserMembershipHelper.GetUser();
+            var user = UserMembershipHelper.GetUser();
 
             if (user != null)
             {
-                string displayName = this.PageContext.CurrentUserData.DisplayName;
+                var displayName = this.PageContext.CurrentUserData.DisplayName;
                 buildHeader.AppendFormat(
                     @"<td style=""padding:5px"" class=""post"" align=""left""><strong>{0}&nbsp;<span id=""nick_{1}"" style =""{2}"" >{1}</span></strong></td>",
                     this.GetText("TOOLBAR", "LOGGED_IN_AS").FormatWith(string.Empty),
@@ -122,7 +122,7 @@ namespace YAF.Controls
                 {
                     if (this.PageContext.UnreadPrivate > 0)
                     {
-                        string unreadText = this.GetText("TOOLBAR", "NEWPM").FormatWith(this.PageContext.UnreadPrivate);
+                        var unreadText = this.GetText("TOOLBAR", "NEWPM").FormatWith(this.PageContext.UnreadPrivate);
                         buildHeader.AppendFormat("	<a target='_top' href=\"{0}\">{1}</a>&nbsp;<span class=\"unread\">{2}</span> | ".FormatWith(
                             YafBuildLink.GetLink(ForumPages.cp_pm), this.GetText("CP_PM", "INBOX"), unreadText));
                     }
@@ -139,7 +139,7 @@ namespace YAF.Controls
                 {
                     if (this.PageContext.PendingBuddies > 0)
                     {
-                        string pendingBuddiesText =
+                        var pendingBuddiesText =
                             this.GetText("TOOLBAR", "BUDDYREQUEST").FormatWith(this.PageContext.PendingBuddies);
                         buildHeader.AppendFormat(
                             "	<a target='_top' href=\"{0}\">{1}</a>&nbsp;<span class=\"unread\">{2}</span> | ".FormatWith(
@@ -182,8 +182,7 @@ namespace YAF.Controls
                             YafBuildLink.GetLink(ForumPages.moderate_index), this.GetText("TOOLBAR", "MODERATE")));
                 }
 
-                if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ExternalSearchPermissions) ||
-                    this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().SearchPermissions))
+                if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().SearchPermissions))
                 {
                     buildHeader.AppendFormat(
                         "	<a href=\"{0}\">{1}</a> | ".FormatWith(
@@ -229,8 +228,7 @@ namespace YAF.Controls
                         this.GetText("TOOLBAR", "WELCOME_GUEST")));
 
                 buildHeader.AppendFormat(@"<td style=""padding:5px"" align=""right"" valign=""middle"" class=""post"">");
-                if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ExternalSearchPermissions) ||
-                    this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().SearchPermissions))
+                if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().SearchPermissions))
                 {
                     buildHeader.AppendFormat(
                         "	<a href=\"{0}\">{1}</a> | ".FormatWith(
@@ -247,7 +245,7 @@ namespace YAF.Controls
                             YafBuildLink.GetLink(ForumPages.members), this.GetText("TOOLBAR", "MEMBERS")));
                 }
 
-                string returnUrl = this.GetReturnUrl();
+                var returnUrl = this.GetReturnUrl();
 
                 if (!Config.IsAnyPortal && Config.AllowLoginAndLogoff)
                 {

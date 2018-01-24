@@ -67,8 +67,8 @@ namespace YAF.Core.Services
                     return new TimeSpan(0, YafContext.Current.Get<YafBoardSettings>().ServerTimeCorrection, 0);
                 }
 
-                int min = YafContext.Current.TimeZoneUser;
-                int hrs = min / 60;
+                var min = YafContext.Current.TimeZoneUser;
+                var hrs = min / 60;
 
                 return new TimeSpan(
                     hrs,
@@ -228,7 +228,7 @@ namespace YAF.Core.Services
         public string FormatDateTimeTopic([NotNull] DateTime dateTime)
         {
             dateTime = this.AccountForDST(dateTime + this.TimeOffset, YafContext.Current.DSTUser);
-            DateTime nowDateTime = this.AccountForDST(DateTime.UtcNow + this.TimeOffset, YafContext.Current.DSTUser);
+            var nowDateTime = this.AccountForDST(DateTime.UtcNow + this.TimeOffset, YafContext.Current.DSTUser);
 
             string dateFormat;
             try

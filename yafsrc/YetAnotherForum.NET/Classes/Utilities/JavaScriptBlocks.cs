@@ -48,7 +48,8 @@ namespace YAF.Utilities
         ///   the callback success js.
         /// </returns>
         [NotNull]
-        public static string AlbumCallbackSuccessJS => @"function changeTitleSuccess(res){{
+        public static string AlbumCallbackSuccessJS =>
+            @"function changeTitleSuccess(res){{
                   spnTitleVar = document.getElementById('spnTitle' + res.d.Id);
                   txtTitleVar =  document.getElementById('txtTitle' + res.d.Id);
                   spnTitleVar.firstChild.nodeValue = res.d.NewTitle;
@@ -60,7 +61,8 @@ namespace YAF.Utilities
         /// Gets the multi quote callback success JS.
         /// </summary>
         [NotNull]
-        public static string MultiQuoteCallbackSuccessJS => @"function multiQuoteSuccess(res){{
+        public static string MultiQuoteCallbackSuccessJS =>
+            @"function multiQuoteSuccess(res){{
                   var multiQuoteButton = {0}('#' + res.d.Id).parent('span');
                   multiQuoteButton.removeClass(multiQuoteButton.attr('class')).addClass(res.d.NewTitle);
                   {0}(document).scrollTop(multiQuoteButton.offset().top - 20);
@@ -70,10 +72,11 @@ namespace YAF.Utilities
         /// Gets the multi quote button JS.
         /// </summary>
         [NotNull]
-        public static string MultiQuoteButtonJs => @"function handleMultiQuoteButton(button, msgId, tpId){{
+        public static string MultiQuoteButtonJs =>
+            @"function handleMultiQuoteButton(button, msgId, tpId){{
                      var messageId = msgId,topicId = tpId, cssClass = {1}('#' + button.id).parent('span').attr('class');
                      {1}.PageMethod('{0}YafAjax.asmx', 'HandleMultiQuote', multiQuoteSuccess, CallFailed, 'buttonId', button.id, 'multiquoteButton', button.checked, 'messageId', messageId, 'topicId', topicId, 'buttonCssClass', cssClass);}}"
-            .FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
+                .FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
 
         /// <summary>
         ///   Gets the script for changing the album title.
@@ -82,26 +85,29 @@ namespace YAF.Utilities
         ///   the change album title js.
         /// </returns>
         [NotNull]
-        public static string ChangeAlbumTitleJs => @"function changeAlbumTitle(albumId, txtTitleId){{
+        public static string ChangeAlbumTitleJs =>
+            @"function changeAlbumTitle(albumId, txtTitleId){{
                      var albId = albumId;var newTitleTxt = {1}('#' + txtTitleId).val();
                      {1}.PageMethod('{0}YafAjax.asmx', 'ChangeAlbumTitle', changeTitleSuccess, CallFailed, 'albumID', albId, 'newTitle', newTitleTxt);}}"
-            .FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
+                .FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
 
         /// <summary>
         ///   Gets the script for changing the image caption.
         /// </summary>
         /// <returns></returns>
         [NotNull]
-        public static string ChangeImageCaptionJs => @"function changeImageCaption(imageID, txtTitleId){{
+        public static string ChangeImageCaptionJs =>
+            @"function changeImageCaption(imageID, txtTitleId){{
               var imgId = imageID;var newImgTitleTxt = {1}('#' + txtTitleId).val();
               {1}.PageMethod('{0}YafAjax.asmx', 'ChangeImageCaption', changeTitleSuccess, CallFailed, 'imageID', imgId, 'newCaption', newImgTitleTxt);}}"
-            .FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
+                .FormatWith(YafForumInfo.ForumClientFileRoot, Config.JQueryAlias);
 
         /// <summary>
         ///   Gets DisablePageManagerScrollJs.
         /// </summary>
         [NotNull]
-        public static string DisablePageManagerScrollJs => @"
+        public static string DisablePageManagerScrollJs =>
+            @"
 	var prm = Sys.WebForms.PageRequestManager.getInstance();
 
 	prm.add_beginRequest(beginRequest);
@@ -114,7 +120,8 @@ namespace YAF.Utilities
         /// <summary>
         ///   Gets TimeagoLoadJs.
         /// </summary>
-        public static string TimeagoLoadJs => @" if( typeof(CKEDITOR) == 'undefined') {{
+        public static string TimeagoLoadJs =>
+            @" if( typeof(CKEDITOR) == 'undefined') {{
             function loadTimeAgo() {{
             {2}.timeago.settings.refreshMillis = {1};
             {0}
@@ -124,15 +131,16 @@ namespace YAF.Utilities
 			      }}
                    Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
                    }};".FormatWith(
-            YafContext.Current.Get<ILocalization>().GetText("TIMEAGO_JS"),
-            YafContext.Current.Get<YafBoardSettings>().RelativeTimeRefreshTime,
-            Config.JQueryAlias);
+                YafContext.Current.Get<ILocalization>().GetText("TIMEAGO_JS"),
+                YafContext.Current.Get<YafBoardSettings>().RelativeTimeRefreshTime,
+                Config.JQueryAlias);
 
         /// <summary>
         ///   Gets ToggleMessageJs.
         /// </summary>
         [NotNull]
-        public static string ToggleMessageJs => @"
+        public static string ToggleMessageJs =>
+            @"
                       function toggleMessage(divId)
                       {{ {0}('#' + divId).toggle(); }}".FormatWith(Config.JQueryAlias);
 
@@ -160,30 +168,28 @@ namespace YAF.Utilities
         /// </returns>
         public static string AlbumEventsJs([NotNull] string albumEmptyTitle, [NotNull] string imageEmptyCaption)
         {
-            return
-                ("function showTexBox(spnTitleId){{"
-                 + "spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));"
-                 + "txtTitleVar = document.getElementById('txtTitle'+spnTitleId.substring(8));"
-                 + "if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value',spnTitleVar.firstChild.nodeValue);"
-                 + "if(spnTitleVar.firstChild.nodeValue == '{0}' || spnTitleVar.firstChild.nodeValue == '{1}'){{txtTitleVar.value='';spnTitleVar.firstChild.nodeValue='';}}"
-                 + "txtTitleVar.style.display = 'inline'; spnTitleVar.style.display = 'none'; txtTitleVar.focus();}}"
-                 + "function resetBox(txtTitleId, isAlbum) {{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                 + "txtTitleVar.style.display = 'none';txtTitleVar.disabled = false;spnTitleVar.style.display = 'inline';"
-                 + "if (spnTitleVar.firstChild != null)txtTitleVar.value = spnTitleVar.firstChild.nodeValue;if (spnTitleVar.firstChild.nodeValue==''){{txtTitleVar.value='';if (isAlbum) spnTitleVar.firstChild.nodeValue='{0}';else spnTitleVar.firstChild.nodeValue='{1}';}}}}"
-                 + "function checkKey(event, handler, id, isAlbum){{"
-                 + "if ((event.keyCode == 13) || (event.which == 13)){{"
-                 + "if (event.preventDefault) event.preventDefault(); event.cancel=true; event.returnValue=false; "
-                 + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                 + "handler.disabled = true; if (isAlbum == true)changeAlbumTitle(id, handler.id); else changeImageCaption(id,handler.id);}}"
-                 + "else resetBox(handler.id, isAlbum);}}"
-                 + "else if ((event.keyCode == 27) || (event.which == 27))resetBox(handler.id, isAlbum);}}"
-                 + "function blurTextBox(txtTitleId, id , isAlbum){{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
-                 + "if (spnTitleVar.firstChild != null){{"
-                 + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
-                 + "txtTitleVar.disabled = true; if (isAlbum == true)changeAlbumTitle(id, txtTitleId); else changeImageCaption(id,txtTitleId);}}"
-                 + "else resetBox(txtTitleId, isAlbum);}}" + "else resetBox(txtTitleId, isAlbum);}}").FormatWith(
-                     albumEmptyTitle,
-                     imageEmptyCaption);
+            return ("function showTexBox(spnTitleId){{"
+                    + "spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));"
+                    + "txtTitleVar = document.getElementById('txtTitle'+spnTitleId.substring(8));"
+                    + "if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value',spnTitleVar.firstChild.nodeValue);"
+                    + "if(spnTitleVar.firstChild.nodeValue == '{0}' || spnTitleVar.firstChild.nodeValue == '{1}'){{txtTitleVar.value='';spnTitleVar.firstChild.nodeValue='';}}"
+                    + "txtTitleVar.style.display = 'inline'; spnTitleVar.style.display = 'none'; txtTitleVar.focus();}}"
+                    + "function resetBox(txtTitleId, isAlbum) {{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
+                    + "txtTitleVar.style.display = 'none';txtTitleVar.disabled = false;spnTitleVar.style.display = 'inline';"
+                    + "if (spnTitleVar.firstChild != null)txtTitleVar.value = spnTitleVar.firstChild.nodeValue;if (spnTitleVar.firstChild.nodeValue==''){{txtTitleVar.value='';if (isAlbum) spnTitleVar.firstChild.nodeValue='{0}';else spnTitleVar.firstChild.nodeValue='{1}';}}}}"
+                    + "function checkKey(event, handler, id, isAlbum){{"
+                    + "if ((event.keyCode == 13) || (event.which == 13)){{"
+                    + "if (event.preventDefault) event.preventDefault(); event.cancel=true; event.returnValue=false; "
+                    + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
+                    + "handler.disabled = true; if (isAlbum == true)changeAlbumTitle(id, handler.id); else changeImageCaption(id,handler.id);}}"
+                    + "else resetBox(handler.id, isAlbum);}}"
+                    + "else if ((event.keyCode == 27) || (event.which == 27))resetBox(handler.id, isAlbum);}}"
+                    + "function blurTextBox(txtTitleId, id , isAlbum){{spnTitleVar = document.getElementById('spnTitle'+txtTitleId.substring(8));txtTitleVar = document.getElementById(txtTitleId);"
+                    + "if (spnTitleVar.firstChild != null){{"
+                    + "if(spnTitleVar.firstChild.nodeValue != txtTitleVar.value){{"
+                    + "txtTitleVar.disabled = true; if (isAlbum == true)changeAlbumTitle(id, txtTitleId); else changeImageCaption(id,txtTitleId);}}"
+                    + "else resetBox(txtTitleId, isAlbum);}}" + "else resetBox(txtTitleId, isAlbum);}}")
+                .FormatWith(albumEmptyTitle, imageEmptyCaption);
         }
 
         /// <summary>
@@ -196,14 +202,10 @@ namespace YAF.Utilities
         /// </returns>
         public static string BlockUIExecuteJs([NotNull] string messageId, [NotNull] string buttonId)
         {
-            return
-                @"{1}(document).ready(function() {{
+            return @"{1}(document).ready(function() {{
                       {1}('{2}').click(function() {{ {1}.blockUI({{ message: {1}('#{0}') }});
                        }});
-                      }});".FormatWith(
-                    messageId,
-                    Config.JQueryAlias,
-                    buttonId);
+                      }});".FormatWith(messageId, Config.JQueryAlias, buttonId);
         }
 
         /// <summary>
@@ -214,9 +216,7 @@ namespace YAF.Utilities
         /// <returns>
         /// The Load JS.
         /// </returns>
-        public static string DatePickerLoadJs(
-            [NotNull] string dateFormat,
-            [NotNull] string culture)
+        public static string DatePickerLoadJs([NotNull] string dateFormat, [NotNull] string culture)
         {
             var cultureJs = string.Empty;
 
@@ -227,8 +227,7 @@ namespace YAF.Utilities
                 cultureJs = ", locale: '{0}'".FormatWith(culture);
             }
 
-            return
-                @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadDatePicker);
+            return @"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadDatePicker);
                   function loadDatePicker() {{	{2}(document).ready(function() {{ {2}('.datepickerinput').datetimepicker({{format: '{0}'{1},icons:{{
             time: 'fa fa-clock fa-fw',
             date: 'fa fa-calendar fa-fw',
@@ -239,8 +238,7 @@ namespace YAF.Utilities
             today: 'fa fa-sun fa-fw',
             clear: 'fa fa-trash fa-fw',
             close: 'fa fa-times fa-fw'
-        }}}}); }});}} "
-                    .FormatWith(dateFormat, cultureJs, Config.JQueryAlias);
+        }}}}); }});}} ".FormatWith(dateFormat, cultureJs, Config.JQueryAlias);
         }
 
         /// <summary>
@@ -251,9 +249,7 @@ namespace YAF.Utilities
         /// <returns>
         /// Returns the the Bootstrap Tab Load JS string
         /// </returns>
-        public static string BootstrapTabsLoadJs(
-            [NotNull] string tabId,
-            string hiddenId)
+        public static string BootstrapTabsLoadJs([NotNull] string tabId, string hiddenId)
         {
             return BootstrapTabsLoadJs(tabId, hiddenId, string.Empty);
         }
@@ -267,10 +263,7 @@ namespace YAF.Utilities
         /// <returns>
         /// Returns the the Bootstrap Tab Load JS string
         /// </returns>
-        public static string BootstrapTabsLoadJs(
-            [NotNull] string tabId,
-            string hiddenId,
-            string onClickEvent)
+        public static string BootstrapTabsLoadJs([NotNull] string tabId, string hiddenId, string onClickEvent)
         {
             return @"{2}(document).ready(function() {{
             var selectedTab = {2}(""#{1}"");
@@ -333,9 +326,7 @@ namespace YAF.Utilities
         /// <param name="selector">The selector.</param>
         /// <param name="options">The options.</param>
         /// <returns></returns>
-        public static string LoadTouchSpin(
-            [NotNull] string selector,
-            [CanBeNull] string options)
+        public static string LoadTouchSpin([NotNull] string selector, [CanBeNull] string options)
         {
             return @"{0}(document).ready(function() {{
                         {0}('{1}').TouchSpin( {2} );
@@ -392,13 +383,14 @@ namespace YAF.Utilities
         /// </returns>
         public static string AddFavoriteTopicJs([NotNull] string untagButtonHTML)
         {
-            return @"function addFavoriteTopic(topicID){{ var topId = topicID; {2}.PageMethod('{1}YafAjax.asmx', 'AddFavoriteTopic', addFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
+            return
+                @"function addFavoriteTopic(topicID){{ var topId = topicID; {2}.PageMethod('{1}YafAjax.asmx', 'AddFavoriteTopic', addFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
           function addFavoriteTopicSuccess(res){{if (res.d != null) {{
                    {2}('#dvFavorite1').html({0});
                    {2}('#dvFavorite2').html({0});}}}}".FormatWith(
-                untagButtonHTML,
-                YafForumInfo.ForumClientFileRoot,
-                Config.JQueryAlias);
+                    untagButtonHTML,
+                    YafForumInfo.ForumClientFileRoot,
+                    Config.JQueryAlias);
         }
 
         /// <summary>
@@ -412,14 +404,15 @@ namespace YAF.Utilities
         /// </returns>
         public static string AddThanksJs([NotNull] string removeThankBoxHTML)
         {
-            return @"function addThanks(messageID){{ var messId = messageID;{2}.PageMethod('{1}YafAjax.asmx', 'AddThanks', addThanksSuccess, CallFailed, 'msgID', messId);}}
+            return
+                @"function addThanks(messageID){{ var messId = messageID;{2}.PageMethod('{1}YafAjax.asmx', 'AddThanks', addThanksSuccess, CallFailed, 'msgID', messId);}}
           function addThanksSuccess(res){{if (res.d != null) {{
                    {2}('#dvThanks' + res.d.MessageID).html(res.d.Thanks);
                    {2}('#dvThanksInfo' + res.d.MessageID).html(res.d.ThanksInfo);
                    {2}('#dvThankBox' + res.d.MessageID).html({0});}}}}".FormatWith(
-                removeThankBoxHTML,
-                YafForumInfo.ForumClientFileRoot,
-                Config.JQueryAlias);
+                    removeThankBoxHTML,
+                    YafForumInfo.ForumClientFileRoot,
+                    Config.JQueryAlias);
         }
 
         /// <summary>
@@ -433,13 +426,14 @@ namespace YAF.Utilities
         /// </returns>
         public static string RemoveFavoriteTopicJs([NotNull] string tagButtonHTML)
         {
-            return @"function removeFavoriteTopic(topicID){{ var topId = topicID;{2}.PageMethod('{1}YafAjax.asmx', 'RemoveFavoriteTopic', removeFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
+            return
+                @"function removeFavoriteTopic(topicID){{ var topId = topicID;{2}.PageMethod('{1}YafAjax.asmx', 'RemoveFavoriteTopic', removeFavoriteTopicSuccess, CallFailed, 'topicId', topId);}}
           function removeFavoriteTopicSuccess(res){{if (res.d != null) {{
                    {2}('#dvFavorite1').html({0});
                    {2}('#dvFavorite2').html({0});}}}}".FormatWith(
-                tagButtonHTML,
-                YafForumInfo.ForumClientFileRoot,
-                Config.JQueryAlias);
+                    tagButtonHTML,
+                    YafForumInfo.ForumClientFileRoot,
+                    Config.JQueryAlias);
         }
 
         /// <summary>
@@ -453,14 +447,15 @@ namespace YAF.Utilities
         /// </returns>
         public static string RemoveThanksJs([NotNull] string addThankBoxHTML)
         {
-            return @"function removeThanks(messageID){{ var messId = messageID;{2}.PageMethod('{1}YafAjax.asmx', 'RemoveThanks', removeThanksSuccess, CallFailed, 'msgID', messId);}}
+            return
+                @"function removeThanks(messageID){{ var messId = messageID;{2}.PageMethod('{1}YafAjax.asmx', 'RemoveThanks', removeThanksSuccess, CallFailed, 'msgID', messId);}}
           function removeThanksSuccess(res){{if (res.d != null) {{
                    {2}('#dvThanks' + res.d.MessageID).html(res.d.Thanks);
                    {2}('#dvThanksInfo' + res.d.MessageID).html(res.d.ThanksInfo);
                    {2}('#dvThankBox' + res.d.MessageID).html({0});}}}}".FormatWith(
-                addThankBoxHTML,
-                YafForumInfo.ForumClientFileRoot,
-                Config.JQueryAlias);
+                    addThankBoxHTML,
+                    YafForumInfo.ForumClientFileRoot,
+                    Config.JQueryAlias);
         }
 
         #endregion
@@ -482,8 +477,8 @@ namespace YAF.Utilities
             [NotNull] string loadingHtml,
             [NotNull] string errorHtml)
         {
-            return
-                "{0}('{1}').hovercard({{{2}width: 350,loadingHTML: '{3}',errorHTML: '{4}', delay: {5} }});".FormatWith(
+            return "{0}('{1}').hovercard({{{2}width: 350,loadingHTML: '{3}',errorHTML: '{4}', delay: {5} }});"
+                .FormatWith(
                     Config.JQueryAlias,
                     clientId,
                     type.IsSet() ? "show{0}Card: true,".FormatWith(type) : string.Empty,
@@ -776,13 +771,21 @@ namespace YAF.Utilities
         /// Returns the JS String
         /// </returns>
         [NotNull]
-        public static string OpenModalJs(
-            [NotNull] string clientId)
+        public static string OpenModalJs([NotNull] string clientId)
         {
-            return
-                "{0}('#{1}').modal('show');".FormatWith(
-                    Config.JQueryAlias,
-                    clientId);
+            return "{0}('#{1}').modal('show');".FormatWith(Config.JQueryAlias, clientId);
+        }
+
+        /// <summary>
+        /// Gets the Do Search java script.
+        /// </summary>
+        /// <returns>
+        /// Returns the do Search Java script String
+        /// </returns>
+        [NotNull]
+        public static string DoSearchJs()
+        {
+            return "getSeachResultsData(0);";
         }
     }
 }

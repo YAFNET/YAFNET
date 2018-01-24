@@ -25,21 +25,20 @@ namespace YAF.Types.Models
 {
     using System;
 
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    ///     A class which represents the ActiveAccess table.
+    ///     A class which represents the yaf_vaccess views.
     /// </summary>
     [Serializable]
-    public partial class ActiveAccess : IEntity, IHaveBoardID
+    public partial class vaccess : IEntity
     {
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ActiveAccess"/> class.
+        /// Initializes a new instance of the <see cref="vaccess"/> class.
         /// </summary>
-        public ActiveAccess()
+        public vaccess()
         {
             this.OnCreated();
         }
@@ -49,24 +48,9 @@ namespace YAF.Types.Models
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets the board id.
+        /// Gets or sets the user id.
         /// </summary>
-        public int BoardID { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether delete access.
-        /// </summary>
-        public bool DeleteAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether download access.
-        /// </summary>
-        public bool DownloadAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether edit access.
-        /// </summary>
-        public bool EditAccess { get; set; }
+        public int UserID { get; set; }
 
         /// <summary>
         /// Gets or sets the forum id.
@@ -84,39 +68,9 @@ namespace YAF.Types.Models
         public bool IsForumModerator { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether is guest x.
-        /// </summary>
-        public bool IsGuestX { get; set; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether is moderator.
         /// </summary>
         public bool IsModerator { get; set; }
-
-        /// <summary>
-        /// Gets or sets the last active.
-        /// </summary>
-        public DateTime? LastActive { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether moderator access.
-        /// </summary>
-        public bool ModeratorAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether poll access.
-        /// </summary>
-        public bool PollAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether post access.
-        /// </summary>
-        public bool PostAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether priority access.
-        /// </summary>
-        public bool PriorityAccess { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether read access.
@@ -124,9 +78,44 @@ namespace YAF.Types.Models
         public bool ReadAccess { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether post access.
+        /// </summary>
+        public bool PostAccess { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether reply access.
         /// </summary>
         public bool ReplyAccess { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether priority access.
+        /// </summary>
+        public bool PriorityAccess { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether poll access.
+        /// </summary>
+        public bool PollAccess { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether vote access.
+        /// </summary>
+        public bool VoteAccess { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether moderator access.
+        /// </summary>
+        public bool ModeratorAccess { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether edit access.
+        /// </summary>
+        public bool EditAccess { get; set; }
+        
+        /// <summary>
+        /// Gets or sets a value indicating whether delete access.
+        /// </summary>
+        public bool DeleteAccess { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether upload access.
@@ -134,14 +123,9 @@ namespace YAF.Types.Models
         public bool UploadAccess { get; set; }
 
         /// <summary>
-        /// Gets or sets the user id.
+        /// Gets or sets a value indicating whether download access.
         /// </summary>
-        public int UserID { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether vote access.
-        /// </summary>
-        public bool VoteAccess { get; set; }
+        public bool DownloadAccess { get; set; }
 
         #endregion
 

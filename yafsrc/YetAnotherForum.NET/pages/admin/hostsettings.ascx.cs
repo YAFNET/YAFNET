@@ -332,11 +332,11 @@ namespace YAF.Pages.Admin
 
             var dropDownLists = new[]
                                     {
-                                        this.PostsFeedAccess, this.AllowCreateTopicsSameName, this.PostLatestFeedAccess,
-                                        this.ForumFeedAccess, this.TopicsFeedAccess, this.ActiveTopicFeedAccess,
-                                        this.FavoriteTopicFeedAccess, this.ReportPostPermissions,
-                                        this.ProfileViewPermissions, this.MembersListViewPermissions,
-                                        this.ActiveUsersViewPermissions, this.ExternalSearchPermissions,
+                                        this.PostsFeedAccess, this.AllowCreateTopicsSameName,
+                                        this.PostLatestFeedAccess, this.ForumFeedAccess, this.TopicsFeedAccess,
+                                        this.ActiveTopicFeedAccess, this.FavoriteTopicFeedAccess,
+                                        this.ReportPostPermissions, this.ProfileViewPermissions,
+                                        this.MembersListViewPermissions, this.ActiveUsersViewPermissions,
                                         this.SearchPermissions, this.ShowHelpTo, this.ShowTeamTo,
                                         this.ShowRetweetMessageTo, this.ShowShareTopicTo, this.ShoutboxViewPermissions
                                     };
@@ -390,7 +390,6 @@ namespace YAF.Pages.Admin
         {
             this.ForumEditor.DataSource = ForumEditorHelper.GetFilteredEditorList();
 
-            // TODO: vzrus: UseFullTextSearch check box is data layer specific and can be hidden by YAF.Classes.Data.LegacyDb.FullTextSupported  property.)
             this.DataBind();
 
             // load Board Setting collection information...

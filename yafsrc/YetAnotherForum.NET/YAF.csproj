@@ -142,9 +142,6 @@
       <HintPath>..\packages\Farsi.Library.2.7.0\lib\net46\FarsiLibrary.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="nStuff.UpdateControls">
-      <HintPath>..\packages\nStuff.UpdateControls.1.2.0.0\lib\net35\nStuff.UpdateControls.dll</HintPath>
-    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -1268,7 +1265,6 @@
     <Content Include="install\mssql\install\azure\InstallProfile.SQL" />
     <Content Include="install\mssql\install\azure\InstallRoles.sql" />
     <Content Include="install\mssql\install\constraints.sql" />
-    <Content Include="install\mssql\install\fulltext.sql" />
     <Content Include="install\mssql\install\functions.sql" />
     <Content Include="install\mssql\install\indexes.sql" />
     <Content Include="install\mssql\install\procedures.sql" />
@@ -1787,6 +1783,7 @@
     <Content Include="Scripts\fontawesome\fontawesome.min.js">
       <DependentUpon>fontawesome.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\forum\yaf.SearchResults.js" />
     <Content Include="Scripts\i18n\af.js" />
     <Content Include="Scripts\i18n\ar.js" />
     <Content Include="Scripts\i18n\az.js" />

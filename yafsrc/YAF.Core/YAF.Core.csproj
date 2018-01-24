@@ -62,6 +62,16 @@
     <Reference Include="FarsiLibrary.Utils, Version=2.7.0.0, Culture=neutral, PublicKeyToken=def7c46cace23f8f, processorArchitecture=MSIL">
       <HintPath>..\packages\Farsi.Library.2.7.0\lib\net46\FarsiLibrary.Utils.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Highlighter, Version=2.3.2.1, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.Highlighter.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Omu.ValueInjecter, Version=3.1.1.0, Culture=neutral, PublicKeyToken=c7694541b0ac80e4, processorArchitecture=MSIL">
       <HintPath>..\packages\ValueInjecter.3.1.1.5\lib\net40\Omu.ValueInjecter.dll</HintPath>
@@ -132,7 +142,6 @@
     <Compile Include="Data\Profiling\QueryCounter.cs" />
     <Compile Include="Data\Profiling\QueryProfile.cs" />
     <Compile Include="Data\Profiling\QueryWatcher.cs" />
-    <Compile Include="Data\CompleteSearchContext.cs" />
     <Compile Include="Events\AttachmentEventHandleFileDelete.cs" />
     <Compile Include="Extensions\CultureExtensions.cs" />
     <Compile Include="Extensions\HaveSortOrderExtensions.cs" />
@@ -204,6 +213,7 @@
     <Compile Include="Model\MedalRepositoryExtensions.cs" />
     <Compile Include="Model\AttachmentRepositoryExtensions.cs" />
     <Compile Include="Services\InstallUpgradeService.cs" />
+    <Compile Include="Services\YafSearch.cs" />
     <Compile Include="Services\YafSpamWordCheck.cs" />
     <Compile Include="Services\YafSingleSignOnUser.cs" />
     <Compile Include="Services\YafSpamCheck.cs" />
@@ -351,6 +361,7 @@
     <Compile Include="Tasks\CategorySaveTask.cs" />
     <Compile Include="Tasks\BoardDeleteTask.cs" />
     <Compile Include="Tasks\BoardCreateTask.cs" />
+    <Compile Include="Tasks\UpdateSearchIndexTask.cs" />
     <Compile Include="Tasks\ForumSaveTask.cs" />
     <Compile Include="Tasks\DigestSendForumModule.cs" />
     <Compile Include="Tasks\DigestSendTask.cs" />
@@ -365,6 +376,7 @@
     <Compile Include="Tasks\PruneTopicTask.cs" />
     <Compile Include="Tasks\SyncMembershipUsersTask.cs" />
     <Compile Include="Tasks\UserCleanUpTask.cs" />
+    <Compile Include="Tasks\UpdateSearchIndexTaskForumModule.cs" />
     <Compile Include="Tasks\UserCleanUpTaskForumModule.cs" />
     <Compile Include="Theme\YafTheme.cs" />
     <Compile Include="URLBuilder\AdvancedUrlRewriter.cs" />

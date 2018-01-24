@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2018 Ingo Herbote
@@ -24,39 +24,43 @@
 
 namespace YAF.Types.Objects
 {
-    using System.Runtime.Serialization;
+    using System.Collections.Generic;
 
     /// <summary>
-    /// The Facebook Access Token
+    /// The Grid Data Set
     /// </summary>
-    [DataContract]
-    public class FacebookAccessToken
+    public class GridDataSet
     {
         /// <summary>
-        /// Gets or sets the access token.
+        /// Gets or sets the page number.
         /// </summary>
         /// <value>
-        /// The access token.
+        /// The page number.
         /// </value>
-        [DataMember(Name = "access_token")]
-        public string AccessToken { get; set; }
+        public int PageNumber { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of the token.
+        /// Gets or sets the total records.
         /// </summary>
         /// <value>
-        /// The type of the token.
+        /// The total records.
         /// </value>
-        [DataMember(Name = "token_type")]
-        public string TokenType { get; set; }
+        public int TotalRecords { get; set; }
 
         /// <summary>
-        /// Gets or sets the expires in.
+        /// Gets or sets the size of the page.
         /// </summary>
         /// <value>
-        /// The expires in.
+        /// The size of the page.
         /// </value>
-        [DataMember(Name = "expires_in")]
-        public int ExpiresIn { get; set; }
+        public int PageSize { get; set; }
+
+        /// <summary>
+        /// Gets or sets the attachment list.
+        /// </summary>
+        /// <value>
+        /// The attachment list.
+        /// </value>
+        public List<AttachmentItem> AttachmentList { get; set; }
     }
 }

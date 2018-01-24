@@ -152,8 +152,7 @@ namespace YAF.Controls
                 ForumPages.search,
                 "search={0}",
                 this.Server.UrlEncode(
-                    this.searchInput.Text.TrimWordsOverMaxLengthWordsPreserved(
-                        this.Get<YafBoardSettings>().SearchStringMaxLength)));
+                    this.searchInput.Text));
         }
 
         /// <summary>
@@ -240,10 +239,8 @@ namespace YAF.Controls
         /// </summary>
         private void RenderQuickSearch()
         {
-            if ((!this.Get<YafBoardSettings>().ShowQuickSearch ||
-                 !this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ExternalSearchPermissions)) &&
-                (!this.Get<YafBoardSettings>().ShowQuickSearch ||
-                 !this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().SearchPermissions)))
+            if (!this.Get<YafBoardSettings>().ShowQuickSearch ||
+                !this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().SearchPermissions))
             {
                 return;
             }
@@ -373,7 +370,7 @@ namespace YAF.Controls
             }
 
             // Search
-            if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ExternalSearchPermissions) || this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().SearchPermissions))
+            if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().SearchPermissions))
             {
                 RenderMenuItem(
                     this.menuListItems,

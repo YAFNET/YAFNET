@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2018 Ingo Herbote
@@ -22,37 +22,45 @@
  * under the License.
  */
 
-namespace YAF.Data.MsSql.Search
+namespace YAF.Types.Objects
 {
+    using System.Collections.Generic;
+
     /// <summary>
-    ///     The search condition.
+    /// The SearchGrid Data Set
     /// </summary>
-    public class SearchCondition
+    public class SearchGridDataSet
     {
-        #region Constructors and Destructors
+        /// <summary>
+        /// Gets or sets the page number.
+        /// </summary>
+        /// <value>
+        /// The page number.
+        /// </value>
+        public int PageNumber { get; set; }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="SearchCondition" /> class.
+        /// Gets or sets the total records.
         /// </summary>
-        public SearchCondition()
-        {
-            this.ConditionType = SearchConditionType.AND;
-        }
-
-        #endregion
-
-        #region Public Properties
+        /// <value>
+        /// The total records.
+        /// </value>
+        public int TotalRecords { get; set; }
 
         /// <summary>
-        ///     Gets or sets Condition.
+        /// Gets or sets the size of the page.
         /// </summary>
-        public string Condition { get; set; }
+        /// <value>
+        /// The size of the page.
+        /// </value>
+        public int PageSize { get; set; }
 
         /// <summary>
-        ///     Gets or sets ConditionType.
+        /// Gets or sets the search results.
         /// </summary>
-        public SearchConditionType ConditionType { get; set; }
-
-        #endregion
+        /// <value>
+        /// The search results.
+        /// </value>
+        public List<SearchMessage> SearchResults { get; set; }
     }
 }

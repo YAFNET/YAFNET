@@ -120,7 +120,7 @@ namespace YAF.Data.MsSql
 			{
 				this._sqlMessages.Clear();
 
-			    bool createdTransaction = transaction == null;
+			    var createdTransaction = transaction == null;
 
 			    try
 			    {

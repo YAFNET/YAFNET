@@ -123,7 +123,7 @@ namespace YAF.Core.Services
                                  { int.MaxValue, "EXALTED" }
                              };
 
-            string pageName = "HATED";
+            var pageName = "HATED";
 
             if (percentage > 1)
             {
@@ -174,18 +174,18 @@ namespace YAF.Core.Services
         [NotNull]
         public static float ConvertPointsToPercentage([NotNull] int points)
         {
-            int percantage = points;
+            var percantage = points;
 
-            int minValue = YafContext.Current.Get<YafBoardSettings>().ReputationMaxNegative;
+            var minValue = YafContext.Current.Get<YafBoardSettings>().ReputationMaxNegative;
 
-            int maxValue = YafContext.Current.Get<YafBoardSettings>().ReputationMaxPositive;
+            var maxValue = YafContext.Current.Get<YafBoardSettings>().ReputationMaxPositive;
 
             if (!YafContext.Current.Get<YafBoardSettings>().ReputationAllowNegative)
             {
                 minValue = 0;
             }
 
-            int testValue = minValue + maxValue;
+            var testValue = minValue + maxValue;
 
             if (percantage.Equals(0) && YafContext.Current.Get<YafBoardSettings>().ReputationAllowNegative)
             {

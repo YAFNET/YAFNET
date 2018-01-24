@@ -77,7 +77,7 @@ namespace YAF.Core.Services
     /// </param>
     public void HandleRequest(ViewPermissions permission)
     {
-      bool noAccess = true;
+      var noAccess = true;
 
       if (!this.Check(permission))
       {
@@ -85,7 +85,7 @@ namespace YAF.Core.Services
         {
           if (!Config.AllowLoginAndLogoff && YafContext.Current.BoardSettings.CustomLoginRedirectUrl.IsSet())
           {
-            string loginRedirectUrl = YafContext.Current.BoardSettings.CustomLoginRedirectUrl;
+            var loginRedirectUrl = YafContext.Current.BoardSettings.CustomLoginRedirectUrl;
 
             if (loginRedirectUrl.Contains("{0}"))
             {
@@ -102,7 +102,7 @@ namespace YAF.Core.Services
           else if (!Config.AllowLoginAndLogoff && Config.IsDotNetNuke)
           {
             // automatic DNN redirect...
-            string appPath = HostingEnvironment.ApplicationVirtualPath;
+            var appPath = HostingEnvironment.ApplicationVirtualPath;
             if (!appPath.EndsWith("/"))
             {
               appPath += "/";

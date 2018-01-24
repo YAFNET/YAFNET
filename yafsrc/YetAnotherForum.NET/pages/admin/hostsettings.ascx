@@ -1999,34 +1999,10 @@
                     </p><hr />
 
                         <h4>
-                            <YAF:HelpLabel ID="HelpLabel29" runat="server" LocalizedTag="SQL_FULLTEXT" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="UseFullTextSearch" runat="server"></asp:CheckBox>
-
-                    </p><hr />
-
-                        <h4>
                             <YAF:HelpLabel ID="HelpLabel30" runat="server" LocalizedTag="SEARCH_MINLENGTH" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" ID="SearchStringMinLength" runat="server"></asp:TextBox>
-
-                    </p><hr />
-
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel31" runat="server" LocalizedTag="SEARCH_MAXLENGTH" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:TextBox CssClass="form-control" ID="SearchStringMaxLength" runat="server"></asp:TextBox>
-
-                    </p><hr />
-
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel32" runat="server" LocalizedTag="SEARCH_PATTERN" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:TextBox CssClass="form-control" ID="SearchStringPattern" runat="server"></asp:TextBox>
 
                     </p><hr />
 
@@ -2036,55 +2012,6 @@
                         <p>
                             <asp:DropDownList CssClass="custom-select" ID="SearchPermissions" runat="server">
                                </asp:DropDownList>
-
-                    </p><hr />
-
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel34" runat="server" LocalizedTag="SEARCH_ENGINE1" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:TextBox CssClass="form-control" Height="80px" ID="SearchEngine1" runat="server" TextMode="MultiLine"></asp:TextBox>
-
-                    </p><hr />
-
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel35" runat="server" LocalizedTag="SEARCH_ENGINE1_PARAM" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:TextBox CssClass="form-control" Height="80px" ID="SearchEngine1Parameters" runat="server" TextMode="MultiLine"></asp:TextBox>
-
-                    </p><hr />
-
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel36" runat="server" LocalizedTag="SEARCH_ENGINE2" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:TextBox CssClass="form-control" Height="80px" ID="SearchEngine2" runat="server" TextMode="MultiLine"></asp:TextBox>
-
-                    </p><hr />
-
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel40" runat="server" LocalizedTag="SEARCH_ENGINE2_PARAM" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:TextBox CssClass="form-control" Height="80px" ID="SearchEngine2Parameters" runat="server" TextMode="MultiLine"></asp:TextBox>
-
-                    </p><hr />
-
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel37" runat="server" LocalizedTag="EXTERN_SEARCH_PERMISS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:DropDownList CssClass="custom-select" ID="ExternalSearchPermissions" runat="server">
-                            </asp:DropDownList>
-
-                    </p><hr />
-
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel38" runat="server" LocalizedTag="EXTERN_NEWWINDOW" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ExternalSearchInNewWindow" runat="server"></asp:CheckBox>
 
                     </p><hr />
 
