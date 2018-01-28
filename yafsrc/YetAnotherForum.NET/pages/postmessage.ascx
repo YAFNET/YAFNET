@@ -27,6 +27,10 @@
 		</td>
 		<td class="post" width="80%">
 			<asp:TextBox ID="TopicSubjectTextBox" runat="server" CssClass="edit" MaxLength="100" Width="400" autocomplete="off" />
+		    <div id="SearchResultsPlaceholder"  
+		         data-url='<%=YafForumInfo.ForumClientFileRoot %>' 
+		         data-userid='<%= YafContext.Current.PageUserID %>'>
+		    </div>
 		</td>
 	</tr>
     <tr id="DescriptionRow" visible="false" runat="server">

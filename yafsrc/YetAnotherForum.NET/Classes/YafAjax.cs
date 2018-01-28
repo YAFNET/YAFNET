@@ -74,7 +74,30 @@ namespace YAF.Classes
 
         #endregion
 
-        #region Get Paged Search Results Function
+        #region Search Functions
+
+        /// <summary>
+        /// Get similar topic titles
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="searchInput">The search input.</param>
+        /// <returns>
+        /// Returns the search Results.
+        /// </returns>
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public SearchGridDataSet GetSimilarTitles(int userId, string searchInput)
+        {
+            var results = this.Get<ISearch>().SearchSimilar(userId, searchInput, "Topic");
+
+            return new SearchGridDataSet
+                       {
+                           PageNumber = 1,
+                           TotalRecords = results.Count,
+                           PageSize = 20,
+                           SearchResults = results
+                       };
+        }
 
         /// <summary>
         /// Gets the search results.
@@ -84,7 +107,9 @@ namespace YAF.Classes
         /// <param name="pageSize">Size of the page.</param>
         /// <param name="pageNumber">The page number.</param>
         /// <param name="searchInput">The search input.</param>
-        /// <returns>Returns the search Results.</returns>
+        /// <returns>
+        /// Returns the search Results.
+        /// </returns>
         [WebMethod(EnableSession = true)]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public SearchGridDataSet GetSearchResults(int userId, int forumId, int pageSize, int pageNumber, string searchInput)

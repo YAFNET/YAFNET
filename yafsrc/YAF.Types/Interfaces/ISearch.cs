@@ -76,6 +76,15 @@ namespace YAF.Types.Interfaces
         List<SearchMessage> Search(int forumId, int userId, string input, string fieldName = "");
 
         /// <summary>
+        /// Searches for similar words
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="input">The input.</param>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <returns>Returns the list of search results.</returns>
+        List<SearchMessage> SearchSimilar(int userId, string input, string fieldName = "");
+
+        /// <summary>
         /// Searches the paged.
         /// </summary>
         /// <param name="totalHits">The total hits.</param>

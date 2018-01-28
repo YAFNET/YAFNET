@@ -30,5 +30,17 @@
   {
     "outputFile": "Content/bootstrap/bootstrap.css",
     "inputFile": "Content/bootstrap/bootstrap.scss"
+  },
+  {
+    "outputFile": "Content/bootstrap-datetimepicker-build.css",
+    "inputFile": "Content/bootstrap-datetimepicker-build.scss"
+  },
+  {
+    "outputFile": "Scripts/bootstrap-datetimepicker.es5.js",
+    "inputFile": "Scripts/bootstrap-datetimepicker.js"
+  },
+  {
+    "outputFile": "Scripts/ladda.es5.js",
+    "inputFile": "Scripts/ladda.js"
   }
 ]

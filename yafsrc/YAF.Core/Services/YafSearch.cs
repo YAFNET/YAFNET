@@ -18,11 +18,13 @@
     using YAF.Classes;
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
+    using YAF.Utils;
 
     /// <summary>
     /// The YAF Search Functions
@@ -199,16 +201,30 @@
         public List<SearchMessage> Search(int forumId, int userId, string input, string fieldName = "")
         {
             var totalHits = 0;
-            if (input.IsNotSet())
-            {
-                return new List<SearchMessage>();
-            }
 
-        /*    var terms = input.Trim().Replace("-", " ").Split(' ').Where(x => !string.IsNullOrEmpty(x))
-                .Select(x => x.Trim() + "*");
-            input = string.Join(" ", terms);*/
+            return input.IsNotSet()
+                       ? new List<SearchMessage>()
+                       : this.SearchIndex(out totalHits, forumId, userId, input, fieldName);
 
-            return this.SearchIndex(out totalHits, forumId, userId, input, fieldName);
+            /*    var terms = input.Trim().Replace("-", " ").Split(' ').Where(x => !string.IsNullOrEmpty(x))
+                    .Select(x => x.Trim() + "*");
+                input = string.Join(" ", terms);*/
+        }
+
+        /// <summary>
+        /// Searches for similar words
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="input">The input.</param>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <returns>
+        /// Returns the list of search results.
+        /// </returns>
+        public List<SearchMessage> SearchSimilar(int userId, string input, string fieldName = "")
+        {
+            return input.IsNotSet()
+                       ? new List<SearchMessage>()
+                       : this.SearchSimilarIndex(userId, input, fieldName);
         }
 
         /// <summary>
@@ -361,7 +377,45 @@
                            TopicId = doc.Get("TopicId").ToType<int>(),
                            Topic = topic.IsSet() ? topic : doc.Get("Topic"),
                            ForumId = doc.Get("ForumId").ToType<int>(),
-                           Description = doc.Get("Description")
+                           Description = doc.Get("Description"),
+                           TopicUrl =
+                               YafBuildLink.GetLink(
+                                   ForumPages.posts,
+                                   "t={0}",
+                                   doc.Get("TopicId").ToType<int>()),
+                           MessageUrl = YafBuildLink.GetLink(
+                               ForumPages.posts,
+                               "m={0}#post{0}",
+                               doc.Get("MessageId").ToType<int>())
+                       };
+        }
+
+        /// <summary>
+        /// Maps the search document to data.
+        /// </summary>
+        /// <param name="doc">The document.</param>
+        /// <param name="userAccessList">The user access list.</param>
+        /// <returns>
+        /// Returns the Search Message
+        /// </returns>
+        private SearchMessage MapSearchDocumentToData(
+            Document doc,
+            List<vaccess> userAccessList)
+        {
+            var forumId = doc.Get("ForumId").ToType<int>();
+
+            if (!userAccessList.Any() || !userAccessList.Exists(v => v.ForumID == forumId && v.ReadAccess))
+            {
+                return null;
+            }
+
+            return new SearchMessage
+                       {
+                           Topic = doc.Get("Topic"),
+                           TopicUrl = YafBuildLink.GetLink(
+                               ForumPages.posts,
+                               "t={0}",
+                               doc.Get("TopicId").ToType<int>()),
                        };
         }
 
@@ -392,6 +446,24 @@
             return hits.Select(
                     hit => this.MapSearchDocumentToData(highlighter, analyzer, searcher.Doc(hit.Doc), userAccessList))
                 .OrderByDescending(s => s.MessageId).Skip(skip).Take(pageSize).ToList();
+        }
+
+        /// <summary>
+        /// Maps the search to data list.
+        /// </summary>
+        /// <param name="searcher">The searcher.</param>
+        /// <param name="hits">The hits.</param>
+        /// <param name="userAccessList">The user access list.</param>
+        /// <returns>
+        /// Returns the search list
+        /// </returns>
+        private List<SearchMessage> MapSearchToDataList(
+            Searchable searcher,
+            IEnumerable<ScoreDoc> hits,
+            List<vaccess> userAccessList)
+        {
+            return hits.Select(hit => this.MapSearchDocumentToData(searcher.Doc(hit.Doc), userAccessList))
+                .GroupBy(x => x.Topic).Select(y => y.FirstOrDefault()).ToList();
         }
 
         /// <summary>
@@ -496,6 +568,50 @@
                     searcher.Dispose();
                     return results;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Searches for similar words
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="searchQuery">The search query.</param>
+        /// <param name="searchField">The search field.</param>
+        /// <returns>
+        /// Returns the Search results
+        /// </returns>
+        private List<SearchMessage> SearchSimilarIndex(
+            int userId,
+            string searchQuery,
+            string searchField)
+        {
+            if (searchQuery.Replace("*", string.Empty).Replace("?", string.Empty).IsNotSet())
+            {
+                return new List<SearchMessage>();
+            }
+
+            // Insert forum access here
+            var userAccessList = this.GetRepository<vaccess>().Get(v => v.UserID == userId);
+
+            using (var searcher = new IndexSearcher(Directory, true))
+            {
+                var hitsLimit = this.Get<YafBoardSettings>().ReturnSearchMax;
+                var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
+
+                  var parser = new QueryParser(Lucene.Net.Util.Version.LUCENE_30, searchField, analyzer);
+                    var query = this.ParseQuery(searchQuery, parser);
+
+                    var hits = searcher.Search(query, hitsLimit).ScoreDocs;
+
+                    var results = this.MapSearchToDataList(
+                        searcher,
+                        hits,
+                        userAccessList);
+
+                    analyzer.Close();
+                    searcher.Dispose();
+
+                    return results;
             }
         }
 

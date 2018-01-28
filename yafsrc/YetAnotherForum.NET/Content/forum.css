@@ -4760,7 +4760,7 @@ readers do not read off random characters that represent icons */
 
 /*!
  * Datetimepicker for Bootstrap 3
- * version : 4.17.45
+ * version : 4.17.47
  * https://github.com/Eonasdan/bootstrap-datetimepicker/
  */
 .bootstrap-datetimepicker-widget {
@@ -4820,11 +4820,11 @@ readers do not read off random characters that represent icons */
   bottom: -6px;
   left: 7px; }
 
-.bootstrap-datetimepicker-widget.dropdown-menu.float-right:before {
+.bootstrap-datetimepicker-widget.dropdown-menu.pull-right:before {
   left: auto;
   right: 6px; }
 
-.bootstrap-datetimepicker-widget.dropdown-menu.float-right:after {
+.bootstrap-datetimepicker-widget.dropdown-menu.pull-right:after {
   left: auto;
   right: 7px; }
 
@@ -5543,6 +5543,11 @@ body:last-child .blueimp-gallery-playing > .play-pause {
   .AlbumImageList li img {
     max-width: 60px;
     max-height: 80px; }
+
+.list-similar {
+  height: 200px;
+  overflow: hidden;
+  overflow-y: scroll; }
 
 .content {
   padding: 0; }

@@ -55,6 +55,8 @@
       "Scripts/forum/yaf.Utilities.js",
       "Scripts/forum/yaf.MessageHistory.js",
       "Scripts/forum/yaf.Attachments.js",
+      "Scripts/forum/yaf.SearchResults.js",
+      "Scripts/forum/yaf.SimilarTitles.js",
       "Scripts/forum/yaf.Main.js"
     ]
   },

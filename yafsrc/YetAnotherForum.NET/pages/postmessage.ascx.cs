@@ -713,6 +713,9 @@ namespace YAF.Pages
                 if (isNewTopic)
                 {
                     this.PageLinks.AddLink(this.GetText("NEWTOPIC"));
+
+                    // enable similar topics search
+                    this.TopicSubjectTextBox.CssClass += " searchSimilarTopics";
                 }
 
                 // form user is only for "Guest"

@@ -24,8 +24,16 @@
 @import "forum/editor.scss";
 @import "forum/user-albums.scss";
 
+
+// -- Similar topic lists
+.list-similar {
+    height: 200px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
 .content {
-  padding: 0;
+    padding: 0;
 }
 
 .PopupBody {
