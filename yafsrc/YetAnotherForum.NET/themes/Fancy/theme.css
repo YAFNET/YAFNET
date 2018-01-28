@@ -106,9 +106,6 @@ html { min-height: 100%; }
 }
 .yafnet .gotoPageForm input[type="button"],
 .yafnet input[type="checkbox"],
-.yafnet .pagination a, .yafnet .pagination span,
-.yafnet .pagination .current.smiliesPagerPrev, 
-.yafnet .pagination .current.smiliesPagerNext,
 .yafnet .ButtonOut,
 .yafnet .ButtonOver,
 .yafnet .ButtonChecked,
@@ -147,9 +144,6 @@ html { min-height: 100%; }
   *line-height: 20px;
 }
 .yafnet .gotoPageForm input[type="button"],
-.yafnet .pagination a, .yafnet .pagination span,
-.yafnet .pagination .current.smiliesPagerPrev, 
-.yafnet .pagination .current.smiliesPagerNext,
 .yafnet .ui-tabs-nav li,
 .yafnet .ButtonOut,
 .yafnet .ButtonOver,
@@ -205,9 +199,6 @@ html { min-height: 100%; }
   font-family:"helvetica neue", "helvetica", "arial", sans-serif;
 }
 .yafnet .gotoPageForm input[type="button"]:hover,
-.yafnet .pagination a:hover, .yafnet .pagination span:hover,
-.yafnet .pagination .current.smiliesPagerPrev:hover, 
-.yafnet .pagination .current.smiliesPagerNext:hover,
 .yafnet .ui-tabs-nav li:hover,
 .yafnet .ButtonOver,
 .ModalDialog .modalFooter a:hover,
@@ -240,9 +231,6 @@ html { min-height: 100%; }
           transition: background-position 0.1s linear;
 }
 .yafnet .gotoPageForm input[type="button"]:focus,
-.yafnet .pagination a:focus, .yafnet .pagination span:focus,
-.yafnet .pagination .current.smiliesPagerPrev:focus, 
-.yafnet .pagination .current.smiliesPagerNext:focus,
 .yafnet .ui-tabs-nav li:focus,
 .yafnet .ButtonChecked,
 .ModalDialog .modalFooter a:focus,
@@ -266,10 +254,6 @@ html { min-height: 100%; }
   outline-offset: -2px;
 }
 .yafnet .gotoPageForm input[type="button"]:active,
-.yafnet .pagination .current,
-.yafnet .pagination a:active, .yafnet .pagination span:active,
-.yafnet .pagination .current.smiliesPagerPrev:active, 
-.yafnet .pagination .current.smiliesPagerNext:active,
 .yafnet .ui-tabs-nav li:active,
 .yafnet li.ui-tabs-active,
 .yafnet .dd:active,
@@ -394,7 +378,7 @@ html { min-height: 100%; }
 .yafnet .header1,
 .yafnet .HeaderTopicLink,
 .yafnet tr.forumRowTitle,
-.yafnet .topicTitle th {	
+.yafnet .topicTitle th {
     font-weight:normal!important;
 	padding-left: 10px;
 	font-size: 14pt;
@@ -424,7 +408,6 @@ html { min-height: 100%; }
 
 
 .postForumUsers tr.header2 td,
-#DataPanel1_Table td.header2,
 #yafprofilecontent td.header2,
 #yafprofilecontainer  tr.header2 td,
 .content .header2 td.header1 {border-top:none;}
@@ -467,7 +450,7 @@ html { min-height: 100%; }
 /* Footer1 - Bottom of tables */
 .yafnet .footer1 {
 	font-size: 7pt;
-	height: 28px;	
+	height: 28px;
 }
 .yafnet .footer1 select,
 .yafnet .footer1 td {
@@ -492,10 +475,9 @@ html { min-height: 100%; }
 
 .yafnet .postQuickReply .post,
 .yafnet .LastPosts .header2,
-.yafnet .smiliesContent .header2,
-.activeDiscussionContent .post, 
+.activeDiscussionContent .post,
 .forumStatisticsContent .post,
-.activeDiscussionContent .postheader, 
+.activeDiscussionContent .postheader,
 .forumStatisticsContent .postheader,
 #yafprofilecontent .post,
 #yafprofilecontent .postheader {border-top:none;}
@@ -505,7 +487,7 @@ html { min-height: 100%; }
 .yafnet .post_alt,
 .forumRow_Alt td,
 .topicRow_Alt td {
-	
+
 }
 /* Sticky &  Announcement Topic Row*/
 .yafnet .priorityRow {
@@ -520,8 +502,8 @@ html { min-height: 100%; }
 .yafnet .postNavigation .post {
 	background-color: transparent;
 	border: none;
-	
-} 
+
+}
 .yafnet .postNavigation .post a {
 	color: white;
 }
@@ -546,8 +528,8 @@ html { min-height: 100%; }
 
 .yafnet .contentShadow {
 	position:relative;
-          
-	padding:1em; 
+
+	padding:1em;
 	background:white;
 	-webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 60px rgba(0, 0, 0, 0.1) inset;
     -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
@@ -557,7 +539,7 @@ html { min-height: 100%; }
 .yafnet .contentShadow:before,
 .yafnet .contentShadow:after {
     content:"";
-    position:absolute; 
+    position:absolute;
     z-index:-2;
 	bottom:15px;
 	left:10px;
@@ -565,13 +547,13 @@ html { min-height: 100%; }
     height:20%;
 }
 
-.yafnet .contentShadow:after{                 
-    right:10px; 
+.yafnet .contentShadow:after{
+    right:10px;
     left:auto;
 }
-        
+
 .yafnet .roundShadow {
-    -moz-border-radius:4px; 
+    -moz-border-radius:4px;
     border-radius:4px;
 }
 
@@ -630,14 +612,14 @@ html { min-height: 100%; }
     padding: 8px;
 }
 .yafnet .content td table td table td {
-	padding: 0;	
+	padding: 0;
 }
 .yafnet .content .headersub {
 	color: #ffffff;
 	font-weight: bold;
 	padding-left: 10px;
 	font-size: 15px;
-	line-height: 30px;	
+	line-height: 30px;
 }
 /* used for quoting messages */
 .yafnet .quote {
@@ -646,7 +628,7 @@ html { min-height: 100%; }
 	-webkit-border-radius: 7px;
 	-moz-border-radius: 7px;
 	border-radius: 7px;
-	
+
 	background-color: white;
 	width:90%;
 	-webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.455);
@@ -711,7 +693,7 @@ html { min-height: 100%; }
 /* for printing */
 .yafnet table.print {
 	border: solid 1px #C0C0C0;
-	-moz-border-radius: 0.4em; 
+	-moz-border-radius: 0.4em;
 	-webkit-border-radius: 0.4em;
 	border-radius: 0.4em;
 }
@@ -728,7 +710,7 @@ html { min-height: 100%; }
 .yafnet .textfield {
 	background-color: #FFFFFF;
 	border: 1px solid #3B3b3b;
-	-moz-border-radius: 0.4em; 
+	-moz-border-radius: 0.4em;
 	-webkit-border-radius: 0.4em;
 	border-radius: 0.4em;
 	width: 100%;
@@ -758,7 +740,7 @@ html { min-height: 100%; }
     -webkit-border-top-right-radius:0.3em;
     border-top-right-radius:0.3em;}
 .yafnet .yafpopupmenu li:last-child .popupitemhover {background-color: #ccc;-moz-border-radius-bottomleft:0.3em;-webkit-border-bottom-left-radius:0.3em;border-bottom-left-radius:0.3em;
-	
+
 	-moz-border-radius-bottomright:0.3em;
     -webkit-border-bottom-right-radius:0.3em;
     border-bottom-right-radius:0.3em;}
@@ -775,7 +757,7 @@ html { min-height: 100%; }
 {
 	background-color: #ffffff;
 	border: solid 1px #aaaaaa;
-	-moz-border-radius: 0.4em; 
+	-moz-border-radius: 0.4em;
 	-webkit-border-radius: 0.4em;
 	border-radius: 0.4em;
 	width: 400px;
@@ -788,17 +770,17 @@ html { min-height: 100%; }
 
 .modalPopup .modalHeader
 {
-	
+
 	-webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.62);
 -moz-box-shadow:    0 0 2px rgba(0, 0, 0, 0.62);
 box-shadow:         0 0 2px rgba(0, 0, 0, 0.62);
 	background: url('images/HeaderBack.png') #333;
-	
+
 	background: -webkit-gradient(linear, left top, left bottom, from(#666), to(#000));
 	background: -moz-linear-gradient(top,  #666,  #000);
 	background: -o-linear-gradient(top,  #666,  #000);
-	
-	
+
+
 	color: #ffffff;
 	font-weight: bold;
 	padding-left: 10px;
@@ -830,7 +812,7 @@ box-shadow:         0 0 2px rgba(0, 0, 0, 0.62);
 .modalPopup .modalFooter
 {
 	padding: 5px;
-	background-color: #f4f4f4;	
+	background-color: #f4f4f4;
 	line-height: 20px;
 }
 
@@ -884,13 +866,13 @@ box-shadow:         0 0 2px rgba(0, 0, 0, 0.62);
 .YAF_Pages_members .AvatarWrap,
 .YAF_Pages_team .AvatarWrap {
 	float: left;
-	
+
 	width: 40px;
 	height: 40px;
 	margin-right:5px;
-	
+
 	display: inline-block;
-	
+
 	-webkit-box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
 	-moz-box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
 	box-shadow: 0 1px 0 rgba(255,255,255,.2), inset 0 4px 5px rgba(0,0,0,.6), inset 0 1px 0 rgba(0,0,0,.6);
@@ -898,7 +880,7 @@ box-shadow:         0 0 2px rgba(0, 0, 0, 0.62);
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
-	
+
 	background-size:40px!important;
 }
 
@@ -936,10 +918,10 @@ box-shadow:         0 0 2px rgba(0, 0, 0, 0.62);
 	border-spacing: 0;
 	margin-top:10px;
 	margin-bottom:10px;
-	color: black;	
+	color: black;
 	width:100%;
-	padding:4px 4px 4px 0!important; 
-	
+	padding:4px 4px 4px 0!important;
+
 	-webkit-border-radius: 7px;
 	-moz-border-radius: 7px;
 	border-radius: 7px;
@@ -1076,7 +1058,7 @@ box-shadow:         0 0 2px rgba(0, 0, 0, 0.62);
 /* Alpha Sort Control */
 .yafnet dl.AlphaSort {
 	margin-bottom:10px;
-		
+
 	-webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.455);
     -moz-box-shadow:    0 1px 5px rgba(0, 0, 0, 0.455);
     box-shadow:         0 1px 5px rgba(0, 0, 0, 0.455);
@@ -1085,13 +1067,13 @@ box-shadow:         0 0 2px rgba(0, 0, 0, 0.62);
 	-webkit-border-radius: 7px;
 	-moz-border-radius: 7px;
 	border-radius: 7px;
-	
+
 	background-color: white;
 	padding:10px 0 10px 0;
 }
 .yafnet dl.AlphaSort dt {
 	padding:10px 0 4px 10px;height:22px;
-	
+
 	-moz-border-radius-topleft:3px;
 	-moz-border-radius-topright:3px;
     -webkit-border-top-left-radius:3px;
@@ -1123,7 +1105,7 @@ box-shadow:         0 0 2px rgba(0, 0, 0, 0.62);
 .yafnet #yafprofilepersonal li {
 	list-style-type:none;
 	line-height:20px;
-	
+
 	background: url("images/ProfileMenu.png") no-repeat top left;
 }
 
@@ -1146,51 +1128,6 @@ box-shadow:         0 0 2px rgba(0, 0, 0, 0.62);
 
 /* HoverCard */
 .yafnet .hc-details { -moz-box-shadow: 0 5px 10px rgba(0,0,0, .2);-webkit-box-shadow:0 5px 10px rgba(0,0,0, .2);box-shadow: 0 5px 10px rgba(0,0,0, .2);border:solid 1px white;z-index:100;}
-
-/* msdropdown styling */
-.yafnet .dd {text-align:left;background-color:#fff;font-family:"Trebuchet MS", "Tahoma", "Verdana", "Arial", sans-serif;width:250px!important;}
-
-.dd .ddTitle{background:#f2f2f2;border:1px solid #c3c3c3;text-indent:0;cursor:default;overflow:hidden;padding:3px;height:15px}
-.dd .ddTitle span.arrow{background:none!important;width:auto!important;height:auto!important;font-family:'EntypoRegular';font-size:34px;float:right;display:inline-block;cursor:pointer;margin-top:-1px;}
-.dd span.ddTitleText{font-weight:bold;-ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis;display: inline-block;white-space: nowrap;overflow: hidden;vertical-align: top;}
-.dd .ddTitle span.ddTitleText img{text-align:left;padding:0 2px 0 0;}
-.dd .ddTitle img.selected{vertical-align:top;padding:0 3px 0 0;}
-.dd div.ddChild{width:300px!important;position:absolute;border:1px solid #c3c3c3;border-top:none;display:none;overflow:auto;overflow-x:hidden!important;background-color:#fff;margin:0;}
-.dd .ddChild .opta a,.dd .ddChild .opta a:visited{padding-left:10px;}
-.dd .ddChild a{display:block;text-decoration:none;color:#000;overflow:hidden;-ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; white-space:nowrap;cursor:pointer;padding:2px 0 2px 3px;}
-.dd .ddChild a img{border:0;vertical-align:middle;padding:0 2px 0 0;}
-.hidden{display:none;}.dd .borderTop{border-top:1px solid #c3c3c3!important;}
-.dd .noBorderTop{border-top:none 0!important;}
-.dd .ddChild a:hover,.dd .ddChild a.selected{background-color:#ccc!important;}
-
-.yafnet .ddChild{ border:solid 1px #ccc; border-top:none; list-style:none; -moz-box-shadow: 0 5px 10px rgba(0,0,0, .2);-webkit-box-shadow:0 5px 10px rgba(0,0,0, .2);box-shadow: 0 5px 10px rgba(0,0,0, .2); display:none; position:absolute; margin:0; padding:0;background:#fff; overflow:auto;height: 157px; z-index: 9999;border-bottom-color: #b3b3b3;
-  -webkit-border-radius: 4px;
-     -moz-border-radius: 4px;
-          border-radius: 4px;}
-    .yafnet .ddChild a {
-        font-size: 11px !important;
-        text-align: left;
-        padding: 6px !important;
-        display: block;
-        border-bottom: solid 1px #ddd;
-        overflow: hidden;
-        text-decoration: none;
-        color: #333;
-        cursor: pointer;
-        -webkit-transition: all 0.25s ease-in-out;
-        -moz-transition: all 0.25s ease-in-out;
-        -o-transition: all 0.25s ease-in-out;
-        transition: all 0.25s ease-in-out;
-    }
-.yafnet .ddChild a:hover{ background:#f3f3f3!important; color:#000!important;}
-
-
-.yafnet .ddOutOfVision:after {clear:both;}
-.yafnet .dd .ddTitle {text-align:left;border:none!important;background: transparent!important;}
-.yafnet .ddChild {text-align:left;margin-top:13px!important;padding:6px;}
-
-.yafnet .dd .ddTitle .ddTitleText { padding: 0 20px 5px 5px!important;}
-.yafnet .ddcommon .arrow { top: 0;}
 
 /* jQuery-UI Override */
 
@@ -1270,7 +1207,7 @@ box-shadow:         0 0 2px rgba(0, 0, 0, 0.62);
 .ui-tabs .ui-tabs-nav{ background:none; border-color: #ddd;
   border-style: solid;
   border-width: 0 0 1px;}
-.ui-tabs { position: relative; padding: .2em; zoom: 1; border:0;} 
+.ui-tabs { position: relative; padding: .2em; zoom: 1; border:0;}
 
 
 .ui-tabs .ui-tabs-nav li:hover, .ui-tabs .ui-tabs-nav li a:hover{
@@ -1282,7 +1219,7 @@ box-shadow:         0 0 2px rgba(0, 0, 0, 0.62);
 
 
 .ui-tabs .ui-tabs-nav { margin: 0; padding: .2em .2em 0; border-bottom:1px solid #DDD; }
-.ui-tabs .ui-tabs-nav li {  text-decoration: none; list-style: none; float: left; position: relative; top: 1px; padding: 0 0 1px 0; white-space: nowrap; background:none; border:0; 
+.ui-tabs .ui-tabs-nav li {  text-decoration: none; list-style: none; float: left; position: relative; top: 1px; padding: 0 0 1px 0; white-space: nowrap; background:none; border:0;
 
 }
 
@@ -1324,7 +1261,7 @@ box-shadow:         0 0 2px rgba(0, 0, 0, 0.62);
   outline:none;
 }
 
-.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active a { cursor: pointer; color:#0069D6; background:none; font-weight:normal; margin-bottom:-1px;} 
+.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active a { cursor: pointer; color:#0069D6; background:none; font-weight:normal; margin-bottom:-1px;}
 /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
 .ui-tabs .ui-tabs-panel { display: block; border-width: 0; padding: 1em 1.4em; background: none; }
 .ui-tabs-panel .ui-button{text-decoration:none;}
@@ -1442,7 +1379,7 @@ box-shadow:         0 0 2px rgba(0, 0, 0, 0.62);
   font-size:normal;
     -ms-text-shadow: 0;
     text-shadow: 0;
-  color:white;  
+  color:white;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
     -ms-border-radius: 4px;

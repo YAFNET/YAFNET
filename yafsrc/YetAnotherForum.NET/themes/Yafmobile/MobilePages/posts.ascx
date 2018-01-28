@@ -104,50 +104,6 @@
         </table>
     </AlternatingItemTemplate>
 </asp:Repeater>
-<asp:PlaceHolder ID="QuickReplyPlaceHolder" runat="server">
-    <table class="content postQuickReply" width="100%">
-        <tr>
-            <td colspan="3" class="post" style="padding: 0px;">
-                <YAF:DataPanel runat="server" ID="DataPanel1" AllowTitleExpandCollapse="true" TitleStyle-CssClass="header2"
-                    TitleStyle-Font-Bold="true" Collapsed="false">
-                    <div class="post quickReplyLine" id="QuickReplyLine" runat="server">
-                    </div>
-                    <div id="CaptchaDiv" align="center" visible="false" runat="server">
-                        <br />
-                        <table class="content">
-                            <tr>
-                                <td class="header2">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="Captcha_Image" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="post" align="center">
-                                    <asp:Image ID="imgCaptcha" runat="server" AlternateText="Captcha" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="post">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="Captcha_Enter" />
-                                    <asp:TextBox ID="tbCaptcha" runat="server" />
-                                </td>
-                            </tr>
-                        </table>
-                        <br />
-                    </div>
-                    <div>
-                         <asp:PlaceHolder runat="server" ID="QuickReplyWatchTopic">
-                             <asp:CheckBox ID="TopicWatch" runat="server" />
-                             <YAF:LocalizedLabel ID="TopicWatchLabel" runat="server" LocalizedTag="TOPICWATCH" />
-                         </asp:PlaceHolder>
-                     </div>
-                    &nbsp;<div align="center" style="margin: 7px;">
-                        <asp:Button ID="QuickReply" CssClass="pbutton" runat="server" />
-                        &nbsp;</div>
-                </YAF:DataPanel>
-            </td>
-        </tr>
-    </table>
-</asp:PlaceHolder>
 <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="Pager" UsePostBack="false" />
 <asp:PlaceHolder ID="mobileHolder" runat="server" Visible="false">
 <table class="content postForumUsers" width="100%">

@@ -8,6 +8,7 @@
 <%@ Register TagPrefix="YAF" TagName="DisplayAd" Src="../controls/DisplayAd.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PollList" Src="../controls/PollList.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="SimilarTopics" Src="../controls/SimilarTopics.ascx" %>
+<%@ Register TagPrefix="modal" TagName="QuickReply" Src="../Dialogs/QuickReply.ascx" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:PollList ID="PollList" TopicId='<%# PageContext.PageTopicID %>' ShowButtons='<%# ShowPollButtons() %>' Visible='<%# PollGroupId() > 0 %>' PollGroupId='<%# PollGroupId() %>' runat="server"/>
 <a id="top"  name="top"></a>
@@ -34,6 +35,9 @@
                 OnClick="NewTopic_Click" TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" />
             <YAF:ThemeButton ID="PostReplyLink1" runat="server" CssClass="yafcssbigbutton rightItem button-reply"
                 OnClick="PostReplyLink_Click" TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT" />
+            <YAF:ThemeButton ID="QuickReplyLink1" runat="server" CssClass="btn btn-primary rightItem button-reply"
+                             TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
+                             Icon="reply" DataTarget="QuickReplyDialog"/>
         </td>
     </tr>
 </table>
@@ -128,50 +132,6 @@
         <YAF:DisplayConnect ID="DisplayConnect" runat="server" Visible="False" />
     </AlternatingItemTemplate>
 </asp:Repeater>
-<asp:PlaceHolder ID="QuickReplyPlaceHolder" runat="server">
-    <table class="content postQuickReply" width="100%">
-        <tr>
-            <td colspan="3" class="post" style="padding: 0">
-                <YAF:DataPanel runat="server" ID="DataPanel1" AllowTitleExpandCollapse="true" TitleStyle-CssClass="header2"
-                    TitleStyle-Font-Bold="true" Collapsed="true">
-                    <div class="post quickReplyLine" id="QuickReplyLine" runat="server">
-                    </div>
-                    <div id="CaptchaDiv" align="center" visible="false" runat="server">
-                        <br />
-                        <table class="content">
-                            <tr>
-                                <td class="header2">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="Captcha_Image" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="post" align="center">
-                                    <asp:Image ID="imgCaptcha" runat="server" AlternateText="Captcha" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="post">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="Captcha_Enter" />
-                                    <asp:TextBox ID="tbCaptcha" runat="server" />
-                                </td>
-                            </tr>
-                        </table>
-                        <br />
-                    </div>
-                    <div>
-                        <asp:PlaceHolder runat="server" ID="QuickReplyWatchTopic">
-                            <asp:CheckBox ID="TopicWatch" runat="server" />
-                            <YAF:LocalizedLabel ID="TopicWatchLabel" runat="server" LocalizedTag="TOPICWATCH" />
-                        </asp:PlaceHolder>
-                    </div>
-                    &nbsp;<div align="center" style="margin: 7px;">
-                        <asp:Button ID="QuickReply" CssClass="pbutton" runat="server" />
-                        &nbsp;</div>
-                </YAF:DataPanel>
-            </td>
-        </tr>
-    </table>
-</asp:PlaceHolder>
 <table class="header2 postNavigation" width="100%"  id="tbFeeds" runat="server" visible="<%# this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess) %>">
 <tr>
 <td class="post">
@@ -208,6 +168,9 @@
                 OnClick="NewTopic_Click" TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" />
             <YAF:ThemeButton ID="PostReplyLink2" runat="server" CssClass="yafcssbigbutton rightItem button-reply"
                 OnClick="PostReplyLink_Click" TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT" />
+            <YAF:ThemeButton ID="QuickReplyLink2" runat="server" CssClass="btn btn-primary rightItem button-reply"
+                             TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
+                             Icon="reply" DataTarget="QuickReplyDialog"/>
         </td>
     </tr>
 </table>
@@ -224,3 +187,4 @@
 <div id="DivSmartScroller">
     <YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>
+<modal:QuickReply ID="QuickReplyDialog" runat="server" />

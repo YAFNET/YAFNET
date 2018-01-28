@@ -31,7 +31,6 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-select.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-select.min.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\DataPanel.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\InstallWizard.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\InstallWizard.comb.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.blockUI.js" />

@@ -48,7 +48,6 @@
       "Scripts/jsdifflib.js",
       "Scripts/emojipicker/jquery.emojis.js",
       "Scripts/emojipicker/jquery.emojipicker.js",
-      "Scripts/forum/yaf.DataPanel.js",
       "Scripts/forum/yaf.Utilities.js",
       "Scripts/forum/yaf.MessageHistory.js",
       "Scripts/forum/yaf.Attachments.js",

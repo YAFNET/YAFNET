@@ -115,7 +115,7 @@ function toggleItem(detailId)
                                     <YAF:ThemeButton runat="server" CssClass="deleteEventItem btn btn-danger btn-sm" 
                                                      CommandName="delete" CommandArgument='<%# this.Eval( "EventLogID") %>'
                                                      ReturnConfirmText='<%# this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE") %>'
-                                                     Icon="Trash" TextLocalizedTag="DELETE">
+                                                     Icon="trash" TextLocalizedTag="DELETE">
                                     </YAF:ThemeButton>
                                 </span>
                             </td>

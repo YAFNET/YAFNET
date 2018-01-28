@@ -211,6 +211,13 @@
     <Compile Include="Classes\YafWebService.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Dialogs\QuickReply.ascx.cs">
+      <DependentUpon>QuickReply.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\QuickReply.ascx.designer.cs">
+      <DependentUpon>QuickReply.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\AttachmentsUpload.ascx.cs">
       <DependentUpon>AttachmentsUpload.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1130,6 +1137,7 @@
     <Content Include="Content\webfonts\fa-solid-900.svg" />
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
+    <Content Include="Dialogs\QuickReply.ascx" />
     <Content Include="Dialogs\AttachmentsUpload.ascx" />
     <Content Include="controls\BuddyList.ascx" />
     <Content Include="controls\DialogBox.ascx" />
@@ -1828,6 +1836,7 @@
     <Content Include="Scripts\jquery.ForumExtensions.min.js">
       <DependentUpon>jquery.ForumExtensions.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\jquery.pagination.js" />
     <Content Include="Scripts\metisMenu.min.js">
       <DependentUpon>metisMenu.js</DependentUpon>
     </Content>
@@ -2125,7 +2134,6 @@
     <Content Include="Content\images\HiddenWarnDescription.png" />
     <Content Include="Content\images\loader.gif" />
     <Content Include="themes\Fancy\images\title-bg.gif" />
-    <Content Include="Scripts\forum\yaf.DataPanel.js" />
     <Content Include="Scripts\forum\InstallWizard.js" />
     <Content Include="Scripts\InstallWizard.comb.js" />
     <Content Include="Scripts\InstallWizard.comb.min.js">
@@ -4551,6 +4559,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\ladda.d.ts" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Package|AnyCPU'">
     <OutputPath>bin\</OutputPath>

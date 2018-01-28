@@ -98,6 +98,7 @@
     <Compile Include="AlbumListPopMenu.cs" />
     <Compile Include="GoToPageForm.cs" />
     <Compile Include="ModernButton.cs" />
+    <Compile Include="Alert.cs" />
     <Compile Include="ModernTextBox.cs" />
     <Compile Include="PopupPanel.cs" />
     <Compile Include="ImageListBox.cs" />
@@ -132,7 +133,6 @@
     <Compile Include="AlphaSort.cs" />
     <Compile Include="CollapsibleImage.cs" />
     <Compile Include="Container.cs" />
-    <Compile Include="DataPanel.cs" />
     <Compile Include="Footer.cs" />
     <Compile Include="ForumJump.cs" />
     <Compile Include="ForumUsers.cs" />
