@@ -29,9 +29,7 @@
     "outputFileName": "Scripts/jquery.ForumExtensions.js",
     "inputFiles": [
       "Scripts/moment-with-locales.js",
-      "Scripts/metisMenu.js",
       "Scripts/bootstrap.bundle.js",
-      //"Scripts/fontawesome/fontawesome-all.js",
       "Scripts/jquery.bootstrap-touchspin.js",
       "Scripts/bootstrap-datetimepicker.js",
       "Scripts/bootstrap-notify.js",
@@ -39,7 +37,6 @@
       "Scripts/blueimp-gallery.js",
       "Scripts/jquery.blueimp-gallery.js",
       "Scripts/bootstrap-image-gallery.js",
-      "Scripts/jquery.blockUI.js",
       "Scripts/jquery.hovercard.js",
       "Scripts/jquery.pagination.js",
       "Scripts/jquery.pagemethod.js",
@@ -56,6 +53,35 @@
       "Scripts/forum/yaf.MessageHistory.js",
       "Scripts/forum/yaf.Attachments.js",
       "Scripts/forum/yaf.SearchResults.js",
+      "Scripts/forum/yaf.SimilarTitles.js",
+      "Scripts/forum/yaf.Main.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.ForumAdminExtensions.js",
+    "inputFiles": [
+      "Scripts/moment-with-locales.js",
+      "Scripts/metisMenu.js",
+      "Scripts/bootstrap.bundle.js",
+      "Scripts/jquery.bootstrap-touchspin.js",
+      "Scripts/bootstrap-datetimepicker.js",
+      "Scripts/bootstrap-notify.js",
+      "Scripts/select2.js",
+      "Scripts/blueimp-gallery.js",
+      "Scripts/jquery.blueimp-gallery.js",
+      "Scripts/bootstrap-image-gallery.js",
+      "Scripts/jquery.blockUI.js",
+      "Scripts/jquery.hovercard.js",
+      "Scripts/jquery.pagination.js",
+      "Scripts/jquery.pagemethod.js",
+      "Scripts/prism.js",
+      "Scripts/tablesorter/jquery.tablesorter.combined.js",
+      "Scripts/tablesorter/extras/jquery.tablesorter.pager.min.js",
+      "Scripts/jquery.timeago.js",
+      "Scripts/emojipicker/jquery.emojis.js",
+      "Scripts/emojipicker/jquery.emojipicker.js",
+      "Scripts/forum/yaf.Utilities.js",
+      "Scripts/forum/yaf.Attachments.js",
       "Scripts/forum/yaf.SimilarTitles.js",
       "Scripts/forum/yaf.Main.js"
     ]

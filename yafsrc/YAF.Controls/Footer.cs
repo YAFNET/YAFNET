@@ -24,7 +24,6 @@
 
 namespace YAF.Controls
 {
-    using Core.Data.Profiling;
     #region Using
 
     using System;
@@ -34,6 +33,8 @@ namespace YAF.Controls
     using System.Text;
     using System.Web;
     using System.Web.UI;
+
+    using Core.Data.Profiling;
 
     using YAF.Classes;
     using YAF.Core;
@@ -96,7 +97,7 @@ namespace YAF.Controls
 
             this.Get<IStopWatch>().Stop();
 
-            footer.Append(@"<br /><div class=""content"" style=""text-align:right;font-size:7pt"">");
+            footer.Append(@"<footer class=""footer""><div class=""container text-right"">");
 
             this.RenderMobileLink(footer);
 
@@ -118,11 +119,12 @@ namespace YAF.Controls
         {
             if (this.Get<YafBoardSettings>().ShowPageGenerationTime)
             {
-                footer.Append("<br />");
+                footer.Append(@"<br /><span class=""text-muted"">");
                 footer.AppendFormat(this.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
+                footer.Append("</span>");
             }
 
-            footer.Append(@"</div>");
+            footer.Append(@"</div></footer>");
 
 #if DEBUG
 			if (!this.PageContext.IsAdmin)
@@ -175,7 +177,7 @@ namespace YAF.Controls
                         this.GetText("COMMON", "MOBILE_FULLSITE")));
             }
             else if (this.PageContext.Vars.ContainsKey("IsMobile") && this.PageContext.Vars["IsMobile"] != null
-                     && this.PageContext.Vars["IsMobile"].ToType<bool>())
+                                                                   && this.PageContext.Vars["IsMobile"].ToType<bool>())
             {
                 footer.Append(
                     @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
@@ -197,10 +199,11 @@ namespace YAF.Controls
             // Copyright Linkback Algorithm
             // Please keep if you haven't purchased a removal or commercial license.
             var domainKey = this.Get<YafBoardSettings>().CopyrightRemovalDomainKey;
+            var url = this.Get<HttpRequestBase>().Url;
 
-            if (domainKey.IsSet())
+            if (domainKey.IsSet() && url != null)
             {
-                var dnsSafeHost = this.Get<HttpRequestBase>().Url.DnsSafeHost.ToLower();
+                var dnsSafeHost = url.DnsSafeHost.ToLower();
 
                 // handle www and non www domains correctly.
                 if (dnsSafeHost.StartsWith("www."))
@@ -227,7 +230,7 @@ namespace YAF.Controls
 
             // get the theme credit info from the theme file
             // it's not really an error if it doesn't exist
-            string themeCredit = this.Get<ITheme>().GetItem("THEME", "CREDIT", null);
+            var themeCredit = this.Get<ITheme>().GetItem("THEME", "CREDIT", null);
 
             // append theme Credit if it exists...
             if (themeCredit.IsSet())

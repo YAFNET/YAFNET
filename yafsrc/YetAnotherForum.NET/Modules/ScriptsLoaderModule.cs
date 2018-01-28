@@ -54,8 +54,8 @@ namespace YAF.Modules
         /// </summary>
         public override void InitAfterPage()
         {
-            this.CurrentForumPage.PreRender += this.CurrentForumPage_PreRender;
-            this.CurrentForumPage.Load += this.CurrentForumPage_Load;
+            this.CurrentForumPage.PreRender += this.CurrentForumPagePreRender;
+            this.CurrentForumPage.Load += this.CurrentForumPageLoad;
         }
 
         #endregion
@@ -67,10 +67,10 @@ namespace YAF.Modules
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void CurrentForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
+        private void CurrentForumPageLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Load CSS First
-            this.RegisterCSSFiles();
+            this.RegisterCssFiles();
 
             this.RegisterJQuery();
         }
@@ -80,16 +80,24 @@ namespace YAF.Modules
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+        private void CurrentForumPagePreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.PageContext.Vars.ContainsKey("yafForumExtensions"))
             {
                 return;
             }
 #if DEBUG
-            YafContext.Current.PageElements.RegisterJsScriptsInclude("yafForumExtensions", "jquery.ForumExtensions.js");
+            YafContext.Current.PageElements.RegisterJsScriptsInclude(
+                "yafForumExtensions",
+                this.PageContext.CurrentForumPage.IsAdminPage
+                    ? "jquery.ForumAdminExtensions.js"
+                    : "jquery.ForumExtensions.js");
 #else
-            YafContext.Current.PageElements.RegisterJsScriptsInclude("yafForumExtensions", "jquery.ForumExtensions.min.js");
+            YafContext.Current.PageElements.RegisterJsScriptsInclude(
+                "yafForumExtensions",
+                this.PageContext.CurrentForumPage.IsAdminPage
+                    ? "jquery.ForumAdminExtensions.min.js"
+                    : "jquery.ForumExtensions.min.js");
 #endif
 
             this.PageContext.Vars["yafForumExtensions"] = true;
@@ -160,7 +168,7 @@ namespace YAF.Modules
         /// <summary>
         /// Register the CSS Files in the header.
         /// </summary>
-        private void RegisterCSSFiles()
+        private void RegisterCssFiles()
         {
             var element = YafContext.Current.CurrentForumPage.TopPageControl;
 

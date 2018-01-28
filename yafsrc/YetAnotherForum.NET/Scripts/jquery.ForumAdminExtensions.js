@@ -14288,6 +14288,362 @@ return hooks;
 
 })));
 
+/*
+ * metismenu - v2.7.1
+ * A jQuery menu plugin
+ * https://github.com/onokumus/metismenu#readme
+ *
+ * Made by Osman Nuri Okumus <onokumus@gmail.com> (https://github.com/onokumus)
+ * Under MIT License
+ */
+
+(function (global, factory) {
+  if (typeof define === "function" && define.amd) {
+    define(['jquery'], factory);
+  } else if (typeof exports !== "undefined") {
+    factory(require('jquery'));
+  } else {
+    var mod = {
+      exports: {}
+    };
+    factory(global.jquery);
+    global.metisMenu = mod.exports;
+  }
+})(this, function (_jquery) {
+  'use strict';
+
+  var _jquery2 = _interopRequireDefault(_jquery);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  };
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var Util = function ($) {
+    var transition = false;
+
+    var TransitionEndEvent = {
+      WebkitTransition: 'webkitTransitionEnd',
+      MozTransition: 'transitionend',
+      OTransition: 'oTransitionEnd otransitionend',
+      transition: 'transitionend'
+    };
+
+    function getSpecialTransitionEndEvent() {
+      return {
+        bindType: transition.end,
+        delegateType: transition.end,
+        handle: function handle(event) {
+          if ($(event.target).is(this)) {
+            return event.handleObj.handler.apply(this, arguments);
+          }
+          return undefined;
+        }
+      };
+    }
+
+    function transitionEndTest() {
+      if (window.QUnit) {
+        return false;
+      }
+
+      var el = document.createElement('mm');
+
+      for (var name in TransitionEndEvent) {
+        if (el.style[name] !== undefined) {
+          return {
+            end: TransitionEndEvent[name]
+          };
+        }
+      }
+
+      return false;
+    }
+
+    function transitionEndEmulator(duration) {
+      var _this2 = this;
+
+      var called = false;
+
+      $(this).one(Util.TRANSITION_END, function () {
+        called = true;
+      });
+
+      setTimeout(function () {
+        if (!called) {
+          Util.triggerTransitionEnd(_this2);
+        }
+      }, duration);
+
+      return this;
+    }
+
+    function setTransitionEndSupport() {
+      transition = transitionEndTest();
+      $.fn.emulateTransitionEnd = transitionEndEmulator;
+
+      if (Util.supportsTransitionEnd()) {
+        $.event.special[Util.TRANSITION_END] = getSpecialTransitionEndEvent();
+      }
+    }
+
+    var Util = {
+      TRANSITION_END: 'mmTransitionEnd',
+
+      triggerTransitionEnd: function triggerTransitionEnd(element) {
+        $(element).trigger(transition.end);
+      },
+      supportsTransitionEnd: function supportsTransitionEnd() {
+        return Boolean(transition);
+      }
+    };
+
+    setTransitionEndSupport();
+
+    return Util;
+  }(jQuery);
+
+  var MetisMenu = function ($) {
+
+    var NAME = 'metisMenu';
+    var DATA_KEY = 'metisMenu';
+    var EVENT_KEY = '.' + DATA_KEY;
+    var DATA_API_KEY = '.data-api';
+    var JQUERY_NO_CONFLICT = $.fn[NAME];
+    var TRANSITION_DURATION = 350;
+
+    var Default = {
+      toggle: true,
+      preventDefault: true,
+      activeClass: 'active',
+      collapseClass: 'collapse in',
+      collapseInClass: 'in',
+      collapsingClass: 'collapsing',
+      triggerElement: 'a',
+      parentTrigger: 'li',
+      subMenu: 'ul'
+    };
+
+    var Event = {
+      SHOW: 'show' + EVENT_KEY,
+      SHOWN: 'shown' + EVENT_KEY,
+      HIDE: 'hide' + EVENT_KEY,
+      HIDDEN: 'hidden' + EVENT_KEY,
+      CLICK_DATA_API: 'click' + EVENT_KEY + DATA_API_KEY
+    };
+
+    var MetisMenu = function () {
+      function MetisMenu(element, config) {
+        _classCallCheck(this, MetisMenu);
+
+        this._element = element;
+        this._config = this._getConfig(config);
+        this._transitioning = null;
+
+        this.init();
+      }
+
+      MetisMenu.prototype.init = function init() {
+        var self = this;
+        $(this._element).find(this._config.parentTrigger + '.' + this._config.activeClass).has(this._config.subMenu).children(this._config.subMenu).attr('aria-expanded', true).addClass(this._config.collapseClass + ' ' + this._config.collapseInClass);
+
+        $(this._element).find(this._config.parentTrigger).not('.' + this._config.activeClass).has(this._config.subMenu).children(this._config.subMenu).attr('aria-expanded', false).addClass(this._config.collapseClass);
+
+        $(this._element).find(this._config.parentTrigger).has(this._config.subMenu).children(this._config.triggerElement).on(Event.CLICK_DATA_API, function (e) {
+          var _this = $(this);
+          var _parent = _this.parent(self._config.parentTrigger);
+          var _siblings = _parent.siblings(self._config.parentTrigger).children(self._config.triggerElement);
+          var _list = _parent.children(self._config.subMenu);
+          if (self._config.preventDefault) {
+            e.preventDefault();
+          }
+          if (_this.attr('aria-disabled') === 'true') {
+            return;
+          }
+          if (_parent.hasClass(self._config.activeClass)) {
+            _this.attr('aria-expanded', false);
+            self._hide(_list);
+          } else {
+            self._show(_list);
+            _this.attr('aria-expanded', true);
+            if (self._config.toggle) {
+              _siblings.attr('aria-expanded', false);
+            }
+          }
+
+          if (self._config.onTransitionStart) {
+            self._config.onTransitionStart(e);
+          }
+        });
+      };
+
+      MetisMenu.prototype._show = function _show(element) {
+        if (this._transitioning || $(element).hasClass(this._config.collapsingClass)) {
+          return;
+        }
+        var _this = this;
+        var _el = $(element);
+
+        var startEvent = $.Event(Event.SHOW);
+        _el.trigger(startEvent);
+
+        if (startEvent.isDefaultPrevented()) {
+          return;
+        }
+
+        _el.parent(this._config.parentTrigger).addClass(this._config.activeClass);
+
+        if (this._config.toggle) {
+          this._hide(_el.parent(this._config.parentTrigger).siblings().children(this._config.subMenu + '.' + this._config.collapseInClass).attr('aria-expanded', false));
+        }
+
+        _el.removeClass(this._config.collapseClass).addClass(this._config.collapsingClass).height(0);
+
+        this.setTransitioning(true);
+
+        var complete = function complete() {
+          // check if disposed
+          if (!_this._config || !_this._element) {
+            return;
+          }
+          //_el.removeClass(_this._config.collapsingClass).addClass(_this._config.collapseClass + ' ' + _this._config.collapseInClass).height('').attr('aria-expanded', true);
+          _el.removeClass(_this._config.collapsingClass).addClass(_this._config.collapseClass + ' ' + _this._config.collapseInClass).height('').addClass('show').attr('aria-expanded', true);
+
+          _this.setTransitioning(false);
+
+          _el.trigger(Event.SHOWN);
+        };
+
+        if (!Util.supportsTransitionEnd()) {
+          complete();
+          return;
+        }
+
+        _el.height(_el[0].scrollHeight).one(Util.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
+      };
+
+      MetisMenu.prototype._hide = function _hide(element) {
+
+        if (this._transitioning || !$(element).hasClass(this._config.collapseInClass)) {
+          return;
+        }
+        var _this = this;
+        var _el = $(element);
+
+        var startEvent = $.Event(Event.HIDE);
+        _el.trigger(startEvent);
+
+        if (startEvent.isDefaultPrevented()) {
+          return;
+        }
+
+        _el.parent(this._config.parentTrigger).removeClass(this._config.activeClass);
+        _el.height(_el.height())[0].offsetHeight;
+
+        _el.addClass(this._config.collapsingClass).removeClass(this._config.collapseClass).removeClass(this._config.collapseInClass);
+
+        this.setTransitioning(true);
+
+        var complete = function complete() {
+          // check if disposed
+          if (!_this._config || !_this._element) {
+            return;
+          }
+          if (_this._transitioning && _this._config.onTransitionEnd) {
+            _this._config.onTransitionEnd();
+          }
+
+          _this.setTransitioning(false);
+          _el.trigger(Event.HIDDEN);
+
+          //_el.removeClass(_this._config.collapsingClass).addClass(_this._config.collapseClass).attr('aria-expanded', false);
+
+          _el.removeClass(_this._config.collapsingClass).removeClass('show').addClass(_this._config.collapseClass).attr('aria-expanded', false);
+        };
+
+        if (!Util.supportsTransitionEnd()) {
+          complete();
+          return;
+        }
+
+        _el.height() == 0 || _el.css('display') == 'none' ? complete() : _el.height(0).one(Util.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
+      };
+
+      MetisMenu.prototype.setTransitioning = function setTransitioning(isTransitioning) {
+        this._transitioning = isTransitioning;
+      };
+
+      MetisMenu.prototype.dispose = function dispose() {
+        $.removeData(this._element, DATA_KEY);
+
+        $(this._element).find(this._config.parentTrigger).has(this._config.subMenu).children(this._config.triggerElement).off('click');
+
+        this._transitioning = null;
+        this._config = null;
+        this._element = null;
+      };
+
+      MetisMenu.prototype._getConfig = function _getConfig(config) {
+        config = $.extend({}, Default, config);
+        return config;
+      };
+
+      MetisMenu._jQueryInterface = function _jQueryInterface(config) {
+        return this.each(function () {
+          var $this = $(this);
+          var data = $this.data(DATA_KEY);
+          var _config = $.extend({}, Default, $this.data(), (typeof config === 'undefined' ? 'undefined' : _typeof(config)) === 'object' && config);
+
+          if (!data && /dispose/.test(config)) {
+            this.dispose();
+          }
+
+          if (!data) {
+            data = new MetisMenu(this, _config);
+            $this.data(DATA_KEY, data);
+          }
+
+          if (typeof config === 'string') {
+            if (data[config] === undefined) {
+              throw new Error('No method named "' + config + '"');
+            }
+            data[config]();
+          }
+        });
+      };
+
+      return MetisMenu;
+    }();
+
+    /**
+     * ------------------------------------------------------------------------
+     * jQuery
+     * ------------------------------------------------------------------------
+     */
+
+    $.fn[NAME] = MetisMenu._jQueryInterface;
+    $.fn[NAME].Constructor = MetisMenu;
+    $.fn[NAME].noConflict = function () {
+      $.fn[NAME] = JQUERY_NO_CONFLICT;
+      return MetisMenu._jQueryInterface;
+    };
+    return MetisMenu;
+  }(jQuery);
+});
+
 /*!
   * Bootstrap v4.0.0 (https://getbootstrap.com)
   * Copyright 2011-2018 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
@@ -31773,6 +32129,625 @@ S2.define('jquery.select2',[
   });
 }));
 
+/*!
+ * jQuery blockUI plugin
+ * Version 2.70.0-2014.11.23
+ * Requires jQuery v1.7 or later
+ *
+ * Examples at: http://malsup.com/jquery/block/
+ * Copyright (c) 2007-2013 M. Alsup
+ * Dual licensed under the MIT and GPL licenses:
+ * http://www.opensource.org/licenses/mit-license.php
+ * http://www.gnu.org/licenses/gpl.html
+ *
+ * Thanks to Amir-Hossein Sobhi for some excellent contributions!
+ */
+
+; (function () {
+   /*jshint eqeqeq:false curly:false latedef:false */
+   "use strict";
+
+   function setup($) {
+      $.fn._fadeIn = $.fn.fadeIn;
+
+      var noOp = $.noop || function () { };
+
+      // this bit is to ensure we don't call setExpression when we shouldn't (with extra muscle to handle
+      // confusing userAgent strings on Vista)
+      var msie = /MSIE/.test(navigator.userAgent);
+      var ie6 = /MSIE 6.0/.test(navigator.userAgent) && ! /MSIE 8.0/.test(navigator.userAgent);
+      var mode = document.documentMode || 0;
+      var setExpr = $.isFunction(document.createElement('div').style.setExpression);
+
+      // global $ methods for blocking/unblocking the entire page
+      $.blockUI = function (opts) { install(window, opts); };
+      $.unblockUI = function (opts) { remove(window, opts); };
+
+      // convenience method for quick growl-like notifications  (http://www.google.com/search?q=growl)
+      $.growlUI = function (title, message, timeout, onClose) {
+         var $m = $('<div class="growlUI"></div>');
+         if (title) $m.append('<h1>' + title + '</h1>');
+         if (message) $m.append('<h2>' + message + '</h2>');
+         if (timeout === undefined) timeout = 3000;
+
+         // Added by konapun: Set timeout to 30 seconds if this growl is moused over, like normal toast notifications
+         var callBlock = function (opts) {
+            opts = opts || {};
+
+            $.blockUI({
+               message: $m,
+               fadeIn: typeof opts.fadeIn !== 'undefined' ? opts.fadeIn : 700,
+               fadeOut: typeof opts.fadeOut !== 'undefined' ? opts.fadeOut : 1000,
+               timeout: typeof opts.timeout !== 'undefined' ? opts.timeout : timeout,
+               centerY: false,
+               showOverlay: false,
+               onUnblock: onClose,
+               css: $.blockUI.defaults.growlCSS
+            });
+         };
+
+         callBlock();
+         var nonmousedOpacity = $m.css('opacity');
+         $m.mouseover(function () {
+            callBlock({
+               fadeIn: 0,
+               timeout: 30000
+            });
+
+            var displayBlock = $('.blockMsg');
+            displayBlock.stop(); // cancel fadeout if it has started
+            displayBlock.fadeTo(300, 1); // make it easier to read the message by removing transparency
+         }).mouseout(function () {
+            $('.blockMsg').fadeOut(1000);
+         });
+         // End konapun additions
+      };
+
+      // plugin method for blocking element content
+      $.fn.block = function (opts) {
+         if (this[0] === window) {
+            $.blockUI(opts);
+            return this;
+         }
+         var fullOpts = $.extend({}, $.blockUI.defaults, opts || {});
+         this.each(function () {
+            var $el = $(this);
+            if (fullOpts.ignoreIfBlocked && $el.data('blockUI.isBlocked'))
+               return;
+            $el.unblock({ fadeOut: 0 });
+         });
+
+         return this.each(function () {
+            if ($.css(this, 'position') == 'static') {
+               this.style.position = 'relative';
+               $(this).data('blockUI.static', true);
+            }
+            this.style.zoom = 1; // force 'hasLayout' in ie
+            install(this, opts);
+         });
+      };
+
+      // plugin method for unblocking element content
+      $.fn.unblock = function (opts) {
+         if (this[0] === window) {
+            $.unblockUI(opts);
+            return this;
+         }
+         return this.each(function () {
+            remove(this, opts);
+         });
+      };
+
+      $.blockUI.version = 2.70; // 2nd generation blocking at no extra cost!
+
+      // override these in your code to change the default behavior and style
+      $.blockUI.defaults = {
+         // message displayed when blocking (use null for no message)
+         message: '<h1>Please wait...</h1>',
+
+         title: null,		// title string; only used when theme == true
+         draggable: true,	// only used when theme == true (requires jquery-ui.js to be loaded)
+
+         theme: false, // set to true to use with jQuery UI themes
+
+         // styles for the message when blocking; if you wish to disable
+         // these and use an external stylesheet then do this in your code:
+         // $.blockUI.defaults.css = {};
+         css: {
+            padding: 0,
+            margin: 0,
+            width: '30%',
+            top: '40%',
+            left: '35%',
+            textAlign: 'center',
+            cursor: 'wait'
+         },
+
+         // minimal style set used when themes are used
+         themedCSS: {
+            width: '30%',
+            top: '40%',
+            left: '35%'
+         },
+
+         // styles for the overlay
+         overlayCSS: {
+            backgroundColor: '#000',
+            opacity: 0.6,
+            cursor: 'wait'
+         },
+
+         // style to replace wait cursor before unblocking to correct issue
+         // of lingering wait cursor
+         cursorReset: 'default',
+
+         // styles applied when using $.growlUI
+         growlCSS: {
+            width: '350px',
+            top: '10px',
+            left: '',
+            right: '10px',
+            border: 'none',
+            padding: '5px',
+            opacity: 0.6,
+            cursor: 'default',
+            color: '#fff',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            'border-radius': '10px'
+         },
+
+         // IE issues: 'about:blank' fails on HTTPS and javascript:false is s-l-o-w
+         // (hat tip to Jorge H. N. de Vasconcelos)
+         /*jshint scripturl:true */
+         iframeSrc: /^https/i.test(window.location.href || '') ? 'javascript:false' : 'about:blank',
+
+         // force usage of iframe in non-IE browsers (handy for blocking applets)
+         forceIframe: false,
+
+         // z-index for the blocking overlay
+         baseZ: 1000,
+
+         // set these to true to have the message automatically centered
+         centerX: true, // <-- only effects element blocking (page block controlled via css above)
+         centerY: true,
+
+         // allow body element to be stetched in ie6; this makes blocking look better
+         // on "short" pages.  disable if you wish to prevent changes to the body height
+         allowBodyStretch: true,
+
+         // enable if you want key and mouse events to be disabled for content that is blocked
+         bindEvents: true,
+
+         // be default blockUI will supress tab navigation from leaving blocking content
+         // (if bindEvents is true)
+         constrainTabKey: true,
+
+         // fadeIn time in millis; set to 0 to disable fadeIn on block
+         fadeIn: 200,
+
+         // fadeOut time in millis; set to 0 to disable fadeOut on unblock
+         fadeOut: 400,
+
+         // time in millis to wait before auto-unblocking; set to 0 to disable auto-unblock
+         timeout: 0,
+
+         // disable if you don't want to show the overlay
+         showOverlay: true,
+
+         // if true, focus will be placed in the first available input field when
+         // page blocking
+         focusInput: true,
+
+         // elements that can receive focus
+         focusableElements: ':input:enabled:visible',
+
+         // suppresses the use of overlay styles on FF/Linux (due to performance issues with opacity)
+         // no longer needed in 2012
+         // applyPlatformOpacityRules: true,
+
+         // callback method invoked when fadeIn has completed and blocking message is visible
+         onBlock: null,
+
+         // callback method invoked when unblocking has completed; the callback is
+         // passed the element that has been unblocked (which is the window object for page
+         // blocks) and the options that were passed to the unblock call:
+         //	onUnblock(element, options)
+         onUnblock: null,
+
+         // callback method invoked when the overlay area is clicked.
+         // setting this will turn the cursor to a pointer, otherwise cursor defined in overlayCss will be used.
+         onOverlayClick: null,
+
+         // don't ask; if you really must know: http://groups.google.com/group/jquery-en/browse_thread/thread/36640a8730503595/2f6a79a77a78e493#2f6a79a77a78e493
+         quirksmodeOffsetHack: 4,
+
+         // class name of the message block
+         blockMsgClass: 'blockMsg',
+
+         // if it is already blocked, then ignore it (don't unblock and reblock)
+         ignoreIfBlocked: false
+      };
+
+      // private data and functions follow...
+
+      var pageBlock = null;
+      var pageBlockEls = [];
+
+      function install(el, opts) {
+         var css, themedCSS;
+         var full = (el == window);
+         var msg = (opts && opts.message !== undefined ? opts.message : undefined);
+         opts = $.extend({}, $.blockUI.defaults, opts || {});
+
+         if (opts.ignoreIfBlocked && $(el).data('blockUI.isBlocked'))
+            return;
+
+         opts.overlayCSS = $.extend({}, $.blockUI.defaults.overlayCSS, opts.overlayCSS || {});
+         css = $.extend({}, $.blockUI.defaults.css, opts.css || {});
+         if (opts.onOverlayClick)
+            opts.overlayCSS.cursor = 'pointer';
+
+         themedCSS = $.extend({}, $.blockUI.defaults.themedCSS, opts.themedCSS || {});
+         msg = msg === undefined ? opts.message : msg;
+
+         // remove the current block (if there is one)
+         if (full && pageBlock)
+            remove(window, { fadeOut: 0 });
+
+         // if an existing element is being used as the blocking content then we capture
+         // its current place in the DOM (and current display style) so we can restore
+         // it when we unblock
+         if (msg && typeof msg != 'string' && (msg.parentNode || msg.jquery)) {
+            var node = msg.jquery ? msg[0] : msg;
+            var data = {};
+            $(el).data('blockUI.history', data);
+            data.el = node;
+            data.parent = node.parentNode;
+            data.display = node.style.display;
+            data.position = node.style.position;
+            if (data.parent)
+               data.parent.removeChild(node);
+         }
+
+         $(el).data('blockUI.onUnblock', opts.onUnblock);
+         var z = opts.baseZ;
+
+         // blockUI uses 3 layers for blocking, for simplicity they are all used on every platform;
+         // layer1 is the iframe layer which is used to supress bleed through of underlying content
+         // layer2 is the overlay layer which has opacity and a wait cursor (by default)
+         // layer3 is the message content that is displayed while blocking
+         var lyr1, lyr2, lyr3, s;
+         if (msie || opts.forceIframe)
+            lyr1 = $('<iframe class="blockUI" style="z-index:' + (z++) + ';display:none;border:none;margin:0;padding:0;position:absolute;width:100%;height:100%;top:0;left:0" src="' + opts.iframeSrc + '"></iframe>');
+         else
+            lyr1 = $('<div class="blockUI" style="display:none"></div>');
+
+         if (opts.theme)
+            lyr2 = $('<div class="blockUI blockOverlay ui-widget-overlay" style="z-index:' + (z++) + ';display:none"></div>');
+         else
+            lyr2 = $('<div class="blockUI blockOverlay" style="z-index:' + (z++) + ';display:none;border:none;margin:0;padding:0;width:100%;height:100%;top:0;left:0"></div>');
+
+         if (opts.theme && full) {
+            s = '<div class="blockUI ' + opts.blockMsgClass + ' blockPage ui-dialog ui-widget ui-corner-all" style="z-index:' + (z + 10) + ';display:none;position:fixed">';
+            if (opts.title) {
+               s += '<div class="ui-widget-header ui-dialog-titlebar ui-corner-all blockTitle">' + (opts.title || '&nbsp;') + '</div>';
+            }
+            s += '<div class="ui-widget-content ui-dialog-content"></div>';
+            s += '</div>';
+         }
+         else if (opts.theme) {
+            s = '<div class="blockUI ' + opts.blockMsgClass + ' blockElement ui-dialog ui-widget ui-corner-all" style="z-index:' + (z + 10) + ';display:none;position:absolute">';
+            if (opts.title) {
+               s += '<div class="ui-widget-header ui-dialog-titlebar ui-corner-all blockTitle">' + (opts.title || '&nbsp;') + '</div>';
+            }
+            s += '<div class="ui-widget-content ui-dialog-content"></div>';
+            s += '</div>';
+         }
+         else if (full) {
+            s = '<div class="blockUI ' + opts.blockMsgClass + ' blockPage" style="z-index:' + (z + 10) + ';display:none;position:fixed"></div>';
+         }
+         else {
+            s = '<div class="blockUI ' + opts.blockMsgClass + ' blockElement" style="z-index:' + (z + 10) + ';display:none;position:absolute"></div>';
+         }
+         lyr3 = $(s);
+
+         // if we have a message, style it
+         if (msg) {
+            if (opts.theme) {
+               lyr3.css(themedCSS);
+               lyr3.addClass('ui-widget-content');
+            }
+            else
+               lyr3.css(css);
+         }
+
+         // style the overlay
+         if (!opts.theme /*&& (!opts.applyPlatformOpacityRules)*/)
+            lyr2.css(opts.overlayCSS);
+         lyr2.css('position', full ? 'fixed' : 'absolute');
+
+         // make iframe layer transparent in IE
+         if (msie || opts.forceIframe)
+            lyr1.css('opacity', 0.0);
+
+         //$([lyr1[0],lyr2[0],lyr3[0]]).appendTo(full ? 'body' : el);
+         var layers = [lyr1, lyr2, lyr3], $par = full ? $('body') : $(el);
+         $.each(layers, function () {
+            this.appendTo($par);
+         });
+
+         if (opts.theme && opts.draggable && $.fn.draggable) {
+            lyr3.draggable({
+               handle: '.ui-dialog-titlebar',
+               cancel: 'li'
+            });
+         }
+
+         // ie7 must use absolute positioning in quirks mode and to account for activex issues (when scrolling)
+         var expr = setExpr && (!$.support.boxModel || $('object,embed', full ? null : el).length > 0);
+         if (ie6 || expr) {
+            // give body 100% height
+            if (full && opts.allowBodyStretch && $.support.boxModel)
+               $('html,body').css('height', '100%');
+
+            // fix ie6 issue when blocked element has a border width
+            if ((ie6 || !$.support.boxModel) && !full) {
+               var t = sz(el, 'borderTopWidth'), l = sz(el, 'borderLeftWidth');
+               var fixT = t ? '(0 - ' + t + ')' : 0;
+               var fixL = l ? '(0 - ' + l + ')' : 0;
+            }
+
+            // simulate fixed position
+            $.each(layers, function (i, o) {
+               var s = o[0].style;
+               s.position = 'absolute';
+               if (i < 2) {
+                  if (full)
+                     s.setExpression('height', 'Math.max(document.body.scrollHeight, document.body.offsetHeight) - (jQuery.support.boxModel?0:' + opts.quirksmodeOffsetHack + ') + "px"');
+                  else
+                     s.setExpression('height', 'this.parentNode.offsetHeight + "px"');
+                  if (full)
+                     s.setExpression('width', 'jQuery.support.boxModel && document.documentElement.clientWidth || document.body.clientWidth + "px"');
+                  else
+                     s.setExpression('width', 'this.parentNode.offsetWidth + "px"');
+                  if (fixL) s.setExpression('left', fixL);
+                  if (fixT) s.setExpression('top', fixT);
+               }
+               else if (opts.centerY) {
+                  if (full) s.setExpression('top', '(document.documentElement.clientHeight || document.body.clientHeight) / 2 - (this.offsetHeight / 2) + (blah = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + "px"');
+                  s.marginTop = 0;
+               }
+               else if (!opts.centerY && full) {
+                  var top = (opts.css && opts.css.top) ? parseInt(opts.css.top, 10) : 0;
+                  var expression = '((document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + ' + top + ') + "px"';
+                  s.setExpression('top', expression);
+               }
+            });
+         }
+
+         // show the message
+         if (msg) {
+            if (opts.theme)
+               lyr3.find('.ui-widget-content').append(msg);
+            else
+               lyr3.append(msg);
+            if (msg.jquery || msg.nodeType)
+               $(msg).show();
+         }
+
+         if ((msie || opts.forceIframe) && opts.showOverlay)
+            lyr1.show(); // opacity is zero
+         if (opts.fadeIn) {
+            var cb = opts.onBlock ? opts.onBlock : noOp;
+            var cb1 = (opts.showOverlay && !msg) ? cb : noOp;
+            var cb2 = msg ? cb : noOp;
+            if (opts.showOverlay)
+               lyr2._fadeIn(opts.fadeIn, cb1);
+            if (msg)
+               lyr3._fadeIn(opts.fadeIn, cb2);
+         }
+         else {
+            if (opts.showOverlay)
+               lyr2.show();
+            if (msg)
+               lyr3.show();
+            if (opts.onBlock)
+               opts.onBlock.bind(lyr3)();
+         }
+
+         // bind key and mouse events
+         bind(1, el, opts);
+
+         if (full) {
+            pageBlock = lyr3[0];
+            pageBlockEls = $(opts.focusableElements, pageBlock);
+            if (opts.focusInput)
+               setTimeout(focus, 20);
+         }
+         else
+            center(lyr3[0], opts.centerX, opts.centerY);
+
+         if (opts.timeout) {
+            // auto-unblock
+            var to = setTimeout(function () {
+               if (full)
+                  $.unblockUI(opts);
+               else
+                  $(el).unblock(opts);
+            }, opts.timeout);
+            $(el).data('blockUI.timeout', to);
+         }
+      }
+
+      // remove the block
+      function remove(el, opts) {
+         var count;
+         var full = (el == window);
+         var $el = $(el);
+         var data = $el.data('blockUI.history');
+         var to = $el.data('blockUI.timeout');
+         if (to) {
+            clearTimeout(to);
+            $el.removeData('blockUI.timeout');
+         }
+         opts = $.extend({}, $.blockUI.defaults, opts || {});
+         bind(0, el, opts); // unbind events
+
+         if (opts.onUnblock === null) {
+            opts.onUnblock = $el.data('blockUI.onUnblock');
+            $el.removeData('blockUI.onUnblock');
+         }
+
+         var els;
+         if (full) // crazy selector to handle odd field errors in ie6/7
+            els = $('body').children().filter('.blockUI').add('body > .blockUI');
+         else
+            els = $el.find('>.blockUI');
+
+         // fix cursor issue
+         if (opts.cursorReset) {
+            if (els.length > 1)
+               els[1].style.cursor = opts.cursorReset;
+            if (els.length > 2)
+               els[2].style.cursor = opts.cursorReset;
+         }
+
+         if (full)
+            pageBlock = pageBlockEls = null;
+
+         if (opts.fadeOut) {
+            count = els.length;
+            els.stop().fadeOut(opts.fadeOut, function () {
+               if (--count === 0)
+                  reset(els, data, opts, el);
+            });
+         }
+         else
+            reset(els, data, opts, el);
+      }
+
+      // move blocking element back into the DOM where it started
+      function reset(els, data, opts, el) {
+         var $el = $(el);
+         if ($el.data('blockUI.isBlocked'))
+            return;
+
+         els.each(function (i, o) {
+            // remove via DOM calls so we don't lose event handlers
+            if (this.parentNode)
+               this.parentNode.removeChild(this);
+         });
+
+         if (data && data.el) {
+            data.el.style.display = data.display;
+            data.el.style.position = data.position;
+            data.el.style.cursor = 'default'; // #59
+            if (data.parent)
+               data.parent.appendChild(data.el);
+            $el.removeData('blockUI.history');
+         }
+
+         if ($el.data('blockUI.static')) {
+            $el.css('position', 'static'); // #22
+         }
+
+         if (typeof opts.onUnblock == 'function')
+            opts.onUnblock(el, opts);
+
+         // fix issue in Safari 6 where block artifacts remain until reflow
+         var body = $(document.body), w = body.width(), cssW = body[0].style.width;
+         body.width(w - 1).width(w);
+         body[0].style.width = cssW;
+      }
+
+      // bind/unbind the handler
+      function bind(b, el, opts) {
+         var full = el == window, $el = $(el);
+
+         // don't bother unbinding if there is nothing to unbind
+         if (!b && (full && !pageBlock || !full && !$el.data('blockUI.isBlocked')))
+            return;
+
+         $el.data('blockUI.isBlocked', b);
+
+         // don't bind events when overlay is not in use or if bindEvents is false
+         if (!full || !opts.bindEvents || (b && !opts.showOverlay))
+            return;
+
+         // bind anchors and inputs for mouse and key events
+         var events = 'mousedown mouseup keydown keypress keyup touchstart touchend touchmove';
+         if (b)
+            $(document).bind(events, opts, handler);
+         else
+            $(document).unbind(events, handler);
+
+         // former impl...
+         //		var $e = $('a,:input');
+         //		b ? $e.bind(events, opts, handler) : $e.unbind(events, handler);
+      }
+
+      // event handler to suppress keyboard/mouse events when blocking
+      function handler(e) {
+         // allow tab navigation (conditionally)
+         if (e.type === 'keydown' && e.keyCode && e.keyCode == 9) {
+            if (pageBlock && e.data.constrainTabKey) {
+               var els = pageBlockEls;
+               var fwd = !e.shiftKey && e.target === els[els.length - 1];
+               var back = e.shiftKey && e.target === els[0];
+               if (fwd || back) {
+                  setTimeout(function () { focus(back); }, 10);
+                  return false;
+               }
+            }
+         }
+         var opts = e.data;
+         var target = $(e.target);
+         if (target.hasClass('blockOverlay') && opts.onOverlayClick)
+            opts.onOverlayClick(e);
+
+         // allow events within the message content
+         if (target.parents('div.' + opts.blockMsgClass).length > 0)
+            return true;
+
+         // allow events for content that is not being blocked
+         return target.parents().children().filter('div.blockUI').length === 0;
+      }
+
+      function focus(back) {
+         if (!pageBlockEls)
+            return;
+         var e = pageBlockEls[back === true ? pageBlockEls.length - 1 : 0];
+         if (e)
+            e.focus();
+      }
+
+      function center(el, x, y) {
+         var p = el.parentNode, s = el.style;
+         var l = ((p.offsetWidth - el.offsetWidth) / 2) - sz(p, 'borderLeftWidth');
+         var t = ((p.offsetHeight - el.offsetHeight) / 2) - sz(p, 'borderTopWidth');
+         if (x) s.left = l > 0 ? (l + 'px') : '0';
+         if (y) s.top = t > 0 ? (t + 'px') : '0';
+      }
+
+      function sz(el, p) {
+         return parseInt($.css(el, p), 10) || 0;
+      }
+
+   }
+
+
+   /*global define:true */
+   if (typeof define === 'function' && define.amd && define.amd.jQuery) {
+      define(['jquery'], setup);
+   } else {
+      setup(jQuery);
+   }
+
+})();
+
+
 //Title: Hovercard plugin by PC
 //Documentation: http://designwithpc.com/Plugins/Hovercard
 //Author: PC
@@ -34024,266 +34999,6 @@ Prism.languages.sql = {
     });
 
 })();
-/*
- * Selected-Quoting for Messages based on the
- * selection-sharer Plugin by
- *  Xavier Damman (@xdamman) at
-    https://github.com/xdamman/share-selection
- *
- * Author: Xavier Damman (@xdamman)
- * MIT License
- */
-
-(function($) {
-
-    var SelectedQuoting = function(options) {
-        var self = this;
-        this.sel = null;
-
-        this.parentID = options.parentID;
-        this.URL = options.URL;
-        this.ToolTip = options.ToolTip;
-
-        this.textSelection = '';
-        this.htmlSelection = '';
-
-        this.getSelectionText = function(selection) {
-            var html = "", text = "";
-            var sel = selection || window.getSelection();
-            if (sel.rangeCount) {
-                var container = document.createElement("div");
-                for (var i = 0, len = sel.rangeCount; i < len; ++i) {
-                    container.appendChild(sel.getRangeAt(i).cloneContents());
-                }
-                text = container.textContent;
-                html = container.innerHTML;
-            }
-            self.textSelection = text;
-            self.htmlSelection = html || text;
-            return text;
-        };
-
-        this.selectionDirection = function(selection) {
-            var sel = selection || window.getSelection();
-            var range = document.createRange();
-            if (!sel.anchorNode) return 0;
-            range.setStart(sel.anchorNode, sel.anchorOffset);
-            range.setEnd(sel.focusNode, sel.focusOffset);
-            var direction = (range.collapsed) ? "backward" : "forward";
-            return direction;
-        };
-
-        this.showPopunder = function () {
-            self.popunder = self.popunder || document.getElementById('selectionSharerPopunder');
-
-            var sel = window.getSelection();
-            var selection = self.getSelectionText(sel);
-
-            if (sel.isCollapsed || selection.length < 10 || !selection.match(/ /))
-                return self.hidePopunder();
-
-            if (self.popunder.classList.contains("fixed"))
-                return self.popunder.style.bottom = 0;
-
-            var range = sel.getRangeAt(0);
-            var node = range.endContainer.parentNode; // The <p> where the selection ends
-
-            // If the popunder is currently displayed
-            if (self.popunder.classList.contains('show')) {
-                // If the popunder is already at the right place, we do nothing
-                if (Math.ceil(self.popunder.getBoundingClientRect().top) == Math.ceil(node.getBoundingClientRect().bottom))
-                    return;
-
-                // Otherwise, we first hide it and the we try again
-                return self.hidePopunder(self.showPopunder);
-            }
-
-            if (node.nextElementSibling) {
-                // We need to push down all the following siblings
-                self.pushSiblings(node);
-            } else {
-                // We need to append a new element to push all the content below
-                if (!self.placeholder) {
-                    self.placeholder = document.createElement('div');
-                    self.placeholder.className = 'selectionSharerPlaceholder';
-                }
-
-                // If we add a div between two <p> that have a 1em margin, the space between them
-                // will become 2x 1em. So we give the placeholder a negative margin to avoid that
-                var margin = window.getComputedStyle(node).marginBottom;
-                self.placeholder.style.height = margin;
-                self.placeholder.style.marginBottom = (-2 * parseInt(margin, 10)) + 'px';
-                node.parentNode.insertBefore(self.placeholder);
-            }
-
-            // scroll offset
-            var offsetTop = window.pageYOffset + node.getBoundingClientRect().bottom;
-            self.popunder.style.top = Math.ceil(offsetTop) + 'px';
-
-            setTimeout(function() {
-                if (self.placeholder) self.placeholder.classList.add('show');
-                self.popunder.classList.add('show');
-            }, 0);
-
-        };
-
-        this.pushSiblings = function(el) {
-            while (el = el.nextElementSibling) {
-                el.classList.add('selectionSharer');
-                el.classList.add('moveDown');
-            }
-        };
-
-        this.hidePopunder = function(cb) {
-            cb = cb || function() {};
-
-            if (self.popunder == "fixed") {
-                self.popunder.style.bottom = '-50px';
-                return cb();
-            }
-
-            self.popunder.classList.remove('show');
-            if (self.placeholder) self.placeholder.classList.remove('show');
-            // We need to push back up all the siblings
-            var els = document.getElementsByClassName('moveDown');
-            while (el = els[0]) {
-                el.classList.remove('moveDown');
-            }
-
-            // CSS3 transition takes 0.6s
-            setTimeout(function() {
-                if (self.placeholder) document.body.insertBefore(self.placeholder);
-                cb();
-            }, 600);
-
-        };
-
-        this.show = function(e) {
-            setTimeout(function() {
-                var sel = window.getSelection();
-                var selection = self.getSelectionText(sel);
-                if (!sel.isCollapsed && selection && selection.length > 10 && selection.match(/ /)) {
-                    var range = sel.getRangeAt(0);
-                    var topOffset = range.getBoundingClientRect().top - 5;
-                    var top = topOffset + window.scrollY - self.$popover.height();
-                    var left = 0;
-                    if (e) {
-                        left = e.pageX;
-                    } else {
-                        var obj = sel.anchorNode.parentNode;
-                        left += obj.offsetWidth / 2;
-                        do {
-                            left += obj.offsetLeft;
-                        } while (obj = obj.offsetParent);
-                    }
-                    switch (self.selectionDirection(sel)) {
-                    case 'forward':
-                        left -= self.$popover.width();
-                        break;
-                    case 'backward':
-                        left += self.$popover.width();
-                        break;
-                    default:
-                        return;
-                    }
-                    self.$popover.removeClass("anim").css("top", top + 10).css("left", left).show();
-                    setTimeout(function() {
-                        self.$popover.addClass("anim").css("top", top);
-                    }, 0);
-                }
-            }, 10);
-        };
-
-        this.hide = function(e) {
-            self.$popover.hide();
-        };
-
-        this.smart_truncate = function(str, n) {
-            if (!str || !str.length) return str;
-            var toLong = str.length > n,
-                s_ = toLong ? str.substr(0, n - 1) : str;
-            s_ = toLong ? s_.substr(0, s_.lastIndexOf(' ')) : s_;
-            return toLong ? s_ + '...' : s_;
-        };
-
-        this.shareQuote = function (e) {
-            e.preventDefault();
-
-            var messageID = $(this).attr("id").replace("Message", "");
-
-            var text = self.htmlSelection.replace(/<p[^>]*>/ig, '\n').replace(/<\/p>|  /ig, '').trim();
-            var url = self.URL + '&q=' + messageID + '&text=' + encodeURIComponent(text);
-
-            window.location.href = url;
-        };
-
-        this.render = function () {
-            var popoverHTML = '<div class="selectionSharer" id="selectionSharerPopover" style="position:absolute;">'
-                + '  <div id="selectionSharerPopover-inner">'
-                + '    <ul>'
-                + '      <li><a class="action quote" id="Message' + self.parentID + '" href="" title="' + self.ToolTip + '"><svg width="20" height="20"><path d="M1920 1024q0 174-120 321.5t-326 233-450 85.5q-70 0-145-8-198 175-460 242-49 14-114 22-17 2-30.5-9t-17.5-29v-1q-3-4-.5-12t2-10 4.5-9.5l6-9 7-8.5 8-9q7-8 31-34.5t34.5-38 31-39.5 32.5-51 27-59 26-76q-157-89-247.5-220t-90.5-281q0-130 71-248.5t191-204.5 286-136.5 348-50.5q244 0 450 85.5t326 233 120 321.5z" fill="#fff"/></svg></a></li>'
-                + '    </ul>'
-                + '  </div>'
-                + '  <div class="selectionSharerPopover-clip"><span class="selectionSharerPopover-arrow"></span></div>'
-                + '</div>';
-
-            var popunderHTML = '<div id="selectionSharerPopunder" class="selectionSharer">'
-                + '  <div id="selectionSharerPopunder-inner">'
-                + '    <label>' + self.ToolTip + '</label>'
-                + '    <ul>'
-                + '      <li><a class="action quote" id="Message' + self.parentID + '" href="" title="' + self.ToolTip + '"><svg width="20" height="20"><path d="M1920 1024q0 174-120 321.5t-326 233-450 85.5q-70 0-145-8-198 175-460 242-49 14-114 22-17 2-30.5-9t-17.5-29v-1q-3-4-.5-12t2-10 4.5-9.5l6-9 7-8.5 8-9q7-8 31-34.5t34.5-38 31-39.5 32.5-51 27-59 26-76q-157-89-247.5-220t-90.5-281q0-130 71-248.5t191-204.5 286-136.5 348-50.5q244 0 450 85.5t326 233 120 321.5z" fill="#fff"/></svg></a></li>'
-                + '    </ul>'
-                + '  </div>'
-                + '</div>';
-
-
-            self.$popover = $(popoverHTML);
-
-            self.$popover.find('a.quote').click(self.shareQuote);
-
-            $('body').append(self.$popover);
-
-            self.$popunder = $(popunderHTML);
-            self.$popunder.find('a.quote').click(self.shareQuote);
-            $('body').append(self.$popunder);
-        };
-
-        this.setElements = function(elements) {
-            if (typeof elements == 'string') elements = $(elements);
-            self.$elements = elements instanceof $ ? elements : $(elements);
-            self.$elements.mouseup(self.show).mousedown(self.hide);
-
-            self.$elements.bind('touchstart', function(e) {
-                self.isMobile = true;
-            });
-
-            document.onselectionchange = self.selectionChanged;
-        };
-
-        this.selectionChanged = function(e) {
-            if (!self.isMobile) return;
-
-            if (self.lastSelectionChanged) {
-                clearTimeout(self.lastSelectionChanged);
-            }
-            self.lastSelectionChanged = setTimeout(function() {
-                self.showPopunder(e);
-            }, 300);
-        };
-
-        this.render();
-    };
-
-    $.fn.selectedQuoting = function (options) {
-        options.parentID = this.attr('id');
-        var sharer = new SelectedQuoting(options);
-        sharer.setElements(this);
-        return this;
-    };
-})(jQuery);
-
-
-
 /*! tablesorter (FORK) - updated 01-10-2018 (v2.29.3)*/
 /* Includes widgets ( storage,uitheme,columns,filter,stickyHeaders,resizable,saveSort ) */
 (function(factory) {
@@ -40539,767 +41254,6 @@ return jQuery.tablesorter;
     document.createElement("abbr");
     document.createElement("time");
 }));
-/***
-This is part of jsdifflib v1.0. <http://snowtide.com/jsdifflib>
-
-Copyright (c) 2007, Snowtide Informatics Systems, Inc.
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
-
-	* Redistributions of source code must retain the above copyright notice, this
-		list of conditions and the following disclaimer.
-	* Redistributions in binary form must reproduce the above copyright notice,
-		this list of conditions and the following disclaimer in the documentation
-		and/or other materials provided with the distribution.
-	* Neither the name of the Snowtide Informatics Systems nor the names of its
-		contributors may be used to endorse or promote products derived from this
-		software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
-OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
-TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
-BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
-DAMAGE.
-***/
-/* Author: Chas Emerick <cemerick@snowtide.com> */
-__whitespace = { " ": true, "\t": true, "\n": true, "\f": true, "\r": true };
-
-difflib = {
-    defaultJunkFunction: function (c) {
-        return c in __whitespace;
-    },
-
-    stripLinebreaks: function (str) { return str.replace(/^[\n\r]*|[\n\r]*$/g, ""); },
-
-    stringAsLines: function (str) {
-        var lfpos = str.indexOf("\n");
-        var crpos = str.indexOf("\r");
-        var linebreak = ((lfpos > -1 && crpos > -1) || crpos < 0) ? "\n" : "\r";
-
-        var lines = str.split(linebreak);
-        for (var i = 0; i < lines.length; i++) {
-            lines[i] = difflib.stripLinebreaks(lines[i]);
-        }
-
-        return lines;
-    },
-
-    // iteration-based reduce implementation
-    __reduce: function (func, list, initial) {
-        if (initial != null) {
-            var value = initial;
-            var idx = 0;
-        } else if (list) {
-            var value = list[0];
-            var idx = 1;
-        } else {
-            return null;
-        }
-
-        for (; idx < list.length; idx++) {
-            value = func(value, list[idx]);
-        }
-
-        return value;
-    },
-
-    // comparison function for sorting lists of numeric tuples
-    __ntuplecomp: function (a, b) {
-        var mlen = Math.max(a.length, b.length);
-        for (var i = 0; i < mlen; i++) {
-            if (a[i] < b[i]) return -1;
-            if (a[i] > b[i]) return 1;
-        }
-
-        return a.length == b.length ? 0 : (a.length < b.length ? -1 : 1);
-    },
-
-    __calculate_ratio: function (matches, length) {
-        return length ? 2.0 * matches / length : 1.0;
-    },
-
-    // returns a function that returns true if a key passed to the returned function
-    // is in the dict (js object) provided to this function; replaces being able to
-    // carry around dict.has_key in python...
-    __isindict: function (dict) {
-        return function (key) { return key in dict; };
-    },
-
-    // replacement for python's dict.get function -- need easy default values
-    __dictget: function (dict, key, defaultValue) {
-        return key in dict ? dict[key] : defaultValue;
-    },
-
-    SequenceMatcher: function (a, b, isjunk) {
-        this.set_seqs = function (a, b) {
-            this.set_seq1(a);
-            this.set_seq2(b);
-        }
-
-        this.set_seq1 = function (a) {
-            if (a == this.a) return;
-            this.a = a;
-            this.matching_blocks = this.opcodes = null;
-        }
-
-        this.set_seq2 = function (b) {
-            if (b == this.b) return;
-            this.b = b;
-            this.matching_blocks = this.opcodes = this.fullbcount = null;
-            this.__chain_b();
-        }
-
-        this.__chain_b = function () {
-            var b = this.b;
-            var n = b.length;
-            var b2j = this.b2j = {};
-            var populardict = {};
-            for (var i = 0; i < b.length; i++) {
-                var elt = b[i];
-                if (elt in b2j) {
-                    var indices = b2j[elt];
-                    if (n >= 200 && indices.length * 100 > n) {
-                        populardict[elt] = 1;
-                        delete b2j[elt];
-                    } else {
-                        indices.push(i);
-                    }
-                } else {
-                    b2j[elt] = [i];
-                }
-            }
-
-            for (var elt in populardict)
-                delete b2j[elt];
-
-            var isjunk = this.isjunk;
-            var junkdict = {};
-            if (isjunk) {
-                for (var elt in populardict) {
-                    if (isjunk(elt)) {
-                        junkdict[elt] = 1;
-                        delete populardict[elt];
-                    }
-                }
-                for (var elt in b2j) {
-                    if (isjunk(elt)) {
-                        junkdict[elt] = 1;
-                        delete b2j[elt];
-                    }
-                }
-            }
-
-            this.isbjunk = difflib.__isindict(junkdict);
-            this.isbpopular = difflib.__isindict(populardict);
-        }
-
-        this.find_longest_match = function (alo, ahi, blo, bhi) {
-            var a = this.a;
-            var b = this.b;
-            var b2j = this.b2j;
-            var isbjunk = this.isbjunk;
-            var besti = alo;
-            var bestj = blo;
-            var bestsize = 0;
-            var j = null;
-
-            var j2len = {};
-            var nothing = [];
-            for (var i = alo; i < ahi; i++) {
-                var newj2len = {};
-                var jdict = difflib.__dictget(b2j, a[i], nothing);
-                for (var jkey in jdict) {
-                    j = jdict[jkey];
-                    if (j < blo) continue;
-                    if (j >= bhi) break;
-                    newj2len[j] = k = difflib.__dictget(j2len, j - 1, 0) + 1;
-                    if (k > bestsize) {
-                        besti = i - k + 1;
-                        bestj = j - k + 1;
-                        bestsize = k;
-                    }
-                }
-                j2len = newj2len;
-            }
-
-            while (besti > alo && bestj > blo && !isbjunk(b[bestj - 1]) && a[besti - 1] == b[bestj - 1]) {
-                besti--;
-                bestj--;
-                bestsize++;
-            }
-
-            while (besti + bestsize < ahi && bestj + bestsize < bhi &&
-					!isbjunk(b[bestj + bestsize]) &&
-					a[besti + bestsize] == b[bestj + bestsize]) {
-                bestsize++;
-            }
-
-            while (besti > alo && bestj > blo && isbjunk(b[bestj - 1]) && a[besti - 1] == b[bestj - 1]) {
-                besti--;
-                bestj--;
-                bestsize++;
-            }
-
-            while (besti + bestsize < ahi && bestj + bestsize < bhi && isbjunk(b[bestj + bestsize]) &&
-				  a[besti + bestsize] == b[bestj + bestsize]) {
-                bestsize++;
-            }
-
-            return [besti, bestj, bestsize];
-        }
-
-        this.get_matching_blocks = function () {
-            if (this.matching_blocks != null) return this.matching_blocks;
-            var la = this.a.length;
-            var lb = this.b.length;
-
-            var queue = [[0, la, 0, lb]];
-            var matching_blocks = [];
-            var alo, ahi, blo, bhi, qi, i, j, k, x;
-            while (queue.length) {
-                qi = queue.pop();
-                alo = qi[0];
-                ahi = qi[1];
-                blo = qi[2];
-                bhi = qi[3];
-                x = this.find_longest_match(alo, ahi, blo, bhi);
-                i = x[0];
-                j = x[1];
-                k = x[2];
-
-                if (k) {
-                    matching_blocks.push(x);
-                    if (alo < i && blo < j)
-                        queue.push([alo, i, blo, j]);
-                    if (i + k < ahi && j + k < bhi)
-                        queue.push([i + k, ahi, j + k, bhi]);
-                }
-            }
-
-            matching_blocks.sort(difflib.__ntuplecomp);
-
-            var i1 = j1 = k1 = block = 0;
-            var non_adjacent = [];
-            for (var idx in matching_blocks) {
-                block = matching_blocks[idx];
-                i2 = block[0];
-                j2 = block[1];
-                k2 = block[2];
-                if (i1 + k1 == i2 && j1 + k1 == j2) {
-                    k1 += k2;
-                } else {
-                    if (k1) non_adjacent.push([i1, j1, k1]);
-                    i1 = i2;
-                    j1 = j2;
-                    k1 = k2;
-                }
-            }
-
-            if (k1) non_adjacent.push([i1, j1, k1]);
-
-            non_adjacent.push([la, lb, 0]);
-            this.matching_blocks = non_adjacent;
-            return this.matching_blocks;
-        }
-
-        this.get_opcodes = function () {
-            if (this.opcodes != null) return this.opcodes;
-            var i = 0;
-            var j = 0;
-            var answer = [];
-            this.opcodes = answer;
-            var block, ai, bj, size, tag;
-            var blocks = this.get_matching_blocks();
-            for (var idx in blocks) {
-                block = blocks[idx];
-                ai = block[0];
-                bj = block[1];
-                size = block[2];
-                tag = '';
-                if (i < ai && j < bj) {
-                    tag = 'replace';
-                } else if (i < ai) {
-                    tag = 'delete';
-                } else if (j < bj) {
-                    tag = 'insert';
-                }
-                if (tag) answer.push([tag, i, ai, j, bj]);
-                i = ai + size;
-                j = bj + size;
-
-                if (size) answer.push(['equal', ai, i, bj, j]);
-            }
-
-            return answer;
-        }
-
-        // this is a generator function in the python lib, which of course is not supported in javascript
-        // the reimplementation builds up the grouped opcodes into a list in their entirety and returns that.
-        this.get_grouped_opcodes = function (n) {
-            if (!n) n = 3;
-            var codes = this.get_opcodes();
-            if (!codes) codes = [["equal", 0, 1, 0, 1]];
-            var code, tag, i1, i2, j1, j2;
-            if (codes[0][0] == 'equal') {
-                code = codes[0];
-                tag = code[0];
-                i1 = code[1];
-                i2 = code[2];
-                j1 = code[3];
-                j2 = code[4];
-                codes[0] = [tag, Math.max(i1, i2 - n), i2, Math.max(j1, j2 - n), j2];
-            }
-            if (codes[codes.length - 1][0] == 'equal') {
-                code = codes[codes.length - 1];
-                tag = code[0];
-                i1 = code[1];
-                i2 = code[2];
-                j1 = code[3];
-                j2 = code[4];
-                codes[codes.length - 1] = [tag, i1, Math.min(i2, i1 + n), j1, Math.min(j2, j1 + n)];
-            }
-
-            var nn = n + n;
-            var groups = [];
-            for (var idx in codes) {
-                code = codes[idx];
-                tag = code[0];
-                i1 = code[1];
-                i2 = code[2];
-                j1 = code[3];
-                j2 = code[4];
-                if (tag == 'equal' && i2 - i1 > nn) {
-                    groups.push([tag, i1, Math.min(i2, i1 + n), j1, Math.min(j2, j1 + n)]);
-                    i1 = Math.max(i1, i2 - n);
-                    j1 = Math.max(j1, j2 - n);
-                }
-
-                groups.push([tag, i1, i2, j1, j2]);
-            }
-
-            if (groups && groups[groups.length - 1][0] == 'equal') groups.pop();
-
-            return groups;
-        }
-
-        this.ratio = function () {
-            matches = difflib.__reduce(
-							function (sum, triple) { return sum + triple[triple.length - 1]; },
-							this.get_matching_blocks(), 0);
-            return difflib.__calculate_ratio(matches, this.a.length + this.b.length);
-        }
-
-        this.quick_ratio = function () {
-            var fullbcount, elt;
-            if (this.fullbcount == null) {
-                this.fullbcount = fullbcount = {};
-                for (var i = 0; i < this.b.length; i++) {
-                    elt = this.b[i];
-                    fullbcount[elt] = difflib.__dictget(fullbcount, elt, 0) + 1;
-                }
-            }
-            fullbcount = this.fullbcount;
-
-            var avail = {};
-            var availhas = difflib.__isindict(avail);
-            var matches = numb = 0;
-            for (var i = 0; i < this.a.length; i++) {
-                elt = this.a[i];
-                if (availhas(elt)) {
-                    numb = avail[elt];
-                } else {
-                    numb = difflib.__dictget(fullbcount, elt, 0);
-                }
-                avail[elt] = numb - 1;
-                if (numb > 0) matches++;
-            }
-
-            return difflib.__calculate_ratio(matches, this.a.length + this.b.length);
-        }
-
-        this.real_quick_ratio = function () {
-            var la = this.a.length;
-            var lb = this.b.length;
-            return _calculate_ratio(Math.min(la, lb), la + lb);
-        }
-
-        this.isjunk = isjunk ? isjunk : difflib.defaultJunkFunction;
-        this.a = this.b = null;
-        this.set_seqs(a, b);
-    }
-}
-
-/***
-This is part of jsdifflib v1.0. <http://snowtide.com/jsdifflib>
-
-Copyright (c) 2007, Snowtide Informatics Systems, Inc.
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
-
-	* Redistributions of source code must retain the above copyright notice, this
-		list of conditions and the following disclaimer.
-	* Redistributions in binary form must reproduce the above copyright notice,
-		this list of conditions and the following disclaimer in the documentation
-		and/or other materials provided with the distribution.
-	* Neither the name of the Snowtide Informatics Systems nor the names of its
-		contributors may be used to endorse or promote products derived from this
-		software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
-OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
-TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
-BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
-DAMAGE.
-***/
-/* Author: Chas Emerick <cemerick@snowtide.com> */
-/* Modified by Richard Bondi http://richardbondi.net */
-diffview = {
-    /**
-	 * Builds and returns a visual diff view.  The single parameter, `params', should contain
-	 * the following values:
-	 *
-	 * - baseTextLines: the array of strings that was used as the base text input to SequenceMatcher
-	 * - newTextLines: the array of strings that was used as the new text input to SequenceMatcher
-	 * - opcodes: the array of arrays returned by SequenceMatcher.get_opcodes()
-	 * - baseTextName: the title to be displayed above the base text listing in the diff view; defaults
-	 *	   to "Base Text"
-	 * - newTextName: the title to be displayed above the new text listing in the diff view; defaults
-	 *	   to "New Text"
-	 * - contextSize: the number of lines of context to show around differences; by default, all lines
-	 *	   are shown
-	 * - viewType: if 0, a side-by-side diff view is generated (default); if 1, an inline diff view is
-	 *	   generated
-	 */
-    buildView: function (params) {
-        var baseTextLines = params.baseTextLines;
-        var newTextLines = params.newTextLines;
-        var opcodes = params.opcodes;
-        var baseTextName = params.baseTextName ? params.baseTextName : "Base Text";
-        var newTextName = params.newTextName ? params.newTextName : "New Text";
-        var contextSize = params.contextSize;
-        var inline = (params.viewType == 0 || params.viewType == 1) ? params.viewType : 0;
-
-        if (baseTextLines == null)
-            throw "Cannot build diff view; baseTextLines is not defined.";
-        if (newTextLines == null)
-            throw "Cannot build diff view; newTextLines is not defined.";
-        if (!opcodes)
-            throw "Canno build diff view; opcodes is not defined.";
-
-        function celt(name, clazz) {
-            var e = document.createElement(name);
-            e.className = clazz;
-            return e;
-        }
-
-        function telt(name, text) {
-            var e = document.createElement(name);
-            e.appendChild(document.createTextNode(text));
-            return e;
-        }
-
-        function ctelt(name, clazz, text) {
-            var e = document.createElement(name);
-            e.className = clazz;
-            e.innerHTML = text;
-            return e;
-        }
-
-        var tdata = document.createElement("thead");
-        var node = document.createElement("tr");
-        tdata.appendChild(node);
-        if (inline) {
-            node.appendChild(document.createElement("th"));
-            node.appendChild(document.createElement("th"));
-            node.appendChild(ctelt("th", "texttitle", baseTextName + " vs. " + newTextName));
-        } else {
-            node.appendChild(document.createElement("th"));
-            node.appendChild(ctelt("th", "texttitle", baseTextName));
-            node.appendChild(document.createElement("th"));
-            node.appendChild(ctelt("th", "texttitle", newTextName));
-        }
-        tdata = [tdata];
-
-        var rows = [];
-        var node2;
-
-        /**
-		 * Adds two cells to the given row; if the given row corresponds to a real
-		 * line number (based on the line index tidx and the endpoint of the 
-		 * range in question tend), then the cells will contain the line number
-		 * and the line of text from textLines at position tidx (with the class of
-		 * the second cell set to the name of the change represented), and tidx + 1 will
-		 * be returned.	 Otherwise, tidx is returned, and two empty cells are added
-		 * to the given row.
-		 */
-        function addCells(row, tidx, tend, textLines, change) {
-            if (tidx < tend) {
-                row.appendChild(telt("th", (tidx + 1).toString()));
-                row.appendChild(ctelt("td", change, textLines[tidx].replace(/\t/g, "\u00a0\u00a0\u00a0\u00a0")));
-                return tidx + 1;
-            } else {
-                row.appendChild(document.createElement("th"));
-                row.appendChild(celt("td", "empty"));
-                return tidx;
-            }
-        }
-
-        function addCellsInline(row, tidx, tidx2, textLines, change) {
-            row.appendChild(telt("th", tidx == null ? "" : (tidx + 1).toString()));
-            row.appendChild(telt("th", tidx2 == null ? "" : (tidx2 + 1).toString()));
-            row.appendChild(ctelt("td", change, textLines[tidx != null ? tidx : tidx2].replace(/\t/g, "\u00a0\u00a0\u00a0\u00a0")));
-        }
-
-        for (var idx = 0; idx < opcodes.length; idx++) {
-            code = opcodes[idx];
-            change = code[0];
-            var b = code[1];
-            var be = code[2];
-            var n = code[3];
-            var ne = code[4];
-            var rowcnt = Math.max(be - b, ne - n);
-            var toprows = [];
-            var botrows = [];
-            for (var i = 0; i < rowcnt; i++) {
-                // jump ahead if we've alredy provided leading context or if this is the first range
-                if (contextSize && opcodes.length > 1 && ((idx > 0 && i == contextSize) || (idx == 0 && i == 0)) && change == "equal") {
-                    var jump = rowcnt - ((idx == 0 ? 1 : 2) * contextSize);
-                    if (jump > 1) {
-                        toprows.push(node = document.createElement("tr"));
-
-                        b += jump;
-                        n += jump;
-                        i += jump - 1;
-                        node.appendChild(telt("th", "..."));
-                        if (!inline) node.appendChild(ctelt("td", "skip", ""));
-                        node.appendChild(telt("th", "..."));
-                        node.appendChild(ctelt("td", "skip", ""));
-
-                        // skip last lines if they're all equal
-                        if (idx + 1 == opcodes.length) {
-                            break;
-                        } else {
-                            continue;
-                        }
-                    }
-                }
-
-                toprows.push(node = document.createElement("tr"));
-                if (inline) {
-                    if (change == "insert") {
-                        addCellsInline(node, null, n++, newTextLines, change);
-                    } else if (change == "replace") {
-                        botrows.push(node2 = document.createElement("tr"));
-                        if (b < be) addCellsInline(node, b++, null, baseTextLines, "delete");
-                        if (n < ne) addCellsInline(node2, null, n++, newTextLines, "insert");
-                    } else if (change == "delete") {
-                        addCellsInline(node, b++, null, baseTextLines, change);
-                    } else {
-                        // equal
-                        addCellsInline(node, b++, n++, baseTextLines, change);
-                    }
-                } else {
-                    var wdiff = diffString2(b < be ? baseTextLines[b] : "", n < ne ? newTextLines[n] : "");
-                    if (b < be) baseTextLines[b] = wdiff.o;
-                    if (n < ne) newTextLines[n] = wdiff.n;
-                    b = addCells(node, b, be, baseTextLines, change == "replace" ? "delete" : change);
-                    n = addCells(node, n, ne, newTextLines, change == "replace" ? "insert" : change);
-                }
-            }
-
-            for (var i = 0; i < toprows.length; i++) rows.push(toprows[i]);
-            for (var i = 0; i < botrows.length; i++) rows.push(botrows[i]);
-        }
-
-        var msg = "combined <a href='http://snowtide.com/jsdifflib'>jsdifflib</a> ";
-        msg += "and John Resig's <a href='http://ejohn.org/projects/javascript-diff-algorithm/'>diff</a> ";
-        msg += "by <a href='http://richardbondi.net'>Richard Bondi</a>";
-        rows.push(node = ctelt("th", "author", msg));
-        node.setAttribute("colspan", inline ? 3 : 4);
-
-        tdata.push(node = document.createElement("tbody"));
-        for (var idx in rows) node.appendChild(rows[idx]);
-
-        node = celt("table", "diff" + (inline ? " inlinediff" : ""));
-        for (var idx in tdata) node.appendChild(tdata[idx]);
-        return node;
-    }
-}
-
-/*
- * Javascript Diff Algorithm
- *  By John Resig (http://ejohn.org/)
- *  Modified by Chu Alan "sprite"
- *  diffstring2 random colors removed by Richard Bondi for use with jsdifflib
- *
- * Released under the MIT license.
- *
- * More Info:
- *  http://ejohn.org/projects/javascript-diff-algorithm/
- *
- */
-
-function escape(s) {
-    var n = s;
-    n = n.replace(/&/g, "&amp;");
-    n = n.replace(/</g, "&lt;");
-    n = n.replace(/>/g, "&gt;");
-    n = n.replace(/"/g, "&quot;");
-
-    return n;
-}
-
-function diffString(o, n) {
-    o = o.replace(/\s+$/, '');
-    n = n.replace(/\s+$/, '');
-
-    var out = diff(o == "" ? [] : o.split(/\s+/), n == "" ? [] : n.split(/\s+/));
-    var str = "";
-
-    var oSpace = o.match(/\s+/g);
-    if (oSpace == null) {
-        oSpace = ["\n"];
-    } else {
-        oSpace.push("\n");
-    }
-    var nSpace = n.match(/\s+/g);
-    if (nSpace == null) {
-        nSpace = ["\n"];
-    } else {
-        nSpace.push("\n");
-    }
-
-    if (out.n.length == 0) {
-        for (var i = 0; i < out.o.length; i++) {
-            str += '<del>' + escape(out.o[i]) + oSpace[i] + "</del>";
-        }
-    } else {
-        if (out.n[0].text == null) {
-            for (n = 0; n < out.o.length && out.o[n].text == null; n++) {
-                str += '<del>' + escape(out.o[n]) + oSpace[n] + "</del>";
-            }
-        }
-
-        for (var i = 0; i < out.n.length; i++) {
-            if (out.n[i].text == null) {
-                str += '<ins>' + escape(out.n[i]) + nSpace[i] + "</ins>";
-            } else {
-                var pre = "";
-
-                for (n = out.n[i].row + 1; n < out.o.length && out.o[n].text == null; n++) {
-                    pre += '<del>' + escape(out.o[n]) + oSpace[n] + "</del>";
-                }
-                str += " " + out.n[i].text + nSpace[i] + pre;
-            }
-        }
-    }
-
-    return str;
-}
-
-function randomColor() {
-    return "rgb(" + (Math.random() * 100) + "%, " +
-                    (Math.random() * 100) + "%, " +
-                    (Math.random() * 100) + "%)";
-}
-function diffString2(o, n) {
-    o = o.replace(/\s+$/, '');
-    n = n.replace(/\s+$/, '');
-
-    var out = diff(o == "" ? [] : o.split(/\s+/), n == "" ? [] : n.split(/\s+/));
-
-    var oSpace = o.match(/\s+/g);
-    if (oSpace == null) {
-        oSpace = ["\n"];
-    } else {
-        oSpace.push("\n");
-    }
-    var nSpace = n.match(/\s+/g);
-    if (nSpace == null) {
-        nSpace = ["\n"];
-    } else {
-        nSpace.push("\n");
-    }
-
-    var os = "";
-    var colors = new Array();
-    for (var i = 0; i < out.o.length; i++) {
-        colors[i] = randomColor();
-
-        if (out.o[i].text != null) {
-            os += escape(out.o[i].text) + oSpace[i];
-        } else {
-            os += "<del>" + escape(out.o[i]) + oSpace[i] + "</del>";
-        }
-    }
-
-    var ns = "";
-    for (var i = 0; i < out.n.length; i++) {
-        if (out.n[i].text != null) {
-            ns += escape(out.n[i].text) + nSpace[i];
-        } else {
-            ns += "<ins>" + escape(out.n[i]) + nSpace[i] + "</ins>";
-        }
-    }
-
-    return { o: os, n: ns };
-}
-
-function diff(o, n) {
-    var ns = new Object();
-    var os = new Object();
-
-    for (var i = 0; i < n.length; i++) {
-        if (ns[n[i]] == null)
-            ns[n[i]] = { rows: new Array(), o: null };
-        ns[n[i]].rows.push(i);
-    }
-
-    for (var i = 0; i < o.length; i++) {
-        if (os[o[i]] == null)
-            os[o[i]] = { rows: new Array(), n: null };
-        os[o[i]].rows.push(i);
-    }
-
-    for (var i in ns) {
-        if (ns[i].rows.length == 1 && typeof (os[i]) != "undefined" && os[i].rows.length == 1) {
-            n[ns[i].rows[0]] = { text: n[ns[i].rows[0]], row: os[i].rows[0] };
-            o[os[i].rows[0]] = { text: o[os[i].rows[0]], row: ns[i].rows[0] };
-        }
-    }
-
-    for (var i = 0; i < n.length - 1; i++) {
-        if (n[i].text != null && n[i + 1].text == null && n[i].row + 1 < o.length && o[n[i].row + 1].text == null &&
-             n[i + 1] == o[n[i].row + 1]) {
-            n[i + 1] = { text: n[i + 1], row: n[i].row + 1 };
-            o[n[i].row + 1] = { text: o[n[i].row + 1], row: i + 1 };
-        }
-    }
-
-    for (var i = n.length - 1; i > 0; i--) {
-        if (n[i].text != null && n[i - 1].text == null && n[i].row > 0 && o[n[i].row - 1].text == null &&
-             n[i - 1] == o[n[i].row - 1]) {
-            n[i - 1] = { text: n[i - 1], row: n[i].row - 1 };
-            o[n[i].row - 1] = { text: o[n[i].row - 1], row: i - 1 };
-        }
-    }
-
-    return { o: o, n: n };
-}
 $(function() {
 $.fn.emojiPicker.emojis = [
   {
@@ -51015,52 +50969,6 @@ $.fn.emojiPicker.emojis = [
 
 })(jQuery);
 
-function DataPanel_ExpandCollapse(hd, cht, cha, st, tc, te) {
-    if (document.getElementById(hd).style.display == '') {
-        document.getElementById(hd).style.display = 'none';
-        if (cht != '') {
-            document.getElementById(cht).title = te;
-        }
-        if (document.getElementById(cha) != null) {
-            document.getElementById(cha).innerHTML = te;
-            document.getElementById(cha).title = te;
-        }
-        document.getElementById(st).value = 'true';
-    } else {
-        document.getElementById(hd).style.display = '';
-        if (cht != '') {
-            document.getElementById(cht).title = tc;
-        }
-        if (document.getElementById(cha) != null) {
-            document.getElementById(cha).innerHTML = tc;
-            document.getElementById(cha).title = tc;
-        }
-        document.getElementById(st).value = 'false';
-    }
-}
-
-function DataPanel_ExpandCollapseImage(hd, cht, cha, st, ex, cl, tc, te) {
-    var elImg = (document.getElementById(cha)).getElementsByTagName("img");
-    if (document.getElementById(hd).style.display == '') {
-        document.getElementById(hd).style.display = 'none';
-        if (cht != '') {
-            document.getElementById(cht).title = te;
-        }
-        elImg[0].src = ex;
-        elImg[0].alt = te;
-        elImg[0].title = te; // logan fix
-        document.getElementById(st).value = 'true';
-    } else {
-        document.getElementById(hd).style.display = '';
-        if (cht != '') {
-            document.getElementById(cht).title = tc;
-        }
-        elImg[0].src = cl;
-        elImg[0].alt = tc;
-        elImg[0].title = te; // logan fix
-        document.getElementById(st).value = 'false';
-    }
-}
 /// <summary>
 /// Scrolls to docoment to the top.
 /// </summary>
@@ -51217,62 +51125,6 @@ function doClick(buttonName, e) {
         }
     }
 }
-function toggleNewSelection(source) {
-    var isChecked = source.checked;
-    $("input[id*='New']").each(function () {
-        $(this).attr('checked', false);
-    });
-    source.checked = isChecked;
-}
-
-function toggleOldSelection(source) {
-    var isChecked = source.checked;
-    $("input[id*='Old']").each(function () {
-        $(this).attr('checked', false);
-    });
-    source.checked = isChecked;
-}
-
-
-/// <summary>
-/// Renders the message difference.
-/// </summary>
-/// <param name="messageEditedAtText">The message edited at text.</param>
-/// <param name="nothingSelectedText">The nothing selected text.</param>
-/// <param name="selectBothText">The select both text.</param>
-/// <param name="selectDifferentText">The select different text.</param>
-/// <returns></returns>
-function RenderMessageDiff(messageEditedAtText, nothingSelectedText, selectBothText, selectDifferentText) {
-    var oldElement = $("input[id*='New']:checked");
-    var newElement = $("input[id*='Old']:checked");
-
-    if (newElement.length && oldElement.length) {
-        // check if two different messages are selected
-        if ($("input[id*='Old']:checked").attr('id').slice(-1) == $("input[id*='New']:checked").attr('id').slice(-1)) {
-            alert(selectDifferentText);
-        } else {
-            var base = difflib.stringAsLines($("input[id*='Old']:checked").parent().next().next().find("input[id*='MessageField']").attr('value'));
-            var newtxt = difflib.stringAsLines($("input[id*='New']:checked").parent().next().find("input[id*='MessageField']").attr('value'));
-            var sm = new difflib.SequenceMatcher(base, newtxt);
-            var opcodes = sm.get_opcodes();
-
-            $("#diffContent").html('<div class="diffContent">' + diffview.buildView({
-                baseTextLines: base,
-                newTextLines: newtxt,
-                opcodes: opcodes,
-                baseTextName: messageEditedAtText + oldElement.parent().next().next().next().next().html(),
-                newTextName: messageEditedAtText + oldElement.parent().next().next().next().next().html(),
-                contextSize: 3,
-                viewType: 0
-            }).outerHTML + '</div>');
-        }
-    }
-    else if (newElement.length || oldElement.length) {
-        alert(selectBothText);
-    } else {
-        alert(nothingSelectedText);
-    }
-}
 function getPaginationData(pageSize, pageNumber, isPageChange) {
     var yafUserID = $("#PostAttachmentListPlaceholder").data("userid");
 	var defaultParameters = "{userID:" + yafUserID + ", pageSize:" + pageSize + ",pageNumber:" + pageNumber + "}";
@@ -51419,234 +51271,6 @@ function AttachmentsPageSelectCallback(page_index) {
 	var Attachments_content = jQuery('#AttachmentsPagerHidden div.result:eq(' + page_index + ')').clone();
 	jQuery('#AttachmentsPagerResult').empty().append(Attachments_content);
 	return false;
-}
-function getSeachResultsData(pageNumber) {
-    var searchInput = jQuery(".searchInput").val();
-    var searchInputUser = jQuery(".searchUserInput").val();
-
-    // filter options
-    var pageSize = jQuery(".resultsPage").val();
-    var titleOnly = jQuery(".titleOnly").val();
-    var searchWhat = jQuery(".searchWhat").val();
-
-    // Forum Filter
-    var searchForum = parseInt(jQuery(".searchForum").val());
-
-    var searchText = "";
-
-    if (searchInput.length && searchInput.length >= 4) {
-        var replace;
-        if (titleOnly === "1") {
-            // ADD Topic Filter
-            if (searchWhat === "0") {
-                // Match all words
-                replace = searchInput;
-                searchText += " Topic: (" + replace.replace(/(^|\s+)/g, "$1+") + ")";
-            } else if (searchWhat === "1") {
-                // Match Any Word
-                searchText += " Topic: " + searchInput;
-            } else if (searchWhat === "2") {
-                // Match Extact Phrase
-                searchText += " Topic:" + "\"" + searchInput + "\"";
-            }
-        } else {
-            if (searchWhat === "0") {
-                // Match all words
-                replace = searchInput;
-                searchText += "(" + replace.replace(/(^|\s+)/g, "$1+") + ")";
-            }
-            else if (searchWhat === "1") {
-                // Match Any Word
-                searchText += "" + searchInput;
-            }
-            else if (searchWhat === "2") {
-                // Match Extact Phrase
-                searchText += "" + "\"" + searchInput + "\"";
-            }
-
-            searchText += " -Author:" + searchInput;
-        }
-        
-
-        if (searchInputUser.length && searchInputUser.length >= 4) {
-
-            if (searchInput.length) {
-                searchText += "AND Author:" + searchInputUser;
-            } else {
-                searchText += "Author:" + searchInputUser;
-            }
-        }
-
-        var yafUserId = $("#SearchResultsPlaceholder").data("userid");
-        var defaultParameters = "{userId:" +
-            yafUserId +
-            ", forumId:" +
-            searchForum +
-            ", pageSize:" +
-            pageSize +
-            ",pageNumber:" +
-            pageNumber +
-            ",searchInput: '" +
-            searchText +
-            "'}";
-
-        var ajaxUrl = $("#SearchResultsPlaceholder").data("url") + "YafAjax.asmx/GetSearchResults";
-
-        $.ajax({
-            type: "POST",
-            url: ajaxUrl,
-            data: defaultParameters,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            beforeSend: (function before() {
-                $('#SearchResultsPlaceholder').empty();
-                // show loading screen 
-                $('#loadModal').modal('show');
-            }),
-            complete: (function before() {
-                // show loading screen 
-                $('#loadModal').modal('hide');
-            }),
-            success: (function success(data) {
-                var posted = $("#SearchResultsPlaceholder").data("posted");
-                var by = $("#SearchResultsPlaceholder").data("by");
-                var lastpost = $("#SearchResultsPlaceholder").data("lastpost");
-                var topic = $("#SearchResultsPlaceholder").data("topic");
-
-                if (data.d.SearchResults.length === 0) {
-                    var list = $('#SearchResultsPlaceholder');
-                    var notext = $("#SearchResultsPlaceholder").data("notext");
-
-                    list.append('<div class="alert alert-warning text-center" role="alert">' +
-                        notext +
-                        '</div>');
-
-                    $('#SearchResultsPager').empty();
-
-                    $('#loadModal').modal('hide');
-                } else {
-                    $.each(data.d.SearchResults,
-                        function (id, data) {
-                            var groupHolder = $('#SearchResultsPlaceholder');
-
-                            groupHolder.append('<div class="row"><div class="card w-100  mb-3">' +
-                                '<div class="card-header topicTitle"><h6> ' +
-                                '<a title="' + topic +  '" href="' +
-                                data.TopicUrl +
-                                '">' + data.Topic + '</a>&nbsp;' + '<a class="btn btn-primary btn-sm" ' +
-                                'title="' + lastpost +
-                                '" href="' +
-                                data.MessageUrl +
-                                '"><i class="fas fa-external-link-square-alt"></i></a>' +
-                                ' <small class="text-muted">(' +
-                                by + ' ' + 
-                                data.UserName +
-                                ')</small>' +
-                                '</h6></div>' +
-                                '<div class="card-body">' +
-                                '<p class="card-text messageContent">' +
-                                data.Message +
-                                '</p>' +
-                                '</div>' +
-                                '<div class="card-footer"> ' +
-                                '<small class="text-muted">' +
-                                posted + 
-                                moment(data.Posted).fromNow() +
-                                '</small> ' +
-                                '</div>' +
-                                '</div></div>');
-                        });
-                    setPageNumber(pageSize, pageNumber, data.d.TotalRecords);
-                }
-            }),
-            error: (function error(request) {
-                $("#SearchResultsPlaceholder").html(request.statusText).fadeIn(1000);
-            })
-        });
-    }
-}
-
-function setPageNumber(pageSize, pageNumber, total) {
-    var pages = Math.ceil(total / pageSize);
-    var pagerHolder = $('#SearchResultsPager'),
-        pagination = $('<ul class="pagination" />');
-
-    pagerHolder.empty();
-
-    pagination.wrap('<nav aria-label="Search Page Results" />');
-
-    if (pageNumber > 0) {
-        pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
-            pageSize +
-            ',' +
-            (pageNumber - 1) +
-            ',' +
-            total +
-            ')" class="page-link">&laquo;</a></li>');
-    }
-
-    var start = pageNumber - 2;
-    var end = pageNumber + 3;
-
-    if (start < 0) {
-        start = 0;
-    }
-
-    if (end > pages) {
-        end = pages;
-    }
-
-    if (start > 0) {
-        pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
-            pageSize +
-            ',' +
-            0 +
-            ',' +
-            total +
-            ');" class="page-link">1</a></li>');
-        pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
-    }
-
-    for (var i = start; i < end; i++) {
-        if (i === pageNumber) {
-            pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + '</span>');
-        } else {
-            pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
-                pageSize +
-                ',' +
-                i +
-                ',' +
-                total +
-                ');" class="page-link">' +
-                (i + 1) +
-                '</a></li>');
-        }
-    }
-
-    if (end < pages) {
-        pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
-        pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
-            pageSize +
-            ',' +
-            (pages - 1) +
-            ',' +
-            total +
-            ')" class="page-link">' +
-            pages +
-            '</a></li>');
-    }
-
-    if (pageNumber < pages - 1) {
-        pagination.append('<li class="page-item"><a href="javascript:getSeachResultsData(' +
-            pageSize +
-            ',' +
-            (pageNumber + 1) +
-            ',' +
-            total +
-            ')" class="page-link">&raquo;</a></li>');
-    }
-
-    pagerHolder.append(pagination);
 }
 // Generic Functions
 jQuery(document).ready(function () {
