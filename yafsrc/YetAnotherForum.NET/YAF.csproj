@@ -1476,16 +1476,6 @@
     <Content Include="Scripts\bootstrap.bundle.min.js.map">
       <DependentUpon>bootstrap.bundle.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.js.map">
-      <DependentUpon>bootstrap.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\bootstrap.min.js">
-      <DependentUpon>bootstrap.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\bootstrap.min.js.map">
-      <DependentUpon>bootstrap.min.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
     <Content Include="Scripts\ckeditor\config.js" />
@@ -1880,26 +1870,6 @@
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js">
       <DependentUpon>moment.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\popper-utils.js" />
-    <Content Include="Scripts\popper-utils.js.map">
-      <DependentUpon>popper-utils.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\popper-utils.min.js">
-      <DependentUpon>popper-utils.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\popper-utils.min.js.map">
-      <DependentUpon>popper-utils.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\popper.js" />
-    <Content Include="Scripts\popper.js.map">
-      <DependentUpon>popper.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\popper.min.js">
-      <DependentUpon>popper.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\popper.min.js.map">
-      <DependentUpon>popper.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\spin.min.js">
       <DependentUpon>spin.js</DependentUpon>
@@ -4614,9 +4584,6 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="Scripts\index.d.ts" />
-  </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Package|AnyCPU'">
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -4668,7 +4635,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
