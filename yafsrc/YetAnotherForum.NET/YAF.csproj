@@ -1784,6 +1784,7 @@
       <DependentUpon>fontawesome.js</DependentUpon>
     </Content>
     <Content Include="Scripts\forum\yaf.SearchResults.js" />
+    <Content Include="Scripts\forum\yaf.SimilarTitles.js" />
     <Content Include="Scripts\i18n\af.js" />
     <Content Include="Scripts\i18n\ar.js" />
     <Content Include="Scripts\i18n\az.js" />
@@ -1838,19 +1839,12 @@
     <Content Include="Scripts\i18n\vi.js" />
     <Content Include="Scripts\i18n\zh-CN.js" />
     <Content Include="Scripts\i18n\zh-TW.js" />
-    <Content Include="Scripts\jquery-3.2.1.js" />
-    <Content Include="Scripts\jquery-3.2.1.min.js">
-      <DependentUpon>jquery-3.2.1.js</DependentUpon>
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js">
+      <DependentUpon>jquery-3.3.1.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-3.2.1.min.map">
-      <DependentUpon>jquery-3.2.1.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery-3.2.1.slim.js" />
-    <Content Include="Scripts\jquery-3.2.1.slim.min.js">
-      <DependentUpon>jquery-3.2.1.slim.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery-3.2.1.slim.min.map">
-      <DependentUpon>jquery-3.2.1.slim.min.js</DependentUpon>
+    <Content Include="Scripts\jquery-3.3.1.min.map">
+      <DependentUpon>jquery-3.3.1.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.blueimp-gallery.js" />
@@ -3477,10 +3471,10 @@
     <Content Include="Scripts\ckeditor\package.json" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
-    <None Include="Scripts\jquery-3.2.1.intellisense.js">
-      <DependentUpon>jquery-3.2.1.js</DependentUpon>
-    </None>
     <Content Include="Scripts\README.md" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js">
+      <DependentUpon>jquery-3.3.1.js</DependentUpon>
+    </None>
     <None Include="themes\cleanSlate\theme.less" />
     <Content Include="themes\cleanSlate\theme.css">
       <DependentUpon>theme.less</DependentUpon>

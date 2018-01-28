@@ -46,8 +46,8 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.tablesorter.pager.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.timeago.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ui.datepicker-farsi.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.2.1.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.2.1-vsdoc.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.3.1.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.3.1-vsdoc.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jsdifflib.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jsdifflib.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\ladda.js" />
