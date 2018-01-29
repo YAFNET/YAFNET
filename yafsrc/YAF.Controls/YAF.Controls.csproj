@@ -98,7 +98,6 @@
     <Compile Include="AlbumListPopMenu.cs" />
     <Compile Include="GoToPageForm.cs" />
     <Compile Include="ModernButton.cs" />
-    <Compile Include="Alert.cs" />
     <Compile Include="ModernTextBox.cs" />
     <Compile Include="PopupPanel.cs" />
     <Compile Include="ImageListBox.cs" />
