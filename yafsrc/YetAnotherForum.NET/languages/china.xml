@@ -1468,8 +1468,6 @@
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Template for rendering user's thanks from.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Thanks To template:</Resource>
     <Resource tag="THANKS_TO_TEMPLATE_HELP">Template for rendering user's thanks to.</Resource>
-    <Resource tag="TIMEAGO_INTERVAL">Relative Time Refresh Interval:</Resource>
-    <Resource tag="TIMEAGO_INTERVAL_HELP">This allows to set how often the "Time Ago" library should refresh the relative time (In Milliseconds, 60000 ms = 60 seconds = 1 minute).</Resource>
     <Resource tag="TITLE">Host Settings</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Topics Feeds Access:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Restrict display of topics feeds.</Resource>
@@ -2154,27 +2152,6 @@
   </Resource>
     <Resource tag="SHOWHIDE">显示/隐藏</Resource>
     <Resource tag="SUBMIT">提交</Resource>
-    <Resource tag="TIMEAGO_JS">
-      // Simplified Chinese
-      jQuery.timeago.settings.strings = {
-      prefixAgo: null,
-      prefixFromNow: "从现在开始",
-      suffixAgo: "之前",
-      suffixFromNow: null,
-      seconds: "不到 1 分钟",
-      minute: "大约 1 分钟",
-      minutes: "%d 分钟",
-      hour: "大约 1 小时",
-      hours: "大约 %d 小时",
-      day: "1 天",
-      days: "%d 天",
-      month: "大约 1 个月",
-      months: "%d 月",
-      year: "大约 1 年",
-      years: "%d 年",
-      numbers: []
-      }
-    </Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Topic Subscription New Post Notification (From {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">居中对齐</Resource>
     <Resource tag="TT_ALIGNLEFT">靠左对齐</Resource>

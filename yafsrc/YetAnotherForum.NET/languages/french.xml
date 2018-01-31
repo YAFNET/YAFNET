@@ -1468,8 +1468,6 @@
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Template for rendering user's thanks from.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Thanks To template:</Resource>
     <Resource tag="THANKS_TO_TEMPLATE_HELP">Template for rendering user's thanks to.</Resource>
-    <Resource tag="TIMEAGO_INTERVAL">Relative Time Refresh Interval:</Resource>
-    <Resource tag="TIMEAGO_INTERVAL_HELP">This allows to set how often the "Time Ago" library should refresh the relative time (In Milliseconds, 60000 ms = 60 seconds = 1 minute).</Resource>
     <Resource tag="TITLE">Host Settings</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Topics Feeds Access:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Restrict display of topics feeds.</Resource>
@@ -2151,25 +2149,6 @@
   </Resource>
     <Resource tag="SHOWHIDE">Show/Hide</Resource>
     <Resource tag="SUBMIT">Envoyer</Resource>
-    <Resource tag="TIMEAGO_JS">
-      // French
-      jQuery.timeago.settings.strings = {
-      // environ ~= about, it's optional
-      prefixAgo: "il y a",
-      prefixFromNow: "d'ici",
-      seconds: "moins d'une minute",
-      minute: "environ une minute",
-      minutes: "environ %d minutes",
-      hour: "environ une heure",
-      hours: "environ %d heures",
-      day: "environ un jour",
-      days: "environ %d jours",
-      month: "environ un mois",
-      months: "environ %d mois",
-      year: "un an",
-      years: "%d ans"
-      };
-    </Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Souscription au sujet notification nouveaux messages (de {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">Centrer</Resource>
     <Resource tag="TT_ALIGNLEFT">Gauche</Resource>

@@ -123,17 +123,21 @@ namespace YAF.Utilities
         public static string TimeagoLoadJs =>
             @" if( typeof(CKEDITOR) == 'undefined') {{
             function loadTimeAgo() {{
-            {2}.timeago.settings.refreshMillis = {1};
-            {0}
-		    {2}('abbr.timeago').timeago();
+            
+		     moment.locale('{1}');
+            {0}('abbr.timeago').html(function(index, value) {{
+                 
+            return moment(value).fromNow(true);
+            }});
 
             Prism.highlightAll();
 			      }}
                    Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
                    }};".FormatWith(
-                YafContext.Current.Get<ILocalization>().GetText("TIMEAGO_JS"),
-                YafContext.Current.Get<YafBoardSettings>().RelativeTimeRefreshTime,
-                Config.JQueryAlias);
+                Config.JQueryAlias,
+                YafContext.Current.CultureUser.IsSet()
+                    ? YafContext.Current.CultureUser.Substring(0, 2)
+                    : YafContext.Current.Get<YafBoardSettings>().Culture.Substring(0, 2));
 
         /// <summary>
         ///   Gets ToggleMessageJs.

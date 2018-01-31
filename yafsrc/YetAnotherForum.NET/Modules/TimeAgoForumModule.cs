@@ -48,7 +48,7 @@ namespace YAF.Modules
         /// </summary>
         public override void InitAfterPage()
         {
-            this.CurrentForumPage.PreRender += this.CurrentForumPage_PreRender;
+            this.CurrentForumPage.PreRender += this.CurrentForumPagePreRender;
         }
 
         #endregion
@@ -60,7 +60,7 @@ namespace YAF.Modules
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+        private void CurrentForumPagePreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.PageContext.BoardSettings.ShowRelativeTime
                 || this.PageContext.Vars.ContainsKey("RegisteredTimeago"))

@@ -1473,8 +1473,6 @@
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Plantilla para mostrar los agradecimientos de los usuarios.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Plantilla de agradecimientos a:</Resource>
     <Resource tag="THANKS_TO_TEMPLATE_HELP">Plantilla para mostrar los agradecimientos a los usuarios.</Resource>
-    <Resource tag="TIMEAGO_INTERVAL">Intervalo de refresco de tiempo relativo:</Resource>
-    <Resource tag="TIMEAGO_INTERVAL_HELP">Esto permite indicar cada cuanto tiempo refresca la biblioteca de "Hace ... tiempo" el tiempo relativo (En milisegundos, 60000 = 60 segundos = 1 minuto).</Resource>
     <Resource tag="TITLE">Configuración de servidor</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Acceso a feeds de temas:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Restringe el mostrar los feed de los temas.</Resource>
@@ -2157,26 +2155,6 @@
     </Resource>
     <Resource tag="SHOWHIDE">Mostrar/Ocultar</Resource>
     <Resource tag="SUBMIT">Enviar</Resource>
-    <Resource tag="TIMEAGO_JS">
-      // Spanish
-      jQuery.timeago.settings.strings = {
-      prefixAgo: "hace",
-      prefixFromNow: "dentro de",
-      suffixAgo: "",
-      suffixFromNow: "",
-      seconds: "menos de un minuto",
-      minute: "un minuto",
-      minutes: "unos %d minutos",
-      hour: "una hora",
-      hours: "%d horas",
-      day: "un día",
-      days: "%d días",
-      month: "un mes",
-      months: "%d meses",
-      year: "un año",
-      years: "%d años"
-      };
-    </Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Suscripción a un tema - Notificación de nuevo mensaje (de {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">Centrado</Resource>
     <Resource tag="TT_ALIGNLEFT">Justificado izquierda</Resource>

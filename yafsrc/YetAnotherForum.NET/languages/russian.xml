@@ -1461,8 +1461,6 @@
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Шаблон для отображения Спасибо пользователю.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Шаблон для отображения «Спасибо»:</Resource>
     <Resource tag="THANKS_TO_TEMPLATE_HELP">Шаблон для отображения Спасибо пользователя.</Resource>
-    <Resource tag="TIMEAGO_INTERVAL">Интервал обновления относительного времени:</Resource>
-    <Resource tag="TIMEAGO_INTERVAL_HELP">Позволяет определять как часто библиотека "Time Ago" должна обновлять относительное время(в миллисекундах).</Resource>
     <Resource tag="TITLE">Настройки хоста</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Доступ к лентам тем:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Ограничить доступ к лентам тем.</Resource>
@@ -2133,42 +2131,6 @@
   </Resource>
     <Resource tag="SHOWHIDE">Показать/Скрыть</Resource>
     <Resource tag="SUBMIT">Отправить</Resource>
-    <Resource tag="TIMEAGO_JS">
-      // Russian
-      (function() {
-      function numpf(n, f, s, t) {
-      // f - 1, 21, 31, ...
-      // s - 2-4, 22-24, 32-34 ...
-      // t - 5-20, 25-30, ...
-      var n10 = n % 10;
-      if ( (n10 == 1) &amp;&amp; ( (n == 1) || (n &gt; 20) ) ) {
-      return f;
-      } else if ( (n10 &gt; 1) &amp;&amp;  (n10 &lt; 5) &amp;&amp;  ( (n &gt; 20) || (n &lt; 10) ) ) {
-      return s;
-    } else {
-      return t;
-    }
-  }
- 
-  jQuery.timeago.settings.strings = {
-    prefixAgo: null,
-    prefixFromNow: "через",
-    suffixAgo: "назад",
-    suffixFromNow: null,
-    seconds: "меньше минуты",
-    minute: "минуту",
-    minutes: function(value) { return numpf(value, "%d минута", "%d минуты", "%d минут"); },
-    hour: "час",
-    hours: function(value) { return numpf(value, "%d час", "%d часа", "%d часов"); },
-    day: "день",
-    days: function(value) { return numpf(value, "%d день", "%d дня", "%d дней"); },
-    month: "месяц",
-    months: function(value) { return numpf(value, "%d месяц", "%d месяца", "%d месяцев"); },
-    year: "год",
-    years: function(value) { return numpf(value, "%d год", "%d года", "%d лет"); }
-  };
-})();
-    </Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Уведомление о новом сообщении в теме по подписке(От {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">Выровнять по центру</Resource>
     <Resource tag="TT_ALIGNLEFT">Выровнять по левому краю</Resource>

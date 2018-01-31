@@ -1165,24 +1165,6 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.CheckBox ShowRelativeTime;
         
         /// <summary>
-        /// HelpLabel92-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.HelpLabel HelpLabel92;
-        
-        /// <summary>
-        /// RelativeTimeRefreshTime-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox RelativeTimeRefreshTime;
-        
-        /// <summary>
         /// HelpLabel93-Steuerelement
         /// </summary>
         /// <remarks>

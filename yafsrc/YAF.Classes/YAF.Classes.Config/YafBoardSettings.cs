@@ -2471,22 +2471,6 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets the Refresh Rate for the TimeAgo
-        /// </summary>
-        public int RelativeTimeRefreshTime
-        {
-            get
-            {
-                return this._reg.GetValue("RelativeTimeRefreshTime", 60000);
-            }
-
-            set
-            {
-                this._reg.SetValue("RelativeTimeRefreshTime", value);
-            }
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether AllowMultipleChoices.
         /// </summary>
         public bool AllowMultipleChoices

@@ -1468,8 +1468,6 @@
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Template for rendering user's thanks from.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Thanks To template:</Resource>
     <Resource tag="THANKS_TO_TEMPLATE_HELP">Template for rendering user's thanks to.</Resource>
-    <Resource tag="TIMEAGO_INTERVAL">Relative Time Refresh Interval:</Resource>
-    <Resource tag="TIMEAGO_INTERVAL_HELP">This allows to set how often the "Time Ago" library should refresh the relative time (In Milliseconds, 60000 ms = 60 seconds = 1 minute).</Resource>
     <Resource tag="TITLE">Host Settings</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Topics Feeds Access:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Restrict display of topics feeds.</Resource>
@@ -2154,26 +2152,6 @@
   </Resource>
     <Resource tag="SHOWHIDE">Show/Hide</Resource>
     <Resource tag="SUBMIT">Indsend</Resource>
-    <Resource tag="TIMEAGO_JS">
-      // Danish
-      jQuery.timeago.settings.strings = {
-      prefixAgo: "for",
-      prefixFromNow: "om",
-      suffixAgo: "siden",
-      suffixFromNow: "",
-      seconds: "mindre end et minut",
-      minute: "ca. et minut",
-      minutes: "%d minutter",
-      hour: "ca. en time",
-      hours: "ca. %d timer",
-      day: "en dag",
-      days: "%d dage",
-      month: "ca. en måned",
-      months: "%d måneder",
-      year: "ca. et år",
-      years: "%d år"
-      };
-    </Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Emne abonnement på nye indlæg (Fra {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">Centrer</Resource>
     <Resource tag="TT_ALIGNLEFT">Venstre juster</Resource>

@@ -1462,8 +1462,6 @@
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Sjabloon om 'Bedankt van' op te bouwen.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Bedankt aan sjabloon:</Resource>
     <Resource tag="THANKS_TO_TEMPLATE_HELP">Sjabloon om 'Bedankt Aan' op te bouwen.</Resource>
-    <Resource tag="TIMEAGO_INTERVAL">Relatieve Tijden Ververs Interval:</Resource>
-    <Resource tag="TIMEAGO_INTERVAL_HELP">Deze optie zet hoe vaak de "...Geleden" bibliotheek de relatieve tijden ververst (In Milliseconden, 60000 ms = 60 seconden = 1 minuut).</Resource>
     <Resource tag="TITLE">Host Instellingen</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Topics Feed Toegang:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Beperk weergave van topic feeds.</Resource>
@@ -2145,23 +2143,6 @@
   </Resource>
     <Resource tag="SHOWHIDE">Laat zien/Verberg</Resource>
     <Resource tag="SUBMIT">Vastleggen</Resource>
-    <Resource tag="TIMEAGO_JS">	  // Dutch
-	  jQuery.timeago.settings.strings = {
-	  suffixAgo: "geleden",
-	  suffixFromNow: "vanaf nu",
-	  seconds: "iets minder dan een minuut",
-	  minute: "ongeveer een minuut",
-	  minutes: "%d minuten",
-	  hour: "ongeveer een uur",
-	  hours: "ongeveer %d uren",
-	  day: "een dag",
-	  days: "%d dagen",
-	  month: "ongeveer een maand",
-	  months: "%d maanden",
-	  year: "ongeveer een jaar",
-	  years: "%d jaar"
-	  };
-	</Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Melding van plaatsing nieuw bericht (van {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">Centreren</Resource>
     <Resource tag="TT_ALIGNLEFT">Links uitlijnen</Resource>

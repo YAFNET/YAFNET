@@ -2832,7 +2832,6 @@
     <Content Include="Scripts\ckeditor\plugins\syntaxhighlight\scripts\shCore.js" />
     <Content Include="Scripts\ckeditor\plugins\syntaxhighlight\styles\shCore.css" />
     <Content Include="Scripts\ckeditor\yaf_contents.css" />
-    <Content Include="Scripts\jquery.timeago.js" />
     <Content Include="Scripts\radEditor\toolsFile.xml" />
     <Content Include="Scripts\tinymce\tinymce_init.js" />
     <Content Include="Scripts\tinymce\tinymce_initbbcode.js" />
@@ -4614,7 +4613,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

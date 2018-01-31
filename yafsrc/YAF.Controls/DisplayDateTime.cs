@@ -48,7 +48,7 @@ namespace YAF.Controls
         /// <summary>
         ///   The _controlHtml.
         /// </summary>
-        protected string _controlHtml = @"<abbr class=""timeago"" title=""{0}"">{1}</abbr>";
+        private readonly string controlHtml = @"<abbr class=""timeago"" title=""{1}"">{0}</abbr>";
 
         #endregion
 
@@ -100,16 +100,18 @@ namespace YAF.Controls
         {
             get
             {
-                if (this.DateTime != null)
+                if (this.DateTime == null)
                 {
-                    try
-                    {
-                        return Convert.ToDateTime(this.DateTime);
-                    }
-                    catch (InvalidCastException)
-                    {
-                        // not useable...            
-                    }
+                    return DateTimeHelper.SqlDbMinTime();
+                }
+
+                try
+                {
+                    return Convert.ToDateTime(this.DateTime);
+                }
+                catch (InvalidCastException)
+                {
+                    // not useable...            
                 }
 
                 return DateTimeHelper.SqlDbMinTime();
@@ -134,7 +136,7 @@ namespace YAF.Controls
             }
 
             writer.Write(
-                this._controlHtml.FormatWith(
+                this.controlHtml.FormatWith(
                     this.AsDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture),
                     this.Get<IDateTime>().Format(this.Format, this.DateTime)));
             writer.WriteLine();

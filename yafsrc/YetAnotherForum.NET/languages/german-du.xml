@@ -1460,8 +1460,6 @@
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzers Danke von.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Danke an Vorlage:</Resource>
     <Resource tag="THANKS_TO_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzers Danke an.</Resource>
-    <Resource tag="TIMEAGO_INTERVAL">Relative Zeit Aktualisierungsintervall:</Resource>
-    <Resource tag="TIMEAGO_INTERVAL_HELP">Dies erlaubt es, festzulegen, wie oft die "Time Ago" Erweiterung die relative Zeit aktualisieren soll (in Millisekunden, 60000 ms = 60 Sekunden = 1 Minute).</Resource>
     <Resource tag="TITLE">Host Einstellungen</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Themen-Feeds Zugang:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Anzeige Beschränken für den Feed.</Resource>
@@ -2130,26 +2128,6 @@
     </Resource>
     <Resource tag="SHOWHIDE">Zeigen/Verstecken</Resource>
     <Resource tag="SUBMIT">Abschicken</Resource>
-    <Resource tag="TIMEAGO_JS">
-      // German
-      jQuery.timeago.settings.strings = {
-      prefixAgo: "vor",
-      prefixFromNow: "in",
-      suffixAgo: "",
-      suffixFromNow: "",
-      seconds: "wenigen Sekunden",
-      minute: "etwa einer Minute",
-      minutes: "%d Minuten",
-      hour: "etwa einer Stunde",
-      hours: "%d Stunden",
-      day: "etwa einem Tag",
-      days: "%d Tagen",
-      month: "etwa einem Monat",
-      months: "%d Monaten",
-      year: "etwa einem Jahr",
-      years: "%d Jahren"
-      };
-    </Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Mitteilung bei neuen Themen (Von {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">Zentriert</Resource>
     <Resource tag="TT_ALIGNLEFT">Linksbündig</Resource>

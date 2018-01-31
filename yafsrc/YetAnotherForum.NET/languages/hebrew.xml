@@ -1490,8 +1490,6 @@
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Template for rendering user's thanks from.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Thanks To template:</Resource>
     <Resource tag="THANKS_TO_TEMPLATE_HELP">Template for rendering user's thanks to.</Resource>
-    <Resource tag="TIMEAGO_INTERVAL">Relative Time Refresh Interval:</Resource>
-    <Resource tag="TIMEAGO_INTERVAL_HELP">This allows to set how often the "Time Ago" library should refresh the relative time (In Milliseconds, 60000 ms = 60 seconds = 1 minute).</Resource>
     <Resource tag="TITLE">Host Settings</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Topics Feeds Access:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Restrict display of topics feeds.</Resource>
@@ -2177,26 +2175,6 @@
   </Resource>
     <Resource tag="SHOWHIDE">Show/Hide</Resource>
     <Resource tag="SUBMIT">שלח</Resource>
-    <Resource tag="TIMEAGO_JS">
-      // Hebrew
-      jQuery.timeago.settings.strings = {
-      prefixAgo: "לפני",
-      prefixFromNow: "מעכשיו",
-      suffixAgo: "",
-      suffixFromNow: "",
-      seconds: "פחות מדקה",
-      minute: "דקה",
-      minutes: "%d דקות",
-      hour: "שעה",
-      hours: "%d שעות",
-      day: "יום",
-      days: "%d ימים",
-      month: "חודש",
-      months: "%d חודשים",
-      year: "שנה",
-      years: "%d שנים"
-      };
-    </Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">הודעה על הודעה חדשה בדיון רשום (From {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">הצמדה למרכז</Resource>
     <Resource tag="TT_ALIGNLEFT">הצמדה לשמאל</Resource>

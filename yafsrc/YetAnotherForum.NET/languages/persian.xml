@@ -1464,8 +1464,6 @@
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">قالبی که قدردانی های شده از کاربر بر اساس آن تولید می شود.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">قالب قدردانی ها:</Resource>
     <Resource tag="THANKS_TO_TEMPLATE_HELP">قالبی که قدردانی های کاربر بر اساس آن تولید می شود.</Resource>
-    <Resource tag="TIMEAGO_INTERVAL">وقفه بازسازی زمان نسبی:</Resource>
-    <Resource tag="TIMEAGO_INTERVAL_HELP">مدت زمان بازسازی زمان نسبی "زمان قبل" را مشخص می کند.بر حسب میلی ثانیه است 60000 میلی ثانیه = 60 ثانیه = 1 دقیقه.</Resource>
     <Resource tag="TITLE">تنظیمات میزبان</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">دسترسی خوراک موضوعات:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">محدود کردن خوراک موضوعات.</Resource>
@@ -2168,9 +2166,6 @@
     </Resource>
     <Resource tag="SHOWHIDE">نمایش/عدم نمایش</Resource>
     <Resource tag="SUBMIT">تایید</Resource>
-    <Resource tag="TIMEAGO_JS">
-      jQuery.timeago.settings.strings = { prefixAgo: null, prefixFromNow: null, suffixAgo: "پیش", suffixFromNow: "از هم اکنون", seconds: "کمتر از یک دقیقه پیش", minute: "حدود یک دقیقه", minutes: "%d دقیقه", hour: "حدود یک ساعت", hours: "حدود %d ساعت", day: "یک روز", days: "%d روز", month: "حدود یک ماه", months: "%d ماه", year: "حدود یک سال", years: "%d سال", numbers: [] };
-    </Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">اشتراک در دریافت جدیدترین مطالب  (از {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">در وسط</Resource>
     <Resource tag="TT_ALIGNLEFT">در سمت چپ</Resource>

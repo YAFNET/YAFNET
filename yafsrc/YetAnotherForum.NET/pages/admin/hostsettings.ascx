@@ -490,14 +490,6 @@
                     </p><hr />
 
                         <h4>
-                            <YAF:HelpLabel ID="HelpLabel92" runat="server" LocalizedTag="TIMEAGO_INTERVAL" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:TextBox ID="RelativeTimeRefreshTime" CssClass="form-control" runat="server"></asp:TextBox>
-
-                    </p><hr />
-
-                        <h4>
                             <YAF:HelpLabel ID="HelpLabel93" runat="server" LocalizedTag="DYNAMIC_METATAGS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </h4>
                         <p>
