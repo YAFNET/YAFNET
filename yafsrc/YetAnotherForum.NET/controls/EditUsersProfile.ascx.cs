@@ -467,7 +467,7 @@ namespace YAF.Controls
                 null,
                 displayName,
                 null,
-                this.TimeZones.SelectedValue.ToType<int>(),
+                this.TimeZones.SelectedValue,
                 language,
                 culture,
                 theme,
@@ -476,7 +476,7 @@ namespace YAF.Controls
                 null,
                 null,
                 null,
-                this.DSTUser.Checked,
+                false,
                 this.HideMe.Checked,
                 null);
 
@@ -641,13 +641,13 @@ namespace YAF.Controls
                 }
             }
 
-            var timeZoneItem = this.TimeZones.Items.FindByValue(this.UserData.TimeZone.ToString());
+            var timeZoneItem = this.TimeZones.Items.FindByValue(this.UserData.TimeZoneInfo.Id);
+
             if (timeZoneItem != null)
             {
                 timeZoneItem.Selected = true;
             }
 
-            this.DSTUser.Checked = this.UserData.DSTUser;
             this.HideMe.Checked = this.UserData.IsActiveExcluded
                                   && (this.Get<YafBoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin);
 
