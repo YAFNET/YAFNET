@@ -95,16 +95,16 @@ namespace YAF.Core
         /// <param name="event">The @event.</param>
         public void Handle([NotNull] InitPageLoadEvent @event)
         {
-            string browser = "{0} {1}".FormatWith(
+            var browser = "{0} {1}".FormatWith(
                 this.HttpRequestBase.Browser.Browser, this.HttpRequestBase.Browser.Version);
-            string platform = this.HttpRequestBase.Browser.Platform;
+            var platform = this.HttpRequestBase.Browser.Platform;
 
             bool isSearchEngine;
             bool dontTrack;
 
-            string userAgent = this.HttpRequestBase.UserAgent;
+            var userAgent = this.HttpRequestBase.UserAgent;
 
-            bool isMobileDevice = UserAgentHelper.IsMobileDevice(userAgent)
+            var isMobileDevice = UserAgentHelper.IsMobileDevice(userAgent)
                                   || this.HttpRequestBase.Browser.IsMobileDevice;
 
             // try and get more verbose platform name by ref and other parameters             

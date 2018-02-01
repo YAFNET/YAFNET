@@ -349,7 +349,15 @@ namespace YAF.Core
         /// <summary>
         ///   Gets the time zone offset for the user
         /// </summary>
-        public int TimeZoneUser => this.Page["TimeZoneUser"].ToType<int>();
+        public string TimeZoneUser => this.Page["TimeZoneUser"].ToString();
+
+        /// <summary>
+        /// Gets the time zone user off set.
+        /// </summary>
+        /// <value>
+        /// The time zone user off set.
+        /// </value>
+        public int TimeZoneUserOffSet => DateTimeHelper.GetTimeZoneOffset(this.Page["TimeZoneUser"].ToString());
 
         /// <summary>
         ///   Gets the number of private messages that are unread

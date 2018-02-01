@@ -580,24 +580,6 @@ namespace YAF.Controls {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel25;
         
         /// <summary>
-        /// DSTLocalizedLabel-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel DSTLocalizedLabel;
-        
-        /// <summary>
-        /// DSTUser-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox DSTUser;
-        
-        /// <summary>
         /// LocalizedLabel24-Steuerelement
         /// </summary>
         /// <remarks>

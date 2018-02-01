@@ -87,7 +87,7 @@ namespace YAF.Types.Flags
       : this(0)
     {
       // process up to 32 parameters
-      for (int i = 0; i < Math.Min(bits.Length, 31); i++)
+      for (var i = 0; i < Math.Min(bits.Length, 31); i++)
       {
         // set this bit
         this[i] = bits[i];
@@ -192,7 +192,7 @@ namespace YAF.Types.Flags
       if (GetBitAsBool(bitValue, bitShift) != value)
       {
         // toggle that value using XOR
-        int tV = 0x00000001 << bitShift;
+        var tV = 0x00000001 << bitShift;
         bitValue ^= tV;
       }
 

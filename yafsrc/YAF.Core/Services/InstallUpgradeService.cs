@@ -166,7 +166,7 @@ namespace YAF.Core.Services
         /// <param name="adminEmail">The admin email.</param>
         /// <param name="adminProviderUserKey">The admin provider user key.</param>
         public void InitializeForum(
-            string forumName, int timeZone, string culture, string forumEmail, string forumBaseUrlMask, string adminUserName, string adminEmail, object adminProviderUserKey)
+            string forumName, string timeZone, string culture, string forumEmail, string forumBaseUrlMask, string adminUserName, string adminEmail, object adminProviderUserKey)
         {
             var cult = StaticDataHelper.Cultures();
             var langFile = "english.xml";

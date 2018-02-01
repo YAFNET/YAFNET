@@ -127,22 +127,22 @@ namespace YAF.Core
         /// </summary>
         public static void ApproveAll()
         {
-            int exitCount = 1;
-            int pageCount = 0;
+            var exitCount = 1;
+            var pageCount = 0;
 
             // get all users...
             // vzrus: we should do it by portions for large forums
             while (exitCount > 0)
             {
-                MembershipUserCollection allUsers = GetAllUsers(pageCount, out exitCount, 1000);
+                var allUsers = GetAllUsers(pageCount, out exitCount, 1000);
 
                 // iterate through each one...
-                foreach (MembershipUser user in allUsers.Cast<MembershipUser>().Where(user => !user.IsApproved))
+                foreach (var user in allUsers.Cast<MembershipUser>().Where(user => !user.IsApproved))
                 {
                     // approve this user...
                     user.IsApproved = true;
                     YafContext.Current.Get<MembershipProvider>().UpdateUser(user);
-                    int id = GetUserIDFromProviderUserKey(user.ProviderUserKey);
+                    var id = GetUserIDFromProviderUserKey(user.ProviderUserKey);
                     if (id > 0)
                     {
                         LegacyDb.user_approve(id);
@@ -162,14 +162,14 @@ namespace YAF.Core
         /// </returns>
         public static bool ApproveUser(int userID)
         {
-            object providerUserKey = GetProviderUserKeyFromID(userID);
+            var providerUserKey = GetProviderUserKeyFromID(userID);
 
             if (providerUserKey == null)
             {
                 return false;
             }
 
-            MembershipUser user = GetUser(ObjectExtensions.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
+            var user = GetUser(ObjectExtensions.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
             if (!user.IsApproved)
             {
                 user.IsApproved = true;
@@ -208,17 +208,17 @@ namespace YAF.Core
         /// </param>
         public static void DeleteAllUnapproved(DateTime createdCutoff)
         {
-            int exitCount = 1;
-            int pageCount = 0;
+            var exitCount = 1;
+            var pageCount = 0;
 
             // get all users...
             // vzrus: we should do it by portions for large forums
             while (exitCount > 0)
             {
-                MembershipUserCollection allUsers = GetAllUsers(pageCount, out exitCount, 1000);
+                var allUsers = GetAllUsers(pageCount, out exitCount, 1000);
 
                 // iterate through each one...
-                foreach (MembershipUser user in
+                foreach (var user in
                     allUsers.Cast<MembershipUser>().Where(user => !user.IsApproved && user.CreationDate < createdCutoff))
                 {
                     // delete this user...
@@ -260,7 +260,7 @@ namespace YAF.Core
                 HttpContext.Current.Server.MapPath(
                     string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
-            using (DataTable dt = LegacyDb.album_list(userID, null))
+            using (var dt = LegacyDb.album_list(userID, null))
             {
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -350,7 +350,7 @@ namespace YAF.Core
                 HttpContext.Current.Server.MapPath(
                     string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
-            using (DataTable dt = LegacyDb.album_list(userID, null))
+            using (var dt = LegacyDb.album_list(userID, null))
             {
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -432,7 +432,7 @@ namespace YAF.Core
         public static MembershipUserCollection GetAllUsers(int pageCount, out int exitCount, int userNumber)
         {
             int totalRecords;
-            MembershipUserCollection muc = YafContext.Current.Get<MembershipProvider>()
+            var muc = YafContext.Current.Get<MembershipProvider>()
                 .GetAllUsers(pageCount, 1000, out totalRecords);
             exitCount = totalRecords;
             return muc;
@@ -473,7 +473,7 @@ namespace YAF.Core
         /// </returns>
         public static MembershipUser GetMembershipUserById(long userID)
         {
-            object providerUserKey = GetProviderUserKeyFromID(userID);
+            var providerUserKey = GetProviderUserKeyFromID(userID);
 
             return providerUserKey != null ? GetMembershipUserByKey(providerUserKey) : null;
         }
@@ -489,7 +489,7 @@ namespace YAF.Core
 
         public static MembershipUser GetMembershipUserById(int userID, int boardId)
         {
-            object providerUserKey = GetProviderUserKeyFromID(userID, boardId);
+            var providerUserKey = GetProviderUserKeyFromID(userID, boardId);
 
             return providerUserKey != null ? GetMembershipUserByKey(providerUserKey) : null;
         }
@@ -547,7 +547,7 @@ namespace YAF.Core
         {
             object providerUserKey = null;
 
-            DataRow row = GetUserRowForID(userID, boardID);
+            var row = GetUserRowForID(userID, boardID);
 
             if (row == null)
             {
@@ -658,7 +658,7 @@ namespace YAF.Core
         /// </returns>
         public static int GetUserIDFromProviderUserKey(object providerUserKey)
         {
-            int userID = LegacyDb.user_get(YafContext.Current.PageBoardID, providerUserKey.ToString());
+            var userID = LegacyDb.user_get(YafContext.Current.PageBoardID, providerUserKey.ToString());
             return userID;
         }
 
@@ -671,9 +671,9 @@ namespace YAF.Core
         /// </returns>
         public static string GetUserNameFromID(long userID)
         {
-            string userName = string.Empty;
+            var userName = string.Empty;
 
-            DataRow row = GetUserRowForID(userID, true);
+            var row = GetUserRowForID(userID, true);
 
             if (row == null)
             {
@@ -697,9 +697,9 @@ namespace YAF.Core
         /// </returns>
         public static string GetDisplayNameFromID(long userID)
         {
-            string displayName = string.Empty;
+            var displayName = string.Empty;
 
-            DataRow row = GetUserRowForID(userID, true);
+            var row = GetUserRowForID(userID, true);
 
             if (row == null)
             {
@@ -855,14 +855,14 @@ namespace YAF.Core
         /// </returns>
         public static bool UpdateEmail(int userID, string newEmail)
         {
-            object providerUserKey = GetProviderUserKeyFromID(userID);
+            var providerUserKey = GetProviderUserKeyFromID(userID);
 
             if (providerUserKey == null)
             {
                 return false;
             }
 
-            MembershipUser user = GetUser(ObjectExtensions.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
+            var user = GetUser(ObjectExtensions.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
 
             user.Email = newEmail;
 
@@ -890,7 +890,7 @@ namespace YAF.Core
         /// </returns>
         public static bool UserExists(string userName, string email)
         {
-            bool exists = false;
+            var exists = false;
 
             if (userName != null)
             {

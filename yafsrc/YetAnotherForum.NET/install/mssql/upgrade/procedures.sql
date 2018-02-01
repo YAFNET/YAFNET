@@ -507,7 +507,7 @@ IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{data
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_list]
 GO
 
-IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_list]') AND type in (N'P', N'PC'))
+IF  exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_list_search]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_list_search]
 GO
 
@@ -5494,7 +5494,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}system_initialize](
     @Name		nvarchar(50),
-    @TimeZone	int,
+    @TimeZone	nvarchar(max),
     @Culture	varchar(10),
     @LanguageFile nvarchar(50),
     @ForumEmail	nvarchar(50),
@@ -7864,7 +7864,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
     @UserName			nvarchar(255) = null,
     @DisplayName		nvarchar(255) = null,
     @Email				nvarchar(255) = null,
-    @TimeZone			int,
+    @TimeZone			nvarchar(max),
     @LanguageFile		nvarchar(50) = null,
     @Culture		    varchar(10) = null,
     @ThemeFile			nvarchar(50) = null,

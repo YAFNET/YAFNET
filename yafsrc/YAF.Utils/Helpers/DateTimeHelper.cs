@@ -26,6 +26,8 @@ namespace YAF.Utils.Helpers
 {
     using System;
 
+    using YAF.Types.Extensions;
+
     /// <summary>
     /// DateTime Helper
     /// </summary>
@@ -40,6 +42,33 @@ namespace YAF.Utils.Helpers
         public static DateTime SqlDbMinTime()
         {
             return DateTime.MinValue.AddYears(1902);
+        }
+
+        /// <summary>
+        /// Gets the time zone offset.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns>
+        /// Returns the Offset
+        /// </returns>
+        public static int GetTimeZoneOffset(string input)
+        {
+            return GetTimeZoneOffset(TimeZoneInfo.FindSystemTimeZoneById(input));
+        }
+
+        /// <summary>
+        /// Gets the time zone offset.
+        /// </summary>
+        /// <param name="timeZoneInfo">The time zone information.</param>
+        /// <returns>Returns the Offset</returns>
+        public static int GetTimeZoneOffset(TimeZoneInfo timeZoneInfo)
+        {
+            var utcOffSet = timeZoneInfo.BaseUtcOffset;
+            var timeZone = utcOffSet < TimeSpan.Zero
+                               ? "-{0}".FormatWith(utcOffSet.ToString("hh"))
+                               : utcOffSet.ToString("hh");
+
+            return (timeZone.ToType<decimal>() * 60).ToType<int>();
         }
     }
 }

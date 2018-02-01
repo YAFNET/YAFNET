@@ -2927,3 +2927,9 @@ begin
     alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] alter column [Message] nvarchar(max)
 end
 go
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='TimeZone' and  system_type_id = 56)
+begin
+alter table [{databaseOwner}].[{objectQualifier}User] alter column TimeZone nvarchar(max) Not NULL
+end
+GO

@@ -155,6 +155,14 @@ namespace YAF.Types.Interfaces
         string ThemeFile { get; }
 
         /// <summary>
+        /// Gets the time zone information.
+        /// </summary>
+        /// <value>
+        /// The time zone information.
+        /// </value>
+        TimeZoneInfo TimeZoneInfo { get; }
+
+        /// <summary>
         ///   Gets TimeZone.
         /// </summary>
         int? TimeZone { get; }

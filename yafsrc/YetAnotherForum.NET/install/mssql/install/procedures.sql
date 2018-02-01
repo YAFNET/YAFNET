@@ -4188,7 +4188,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}system_initialize](
     @Name		nvarchar(50),
-    @TimeZone	int,
+    @TimeZone	nvarchar(max),
     @Culture	varchar(10),
     @LanguageFile nvarchar(50),
     @ForumEmail	nvarchar(50),
@@ -6559,7 +6559,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
     @UserName			nvarchar(255) = null,
     @DisplayName		nvarchar(255) = null,
     @Email				nvarchar(255) = null,
-    @TimeZone			int,
+    @TimeZone			nvarchar(max),
     @LanguageFile		nvarchar(50) = null,
     @Culture		    varchar(10) = null,
     @ThemeFile			nvarchar(50) = null,

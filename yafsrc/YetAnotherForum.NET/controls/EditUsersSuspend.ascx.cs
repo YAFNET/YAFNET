@@ -138,7 +138,7 @@ namespace YAF.Controls
             this.SuspendInfo.Text = this.GetTextFormatted(
                 "SUSPEND_INFO",
                 this.Get<IDateTime>()
-                    .GetUserDateTime(DateTime.UtcNow, this.UserData.TimeZone.Value, this.UserData.DSTUser)
+                    .GetUserDateTime(DateTime.UtcNow, this.UserData.TimeZoneInfo)
                     .ToString(CultureInfo.InvariantCulture));
 
             // this needs to be done just once, not during postbacks
@@ -273,7 +273,7 @@ namespace YAF.Controls
 
             // time until when user is suspended
             var suspend = this.Get<IDateTime>()
-                .GetUserDateTime(DateTime.UtcNow, this.UserData.TimeZone.Value, this.UserData.DSTUser);
+                .GetUserDateTime(DateTime.UtcNow, this.UserData.TimeZoneInfo);
 
             // number inserted by suspending user
             var count = int.Parse(this.SuspendCount.Text);
@@ -379,8 +379,7 @@ namespace YAF.Controls
                         this.Get<IDateTime>()
                             .GetUserDateTime(
                                 user["Suspended"].ToType<DateTime>(),
-                                this.UserData.TimeZone.Value,
-                                this.UserData.DSTUser);
+                                this.UserData.TimeZoneInfo);
 
                     // localize remove suspension button
                     this.RemoveSuspension.Text = "<i class=\"fa fa-flag fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("PROFILE", "REMOVESUSPENSION"));

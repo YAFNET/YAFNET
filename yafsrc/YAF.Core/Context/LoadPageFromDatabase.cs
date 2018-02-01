@@ -120,10 +120,10 @@ namespace YAF.Core
                     userKey = YafContext.Current.User.ProviderUserKey;
                 }
 
-                int tries = 0;
+                var tries = 0;
                 DataRow pageRow;
-                string forumPage = this.Get<HttpRequestBase>().QueryString.ToString();
-                string location = this.Get<HttpRequestBase>().FilePath;
+                var forumPage = this.Get<HttpRequestBase>().QueryString.ToString();
+                var location = this.Get<HttpRequestBase>().FilePath;
 
                 // resources are not handled by ActiveLocation control so far.
                 if (location.Contains("resource.ashx"))

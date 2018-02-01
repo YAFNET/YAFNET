@@ -1072,21 +1072,10 @@ namespace YAF.Install
                 FormsAuthentication.SignOut();
 
 
-                int timeZone;
-
-                try
-                {
-                    timeZone = int.Parse(this.TimeZones.SelectedValue);
-                }
-                catch (Exception)
-                {
-                    timeZone = 0;
-                }
-
                 // init forum...
                 this.InstallUpgradeService.InitializeForum(
                     this.TheForumName.Text,
-                    timeZone,
+                    this.TimeZones.SelectedValue,
                     this.Culture.SelectedValue,
                     this.ForumEmailAddress.Text,
                     this.ForumBaseUrlMask.Text,
@@ -1192,7 +1181,8 @@ namespace YAF.Install
 
                 this.DataBind();
 
-                this.TimeZones.Items.FindByValue("0").Selected = true;
+                this.TimeZones.Items.FindByValue(TimeZoneInfo.Local.Id).Selected = true;
+
                 if (this.Culture.Items.Count > 0)
                 {
                     this.Culture.Items.FindByValue("en-US").Selected = true;

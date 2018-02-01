@@ -234,6 +234,7 @@ namespace YAF.Types.Flags
         /// <summary>
         /// Gets or sets a value indicating whether a user is enabled the DST correction.
         /// </summary>
+        [Obsolete("Not used anymore dst is inherited from the user selected timezone")]
         public bool IsDST
         {
             // int value 32

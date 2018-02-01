@@ -47,7 +47,7 @@ namespace YAF.Core.UsersRoles
         public static string GetUserLanguageFile(int userId)
         {
             // get the user information...
-            DataRow row = UserMembershipHelper.GetUserRowForID(userId);
+            var row = UserMembershipHelper.GetUserRowForID(userId);
 
             if (row != null && row["LanguageFile"] != DBNull.Value
                 && YafContext.Current.Get<YafBoardSettings>().AllowUserLanguage)
@@ -70,7 +70,7 @@ namespace YAF.Core.UsersRoles
         public static string GetUserLanguageFile(int userId, int boardID, bool allowUserLanguage)
         {
             // get the user information...
-            DataRow row = UserMembershipHelper.GetUserRowForID(userId, boardID);
+            var row = UserMembershipHelper.GetUserRowForID(userId, boardID);
 
             if (row != null && row["LanguageFile"] != DBNull.Value
                 && allowUserLanguage)
@@ -88,7 +88,7 @@ namespace YAF.Core.UsersRoles
         /// <returns>Returns User theme</returns>
         public static string GetUserThemeFile(int userId)
         {
-            DataRow row = UserMembershipHelper.GetUserRowForID(userId);
+            var row = UserMembershipHelper.GetUserRowForID(userId);
 
             var themeFile = row != null && row["ThemeFile"] != DBNull.Value
                                && YafContext.Current.Get<YafBoardSettings>().AllowUserTheme
@@ -115,7 +115,7 @@ namespace YAF.Core.UsersRoles
         /// </returns>
         public static string GetUserThemeFile(int userId, int boardID, bool allowUserTheme, string theme)
         {
-            DataRow row = UserMembershipHelper.GetUserRowForID(userId, boardID);
+            var row = UserMembershipHelper.GetUserRowForID(userId, boardID);
 
             var themeFile = (row != null && row["ThemeFile"] != DBNull.Value && allowUserTheme)
                                    ? row["ThemeFile"].ToString()

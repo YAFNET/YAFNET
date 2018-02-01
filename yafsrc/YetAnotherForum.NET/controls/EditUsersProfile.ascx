@@ -292,15 +292,6 @@
         </h4>
     <hr />
 
-		<h4>
-			<YAF:LocalizedLabel ID="DSTLocalizedLabel" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="DST" />
-		</h4>
-		<p>
-			<asp:CheckBox CssClass="form-control" runat="server" ID="DSTUser" />
-		</p>
-	<hr />
-
         <h4>
             <YAF:LocalizedLabel ID="LocalizedLabel24" runat="server" LocalizedPage="CP_EDITPROFILE"
                 LocalizedTag="TIMEZONE2" />

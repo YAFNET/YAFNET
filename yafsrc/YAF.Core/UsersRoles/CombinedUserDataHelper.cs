@@ -36,6 +36,7 @@ namespace YAF.Core
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -49,39 +50,35 @@ namespace YAF.Core
         /// <summary>
         ///   The _membership user.
         /// </summary>
-        private MembershipUser _membershipUser;
+        private MembershipUser membershipUser;
 
         /// <summary>
         ///   The _user DB row.
         /// </summary>
-        private DataRow _userDBRow;
+        private DataRow userDbRow;
 
         /// <summary>
         ///   The _user id.
         /// </summary>
-        private int? _userId;
+        private int? userId;
 
         /// <summary>
         ///   The _user profile.
         /// </summary>
-        private YafUserProfile _userProfile;
+        private YafUserProfile userProfile;
 
         #endregion
 
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CombinedUserDataHelper"/> class.
+        /// Initializes a new instance of the <see cref="CombinedUserDataHelper" /> class.
         /// </summary>
-        /// <param name="membershipUser">
-        /// The membership user.
-        /// </param>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        public CombinedUserDataHelper(MembershipUser membershipUser, int userID)
+        /// <param name="membershipUser">The membership user.</param>
+        /// <param name="userId">The user identifier.</param>
+        public CombinedUserDataHelper(MembershipUser membershipUser, int userId)
         {
-            this._userId = userID;
+            this.userId = userId;
             this.MembershipUser = membershipUser;
             this.InitUserData();
         }
@@ -105,7 +102,7 @@ namespace YAF.Core
         /// </param>
         public CombinedUserDataHelper(int userId)
         {
-            this._userId = userId;
+            this.userId = userId;
         }
 
         /// <summary>
@@ -127,7 +124,7 @@ namespace YAF.Core
         {
             get
             {
-                int value = this.DBRow.Field<int?>("NotificationType") ?? 0;
+                var value = this.DBRow.Field<int?>("NotificationType") ?? 0;
 
                 return (this.DBRow.Field<bool?>("AutoWatchTopics") ?? false)
                        || value.ToEnum<UserNotificationSetting>() == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
@@ -165,14 +162,14 @@ namespace YAF.Core
         {
             get
             {
-                if (this._userDBRow == null && this._userId.HasValue)
+                if (this.userDbRow == null && this.userId.HasValue)
                 {
-                    this._userDBRow = UserMembershipHelper.GetUserRowForID(
-                        this._userId.Value,
+                    this.userDbRow = UserMembershipHelper.GetUserRowForID(
+                        this.userId.Value,
                         YafContext.Current.Get<YafBoardSettings>().AllowUserInfoCaching);
                 }
 
-                return this._userDBRow;
+                return this.userDbRow;
             }
         }
 
@@ -183,7 +180,15 @@ namespace YAF.Core
         {
             get
             {
-                return this.DBRow != null && new UserFlags(this.DBRow["Flags"]).IsDST;
+                try
+                {
+                    return TimeZoneInfo.FindSystemTimeZoneById(this.DBRow.Field<string>("TimeZone"))
+                        .SupportsDaylightSavingTime;
+                }
+                catch (Exception)
+                {
+                    return TimeZoneInfo.Local.SupportsDaylightSavingTime;
+                }
             }
         }
 
@@ -204,7 +209,7 @@ namespace YAF.Core
         /// </summary>
         public string DisplayName
         {
-            get { return this._userId.HasValue ? this.DBRow.Field<string>("DisplayName") : this.UserName; }
+            get { return this.userId.HasValue ? this.DBRow.Field<string>("DisplayName") : this.UserName; }
         }
 
         /// <summary>
@@ -313,7 +318,7 @@ namespace YAF.Core
         {
             get
             {
-                int value = this.DBRow.Field<int?>("NotificationType") ?? 0;
+                var value = this.DBRow.Field<int?>("NotificationType") ?? 0;
 
                 return value.ToEnum<UserNotificationSetting>();
             }
@@ -358,13 +363,13 @@ namespace YAF.Core
         {
             get
             {
-                if (this._userProfile == null && this.UserName.IsSet())
+                if (this.userProfile == null && this.UserName.IsSet())
                 {
                     // init the profile...
-                    this._userProfile = YafUserProfile.GetProfile(this.UserName);
+                    this.userProfile = YafUserProfile.GetProfile(this.UserName);
                 }
 
-                return this._userProfile;
+                return this.userProfile;
             }
         }
 
@@ -395,9 +400,34 @@ namespace YAF.Core
         /// <summary>
         ///   Gets TimeZone.
         /// </summary>
+        public TimeZoneInfo TimeZoneInfo
+        {
+            get
+            {
+                TimeZoneInfo timeZoneInfo;
+
+                try
+                {
+                    timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(this.DBRow.Field<string>("TimeZone"));
+                }
+                catch (Exception)
+                {
+                    timeZoneInfo = TimeZoneInfo.Local;
+                }
+
+                return timeZoneInfo;
+            }
+        }
+
+        /// <summary>
+        ///   Gets TimeZone.
+        /// </summary>
         public int? TimeZone
         {
-            get { return this.DBRow.Field<int>("TimeZone"); }
+            get
+            {
+               return DateTimeHelper.GetTimeZoneOffset(this.TimeZoneInfo);
+            }
         }
 
         /// <summary>
@@ -407,7 +437,7 @@ namespace YAF.Core
         {
             get
             {
-                return this._userId != null ? this._userId.ToType<int>() : 0;
+                return this.userId != null ? this.userId.ToType<int>() : 0;
             }
         }
 
@@ -423,7 +453,7 @@ namespace YAF.Core
                     return this.MembershipUser.UserName;
                 }
 
-                return this._userId.HasValue ? this.DBRow.Field<string>("Name") : null;
+                return this.userId.HasValue ? this.DBRow.Field<string>("Name") : null;
             }
         }
 
@@ -434,17 +464,17 @@ namespace YAF.Core
         {
             get
             {
-                if (this._membershipUser == null && this._userId.HasValue)
+                if (this.membershipUser == null && this.userId.HasValue)
                 {
-                    this._membershipUser = UserMembershipHelper.GetMembershipUserById(this._userId.Value);
+                    this.membershipUser = UserMembershipHelper.GetMembershipUserById(this.userId.Value);
                 }
 
-                return this._membershipUser;
+                return this.membershipUser;
             }
 
             set
             {
-                this._membershipUser = value;
+                this.membershipUser = value;
             }
         }
 
@@ -459,16 +489,16 @@ namespace YAF.Core
         /// <exception cref="Exception">Cannot locate user information.</exception>
         private void InitUserData()
         {
-            if (this.MembershipUser != null && !this._userId.HasValue)
+            if (this.MembershipUser != null && !this.userId.HasValue)
             {
-                if (this._userId == null)
+                if (this.userId == null)
                 {
                     // get the user id
-                    this._userId = UserMembershipHelper.GetUserIDFromProviderUserKey(this.MembershipUser.ProviderUserKey);
+                    this.userId = UserMembershipHelper.GetUserIDFromProviderUserKey(this.MembershipUser.ProviderUserKey);
                 }
             }
 
-            if (!this._userId.HasValue)
+            if (!this.userId.HasValue)
             {
                 throw new Exception("Cannot locate user information.");
             }

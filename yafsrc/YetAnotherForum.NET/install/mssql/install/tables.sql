@@ -578,7 +578,7 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		LastVisit		datetime NOT NULL,
 		IP				nvarchar (39) NULL,
 		NumPosts		int NOT NULL,
-		TimeZone		int NOT NULL,
+		TimeZone		string NOT NULL,
 		Avatar			nvarchar (255) NULL,
 		[Signature]		nvarchar(max) NULL,
 		AvatarImage		image NULL,
