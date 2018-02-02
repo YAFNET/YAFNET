@@ -5,7 +5,7 @@
             keyboard: false
         });
 
-        Ladda.bind(".buttonPrimary,.buttonInfo");
+        Ladda.bind(".btn-primary,.btn-info");
 
         $(".selectConnection, .selectTimeZone, .selectCulture").select2({ theme: "bootstrap" });
     });

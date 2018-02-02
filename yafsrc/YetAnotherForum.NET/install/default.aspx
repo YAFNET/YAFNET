@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="c#" AutoEventWireup="True" Inherits="YAF.Install._default" CodeBehind="default.aspx.cs" %>
-<%@ Import Namespace="YAF.Utils.Helpers" %>
 
 <!doctype html>
 <html lang="en">
@@ -10,9 +9,8 @@
         name="scriptlanguage" content="text/javascript" />
     <meta id="YafMetaStyles" http-equiv="Content-Style-Type" runat="server" name="styles"
         content="text/css" />
-   <title>YAF.NET <%# IsForumInstalled ? "Upgrade" : "Installation"%></title>
+   <title>YAF.NET <%# this.IsForumInstalled ? "Upgrade" : "Installation"%></title>
    <link href="../Content/InstallWizard.min.css" rel="stylesheet" type="text/css" />
-   <link rel="shortcut icon" href="../favicon.ico" />
 </head>
 <body>
     <form id="Form1" runat="server">
@@ -84,7 +82,7 @@
                             YAF.NET Has Write Access to "~/Upload" directory ...
                         </li>
                     </ul>
-                    <YAF:ModernButton ID="btnTestPermissions" runat="server" Text="Test Permissions" CssClass="buttonInfo" 
+                    <YAF:ModernButton ID="btnTestPermissions" runat="server" Text="Test Permissions" CssClass="btn btn-info" 
                         EnableLoadingAnimation="True"
                         OnClick="TestPermissions_Click" data-style="expand-left" />
                 </asp:WizardStep> 
@@ -146,7 +144,7 @@
                     <h4>
                             YAF.NET Database Connection
                     </h4>
-                    <div class="formElement radio">
+                    <div class="input-group">
                         <asp:RadioButtonList ID="rblYAFDatabase" runat="server" AutoPostBack="true" 
                             OnSelectedIndexChanged="YAFDatabase_SelectedIndexChanged">
                             <asp:ListItem Text="Use Existing DB Connection String" Selected="true" Value="existing"></asp:ListItem>
@@ -158,7 +156,7 @@
                             Select Existing Connection String
                         </h4>
                         Select SQL Server Database Connection String:&nbsp;
-                        <asp:DropDownList ID="lbConnections" runat="server" CssClass="selectConnection">
+                        <asp:DropDownList ID="lbConnections" runat="server" CssClass="selectConnection custom-select">
                         </asp:DropDownList>
                     </asp:PlaceHolder>
                     <asp:PlaceHolder ID="NewConnectionHolder" runat="server" Visible="false">
@@ -170,46 +168,46 @@
                             Connection String will be saved as "<asp:Label ID="lblConnStringAppSettingName"
                             runat="server" Text="yafnet" />".
                         </div>
-                        <div class="formElement">
+                        <div class="input-group">
                             <asp:Label ID="Parameter1_Name" runat="server" AssociatedControlID="Parameter1_Value" />
                             <YAF:ModernTextBox runat="server" ID="Parameter1_Value" Text="(local)" 
                                 Placeholder="Enter the Data Source (Name or address of the sql server)"/>
                         </div>
-                        <div class="formElement">
+                        <div class="input-group">
                             <asp:Label ID="Parameter2_Name" runat="server" AssociatedControlID="Parameter2_Value" />
                             <YAF:ModernTextBox runat="server" ID="Parameter2_Value" 
                                 Placeholder="Enter the Database Name"/>
                         </div>
                         <asp:PlaceHolder runat="server" Visible="false">
-                        <div class="formElement">
+                        <div class="input-group">
                             <asp:Label ID="Parameter3_Name" runat="server" AssociatedControlID="Parameter3_Value" />
                             <asp:TextBox runat="server" ID="Parameter3_Value" CssClass="standardTextInput" />
                         </div>
-                        <div class="formElement">
+                        <div class="input-group">
                             <asp:Label ID="Parameter4_Name" runat="server" AssociatedControlID="Parameter4_Value" />
                             <asp:TextBox runat="server" ID="Parameter4_Value" CssClass="standardTextInput" />
                         </div>
-                        <div class="formElement">
+                        <div class="input-group">
                             <asp:Label ID="Parameter5_Name" runat="server" AssociatedControlID="Parameter5_Value" />
                             <asp:TextBox runat="server" ID="Parameter5_Value" CssClass="standardTextInput" />
                         </div>
-                        <div class="formElement">
+                        <div class="input-group">
                             <asp:Label ID="Parameter6_Name" runat="server" AssociatedControlID="Parameter6_Value" />
                             <asp:TextBox runat="server" ID="Parameter6_Value" CssClass="standardTextInput" />
                         </div>
-                        <div class="formElement">
+                        <div class="input-group">
                             <asp:Label ID="Parameter7_Name" runat="server" AssociatedControlID="Parameter7_Value" />
                             <asp:TextBox runat="server" ID="Parameter7_Value" CssClass="standardTextInput" />
                         </div>
-                        <div class="formElement">
+                        <div class="input-group">
                             <asp:Label ID="Parameter8_Name" runat="server" AssociatedControlID="Parameter8_Value" />
                             <asp:TextBox runat="server" ID="Parameter8_Value" CssClass="standardTextInput" />
                         </div>
-                        <div class="formElement">
+                        <div class="input-group">
                             <asp:Label ID="Parameter9_Name" runat="server" AssociatedControlID="Parameter9_Value" />
                             <asp:TextBox runat="server" ID="Parameter9_Value" CssClass="standardTextInput" />
                         </div>
-                        <div class="formElement">
+                        <div class="input-group">
                             <asp:Label ID="Parameter10_Name" runat="server" AssociatedControlID="Parameter10_Value" />
                             <asp:TextBox runat="server" ID="Parameter10_Value" CssClass="standardTextInput" />
                         </div>
@@ -239,7 +237,7 @@
                         </asp:PlaceHolder>
                     </asp:PlaceHolder>
                     <hr/>
-                    <YAF:ModernButton ID="btnTestDBConnection" runat="server" CssClass="buttonInfo" EnableLoadingAnimation="True" Text="Test Connection"
+                    <YAF:ModernButton ID="btnTestDBConnection" runat="server" CssClass="btn btn-info" EnableLoadingAnimation="True" Text="Test Connection"
                         OnClick="TestDBConnection_Click" OnClientClick="return true;" data-style="expand-left" />
                     <asp:PlaceHolder ID="ConnectionInfoHolder" runat="server" Visible="false">
                         <hr/>
@@ -291,7 +289,7 @@
                     <h4>
                         Database Connection Test
                     </h4>
-                    <YAF:ModernButton ID="btnTestDBConnectionManual" runat="server" CssClass="buttonInfo" EnableLoadingAnimation="True" 
+                    <YAF:ModernButton ID="btnTestDBConnectionManual" runat="server" CssClass="btn btn-info" EnableLoadingAnimation="True" 
                         Text="Test Database Connection" OnClick="TestDBConnectionManual_Click" data-style="expand-left" />
                     <asp:PlaceHolder ID="ManualConnectionInfoHolder" runat="server" Visible="false">
                         <hr/>
@@ -310,7 +308,7 @@
                     <YAF:ModernTextBox ID="txtTestToEmail" runat="server" 
                         Placeholder="Enter the to Email Address" RenderWrapper="True" Type="Email"
                         LabelText="Send To Email Address"/>
-                    <YAF:ModernButton ID="btnTestSmtp" runat="server" Text="Test Smtp Settings" CssClass="buttonInfo" 
+                    <YAF:ModernButton ID="btnTestSmtp" runat="server" Text="Test Smtp Settings" CssClass="btn btn-info" 
                         EnableLoadingAnimation="True" OnClick="TestSmtp_Click" data-style="expand-left" />
                     <asp:PlaceHolder ID="SmtpInfoHolder" runat="server" Visible="false">
                         <hr/>
@@ -319,15 +317,23 @@
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Upgrade Database" ID="WizInitDatabase">
                     <h4>
-                            <%# IsForumInstalled ? "Upgrade" : "Initialize"%> Database
+                            <%# this.IsForumInstalled ? "Upgrade" : "Initialize"%> Database
                     </h4>
                     <p class="descriptionText">
-                        Clicking "Next" will <%# IsForumInstalled ? "upgrade" : "initialize"%> your database to the latest version.
+                        Clicking "Next" will <%# this.IsForumInstalled ? "upgrade" : "initialize"%> your database to the latest version.
                     </p>
                     <div class="checkbox">
-                        <asp:CheckBox ID="UpgradeExtensions" Checked="True" Visible="<%# IsForumInstalled %>" runat="server" 
-                            Text="Upgrade BBCode Extensions, File Extensions, Topic Status Lists and Spam Words" />
+                       
                     </div>
+                    <asp:PlaceHolder runat="server"  Visible="<%# this.IsForumInstalled %>">
+                    <div class="form-check">
+                        <asp:CheckBox ID="UpgradeExtensions" Checked="True" runat="server" 
+                                      CssClass="form-check-input" />
+                        <label class="form-check-label" for="<%# this.UpgradeExtensions.ClientID %>">
+                            Upgrade BBCode Extensions, File Extensions, Topic Status Lists and Spam Words
+                        </label>
+                    </div>
+                    </asp:PlaceHolder>
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Create Forum" ID="WizCreateForum">
                     <h4>
@@ -336,17 +342,17 @@
                     <YAF:ModernTextBox ID="TheForumName" runat="server" 
                         Placeholder="Enter the name of the new Board"
                         RenderWrapper="True" LabelText="Board Name"/>
-                    <div class="formElement">
+                    <div class="input-group">
                         <asp:Label AssociatedControlId="TimeZones" id="Label6" 
                             runat="server">Guest User Time Zone</asp:Label>
                         <asp:DropDownList ID="TimeZones" runat="server" DataTextField="Name" DataValueField="Value" 
-                            CssClass="selectTimeZone" data-width="100%" />
+                            CssClass="selectTimeZone custom-select" data-width="100%" />
                     </div>
-                    <div class="formElement">
+                    <div class="input-group">
                         <asp:Label AssociatedControlId="Culture" id="Label7" 
                             runat="server">Guest User Culture (Language)</asp:Label>
                         <asp:DropDownList ID="Culture" runat="server" 
-                            CssClass="selectCulture" data-width="100%" />
+                            CssClass="selectCulture custom-select" data-width="100%" />
                     </div>
                     <YAF:ModernTextBox ID="ForumEmailAddress" runat="server" 
                         Placeholder="Enter the forum email address"  RenderWrapper="True"
@@ -357,7 +363,7 @@
                         LabelText="Forum Base Url Mask"
                         Type="Url"/>
                     <hr/>
-                    <div class="formElement radio">
+                    <div class="input-group">
                         <asp:RadioButtonList ID="UserChoice" runat="server" AutoPostBack="true" 
                             OnSelectedIndexChanged="UserChoice_SelectedIndexChanged">
                             <asp:ListItem Text="Create New Admin User" Selected="true" Value="create"></asp:ListItem>
@@ -431,16 +437,16 @@
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" StepType="Finish" Title="Finished" ID="WizFinished">
                     <h4>
-                        <%# IsForumInstalled ? "Upgrade" : "Setup"%> Finished
+                        <%# this.IsForumInstalled ? "Upgrade" : "Setup"%> Finished
                     </h4>
                     <p class="descriptionText">Clicking Finish will take you to the Forum main page.</p>
-                    <p>Your forum has now been <%# IsForumInstalled ? "upgraded" : "Setup"%> to the latest version.</p>
+                    <p>Your forum has now been <%# this.IsForumInstalled ? "upgraded" : "Setup"%> to the latest version.</p>
                 </asp:WizardStep>
             </WizardSteps>
             <FinishNavigationTemplate>
                 <YAF:ModernButton ID="FinishPreviousButton" runat="server" CausesValidation="False" CommandName="MovePrevious"
-                        Text="Previous" CssClass="buttonStandard" />
-                <YAF:ModernButton ID="FinishButton" runat="server" CssClass="buttonSuccess" CommandName="MoveComplete"
+                        Text="Previous" CssClass="btn btn-secondary" />
+                <YAF:ModernButton ID="FinishButton" runat="server" CssClass="btn btn-success" CommandName="MoveComplete"
                         Text="Finish" />
             </FinishNavigationTemplate>
             <LayoutTemplate>
@@ -449,7 +455,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title" id="myModalLabel"><img src="../Images/YafLogoSmall.png" 
-                                    width="100" height="50" alt="small YAF.NET logo"/> <%# IsForumInstalled ? "Upgrade" : "Installation"%> Wizard
+                                    width="100" height="50" alt="small YAF.NET logo"/> <%# this.IsForumInstalled ? "Upgrade" : "Installation"%> Wizard
                                 </h4>
                                 <asp:PlaceHolder ID="headerPlaceHolder" runat="server" />
                             </div>
@@ -470,13 +476,13 @@
                 </div>
             </LayoutTemplate>
             <StartNavigationTemplate>
-                    <YAF:ModernButton ID="StartNextButton" CssClass="buttonPrimary" EnableLoadingAnimation="True" runat="server" 
+                    <YAF:ModernButton ID="StartNextButton" CssClass="btn btn-primary" EnableLoadingAnimation="True" runat="server" 
                         CommandName="MoveNext" Text="Next" data-style="expand-left" />
             </StartNavigationTemplate>
             <StepNavigationTemplate>
-                    <YAF:ModernButton ID="StepPreviousButton" runat="server" CssClass="buttonStandard" Visible="false"
+                    <YAF:ModernButton ID="StepPreviousButton" runat="server" CssClass="btn btn-secondary" Visible="false"
                         CausesValidation="False" CommandName="MovePrevious" Text="Previous" />
-                    <YAF:ModernButton ID="StepNextButton" runat="server" CssClass="buttonPrimary" EnableLoadingAnimation="True"
+                    <YAF:ModernButton ID="StepNextButton" runat="server" CssClass="btn btn-primary" EnableLoadingAnimation="True"
                         OnClientClick="return true;" CommandName="MoveNext" Text="Next" data-style="expand-left" />
             </StepNavigationTemplate>
         </asp:Wizard>
