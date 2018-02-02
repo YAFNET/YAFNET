@@ -47,11 +47,14 @@ namespace YAF.Types.Objects
             this.Message = row.Field<string>("Message");
             this.Flags = row.Field<int>("Flags");
             this.Posted = row.Field<DateTime>("Posted").ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture);
-            this.UserName = row.Field<string>("UserDisplayName");
+            this.UserName = row.Field<string>("UserName");
+            this.UserDisplayName = row.Field<string>("UserDisplayName");
+            this.UserStyle = row.Field<string>("UserStyle");
             this.UserId = row.Field<int?>("UserID");
             this.TopicId = row.Field<int?>("TopicID");
             this.Topic = row.Field<string>("Topic");
             this.ForumId = row.Field<int?>("ForumID");
+            this.ForumName = row.Field<string>("Name");
             this.Description = row.Field<string>("Description");
         }
 
@@ -71,7 +74,7 @@ namespace YAF.Types.Objects
         /// The message identifier.
         /// </value>
         public int? MessageId { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the message.
         /// </summary>
@@ -103,6 +106,22 @@ namespace YAF.Types.Objects
         /// The name of the user.
         /// </value>
         public string UserName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the display name of the user.
+        /// </summary>
+        /// <value>
+        /// The display name of the user.
+        /// </value>
+        public string UserDisplayName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user style.
+        /// </summary>
+        /// <value>
+        /// The user style.
+        /// </value>
+        public string UserStyle { get; set; }
 
         /// <summary>
         /// Gets or sets the user identifier.
@@ -137,6 +156,14 @@ namespace YAF.Types.Objects
         public int? ForumId { get; set; }
 
         /// <summary>
+        /// Gets or sets the name of the forum.
+        /// </summary>
+        /// <value>
+        /// The name of the forum.
+        /// </value>
+        public string ForumName { get; set; }
+
+        /// <summary>
         /// Gets or sets the description.
         /// </summary>
         /// <value>
@@ -159,6 +186,14 @@ namespace YAF.Types.Objects
         /// The message URL.
         /// </value>
         public string MessageUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the forum URL.
+        /// </summary>
+        /// <value>
+        /// The forum URL.
+        /// </value>
+        public string ForumUrl { get; set; }
 
         #endregion
     }

@@ -7323,39 +7323,6 @@ AS
     END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}topic_similarlist](
-                @PageUserID int,
-                @Topic   nvarchar(100),
-				@TopicID int,
-                @Count   int,
-                @StyledNicks bit = 0)
-as
-    begin
-        select top(@Count)
-		t.Topic,
-        t.TopicID,
-        t.ForumID,
-        ForumName = f.Name,
-        t.UserID,
-        StarterName = u.Name,
-        StarterDisplayName = u.DisplayName,
-        StarterStyle = case(@StyledNicks)
-            when 1 then  u.UserStyle
-            else ''	 end,
-        t.Posted
-        from     [{databaseOwner}].[{objectQualifier}Topic] t
-		inner join [{databaseOwner}].[{objectQualifier}Forum] f on t.ForumID= f.ForumID
-        inner join [{databaseOwner}].[{objectQualifier}User] u on t.UserID = u.UserID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=f.ForumID
-        where    t.[Topic] like '%' + @Topic + '%'
-        and t.[TopicID] != @TopicID
-		and t.NumPosts > 0
-        and x.UserID = @PageUserID
-        and CONVERT(int,x.ReadAccess) <> 0
-        order by t.[Posted] DESC
-    end
-go
-
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_simplelist](
                 @StartID INT  = 0,
                 @Limit   INT  = 500)
@@ -9484,16 +9451,20 @@ BEGIN
 		m.Flags,
 		m.Posted,
 		m.UserDisplayName,
+		m.UserName,
+		u.UserStyle,
 		m.UserID,
         t.TopicID,
 		t.Topic,
         f.ForumID,
+		f.Name,
 		t.[Description]
     from
         [{databaseOwner}].[{objectQualifier}Forum] f
         join [{databaseOwner}].[{objectQualifier}Category] c on c.CategoryID = f.CategoryID
 		join [{databaseOwner}].[{objectQualifier}Topic] t on t.ForumID = f.ForumID
 		join [{databaseOwner}].[{objectQualifier}Message] m on m.TopicID = t.TopicID
+		join  [{databaseOwner}].[{objectQualifier}User] u on u.UserID = m.UserID
     where
         c.BoardID=1 and
 		t.IsDeleted = 0 and

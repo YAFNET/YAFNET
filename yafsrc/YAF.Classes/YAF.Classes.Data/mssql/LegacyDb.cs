@@ -6650,31 +6650,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// Gets the List of Similar topics
-        /// </summary>
-        /// <param name="userID">The user identifier.</param>
-        /// <param name="topicTitle">The topic title.</param>
-        /// <param name="topicID">The topic identifier.</param>
-        /// <param name="count">The count.</param>
-        /// <param name="styledNicks">if set to <c>true</c> [styled nicks].</param>
-        /// <returns>Returns the List of Similar topics</returns>
-        public static DataTable topic_similarlist(int userID, string topicTitle, int topicID, int count, bool styledNicks)
-        {
-            using (var cmd = DbHelpers.GetCommand("topic_similarlist"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.AddParam("PageUserID", userID);
-                cmd.AddParam("Topic", topicTitle);
-                cmd.AddParam("TopicID", topicID);
-                cmd.AddParam("Count", count);
-                cmd.AddParam("StyledNicks", styledNicks);
-
-                return DbAccess.GetData(cmd);
-            }
-        }
-
-        /// <summary>
         /// The topic_updatetopic.
         /// </summary>
         /// <param name="topicId">

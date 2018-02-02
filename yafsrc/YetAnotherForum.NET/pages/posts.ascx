@@ -143,7 +143,7 @@
 <table class="content postForumUsers" width="100%">
     <YAF:ForumUsers ID="ForumUsers1" runat="server" />
 </table>
-<YAF:SimilarTopics ID="SimilarTopics"  runat="server" Topic='<%# PageContext.PageTopicName %>' TopicID='<%# PageContext.PageTopicID %>'>
+<YAF:SimilarTopics ID="SimilarTopics"  runat="server" Topic='<%# this.PageContext.PageTopicName %>'>
 </YAF:SimilarTopics>
 <table cellpadding="0" cellspacing="0" class="command" width="100%">
     <tr>

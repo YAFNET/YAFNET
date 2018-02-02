@@ -25,6 +25,7 @@
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     /// <summary>
     /// The YAF Search Functions
@@ -296,11 +297,31 @@
             doc.Add(new Field("Message", message.Message, Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field("Flags", message.Flags.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
             doc.Add(new Field("Posted", message.Posted, Field.Store.YES, Field.Index.NOT_ANALYZED));
-            doc.Add(new Field("Author", message.UserName, Field.Store.YES, Field.Index.ANALYZED));
+
+            try
+            {
+                doc.Add(new Field("Author", message.UserName, Field.Store.YES, Field.Index.ANALYZED));
+            }
+            catch (Exception)
+            {
+                doc.Add(new Field("Author", message.UserDisplayName, Field.Store.YES, Field.Index.ANALYZED));
+            }
+
+            doc.Add(new Field("AuthorDisplay", message.UserDisplayName, Field.Store.YES, Field.Index.ANALYZED));
+
+            try
+            {
+                doc.Add(new Field("AuthorStyle", message.UserStyle, Field.Store.YES, Field.Index.ANALYZED));
+            }
+            catch (Exception)
+            {
+                doc.Add(new Field("AuthorStyle", string.Empty, Field.Store.YES, Field.Index.ANALYZED));
+            }
+            
             doc.Add(new Field("UserId", message.UserId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
             doc.Add(new Field("TopicId", message.TopicId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
             doc.Add(new Field("Topic", message.Topic, Field.Store.YES, Field.Index.ANALYZED));
-
+            doc.Add(new Field("ForumName", message.ForumName, Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field("ForumId", message.ForumId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
 
             try
@@ -383,10 +404,19 @@
                                    ForumPages.posts,
                                    "t={0}",
                                    doc.Get("TopicId").ToType<int>()),
-                           MessageUrl = YafBuildLink.GetLink(
-                               ForumPages.posts,
-                               "m={0}#post{0}",
-                               doc.Get("MessageId").ToType<int>())
+                           MessageUrl =
+                               YafBuildLink.GetLink(
+                                   ForumPages.posts,
+                                   "m={0}#post{0}",
+                                   doc.Get("MessageId").ToType<int>()),
+                           ForumUrl =
+                               YafBuildLink.GetLink(
+                                   ForumPages.forum,
+                                   "f={0}",
+                                   doc.Get("ForumId").ToType<int>()),
+                           UserDisplayName = doc.Get("AuthorDisplay"),
+                           ForumName = doc.Get("ForumName"),
+                           UserStyle = doc.Get("AuthorStyle")
                        };
         }
 
@@ -398,9 +428,7 @@
         /// <returns>
         /// Returns the Search Message
         /// </returns>
-        private SearchMessage MapSearchDocumentToData(
-            Document doc,
-            List<vaccess> userAccessList)
+        private SearchMessage MapSearchDocumentToData(Document doc, List<vaccess> userAccessList)
         {
             var forumId = doc.Get("ForumId").ToType<int>();
 
@@ -412,10 +440,20 @@
             return new SearchMessage
                        {
                            Topic = doc.Get("Topic"),
-                           TopicUrl = YafBuildLink.GetLink(
-                               ForumPages.posts,
-                               "t={0}",
-                               doc.Get("TopicId").ToType<int>()),
+                           TopicUrl =
+                               YafBuildLink.GetLink(
+                                   ForumPages.posts,
+                                   "t={0}",
+                                   doc.Get("TopicId").ToType<int>()),
+                           Posted =
+                               doc.Get("Posted").ToType<DateTime>().ToString(
+                                   "yyyy-MM-ddTHH:mm:ssZ",
+                                   CultureInfo.InvariantCulture),
+                           UserId = doc.Get("UserId").ToType<int>(),
+                           UserName = doc.Get("Author"),
+                           UserDisplayName = doc.Get("AuthorDisplay"),
+                           ForumName = doc.Get("ForumName"),
+                           UserStyle = doc.Get("AuthorStyle")
                        };
         }
 

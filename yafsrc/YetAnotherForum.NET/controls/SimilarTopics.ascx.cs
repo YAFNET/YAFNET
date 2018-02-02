@@ -27,13 +27,14 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Linq;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
 
     #endregion
 
@@ -48,11 +49,6 @@ namespace YAF.Controls
         ///   Gets or sets TopicId
         /// </summary>
         public string Topic { get; set; }
-
-        /// <summary>
-        ///   Gets or sets TopicId
-        /// </summary>
-        public int TopicID { get; set; }
 
         #endregion
 
@@ -79,14 +75,10 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            var topicsList = LegacyDb.topic_similarlist(
-                this.PageContext.PageUserID,
-                this.Topic,
-                this.TopicID,
-                this.Get<YafBoardSettings>().TopicsPerPage,
-                this.Get<YafBoardSettings>().UseStyledNicks);
+            var topicsList = this.GetRepository<Topic>().GetSimilarTopics(this.PageContext.PageUserID, this.Topic)
+                .Take(5);
 
-            if (topicsList.Rows.Count.Equals(0))
+            if (!topicsList.Any())
             {
                 this.SimilarTopicsHolder.Visible = false;
                 return;

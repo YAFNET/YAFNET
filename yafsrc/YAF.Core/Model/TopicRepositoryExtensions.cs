@@ -25,10 +25,14 @@ namespace YAF.Core.Model
 {
     #region Using
 
+    using System.Collections.Generic;
+
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
 
     #endregion
 
@@ -39,6 +43,18 @@ namespace YAF.Core.Model
     {
         #region Public Methods and Operators
 
+        /// <summary>
+        /// Gets the similar topics.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="searchInput">The search input.</param>
+        /// <returns>Get List of similar topics</returns>
+        public static List<SearchMessage> GetSimilarTopics(this IRepository<Topic> repository, [NotNull] int userId, [NotNull] string searchInput)
+        {
+            return YafContext.Current.Get<ISearch>().SearchSimilar(userId, searchInput, "Topic");
+        }
+        
         /// <summary>
         /// Sets the answer message.
         /// </summary>
@@ -64,6 +80,12 @@ namespace YAF.Core.Model
             repository.UpdateOnly(() => new Topic { AnswerMessageId = null }, where: t => t.ID == topicId);
         }
 
+        /// <summary>
+        /// Gets the answer message.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="topicId">The topic identifier.</param>
+        /// <returns>Returns the Answer Message identifier</returns>
         public static int? GetAnswerMessage(this IRepository<Topic> repository, [NotNull] int topicId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");

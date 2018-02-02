@@ -336,20 +336,6 @@ namespace YAF.Utils
             Redirect(ForumPages.info, "i={0}".FormatWith(infoMessage.ToType<int>()));
         }
 
-        /// <summary>
-        /// Gets URL of given smiley.
-        /// </summary>
-        /// <param name="icon">
-        /// Name of icon image file.
-        /// </param>
-        /// <returns>
-        /// URL of a smiley.
-        /// </returns>
-        public static string Smiley(string icon)
-        {
-            return "{0}{1}/{2}".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, icon);
-        }
-
         #endregion
     }
 }

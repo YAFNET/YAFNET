@@ -124,17 +124,6 @@ namespace YAF.Classes
     }
 
     /// <summary>
-    /// Gets Emoticons.
-    /// </summary>
-    public string Emoticons
-    {
-      get
-      {
-          return String.Concat(this.BoardFolder, "Images/Emoticons");
-      }
-    }
-
-    /// <summary>
     /// Gets Medals.
     /// </summary>
     public string Medals
