@@ -23,91 +23,100 @@
  */
 namespace YAF.Controls
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Data;
-  using System.Linq;
-  using System.Web.UI;
+    using System;
+    using System.Data;
+    using System.Linq;
+    using System.Web.UI;
 
-  using YAF.Core;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces; using YAF.Types.Constants;
-  using YAF.Core.Services;
-  using YAF.Types.Interfaces.Data;
-  using YAF.Utils;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// Provides an Online/Offline status for a YAF User
-  /// </summary>
-  public class OnlineStatusImage : ThemeImage
-  {
-    #region Properties
-
-      /// <summary>
-      /// Gets or sets the user identifier.
-      /// </summary>
-      /// <value>
-      /// The user identifier.
-      /// </value>
-    public int UserID
-    {
-      get
-      {
-        return this.ViewState["UserID"].ToType<int>();
-      }
-
-      set
-      {
-          this.ViewState["UserID"] = value;
-      }
-    }
+    using YAF.Core;
+    using YAF.Core.Services;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
 
     #endregion
-
-    #region Methods
 
     /// <summary>
-    /// The render.
+    /// Provides an Online/Offline status for a YAF User
     /// </summary>
-    /// <param name="output">
-    /// The output.
-    /// </param>
-    protected override void Render([NotNull] HtmlTextWriter output)
+    public class OnlineStatusImage : BaseControl
     {
-      this.LocalizedTitlePage = "POSTS";
+        #region Properties
 
-      if (this.Visible)
-      {
-        DataTable activeUsers = this.Get<IDataCache>().GetOrSet(
-          Constants.Cache.UsersOnlineStatus,
-          () => this.Get<YafDbBroker>().GetActiveList(false, YafContext.Current.BoardSettings.ShowCrawlersInActiveList),
-          TimeSpan.FromMilliseconds(YafContext.Current.BoardSettings.OnlineStatusCacheTimeout));
-
-        if (activeUsers.AsEnumerable().Any(x => x.Field<int>("UserId") == this.UserID && !x.Field<bool>("IsHidden")))
+        /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        /// <value>
+        /// The user identifier.
+        /// </value>
+        public int UserId
         {
-          // online
-          this.LocalizedTitleTag = "USERONLINESTATUS";
-          this.ThemeTag = "USER_ONLINE";
-          this.Alt = "Online";
-        }
-        else
-        {
-          // offline
-          this.LocalizedTitleTag = "USEROFFLINESTATUS";
-          this.ThemeTag = "USER_OFFLINE";
-          this.Alt = "Offline";
-        }
-      }
+            get
+            {
+                return this.ViewState["UserId"].ToType<int>();
+            }
 
-      base.Render(output);
+            set
+            {
+                this.ViewState["UserId"] = value;
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The render.
+        /// </summary>
+        /// <param name="output">
+        /// The output.
+        /// </param>
+        protected override void Render([NotNull] HtmlTextWriter output)
+        {
+            if (!this.Visible)
+            {
+                return;
+            }
+
+            var activeUsers = this.Get<IDataCache>().GetOrSet(
+                Constants.Cache.UsersOnlineStatus,
+                () => this.Get<YafDbBroker>().GetActiveList(
+                    false,
+                    YafContext.Current.BoardSettings.ShowCrawlersInActiveList),
+                TimeSpan.FromMilliseconds(YafContext.Current.BoardSettings.OnlineStatusCacheTimeout));
+
+            output.BeginRender();
+            output.WriteBeginTag("span");
+            output.WriteAttribute("id", this.ClientID);
+
+            if (activeUsers.AsEnumerable()
+                .Any(x => x.Field<int>("UserId") == this.UserId && !x.Field<bool>("IsHidden")))
+            {
+                // online
+                output.WriteAttribute("class", "text-success");
+                output.WriteAttribute("title", this.GetText("USERONLINESTATUS"));
+            }
+            else
+            {
+                // offline
+                output.WriteAttribute("class", "text-danger");
+                output.WriteAttribute("title", this.GetText("USEROFFLINESTATUS"));
+            }
+
+            output.Write(HtmlTextWriter.TagRightChar);
+
+            output.Write(@"<i class=""fas fa-user-circle""></i>");
+
+            // render the optional controls (if any)
+            base.Render(output);
+            output.WriteEndTag("span");
+            output.EndRender();
+        }
+
+        #endregion
     }
-
-    #endregion
-  }
 }

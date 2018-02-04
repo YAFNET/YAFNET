@@ -388,6 +388,7 @@
     <Resource tag="BOARD_TOPIC_DEFAULT">Mostrar tema por defecto:</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">El tablero por defecto muestra una selección de temas.</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Removal Key:</Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Remove the copyright information and link back to YAF from the footer of your entire forum domain. Available&lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;from YAF.NET site&lt;/a&gt;. </Resource>
     <Resource tag="HEADER">Configuraión actual del tablero.</Resource>
     <Resource tag="TITLE">Configuración del tablero</Resource>
@@ -954,6 +955,7 @@
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Acceso a los feeds de temas activos:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Restringe la visualización de feeds de temas activos.</Resource>
     <Resource tag="AKISMET_KEY">Llave API para Akismet:</Resource>
+    <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="AKISMET_KEY_HELP">Para usar el servicio de comentado de SPAM de Akismet necesitas una llave API &lt;a href="https://akismet.com/signup/"&gt;Regístrate aquí&lt;a&gt;.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Álbumes por página:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Número de álbumes para mostrar por página.</Resource>
@@ -4986,6 +4988,7 @@ public class Hello1
     <Resource tag="TOGGLEPOST">Muestra/Oculta Mensaje</Resource>
     <Resource tag="TOGGLEUSERPOSTS_HIDE">Oculta mensajes de usuario</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Muestra mensajes de usuario</Resource>
+    <Resource tag="TOOLS">Tools</Resource>
     <Resource tag="TOP">Volver arriba</Resource>
     <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
     <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>

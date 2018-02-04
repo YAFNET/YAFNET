@@ -39,7 +39,6 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
-    using YAF.Utils.Helpers.StringUtils;
 
     #endregion
 

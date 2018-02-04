@@ -78,7 +78,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets or sets the User IP Info.
         /// </summary>
-        public IDictionary<string, string> _UserIpLocator { get; set; }
+        public IDictionary<string, string> UserIpLocator { get; set; }
 
         /// <summary>
         ///   Gets a value indicating whether IsProtected.
@@ -633,14 +633,14 @@ namespace YAF.Pages
             country.ImageLocation = YafForumInfo.GetURLToContent("images/flags/{0}.png");
             country.DataSource = StaticDataHelper.Country();
 
-            if (this.Get<YafBoardSettings>().EnableIPInfoService && this._UserIpLocator == null)
+            if (this.Get<YafBoardSettings>().EnableIPInfoService && this.UserIpLocator == null)
             {
                 // vzrus: we should always get not null class here
-                this._UserIpLocator = new IPDetails().GetData(
+                this.UserIpLocator = new IPDetails().GetData(
                     this.Get<HttpRequestBase>().GetUserRealIPAddress(), 
                     "text", 
                     false, 
-                    this.PageContext().CurrentForumPage.Localization.Culture.Name, 
+                    this.PageContext().CurrentForumPage.Localization.Culture.Name,
                     string.Empty, 
                     string.Empty);
             }
@@ -894,36 +894,34 @@ namespace YAF.Pages
         /// <param name="country">The country.</param>
         private void FillLocationData([NotNull]DropDownList country)
         {
-            decimal hours = 0;
-
-            if (this._UserIpLocator == null || this._UserIpLocator["StatusCode"] != "OK")
+            if (this.UserIpLocator == null || this.UserIpLocator["StatusCode"] != "OK")
             {
                 this.Logger.Log(
                     null, 
                     this, 
-                    "Geolocation Service reports: {0}".FormatWith(this._UserIpLocator["StatusMessage"]), 
+                    "Geolocation Service reports: {0}".FormatWith(this.UserIpLocator["StatusMessage"]), 
                     EventLogTypes.Information);
             }
 
-            if (this._UserIpLocator["StatusCode"] != "OK")
+            if (this.UserIpLocator["StatusCode"] != "OK")
             {
                 this.Logger.Log(
                     null, 
                     this, 
-                    "Geolocation Service reports: {0}".FormatWith(this._UserIpLocator["StatusMessage"]), 
+                    "Geolocation Service reports: {0}".FormatWith(this.UserIpLocator["StatusMessage"]), 
                     EventLogTypes.Information);
             }
 
-            if (this._UserIpLocator.Count <= 0 || this._UserIpLocator["StatusCode"] != "OK")
+            if (this.UserIpLocator.Count <= 0 || this.UserIpLocator["StatusCode"] != "OK")
             {
                 return;
             }
 
             var location = new StringBuilder();
 
-            if (this._UserIpLocator["CountryCode"] != null && this._UserIpLocator["CountryCode"].IsSet() && !this._UserIpLocator["CountryCode"].Equals("-"))
+            if (this.UserIpLocator["CountryCode"] != null && this.UserIpLocator["CountryCode"].IsSet() && !this.UserIpLocator["CountryCode"].Equals("-"))
             {
-                var countryItem = country.Items.FindByValue(this._UserIpLocator["CountryCode"]);
+                var countryItem = country.Items.FindByValue(this.UserIpLocator["CountryCode"]);
 
                 if (countryItem != null)
                 {
@@ -931,14 +929,14 @@ namespace YAF.Pages
                 }
             }
 
-            if (this._UserIpLocator["RegionName"] != null && this._UserIpLocator["RegionName"].IsSet() && !this._UserIpLocator["RegionName"].Equals("-"))
+            if (this.UserIpLocator["RegionName"] != null && this.UserIpLocator["RegionName"].IsSet() && !this.UserIpLocator["RegionName"].Equals("-"))
             {
-                location.Append(this._UserIpLocator["RegionName"]);
+                location.Append(this.UserIpLocator["RegionName"]);
             }
 
-            if (this._UserIpLocator["CityName"] != null && this._UserIpLocator["CityName"].IsSet() && !this._UserIpLocator["CityName"].Equals("-"))
+            if (this.UserIpLocator["CityName"] != null && this.UserIpLocator["CityName"].IsSet() && !this.UserIpLocator["CityName"].Equals("-"))
             {
-                location.AppendFormat(", {0}", this._UserIpLocator["CityName"]);
+                location.AppendFormat(", {0}", this.UserIpLocator["CityName"]);
             }
 
             this.CreateUserWizard1.FindControlRecursiveAs<TextBox>("Location").Text = location.ToString();

@@ -31,14 +31,14 @@
                 </td>
                 <td>
                     <span class="float-right">
-                    <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm"
+                    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" CssClass="btn-sm"
                             CommandName='edit' CommandArgument='<%# this.Eval( "ID") %>'
                             TitleLocalizedTag="EDIT"
                             Icon="edit"
                             TextLocalizedTag="EDIT"
                             runat="server">
 					    </YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm"
+                    <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" CssClass="btn-sm"
                                     CommandName='delete' CommandArgument='<%# this.Eval( "ID") %>'
                                     TitleLocalizedTag="DELETE"
                                     Icon="trash"
@@ -55,13 +55,13 @@
             </div>
                 </div>
                 <div class="card-footer text-lg-center">
-                    <YAF:ThemeButton runat="server" CommandName='add' ID="Linkbutton3" CssClass="btn btn-primary"
+                    <YAF:ThemeButton runat="server" CommandName='add' ID="Linkbutton3" Type="Primary"
                                      Icon="plus-square" TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_EXTENSIONS"></YAF:ThemeButton>
                     &nbsp;
-                    <YAF:ThemeButton runat="server" Icon="upload" DataTarget="ExtensionsImportDialog"  ID="Linkbutton5" CssClass="btn btn-info"
+                    <YAF:ThemeButton runat="server" Icon="upload" DataTarget="ExtensionsImportDialog"  ID="Linkbutton5" Type="Info"
                                      TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_EXTENSIONS"> </YAF:ThemeButton>
                     &nbsp;
-                    <YAF:ThemeButton runat="server" CommandName='export' ID="Linkbutton4" CssClass="btn btn-warning"
+                    <YAF:ThemeButton runat="server" CommandName='export' ID="Linkbutton4" Type="Warning"
                                      Icon="download" TextLocalizedTag="EXPORT" TextLocalizedPage="ADMIN_EXTENSIONS"></YAF:ThemeButton>
         	 </FooterTemplate>
     	 </asp:Repeater>

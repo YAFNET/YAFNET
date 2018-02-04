@@ -60,7 +60,7 @@ function toggleItem(detailId)
                    <hr />
         </div>
                 <div class="card-footer text-lg-center">
-                <YAF:ThemeButton ID="ApplyButton" CssClass="btn btn-primary" OnClick="ApplyButtonClick"
+                <YAF:ThemeButton ID="ApplyButton" Type="Primary" OnClick="ApplyButtonClick"
                     TextLocalizedPage="ADMIN_EVENTLOG" TextLocalizedTag="APPLY" Icon="check" runat="server"></YAF:ThemeButton>
             </div>
            </div>
@@ -129,7 +129,7 @@ function toggleItem(detailId)
                 </table></div>
                 </div>
                 <div class="card-footer text-lg-center">
-                        <YAF:ThemeButton runat="server" Visible="<%# this.List.Items.Count > 0 %>" CssClass="btn btn-primary"
+                        <YAF:ThemeButton runat="server" Visible="<%# this.List.Items.Count > 0 %>" Type="Primary"
                             Icon="trash" OnClick="DeleteAllClick" 
                                          TextLocalizedPage="ADMIN_EVENTLOG" TextLocalizedTag="DELETE_ALLOWED"
                                          ReturnConfirmText='<%#this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL") %>'>

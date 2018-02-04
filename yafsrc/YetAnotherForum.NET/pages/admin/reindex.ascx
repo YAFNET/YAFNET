@@ -21,14 +21,14 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SHOW_STATS" LocalizedPage="ADMIN_REINDEX" />
                     </p>
                     <p class="card-text">
-                        <YAF:ThemeButton ID="GetStats" CssClass="btn btn-primary" runat="server" OnClick="GetStatsClick" 
+                        <YAF:ThemeButton ID="GetStats" Type="Primary" runat="server" OnClick="GetStatsClick" 
                                          Icon="database" TextLocalizedTag="TBLINDEXSTATS_BTN" />
                     </p>
                     <hr />
                 </asp:Placeholder>
                 <asp:Placeholder ID="PanelRecoveryMode" runat="server" Visible="False">
                     <p class="card-text">
-                        <YAF:ThemeButton ID="RecoveryMode" CssClass="btn btn-primary" runat="server" OnClick="RecoveryModeClick"
+                        <YAF:ThemeButton ID="RecoveryMode" Type="Primary" runat="server" OnClick="RecoveryModeClick"
                                          Icon="database" TextLocalizedTag="SETRECOVERY_BTN" />
 					    <asp:RadioButtonList ID="RadioButtonList1" runat="server" CssClass="form-control">
 					    </asp:RadioButtonList>
@@ -40,7 +40,7 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="REINDEX" LocalizedPage="ADMIN_REINDEX" />
                     </p>
                     <p class="card-text">
-                        <YAF:ThemeButton ID="Reindex" CssClass="btn btn-primary" runat="server" OnClick="ReindexClick"
+                        <YAF:ThemeButton ID="Reindex" Type="Primary" runat="server" OnClick="ReindexClick"
                                          Icon="database" TextLocalizedTag="REINDEXTBL_BTN" />
                     </p>
                     <hr />
@@ -50,7 +50,7 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="SHRINK" LocalizedPage="ADMIN_REINDEX" />
 					</p>
                     <p class="card-text">
-                        <YAF:ThemeButton ID="Shrink" CssClass="btn btn-primary" runat="server" OnClick="ShrinkClick"
+                        <YAF:ThemeButton ID="Shrink" Type="Primary" runat="server" OnClick="ShrinkClick"
                                          Icon="database" TextLocalizedTag="SHRINK_BTN" />
                     </p>
                 </asp:Placeholder>

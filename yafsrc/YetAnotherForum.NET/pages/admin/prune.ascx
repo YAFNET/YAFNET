@@ -38,7 +38,7 @@
             </p>
                 </div>
                 <div class="card-footer text-lg-center">
-                <YAF:ThemeButton ID="commit" runat="server" CssClass="btn btn-primary" OnClick="CommitClick"
+                <YAF:ThemeButton ID="commit" runat="server" Type="Primary" OnClick="CommitClick"
                     Icon="trash" TextLocalizedTag="PRUNE_START" ReturnConfirmText='<%# this.GetText("ADMIN_PRUNE", "CONFIRM_PRUNE") %>'></YAF:ThemeButton>
                 </div>
             </div>

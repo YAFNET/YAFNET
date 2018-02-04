@@ -191,7 +191,7 @@ namespace YAF.Controls
 
             writer.AddAttribute("placeholder", this.placeholder);
 
-            InputType textMode = this.Type;
+            var textMode = this.Type;
 
             switch (textMode)
             {

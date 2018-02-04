@@ -19,7 +19,7 @@
                     </p>
                 </div>
                 <div class="card-footer text-center">
-                    <asp:LinkButton ID="RestartApp" runat="server" CssClass="btn btn-primary" OnClick="RestartAppClick">
+                    <asp:LinkButton ID="RestartApp" runat="server" Type="Primary" OnClick="RestartAppClick">
                         <i class="fa fa-sync fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_RESTARTAPP" />
                     </asp:LinkButton>
                 </div>

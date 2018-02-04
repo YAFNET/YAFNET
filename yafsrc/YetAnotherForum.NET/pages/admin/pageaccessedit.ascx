@@ -59,13 +59,13 @@
                         </div>
                 </div>
                 <div class="card-footer text-lg-center">
-				    <YAF:ThemeButton ID="Save" runat="server" OnClick="SaveClick" CssClass="btn btn-primary"
+				    <YAF:ThemeButton ID="Save" runat="server" OnClick="SaveClick" Type="Primary"
 				                     Icon="save" TextLocalizedTag="SAVE" TextLocalizedPage="ADMIN_PAGEACCESSEDIT" />&nbsp;
-                    <YAF:ThemeButton ID="GrantAll" runat="server" OnClick="GrantAllClick" CssClass="btn btn-info"
+                    <YAF:ThemeButton ID="GrantAll" runat="server" OnClick="GrantAllClick" Type="Info"
                                      Icon="check" TextLocalizedTag="GRANTALL" TextLocalizedPage="ADMIN_PAGEACCESSEDIT" />&nbsp;
                     <YAF:ThemeButton ID="RevokeAll" runat="server" OnClick="RevokeAllClick" CssClass="btn btn-danger"
                                      Icon="trash" TextLocalizedTag="REVOKEALL" TextLocalizedPage="ADMIN_PAGEACCESSEDIT" />&nbsp;
-				    <YAF:ThemeButton ID="Cancel" runat="server" OnClick="CancelClick" CausesValidation="false" CssClass="btn btn-secondary"
+				    <YAF:ThemeButton ID="Cancel" runat="server" OnClick="CancelClick" CausesValidation="false" Type="Secondary"
 				                     Icon="times" TextLocalizedTag="CANCEL" TextLocalizedPage="ADMIN_PAGEACCESSEDIT" />
                 </div>
             </div>

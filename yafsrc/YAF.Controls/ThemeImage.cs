@@ -26,6 +26,7 @@ namespace YAF.Controls
 {
   #region Using
 
+    using System;
     using System.Web;
     using System.Web.UI;
 
@@ -39,6 +40,7 @@ namespace YAF.Controls
   /// <summary>
   /// Provides a image with themed src
   /// </summary>
+  [Obsolete("Replace theme image by icons")]
   public class // Render [LASTPOSTICON]
             ThemeImage : BaseControl
   {
@@ -308,8 +310,8 @@ namespace YAF.Controls
         return;
       }
 
-      string src = this.GetCurrentThemeItem();
-        string title = string.IsNullOrEmpty(this.LocalizedTitle.Trim()) ? this.GetCurrentTitleItem() : this.LocalizedTitle;
+      var src = this.GetCurrentThemeItem();
+        var title = string.IsNullOrEmpty(this.LocalizedTitle.Trim()) ? this.GetCurrentTitleItem() : this.LocalizedTitle;
 
       // might not be needed...
       if (src.IsNotSet())

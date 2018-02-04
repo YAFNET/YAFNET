@@ -39,7 +39,7 @@
       </div>
       <div class="modal-footer">
           <YAF:ThemeButton runat="server" ID="Reply"
-                           CssClass="btn btn-primary"
+                           Type="Primary"
                            OnClick="QuickReplyClick"
                            TextLocalizedTag="SAVE" TextLocalizedPage="POSTMESSAGE"
                            Icon="reply">

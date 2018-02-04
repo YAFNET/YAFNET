@@ -25,16 +25,15 @@ namespace YAF.Controls
 {
     #region Using
 
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Web.UI;
     using System.Web.UI.WebControls;
+
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Utils;
 
     #endregion
 
@@ -48,16 +47,18 @@ namespace YAF.Controls
         /// <summary>
         ///   The _items.
         /// </summary>
-        private readonly List<InternalPopMenuItem> _items = new List<InternalPopMenuItem>();
-
-        /// <summary>
-        ///   The _control.
-        /// </summary>
-        private string _control = string.Empty;
+        private readonly List<InternalPopMenuItem> items = new List<InternalPopMenuItem>();
 
         #endregion
 
         #region Events
+
+        /// <summary>
+        /// Pop Event Handler
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="PopEventArgs"/> instance containing the event data.</param>
+        public delegate void PopEventHandler(object sender, PopEventArgs e);
 
         /// <summary>
         ///   The item click.
@@ -71,40 +72,12 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets or sets Control.
         /// </summary>
-        public string Control
-        {
-            get
-            {
-                return this._control;
-            }
-
-            set
-            {
-                this._control = value;
-            }
-        }
+        public string Control { get; set; } = string.Empty;
 
         /// <summary>
-        ///   Gets ControlOnClick.
+        ///   Gets or sets Control.
         /// </summary>
-        public string ControlOnClick
-        {
-            get
-            {
-                return "yaf_popit('{0}')".FormatWith(this.ClientID);
-            }
-        }
-
-        /// <summary>
-        ///   Gets ControlOnMouseOver.
-        /// </summary>
-        public string ControlOnMouseOver
-        {
-            get
-            {
-                return "yaf_mouseover('{0}')".FormatWith(this.ClientID);
-            }
-        }
+        public string ButtonId { get; set; }
 
         #endregion
 
@@ -121,7 +94,38 @@ namespace YAF.Controls
         /// </param>
         public void AddClientScriptItem([NotNull] string description, [NotNull] string clientScript)
         {
-            this._items.Add(new InternalPopMenuItem(description, null, clientScript, null));
+            this.items.Add(new InternalPopMenuItem(description, null, clientScript, null));
+        }
+
+        /// <summary>
+        /// The attach.
+        /// </summary>
+        /// <param name="ctl">
+        /// The ctl.
+        /// </param>
+        public void Attach([NotNull] WebControl ctl)
+        {
+            this.ButtonId = ctl.ClientID;
+        }
+
+        /// <summary>
+        /// The attach.
+        /// </summary>
+        /// <param name="userLinkControl">
+        /// The user link control.
+        /// </param>
+        public void Attach([NotNull] UserLink userLinkControl)
+        {
+            this.ButtonId = userLinkControl.ClientID;
+        }
+
+        /// <summary>
+        /// Attaches the specified theme button.
+        /// </summary>
+        /// <param name="themeButton">The theme button.</param>
+        public void Attach(ThemeButton themeButton)
+        {
+            this.ButtonId = themeButton.ClientID;
         }
 
         /// <summary>
@@ -136,9 +140,12 @@ namespace YAF.Controls
         /// <param name="icon">
         /// The icon.
         /// </param>
-        public void AddClientScriptItem([NotNull] string description, [NotNull] string clientScript, [NotNull] string icon)
+        public void AddClientScriptItem(
+            [NotNull] string description,
+            [NotNull] string clientScript,
+            [NotNull] string icon)
         {
-            this._items.Add(new InternalPopMenuItem(description, null, clientScript, icon));
+            this.items.Add(new InternalPopMenuItem(description, null, clientScript, icon));
         }
 
         /// <summary>
@@ -153,9 +160,12 @@ namespace YAF.Controls
         /// <param name="clientScript">
         /// The client script.
         /// </param>
-        public void AddClientScriptItemWithPostback([NotNull] string description, [NotNull] string argument, [NotNull] string clientScript)
+        public void AddClientScriptItemWithPostback(
+            [NotNull] string description,
+            [NotNull] string argument,
+            [NotNull] string clientScript)
         {
-            this._items.Add(new InternalPopMenuItem(description, argument, clientScript, null));
+            this.items.Add(new InternalPopMenuItem(description, argument, clientScript, null));
         }
 
         /// <summary>
@@ -169,7 +179,7 @@ namespace YAF.Controls
         /// </param>
         public void AddPostBackItem([NotNull] string argument, [NotNull] string description)
         {
-            this._items.Add(new InternalPopMenuItem(description, argument, null, null));
+            this.items.Add(new InternalPopMenuItem(description, argument, null, null));
         }
 
         /// <summary>
@@ -186,31 +196,7 @@ namespace YAF.Controls
         /// </param>
         public void AddPostBackItem([NotNull] string argument, [NotNull] string description, [NotNull] string icon)
         {
-            this._items.Add(new InternalPopMenuItem(description, argument, null, icon));
-        }
-
-        /// <summary>
-        /// The attach.
-        /// </summary>
-        /// <param name="ctl">
-        /// The ctl.
-        /// </param>
-        public void Attach([NotNull] WebControl ctl)
-        {
-            ctl.Attributes["onclick"] = this.ControlOnClick;
-            ctl.Attributes["onmouseover"] = this.ControlOnMouseOver;
-        }
-
-        /// <summary>
-        /// The attach.
-        /// </summary>
-        /// <param name="userLinkControl">
-        /// The user link control.
-        /// </param>
-        public void Attach([NotNull] UserLink userLinkControl)
-        {
-            userLinkControl.OnClick = this.ControlOnClick;
-            userLinkControl.OnMouseOver = this.ControlOnMouseOver;
+            this.items.Add(new InternalPopMenuItem(description, argument, null, icon));
         }
 
         /// <summary>
@@ -221,9 +207,9 @@ namespace YAF.Controls
         /// </param>
         public void RemovePostBackItem([NotNull] string argument)
         {
-            foreach (InternalPopMenuItem item in this._items.Where(item => item.PostBackArgument == argument))
+            foreach (var item in this.items.Where(item => item.PostBackArgument == argument))
             {
-                this._items.Remove(item);
+                this.items.Remove(item);
                 break;
             }
         }
@@ -262,48 +248,49 @@ namespace YAF.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            if (!Visible)
+            if (!this.Visible)
             {
                 return;
             }
 
             var sb = new StringBuilder();
+
             sb.AppendFormat(
-              @"<div class=""yafpopupmenu"" id=""{0}"" style=""position:absolute;z-index:100;left:0;top:0;display:none;"">",
-              ClientID);
-            sb.Append("<ul>");
+                @"<div class=""dropdown-menu"" id=""{0}"" aria-labelledby=""{1}"">",
+                this.ClientID,
+                this.ButtonId);
 
             // add the items
-            foreach (InternalPopMenuItem thisItem in this._items)
+            foreach (var thisItem in this.items)
             {
                 string onClick;
-                string iconImage = string.Empty;
+                var iconImage = string.Empty;
 
                 if (thisItem.ClientScript.IsSet())
                 {
                     // js style
                     onClick = thisItem.ClientScript.Replace(
-                      "{postbackcode}", Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument));
+                        "{postbackcode}",
+                        this.Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument));
                 }
                 else
                 {
-                    onClick = Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument);
+                    onClick = this.Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument);
                 }
 
                 if (thisItem.Icon.IsSet())
                 {
-                    iconImage = @"<img class=""popupitemIcon"" src=""{0}"" alt=""{1}"" title=""{1}"" />&nbsp;".FormatWith(
-                        thisItem.Icon, thisItem.Description);
+                    iconImage = @"<i class=""{0}""></i>&nbsp;".FormatWith(thisItem.Icon);
                 }
 
                 sb.AppendFormat(
-                  @"<li class=""popupitem"" onmouseover=""mouseHover(this,true)"" onmouseout=""mouseHover(this,false)"" onclick=""{2}"" style=""white-space:nowrap"" title=""{1}"">{0}{1}</li>",
-                  iconImage,
-                  thisItem.Description,
-                  onClick);
+                    @"<a class=""dropdown-item"" onclick=""{2}"" title=""{1}"">{0}{1}</a>",
+                    iconImage,
+                    thisItem.Description,
+                    onClick);
             }
 
-            sb.AppendFormat("</ul></div>");
+            sb.AppendFormat("</div>");
 
             writer.WriteLine(sb.ToString());
 
@@ -312,17 +299,6 @@ namespace YAF.Controls
 
         #endregion
     }
-
-    /// <summary>
-    /// The pop event handler.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    public delegate void PopEventHandler(object sender, PopEventArgs e);
 
     /// <summary>
     /// The internal pop menu item.
@@ -346,7 +322,11 @@ namespace YAF.Controls
         /// <param name="icon">
         /// The icon.
         /// </param>
-        public InternalPopMenuItem([NotNull] string description, [NotNull] string postbackArgument, [NotNull] string clientScript, [NotNull] string icon)
+        public InternalPopMenuItem(
+            [NotNull] string description,
+            [NotNull] string postbackArgument,
+            [NotNull] string clientScript,
+            [NotNull] string icon)
         {
             this.Description = description;
             this.PostBackArgument = postbackArgument;

@@ -1,9 +1,6 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.DisplayPost" EnableViewState="false" Codebehind="DisplayPost.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayPostFooter" Src="DisplayPostFooter.ascx" %>
-<%@ Import Namespace="YAF.Core"%>
-<%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
-<%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <tr class="postheader">		
@@ -12,8 +9,7 @@
         
             <YAF:OnlineStatusImage id="OnlineStatusImage" runat="server" 
                 Visible='<%# this.Get<YafBoardSettings>().ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( this.DataRow["UserID"] )%>' 
-                Style="vertical-align: bottom" 
-                UserID='<%# DataRow["UserID"].ToType<int>() %>'  />
+                UserId='<%# DataRow["UserID"].ToType<int>() %>'  />
             <YAF:ThemeImage ID="ThemeImgSuspended" 
                 ThemePage="ICONS" ThemeTag="USER_SUSPENDED"  UseTitleForEmptyAlt="True" 
                 Enabled='<%# DataRow["Suspended"] != DBNull.Value && DataRow["Suspended"].ToType<DateTime>() > DateTime.UtcNow %>' 
@@ -21,7 +17,9 @@
             <YAF:UserLink  ID="UserProfileLink" runat="server" UserID='<%# DataRow["UserID"].ToType<int>()%>' 
                 ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName && (!DataRow["IsGuest"].ToType<bool>() || this.DataRow["IsGuest"].ToType<bool>() && this.DataRow["DisplayName"].ToString() == this.DataRow["UserName"].ToString()) ? DataRow["DisplayName"] : DataRow["UserName"]%>' 
                 PostfixText='<%# DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : String.Empty %>' 
-                Style='<%#DataRow["Style"]%>' CssClass="UserPopMenuLink" EnableHoverCard="False" />
+                Style='<%#DataRow["Style"]%>' EnableHoverCard="False" CssClass="dropdown-toggle" />
+        
+        <YAF:PopMenu runat="server" ID="PopMenu1" Control="UserName" />
         &nbsp;<YAF:ThemeButton ID="AddReputation" CssClass='<%# "AddReputation_" + DataRow["UserID"]%>' runat="server" 
             ImageThemeTag="VOTE_UP" Visible="false" TitleLocalizedTag="VOTE_UP_TITLE" 
             OnClick="AddUserReputation"></YAF:ThemeButton>
@@ -105,10 +103,5 @@
         <div id="<%# "dvThanks" + DataRow["MessageID"] %>" class="ThanksList">
             <asp:Literal runat="server" Visible="false" ID="thanksDataExtendedLiteral"></asp:Literal>
         </div>
-    </td>
-</tr>
-<tr class="postsep">
-    <td colspan="3">
-        <YAF:PopMenu runat="server" ID="PopMenu1" Control="UserName" />
     </td>
 </tr>

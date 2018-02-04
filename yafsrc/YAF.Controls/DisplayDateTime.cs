@@ -61,11 +61,6 @@ namespace YAF.Controls
         {
             get
             {
-                if (this.ViewState["DateTime"] == null)
-                {
-                    return null;
-                }
-
                 return this.ViewState["DateTime"];
             }
 
@@ -82,9 +77,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this.ViewState["Format"] == null
-                           ? DateTimeFormat.Both
-                           : this.ViewState["Format"].ToEnum<DateTimeFormat>();
+                return this.ViewState["Format"]?.ToEnum<DateTimeFormat>() ?? DateTimeFormat.Both;
             }
 
             set

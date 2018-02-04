@@ -176,11 +176,11 @@ namespace YAF.Controls
                 {
                     if (this.CssClass.IsSet())
                     {
-                        this.CssClass += " userHoverCard";
+                        this.CssClass += " btn-sm userHoverCard";
                     }
                     else
                     {
-                        this.CssClass = "userHoverCard";
+                        this.CssClass = " btn-sm userHoverCard";
                     }
 
                     output.WriteAttribute(
@@ -194,6 +194,22 @@ namespace YAF.Controls
                 else
                 {
                     output.WriteAttribute("title", this.GetText("COMMON", "VIEW_USRPROFILE"));
+
+                    if (this.CssClass.IsSet())
+                    {
+                        if (this.CssClass.Equals("dropdown-toggle"))
+                        {
+                            output.WriteAttribute("data-toggle", "dropdown");
+                            output.WriteAttribute("aria-haspopup", "true");
+                            output.WriteAttribute("aria-expanded", "false");
+                        }
+
+                        this.CssClass += " btn-sm";
+                    }
+                    else
+                    {
+                        this.CssClass = " btn-sm";
+                    }
                 }
 
                 if (this.Get<YafBoardSettings>().UseNoFollowLinks)

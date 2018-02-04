@@ -26,7 +26,7 @@
                     <div class="modal-footer">
                         <YAF:ThemeButton id="Import" runat="server" OnClick="Import_OnClick" 
                             TextLocalizedTag="ADMIN_SPAMWORDS_IMPORT" TextLocalizedPage="TITLE"
-                            CssClass="btn btn-primary" Icon="upload">
+                            Type="Primary" Icon="upload">
                         </YAF:ThemeButton>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                             <i class="fa fa-times fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server" LocalizedTag="CANCEL"></YAF:LocalizedLabel>

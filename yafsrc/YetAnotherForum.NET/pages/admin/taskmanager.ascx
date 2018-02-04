@@ -46,7 +46,7 @@
                             <YAF:ThemeButton ID="stop" runat="server" 
                                              CommandName="stop" CommandArgument='<%# this.Eval("Key") %>'
                                              TextLocalizedTag="STOP_TASK" TextLocalizedPage="ADMIN_TASKMANAGER"
-                                             Icon="hand-paper" CssClass="btn btn-danger btn-sm">
+                                             Icon="hand-paper" Type="Danger" CssClass="btn-sm">
                             </YAF:ThemeButton>
                         </asp:PlaceHolder>
                     </td>

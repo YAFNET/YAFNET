@@ -43,8 +43,10 @@ namespace YAF.Controls
     #endregion
 
     /// <summary>
-    ///     Summary description for ForumJump.
+    /// The Forum Jump Control
     /// </summary>
+    /// <seealso cref="YAF.Core.BaseControl" />
+    /// <seealso cref="System.Web.UI.IPostBackDataHandler" />
     public class ForumJump : BaseControl, IPostBackDataHandler
     {
         #region Properties
@@ -52,11 +54,11 @@ namespace YAF.Controls
         /// <summary>
         ///     Gets or sets ForumID.
         /// </summary>
-        private int ForumID
+        private int ForumId
         {
             get
             {
-                return (int)this.ViewState["ForumID"];
+                return this.ViewState["ForumID"].ToType<int>();
             }
 
             set
@@ -70,27 +72,24 @@ namespace YAF.Controls
         #region Public Methods and Operators
 
         /// <summary>
-        ///     The load post data.
+        /// Load Post Data
         /// </summary>
-        /// <param name="postDataKey">
-        ///     The post data key.
-        /// </param>
-        /// <param name="postCollection">
-        ///     The post collection.
-        /// </param>
+        /// <param name="postDataKey">The post data key.</param>
+        /// <param name="postCollection">The post collection.</param>
         /// <returns>
-        ///     The load post data.
+        /// The load post data.
         /// </returns>
         public virtual bool LoadPostData([NotNull] string postDataKey, [NotNull] NameValueCollection postCollection)
         {
-            int forumID;
-            if (int.TryParse(postCollection[postDataKey], out forumID) && forumID != this.ForumID)
+            int forumId;
+
+            if (!int.TryParse(postCollection[postDataKey], out forumId) || forumId == this.ForumId)
             {
-                this.ForumID = forumID;
-                return true;
+                return false;
             }
 
-            return false;
+            this.ForumId = forumId;
+            return true;
         }
 
         /// <summary>
@@ -98,20 +97,20 @@ namespace YAF.Controls
         /// </summary>
         public virtual void RaisePostDataChangedEvent()
         {
-            if (this.ForumID == 0)
+            if (this.ForumId == 0)
             {
                 YafBuildLink.Redirect(ForumPages.forum);
                 return;
             }
 
-            if (this.ForumID < 0)
+            if (this.ForumId < 0)
             {
                 // categories are negative
-                YafBuildLink.Redirect(ForumPages.forum, "c={0}", -this.ForumID);
+                YafBuildLink.Redirect(ForumPages.forum, "c={0}", -this.ForumId);
                 return;
             }
 
-            YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.ForumID);
+            YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.ForumId);
         }
 
         #endregion
@@ -126,7 +125,7 @@ namespace YAF.Controls
         /// </param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            this.Load += this.Page_Load;
+            this.Load += this.PageLoad;
             base.OnInit(e);
         }
 
@@ -146,15 +145,15 @@ namespace YAF.Controls
                     TimeSpan.FromMinutes(5));
 
             writer.WriteLine(
-                @"<select name=""{0}"" onchange=""{1}"" id=""{2}"">".FormatWith(
+                @"<select name=""{0}"" onchange=""{1}"" id=""{2}"" class=""custom-select"">".FormatWith(
                     this.UniqueID,
                     this.Page.ClientScript.GetPostBackClientHyperlink(this, this.ID),
                     this.ClientID));
 
             writer.WriteLine(@"<option value=""0"">{0}</option>", this.Get<YafBoardSettings>().Name);
 
-            int forumID = this.PageContext.PageForumID;
-            if (forumID <= 0)
+            var forumId = this.PageContext.PageForumID;
+            if (forumId <= 0)
             {
                 writer.WriteLine("<option/>");
             }
@@ -165,26 +164,22 @@ namespace YAF.Controls
                     @"<option {2}value=""{0}"">&nbsp;&nbsp;{1}</option>".FormatWith(
                         row["ForumID"],
                         this.HtmlEncode(row["Title"]),
-                        Convert.ToString(row["ForumID"]) == forumID.ToString() ? @"selected=""selected"" " : string.Empty));
+                        Convert.ToString(row["ForumID"]) == forumId.ToString() ? @"selected=""selected"" " : string.Empty));
             }
 
             writer.WriteLine("</select>");
         }
 
         /// <summary>
-        ///     The page_ load.
+        /// Page Load Event
         /// </summary>
-        /// <param name="sender">
-        ///     The sender.
-        /// </param>
-        /// <param name="e">
-        ///     The e.
-        /// </param>
-        private void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void PageLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.Page.IsPostBack)
             {
-                this.ForumID = this.PageContext.PageForumID;
+                this.ForumId = this.PageContext.PageForumID;
             }
         }
 

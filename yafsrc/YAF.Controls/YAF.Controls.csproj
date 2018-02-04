@@ -99,7 +99,6 @@
     <Compile Include="GoToPageForm.cs" />
     <Compile Include="ModernButton.cs" />
     <Compile Include="ModernTextBox.cs" />
-    <Compile Include="PopupPanel.cs" />
     <Compile Include="ImageListBox.cs" />
     <Compile Include="ReCAPTCHA\ReCaptchaJson.cs" />
     <Compile Include="UserStyles.cs" />
@@ -131,11 +130,9 @@
     </Compile>
     <Compile Include="AlphaSort.cs" />
     <Compile Include="CollapsibleImage.cs" />
-    <Compile Include="Container.cs" />
     <Compile Include="Footer.cs" />
     <Compile Include="ForumJump.cs" />
     <Compile Include="ForumUsers.cs" />
-    <Compile Include="Header.cs" />
     <Compile Include="HelpMenu.cs" />
     <Compile Include="IconLegend.cs" />
     <Compile Include="Localized\LocalizedLabel.cs" />
@@ -152,7 +149,6 @@
     <Compile Include="PopMenu.cs" />
     <Compile Include="ProfileMenu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Statistics\ActiveDiscussions.cs" />
     <Compile Include="Statistics\MostActiveUser.cs" />
     <Compile Include="ThemeButton.cs" />
     <Compile Include="ThemeImage.cs" />

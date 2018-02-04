@@ -388,6 +388,7 @@
     <Resource tag="BOARD_TOPIC_DEFAULT">Показывать темы по умолчанию:</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">Интервал в котором отображать темы по умолчанию.</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Ключ удаления копирайта:</Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Удалить информацию о копирайте и ссылку на YAF из подвала вашего форума. Доступно на &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;сайта YAF.NET &lt;/a&gt;. </Resource>
     <Resource tag="HEADER">Текущие настройки конференции</Resource>
     <Resource tag="TITLE">Настройки конференции</Resource>
@@ -953,6 +954,7 @@
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Доступ к ленте Активных тем:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Ограничить/запретить показ лент активных тем.</Resource>
     <Resource tag="AKISMET_KEY">Ключ Akismet API:</Resource>
+    <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="AKISMET_KEY_HELP">Чтобы использовать службу антиспама Akismet необходим ключ API Key &lt;a href="https://akismet.com/signup/"&gt;Подпишитесь здесь&lt;a&gt;.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Кол-во альбомов на странице:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Кол-во альбомов отображаемых на одной странице.</Resource>
@@ -4605,6 +4607,7 @@ Spoiler Content
     <Resource tag="TOGGLEPOST">Показать/скрыть пост</Resource>
     <Resource tag="TOGGLEUSERPOSTS_HIDE">Игнорировать сообщения пользователя</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Показывать сообщения пользователя</Resource>
+    <Resource tag="TOOLS">Tools</Resource>
     <Resource tag="TOP">Вверх</Resource>
     <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
     <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>

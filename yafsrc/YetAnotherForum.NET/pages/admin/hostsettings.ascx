@@ -203,6 +203,12 @@
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel186" runat="server" LocalizedTag="AKISMET_KEY" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            <YAF:ThemeButton runat="server" ID="GetRemovalKey" 
+                                             NavigateUrl="https://akismet.com/signup/"
+                                             CssClass="btn btn-info float-right"
+                                             Icon="sign-in-alt"
+                                             TextLocalizedTag="AKISMET_KEY_DOWN">
+                            </YAF:ThemeButton>
                         </h4>
                         <p>
                             <asp:TextBox ID="AkismetApiKey" CssClass="form-control" runat="server"></asp:TextBox>
@@ -234,6 +240,12 @@
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel225" runat="server" LocalizedTag="BOTSCOUT_KEY" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            <YAF:ThemeButton runat="server" ID="ThemeButton1" 
+                                             NavigateUrl="http://botscout.com/getkey.htm"
+                                             CssClass="btn btn-info float-right"
+                                             Icon="sign-in-alt"
+                                             TextLocalizedTag="AKISMET_KEY_DOWN">
+                            </YAF:ThemeButton>
                         </h4>
                         <p>
                             <asp:TextBox ID="BotScoutApiKey" CssClass="form-control" runat="server"></asp:TextBox>
@@ -242,6 +254,12 @@
 
                         <h4>
                             <YAF:HelpLabel ID="HelpLabel192" runat="server" LocalizedTag="STOPFORUMSPAM_KEY" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            <YAF:ThemeButton runat="server" ID="ThemeButton2" 
+                                             NavigateUrl="http://stopforumspam.com"
+                                             CssClass="btn btn-info float-right"
+                                             Icon="sign-in-alt"
+                                             TextLocalizedTag="AKISMET_KEY_DOWN">
+                            </YAF:ThemeButton>
                         </h4>
                         <p>
                             <asp:TextBox ID="StopForumSpamApiKey" CssClass="form-control" runat="server"></asp:TextBox>
@@ -1893,7 +1911,7 @@
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="ForumStatisticsCacheTimeout" />
-                            <asp:Button CssClass="btn btn-primary" ID="ForumStatisticsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="ForumStatisticsCacheResetClick" />
+                            <asp:Button Type="Primary" ID="ForumStatisticsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="ForumStatisticsCacheResetClick" />
 
                     </p><hr />
 
@@ -1902,7 +1920,7 @@
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="BoardUserStatsCacheTimeout" />
-                            <asp:Button CssClass="btn btn-primary" ID="BoardUserStatsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="BoardUserStatsCacheResetClick" />
+                            <asp:Button Type="Primary" ID="BoardUserStatsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="BoardUserStatsCacheResetClick" />
 
                     </p><hr />
 
@@ -1911,7 +1929,7 @@
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="ActiveDiscussionsCacheTimeout" />
-                            <asp:Button CssClass="btn btn-primary" ID="ActiveDiscussionsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="ActiveDiscussionsCacheResetClick" />
+                            <asp:Button Type="Primary" ID="ActiveDiscussionsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="ActiveDiscussionsCacheResetClick" />
 
                     </p><hr />
 
@@ -1920,7 +1938,7 @@
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="BoardCategoriesCacheTimeout" />
-                            <asp:Button CssClass="btn btn-primary" ID="BoardCategoriesCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="BoardCategoriesCacheResetClick" />
+                            <asp:Button Type="Primary" ID="BoardCategoriesCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="BoardCategoriesCacheResetClick" />
 
                     </p><hr />
 
@@ -1929,7 +1947,7 @@
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="BoardModeratorsCacheTimeout" />
-                            <asp:Button CssClass="btn btn-primary" ID="BoardModeratorsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="BoardModeratorsCacheResetClick" />
+                            <asp:Button Type="Primary" ID="BoardModeratorsCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="BoardModeratorsCacheResetClick" />
 
                     </p><hr />
 
@@ -1938,7 +1956,7 @@
                         </h4>
                         <p>
                             <asp:TextBox CssClass="form-control" runat="server" ID="ReplaceRulesCacheTimeout" />
-                            <asp:Button CssClass="btn btn-primary" ID="ReplaceRulesCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="ReplaceRulesCacheResetClick" />
+                            <asp:Button Type="Primary" ID="ReplaceRulesCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>'  runat="server" OnClick="ReplaceRulesCacheResetClick" />
 
                     </p><hr />
 
@@ -1966,11 +1984,11 @@
 
                     </p>
                     <p>
-                        <asp:Button CssClass="btn btn-primary" ID="ActiveUserLazyDataCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>' runat="server" OnClick="UserLazyDataCacheResetClick" />
+                        <asp:Button Type="Primary" ID="ActiveUserLazyDataCacheReset" Text='<%# this.GetText("ADMIN_COMMON", "CLEAR") %>' runat="server" OnClick="UserLazyDataCacheResetClick" />
                     </p>
 
                         <span class="text-lg-center">
-                           <asp:Button  CssClass="btn btn-primary" runat="server" ID="ResetCacheAll" Text='<%# this.GetText("ADMIN_HOSTSETTINGS", "CLEAR_CACHE") %>'  OnClick="ResetCacheAllClick" />
+                           <asp:Button  Type="Primary" runat="server" ID="ResetCacheAll" Text='<%# this.GetText("ADMIN_HOSTSETTINGS", "CLEAR_CACHE") %>'  OnClick="ResetCacheAllClick" />
                         </span>
 
 	</div>
@@ -2131,7 +2149,7 @@
     </asp:Panel>
                 </div>
                 <div class="card-footer text-lg-center">
-                <YAF:ThemeButton ID="Save" runat="server"  CssClass="btn btn-primary" OnClick="SaveClick"
+                <YAF:ThemeButton ID="Save" runat="server"  Type="Primary" OnClick="SaveClick"
                     Icon="save" TextLocalizedTag="SAVE_SETTINGS" TextLocalizedPage="ADMIN_HOSTSETTINGS">
                 </YAF:ThemeButton>
                 </div>

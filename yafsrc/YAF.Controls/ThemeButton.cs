@@ -26,13 +26,17 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.ComponentModel;
     using System.Web;
     using System.Web.UI;
     using System.Web.UI.WebControls;
     using YAF.Core;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+
+    using AttributeCollection = System.Web.UI.AttributeCollection;
 
     #endregion
 
@@ -92,7 +96,7 @@ namespace YAF.Controls
         /// </summary>
         public ThemeButton()
         {
-            this.Load += this.ThemeButton_Load;
+            this.Load += this.ThemeButtonLoad;
             this._attributeCollection = new AttributeCollection(this.ViewState);
         }
 
@@ -135,6 +139,25 @@ namespace YAF.Controls
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the behavior mode (single-line, multiline, or password) of the <see cref="T:System.Web.UI.WebControls.TextBox" /> control.
+        /// </summary>
+        /// [Bindable(true)]
+        [Category("Appearance")]
+        [DefaultValue(ButtonAction.Primary)]
+        public ButtonAction Type
+        {
+            get
+            {
+                return this.ViewState["Type"] != null ? this.ViewState["Type"].ToType<ButtonAction>() : ButtonAction.Primary;
+            }
+
+            set
+            {
+                this.ViewState["Type"] = value;
+            }
+        }
 
         /// <summary>
         ///   Gets Attributes.
@@ -181,7 +204,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this.ViewState["CssClass"] != null ? this.ViewState["CssClass"] as string : "yafcssbutton";
+                return this.ViewState["CssClass"] != null ? this.ViewState["CssClass"] as string : string.Empty;
             }
 
             set
@@ -247,6 +270,26 @@ namespace YAF.Controls
             set
             {
                 this.ViewState["DataTarget"] = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the data toggle.
+        /// </summary>
+        /// <value>
+        /// The data toggle.
+        /// </value>
+        [CanBeNull]
+        public string DataToggle
+        {
+            get
+            {
+                return this.ViewState["DataToggle"] != null ? this.ViewState["DataToggle"] as string : string.Empty;
+            }
+
+            set
+            {
+                this.ViewState["DataToggle"] = value;
             }
         }
 
@@ -568,10 +611,12 @@ namespace YAF.Controls
             output.BeginRender();
             output.WriteBeginTag("a");
             output.WriteAttribute("id", this.ClientID);
-            if (this.CssClass.IsSet())
-            {
-                output.WriteAttribute("class", this.CssClass);
-            }
+
+            var actionClass = this.GetAttributeValue(this.Type);
+
+            output.WriteAttribute(
+                HtmlTextWriterAttribute.Class.ToString(),
+                this.CssClass.IsSet() ? "{0} {1}".FormatWith(actionClass, this.CssClass) : actionClass);
 
             if (title.IsSet())
             {
@@ -608,7 +653,6 @@ namespace YAF.Controls
                 }
             }
 
-
             // Write Confirm Dialog
             if (this.ReturnConfirmText.IsSet())
             {
@@ -621,7 +665,15 @@ namespace YAF.Controls
                 output.WriteAttribute("data-toggle", "modal");
                 output.WriteAttribute("data-target", "#{0}".FormatWith(this.DataTarget));
             }
-            
+
+            // Write Dropdown
+            if (this.DataToggle.IsSet())
+            {
+                output.WriteAttribute("data-toggle", "dropdown");
+                output.WriteAttribute("aria-haspopup", "true");
+                output.WriteAttribute("aria-expanded", "false");
+            }
+
             output.Write(HtmlTextWriter.TagRightChar);
 
             output.WriteBeginTag("span");
@@ -645,7 +697,7 @@ namespace YAF.Controls
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void ThemeButton_Load([NotNull] object sender, [NotNull] EventArgs e)
+        private void ThemeButtonLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this._themeImage.ThemeTag.IsSet())
             {
@@ -657,6 +709,39 @@ namespace YAF.Controls
             if (this._localizedLabel.LocalizedTag.IsSet())
             {
                this.Controls.Add(this._localizedLabel);
+            }
+        }
+
+        /// <summary>
+        /// Gets the css class value.
+        /// </summary>
+        /// <param name="mode">The button action.</param>
+        /// <returns>Returns the Css Class for the button</returns>
+        /// <exception cref="InvalidOperationException">Exception when other value</exception>
+        private string GetAttributeValue(ButtonAction mode)
+        {
+            switch (mode)
+            {
+                case ButtonAction.Primary:
+                    return "btn btn-primary";
+                case ButtonAction.Secondary:
+                    return "btn btn-secondary";
+                case ButtonAction.Success:
+                    return "btn btn-success";
+                case ButtonAction.Danger:
+                    return "btn btn-danger";
+                case ButtonAction.Warning:
+                    return "btn btn-warning";
+                case ButtonAction.Info:
+                    return "btn btn-info";
+                case ButtonAction.Light:
+                    return "btn btn-light";
+                case ButtonAction.Dark:
+                    return "btn btn-dark";
+                case ButtonAction.Link:
+                    return "btn btn-link";
+                default:
+                    throw new InvalidOperationException();
             }
         }
 

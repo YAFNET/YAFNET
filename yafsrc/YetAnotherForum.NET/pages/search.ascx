@@ -6,7 +6,7 @@
     <div class="input-group-append">
         <YAF:ThemeButton runat="server"
                          ID="GoSearch"
-                         CssClass="btn btn-primary"
+                         Type="Primary"
                          Icon="search"
                          TextLocalizedTag="btnsearch"
                          NavigateUrl="javascript:getSeachResultsData(0);">

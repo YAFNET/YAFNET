@@ -42,7 +42,7 @@
 					</td>
                     <td>
                         <span class="float-right">
-					    <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm"
+					    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" CssClass="btn-sm"
                             CommandName='edit' CommandArgument='<%# this.Eval( "BoardID") %>'
                             TitleLocalizedTag="EDIT"
                             TextLocalizedTag="EDIT"
@@ -50,7 +50,7 @@
                             runat="server">
 					    </YAF:ThemeButton>
                         &nbsp;
-                        <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm"
+                        <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" CssClass="btn-sm"
                             CommandName='delete' CommandArgument='<%# this.Eval( "BoardID") %>'
                             TitleLocalizedTag="DELETE"
                             TextLocalizedTag="DELETE"
@@ -69,7 +69,7 @@
                     </p>
                 </div>
                 <div class="card-footer text-center">
-                    <YAF:ThemeButton ID="New" runat="server" CssClass="btn btn-primary" 
+                    <YAF:ThemeButton ID="New" runat="server" Type="Primary" 
                         TextLocalizedTag="NEW_BOARD"
                         Icon="plus-square"></YAF:ThemeButton>
                 </div>

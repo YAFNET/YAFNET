@@ -388,6 +388,7 @@
     <Resource tag="BOARD_TOPIC_DEFAULT">Domyślnie pokaż tematy:</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">Domyślne ustawienie pokazywania tematów.</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Klucz do usunięcia brandingu:</Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Usuwa informacje o prawach autorskich i linki do strony domowej YAF ze stopki na forum. Dostępne na &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;stronie YAF.NET&lt;/a&gt;.</Resource>
     <Resource tag="HEADER">Ustawienia tego forum</Resource>
     <Resource tag="TITLE">Ustawienia forum</Resource>
@@ -952,6 +953,7 @@
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Active Topics Feeds Access:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Restrict display of active topics feeds.</Resource>
     <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
+    <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href="https://akismet.com/signup/"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Albums Per Page:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Number of albums to show per page.</Resource>
@@ -4614,6 +4616,7 @@ Spoiler Content
     <Resource tag="TOGGLEPOST">Pokaż/Ukryj post</Resource>
     <Resource tag="TOGGLEUSERPOSTS_HIDE">Ukryj posty użytkownika</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Pokaż posty użytkownika</Resource>
+    <Resource tag="TOOLS">Tools</Resource>
     <Resource tag="TOP">Powrót do początku</Resource>
     <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
     <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>

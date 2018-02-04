@@ -48,16 +48,6 @@ namespace YAF.Controls.Statistics
     {
         #region Constants and Fields
 
-        /// <summary>
-        ///   The _display number.
-        /// </summary>
-        private int _displayNumber = 10;
-
-        /// <summary>
-        ///   The _last num of days.
-        /// </summary>
-        private int _lastNumOfDays = 7;
-
         #endregion
 
         #region Properties
@@ -65,34 +55,12 @@ namespace YAF.Controls.Statistics
         /// <summary>
         ///   Gets or sets DisplayNumber.
         /// </summary>
-        public int DisplayNumber
-        {
-            get
-            {
-                return this._displayNumber;
-            }
-
-            set
-            {
-                this._displayNumber = value;
-            }
-        }
+        public int DisplayNumber { get; set; } = 10;
 
         /// <summary>
         ///   Gets or sets LastNumOfDays.
         /// </summary>
-        public int LastNumOfDays
-        {
-            get
-            {
-                return this._lastNumOfDays;
-            }
-
-            set
-            {
-                this._lastNumOfDays = value;
-            }
-        }
+        public int LastNumOfDays { get; set; } = 7;
 
         #endregion
 
@@ -101,13 +69,10 @@ namespace YAF.Controls.Statistics
         /// <summary>
         /// Renders the MostActiveUsers class.
         /// </summary>
-        /// <param name="writer">
-        /// </param>
+        /// <param name="writer">Das <see cref="T:System.Web.UI.HtmlTextWriter" />-Objekt, das den Inhalt des Serversteuerelements empfängt.</param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            string actRank = string.Empty;
-
-            DataTable rankDt = this.Get<IDataCache>().GetOrSet(
+            var rankDt = this.Get<IDataCache>().GetOrSet(
               Constants.Cache.MostActiveUsers,
               () =>
               LegacyDb.user_activity_rank(
@@ -118,9 +83,10 @@ namespace YAF.Controls.Statistics
 
             var html = new StringBuilder();
 
-            html.AppendFormat(@"<div id=""{0}"" class=""yaf_activeuser"">", this.ClientID);
-            html.AppendFormat(@"<h2 class=""yaf_header"">{0}</h2>", "Most Active Users");
-            html.AppendFormat(@"<h4 class=""yaf_subheader"">Last {0} Days</h4>", this.LastNumOfDays);
+            html.Append(@"<div class=""card"">");
+            html.Append(@"<div class=""card-body"">");
+            html.AppendFormat(@"<h5 class=""card-title"">{0}</h5>", "Most Active Users");
+            html.AppendFormat(@"<h6 class=""card-subtitle mb-2 text-mutedr"">Last {0} Days</h6>", this.LastNumOfDays);
 
             html.AppendLine("<ol>");
 
@@ -136,7 +102,7 @@ namespace YAF.Controls.Statistics
                 userLink.RenderControl(writer);
 
                 // render online image...
-                var onlineStatusImage = new OnlineStatusImage { UserID = row.Field<int>("ID") };
+                var onlineStatusImage = new OnlineStatusImage { UserId = row.Field<int>("ID") };
                 onlineStatusImage.RenderControl(writer);
 
                 writer.WriteLine(" ");
@@ -145,7 +111,7 @@ namespace YAF.Controls.Statistics
             }
 
             writer.WriteLine("</ol>");
-            writer.WriteLine("</div>");
+            writer.WriteLine("</div></div>");
             writer.EndRender();
         }
 

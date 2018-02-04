@@ -15,8 +15,8 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <asp:Button ID="OkButton" CssClass="btn btn-primary" runat="server" CausesValidation="false" OnClick="OkButton_Click" Text="Ok" data-dismiss="modal" />
-                <asp:Button ID="CancelButton" CssClass="btn btn-secondary" runat="server" CausesValidation="false" OnClick="CancelButton_Click" Visible="false" Text="Cancel" data-dismiss="modal" />
+                <asp:Button ID="OkButton" Type="Primary" runat="server" CausesValidation="false" OnClick="OkButton_Click" Text="Ok" data-dismiss="modal" />
+                <asp:Button ID="CancelButton" Type="Secondary" runat="server" CausesValidation="false" OnClick="CancelButton_Click" Visible="false" Text="Cancel" data-dismiss="modal" />
             </div>
         </div>
     </div>

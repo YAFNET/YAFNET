@@ -176,9 +176,9 @@
         </asp:Repeater>
                 </div>
                 <div class="card-footer text-lg-center">
-                <YAF:ThemeButton ID="Save" runat="server" CssClass="btn btn-primary"
+                <YAF:ThemeButton ID="Save" runat="server" Type="Primary"
                                  Icon="save" TextLocalizedTag="SAVE"></YAF:ThemeButton>&nbsp;
-                <YAF:ThemeButton ID="Cancel" runat="server" CssClass="btn btn-secondary"
+                <YAF:ThemeButton ID="Cancel" runat="server" Type="Secondary"
                                  Icon="times" TextLocalizedTag="CANCEL"></YAF:ThemeButton>
                 </div>
             </div>

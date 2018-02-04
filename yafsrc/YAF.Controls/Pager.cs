@@ -47,14 +47,14 @@ namespace YAF.Controls
         #region Constants and Fields
 
         /// <summary>
-        ///   The _ignore page index.
-        /// </summary>
-        private bool ignorePageIndex;
-
-        /// <summary>
         ///   The _goto page form.
         /// </summary>
         private readonly GotoPageForm gotoPageForm = new GotoPageForm();
+
+        /// <summary>
+        ///   The _ignore page index.
+        /// </summary>
+        private bool ignorePageIndex;
 
         /// <summary>
         ///   The page change.
@@ -214,7 +214,7 @@ namespace YAF.Controls
         /// <returns>
         /// The get page url.
         /// </returns>
-        protected string GetPageURL(int page)
+        protected string GetPageUrl(int page)
         {
             var url = string.Empty;
 
@@ -261,7 +261,6 @@ namespace YAF.Controls
                         .ToType<int>() - 1;
             }
 
-
             this.gotoPageForm.ID = this.GetExtendedID("GotoPageForm");
 
             this.Controls.Add(this.gotoPageForm);
@@ -301,7 +300,6 @@ namespace YAF.Controls
                 this.PageCount(),
                 this.GetText("COMMON", "PAGES"));
 
-
             output.Write(@"<ul class=""dropdown-menu dropdown-menu-right"">");
 
             output.Write(@"<li class=""dropdown-item"">");
@@ -331,7 +329,7 @@ namespace YAF.Controls
         {
             return postBack
                        ? this.Page.ClientScript.GetPostBackClientHyperlink(this, pageNum.ToString())
-                       : this.GetPageURL(pageNum);
+                       : this.GetPageUrl(pageNum);
         }
 
         /// <summary>
@@ -386,7 +384,7 @@ namespace YAF.Controls
                 output.WriteEndTag("a");
             }
 
-            for (int i = start; i < end; i++)
+            for (var i = start; i < end; i++)
             {
                 if (i == this.CurrentPageIndex)
                 {
@@ -398,7 +396,7 @@ namespace YAF.Controls
                 }
                 else
                 {
-                    string page = (i + 1).ToString();
+                    var page = (i + 1).ToString();
 
                     output.RenderAnchorBegin(this.GetLinkUrl(i + 1, postBack), "btn btn-secondary", page);
 
@@ -449,7 +447,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="GotoPageForumEventArgs"/> instance containing the event data.</param>
         private void GotoPageClick([NotNull] object sender, [NotNull] GotoPageForumEventArgs e)
         {
-            int newPage = e.GotoPage - 1;
+            var newPage = e.GotoPage - 1;
 
             if (newPage >= 0 && newPage < this.PageCount())
             {

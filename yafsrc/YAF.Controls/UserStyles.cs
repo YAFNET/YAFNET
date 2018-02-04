@@ -69,7 +69,7 @@ namespace YAF.Controls
             // writes starting tag
             writer.WriteLine(@"<span class=""grouprankstyles"" id=""{0}"">".FormatWith(this.ClientID));
 
-            int index = 1;
+            var index = 1;
 
             var styles = this.RawStyles.Split('/').Where(s => s.IsSet()).Select(s => s.Trim().Split('!')).ToList();
 

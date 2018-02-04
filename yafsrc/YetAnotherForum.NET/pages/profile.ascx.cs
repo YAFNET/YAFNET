@@ -703,7 +703,7 @@ namespace YAF.Pages
 
             if (this.Get<YafBoardSettings>().ShowUserOnlineStatus)
             {
-                this.OnlineStatusImage1.UserID = userID;
+                this.OnlineStatusImage1.UserId = userID;
                 this.OnlineStatusImage1.Visible = true;
 
                 var suspended = userData.DBRow["Suspended"].ToType<DateTime?>();

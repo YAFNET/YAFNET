@@ -121,6 +121,15 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.HelpLabel HelpLabel2;
         
         /// <summary>
+        /// GetRemovalKey-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton GetRemovalKey;
+        
+        /// <summary>
         /// CopyrightRemovalKey-Steuerelement
         /// </summary>
         /// <remarks>

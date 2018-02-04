@@ -388,7 +388,8 @@
   <Resource tag="BOARD_TOPIC_DEFAULT">Show Topic Default:</Resource>
   <Resource tag="BOARD_TOPIC_DEFAULT_HELP">The default board show topic interval selection.</Resource>
   <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Removal Key:</Resource>
-  <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Remove the copyright information and link back to YAF from the footer of your entire forum domain. Available &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;from YAF.NET site&lt;/a&gt;. </Resource>
+  <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Remove the copyright information and link back to YAF from the footer of your entire forum domain.</Resource>
+  <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
   <Resource tag="HEADER">Current Board Settings</Resource>
   <Resource tag="TITLE">Board Settings</Resource>
  </page>
@@ -952,7 +953,8 @@
   <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Active Topics Feeds Access:</Resource>
   <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Restrict display of active topics feeds.</Resource>
   <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
-  <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href="https://akismet.com/signup/"&gt;Sign Up here&lt;a&gt;</Resource>
+  <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key</Resource>
+  <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
   <Resource tag="ALBUMS_PER_PAGE">Albums Per Page:</Resource>
   <Resource tag="ALBUMS_PER_PAGE_HELP">Number of albums to show per page.</Resource>
   <Resource tag="ALL_USERS">All Users</Resource>
@@ -1029,7 +1031,7 @@
   <Resource tag="BOT_IPBAN_ONREGISTER">Automatically Ban Ip Address of Detected Bot:</Resource>
   <Resource tag="BOT_IPBAN_ONREGISTER_HELP">If enabled and a Bot is detected during registration, and if bot handling is set to reject Registration, the IP Address of the Bot is automatically banned.</Resource>
   <Resource tag="BOTSCOUT_KEY">BotScout.com API Key:</Resource>
-  <Resource tag="BOTSCOUT_KEY_HELP">To Use the BotScout Bot Service you need an API Key &lt;a href="http://botscout.com/getkey.htm"&gt;Sign Up here&lt;a&gt;.</Resource>
+  <Resource tag="BOTSCOUT_KEY_HELP">To Use the BotScout Bot Service you need an API Key</Resource>
   <Resource tag="CAPTCHA_FOR_REGISTER">Enable CAPTCHA/reCAPTCHA for Register:</Resource>
   <Resource tag="CAPTCHA_FOR_REGISTER_HELP">Require users to enter the CAPTCHA when they register for the forum.</Resource>
   <Resource tag="CAPTCHA_GUEST_POSTING">Enable CAPTCHA for Guest Posting:</Resource>
@@ -1042,8 +1044,6 @@
   <Resource tag="CDN_SCRIPTMANAGER_HELP">You can use the CDN Hosted Script Files, or instead use internal.</Resource>
   <Resource tag="CDN_JQUERY">Use Google Hosted CDN jQuery Script File?</Resource>
   <Resource tag="CDN_JQUERY_HELP">You can use the Google Hosted Script File, or instead use internal.</Resource>
-
-
   <Resource tag="CHECK_FOR_BOTSPAM">Choose a Service for Automatically User Bot Checking:</Resource>
   <Resource tag="CHECK_FOR_BOTSPAM_HELP">Enables/disables automatically Bot SPAM Checking via the &lt;a href="http://stopforumspam.com/"&gt;StopForumSpam.com API&lt;/a&gt; , BotScout.com API, or both together.</Resource>
   <Resource tag="CHECK_FOR_SPAM">Choose a SPAM Service for Automatically SPAM Checking:</Resource>
@@ -1346,7 +1346,7 @@
   <Resource tag="SPAMCHECK_ALLOWED_URLS">Allowed Number of URLs before flagged as SPAM:</Resource>
   <Resource tag="SPAMCHECK_ALLOWED_URLS_HELP">If the user posts in one Message more then the allowed URLs the message is flagged as spam. This Check also depends how many user the posts have.</Resource>
   <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
-  <Resource tag="STOPFORUMSPAM_KEY_HELP">To Use the StopForumSpam Service you need an API Key &lt;a href="http://stopforumspam.com"&gt;Sign Up here&lt;a&gt;</Resource>
+  <Resource tag="STOPFORUMSPAM_KEY_HELP">To Use the StopForumSpam Service you need an API Key</Resource>
   <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
   <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
   <Resource tag="APP_OS_NAME">Operating System:</Resource>
@@ -4599,7 +4599,7 @@ Spoiler Content
   <Resource tag="REPUTATION">Reputation</Resource>
   <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
   <Resource tag="RSSTOPIC">RSS Feed</Resource>
-  <Resource tag="SHARE">Share</Resource>
+  <Resource tag="SHARE">Share it!</Resource>
   <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr.</Resource>
   <Resource tag="SIMILAR_TOPICS">Similar Topics</Resource>
   <Resource tag="SKYPE">SKYPE</Resource>
@@ -4621,6 +4621,7 @@ Spoiler Content
   <Resource tag="TOGGLEPOST">Show/Hide Post</Resource>
   <Resource tag="TOGGLEUSERPOSTS_HIDE">Hide User Posts</Resource>
   <Resource tag="TOGGLEUSERPOSTS_SHOW">Show User Posts</Resource>
+  <Resource tag="TOOLS">Tools</Resource>
   <Resource tag="TOP">Back to top</Resource>
   <Resource tag="TOPICBROWSERS">Users browsing this topic</Resource>
   <Resource tag="TOPIC_STARTER">Topic Starter</Resource>

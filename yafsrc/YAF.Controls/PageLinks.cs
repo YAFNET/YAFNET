@@ -25,7 +25,6 @@ namespace YAF.Controls
 {
     #region Using
 
-    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
@@ -38,6 +37,7 @@ namespace YAF.Controls
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Objects;
     using YAF.Utils;
 
     #endregion
@@ -68,7 +68,10 @@ namespace YAF.Controls
         /// <param name="categoryName">Name of the category.</param>
         /// <param name="categoryId">The category identifier.</param>
         /// <returns>Returns the Page links including the Category</returns>
-        public static PageLinks AddCategory(this PageLinks pageLinks, [NotNull] string categoryName, [NotNull] int categoryId)
+        public static PageLinks AddCategory(
+            this PageLinks pageLinks,
+            [NotNull] string categoryName,
+            [NotNull] int categoryId)
         {
             CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
             CodeContracts.VerifyNotNull(categoryName, "categoryName");
@@ -125,29 +128,6 @@ namespace YAF.Controls
 
             return pageLinks;
         }
-    }
-
-    /// <summary>
-    /// The Page Link Class
-    /// </summary>
-    [Serializable]
-    public class PageLink
-    {
-        /// <summary>
-        /// Gets or sets the title.
-        /// </summary>
-        /// <value>
-        /// The title.
-        /// </value>
-        public string Title { get; set; }
-
-        /// <summary>
-        /// Gets or sets the URL.
-        /// </summary>
-        /// <value>
-        /// The URL.
-        /// </value>
-        public string URL { get; set; }
     }
 
     /// <summary>
@@ -252,48 +232,20 @@ namespace YAF.Controls
                 return;
             }
 
-            var first = true;
-
-            if (this.PageContext.CurrentForumPage.IsAdminPage)
-            {
-                writer.Write("<div class=\"navbar-header\"><ol class=\"breadcrumb\">");
-            }
-            else
-            {
-                writer.WriteLine(@"<div id=""{0}"" class=""yafPageLink"">".FormatWith(this.ClientID));
-            }
+            writer.Write("<div class=\"navbar-header hidden-sm-down\"><ol class=\"breadcrumb\">");
 
             foreach (var link in linkedPageList)
             {
                 var encodedTitle = this.HtmlEncode(link.Title);
                 var url = link.URL;
 
-                if (this.PageContext.CurrentForumPage.IsAdminPage)
-                {
-                    writer.WriteLine(
-                   url.IsNotSet()
-                       ? @"<li class=""breadcrumb-item active"">{0}</li>".FormatWith(encodedTitle)
-                       : @"<li class=""breadcrumb-item""><a href=""{0}"">{1}</a></li>".FormatWith(url, encodedTitle));
-                }
-                else
-                {
-                    if (first)
-                    {
-                        first = false;
-                    }
-                    else
-                    {
-                        writer.WriteLine(@"<span class=""linkSeperator divider"">&nbsp;&#187;&nbsp;</span>");
-                    }
-
-                    writer.WriteLine(
+                writer.WriteLine(
                     url.IsNotSet()
-                        ? @"<span class=""currentPageLink active"">{0}</span>".FormatWith(encodedTitle)
-                        : @"<a href=""{0}"">{1}</a>".FormatWith(url, encodedTitle));
-                }
+                        ? @"<li class=""breadcrumb-item active"">{0}</li>".FormatWith(encodedTitle)
+                        : @"<li class=""breadcrumb-item""><a href=""{0}"">{1}</a></li>".FormatWith(url, encodedTitle));
             }
 
-            writer.Write(this.PageContext.CurrentForumPage.IsAdminPage ? "</ol>" : "</div>");
+            writer.Write(this.PageContext.CurrentForumPage.IsAdminPage ? "</ol>" : "</ol></div>");
         }
 
         #endregion

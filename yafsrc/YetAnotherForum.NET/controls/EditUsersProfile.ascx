@@ -369,10 +369,10 @@
 
                 <div class="text-lg-center">
 
-            <YAF:ThemeButton ID="UpdateProfile" CssClass="btn btn-primary" runat="server" OnClick="UpdateProfile_Click"
+            <YAF:ThemeButton ID="UpdateProfile" Type="Primary" runat="server" OnClick="UpdateProfile_Click"
                              Icon="save" TextLocalizedTag="SAVE" TextLocalizedPage="COMMON" />
             &nbsp;
-            <YAF:ThemeButton ID="Cancel" CssClass="btn btn-secondary" runat="server" OnClick="Cancel_Click"
+            <YAF:ThemeButton ID="Cancel" Type="Secondary" runat="server" OnClick="Cancel_Click"
                              Icon="trash" TextLocalizedTag="CANCEL" TextLocalizedPage="COMMON" />
                     &nbsp;
             </div>

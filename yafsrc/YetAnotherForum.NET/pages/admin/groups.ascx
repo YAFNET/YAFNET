@@ -44,7 +44,7 @@
 					</td>
 					<td>
 					    <span class="float-right">
-						<YAF:ThemeButton ID="ThemeButtonAdd" CssClass="btn btn-info btn-sm"
+						<YAF:ThemeButton ID="ThemeButtonAdd" Type="Info" CssClass="btn-sm"
                             CommandName='add' CommandArgument='<%# Container.DataItem %>'
                             TitleLocalizedTag="ADD_ROLETOYAF"
                             TitleLocalizedPage="ADMIN_GROUPS"
@@ -53,7 +53,7 @@
                             Icon="plus-circle"
                             runat="server">
 					    </YAF:ThemeButton>
-						<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm"
+						<YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" CssClass="btn-sm"
                                     CommandName='delete' CommandArgument='<%# Container.DataItem %>'
                                     TitleLocalizedTag="DELETE"
                                     Icon="trash"
@@ -104,14 +104,14 @@
 					</td>
                     <td>
                         <span class="float-right">
-						<YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm"
+						<YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" CssClass="btn-sm"
                             CommandName='edit' CommandArgument='<%# this.Eval( "GroupID") %>'
                             TitleLocalizedTag="EDIT"
                             Icon="edit"
                             TextLocalizedTag="EDIT"
                             runat="server">
 					    </YAF:ThemeButton>
-						<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm" Visible='<%#(!this.Eval( "Flags" ).BinaryAnd(2))%>'
+						<YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" CssClass="btn-sm" Visible='<%#(!this.Eval( "Flags" ).BinaryAnd(2))%>'
                                     CommandName='delete' CommandArgument='<%# this.Eval( "GroupID") %>'
                                     TitleLocalizedTag="DELETE"
                                     Icon="trash"
@@ -165,7 +165,7 @@
             </FooterTemplate>
 		</asp:Repeater>
                      <div class="card-footer text-lg-center">
-				    <YAF:ThemeButton ID="NewGroup" runat="server" OnClick="NewGroupClick" CssClass="btn btn-primary"
+				    <YAF:ThemeButton ID="NewGroup" runat="server" OnClick="NewGroupClick" Type="Primary"
 				                     Icon="plus-square" TextLocalizedTag="NEW_ROLE"></YAF:ThemeButton>
                 </div>
             </div>

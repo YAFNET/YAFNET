@@ -544,6 +544,15 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.HelpLabel HelpLabel186;
         
         /// <summary>
+        /// GetRemovalKey-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton GetRemovalKey;
+        
+        /// <summary>
         /// AkismetApiKey-Steuerelement
         /// </summary>
         /// <remarks>
@@ -616,6 +625,15 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.HelpLabel HelpLabel225;
         
         /// <summary>
+        /// ThemeButton1-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton ThemeButton1;
+        
+        /// <summary>
         /// BotScoutApiKey-Steuerelement
         /// </summary>
         /// <remarks>
@@ -632,6 +650,15 @@ namespace YAF.Pages.Admin {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Controls.HelpLabel HelpLabel192;
+        
+        /// <summary>
+        /// ThemeButton2-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton ThemeButton2;
         
         /// <summary>
         /// StopForumSpamApiKey-Steuerelement

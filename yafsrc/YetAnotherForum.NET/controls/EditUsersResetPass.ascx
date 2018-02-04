@@ -73,10 +73,10 @@
                 <div class="text-lg-center">
 
                     <asp:LinkButton ID="btnChangePassword" Visible="false" runat="server"
-                        CssClass="btn btn-primary" ValidationGroup="passchange" OnClick="btnChangePassword_Click"
+                        Type="Primary" ValidationGroup="passchange" OnClick="btnChangePassword_Click"
                         CausesValidation="true" />
                     &nbsp;
-                    <asp:LinkButton ID="btnResetPassword" runat="server" CssClass="btn btn-primary"
+                    <asp:LinkButton ID="btnResetPassword" runat="server" Type="Primary"
                         OnClick="btnResetPassword_Click" CausesValidation="false" />
                     </div>
       

@@ -45,7 +45,7 @@
 
                                 </div>
                                 <div class="modal-footer">
-                                    <asp:Button ID="LoginButton" runat="server" CssClass="btn btn-primary" CommandName="Login" ValidationGroup="Login1" />
+                                    <asp:Button ID="LoginButton" runat="server" Type="Primary" CommandName="Login" ValidationGroup="Login1" />
                                     <asp:PlaceHolder ID="FaceBookHolder" runat="server" Visible="false">
                                         <asp:LinkButton runat="server" ID="FacebookRegister"
                                             CssClass="authLogin facebookLogin" Visible="False"

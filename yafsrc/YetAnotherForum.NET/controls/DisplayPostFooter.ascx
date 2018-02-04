@@ -39,7 +39,7 @@
             TextLocalizedPage="POSTS" TextLocalizedTag="REPORTPOST" 
             ImageThemeTag="REPORT_POST" TitleLocalizedTag="REPORTPOST_TITLE">
         </YAF:ThemeButton>
-	    <YAF:ThemeButton ID="MarkAsAnswer" runat="server" Visible="false" CssClass="btn btn-primary btn-sm"
+	    <YAF:ThemeButton ID="MarkAsAnswer" runat="server" Visible="false" Type="Primary" CssClass="btn-sm"
             TextLocalizedPage="POSTS" TextLocalizedTag="MARK_ANSWER" TitleLocalizedTag="MARK_ANSWER_TITLE"
             Icon="check-square" OnClick="MarkAsAnswerClick">
 	    </YAF:ThemeButton>	

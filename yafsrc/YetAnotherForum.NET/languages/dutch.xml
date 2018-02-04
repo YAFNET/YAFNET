@@ -388,6 +388,7 @@
     <Resource tag="BOARD_TOPIC_DEFAULT">Standaard Topic:</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">De standaard board topic interval selectie.</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Verwijder Sleutel:</Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Verwijder de copyright informatie en link naar YAF in de voettekst van het forum. Beschikbaar via &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;de YAF.NET website&lt;/a&gt;. </Resource>
     <Resource tag="HEADER">Huidige Board Configuratie</Resource>
     <Resource tag="TITLE">Board Configuratie</Resource>
@@ -953,6 +954,7 @@
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Actieve Topics Feed Toegang:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Beperk weergave van actieve topic feeds.</Resource>
     <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
+    <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="AKISMET_KEY_HELP">Om de Akismet SPAM Service te gebruiken heb je een API Key nodig &lt;a href="https://akismet.com/signup/"&gt;Scrijf hier in&lt;a&gt;.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Albums Per Pagina:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Het aantal albums dat per pagina zichtbaar is.</Resource>
@@ -4596,6 +4598,7 @@ Spoiler Inhoud
     <Resource tag="TOGGLEPOST">Verberg Post/Laat Post zien</Resource>
     <Resource tag="TOGGLEUSERPOSTS_HIDE">Verberg posts van gebruiker</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Laat Posts van gebruiker zien</Resource>
+    <Resource tag="TOOLS">Tools</Resource>
     <Resource tag="TOP">Terug naar boven</Resource>
     <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
     <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>

@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            <YAF:ThemeButton ID="RunQuery" runat="server" CssClass="btn btn-primary" OnClick="RunQueryClick"
+                            <YAF:ThemeButton ID="RunQuery" runat="server" Type="Primary" OnClick="RunQueryClick"
                                              Icon="rocket"
                                              TextLocalizedTag="RUN_QUERY" TextLocalizedPage="ADMIN_RUNSQL">
                             </YAF:ThemeButton>

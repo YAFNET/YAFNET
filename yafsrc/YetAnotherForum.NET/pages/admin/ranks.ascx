@@ -73,14 +73,14 @@
                     </td>
 					<td>
 					    <span class="float-right">
-					    <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm"
+					    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" CssClass="btn-sm"
                             CommandName='edit' CommandArgument='<%# this.Eval( "RankID") %>'
                             TitleLocalizedTag="EDIT"
                             Icon="edit"
                             TextLocalizedTag="EDIT"
                             runat="server">
 					    </YAF:ThemeButton>
-						<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm"
+						<YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" CssClass="btn-sm"
                                     CommandName='delete' CommandArgument='<%# this.Eval( "RankID") %>'
                                     TitleLocalizedTag="DELETE"
                                     Icon="trash"
@@ -98,7 +98,7 @@
 		</asp:Repeater>
                 </div>
                 <div class="card-footer text-lg-center">
-				   <YAF:ThemeButton ID="NewRank" runat="server" OnClick="NewRankClick" CssClass="btn btn-primary"
+				   <YAF:ThemeButton ID="NewRank" runat="server" OnClick="NewRankClick" Type="Primary"
 				                    Icon="plus-square"
 				                    TextLocalizedTag="NEW_RANK" />
                 </div>

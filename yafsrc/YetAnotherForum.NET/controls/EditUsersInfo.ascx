@@ -127,5 +127,5 @@
 
                 <div class="text-lg-center">
 
-            <asp:LinkButton ID="Save" runat="server" CssClass="btn btn-primary" OnClick="Save_Click" />
+            <asp:LinkButton ID="Save" runat="server" Type="Primary" OnClick="Save_Click" />
             </div>

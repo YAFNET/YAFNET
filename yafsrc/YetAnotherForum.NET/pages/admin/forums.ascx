@@ -28,13 +28,13 @@
 						<%# this.Eval( "SortOrder") %>
 					</td>
 					<td class="text-lg-right">
-                    <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm"
+                    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" CssClass="btn-sm"
                         CommandName='edit' CommandArgument='<%# this.Eval( "CategoryID") %>'
                         TitleLocalizedTag="EDIT" Icon="edit"
                         TextLocalizedTag="EDIT"
                         runat="server">
                     </YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm"
+                    <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" CssClass="btn-sm"
                         OnLoad="DeleteCategory_Load"  CommandName='delete' CommandArgument='<%# this.Eval( "CategoryID") %>'
                         TitleLocalizedTag="DELETE" Icon="trash"
                         TextLocalizedTag="DELETE"
@@ -56,15 +56,15 @@
 							</td>
 							<td>
 					    <span class="float-right">
-                             <YAF:ThemeButton ID="btnEdit" CssClass="btn btn-info btn-sm"
+                             <YAF:ThemeButton ID="btnEdit" Type="Info" CssClass="btn-sm"
                                  CommandName='edit' CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>'
                                  TextLocalizedTag="EDIT"
                                  TitleLocalizedTag="EDIT" Icon="edit" runat="server"></YAF:ThemeButton>
-							 <YAF:ThemeButton ID="btnDuplicate" CssClass="btn btn-info btn-sm"
+							 <YAF:ThemeButton ID="btnDuplicate" Type="Info" CssClass="btn-sm"
                                  CommandName='copy' CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>'
                                  TextLocalizedTag="COPY"
                                  TitleLocalizedTag="COPY" Icon="copy" runat="server"></YAF:ThemeButton>
-                             <YAF:ThemeButton ID="btnDelete" CssClass="btn btn-danger btn-sm"
+                             <YAF:ThemeButton ID="btnDelete" Type="Danger" CssClass="btn-sm"
                                  CommandName='delete' CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>'
                                  TextLocalizedTag="DELETE"
                                  TitleLocalizedTag="DELETE" Icon="trash" runat="server"></YAF:ThemeButton>
@@ -81,10 +81,10 @@
 		</asp:Repeater>
                 </div>
                 <div class="card-footer text-lg-center">
-				<YAF:ThemeButton ID="NewCategory" runat="server" OnClick="NewCategory_Click" CssClass="btn btn-primary"
+				<YAF:ThemeButton ID="NewCategory" runat="server" OnClick="NewCategory_Click" Type="Primary"
 				                 Icon="plus-square" TextLocalizedTag="NEW_CATEGORY"></YAF:ThemeButton>
 				&nbsp;
-				<YAF:ThemeButton ID="NewForum" runat="server" OnClick="NewForum_Click" CssClass="btn btn-primary"
+				<YAF:ThemeButton ID="NewForum" runat="server" OnClick="NewForum_Click" Type="Primary"
 				                 Icon="plus-square" TextLocalizedTag="NEW_FORUM"></YAF:ThemeButton>
 
                 </div>

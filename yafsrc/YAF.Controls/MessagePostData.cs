@@ -239,7 +239,7 @@ namespace YAF.Controls
         {
             CodeContracts.VerifyNotNull(message, "message");
 
-            int maxPostSize = Math.Max(YafContext.Current.Get<YafBoardSettings>().MaxPostSize, 0);
+            var maxPostSize = Math.Max(YafContext.Current.Get<YafBoardSettings>().MaxPostSize, 0);
 
             // 0 == unlimited
             return maxPostSize == 0 || message.Length <= maxPostSize ? message : message.Truncate(maxPostSize);

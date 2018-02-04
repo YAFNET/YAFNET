@@ -705,9 +705,9 @@
     <asp:HiddenField runat="server" ID="hidLastTab" Value="View1" />
 </div>
                 <div class="card-footer text-lg-center">
-				<asp:Button ID="LaunchGenerator" runat="server" Text="Launch Generator" CssClass="btn btn-primary"
+				<asp:Button ID="LaunchGenerator" runat="server" Text="Launch Generator" Type="Primary"
 					OnClick="CreateTestData_Click"></asp:Button>&nbsp;
-				<asp:Button ID="Cancel" runat="server" Text="Cancel" CssClass="btn btn-secondary" OnClick="Cancel_Click"></asp:Button>
+				<asp:Button ID="Cancel" runat="server" Text="Cancel" Type="Secondary" OnClick="Cancel_Click"></asp:Button>
                 </div>
             </div>
         </div>

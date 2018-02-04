@@ -1549,9 +1549,6 @@ namespace YAF.Pages
 
             // share menu...
             this.ShareMenu.Visible = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowShareTopicTo);
-            this.ShareLink.Visible = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowShareTopicTo);
-
-            this.ShareLink.ToolTip = this.GetText("SHARE_TOOLTIP");
 
             if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowShareTopicTo))
             {
@@ -1561,17 +1558,17 @@ namespace YAF.Pages
                 if (this.Get<YafBoardSettings>().AllowEmailTopic)
                 {
                     this.ShareMenu.AddPostBackItem(
-                        "email", this.GetText("EMAILTOPIC"), this.Get<ITheme>().GetItem("ICONS", "EMAIL"));
+                        "email", this.GetText("EMAILTOPIC"), "fa fa-send");
                 }
 
                 this.ShareMenu.AddClientScriptItem(
                     this.GetText("LINKBACK_TOPIC"),
                     "prompt('{0}','{1}');return false;".FormatWith(this.GetText("LINKBACK_TOPIC_PROMT"), topicUrl),
-                    this.Get<ITheme>().GetItem("ICONS", "LINKBACK"));
+                    "fa fa-link");
                 this.ShareMenu.AddPostBackItem(
-                    "retweet", this.GetText("RETWEET_TOPIC"), this.Get<ITheme>().GetItem("ICONS", "TWITTER"));
+                    "retweet", this.GetText("RETWEET_TOPIC"), "fab fa-twitter");
                 this.ShareMenu.AddPostBackItem(
-                    "googleplus", this.GetText("GOOGLEPLUS_TOPIC"), this.Get<ITheme>().GetItem("ICONS", "GOOGLEPLUS"));
+                    "googleplus", this.GetText("GOOGLEPLUS_TOPIC"), "fab fa-google-plus-g");
 
                 var facebookUrl =
                     "http://www.facebook.com/plugins/like.php?href={0}".FormatWith(
@@ -1582,7 +1579,7 @@ namespace YAF.Pages
                     @"window.open('{0}','{1}','width=300,height=200,resizable=yes');".FormatWith(
                         facebookUrl,
                         this.GetText("FACEBOOK_TOPIC")),
-                    this.Get<ITheme>().GetItem("ICONS", "FACEBOOK"));
+                    "fab fa-facebook");
 
                 var facebookShareUrl =
                    "https://www.facebook.com/sharer/sharer.php?u={0}".FormatWith(
@@ -1593,62 +1590,55 @@ namespace YAF.Pages
                     @"window.open('{0}','{1}','width=550,height=690,resizable=yes');".FormatWith(
                         facebookShareUrl,
                         this.GetText("FACEBOOK_SHARE_TOPIC")),
-                    this.Get<ITheme>().GetItem("ICONS", "FACEBOOK"));
+                    "fab fa-facebook");
+                this.ShareMenu.AddPostBackItem(
+                    "reddit", this.GetText("REDDIT_TOPIC"), "fab fa-reddit");
 
                 this.ShareMenu.AddPostBackItem(
-                    "digg", this.GetText("DIGG_TOPIC"), this.Get<ITheme>().GetItem("ICONS", "DIGG"));
-                this.ShareMenu.AddPostBackItem(
-                    "reddit", this.GetText("REDDIT_TOPIC"), this.Get<ITheme>().GetItem("ICONS", "REDDIT"));
-
-                this.ShareMenu.AddPostBackItem(
-                    "tumblr", this.GetText("TUMBLR_TOPIC"), this.Get<ITheme>().GetItem("ICONS", "TUMBLR"));
+                    "tumblr", this.GetText("TUMBLR_TOPIC"), "fab fa-tumblr");
             }
             else
             {
                 if (this.Get<YafBoardSettings>().AllowEmailTopic)
                 {
                     this.OptionsMenu.AddPostBackItem(
-                        "email", this.GetText("EMAILTOPIC"), this.Get<ITheme>().GetItem("ICONS", "EMAIL"));
+                        "email", this.GetText("EMAILTOPIC"), "fa fa-email");
                 }
             }
 
             // options menu...
-            this.OptionsLink.ToolTip = this.GetText("OPTIONS_TOOLTIP");
-
             this.OptionsMenu.AddPostBackItem(
                 "watch",
                 isWatched ? this.GetText("UNWATCHTOPIC") : this.GetText("WATCHTOPIC"),
-                this.Get<ITheme>().GetItem("ICONS", "EMAIL"));
+                isWatched ? "fa fa-eye-slash" : "fa fa-eye");
 
             this.OptionsMenu.AddPostBackItem(
-                "print", this.GetText("PRINTTOPIC"), this.Get<ITheme>().GetItem("ICONS", "PRINT"));
+                "print", this.GetText("PRINTTOPIC"), "fa fa-print");
 
             if (this.Get<YafBoardSettings>().ShowAtomLink
                 && this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess))
             {
                 this.OptionsMenu.AddPostBackItem(
-                    "atomfeed", this.GetText("ATOMTOPIC"), this.Get<ITheme>().GetItem("ICONS", "ATOMFEED"));
+                    "atomfeed", this.GetText("ATOMTOPIC"), "fa fa-rss");
             }
 
             if (this.Get<YafBoardSettings>().ShowRSSLink
                 && this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess))
             {
                 this.OptionsMenu.AddPostBackItem(
-                    "rssfeed", this.GetText("RSSTOPIC"), this.Get<ITheme>().GetItem("ICONS", "RSSFEED"));
+                    "rssfeed", this.GetText("RSSTOPIC"), "fa fa-rss-square");
             }
 
             // view menu
-            this.ViewLink.ToolTip = this.GetText("VIEW_TOOLTIP");
-
             if (this.IsThreaded)
             {
-                this.ViewMenu.AddPostBackItem("normal", this.GetText("NORMAL"));
-                this.ViewMenu.AddPostBackItem("threaded", "&#187; {0}".FormatWith(this.GetText("THREADED")));
+                this.ViewMenu.AddPostBackItem("normal", this.GetText("NORMAL"), "fa fa-book");
+                this.ViewMenu.AddPostBackItem("threaded", "&#187; {0}".FormatWith(this.GetText("THREADED")), "fa fa-book");
             }
             else
             {
-                this.ViewMenu.AddPostBackItem("normal", "&#187; {0}".FormatWith(this.GetText("NORMAL")));
-                this.ViewMenu.AddPostBackItem("threaded", this.GetText("THREADED"));
+                this.ViewMenu.AddPostBackItem("normal", "&#187; {0}".FormatWith(this.GetText("NORMAL")), "fa fa-book");
+                this.ViewMenu.AddPostBackItem("threaded", this.GetText("THREADED"), "fa fa-book");
             }
 
             // attach the menus to HyperLinks

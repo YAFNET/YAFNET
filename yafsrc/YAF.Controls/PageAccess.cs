@@ -49,26 +49,41 @@ namespace YAF.Controls
       base.OnInit(e);
     }
 
-    /// <summary>
-    /// Renders the Control
-    /// </summary>
-    /// <param name="writer">The writer.</param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
-    {
-      writer.WriteLine(this.GetText(PageContext.ForumPostAccess ? "can_post" : "cannot_post"));
-      writer.WriteLine("<br />");
-      writer.WriteLine(this.GetText(PageContext.ForumReplyAccess ? "can_reply" : "cannot_reply"));
-      writer.WriteLine("<br />");
-      writer.WriteLine(this.GetText(PageContext.ForumDeleteAccess ? "can_delete" : "cannot_delete"));
-      writer.WriteLine("<br />");
-      writer.WriteLine(this.GetText(PageContext.ForumEditAccess ? "can_edit" : "cannot_edit"));
-      writer.WriteLine("<br />");
-      writer.WriteLine(this.GetText(PageContext.ForumPollAccess ? "can_poll" : "cannot_poll"));
-      writer.WriteLine("<br />");
-      writer.WriteLine(this.GetText(PageContext.ForumVoteAccess ? "can_vote" : "cannot_vote"));
-      writer.WriteLine("<br />");
-    }
+      /// <summary>
+      /// Renders the Control
+      /// </summary>
+      /// <param name="writer">The writer.</param>
+      protected override void Render([NotNull] HtmlTextWriter writer)
+      {
+          writer.WriteLine(@"<ul class=""list-group"">");
+          writer.WriteLine(
+              @"<li class=""list-group-item list-group-item-{0}"">{1}</li>",
+              this.PageContext.ForumPostAccess ? "success" : "danger",
+              this.GetText(this.PageContext.ForumPostAccess ? "can_post" : "cannot_post"));
+          writer.WriteLine(
+              @"<li class=""list-group-item list-group-item-{0}"">{1}</li>",
+              this.PageContext.ForumPostAccess ? "success" : "danger",
+              this.GetText(this.PageContext.ForumReplyAccess ? "can_reply" : "cannot_reply"));
+          writer.WriteLine(
+              @"<li class=""list-group-item list-group-item-{0}"">{1}</li>",
+              this.PageContext.ForumDeleteAccess ? "success" : "danger",
+              this.GetText(this.PageContext.ForumDeleteAccess ? "can_delete" : "cannot_delete"));
+          writer.WriteLine(
+              @"<li class=""list-group-item list-group-item-{0}"">{1}</li>",
+              this.PageContext.ForumEditAccess ? "success" : "danger",
+              this.GetText(this.PageContext.ForumEditAccess ? "can_edit" : "cannot_edit"));
+          writer.WriteLine(
+              @"<li class=""list-group-item list-group-item-{0}"">{1}</li>",
+              this.PageContext.ForumPollAccess ? "success" : "danger",
+              this.GetText(this.PageContext.ForumPollAccess ? "can_poll" : "cannot_poll"));
+          writer.WriteLine(
+              @"<li class=""list-group-item list-group-item-{0}"">{1}</li>",
+              this.PageContext.ForumVoteAccess ? "success" : "danger",
+              this.GetText(this.PageContext.ForumVoteAccess ? "can_vote" : "cannot_vote"));
 
-    #endregion
+          writer.WriteLine("<ul>");
+      }
+
+      #endregion
   }
 }

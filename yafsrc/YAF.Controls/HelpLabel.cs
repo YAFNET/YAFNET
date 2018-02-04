@@ -25,7 +25,6 @@ namespace YAF.Controls
 {
     #region Using
 
-    using System;
     using System.Web.UI;
 
     using YAF.Core;
@@ -42,71 +41,9 @@ namespace YAF.Controls
         #region Constants and Fields
 
         /// <summary>
-        /// The _enable bb code.
-        /// </summary>
-        protected bool _enableBBCode;
-
-        /// <summary>
-        /// The _suffix.
-        /// </summary>
-        protected string _suffix = string.Empty;
-
-        /// <summary>
-        /// The _localized page.
-        /// </summary>
-        protected string _localizedPage = string.Empty;
-
-        /// <summary>
-        /// The _localized tag.
-        /// </summary>
-        protected string _localizedTag = string.Empty;
-
-        /// <summary>
         /// The _localized tag.
         /// </summary>
         protected string _localizedHelpTag = string.Empty;
-
-        /// <summary>
-        /// The _param 0.
-        /// </summary>
-        protected string _param0 = string.Empty;
-
-        /// <summary>
-        /// The _param 1.
-        /// </summary>
-        protected string _param1 = string.Empty;
-
-        /// <summary>
-        /// The _param 2.
-        /// </summary>
-        protected string _param2 = string.Empty;
-
-        /// <summary>
-        /// The _param 0.
-        /// </summary>
-        protected string _paramHelp0 = string.Empty;
-
-        /// <summary>
-        /// The _param 1.
-        /// </summary>
-        protected string _paramHelp1 = string.Empty;
-
-        /// <summary>
-        /// The _param 2.
-        /// </summary>
-        protected string _paramHelp2 = string.Empty;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HelpLabel"/> class.
-        /// </summary>
-        public HelpLabel()
-            : base()
-        {
-        }
 
         #endregion
 
@@ -115,50 +52,17 @@ namespace YAF.Controls
         /// <summary>
         /// Gets or sets a value indicating whether EnableBBCode.
         /// </summary>
-        public bool EnableBBCode
-        {
-            get
-            {
-                return this._enableBBCode;
-            }
-
-            set
-            {
-                this._enableBBCode = value;
-            }
-        }
+        public bool EnableBBCode { get; set; }
 
         /// <summary>
         /// Gets or sets Suffix. e.g: ":" or "?"
         /// </summary>
-        public string Suffix
-        {
-            get
-            {
-                return this._suffix;
-            }
-
-            set
-            {
-                this._suffix = value;
-            }
-        }
+        public string Suffix { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets LocalizedPage.
         /// </summary>
-        public string LocalizedPage
-        {
-            get
-            {
-                return this._localizedPage;
-            }
-
-            set
-            {
-                this._localizedPage = value;
-            }
-        }
+        public string LocalizedPage { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets LocalizedTag.
@@ -168,7 +72,7 @@ namespace YAF.Controls
             get
             {
                 return string.IsNullOrEmpty(this._localizedHelpTag)
-                           ? "{0}_HELP".FormatWith(this._localizedTag)
+                           ? "{0}_HELP".FormatWith(this.LocalizedTag)
                            : this._localizedHelpTag;
             }
 
@@ -181,114 +85,37 @@ namespace YAF.Controls
         /// <summary>
         /// Gets or sets LocalizedTag.
         /// </summary>
-        public string LocalizedTag
-        {
-            get
-            {
-                return this._localizedTag;
-            }
-
-            set
-            {
-                this._localizedTag = value;
-            }
-        }
+        public string LocalizedTag { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets Param0.
         /// </summary>
-        public string Param0
-        {
-            get
-            {
-                return this._param0;
-            }
-
-            set
-            {
-                this._param0 = value;
-            }
-        }
+        public string Param0 { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets Param1.
         /// </summary>
-        public string Param1
-        {
-            get
-            {
-                return this._param1;
-            }
-
-            set
-            {
-                this._param1 = value;
-            }
-        }
+        public string Param1 { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets Param2.
         /// </summary>
-        public string Param2
-        {
-            get
-            {
-                return this._param2;
-            }
-
-            set
-            {
-                this._param2 = value;
-            }
-        }
+        public string Param2 { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets ParamHelp0.
         /// </summary>
-        public string ParamHelp0
-        {
-            get
-            {
-                return this._paramHelp0;
-            }
-
-            set
-            {
-                this._paramHelp0 = value;
-            }
-        }
+        public string ParamHelp0 { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets ParamHelp1.
         /// </summary>
-        public string ParamHelp1
-        {
-            get
-            {
-                return this._paramHelp1;
-            }
-
-            set
-            {
-                this._paramHelp1 = value;
-            }
-        }
+        public string ParamHelp1 { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets ParamHelp2.
         /// </summary>
-        public string ParamHelp2
-        {
-            get
-            {
-                return this._paramHelp2;
-            }
-
-            set
-            {
-                this._paramHelp2 = value;
-            }
-        }
+        public string ParamHelp2 { get; set; } = string.Empty;
 
         #endregion
 

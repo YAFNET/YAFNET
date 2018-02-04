@@ -388,6 +388,7 @@
     <Resource tag="BOARD_TOPIC_DEFAULT">نحوه نمایش موضوعات</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">تابلو پیش فرض فاصله انتخاب موضوع را نمایش می دهد.</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">کلید حذف کپی رایت:</Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">حذف نام و عنوان YAF از زیر انجمن موجود در لینک : &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;سایت YAF&lt;/a&gt;. </Resource>
     <Resource tag="HEADER">تنظیمات فعلی تابلو</Resource>
     <Resource tag="TITLE">تنظیمات تابلو</Resource>
@@ -952,6 +953,7 @@
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">دسترسی به فید موضوعات فعال:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">محدود کردن نمایش فید موضوعات فعال.</Resource>
     <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
+    <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="AKISMET_KEY_HELP">برای استفاده از سرویس اسپم کامنت Akismet شما باید یک API Key ارایه دهید&lt;a href="https://akismet.com/signup/"&gt;از این قسمت اقدام کنید&lt;a&gt;.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">تعداد آلبوم در صفحه :</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">تعداد آلبوم ها برای نمایش در هر صفحه.</Resource>
@@ -4678,6 +4680,7 @@
     <Resource tag="TOGGLEPOST">نمايش/عدم نمايش ارسال ها</Resource>
     <Resource tag="TOGGLEUSERPOSTS_HIDE">مخفی كردن ارسال‌های كاربر</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">نمايش ارسال‌های كاربر</Resource>
+    <Resource tag="TOOLS">Tools</Resource>
     <Resource tag="TOP">رفتن به بالای صفحه</Resource>
     <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
     <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>

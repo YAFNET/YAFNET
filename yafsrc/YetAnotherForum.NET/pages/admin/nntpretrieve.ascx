@@ -55,7 +55,7 @@
                         <p><asp:TextBox runat="server" ID="Seconds" Text="30" CssClass="form-control SecondsInput" TextMode="Number" /></p>
                     </div>
                 <div class="card-footer text-center">
-                    <YAF:ThemeButton runat="server" ID="Retrieve" CssClass="btn btn-primary" OnClick="RetrieveClick"
+                    <YAF:ThemeButton runat="server" ID="Retrieve" Type="Primary" OnClick="RetrieveClick"
                                      Icon="download" TextLocalizedTag="RETRIEVE"/>
                 </div>
             </div>

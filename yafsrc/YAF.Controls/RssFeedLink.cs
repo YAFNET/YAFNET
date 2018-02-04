@@ -329,7 +329,7 @@ namespace YAF.Controls
       if (this.Visible)
       {
         // get the title...
-        string title = this.GetLocalizedTitle();
+        var title = this.GetLocalizedTitle();
 
         output.BeginRender();
 

@@ -65,17 +65,17 @@
                  </div>
                 </div>
                     <div class="card-footer text-lg-center">
-				    <YAF:ThemeButton ID="Save" runat="server" OnClick="Save_Click" CssClass="btn btn-primary"            
+				    <YAF:ThemeButton ID="Save" runat="server" OnClick="Save_Click" Type="Primary"            
 				                     Icon="save" TextLocalizedTag="SAVE" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
-                    <YAF:ThemeButton ID="GrantAll" runat="server" OnClick="GrantAll_Click" CssClass="btn btn-info"
+                    <YAF:ThemeButton ID="GrantAll" runat="server" OnClick="GrantAll_Click" Type="Info"
                                      Icon="check" TextLocalizedTag="GRANTALL" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
                     <YAF:ThemeButton ID="RevokeAll" runat="server" OnClick="RevokeAll_Click" CssClass="btn btn-danger"
                                      Icon="trash" TextLocalizedTag="REVOKEALL" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
-                    <YAF:ThemeButton ID="GrantAllDelete" runat="server" OnClick="GrantAllDelete_Click" CssClass="btn btn-info"
+                    <YAF:ThemeButton ID="GrantAllDelete" runat="server" OnClick="GrantAllDelete_Click" Type="Info"
                                      Icon="check" TextLocalizedTag="GRANTALLDELETE" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
                     <YAF:ThemeButton ID="RevokeAllDelete" runat="server" OnClick="RevokeAllDelete_Click" CssClass="btn btn-danger"
                                      Icon="trash" TextLocalizedTag="REVOKEALLDELETE" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
-				    <YAF:ThemeButton ID="Cancel" runat="server" OnClick="Cancel_Click" CausesValidation="false" CssClass="btn btn-secondary"
+				    <YAF:ThemeButton ID="Cancel" runat="server" OnClick="Cancel_Click" CausesValidation="false" Type="Secondary"
 				                     Icon="times" TextLocalizedTag="CANCEL" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
                 </div>
             </div>

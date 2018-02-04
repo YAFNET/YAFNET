@@ -47,7 +47,7 @@ namespace YAF.Controls
         /// </summary>
         public IconLegend()
         {
-            Load += this.IconLegend_Load;
+            this.Load += this.IconLegendLoad;
         }
 
         #endregion
@@ -66,44 +66,46 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The icon legend_ load.
+        /// Icons the legend load.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private void IconLegend_Load([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void IconLegendLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
-            string[] themeImageTags = {
-                                          "TOPIC_NEW", "TOPIC", "TOPIC_HOT_NEW", "TOPIC_HOT", "TOPIC_NEW_LOCKED", "TOPIC_LOCKED", "TOPIC_ANNOUNCEMENT_NEW", "TOPIC_ANNOUNCEMENT",
-                                          "TOPIC_STICKY_NEW", "TOPIC_STICKY", "TOPIC_POLL_NEW", "TOPIC_POLL", "TOPIC_MOVED"
-                                      };
+            string[] themeImageTags =
+                {
+                    "TOPIC_NEW", "TOPIC", "TOPIC_HOT_NEW", "TOPIC_HOT", "TOPIC_NEW_LOCKED", "TOPIC_LOCKED",
+                    "TOPIC_ANNOUNCEMENT_NEW", "TOPIC_ANNOUNCEMENT", "TOPIC_STICKY_NEW", "TOPIC_STICKY",
+                    "TOPIC_POLL_NEW", "TOPIC_POLL", "TOPIC_MOVED"
+                };
 
-            string[] localizedTags = {
-                                         "NEW_POSTS", "NO_NEW_POSTS", "HOT_NEW_POSTS", "HOT_NO_NEW_POSTS", "NEW_POSTS_LOCKED", "NO_NEW_POSTS_LOCKED",
-                                         "ANNOUNCEMENT_NEW", "ANNOUNCEMENT", "STICKY_NEW", "STICKY", "POLL_NEW",  "POLL", "MOVED"
-                                     };
+            string[] localizedTags =
+                {
+                    "NEW_POSTS", "NO_NEW_POSTS", "HOT_NEW_POSTS", "HOT_NO_NEW_POSTS", "NEW_POSTS_LOCKED",
+                    "NO_NEW_POSTS_LOCKED", "ANNOUNCEMENT_NEW", "ANNOUNCEMENT", "STICKY_NEW", "STICKY", "POLL_NEW",
+                    "POLL", "MOVED"
+                };
 
-            HtmlTableRow tr = null;
+            HtmlGenericControl tr = null;
 
             // add a table control
-            var table = new HtmlTable();
-            table.Attributes.Add("class", "iconlegend");
-            Controls.Add(table);
+            var table = new HtmlGenericControl("div");
+            table.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "container");
+            this.Controls.Add(table);
 
-            for (int i = 0; i < themeImageTags.Length; i++)
+            for (var i = 0; i < themeImageTags.Length; i++)
             {
-                if ((i % 2) == 0 || tr == null)
+                if (i % 2 == 0 || tr == null)
                 {
                     // add <tr>
-                    tr = new HtmlTableRow();
+                    tr = new HtmlGenericControl("div");
+                    tr.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "row");
                     table.Controls.Add(tr);
                 }
 
                 // add this to the tr...
-                HtmlTableCell td = new HtmlTableCell();
+                var td = new HtmlGenericControl("div");
+                td.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "col");
                 tr.Controls.Add(td);
 
                 // add the themed icons

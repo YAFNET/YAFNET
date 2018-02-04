@@ -47,11 +47,11 @@
 				</td>
 				<td>
 				    <span class="float-right">
-					<YAF:ThemeButton ID="btnEdit" CssClass="btn btn-info btn-sm" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
+					<YAF:ThemeButton ID="btnEdit" Type="Info" CssClass="btn-sm" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
                         TextLocalizedTag="EDIT"
                         TitleLocalizedTag="EDIT" Icon="edit" runat="server">
 					</YAF:ThemeButton>
-					<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm" 
+					<YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" CssClass="btn-sm" 
 					                 CommandName='delete'
                         TextLocalizedTag="DELETE"
                         CommandArgument='<%# this.Eval( "ID") %>' TitleLocalizedTag="DELETE" Icon="trash" runat="server"
@@ -65,13 +65,13 @@
             </table></div>
                 </div>
                 <div class="card-footer text-lg-center">
-					<YAF:ThemeButton runat="server" CommandName='add' ID="Linkbutton3" CssClass="btn btn-primary"
+					<YAF:ThemeButton runat="server" CommandName='add' ID="Linkbutton3" Type="Primary"
 					                 Icon="plus-square" TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_REPLACEWORDS"> </YAF:ThemeButton>
 					&nbsp;
-					<YAF:ThemeButton runat="server" Icon="upload" DataTarget="ReplaceWordsImportDialog" ID="Linkbutton5" CssClass="btn btn-info"
+					<YAF:ThemeButton runat="server" Icon="upload" DataTarget="ReplaceWordsImportDialog" ID="Linkbutton5" Type="Info"
 					                 TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_REPACEWORDS"></YAF:ThemeButton>
 					&nbsp;
-					<YAF:ThemeButton runat="server" CommandName='export' ID="Linkbutton4" CssClass="btn btn-warning"
+					<YAF:ThemeButton runat="server" CommandName='export' ID="Linkbutton4" Type="Warning"
 					                 Icon="download" TextLocalizedTag="EXPORT" TextLocalizedPage="ADMIN_REPLACEWORDS"></YAF:ThemeButton>
                 </div>
             </div>

@@ -33,7 +33,7 @@
 		</h4>
 		<p>
 			<%= this.GetSuspendedTo() %>
-			&nbsp;<asp:LinkButton runat="server" ID="RemoveSuspension" CssClass="btn btn-danger btn-sm" OnClick="RemoveSuspension_Click" />
+			&nbsp;<asp:LinkButton runat="server" ID="RemoveSuspension" Type="Danger" CssClass="btn-sm" OnClick="RemoveSuspension_Click" />
 		</p>
 	<hr />
     </asp:PlaceHolder>
@@ -64,5 +64,5 @@
             </div>
 
                 <div class="text-lg-center">
-            <asp:LinkButton runat="server" ID="Suspend" OnClick="Suspend_Click" CssClass="btn btn-primary"  />
+            <asp:LinkButton runat="server" ID="Suspend" OnClick="Suspend_Click" Type="Primary"  />
             </div>

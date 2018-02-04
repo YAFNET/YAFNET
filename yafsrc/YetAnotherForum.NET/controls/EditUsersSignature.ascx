@@ -34,6 +34,6 @@
                 <div class="text-lg-center">
 
             <asp:LinkButton ID="preview" CssClass="btn btn-success" runat="server" />&nbsp;
-            <asp:LinkButton ID="save" CssClass="btn btn-primary" runat="server" />&nbsp;
-            <asp:LinkButton ID="cancel" CssClass="btn btn-secondary" runat="server" />
+            <asp:LinkButton ID="save" Type="Primary" runat="server" />&nbsp;
+            <asp:LinkButton ID="cancel" Type="Secondary" runat="server" />
             </div>

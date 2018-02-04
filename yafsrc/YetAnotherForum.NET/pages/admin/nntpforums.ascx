@@ -59,11 +59,11 @@
                     </td>
                     <td>
 					    <span class="float-right">
-                        <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm" runat="server"
+                        <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" CssClass="btn-sm" runat="server"
                                          CommandName='edit' CommandArgument='<%# this.Eval("NntpForumID") %>'
                                          Icon="edit" TextLocalizedTag="EDIT">
 					    </YAF:ThemeButton>&nbsp;
-                        <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm" runat="server"
+                        <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" CssClass="btn-sm" runat="server"
                                          CommandName='delete' CommandArgument='<%# this.Eval("NntpForumID") %>'
                                          Icon="trash" TextLocalizedTag="DELETE"
                                          ReturnConfirmText='<%# this.GetText("ADMIN_NNTPFORUMS", "DELETE_FORUM") %>'>
@@ -77,7 +77,7 @@
         </asp:Repeater>
                 </div>
                 <div class="card-footer text-center">
-                    <YAF:ThemeButton ID="NewForum" runat="server" CssClass="btn btn-primary" OnClick="NewForumClick"
+                    <YAF:ThemeButton ID="NewForum" runat="server" Type="Primary" OnClick="NewForumClick"
                                      Icon="plus-square" TextLocalizedTag="NEW_FORUM" TextLocalizedPage="ADMIN_NNTPFORUMS" />
                 </div>
             </div>

@@ -78,7 +78,7 @@
                     <asp:TextBox ID="LinkDays" runat="server" CssClass="Numeric" TextMode="Number" />
                 </div>
                 <div class="dropdown-divider"></div>
-                <asp:Button ID="Move" CssClass="btn btn-primary btn-sm" runat="server" OnClick="Move_Click" />
+                <asp:Button ID="Move" Type="Primary" CssClass="btn-sm" runat="server" OnClick="Move_Click" />
             </form>
         </div>
     </div>

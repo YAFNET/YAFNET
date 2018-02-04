@@ -388,6 +388,7 @@
     <Resource tag="BOARD_TOPIC_DEFAULT">Show Topic Default:</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">The default board show topic interval selection.</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Removal Key:</Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Remove the copyright information and link back to YAF from the footer of your entire forum domain. Available&lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;from YAF.NET site&lt;/a&gt;. </Resource>
     <Resource tag="HEADER">Current Board Settings</Resource>
     <Resource tag="TITLE">Board Settings</Resource>
@@ -960,6 +961,7 @@
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Active Topics Feeds Access:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Restrict display of active topics feeds.</Resource>
     <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
+    <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href="https://akismet.com/signup/"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Albums Per Page:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Number of albums to show per page.</Resource>
@@ -4649,6 +4651,7 @@ Spoiler Content
     <Resource tag="TOGGLEPOST">Arata/Ascunde acest Post</Resource>
     <Resource tag="TOGGLEUSERPOSTS_HIDE">Ascunde publicatiile utilizatorului</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Arata publicatiile utilizatorului</Resource>
+    <Resource tag="TOOLS">Tools</Resource>
     <Resource tag="TOP">Inapoi sus</Resource>
     <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
     <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>

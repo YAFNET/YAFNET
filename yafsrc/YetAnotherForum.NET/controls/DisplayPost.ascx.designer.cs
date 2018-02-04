@@ -49,6 +49,15 @@ namespace YAF.Controls {
         protected global::YAF.Controls.UserLink UserProfileLink;
         
         /// <summary>
+        /// PopMenu1-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.PopMenu PopMenu1;
+        
+        /// <summary>
         /// AddReputation-Steuerelement
         /// </summary>
         /// <remarks>
@@ -254,14 +263,5 @@ namespace YAF.Controls {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal thanksDataExtendedLiteral;
-        
-        /// <summary>
-        /// PopMenu1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.PopMenu PopMenu1;
     }
 }

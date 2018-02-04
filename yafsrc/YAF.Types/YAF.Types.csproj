@@ -78,6 +78,7 @@
     <Compile Include="Attributes\AssemblyModuleSortOrder.cs" />
     <Compile Include="Attributes\ExcludeAttribute.cs" />
     <Compile Include="Attributes\ExportServiceAttribute.cs" />
+    <Compile Include="Constants\ButtonAction.cs" />
     <Compile Include="Constants\PmView.cs" />
     <Compile Include="Exceptions\BaseUrlMaskRequiredException.cs" />
     <Compile Include="Exceptions\CantLoadThemeException.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="Models\UserForum.cs" />
     <Compile Include="Models\WatchForum.cs" />
     <Compile Include="Models\WatchTopic.cs" />
+    <Compile Include="Objects\PageLink.cs" />
     <Compile Include="Objects\AttachmentItem.cs" />
     <Compile Include="Objects\FacebookAccessToken.cs" />
     <Compile Include="Objects\FileUploadStatus.cs" />

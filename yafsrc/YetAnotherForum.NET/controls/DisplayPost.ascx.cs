@@ -431,29 +431,29 @@ namespace YAF.Controls
         private void SetupPopupMenu()
         {
             this.PopMenu1.ItemClick += this.PopMenu1_ItemClick;
-            this.PopMenu1.AddPostBackItem("userprofile", this.GetText("POSTS", "USERPROFILE"));
+            this.PopMenu1.AddPostBackItem("userprofile", this.GetText("POSTS", "USERPROFILE"), "fa fa-user");
 
-            this.PopMenu1.AddPostBackItem("lastposts", this.GetText("PROFILE", "SEARCHUSER"));
+            this.PopMenu1.AddPostBackItem("lastposts", this.GetText("PROFILE", "SEARCHUSER"), "fa fa-th-list");
 
             if (this.Get<YafBoardSettings>().EnableThanksMod)
             {
-                this.PopMenu1.AddPostBackItem("viewthanks", this.GetText("VIEWTHANKS", "TITLE"));
+                this.PopMenu1.AddPostBackItem("viewthanks", this.GetText("VIEWTHANKS", "TITLE"), "fa fa-heart");
             }
 
             if (this.PageContext.IsAdmin)
             {
-                this.PopMenu1.AddPostBackItem("edituser", this.GetText("POSTS", "EDITUSER"));
+                this.PopMenu1.AddPostBackItem("edituser", this.GetText("POSTS", "EDITUSER"), "fa fa-cogs");
             }
 
             if (!this.PageContext.IsGuest)
             {
                 if (this.Get<IUserIgnored>().IsIgnored(this.PostData.UserId))
                 {
-                    this.PopMenu1.AddPostBackItem("toggleuserposts_show", this.GetText("POSTS", "TOGGLEUSERPOSTS_SHOW"));
+                    this.PopMenu1.AddPostBackItem("toggleuserposts_show", this.GetText("POSTS", "TOGGLEUSERPOSTS_SHOW"), "fa fa-eye");
                 }
                 else
                 {
-                    this.PopMenu1.AddPostBackItem("toggleuserposts_hide", this.GetText("POSTS", "TOGGLEUSERPOSTS_HIDE"));
+                    this.PopMenu1.AddPostBackItem("toggleuserposts_hide", this.GetText("POSTS", "TOGGLEUSERPOSTS_HIDE"), "fa fa-eye-slash");
                 }
             }
 
@@ -465,7 +465,7 @@ namespace YAF.Controls
                 // Should we add the "Add Buddy" item?
                 if (!this.Get<IBuddy>().IsBuddy(userId, false) && !this.PageContext.IsGuest)
                 {
-                    this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"));
+                    this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"), "fa fa-plus");
                 }
                 else if (this.Get<IBuddy>().IsBuddy(userId, true) && !this.PageContext.IsGuest)
                 {

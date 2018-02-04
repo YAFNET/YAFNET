@@ -105,7 +105,7 @@ namespace YAF.Controls
     /// </param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
-        string scriptString =
+        var scriptString =
             @"
   function yaf_SmartScroller_GetCoords()
   {{

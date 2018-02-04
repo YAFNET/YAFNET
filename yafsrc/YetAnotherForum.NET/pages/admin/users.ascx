@@ -68,7 +68,7 @@
                                     <asp:CheckBox CssClass="form-control" ID="SuspendedOnly" runat="server"/>
                                   </li>
                                 <li class="dropdown-item">
-                                    <YAF:ThemeButton ID="search" runat="server" OnClick="SearchClick" CssClass="btn btn-primary"
+                                    <YAF:ThemeButton ID="search" runat="server" OnClick="SearchClick" Type="Primary"
                                                      Icon="search" TextLocalizedTag="SEARCH" TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                                 </li>
                             </ul>
@@ -117,11 +117,11 @@
                     </td>
                     <td>
                         <span class="float-right">
-                       <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm" CommandName='edit' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
+                       <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" CssClass="btn-sm" CommandName='edit' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
                            TextLocalizedTag="EDIT" TitleLocalizedTag="EDIT" Icon="edit" runat="server"></YAF:ThemeButton>
                        <YAF:ThemeButton ID="ThemeButtonDelete" 
                                         ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_DELETE") %>' 
-                                        CssClass="btn btn-danger btn-sm" 
+                                        Type="Danger" CssClass="btn-sm" 
                                         CommandName='delete' CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
                                         TextLocalizedTag="DELETE" TitleLocalizedTag="DELETE"
                                         Icon="trash" 
@@ -136,20 +136,20 @@
                 </div>
                 <div class="card-footer text-lg-center">
                 <asp:PlaceHolder runat="server" ID="ImportAndSyncHolder">
-                    <YAF:ThemeButton id="NewUser" OnClick="NewUserClick" runat="server" CssClass="btn btn-primary"
+                    <YAF:ThemeButton id="NewUser" OnClick="NewUserClick" runat="server" Type="Primary"
                                      Icon="plus-square" TextLocalizedTag="NEW_USER" TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                 &nbsp;
-                    <YAF:ThemeButton id="SyncUsers" OnClick="SyncUsersClick" runat="server" CssClass="btn btn-secondary"
+                    <YAF:ThemeButton id="SyncUsers" OnClick="SyncUsersClick" runat="server" Type="Secondary"
                                      Icon="sync" TextLocalizedTag="SYNC_ALL" TextLocalizedPage="ADMIN_USERS" ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_SYNC") %>'></YAF:ThemeButton>
                 &nbsp;
-                    <YAF:ThemeButton id="ImportUsers" Icon="upload" DataTarget="UsersImportDialog" runat="server" CssClass="btn btn-info"
+                    <YAF:ThemeButton id="ImportUsers" Icon="upload" DataTarget="UsersImportDialog" runat="server" Type="Info"
                                      TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                 &nbsp;
                 </asp:PlaceHolder>
-                    <YAF:ThemeButton id="ExportUsersXml" OnClick="ExportUsersXmlClick" runat="server" CssClass="btn btn-warning"
+                    <YAF:ThemeButton id="ExportUsersXml" OnClick="ExportUsersXmlClick" runat="server" Type="Warning"
                                      Icon="download" TextLocalizedTag="EXPORT_XML" TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                 &nbsp;
-                    <YAF:ThemeButton id="ExportUsersCsv" OnClick="ExportUsersCsvClick" runat="server" CssClass="btn btn-warning"
+                    <YAF:ThemeButton id="ExportUsersCsv" OnClick="ExportUsersCsvClick" runat="server" Type="Warning"
                                      Icon="download" TextLocalizedTag="EXPORT_CSV" TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                 </div>
             </div>

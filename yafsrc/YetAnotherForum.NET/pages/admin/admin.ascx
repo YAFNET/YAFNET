@@ -31,9 +31,7 @@
                 </span>
                         </div>
                         <div class="card-body">
-
                             <div class="card-columns">
-
                     <div class="card mb-3 text-white bg-primary">
                         <div class="card-header">
                             <div class="row">
@@ -320,14 +318,14 @@
 					    <span class="float-right">
                         <YAF:ThemeButton runat="server" CommandName="resendEmail" CommandArgument='<%# this.Eval("Email") + ";" + this.Eval("Name") %>' 
                             Icon="share" TextLocalizedTag="ADMIN_RESEND_EMAIL"
-                            CssClass="btn btn-info btn-sm">
+                            Type="Info" CssClass="btn-sm">
                         </YAF:ThemeButton>&nbsp;
                         <YAF:ThemeButton runat="server" CommandName="approve" CommandArgument='<%# this.Eval("UserID") %>'
-                            CssClass="btn btn-primary btn-sm" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APPROVE") %>'
+                            Type="Primary" CssClass="btn-sm" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APPROVE") %>'
                             Icon="check" TextLocalizedTag="ADMIN_APPROVE">
                         </YAF:ThemeButton>&nbsp;
                         <YAF:ThemeButton runat="server" CommandName="delete" CommandArgument='<%# this.Eval("UserID") %>'
-                            CssClass="btn btn-danger btn-sm" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
+                            Type="Danger" CssClass="btn-sm" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
                             Icon="trash" TextLocalizedTag="ADMIN_DELETE">
                         </YAF:ThemeButton>
 
@@ -357,10 +355,10 @@
                     </div>
                </div>
                 <div class="card-footer form-inline">
-                    <YAF:ThemeButton CommandName="approveall" CssClass="btn btn-primary btn-sm" 
+                    <YAF:ThemeButton CommandName="approveall" Type="Primary" CssClass="btn-sm" 
                         Icon="check" TextLocalizedTag="APROVE_ALL" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL") %>'
                         runat="server"/>&nbsp;
-                    <YAF:ThemeButton CommandName="deleteall" CssClass="btn btn-danger btn-sm" 
+                    <YAF:ThemeButton CommandName="deleteall" Type="Danger" CssClass="btn-sm" 
                         Icon="trash" TextLocalizedTag="DELETE_ALL" ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
                         runat="server" />&nbsp;
                     <asp:TextBox ID="DaysOld" runat="server" MaxLength="5" Text="14" CssClass="form-control Numeric" 

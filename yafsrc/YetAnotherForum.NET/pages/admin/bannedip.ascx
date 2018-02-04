@@ -31,7 +31,7 @@
                     </p>
                 </div>
                 <div class="card-footer text-lg-center">
-                    <YAF:ThemeButton ID="search" runat="server"  CssClass="btn btn-primary btn-sm"
+                    <YAF:ThemeButton ID="search" runat="server"  Type="Primary" CssClass="btn-sm"
                         TextLocalizedTag="BTNSEARCH" TextLocalizedPage="SEARCH" Icon="search"
                         OnClick="Search_Click">
                     </YAF:ThemeButton>
@@ -92,10 +92,10 @@
 				</td>
 				<td>
 					    <span class="float-right">
-				<YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
+				<YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" CssClass="btn-sm" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
                     TextLocalizedTag="EDIT"
                     TitleLocalizedTag="EDIT" Icon="edit" runat="server"></YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm" CommandName='delete' CommandArgument='<%# this.Eval("ID") %>'
+                    <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" CssClass="btn-sm" CommandName='delete' CommandArgument='<%# this.Eval("ID") %>'
                         TextLocalizedTag="DELETE" ReturnConfirmText='<%# this.GetText("ADMIN_BANNEDIP", "MSG_DELETE") %>'
                     TitleLocalizedTag="DELETE" Icon="trash" runat="server"></YAF:ThemeButton>
 
@@ -107,14 +107,14 @@
                 </table></div>
                 </div>
                 <div class="card-footer text-lg-center">
-                    <YAF:ThemeButton runat="server" Icon="plus-square" CssClass="btn btn-primary"
+                    <YAF:ThemeButton runat="server" Icon="plus-square" Type="Primary"
                                      TextLocalizedTag="ADD_IP" TextLocalizedPage="ADMIN_BANNEDIP" CommandName="add"></YAF:ThemeButton>
                     &nbsp;
-                    <YAF:ThemeButton runat="server" Icon="upload" DataTarget="ImportDialog" CssClass="btn btn-info"
+                    <YAF:ThemeButton runat="server" Icon="upload" DataTarget="ImportDialog" Type="Info"
                                      TextLocalizedTag="IMPORT_IPS" TextLocalizedPage="ADMIN_BANNEDIP"></YAF:ThemeButton>
                     &nbsp;
                     <YAF:ThemeButton runat="server" CommandName='export' ID="Linkbutton4" 
-                                     CssClass="btn btn-warning" Icon="download" TextLocalizedPage="ADMIN_BANNEDIP" TextLocalizedTag="EXPORT"></YAF:ThemeButton>
+                                     Type="Warning" Icon="download" TextLocalizedPage="ADMIN_BANNEDIP" TextLocalizedTag="EXPORT"></YAF:ThemeButton>
                 </div>
             </div>
 

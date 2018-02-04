@@ -116,9 +116,9 @@
 
                 </div>
                 <div class="card-footer text-lg-center">
-				    <YAF:ThemeButton ID="Save" runat="server" OnClick="Save_Click" CssClass="btn btn-primary"            
+				    <YAF:ThemeButton ID="Save" runat="server" OnClick="Save_Click" Type="Primary"            
 				                     Icon="save" TextLocalizedTag="SAVE"></YAF:ThemeButton>&nbsp;
-				    <YAF:ThemeButton ID="Cancel" runat="server" OnClick="Cancel_Click" CssClass="btn btn-secondary"
+				    <YAF:ThemeButton ID="Cancel" runat="server" OnClick="Cancel_Click" Type="Secondary"
 				                     Icon="times" TextLocalizedTag="CANCEL"></YAF:ThemeButton>
                 </div>
             </div>

@@ -32,7 +32,7 @@
                 </p>
             </div>
             <div class="card-footer text-lg-center">
-                <YAF:ThemeButton ID="search" runat="server"  CssClass="btn btn-primary btn-sm"
+                <YAF:ThemeButton ID="search" runat="server"  Type="Primary" CssClass="btn-sm"
                                  TextLocalizedTag="BTNSEARCH" TextLocalizedPage="SEARCH" Icon="search"
                                  OnClick="SearchClick">
                 </YAF:ThemeButton>
@@ -70,11 +70,11 @@
 				</td>
 				<td>
 				    <span class="float-right">
-					<YAF:ThemeButton ID="btnEdit" CssClass="btn btn-info btn-sm" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
+					<YAF:ThemeButton ID="btnEdit" Type="Info" CssClass="btn-sm" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
                         TextLocalizedTag="EDIT" TitleLocalizedTag="EDIT" Icon="edit" 
                         runat="server">
 					</YAF:ThemeButton>
-					<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="btn btn-danger btn-sm" 
+					<YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" CssClass="btn-sm" 
                         ReturnConfirmText='<%# this.GetText("ADMIN_SPAMWORDS", "MSG_DELETE") %>' CommandName='delete'
                         TextLocalizedTag="DELETE"
                         CommandArgument='<%# this.Eval( "ID") %>' TitleLocalizedTag="DELETE" Icon="trash" runat="server">
@@ -88,14 +88,14 @@
                 </div>
 			</div>
                 <div class="card-footer text-lg-center">
-                    <YAF:ThemeButton runat="server" Icon="plus-square" CssClass="btn btn-primary"
+                    <YAF:ThemeButton runat="server" Icon="plus-square" Type="Primary"
                                      TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_SPAMWORDS" CommandName="add"></YAF:ThemeButton>
 					&nbsp;
-                    <YAF:ThemeButton runat="server" Icon="upload" DataTarget="SpamWordsImportDialog" CssClass="btn btn-info"
+                    <YAF:ThemeButton runat="server" Icon="upload" DataTarget="SpamWordsImportDialog" Type="Info"
                         TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_SPAMWORDS"></YAF:ThemeButton>
 					&nbsp;
 					<YAF:ThemeButton runat="server" CommandName='export' ID="Linkbutton4" 
-                        CssClass="btn btn-warning" Icon="download" TextLocalizedPage="ADMIN_SPAMWORDS" TextLocalizedTag="EXPORT"></YAF:ThemeButton>
+                        Type="Warning" Icon="download" TextLocalizedPage="ADMIN_SPAMWORDS" TextLocalizedTag="EXPORT"></YAF:ThemeButton>
                 </div>
             </div>
 		</FooterTemplate>

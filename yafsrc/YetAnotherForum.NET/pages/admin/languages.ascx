@@ -59,7 +59,7 @@
                     <td>
                         <span class="float-right">
                         <YAF:ThemeButton ID="btnEdit"
-                            CssClass="btn btn-info btn-sm"
+                            Type="Info" CssClass="btn-sm"
                             CommandName='edit'
                             CommandArgument='<%# this.Eval("CultureFile")%>'
                             TitleLocalizedTag="EDIT"

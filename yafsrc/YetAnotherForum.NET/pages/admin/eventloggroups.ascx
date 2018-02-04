@@ -41,7 +41,7 @@
                         </td>
 					<td>
 					    <span class="float-right">
-						  <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm"
+						  <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" CssClass="btn-sm"
                               TitleLocalizedPage="ADMIN_EVENTLOGGROUPS" TitleLocalizedTag="EDIT"
                               CommandName='edit' CommandArgument='<%# this.Eval( "GroupID") %>' TextLocalizedTag="EDIT"
                               Icon="edit" runat="server"></YAF:ThemeButton>

@@ -21,7 +21,7 @@
 	                <asp:DropDownList runat="server" id="dDLPages" CssClass="custom-select"></asp:DropDownList>
                 </p>
                 <p>
-	                <YAF:ThemeButton runat="server" id="btnLoadPageLocalization" CssClass="btn btn-primary" 
+	                <YAF:ThemeButton runat="server" id="btnLoadPageLocalization" Type="Primary" 
 	                                 Icon="share" TextLocalizedTag="LOAD_PAGE" TextLocalizedPage="ADMIN_EDITLANGUAGE" />
                 </p>
                 <p>
@@ -66,9 +66,9 @@
                     </div>
                 </div>
                 <div class="card-footer text-lg-center">
-	                <YAF:ThemeButton runat="server" CssClass="btn btn-primary" id="btnSave"
+	                <YAF:ThemeButton runat="server" Type="Primary" id="btnSave"
 	                                 Icon="save" TextLocalizedTag="SAVE" />&nbsp;
-	                <YAF:ThemeButton runat="server" CssClass="btn btn-secondary" id="btnCancel"
+	                <YAF:ThemeButton runat="server" Type="Secondary" id="btnCancel"
 	                                 Icon="times" TextLocalizedTag="CANCEL" />
                 </div>
             </div>

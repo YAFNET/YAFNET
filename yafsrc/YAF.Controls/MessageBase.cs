@@ -103,7 +103,7 @@ namespace YAF.Controls
         protected virtual void RenderModulesInBBCode(
         [NotNull] HtmlTextWriter writer, [NotNull] string messageStr, [NotNull] MessageFlags theseFlags, int? displayUserId, int? messageId)
         {
-            string workingMessage = messageStr;
+            var workingMessage = messageStr;
 
             // handle custom bbcodes row by row...
             foreach (var keyPair in this.CustomBBCode)
@@ -138,7 +138,7 @@ namespace YAF.Controls
                     sb.Append(workingMessage.Substring(0, match.Groups[0].Index));
 
                     // create/render the control...
-                    Type module = BuildManager.GetType(codeRow.ModuleClass, true, false);
+                    var module = BuildManager.GetType(codeRow.ModuleClass, true, false);
                     var customModule = (YafBBCodeControl)Activator.CreateInstance(module);
 
                     // assign parameters...

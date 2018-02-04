@@ -23,9 +23,10 @@
  */
 namespace YAF.Controls
 {
-  #region Using
+    #region Using
 
     using System.Collections.Generic;
+
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Flags;
@@ -33,138 +34,74 @@ namespace YAF.Controls
 
     #endregion
 
-  /// <summary>
-  /// The yaf bb code control.
-  /// </summary>
-  public class YafBBCodeControl : BaseControl
-  {
-    #region Constants and Fields
-
     /// <summary>
-    ///   The _current message flags.
+    /// The YAF BBCode control.
     /// </summary>
-    protected MessageFlags _currentMessageFlags;
-
-    /// <summary>
-    ///   The _display user id.
-    /// </summary>
-    protected int? _displayUserId;
-
-    /// <summary>
-    ///   The _message id.
-    /// </summary>
-    protected int? _messageId;
-
-    /// <summary>
-    ///   The _parameters.
-    /// </summary>
-    protected Dictionary<string, string> _parameters = new Dictionary<string, string>();
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    ///   Gets or sets CurrentMessageFlags.
-    /// </summary>
-    public MessageFlags CurrentMessageFlags
+    public class YafBBCodeControl : BaseControl
     {
-      get
-      {
-        return this._currentMessageFlags;
-      }
+        #region Constants and Fields
 
-      set
-      {
-        this._currentMessageFlags = value;
-      }
-    }
+        #endregion
 
-    /// <summary>
-    ///   Gets or sets MessageID.
-    /// </summary>
-    public int? MessageID
-    {
-        get
+        #region Properties
+
+        /// <summary>
+        ///   Gets or sets CurrentMessageFlags.
+        /// </summary>
+        public MessageFlags CurrentMessageFlags { get; set; }
+
+        /// <summary>
+        ///   Gets or sets MessageID.
+        /// </summary>
+        public int? MessageID { get; set; }
+
+        /// <summary>
+        ///   Gets or sets DisplayUserID.
+        /// </summary>
+        public int? DisplayUserID { get; set; }
+
+        /// <summary>
+        ///   Gets or sets Parameters.
+        /// </summary>
+        public Dictionary<string, string> Parameters { get; set; } = new Dictionary<string, string>();
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Gets the localized string.
+        /// </summary>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <param name="defaultStr">
+        /// The default str.
+        /// </param>
+        /// <returns>
+        /// Returns the localized string.
+        /// </returns>
+        protected string LocalizedString([NotNull] string tag, [NotNull] string defaultStr)
         {
-            return this._messageId;
+            return this.Get<ILocalization>().GetTextExists("BBCODEMODULE", tag)
+                       ? this.GetText("BBCODEMODULE", tag)
+                       : defaultStr;
         }
 
-        set
+        /// <summary>
+        /// Processes the BBCode string.
+        /// </summary>
+        /// <param name="codeString">
+        /// The bb code string.
+        /// </param>
+        /// <returns>
+        /// Returns the procced string
+        /// </returns>
+        protected string ProcessBBCodeString([NotNull] string codeString)
         {
-            this._messageId = value;
+            return this.Get<IFormatMessage>().FormatMessage(codeString, this.CurrentMessageFlags);
         }
+
+        #endregion
     }
-
-    /// <summary>
-    ///   Gets or sets DisplayUserID.
-    /// </summary>
-    public int? DisplayUserID
-    {
-      get
-      {
-        return this._displayUserId;
-      }
-
-      set
-      {
-        this._displayUserId = value;
-      }
-    }
-
-    /// <summary>
-    ///   Gets or sets Parameters.
-    /// </summary>
-    public Dictionary<string, string> Parameters
-    {
-      get
-      {
-        return this._parameters;
-      }
-
-      set
-      {
-        this._parameters = value;
-      }
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The localized string.
-    /// </summary>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <param name="defaultStr">
-    /// The default str.
-    /// </param>
-    /// <returns>
-    /// The localized string.
-    /// </returns>
-    protected string LocalizedString([NotNull] string tag, [NotNull] string defaultStr)
-    {
-        return this.Get<ILocalization>().GetTextExists("BBCODEMODULE", tag)
-                   ? this.GetText("BBCODEMODULE", tag)
-                   : defaultStr;
-    }
-
-      /// <summary>
-    /// The process bb code string.
-    /// </summary>
-    /// <param name="bbCodeString">
-    /// The bb code string.
-    /// </param>
-    /// <returns>
-    /// The process bb code string.
-    /// </returns>
-    protected string ProcessBBCodeString([NotNull] string bbCodeString)
-    {
-      return this.Get<IFormatMessage>().FormatMessage(bbCodeString, this.CurrentMessageFlags);
-    }
-
-    #endregion
-  }
 }

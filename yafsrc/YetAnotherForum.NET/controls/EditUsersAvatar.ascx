@@ -22,7 +22,7 @@
             <br />
             <br />
             <asp:Label runat="server" ID="NoAvatar" Visible="false" />
-            <asp:LinkButton runat="server" ID="DeleteAvatar" CssClass="btn btn-primary" Visible="false" OnClick="DeleteAvatar_Click" />
+            <asp:LinkButton runat="server" ID="DeleteAvatar" Type="Primary" Visible="false" OnClick="DeleteAvatar_Click" />
     <hr />
             </asp:PlaceHolder>
     <asp:PlaceHolder runat="server" id="AvatarOurs">
@@ -48,7 +48,7 @@
             <asp:Label id="noteRemote" runat="server"></asp:Label>
         </div>
         <p>
-            <asp:LinkButton ID="UpdateRemote" CssClass="btn btn-primary" runat="server" OnClick="RemoteUpdate_Click" />
+            <asp:LinkButton ID="UpdateRemote" Type="Primary" runat="server" OnClick="RemoteUpdate_Click" />
         </p>
     <hr />
     </asp:PlaceHolder>
@@ -66,6 +66,6 @@
         </asp:PlaceHolder>
 
                 <div class="text-lg-center">
-                     <asp:LinkButton ID="UpdateUpload" CssClass="btn btn-primary" runat="server" OnClick="UploadUpdate_Click" />&nbsp;
-            <asp:LinkButton ID="Back" CssClass="btn btn-secondary" runat="server" OnClick="Back_Click" />
+                     <asp:LinkButton ID="UpdateUpload" Type="Primary" runat="server" OnClick="UploadUpdate_Click" />&nbsp;
+            <asp:LinkButton ID="Back" Type="Secondary" runat="server" OnClick="Back_Click" />
             </div>

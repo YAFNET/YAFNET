@@ -94,9 +94,9 @@
         </asp:PlaceHolder>
                 </div>
                 <div class="card-footer text-lg-center">
-                    <YAF:ThemeButton ID="Save" runat="server" OnClick="SaveClick" CssClass="btn btn-primary"
+                    <YAF:ThemeButton ID="Save" runat="server" OnClick="SaveClick" Type="Primary"
                                      Icon="save" TextLocalizedTag="SAVE"/>
-                    <YAF:ThemeButton ID="Cancel" runat="server" OnClick="CancelClick" CssClass="btn btn-secondary"
+                    <YAF:ThemeButton ID="Cancel" runat="server" OnClick="CancelClick" Type="Secondary"
                                      Icon="times" TextLocalizedTag="CANCEL" />
                 </div>
             </div>

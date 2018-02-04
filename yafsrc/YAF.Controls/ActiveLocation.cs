@@ -27,7 +27,6 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Data;
     using System.Text;
     using System.Web;
     using System.Web.UI;
@@ -261,11 +260,11 @@ namespace YAF.Controls
                 {
                     if (Config.IsDotNetNuke)
                     {
-                        int idxfrst = forumPageName.IndexOf("&");
+                        var idxfrst = forumPageName.IndexOf("&");
                         forumPageName = forumPageName.Substring(idxfrst + 1);
                     }
 
-                    int idx = forumPageName.IndexOf("=");
+                    var idx = forumPageName.IndexOf("=");
                     if (idx > 0)
                     {
                         forumPageAttributes = forumPageName.Substring(
@@ -396,7 +395,7 @@ namespace YAF.Controls
             var outputText = outText.ToString();
 
             if (outputText.Contains("ACTIVELOCATION") || string.IsNullOrEmpty(outputText.Trim())
-                || (forumPageName.IndexOf("p=") == 0))
+                || forumPageName.IndexOf("p=", StringComparison.Ordinal) == 0)
             {
                 if (forumPageName.Contains("p="))
                 {
@@ -420,8 +419,7 @@ namespace YAF.Controls
                                     this.UserName,
                                     forumPageAttributes,
                                     forumPageName,
-                                    this.Get<HttpRequestBase>().Url.AbsoluteUri),
-                            EventLogTypes.Error);
+                                    this.Get<HttpRequestBase>().Url.AbsoluteUri));
                     }
 
                     outputText = this.GetText("ACTIVELOCATION", "NODATA");
@@ -444,27 +442,27 @@ namespace YAF.Controls
         /// </returns>
         private string Album([NotNull] string forumPageAttributes)
         {
-            string outstring = string.Empty;
-            string userID = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=") + 2).Trim();
+            var outstring = string.Empty;
+            var userID = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=", StringComparison.Ordinal) + 2).Trim();
 
             if (userID.Contains("&"))
             {
-                userID = userID.Substring(0, userID.IndexOf("&")).Trim();
+                userID = userID.Substring(0, userID.IndexOf("&", StringComparison.Ordinal)).Trim();
             }
 
-            string albumID = forumPageAttributes.Substring(forumPageAttributes.IndexOf("a=") + 2);
+            var albumID = forumPageAttributes.Substring(forumPageAttributes.IndexOf("a=", StringComparison.Ordinal) + 2);
 
             albumID = albumID.Contains("&")
-                          ? albumID.Substring(0, albumID.IndexOf("&")).Trim()
+                          ? albumID.Substring(0, albumID.IndexOf("&", StringComparison.Ordinal)).Trim()
                           : albumID.Substring(0).Trim();
 
             if (ValidationHelper.IsValidInt(userID) && ValidationHelper.IsValidInt(albumID))
             {
                 // The DataRow should not be missing in the case
-                DataRow dr = LegacyDb.album_list(null, albumID.Trim().ToType<int>()).Rows[0];
+                var dr = LegacyDb.album_list(null, albumID.Trim().ToType<int>()).Rows[0];
 
                 // If album doesn't have a Title, use his ID.
-                string albumName = !string.IsNullOrEmpty(dr["Title"].ToString())
+                var albumName = !string.IsNullOrEmpty(dr["Title"].ToString())
                                        ? dr["Title"].ToString()
                                        : dr["AlbumID"].ToString();
 
@@ -521,37 +519,37 @@ namespace YAF.Controls
         /// </returns>
         private string Albums([NotNull] string forumPageAttributes)
         {
-            string outstring = string.Empty;
+            string outstring;
 
-            string userID = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=") + 2).Substring(0).Trim();
+            var userId = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=", StringComparison.Ordinal) + 2).Substring(0).Trim();
 
-            if (ValidationHelper.IsValidInt(userID))
+            if (ValidationHelper.IsValidInt(userId))
             {
-                if (userID.ToType<int>() == this.UserID)
+                if (userId.ToType<int>() == this.UserID)
                 {
-                    outstring += this.GetText("ACTIVELOCATION", "ALBUMS_OWN").FormatWith();
+                    outstring = this.GetText("ACTIVELOCATION", "ALBUMS_OWN").FormatWith();
                 }
                 else
                 {
                     var displayName =
-                        HttpUtility.HtmlEncode(UserMembershipHelper.GetDisplayNameFromID(userID.ToType<long>()));
+                        HttpUtility.HtmlEncode(UserMembershipHelper.GetDisplayNameFromID(userId.ToType<long>()));
 
                     if (displayName.IsNotSet())
                     {
-                        displayName = HttpUtility.HtmlEncode(UserMembershipHelper.GetUserNameFromID(userID.ToType<long>()));
+                        displayName = HttpUtility.HtmlEncode(UserMembershipHelper.GetUserNameFromID(userId.ToType<long>()));
                     }
 
-                    outstring += this.GetText("ACTIVELOCATION", "ALBUMS_OFUSER").FormatWith();
-                    outstring +=
-                        @"<a href=""{0}"" id=""albumsuserid_{1}"" runat=""server""> {2} </a>".FormatWith(
-                            YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userID, displayName),
-                            userID + this.PageContext.PageUserID,
-                            HttpUtility.HtmlEncode(displayName));
+                    outstring =
+                        @"{3}<a href=""{0}"" id=""albumsuserid_{1}"" runat=""server""> {2} </a>".FormatWith(
+                            YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName),
+                            userId + this.PageContext.PageUserID,
+                            HttpUtility.HtmlEncode(displayName),
+                            this.GetText("ACTIVELOCATION", "ALBUMS_OFUSER"));
                 }
             }
             else
             {
-                outstring += this.GetTextFormatted("ACTIVELOCATION", "ALBUMS").FormatWith();
+                outstring = this.GetTextFormatted("ACTIVELOCATION", "ALBUMS").FormatWith();
             }
 
             return outstring;
@@ -568,29 +566,29 @@ namespace YAF.Controls
         /// </returns>
         private string Profile([NotNull] string forumPageAttributes)
         {
-            string outstring = string.Empty;
-            string userID = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=") + 2);
+            var outstring = string.Empty;
+            var userId = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=", StringComparison.Ordinal) + 2);
 
-            userID = userID.Contains("&") ? userID.Substring(0, userID.IndexOf("&")).Trim() : userID.Substring(0).Trim();
+            userId = userId.Contains("&") ? userId.Substring(0, userId.IndexOf("&", StringComparison.Ordinal)).Trim() : userId.Substring(0).Trim();
 
-            if (ValidationHelper.IsValidInt(userID.Trim()))
+            if (ValidationHelper.IsValidInt(userId.Trim()))
             {
-                if (userID.ToType<int>() != this.UserID)
+                if (userId.ToType<int>() != this.UserID)
                 {
                     var displayName =
-                        HttpUtility.HtmlEncode(UserMembershipHelper.GetDisplayNameFromID(userID.ToType<long>()));
+                        HttpUtility.HtmlEncode(UserMembershipHelper.GetDisplayNameFromID(userId.ToType<long>()));
                     
                     if (displayName.IsNotSet())
                     {
-                        displayName = HttpUtility.HtmlEncode(UserMembershipHelper.GetUserNameFromID(userID.ToType<long>()));
+                        displayName = HttpUtility.HtmlEncode(UserMembershipHelper.GetUserNameFromID(userId.ToType<long>()));
                     }
 
                     outstring += this.GetText("ACTIVELOCATION", "PROFILE_OFUSER").FormatWith();
                     outstring +=
                         @"<a href=""{0}""  id=""profileuserid_{1}"" title=""{2}"" alt=""{2}"" runat=""server""> {3} </a>"
                             .FormatWith(
-                                YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userID, displayName),
-                                userID + this.PageContext.PageUserID,
+                                YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName),
+                                userId + this.PageContext.PageUserID,
                                 this.GetText("COMMON", "VIEW_USRPROFILE"),
                                 HttpUtility.HtmlEncode(displayName));
                 }

@@ -89,10 +89,10 @@
                 </p>
                 </div>
                 <div class="card-footer text-lg-center">
-			<YAF:ThemeButton id="ForumRegister" runat="server" onclick="ForumRegisterClick" CssClass="btn btn-primary"
+			<YAF:ThemeButton id="ForumRegister" runat="server" onclick="ForumRegisterClick" Type="Primary"
 			                 Icon="user-plus" TextLocalizedTag="REGISTER" TextLocalizedPage="ADMIN_REGUSER"></YAF:ThemeButton>
 			&nbsp;
-			<YAF:Themebutton id="cancel" runat="server" onclick="CancelClick" CssClass="btn btn-secondary"
+			<YAF:Themebutton id="cancel" runat="server" onclick="CancelClick" Type="Secondary"
 			                 Icon="times" TextLocalizedTag="CANCEL"></YAF:Themebutton>
                 </div>
             </div>

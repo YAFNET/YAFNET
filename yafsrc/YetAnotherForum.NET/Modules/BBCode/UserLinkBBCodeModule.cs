@@ -72,7 +72,7 @@ namespace YAF.Modules
           var showOnlineStatusImage = this.Get<YafBoardSettings>().ShowUserOnlineStatus &&
                                     !UserMembershipHelper.IsGuestUser(userId);
 
-          var onlineStatusImage = new OnlineStatusImage { ID = "OnlineStatusImage", Style = "vertical-align: bottom", UserID = (int)userId };
+          var onlineStatusImage = new OnlineStatusImage { ID = "OnlineStatusImage", UserId = userId.ToType<int>() };
 
         stringBuilder.AppendLine("<!-- BEGIN userlink -->");
         stringBuilder.AppendLine(@"<span class=""userLinkContainer"">");

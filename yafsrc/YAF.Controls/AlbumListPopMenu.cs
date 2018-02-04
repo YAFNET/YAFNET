@@ -58,7 +58,7 @@ namespace YAF.Controls
         /// <summary>
         ///   The item click.
         /// </summary>
-        public event PopEventHandler ItemClick;
+        public event PopMenu.PopEventHandler ItemClick;
 
         #endregion
 

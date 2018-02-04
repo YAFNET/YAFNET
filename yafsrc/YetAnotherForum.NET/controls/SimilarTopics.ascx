@@ -7,10 +7,10 @@
     <asp:Repeater ID="Topics" runat="server" Visible="true">
         <HeaderTemplate>
             <div class="col-xl-12">
-            <div class="card">
-                <div class="card-header">
+            <div class="card mb-3">
+                <h5 class="card-header">
                     <YAF:LocalizedLabel runat="server" LocalizedPage="POSTS" LocalizedTag="SIMILAR_TOPICS"></YAF:LocalizedLabel>
-                </div>
+                </h5>
             <ul class="list-group list-group-flush">
         </HeaderTemplate>
         <ItemTemplate>

@@ -39,7 +39,7 @@
                         </td>
                     <td>
                         <span class="float-right">
-						  <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="btn btn-info btn-sm"
+						  <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" CssClass="btn-sm"
                               TitleLocalizedPage="ADMIN_PAGEACCESSLIST" CommandName='edit' CommandArgument='<%# this.Eval( "UserID") %>'
                               TitleLocalizedTag="EDIT"
                               Icon="edit"

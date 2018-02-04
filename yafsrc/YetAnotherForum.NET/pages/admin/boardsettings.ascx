@@ -35,6 +35,13 @@
            <asp:PlaceHolder ID="CopyrightHolder" runat="server">
             <h4>
                 <YAF:HelpLabel ID="HelpLabel2" runat="server" LocalizedTag="COPYRIGHT_REMOVAL_KEY" LocalizedPage="ADMIN_BOARDSETTINGS" />
+                <YAF:ThemeButton runat="server" ID="GetRemovalKey" 
+                                 NavigateUrl="http://yetanotherforum.net/purchase.aspx"
+                                 CssClass="float-right"
+                                 Type="Info"
+                                 Icon="key"
+                                 TextLocalizedTag="COPYRIGHT_REMOVAL_KEY_DOWN">
+                </YAF:ThemeButton>
             </h4>
             <p>
                 <asp:TextBox ID="CopyrightRemovalKey" runat="server" CssClass="form-control"></asp:TextBox>
@@ -181,7 +188,7 @@
             </p>
                             </div>
                         <div class="card-footer text-center">
-                            <YAF:ThemeButton ID="Save" CssClass="btn btn-primary" runat="server" OnClick="SaveClick"
+                            <YAF:ThemeButton ID="Save" Type="Primary" runat="server" OnClick="SaveClick"
                                              Icon="save" TextLocalizedTag="SAVE">
                             </YAF:ThemeButton>
                         </div>

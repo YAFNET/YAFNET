@@ -70,7 +70,7 @@ namespace YAF.Controls
     {
       get
       {
-        CollapsiblePanelState defaultState = CollapsiblePanelState.Expanded;
+        var defaultState = CollapsiblePanelState.Expanded;
 
         if (this.ViewState["DefaultState"] != null)
         {

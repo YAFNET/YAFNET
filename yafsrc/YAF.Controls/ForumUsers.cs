@@ -33,14 +33,13 @@ namespace YAF.Controls
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
 
     #endregion
 
     /// <summary>
-    /// Summary description for ForumUsers.
+    /// Displays the forum users.
     /// </summary>
     public class ForumUsers : BaseControl
     {
@@ -49,7 +48,7 @@ namespace YAF.Controls
         /// <summary>
         ///   The _active users.
         /// </summary>
-        private readonly ActiveUsers _activeUsers = new ActiveUsers();
+        private readonly ActiveUsers activeUsers = new ActiveUsers();
 
         #endregion
 
@@ -60,8 +59,8 @@ namespace YAF.Controls
         /// </summary>
         public ForumUsers()
         {
-            this._activeUsers.ID = this.GetUniqueID("ActiveUsers");
-            this.Load += this.ForumUsers_Load;
+            this.activeUsers.ID = this.GetUniqueID("ActiveUsers");
+            this.Load += this.ForumUsersLoad;
         }
 
         #endregion
@@ -75,12 +74,12 @@ namespace YAF.Controls
         {
             get
             {
-                return this._activeUsers.TreatGuestAsHidden;
+                return this.activeUsers.TreatGuestAsHidden;
             }
 
             set
             {
-                this._activeUsers.TreatGuestAsHidden = value;
+                this.activeUsers.TreatGuestAsHidden = value;
             }
         }
 
@@ -102,30 +101,21 @@ namespace YAF.Controls
                 return;
             }
 
-            bool bTopic = this.PageContext.PageTopicID > 0;
+            var topicId = this.PageContext.PageTopicID > 0;
 
-            if (bTopic)
-            {
-                writer.WriteLine(@"<tr id=""{0}"" class=""header2"">".FormatWith(this.ClientID));
-                writer.WriteLine(
-                  "<td colspan=\"3\">{0}</td>".FormatWith(this.GetText("TOPICBROWSERS")));
-                writer.WriteLine("</tr>");
-                writer.WriteLine("<tr class=\"post\">");
-                writer.WriteLine("<td colspan=\"3\">");
-            }
-            else
-            {
-                writer.WriteLine(@"<tr id=""{0}"" class=""header2"">".FormatWith(this.ClientID));
-                writer.WriteLine("<td colspan=\"6\">{0}</td>".FormatWith(this.GetText("FORUMUSERS")));
-                writer.WriteLine("</tr>");
-                writer.WriteLine("<tr class=\"post\">");
-                writer.WriteLine("<td colspan=\"6\">");
-            }
+            writer.WriteLine(@"<div class=""card"">");
+
+            writer.WriteLine(@"<h6 class=""card-header"">");
+
+            writer.WriteLine(topicId ? this.GetText("TOPICBROWSERS") : this.GetText("FORUMUSERS"));
+
+            writer.WriteLine("</h6>");
+
+            writer.WriteLine(@"<div class=""card-body"">");
 
             base.Render(writer);
 
-            writer.WriteLine("</td>");
-            writer.WriteLine("</tr>");
+            writer.WriteLine("</div></div>");
         }
 
         /// <summary>
@@ -137,22 +127,22 @@ namespace YAF.Controls
         /// <param name="e">
         /// The e.
         /// </param>
-        private void ForumUsers_Load([NotNull] object sender, [NotNull] EventArgs e)
+        private void ForumUsersLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
-            bool inTopic = this.PageContext.PageTopicID > 0;
+            var inTopic = this.PageContext.PageTopicID > 0;
 
-            if (this._activeUsers.ActiveUserTable == null)
+            if (this.activeUsers.ActiveUserTable == null)
             {
-                bool useStyledNicks = this.Get<YafBoardSettings>().UseStyledNicks;
+                var useStyledNicks = this.Get<YafBoardSettings>().UseStyledNicks;
 
-                this._activeUsers.ActiveUserTable =
+                this.activeUsers.ActiveUserTable =
                     inTopic
                         ? this.GetRepository<Active>().ListTopic(this.PageContext.PageTopicID, useStyledNicks)
                         : this.GetRepository<Active>().ListForum(this.PageContext.PageForumID, useStyledNicks);
             }
 
             // add it...
-            this.Controls.Add(this._activeUsers);
+            this.Controls.Add(this.activeUsers);
         }
 
         #endregion

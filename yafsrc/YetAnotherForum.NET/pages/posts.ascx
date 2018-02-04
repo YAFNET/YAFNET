@@ -52,15 +52,24 @@
             <div class="rightItem">
                 <div id="fb-root"></div>
                 <div style="display:inline">
-                <asp:HyperLink ID="ShareLink" runat="server" CssClass="PopMenuLink">
-                    <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="Share" />
-                </asp:HyperLink>
+               <YAF:ThemeButton runat="server" ID="ShareLink"
+                                TextLocalizedTag="SHARE" TitleLocalizedTag="SHARE_TOOLTIP"
+                                Icon="share" 
+                                Type="Link" 
+                                CssClass="dropdown-toggle"
+                                DataToggle="dropdown">
+               </YAF:ThemeButton>
+                
                 <YAF:PopMenu ID="ShareMenu" runat="server" Control="ShareLink" />
                 </div>
                 <div style="display:inline">
-                <asp:HyperLink ID="OptionsLink" runat="server" CssClass="PopMenuLink">
-                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="Options" />
-                </asp:HyperLink>
+                <YAF:ThemeButton runat="server" ID="OptionsLink"
+                                 TextLocalizedTag="TOOLS" TitleLocalizedTag="OPTIONS_TOOLTIP"
+                                 Icon="cog"
+                                 Type="Link"
+                                 CssClass="dropdown-toggle"
+                                 DataToggle="dropdown">
+                </YAF:ThemeButton>
                 <asp:UpdatePanel ID="PopupMenuUpdatePanel" runat="server" style="display:inline">
                   <ContentTemplate>
                     <span id="WatchTopicID" runat="server" visible="false"></span>
@@ -71,9 +80,14 @@
                 
                 <div style="display:inline">
                 <asp:PlaceHolder ID="ViewOptions" runat="server">
-                    <asp:HyperLink ID="ViewLink" runat="server" CssClass="PopMenuLink">
-                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="View" />
-                    </asp:HyperLink>
+                    <YAF:ThemeButton runat="server" ID="ViewLink"
+                                     TextLocalizedTag="VIEW" TitleLocalizedTag="VIEW_TOOLTIP"
+                                     Icon="book"
+                                     Type="Link"
+                                     CssClass="dropdown-toggle"
+                                     DataToggle="dropdown">
+                    </YAF:ThemeButton>
+                    
                 </asp:PlaceHolder>
                 <YAF:PopMenu ID="ViewMenu" runat="server" Control="ViewLink" />
                 </div>
