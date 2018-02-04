@@ -25,14 +25,17 @@
 namespace YAF.Core.Services.Auth
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Globalization;
     using System.Linq;
+    using System.Text;
     using System.Web;
     using System.Web.Security;
 
     using YAF.Classes;
     using YAF.Classes.Data;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -50,6 +53,11 @@ namespace YAF.Core.Services.Auth
     public class Facebook : IAuthBase
     {
         /// <summary>
+        ///   Gets or sets the User IP Info.
+        /// </summary>
+        private IDictionary<string, string> UserIpLocator { get; set; }
+
+        /// <summary>
         /// Gets the authorize URL.
         /// </summary>
         /// <param name="request">
@@ -60,7 +68,7 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         public string GetAuthorizeUrl(HttpRequest request)
         {
-            const string SCOPE = "email,user_birthday,publish_actions,user_location";
+            const string Scope = "email,user_birthday,publish_actions,user_location";
 
             var redirectUrl = GetRedirectURL(request);
 
@@ -69,7 +77,7 @@ namespace YAF.Core.Services.Auth
                     Config.FacebookAPIKey,
                     redirectUrl,
                     redirectUrl.Contains("connectCurrent") ? "&state=connectCurrent" : string.Empty,
-                    SCOPE);
+                    Scope);
         }
 
         /// <summary>
@@ -507,6 +515,23 @@ namespace YAF.Core.Services.Auth
                 userProfile.Location = facebookUser.Location.Name;
             }
 
+            if (YafContext.Current.Get<YafBoardSettings>().EnableIPInfoService && this.UserIpLocator == null)
+            {
+                this.UserIpLocator = new IPDetails().GetData(
+                    YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                    "text",
+                    false,
+                    YafContext.Current.CurrentForumPage.Localization.Culture.Name,
+                    string.Empty,
+                    string.Empty);
+
+                if (this.UserIpLocator != null && this.UserIpLocator["StatusCode"] == "OK"
+                                               && this.UserIpLocator.Count > 0)
+                {
+                    userProfile.Country = this.UserIpLocator["CountryCode"];
+                }
+            }
+
             userProfile.Save();
 
             // setup their initial profile information
@@ -537,27 +562,27 @@ namespace YAF.Core.Services.Auth
             // save the time zone...
             var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
 
-            LegacyDb.user_save(
-                userId,
-                YafContext.Current.PageBoardID,
-                facebookUser.UserName,
-                facebookUser.UserName,
-                facebookUser.Email,
-                0,
-                null,
-                null,
-                true,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-
             var autoWatchTopicsEnabled = YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
+
+            LegacyDb.user_save(
+                userID: userId,
+                boardID: YafContext.Current.PageBoardID,
+                userName: facebookUser.UserName,
+                displayName: facebookUser.UserName,
+                email: facebookUser.Email,
+                timeZone: TimeZoneInfo.Local.Id,
+                languageFile: null,
+                culture: null,
+                themeFile: null,
+                textEditor: null,
+                useMobileTheme: null,
+                approved: null,
+                pmNotification: YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
+                autoWatchTopics: autoWatchTopicsEnabled,
+                dSTUser: TimeZoneInfo.Local.SupportsDaylightSavingTime,
+                hideUser: null,
+                notificationType: null);
 
             // save the settings...
             LegacyDb.user_savenotification(

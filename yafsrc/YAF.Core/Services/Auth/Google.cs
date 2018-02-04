@@ -23,10 +23,12 @@
  */
 namespace YAF.Core.Services.Auth
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Linq;
     using System.Runtime.Serialization;
+    using System.Text;
     using System.Web;
     using System.Web.Security;
 
@@ -48,6 +50,11 @@ namespace YAF.Core.Services.Auth
     /// </summary>
     public class Google : IAuthBase
     {
+        /// <summary>
+        ///   Gets or sets the User IP Info.
+        /// </summary>
+        private IDictionary<string, string> UserIpLocator { get; set; }
+
         /// <summary>
         /// Gets the authorize URL.
         /// </summary>
@@ -439,6 +446,39 @@ namespace YAF.Core.Services.Auth
 
             userProfile.Gender = userGender;
 
+            if (YafContext.Current.Get<YafBoardSettings>().EnableIPInfoService && this.UserIpLocator == null)
+            {
+                this.UserIpLocator = new IPDetails().GetData(
+                    YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                    "text",
+                    false,
+                    YafContext.Current.CurrentForumPage.Localization.Culture.Name,
+                    string.Empty,
+                    string.Empty);
+
+                if (this.UserIpLocator != null && this.UserIpLocator["StatusCode"] == "OK"
+                                               && this.UserIpLocator.Count > 0)
+                {
+                    userProfile.Country = this.UserIpLocator["CountryCode"];
+
+                    var location = new StringBuilder();
+
+                    if (this.UserIpLocator["RegionName"] != null && this.UserIpLocator["RegionName"].IsSet()
+                                                                 && !this.UserIpLocator["RegionName"].Equals("-"))
+                    {
+                        location.Append(this.UserIpLocator["RegionName"]);
+                    }
+
+                    if (this.UserIpLocator["CityName"] != null && this.UserIpLocator["CityName"].IsSet()
+                                                               && !this.UserIpLocator["CityName"].Equals("-"))
+                    {
+                        location.AppendFormat(", {0}", this.UserIpLocator["CityName"]);
+                    }
+
+                    userProfile.Location = location.ToString();
+                }
+            }
+
             userProfile.Save();
 
             if (userID == null)
@@ -470,23 +510,23 @@ namespace YAF.Core.Services.Auth
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
             LegacyDb.user_save(
-                userId,
-                YafContext.Current.PageBoardID,
-                googleUser.UserName,
-                googleUser.UserName,
-                googleUser.Email,
-                0,
-                null,
-                null,
-                true,
-                null,
-                null,
-                null,
-                YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
-                autoWatchTopicsEnabled,
-                null,
-                null,
-                null);
+                userID: userId,
+                boardID: YafContext.Current.PageBoardID,
+                userName: googleUser.UserName,
+                displayName: googleUser.UserName,
+                email: googleUser.Email,
+                timeZone: TimeZoneInfo.Local.Id,
+                languageFile: null,
+                culture: null,
+                themeFile: null,
+                textEditor: null,
+                useMobileTheme: null,
+                approved: null,
+                pmNotification: YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
+                autoWatchTopics: autoWatchTopicsEnabled,
+                dSTUser: TimeZoneInfo.Local.SupportsDaylightSavingTime,
+                hideUser: null,
+                notificationType: null);
 
             // save the settings...
             LegacyDb.user_savenotification(
