@@ -45,6 +45,23 @@ namespace YAF.Utils.Helpers
         }
 
         /// <summary>
+        /// Gets the time zone by id
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns>Returns the Time Zone Info</returns>
+        public static TimeZoneInfo GetTimeZoneInfo(string input)
+        {
+            try
+            {
+                return TimeZoneInfo.FindSystemTimeZoneById(input);
+            }
+            catch (Exception)
+            {
+                return TimeZoneInfo.Local;
+            }
+        }
+
+        /// <summary>
         /// Gets the time zone offset.
         /// </summary>
         /// <param name="input">The input.</param>

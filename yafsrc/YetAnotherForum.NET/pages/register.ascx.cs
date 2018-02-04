@@ -675,7 +675,7 @@ namespace YAF.Pages
             {
                 try
                 {
-                    this.FillLocationData(country, timeZones);
+                    this.FillLocationData(country);
                 }
                 catch (Exception exception)
                 {
@@ -687,6 +687,9 @@ namespace YAF.Pages
                             exception));
                 }
             }
+
+            // Auto Fill user time zone
+            timeZones.Items.FindByValue(TimeZoneInfo.Local.Id).Selected = true;
 
             this.CreateUserWizard1.FindWizardControlRecursive("UserName").Focus();
 
@@ -888,13 +891,8 @@ namespace YAF.Pages
         /// <summary>
         /// Fills the location data.
         /// </summary>
-        /// <param name="country">
-        /// The country.
-        /// </param>
-        /// <param name="timeZones">
-        /// The time zones.
-        /// </param>
-        private void FillLocationData([NotNull]DropDownList country, [NotNull]DropDownList timeZones)
+        /// <param name="country">The country.</param>
+        private void FillLocationData([NotNull]DropDownList country)
         {
             decimal hours = 0;
 
@@ -944,20 +942,6 @@ namespace YAF.Pages
             }
 
             this.CreateUserWizard1.FindControlRecursiveAs<TextBox>("Location").Text = location.ToString();
-
-            if (this._UserIpLocator["TimeZone"] != null && this._UserIpLocator["TimeZone"].IsSet() && !this._UserIpLocator["TimeZone"].Equals("-"))
-            {
-                try
-                {
-                    hours = this._UserIpLocator["TimeZone"].ToType<decimal>() * 60;
-                }
-                catch (FormatException)
-                {
-                    hours = 0;
-                }
-            }
-
-            timeZones.Items.FindByValue(hours.ToString()).Selected = true;
         }
 
         /// <summary>

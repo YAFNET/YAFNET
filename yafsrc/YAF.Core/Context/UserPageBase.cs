@@ -352,6 +352,14 @@ namespace YAF.Core
         public string TimeZoneUser => this.Page["TimeZoneUser"].ToString();
 
         /// <summary>
+        /// Gets the time zone information user.
+        /// </summary>
+        /// <value>
+        /// The time zone information user.
+        /// </value>
+        public TimeZoneInfo TimeZoneInfoUser => DateTimeHelper.GetTimeZoneInfo(this.TimeZoneUser);
+
+        /// <summary>
         /// Gets the time zone user off set.
         /// </summary>
         /// <value>
