@@ -67,12 +67,12 @@
         <asp:HiddenField runat="server" ID="hidLastTab" Value="ActiveTopicsTab" />
         <asp:Button id="ChangeTab" OnClick="ChangeTabClick" runat="server" style="display:none" />
 <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
-    <div id="DivForumJump">
+    <div class="float-right">
         <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />
         &nbsp;<YAF:ForumJump ID="ForumJump1" runat="server" />
     </div>
 </asp:PlaceHolder>
-<div id="DivIconLegend">
+<div class="float-left">
     <YAF:IconLegend ID="IconLegend1" runat="server" />
 </div>
 <div id="DivSmartScroller">

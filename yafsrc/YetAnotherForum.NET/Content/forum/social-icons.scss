@@ -1,0 +1,248 @@
+﻿
+.authLogin {
+    font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+    position: relative;
+    display: inline-block;
+    height: 22px;
+    padding: 0 1em;
+    border: 1px solid #999;
+    border-radius: 2px;
+    margin: 5px 0;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 22px;
+    white-space: nowrap;
+    cursor: pointer;
+    color: #222;
+    background: #fff;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-appearance: none;
+    *overflow: visible;
+    *display: inline;
+    *zoom: 1;
+
+    &:visited {
+        position: relative;
+        display: inline-block;
+        height: 22px;
+        padding: 0 1em;
+        border: 1px solid #999;
+        border-radius: 2px;
+        margin: 5px 0;
+        text-align: center;
+        text-decoration: none;
+        font-size: 12px;
+        line-height: 22px;
+        white-space: nowrap;
+        cursor: pointer;
+        color: #222;
+        background: #fff;
+        -webkit-box-sizing: content-box;
+        -moz-box-sizing: content-box;
+        box-sizing: content-box;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-appearance: none;
+        *overflow: visible;
+        *display: inline;
+        *zoom: 1;
+    }
+
+    &:hover, &:focus, &:active {
+        color: #222;
+        text-decoration: none;
+    }
+
+    &:before {
+        content: "";
+        float: left;
+        width: 22px;
+        height: 22px;
+        background: url('icons/authIcons.png') no-repeat 99px 99px;
+    }
+
+    &::-moz-focus-inner {
+        border: 0;
+        padding: 0;
+    }
+}
+
+.facebookLogin {
+    border-color: #29447e;
+    border-bottom-color: #1a356e;
+    color: #fff !important;
+    background-color: #5872a7;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#637bad), to(#5872a7));
+    background-image: -webkit-linear-gradient(#637bad, #5872a7);
+    background-image: -moz-linear-gradient(#637bad, #5872a7);
+    background-image: -ms-linear-gradient(#637bad, #5872a7);
+    background-image: -o-linear-gradient(#637bad, #5872a7);
+    background-image: linear-gradient(#637bad, #5872a7);
+    -webkit-box-shadow: inset 0 1px 0 #879ac0;
+    box-shadow: inset 0 1px 0 #879ac0;
+
+    &:visited {
+        border-color: #29447e;
+        border-bottom-color: #1a356e;
+        color: #fff !important;
+        background-color: #5872a7;
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#637bad), to(#5872a7));
+        background-image: -webkit-linear-gradient(#637bad, #5872a7);
+        background-image: -moz-linear-gradient(#637bad, #5872a7);
+        background-image: -ms-linear-gradient(#637bad, #5872a7);
+        background-image: -o-linear-gradient(#637bad, #5872a7);
+        background-image: linear-gradient(#637bad, #5872a7);
+        -webkit-box-shadow: inset 0 1px 0 #879ac0;
+        box-shadow: inset 0 1px 0 #879ac0;
+    }
+
+    &:hover, &:focus {
+        color: #fff;
+        background-color: #3b5998;
+    }
+
+    &:active {
+        color: #fff;
+        background: #4f6aa3;
+        -webkit-box-shadow: inset 0 1px 0 #45619d;
+        box-shadow: inset 0 1px 0 #45619d;
+    }
+
+    &:before {
+        border-right: 1px solid #465f94;
+        margin: 0 1em 0 -1em;
+        background-position: 0 0;
+    }
+}
+
+.twitterLogin {
+    border-color: #a6cde6;
+    color: #327695 !important;
+    background: #cfe4f0;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f1f5f7), to(rgba(255, 255, 255, 0)));
+    background-image: -webkit-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
+    background-image: -moz-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
+    background-image: -ms-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
+    background-image: -o-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
+    background-image: linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
+    -webkit-box-shadow: inset 0 1px 0 #fff;
+    box-shadow: inset 0 1px 0 #fff;
+
+    &:visited {
+        border-color: #a6cde6;
+        color: #327695 !important;
+        background: #cfe4f0;
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f1f5f7), to(rgba(255, 255, 255, 0)));
+        background-image: -webkit-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
+        background-image: -moz-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
+        background-image: -ms-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
+        background-image: -o-linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
+        background-image: linear-gradient(#f1f5f7, rgba(255, 255, 255, 0));
+        -webkit-box-shadow: inset 0 1px 0 #fff;
+        box-shadow: inset 0 1px 0 #fff;
+    }
+
+    &:hover, &:focus {
+        color: #327695;
+        border-color: #8dc2e4;
+        background-color: #cadde9;
+    }
+
+    &:active {
+        color: #327695;
+        border-color: #8dc2e4;
+        background-color: #cadde9;
+        background: #cadde9;
+        -webkit-box-shadow: inset 0 1px 0 #bbd6e7;
+        box-shadow: inset 0 1px 0 #bbd6e7;
+    }
+
+    &:before {
+        margin: 0 0.6em 0 -0.6em;
+        background-position: -22px 0;
+    }
+}
+
+.googleLogin {
+    border-color: #3079ed;
+    color: #fff;
+    background: #4787ed;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#4d90fe), to(#4787ed));
+    background-image: -webkit-linear-gradient(#4d90fe, #4787ed);
+    background-image: -moz-linear-gradient(#4d90fe, #4787ed);
+    background-image: -ms-linear-gradient(#4d90fe, #4787ed);
+    background-image: -o-linear-gradient(#4d90fe, #4787ed);
+    background-image: linear-gradient(#4d90fe, #4787ed);
+
+    &:visited {
+        border-color: #3079ed;
+        color: #fff;
+        background: #4787ed;
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#4d90fe), to(#4787ed));
+        background-image: -webkit-linear-gradient(#4d90fe, #4787ed);
+        background-image: -moz-linear-gradient(#4d90fe, #4787ed);
+        background-image: -ms-linear-gradient(#4d90fe, #4787ed);
+        background-image: -o-linear-gradient(#4d90fe, #4787ed);
+        background-image: linear-gradient(#4d90fe, #4787ed);
+    }
+
+    &:hover, &:focus {
+        color: #fff;
+        background-color: #357ae8;
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#4d90fe), to(#357ae8));
+        background-image: -webkit-linear-gradient(#4d90fe, #357ae8);
+        background-image: -moz-linear-gradient(#4d90fe, #357ae8);
+        background-image: -ms-linear-gradient(#4d90fe, #357ae8);
+        background-image: -o-linear-gradient(#4d90fe, #357ae8);
+        background-image: linear-gradient(#4d90fe, #357ae8);
+    }
+
+    &:active {
+        color: #fff;
+        background-color: #357ae8;
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#4d90fe), to(#357ae8));
+        background-image: -webkit-linear-gradient(#4d90fe, #357ae8);
+        background-image: -moz-linear-gradient(#4d90fe, #357ae8);
+        background-image: -ms-linear-gradient(#4d90fe, #357ae8);
+        background-image: -o-linear-gradient(#4d90fe, #357ae8);
+        background-image: linear-gradient(#4d90fe, #357ae8);
+        -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    &:before {
+        margin: 0 1em 0 -1em;
+        background-position: -88px 0;
+        background-color: #e6e6e6;
+    }
+}
+
+.TwitterIcon {
+    background: url('icons/authIcons.png') no-repeat -22px 0;
+    margin: 0 0.6em 0 -0.6em;
+    padding: 2px 10px 6px 5px;
+    content: '';
+}
+
+.FacebookIcon {
+    background: url('icons/authIcons.png') no-repeat 0 0 #5872a7;
+    margin: 0 0.6em 0 -0.6em;
+    padding: 2px 10px 6px 5px;
+    content: '';
+}
+
+.GoogleIcon {
+    background: url('icons/authIcons.png') no-repeat -88px 0;
+    margin: 0 0.6em 0 -0.6em;
+    padding: 2px 10px 6px 5px;
+    content: '';
+}

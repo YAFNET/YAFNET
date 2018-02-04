@@ -973,7 +973,9 @@
     <Content Include="Content\bootstrap-image-gallery.css" />
     <Content Include="Content\bootstrap-notify.css" />
     <Content Include="Content\css\select2.css" />
-    <Content Include="Content\css\select2.min.css" />
+    <Content Include="Content\css\select2.min.css">
+      <DependentUpon>select2.css</DependentUpon>
+    </Content>
     <Content Include="Content\fontawesome\fa-brands.css" />
     <Content Include="Content\fontawesome\fa-brands.min.css">
       <DependentUpon>fa-brands.css</DependentUpon>
@@ -2681,6 +2683,8 @@
     <Content Include="Content\bootstrap-forum.scss" />
     <Content Include="Content\forum\dropdowns.scss" />
     <Content Include="Content\forum\editor.scss" />
+    <Content Include="Content\forum\social-icons.scss" />
+    <Content Include="Content\forum\reputationbar.scss" />
     <None Include="Content\forum\user-albums.scss" />
     <None Include="Content\InstallWizard.scss" />
     <None Include="Content\jsdifflib.scss" />
@@ -4124,93 +4128,6 @@
     <Content Include="themes\soclean\VoteUp.png" />
     <Content Include="themes\soclean\vote_refuse.gif" />
     <Content Include="themes\YafMobile.xml" />
-    <Content Include="themes\Yafmobile\albums.png" />
-    <Content Include="themes\Yafmobile\arrow_up_button.png" />
-    <Content Include="themes\Yafmobile\chart.png" />
-    <Content Include="themes\Yafmobile\collapse.png" />
-    <Content Include="themes\Yafmobile\copy_small_icon.png" />
-    <Content Include="themes\Yafmobile\delete_small_icon.gif" />
-    <Content Include="themes\Yafmobile\DownArrow.png" />
-    <Content Include="themes\Yafmobile\dustbun.gif" />
-    <Content Include="themes\Yafmobile\edit_small_icon.gif" />
-    <Content Include="themes\Yafmobile\expand.png" />
-    <Content Include="themes\Yafmobile\folder_who.gif" />
-    <Content Include="themes\Yafmobile\folder_who.png" />
-    <Content Include="themes\Yafmobile\handpointer1.png" />
-    <Content Include="themes\Yafmobile\heart_small.png" />
-    <Content Include="themes\Yafmobile\icon_googleplus.png" />
-    <Content Include="themes\Yafmobile\icon_digg.png" />
-    <Content Include="themes\Yafmobile\icon_email.png" />
-    <Content Include="themes\Yafmobile\icon_facebook.png" />
-    <Content Include="themes\Yafmobile\icon_facebook2.png" />
-    <Content Include="themes\Yafmobile\icon_file.gif" />
-    <Content Include="themes\Yafmobile\icon_googleplus2.png" />
-    <Content Include="themes\Yafmobile\icon_latest_reply.gif" />
-    <Content Include="themes\Yafmobile\icon_newest_reply.gif" />
-    <Content Include="themes\Yafmobile\icon_pm.png" />
-    <Content Include="themes\Yafmobile\icon_print.png" />
-    <Content Include="themes\Yafmobile\icon_reddit.png" />
-    <Content Include="themes\Yafmobile\icon_search.png" />
-    <Content Include="themes\Yafmobile\icon_subforum.gif" />
-    <Content Include="themes\Yafmobile\icon_subforum_new.gif" />
-    <Content Include="themes\Yafmobile\icon_topiclatestunread_newest.gif" />
-    <Content Include="themes\Yafmobile\icon_topic_latestunread.gif" />
-    <Content Include="themes\Yafmobile\icon_tumblr.png" />
-    <Content Include="themes\Yafmobile\icon_twitter.png" />
-    <Content Include="themes\Yafmobile\icon_twitter2.png" />
-    <Content Include="themes\Yafmobile\icon_useroffline.png" />
-    <Content Include="themes\Yafmobile\icon_useronline.png" />
-    <Content Include="themes\Yafmobile\LeftArrow.png" />
-    <Content Include="themes\Yafmobile\livejournal.png" />
-    <Content Include="themes\Yafmobile\lock_small.png" />
-    <Content Include="themes\Yafmobile\mask.gif" />
-    <Content Include="themes\Yafmobile\MobilePages\displayad.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\displaypost.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\forum.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\forumactivediscussion.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\forumcategorylist.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\forumList.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\forumwelcome.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\mytopics.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\mytopicslist.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\pmessage.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\postmessage.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\posts.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\profile.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\TopicLine.ascx" />
-    <Content Include="themes\Yafmobile\MobilePages\topics.ascx" />
-    <Content Include="themes\Yafmobile\mods_small.gif" />
-    <Content Include="themes\Yafmobile\multipages_small.gif" />
-    <Content Include="themes\Yafmobile\navigation-090-button.png" />
-    <Content Include="themes\Yafmobile\navigation-270-button.png" />
-    <Content Include="themes\Yafmobile\plus_small_icon.png" />
-    <Content Include="themes\Yafmobile\poll_choice.png" />
-    <Content Include="themes\Yafmobile\poll_question.png" />
-    <Content Include="themes\Yafmobile\RightArrow.png" />
-    <Content Include="themes\Yafmobile\sandclock.gif" />
-    <Content Include="themes\Yafmobile\smiles-jail.gif" />
-    <Content Include="themes\Yafmobile\sort_down.png" />
-    <Content Include="themes\Yafmobile\sort_up.png" />
-    <Content Include="themes\Yafmobile\tab-line.png" />
-    <Content Include="themes\Yafmobile\tab.png" />
-    <Content Include="themes\Yafmobile\theme.css" />
-    <Content Include="themes\Yafmobile\topic.png" />
-    <Content Include="themes\Yafmobile\topic_announce.png" />
-    <Content Include="themes\Yafmobile\topic_announce_new.png" />
-    <Content Include="themes\Yafmobile\topic_lock.gif" />
-    <Content Include="themes\Yafmobile\topic_lock_new.gif" />
-    <Content Include="themes\Yafmobile\topic_moved.gif" />
-    <Content Include="themes\Yafmobile\topic_new.png" />
-    <Content Include="themes\Yafmobile\topic_poll.gif" />
-    <Content Include="themes\Yafmobile\topic_poll_new.gif" />
-    <Content Include="themes\Yafmobile\topic_sticky.gif" />
-    <Content Include="themes\Yafmobile\user-business.png" />
-    <Content Include="themes\Yafmobile\users_poll.gif" />
-    <Content Include="themes\Yafmobile\vkontakte.png" />
-    <Content Include="themes\Yafmobile\vote_lcap.gif" />
-    <Content Include="themes\Yafmobile\vote_rcap.gif" />
-    <Content Include="themes\Yafmobile\vote_refuse.gif" />
-    <Content Include="themes\Yafmobile\voting_bar.gif" />
     <Content Include="themes\yafpro\albums.png" />
     <Content Include="themes\yafpro\arrow_up_button.png" />
     <Content Include="themes\yafpro\atomfeed.png" />
@@ -4613,7 +4530,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

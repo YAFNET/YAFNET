@@ -190,12 +190,12 @@
 </table>
 <YAF:PageLinks ID="PageLinksBottom" runat="server" LinkedPageLinkID="PageLinks" />
 <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
-    <div id="DivForumJump">
+    <div class="float-right">
         <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />
         &nbsp;<YAF:ForumJump ID="ForumJump1" runat="server" />
     </div>
 </asp:PlaceHolder>
-<div id="DivPageAccess" class="smallfont">
+<div class="float-right">
     <YAF:PageAccess ID="PageAccess1" runat="server" />
 </div>
 <div id="DivSmartScroller">

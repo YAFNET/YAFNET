@@ -1,0 +1,92 @@
+﻿.ReputationBar {
+    margin-top: 5px;
+    width: 98%;
+    background-color: #ccc;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ccc), to(#9a9a9a));
+    background: -moz-linear-gradient(top, #ccc, #9a9a9a);
+    background: -o-linear-gradient(top, #ccc, #9a9a9a);
+    text-align: center;
+    border-color: black;
+    text-shadow: 0 0 3px #000;
+}
+
+.ReputationBarText {
+    margin-top: 5px;
+    color: white;
+}
+
+.ReputationBarValue {
+    background-image: none;
+}
+
+.BarDarkRed {
+    background-color: #8b0000;
+    background: -webkit-gradient(linear, left top, left bottom, from(#8b0000), to(#560000));
+    background: -moz-linear-gradient(top, #8b0000, #560000);
+    background: -o-linear-gradient(top, #8b0000, #560000);
+    border-color: black;
+}
+
+.BarRed {
+    background-color: #ff0000;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ff0000), to(#bf0000));
+    background: -moz-linear-gradient(top, #ff0000, #bf0000);
+    background: -o-linear-gradient(top, #ff0000, #bf0000);
+    border-color: black;
+}
+
+.BarOrangeRed {
+    background-color: #ff4500;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ff4500), to(#c73600));
+    background: -moz-linear-gradient(top, #ff4500, #c73600);
+    background: -o-linear-gradient(top, #ff4500, #c73600);
+    border-color: black;
+}
+
+.BarDarkOrange {
+    background-color: #ff8c00;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ff8c00), to(#c96e00));
+    background: -moz-linear-gradient(top, #ff8c00, #c96e00);
+    background: -o-linear-gradient(top, #ff8c00, #c96e00);
+    border-color: black;
+}
+
+.BarOrange {
+    background-color: #ffa500;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffa500), to(#c68000));
+    background: -moz-linear-gradient(top, #ffa500, #c68000);
+    background: -o-linear-gradient(top, #ffa500, #c68000);
+    border-color: black;
+}
+
+.BarYellow {
+    background-color: #ffff00;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffff00), to(#c2c200));
+    background: -moz-linear-gradient(top, #ffff00, #c2c200);
+    background: -o-linear-gradient(top, #ffff00, #c2c200);
+    border-color: black;
+}
+
+.BarLightGreen {
+    background-color: #06e906;
+    background: -webkit-gradient(linear, left top, left bottom, from(#06e906), to(#00c500));
+    background: -moz-linear-gradient(top, #06e906, #00c500);
+    background: -o-linear-gradient(top, #06e906, #00c500);
+    border-color: black;
+}
+
+.BarGreen {
+    background-color: #008000;
+    background: -webkit-gradient(linear, left top, left bottom, from(#008000), to(#014701));
+    background: -moz-linear-gradient(top, #008000, #014701);
+    background: -o-linear-gradient(top, #008000, #014701);
+    border-color: black;
+}
+
+.BarDarkGreen {
+    background-color: #006400;
+    background: -webkit-gradient(linear, left top, left bottom, from(#006400), to(#013d01));
+    background: -moz-linear-gradient(top, #006400, #013d01);
+    background: -o-linear-gradient(top, #006400, #013d01);
+    border-color: black;
+}

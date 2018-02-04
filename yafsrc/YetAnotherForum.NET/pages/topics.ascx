@@ -121,7 +121,7 @@
     </tr>
 </table>
 <asp:PlaceHolder ID="ForumSearchHolder" runat="server">
-<div id="ForumSearchDiv">
+<div class="float-left">
         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SEARCH_FORUM" />
         &nbsp;<asp:TextBox id="forumSearch" runat="server"></asp:TextBox>
         &nbsp;<YAF:ThemeButton ID="forumSearchOK" runat="server" CssClass="yaflittlebutton"
@@ -129,16 +129,16 @@
     </div>
 </asp:PlaceHolder>
 <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
-    <div id="DivForumJump">
+    <div class="float-right">
         <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />
         &nbsp;<YAF:ForumJump ID="ForumJump1" runat="server" />
     </div>
 </asp:PlaceHolder>
-<div class="clearItem"></div>
-<div id="DivIconLegend">
+<div class="clearfix"></div>
+<div class="float-left">
     <YAF:IconLegend ID="IconLegend1" runat="server" />
 </div>
-<div id="DivPageAccess" class="smallfont">
+<div class="float-right">
     <YAF:PageAccess ID="PageAccess1" runat="server" />
 </div>
 <div id="DivSmartScroller">
