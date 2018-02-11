@@ -32076,7 +32076,7 @@ S2.define('jquery.select2',[
                                 (profileData.Avatar ? ('<img class="s-img" style="' + online + '" src=' + profileData.Avatar + ' />') : '') +
                                 (profileData.RealName ? ('<label class="s-name">' + profileData.RealName + ' </label>') : ('<label class="s-name">' + profileData.Name + ' </label>')) +
                                 (href ? ('(<a class="s-username" title="Visit full profile for ' + profileData.Name + '" href="' + href + '">' + profileData.Name + '</a>)<br/>') : '') +
-                                (profileData.Location ? ('<label class="s-location">' + profileData.Location + '</label><br />') : '') +
+                                (profileData.Location ? ('&nbsp;<label class="s-location">' + profileData.Location + '</label>&nbsp;<br />') : '') +
                                 (profileData.Rank ? ('<label class="s-rank">' + profileData.Rank + '</label>') : '') +
                                 (profileData.Interests ? ('<p class="s-interests">' + profileData.Interests + '</p>') : '') +
                                 (profileData.Joined ? ('<p class="s-joined"><span class="s-strong">Member since:</span><br/>' + profileData.Joined + '</p>') : '') +

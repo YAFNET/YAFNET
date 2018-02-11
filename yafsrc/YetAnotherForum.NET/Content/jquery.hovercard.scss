@@ -61,6 +61,7 @@
   .s-name {
     color: #222;
     font-weight: bold;
+    float: left;
   }
   .s-href {
     clear: both;
@@ -145,7 +146,7 @@
 }
 
 .hc-details {
-  .s-loc, .s-location, .s-rank {
+  .s-loc, .s-rank {
     float: left;
   }
   .s-desc, .s-interests, .s-joined {

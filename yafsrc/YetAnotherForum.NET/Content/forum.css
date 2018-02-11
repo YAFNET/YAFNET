@@ -493,7 +493,8 @@ pre.line-numbers > code {
     max-width: 70px; }
   .hc-details .s-name {
     color: #222;
-    font-weight: bold; }
+    font-weight: bold;
+    float: left; }
   .hc-details .s-href {
     clear: both;
     float: left; }
@@ -560,7 +561,7 @@ pre.line-numbers > code {
     margin-bottom: 10px;
     padding-bottom: 10px; }
 
-.hc-details .s-loc, .hc-details .s-location, .hc-details .s-rank {
+.hc-details .s-loc, .hc-details .s-rank {
   float: left; }
 
 .hc-details .s-desc, .hc-details .s-interests, .hc-details .s-joined {
@@ -5838,6 +5839,10 @@ body:last-child .blueimp-gallery-playing > .play-pause {
   height: 200px;
   overflow: hidden;
   overflow-y: scroll; }
+
+.navbar-round {
+  border-radius: 4px;
+  border: 1px solid #e7e7e7; }
 
 #passwordStrength {
   padding: 0 .7em; }
