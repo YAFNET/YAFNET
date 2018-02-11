@@ -2116,7 +2116,7 @@
     <Resource tag="NONE">هیچ</Resource>
     <Resource tag="NOTE">Note:</Resource>
     <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT">کاربر جدید اسپم در انجمن {0} ثبت نام کرده است</Resource>
-    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">You have been award on the {0} Forum</Resource>
+    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">you have been awarded on the {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">پیام جدید در انجمن {0} نیاز به تائید دارد</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE">یک پیام در {0} گزارش داده شده است</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL">پیام جدید در {0} انجمن نیاز به بررسی دارد</Resource>
@@ -5132,7 +5132,7 @@
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
       Hello {user}.
 
-      Congratulations you have been award with the {medalname} on the {forumname} forum.
+      Congratulations you have been awarded with the {medalname} on the {forumname} forum.
     </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
       پیامی که نیازمند تایید شما می باشد در {forumname} انجمن ارسال شده است :

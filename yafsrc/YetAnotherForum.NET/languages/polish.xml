@@ -5079,7 +5079,7 @@ Hello!
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
     Hello {user}.
 
-    Congratulations you have been award with the {medalname} on the {forumname} forum.
+    Congratulations you have been awarded with the {medalname} on the {forumname} forum.
   </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
                 A new message that needs to be approved has been posted in the {forumname} forum:
