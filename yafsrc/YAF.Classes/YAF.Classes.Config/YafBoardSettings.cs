@@ -3280,7 +3280,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("EnableAlbum", true);
+                return this._reg.GetValue("EnableAlbum", false);
             }
 
             set

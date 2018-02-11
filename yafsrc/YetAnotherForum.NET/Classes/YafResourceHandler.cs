@@ -48,6 +48,7 @@ namespace YAF
     using YAF.Core.Services.Auth;
     using YAF.Core.Services.Localization;
     using YAF.Core.Services.Startup;
+    using YAF.Modules.BBCode;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -878,6 +879,9 @@ namespace YAF
                     return;
                 }
 
+                /*var image = this.GetRepository<UserAlbumImage>()
+                    .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("image"));*/
+                
                 // ImageID
                 using (
                     var dt = LegacyDb.album_image_list(
@@ -909,12 +913,21 @@ namespace YAF
 
                         context.Response.ContentType = row["ContentType"].ToString();
 
-                        // context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                        // context.Response.Cache.SetETag(eTag);
-                        context.Response.OutputStream.Write(data, 0, data.Length);
+                        if (context.Response.ContentType.Contains("text"))
+                        {
+                            context.Response.Write(
+                                "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+                        }
+                        else
+                        {
+                            // context.Response.Cache.SetCacheability(HttpCacheability.Public);
+                            // context.Response.Cache.SetETag(eTag);
+                            context.Response.OutputStream.Write(data, 0, data.Length);
 
-                        // add a download count...
-                        LegacyDb.album_image_download(context.Request.QueryString.GetFirstOrDefault("image"));
+                            // add a download count...
+                            LegacyDb.album_image_download(context.Request.QueryString.GetFirstOrDefault("image"));
+                        }
+                        
                         break;
                     }
                 }

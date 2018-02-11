@@ -26,9 +26,7 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
     using System.IO;
-    using System.Linq;
     using System.Threading;
     using System.Web;
     using System.Web.UI.HtmlControls;
@@ -39,7 +37,6 @@ namespace YAF.Pages
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -106,12 +103,12 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void DeleteAlbum_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var sUpDir =
+            var path =
               this.Get<HttpRequestBase>().MapPath(
                 string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
             YafAlbum.Album_Image_Delete(
-              sUpDir, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), this.PageContext.PageUserID, null);
+              path, this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), this.PageContext.PageUserID, null);
 
             // clear the cache for this user to update albums|images stats...
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
@@ -149,11 +146,11 @@ namespace YAF.Pages
             switch (e.CommandName)
             {
                 case "delete":
-                    var sUpDir =
+                    var path =
                       this.Get<HttpRequestBase>().MapPath(
                         String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
-                    YafAlbum.Album_Image_Delete(sUpDir, null, this.PageContext.PageUserID, e.CommandArgument.ToType<int>());
+                    YafAlbum.Album_Image_Delete(path, null, this.PageContext.PageUserID, e.CommandArgument.ToType<int>());
 
                     // If the user is trying to edit an existing album, initialize the repeater.
                     this.BindVariousControls(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a").Equals("new"));
@@ -309,19 +306,19 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void UpdateTitle_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var albumID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a");
+            var albumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a");
             this.txtTitle.Text = HttpUtility.HtmlEncode(this.txtTitle.Text);
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") == "new")
             {
-                albumID = LegacyDb.album_save(null, this.PageContext.PageUserID, this.txtTitle.Text, null).ToString();
+                albumId = LegacyDb.album_save(null, this.PageContext.PageUserID, this.txtTitle.Text, null).ToString();
             }
             else
             {
                 LegacyDb.album_save(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"), null, this.txtTitle.Text, null);
             }
 
-            YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", albumID);
+            YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", albumId);
         }
 
         /// <summary>
@@ -426,15 +423,20 @@ namespace YAF.Pages
                 return false;
             }
 
+            if (uploadedFile.PostedFile.ContentType.ToLower().Contains("text"))
+            {
+                return false;
+            }
+
             var extension = Path.GetExtension(filePath).ToLower();
 
             // remove the "period"
             extension = extension.Replace(".", string.Empty);
-            string[] aImageExtensions = { "jpg", "gif", "png", "bmp" };
+            string[] imageExtensions = { "jpg", "gif", "png", "bmp" };
 
             // If we don't get a match from the db, then the extension is not allowed
             // also, check to see an image is being uploaded.
-            if (Array.IndexOf(aImageExtensions, extension) == -1 || this.GetRepository<FileExtension>()
+            if (Array.IndexOf(imageExtensions, extension) == -1 || this.GetRepository<FileExtension>()
                     .Get(e => e.BoardId == this.PageContext.PageBoardID && e.Extension == extension).Count == 0)
             {
                 this.PageContext.AddLoadMessage(this.GetTextFormatted("FILEERROR", extension));
@@ -456,14 +458,14 @@ namespace YAF.Pages
                 return;
             }
 
-            var sUpDir =
+            var path =
               this.Get<HttpRequestBase>().MapPath(
                 string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
             // check if Uploads folder exists
-            if (!Directory.Exists(sUpDir))
+            if (!Directory.Exists(path))
             {
-                Directory.CreateDirectory(sUpDir);
+                Directory.CreateDirectory(path);
             }
 
             var filename = file.PostedFile.FileName;
@@ -507,7 +509,7 @@ namespace YAF.Pages
 
                 var newAlbumId = LegacyDb.album_save(null, this.PageContext.PageUserID, this.txtTitle.Text, null);
                 file.PostedFile.SaveAs(
-                  "{0}/{1}.{2}.{3}.yafalbum".FormatWith(sUpDir, this.PageContext.PageUserID, newAlbumId.ToString(), filename));
+                  "{0}/{1}.{2}.{3}.yafalbum".FormatWith(path, this.PageContext.PageUserID, newAlbumId.ToString(), filename));
                 LegacyDb.album_image_save(null, newAlbumId, null, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType);
 
                 // clear the cache for this user to update albums|images stats...
@@ -539,7 +541,7 @@ namespace YAF.Pages
 
                 file.PostedFile.SaveAs(
                   "{0}/{1}.{2}.{3}.yafalbum".FormatWith(
-                    sUpDir,
+                    path,
                     this.PageContext.PageUserID,
                     this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"),
                     filename));
