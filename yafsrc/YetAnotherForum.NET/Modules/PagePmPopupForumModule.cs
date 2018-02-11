@@ -115,7 +115,7 @@ namespace YAF.Modules
                       && this.Get<HttpRequestBase>().Browser.IsMobileDevice))
                 {
                     notification.Show(
-                        this.GetText("COMMON", "UNREAD_MSG2").FormatWith(this.PageContext.PendingBuddies),
+                        this.GetText("COMMON", "UNREAD_MSG2").FormatWith(this.PageContext.UnreadPrivate),
                         this.GetText("COMMON", "UNREAD_MSG_TITLE"),
                         new DialogBox.DialogButton
                             {

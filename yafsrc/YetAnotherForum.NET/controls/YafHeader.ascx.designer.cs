@@ -31,13 +31,49 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.Label GuestMessage;
         
         /// <summary>
-        /// UserContainer-Steuerelement
+        /// menuListItems-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel UserContainer;
+        protected global::System.Web.UI.WebControls.PlaceHolder menuListItems;
+        
+        /// <summary>
+        /// AdminModHolder-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder AdminModHolder;
+        
+        /// <summary>
+        /// menuAdminItems-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder menuAdminItems;
+        
+        /// <summary>
+        /// LoggedInUserPanel-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder LoggedInUserPanel;
+        
+        /// <summary>
+        /// UnreadPlaceHolder-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder UnreadPlaceHolder;
         
         /// <summary>
         /// MyProfile-Steuerelement
@@ -103,24 +139,6 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.LinkButton LogOutButton;
         
         /// <summary>
-        /// LoggedInUserPanel-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel LoggedInUserPanel;
-        
-        /// <summary>
-        /// menuListItems-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder menuListItems;
-        
-        /// <summary>
         /// quickSearch-Steuerelement
         /// </summary>
         /// <remarks>
@@ -136,7 +154,7 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox searchInput;
+        protected global::YAF.Controls.ModernTextBox searchInput;
         
         /// <summary>
         /// doQuickSearch-Steuerelement
@@ -145,24 +163,6 @@ namespace YAF.Controls {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton doQuickSearch;
-        
-        /// <summary>
-        /// AdminModHolder-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder AdminModHolder;
-        
-        /// <summary>
-        /// menuAdminItems-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder menuAdminItems;
+        protected global::YAF.Controls.ThemeButton doQuickSearch;
     }
 }

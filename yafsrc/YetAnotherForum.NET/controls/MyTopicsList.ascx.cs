@@ -533,7 +533,6 @@ namespace YAF.Controls
                         this.RssFeed.Visible = false;
                         break;
                     case TopicListMode.Active:
-                        this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPACTIVE";
                         this.RssFeed.FeedType = YafRssFeeds.Active;
                         this.RssFeed.AdditionalParameters =
                             "txt={0}&d={1}".FormatWith(
@@ -543,7 +542,6 @@ namespace YAF.Controls
                         this.RssFeed.Visible = accessActive;
                         break;
                     case TopicListMode.Favorite:
-                        this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPFAVORITE";
                         this.RssFeed.FeedType = YafRssFeeds.Favorite;
                         this.RssFeed.AdditionalParameters =
                             "txt={0}&d={1}".FormatWith(
@@ -553,51 +551,6 @@ namespace YAF.Controls
                         break;
                 }
             }
-
-            // Atom link setup 
-            if (!this.Get<YafBoardSettings>().ShowAtomLink)
-            {
-                return;
-            }
-
-            switch (this.CurrentMode)
-            {
-                case TopicListMode.User:
-                    this.AtomFeed.Visible = false;
-                    break;
-                case TopicListMode.Unread:
-                    this.AtomFeed.Visible = false;
-                    break;
-                case TopicListMode.Unanswered:
-                    this.AtomFeed.Visible = false;
-                    break;
-                case TopicListMode.Active:
-                    this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPACTIVE";
-                    this.AtomFeed.FeedType = YafRssFeeds.Active;
-                    this.AtomFeed.ImageThemeTag = "ATOMFEED";
-                    this.AtomFeed.TextLocalizedTag = "ATOMFEED";
-                    this.AtomFeed.AdditionalParameters =
-                        "txt={0}&d={1}".FormatWith(
-                            this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
-                            this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
-                    this.AtomFeed.Visible = accessActive;
-                    break;
-                case TopicListMode.Favorite:
-                    this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPFAVORITE";
-                    this.AtomFeed.FeedType = YafRssFeeds.Favorite;
-                    this.AtomFeed.ImageThemeTag = "ATOMFEED";
-                    this.AtomFeed.TextLocalizedTag = "ATOMFEED";
-                    this.AtomFeed.AdditionalParameters =
-                        "txt={0}&d={1}".FormatWith(
-                            this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
-                            this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
-
-                    this.AtomFeed.Visible = accessFavorite;
-                    break;
-            }
-
-            // We should set token to show a common control to handlw it as an Atom feed.
-            this.AtomFeed.IsAtomFeed = true;
         }
 
         #endregion

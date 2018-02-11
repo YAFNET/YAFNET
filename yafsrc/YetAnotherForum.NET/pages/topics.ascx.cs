@@ -203,10 +203,10 @@ namespace YAF.Pages
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<IYafSession>().UnreadTopics = 0;
-            this.AtomFeed.AdditionalParameters =
-                "f={0}".FormatWith(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
+
             this.RssFeed.AdditionalParameters =
                 "f={0}".FormatWith(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
+
             this.MarkRead.Text = this.GetText("MARKREAD");
             this.ForumJumpHolder.Visible = this.Get<YafBoardSettings>().ShowForumJump
                                            && this.PageContext.Settings.LockedForum == 0;

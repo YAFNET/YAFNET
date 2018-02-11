@@ -197,17 +197,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The delete topic_ load.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void DeleteTopic_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("confirm_deletetopic"));
-        }
-
-        /// <summary>
         /// The email topic_ click.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -629,10 +618,6 @@ namespace YAF.Pages
                 this.ViewOptions.Visible = yafBoardSettings.AllowThreaded;
                 this.ForumJumpHolder.Visible = yafBoardSettings.ShowForumJump
                                                && this.PageContext.Settings.LockedForum == 0;
-
-                this.RssTopic.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                    ForumPages.rsstopic, "pg={0}&t={1}", YafRssFeeds.Posts.ToInt(), this.PageContext.PageTopicID);
-                this.RssTopic.Visible = yafBoardSettings.ShowRSSLink;
 
                 this.QuickReplyDialog.Visible = yafBoardSettings.ShowQuickAnswer;
                 this.QuickReplyLink1.Visible = yafBoardSettings.ShowQuickAnswer;
@@ -1145,14 +1130,10 @@ namespace YAF.Pages
             this.ImageMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                 ForumPages.posts, "t={0}&find=lastpost", this.PageContext.PageTopicID);
 
-            this.LastPostedImage.LocalizedTitle = this.GetText("DEFAULT", "GO_LAST_POST");
-
             if (this.ImageLastUnreadMessageLink.Visible)
             {
                 this.ImageLastUnreadMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "t={0}&find=unread", this.PageContext.PageTopicID);
-
-                this.LastUnreadImage.LocalizedTitle = this.GetText(page: "DEFAULT", tag: "GO_LASTUNREAD_POST");
             }
 
             if (this._topic["LastPosted"] != DBNull.Value)
@@ -1161,13 +1142,13 @@ namespace YAF.Pages
                     this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
                         forumId: this.PageContext.PageForumID, topicId: this.PageContext.PageTopicID);
 
-                this.LastUnreadImage.ThemeTag = (DateTime.Parse(this._topic["LastPosted"].ToString()) > lastRead)
+               /* this.LastUnreadImage.ThemeTag = (DateTime.Parse(this._topic["LastPosted"].ToString()) > lastRead)
                                                     ? "ICON_NEWEST_UNREAD"
                                                     : "ICON_LATEST_UNREAD";
 
                 this.LastPostedImage.ThemeTag = (DateTime.Parse(this._topic["LastPosted"].ToString()) > lastRead)
                                                     ? "ICON_NEWEST"
-                                                    : "ICON_LATEST";
+                                                    : "ICON_LATEST";*/
             }
 
             this.DataBind();
@@ -1331,7 +1312,6 @@ namespace YAF.Pages
             if (watchTopicId.HasValue)
             {
                 // subscribed to this forum
-                this.TrackTopic.Text = this.GetText("UNWATCHTOPIC");
                 this.WatchTopicID.InnerText = watchTopicId.Value.ToString();
 
                 return true;
@@ -1339,7 +1319,6 @@ namespace YAF.Pages
 
             // not subscribed
             this.WatchTopicID.InnerText = string.Empty;
-            this.TrackTopic.Text = this.GetText("WATCHTOPIC");
 
             return false;
         }
@@ -1558,7 +1537,7 @@ namespace YAF.Pages
                 if (this.Get<YafBoardSettings>().AllowEmailTopic)
                 {
                     this.ShareMenu.AddPostBackItem(
-                        "email", this.GetText("EMAILTOPIC"), "fa fa-send");
+                        "email", this.GetText("EMAILTOPIC"), "fa fa-paper-plane");
                 }
 
                 this.ShareMenu.AddClientScriptItem(

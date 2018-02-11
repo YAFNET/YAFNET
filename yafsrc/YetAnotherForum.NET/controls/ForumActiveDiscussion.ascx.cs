@@ -269,9 +269,7 @@ namespace YAF.Controls
 
             this.CollapsibleImage.ToolTip = this.GetText("COMMON", "SHOWHIDE");
 
-            var groupAccess = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostLatestFeedAccess);
-            this.AtomFeed.Visible = this.Get<YafBoardSettings>().ShowAtomLink && groupAccess;
-            this.RssFeed.Visible = this.Get<YafBoardSettings>().ShowRSSLink && groupAccess;
+            this.RssFeed.Visible = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostLatestFeedAccess);
 
             this.lastPostToolTip = this.GetText("DEFAULT", "GO_LAST_POST");
             this.firstUnreadPostToolTip = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");

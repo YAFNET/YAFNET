@@ -68,8 +68,7 @@ namespace YAF.Controls
                 // see if there is already one since we are on the login page
                 if (HttpContext.Current.Request.QueryString.GetFirstOrDefault("ReturnUrl").IsSet())
                 {
-                    returnUrl =
-                      HttpContext.Current.Server.UrlEncode(
+                    returnUrl = HttpContext.Current.Server.UrlEncode(
                         General.GetSafeRawUrl(HttpContext.Current.Request.QueryString.GetFirstOrDefault("ReturnUrl")));
                 }
             }
@@ -100,11 +99,7 @@ namespace YAF.Controls
                         CssClass = "btn btn-primary",
                         ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.logout }
                     },
-                new DialogBox.DialogButton
-                    {
-                        Text = this.GetText("COMMON", "CANCEL"),
-                        CssClass = "btn btn-secondary"
-                    });
+                new DialogBox.DialogButton { Text = this.GetText("COMMON", "CANCEL"), CssClass = "btn btn-secondary" });
         }
 
         /// <summary>
@@ -148,19 +143,23 @@ namespace YAF.Controls
                 return;
             }
 
-            YafBuildLink.Redirect(
-                ForumPages.search,
-                "search={0}",
-                this.Server.UrlEncode(
-                    this.searchInput.Text));
+            YafBuildLink.Redirect(ForumPages.search, "search={0}", this.Server.UrlEncode(this.searchInput.Text));
+        }
+
+        /// <summary>
+        /// Users the has unread.
+        /// </summary>
+        /// <returns>Returns if the user have unread Messages or pending Buddies</returns>
+        protected bool UserHasUnread()
+        {
+            return this.PageContext.UnreadPrivate > 0 || this.PageContext.PendingBuddies > 0;
         }
 
         /// <summary>
         /// Render Li and a Item
         /// </summary>
         /// <param name="holder">The holder.</param>
-        /// <param name="cssClass">The li CSS Class.</param>
-        /// <param name="linkCssClass">The link CSS Class.</param>
+        /// <param name="cssClass">The CSS class.</param>
         /// <param name="linkText">The link text.</param>
         /// <param name="linkToolTip">The link tool tip.</param>
         /// <param name="linkUrl">The link URL.</param>
@@ -169,13 +168,21 @@ namespace YAF.Controls
         /// <param name="unread">The unread.</param>
         /// <param name="unreadText">The unread text.</param>
         private static void RenderMenuItem(
-            Control holder, string cssClass, string linkCssClass, string linkText, string linkToolTip, string linkUrl, bool noFollow, bool showUnread, string unread, string unreadText)
+            Control holder,
+            string cssClass,
+            string linkText,
+            string linkToolTip,
+            string linkUrl,
+            bool noFollow,
+            bool showUnread,
+            string unread,
+            string unreadText)
         {
             var element = new HtmlGenericControl("li");
 
             if (cssClass.IsSet())
             {
-                element.Attributes.Add("class", cssClass);
+                element.Attributes.Add("class", "nav-item");
             }
 
             if (linkToolTip.IsNotSet())
@@ -184,36 +191,32 @@ namespace YAF.Controls
             }
 
             var link = new HyperLink
-            {
-                Target = "_top",
-                ToolTip = linkToolTip,
-                NavigateUrl = linkUrl,
-                Text = linkText
-            };
+                           {
+                               Target = "_top",
+                               ToolTip = linkToolTip,
+                               NavigateUrl = linkUrl,
+                               Text = linkText,
+                               CssClass = cssClass
+                           };
 
             if (noFollow)
             {
                 link.Attributes.Add("rel", "nofollow");
             }
 
-            if (linkCssClass.IsSet())
-            {
-                link.CssClass = linkCssClass;
-            }
-
             var unreadButton = new HtmlGenericControl("span");
 
             if (showUnread)
             {
-                element.Controls.Add(unreadButton);
-                unreadButton.Controls.Add(link);
+                link.Controls.Add(new LiteralControl("{0}&nbsp;".FormatWith(linkText)));
+                link.Controls.Add(unreadButton);
 
                 var unreadLabel = new HtmlGenericControl("span");
 
                 unreadLabel.Attributes.Add("class", "badge badge-danger");
 
                 unreadLabel.Attributes.Add("title", unreadText);
-                
+
                 unreadLabel.InnerText = unread;
 
                 var unreadLabelText = new HtmlGenericControl("span");
@@ -226,12 +229,16 @@ namespace YAF.Controls
 
                 unreadButton.Controls.Add(unreadLabelText);
             }
-            else
+
+            if (cssClass.Equals("nav-link"))
             {
                 element.Controls.Add(link);
+                holder.Controls.Add(element);
             }
-
-            holder.Controls.Add(element);
+            else
+            {
+                holder.Controls.Add(link);
+            }
         }
 
         /// <summary>
@@ -239,35 +246,21 @@ namespace YAF.Controls
         /// </summary>
         private void RenderQuickSearch()
         {
-            if (!this.Get<YafBoardSettings>().ShowQuickSearch ||
-                !this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().SearchPermissions))
+            if (!this.Get<YafBoardSettings>().ShowQuickSearch
+                || !this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().SearchPermissions))
             {
                 return;
             }
 
             this.quickSearch.Visible = true;
 
-            var searchIcon = this.Get<ITheme>().GetItem("ICONS", "SEARCH");
-
-            if (searchIcon.IsSet())
-            {
-                this.doQuickSearch.Text = @"<img alt=""{1}"" title=""{1}"" src=""{0}"" /> {1}".FormatWith(
-                    searchIcon, this.GetText("SEARCH", "BTNSEARCH"));
-            }
-            else
-            {
-                this.doQuickSearch.Text = this.GetText("SEARCH", "BTNSEARCH");
-            }
-
             this.searchInput.Attributes["onkeydown"] =
                 "if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; "
                     .FormatWith(this.doQuickSearch.ClientID);
             this.searchInput.Attributes["onfocus"] =
-                "if (this.value == '{0}') {{this.value = '';}}".FormatWith(
-                    this.GetText("TOOLBAR", "SEARCHKEYWORD"));
+                "if (this.value == '{0}') {{this.value = '';}}".FormatWith(this.GetText("TOOLBAR", "SEARCHKEYWORD"));
             this.searchInput.Attributes["onblur"] =
-                "if (this.value == '') {{this.value = '{0}';}}".FormatWith(
-                    this.GetText("TOOLBAR", "SEARCHKEYWORD"));
+                "if (this.value == '') {{this.value = '{0}';}}".FormatWith(this.GetText("TOOLBAR", "SEARCHKEYWORD"));
 
             this.searchInput.Text = this.GetText("TOOLBAR", "SEARCHKEYWORD");
         }
@@ -285,8 +278,7 @@ namespace YAF.Controls
                 // Admin
                 RenderMenuItem(
                     this.menuAdminItems,
-                    "menuAdmin",
-                    null,
+                    "nav-link",
                     this.GetText("TOOLBAR", "ADMIN"),
                     this.GetText("TOOLBAR", "ADMIN_TITLE"),
                     YafBuildLink.GetLink(ForumPages.admin_admin),
@@ -304,8 +296,7 @@ namespace YAF.Controls
                 // Admin
                 RenderMenuItem(
                     this.menuAdminItems,
-                    "menuAdmin",
-                    null,
+                    "nav-link",
                     this.GetText("TOOLBAR", "HOST"),
                     this.GetText("TOOLBAR", "HOST_TITLE"),
                     YafBuildLink.GetLink(ForumPages.admin_hostsettings),
@@ -323,8 +314,7 @@ namespace YAF.Controls
                 // Admin
                 RenderMenuItem(
                     this.menuAdminItems,
-                    "menuAdmin",
-                    null,
+                    "nav-link",
                     this.GetText("TOOLBAR", "MODERATE"),
                     this.GetText("TOOLBAR", "MODERATE_TITLE"),
                     YafBuildLink.GetLink(ForumPages.moderate_index),
@@ -342,24 +332,22 @@ namespace YAF.Controls
         {
             // Forum
             RenderMenuItem(
-                    this.menuListItems,
-                    "menuGeneral",
-                    null,
-                    this.GetText("DEFAULT", "FORUM"),
-                    this.GetText("TOOLBAR", "FORUM_TITLE"),
-                    YafBuildLink.GetLink(ForumPages.forum),
-                    false,
-                    false,
-                    null,
-                    null);
+                this.menuListItems,
+                "nav-link",
+                this.GetText("DEFAULT", "FORUM"),
+                this.GetText("TOOLBAR", "FORUM_TITLE"),
+                YafBuildLink.GetLink(ForumPages.forum),
+                false,
+                false,
+                null,
+                null);
 
             // Active Topics
             if (this.PageContext.IsGuest)
             {
                 RenderMenuItem(
                     this.menuListItems,
-                    "menuGeneral",
-                    null,
+                    "nav-link",
                     this.GetText("TOOLBAR", "ACTIVETOPICS"),
                     this.GetText("TOOLBAR", "ACTIVETOPICS_TITLE"),
                     YafBuildLink.GetLink(ForumPages.mytopics),
@@ -374,8 +362,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     this.menuListItems,
-                    "menuGeneral",
-                    null,
+                    "nav-link",
                     this.GetText("TOOLBAR", "SEARCH"),
                     this.GetText("TOOLBAR", "SEARCH_TITLE"),
                     YafBuildLink.GetLink(ForumPages.search),
@@ -390,8 +377,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     this.menuListItems,
-                    "menuGeneral",
-                    null,
+                    "nav-link",
                     this.GetText("TOOLBAR", "MEMBERS"),
                     this.GetText("TOOLBAR", "MEMBERS_TITLE"),
                     YafBuildLink.GetLink(ForumPages.members),
@@ -406,8 +392,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     this.menuListItems,
-                    "menuGeneral",
-                    null,
+                    "nav-link",
                     this.GetText("TOOLBAR", "TEAM"),
                     this.GetText("TOOLBAR", "TEAM_TITLE"),
                     YafBuildLink.GetLink(ForumPages.team),
@@ -422,8 +407,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     this.menuListItems,
-                    "menuGeneral",
-                    null,
+                    "nav-link",
                     this.GetText("TOOLBAR", "HELP"),
                     this.GetText("TOOLBAR", "HELP_TITLE"),
                     YafBuildLink.GetLink(ForumPages.help_index),
@@ -445,8 +429,7 @@ namespace YAF.Controls
                 {
                     RenderMenuItem(
                         this.menuListItems,
-                        "menuAccount",
-                        "LoginLink",
+                        "nav-link  LoginLink",
                         this.GetText("TOOLBAR", "LOGIN"),
                         this.GetText("TOOLBAR", "LOGIN_TITLE"),
                         "javascript:void(0);",
@@ -458,19 +441,18 @@ namespace YAF.Controls
                 else
                 {
                     var returnUrl = this.GetReturnUrl().IsSet()
-                                           ? "ReturnUrl={0}".FormatWith(this.GetReturnUrl())
-                                           : string.Empty;
+                                        ? "ReturnUrl={0}".FormatWith(this.GetReturnUrl())
+                                        : string.Empty;
 
                     RenderMenuItem(
                         this.menuListItems,
-                        "menuAccount",
-                        null,
+                        "nav-link",
                         this.GetText("TOOLBAR", "LOGIN"),
                         this.GetText("TOOLBAR", "LOGIN_TITLE"),
                         !this.Get<YafBoardSettings>().UseSSLToLogIn
                             ? YafBuildLink.GetLinkNotEscaped(ForumPages.login, returnUrl)
                             : YafBuildLink.GetLinkNotEscaped(ForumPages.login, true, returnUrl)
-                                  .Replace("http:", "https:"),
+                                .Replace("http:", "https:"),
                         true,
                         false,
                         null,
@@ -483,8 +465,7 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     this.menuListItems,
-                    "menuGeneral",
-                    null,
+                    "nav-link",
                     this.GetText("TOOLBAR", "REGISTER"),
                     this.GetText("TOOLBAR", "REGISTER_TITLE"),
                     this.Get<YafBoardSettings>().ShowRulesForRegistration
@@ -509,21 +490,19 @@ namespace YAF.Controls
                 return;
             }
 
-            this.UserContainer.Visible = true;
-
             // My Profile
             this.MyProfile.ToolTip = this.GetText("TOOLBAR", "MYPROFILE_TITLE");
             this.MyProfile.NavigateUrl = YafBuildLink.GetLink(ForumPages.cp_profile);
-            this.MyProfile.Text = this.GetText("TOOLBAR", "MYPROFILE");
+            this.MyProfile.Text =
+                "<i class=\"fa fa-user fa-fw\"></i>  {0}".FormatWith(this.GetText("TOOLBAR", "MYPROFILE"));
 
             // My Inbox
             if (this.Get<YafBoardSettings>().AllowPrivateMessages)
             {
                 RenderMenuItem(
                     this.MyInboxItem,
-                    "menuMy myPm",
-                    null,
-                    this.GetText("TOOLBAR", "INBOX"),
+                    "dropdown-item",
+                    "<i class=\"fa fa-envelope fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "INBOX")),
                     this.GetText("TOOLBAR", "INBOX_TITLE"),
                     YafBuildLink.GetLink(ForumPages.cp_pm),
                     false,
@@ -537,9 +516,8 @@ namespace YAF.Controls
             {
                 RenderMenuItem(
                     this.MyBuddiesItem,
-                    "menuMy myBuddies",
-                    null,
-                    this.GetText("TOOLBAR", "BUDDIES"),
+                    "dropdown-item",
+                    "<i class=\"fa fa-users fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "BUDDIES")),
                     this.GetText("TOOLBAR", "BUDDIES_TITLE"),
                     YafBuildLink.GetLink(ForumPages.cp_editbuddies),
                     false,
@@ -549,13 +527,13 @@ namespace YAF.Controls
             }
 
             // My Albums
-            if (this.Get<YafBoardSettings>().EnableAlbum && (this.PageContext.UsrAlbums > 0 || this.PageContext.NumAlbums > 0))
+            if (this.Get<YafBoardSettings>().EnableAlbum
+                && (this.PageContext.UsrAlbums > 0 || this.PageContext.NumAlbums > 0))
             {
                 RenderMenuItem(
                     this.MyAlbumsItem,
-                    "menuMy myAlbums",
-                    null,
-                    this.GetText("TOOLBAR", "MYALBUMS"),
+                    "dropdown-item",
+                    "<i class=\"fa fa-image fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "MYALBUMS")),
                     this.GetText("TOOLBAR", "MYALBUMS_TITLE"),
                     YafBuildLink.GetLinkNotEscaped(ForumPages.albums, "u={0}", this.PageContext.PageUserID),
                     false,
@@ -564,50 +542,40 @@ namespace YAF.Controls
                     null);
             }
 
-            var unread = this.PageContext.UnreadPrivate > 0 || this.PageContext.PendingBuddies > 0/* ||
-                          this.PageContext.UnreadTopics > 0*/;
-
             // My Topics
-                RenderMenuItem(
+            RenderMenuItem(
                 this.MyTopicItem,
-                "menuMy myTopics",
-                null,
-                this.GetText("TOOLBAR", "MYTOPICS"),
+                "dropdown-item",
+                "<i class=\"fa fa-comment fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "MYTOPICS")),
                 this.GetText("TOOLBAR", "MYTOPICS"),
                 YafBuildLink.GetLink(ForumPages.mytopics),
                 false,
-                false,//this.PageContext.UnreadTopics > 0,
-                string.Empty,//this.PageContext.UnreadTopics.ToString(),
-                string.Empty);//this.GetText("TOOLBAR", "UNREADTOPICS").FormatWith(this.PageContext.UnreadTopics));
+                false,
+                string.Empty,
+                string.Empty);
+
+            /*RenderMenuItem(
+                this.MyTopicItem,
+                "dropdown-item",
+                "<i class=\"fa fa-comment fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "MYTOPICS")),
+                this.GetText("TOOLBAR", "MYTOPICS"),
+                YafBuildLink.GetLink(ForumPages.mytopics),
+                false,
+                this.PageContext.UnreadTopics > 0,
+                this.PageContext.UnreadTopics.ToString(),
+                this.GetText("TOOLBAR", "UNREADTOPICS").FormatWith(this.PageContext.UnreadTopics));*/
 
             // Logout
             if (!Config.IsAnyPortal && Config.AllowLoginAndLogoff)
             {
                 this.LogutItem.Visible = true;
-                this.LogOutButton.Text = this.GetText("TOOLBAR", "LOGOUT");
+                this.LogOutButton.Text =
+                    "<i class=\"fa fa-sign-out-alt fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("TOOLBAR", "LOGOUT"));
                 this.LogOutButton.ToolTip = this.GetText("TOOLBAR", "LOGOUT");
             }
 
             // Logged in as : username
             this.LoggedInUserPanel.Visible = true;
-
-            if (unread)
-            {
-                this.LoggedInUserPanel.CssClass = "loggedInUser unread";
-            }
-
-            this.LoggedInUserPanel.Controls.Add(
-                new Label { Text = this.GetText("TOOLBAR", "LOGGED_IN_AS").FormatWith("&nbsp;") });
-
-            var userLink = new UserLink
-                {
-                    ID = "UserLoggedIn",
-                    UserID = this.PageContext.PageUserID,
-                    CssClass = "currentUser",
-                    EnableHoverCard = false
-                };
-
-            this.LoggedInUserPanel.Controls.Add(userLink);
         }
 
         /// <summary>
@@ -631,7 +599,7 @@ namespace YAF.Controls
 
             if (Config.IsAnyPortal)
             {
-              this.GuestMessage.Text = this.GetText("TOOLBAR", "WELCOME_GUEST");
+                this.GuestMessage.Text = this.GetText("TOOLBAR", "WELCOME_GUEST");
             }
             else
             {
@@ -639,11 +607,11 @@ namespace YAF.Controls
                 {
                     // show login
                     var loginLink = new HyperLink
-                    {
-                        Text = this.GetText("TOOLBAR", "LOGIN"),
-                        ToolTip = this.GetText("TOOLBAR", "LOGIN"),
-                        CssClass = "alert-link"
-                    };
+                                        {
+                                            Text = this.GetText("TOOLBAR", "LOGIN"),
+                                            ToolTip = this.GetText("TOOLBAR", "LOGIN"),
+                                            CssClass = "alert-link"
+                                        };
 
                     if (this.Get<YafBoardSettings>().UseLoginBox && !(this.Get<IYafSession>().UseMobileTheme ?? false))
                     {
@@ -653,13 +621,13 @@ namespace YAF.Controls
                     else
                     {
                         var returnUrl = this.GetReturnUrl().IsSet()
-                                               ? "ReturnUrl={0}".FormatWith(this.GetReturnUrl())
-                                               : string.Empty;
+                                            ? "ReturnUrl={0}".FormatWith(this.GetReturnUrl())
+                                            : string.Empty;
 
                         loginLink.NavigateUrl = !this.Get<YafBoardSettings>().UseSSLToLogIn
                                                     ? YafBuildLink.GetLinkNotEscaped(ForumPages.login, returnUrl)
                                                     : YafBuildLink.GetLinkNotEscaped(ForumPages.login, true, returnUrl)
-                                                          .Replace("http:", "https:");
+                                                        .Replace("http:", "https:");
                     }
 
                     this.GuestUserMessage.Controls.Add(loginLink);
@@ -677,16 +645,18 @@ namespace YAF.Controls
 
                     // show register link
                     var registerLink = new HyperLink
-                    {
-                        Text = this.GetText("TOOLBAR", "REGISTER"),
-                        NavigateUrl =
-                            this.Get<YafBoardSettings>().ShowRulesForRegistration
-                                ? YafBuildLink.GetLink(ForumPages.rules)
-                                : (!this.Get<YafBoardSettings>().UseSSLToRegister
-                                       ? YafBuildLink.GetLink(ForumPages.register)
-                                       : YafBuildLink.GetLink(ForumPages.register, true).Replace("http:", "https:")),
-                        CssClass = "alert-link"
-                    };
+                                           {
+                                               Text = this.GetText("TOOLBAR", "REGISTER"),
+                                               NavigateUrl =
+                                                   this.Get<YafBoardSettings>().ShowRulesForRegistration
+                                                       ? YafBuildLink.GetLink(ForumPages.rules)
+                                                       : (!this.Get<YafBoardSettings>().UseSSLToRegister
+                                                              ? YafBuildLink.GetLink(ForumPages.register)
+                                                              : YafBuildLink.GetLink(
+                                                                  ForumPages.register,
+                                                                  true).Replace("http:", "https:")),
+                                               CssClass = "alert-link"
+                                           };
 
                     this.GuestUserMessage.Controls.Add(registerLink);
 
@@ -699,7 +669,7 @@ namespace YAF.Controls
                     this.GuestUserMessage.Controls.Add(endPoint);
 
                     this.GuestUserMessage.Controls.Add(
-                          new Label { Text = this.GetText("TOOLBAR", "DISABLED_REGISTER") });
+                        new Label { Text = this.GetText("TOOLBAR", "DISABLED_REGISTER") });
                 }
 
                 // If both disallowed
@@ -709,8 +679,7 @@ namespace YAF.Controls
                 }
 
                 this.GuestUserMessage.Controls.Clear();
-                this.GuestUserMessage.Controls.Add(
-                    new Label { Text = this.GetText("TOOLBAR", "WELCOME_GUEST_NO") });
+                this.GuestUserMessage.Controls.Add(new Label { Text = this.GetText("TOOLBAR", "WELCOME_GUEST_NO") });
             }
         }
 
