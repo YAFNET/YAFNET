@@ -43,9 +43,14 @@
     </asp:Repeater>
     <tr>
         <td class="footer1" align="right" width="100%" colspan="5">
-            <asp:LinkButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" />
-            <YAF:RssFeedLink ID="RssFeed" runat="server" ShowSpacerBefore="true" Visible="False" />
-            <YAF:RssFeedLink ID="AtomFeed" runat="server" ShowSpacerBefore="true" Visible="False"  />   
+            <div class="btn-group" role="group" aria-label="Tools">
+                <YAF:ThemeButton runat="server" OnClick="MarkAll_Click" ID="MarkAll"
+                                 TextLocalizedTag="MARK_ALL_ASREAD" TextLocalizedPage="DEFAULT"
+                                 Type="Secondary"
+                                 CssClass="btn-sm"
+                                 Icon="flag-checkered"/>
+                <YAF:RssFeedLink ID="RssFeed" runat="server" Visible="False" />
+            </div>
         </td>
     </tr>
 </table>

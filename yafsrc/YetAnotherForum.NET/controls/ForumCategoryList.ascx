@@ -49,11 +49,17 @@
                 <FooterTemplate>
                     <tr class="forumRowFoot footer1">
                         <td colspan="<%# ColumnCount() %>" align="right">
-                            <asp:LinkButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" Text='<%# this.GetText("MARKALL") %>' />
+                            <div class="btn-group" role="group" aria-label="Tools">
+                            <YAF:ThemeButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" 
+                                             Type="Secondary"
+                                             CssClass="btn-sm"
+                                             Icon="flag-checkered"
+                                             TextLocalizedTag="MARKALL" />
                             <YAF:RssFeedLink ID="RssFeed1" runat="server" 
                                              FeedType="Forum" 
                                              AdditionalParameters='<%# this.PageContext.PageCategoryID != 0 ? string.Format("c={0}", this.PageContext.PageCategoryID) : null %>'
                                              Visible="<%# this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ForumFeedAccess) %>" />
+                            </div>
                         </td>
                     </tr>
                 </FooterTemplate>

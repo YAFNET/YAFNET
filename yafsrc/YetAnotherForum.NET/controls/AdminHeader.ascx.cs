@@ -84,11 +84,6 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void LogOutClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (YafContext.Current.ForumPageType.Equals(ForumPages.search))
-            {
-                YafBuildLink.Redirect(ForumPages.logout);
-            }
-
             var notification = this.PageContext.CurrentForumPage.Notification.ToType<DialogBox>();
 
             notification.Show(

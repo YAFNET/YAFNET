@@ -18,9 +18,13 @@
                         <td class="post">
                          <img id="YourChoice" visible="false" runat="server" alt='<%# this.GetText("POLLEDIT", "POLL_VOTED") %>'
                                    title='<%# this.GetText("POLLEDIT", "POLL_VOTED") %>'
-                                   width="16" height="16" src='<%# GetThemeContents("VOTE","POLL_VOTED") %>' />&nbsp;
-                          <YAF:MyLinkButton ID="MyLinkButton1"   CssClass="pollvote a" Enabled="false" runat="server" CommandName="vote"
-                                CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>' Text='<%# this.HtmlEncode(this.Get<IBadWordReplace>().Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' />
+                                   width="16" height="16" src='<%# this.GetThemeContents("VOTE","POLL_VOTED") %>' />&nbsp;
+                          <asp:LinkButton ID="MyLinkButton1" 
+                                           CssClass="pollvote a" 
+                                           Enabled="false" runat="server" 
+                                           CommandName="vote"
+                                           CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>' 
+                                           Text='<%# this.HtmlEncode(this.Get<IBadWordReplace>().Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' />
 
                         </td>
                         <td class="post" align="center">
@@ -30,14 +34,14 @@
                             <asp:Panel ID="MaskSpan" Visible="false" runat="server">
                                 <img alt='<%# this.GetText("POLLEDIT", "POLLRESULTSHIDDEN_SHORT") %>'
                                     title='<%# this.GetText("POLLEDIT", "POLLRESULTSHIDDEN_SHORT") %>'
-                                    src='<%# GetThemeContents("VOTE","POLL_MASK") %>' />
+                                    src='<%# this.GetThemeContents("VOTE","POLL_MASK") %>' />
                             </asp:Panel>
                         </td>
                         <td class="post">
                             <asp:Panel ID="resultsSpan" Visible="false" runat="server">
                                 <nobr>
-					<img alt="" src="<%# GetThemeContents("VOTE","LCAP") %>" /><img id="ImgVoteBar" alt="" src='<%# GetThemeContents("VOTE","BAR") %>'
-						height="12" width='<%# VoteWidth(Container.DataItem) %>' runat="server" /><img alt="" src='<%# GetThemeContents("VOTE","RCAP") %>' /></nobr>
+					<img alt="" src="<%# this.GetThemeContents("VOTE","LCAP") %>" /><img id="ImgVoteBar" alt="" src='<%# this.GetThemeContents("VOTE","BAR") %>'
+						height="12" width='<%# this.VoteWidth(Container.DataItem) %>' runat="server" /><img alt="" src='<%# this.GetThemeContents("VOTE","RCAP") %>' /></nobr>
                                 <%# DataBinder.Eval(Container.DataItem,"Stats") %>
                                 %
                             </asp:Panel>

@@ -95,7 +95,7 @@ namespace YAF.Pages
             }
 
             // localize button label
-            this.Continue.Text = this.GetText("continue");
+            this.Continue.TextLocalizedTag = "CONTINUE";
 
             // get redirect URL from parameter
             if (this.Request.QueryString.GetFirstOrDefault("url") != null)
@@ -117,7 +117,6 @@ namespace YAF.Pages
                         break;
                     case InfoMessage.Suspended: // Suspended
                         this.Title.Text = this.GetText("title_suspended");
-
 
                         if (this.PageContext.SuspendedReason.IsSet())
                         {

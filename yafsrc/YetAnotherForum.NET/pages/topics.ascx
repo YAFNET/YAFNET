@@ -95,13 +95,23 @@
                         <asp:DropDownList ID="ShowList" runat="server" AutoPostBack="True" CssClass="standardSelectMenu" />
                     </td>
                     <td align="right">
-                        <asp:LinkButton ID="WatchForum" runat="server" /><span id="WatchForumID" runat="server"
-                            visible="false" /><span id="delimiter1" runat="server" visible="<%# this.WatchForum.Text.Length > 0 %>"> | </span>
-                        <asp:LinkButton runat="server" ID="MarkRead" />
+                        <div class="btn-group" role="group" aria-label="Tools">
+                        <YAF:ThemeButton runat="server" ID="WatchForum"
+                                         Type="Secondary" 
+                                         CssClass="btn-sm"
+                                         Icon="eye"
+                                         TextLocalizedTag="WATCHFORUM"/>
+                        <YAF:ThemeButton runat="server" 
+                                         Type="Secondary" 
+                                         CssClass="btn-sm" 
+                                         Icon="flag-checkered"
+                                         ID="MarkRead"
+                                         TextLocalizedTag="MARKREAD"/>
                         <YAF:RssFeedLink ID="RssFeed" runat="server" 
                                          FeedType="Topics"
                                          Visible="<%# this.Get<IPermissions>().Check(this.PageContext.BoardSettings.TopicsFeedAccess) %>"  
-                                         />                    
+                                         />
+                        </div>
                     </td>
                 </tr>
             </table>

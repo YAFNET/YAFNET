@@ -40,7 +40,7 @@
                 </asp:Repeater>
                 <tr>
                     <td class="footer1" align="right" colspan="2">
-                        <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="LatestPosts"  TitleLocalizedTag="RSSICONTOOLTIPACTIVE" />                        
+                        <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="LatestPosts" />                        
                     </td>
                 </tr>
             </asp:PlaceHolder>

@@ -207,7 +207,6 @@ namespace YAF.Pages
             this.RssFeed.AdditionalParameters =
                 "f={0}".FormatWith(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
 
-            this.MarkRead.Text = this.GetText("MARKREAD");
             this.ForumJumpHolder.Visible = this.Get<YafBoardSettings>().ShowForumJump
                                            && this.PageContext.Settings.LockedForum == 0;
 
@@ -321,18 +320,22 @@ namespace YAF.Pages
                 return;
             }
 
-            if (this.WatchForumID.InnerText == string.Empty)
+            if (this.WatchForum.Icon == "eye")
             {
                 this.GetRepository<WatchForum>().Add(this.PageContext.PageUserID, this.PageContext.PageForumID);
 
-                this.PageContext.AddLoadMessage(this.GetText("INFO_WATCH_FORUM"));
+                this.PageContext.AddLoadMessage(this.GetText("INFO_WATCH_FORUM"), MessageTypes.success);
             }
             else
             {
-                var tmpID = this.WatchForumID.InnerText.ToType<int>();
-                this.GetRepository<WatchForum>().DeleteById(tmpID);
+                var watch = this.GetRepository<WatchForum>().Check(this.PageContext.PageUserID, this.PageContext.PageForumID);
 
-                this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_FORUM"));
+                if (watch != null)
+                {
+                    this.GetRepository<WatchForum>().DeleteById(watch.Value);
+
+                    this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_FORUM"), MessageTypes.success);
+                }
             }
 
             this.HandleWatchForum();
@@ -469,17 +472,18 @@ namespace YAF.Pages
 
             // check if this forum is being watched by this user
             var watchForumId = this.GetRepository<WatchForum>().Check(this.PageContext.PageUserID, this.PageContext.PageForumID);
+
             if (watchForumId.HasValue)
             {
                 // subscribed to this forum
-                this.WatchForum.Text = this.GetText("unwatchforum");
-                this.WatchForumID.InnerText = watchForumId.Value.ToString();
+                this.WatchForum.TextLocalizedTag = "UNWATCHFORUM";
+                this.WatchForum.Icon = "eye-slash";
             }
             else
             {
                 // not subscribed
-                this.WatchForumID.InnerText = string.Empty;
-                this.WatchForum.Text = this.GetText("watchforum");
+                this.WatchForum.TextLocalizedTag = "WATCHFORUM";
+                this.WatchForum.Icon = "eye";
             }
         }
 

@@ -142,7 +142,6 @@
     <Compile Include="MessagePostData.cs" />
     <Compile Include="MessageSignature.cs" />
     <Compile Include="BBCodeModule.cs" />
-    <Compile Include="MyLinkButton.cs" />
     <Compile Include="PageAccess.cs" />
     <Compile Include="PageLinks.cs" />
     <Compile Include="Pager.cs" />

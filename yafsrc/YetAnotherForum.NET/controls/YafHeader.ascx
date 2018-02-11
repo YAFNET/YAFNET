@@ -34,7 +34,7 @@
                            role="button" 
                            aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-user fa-fw"></i>&nbsp;<%= this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName  %>
-                            <asp:PlaceHolder runat="server" id="UnreadPlaceHolder" Visible="<%# UserHasUnread() %>">
+                            <asp:PlaceHolder runat="server" id="UnreadPlaceHolder">
                                 <span class="badge badge-danger">
                                     <%= (this.PageContext.UnreadPrivate + this.PageContext.PendingBuddies).ToString() %>
                                 </span>
@@ -55,8 +55,7 @@
                                 <div class="dropdown-divider"></div>
                                 <asp:LinkButton ID="LogOutButton" runat="server" 
                                             CssClass="dropdown-item"
-                                            OnClick="LogOutClick" 
-                                            OnClientClick="createCookie('ScrollPosition',document.all ? document.scrollTop : window.pageYOffset);">
+                                            OnClick="LogOutClick">
                                 </asp:LinkButton>
                             </asp:PlaceHolder>
                         </div>

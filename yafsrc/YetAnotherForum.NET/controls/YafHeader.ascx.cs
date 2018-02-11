@@ -83,11 +83,6 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void LogOutClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (YafContext.Current.ForumPageType.Equals(ForumPages.search))
-            {
-                YafBuildLink.Redirect(ForumPages.logout);
-            }
-
             var notification = this.PageContext.CurrentForumPage.Notification.ToType<DialogBox>();
 
             notification.Show(
@@ -144,15 +139,6 @@ namespace YAF.Controls
             }
 
             YafBuildLink.Redirect(ForumPages.search, "search={0}", this.Server.UrlEncode(this.searchInput.Text));
-        }
-
-        /// <summary>
-        /// Users the has unread.
-        /// </summary>
-        /// <returns>Returns if the user have unread Messages or pending Buddies</returns>
-        protected bool UserHasUnread()
-        {
-            return this.PageContext.UnreadPrivate > 0 || this.PageContext.PendingBuddies > 0;
         }
 
         /// <summary>
@@ -576,6 +562,8 @@ namespace YAF.Controls
 
             // Logged in as : username
             this.LoggedInUserPanel.Visible = true;
+
+            this.UnreadPlaceHolder.Visible = this.PageContext.UnreadPrivate + this.PageContext.PendingBuddies > 0;
         }
 
         /// <summary>
