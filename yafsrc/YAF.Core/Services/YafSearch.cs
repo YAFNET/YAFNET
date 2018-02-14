@@ -360,8 +360,10 @@
             }
 
             var flags = doc.Get("Flags").ToType<int>();
+            
+            var formattedMessage = this.Get<IFormatMessage>().FormatMessage(doc.Get("Message"), new MessageFlags(flags), true);
 
-            var message = this.Get<IFormatMessage>().FormatMessage(doc.Get("Message"), new MessageFlags(flags), true);
+            var message = formattedMessage;
 
             try
             {
@@ -370,7 +372,14 @@
             catch (Exception)
             {
                 // Ignore
-                // message = message;
+                message = formattedMessage;
+            }
+            finally
+            {
+                if (message.IsNotSet())
+                {
+                    message = formattedMessage;
+                }
             }
 
             string topic;

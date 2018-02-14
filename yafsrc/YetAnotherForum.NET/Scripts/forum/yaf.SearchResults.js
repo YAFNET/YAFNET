@@ -12,46 +12,47 @@
 
     var searchText = "";
 
-    if (searchInput.length && searchInput.length >= 4) {
-        var replace;
-        if (titleOnly === "1") {
-            // ADD Topic Filter
-            if (searchWhat === "0") {
-                // Match all words
-                replace = searchInput;
-                searchText += " Topic: (" + replace.replace(/(^|\s+)/g, "$1+") + ")";
-            } else if (searchWhat === "1") {
-                // Match Any Word
-                searchText += " Topic: " + searchInput;
-            } else if (searchWhat === "2") {
-                // Match Extact Phrase
-                searchText += " Topic:" + "\"" + searchInput + "\"";
-            }
-        } else {
-            if (searchWhat === "0") {
-                // Match all words
-                replace = searchInput;
-                searchText += "(" + replace.replace(/(^|\s+)/g, "$1+") + ")";
-            }
-            else if (searchWhat === "1") {
-                // Match Any Word
-                searchText += "" + searchInput;
-            }
-            else if (searchWhat === "2") {
-                // Match Extact Phrase
-                searchText += "" + "\"" + searchInput + "\"";
-            }
+    if (searchInput.length && searchInput.length >= 4 || searchInputUser.length && searchInputUser.length >= 4) {
 
-            searchText += " -Author:" + searchInput;
+        var replace;
+
+        if (searchInput.length && searchInput.length >= 4) {
+            if (titleOnly === "1") {
+                // ADD Topic Filter
+                if (searchWhat === "0") {
+                    // Match all words
+                    replace = searchInput;
+                    searchText += " Topic: (" + replace.replace(/(^|\s+)/g, "$1+") + ")";
+                } else if (searchWhat === "1") {
+                    // Match Any Word
+                    searchText += " Topic: " + searchInput;
+                } else if (searchWhat === "2") {
+                    // Match Extact Phrase
+                    searchText += " Topic:" + "\"" + searchInput + "\"";
+                }
+            } else {
+                if (searchWhat === "0") {
+                    // Match all words
+                    replace = searchInput;
+                    searchText += "(" + replace.replace(/(^|\s+)/g, "$1+") + ")";
+                } else if (searchWhat === "1") {
+                    // Match Any Word
+                    searchText += "" + searchInput;
+                } else if (searchWhat === "2") {
+                    // Match Extact Phrase
+                    searchText += "" + "\"" + searchInput + "\"";
+                }
+
+                searchText += " -Author:" + searchInputUser;
+            }
         }
-        
 
         if (searchInputUser.length && searchInputUser.length >= 4) {
 
             if (searchInput.length) {
                 searchText += "AND Author:" + searchInputUser;
             } else {
-                searchText += "Author:" + searchInputUser;
+                searchText += "+Author:" + searchInputUser;
             }
         }
 
@@ -69,6 +70,8 @@
             "'}";
 
         var ajaxUrl = $("#SearchResultsPlaceholder").data("url") + "YafAjax.asmx/GetSearchResults";
+
+        console.log(defaultParameters);
 
         $.ajax({
             type: "POST",
@@ -104,20 +107,27 @@
                     $('#loadModal').modal('hide');
                 } else {
                     $.each(data.d.SearchResults,
-                        function (id, data) {
+                        function(id, data) {
                             var groupHolder = $('#SearchResultsPlaceholder');
 
                             groupHolder.append('<div class="row"><div class="card w-100  mb-3">' +
                                 '<div class="card-header topicTitle"><h6> ' +
-                                '<a title="' + topic +  '" href="' +
+                                '<a title="' +
+                                topic +
+                                '" href="' +
                                 data.TopicUrl +
-                                '">' + data.Topic + '</a>&nbsp;' + '<a class="btn btn-primary btn-sm" ' +
-                                'title="' + lastpost +
+                                '">' +
+                                data.Topic +
+                                '</a>&nbsp;' +
+                                '<a class="btn btn-primary btn-sm" ' +
+                                'title="' +
+                                lastpost +
                                 '" href="' +
                                 data.MessageUrl +
                                 '"><i class="fas fa-external-link-square-alt"></i></a>' +
                                 ' <small class="text-muted">(' +
-                                by + ' ' + 
+                                by +
+                                ' ' +
                                 data.UserName +
                                 ')</small>' +
                                 '</h6></div>' +
@@ -128,7 +138,7 @@
                                 '</div>' +
                                 '<div class="card-footer"> ' +
                                 '<small class="text-muted">' +
-                                posted + 
+                                posted +
                                 moment(data.Posted).fromNow() +
                                 '</small> ' +
                                 '</div>' +
