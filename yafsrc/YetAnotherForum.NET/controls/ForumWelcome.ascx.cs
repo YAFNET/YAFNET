@@ -46,7 +46,7 @@ namespace YAF.Controls
         /// </summary>
         public ForumWelcome()
         {
-            this.PreRender += this.ForumWelcome_PreRender;
+            this.PreRender += this.ForumWelcomePreRender;
         }
 
         #endregion
@@ -58,7 +58,7 @@ namespace YAF.Controls
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void ForumWelcome_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+        private void ForumWelcomePreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.TimeNow.Text = this.GetTextFormatted("Current_Time", this.Get<IDateTime>().FormatTime(DateTime.UtcNow));
 

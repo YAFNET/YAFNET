@@ -37,6 +37,7 @@ namespace YAF
     using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Dialogs;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Exceptions;
@@ -421,7 +422,7 @@ namespace YAF
             this.Controls.AddAt(0, this._topControl);
 
             // get the current page...
-            string src = this.GetPageSource();
+            var src = this.GetPageSource();
 
             try
             {
@@ -465,12 +466,12 @@ namespace YAF
                 && Config.AllowLoginAndLogoff)
             {
                 this.Controls.Add(
-                    this.LoadControl("{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "LoginBox")));
+                    this.LoadControl("{0}Dialogs/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "LoginBox")));
             }
 
             this._notificationBox =
                 (DialogBox)
-                this.LoadControl("{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "DialogBox"));
+                this.LoadControl("{0}Dialogs/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "DialogBox"));
 
             this._currentForumPage.Notification = this._notificationBox;
 
@@ -523,7 +524,7 @@ namespace YAF
             }*/
             string[] src = { "{0}pages/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, this._page.PageName) };
 
-            string controlOverride = this.Get<ITheme>().GetItem("PAGE_OVERRIDE", this._page.PageName.ToLower(), null);
+            var controlOverride = this.Get<ITheme>().GetItem("PAGE_OVERRIDE", this._page.PageName.ToLower(), null);
 
             if (controlOverride.IsSet())
             {

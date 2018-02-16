@@ -90,9 +90,10 @@ namespace YAF.Core.Services
 
             return
                 @"<div class=""text-center"">{1}</div>
-                  <progress class=""progress progress-striped{2}"" value=""{0}"" max=""100"" aria-describedby=""{3}{4}"">
                   <div class=""progress"">
-                      <span class=""progress-bar"" style=""width:25%;""></style>
+                      <div class=""progress-bar progress-bar-striped{2}"" role=""progressbar""  style=""width:{0}%;"" aria-valuenow=""{0}"" aria-valuemax=""100"">
+                      {0}%
+                      </div>
                   </div>"
                     .FormatWith(
                         percentage.ToString(formatInfo),
@@ -144,18 +145,18 @@ namespace YAF.Core.Services
         {
             var lookup = new Dictionary<int, string>
                              {
-                                 { 0, " progress-danger" },
-                                 { 20, " progress-warning" },
-                                 { 30, " progress-warning" },
-                                 { 40, " progress-warning" },
-                                 { 50, " progress-info" },
-                                 { 60, " progress-info" },
-                                 { 80, " progress-success" },
-                                 { 90, " progress-success" },
-                                 { int.MaxValue, string.Empty }
+                                 { 0, " bg-danger" },
+                                 { 20, " bg-warning" },
+                                 { 30, " bg-warning" },
+                                 { 40, " bg-warning" },
+                                 { 50, " bg-info" },
+                                 { 60, " bg-info" },
+                                 { 80, " bg-success" },
+                                 { 90, " bg-success" },
+                                 { int.MaxValue, " bg-success" }
                              };
 
-            var color = "progress-danger";
+            var color = "bg-danger";
 
             if (percentage > 1)
             {

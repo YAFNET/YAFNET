@@ -7,7 +7,7 @@
 // </automatisch generiert>
 //------------------------------------------------------------------------------
 
-namespace YAF.Controls {
+namespace YAF.Dialogs {
     
     
     public partial class DialogBox {

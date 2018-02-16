@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Controls
+namespace YAF.Dialogs
 {
     #region Using
 
@@ -94,18 +94,10 @@ namespace YAF.Controls
         /// <summary>
         /// Open The Dialog
         /// </summary>
-        /// <param name="message">
-        /// The message text.
-        /// </param>
-        /// <param name="title">
-        /// The Message title.
-        /// </param>
-        /// <param name="okButton">
-        /// The ok button.
-        /// </param>
-        /// <param name="cancelButton">
-        /// The cancel button.
-        /// </param>
+        /// <param name="message">The message text.</param>
+        /// <param name="title">The Message title.</param>
+        /// <param name="okButton">The ok button.</param>
+        /// <param name="cancelButton">The cancel button.</param>
         public void Show(
             [NotNull] string message,
             [NotNull] string title,

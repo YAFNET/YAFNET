@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.DialogBox" CodeBehind="DialogBox.ascx.cs" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Dialogs.DialogBox" CodeBehind="DialogBox.ascx.cs" %>
 
 <asp:Panel ID="YafForumPageErrorPopup" runat="server" CssClass="modal fade" role="dialog">
     <div class="modal-dialog" role="document">
@@ -15,8 +15,18 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <asp:Button ID="OkButton" Type="Primary" runat="server" CausesValidation="false" OnClick="OkButton_Click" Text="Ok" data-dismiss="modal" />
-                <asp:Button ID="CancelButton" Type="Secondary" runat="server" CausesValidation="false" OnClick="CancelButton_Click" Visible="false" Text="Cancel" data-dismiss="modal" />
+                <asp:Button ID="OkButton" runat="server" 
+                            CausesValidation="false" 
+                            OnClick="OkButton_Click" 
+                            Text="Ok" 
+                            data-dismiss="modal" />
+                <asp:Button ID="CancelButton"
+                            runat="server" 
+                            CausesValidation="false" 
+                            OnClick="CancelButton_Click" 
+                            Visible="false" 
+                            Text="Cancel" 
+                            data-dismiss="modal" />
             </div>
         </div>
     </div>

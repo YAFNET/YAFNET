@@ -31,6 +31,7 @@ namespace YAF.Modules
     using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Dialogs;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;

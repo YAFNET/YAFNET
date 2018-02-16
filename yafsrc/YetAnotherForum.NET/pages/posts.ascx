@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.posts" Codebehind="posts.ascx.cs" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Controls" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="System.Data" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayPost" Src="../controls/DisplayPost.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayConnect" Src="../controls/DisplayConnect.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayAd" Src="../controls/DisplayAd.ascx" %>
@@ -20,37 +20,49 @@
 <a id="top"></a>
 
 <div class="row mb-3">
-    <div class="col-3 align-self-start">
+    <div class="col-md-4">
         <YAF:Pager ID="Pager" runat="server" UsePostBack="False" />
     </div>
-    <div class="col align-self-end">
+    <div class="col-md-7 offset-md-1">
         <span id="dvFavorite1">
-                <YAF:ThemeButton ID="TagFavorite1" runat="server" 
-                                 Type="Secondary"
-                                 TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT"
-                                 Icon="star" />
-            </span>        
-            <YAF:ThemeButton ID="MoveTopic1" runat="server" 
+            <YAF:ThemeButton ID="TagFavorite1" runat="server" 
                              Type="Secondary"
-                             OnClick="MoveTopic_Click" 
-                             TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT"
-                             Icon="arrows-alt" />
-            <YAF:ThemeButton ID="UnlockTopic1" runat="server" 
-                             Type="Warning"
-                             OnClick="UnlockTopic_Click" 
-                             TextLocalizedTag="BUTTON_UNLOCKTOPIC" TitleLocalizedTag="BUTTON_UNLOCKTOPIC_TT"
-                             Icon="lock-open" />
-            <YAF:ThemeButton ID="LockTopic1" runat="server" 
-                             Type="Warning"
-                             OnClick="LockTopic_Click" 
-                             TextLocalizedTag="BUTTON_LOCKTOPIC" TitleLocalizedTag="BUTTON_LOCKTOPIC_TT"
-                             Icon="lock" />
-            <YAF:ThemeButton ID="DeleteTopic1" runat="server" 
+                             TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT"
+                             Icon="star" />
+        </span>
+        <YAF:ThemeButton ID="Tools1" runat="server" 
+                             CssClass="dropdown-toggle"
                              Type="Danger"
-                             OnClick="DeleteTopic_Click"
-                             ReturnConfirmText='<%# this.GetText("confirm_deletetopic") %>'
-                             TextLocalizedTag="BUTTON_DELETETOPIC" TitleLocalizedTag="BUTTON_DELETETOPIC_TT"
-                             Icon="trash" />
+                             DataToggle="dropdown"
+                             TextLocalizedTag="TOOLS"
+                             Icon="cogs" />
+            <div class="dropdown-menu" aria-labelledby='<%# this.Tools1.ClientID %>'>
+                <YAF:ThemeButton ID="MoveTopic1" runat="server"
+                                 CssClass="dropdown-item"
+                                 Type="None"
+                                 OnClick="MoveTopic_Click" 
+                                 TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT"
+                                 Icon="arrows-alt" />
+                <YAF:ThemeButton ID="UnlockTopic1" runat="server" 
+                                 Type="None"
+                                 CssClass="dropdown-item"
+                                 OnClick="UnlockTopic_Click" 
+                                 TextLocalizedTag="BUTTON_UNLOCKTOPIC" TitleLocalizedTag="BUTTON_UNLOCKTOPIC_TT"
+                                 Icon="lock-open" />
+                <YAF:ThemeButton ID="LockTopic1" runat="server" 
+                                 Type="None"
+                                 CssClass="dropdown-item"
+                                 OnClick="LockTopic_Click" 
+                                 TextLocalizedTag="BUTTON_LOCKTOPIC" TitleLocalizedTag="BUTTON_LOCKTOPIC_TT"
+                                 Icon="lock" />
+                <YAF:ThemeButton ID="DeleteTopic1" runat="server" 
+                                 Type="None"
+                                 CssClass="dropdown-item"
+                                 OnClick="DeleteTopic_Click"
+                                 ReturnConfirmText='<%# this.GetText("confirm_deletetopic") %>'
+                                 TextLocalizedTag="BUTTON_DELETETOPIC" TitleLocalizedTag="BUTTON_DELETETOPIC_TT"
+                                 Icon="trash" />
+            </div>
             <YAF:ThemeButton ID="NewTopic1" runat="server" 
                              Type="Secondary"
                              OnClick="NewTopic_Click" 
@@ -67,7 +79,8 @@
                              Icon="reply" DataTarget="QuickReplyDialog"/>
     </div>
 </div>
-<div class="clearfix mb-3">
+<div class="row mb-3">
+    <div class="col">
     <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-round">
         <asp:HyperLink ID="TopicLink" runat="server" CssClass="navbar-brand">
             <asp:Label ID="TopicTitle" runat="server" />
@@ -150,82 +163,125 @@
             </ul>
         </div>
     </nav>
+    </div>
 </div>
 <asp:Repeater ID="MessageList" runat="server" OnItemCreated="MessageList_OnItemCreated">
     <ItemTemplate>
-        <table class="content postContainer" width="100%">
-            <%# GetThreadedRow(Container.DataItem) %>
-            <YAF:DisplayPost ID="DisplayPost1" runat="server" DataRow="<%# Container.DataItem %>"
-                Visible="<%#IsCurrentMessage(Container.DataItem)%>" PostCount="<%# Container.ItemIndex %>" CurrentPage="<%# Pager.CurrentPageIndex %>" IsThreaded="<%#IsThreaded%>" />
-        </table>
+        <%# this.GetThreadedRow(Container.DataItem) %>
+        <YAF:DisplayPost ID="DisplayPost1" runat="server" 
+                         DataRow="<%# Container.DataItem.ToType<DataRow>() %>"
+                         Visible="<%# this.IsCurrentMessage(Container.DataItem) %>" 
+                         PostCount="<%# Container.ItemIndex %>" 
+                         CurrentPage="<%# this.Pager.CurrentPageIndex %>" 
+                         IsThreaded="<%# this.IsThreaded %>" />
         <YAF:DisplayAd ID="DisplayAd" runat="server" Visible="False" />
         <YAF:DisplayConnect ID="DisplayConnect" runat="server" Visible="False" />
     </ItemTemplate>
     <AlternatingItemTemplate>        
-        <table class="content postContainer_Alt" width="100%">
-            <%# GetThreadedRow(Container.DataItem) %>
-            <YAF:DisplayPost ID="DisplayPostAlt" runat="server" DataRow="<%# Container.DataItem %>"
-                IsAlt="True" Visible="<%#IsCurrentMessage(Container.DataItem)%>" PostCount="<%# Container.ItemIndex %>" CurrentPage="<%# Pager.CurrentPageIndex %>" IsThreaded="<%#IsThreaded%>" />
-        </table>
+        <%# this.GetThreadedRow(Container.DataItem) %>
+        <YAF:DisplayPost ID="DisplayPostAlt" runat="server" 
+                         DataRow="<%# Container.DataItem.ToType<DataRow>() %>"
+                         IsAlt="True" Visible="<%#this.IsCurrentMessage(Container.DataItem)%>" 
+                         PostCount="<%# Container.ItemIndex %>" 
+                         CurrentPage="<%# this.Pager.CurrentPageIndex %>" 
+                         IsThreaded="<%#this.IsThreaded%>" />
         <YAF:DisplayAd ID="DisplayAd" runat="server" Visible="False" />
         <YAF:DisplayConnect ID="DisplayConnect" runat="server" Visible="False" />
     </AlternatingItemTemplate>
 </asp:Repeater>
-<table class="header2 postNavigation" width="100%"  id="tbFeeds" runat="server" visible="<%# this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess) %>">
-<tr>
-<td class="post">
-    <YAF:RssFeedLink ID="RssFeed" runat="server" 
-                     FeedType="Posts"  
-                     AdditionalParameters='<%# "t={0}".FormatWith(this.PageContext.PageTopicID) %>' 
-                     Visible="<%# this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess) %>" 
-                     />
-</td>
-</tr>
-</table>                           
-<table class="content postForumUsers" width="100%">
-    <YAF:ForumUsers ID="ForumUsers1" runat="server" />
-</table>
-<YAF:SimilarTopics ID="SimilarTopics"  runat="server" Topic='<%# this.PageContext.PageTopicName %>'>
-</YAF:SimilarTopics>
-<table cellpadding="0" cellspacing="0" class="command" width="100%">
-    <tr>
-        <td align="left">
-            <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="Pager" UsePostBack="false" />
-        </td>
-        <td>
-            <span id="dvFavorite2">
-                <YAF:ThemeButton ID="TagFavorite2" runat="server" CssClass="yafcssbigbutton rightItem button-favorite"
-                    TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT" />
-            </span>        
-            <YAF:ThemeButton ID="MoveTopic2" runat="server" CssClass="yafcssbigbutton rightItem button-move"
-                OnClick="MoveTopic_Click" TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT" />
-            <YAF:ThemeButton ID="UnlockTopic2" runat="server" CssClass="yafcssbigbutton rightItem button-unlock"
-                OnClick="UnlockTopic_Click" TextLocalizedTag="BUTTON_UNLOCKTOPIC" TitleLocalizedTag="BUTTON_UNLOCKTOPIC_TT" />
-            <YAF:ThemeButton ID="LockTopic2" runat="server" CssClass="yafcssbigbutton rightItem button-lock"
-                OnClick="LockTopic_Click" TextLocalizedTag="BUTTON_LOCKTOPIC" TitleLocalizedTag="BUTTON_LOCKTOPIC_TT" />
-            <YAF:ThemeButton ID="DeleteTopic2" runat="server" CssClass="yafcssbigbutton rightItem button-delete"
-                OnClick="DeleteTopic_Click" ReturnConfirmText='<%# this.GetText("confirm_deletetopic") %>' TextLocalizedTag="BUTTON_DELETETOPIC"
-                TitleLocalizedTag="BUTTON_DELETETOPIC_TT" />
-            <YAF:ThemeButton ID="NewTopic2" runat="server" CssClass="yafcssbigbutton rightItem button-newtopic"
-                OnClick="NewTopic_Click" TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" />
-            <YAF:ThemeButton ID="PostReplyLink2" runat="server" CssClass="yafcssbigbutton rightItem button-reply"
-                OnClick="PostReplyLink_Click" TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT" />
-            <YAF:ThemeButton ID="QuickReplyLink2" runat="server" CssClass="btn btn-primary rightItem button-reply"
+
+<asp:PlaceHolder runat="server" Visible="<%# this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess) %>">
+    <div class="row mb-3">
+        <div class="col">
+            <YAF:RssFeedLink ID="RssFeed" runat="server"
+                             FeedType="Posts"  
+                             AdditionalParameters='<%# "t={0}".FormatWith(this.PageContext.PageTopicID) %>' 
+                             Visible="<%# this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess) %>" 
+            />
+        </div>
+    </div>                         
+</asp:PlaceHolder>
+<div class="row mb-3">
+    <div class="col align-self-start">
+        <YAF:ForumUsers ID="ForumUsers1" runat="server" />
+    </div>
+    <YAF:SimilarTopics ID="SimilarTopics"  runat="server" Topic='<%# this.PageContext.PageTopicName %>'>
+    </YAF:SimilarTopics>
+</div>
+<div class="row mb-3">
+    <div class="col-md-4">
+        <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="Pager" UsePostBack="False" />
+    </div>
+    <div class="col-md-7 offset-md-1">
+        <span id="dvFavorite2">
+            <YAF:ThemeButton ID="TagFavorite2" runat="server" 
+                             Type="Secondary"
+                             TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT"
+                             Icon="star" />
+        </span>
+        <YAF:ThemeButton ID="Tools2" runat="server" 
+                             CssClass="dropdown-toggle"
+                             Type="Danger"
+                             DataToggle="dropdown"
+                             TextLocalizedTag="TOOLS"
+                             Icon="cogs" />
+            <div class="dropdown-menu" aria-labelledby='<%# this.Tools1.ClientID %>'>
+                <YAF:ThemeButton ID="MoveTopic2" runat="server"
+                                 Type="None"
+                                 CssClass="dropdown-item"
+                                 OnClick="MoveTopic_Click" 
+                                 TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT"
+                                 Icon="arrows-alt" />
+                <YAF:ThemeButton ID="UnlockTopic2" runat="server" 
+                                 Type="None"
+                                 CssClass="dropdown-item"
+                                 OnClick="UnlockTopic_Click" 
+                                 TextLocalizedTag="BUTTON_UNLOCKTOPIC" TitleLocalizedTag="BUTTON_UNLOCKTOPIC_TT"
+                                 Icon="lock-open" />
+                <YAF:ThemeButton ID="LockTopic2" runat="server" 
+                                 Type="None"
+                                 CssClass="dropdown-item"
+                                 OnClick="LockTopic_Click" 
+                                 TextLocalizedTag="BUTTON_LOCKTOPIC" TitleLocalizedTag="BUTTON_LOCKTOPIC_TT"
+                                 Icon="lock" />
+                <YAF:ThemeButton ID="DeleteTopic2" runat="server" 
+                                 Type="None"
+                                 CssClass="dropdown-item"
+                                 OnClick="DeleteTopic_Click"
+                                 ReturnConfirmText='<%# this.GetText("confirm_deletetopic") %>'
+                                 TextLocalizedTag="BUTTON_DELETETOPIC" TitleLocalizedTag="BUTTON_DELETETOPIC_TT"
+                                 Icon="trash" />
+            </div>
+            <YAF:ThemeButton ID="NewTopic2" runat="server" 
+                             Type="Secondary"
+                             OnClick="NewTopic_Click" 
+                             TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT"
+                             Icon="comment" />
+            <YAF:ThemeButton ID="PostReplyLink2" runat="server" 
+                             Type="Primary"
+                             OnClick="PostReplyLink_Click" 
+                             TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
+                             Icon="reply" />
+            <YAF:ThemeButton ID="QuickReplyLink2" runat="server" 
+                             Type="Primary"
                              TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
                              Icon="reply" DataTarget="QuickReplyDialog"/>
-        </td>
-    </tr>
-</table>
-<YAF:PageLinks ID="PageLinksBottom" runat="server" LinkedPageLinkID="PageLinks" />
-<asp:PlaceHolder ID="ForumJumpHolder" runat="server">
-    <div class="float-right">
-        <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />
-        &nbsp;<YAF:ForumJump ID="ForumJump1" runat="server" />
     </div>
-</asp:PlaceHolder>
-<div class="float-right">
-    <YAF:PageAccess ID="PageAccess1" runat="server" />
 </div>
+<YAF:PageLinks ID="PageLinksBottom" runat="server" LinkedPageLinkID="PageLinks" />
+<div class="row">
+    <div class="col">
+        <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
+                <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />
+                &nbsp;<YAF:ForumJump ID="ForumJump1" runat="server" />
+        </asp:PlaceHolder>
+        </div>
+        <div class="col col-md-4 offset-md-4">
+            <YAF:PageAccess ID="PageAccess1" runat="server" />
+        </div>
+</div>
+
+
 <div id="DivSmartScroller">
     <YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>

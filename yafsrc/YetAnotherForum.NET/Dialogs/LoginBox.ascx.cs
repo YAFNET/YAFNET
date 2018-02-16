@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Controls
+namespace YAF.Dialogs
 {
     // YAF.Pages
     #region Using

@@ -232,7 +232,7 @@ namespace YAF.Controls
                 return;
             }
 
-            writer.Write("<div class=\"navbar-header hidden-sm-down\"><ol class=\"breadcrumb\">");
+            writer.Write("<div class=\"navbar-header d-none d-md-block\"><ol class=\"breadcrumb\">");
 
             foreach (var link in linkedPageList)
             {

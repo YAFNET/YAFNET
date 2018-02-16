@@ -24,7 +24,6 @@
 @import "forum/editor.scss";
 @import "forum/user-albums.scss";
 @import "forum/social-icons.scss";
-@import "forum/reputationbar.scss";
 
 // -- Similar topic lists
 .list-similar {
@@ -33,11 +32,17 @@
     overflow-y: scroll;
 }
 
+.navbar-round {
+    border-radius: 4px;
+    border: 1px solid #e7e7e7;
+}
+
 #passwordStrength {
-  padding: 0 .7em;
-  .PasswordStrengthMessageIcon {
-    display: inline-block;
-    vertical-align: bottom;
-    margin-right: .3em;
-  }
+    padding: 0 .7em;
+
+    .PasswordStrengthMessageIcon {
+        display: inline-block;
+        vertical-align: bottom;
+        margin-right: .3em;
+    }
 }

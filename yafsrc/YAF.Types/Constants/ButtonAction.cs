@@ -72,6 +72,11 @@
         /// <summary>
         /// The link
         /// </summary>
-        Link
+        Link,
+
+        /// <summary>
+        /// The none
+        /// </summary>
+        None
     }
 }

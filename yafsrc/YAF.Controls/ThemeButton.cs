@@ -676,8 +676,8 @@ namespace YAF.Controls
 
             output.Write(HtmlTextWriter.TagRightChar);
 
-            output.WriteBeginTag("span");
-            output.Write(HtmlTextWriter.TagRightChar);
+           // output.WriteBeginTag("span");
+           // output.Write(HtmlTextWriter.TagRightChar);
 
             if (this.Icon.IsSet())
             {
@@ -686,7 +686,7 @@ namespace YAF.Controls
 
             // render the optional controls (if any)
             base.Render(output);
-            output.WriteEndTag("span");
+           // output.WriteEndTag("span");
 
             output.WriteEndTag("a");
             output.EndRender();
@@ -740,6 +740,8 @@ namespace YAF.Controls
                     return "btn btn-dark";
                 case ButtonAction.Link:
                     return "btn btn-link";
+                case ButtonAction.None:
+                    return string.Empty;
                 default:
                     throw new InvalidOperationException();
             }

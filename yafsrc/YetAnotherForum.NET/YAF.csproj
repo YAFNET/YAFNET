@@ -225,11 +225,11 @@
     <Compile Include="Dialogs\AttachmentsUpload.ascx.designer.cs">
       <DependentUpon>AttachmentsUpload.ascx</DependentUpon>
     </Compile>
-    <Compile Include="controls\DialogBox.ascx.cs">
+    <Compile Include="Dialogs\DialogBox.ascx.cs">
       <DependentUpon>DialogBox.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\DialogBox.ascx.designer.cs">
+    <Compile Include="Dialogs\DialogBox.ascx.designer.cs">
       <DependentUpon>DialogBox.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\DisplayConnect.ascx.cs">
@@ -852,6 +852,10 @@
     <Compile Include="pages\login.ascx.designer.cs">
       <DependentUpon>login.ascx</DependentUpon>
     </Compile>
+    <Compile Include="pages\logout.ascx.cs">
+      <DependentUpon>logout.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="pages\logout.ascx.designer.cs">
       <DependentUpon>logout.ascx</DependentUpon>
     </Compile>
@@ -1142,7 +1146,7 @@
     <Content Include="Dialogs\QuickReply.ascx" />
     <Content Include="Dialogs\AttachmentsUpload.ascx" />
     <Content Include="controls\BuddyList.ascx" />
-    <Content Include="controls\DialogBox.ascx" />
+    <Content Include="Dialogs\DialogBox.ascx" />
     <Content Include="controls\DisplayConnect.ascx" />
     <Content Include="controls\ImageGallery.ascx" />
     <Content Include="controls\PollChoiceList.ascx" />
@@ -1173,7 +1177,7 @@
     <Content Include="controls\ForumSubForumList.ascx" />
     <Content Include="controls\ForumWelcome.ascx" />
     <Content Include="controls\LastPosts.ascx" />
-    <Content Include="controls\LoginBox.ascx" />
+    <Content Include="Dialogs\LoginBox.ascx" />
     <Content Include="controls\MyTopicsList.ascx" />
     <Content Include="controls\PMList.ascx" />
     <Content Include="controls\PollList.ascx" />
@@ -2276,11 +2280,11 @@
     <Compile Include="controls\LastPosts.ascx.designer.cs">
       <DependentUpon>LastPosts.ascx</DependentUpon>
     </Compile>
-    <Compile Include="controls\LoginBox.ascx.cs">
+    <Compile Include="Dialogs\LoginBox.ascx.cs">
       <DependentUpon>LoginBox.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\LoginBox.ascx.designer.cs">
+    <Compile Include="Dialogs\LoginBox.ascx.designer.cs">
       <DependentUpon>LoginBox.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\MyTopicsList.ascx.cs">
@@ -2566,10 +2570,6 @@
       <DependentUpon>login.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\logout.ascx.cs">
-      <DependentUpon>logout.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="pages\members.ascx.cs">
       <DependentUpon>members.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2684,7 +2684,6 @@
     <Content Include="Content\forum\dropdowns.scss" />
     <Content Include="Content\forum\editor.scss" />
     <Content Include="Content\forum\social-icons.scss" />
-    <Content Include="Content\forum\reputationbar.scss" />
     <None Include="Content\forum\user-albums.scss" />
     <None Include="Content\InstallWizard.scss" />
     <None Include="Content\jsdifflib.scss" />
@@ -4530,7 +4529,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
