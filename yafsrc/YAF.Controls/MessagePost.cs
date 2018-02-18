@@ -66,22 +66,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        ///   Gets or sets a value indicating whether IsAlt.
-        /// </summary>
-        public virtual string RowColSpan
-        {
-            get
-            {
-                return this.ViewState["RowColSpan"] != null ? this.ViewState["RowColSpan"].ToString() : null;
-            }
-
-            set
-            {
-                this.ViewState["RowColSpan"] = value;
-            }
-        }
-
-        /// <summary>
         ///   Gets or sets DisplayUserID.
         /// </summary>
         public virtual int? DisplayUserID
@@ -213,17 +197,17 @@ namespace YAF.Controls
         /// Highlight a Message
         /// </summary>
         /// <param name="message">The Message to Highlight</param>
-        /// <param name="renderBBCode">if set to <c>true</c> Render Highlight as BB Code or as HTML Tags</param>
+        /// <param name="renderBbCode">if set to <c>true</c> Render Highlight as BB Code or as HTML Tags</param>
         /// <returns>
         /// The Message with the Span Tag and CSS Class "highlight" that Highlights it
         /// </returns>
-        protected virtual string HighlightMessage([NotNull] string message, bool renderBBCode = false)
+        protected virtual string HighlightMessage([NotNull] string message, bool renderBbCode = false)
         {
             if (this.HighlightWords.Count > 0)
             {
                 // highlight word list
                 message = this.Get<IFormatMessage>().SurroundWordList(
-                    message, this.HighlightWords, renderBBCode ? "[h]" : @"<span class=""highlight"">", renderBBCode ? "[/h]" : @"</span>");
+                    message, this.HighlightWords, renderBbCode ? "[h]" : @"<span class=""highlight"">", renderBbCode ? "[/h]" : @"</span>");
             }
 
             return message;
@@ -240,10 +224,8 @@ namespace YAF.Controls
                 var sig = new MessageSignature
                     {
                         Signature = this.Signature,
-                        DisplayUserID = this.DisplayUserID,
-                        MessageID = this.MessageID,
-                        IsAlt = this.IsAlt,
-                        ColSpan = this.RowColSpan
+                        DisplayUserId = this.DisplayUserID,
+                        MessageId = this.MessageID
                     };
 
                 this.Controls.Add(sig);

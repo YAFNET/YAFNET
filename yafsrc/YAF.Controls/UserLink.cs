@@ -99,6 +99,26 @@ namespace YAF.Controls
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="UserLink"/> is suspended.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if suspended; otherwise, <c>false</c>.
+        /// </value>
+        [NotNull]
+        public bool Suspended
+        {
+            get
+            {
+                return this.ViewState["Suspended"] != null && Convert.ToBoolean(this.ViewState["Suspended"]);
+            }
+
+            set
+            {
+                this.ViewState["Style"] = value;
+            }
+        }
+
         #endregion
 
         #region Properties
@@ -230,6 +250,16 @@ namespace YAF.Controls
             this.RenderMainTagAttributes(output);
 
             output.Write(HtmlTextWriter.TagRightChar);
+
+            // show online icon
+            if (this.Get<YafBoardSettings>().ShowUserOnlineStatus)
+            {
+                var onlineStatusIcon = new OnlineStatusIcon { UserId = this.UserID };
+
+                onlineStatusIcon.RenderControl(output);
+
+                output.Write("&nbsp;");
+            }
 
             // Replace Name with Crawler Name if Set, otherwise use regular display name or Replace Name if set
             if (this.CrawlerName.IsSet())

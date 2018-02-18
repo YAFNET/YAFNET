@@ -28,11 +28,8 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
-    using System.Text;
-    using System.Web;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
@@ -42,9 +39,7 @@ namespace YAF.Controls
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utilities;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -54,11 +49,6 @@ namespace YAF.Controls
     public partial class DisplayPostFooter : BaseUserControl
     {
         #region Constants and Fields
-
-        /// <summary>
-        ///   The current Post Data for this post.
-        /// </summary>
-        private PostDataHelperWrapper postDataHelperWrapper;
 
         #endregion
 
@@ -72,12 +62,12 @@ namespace YAF.Controls
         {
             get
             {
-                return this.postDataHelperWrapper.DataRow;
+                return this.PostData.DataRow;
             }
 
             set
             {
-                this.postDataHelperWrapper = new PostDataHelperWrapper(value);
+                this.PostData = new PostDataHelperWrapper(value);
             }
         }
 
@@ -95,13 +85,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets access Post Data helper functions.
         /// </summary>
-        public PostDataHelperWrapper PostData
-        {
-            get
-            {
-                return this.postDataHelperWrapper;
-            }
-        }
+        public PostDataHelperWrapper PostData { get; private set; }
 
         /// <summary>
         ///   Gets the Provides access to the Toggle Post button.
@@ -126,47 +110,6 @@ namespace YAF.Controls
         {
             this.PreRender += this.DisplayPostFooterPreRender;
             base.OnInit(e);
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-        }
-
-        /// <summary>
-        /// The setup theme button with link.
-        /// </summary>
-        /// <param name="thisButton">
-        /// The this button.
-        /// </param>
-        /// <param name="linkUrl">
-        /// The link url.
-        /// </param>
-        protected void SetupThemeButtonWithLink([NotNull] ThemeButton thisButton, [NotNull] string linkUrl)
-        {
-            if (linkUrl.IsSet())
-            {
-                var link = linkUrl.Replace("\"", string.Empty);
-                if (!link.ToLower().StartsWith("http"))
-                {
-                    link = "http://{0}".FormatWith(link);
-                }
-
-                thisButton.NavigateUrl = link;
-                thisButton.Attributes.Add("target", "_blank");
-                if (this.Get<YafBoardSettings>().UseNoFollowLinks)
-                {
-                    thisButton.Attributes.Add("rel", "nofollow");
-                }
-            }
-            else
-            {
-                thisButton.NavigateUrl = string.Empty;
-            }
         }
 
         /// <summary>
@@ -234,7 +177,7 @@ namespace YAF.Controls
                 {
                     this.MarkAsAnswer.TextLocalizedTag = "MARK_ANSWER_REMOVE";
                     this.MarkAsAnswer.TitleLocalizedTag = "MARK_ANSWER_REMOVE_TITLE";
-                    this.MarkAsAnswer.Icon = "square";
+                    this.MarkAsAnswer.Icon = "minus-square";
                 }
                 else
                 {
@@ -243,183 +186,6 @@ namespace YAF.Controls
                     this.MarkAsAnswer.Icon = "check-square";
                 }
             }
-
-            var userName = this.Get<YafBoardSettings>().EnableDisplayName
-                               ? this.DataRow["DisplayName"].ToString()
-                               : this.DataRow["UserName"].ToString();
-
-            userName = this.Get<HttpServerUtilityBase>().HtmlEncode(userName);
-
-            // albums link
-            if (this.PostData.UserId != this.PageContext.PageUserID && !this.PostData.PostDeleted
-                && this.PageContext.User != null && this.Get<YafBoardSettings>().EnableAlbum)
-            {
-                var numAlbums = this.Get<IDataCache>().GetOrSet(
-                    Constants.Cache.AlbumCountUser.FormatWith(this.PostData.UserId),
-                    () =>
-                        {
-                            var usrAlbumsData = LegacyDb.user_getalbumsdata(
-                                this.PostData.UserId,
-                                YafContext.Current.PageBoardID);
-                            return usrAlbumsData.GetFirstRowColumnAsValue<int?>("NumAlbums", null);
-                        },
-                    TimeSpan.FromMinutes(5));
-
-                this.Albums.Visible = numAlbums.HasValue && numAlbums > 0;
-                this.Albums.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                    ForumPages.albums,
-                    "u={0}",
-                    this.PostData.UserId);
-                this.Albums.ParamTitle0 = userName;
-            }
-
-            // private messages
-            this.Pm.Visible = this.PostData.UserId != this.PageContext.PageUserID && !this.IsGuest
-                              && !this.PostData.PostDeleted && this.PageContext.User != null
-                              && this.Get<YafBoardSettings>().AllowPrivateMessages && !this.PostData.IsSponserMessage;
-            this.Pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", this.PostData.UserId);
-            this.Pm.ParamTitle0 = userName;
-
-            // emailing
-            this.Email.Visible = this.PostData.UserId != this.PageContext.PageUserID && !this.IsGuest
-                                 && !this.PostData.PostDeleted && this.PageContext.User != null
-                                 && this.Get<YafBoardSettings>().AllowEmailSending && !this.PostData.IsSponserMessage;
-            this.Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", this.PostData.UserId);
-            this.Email.ParamTitle0 = userName;
-
-            // home page
-            this.Home.Visible = !this.PostData.PostDeleted && this.PostData.UserProfile.Homepage.IsSet();
-            this.SetupThemeButtonWithLink(this.Home, this.PostData.UserProfile.Homepage);
-            this.Home.ParamTitle0 = userName;
-
-            // blog page
-            this.Blog.Visible = !this.PostData.PostDeleted && this.PostData.UserProfile.Blog.IsSet();
-            this.SetupThemeButtonWithLink(this.Blog, this.PostData.UserProfile.Blog);
-            this.Blog.ParamTitle0 = userName;
-
-            if (!this.PostData.PostDeleted && this.PageContext.User != null
-                && this.PostData.UserId != this.PageContext.PageUserID)
-            {
-                // MSN
-                this.Msn.Visible = this.PostData.UserProfile.MSN.IsSet();
-                this.Msn.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_msn, "u={0}", this.PostData.UserId);
-                this.Msn.ParamTitle0 = userName;
-
-                // Yahoo IM
-                this.Yim.Visible = this.PostData.UserProfile.YIM.IsSet();
-                this.Yim.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_yim, "u={0}", this.PostData.UserId);
-                this.Yim.ParamTitle0 = userName;
-
-                // AOL IM
-                this.Aim.Visible = this.PostData.UserProfile.AIM.IsSet();
-                this.Aim.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_aim, "u={0}", this.PostData.UserId);
-                this.Aim.ParamTitle0 = userName;
-
-                // ICQ
-                this.Icq.Visible = this.PostData.UserProfile.ICQ.IsSet();
-                this.Icq.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_icq, "u={0}", this.PostData.UserId);
-                this.Icq.ParamTitle0 = userName;
-
-                // XMPP
-                this.Xmpp.Visible = this.PostData.UserProfile.XMPP.IsSet();
-                this.Xmpp.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                    ForumPages.im_xmpp,
-                    "u={0}",
-                    this.PostData.UserId);
-                this.Xmpp.ParamTitle0 = userName;
-
-                // Skype
-                this.Skype.Visible = this.PostData.UserProfile.Skype.IsSet();
-                this.Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                    ForumPages.im_skype,
-                    "u={0}",
-                    this.PostData.UserId);
-                this.Skype.ParamTitle0 = userName;
-            }
-
-            var loadHoverCardJs = false;
-
-            // Facebook
-            if (this.PostData.UserProfile.Facebook.IsSet())
-            {
-                this.Facebook.Visible = this.PostData.UserProfile.Facebook.IsSet();
-
-                if (this.PostData.UserProfile.Facebook.IsSet())
-                {
-                    this.Facebook.NavigateUrl = ValidationHelper.IsNumeric(this.PostData.UserProfile.Facebook)
-                                                    ? "https://www.facebook.com/profile.php?id={0}".FormatWith(
-                                                        this.PostData.UserProfile.Facebook)
-                                                    : this.PostData.UserProfile.Facebook;
-                }
-
-                this.Facebook.ParamTitle0 = userName;
-
-                if (this.Get<YafBoardSettings>().EnableUserInfoHoverCards)
-                {
-                    this.Facebook.Attributes.Add("data-hovercard", this.PostData.UserProfile.Facebook);
-                    this.Facebook.CssClass += " Facebook-HoverCard";
-
-                    loadHoverCardJs = true;
-                }
-            }
-
-            // Twitter
-            if (this.PostData.UserProfile.Twitter.IsSet())
-            {
-                this.Twitter.Visible = this.PostData.UserProfile.Twitter.IsSet();
-                this.Twitter.NavigateUrl =
-                    "http://twitter.com/{0}".FormatWith(this.HtmlEncode(this.PostData.UserProfile.Twitter));
-                this.Twitter.ParamTitle0 = userName;
-
-                if (this.Get<YafBoardSettings>().EnableUserInfoHoverCards && Config.IsTwitterEnabled)
-                {
-                    this.Twitter.Attributes.Add("data-hovercard", this.HtmlEncode(this.PostData.UserProfile.Twitter));
-                    this.Twitter.CssClass += " Twitter-HoverCard";
-
-                    loadHoverCardJs = true;
-                }
-            }
-
-            // Google+
-            if (this.PostData.UserProfile.Google.IsSet())
-            {
-                this.Google.Visible = this.PostData.UserProfile.Google.IsSet();
-                this.Google.NavigateUrl = this.PostData.UserProfile.Google;
-                this.Google.ParamTitle0 = userName;
-            }
-
-            if (!loadHoverCardJs || !this.Get<YafBoardSettings>().EnableUserInfoHoverCards)
-            {
-                return;
-            }
-
-            var hoverCardLoadJs = new StringBuilder();
-
-            if (this.Facebook.Visible)
-            {
-                hoverCardLoadJs.Append(
-                    JavaScriptBlocks.HoverCardLoadJs(
-                        ".Facebook-HoverCard",
-                        "Facebook",
-                        this.GetText("DEFAULT", "LOADING_FB_HOVERCARD"),
-                        this.GetText("DEFAULT", "ERROR_FB_HOVERCARD")));
-            }
-
-            if (this.Twitter.Visible && Config.IsTwitterEnabled)
-            {
-                hoverCardLoadJs.Append(
-                    JavaScriptBlocks.HoverCardLoadJs(
-                        ".Twitter-HoverCard",
-                        "Twitter",
-                        this.GetText("DEFAULT", "LOADING_TWIT_HOVERCARD"),
-                        this.GetText("DEFAULT", "ERROR_TWIT_HOVERCARD"),
-                        "{0}{1}resource.ashx?twitterinfo=".FormatWith(
-                            BaseUrlBuilder.BaseUrl.TrimEnd('/'),
-                            BaseUrlBuilder.AppPath)));
-            }
-
-            // Setup Hover Card JS
-            YafContext.Current.PageElements.RegisterJsBlockStartup("hovercardjs", hoverCardLoadJs.ToString());
         }
 
         #endregion

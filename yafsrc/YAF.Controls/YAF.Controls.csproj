@@ -114,7 +114,7 @@
     <Compile Include="BaseReportedPosts.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="OnlineStatusImage.cs" />
+    <Compile Include="OnlineStatusIcon.cs" />
     <Compile Include="RssFeedLink.cs" />
     <Compile Include="SignaturePreview.cs" />
     <Compile Include="SmartScroller.cs" />

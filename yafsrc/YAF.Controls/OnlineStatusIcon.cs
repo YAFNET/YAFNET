@@ -40,9 +40,9 @@ namespace YAF.Controls
     #endregion
 
     /// <summary>
-    /// Provides an Online/Offline status for a YAF User
+    /// Provides an Online/Offline/Suspended status for a YAF User
     /// </summary>
-    public class OnlineStatusImage : BaseControl
+    public class OnlineStatusIcon : BaseControl
     {
         #region Properties
 
@@ -62,6 +62,26 @@ namespace YAF.Controls
             set
             {
                 this.ViewState["UserId"] = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="UserLink"/> is suspended.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if suspended; otherwise, <c>false</c>.
+        /// </value>
+        [NotNull]
+        public bool Suspended
+        {
+            get
+            {
+                return this.ViewState["Suspended"] != null && Convert.ToBoolean(this.ViewState["Suspended"]);
+            }
+
+            set
+            {
+                this.ViewState["Style"] = value;
             }
         }
 
@@ -93,23 +113,32 @@ namespace YAF.Controls
             output.WriteBeginTag("span");
             output.WriteAttribute("id", this.ClientID);
 
-            if (activeUsers.AsEnumerable()
-                .Any(x => x.Field<int>("UserId") == this.UserId && !x.Field<bool>("IsHidden")))
+            if (this.Suspended)
             {
-                // online
-                output.WriteAttribute("class", "text-success");
-                output.WriteAttribute("title", this.GetText("USERONLINESTATUS"));
+                // suspended
+                output.WriteAttribute("class", "text-warning");
+                output.WriteAttribute("title", this.GetTextFormatted("USERSUSPENDED", "0"));
             }
             else
             {
-                // offline
-                output.WriteAttribute("class", "text-danger");
-                output.WriteAttribute("title", this.GetText("USEROFFLINESTATUS"));
+                if (activeUsers.AsEnumerable()
+                    .Any(x => x.Field<int>("UserId") == this.UserId && !x.Field<bool>("IsHidden")))
+                {
+                    // online
+                    output.WriteAttribute("class", "text-success");
+                    output.WriteAttribute("title", this.GetText("USERONLINESTATUS"));
+                }
+                else
+                {
+                    // offline
+                    output.WriteAttribute("class", "text-danger");
+                    output.WriteAttribute("title", this.GetText("USEROFFLINESTATUS"));
+                }
             }
 
             output.Write(HtmlTextWriter.TagRightChar);
 
-            output.Write(@"<i class=""fas fa-user-circle""></i>");
+            output.Write(@"<i class=""fas fa-user-circle"" style=""font-size: 1.5em""></i>");
 
             // render the optional controls (if any)
             base.Render(output);

@@ -161,64 +161,7 @@ namespace YAF.Controls
 
             return sb.ToString();
         }
-
-        /// <summary>
-        /// The get indent cell.
-        /// </summary>
-        /// <returns>
-        /// Returns indent cell.
-        /// </returns>
-        protected string GetIndentCell()
-        {
-            if (!this.IsThreaded)
-            {
-                return string.Empty;
-            }
-
-            var indent = this.DataRow["Indent"].ToType<int>();
-
-            if (indent > 0)
-            {
-                return
-                    @"<td rowspan=""4"" width=""1%""><img src=""{1}Content/images/spacer.gif"" width=""{0}"" height=""2"" alt=""""/></td>"
-                        .FormatWith(indent * 32, YafForumInfo.ForumClientFileRoot);
-            }
-
-            return string.Empty;
-        }
-
-        /// <summary>
-        /// Get Row Span
-        /// </summary>
-        /// <returns>
-        /// Returns the row Span value
-        /// </returns>
-        [NotNull]
-        protected string GetRowSpan()
-        {
-            if (this.DataRow != null && this.Get<YafBoardSettings>().AllowSignatures &&
-                this.DataRow["Signature"] != DBNull.Value &&
-                this.DataRow["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" &&
-                this.DataRow["Signature"].ToString().Trim().Length > 0)
-            {
-                return "rowspan=\"2\"";
-            }
-
-            return string.Empty;
-        }
-
-        /// <summary>
-        /// The get indent span.
-        /// </summary>
-        /// <returns>
-        /// Returns the indent span.
-        /// </returns>
-        [NotNull]
-        protected string GetIndentSpan()
-        {
-            return !this.IsThreaded || this.DataRow["Indent"].ToType<int>() == 0 ? "2" : "1";
-        }
-
+        
         /// <summary>
         /// The get post class.
         /// </summary>
@@ -229,20 +172,6 @@ namespace YAF.Controls
         protected string GetPostClass()
         {
             return this.IsAlt ? "post_alt" : "post";
-        }
-
-        // Prevents a high user box when displaying a deleted post.
-
-        /// <summary>
-        /// The get user box height.
-        /// </summary>
-        /// <returns>
-        /// Returns a fake user box height (Not the Real one).
-        /// </returns>
-        [NotNull]
-        protected string GetUserBoxHeight()
-        {
-            return this.PostData.PostDeleted ? "0" : "100";
         }
 
         /// <summary>
@@ -266,9 +195,6 @@ namespace YAF.Controls
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // Set column span for layout depending on is it TreeView or not.
-            this.NameCell.ColSpan = int.Parse(this.GetIndentSpan());
-
             if (this.IsGuest)
             {
                 return;
@@ -560,19 +486,6 @@ namespace YAF.Controls
                 this.AddReputationControls();
             }
 
-            // Is User Suspended
-            var suspended = this.DataRow["Suspended"].ToType<DateTime?>();
-
-            if (suspended.HasValue && suspended.Value > DateTime.UtcNow)
-            {
-                this.ThemeImgSuspended.LocalizedTitle =
-                    this.GetText("POSTS", "USERSUSPENDED").FormatWith(
-                        this.Get<IDateTime>().FormatDateTimeShort(suspended.Value));
-
-                this.ThemeImgSuspended.Visible = true;
-                this.OnlineStatusImage.Visible = false;
-            }
-
             YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", "function CallFailed(res){ alert('Error Occurred'); }");
 
             this.FormatThanksRow();
@@ -679,10 +592,7 @@ namespace YAF.Controls
                                   : this.Get<ILocalization>().GetText("THANKSINFO").FormatWith(thanksNumber, username);
 
             this.ThanksDataLiteral.Text =
-                "<img id=\"ThanksInfoImage{0}\" src=\"{1}\" alt=\"thanks\"  runat=\"server\" />&nbsp;{2}".FormatWith(
-                    this.DataRow["MessageID"],
-                    this.Get<ITheme>().GetItem("ICONS", "THANKSINFOLIST_IMAGE"),
-                    thanksLabelText);
+                "<i class=\"fa fa-heart\" style=\"color:#e74c3c\"></i>&nbsp;{0}".FormatWith(thanksLabelText);
 
             this.ThanksDataLiteral.Visible = true;
 

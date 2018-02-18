@@ -4110,7 +4110,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxAvatar", @"<div class=""section"">{0}</div><br clear=""all"" />");
+                return this._reg.GetValue("UserBoxAvatar", @"<li class=""list-group-item"">{0}</li>");
             }
 
             set
@@ -4126,7 +4126,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxMedals", @"<div class=""section medals"">{0} {1}{2}</div><br clear=""all"" />");
+                return this._reg.GetValue("UserBoxMedals", @"<li class=""list-group-item""><strong>{0}</strong><br /> {1}{2}</li>");
             }
 
             set
@@ -4142,7 +4142,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxRankImage", "{0}<br clear=\"all\" />");
+                return this._reg.GetValue("UserBoxRankImage", @"<li class=""list-group-item"">{0}</li>");
             }
 
             set
@@ -4158,7 +4158,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxCountryImage", "{0}<br />");
+                return this._reg.GetValue("UserBoxCountryImage", "{0}");
             }
 
             set
@@ -4174,7 +4174,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxRank", "{0}: {1}<br clear=\"all\" />");
+                return this._reg.GetValue("UserBoxRank", @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>");
             }
 
             set
@@ -4190,7 +4190,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxGroups", "{0}: {1}<br clear=\"all\" />");
+                return this._reg.GetValue("UserBoxGroups", @"<li class=""list-group-item""><strong>{0}:</strong><br /> {1}</li>");
             }
 
             set
@@ -4206,7 +4206,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxJoinDate", "{0}: {1}<br />");
+                return this._reg.GetValue("UserBoxJoinDate", @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>");
             }
 
             set
@@ -4222,7 +4222,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxGender", "{0}<br />");
+                return this._reg.GetValue("UserBoxGender", "{0}&nbsp;");
             }
 
             set
@@ -4238,7 +4238,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxPosts", "{0}: {1:N0}<br />");
+                return this._reg.GetValue("UserBoxPosts", @"<li class=""list-group-item""><strong>{0}:</strong> {1:N0}</li>");
             }
 
             set
@@ -4254,7 +4254,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxReputation", @"<div class=""section"">{0}: {1:N0}</div><br />");
+                return this._reg.GetValue("UserBoxReputation", @"<li class=""list-group-item""><strong>{0}:</strong> {1:N0}</li>");
             }
 
             set
@@ -4270,7 +4270,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxLocation", "{0}: {1}<br />");
+                return this._reg.GetValue("UserBoxLocation", @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>");
             }
 
             set
@@ -4288,7 +4288,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxThanksFrom", "{0}<br />");
+                return this._reg.GetValue("UserBoxThanksFrom", @"<li class=""list-group-item"">{0}</li>");
             }
 
             set
@@ -4304,7 +4304,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxThanksTo", "{0}<br />");
+                return this._reg.GetValue("UserBoxThanksTo", @"<li class=""list-group-item"">{0}</li>");
             }
 
             set

@@ -235,7 +235,7 @@ namespace YAF.Types.Constants
             ///   The display template default.
             /// </summary>
             public const string DisplayTemplateDefault =
-              @"<yaf:avatar /><div class=""section""><yaf:rankimage /><yaf:rank /></div><br /><yaf:reputation /><yaf:medals /><div class=""section""><yaf:groups /><yaf:joindate /><yaf:posts /><yaf:gender /><yaf:countryimage /><yaf:location /></div><br/ ><div class=""section""><yaf:thanksfrom /><yaf:thanksto /></div>";
+              @"<yaf:avatar /><yaf:rankimage /><yaf:rank /><yaf:reputation /><yaf:medals /><yaf:groups /><yaf:joindate /><yaf:posts /><li class=""list-group-item""><yaf:gender /><yaf:countryimage /></li><yaf:location /><yaf:thanksfrom /><yaf:thanksto />";
 
             /// <summary>
             ///   The gender.

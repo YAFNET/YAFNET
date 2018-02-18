@@ -39,7 +39,6 @@ namespace YAF.Controls
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils.Helpers.StringUtils;
 
     #endregion
 
@@ -53,17 +52,7 @@ namespace YAF.Controls
         /// <summary>
         ///   The _row.
         /// </summary>
-        private Message _message;
-
-        /// <summary>
-        ///   The _show attachments.
-        /// </summary>
-        private bool _showAttachments = true;
-
-        /// <summary>
-        ///   The _show signature.
-        /// </summary>
-        private bool _showSignature = true;
+        private Message currentMessage;
 
         #endregion
 
@@ -73,11 +62,6 @@ namespace YAF.Controls
         ///   Gets or sets a value indicating whether IsAlt.
         /// </summary>
         public bool IsAltMessage { get; set; }
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether Col Span is.
-        /// </summary>
-        public string ColSpan { get; set; }
 
         /// <summary>
         ///   Sets the DataRow.
@@ -100,13 +84,13 @@ namespace YAF.Controls
         {
             get
             {
-                return this._message;
+                return this.currentMessage;
             }
 
             set
             {
-                this._message = value ?? new Message();
-                this.MessageFlags = new MessageFlags(this._message.Flags);
+                this.currentMessage = value ?? new Message();
+                this.MessageFlags = new MessageFlags(this.currentMessage.Flags);
             }
         }
 
@@ -153,7 +137,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this.CurrentMessage.ID == 0 ? null : (int?)this.CurrentMessage.ID;
+                return this.CurrentMessage.ID == 0 ? null : this.CurrentMessage.ID.ToType<int?>();
             }
         }
 
@@ -176,34 +160,12 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets or sets a value indicating whether ShowAttachments.
         /// </summary>
-        public bool ShowAttachments
-        {
-            get
-            {
-                return this._showAttachments;
-            }
-
-            set
-            {
-                this._showAttachments = value;
-            }
-        }
+        public bool ShowAttachments { get; set; } = true;
 
         /// <summary>
         ///   Gets or sets a value indicating whether ShowSignature.
         /// </summary>
-        public bool ShowSignature
-        {
-            get
-            {
-                return this._showSignature;
-            }
-
-            set
-            {
-                this._showSignature = value;
-            }
-        }
+        public bool ShowSignature { get; set; } = true;
 
         /// <summary>
         ///   Gets Signature.
@@ -214,8 +176,8 @@ namespace YAF.Controls
             get
             {
                 if (this.ShowSignature && this.Get<YafBoardSettings>().AllowSignatures
-                    && this.CurrentMessage.Signature.IsSet()
-                    && this.CurrentMessage.Signature.ToLower() != "<p>&nbsp;</p>")
+                                       && this.CurrentMessage.Signature.IsSet()
+                                       && this.CurrentMessage.Signature.ToLower() != "<p>&nbsp;</p>")
                 {
                     return this.CurrentMessage.Signature;
                 }
@@ -268,8 +230,6 @@ namespace YAF.Controls
                 }
 
                 this.IsAlt = this.IsAltMessage;
-
-                this.RowColSpan = this.ColSpan;
 
                 if (this.ShowAttachments)
                 {
@@ -334,13 +294,11 @@ namespace YAF.Controls
                     editedMessageDateTime = this.Edited;
                 }
 
-                var formattedMessage =
-                    this.Get<IFormatMessage>()
-                        .FormatMessage(
-                            this.HighlightMessage(this.Message, true),
-                            this.MessageFlags,
-                            false,
-                            editedMessageDateTime);
+                var formattedMessage = this.Get<IFormatMessage>().FormatMessage(
+                    this.HighlightMessage(this.Message, true),
+                    this.MessageFlags,
+                    false,
+                    editedMessageDateTime);
 
                 // tha_watcha : Since html message and bbcode can be mixed now, message should be always replace bbcode
                 this.RenderModulesInBBCode(
@@ -367,9 +325,9 @@ namespace YAF.Controls
             }
             else
             {
-                var formattedMessage =
-                    this.Get<IFormatMessage>()
-                        .FormatMessage(this.HighlightMessage(this.Message, true), this.MessageFlags);
+                var formattedMessage = this.Get<IFormatMessage>().FormatMessage(
+                    this.HighlightMessage(this.Message, true),
+                    this.MessageFlags);
 
                 // tha_watcha : Since html message and bbcode can be mixed now, message should be always replace bbcode
                 this.RenderModulesInBBCode(

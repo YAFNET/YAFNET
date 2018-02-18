@@ -57,7 +57,7 @@ namespace YAF.Controls
         /// <summary>
         ///   The _options.
         /// </summary>
-        private const RegexOptions _Options = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled;
+        private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled;
 
         #endregion
 
@@ -75,7 +75,7 @@ namespace YAF.Controls
                             var bbcodeTable = this.Get<YafDbBroker>().GetCustomBBCode();
                             return
                                 bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet()).ToDictionary(
-                                    codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, _Options));
+                                    codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, Options));
                         });
             }
         }
