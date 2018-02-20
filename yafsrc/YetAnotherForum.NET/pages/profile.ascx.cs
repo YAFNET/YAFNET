@@ -701,33 +701,6 @@ namespace YAF.Pages
             this.ThanksToPosts.Text = thanksToArray[1].ToString();
             this.ReputationReceived.Text = YafReputation.GenerateReputationBar(userData.Points.Value, userData.UserID);
 
-            if (this.Get<YafBoardSettings>().ShowUserOnlineStatus)
-            {
-                this.OnlineStatusImage1.UserId = userID;
-                this.OnlineStatusImage1.Visible = true;
-
-                var suspended = userData.DBRow["Suspended"].ToType<DateTime?>();
-
-                if (suspended.HasValue && suspended.Value > DateTime.UtcNow)
-                {
-                    this.ThemeImgSuspended.LocalizedTitle =
-                        this.GetText("POSTS", "USERSUSPENDED")
-                            .FormatWith(this.Get<IDateTime>().FormatDateTimeShort(suspended.Value));
-
-                    this.ThemeImgSuspended.Visible = true;
-                    this.OnlineStatusImage1.Visible = false;
-                }
-                else
-                {
-                    this.ThemeImgSuspended.Visible = false;
-                }
-            }
-            else
-            {
-                this.ThemeImgSuspended.Visible = false;
-                this.OnlineStatusImage1.Visible = false;
-            }
-
             if (this.User != null && userData.Profile.XMPP.IsSet())
             {
                 this.XmppTR.Visible = true;

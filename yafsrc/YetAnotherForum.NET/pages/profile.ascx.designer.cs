@@ -283,24 +283,6 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.Label Name;
         
         /// <summary>
-        /// OnlineStatusImage1-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.OnlineStatusImage OnlineStatusImage1;
-        
-        /// <summary>
-        /// ThemeImgSuspended-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.ThemeImage ThemeImgSuspended;
-        
-        /// <summary>
         /// lnkBuddy-Steuerelement
         /// </summary>
         /// <remarks>
