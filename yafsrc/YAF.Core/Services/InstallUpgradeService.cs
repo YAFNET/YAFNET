@@ -300,6 +300,11 @@ namespace YAF.Core.Services
                 // DB.system_deleteinstallobjects();
             }
 
+            if (this.IsForumInstalled)
+            {
+                this.ExecuteScript(this.DbAccess.Information.FullTextUpgradeScript, false);
+            }
+
             // run custom script...
             this.ExecuteScript("custom/custom.sql", true);
 
@@ -339,6 +344,7 @@ namespace YAF.Core.Services
         /// <summary>
         /// Executes the upgrade scripts.
         /// </summary>
+        /// <param name="isAzureEngine">if set to <c>true</c> [is azure engine].</param>
         private void ExecuteUpgradeScripts(bool isAzureEngine)
         {
             // upgrade Membership Scripts
@@ -381,14 +387,12 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// The fix access.
+        /// Fixes the access.
         /// </summary>
-        /// <param name="bGrant">
-        /// The b grant.
-        /// </param>
-        private void FixAccess(bool bGrant)
+        /// <param name="grantAccess">if set to <c>true</c> [grant access].</param>
+        private void FixAccess(bool grantAccess)
         {
-            LegacyDb.system_initialize_fixaccess(bGrant);
+            LegacyDb.system_initialize_fixaccess(grantAccess);
         }
 
         /// <summary>

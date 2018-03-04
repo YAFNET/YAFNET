@@ -43,6 +43,14 @@ namespace YAF.Types.Interfaces.Data
         string ProviderName { get; }
 
         /// <summary>
+        /// Gets the full text upgrade script.
+        /// </summary>
+        /// <value>
+        /// The full text upgrade script.
+        /// </value>
+        string FullTextUpgradeScript { get; }
+
+        /// <summary>
         ///     Gets the Azure Script List.
         /// </summary>
         IEnumerable<string> AzureScripts { get; }
