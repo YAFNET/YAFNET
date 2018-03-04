@@ -690,6 +690,7 @@ namespace YAF.Pages
 
             // Auto Fill user time zone
             timeZones.Items.FindByValue(TimeZoneInfo.Local.Id).Selected = true;
+            dstUser.Checked = TimeZoneInfo.Local.SupportsDaylightSavingTime;
 
             this.CreateUserWizard1.FindWizardControlRecursive("UserName").Focus();
 
@@ -1026,7 +1027,7 @@ namespace YAF.Pages
                     userName: null, 
                     displayName: null, 
                     email: null, 
-                    timeZone: timeZones.SelectedValue.ToType<int>(), 
+                    timeZone: timeZones.SelectedValue, 
                     languageFile: null, 
                     culture: null, 
                     themeFile: null, 
