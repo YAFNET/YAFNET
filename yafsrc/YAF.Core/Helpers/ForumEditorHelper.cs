@@ -94,33 +94,29 @@ namespace YAF.Core.Helpers
             var editorList = YafContext.Current.Get<IModuleManager<ForumEditor>>().ActiveAsDataTable("Editors");
             
             // Check if TinyMCE exists
-            var tinyMCEExists = false;
+            var tinyMceExists = false;
 
             try
             {
                 if (
-                    File.Exists(
-                        HttpContext.Current.Server.MapPath(
-                            "{0}{1}Scripts/tinymce/tinymce.min.js".FormatWith(
-                                Config.ServerFileRoot,
-                                Config.ServerFileRoot.EndsWith("/") ? string.Empty : "/"))))
+                    File.Exists(HttpContext.Current.Server.MapPath("~/Scripts/tinymce/tinymce.min.js")))
                 {
-                    tinyMCEExists = true;
+                    tinyMceExists = true;
                 }
             }
             catch (Exception)
             {
-                tinyMCEExists = false;
+                tinyMceExists = false;
             }
 
-            if (!tinyMCEExists)
+            if (tinyMceExists)
             {
                 return editorList;
             }
 
             var filterList = new ArrayList();
 
-            foreach (DataRow drow in editorList.Rows.Cast<DataRow>().Where(drow => drow["Name"].ToString().Contains("TinyMCE")))
+            foreach (var drow in editorList.Rows.Cast<DataRow>().Where(drow => drow["Name"].ToString().Contains("TinyMCE")))
             {
                 filterList.Add(drow);
             }

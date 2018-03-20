@@ -175,8 +175,6 @@ namespace YAF.Core.Services
             }
             else
             {
-                this.Get<ILogger>().Info("3");
-
                 readTime = this.GetSessionForumRead(forumId);
 
                 if (!readTime.HasValue)
