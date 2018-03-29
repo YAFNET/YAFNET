@@ -67,32 +67,34 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidEmail(newEmail))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_REGUSER", "MSG_INVALID_MAIL"));
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_REGUSER", "MSG_INVALID_MAIL"), MessageTypes.danger);
+
                 return;
             }
 
             if (UserMembershipHelper.UserExists(this.UserName.Text.Trim(), newEmail))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_REGUSER", "MSG_NAME_EXISTS"));
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_REGUSER", "MSG_NAME_EXISTS"), MessageTypes.danger);
                 return;
             }
 
             MembershipCreateStatus status;
-            var user = this.Get<MembershipProvider>()
-                .CreateUser(
-                    newUsername,
-                    this.Password.Text.Trim(),
-                    newEmail,
-                    this.Question.Text.Trim(),
-                    this.Answer.Text.Trim(),
-                    !this.Get<YafBoardSettings>().EmailVerification,
-                    null,
-                    out status);
+            var user = this.Get<MembershipProvider>().CreateUser(
+                newUsername,
+                this.Password.Text.Trim(),
+                newEmail,
+                this.Question.Text.Trim(),
+                this.Answer.Text.Trim(),
+                !this.Get<YafBoardSettings>().EmailVerification,
+                null,
+                out status);
 
             if (status != MembershipCreateStatus.Success)
             {
                 // error of some kind
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_REGUSER", "MSG_ERROR_CREATE").FormatWith(status));
+                this.PageContext.AddLoadMessage(
+                    this.GetText("ADMIN_REGUSER", "MSG_ERROR_CREATE").FormatWith(status),
+                    MessageTypes.danger);
                 return;
             }
 
@@ -110,9 +112,8 @@ namespace YAF.Pages.Admin
             userProfile.Homepage = this.HomePage.Text.Trim();
             userProfile.Save();
 
-            var autoWatchTopicsEnabled =
-                this.Get<YafBoardSettings>()
-                    .DefaultNotificationSetting.Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
+            var autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting
+                .Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
 
             // save the time zone...
             LegacyDb.user_save(
@@ -121,7 +122,7 @@ namespace YAF.Pages.Admin
                 null,
                 null,
                 null,
-                this.TimeZones.SelectedValue.ToType<int>(),
+                this.TimeZones.SelectedValue,
                 null,
                 null,
                 null,
@@ -166,7 +167,6 @@ namespace YAF.Pages.Admin
 
             this.TimeZones.DataSource = StaticDataHelper.TimeZones();
             this.DataBind();
-            this.TimeZones.Items.FindByValue("0").Selected = true;
         }
 
         /// <summary>
