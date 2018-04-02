@@ -12,10 +12,33 @@ YetAnotherForum.NET Changelog
 * [NEW #367] Added Badge Topic Starter Badge
 * [NEW #379] Mark Message as Answer
 * [NEW] Old GIF Emoticons have been replaced by Unicode Emoji
+* [NEW #285] Rewritten Search Engine based on Lucene.NET
+* [NEW #92] Show similar topic titles
 
 
 ## Fixed Issues:
-* 
+
+
+# YetAnotherForum.NET v2.2.4.9
+
+## Fixed Issues:
+* [FIXED] Admin Edit User
+* [FIXED] Admin Create New User Page
+
+
+# YetAnotherForum.NET v2.2.4.8
+
+## Fixed Issues:
+* [FIXED] Issue Registering New User
+* [FIXED] Database Ugrade Issue when Fulltext is enabled
+
+
+# YetAnotherForum.NET v2.2.4.7
+
+## Fixed Issues:
+* [FIXED #387] Stored XSS via file upload
+* [FIXED #386] Hover Card Layout Issue
+
 
 # YetAnotherForum.NET v2.2.4.6
 
