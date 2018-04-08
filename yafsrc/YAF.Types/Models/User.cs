@@ -78,7 +78,7 @@ namespace YAF.Types.Models
 
         public int NumPosts { get; set; }
 
-        public int TimeZone { get; set; }
+        public string TimeZone { get; set; }
 
         public string Avatar { get; set; }
 

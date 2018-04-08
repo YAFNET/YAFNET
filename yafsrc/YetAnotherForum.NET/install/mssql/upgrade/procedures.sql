@@ -1953,7 +1953,7 @@ begin
     INSERT INTO [{databaseOwner}].[{objectQualifier}Board](Name, AllowThreaded, MembershipAppName, RolesAppName ) values(@BoardName,0, @MembershipAppName, @RolesAppName)
     SET @BoardID = SCOPE_IDENTITY()
 
-    SET @TimeZone = (SELECT [{databaseOwner}].[{objectQualifier}registry_value](N'TimeZone', @BoardID))
+    SET @TimeZone = (SELECT ISNULL([{databaseOwner}].[{objectQualifier}registry_value](N'TimeZone', @BoardID), N'Dateline Standard Time'))
     SET @ForumEmail = (SELECT [{databaseOwner}].[{objectQualifier}registry_value](N'ForumEmail', @BoardID))
 
     EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'culture',@Culture,@BoardID
@@ -6969,7 +6969,7 @@ BEGIN
             SET @DisplayName = @UserName
         END
 
-        SET @TimeZone = (SELECT [{databaseOwner}].[{objectQualifier}registry_value](N'TimeZone', @BoardID))
+        SET @TimeZone = (SELECT ISNULL([{databaseOwner}].[{objectQualifier}registry_value](N'TimeZone', @BoardID), N'Dateline Standard Time'))
 
         INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,ProviderUserKey)
         VALUES(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,@UTCTIMESTAMP ,@UTCTIMESTAMP ,0, @TimeZone,@approvedFlag,@ProviderUserKey)
@@ -7787,7 +7787,7 @@ begin
         BoardID=@BoardID and
         Name=@UserName
 
-	SET @TimeZonetmp = (SELECT [{databaseOwner}].[{objectQualifier}registry_value](N'TimeZone', @BoardID))
+	SET @TimeZonetmp = (SELECT ISNULL([{databaseOwner}].[{objectQualifier}registry_value](N'TimeZone', @BoardID), N'Dateline Standard Time'))
 
     if @@ROWCOUNT<1
     begin
