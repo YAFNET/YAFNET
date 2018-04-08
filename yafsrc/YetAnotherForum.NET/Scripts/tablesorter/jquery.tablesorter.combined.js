@@ -1,4 +1,10 @@
-/*! tablesorter (FORK) - updated 01-10-2018 (v2.29.3)*/
+/*** This file is dynamically generated ***
+█████▄ ▄████▄   █████▄ ▄████▄ ██████   ███████▄ ▄████▄ █████▄ ██ ██████ ██  ██
+██  ██ ██  ██   ██  ██ ██  ██   ██     ██ ██ ██ ██  ██ ██  ██ ██ ██▄▄   ██▄▄██
+██  ██ ██  ██   ██  ██ ██  ██   ██     ██ ██ ██ ██  ██ ██  ██ ██ ██▀▀    ▀▀▀██
+█████▀ ▀████▀   ██  ██ ▀████▀   ██     ██ ██ ██ ▀████▀ █████▀ ██ ██     █████▀
+*/
+/*! tablesorter (FORK) - updated 2018-03-19 (v2.30.1)*/
 /* Includes widgets ( storage,uitheme,columns,filter,stickyHeaders,resizable,saveSort ) */
 (function(factory) {
 	if (typeof define === 'function' && define.amd) {
@@ -10,7 +16,7 @@
 	}
 }(function(jQuery) {
 
-/*! TableSorter (FORK) v2.29.3 *//*
+/*! TableSorter (FORK) v2.30.1 *//*
 * Client-side table sorting with ease!
 * @requires jQuery v1.2.6+
 *
@@ -34,7 +40,7 @@
 	'use strict';
 	var ts = $.tablesorter = {
 
-		version : '2.29.3',
+		version : '2.30.1',
 
 		parsers : [],
 		widgets : [],
@@ -46,8 +52,8 @@
 			showProcessing   : false,      // show an indeterminate timer icon in the header when the table is sorted or filtered.
 
 			headerTemplate   : '{content}',// header layout template (HTML ok); {content} = innerHTML, {icon} = <i/> // class from cssIcon
-			onRenderTemplate : null,       // function( index, template ){ return template; }, // template is a string
-			onRenderHeader   : null,       // function( index ){}, // nothing to return
+			onRenderTemplate : null,       // function( index, template ) { return template; }, // template is a string
+			onRenderHeader   : null,       // function( index ) {}, // nothing to return
 
 			// *** functionality
 			cancelSelection  : true,       // prevent text selection in the header
@@ -76,7 +82,7 @@
 			emptyTo          : 'bottom',   // sort empty cell to bottom, top, none, zero, emptyMax, emptyMin
 			stringTo         : 'max',      // sort strings in numerical column as max, min, top, bottom, zero
 			duplicateSpan    : true,       // colspan cells in the tbody will have duplicated content in the cache for each spanned column
-			textExtraction   : 'basic',    // text extraction method/function - function( node, table, cellIndex ){}
+			textExtraction   : 'basic',    // text extraction method/function - function( node, table, cellIndex ) {}
 			textAttribute    : 'data-text',// data-attribute that contains alternate cell text (used in default textExtraction function)
 			textSorter       : null,       // choose overall or specific column sorter function( a, b, direction, table, columnIndex ) [alt: ts.sortText]
 			numberSorter     : null,       // choose overall numeric sorter function( a, b, direction, maxColumnValue )
@@ -90,7 +96,7 @@
 			},
 
 			// *** callbacks
-			initialized      : null,       // function( table ){},
+			initialized      : null,       // function( table ) {},
 
 			// *** extra css class names
 			tableClass       : '',
@@ -228,7 +234,7 @@
 		setup : function( table, c ) {
 			// if no thead or tbody, or tablesorter is already present, quit
 			if ( !table || !table.tHead || table.tBodies.length === 0 || table.hasInitialized === true ) {
-				if ( c.debug ) {
+				if ( ts.debug(c, 'core') ) {
 					if ( table.hasInitialized ) {
 						console.warn( 'Stopping initialization. Tablesorter has already been initialized' );
 					} else {
@@ -249,7 +255,7 @@
 			table.config = c;
 			// save the settings where they read
 			$.data( table, 'tablesorter', c );
-			if ( c.debug ) {
+			if ( ts.debug(c, 'core') ) {
 				console[ console.group ? 'group' : 'log' ]( 'Initializing tablesorter v' + ts.version );
 				$.data( table, 'startoveralltimer', new Date() );
 			}
@@ -310,7 +316,10 @@
 			ts.setupParsers( c );
 			// start total row count at zero
 			c.totalRows = 0;
-			ts.validateOptions( c );
+			// only validate options while debugging. See #1528
+			if (c.debug) {
+				ts.validateOptions( c );
+			}
 			// build the cache for the tbody cells
 			// delayInit will delay building the cache until the user starts a sort
 			if ( !c.delayInit ) { ts.buildCache( c ); }
@@ -355,9 +364,9 @@
 			// initialized
 			table.hasInitialized = true;
 			table.isProcessing = false;
-			if ( c.debug ) {
+			if ( ts.debug(c, 'core') ) {
 				console.log( 'Overall initialization time:' + ts.benchmark( $.data( table, 'startoveralltimer' ) ) );
-				if ( c.debug && console.groupEnd ) { console.groupEnd(); }
+				if ( ts.debug(c, 'core') && console.groupEnd ) { console.groupEnd(); }
 			}
 			$table.triggerHandler( 'tablesorter-initialized', table );
 			if ( typeof c.initialized === 'function' ) {
@@ -554,7 +563,7 @@
 			c.headerList = [];
 			c.headerContent = [];
 			c.sortVars = [];
-			if ( c.debug ) {
+			if ( ts.debug(c, 'core') ) {
 				timer = new Date();
 			}
 			// children tr in tfoot - see issue #196 & #547
@@ -649,7 +658,7 @@
 			});
 			// enable/disable sorting
 			ts.updateHeader( c );
-			if ( c.debug ) {
+			if ( ts.debug(c, 'core') ) {
 				console.log( 'Built headers:' + ts.benchmark( timer ) );
 				console.log( c.$headers );
 			}
@@ -672,14 +681,15 @@
 				noParser, parser, extractor, time, tbody, len,
 				table = c.table,
 				tbodyIndex = 0,
-				debug = {};
+				debug = ts.debug(c, 'core'),
+				debugOutput = {};
 			// update table bodies in case we start with an empty table
 			c.$tbodies = c.$table.children( 'tbody:not(.' + c.cssInfoBlock + ')' );
 			tbody = typeof $tbodies === 'undefined' ? c.$tbodies : $tbodies;
 			len = tbody.length;
 			if ( len === 0 ) {
-				return c.debug ? console.warn( 'Warning: *Empty table!* Not building a parser cache' ) : '';
-			} else if ( c.debug ) {
+				return debug ? console.warn( 'Warning: *Empty table!* Not building a parser cache' ) : '';
+			} else if ( debug ) {
 				time = new Date();
 				console[ console.group ? 'group' : 'log' ]( 'Detecting parsers for each column' );
 			}
@@ -721,8 +731,8 @@
 							if ( !parser ) {
 								parser = ts.detectParserForColumn( c, rows, -1, colIndex );
 							}
-							if ( c.debug ) {
-								debug[ '(' + colIndex + ') ' + header.text() ] = {
+							if ( debug ) {
+								debugOutput[ '(' + colIndex + ') ' + header.text() ] = {
 									parser : parser.id,
 									extractor : extractor ? extractor.id : 'none',
 									string : c.strings[ colIndex ],
@@ -748,9 +758,9 @@
 				}
 				tbodyIndex += ( list.parsers.length ) ? len : 1;
 			}
-			if ( c.debug ) {
-				if ( !ts.isEmptyObject( debug ) ) {
-					console[ console.table ? 'table' : 'log' ]( debug );
+			if ( debug ) {
+				if ( !ts.isEmptyObject( debugOutput ) ) {
+					console[ console.table ? 'table' : 'log' ]( debugOutput );
 				} else {
 					console.warn( '  No parsers detected!' );
 				}
@@ -776,7 +786,7 @@
 		},
 
 		getParserById : function( name ) {
-			/*jshint eqeqeq:false */
+			/*jshint eqeqeq:false */ // eslint-disable-next-line eqeqeq
 			if ( name == 'false' ) { return false; }
 			var indx,
 				len = ts.parsers.length;
@@ -793,6 +803,7 @@
 				indx = ts.parsers.length,
 				node = false,
 				nodeValue = '',
+				debug = ts.debug(c, 'core'),
 				keepLooking = true;
 			while ( nodeValue === '' && keepLooking ) {
 				rowIndex++;
@@ -803,7 +814,7 @@
 						node = rows[ rowIndex ].cells[ cellIndex ];
 						nodeValue = ts.getElementText( c, node, cellIndex );
 						$node = $( node );
-						if ( c.debug ) {
+						if ( debug ) {
 							console.log( 'Checking if value was empty on row ' + rowIndex + ', column: ' +
 								cellIndex + ': "' + nodeValue + '"' );
 						}
@@ -885,7 +896,8 @@
 				cols, $cells, cell, cacheTime, totalRows, rowData, prevRowData,
 				colMax, span, cacheIndex, hasParser, max, len, index,
 				table = c.table,
-				parsers = c.parsers;
+				parsers = c.parsers,
+				debug = ts.debug(c, 'core');
 			// update tbody variable
 			c.$tbodies = c.$table.children( 'tbody:not(.' + c.cssInfoBlock + ')' );
 			$tbody = typeof $tbodies === 'undefined' ? c.$tbodies : $tbodies,
@@ -893,9 +905,9 @@
 			c.totalRows = 0;
 			// if no parsers found, return - it's an empty table.
 			if ( !parsers ) {
-				return c.debug ? console.warn( 'Warning: *Empty table!* Not building a cache' ) : '';
+				return debug ? console.warn( 'Warning: *Empty table!* Not building a cache' ) : '';
 			}
-			if ( c.debug ) {
+			if ( debug ) {
 				cacheTime = new Date();
 			}
 			// processing icon
@@ -964,7 +976,7 @@
 						cell = $row[ 0 ].cells[ colIndex ];
 						if ( cell && cacheIndex < c.columns ) {
 							hasParser = typeof parsers[ cacheIndex ] !== 'undefined';
-							if ( !hasParser && c.debug ) {
+							if ( !hasParser && debug ) {
 								console.warn( 'No parser found for row: ' + rowIndex + ', column: ' + colIndex +
 									'; cell containing: "' + $(cell).text() + '"; does it have a header?' );
 							}
@@ -1012,7 +1024,7 @@
 			if ( c.showProcessing ) {
 				ts.isProcessing( table ); // remove processing icon
 			}
-			if ( c.debug ) {
+			if ( debug ) {
 				len = Math.min( 5, c.cache[ 0 ].normalized.length );
 				console[ console.group ? 'group' : 'log' ]( 'Building cache for ' + c.totalRows +
 					' rows (showing ' + len + ' rows in log) and ' + c.columns + ' columns' +
@@ -1043,7 +1055,7 @@
 				data = { raw : [], parsed: [], $cell: [] },
 				c = table.config;
 			if ( ts.isEmptyObject( c ) ) {
-				if ( c.debug ) {
+				if ( ts.debug(c, 'core') ) {
 					console.warn( 'No cache found - aborting getColumnText function!' );
 				}
 			} else {
@@ -1137,8 +1149,8 @@
 				// direction = 2 means reset!
 				if ( list[ indx ][ 1 ] !== 2 ) {
 					// multicolumn sorting updating - see #1005
-					// .not(function(){}) needs jQuery 1.4
-					// filter(function(i, el){}) <- el is undefined in jQuery v1.2.6
+					// .not(function() {}) needs jQuery 1.4
+					// filter(function(i, el) {}) <- el is undefined in jQuery v1.2.6
 					$sorted = c.$headers.filter( function( i ) {
 						// only include headers that are in the sortList (this includes colspans)
 						var include = true,
@@ -1387,7 +1399,7 @@
 					ts.resortComplete( c, callback );
 				}
 			} else {
-				if ( c.debug ) {
+				if ( ts.debug(c, 'core') ) {
 					console.error( 'updateCell aborted, tbody missing or not within the indicated table' );
 				}
 				c.table.isUpdating = false;
@@ -1410,7 +1422,7 @@
 				// row contained in the table?
 				( ts.getClosest( $row, 'table' )[ 0 ] !== c.table )
 			) {
-				if ( c.debug ) {
+				if ( ts.debug(c, 'core') ) {
 					console.error( 'addRows method requires (1) a jQuery selector reference to rows that have already ' +
 						'been added to the table, or (2) row HTML string to be added to a table with only one tbody' );
 				}
@@ -1482,7 +1494,6 @@
 		appendCache : function( c, init ) {
 			var parsed, totalRows, $tbody, $curTbody, rowIndex, tbodyIndex, appendTime,
 				table = c.table,
-				wo = c.widgetOptions,
 				$tbodies = c.$tbodies,
 				rows = [],
 				cache = c.cache;
@@ -1492,7 +1503,7 @@
 				return c.appender ? c.appender( table, rows ) :
 					table.isUpdating ? c.$table.triggerHandler( 'updateComplete', table ) : ''; // Fixes #532
 			}
-			if ( c.debug ) {
+			if ( ts.debug(c, 'core') ) {
 				appendTime = new Date();
 			}
 			for ( tbodyIndex = 0; tbodyIndex < $tbodies.length; tbodyIndex++ ) {
@@ -1505,7 +1516,7 @@
 					for ( rowIndex = 0; rowIndex < totalRows; rowIndex++ ) {
 						rows[rows.length] = parsed[ rowIndex ][ c.columns ].$row;
 						// removeRows used by the pager plugin; don't render if using ajax - fixes #411
-						if ( !c.appender || ( c.pager && ( !c.pager.removeRows || !wo.pager_removeRows ) && !c.pager.ajax ) ) {
+						if ( !c.appender || ( c.pager && !c.pager.removeRows && !c.pager.ajax ) ) {
 							$curTbody.append( parsed[ rowIndex ][ c.columns ].$row );
 						}
 					}
@@ -1516,7 +1527,7 @@
 			if ( c.appender ) {
 				c.appender( table, rows );
 			}
-			if ( c.debug ) {
+			if ( ts.debug(c, 'core') ) {
 				console.log( 'Rebuilt table' + ts.benchmark( appendTime ) );
 			}
 			// apply table widgets; but not before ajax completes
@@ -1547,7 +1558,7 @@
 		initSort : function( c, cell, event ) {
 			if ( c.table.isUpdating ) {
 				// let any updates complete before initializing a sort
-				return setTimeout( function(){
+				return setTimeout( function() {
 					ts.initSort( c, cell, event );
 				}, 50 );
 			}
@@ -1698,7 +1709,7 @@
 				// empty table - fixes #206/#346
 				return;
 			}
-			if ( c.debug ) { sortTime = new Date(); }
+			if ( ts.debug(c, 'core') ) { sortTime = new Date(); }
 			// cache textSorter to optimize speed
 			if ( typeof textSorter === 'object' ) {
 				colMax = c.columns;
@@ -1760,7 +1771,7 @@
 					return a[ c.columns ].order - b[ c.columns ].order;
 				});
 			}
-			if ( c.debug ) {
+			if ( ts.debug(c, 'core') ) {
 				console.log( 'Applying sort ' + sortList.toString() + ts.benchmark( sortTime ) );
 			}
 		},
@@ -2013,6 +2024,7 @@
 			var applied, time, name,
 				c = table.config,
 				wo = c.widgetOptions,
+				debug = ts.debug(c, 'core'),
 				widget = ts.getWidgetById( id );
 			if ( widget ) {
 				name = widget.id;
@@ -2021,7 +2033,7 @@
 				if ( $.inArray( name, c.widgets ) < 0 ) {
 					c.widgets[ c.widgets.length ] = name;
 				}
-				if ( c.debug ) { time = new Date(); }
+				if ( debug ) { time = new Date(); }
 
 				if ( init || !( c.widgetInit[ name ] ) ) {
 					// set init flag first to prevent calling init more than once (e.g. pager)
@@ -2032,7 +2044,7 @@
 					}
 					if ( typeof widget.init === 'function' ) {
 						applied = true;
-						if ( c.debug ) {
+						if ( debug ) {
 							console[ console.group ? 'group' : 'log' ]( 'Initializing ' + name + ' widget' );
 						}
 						widget.init( table, widget, c, wo );
@@ -2040,12 +2052,12 @@
 				}
 				if ( !init && typeof widget.format === 'function' ) {
 					applied = true;
-					if ( c.debug ) {
+					if ( debug ) {
 						console[ console.group ? 'group' : 'log' ]( 'Updating ' + name + ' widget' );
 					}
 					widget.format( table, c, wo, false );
 				}
-				if ( c.debug ) {
+				if ( debug ) {
 					if ( applied ) {
 						console.log( 'Completed ' + ( init ? 'initializing ' : 'applying ' ) + name + ' widget' + ts.benchmark( time ) );
 						if ( console.groupEnd ) { console.groupEnd(); }
@@ -2058,12 +2070,13 @@
 			table = $( table )[ 0 ]; // in case this is called externally
 			var indx, len, names, widget, time,
 				c = table.config,
+				debug = ts.debug(c, 'core'),
 				widgets = [];
 			// prevent numerous consecutive widget applications
 			if ( init !== false && table.hasInitialized && ( table.isApplyingWidgets || table.isUpdating ) ) {
 				return;
 			}
-			if ( c.debug ) { time = new Date(); }
+			if ( debug ) { time = new Date(); }
 			ts.addWidgetFromClass( table );
 			// prevent "tablesorter-ready" from firing multiple times in a row
 			clearTimeout( c.timerReady );
@@ -2082,7 +2095,7 @@
 						// set priority to 10 if not defined
 						if ( !widget.priority ) { widget.priority = 10; }
 						widgets[ indx ] = widget;
-					} else if ( c.debug ) {
+					} else if ( debug ) {
 						console.warn( '"' + names[ indx ] + '" was enabled, but the widget code has not been loaded!' );
 					}
 				}
@@ -2092,7 +2105,7 @@
 				});
 				// add/update selected widgets
 				len = widgets.length;
-				if ( c.debug ) {
+				if ( debug ) {
 					console[ console.group ? 'group' : 'log' ]( 'Start ' + ( init ? 'initializing' : 'applying' ) + ' widgets' );
 				}
 				for ( indx = 0; indx < len; indx++ ) {
@@ -2101,7 +2114,7 @@
 						ts.applyWidgetId( table, widget.id, init );
 					}
 				}
-				if ( c.debug && console.groupEnd ) { console.groupEnd(); }
+				if ( debug && console.groupEnd ) { console.groupEnd(); }
 			}
 			c.timerReady = setTimeout( function() {
 				table.isApplyingWidgets = false;
@@ -2111,7 +2124,7 @@
 				if ( !init && typeof callback === 'function' ) {
 					callback( table );
 				}
-				if ( c.debug ) {
+				if ( debug ) {
 					widget = c.widgets.length;
 					console.log( 'Completed ' +
 						( init === true ? 'initializing ' : 'applying ' ) + widget +
@@ -2148,7 +2161,7 @@
 					c.widgets.splice( indx, 1 );
 				}
 				if ( widget && widget.remove ) {
-					if ( c.debug ) {
+					if ( ts.debug(c, 'core') ) {
 						console.log( ( refreshing ? 'Refreshing' : 'Removing' ) + ' "' + name[ index ] + '" widget' );
 					}
 					widget.remove( table, c, c.widgetOptions, refreshing );
@@ -2201,6 +2214,12 @@
 		// deprecated ts.log
 		log : function() {
 			console.log( arguments );
+		},
+		debug : function(c, name) {
+			return c && (
+				c.debug === true ||
+				typeof c.debug === 'string' && c.debug.indexOf(name) > -1
+			);
 		},
 
 		// $.isEmptyObject from jQuery v1.4
@@ -2507,7 +2526,7 @@
 				ignore = 'headers sortForce sortList sortAppend widgets'.split( ' ' ),
 				orig = c.originalSettings;
 			if ( orig ) {
-				if ( c.debug ) {
+				if ( ts.debug(c, 'core') ) {
 					timer = new Date();
 				}
 				for ( setting in orig ) {
@@ -2523,7 +2542,7 @@
 						}
 					}
 				}
-				if ( c.debug ) {
+				if ( ts.debug(c, 'core') ) {
 					console.log( 'validate options time:' + ts.benchmark( timer ) );
 				}
 			}
@@ -2554,7 +2573,6 @@
 			var events,
 				$t = $( table ),
 				c = table.config,
-				debug = c.debug,
 				$h = $t.find( 'thead:first' ),
 				$r = $h.find( 'tr.' + ts.css.headerRow ).removeClass( ts.css.headerRow + ' ' + c.cssHeaderRow ),
 				$f = $t.find( 'tfoot:first > tr' ).children( 'th, td' );
@@ -2592,7 +2610,7 @@
 			if ( typeof callback === 'function' ) {
 				callback( table );
 			}
-			if ( debug ) {
+			if ( ts.debug(c, 'core') ) {
 				console.log( 'tablesorter has been removed' );
 			}
 		}
@@ -2709,7 +2727,7 @@
 		is : function( str ) {
 			return ts.regex.isoDate.test( str );
 		},
-		format : function( str, table ) {
+		format : function( str ) {
 			var date = str ? new Date( str.replace( ts.regex.dash, '/' ) ) : str;
 			return date instanceof Date && isFinite( date ) ? date.getTime() : str;
 		},
@@ -2752,7 +2770,7 @@
 			// Jan 01, 2013 12:34:56 PM or 01 Jan 2013
 			return ts.regex.usLongDateTest1.test( str ) || ts.regex.usLongDateTest2.test( str );
 		},
-		format : function( str, table ) {
+		format : function( str ) {
 			var date = str ? new Date( str.replace( ts.regex.dateReplace, '$1 $2' ) ) : str;
 			return date instanceof Date && isFinite( date ) ? date.getTime() : str;
 		},
@@ -2813,7 +2831,7 @@
 		is : function( str ) {
 			return ts.regex.timeTest.test( str );
 		},
-		format : function( str, table ) {
+		format : function( str ) {
 			// isolate time... ignore month, day and year
 			var temp,
 				timePart = ( str || '' ).match( ts.regex.timeMatch ),
@@ -2880,7 +2898,7 @@
 			var tbodyIndex, $tbody,
 				$tbodies = c.$tbodies,
 				toRemove = ( wo.zebra || [ 'even', 'odd' ] ).join( ' ' );
-			for ( tbodyIndex = 0; tbodyIndex < $tbodies.length; tbodyIndex++ ){
+			for ( tbodyIndex = 0; tbodyIndex < $tbodies.length; tbodyIndex++ ) {
 				$tbody = ts.processTbody( table, $tbodies.eq( tbodyIndex ), true ); // remove tbody
 				$tbody.children().removeClass( toRemove );
 				ts.processTbody( table, $tbody, false ); // restore tbody
@@ -2890,7 +2908,7 @@
 
 })( jQuery );
 
-/*! Widget: storage - updated 4/18/2017 (v2.28.8) */
+/*! Widget: storage - updated 2018-03-18 (v2.30.0) */
 /*global JSON:false */
 ;(function ($, window, document) {
 	'use strict';
@@ -2936,6 +2954,7 @@
 			values = {},
 			c = table.config,
 			wo = c && c.widgetOptions,
+			debug = ts.debug(c, 'storage'),
 			storageType = (
 				( options && options.storageType ) || ( wo && wo.storage_storageType )
 			).toString().charAt(0).toLowerCase(),
@@ -2964,14 +2983,12 @@
 					hasStorage = true;
 					window[storageType].removeItem('_tmptest');
 				} catch (error) {
-					if (c && c.debug) {
-						console.warn( storageType + ' is not supported in this browser' );
-					}
+					console.warn( storageType + ' is not supported in this browser' );
 				}
 			}
 		}
-		if (c.debug) {
-			console.log('Storage widget using', hasStorage ? storageType : 'cookies');
+		if (debug) {
+			console.log('Storage >> Using', hasStorage ? storageType : 'cookies');
 		}
 		// *** get value ***
 		if ($.parseJSON) {
@@ -3007,7 +3024,7 @@
 
 })(jQuery, window, document);
 
-/*! Widget: uitheme - updated 9/27/2017 (v2.29.0) */
+/*! Widget: uitheme - updated 2018-03-18 (v2.30.0) */
 ;(function ($) {
 	'use strict';
 	var ts = $.tablesorter || {};
@@ -3072,8 +3089,9 @@
 				theme = c.theme || 'jui',
 				themes = themesAll[theme] || {},
 				remove = $.trim( [ themes.sortNone, themes.sortDesc, themes.sortAsc, themes.active ].join( ' ' ) ),
-				iconRmv = $.trim( [ themes.iconSortNone, themes.iconSortDesc, themes.iconSortAsc ].join( ' ' ) );
-			if (c.debug) { time = new Date(); }
+				iconRmv = $.trim( [ themes.iconSortNone, themes.iconSortDesc, themes.iconSortAsc ].join( ' ' ) ),
+				debug = ts.debug(c, 'uitheme');
+			if (debug) { time = new Date(); }
 			// initialization code - run once
 			if (!$table.hasClass('tablesorter-' + theme) || c.theme !== c.appliedTheme || !wo.uitheme_applied) {
 				wo.uitheme_applied = true;
@@ -3118,7 +3136,7 @@
 						$(this)[ event.type === 'mouseenter' ? 'addClass' : 'removeClass' ](themes.hover || '');
 					});
 
-				$headers.each(function(){
+				$headers.each(function() {
 					var $this = $(this);
 					if (!$this.find('.' + ts.css.wrapper).length) {
 						// Firefox needs this inner div to position the icon & resizer correctly
@@ -3176,8 +3194,8 @@
 					}
 				}
 			}
-			if (c.debug) {
-				console.log('Applying ' + theme + ' theme' + ts.benchmark(time));
+			if (debug) {
+				console.log('uitheme >> Applied ' + theme + ' theme' + ts.benchmark(time));
 			}
 		},
 		remove: function(table, c, wo, refreshing) {
@@ -3282,7 +3300,7 @@
 
 })(jQuery);
 
-/*! Widget: filter - updated 12/13/2017 (v2.29.1) *//*
+/*! Widget: filter - updated 2018-03-18 (v2.30.0) *//*
  * Requires tablesorter v2.8+ and jQuery 1.7+
  * by Rob Garrison
  */
@@ -3324,6 +3342,7 @@
 			filter_excludeFilter : {},    // filters to exclude, per column
 			filter_external      : '',    // jQuery selector string ( or jQuery object ) of external filters
 			filter_filteredRow   : 'filtered', // class added to filtered rows; define in css with "display:none" to hide the filtered-out rows
+			filter_filterLabel   : 'Filter "{{label}}" column by...', // Aria-label added to filter input/select; see #1495
 			filter_formatter     : null,  // add custom filter elements to the filter row
 			filter_functions     : null,  // add custom filter functions using this option
 			filter_hideEmpty     : true,  // hide filter row when table is empty
@@ -3563,6 +3582,7 @@
 				if ( tsfRegex.exact.test( data.iFilter ) ) {
 					var txt = data.iFilter.replace( tsfRegex.exact, '' ),
 						filter = tsf.parseFilter( c, txt, data ) || '';
+					// eslint-disable-next-line eqeqeq
 					return data.anyMatch ? $.inArray( filter, data.rowArray ) >= 0 : filter == data.iExact;
 				}
 				return null;
@@ -3650,7 +3670,12 @@
 
 			var options, string, txt, $header, column, val, fxn, noSelect,
 				c = table.config,
-				wo = c.widgetOptions;
+				wo = c.widgetOptions,
+				processStr = function(prefix, str, suffix) {
+					str = str.trim();
+					// don't include prefix/suffix if str is empty
+					return str === '' ? '' : (prefix || '') + str + (suffix || '');
+				};
 			c.$table.addClass( 'hasFilters' );
 			c.lastSearch = [];
 
@@ -3666,13 +3691,13 @@
 			$.extend( tsfRegex, {
 				child : new RegExp( c.cssChildRow ),
 				filtered : new RegExp( wo.filter_filteredRow ),
-				alreadyFiltered : new RegExp( '(\\s+(' + ts.language.or + '|-|' + ts.language.to + ')\\s+)', 'i' ),
-				toTest : new RegExp( '\\s+(-|' + ts.language.to + ')\\s+', 'i' ),
-				toSplit : new RegExp( '(?:\\s+(?:-|' + ts.language.to + ')\\s+)', 'gi' ),
-				andTest : new RegExp( '\\s+(' + ts.language.and + '|&&)\\s+', 'i' ),
-				andSplit : new RegExp( '(?:\\s+(?:' + ts.language.and + '|&&)\\s+)', 'gi' ),
-				orTest : new RegExp( '(\\||\\s+' + ts.language.or + '\\s+)', 'i' ),
-				orSplit : new RegExp( '(?:\\s+(?:' + ts.language.or + ')\\s+|\\|)', 'gi' ),
+				alreadyFiltered : new RegExp( '(\\s+(-' + processStr('|', ts.language.or) + processStr('|', ts.language.to) + ')\\s+)', 'i' ),
+				toTest : new RegExp( '\\s+(-' + processStr('|', ts.language.to) + ')\\s+', 'i' ),
+				toSplit : new RegExp( '(?:\\s+(?:-' + processStr('|', ts.language.to) + ')\\s+)', 'gi' ),
+				andTest : new RegExp( '\\s+(' + processStr('', ts.language.and, '|') + '&&)\\s+', 'i' ),
+				andSplit : new RegExp( '(?:\\s+(?:' + processStr('', ts.language.and, '|') + '&&)\\s+)', 'gi' ),
+				orTest : new RegExp( '(\\|' + processStr('|\\s+', ts.language.or, '\\s+') + ')', 'i' ),
+				orSplit : new RegExp( '(?:\\|' + processStr('|\\s+(?:', ts.language.or, ')\\s+') + ')', 'gi' ),
 				iQuery : new RegExp( val, 'i' ),
 				igQuery : new RegExp( val, 'ig' ),
 				operTest : /^[<>]=?/,
@@ -3731,7 +3756,7 @@
 						c.lastCombinedFilter = null;
 						c.lastSearch = [];
 						// update filterFormatters after update (& small delay) - Fixes #1237
-						setTimeout(function(){
+						setTimeout(function() {
 							c.$table.triggerHandler( 'filterFomatterUpdate' );
 						}, 100);
 					}
@@ -3825,7 +3850,7 @@
 
 			// show processing icon
 			if ( c.showProcessing ) {
-				txt = 'filterStart filterEnd '.split( ' ' ).join( c.namespace + 'filter ' );
+				txt = 'filterStart filterEnd '.split( ' ' ).join( c.namespace + 'filter-sp ' );
 				c.$table
 					.unbind( txt.replace( ts.regex.spaces, ' ' ) )
 					.bind( txt, function( event, columns ) {
@@ -3904,6 +3929,9 @@
 					c.lastSearch = c.$table.data( 'lastSearch' );
 					c.$table.triggerHandler( 'filterInit', c );
 					tsf.findRows( c.table, c.lastSearch || [] );
+					if (ts.debug(c, 'filter')) {
+						console.log('Filter >> Widget initialized');
+					}
 				};
 			if ( $.isEmptyObject( wo.filter_formatter ) ) {
 				completed();
@@ -3980,7 +4008,7 @@
 				cellFilter = wo.filter_cellFilter,
 				columns = c.columns,
 				arry = $.isArray( cellFilter ),
-				buildFilter = '<tr role="row" class="' + tscss.filterRow + ' ' + c.cssIgnoreRow + '">';
+				buildFilter = '<tr role="search" class="' + tscss.filterRow + ' ' + c.cssIgnoreRow + '">';
 			for ( column = 0; column < columns; column++ ) {
 				if ( c.$headerIndexed[ column ].length ) {
 					// account for entire column set with colspan. See #1047
@@ -4049,7 +4077,22 @@
 							( typeof wo.filter_cssFilter[column] !== 'undefined' ? wo.filter_cssFilter[column] || '' : '' ) :
 							wo.filter_cssFilter ) || '';
 						// copy data-column from table cell (it will include colspan)
-						buildFilter.addClass( tscss.filter + ' ' + name ).attr( 'data-column', $filter.attr( 'data-column' ) );
+						buildFilter.addClass( tscss.filter + ' ' + name );
+						name = wo.filter_filterLabel;
+						tmp = name.match(/{{([^}]+?)}}/g);
+						if (!tmp) {
+							tmp = [ '{{label}}' ];
+						}
+						$.each(tmp, function(indx, attr) {
+							var regex = new RegExp(attr, 'g'),
+								data = $header.attr('data-' + attr.replace(/{{|}}/g, '')),
+								text = typeof data === 'undefined' ? $header.text() : data;
+							name = name.replace( regex, $.trim( text ) );
+						});
+						buildFilter.attr({
+							'data-column': $filter.attr( 'data-column' ),
+							'aria-label': name
+						});
 						if ( disabled ) {
 							buildFilter.attr( 'placeholder', '' ).addClass( tscss.filterDisabled )[0].disabled = true;
 						}
@@ -4589,6 +4632,7 @@
 				storedFilters = $.extend( [], filters ),
 				c = table.config,
 				wo = c.widgetOptions,
+				debug = ts.debug(c, 'filter'),
 				// data object passed to filters; anyMatch is a flag for the filters
 				data = {
 					anyMatch: false,
@@ -4605,7 +4649,6 @@
 					defaultColFilter : [],
 					defaultAnyFilter : ts.getColumnData( table, wo.filter_defaultFilter, c.columns, true ) || ''
 				};
-
 			// parse columns after formatter, in case the class is added at that point
 			data.parsed = [];
 			for ( columnIndex = 0; columnIndex < c.columns; columnIndex++ ) {
@@ -4627,8 +4670,8 @@
 					( ts.getColumnData( table, wo.filter_excludeFilter, columnIndex, true ) || '' ).split( /\s+/ );
 			}
 
-			if ( c.debug ) {
-				console.log( 'Filter: Starting filter widget search', filters );
+			if ( debug ) {
+				console.log( 'Filter >> Starting filter widget search', filters );
 				time = new Date();
 			}
 			// filtered rows count
@@ -4726,8 +4769,8 @@
 					notFiltered = $rows.not( '.' + wo.filter_filteredRow ).length;
 					// can't search when all rows are hidden - this happens when looking for exact matches
 					if ( searchFiltered && notFiltered === 0 ) { searchFiltered = false; }
-					if ( c.debug ) {
-						console.log( 'Filter: Searching through ' +
+					if ( debug ) {
+						console.log( 'Filter >> Searching through ' +
 							( searchFiltered && notFiltered < len ? notFiltered : 'all' ) + ' rows' );
 					}
 					if ( data.anyMatchFlag ) {
@@ -4830,8 +4873,8 @@
 			if ( wo.filter_saveFilters && ts.storage ) {
 				ts.storage( table, 'tablesorter-filters', tsf.processFilters( storedFilters, true ) );
 			}
-			if ( c.debug ) {
-				console.log( 'Completed filter widget search' + ts.benchmark(time) );
+			if ( debug ) {
+				console.log( 'Filter >> Completed search' + ts.benchmark(time) );
 			}
 			if ( wo.filter_initialized ) {
 				c.$table.triggerHandler( 'filterBeforeEnd', c );
@@ -5046,13 +5089,13 @@
 						options += '<option';
 						for ( val in option ) {
 							if ( option.hasOwnProperty( val ) && val !== 'text' ) {
-								options += ' ' + val + '="' + option[ val ] + '"';
+								options += ' ' + val + '="' + option[ val ].replace( tsfRegex.quote, '&quot;' ) + '"';
 							}
 						}
 						if ( !option.value ) {
-							options += ' value="' + option.text + '"';
+							options += ' value="' + option.text.replace( tsfRegex.quote, '&quot;' ) + '"';
 						}
-						options += '>' + option.text + '</option>';
+						options += '>' + option.text.replace( tsfRegex.quote, '&quot;' ) + '</option>';
 						// above code is needed in jQuery < v1.8
 
 						// make sure we don't turn an object into a string (objects without a "text" property)
@@ -5306,7 +5349,7 @@
 			var index, len, $t,
 				$table = c.$table,
 				// add position: relative to attach element, hopefully it won't cause trouble.
-				$attach = $(wo.stickyHeaders_attachTo),
+				$attach = $(wo.stickyHeaders_attachTo || wo.stickyHeaders_appendTo),
 				namespace = c.namespace + 'stickyheaders ',
 				// element to watch for the scroll event
 				$yScroll = $(wo.stickyHeaders_yScroll || wo.stickyHeaders_attachTo || window),
@@ -5336,7 +5379,7 @@
 				$stickyThead = $stickyTable.children('thead:first'),
 				$stickyCells,
 				laststate = '',
-				setWidth = function($orig, $clone){
+				setWidth = function($orig, $clone) {
 					var index, width, border, $cell, $this,
 						$cells = $orig.filter(':visible'),
 						len = $cells.length;
@@ -5366,7 +5409,10 @@
 						});
 					}
 				},
-				getLeftPosition = function() {
+				getLeftPosition = function(yWindow) {
+					if (yWindow === false && $nestedSticky.length) {
+						return $table.position().left;
+					}
 					return $attach.length ?
 						parseInt($attach.css('padding-left'), 10) || 0 :
 						$table.offset().left - parseInt($table.css('margin-left'), 10) - $(window).scrollLeft();
@@ -5387,9 +5433,11 @@
 						offset = $table.offset(),
 						stickyOffset = getStickyOffset(c, wo),
 						yWindow = $.isWindow( $yScroll[0] ), // $.isWindow needs jQuery 1.4.3
-						attachTop = $attach.length ?
-							( yWindow ? $yScroll.scrollTop() : $yScroll.offset().top ) :
-							$yScroll.scrollTop(),
+						yScroll = yWindow ?
+							$yScroll.scrollTop() :
+							// use parent sticky position if nested AND inside of a scrollable element - see #1512
+							$nestedSticky.length ? parseInt($nestedSticky[0].style.top, 10) : $yScroll.offset().top,
+						attachTop = $attach.length ? yScroll : $yScroll.scrollTop(),
 						captionHeight = wo.stickyHeaders_includeCaption ? 0 : $table.children( 'caption' ).height() || 0,
 						scrollTop = attachTop + stickyOffset + nestedStickyTop - captionHeight,
 						tableHeight = $table.height() - ($stickyWrap.height() + ($tfoot.height() || 0)) - captionHeight,
@@ -5403,12 +5451,14 @@
 						cssSettings.top = yWindow ? scrollTop - $attach.offset().top : $attach.scrollTop();
 					}
 					// adjust when scrolling horizontally - fixes issue #143
-					tmp = getLeftPosition();
+					tmp = getLeftPosition(yWindow);
 					if (tmp !== parseInt($stickyWrap.css('left'), 10)) {
 						needsUpdating = true;
 						cssSettings.left = tmp;
 					}
-					cssSettings.top = ( cssSettings.top || 0 ) + stickyOffset + nestedStickyTop;
+					cssSettings.top = ( cssSettings.top || 0 ) +
+						// If nested AND inside of a scrollable element, only add parent sticky height
+						(!yWindow && $nestedSticky.length ? $nestedSticky.height() : stickyOffset + nestedStickyTop);
 					if (needsUpdating) {
 						$stickyWrap
 							.removeClass( ts.css.stickyVis + ' ' + ts.css.stickyHide )
@@ -5429,8 +5479,8 @@
 			if ($stickyTable.attr('id')) { $stickyTable[0].id += wo.stickyHeaders_cloneId; }
 			// clear out cloned table, except for sticky header
 			// include caption & filter row (fixes #126 & #249) - don't remove cells to get correct cell indexing
-			$stickyTable.find('thead:gt(0), tr.sticky-false').hide();
-			$stickyTable.find('tbody, tfoot').remove();
+			$stickyTable.find('> thead:gt(0), tr.sticky-false').hide();
+			$stickyTable.find('> tbody, > tfoot').remove();
 			$stickyTable.find('caption').toggle(wo.stickyHeaders_includeCaption);
 			// issue #172 - find td/th in sticky header
 			$stickyCells = $stickyThead.children().children();
@@ -5462,7 +5512,6 @@
 					c.onRenderHeader.apply( $t.eq( index ), [ index, c, $stickyTable ] );
 				}
 			}
-
 			// make it sticky!
 			$xScroll.add($yScroll)
 				.unbind( ('scroll resize '.split(' ').join( namespace )).replace(/\s+/g, ' ') )
@@ -5471,7 +5520,7 @@
 				});
 			c.$table
 				.unbind('stickyHeadersUpdate' + namespace)
-				.bind('stickyHeadersUpdate' + namespace, function(){
+				.bind('stickyHeadersUpdate' + namespace, function() {
 					scrollSticky( true );
 				});
 
@@ -5533,7 +5582,7 @@
 
 })(jQuery, window);
 
-/*! Widget: resizable - updated 12/13/2017 (v2.29.1) */
+/*! Widget: resizable - updated 2018-02-14 (v2.29.6) */
 /*jshint browser:true, jquery:true, unused:false */
 ;(function ($, window) {
 	'use strict';
@@ -5547,7 +5596,7 @@
 	});
 
 	// Add extra scroller css
-	$(function(){
+	$(function() {
 		var s = '<style>' +
 			'body.' + ts.css.resizableNoSelect + ' { -ms-user-select: none; -moz-user-select: -moz-none;' +
 				'-khtml-user-select: none; -webkit-user-select: none; user-select: none; }' +
@@ -5692,7 +5741,7 @@
 
 			if ( ts.hasWidget( c.table, 'scroller' ) ) {
 				tableHeight = 0;
-				c.$table.closest( '.' + ts.css.scrollerWrap ).children().each(function(){
+				c.$table.closest( '.' + ts.css.scrollerWrap ).children().each(function() {
 					var $this = $(this);
 					// center table has a max-height set
 					tableHeight += $this.filter('[style*="height"]').length ? $this.height() : $this.children('table').height();
@@ -5914,7 +5963,7 @@
 	});
 
 	ts.resizableReset = function( table, refreshing ) {
-		$( table ).each(function(){
+		$( table ).each(function() {
 			var index, $t,
 				c = this.config,
 				wo = c && c.widgetOptions,
@@ -5924,7 +5973,7 @@
 				if ( vars.overflow && vars.tableWidth ) {
 					ts.resizable.setWidth( c.$table, vars.tableWidth, true );
 					if ( vars.useStorage ) {
-						ts.storage( table, 'tablesorter-table-resized-width', 'auto' );
+						ts.storage( table, 'tablesorter-table-resized-width', vars.tableWidth );
 					}
 				}
 				for ( index = 0; index < c.columns; index++ ) {
@@ -5940,7 +5989,7 @@
 				// reset stickyHeader widths
 				c.$table.triggerHandler( 'stickyHeadersUpdate' );
 				if ( ts.storage && !refreshing ) {
-					ts.storage( this, ts.css.resizableStorage, {} );
+					ts.storage( this, ts.css.resizableStorage, [] );
 				}
 			}
 		});
@@ -5948,13 +5997,22 @@
 
 })( jQuery, window );
 
-/*! Widget: saveSort - updated 10/31/2015 (v2.24.0) *//*
+/*! Widget: saveSort - updated 2018-03-19 (v2.30.1) *//*
 * Requires tablesorter v2.16+
 * by Rob Garrison
 */
 ;(function ($) {
 	'use strict';
 	var ts = $.tablesorter || {};
+
+	function getStoredSortList(c) {
+		var stored = ts.storage( c.table, 'tablesorter-savesort' );
+		return (stored && stored.hasOwnProperty('sortList') && $.isArray(stored.sortList)) ? stored.sortList : [];
+	}
+
+	function sortListChanged(c, sortList) {
+		return (sortList || getStoredSortList(c)).join(',') !== c.sortList.join(',');
+	}
 
 	// this widget saves the last sort only if the
 	// saveSort widget option is true AND the
@@ -5971,18 +6029,19 @@
 			thisWidget.format(table, c, wo, true);
 		},
 		format: function(table, c, wo, init) {
-			var stored, time,
+			var time,
 				$table = c.$table,
 				saveSort = wo.saveSort !== false, // make saveSort active/inactive; default to true
-				sortList = { 'sortList' : c.sortList };
-			if (c.debug) {
+				sortList = { 'sortList' : c.sortList },
+				debug = ts.debug(c, 'saveSort');
+			if (debug) {
 				time = new Date();
 			}
 			if ($table.hasClass('hasSaveSort')) {
-				if (saveSort && table.hasInitialized && ts.storage) {
+				if (saveSort && table.hasInitialized && ts.storage && sortListChanged(c)) {
 					ts.storage( table, 'tablesorter-savesort', sortList );
-					if (c.debug) {
-						console.log('saveSort widget: Saving last sort: ' + c.sortList + ts.benchmark(time));
+					if (debug) {
+						console.log('saveSort >> Saving last sort: ' + c.sortList + ts.benchmark(time));
 					}
 				}
 			} else {
@@ -5991,10 +6050,9 @@
 				sortList = '';
 				// get data
 				if (ts.storage) {
-					stored = ts.storage( table, 'tablesorter-savesort' );
-					sortList = (stored && stored.hasOwnProperty('sortList') && $.isArray(stored.sortList)) ? stored.sortList : '';
-					if (c.debug) {
-						console.log('saveSort: Last sort loaded: "' + sortList + '"' + ts.benchmark(time));
+					sortList = getStoredSortList(c);
+					if (debug) {
+						console.log('saveSort >> Last sort loaded: "' + sortList + '"' + ts.benchmark(time));
 					}
 					$table.bind('saveSortReset', function(event) {
 						event.stopPropagation();
@@ -6007,7 +6065,9 @@
 					c.sortList = sortList;
 				} else if (table.hasInitialized && sortList && sortList.length > 0) {
 					// update sort change
-					ts.sortOn( c, sortList );
+					if (sortListChanged(c, sortList)) {
+						ts.sortOn(c, sortList);
+					}
 				}
 			}
 		},

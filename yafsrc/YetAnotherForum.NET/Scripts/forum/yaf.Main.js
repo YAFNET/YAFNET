@@ -10,13 +10,13 @@ jQuery(document).ready(function () {
         max: 720
     });
 
-    jQuery(".yafnet-bs .standardSelectMenu").select2({
+    jQuery(".yaf-net .standardSelectMenu").select2({
         theme: "bootstrap",
         dropdownAutoWidth: true,
         width: 'style'
     });
 
-    jQuery(".yafnet-bs .selectpicker").select2({
+    jQuery(".yaf-net .selectpicker").select2({
         theme: "bootstrap",
         dropdownAutoWidth: true,
         templateResult: formatState,

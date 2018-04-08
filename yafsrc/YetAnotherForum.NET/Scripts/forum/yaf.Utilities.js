@@ -1,5 +1,5 @@
 ﻿/// <summary>
-/// Scrolls to docoment to the top.
+/// Scrolls to document to the top.
 /// </summary>
 function ScrollToTop() {
     jQuery('body,html').animate({ scrollTop: 0 }, 820);
