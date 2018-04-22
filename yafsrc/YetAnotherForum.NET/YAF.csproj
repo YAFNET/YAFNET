@@ -131,6 +131,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CookComputing.XmlRpcServerV2, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
+      <HintPath>..\packages\xmlrpcnet-server.3.0.0.266\lib\net20\CookComputing.XmlRpcServerV2.dll</HintPath>
+    </Reference>
     <Reference Include="CookComputing.XmlRpcV2, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\xmlrpcnet.3.0.0.266\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
@@ -980,6 +983,16 @@
     <Content Include="Content\css\select2.min.css">
       <DependentUpon>select2.css</DependentUpon>
     </Content>
+    <Content Include="Content\fa-brands.css" />
+    <Content Include="Content\fa-brands.min.css" />
+    <Content Include="Content\fa-regular.css" />
+    <Content Include="Content\fa-regular.min.css" />
+    <Content Include="Content\fa-solid.css" />
+    <Content Include="Content\fa-solid.min.css" />
+    <Content Include="Content\fontawesome-all.css" />
+    <Content Include="Content\fontawesome-all.min.css" />
+    <Content Include="Content\fontawesome.css" />
+    <Content Include="Content\fontawesome.min.css" />
     <Content Include="Content\fontawesome\fa-brands.css" />
     <Content Include="Content\fontawesome\fa-brands.min.css">
       <DependentUpon>fa-brands.css</DependentUpon>
@@ -1248,6 +1261,7 @@
     <Content Include="install\mssql\install\procedures.sql" />
     <Content Include="install\mssql\install\tables.sql" />
     <Content Include="install\mssql\install\views.sql" />
+    <Content Include="install\mssql\upgrade\fulltext.sql" />
     <Content Include="install\mssql\upgrade\providers\indexes.sql" />
     <Content Include="install\mssql\upgrade\providers\procedures.sql" />
     <Content Include="install\mssql\upgrade\providers\tables.sql" />
@@ -1735,22 +1749,10 @@
     <Content Include="Scripts\ckeditor\styles.js" />
     <Content Include="Scripts\emojipicker\jquery.emojipicker.js" />
     <Content Include="Scripts\emojipicker\jquery.emojis.js" />
-    <Content Include="Scripts\fontawesome\fa-brands.js" />
-    <Content Include="Scripts\fontawesome\fa-brands.min.js" />
-    <Content Include="Scripts\fontawesome\fa-regular.js" />
-    <Content Include="Scripts\fontawesome\fa-regular.min.js" />
-    <Content Include="Scripts\fontawesome\fa-solid.js" />
-    <Content Include="Scripts\fontawesome\fa-solid.min.js" />
-    <Content Include="Scripts\fontawesome\fa-v4-shims.js" />
-    <Content Include="Scripts\fontawesome\fa-v4-shims.min.js" />
-    <Content Include="Scripts\fontawesome\fontawesome-all.js" />
-    <Content Include="Scripts\fontawesome\fontawesome-all.min.js">
-      <DependentUpon>fontawesome-all.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\fontawesome\fontawesome.js" />
-    <Content Include="Scripts\fontawesome\fontawesome.min.js">
-      <DependentUpon>fontawesome.js</DependentUpon>
-    </Content>
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
     <Content Include="Scripts\forum\yaf.SearchResults.js" />
     <Content Include="Scripts\forum\yaf.SimilarTitles.js" />
     <Content Include="Scripts\i18n\af.js" />
@@ -1854,10 +1856,33 @@
     <Content Include="Scripts\moment.min.js">
       <DependentUpon>moment.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.js.map">
+      <DependentUpon>popper-utils.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\popper-utils.min.js">
+      <DependentUpon>popper-utils.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\popper-utils.min.js.map">
+      <DependentUpon>popper-utils.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.js.map">
+      <DependentUpon>popper.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\popper.min.js">
+      <DependentUpon>popper.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\popper.min.js.map">
+      <DependentUpon>popper.min.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\spin.min.js">
       <DependentUpon>spin.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.min.js" />
+    <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.js" />
+    <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.min.js">
+      <DependentUpon>jquery.tablesorter.pager.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\tablesorter\jquery.tablesorter.combined.min.js">
       <DependentUpon>jquery.tablesorter.combined.js</DependentUpon>
     </Content>
@@ -1873,6 +1898,10 @@
     <Content Include="Scripts\spin.js" />
     <Content Include="Scripts\tablesorter\jquery.tablesorter.combined.js" />
     <Content Include="Scripts\forum\yaf.Utilities.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\yafEditor\yafEditor.js" />
     <Content Include="Scripts\yafEditor\yafEditor.min.js">
       <DependentUpon>yafEditor.js</DependentUpon>
@@ -3409,6 +3438,10 @@
     </Content>
     <Content Include="Scripts\forum\yaf.MessageHistory.js" />
     <Content Include="Scripts\forum\yaf.Attachments.js" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
     <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="Scripts\ckeditor\README.md" />
     <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
@@ -3419,10 +3452,14 @@
     <Content Include="Scripts\ckeditor\package.json" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
-    <Content Include="Scripts\README.md" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js">
       <DependentUpon>jquery-3.3.1.js</DependentUpon>
     </None>
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
     <None Include="themes\cleanSlate\theme.less" />
     <Content Include="themes\cleanSlate\theme.css">
       <DependentUpon>theme.less</DependentUpon>
@@ -4476,6 +4513,7 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
     <TypeScriptCompile Include="Scripts\ladda.d.ts" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Package|AnyCPU'">
@@ -4529,7 +4567,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
