@@ -58,7 +58,7 @@
 								<asp:RequiredFieldValidator ID="EmailRequired" runat="server" ControlToValidate="Email" 
 									ErrorMessage="E-mail is required." ToolTip="E-mail is required." ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
                                 <asp:RegularExpressionValidator ID="EmailValid" runat="server" ValidationGroup="CreateUserWizard1" ControlToValidate="Email"
-                                     ErrorMessage="E-mail adress is not valid." ValidationExpression="^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$">*
+                                     ErrorMessage="E-mail adress is not valid." ValidationExpression="^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,10}$">*
                                  </asp:RegularExpressionValidator>
 							</td>
 						</tr>
