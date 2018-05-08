@@ -266,7 +266,7 @@ namespace YAF.Utils.Helpers
             else
             {
                 // check if it's a search engine spider or an ignored UI string...
-                string san = SearchEngineSpiderName(userAgent);
+                var san = SearchEngineSpiderName(userAgent);
                 if (san.IsSet())
                 {
                     browser = san;

@@ -97,7 +97,7 @@ namespace YAF.Utils.Helpers
           ' ', '>', '/', '\t'
         };
 
-      int pos = tag.IndexOfAny(endchars, 1);
+      var pos = tag.IndexOfAny(endchars, 1);
       if (pos > 0)
       {
         tag = tag.Substring(0, pos);

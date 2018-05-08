@@ -70,7 +70,18 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static int GetTimeZoneOffset(string input)
         {
-            return GetTimeZoneOffset(TimeZoneInfo.FindSystemTimeZoneById(input));
+            TimeZoneInfo timeZone;
+
+            try
+            {
+                timeZone = TimeZoneInfo.FindSystemTimeZoneById(input);
+            }
+            catch (Exception)
+            {
+                timeZone = TimeZoneInfo.Local;
+            }
+
+            return GetTimeZoneOffset(timeZone);
         }
 
         /// <summary>

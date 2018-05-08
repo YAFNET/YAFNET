@@ -140,7 +140,7 @@ namespace YAF.Utils.Helpers
         [CanBeNull]
         public static DataRow GetFirstRowOrInvalid([NotNull] this DataTable dt)
         {
-            DataRow row = dt.GetFirstRow();
+            var row = dt.GetFirstRow();
 
             if (row != null)
             {
@@ -203,7 +203,7 @@ namespace YAF.Utils.Helpers
         {
             CodeContracts.VerifyNotNull(command, "command");
 
-            string debugString = command.CommandText;
+            var debugString = command.CommandText;
 
             try
             {

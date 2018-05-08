@@ -57,9 +57,9 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static string GetImageParameters(Uri uriPath, out long length)
         {
-            string pseudoMime = string.Empty;
-            string contentType = string.Empty;
-            using (Stream stream = GetRemoteData(uriPath, out length, out contentType))
+            var pseudoMime = string.Empty;
+            var contentType = string.Empty;
+            using (var stream = GetRemoteData(uriPath, out length, out contentType))
             {
                 Bitmap img = null;
                 try
@@ -115,7 +115,7 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static Stream GetRemoteData(Uri url, out long length, out string contentType)
         {
-            string path = url.ToString();
+            var path = url.ToString();
             length = 0;
             contentType = string.Empty;
             try
@@ -125,9 +125,9 @@ namespace YAF.Utils.Helpers
                     path = "file://" + HttpRuntime.AppDomainAppPath + path.Substring(2, path.Length - 2);
                 }
 
-                WebRequest request = WebRequest.Create(new Uri(path));
+                var request = WebRequest.Create(new Uri(path));
 
-                WebResponse response = request.GetResponse();
+                var response = request.GetResponse();
                 length = response.ContentLength;
                 contentType = response.ContentType;
                 return response.GetResponseStream();

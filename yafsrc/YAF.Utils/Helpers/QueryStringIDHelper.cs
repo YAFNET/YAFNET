@@ -105,7 +105,7 @@ namespace YAF.Utils.Helpers
 
       var failInvalid = new bool[idNames.Length];
 
-      for (int i = 0; i < failInvalid.Length; i++)
+      for (var i = 0; i < failInvalid.Length; i++)
       {
         failInvalid[i] = errorOnInvalid;
       }
@@ -213,7 +213,7 @@ namespace YAF.Utils.Helpers
         throw new Exception("idNames and errorOnInvalid variables must be the same array length.");
       }
 
-      for (int i = 0; i < idNames.Length; i++)
+      for (var i = 0; i < idNames.Length; i++)
       {
         if (this.Params.ContainsKey(idNames[i]))
         {

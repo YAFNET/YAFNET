@@ -208,7 +208,7 @@ namespace YAF.Utils
       var bitmap = new Bitmap(this.width, this.height, PixelFormat.Format32bppArgb);
 
       // Create a graphics object for drawing.
-      Graphics g = Graphics.FromImage(bitmap);
+      var g = Graphics.FromImage(bitmap);
       g.SmoothingMode = SmoothingMode.AntiAlias;
       var rect = new Rectangle(0, 0, this.width, this.height);
 
@@ -241,7 +241,7 @@ namespace YAF.Utils
       // Create a path using the text and warp it randomly.
       var path = new GraphicsPath();
       path.AddString(this.text, font.FontFamily, (int)font.Style, font.Size, rect, format);
-      float v = 4F;
+      var v = 4F;
       PointF[] points = {
                           new PointF(r.Next(rect.Width) / v, r.Next(rect.Height) / v), 
                           new PointF(rect.Width - r.Next(rect.Width) / v, r.Next(rect.Height) / v), 
@@ -262,23 +262,23 @@ namespace YAF.Utils
       g.FillPath(hatchBrush, path);
 
       // Add some random noise.
-      int m = Math.Max(rect.Width, rect.Height);
-      for (int i = 0; i < (int)(rect.Width * rect.Height / 30F); i++)
+      var m = Math.Max(rect.Width, rect.Height);
+      for (var i = 0; i < (int)(rect.Width * rect.Height / 30F); i++)
       {
-        int x = r.Next(rect.Width);
-        int y = r.Next(rect.Height);
-        int w = r.Next(m / (this.random.Next(1000) + 50));
-        int h = r.Next(m / (this.random.Next(1000) + 50));
+        var x = r.Next(rect.Width);
+        var y = r.Next(rect.Height);
+        var w = r.Next(m / (this.random.Next(1000) + 50));
+        var h = r.Next(m / (this.random.Next(1000) + 50));
 
         g.FillEllipse(hatchBrush, x, y, w, h);
       }
 
       double noise = this.random.Next(35) + 35;
 
-      int maxDim = Math.Max(rect.Width, rect.Height);
+      var maxDim = Math.Max(rect.Width, rect.Height);
       var radius = (int)(maxDim * noise / 3000);
       var maxGran = (int)(rect.Width * rect.Height / (100 - (noise >= 90 ? 90 : noise)));
-      for (int i = 0; i < maxGran; i++)
+      for (var i = 0; i < maxGran; i++)
       {
         g.FillEllipse(
           hatchBrush, 
@@ -292,12 +292,12 @@ namespace YAF.Utils
 
       if (_lines > 0)
       {
-        int lines = ((int)_lines / 30) + 1;
+        var lines = ((int)_lines / 30) + 1;
         using (var pen = new Pen(hatchBrush, 1))
-          for (int i = 0; i < lines; i++)
+          for (var i = 0; i < lines; i++)
           {
             var pointsLine = new PointF[lines > 2 ? lines - 1 : 2];
-            for (int j = 0; j < pointsLine.Length; j++)
+            for (var j = 0; j < pointsLine.Length; j++)
             {
               pointsLine[j] = new PointF(this.random.Next(rect.Width), this.random.Next(rect.Height));
             }

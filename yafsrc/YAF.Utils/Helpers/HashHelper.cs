@@ -111,8 +111,8 @@ namespace YAF.Utils
     [NotNull]
     public static byte[] GeneratePasswordBuffer([NotNull] string salt, [NotNull] string clearString, bool standardComp)
     {
-      byte[] unencodedBytes = Encoding.Unicode.GetBytes(clearString);
-      byte[] saltBytes = Convert.FromBase64String(salt);
+      var unencodedBytes = Encoding.Unicode.GetBytes(clearString);
+      var saltBytes = Convert.FromBase64String(salt);
       var buffer = new byte[unencodedBytes.Length + saltBytes.Length];
 
       if (standardComp)
@@ -179,14 +179,14 @@ namespace YAF.Utils
       }
       else
       {
-        byte[] unencodedBytes = Encoding.UTF8.GetBytes(clearString); // UTF8 used to maintain compatibility
+        var unencodedBytes = Encoding.UTF8.GetBytes(clearString); // UTF8 used to maintain compatibility
         buffer = new byte[unencodedBytes.Length];
         Buffer.BlockCopy(unencodedBytes, 0, buffer, 0, unencodedBytes.Length);
       }
 
-      byte[] hashedBytes = Hash(buffer, hashAlgorithmType); // Hash
+      var hashedBytes = Hash(buffer, hashAlgorithmType); // Hash
 
-      string hashedString = hashHex ? hashedBytes.ToHexString() : Convert.ToBase64String(hashedBytes);
+      var hashedString = hashHex ? hashedBytes.ToHexString() : Convert.ToBase64String(hashedBytes);
 
       // Adjust the case of the hash output
       switch (hashCaseType)

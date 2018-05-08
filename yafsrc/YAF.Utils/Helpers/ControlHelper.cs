@@ -147,7 +147,7 @@ namespace YAF.Utils.Helpers
             CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
             CodeContracts.VerifyNotNull(id, "id");
 
-            Control foundControl = sourceControl.FindControl(id);
+            var foundControl = sourceControl.FindControl(id);
 
             if (foundControl != null)
             {
@@ -170,7 +170,7 @@ namespace YAF.Utils.Helpers
             CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
             CodeContracts.VerifyNotNull(id, "id");
 
-            Control found = FindControlRecursiveReverse(sourceControl, id);
+            var found = FindControlRecursiveReverse(sourceControl, id);
             if (found != null)
             {
                 return found;
@@ -225,7 +225,7 @@ namespace YAF.Utils.Helpers
             CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
             CodeContracts.VerifyNotNull(id, "id");
 
-            Control foundControl = FindControlRecursive(sourceControl, id);
+            var foundControl = FindControlRecursive(sourceControl, id);
             if (foundControl is T)
             {
                 return foundControl.ToClass<T>();
@@ -249,7 +249,7 @@ namespace YAF.Utils.Helpers
             CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
             CodeContracts.VerifyNotNull(id, "id");
 
-            Control foundControl = FindControlRecursiveReverse(sourceControl, id);
+            var foundControl = FindControlRecursiveReverse(sourceControl, id);
             if (foundControl is T)
             {
                 return foundControl.ToClass<T>();
@@ -273,7 +273,7 @@ namespace YAF.Utils.Helpers
             CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
             CodeContracts.VerifyNotNull(id, "id");
 
-            Control foundControl = FindControlRecursiveBoth(sourceControl, id);
+            var foundControl = FindControlRecursiveBoth(sourceControl, id);
 
             if (foundControl is T)
             {
@@ -303,9 +303,9 @@ namespace YAF.Utils.Helpers
 
             Control foundControl = null;
 
-            for (int i = 0; i < wizardControl.WizardSteps.Count; i++)
+            for (var i = 0; i < wizardControl.WizardSteps.Count; i++)
             {
-                for (int j = 0; j < wizardControl.WizardSteps[i].Controls.Count; j++)
+                for (var j = 0; j < wizardControl.WizardSteps[i].Controls.Count; j++)
                 {
                     foundControl = FindControlRecursive(wizardControl.WizardSteps[i].Controls[j], id);
                     if (foundControl != null)
@@ -341,7 +341,7 @@ namespace YAF.Utils.Helpers
             CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
             CodeContracts.VerifyNotNull(id, "id");
 
-            Control foundControl = sourceControl.FindControl(id);
+            var foundControl = sourceControl.FindControl(id);
 
             if (foundControl == null)
             {
@@ -449,7 +449,7 @@ namespace YAF.Utils.Helpers
         /// <returns><see cref="HtmlMeta"/> control</returns>
         public static HtmlMeta MakeMetaKeywordsControl(string keywords)
         {
-            HtmlMeta meta = new HtmlMeta { Name = "keywords", Content = keywords };
+            var meta = new HtmlMeta { Name = "keywords", Content = keywords };
 
             return meta;
         }

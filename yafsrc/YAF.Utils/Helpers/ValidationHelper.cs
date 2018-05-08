@@ -78,7 +78,7 @@ namespace YAF.Utils.Helpers
         {
             try
             {
-                new Uri(url, UriKind.Absolute);
+                var uri = new Uri(url, UriKind.Absolute);
                 return true;
             }
             catch (Exception)
