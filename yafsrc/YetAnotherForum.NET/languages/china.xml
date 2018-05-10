@@ -2090,6 +2090,7 @@
     <Resource tag="HTMLTAG_FORBIDDEN">不允许包含 HTML 标签.</Resource>
     <Resource tag="HTMLTAG_WRONG">包含有禁止的 {0} HTML 标签.</Resource>
     <Resource tag="LOADING">Loading...</Resource>
+    <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">最高在线记录 {0:N0} on {1}.</Resource>
     <Resource tag="MENU">Menu</Resource>
     <Resource tag="MESSAGE">Message</Resource>
@@ -2431,6 +2432,9 @@
     <Resource tag="CHANGE_BUTTON">提交</Resource>
     <Resource tag="CHANGE_SUCCESS">修改密码成功.</Resource>
     <Resource tag="CONFIRM_PASSWORD">确认密码:</Resource>
+    <Resource tag="EMPTY_ANSWER">New Answer is requiered.</Resource>
+    <Resource tag="EMPTY_PASSWORD">Please Enter your Current Password</Resource>
+    <Resource tag="EMPTY_QUESTION">New Question is requiered.</Resource>
     <Resource tag="NEED_NEW_CONFIRM_PASSWORD">确认新密码是必须的.</Resource>
     <Resource tag="NEED_NEW_PASSWORD">新密码是必须的.</Resource>
     <Resource tag="NEED_OLD_PASSWORD">旧密码是必须的.</Resource>
@@ -2441,7 +2445,14 @@
     <Resource tag="PASSWORD_INCORRECT">密码错误或新密码不合法.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">必须包含有非数字字符: {1}.</Resource>
     <Resource tag="PASSWORD_NOT_NEW">新密码不能和旧密码相同.</Resource>
+    <Resource tag="SECURITY_ANSWER_NEW">New Security Answer:</Resource>
+    <Resource tag="SECURITY_ANSWER_OLD">Current Password:</Resource>
+    <Resource tag="SECURITY_CHANGED">Password Question and Answer changed.</Resource>
+    <Resource tag="SECURITY_NOT_CHANGED">Change failed. Please re-enter your values and try again.</Resource>
+    <Resource tag="SECURITY_QUESTION_NEW">New Security Question:</Resource>
+    <Resource tag="SECURITY_QUESTION_OLD">Old Security Question:</Resource>
     <Resource tag="TITLE">修改密码</Resource>
+    <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">标题</Resource>
