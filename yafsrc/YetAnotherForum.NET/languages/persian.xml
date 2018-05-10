@@ -2476,6 +2476,9 @@
     <Resource tag="CHANGE_BUTTON">تائید</Resource>
     <Resource tag="CHANGE_SUCCESS">رمز عبور با موفقیت تغییر پیدا کرد.</Resource>
     <Resource tag="CONFIRM_PASSWORD">تکرار رمز عبور:</Resource>
+    <Resource tag="EMPTY_ANSWER">New Answer is requiered.</Resource>
+    <Resource tag="EMPTY_PASSWORD">Please Enter your Current Password</Resource>
+    <Resource tag="EMPTY_QUESTION">New Question is requiered.</Resource>
     <Resource tag="NEED_NEW_CONFIRM_PASSWORD">تایپ مجدد رمز عبور ضروری است.</Resource>
     <Resource tag="NEED_NEW_PASSWORD">رمز عبور جدید ضروری است.</Resource>
     <Resource tag="NEED_OLD_PASSWORD">رمز عبور قدیمی ضروری است.</Resource>
@@ -2486,7 +2489,14 @@
     <Resource tag="PASSWORD_INCORRECT">رمز اشتباه می باشد و یا رمز جدید نا معتبر است.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">کاراکترهایی غیر حرفی نیاز است: {1}.</Resource>
     <Resource tag="PASSWORD_NOT_NEW">رمزعبور جدید باید از قبلی متفاوت باشد.</Resource>
+    <Resource tag="SECURITY_ANSWER_NEW">New Security Answer:</Resource>
+    <Resource tag="SECURITY_ANSWER_OLD">Current Password:</Resource>
+    <Resource tag="SECURITY_CHANGED">Password Question and Answer changed.</Resource>
+    <Resource tag="SECURITY_NOT_CHANGED">Change failed. Please re-enter your values and try again.</Resource>
+    <Resource tag="SECURITY_QUESTION_NEW">New Security Question:</Resource>
+    <Resource tag="SECURITY_QUESTION_OLD">Old Security Question:</Resource>
     <Resource tag="TITLE">تغییر رمز</Resource>
+    <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">عنوان</Resource>

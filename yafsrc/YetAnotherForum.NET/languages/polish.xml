@@ -2483,6 +2483,9 @@
     <Resource tag="CHANGE_BUTTON">Wyślij</Resource>
     <Resource tag="CHANGE_SUCCESS">Hasło zostało zmienione.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Potwierdź nowe hasło:</Resource>
+    <Resource tag="EMPTY_ANSWER">New Answer is requiered.</Resource>
+    <Resource tag="EMPTY_PASSWORD">Please Enter your Current Password</Resource>
+    <Resource tag="EMPTY_QUESTION">New Question is requiered.</Resource>
     <Resource tag="NEED_NEW_CONFIRM_PASSWORD">Potwierdzenie nowego hasła jest wymagane.</Resource>
     <Resource tag="NEED_NEW_PASSWORD">Nowe hasło jest wymagane.</Resource>
     <Resource tag="NEED_OLD_PASSWORD">Ostatnie hasło jest wymagane.</Resource>
@@ -2493,7 +2496,14 @@
     <Resource tag="PASSWORD_INCORRECT">Hasło niepoprawne, albo nowe hasło błędne.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">Wymagane znaki specjalnie : {1}.</Resource>
     <Resource tag="PASSWORD_NOT_NEW">Nowe hasło musi być inne niż poprzednie.</Resource>
+    <Resource tag="SECURITY_ANSWER_NEW">New Security Answer:</Resource>
+    <Resource tag="SECURITY_ANSWER_OLD">Current Password:</Resource>
+    <Resource tag="SECURITY_CHANGED">Password Question and Answer changed.</Resource>
+    <Resource tag="SECURITY_NOT_CHANGED">Change failed. Please re-enter your values and try again.</Resource>
+    <Resource tag="SECURITY_QUESTION_NEW">New Security Question:</Resource>
+    <Resource tag="SECURITY_QUESTION_OLD">Old Security Question:</Resource>
     <Resource tag="TITLE">Zmień hasło</Resource>
+    <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">Tytuł</Resource>

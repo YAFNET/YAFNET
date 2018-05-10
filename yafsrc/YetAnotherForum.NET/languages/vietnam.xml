@@ -2462,6 +2462,9 @@
     <Resource tag="CHANGE_BUTTON">Gửi</Resource>
     <Resource tag="CHANGE_SUCCESS">Thay đổi mật khẩu thành công.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Nhập lại mật khẩu mới:</Resource>
+    <Resource tag="EMPTY_ANSWER">New Answer is requiered.</Resource>
+    <Resource tag="EMPTY_PASSWORD">Please Enter your Current Password</Resource>
+    <Resource tag="EMPTY_QUESTION">New Question is requiered.</Resource>
     <Resource tag="NEED_NEW_CONFIRM_PASSWORD">Bạn chưa xác nhận lại mật khẩu mới.</Resource>
     <Resource tag="NEED_NEW_PASSWORD">Bạn chưa nhập mật khẩu mới.</Resource>
     <Resource tag="NEED_OLD_PASSWORD">Bạn chưa nhập mật khẩu cũ.</Resource>
@@ -2472,7 +2475,14 @@
     <Resource tag="PASSWORD_INCORRECT">Mật khẩu cũ không đúng hoặc Mật khẩu mới không hợp lệ.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">Mật khẩu phải chứa ký tự đặc biệt: {1}.</Resource>
     <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
+    <Resource tag="SECURITY_ANSWER_NEW">New Security Answer:</Resource>
+    <Resource tag="SECURITY_ANSWER_OLD">Current Password:</Resource>
+    <Resource tag="SECURITY_CHANGED">Password Question and Answer changed.</Resource>
+    <Resource tag="SECURITY_NOT_CHANGED">Change failed. Please re-enter your values and try again.</Resource>
+    <Resource tag="SECURITY_QUESTION_NEW">New Security Question:</Resource>
+    <Resource tag="SECURITY_QUESTION_OLD">Old Security Question:</Resource>
     <Resource tag="TITLE">Đổi mật khẩu</Resource>
+    <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">Title</Resource>

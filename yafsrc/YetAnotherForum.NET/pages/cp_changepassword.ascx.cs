@@ -27,6 +27,8 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Web.Security;
+    using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
@@ -78,6 +80,44 @@ namespace YAF.Pages
         protected void ContinuePushButton_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.cp_profile);
+        }
+
+        /// <summary>
+        /// Changes the security question and answer
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void ChangeSecurityAnswerClick(object sender, EventArgs e)
+        {
+            if (this.AnswerOld.Text.IsSet() && this.AnswerNew.Text.IsSet() && this.QuestionNew.Text.IsSet())
+            {
+                var securityAndAnswerChanged =
+                    this.PageContext.CurrentUserData.Membership.ChangePasswordQuestionAndAnswer(
+                        this.AnswerOld.Text,
+                        this.QuestionNew.Text,
+                        this.AnswerNew.Text);
+
+                if (securityAndAnswerChanged)
+                {
+                    this.PageContext.AddLoadMessage(this.GetText("SECURITY_CHANGED"), MessageTypes.Success);
+                }
+                else
+                {
+                    this.PageContext.AddLoadMessage(this.GetText("SECURITY_NOT_CHANGED"), MessageTypes.Error);
+                }
+            }
+            else if (this.AnswerOld.Text.IsNotSet())
+            {
+                this.PageContext.AddLoadMessage(this.GetText("EMPTY_PASSWORD"), MessageTypes.Warning);
+            }
+            else if (this.AnswerNew.Text.IsNotSet())
+            {
+                this.PageContext.AddLoadMessage(this.GetText("EMPTY_ANSWER"), MessageTypes.Warning);
+            }
+            else if (this.QuestionNew.Text.IsNotSet())
+            {
+                this.PageContext.AddLoadMessage(this.GetText("EMPTY_QUESTION"), MessageTypes.Warning);
+            }
         }
 
         /// <summary>
@@ -164,6 +204,14 @@ namespace YAF.Pages
             newPassword.Attributes.Add("onKeyPress", "doClick('{0}',event)".FormatWith(changeButton.ClientID));
 
             confirmNewPassword.Attributes.Add("onKeyPress", "doClick('{0}',event)".FormatWith(changeButton.ClientID));
+
+
+            if (this.Get<MembershipProvider>().RequiresQuestionAndAnswer)
+            {
+                this.SecurityQuestionAndAnswer.Visible = true;
+
+                this.QuestionOld.Text = this.PageContext.CurrentUserData.Membership.PasswordQuestion;
+            }
 
             this.DataBind();
         }

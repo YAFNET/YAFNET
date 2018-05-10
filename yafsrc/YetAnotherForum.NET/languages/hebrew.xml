@@ -2502,6 +2502,9 @@
     <Resource tag="CHANGE_BUTTON">שלח</Resource>
     <Resource tag="CHANGE_SUCCESS">הסיסמא הוחלפה בהצלחה.</Resource>
     <Resource tag="CONFIRM_PASSWORD">אשר/י סיסמא חדשה:</Resource>
+    <Resource tag="EMPTY_ANSWER">New Answer is requiered.</Resource>
+    <Resource tag="EMPTY_PASSWORD">Please Enter your Current Password</Resource>
+    <Resource tag="EMPTY_QUESTION">New Question is requiered.</Resource>
     <Resource tag="NEED_NEW_CONFIRM_PASSWORD">חובה להזין סיסמא חדשה שוב לאימות.</Resource>
     <Resource tag="NEED_NEW_PASSWORD">חובה להזין סיסמא חדשה.</Resource>
     <Resource tag="NEED_OLD_PASSWORD">חובה להזין את הסיסמא הישנה.</Resource>
@@ -2512,7 +2515,14 @@
     <Resource tag="PASSWORD_INCORRECT">סיסמא לא נכונה או לא קבילה.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">דרושים התווים הבאים שאינן אותיות או מספרים: {0}.</Resource>
     <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
+    <Resource tag="SECURITY_ANSWER_NEW">New Security Answer:</Resource>
+    <Resource tag="SECURITY_ANSWER_OLD">Current Password:</Resource>
+    <Resource tag="SECURITY_CHANGED">Password Question and Answer changed.</Resource>
+    <Resource tag="SECURITY_NOT_CHANGED">Change failed. Please re-enter your values and try again.</Resource>
+    <Resource tag="SECURITY_QUESTION_NEW">New Security Question:</Resource>
+    <Resource tag="SECURITY_QUESTION_OLD">Old Security Question:</Resource>
     <Resource tag="TITLE">החלפת סיסמא</Resource>
+    <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">Title</Resource>

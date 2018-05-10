@@ -1,6 +1,12 @@
 YetAnotherForum.NET Changelog
 ====================
 
+
+# YetAnotherForum.NET v2.2.4.11
+
+## Fixed Issues:
+* [NEW #392] Security Question & Answer can be changed now
+
 # YetAnotherForum.NET v2.2.4.10
 
 ## Fixed Issues:

@@ -2462,6 +2462,9 @@
     <Resource tag="CHANGE_BUTTON">Gönder</Resource>
     <Resource tag="CHANGE_SUCCESS">Şifreniz başarıyla değiştirildi.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Yeni şifreyi onaylayın:</Resource>
+    <Resource tag="EMPTY_ANSWER">New Answer is requiered.</Resource>
+    <Resource tag="EMPTY_PASSWORD">Please Enter your Current Password</Resource>
+    <Resource tag="EMPTY_QUESTION">New Question is requiered.</Resource>
     <Resource tag="NEED_NEW_CONFIRM_PASSWORD">Şifre için onay gerekli.</Resource>
     <Resource tag="NEED_NEW_PASSWORD">Yeni şifre gerekli.</Resource>
     <Resource tag="NEED_OLD_PASSWORD">Eski şifre gerekli.</Resource>
@@ -2472,7 +2475,14 @@
     <Resource tag="PASSWORD_INCORRECT">Şifre yanlış ya da yeni şifre hatalı.</Resource>
     <Resource tag="PASSWORD_NOT_COMPLEX">Harf veya Sayı olmayan (0-9 a-z harici) {1} karakter gerekmektedir.</Resource>
     <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
+    <Resource tag="SECURITY_ANSWER_NEW">New Security Answer:</Resource>
+    <Resource tag="SECURITY_ANSWER_OLD">Current Password:</Resource>
+    <Resource tag="SECURITY_CHANGED">Password Question and Answer changed.</Resource>
+    <Resource tag="SECURITY_NOT_CHANGED">Change failed. Please re-enter your values and try again.</Resource>
+    <Resource tag="SECURITY_QUESTION_NEW">New Security Question:</Resource>
+    <Resource tag="SECURITY_QUESTION_OLD">Old Security Question:</Resource>
     <Resource tag="TITLE">Şifre Değiştir</Resource>
+    <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
   </page>
   <page name="CP_EDITALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">Başlık</Resource>
