@@ -1,37 +1,34 @@
 // UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
+// Copyright 2007 Intelligencia
+// Copyright 2007 Seth Yates
 // 
-
-using System;
-using System.Collections.Generic;
-using System.Resources;
-using System.Reflection;
 
 namespace Intelligencia.UrlRewriter.Utilities
 {
+    using System.Collections;
+    using System.Reflection;
+    using System.Resources;
+
     /// <summary>
     /// Message provider.
     /// </summary>
-    internal static class MessageProvider
+    internal sealed class MessageProvider
     {
-        /// <summary>
-        /// Formats a string.
-        /// </summary>
-        /// <param name="message">The message ID</param>
-        /// <param name="args">The arguments</param>
-        /// <returns>The formatted string</returns>
+        private MessageProvider()
+        {
+        }
+
         public static string FormatString(Message message, params object[] args)
         {
             string format;
 
-            lock (_messageCache)
+            lock (_messageCache.SyncRoot)
             {
                 if (_messageCache.ContainsKey(message))
                 {
-                    format = _messageCache[message];
+                    format = (string)_messageCache[message];
                 }
                 else
                 {
@@ -40,10 +37,12 @@ namespace Intelligencia.UrlRewriter.Utilities
                 }
             }
 
-            return String.Format(format, args);
+            return string.Format(format, args);
         }
 
-        private static IDictionary<Message, string> _messageCache = new Dictionary<Message, string>();
-        private static ResourceManager _resources = new ResourceManager(Constants.Messages, Assembly.GetExecutingAssembly());
+        private static Hashtable _messageCache = new Hashtable();
+
+        private static ResourceManager _resources =
+            new ResourceManager(Constants.Messages, Assembly.GetExecutingAssembly());
     }
 }

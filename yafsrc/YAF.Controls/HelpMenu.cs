@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,6 +25,7 @@ namespace YAF.Controls
 {
     #region Using
 
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Text;
@@ -62,6 +63,71 @@ namespace YAF.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
+            // LoadList 
+            /*var navItemGeneralTopics = new YafHelpNavigation
+                {
+                    HelpCategory = "GENERALTOPICS",
+                    HelpPages =
+                        new List<YafHelpNavigationPage>
+                        {
+                            new YafHelpNavigationPage { HelpPage = "FORUMS" },
+                            new YafHelpNavigationPage { HelpPage = "REGISTRATION" },
+                            new YafHelpNavigationPage { HelpPage = "SEARCHING" },
+                            new YafHelpNavigationPage { HelpPage = "ANOUNCE" },
+                            new YafHelpNavigationPage { HelpPage = "DISPLAY" },
+                            new YafHelpNavigationPage { HelpPage = "NEWPOSTS" },
+                            new YafHelpNavigationPage { HelpPage = "THREADOPT" },
+                            new YafHelpNavigationPage { HelpPage = "RECOVER" },
+                            new YafHelpNavigationPage { HelpPage = "MEMBERSLIST" },
+                            new YafHelpNavigationPage { HelpPage = "POPUPS" },
+                            new YafHelpNavigationPage { HelpPage = "PM" },
+                            new YafHelpNavigationPage { HelpPage = "RSS" }
+                        }
+                };
+
+            this.helpNavList.Add(navItemGeneralTopics);
+
+            var navItemProfileTopics = new YafHelpNavigation
+                {
+                    HelpCategory = "PROFILETOPICS",
+                    HelpPages =
+                        new List<YafHelpNavigationPage>
+                        {
+                            new YafHelpNavigationPage { HelpPage = "MYSETTINGS" },
+                            new YafHelpNavigationPage { HelpPage = "MESSENGER" },
+                            new YafHelpNavigationPage { HelpPage = "PUBLICPROFILE" },
+                            new YafHelpNavigationPage { HelpPage = "EDITPROFILE" },
+                            new YafHelpNavigationPage { HelpPage = "THANKS" },
+                            new YafHelpNavigationPage { HelpPage = "BUDDIES" },
+                            new YafHelpNavigationPage { HelpPage = "MYALBUMS" },
+                            new YafHelpNavigationPage { HelpPage = "MYPICS" },
+                            new YafHelpNavigationPage { HelpPage = "MAILSETTINGS" },
+                            new YafHelpNavigationPage { HelpPage = "SUBSCRIPTIONS" }
+                        }
+                };
+
+            this.helpNavList.Add(navItemProfileTopics);
+
+            var navItemReadPostTopics = new YafHelpNavigation
+                {
+                    HelpCategory = "READPOSTTOPICS",
+                    HelpPages =
+                        new List<YafHelpNavigationPage>
+                        {
+                            new YafHelpNavigationPage { HelpPage = "POSTING" },
+                            new YafHelpNavigationPage { HelpPage = "REPLYING" },
+                            new YafHelpNavigationPage { HelpPage = "EDITDELETE" },
+                            new YafHelpNavigationPage { HelpPage = "POLLS" },
+                            new YafHelpNavigationPage { HelpPage = "ATTACHMENTS" },
+                            new YafHelpNavigationPage { HelpPage = "SMILIES" },
+                            new YafHelpNavigationPage { HelpPage = "MODSADMINS" },
+                        }
+                };
+
+            this.helpNavList.Add(navItemReadPostTopics);
+
+            */
+
             var serializer = new XmlSerializer(typeof(List<YafHelpNavigation>));
 
             var xmlFilePath =
@@ -79,7 +145,7 @@ namespace YAF.Controls
 
             var html = new StringBuilder(2000);
 
-            var faqPage = "index";
+            string faqPage = "index";
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq").IsSet())
             {
@@ -95,7 +161,7 @@ namespace YAF.Controls
 
             html.AppendFormat(@"<tr><td class=""post""><ul id=""yafhelpindex"">");
 
-            var selectedStyle = string.Empty;
+            string selectedStyle = string.Empty;
 
             if (faqPage.Equals("index"))
             {

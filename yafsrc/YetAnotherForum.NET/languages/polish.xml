@@ -53,6 +53,9 @@
     <Resource tag="ADMIN_REPLACEWORDS_IMPORT">Importuje słowa do podmiany</Resource>
     <Resource tag="ADMIN_RESTARTAPP">Restartuje aplikację</Resource>
     <Resource tag="ADMIN_RUNSQL">Wysyła zapytanie do bazy SQL</Resource>
+    <Resource tag="ADMIN_SMILIES">Przegląda emotikony</Resource>
+    <Resource tag="ADMIN_SMILIES_EDIT">Edytuje emotikony</Resource>
+    <Resource tag="ADMIN_SMILIES_IMPORT">Importuje emotikony</Resource>
     <Resource tag="ADMIN_SPAMLOG">Views/edits the spam log</Resource>
     <Resource tag="ADMIN_SPAMWORDS">Views spam words list</Resource>
     <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
@@ -131,6 +134,7 @@
     <Resource tag="RULES">Przegląda regulamin forum</Resource>
     <Resource tag="SEARCH">Szuka czegoś</Resource>
     <Resource tag="SHOUTBOX">Pisze na czacie</Resource>
+    <Resource tag="SHOWSMILIES">Brak danych</Resource>
     <Resource tag="TEAM">Przegląda stronę z ekipą forum</Resource>
     <Resource tag="TOPICINFORUM">w dziale</Resource>
     <Resource tag="TOPICS">Przegląda temat</Resource>
@@ -216,7 +220,6 @@
     <Resource tag="REASON">Reason:</Resource>
     <Resource tag="REASON_HELP">The reason why the email address was banned.</Resource>
     <Resource tag="TITLE">Add/Edit Banned Email Address</Resource>
-    <Resource tag="TITLE_EDIT">Edit Banned Email Address</Resource>
   </page>
   <page name="ADMIN_BANNEDEMAIL_IMPORT">
     <Resource tag="HEADER">Import Email Addresses List</Resource>
@@ -235,7 +238,6 @@
     <Resource tag="EXPORT">Export to Text File</Resource>
     <Resource tag="IMPORT_IPS">Importuj adres(y)</Resource>
     <Resource tag="MASK">Maska</Resource>
-    <Resource tag="MSG_DELETE">Delete this Banned Item?</Resource>
     <Resource tag="MSG_REMOVEBAN_IP">IP Address or Mask '{0}' was successfully deleted</Resource>
     <Resource tag="REASON">Powód</Resource>
     <Resource tag="SINCE">Od</Resource>
@@ -251,7 +253,6 @@
     <Resource tag="REASON">Powód:</Resource>
     <Resource tag="REASON_HELP">Powód, dla którego adres IP został zbanowany.</Resource>
     <Resource tag="TITLE">Dodaj/Edytuj zbanowany adres IP</Resource>
-    <Resource tag="TITLE_EDIT">Edit Banned IP Address</Resource>
   </page>
   <page name="ADMIN_BANNEDIP_IMPORT">
     <Resource tag="HEADER">Importuj listę adresów IP</Resource>
@@ -279,7 +280,6 @@
     <Resource tag="REASON">Reason:</Resource>
     <Resource tag="REASON_HELP">The reason why the user name was banned.</Resource>
     <Resource tag="TITLE">Add/Edit Banned Name</Resource>
-    <Resource tag="TITLE_EDIT">Edit Banned Name</Resource>
   </page>
   <page name="ADMIN_BANNEDNAME_IMPORT">
     <Resource tag="HEADER">Import Names List</Resource>
@@ -388,7 +388,6 @@
     <Resource tag="BOARD_TOPIC_DEFAULT">Domyślnie pokaż tematy:</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">Domyślne ustawienie pokazywania tematów.</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Klucz do usunięcia brandingu:</Resource>
-    <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Usuwa informacje o prawach autorskich i linki do strony domowej YAF ze stopki na forum. Dostępne na &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;stronie YAF.NET&lt;/a&gt;.</Resource>
     <Resource tag="HEADER">Ustawienia tego forum</Resource>
     <Resource tag="TITLE">Ustawienia forum</Resource>
@@ -698,7 +697,6 @@
     <Resource tag="SERVER">Server:</Resource>
     <Resource tag="SERVER_HELP">What server this groups is located.</Resource>
     <Resource tag="TITLE">Add/Edit NNTP Forum</Resource>
-    <Resource tag="TITLE_EDIT">Edit NNTP Forum</Resource>
   </page>
   <page name="ADMIN_EDITNNTPSERVER">
     <Resource tag="MSG_SERVER_ADR">Missing server address.</Resource>
@@ -714,7 +712,6 @@
     <Resource tag="NNTP_USERNAME">User Name:</Resource>
     <Resource tag="NNTP_USERNAME_HELP">The user name used to log on to the nntp server.</Resource>
     <Resource tag="TITLE">Add/Edit NNTP Server</Resource>
-    <Resource tag="TITLE_EDIT">Edit NNTP Server</Resource>
   </page>
   <page name="ADMIN_EDITRANK">
     <Resource tag="ALBUMS_NUMBER">User Albums Number:</Resource>
@@ -892,7 +889,6 @@
     <Resource tag="EXPORT">Eksportuj do XML</Resource>
     <Resource tag="HEADER">Dozwolone rozszrzenia plików</Resource>
     <Resource tag="IMPORT">Importuj z XML</Resource>
-    <Resource tag="SAVE">Save Extension</Resource>
     <Resource tag="TITLE">Rozszerzenia plików</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_EDIT">
@@ -902,7 +898,6 @@
     <Resource tag="MSG_ENTER">You must enter something.</Resource>
     <Resource tag="MSG_REMOVE">Remove the period in the extension.</Resource>
     <Resource tag="TITLE">Add/Edit File Extensions</Resource>
-    <Resource tag="TITLE_EDIT">Edit File Extension</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_IMPORT">
     <Resource tag="HEADER">Import Extension List</Resource>
@@ -953,7 +948,6 @@
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Active Topics Feeds Access:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Restrict display of active topics feeds.</Resource>
     <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
-    <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href="https://akismet.com/signup/"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Albums Per Page:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Number of albums to show per page.</Resource>
@@ -1143,7 +1137,6 @@
     <Resource tag="GROUPS_TEMPLATE_HELP">Template for rendering user's groups.</Resource>
     <Resource tag="HEADER_ADVERTS">Advert Settings</Resource>
     <Resource tag="HEADER_ALBUM">Album Settings</Resource>
-    <Resource tag="HEADER_ATTACHMENTS">Attachments Settings</Resource>
     <Resource tag="HEADER_AVATARS">Avatar Settings</Resource>
     <Resource tag="HEADER_BOTSPAM">Bot Spam Settings (User Checking)</Resource>
     <Resource tag="HEADER_CACHE">Cache Settings</Resource>
@@ -1275,8 +1268,6 @@
     <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notifcation Dialogs on Mobile Devices.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Online User Status Cache Timeout:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">You can fine-tune it depending on your site activity (in milliseconds)</Resource>
-    <Resource tag="PM_ATTACHMENTS">Allow attachments in Private Messages</Resource>
-    <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Poll Image File size:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Max. file size for poll images in KB.</Resource>
     <Resource tag="POLLVOTING_PERIP">Poll Votes Dependent on IP:</Resource>
@@ -1317,7 +1308,7 @@
     <Resource tag="REMOVE_NESTED_QUOTES">Remove Nested Quotes:</Resource>
     <Resource tag="REMOVE_NESTED_QUOTES_HELP">Automatically remove nested [quote] tags from replies.</Resource>
     <Resource tag="REPLACE_CACHE_TIMEOUT">Replace Rules Cache Timeout:</Resource>
-    <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> BB code, bad words, etc. (in minutes)</Resource>
+    <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> Smilies, BB code, bad words, etc. (in minutes)</Resource>
     <Resource tag="REPORT_POST_PERMISSION">Report Post Permissions:</Resource>
     <Resource tag="REPORT_POST_PERMISSION_HELP">Allow reporting posts to:</Resource>
     <Resource tag="REPUTATION_ALLOWNEGATIVE">Allow Negative Reputation:</Resource>
@@ -1413,6 +1404,8 @@
     <Resource tag="SHOW_RSS_LINKS_HELP">Enable or disable display of RSS links throughout the forum.</Resource>
     <Resource tag="SHOW_SHOUTBOX">Show Shoutbox:</Resource>
     <Resource tag="SHOW_SHOUTBOX_HELP">Enable or disable display of the Shoutbox (Chat Module) in the forum page.</Resource>
+    <Resource tag="SHOW_SHOUTBOX_SMILIES">Show Shoutbox Smiles:</Resource>
+    <Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">Enable or disable display of the Shoutbox (Chat Module) smiles.</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
     <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">Show The Date on Which Users Have Thanked Posts:</Resource>
@@ -1462,6 +1455,8 @@
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Template for rendering user's thanks from.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Thanks To template:</Resource>
     <Resource tag="THANKS_TO_TEMPLATE_HELP">Template for rendering user's thanks to.</Resource>
+    <Resource tag="TIMEAGO_INTERVAL">Relative Time Refresh Interval:</Resource>
+    <Resource tag="TIMEAGO_INTERVAL_HELP">This allows to set how often the "Time Ago" library should refresh the relative time (In Milliseconds, 60000 ms = 60 seconds = 1 minute).</Resource>
     <Resource tag="TITLE">Host Settings</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Topics Feeds Access:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Restrict display of topics feeds.</Resource>
@@ -1534,7 +1529,6 @@
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="GROUP">Group</Resource>
     <Resource tag="NEW_FORUM">New Forum</Resource>
-    <Resource tag="SAVE">Save Forum</Resource>
     <Resource tag="SERVER">Server</Resource>
     <Resource tag="TITLE">NNTP Forums</Resource>
   </page>
@@ -1570,7 +1564,6 @@
     <Resource tag="DELETE_SERVER">Delete this server?</Resource>
     <Resource tag="NAME">Name</Resource>
     <Resource tag="NEW_SERVER">New Server</Resource>
-    <Resource tag="SAVE_SERVER">Save Server</Resource>
     <Resource tag="TITLE">NNTP Servers</Resource>
     <Resource tag="USERNAME">User Name</Resource>
   </page>
@@ -1675,7 +1668,6 @@
     <Resource tag="GOOD_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. '\.').</Resource>
     <Resource tag="MSG_REGEX_BAD">The Regular expression statement you have entered is invalid.</Resource>
     <Resource tag="TITLE">Add/Edit Word Replace</Resource>
-    <Resource tag="TITLE_EDIT">Edit Word Replace</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_IMPORT">
     <Resource tag="HEADER">Import Replace Word List</Resource>
@@ -1699,6 +1691,46 @@
     <Resource tag="SQL_COMMAND">SQL Command:</Resource>
     <Resource tag="TITLE">Run SQL Code</Resource>
   </page>
+  <page name="ADMIN_SMILIES">
+    <Resource tag="ADD">Add Smiley</Resource>
+    <Resource tag="CODE">Code</Resource>
+    <Resource tag="COMANDS">Emotion</Resource>
+    <Resource tag="EMOTION">Emotion</Resource>
+    <Resource tag="IMPORT">Import Smiley Pack</Resource>
+    <Resource tag="MOVE_DOWN">Move Down</Resource>
+    <Resource tag="MOVE_UP">Move Up</Resource>
+    <Resource tag="MSG_DELETE">Delete this smiley?</Resource>
+    <Resource tag="ORDER">Order</Resource>
+    <Resource tag="SMILEY">Smiley</Resource>
+    <Resource tag="TITLE">Smilies</Resource>
+  </page>
+  <page name="ADMIN_SMILIES_EDIT">
+    <Resource tag="CODE">Code:</Resource>
+    <Resource tag="EMOTION">Emotion:</Resource>
+    <Resource tag="ICON">Icon:</Resource>
+    <Resource tag="MSG_CODE_BRACK">Please enter the code to use for this emotion in square brackets.</Resource>
+    <Resource tag="MSG_CODE_LONG">The code to use for this emotion should not be more then 10 symbols.</Resource>
+    <Resource tag="MSG_CODE_MISSING">Please enter the code to use for this emotion.</Resource>
+    <Resource tag="MSG_CODE_SAME">Please choose a different code, this one is already in use.</Resource>
+    <Resource tag="MSG_NO_EMOTICON">Please enter an emotion for this icon.</Resource>
+    <Resource tag="MSG_NO_ICON">Please select an icon to use for this emotion.</Resource>
+    <Resource tag="MSG_SORT_NMBR">Sort order must be number between 0 and 255.</Resource>
+    <Resource tag="MSG_TOO_LONG">An emotion description is too long.</Resource>
+    <Resource tag="SELECT_SMILEY">Select Smiley Image</Resource>
+    <Resource tag="SORT_ORDER">Sort Order:</Resource>
+    <Resource tag="TITLE">Add/Edit Smiley</Resource>
+  </page>
+  <page name="ADMIN_SMILIES_IMPORT">
+    <Resource tag="CHOOSE_PAK">Choose .pak file:</Resource>
+    <Resource tag="CHOOSE_PAK_HELP">You'll have to unpack the smiley package and upload all files to your smiley directory (Boards/BoardNo/Images/Emoticons).</Resource>
+    <Resource tag="DELETE_EXISTING">Delete existing smilies:</Resource>
+    <Resource tag="DELETE_EXISTING_HELP">Will delete all existing smilies if you check this.</Resource>
+    <Resource tag="ERROR_SELECT_FILE">You must select a .pak file to import.</Resource>
+    <Resource tag="HEADER">Import Smiley Pack</Resource>
+    <Resource tag="IMPORT">Import</Resource>
+    <Resource tag="SELECT_FILE">Select File (*.pak)</Resource>
+    <Resource tag="TITLE">Smilies Import</Resource>
+  </page>
   <page name="ADMIN_SPAMLOG">
     <Resource tag="TITLE">Spam Event Log</Resource>
   </page>
@@ -1708,7 +1740,6 @@
     <Resource tag="IMPORT">Import from XML</Resource>
     <Resource tag="MSG_DELETE">Delete this Word?</Resource>
     <Resource tag="NOTE">&lt;strong&gt;Note: &lt;/strong&gt; The Spam Words are used for the internal SPAM Detection, during Registration the Homepage the user is entering in the user profile is checked against the Spam Words. Also if a user Posts a new Message in the forum it will be checked against the Spam Words if 'Choose a SPAM Service for Automatically SPAM Checking' in the Host Settings is set to 'Internal Spam Check Words'.</Resource>
-    <Resource tag="SAVE">Save Word</Resource>
     <Resource tag="SPAM">"Spam" Word (Find) Expression</Resource>
     <Resource tag="TITLE">Spam Check Words</Resource>
   </page>
@@ -1716,8 +1747,7 @@
     <Resource tag="MSG_REGEX_SPAM">The Regular expression statement you have entered is invalid.</Resource>
     <Resource tag="SPAM">"Spam" Word (Find) Expression:</Resource>
     <Resource tag="SPAM_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. '\.').</Resource>
-    <Resource tag="TITLE">Add New Spam Word</Resource>
-    <Resource tag="TITLE_EDIT">Edit Spam Word</Resource>
+    <Resource tag="TITLE">Add/Edit Spam Word</Resource>
   </page>
   <page name="ADMIN_SPAMWORDS_IMPORT">
     <Resource tag="HEADER">Import Spam Word List</Resource>
@@ -1745,7 +1775,6 @@
     <Resource tag="DEFAULT_DESCRIPTION">Status</Resource>
     <Resource tag="EXPORT">Export to XML</Resource>
     <Resource tag="HEADER">Allowed File Extensions</Resource>
-    <Resource tag="ICON">Icon</Resource>
     <Resource tag="IMPORT">Import from XML</Resource>
     <Resource tag="TITLE">Topic Status</Resource>
     <Resource tag="TOPICSTATUS_NAME">Status Name</Resource>
@@ -1756,7 +1785,6 @@
     <Resource tag="HEADER">Add/Edit Topic Status</Resource>
     <Resource tag="MSG_ENTER">You must enter something.</Resource>
     <Resource tag="TITLE">Add/Edit Topic Status</Resource>
-    <Resource tag="TITLE_EDIT">Edit Topic Status</Resource>
     <Resource tag="TOPICSTATUS_NAME">Topic Status Value:</Resource>
     <Resource tag="TOPICSTATUS_NAME_HELP">This is the Value that is used to retrieve the Topic Status Icon and/or Text. That needs to be defined in the Theme Files and languages.</Resource>
   </page>
@@ -1855,6 +1883,7 @@
     <Resource tag="admin_replacewords">Zamiana słów</Resource>
     <Resource tag="admin_restartapp">Restartuj aplikację</Resource>
     <Resource tag="admin_runsql">Wyślij zapytanie SQL</Resource>
+    <Resource tag="admin_smilies">Emotikony</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
     <Resource tag="admin_taskmanager">Menedżer zadań</Resource>
@@ -2091,7 +2120,6 @@
     <Resource tag="NAME">Nazwa</Resource>
     <Resource tag="NO">Nie</Resource>
     <Resource tag="NONE">Pusto</Resource>
-    <Resource tag="NOTE">Note:</Resource>
     <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT">Nowy SPAM BOT zarejestrował się na forum {0}</Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">Zostałeś nagrodzony na forum {0}</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Nowy post na forum {0} musi być zaakceptowany</Resource>
@@ -2145,6 +2173,39 @@
   </Resource>
     <Resource tag="SHOWHIDE">Pokaż/Ukryj</Resource>
     <Resource tag="SUBMIT">Wyślij</Resource>
+    <Resource tag="TIMEAGO_JS">
+      // Polish
+      (function() {
+      function numpf(n, s, t) {
+      // s - 2-4, 22-24, 32-34 ...
+      // t - 5-21, 25-31, ...
+      var n10 = n % 10;
+      if ( (n10 &gt; 1) &amp;&amp; (n10 &lt; 5) &amp;&amp; ( (n &gt; 20) || (n &lt; 10) ) ) {
+      return s;
+    } else {
+      return t;
+    }
+  }
+
+  jQuery.timeago.settings.strings = {
+    prefixAgo: null,
+    prefixFromNow: "za",
+    suffixAgo: "temu",
+    suffixFromNow: null,
+    seconds: "mniej niż minutę",
+    minute: "minutę",
+    minutes: function(value) { return numpf(value, "%d minuty", "%d minut"); },
+    hour: "godzinę",
+    hours: function(value) { return numpf(value, "%d godziny", "%d godzin"); },
+    day: "dzień",
+    days: "%d dni",
+    month: "miesiąc",
+    months: function(value) { return numpf(value, "%d miesiące", "%d miesięcy"); },
+    year: "rok",
+    years: function(value) { return numpf(value, "%d lata", "%d lat"); }
+  };
+})();
+    </Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Subskrypcja temat, powiadomienie o nowych postach (Od {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">Wyśrodkowanie</Resource>
     <Resource tag="TT_ALIGNLEFT">Wyrównanie do lewej</Resource>
@@ -4281,11 +4342,8 @@ Spoiler Content
     <Resource tag="LASTPOST">Ostatni Post</Resource>
     <Resource tag="MEMBERS">Użytkownicy</Resource>
     <Resource tag="MODERATEINDEX_TITLE">Moderuj zgłoszone i niezatwierdzone posty</Resource>
-    <Resource tag="MOVE_TO_DIFFERENT">The forum you want to move the topic(s) must be different then the current forum.</Resource>
-    <Resource tag="MOVED">Topic(s) Moved</Resource>
     <Resource tag="NO_POSTS">Nie ma Postów</Resource>
     <Resource tag="NOMODERATION">Aktualnie nie ma tutaj postów wymagających zatwierdzenia oraz nie ma zgłoszonych postów.</Resource>
-    <Resource tag="NOTHING">You need to select atleast one topic</Resource>
     <Resource tag="REMOVE">Usuń</Resource>
     <Resource tag="REPLIES">Odpowiedzi</Resource>
     <Resource tag="TITLE">Moderowany</Resource>
@@ -4484,6 +4542,8 @@ Spoiler Content
     <Resource tag="REPLY">Wyślij odpowiedź</Resource>
     <Resource tag="SAVE">Wyślij</Resource>
     <Resource tag="SAVE_TITLE">Wyślij/Edytuj posta</Resource>
+    <Resource tag="SMILIES_HEADER">[b]Dodaj Emotikonę[/b]</Resource>
+    <Resource tag="SMILIES_MORE">Więcej Emotikon...</Resource>
     <Resource tag="SPAM_MESSAGE">Twoja wiadomość została usunięta, ponieważ została wykryta jako SPAM!</Resource>
     <Resource tag="STATUS">Status:</Resource>
     <Resource tag="STICKY">Przyklejona</Resource>
@@ -4530,7 +4590,6 @@ Spoiler Content
     <Resource tag="FACEBOOK_TITLE">Odwiedź użytkownika {0} na Facebooku</Resource>
     <Resource tag="FACEBOOK_TOPIC">Polub ten Temat</Resource>
     <Resource tag="FORUM_JUMP">Skok do forum</Resource>
-    <Resource tag="GO_TO_ANSWER">Go to the topic answer</Resource>
     <Resource tag="GOOGLE">Google+</Resource>
     <Resource tag="GOOGLE_TITLE">Odwiedź użytkownika {0} na Google+</Resource>
     <Resource tag="GOOGLEPLUS_TOPIC">Podziel się na Google+</Resource>
@@ -4555,12 +4614,6 @@ Spoiler Content
     <Resource tag="LINKBACK_TOPIC">Adres tematu</Resource>
     <Resource tag="LINKBACK_TOPIC_PROMT">Użyj podanego adresu, aby podzielić się tematem na innych stronach.</Resource>
     <Resource tag="LOCATION">Lokalizacja</Resource>
-    <Resource tag="MARK_ANSWER">Mark As Answer</Resource>
-    <Resource tag="MARK_ANSWER_REMOVE">Remove As Answer</Resource>
-    <Resource tag="MARK_ANSWER_REMOVE_TITLE">Unmark this Message as answer</Resource>
-    <Resource tag="MARK_ANSWER_TITLE">Mark this Message as answer</Resource>
-    <Resource tag="MESSAGE_ANSWER">Answer</Resource>
-    <Resource tag="MESSAGE_ANSWER_HELP">Marked as answer</Resource>
     <Resource tag="MESSAGEDELETED_MOD">Wiadomość usunięta przez Moderatora.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Wiadomość usunięta przez użytkownika.</Resource>
     <Resource tag="MSN">MSN</Resource>
@@ -4616,10 +4669,7 @@ Spoiler Content
     <Resource tag="TOGGLEPOST">Pokaż/Ukryj post</Resource>
     <Resource tag="TOGGLEUSERPOSTS_HIDE">Ukryj posty użytkownika</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Pokaż posty użytkownika</Resource>
-    <Resource tag="TOOLS">Tools</Resource>
     <Resource tag="TOP">Powrót do początku</Resource>
-    <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
-    <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>
     <Resource tag="TOPICBROWSERS">Użytkownicy przeglądający ten temat</Resource>
     <Resource tag="TOTAL">Łącznie</Resource>
     <Resource tag="TUMBLR_TOPIC">Podziel się na Tumblr</Resource>
@@ -4986,6 +5036,13 @@ Jeśli złamiesz któreś z tych postanowień, narazisz się na możliwość usu
     <Resource tag="SUBMIT">Wyślij</Resource>
     <Resource tag="TITLE">Czat</Resource>
   </page>
+  <page name="SHOWSMILIES">
+    <Resource tag="CLOSE_WINDOW">Zamknij okno</Resource>
+    <Resource tag="HEADER_CODE">Kod</Resource>
+    <Resource tag="HEADER_MEANING">Znaczenie</Resource>
+    <Resource tag="HEADER_SMILE">Emotikona</Resource>
+    <Resource tag="TITLE">Dostępne emotikony</Resource>
+  </page>
   <page name="TEAM">
     <Resource tag="ADMINS">Administratorzy</Resource>
     <Resource tag="FORUMS">Fora</Resource>
@@ -5247,6 +5304,43 @@ Your approval key is:
 Visit {forumname} at {forumlink}
 </Resource>
   </page>
+  <page name="TIMEZONES">
+    <Resource tag="NAME_UTC">(UTC)</Resource>
+    <Resource tag="UTC0">(UTC) Casablanca, Coordinated Universal Time, Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London, Monrovia, Reykjavik</Resource>
+    <Resource tag="UTC1">(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna, Belgrade, Bratislava, Budapest, Ljubljana, Prague, Brussels, Copenhagen, Madrid, Paris, Sarajevo, Skopje, Warsaw, Zagreb</Resource>
+    <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Is.</Resource>
+    <Resource tag="UTC10">(UTC+10:00) Brisbane, Canberra, Melbourne, Sydney, Guam, Port Moresby, Hobart, Yakutsk</Resource>
+    <Resource tag="UTC-10">(UTC-10:00) Hawaii</Resource>
+    <Resource tag="UTC11">(UTC+11:00) Solomon Is., New Caledonia, Vladivostok</Resource>
+    <Resource tag="UTC-11">(UTC-11:00) Coordinated Universal Time-11</Resource>
+    <Resource tag="UTC12">(UTC+12:00) Auckland, Wellington, Coordinated Universal Time+12, Fiji, Magadan, Petropavlovsk-Kamchatsky - Old</Resource>
+    <Resource tag="UTC-12">(UTC-12:00) International Date Line West</Resource>
+    <Resource tag="UTC13">(UTC+13:00) Nuku'alofa, Samoa</Resource>
+    <Resource tag="UTC2">(UTC+02:00) Athens, Bucharest, Beirut, Cairo, Damascus, E. Europe, Harare, Pretoria, Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius, Istanbul, Jerusalem, Tripoli</Resource>
+    <Resource tag="UTC-2">(UTC-2:00) Coordinated Universal Time-2, Mid-Atlantic - Old</Resource>
+    <Resource tag="UTC3">(UTC+03:00) Amman, Baghdad, Kaliningrad, Minsk, Kuwait, Riyadh, Nairobi</Resource>
+    <Resource tag="UTC-3">(UTC-3:00) Brasilia, Buenos Aires, Cayenne, Fortaleza, Greenland, Montevideo, Salvador</Resource>
+    <Resource tag="UTC3.5">(UTC+03:30) Tehran</Resource>
+    <Resource tag="UTC-3.5">(UTC-3:30) Newfoundland</Resource>
+    <Resource tag="UTC4">(UTC+04:00) Abu Dhabi, Muscat, Baku, Caucasus Standard Time, Moscow, St. Petersburg, Volgograd,Port Louis, Tbilisi, Yerevan</Resource>
+    <Resource tag="UTC-4">(UTC-4:00) Asuncion, Atlantic Time (Canada), Cuiaba, Georgetown, La Paz, Manaus, San Juan, Santiago</Resource>
+    <Resource tag="UTC4.5">(UTC+04:30) Kabul</Resource>
+    <Resource tag="UTC-4.5">(UTC-4:30) Caracas</Resource>
+    <Resource tag="UTC5">(UTC+05:00) Ashgabat, Tashkent, Islamabad, Karachi</Resource>
+    <Resource tag="UTC-5">(UTC-5:00) Bogota, Lima, Quito, Eastern Time (US &amp; Canada), Indiana (East)</Resource>
+    <Resource tag="UTC5.5">(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi</Resource>
+    <Resource tag="UTC5.75">(UTC+05:45) Kathmandu</Resource>
+    <Resource tag="UTC6">(UTC+06:00) Astana, Dhaka, Ekaterinburg</Resource>
+    <Resource tag="UTC-6">(UTC-6:00) Central America, Central Time (US &amp; Canada), Guadalajara, Mexico City, Monterrey - New, Guadalajara, Mexico City, Monterrey - Old, Saskatchewan</Resource>
+    <Resource tag="UTC6.5">(UTC+06:30) Yangon (Rangoon)</Resource>
+    <Resource tag="UTC7">(UTC+07:00) Bangkok, Hanoi, Jakarta, Novosibirsk</Resource>
+    <Resource tag="UTC-7">(UTC-7:00) Arizona, Chihuahua, La Paz, Mazatlan - New, Chihuahua, La Paz, Mazatlan - Old, Mountain Time (US &amp; Canada)</Resource>
+    <Resource tag="UTC8">(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi, Krasnoyarsk, Kuala Lumpur, Singapore Perth, Taipei, Ulaanbaatar</Resource>
+    <Resource tag="UTC-8">(UTC-8:00) Baja California, Pacific Time (US &amp; Canada)</Resource>
+    <Resource tag="UTC9">(UTC+09:00) Irkutsk, Osaka, Sapporo, Tokyo, Seoul</Resource>
+    <Resource tag="UTC-9">(UTC-9:00) Alaska</Resource>
+    <Resource tag="UTC9.5">(UTC+09:30) Adelaide</Resource>
+  </page>
   <page name="TOOLBAR">
     <Resource tag="ACTIVETOPICS">Aktywne Tematy</Resource>
     <Resource tag="ACTIVETOPICS_TITLE">Pokazuję stronę z aktywnymi tematami.</Resource>
@@ -5273,7 +5367,6 @@ Visit {forumname} at {forumlink}
     <Resource tag="MEMBERS">Użytkownicy</Resource>
     <Resource tag="MEMBERS_TITLE">Pokazuje listę użytkowników forum.</Resource>
     <Resource tag="MODERATE">Moderuj</Resource>
-    <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Pokazuje stronę moderacyjną, na której możesz znaleźć listę niezaakceptowanych i zgłoszonych postów...</Resource>
     <Resource tag="MYALBUMS">Moje albumy</Resource>
     <Resource tag="MYALBUMS_TITLE">Pokazuje stronę z listą Twoich albumów.</Resource>

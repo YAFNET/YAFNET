@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -337,9 +337,9 @@ namespace YAF.Controls
                         this.BoardSettings.AllowUserTheme,
                         this.BoardSettings.Theme));
 
-            var subject = this.GetText("SUBJECT").FormatWith(this.BoardSettings.Name);
+            string subject = this.GetText("SUBJECT").FormatWith(this.BoardSettings.Name);
 
-            var digestHead = this._theme.GetItem("THEME", "DIGESTHEAD", null);
+            string digestHead = this._theme.GetItem("THEME", "DIGESTHEAD", null);
 
             if (digestHead.IsSet())
             {

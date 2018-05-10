@@ -1,17 +1,31 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.info" Codebehind="info.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-
-<div class="card text-white bg-secondary mb-3 text-center mx-auto w-50">
-    <h5 class="card-header">
-        <asp:Label runat="server" ID="Title" Text="Information" />
-    </h5>
-    <div class="card-body">
-        <p class="card-text"><asp:Label runat="server" ID="Info" /></p>
-    </div>
-    <div class="card-footer">
-        <YAF:ThemeButton runat="server" ID="Continue" Type="Danger" />
-    </div>
-</div>
+<table style="width:100%;height:50%" border="0">
+	<tr>
+		<td valign="middle" align="center">
+			<table class="content" align="center" width="35%" cellspacing="0" cellpadding="0">
+				<tr>
+					<td class="post" valign='top'>
+						<table width="100%" cellspacing="0" cellpadding="0">
+							<tr>
+								<td class="header2">
+									<asp:Label runat="server" ID="Title" Text="Information" /></td>
+							</tr>
+							<tr>
+								<td class="post">
+									<asp:Label runat="server" ID="Info" /></td>
+							</tr>
+							<tr>
+								<td class="post">
+									<asp:HyperLink runat="server" ID="Continue" /></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
 <div id="DivSmartScroller">
 	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>

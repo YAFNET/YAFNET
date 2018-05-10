@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2016 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -11,7 +11,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
+
  * http://www.apache.org/licenses/LICENSE-2.0
+
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,6 +28,8 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Linq;
+    using System.Web;
+    using System.Web.UI;
     using System.Web.UI.WebControls;
     using YAF.Classes;
     using YAF.Controls;
@@ -35,6 +39,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -53,7 +58,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ActiveDiscussionsCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void ActiveDiscussionsCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RemoveCacheKey(Constants.Cache.ActiveDiscussions);
             this.RemoveCacheKey(Constants.Cache.ForumActiveDiscussions);
@@ -64,7 +69,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void BoardCategoriesCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void BoardCategoriesCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RemoveCacheKey(Constants.Cache.ForumCategory);
         }
@@ -74,7 +79,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void BoardModeratorsCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void BoardModeratorsCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RemoveCacheKey(Constants.Cache.ForumModerators);
         }
@@ -84,7 +89,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void BoardUserStatsCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void BoardUserStatsCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RemoveCacheKey(Constants.Cache.BoardUserStats);
         }
@@ -94,9 +99,9 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void UserLazyDataCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void UserLazyDataCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // vzrus: remove all users lazy data
+            // vzrus: remove all users lazy data 
             this.Get<IDataCache>()
                 .RemoveOf<object>(k => k.Key.StartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(string.Empty)));
             this.CheckCache();
@@ -107,7 +112,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ReplaceRulesCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void ReplaceRulesCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<IObjectStore>().RemoveOf<IProcessReplaceRules>();
             this.CheckCache();
@@ -118,7 +123,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ForumStatisticsCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void ForumStatisticsCacheReset_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RemoveCacheKey(Constants.Cache.BoardStats);
         }
@@ -128,7 +133,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ResetCacheAllClick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void ResetCacheAll_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // clear all cache keys
             this.Get<IObjectStore>().Clear();
@@ -146,9 +151,15 @@ namespace YAF.Pages.Admin
             // setup jQuery and YAF JS...
             YafContext.Current.PageElements.RegisterJsBlock(
                 "yafTabsJs",
-                JavaScriptBlocks.BootstrapTabsLoadJs(
+                JavaScriptBlocks.JqueryUITabsLoadJs(
                     this.HostSettingsTabs.ClientID,
-                    this.hidLastTab.ClientID));
+                    this.hidLastTab.ClientID,
+                    this.hidLastTabId.ClientID,
+                    false));
+
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "spinnerForTimeCorrectionJs",
+                JavaScriptBlocks.LoadSpinnerWidgetForTimeCorrection());
 
             base.OnPreRender(e);
         }
@@ -167,19 +178,52 @@ namespace YAF.Pages.Admin
 
             if (!this.IsPostBack)
             {
+                this.PageLinks.AddRoot();
+                this.PageLinks.AddLink(
+                    this.GetText("ADMIN_ADMIN", "Administration"),
+                    YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.PageLinks.AddLink(this.GetText("ADMIN_HOSTSETTINGS", "TITLE"), string.Empty);
+
+                this.Page.Header.Title = "{0} - {1}".FormatWith(
+                    this.GetText("ADMIN_ADMIN", "Administration"),
+                    this.GetText("ADMIN_HOSTSETTINGS", "TITLE"));
+
                 this.RenderListItems();
 
                 this.BindData();
             }
 
+            var txtBoxes =
+                this.ControlListRecursive(
+                    c => (c.GetType() == typeof(TextBox) && ((TextBox)c).TextMode == TextBoxMode.SingleLine))
+                    .Cast<TextBox>()
+                    .ToList();
+
+            // default to 100% width...
+            txtBoxes.ForEach(x => x.Width = Unit.Percentage(100));
+
             // vzrus : 13/5/2010
+            this.ServerTimeCorrection.AddStyleAttributeWidth("50px");
             this.ServerTimeCorrection.AddAttributeMaxWidth("4");
 
+            this.ImageAttachmentResizeHeight.AddStyleAttributeWidth("50px");
+
+            this.MaxPostSize.AddStyleAttributeWidth("50px");
             this.UserNameMaxLength.AddAttributeMaxWidth("5");
 
+            this.UserNameMaxLength.AddStyleAttributeWidth("50px");
             this.UserNameMaxLength.AddAttributeMaxWidth("3");
 
+            this.ActiveListTime.AddStyleAttributeWidth("50px");
+
+            this.PictureAttachmentDisplayTreshold.AddStyleAttributeWidth("100px");
             this.PictureAttachmentDisplayTreshold.AddAttributeMaxWidth("11");
+
+            this.ImageAttachmentResizeWidth.AddStyleAttributeWidth("50px");
+            this.DisableNoFollowLinksAfterDay.AddStyleAttributeWidth("100px");
+
+            // Ederon : 7/14/2007
+            this.UserBox.AddStyleAttributeSize("350px", "100px");
 
             // CheckCache
             this.CheckCache();
@@ -192,27 +236,11 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
-            this.PageLinks.AddLink(this.GetText("ADMIN_HOSTSETTINGS", "TITLE"), string.Empty);
-
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_HOSTSETTINGS", "TITLE"));
-        }
-
-        /// <summary>
         /// Saves the Host Settings
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // write all the settings back to the settings class
 
@@ -222,7 +250,7 @@ namespace YAF.Pages.Admin
             // handle checked fields...
             foreach (var name in settingCollection.SettingsBool.Keys)
             {
-                var control = this.HostSettingsTabs.FindControlRecursive(name);
+                Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is CheckBox && settingCollection.SettingsBool[name].CanWrite)
                 {
@@ -236,7 +264,7 @@ namespace YAF.Pages.Admin
             // handle string fields...
             foreach (var name in settingCollection.SettingsString.Keys)
             {
-                var control = this.HostSettingsTabs.FindControlRecursive(name);
+                Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is TextBox && settingCollection.SettingsString[name].CanWrite)
                 {
@@ -257,7 +285,7 @@ namespace YAF.Pages.Admin
             // handle int fields...
             foreach (var name in settingCollection.SettingsInt.Keys)
             {
-                var control = this.HostSettingsTabs.FindControlRecursive(name);
+                Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is TextBox && settingCollection.SettingsInt[name].CanWrite)
                 {
@@ -287,7 +315,7 @@ namespace YAF.Pages.Admin
             // handle double fields...
             foreach (var name in settingCollection.SettingsDouble.Keys)
             {
-                var control = this.HostSettingsTabs.FindControlRecursive(name);
+                Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is TextBox && settingCollection.SettingsDouble[name].CanWrite)
                 {
@@ -332,11 +360,11 @@ namespace YAF.Pages.Admin
 
             var dropDownLists = new[]
                                     {
-                                        this.PostsFeedAccess, this.AllowCreateTopicsSameName,
-                                        this.PostLatestFeedAccess, this.ForumFeedAccess, this.TopicsFeedAccess,
-                                        this.ActiveTopicFeedAccess, this.FavoriteTopicFeedAccess,
-                                        this.ReportPostPermissions, this.ProfileViewPermissions,
-                                        this.MembersListViewPermissions, this.ActiveUsersViewPermissions,
+                                        this.PostsFeedAccess, this.AllowCreateTopicsSameName, this.PostLatestFeedAccess,
+                                        this.ForumFeedAccess, this.TopicsFeedAccess, this.ActiveTopicFeedAccess,
+                                        this.FavoriteTopicFeedAccess, this.ReportPostPermissions,
+                                        this.ProfileViewPermissions, this.MembersListViewPermissions,
+                                        this.ActiveUsersViewPermissions, this.ExternalSearchPermissions,
                                         this.SearchPermissions, this.ShowHelpTo, this.ShowTeamTo,
                                         this.ShowRetweetMessageTo, this.ShowShareTopicTo, this.ShoutboxViewPermissions
                                     };
@@ -372,6 +400,11 @@ namespace YAF.Pages.Admin
             this.BotHandlingOnRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_1"), "1"));
             this.BotHandlingOnRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_2"), "2"));
 
+            this.MessageNotificationSystem.Items.Add(
+                new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "MODAL_DIALOG"), "0"));
+            this.MessageNotificationSystem.Items.Add(
+                new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "NOTIFICATION_BAR"), "1"));
+
             this.ShoutboxDefaultState.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "EXPANDED"), "0"));
             this.ShoutboxDefaultState.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "COLLAPSED"), "1"));
 
@@ -390,6 +423,7 @@ namespace YAF.Pages.Admin
         {
             this.ForumEditor.DataSource = ForumEditorHelper.GetFilteredEditorList();
 
+            // TODO: vzrus: UseFullTextSearch check box is data layer specific and can be hidden by YAF.Classes.Data.LegacyDb.FullTextSupported  property.)
             this.DataBind();
 
             // load Board Setting collection information...
@@ -398,7 +432,7 @@ namespace YAF.Pages.Admin
             // handle checked fields...
             foreach (var name in settingCollection.SettingsBool.Keys)
             {
-                var control = this.HostSettingsTabs.FindControlRecursive(name);
+                Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is CheckBox && settingCollection.SettingsBool[name].CanRead)
                 {
@@ -414,7 +448,7 @@ namespace YAF.Pages.Admin
             // handle string fields...
             foreach (var name in settingCollection.SettingsString.Keys)
             {
-                var control = this.HostSettingsTabs.FindControlRecursive(name);
+                Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is TextBox && settingCollection.SettingsString[name].CanRead)
                 {
@@ -427,7 +461,7 @@ namespace YAF.Pages.Admin
                 }
                 else if (control is DropDownList && settingCollection.SettingsString[name].CanRead)
                 {
-                    var listItem =
+                    ListItem listItem =
                         ((DropDownList)control).Items.FindByValue(
                             settingCollection.SettingsString[name].GetValue(this.Get<YafBoardSettings>(), null)
                                 .ToString());
@@ -442,14 +476,13 @@ namespace YAF.Pages.Admin
             // handle int fields...
             foreach (var name in settingCollection.SettingsInt.Keys)
             {
-                var control = this.HostSettingsTabs.FindControlRecursive(name);
+                Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is TextBox && settingCollection.SettingsInt[name].CanRead)
                 {
-                    if (!name.Equals("ServerTimeCorrection"))
-                    {
-                        ((TextBox)control).TextMode = TextBoxMode.Number;
-                    }
+                    ((TextBox)control).CssClass = name.Equals("ServerTimeCorrection")
+                                                      ? "NumericServerTimeCorrection"
+                                                      : "Numeric";
 
                     // get the value from the property...
                     ((TextBox)control).Text =
@@ -457,7 +490,7 @@ namespace YAF.Pages.Admin
                 }
                 else if (control is DropDownList && settingCollection.SettingsInt[name].CanRead)
                 {
-                    var listItem =
+                    ListItem listItem =
                         ((DropDownList)control).Items.FindByValue(
                             settingCollection.SettingsInt[name].GetValue(this.Get<YafBoardSettings>(), null).ToString());
 
@@ -471,7 +504,7 @@ namespace YAF.Pages.Admin
             // handle double fields...
             foreach (var name in settingCollection.SettingsDouble.Keys)
             {
-                var control = this.HostSettingsTabs.FindControlRecursive(name);
+                Control control = this.HostSettingsTabs.FindControlRecursive(name);
 
                 if (control is TextBox && settingCollection.SettingsDouble[name].CanRead)
                 {
@@ -483,7 +516,7 @@ namespace YAF.Pages.Admin
                 }
                 else if (control is DropDownList && settingCollection.SettingsDouble[name].CanRead)
                 {
-                    var listItem =
+                    ListItem listItem =
                         ((DropDownList)control).Items.FindByValue(
                             settingCollection.SettingsDouble[name].GetValue(this.Get<YafBoardSettings>(), null)
                                 .ToString());
@@ -496,14 +529,19 @@ namespace YAF.Pages.Admin
             }
 
             // special field handling...
-            this.AvatarSize.Text = this.Get<YafBoardSettings>().AvatarSize != 0
+            this.AvatarSize.Text = (this.Get<YafBoardSettings>().AvatarSize != 0)
                                        ? this.Get<YafBoardSettings>().AvatarSize.ToString()
                                        : string.Empty;
-            this.MaxFileSize.Text = this.Get<YafBoardSettings>().MaxFileSize != 0
+            this.MaxFileSize.Text = (this.Get<YafBoardSettings>().MaxFileSize != 0)
                                         ? this.Get<YafBoardSettings>().MaxFileSize.ToString()
                                         : string.Empty;
 
             this.SQLVersion.Text = this.HtmlEncode(this.Get<YafBoardSettings>().SQLVersion);
+
+            if (General.GetCurrentTrustLevel() <= AspNetHostingPermissionLevel.Medium)
+            {
+                return;
+            }
 
             this.AppCores.Text = Platform.Processors;
             this.AppMemory.Text = "{0} MB of {1} MB".FormatWith(

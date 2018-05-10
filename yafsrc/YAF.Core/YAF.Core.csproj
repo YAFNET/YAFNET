@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>YAF.Core</RootNamespace>
     <AssemblyName>YAF.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -27,7 +27,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -56,21 +56,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\xmlrpcnet.3.0.0.266\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
-    <Reference Include="FarsiLibrary.Localization, Version=2.7.0.0, Culture=neutral, PublicKeyToken=def7c46cace23f8f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Farsi.Library.2.7.0\lib\net46\FarsiLibrary.Localization.dll</HintPath>
-    </Reference>
-    <Reference Include="FarsiLibrary.Utils, Version=2.7.0.0, Culture=neutral, PublicKeyToken=def7c46cace23f8f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Farsi.Library.2.7.0\lib\net46\FarsiLibrary.Utils.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
-      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="Lucene.Net.Contrib.Highlighter, Version=2.3.2.1, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.Highlighter.dll</HintPath>
+    <Reference Include="FarsiLibrary, Version=2.5.1.5, Culture=neutral, PublicKeyToken=d1bcbd1937c9d5a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Farsi.Library.2.5.1.5\lib\net35\FarsiLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Omu.ValueInjecter, Version=3.1.1.0, Culture=neutral, PublicKeyToken=c7694541b0ac80e4, processorArchitecture=MSIL">
@@ -89,7 +76,6 @@
       <HintPath>..\packages\ServiceStack.Text.5.1.0\lib\net45\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -142,27 +128,18 @@
     <Compile Include="Data\Profiling\QueryCounter.cs" />
     <Compile Include="Data\Profiling\QueryProfile.cs" />
     <Compile Include="Data\Profiling\QueryWatcher.cs" />
+    <Compile Include="Data\CompleteSearchContext.cs" />
     <Compile Include="Events\AttachmentEventHandleFileDelete.cs" />
-    <Compile Include="Extensions\CultureExtensions.cs" />
     <Compile Include="Extensions\HaveSortOrderExtensions.cs" />
     <Compile Include="Extensions\InjectionExtensions.cs" />
-    <Compile Include="Extensions\SqlExpressionExtensions.cs" />
     <Compile Include="Helpers\ForumEditorHelper.cs" />
     <Compile Include="Helpers\DbFunctionHelpers.cs" />
     <Compile Include="Helpers\DbInformationHelper.cs" />
     <Compile Include="Model\BannedEmailRepositoryExtensions.cs" />
     <Compile Include="Model\BannedNameRepositoryExtensions.cs" />
-    <Compile Include="Model\RankRepositoryExtensions.cs" />
-    <Compile Include="Model\MessageRepositoryExtensions.cs" />
     <Compile Include="Model\ReplaceWordsRepositoryExtensions.cs" />
-    <Compile Include="Model\IgnoreUserRepositoryExtensions.cs" />
-    <Compile Include="Model\NntpForumRepositoryExtensions.cs" />
-    <Compile Include="Model\TopicStatusRepositoryExtensions.cs" />
-    <Compile Include="Model\TopicRepositoryExtensions.cs" />
-    <Compile Include="Model\ThanksRepositoryExtensions.cs" />
     <Compile Include="Model\SpamWordsRepositoryExtensions.cs" />
     <Compile Include="Model\UserRepositoryExtensions.cs" />
-    <Compile Include="Model\UserForumRepositoryExtensions.cs" />
     <Compile Include="Modules\BootstrapModule.cs" />
     <Compile Include="Modules\DynamicServicesModule.cs" />
     <Compile Include="Modules\GeneralModule.cs" />
@@ -174,6 +151,7 @@
     <Compile Include="Data\CommandTextHelpers.cs" />
     <Compile Include="Services\Cache\NewUserClearActiveLazyEvent.cs" />
     <Compile Include="Services\Cache\ShoutboxMessageCacheInvalidate.cs" />
+    <Compile Include="Services\Cache\SmileyEventCacheInvalidate.cs" />
     <Compile Include="Extensions\ILoggerExtensions.cs" />
     <Compile Include="Extensions\IRegistrationBuilderExtension.cs" />
     <Compile Include="Model\BoardRepositoryExtensions.cs" />
@@ -212,8 +190,8 @@
     <Compile Include="Model\EventLogRepositoryExtensions.cs" />
     <Compile Include="Model\MedalRepositoryExtensions.cs" />
     <Compile Include="Model\AttachmentRepositoryExtensions.cs" />
+    <Compile Include="Model\SmileyRepositoryExtensions.cs" />
     <Compile Include="Services\InstallUpgradeService.cs" />
-    <Compile Include="Services\YafSearch.cs" />
     <Compile Include="Services\YafSpamWordCheck.cs" />
     <Compile Include="Services\YafSingleSignOnUser.cs" />
     <Compile Include="Services\YafSpamCheck.cs" />
@@ -356,12 +334,12 @@
     <Compile Include="Extensions\BackgroundTaskExtensions.cs" />
     <Compile Include="Tasks\BaseBackgroundTask.cs" />
     <Compile Include="BaseModules\BaseForumModule.cs" />
+    <Compile Include="Tasks\IBlockableTask.cs" />
     <Compile Include="Tasks\CleanUpTask.cs" />
     <Compile Include="Tasks\CategoryDeleteTask.cs" />
     <Compile Include="Tasks\CategorySaveTask.cs" />
     <Compile Include="Tasks\BoardDeleteTask.cs" />
     <Compile Include="Tasks\BoardCreateTask.cs" />
-    <Compile Include="Tasks\UpdateSearchIndexTask.cs" />
     <Compile Include="Tasks\ForumSaveTask.cs" />
     <Compile Include="Tasks\DigestSendForumModule.cs" />
     <Compile Include="Tasks\DigestSendTask.cs" />
@@ -376,7 +354,6 @@
     <Compile Include="Tasks\PruneTopicTask.cs" />
     <Compile Include="Tasks\SyncMembershipUsersTask.cs" />
     <Compile Include="Tasks\UserCleanUpTask.cs" />
-    <Compile Include="Tasks\UpdateSearchIndexTaskForumModule.cs" />
     <Compile Include="Tasks\UserCleanUpTaskForumModule.cs" />
     <Compile Include="Theme\YafTheme.cs" />
     <Compile Include="URLBuilder\AdvancedUrlRewriter.cs" />

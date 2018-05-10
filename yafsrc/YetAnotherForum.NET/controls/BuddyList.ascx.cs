@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -406,12 +406,12 @@ namespace YAF.Controls
       this.Pager.PageSize = 20;
 
       // set the Datatable
-      var buddyListDataTable = this.Get<IBuddy>().GetForUser(this.CurrentUserID);
+      DataTable buddyListDataTable = this.Get<IBuddy>().GetForUser(this.CurrentUserID);
 
       if ((buddyListDataTable != null) && buddyListDataTable.HasRows())
       {
         // get the view from the datatable
-        var buddyListDataView = buddyListDataTable.DefaultView;
+        DataView buddyListDataView = buddyListDataTable.DefaultView;
 
         // In what mode should this control work?
         // Refer to "rptBuddy_ItemCreate" event for more info.

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -125,15 +125,16 @@ namespace YAF.Controls
     protected override void Render([NotNull] HtmlTextWriter writer)
     {
       // TODO: Needs better commentting.
-      writer.WriteLine(@"<div class=""card yafReportedPosts"">");
+      writer.WriteLine(@"<div id=""{0}"" class=""yafReportedPosts"">".FormatWith(this.ClientID));
 
-      var reportersList = LegacyDb.message_listreporters(this.MessageID);
+      DataTable reportersList = LegacyDb.message_listreporters(this.MessageID);
 
         if (reportersList.Rows.Count <= 0)
         {
             return;
         }
 
+        int i = 0;
         writer.BeginRender();
 
         foreach (DataRow reporter in reportersList.Rows)
@@ -144,11 +145,14 @@ namespace YAF.Controls
                 howMany = "({0})".FormatWith(reporter["ReportedNumber"]);
             }
 
-           // If the message was previously resolved we have not null string
+            writer.WriteLine(
+                @"<table cellspacing=""0"" cellpadding=""0"" class=""content"" id=""yafreportedtable{0}"" style=""width:100%"">", this.ClientID);
+
+            // If the message was previously resolved we have not null string
             // and can add an info about last user who resolved the message
-            if (this.ResolvedDate.IsSet())
+            if (!string.IsNullOrEmpty(this.ResolvedDate))
             {
-                var resolvedByName =
+                string resolvedByName =
                     LegacyDb.user_list(this.PageContext.PageBoardID, this.ResolvedBy.ToType<int>(), true).Rows[0]["Name"].ToString();
 
                 var resolvedByDisplayName =
@@ -156,37 +160,39 @@ namespace YAF.Controls
                         ? this.Server.HtmlEncode(this.Get<IUserDisplayName>().GetName(this.ResolvedBy.ToType<int>()))
                         : this.Server.HtmlEncode(resolvedByName);
 
+                writer.Write(@"<tr class=""header2""><td>");
                 writer.Write(
-                    @"<div class=""card-header"">{0}<a class=""YafReported_Link"" href=""{1}""> {2}</a> : {3}</div>", 
+                    @"<span class=""postheader"">{0}</span><a class=""YafReported_Link"" href=""{1}""> {2}</a><span class=""YafReported_ResolvedBy""> : {3}</span>", 
                     this.GetText("RESOLVEDBY"),
                     YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.ResolvedBy.ToType<int>(), resolvedByDisplayName), 
                     resolvedByDisplayName, 
                     this.Get<IDateTime>().FormatDateTimeTopic(this.ResolvedDate));
+                writer.WriteLine(@"</td></tr>");
             }
 
+            writer.Write(@"<tr class=""header2""><td>");
             writer.Write(
-                @"<div class=""card-header"">{3}<a class=""YafReported_Link"" href=""{1}""> {0}{2} </a>", 
+                @"<span class=""YafReported_Complainer"">{3}</span><a class=""YafReported_Link"" href=""{1}""> {0}{2} </a>", 
                 !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(reporter["UserID"].ToType<long>()))
                     ? this.Server.HtmlEncode(this.Get<IUserDisplayName>().GetName(reporter["UserID"].ToType<int>()))
                     : this.Server.HtmlEncode(reporter["UserName"].ToString()),
                 YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", reporter["UserID"].ToType<int>(), reporter["UserName"].ToString()), 
                 howMany, 
                 this.GetText("REPORTEDBY"));
-            writer.WriteLine(@"</div>");
+            writer.WriteLine(@"</td></tr>");
 
-            writer.Write(@"<div class=""body"">");
+            string[] reportString = reporter["ReportText"].ToString().Trim().Split('|');
 
-            var reportString = reporter["ReportText"].ToString().Trim().Split('|');
-
-            foreach (var t in reportString)
+            foreach (string t in reportString)
             {
-                var textString = t.Split("??".ToCharArray());
+                string[] textString = t.Split("??".ToCharArray());
+                writer.Write(@"<tr class=""post""><td>");
                 writer.Write(
-                    @"<p class=""card-text"">{0}:</p>", 
+                    @"<span class=""YafReported_DateTime"">{0}:</span>", 
                     this.Get<IDateTime>().FormatDateTimeTopic(textString[0]));
 
                 // Apply style if a post was previously resolved
-                var resStyle = "post_res";
+                string resStyle = "post_res";
                 try
                 {
                     if (!(string.IsNullOrEmpty(textString[0]) && string.IsNullOrEmpty(this.ResolvedDate)))
@@ -204,32 +210,49 @@ namespace YAF.Controls
 
                 if (textString.Length > 2)
                 {
-                    writer.Write(@"<p class=""card-text {0}"">", resStyle);
+                    writer.Write(@"<tr><td class=""{0}"">", resStyle);
                     writer.Write(textString[2]);
-                    writer.WriteLine(@"</p>");
+                    writer.WriteLine(@"</td></tr>");
                 }
                 else
                 {
-                    writer.WriteLine(@"<p class=""card-text"">");
+                    writer.WriteLine(@"<tr  class=""post""><td>");
                     writer.Write(t);
-                    writer.WriteLine(@"</p>");
+                    writer.WriteLine(@"</td></tr>");
                 }
             }
 
+            writer.WriteLine(@"<tr class=""postfooter""><td>");
+
             writer.Write(
-                @"<a class=""btn btn-primary"" href=""{1}"">{2} {0}</a>", 
+                @"<a class=""YafReported_Link"" href=""{1}"">{2} {0}</a>", 
                 !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(reporter["UserID"].ToType<long>()))
                     ? this.Server.HtmlEncode(this.Get<IUserDisplayName>().GetName(reporter["UserID"].ToType<int>()))
                     : this.Server.HtmlEncode(reporter["UserName"].ToString()), 
                 YafBuildLink.GetLink(
                     ForumPages.pmessage, "u={0}&r={1}", reporter["UserID"].ToType<int>(), this.MessageID), 
                 this.GetText("REPLYTO"));
+
+            writer.WriteLine(@"</td></tr>");
+
+            // TODO: Remove hard-coded formatting.
+            if (i < reportersList.Rows.Count - 1)
+            {
+                writer.Write("</table></br>");
+            }
+            else
+            {
+                writer.WriteLine(@"</td></tr>");
+            }
+
+            i++;
         }
 
         // render controls...
+        writer.Write(@"</table>");
         base.Render(writer);
 
-        writer.WriteLine("</div></div>");
+        writer.WriteLine("</div>");
         writer.EndRender();
     }
 

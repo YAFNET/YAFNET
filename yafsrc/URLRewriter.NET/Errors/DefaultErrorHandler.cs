@@ -1,24 +1,24 @@
-// UrlRewriter - A .NET URL Rewriter module
+/* UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
-// 
-
-using System;
-using System.Web;
+// Copyright 2007 Intelligencia
+// Copyright 2007 Seth Yates
+*/
 
 namespace Intelligencia.UrlRewriter.Errors
 {
+    using System;
+    using System.Web;
+
     /// <summary>
-    /// The default error handler.
+    /// Summary description for DefaultErrorHandler.
     /// </summary>
     public class DefaultErrorHandler : IRewriteErrorHandler
     {
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="url">URL of the error page.</param>
+        /// <param name="url">Url of the error page.</param>
         public DefaultErrorHandler(string url)
         {
             if (url == null)
@@ -26,11 +26,11 @@ namespace Intelligencia.UrlRewriter.Errors
                 throw new ArgumentNullException("url");
             }
 
-            _url = url;
+            this._url = url;
         }
 
         /// <summary>
-        /// Handles the error by rewriting to the error page URL.
+        /// Handles the error by rewriting to the error page url.
         /// </summary>
         /// <param name="context">The context.</param>
         public void HandleError(HttpContext context)
@@ -40,7 +40,7 @@ namespace Intelligencia.UrlRewriter.Errors
                 throw new ArgumentNullException("context");
             }
 
-            context.Server.Execute(_url);
+            context.Server.Execute(this._url);
         }
 
         private string _url;

@@ -232,7 +232,7 @@ namespace YAF.Core.Services.Auth
             this.Token = authToken;
             this._pin = pin;
 
-            var response = this.OAuthWebRequest(AuthUtilities.Method.GET, ACCESSTOKEN, string.Empty);
+            string response = this.OAuthWebRequest(AuthUtilities.Method.GET, ACCESSTOKEN, string.Empty);
 
             if (response.Length <= 0)
             {
@@ -240,7 +240,7 @@ namespace YAF.Core.Services.Auth
             }
 
             // Store the Token and Token Secret
-            var qs = HttpUtility.ParseQueryString(response);
+            NameValueCollection qs = HttpUtility.ParseQueryString(response);
             if (qs["oauth_token"] != null)
             {
                 this.Token = qs["oauth_token"];
@@ -261,7 +261,7 @@ namespace YAF.Core.Services.Auth
         public string AuthorizationLinkGet()
         {
             // First let's get a REQUEST token.
-            var response = this.OAuthWebRequest(AuthUtilities.Method.GET, REQUESTTOKEN, string.Empty);
+            string response = this.OAuthWebRequest(AuthUtilities.Method.GET, REQUESTTOKEN, string.Empty);
 
             if (response.Length <= 0)
             {
@@ -269,7 +269,7 @@ namespace YAF.Core.Services.Auth
             }
 
             // response contains token and token secret.  We only need the token.
-            var qs = HttpUtility.ParseQueryString(response);
+            NameValueCollection qs = HttpUtility.ParseQueryString(response);
             if (qs["oauth_token"] == null)
             {
                 return null;
@@ -316,9 +316,9 @@ namespace YAF.Core.Services.Auth
                 if (postData.Length > 0)
                 {
                     // Decode the parameters and re-encode using the oAuth UrlEncode method.
-                    var qs = HttpUtility.ParseQueryString(postData);
+                    NameValueCollection qs = HttpUtility.ParseQueryString(postData);
                     postData = string.Empty;
-                    foreach (var key in qs.AllKeys)
+                    foreach (string key in qs.AllKeys)
                     {
                         if (postData.Length > 0)
                         {
@@ -347,13 +347,13 @@ namespace YAF.Core.Services.Auth
                 url += "?{0}".FormatWith(postData);
             }
 
-            var uri = new Uri(url);
+            Uri uri = new Uri(url);
 
-            var nonce = this.GenerateNonce();
-            var timeStamp = this.GenerateTimeStamp();
+            string nonce = this.GenerateNonce();
+            string timeStamp = this.GenerateTimeStamp();
 
             // Generate Signature
-            var sig = this.GenerateSignature(
+            string sig = this.GenerateSignature(
                 uri,
                 this.ConsumerKey,
                 this.ConsumerSecret,
@@ -381,7 +381,7 @@ namespace YAF.Core.Services.Auth
                 outUrl += "?";
             }
 
-            var ret = AuthUtilities.WebRequest(method, "{0}{1}".FormatWith(outUrl, querystring), postData);
+            string ret = AuthUtilities.WebRequest(method, "{0}{1}".FormatWith(outUrl, querystring), postData);
 
             return ret;
         }

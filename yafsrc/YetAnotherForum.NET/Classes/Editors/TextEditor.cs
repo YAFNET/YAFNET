@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -53,18 +53,37 @@ namespace YAF.Classes.Editors
         /// <summary>
         ///   Gets a value indicating whether Active.
         /// </summary>
-        public override bool Active => true;
+        public override bool Active
+        {
+            get
+            {
+                return true;
+            }
+        }
 
         /// <summary>
         ///   Gets the Editor Description.
         /// </summary>
         [NotNull]
-        public override string Description => "Plain Text Editor";
+        public override string Description
+        {
+            get
+            {
+                return "Plain Text Editor";
+            }
+        }
 
         /// <summary>
         ///   Gets the Module Id.
         /// </summary>
-        public override string ModuleId => "0";
+        public override string ModuleId
+        {
+            get
+            {
+                // backward compatibility...
+                return "0";
+            }
+        }
 
         /// <summary>
         ///   Gets or sets Text.
@@ -85,12 +104,24 @@ namespace YAF.Classes.Editors
         /// <summary>
         ///   Gets a value indicating whether UsesBBCode.
         /// </summary>
-        public override bool UsesBBCode => false;
+        public override bool UsesBBCode
+        {
+            get
+            {
+                return false;
+            }
+        }
 
         /// <summary>
         ///   Gets a value indicating whether UsesHTML.
         /// </summary>
-        public override bool UsesHTML => false;
+        public override bool UsesHTML
+        {
+            get
+            {
+                return false;
+            }
+        }
 
         /// <summary>
         /// Gets a value indicating whether [allows uploads].
@@ -98,13 +129,25 @@ namespace YAF.Classes.Editors
         /// <value>
         ///   <c>true</c> if [allows uploads]; otherwise, <c>false</c>.
         /// </value>
-        public override bool AllowsUploads => false;
+        public override bool AllowsUploads
+        {
+            get
+            {
+                return false;
+            }
+        }
 
         /// <summary>
         ///   Gets the Safe ID.
         /// </summary>
         [NotNull]
-        protected string SafeID => this._textCtl.ClientID.Replace("$", "_");
+        protected string SafeID
+        {
+            get
+            {
+                return this._textCtl.ClientID.Replace("$", "_");
+            }
+        }
 
         #endregion
 
@@ -117,23 +160,33 @@ namespace YAF.Classes.Editors
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected virtual void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            
+            this.RegisterSmilieyScript();
         }
-        
+
         /// <summary>
-         /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
-         /// </summary>
-         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             this.PreRender += this.Editor_PreRender;
 
             this._textCtl = new HtmlTextArea { ID = "YafTextEditor", Rows = 15, Cols = 100 };
-            this._textCtl.Attributes.Add("class", "YafTextEditor form-control");
+            this._textCtl.Attributes.Add("class", "YafTextEditor");
 
             this.AddEditorControl(this._textCtl);
 
             base.OnInit(e);
+        }
+
+        /// <summary>
+        /// Registers the smiliey script.
+        /// </summary>
+        protected virtual void RegisterSmilieyScript()
+        {
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "InsertSmileyJs",
+                "function insertsmiley(code) {{\n {0}.InsertSmiley(code);\n}}\n".FormatWith(this.SafeID));
         }
 
         #endregion

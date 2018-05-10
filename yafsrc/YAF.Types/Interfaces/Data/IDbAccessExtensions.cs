@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,7 +26,6 @@ namespace YAF.Types.Interfaces.Data
     using System;
     using System.Data;
     using System.Data.Common;
-    using System.Linq.Expressions;
 
     using ServiceStack.OrmLite;
 
@@ -49,9 +48,7 @@ namespace YAF.Types.Interfaces.Data
         /// <returns>
         /// The <see cref="IDbTransaction"/> .
         /// </returns>
-        public static IDbTransaction BeginTransaction(
-            [NotNull] this IDbAccess dbAccess,
-            IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
+        public static IDbTransaction BeginTransaction([NotNull] this IDbAccess dbAccess, IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
         {
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
 
@@ -117,9 +114,7 @@ namespace YAF.Types.Interfaces.Data
         /// The <see cref="int"/> .
         /// </returns>
         public static int ExecuteNonQuery(
-            [NotNull] this IDbAccess dbAccess,
-            [NotNull] IDbCommand cmd,
-            [CanBeNull] IDbTransaction dbTransaction = null)
+            [NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
         {
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
             CodeContracts.VerifyNotNull(cmd, "cmd");
@@ -136,10 +131,7 @@ namespace YAF.Types.Interfaces.Data
         /// <param name="isolationLevel">The isolation level.</param>
         /// <returns>Returns the Result</returns>
         public static int ExecuteNonQuery(
-            [NotNull] this IDbAccess dbAccess,
-            [NotNull] IDbCommand cmd,
-            bool useTransaction,
-            IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
+            [NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd, bool useTransaction, IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
         {
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
             CodeContracts.VerifyNotNull(cmd, "cmd");
@@ -168,9 +160,7 @@ namespace YAF.Types.Interfaces.Data
         /// Returns the Data
         /// </returns>
         public static object ExecuteScalar(
-            [NotNull] this IDbAccess dbAccess,
-            [NotNull] IDbCommand cmd,
-            [CanBeNull] IDbTransaction dbTransaction = null)
+            [NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
         {
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
             CodeContracts.VerifyNotNull(cmd, "cmd");
@@ -188,9 +178,7 @@ namespace YAF.Types.Interfaces.Data
         /// The <see cref="DataTable" /> .
         /// </returns>
         public static DataTable GetData(
-            [NotNull] this IDbAccess dbAccess,
-            [NotNull] IDbCommand cmd,
-            [CanBeNull] IDbTransaction dbTransaction = null)
+            [NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
         {
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
             CodeContracts.VerifyNotNull(cmd, "cmd");
@@ -207,10 +195,7 @@ namespace YAF.Types.Interfaces.Data
         /// <returns>
         /// The <see cref="DataSet" /> .
         /// </returns>
-        public static DataSet GetDataset(
-            [NotNull] this IDbAccess dbAccess,
-            [NotNull] IDbCommand cmd,
-            [CanBeNull] IDbTransaction dbTransaction = null)
+        public static DataSet GetDataset([NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd, [CanBeNull] IDbTransaction dbTransaction = null)
         {
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
             CodeContracts.VerifyNotNull(cmd, "cmd");
@@ -229,8 +214,8 @@ namespace YAF.Types.Interfaces.Data
                         }
 
                         return ds;
-                    },
-                cmd,
+                    }, 
+                cmd, 
                 dbTransaction);
         }
 
@@ -243,10 +228,7 @@ namespace YAF.Types.Interfaces.Data
         /// <returns>
         /// The <see cref="IDataReader" /> .
         /// </returns>
-        public static IDataReader GetReader(
-            [NotNull] this IDbAccess dbAccess,
-            [NotNull] IDbCommand cmd,
-            [NotNull] IDbTransaction dbTransaction)
+        public static IDataReader GetReader([NotNull] this IDbAccess dbAccess, [NotNull] IDbCommand cmd, [NotNull] IDbTransaction dbTransaction)
         {
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
             CodeContracts.VerifyNotNull(cmd, "cmd");
@@ -283,8 +265,7 @@ namespace YAF.Types.Interfaces.Data
             [NotNull] this IDbAccess dbAccess,
             [NotNull] T insert,
             [CanBeNull] IDbTransaction transaction = null,
-            bool selectIdentity = false)
-            where T : IEntity
+            bool selectIdentity = false) where T : IEntity
         {
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
 
@@ -359,10 +340,7 @@ namespace YAF.Types.Interfaces.Data
         /// <returns>
         /// The <see cref="int" />.
         /// </returns>
-        public static int Update<T>(
-            [NotNull] this IDbAccess dbAccess,
-            [NotNull] T update,
-            [CanBeNull] IDbTransaction transaction = null)
+        public static int Update<T>([NotNull] this IDbAccess dbAccess, [NotNull] T update, [CanBeNull] IDbTransaction transaction = null)
             where T : IEntity
         {
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
@@ -389,35 +367,6 @@ namespace YAF.Types.Interfaces.Data
                     return dbAccess.ExecuteNonQuery(command, transaction);
                 }
             }
-        }
-
-        /// <summary>
-        ///  Update only fields in the specified expression that matches the where condition (if any), E.g:
-        ///   
-        ///   db.UpdateOnly(() => new Person { FirstName = "JJ" }, where: p => p.LastName == "Hendrix");
-        ///   UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
-        ///
-        ///   db.UpdateOnly(() => new Person { FirstName = "JJ" });
-        ///   UPDATE "Person" SET "FirstName" = 'JJ'
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="dbAccess">The database access.</param>
-        /// <param name="updateFields">The update fields.</param>
-        /// <param name="where">The where.</param>
-        /// <param name="commandFilter">The command filter.</param>
-        /// <returns></returns>
-        public static int UpdateOnly<T>(
-            [NotNull] this IDbAccess dbAccess,
-            Expression<Func<T>> updateFields,
-            Expression<Func<T, bool>> where = null,
-            Action<IDbCommand> commandFilter = null)
-            where T : class, IEntity, IHaveID, new()
-        {
-            return dbAccess.Execute(
-                db => db.Connection.UpdateOnly(
-                    updateFields,
-                    OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where),
-                    commandFilter));
         }
 
         #endregion

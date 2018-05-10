@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -41,7 +41,7 @@ namespace YAF.Core.Tasks
     /// <summary>
     /// Run when we want to do migration of users in the background...
     /// </summary>
-    public class BoardCreateTask : LongBackgroundTask, ICriticalBackgroundTask
+    public class BoardCreateTask : LongBackgroundTask, ICriticalBackgroundTask, IBlockableTask
     {
         private static long _boardOut;
 
@@ -222,7 +222,6 @@ namespace YAF.Core.Tasks
                     this.AdminUserProviderUserKey.ToString(),
                     false,
                     this.RolePrefix.ToString());
-
                 this.Logger.Info("Board Add Task for board {0} completed.", _boardOut);
             }
             catch (Exception)

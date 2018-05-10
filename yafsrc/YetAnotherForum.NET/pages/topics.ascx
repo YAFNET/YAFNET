@@ -95,23 +95,12 @@
                         <asp:DropDownList ID="ShowList" runat="server" AutoPostBack="True" CssClass="standardSelectMenu" />
                     </td>
                     <td align="right">
-                        <div class="btn-group" role="group" aria-label="Tools">
-                        <YAF:ThemeButton runat="server" ID="WatchForum"
-                                         Type="Secondary" 
-                                         CssClass="btn-sm"
-                                         Icon="eye"
-                                         TextLocalizedTag="WATCHFORUM"/>
-                        <YAF:ThemeButton runat="server" 
-                                         Type="Secondary" 
-                                         CssClass="btn-sm" 
-                                         Icon="flag-checkered"
-                                         ID="MarkRead"
-                                         TextLocalizedTag="MARKREAD"/>
-                        <YAF:RssFeedLink ID="RssFeed" runat="server" 
-                                         FeedType="Topics"
-                                         Visible="<%# this.Get<IPermissions>().Check(this.PageContext.BoardSettings.TopicsFeedAccess) %>"  
-                                         />
-                        </div>
+                        <asp:LinkButton ID="WatchForum" runat="server" /><span id="WatchForumID" runat="server"
+                            visible="false" /><span id="delimiter1" runat="server" visible="<%# this.WatchForum.Text.Length > 0 %>"> | </span>
+                        <asp:LinkButton runat="server" ID="MarkRead" />
+                        <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="Topics" ShowSpacerBefore="true"
+                            Visible="<%# PageContext.BoardSettings.ShowRSSLink && this.Get<IPermissions>().Check(PageContext.BoardSettings.TopicsFeedAccess) %>" TitleLocalizedTag="RSSICONTOOLTIPFORUM" />  
+                          <YAF:RssFeedLink ID="AtomFeed" runat="server" FeedType="Topics" ShowSpacerBefore="true" IsAtomFeed="true" Visible="<%# PageContext.BoardSettings.ShowAtomLink && this.Get<IPermissions>().Check(PageContext.BoardSettings.TopicsFeedAccess) %>" ImageThemeTag="ATOMFEED" TextLocalizedTag="ATOMFEED" TitleLocalizedTag="ATOMICONTOOLTIPACTIVE" />                            
                     </td>
                 </tr>
             </table>
@@ -132,7 +121,7 @@
     </tr>
 </table>
 <asp:PlaceHolder ID="ForumSearchHolder" runat="server">
-<div class="float-left">
+<div id="ForumSearchDiv">
         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SEARCH_FORUM" />
         &nbsp;<asp:TextBox id="forumSearch" runat="server"></asp:TextBox>
         &nbsp;<YAF:ThemeButton ID="forumSearchOK" runat="server" CssClass="yaflittlebutton"
@@ -140,16 +129,16 @@
     </div>
 </asp:PlaceHolder>
 <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
-    <div class="float-right">
+    <div id="DivForumJump">
         <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />
         &nbsp;<YAF:ForumJump ID="ForumJump1" runat="server" />
     </div>
 </asp:PlaceHolder>
-<div class="clearfix"></div>
-<div class="float-left">
+<div class="clearItem"></div>
+<div id="DivIconLegend">
     <YAF:IconLegend ID="IconLegend1" runat="server" />
 </div>
-<div class="float-right">
+<div id="DivPageAccess" class="smallfont">
     <YAF:PageAccess ID="PageAccess1" runat="server" />
 </div>
 <div id="DivSmartScroller">

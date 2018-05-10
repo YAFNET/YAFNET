@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,9 +28,8 @@ namespace YAF.Data.MsSql.Functions
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    ///
+    /// 
     /// </summary>
-    /// <seealso cref="YAF.Data.MsSql.Functions.BaseReflectedSpecificFunctions" />
     [ExportService(ServiceLifetimeScope.OwnedByContainer)]
     public class ReflectMsSqlSpecificFunctions : BaseReflectedSpecificFunctions
     {
@@ -46,6 +45,12 @@ namespace YAF.Data.MsSql.Functions
         /// <summary>
         /// Gets SortOrder.
         /// </summary>
-        public override int SortOrder => 1000;
+        public override int SortOrder
+        {
+            get
+            {
+                return 1000;
+            }
+        }
     }
 }

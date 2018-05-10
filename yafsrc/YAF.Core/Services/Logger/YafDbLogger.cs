@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,7 +29,6 @@ namespace YAF.Core.Services.Logger
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
-    using System.Web;
 
     using YAF.Classes;
     using YAF.Core.Extensions;
@@ -147,12 +146,7 @@ namespace YAF.Core.Services.Logger
                 exceptionDescription = exception.ToString();
             }
 
-            var formattedDescription = HttpContext.Current != null
-                                           ? "{0} (URL:'{1}')\r\n{2}".FormatWith(
-                                               message,
-                                               HttpContext.Current.Request.Url,
-                                               exceptionDescription)
-                                           : "{0}\r\n{1}".FormatWith(message, exceptionDescription);
+            var formattedDescription = string.Format("{0}\r\n{1}", message, exceptionDescription);
 
             if (source.IsNotSet())
             {

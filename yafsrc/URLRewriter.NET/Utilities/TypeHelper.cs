@@ -1,19 +1,23 @@
 // UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
+// Copyright 2007 Intelligencia
+// Copyright 2007 Seth Yates
 // 
-
-using System;
 
 namespace Intelligencia.UrlRewriter.Utilities
 {
+    using System;
+
     /// <summary>
     /// Helper class for dealing with types.
     /// </summary>
-    internal static class TypeHelper
+    internal sealed class TypeHelper
     {
+        private TypeHelper()
+        {
+        }
+
         /// <summary>
         /// Loads and activates a type
         /// </summary>
@@ -22,10 +26,13 @@ namespace Intelligencia.UrlRewriter.Utilities
         /// <returns>The object</returns>
         public static object Activate(string fullTypeName, object[] args)
         {
-            string[] components = fullTypeName.Split(new char[] { ',' }, 2);
+            var components = fullTypeName.Split(",".ToCharArray(), 2);
             if (components.Length != 2)
             {
-                throw new ArgumentOutOfRangeException("fullTypeName", fullTypeName, MessageProvider.FormatString(Message.FullTypeNameRequiresAssemblyName));
+                throw new ArgumentOutOfRangeException(
+                    "fullTypeName",
+                    fullTypeName,
+                    MessageProvider.FormatString(Message.FullTypeNameRequiresAssemblyName));
             }
 
             return Activate(components[1].Trim(), components[0].Trim(), args);
@@ -42,15 +49,30 @@ namespace Intelligencia.UrlRewriter.Utilities
         {
             if (assemblyName.Length == 0)
             {
-                throw new ArgumentOutOfRangeException("assemblyName", assemblyName, MessageProvider.FormatString(Message.AssemblyNameRequired));
+                throw new ArgumentOutOfRangeException(
+                    "assembly",
+                    assemblyName,
+                    MessageProvider.FormatString(Message.AssemblyNameRequired));
             }
 
             if (typeName.Length == 0)
             {
-                throw new ArgumentOutOfRangeException("typeName", typeName, MessageProvider.FormatString(Message.TypeNameRequired));
+                throw new ArgumentOutOfRangeException(
+                    "typeName",
+                    typeName,
+                    MessageProvider.FormatString(Message.TypeNameRequired));
             }
 
-            return AppDomain.CurrentDomain.CreateInstanceAndUnwrap(assemblyName, typeName, false, 0, null, args, null, null, null);
+            return AppDomain.CurrentDomain.CreateInstanceAndUnwrap(
+                assemblyName,
+                typeName,
+                false,
+                0,
+                null,
+                args,
+                null,
+                null,
+                null);
         }
     }
 }

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -98,16 +98,16 @@ namespace YAF.Controls
             {
                 this._dataSource = value;
                 DataRow[] arr;
-                var t = this._dataSource.GetType();
-                var arlist = new List<DataRow>();
-                var subLIst = new List<DataRow>();
-                var parents = new List<int>();
+                Type t = this._dataSource.GetType();
+                List<DataRow> arlist = new List<DataRow>();
+                List<DataRow> subLIst = new List<DataRow>();
+                List<int> parents = new List<int>();
                 if (t.Name == "DataRowCollection")
                 {
                     arr = new DataRow[((DataRowCollection)this._dataSource).Count];
                     ((DataRowCollection)this._dataSource).CopyTo(arr, 0);
 
-                    for (var i = 0; i < arr.Count(); i++)
+                    for (int i = 0; i < arr.Count(); i++)
                     {
                         // these are all subforums related to start page forums
                         if (!arr[i]["ParentID"].IsNullOrEmptyDBField())
@@ -117,7 +117,7 @@ namespace YAF.Controls
                                 this.SubDataSource = arr[i].Table.Clone();
                             }
 
-                            var drow = this.SubDataSource.NewRow();
+                            DataRow drow = this.SubDataSource.NewRow();
                             drow.ItemArray = arr[i].ItemArray;
 
                             parents.Add(drow["ForumID"].ToType<int>());
@@ -142,7 +142,7 @@ namespace YAF.Controls
                 {
                     // (t.Name == "DataRow[]")
                     arr = (DataRow[])this._dataSource;
-                    for (var i = 0; i < arr.Count(); i++)
+                    for (int i = 0; i < arr.Count(); i++)
                     {
                         if (!arr[i]["ParentID"].IsNullOrEmptyDBField())
                         {
@@ -151,7 +151,7 @@ namespace YAF.Controls
                                 this.SubDataSource = arr[i].Table.Clone();
                             }
 
-                            var drow = this.SubDataSource.NewRow();
+                            DataRow drow = this.SubDataSource.NewRow();
                             drow.ItemArray = arr[i].ItemArray;
 
                             this.SubDataSource.Rows.Add(drow);
@@ -199,10 +199,10 @@ namespace YAF.Controls
         /// </returns>
         public string GetForumLink([NotNull] DataRow row)
         {
-            var forumID = row["ForumID"].ToType<int>();
+            int forumID = row["ForumID"].ToType<int>();
 
             // get the Forum Description
-            var output = Convert.ToString(row["Forum"]);
+            string output = Convert.ToString(row["Forum"]);
 
             if (row["ReadAccess"].ToType<int>() > 0)
             {
@@ -249,7 +249,7 @@ namespace YAF.Controls
             var row = (DataRow)e.Item.DataItem;
             var flags = new ForumFlags(row["Flags"]);
 
-            var lastRead =
+            DateTime lastRead =
                 this.Get<IReadTrackCurrentUser>()
                     .GetForumTopicRead(
                         forumId: row["ForumID"].ToType<int>(),
@@ -257,7 +257,7 @@ namespace YAF.Controls
                         forumReadOverride: row["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
                         topicReadOverride: row["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
 
-            var lastPosted = row["LastPosted"].ToType<DateTime?>() ?? lastRead;
+            DateTime lastPosted = row["LastPosted"].ToType<DateTime?>() ?? lastRead;
 
             if (string.IsNullOrEmpty(row["ImageUrl"].ToString()))
             {
@@ -496,7 +496,7 @@ namespace YAF.Controls
             var arlist = new ArrayList();
 
             foreach (
-                var subrow in
+                DataRow subrow in
                     this.SubDataSource.Rows.Cast<DataRow>()
                         .Where(subrow => row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>())
                         .Where(subrow => arlist.Count < this.Get<YafBoardSettings>().SubForumsInForumList))
@@ -519,7 +519,7 @@ namespace YAF.Controls
         protected string GetViewing([NotNull] object o)
         {
             var row = (DataRow)o;
-            var nViewing = row["Viewing"].ToType<int>();
+            int nViewing = row["Viewing"].ToType<int>();
 
             return nViewing > 0 ? "&nbsp;{0}".FormatWith(this.GetTextFormatted("VIEWING", nViewing)) : string.Empty;
         }

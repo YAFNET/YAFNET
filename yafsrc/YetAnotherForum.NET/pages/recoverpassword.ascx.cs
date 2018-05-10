@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -129,7 +129,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void PasswordRecovery1_AnswerLookupError([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.LoadMessage.AddSession(this.GetText("QUESTION_FAILURE"), MessageTypes.danger);
+            this.PageContext.LoadMessage.AddSession(this.GetText("QUESTION_FAILURE"), MessageTypes.Error);
         }
 
         /// <summary>
@@ -281,7 +281,7 @@ namespace YAF.Pages
                     // re-send verification email instead of lost password...
                     var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
 
-                    var subject = this.GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
+                    string subject = this.GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
 
                     verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", checkTyped.Hash);
                     verifyEmail.TemplateParams["{key}"] = checkTyped.Hash;
@@ -291,13 +291,13 @@ namespace YAF.Pages
                     verifyEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
 
                     this.PageContext.LoadMessage.AddSession(
-                        this.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email), MessageTypes.warning);
+                        this.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email), MessageTypes.Warning);
                 }
             }
             else
             {
                 // explain they are not approved yet...
-                this.PageContext.LoadMessage.AddSession(this.GetText("ACCOUNT_NOT_APPROVED"), MessageTypes.warning);
+                this.PageContext.LoadMessage.AddSession(this.GetText("ACCOUNT_NOT_APPROVED"), MessageTypes.Warning);
             }
 
             // just in case cancel the verification...

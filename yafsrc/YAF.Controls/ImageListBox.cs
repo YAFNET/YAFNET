@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -74,11 +74,11 @@ namespace YAF.Controls
         {
             foreach (var item in this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()))
             {
+                item.Attributes.Add("data-class", "customicon");
                 item.Attributes.Add(
-                    "data-content",
-                    "<image src=\"{0}\" alt=\"{1}\" class=\"standardSelectMenu-Icon\" /><span>&nbsp;{1}</span>".FormatWith(
-                        this.ImageLocation.FormatWith(item.Value),
-                        item.Text));
+                    "data-style",
+                    "background-image: url('{0}');".FormatWith(
+                        this.ImageLocation.FormatWith(item.Value)));
             }
 
             base.Render(writer);

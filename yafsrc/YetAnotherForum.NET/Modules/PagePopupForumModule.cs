@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,6 +30,7 @@ namespace YAF.Modules
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
 
     #endregion
 
@@ -44,7 +45,7 @@ namespace YAF.Modules
         /// <summary>
         ///   The _error popup.
         /// </summary>
-        private PopupDialogNotification errorPopup;
+        private PopupDialogNotification _errorPopup;
 
         #endregion
 
@@ -55,10 +56,12 @@ namespace YAF.Modules
         /// </summary>
         public override void InitAfterPage()
         {
-            if (this.errorPopup == null)
+            if (this._errorPopup == null)
             {
                 this.AddErrorPopup();
             }
+
+            this._errorPopup.Title = this.GetText("COMMON", "MODAL_NOTIFICATION_HEADER");
 
             this.CurrentForumPage.PreRender += this.CurrentForumPage_PreRender;
         }
@@ -104,7 +107,7 @@ namespace YAF.Modules
                 this.ForumControl.Page,
                 "modalNotification",
                 "var fpModal = function() {{ {2}('{0}', '{1}'); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);"
-                    .FormatWith(message.Message, message.MessageType.ToString().ToLower(), this.errorPopup.ShowModalFunction));
+                    .FormatWith(message.Message, message.MessageType.ToString().ToLower(), this._errorPopup.ShowModalFunction));
         }
 
         /// <summary>
@@ -115,17 +118,19 @@ namespace YAF.Modules
             if (this.ForumControl.FindControl("YafForumPageErrorPopup1") == null)
             {
                 // add error control...
-                this.errorPopup = new PopupDialogNotification
+                this._errorPopup = new PopupDialogNotification
                     {
-                        ID = "YafForumPageErrorPopup1"
+                        ID = "YafForumPageErrorPopup1", 
+                        Title = this.GetText("COMMON", "MODAL_NOTIFICATION_HEADER")
                     };
 
-                this.ForumControl.Controls.Add(this.errorPopup);
+                this.ForumControl.Controls.Add(this._errorPopup);
             }
             else
             {
                 // reference existing control...
-                this.errorPopup = (PopupDialogNotification)this.ForumControl.FindControl("YafForumPageErrorPopup1");
+                this._errorPopup = (PopupDialogNotification)this.ForumControl.FindControl("YafForumPageErrorPopup1");
+                this._errorPopup.Title = this.GetText("COMMON", "MODAL_NOTIFICATION_HEADER");
             }
         }
 

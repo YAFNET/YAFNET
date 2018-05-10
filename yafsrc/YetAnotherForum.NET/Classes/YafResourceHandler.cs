@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -37,6 +37,7 @@ namespace YAF
     using System.Net;
     using System.Text;
     using System.Web;
+    using System.Web.Security;
     using System.Web.SessionState;
     using YAF.Classes;
     using YAF.Classes.Data;
@@ -48,7 +49,6 @@ namespace YAF
     using YAF.Core.Services.Auth;
     using YAF.Core.Services.Localization;
     using YAF.Core.Services.Startup;
-    using YAF.Modules.BBCode;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -120,12 +120,12 @@ namespace YAF
                 {
                     localizationFile = context.Session["localizationFile"].ToString();
                 }
-
                 /////////////
+
                 if (context.Request.QueryString.GetFirstOrDefault("twitterinfo") != null)
                 {
                     this.GetTwitterUserInfo(context);
-                }
+                } 
                 else if (context.Request.QueryString.GetFirstOrDefault("userinfo") != null)
                 {
                     this.GetUserInfo(context);
@@ -155,7 +155,8 @@ namespace YAF
                 }
                 else if (context.Request.QueryString.GetFirstOrDefault("p") != null)
                 {
-                    this.GetResponseImagePreview(context, localizationFile, previewCropped);
+                    this.GetResponseImagePreview(
+                        context, localizationFile, previewCropped);
                 }
                 else if (context.Request.QueryString.GetFirstOrDefault("c") != null)
                 {
@@ -330,7 +331,7 @@ namespace YAF
                     var rDstTxt1 = new Rectangle(3, rDstImg.Height + 3, newImgSize.Width, BottomSize - 13);
                     var rDstTxt2 = new Rectangle(3, rDstImg.Height + 16, newImgSize.Width, BottomSize - 13);
 
-                    using (var g = Graphics.FromImage(dst))
+                    using (Graphics g = Graphics.FromImage(dst))
                     {
                         g.Clear(Color.FromArgb(64, 64, 64));
                         g.FillRectangle(Brushes.White, rDstImg);
@@ -349,9 +350,7 @@ namespace YAF
                             using (var brush = new SolidBrush(Color.FromArgb(191, 191, 191)))
                             {
                                 var sf = new StringFormat
-                                    {
-                                       Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center 
-                                    };
+                                    { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Center };
 
                                 g.DrawString(localization.GetText("IMAGE_RESIZE_ENLARGE"), f, brush, rDstTxt1, sf);
 
@@ -441,7 +440,7 @@ namespace YAF
 
                 var boardId = context.Request.QueryString.GetFirstOrDefault("boardId").ToType<int>();
 
-                var user = UserMembershipHelper.GetMembershipUserById(userId, boardId);
+                MembershipUser user = UserMembershipHelper.GetMembershipUserById(userId, boardId);
 
                 if (user == null || user.ProviderUserKey.ToString() == "0")
                 {
@@ -536,10 +535,9 @@ namespace YAF
                                        Name = userName,
                                        RealName = HttpUtility.HtmlEncode(userData.Profile.RealName),
                                        Avatar = avatarUrl,
-
                                        /*profilelink =
-                                                                                  Config.IsAnyPortal ? userlinkUrl : YafBuildLink.GetLink(ForumPages.profile, true, "u={0}&name={1}", userId).Replace(
-                                                                                      "resource.ashx", "default.aspx"),*/
+                                           Config.IsAnyPortal ? userlinkUrl : YafBuildLink.GetLink(ForumPages.profile, true, "u={0}&name={1}", userId).Replace(
+                                               "resource.ashx", "default.aspx"),*/
                                        Interests = HttpUtility.HtmlEncode(userData.Profile.Interests),
                                        HomePage = userData.Profile.Homepage,
                                        Posts = "{0:N0}".FormatWith(userData.NumPosts),
@@ -659,27 +657,28 @@ namespace YAF
         {
             try
             {
-                var user = YafContext.Current.GetRepository<User>()
-                    .GetById(context.Request.QueryString.GetFirstOrDefault("u").ToType<int>());
-
-                if (user != null)
+                using (DataTable dt = LegacyDb.user_avatarimage(context.Request.QueryString.GetFirstOrDefault("u")))
                 {
-                    var data = user.AvatarImage;
-                    var contentType = user.AvatarImageType;
-
-                    context.Response.Clear();
-                    if (contentType.IsNotSet())
+                    foreach (DataRow row in dt.Rows)
                     {
-                        contentType = "image/jpeg";
+                        var data = (byte[])row["AvatarImage"];
+                        var contentType = row["AvatarImageType"].ToString();
+
+                        context.Response.Clear();
+                        if (contentType.IsNotSet())
+                        {
+                            contentType = "image/jpeg";
+                        }
+
+                        context.Response.ContentType = contentType;
+                        context.Response.Cache.SetCacheability(HttpCacheability.Public);
+                        context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
+                        context.Response.Cache.SetLastModified(DateTime.UtcNow);
+
+                        // context.Response.Cache.SetETag( eTag );
+                        context.Response.OutputStream.Write(data, 0, data.Length);
+                        break;
                     }
-
-                    context.Response.ContentType = contentType;
-                    context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                    context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
-                    context.Response.Cache.SetLastModified(DateTime.UtcNow);
-
-                    // context.Response.Cache.SetETag( eTag );
-                    context.Response.OutputStream.Write(data, 0, data.Length);
                 }
             }
             catch (Exception x)
@@ -743,7 +742,7 @@ namespace YAF
                 userKey = user.ProviderUserKey;
             }
 
-            var pageRow = LegacyDb.pageload(
+            DataRow pageRow = LegacyDb.pageload(
                 HttpContext.Current.Session.SessionID,
                 boardID,
                 userKey,
@@ -797,12 +796,12 @@ namespace YAF
                 else
                 {
                     using (
-                        var dt = LegacyDb.album_image_list(
+                        DataTable dt = LegacyDb.album_image_list(
                             null, context.Request.QueryString.GetFirstOrDefault("cover")))
                     {
                         if (dt.HasRows())
                         {
-                            var row = dt.Rows[0];
+                            DataRow row = dt.Rows[0];
                             var sUpDir = YafBoardFolders.Current.Uploads;
 
                             var oldFileName =
@@ -831,7 +830,7 @@ namespace YAF
                 data.Position = 0;
                 var imagesNumber =
                     LegacyDb.album_getstats(null, context.Request.QueryString.GetFirstOrDefault("album"))[1];
-                var ms = GetAlbumOrAttachmentImageResized(
+                MemoryStream ms = GetAlbumOrAttachmentImageResized(
                     data,
                     this.Get<YafBoardSettings>().ImageAttachmentResizeWidth,
                     this.Get<YafBoardSettings>().ImageAttachmentResizeHeight,
@@ -879,12 +878,9 @@ namespace YAF
                     return;
                 }
 
-                /*var image = this.GetRepository<UserAlbumImage>()
-                    .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("image"));*/
-                
                 // ImageID
                 using (
-                    var dt = LegacyDb.album_image_list(
+                    DataTable dt = LegacyDb.album_image_list(
                         null, context.Request.QueryString.GetFirstOrDefault("image")))
                 {
                     foreach (DataRow row in dt.Rows)
@@ -927,7 +923,7 @@ namespace YAF
                             // add a download count...
                             LegacyDb.album_image_download(context.Request.QueryString.GetFirstOrDefault("image"));
                         }
-                        
+
                         break;
                     }
                 }
@@ -973,7 +969,7 @@ namespace YAF
             {
                 // ImageID
                 using (
-                    var dt = LegacyDb.album_image_list(
+                    DataTable dt = LegacyDb.album_image_list(
                         null, context.Request.QueryString.GetFirstOrDefault("imgprv")))
                 {
                     foreach (DataRow row in dt.Rows)
@@ -1004,7 +1000,7 @@ namespace YAF
                         // reset position...
                         data.Position = 0;
 
-                        var ms = GetAlbumOrAttachmentImageResized(
+                        MemoryStream ms = GetAlbumOrAttachmentImageResized(
                             data,
                             this.Get<YafBoardSettings>().ImageAttachmentResizeWidth,
                             this.Get<YafBoardSettings>().ImageAttachmentResizeHeight,
@@ -1058,7 +1054,8 @@ namespace YAF
                 // AttachmentID
                 var attachment =
                     this.GetRepository<Attachment>()
-                        .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("a"));
+                        .ListTyped(attachmentID: context.Request.QueryString.GetFirstOrDefaultAs<int>("a"))
+                        .FirstOrDefault();
 
                 var boardID = context.Request.QueryString.GetFirstOrDefault("b") != null
                                   ? context.Request.QueryString.GetFirstOrDefaultAs<int>("b")
@@ -1077,7 +1074,7 @@ namespace YAF
 
 
                 this.GetRepository<Attachment>()
-                    .IncrementDownloadCounter(attachment);
+                    .IncrementDownloadCounter(context.Request.QueryString.GetFirstOrDefaultAs<int>("a"));
 
                 if (attachment.FileData == null)
                 {
@@ -1212,17 +1209,11 @@ namespace YAF
             {
                 var eTag = @"""{0}""".FormatWith(context.Request.QueryString.GetFirstOrDefault("i"));
 
-                // AttachmentID
-                var attachment =
-                    this.GetRepository<Attachment>()
-                        .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
-
-
                 if (context.Request.QueryString.GetFirstOrDefault("editor") == null)
                 {
                     // add a download count...
                     this.GetRepository<Attachment>()
-                        .IncrementDownloadCounter(attachment);
+                        .IncrementDownloadCounter(context.Request.QueryString.GetFirstOrDefaultAs<int>("i"));
                 }
 
                 if (CheckETag(context, eTag))
@@ -1230,6 +1221,12 @@ namespace YAF
                     // found eTag... no need to resend/create this image 
                    return;
                 }
+
+                // AttachmentID
+                var attachment =
+                    this.GetRepository<Attachment>()
+                        .ListTyped(attachmentID: context.Request.QueryString.GetFirstOrDefaultAs<int>("i"))
+                        .FirstOrDefault();
 
                 var boardID = context.Request.QueryString.GetFirstOrDefault("b") != null
                                   ? context.Request.QueryString.GetFirstOrDefaultAs<int>("b")
@@ -1362,7 +1359,8 @@ namespace YAF
                 // AttachmentID
                 var attachment =
                     this.GetRepository<Attachment>()
-                        .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("p"));
+                        .ListTyped(attachmentID: context.Request.QueryString.GetFirstOrDefaultAs<int>("p"))
+                        .FirstOrDefault();
 
                 var boardID = context.Request.QueryString.GetFirstOrDefault("b") != null
                                   ? context.Request.QueryString.GetFirstOrDefaultAs<int>("b")
@@ -1448,7 +1446,7 @@ namespace YAF
                 // reset position...
                 data.Position = 0;
 
-                var ms = GetAlbumOrAttachmentImageResized(
+                MemoryStream ms = GetAlbumOrAttachmentImageResized(
                     data,
                     previewMaxWidth,
                     previewMaxHeight,
@@ -1517,7 +1515,12 @@ namespace YAF
                 return;
             }
 
-            var webClient = new WebClient { Credentials = CredentialCache.DefaultCredentials };
+            var webClient = new WebClient();
+
+            if (General.GetCurrentTrustLevel() >= AspNetHostingPermissionLevel.High)
+            {
+                webClient.Credentials = CredentialCache.DefaultCredentials;
+            }
 
             try
             {

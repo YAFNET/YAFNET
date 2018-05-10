@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -209,7 +209,7 @@ namespace YAF.Pages
             if (this.To.Text.Length < 2)
             {
                 // need at least 2 latters of user's name
-                YafContext.Current.AddLoadMessage(this.GetText("NEED_MORE_LETTERS"), MessageTypes.warning);
+                YafContext.Current.AddLoadMessage(this.GetText("NEED_MORE_LETTERS"), MessageTypes.Warning);
                 return;
             }
 
@@ -238,7 +238,7 @@ namespace YAF.Pages
             else
             {
                 // user not found
-                YafContext.Current.AddLoadMessage(this.GetText("USER_NOTFOUND"), MessageTypes.danger);
+                YafContext.Current.AddLoadMessage(this.GetText("USER_NOTFOUND"), MessageTypes.Error);
                 return;
             }
 
@@ -259,7 +259,7 @@ namespace YAF.Pages
 
             this.EditorLine.Controls.Add(this._editor);
 
-            this._editor.UserCanUpload = this.Get<YafBoardSettings>().AllowPrivateMessageAttachments;
+            this._editor.UserCanUpload = true;
 
             // add editor to the page
             this.EditorLine.Controls.Add(this._editor);
@@ -307,10 +307,10 @@ namespace YAF.Pages
             {
                 // PM is a reply or quoted reply (isQuoting)
                 // to the given message id "p"
-                var isQuoting = this.Request.QueryString.GetFirstOrDefault("q") == "1";
+                bool isQuoting = this.Request.QueryString.GetFirstOrDefault("q") == "1";
 
                 // get quoted message
-                var row =
+                DataRow row =
                     LegacyDb.pmessage_list(
                         Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("p"))).GetFirstRow();
 
@@ -339,7 +339,7 @@ namespace YAF.Pages
 
                 this.PmSubjectTextBox.Text = subject;
 
-                var displayName = this.Get<IUserDisplayName>().GetName(fromUserId);
+                string displayName = this.Get<IUserDisplayName>().GetName(fromUserId);
 
                 // set "To" user and disable changing...
                 this.To.Text = displayName;
@@ -354,7 +354,7 @@ namespace YAF.Pages
                 }
 
                 // PM is a quoted reply
-                var body = row["Body"].ToString();
+                string body = row["Body"].ToString();
 
                 if (this.Get<YafBoardSettings>().RemoveNestedQuotes)
                 {
@@ -390,7 +390,7 @@ namespace YAF.Pages
                 }
 
                 // get quoted message
-                var messagesRow =
+                DataRow messagesRow =
                     LegacyDb.message_listreporters(
                         Security.StringToLongOrRedirect(
                             this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r")).ToType<int>(),
@@ -408,7 +408,7 @@ namespace YAF.Pages
                 // handle subject                                           
                 this.PmSubjectTextBox.Text = this.GetText("REPORTED_SUBJECT");
 
-                var displayName =
+                string displayName =
                     this.Get<IUserDisplayName>().GetName(messagesRow.Field<int>("UserID"));
 
                 // set "To" user and disable changing...
@@ -419,12 +419,12 @@ namespace YAF.Pages
                 this.AllBuddies.Enabled = false;
 
                 // Parse content with delimiter '|'  
-                var quoteList = messagesRow.Field<string>("ReportText").Split('|');
+                string[] quoteList = messagesRow.Field<string>("ReportText").Split('|');
 
                 // Quoted replies should have bad words in them
                 // Reply to report PM is always a quoted reply
                 // Quote the original message in a cycle
-                for (var i = 0; i < quoteList.Length; i++)
+                for (int i = 0; i < quoteList.Length; i++)
                 {
                     // Add quote codes
                     quoteList[i] = "[QUOTE={0}]{1}[/QUOTE]".FormatWith(displayName, quoteList[i]);
@@ -446,7 +446,7 @@ namespace YAF.Pages
                     return;
                 }
 
-                var currentRow =
+                DataRow currentRow =
                     LegacyDb.user_list(YafContext.Current.PageBoardID, toUserId, true).GetFirstRow();
 
                 if (currentRow == null)
@@ -504,7 +504,7 @@ namespace YAF.Pages
             }
 
             using (
-                var userDT = LegacyDb.user_list(
+                DataTable userDT = LegacyDb.user_list(
                     YafContext.Current.PageBoardID,
                     YafContext.Current.PageUserID,
                     true))
@@ -536,21 +536,21 @@ namespace YAF.Pages
             if (this.To.Text.Length <= 0)
             {
                 // recipient is required field
-                YafContext.Current.AddLoadMessage(this.GetText("need_to"), MessageTypes.warning);
+                YafContext.Current.AddLoadMessage(this.GetText("need_to"), MessageTypes.Warning);
                 return;
             }
 
             // subject is required
             if (this.PmSubjectTextBox.Text.Trim().Length <= 0)
             {
-                YafContext.Current.AddLoadMessage(this.GetText("need_subject"), MessageTypes.warning);
+                YafContext.Current.AddLoadMessage(this.GetText("need_subject"), MessageTypes.Warning);
                 return;
             }
 
             // message is required
             if (this._editor.Text.Trim().Length <= 0)
             {
-                YafContext.Current.AddLoadMessage(this.GetText("need_message"), MessageTypes.warning);
+                YafContext.Current.AddLoadMessage(this.GetText("need_message"), MessageTypes.Warning);
                 return;
             }
 
@@ -611,7 +611,7 @@ namespace YAF.Pages
                         this.GetTextFormatted(
                             "TOO_MANY_RECIPIENTS",
                             this.Get<YafBoardSettings>().PrivateMessageMaxRecipients),
-                        MessageTypes.warning);
+                        MessageTypes.Warning);
 
                     return;
                 }
@@ -625,21 +625,21 @@ namespace YAF.Pages
                 var recipientIds = new List<int>();
 
                 // get recipients' IDs
-                foreach (var recipient in recipients)
+                foreach (string recipient in recipients)
                 {
-                    var userId = this.Get<IUserDisplayName>().GetId(recipient);
+                    int? userId = this.Get<IUserDisplayName>().GetId(recipient);
 
                     if (!userId.HasValue)
                     {
                         YafContext.Current.AddLoadMessage(
                             this.GetTextFormatted("NO_SUCH_USER", recipient),
-                            MessageTypes.warning);
+                            MessageTypes.Error);
                         return;
                     }
 
                     if (UserMembershipHelper.IsGuestUser(userId.Value))
                     {
-                        YafContext.Current.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.danger);
+                        YafContext.Current.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.Error);
                         return;
                     }
 
@@ -665,14 +665,14 @@ namespace YAF.Pages
                     // recipient has full PM box
                     YafContext.Current.AddLoadMessage(
                         this.GetTextFormatted("RECIPIENTS_PMBOX_FULL", recipient),
-                        MessageTypes.danger);
+                        MessageTypes.Error);
                     return;
                 }
 
                 // send PM to all recipients
                 foreach (var userId in recipientIds)
                 {
-                    var body = this._editor.Text;
+                    string body = this._editor.Text;
 
                     var messageFlags = new MessageFlags
                                            {
@@ -759,7 +759,7 @@ namespace YAF.Pages
                                         spamResult),
                                 EventLogTypes.SpamMessageDetected);
 
-                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
+                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
 
                             break;
                         case 3:
@@ -832,7 +832,7 @@ namespace YAF.Pages
                                             spamResult),
                                     EventLogTypes.SpamMessageDetected);
 
-                                this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
+                                this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
 
                                 break;
                             case 3:
@@ -872,7 +872,7 @@ namespace YAF.Pages
             // get user's name
             var drPMInfo = LegacyDb.user_pmcount(YafContext.Current.PageUserID).Rows[0];
 
-            if ((drPMInfo["NumberTotal"].ToType<int>() + count <= drPMInfo["NumberAllowed"].ToType<int>())
+            if (drPMInfo["NumberTotal"].ToType<int>() + count <= drPMInfo["NumberAllowed"].ToType<int>()
                 || YafContext.Current.IsAdmin)
             {
                 return true;
@@ -881,7 +881,7 @@ namespace YAF.Pages
             // user has full PM box
             YafContext.Current.AddLoadMessage(
                 this.GetTextFormatted("OWN_PMBOX_FULL", drPMInfo["NumberAllowed"]),
-                MessageTypes.danger);
+                MessageTypes.Error);
 
             return false;
         }

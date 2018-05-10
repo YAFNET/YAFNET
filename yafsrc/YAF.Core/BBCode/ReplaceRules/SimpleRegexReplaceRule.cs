@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -115,10 +115,10 @@ namespace YAF.Core.BBCode.ReplaceRules
     {
       var sb = new StringBuilder(text);
 
-      var m = this._regExSearch.Match(text);
+      Match m = this._regExSearch.Match(text);
       while (m.Success)
       {
-        var replaceString = this._regExReplace.Replace("${inner}", this.GetInnerValue(m.Groups["inner"].Value));
+        string replaceString = this._regExReplace.Replace("${inner}", this.GetInnerValue(m.Groups["inner"].Value));
 
         // pulls the htmls into the replacement collection before it's inserted back into the main text
         replacement.ReplaceHtmlFromText(ref replaceString);

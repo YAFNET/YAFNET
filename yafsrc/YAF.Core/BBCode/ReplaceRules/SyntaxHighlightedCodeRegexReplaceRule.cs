@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -37,7 +37,7 @@ namespace YAF.Core.BBCode.ReplaceRules
         /// <summary>
         ///   The _syntax highlighter.
         /// </summary>
-        private readonly HighLighter syntaxHighlighter = new HighLighter();
+        private readonly HighLighter _syntaxHighlighter = new HighLighter();
 
         #endregion
 
@@ -55,7 +55,7 @@ namespace YAF.Core.BBCode.ReplaceRules
         public SyntaxHighlightedCodeRegexReplaceRule(Regex regExSearch, string regExReplace)
             : base(regExSearch, regExReplace)
         {
-            this.syntaxHighlighter.ReplaceEnter = true;
+            this._syntaxHighlighter.ReplaceEnter = true;
             this.RuleRank = 1;
         }
 
@@ -74,16 +74,16 @@ namespace YAF.Core.BBCode.ReplaceRules
         /// </param>
         public override void Replace(ref string text, IReplaceBlocks replacement)
         {
-            var m = this._regExSearch.Match(text);
+            Match m = this._regExSearch.Match(text);
             while (m.Success)
             {
-                var inner = this.syntaxHighlighter.ColorText(
+                string inner = this._syntaxHighlighter.ColorText(
                     this.GetInnerValue(m.Groups["inner"].Value), m.Groups["language"].Value);
 
-                var replaceItem = this._regExReplace.Replace("${inner}", inner);
+                string replaceItem = this._regExReplace.Replace("${inner}", inner);
 
                 // pulls the htmls into the replacement collection before it's inserted back into the main text
-                var replaceIndex = replacement.Add(replaceItem);
+                int replaceIndex = replacement.Add(replaceItem);
 
                 text = text.Substring(0, m.Groups[0].Index) + replacement.Get(replaceIndex)
                        + text.Substring(m.Groups[0].Index + m.Groups[0].Length);

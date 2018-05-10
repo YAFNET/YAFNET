@@ -1,9 +1,9 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -84,7 +84,13 @@ namespace YAF.Core.Services
         /// <value>
         /// The board settings.
         /// </value>
-        public YafBoardSettings BoardSettings => this.Get<YafBoardSettings>();
+        public YafBoardSettings BoardSettings
+        {
+            get
+            {
+                return this.Get<YafBoardSettings>();
+            }
+        }
 
         #endregion
 
@@ -141,19 +147,12 @@ namespace YAF.Core.Services
                             : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL")
                         {
                             // get the user localization...
-                            TemplateLanguageFile = languageFile,
-                            TemplateParams =
-                                {
-                                    ["{adminlink}"] =
-                                    YafBuildLink.GetLinkNotEscaped(
-                                        ForumPages.moderate_unapprovedposts,
-                                        true,
-                                        "f={0}",
-                                        forumId),
-                                    ["{forumname}"] = this.BoardSettings.Name
-                                }
+                            TemplateLanguageFile = languageFile
                         };
 
+                notifyModerators.TemplateParams["{adminlink}"] =
+                    YafBuildLink.GetLinkNotEscaped(ForumPages.moderate_unapprovedposts, true, "f={0}", forumId);
+                notifyModerators.TemplateParams["{forumname}"] = this.BoardSettings.Name;
 
                 notifyModerators.SendEmail(
                     new MailAddress(membershipUser.Email, membershipUser.UserName),
@@ -218,22 +217,16 @@ namespace YAF.Core.Services
                     var notifyModerators = new YafTemplateEmail("NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE")
                                                {
                                                    // get the user localization...
-                                                   TemplateLanguageFile = languageFile,
-                                                   TemplateParams =
-                                                       {
-                                                           ["{reason}"] = reportText,
-                                                           ["{reporter}"] =
-                                                           this.Get<IUserDisplayName>().GetName(reporter),
-                                                           ["{adminlink}"] =
-                                                           YafBuildLink.GetLinkNotEscaped(
-                                                               ForumPages.moderate_reportedposts,
-                                                               true,
-                                                               "f={0}",
-                                                               pageForumID),
-                                                           ["{forumname}"] = this.BoardSettings.Name
-                                                       }
+                                                   TemplateLanguageFile
+                                                       =
+                                                       languageFile
                                                };
 
+                    notifyModerators.TemplateParams["{reason}"] = reportText;
+                    notifyModerators.TemplateParams["{reporter}"] = this.Get<IUserDisplayName>().GetName(reporter);
+                    notifyModerators.TemplateParams["{adminlink}"] =
+                        YafBuildLink.GetLinkNotEscaped(ForumPages.moderate_reportedposts, true, "f={0}", pageForumID);
+                    notifyModerators.TemplateParams["{forumname}"] = this.BoardSettings.Name;
 
                     notifyModerators.SendEmail(
                         new MailAddress(membershipUser.Email, membershipUser.UserName),
@@ -332,7 +325,7 @@ namespace YAF.Core.Services
                 // tell user about failure
                 YafContext.Current.AddLoadMessage(
                     this.Get<ILocalization>().GetTextFormatted("Failed", x.Message),
-                    MessageTypes.danger);
+                    MessageTypes.Error);
             }
         }
 
@@ -393,7 +386,7 @@ namespace YAF.Core.Services
                 subject);
 
             // create individual watch emails for all users who have All Posts on...
-            foreach (var user in usersWithAll.Where(x => x.ID != messageAuthorUserID && x.ProviderUserKey != null))
+            foreach (var user in usersWithAll.Where(x => x.UserID != messageAuthorUserID && x.ProviderUserKey != null))
             {
                 var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey.ToType<object>());
 
@@ -510,7 +503,7 @@ namespace YAF.Core.Services
         /// <param name="userId">The user id.</param>
         public void SendRegistrationNotificationEmail([NotNull] MembershipUser user, int userId)
         {
-            var emails = this.BoardSettings.NotificationOnUserRegisterEmailList.Split(';');
+            string[] emails = this.BoardSettings.NotificationOnUserRegisterEmailList.Split(';');
 
             var notifyAdmin = new YafTemplateEmail();
 
@@ -562,7 +555,7 @@ namespace YAF.Core.Services
                 return;
             }
 
-            using (var dt = LegacyDb.user_emails(YafContext.Current.PageBoardID, adminGroupID))
+            using (DataTable dt = LegacyDb.user_emails(YafContext.Current.PageBoardID, adminGroupID))
             {
                 foreach (DataRow row in dt.Rows)
                 {
@@ -654,12 +647,12 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="email">The email.</param>
-        /// <param name="userId">The user identifier.</param>
+        /// <param name="userID">The user identifier.</param>
         /// <param name="newUsername">The new username.</param>
         public void SendVerificationEmail(
             [NotNull] MembershipUser user,
             [NotNull] string email,
-            int? userId,
+            int? userID,
             string newUsername = null)
         {
             CodeContracts.VerifyNotNull(email, "email");
@@ -669,7 +662,7 @@ namespace YAF.Core.Services
             var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
 
             // save verification record...
-            this.GetRepository<CheckEmail>().Save(userId, hash, user.Email);
+            this.GetRepository<CheckEmail>().Save(userID, hash, user.Email);
 
             var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
 

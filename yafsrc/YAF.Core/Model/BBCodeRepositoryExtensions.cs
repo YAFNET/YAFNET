@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,8 +23,11 @@
  */
 namespace YAF.Core.Model
 {
-    using YAF.Core.Extensions;
+    using System.Collections.Generic;
+    using System.Data;
+
     using YAF.Types;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -36,12 +39,59 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
+        /// The list.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository. 
+        /// </param>
+        /// <param name="bBCodeID">
+        /// The b b code id. 
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/> . 
+        /// </returns>
+        public static DataTable List(this IRepository<BBCode> repository, int? bBCodeID = null, int? boardId = null)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbFunction.GetData.bbcode_list(BoardID: boardId ?? repository.BoardID, BBCodeID: bBCodeID);
+        }
+
+        /// <summary>
+        /// The list typed.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="bBCodeID">
+        /// The b b code id.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IList"/>.
+        /// </returns>
+        public static IList<BBCode> ListTyped(this IRepository<BBCode> repository, int? bBCodeID = null, int? boardId = null)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            using (var session = repository.DbFunction.CreateSession())
+            {
+                return session.GetTyped<BBCode>(r => r.bbcode_list(BoardID: boardId ?? repository.BoardID, BBCodeID: bBCodeID));
+            }
+        }
+
+        /// <summary>
         /// The save.
         /// </summary>
         /// <param name="repository">
         /// The repository. 
         /// </param>
-        /// <param name="codeId">
+        /// <param name="bBCodeID">
         /// The b b code id. 
         /// </param>
         /// <param name="name">
@@ -50,16 +100,16 @@ namespace YAF.Core.Model
         /// <param name="description">
         /// The description. 
         /// </param>
-        /// <param name="onClickJs">
+        /// <param name="onClickJS">
         /// The on click js. 
         /// </param>
-        /// <param name="displayJs">
+        /// <param name="displayJS">
         /// The display js. 
         /// </param>
-        /// <param name="editJs">
+        /// <param name="editJS">
         /// The edit js. 
         /// </param>
-        /// <param name="displayCss">
+        /// <param name="displayCSS">
         /// The display css. 
         /// </param>
         /// <param name="searchRegEx">
@@ -85,13 +135,13 @@ namespace YAF.Core.Model
         /// </param>
         public static void Save(
             this IRepository<BBCode> repository, 
-            int? codeId, 
+            int? bBCodeID, 
             string name, 
             string description, 
-            string onClickJs, 
-            string displayJs, 
-            string editJs, 
-            string displayCss, 
+            string onClickJS, 
+            string displayJS, 
+            string editJS, 
+            string displayCSS, 
             string searchRegEx, 
             string replaceRegEx, 
             string variables, 
@@ -102,24 +152,30 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.Upsert(
-                new BBCode
-                    {
-                        BoardID = boardId ?? repository.BoardID,
-                        ID = codeId ?? 0,
-                        Name = name,
-                        Description = description,
-                        OnClickJS = onClickJs,
-                        DisplayJS = displayJs,
-                        EditJS = editJs,
-                        DisplayCSS = displayCss,
-                        SearchRegex = searchRegEx,
-                        ReplaceRegex = replaceRegEx,
-                        Variables = variables,
-                        UseModule = useModule,
-                        ModuleClass = moduleClass,
-                        ExecOrder = execOrder
-                    });
+            repository.DbFunction.Query.bbcode_save(
+                BBCodeID: bBCodeID, 
+                BoardID: boardId ?? repository.BoardID, 
+                Name: name, 
+                Description: description, 
+                OnClickJS: onClickJS, 
+                DisplayJS: displayJS, 
+                EditJS: editJS, 
+                DisplayCSS: displayCSS, 
+                SearchRegEx: searchRegEx, 
+                ReplaceRegEx: replaceRegEx, 
+                Variables: variables, 
+                UseModule: useModule, 
+                ModuleClass: moduleClass, 
+                ExecOrder: execOrder);
+
+            if (bBCodeID.HasValue)
+            {
+                repository.FireUpdated(bBCodeID);
+            }
+            else
+            {
+                repository.FireNew();
+            }
         }
 
         #endregion

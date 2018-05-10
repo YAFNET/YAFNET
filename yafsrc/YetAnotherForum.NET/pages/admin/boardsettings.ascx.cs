@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -69,6 +69,16 @@ namespace YAF.Pages.Admin
 
             var boardSettings = this.Get<YafBoardSettings>();
 
+            this.PageLinks.AddLink(boardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "TITLE"), string.Empty);
+
+            this.Page.Header.Title = "{0} - {1}".FormatWith(
+                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_BOARDSETTINGS", "TITLE"));
+
+            this.Save.Text = this.GetText("COMMON", "SAVE");
+
             // create list boxes by populating datasources from Data class
             var themeData = StaticDataHelper.Themes().AsEnumerable().Where(x => !x.Field<bool>("IsMobile"));
 
@@ -86,7 +96,7 @@ namespace YAF.Pages.Admin
                 var mobileThemes = mobileThemeData.CopyToDataTable();
 
                 // Add Dummy Disabled Mobile Theme Item to allow disabling the Mobile Theme
-                var dr = mobileThemes.NewRow();
+                DataRow dr = mobileThemes.NewRow();
                 dr["Theme"] = "[ {0} ]".FormatWith(this.GetText("ADMIN_COMMON", "DISABLED"));
 
                 dr["FileName"] = string.Empty;
@@ -116,6 +126,10 @@ namespace YAF.Pages.Admin
             this.FileExtensionAllow.DataTextField = "Text";
             this.FileExtensionAllow.DataValueField = "Value";
 
+            this.JqueryUITheme.DataSource = StaticDataHelper.JqueryUIThemes();
+            this.JqueryUITheme.DataTextField = "Theme";
+            this.JqueryUITheme.DataValueField = "Theme";
+
             this.BindData();
 
             // bind poll group list
@@ -143,8 +157,10 @@ namespace YAF.Pages.Admin
 
             this.DefaultNotificationSetting.Items.AddRange(notificationItems);
 
+            SetSelectedOnList(ref this.JqueryUITheme, boardSettings.JqueryUITheme);
+
             // Get first default full culture from a language file tag.
-            var langFileCulture = StaticDataHelper.CultureDefaultFromFile(boardSettings.Language)
+            string langFileCulture = StaticDataHelper.CultureDefaultFromFile(boardSettings.Language)
                                      ?? "en-US";
 
             SetSelectedOnList(ref this.Theme, boardSettings.Theme);
@@ -152,7 +168,7 @@ namespace YAF.Pages.Admin
 
             // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
             /* SetSelectedOnList(
-                ref this.Culture,
+                ref this.Culture, 
                 langFileCulture.Substring(0, 2) == this.Get<YafBoardSettings>().Culture
                   ? this.Get<YafBoardSettings>().Culture
                   : langFileCulture);*/
@@ -203,27 +219,13 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-            this.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "TITLE"), string.Empty);
-
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_BOARDSETTINGS", "TITLE"));
-        }
-
-        /// <summary>
         /// Save the Board Settings
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var languageFile = "english.xml";
+            string languageFile = "english.xml";
 
             var cultures =
                 StaticDataHelper.Cultures().AsEnumerable().Where(
@@ -273,6 +275,7 @@ namespace YAF.Pages.Admin
             boardSettings.ForumEmail = this.ForumEmail.Text;
             boardSettings.BaseUrlMask = this.ForumBaseUrlMask.Text;
             boardSettings.CopyrightRemovalDomainKey = this.CopyrightRemovalKey.Text.Trim();
+            boardSettings.JqueryUITheme = this.JqueryUITheme.SelectedValue;
 
             int hours;
 
@@ -303,29 +306,7 @@ namespace YAF.Pages.Admin
         {
             var selItem = list.Items.FindByValue(value);
 
-            list.ClearSelection();
-
-            if (selItem != null)
-            {
-                selItem.Selected = true;
-            }
-            else if (list.Items.Count > 0)
-            {
-                // select the first...
-                list.SelectedIndex = 0;
-            }
-        }
-
-        /// <summary>
-        /// The set selected on list.
-        /// </summary>
-        /// <param name="list">The list.</param>
-        /// <param name="value">The value.</param>
-        private static void SetSelectedOnList([NotNull] ref RadioButtonList list, [NotNull] string value)
-        {
-            var selItem = list.Items.FindByValue(value);
-
-            list.ClearSelection();
+            list.ClearSelection(); 
 
             if (selItem != null)
             {
@@ -344,7 +325,7 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             DataRow row;
-            using (var dt = this.GetRepository<Board>().List(this.PageContext.PageBoardID))
+            using (DataTable dt = this.GetRepository<Board>().List(this.PageContext.PageBoardID))
             {
                 row = dt.Rows[0];
             }

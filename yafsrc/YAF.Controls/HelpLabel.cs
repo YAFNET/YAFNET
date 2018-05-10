@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -30,6 +30,7 @@ namespace YAF.Controls
     using YAF.Core;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Utils;
 
     #endregion
 
@@ -41,9 +42,71 @@ namespace YAF.Controls
         #region Constants and Fields
 
         /// <summary>
+        /// The _enable bb code.
+        /// </summary>
+        protected bool _enableBBCode;
+
+        /// <summary>
+        /// The _suffix.
+        /// </summary>
+        protected string _suffix = string.Empty;
+
+        /// <summary>
+        /// The _localized page.
+        /// </summary>
+        protected string _localizedPage = string.Empty;
+
+        /// <summary>
+        /// The _localized tag.
+        /// </summary>
+        protected string _localizedTag = string.Empty;
+
+        /// <summary>
         /// The _localized tag.
         /// </summary>
         protected string _localizedHelpTag = string.Empty;
+
+        /// <summary>
+        /// The _param 0.
+        /// </summary>
+        protected string _param0 = string.Empty;
+
+        /// <summary>
+        /// The _param 1.
+        /// </summary>
+        protected string _param1 = string.Empty;
+
+        /// <summary>
+        /// The _param 2.
+        /// </summary>
+        protected string _param2 = string.Empty;
+
+         /// <summary>
+        /// The _param 0.
+        /// </summary>
+        protected string _paramHelp0 = string.Empty;
+
+        /// <summary>
+        /// The _param 1.
+        /// </summary>
+        protected string _paramHelp1 = string.Empty;
+
+        /// <summary>
+        /// The _param 2.
+        /// </summary>
+        protected string _paramHelp2 = string.Empty;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HelpLabel"/> class.
+        /// </summary>
+        public HelpLabel()
+            : base()
+        {
+        }
 
         #endregion
 
@@ -52,17 +115,50 @@ namespace YAF.Controls
         /// <summary>
         /// Gets or sets a value indicating whether EnableBBCode.
         /// </summary>
-        public bool EnableBBCode { get; set; }
+        public bool EnableBBCode
+        {
+            get
+            {
+                return this._enableBBCode;
+            }
+
+            set
+            {
+                this._enableBBCode = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets Suffix. e.g: ":" or "?"
         /// </summary>
-        public string Suffix { get; set; } = string.Empty;
+        public string Suffix
+        {
+            get
+            {
+                return this._suffix;
+            }
+
+            set
+            {
+                this._suffix = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets LocalizedPage.
         /// </summary>
-        public string LocalizedPage { get; set; } = string.Empty;
+        public string LocalizedPage
+        {
+            get
+            {
+                return this._localizedPage;
+            }
+
+            set
+            {
+                this._localizedPage = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets LocalizedTag.
@@ -72,7 +168,7 @@ namespace YAF.Controls
             get
             {
                 return string.IsNullOrEmpty(this._localizedHelpTag)
-                           ? "{0}_HELP".FormatWith(this.LocalizedTag)
+                           ? "{0}_HELP".FormatWith(this._localizedTag)
                            : this._localizedHelpTag;
             }
 
@@ -85,37 +181,114 @@ namespace YAF.Controls
         /// <summary>
         /// Gets or sets LocalizedTag.
         /// </summary>
-        public string LocalizedTag { get; set; } = string.Empty;
+        public string LocalizedTag
+        {
+            get
+            {
+                return this._localizedTag;
+            }
+
+            set
+            {
+                this._localizedTag = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets Param0.
         /// </summary>
-        public string Param0 { get; set; } = string.Empty;
+        public string Param0
+        {
+            get
+            {
+                return this._param0;
+            }
+
+            set
+            {
+                this._param0 = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets Param1.
         /// </summary>
-        public string Param1 { get; set; } = string.Empty;
+        public string Param1
+        {
+            get
+            {
+                return this._param1;
+            }
+
+            set
+            {
+                this._param1 = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets Param2.
         /// </summary>
-        public string Param2 { get; set; } = string.Empty;
+        public string Param2
+        {
+            get
+            {
+                return this._param2;
+            }
+
+            set
+            {
+                this._param2 = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets ParamHelp0.
         /// </summary>
-        public string ParamHelp0 { get; set; } = string.Empty;
+        public string ParamHelp0
+        {
+            get
+            {
+                return this._paramHelp0;
+            }
+
+            set
+            {
+                this._paramHelp0 = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets ParamHelp1.
         /// </summary>
-        public string ParamHelp1 { get; set; } = string.Empty;
+        public string ParamHelp1
+        {
+            get
+            {
+                return this._paramHelp1;
+            }
+
+            set
+            {
+                this._paramHelp1 = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets ParamHelp2.
         /// </summary>
-        public string ParamHelp2 { get; set; } = string.Empty;
+        public string ParamHelp2
+        {
+            get
+            {
+                return this._paramHelp2;
+            }
+
+            set
+            {
+                this._paramHelp2 = value;
+            }
+        }
 
         #endregion
 
@@ -124,21 +297,17 @@ namespace YAF.Controls
         /// <summary>
         /// Shows the localized text string (if available)
         /// </summary>
-        /// <param name="output">The output.</param>
+        /// <param name="output">
+        /// </param>
         protected override void Render(HtmlTextWriter output)
         {
             output.BeginRender();
-
-            var text = this.GetText(this.LocalizedPage, this.LocalizedTag)
-                    .FormatWith(this.Param0, this.Param1, this.Param2);
-
-            if (text.IsSet() && text.EndsWith(":"))
-            {
-                text = text.Remove(text.Length - 1, 1);
-            }
+            output.Write("<strong>");
 
             // Write Title
-            output.Write(text);
+            output.Write(
+                this.GetText(this.LocalizedPage, this.LocalizedTag).FormatWith(
+                    this.Param0, this.Param1, this.Param2));
 
             // Append Suffix
             if (this.Suffix.IsSet())
@@ -146,14 +315,17 @@ namespace YAF.Controls
                 output.Write(this.Suffix);
             }
 
-            var tooltip = this.GetText(this.LocalizedPage, this.LocalizedHelpTag)
-                .FormatWith(this.ParamHelp0, this.ParamHelp1, this.ParamHelp2);
+            output.Write("</strong>");
+            output.Write("<br />");
 
-            tooltip = tooltip.IsSet() ? this.HtmlEncode(tooltip) : text;
+            output.Write("<em>");
 
+            // Write Help Text
             output.Write(
-                "&nbsp;<button type=\"button\" class=\"btn btn-primary btn-circle\" data-toggle=\"tooltip\" data-placement=\"right\" title=\"{0}\"><i class=\"fa fa-question\"></i></button>",
-                tooltip);
+                this.GetText(this.LocalizedPage, this.LocalizedHelpTag).FormatWith(
+                    this.ParamHelp0, this.ParamHelp1, this.ParamHelp2));
+
+            output.Write("</em>");
 
             output.EndRender();
         }

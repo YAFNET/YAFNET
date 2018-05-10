@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,30 +27,92 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Linq;
-    using System.Web;
     using System.Web.UI.WebControls;
-    using System.Xml.Linq;
 
+    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
+    using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utilities;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
     /// <summary>
-    /// The Admin bbcode Page.
+    /// The bbcode.
     /// </summary>
     public partial class bbcode : AdminPage
     {
         #region Methods
+
+        /// <summary>
+        /// The delete_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            ((ThemeButton)sender).Attributes["onclick"] =
+                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_BBCODE", "CONFIRM_DELETE"));
+        }
+
+        /// <summary>
+        /// Add Localized Text to Button
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void addLoad(object sender, EventArgs e)
+        {
+            var add = (Button)sender;
+            add.Text = this.GetText("ADMIN_BBCODE", "ADD");
+        }
+
+        /// <summary>
+        /// Add Localized Text to Button
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void exportLoad(object sender, EventArgs e)
+        {
+            var export = (Button)sender;
+            export.Text = this.GetText("ADMIN_BBCODE", "EXPORT");
+        }
+
+        /// <summary>
+        /// Add Localized Text to Button
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void importLoad(object sender, EventArgs e)
+        {
+            var import = (Button)sender;
+            import.Text = this.GetText("ADMIN_BBCODE", "IMPORT");
+        }
 
         /// <summary>
         /// The get selected bb code i ds.
@@ -59,7 +121,7 @@ namespace YAF.Pages.Admin
         /// The Id of the BB Code
         /// </returns>
         [NotNull]
-        protected List<int> GetSelectedBbCodeIDs()
+        protected List<int> GetSelectedBBCodeIDs()
         {
             // get checked items....
             return (from RepeaterItem item in this.bbCodeList.Items
@@ -70,10 +132,14 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Handles the Load event of the Page control.
+        /// The page_ load.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -81,29 +147,27 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
             this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE", "TITLE"), string.Empty);
 
             this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_BBCODE", "TITLE"));
+                  this.GetText("ADMIN_ADMIN", "Administration"),
+                  this.GetText("ADMIN_BBCODE", "TITLE"));
+
+            this.BindData();
         }
 
         /// <summary>
-        /// Bbs the code list item command.
+        /// The bb code list_ item command.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        protected void BbCodeListItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void bbCodeList_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {
@@ -114,76 +178,54 @@ namespace YAF.Pages.Admin
                     YafBuildLink.Redirect(ForumPages.admin_bbcode_edit, "b={0}", e.CommandArgument);
                     break;
                 case "delete":
-                    this.GetRepository<BBCode>().DeleteById(e.CommandArgument.ToType<int>());
+                    this.GetRepository<BBCode>().DeleteByID(e.CommandArgument.ToType<int>());
                     this.Get<IDataCache>().Remove(Constants.Cache.CustomBBCode);
                     this.BindData();
                     break;
                 case "export":
                     {
-                        this.ExportList();
+                        List<int> bbCodeIds = this.GetSelectedBBCodeIDs();
+
+                        if (bbCodeIds.Count > 0)
+                        {
+                            // export this list as XML...
+                            DataTable dtBBCode = this.GetRepository<BBCode>().List();
+
+                            // remove all but required bbcodes...
+                            foreach (DataRow row in
+                                from DataRow row in dtBBCode.Rows
+                                let id = row["BBCodeID"].ToType<int>()
+                                where !bbCodeIds.Contains(id)
+                                select row)
+                            {
+                                // remove from this table...
+                                row.Delete();
+                            }
+
+                            // store delete changes...
+                            dtBBCode.AcceptChanges();
+
+                            // export...
+                            dtBBCode.DataSet.DataSetName = "YafBBCodeList";
+                            dtBBCode.TableName = "YafBBCode";
+                            dtBBCode.Columns.Remove("BBCodeID");
+                            dtBBCode.Columns.Remove("BoardID");
+
+                            this.Response.ContentType = "text/xml";
+                            this.Response.AppendHeader("Content-Disposition", "attachment; filename=YafBBCodeExport.xml");
+                            dtBBCode.DataSet.WriteXml(this.Response.OutputStream);
+                            this.Response.End();
+                        }
+                        else
+                        {
+                            this.PageContext.AddLoadMessage(this.GetText("ADMIN_BBCODE", "MSG_NOTHING_SELECTED"));
+                        }
                     }
 
                     break;
-            }
-        }
-
-        /// <summary>
-        /// Exports the selected list.
-        /// </summary>
-        private void ExportList()
-        {
-            var codeIDs = this.GetSelectedBbCodeIDs();
-
-            if (codeIDs.Count > 0)
-            {
-                this.Get<HttpResponseBase>().Clear();
-                this.Get<HttpResponseBase>().ClearContent();
-                this.Get<HttpResponseBase>().ClearHeaders();
-
-                this.Get<HttpResponseBase>().ContentType = "text/xml";
-                this.Get<HttpResponseBase>().AppendHeader(
-                    "content-disposition",
-                    "attachment; filename=BBCodeExport.xml");
-
-                // export this list as XML...
-                var list =
-                    this.GetRepository<BBCode>().GetByBoardId();
-
-                var selectedList = new List<BBCode>();
-
-                foreach (var id in codeIDs)
-                {
-                    var found = list.First(e => e.ID == id);
-
-                    selectedList.Add(found);
-                }
-
-                var element = new XElement(
-                    "YafBBCodeList",
-                    from bbCode in selectedList
-                    select new XElement(
-                        "YafBBCode",
-                        new XElement("Name", bbCode.Name),
-                        new XElement("Description", bbCode.Description),
-                        new XElement("OnClickJS", bbCode.OnClickJS),
-                        new XElement("DisplayJS", bbCode.DisplayJS),
-                        new XElement("EditJS", bbCode.EditJS),
-                        new XElement("DisplayCSS", bbCode.DisplayCSS),
-                        new XElement("SearchRegex", bbCode.SearchRegex),
-                        new XElement("ReplaceRegex", bbCode.ReplaceRegex),
-                        new XElement("Variables", bbCode.Variables),
-                        new XElement("UseModule", bbCode.UseModule),
-                        new XElement("ModuleClass", bbCode.ModuleClass),
-                        new XElement("ExecOrder", bbCode.ExecOrder)));
-
-                element.Save(this.Response.OutputStream);
-
-                this.Get<HttpResponseBase>().Flush();
-                this.Get<HttpResponseBase>().End();
-            }
-            else
-            {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_BBCODE", "MSG_NOTHING_SELECTED"));
+                case "import":
+                    YafBuildLink.Redirect(ForumPages.admin_bbcode_import);
+                    break;
             }
         }
 
@@ -192,7 +234,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.bbCodeList.DataSource = this.GetRepository<BBCode>().GetByBoardId();
+            this.bbCodeList.DataSource = this.GetRepository<BBCode>().List();
             this.DataBind();
         }
 

@@ -1,7 +1,7 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -41,7 +41,6 @@ namespace YAF.Classes.Data
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Handlers;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -77,7 +76,7 @@ namespace YAF.Classes.Data
         {
             try
             {
-                using (var dt = registry_list("versionname"))
+                using (DataTable dt = registry_list("versionname"))
                 {
                     if (dt.HasRows())
                     {
@@ -101,7 +100,7 @@ namespace YAF.Classes.Data
         {
             try
             {
-                using (var dt = registry_list("version"))
+                using (DataTable dt = registry_list("version"))
                 {
                     if (dt.HasRows())
                     {
@@ -1140,8 +1139,8 @@ namespace YAF.Classes.Data
                 cmd.Parameters.Add(paramImageNumber);
                 DbAccess.ExecuteNonQuery(cmd);
 
-                var albumNumber = paramAlbumNumber.Value == DBNull.Value ? 0 : Convert.ToInt32(paramAlbumNumber.Value);
-                var imageNumber = paramImageNumber.Value == DBNull.Value ? 0 : Convert.ToInt32(paramImageNumber.Value);
+                int albumNumber = paramAlbumNumber.Value == DBNull.Value ? 0 : Convert.ToInt32(paramAlbumNumber.Value);
+                int imageNumber = paramImageNumber.Value == DBNull.Value ? 0 : Convert.ToInt32(paramImageNumber.Value);
                 return new[] { albumNumber, imageNumber };
             }
         }
@@ -1552,6 +1551,22 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
+        /// The choice_delete.
+        /// </summary>
+        /// <param name="choiceID">
+        /// The choice id.
+        /// </param>
+        public static void choice_delete([NotNull] object choiceID)
+        {
+            using (var cmd = DbHelpers.GetCommand("choice_delete"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("ChoiceID", choiceID);
+                DbAccess.ExecuteNonQuery(cmd);
+            }
+        }
+
+        /// <summary>
         /// The choice_update.
         /// </summary>
         /// <param name="choiceID">
@@ -1733,7 +1748,7 @@ namespace YAF.Classes.Data
         /// </param>
         public static void db_recovery_mode([NotNull] MsSqlDbConnectionManager DBName, [NotNull] string dbRecoveryMode)
         {
-            var RecoveryMode = "ALTER DATABASE " + DBName.DBConnection.Database + " SET RECOVERY " + dbRecoveryMode;
+            string RecoveryMode = "ALTER DATABASE " + DBName.DBConnection.Database + " SET RECOVERY " + dbRecoveryMode;
             var RecoveryModeConn = new SqlConnection(Config.ConnectionString);
             var RecoveryModeCmd = new SqlCommand(RecoveryMode, RecoveryModeConn);
             RecoveryModeConn.Open();
@@ -1768,7 +1783,7 @@ namespace YAF.Classes.Data
                     var RecoveryModeConn = new SqlConnection(Config.ConnectionString);
                     RecoveryModeConn.Open();
 
-                    var RecoveryMode = "ALTER DATABASE " + connMan.DBConnection.Database + " SET RECOVERY " + dbRecoveryMode;
+                    string RecoveryMode = "ALTER DATABASE " + connMan.DBConnection.Database + " SET RECOVERY " + dbRecoveryMode;
                     var RecoveryModeCmd = new SqlCommand(RecoveryMode, RecoveryModeConn);
 
                     RecoveryModeCmd.ExecuteNonQuery();
@@ -1785,7 +1800,7 @@ namespace YAF.Classes.Data
             }
             catch (Exception error)
             {
-                var expressDb = string.Empty;
+                string expressDb = string.Empty;
                 if (error.Message.ToUpperInvariant().Contains("'SET'"))
                 {
                     expressDb = "MS SQL Server Express Editions are not supported by the application.";
@@ -2063,7 +2078,7 @@ namespace YAF.Classes.Data
         /// </param>
         public static void db_shrink([NotNull] MsSqlDbConnectionManager DBName)
         {
-            var ShrinkSql = "DBCC SHRINKDATABASE(N'" + DBName.DBConnection.Database + "')";
+            string ShrinkSql = "DBCC SHRINKDATABASE(N'" + DBName.DBConnection.Database + "')";
             var ShrinkConn = new SqlConnection(Config.ConnectionString);
             var ShrinkCmd = new SqlCommand(ShrinkSql, ShrinkConn);
             ShrinkConn.Open();
@@ -2092,7 +2107,7 @@ namespace YAF.Classes.Data
                 {
                     conn.InfoMessage += new YafDBConnInfoMessageEventHandler(dbShink_InfoMessage);
                     conn.DBConnection.FireInfoMessageEventOnUserErrors = true;
-                    var ShrinkSql = "DBCC SHRINKDATABASE(N'" + conn.DBConnection.Database + "')";
+                    string ShrinkSql = "DBCC SHRINKDATABASE(N'" + conn.DBConnection.Database + "')";
                     var ShrinkConn = new SqlConnection(Config.ConnectionString);
                     var ShrinkCmd = new SqlCommand(ShrinkSql, ShrinkConn);
                     ShrinkConn.Open();
@@ -2171,7 +2186,7 @@ namespace YAF.Classes.Data
                             da.SelectCommand.CommandText = DbHelpers.GetObjectName("forum_list");
                             da.Fill(ds, DbHelpers.GetObjectName("ForumUnsorted"));
 
-                            var dtForumListSorted = ds.Tables[DbHelpers.GetObjectName("ForumUnsorted")].Clone();
+                            DataTable dtForumListSorted = ds.Tables[DbHelpers.GetObjectName("ForumUnsorted")].Clone();
                             dtForumListSorted.TableName = DbHelpers.GetObjectName("Forum");
                             ds.Tables.Add(dtForumListSorted);
                             dtForumListSorted.Dispose();
@@ -2324,6 +2339,84 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
+        /// Delete a topic status.
+        /// </summary>
+        /// <param name="topicStatusID">The topic status ID.</param>
+        public static void TopicStatus_Delete([NotNull] object topicStatusID)
+        {
+            try
+            {
+                using (var cmd = DbHelpers.GetCommand("TopicStatus_Delete"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.AddParam("TopicStatusID", topicStatusID);
+                    DbAccess.ExecuteNonQuery(cmd);
+                }
+            }
+            catch
+            {
+                // Ignore any errors in this method
+            }
+        }
+
+        /// <summary>
+        /// Get a Topic Status by topicStatusID
+        /// </summary>
+        /// <param name="topicStatusID">The topic status ID.</param>
+        /// <returns></returns>
+        public static DataTable TopicStatus_Edit([NotNull] object topicStatusID)
+        {
+            using (var cmd = DbHelpers.GetCommand("TopicStatus_Edit"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("TopicStatusID", topicStatusID);
+                return DbAccess.GetData(cmd);
+            }
+        }
+
+        /// <summary>
+        /// List all Topics of the Current Board
+        /// </summary>
+        /// <param name="boardID">The board ID.</param>
+        /// <returns></returns>
+        public static DataTable TopicStatus_List([NotNull] object boardID)
+        {
+            using (var cmd = DbHelpers.GetCommand("TopicStatus_List"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("BoardID", boardID);
+                return DbAccess.GetData(cmd);
+            }
+        }
+
+        /// <summary>
+        /// Saves a topic status
+        /// </summary>
+        /// <param name="topicStatusID">The topic status ID.</param>
+        /// <param name="boardID">The board ID.</param>
+        /// <param name="topicStatusName">Name of the topic status.</param>
+        /// <param name="defaultDescription">The default description.</param>
+        public static void TopicStatus_Save([NotNull] object topicStatusID, [NotNull] object boardID, [NotNull] object topicStatusName, [NotNull] object defaultDescription)
+        {
+            try
+            {
+                using (var cmd = DbHelpers.GetCommand("TopicStatus_Save"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.AddParam("TopicStatusID", topicStatusID);
+                    cmd.AddParam("BoardId", boardID);
+                    cmd.AddParam("TopicStatusName", topicStatusName);
+                    cmd.AddParam("DefaultDescription", defaultDescription);
+                    DbAccess.ExecuteNonQuery(cmd);
+                }
+            }
+            catch
+            {
+                // Ignore any errors in this method
+            }
+        }
+
+        /// <summary>
         /// Deletes a forum
         /// </summary>
         /// <param name="forumID">
@@ -2346,7 +2439,7 @@ namespace YAF.Classes.Data
 
                 forum_deleteAttachments(forumID);
 
-                using (var cmd_new = DbHelpers.GetCommand("forum_delete"))
+                using (SqlCommand cmd_new = DbHelpers.GetCommand("forum_delete"))
                 {
                     cmd_new.CommandType = CommandType.StoredProcedure;
                     cmd_new.CommandTimeout = 99999;
@@ -2382,7 +2475,7 @@ namespace YAF.Classes.Data
                     return false;
                 }
 
-                using (var cmd_new = DbHelpers.GetCommand("forum_move"))
+                using (SqlCommand cmd_new = DbHelpers.GetCommand("forum_move"))
                 {
                     cmd_new.CommandType = CommandType.StoredProcedure;
                     cmd_new.CommandTimeout = 99999;
@@ -2426,6 +2519,25 @@ namespace YAF.Classes.Data
         // END ABOT CHANGE 16.04.04
         // ABOT NEW 16.04.04: This new function lists all moderated topic by the specified user
 
+
+        /// <summary>
+        /// Gets a max id of forums.
+        /// </summary>
+        /// <param name="boardID">
+        /// boardID
+        /// </param>
+        /// <returns>
+        /// DataTable with list of topics from a forum
+        /// </returns>
+        public static int forum_maxid([NotNull] object boardID)
+        {
+            using (var cmd = DbHelpers.GetCommand("forum_maxid"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("BoardID", boardID);
+                return Convert.ToInt32(DbAccess.ExecuteScalar(cmd));
+            }
+        }
 
         /// <summary>
         /// Listes all forums accessible to a user
@@ -2534,9 +2646,9 @@ namespace YAF.Classes.Data
                 cmd.AddParam("BoardID", boardID);
                 cmd.AddParam("CategoryID", categoryID);
 
-                var intCategoryID = Convert.ToInt32(categoryID.ToString());
+                int intCategoryID = Convert.ToInt32(categoryID.ToString());
 
-                using (var dt = DbAccess.GetData(cmd))
+                using (DataTable dt = DbAccess.GetData(cmd))
                 {
                     return forum_sort_list(dt, 0, intCategoryID, 0, null, emptyFirstRow);
                 }
@@ -2572,19 +2684,19 @@ namespace YAF.Classes.Data
                 cmd.AddParam("NotIncluded", notincluded);
                 cmd.AddParam("ImmediateOnly", immediateonly);
 
-                var dt = DbAccess.GetData(cmd);
-                var sorted = dt.Clone();
-                var forumRow = false;
+                DataTable dt = DbAccess.GetData(cmd);
+                DataTable sorted = dt.Clone();
+                bool forumRow = false;
                 foreach (DataRow row in dt.Rows)
                 {
-                    var newRow = sorted.NewRow();
+                    DataRow newRow = sorted.NewRow();
                     newRow.ItemArray = row.ItemArray;
                     newRow = row;
 
-                    var currentIndent = (int)row["Level"];
-                    var sIndent = "";
+                    int currentIndent = (int)row["Level"];
+                    string sIndent = "";
 
-                    for (var j = 0; j < currentIndent; j++)
+                    for (int j = 0; j < currentIndent; j++)
                         sIndent += "--";
                     if (currentIndent == 1 && !forumRow)
                     {
@@ -2619,21 +2731,21 @@ namespace YAF.Classes.Data
                 cmd.AddParam("NotIncluded", notincluded);
                 cmd.AddParam("ImmediateOnly", immediateonly);
 
-                var dt = DbAccess.GetData(cmd);
-                var sorted = dt.Clone();
-                var categoryId = 0;
+                DataTable dt = DbAccess.GetData(cmd);
+                DataTable sorted = dt.Clone();
+                int categoryId = 0;
                 foreach (DataRow row in dt.Rows)
                 {
-                    var newRow = sorted.NewRow();
+                    DataRow newRow = sorted.NewRow();
                     newRow.ItemArray = row.ItemArray;
 
-                    var currentIndent = (int)row["Level"];
-                    var sIndent = "";
+                    int currentIndent = (int)row["Level"];
+                    string sIndent = "";
 
 
                     if (currentIndent >= 2)
                     {
-                        for (var j = 0; j < currentIndent - 1; j++)
+                        for (int j = 0; j < currentIndent - 1; j++)
                         {
                             sIndent += "-";
                             if (currentIndent > 2)
@@ -2645,7 +2757,7 @@ namespace YAF.Classes.Data
 
                     if ((int)row["CategoryID"] != categoryId)
                     {
-                        var cRow = sorted.NewRow();
+                        DataRow cRow = sorted.NewRow();
                         // we add a category
                         cRow["ForumID"] = -(int)row["CategoryID"];
                         cRow["Title"] = string.Format(" {0}", row["CategoryName"]);
@@ -2706,10 +2818,10 @@ namespace YAF.Classes.Data
         [NotNull]
         public static DataTable forum_listall_sorted([NotNull] object boardID, [NotNull] object userID, [NotNull] int[] forumidExclusions, bool emptyFirstRow, int startAt)
         {
-            using (var dataTable = forum_listall(boardID, userID, startAt))
+            using (DataTable dataTable = forum_listall(boardID, userID, startAt))
             {
-                var baseForumId = 0;
-                var baseCategoryId = 0;
+                int baseForumId = 0;
+                int baseCategoryId = 0;
 
                 if (startAt != 0)
                 {
@@ -2838,7 +2950,7 @@ namespace YAF.Classes.Data
                 {
                     using (var da = new SqlDataAdapter(DbHelpers.GetObjectName("category_list"), connMan.OpenDBConnection))
                     {
-                        using (var trans = da.SelectCommand.Connection.BeginTransaction())
+                        using (SqlTransaction trans = da.SelectCommand.Connection.BeginTransaction())
                         {
                             da.SelectCommand.Transaction = trans;
                             da.SelectCommand.AddParam("BoardID", boardID);
@@ -2847,7 +2959,7 @@ namespace YAF.Classes.Data
                             da.SelectCommand.CommandText = DbHelpers.GetObjectName("forum_moderatelist");
                             da.SelectCommand.AddParam("UserID", userID);
                             da.Fill(ds, DbHelpers.GetObjectName("ForumUnsorted"));
-                            var dtForumListSorted = ds.Tables[DbHelpers.GetObjectName("ForumUnsorted")].Clone();
+                            DataTable dtForumListSorted = ds.Tables[DbHelpers.GetObjectName("ForumUnsorted")].Clone();
                             dtForumListSorted.TableName = DbHelpers.GetObjectName("Forum");
                             ds.Tables.Add(dtForumListSorted);
                             dtForumListSorted.Dispose();
@@ -2861,7 +2973,7 @@ namespace YAF.Classes.Data
                             // vzrus: Remove here all forums with no reports. Would be better to do it in query...
                             // Array to write categories numbers
                             var categories = new int[ds.Tables[DbHelpers.GetObjectName("Forum")].Rows.Count];
-                            var cntr = 0;
+                            int cntr = 0;
 
                             // We should make it before too as the colection was changed
                             ds.Tables[DbHelpers.GetObjectName("Forum")].AcceptChanges();
@@ -2880,7 +2992,7 @@ namespace YAF.Classes.Data
                             ds.Tables[DbHelpers.GetObjectName("Forum")].AcceptChanges();
 
                             foreach (
-                                var dr in from DataRow dr in ds.Tables[DbHelpers.GetObjectName("Category")].Rows
+                                DataRow dr in from DataRow dr in ds.Tables[DbHelpers.GetObjectName("Category")].Rows
                                               let dr1 = dr
                                               where
                                                   !categories.Where(
@@ -3151,7 +3263,7 @@ namespace YAF.Classes.Data
                 using (var connMan = new MsSqlDbConnectionManager())
                 {
                     // just attempt to open the connection to test if a DB is available.
-                    var getConn = connMan.OpenDBConnection;
+                    SqlConnection getConn = connMan.OpenDBConnection;
                 }
             }
             catch (SqlException ex)
@@ -3197,7 +3309,7 @@ namespace YAF.Classes.Data
 
             try
             {
-                var registry = registry_list("Version");
+                DataTable registry = registry_list("Version");
 
                 if ((registry.Rows.Count == 0) || (registry.Rows[0]["Value"].ToType<int>() < appVersion))
                 {
@@ -3527,6 +3639,45 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
+        /// The message_ thanks number.
+        /// </summary>
+        /// <param name="messageID">
+        /// The message id.
+        /// </param>
+        /// <returns>
+        /// The message_ thanks number.
+        /// </returns>
+        public static int message_ThanksNumber([NotNull] object messageID)
+        {
+            using (var cmd = DbHelpers.GetCommand("message_thanksnumber"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                var paramOutput = new SqlParameter();
+                paramOutput.Direction = ParameterDirection.ReturnValue;
+                cmd.AddParam("MessageID", messageID);
+                cmd.Parameters.Add(paramOutput);
+                DbAccess.ExecuteNonQuery(cmd);
+                return Convert.ToInt32(paramOutput.Value);
+            }
+        }
+
+        /// <summary>
+        /// Set flag on message to approved and store in DB
+        /// </summary>
+        /// <param name="messageID">
+        /// The message id.
+        /// </param>
+        public static void message_approve([NotNull] object messageID)
+        {
+            using (var cmd = DbHelpers.GetCommand("message_approve"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("MessageID", messageID);
+                DbAccess.ExecuteNonQuery(cmd);
+            }
+        }
+
+        /// <summary>
         /// The message_delete.
         /// </summary>
         /// <param name="messageID">
@@ -3614,6 +3765,25 @@ namespace YAF.Classes.Data
                 cmd.AddParam("LastRead", lastRead);
                 cmd.AddParam("ShowDeleted", showDeleted);
                 cmd.AddParam("AuthorUserID", authorUserID);
+                return DbAccess.GetData(cmd);
+            }
+        }
+
+        /// <summary>
+        /// gets list of replies to message
+        /// </summary>
+        /// <param name="messageID">
+        /// The message id.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        [NotNull]
+        public static DataTable message_getRepliesList([NotNull] object messageID)
+        {
+            using (var cmd = DbHelpers.GetCommand("message_reply_list"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("MessageID", messageID);
                 return DbAccess.GetData(cmd);
             }
         }
@@ -3727,7 +3897,7 @@ namespace YAF.Classes.Data
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.AddParam("MessageID", messageID);
-                    var tbReplies = DbAccess.GetData(cmd);
+                    DataTable tbReplies = DbAccess.GetData(cmd);
                     foreach (DataRow row in tbReplies.Rows)
                     {
                         message_moveRecursively(row["MessageID"], moveToTopic);
@@ -4430,7 +4600,7 @@ namespace YAF.Classes.Data
         public static DataRow pageload([NotNull] object sessionID, [NotNull] object boardID,
                                        [NotNull] object userKey, [NotNull] object ip, [NotNull] object location, [NotNull] object forumPage, [NotNull] object browser, [NotNull] object platform, [NotNull] object categoryID, [NotNull] object forumID, [NotNull] object topicID, [NotNull] object messageID, [NotNull] object isCrawler, [NotNull] object isMobileDevice, [NotNull] object donttrack)
         {
-            var nTries = 0;
+            int nTries = 0;
             while (true)
             {
                 try
@@ -4455,7 +4625,7 @@ namespace YAF.Classes.Data
                         cmd.AddParam("DontTrack", donttrack);
                         cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 
-                        using (var dt = DbAccess.GetData(cmd))
+                        using (DataTable dt = DbAccess.GetData(cmd))
                         {
                             return dt.HasRows() ? dt.Rows[0] : null;
                         }
@@ -4486,7 +4656,7 @@ namespace YAF.Classes.Data
         /// </param>
         public static void pmessage_archive([NotNull] object userPMessageID)
         {
-            using (var sqlCommand = DbHelpers.GetCommand("pmessage_archive"))
+            using (SqlCommand sqlCommand = DbHelpers.GetCommand("pmessage_archive"))
             {
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlCommand.AddParam("UserPMessageID", userPMessageID);
@@ -4685,7 +4855,7 @@ namespace YAF.Classes.Data
         /// </returns>
         public static int? poll_save([NotNull] List<PollSaveList> pollList)
         {
-            foreach (var question in pollList)
+            foreach (PollSaveList question in pollList)
             {
                 var sb = new StringBuilder();
 
@@ -4814,7 +4984,7 @@ namespace YAF.Classes.Data
                     }
 
                     // set poll group flags
-                    var groupFlags = 0;
+                    int groupFlags = 0;
                     if (question.IsBound)
                     {
                         groupFlags = groupFlags | 2;
@@ -4829,7 +4999,7 @@ namespace YAF.Classes.Data
                       "@QuestionMimeType",
                       string.IsNullOrEmpty(question.QuestionMimeType) ? String.Empty : question.QuestionMimeType);
 
-                    var pollFlags = question.IsClosedBound ? 0 | 4 : 0;
+                    int pollFlags = question.IsClosedBound ? 0 | 4 : 0;
                     pollFlags = question.AllowMultipleChoices ? pollFlags | 8 : pollFlags;
                     pollFlags = question.ShowVoters ? pollFlags | 16 : pollFlags;
                     pollFlags = question.AllowSkipVote ? pollFlags | 32 : pollFlags;
@@ -5281,6 +5451,22 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
+        /// The rank_delete.
+        /// </summary>
+        /// <param name="rankID">
+        /// The rank id.
+        /// </param>
+        public static void rank_delete([NotNull] object rankID)
+        {
+            using (var cmd = DbHelpers.GetCommand("rank_delete"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("RankID", rankID);
+                DbAccess.ExecuteNonQuery(cmd);
+            }
+        }
+
+        /// <summary>
         /// The rank_list.
         /// </summary>
         /// <param name="boardID">
@@ -5639,7 +5825,7 @@ namespace YAF.Classes.Data
         /// </summary>
         public static void system_deleteinstallobjects()
         {
-            var tSQL = "DROP PROCEDURE" + DbHelpers.GetObjectName("system_initialize");
+            string tSQL = "DROP PROCEDURE" + DbHelpers.GetObjectName("system_initialize");
             using (var cmd = DbHelpers.GetCommand(tSQL, true))
             {
                 cmd.CommandType = CommandType.Text;
@@ -5710,7 +5896,7 @@ namespace YAF.Classes.Data
                 // use transactions...
                 if (useTransactions)
                 {
-                    using (var trans = connMan.OpenDBConnection.BeginTransaction())
+                    using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction())
                     {
                         foreach (var sql in statements.Select(sql0 => sql0.Trim()))
                         {
@@ -5793,7 +5979,7 @@ namespace YAF.Classes.Data
         {
             using (var connMan = new MsSqlDbConnectionManager())
             {
-                using (var trans = connMan.OpenDBConnection.BeginTransaction())
+                using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction())
                 {
                     // REVIEW : Ederon - would "{databaseOwner}.{objectQualifier}" work, might need only "{objectQualifier}"
                     using (
@@ -5816,13 +6002,13 @@ namespace YAF.Classes.Data
                                 if (grant)
                                 {
                                     cmd.CommandType = CommandType.Text;
-                                    foreach (var row in dt.Select("IsProcedure=1 or IsScalarFunction=1"))
+                                    foreach (DataRow row in dt.Select("IsProcedure=1 or IsScalarFunction=1"))
                                     {
                                         cmd.CommandText = "grant execute on \"{0}\" to \"{1}\"".FormatWith(row["Name"], userName);
                                         cmd.ExecuteNonQuery();
                                     }
 
-                                    foreach (var row in dt.Select("IsUserTable=1 or IsView=1"))
+                                    foreach (DataRow row in dt.Select("IsUserTable=1 or IsView=1"))
                                     {
                                         cmd.CommandText = "grant select,update on \"{0}\" to \"{1}\"".FormatWith(row["Name"], userName);
                                         cmd.ExecuteNonQuery();
@@ -5832,7 +6018,7 @@ namespace YAF.Classes.Data
                                 {
                                     cmd.CommandText = "sp_changeobjectowner";
                                     cmd.CommandType = CommandType.StoredProcedure;
-                                    foreach (var row in dt.Select("IsUserTable=1"))
+                                    foreach (DataRow row in dt.Select("IsUserTable=1"))
                                     {
                                         cmd.Parameters.Clear();
                                         cmd.AddParam("@objname", row["Name"]);
@@ -5846,7 +6032,7 @@ namespace YAF.Classes.Data
                                         }
                                     }
 
-                                    foreach (var row in dt.Select("IsView=1"))
+                                    foreach (DataRow row in dt.Select("IsView=1"))
                                     {
                                         cmd.Parameters.Clear();
                                         cmd.AddParam("@objname", row["Name"]);
@@ -6159,7 +6345,7 @@ namespace YAF.Classes.Data
                 cmd.AddParam("ForumID", forumId);
                 cmd.AddParam("Subject", newTopicSubj);
                 cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
-                var dt = DbAccess.GetData(cmd);
+                DataTable dt = DbAccess.GetData(cmd);
                 return long.Parse(dt.Rows[0]["TopicID"].ToString());
             }
         }
@@ -6271,7 +6457,7 @@ namespace YAF.Classes.Data
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.AddParam("TopicID", topicID);
-                using (var dt = DbAccess.GetData(cmd))
+                using (DataTable dt = DbAccess.GetData(cmd))
                 {
                     return dt.HasRows() ? dt.Rows[0] : null;
                 }
@@ -6623,7 +6809,7 @@ namespace YAF.Classes.Data
                 cmd.AddParam("Flags", flags);
                 cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
 
-                var dt = DbAccess.GetData(cmd);
+                DataTable dt = DbAccess.GetData(cmd);
                 messageID = long.Parse(dt.Rows[0]["MessageID"].ToString());
                 return long.Parse(dt.Rows[0]["TopicID"].ToString());
             }
@@ -6645,6 +6831,31 @@ namespace YAF.Classes.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.AddParam("StartID", StartID);
                 cmd.AddParam("Limit", Limit);
+                return DbAccess.GetData(cmd);
+            }
+        }
+
+        /// <summary>
+        /// Gets the List of Similar topics
+        /// </summary>
+        /// <param name="userID">The user identifier.</param>
+        /// <param name="topicTitle">The topic title.</param>
+        /// <param name="topicID">The topic identifier.</param>
+        /// <param name="count">The count.</param>
+        /// <param name="styledNicks">if set to <c>true</c> [styled nicks].</param>
+        /// <returns>Returns the List of Similar topics</returns>
+        public static DataTable topic_similarlist(int userID, string topicTitle, int topicID, int count, bool styledNicks)
+        {
+            using (var cmd = DbHelpers.GetCommand("topic_similarlist"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.AddParam("PageUserID", userID);
+                cmd.AddParam("Topic", topicTitle);
+                cmd.AddParam("TopicID", topicID);
+                cmd.AddParam("Count", count);
+                cmd.AddParam("StyledNicks", styledNicks);
+
                 return DbAccess.GetData(cmd);
             }
         }
@@ -7014,6 +7225,24 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
+        /// The user_avatarimage.
+        /// </summary>
+        /// <param name="userID">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static DataTable user_avatarimage([NotNull] object userID)
+        {
+            using (var cmd = DbHelpers.GetCommand("user_avatarimage"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("UserID", userID);
+                return DbAccess.GetData(cmd);
+            }
+        }
+
+        /// <summary>
         /// The user_changepassword.
         /// </summary>
         /// <param name="userID">
@@ -7164,6 +7393,45 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
+        /// The user_getpoints.
+        /// </summary>
+        /// <param name="userID">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// The user_getpoints.
+        /// </returns>
+        public static int user_getpoints([NotNull] object userID)
+        {
+            using (var cmd = DbHelpers.GetCommand("user_getpoints"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("UserID", userID);
+                return (int)DbAccess.ExecuteScalar(cmd);
+            }
+        }
+
+        /// <summary>
+        /// The user_getsignature.
+        /// </summary>
+        /// <param name="userID">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// The user_getsignature.
+        /// </returns>
+        [NotNull]
+        public static string user_getsignature([NotNull] object userID)
+        {
+            using (var cmd = DbHelpers.GetCommand("user_getsignature"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("UserID", userID);
+                return DbAccess.ExecuteScalar(cmd).ToString();
+            }
+        }
+
+        /// <summary>
         /// Returns data about allowed signature tags and character limits
         /// </summary>
         /// <param name="userID">
@@ -7183,6 +7451,29 @@ namespace YAF.Classes.Data
                 cmd.AddParam("BoardID", boardID);
                 cmd.AddParam("UserID", userID);
                 return DbAccess.GetData(cmd);
+            }
+        }
+
+        /// <summary>
+        /// The user_getthanks_from.
+        /// </summary>
+        /// <param name="userID">
+        /// The user id.
+        /// </param>
+        /// <param name="pageUserId">
+        /// The page User Id.
+        /// </param>
+        /// <returns>
+        /// The user_getthanks_from.
+        /// </returns>
+        public static int user_getthanks_from([NotNull] object userID, [NotNull] object pageUserId)
+        {
+            using (var cmd = DbHelpers.GetCommand("user_getthanks_from"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("UserID", userID);
+                cmd.AddParam("PageUserID", pageUserId);
+                return (int)DbAccess.ExecuteScalar(cmd);
             }
         }
 
@@ -7252,6 +7543,25 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
+        /// The user_ignoredlist.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static DataTable user_ignoredlist([NotNull] object userId)
+        {
+            using (var cmd = DbHelpers.GetCommand("user_ignoredlist"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("UserId", userId);
+
+                return DbAccess.GetData(cmd);
+            }
+        }
+
+        /// <summary>
         /// The user_isuserignored.
         /// </summary>
         /// <param name="userId">
@@ -7316,7 +7626,7 @@ namespace YAF.Classes.Data
           bool showUserAlbums,
           bool styledNicks)
         {
-            var nTries = 0;
+            int nTries = 0;
             while (true)
             {
                 try
@@ -7471,7 +7781,7 @@ namespace YAF.Classes.Data
         /// </returns>
         public static DataTable User_ListProfilesByIdsList([NotNull] int boardID, [NotNull] int[] userIdsList, [CanBeNull] object useStyledNicks)
         {
-            var stIds = userIdsList.Aggregate(string.Empty, (current, userId) => current + (',' + userId)).Trim(',');
+            string stIds = userIdsList.Aggregate(string.Empty, (current, userId) => current + (',' + userId)).Trim(',');
             // Profile columns cannot yet exist when we first are gettinng data.
             try
             {
@@ -7969,6 +8279,26 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
+        /// The user_removeignoreduser.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="ignoredUserId">
+        /// The ignored user id.
+        /// </param>
+        public static void user_removeignoreduser([NotNull] object userId, [NotNull] object ignoredUserId)
+        {
+            using (var cmd = DbHelpers.GetCommand("user_removeignoreduser"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("UserId", userId);
+                cmd.AddParam("IgnoredUserId", ignoredUserId);
+                DbAccess.ExecuteNonQuery(cmd);
+            }
+        }
+
+        /// <summary>
         /// The user_save.
         /// </summary>
         /// <param name="userID">
@@ -8147,6 +8477,27 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
+        /// The user_savepassword.
+        /// </summary>
+        /// <param name="userID">
+        /// The user id.
+        /// </param>
+        /// <param name="password">
+        /// The password.
+        /// </param>
+        public static void user_savepassword([NotNull] object userID, [NotNull] object password)
+        {
+            using (var cmd = DbHelpers.GetCommand("user_savepassword"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("UserID", userID);
+                cmd.AddParam(
+                  "Password", FormsAuthentication.HashPasswordForStoringInConfigFile(password.ToString(), "md5"));
+                DbAccess.ExecuteNonQuery(cmd);
+            }
+        }
+
+        /// <summary>
         /// Update the single Sign on Status
         /// </summary>
         /// <param name="userID">The user ID.</param>
@@ -8182,6 +8533,26 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
+        /// The user_savesignature.
+        /// </summary>
+        /// <param name="userID">
+        /// The user id.
+        /// </param>
+        /// <param name="signature">
+        /// The signature.
+        /// </param>
+        public static void user_savesignature([NotNull] object userID, [NotNull] object signature)
+        {
+            using (var cmd = DbHelpers.GetCommand("user_savesignature"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("UserID", userID);
+                cmd.AddParam("Signature", signature);
+                DbAccess.ExecuteNonQuery(cmd);
+            }
+        }
+
+        /// <summary>
         /// The user_setinfo.
         /// </summary>
         /// <param name="boardID">
@@ -8203,6 +8574,26 @@ namespace YAF.Classes.Data
                 cmd.AddParam("Email", user.Email);
                 cmd.AddParam("BoardID", boardID);
                 cmd.AddParam("ProviderUserKey", user.ProviderUserKey);
+                DbAccess.ExecuteNonQuery(cmd);
+            }
+        }
+
+        /// <summary>
+        /// Set the User Reputation Points to a specific value
+        /// </summary>
+        /// <param name="userID">
+        /// The user id.
+        /// </param>
+        /// <param name="points">
+        /// The points.
+        /// </param>
+        public static void user_setpoints([NotNull] object userID, [NotNull] object points)
+        {
+            using (var cmd = DbHelpers.GetCommand("user_setpoints"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("UserID", userID);
+                cmd.AddParam("Points", points);
                 DbAccess.ExecuteNonQuery(cmd);
             }
         }
@@ -8270,7 +8661,27 @@ namespace YAF.Classes.Data
             }
         }
 
-        
+        /// <summary>
+        /// Suspends the User
+        /// </summary>
+        /// <param name="userID">The user id.</param>
+        /// <param name="suspend">The suspend.</param>
+        /// <param name="suspendReason">The suspend reason.</param>
+        /// <param name="suspendBy">The suspend by.</param>
+        public static void user_suspend([NotNull] object userID, [NotNull] object suspend = null, [NotNull] object suspendReason = null, [NotNull] int suspendBy = 0)
+        {
+            using (var cmd = DbHelpers.GetCommand("user_suspend"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.AddParam("UserID", userID);
+                cmd.AddParam("Suspend", suspend);
+                cmd.AddParam("SuspendReason", suspendReason);
+                cmd.AddParam("SuspendBy", suspendBy);
+
+                DbAccess.ExecuteNonQuery(cmd);
+            }
+        }
 
         /// <summary>
         /// Returns the posts which is thanked by the user + the posts which are posted by the user and
@@ -8292,6 +8703,26 @@ namespace YAF.Classes.Data
                 cmd.AddParam("UserID", UserID);
                 cmd.AddParam("PageUserID", pageUserID);
                 return DbAccess.GetData(cmd);
+            }
+        }
+
+        /// <summary>
+        /// The userforum_delete.
+        /// </summary>
+        /// <param name="userID">
+        /// The user id.
+        /// </param>
+        /// <param name="forumID">
+        /// The forum id.
+        /// </param>
+        public static void userforum_delete([NotNull] object userID, [NotNull] object forumID)
+        {
+            using (var cmd = DbHelpers.GetCommand("userforum_delete"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("UserID", userID);
+                cmd.AddParam("ForumID", forumID);
+                DbAccess.ExecuteNonQuery(cmd);
             }
         }
 
@@ -8384,6 +8815,24 @@ namespace YAF.Classes.Data
             }
         }
 
+        /// <summary>
+        /// Delete the Read Tracking
+        /// </summary>
+        /// <param name="userID">The user id</param>
+        /// <returns>Returns the Global Last Read DateTime</returns>
+        public static DateTime? User_LastRead([NotNull] object userID)
+        {
+            using (var cmd = DbHelpers.GetCommand("user_lastread"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("UserID", userID);
+
+                var tableLastRead = DbAccess.ExecuteScalar(cmd);
+
+                return tableLastRead.ToType<DateTime?>();
+            }
+        }
+
         #region ProfileMirror
 
         /// <summary>
@@ -8401,7 +8850,7 @@ namespace YAF.Classes.Data
             {
                 return;
             }
-            var itemsToSave = true;
+            bool itemsToSave = true;
             if (dirtyOnly)
             {
                 itemsToSave = collection.Cast<SettingsPropertyValue>().Any(pp => pp.IsDirty);
@@ -8415,7 +8864,7 @@ namespace YAF.Classes.Data
             }
 
             // load the data for the configuration
-            var spc = LoadFromPropertyValueCollection(collection);
+            List<SettingsPropertyColumn> spc = LoadFromPropertyValueCollection(collection);
 
             if (spc != null && spc.Count > 0)
             {
@@ -8440,7 +8889,7 @@ namespace YAF.Classes.Data
         /// </param>
         public static void SetProfileProperties([NotNull] int boardId, [NotNull] object appName, [NotNull] int userID, [NotNull] SettingsPropertyValueCollection values, [NotNull] List<SettingsPropertyColumn> settingsColumnsList, bool dirtyOnly)
         {
-            var userName = string.Empty;
+            string userName = string.Empty;
             var dtu =  LegacyDb.UserList(boardId, userID, true, null, null, true);
             foreach (var typedUserList in dtu)
             {
@@ -8457,8 +8906,8 @@ namespace YAF.Classes.Data
             {
                 using (var cmd = conn.CreateCommand())
                 {
-                    var table = DbHelpers.GetObjectName("UserProfile");
-                    var sqlCommand = new StringBuilder("IF EXISTS (SELECT 1 FROM ").Append(table);
+                    string table = DbHelpers.GetObjectName("UserProfile");
+                    StringBuilder sqlCommand = new StringBuilder("IF EXISTS (SELECT 1 FROM ").Append(table);
                     sqlCommand.Append(" WHERE UserId = @UserID AND ApplicationName = @ApplicationName) ");
 
                     cmd.AddParam("UserID", userID);
@@ -8468,9 +8917,9 @@ namespace YAF.Classes.Data
                     var columnStr = new StringBuilder();
                     var valueStr = new StringBuilder();
                     var setStr = new StringBuilder();
-                    var count = 0;
+                    int count = 0;
 
-                    foreach (var column in settingsColumnsList)
+                    foreach (SettingsPropertyColumn column in settingsColumnsList)
                     {
                         // only write if it's dirty
                         if (!dirtyOnly || values[column.Settings.Name].IsDirty)
@@ -8478,7 +8927,7 @@ namespace YAF.Classes.Data
                             columnStr.Append(", ");
                             valueStr.Append(", ");
                             columnStr.Append(column.Settings.Name);
-                            var valueParam = "@Value" + count;
+                            string valueParam = "@Value" + count;
                             valueStr.Append(valueParam);
                             cmd.AddParam(valueParam, values[column.Settings.Name].PropertyValue);
 
@@ -8551,7 +9000,7 @@ namespace YAF.Classes.Data
         /// </returns>
         public static DataTable GetProfileStructure()
         {
-            var sql = @"SELECT TOP 1 * FROM {0}".FormatWith(DbHelpers.GetObjectName("UserProfile"));
+            string sql = @"SELECT TOP 1 * FROM {0}".FormatWith(DbHelpers.GetObjectName("UserProfile"));
 
             using (var cmd = DbHelpers.GetCommand(sql,true))
             {
@@ -8575,14 +9024,14 @@ namespace YAF.Classes.Data
         public static void AddProfileColumn([NotNull] string name, SqlDbType columnType, int size)
         {
             // get column type...
-            var type = columnType.ToString();
+            string type = columnType.ToString();
 
             if (size > 0)
             {
                 type += "(" + size + ")";
             }
 
-            var sql = "ALTER TABLE {0} ADD [{1}] {2} NULL".FormatWith(
+            string sql = "ALTER TABLE {0} ADD [{1}] {2} NULL".FormatWith(
               DbHelpers.GetObjectName("UserProfile"), name, type);
 
             using (var cmd = DbHelpers.GetCommand(sql, true))
@@ -8619,10 +9068,10 @@ namespace YAF.Classes.Data
             }
 
             // split the data
-            var chunk = providerData.Split(new[] { ';' });
+            string[] chunk = providerData.Split(new[] { ';' });
 
             // first item is the column name...
-            var columnName = chunk[0];
+            string columnName = chunk[0];
 
             // get the datatype and ignore case...
             dbType = (SqlDbType)Enum.Parse(typeof(SqlDbType), chunk[1], true);
@@ -8647,7 +9096,7 @@ namespace YAF.Classes.Data
         static List<SettingsPropertyColumn> LoadFromPropertyValueCollection(SettingsPropertyValueCollection collection)
         {
             // clear it out just in case something is still in there...
-            var settingsColumnsList = new List<SettingsPropertyColumn>();
+            List<SettingsPropertyColumn> settingsColumnsList = new List<SettingsPropertyColumn>();
 
             // validiate all the properties and populate the internal settings collection
             foreach (SettingsPropertyValue value in collection)
@@ -8676,11 +9125,11 @@ namespace YAF.Classes.Data
             }
 
             // sync profile table structure with the db...
-            var structure = GetProfileStructure();
+            DataTable structure = GetProfileStructure();
 
             // verify all the columns are there...
             foreach (
-                var column in
+                SettingsPropertyColumn column in
                     settingsColumnsList.Where(column => !structure.Columns.Contains(column.Settings.Name)))
             {
                 // if not, create it...
@@ -8707,7 +9156,7 @@ namespace YAF.Classes.Data
         /// </returns>
         private static bool GetBooleanRegistryValue([NotNull] string name)
         {
-            using (var dt = registry_list(name))
+            using (DataTable dt = registry_list(name))
             {
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -8748,7 +9197,7 @@ namespace YAF.Classes.Data
                     {
                         if (reader.HasRows)
                         {
-                            var rowIndex = 1;
+                            int rowIndex = 1;
                             var columnNames =
                               reader.GetSchemaTable().Rows.Cast<DataRow>().Select(r => r["ColumnName"].ToString()).ToList();
 
@@ -8833,7 +9282,7 @@ namespace YAF.Classes.Data
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.AddParam("ForumID", forumID);
-                using (var dt = DbAccess.GetData(cmd))
+                using (DataTable dt = DbAccess.GetData(cmd))
                 {
                     foreach (var row in dt.AsEnumerable().AsParallel())
                     {
@@ -8863,9 +9312,9 @@ namespace YAF.Classes.Data
         /// </param>
         private static void forum_list_sort_basic([NotNull] DataTable listsource, [NotNull] DataTable list, int parentid, int currentLvl)
         {
-            for (var i = 0; i < listsource.Rows.Count; i++)
+            for (int i = 0; i < listsource.Rows.Count; i++)
             {
-                var row = listsource.Rows[i];
+                DataRow row = listsource.Rows[i];
                 if (row["ParentID"] == DBNull.Value)
                 {
                     row["ParentID"] = 0;
@@ -8873,9 +9322,9 @@ namespace YAF.Classes.Data
 
                 if ((int)row["ParentID"] == parentid)
                 {
-                    var sIndent = string.Empty;
-                    var iIndent = Convert.ToInt32(currentLvl);
-                    for (var j = 0; j < iIndent; j++)
+                    string sIndent = string.Empty;
+                    int iIndent = Convert.ToInt32(currentLvl);
+                    for (int j = 0; j < iIndent; j++)
                     {
                         sIndent += "--";
                     }
@@ -8951,14 +9400,14 @@ namespace YAF.Classes.Data
 
             if (emptyFirstRow)
             {
-                var blankRow = listDestination.NewRow();
+                DataRow blankRow = listDestination.NewRow();
                 blankRow["ForumID"] = 0;
                 blankRow["Title"] = string.Empty;
                 listDestination.Rows.Add(blankRow);
             }
 
             // filter the forum list
-            var dv = listSource.DefaultView;
+            DataView dv = listSource.DefaultView;
 
             if (forumidExclusions != null && forumidExclusions.Length > 0)
             {
@@ -9013,9 +9462,9 @@ namespace YAF.Classes.Data
                         listDestination.Rows.Add(newRow);
                     }
 
-                    var sIndent = string.Empty;
+                    string sIndent = string.Empty;
 
-                    for (var j = 0; j < currentIndent; j++)
+                    for (int j = 0; j < currentIndent; j++)
                     {
                         sIndent += "--";
                     }
@@ -9098,7 +9547,7 @@ namespace YAF.Classes.Data
             bool isLinked,
             bool eraseMessages)
         {
-            var useFileTable = GetBooleanRegistryValue("UseFileTable");
+            bool useFileTable = GetBooleanRegistryValue("UseFileTable");
 
             if (deleteLinked)
             {
@@ -9107,7 +9556,7 @@ namespace YAF.Classes.Data
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.AddParam("MessageID", messageID);
-                    var tbReplies = DbAccess.GetData(cmd);
+                    DataTable tbReplies = DbAccess.GetData(cmd);
 
                     foreach (DataRow row in tbReplies.Rows)
                     {
@@ -9130,9 +9579,9 @@ namespace YAF.Classes.Data
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.AddParam("MessageID", messageID);
-                    var tbAttachments = DbAccess.GetData(cmd);
+                    DataTable tbAttachments = DbAccess.GetData(cmd);
 
-                    var uploadDir =
+                    string uploadDir =
                         HostingEnvironment.MapPath(
                             String.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
@@ -9140,7 +9589,7 @@ namespace YAF.Classes.Data
                     {
                         try
                         {
-                            var fileName = String.Format(
+                            string fileName = String.Format(
                                 "{0}/{1}.{2}.yafupload",
                                 uploadDir,
                                 messageID,
@@ -9197,20 +9646,20 @@ namespace YAF.Classes.Data
         /// </param>
         private static void message_moveRecursively([NotNull] object messageID, [NotNull] object moveToTopic)
         {
-            var UseFileTable = GetBooleanRegistryValue("UseFileTable");
+            bool UseFileTable = GetBooleanRegistryValue("UseFileTable");
 
             // Delete replies
             using (var cmd = DbHelpers.GetCommand("message_getReplies"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.AddParam("MessageID", messageID);
-                var tbReplies = DbAccess.GetData(cmd);
+                DataTable tbReplies = DbAccess.GetData(cmd);
                 foreach (DataRow row in tbReplies.Rows)
                 {
                     message_moveRecursively(row["messageID"], moveToTopic);
                 }
 
-                using (var innercmd = DbHelpers.GetCommand("message_move"))
+                using (SqlCommand innercmd = DbHelpers.GetCommand("message_move"))
                 {
                     innercmd.CommandType = CommandType.StoredProcedure;
                     innercmd.AddParam("MessageID", messageID);
@@ -9232,7 +9681,7 @@ namespace YAF.Classes.Data
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.AddParam("TopicID", topicID);
-                using (var dt = DbAccess.GetData(cmd))
+                using (DataTable dt = DbAccess.GetData(cmd))
                 {
                     foreach (DataRow row in dt.Rows)
                     {
@@ -9280,7 +9729,7 @@ namespace YAF.Classes.Data
                 listDestination.Columns.Add("AccessMaskId", typeof(Int32));
             }
 
-            var dv = listSource.DefaultView;
+            DataView dv = listSource.DefaultView;
             userforumaccess_sort_list_recursive(dv.ToTable(), listDestination, parentID, categoryID, startingIndent);
             return listDestination;
         }
@@ -9315,15 +9764,15 @@ namespace YAF.Classes.Data
 
                 if ((int)row["ParentID"] == parentID)
                 {
-                    var sIndent = string.Empty;
+                    string sIndent = string.Empty;
 
-                    for (var j = 0; j < currentIndent; j++)
+                    for (int j = 0; j < currentIndent; j++)
                     {
                         sIndent += "--";
                     }
 
                     // import the row into the destination
-                    var newRow = listDestination.NewRow();
+                    DataRow newRow = listDestination.NewRow();
 
                     newRow["ForumID"] = row["ForumID"];
                     newRow["ForumName"] = string.Format("{0} {1}", sIndent, row["ForumName"]);

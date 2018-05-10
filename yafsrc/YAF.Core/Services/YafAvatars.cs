@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -159,7 +159,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage, string email)
         {
-            var avatarUrl = string.Empty;
+            string avatarUrl = string.Empty;
 
             if (this._yafBoardSettings.AvatarUpload && hasAvatarImage)
             {
@@ -180,7 +180,7 @@ namespace YAF.Core.Services
                 // JoeOuts added 8/17/09 for Gravatar use
 
                 // string noAvatarGraphicUrl = HttpContext.Current.Server.UrlEncode( string.Format( "{0}/images/avatars/{1}", YafForumInfo.ForumBaseUrl, "NoAvatar.gif" ) );
-                var gravatarUrl =
+                string gravatarUrl =
                     @"http://www.gravatar.com/avatar/{0}.jpg?r={1}".FormatWith(
                         email.StringToHexBytes(), this._yafBoardSettings.GravatarRating);
 

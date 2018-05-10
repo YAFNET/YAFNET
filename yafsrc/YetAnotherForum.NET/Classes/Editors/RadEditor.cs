@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -64,12 +64,25 @@ namespace YAF.Editors
         ///   Gets Description.
         /// </summary>
         [NotNull]
-        public override string Description => "Telerik RAD Editor (HTML)";
+        public override string Description
+        {
+            get
+            {
+                return "Telerik RAD Editor (HTML)";
+            }
+        }
 
         /// <summary>
         ///   Gets ModuleId.
         /// </summary>
-        public override string ModuleId => "8";
+        public override string ModuleId
+        {
+            get
+            {
+                // backward compatibility...
+                return "8";
+            }
+        }
 
         /// <summary>
         ///   Gets or sets Text.
@@ -167,7 +180,21 @@ namespace YAF.Editors
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-           base.OnPreRender(e);
+            // Register smiley JavaScript
+            this.RegisterSmilieyScript();
+            base.OnPreRender(e);
+        }
+
+        /// <summary>
+        /// The register smiliey script.
+        /// </summary>
+        protected virtual void RegisterSmilieyScript()
+        {
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "InsertSmileyJs",
+                @"function insertsmiley(code,img){{var editor = $find('{0}'); editor.pasteHtml('<img src=""' + img + '"" alt="""" />');}}
+                  function insertAttachment(id,url){{var editor = $find('{0}'); editor.pasteHtml('[attach]' + id + '[/attach]');}}
+                  ".FormatWith(this._editor.ClientID));
         }
 
         #endregion

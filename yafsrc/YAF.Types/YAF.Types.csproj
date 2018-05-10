@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>YAF.Types</RootNamespace>
     <AssemblyName>YAF.Types</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -25,7 +25,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -78,8 +78,6 @@
     <Compile Include="Attributes\AssemblyModuleSortOrder.cs" />
     <Compile Include="Attributes\ExcludeAttribute.cs" />
     <Compile Include="Attributes\ExportServiceAttribute.cs" />
-    <Compile Include="Constants\ButtonAction.cs" />
-    <Compile Include="Constants\PmView.cs" />
     <Compile Include="Exceptions\BaseUrlMaskRequiredException.cs" />
     <Compile Include="Exceptions\CantLoadThemeException.cs" />
     <Compile Include="Exceptions\DbFunctionCancelledException.cs" />
@@ -93,7 +91,6 @@
     <Compile Include="Exceptions\YafTaskModuleNotRegisteredException.cs" />
     <Compile Include="Extensions\DataTableExtensions.cs" />
     <Compile Include="Interfaces\IAdd.cs" />
-    <Compile Include="Interfaces\ISearch.cs" />
     <Compile Include="Interfaces\IHaveSortOrder.cs" />
     <Compile Include="Constants\AuthService.cs" />
     <Compile Include="Constants\MessageTypes.cs" />
@@ -118,6 +115,8 @@
     <Compile Include="Interfaces\Data\IDbInformation.cs" />
     <Compile Include="Interfaces\Data\IDbSortableOperationExtensions.cs" />
     <Compile Include="Interfaces\Data\IHaveID.cs" />
+    <Compile Include="Interfaces\Data\ISearch.cs" />
+    <Compile Include="Interfaces\Data\ISearchContext.cs" />
     <Compile Include="Interfaces\IPagerExtensions.cs" />
     <Compile Include="Interfaces\IProfileQuery.cs" />
     <Compile Include="Interfaces\IRepositoryExtensions.cs" />
@@ -144,28 +143,6 @@
     <Compile Include="Interfaces\IStyleTransform.cs" />
     <Compile Include="Interfaces\LoggerExtensions.cs" />
     <Compile Include="Models\AccessMask.cs" />
-    <Compile Include="Models\vaccess.cs" />
-    <Compile Include="Models\ForumAccess.cs" />
-    <Compile Include="Models\UserMedal.cs" />
-    <Compile Include="Models\NntpTopic.cs" />
-    <Compile Include="Models\NntpForum.cs" />
-    <Compile Include="Models\NntpServer.cs" />
-    <Compile Include="Models\UserGroup.cs" />
-    <Compile Include="Models\GroupMedal.cs" />
-    <Compile Include="Models\UserPMessage.cs" />
-    <Compile Include="Models\ReputationVote.cs" />
-    <Compile Include="Models\UserProfile.cs" />
-    <Compile Include="Models\Poll.cs" />
-    <Compile Include="Models\PollGroupCluster.cs" />
-    <Compile Include="Models\PMessage.cs" />
-    <Compile Include="Models\MessageReportedAudit.cs" />
-    <Compile Include="Models\MessageReported.cs" />
-    <Compile Include="Models\MessageHistory.cs" />
-    <Compile Include="Models\PollVoteRefuse.cs" />
-    <Compile Include="Models\PollVote.cs" />
-    <Compile Include="Models\EventLogGroupAccess.cs" />
-    <Compile Include="Models\AdminPageUserAccess.cs" />
-    <Compile Include="Models\Choice.cs" />
     <Compile Include="Models\Active.cs" />
     <Compile Include="Models\ActiveAccess.cs" />
     <Compile Include="Models\Attachment.cs" />
@@ -186,31 +163,19 @@
     <Compile Include="Models\Mail.cs" />
     <Compile Include="Models\Medal.cs" />
     <Compile Include="Models\Message.cs" />
-    <Compile Include="Models\Rank.cs" />
     <Compile Include="Models\Replace_Words.cs" />
     <Compile Include="Models\SearchResult.cs" />
     <Compile Include="Models\ShoutboxMessage.cs" />
     <Compile Include="Models\Registry.cs" />
-    <Compile Include="Models\Thanks.cs" />
+    <Compile Include="Models\Smiley.cs" />
     <Compile Include="Models\Spam_Words.cs" />
-    <Compile Include="Models\Forum.cs" />
-    <Compile Include="Models\TopicStatus.cs" />
-    <Compile Include="Models\Topic.cs" />
     <Compile Include="Models\TopicReadTracking.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UserAlbumImage.cs" />
-    <Compile Include="Models\UserAlbum.cs" />
-    <Compile Include="Models\UserForum.cs" />
     <Compile Include="Models\WatchForum.cs" />
     <Compile Include="Models\WatchTopic.cs" />
-    <Compile Include="Objects\PageLink.cs" />
-    <Compile Include="Objects\AttachmentItem.cs" />
     <Compile Include="Objects\FacebookAccessToken.cs" />
     <Compile Include="Objects\FileUploadStatus.cs" />
     <Compile Include="Objects\ForumUserInfo.cs" />
-    <Compile Include="Objects\SearchGridDataSet.cs" />
-    <Compile Include="Objects\GridDataSet.cs" />
-    <Compile Include="Objects\SearchMessage.cs" />
     <Compile Include="Objects\MultiQuote.cs" />
     <Compile Include="Objects\SelectOptions.cs" />
     <Compile Include="Objects\SelectPagedOptions.cs" />
@@ -219,7 +184,6 @@
     <Compile Include="Objects\GoogleUser.cs" />
     <Compile Include="Objects\MessageNotification.cs" />
     <Compile Include="Objects\SettingsProfilePropertyColumn.cs" />
-    <Compile Include="Objects\TypedAllThanks.cs" />
     <Compile Include="ThemeResources.cs" />
     <Compile Include="CodeContracts.cs" />
     <Compile Include="Constants\CollapsiblePanelState.cs" />
@@ -227,6 +191,8 @@
     <Compile Include="Constants\DateTimeFormat.cs" />
     <Compile Include="Constants\EventLogTypes.cs" />
     <Compile Include="Constants\ForumPages.cs" />
+    <Compile Include="Constants\SearchFieldFlags.cs" />
+    <Compile Include="Constants\SearchWhatFlags.cs" />
     <Compile Include="Constants\UserNotificationSetting.cs" />
     <Compile Include="Constants\ViewPermissions.cs" />
     <Compile Include="Constants\YafRssFeeds.cs" />
@@ -336,6 +302,7 @@
     <Compile Include="Objects\SimpleModerator.cs" />
     <Compile Include="Objects\SimpleTopic.cs" />
     <Compile Include="Objects\TwitterUser.cs" />
+    <Compile Include="Objects\TypedAllThanks.cs" />
     <Compile Include="Objects\TypedForumListAll.cs" />
     <Compile Include="Objects\TypedMessageList.cs" />
     <Compile Include="Objects\TypedNntpForum.cs" />

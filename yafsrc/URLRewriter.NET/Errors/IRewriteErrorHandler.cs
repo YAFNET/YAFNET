@@ -1,15 +1,14 @@
-// UrlRewriter - A .NET URL Rewriter module
+/* UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
-// 
-
-using System;
-using System.Web;
+// Copyright 2007 Intelligencia
+// Copyright 2007 Seth Yates
+*/
 
 namespace Intelligencia.UrlRewriter
 {
+    using System.Web;
+
     /// <summary>
     /// Interface for rewriter error handlers.
     /// </summary>

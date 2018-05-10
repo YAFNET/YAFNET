@@ -1,42 +1,40 @@
-// Toggles
-//
-// Used in conjunction with global variables to enable certain theme features.
+// Mixins
+// --------------------------------------------------
 
 // Utilities
-@import "mixins/breakpoints";
-@import "mixins/hover";
+@import "mixins/hide-text";
+@import "mixins/opacity";
 @import "mixins/image";
-@import "mixins/badge";
+@import "mixins/labels";
+@import "mixins/reset-filter";
 @import "mixins/resize";
-@import "mixins/screen-reader";
+@import "mixins/responsive-visibility";
 @import "mixins/size";
+@import "mixins/tab-focus";
 @import "mixins/reset-text";
 @import "mixins/text-emphasis";
-@import "mixins/text-hide";
-@import "mixins/text-truncate";
-@import "mixins/visibility";
+@import "mixins/text-overflow";
+@import "mixins/vendor-prefixes";
 
-// // Components
-@import "mixins/alert";
+// Components
+@import "mixins/alerts";
 @import "mixins/buttons";
-@import "mixins/caret";
+@import "mixins/panels";
 @import "mixins/pagination";
-@import "mixins/lists";
 @import "mixins/list-group";
 @import "mixins/nav-divider";
 @import "mixins/forms";
+@import "mixins/progress-bar";
 @import "mixins/table-row";
 
-// // Skins
+// Skins
 @import "mixins/background-variant";
 @import "mixins/border-radius";
-@import "mixins/box-shadow";
 @import "mixins/gradients";
-@import "mixins/transition";
 
-// // Layout
+// Layout
 @import "mixins/clearfix";
-// @import "mixins/navbar-align";
+@import "mixins/center-block";
+@import "mixins/nav-vertical-align";
 @import "mixins/grid-framework";
 @import "mixins/grid";
-@import "mixins/float";

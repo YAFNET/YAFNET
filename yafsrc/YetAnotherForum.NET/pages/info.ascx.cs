@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -95,7 +95,7 @@ namespace YAF.Pages
             }
 
             // localize button label
-            this.Continue.TextLocalizedTag = "CONTINUE";
+            this.Continue.Text = this.GetText("continue");
 
             // get redirect URL from parameter
             if (this.Request.QueryString.GetFirstOrDefault("url") != null)
@@ -117,6 +117,7 @@ namespace YAF.Pages
                         break;
                     case InfoMessage.Suspended: // Suspended
                         this.Title.Text = this.GetText("title_suspended");
+
 
                         if (this.PageContext.SuspendedReason.IsSet())
                         {

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -42,7 +42,7 @@ namespace YAF.Data.MsSql
         /// <summary>
         /// The DB parameters
         /// </summary>
-        private readonly DbConnectionParam[] dbParameters =
+        protected DbConnectionParam[] _dbParameters =
             {
                 new DbConnectionParam(0, "Password", string.Empty),
                 new DbConnectionParam(1, "Data Source", "(local)"),
@@ -53,7 +53,7 @@ namespace YAF.Data.MsSql
         /// <summary>
         /// The azure script list
         /// </summary>
-        private static readonly string[] AzureScriptList =
+        private static readonly string[] _AzureScriptList =
             {
                 "mssql/install/azure/InstallCommon.sql",
                 "mssql/install/azure/InstallMembership.sql",
@@ -64,20 +64,20 @@ namespace YAF.Data.MsSql
         /// <summary>
         /// The install script list
         /// </summary>
-        private static readonly string[] InstallScriptList =
+        private static readonly string[] _InstallScriptList =
             {
                 "mssql/install/tables.sql", 
                 "mssql/install/indexes.sql", 
                 "mssql/install/views.sql",
                 "mssql/install/constraints.sql", 
                 "mssql/install/functions.sql", 
-                "mssql/install/procedures.sql",
+                "mssql/install/procedures.sql"
             };
 
         /// <summary>
         /// The upgrade script list
         /// </summary>
-        private static readonly string[] UpgradeScriptList =
+        private static readonly string[] _UpgradeScriptList =
             {
                 "mssql/upgrade/tables.sql", 
                 "mssql/upgrade/indexes.sql", 
@@ -91,7 +91,7 @@ namespace YAF.Data.MsSql
         /// <summary>
         /// The YAF Provider Install script list
         /// </summary>
-        private static readonly string[] YafProviderInstallScriptList =
+        private static readonly string[] _YAFProviderInstallScriptList =
             {
                 "mssql/install/providers/tables.sql",
                 "mssql/install/providers/indexes.sql", 
@@ -101,7 +101,7 @@ namespace YAF.Data.MsSql
         /// <summary>
         /// The YAF Provider Upgrade script list
         /// </summary>
-        private static readonly string[] YafProviderUpgradeScriptList =
+        private static readonly string[] _YAFProviderUpgradeScriptList =
             {
                 "mssql/upgrade/providers/tables.sql",
                 "mssql/upgrade/providers/indexes.sql", 
@@ -139,13 +139,24 @@ namespace YAF.Data.MsSql
         }
 
         /// <summary>
+        /// Gets Full Text Script.
+        /// </summary>
+        public string FullTextScript
+        {
+            get
+            {
+                return "mssql/install/fulltext.sql";
+            }
+        }
+
+        /// <summary>
         /// Gets the Azure Script List.
         /// </summary>
         public IEnumerable<string> AzureScripts
         {
             get
             {
-                return AzureScriptList;
+                return _AzureScriptList;
             }
         }
 
@@ -156,7 +167,7 @@ namespace YAF.Data.MsSql
         {
             get
             {
-                return InstallScriptList;
+                return _InstallScriptList;
             }
         }
 
@@ -167,7 +178,7 @@ namespace YAF.Data.MsSql
         {
             get
             {
-                return UpgradeScriptList;
+                return _UpgradeScriptList;
             }
         }
 
@@ -178,7 +189,7 @@ namespace YAF.Data.MsSql
         {
             get
             {
-                return YafProviderInstallScriptList;
+                return _YAFProviderInstallScriptList;
             }
         }
 
@@ -189,7 +200,7 @@ namespace YAF.Data.MsSql
         {
             get
             {
-                return YafProviderUpgradeScriptList;
+                return _YAFProviderUpgradeScriptList;
             }
         }
 
@@ -200,7 +211,7 @@ namespace YAF.Data.MsSql
         {
             get
             {
-                return this.dbParameters.OfType<IDbConnectionParam>().ToArray();
+                return this._dbParameters.OfType<IDbConnectionParam>().ToArray();
             }
         }
 

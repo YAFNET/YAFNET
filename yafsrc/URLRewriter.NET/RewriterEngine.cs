@@ -1,56 +1,45 @@
 // UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
+// Copyright 2007 Intelligencia
+// Copyright 2007 Seth Yates
 // 
-
-using System;
-using System.Configuration;
-using System.IO;
-using System.Net;
-using System.Threading;
-using System.Web;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using Intelligencia.UrlRewriter.Configuration;
-using Intelligencia.UrlRewriter.Utilities;
 
 namespace Intelligencia.UrlRewriter
 {
+    using System;
+    using System.Collections;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
+    using System.Text.RegularExpressions;
+    using System.Web;
+    using Intelligencia.UrlRewriter.Configuration;
+    using Intelligencia.UrlRewriter.Utilities;
+
     /// <summary>
     /// The core RewriterEngine class.
     /// </summary>
     public class RewriterEngine
     {
-        private const char EndChar = (char)65535; // The 'end' char for StringReader.Read() (i.e. -1 as a char).
-        private const int MaxRestarts = 10; // Controls the number of restarts so we don't get into an infinite loop
-
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="httpContext">The HTTP context facade.</param>
-        /// <param param name="configurationManager">The configuration manager facade.</param>
-        /// <param name="configuration">The URL rewriter configuration.</param>
-        public RewriterEngine(
-            IHttpContext httpContext,
-            IConfigurationManager configurationManager,
-            IRewriterConfiguration configuration)
+        /// <param name="contextFacade">The context facade to use.</param>
+        /// <param name="configuration">The configuration to use.</param>
+        public RewriterEngine(IContextFacade contextFacade, RewriterConfiguration configuration)
         {
-            if (httpContext == null)
+            if (contextFacade == null)
             {
-                throw new ArgumentNullException("httpContext");
-            }
-            if (configurationManager == null)
-            {
-                throw new ArgumentNullException("configurationManager");
+                throw new ArgumentNullException("contextFacade");
             }
             if (configuration == null)
             {
                 throw new ArgumentNullException("configuration");
             }
-            _httpContext = httpContext;
-            _configurationManager = configurationManager;
+
+            ContextFacade = contextFacade;
             _configuration = configuration;
         }
 
@@ -66,7 +55,8 @@ namespace Intelligencia.UrlRewriter
                 throw new ArgumentNullException("location");
             }
 
-            string appPath = _httpContext.ApplicationPath;
+            string appPath = ContextFacade.GetApplicationPath();
+
             if (appPath.Length > 1)
             {
                 appPath += "/";
@@ -80,13 +70,18 @@ namespace Intelligencia.UrlRewriter
         /// </summary>
         public void Rewrite()
         {
-            string originalUrl = _httpContext.RawUrl.Replace("+", " ");
+            string originalUrl = ContextFacade.GetRawUrl().Replace("+", " ");
             RawUrl = originalUrl;
 
-            _configuration.Logger.Debug(MessageProvider.FormatString(Message.StartedProcessing, originalUrl));
-
             // Create the context
-            IRewriteContext context = new RewriteContext(this, originalUrl, _httpContext, _configurationManager);
+            RewriteContext context = new RewriteContext(
+                this,
+                originalUrl,
+                ContextFacade.GetHttpMethod(),
+                ContextFacade.MapPath,
+                ContextFacade.GetServerVariables(),
+                ContextFacade.GetHeaders(),
+                ContextFacade.GetCookies());
 
             // Process each rule.
             ProcessRules(context);
@@ -98,39 +93,74 @@ namespace Intelligencia.UrlRewriter
             AppendCookies(context);
 
             // Rewrite the path if the location has changed.
-            _httpContext.SetStatusCode(context.StatusCode);
+            ContextFacade.SetStatusCode((int)context.StatusCode);
             if ((context.Location != originalUrl) && ((int)context.StatusCode < 400))
             {
                 if ((int)context.StatusCode < 300)
                 {
                     // Successful status if less than 300
-                    _configuration.Logger.Info(MessageProvider.FormatString(Message.RewritingXtoY, _httpContext.RawUrl, context.Location));
+                    _configuration.Logger.Info(
+                        MessageProvider.FormatString(Message.RewritingXtoY, ContextFacade.GetRawUrl(), context.Location));
 
-                    // To verify that the URL exists on this server:
-                    //  VerifyResultExists(context);
+                    // Verify that the url exists on this server.
+                    HandleDefaultDocument(context); // VerifyResultExists(context);
 
-                    // To ensure that directories are rewritten to their default document:
-                    //  HandleDefaultDocument(context);
+                    if (context.Location.Contains(@"&"))
+                    {
+                        var queryStringCollection = HttpUtility.ParseQueryString(new Uri(this.ContextFacade.GetRequestUrl(), context.Location).Query);
 
-                    _httpContext.RewritePath(context.Location);
+                        StringBuilder builder = new StringBuilder();
+                        foreach (var value in queryStringCollection.AllKeys.Distinct())
+                        {
+                            var argument = queryStringCollection.GetValues(value).FirstOrDefault();
+                            if (value == "g")
+                            {
+                                if (context.Location != argument)
+                                {
+                                    builder.AppendFormat(
+                                        "{0}={1}&",
+                                        value,
+                                        HttpUtility.UrlEncode(argument));
+                                }
+                            }
+                            else
+                            {
+                                builder.AppendFormat(
+                                   "{0}={1}&",
+                                   value,
+                                   HttpUtility.UrlEncode(argument));
+                            }
+                        }
+
+                        context.Location = context.Location.Remove(context.Location.IndexOf("?") + 1);
+                        context.Location = context.Location + builder;
+
+                        if (context.Location.EndsWith(@"&"))
+                        {
+                            context.Location = context.Location.Remove(context.Location.Length - 1);
+                        }
+                    }
+
+                    ContextFacade.RewritePath(context.Location);
                 }
                 else
                 {
                     // Redirection
-                    _configuration.Logger.Info(MessageProvider.FormatString(Message.RedirectingXtoY, _httpContext.RawUrl, context.Location));
+                    _configuration.Logger.Info(
+                        MessageProvider.FormatString(
+                            Message.RedirectingXtoY, ContextFacade.GetRawUrl(), context.Location));
 
-                    _httpContext.SetRedirectLocation(context.Location);
+                    ContextFacade.SetRedirectLocation(context.Location);
                 }
             }
             else if ((int)context.StatusCode >= 400)
             {
                 HandleError(context);
             }
-            // To ensure that directories are rewritten to their default document:
-            //  else if (HandleDefaultDocument(context))
-            //  {
-            //      _contextFacade.RewritePath(context.Location);
-            //  }
+            else if (HandleDefaultDocument(context))
+            {
+                ContextFacade.RewritePath(context.Location);
+            }
 
             // Sets the context items.
             SetContextItems(context);
@@ -142,7 +172,7 @@ namespace Intelligencia.UrlRewriter
         /// <param name="context">The current context</param>
         /// <param name="input">The input to expand.</param>
         /// <returns>The expanded input</returns>
-        public string Expand(IRewriteContext context, string input)
+        public string Expand(RewriteContext context, string input)
         {
             if (context == null)
             {
@@ -174,15 +204,15 @@ namespace Intelligencia.UrlRewriter
                 using (StringWriter writer = new StringWriter())
                 {
                     char ch = (char)reader.Read();
-                    while (ch != EndChar)
+                    while (ch != (char)65535)
                     {
-                        if (ch == '$')
+                        if ((char)ch == '$')
                         {
                             writer.Write(Reduce(context, reader));
                         }
                         else
                         {
-                            writer.Write(ch);
+                            writer.Write((char)ch);
                         }
 
                         ch = (char)reader.Read();
@@ -193,87 +223,92 @@ namespace Intelligencia.UrlRewriter
             }
         }
 
-        private void ProcessRules(IRewriteContext context)
+        private void ProcessRules(RewriteContext context)
         {
-            ProcessRules(context, _configuration.Rules, 0);
-        }
+            const int MaxRestart = 10; // Controls the number of restarts so we don't get into an infinite loop
 
-        private void ProcessRules(IRewriteContext context, IList<IRewriteAction> rewriteRules, int restarts)
-        {
-            foreach (IRewriteAction action in rewriteRules)
+            IList rewriteRules = _configuration.Rules;
+            int restarts = 0;
+            for (int i = 0; i < rewriteRules.Count; i++)
             {
                 // If the rule is conditional, ensure the conditions are met.
-                IRewriteCondition condition = action as IRewriteCondition;
+                IRewriteCondition condition = rewriteRules[i] as IRewriteCondition;
                 if (condition == null || condition.IsMatch(context))
                 {
                     // Execute the action.
+                    IRewriteAction action = rewriteRules[i] as IRewriteAction;
                     RewriteProcessing processing = action.Execute(context);
 
                     // If the action is Stop, then break out of the processing loop
                     if (processing == RewriteProcessing.StopProcessing)
                     {
                         _configuration.Logger.Debug(MessageProvider.FormatString(Message.StoppingBecauseOfRule));
-
-                        // Exit the loop.
                         break;
                     }
-
-                    // If the action is Restart, then start again.
-                    if (processing == RewriteProcessing.RestartProcessing)
+                    else if (processing == RewriteProcessing.RestartProcessing)
                     {
                         _configuration.Logger.Debug(MessageProvider.FormatString(Message.RestartingBecauseOfRule));
 
-                        // Increment the number of restarts and check that we have not exceeded our max.
-                        restarts++;
-                        if (restarts > MaxRestarts)
+                        // Restart from the first rule.
+                        i = 0;
+
+                        if (++restarts > MaxRestart)
                         {
                             throw new InvalidOperationException(MessageProvider.FormatString(Message.TooManyRestarts));
                         }
-
-                        // Restart again from the first rule by calling this method recursively.
-                        ProcessRules(context, rewriteRules, restarts);
-
-                        // Exit the loop.
-                        break;
                     }
                 }
             }
         }
 
-        private bool HandleDefaultDocument(IRewriteContext context)
+        /// <summary>
+        /// Handles the default document.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <returns></returns>
+        private bool HandleDefaultDocument(RewriteContext context)
         {
-            Uri uri = new Uri(_httpContext.RequestUrl, context.Location);
+            Uri uri = new Uri(this.ContextFacade.GetRequestUrl(), context.Location);
             UriBuilder b = new UriBuilder(uri);
             b.Path += "/";
             uri = b.Uri;
-            if (uri.Host == _httpContext.RequestUrl.Host)
+            if (uri.Host == this.ContextFacade.GetRequestUrl().Host)
             {
-                string filename = _httpContext.MapPath(uri.AbsolutePath);
-                if (Directory.Exists(filename))
+                try
                 {
-                    foreach (string document in _configuration.DefaultDocuments)
+                    string filename = this.ContextFacade.MapPath(uri.AbsolutePath);
+
+                    if (Directory.Exists(filename))
                     {
-                        string pathName = Path.Combine(filename, document);
-                        if (File.Exists(pathName))
+                        foreach (
+                            string document in from string document in RewriterConfiguration.Current.DefaultDocuments
+                                               let pathName = Path.Combine(filename, document)
+                                               where File.Exists(pathName)
+                                               select document)
                         {
                             context.Location = new Uri(uri, document).AbsolutePath;
                             return true;
                         }
                     }
                 }
+                catch (PathTooLongException)
+                {
+                    // ignore if path to long
+                    return false;
+                }
             }
 
             return false;
         }
 
-        private void VerifyResultExists(IRewriteContext context)
+        private void VerifyResultExists(RewriteContext context)
         {
-            if ((String.Compare(context.Location, _httpContext.RawUrl) != 0) && ((int)context.StatusCode < 300))
+            if ((String.Compare(context.Location, ContextFacade.GetRawUrl()) != 0) && ((int)context.StatusCode < 300))
             {
-                Uri uri = new Uri(_httpContext.RequestUrl, context.Location);
-                if (uri.Host == _httpContext.RequestUrl.Host)
+                Uri uri = new Uri(ContextFacade.GetRequestUrl(), context.Location);
+                if (uri.Host == ContextFacade.GetRequestUrl().Host)
                 {
-                    string filename = _httpContext.MapPath(uri.AbsolutePath);
+                    string filename = ContextFacade.MapPath(uri.AbsolutePath);
                     if (!File.Exists(filename))
                     {
                         _configuration.Logger.Debug(MessageProvider.FormatString(Message.ResultNotFound, filename));
@@ -287,81 +322,83 @@ namespace Intelligencia.UrlRewriter
             }
         }
 
-        private void HandleError(IRewriteContext context)
+        private void HandleError(RewriteContext context)
         {
             // Return the status code.
-            _httpContext.SetStatusCode(context.StatusCode);
+            ContextFacade.SetStatusCode((int)context.StatusCode);
 
             // Get the error handler if there is one.
-            if (!_configuration.ErrorHandlers.ContainsKey((int)context.StatusCode))
+            IRewriteErrorHandler handler = _configuration.ErrorHandlers[(int)context.StatusCode] as IRewriteErrorHandler;
+            if (handler != null)
             {
-                // No error handler for this status code?
-                // Just throw an HttpException with the appropriate status code.
+                try
+                {
+                    _configuration.Logger.Debug(MessageProvider.FormatString(Message.CallingErrorHandler));
+
+                    // Execute the error handler.
+                    ContextFacade.HandleError(handler);
+                }
+                catch (HttpException)
+                {
+                    throw;
+                }
+                catch (Exception exc)
+                {
+                    _configuration.Logger.Fatal(exc.Message, exc);
+                    throw new HttpException(
+                        (int)HttpStatusCode.InternalServerError, HttpStatusCode.InternalServerError.ToString());
+                }
+            }
+            else
+            {
                 throw new HttpException((int)context.StatusCode, context.StatusCode.ToString());
             }
+        }
 
-            IRewriteErrorHandler handler = _configuration.ErrorHandlers[(int) context.StatusCode];
-
-            try
+        private void AppendHeaders(RewriteContext context)
+        {
+            foreach (string headerKey in context.Headers)
             {
-                _configuration.Logger.Debug(MessageProvider.FormatString(Message.CallingErrorHandler));
-
-                // Execute the error handler.
-                _httpContext.HandleError(handler);
-            }
-            catch (HttpException)
-            {
-                // Any HTTP errors that result from executing the error page should be propogated.
-                throw;
-            }
-            catch (Exception exc)
-            {
-                // Any other error should result in a 500 Internal Server Error.
-                _configuration.Logger.Error(exc.Message, exc);
-
-                HttpStatusCode serverError = HttpStatusCode.InternalServerError;
-                throw new HttpException((int)serverError, serverError.ToString());
+                ContextFacade.AppendHeader(headerKey, context.Headers[headerKey]);
             }
         }
 
-        private void AppendHeaders(IRewriteContext context)
+        private void AppendCookies(RewriteContext context)
         {
-            foreach (string headerKey in context.ResponseHeaders)
+            for (int i = 0; i < context.Cookies.Count; i++)
             {
-                _httpContext.SetResponseHeader(headerKey, context.ResponseHeaders[headerKey]);
+                HttpCookie cookie = context.Cookies[i];
+                ContextFacade.AppendCookie(cookie);
             }
         }
 
-        private void AppendCookies(IRewriteContext context)
+        private void SetContextItems(RewriteContext context)
         {
-            for (int i = 0; i < context.ResponseCookies.Count; i++)
-            {
-                _httpContext.SetResponseCookie(context.ResponseCookies[i]);
-            }
-        }
+            this.OriginalQueryString =
+                new Uri(this.ContextFacade.GetRequestUrl(), this.ContextFacade.GetRawUrl()).Query.Replace("?", string.Empty);
 
-        private void SetContextItems(IRewriteContext context)
-        {
-            OriginalQueryString = new Uri(_httpContext.RequestUrl, _httpContext.RawUrl).Query.Replace("?", "");
-            QueryString = new Uri(_httpContext.RequestUrl, context.Location).Query.Replace("?", "");
+            this.QueryString = new Uri(this.ContextFacade.GetRequestUrl(), context.Location).Query.Replace("?", string.Empty);
 
             // Add in the properties as context items, so these will be accessible to the handler
-            foreach (string propertyKey in context.Properties.Keys)
+            foreach (string key in context.Properties.Keys)
             {
-                string itemsKey = String.Format("Rewriter.{0}", propertyKey);
-                string itemsValue = context.Properties[propertyKey];
-
-                _httpContext.Items[itemsKey] = itemsValue;
+                ContextFacade.SetItem(string.Format("Rewriter.{0}", key), context.Properties[key]);
             }
         }
 
         /// <summary>
-        /// The raw URL.
+        /// The raw url.
         /// </summary>
         public string RawUrl
         {
-            get { return (string)_httpContext.Items[ContextRawUrl]; }
-            set { _httpContext.Items[ContextRawUrl] = value; }
+            get
+            {
+                return (string)ContextFacade.GetItem(ContextRawUrl);
+            }
+            set
+            {
+                ContextFacade.SetItem(ContextRawUrl, value);
+            }
         }
 
         /// <summary>
@@ -369,8 +406,14 @@ namespace Intelligencia.UrlRewriter
         /// </summary>
         public string OriginalQueryString
         {
-            get { return (string) _httpContext.Items[ContextOriginalQueryString]; }
-            set { _httpContext.Items[ContextOriginalQueryString] = value; }
+            get
+            {
+                return (string)ContextFacade.GetItem(ContextOriginalQueryString);
+            }
+            set
+            {
+                ContextFacade.SetItem(ContextOriginalQueryString, value);
+            }
         }
 
         /// <summary>
@@ -378,18 +421,24 @@ namespace Intelligencia.UrlRewriter
         /// </summary>
         public string QueryString
         {
-            get { return (string)_httpContext.Items[ContextQueryString]; }
-            set { _httpContext.Items[ContextQueryString] = value; }
+            get
+            {
+                return (string)ContextFacade.GetItem(ContextQueryString);
+            }
+            set
+            {
+                ContextFacade.SetItem(ContextQueryString, value);
+            }
         }
 
-        private string Reduce(IRewriteContext context, StringReader reader)
+        private string Reduce(RewriteContext context, StringReader reader)
         {
             string result;
             char ch = (char)reader.Read();
-            if (Char.IsDigit(ch))
+            if (char.IsDigit(ch))
             {
                 string num = ch.ToString();
-                if (Char.IsDigit((char)reader.Peek()))
+                if (char.IsDigit((char)reader.Peek()))
                 {
                     ch = (char)reader.Read();
                     num += ch.ToString();
@@ -397,126 +446,126 @@ namespace Intelligencia.UrlRewriter
                 if (context.LastMatch != null)
                 {
                     Group group = context.LastMatch.Groups[Convert.ToInt32(num)];
-                    result = (group == null) ? String.Empty : group.Value;
+
+                    result = @group != null ? @group.Value : string.Empty;
                 }
                 else
                 {
-                    result = String.Empty;
-                }
-            }
-            else if (ch == '<')
-            {
-                string expr;
-
-                using (StringWriter writer = new StringWriter())
-                {
-                    ch = (char)reader.Read();
-                    while (ch != '>' && ch != EndChar)
-                    {
-                        if (ch == '$')
-                        {
-                            writer.Write(Reduce(context, reader));
-                        }
-                        else
-                        {
-                            writer.Write(ch);
-                        }
-                        ch = (char)reader.Read();
-                    }
-
-                    expr = writer.GetStringBuilder().ToString();
-                }
-
-                if (context.LastMatch != null)
-                {
-                    Group group = context.LastMatch.Groups[expr];
-                    result = (group == null) ? String.Empty : group.Value;
-                }
-                else
-                {
-                    result = String.Empty;
-                }
-            }
-            else if (ch == '{')
-            {
-                string expr;
-                bool isMap = false;
-                bool isFunction = false;
-
-                using (StringWriter writer = new StringWriter())
-                {
-                    ch = (char)reader.Read();
-                    while (ch != '}' && ch != EndChar)
-                    {
-                        if (ch == '$')
-                        {
-                            writer.Write(Reduce(context, reader));
-                        }
-                        else
-                        {
-                            if (ch == ':')
-                            {
-                                isMap = true;
-                            }
-                            else if (ch == '(')
-                            {
-                                isFunction = true;
-                            }
-                            writer.Write(ch);
-                        }
-                        ch = (char)reader.Read();
-                    }
-
-                    expr = writer.GetStringBuilder().ToString();
-                }
-
-                if (isMap)
-                {
-                    Match match = Regex.Match(expr, @"^([^\:]+)\:([^\|]+)(\|(.+))?$");
-                    string mapName = match.Groups[1].Value;
-                    string mapArgument = match.Groups[2].Value;
-                    string mapDefault = match.Groups[4].Value;
-
-                    IRewriteTransform tx = _configuration.TransformFactory.GetTransform(mapName);
-                    if (tx == null)
-                    {
-                        throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.MappingNotFound, mapName));
-                    }
-
-                    result = tx.ApplyTransform(mapArgument) ?? mapDefault;
-                }
-                else if (isFunction)
-                {
-                    Match match = Regex.Match(expr, @"^([^\(]+)\((.+)\)$");
-                    string functionName = match.Groups[1].Value;
-                    string functionArgument = match.Groups[2].Value;
-
-                    IRewriteTransform tx = _configuration.TransformFactory.GetTransform(functionName);
-                    if (tx == null)
-                    {
-                        throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.TransformFunctionNotFound, functionName));
-                    }
-
-                    result = tx.ApplyTransform(functionArgument);
-                }
-                else
-                {
-                    result = context.Properties[expr];
+                    result = string.Empty;
                 }
             }
             else
-            {
-                result = ch.ToString();
-            }
+                switch (ch)
+                {
+                    case '<':
+                        {
+                            string expr;
+
+                            using (StringWriter writer = new StringWriter())
+                            {
+                                ch = (char)reader.Read();
+                                while (ch != '>' && ch != (char)65535)
+                                {
+                                    if (ch == '$')
+                                    {
+                                        writer.Write(this.Reduce(context, reader));
+                                    }
+                                    else
+                                    {
+                                        writer.Write(ch);
+                                    }
+                                    ch = (char)reader.Read();
+                                }
+
+                                expr = writer.GetStringBuilder().ToString();
+                            }
+
+                            if (context.LastMatch != null)
+                            {
+                                Group group = context.LastMatch.Groups[expr];
+                                if (@group != null)
+                                {
+                                    result = @group.Value;
+                                }
+                                else
+                                {
+                                    result = string.Empty;
+                                }
+                            }
+                            else
+                            {
+                                result = string.Empty;
+                            }
+                        }
+                        break;
+                    case '{':
+                        {
+                            string expr;
+                            bool isMap = false;
+                            bool isFunction = false;
+
+                            using (StringWriter writer = new StringWriter())
+                            {
+                                ch = (char)reader.Read();
+                                while (ch != '}' && ch != (char)65535)
+                                {
+                                    if (ch == '$')
+                                    {
+                                        writer.Write(this.Reduce(context, reader));
+                                    }
+                                    else
+                                    {
+                                        if (ch == ':') isMap = true;
+                                        else if (ch == '(') isFunction = true;
+                                        writer.Write(ch);
+                                    }
+                                    ch = (char)reader.Read();
+                                }
+
+                                expr = writer.GetStringBuilder().ToString();
+                            }
+
+                            if (isMap)
+                            {
+                                Match match = Regex.Match(expr, @"^([^\:]+)\:([^\|]+)(\|(.+))?$");
+                                string mapName = match.Groups[1].Value;
+                                string mapArgument = match.Groups[2].Value;
+                                string mapDefault = match.Groups[4].Value;
+                                result =
+                                    this._configuration.TransformFactory.GetTransform(mapName).ApplyTransform(
+                                        mapArgument) ?? mapDefault;
+                            }
+                            else if (isFunction)
+                            {
+                                Match match = Regex.Match(expr, @"^([^\(]+)\((.+)\)$");
+                                string functionName = match.Groups[1].Value;
+                                string functionArgument = match.Groups[2].Value;
+                                IRewriteTransform tx = this._configuration.TransformFactory.GetTransform(functionName);
+
+                                result = tx != null ? tx.ApplyTransform(functionArgument) : expr;
+                            }
+                            else
+                            {
+                                result = context.Properties[expr];
+                            }
+                        }
+                        break;
+                    default:
+                        result = ch.ToString();
+                        break;
+                }
 
             return result;
         }
 
         private const string ContextQueryString = "UrlRewriter.NET.QueryString";
+
         private const string ContextOriginalQueryString = "UrlRewriter.NET.OriginalQueryString";
+
         private const string ContextRawUrl = "UrlRewriter.NET.RawUrl";
-        private IRewriterConfiguration _configuration;
-        private IHttpContext _httpContext;
-        private IConfigurationManager _configurationManager;
+
+        private RewriterConfiguration _configuration;
+
+        private IContextFacade ContextFacade;
     }
 }

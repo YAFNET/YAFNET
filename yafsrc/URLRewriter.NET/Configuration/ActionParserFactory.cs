@@ -1,53 +1,51 @@
 // UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
+// Copyright 2007 Intelligencia
+// Copyright 2007 Seth Yates
 // 
-
-using System;
-using System.Collections.Generic;
-using Intelligencia.UrlRewriter.Utilities;
 
 namespace Intelligencia.UrlRewriter.Configuration
 {
+    using System;
+    using System.Collections;
+
+    using Intelligencia.UrlRewriter.Utilities;
+
     /// <summary>
     /// Factory for creating the action parsers.
     /// </summary>
     public class ActionParserFactory
     {
-        /*
         /// <summary>
         /// Adds a parser.
         /// </summary>
         /// <param name="parserType">The parser type.</param>
-        public void Add(string parserType)
+        public void AddParser(string parserType)
         {
-            Add((IRewriteActionParser)TypeHelper.Activate(parserType, null));
+            this.AddParser((IRewriteActionParser)TypeHelper.Activate(parserType, null));
         }
-         */
 
         /// <summary>
         /// Adds a parser.
         /// </summary>
         /// <param name="parser">The parser.</param>
-        public void Add(IRewriteActionParser parser)
+        public void AddParser(IRewriteActionParser parser)
         {
             if (parser == null)
             {
                 throw new ArgumentNullException("parser");
             }
 
-            IList<IRewriteActionParser> list;
-
-            if (_parsers.ContainsKey(parser.Name))
+            ArrayList list;
+            if (this._parsers.ContainsKey(parser.Name))
             {
-                list = _parsers[parser.Name];
+                list = (ArrayList)this._parsers[parser.Name];
             }
             else
             {
-                list = new List<IRewriteActionParser>();
-                _parsers.Add(parser.Name, list);
+                list = new ArrayList();
+                this._parsers.Add(parser.Name, list);
             }
 
             list.Add(parser);
@@ -58,13 +56,16 @@ namespace Intelligencia.UrlRewriter.Configuration
         /// </summary>
         /// <param name="verb">The verb.</param>
         /// <returns>A list of parsers</returns>
-        public IList<IRewriteActionParser> GetParsers(string verb)
+        public IList GetParsers(string verb)
         {
-            return (_parsers.ContainsKey(verb))
-                    ? _parsers[verb]
-                    : null;
+            if (this._parsers.ContainsKey(verb))
+            {
+                return (ArrayList)this._parsers[verb];
+            }
+
+            return null;
         }
 
-        private IDictionary<string, IList<IRewriteActionParser>> _parsers = new Dictionary<string, IList<IRewriteActionParser>>();
+        private Hashtable _parsers = new Hashtable();
     }
 }

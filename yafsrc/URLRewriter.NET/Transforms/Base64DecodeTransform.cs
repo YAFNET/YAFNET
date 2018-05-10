@@ -1,16 +1,17 @@
 // UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
+// Copyright 2007 Intelligencia
+// Copyright 2007 Seth Yates
 // 
-
-using System;
-using System.Text;
-using Intelligencia.UrlRewriter.Utilities;
 
 namespace Intelligencia.UrlRewriter.Transforms
 {
+    using System;
+    using System.Text;
+
+    using Intelligencia.UrlRewriter.Utilities;
+
     /// <summary>
     /// Base 64 encodes the input.
     /// </summary>
@@ -26,12 +27,10 @@ namespace Intelligencia.UrlRewriter.Transforms
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(input));
         }
 
+
         /// <summary>
         /// The name of the action.
         /// </summary>
-        public string Name
-        {
-            get { return Constants.TransformBase64Decode; }
-        }
+        public string Name => Constants.TransformBase64Decode;
     }
 }

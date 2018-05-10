@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -59,7 +59,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ForceSendClick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void ForceSend_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<YafBoardSettings>().ForceDigestSend = true;
             ((YafLoadBoardSettings)YafContext.Current.BoardSettings).SaveRegistry();
@@ -72,7 +72,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void GenerateDigestClick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void GenerateDigest_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.DigestHtmlPlaceHolder.Visible = true;
             this.DigestFrame.Attributes["src"] = this.Get<IDigest>()
@@ -91,6 +91,11 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.CreatePageLinks();
+
+            this.Page.Header.Title = "{0} - {1}".FormatWith(
+                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_DIGEST", "TITLE"));
+
             this.LastDigestSendLabel.Text = this.Get<YafBoardSettings>().LastDigestSend.IsNotSet()
                                                 ? this.GetText("ADMIN_DIGEST", "DIGEST_NEVER")
                                                 : Convert.ToDateTime(
@@ -100,6 +105,14 @@ namespace YAF.Pages.Admin
             this.DigestEnabled.Text = this.Get<YafBoardSettings>().AllowDigestEmail
                                           ? this.GetText("COMMON", "YES")
                                           : this.GetText("COMMON", "NO");
+
+            this.TestSend.Text = this.GetText("ADMIN_DIGEST", "SEND_TEST");
+
+            this.GenerateDigest.Text = this.GetText("ADMIN_DIGEST", "GENERATE_DIGEST");
+            this.Button2.Text = this.GetText("ADMIN_DIGEST", "FORCE_SEND");
+
+            this.Button2.OnClientClick =
+                "return confirm('{0}');".FormatWith(this.GetText("ADMIN_DIGEST", "CONFIRM_FORCE"));
         }
 
         /// <summary>
@@ -113,9 +126,6 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_DIGEST", "TITLE"), string.Empty);
-
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_DIGEST", "TITLE"));
         }
 
         /// <summary>
@@ -123,7 +133,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void TestSendClick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void TestSend_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.TextSendEmail.Text.IsSet())
             {
@@ -145,18 +155,18 @@ namespace YAF.Pages.Admin
 
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_DIGEST", "MSG_SEND_SUC").FormatWith(this.SendMethod.SelectedItem.Text),
-                        MessageTypes.success);
+                        MessageTypes.Success);
                 }
                 catch (Exception ex)
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR").FormatWith(ex),
-                        MessageTypes.danger);
+                        MessageTypes.Error);
                 }
             }
             else
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_VALID_MAIL"), MessageTypes.danger);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_VALID_MAIL"), MessageTypes.Error);
             }
         }
 

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -46,7 +46,7 @@ namespace YAF.Modules
     /// <summary>
     /// The _permissions.
     /// </summary>
-    private readonly IPermissions permissions;
+    private readonly IPermissions _permissions;
 
     #endregion
 
@@ -60,7 +60,7 @@ namespace YAF.Modules
     /// </param>
     public PagePermissionForumModule([NotNull] IPermissions permissions)
     {
-      this.permissions = permissions;
+      this._permissions = permissions;
     }
 
     #endregion
@@ -72,7 +72,7 @@ namespace YAF.Modules
     /// </summary>
     public override void InitAfterPage()
     {
-      this.CurrentForumPage.Load += this.CurrentPageLoad;
+      this.CurrentForumPage.Load += this.CurrentPage_Load;
     }
 
     #endregion
@@ -88,24 +88,29 @@ namespace YAF.Modules
     /// <param name="e">
     /// The e.
     /// </param>
-    private void CurrentPageLoad([NotNull] object sender, [NotNull] EventArgs e)
+    private void CurrentPage_Load([NotNull] object sender, [NotNull] EventArgs e)
     {
       // check access permissions for specific pages...
       switch (this.ForumPageType)
       {
         case ForumPages.activeusers:
-          this.permissions.HandleRequest(this.PageContext.BoardSettings.ActiveUsersViewPermissions);
+          this._permissions.HandleRequest(this.PageContext.BoardSettings.ActiveUsersViewPermissions);
           break;
         case ForumPages.members:
-          this.permissions.HandleRequest(this.PageContext.BoardSettings.MembersListViewPermissions);
+          this._permissions.HandleRequest(this.PageContext.BoardSettings.MembersListViewPermissions);
           break;
         case ForumPages.profile:
         case ForumPages.albums:
         case ForumPages.album:
-          this.permissions.HandleRequest(this.PageContext.BoardSettings.ProfileViewPermissions);
+          this._permissions.HandleRequest(this.PageContext.BoardSettings.ProfileViewPermissions);
           break;
         case ForumPages.search:
-          this.permissions.HandleRequest(this.PageContext.BoardSettings.SearchPermissions);
+          this._permissions.HandleRequest(
+            this._permissions.Check(this.PageContext.BoardSettings.SearchPermissions)
+              ? this.PageContext.BoardSettings.SearchPermissions
+              : this.PageContext.BoardSettings.ExternalSearchPermissions);
+          break;
+        default:
           break;
       }
     }

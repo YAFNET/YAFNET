@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -93,7 +93,7 @@ namespace YAF.Core.Tasks
                     // unsuspend these users...
                     foreach (var user in suspendedUsers)
                     {
-                        this.GetRepository<User>().Suspend(user["UserId"].ToType<int>(), null);
+                        LegacyDb.user_suspend(user["UserId"], null);
 
                         // sleep for a quarter of a second so we don't pound the server...
                         Thread.Sleep(250);

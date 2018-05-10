@@ -53,6 +53,9 @@
     <Resource tag="ADMIN_REPLACEWORDS_IMPORT">Importeert vervanwoorden</Resource>
     <Resource tag="ADMIN_RESTARTAPP">Herstart applicatie</Resource>
     <Resource tag="ADMIN_RUNSQL">Runt SQL query</Resource>
+    <Resource tag="ADMIN_SMILIES">Bekijkt smilies</Resource>
+    <Resource tag="ADMIN_SMILIES_EDIT">Bewerkt smilies</Resource>
+    <Resource tag="ADMIN_SMILIES_IMPORT">Importeert smilies</Resource>
     <Resource tag="ADMIN_SPAMLOG">Views/edits the spam log</Resource>
     <Resource tag="ADMIN_SPAMWORDS">Views spam words list</Resource>
     <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
@@ -131,6 +134,7 @@
     <Resource tag="RULES">Bekijkt forumregels</Resource>
     <Resource tag="SEARCH">Gebruikt de zoekfunctie</Resource>
     <Resource tag="SHOUTBOX">Gebruikt shoutbox</Resource>
+    <Resource tag="SHOWSMILIES">Onbekend</Resource>
     <Resource tag="TEAM">Bekijkt team pagina</Resource>
     <Resource tag="TOPICINFORUM"> in forum </Resource>
     <Resource tag="TOPICS">Bekijkt topic</Resource>
@@ -216,7 +220,6 @@
     <Resource tag="REASON">Reason:</Resource>
     <Resource tag="REASON_HELP">The reason why the email address was banned.</Resource>
     <Resource tag="TITLE">Add/Edit Banned Email Address</Resource>
-    <Resource tag="TITLE_EDIT">Edit Banned Email Address</Resource>
   </page>
   <page name="ADMIN_BANNEDEMAIL_IMPORT">
     <Resource tag="HEADER">Import Email Addresses List</Resource>
@@ -235,7 +238,6 @@
     <Resource tag="EXPORT">Export to Text File</Resource>
     <Resource tag="IMPORT_IPS">Import Address(es)</Resource>
     <Resource tag="MASK">Masker</Resource>
-    <Resource tag="MSG_DELETE">Delete this Banned Item?</Resource>
     <Resource tag="MSG_REMOVEBAN_IP">IP Address or Mask '{0}' was successfully deleted</Resource>
     <Resource tag="REASON">Reden</Resource>
     <Resource tag="SINCE">Sinds</Resource>
@@ -251,7 +253,6 @@
     <Resource tag="REASON">Reden:</Resource>
     <Resource tag="REASON_HELP">De reden waarom het ip-adres is geblokkeerd.</Resource>
     <Resource tag="TITLE">Geblokkeerde IP-Adressen toevoegen/bewerken</Resource>
-    <Resource tag="TITLE_EDIT">Edit Banned IP Address</Resource>
   </page>
   <page name="ADMIN_BANNEDIP_IMPORT">
     <Resource tag="HEADER">Import IP Addresses List</Resource>
@@ -279,7 +280,6 @@
     <Resource tag="REASON">Reason:</Resource>
     <Resource tag="REASON_HELP">The reason why the user name was banned.</Resource>
     <Resource tag="TITLE">Add/Edit Banned Name</Resource>
-    <Resource tag="TITLE_EDIT">Edit Banned Name</Resource>
   </page>
   <page name="ADMIN_BANNEDNAME_IMPORT">
     <Resource tag="HEADER">Import Names List</Resource>
@@ -388,7 +388,6 @@
     <Resource tag="BOARD_TOPIC_DEFAULT">Standaard Topic:</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">De standaard board topic interval selectie.</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Verwijder Sleutel:</Resource>
-    <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Verwijder de copyright informatie en link naar YAF in de voettekst van het forum. Beschikbaar via &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;de YAF.NET website&lt;/a&gt;. </Resource>
     <Resource tag="HEADER">Huidige Board Configuratie</Resource>
     <Resource tag="TITLE">Board Configuratie</Resource>
@@ -698,7 +697,6 @@
     <Resource tag="SERVER">Server:</Resource>
     <Resource tag="SERVER_HELP">De newsserver.</Resource>
     <Resource tag="TITLE">NNTP Forum Toevoegen/Bewerken</Resource>
-    <Resource tag="TITLE_EDIT">Edit NNTP Forum</Resource>
   </page>
   <page name="ADMIN_EDITNNTPSERVER">
     <Resource tag="MSG_SERVER_ADR">Ontbrekend serveradres.</Resource>
@@ -714,7 +712,6 @@
     <Resource tag="NNTP_USERNAME">Gebruikersnaam:</Resource>
     <Resource tag="NNTP_USERNAME_HELP">Gebruikersnaam om in te loggen op de nntp server.</Resource>
     <Resource tag="TITLE">NNTP Server Toevoegen/Bewerken </Resource>
-    <Resource tag="TITLE_EDIT">Edit NNTP Server</Resource>
   </page>
   <page name="ADMIN_EDITRANK">
     <Resource tag="ALBUMS_NUMBER">Aantal Albums:</Resource>
@@ -893,7 +890,6 @@
     <Resource tag="EXPORT">Exporteer naar XML</Resource>
     <Resource tag="HEADER">Toegestande Bestandsextensies</Resource>
     <Resource tag="IMPORT">Importeer van XML</Resource>
-    <Resource tag="SAVE">Save Extension</Resource>
     <Resource tag="TITLE">Bestandsextensies</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_EDIT">
@@ -903,7 +899,6 @@
     <Resource tag="MSG_ENTER">Je moet iets invullen.</Resource>
     <Resource tag="MSG_REMOVE">Haal de punt (.) weg uit de extensie.</Resource>
     <Resource tag="TITLE">Bestandsextensies toevoegen/bewerken</Resource>
-    <Resource tag="TITLE_EDIT">Edit File Extension</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_IMPORT">
     <Resource tag="HEADER">Importeer Lijst met Extensies</Resource>
@@ -954,7 +949,6 @@
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Actieve Topics Feed Toegang:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Beperk weergave van actieve topic feeds.</Resource>
     <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
-    <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="AKISMET_KEY_HELP">Om de Akismet SPAM Service te gebruiken heb je een API Key nodig &lt;a href="https://akismet.com/signup/"&gt;Scrijf hier in&lt;a&gt;.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Albums Per Pagina:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Het aantal albums dat per pagina zichtbaar is.</Resource>
@@ -1145,7 +1139,6 @@
     <Resource tag="GROUPS_TEMPLATE_HELP">Sjabloon om de groepen van de gebruiker op te bouwen.</Resource>
     <Resource tag="HEADER_ADVERTS">Advertentie instellingen</Resource>
     <Resource tag="HEADER_ALBUM">Album instellingen</Resource>
-    <Resource tag="HEADER_ATTACHMENTS">Attachments Settings</Resource>
     <Resource tag="HEADER_AVATARS">Avatar instellingen</Resource>
     <Resource tag="HEADER_BOTSPAM">Bot Spam Settings (User Checking)</Resource>
     <Resource tag="HEADER_CACHE">Cache instellingen</Resource>
@@ -1277,8 +1270,6 @@
     <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notifcation Dialogs on Mobile Devices.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Online Gebruiker Status Cache Timeout:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Dit kun je Fine-tunen afhankelijk van de activiteit op je forum in milliseconden)</Resource>
-    <Resource tag="PM_ATTACHMENTS">Allow attachments in Private Messages</Resource>
-    <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Poll Afbeelding Bestandsgrootte:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Max. bestandsgrootte voor plaatjes die bij Polls worden gebruikt in KB.</Resource>
     <Resource tag="POLLVOTING_PERIP">Poll Stemmen op basis van IP:</Resource>
@@ -1319,7 +1310,7 @@
     <Resource tag="REMOVE_NESTED_QUOTES">Verwijder Geneste Quotes:</Resource>
     <Resource tag="REMOVE_NESTED_QUOTES_HELP">Verwijder geneste [quote] tags van antwoorden automatisch.</Resource>
     <Resource tag="REPLACE_CACHE_TIMEOUT">Vervangregels Cache Timeout:</Resource>
-    <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> BB code, vervangwoorden, etc. (in minuten)</Resource>
+    <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> Smilies, BB code, vervangwoorden, etc. (in minuten)</Resource>
     <Resource tag="REPORT_POST_PERMISSION">machtigingen van Berichten Rapporteren:</Resource>
     <Resource tag="REPORT_POST_PERMISSION_HELP">Sta het rapporteren van berichten toe aan:</Resource>
     <Resource tag="REPUTATION_ALLOWNEGATIVE">Sta Negatiev Reputatie toe:</Resource>
@@ -1415,6 +1406,8 @@
     <Resource tag="SHOW_RSS_LINKS_HELP">Laat RSS links zien door het forum heen.</Resource>
     <Resource tag="SHOW_SHOUTBOX">Laat de Shoutbox zien:</Resource>
     <Resource tag="SHOW_SHOUTBOX_HELP">Zet de ShoutBox (Chat Module) aan of uit.</Resource>
+    <Resource tag="SHOW_SHOUTBOX_SMILIES">Laat Shoutbox Smilies zien:</Resource>
+    <Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">Verberg of laat de Shoutbox (Chat Module) smilies zien.</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
     <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">Laat de datum zien wanneer gebruikers bedankt hebben:</Resource>
@@ -1464,6 +1457,8 @@
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Sjabloon om 'Bedankt van' op te bouwen.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Bedankt aan sjabloon:</Resource>
     <Resource tag="THANKS_TO_TEMPLATE_HELP">Sjabloon om 'Bedankt Aan' op te bouwen.</Resource>
+    <Resource tag="TIMEAGO_INTERVAL">Relatieve Tijden Ververs Interval:</Resource>
+    <Resource tag="TIMEAGO_INTERVAL_HELP">Deze optie zet hoe vaak de "...Geleden" bibliotheek de relatieve tijden ververst (In Milliseconden, 60000 ms = 60 seconden = 1 minuut).</Resource>
     <Resource tag="TITLE">Host Instellingen</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Topics Feed Toegang:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Beperk weergave van topic feeds.</Resource>
@@ -1536,7 +1531,6 @@
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="GROUP">Groep</Resource>
     <Resource tag="NEW_FORUM">Nieuw Forum</Resource>
-    <Resource tag="SAVE">Save Forum</Resource>
     <Resource tag="SERVER">Server</Resource>
     <Resource tag="TITLE">NNTP Forums</Resource>
   </page>
@@ -1570,7 +1564,6 @@
     <Resource tag="DELETE_SERVER">Verwijder deze server?</Resource>
     <Resource tag="NAME">Naam</Resource>
     <Resource tag="NEW_SERVER">Nieuwe Server</Resource>
-    <Resource tag="SAVE_SERVER">Save Server</Resource>
     <Resource tag="TITLE">NNTP Servers</Resource>
     <Resource tag="USERNAME">Gebruikersnaam</Resource>
   </page>
@@ -1675,7 +1668,6 @@
     <Resource tag="GOOD_HELP">Reguliere expressie. Escape puncutatie met een voorloop slash (bv. '\.').</Resource>
     <Resource tag="MSG_REGEX_BAD">De Reguliere Expressie die je hebt ingegeven is ongeldig.</Resource>
     <Resource tag="TITLE">Voeg toe Bewerk Vervangwoord</Resource>
-    <Resource tag="TITLE_EDIT">Edit Word Replace</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_IMPORT">
     <Resource tag="HEADER">Importeer Vervangwoord lijst</Resource>
@@ -1699,6 +1691,46 @@
     <Resource tag="SQL_COMMAND">SQL Commando:</Resource>
     <Resource tag="TITLE">Voer SQL Code uit</Resource>
   </page>
+  <page name="ADMIN_SMILIES">
+    <Resource tag="ADD">Voeg Smiley toe</Resource>
+    <Resource tag="CODE">Code</Resource>
+    <Resource tag="COMANDS">Emotie</Resource>
+    <Resource tag="EMOTION">Emotie</Resource>
+    <Resource tag="IMPORT">Importeer Smiley Pack</Resource>
+    <Resource tag="MOVE_DOWN">Move Down</Resource>
+    <Resource tag="MOVE_UP">Move Up</Resource>
+    <Resource tag="MSG_DELETE">Smiley verwijderen?</Resource>
+    <Resource tag="ORDER">Sorteer</Resource>
+    <Resource tag="SMILEY">Smiley</Resource>
+    <Resource tag="TITLE">Smiley's</Resource>
+  </page>
+  <page name="ADMIN_SMILIES_EDIT">
+    <Resource tag="CODE">Code:</Resource>
+    <Resource tag="EMOTION">Emotie:</Resource>
+    <Resource tag="ICON">Icoon:</Resource>
+    <Resource tag="MSG_CODE_BRACK">Geef de code in voor deze smiley tussen blokhaken</Resource>
+    <Resource tag="MSG_CODE_LONG">De code voor de smiley mag niet meer zijn dan 10 karakters</Resource>
+    <Resource tag="MSG_CODE_MISSING">Geef hier de code die voor de smiley gebruikt wordt</Resource>
+    <Resource tag="MSG_CODE_SAME">Please choose a different code, this one is already in use.</Resource>
+    <Resource tag="MSG_NO_EMOTICON">Geef een emotie voor deze smiley</Resource>
+    <Resource tag="MSG_NO_ICON">Kies een icoon om te gebruiken voor deze emotie</Resource>
+    <Resource tag="MSG_SORT_NMBR">Sorteervolgorde moet liggen tussen 0 en 255.</Resource>
+    <Resource tag="MSG_TOO_LONG">De beschrijving is te lang</Resource>
+    <Resource tag="SELECT_SMILEY">Kies smiley plaatje</Resource>
+    <Resource tag="SORT_ORDER">Sorteervolgorde:</Resource>
+    <Resource tag="TITLE">Voeg toe/bewerk Smiley</Resource>
+  </page>
+  <page name="ADMIN_SMILIES_IMPORT">
+    <Resource tag="CHOOSE_PAK">Kies een .pak bestand:</Resource>
+    <Resource tag="CHOOSE_PAK_HELP">Je moet het smileypakket uitpakken en alle smilies uploaden naar je smileyfolder.(Boards/BoardNo/Images/Emoticons).</Resource>
+    <Resource tag="DELETE_EXISTING">Verwijder bestaande smilies:</Resource>
+    <Resource tag="DELETE_EXISTING_HELP">Als je dit aanvinkt worden ALLE bestaande smilies VERWIJDERD.</Resource>
+    <Resource tag="ERROR_SELECT_FILE">Je hebt een .pak bestand  nodig om te importeren.</Resource>
+    <Resource tag="HEADER">Importeer Smiley Pack</Resource>
+    <Resource tag="IMPORT">Importeer</Resource>
+    <Resource tag="SELECT_FILE">Selecteer Bestand (*.pak)</Resource>
+    <Resource tag="TITLE">Smilies Importeren</Resource>
+  </page>
   <page name="ADMIN_SPAMLOG">
     <Resource tag="TITLE">Spam Event Log</Resource>
   </page>
@@ -1708,7 +1740,6 @@
     <Resource tag="IMPORT">Import from XML</Resource>
     <Resource tag="MSG_DELETE">Delete this Word?</Resource>
     <Resource tag="NOTE">&lt;strong&gt;Note: &lt;/strong&gt; The Spam Words are used for the internal SPAM Detection, during Registration the Homepage the user is entering in the user profile is checked against the Spam Words. Also if a user Posts a new Message in the forum it will be checked against the Spam Words if 'Choose a SPAM Service for Automatically SPAM Checking' in the Host Settings is set to 'Internal Spam Check Words'.</Resource>
-    <Resource tag="SAVE">Save Word</Resource>
     <Resource tag="SPAM">"Spam" Word (Find) Expression</Resource>
     <Resource tag="TITLE">Spam Check Words</Resource>
   </page>
@@ -1716,8 +1747,7 @@
     <Resource tag="MSG_REGEX_SPAM">The Regular expression statement you have entered is invalid.</Resource>
     <Resource tag="SPAM">"Spam" Word (Find) Expression:</Resource>
     <Resource tag="SPAM_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. '\.').</Resource>
-    <Resource tag="TITLE">Add New Spam Word</Resource>
-    <Resource tag="TITLE_EDIT">Edit Spam Word</Resource>
+    <Resource tag="TITLE">Add/Edit Spam Word</Resource>
   </page>
   <page name="ADMIN_SPAMWORDS_IMPORT">
     <Resource tag="HEADER">Import Spam Word List</Resource>
@@ -1745,7 +1775,6 @@
     <Resource tag="DEFAULT_DESCRIPTION">Status</Resource>
     <Resource tag="EXPORT">Exporteer naar XML</Resource>
     <Resource tag="HEADER">Toegestane bestandsextensies</Resource>
-    <Resource tag="ICON">Icon</Resource>
     <Resource tag="IMPORT">Importeer uit XML</Resource>
     <Resource tag="TITLE">Topic Status</Resource>
     <Resource tag="TOPICSTATUS_NAME">Status Naam</Resource>
@@ -1756,7 +1785,6 @@
     <Resource tag="HEADER">Voeg toe/Bewerk Topic Status</Resource>
     <Resource tag="MSG_ENTER">Je moet iets invullen</Resource>
     <Resource tag="TITLE">Voeg toe/Bewerk Topic Status</Resource>
-    <Resource tag="TITLE_EDIT">Edit Topic Status</Resource>
     <Resource tag="TOPICSTATUS_NAME">Topic Status Waarde:</Resource>
     <Resource tag="TOPICSTATUS_NAME_HELP">Dit is de waarde die wordt gebruikt om de Topic statuspictogram en / of tekst op te halen. Dit moet worden gedefinieerd in de Thema-en taal bestanden.</Resource>
   </page>
@@ -1855,6 +1883,7 @@
     <Resource tag="admin_replacewords">Vervangwoorden</Resource>
     <Resource tag="admin_restartapp">Herstart Forum</Resource>
     <Resource tag="admin_runsql">Draai SQL Query</Resource>
+    <Resource tag="admin_smilies">Smiley's</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
     <Resource tag="admin_taskmanager">Taakbeheer</Resource>
@@ -2091,7 +2120,6 @@
     <Resource tag="NAME">Naam</Resource>
     <Resource tag="NO">Nee</Resource>
     <Resource tag="NONE">Geen</Resource>
-    <Resource tag="NOTE">Note:</Resource>
     <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT">New SPAM BOT User Registered on {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">you have been awarded on the {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Nieuw bericht op {0} Forum heeft goedkeuring nodig</Resource>
@@ -2145,6 +2173,23 @@
   </Resource>
     <Resource tag="SHOWHIDE">Laat zien/Verberg</Resource>
     <Resource tag="SUBMIT">Vastleggen</Resource>
+    <Resource tag="TIMEAGO_JS">	  // Dutch
+	  jQuery.timeago.settings.strings = {
+	  suffixAgo: "geleden",
+	  suffixFromNow: "vanaf nu",
+	  seconds: "iets minder dan een minuut",
+	  minute: "ongeveer een minuut",
+	  minutes: "%d minuten",
+	  hour: "ongeveer een uur",
+	  hours: "ongeveer %d uren",
+	  day: "een dag",
+	  days: "%d dagen",
+	  month: "ongeveer een maand",
+	  months: "%d maanden",
+	  year: "ongeveer een jaar",
+	  years: "%d jaar"
+	  };
+	</Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Melding van plaatsing nieuw bericht (van {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">Centreren</Resource>
     <Resource tag="TT_ALIGNLEFT">Links uitlijnen</Resource>
@@ -4264,11 +4309,8 @@ Spoiler Inhoud
     <Resource tag="LASTPOST">Laatste bericht</Resource>
     <Resource tag="MEMBERS">Leden</Resource>
     <Resource tag="MODERATEINDEX_TITLE">Modereer Gerapporteerde Berichten en Niet-Goedgekeurde Berichten.</Resource>
-    <Resource tag="MOVE_TO_DIFFERENT">The forum you want to move the topic(s) must be different then the current forum.</Resource>
-    <Resource tag="MOVED">Topic(s) Moved</Resource>
     <Resource tag="NO_POSTS">Geen berichten</Resource>
     <Resource tag="NOMODERATION">Er zijn momenteel geen berichten die wachten op goedkeuring. En er zijn ook geen berichten gerapporteerd.</Resource>
-    <Resource tag="NOTHING">You need to select atleast one topic</Resource>
     <Resource tag="REMOVE">Verwijderen</Resource>
     <Resource tag="REPLIES">Reacties</Resource>
     <Resource tag="TITLE">Moderatie</Resource>
@@ -4466,6 +4508,8 @@ Spoiler Inhoud
     <Resource tag="REPLY">Antwoord verzenden</Resource>
     <Resource tag="SAVE">Plaatsen</Resource>
     <Resource tag="SAVE_TITLE">Plaats/Bewerk het bericht</Resource>
+    <Resource tag="SMILIES_HEADER">[b]Smiley invoegen[/b]</Resource>
+    <Resource tag="SMILIES_MORE">Meer smiley's...</Resource>
     <Resource tag="SPAM_MESSAGE">Je bericht is afgewezen, omdat het is herkend als SPAM!</Resource>
     <Resource tag="STATUS">Status:</Resource>
     <Resource tag="STICKY">Sticky</Resource>
@@ -4512,7 +4556,6 @@ Spoiler Inhoud
     <Resource tag="FACEBOOK_TITLE">Boek {0} op Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like dit Topic op Facebook</Resource>
     <Resource tag="FORUM_JUMP">Spring naar forum</Resource>
-    <Resource tag="GO_TO_ANSWER">Go to the topic answer</Resource>
     <Resource tag="GOOGLE">Google+</Resource>
     <Resource tag="GOOGLE_TITLE">Visit {0}'s Google+ Profile</Resource>
     <Resource tag="GOOGLEPLUS_TOPIC">Deel dit topic op Google+</Resource>
@@ -4537,12 +4580,6 @@ Spoiler Inhoud
     <Resource tag="LINKBACK_TOPIC">LinkBack Topic URL</Resource>
     <Resource tag="LINKBACK_TOPIC_PROMT">Gebruik de URL hieronder als je een link naar dit topic wilt gebruiken op een andere website.</Resource>
     <Resource tag="LOCATION">Locatie</Resource>
-    <Resource tag="MARK_ANSWER">Mark As Answer</Resource>
-    <Resource tag="MARK_ANSWER_REMOVE">Remove As Answer</Resource>
-    <Resource tag="MARK_ANSWER_REMOVE_TITLE">Unmark this Message as answer</Resource>
-    <Resource tag="MARK_ANSWER_TITLE">Mark this Message as answer</Resource>
-    <Resource tag="MESSAGE_ANSWER">Answer</Resource>
-    <Resource tag="MESSAGE_ANSWER_HELP">Marked as answer</Resource>
     <Resource tag="MESSAGEDELETED_MOD">Bericht is verwijderd door een Moderator.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Bericht is verwijderd door de gebruiker</Resource>
     <Resource tag="MSN">MSN</Resource>
@@ -4598,10 +4635,7 @@ Spoiler Inhoud
     <Resource tag="TOGGLEPOST">Verberg Post/Laat Post zien</Resource>
     <Resource tag="TOGGLEUSERPOSTS_HIDE">Verberg posts van gebruiker</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Laat Posts van gebruiker zien</Resource>
-    <Resource tag="TOOLS">Tools</Resource>
     <Resource tag="TOP">Terug naar boven</Resource>
-    <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
-    <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>
     <Resource tag="TOPICBROWSERS">Gebruikers aanwezig in dit topic</Resource>
     <Resource tag="TOTAL">Totaal</Resource>
     <Resource tag="TUMBLR_TOPIC">Deel op Tumblr</Resource>
@@ -4983,6 +5017,13 @@ Spoiler Inhoud
     <Resource tag="SUBMIT">Voeg toe</Resource>
     <Resource tag="TITLE">ShoutBox</Resource>
   </page>
+  <page name="SHOWSMILIES">
+    <Resource tag="CLOSE_WINDOW">Sluit</Resource>
+    <Resource tag="HEADER_CODE">Code</Resource>
+    <Resource tag="HEADER_MEANING">Betekenis</Resource>
+    <Resource tag="HEADER_SMILE">Smiley</Resource>
+    <Resource tag="TITLE">Beschikbare smiley's</Resource>
+  </page>
   <page name="TEAM">
     <Resource tag="ADMINS">Beheerders</Resource>
     <Resource tag="FORUMS">Forums</Resource>
@@ -5230,6 +5271,43 @@ Gebruik vervolgens de volgende sleutel:
 Bezoek {forumname} op {forumlink}
 </Resource>
   </page>
+  <page name="TIMEZONES">
+    <Resource tag="NAME_UTC">(UTC)</Resource>
+    <Resource tag="UTC0">(UTC) Casablanca, Coordinated Universal Time, Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London, Monrovia, Reykjavik</Resource>
+    <Resource tag="UTC1">(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna, Belgrade, Bratislava, Budapest, Ljubljana, Prague, Brussels, Copenhagen, Madrid, Paris, Sarajevo, Skopje, Warsaw, Zagreb</Resource>
+    <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Is.</Resource>
+    <Resource tag="UTC10">(UTC+10:00) Brisbane, Canberra, Melbourne, Sydney, Guam, Port Moresby, Hobart, Yakutsk</Resource>
+    <Resource tag="UTC-10">(UTC-10:00) Hawaii</Resource>
+    <Resource tag="UTC11">(UTC+11:00) Solomon Is., New Caledonia, Vladivostok</Resource>
+    <Resource tag="UTC-11">(UTC-11:00) Coordinated Universal Time-11</Resource>
+    <Resource tag="UTC12">(UTC+12:00) Auckland, Wellington, Coordinated Universal Time+12, Fiji, Magadan, Petropavlovsk-Kamchatsky - Old</Resource>
+    <Resource tag="UTC-12">(UTC-12:00) International Date Line West</Resource>
+    <Resource tag="UTC13">(UTC+13:00) Nuku'alofa, Samoa</Resource>
+    <Resource tag="UTC2">(UTC+02:00) Athens, Bucharest, Beirut, Cairo, Damascus, E. Europe, Harare, Pretoria, Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius, Istanbul, Jerusalem, Tripoli</Resource>
+    <Resource tag="UTC-2">(UTC-2:00) Coordinated Universal Time-2, Mid-Atlantic - Old</Resource>
+    <Resource tag="UTC3">(UTC+03:00) Amman, Baghdad, Kaliningrad, Minsk, Kuwait, Riyadh, Nairobi</Resource>
+    <Resource tag="UTC-3">(UTC-3:00) Brasilia, Buenos Aires, Cayenne, Fortaleza, Greenland, Montevideo, Salvador</Resource>
+    <Resource tag="UTC3.5">(UTC+03:30) Tehran</Resource>
+    <Resource tag="UTC-3.5">(UTC-3:30) Newfoundland</Resource>
+    <Resource tag="UTC4">(UTC+04:00) Abu Dhabi, Muscat, Baku, Caucasus Standard Time, Moscow, St. Petersburg, Volgograd,Port Louis, Tbilisi, Yerevan</Resource>
+    <Resource tag="UTC-4">(UTC-4:00) Asuncion, Atlantic Time (Canada), Cuiaba, Georgetown, La Paz, Manaus, San Juan, Santiago</Resource>
+    <Resource tag="UTC4.5">(UTC+04:30) Kabul</Resource>
+    <Resource tag="UTC-4.5">(UTC-4:30) Caracas</Resource>
+    <Resource tag="UTC5">(UTC+05:00) Ashgabat, Tashkent, Islamabad, Karachi</Resource>
+    <Resource tag="UTC-5">(UTC-5:00) Bogota, Lima, Quito, Eastern Time (US &amp; Canada), Indiana (East)</Resource>
+    <Resource tag="UTC5.5">(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi</Resource>
+    <Resource tag="UTC5.75">(UTC+05:45) Kathmandu</Resource>
+    <Resource tag="UTC6">(UTC+06:00) Astana, Dhaka, Ekaterinburg</Resource>
+    <Resource tag="UTC-6">(UTC-6:00) Central America, Central Time (US &amp; Canada), Guadalajara, Mexico City, Monterrey - New, Guadalajara, Mexico City, Monterrey - Old, Saskatchewan</Resource>
+    <Resource tag="UTC6.5">(UTC+06:30) Yangon (Rangoon)</Resource>
+    <Resource tag="UTC7">(UTC+07:00) Bangkok, Hanoi, Jakarta, Novosibirsk</Resource>
+    <Resource tag="UTC-7">(UTC-7:00) Arizona, Chihuahua, La Paz, Mazatlan - New, Chihuahua, La Paz, Mazatlan - Old, Mountain Time (US &amp; Canada)</Resource>
+    <Resource tag="UTC8">(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi, Krasnoyarsk, Kuala Lumpur, Singapore Perth, Taipei, Ulaanbaatar</Resource>
+    <Resource tag="UTC-8">(UTC-8:00) Baja California, Pacific Time (US &amp; Canada)</Resource>
+    <Resource tag="UTC9">(UTC+09:00) Irkutsk, Osaka, Sapporo, Tokyo, Seoul</Resource>
+    <Resource tag="UTC-9">(UTC-9:00) Alaska</Resource>
+    <Resource tag="UTC9.5">(UTC+09:30) Adelaide</Resource>
+  </page>
   <page name="TOOLBAR">
     <Resource tag="ACTIVETOPICS">Actieve topics</Resource>
     <Resource tag="ACTIVETOPICS_TITLE">Laat de actieve topics zien.</Resource>
@@ -5256,7 +5334,6 @@ Bezoek {forumname} op {forumlink}
     <Resource tag="MEMBERS">Leden</Resource>
     <Resource tag="MEMBERS_TITLE">Laat de Ledenlijst zien.</Resource>
     <Resource tag="MODERATE">Moderatie</Resource>
-    <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Laat de Moderatiepagina zien, waar je gerapporteerde en niet-goedgekeurde berichten kunt zien.</Resource>
     <Resource tag="MYALBUMS">Mijn Albums</Resource>
     <Resource tag="MYALBUMS_TITLE">Laat de Album-pagina met al je albums zien.</Resource>

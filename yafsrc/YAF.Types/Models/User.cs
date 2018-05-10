@@ -1,7 +1,7 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,6 +29,7 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
@@ -37,7 +38,7 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "User")]
-    public partial class User : IEntity, IHaveBoardID, IHaveID
+    public partial class User : IEntity, IHaveBoardID
     {
         partial void OnCreated();
 
@@ -59,8 +60,7 @@ namespace YAF.Types.Models
         #region Properties
 
         [AutoIncrement]
-        [Alias("UserID")]
-        public int ID { get; set; }
+        public int UserID { get; set; }
 
         public int BoardID { get; set; }
 
@@ -78,7 +78,7 @@ namespace YAF.Types.Models
 
         public int NumPosts { get; set; }
 
-        public string TimeZone { get; set; }
+        public int TimeZone { get; set; }
 
         public string Avatar { get; set; }
 
@@ -90,10 +90,6 @@ namespace YAF.Types.Models
 
         public DateTime? Suspended { get; set; }
 
-        public string SuspendedReason { get; set; }
-
-        public int SuspendedBy { get; set; }
-
         public string LanguageFile { get; set; }
 
         public string ThemeFile { get; set; }
@@ -104,7 +100,7 @@ namespace YAF.Types.Models
 
         public int Points { get; set; }
 
-        //public bool? IsAdmin { get; set; }
+        public bool? IsAdmin { get; set; }
 
         public bool? IsApproved { get; set; }
 
@@ -120,7 +116,7 @@ namespace YAF.Types.Models
 
         public string DisplayName { get; set; }
 
-       // [Alias("CultureUser")]
+        [Alias("CultureUser")]
         public string Culture { get; set; }
 
         public int? NotificationType { get; set; }

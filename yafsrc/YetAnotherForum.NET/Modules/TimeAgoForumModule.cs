@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -48,7 +48,7 @@ namespace YAF.Modules
         /// </summary>
         public override void InitAfterPage()
         {
-            this.CurrentForumPage.PreRender += this.CurrentForumPagePreRender;
+            this.CurrentForumPage.PreRender += this.CurrentForumPage_PreRender;
         }
 
         #endregion
@@ -60,7 +60,7 @@ namespace YAF.Modules
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void CurrentForumPagePreRender([NotNull] object sender, [NotNull] EventArgs e)
+        private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.PageContext.BoardSettings.ShowRelativeTime
                 || this.PageContext.Vars.ContainsKey("RegisteredTimeago"))

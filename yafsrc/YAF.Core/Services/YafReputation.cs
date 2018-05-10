@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -33,6 +33,7 @@ namespace YAF.Core.Services
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Utils;
     using YAF.Utils.Helpers;
 
     /// <summary>
@@ -71,36 +72,26 @@ namespace YAF.Core.Services
         /// <returns>
         /// Returns the Html String
         /// </returns>
-        public static string GenerateReputationBar([NotNull] int points, [NotNull] int userId)
+        public static string GenerateReputationBar([NotNull]int points, [NotNull]int userId)
         {
             var formatInfo = new NumberFormatInfo { NumberDecimalSeparator = "." };
 
-            var percentage = ConvertPointsToPercentage(points);
+            float percentage = ConvertPointsToPercentage(points);
 
-            var pointsSign = string.Empty;
+                var pointsSign = string.Empty;
 
-            if (points > 0)
-            {
-                pointsSign = "+";
-            }
-            else if (points < 0)
-            {
-                pointsSign = "-";
-            }
+                if (points > 0)
+                {
+                    pointsSign = "+";
+                }
+                else if (points < 0)
+                {
+                    pointsSign = "-";
+                }
 
             return
-                @"<div class=""text-center"">{1}</div>
-                  <div class=""progress"">
-                      <div class=""progress-bar progress-bar-striped{2}"" role=""progressbar""  style=""width:{0}%;"" aria-valuenow=""{0}"" aria-valuemax=""100"">
-                      {0}%
-                      </div>
-                  </div>"
-                    .FormatWith(
-                        percentage.ToString(formatInfo),
-                        GetReputationBarText(percentage),
-                        GetReputationBarColor(percentage),
-                        pointsSign,
-                        points);
+                @"<div class=""ReputationBar ReputationUser_{2}"" data-percent=""{0}"" data-text=""{1}"" title=""{3}{4}""></div>".FormatWith(
+                        percentage.ToString(formatInfo), GetReputationBarText(percentage), userId, pointsSign, points);
         }
 
         /// <summary>
@@ -109,62 +100,29 @@ namespace YAF.Core.Services
         /// <param name="percentage">The percentage.</param>
         /// <returns>Returns the Text for the Current Value</returns>
         [NotNull]
-        public static string GetReputationBarText([NotNull] float percentage)
+        public static string GetReputationBarText([NotNull]float percentage)
         {
             var lookup = new Dictionary<int, string>
-                             {
-                                 { 0, "HATED" },
-                                 { 20, "HOSTILE" },
-                                 { 30, "HOSTILE" },
-                                 { 40, "HOSTILE" },
-                                 { 50, "UNFRIENDLY" },
-                                 { 60, "NEUTRAL" },
-                                 { 80, "FRIENDLY" },
-                                 { 90, "HONORED" },
-                                 { int.MaxValue, "EXALTED" }
-                             };
+                         {
+                             {     0            ,"HATED"     },
+                             {     20           ,"HOSTILE"   },
+                             {     30           ,"HOSTILE"   },
+                             {     40           ,"HOSTILE"   },
+                             {     50           ,"UNFRIENDLY"},
+                             {     60           ,"NEUTRAL"   },
+                             {     80           ,"FRIENDLY"  },
+                             {     90           ,"HONORED"   },
+                             {     int.MaxValue ,"EXALTED"   }
+                         };
 
-            var pageName = "HATED";
+            string pageName = "HATED";
 
             if (percentage > 1)
             {
-                pageName =
-                    lookup.OrderBy(s => s.Key).Where(x => percentage < x.Key).Select(x => x.Value).FirstOrDefault();
+                pageName = lookup.OrderBy(s => s.Key).Where(x => percentage < x.Key).Select(x => x.Value).FirstOrDefault();
             }
 
             return YafContext.Current.Get<ILocalization>().GetText("REPUTATION_VALUES", pageName);
-        }
-
-        /// <summary>
-        /// Gets the reputation bar color.
-        /// </summary>
-        /// <param name="percentage">The percentage.</param>
-        /// <returns>Returns the Color for the Current Value</returns>
-        [NotNull]
-        public static string GetReputationBarColor([NotNull] float percentage)
-        {
-            var lookup = new Dictionary<int, string>
-                             {
-                                 { 0, " bg-danger" },
-                                 { 20, " bg-warning" },
-                                 { 30, " bg-warning" },
-                                 { 40, " bg-warning" },
-                                 { 50, " bg-info" },
-                                 { 60, " bg-info" },
-                                 { 80, " bg-success" },
-                                 { 90, " bg-success" },
-                                 { int.MaxValue, " bg-success" }
-                             };
-
-            var color = "bg-danger";
-
-            if (percentage > 1)
-            {
-                color =
-                    lookup.OrderBy(s => s.Key).Where(x => percentage < x.Key).Select(x => x.Value).FirstOrDefault();
-            }
-
-            return color;
         }
 
         /// <summary>
@@ -173,20 +131,20 @@ namespace YAF.Core.Services
         /// <param name="points">The points.</param>
         /// <returns>Returns the Percentage Value</returns>
         [NotNull]
-        public static float ConvertPointsToPercentage([NotNull] int points)
+        public static float ConvertPointsToPercentage([NotNull]int points)
         {
-            var percantage = points;
+            int percantage = points;
 
-            var minValue = YafContext.Current.Get<YafBoardSettings>().ReputationMaxNegative;
+            int minValue = YafContext.Current.Get<YafBoardSettings>().ReputationMaxNegative;
 
-            var maxValue = YafContext.Current.Get<YafBoardSettings>().ReputationMaxPositive;
+            int maxValue = YafContext.Current.Get<YafBoardSettings>().ReputationMaxPositive;
 
             if (!YafContext.Current.Get<YafBoardSettings>().ReputationAllowNegative)
             {
                 minValue = 0;
             }
 
-            var testValue = minValue + maxValue;
+            int testValue = minValue + maxValue;
 
             if (percantage.Equals(0) && YafContext.Current.Get<YafBoardSettings>().ReputationAllowNegative)
             {

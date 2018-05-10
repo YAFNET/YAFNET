@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -51,6 +51,8 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class eventloggroupaccess : AdminPage
     {
+        /* Construction */
+
         #region Methods
 
         /// <summary>
@@ -78,17 +80,33 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_EVENTLOGROUPACCESS", "TITLE"));
         }
 
+        /* Event Handlers */
+
         /// <summary>
-        /// Handles the Load event of the Page control.
+        /// The page_ load.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
             {
                 return;
             }
+
+            this.Save.Text = this.GetText("ADMIN_EVENTLOGROUPACCESS", "SAVE");
+            this.Cancel.Text = this.GetText("ADMIN_EVENTLOGROUPACCESS", "CANCEL");
+            this.GrantAll.Text = this.GetText("ADMIN_EVENTLOGROUPACCESS", "GRANTALL");
+            this.RevokeAll.Text = this.GetText("ADMIN_EVENTLOGROUPACCESS", "REVOKEALL");
+            this.GrantAllDelete.Text = this.GetText("ADMIN_EVENTLOGROUPACCESS", "GRANTALLDELETE");
+            this.RevokeAllDelete.Text = this.GetText("ADMIN_EVENTLOGROUPACCESS", "REVOKEALLDELETE");
+
+            // create page links
+            this.CreatePageLinks();
 
             // bind data
             this.BindData();
@@ -127,9 +145,9 @@ namespace YAF.Pages.Admin
 
                 foreach (RepeaterItem ri in this.AccessList.Items)
                 {
-                    var eventTypeName = ((Label)ri.FindControl("EventTypeName")).Text.Trim();
-                    var viewAccess = ((CheckBox)ri.FindControl("ViewAccess")).Checked;
-                    var deleteAccess = ((CheckBox)ri.FindControl("DeleteAccess")).Checked;
+                    string eventTypeName = ((Label)ri.FindControl("EventTypeName")).Text.Trim();
+                    bool viewAccess = ((CheckBox)ri.FindControl("ViewAccess")).Checked;
+                    bool deleteAccess = ((CheckBox)ri.FindControl("DeleteAccess")).Checked;
 
                     if (viewAccess)
                     {
@@ -287,7 +305,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            var found = false;
+            bool found = false;
 
             if (this.Request.QueryString.GetFirstOrDefault("r") != null)
             {
@@ -303,7 +321,7 @@ namespace YAF.Pages.Admin
                 // Iterate thru all admin pages
                 foreach (int eventValue in listEnumValues)
                 {
-                    var eventTypeId = eventValue;
+                    int eventTypeId = eventValue;
                     foreach (
                         var dr in dt.Rows.Cast<DataRow>().Where(dr => dr["EventTypeID"].ToType<int>() == eventTypeId))
                     {
@@ -356,7 +374,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterItemEventArgs"/> instance containing the event data.</param>
         protected void AccessList_OnItemDataBound([NotNull] object source, [NotNull] RepeaterItemEventArgs e)
         {
-            var item = e.Item;
+            RepeaterItem item = e.Item;
             var drowv = (GroupEventLogAccess)e.Item.DataItem;
 
             if (item.ItemType != ListItemType.Item && item.ItemType != ListItemType.AlternatingItem)

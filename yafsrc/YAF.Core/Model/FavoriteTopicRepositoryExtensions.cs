@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,7 +29,6 @@ namespace YAF.Core.Model
 
     using ServiceStack.OrmLite;
 
-    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -58,7 +57,10 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.Count(f => f.TopicID == topicId).ToTyped<int>();
+            return
+                repository.DbAccess.Execute(
+                    cmd =>
+                    cmd.Connection.Scalar<int>("SELECT COUNT(*) FROM " + repository.DbAccess.GetTableName<FavoriteTopic>() + "  WHERE topicId = {0}", topicId));
         }
 
         /// <summary>
@@ -67,21 +69,20 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="userId">
+        /// <param name="userID">
         /// The user id.
         /// </param>
-        /// <param name="topicId">
+        /// <param name="topicID">
         /// The topic id.
         /// </param>
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        public static bool DeleteByUserAndTopic(this IRepository<FavoriteTopic> repository, int userId, int topicId)
+        public static bool DeleteByUserAndTopic(this IRepository<FavoriteTopic> repository, int userID, int topicID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var count = repository.DbAccess.Execute(
-                db => db.Connection.Delete<FavoriteTopic>(x => x.UserID == userId && x.TopicID == topicId));
+            var count = repository.DbAccess.Execute(db => db.Connection.Delete<FavoriteTopic>(x => x.UserID == userID && x.TopicID == topicID));
             if (count > 0)
             {
                 repository.FireDeleted();
@@ -126,28 +127,28 @@ namespace YAF.Core.Model
         /// The <see cref="DataTable"/>.
         /// </returns>
         public static DataTable Details(
-            this IRepository<FavoriteTopic> repository,
-            int? categoryID,
-            int pageUserID,
-            DateTime sinceDate,
-            DateTime toDate,
-            int pageIndex,
-            int pageSize,
-            bool styledNicks,
-            bool findLastRead,
+            this IRepository<FavoriteTopic> repository, 
+            int? categoryID, 
+            int pageUserID, 
+            DateTime sinceDate, 
+            DateTime toDate, 
+            int pageIndex, 
+            int pageSize, 
+            bool styledNicks, 
+            bool findLastRead, 
             int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.topic_favorite_details(
-                BoardID: boardId ?? repository.BoardID,
-                CategoryID: categoryID,
-                PageUserID: pageUserID,
-                SinceDate: sinceDate,
-                ToDate: toDate,
-                PageIndex: pageIndex,
-                PageSize: pageSize,
-                StyledNicks: styledNicks,
+                BoardID: boardId ?? repository.BoardID, 
+                CategoryID: categoryID, 
+                PageUserID: pageUserID, 
+                SinceDate: sinceDate, 
+                ToDate: toDate, 
+                PageIndex: pageIndex, 
+                PageSize: pageSize, 
+                StyledNicks: styledNicks, 
                 FindLastRead: findLastRead);
         }
 

@@ -7,14 +7,14 @@
       <Resource tag="admin_boardsettings">Board Settings</Resource>
       <Resource tag="admin_forums">Forums</Resource>
       <Resource tag="admin_smilies">Smilies</Resource>
-      <Resource tag="admin_replacewords">Replace Words</Resource>
+     <Resource tag="admin_replacewords">Replace Words</Resource>
       <Resource tag="admin_extensions">File Extensions</Resource>
       <Resource tag="admin_bbcode">BBCode Extensions</Resource>
       <Resource tag="admin_languages">Languages</Resource>
       <Resource tag="admin_accessmasks">Access Masks</Resource>
       <Resource tag="admin_groups">Roles</Resource>
       <Resource tag="admin_users">Users</Resource>
-      <Resource tag="admin_ranks">Ranks</Resource>
+     <Resource tag="admin_ranks">Ranks</Resource>
       <Resource tag="admin_bannedip">Banned IPs</Resource>
       <Resource tag="admin_medals">Medals</Resource>
       <Resource tag="admin_mail">Mail</Resource>
@@ -24,10 +24,9 @@
       <Resource tag="admin_attachments">Attachments</Resource>
       <Resource tag="admin_taskmanager">Task Manager</Resource>
       <Resource tag="admin_eventlog">Event Log</Resource>
-      <Resource tag="admin_restartapp">Restart App</Resource>
+     <Resource tag="admin_restartapp">Restart App</Resource>
       <Resource tag="admin_reindex">DB Maintenance</Resource>
       <Resource tag="admin_runsql">Run SQL Query</Resource>
-      <Resource tag="admin_spamwords">Spam Check Words</Resource>
       <Resource tag="admin_test_data">Create Test Data</Resource>
       <Resource tag="admin_nntpservers">NNTP Servers</Resource>
       <Resource tag="admin_nntpforums">NNTP Forums</Resource>
@@ -88,7 +87,7 @@
      <Resource tag="UPGRADE_VERSION">Get the Latest Version &lt;a target=&quot;_top&quot; href=&quot;http://yetanotherforum.net/&quot;&gt;
                   Here&lt;/a&gt;.</Resource>
      <Resource tag="RUNNING_VERSION">Your YAF.NET Version: &lt;b&gt;{0}&lt;/b&gt; (Date: {1}).</Resource>
-     <Resource tag="LATEST_VERSION">The Latest Stable Version is: &lt;b&gt;{0}&lt;/b&gt; (Date: {1}).</Resource>
+     <Resource tag="LATEST_VERSION">The Latest Stable Version is: &lt;b&gt;{0}&lt;/b&gt; Released &lt;b&gt;{1}&lt;/b&gt;.</Resource>
    </page>
    <page name="ADMIN_NNTPRETRIEVE">
      <Resource tag="TITLE">NNTP Retrieve</Resource>
@@ -865,7 +864,7 @@
 	   <Resource tag="USER_PASS">User Password</Resource>
 	   <Resource tag="USER_POINTS">User Points</Resource>
 	   <Resource tag="USER_SUSPEND">User Suspend</Resource>
-	   <Resource tag="USER_KILL">User Kill &amp; Ban</Resource>
+	   <Resource tag="USER_KILL">User Kill Activity</Resource>
        <Resource tag="VIEW_ALL">View All</Resource>
 	   <Resource tag="LINK_USER_BAN">User &lt;a id=&quot;usr{0}&quot; href=&quot;{1}&quot;&gt;{2}&lt;/a&gt;  is banned by IP</Resource>	 
 	   <Resource tag="ERROR_NOTE_PASSRESET">Error: Current Membership Provider does not support the "Password Reset" function. Verify that "EnablePasswordReset" is "true" in your provider configuration settings in the web.config.</Resource>
@@ -877,7 +876,7 @@
 	   <Resource tag="IP_ADDRESSES">IP Addresses:</Resource>
 	   <Resource tag="BAN_IP_OFUSER">Ban IP Addresses of User?</Resource>
 	   <Resource tag="DELETE_POSTS_USER">Delete all Posts for User?</Resource>
-       <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years</Resource>
+       <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years?</Resource>
 	   <Resource tag="CURRENT_POINTS">Current Points:</Resource>
 	   <Resource tag="SET_POINTS">Set Points:</Resource>
 	   <Resource tag="ADD_POINTS">Add Points:</Resource>
@@ -889,7 +888,7 @@
 	   <Resource tag="ERROR_CONFIRM_PASS">Must Enter a Confirm Password</Resource>  
 	   <Resource tag="ERROR_PASS_NOTMATCH">Confirmation password does not match</Resource>    
 	   <Resource tag="HEAD_USER_POINTS">User Points</Resource>
-	   <Resource tag="HEAD_KILL_USER">Kill User and Ban</Resource>
+	   <Resource tag="HEAD_KILL_USER">Kill User's Activity</Resource>
 	   <Resource tag="HEAD_USER_RESETPASS">Reset/Change User Password</Resource>
 	   <Resource tag="HEAD_USER_CHANGEPASS">Change Password</Resource>
 	   <Resource tag="HEAD_USER_GROUPS">User Groups</Resource>
@@ -956,7 +955,7 @@
 	   <Resource tag="HEADER_AVATARS">Avatar Settings</Resource>
 	   <Resource tag="HEADER_CACHE">Cache Settings</Resource>
 	   <Resource tag="HEADER_SEARCH">Search Settings</Resource>
-	   <Resource tag="HEADER_LOGIN">Sign In/Registration Settings</Resource>
+	   <Resource tag="HEADER_LOGIN">Login/Registration Settings</Resource>
 	   <Resource tag="HEADER_IMAGE_ATTACH">Image Attachment Settings</Resource>
 	   <Resource tag="HEADER_POLL">Poll Settings</Resource>
 	   <Resource tag="HEADER_PMS">Private Messages</Resource>
@@ -1073,7 +1072,7 @@
 	   <Resource tag="AVATAR_GALLERY">Allow Avatar Gallery:</Resource>
        <Resource tag="AVATAR_GALLERY_HELP">Can users select an Avatar from the local Avatar Gallery.</Resource>
 	   <Resource tag="ALLOW_GRAVATARS">Allow Gravatars:</Resource>
-       <Resource tag="ALLOW_GRAVATARS_HELP">Automatically use users Gravatars if they exist (note: may require additional processing).</Resource>
+       <Resource tag="ALLOW_GRAVATARS_HELP">Automatically use users Gavatars if they exist (note: may require additional processing).</Resource>
 	   <Resource tag="GRAVATAR_RATING">Gravatar Rating:</Resource>
        <Resource tag="GRAVATAR_RATING_HELP">Max. rating of Gravatar if allowed.</Resource>
 	   <Resource tag="AVATAR_WIDTH">Avatar Width:</Resource>
@@ -1322,10 +1321,10 @@
        <Resource tag="GUESTS_VIEW_IRKOO_HELP">If checked, guests can view members' reputations.</Resource>
 	   <Resource tag="CAPTCHA_SIZE">CAPTCHA Size:</Resource>
        <Resource tag="CAPTCHA_SIZE_HELP">Size (length) of the CAPTCHA random alphanumeric string.</Resource>
-	   <Resource tag="RECAPTCHA_PUBLIC_KEY">reCAPTCHA Site Key:</Resource>
-       <Resource tag="RECAPTCHA_PUBLIC_KEY_HELP">Enter a reCAPTCHA Site Key.</Resource>
-	   <Resource tag="RECAPTCHA_PRIVATE_KEY">reCAPTCHA Secret Key:</Resource>
-       <Resource tag="RECAPTCHA_PRIVATE_KEY_HELP">Enter a reCAPTCHA Secret Key</Resource>
+	   <Resource tag="RECAPTCHA_PUBLIC_KEY">reCAPTCHA Public Key:</Resource>
+       <Resource tag="RECAPTCHA_PUBLIC_KEY_HELP">Enter a reCAPTCHA Public Key.</Resource>
+	   <Resource tag="RECAPTCHA_PRIVATE_KEY">reCAPTCHA Private Key:</Resource>
+       <Resource tag="RECAPTCHA_PRIVATE_KEY_HELP">Enter a reCAPTCHA Private Key</Resource>
 	   <Resource tag="RECAPTCHA_MULTI_INSTANCE">Enable reCAPTCHA Multiple Instances:</Resource>
        <Resource tag="RECAPTCHA_MULTI_INSTANCE_HELP">Enable reCAPTCHA Recapture Multiple Instances(shared keys).</Resource>
 	   <Resource tag="CAPTCHA_GUEST_POSTING">Enable CAPTCHA for Guest Posting:</Resource>
@@ -1355,7 +1354,7 @@
      <Resource tag="CHECK_FOR_SPAM">Choose a SPAM Service for Automatically SPAM Checking:</Resource>
      <Resource tag="CHECK_FOR_SPAM_HELP">Enables/disables automatically SPAM Checking via the &lt;a href=&quot;http://blogspam.net/&quot;&gt;BlogSpam.net API&lt;/a&gt; or Akismet.com. If enabled SPAM Post gets rejected if detected.</Resource>
 	 <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
-     <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href=&quot;https://akismet.com/signup/&quot;&gt;Sign Up here&lt;a&gt;.</Resource>
+     <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href=&quot;https://akismet.com/signup/&quot;&gt;Sign Up here&lt;a&gt;</Resource>
 	 <Resource tag="SPAM_MESSAGE_HANDLING">Handling of as SPAM Detected Messages</Resource>
      <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Choose what to do when a Message was detected a SPAM, You can choose between Do Nothing, Flag Message as Unapproved, or reject the Message.</Resource>
 	 <Resource tag="SPAM_MESSAGE_0">Do nothing</Resource>

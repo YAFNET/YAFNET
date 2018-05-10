@@ -1,14 +1,13 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.PMList" EnableTheming="true" Codebehind="PMList.ascx.cs" EnableViewState="true" %>
+<%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
-<%@ Import Namespace="YAF.Types.Constants" %>
 
 <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
 
 <asp:GridView ID="MessagesView" runat="server" OnRowCreated="MessagesView_RowCreated"
 	DataKeyNames="UserPMessageID" Width="99%" GridLines="None" CellSpacing="1" ShowFooter="true"
-	AutoGenerateColumns="false" CssClass="content" EmptyDataText='<%#
-    this.GetLocalizedText("NO_MESSAGES", null) %>'
+	AutoGenerateColumns="false" CssClass="content" EmptyDataText='<%#GetLocalizedText("NO_MESSAGES", null) %>'
 	EmptyDataRowStyle-CssClass="post">
 	<HeaderStyle CssClass="header2" />
 	<RowStyle CssClass="post" />
@@ -24,15 +23,15 @@
                 <asp:UpdatePanel ID="upPanExport" runat="server">
                 <ContentTemplate>
                   <YAF:ThemeButton runat="server" ID="MarkAsRead" CssClass="yafcssbigbutton leftItem"
-					TextLocalizedTag="MARK_ALL_ASREAD" OnClick="MarkAsRead_Click" />
+					TextLocalizedTag="MARK_ALL_ASREAD" OnClick="MarkAsRead_Click" Visible="<%#this.View != PMView.Outbox %>" />
 				  <YAF:ThemeButton runat="server" ID="ArchiveSelected" CssClass="yafcssbigbutton leftItem"
-					TextLocalizedTag="ARCHIVESELECTED" OnClick="ArchiveSelected_Click" />
+					TextLocalizedTag="ARCHIVESELECTED" OnClick="ArchiveSelected_Click" Visible="<%#this.View == PMView.Inbox %>" />
                      <YAF:ThemeButton runat="server" ID="ExportSelected" CssClass="yafcssbigbutton leftItem"
 					TextLocalizedTag="EXPORTSELECTED" OnClick="ExportSelected_Click" OnLoad="ExportAll_Load" />
 				  <YAF:ThemeButton runat="server" ID="DeleteSelected" CssClass="yafcssbigbutton leftItem"
 					TextLocalizedTag="DELETESELECTED" OnLoad="DeleteSelected_Load" OnClick="DeleteSelected_Click" />
 				  <YAF:ThemeButton runat="server" ID="ArchiveAll" CssClass="yafcssbigbutton leftItem"
-					TextLocalizedTag="ARCHIVEALL" OnLoad="ArchiveAll_Load" OnClick="ArchiveAll_Click" />
+					TextLocalizedTag="ARCHIVEALL" OnLoad="ArchiveAll_Load" OnClick="ArchiveAll_Click" Visible="<%#this.View == PMView.Inbox %>" />
                   <YAF:ThemeButton runat="server" ID="ExportAll" CssClass="yafcssbigbutton leftItem"
 					TextLocalizedTag="EXPORTALL" OnClick="ExportAll_Click" OnLoad="ExportAll_Load" />
 				  <YAF:ThemeButton runat="server" ID="DeleteAll" CssClass="yafcssbigbutton leftItem"
@@ -52,8 +51,7 @@
 			<HeaderTemplate>
 				&nbsp;</HeaderTemplate>
 			<ItemTemplate>
-				<img src="<%#
-    this.GetImage(Container.DataItem) %>" alt="" />
+				<img src="<%# GetImage(Container.DataItem) %>" alt="" />
 			</ItemTemplate>
             <HeaderStyle Width="40px" />
 			<ItemStyle Width="40px" HorizontalAlign="Center" />
@@ -61,26 +59,23 @@
 		<asp:TemplateField>
 			<HeaderTemplate>
 				<asp:Image runat="server" ID="SortFrom" AlternateText="Sort From" />
-				<asp:LinkButton runat="server" ID="FromLink" OnClick="FromLink_Click" Text='<%#
-    this.GetMessageUserHeader() %>' />
+				<asp:LinkButton runat="server" ID="FromLink" OnClick="FromLink_Click" Text='<%#GetMessageUserHeader() %>' />
 			</HeaderTemplate>
             <HeaderStyle Width="7%" />
 			<ItemTemplate>
-				<YAF:UserLink ID="UserLink1" runat="server" UserID='<%# (this.View == PmView.Outbox ? this.Eval("ToUserID") : this.Eval("FromUserID" )).ToType<int>() %>' />
+				<YAF:UserLink ID="UserLink1" runat="server" UserID='<%# (( this.View == PMView.Outbox ) ? this.Eval("ToUserID") : this.Eval("FromUserID" )).ToType<int>() %>' />
 			</ItemTemplate>
             <ItemStyle Width="7%" HorizontalAlign="Center" />
 		</asp:TemplateField>
 		<asp:TemplateField>
 			<HeaderTemplate>
 				<asp:Image runat="server" ID="SortSubject" AlternateText="Sort Subject" />
-				<asp:LinkButton runat="server" ID="SubjectLink" OnClick="SubjectLink_Click" Text='<%#
-    this.GetLocalizedText("SUBJECT", null) %>' />
+				<asp:LinkButton runat="server" ID="SubjectLink" OnClick="SubjectLink_Click" Text='<%#GetLocalizedText("SUBJECT", null) %>' />
 			</HeaderTemplate>
 			<HeaderStyle Width="60%" HorizontalAlign="Left" />
 			<ItemTemplate>
-				<a href='<%#
-    this.GetMessageLink(this.Eval("UserPMessageID")) %>'>
-					<%# this.HtmlEncode(this.Eval("Subject")) %>
+				<a href='<%# GetMessageLink(Eval("UserPMessageID")) %>'>
+					<%# this.HtmlEncode(Eval("Subject")) %>
 				</a>
 			</ItemTemplate>
             <ItemStyle HorizontalAlign="Left" />
@@ -88,8 +83,7 @@
 		<asp:TemplateField>
 			<HeaderTemplate>
 				<asp:Image runat="server" ID="SortDate" AlternateText="Sort Date" />
-				<asp:LinkButton runat="server" ID="DateLink" OnClick="DateLink_Click" Text='<%#
-    this.GetLocalizedText("DATE", null) %>' />
+				<asp:LinkButton runat="server" ID="DateLink" OnClick="DateLink_Click" Text='<%#GetLocalizedText("DATE", null) %>' />
 			</HeaderTemplate>
             <HeaderStyle HorizontalAlign="Left" />
 			<ItemTemplate>

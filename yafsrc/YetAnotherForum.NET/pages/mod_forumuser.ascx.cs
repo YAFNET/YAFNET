@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,16 +24,17 @@
 
 namespace YAF.Pages
 {
+    // YAF.Pages
     #region Using
 
     using System;
-    using System.Collections.Generic;
     using System.Data;
 
+    using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
-    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -70,26 +71,25 @@ namespace YAF.Pages
         public override void DataBind()
         {
             // load data
-            IList<AccessMask> dataTable;
+            DataTable dataTable;
 
             // only admin can assign all access masks
             if (!this.PageContext.IsAdmin)
             {
                 // do not include access masks with this flags set
-                var flags = AccessFlags.Flags.ModeratorAccess.ToType<int>();
+                var flags = (int)AccessFlags.Flags.ModeratorAccess;
 
                 // non-admins cannot assign moderation access masks
-                dataTable = this.GetRepository<AccessMask>()
-                    .Get(a => a.BoardID == this.PageContext.PageBoardID && a.Flags == flags);
+                dataTable = this.GetRepository<AccessMask>().List(excludeFlags: flags);
             }
             else
             {
-                dataTable = this.GetRepository<AccessMask>().GetByBoardId();
+                dataTable = this.GetRepository<AccessMask>().List();
             }
 
             // setup datasource for access masks dropdown
             this.AccessMaskID.DataSource = dataTable;
-            this.AccessMaskID.DataValueField = "ID";
+            this.AccessMaskID.DataValueField = "AccessMaskID";
             this.AccessMaskID.DataTextField = "Name";
 
             base.DataBind();
@@ -100,10 +100,14 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// Handles the Click event of the Cancel control.
+        /// Handles click event of cancel button.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to forum moderation page
@@ -118,9 +122,7 @@ namespace YAF.Pages
             if (this.PageContext.Settings.LockedForum == 0)
             {
                 // forum index
-                this.PageLinks.AddRoot().AddCategory(
-                    this.PageContext.PageCategoryName,
-                    this.PageContext.PageCategoryID);
+                this.PageLinks.AddRoot().AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
             }
 
             // forum page
@@ -208,16 +210,14 @@ namespace YAF.Pages
                 return;
             }
 
-            using (var dt = LegacyDb.userforum_list(
-                this.Request.QueryString.GetFirstOrDefault("u"),
-                this.PageContext.PageForumID))
+            using (
+                DataTable dt = LegacyDb.userforum_list(
+                    this.Request.QueryString.GetFirstOrDefault("u"), this.PageContext.PageForumID))
             {
                 foreach (DataRow row in dt.Rows)
                 {
                     // set username and disable its editing
-                    this.UserName.Text = PageContext.BoardSettings.EnableDisplayName
-                                             ? row["DisplayName"].ToString()
-                                             : row["Name"].ToString();
+                    this.UserName.Text = PageContext.BoardSettings.EnableDisplayName ? row["DisplayName"].ToString() : row["Name"].ToString();
                     this.UserName.Enabled = false;
 
                     // we don't need to find users now

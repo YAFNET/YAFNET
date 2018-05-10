@@ -13,7 +13,7 @@
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <OldToolsVersion>4.0</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>publish\</PublishUrl>
@@ -48,7 +48,7 @@
     <OutputPath>..\YetAnotherForum.NET\Bin</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <DebugType>none</DebugType>
+    <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
@@ -96,9 +96,9 @@
     <Compile Include="ActiveUsers.cs" />
     <Compile Include="AttachmentsPopMenu.cs" />
     <Compile Include="AlbumListPopMenu.cs" />
-    <Compile Include="GoToPageForm.cs" />
     <Compile Include="ModernButton.cs" />
     <Compile Include="ModernTextBox.cs" />
+    <Compile Include="PopupPanel.cs" />
     <Compile Include="ImageListBox.cs" />
     <Compile Include="ReCAPTCHA\ReCaptchaJson.cs" />
     <Compile Include="UserStyles.cs" />
@@ -107,6 +107,7 @@
     <Compile Include="Localized\LocalizedCustomValidator.cs" />
     <Compile Include="Localized\LocalizedRequiredFieldValidator.cs" />
     <Compile Include="HelpLabel.cs" />
+    <Compile Include="MessageBox.cs" />
     <Compile Include="PopEventArgs.cs" />
     <Compile Include="ReCAPTCHA\Recaptcha.cs" />
     <Compile Include="ReCAPTCHA\RecaptchaResponse.cs" />
@@ -114,7 +115,7 @@
     <Compile Include="BaseReportedPosts.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="OnlineStatusIcon.cs" />
+    <Compile Include="OnlineStatusImage.cs" />
     <Compile Include="RssFeedLink.cs" />
     <Compile Include="SignaturePreview.cs" />
     <Compile Include="SmartScroller.cs" />
@@ -130,9 +131,13 @@
     </Compile>
     <Compile Include="AlphaSort.cs" />
     <Compile Include="CollapsibleImage.cs" />
+    <Compile Include="Container.cs" />
+    <Compile Include="DataPanel.cs" />
     <Compile Include="Footer.cs" />
     <Compile Include="ForumJump.cs" />
     <Compile Include="ForumUsers.cs" />
+    <Compile Include="GotoPageForm.cs" />
+    <Compile Include="Header.cs" />
     <Compile Include="HelpMenu.cs" />
     <Compile Include="IconLegend.cs" />
     <Compile Include="Localized\LocalizedLabel.cs" />
@@ -142,6 +147,7 @@
     <Compile Include="MessagePostData.cs" />
     <Compile Include="MessageSignature.cs" />
     <Compile Include="BBCodeModule.cs" />
+    <Compile Include="MyLinkButton.cs" />
     <Compile Include="PageAccess.cs" />
     <Compile Include="PageLinks.cs" />
     <Compile Include="Pager.cs" />

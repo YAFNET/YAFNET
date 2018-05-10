@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,14 +27,12 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Linq;
 
     using YAF.Classes;
+    using YAF.Classes.Data;
     using YAF.Core;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
 
     #endregion
 
@@ -49,6 +47,11 @@ namespace YAF.Controls
         ///   Gets or sets TopicId
         /// </summary>
         public string Topic { get; set; }
+
+        /// <summary>
+        ///   Gets or sets TopicId
+        /// </summary>
+        public int TopicID { get; set; }
 
         #endregion
 
@@ -75,10 +78,14 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            var topicsList = this.GetRepository<Topic>().GetSimilarTopics(this.PageContext.PageUserID, this.Topic)
-                .Take(5);
+            var topicsList = LegacyDb.topic_similarlist(
+                this.PageContext.PageUserID,
+                this.Topic,
+                this.TopicID,
+                this.Get<YafBoardSettings>().TopicsPerPage,
+                this.Get<YafBoardSettings>().UseStyledNicks);
 
-            if (!topicsList.Any())
+            if (topicsList.Rows.Count.Equals(0))
             {
                 this.SimilarTopicsHolder.Visible = false;
                 return;

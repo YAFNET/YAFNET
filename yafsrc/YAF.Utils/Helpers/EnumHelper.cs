@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -78,7 +78,7 @@ namespace YAF.Utils
         /// </returns>
         public static List<T> EnumToList<T>()
         {
-            var enumType = typeof(T);
+            Type enumType = typeof(T);
 
             // Can't use type constraints on value types, so have to do check like this
             if (enumType.BaseType != typeof(Enum))
@@ -86,7 +86,7 @@ namespace YAF.Utils
                 throw new ArgumentException("EnumToList does not support non-enum types");
             }
 
-            var enumValArray = Enum.GetValues(enumType);
+            Array enumValArray = Enum.GetValues(enumType);
 
             return enumValArray.Cast<int>().Select(val => (T)Enum.Parse(enumType, val.ToString(CultureInfo.InvariantCulture))).ToList();
         }
@@ -109,7 +109,7 @@ namespace YAF.Utils
         /// </exception>
         private static IDictionary<TValue, string> InternalToDictionary<TEnum, TValue>()
         {
-            var enumType = typeof(TEnum);
+            Type enumType = typeof(TEnum);
 
             if (enumType.BaseType != typeof(Enum))
             {
@@ -118,10 +118,10 @@ namespace YAF.Utils
 
             var list = new Dictionary<TValue, string>();
 
-            foreach (var field in enumType.GetFields(BindingFlags.Static | BindingFlags.GetField | BindingFlags.Public))
+            foreach (FieldInfo field in enumType.GetFields(BindingFlags.Static | BindingFlags.GetField | BindingFlags.Public))
             {
                 var value = (TValue)field.GetValue(null);
-                var display = Enum.GetName(enumType, value);
+                string display = Enum.GetName(enumType, value);
 
                 var attribs = field.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
 

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -111,8 +111,8 @@ namespace YAF.Utils
     [NotNull]
     public static byte[] GeneratePasswordBuffer([NotNull] string salt, [NotNull] string clearString, bool standardComp)
     {
-      var unencodedBytes = Encoding.Unicode.GetBytes(clearString);
-      var saltBytes = Convert.FromBase64String(salt);
+      byte[] unencodedBytes = Encoding.Unicode.GetBytes(clearString);
+      byte[] saltBytes = Convert.FromBase64String(salt);
       var buffer = new byte[unencodedBytes.Length + saltBytes.Length];
 
       if (standardComp)
@@ -179,14 +179,14 @@ namespace YAF.Utils
       }
       else
       {
-        var unencodedBytes = Encoding.UTF8.GetBytes(clearString); // UTF8 used to maintain compatibility
+        byte[] unencodedBytes = Encoding.UTF8.GetBytes(clearString); // UTF8 used to maintain compatibility
         buffer = new byte[unencodedBytes.Length];
         Buffer.BlockCopy(unencodedBytes, 0, buffer, 0, unencodedBytes.Length);
       }
 
-      var hashedBytes = Hash(buffer, hashAlgorithmType); // Hash
+      byte[] hashedBytes = Hash(buffer, hashAlgorithmType); // Hash
 
-      var hashedString = hashHex ? hashedBytes.ToHexString() : Convert.ToBase64String(hashedBytes);
+      string hashedString = hashHex ? hashedBytes.ToHexString() : Convert.ToBase64String(hashedBytes);
 
       // Adjust the case of the hash output
       switch (hashCaseType)

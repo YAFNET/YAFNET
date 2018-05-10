@@ -1,7 +1,7 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,19 +27,21 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Configuration;
     using System.Data;
     using System.Globalization;
     using System.Linq;
     using System.Net.Mail;
     using System.Text.RegularExpressions;
+    using System.Web;
     using System.Web.Security;
+    using System.Web.UI.WebControls;
 
-    using FarsiLibrary.Utils;
+    using FarsiLibrary;
 
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
-    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
@@ -65,17 +67,17 @@ namespace YAF.Controls
         /// <summary>
         /// The current user id.
         /// </summary>
-        private int currentUserId;
+        private int currentUserID;
 
         /// <summary>
         /// The _user data.
         /// </summary>
-        private CombinedUserDataHelper userData;
+        private CombinedUserDataHelper _userData;
 
         /// <summary>
         /// The current culture information
         /// </summary>
-        private CultureInfo currentCultureInfo;
+        private CultureInfo _currentCultureInfo;
 
         #endregion
 
@@ -108,14 +110,14 @@ namespace YAF.Controls
         {
             get
             {
-                if (this.currentCultureInfo != null)
+                if (this._currentCultureInfo != null)
                 {
-                    return this.currentCultureInfo;
+                    return this._currentCultureInfo;
                 }
 
-                this.currentCultureInfo = CultureInfo.CreateSpecificCulture(this.GetCulture(true));
+                this._currentCultureInfo = CultureInfo.CreateSpecificCulture(this.GetCulture(true));
 
-                return this.currentCultureInfo;
+                return this._currentCultureInfo;
             }
         }
 
@@ -127,7 +129,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this.userData ?? (this.userData = new CombinedUserDataHelper(this.currentUserId));
+                return this._userData ?? (this._userData = new CombinedUserDataHelper(this.currentUserID));
             }
         }
 
@@ -161,11 +163,22 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
+            // setup jQuery and DatePicker JS...
+            if (this.GetText("COMMON", "CAL_JQ_CULTURE").IsSet())
+            {
+                this.PageContext.PageElements.RegisterJQueryUILanguageFile(this.CurrentCultureInfo);
+            }
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
                 "DatePickerJs",
                 JavaScriptBlocks.DatePickerLoadJs(
+                    this.Birthday.ClientID,
                     this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
                     this.GetText("COMMON", "CAL_JQ_CULTURE")));
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "dropDownJs",
+                JavaScriptBlocks.SelectMenuWithIconsJs(this.Country.ClientID));
 
             base.OnPreRender(e);
         }
@@ -183,11 +196,11 @@ namespace YAF.Controls
 
             if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
             {
-                this.currentUserId = this.PageContext.QueryIDs["u"].ToType<int>();
+                this.currentUserID = this.PageContext.QueryIDs["u"].ToType<int>();
             }
             else
             {
-                this.currentUserId = this.PageContext.PageUserID;
+                this.currentUserID = this.PageContext.PageUserID;
             }
 
             if (this.IsPostBack)
@@ -203,6 +216,9 @@ namespace YAF.Controls
             this.Gender.Items.Add(this.GetText("PROFILE", "gender2"));
 
             // End Modifications for enhanced profile
+            this.UpdateProfile.Text = this.GetText("COMMON", "SAVE");
+            this.Cancel.Text = this.GetText("COMMON", "CANCEL");
+
             this.ForumSettingsRows.Visible = this.Get<YafBoardSettings>().AllowUserTheme
                                              || this.Get<YafBoardSettings>().AllowUserLanguage;
 
@@ -234,7 +250,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void UpdateProfile_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var userName = UserMembershipHelper.GetUserNameFromID(this.currentUserId);
+            var userName = UserMembershipHelper.GetUserNameFromID(this.currentUserID);
 
             if (this.HomePage.Text.IsSet())
             {
@@ -246,7 +262,7 @@ namespace YAF.Controls
 
                 if (!ValidationHelper.IsValidURL(this.HomePage.Text))
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_HOME"), MessageTypes.warning);
+                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_HOME"), MessageTypes.Warning);
                     return;
                 }
 
@@ -264,7 +280,7 @@ namespace YAF.Controls
                                 null,
                                 "Bot Detected",
                                 "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user changed the profile Homepage url to: {2}"
-                                    .FormatWith(userName, this.currentUserId, this.HomePage.Text),
+                                    .FormatWith(userName, this.currentUserID, this.HomePage.Text),
                                 EventLogTypes.SpamBotDetected);
                         }
                         else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
@@ -273,18 +289,18 @@ namespace YAF.Controls
                                 null,
                                 "Bot Detected",
                                 "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user changed the profile Homepage url to: {2}, user was deleted and the name, email and IP Address are banned."
-                                    .FormatWith(userName, this.currentUserId, this.HomePage.Text),
+                                    .FormatWith(userName, this.currentUserID, this.HomePage.Text),
                                 EventLogTypes.SpamBotDetected);
 
                             // Kill user
                             if (!this.PageContext.CurrentForumPage.IsAdminPage)
                             {
-                                var user = UserMembershipHelper.GetMembershipUserById(this.currentUserId);
-                                var userId = this.currentUserId;
+                                var user = UserMembershipHelper.GetMembershipUserById(this.currentUserID);
+                                var userId = this.currentUserID;
 
                                 var userIp = new CombinedUserDataHelper(user, userId).LastIP;
 
-                                UserMembershipHelper.DeleteAndBanUser(this.currentUserId, user, userIp);
+                                UserMembershipHelper.DeleteAndBanUser(this.currentUserID, user, userIp);
                             }
                         }
                     }
@@ -293,38 +309,38 @@ namespace YAF.Controls
 
             if (this.Weblog.Text.IsSet() && !ValidationHelper.IsValidURL(this.Weblog.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_WEBLOG"), MessageTypes.warning);
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_WEBLOG"), MessageTypes.Warning);
                 return;
             }
 
             if (this.MSN.Text.IsSet() && !ValidationHelper.IsValidEmail(this.MSN.Text))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_MSN"), MessageTypes.warning);
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_MSN"), MessageTypes.Warning);
                 return;
             }
 
             if (this.Xmpp.Text.IsSet() && !ValidationHelper.IsValidXmpp(this.Xmpp.Text))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.warning);
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.Warning);
                 return;
             }
 
             if (this.ICQ.Text.IsSet()
                 && !(ValidationHelper.IsValidEmail(this.ICQ.Text) || ValidationHelper.IsNumeric(this.ICQ.Text)))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_ICQ"), MessageTypes.warning);
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_ICQ"), MessageTypes.Warning);
                 return;
             }
 
             if (this.Facebook.Text.IsSet() && !ValidationHelper.IsValidURL(this.Facebook.Text))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_FACEBOOK"), MessageTypes.warning);
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_FACEBOOK"), MessageTypes.Warning);
                 return;
             }
 
             if (this.Google.Text.IsSet() && !ValidationHelper.IsValidURL(this.Google.Text))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_GOOGLE"), MessageTypes.warning);
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_GOOGLE"), MessageTypes.Warning);
                 return;
             }
 
@@ -338,7 +354,7 @@ namespace YAF.Controls
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().DisplayNameMinLength),
-                        MessageTypes.warning);
+                        MessageTypes.Warning);
 
                     return;
                 }
@@ -348,7 +364,7 @@ namespace YAF.Controls
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().UserNameMaxLength),
-                        MessageTypes.warning);
+                        MessageTypes.Warning);
 
                     return;
                 }
@@ -359,7 +375,7 @@ namespace YAF.Controls
                     {
                         this.PageContext.AddLoadMessage(
                             this.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"),
-                            MessageTypes.warning);
+                            MessageTypes.Warning);
 
                         return;
                     }
@@ -374,7 +390,7 @@ namespace YAF.Controls
 
                 if (!ValidationHelper.IsValidEmail(newEmail))
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
+                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.Warning);
                     return;
                 }
 
@@ -382,7 +398,7 @@ namespace YAF.Controls
 
                 if (userNameFromEmail.IsSet() && userNameFromEmail != userName)
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
+                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.Warning);
                     return;
                 }
 
@@ -395,13 +411,13 @@ namespace YAF.Controls
                     // just update the e-mail...
                     try
                     {
-                        UserMembershipHelper.UpdateEmail(this.currentUserId, this.Email.Text.Trim());
+                        UserMembershipHelper.UpdateEmail(this.currentUserID, this.Email.Text.Trim());
                     }
                     catch (ApplicationException)
                     {
                         this.PageContext.AddLoadMessage(
                             this.GetText("PROFILE", "DUPLICATED_EMAIL"),
-                            MessageTypes.warning);
+                            MessageTypes.Warning);
 
                         return;
                     }
@@ -412,7 +428,7 @@ namespace YAF.Controls
             {
                 this.PageContext.AddLoadMessage(
                     this.GetTextFormatted("FIELD_TOOLONG", this.GetText("CP_EDITPROFILE", "INTERESTS"), 400),
-                    MessageTypes.warning);
+                    MessageTypes.Warning);
 
                 return;
             }
@@ -421,7 +437,7 @@ namespace YAF.Controls
             {
                 this.PageContext.AddLoadMessage(
                     this.GetTextFormatted("FIELD_TOOLONG", this.GetText("CP_EDITPROFILE", "OCCUPATION"), 400),
-                    MessageTypes.warning);
+                    MessageTypes.Warning);
 
                 return;
             }
@@ -451,7 +467,7 @@ namespace YAF.Controls
             }
             else
             {
-                foreach (var row in
+                foreach (DataRow row in
                     StaticDataHelper.Cultures()
                         .Rows.Cast<DataRow>()
                         .Where(row => culture.ToString() == row["CultureTag"].ToString()))
@@ -462,7 +478,7 @@ namespace YAF.Controls
 
             // save remaining settings to the DB
             LegacyDb.user_save(
-                this.currentUserId,
+                this.currentUserID,
                 this.PageContext.PageBoardID,
                 null,
                 displayName,
@@ -476,12 +492,12 @@ namespace YAF.Controls
                 null,
                 null,
                 null,
-                false,
+                this.DSTUser.Checked,
                 this.HideMe.Checked,
                 null);
 
             // vzrus: If it's a guest edited by an admin registry value should be changed
-            var dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.currentUserId, true, null, null, false);
+            DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.currentUserID, true, null, null, false);
 
             if (dt.HasRows() && dt.Rows[0]["IsGuest"].ToType<bool>())
             {
@@ -489,7 +505,7 @@ namespace YAF.Controls
             }
 
             // clear the cache for this user...)
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserID));
 
             this.Get<IDataCache>().Clear();
 
@@ -499,7 +515,7 @@ namespace YAF.Controls
             }
             else
             {
-                this.userData = null;
+                this._userData = null;
                 this.BindData();
             }
         }
@@ -625,7 +641,7 @@ namespace YAF.Controls
 
             if (this.UserData.Profile.Country.IsSet())
             {
-                var countryItem = this.Country.Items.FindByValue(this.UserData.Profile.Country.Trim());
+                ListItem countryItem = this.Country.Items.FindByValue(this.UserData.Profile.Country.Trim());
                 if (countryItem != null)
                 {
                     countryItem.Selected = true;
@@ -634,7 +650,7 @@ namespace YAF.Controls
 
             if (this.UserData.Profile.Region.IsSet())
             {
-                var regionItem = this.Region.Items.FindByValue(this.UserData.Profile.Region.Trim());
+                ListItem regionItem = this.Region.Items.FindByValue(this.UserData.Profile.Region.Trim());
                 if (regionItem != null)
                 {
                     regionItem.Selected = true;
@@ -648,6 +664,7 @@ namespace YAF.Controls
                 timeZoneItem.Selected = true;
             }
 
+            this.DSTUser.Checked = this.UserData.DSTUser;
             this.HideMe.Checked = this.UserData.IsActiveExcluded
                                   && (this.Get<YafBoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin);
 
@@ -668,7 +685,7 @@ namespace YAF.Controls
                     themeFile = this.UserData.ThemeFile;
                 }
 
-                var themeItem = this.Theme.Items.FindByValue(themeFile);
+                ListItem themeItem = this.Theme.Items.FindByValue(themeFile);
                 if (themeItem != null)
                 {
                     themeItem.Selected = true;
@@ -700,7 +717,7 @@ namespace YAF.Controls
             }
 
             // If 2-letter language code is the same we return Culture, else we return a default full culture from language file
-            var foundCultItem = this.Culture.Items.FindByValue(this.GetCulture(true));
+            ListItem foundCultItem = this.Culture.Items.FindByValue(this.GetCulture(true));
 
             if (foundCultItem != null)
             {
@@ -725,36 +742,18 @@ namespace YAF.Controls
             var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
 
             // Create Email
-            var changeEmail = new YafTemplateEmail("CHANGEEMAIL")
-                                  {
-                                      TemplateParams =
-                                          {
-                                              ["{user}"] =
-                                              this.PageContext
-                                                  .PageUserName,
-                                              ["{link}"] =
-                                              "{0}\r\n\r\n".FormatWith(
-                                                  YafBuildLink
-                                                      .GetLinkNotEscaped(
-                                                          ForumPages
-                                                              .approve,
-                                                          true,
-                                                          "k={0}",
-                                                          hash)),
-                                              ["{newemail}"] =
-                                              this.Email.Text,
-                                              ["{key}"] = hash,
-                                              ["{forumname}"] =
-                                              this.Get<YafBoardSettings>()
-                                                  .Name,
-                                              ["{forumlink}"] =
-                                              YafForumInfo.ForumURL
-                                          }
-                                  };
+            var changeEmail = new YafTemplateEmail("CHANGEEMAIL");
 
+            changeEmail.TemplateParams["{user}"] = this.PageContext.PageUserName;
+            changeEmail.TemplateParams["{link}"] =
+                "{0}\r\n\r\n".FormatWith(YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash));
+            changeEmail.TemplateParams["{newemail}"] = this.Email.Text;
+            changeEmail.TemplateParams["{key}"] = hash;
+            changeEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
+            changeEmail.TemplateParams["{forumlink}"] = YafForumInfo.ForumURL;
 
             // save a change email reference to the db
-            this.GetRepository<CheckEmail>().Save(this.currentUserId, hash, newEmail);
+            this.GetRepository<CheckEmail>().Save(this.currentUserID, hash, newEmail);
 
             // send a change email message...
             changeEmail.SendEmail(new MailAddress(newEmail), this.GetText("COMMON", "CHANGEEMAIL_SUBJECT"), true);
@@ -771,7 +770,7 @@ namespace YAF.Controls
         /// </param>
         private void UpdateUserProfile([NotNull] string userName)
         {
-            var userProfile = YafUserProfile.GetProfile(userName);
+            YafUserProfile userProfile = YafUserProfile.GetProfile(userName);
 
             userProfile.Country = this.Country.SelectedItem != null
                                       ? this.Country.SelectedItem.Value.Trim()
@@ -813,7 +812,7 @@ namespace YAF.Controls
                     userBirthdate = DateTimeHelper.SqlDbMinTime().Date;
                 }
 
-                if (userBirthdate >= DateTimeHelper.SqlDbMinTime().Date)
+                if (userBirthdate > DateTimeHelper.SqlDbMinTime().Date)
                 {
                     userProfile.Birthday = userBirthdate.Date;
                 }
@@ -822,7 +821,7 @@ namespace YAF.Controls
             {
                 DateTime.TryParse(this.Birthday.Text, this.CurrentCultureInfo, DateTimeStyles.None, out userBirthdate);
 
-                if (userBirthdate >= DateTimeHelper.SqlDbMinTime().Date)
+                if (userBirthdate > DateTimeHelper.SqlDbMinTime().Date)
                 {
                     // Attention! This is stored in profile in the user timezone date
                     userProfile.Birthday = userBirthdate.Date;
@@ -836,12 +835,12 @@ namespace YAF.Controls
             try
             {
                 // Sync to User Profile Mirror table while it's dirty
-                var settingsPropertyValueCollection = userProfile.PropertyValues;
+                SettingsPropertyValueCollection settingsPropertyValueCollection = userProfile.PropertyValues;
 
                 LegacyDb.SetPropertyValues(
                     this.PageContext.PageBoardID,
                     UserMembershipHelper.ApplicationName(),
-                    this.currentUserId,
+                    this.currentUserID,
                     settingsPropertyValueCollection);
             }
             catch (Exception ex)
@@ -863,7 +862,7 @@ namespace YAF.Controls
         /// <param name="country">The country.</param>
         private void LookForNewRegionsBind(string country)
         {
-            var dt = StaticDataHelper.Region(country);
+            DataTable dt = StaticDataHelper.Region(country);
 
             // The first row is empty
             if (dt.Rows.Count > 1)

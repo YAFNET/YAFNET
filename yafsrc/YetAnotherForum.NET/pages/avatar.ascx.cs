@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -124,8 +124,9 @@ namespace YAF.Pages
             var dirName = e.Item.FindControl("dirName") as LinkButton;
             dirName.CommandArgument = directory + Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name"));
             dirName.Text =
-                @"<p style=""text-align:center""><i class=""far fa-folder"" alt=""{0}"" title=""{0}"" style=""font-size:50px"" /></i><br />{0}</p>"
+                @"<p style=""text-align:center""><img src=""{0}images/folder.gif"" alt=""{1}"" title=""{1}"" /><br />{1}</p>"
                     .FormatWith(
+                        YafForumInfo.ForumClientFileRoot,
                         Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
         }
 
@@ -150,7 +151,7 @@ namespace YAF.Pages
                     directoryPath = this.CurrentDirectory;
                 }
 
-                var tmpExt = finfo.Extension.ToLower();
+                string tmpExt = finfo.Extension.ToLower();
 
                 if (tmpExt == ".gif" || tmpExt == ".jpg" || tmpExt == ".jpeg" || tmpExt == ".png" || tmpExt == ".bmp")
                 {
@@ -189,14 +190,13 @@ namespace YAF.Pages
             }
 
             // get the previous directory...
-            var previousDirectory = Path.Combine(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars);
+            string previousDirectory = Path.Combine(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars);
 
             var up = e.Item.FindControl("up") as LinkButton;
             up.CommandArgument = previousDirectory;
             up.Text =
-                @"<p style=""text-align:center"">
-                     <i class=""far fa-folder-open""style=""font-size:50px""></i><br />
-                     <button type=""button"" class=""btn btn-primary btn-sm""><i class=""fas fa-arrow-left""></i>&nbsp;{0}</button></p>".FormatWith(this.GetText("UP"));
+                @"<p style=""text-align:center""><img src=""{0}images/folder.gif"" alt=""Up"" /><br />UP</p>".FormatWith
+                    (YafForumInfo.ForumClientFileRoot);
             up.ToolTip = this.GetText("UP_TITLE");
 
             // Hide if Top Folder
@@ -220,7 +220,7 @@ namespace YAF.Pages
         [NotNull]
         protected List<DirectoryInfo> DirectoryListClean([NotNull] DirectoryInfo baseDir)
         {
-            var avatarDirectories = baseDir.GetDirectories();
+            DirectoryInfo[] avatarDirectories = baseDir.GetDirectories();
 
             return
                 avatarDirectories.Where(
@@ -237,7 +237,7 @@ namespace YAF.Pages
         [NotNull]
         protected List<FileInfo> FilesListClean([NotNull] DirectoryInfo baseDir)
         {
-            var avatarfiles = baseDir.GetFiles("*.*");
+            FileInfo[] avatarfiles = baseDir.GetFiles("*.*");
 
             return
                 avatarfiles.Where(

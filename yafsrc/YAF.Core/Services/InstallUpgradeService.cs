@@ -1,7 +1,7 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -171,7 +171,7 @@ namespace YAF.Core.Services
             var cult = StaticDataHelper.Cultures();
             var langFile = "english.xml";
 
-            foreach (var drow in cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == culture))
+            foreach (DataRow drow in cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == culture))
             {
                 langFile = (string)drow["CultureFile"];
             }
@@ -213,13 +213,16 @@ namespace YAF.Core.Services
         /// <summary>
         /// The upgrade database.
         /// </summary>
+        /// <param name="fullText">
+        /// The full text.
+        /// </param>
         /// <param name="upgradeExtensions">
         /// The upgrade Extensions.
         /// </param>
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public bool UpgradeDatabase(bool upgradeExtensions)
+        public bool UpgradeDatabase(bool fullText, bool upgradeExtensions)
         {
             this._messages.Clear();
             {
@@ -300,6 +303,20 @@ namespace YAF.Core.Services
                 // DB.system_deleteinstallobjects();
             }
 
+            // attempt to apply fulltext support if desired
+            if (fullText && this.DbAccess.Information.FullTextScript.IsSet())
+            {
+                try
+                {
+                    this.ExecuteScript(this.DbAccess.Information.FullTextScript, false);
+                }
+                catch (Exception x)
+                {
+                    // just a warning...
+                    this._messages.Add("Warning: FullText Support wasn't installed: {0}".FormatWith(x.Message));
+                }
+            }
+
             if (this.IsForumInstalled)
             {
                 this.ExecuteScript(this.DbAccess.Information.FullTextUpgradeScript, false);
@@ -344,7 +361,6 @@ namespace YAF.Core.Services
         /// <summary>
         /// Executes the upgrade scripts.
         /// </summary>
-        /// <param name="isAzureEngine">if set to <c>true</c> [is azure engine].</param>
         private void ExecuteUpgradeScripts(bool isAzureEngine)
         {
             // upgrade Membership Scripts
@@ -387,12 +403,14 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Fixes the access.
+        /// The fix access.
         /// </summary>
-        /// <param name="grantAccess">if set to <c>true</c> [grant access].</param>
-        private void FixAccess(bool grantAccess)
+        /// <param name="bGrant">
+        /// The b grant.
+        /// </param>
+        private void FixAccess(bool bGrant)
         {
-            LegacyDb.system_initialize_fixaccess(grantAccess);
+            LegacyDb.system_initialize_fixaccess(bGrant);
         }
 
         /// <summary>

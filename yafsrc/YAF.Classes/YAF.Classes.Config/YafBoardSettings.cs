@@ -1,9 +1,9 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -262,6 +262,44 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to use the jQuery-UI scripts from a CDN or locally.
+        /// </summary>
+        /// <value>
+        /// <c>If true use CDN if not use locally</c>.
+        /// </value>
+        public bool JqueryUICDNHosted
+        {
+            get
+            {
+                return this._reg.GetValue("JqueryUICDNHosted", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("JqueryUICDNHosted", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to use the jQuery-UI Theme files from a CDN or locally.
+        /// </summary>
+        /// <value>
+        /// <c>If true use CDN if not use locally</c>.
+        /// </value>
+        public bool JqueryUIThemeCDNHosted
+        {
+            get
+            {
+                return this._reg.GetValue("JqueryUIThemeCDNHosted", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("JqueryUIThemeCDNHosted", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether to use the script manager scripts from a CDN or locally.
         /// </summary>
         /// <value>
@@ -315,6 +353,22 @@ namespace YAF.Classes
             set
             {
                 this._regBoard.SetValue("MobileTheme", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets jQuery-UI Theme.
+        /// </summary>
+        public string JqueryUITheme
+        {
+            get
+            {
+                return this._regBoard.GetValue("JqueryUITheme", "smoothness");
+            }
+
+            set
+            {
+                this._regBoard.SetValue("JqueryUITheme", value);
             }
         }
 
@@ -644,7 +698,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether send an
+        /// Gets or sets a value indicating whether send an 
         /// Email when a Single User is awarded with an Medal.
         /// </summary>
         public bool EmailUserOnMedalAward
@@ -661,7 +715,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether
+        /// Gets or sets a value indicating whether 
         /// sending the user a welcome notification after register
         /// 0 = No Mail
         /// 1 = Send as Mail Message
@@ -681,7 +735,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether
+        /// Gets or sets a value indicating whether 
         /// which Spam Service Type should been used
         /// 0 = No Service
         /// 1 = BlogSpam.NET Service
@@ -702,7 +756,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether
+        /// Gets or sets a value indicating whether 
         /// which Spam Service Type should been used
         /// 0 = No Service
         /// 1 = StopForumSpam.com Service
@@ -724,7 +778,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether
+        /// Gets or sets a value indicating whether 
         /// what to to with a SPAM Message
         /// 0 = Do nothing
         /// 1 = Flag Message as Unapproved
@@ -745,7 +799,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether
+        /// Gets or sets a value indicating whether 
         /// what to to with Bots during Registration
         /// 0 = Disabled
         /// 1 = Log and Send Message to Admins
@@ -765,7 +819,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets the amount of posts a user has to have to be ignored
+        /// Gets or sets the amount of posts a user has to have to be ignored 
         /// by the spam check
         /// </summary>
         /// <value>
@@ -875,7 +929,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("AllowedNumberOfUrls", 10);
+                return this._reg.GetValue("AllowedNumberOfUrls", 1);
             }
 
             set
@@ -1205,6 +1259,38 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets Smilies Columns.
+        /// </summary>
+        public int SmiliesColumns
+        {
+            get
+            {
+                return this._reg.GetValue("SmiliesColumns", 3);
+            }
+
+            set
+            {
+                this._reg.SetValue("SmiliesColumns", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets SmiliesPerRow.
+        /// </summary>
+        public int SmiliesPerRow
+        {
+            get
+            {
+                return this._reg.GetValue("SmiliesPerRow", 6);
+            }
+
+            set
+            {
+                this._reg.SetValue("SmiliesPerRow", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets Message History Days To Trace.
         /// </summary>
         public int MessageHistoryDaysToLog
@@ -1451,7 +1537,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("ReturnSearchMax", 1000);
+                return this._reg.GetValue("ReturnSearchMax", 100);
             }
 
             set
@@ -1541,6 +1627,22 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets SearchStringMaxLength.
+        /// </summary>
+        public int SearchStringMaxLength
+        {
+            get
+            {
+                return this._reg.GetValue("SearchStringMaxLength", 50);
+            }
+
+            set
+            {
+                this._reg.SetValue("SearchStringMaxLength", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets SearchPermissions.
         /// </summary>
         public int SearchPermissions
@@ -1569,6 +1671,22 @@ namespace YAF.Classes
             set
             {
                 this._regBoard.SetValue("BoardPollID", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets ExternalSearchPermissions.
+        /// </summary>
+        public int ExternalSearchPermissions
+        {
+            get
+            {
+                return this._reg.GetValue("ExternalSearchPermissions", (int)ViewPermissions.Nobody);
+            }
+
+            set
+            {
+                this._reg.SetValue("ExternalSearchPermissions", value);
             }
         }
 
@@ -1994,6 +2112,25 @@ namespace YAF.Classes
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether 
+        /// which Message Notification System should been used
+        /// 0 = Modal Dialog
+        /// 1 = Notification Bar
+        /// </summary>
+        public int MessageNotificationSystem
+        {
+            get
+            {
+                return this._reg.GetValue("MessageNotificationSystem", 1);
+            }
+
+            set
+            {
+                this._reg.SetValue("MessageNotificationSystem", value);
+            }
+        }
+
         #endregion
 
         #region boolean settings
@@ -2095,6 +2232,22 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("AllowForumsWithSameName", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether UseFullTextSearch.
+        /// </summary>
+        public bool UseFullTextSearch
+        {
+            get
+            {
+                return this._reg.GetValue("UseFullTextSearch", false);
+            }
+
+            set
+            {
+                this._reg.SetValue("UseFullTextSearch", value);
             }
         }
 
@@ -2406,7 +2559,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether AllowPollChangesAfterFirstVote.
+        /// Gets or sets a value indicating whether AllowPollChangesAfterFirstVote. 
         /// A poll creator can't change choices after the first vote.
         /// </summary>
         public bool AllowPollChangesAfterFirstVote
@@ -2423,7 +2576,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether AllowUsersHidePollResults.
+        /// Gets or sets a value indicating whether AllowUsersHidePollResults. 
         /// </summary>
         public bool AllowUsersHidePollResults
         {
@@ -2471,7 +2624,23 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether AllowMultipleChoices.
+        /// Gets or sets the Refresh Rate for the TimeAgo
+        /// </summary>
+        public int RelativeTimeRefreshTime
+        {
+            get
+            {
+                return this._reg.GetValue("RelativeTimeRefreshTime", 60000);
+            }
+
+            set
+            {
+                this._reg.SetValue("RelativeTimeRefreshTime", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether AllowMultipleChoices. 
         /// </summary>
         public bool AllowMultipleChoices
         {
@@ -2487,7 +2656,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether AllowGuestsViewPollOptions.
+        /// Gets or sets a value indicating whether AllowGuestsViewPollOptions. 
         /// </summary>
         public bool AllowGuestsViewPollOptions
         {
@@ -2503,7 +2672,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether AllowUsersImagedPoll.
+        /// Gets or sets a value indicating whether AllowUsersImagedPoll. 
         /// </summary>
         public bool AllowUsersImagedPoll
         {
@@ -2727,25 +2896,6 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [allow private message attachments].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [allow private message attachments]; otherwise, <c>false</c>.
-        /// </value>
-        public bool AllowPrivateMessageAttachments
-        {
-            get
-            {
-                return this._reg.GetValue("AllowPrivateMessageAttachments", true);
-            }
-
-            set
-            {
-                this._reg.SetValue("AllowPrivateMessageeAttachments", value);
-            }
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether AllowEmailSending.
         /// </summary>
         public bool AllowEmailSending
@@ -2774,6 +2924,22 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("AllowSignatures", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether ExternalSearchInNewWindow.
+        /// </summary>
+        public bool ExternalSearchInNewWindow
+        {
+            get
+            {
+                return this._reg.GetValue("ExternalSearchInNewWindow", false);
+            }
+
+            set
+            {
+                this._reg.SetValue("ExternalSearchInNewWindow", value);
             }
         }
 
@@ -3114,6 +3280,22 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether Show smiles in ShoutBox.
+        /// </summary>
+        public bool ShowShoutboxSmiles
+        {
+            get
+            {
+                return this._reg.GetValue("ShowShoutboxSmiles", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("ShowShoutboxSmiles", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether AllowUserInfoCaching.
         /// </summary>
         public bool AllowUserInfoCaching
@@ -3338,7 +3520,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets sets the Number of Views a Topic must have to became
+        /// Gets or sets sets the Number of Views a Topic must have to became 
         /// Hot.
         /// </summary>
         public int PopularTopicViews
@@ -3355,7 +3537,7 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets the Number of Replies a Topic must have to became
+        /// Gets or sets the Number of Replies a Topic must have to became 
         /// Hot.
         /// </summary>
         public int PopularTopicReplys
@@ -3599,7 +3781,7 @@ namespace YAF.Classes
         /// <summary>
         /// Gets or sets IP Locator Results Mapping.
         /// </summary>
-        public string IPLocatorResultsMapping
+        public string IPLocatorResultsMapping 
         {
             get
             {
@@ -3773,6 +3955,70 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets or sets SearchEngine1.
+        /// </summary>
+        public string SearchEngine1
+        {
+            get
+            {
+                return this._reg.GetValue("SearchEngine1", "http://google.com/search?as_q={Word}&hl={Language}&num={ResultsPerPage}&btnG={ButtonName}&as_epq={Word}&as_oq={Word}&as_eq={Word}&lr=&cr=&as_ft=i&as_filetype=&as_qdr=&as_occt=&as_dt=i&as_sitesearch={Site}&as_rights=&safe=off");
+            }
+
+            set
+            {
+                this._reg.SetValue("SearchEngine1", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets SearchEngine2.
+        /// </summary>
+        public string SearchEngine2
+        {
+            get
+            {
+                return this._reg.GetValue("SearchEngine2", "http://yandex.ru/yandsearch?date=all&text=&site={Site}&rstr=&zone=all&wordforms=&lang={Language}&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&mime=&numdoc={ResultsPerPage}&lr=");
+            }
+
+            set
+            {
+                this._reg.SetValue("SearchEngine2", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets SearchEngine1Parameters.
+        /// </summary>
+        public string SearchEngine1Parameters
+        {
+            get
+            {
+                return this._reg.GetValue("SearchEngine1Parameters", "Google^?^&^+^;^AnyWord:as_oq={Word}^AllWords:as_q={Word}^ExactFrase:as_epq={Word}^WithoutWords:as_eq={Word}");
+            }
+
+            set
+            {
+                this._reg.SetValue("SearchEngine1Parameters", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets SearchEngine2Parameters.
+        /// </summary>
+        public string SearchEngine2Parameters
+        {
+            get
+            {
+                return this._reg.GetValue("SearchEngine2Parameters", "Yandex^?^&^+^;^AnyWord:text={Word}/wordforms=any^AllWords:text={Word}/wordforms=all^ExactFrase:text={Word}/wordforms=exact^WithoutWords:text=~~{Word}");
+            }
+
+            set
+            {
+                this._reg.SetValue("SearchEngine2Parameters", value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets GravatarRating.
         /// </summary>
         public string GravatarRating
@@ -3865,6 +4111,22 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("WebServiceToken", value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets SearchStringPattern.
+        /// </summary>
+        public string SearchStringPattern
+        {
+            get
+            {
+                return this._reg.GetValue("SearchStringPattern", ".*");
+            }
+
+            set
+            {
+                this._reg.SetValue("SearchStringPattern", value);
             }
         }
 
@@ -4110,7 +4372,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxAvatar", @"<li class=""list-group-item"">{0}</li>");
+                return this._reg.GetValue("UserBoxAvatar", @"<div class=""section"">{0}</div><br clear=""all"" />");
             }
 
             set
@@ -4126,7 +4388,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxMedals", @"<li class=""list-group-item""><strong>{0}</strong><br /> {1}{2}</li>");
+                return this._reg.GetValue("UserBoxMedals", @"<div class=""section medals"">{0} {1}{2}</div><br clear=""all"" />");
             }
 
             set
@@ -4142,7 +4404,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxRankImage", @"<li class=""list-group-item"">{0}</li>");
+                return this._reg.GetValue("UserBoxRankImage", "{0}<br clear=\"all\" />");
             }
 
             set
@@ -4158,7 +4420,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxCountryImage", "{0}");
+                return this._reg.GetValue("UserBoxCountryImage", "{0}<br />");
             }
 
             set
@@ -4174,7 +4436,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxRank", @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>");
+                return this._reg.GetValue("UserBoxRank", "{0}: {1}<br clear=\"all\" />");
             }
 
             set
@@ -4190,7 +4452,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxGroups", @"<li class=""list-group-item""><strong>{0}:</strong><br /> {1}</li>");
+                return this._reg.GetValue("UserBoxGroups", "{0}: {1}<br clear=\"all\" />");
             }
 
             set
@@ -4206,7 +4468,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxJoinDate", @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>");
+                return this._reg.GetValue("UserBoxJoinDate", "{0}: {1}<br />");
             }
 
             set
@@ -4222,7 +4484,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxGender", "{0}&nbsp;");
+                return this._reg.GetValue("UserBoxGender", "{0}<br />");
             }
 
             set
@@ -4238,7 +4500,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxPosts", @"<li class=""list-group-item""><strong>{0}:</strong> {1:N0}</li>");
+                return this._reg.GetValue("UserBoxPosts", "{0}: {1:N0}<br />");
             }
 
             set
@@ -4254,7 +4516,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxReputation", @"<li class=""list-group-item""><strong>{0}:</strong> {1:N0}</li>");
+                return this._reg.GetValue("UserBoxReputation", @"<div class=""section"">{0}: {1:N0}</div><br />");
             }
 
             set
@@ -4270,7 +4532,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxLocation", @"<li class=""list-group-item""><strong>{0}:</strong> {1}</li>");
+                return this._reg.GetValue("UserBoxLocation", "{0}: {1}<br />");
             }
 
             set
@@ -4288,7 +4550,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxThanksFrom", @"<li class=""list-group-item"">{0}</li>");
+                return this._reg.GetValue("UserBoxThanksFrom", "{0}<br />");
             }
 
             set
@@ -4304,7 +4566,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("UserBoxThanksTo", @"<li class=""list-group-item"">{0}</li>");
+                return this._reg.GetValue("UserBoxThanksTo", "{0}<br />");
             }
 
             set
@@ -4392,7 +4654,7 @@ namespace YAF.Classes
         ///  Gets or sets the roles app name.
         /// </summary>
         protected virtual string _rolesAppName { get; set; }
-
+        
 
         #region Nested type: YafLegacyBoardSettings
 

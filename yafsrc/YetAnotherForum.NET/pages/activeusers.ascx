@@ -50,19 +50,19 @@
                     <tr>
 				        <td class="post">		
 					        <YAF:UserLink ID="NameLink"  runat="server" ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName
-                              ? this.Eval("UserDisplayName")
-                              : this.Eval("UserName") %>' CrawlerName='<%# Convert.ToInt32(Eval("IsCrawler")) > 0 ? this.Eval("Browser").ToString() : String.Empty %>' 
+                              ? Eval("UserDisplayName")
+                              : Eval("UserName") %>' CrawlerName='<%# Convert.ToInt32(Eval("IsCrawler")) > 0 ? Eval("Browser").ToString() : String.Empty %>' 
                                 UserID='<%# Convert.ToInt32(Eval("UserID")) %>' 				
-                                Style='<%# this.Eval("Style").ToString() %>' />
+                                Style='<%# Eval("Style").ToString() %>' />
                             <asp:PlaceHolder ID="HiddenPlaceHolder" runat="server" Visible='<%# Convert.ToBoolean(Eval("IsHidden"))%>' >
                                 (<YAF:LocalizedLabel ID="Hidden" LocalizedTag="HIDDEN" runat="server" />)
                             </asp:PlaceHolder>				    
 				        </td>
 				        <td class="post">				
-					        <YAF:ActiveLocation ID="ActiveLocation2" UserID='<%# Convert.ToInt32((Eval("UserID") == DBNull.Value)? 0 : this.Eval("UserID")) %>' 
-                                UserName='<%# this.Eval("UserName") %>' HasForumAccess='<%# Convert.ToBoolean(Eval("HasForumAccess")) %>' ForumPage='<%# this.Eval("ForumPage") %>' 
-                                ForumID='<%# Convert.ToInt32((Eval("ForumID") == DBNull.Value)? 0 : this.Eval("ForumID")) %>' ForumName='<%# this.Eval("ForumName") %>' 
-                                TopicID='<%# Convert.ToInt32((Eval("TopicID") == DBNull.Value)? 0 : this.Eval("TopicID")) %>' TopicName='<%# this.Eval("TopicName") %>' 
+					        <YAF:ActiveLocation ID="ActiveLocation2" UserID='<%# Convert.ToInt32((Eval("UserID") == DBNull.Value)? 0 : Eval("UserID")) %>' 
+                                UserName='<%# Eval("UserName") %>' HasForumAccess='<%# Convert.ToBoolean(Eval("HasForumAccess")) %>' ForumPage='<%# Eval("ForumPage") %>' 
+                                ForumID='<%# Convert.ToInt32((Eval("ForumID") == DBNull.Value)? 0 : Eval("ForumID")) %>' ForumName='<%# Eval("ForumName") %>' 
+                                TopicID='<%# Convert.ToInt32((Eval("TopicID") == DBNull.Value)? 0 : Eval("TopicID")) %>' TopicName='<%# Eval("TopicName") %>' 
                                 LastLinkOnly="false"  runat="server"></YAF:ActiveLocation>     
 				        </td>
 				        <td class="post">
@@ -75,10 +75,10 @@
 					        <%# this.Get<ILocalization>().GetTextFormatted("minutes", ((System.Data.DataRowView)Container.DataItem)["Active"])%>
 				        </td>
 				        <td class="post">
-					        <%# this.Eval("Browser") %>
+					        <%# Eval("Browser") %>
 				        </td>
 				        <td class="post">
-					        <%# this.Eval("Platform") %>
+					        <%# Eval("Platform") %>
 				        </td>
                         <td id="Iptd1" class="post" runat="server" visible='<%# this.PageContext.IsAdmin %>'>
 					         <a id="Iplink1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,IPHelper.GetIp4Address(Eval("IP").ToString())) %>'

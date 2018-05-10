@@ -5,17 +5,28 @@
     color: $color;
     background-color: $background;
 
-    &.list-group-item-action {
-      @include hover-focus {
-        color: $color;
-        background-color: darken($background, 5%);
-      }
+    // [converter] extracted a&, button& to a.list-group-item-#{$state}, button.list-group-item-#{$state}
+  }
 
-      &.active {
-        color: #fff;
-        background-color: $color;
-        border-color: $color;
-      }
+  a.list-group-item-#{$state},
+  button.list-group-item-#{$state} {
+    color: $color;
+
+    .list-group-item-heading {
+      color: inherit;
+    }
+
+    &:hover,
+    &:focus {
+      color: $color;
+      background-color: darken($background, 5%);
+    }
+    &.active,
+    &.active:hover,
+    &.active:focus {
+      color: #fff;
+      background-color: $color;
+      border-color: $color;
     }
   }
 }

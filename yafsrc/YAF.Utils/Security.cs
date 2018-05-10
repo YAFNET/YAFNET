@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,74 +24,73 @@
 
 namespace YAF.Utils
 {
-    using System;
-    using System.Text.RegularExpressions;
-    using System.Web;
+  using System;
+  using System.Web;
+
+  /// <summary>
+  /// The security.
+  /// </summary>
+  public static class Security
+  {
+    /// <summary>
+    /// Function that verifies a string is an integer value or it redirects to invalid "info" page.
+    /// Used as a security feature against invalid values submitted to the page.
+    /// </summary>
+    /// <param name="longValue">
+    /// The string value to test
+    /// </param>
+    /// <returns>
+    /// The converted long value
+    /// </returns>
+    public static long StringToLongOrRedirect(string longValue)
+    {
+      long value;
+
+      if (!long.TryParse(longValue, out value))
+      {
+        // it's an invalid request. Redirect to the info page on invalid requests.
+        YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+      }
+
+      return value;
+    }
 
     /// <summary>
-    /// The security.
+    /// The create password.
     /// </summary>
-    public static class Security
+    /// <param name="length">
+    /// The length.
+    /// </param>
+    /// <returns>
+    /// The create password.
+    /// </returns>
+    public static string CreatePassword(int length)
     {
-        /// <summary>
-        /// Function that verifies a string is an integer value or it redirects to invalid "info" page.
-        /// Used as a security feature against invalid values submitted to the page.
-        /// </summary>
-        /// <param name="longValue">
-        /// The string value to test
-        /// </param>
-        /// <returns>
-        /// The converted long value
-        /// </returns>
-        public static long StringToLongOrRedirect(string longValue)
-        {
-            long value;
+      string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!#%&()@${[]}";
+      string res = string.Empty;
+      var rnd = new Random();
+      while (0 < length--)
+      {
+        res += valid[rnd.Next(valid.Length)];
+      }
 
-            if (!long.TryParse(longValue, out value))
-            {
-                // it's an invalid request. Redirect to the info page on invalid requests.
-                YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
-            }
-
-            return value;
-        }
-
-        /// <summary>
-        /// The create password.
-        /// </summary>
-        /// <param name="length">
-        /// The length.
-        /// </param>
-        /// <returns>
-        /// The create password.
-        /// </returns>
-        public static string CreatePassword(int length)
-        {
-            string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!#%&()@${[]}";
-            string res = string.Empty;
-            var rnd = new Random();
-            while (0 < length--)
-            {
-                res += valid[rnd.Next(valid.Length)];
-            }
-
-            return res;
-        }
-
-        /// <summary>
-        /// This method validates request whether it comes from same server in case it's HTTP POST.
-        /// </summary>
-        /// <param name="request">
-        /// Request to validate.
-        /// </param>
-        public static void CheckRequestValidity(HttpRequest request)
-        {
-            // ip with 
-            // deny access if POST request comes from other server
-            if (request.HttpMethod == "POST" && request.UrlReferrer != null && request.Url.Host != null && request.UrlReferrer.Host != request.Url.Host)
-            {
-                YafBuildLink.AccessDenied();
-            }
-        }
+      return res;
     }
+
+    /// <summary>
+    /// This method validates request whether it comes from same server in case it's HTTP POST.
+    /// </summary>
+    /// <param name="request">
+    /// Request to validate.
+    /// </param>
+    public static void CheckRequestValidity(HttpRequest request)
+    {
+      // ip with 
+      // deny access if POST request comes from other server
+      if (request.HttpMethod == "POST" && request.UrlReferrer != null && request.Url.Host != null && request.UrlReferrer.Host != request.Url.Host)
+      {
+        YafBuildLink.AccessDenied();
+      }
+    }
+  }
 }

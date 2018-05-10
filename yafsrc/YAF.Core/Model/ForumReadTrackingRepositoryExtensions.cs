@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,18 +25,15 @@
 namespace YAF.Core.Model
 {
     using System;
+    using System.Data;
 
     using ServiceStack.OrmLite;
 
-    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
-    /// <summary>
-    /// The ForumReadTracking Repository Extensions
-    /// </summary>
     public static class ForumReadTrackingRepositoryExtensions
     {
         #region Public Methods and Operators
@@ -62,13 +59,11 @@ namespace YAF.Core.Model
             return success;
         }
 
-        public static DateTime? Lastread(this IRepository<ForumReadTracking> repository, int userId, int forumId)
+        public static DateTime? Lastread(this IRepository<ForumReadTracking> repository, int userID, int forumID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var forum = repository.GetSingle(t => t.UserID == userId && t.ID == forumId);
-
-            return forum?.LastAccessDate;
+            return repository.DbFunction.Scalar.readforum_lastread(UserID: userID, ForumID: forumID);
         }
 
         #endregion

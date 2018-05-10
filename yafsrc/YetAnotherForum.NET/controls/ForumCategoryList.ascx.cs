@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -56,7 +56,7 @@ namespace YAF.Controls
 		/// </returns>
 		protected int ColumnCount()
 		{
-			var cnt = 5;
+			int cnt = 5;
 
 			if (this.Get<YafBoardSettings>().ShowModeratorList && this.Get<YafBoardSettings>().ShowModeratorListAsColumn)
 			{
@@ -87,7 +87,7 @@ namespace YAF.Controls
 				categoryId = icategoryId;
 			}
 
-			var dt = LegacyDb.forum_listread(
+			DataTable dt = LegacyDb.forum_listread(
 				boardID: this.PageContext.PageBoardID,
 				userID: this.PageContext.PageUserID,
 				categoryID: categoryId,
@@ -119,7 +119,7 @@ namespace YAF.Controls
 		/// </summary>
 		private void BindData()
 		{
-			var ds = this.Get<YafDbBroker>().BoardLayout(
+			DataSet ds = this.Get<YafDbBroker>().BoardLayout(
 					this.PageContext.PageBoardID, this.PageContext.PageUserID, this.PageContext.PageCategoryID, null);
 
 			this.CategoryList.DataSource = ds.Tables["Category"];

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,12 +26,12 @@ namespace YAF.Controls
     #region Using
 
     using System.Web.UI;
-
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Utils;
 
     #endregion
 
@@ -43,32 +43,55 @@ namespace YAF.Controls
         #region Properties
 
         /// <summary>
-        /// Gets or sets the display user identifier.
+        ///   Gets or sets DisplayUserID.
         /// </summary>
-        /// <value>
-        /// The display user identifier.
-        /// </value>
-        public int? DisplayUserId { get; set; }
+        public int? DisplayUserID { get; set; }
 
         /// <summary>
-        /// Gets or sets the message identifier.
+        ///   Gets or sets MessageID.
         /// </summary>
-        /// <value>
-        /// The message identifier.
-        /// </value>
-        public int? MessageId { get; set; }
+        public int? MessageID { get; set; }
 
         /// <summary>
-        /// Gets or sets Signature.
+        ///   Gets or sets HtmlPrefix.
         /// </summary>
-        /// <value>
-        /// The signature.
-        /// </value>
+        public string HtmlPrefix { get; set; }
+
+        /// <summary>
+        ///   Gets or sets HtmlSuffix.
+        /// </summary>
+        public string HtmlSuffix { get; set; }
+
+        /// <summary>
+        ///   Gets or sets Signature.
+        /// </summary>
         public string Signature { get; set; }
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether IsAlt.
+        /// </summary>
+        public bool IsAlt { get; set; }
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether Col Span is.
+        /// </summary>
+        public string ColSpan { get; set; }
 
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// The get post class.
+        /// </summary>
+        /// <returns>
+        /// Returns the post class.
+        /// </returns>
+        [NotNull]
+        protected string GetPostClass()
+        {
+            return this.IsAlt ? "post_alt" : "post";
+        }
 
         /// <summary>
         /// The render.
@@ -78,24 +101,55 @@ namespace YAF.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            if (this.Signature.IsNotSet())
-            {
-                return;
-            }
-
             writer.BeginRender();
 
-            writer.Write("<hr />");
+            if (!this.Get<ITheme>().ThemeFile.Contains("Mobile"))
+            {
+                writer.Write("</tr><tr class=\"{0}\">", this.GetPostClass());
+
+
+                // Bad Hack
+                if (this.ClientID.Contains("LastPosts"))
+                {
+                    writer.Write("<td></td>");
+                }
+
+                writer.WriteBeginTag("td");
+                writer.WriteAttribute("id", this.ClientID);
+                writer.WriteAttribute("class", "SignatureColumn");
+                writer.WriteAttribute("colspan", "2");
+                writer.Write(HtmlTextWriter.TagRightChar);
+            }
 
             writer.WriteBeginTag("div");
             writer.WriteAttribute("class", "yafsignature");
             writer.Write(HtmlTextWriter.TagRightChar);
 
-            this.RenderSignature(writer);
+            if (this.HtmlPrefix.IsSet())
+            {
+                writer.Write(this.HtmlPrefix);
+            }
+
+            if (this.Signature.IsSet())
+            {
+                this.RenderSignature(writer);
+            }
+
+            if (this.HtmlSuffix.IsSet())
+            {
+                writer.Write(this.HtmlSuffix);
+            }
 
             base.Render(writer);
 
+
             writer.WriteEndTag("div");
+
+            if (!this.Get<ITheme>().ThemeFile.Contains("Mobile"))
+            {
+                writer.WriteEndTag("td");
+            } 
+
 
             writer.EndRender();
         }
@@ -108,7 +162,7 @@ namespace YAF.Controls
         /// </param>
         protected void RenderSignature([NotNull] HtmlTextWriter writer)
         {
-            if (!this.DisplayUserId.HasValue)
+            if (!this.DisplayUserID.HasValue)
             {
                 return;
             }
@@ -116,9 +170,9 @@ namespace YAF.Controls
             // don't allow any HTML on signatures
             var signatureFlags = new MessageFlags { IsHtml = false };
 
-            var signatureRendered = this.Get<IFormatMessage>().FormatMessage(this.Signature, signatureFlags);
+            string signatureRendered = this.Get<IFormatMessage>().FormatMessage(this.Signature, signatureFlags);
 
-            this.RenderModulesInBBCode(writer, signatureRendered, signatureFlags, this.DisplayUserId, this.MessageId);
+            this.RenderModulesInBBCode(writer, signatureRendered, signatureFlags, this.DisplayUserID, this.MessageID);
         }
 
         #endregion

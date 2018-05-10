@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,6 +25,8 @@ namespace YAF.Controls
 {
     #region Using
 
+    using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
@@ -37,21 +39,19 @@ namespace YAF.Controls
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Objects;
     using YAF.Utils;
 
     #endregion
 
-    /// <summary>
-    /// The PageLink Extensions
-    /// </summary>
+    [Serializable]
+    public class PageLink
+    {
+        public string Title { get; set; }
+        public string URL { get; set; }
+    }
+
     public static class PageLinkExtensions
     {
-        /// <summary>
-        /// Adds the root.
-        /// </summary>
-        /// <param name="pageLinks">The page links.</param>
-        /// <returns>returns the Page links including the root</returns>
         public static PageLinks AddRoot(this PageLinks pageLinks)
         {
             CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
@@ -61,17 +61,7 @@ namespace YAF.Controls
             return pageLinks;
         }
 
-        /// <summary>
-        /// Adds the category.
-        /// </summary>
-        /// <param name="pageLinks">The page links.</param>
-        /// <param name="categoryName">Name of the category.</param>
-        /// <param name="categoryId">The category identifier.</param>
-        /// <returns>Returns the Page links including the Category</returns>
-        public static PageLinks AddCategory(
-            this PageLinks pageLinks,
-            [NotNull] string categoryName,
-            [NotNull] int categoryId)
+        public static PageLinks AddCategory(this PageLinks pageLinks, [NotNull] string categoryName, [NotNull] int categoryId)
         {
             CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
             CodeContracts.VerifyNotNull(categoryName, "categoryName");
@@ -81,19 +71,12 @@ namespace YAF.Controls
             return pageLinks;
         }
 
-        /// <summary>
-        /// Adds the link.
-        /// </summary>
-        /// <param name="pageLinks">The page links.</param>
-        /// <param name="title">The title.</param>
-        /// <param name="url">The URL.</param>
-        /// <returns>Returns the page links</returns>
         public static PageLinks AddLink(this PageLinks pageLinks, [NotNull] string title, [CanBeNull] string url = "")
         {
             CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
             CodeContracts.VerifyNotNull(title, "title");
 
-            pageLinks.Add(new PageLink() { Title = title.Trim(), URL = url?.Trim() });
+            pageLinks.Add(new PageLink() { Title = title.Trim(), URL = url == null ? null : url.Trim() });
 
             return pageLinks;
         }
@@ -101,17 +84,19 @@ namespace YAF.Controls
         /// <summary>
         /// Adds the forum links.
         /// </summary>
-        /// <param name="pageLinks">The page links.</param>
-        /// <param name="forumId">The forum id.</param>
-        /// <param name="noForumLink">The no forum link.</param>
-        /// <returns>Returns the page links</returns>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        /// <param name="noForumLink">
+        /// The no forum link.
+        /// </param>
         public static PageLinks AddForum(this PageLinks pageLinks, int forumId, bool noForumLink = false)
         {
             CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
 
-            using (var links = LegacyDb.forum_listpath(forumId))
+            using (DataTable dtLinks = LegacyDb.forum_listpath(forumId))
             {
-                foreach (DataRow row in links.Rows)
+                foreach (DataRow row in dtLinks.Rows)
                 {
                     if (noForumLink && row["ForumID"].ToType<int>() == forumId)
                     {
@@ -183,21 +168,6 @@ namespace YAF.Controls
             this.PageLinkList = null;
         }
 
-        /// <summary>
-        /// Adds the specified item.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        public void Add([NotNull] PageLink item)
-        {
-            CodeContracts.VerifyNotNull(item, "item");
-
-            var list = this.PageLinkList ?? new List<PageLink>();
-
-            list.Add(item);
-
-            this.PageLinkList = list;
-        }
-
         #endregion
 
         #region Methods
@@ -232,22 +202,44 @@ namespace YAF.Controls
                 return;
             }
 
-            writer.Write("<div class=\"navbar-header d-none d-md-block\"><ol class=\"breadcrumb\">");
+            writer.WriteLine(@"<div id=""{0}"" class=""yafPageLink breadcrumb"">".FormatWith(this.ClientID));
+
+            var first = true;
 
             foreach (var link in linkedPageList)
             {
-                var encodedTitle = this.HtmlEncode(link.Title);
-                var url = link.URL;
+                if (first)
+                {
+                    first = false;
+                }
+                else
+                {
+                    writer.WriteLine(@"<span class=""linkSeperator divider"">&nbsp;&#187;&nbsp;</span>");
+                }
+
+                string encodedTitle = this.HtmlEncode(link.Title);
+                string url = link.URL;
 
                 writer.WriteLine(
                     url.IsNotSet()
-                        ? @"<li class=""breadcrumb-item active"">{0}</li>".FormatWith(encodedTitle)
-                        : @"<li class=""breadcrumb-item""><a href=""{0}"">{1}</a></li>".FormatWith(url, encodedTitle));
+                        ? @"<span class=""currentPageLink active"">{0}</span>".FormatWith(encodedTitle)
+                        : @"<a href=""{0}"">{1}</a>".FormatWith(url, encodedTitle));
             }
 
-            writer.Write(this.PageContext.CurrentForumPage.IsAdminPage ? "</ol>" : "</ol></div>");
+            writer.WriteLine("</div>");
         }
 
         #endregion
+
+        public void Add([NotNull] PageLink item)
+        {
+            CodeContracts.VerifyNotNull(item, "item");
+
+            var list = this.PageLinkList ?? new List<PageLink>();
+
+            list.Add(item);
+
+            this.PageLinkList = list;
+        }
     }
 }

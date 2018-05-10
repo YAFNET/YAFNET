@@ -2,7 +2,7 @@
 <Resources theme="Clean Slate" dir="cleanSlate">
   <page name="THEME">
     <Resource tag="CREDIT"></Resource>
-    <Resource tag="HEADER">&lt;script type="text/javascript" async src="~/cleanslate.js"&gt;&lt;/script&gt;</Resource>
+    <Resource tag="HEADER">&lt;script type="text/javascript" src="~/cleanslate.js"&gt;&lt;/script&gt;</Resource>
     <Resource tag="DIGESTHEAD">
       &lt;style type="text/css"&gt;
       #yaf_digest

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -85,11 +85,22 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Handles on load event for delete button.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            ((ThemeButton)sender).Attributes["onclick"] =
+                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_MEDALS", "CONFIRM_DELETE"));
+        }
+
+        /// <summary>
         /// Handles item command of medal list repeater.
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        protected void MedalListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        protected void MedalList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {
@@ -121,7 +132,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void NewMedalClick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void NewMedal_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to medal edit page
             YafBuildLink.Redirect(ForumPages.admin_editmedal);
@@ -139,6 +150,11 @@ namespace YAF.Pages.Admin
             {
                 return;
             }
+
+            // create page links
+            this.CreatePageLinks();
+
+            this.NewMedal.Text = this.GetText("ADMIN_MEDALS", "NEW_MEDAL");
 
             // bind data
             this.BindData();

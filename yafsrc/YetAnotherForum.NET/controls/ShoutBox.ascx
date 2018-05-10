@@ -7,6 +7,12 @@
     var lastMessageId = 0;
     var clearOnEndRequest = false;
 
+    function insertsmiley(code, path) {
+        InsertSmileyForShoutBox(code, path);
+    }
+    function InsertSmileyForShoutBox(code, path) {
+        InsertStringAtCurrentCursorPositionOrOverwriteSelectedText(document.getElementById('<%=messageTextBox.ClientID %>'), code);
+    }
     function InsertStringAtCurrentCursorPositionOrOverwriteSelectedText(control, insertionText) {
         control.focus();
         if (control.value == '') {
@@ -135,7 +141,18 @@
                             </td>
                         </tr>
                         <tr style="height:30px">
-                            <td class="post" style="text-align: center;" colspan="2">
+                            <%--<td colspan="2" class="post" style="overflow-y: scroll; height: 10px; width: 99%; padding: 0px 0px 0px 5px; margin: 0;">--%>
+                            <td class="post" style="padding-left: 5px; margin: 0;">
+                                <asp:Repeater ID="smiliesRepeater" Visible="<%# this.Get<YafBoardSettings>().ShowShoutboxSmiles %>"
+                                    runat="server">
+                                    <ItemTemplate>
+                                        <asp:ImageButton ID="ImageButton1" ImageUrl='<%# YafForumInfo.ForumClientFileRoot + YafBoardFolders.Current.Emoticons + "/" + Eval("Icon") %>'
+                                            ToolTip='<%# Eval("Code") %>' OnClientClick='<%# FormatSmiliesOnClickString(Eval("Code").ToString(),Eval("Icon").ToString()) %>'
+                                            runat="server" />
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </td>
+                            <td class="post" style="text-align: center;">
                                 <asp:PlaceHolder ID="FlyOutHolder" runat="server">
                                     <asp:Button ID="btnFlyOut" OnClientClick="openShoutBoxWin(); return false;" CssClass="pbutton" OnClick="Refresh_Click"
                                         Text="FlyOut" runat="server" />

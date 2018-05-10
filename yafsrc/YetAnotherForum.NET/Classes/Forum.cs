@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -37,7 +37,6 @@ namespace YAF
     using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
-    using YAF.Dialogs;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Exceptions;
@@ -54,6 +53,11 @@ namespace YAF
     {
         #region Constants and Fields
 
+        /// <summary>
+        ///   The _title.
+        /// </summary>
+        private readonly string _title;
+
         #endregion
 
         #region Constructors and Destructors
@@ -62,11 +66,11 @@ namespace YAF
         /// Initializes a new instance of the <see cref="ForumPageTitleArgs"/> class.
         /// </summary>
         /// <param name="title">
-        /// The title.
+        /// The title. 
         /// </param>
         public ForumPageTitleArgs([NotNull] string title)
         {
-            this.Title = title;
+            this._title = title;
         }
 
         #endregion
@@ -76,7 +80,13 @@ namespace YAF
         /// <summary>
         ///   Gets Title.
         /// </summary>
-        public string Title { get; }
+        public string Title
+        {
+            get
+            {
+                return this._title;
+            }
+        }
 
         #endregion
     }
@@ -277,12 +287,24 @@ namespace YAF
         /// <summary>
         ///   Gets UserID for the current User (Read Only)
         /// </summary>
-        public int PageUserID => YafContext.Current.PageUserID;
+        public int PageUserID
+        {
+            get
+            {
+                return YafContext.Current.PageUserID;
+            }
+        }
 
         /// <summary>
         ///   Gets UserName for the current User (Read Only)
         /// </summary>
-        public string PageUserName => YafContext.Current.User == null ? "Guest" : YafContext.Current.User.UserName;
+        public string PageUserName
+        {
+            get
+            {
+                return YafContext.Current.User == null ? "Guest" : YafContext.Current.User.UserName;
+            }
+        }
 
         /// <summary>
         ///   Gets or sets a value indicating whether Popup.
@@ -303,7 +325,13 @@ namespace YAF
         /// <summary>
         ///   Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
+        public IServiceLocator ServiceLocator
+        {
+            get
+            {
+                return YafContext.Current.ServiceLocator;
+            }
+        }
 
         #endregion
 
@@ -313,10 +341,10 @@ namespace YAF
         /// Called when the forum control sets it's Page Title
         /// </summary>
         /// <param name="sender">
-        /// The sender.
+        /// The sender. 
         /// </param>
         /// <param name="e">
-        /// The e.
+        /// The e. 
         /// </param>
         public void FirePageTitleSet([NotNull] object sender, [NotNull] ForumPageTitleArgs e)
         {
@@ -348,18 +376,13 @@ namespace YAF
         /// The render.
         /// </summary>
         /// <param name="writer">
-        /// The writer.
+        /// The writer. 
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
             // wrap the forum in one main div and then a page div for better CSS selection
             writer.WriteLine();
-
-            writer.Write(
-                this.PageContext().CurrentForumPage.IsAdminPage
-                    ? @"<div class=""yafnet-bs"" id=""{0}"">".FormatWith(this.ClientID)
-                    : @"<div class=""yafnet"" id=""{0}"">".FormatWith(this.ClientID));
-
+            writer.Write(@"<div class=""yafnet"" id=""{0}"">".FormatWith(this.ClientID));
             writer.Write(
                 @"<div id=""yafpage_{0}"" class=""{1}"">".FormatWith(
                     this._page.ToString(), this._page.ToString().Replace(".", "_")));
@@ -412,7 +435,10 @@ namespace YAF
         protected override void OnLoad(EventArgs e)
         {
             // context is ready to be loaded, call the before page load event...
-            this.BeforeForumPageLoad?.Invoke(this, new YafBeforeForumPageLoad());
+            if (this.BeforeForumPageLoad != null)
+            {
+                this.BeforeForumPageLoad(this, new YafBeforeForumPageLoad());
+            }
 
             // "forum load" should be done by now, load the user and page...
             var userId = YafContext.Current.PageUserID;
@@ -422,14 +448,14 @@ namespace YAF
             this.Controls.AddAt(0, this._topControl);
 
             // get the current page...
-            var src = this.GetPageSource();
+            string src = this.GetPageSource();
 
             try
             {
                 this._currentForumPage = (ForumPage)this.LoadControl(src);
 
                 this._header =
-                    this.LoadControl("{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, this._currentForumPage.IsAdminPage ? "AdminHeader" : "YafHeader"));
+                    this.LoadControl("{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "YafHeader"));
 
                 this._footer = new Footer();
             }
@@ -466,12 +492,12 @@ namespace YAF
                 && Config.AllowLoginAndLogoff)
             {
                 this.Controls.Add(
-                    this.LoadControl("{0}Dialogs/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "LoginBox")));
+                    this.LoadControl("{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "LoginBox")));
             }
 
             this._notificationBox =
                 (DialogBox)
-                this.LoadControl("{0}Dialogs/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "DialogBox"));
+                this.LoadControl("{0}controls/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, "DialogBox"));
 
             this._currentForumPage.Notification = this._notificationBox;
 
@@ -485,13 +511,12 @@ namespace YAF
                 this.Controls.Add(this._footer);
             }
 
-            // Add image gallery dialog
-            this.Controls.Add(
-                this.LoadControl("{0}controls/ImageGallery.ascx".FormatWith(YafForumInfo.ForumServerFileRoot)));
-
             // load plugins/functionality modules
-            this.AfterForumPageLoad?.Invoke(this, new YafAfterForumPageLoad());
-
+            if (this.AfterForumPageLoad != null)
+            {
+                this.AfterForumPageLoad(this, new YafAfterForumPageLoad());
+            }
+            
             base.OnLoad(e);
         }
 
@@ -524,7 +549,7 @@ namespace YAF
             }*/
             string[] src = { "{0}pages/{1}.ascx".FormatWith(YafForumInfo.ForumServerFileRoot, this._page.PageName) };
 
-            var controlOverride = this.Get<ITheme>().GetItem("PAGE_OVERRIDE", this._page.PageName.ToLower(), null);
+            string controlOverride = this.Get<ITheme>().GetItem("PAGE_OVERRIDE", this._page.PageName.ToLower(), null);
 
             if (controlOverride.IsSet())
             {

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -47,6 +47,8 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class eventloggroups : AdminPage
     {
+        /* Construction */
+
         #region Methods
 
         /// <summary>
@@ -68,12 +70,14 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_EVENTLOGGROUPS", "TITLE"));
         }
 
+        /* Event Handlers */
+
         /// <summary>
         /// Handles the ItemCommand event of the List control.
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        protected void ListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        protected void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {
@@ -97,8 +101,14 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            // create links
+            this.CreatePageLinks();
+
+            // bind data
             this.BindData();
         }
+
+        /* Methods */
 
         /// <summary>
         /// Binds the data.

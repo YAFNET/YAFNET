@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,13 +33,14 @@ namespace YAF.Pages.Admin
     using YAF.RegisterV2;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
     #endregion
 
     /// <summary>
-    ///    The version info page.
+    ///     the version info page.
     /// </summary>
     public partial class version : AdminPage
     {
@@ -48,12 +49,12 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///     The _last version.
         /// </summary>
-        private long lastVersion;
+        private long _lastVersion;
 
         /// <summary>
         ///     The _last version date.
         /// </summary>
-        private DateTime lastVersionDate;
+        private DateTime _lastVersionDate;
 
         #endregion
 
@@ -69,7 +70,7 @@ namespace YAF.Pages.Admin
         {
             get
             {
-                return YafForumInfo.AppVersionNameFromCode(this.lastVersion);
+                return YafForumInfo.AppVersionNameFromCode(this._lastVersion);
             }
         }
 
@@ -83,7 +84,7 @@ namespace YAF.Pages.Admin
         {
             get
             {
-                return this.Get<IDateTime>().FormatDateShort(this.lastVersionDate);
+                return this.Get<IDateTime>().FormatDateShort(this._lastVersionDate);
             }
         }
 
@@ -104,8 +105,8 @@ namespace YAF.Pages.Admin
                 {
                     using (var reg = new RegisterV2())
                     {
-                        this.lastVersion = reg.LatestVersion();
-                        this.lastVersionDate = reg.LatestVersionDate();
+                        this._lastVersion = reg.LatestVersion();
+                        this._lastVersionDate = reg.LatestVersionDate();
                     }
 
                     this.LatestVersion.Text = this.GetTextFormatted(
@@ -113,12 +114,20 @@ namespace YAF.Pages.Admin
                         this.LastVersion,
                         this.LastVersionDate);
 
-                    this.UpgradeVersionHolder.Visible = this.lastVersion > YafForumInfo.AppVersionCode;
+                    this.UpgradeVersionHolder.Visible = this._lastVersion > YafForumInfo.AppVersionCode;
                 }
                 catch (Exception)
                 {
                     this.LatestVersion.Visible = false;
                 }
+
+                this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+                this.PageLinks.AddLink(
+                    this.GetText("ADMIN_ADMIN", "Administration"),
+                    YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.PageLinks.AddLink(this.GetText("ADMIN_VERSION", "TITLE"), string.Empty);
+
+                this.Page.Header.Title = this.GetText("ADMIN_VERSION", "TITLE");
 
                 this.RunningVersion.Text = this.GetTextFormatted(
                     "RUNNING_VERSION",
@@ -127,20 +136,6 @@ namespace YAF.Pages.Admin
             }
 
             this.DataBind();
-        }
-
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
-            this.PageLinks.AddLink(this.GetText("ADMIN_VERSION", "TITLE"), string.Empty);
-
-            this.Page.Header.Title = this.GetText("ADMIN_VERSION", "TITLE");
         }
 
         #endregion

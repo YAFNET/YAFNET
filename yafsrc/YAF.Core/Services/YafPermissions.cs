@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -77,7 +77,7 @@ namespace YAF.Core.Services
     /// </param>
     public void HandleRequest(ViewPermissions permission)
     {
-      var noAccess = true;
+      bool noAccess = true;
 
       if (!this.Check(permission))
       {
@@ -85,7 +85,7 @@ namespace YAF.Core.Services
         {
           if (!Config.AllowLoginAndLogoff && YafContext.Current.BoardSettings.CustomLoginRedirectUrl.IsSet())
           {
-            var loginRedirectUrl = YafContext.Current.BoardSettings.CustomLoginRedirectUrl;
+            string loginRedirectUrl = YafContext.Current.BoardSettings.CustomLoginRedirectUrl;
 
             if (loginRedirectUrl.Contains("{0}"))
             {
@@ -102,7 +102,7 @@ namespace YAF.Core.Services
           else if (!Config.AllowLoginAndLogoff && Config.IsDotNetNuke)
           {
             // automatic DNN redirect...
-            var appPath = HostingEnvironment.ApplicationVirtualPath;
+            string appPath = HostingEnvironment.ApplicationVirtualPath;
             if (!appPath.EndsWith("/"))
             {
               appPath += "/";

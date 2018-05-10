@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -118,6 +118,24 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
+        /// The delete.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardID">
+        /// The board id.
+        /// </param>
+        public static void Delete(this IRepository<Board> repository, int boardID)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            repository.DbFunction.Query.board_delete(BoardID: boardID);
+
+            repository.FireDeleted(boardID);
+        }
+
+        /// <summary>
         /// The list.
         /// </summary>
         /// <param name="repository">
@@ -153,7 +171,7 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository, "repository");
 
             return boardID.HasValue
-                ? new List<Board> { repository.GetById(boardID.Value) }
+                ? new List<Board> { repository.GetByID(boardID.Value) }
                 : repository.DbAccess.Execute(cmd => cmd.Connection.Select<Board>());
         }
 

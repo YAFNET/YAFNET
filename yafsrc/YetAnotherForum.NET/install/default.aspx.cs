@@ -1,7 +1,7 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -670,7 +670,7 @@ namespace YAF.Install
                 case "WizDatabaseConnection":
 
                     // save the database settings...
-                    var type = this.UpdateDatabaseConnection();
+                    UpdateDBFailureType type = this.UpdateDatabaseConnection();
                     e.Cancel = false;
 
                     switch (type)
@@ -761,6 +761,7 @@ namespace YAF.Install
                     break;
                 case "WizInitDatabase":
                     if (this.InstallUpgradeService.UpgradeDatabase(
+                        this.FullTextSupport.Checked,
                         this.UpgradeExtensions.Checked))
                     {
                         e.Cancel = false;
@@ -922,15 +923,15 @@ namespace YAF.Install
             {
                 case 0:
                     theLabel.Text = "No";
-                    theLabel.CssClass = "errorLabel float-right";
+                    theLabel.CssClass = "errorLabel pull-right";
                     break;
                 case 1:
                     theLabel.Text = "Unchcked";
-                    theLabel.CssClass = "infoLabel float-right";
+                    theLabel.CssClass = "infoLabel pull-right";
                     break;
                 case 2:
                     theLabel.Text = "YES";
-                    theLabel.CssClass = "successLabel float-right";
+                    theLabel.CssClass = "successLabel pull-right";
                     break;
             }
         }
@@ -1107,7 +1108,7 @@ namespace YAF.Install
                 this.lbConnections.Items.Add(connectionString.Name);
             }
 
-            var item = this.lbConnections.Items.FindByText("yafnet");
+            ListItem item = this.lbConnections.Items.FindByText("yafnet");
 
             if (item != null)
             {
@@ -1172,6 +1173,8 @@ namespace YAF.Install
                     // fake the board settings
                     YafContext.Current.BoardSettings = new YafBoardSettings();
                 }
+
+                this.FullTextSupport.Visible = this.DbAccess.Information.FullTextScript.IsSet() && this.Get<IDbFunction>().IsFullTextSupported();
 
                 this.TimeZones.DataSource = StaticDataHelper.TimeZones();
 

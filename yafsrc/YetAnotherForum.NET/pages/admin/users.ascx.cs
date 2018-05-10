@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,7 +29,6 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Data;
-    using System.Globalization;
     using System.IO;
     using System.Web;
     using System.Web.Security;
@@ -59,11 +58,22 @@ namespace YAF.Pages.Admin
         #region Public Methods
 
         /// <summary>
+        /// The delete_ load.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        public void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            ((ThemeButton)sender).Attributes["onclick"] =
+                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_USERS", "CONFIRM_DELETE"));
+        }
+
+        /// <summary>
         /// Redirects to the Create User Page
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        public void NewUserClick([NotNull] object sender, [NotNull] EventArgs e)
+        public void NewUser_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to create new user page
             YafBuildLink.Redirect(ForumPages.admin_reguser);
@@ -74,7 +84,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        public void UserListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        public void UserList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {
@@ -91,23 +101,23 @@ namespace YAF.Pages.Admin
                         // deleting yourself isn't an option
                         this.PageContext.AddLoadMessage(
                             this.GetText("ADMIN_USERS", "MSG_SELF_DELETE"),
-                            MessageTypes.danger);
+                            MessageTypes.Error);
                         return;
                     }
 
-                    // get user(s) we are about to delete
+                    // get user(s) we are about to delete                
                     using (
-                        var dataTable = LegacyDb.user_list(this.PageContext.PageBoardID, e.CommandArgument, DBNull.Value))
+                        DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, e.CommandArgument, DBNull.Value))
                     {
                         // examine each if he's possible to delete
-                        foreach (DataRow row in dataTable.Rows)
+                        foreach (DataRow row in dt.Rows)
                         {
                             if (row["IsGuest"].ToType<int>() > 0)
                             {
                                 // we cannot detele guest
                                 this.PageContext.AddLoadMessage(
                                     this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
-                                    MessageTypes.danger);
+                                    MessageTypes.Error);
                                 return;
                             }
 
@@ -120,7 +130,7 @@ namespace YAF.Pages.Admin
                             // admin are not deletable either
                             this.PageContext.AddLoadMessage(
                                 this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
-                                MessageTypes.danger);
+                                MessageTypes.Error);
                             return;
                         }
                     }
@@ -141,7 +151,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        public void SearchClick([NotNull] object sender, [NotNull] EventArgs e)
+        public void Search_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // re-bind data
             this.BindData();
@@ -152,7 +162,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ExportUsersCsvClick(object sender, EventArgs e)
+        protected void ExportUsersCsv_Click(object sender, EventArgs e)
         {
             this.ExportAllUsers("csv");
         }
@@ -162,9 +172,19 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ExportUsersXmlClick(object sender, EventArgs e)
+        protected void ExportUsersXml_Click(object sender, EventArgs e)
         {
             this.ExportAllUsers("xml");
+        }
+
+        /// <summary>
+        /// Redirect to the Admin Users Import Page.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void ImportUsers_Click(object sender, EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.admin_users_import);
         }
 
         /// <summary>
@@ -184,19 +204,6 @@ namespace YAF.Pages.Admin
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Registers the needed Java Scripts
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
-                "BlockUIExecuteJs",
-                JavaScriptBlocks.BlockUIExecuteJs("SyncUsersMessage", this.SyncUsers.ClientID));
-
-            base.OnPreRender(e);
-        }
 
         /// <summary>
         /// The bit set.
@@ -278,16 +285,36 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            this.Page.Form.DefaultButton = this.search.UniqueID;
+
+            this.search.Focus();
+
             if (this.IsPostBack)
             {
                 return;
             }
+
+            // create page links
+            this.CreatePageLinks();
+
+            this.search.Text = this.GetText("ADMIN_USERS", "SEARCH");
+
+            this.NewUser.Text = this.GetText("ADMIN_USERS", "NEW_USER");
+            this.SyncUsers.Text = this.GetText("ADMIN_USERS", "SYNC_ALL");
+
+            this.ImportUsers.Text = this.GetText("ADMIN_USERS", "IMPORT");
+            this.ExportUsersXml.Text = this.GetText("ADMIN_USERS", "EXPORT_XML");
+            this.ExportUsersCsv.Text = this.GetText("ADMIN_USERS", "EXPORT_CSV");
+
+            this.SuspendedOnly.Text = this.GetText("ADMIN_USERS", "SUSPENDED_ONLY");
 
             if (Config.IsAnyPortal)
             {
                 this.ImportUsers.Visible = false;
                 this.SyncUsers.Visible = false;
             }
+
+            ControlHelper.AddOnClickConfirmDialog(this.SyncUsers, this.GetText("ADMIN_USERS", "CONFIRM_SYNC"));
 
             // intialize since filter items
             this.InitSinceDropdown();
@@ -297,14 +324,14 @@ namespace YAF.Pages.Admin
             this.LoadingImage.ImageUrl = YafForumInfo.GetURLToContent("images/loader.gif");
 
             // get list of user groups for filtering
-            using (var dt = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID))
+            using (DataTable dt = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID))
             {
                 // add empty item for no filtering
-                var newRow = dt.NewRow();
-
+                DataRow newRow = dt.NewRow();
+                
                 newRow["Name"] = this.GetText("FILTER_NO");
                 newRow["GroupID"] = 0;
-
+                
                 dt.Rows.InsertAt(newRow, 0);
 
                 this.group.DataSource = dt;
@@ -315,10 +342,10 @@ namespace YAF.Pages.Admin
             }
 
             // get list of user ranks for filtering
-            using (var dt = LegacyDb.rank_list(this.PageContext.PageBoardID, null))
+            using (DataTable dt = LegacyDb.rank_list(this.PageContext.PageBoardID, null))
             {
                 // add empty for for no filtering
-                var newRow = dt.NewRow();
+                DataRow newRow = dt.NewRow();
                 newRow["Name"] = this.GetText("FILTER_NO");
                 newRow["RankID"] = 0;
                 dt.Rows.InsertAt(newRow, 0);
@@ -334,8 +361,6 @@ namespace YAF.Pages.Admin
 
             // Hide "New User" & Sync Button on DotNetNuke
             this.ImportAndSyncHolder.Visible = !Config.IsDotNetNuke;
-
-            this.BindData();
         }
 
         /// <summary>
@@ -343,9 +368,23 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void PagerTopPageChange([NotNull] object sender, [NotNull] EventArgs e)
+        protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
             // rebind
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The since_ selected index changed.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void Since_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // Set the controls' pager index to 0.
+            this.PagerTop.CurrentPageIndex = 0;
+
+            // re-bind data
             this.BindData();
         }
 
@@ -354,13 +393,18 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void SyncUsersClick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void SyncUsers_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // start...
             SyncMembershipUsersTask.Start(this.PageContext.PageBoardID);
 
             // enable timer...
             this.UpdateStatusTimer.Enabled = true;
+
+            // show blocking ui...
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "BlockUIExecuteJs",
+                JavaScriptBlocks.BlockUIExecuteJs("SyncUsersMessage"));
         }
 
         /// <summary>
@@ -368,7 +412,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void UpdateStatusTimerTick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void UpdateStatusTimer_Tick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // see if the migration is done...
             if (this.Get<ITaskModuleManager>().IsTaskRunning(SyncMembershipUsersTask.TaskName))
@@ -388,8 +432,6 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.SearchResults.Visible = true;
-
             // default since date is now
             var sinceDate = DateTime.UtcNow;
 
@@ -438,7 +480,7 @@ namespace YAF.Pages.Admin
 
             // get users, eventually filter by groups or ranks
             using (
-                var dt = LegacyDb.user_list(
+                DataTable dt = LegacyDb.user_list(
                     this.PageContext.PageBoardID,
                     null,
                     null,
@@ -446,7 +488,7 @@ namespace YAF.Pages.Admin
                     this.rank.SelectedIndex <= 0 ? null : this.rank.SelectedValue,
                     false))
             {
-                using (var dv = dt.DefaultView)
+                using (DataView dv = dt.DefaultView)
                 {
                     // filter by name or email
                     if (this.name.Text.Trim().Length > 0 || (this.Email.Text.Trim().Length > 0))
@@ -461,7 +503,7 @@ namespace YAF.Pages.Admin
                     if (sinceValue != 9999)
                     {
                         dv.RowFilter += "{1}Joined > '{0}'".FormatWith(
-                            sinceDate.ToString(CultureInfo.InvariantCulture),
+                            sinceDate.ToString(),
                             dv.RowFilter.IsNotSet() ? string.Empty : " AND ");
                     }
 

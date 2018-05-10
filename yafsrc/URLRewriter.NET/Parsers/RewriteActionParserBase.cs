@@ -1,21 +1,22 @@
-// UrlRewriter - A .NET URL Rewriter module
+/* UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
-// 
-
-using System;
-using System.Xml;
-using System.Collections.Generic;
-using Intelligencia.UrlRewriter.Conditions;
-using Intelligencia.UrlRewriter.Configuration;
-using Intelligencia.UrlRewriter.Utilities;
+// Copyright 2007 Intelligencia
+// Copyright 2007 Seth Yates
+*/
 
 namespace Intelligencia.UrlRewriter.Parsers
 {
+    using System;
+    using System.Collections;
+    using System.Xml;
+
+    using Intelligencia.UrlRewriter.Conditions;
+    using Intelligencia.UrlRewriter.Configuration;
+    using Intelligencia.UrlRewriter.Utilities;
+
     /// <summary>
-    /// Base class for rewrite actions.
+    /// Summary description for RewriteActionParserBase.
     /// </summary>
     public abstract class RewriteActionParserBase : IRewriteActionParser
     {
@@ -25,7 +26,7 @@ namespace Intelligencia.UrlRewriter.Parsers
         /// <param name="node">The node to parse.</param>
         /// <param name="config">The rewriter configuration.</param>
         /// <returns>The parsed action, null if no action parsed.</returns>
-        public abstract IRewriteAction Parse(XmlNode node, IRewriterConfiguration config);
+        public abstract IRewriteAction Parse(XmlNode node, object config);
 
         /// <summary>
         /// The name of the action.
@@ -49,25 +50,29 @@ namespace Intelligencia.UrlRewriter.Parsers
         /// <param name="conditions">Conditions list to add new conditions to.</param>
         /// <param name="negative">Whether the conditions should be negated.</param>
         /// <param name="config">Rewriter configuration</param>
-        protected void ParseConditions(XmlNode node, IList<IRewriteCondition> conditions, bool negative, IRewriterConfiguration config)
+        protected void ParseConditions(XmlNode node, IList conditions, bool negative, object config)
         {
             if (config == null)
             {
                 return;
             }
+
             if (node == null)
             {
                 throw new ArgumentNullException("node");
             }
+
             if (conditions == null)
             {
                 throw new ArgumentNullException("conditions");
             }
 
+            var rewriterConfig = config as RewriterConfiguration;
+
             // Parse attribute-based conditions.
-            foreach (IRewriteConditionParser parser in config.ConditionParserPipeline)
+            foreach (IRewriteConditionParser parser in rewriterConfig.ConditionParserPipeline)
             {
-                IRewriteCondition condition = parser.Parse(node);
+                var condition = parser.Parse(node);
                 if (condition != null)
                 {
                     if (negative)
@@ -80,16 +85,16 @@ namespace Intelligencia.UrlRewriter.Parsers
             }
 
             // Now, process the nested <and> conditions.
-            XmlNode childNode = node.FirstChild;
+            var childNode = node.FirstChild;
             while (childNode != null)
             {
                 if (childNode.NodeType == XmlNodeType.Element)
                 {
                     if (childNode.LocalName == Constants.ElementAnd)
                     {
-                        ParseConditions(childNode, conditions, negative, config);
+                        this.ParseConditions(childNode, conditions, negative, config);
 
-                        XmlNode childNode2 = childNode.NextSibling;
+                        var childNode2 = childNode.NextSibling;
                         node.RemoveChild(childNode);
                         childNode = childNode2;
                         continue;

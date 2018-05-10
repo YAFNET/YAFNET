@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,11 +23,8 @@
  */
 namespace YAF.Core.Extensions
 {
-    using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Linq;
-    using System.Linq.Expressions;
 
     using ServiceStack.OrmLite;
 
@@ -89,7 +86,7 @@ namespace YAF.Core.Extensions
             CodeContracts.VerifyNotNull(haveId, "haveId");
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DeleteById(haveId.ID);
+            return repository.DeleteByID(haveId.ID);
         }
         
         /// <summary>
@@ -107,11 +104,11 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// The <see cref="bool"/> . 
         /// </returns>
-        public static bool DeleteById<T>([NotNull] this IRepository<T> repository, int id) where T : class, IEntity, IHaveID, new()
+        public static bool DeleteByID<T>([NotNull] this IRepository<T> repository, int id) where T : class, IEntity, IHaveID, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var success = repository.DbAccess.Execute(db => db.Connection.DeleteById<T>(id)) == 1;
+            var success = repository.DbAccess.Execute(db => db.Connection.Delete<T>(x => x.ID == id)) == 1;
             if (success)
             {
                 repository.FireDeleted(id);
@@ -126,28 +123,26 @@ namespace YAF.Core.Extensions
         /// <typeparam name="T">The type parameter.</typeparam>
         /// <param name="repository">The repository.</param>
         /// <param name="ids">The ids.</param>
-        /// <returns>Returns if deleting was succesfull or not</returns>
-        public static bool DeleteByIds<T>([NotNull] this IRepository<T> repository, IEnumerable<int> ids) where T : class, IEntity, IHaveID, new()
+        /// <returns></returns>
+        public static bool DeleteByIDs<T>([NotNull] this IRepository<T> repository, IEnumerable<int> ids) where T : class, IEntity, IHaveID, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             var success = false;
 
-            var enumerable = ids.ToList();
-
-            enumerable.ForEach(id =>
+            ids.ForEach(id =>
             {
                 success = repository.DbAccess.Execute(db => db.Connection.Delete<T>(x => x.ID == id)) == 1;
             });
 
             if (success)
             {
-                enumerable.ForEach(id => repository.FireDeleted(id));
+                ids.ForEach(id => repository.FireDeleted(id));
             }
 
             return success;
         }
-
+       
         /// <summary>
         /// Get a all entities by the board Id or current board id if none is specified.
         /// </summary>
@@ -161,15 +156,37 @@ namespace YAF.Core.Extensions
         /// The type parameter.
         /// </typeparam>
         /// <returns>
-        /// Returns all entities by the board Id or current board id if none is specified
+        /// The <see cref="IList"/> . 
         /// </returns>
-        public static IList<T> GetByBoardId<T>([NotNull] this IRepository<T> repository, int? boardId = null) where T : IEntity, IHaveBoardID, new()
+        public static IList<T> GetByBoardID<T>([NotNull] this IRepository<T> repository, int? boardId = null) where T : IEntity, IHaveBoardID, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var newboardId = boardId ?? repository.BoardID;
+            var newboardID = boardId ?? repository.BoardID;
 
-            return repository.DbAccess.Execute(db => db.Connection.Where<T>(new { BoardID = newboardId }));
+            return repository.DbAccess.Execute(db => db.Connection.Where<T>(new { BoardID = newboardID }));
+        }
+
+        /// <summary>
+        /// Gets a single entity by its ID.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository. 
+        /// </param>
+        /// <param name="id">
+        /// The id. 
+        /// </param>
+        /// <typeparam name="T">
+        /// The type parameter.
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="T"/> . 
+        /// </returns>
+        public static T GetByID<T>([NotNull] this IRepository<T> repository, int id) where T : IEntity, IHaveID, new()
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbAccess.Execute(db => db.Connection.SingleById<T>(id));
         }
 
         /// <summary>
@@ -259,125 +276,6 @@ namespace YAF.Core.Extensions
             }
 
             return success;
-        }
-
-        /// <summary>
-        ///  Update only fields in the specified expression that matches the where condition (if any), E.g:
-        ///   
-        ///   db.UpdateOnly(() => new Person { FirstName = "JJ" }, where: p => p.LastName == "Hendrix");
-        ///   UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
-        ///
-        ///   db.UpdateOnly(() => new Person { FirstName = "JJ" });
-        ///   UPDATE "Person" SET "FirstName" = 'JJ'
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="repository">The repository.</param>
-        /// <param name="updateFields">The update fields.</param>
-        /// <param name="where">The where.</param>
-        /// <param name="commandFilter">The command filter.</param>
-        /// <returns></returns>
-        public static int UpdateOnly<T>([NotNull] this IRepository<T> repository, Expression<Func<T>> updateFields,
-                                         Expression<Func<T, bool>> where = null,
-                                         Action<IDbCommand> commandFilter = null)
-            where T : class, IEntity, IHaveID, new()
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbAccess.UpdateOnly(updateFields, where, commandFilter);
-        }
-
-        /// <summary>
-        /// Counts the specified criteria.
-        /// </summary>
-        /// <typeparam name="T">The type parameter.</typeparam>
-        /// <param name="repository">The repository.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Returns the Row Count</returns>
-        public static long Count<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria)
-            where T : class, IEntity, IHaveID, new()
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-            CodeContracts.VerifyNotNull(criteria, "criteria");
-
-            return repository.DbAccess.Execute(db => db.Connection.Count(criteria));
-        }
-
-        /// <summary>
-        /// Gets a single entity by its ID.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository. 
-        /// </param>
-        /// <param name="id">
-        /// The id. 
-        /// </param>
-        /// <typeparam name="T">
-        /// The type parameter.
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="T"/> . 
-        /// </returns>
-        public static T GetById<T>([NotNull] this IRepository<T> repository, int id) where T : IEntity, IHaveID, new()
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbAccess.Execute(db => db.Connection.SingleById<T>(id));
-        }
-
-        /// <summary>
-        /// Gets a single entity by its ID.
-        /// </summary>
-        /// <typeparam name="T">The type parameter.</typeparam>
-        /// <param name="repository">The repository.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>
-        /// The <see cref="T" /> .
-        /// </returns>
-        public static T GetSingle<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria) where T : IEntity, IHaveID, new()
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbAccess.Execute(db => db.Connection.Single<T>(criteria));
-        }
-
-        /// <summary>
-        /// Gets the list of entities by the criteria.
-        /// </summary>
-        /// <typeparam name="T">The type parameter.</typeparam>
-        /// <param name="repository">The repository.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Returns the list of entities</returns>
-        public static List<T> Get<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria)
-            where T : class, IEntity, new()
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-            CodeContracts.VerifyNotNull(criteria, "criteria");
-
-            return repository.DbAccess.Execute(db => db.Connection.Select<T>(criteria));
-        }
-
-        /// <summary>
-        /// Gets the paged list of entities by the criteria.
-        /// </summary>
-        /// <typeparam name="T">The type parameter.</typeparam>
-        /// <param name="repository">The repository.</param>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="pageIndex">Index of the page.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <returns>
-        /// Returns the list of entities
-        /// </returns>
-        public static List<T> GetPaged<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria, int? pageIndex = 0, int? pageSize = 10000000)
-            where T : class, IEntity, IHaveID, new()
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-            CodeContracts.VerifyNotNull(criteria, "criteria");
-
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<T>();
-
-            expression.Where(criteria).OrderByDescending(item => item.ID).Page(pageIndex + 1, pageSize);
-
-            return repository.DbAccess.Execute(db => db.Connection.Select<T>(expression));
         }
 
         #endregion

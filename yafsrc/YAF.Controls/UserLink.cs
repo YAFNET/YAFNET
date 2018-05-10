@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -99,26 +99,6 @@ namespace YAF.Controls
             }
         }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="UserLink"/> is suspended.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if suspended; otherwise, <c>false</c>.
-        /// </value>
-        [NotNull]
-        public bool Suspended
-        {
-            get
-            {
-                return this.ViewState["Suspended"] != null && Convert.ToBoolean(this.ViewState["Suspended"]);
-            }
-
-            set
-            {
-                this.ViewState["Style"] = value;
-            }
-        }
-
         #endregion
 
         #region Properties
@@ -196,11 +176,11 @@ namespace YAF.Controls
                 {
                     if (this.CssClass.IsSet())
                     {
-                        this.CssClass += " btn-sm userHoverCard";
+                        this.CssClass += " userHoverCard";
                     }
                     else
                     {
-                        this.CssClass = " btn-sm userHoverCard";
+                        this.CssClass = "userHoverCard";
                     }
 
                     output.WriteAttribute(
@@ -214,22 +194,6 @@ namespace YAF.Controls
                 else
                 {
                     output.WriteAttribute("title", this.GetText("COMMON", "VIEW_USRPROFILE"));
-
-                    if (this.CssClass.IsSet())
-                    {
-                        if (this.CssClass.Equals("dropdown-toggle"))
-                        {
-                            output.WriteAttribute("data-toggle", "dropdown");
-                            output.WriteAttribute("aria-haspopup", "true");
-                            output.WriteAttribute("aria-expanded", "false");
-                        }
-
-                        this.CssClass += " btn-sm";
-                    }
-                    else
-                    {
-                        this.CssClass = " btn-sm";
-                    }
                 }
 
                 if (this.Get<YafBoardSettings>().UseNoFollowLinks)
@@ -250,16 +214,6 @@ namespace YAF.Controls
             this.RenderMainTagAttributes(output);
 
             output.Write(HtmlTextWriter.TagRightChar);
-
-            // show online icon
-            if (this.Get<YafBoardSettings>().ShowUserOnlineStatus)
-            {
-                var onlineStatusIcon = new OnlineStatusIcon { UserId = this.UserID };
-
-                onlineStatusIcon.RenderControl(output);
-
-                output.Write("&nbsp;");
-            }
 
             // Replace Name with Crawler Name if Set, otherwise use regular display name or Replace Name if set
             if (this.CrawlerName.IsSet())

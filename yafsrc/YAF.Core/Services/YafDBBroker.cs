@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,7 +34,6 @@ namespace YAF.Core.Services
 
     using YAF.Classes;
     using YAF.Classes.Data;
-    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -167,7 +166,7 @@ namespace YAF.Core.Services
 
             var thanksFieldNames = new[] { "ThanksFromUserNumber", "ThanksToUserNumber", "ThanksToUserPostsNumber" };
 
-            foreach (var postRow in dataRows)
+            foreach (DataRow postRow in dataRows)
             {
                 var messageId = postRow.Field<int>("MessageID");
 
@@ -185,7 +184,7 @@ namespace YAF.Core.Services
                 }
                 else
                 {
-                    var row = postRow;
+                    DataRow row = postRow;
                     thanksFieldNames.ForEach(f => row[f] = 0);
                 }
 
@@ -243,7 +242,7 @@ namespace YAF.Core.Services
                 ds.Tables.Add(moderator.Copy());
 
                 // get the Category Table
-                var category = this.DataCache.GetOrSet(
+                DataTable category = this.DataCache.GetOrSet(
                     Constants.Cache.ForumCategory,
                     () =>
                         {
@@ -256,13 +255,13 @@ namespace YAF.Core.Services
                 // add it to this dataset
                 ds.Tables.Add(category.Copy());
 
-                var categoryTable = ds.Tables["Category"];
+                DataTable categoryTable = ds.Tables["Category"];
 
                 if (categoryID.HasValue)
                 {
                     // make sure this only has the category desired in the dataset
                     foreach (
-                        var row in
+                        DataRow row in
                             categoryTable.AsEnumerable().Where(row => row.Field<int>("CategoryID") != categoryID))
                     {
                         // delete it...
@@ -272,7 +271,7 @@ namespace YAF.Core.Services
                     categoryTable.AcceptChanges();
                 }
 
-                var forum = LegacyDb.forum_listread(
+                DataTable forum = LegacyDb.forum_listread(
                     boardID,
                     userID,
                     categoryID,
@@ -295,11 +294,11 @@ namespace YAF.Core.Services
                     ds.Tables["Moderator"].Columns["ForumID"],
                     false);
 
-                var deletedCategory = false;
+                bool deletedCategory = false;
 
                 // remove empty categories...
                 foreach (
-                    var row in
+                    DataRow row in
                         categoryTable.SelectTypedList(
                             row => new { row, childRows = row.GetChildRows("FK_Forum_Category") })
                             .Where(@t => !@t.childRows.Any())
@@ -326,7 +325,7 @@ namespace YAF.Core.Services
         /// <returns> Returns The favorite topic list. </returns>
         public List<int> FavoriteTopicList(int userID)
         {
-            var key = this.Get<ITreatCacheKey>().Treat(Constants.Cache.FavoriteTopicList.FormatWith(userID));
+            string key = this.Get<ITreatCacheKey>().Treat(Constants.Cache.FavoriteTopicList.FormatWith(userID));
 
             // stored in the user session...
             var favoriteTopicList = this.HttpSessionState[key] as List<int>;
@@ -338,7 +337,7 @@ namespace YAF.Core.Services
             }
 
             // get fresh values
-            var favoriteTopicListDt = this.DbFunction.GetAsDataTable(o => o.topic_favorite_list(userID));
+            DataTable favoriteTopicListDt = this.DbFunction.GetAsDataTable(o => o.topic_favorite_list(userID));
 
             // convert to list...
             favoriteTopicList = favoriteTopicListDt.GetColumnAsList<int>("TopicID");
@@ -399,7 +398,7 @@ namespace YAF.Core.Services
         /// <returns> Returns List with Custom BBCodes </returns>
         public IEnumerable<BBCode> GetCustomBBCode()
         {
-            return this.DataCache.GetOrSet(Constants.Cache.CustomBBCode, () => this.GetRepository<BBCode>().GetByBoardId());
+            return this.DataCache.GetOrSet(Constants.Cache.CustomBBCode, () => this.GetRepository<BBCode>().ListTyped());
         }
 
         /// <summary>
@@ -456,7 +455,7 @@ namespace YAF.Core.Services
                 Constants.Cache.ForumModerators,
                 () =>
                     {
-                        var moderator =
+                        DataTable moderator =
                             this.DbFunction.GetAsDataTable(
                                 cdb => cdb.forum_moderators(YafContext.Current.PageBoardID, this.BoardSettings.UseStyledNicks));
                         moderator.TableName = "Moderator";
@@ -505,7 +504,7 @@ namespace YAF.Core.Services
 
                         foreach (var row in messages.AsEnumerable())
                         {
-                            var formattedMessage =
+                            string formattedMessage =
                                 this.Get<IFormatMessage>().FormatMessage(row.Field<string>("Message"), flags);
 
                             // Extra Formating not needed already done tru this.Get<IFormatMessage>().FormatMessage
@@ -549,7 +548,7 @@ namespace YAF.Core.Services
             // get topics for all forums...
             foreach (var forum in forumData)
             {
-                var forum1 = forum;
+                SimpleForum forum1 = forum;
 
                 // add topics
                 var topics =
@@ -572,6 +571,20 @@ namespace YAF.Core.Services
             }
 
             return forumData;
+        }
+
+        /// <summary>
+        /// Gets the smilies.
+        /// </summary>
+        /// <returns>
+        /// Table with list of smilies
+        /// </returns>
+        public IList<Smiley> GetSmilies()
+        {
+            return this.DataCache.GetOrSet(
+                Constants.Cache.Smilies,
+                () => this.GetRepository<Smiley>().ListTyped(),
+                TimeSpan.FromMinutes(60));
         }
 
         /// <summary>
@@ -666,7 +679,7 @@ namespace YAF.Core.Services
         /// <returns> Returns the user ignored list. </returns>
         public List<int> UserIgnoredList(int userId)
         {
-            var key = Constants.Cache.UserIgnoreList.FormatWith(userId);
+            string key = Constants.Cache.UserIgnoreList.FormatWith(userId);
 
             // stored in the user session...
             var userList = this.HttpSessionState[key] as List<int>;
@@ -678,7 +691,7 @@ namespace YAF.Core.Services
             }
 
             // get fresh values
-            var userListDt = this.DbFunction.GetAsDataTable(cdb => cdb.user_ignoredlist(userId));
+            DataTable userListDt = this.DbFunction.GetAsDataTable(cdb => cdb.user_ignoredlist(userId));
 
             // convert to list...
             userList = userListDt.GetColumnAsList<int>("IgnoredUserID");
@@ -696,10 +709,10 @@ namespace YAF.Core.Services
         /// <returns> Returns the User Medals </returns>
         public DataTable UserMedals(int userId)
         {
-            var key = Constants.Cache.UserMedals.FormatWith(userId);
+            string key = Constants.Cache.UserMedals.FormatWith(userId);
 
             // get the medals cached...
-            var dt = this.DataCache.GetOrSet(
+            DataTable dt = this.DataCache.GetOrSet(
                 key,
                 () => this.DbFunction.GetAsDataTable(cdb => cdb.user_listmedals(userId)),
                 TimeSpan.FromMinutes(10));

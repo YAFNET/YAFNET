@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -66,7 +66,7 @@ namespace YAF.Controls
     /// </summary>
     private void BindData()
     {
-      var dt = LegacyDb.usergroup_list(this.PageContext.PageUserID);
+      DataTable dt = LegacyDb.usergroup_list(this.PageContext.PageUserID);
 
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
@@ -92,7 +92,7 @@ namespace YAF.Controls
           this.HtmlEncode(this.Get<IUserDisplayName>().GetName(this.PageContext.PageUserID));
       }
 
-      var avatarImg = this.Get<IAvatars>().GetAvatarUrlForCurrentUser();
+      string avatarImg = this.Get<IAvatars>().GetAvatarUrlForCurrentUser();
 
       if (avatarImg.IsSet())
       {

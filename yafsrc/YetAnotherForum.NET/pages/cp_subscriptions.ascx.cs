@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -107,10 +107,10 @@ namespace YAF.Pages
                                   ? this.HtmlEncode(row["LastUserDisplayName"])
                                   : this.HtmlEncode(row["LastUserName"]);
 
-            var link = @"<a href=""{0}"">{1}</a>".FormatWith(YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", row["LastUserID"], displayName), displayName);
-            var by = this.GetTextFormatted("lastpostlink", this.Get<IDateTime>().FormatDateTime((DateTime)row["LastPosted"]), link);
+            string link = @"<a href=""{0}"">{1}</a>".FormatWith(YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", row["LastUserID"], displayName), displayName);
+            string by = this.GetTextFormatted("lastpostlink", this.Get<IDateTime>().FormatDateTime((DateTime)row["LastPosted"]), link);
 
-            var html = @"{0} <a href=""{1}""><img src=""{2}"" alt="""" /></a>".FormatWith(
+            string html = @"{0} <a href=""{1}""><img src=""{2}"" alt="""" /></a>".FormatWith(
                 @by,
                 YafBuildLink.GetLink(ForumPages.posts, "m={0}&find=lastpost", row["LastMessageID"]),
                 this.GetThemeContents("ICONS", "ICON_LATEST"));
@@ -195,7 +195,7 @@ namespace YAF.Pages
                 return;
             }
 
-            var autoWatchTopicsEnabled = false;
+            bool autoWatchTopicsEnabled = false;
 
             var value = this.rblNotificationType.SelectedValue.ToEnum<UserNotificationSetting>();
 
@@ -214,7 +214,7 @@ namespace YAF.Pages
 
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
 
-            this.PageContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
+            this.PageContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.Success);
         }
 
         /// <summary>
@@ -247,12 +247,12 @@ namespace YAF.Pages
 
             if (ids.Any())
             {
-                this.GetRepository<WatchForum>().DeleteByIds(ids);
+                this.GetRepository<WatchForum>().DeleteByIDs(ids);
                 this.BindData();
             }
             else
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTFORUMS"), MessageTypes.warning);
+                this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTFORUMS"), MessageTypes.Warning);
             }
         }
 
@@ -267,12 +267,12 @@ namespace YAF.Pages
 
             if (ids.Any())
             {
-                this.GetRepository<WatchTopic>().DeleteByIds(ids);
+                this.GetRepository<WatchTopic>().DeleteByIDs(ids);
                 this.BindData();
             }
             else
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTTOPICS"), MessageTypes.warning);
+                this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTTOPICS"), MessageTypes.Warning);
             }
         }
 
@@ -337,7 +337,7 @@ namespace YAF.Pages
         /// </param>
         private void UpdateSubscribeUI(UserNotificationSetting selectedValue)
         {
-            var showSubscribe =
+            bool showSubscribe =
               !(selectedValue == UserNotificationSetting.AllTopics || selectedValue == UserNotificationSetting.NoNotification);
 
             this.SubscribeHolder.Visible = showSubscribe;

@@ -101,6 +101,10 @@ namespace YAF.Controls.Statistics
                 var userLink = new UserLink { UserID = row.Field<int>("ID"), };
                 userLink.RenderControl(writer);
 
+                // render online image...
+                var onlineStatusImage = new OnlineStatusImage { UserID = row.Field<int>("ID") };
+                onlineStatusImage.RenderControl(writer);
+
                 writer.WriteLine(" ");
                 writer.WriteLine(@"<span class=""NumberOfPosts"">({0})</span>".FormatWith(row.Field<int>("NumOfPosts")));
                 writer.WriteLine("</li>");

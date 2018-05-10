@@ -1,17 +1,18 @@
 // UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
+// Copyright 2007 Intelligencia
+// Copyright 2007 Seth Yates
 // 
-
-using System;
-using System.Xml;
-using Intelligencia.UrlRewriter.Conditions;
-using Intelligencia.UrlRewriter.Utilities;
 
 namespace Intelligencia.UrlRewriter.Parsers
 {
+    using System;
+    using System.Xml;
+
+    using Intelligencia.UrlRewriter.Conditions;
+    using Intelligencia.UrlRewriter.Utilities;
+
     /// <summary>
     /// Parser for method conditions.
     /// </summary>
@@ -29,13 +30,13 @@ namespace Intelligencia.UrlRewriter.Parsers
                 throw new ArgumentNullException("node");
             }
 
-            string method = node.GetOptionalAttribute(Constants.AttrMethod);
-            if (method == null)
+            var methodAttr = node.Attributes.GetNamedItem(Constants.AttrMethod);
+            if (methodAttr != null)
             {
-                return null;
+                return new MethodCondition(methodAttr.Value);
             }
 
-            return new MethodCondition(method);
+            return null;
         }
     }
 }

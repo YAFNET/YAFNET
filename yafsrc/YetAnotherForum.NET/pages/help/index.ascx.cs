@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -90,6 +90,8 @@ namespace YAF.Pages.help
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
+            this.PreRender += Index_PreRender;
+
             this.DoSearch.Click += this.DoSearch_Click;
             base.OnInit(e);
 
@@ -157,11 +159,22 @@ namespace YAF.Pages.help
         }
 
         /// <summary>
+        /// Load the Javascript files
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private static void Index_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // Setup Ceebox js
+            YafContext.Current.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
+        }
+
+        /// <summary>
         /// Binds the data.
         /// </summary>
         private void BindData()
         {
-            var faqPage = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq");
+            string faqPage = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq");
 
             switch (faqPage)
             {
@@ -219,7 +232,7 @@ namespace YAF.Pages.help
 
             if (this.search.Text.Length <= 3)
             {
-                this.PageContext.AddLoadMessage(this.GetText("SEARCHLONGER"), MessageTypes.danger);
+                this.PageContext.AddLoadMessage(this.GetText("SEARCHLONGER"), MessageTypes.Error);
 
                 return;
             }
@@ -232,7 +245,7 @@ namespace YAF.Pages.help
                 check.HelpContent.ToLower().Contains(this.search.Text.ToLower()) ||
                 check.HelpTitle.ToLower().Contains(this.search.Text.ToLower()));
 
-            foreach (var item in searchlist)
+            foreach (YafHelpContent item in searchlist)
             {
                 item.HelpContent = this.Get<IFormatMessage>().SurroundWordList(
                   item.HelpContent, highlightWords, @"<span class=""highlight"">", @"</span>");
@@ -242,7 +255,7 @@ namespace YAF.Pages.help
 
             if (searchlist.Count.Equals(0))
             {
-                this.PageContext.AddLoadMessage(this.GetText("NORESULTS"), MessageTypes.warning);
+                this.PageContext.AddLoadMessage(this.GetText("NORESULTS"), MessageTypes.Warning);
 
                 return;
             }

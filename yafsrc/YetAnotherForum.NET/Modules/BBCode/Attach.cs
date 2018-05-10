@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -23,13 +23,14 @@
  */
 namespace YAF.Modules.BBCode
 {
+    using System.Linq;
     using System.Web;
     using System.Web.UI;
 
     using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
-    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -52,7 +53,10 @@ namespace YAF.Modules.BBCode
                 return;
             }
 
-            var attachment = this.GetRepository<Attachment>().GetById(this.Parameters["inner"].ToType<int>());
+            var attachment =
+               this.GetRepository<Attachment>()
+                   .ListTyped(attachmentID: this.Parameters["inner"].ToType<int>())
+                   .FirstOrDefault();
 
             if (attachment == null)
             {
@@ -104,7 +108,7 @@ namespace YAF.Modules.BBCode
                     writer.Write(
                         !this.Get<YafBoardSettings>().EnableImageAttachmentResize
                             ? @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""UserPostedImage attachedImage"" />"
-                            : @"<a href=""{0}resource.ashx?i={1}&b={3}"" class=""attachedImage"" data-gallery><img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" title=""{2}"" /></a>",
+                            : @"<a href=""{0}resource.ashx?i={1}&b={3}"" date-img=""{0}resource.ashx?a={1}&b={3}"" class=""attachedImage""><img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" title=""{2}"" /></a>",
                         YafForumInfo.ForumClientFileRoot,
                         attachment.ID,
                         this.HtmlEncode(attachment.FileName),

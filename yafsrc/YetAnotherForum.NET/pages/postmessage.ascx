@@ -1,9 +1,11 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.postmessage" Codebehind="postmessage.ascx.cs" %>
+<%@ Import Namespace="YAF.Core" %>
+<%@ Register TagPrefix="YAF" TagName="smileys" Src="../controls/smileys.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="LastPosts" Src="../controls/LastPosts.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PostOptions" Src="../controls/PostOptions.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PostAttachments" Src="../controls/PostAttachments.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PollList" Src="../controls/PollList.ascx" %>
-<%@ Register TagPrefix="YAF" TagName="AttachmentsUploadDialog" Src="../Dialogs/AttachmentsUpload.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="AttachmentsUploadDialog" Src="../controls/AttachmentsUploadDialog.ascx" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <YAF:PollList ID="PollList"  ShowButtons="true" PollGroupId='<%# GetPollGroupID() %>'  runat="server"/>
 <table align="center" cellpadding="4" cellspacing="1" class="content" width="100%">
@@ -12,12 +14,12 @@
 			<asp:Label ID="Title" runat="server" />
 		</td>
 	</tr>
-
+          
 	<tr id="PreviewRow" runat="server" visible="false">
 		<td class="postformheader" valign="top">
 			<YAF:LocalizedLabel runat="server" LocalizedTag="previewtitle" />
 		</td>
-		<td id="PreviewCell" runat="server" class="post previewPostContent" valign="top">
+		<td id="PreviewCell" runat="server" class="post previewPostContent ceebox" valign="top">
 			<YAF:MessagePost ID="PreviewMessagePost" runat="server" />
 		</td>
 	</tr>
@@ -27,10 +29,6 @@
 		</td>
 		<td class="post" width="80%">
 			<asp:TextBox ID="TopicSubjectTextBox" runat="server" CssClass="edit" MaxLength="100" Width="400" autocomplete="off" />
-		    <div id="SearchResultsPlaceholder"  
-		         data-url='<%=YafForumInfo.ForumClientFileRoot %>' 
-		         data-userid='<%= YafContext.Current.PageUserID %>'>
-		    </div>
 		</td>
 	</tr>
     <tr id="DescriptionRow" visible="false" runat="server">
@@ -68,7 +66,7 @@
 			<asp:DropDownList ID="TopicStatus" runat="server" CssClass="standardSelectMenu" Width="400">
             </asp:DropDownList>
 		</td>
-	</tr>
+	</tr>	
 	<tr id="PriorityRow" runat="server">
 		<td class="postformheader" width="20%">
 			<YAF:LocalizedLabel runat="server" LocalizedTag="priority" />
@@ -84,29 +82,23 @@
 		<td class="post" width="80%">
 			<asp:TextBox id="TopicStylesTextBox" runat="server" CssClass="edit" Width="400" />
 		</td>
-	</tr>
+	</tr>	
 	<tr>
 		<td class="postformheader" valign="top" width="20%">
-		    <YAF:LocalizedLabel runat="server" LocalizedTag="message" />
+			<YAF:LocalizedLabel runat="server" LocalizedTag="message" />
+			<br />
+			<YAF:smileys runat="server" OnClick="insertsmiley" />
+			<br />
+			<YAF:LocalizedLabel ID="LocalizedLblMaxNumberOfPost" runat="server" LocalizedTag="MAXNUMBEROF" />
 		</td>
-        <td></td>
-    <tr>
-		<td id="EditorLine" runat="server" class="post" width="80%" colspan="2">
+		<td id="EditorLine" runat="server" class="post" width="80%">
 			<!-- editor goes here -->
 		</td>
 	</tr>
-    <tr runat="server" id="maxCharRow">
-        <td class="post" colspan="2">
-            <div class="alert alert-secondary" role="alert">
-                <strong><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NOTE" LocalizedPage="COMMON" /></strong>
-                <YAF:LocalizedLabel ID="LocalizedLblMaxNumberOfPost" runat="server" LocalizedTag="MAXNUMBEROF" />
-            </div>
-        </td>
-    </tr>
-
+    
     <YAF:PostOptions id="PostOptions1" runat="server">
     </YAF:PostOptions>
-
+    
     <YAF:PostAttachments id="PostAttachments1" runat="server" Visible="False">
     </YAF:PostAttachments>
 

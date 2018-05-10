@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -59,13 +59,14 @@ namespace YAF
             if (this.Session["StartupException"] != null)
             {
                 errorMessage =
-                    "<strong>Error:</strong> {0}".FormatWith(
+                    "<span class=\"label label-danger\">Error</span> {0}".FormatWith(
                         this.Server.HtmlEncode(this.Session["StartupException"].ToString()));
 
                 this.Session["StartupException"] = null;
             }
 
             this.ErrorMessage.Text = errorMessage;
+            //////////
         }
 
         #endregion

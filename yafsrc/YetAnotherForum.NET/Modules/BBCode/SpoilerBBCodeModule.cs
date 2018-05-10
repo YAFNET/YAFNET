@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,16 +23,17 @@
  */
 namespace YAF.Modules
 {
-    using System.Text;
-    using System.Web.UI;
+  using System.Text;
+  using System.Web.UI;
 
-    using YAF.Core;
-    using YAF.Controls;
+  using YAF.Core; using YAF.Types.Interfaces; using YAF.Types.Constants;
+  using YAF.Controls;
+  using YAF.Types.Constants;
 
-    /// <summary>
-    /// The spoiler bb code module.
-    /// </summary>
-    public class SpoilerBBCodeModule : YafBBCodeControl
+  /// <summary>
+  /// The spoiler bb code module.
+  /// </summary>
+  public class SpoilerBBCodeModule : YafBBCodeControl
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="SpoilerBBCodeModule"/> class.

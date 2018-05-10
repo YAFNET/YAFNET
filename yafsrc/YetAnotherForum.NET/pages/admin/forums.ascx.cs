@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,7 +34,6 @@ namespace YAF.Pages.Admin
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
-    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -70,9 +69,10 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void DeleteForum_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            ((ThemeButton)sender).Attributes["onclick"] = "return (confirm('{0}') && confirm('{1}'))".FormatWith(
-                this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE"),
-                this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE"));
+            ((ThemeButton)sender).Attributes["onclick"] =
+                "return (confirm('{0}') && confirm('{1}'))".FormatWith(
+                    this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE"),
+                    this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE"));
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace YAF.Pages.Admin
                     YafBuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", e.CommandArgument);
                     break;
                 case "delete":
-                    if (this.GetRepository<Category>().DeleteById(e.CommandArgument.ToType<int>()))
+                    if (this.GetRepository<Category>().Delete(e.CommandArgument.ToType<int>()))
                     {
                         this.BindData();
                     }
@@ -154,23 +154,16 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("TEAM", "FORUMS"));
+            this.Page.Header.Title = "{0} - {1}".FormatWith(this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("TEAM", "FORUMS"));
+
+            this.NewCategory.Text = this.GetText("ADMIN_FORUMS", "NEW_CATEGORY");
+            this.NewForum.Text = this.GetText("ADMIN_FORUMS", "NEW_FORUM");
+
+            this.BindData();
         }
 
         /// <summary>
@@ -178,7 +171,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            using (var ds = LegacyDb.ds_forumadmin(this.PageContext.PageBoardID))
+            using (DataSet ds = LegacyDb.ds_forumadmin(this.PageContext.PageBoardID))
             {
                 this.CategoryList.DataSource = ds.Tables[DbHelpers.GetObjectName("Category")];
             }

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,13 +33,11 @@ namespace YAF.Pages.moderate
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -191,7 +189,7 @@ namespace YAF.Pages.moderate
                 case "approve":
 
                     // approve post
-                    this.GetRepository<Message>().ApproveMessage(e.CommandArgument.ToType<int>());
+                    LegacyDb.message_approve(e.CommandArgument);
 
                     // Update statistics
                     this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
@@ -200,7 +198,7 @@ namespace YAF.Pages.moderate
                     this.BindData();
 
                     // tell user message was approved
-                    this.PageContext.AddLoadMessage(this.GetText("APPROVED"), MessageTypes.success);
+                    this.PageContext.AddLoadMessage(this.GetText("APPROVED"), MessageTypes.Success);
 
                     // send notification to watching users...
                     this.Get<ISendNotification>().ToWatchingUsers(e.CommandArgument.ToType<int>());

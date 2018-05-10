@@ -1,9 +1,9 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -47,63 +47,129 @@ namespace YAF.Classes
         /// <summary>
         ///     Gets a value indicating whether AllowLoginAndLogoff.
         /// </summary>
-        public static bool AllowLoginAndLogoff => GetConfigValueAsBool("YAF.AllowLoginAndLogoff", true);
+        public static bool AllowLoginAndLogoff
+        {
+            get
+            {
+                return GetConfigValueAsBool("YAF.AllowLoginAndLogoff", true);
+            }
+        }
 
         /// <summary>
         ///     Gets AppRoot.
         /// </summary>
         [NotNull]
-        public static string AppRoot => GetConfigValueAsString("YAF.AppRoot") ?? string.Empty;
+        public static string AppRoot
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.AppRoot") ?? string.Empty;
+            }
+        }
 
         /// <summary>
         ///     Gets the Used for Url Rewriting -- default is "default.\.(.+)$\.(.+)$"
         /// </summary>
         [NotNull]
-        public static string BaseScriptFile => GetConfigValueAsString("YAF.BaseScriptFile") ?? "default.aspx";
+        public static string BaseScriptFile
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.BaseScriptFile") ?? "default.aspx";
+            }
+        }
 
         /// <summary>
         ///     Gets the Current BoardID -- default is 1.
         /// </summary>
         [NotNull]
-        public static string BoardID => GetConfigValueAsString("YAF.BoardID") ?? "1";
+        public static string BoardID
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.BoardID") ?? "1";
+            }
+        }
 
         /// <summary>
         ///     Gets the Folder to use for board specific uploads, images, themes Example : /Boards/
         /// </summary>
         [NotNull]
-        public static string BoardRoot => GetConfigValueAsString("YAF.BoardRoot") ?? string.Empty;
+        public static string BoardRoot
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.BoardRoot") ?? string.Empty; // Use / to signify root
+            }
+        }
 
         /// <summary>
         ///     Gets BotScout API Key.
         /// </summary>
-        public static string BotScoutApiKey => GetConfigValueAsString("YAF.BotScoutApiKey");
+        public static string BotScoutApiKey
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.BotScoutApiKey");
+            }
+        }
 
         /// <summary>
         ///     Gets the Allowed browser JS version.
         /// </summary>
-        public static string BrowserJSVersion => GetConfigValueAsString("YAF.BrowserJSVersion") ?? "1.0";
+        public static string BrowserJSVersion
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.BrowserJSVersion") ?? "1.0";
+            }
+        }
 
         /// <summary>
         ///     Gets the Current CategoryID -- default is null.
         /// </summary>
-        public static string CategoryID => GetConfigValueAsString("YAF.CategoryID");
+        public static string CategoryID
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.CategoryID");
+            }
+        }
 
         /// <summary>
         ///     Gets ClientFileRoot.
         /// </summary>
         [NotNull]
-        public static string ClientFileRoot => GetConfigValueAsString("YAF.ClientFileRoot") ?? string.Empty;
+        public static string ClientFileRoot
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.ClientFileRoot") ?? string.Empty;
+            }
+        }
 
         /// <summary>
         ///     Gets a value indicating whether CSS Blocks should be compressed (minified)? -- default is true.
         /// </summary>
-        public static bool CompressCSSBlocks => GetConfigValueAsBool("YAF.CompressCSSBlocks", true);
+        public static bool CompressCSSBlocks
+        {
+            get
+            {
+                return GetConfigValueAsBool("YAF.CompressCSSBlocks", true);
+            }
+        }
 
         /// <summary>
-        ///     Gets a value indicating whether Java Script Blocks should be compressed (minified)
+        ///     Gets a value indicating whether Java Script Blocks should be compressed (minified) 
         ///     Default is true.
         /// </summary>
-        public static bool CompressJSBlocks => GetConfigValueAsBool("YAF.CompressJSBlocks", true);
+        public static bool CompressJSBlocks
+        {
+            get
+            {
+                return GetConfigValueAsBool("YAF.CompressJSBlocks", true);
+            }
+        }
 
         /// <summary>
         /// Gets the name of the connection provider.
@@ -128,13 +194,25 @@ namespace YAF.Classes
         /// <summary>
         ///     Gets ConnectionString.
         /// </summary>
-        public static string ConnectionString => ConnectionStringSettings?.ConnectionString;
+        public static string ConnectionString
+        {
+            get
+            {
+                return ConnectionStringSettings != null ? ConnectionStringSettings.ConnectionString : null;
+            }
+        }
 
         /// <summary>
         ///     Gets ConnectionStringName.
         /// </summary>
         [NotNull]
-        public static string ConnectionStringName => GetConfigValueAsString("YAF.ConnectionStringName") ?? "yafnet";
+        public static string ConnectionStringName
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.ConnectionStringName") ?? "yafnet";
+            }
+        }
 
         /// <summary>
         /// Gets the connection string settings.
@@ -142,22 +220,46 @@ namespace YAF.Classes
         /// <value>
         /// The connection string settings.
         /// </value>
-        public static ConnectionStringSettings ConnectionStringSettings => ConfigurationManager.ConnectionStrings[ConnectionStringName];
+        public static ConnectionStringSettings ConnectionStringSettings
+        {
+            get
+            {
+                return ConfigurationManager.ConnectionStrings[ConnectionStringName];
+            }
+        }
 
         /// <summary>
         ///     Gets a value indicating whether the Use it if distinct YAF role names are required. Used in integration environments only.
         /// </summary>
-        public static bool CreateDistinctRoles => GetConfigValueAsBool("YAF.CreateDistinctRoles", false);
+        public static bool CreateDistinctRoles
+        {
+            get
+            {
+                return GetConfigValueAsBool("YAF.CreateDistinctRoles", false);
+            }
+        }
 
         /// <summary>
         ///     Gets DatabaseCollation.
         /// </summary>
-        public static string DatabaseCollation => GetConfigValueAsString("YAF.DatabaseCollation");
+        public static string DatabaseCollation
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.DatabaseCollation");
+            }
+        }
 
         /// <summary>
         ///     Gets DatabaseEncoding.
         /// </summary>
-        public static string DatabaseEncoding => GetConfigValueAsString("YAF.DatabaseEncoding");
+        public static string DatabaseEncoding
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.DatabaseEncoding");
+            }
+        }
 
         /// <summary>
         ///     Gets DatabaseObjectQualifier.
@@ -178,23 +280,47 @@ namespace YAF.Classes
         ///     Gets DatabaseOwner.
         /// </summary>
         [NotNull]
-        public static string DatabaseOwner => GetConfigValueAsString("YAF.DatabaseOwner") ?? "dbo";
+        public static string DatabaseOwner
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.DatabaseOwner") ?? "dbo";
+            }
+        }
 
         /// <summary>
         ///     Gets DatabaseScheme.
         /// </summary>
         [NotNull]
-        public static string DatabaseScheme => GetConfigValueAsString("YAF.DatabaseScheme") ?? "public";
+        public static string DatabaseScheme
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.DatabaseScheme") ?? "public";
+            }
+        }
 
         /// <summary>
         ///     Gets a value indicating whether Is jQuery Registration disabled? -- default is false.
         /// </summary>
-        public static bool DisableJQuery => GetConfigValueAsBool("YAF.DisableJQuery", false);
+        public static bool DisableJQuery
+        {
+            get
+            {
+                return GetConfigValueAsBool("YAF.DisableJQuery", false);
+            }
+        }
 
         /// <summary>
         ///     Gets a value indicating whether Is Url Rewriting enabled? -- default is "true".
         /// </summary>
-        public static bool EnableURLRewriting => GetConfigValueAsBool("YAF.EnableUrlRewriting", true);
+        public static bool EnableURLRewriting
+        {
+            get
+            {
+                return GetConfigValueAsBool("YAF.EnableUrlRewriting", true);
+            }
+        }
 
         /// <summary>
         /// Gets the google client ID.
@@ -202,7 +328,13 @@ namespace YAF.Classes
         /// <value>
         /// The google client ID.
         /// </value>
-        public static string GoogleClientID => GetConfigValueAsString("YAF.GoogleClientID");
+        public static string GoogleClientID
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.GoogleClientID");
+            }
+        }
 
         /// <summary>
         /// Gets the google client secret.
@@ -210,27 +342,57 @@ namespace YAF.Classes
         /// <value>
         /// The google client secret.
         /// </value>
-        public static string GoogleClientSecret => GetConfigValueAsString("YAF.GoogleClientSecret");
+        public static string GoogleClientSecret
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.GoogleClientSecret");
+            }
+        }
 
         /// <summary>
         ///     Gets Facebook API Key.
         /// </summary>
-        public static string FacebookAPIKey => GetConfigValueAsString("YAF.FacebookAPIKey");
+        public static string FacebookAPIKey
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.FacebookAPIKey");
+            }
+        }
 
         /// <summary>
         ///     Gets Facebook Secret Key.
         /// </summary>
-        public static string FacebookSecretKey => GetConfigValueAsString("YAF.FacebookSecretKey");
+        public static string FacebookSecretKey
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.FacebookSecretKey");
+            }
+        }
 
         /// <summary>
         ///     Gets a value indicating whether Used for Url Rewriting -- default is null -- used to define what the forum file name is for URLs.
         /// </summary>
-        public static string ForceScriptName => GetConfigValueAsString("YAF.ForceScriptName");
+        public static string ForceScriptName
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.ForceScriptName");
+            }
+        }
 
         /// <summary>
         ///     Gets a value indicating whether IsAnyPortal.
         /// </summary>
-        public static bool IsAnyPortal => IsDotNetNuke || IsMojoPortal || IsRainbow || IsPortal || IsPortalomatic;
+        public static bool IsAnyPortal
+        {
+            get
+            {
+                return IsDotNetNuke || IsMojoPortal || IsRainbow || IsPortal || IsPortalomatic;
+            }
+        }
 
         /// <summary>
         ///     Gets a value indicating whether IsDotNetNuke.
@@ -270,12 +432,24 @@ namespace YAF.Classes
         /// <summary>
         ///     Gets a value indicating whether IsPortal.
         /// </summary>
-        public static bool IsPortal => HttpContext.Current.Session != null && HttpContext.Current.Session["YetAnotherPortal.net"] != null;
+        public static bool IsPortal
+        {
+            get
+            {
+                return HttpContext.Current.Session != null && HttpContext.Current.Session["YetAnotherPortal.net"] != null;
+            }
+        }
 
         /// <summary>
         ///     Gets a value indicating whether Is Portalomatic.
         /// </summary>
-        public static bool IsPortalomatic => HttpContext.Current.Session != null && HttpContext.Current.Session["Portalomatic.NET"] != null;
+        public static bool IsPortalomatic
+        {
+            get
+            {
+                return HttpContext.Current.Session != null && HttpContext.Current.Session["Portalomatic.NET"] != null;
+            }
+        }
 
         /// <summary>
         ///     Gets a value indicating whether IsRainbow.
@@ -321,114 +495,263 @@ namespace YAF.Classes
         /// <summary>
         ///     Gets JQuery Override File Name.
         /// </summary>
-        public static string JQueryOverrideFile => GetConfigValueAsString("YAF.JQueryOverrideFile")
-                                                   ?? string.Empty;
+        public static string JQueryOverrideFile
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.JQueryOverrideFile")
+                       ?? string.Empty;
+            }
+        }
 
         /// <summary>
-        /// Gets a value indicating whether YAF should be optimized for use with very large number of forums.
+        ///     Gets JQuery UI Override File Name.
+        /// </summary>
+        public static string JQueryUIOverrideFile
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.JQueryUIOverrideFile")
+                       ?? string.Empty;
+            }
+        }
+
+        /// <summary>
+        ///     Gets jQuery UI date picker lang Override File Name.
+        /// </summary>
+        public static string JQueryUIOverrideLangFile
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.JQueryUIOverrideLangFile")
+                       ?? string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether YAF should be optimized for use with very large number of forums. 
         /// Before enabling you should know exactly what you do and what's it all for. Ask developers.
         /// </summary>
         [NotNull]
-        public static bool LargeForumTree => GetConfigValueAsBool("YAF.LargeForumTree", false);
+        public static bool LargeForumTree
+        {
+            get
+            {
+                return GetConfigValueAsBool("YAF.LargeForumTree", false);
+            }
+        }
 
         /// <summary>
         ///     Gets LogToMail.
         /// </summary>
         [Obsolete("Legacy: Phasing out")]
-        public static string LogToMail => GetConfigValueAsString("YAF.LogToMail");
+        public static string LogToMail
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.LogToMail");
+            }
+        }
 
         /// <summary>
         ///     Gets MembershipProvider.
         /// </summary>
         [NotNull]
-        public static string MembershipProvider => GetConfigValueAsString("YAF.MembershipProvider") ?? string.Empty;
+        public static string MembershipProvider
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.MembershipProvider") ?? string.Empty;
+            }
+        }
 
         /// <summary>
         ///     Gets MobileUserAgents.
         /// </summary>
         [NotNull]
-        public static string MobileUserAgents => GetConfigValueAsString("YAF.MobileUserAgents")
-                                                 ?? "iphone,ipad,midp,windows ce,windows phone,android,blackberry,opera mini,mobile,palm,portable,webos,htc,armv,lg/u,elaine,nokia,playstation,symbian,sonyericsson,mmp,hd_mini";
+        public static string MobileUserAgents
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.MobileUserAgents")
+                       ?? "iphone,ipad,midp,windows ce,windows phone,android,blackberry,opera mini,mobile,palm,portable,webos,htc,armv,lg/u,elaine,nokia,playstation,symbian,sonyericsson,mmp,hd_mini";
+            }
+        }
 
         /// <summary>
         ///     Gets a value indicating whether Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot Example : true /false
         /// </summary>
-        public static bool MultiBoardFolders => GetConfigValueAsBool("YAF.MultiBoardFolders", false);
+        public static bool MultiBoardFolders
+        {
+            get
+            {
+                return GetConfigValueAsBool("YAF.MultiBoardFolders", false);
+            }
+        }
 
         /// <summary>
         ///     Gets the NNTP post domain.
         /// </summary>
         [NotNull]
-        public static string NntpPostDomain => GetConfigValueAsString("YAF.NntpPostDomain") ?? "myforum.com";
+        public static string NntpPostDomain
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.NntpPostDomain") ?? "myforum.com";
+            }
+        }
+
+        /// <summary>
+        ///     Gets OverrideTrustLevel.
+        /// </summary>
+        public static string OverrideTrustLevel
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.OverrideTrustLevel");
+            }
+        }
 
         /// <summary>
         ///     Gets ProviderKeyType.
         /// </summary>
         [NotNull]
-        public static string ProviderKeyType => GetConfigValueAsString("YAF.ProviderKeyType") ?? "System.Guid";
+        public static string ProviderKeyType
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.ProviderKeyType") ?? "System.Guid";
+            }
+        }
 
         /// <summary>
         ///     Gets ProfileProvider.
         /// </summary>
         [NotNull]
-        public static string ProviderProvider => GetConfigValueAsString("YAF.ProfileProvider") ?? string.Empty;
+        public static string ProviderProvider
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.ProfileProvider") ?? string.Empty;
+            }
+        }
 
         /// <summary>
         ///     Gets RadEditorSkin.
         /// </summary>
         [NotNull]
-        public static string RadEditorSkin => GetConfigValueAsString("YAF.RadEditorSkin") ?? "Vista";
+        public static string RadEditorSkin
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.RadEditorSkin") ?? "Vista";
+            }
+        }
 
         /// <summary>
         ///     Gets RadEditorToolsFile.
         /// </summary>
         [NotNull]
-        public static string RadEditorToolsFile => GetConfigValueAsString("YAF.RadEditorToolsFile")
-                                                   ?? "{0}/Scripts/RadEditor/ToolsFile.xml".FormatWith(ServerFileRoot);
+        public static string RadEditorToolsFile
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.RadEditorToolsFile")
+                       ?? "{0}/Scripts/RadEditor/ToolsFile.xml".FormatWith(ServerFileRoot);
+            }
+        }
 
         /// <summary>
         ///     Gets RoleProvider.
         /// </summary>
         [NotNull]
-        public static string RoleProvider => GetConfigValueAsString("YAF.RoleProvider") ?? string.Empty;
+        public static string RoleProvider
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.RoleProvider") ?? string.Empty;
+            }
+        }
 
         /// <summary>
         ///     Gets SchemaName.
         /// </summary>
-        public static string SchemaName => GetConfigValueAsString("YAF.DatabaseSchemaName");
+        public static string SchemaName
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.DatabaseSchemaName");
+            }
+        }
 
         /// <summary>
         ///     Gets ServerFileRoot.
         /// </summary>
         [NotNull]
-        public static string ServerFileRoot => GetConfigValueAsString("YAF.FileRoot")
-                                               ?? GetConfigValueAsString("YAF.ServerFileRoot") ?? string.Empty;
+        public static string ServerFileRoot
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.FileRoot")
+                       ?? GetConfigValueAsString("YAF.ServerFileRoot") ?? string.Empty;
+            }
+        }
 
         /// <summary>
         ///     Gets a value indicating whether Display the footer at the bottom of the page -- default is "true"
         /// </summary>
-        public static bool ShowFooter => GetConfigValueAsBool("YAF.ShowFooter", true);
+        public static bool ShowFooter
+        {
+            get
+            {
+                return GetConfigValueAsBool("YAF.ShowFooter", true);
+            }
+        }
 
         /// <summary>
         ///     Gets a value indicating whether Display the default toolbar at the top -- default is "true"
         /// </summary>
-        public static bool ShowToolBar => GetConfigValueAsBool("YAF.ShowToolBar", true);
+        public static bool ShowToolBar
+        {
+            get
+            {
+                return GetConfigValueAsBool("YAF.ShowToolBar", true);
+            }
+        }
 
         /// <summary>
         ///     Gets the Current BoardID -- default is 1.
         /// </summary>
         [NotNull]
-        public static string SqlCommandTimeout => GetConfigValueAsString("YAF.SqlCommandTimeout") ?? "99999";
+        public static string SqlCommandTimeout
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.SqlCommandTimeout") ?? "99999";
+            }
+        }
 
         /// <summary>
         ///     Gets TwitterConsumerKey
         /// </summary>
-        public static string TwitterConsumerKey => GetConfigValueAsString("YAF.TwitterConsumerKey");
+        public static string TwitterConsumerKey
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.TwitterConsumerKey");
+            }
+        }
 
         /// <summary>
         ///     Gets TwitterConsumerSecret
         /// </summary>
-        public static string TwitterConsumerSecret => GetConfigValueAsString("YAF.TwitterConsumerSecret");
+        public static string TwitterConsumerSecret
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.TwitterConsumerSecret");
+            }
+        }
 
         /// <summary>
         /// Gets the twitter token.
@@ -436,7 +759,13 @@ namespace YAF.Classes
         /// <value>
         /// The twitter token.
         /// </value>
-        public static string TwitterToken => GetConfigValueAsString("YAF.TwitterToken");
+        public static string TwitterToken
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.TwitterToken");
+            }
+        }
 
         /// <summary>
         /// Gets the twitter token secret.
@@ -444,7 +773,13 @@ namespace YAF.Classes
         /// <value>
         /// The twitter token secret.
         /// </value>
-        public static string TwitterTokenSecret => GetConfigValueAsString("YAF.TwitterTokenSecret");
+        public static string TwitterTokenSecret
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.TwitterTokenSecret");
+            }
+        }
 
         /// <summary>
         /// Gets a value indicating whether this instance is twitter enabled.
@@ -452,26 +787,50 @@ namespace YAF.Classes
         /// <value>
         /// <c>true</c> if this instance is twitter enabled; otherwise, <c>false</c>.
         /// </value>
-        public static bool IsTwitterEnabled => TwitterConsumerKey.IsSet() && TwitterConsumerSecret.IsSet() && TwitterToken.IsSet()
-                                               && TwitterTokenSecret.IsSet();
+        public static bool IsTwitterEnabled
+        {
+            get
+            {
+                return TwitterConsumerKey.IsSet() && TwitterConsumerSecret.IsSet() && TwitterToken.IsSet()
+                       && TwitterTokenSecret.IsSet();
+            }
+        }
 
         /// <summary>
         ///     Gets the Url Rewriting Format -- default is "advanced".
         /// </summary>
         [NotNull]
-        public static string UrlRewritingFormat => GetConfigValueAsString("YAF.UrlRewritingFormat") ?? "advanced";
+        public static string UrlRewritingFormat
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.UrlRewritingFormat") ?? "advanced";
+            }
+        }
 
         /// <summary>
         ///     Gets the Url Rewriting URLRewritingMode? -- default is Unicode.
         /// </summary>
         [NotNull]
-        public static string UrlRewritingMode => GetConfigValueAsString("YAF.URLRewritingMode") ?? string.Empty;
+        public static string UrlRewritingMode
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.URLRewritingMode") ?? string.Empty;
+            }
+        }
 
         /// <summary>
         ///     Gets the Prefix used for Url Rewriting -- default is "yaf_"
         /// </summary>
         [NotNull]
-        public static string UrlRewritingPrefix => GetConfigValueAsString("YAF.UrlRewritingPrefix") ?? "yaf_";
+        public static string UrlRewritingPrefix
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.UrlRewritingPrefix") ?? "yaf_";
+            }
+        }
 
         /// <summary>
         ///     Gets a value indicating whether UseRadEditorToolsFile.
@@ -506,12 +865,24 @@ namespace YAF.Classes
         /// <summary>
         ///     Gets a value indicating whether Use an SSL connection for the SMTP server -- default is "false"
         /// </summary>
-        public static bool UseSMTPSSL => GetConfigValueAsBool("YAF.UseSMTPSSL", false);
+        public static bool UseSMTPSSL
+        {
+            get
+            {
+                return GetConfigValueAsBool("YAF.UseSMTPSSL", false);
+            }
+        }
 
         /// <summary>
         ///     Gets WithOIDs.
         /// </summary>
-        public static string WithOIDs => GetConfigValueAsString("YAF.DatabaseWithOIDs");
+        public static string WithOIDs
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.DatabaseWithOIDs");
+            }
+        }
 
         /// <summary>
         /// Gets the banned IP redirect URL.
@@ -519,7 +890,13 @@ namespace YAF.Classes
         /// <value>
         /// The banned IP redirect URL.
         /// </value>
-        public static string BannedIpRedirectUrl => GetConfigValueAsString("YAF.BannedIpRedirectUrl");
+        public static string BannedIpRedirectUrl
+        {
+            get
+            {
+                return GetConfigValueAsString("YAF.BannedIpRedirectUrl");
+            }
+        }
 
         #endregion
 

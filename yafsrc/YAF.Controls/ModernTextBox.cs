@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -184,14 +184,14 @@ namespace YAF.Controls
         /// <param name="writer">An <see cref="T:System.Web.UI.HtmlTextWriter" /> that represents the output stream to render HTML content on the client.</param>
         protected override void AddAttributesToRender(HtmlTextWriter writer)
         {
-            if (this.CssClass.IsNotSet())
+            if (CssClass.IsNotSet())
             {
                 this.CssClass = DEFAULTCSSCLASS;
             }
 
             writer.AddAttribute("placeholder", this.placeholder);
 
-            var textMode = this.Type;
+            InputType textMode = this.Type;
 
             switch (textMode)
             {

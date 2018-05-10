@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,11 +29,9 @@ namespace YAF.Controls
 
     using YAF.Classes.Data;
     using YAF.Core;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -100,15 +98,9 @@ namespace YAF.Controls
                 return;
             }
 
-            this.Button1.Text =
-                "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(
-                    this.Get<ILocalization>().GetText("COMMON", "GO"));
-            this.btnAddPoints.Text =
-                "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(
-                    this.Get<ILocalization>().GetText("COMMON", "GO"));
-            this.btnUserPoints.Text =
-                "<i class=\"fa fa-check fa-fw\"></i>&nbsp;{0}".FormatWith(
-                    this.Get<ILocalization>().GetText("COMMON", "GO"));
+            this.Button1.Text = this.Get<ILocalization>().GetText("COMMON", "GO");
+            this.btnAddPoints.Text = this.Get<ILocalization>().GetText("COMMON", "GO");
+            this.btnUserPoints.Text = this.Get<ILocalization>().GetText("COMMON", "GO");
 
             this.BindData();
         }
@@ -149,8 +141,7 @@ namespace YAF.Controls
                 return;
             }
 
-            this.GetRepository<User>().SetPoints(this.CurrentUserID, this.txtUserPoints.Text.ToType<int>());
-
+            LegacyDb.user_setpoints(this.CurrentUserID, this.txtUserPoints.Text);
             this.BindData();
         }
 
@@ -159,7 +150,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.ltrCurrentPoints.Text = this.GetRepository<User>().GetPoints(this.CurrentUserID).ToString();
+            this.ltrCurrentPoints.Text = LegacyDb.user_getpoints(this.CurrentUserID).ToString();
         }
 
         #endregion

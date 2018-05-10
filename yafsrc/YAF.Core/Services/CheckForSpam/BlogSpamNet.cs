@@ -115,7 +115,7 @@ namespace YAF.Core.Services.CheckForSpam
         {
             answer = GetProxy().testComment(comment);
 
-            var result = answer;
+            string result = answer;
 
             // Handle interal Ips not as spam
             if (answer.Equals("SPAM:Internal Only IP") && ignoreInternalIp)
@@ -171,8 +171,8 @@ namespace YAF.Core.Services.CheckForSpam
         /// </returns>
         internal static IBlogSpamNet GetProxy()
         {
-            var _proxy = (IBlogSpamNet)XmlRpcProxyGen.Create(typeof(IBlogSpamNet));
-            var _server = (XmlRpcClientProtocol)_proxy;
+            IBlogSpamNet _proxy = (IBlogSpamNet)XmlRpcProxyGen.Create(typeof(IBlogSpamNet));
+            XmlRpcClientProtocol _server = (XmlRpcClientProtocol)_proxy;
             _server.Url = (Url == null) ? _Url : Url.ToString();
             return _proxy;
         }

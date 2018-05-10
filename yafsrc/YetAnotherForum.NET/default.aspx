@@ -16,14 +16,14 @@
     <meta id="YafMetaKeywords" runat="server" name="keywords" content="Yet Another Forum.net, Forum, ASP.NET, BB, Bulletin Board, opensource" />
     <title></title>
 </head>
-<body id="YafBody" runat="server">
+<body id="YafBody" runat="server" style="margin: 0; padding: 5px">
     <asp:HyperLink runat="server" id="BannerLink" >
         <img src="~/forumlogo.jpg" runat="server" alt="logo" style="border: 0;" id="imgBanner" />
     </asp:HyperLink>
     <br />
     <url:Form id="form1" runat="server" enctype="multipart/form-data">
-        <YAF:Forum runat="server" ID="forum" BoardID="1">
-        </YAF:Forum>
+    <YAF:Forum runat="server" ID="forum" BoardID="1">
+    </YAF:Forum>
     </url:Form>
 </body>
 </html>

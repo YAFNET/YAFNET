@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -50,7 +50,7 @@ namespace YAF.Pages
     #region Constructors and Destructors
 
     /// <summary>
-    ///   Initializes a new instance of the <see cref = "ViewThanks" /> class.
+    ///   Initializes a new instance of the <see cref = "ViewThanks" /> class. 
     ///   Initializes a new instance of the viewthanks class.
     /// </summary>
     public ViewThanks()
@@ -99,9 +99,8 @@ namespace YAF.Pages
     protected override void OnPreRender([NotNull] EventArgs e)
     {
       // setup jQuery and Jquery Ui Tabs.
-        YafContext.Current.PageElements.RegisterJsBlock(
-            "ThanksTabsJs",
-            JavaScriptBlocks.BootstrapTabsLoadJs(this.ThanksTabs.ClientID, this.hidLastTab.ClientID));
+      YafContext.Current.PageElements.RegisterJsBlock(
+        "ThanksTabsJs", JavaScriptBlocks.JqueryUITabsLoadJs(this.ThanksTabs.ClientID, this.hidLastTab.ClientID, false));
 
       base.OnPreRender(e);
     }
@@ -132,7 +131,7 @@ namespace YAF.Pages
               this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
           }
 
-          var thanksInfo = LegacyDb.user_viewallthanks(userID, this.PageContext.PageUserID);
+          DataTable thanksInfo = LegacyDb.user_viewallthanks(userID, this.PageContext.PageUserID);
           this.InitializeThanksList(this.ThanksFromList, ThanksListMode.FromUser, userID, thanksInfo);
           this.InitializeThanksList(this.ThanksToList, ThanksListMode.ToUser, userID, thanksInfo);
       }

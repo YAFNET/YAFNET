@@ -11,21 +11,21 @@
         <ItemTemplate>
                <tr>
                 <td class="header1" align="center" style="width: 1">
-                    <div class="attachedimg" style="display: inline; height: 50px">
-                        <a id="QuestionAnchor" runat="server" title='<%# GetPollQuestion(DataBinder.Eval(Container.DataItem, "PollID"))%>' data-gallery>
+                    <div class="attachedimg ceebox" style="display: inline; height: 50px">
+                        <a id="QuestionAnchor" runat="server" title='<%# GetPollQuestion(DataBinder.Eval(Container.DataItem, "PollID"))%>'>
                             <img id="QuestionImage" src="" alt="" runat="server" />
                         </a>
                     </div>
                 </td>
-                <td class="header1" colspan="3">
+                <td class="header1" colspan="3">                  
                     <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="question" />
                     :
-                    <asp:Label ID="QuestionLabel" Text='<%# GetPollQuestion(DataBinder.Eval(Container.DataItem, "PollID"))%>'  runat="server"></asp:Label>
+                    <asp:Label ID="QuestionLabel" Text='<%# GetPollQuestion(DataBinder.Eval(Container.DataItem, "PollID"))%>'  runat="server"></asp:Label>          
 
                 </td>
             </tr>
             <tr>
-                <td class="header2">
+                <td class="header2">        
                 </td>
                 <td class="header2">
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="choice" />
@@ -37,12 +37,12 @@
                     <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="statistics" />
                 </td>
             </tr>
-        <YAF:PollChoiceList ID="PollChoiceList1"  runat="server" />
+        <YAF:PollChoiceList ID="PollChoiceList1"  runat="server" /> 
           <tr>
                 <td class="header2">
-                <img id="PollClosedImage" title="" src="" alt="" visible="false"  runat="server" />&nbsp;
+                <img id="PollClosedImage" title="" src="" alt="" visible="false"  runat="server" />&nbsp; 
                               <YAF:ThemeButton ID="RefuseVoteButton" runat="server" Visible="false"
-                        CommandName="refuse" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "PollID") %>' CssClass="yaflittlebutton rightItem" ImageThemePage="vote" ImageThemeTag="VOTE_REFUSE"  TitleLocalizedTag="POLL_ALLOWSKIPVOTE_INFO" />
+                        CommandName="refuse" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "PollID") %>' CssClass="yaflittlebutton rightItem" ImageThemePage="vote" ImageThemeTag="VOTE_REFUSE"  TitleLocalizedTag="POLL_ALLOWSKIPVOTE_INFO" />  
                 </td>
                 <td class="header2">
                     <%= this.GetText("total") %>
@@ -52,14 +52,14 @@
                 </td>
                 <td class="header2">
                     100%
-                </td>
-
+                </td>            
+               
             </tr>
             <tr id="PollInfoTr" runat="server" visible="false">
                <td class="post" colspan="4" align="center">
-                <asp:Label ID="PollNotification" Visible="false" runat="server" />
+                <asp:Label ID="PollNotification" Visible="false" runat="server" />                   
                </td>
-            </tr>
+            </tr>   
            <tr id="PollCommandRow" runat="server">
                 <td class="command" width="100%" colspan="4">
                     <YAF:ThemeButton ID="RemovePollAll" runat="server" Visible="false" CommandName="removeall"
@@ -78,10 +78,10 @@
         </ItemTemplate>
         <FooterTemplate>
             <tr id="PollGroupInfoTr" runat="server" visible="false">
-               <td class="post" colspan="4" align="center">
-                <asp:Label ID="PollGroupNotification" Visible="false" runat="server" />
+               <td class="post" colspan="4" align="center">                         
+                <asp:Label ID="PollGroupNotification" Visible="false" runat="server" />          
                </td>
-            </tr>
+            </tr>   
             <tr id="PollGroupCommandRow" runat="server">
                 <td class="command" width="100%" colspan="4">
                     <YAF:ThemeButton ID="RemoveGroupAll" runat="server" Visible='<%# CanRemoveGroupCompletely() %>'

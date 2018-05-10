@@ -1,9 +1,9 @@
-// UrlRewriter - A .NET URL Rewriter module
+/* UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
-// 
+// Copyright 2007 Intelligencia
+// Copyright 2007 Seth Yates
+*/ 
 
 namespace Intelligencia.UrlRewriter
 {
@@ -16,14 +16,92 @@ namespace Intelligencia.UrlRewriter
     using YAF.Classes;
 
     /// <summary>
-    /// Main HTTP Module for the URL Rewriter.
-    /// Rewrites URL's based on patterns and conditions specified in the configuration file.
+    /// Rewrites URLs based on patterns and conditions specified in the configuration file.  
     /// This class cannot be inherited.
     /// </summary>
     public sealed class RewriterHttpModule : IHttpModule
     {
         /// <summary>
-        /// Initialises the module.
+        /// The _rewriter
+        /// </summary>
+        private static readonly RewriterEngine _Rewriter = new RewriterEngine(
+            new HttpContextFacade(),
+            RewriterConfiguration.Current);
+
+        /// <summary>
+        /// Gets or sets the original query string.
+        /// </summary>
+        public static string OriginalQueryString
+        {
+            get
+            {
+                return _Rewriter.OriginalQueryString;
+            }
+
+            set
+            {
+                _Rewriter.OriginalQueryString = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the final query string, after rewriting.
+        /// </summary>
+        public static string QueryString
+        {
+            get
+            {
+                return _Rewriter.QueryString;
+            }
+
+            set
+            {
+                _Rewriter.QueryString = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the raw url, before rewriting.
+        /// </summary>
+        public static string RawUrl
+        {
+            get
+            {
+                return _Rewriter.RawUrl;
+            }
+
+            set
+            {
+                _Rewriter.RawUrl = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the Configuration of the rewriter.
+        /// </summary>
+        /// <value>
+        /// The configuration.
+        /// </value>
+        public static RewriterConfiguration Configuration
+        {
+            get
+            {
+                return RewriterConfiguration.Current;
+            }
+        }
+
+        /// <summary>
+        /// Resolves an Application-path relative location
+        /// </summary>
+        /// <param name="location">The location</param>
+        /// <returns>The absolute location.</returns>
+        public static string ResolveLocation(string location)
+        {
+            return _Rewriter.ResolveLocation(location);
+        }
+
+        /// <summary>
+        /// Initializes a module and prepares it to handle requests.
         /// </summary>
         /// <param name="context">The application context.</param>
         void IHttpModule.Init(HttpApplication context)
@@ -44,39 +122,16 @@ namespace Intelligencia.UrlRewriter
         }
 
         /// <summary>
-        /// The raw URL for the current request, before any rewriting.
+        /// Begins the request.
         /// </summary>
-        public static string RawUrl
-        {
-            get { return _rewriter.RawUrl; }
-        }
-
-        /// <summary>
-        /// Event handler for the "BeginRequest" event.
-        /// </summary>
-        /// <param name="sender">The sender object</param>
-        /// <param name="e">Event args</param>
-        private void BeginRequest(object sender, EventArgs args)
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void BeginRequest(object sender, EventArgs e)
         {
             // Add our PoweredBy header
-            // HttpContext.Current.Response.AddHeader(Constants.HeaderXPoweredBy, Configuration.XPoweredBy);
-            
-            // Allow a bypass to be set up by the using application
-            HttpContext context = HttpContext.Current;
-            if (context.Items.Contains(@"Intelligencia.UrlRewriter.Bypass") && 
-                context.Items[@"Intelligencia.UrlRewriter.Bypass"] is bool && 
-                ((bool)context.Items[@"Intelligencia.UrlRewriter.Bypass"]))
-            {
-                // A bypass is set!
-                return;
-            }
+            HttpContext.Current.Response.AddHeader(Constants.HeaderXPoweredBy, Configuration.XPoweredBy);
 
-            _rewriter.Rewrite();
+            _Rewriter.Rewrite();
         }
-
-        private static RewriterEngine _rewriter = new RewriterEngine(
-            new HttpContextFacade(),
-            new ConfigurationManagerFacade(),
-            new RewriterConfiguration());
     }
 }

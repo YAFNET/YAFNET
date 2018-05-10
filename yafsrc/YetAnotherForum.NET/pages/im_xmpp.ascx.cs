@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -93,9 +93,9 @@ namespace YAF.Pages
       if (!this.IsPostBack)
       {
         // get user data...
-        var userHe = UserMembershipHelper.GetMembershipUserById(this.UserID);
+        MembershipUser userHe = UserMembershipHelper.GetMembershipUserById(this.UserID);
 
-        var displayNameHe = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
+        string displayNameHe = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
 
         this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
           this.PageLinks.AddLink(
@@ -119,14 +119,14 @@ namespace YAF.Pages
           }
 
           // Data for current page user
-          var userMe = UserMembershipHelper.GetMembershipUserById(this.PageContext.PageUserID);
+          MembershipUser userMe = UserMembershipHelper.GetMembershipUserById(this.PageContext.PageUserID);
 
           // get full user data...
           var userDataHe = new CombinedUserDataHelper(userHe, this.UserID);
           var userDataMe = new CombinedUserDataHelper(userMe, this.PageContext.PageUserID);
 
-          var serverHe = userDataHe.Profile.XMPP.Substring(userDataHe.Profile.XMPP.IndexOf("@") + 1).Trim();
-          var serverMe = userDataMe.Profile.XMPP.Substring(userDataMe.Profile.XMPP.IndexOf("@") + 1).Trim();
+          string serverHe = userDataHe.Profile.XMPP.Substring(userDataHe.Profile.XMPP.IndexOf("@") + 1).Trim();
+          string serverMe = userDataMe.Profile.XMPP.Substring(userDataMe.Profile.XMPP.IndexOf("@") + 1).Trim();
           if (serverMe == serverHe)
           {
             this.NotifyLabel.Text = this.GetTextFormatted("SERVERSAME", userDataHe.Profile.XMPP);

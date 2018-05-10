@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,12 +30,10 @@ namespace YAF.Core.Services
     using System.Web.Security;
     using YAF.Classes;
     using YAF.Classes.Data;
-    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utils;
 
     /// <summary>
@@ -61,7 +59,7 @@ namespace YAF.Core.Services
         {
             var filler = new StringBuilder();
 
-            using (var dt = LegacyDb.message_GetThanks(messageId))
+            using (DataTable dt = LegacyDb.message_GetThanks(messageId))
             {
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -145,13 +143,13 @@ namespace YAF.Core.Services
         /// </returns>
         protected static string ThanksNumber([NotNull] string username, int messageID)
         {
-            var thanksNumber = YafContext.Current.GetRepository<Thanks>().Count(t => t.MessageID == messageID);
+            int thanksNumber = LegacyDb.message_ThanksNumber(messageID);
 
-            var displayName = username;
+            string displayName = username;
             if (YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
             {
                 // get the user's display name.
-                var mu = UserMembershipHelper.GetMembershipUserByName(username);
+                MembershipUser mu = UserMembershipHelper.GetMembershipUserByName(username);
                 if (mu != null)
                 {
                     displayName = YafContext.Current.Get<IUserDisplayName>().GetName(

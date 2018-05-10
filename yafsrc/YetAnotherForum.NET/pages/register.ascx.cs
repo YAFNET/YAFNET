@@ -78,7 +78,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets or sets the User IP Info.
         /// </summary>
-        public IDictionary<string, string> UserIpLocator { get; set; }
+        public IDictionary<string, string> _UserIpLocator { get; set; }
 
         /// <summary>
         ///   Gets a value indicating whether IsProtected.
@@ -202,7 +202,7 @@ namespace YAF.Pages
                     break;
             }
 
-            this.PageContext.AddLoadMessage(createUserError, MessageTypes.danger);
+            this.PageContext.AddLoadMessage(createUserError, MessageTypes.Error);
         }
 
         /// <summary>
@@ -316,7 +316,7 @@ namespace YAF.Pages
 
             if (userName.Contains(";") || badWord || userName.ToLower().Equals(guestUserName))
             {
-                this.PageContext.AddLoadMessage(this.GetText("BAD_USERNAME"), MessageTypes.warning);
+                this.PageContext.AddLoadMessage(this.GetText("BAD_USERNAME"), MessageTypes.Warning);
                 e.Cancel = true;
                 return;
             }
@@ -325,7 +325,7 @@ namespace YAF.Pages
             {
                 this.PageContext.AddLoadMessage(
                     this.GetTextFormatted("USERNAME_TOOSMALL", this.Get<YafBoardSettings>().DisplayNameMinLength), 
-                    MessageTypes.danger);
+                    MessageTypes.Error);
 
                 e.Cancel = true;
                 return;
@@ -335,7 +335,7 @@ namespace YAF.Pages
             {
                 this.PageContext.AddLoadMessage(
                     this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().UserNameMaxLength), 
-                    MessageTypes.danger);
+                    MessageTypes.Error);
 
                 e.Cancel = true;
                 return;
@@ -352,7 +352,7 @@ namespace YAF.Pages
                     {
                         this.PageContext.AddLoadMessage(
                             this.GetTextFormatted("USERNAME_TOOSMALL", this.Get<YafBoardSettings>().DisplayNameMinLength), 
-                            MessageTypes.warning);
+                            MessageTypes.Warning);
                         e.Cancel = true;
 
                         return;
@@ -363,7 +363,7 @@ namespace YAF.Pages
                     {
                         this.PageContext.AddLoadMessage(
                             this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().UserNameMaxLength), 
-                            MessageTypes.warning);
+                            MessageTypes.Warning);
 
                         e.Cancel = true;
 
@@ -374,7 +374,7 @@ namespace YAF.Pages
                     {
                         this.PageContext.AddLoadMessage(
                             this.GetText("ALREADY_REGISTERED_DISPLAYNAME"), 
-                            MessageTypes.warning);
+                            MessageTypes.Warning);
 
                         e.Cancel = true;
                     }
@@ -404,7 +404,7 @@ namespace YAF.Pages
 
                 if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.danger);
+                    this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.Error);
 
                     if (this.Get<YafBoardSettings>().BanBotIpOnDetection)
                     {
@@ -443,7 +443,7 @@ namespace YAF.Pages
 
                         if (!CaptchaHelper.IsValid(yafCaptchaText.Text.Trim()))
                         {
-                            this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.danger);
+                            this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.Error);
                             e.Cancel = true;
                         }
                     }
@@ -460,7 +460,7 @@ namespace YAF.Pages
                         // Recupt;
                         if (!recaptcha.IsValid)
                         {
-                            this.PageContext.AddLoadMessage(this.GetText("BAD_RECAPTCHA"), MessageTypes.danger);
+                            this.PageContext.AddLoadMessage(this.GetText("BAD_RECAPTCHA"), MessageTypes.Error);
                             e.Cancel = true;
                         }
                     }
@@ -633,14 +633,14 @@ namespace YAF.Pages
             country.ImageLocation = YafForumInfo.GetURLToContent("images/flags/{0}.png");
             country.DataSource = StaticDataHelper.Country();
 
-            if (this.Get<YafBoardSettings>().EnableIPInfoService && this.UserIpLocator == null)
+            if (this.Get<YafBoardSettings>().EnableIPInfoService && this._UserIpLocator == null)
             {
                 // vzrus: we should always get not null class here
-                this.UserIpLocator = new IPDetails().GetData(
+                this._UserIpLocator = new IPDetails().GetData(
                     this.Get<HttpRequestBase>().GetUserRealIPAddress(), 
                     "text", 
                     false, 
-                    this.PageContext().CurrentForumPage.Localization.Culture.Name,
+                    this.PageContext().CurrentForumPage.Localization.Culture.Name, 
                     string.Empty, 
                     string.Empty);
             }
@@ -895,34 +895,36 @@ namespace YAF.Pages
         /// <param name="country">The country.</param>
         private void FillLocationData([NotNull]DropDownList country)
         {
-            if (this.UserIpLocator == null || this.UserIpLocator["StatusCode"] != "OK")
+            decimal hours = 0;
+
+            if (this._UserIpLocator == null || this._UserIpLocator["StatusCode"] != "OK")
             {
                 this.Logger.Log(
                     null, 
                     this, 
-                    "Geolocation Service reports: {0}".FormatWith(this.UserIpLocator["StatusMessage"]), 
+                    "Geolocation Service reports: {0}".FormatWith(this._UserIpLocator["StatusMessage"]), 
                     EventLogTypes.Information);
             }
 
-            if (this.UserIpLocator["StatusCode"] != "OK")
+            if (this._UserIpLocator["StatusCode"] != "OK")
             {
                 this.Logger.Log(
                     null, 
                     this, 
-                    "Geolocation Service reports: {0}".FormatWith(this.UserIpLocator["StatusMessage"]), 
+                    "Geolocation Service reports: {0}".FormatWith(this._UserIpLocator["StatusMessage"]), 
                     EventLogTypes.Information);
             }
 
-            if (this.UserIpLocator.Count <= 0 || this.UserIpLocator["StatusCode"] != "OK")
+            if (this._UserIpLocator.Count <= 0 || this._UserIpLocator["StatusCode"] != "OK")
             {
                 return;
             }
 
             var location = new StringBuilder();
 
-            if (this.UserIpLocator["CountryCode"] != null && this.UserIpLocator["CountryCode"].IsSet() && !this.UserIpLocator["CountryCode"].Equals("-"))
+            if (this._UserIpLocator["CountryCode"] != null && this._UserIpLocator["CountryCode"].IsSet() && !this._UserIpLocator["CountryCode"].Equals("-"))
             {
-                var countryItem = country.Items.FindByValue(this.UserIpLocator["CountryCode"]);
+                var countryItem = country.Items.FindByValue(this._UserIpLocator["CountryCode"]);
 
                 if (countryItem != null)
                 {
@@ -930,14 +932,14 @@ namespace YAF.Pages
                 }
             }
 
-            if (this.UserIpLocator["RegionName"] != null && this.UserIpLocator["RegionName"].IsSet() && !this.UserIpLocator["RegionName"].Equals("-"))
+            if (this._UserIpLocator["RegionName"] != null && this._UserIpLocator["RegionName"].IsSet() && !this._UserIpLocator["RegionName"].Equals("-"))
             {
-                location.Append(this.UserIpLocator["RegionName"]);
+                location.Append(this._UserIpLocator["RegionName"]);
             }
 
-            if (this.UserIpLocator["CityName"] != null && this.UserIpLocator["CityName"].IsSet() && !this.UserIpLocator["CityName"].Equals("-"))
+            if (this._UserIpLocator["CityName"] != null && this._UserIpLocator["CityName"].IsSet() && !this._UserIpLocator["CityName"].Equals("-"))
             {
-                location.AppendFormat(", {0}", this.UserIpLocator["CityName"]);
+                location.AppendFormat(", {0}", this._UserIpLocator["CityName"]);
             }
 
             this.CreateUserWizard1.FindControlRecursiveAs<TextBox>("Location").Text = location.ToString();
@@ -989,7 +991,7 @@ namespace YAF.Pages
                     // Kill user
                     UserMembershipHelper.DeleteAndBanUser(userId, user, userIpAddress);
 
-                    this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.danger);
+                    this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.Error);
                 }
 
                 this.Logger.Log(
@@ -1038,7 +1040,7 @@ namespace YAF.Pages
                     autoWatchTopics: autoWatchTopicsEnabled,
                     dSTUser: dstUser.Checked, 
                     hideUser: null, 
-                    notificationType: null);
+                    notificationType: this.Get<YafBoardSettings>().DefaultNotificationSetting);
 
                 // save the settings...
                 LegacyDb.user_savenotification(

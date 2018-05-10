@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -526,9 +526,6 @@ namespace YAF.Core
         /// </summary>
         protected virtual void CreatePageLinks()
         {
-            // forum index
-            //this.PageLinks.AddRoot();
-
             // Page link creation goes to this method (overloads in descendant classes)
         }
 
@@ -579,7 +576,7 @@ namespace YAF.Core
         protected void SetupHeaderElements()
         {
             this.InsertCssRefresh(this.TopPageControl);
-            var themeHeader = this.Get<ITheme>().GetItem("THEME", "HEADER", string.Empty);
+            string themeHeader = this.Get<ITheme>().GetItem("THEME", "HEADER", string.Empty);
 
             if (!themeHeader.IsSet())
             {
@@ -626,8 +623,6 @@ namespace YAF.Core
             {
                 Security.CheckRequestValidity(this.Request);
             }
-
-           // this.CreatePageLinks(); 
 
             // fire preload event...
             this.Get<IRaiseEvent>().Raise(new ForumPagePostLoadEvent());

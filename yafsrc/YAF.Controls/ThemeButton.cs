@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,17 +26,14 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.ComponentModel;
     using System.Web;
     using System.Web.UI;
     using System.Web.UI.WebControls;
     using YAF.Core;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-
-    using AttributeCollection = System.Web.UI.AttributeCollection;
+    using YAF.Utils;
 
     #endregion
 
@@ -96,8 +93,8 @@ namespace YAF.Controls
         /// </summary>
         public ThemeButton()
         {
-            this.Load += this.ThemeButtonLoad;
-            this._attributeCollection = new AttributeCollection(this.ViewState);
+            this.Load += this.ThemeButton_Load;
+            this._attributeCollection = new AttributeCollection(ViewState);
         }
 
         #endregion
@@ -111,12 +108,12 @@ namespace YAF.Controls
         {
             add
             {
-                this.Events.AddHandler(_clickEvent, value);
+                Events.AddHandler(_clickEvent, value);
             }
 
             remove
             {
-                this.Events.RemoveHandler(_clickEvent, value);
+                Events.RemoveHandler(_clickEvent, value);
             }
         }
 
@@ -127,12 +124,12 @@ namespace YAF.Controls
         {
             add
             {
-                this.Events.AddHandler(_commandEvent, value);
+                Events.AddHandler(_commandEvent, value);
             }
 
             remove
             {
-                this.Events.RemoveHandler(_commandEvent, value);
+                Events.RemoveHandler(_commandEvent, value);
             }
         }
 
@@ -141,28 +138,15 @@ namespace YAF.Controls
         #region Properties
 
         /// <summary>
-        /// Gets or sets the behavior mode (single-line, multiline, or password) of the <see cref="T:System.Web.UI.WebControls.TextBox" /> control.
+        ///   Gets Attributes.
         /// </summary>
-        /// [Bindable(true)]
-        [Category("Appearance")]
-        [DefaultValue(ButtonAction.Primary)]
-        public ButtonAction Type
+        public AttributeCollection Attributes
         {
             get
             {
-                return this.ViewState["Type"] != null ? this.ViewState["Type"].ToType<ButtonAction>() : ButtonAction.Primary;
-            }
-
-            set
-            {
-                this.ViewState["Type"] = value;
+                return this._attributeCollection;
             }
         }
-
-        /// <summary>
-        ///   Gets Attributes.
-        /// </summary>
-        public AttributeCollection Attributes => this._attributeCollection;
 
         /// <summary>
         ///   Gets or sets CommandArgument.
@@ -171,7 +155,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this.ViewState["commandArgument"]?.ToString();
+                return this.ViewState["commandArgument"] != null ? this.ViewState["commandArgument"].ToString() : null;
             }
 
             set
@@ -187,7 +171,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this.ViewState["commandName"]?.ToString();
+                return this.ViewState["commandName"] != null ? this.ViewState["commandName"].ToString() : null;
             }
 
             set
@@ -204,92 +188,12 @@ namespace YAF.Controls
         {
             get
             {
-                return this.ViewState["CssClass"] != null ? this.ViewState["CssClass"] as string : string.Empty;
+                return (this.ViewState["CssClass"] != null) ? ViewState["CssClass"] as string : "yafcssbutton";
             }
 
             set
             {
                 this.ViewState["CssClass"] = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the icon.
-        /// </summary>
-        /// <value>
-        /// The icon.
-        /// </value>
-        [CanBeNull]
-        public string Icon
-        {
-            get
-            {
-                return this.ViewState["Icon"] != null ? this.ViewState["Icon"] as string : string.Empty;
-            }
-
-            set
-            {
-                this.ViewState["Icon"] = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the return confirm text.
-        /// </summary>
-        /// <value>
-        /// The return confirm text.
-        /// </value>
-        [CanBeNull]
-        public string ReturnConfirmText
-        {
-            get
-            {
-                return this.ViewState["ReturnConfirmText"] != null ? this.ViewState["ReturnConfirmText"] as string : string.Empty;
-            }
-
-            set
-            {
-                this.ViewState["ReturnConfirmText"] = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the data target.
-        /// </summary>
-        /// <value>
-        /// The data target.
-        /// </value>
-        [CanBeNull]
-        public string DataTarget
-        {
-            get
-            {
-                return this.ViewState["DataTarget"] != null ? this.ViewState["DataTarget"] as string : string.Empty;
-            }
-
-            set
-            {
-                this.ViewState["DataTarget"] = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the data toggle.
-        /// </summary>
-        /// <value>
-        /// The data toggle.
-        /// </value>
-        [CanBeNull]
-        public string DataToggle
-        {
-            get
-            {
-                return this.ViewState["DataToggle"] != null ? this.ViewState["DataToggle"] as string : string.Empty;
-            }
-
-            set
-            {
-                this.ViewState["DataToggle"] = value;
             }
         }
 
@@ -326,14 +230,14 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        ///    Gets or sets the Setting the link property will make this control non postback.
+        ///    Gets or sets the Setting the link property will make this control non-postback.
         /// </summary>
         [CanBeNull]
         public string NavigateUrl
         {
             get
             {
-                return this.ViewState["NavigateUrl"] != null ? this.ViewState["NavigateUrl"] as string : string.Empty;
+                return (this.ViewState["NavigateUrl"] != null) ? this.ViewState["NavigateUrl"] as string : string.Empty;
             }
 
             set
@@ -382,7 +286,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this.ViewState["TitleLocalizedPage"] != null ? this.ViewState["TitleLocalizedPage"] as string : "BUTTON";
+                return (this.ViewState["TitleLocalizedPage"] != null) ? this.ViewState["TitleLocalizedPage"] as string : "BUTTON";
             }
 
             set
@@ -495,7 +399,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this.ViewState["TitleLocalizedTag"] != null ? this.ViewState["TitleLocalizedTag"] as string : string.Empty;
+                return (this.ViewState["TitleLocalizedTag"] != null) ? this.ViewState["TitleLocalizedTag"] as string : string.Empty;
             }
 
             set
@@ -512,7 +416,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this.ViewState["TitleNonLocalized"] != null ? this.ViewState["TitleNonLocalized"] as string : string.Empty;
+                return (this.ViewState["TitleNonLocalized"] != null) ? this.ViewState["TitleNonLocalized"] as string : string.Empty;
             }
 
             set
@@ -578,8 +482,11 @@ namespace YAF.Controls
         /// </param>
         protected virtual void OnClick([NotNull] EventArgs e)
         {
-            var handler = (EventHandler)this.Events[_clickEvent];
-            handler?.Invoke(this, e);
+            var handler = (EventHandler)Events[_clickEvent];
+            if (handler != null)
+            {
+                handler(this, e);
+            }
         }
 
         /// <summary>
@@ -590,9 +497,12 @@ namespace YAF.Controls
         /// </param>
         protected virtual void OnCommand([NotNull] CommandEventArgs e)
         {
-            var handler = (CommandEventHandler)this.Events[_commandEvent];
+            var handler = (CommandEventHandler)Events[_commandEvent];
 
-            handler?.Invoke(this, e);
+            if (handler != null)
+            {
+                handler(this, e);
+            }
 
             this.RaiseBubbleEvent(this, e);
         }
@@ -611,12 +521,10 @@ namespace YAF.Controls
             output.BeginRender();
             output.WriteBeginTag("a");
             output.WriteAttribute("id", this.ClientID);
-
-            var actionClass = this.GetAttributeValue(this.Type);
-
-            output.WriteAttribute(
-                HtmlTextWriterAttribute.Class.ToString(),
-                this.CssClass.IsSet() ? "{0} {1}".FormatWith(actionClass, this.CssClass) : actionClass);
+            if (this.CssClass.IsSet())
+            {
+                output.WriteAttribute("class", this.CssClass);
+            }
 
             if (title.IsSet())
             {
@@ -633,6 +541,8 @@ namespace YAF.Controls
                     ? this.NavigateUrl.Replace("&", "&amp;")
                     : this.Page.ClientScript.GetPostBackClientHyperlink(this, string.Empty));
 
+            var wroteOnClick = false;
+
             // handle additional attributes (if any)
             if (this._attributeCollection.Count > 0)
             {
@@ -643,7 +553,11 @@ namespace YAF.Controls
                     if (key.ToLower() == "onclick")
                     {
                         // special handling... add to it...
-                        output.WriteAttribute(key, "{0};".FormatWith(this._attributeCollection[key]));
+                        output.WriteAttribute(
+                          key,
+                          "{0};{1}".FormatWith(
+                            this._attributeCollection[key], "this.blur(); this.onclick = function() { return false; }; return true;"));
+                        wroteOnClick = true;
                     }
                     else if (key.ToLower().StartsWith("data-") || key.ToLower().StartsWith("on") || key.ToLower() == "rel" || key.ToLower() == "target")
                     {
@@ -653,40 +567,20 @@ namespace YAF.Controls
                 }
             }
 
-            // Write Confirm Dialog
-            if (this.ReturnConfirmText.IsSet())
+            // IE fix
+            if (!wroteOnClick)
             {
-                output.WriteAttribute("onclick", "return confirm('{0}')".FormatWith(this.ReturnConfirmText));
-            }
-
-            // Write Modal
-            if (this.DataTarget.IsSet())
-            {
-                output.WriteAttribute("data-toggle", "modal");
-                output.WriteAttribute("data-target", "#{0}".FormatWith(this.DataTarget));
-            }
-
-            // Write Dropdown
-            if (this.DataToggle.IsSet())
-            {
-                output.WriteAttribute("data-toggle", "dropdown");
-                output.WriteAttribute("aria-haspopup", "true");
-                output.WriteAttribute("aria-expanded", "false");
+                output.WriteAttribute("onclick", "this.blur(); this.onclick = function() { return false; }; return true;");
             }
 
             output.Write(HtmlTextWriter.TagRightChar);
 
-           // output.WriteBeginTag("span");
-           // output.Write(HtmlTextWriter.TagRightChar);
-
-            if (this.Icon.IsSet())
-            {
-                output.Write("<i class=\"fa fa-{0} fa-fw\"></i>&nbsp;", this.Icon);
-            }
+            output.WriteBeginTag("span");
+            output.Write(HtmlTextWriter.TagRightChar);
 
             // render the optional controls (if any)
             base.Render(output);
-           // output.WriteEndTag("span");
+            output.WriteEndTag("span");
 
             output.WriteEndTag("a");
             output.EndRender();
@@ -697,53 +591,18 @@ namespace YAF.Controls
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void ThemeButtonLoad([NotNull] object sender, [NotNull] EventArgs e)
+        private void ThemeButton_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this._themeImage.ThemeTag.IsSet())
             {
                 // add the theme image...
-                this.Controls.Add(this._themeImage);
+                Controls.Add(this._themeImage);
             }
 
             // render the text if available
             if (this._localizedLabel.LocalizedTag.IsSet())
             {
-               this.Controls.Add(this._localizedLabel);
-            }
-        }
-
-        /// <summary>
-        /// Gets the css class value.
-        /// </summary>
-        /// <param name="mode">The button action.</param>
-        /// <returns>Returns the Css Class for the button</returns>
-        /// <exception cref="InvalidOperationException">Exception when other value</exception>
-        private string GetAttributeValue(ButtonAction mode)
-        {
-            switch (mode)
-            {
-                case ButtonAction.Primary:
-                    return "btn btn-primary";
-                case ButtonAction.Secondary:
-                    return "btn btn-secondary";
-                case ButtonAction.Success:
-                    return "btn btn-success";
-                case ButtonAction.Danger:
-                    return "btn btn-danger";
-                case ButtonAction.Warning:
-                    return "btn btn-warning";
-                case ButtonAction.Info:
-                    return "btn btn-info";
-                case ButtonAction.Light:
-                    return "btn btn-light";
-                case ButtonAction.Dark:
-                    return "btn btn-dark";
-                case ButtonAction.Link:
-                    return "btn btn-link";
-                case ButtonAction.None:
-                    return string.Empty;
-                default:
-                    throw new InvalidOperationException();
+                Controls.Add(this._localizedLabel);
             }
         }
 

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,8 +23,11 @@
  */
 namespace YAF.Core.Model
 {
-    using YAF.Core.Extensions;
+    using System.Collections.Generic;
+    using System.Data;
+
     using YAF.Types;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -36,27 +39,76 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
+        /// Gets a list of spam words
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="spamWordID">The spam word identifier.</param>
+        /// <param name="boardId">The board identifier.</param>
+        /// <returns>
+        /// DataTable with spam words
+        /// </returns>
+        public static DataTable List(
+            this IRepository<Spam_Words> repository,
+            int? spamWordID = null,
+            int? boardId = null)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbFunction.GetData.spam_words_list(BoardID: boardId ?? repository.BoardID, ID: spamWordID);
+        }
+
+        /// <summary>
+        /// Gets a list of spam words
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="spamWordID">The spam word identifier.</param>
+        /// <param name="boardId">The board identifier.</param>
+        /// <returns>
+        /// List with spam words
+        /// </returns>
+        public static IList<Spam_Words> ListTyped(
+            this IRepository<Spam_Words> repository,
+            int? spamWordID = null,
+            int? boardId = null)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            using (var session = repository.DbFunction.CreateSession())
+            {
+                return
+                    session.GetTyped<Spam_Words>(
+                        r => r.spam_words_list(BoardID: boardId ?? repository.BoardID, ID: spamWordID));
+            }
+        }
+
+        /// <summary>
         /// Saves changes to a word.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="spamWordId">The spam word identifier.</param>
+        /// <param name="spamWordID">The spam word identifier.</param>
         /// <param name="spamWord">The spam word.</param>
         /// <param name="boardId">The board identifier.</param>
         public static void Save(
             this IRepository<Spam_Words> repository,
-            int? spamWordId,
+            int? spamWordID,
             string spamWord,
             int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.Upsert(
-                new Spam_Words
-                    {
-                        BoardID = boardId ?? repository.BoardID,
-                        ID = spamWordId ?? 0,
-                        SpamWord = spamWord
-                    });
+            repository.DbFunction.Query.spam_words_save(
+                ID: spamWordID,
+                BoardID: boardId ?? repository.BoardID,
+                spamword: spamWord);
+
+            if (spamWordID.HasValue)
+            {
+                repository.FireUpdated(spamWordID);
+            }
+            else
+            {
+                repository.FireNew();
+            }
         }
 
         #endregion

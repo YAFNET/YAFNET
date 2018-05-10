@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,6 +30,7 @@ namespace YAF.Pages.Admin
     using System.Data;
     using System.IO;
     using System.Linq;
+    using System.Web.UI.WebControls;
 
     using YAF.Classes;
     using YAF.Controls;
@@ -53,11 +54,15 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// Handles the Click event of the Cancel control.
+        /// The cancel_ click.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.admin_forums);
         }
@@ -72,7 +77,7 @@ namespace YAF.Pages.Admin
                 dt.Columns.Add("FileID", typeof(long));
                 dt.Columns.Add("FileName", typeof(string));
                 dt.Columns.Add("Description", typeof(string));
-                var dr = dt.NewRow();
+                DataRow dr = dt.NewRow();
                 dr["FileID"] = 0;
                 dr["FileName"] = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
                 dr["Description"] = "None";
@@ -84,16 +89,16 @@ namespace YAF.Pages.Admin
                       "{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Categories)));
                 if (dir.Exists)
                 {
-                    var files = dir.GetFiles("*.*");
-                    long fileId = 1;
+                    FileInfo[] files = dir.GetFiles("*.*");
+                    long nFileID = 1;
 
-                    foreach (var file in from file in files
+                    foreach (FileInfo file in from file in files
                                               let sExt = file.Extension.ToLower()
                                               where sExt == ".png" || sExt == ".gif" || sExt == ".jpg"
                                               select file)
                     {
                         dr = dt.NewRow();
-                        dr["FileID"] = fileId++;
+                        dr["FileID"] = nFileID++;
                         dr["FileName"] = file.Name;
                         dr["Description"] = file.Name;
                         dt.Rows.Add(dr);
@@ -108,16 +113,34 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Handles the Load event of the Page control.
+        /// The page_ load.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
             {
                 return;
             }
+
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+
+            this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), YafBuildLink.GetLink(ForumPages.admin_forums));
+            this.PageLinks.AddLink(this.GetText("ADMIN_EDITCATEGORY", "TITLE"), string.Empty);
+
+            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+                 this.GetText("ADMIN_ADMIN", "Administration"),
+                 this.GetText("TEAM", "FORUMS"),
+                 this.GetText("ADMIN_EDITCATEGORY", "TITLE"));
+
+            this.Save.Text = this.GetText("SAVE");
+            this.Cancel.Text = this.GetText("CANCEL");
 
             // Populate Category Table
             this.CreateImagesDataTable();
@@ -130,38 +153,25 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Creates page links for this page.
+        /// The save_ click.
         /// </summary>
-        protected override void CreatePageLinks()
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-
-            this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), YafBuildLink.GetLink(ForumPages.admin_forums));
-            this.PageLinks.AddLink(this.GetText("ADMIN_EDITCATEGORY", "TITLE"), string.Empty);
-
-            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("TEAM", "FORUMS"),
-                this.GetText("ADMIN_EDITCATEGORY", "TITLE"));
-        }
-
-        /// <summary>
-        /// Saves the click.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var categoryId = 0;
+            int categoryID = 0;
 
             if (this.Request.QueryString.GetFirstOrDefault("c") != null)
             {
-                categoryId = int.Parse(this.Request.QueryString.GetFirstOrDefault("c"));
+                categoryID = int.Parse(this.Request.QueryString.GetFirstOrDefault("c"));
             }
 
             short sortOrder;
-            var name = this.Name.Text.Trim();
+            string name = this.Name.Text.Trim();
             string categoryImage = null;
 
             if (this.CategoryImages.SelectedIndex > 0)
@@ -171,26 +181,26 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_POSITIVE_VALUE"), MessageTypes.danger);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_POSITIVE_VALUE"), MessageTypes.Error);
                 return;
             }
 
             if (!short.TryParse(this.SortOrder.Text.Trim(), out sortOrder))
             {
                 // error...
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_NUMBER"), MessageTypes.danger);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_NUMBER"), MessageTypes.Error);
                 return;
             }
 
             if (string.IsNullOrEmpty(name))
             {
                 // error...
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_VALUE"), MessageTypes.danger);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_VALUE"), MessageTypes.Error);
                 return;
             }
 
             // save category
-            this.GetRepository<Category>().Save(categoryId, name, categoryImage, sortOrder);
+            this.GetRepository<Category>().Save(categoryID, name, categoryImage, sortOrder);
 
             // remove category cache...
             this.Get<IDataCache>().Remove(Constants.Cache.ForumCategory);
@@ -209,32 +219,35 @@ namespace YAF.Pages.Admin
             if (this.Request.QueryString.GetFirstOrDefault("c") == null)
             {
                 // Currently creating a New Category, and auto fill the Category Sort Order + 1
-                var sortOrder = 1;
-
-                try
+                using (DataTable dt = this.GetRepository<Category>().List())
                 {
-                    sortOrder = this.GetRepository<Category>().GetHighestSortOrder() + sortOrder;
-                }
-                catch
-                {
-                    sortOrder = 1;
-                }
+                    int sortOrder = 1;
 
-                this.SortOrder.Text = sortOrder.ToString();
+                    try
+                    {
+                        DataRow highestRow = dt.Rows[dt.Rows.Count - 1];
 
-                return;
+                        sortOrder = (short)highestRow["SortOrder"] + sortOrder;
+                    }
+                    catch
+                    {
+                        sortOrder = 1;
+                    }
+
+                    this.SortOrder.Text = sortOrder.ToString();
+
+                    return;
+                }
             }
 
-            var category = this.GetRepository<Category>().List(this.Request.QueryString.GetFirstOrDefaultAs<int>("c")).FirstOrDefault();
-
-            if (category != null)
+            using (DataTable dt = this.GetRepository<Category>().List(this.Request.QueryString.GetFirstOrDefaultAs<int>("c")))
             {
-                this.Name.Text = category.Name;
-                this.SortOrder.Text = category.SortOrder.ToString();
+                DataRow row = dt.Rows[0];
+                this.Name.Text = (string)row["Name"];
+                this.SortOrder.Text = row["SortOrder"].ToString();
+                this.CategoryNameTitle.Text = this.Name.Text;
 
-                this.CategoryNameTitle.Text = this.Label1.Text = this.Name.Text;
-
-                var item = this.CategoryImages.Items.FindByText(category.CategoryImage);
+                ListItem item = this.CategoryImages.Items.FindByText(row["CategoryImage"].ToString());
 
                 if (item == null)
                 {
@@ -243,9 +256,9 @@ namespace YAF.Pages.Admin
 
                 item.Selected = true;
                 this.Preview.Src = "{0}{2}/{1}".FormatWith(
-                    YafForumInfo.ForumClientFileRoot,
-                    category.CategoryImage,
-                    YafBoardFolders.Current.Categories);
+                    YafForumInfo.ForumClientFileRoot, row["CategoryImage"], YafBoardFolders.Current.Categories);
+
+                // path corrected
             }
         }
 

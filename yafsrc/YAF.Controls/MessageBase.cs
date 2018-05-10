@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -57,7 +57,7 @@ namespace YAF.Controls
         /// <summary>
         ///   The _options.
         /// </summary>
-        private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled;
+        private const RegexOptions _Options = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled;
 
         #endregion
 
@@ -75,7 +75,7 @@ namespace YAF.Controls
                             var bbcodeTable = this.Get<YafDbBroker>().GetCustomBBCode();
                             return
                                 bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet()).ToDictionary(
-                                    codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, Options));
+                                    codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, _Options));
                         });
             }
         }
@@ -103,7 +103,7 @@ namespace YAF.Controls
         protected virtual void RenderModulesInBBCode(
         [NotNull] HtmlTextWriter writer, [NotNull] string messageStr, [NotNull] MessageFlags theseFlags, int? displayUserId, int? messageId)
         {
-            var workingMessage = messageStr;
+            string workingMessage = messageStr;
 
             // handle custom bbcodes row by row...
             foreach (var keyPair in this.CustomBBCode)
@@ -138,7 +138,7 @@ namespace YAF.Controls
                     sb.Append(workingMessage.Substring(0, match.Groups[0].Index));
 
                     // create/render the control...
-                    var module = BuildManager.GetType(codeRow.ModuleClass, true, false);
+                    Type module = BuildManager.GetType(codeRow.ModuleClass, true, false);
                     var customModule = (YafBBCodeControl)Activator.CreateInstance(module);
 
                     // assign parameters...

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -77,10 +77,10 @@ namespace YAF.Controls
         /// </returns>
         public string GetForumLink([NotNull] DataRow row)
         {
-            var forumID = row["ForumID"].ToType<int>();
+            int forumID = row["ForumID"].ToType<int>();
 
             // get the Forum Description
-            var output = Convert.ToString(row["Forum"]);
+            string output = Convert.ToString(row["Forum"]);
 
             if (int.Parse(row["ReadAccess"].ToString()) > 0)
             {

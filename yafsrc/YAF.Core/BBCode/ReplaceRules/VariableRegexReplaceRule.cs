@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -218,26 +218,26 @@ namespace YAF.Core.BBCode.ReplaceRules
     {
       var sb = new StringBuilder(text);
 
-      var m = this._regExSearch.Match(text);
+      Match m = this._regExSearch.Match(text);
       while (m.Success)
       {
         var innerReplace = new StringBuilder(this._regExReplace);
-        var i = 0;
+        int i = 0;
 
-        foreach (var tVar in this._variables)
+        foreach (string tVar in this._variables)
         {
-          var varName = tVar;
-          var handlingValue = String.Empty;
+          string varName = tVar;
+          string handlingValue = String.Empty;
 
           if (varName.Contains(":"))
           {
             // has handling section
-            var tmpSplit = varName.Split(':');
+            string[] tmpSplit = varName.Split(':');
             varName = tmpSplit[0];
             handlingValue = tmpSplit[1];
           }
 
-          var tValue = m.Groups[varName].Value;
+          string tValue = m.Groups[varName].Value;
 
           if (this._variableDefaults != null && tValue.Length == 0)
           {

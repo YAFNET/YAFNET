@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -219,19 +219,19 @@ namespace YAF.Pages
             this.Posts.Text = this.GetText("posts");
             this.LastVisitLB.Text = this.GetText("members", "lastvisit");
        
-            using (var dt = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.group_list(this.PageContext.PageBoardID, null)))
+            using (DataTable dt = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.group_list(this.PageContext.PageBoardID, null)))
             {
                 // add empty item for no filtering
-                var newRow = dt.NewRow();
+                DataRow newRow = dt.NewRow();
                 newRow["Name"] = this.GetText("ALL");
                 newRow["GroupID"] = DBNull.Value;
                 dt.Rows.InsertAt(newRow, 0);
 
-                var guestRows = dt.Select("Name='Guests'");
+                DataRow[] guestRows = dt.Select("Name='Guests'");
 
                 if (guestRows.Length > 0)
                 {
-                    foreach (var row in guestRows)
+                    foreach (DataRow row in guestRows)
                     {
                         row.Delete();
                     }
@@ -253,19 +253,19 @@ namespace YAF.Pages
             this.NumPostDDL.DataBind();
 
             // get list of user ranks for filtering
-            using (var dt = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.rank_list(this.PageContext.PageBoardID, null)))
+            using (DataTable dt = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.rank_list(this.PageContext.PageBoardID, null)))
             {
                 // add empty for for no filtering
-                var newRow = dt.NewRow();
+                DataRow newRow = dt.NewRow();
                 newRow["Name"] = this.GetText("ALL");
                 newRow["RankID"] = DBNull.Value;
                 dt.Rows.InsertAt(newRow, 0);
 
-                var guestRows = dt.Select("Name='Guest'");
+                DataRow[] guestRows = dt.Select("Name='Guest'");
 
                 if (guestRows.Length > 0)
                 {
-                    foreach (var row in guestRows)
+                    foreach (DataRow row in guestRows)
                     {
                         row.Delete();
                     }

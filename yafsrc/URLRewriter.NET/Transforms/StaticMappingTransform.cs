@@ -1,18 +1,17 @@
 // UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
+// Copyright 2007 Intelligencia
+// Copyright 2007 Seth Yates
 // 
-
-using System;
-using System.Collections.Specialized;
 
 namespace Intelligencia.UrlRewriter.Transforms
 {
+    using System.Collections.Specialized;
+
     /// <summary>
     /// Default RewriteMapper, reads its maps from config.
-    /// The mapping is CASE-INSENSITIVE.
+    /// Note that the mapping is CASE-INSENSITIVE.
     /// </summary>
     public sealed class StaticMappingTransform : IRewriteTransform
     {
@@ -23,8 +22,8 @@ namespace Intelligencia.UrlRewriter.Transforms
         /// <param name="map">The mappings.</param>
         public StaticMappingTransform(string name, StringDictionary map)
         {
-            _name = name;
-            _map = map;
+            this._name = name;
+            this._map = map;
         }
 
         /// <summary>
@@ -34,18 +33,16 @@ namespace Intelligencia.UrlRewriter.Transforms
         /// <returns>The value mapped to, or null if no mapping could be performed.</returns>
         public string ApplyTransform(string input)
         {
-            return _map[input];
+            return this._map[input];
         }
 
         /// <summary>
         /// The name of the action.
         /// </summary>
-        public string Name
-        {
-            get { return _name; }
-        }
+        public string Name => this._name;
 
         private string _name;
+
         private StringDictionary _map;
     }
 }

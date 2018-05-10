@@ -12,23 +12,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-
-namespace YAF.Controls.YafAdminMenu
-{
-}
-
-namespace YAF.Controls.YafAdminMenu
-{
-}
-
-namespace YAF.Controls.YafAdminMenu
-{
-}
-
-namespace YAF.Controls.YafAdminMenu
-{
-}
-
 namespace YAF.Controls.YafAdminMenu
 {
 }
@@ -85,16 +68,10 @@ public class YafMenu
 [XmlType(AnonymousType = true)]
 public class YafMenuYafMenuSection
 {
-
-    /// <summary>
-    /// The icon field
-    /// </summary>
-    private string iconField;
-
-    /// <summary>
-    /// The host admin only field.
-    /// </summary>
-    private string hostAdminOnlyField;
+  /// <summary>
+  /// The host admin only field.
+  /// </summary>
+  private string hostAdminOnlyField;
 
   /// <summary>
   /// The title field.
@@ -187,31 +164,12 @@ public class YafMenuYafMenuSection
       }
   }
 
-    /// <summary>
-    /// The title.
-    /// </summary>
-    /// <remarks>
-    /// </remarks>
-    [XmlAttribute]
-    public string Icon
-    {
-        get
-        {
-            return this.iconField;
-        }
-
-        set
-        {
-            this.iconField = value;
-        }
-    }
-    
-    /// <summary>
-     /// The title.
-     /// </summary>
-     /// <remarks>
-     /// </remarks>
-    [XmlAttribute]
+  /// <summary>
+  /// The title.
+  /// </summary>
+  /// <remarks>
+  /// </remarks>
+  [XmlAttribute]
   public string HostAdminOnly
   {
       get

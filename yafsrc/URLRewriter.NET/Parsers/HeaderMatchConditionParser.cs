@@ -1,18 +1,19 @@
 // UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
+// Copyright 2007 Intelligencia
+// Copyright 2007 Seth Yates
 // 
-
-using System;
-using System.Xml;
-using System.Configuration;
-using Intelligencia.UrlRewriter.Conditions;
-using Intelligencia.UrlRewriter.Utilities;
 
 namespace Intelligencia.UrlRewriter.Parsers
 {
+    using System;
+    using System.Configuration;
+    using System.Xml;
+
+    using Intelligencia.UrlRewriter.Conditions;
+    using Intelligencia.UrlRewriter.Utilities;
+
     /// <summary>
     /// Parser for header match conditions.
     /// </summary>
@@ -30,14 +31,23 @@ namespace Intelligencia.UrlRewriter.Parsers
                 throw new ArgumentNullException("node");
             }
 
-            string header = node.GetOptionalAttribute(Constants.AttrHeader);
-            if (header == null)
+            var headerAttr = node.Attributes.GetNamedItem(Constants.AttrHeader);
+            if (headerAttr != null)
             {
-                return null;
+                var headerName = headerAttr.Value;
+
+                var matchAttr = node.Attributes.GetNamedItem(Constants.AttrMatch);
+                if (matchAttr != null)
+                {
+                    return new PropertyMatchCondition(headerName, matchAttr.Value);
+                }
+
+                throw new ConfigurationErrorsException(
+                    MessageProvider.FormatString(Message.AttributeRequired, Constants.AttrMatch),
+                    node);
             }
 
-            string match = node.GetRequiredAttribute(Constants.AttrMatch, true);
-            return new PropertyMatchCondition(header, match);
+            return null;
         }
     }
 }

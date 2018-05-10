@@ -37,9 +37,9 @@
 				</td>
                 <td class="post" align="right">
 					<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" 
-                                    CommandName='delete' CommandArgument='<%# this.Eval( "ID") %>' 
+                                    CommandName='delete' CommandArgument='<%# this.Eval( "AttachmentID") %>' 
                                     TitleLocalizedTag="DELETE" 
-                                    Icon="trash"
+                                    ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON"
                                     TextLocalizedTag="DELETE"
                                     OnLoad="Delete_Load"  runat="server">
                                 </YAF:ThemeButton>

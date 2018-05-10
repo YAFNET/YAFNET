@@ -40,14 +40,14 @@
         <ItemTemplate>
             <tr>
                 <td class="post">
-                    <%# this.Eval( "FileName") %>
+                    <%# Eval( "FileName") %>
                 </td>
                 <td class="post" align="right">
                     <%# (int)Eval("Bytes") / 1024%> Kb
                 </td>
                 <td class="post">
                     <asp:LinkButton ID="ImageDelete" runat="server" CssClass="pbutton" OnLoad="ImageDelete_Load" CommandName="delete"
-                        CommandArgument='<%# this.Eval( "ImageID") %>'><%# this.GetText("DELETE") %></asp:LinkButton>
+                        CommandArgument='<%# Eval( "ImageID") %>'><%# this.GetText("DELETE") %></asp:LinkButton>
                 </td>
             </tr>
         </ItemTemplate>

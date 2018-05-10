@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,6 +26,7 @@ namespace YAF.Editors
     #region Using
 
     using System;
+    using System.Web.UI;
 
     using YAF.Classes.Editors;
     using YAF.Core;
@@ -61,7 +62,13 @@ namespace YAF.Editors
         ///   Gets SafeID.
         /// </summary>
         [NotNull]
-        protected new string SafeID => this._textCtl.ClientID.Replace("$", "_");
+        protected new string SafeID
+        {
+            get
+            {
+                return this._textCtl.ClientID.Replace("$", "_");
+            }
+        }
 
         #endregion
 
@@ -79,6 +86,8 @@ namespace YAF.Editors
             YafContext.Current.PageElements.RegisterJsInclude("ckeditor-jQuery-Adapter", this.ResolveUrl("ckeditor/adapters/jquery.js"));
 
             this.RegisterCKEditorCustomJS();
+            
+            this.RegisterSmilieyScript();
 
             // register custom YafBBCode javascript (if there is any)
             // this call is supposed to be after editor load since it may use

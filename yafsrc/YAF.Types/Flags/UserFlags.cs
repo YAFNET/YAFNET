@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -234,7 +234,6 @@ namespace YAF.Types.Flags
         /// <summary>
         /// Gets or sets a value indicating whether a user is enabled the DST correction.
         /// </summary>
-        [Obsolete("Not used anymore dst is inherited from the user selected timezone")]
         public bool IsDST
         {
             // int value 32

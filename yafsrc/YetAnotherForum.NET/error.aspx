@@ -25,19 +25,20 @@
    </head>
    <body>
        <div class="jumbotron">
-           <h1 class="display-3">Forum Error</h1>
-           <p class="lead">
+           <div class="container">
+               <h1>Forum Error</h1>
+           <div class="alert alert-danger">
                <asp:Label ID="ErrorMessage" Enabled="true" runat="server" />
-           </p>
-           <hr class="my-4"/>
+           </div>
            <p>
                Please contact the administrator if this message persists.
            </p>
            <div class="alert alert-info">
-               <strong>Note:</strong>&nbsp;If you are the administrator, and need help with this problem, then Turn off <strong>CustomErrors</strong> in your <strong>web.config</strong>.
+               <span class="label label-primary">Note</span> 
+               If you are the administrator, and need help with this problem, then Turn off <strong>CustomErrors</strong> in your <strong>web.config</strong>.
            </div>
-           <p class="lead">
-               <a href="Default.aspx" class="btn btn-primary btn-lg" role="button"><i class="fa fa-home"></i> Try Again</a>
-       </div>
+           <p><a href="Default.aspx" class="btn btn-primary btn-lg"><i class="glyphicon glyphicon-home"></i> Try Again</a>
+           </div>
+           </div>
    </body>
 </html>

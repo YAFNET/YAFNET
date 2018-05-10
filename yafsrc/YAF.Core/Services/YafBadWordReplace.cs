@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,7 +30,6 @@ namespace YAF.Core.Services
   using System.Linq;
   using System.Text.RegularExpressions;
 
-  using YAF.Core.Extensions;
   using YAF.Core.Model;
   using YAF.Types;
   using YAF.Types.Constants;
@@ -103,7 +102,7 @@ namespace YAF.Core.Services
           Constants.Cache.ReplaceWords, 
           () =>
             {
-              var replaceWords = this.GetRepository<Replace_Words>().GetByBoardId();
+              var replaceWords = this.GetRepository<Replace_Words>().ListTyped();
 
               // move to collection...
               return
@@ -142,9 +141,9 @@ namespace YAF.Core.Services
         return searchText;
       }
 
-      var strReturn = searchText;
+      string strReturn = searchText;
 
-      foreach (var item in this.ReplaceItems)
+      foreach (BadWordReplaceItem item in this.ReplaceItems)
       {
         try
         {

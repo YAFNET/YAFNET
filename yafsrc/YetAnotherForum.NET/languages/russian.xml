@@ -53,6 +53,9 @@
     <Resource tag="ADMIN_REPLACEWORDS_IMPORT">Импортирует список слов заменителей</Resource>
     <Resource tag="ADMIN_RESTARTAPP">Администрирует форум</Resource>
     <Resource tag="ADMIN_RUNSQL">Выполняет SQL запросы</Resource>
+    <Resource tag="ADMIN_SMILIES">Просматривает смайлы</Resource>
+    <Resource tag="ADMIN_SMILIES_EDIT">Редактирует смайлы</Resource>
+    <Resource tag="ADMIN_SMILIES_IMPORT">Импортирует смайлы</Resource>
     <Resource tag="ADMIN_SPAMLOG">Views/edits the spam log</Resource>
     <Resource tag="ADMIN_SPAMWORDS">Views spam words list</Resource>
     <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
@@ -131,6 +134,7 @@
     <Resource tag="RULES">Просматривает правила форума</Resource>
     <Resource tag="SEARCH">Использует поиск</Resource>
     <Resource tag="SHOUTBOX">Использует чат</Resource>
+    <Resource tag="SHOWSMILIES">Показ смайлов</Resource>
     <Resource tag="TEAM">Просматривает список команды форума</Resource>
     <Resource tag="TOPICINFORUM"> в форуме </Resource>
     <Resource tag="TOPICS">Просматривает тему </Resource>
@@ -216,7 +220,6 @@
     <Resource tag="REASON">Reason:</Resource>
     <Resource tag="REASON_HELP">The reason why the email address was banned.</Resource>
     <Resource tag="TITLE">Add/Edit Banned Email Address</Resource>
-    <Resource tag="TITLE_EDIT">Edit Banned Email Address</Resource>
   </page>
   <page name="ADMIN_BANNEDEMAIL_IMPORT">
     <Resource tag="HEADER">Import Email Addresses List</Resource>
@@ -235,7 +238,6 @@
     <Resource tag="EXPORT">Export to Text File</Resource>
     <Resource tag="IMPORT_IPS">Import Address(es)</Resource>
     <Resource tag="MASK">Маска</Resource>
-    <Resource tag="MSG_DELETE">Delete this Banned Item?</Resource>
     <Resource tag="MSG_REMOVEBAN_IP">IP Address or Mask '{0}' was successfully deleted</Resource>
     <Resource tag="REASON">Причина</Resource>
     <Resource tag="SINCE">С</Resource>
@@ -251,7 +253,6 @@
     <Resource tag="REASON">Причина:</Resource>
     <Resource tag="REASON_HELP">Причина запрещения адреса.</Resource>
     <Resource tag="TITLE">Добавить/Изменить запрещённый адрес IP</Resource>
-    <Resource tag="TITLE_EDIT">Edit Banned IP Address</Resource>
   </page>
   <page name="ADMIN_BANNEDIP_IMPORT">
     <Resource tag="HEADER">Import IP Addresses List</Resource>
@@ -279,7 +280,6 @@
     <Resource tag="REASON">Reason:</Resource>
     <Resource tag="REASON_HELP">The reason why the user name was banned.</Resource>
     <Resource tag="TITLE">Add/Edit Banned Name</Resource>
-    <Resource tag="TITLE_EDIT">Edit Banned Name</Resource>
   </page>
   <page name="ADMIN_BANNEDNAME_IMPORT">
     <Resource tag="HEADER">Import Names List</Resource>
@@ -388,7 +388,6 @@
     <Resource tag="BOARD_TOPIC_DEFAULT">Показывать темы по умолчанию:</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">Интервал в котором отображать темы по умолчанию.</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Ключ удаления копирайта:</Resource>
-    <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Удалить информацию о копирайте и ссылку на YAF из подвала вашего форума. Доступно на &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;сайта YAF.NET &lt;/a&gt;. </Resource>
     <Resource tag="HEADER">Текущие настройки конференции</Resource>
     <Resource tag="TITLE">Настройки конференции</Resource>
@@ -698,7 +697,6 @@
     <Resource tag="SERVER">Сервер:</Resource>
     <Resource tag="SERVER_HELP">На каком сервере находится эта группа новостей.</Resource>
     <Resource tag="TITLE">Добавить/Изменить форум NNTP</Resource>
-    <Resource tag="TITLE_EDIT">Edit NNTP Forum</Resource>
   </page>
   <page name="ADMIN_EDITNNTPSERVER">
     <Resource tag="MSG_SERVER_ADR">Отсутствует адрес сервера.</Resource>
@@ -714,7 +712,6 @@
     <Resource tag="NNTP_USERNAME">Имя пользователя:</Resource>
     <Resource tag="NNTP_USERNAME_HELP">Имя пользователя для входа на сервер nntp.</Resource>
     <Resource tag="TITLE">Добавить/Изменить сервер NNTP</Resource>
-    <Resource tag="TITLE_EDIT">Edit NNTP Server</Resource>
   </page>
   <page name="ADMIN_EDITRANK">
     <Resource tag="ALBUMS_NUMBER">Число альбомов:</Resource>
@@ -893,7 +890,6 @@
     <Resource tag="EXPORT">Экспорт в формат XML</Resource>
     <Resource tag="HEADER">Разрешённые расширения файлов</Resource>
     <Resource tag="IMPORT">Импортировать из XML</Resource>
-    <Resource tag="SAVE">Save Extension</Resource>
     <Resource tag="TITLE">Расширения файлов</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_EDIT">
@@ -903,7 +899,6 @@
     <Resource tag="MSG_ENTER">Вы должно что-нибудь ввести.</Resource>
     <Resource tag="MSG_REMOVE">Удалите точку в расширении.</Resource>
     <Resource tag="TITLE">Добавить/Изменить расширения файлов</Resource>
-    <Resource tag="TITLE_EDIT">Edit File Extension</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_IMPORT">
     <Resource tag="HEADER">Импорт списка расширений</Resource>
@@ -954,7 +949,6 @@
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Доступ к ленте Активных тем:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Ограничить/запретить показ лент активных тем.</Resource>
     <Resource tag="AKISMET_KEY">Ключ Akismet API:</Resource>
-    <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="AKISMET_KEY_HELP">Чтобы использовать службу антиспама Akismet необходим ключ API Key &lt;a href="https://akismet.com/signup/"&gt;Подпишитесь здесь&lt;a&gt;.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Кол-во альбомов на странице:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Кол-во альбомов отображаемых на одной странице.</Resource>
@@ -1144,7 +1138,6 @@
     <Resource tag="GROUPS_TEMPLATE_HELP">Шаблон для отображения ролей.</Resource>
     <Resource tag="HEADER_ADVERTS">Настройки рекламы</Resource>
     <Resource tag="HEADER_ALBUM">Настройки альбомов</Resource>
-    <Resource tag="HEADER_ATTACHMENTS">Attachments Settings</Resource>
     <Resource tag="HEADER_AVATARS">Настройки аватара</Resource>
     <Resource tag="HEADER_BOTSPAM">Bot Spam Settings (User Checking)</Resource>
     <Resource tag="HEADER_CACHE">Настройки кэша</Resource>
@@ -1276,8 +1269,6 @@
     <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notifcation Dialogs on Mobile Devices.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Таймаут кэша пользователя онлайн:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Вы можете устанавливать это значение в зависимости от активности на сайте(в миллисекундах)</Resource>
-    <Resource tag="PM_ATTACHMENTS">Allow attachments in Private Messages</Resource>
-    <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Размер файла изображения в опросах:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Максимальный размер файла в опросах в КБ.</Resource>
     <Resource tag="POLLVOTING_PERIP">Голосование зависит от IP:</Resource>
@@ -1414,6 +1405,8 @@
     <Resource tag="SHOW_RSS_LINKS_HELP">Разрешить ссылки RSS. Вы также должны установить разрешения для каждой ленты</Resource>
     <Resource tag="SHOW_SHOUTBOX">Включить чат:</Resource>
     <Resource tag="SHOW_SHOUTBOX_HELP">Включить чат на главной странице форума.</Resource>
+    <Resource tag="SHOW_SHOUTBOX_SMILIES">Показывать смайлы в чате:</Resource>
+    <Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">Включить отображение смайлов в чате.</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
     <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">Показывать дату, когда пользователя сказали «Спасибо»:</Resource>
@@ -1463,6 +1456,8 @@
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Шаблон для отображения Спасибо пользователю.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Шаблон для отображения «Спасибо»:</Resource>
     <Resource tag="THANKS_TO_TEMPLATE_HELP">Шаблон для отображения Спасибо пользователя.</Resource>
+    <Resource tag="TIMEAGO_INTERVAL">Интервал обновления относительного времени:</Resource>
+    <Resource tag="TIMEAGO_INTERVAL_HELP">Позволяет определять как часто библиотека "Time Ago" должна обновлять относительное время(в миллисекундах).</Resource>
     <Resource tag="TITLE">Настройки хоста</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Доступ к лентам тем:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Ограничить доступ к лентам тем.</Resource>
@@ -1535,7 +1530,6 @@
     <Resource tag="FORUM">Форум</Resource>
     <Resource tag="GROUP">Группа</Resource>
     <Resource tag="NEW_FORUM">Новый форум</Resource>
-    <Resource tag="SAVE">Save Forum</Resource>
     <Resource tag="SERVER">Сервер</Resource>
     <Resource tag="TITLE">Форумы NNTP</Resource>
   </page>
@@ -1558,7 +1552,6 @@
     <Resource tag="DELETE_SERVER">Удалить этот сервер?</Resource>
     <Resource tag="NAME">Название</Resource>
     <Resource tag="NEW_SERVER">Новый сервер</Resource>
-    <Resource tag="SAVE_SERVER">Save Server</Resource>
     <Resource tag="TITLE">Серверы NNTP</Resource>
     <Resource tag="USERNAME">Имя пользователя</Resource>
   </page>
@@ -1663,7 +1656,6 @@
     <Resource tag="GOOD_HELP">Слово, фраза или регулярное выражение. Пунктуация вводится слешем  (например '\.').</Resource>
     <Resource tag="MSG_REGEX_BAD">Введённое регулярное выражение недействительно.</Resource>
     <Resource tag="TITLE">Добавить/Изменить замену</Resource>
-    <Resource tag="TITLE_EDIT">Edit Word Replace</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_IMPORT">
     <Resource tag="HEADER">Импорт словаря замен</Resource>
@@ -1687,6 +1679,46 @@
     <Resource tag="SQL_COMMAND">Команда SQL :</Resource>
     <Resource tag="TITLE">Выполнить код SQL</Resource>
   </page>
+  <page name="ADMIN_SMILIES">
+    <Resource tag="ADD">Добавить смайл</Resource>
+    <Resource tag="CODE">Код</Resource>
+    <Resource tag="COMANDS">Эмоция</Resource>
+    <Resource tag="EMOTION">Эмоция</Resource>
+    <Resource tag="IMPORT">Импортировать архив смайлов</Resource>
+    <Resource tag="MOVE_DOWN">Move Down</Resource>
+    <Resource tag="MOVE_UP">Move Up</Resource>
+    <Resource tag="MSG_DELETE">Удалить этот смайл?</Resource>
+    <Resource tag="ORDER">Порядок</Resource>
+    <Resource tag="SMILEY">Смайл</Resource>
+    <Resource tag="TITLE">Смайлы</Resource>
+  </page>
+  <page name="ADMIN_SMILIES_EDIT">
+    <Resource tag="CODE">Код:</Resource>
+    <Resource tag="EMOTION">Эмоция:</Resource>
+    <Resource tag="ICON">Иконка:</Resource>
+    <Resource tag="MSG_CODE_BRACK">Пожалуйста, используйте код для использования с этой эмоцией в квадратных скобках.</Resource>
+    <Resource tag="MSG_CODE_LONG">Код для использования с этой эмоцией не должен превышать 10 символов.</Resource>
+    <Resource tag="MSG_CODE_MISSING">Пожалуйста, введите код для использования с этой эмоцией.</Resource>
+    <Resource tag="MSG_CODE_SAME">Please choose a different code, this one is already in use.</Resource>
+    <Resource tag="MSG_NO_EMOTICON">Пожалуйста, введите эмоцию для этой иконки.</Resource>
+    <Resource tag="MSG_NO_ICON">Пожалуйста, выберите иконку для использования с этой эмоцией.</Resource>
+    <Resource tag="MSG_SORT_NMBR">Порядок сортировки должен быть числом от 0 до 255.</Resource>
+    <Resource tag="MSG_TOO_LONG">Описание эмоции слишком длинное.</Resource>
+    <Resource tag="SELECT_SMILEY">Выберите изображение смайла</Resource>
+    <Resource tag="SORT_ORDER">Порядок сортировки:</Resource>
+    <Resource tag="TITLE">Добавить/Редактировать смайл</Resource>
+  </page>
+  <page name="ADMIN_SMILIES_IMPORT">
+    <Resource tag="CHOOSE_PAK">Выберите файл .pak :</Resource>
+    <Resource tag="CHOOSE_PAK_HELP">Вы можете распаковать этот архив смайлов и добавить их в папку активных(Boards/BoardNo/Images/Emoticons).</Resource>
+    <Resource tag="DELETE_EXISTING">Удалить существующие смайлы:</Resource>
+    <Resource tag="DELETE_EXISTING_HELP">Удалит существующие файлы, если вы выберите это</Resource>
+    <Resource tag="ERROR_SELECT_FILE">Вы должны выбрать файл .pak для экспорта.</Resource>
+    <Resource tag="HEADER">Импортировать архив смайлов</Resource>
+    <Resource tag="IMPORT">Импортировать</Resource>
+    <Resource tag="SELECT_FILE">Выберите файл (*.pak)</Resource>
+    <Resource tag="TITLE">Импорт смайлов</Resource>
+  </page>
   <page name="ADMIN_SPAMLOG">
     <Resource tag="TITLE">Spam Event Log</Resource>
   </page>
@@ -1696,7 +1728,6 @@
     <Resource tag="IMPORT">Import from XML</Resource>
     <Resource tag="MSG_DELETE">Delete this Word?</Resource>
     <Resource tag="NOTE">&lt;strong&gt;Note: &lt;/strong&gt; The Spam Words are used for the internal SPAM Detection, during Registration the Homepage the user is entering in the user profile is checked against the Spam Words. Also if a user Posts a new Message in the forum it will be checked against the Spam Words if 'Choose a SPAM Service for Automatically SPAM Checking' in the Host Settings is set to 'Internal Spam Check Words'.</Resource>
-    <Resource tag="SAVE">Save Word</Resource>
     <Resource tag="SPAM">"Spam" Word (Find) Expression</Resource>
     <Resource tag="TITLE">Spam Check Words</Resource>
   </page>
@@ -1704,8 +1735,7 @@
     <Resource tag="MSG_REGEX_SPAM">The Regular expression statement you have entered is invalid.</Resource>
     <Resource tag="SPAM">"Spam" Word (Find) Expression:</Resource>
     <Resource tag="SPAM_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. '\.').</Resource>
-    <Resource tag="TITLE">Add New Spam Word</Resource>
-    <Resource tag="TITLE_EDIT">Edit Spam Word</Resource>
+    <Resource tag="TITLE">Add/Edit Spam Word</Resource>
   </page>
   <page name="ADMIN_SPAMWORDS_IMPORT">
     <Resource tag="HEADER">Import Spam Word List</Resource>
@@ -1733,7 +1763,6 @@
     <Resource tag="DEFAULT_DESCRIPTION">Статус</Resource>
     <Resource tag="EXPORT">Экспортировать в XML</Resource>
     <Resource tag="HEADER">Разрешённые расширения файлов</Resource>
-    <Resource tag="ICON">Icon</Resource>
     <Resource tag="IMPORT">Импортировать из XML</Resource>
     <Resource tag="TITLE">Статус темы</Resource>
     <Resource tag="TOPICSTATUS_NAME">Название статуса</Resource>
@@ -1744,7 +1773,6 @@
     <Resource tag="HEADER">Добавить/Изменить статус темы</Resource>
     <Resource tag="MSG_ENTER">Поле не должно быть пустым.</Resource>
     <Resource tag="TITLE">Добавить/Изменить статус темы</Resource>
-    <Resource tag="TITLE_EDIT">Edit Topic Status</Resource>
     <Resource tag="TOPICSTATUS_NAME">Значение статуса темы:</Resource>
     <Resource tag="TOPICSTATUS_NAME_HELP">Это значение используется для получения иконки или текста, оно должно быть определено в темах и иметь соответствующую иконку.</Resource>
   </page>
@@ -1843,6 +1871,7 @@
     <Resource tag="admin_replacewords">Замена слов</Resource>
     <Resource tag="admin_restartapp">Перезапуск приложения</Resource>
     <Resource tag="admin_runsql">Выполнить запрос SQL</Resource>
+    <Resource tag="admin_smilies">Смайлы</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
     <Resource tag="admin_taskmanager">Менеджер задач</Resource>
@@ -2079,7 +2108,6 @@
     <Resource tag="NAME">Имя</Resource>
     <Resource tag="NO">Нет</Resource>
     <Resource tag="NONE">Ничего</Resource>
-    <Resource tag="NOTE">Note:</Resource>
     <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT">New SPAM BOT User Registered on {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">you have been awarded on the {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">Новое сообщение на форуме {0} должно быть Вами одобрено</Resource>
@@ -2133,6 +2161,42 @@
   </Resource>
     <Resource tag="SHOWHIDE">Показать/Скрыть</Resource>
     <Resource tag="SUBMIT">Отправить</Resource>
+    <Resource tag="TIMEAGO_JS">
+      // Russian
+      (function() {
+      function numpf(n, f, s, t) {
+      // f - 1, 21, 31, ...
+      // s - 2-4, 22-24, 32-34 ...
+      // t - 5-20, 25-30, ...
+      var n10 = n % 10;
+      if ( (n10 == 1) &amp;&amp; ( (n == 1) || (n &gt; 20) ) ) {
+      return f;
+      } else if ( (n10 &gt; 1) &amp;&amp;  (n10 &lt; 5) &amp;&amp;  ( (n &gt; 20) || (n &lt; 10) ) ) {
+      return s;
+    } else {
+      return t;
+    }
+  }
+ 
+  jQuery.timeago.settings.strings = {
+    prefixAgo: null,
+    prefixFromNow: "через",
+    suffixAgo: "назад",
+    suffixFromNow: null,
+    seconds: "меньше минуты",
+    minute: "минуту",
+    minutes: function(value) { return numpf(value, "%d минута", "%d минуты", "%d минут"); },
+    hour: "час",
+    hours: function(value) { return numpf(value, "%d час", "%d часа", "%d часов"); },
+    day: "день",
+    days: function(value) { return numpf(value, "%d день", "%d дня", "%d дней"); },
+    month: "месяц",
+    months: function(value) { return numpf(value, "%d месяц", "%d месяца", "%d месяцев"); },
+    year: "год",
+    years: function(value) { return numpf(value, "%d год", "%d года", "%d лет"); }
+  };
+})();
+    </Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Уведомление о новом сообщении в теме по подписке(От {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">Выровнять по центру</Resource>
     <Resource tag="TT_ALIGNLEFT">Выровнять по левому краю</Resource>
@@ -4272,11 +4336,8 @@ Spoiler Content
     <Resource tag="LASTPOST">Последнее сообщение</Resource>
     <Resource tag="MEMBERS">Пользователи</Resource>
     <Resource tag="MODERATEINDEX_TITLE">Модерировать посты с жалобами и неодобренные посты</Resource>
-    <Resource tag="MOVE_TO_DIFFERENT">The forum you want to move the topic(s) must be different then the current forum.</Resource>
-    <Resource tag="MOVED">Topic(s) Moved</Resource>
     <Resource tag="NO_POSTS">Нет сообщений</Resource>
     <Resource tag="NOMODERATION">В данный момент нет постов, нуждающихся в одобрении или модерации.</Resource>
-    <Resource tag="NOTHING">You need to select atleast one topic</Resource>
     <Resource tag="REMOVE">Удалить</Resource>
     <Resource tag="REPLIES">Ответы</Resource>
     <Resource tag="TITLE">Модерировать</Resource>
@@ -4475,6 +4536,8 @@ Spoiler Content
     <Resource tag="REPLY">Ответить</Resource>
     <Resource tag="SAVE">Сохранить</Resource>
     <Resource tag="SAVE_TITLE">Разместить/Редактировать сообщение</Resource>
+    <Resource tag="SMILIES_HEADER">[b]Добавить смайлик[/b]</Resource>
+    <Resource tag="SMILIES_MORE">Ещё смайлики...</Resource>
     <Resource tag="SPAM_MESSAGE">Ваше сообщение было определено как СПАМ!</Resource>
     <Resource tag="STATUS">Статус:</Resource>
     <Resource tag="STICKY">Прикреплённое</Resource>
@@ -4521,7 +4584,6 @@ Spoiler Content
     <Resource tag="FACEBOOK_TITLE">Посетите профиль пользователя {0} в Facebook</Resource>
     <Resource tag="FACEBOOK_TOPIC">Смотреть в этой теме</Resource>
     <Resource tag="FORUM_JUMP">Быстрый переход</Resource>
-    <Resource tag="GO_TO_ANSWER">Go to the topic answer</Resource>
     <Resource tag="GOOGLE">Google+</Resource>
     <Resource tag="GOOGLE_TITLE">Visit {0}'s Google+ Profile</Resource>
     <Resource tag="GOOGLEPLUS_TOPIC">Расшарить тему в Google+</Resource>
@@ -4546,12 +4608,6 @@ Spoiler Content
     <Resource tag="LINKBACK_TOPIC">URL ссылки на тему</Resource>
     <Resource tag="LINKBACK_TOPIC_PROMT">Используйте адрес URL ниже, если вы желаете оставить ссылку (LinkBack) с URL темы на другом сайте.</Resource>
     <Resource tag="LOCATION">Откуда</Resource>
-    <Resource tag="MARK_ANSWER">Mark As Answer</Resource>
-    <Resource tag="MARK_ANSWER_REMOVE">Remove As Answer</Resource>
-    <Resource tag="MARK_ANSWER_REMOVE_TITLE">Unmark this Message as answer</Resource>
-    <Resource tag="MARK_ANSWER_TITLE">Mark this Message as answer</Resource>
-    <Resource tag="MESSAGE_ANSWER">Answer</Resource>
-    <Resource tag="MESSAGE_ANSWER_HELP">Marked as answer</Resource>
     <Resource tag="MESSAGEDELETED_MOD">Сообщение удалено модератором.</Resource>
     <Resource tag="MESSAGEDELETED_USER">Сообщение удалено пользователем.</Resource>
     <Resource tag="MSN">MSN</Resource>
@@ -4607,10 +4663,7 @@ Spoiler Content
     <Resource tag="TOGGLEPOST">Показать/скрыть пост</Resource>
     <Resource tag="TOGGLEUSERPOSTS_HIDE">Игнорировать сообщения пользователя</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Показывать сообщения пользователя</Resource>
-    <Resource tag="TOOLS">Tools</Resource>
     <Resource tag="TOP">Вверх</Resource>
-    <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
-    <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>
     <Resource tag="TOPICBROWSERS">Пользователи, просматривающие эту тему</Resource>
     <Resource tag="TOTAL">Всего</Resource>
     <Resource tag="TUMBLR_TOPIC">Поделиться на Tumblr</Resource>
@@ -4978,6 +5031,13 @@ Spoiler Content
     <Resource tag="SUBMIT">Отправить</Resource>
     <Resource tag="TITLE">Чат</Resource>
   </page>
+  <page name="SHOWSMILIES">
+    <Resource tag="CLOSE_WINDOW">Закрыть окно</Resource>
+    <Resource tag="HEADER_CODE">Код</Resource>
+    <Resource tag="HEADER_MEANING">Значение</Resource>
+    <Resource tag="HEADER_SMILE">Смайл</Resource>
+    <Resource tag="TITLE">Доступные смайлы</Resource>
+  </page>
   <page name="TEAM">
     <Resource tag="ADMINS">Администраторы</Resource>
     <Resource tag="FORUMS">Форумы</Resource>
@@ -5239,6 +5299,43 @@ Password: {password}
 		Посетите {forumname} по адресу {forumlink}
 	</Resource>
   </page>
+  <page name="TIMEZONES">
+    <Resource tag="NAME_UTC">(UTC)</Resource>
+    <Resource tag="UTC0">(UTC) Casablanca, Coordinated Universal Time, Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London, Monrovia, Reykjavik</Resource>
+    <Resource tag="UTC1">(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna, Belgrade, Bratislava, Budapest, Ljubljana, Prague, Brussels, Copenhagen, Madrid, Paris, Sarajevo, Skopje, Warsaw, Zagreb</Resource>
+    <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Is.</Resource>
+    <Resource tag="UTC10">(UTC+10:00) Brisbane, Canberra, Melbourne, Sydney, Guam, Port Moresby, Hobart, Yakutsk</Resource>
+    <Resource tag="UTC-10">(UTC-10:00) Hawaii</Resource>
+    <Resource tag="UTC11">(UTC+11:00) Solomon Is., New Caledonia, Vladivostok</Resource>
+    <Resource tag="UTC-11">(UTC-11:00) Coordinated Universal Time-11</Resource>
+    <Resource tag="UTC12">(UTC+12:00) Auckland, Wellington, Coordinated Universal Time+12, Fiji, Magadan, Petropavlovsk-Kamchatsky - Old</Resource>
+    <Resource tag="UTC-12">(UTC-12:00) International Date Line West</Resource>
+    <Resource tag="UTC13">(UTC+13:00) Nuku'alofa, Samoa</Resource>
+    <Resource tag="UTC2">(UTC+02:00) Athens, Bucharest, Beirut, Cairo, Damascus, E. Europe, Harare, Pretoria, Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius, Istanbul, Jerusalem, Tripoli</Resource>
+    <Resource tag="UTC-2">(UTC-2:00) Coordinated Universal Time-2, Mid-Atlantic - Old</Resource>
+    <Resource tag="UTC3">(UTC+03:00) Amman, Baghdad, Kaliningrad, Minsk, Kuwait, Riyadh, Nairobi</Resource>
+    <Resource tag="UTC-3">(UTC-3:00) Brasilia, Buenos Aires, Cayenne, Fortaleza, Greenland, Montevideo, Salvador</Resource>
+    <Resource tag="UTC3.5">(UTC+03:30) Tehran</Resource>
+    <Resource tag="UTC-3.5">(UTC-3:30) Newfoundland</Resource>
+    <Resource tag="UTC4">(UTC+04:00) Abu Dhabi, Muscat, Baku, Caucasus Standard Time, Moscow, St. Petersburg, Volgograd,Port Louis, Tbilisi, Yerevan</Resource>
+    <Resource tag="UTC-4">(UTC-4:00) Asuncion, Atlantic Time (Canada), Cuiaba, Georgetown, La Paz, Manaus, San Juan, Santiago</Resource>
+    <Resource tag="UTC4.5">(UTC+04:30) Kabul</Resource>
+    <Resource tag="UTC-4.5">(UTC-4:30) Caracas</Resource>
+    <Resource tag="UTC5">(UTC+05:00) Ashgabat, Tashkent, Islamabad, Karachi</Resource>
+    <Resource tag="UTC-5">(UTC-5:00) Bogota, Lima, Quito, Eastern Time (US &amp; Canada), Indiana (East)</Resource>
+    <Resource tag="UTC5.5">(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi</Resource>
+    <Resource tag="UTC5.75">(UTC+05:45) Kathmandu</Resource>
+    <Resource tag="UTC6">(UTC+06:00) Astana, Dhaka, Ekaterinburg</Resource>
+    <Resource tag="UTC-6">(UTC-6:00) Central America, Central Time (US &amp; Canada), Guadalajara, Mexico City, Monterrey - New, Guadalajara, Mexico City, Monterrey - Old, Saskatchewan</Resource>
+    <Resource tag="UTC6.5">(UTC+06:30) Yangon (Rangoon)</Resource>
+    <Resource tag="UTC7">(UTC+07:00) Bangkok, Hanoi, Jakarta, Novosibirsk</Resource>
+    <Resource tag="UTC-7">(UTC-7:00) Arizona, Chihuahua, La Paz, Mazatlan - New, Chihuahua, La Paz, Mazatlan - Old, Mountain Time (US &amp; Canada)</Resource>
+    <Resource tag="UTC8">(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi, Krasnoyarsk, Kuala Lumpur, Singapore Perth, Taipei, Ulaanbaatar</Resource>
+    <Resource tag="UTC-8">(UTC-8:00) Baja California, Pacific Time (US &amp; Canada)</Resource>
+    <Resource tag="UTC9">(UTC+09:00) Irkutsk, Osaka, Sapporo, Tokyo, Seoul</Resource>
+    <Resource tag="UTC-9">(UTC-9:00) Alaska</Resource>
+    <Resource tag="UTC9.5">(UTC+09:30) Adelaide</Resource>
+  </page>
   <page name="TOOLBAR">
     <Resource tag="ACTIVETOPICS">Активные темы</Resource>
     <Resource tag="ACTIVETOPICS_TITLE">Страница активных тем.</Resource>
@@ -5265,7 +5362,6 @@ Password: {password}
     <Resource tag="MEMBERS">Участники</Resource>
     <Resource tag="MEMBERS_TITLE">Просмотр списка участников.</Resource>
     <Resource tag="MODERATE">Модерировать</Resource>
-    <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Посмотреть страницу модератора.</Resource>
     <Resource tag="MYALBUMS">Альбомы</Resource>
     <Resource tag="MYALBUMS_TITLE">Посмотреть страницу альбомов.</Resource>

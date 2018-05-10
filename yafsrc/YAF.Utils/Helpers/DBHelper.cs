@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -140,7 +140,7 @@ namespace YAF.Utils.Helpers
         [CanBeNull]
         public static DataRow GetFirstRowOrInvalid([NotNull] this DataTable dt)
         {
-            var row = dt.GetFirstRow();
+            DataRow row = dt.GetFirstRow();
 
             if (row != null)
             {
@@ -203,7 +203,7 @@ namespace YAF.Utils.Helpers
         {
             CodeContracts.VerifyNotNull(command, "command");
 
-            var debugString = command.CommandText;
+            string debugString = command.CommandText;
 
             try
             {

@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,8 +22,12 @@
  * under the License.
  */
 
+using YAF.Utils.Helpers;
+
 namespace YAF.Pages
 {
+    // YAF.Pages
+
     #region Using
 
     using System;
@@ -35,14 +39,11 @@ namespace YAF.Pages
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -66,60 +67,50 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// Handles the Click event of the AddUser control.
+        /// The add user_ click.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         protected void AddUser_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.mod_forumuser, "f={0}", this.PageContext.PageForumID);
         }
 
         /// <summary>
-        /// Binds the data
+        /// The bind data.
         /// </summary>
         protected void BindData()
         {
             this.PagerTop.PageSize = this.Get<YafBoardSettings>().TopicsPerPage;
-
-            var baseSize = this.Get<YafBoardSettings>().TopicsPerPage;
-            var currentPageIndex = this.PagerTop.CurrentPageIndex;
-
-            var topicList = LegacyDb.topic_list(
+            int baseSize = this.Get<YafBoardSettings>().TopicsPerPage;
+            int nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
+            DataTable dt = LegacyDb.topic_list(
                 this.PageContext.PageForumID,
                 null,
                 DateTimeHelper.SqlDbMinTime(),
                 DateTime.UtcNow,
-                currentPageIndex,
+                nCurrentPageIndex,
                 baseSize,
                 false,
                 true,
                 false);
 
-            this.topiclist.DataSource = topicList;
+            this.topiclist.DataSource = dt;
             this.UserList.DataSource = LegacyDb.userforum_list(null, this.PageContext.PageForumID);
-           
-            if (topicList != null && topicList.HasRows())
-            {
-                this.PagerTop.Count = topicList.AsEnumerable().First().Field<int>("TotalRows");
-            }
-
-            this.ForumList.DataSource = LegacyDb.forum_listall_sorted(
-                this.PageContext.PageBoardID,
-                this.PageContext.PageUserID);
-
             this.DataBind();
 
-            var pageItem = this.ForumList.Items.FindByValue(this.PageContext.PageForumID.ToString());
-
-            if (pageItem != null)
+            if (dt != null && dt.HasRows())
             {
-                pageItem.Selected = true;
+                this.PagerTop.Count = dt.AsEnumerable().First().Field<int>("TotalRows");
             }
         }
 
         /// <summary>
-        /// Deletes all the Selected Topics
+        /// The delete topics_ click.
         /// </summary>
         /// <param name="sender">
         /// The sender.
@@ -133,76 +124,10 @@ namespace YAF.Pages
                 this.topiclist.Controls.OfType<RepeaterItem>().SelectMany(x => x.Controls.OfType<TopicLine>()).Where(
                     x => x.IsSelected && x.TopicRowID.HasValue).ToList();
 
-            if (!list.Any())
-            {
-                this.PageContext.AddLoadMessage(this.GetText("MODERATE", "NOTHING"), MessageTypes.warning);
-            }
-            else
-            {
-                list.ForEach(x => LegacyDb.topic_delete(x.TopicRowID));
+            list.ForEach(x => LegacyDb.topic_delete(x.TopicRowID));
 
-                this.PageContext.AddLoadMessage(this.GetText("moderate", "deleted"), MessageTypes.success);
-
-                this.BindData();
-            }
-        }
-
-        /// <summary>
-        /// Handles the Click event of the Move control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Move_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            int? linkDays = null;
-            var ld = -2;
-
-            if (this.LeavePointer.Checked && this.LinkDays.Text.IsSet() && !int.TryParse(this.LinkDays.Text, out ld))
-            {
-                this.PageContext.AddLoadMessage(this.GetText("POINTER_DAYS_INVALID"), MessageTypes.warning);
-                return;
-            }
-
-            if (this.ForumList.SelectedValue.ToType<int>() <= 0)
-            {
-                this.PageContext.AddLoadMessage(this.GetText("CANNOT_MOVE_TO_CATEGORY"), MessageTypes.warning);
-                return;
-            }
-
-            // only move if it's a destination is a different forum.
-            if (this.ForumList.SelectedValue.ToType<int>() != this.PageContext.PageForumID)
-            {
-                if (ld >= -2)
-                {
-                    linkDays = ld;
-                }
-
-                var list = this.topiclist.Controls.OfType<RepeaterItem>()
-                    .SelectMany(x => x.Controls.OfType<TopicLine>()).Where(x => x.IsSelected && x.TopicRowID.HasValue)
-                    .ToList();
-
-                if (!list.Any())
-                {
-                    this.PageContext.AddLoadMessage(this.GetText("MODERATE", "NOTHING"), MessageTypes.warning);
-                }
-                else
-                {
-                    list.ForEach(
-                        x => LegacyDb.topic_move(
-                            x.TopicRowID,
-                            this.ForumList.SelectedValue,
-                            this.LeavePointer.Checked,
-                            linkDays));
-
-                    this.PageContext.AddLoadMessage(this.GetText("MODERATE", "MOVED"), MessageTypes.success);
-
-                    this.BindData();
-                }
-            }
-            else
-            {
-                this.PageContext.AddLoadMessage(this.GetText("MODERATE", "MOVE_TO_DIFFERENT"), MessageTypes.danger);
-            }
+            this.PageContext.AddLoadMessage(this.GetText("moderate", "deleted"));
+            this.BindData();
         }
 
         /// <summary>
@@ -260,22 +185,6 @@ namespace YAF.Pages
                 this.PageLinks.AddLink(this.GetText("MODERATE", "TITLE"), string.Empty);
 
                 this.PagerTop.PageSize = 25;
-
-                this.Move.Text = this.GetText("MOVETOPIC", "MOVE");
-                this.Move.ToolTip = "{0}: {1}".FormatWith(this.GetText("MOVETOPIC", "MOVE"), this.PageContext.PageTopicName);
-
-                var showMoved = this.Get<YafBoardSettings>().ShowMoved;
-
-                // Ederon : 7/14/2007 - by default, leave pointer is set on value defined on host level
-                this.LeavePointer.Checked = showMoved;
-
-                this.trLeaveLink.Visible = showMoved;
-                this.trLeaveLinkDays.Visible = showMoved;
-
-                if (showMoved)
-                {
-                    this.LinkDays.Text = "1";
-                }
             }
 
             this.BindData();
@@ -306,8 +215,7 @@ namespace YAF.Pages
                         ForumPages.mod_forumuser, "f={0}&u={1}", this.PageContext.PageForumID, e.CommandArgument);
                     break;
                 case "remove":
-                    this.GetRepository<UserForum>().Delete(e.CommandArgument.ToType<int>(), this.PageContext.PageForumID);
-
+                    LegacyDb.userforum_delete(e.CommandArgument, this.PageContext.PageForumID);
                     this.BindData();
 
                     // clear moderatorss cache
@@ -327,7 +235,7 @@ namespace YAF.Pages
             {
                 case "delete":
                     LegacyDb.topic_delete(e.CommandArgument);
-                    this.PageContext.AddLoadMessage(this.GetText("deleted"), MessageTypes.success);
+                    this.PageContext.AddLoadMessage(this.GetText("deleted"));
                     this.BindData();
                     break;
             }

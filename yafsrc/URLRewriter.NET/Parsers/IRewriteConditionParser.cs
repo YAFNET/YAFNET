@@ -1,15 +1,14 @@
 // UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
+// Copyright 2007 Intelligencia
+// Copyright 2007 Seth Yates
 // 
-
-using System;
-using System.Xml;
 
 namespace Intelligencia.UrlRewriter
 {
+    using System.Xml;
+
     /// <summary>
     /// Interface defining a parser which parses an XML node and returns the correct
     /// IRewriteCondition instance based on the node.

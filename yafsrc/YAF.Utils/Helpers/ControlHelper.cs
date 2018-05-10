@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -147,7 +147,7 @@ namespace YAF.Utils.Helpers
             CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
             CodeContracts.VerifyNotNull(id, "id");
 
-            var foundControl = sourceControl.FindControl(id);
+            Control foundControl = sourceControl.FindControl(id);
 
             if (foundControl != null)
             {
@@ -170,7 +170,7 @@ namespace YAF.Utils.Helpers
             CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
             CodeContracts.VerifyNotNull(id, "id");
 
-            var found = FindControlRecursiveReverse(sourceControl, id);
+            Control found = FindControlRecursiveReverse(sourceControl, id);
             if (found != null)
             {
                 return found;
@@ -225,7 +225,7 @@ namespace YAF.Utils.Helpers
             CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
             CodeContracts.VerifyNotNull(id, "id");
 
-            var foundControl = FindControlRecursive(sourceControl, id);
+            Control foundControl = FindControlRecursive(sourceControl, id);
             if (foundControl is T)
             {
                 return foundControl.ToClass<T>();
@@ -249,7 +249,7 @@ namespace YAF.Utils.Helpers
             CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
             CodeContracts.VerifyNotNull(id, "id");
 
-            var foundControl = FindControlRecursiveReverse(sourceControl, id);
+            Control foundControl = FindControlRecursiveReverse(sourceControl, id);
             if (foundControl is T)
             {
                 return foundControl.ToClass<T>();
@@ -273,7 +273,7 @@ namespace YAF.Utils.Helpers
             CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
             CodeContracts.VerifyNotNull(id, "id");
 
-            var foundControl = FindControlRecursiveBoth(sourceControl, id);
+            Control foundControl = FindControlRecursiveBoth(sourceControl, id);
 
             if (foundControl is T)
             {
@@ -303,9 +303,9 @@ namespace YAF.Utils.Helpers
 
             Control foundControl = null;
 
-            for (var i = 0; i < wizardControl.WizardSteps.Count; i++)
+            for (int i = 0; i < wizardControl.WizardSteps.Count; i++)
             {
-                for (var j = 0; j < wizardControl.WizardSteps[i].Controls.Count; j++)
+                for (int j = 0; j < wizardControl.WizardSteps[i].Controls.Count; j++)
                 {
                     foundControl = FindControlRecursive(wizardControl.WizardSteps[i].Controls[j], id);
                     if (foundControl != null)
@@ -341,7 +341,7 @@ namespace YAF.Utils.Helpers
             CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
             CodeContracts.VerifyNotNull(id, "id");
 
-            var foundControl = sourceControl.FindControl(id);
+            Control foundControl = sourceControl.FindControl(id);
 
             if (foundControl == null)
             {
@@ -426,7 +426,7 @@ namespace YAF.Utils.Helpers
         /// </summary>
         /// <param name="href">
         /// The href to the javascript script file.
-        /// </param>s
+        /// </param>
         /// <returns>
         /// Returns the JS Include Control
         /// </returns>
@@ -449,7 +449,7 @@ namespace YAF.Utils.Helpers
         /// <returns><see cref="HtmlMeta"/> control</returns>
         public static HtmlMeta MakeMetaKeywordsControl(string keywords)
         {
-            var meta = new HtmlMeta { Name = "keywords", Content = keywords };
+            HtmlMeta meta = new HtmlMeta { Name = "keywords", Content = keywords };
 
             return meta;
         }

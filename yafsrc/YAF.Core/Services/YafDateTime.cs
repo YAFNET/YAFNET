@@ -28,7 +28,7 @@ namespace YAF.Core.Services
 
     using System;
 
-    using FarsiLibrary.Utils;
+    using FarsiLibrary;
 
     using YAF.Classes;
     using YAF.Core;

@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -37,14 +37,12 @@ namespace YAF.Pages
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
-    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -104,20 +102,20 @@ namespace YAF.Pages
         /// </returns>
         protected bool AlbumsTabIsVisible()
         {
-            var albumUser = this.PageContext.PageUserID;
+            int albumUser = this.PageContext.PageUserID;
 
             if (this.PageContext.IsAdmin && this.UserId > 0)
             {
                 albumUser = this.UserId;
             }
 
-            // Add check if Albums Tab is visible
+            // Add check if Albums Tab is visible 
             if (this.PageContext.IsGuest || !this.Get<YafBoardSettings>().EnableAlbum)
             {
                 return false;
             }
 
-            var albumCount = LegacyDb.album_getstats(albumUser, null)[0];
+            int albumCount = LegacyDb.album_getstats(albumUser, null)[0];
 
             // Check if the user already has albums.
             if (albumCount > 0)
@@ -125,7 +123,7 @@ namespace YAF.Pages
                 return true;
             }
 
-            // If this is the album owner we show him the tab, else it should be hidden
+            // If this is the album owner we show him the tab, else it should be hidden 
             if ((albumUser != this.PageContext.PageUserID) && !this.PageContext.IsAdmin)
             {
                 return false;
@@ -164,7 +162,13 @@ namespace YAF.Pages
             // setup jQuery and Jquery Ui Tabs.
             YafContext.Current.PageElements.RegisterJsBlock(
                 "ProfileTabsJs",
-                JavaScriptBlocks.BootstrapTabsLoadJs(this.ProfileTabs.ClientID, this.hidLastTab.ClientID));
+                JavaScriptBlocks.JqueryUITabsLoadJs(
+                    this.ProfileTabs.ClientID,
+                    this.hidLastTab.ClientID,
+                    this.hidLastTabId.ClientID,
+                    string.Empty,
+                    false,
+                    true));
 
             base.OnPreRender(e);
         }
@@ -219,7 +223,7 @@ namespace YAF.Pages
         {
             if (linkUrl.IsSet())
             {
-                var link = linkUrl.Replace("\"", string.Empty);
+                string link = linkUrl.Replace("\"", string.Empty);
                 if (!link.ToLower().StartsWith("http"))
                 {
                     link = "http://" + link;
@@ -247,7 +251,7 @@ namespace YAF.Pages
         {
             if (e.CommandArgument.ToString() == "addbuddy")
             {
-                var strBuddyRequest = this.Get<IBuddy>().AddRequest(this.UserId);
+                string[] strBuddyRequest = this.Get<IBuddy>().AddRequest(this.UserId);
 
                 var linkButton = (LinkButton)this.ProfileTabs.FindControl("lnkBuddy");
 
@@ -257,20 +261,20 @@ namespace YAF.Pages
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL").FormatWith(strBuddyRequest[0]),
-                        MessageTypes.success);
+                        MessageTypes.Success);
                 }
                 else
                 {
                     var literal = (Literal)this.ProfileTabs.FindControl("ltrApproval");
                     literal.Visible = true;
-                    this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYREQUEST"), MessageTypes.success);
+                    this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYREQUEST"), MessageTypes.Success);
                 }
             }
             else
             {
                 this.PageContext.AddLoadMessage(
                     this.GetText("REMOVEBUDDY_NOTIFICATION").FormatWith(this.Get<IBuddy>().Remove(this.UserId)),
-                    MessageTypes.success);
+                    MessageTypes.Success);
             }
 
             this.BindData();
@@ -328,7 +332,7 @@ namespace YAF.Pages
 
             var userData = new CombinedUserDataHelper(user, this.UserId);
 
-            // populate user information controls...
+            // populate user information controls...      
             // Is BuddyList feature enabled?
             if (this.Get<YafBoardSettings>().EnableBuddyList)
             {
@@ -667,8 +671,8 @@ namespace YAF.Pages
 
             if (this.User != null && (userData.Profile.Gender > 0))
             {
-                var imagePath = string.Empty;
-                var imageAlt = string.Empty;
+                string imagePath = string.Empty;
+                string imageAlt = string.Empty;
 
                 this.GenderTR.Visible = true;
                 switch (userData.Profile.Gender)
@@ -694,12 +698,40 @@ namespace YAF.Pages
                     this.HtmlEncode(this.Get<IBadWordReplace>().Replace(userData.Profile.Occupation));
             }
 
-            this.ThanksFrom.Text = this.GetRepository<Thanks>().ThanksFromUser(userData.DBRow["userID"].ToType<int>())
-                .ToString();
-            var thanksToArray = LegacyDb.user_getthanks_to(userData.DBRow["userID"], this.PageContext.PageUserID);
+            this.ThanksFrom.Text =
+                LegacyDb.user_getthanks_from(userData.DBRow["userID"], this.PageContext.PageUserID).ToString();
+            int[] thanksToArray = LegacyDb.user_getthanks_to(userData.DBRow["userID"], this.PageContext.PageUserID);
             this.ThanksToTimes.Text = thanksToArray[0].ToString();
             this.ThanksToPosts.Text = thanksToArray[1].ToString();
             this.ReputationReceived.Text = YafReputation.GenerateReputationBar(userData.Points.Value, userData.UserID);
+
+            if (this.Get<YafBoardSettings>().ShowUserOnlineStatus)
+            {
+                this.OnlineStatusImage1.UserID = userID;
+                this.OnlineStatusImage1.Visible = true;
+
+                var suspended = userData.DBRow["Suspended"].ToType<DateTime?>();
+
+                if (suspended.HasValue && suspended.Value > DateTime.UtcNow)
+                {
+                    this.ThemeImgSuspended.LocalizedTitle =
+                        this.GetText("POSTS", "USERSUSPENDED")
+                            .FormatWith(this.Get<IDateTime>().FormatDateTimeShort(suspended.Value));
+
+                    this.ThemeImgSuspended.Visible = true;
+                    this.OnlineStatusImage1.Visible = false;
+                }
+                else
+                {
+                    this.ThemeImgSuspended.Visible = false;
+                }
+            }
+            else
+            {
+                this.ThemeImgSuspended.Visible = false;
+                this.OnlineStatusImage1.Visible = false;
+            }
+            
 
             if (this.User != null && userData.Profile.XMPP.IsSet())
             {
@@ -798,6 +830,14 @@ namespace YAF.Pages
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "hovercardtwitterfacebookjs",
                     hoverCardLoadJs.ToString());
+
+                if (this.Get<YafBoardSettings>().EnableUserReputation)
+                {
+                    // Setup UserBox Reputation Script Block
+                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                        "reputationprogressjs",
+                        JavaScriptBlocks.RepuatationProgressLoadJs);
+                }
             }
 
             if (this.User != null && userData.Profile.Birthday >= DateTimeHelper.SqlDbMinTime())
@@ -830,8 +870,8 @@ namespace YAF.Pages
                 DataRow r;
                 MedalFlags f;
 
-                var i = 0;
-                var inRow = 0;
+                int i = 0;
+                int inRow = 0;
 
                 // do ribbon bar first
                 while (userMedalsTable.Rows.Count > i)
@@ -912,7 +952,7 @@ namespace YAF.Pages
         /// </param>
         private void SetupUserStatistics([NotNull] CombinedUserDataHelper userData)
         {
-            var allPosts = 0.0;
+            double allPosts = 0.0;
 
             if (userData.DBRow["NumPostsForum"].ToType<int>() > 0)
             {

@@ -1,41 +1,30 @@
 /*
- * jQuery File Upload Image Preview & Resize Plugin
+ * jQuery File Upload Image Preview & Resize Plugin 1.7.2
  * https://github.com/blueimp/jQuery-File-Upload
  *
  * Copyright 2013, Sebastian Tschan
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * https://opensource.org/licenses/MIT
+ * http://www.opensource.org/licenses/MIT
  */
 
 /* jshint nomen:false */
-/* global define, require, window, Blob */
+/* global define, window, Blob */
 
-;(function (factory) {
-    'use strict';
+(function (factory) {
+    //'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
         define([
             'jquery',
             'load-image',
             'load-image-meta',
-            'load-image-scale',
             'load-image-exif',
+            'load-image-ios',
             'canvas-to-blob',
             './jquery.fileupload-process'
         ], factory);
-    } else if (typeof exports === 'object') {
-        // Node/CommonJS:
-        factory(
-            require('jquery'),
-            require('blueimp-load-image/js/load-image'),
-            require('blueimp-load-image/js/load-image-meta'),
-            require('blueimp-load-image/js/load-image-scale'),
-            require('blueimp-load-image/js/load-image-exif'),
-            require('blueimp-canvas-to-blob'),
-            require('./jquery.fileupload-process')
-        );
     } else {
         // Browser globals:
         factory(
@@ -44,7 +33,7 @@
         );
     }
 }(function ($, loadImage) {
-    'use strict';
+    //'use strict';
 
     // Prepend to the default processQueue:
     $.blueimp.yafFileUpload.prototype.options.processQueue.unshift(
@@ -247,7 +236,7 @@
                                     blob.name = file.name;
                                 } else if (file.name) {
                                     blob.name = file.name.replace(
-                                        /\.\w+$/,
+                                        /\..+$/,
                                         '.' + blob.type.substr(6)
                                     );
                                 }

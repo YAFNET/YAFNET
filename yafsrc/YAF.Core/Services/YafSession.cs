@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -484,7 +484,7 @@ namespace YAF.Core.Services
         /// </returns>
         public DateTime GetForumRead(int forumID)
         {
-            var t = this.ForumRead;
+            Hashtable t = this.ForumRead;
             if (t == null || !t.ContainsKey(forumID))
             {
                 return this.LastVisit ?? DateTimeHelper.SqlDbMinTime();
@@ -504,7 +504,7 @@ namespace YAF.Core.Services
         /// </returns>
         public DateTime GetTopicRead(int topicID)
         {
-            var t = this.TopicRead;
+            Hashtable t = this.TopicRead;
 
             if (t == null || !t.ContainsKey(topicID))
             {
@@ -525,7 +525,7 @@ namespace YAF.Core.Services
         /// </param>
         public void SetForumRead(int forumID, DateTime date)
         {
-            var t = this.ForumRead ?? new Hashtable();
+            Hashtable t = this.ForumRead ?? new Hashtable();
 
             t[forumID] = date;
             this.ForumRead = t;
@@ -542,7 +542,7 @@ namespace YAF.Core.Services
         /// </param>
         public void SetTopicRead(int topicID, DateTime date)
         {
-            var t = this.TopicRead ?? new Hashtable();
+            Hashtable t = this.TopicRead ?? new Hashtable();
 
             t[topicID] = date;
             this.TopicRead = t;

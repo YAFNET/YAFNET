@@ -1,39 +1,57 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.EditUsersSignature" Codebehind="EditUsersSignature.ascx.cs" %>
-
-    <h2 runat="server" id="trHeader">
+<table class="content" width="100%" cellspacing="1" cellpadding="0">
+    <tr runat="server" id="trHeader">
+        <td class="header1" colspan="2">
             <YAF:LocalizedLabel runat="server" LocalizedPage="CP_SIGNATURE" LocalizedTag="title" />
-        </h2>
-    <hr />
-        <h4>
+        </td>
+    </tr>
+    <tr>
+        <td class="header2" valign="top">
+            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="CP_SIGNATURE"
+                LocalizedTag="signature" />
+        </td>
+        <td class="header2">
            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="CP_SIGNATURE"
                 LocalizedTag="SIGNATURE_PREVIEW" />
-        </h4>
-    <hr />
-      <asp:PlaceHolder id="PreviewLine" runat="server">
-      </asp:PlaceHolder>
-    <hr />
-       <h4>
+        </td>
+        
+    </tr>
+    <tr>
+      <td class="postformheader" valign="top"></td>
+      <td class="post" id="PreviewLine" runat="server">
+      </td>
+    </tr>
+    <tr>
+       <td class="postformheader" valign="top"></td>
+       <td class="header2">
            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedPage="CP_SIGNATURE"
                 LocalizedTag="TITLE" />
-        </h4>
-    <hr />
-      <asp:PlaceHolder id="EditorLine" runat="server">
+        </td>
+    </tr>
+    <tr>
+      <td class="postformheader" valign="top"></td>
+      <td class="post" id="EditorLine" runat="server">
             <!-- editor goes here -->
-        </asp:PlaceHolder>
-    <hr />
-   <div class="alert alert-info" role="alert">
-        <h2>
+        </td>
+    </tr>
+    <tr>
+        <td class="postformheader" valign="top"></td>
+        <td class="header2">
            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="CP_SIGNATURE"
                 LocalizedTag="SIGNATURE_PERMISSIONS" />
-        </h2>
-    <hr />
-        <p>
+        </td>       
+    </tr>
+    <tr>
+        <td class="postformheader" valign="top"></td>
+        <td class="post">
             <asp:Label ID="TagsAllowedWarning" runat="server" />
-        </p>
-       </div>
-                <div class="text-lg-center">
-
-            <asp:LinkButton ID="preview" CssClass="btn btn-success" runat="server" />&nbsp;
-            <asp:LinkButton ID="save" Type="Primary" runat="server" />&nbsp;
-            <asp:LinkButton ID="cancel" Type="Secondary" runat="server" />
-            </div>
+        </td>       
+    </tr>
+    <tr>
+        <td class="footer1" colspan="2" align="center">
+            <asp:Button ID="preview" CssClass="pbutton" runat="server" />
+            <asp:Button ID="save" CssClass="pbutton" runat="server" />
+            <asp:Button ID="cancel" CssClass="pbutton" runat="server" />
+        </td>
+    </tr>
+</table>

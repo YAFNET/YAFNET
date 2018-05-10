@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -36,13 +36,11 @@ namespace YAF.Controls
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -188,8 +186,7 @@ namespace YAF.Controls
         protected void RemoveSuspension_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // un-suspend user
-            this.GetRepository<User>().Suspend(this.CurrentUserID.ToType<int>());
-
+            LegacyDb.user_suspend(this.CurrentUserID);
             var usr =
                 LegacyDb.UserList(this.PageContext.PageBoardID, (int?)this.CurrentUserID, null, null, null, false)
                     .ToList();
@@ -244,7 +241,7 @@ namespace YAF.Controls
                         // tell user he can't suspend admin
                         this.PageContext.AddLoadMessage(
                             this.GetText("PROFILE", "ERROR_ADMINISTRATORS"),
-                            MessageTypes.danger);
+                            MessageTypes.Error);
                         return;
                     }
 
@@ -254,7 +251,7 @@ namespace YAF.Controls
                         // tell user he can't suspend forum moderator when he's not admin
                         this.PageContext.AddLoadMessage(
                             this.GetText("PROFILE", "ERROR_FORUMMODERATORS"),
-                            MessageTypes.danger);
+                            MessageTypes.Error);
                         return;
                     }
 
@@ -265,7 +262,7 @@ namespace YAF.Controls
                     {
                         this.PageContext.AddLoadMessage(
                             this.GetText("PROFILE", "ERROR_GUESTACCOUNT"),
-                            MessageTypes.danger);
+                            MessageTypes.Error);
                         return;
                     }
                 }
@@ -304,8 +301,8 @@ namespace YAF.Controls
             }
 
             // suspend user by calling appropriate method
-            this.GetRepository<User>().Suspend(
-                this.CurrentUserID.ToType<int>(),
+            LegacyDb.user_suspend(
+                this.CurrentUserID,
                 suspend,
                 this.SuspendedReason.Text.Trim(),
                 this.PageContext.PageUserID);
@@ -382,7 +379,7 @@ namespace YAF.Controls
                                 this.UserData.TimeZoneInfo);
 
                     // localize remove suspension button
-                    this.RemoveSuspension.Text = "<i class=\"fa fa-flag fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("PROFILE", "REMOVESUSPENSION"));
+                    this.RemoveSuspension.Text = this.GetText("PROFILE", "REMOVESUSPENSION");
 
                     this.CurrentSuspendedReason.Text = user["SuspendedReason"].ToString();
 
@@ -390,7 +387,7 @@ namespace YAF.Controls
                 }
 
                 // localize suspend button
-                this.Suspend.Text = "<i class=\"fa fa-flag fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("PROFILE", "SUSPEND"));
+                this.Suspend.Text = this.GetText("PROFILE", "SUSPEND");
             }
         }
 

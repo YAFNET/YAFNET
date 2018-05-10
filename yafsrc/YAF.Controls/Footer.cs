@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -34,10 +34,10 @@ namespace YAF.Controls
     using System.Web;
     using System.Web.UI;
 
-    using Core.Data.Profiling;
-
     using YAF.Classes;
+    using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Data.Profiling;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -62,7 +62,13 @@ namespace YAF.Controls
         ///   Gets ThisControl.
         /// </summary>
         [NotNull]
-        public Control ThisControl => this;
+        public Control ThisControl
+        {
+            get
+            {
+                return this;
+            }
+        }
 
         #endregion
 
@@ -97,7 +103,15 @@ namespace YAF.Controls
 
             this.Get<IStopWatch>().Stop();
 
-            footer.Append(@"<footer class=""footer""><div class=""container text-right"">");
+            footer.Append(@"<br /><div class=""content"" style=""text-align:right;font-size:7pt"">");
+
+            if (this.PageContext.CurrentForumPage.IsAdminPage)
+            {
+                // show admin icons license...
+                footer.Append(
+                    @"<span style=""color:#999999""><a target=""_blank"" href=""http://www.pinvoke.com/"">Fugue Icons</a> &copy; 2009 Yusuke Kamiyamane</span>");
+                footer.Append("<br />");
+            }
 
             this.RenderMobileLink(footer);
 
@@ -119,12 +133,11 @@ namespace YAF.Controls
         {
             if (this.Get<YafBoardSettings>().ShowPageGenerationTime)
             {
-                footer.Append(@"<br /><span class=""text-muted"">");
+                footer.Append("<br />");
                 footer.AppendFormat(this.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
-                footer.Append("</span>");
             }
 
-            footer.Append(@"</div></footer>");
+            footer.Append(@"</div>");
 
 #if DEBUG
 			if (!this.PageContext.IsAdmin)
@@ -147,15 +160,15 @@ namespace YAF.Controls
 			if (extensions.Any(x => x.Contains(".Module")))
 			{
 				footer.AppendFormat(
-					@"<br /><br />Extensions Loaded: <span style=""color: green"">{0}</span>",
+					@"<br /><br />Extensions Loaded: <span style=""color: green"">{0}</span>", 
 					extensions.Where(x => x.Contains(".Module")).ToDelimitedString("<br />"));
 			}
 
 			footer.AppendFormat(
-				@"<br /><br /><b>{0}</b> SQL Queries: <b>{1:N3}</b> Seconds (<b>{2:N2}%</b> of Total Page Load Time).<br />{3}",
-				QueryCounter.Count,
-				QueryCounter.Duration,
-				(100 * QueryCounter.Duration) / this.Get<IStopWatch>().Duration,
+				@"<br /><br /><b>{0}</b> SQL Queries: <b>{1:N3}</b> Seconds (<b>{2:N2}%</b> of Total Page Load Time).<br />{3}", 
+				QueryCounter.Count, 
+				QueryCounter.Duration, 
+				(100 * QueryCounter.Duration) / this.Get<IStopWatch>().Duration, 
 				QueryCounter.Commands);
 			footer.Append("</div>");
 #endif
@@ -177,7 +190,7 @@ namespace YAF.Controls
                         this.GetText("COMMON", "MOBILE_FULLSITE")));
             }
             else if (this.PageContext.Vars.ContainsKey("IsMobile") && this.PageContext.Vars["IsMobile"] != null
-                                                                   && this.PageContext.Vars["IsMobile"].ToType<bool>())
+                     && this.PageContext.Vars["IsMobile"].ToType<bool>())
             {
                 footer.Append(
                     @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
@@ -199,11 +212,10 @@ namespace YAF.Controls
             // Copyright Linkback Algorithm
             // Please keep if you haven't purchased a removal or commercial license.
             var domainKey = this.Get<YafBoardSettings>().CopyrightRemovalDomainKey;
-            var url = this.Get<HttpRequestBase>().Url;
 
-            if (domainKey.IsSet() && url != null)
+            if (domainKey.IsSet())
             {
-                var dnsSafeHost = url.DnsSafeHost.ToLower();
+                var dnsSafeHost = this.Get<HttpRequestBase>().Url.DnsSafeHost.ToLower();
 
                 // handle www and non www domains correctly.
                 if (dnsSafeHost.StartsWith("www."))
@@ -230,7 +242,7 @@ namespace YAF.Controls
 
             // get the theme credit info from the theme file
             // it's not really an error if it doesn't exist
-            var themeCredit = this.Get<ITheme>().GetItem("THEME", "CREDIT", null);
+            string themeCredit = this.Get<ITheme>().GetItem("THEME", "CREDIT", null);
 
             // append theme Credit if it exists...
             if (themeCredit.IsSet())

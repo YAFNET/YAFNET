@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,10 +31,9 @@ namespace YAF.Pages.Admin
     using System.Globalization;
     using System.Linq;
     using System.Web.UI.WebControls;
-
-    using FarsiLibrary.Utils;
-
+    using FarsiLibrary;
     using YAF.Classes;
+    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -46,6 +45,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -61,13 +61,68 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void DeleteAllClick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void DeleteAll_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.GetRepository<EventLog>()
                 .DeleteByUser(userId: this.PageContext.PageUserID, boardId: this.PageContext.PageBoardID);
 
             // re-bind controls
             this.BindData();
+        }
+
+        /// <summary>
+        /// Handles load event for delete all button.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <remarks>
+        /// Adds confirmation popup to click event of this button.
+        /// </remarks>
+        protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            ((ThemeButton)sender).Attributes["onclick"] =
+                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL"));
+        }
+
+        /// <summary>
+        /// Handles load event for log entry delete link button.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <remarks>
+        /// Adds confirmation popup to click event of this button.
+        /// </remarks>
+        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE"));
+        }
+
+        /// <summary>
+        /// Gets HTML IMG code representing given log event icon.
+        /// </summary>
+        /// <param name="dataRow">
+        /// Data row containing event log entry data.
+        /// </param>
+        /// <returns>
+        /// return HTML code of event log entry image
+        /// </returns>
+        protected string EventImageCode([NotNull] object dataRow)
+        {
+            // cast object to the DataRowView
+            var row = (DataRowView)dataRow;
+
+            // set defaults
+            string imageType = Enum.GetName(typeof(EventLogTypes), (int)row["Type"]);
+
+            if (imageType.IsNotSet())
+            {
+                imageType = "Error";
+            }
+
+            // return HTML code of event log entry image
+            return
+                @"<img src=""{0}"" alt=""{1}"" title=""{1}"" />".FormatWith(
+                    YafForumInfo.GetURLToContent("icons/{0}.png".FormatWith(imageType.ToLowerInvariant())), imageType);
         }
 
         /// <summary>
@@ -94,22 +149,22 @@ namespace YAF.Pages.Admin
                 switch (eventType)
                 {
                     case EventLogTypes.Error:
-                        cssClass = "danger";
+                        cssClass = "ui-state-error";
                         break;
                     case EventLogTypes.Warning:
-                        cssClass = "warning";
+                        cssClass = "ui-state-warning";
                         break;
                     case EventLogTypes.Information:
-                        cssClass = "info";
+                        cssClass = "ui-state-highlight";
                         break;
                     default:
-                        cssClass = "active";
+                        cssClass = "ui-state-highlight";
                         break;
                 }
             }
             catch (Exception)
             {
-                return "active";
+                return "ui-state-highlight";
             }
 
             return cssClass;
@@ -121,7 +176,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            this.List.ItemCommand += this.ListItemCommand;
+            this.List.ItemCommand += this.List_ItemCommand;
 
             base.OnInit(e);
         }
@@ -134,11 +189,23 @@ namespace YAF.Pages.Admin
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
+            // setup jQuery and DatePicker JS...
+            if (this.GetText("COMMON", "CAL_JQ_CULTURE").IsSet())
+            {
+                YafContext.Current.PageElements.RegisterJQueryUILanguageFile(this.Get<ILocalization>().Culture);
+            }
+
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                "DatePickerJs",
                JavaScriptBlocks.DatePickerLoadJs(
+                   "{0}, #{1}".FormatWith(this.ToDate.ClientID, this.SinceDate.ClientID),
                    this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
                    this.GetText("COMMON", "CAL_JQ_CULTURE")));
+
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "ToggleEventLogItemJs",
+                JavaScriptBlocks.ToggleEventLogItemJs(
+                    this.GetText("ADMIN_EVENTLOG", "SHOW").ToJsString(), this.GetText("ADMIN_EVENTLOG", "HIDE").ToJsString()));
 
             base.OnPreRender(e);
         }
@@ -155,6 +222,18 @@ namespace YAF.Pages.Admin
             {
                 return;
             }
+
+            // create page links
+            // board index first
+            this.PageLinks.AddRoot();
+
+            // administration index second
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+
+            this.PageLinks.AddLink(this.GetText("ADMIN_SPAMLOG", "TITLE"), string.Empty);
+
+            this.Page.Header.Title = this.GetText("ADMIN_SPAMLOG", "TITLE");
 
             this.PagerTop.PageSize = 25;
 
@@ -180,27 +259,11 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-
-            // administration index second
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-
-            this.PageLinks.AddLink(this.GetText("ADMIN_SPAMLOG", "TITLE"), string.Empty);
-
-            this.Page.Header.Title = this.GetText("ADMIN_SPAMLOG", "TITLE");
-        }
-
-        /// <summary>
         /// Handles the PageChange event of the PagerTop control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
-        protected void PagerTopPageChange([NotNull] object sender, [NotNull] EventArgs e)
+        protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
             // rebind
             this.BindData();
@@ -211,7 +274,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="eventArgs">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ApplyButtonClick([NotNull] object source, EventArgs eventArgs)
+        protected void ApplyButton_Click([NotNull] object source, EventArgs eventArgs)
         {
             this.BindData();
         }
@@ -221,8 +284,8 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            var baseSize = this.Get<YafBoardSettings>().MemberListPageSize;
-            var currentPageIndex = this.PagerTop.CurrentPageIndex;
+            int baseSize = this.Get<YafBoardSettings>().MemberListPageSize;
+            int nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
             this.PagerTop.PageSize = baseSize;
 
             var sinceDate = DateTime.UtcNow.AddDays(-this.Get<YafBoardSettings>().EventLogMaxDays);
@@ -259,12 +322,12 @@ namespace YAF.Pages.Admin
             }
 
             // list event for this board
-            var dt = this.GetRepository<EventLog>()
+            DataTable dt = this.GetRepository<EventLog>()
                                .List(
                                    this.PageContext.PageUserID,
                                    this.Get<YafBoardSettings>().EventLogMaxMessages,
                                    this.Get<YafBoardSettings>().EventLogMaxDays,
-                                   currentPageIndex,
+                                   nCurrentPageIndex,
                                    baseSize,
                                    sinceDate,
                                    toDate.AddDays(1).AddMinutes(-1),
@@ -285,7 +348,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        private void ListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        private void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             // what command are we serving?
             switch (e.CommandName)
@@ -294,7 +357,7 @@ namespace YAF.Pages.Admin
                 case "delete":
 
                     // delete just this particular log entry
-                    this.GetRepository<EventLog>().DeleteById(e.CommandArgument.ToType<int>());
+                    this.GetRepository<EventLog>().DeleteByID(e.CommandArgument.ToType<int>());
 
                     // re-bind controls
                     this.BindData();

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,12 +28,10 @@ namespace YAF.Modules
     using System;
 
     using YAF.Classes.Data;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -94,7 +92,7 @@ namespace YAF.Modules
             if (this.Get<IDateTime>().GetUserDateTime(this.PageContext.SuspendedUntil)
                 <= this.Get<IDateTime>().GetUserDateTime(DateTime.UtcNow))
             {
-                this.GetRepository<User>().Suspend(this.PageContext.PageUserID);
+                LegacyDb.user_suspend(this.PageContext.PageUserID);
 
                 this.Get<ISendNotification>()
                     .SendUserSuspensionEndedNotification(

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -120,7 +120,7 @@ namespace YAF.Pages
                     }
 
                     this.BindData();
-                    this.PageContext.AddLoadMessage(this.GetText("msg_deleted"), MessageTypes.success);
+                    this.PageContext.AddLoadMessage(this.GetText("msg_deleted"), MessageTypes.Success);
                     YafBuildLink.Redirect(ForumPages.cp_pm);
                     break;
                 case "reply":
@@ -186,13 +186,13 @@ namespace YAF.Pages
         private void BindData()
         {
             using (
-                var dt =
+                DataTable dt =
                     LegacyDb.pmessage_list(
                         Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm"))))
             {
                 if (dt.HasRows())
                 {
-                    var row = dt.Rows[0];
+                    DataRow row = dt.Rows[0];
 
                     // if the pm isn't from or two the current user--then it's access denied
                     if ((int)row["ToUserID"] != this.PageContext.PageUserID
@@ -269,8 +269,8 @@ namespace YAF.Pages
         private void SetMessageView(
             [NotNull] object fromUserID, [NotNull] object toUserID, bool messageIsInOutbox, bool messageIsArchived)
         {
-            var isCurrentUserFrom = fromUserID.Equals(this.PageContext.PageUserID);
-            var isCurrentUserTo = toUserID.Equals(this.PageContext.PageUserID);
+            bool isCurrentUserFrom = fromUserID.Equals(this.PageContext.PageUserID);
+            bool isCurrentUserTo = toUserID.Equals(this.PageContext.PageUserID);
 
             // check if it's the same user...
             if (isCurrentUserFrom && isCurrentUserTo)

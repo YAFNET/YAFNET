@@ -97,13 +97,13 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         public static string WebRequest(Method method, string url, string postData, List<KeyValuePair<string, string>> headers)
         {
-            var webRequest = System.Net.WebRequest.Create(url) as HttpWebRequest;
+            HttpWebRequest webRequest = System.Net.WebRequest.Create(url) as HttpWebRequest;
             webRequest.Method = method.ToString();
             webRequest.ServicePoint.Expect100Continue = false;
 
             if (headers != null)
             {
-                foreach (var header in headers)
+                foreach (KeyValuePair<string, string> header in headers)
                 {
                     webRequest.Headers.Add(header.Key, header.Value);
                 }
@@ -114,7 +114,7 @@ namespace YAF.Core.Services.Auth
                 webRequest.ContentType = "application/x-www-form-urlencoded;charset=UTF-8";
 
                 // POST the data.
-                var requestWriter = new StreamWriter(webRequest.GetRequestStream());
+                StreamWriter requestWriter = new StreamWriter(webRequest.GetRequestStream());
                 try
                 {
                     requestWriter.Write(postData);
@@ -125,7 +125,7 @@ namespace YAF.Core.Services.Auth
                 }
             }
 
-            var responseData = WebResponseGet(webRequest);
+            string responseData = WebResponseGet(webRequest);
 
             return responseData;
         }

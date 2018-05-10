@@ -361,9 +361,9 @@ namespace YAF.Core.Services.CheckForSpam
         /// </exception>
         public bool VerifyApiKey()
         {
-            var parameters = "key=" + HttpUtility.UrlEncode(this.ApiKey) + "&blog="
+            string parameters = "key=" + HttpUtility.UrlEncode(this.ApiKey) + "&blog="
                                 + HttpUtility.UrlEncode(this.RootUrl.ToString());
-            var result = this.httpClient.PostRequest(
+            string result = this.httpClient.PostRequest(
                 this.verifyUrl,
                 this.UserAgent,
                 this.Timeout,
@@ -467,7 +467,7 @@ namespace YAF.Core.Services.CheckForSpam
                 }
             }
 
-            var response = this.httpClient.PostRequest(
+            string response = this.httpClient.PostRequest(
                 url,
                 this.UserAgent,
                 this.Timeout,

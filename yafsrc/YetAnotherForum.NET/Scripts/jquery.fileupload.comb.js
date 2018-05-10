@@ -1,738 +1,5 @@
-/*!
- * jQuery UI Widget 1.12.1
- * http://jqueryui.com
- *
- * Copyright jQuery Foundation and other contributors
- * Released under the MIT license.
- * http://jquery.org/license
- */
-
-//>>label: Widget
-//>>group: Core
-//>>description: Provides a factory for creating stateful widgets with a common API.
-//>>docs: http://api.jqueryui.com/jQuery.widget/
-//>>demos: http://jqueryui.com/widget/
-
-(function (factory) {
-    if (typeof define === "function" && define.amd) {
-
-        // AMD. Register as an anonymous module.
-        define(["jquery", "./version"], factory);
-    } else {
-
-        // Browser globals
-        factory(jQuery);
-    }
-}(function ($) {
-
-    var widgetUuid = 0;
-    var widgetSlice = Array.prototype.slice;
-
-    $.cleanData = (function (orig) {
-        return function (elems) {
-            var events, elem, i;
-            for (i = 0; (elem = elems[i]) != null; i++) {
-                try {
-
-                    // Only trigger remove when necessary to save time
-                    events = $._data(elem, "events");
-                    if (events && events.remove) {
-                        $(elem).triggerHandler("remove");
-                    }
-
-                    // Http://bugs.jquery.com/ticket/8235
-                } catch (e) { }
-            }
-            orig(elems);
-        };
-    })($.cleanData);
-
-    $.widget = function (name, base, prototype) {
-        var existingConstructor, constructor, basePrototype;
-
-        // ProxiedPrototype allows the provided prototype to remain unmodified
-        // so that it can be used as a mixin for multiple widgets (#8876)
-        var proxiedPrototype = {};
-
-        var namespace = name.split(".")[0];
-        name = name.split(".")[1];
-        var fullName = namespace + "-" + name;
-
-        if (!prototype) {
-            prototype = base;
-            base = $.Widget;
-        }
-
-        if ($.isArray(prototype)) {
-            prototype = $.extend.apply(null, [{}].concat(prototype));
-        }
-
-        // Create selector for plugin
-        $.expr[":"][fullName.toLowerCase()] = function (elem) {
-            return !!$.data(elem, fullName);
-        };
-
-        $[namespace] = $[namespace] || {};
-        existingConstructor = $[namespace][name];
-        constructor = $[namespace][name] = function (options, element) {
-
-            // Allow instantiation without "new" keyword
-            if (!this._createWidget) {
-                return new constructor(options, element);
-            }
-
-            // Allow instantiation without initializing for simple inheritance
-            // must use "new" keyword (the code above always passes args)
-            if (arguments.length) {
-                this._createWidget(options, element);
-            }
-        };
-
-        // Extend with the existing constructor to carry over any static properties
-        $.extend(constructor, existingConstructor, {
-            version: prototype.version,
-
-            // Copy the object used to create the prototype in case we need to
-            // redefine the widget later
-            _proto: $.extend({}, prototype),
-
-            // Track widgets that inherit from this widget in case this widget is
-            // redefined after a widget inherits from it
-            _childConstructors: []
-        });
-
-        basePrototype = new base();
-
-        // We need to make the options hash a property directly on the new instance
-        // otherwise we'll modify the options hash on the prototype that we're
-        // inheriting from
-        basePrototype.options = $.widget.extend({}, basePrototype.options);
-        $.each(prototype, function (prop, value) {
-            if (!$.isFunction(value)) {
-                proxiedPrototype[prop] = value;
-                return;
-            }
-            proxiedPrototype[prop] = (function () {
-                function _super() {
-                    return base.prototype[prop].apply(this, arguments);
-                }
-
-                function _superApply(args) {
-                    return base.prototype[prop].apply(this, args);
-                }
-
-                return function () {
-                    var __super = this._super;
-                    var __superApply = this._superApply;
-                    var returnValue;
-
-                    this._super = _super;
-                    this._superApply = _superApply;
-
-                    returnValue = value.apply(this, arguments);
-
-                    this._super = __super;
-                    this._superApply = __superApply;
-
-                    return returnValue;
-                };
-            })();
-        });
-        constructor.prototype = $.widget.extend(basePrototype, {
-
-            // TODO: remove support for widgetEventPrefix
-            // always use the name + a colon as the prefix, e.g., draggable:start
-            // don't prefix for widgets that aren't DOM-based
-            widgetEventPrefix: existingConstructor ? (basePrototype.widgetEventPrefix || name) : name
-        }, proxiedPrototype, {
-                constructor: constructor,
-                namespace: namespace,
-                widgetName: name,
-                widgetFullName: fullName
-            });
-
-        // If this widget is being redefined then we need to find all widgets that
-        // are inheriting from it and redefine all of them so that they inherit from
-        // the new version of this widget. We're essentially trying to replace one
-        // level in the prototype chain.
-        if (existingConstructor) {
-            $.each(existingConstructor._childConstructors, function (i, child) {
-                var childPrototype = child.prototype;
-
-                // Redefine the child widget using the same prototype that was
-                // originally used, but inherit from the new version of the base
-                $.widget(childPrototype.namespace + "." + childPrototype.widgetName, constructor,
-                    child._proto);
-            });
-
-            // Remove the list of existing child constructors from the old constructor
-            // so the old child constructors can be garbage collected
-            delete existingConstructor._childConstructors;
-        } else {
-            base._childConstructors.push(constructor);
-        }
-
-        $.widget.bridge(name, constructor);
-
-        return constructor;
-    };
-
-    $.widget.extend = function (target) {
-        var input = widgetSlice.call(arguments, 1);
-        var inputIndex = 0;
-        var inputLength = input.length;
-        var key;
-        var value;
-
-        for (; inputIndex < inputLength; inputIndex++) {
-            for (key in input[inputIndex]) {
-                value = input[inputIndex][key];
-                if (input[inputIndex].hasOwnProperty(key) && value !== undefined) {
-
-                    // Clone objects
-                    if ($.isPlainObject(value)) {
-                        target[key] = $.isPlainObject(target[key]) ?
-                            $.widget.extend({}, target[key], value) :
-
-                            // Don't extend strings, arrays, etc. with objects
-                            $.widget.extend({}, value);
-
-                        // Copy everything else by reference
-                    } else {
-                        target[key] = value;
-                    }
-                }
-            }
-        }
-        return target;
-    };
-
-    $.widget.bridge = function (name, object) {
-        var fullName = object.prototype.widgetFullName || name;
-        $.fn[name] = function (options) {
-            var isMethodCall = typeof options === "string";
-            var args = widgetSlice.call(arguments, 1);
-            var returnValue = this;
-
-            if (isMethodCall) {
-
-                // If this is an empty collection, we need to have the instance method
-                // return undefined instead of the jQuery instance
-                if (!this.length && options === "instance") {
-                    returnValue = undefined;
-                } else {
-                    this.each(function () {
-                        var methodValue;
-                        var instance = $.data(this, fullName);
-
-                        if (options === "instance") {
-                            returnValue = instance;
-                            return false;
-                        }
-
-                        if (!instance) {
-                            return $.error("cannot call methods on " + name +
-                                " prior to initialization; " +
-                                "attempted to call method '" + options + "'");
-                        }
-
-                        if (!$.isFunction(instance[options]) || options.charAt(0) === "_") {
-                            return $.error("no such method '" + options + "' for " + name +
-                                " widget instance");
-                        }
-
-                        methodValue = instance[options].apply(instance, args);
-
-                        if (methodValue !== instance && methodValue !== undefined) {
-                            returnValue = methodValue && methodValue.jquery ?
-                                returnValue.pushStack(methodValue.get()) :
-                                methodValue;
-                            return false;
-                        }
-                    });
-                }
-            } else {
-
-                // Allow multiple hashes to be passed on init
-                if (args.length) {
-                    options = $.widget.extend.apply(null, [options].concat(args));
-                }
-
-                this.each(function () {
-                    var instance = $.data(this, fullName);
-                    if (instance) {
-                        instance.option(options || {});
-                        if (instance._init) {
-                            instance._init();
-                        }
-                    } else {
-                        $.data(this, fullName, new object(options, this));
-                    }
-                });
-            }
-
-            return returnValue;
-        };
-    };
-
-    $.Widget = function ( /* options, element */) { };
-    $.Widget._childConstructors = [];
-
-    $.Widget.prototype = {
-        widgetName: "widget",
-        widgetEventPrefix: "",
-        defaultElement: "<div>",
-
-        options: {
-            classes: {},
-            disabled: false,
-
-            // Callbacks
-            create: null
-        },
-
-        _createWidget: function (options, element) {
-            element = $(element || this.defaultElement || this)[0];
-            this.element = $(element);
-            this.uuid = widgetUuid++;
-            this.eventNamespace = "." + this.widgetName + this.uuid;
-
-            this.bindings = $();
-            this.hoverable = $();
-            this.focusable = $();
-            this.classesElementLookup = {};
-
-            if (element !== this) {
-                $.data(element, this.widgetFullName, this);
-                this._on(true, this.element, {
-                    remove: function (event) {
-                        if (event.target === element) {
-                            this.destroy();
-                        }
-                    }
-                });
-                this.document = $(element.style ?
-
-                    // Element within the document
-                    element.ownerDocument :
-
-                    // Element is window or document
-                    element.document || element);
-                this.window = $(this.document[0].defaultView || this.document[0].parentWindow);
-            }
-
-            this.options = $.widget.extend({},
-                this.options,
-                this._getCreateOptions(),
-                options);
-
-            this._create();
-
-            if (this.options.disabled) {
-                this._setOptionDisabled(this.options.disabled);
-            }
-
-            this._trigger("create", null, this._getCreateEventData());
-            this._init();
-        },
-
-        _getCreateOptions: function () {
-            return {};
-        },
-
-        _getCreateEventData: $.noop,
-
-        _create: $.noop,
-
-        _init: $.noop,
-
-        destroy: function () {
-            var that = this;
-
-            this._destroy();
-            $.each(this.classesElementLookup, function (key, value) {
-                that._removeClass(value, key);
-            });
-
-            // We can probably remove the unbind calls in 2.0
-            // all event bindings should go through this._on()
-            this.element
-                .off(this.eventNamespace)
-                .removeData(this.widgetFullName);
-            this.widget()
-                .off(this.eventNamespace)
-                .removeAttr("aria-disabled");
-
-            // Clean up events and states
-            this.bindings.off(this.eventNamespace);
-        },
-
-        _destroy: $.noop,
-
-        widget: function () {
-            return this.element;
-        },
-
-        option: function (key, value) {
-            var options = key;
-            var parts;
-            var curOption;
-            var i;
-
-            if (arguments.length === 0) {
-
-                // Don't return a reference to the internal hash
-                return $.widget.extend({}, this.options);
-            }
-
-            if (typeof key === "string") {
-
-                // Handle nested keys, e.g., "foo.bar" => { foo: { bar: ___ } }
-                options = {};
-                parts = key.split(".");
-                key = parts.shift();
-                if (parts.length) {
-                    curOption = options[key] = $.widget.extend({}, this.options[key]);
-                    for (i = 0; i < parts.length - 1; i++) {
-                        curOption[parts[i]] = curOption[parts[i]] || {};
-                        curOption = curOption[parts[i]];
-                    }
-                    key = parts.pop();
-                    if (arguments.length === 1) {
-                        return curOption[key] === undefined ? null : curOption[key];
-                    }
-                    curOption[key] = value;
-                } else {
-                    if (arguments.length === 1) {
-                        return this.options[key] === undefined ? null : this.options[key];
-                    }
-                    options[key] = value;
-                }
-            }
-
-            this._setOptions(options);
-
-            return this;
-        },
-
-        _setOptions: function (options) {
-            var key;
-
-            for (key in options) {
-                this._setOption(key, options[key]);
-            }
-
-            return this;
-        },
-
-        _setOption: function (key, value) {
-            if (key === "classes") {
-                this._setOptionClasses(value);
-            }
-
-            this.options[key] = value;
-
-            if (key === "disabled") {
-                this._setOptionDisabled(value);
-            }
-
-            return this;
-        },
-
-        _setOptionClasses: function (value) {
-            var classKey, elements, currentElements;
-
-            for (classKey in value) {
-                currentElements = this.classesElementLookup[classKey];
-                if (value[classKey] === this.options.classes[classKey] ||
-                    !currentElements ||
-                    !currentElements.length) {
-                    continue;
-                }
-
-                // We are doing this to create a new jQuery object because the _removeClass() call
-                // on the next line is going to destroy the reference to the current elements being
-                // tracked. We need to save a copy of this collection so that we can add the new classes
-                // below.
-                elements = $(currentElements.get());
-                this._removeClass(currentElements, classKey);
-
-                // We don't use _addClass() here, because that uses this.options.classes
-                // for generating the string of classes. We want to use the value passed in from
-                // _setOption(), this is the new value of the classes option which was passed to
-                // _setOption(). We pass this value directly to _classes().
-                elements.addClass(this._classes({
-                    element: elements,
-                    keys: classKey,
-                    classes: value,
-                    add: true
-                }));
-            }
-        },
-
-        _setOptionDisabled: function (value) {
-            this._toggleClass(this.widget(), this.widgetFullName + "-disabled", null, !!value);
-
-            // If the widget is becoming disabled, then nothing is interactive
-            if (value) {
-                this._removeClass(this.hoverable, null, "ui-state-hover");
-                this._removeClass(this.focusable, null, "ui-state-focus");
-            }
-        },
-
-        enable: function () {
-            return this._setOptions({ disabled: false });
-        },
-
-        disable: function () {
-            return this._setOptions({ disabled: true });
-        },
-
-        _classes: function (options) {
-            var full = [];
-            var that = this;
-
-            options = $.extend({
-                element: this.element,
-                classes: this.options.classes || {}
-            }, options);
-
-            function processClassString(classes, checkOption) {
-                var current, i;
-                for (i = 0; i < classes.length; i++) {
-                    current = that.classesElementLookup[classes[i]] || $();
-                    if (options.add) {
-                        current = $($.unique(current.get().concat(options.element.get())));
-                    } else {
-                        current = $(current.not(options.element).get());
-                    }
-                    that.classesElementLookup[classes[i]] = current;
-                    full.push(classes[i]);
-                    if (checkOption && options.classes[classes[i]]) {
-                        full.push(options.classes[classes[i]]);
-                    }
-                }
-            }
-
-            this._on(options.element, {
-                "remove": "_untrackClassesElement"
-            });
-
-            if (options.keys) {
-                processClassString(options.keys.match(/\S+/g) || [], true);
-            }
-            if (options.extra) {
-                processClassString(options.extra.match(/\S+/g) || []);
-            }
-
-            return full.join(" ");
-        },
-
-        _untrackClassesElement: function (event) {
-            var that = this;
-            $.each(that.classesElementLookup, function (key, value) {
-                if ($.inArray(event.target, value) !== -1) {
-                    that.classesElementLookup[key] = $(value.not(event.target).get());
-                }
-            });
-        },
-
-        _removeClass: function (element, keys, extra) {
-            return this._toggleClass(element, keys, extra, false);
-        },
-
-        _addClass: function (element, keys, extra) {
-            return this._toggleClass(element, keys, extra, true);
-        },
-
-        _toggleClass: function (element, keys, extra, add) {
-            add = (typeof add === "boolean") ? add : extra;
-            var shift = (typeof element === "string" || element === null),
-                options = {
-                    extra: shift ? keys : extra,
-                    keys: shift ? element : keys,
-                    element: shift ? this.element : element,
-                    add: add
-                };
-            options.element.toggleClass(this._classes(options), add);
-            return this;
-        },
-
-        _on: function (suppressDisabledCheck, element, handlers) {
-            var delegateElement;
-            var instance = this;
-
-            // No suppressDisabledCheck flag, shuffle arguments
-            if (typeof suppressDisabledCheck !== "boolean") {
-                handlers = element;
-                element = suppressDisabledCheck;
-                suppressDisabledCheck = false;
-            }
-
-            // No element argument, shuffle and use this.element
-            if (!handlers) {
-                handlers = element;
-                element = this.element;
-                delegateElement = this.widget();
-            } else {
-                element = delegateElement = $(element);
-                this.bindings = this.bindings.add(element);
-            }
-
-            $.each(handlers, function (event, handler) {
-                function handlerProxy() {
-
-                    // Allow widgets to customize the disabled handling
-                    // - disabled as an array instead of boolean
-                    // - disabled class as method for disabling individual parts
-                    if (!suppressDisabledCheck &&
-                        (instance.options.disabled === true ||
-                            $(this).hasClass("ui-state-disabled"))) {
-                        return;
-                    }
-                    return (typeof handler === "string" ? instance[handler] : handler)
-                        .apply(instance, arguments);
-                }
-
-                // Copy the guid so direct unbinding works
-                if (typeof handler !== "string") {
-                    handlerProxy.guid = handler.guid =
-                        handler.guid || handlerProxy.guid || $.guid++;
-                }
-
-                var match = event.match(/^([\w:-]*)\s*(.*)$/);
-                var eventName = match[1] + instance.eventNamespace;
-                var selector = match[2];
-
-                if (selector) {
-                    delegateElement.on(eventName, selector, handlerProxy);
-                } else {
-                    element.on(eventName, handlerProxy);
-                }
-            });
-        },
-
-        _off: function (element, eventName) {
-            eventName = (eventName || "").split(" ").join(this.eventNamespace + " ") +
-                this.eventNamespace;
-            element.off(eventName).off(eventName);
-
-            // Clear the stack to avoid memory leaks (#10056)
-            this.bindings = $(this.bindings.not(element).get());
-            this.focusable = $(this.focusable.not(element).get());
-            this.hoverable = $(this.hoverable.not(element).get());
-        },
-
-        _delay: function (handler, delay) {
-            function handlerProxy() {
-                return (typeof handler === "string" ? instance[handler] : handler)
-                    .apply(instance, arguments);
-            }
-            var instance = this;
-            return setTimeout(handlerProxy, delay || 0);
-        },
-
-        _hoverable: function (element) {
-            this.hoverable = this.hoverable.add(element);
-            this._on(element, {
-                mouseenter: function (event) {
-                    this._addClass($(event.currentTarget), null, "ui-state-hover");
-                },
-                mouseleave: function (event) {
-                    this._removeClass($(event.currentTarget), null, "ui-state-hover");
-                }
-            });
-        },
-
-        _focusable: function (element) {
-            this.focusable = this.focusable.add(element);
-            this._on(element, {
-                focusin: function (event) {
-                    this._addClass($(event.currentTarget), null, "ui-state-focus");
-                },
-                focusout: function (event) {
-                    this._removeClass($(event.currentTarget), null, "ui-state-focus");
-                }
-            });
-        },
-
-        _trigger: function (type, event, data) {
-            var prop, orig;
-            var callback = this.options[type];
-
-            data = data || {};
-            event = $.Event(event);
-            event.type = (type === this.widgetEventPrefix ?
-                type :
-                this.widgetEventPrefix + type).toLowerCase();
-
-            // The original event may come from any element
-            // so we need to reset the target on the new event
-            event.target = this.element[0];
-
-            // Copy original event properties over to the new event
-            orig = event.originalEvent;
-            if (orig) {
-                for (prop in orig) {
-                    if (!(prop in event)) {
-                        event[prop] = orig[prop];
-                    }
-                }
-            }
-
-            this.element.trigger(event, data);
-            return !($.isFunction(callback) &&
-                callback.apply(this.element[0], [event].concat(data)) === false ||
-                event.isDefaultPrevented());
-        }
-    };
-
-    $.each({ show: "fadeIn", hide: "fadeOut" }, function (method, defaultEffect) {
-        $.Widget.prototype["_" + method] = function (element, options, callback) {
-            if (typeof options === "string") {
-                options = { effect: options };
-            }
-
-            var hasOptions;
-            var effectName = !options ?
-                method :
-                options === true || typeof options === "number" ?
-                    defaultEffect :
-                    options.effect || defaultEffect;
-
-            options = options || {};
-            if (typeof options === "number") {
-                options = { duration: options };
-            }
-
-            hasOptions = !$.isEmptyObject(options);
-            options.complete = callback;
-
-            if (options.delay) {
-                element.delay(options.delay);
-            }
-
-            if (hasOptions && $.effects && $.effects.effect[effectName]) {
-                element[method](options);
-            } else if (effectName !== method && element[effectName]) {
-                element[effectName](options.duration, options.easing, callback);
-            } else {
-                element.queue(function (next) {
-                    $(this)[method]();
-                    if (callback) {
-                        callback.call(element[0]);
-                    }
-                    next();
-                });
-            }
-        };
-    });
-
-    return $.widget;
-
-}));
 /*
- * JavaScript Templates
+ * JavaScript Templates 2.4.1
  * https://github.com/blueimp/JavaScript-Templates
  *
  * Copyright 2011, Sebastian Tschan
@@ -745,118 +12,1497 @@
  * http://ejohn.org/blog/javascript-micro-templating/
  */
 
-/*global document, define, module */
+/*jslint evil: true, regexp: true, unparam: true */
+/*global document, define */
 
-; (function ($) {
-    /*'use strict'*/
+(function ($) {
+    /*"use strict"*/;
     var tmpl = function (str, data) {
-        var f = !/[^\w\-\.:]/.test(str)
-          ? tmpl.cache[str] = tmpl.cache[str] || tmpl(tmpl.load(str))
-          : new Function(// eslint-disable-line no-new-func
-            tmpl.arg + ',tmpl',
-            'var _e=tmpl.encode' + tmpl.helper + ",_s='" +
-              str.replace(tmpl.regexp, tmpl.func) + "';return _s;"
-          )
+        var f = !/[^\w\-\.:]/.test(str) ? tmpl.cache[str] = tmpl.cache[str] ||
+                tmpl(tmpl.load(str)) :
+                    new Function(
+                        tmpl.arg + ',tmpl',
+                        "var _e=tmpl.encode" + tmpl.helper + ",_s='" +
+                            str.replace(tmpl.regexp, tmpl.func) +
+                            "';return _s;"
+                    );
         return data ? f(data, tmpl) : function (data) {
-            return f(data, tmpl)
-        }
-    }
-    tmpl.cache = {}
+            return f(data, tmpl);
+        };
+    };
+    tmpl.cache = {};
     tmpl.load = function (id) {
-        return document.getElementById(id).innerHTML
-    }
-    tmpl.regexp = /([\s'\\])(?!(?:[^{]|\{(?!%))*%\})|(?:\{%(=|#)([\s\S]+?)%\})|(\{%)|(%\})/g
+        return document.getElementById(id).innerHTML;
+    };
+    tmpl.regexp = /([\s'\\])(?!(?:[^{]|\{(?!%))*%\})|(?:\{%(=|#)([\s\S]+?)%\})|(\{%)|(%\})/g;
     tmpl.func = function (s, p1, p2, p3, p4, p5) {
         if (p1) { // whitespace, quote and backspace in HTML context
             return {
-                '\n': '\\n',
-                '\r': '\\r',
-                '\t': '\\t',
-                ' ': ' '
-            }[p1] || '\\' + p1
+                "\n": "\\n",
+                "\r": "\\r",
+                "\t": "\\t",
+                " ": " "
+            }[p1] || "\\" + p1;
         }
         if (p2) { // interpolation: {%=prop%}, or unescaped: {%#prop%}
-            if (p2 === '=') {
-                return "'+_e(" + p3 + ")+'"
+            if (p2 === "=") {
+                return "'+_e(" + p3 + ")+'";
             }
-            return "'+(" + p3 + "==null?'':" + p3 + ")+'"
+            return "'+(" + p3 + "==null?'':" + p3 + ")+'";
         }
         if (p4) { // evaluation start tag: {%
-            return "';"
+            return "';";
         }
         if (p5) { // evaluation end tag: %}
-            return "_s+='"
+            return "_s+='";
         }
-    }
-    tmpl.encReg = /[<>&"'\x00]/g
+    };
+    tmpl.encReg = /[<>&"'\x00]/g;
     tmpl.encMap = {
-        '<': '&lt;',
-        '>': '&gt;',
-        '&': '&amp;',
-        '"': '&quot;',
-        "'": '&#39;'
-    }
+        "<": "&lt;",
+        ">": "&gt;",
+        "&": "&amp;",
+        "\"": "&quot;",
+        "'": "&#39;"
+    };
     tmpl.encode = function (s) {
-        return (s == null ? '' : '' + s).replace(
-          tmpl.encReg,
-          function (c) {
-              return tmpl.encMap[c] || ''
-          }
-        )
-    }
-    tmpl.arg = 'o'
+        /*jshint eqnull:true */
+        return (s == null ? "" : "" + s).replace(
+            tmpl.encReg,
+            function (c) {
+                return tmpl.encMap[c] || "";
+            }
+        );
+    };
+    tmpl.arg = "o";
     tmpl.helper = ",print=function(s,e){_s+=e?(s==null?'':s):_e(s);}" +
-                    ',include=function(s,d){_s+=tmpl(s,d);}'
+        ",include=function(s,d){_s+=tmpl(s,d);}";
+    if (typeof define === "function" && define.amd) {
+        define(function () {
+            return tmpl;
+        });
+    } else {
+        $.tmpl = tmpl;
+    }
+}(this));
+/*jslint nomen: true */
+/*global define, window, document, URL, webkitURL, Blob, File, FileReader */
+
+(function ($) {
+    /*'use strict';*/
+
+    // Loads an image for a given File object.
+    // Invokes the callback with an img or optional canvas
+    // element (if supported by the browser) as parameter:
+    var loadImage = function (file, callback, options) {
+        var img = document.createElement('img'),
+            url,
+            oUrl;
+        img.onerror = callback;
+        img.onload = function () {
+            if (oUrl && !(options && options.noRevoke)) {
+                loadImage.revokeObjectURL(oUrl);
+            }
+            if (callback) {
+                callback(loadImage.scale(img, options));
+            }
+        };
+        if (loadImage.isInstanceOf('Blob', file) ||
+            // Files are also Blob instances, but some browsers
+            // (Firefox 3.6) support the File API but not Blobs:
+                loadImage.isInstanceOf('File', file)) {
+            url = oUrl = loadImage.createObjectURL(file);
+            // Store the file type for resize processing:
+            img._type = file.type;
+        } else if (typeof file === 'string') {
+            url = file;
+            if (options && options.crossOrigin) {
+                img.crossOrigin = options.crossOrigin;
+            }
+        } else {
+            return false;
+        }
+        if (url) {
+            img.src = url;
+            return img;
+        }
+        return loadImage.readFile(file, function (e) {
+            var target = e.target;
+            if (target && target.result) {
+                img.src = target.result;
+            } else {
+                if (callback) {
+                    callback(e);
+                }
+            }
+        });
+    },
+        // The check for URL.revokeObjectURL fixes an issue with Opera 12,
+        // which provides URL.createObjectURL but doesn't properly implement it:
+        urlAPI = (window.createObjectURL && window) ||
+            (window.URL && URL.revokeObjectURL && URL) ||
+            (window.webkitURL && webkitURL);
+
+    loadImage.isInstanceOf = function (type, obj) {
+        // Cross-frame instanceof check
+        return Object.prototype.toString.call(obj) === '[object ' + type + ']';
+    };
+
+    // Transform image coordinates, allows to override e.g.
+    // the canvas orientation based on the orientation option,
+    // gets canvas, options passed as arguments:
+    loadImage.transformCoordinates = function () {
+        return;
+    };
+
+    // Returns transformed options, allows to override e.g.
+    // maxWidth, maxHeight and crop options based on the aspectRatio.
+    // gets img, options passed as arguments:
+    loadImage.getTransformedOptions = function (img, options) {
+        var aspectRatio = options.aspectRatio,
+            newOptions,
+            i,
+            width,
+            height;
+        if (!aspectRatio) {
+            return options;
+        }
+        newOptions = {};
+        for (i in options) {
+            if (options.hasOwnProperty(i)) {
+                newOptions[i] = options[i];
+            }
+        }
+        newOptions.crop = true;
+        width = img.naturalWidth || img.width;
+        height = img.naturalHeight || img.height;
+        if (width / height > aspectRatio) {
+            newOptions.maxWidth = height * aspectRatio;
+            newOptions.maxHeight = height;
+        } else {
+            newOptions.maxWidth = width;
+            newOptions.maxHeight = width / aspectRatio;
+        }
+        return newOptions;
+    };
+
+    // Canvas render method, allows to override the
+    // rendering e.g. to work around issues on iOS:
+    loadImage.renderImageToCanvas = function (
+        canvas,
+        img,
+        sourceX,
+        sourceY,
+        sourceWidth,
+        sourceHeight,
+        destX,
+        destY,
+        destWidth,
+        destHeight
+    ) {
+        canvas.getContext('2d').drawImage(
+            img,
+            sourceX,
+            sourceY,
+            sourceWidth,
+            sourceHeight,
+            destX,
+            destY,
+            destWidth,
+            destHeight
+        );
+        return canvas;
+    };
+
+    // This method is used to determine if the target image
+    // should be a canvas element:
+    loadImage.hasCanvasOption = function (options) {
+        return options.canvas || options.crop || options.aspectRatio;
+    };
+
+    // Scales and/or crops the given image (img or canvas HTML element)
+    // using the given options.
+    // Returns a canvas object if the browser supports canvas
+    // and the hasCanvasOption method returns true or a canvas
+    // object is passed as image, else the scaled image:
+    loadImage.scale = function (img, options) {
+        options = options || {};
+        var canvas = document.createElement('canvas'),
+            useCanvas = img.getContext ||
+                (loadImage.hasCanvasOption(options) && canvas.getContext),
+            width = img.naturalWidth || img.width,
+            height = img.naturalHeight || img.height,
+            destWidth = width,
+            destHeight = height,
+            maxWidth,
+            maxHeight,
+            minWidth,
+            minHeight,
+            sourceWidth,
+            sourceHeight,
+            sourceX,
+            sourceY,
+            tmp,
+            scaleUp = function () {
+                var scale = Math.max(
+                    (minWidth || destWidth) / destWidth,
+                    (minHeight || destHeight) / destHeight
+                );
+                if (scale > 1) {
+                    destWidth = destWidth * scale;
+                    destHeight = destHeight * scale;
+                }
+            },
+            scaleDown = function () {
+                var scale = Math.min(
+                    (maxWidth || destWidth) / destWidth,
+                    (maxHeight || destHeight) / destHeight
+                );
+                if (scale < 1) {
+                    destWidth = destWidth * scale;
+                    destHeight = destHeight * scale;
+                }
+            };
+        if (useCanvas) {
+            options = loadImage.getTransformedOptions(img, options);
+            sourceX = options.left || 0;
+            sourceY = options.top || 0;
+            if (options.sourceWidth) {
+                sourceWidth = options.sourceWidth;
+                if (options.right !== undefined && options.left === undefined) {
+                    sourceX = width - sourceWidth - options.right;
+                }
+            } else {
+                sourceWidth = width - sourceX - (options.right || 0);
+            }
+            if (options.sourceHeight) {
+                sourceHeight = options.sourceHeight;
+                if (options.bottom !== undefined && options.top === undefined) {
+                    sourceY = height - sourceHeight - options.bottom;
+                }
+            } else {
+                sourceHeight = height - sourceY - (options.bottom || 0);
+            }
+            destWidth = sourceWidth;
+            destHeight = sourceHeight;
+        }
+        maxWidth = options.maxWidth;
+        maxHeight = options.maxHeight;
+        minWidth = options.minWidth;
+        minHeight = options.minHeight;
+        if (useCanvas && maxWidth && maxHeight && options.crop) {
+            destWidth = maxWidth;
+            destHeight = maxHeight;
+            tmp = sourceWidth / sourceHeight - maxWidth / maxHeight;
+            if (tmp < 0) {
+                sourceHeight = maxHeight * sourceWidth / maxWidth;
+                if (options.top === undefined && options.bottom === undefined) {
+                    sourceY = (height - sourceHeight) / 2;
+                }
+            } else if (tmp > 0) {
+                sourceWidth = maxWidth * sourceHeight / maxHeight;
+                if (options.left === undefined && options.right === undefined) {
+                    sourceX = (width - sourceWidth) / 2;
+                }
+            }
+        } else {
+            if (options.contain || options.cover) {
+                minWidth = maxWidth = maxWidth || minWidth;
+                minHeight = maxHeight = maxHeight || minHeight;
+            }
+            if (options.cover) {
+                scaleDown();
+                scaleUp();
+            } else {
+                scaleUp();
+                scaleDown();
+            }
+        }
+        if (useCanvas) {
+            canvas.width = destWidth;
+            canvas.height = destHeight;
+            loadImage.transformCoordinates(
+                canvas,
+                options
+            );
+            return loadImage.renderImageToCanvas(
+                canvas,
+                img,
+                sourceX,
+                sourceY,
+                sourceWidth,
+                sourceHeight,
+                0,
+                0,
+                destWidth,
+                destHeight
+            );
+        }
+        img.width = destWidth;
+        img.height = destHeight;
+        return img;
+    };
+
+    loadImage.createObjectURL = function (file) {
+        return urlAPI ? urlAPI.createObjectURL(file) : false;
+    };
+
+    loadImage.revokeObjectURL = function (url) {
+        return urlAPI ? urlAPI.revokeObjectURL(url) : false;
+    };
+
+    // Loads a given File object via FileReader interface,
+    // invokes the callback with the event object (load or error).
+    // The result can be read via event.target.result:
+    loadImage.readFile = function (file, callback, method) {
+        if (window.FileReader) {
+            var fileReader = new FileReader();
+            fileReader.onload = fileReader.onerror = callback;
+            method = method || 'readAsDataURL';
+            if (fileReader[method]) {
+                fileReader[method](file);
+                return fileReader;
+            }
+        }
+        return false;
+    };
+
     if (typeof define === 'function' && define.amd) {
         define(function () {
-            return tmpl
-        })
-    } else if (typeof module === 'object' && module.exports) {
-        module.exports = tmpl
+            return loadImage;
+        });
     } else {
-        $.tmpl = tmpl
+        $.loadImage = loadImage;
     }
-}(this))
-!function (e) { "use strict"; var t = function (e, i, a) { var o, r, n = document.createElement("img"); if (n.onerror = i, n.onload = function () { !r || a && a.noRevoke || t.revokeObjectURL(r), i && i(t.scale(n, a)) }, t.isInstanceOf("Blob", e) || t.isInstanceOf("File", e)) o = r = t.createObjectURL(e), n._type = e.type; else { if ("string" != typeof e) return !1; o = e, a && a.crossOrigin && (n.crossOrigin = a.crossOrigin) } return o ? (n.src = o, n) : t.readFile(e, function (e) { var t = e.target; t && t.result ? n.src = t.result : i && i(e) }) }, i = window.createObjectURL && window || window.URL && URL.revokeObjectURL && URL || window.webkitURL && webkitURL; t.isInstanceOf = function (e, t) { return Object.prototype.toString.call(t) === "[object " + e + "]" }, t.transformCoordinates = function () { }, t.getTransformedOptions = function (e, t) { var i, a, o, r, n = t.aspectRatio; if (!n) return t; i = {}; for (a in t) t.hasOwnProperty(a) && (i[a] = t[a]); return i.crop = !0, o = e.naturalWidth || e.width, r = e.naturalHeight || e.height, o / r > n ? (i.maxWidth = r * n, i.maxHeight = r) : (i.maxWidth = o, i.maxHeight = o / n), i }, t.renderImageToCanvas = function (e, t, i, a, o, r, n, s, l, d) { return e.getContext("2d").drawImage(t, i, a, o, r, n, s, l, d), e }, t.hasCanvasOption = function (e) { return e.canvas || e.crop || !!e.aspectRatio }, t.scale = function (e, i) { function a() { var e = Math.max((s || y) / y, (l || v) / v); e > 1 && (y *= e, v *= e) } function o() { var e = Math.min((r || y) / y, (n || v) / v); 1 > e && (y *= e, v *= e) } i = i || {}; var r, n, s, l, d, u, c, g, f, h, m, p = document.createElement("canvas"), S = e.getContext || t.hasCanvasOption(i) && p.getContext, b = e.naturalWidth || e.width, x = e.naturalHeight || e.height, y = b, v = x; if (S && (i = t.getTransformedOptions(e, i), c = i.left || 0, g = i.top || 0, i.sourceWidth ? (d = i.sourceWidth, void 0 !== i.right && void 0 === i.left && (c = b - d - i.right)) : d = b - c - (i.right || 0), i.sourceHeight ? (u = i.sourceHeight, void 0 !== i.bottom && void 0 === i.top && (g = x - u - i.bottom)) : u = x - g - (i.bottom || 0), y = d, v = u), r = i.maxWidth, n = i.maxHeight, s = i.minWidth, l = i.minHeight, S && r && n && i.crop ? (y = r, v = n, m = d / u - r / n, 0 > m ? (u = n * d / r, void 0 === i.top && void 0 === i.bottom && (g = (x - u) / 2)) : m > 0 && (d = r * u / n, void 0 === i.left && void 0 === i.right && (c = (b - d) / 2))) : ((i.contain || i.cover) && (s = r = r || s, l = n = n || l), i.cover ? (o(), a()) : (a(), o())), S) { if (f = i.pixelRatio, f > 1 && (p.style.width = y + "px", p.style.height = v + "px", y *= f, v *= f, p.getContext("2d").scale(f, f)), h = i.downsamplingRatio, h > 0 && 1 > h && d > y && u > v) for (; d * h > y;) p.width = d * h, p.height = u * h, t.renderImageToCanvas(p, e, c, g, d, u, 0, 0, p.width, p.height), d = p.width, u = p.height, e = document.createElement("canvas"), e.width = d, e.height = u, t.renderImageToCanvas(e, p, 0, 0, d, u, 0, 0, d, u); return p.width = y, p.height = v, t.transformCoordinates(p, i), t.renderImageToCanvas(p, e, c, g, d, u, 0, 0, y, v) } return e.width = y, e.height = v, e }, t.createObjectURL = function (e) { return i ? i.createObjectURL(e) : !1 }, t.revokeObjectURL = function (e) { return i ? i.revokeObjectURL(e) : !1 }, t.readFile = function (e, t, i) { if (window.FileReader) { var a = new FileReader; if (a.onload = a.onerror = t, i = i || "readAsDataURL", a[i]) return a[i](e), a } return !1 }, "function" == typeof define && define.amd ? define(function () { return t }) : "object" == typeof module && module.exports ? module.exports = t : e.loadImage = t }(window), function (e) { "use strict"; "function" == typeof define && define.amd ? define(["./load-image"], e) : e("object" == typeof module && module.exports ? require("./load-image") : window.loadImage) }(function (e) { "use strict"; var t = e.hasCanvasOption, i = e.transformCoordinates, a = e.getTransformedOptions; e.hasCanvasOption = function (i) { return !!i.orientation || t.call(e, i) }, e.transformCoordinates = function (t, a) { i.call(e, t, a); var o = t.getContext("2d"), r = t.width, n = t.height, s = t.style.width, l = t.style.height, d = a.orientation; if (d && !(d > 8)) switch (d > 4 && (t.width = n, t.height = r, t.style.width = l, t.style.height = s), d) { case 2: o.translate(r, 0), o.scale(-1, 1); break; case 3: o.translate(r, n), o.rotate(Math.PI); break; case 4: o.translate(0, n), o.scale(1, -1); break; case 5: o.rotate(.5 * Math.PI), o.scale(1, -1); break; case 6: o.rotate(.5 * Math.PI), o.translate(0, -n); break; case 7: o.rotate(.5 * Math.PI), o.translate(r, -n), o.scale(-1, 1); break; case 8: o.rotate(-.5 * Math.PI), o.translate(-r, 0) } }, e.getTransformedOptions = function (t, i) { var o, r, n = a.call(e, t, i), s = n.orientation; if (!s || s > 8 || 1 === s) return n; o = {}; for (r in n) n.hasOwnProperty(r) && (o[r] = n[r]); switch (n.orientation) { case 2: o.left = n.right, o.right = n.left; break; case 3: o.left = n.right, o.top = n.bottom, o.right = n.left, o.bottom = n.top; break; case 4: o.top = n.bottom, o.bottom = n.top; break; case 5: o.left = n.top, o.top = n.left, o.right = n.bottom, o.bottom = n.right; break; case 6: o.left = n.top, o.top = n.right, o.right = n.bottom, o.bottom = n.left; break; case 7: o.left = n.bottom, o.top = n.right, o.right = n.top, o.bottom = n.left; break; case 8: o.left = n.bottom, o.top = n.left, o.right = n.top, o.bottom = n.right } return n.orientation > 4 && (o.maxWidth = n.maxHeight, o.maxHeight = n.maxWidth, o.minWidth = n.minHeight, o.minHeight = n.minWidth, o.sourceWidth = n.sourceHeight, o.sourceHeight = n.sourceWidth), o } }), function (e) { "use strict"; "function" == typeof define && define.amd ? define(["./load-image"], e) : e("object" == typeof module && module.exports ? require("./load-image") : window.loadImage) }(function (e) { "use strict"; var t = window.Blob && (Blob.prototype.slice || Blob.prototype.webkitSlice || Blob.prototype.mozSlice); e.blobSlice = t && function () { var e = this.slice || this.webkitSlice || this.mozSlice; return e.apply(this, arguments) }, e.metaDataParsers = { jpeg: { 65505: [] } }, e.parseMetaData = function (t, i, a) { a = a || {}; var o = this, r = a.maxMetaDataSize || 262144, n = {}, s = !(window.DataView && t && t.size >= 12 && "image/jpeg" === t.type && e.blobSlice); (s || !e.readFile(e.blobSlice.call(t, 0, r), function (t) { if (t.target.error) return console.log(t.target.error), void i(n); var r, s, l, d, u = t.target.result, c = new DataView(u), g = 2, f = c.byteLength - 4, h = g; if (65496 === c.getUint16(0)) { for (; f > g && (r = c.getUint16(g), r >= 65504 && 65519 >= r || 65534 === r) ;) { if (s = c.getUint16(g + 2) + 2, g + s > c.byteLength) { console.log("Invalid meta data: Invalid segment size."); break } if (l = e.metaDataParsers.jpeg[r]) for (d = 0; d < l.length; d += 1) l[d].call(o, c, g, s, n, a); g += s, h = g } !a.disableImageHead && h > 6 && (u.slice ? n.imageHead = u.slice(0, h) : n.imageHead = new Uint8Array(u).subarray(0, h)) } else console.log("Invalid JPEG file: Missing JPEG marker."); i(n) }, "readAsArrayBuffer")) && i(n) } }), function (e) { "use strict"; "function" == typeof define && define.amd ? define(["./load-image", "./load-image-meta"], e) : "object" == typeof module && module.exports ? e(require("./load-image"), require("./load-image-meta")) : e(window.loadImage) }(function (e) { "use strict"; e.ExifMap = function () { return this }, e.ExifMap.prototype.map = { Orientation: 274 }, e.ExifMap.prototype.get = function (e) { return this[e] || this[this.map[e]] }, e.getExifThumbnail = function (e, t, i) { var a, o, r; if (!i || t + i > e.byteLength) return void console.log("Invalid Exif data: Invalid thumbnail data."); for (a = [], o = 0; i > o; o += 1) r = e.getUint8(t + o), a.push((16 > r ? "0" : "") + r.toString(16)); return "data:image/jpeg,%" + a.join("%") }, e.exifTagTypes = { 1: { getValue: function (e, t) { return e.getUint8(t) }, size: 1 }, 2: { getValue: function (e, t) { return String.fromCharCode(e.getUint8(t)) }, size: 1, ascii: !0 }, 3: { getValue: function (e, t, i) { return e.getUint16(t, i) }, size: 2 }, 4: { getValue: function (e, t, i) { return e.getUint32(t, i) }, size: 4 }, 5: { getValue: function (e, t, i) { return e.getUint32(t, i) / e.getUint32(t + 4, i) }, size: 8 }, 9: { getValue: function (e, t, i) { return e.getInt32(t, i) }, size: 4 }, 10: { getValue: function (e, t, i) { return e.getInt32(t, i) / e.getInt32(t + 4, i) }, size: 8 } }, e.exifTagTypes[7] = e.exifTagTypes[1], e.getExifValue = function (t, i, a, o, r, n) { var s, l, d, u, c, g, f = e.exifTagTypes[o]; if (!f) return void console.log("Invalid Exif data: Invalid tag type."); if (s = f.size * r, l = s > 4 ? i + t.getUint32(a + 8, n) : a + 8, l + s > t.byteLength) return void console.log("Invalid Exif data: Invalid data offset."); if (1 === r) return f.getValue(t, l, n); for (d = [], u = 0; r > u; u += 1) d[u] = f.getValue(t, l + u * f.size, n); if (f.ascii) { for (c = "", u = 0; u < d.length && (g = d[u], "\x00" !== g) ; u += 1) c += g; return c } return d }, e.parseExifTag = function (t, i, a, o, r) { var n = t.getUint16(a, o); r.exif[n] = e.getExifValue(t, i, a, t.getUint16(a + 2, o), t.getUint32(a + 4, o), o) }, e.parseExifTags = function (e, t, i, a, o) { var r, n, s; if (i + 6 > e.byteLength) return void console.log("Invalid Exif data: Invalid directory offset."); if (r = e.getUint16(i, a), n = i + 2 + 12 * r, n + 4 > e.byteLength) return void console.log("Invalid Exif data: Invalid directory size."); for (s = 0; r > s; s += 1) this.parseExifTag(e, t, i + 2 + 12 * s, a, o); return e.getUint32(n, a) }, e.parseExifData = function (t, i, a, o, r) { if (!r.disableExif) { var n, s, l, d = i + 10; if (1165519206 === t.getUint32(i + 4)) { if (d + 8 > t.byteLength) return void console.log("Invalid Exif data: Invalid segment size."); if (0 !== t.getUint16(i + 8)) return void console.log("Invalid Exif data: Missing byte alignment offset."); switch (t.getUint16(d)) { case 18761: n = !0; break; case 19789: n = !1; break; default: return void console.log("Invalid Exif data: Invalid byte alignment marker.") } if (42 !== t.getUint16(d + 2, n)) return void console.log("Invalid Exif data: Missing TIFF marker."); s = t.getUint32(d + 4, n), o.exif = new e.ExifMap, s = e.parseExifTags(t, d, d + s, n, o), s && !r.disableExifThumbnail && (l = { exif: {} }, s = e.parseExifTags(t, d, d + s, n, l), l.exif[513] && (o.exif.Thumbnail = e.getExifThumbnail(t, d + l.exif[513], l.exif[514]))), o.exif[34665] && !r.disableExifSub && e.parseExifTags(t, d, d + o.exif[34665], n, o), o.exif[34853] && !r.disableExifGps && e.parseExifTags(t, d, d + o.exif[34853], n, o) } } }, e.metaDataParsers.jpeg[65505].push(e.parseExifData) }), function (e) { "use strict"; "function" == typeof define && define.amd ? define(["./load-image", "./load-image-exif"], e) : "object" == typeof module && module.exports ? e(require("./load-image"), require("./load-image-exif")) : e(window.loadImage) }(function (e) { "use strict"; e.ExifMap.prototype.tags = { 256: "ImageWidth", 257: "ImageHeight", 34665: "ExifIFDPointer", 34853: "GPSInfoIFDPointer", 40965: "InteroperabilityIFDPointer", 258: "BitsPerSample", 259: "Compression", 262: "PhotometricInterpretation", 274: "Orientation", 277: "SamplesPerPixel", 284: "PlanarConfiguration", 530: "YCbCrSubSampling", 531: "YCbCrPositioning", 282: "XResolution", 283: "YResolution", 296: "ResolutionUnit", 273: "StripOffsets", 278: "RowsPerStrip", 279: "StripByteCounts", 513: "JPEGInterchangeFormat", 514: "JPEGInterchangeFormatLength", 301: "TransferFunction", 318: "WhitePoint", 319: "PrimaryChromaticities", 529: "YCbCrCoefficients", 532: "ReferenceBlackWhite", 306: "DateTime", 270: "ImageDescription", 271: "Make", 272: "Model", 305: "Software", 315: "Artist", 33432: "Copyright", 36864: "ExifVersion", 40960: "FlashpixVersion", 40961: "ColorSpace", 40962: "PixelXDimension", 40963: "PixelYDimension", 42240: "Gamma", 37121: "ComponentsConfiguration", 37122: "CompressedBitsPerPixel", 37500: "MakerNote", 37510: "UserComment", 40964: "RelatedSoundFile", 36867: "DateTimeOriginal", 36868: "DateTimeDigitized", 37520: "SubSecTime", 37521: "SubSecTimeOriginal", 37522: "SubSecTimeDigitized", 33434: "ExposureTime", 33437: "FNumber", 34850: "ExposureProgram", 34852: "SpectralSensitivity", 34855: "PhotographicSensitivity", 34856: "OECF", 34864: "SensitivityType", 34865: "StandardOutputSensitivity", 34866: "RecommendedExposureIndex", 34867: "ISOSpeed", 34868: "ISOSpeedLatitudeyyy", 34869: "ISOSpeedLatitudezzz", 37377: "ShutterSpeedValue", 37378: "ApertureValue", 37379: "BrightnessValue", 37380: "ExposureBias", 37381: "MaxApertureValue", 37382: "SubjectDistance", 37383: "MeteringMode", 37384: "LightSource", 37385: "Flash", 37396: "SubjectArea", 37386: "FocalLength", 41483: "FlashEnergy", 41484: "SpatialFrequencyResponse", 41486: "FocalPlaneXResolution", 41487: "FocalPlaneYResolution", 41488: "FocalPlaneResolutionUnit", 41492: "SubjectLocation", 41493: "ExposureIndex", 41495: "SensingMethod", 41728: "FileSource", 41729: "SceneType", 41730: "CFAPattern", 41985: "CustomRendered", 41986: "ExposureMode", 41987: "WhiteBalance", 41988: "DigitalZoomRatio", 41989: "FocalLengthIn35mmFilm", 41990: "SceneCaptureType", 41991: "GainControl", 41992: "Contrast", 41993: "Saturation", 41994: "Sharpness", 41995: "DeviceSettingDescription", 41996: "SubjectDistanceRange", 42016: "ImageUniqueID", 42032: "CameraOwnerName", 42033: "BodySerialNumber", 42034: "LensSpecification", 42035: "LensMake", 42036: "LensModel", 42037: "LensSerialNumber", 0: "GPSVersionID", 1: "GPSLatitudeRef", 2: "GPSLatitude", 3: "GPSLongitudeRef", 4: "GPSLongitude", 5: "GPSAltitudeRef", 6: "GPSAltitude", 7: "GPSTimeStamp", 8: "GPSSatellites", 9: "GPSStatus", 10: "GPSMeasureMode", 11: "GPSDOP", 12: "GPSSpeedRef", 13: "GPSSpeed", 14: "GPSTrackRef", 15: "GPSTrack", 16: "GPSImgDirectionRef", 17: "GPSImgDirection", 18: "GPSMapDatum", 19: "GPSDestLatitudeRef", 20: "GPSDestLatitude", 21: "GPSDestLongitudeRef", 22: "GPSDestLongitude", 23: "GPSDestBearingRef", 24: "GPSDestBearing", 25: "GPSDestDistanceRef", 26: "GPSDestDistance", 27: "GPSProcessingMethod", 28: "GPSAreaInformation", 29: "GPSDateStamp", 30: "GPSDifferential", 31: "GPSHPositioningError" }, e.ExifMap.prototype.stringValues = { ExposureProgram: { 0: "Undefined", 1: "Manual", 2: "Normal program", 3: "Aperture priority", 4: "Shutter priority", 5: "Creative program", 6: "Action program", 7: "Portrait mode", 8: "Landscape mode" }, MeteringMode: { 0: "Unknown", 1: "Average", 2: "CenterWeightedAverage", 3: "Spot", 4: "MultiSpot", 5: "Pattern", 6: "Partial", 255: "Other" }, LightSource: { 0: "Unknown", 1: "Daylight", 2: "Fluorescent", 3: "Tungsten (incandescent light)", 4: "Flash", 9: "Fine weather", 10: "Cloudy weather", 11: "Shade", 12: "Daylight fluorescent (D 5700 - 7100K)", 13: "Day white fluorescent (N 4600 - 5400K)", 14: "Cool white fluorescent (W 3900 - 4500K)", 15: "White fluorescent (WW 3200 - 3700K)", 17: "Standard light A", 18: "Standard light B", 19: "Standard light C", 20: "D55", 21: "D65", 22: "D75", 23: "D50", 24: "ISO studio tungsten", 255: "Other" }, Flash: { 0: "Flash did not fire", 1: "Flash fired", 5: "Strobe return light not detected", 7: "Strobe return light detected", 9: "Flash fired, compulsory flash mode", 13: "Flash fired, compulsory flash mode, return light not detected", 15: "Flash fired, compulsory flash mode, return light detected", 16: "Flash did not fire, compulsory flash mode", 24: "Flash did not fire, auto mode", 25: "Flash fired, auto mode", 29: "Flash fired, auto mode, return light not detected", 31: "Flash fired, auto mode, return light detected", 32: "No flash function", 65: "Flash fired, red-eye reduction mode", 69: "Flash fired, red-eye reduction mode, return light not detected", 71: "Flash fired, red-eye reduction mode, return light detected", 73: "Flash fired, compulsory flash mode, red-eye reduction mode", 77: "Flash fired, compulsory flash mode, red-eye reduction mode, return light not detected", 79: "Flash fired, compulsory flash mode, red-eye reduction mode, return light detected", 89: "Flash fired, auto mode, red-eye reduction mode", 93: "Flash fired, auto mode, return light not detected, red-eye reduction mode", 95: "Flash fired, auto mode, return light detected, red-eye reduction mode" }, SensingMethod: { 1: "Undefined", 2: "One-chip color area sensor", 3: "Two-chip color area sensor", 4: "Three-chip color area sensor", 5: "Color sequential area sensor", 7: "Trilinear sensor", 8: "Color sequential linear sensor" }, SceneCaptureType: { 0: "Standard", 1: "Landscape", 2: "Portrait", 3: "Night scene" }, SceneType: { 1: "Directly photographed" }, CustomRendered: { 0: "Normal process", 1: "Custom process" }, WhiteBalance: { 0: "Auto white balance", 1: "Manual white balance" }, GainControl: { 0: "None", 1: "Low gain up", 2: "High gain up", 3: "Low gain down", 4: "High gain down" }, Contrast: { 0: "Normal", 1: "Soft", 2: "Hard" }, Saturation: { 0: "Normal", 1: "Low saturation", 2: "High saturation" }, Sharpness: { 0: "Normal", 1: "Soft", 2: "Hard" }, SubjectDistanceRange: { 0: "Unknown", 1: "Macro", 2: "Close view", 3: "Distant view" }, FileSource: { 3: "DSC" }, ComponentsConfiguration: { 0: "", 1: "Y", 2: "Cb", 3: "Cr", 4: "R", 5: "G", 6: "B" }, Orientation: { 1: "top-left", 2: "top-right", 3: "bottom-right", 4: "bottom-left", 5: "left-top", 6: "right-top", 7: "right-bottom", 8: "left-bottom" } }, e.ExifMap.prototype.getText = function (e) { var t = this.get(e); switch (e) { case "LightSource": case "Flash": case "MeteringMode": case "ExposureProgram": case "SensingMethod": case "SceneCaptureType": case "SceneType": case "CustomRendered": case "WhiteBalance": case "GainControl": case "Contrast": case "Saturation": case "Sharpness": case "SubjectDistanceRange": case "FileSource": case "Orientation": return this.stringValues[e][t]; case "ExifVersion": case "FlashpixVersion": return String.fromCharCode(t[0], t[1], t[2], t[3]); case "ComponentsConfiguration": return this.stringValues[e][t[0]] + this.stringValues[e][t[1]] + this.stringValues[e][t[2]] + this.stringValues[e][t[3]]; case "GPSVersionID": return t[0] + "." + t[1] + "." + t[2] + "." + t[3] } return String(t) }, function (e) { var t, i = e.tags, a = e.map; for (t in i) i.hasOwnProperty(t) && (a[i[t]] = t) }(e.ExifMap.prototype), e.ExifMap.prototype.getAll = function () { var e, t, i = {}; for (e in this) this.hasOwnProperty(e) && (t = this.tags[e], t && (i[t] = this.getText(t))); return i } });
+}(this));
 
+(function (factory) {
+    /*'use strict';*/
+    if (typeof define === 'function' && define.amd) {
+        // Register as an anonymous AMD module:
+        define(['load-image'], factory);
+    } else {
+        // Browser globals:
+        factory(window.loadImage);
+    }
+}(function (loadImage) {
+    /*'use strict';*/
+
+    // Only apply fixes on the iOS platform:
+    if (!window.navigator || !window.navigator.platform ||
+             !(/iP(hone|od|ad)/).test(window.navigator.platform)) {
+        return;
+    }
+
+    var originalRenderMethod = loadImage.renderImageToCanvas;
+
+    // Detects subsampling in JPEG images:
+    loadImage.detectSubsampling = function (img) {
+        var canvas,
+            context;
+        if (img.width * img.height > 1024 * 1024) { // only consider mexapixel images
+            canvas = document.createElement('canvas');
+            canvas.width = canvas.height = 1;
+            context = canvas.getContext('2d');
+            context.drawImage(img, -img.width + 1, 0);
+            // subsampled image becomes half smaller in rendering size.
+            // check alpha channel value to confirm image is covering edge pixel or not.
+            // if alpha value is 0 image is not covering, hence subsampled.
+            return context.getImageData(0, 0, 1, 1).data[3] === 0;
+        }
+        return false;
+    };
+
+    // Detects vertical squash in JPEG images:
+    loadImage.detectVerticalSquash = function (img, subsampled) {
+        var naturalHeight = img.naturalHeight || img.height,
+            canvas = document.createElement('canvas'),
+            context = canvas.getContext('2d'),
+            data,
+            sy,
+            ey,
+            py,
+            alpha;
+        if (subsampled) {
+            naturalHeight /= 2;
+        }
+        canvas.width = 1;
+        canvas.height = naturalHeight;
+        context.drawImage(img, 0, 0);
+        data = context.getImageData(0, 0, 1, naturalHeight).data;
+        // search image edge pixel position in case it is squashed vertically:
+        sy = 0;
+        ey = naturalHeight;
+        py = naturalHeight;
+        while (py > sy) {
+            alpha = data[(py - 1) * 4 + 3];
+            if (alpha === 0) {
+                ey = py;
+            } else {
+                sy = py;
+            }
+            py = (ey + sy) >> 1;
+        }
+        return (py / naturalHeight) || 1;
+    };
+
+    // Renders image to canvas while working around iOS image scaling bugs:
+    // https://github.com/blueimp/JavaScript-Load-Image/issues/13
+    loadImage.renderImageToCanvas = function (
+        canvas,
+        img,
+        sourceX,
+        sourceY,
+        sourceWidth,
+        sourceHeight,
+        destX,
+        destY,
+        destWidth,
+        destHeight
+    ) {
+        if (img._type === 'image/jpeg') {
+            var context = canvas.getContext('2d'),
+                tmpCanvas = document.createElement('canvas'),
+                tileSize = 1024,
+                tmpContext = tmpCanvas.getContext('2d'),
+                subsampled,
+                vertSquashRatio,
+                tileX,
+                tileY;
+            tmpCanvas.width = tileSize;
+            tmpCanvas.height = tileSize;
+            context.save();
+            subsampled = loadImage.detectSubsampling(img);
+            if (subsampled) {
+                sourceX /= 2;
+                sourceY /= 2;
+                sourceWidth /= 2;
+                sourceHeight /= 2;
+            }
+            vertSquashRatio = loadImage.detectVerticalSquash(img, subsampled);
+            if (subsampled || vertSquashRatio !== 1) {
+                sourceY *= vertSquashRatio;
+                destWidth = Math.ceil(tileSize * destWidth / sourceWidth);
+                destHeight = Math.ceil(
+                    tileSize * destHeight / sourceHeight / vertSquashRatio
+                );
+                destY = 0;
+                tileY = 0;
+                while (tileY < sourceHeight) {
+                    destX = 0;
+                    tileX = 0;
+                    while (tileX < sourceWidth) {
+                        tmpContext.clearRect(0, 0, tileSize, tileSize);
+                        tmpContext.drawImage(
+                            img,
+                            sourceX,
+                            sourceY,
+                            sourceWidth,
+                            sourceHeight,
+                            -tileX,
+                            -tileY,
+                            sourceWidth,
+                            sourceHeight
+                        );
+                        context.drawImage(
+                            tmpCanvas,
+                            0,
+                            0,
+                            tileSize,
+                            tileSize,
+                            destX,
+                            destY,
+                            destWidth,
+                            destHeight
+                        );
+                        tileX += tileSize;
+                        destX += destWidth;
+                    }
+                    tileY += tileSize;
+                    destY += destHeight;
+                }
+                context.restore();
+                return canvas;
+            }
+        }
+        return originalRenderMethod(
+            canvas,
+            img,
+            sourceX,
+            sourceY,
+            sourceWidth,
+            sourceHeight,
+            destX,
+            destY,
+            destWidth,
+            destHeight
+        );
+    };
+
+}));
+
+(function (factory) {
+    /*'use strict';*/
+    if (typeof define === 'function' && define.amd) {
+        // Register as an anonymous AMD module:
+        define(['load-image'], factory);
+    } else {
+        // Browser globals:
+        factory(window.loadImage);
+    }
+}(function (loadImage) {
+    /*'use strict';*/
+
+    var originalHasCanvasOption = loadImage.hasCanvasOption,
+        originalTransformCoordinates = loadImage.transformCoordinates,
+        originalGetTransformedOptions = loadImage.getTransformedOptions;
+
+    // This method is used to determine if the target image
+    // should be a canvas element:
+    loadImage.hasCanvasOption = function (options) {
+        return originalHasCanvasOption.call(loadImage, options) ||
+            options.orientation;
+    };
+
+    // Transform image orientation based on
+    // the given EXIF orientation option:
+    loadImage.transformCoordinates = function (canvas, options) {
+        originalTransformCoordinates.call(loadImage, canvas, options);
+        var ctx = canvas.getContext('2d'),
+            width = canvas.width,
+            height = canvas.height,
+            orientation = options.orientation;
+        if (!orientation || orientation > 8) {
+            return;
+        }
+        if (orientation > 4) {
+            canvas.width = height;
+            canvas.height = width;
+        }
+        switch (orientation) {
+            case 2:
+                // horizontal flip
+                ctx.translate(width, 0);
+                ctx.scale(-1, 1);
+                break;
+            case 3:
+                // 180° rotate left
+                ctx.translate(width, height);
+                ctx.rotate(Math.PI);
+                break;
+            case 4:
+                // vertical flip
+                ctx.translate(0, height);
+                ctx.scale(1, -1);
+                break;
+            case 5:
+                // vertical flip + 90 rotate right
+                ctx.rotate(0.5 * Math.PI);
+                ctx.scale(1, -1);
+                break;
+            case 6:
+                // 90° rotate right
+                ctx.rotate(0.5 * Math.PI);
+                ctx.translate(0, -height);
+                break;
+            case 7:
+                // horizontal flip + 90 rotate right
+                ctx.rotate(0.5 * Math.PI);
+                ctx.translate(width, -height);
+                ctx.scale(-1, 1);
+                break;
+            case 8:
+                // 90° rotate left
+                ctx.rotate(-0.5 * Math.PI);
+                ctx.translate(-width, 0);
+                break;
+        }
+    };
+
+    // Transforms coordinate and dimension options
+    // based on the given orientation option:
+    loadImage.getTransformedOptions = function (img, opts) {
+        var options = originalGetTransformedOptions.call(loadImage, img, opts),
+            orientation = options.orientation,
+            newOptions,
+            i;
+        if (!orientation || orientation > 8 || orientation === 1) {
+            return options;
+        }
+        newOptions = {};
+        for (i in options) {
+            if (options.hasOwnProperty(i)) {
+                newOptions[i] = options[i];
+            }
+        }
+        switch (options.orientation) {
+            case 2:
+                // horizontal flip
+                newOptions.left = options.right;
+                newOptions.right = options.left;
+                break;
+            case 3:
+                // 180° rotate left
+                newOptions.left = options.right;
+                newOptions.top = options.bottom;
+                newOptions.right = options.left;
+                newOptions.bottom = options.top;
+                break;
+            case 4:
+                // vertical flip
+                newOptions.top = options.bottom;
+                newOptions.bottom = options.top;
+                break;
+            case 5:
+                // vertical flip + 90 rotate right
+                newOptions.left = options.top;
+                newOptions.top = options.left;
+                newOptions.right = options.bottom;
+                newOptions.bottom = options.right;
+                break;
+            case 6:
+                // 90° rotate right
+                newOptions.left = options.top;
+                newOptions.top = options.right;
+                newOptions.right = options.bottom;
+                newOptions.bottom = options.left;
+                break;
+            case 7:
+                // horizontal flip + 90 rotate right
+                newOptions.left = options.bottom;
+                newOptions.top = options.right;
+                newOptions.right = options.top;
+                newOptions.bottom = options.left;
+                break;
+            case 8:
+                // 90° rotate left
+                newOptions.left = options.bottom;
+                newOptions.top = options.left;
+                newOptions.right = options.top;
+                newOptions.bottom = options.right;
+                break;
+        }
+        if (options.orientation > 4) {
+            newOptions.maxWidth = options.maxHeight;
+            newOptions.maxHeight = options.maxWidth;
+            newOptions.minWidth = options.minHeight;
+            newOptions.minHeight = options.minWidth;
+            newOptions.sourceWidth = options.sourceHeight;
+            newOptions.sourceHeight = options.sourceWidth;
+        }
+        return newOptions;
+    };
+
+}));
+
+(function (factory) {
+    /*'use strict';*/
+    if (typeof define === 'function' && define.amd) {
+        // Register as an anonymous AMD module:
+        define(['load-image'], factory);
+    } else {
+        // Browser globals:
+        factory(window.loadImage);
+    }
+}(function (loadImage) {
+    /*'use strict';*/
+
+    var hasblobSlice = window.Blob && (Blob.prototype.slice ||
+            Blob.prototype.webkitSlice || Blob.prototype.mozSlice);
+
+    loadImage.blobSlice = hasblobSlice && function () {
+        var slice = this.slice || this.webkitSlice || this.mozSlice;
+        return slice.apply(this, arguments);
+    };
+
+    loadImage.metaDataParsers = {
+        jpeg: {
+            0xffe1: [] // APP1 marker
+        }
+    };
+
+    // Parses image meta data and calls the callback with an object argument
+    // with the following properties:
+    // * imageHead: The complete image head as ArrayBuffer (Uint8Array for IE10)
+    // The options arguments accepts an object and supports the following properties:
+    // * maxMetaDataSize: Defines the maximum number of bytes to parse.
+    // * disableImageHead: Disables creating the imageHead property.
+    loadImage.parseMetaData = function (file, callback, options) {
+        options = options || {};
+        var that = this,
+            // 256 KiB should contain all EXIF/ICC/IPTC segments:
+            maxMetaDataSize = options.maxMetaDataSize || 262144,
+            data = {},
+            noMetaData = !(window.DataView && file && file.size >= 12 &&
+                file.type === 'image/jpeg' && loadImage.blobSlice);
+        if (noMetaData || !loadImage.readFile(
+                loadImage.blobSlice.call(file, 0, maxMetaDataSize),
+                function (e) {
+                    if (e.target.error) {
+            // FileReader error
+                        console.log(e.target.error);
+                        callback(data);
+                        return;
+        }
+            // Note on endianness:
+            // Since the marker and length bytes in JPEG files are always
+            // stored in big endian order, we can leave the endian parameter
+            // of the DataView methods undefined, defaulting to big endian.
+                    var buffer = e.target.result,
+                        dataView = new DataView(buffer),
+                        offset = 2,
+                        maxOffset = dataView.byteLength - 4,
+                        headLength = offset,
+                        markerBytes,
+                        markerLength,
+                        parsers,
+                        i;
+            // Check for the JPEG marker (0xffd8):
+                    if (dataView.getUint16(0) === 0xffd8) {
+                        while (offset < maxOffset) {
+                            markerBytes = dataView.getUint16(offset);
+            // Search for APPn (0xffeN) and COM (0xfffe) markers,
+            // which contain application-specific meta-data like
+            // Exif, ICC and IPTC data and text comments:
+                            if ((markerBytes >= 0xffe0 && markerBytes <= 0xffef) ||
+                                    markerBytes === 0xfffe) {
+            // The marker bytes (2) are always followed by
+            // the length bytes (2), indicating the length of the
+            // marker segment, which includes the length bytes,
+            // but not the marker bytes, so we add 2:
+                                markerLength = dataView.getUint16(offset + 2) + 2;
+                                if (offset + markerLength > dataView.byteLength) {
+                                    console.log('Invalid meta data: Invalid segment size.');
+                                    break;
+        }
+                                parsers = loadImage.metaDataParsers.jpeg[markerBytes];
+                                if (parsers) {
+                                    for (i = 0; i < parsers.length; i += 1) {
+                                        parsers[i].call(
+                                            that,
+                                            dataView,
+                                            offset,
+                                            markerLength,
+                                            data,
+                                            options
+                                        );
+        }
+        }
+                                offset += markerLength;
+                                headLength = offset;
+        } else {
+            // Not an APPn or COM marker, probably safe to
+            // assume that this is the end of the meta data
+                                break;
+        }
+        }
+            // Meta length must be longer than JPEG marker (2)
+            // plus APPn marker (2), followed by length bytes (2):
+                        if (!options.disableImageHead && headLength > 6) {
+                            if (buffer.slice) {
+                                data.imageHead = buffer.slice(0, headLength);
+        } else {
+            // Workaround for IE10, which does not yet
+            // support ArrayBuffer.slice:
+                                data.imageHead = new Uint8Array(buffer)
+                                    .subarray(0, headLength);
+        }
+        }
+        } else {
+                        console.log('Invalid JPEG file: Missing JPEG marker.');
+        }
+                    callback(data);
+        },
+                'readAsArrayBuffer'
+            )) {
+            callback(data);
+        }
+    };
+
+}));
+
+(function (factory) {
+    /*'use strict';*/
+    if (typeof define === 'function' && define.amd) {
+        // Register as an anonymous AMD module:
+        define(['load-image', 'load-image-meta'], factory);
+    } else {
+        // Browser globals:
+        factory(window.loadImage);
+    }
+}(function (loadImage) {
+    /*'use strict';*/
+
+    loadImage.ExifMap = function () {
+        return this;
+    };
+
+    loadImage.ExifMap.prototype.map = {
+        'Orientation': 0x0112
+    };
+
+    loadImage.ExifMap.prototype.get = function (id) {
+        return this[id] || this[this.map[id]];
+    };
+
+    loadImage.getExifThumbnail = function (dataView, offset, length) {
+        var hexData,
+            i,
+            b;
+        if (!length || offset + length > dataView.byteLength) {
+            console.log('Invalid Exif data: Invalid thumbnail data.');
+            return;
+        }
+        hexData = [];
+        for (i = 0; i < length; i += 1) {
+            b = dataView.getUint8(offset + i);
+            hexData.push((b < 16 ? '0' : '') + b.toString(16));
+        }
+        return 'data:image/jpeg,%' + hexData.join('%');
+    };
+
+    loadImage.exifTagTypes = {
+        // byte, 8-bit unsigned int:
+        1: {
+            getValue: function (dataView, dataOffset) {
+                return dataView.getUint8(dataOffset);
+            },
+            size: 1
+        },
+        // ascii, 8-bit byte:
+        2: {
+            getValue: function (dataView, dataOffset) {
+                return String.fromCharCode(dataView.getUint8(dataOffset));
+            },
+            size: 1,
+            ascii: true
+        },
+        // short, 16 bit int:
+        3: {
+            getValue: function (dataView, dataOffset, littleEndian) {
+                return dataView.getUint16(dataOffset, littleEndian);
+            },
+            size: 2
+        },
+        // long, 32 bit int:
+        4: {
+            getValue: function (dataView, dataOffset, littleEndian) {
+                return dataView.getUint32(dataOffset, littleEndian);
+            },
+            size: 4
+        },
+        // rational = two long values, first is numerator, second is denominator:
+        5: {
+            getValue: function (dataView, dataOffset, littleEndian) {
+                return dataView.getUint32(dataOffset, littleEndian) /
+                    dataView.getUint32(dataOffset + 4, littleEndian);
+            },
+            size: 8
+        },
+        // slong, 32 bit signed int:
+        9: {
+            getValue: function (dataView, dataOffset, littleEndian) {
+                return dataView.getInt32(dataOffset, littleEndian);
+            },
+            size: 4
+        },
+        // srational, two slongs, first is numerator, second is denominator:
+        10: {
+            getValue: function (dataView, dataOffset, littleEndian) {
+                return dataView.getInt32(dataOffset, littleEndian) /
+                    dataView.getInt32(dataOffset + 4, littleEndian);
+            },
+            size: 8
+        }
+    };
+    // undefined, 8-bit byte, value depending on field:
+    loadImage.exifTagTypes[7] = loadImage.exifTagTypes[1];
+
+    loadImage.getExifValue = function (dataView, tiffOffset, offset, type, length, littleEndian) {
+        var tagType = loadImage.exifTagTypes[type],
+            tagSize,
+            dataOffset,
+            values,
+            i,
+            str,
+            c;
+        if (!tagType) {
+            console.log('Invalid Exif data: Invalid tag type.');
+            return;
+        }
+        tagSize = tagType.size * length;
+        // Determine if the value is contained in the dataOffset bytes,
+        // or if the value at the dataOffset is a pointer to the actual data:
+        dataOffset = tagSize > 4 ?
+                tiffOffset + dataView.getUint32(offset + 8, littleEndian) : (offset + 8);
+        if (dataOffset + tagSize > dataView.byteLength) {
+            console.log('Invalid Exif data: Invalid data offset.');
+            return;
+        }
+        if (length === 1) {
+            return tagType.getValue(dataView, dataOffset, littleEndian);
+        }
+        values = [];
+        for (i = 0; i < length; i += 1) {
+            values[i] = tagType.getValue(dataView, dataOffset + i * tagType.size, littleEndian);
+        }
+        if (tagType.ascii) {
+            str = '';
+            // Concatenate the chars:
+            for (i = 0; i < values.length; i += 1) {
+                c = values[i];
+                // Ignore the terminating NULL byte(s):
+                if (c === '\u0000') {
+                    break;
+                }
+                str += c;
+            }
+            return str;
+        }
+        return values;
+    };
+
+    loadImage.parseExifTag = function (dataView, tiffOffset, offset, littleEndian, data) {
+        var tag = dataView.getUint16(offset, littleEndian);
+        data.exif[tag] = loadImage.getExifValue(
+            dataView,
+            tiffOffset,
+            offset,
+            dataView.getUint16(offset + 2, littleEndian), // tag type
+            dataView.getUint32(offset + 4, littleEndian), // tag length
+            littleEndian
+        );
+    };
+
+    loadImage.parseExifTags = function (dataView, tiffOffset, dirOffset, littleEndian, data) {
+        var tagsNumber,
+            dirEndOffset,
+            i;
+        if (dirOffset + 6 > dataView.byteLength) {
+            console.log('Invalid Exif data: Invalid directory offset.');
+            return;
+        }
+        tagsNumber = dataView.getUint16(dirOffset, littleEndian);
+        dirEndOffset = dirOffset + 2 + 12 * tagsNumber;
+        if (dirEndOffset + 4 > dataView.byteLength) {
+            console.log('Invalid Exif data: Invalid directory size.');
+            return;
+        }
+        for (i = 0; i < tagsNumber; i += 1) {
+            this.parseExifTag(
+                dataView,
+                tiffOffset,
+                dirOffset + 2 + 12 * i, // tag offset
+                littleEndian,
+                data
+            );
+        }
+        // Return the offset to the next directory:
+        return dataView.getUint32(dirEndOffset, littleEndian);
+    };
+
+    loadImage.parseExifData = function (dataView, offset, length, data, options) {
+        if (options.disableExif) {
+            return;
+        }
+        var tiffOffset = offset + 10,
+            littleEndian,
+            dirOffset,
+            thumbnailData;
+        // Check for the ASCII code for "Exif" (0x45786966):
+        if (dataView.getUint32(offset + 4) !== 0x45786966) {
+            // No Exif data, might be XMP data instead
+            return;
+        }
+        if (tiffOffset + 8 > dataView.byteLength) {
+            console.log('Invalid Exif data: Invalid segment size.');
+            return;
+        }
+        // Check for the two null bytes:
+        if (dataView.getUint16(offset + 8) !== 0x0000) {
+            console.log('Invalid Exif data: Missing byte alignment offset.');
+            return;
+        }
+        // Check the byte alignment:
+        switch (dataView.getUint16(tiffOffset)) {
+            case 0x4949:
+                littleEndian = true;
+                break;
+            case 0x4D4D:
+                littleEndian = false;
+                break;
+            default:
+                console.log('Invalid Exif data: Invalid byte alignment marker.');
+                return;
+        }
+        // Check for the TIFF tag marker (0x002A):
+        if (dataView.getUint16(tiffOffset + 2, littleEndian) !== 0x002A) {
+            console.log('Invalid Exif data: Missing TIFF marker.');
+            return;
+        }
+        // Retrieve the directory offset bytes, usually 0x00000008 or 8 decimal:
+        dirOffset = dataView.getUint32(tiffOffset + 4, littleEndian);
+        // Create the exif object to store the tags:
+        data.exif = new loadImage.ExifMap();
+        // Parse the tags of the main image directory and retrieve the
+        // offset to the next directory, usually the thumbnail directory:
+        dirOffset = loadImage.parseExifTags(
+            dataView,
+            tiffOffset,
+            tiffOffset + dirOffset,
+            littleEndian,
+            data
+        );
+        if (dirOffset && !options.disableExifThumbnail) {
+            thumbnailData = { exif: {} };
+            dirOffset = loadImage.parseExifTags(
+                dataView,
+                tiffOffset,
+                tiffOffset + dirOffset,
+                littleEndian,
+                thumbnailData
+            );
+            // Check for JPEG Thumbnail offset:
+            if (thumbnailData.exif[0x0201]) {
+                data.exif.Thumbnail = loadImage.getExifThumbnail(
+                    dataView,
+                    tiffOffset + thumbnailData.exif[0x0201],
+                    thumbnailData.exif[0x0202] // Thumbnail data length
+                );
+            }
+        }
+        // Check for Exif Sub IFD Pointer:
+        if (data.exif[0x8769] && !options.disableExifSub) {
+            loadImage.parseExifTags(
+                dataView,
+                tiffOffset,
+                tiffOffset + data.exif[0x8769], // directory offset
+                littleEndian,
+                data
+            );
+        }
+        // Check for GPS Info IFD Pointer:
+        if (data.exif[0x8825] && !options.disableExifGps) {
+            loadImage.parseExifTags(
+                dataView,
+                tiffOffset,
+                tiffOffset + data.exif[0x8825], // directory offset
+                littleEndian,
+                data
+            );
+        }
+    };
+
+    // Registers the Exif parser for the APP1 JPEG meta data segment:
+    loadImage.metaDataParsers.jpeg[0xffe1].push(loadImage.parseExifData);
+
+    // Adds the following properties to the parseMetaData callback data:
+    // * exif: The exif tags, parsed by the parseExifData method
+
+    // Adds the following options to the parseMetaData method:
+    // * disableExif: Disables Exif parsing.
+    // * disableExifThumbnail: Disables parsing of the Exif Thumbnail.
+    // * disableExifSub: Disables parsing of the Exif Sub IFD.
+    // * disableExifGps: Disables parsing of the Exif GPS Info IFD.
+
+}));
+
+(function (factory) {
+    /*'use strict';*/
+    if (typeof define === 'function' && define.amd) {
+        // Register as an anonymous AMD module:
+        define(['load-image', 'load-image-exif'], factory);
+    } else {
+        // Browser globals:
+        factory(window.loadImage);
+    }
+}(function (loadImage) {
+    /*'use strict';*/
+
+    loadImage.ExifMap.prototype.tags = {
+        // =================
+        // TIFF tags (IFD0):
+        // =================
+        0x0100: 'ImageWidth',
+        0x0101: 'ImageHeight',
+        0x8769: 'ExifIFDPointer',
+        0x8825: 'GPSInfoIFDPointer',
+        0xA005: 'InteroperabilityIFDPointer',
+        0x0102: 'BitsPerSample',
+        0x0103: 'Compression',
+        0x0106: 'PhotometricInterpretation',
+        0x0112: 'Orientation',
+        0x0115: 'SamplesPerPixel',
+        0x011C: 'PlanarConfiguration',
+        0x0212: 'YCbCrSubSampling',
+        0x0213: 'YCbCrPositioning',
+        0x011A: 'XResolution',
+        0x011B: 'YResolution',
+        0x0128: 'ResolutionUnit',
+        0x0111: 'StripOffsets',
+        0x0116: 'RowsPerStrip',
+        0x0117: 'StripByteCounts',
+        0x0201: 'JPEGInterchangeFormat',
+        0x0202: 'JPEGInterchangeFormatLength',
+        0x012D: 'TransferFunction',
+        0x013E: 'WhitePoint',
+        0x013F: 'PrimaryChromaticities',
+        0x0211: 'YCbCrCoefficients',
+        0x0214: 'ReferenceBlackWhite',
+        0x0132: 'DateTime',
+        0x010E: 'ImageDescription',
+        0x010F: 'Make',
+        0x0110: 'Model',
+        0x0131: 'Software',
+        0x013B: 'Artist',
+        0x8298: 'Copyright',
+        // ==================
+        // Exif Sub IFD tags:
+        // ==================
+        0x9000: 'ExifVersion',                  // EXIF version
+        0xA000: 'FlashpixVersion',              // Flashpix format version
+        0xA001: 'ColorSpace',                   // Color space information tag
+        0xA002: 'PixelXDimension',              // Valid width of meaningful image
+        0xA003: 'PixelYDimension',              // Valid height of meaningful image
+        0xA500: 'Gamma',
+        0x9101: 'ComponentsConfiguration',      // Information about channels
+        0x9102: 'CompressedBitsPerPixel',       // Compressed bits per pixel
+        0x927C: 'MakerNote',                    // Any desired information written by the manufacturer
+        0x9286: 'UserComment',                  // Comments by user
+        0xA004: 'RelatedSoundFile',             // Name of related sound file
+        0x9003: 'DateTimeOriginal',             // Date and time when the original image was generated
+        0x9004: 'DateTimeDigitized',            // Date and time when the image was stored digitally
+        0x9290: 'SubSecTime',                   // Fractions of seconds for DateTime
+        0x9291: 'SubSecTimeOriginal',           // Fractions of seconds for DateTimeOriginal
+        0x9292: 'SubSecTimeDigitized',          // Fractions of seconds for DateTimeDigitized
+        0x829A: 'ExposureTime',                 // Exposure time (in seconds)
+        0x829D: 'FNumber',
+        0x8822: 'ExposureProgram',              // Exposure program
+        0x8824: 'SpectralSensitivity',          // Spectral sensitivity
+        0x8827: 'PhotographicSensitivity',      // EXIF 2.3, ISOSpeedRatings in EXIF 2.2
+        0x8828: 'OECF',                         // Optoelectric conversion factor
+        0x8830: 'SensitivityType',
+        0x8831: 'StandardOutputSensitivity',
+        0x8832: 'RecommendedExposureIndex',
+        0x8833: 'ISOSpeed',
+        0x8834: 'ISOSpeedLatitudeyyy',
+        0x8835: 'ISOSpeedLatitudezzz',
+        0x9201: 'ShutterSpeedValue',            // Shutter speed
+        0x9202: 'ApertureValue',                // Lens aperture
+        0x9203: 'BrightnessValue',              // Value of brightness
+        0x9204: 'ExposureBias',                 // Exposure bias
+        0x9205: 'MaxApertureValue',             // Smallest F number of lens
+        0x9206: 'SubjectDistance',              // Distance to subject in meters
+        0x9207: 'MeteringMode',                 // Metering mode
+        0x9208: 'LightSource',                  // Kind of light source
+        0x9209: 'Flash',                        // Flash status
+        0x9214: 'SubjectArea',                  // Location and area of main subject
+        0x920A: 'FocalLength',                  // Focal length of the lens in mm
+        0xA20B: 'FlashEnergy',                  // Strobe energy in BCPS
+        0xA20C: 'SpatialFrequencyResponse',
+        0xA20E: 'FocalPlaneXResolution',        // Number of pixels in width direction per FPRUnit
+        0xA20F: 'FocalPlaneYResolution',        // Number of pixels in height direction per FPRUnit
+        0xA210: 'FocalPlaneResolutionUnit',     // Unit for measuring the focal plane resolution
+        0xA214: 'SubjectLocation',              // Location of subject in image
+        0xA215: 'ExposureIndex',                // Exposure index selected on camera
+        0xA217: 'SensingMethod',                // Image sensor type
+        0xA300: 'FileSource',                   // Image source (3 == DSC)
+        0xA301: 'SceneType',                    // Scene type (1 == directly photographed)
+        0xA302: 'CFAPattern',                   // Color filter array geometric pattern
+        0xA401: 'CustomRendered',               // Special processing
+        0xA402: 'ExposureMode',                 // Exposure mode
+        0xA403: 'WhiteBalance',                 // 1 = auto white balance, 2 = manual
+        0xA404: 'DigitalZoomRatio',             // Digital zoom ratio
+        0xA405: 'FocalLengthIn35mmFilm',
+        0xA406: 'SceneCaptureType',             // Type of scene
+        0xA407: 'GainControl',                  // Degree of overall image gain adjustment
+        0xA408: 'Contrast',                     // Direction of contrast processing applied by camera
+        0xA409: 'Saturation',                   // Direction of saturation processing applied by camera
+        0xA40A: 'Sharpness',                    // Direction of sharpness processing applied by camera
+        0xA40B: 'DeviceSettingDescription',
+        0xA40C: 'SubjectDistanceRange',         // Distance to subject
+        0xA420: 'ImageUniqueID',                // Identifier assigned uniquely to each image
+        0xA430: 'CameraOwnerName',
+        0xA431: 'BodySerialNumber',
+        0xA432: 'LensSpecification',
+        0xA433: 'LensMake',
+        0xA434: 'LensModel',
+        0xA435: 'LensSerialNumber',
+        // ==============
+        // GPS Info tags:
+        // ==============
+        0x0000: 'GPSVersionID',
+        0x0001: 'GPSLatitudeRef',
+        0x0002: 'GPSLatitude',
+        0x0003: 'GPSLongitudeRef',
+        0x0004: 'GPSLongitude',
+        0x0005: 'GPSAltitudeRef',
+        0x0006: 'GPSAltitude',
+        0x0007: 'GPSTimeStamp',
+        0x0008: 'GPSSatellites',
+        0x0009: 'GPSStatus',
+        0x000A: 'GPSMeasureMode',
+        0x000B: 'GPSDOP',
+        0x000C: 'GPSSpeedRef',
+        0x000D: 'GPSSpeed',
+        0x000E: 'GPSTrackRef',
+        0x000F: 'GPSTrack',
+        0x0010: 'GPSImgDirectionRef',
+        0x0011: 'GPSImgDirection',
+        0x0012: 'GPSMapDatum',
+        0x0013: 'GPSDestLatitudeRef',
+        0x0014: 'GPSDestLatitude',
+        0x0015: 'GPSDestLongitudeRef',
+        0x0016: 'GPSDestLongitude',
+        0x0017: 'GPSDestBearingRef',
+        0x0018: 'GPSDestBearing',
+        0x0019: 'GPSDestDistanceRef',
+        0x001A: 'GPSDestDistance',
+        0x001B: 'GPSProcessingMethod',
+        0x001C: 'GPSAreaInformation',
+        0x001D: 'GPSDateStamp',
+        0x001E: 'GPSDifferential',
+        0x001F: 'GPSHPositioningError'
+    };
+
+    loadImage.ExifMap.prototype.stringValues = {
+        ExposureProgram: {
+            0: 'Undefined',
+            1: 'Manual',
+            2: 'Normal program',
+            3: 'Aperture priority',
+            4: 'Shutter priority',
+            5: 'Creative program',
+            6: 'Action program',
+            7: 'Portrait mode',
+            8: 'Landscape mode'
+        },
+        MeteringMode: {
+            0: 'Unknown',
+            1: 'Average',
+            2: 'CenterWeightedAverage',
+            3: 'Spot',
+            4: 'MultiSpot',
+            5: 'Pattern',
+            6: 'Partial',
+            255: 'Other'
+        },
+        LightSource: {
+            0: 'Unknown',
+            1: 'Daylight',
+            2: 'Fluorescent',
+            3: 'Tungsten (incandescent light)',
+            4: 'Flash',
+            9: 'Fine weather',
+            10: 'Cloudy weather',
+            11: 'Shade',
+            12: 'Daylight fluorescent (D 5700 - 7100K)',
+            13: 'Day white fluorescent (N 4600 - 5400K)',
+            14: 'Cool white fluorescent (W 3900 - 4500K)',
+            15: 'White fluorescent (WW 3200 - 3700K)',
+            17: 'Standard light A',
+            18: 'Standard light B',
+            19: 'Standard light C',
+            20: 'D55',
+            21: 'D65',
+            22: 'D75',
+            23: 'D50',
+            24: 'ISO studio tungsten',
+            255: 'Other'
+        },
+        Flash: {
+            0x0000: 'Flash did not fire',
+            0x0001: 'Flash fired',
+            0x0005: 'Strobe return light not detected',
+            0x0007: 'Strobe return light detected',
+            0x0009: 'Flash fired, compulsory flash mode',
+            0x000D: 'Flash fired, compulsory flash mode, return light not detected',
+            0x000F: 'Flash fired, compulsory flash mode, return light detected',
+            0x0010: 'Flash did not fire, compulsory flash mode',
+            0x0018: 'Flash did not fire, auto mode',
+            0x0019: 'Flash fired, auto mode',
+            0x001D: 'Flash fired, auto mode, return light not detected',
+            0x001F: 'Flash fired, auto mode, return light detected',
+            0x0020: 'No flash function',
+            0x0041: 'Flash fired, red-eye reduction mode',
+            0x0045: 'Flash fired, red-eye reduction mode, return light not detected',
+            0x0047: 'Flash fired, red-eye reduction mode, return light detected',
+            0x0049: 'Flash fired, compulsory flash mode, red-eye reduction mode',
+            0x004D: 'Flash fired, compulsory flash mode, red-eye reduction mode, return light not detected',
+            0x004F: 'Flash fired, compulsory flash mode, red-eye reduction mode, return light detected',
+            0x0059: 'Flash fired, auto mode, red-eye reduction mode',
+            0x005D: 'Flash fired, auto mode, return light not detected, red-eye reduction mode',
+            0x005F: 'Flash fired, auto mode, return light detected, red-eye reduction mode'
+        },
+        SensingMethod: {
+            1: 'Undefined',
+            2: 'One-chip color area sensor',
+            3: 'Two-chip color area sensor',
+            4: 'Three-chip color area sensor',
+            5: 'Color sequential area sensor',
+            7: 'Trilinear sensor',
+            8: 'Color sequential linear sensor'
+        },
+        SceneCaptureType: {
+            0: 'Standard',
+            1: 'Landscape',
+            2: 'Portrait',
+            3: 'Night scene'
+        },
+        SceneType: {
+            1: 'Directly photographed'
+        },
+        CustomRendered: {
+            0: 'Normal process',
+            1: 'Custom process'
+        },
+        WhiteBalance: {
+            0: 'Auto white balance',
+            1: 'Manual white balance'
+        },
+        GainControl: {
+            0: 'None',
+            1: 'Low gain up',
+            2: 'High gain up',
+            3: 'Low gain down',
+            4: 'High gain down'
+        },
+        Contrast: {
+            0: 'Normal',
+            1: 'Soft',
+            2: 'Hard'
+        },
+        Saturation: {
+            0: 'Normal',
+            1: 'Low saturation',
+            2: 'High saturation'
+        },
+        Sharpness: {
+            0: 'Normal',
+            1: 'Soft',
+            2: 'Hard'
+        },
+        SubjectDistanceRange: {
+            0: 'Unknown',
+            1: 'Macro',
+            2: 'Close view',
+            3: 'Distant view'
+        },
+        FileSource: {
+            3: 'DSC'
+        },
+        ComponentsConfiguration: {
+            0: '',
+            1: 'Y',
+            2: 'Cb',
+            3: 'Cr',
+            4: 'R',
+            5: 'G',
+            6: 'B'
+        },
+        Orientation: {
+            1: 'top-left',
+            2: 'top-right',
+            3: 'bottom-right',
+            4: 'bottom-left',
+            5: 'left-top',
+            6: 'right-top',
+            7: 'right-bottom',
+            8: 'left-bottom'
+        }
+    };
+
+    loadImage.ExifMap.prototype.getText = function (id) {
+        var value = this.get(id);
+        switch (id) {
+            case 'LightSource':
+            case 'Flash':
+            case 'MeteringMode':
+            case 'ExposureProgram':
+            case 'SensingMethod':
+            case 'SceneCaptureType':
+            case 'SceneType':
+            case 'CustomRendered':
+            case 'WhiteBalance':
+            case 'GainControl':
+            case 'Contrast':
+            case 'Saturation':
+            case 'Sharpness':
+            case 'SubjectDistanceRange':
+            case 'FileSource':
+            case 'Orientation':
+                return this.stringValues[id][value];
+            case 'ExifVersion':
+            case 'FlashpixVersion':
+                return String.fromCharCode(value[0], value[1], value[2], value[3]);
+            case 'ComponentsConfiguration':
+                return this.stringValues[id][value[0]] +
+                    this.stringValues[id][value[1]] +
+                    this.stringValues[id][value[2]] +
+                    this.stringValues[id][value[3]];
+            case 'GPSVersionID':
+                return value[0] + '.' + value[1] + '.' + value[2] + '.' + value[3];
+        }
+        return String(value);
+    };
+
+    (function (exifMapPrototype) {
+        var tags = exifMapPrototype.tags,
+            map = exifMapPrototype.map,
+            prop;
+
+        // Map the tag names to tags:
+        for (prop in tags) {
+            if (tags.hasOwnProperty(prop)) {
+                map[tags[prop]] = prop;
+            }
+        }
+    }(loadImage.ExifMap.prototype));
+
+    loadImage.ExifMap.prototype.getAll = function () {
+        var map = {},
+            prop,
+            id;
+        for (prop in this) {
+            if (this.hasOwnProperty(prop)) {
+                id = this.tags[prop];
+                if (id) {
+                    map[id] = this.getText(id);
+                }
+            }
+        }
+        return map;
+    };
+
+}));
 !function(a){/*"use strict"*/;var b=a.HTMLCanvasElement&&a.HTMLCanvasElement.prototype,c=a.Blob&&function(){try{return Boolean(new Blob)}catch(a){return!1}}(),d=c&&a.Uint8Array&&function(){try{return 100===new Blob([new Uint8Array(100)]).size}catch(a){return!1}}(),e=a.BlobBuilder||a.WebKitBlobBuilder||a.MozBlobBuilder||a.MSBlobBuilder,f=(c||e)&&a.atob&&a.ArrayBuffer&&a.Uint8Array&&function(a){var b,f,g,h,i,j;for(b=a.split(",")[0].indexOf("base64")>=0?atob(a.split(",")[1]):decodeURIComponent(a.split(",")[1]),f=new ArrayBuffer(b.length),g=new Uint8Array(f),h=0;h<b.length;h+=1)g[h]=b.charCodeAt(h);return i=a.split(",")[0].split(":")[1].split(";")[0],c?new Blob([d?g:f],{type:i}):(j=new e,j.append(f),j.getBlob(i))};a.HTMLCanvasElement&&!b.toBlob&&(b.mozGetAsFile?b.toBlob=function(a,c,d){d&&b.toDataURL&&f?a(f(this.toDataURL(c,d))):a(this.mozGetAsFile("blob",c))}:b.toDataURL&&f&&(b.toBlob=function(a,b,c){a(f(this.toDataURL(b,c)))})),"function"==typeof define&&define.amd?define(function(){return f}):a.dataURLtoBlob=f}(this);
 /*
- * jQuery Iframe Transport Plugin
+ * jQuery Iframe Transport Plugin 1.8.2
  * https://github.com/blueimp/jQuery-File-Upload
  *
  * Copyright 2011, Sebastian Tschan
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * https://opensource.org/licenses/MIT
+ * http://www.opensource.org/licenses/MIT
  */
 
-/* global define, require, window, document, JSON */
+/* global define, window, document */
 
-;(function (factory) {
-    'use strict';
+(function (factory) {
+    //'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
         define(['jquery'], factory);
-    } else if (typeof exports === 'object') {
-        // Node/CommonJS:
-        factory(require('jquery'));
     } else {
         // Browser globals:
         factory(window.jQuery);
     }
 }(function ($) {
-    'use strict';
+    //'use strict';
 
     // Helper variable to create unique names for the transport iframes:
-    var counter = 0,
-        jsonAPI = $,
-        jsonParse = 'parseJSON';
-
-    if ('JSON' in window && 'parse' in JSON) {
-      jsonAPI = JSON;
-      jsonParse = 'parse';
-    }
+    var counter = 0;
 
     // The iframe transport accepts four additional options:
     // options.fileInput: a jQuery collection of file input fields
@@ -1026,7 +1672,7 @@
                 return iframe && $(iframe[0].body).text();
             },
             'iframe json': function (iframe) {
-                return iframe && jsonAPI[jsonParse]($(iframe[0].body).text());
+                return iframe && $.parseJSON($(iframe[0].body).text());
             },
             'iframe html': function (iframe) {
                 return iframe && $(iframe[0].body).html();
@@ -1046,39 +1692,33 @@
 }));
 
 /*
- * jQuery File Upload Plugin
+ * jQuery File Upload Plugin 5.42.0
  * https://github.com/blueimp/jQuery-File-Upload
  *
  * Copyright 2010, Sebastian Tschan
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * https://opensource.org/licenses/MIT
+ * http://www.opensource.org/licenses/MIT
  */
 
 /* jshint nomen:false */
-/* global define, require, window, document, location, Blob, FormData */
+/* global define, window, document, location, Blob, FormData */
 
-;(function (factory) {
-    'use strict';
+(function (factory) {
+    //'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
         define([
             'jquery',
-            'jquery-ui/ui/widget'
+            'jquery.ui.widget'
         ], factory);
-    } else if (typeof exports === 'object') {
-        // Node/CommonJS:
-        factory(
-            require('jquery'),
-            require('./vendor/jquery.ui.widget')
-        );
     } else {
         // Browser globals:
         factory(window.jQuery);
     }
 }(function ($) {
-    'use strict';
+    //'use strict';
 
     // Detect file input support, based on
     // http://viljamis.com/blog/2012/file-upload-support-on-mobile/
@@ -1260,7 +1900,7 @@
                     return false;
                 }
                 if (data.autoUpload || (data.autoUpload !== false &&
-                    $(this).yafFileUpload('option', 'autoUpload'))) {
+                        $(this).yafFileUpload('option', 'autoUpload'))) {
                     data.process().done(function () {
                         data.submit();
                     });
@@ -1324,8 +1964,7 @@
             // The following are jQuery ajax settings required for the file uploads:
             processData: false,
             contentType: false,
-            cache: false,
-            timeout: 0
+            cache: false
         },
 
         // A list of options that require reinitializing event listeners and/or
@@ -1443,6 +2082,7 @@
                     loaded,
                     data.bitrateInterval
                 );
+
                 // Trigger a custom progress event with a total data property set
                 // to the file size(s) of the current upload and a loaded data
                 // property calculated accordingly:
@@ -1451,6 +2091,7 @@
                     $.Event('progress', {delegatedEvent: e}),
                     data
                 );
+
                 // Trigger a global progress event for all current file uploads,
                 // including ajax calls queued for sequential file uploads:
                 this._trigger(
@@ -1699,7 +2340,7 @@
             data.process = function (resolveFunc, rejectFunc) {
                 if (resolveFunc || rejectFunc) {
                     data._processQueue = this._processQueue =
-                        (this._processQueue || getPromise([this])).then(
+                        (this._processQueue || getPromise([this])).pipe(
                             function () {
                                 if (data.errorThrown) {
                                     return $.Deferred()
@@ -1707,7 +2348,7 @@
                                 }
                                 return getPromise(arguments);
                             }
-                        ).then(resolveFunc, rejectFunc);
+                        ).pipe(resolveFunc, rejectFunc);
                 }
                 return this._processQueue || getPromise([this]);
             };
@@ -1777,7 +2418,7 @@
                 promise = dfd.promise(),
                 jqXHR,
                 upload;
-            if (!(this._isXHRUpload(options) && slice && (ub || ($.type(mcs) === 'function' ? mcs(options) : mcs) < fs)) ||
+            if (!(this._isXHRUpload(options) && slice && (ub || mcs < fs)) ||
                     options.data) {
                 return false;
             }
@@ -1800,7 +2441,7 @@
                 o.blob = slice.call(
                     file,
                     ub,
-                    ub + ($.type(mcs) === 'function' ? mcs(o) : mcs),
+                    ub + mcs,
                     file.type
                 );
                 // Store the current chunk size, as the blob itself
@@ -1903,6 +2544,7 @@
                     total: total
                 }), options);
             }
+
             response.result = options.result = result;
             response.textStatus = options.textStatus = textStatus;
             response.jqXHR = options.jqXHR = jqXHR;
@@ -1992,9 +2634,9 @@
                 if (this.options.limitConcurrentUploads > 1) {
                     slot = $.Deferred();
                     this._slots.push(slot);
-                    pipe = slot.then(send);
+                    pipe = slot.pipe(send);
                 } else {
-                    this._sequence = this._sequence.then(send, send);
+                    this._sequence = this._sequence.pipe(send, send);
                     pipe = this._sequence;
                 }
                 // Return the piped Promise object, enhanced with an abort method,
@@ -2031,10 +2673,7 @@
                 fileSet,
                 i,
                 j = 0;
-            if (!filesLength) {
-                return false;
-            }
-            if (limitSize && files[0].size === undefined) {
+            if (limitSize && (!filesLength || files[0].size === undefined)) {
                 limitSize = undefined;
             }
             if (!(options.singleFileUploads || limit || limitSize) ||
@@ -2093,19 +2732,13 @@
 
         _replaceFileInput: function (data) {
             var input = data.fileInput,
-                inputClone = input.clone(true),
-                restoreFocus = input.is(document.activeElement);
+                inputClone = input.clone(true);
             // Add a reference for the new cloned file input to the data argument:
             data.fileInputClone = inputClone;
             $('<form></form>').append(inputClone)[0].reset();
             // Detaching allows to insert the fileInput on another form
             // without loosing the file input value:
             input.after(inputClone).detach();
-            // If the fileInput had focus before it was detached,
-            // restore focus to the inputClone.
-            if (restoreFocus) {
-                inputClone.focus();
-            }
             // Avoid memory leaks with the detached file input:
             $.cleanData(input.unbind('remove'));
             // Replace the original file input element in the fileInput
@@ -2127,8 +2760,6 @@
         _handleFileTreeEntry: function (entry, path) {
             var that = this,
                 dfd = $.Deferred(),
-                entries = [],
-                dirReader,
                 errorHandler = function (e) {
                     if (e && !e.entry) {
                         e.entry = entry;
@@ -2156,7 +2787,8 @@
                             readEntries();
                         }
                     }, errorHandler);
-                };
+                },
+                dirReader, entries = [];
             path = path || '';
             if (entry.isFile) {
                 if (entry._file) {
@@ -2187,7 +2819,7 @@
                 $.map(entries, function (entry) {
                     return that._handleFileTreeEntry(entry, path);
                 })
-            ).then(function () {
+            ).pipe(function () {
                 return Array.prototype.concat.apply(
                     [],
                     arguments
@@ -2256,7 +2888,7 @@
             return $.when.apply(
                 $,
                 $.map(fileInput, this._getSingleFileInputFiles)
-            ).then(function () {
+            ).pipe(function () {
                 return Array.prototype.concat.apply(
                     [],
                     arguments
@@ -2359,10 +2991,6 @@
             this._off(this.options.fileInput, 'change');
         },
 
-        _destroy: function () {
-            this._destroyEventHandlers();
-        },
-
         _setOption: function (key, value) {
             var reinit = $.inArray(key, this._specialOptions) !== -1;
             if (reinit) {
@@ -2406,19 +3034,15 @@
         _initDataAttributes: function () {
             var that = this,
                 options = this.options,
-                data = this.element.data();
+                clone = $(this.element[0].cloneNode(false));
             // Initialize options set via HTML5 data-attributes:
             $.each(
-                this.element[0].attributes,
-                function (index, attr) {
-                    var key = attr.name.toLowerCase(),
-                        value;
-                    if (/^data-/.test(key)) {
-                        // Convert hyphen-ated key to camelCase:
-                        key = key.slice(5).replace(/-[a-z]/g, function (str) {
-                            return str.charAt(1).toUpperCase();
-                        });
-                        value = data[key];
+                clone.data(),
+                function (key, value) {
+                    var dataAttributeName = 'data-' +
+                        // Convert camelCase to hyphen-ated key:
+                        key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+                    if (clone.attr(dataAttributeName)) {
                         if (that._isRegExpOption(key, value)) {
                             value = that._getRegExp(value);
                         }
@@ -2529,33 +3153,27 @@
 }));
 
 /*
- * jQuery File Upload Processing Plugin
+ * jQuery File Upload Processing Plugin 1.3.0
  * https://github.com/blueimp/jQuery-File-Upload
  *
  * Copyright 2012, Sebastian Tschan
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * https://opensource.org/licenses/MIT
+ * http://www.opensource.org/licenses/MIT
  */
 
 /* jshint nomen:false */
-/* global define, require, window */
+/* global define, window */
 
-;(function (factory) {
-    'use strict';
+(function (factory) {
+    //'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
         define([
             'jquery',
             './jquery.fileupload'
         ], factory);
-    } else if (typeof exports === 'object') {
-        // Node/CommonJS:
-        factory(
-            require('jquery'),
-            require('./jquery.fileupload')
-        );
     } else {
         // Browser globals:
         factory(
@@ -2563,7 +3181,7 @@
         );
     }
 }(function ($) {
-    'use strict';
+    //'use strict';
 
     var originalAdd = $.blueimp.yafFileUpload.prototype.options.add;
 
@@ -2584,7 +3202,7 @@
             add: function (e, data) {
                 var $this = $(this);
                 data.process(function () {
-                    return $this.fileupload('process', data);
+                    return $this.yafFileUpload('process', data);
                 });
                 originalAdd.call(this, e, data);
             }
@@ -2617,7 +3235,7 @@
                         settings
                     );
                 };
-                chain = chain.then(func, settings.always && func);
+                chain = chain.pipe(func, settings.always && func);
             });
             chain
                 .done(function () {
@@ -2684,7 +3302,7 @@
                         };
                     opts.index = index;
                     that._processing += 1;
-                    that._processingQueue = that._processingQueue.then(func, func)
+                    that._processingQueue = that._processingQueue.pipe(func, func)
                         .always(function () {
                             that._processing -= 1;
                             if (that._processing === 0) {
@@ -2708,43 +3326,32 @@
 }));
 
 /*
- * jQuery File Upload Image Preview & Resize Plugin
+ * jQuery File Upload Image Preview & Resize Plugin 1.7.2
  * https://github.com/blueimp/jQuery-File-Upload
  *
  * Copyright 2013, Sebastian Tschan
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * https://opensource.org/licenses/MIT
+ * http://www.opensource.org/licenses/MIT
  */
 
 /* jshint nomen:false */
-/* global define, require, window, Blob */
+/* global define, window, Blob */
 
-;(function (factory) {
-    'use strict';
+(function (factory) {
+    //'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
         define([
             'jquery',
             'load-image',
             'load-image-meta',
-            'load-image-scale',
             'load-image-exif',
+            'load-image-ios',
             'canvas-to-blob',
             './jquery.fileupload-process'
         ], factory);
-    } else if (typeof exports === 'object') {
-        // Node/CommonJS:
-        factory(
-            require('jquery'),
-            require('blueimp-load-image/js/load-image'),
-            require('blueimp-load-image/js/load-image-meta'),
-            require('blueimp-load-image/js/load-image-scale'),
-            require('blueimp-load-image/js/load-image-exif'),
-            require('blueimp-canvas-to-blob'),
-            require('./jquery.fileupload-process')
-        );
     } else {
         // Browser globals:
         factory(
@@ -2753,7 +3360,7 @@
         );
     }
 }(function ($, loadImage) {
-    'use strict';
+    //'use strict';
 
     // Prepend to the default processQueue:
     $.blueimp.yafFileUpload.prototype.options.processQueue.unshift(
@@ -2956,7 +3563,7 @@
                                     blob.name = file.name;
                                 } else if (file.name) {
                                     blob.name = file.name.replace(
-                                        /\.\w+$/,
+                                        /\..+$/,
                                         '.' + blob.type.substr(6)
                                     );
                                 }
@@ -3035,32 +3642,26 @@
 }));
 
 /*
- * jQuery File Upload Validation Plugin
+ * jQuery File Upload Validation Plugin 1.1.2
  * https://github.com/blueimp/jQuery-File-Upload
  *
  * Copyright 2013, Sebastian Tschan
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * https://opensource.org/licenses/MIT
+ * http://www.opensource.org/licenses/MIT
  */
 
-/* global define, require, window */
+/* global define, window */
 
-;(function (factory) {
-    'use strict';
+(function (factory) {
+    //'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
         define([
             'jquery',
             './jquery.fileupload-process'
         ], factory);
-    } else if (typeof exports === 'object') {
-        // Node/CommonJS:
-        factory(
-            require('jquery'),
-            require('./jquery.fileupload-process')
-        );
     } else {
         // Browser globals:
         factory(
@@ -3068,14 +3669,14 @@
         );
     }
 }(function ($) {
-    'use strict';
+    //'use strict';
 
     // Append to the default processQueue:
     $.blueimp.yafFileUpload.prototype.options.processQueue.push(
         {
             action: 'validate',
             // Always trigger this action,
-            // even if the previous action was rejected:
+            // even if the previous action was rejected: 
             always: true,
             // Options taken from the global options map:
             acceptFileTypes: '@',
@@ -3161,41 +3762,31 @@
 }));
 
 /*
- * jQuery File Upload User Interface Plugin
+ * jQuery File Upload User Interface Plugin 9.6.0
  * https://github.com/blueimp/jQuery-File-Upload
  *
  * Copyright 2010, Sebastian Tschan
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * https://opensource.org/licenses/MIT
+ * http://www.opensource.org/licenses/MIT
  */
 
 /* jshint nomen:false */
-/* global define, require, window */
+/* global define, window */
 
-;(function (factory) {
-    'use strict';
+(function (factory) {
+    //'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
         define([
             'jquery',
-            'blueimp-tmpl',
+            'tmpl',
             './jquery.fileupload-image',
             './jquery.fileupload-audio',
             './jquery.fileupload-video',
             './jquery.fileupload-validate'
         ], factory);
-    } else if (typeof exports === 'object') {
-        // Node/CommonJS:
-        factory(
-            require('jquery'),
-            require('blueimp-tmpl'),
-            require('./jquery.fileupload-image'),
-            require('./jquery.fileupload-audio'),
-            require('./jquery.fileupload-video'),
-            require('./jquery.fileupload-validate')
-        );
     } else {
         // Browser globals:
         factory(
@@ -3204,7 +3795,7 @@
         );
     }
 }(function ($, tmpl) {
-    'use strict';
+    //'use strict';
 
     $.blueimp.yafFileUpload.prototype._specialOptions.push(
         'filesContainer',
@@ -3234,10 +3825,10 @@
             // The expected data type of the upload response, sets the dataType
             // option of the $.ajax upload requests:
             dataType: 'json',
-
+            
             // Error and info messages:
             messages: {
-                unknownError: 'Unknown error'
+                unknownError: 'Unknown error'  
             },
 
             // Function returning the current number of files,
@@ -3263,7 +3854,8 @@
                     return false;
                 }
                 var $this = $(this),
-                    that = $this.data('blueimp-yafFileUpload') ,
+                    that = $this.data('blueimp-yafFileUpload') ||
+                        $this.data('fileupload'),
                     options = that.options;
                 data.context = that._renderUpload(data.files)
                     .data('data', data)
@@ -3306,7 +3898,7 @@
                     return false;
                 }
                 var that = $(this).data('blueimp-yafFileUpload') ||
-                        $(this).data('fileupload');
+                    $(this).data('fileupload');
                 if (data.context && data.dataType &&
                         data.dataType.substr(0, 6) === 'iframe') {
                     // Iframe Transport does not support progress events.
@@ -3718,7 +4310,7 @@
 
         _transition: function (node) {
             var dfd = $.Deferred();
-            if ($.support.transition && node.hasClass('fade') && node.is(':visible')) {
+            if ($.support.transition && node.hasClass('fade-ui') && node.is(':visible')) {
                 node.bind(
                     $.support.transition.end,
                     function (e) {
@@ -3867,6 +4459,158 @@
                 this.element.find('input, button').prop('disabled', true);
                 this._disableFileInputButton();
             }
+            this._super();
+        }
+
+    });
+
+}));
+
+/*
+ * jQuery File Upload jQuery UI Plugin 8.7.1
+ * https://github.com/blueimp/jQuery-File-Upload
+ *
+ * Copyright 2013, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/MIT
+ */
+
+/* jshint nomen:false */
+/* global define, window */
+
+(function (factory) {
+    //'use strict';
+    if (typeof define === 'function' && define.amd) {
+        // Register as an anonymous AMD module:
+        define(['jquery', './jquery.fileupload-ui'], factory);
+    } else {
+        // Browser globals:
+        factory(window.jQuery);
+    }
+}(function ($) {
+    //'use strict';
+    $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
+
+        options: {
+            processdone: function (e, data) {
+                data.context.find('.start').uibutton('enable');
+            },
+            progress: function (e, data) {
+                if (data.context) {
+                    data.context.find('.progress').progressbar(
+                        'option',
+                        'value',
+                        parseInt(data.loaded / data.total * 100, 10)
+                    );
+                }
+            },
+            progressall: function (e, data) {
+                var $this = $(this);
+                $this.find('.fileupload-progress')
+                    .find('.progress').progressbar(
+                        'option',
+                        'value',
+                        parseInt(data.loaded / data.total * 100, 10)
+                    ).end()
+                    .find('.progress-extended').each(function () {
+                        $(this).html(
+                            ($this.data('blueimp-yafFileUpload') ||
+                                    $this.data('fileupload'))
+                                ._renderExtendedProgress(data)
+                        );
+                    });
+            }
+        },
+
+        _renderUpload: function (func, files) {
+            var node = this._super(func, files),
+                showIconText = $(window).width() > 480;
+            node.find('.progress').empty().progressbar();
+            node.find('.start').uibutton({
+                icons: {primary: 'ui-icon-circle-arrow-e'},
+                text: showIconText
+            });
+            node.find('.cancel').uibutton({
+                icons: {primary: 'ui-icon-cancel'},
+                text: showIconText
+            });
+            if (node.hasClass('fade-ui')) {
+                node.hide();
+            }
+            return node;
+        },
+
+        _renderDownload: function (func, files) {
+            var node = this._super(func, files),
+                showIconText = $(window).width() > 480;
+            node.find('.delete').uibutton({
+                icons: {primary: 'ui-icon-trash'},
+                text: showIconText
+            });
+            if (node.hasClass('fade-ui')) {
+                node.hide();
+            }
+            return node;
+        },
+
+        _startHandler: function (e) {
+            $(e.currentTarget).uibutton('disable');
+            this._super(e);
+        },
+
+        _transition: function (node) {
+            var deferred = $.Deferred();
+            if (node.hasClass('fade-ui')) {
+                node.fadeToggle(
+                    this.options.transitionDuration,
+                    this.options.transitionEasing,
+                    function () {
+                        deferred.resolveWith(node);
+                    }
+                );
+            } else {
+                deferred.resolveWith(node);
+            }
+            return deferred;
+        },
+
+        _create: function () {
+            this._super();
+            this.element
+                .find('.fileupload-buttonbar')
+                .find('.fileinput-button').each(function () {
+                    var input = $(this).find('input:file').detach();
+                    $(this)
+                        .uibutton({icons: {primary: 'ui-icon-plusthick'}})
+                        .append(input);
+                })
+                .end().find('.start')
+                .uibutton({icons: {primary: 'ui-icon-circle-arrow-e'}})
+                .end().find('.cancel')
+                .uibutton({ icons: { primary: 'ui-icon-cancel' } })
+                .end().find('.delete')
+                .uibutton({ icons: { primary: 'ui-icon-trash' } })
+                .end().find('.progress').progressbar();
+        },
+
+        _destroy: function () {
+            this.element
+                .find('.fileupload-buttonbar')
+                .find('.fileinput-button').each(function () {
+                    var input = $(this).find('input:file').detach();
+                    $(this)
+                        .uibutton('destroy')
+                        .append(input);
+                })
+                .end().find('.start')
+                .uibutton('destroy')
+                .end().find('.cancel')
+                .vbutton('destroy')
+                .end().find('.delete')
+                .uibutton('destroy')
+                .end().find('.progress').progressbar('destroy');
             this._super();
         }
 

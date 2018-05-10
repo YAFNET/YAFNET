@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -80,7 +80,7 @@ namespace YAF.Controls
                 return;
             }
 
-            this.Save.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "SAVE"));
+            this.Save.Text = this.Get<ILocalization>().GetText("COMMON", "SAVE");
 
             this.BindData();
         }
@@ -95,12 +95,12 @@ namespace YAF.Controls
             // Update the Membership
             if (!this.IsGuestX.Checked)
             {
-                var user = UserMembershipHelper.GetUser(this.Name.Text.Trim());
+                MembershipUser user = UserMembershipHelper.GetUser(this.Name.Text.Trim());
 
-                var userName = this.Get<MembershipProvider>().GetUserNameByEmail(this.Email.Text.Trim());
+                string userName = this.Get<MembershipProvider>().GetUserNameByEmail(this.Email.Text.Trim());
                 if (userName.IsSet() && userName != user.UserName)
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
+                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.Warning);
                     return;
                 }
 
@@ -120,7 +120,7 @@ namespace YAF.Controls
                 if (!this.IsApproved.Checked)
                 {
                     this.PageContext.AddLoadMessage(
-                        this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_GUEST_APPROVED"), MessageTypes.success);
+                        this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_GUEST_APPROVED"), MessageTypes.Success);
                     return;
                 }
             }
@@ -158,9 +158,9 @@ namespace YAF.Controls
             this.RankID.DataTextField = "Name";
             this.RankID.DataBind();
 
-            using (var dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null))
+            using (DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null))
             {
-                var row = dt.Rows[0];
+                DataRow row = dt.Rows[0];
                 var userFlags = new UserFlags(row["Flags"]);
 
                 this.Name.Text = (string)row["Name"];
@@ -176,7 +176,7 @@ namespace YAF.Controls
                 this.IsTwitterUser.Checked = row["IsTwitterUser"].ToType<bool>();
                 this.IsGoogleUser.Checked = row["IsGoogleUser"].ToType<bool>();
                 this.LastVisit.Text = row["LastVisit"].ToString();
-                var item = this.RankID.Items.FindByValue(row["RankID"].ToString());
+                ListItem item = this.RankID.Items.FindByValue(row["RankID"].ToString());
 
                 if (item != null)
                 {

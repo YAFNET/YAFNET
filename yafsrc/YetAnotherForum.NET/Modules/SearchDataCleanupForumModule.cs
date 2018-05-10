@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -67,14 +67,18 @@ namespace YAF.Modules
         #region Methods
 
         /// <summary>
-        /// _pages the pre load_ handle event.
+        ///     The _page pre load_ handle event.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The e.</param>
+        /// <param name="sender">
+        ///     The sender.
+        /// </param>
+        /// <param name="e">
+        ///     The e.
+        /// </param>
         private void _pagePreLoad_HandleEvent([NotNull] object sender, [NotNull] EventConverterArgs<ForumPagePreLoadEvent> e)
         {
             // no security features for login/logout pages
-            if (this.ForumPageType == ForumPages.search || this.ForumPageType == ForumPages.posts)
+            if (this.ForumPageType == ForumPages.search)
             {
                 return;
             }

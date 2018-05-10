@@ -1,14 +1,12 @@
-// stylelint-disable declaration-no-important
-
 // Typography
 
+// [converter] $parent hack
 @mixin text-emphasis-variant($parent, $color) {
   #{$parent} {
-    color: $color !important;
+    color: $color;
   }
-  a#{$parent} {
-    @include hover-focus {
-      color: darken($color, 10%) !important;
-    }
+  a#{$parent}:hover,
+  a#{$parent}:focus {
+    color: darken($color, 10%);
   }
 }

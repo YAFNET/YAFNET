@@ -1,7 +1,7 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,14 +34,12 @@ namespace YAF.Core.Services
     using YAF.Classes;
     using YAF.Core;
     using YAF.Core.BBCode.ReplaceRules;
-    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Utils.Helpers;
-    using YAF.Utils.Helpers.StringUtils;
 
     #endregion
 
@@ -55,7 +53,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///   format message regex
         /// </summary>
-        private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
+        private const RegexOptions _Options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
 
         /// <summary>
         /// The mail regex
@@ -63,7 +61,7 @@ namespace YAF.Core.Services
         private static readonly Regex _RgxEmail =
             new Regex(
                 @"(?<before>^|[ ]|\>|\[[A-Za-z0-9]\])(?<inner>(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})",
-                Options | RegexOptions.Compiled);
+                _Options | RegexOptions.Compiled);
 
         /// <summary>
         /// The YouTube Regex
@@ -71,7 +69,7 @@ namespace YAF.Core.Services
         private static readonly Regex _RgxYoutube1 =
             new Regex(
                 @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://)(www.)?youtube\.com\/watch\?v=(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)",
-                Options | RegexOptions.Compiled);
+                _Options | RegexOptions.Compiled);
 
         /// <summary>
         /// The YouTube (Short URL) Regex
@@ -79,7 +77,7 @@ namespace YAF.Core.Services
         private static readonly Regex _RgxYoutube2 =
             new Regex(
                 @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://)youtu\.be\/(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)",
-                Options | RegexOptions.Compiled);
+                _Options | RegexOptions.Compiled);
 
         /// <summary>
         /// The URL Regex
@@ -87,7 +85,7 @@ namespace YAF.Core.Services
         private static readonly Regex _RgxUrl1 =
             new Regex(
                 @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,~/(/)]*)?)",
-                Options | RegexOptions.Compiled);
+                _Options | RegexOptions.Compiled);
 
         /// <summary>
         /// The URL Regex
@@ -95,7 +93,7 @@ namespace YAF.Core.Services
         private static readonly Regex _RgxUrl2 =
             new Regex(
                 @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~/(/)$]*[^.<|^.\[])?)",
-                Options | RegexOptions.Compiled);
+                _Options | RegexOptions.Compiled);
 
         /// <summary>
         /// The URL Regex
@@ -103,7 +101,7 @@ namespace YAF.Core.Services
         private static readonly Regex _RgxUrl3 =
             new Regex(
                 @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,~]*)?)",
-                Options | RegexOptions.Compiled);
+                _Options | RegexOptions.Compiled);
 
         #endregion
 
@@ -168,7 +166,7 @@ namespace YAF.Core.Services
             [NotNull] string stringToMatch,
             char delim)
         {
-            var codes = stringToMatch.Split(delim);
+            string[] codes = stringToMatch.Split(delim);
 
             var forbiddenTagList = new List<string>();
 
@@ -303,7 +301,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string CheckHtmlTags([NotNull] string checkString, [NotNull] string acceptedTags, char delim)
         {
-            var detectedHtmlTag = this.HtmlTagForbiddenDetector(checkString, acceptedTags, delim);
+            string detectedHtmlTag = this.HtmlTagForbiddenDetector(checkString, acceptedTags, delim);
 
             if (!string.IsNullOrEmpty(detectedHtmlTag) && detectedHtmlTag != "ALL")
             {
@@ -342,12 +340,12 @@ namespace YAF.Core.Services
         {
             var boardSettings = this.Get<YafBoardSettings>();
 
-            var useNoFollow = boardSettings.UseNoFollowLinks;
+            bool useNoFollow = boardSettings.UseNoFollowLinks;
 
             // check to see if no follow should be disabled since the message is properly aged
             if (useNoFollow && boardSettings.DisableNoFollowLinksAfterDay > 0)
             {
-                var messageAge = messageLastEdited - DateTime.UtcNow;
+                TimeSpan messageAge = messageLastEdited - DateTime.UtcNow;
                 if (messageAge.Days > boardSettings.DisableNoFollowLinksAfterDay)
                 {
                     // disable no follow
@@ -368,7 +366,7 @@ namespace YAF.Core.Services
             {
                 // populate
 
-                // get rules for YafBBCode
+                // get rules for YafBBCode and Smilies
                 this.Get<IBBCode>()
                     .CreateBBCodeRules(ruleEngine, messageFlags.IsHtml, true, targetBlankOverride, useNoFollow);
 
@@ -383,9 +381,9 @@ namespace YAF.Core.Services
                 ruleEngine.AddRule(email);
 
                 // URLs Rules
-                var target = (boardSettings.BlankLinks || targetBlankOverride) ? "target=\"_blank\"" : string.Empty;
+                string target = (boardSettings.BlankLinks || targetBlankOverride) ? "target=\"_blank\"" : string.Empty;
 
-                var nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
+                string nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
 
                 var youtubeVideo1 = new VariableRegexReplaceRule(
                     _RgxYoutube1,
@@ -448,9 +446,6 @@ namespace YAF.Core.Services
             // process...
             ruleEngine.Process(ref message);
 
-            // Format Emoticons
-            message = EmojiOne.ShortnameToUnicode(message, true);
-
             return message;
         }
 
@@ -512,9 +507,9 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(topicId, "topicId");
 
             // get the common words for the language -- should be all lower case.
-            var commonWords = this.Get<ILocalization>().GetText("COMMON", "COMMON_WORDS").StringToList(',');
+            List<string> commonWords = this.Get<ILocalization>().GetText("COMMON", "COMMON_WORDS").StringToList(',');
 
-            var cacheKey = Constants.Cache.FirstPostCleaned.FormatWith(YafContext.Current.PageBoardID, topicId);
+            string cacheKey = Constants.Cache.FirstPostCleaned.FormatWith(YafContext.Current.PageBoardID, topicId);
             var message = new MessageCleaned();
 
             if (!topicMessage.IsNullOrEmptyDBField())
@@ -523,7 +518,7 @@ namespace YAF.Core.Services
                     cacheKey,
                     () =>
                         {
-                            var returnMsg = topicMessage.ToString();
+                            string returnMsg = topicMessage.ToString();
                             var keywordList = new List<string>();
 
                             if (returnMsg.IsSet())
@@ -544,7 +539,7 @@ namespace YAF.Core.Services
                                 else
                                 {
                                     // get string without punctuation
-                                    var keywordCleaned =
+                                    string keywordCleaned =
                                         new string(
                                             returnMsg.Where(c => !char.IsPunctuation(c) || char.IsWhiteSpace(c))
                                                 .ToArray()).Trim().ToLower();
@@ -603,7 +598,7 @@ namespace YAF.Core.Services
             [NotNull] string stringToMatch,
             char delim)
         {
-            var codes = stringToMatch.Split(delim);
+            string[] codes = stringToMatch.Split(delim);
 
             var forbiddenTagList = new List<string>();
 
@@ -754,7 +749,7 @@ namespace YAF.Core.Services
                     @"\[hide-reply\](?<inner>(.|\n)*?)\[\/hide-reply\]|\[hide-reply-thanks\](?<inner>(.|\n)*?)\[\/hide-reply-thanks\]|\[group-hide\](?<inner>(.|\n)*?)\[\/group-hide\]|\[hide\](?<inner>(.|\n)*?)\[\/hide\]|\[group-hide(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/group-hide\]|\[hide-thanks(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/hide-thanks\]|\[hide-posts(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/hide-posts\]",
                     Options);
 
-            var hiddenTagMatch = hiddenRegex.Match(body);
+            Match hiddenTagMatch = hiddenRegex.Match(body);
 
             if (hiddenTagMatch.Success)
             {
@@ -780,7 +775,7 @@ namespace YAF.Core.Services
 
             var spoilerRegex = new Regex(@"\[SPOILER\](?<inner>(.|\n)*?)\[\/SPOILER\]", Options);
 
-            var spoilerTagMatch = spoilerRegex.Match(body);
+            Match spoilerTagMatch = spoilerRegex.Match(body);
 
             if (spoilerTagMatch.Success)
             {
@@ -806,14 +801,14 @@ namespace YAF.Core.Services
         {
             // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
             // These are '\n\r' things related to multiline regexps.
-            var mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
-            for (var i = mc1.Count - 1; i >= 0; i--)
+            MatchCollection mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
+            for (int i = mc1.Count - 1; i >= 0; i--)
             {
                 html = html.Insert(mc1[i].Index + 1, " \r");
             }
 
-            var mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
-            for (var i = mc2.Count - 1; i >= 0; i--)
+            MatchCollection mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
+            for (int i = mc2.Count - 1; i >= 0; i--)
             {
                 html = html.Insert(mc2[i].Index + 1, " \r");
             }
@@ -847,14 +842,14 @@ namespace YAF.Core.Services
         {
             // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
             // These are '\n\r' things related to multiline regexps.
-            var mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
-            for (var i = mc1.Count - 1; i >= 0; i--)
+            MatchCollection mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
+            for (int i = mc1.Count - 1; i >= 0; i--)
             {
                 html = html.Insert(mc1[i].Index + 1, " \r");
             }
 
-            var mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
-            for (var i = mc2.Count - 1; i >= 0; i--)
+            MatchCollection mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
+            for (int i = mc2.Count - 1; i >= 0; i--)
             {
                 html = html.Insert(mc2[i].Index + 1, " \r");
             }
@@ -880,14 +875,14 @@ namespace YAF.Core.Services
         {
             // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
             // These are '\n\r' things related to multiline regexps.
-            var mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
-            for (var i = mc1.Count - 1; i >= 0; i--)
+            MatchCollection mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
+            for (int i = mc1.Count - 1; i >= 0; i--)
             {
                 html = html.Insert(mc1[i].Index + 1, " \r");
             }
 
-            var mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
-            for (var i = mc2.Count - 1; i >= 0; i--)
+            MatchCollection mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
+            for (int i = mc2.Count - 1; i >= 0; i--)
             {
                 html = html.Insert(mc2[i].Index + 1, " \r");
             }
@@ -928,7 +923,7 @@ namespace YAF.Core.Services
 
             //// const RegexOptions regexOptions = RegexOptions.IgnoreCase;
 
-            foreach (var word in wordList.Where(w => w.Length > 3))
+            foreach (string word in wordList.Where(w => w.Length > 3))
             {
                 MatchAndPerformAction(
                     "({0})".FormatWith(word.ToLower().ToRegExString()),
@@ -982,7 +977,7 @@ namespace YAF.Core.Services
 
             foreach (var match in matches)
             {
-                var inner = text.Substring(match.Index + 1, match.Length - 1).Trim().ToLower();
+                string inner = text.Substring(match.Index + 1, match.Length - 1).Trim().ToLower();
                 matchAction(inner, match.Index, match.Length);
             }
         }

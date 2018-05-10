@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -48,7 +48,7 @@ namespace YAF.Controls
         /// <summary>
         ///   The _controlHtml.
         /// </summary>
-        private readonly string controlHtml = @"<abbr class=""timeago"" title=""{1}"">{0}</abbr>";
+        protected string _controlHtml = @"<abbr class=""timeago"" title=""{0}"">{1}</abbr>";
 
         #endregion
 
@@ -61,6 +61,11 @@ namespace YAF.Controls
         {
             get
             {
+                if (this.ViewState["DateTime"] == null)
+                {
+                    return null;
+                }
+
                 return this.ViewState["DateTime"];
             }
 
@@ -77,7 +82,9 @@ namespace YAF.Controls
         {
             get
             {
-                return this.ViewState["Format"]?.ToEnum<DateTimeFormat>() ?? DateTimeFormat.Both;
+                return this.ViewState["Format"] == null
+                           ? DateTimeFormat.Both
+                           : this.ViewState["Format"].ToEnum<DateTimeFormat>();
             }
 
             set
@@ -93,18 +100,16 @@ namespace YAF.Controls
         {
             get
             {
-                if (this.DateTime == null)
+                if (this.DateTime != null)
                 {
-                    return DateTimeHelper.SqlDbMinTime();
-                }
-
-                try
-                {
-                    return Convert.ToDateTime(this.DateTime);
-                }
-                catch (InvalidCastException)
-                {
-                    // not useable...            
+                    try
+                    {
+                        return Convert.ToDateTime(this.DateTime);
+                    }
+                    catch (InvalidCastException)
+                    {
+                        // not useable...            
+                    }
                 }
 
                 return DateTimeHelper.SqlDbMinTime();
@@ -129,7 +134,7 @@ namespace YAF.Controls
             }
 
             writer.Write(
-                this.controlHtml.FormatWith(
+                this._controlHtml.FormatWith(
                     this.AsDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture),
                     this.Get<IDateTime>().Format(this.Format, this.DateTime)));
             writer.WriteLine();

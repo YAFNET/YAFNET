@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -44,7 +44,28 @@ namespace YAF.Controls
     /// </summary>
     public partial class DisplayConnect : BaseUserControl
     {
+        #region Properties
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether Is Alt. Row
+        /// </summary>
+        public bool IsAlt { get; set; }
+
+        #endregion
+
         #region Methods
+
+        /// <summary>
+        /// Gets the post class.
+        /// </summary>
+        /// <returns>
+        /// Returns the post class.
+        /// </returns>
+        [NotNull]
+        protected string GetPostClass()
+        {
+            return this.IsAlt ? "post_alt" : "post";
+        }
 
         /// <summary>
         /// Handles the Load event of the Page control.
@@ -67,7 +88,7 @@ namespace YAF.Controls
                 if (Config.AllowLoginAndLogoff)
                 {
                     this.ConnectHolder.Controls.Add(
-                        new Literal { Text = "<strong>{0}</strong>".FormatWith(this.GetText("TOOLBAR", "WELCOME_GUEST_CONNECT")) });
+                        new Literal { Text = this.GetText("TOOLBAR", "WELCOME_GUEST_CONNECT") });
 
                     // show login
                     var loginLink = new ThemeButton
@@ -77,8 +98,7 @@ namespace YAF.Controls
                                             ParamText0 = this.Get<YafBoardSettings>().Name,
                                             TitleLocalizedTag = "LOGIN",
                                             TitleLocalizedPage = "TOOLBAR",
-                                            Type = ButtonAction.Link,
-                                            Icon = "sign-in-alt"
+                                            CssClass = "yafcssbigbutton"
                                         };
 
                     if (this.Get<YafBoardSettings>().UseLoginBox && !(this.Get<IYafSession>().UseMobileTheme ?? false))
@@ -114,8 +134,7 @@ namespace YAF.Controls
                                                TextLocalizedPage = "TOOLBAR",
                                                TitleLocalizedTag = "REGISTER",
                                                TitleLocalizedPage = "TOOLBAR",
-                                               Type = ButtonAction.Link,
-                                               Icon = "user-plus",
+                                               CssClass = "yafcssbigbutton",
                                                NavigateUrl =
                                                    this.Get<YafBoardSettings>().ShowRulesForRegistration
                                                        ? YafBuildLink.GetLink(ForumPages.rules)
@@ -127,6 +146,8 @@ namespace YAF.Controls
                                            };
 
                     this.ConnectHolder.Controls.Add(registerLink);
+
+                    this.ConnectHolder.Controls.Add(endPoint);
 
                     isRegisterAllowed = true;
                 }
@@ -163,7 +184,7 @@ namespace YAF.Controls
                                                      this.GetTextFormatted("AUTH_CONNECT_HELP", "Facebook"),
                                                  ID = "FacebookRegister",
                                                  CssClass = "authLogin facebookLogin"
-                    };
+                                             };
 
                         linkButton.Click += this.FacebookFormClick;
 

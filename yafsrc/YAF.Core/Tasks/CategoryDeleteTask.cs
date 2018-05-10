@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,7 +25,6 @@ namespace YAF.Core.Tasks
 {
     using System;
 
-    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -35,7 +34,7 @@ namespace YAF.Core.Tasks
     /// <summary>
     ///     The forum delete task.
     /// </summary>
-    public class CategoryDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
+    public class CategoryDeleteTask : LongBackgroundTask, ICriticalBackgroundTask, IBlockableTask
     {
         #region Constants
 
@@ -125,7 +124,7 @@ namespace YAF.Core.Tasks
             try
             {
                 this.Logger.Info("Starting Category {0} delete task.", this.CategoryId);
-                this.GetRepository<Category>().DeleteById(this.CategoryId);
+                this.GetRepository<Category>().Delete(this.CategoryId);
                 this.Logger.Info("Category (ID: {0}) Delete Task Complete.", this.CategoryId);
             }
             catch (Exception x)

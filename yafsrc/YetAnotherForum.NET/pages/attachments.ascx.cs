@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -85,7 +85,7 @@ namespace YAF.Pages
         protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("ATTACHMENTS", "CONFIRM_DELETE"));
+                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_ATTACHMENTS", "CONFIRM_DELETE"));
         }
 
         /// <summary>
@@ -157,14 +157,14 @@ namespace YAF.Pages
         /// <returns>Returns the Preview Image</returns>
         protected string GetPreviewImage([NotNull] object o)
         {
-            var attach = o.ToType<Attachment>();
+            var row = o.ToType<DataRowView>();
 
-            var fileName = attach.FileName;
+            var fileName = row["FileName"].ToString();
             var isImage = fileName.IsImageName();
             var url = isImage
                           ? "{0}resource.ashx?i={1}&b={2}&editor=true".FormatWith(
                               YafForumInfo.ForumClientFileRoot,
-                              attach.ID,
+                              row["AttachmentID"],
                               this.PageContext.PageBoardID)
                           : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot);
 
@@ -175,7 +175,7 @@ namespace YAF.Pages
 
         protected void DeleteAttachments_Click(object sender, EventArgs e)
         {
-            foreach (var item in from RepeaterItem item in this.List.Items
+            foreach (RepeaterItem item in from RepeaterItem item in this.List.Items
                                           where
                                               item.ItemType == ListItemType.Item
                                               || item.ItemType == ListItemType.AlternatingItem
@@ -183,7 +183,7 @@ namespace YAF.Pages
                                           select item)
             {
                 this.GetRepository<Attachment>()
-                    .DeleteById(item.FindControlAs<ThemeButton>("ThemeButtonDelete").CommandArgument.ToType<int>());
+                    .DeleteByID(item.FindControlAs<ThemeButton>("ThemeButtonDelete").CommandArgument.ToType<int>());
             }
 
             this.BindData();
@@ -196,14 +196,15 @@ namespace YAF.Pages
         {
             this.PagerTop.PageSize = this.Get<YafBoardSettings>().MemberListPageSize;
 
-            var dt = this.GetRepository<Attachment>().GetPaged(
-                a => a.UserID == this.PageContext.PageUserID,
-                pageIndex: this.PagerTop.CurrentPageIndex,
-                pageSize: this.PagerTop.PageSize);
+            var dt = this.GetRepository<Attachment>()
+                .List(
+                    userID: this.PageContext.PageUserID,
+                    pageIndex: this.PagerTop.CurrentPageIndex,
+                    pageSize: this.PagerTop.PageSize);
 
             this.List.DataSource = dt;
-            this.PagerTop.Count = dt != null && dt.Any()
-                                      ? this.GetRepository<Attachment>().Count(a => a.UserID == this.PageContext.PageUserID).ToType<int>()
+            this.PagerTop.Count = dt != null && dt.HasRows()
+                                      ? dt.AsEnumerable().First().Field<int>("TotalRows")
                                       : 0;
 
             this.DataBind();

@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -83,15 +83,33 @@ namespace YAF.Pages.Admin
         {
             if (!this.IsPostBack)
             {
+                this.PageLinks.AddRoot();
+                this.PageLinks.AddLink(
+                    this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+
+                this.PageLinks.AddLink(
+                    this.GetText("ADMIN_RANKS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_ranks));
+
+                // current page label (no link)
+                this.PageLinks.AddLink(this.GetText("ADMIN_EDITRANK", "TITLE"), string.Empty);
+
+                this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
+                    this.GetText("ADMIN_ADMIN", "Administration"),
+                    this.GetText("ADMIN_RANKS", "TITLE"),
+                    this.GetText("ADMIN_EDITRANK", "TITLE"));
+
+                this.Save.Text = this.GetText("COMMON", "SAVE");
+                this.Cancel.Text = this.GetText("COMMON", "CANCEL");
+
                 this.BindData();
 
                 if (this.Request.QueryString.GetFirstOrDefault("r") != null)
                 {
                     using (
-                        var dt = LegacyDb.rank_list(
+                        DataTable dt = LegacyDb.rank_list(
                             this.PageContext.PageBoardID, this.Request.QueryString.GetFirstOrDefault("r")))
                     {
-                        var row = dt.Rows[0];
+                        DataRow row = dt.Rows[0];
                         var flags = new RankFlags(row["Flags"]);
                         this.Name.Text = (string)row["Name"];
                         this.IsStart.Checked = flags.IsStart;
@@ -107,7 +125,7 @@ namespace YAF.Pages.Admin
                         this.UsrSigHTMLTags.Text = row["UsrSigHTMLTags"].ToString();
                         this.Description.Text = row["Description"].ToString();
 
-                        var item = this.RankImage.Items.FindByText(row["RankImage"].ToString());
+                        ListItem item = this.RankImage.Items.FindByText(row["RankImage"].ToString());
 
                         if (item != null)
                         {
@@ -128,72 +146,49 @@ namespace YAF.Pages.Admin
             }
 
             this.RankImage.Attributes["onchange"] =
-                "getElementById('{2}').src='{0}{1}/' + this.value".FormatWith(
-                    YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Ranks, this.Preview.ClientID);
+                "getElementById('{2}_ctl01_Preview').src='{0}{1}/' + this.value".FormatWith(
+                    YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Ranks, this.Parent.ID);
         }
 
-
-
         /// <summary>
-        /// Creates page links for this page.
+        /// Save (New) Rank
         /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_RANKS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_ranks));
-
-            // current page label (no link)
-            this.PageLinks.AddLink(this.GetText("ADMIN_EDITRANK", "TITLE"), string.Empty);
-
-            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_RANKS", "TITLE"),
-                this.GetText("ADMIN_EDITRANK", "TITLE"));
-        }
-        
-        /// <summary>
-         /// Save (New) Rank
-         /// </summary>
-         /// <param name="sender">The source of the event.</param>
-         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!ValidationHelper.IsValidInt(this.PMLimit.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_VALID_NUMBER"), MessageTypes.danger);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_VALID_NUMBER"), MessageTypes.Error);
                 return;
             }
 
             if (!ValidationHelper.IsValidInt(this.RankPriority.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITRANK", "MSG_RANK_INTEGER"), MessageTypes.danger);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITRANK", "MSG_RANK_INTEGER"), MessageTypes.Error);
                 return;
             }
 
             if (!ValidationHelper.IsValidInt(this.UsrAlbums.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_ALBUM_NUMBER"), MessageTypes.danger);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_ALBUM_NUMBER"), MessageTypes.Error);
                 return;
             }
 
             if (!ValidationHelper.IsValidInt(this.UsrSigChars.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_SIG_NUMBER"), MessageTypes.danger);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_SIG_NUMBER"), MessageTypes.Error);
                 return;
             }
 
             if (!ValidationHelper.IsValidInt(this.UsrAlbumImages.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_TOTAL_NUMBER"), MessageTypes.danger);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_TOTAL_NUMBER"), MessageTypes.Error);
                 return;
             }
 
             // Group
-            var rankID = 0;
+            int rankID = 0;
             if (this.Request.QueryString.GetFirstOrDefault("r") != null)
             {
                 rankID = int.Parse(this.Request.QueryString.GetFirstOrDefault("r"));
@@ -243,7 +238,7 @@ namespace YAF.Pages.Admin
                 dt.Columns.Add("FileID", typeof(long));
                 dt.Columns.Add("FileName", typeof(string));
                 dt.Columns.Add("Description", typeof(string));
-                var dr = dt.NewRow();
+                DataRow dr = dt.NewRow();
                 dr["FileID"] = 0;
                 dr["FileName"] = YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
                 dr["Description"] = this.GetText("ADMIN_EDITRANK", "SELECT_IMAGE");
@@ -253,10 +248,10 @@ namespace YAF.Pages.Admin
                     new DirectoryInfo(
                         this.Request.MapPath(
                             "{0}{1}".FormatWith(YafForumInfo.ForumServerFileRoot, YafBoardFolders.Current.Ranks)));
-                var files = dir.GetFiles("*.*");
+                FileInfo[] files = dir.GetFiles("*.*");
                 long nFileID = 1;
 
-                foreach (var file in from file in files
+                foreach (FileInfo file in from file in files
                                           let sExt = file.Extension.ToLower()
                                           where sExt == ".png" || sExt == ".gif" || sExt == ".jpg"
                                           select file)

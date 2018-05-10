@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -94,7 +94,7 @@ namespace YAF.Pages
             if (username.Contains("@") && this.Get<MembershipProvider>().RequiresUniqueEmail)
             {
                 // attempt Email Login
-                var realUsername = this.Get<MembershipProvider>().GetUserNameByEmail(username);
+                string realUsername = this.Get<MembershipProvider>().GetUserNameByEmail(username);
 
                 if (realUsername.IsSet() && this.Get<MembershipProvider>().ValidateUser(realUsername, password))
                 {
@@ -117,7 +117,7 @@ namespace YAF.Pages
                 if (id.HasValue)
                 {
                     // get the username associated with this id...
-                    var realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
+                    string realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
 
                     // validate again...
                     if (this.Get<MembershipProvider>().ValidateUser(realUsername, password))
@@ -183,7 +183,7 @@ namespace YAF.Pages
         /// </param>
         protected void Login1_LoginError([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var emptyFields = false;
+            bool emptyFields = false;
 
             var userName = this.Login1.FindControlAs<TextBox>("UserName");
             var password = this.Login1.FindControlAs<TextBox>("Password");
@@ -319,7 +319,7 @@ namespace YAF.Pages
                 var twitterEnabled = Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet();
                 var googleEnabled = Config.GoogleClientID.IsSet() && Config.GoogleClientSecret.IsSet();
 
-                var loginAuth = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("auth");
+                string loginAuth = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("auth");
 
                 if (loginAuth.IsNotSet())
                 {

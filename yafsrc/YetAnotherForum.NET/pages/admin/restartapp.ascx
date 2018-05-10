@@ -1,29 +1,26 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.restartapp" Codebehind="restartapp.ascx.cs" %>
-
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu ID="adminmenu1" runat="server">
-    <div class="row">
-        <div class="col-xl-12">
-            <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_RESTARTAPP" /></h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fa fa-sync fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_RESTARTAPP" />
-                </div>
-                <div class="card-body text-center">
-                    <p class="card-text">
-                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="INFO" LocalizedPage="ADMIN_RESTARTAPP" />
-                    </p>
-                </div>
-                <div class="card-footer text-center">
-                    <asp:LinkButton ID="RestartApp" runat="server" Type="Primary" OnClick="RestartAppClick">
-                        <i class="fa fa-sync fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_RESTARTAPP" />
-                    </asp:LinkButton>
-                </div>
-            </div>
-        </div>
-    </div>
+	<table width="100%" cellspacing="0" cellpadding="0" class="content">
+		<tr>
+			<td class="header1">
+				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_RESTARTAPP" />
+			</td>
+		</tr>
+        <tr>
+	      <td class="header2" style="height:30px"></td>
+		</tr>
+		<tr class="post">
+			<td>
+				<p style="text-align:center">
+					<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="INFO" LocalizedPage="ADMIN_RESTARTAPP" />
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="postfooter" align="center">
+				<asp:Button ID="RestartApp" runat="server" Text="Restart Application" CssClass="pbutton" OnClick="RestartApp_Click"></asp:Button>
+			</td>
+		</tr>
+	</table>
 </YAF:AdminMenu>

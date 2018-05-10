@@ -41,7 +41,7 @@
             <asp:DropDownList ID="NumPostDDL" runat="server" Width="200px" CssClass="standardSelectMenu">
             </asp:DropDownList>
             &nbsp;
-            <asp:TextBox ID="NumPostsTB" runat="server" Width="70px" CssClass="Numeric" TextMode="Number"></asp:TextBox>
+            <asp:TextBox ID="NumPostsTB" runat="server" Width="70px" CssClass="Numeric"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -73,15 +73,15 @@
         </td>
         <td class="header2">
             <img runat="server" id="SortRank" alt="Sort Rank" style="vertical-align: middle" />
-            <asp:LinkButton runat="server" ID="Rank" OnClick="Rank_Click" />
+            <asp:LinkButton runat="server" ID="Rank" Enabled="false" OnClick="Rank_Click" />
         </td>
         <td class="header2">
             <img runat="server" id="SortJoined" alt="Sort Joined" style="vertical-align: middle" />
             <asp:LinkButton runat="server" ID="Joined" OnClick="Joined_Click" />
         </td>
         <td class="header2" style="text-align:center">
-            <img runat="server" id="SortPosts" alt="Sort Posts" style="vertical-align: middle" />
-            <asp:LinkButton runat="server" ID="Posts"  OnClick="Posts_Click" />
+            <img runat="server" id="SortPosts" alt="Sort Posts" style="vertical-align: middle" Visible="False" />
+            <asp:LinkButton runat="server" ID="Posts"  Enabled="false"  OnClick="Posts_Click" />
         </td>
         <td class="header2">
             <img runat="server" id="SortLastVisit" alt="Sort Last Visit" style="vertical-align: middle" />
@@ -92,15 +92,15 @@
         <ItemTemplate>
             <tr>
                 <td class="post">
-                   <img src="<%# this.GetAvatarUrlFileName(this.Eval("UserID").ToType<int>(), this.Eval("Avatar").ToString(),Eval("AvatarImage").ToString().IsSet(), this.Eval("Email").ToString()) %>" alt="<%# this.HtmlEncode(DataBinder.Eval(Container.DataItem,"Name").ToString()) %>"
+                   <img src="<%# this.GetAvatarUrlFileName(this.Eval("UserID").ToType<int>(), Eval("Avatar").ToString(),Eval("AvatarImage").ToString().IsSet(), Eval("Email").ToString()) %>" alt="<%# this.HtmlEncode(DataBinder.Eval(Container.DataItem,"Name").ToString()) %>"
                         title="<%# this.HtmlEncode(this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval("DisplayName").ToString() : this.Eval("Name").ToString()) %>" class="avatarimage img-rounded" />
                 </td>
                 <td class="post">
                     <YAF:UserLink ID="UserProfileLink" runat="server" IsGuest="False" ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval("DisplayName").ToString() : this.Eval("Name").ToString() %>'  UserID='<%# this.Eval("UserID").ToType<int>() %>'
-                        Style='<%# this.Eval("Style") %>' />
+                        Style='<%# Eval("Style") %>' />
                 </td>
                 <td class="post">
-                    <%# this.Eval("RankName") %>
+                    <%# Eval("RankName") %>
                 </td>
                 <td class="post">
                     <%# this.Get<IDateTime>().FormatDateLong((DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %>

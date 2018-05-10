@@ -31,15 +31,6 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
         
         /// <summary>
-        /// LocalizedLabel2-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
-        
-        /// <summary>
         /// LocalizedLabel12-Steuerelement
         /// </summary>
         /// <remarks>
@@ -76,15 +67,6 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.Pager PagerTop;
         
         /// <summary>
-        /// LocalizedLabel4-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel4;
-        
-        /// <summary>
         /// list-Steuerelement
         /// </summary>
         /// <remarks>
@@ -110,23 +92,5 @@ namespace YAF.Pages.Admin {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Controls.SmartScroller SmartScroller1;
-        
-        /// <summary>
-        /// ImportDialog-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Dialogs.BannedIpImport ImportDialog;
-        
-        /// <summary>
-        /// EditDialog-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Dialogs.BannedIpEdit EditDialog;
     }
 }

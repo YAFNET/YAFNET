@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -79,7 +79,7 @@ namespace YAF.Core.Services.Cache
     {
       CodeContracts.VerifyNotNull(originalKey, "key");
 
-      var keyHash = originalKey.GetHashCode();
+      int keyHash = originalKey.GetHashCode();
 
       // make positive if negative...
       if (keyHash < 0)
@@ -88,7 +88,7 @@ namespace YAF.Core.Services.Cache
       }
 
       // get the lock item id (value between 0 and objectCount)
-      var lockItemId = keyHash % LockObjectCount;
+      int lockItemId = keyHash % LockObjectCount;
 
       // init the lock object if it hasn't been created yet...
       return this.LockCacheItems[lockItemId] ?? (this.LockCacheItems[lockItemId] = new object());

@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,6 +25,7 @@ namespace YAF.Controls
 {
     #region Using
 
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
@@ -47,9 +48,14 @@ namespace YAF.Controls
         #region Constants and Fields
 
         /// <summary>
-        ///   The items.
+        ///   The _items.
         /// </summary>
-        private readonly List<InternalAlbumListItem> items = new List<InternalAlbumListItem>();
+        private readonly List<InternalAlbumListItem> _items = new List<InternalAlbumListItem>();
+
+        /// <summary>
+        ///   The _control.
+        /// </summary>
+        private string _control = string.Empty;
 
         #endregion
 
@@ -58,7 +64,7 @@ namespace YAF.Controls
         /// <summary>
         ///   The item click.
         /// </summary>
-        public event PopMenu.PopEventHandler ItemClick;
+        public event PopEventHandler ItemClick;
 
         #endregion
 
@@ -67,17 +73,40 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets or sets Control.
         /// </summary>
-        public string Control { get; set; } = string.Empty;
+        public string Control
+        {
+            get
+            {
+                return this._control;
+            }
+
+            set
+            {
+                this._control = value;
+            }
+        }
 
         /// <summary>
         ///   Gets ControlOnClick.
         /// </summary>
-        public string ControlOnClick => "yaf_popit('{0}')".FormatWith(this.ClientID);
+        public string ControlOnClick
+        {
+            get
+            {
+                return "yaf_popit('{0}')".FormatWith(this.ClientID);
+            }
+        }
 
         /// <summary>
         ///   Gets ControlOnMouseOver.
         /// </summary>
-        public string ControlOnMouseOver => "yaf_mouseover('{0}')".FormatWith(this.ClientID);
+        public string ControlOnMouseOver
+        {
+            get
+            {
+                return "yaf_mouseover('{0}')".FormatWith(this.ClientID);
+            }
+        }
 
         #endregion
 
@@ -98,19 +127,19 @@ namespace YAF.Controls
         public void AddClientScriptItem(
             [NotNull] string description, [NotNull] string clientScript, [NotNull] string albumImage)
         {
-            this.items.Add(new InternalAlbumListItem(description, null, clientScript, albumImage));
+            this._items.Add(new InternalAlbumListItem(description, null, clientScript, albumImage));
         }
 
         /// <summary>
         /// The attach.
         /// </summary>
-        /// <param name="control">
-        /// The control.
+        /// <param name="ctl">
+        /// The ctl.
         /// </param>
-        public void Attach([NotNull] WebControl control)
+        public void Attach([NotNull] WebControl ctl)
         {
-            control.Attributes["onclick"] = this.ControlOnClick;
-            control.Attributes["onmouseover"] = this.ControlOnMouseOver;
+            ctl.Attributes["onclick"] = this.ControlOnClick;
+            ctl.Attributes["onmouseover"] = this.ControlOnMouseOver;
         }
 
         /// <summary>
@@ -133,9 +162,9 @@ namespace YAF.Controls
         /// </param>
         public void RemovePostBackItem([NotNull] string argument)
         {
-            foreach (var item in this.items.Where(item => item.PostBackArgument == argument))
+            foreach (InternalAlbumListItem item in this._items.Where(item => item.PostBackArgument == argument))
             {
-                this.items.Remove(item);
+                this._items.Remove(item);
                 break;
             }
         }
@@ -154,7 +183,10 @@ namespace YAF.Controls
         /// </param>
         public void RaisePostBackEvent([NotNull] string eventArgument)
         {
-            this.ItemClick?.Invoke(this, new PopEventArgs(eventArgument));
+            if (this.ItemClick != null)
+            {
+                this.ItemClick(this, new PopEventArgs(eventArgument));
+            }
         }
 
         #endregion
@@ -171,15 +203,15 @@ namespace YAF.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            if (!this.Visible)
+            if (!Visible)
             {
                 return;
             }
 
             var sb = new StringBuilder();
             sb.AppendFormat(
-                @"<div class=""dropdown-user-albums dropdown-item"" id=""{0}"">",
-                this.ClientID);
+                @"<div class=""yafpopupmenu yafalbumlistmenu"" id=""{0}"" style=""position:absolute;z-index:100;left:0;top:0;display:none;"">",
+                ClientID);
 
             sb.Append("<div id=\"AlbumsListBox\" class=\"content\">");
             sb.Append("<div id=\"AlbumsListPager\"></div>");
@@ -193,16 +225,17 @@ namespace YAF.Controls
 
             sb.Append("<div id=\"AlbumsPagerHidden\" style=\"display:none;\">");
 
+
             sb.Append("<div class=\"result\">");
             sb.AppendFormat("<ul class=\"AlbumImageList\">");
 
-            var rowPanel = 0;
+            int rowPanel = 0;
 
-            for (var i = 0; i < this.items.Count; i++)
+            for (int i = 0; i < this._items.Count; i++)
             {
-                var thisItem = this.items[i];
+                var thisItem = this._items[i];
 
-                if (rowPanel == 3 && i < this.items.Count)
+                if (rowPanel == 3 && i < this._items.Count)
                 {
                     sb.Append("</ul></div>");
                     sb.Append("<div class=\"result\">");

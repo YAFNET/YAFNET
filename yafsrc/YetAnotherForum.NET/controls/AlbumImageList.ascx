@@ -23,7 +23,7 @@
 <asp:Repeater runat="server" ID="AlbumImages" OnItemDataBound="AlbumImages_ItemDataBound"
     OnItemCommand="AlbumImages_ItemCommand">
     <HeaderTemplate>
-        <div class="fileattach">
+        <div class="fileattach ceebox">
     </HeaderTemplate>
     <ItemTemplate>
         <div class="attachedimg" style="display: inline;">
@@ -31,10 +31,10 @@
                 <tr>
                     <td class="albumimagebox">
                         <a href='<%# "{0}resource.ashx?image={1}".FormatWith(YafForumInfo.ForumClientFileRoot, this.Eval("ImageID")) %>'
-                            title='<%# this.Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption")) + "&lt;br /&gt; Album IMG Code: [ALBUMIMG]" + AlbumID + "[/ALBUMIMG]"%>'
-                            data-gallery>
+                            title='<%# Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption")) + "&lt;br /&gt; Album IMG Code: [ALBUMIMG]" + AlbumID + "[/ALBUMIMG]"%>' 
+                            title='<%# Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption")) + "&lt;br /&gt; Album IMG Code: [ALBUMIMG]" + AlbumID + "[/ALBUMIMG]"%>'>
                             <img src='<%# "{0}resource.ashx?imgprv={1}".FormatWith(YafForumInfo.ForumClientFileRoot, this.Eval("ImageID")) %>'
-                                alt='<%# this.Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption"))%>' title='<%# this.Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption"))%>' />
+                                alt='<%# Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption"))%>' title='<%# Eval("Caption").ToString() == string.Empty ? this.HtmlEncode(Eval("FileName")) : this.HtmlEncode(Eval("Caption"))%>' />
                         </a>
                     </td>
                 </tr>
@@ -42,11 +42,11 @@
                     <td class="albumtitlebox">
                         <span runat="server" id="spnUser" visible='<%# UserID != PageContext.PageUserID %>'>
                             <%# this.HtmlEncode(Eval("Caption"))%></span> <span runat="server" id="spnImageOwner"
-                                visible='<%# UserID == PageContext.PageUserID %>'><span class="albumtitle" id='<%# "spnTitle" + this.Eval("ImageID") %>'
-                                    onclick="showTexBox(this.id)" style="display: inline;"><%# this.Eval("Caption").ToString() == string.Empty ? this.GetText("ALBUM_IMAGE_CHANGE_CAPTION") : this.HtmlEncode(Eval("Caption"))%></span>
-                                <input type="text" id='<%# "txtTitle" + this.Eval("ImageID") %>' onkeydown="checkKey(event, this,'<%#Eval("ImageID") %>',false)"
-                                    onblur="blurTextBox(this.id, '<%# this.Eval("ImageID")%>', false)" style="display: none;" />
-                                <asp:Button ID="SetCover" runat="server" CssClass="pbutton" CommandArgument='<%# this.Eval("ImageID") %>'
+                                visible='<%# UserID == PageContext.PageUserID %>'><span class="albumtitle" id='<%# "spnTitle" + Eval("ImageID") %>'
+                                    onclick="showTexBox(this.id)" style="display: inline;"><%# Eval("Caption").ToString() == string.Empty ? this.GetText("ALBUM_IMAGE_CHANGE_CAPTION") : this.HtmlEncode(Eval("Caption"))%></span>
+                                <input type="text" id='<%# "txtTitle" + Eval("ImageID") %>' onkeydown="checkKey(event, this,'<%#Eval("ImageID") %>',false)"
+                                    onblur="blurTextBox(this.id, '<%# Eval("ImageID")%>', false)" style="display: none;" />
+                                <asp:Button ID="SetCover" runat="server" CssClass="pbutton" CommandArgument='<%# Eval("ImageID") %>'
                                     Visible='<%# UserID == PageContext.PageUserID %>' />
                             </span>
                     </td>

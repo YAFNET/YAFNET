@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,7 +27,6 @@ namespace YAF.Core
     using System.Linq;
 
     using YAF.Classes;
-    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types.Attributes;
@@ -116,7 +115,7 @@ namespace YAF.Core
 
             if (@event.Entity == null)
             {
-                @event.Entity = this._attachmentRepository.GetById(@event.EntityId.ToTyped<int>());
+                @event.Entity = this._attachmentRepository.ListTyped(attachmentID: @event.EntityId).FirstOrDefault();
             }
 
             if (@event.Entity == null)

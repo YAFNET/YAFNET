@@ -1,67 +1,75 @@
 // UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
+// Copyright 2007 Intelligencia
+// Copyright 2007 Seth Yates
 // 
 
 using System;
-using System.Xml;
 using System.Configuration;
+using System.Xml;
+
 using Intelligencia.UrlRewriter.Actions;
-using Intelligencia.UrlRewriter.Configuration;
 using Intelligencia.UrlRewriter.Utilities;
 
 namespace Intelligencia.UrlRewriter.Parsers
 {
-    /// <summary>
-    /// Parser for redirect actions.
-    /// </summary>
-    public sealed class RedirectActionParser : RewriteActionParserBase
-    {
-        /// <summary>
-        /// The name of the action.
-        /// </summary>
-        public override string Name
-        {
-            get { return Constants.ElementRedirect; }
-        }
+	/// <summary>
+	/// Summary description for RedirectActionParser.
+	/// </summary>
+	public sealed class RedirectActionParser : RewriteActionParserBase
+	{
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public RedirectActionParser()
+		{
+		}
 
-        /// <summary>
-        /// Whether the action allows nested actions.
-        /// </summary>
-        public override bool AllowsNestedActions
-        {
-            get { return false; }
-        }
+		/// <summary>
+		/// The name of the action.
+		/// </summary>
+		public override string Name => Constants.ElementRedirect;
 
-        /// <summary>
-        /// Whether the action allows attributes.
-        /// </summary>
-        public override bool AllowsAttributes
-        {
-            get { return true; }
-        }
+	    /// <summary>
+		/// Whether the action allows nested actions.
+		/// </summary>
+		public override bool AllowsNestedActions => false;
 
-        /// <summary>
-        /// Parses the node.
-        /// </summary>
-        /// <param name="node">The node to parse.</param>
-        /// <param name="config">The rewriter configuration.</param>
-        /// <returns>The parsed action, or null if no action parsed.</returns>
-        public override IRewriteAction Parse(XmlNode node, IRewriterConfiguration config)
-        {
+	    /// <summary>
+		/// Whether the action allows attributes.
+		/// </summary>
+		public override bool AllowsAttributes => true;
+
+	    /// <summary>
+		/// Parses the node.
+		/// </summary>
+		/// <param name="node">The node to parse.</param>
+		/// <param name="config">The rewriter configuration.</param>
+		/// <returns>The parsed action, or null if no action parsed.</returns>
+		public override IRewriteAction Parse(XmlNode node, object config)
+		{
             if (node == null)
             {
                 throw new ArgumentNullException("node");
             }
+            
+            var toNode = node.Attributes.GetNamedItem(Constants.AttrTo);
+			if (toNode == null)
+			{
+				throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.AttributeRequired, Constants.AttrTo), node);
+			}
 
-            string to = node.GetRequiredAttribute(Constants.AttrTo, true);
-            bool permanent = node.GetBooleanAttribute(Constants.AttrPermanent) ?? true;
+			var permanent = true;
+			var permanentNode = node.Attributes.GetNamedItem(Constants.AttrPermanent);
+			if (permanentNode != null)
+			{
+				permanent = Convert.ToBoolean(permanentNode.Value);
+			}
 
-            RedirectAction action = new RedirectAction(to, permanent);
-            ParseConditions(node, action.Conditions, false, config);
-            return action;
-        }
-    }
+			var action = new RedirectAction(toNode.Value, permanent);
+		    this.ParseConditions(node, action.Conditions, false, config);
+			return action;
+		}
+	}
 }

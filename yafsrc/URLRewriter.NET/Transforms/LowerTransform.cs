@@ -1,16 +1,17 @@
 // UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
+// Copyright 2007 Intelligencia
+// Copyright 2007 Seth Yates
 // 
-
-using System;
-using System.Threading;
-using Intelligencia.UrlRewriter.Utilities;
 
 namespace Intelligencia.UrlRewriter.Transforms
 {
+    using System;
+    using System.Threading;
+
+    using Intelligencia.UrlRewriter.Utilities;
+
     /// <summary>
     /// Transforms the input to lower case.
     /// </summary>
@@ -34,9 +35,6 @@ namespace Intelligencia.UrlRewriter.Transforms
         /// <summary>
         /// The name of the action.
         /// </summary>
-        public string Name
-        {
-            get { return Constants.TransformLower; }
-        }
+        public string Name => Constants.TransformLower;
     }
 }

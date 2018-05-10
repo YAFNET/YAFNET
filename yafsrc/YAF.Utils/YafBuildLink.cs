@@ -1,7 +1,7 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -333,7 +333,21 @@ namespace YAF.Utils
         /// </param>
         public static void RedirectInfoPage(InfoMessage infoMessage)
         {
-            Redirect(ForumPages.info, "i={0}".FormatWith(infoMessage.ToType<int>()));
+            Redirect(ForumPages.info, "i={0}".FormatWith((int)infoMessage));
+        }
+
+        /// <summary>
+        /// Gets URL of given smiley.
+        /// </summary>
+        /// <param name="icon">
+        /// Name of icon image file.
+        /// </param>
+        /// <returns>
+        /// URL of a smiley.
+        /// </returns>
+        public static string Smiley(string icon)
+        {
+            return "{0}{1}/{2}".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, icon);
         }
 
         #endregion

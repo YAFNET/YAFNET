@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,8 +33,8 @@ namespace YAF.Controls
     using YAF.Classes;
     using YAF.Core;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
@@ -52,7 +52,17 @@ namespace YAF.Controls
         /// <summary>
         ///   The _row.
         /// </summary>
-        private Message currentMessage;
+        private Message _message;
+
+        /// <summary>
+        ///   The _show attachments.
+        /// </summary>
+        private bool _showAttachments = true;
+
+        /// <summary>
+        ///   The _show signature.
+        /// </summary>
+        private bool _showSignature = true;
 
         #endregion
 
@@ -62,6 +72,11 @@ namespace YAF.Controls
         ///   Gets or sets a value indicating whether IsAlt.
         /// </summary>
         public bool IsAltMessage { get; set; }
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether Col Span is.
+        /// </summary>
+        public string ColSpan { get; set; }
 
         /// <summary>
         ///   Sets the DataRow.
@@ -84,13 +99,13 @@ namespace YAF.Controls
         {
             get
             {
-                return this.currentMessage;
+                return this._message;
             }
 
             set
             {
-                this.currentMessage = value ?? new Message();
-                this.MessageFlags = new MessageFlags(this.currentMessage.Flags);
+                this._message = value ?? new Message();
+                this.MessageFlags = new MessageFlags(this._message.Flags);
             }
         }
 
@@ -137,7 +152,7 @@ namespace YAF.Controls
         {
             get
             {
-                return this.CurrentMessage.ID == 0 ? null : this.CurrentMessage.ID.ToType<int?>();
+                return this.CurrentMessage.ID == 0 ? null : (int?)this.CurrentMessage.ID;
             }
         }
 
@@ -160,12 +175,34 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets or sets a value indicating whether ShowAttachments.
         /// </summary>
-        public bool ShowAttachments { get; set; } = true;
+        public bool ShowAttachments
+        {
+            get
+            {
+                return this._showAttachments;
+            }
+
+            set
+            {
+                this._showAttachments = value;
+            }
+        }
 
         /// <summary>
         ///   Gets or sets a value indicating whether ShowSignature.
         /// </summary>
-        public bool ShowSignature { get; set; } = true;
+        public bool ShowSignature
+        {
+            get
+            {
+                return this._showSignature;
+            }
+
+            set
+            {
+                this._showSignature = value;
+            }
+        }
 
         /// <summary>
         ///   Gets Signature.
@@ -176,8 +213,8 @@ namespace YAF.Controls
             get
             {
                 if (this.ShowSignature && this.Get<YafBoardSettings>().AllowSignatures
-                                       && this.CurrentMessage.Signature.IsSet()
-                                       && this.CurrentMessage.Signature.ToLower() != "<p>&nbsp;</p>")
+                    && this.CurrentMessage.Signature.IsSet()
+                    && this.CurrentMessage.Signature.ToLower() != "<p>&nbsp;</p>")
                 {
                     return this.CurrentMessage.Signature;
                 }
@@ -201,7 +238,7 @@ namespace YAF.Controls
         {
             CodeContracts.VerifyNotNull(message, "message");
 
-            var maxPostSize = Math.Max(YafContext.Current.Get<YafBoardSettings>().MaxPostSize, 0);
+            int maxPostSize = Math.Max(YafContext.Current.Get<YafBoardSettings>().MaxPostSize, 0);
 
             // 0 == unlimited
             return maxPostSize == 0 || message.Length <= maxPostSize ? message : message.Truncate(maxPostSize);
@@ -230,6 +267,8 @@ namespace YAF.Controls
                 }
 
                 this.IsAlt = this.IsAltMessage;
+
+                this.RowColSpan = this.ColSpan;
 
                 if (this.ShowAttachments)
                 {
@@ -294,11 +333,13 @@ namespace YAF.Controls
                     editedMessageDateTime = this.Edited;
                 }
 
-                var formattedMessage = this.Get<IFormatMessage>().FormatMessage(
-                    this.HighlightMessage(this.Message, true),
-                    this.MessageFlags,
-                    false,
-                    editedMessageDateTime);
+                var formattedMessage =
+                    this.Get<IFormatMessage>()
+                        .FormatMessage(
+                            this.HighlightMessage(this.Message, true),
+                            this.MessageFlags,
+                            false,
+                            editedMessageDateTime);
 
                 // tha_watcha : Since html message and bbcode can be mixed now, message should be always replace bbcode
                 this.RenderModulesInBBCode(
@@ -314,20 +355,12 @@ namespace YAF.Controls
                 {
                     this.RenderEditedMessage(writer, this.Edited, this.CurrentMessage.EditReason, this.MessageId);
                 }
-
-                // Render Go to Answer Message
-                var answerMessageId = this.GetRepository<Topic>().GetAnswerMessage(this.PageContext.PageTopicID);
-
-                if (answerMessageId.HasValue && this.CurrentMessage.Position.Equals(0))
-                {
-                    this.RenderAnswerMessage(writer, answerMessageId.Value);
-                }
             }
             else
             {
-                var formattedMessage = this.Get<IFormatMessage>().FormatMessage(
-                    this.HighlightMessage(this.Message, true),
-                    this.MessageFlags);
+                var formattedMessage =
+                    this.Get<IFormatMessage>()
+                        .FormatMessage(this.HighlightMessage(this.Message, true), this.MessageFlags);
 
                 // tha_watcha : Since html message and bbcode can be mixed now, message should be always replace bbcode
                 this.RenderModulesInBBCode(

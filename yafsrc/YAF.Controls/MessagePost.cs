@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -62,6 +62,22 @@ namespace YAF.Controls
             set
             {
                 this.ViewState["IsAlt"] = value;
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether IsAlt.
+        /// </summary>
+        public virtual string RowColSpan
+        {
+            get
+            {
+                return this.ViewState["RowColSpan"] != null ? this.ViewState["RowColSpan"].ToString() : null;
+            }
+
+            set
+            {
+                this.ViewState["RowColSpan"] = value;
             }
         }
 
@@ -197,17 +213,17 @@ namespace YAF.Controls
         /// Highlight a Message
         /// </summary>
         /// <param name="message">The Message to Highlight</param>
-        /// <param name="renderBbCode">if set to <c>true</c> Render Highlight as BB Code or as HTML Tags</param>
+        /// <param name="renderBBCode">if set to <c>true</c> Render Highlight as BB Code or as HTML Tags</param>
         /// <returns>
         /// The Message with the Span Tag and CSS Class "highlight" that Highlights it
         /// </returns>
-        protected virtual string HighlightMessage([NotNull] string message, bool renderBbCode = false)
+        protected virtual string HighlightMessage([NotNull] string message, bool renderBBCode = false)
         {
             if (this.HighlightWords.Count > 0)
             {
                 // highlight word list
                 message = this.Get<IFormatMessage>().SurroundWordList(
-                    message, this.HighlightWords, renderBbCode ? "[h]" : @"<span class=""highlight"">", renderBbCode ? "[/h]" : @"</span>");
+                    message, this.HighlightWords, renderBBCode ? "[h]" : @"<span class=""highlight"">", renderBBCode ? "[/h]" : @"</span>");
             }
 
             return message;
@@ -224,8 +240,10 @@ namespace YAF.Controls
                 var sig = new MessageSignature
                     {
                         Signature = this.Signature,
-                        DisplayUserId = this.DisplayUserID,
-                        MessageId = this.MessageID
+                        DisplayUserID = this.DisplayUserID,
+                        MessageID = this.MessageID,
+                        IsAlt = this.IsAlt,
+                        ColSpan = this.RowColSpan
                     };
 
                 this.Controls.Add(sig);
@@ -277,9 +295,9 @@ namespace YAF.Controls
             }
 
             writer.Write(
-                @"<div class=""alert alert-danger"" role=""alert""><strong>{1}</strong>{0}</div>",
+                @"<span class=""MessageDetails""><em>{1}{0}</em></span>",
                 deleteText.IsSet()
-                    ? @"&nbsp;<span class=""editedinfo"" title=""{1}"">{0}: {1}</span>".FormatWith(
+                    ? @"&nbsp;|&nbsp;<span class=""editedinfo"" title=""{1}"">{0}: {1}</span>".FormatWith(
                         this.GetText("EDIT_REASON"),
                         deleteText)
                     : string.Empty,
@@ -320,11 +338,7 @@ namespace YAF.Controls
                                  : this.GetText("POSTS", "EDITED_BY_USER");
 
             writer.Write(
-                @"<div class=""alert alert-secondary"" role=""alert"">
-                      <a title=""{3}"" alt=""title=""{3}"" href=""{4}""><strong>{0}</strong> {1}</a>&nbsp;{2}&nbsp;|&nbsp;<em>{3}</em>
-                      <button type=""button"" class=""close"" data-dismiss=""alert"" aria-label=""Close"">
-                          <span aria-hidden=""true"">&times;</span>
-                      </button></div>"
+                @"<p class=""MessageDetails""><em><a title=""{3}"" alt=""title=""{3}"" href=""{4}"">{0} {1}</a>&nbsp;{2}&nbsp;|&nbsp;<span class=""editedinfo"">{3}</span></em></p>"
                     .FormatWith(
                         this.GetText("EDITED"),
                         whoChanged,
@@ -333,25 +347,6 @@ namespace YAF.Controls
                         this.PageContext.IsGuest
                             ? "#"
                             : YafBuildLink.GetLink(ForumPages.messagehistory, "m={0}", messageId.ToType<int>())));
-        }
-
-        /// <summary>
-        /// Renders the answer message.
-        /// </summary>
-        /// <param name="writer">The writer.</param>
-        /// <param name="messageId">The message identifier.</param>
-        protected virtual void RenderAnswerMessage(
-           [NotNull] HtmlTextWriter writer, int messageId)
-        {
-            writer.Write(
-                @"<div class=""alert alert-success"" role=""alert"">
-                      <a title=""{0}"" alt=""title=""{0}"" href=""{1}""><i class=""fa fa-check fa-fw""></i>{0}</a>
-                      <button type=""button"" class=""close"" data-dismiss=""alert"" aria-label=""Close"">
-                          <span aria-hidden=""true"">&times;</span>
-                      </button></div>"
-                    .FormatWith(
-                        this.GetText("GO_TO_ANSWER"),
-                        YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", messageId)));
         }
 
         /// <summary>

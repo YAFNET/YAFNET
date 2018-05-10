@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -159,12 +159,12 @@ namespace YAF.Utils.Helpers
             CodeContracts.VerifyNotNull(httpRequest, "httpRequest");
 
             IPAddress ipAddress;
-            var ipString = httpRequest.Headers["X-Forwarded-For"];
+            string ipString = httpRequest.Headers["X-Forwarded-For"];
 
             if (ipString.IsSet())
             {
-                var ipAddresses = ipString.Split(',');
-                var firstNonLocalAddress =
+                string[] ipAddresses = ipString.Split(',');
+                string firstNonLocalAddress =
                     ipAddresses.FirstOrDefault(
                         ip => IPAddress.TryParse(ipString.Split(',')[0].Trim(), out ipAddress) && ipAddress.IsRoutable());
 
@@ -205,7 +205,7 @@ namespace YAF.Utils.Helpers
                 ipAddress = "127.0.0.1";
             }
 
-            var ip = ipAddress.Split('.');
+            string[] ip = ipAddress.Split('.');
             return StringToIP(ip);
         }
 
@@ -242,10 +242,10 @@ namespace YAF.Utils.Helpers
             var splitCharBannedIp = bannedIP.Contains(".") ? '.' : ':';
             var splitCharChk = chk.Contains(".") ? '.' : ':';
 
-            var ipmask = bannedIP.Split(splitCharBannedIp);
-            var ip = bannedIP.Split(splitCharBannedIp);
+            string[] ipmask = bannedIP.Split(splitCharBannedIp);
+            string[] ip = bannedIP.Split(splitCharBannedIp);
 
-            for (var i = 0; i < ipmask.Length; i++)
+            for (int i = 0; i < ipmask.Length; i++)
             {
                 if (ipmask[i] == "*")
                 {
@@ -258,9 +258,9 @@ namespace YAF.Utils.Helpers
                 }
             }
 
-            var banmask = StringToIP(ip);
-            var banchk = StringToIP(ipmask);
-            var ipchk = StringToIP(chk.Split(splitCharChk));
+            ulong banmask = StringToIP(ip);
+            ulong banchk = StringToIP(ipmask);
+            ulong ipchk = StringToIP(chk.Split(splitCharChk));
 
             return (ipchk & banchk) == banmask;
         }
@@ -288,7 +288,7 @@ namespace YAF.Utils.Helpers
 
             ulong num = 0;
 
-            foreach (var section in ip)
+            foreach (string section in ip)
             {
                 num <<= 8;
                 ulong result;
@@ -314,12 +314,12 @@ namespace YAF.Utils.Helpers
         {
             // pack (in this case, using the first bool as the lsb - if you want
             // the first bool as the msb, reverse things ;-p)
-            var bytes = (bitArray.Length + 7) / 8;
+            int bytes = (bitArray.Length + 7) / 8;
             var arr2 = new byte[bytes];
-            var bitIndex = 0;
-            var byteIndex = 0;
+            int bitIndex = 0;
+            int byteIndex = 0;
 
-            for (var i = 0; i < bitArray.Length; i++)
+            for (int i = 0; i < bitArray.Length; i++)
             {
                 if (bitArray[i])
                 {
@@ -361,14 +361,14 @@ namespace YAF.Utils.Helpers
                 return false;
             }
 
-            var ipAddressSplit = reservedIpAddress.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] ipAddressSplit = reservedIpAddress.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
 
             if (ipAddressSplit.Length != 2)
             {
                 return false;
             }
 
-            var ipAddressRange = ipAddressSplit[0];
+            string ipAddressRange = ipAddressSplit[0];
             IPAddress ipAddress;
 
             if (!IPAddress.TryParse(ipAddressRange, out ipAddress))
@@ -376,7 +376,7 @@ namespace YAF.Utils.Helpers
                 return false;
             }
 
-            var ipBytes = ipAddress.GetAddressBytes();
+            byte[] ipBytes = ipAddress.GetAddressBytes();
             int bits;
             if (!int.TryParse(ipAddressSplit[1], out bits))
             {
@@ -389,7 +389,7 @@ namespace YAF.Utils.Helpers
             {
                 case AddressFamily.InterNetwork:
                     {
-                        var mask = ~(uint.MaxValue >> bits);
+                        uint mask = ~(uint.MaxValue >> bits);
                         maskBytes = BitConverter.GetBytes(mask).Reverse().ToArray();
                     }
                     break;
@@ -402,8 +402,8 @@ namespace YAF.Utils.Helpers
                     break;
             }
 
-            var result = true;
-            for (var i = 0; i < ipBytes.Length; i++)
+            bool result = true;
+            for (int i = 0; i < ipBytes.Length; i++)
             {
                 result &= (byte)(ipAddressBytes[i] & maskBytes[i]) == ipBytes[i];
             }
@@ -425,7 +425,7 @@ namespace YAF.Utils.Helpers
             CodeContracts.VerifyNotNull(ipAddress, "ipAddress");
 
             // Reference: http://en.wikipedia.org/wiki/Reserved_IP_addresses
-            var ipAddressBytes = ipAddress.GetAddressBytes();
+            byte[] ipAddressBytes = ipAddress.GetAddressBytes();
 
             if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
             {
@@ -448,12 +448,12 @@ namespace YAF.Utils.Helpers
         /// <param name="fillValue">if set to <c>true</c> [fill value].</param>
         private static void ShiftRight(BitArray bitArray, int shiftN, bool fillValue)
         {
-            for (var i = shiftN; i < bitArray.Count; i++)
+            for (int i = shiftN; i < bitArray.Count; i++)
             {
                 bitArray[i - shiftN] = bitArray[i];
             }
 
-            for (var index = bitArray.Count - shiftN; index < bitArray.Count; index++)
+            for (int index = bitArray.Count - shiftN; index < bitArray.Count; index++)
             {
                 bitArray[index] = fillValue;
             }

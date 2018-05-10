@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -59,6 +59,18 @@ namespace YAF.Editors
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// The register smiliey script.
+        /// </summary>
+        protected override void RegisterSmilieyScript()
+        {
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "InsertSmileyJs",
+                @"function insertsmiley(code,img) {{FTB_API['{0}'].InsertHtml('<img src=""' + img + '"" alt="""" />');}}
+                  function insertAttachment(id,url) {{FTB_API['{0}'].InsertHtml('[attach]' + id + '[/attach]');}}"
+                    .FormatWith(this.SafeID));
+        }
 
         #endregion
     }

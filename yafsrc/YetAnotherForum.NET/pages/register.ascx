@@ -26,9 +26,7 @@
                         </tr>
 						<tr>
 						    <td align="right" class="postheader">
-                                <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">
-									<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="USERNAME" />
-									:</asp:Label>
+                                <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="USERNAME" />:</asp:Label>
                             </td>
 							<td class="post">
 								<asp:TextBox ID="UserName" runat="server"></asp:TextBox>
@@ -38,9 +36,7 @@
 						</tr>
 						<asp:PlaceHolder runat="server" ID="DisplayNamePlaceHolder" Visible="false"><tr>
 							<td align="right" class="postheader">
-								<asp:Label ID="DisplayNameLabel" runat="server" AssociatedControlID="DisplayName">
-									<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="DISPLAYNAME" />
-									:</asp:Label>
+								<asp:Label ID="DisplayNameLabel" runat="server" AssociatedControlID="DisplayName"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="DISPLAYNAME" />:</asp:Label>
                             </td>
 							<td class="post">
 								<asp:TextBox ID="DisplayName" runat="server"></asp:TextBox>
@@ -51,8 +47,7 @@
                         <tr>
 							<td align="right" class="postheader">
 								<asp:Label ID="EmailLabel" runat="server" AssociatedControlID="Email">
-									<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="EMAIL" />
-									:</asp:Label></td>
+									<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="EMAIL" />:</asp:Label></td>
 							<td class="post">
 								<asp:TextBox ID="Email" runat="server"></asp:TextBox>
 								<asp:RequiredFieldValidator ID="EmailRequired" runat="server" ControlToValidate="Email" 
@@ -84,9 +79,7 @@
 						</tr>
 						<tr>
 							<td align="right" class="postheader">
-								<asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">
-									<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="PASSWORD" />
-									:</asp:Label>
+								<asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password"><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="PASSWORD" />:</asp:Label>
 									<br />
 
 									</td>
@@ -98,9 +91,7 @@
 						</tr>
 						<tr>
 							<td align="right" class="postheader">
-								<asp:Label ID="ConfirmPasswordLabel" runat="server" AssociatedControlID="ConfirmPassword">
-									<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="CONFIRM_PASSWORD" />
-									:</asp:Label></td>
+								<asp:Label ID="ConfirmPasswordLabel" runat="server" AssociatedControlID="ConfirmPassword"><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="CONFIRM_PASSWORD" />:</asp:Label></td>
 							<td class="post">
 								<asp:TextBox ID="ConfirmPassword" runat="server" TextMode="Password"></asp:TextBox>
 								<asp:RequiredFieldValidator ID="ConfirmPasswordRequired" runat="server" ControlToValidate="ConfirmPassword"
@@ -111,9 +102,7 @@
 						
 						<asp:PlaceHolder runat="server" ID="QuestionAnswerPlaceHolder"><tr>
 							<td align="right" class="postheader">
-								<asp:Label ID="QuestionLabel" runat="server" AssociatedControlID="Question">
-									<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SECURITY_QUESTION" />
-									:</asp:Label></td>
+								<asp:Label ID="QuestionLabel" runat="server" AssociatedControlID="Question"><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SECURITY_QUESTION" />:</asp:Label></td>
 							<td class="post">
 								<asp:TextBox ID="Question" runat="server"></asp:TextBox>
 								<asp:RequiredFieldValidator ID="QuestionRequired" runat="server" ControlToValidate="Question"
@@ -123,9 +112,7 @@
 						</tr>
 						<tr>
 							<td align="right" class="postheader">
-								<asp:Label ID="AnswerLabel" runat="server" AssociatedControlID="Answer">
-									<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="SECURITY_ANSWER" />
-									:</asp:Label></td>
+								<asp:Label ID="AnswerLabel" runat="server" AssociatedControlID="Answer"><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="SECURITY_ANSWER" />:</asp:Label></td>
 							<td class="post">
 								<asp:TextBox ID="Answer" runat="server"></asp:TextBox>
 								<asp:RequiredFieldValidator ID="AnswerRequired" runat="server" ControlToValidate="Answer"

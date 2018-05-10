@@ -162,6 +162,7 @@
 
 
 .postForumUsers tr.header2 td,
+#DataPanel1_Table td.header2,
 #yafprofilecontent td.header2,
 #yafprofilecontainer  tr.header2 td,
 .content .header2 td.header1 {border-top:none;}
@@ -234,6 +235,7 @@
 .forumStatisticsContent .post,
 .activeDiscussionContent .postheader, 
 .forumStatisticsContent .postheader,
+.smiliesContent .post,
 #yafprofilecontent .post,
 #yafprofilecontent .postheader,
 .yafnet .LastPosts .header2 {border-top:none;}f
@@ -1276,6 +1278,28 @@ height:80em;
 	background: url("RightArrow.png") transparent no-repeat 100% 50%;
 }
 
+.yafnet .pagination a, .yafnet .pagination span {
+    text-decoration: none;
+	background: #F5F5F5;
+	border: 1px solid #444444;
+	-moz-border-radius: 0.4em; 
+	-webkit-border-radius: 0.4em;
+	border-radius: 0.4em;
+	padding: 1px 3px 1px 3px;
+	margin-right: 2px;
+}
+
+.yafnet .pagination .current {
+    background: #446bb8;
+    color: #fff;
+	border: solid 1px #AAE;
+}
+
+.yafnet .pagination .current.smiliesPagerPrev, .yafnet .pagination .current.smiliesPagerNext{
+	color:#999;
+	border-color:#999;
+	background:#fff;
+}
 .yafnet .EditUserProfileTable .postheader {
 	padding-left: 30px;
 	height: 20px;

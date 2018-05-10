@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -48,6 +48,8 @@ namespace YAF.Pages
     /// </summary>
     public partial class ReportPost : ForumPage
     {
+        // messageid
+
         #region Constants and Fields
 
         /// <summary>
@@ -183,7 +185,7 @@ namespace YAF.Pages
             }
 
             // Get reported message text for better quoting                    
-            var messageRow = LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID);
+            DataTable messageRow = LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID);
 
             // Checking if the user has a right to view the message and getting data  
             if (messageRow.HasRows())

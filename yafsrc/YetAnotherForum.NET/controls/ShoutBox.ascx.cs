@@ -103,6 +103,21 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
+        /// Formats the Smilies on click string.
+        /// </summary>
+        /// <param name="code">The code.</param>
+        /// <param name="path">The path.</param>
+        /// <returns>
+        /// The format smilies on click string.
+        /// </returns>
+        protected static string FormatSmiliesOnClickString([NotNull] string code, [NotNull] string path)
+        {
+            code = Regex.Replace(code, "['\")(\\\\]", "\\$0");
+            string onClickScript = "insertsmiley('{0}','{1}');return false;".FormatWith(code, path);
+            return onClickScript;
+        }
+
+        /// <summary>
         /// Changes The CollapsiblePanelState of the ShoutBox
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -166,7 +181,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Submit_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var username = this.PageContext.PageUserName;
+            string username = this.PageContext.PageUserName;
 
             if (username != null && this.messageTextBox.Text != string.Empty)
             {
@@ -183,7 +198,7 @@ namespace YAF.Controls
             this.DataBind();
             this.messageTextBox.Text = string.Empty;
 
-            var scriptManager = ScriptManager.GetCurrent(this.Page);
+            ScriptManager scriptManager = ScriptManager.GetCurrent(this.Page);
 
             if (scriptManager != null)
             {
@@ -226,6 +241,11 @@ namespace YAF.Controls
             }
 
             this.shoutBoxRepeater.DataSource = this.ShoutBoxMessages;
+
+            if (this.Get<YafBoardSettings>().ShowShoutboxSmiles)
+            {
+                this.smiliesRepeater.DataSource = this.GetRepository<Smiley>().ListUnique(this.BoardID);
+            }
         }
 
         #endregion

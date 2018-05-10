@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -59,7 +59,7 @@ namespace YAF.Core.Services.Import
         /// </exception>
         public static int BBCodeExtensionImport(int boardId, Stream inputStream)
         {
-            var importedCount = 0;
+            int importedCount = 0;
 
             var repository = YafContext.Current.Get<IRepository<BBCode>>();
 
@@ -67,11 +67,11 @@ namespace YAF.Core.Services.Import
             var dsBBCode = new DataSet();
             dsBBCode.ReadXml(inputStream);
 
-            if (dsBBCode.Tables["YafBBCode"] != null && dsBBCode.Tables["YafBBCode"].Columns["Name"] != null
-                                                     && dsBBCode.Tables["YafBBCode"].Columns["SearchRegex"] != null
-                                                     && dsBBCode.Tables["YafBBCode"].Columns["ExecOrder"] != null)
+            if (dsBBCode.Tables["YafBBCode"] != null && dsBBCode.Tables["YafBBCode"].Columns["Name"] != null &&
+                dsBBCode.Tables["YafBBCode"].Columns["SearchRegex"] != null &&
+                dsBBCode.Tables["YafBBCode"].Columns["ExecOrder"] != null)
             {
-                var bbcodeList = repository.GetByBoardId();
+                var bbcodeList = repository.ListTyped(boardId: boardId);
 
                 // import any extensions that don't exist...
                 foreach (DataRow row in dsBBCode.Tables["YafBBCode"].Rows)
@@ -146,25 +146,24 @@ namespace YAF.Core.Services.Import
         /// </exception>
         public static int FileExtensionImport(int boardId, Stream inputStream)
         {
-            var importedCount = 0;
+            int importedCount = 0;
 
             var dsExtensions = new DataSet();
             dsExtensions.ReadXml(inputStream);
 
-            if (dsExtensions.Tables["YafExtension"] != null
-                && dsExtensions.Tables["YafExtension"].Columns["Extension"] != null)
+            if (dsExtensions.Tables["YafExtension"] != null &&
+                dsExtensions.Tables["YafExtension"].Columns["Extension"] != null)
             {
                 var repository = YafContext.Current.Get<IRepository<FileExtension>>();
 
-                var extensionList = repository.Get(e => e.BoardId == boardId);
+                var extensionList = repository.ListTyped(boardId: boardId);
 
                 // import any extensions that don't exist...
-                var extensionsToImport = dsExtensions.Tables["YafExtension"].Rows.Cast<DataRow>()
-                    .Select(row => row["Extension"].ToString()).ToList();
+                var extensionsToImport = dsExtensions.Tables["YafExtension"].Rows.Cast<DataRow>().Select(row => row["Extension"].ToString()).ToList();
 
-                foreach (var newExtension in extensionsToImport.Where(
-                    ext => !extensionList.Any(
-                               e => string.Equals(e.Extension, ext, StringComparison.OrdinalIgnoreCase))))
+                foreach (
+                    string newExtension in
+                        extensionsToImport.Where(ext => !extensionList.Any(e => string.Equals(e.Extension, ext, StringComparison.OrdinalIgnoreCase))))
                 {
                     try
                     {
@@ -204,27 +203,30 @@ namespace YAF.Core.Services.Import
         /// </returns>
         public static int TopicStatusImport(int boardId, Stream inputStream)
         {
-            var importedCount = 0;
+            int importedCount = 0;
 
             // import extensions...
             var dsStates = new DataSet();
             dsStates.ReadXml(inputStream);
 
-            if (dsStates.Tables["YafTopicStatus"] != null
-                && dsStates.Tables["YafTopicStatus"].Columns["TopicStatusName"] != null
-                && dsStates.Tables["YafTopicStatus"].Columns["DefaultDescription"] != null)
+            if (dsStates.Tables["YafTopicStatus"] != null &&
+                dsStates.Tables["YafTopicStatus"].Columns["TopicStatusName"] != null &&
+                dsStates.Tables["YafTopicStatus"].Columns["DefaultDescription"] != null)
             {
-                var topicStatusList = YafContext.Current.GetRepository<TopicStatus>().GetByBoardId();
+                var topicStatusList = LegacyDb.TopicStatus_List(boardId);
 
                 // import any topic status that don't exist...
-                foreach (DataRow row in dsStates.Tables["YafTopicStatus"].Rows)
+                foreach (
+                    DataRow row in
+                        dsStates.Tables["YafTopicStatus"].Rows.Cast<DataRow>().Where(
+                            row =>
+                            topicStatusList.Select("TopicStatusName = '{0}'".FormatWith(row["TopicStatusName"])).Length ==
+                            0))
                 {
-                    if (!topicStatusList.Any(t => t.TopicStatusName == row["TopicStatusName"]))
-                    {
-                        // add this...
-                        YafContext.Current.GetRepository<TopicStatus>().Save(null, row["TopicStatusName"].ToString(), row["DefaultDescription"].ToString(), boardId);
-                        importedCount++;
-                    }
+                    // add this...
+                    LegacyDb.TopicStatus_Save(
+                        null, boardId, row["TopicStatusName"].ToString(), row["DefaultDescription"].ToString());
+                    importedCount++;
                 }
             }
             else
@@ -249,10 +251,10 @@ namespace YAF.Core.Services.Import
         /// </exception>
         public static int BannedEmailAdressesImport(int boardId, int userId, Stream inputStream)
         {
-            var importedCount = 0;
+            int importedCount = 0;
 
             var repository = YafContext.Current.Get<IRepository<BannedEmail>>();
-            var existingBannedEmailList = repository.Get(x => x.BoardID == boardId);
+            var existingBannedEmailList = repository.List(boardId: boardId);
 
             using (var streamReader = new StreamReader(inputStream))
             {
@@ -265,7 +267,7 @@ namespace YAF.Core.Services.Import
                         continue;
                     }
 
-                    if (existingBannedEmailList.Any(b => b.Mask == line))
+                    if (existingBannedEmailList.Select("Mask = '{0}'".FormatWith(line)).Length != 0)
                     {
                         continue;
                     }
@@ -292,10 +294,10 @@ namespace YAF.Core.Services.Import
         /// </exception>
         public static int BannedIpAdressesImport(int boardId, int userId, Stream inputStream)
         {
-            var importedCount = 0;
+            int importedCount = 0;
 
             var repository = YafContext.Current.Get<IRepository<BannedIP>>();
-            var existingBannedIPList = repository.Get(x => x.BoardID == boardId);
+            var existingBannedIPList = repository.List(boardId: boardId);
 
             using (var streamReader = new StreamReader(inputStream))
             {
@@ -309,7 +311,7 @@ namespace YAF.Core.Services.Import
                         continue;
                     }
 
-                    if (existingBannedIPList.Any(b => b.Mask == importAddress.ToString()))
+                    if (existingBannedIPList.Select("Mask = '{0}'".FormatWith(importAddress.ToString())).Length != 0)
                     {
                         continue;
                     }
@@ -321,8 +323,7 @@ namespace YAF.Core.Services.Import
 
             return importedCount;
         }
-
-
+        
         /// <summary>
         /// Import List of Banned User Names
         /// </summary>
@@ -337,10 +338,10 @@ namespace YAF.Core.Services.Import
         /// </exception>
         public static int BannedNamesImport(int boardId, int userId, Stream inputStream)
         {
-            var importedCount = 0;
+            int importedCount = 0;
 
             var repository = YafContext.Current.Get<IRepository<BannedName>>();
-            var existingBannedNameList = repository.Get(x => x.BoardID == boardId);
+            var existingBannedNameList = repository.List(boardId: boardId);
 
             using (var streamReader = new StreamReader(inputStream))
             {
@@ -353,7 +354,7 @@ namespace YAF.Core.Services.Import
                         continue;
                     }
 
-                    if (existingBannedNameList.Any(b => b.Mask == line))
+                    if (existingBannedNameList.Select("Mask = '{0}'".FormatWith(line)).Length != 0)
                     {
                         continue;
                     }
@@ -361,7 +362,7 @@ namespace YAF.Core.Services.Import
                     repository.Save(null, line, "Imported User Name", boardId);
                     importedCount++;
                 }
-            }
+            } 
 
             return importedCount;
         }
@@ -379,23 +380,24 @@ namespace YAF.Core.Services.Import
             var repository = YafContext.Current.Get<IRepository<Spam_Words>>();
 
             // import spam words...
-            var spamWords = new DataSet();
-            spamWords.ReadXml(inputStream);
+            var dsSpamWords = new DataSet();
+            dsSpamWords.ReadXml(inputStream);
 
-            if (spamWords.Tables["YafSpamWords"] == null
-                || spamWords.Tables["YafSpamWords"].Columns["spamword"] == null)
+            if (dsSpamWords.Tables["YafSpamWords"] == null
+                || dsSpamWords.Tables["YafSpamWords"].Columns["spamword"] == null)
             {
                 return importedCount;
             }
 
-            var spamWordsList = repository.Get(x => x.BoardID == boardId);
+            var spamWordsList = repository.List();
 
             // import any extensions that don't exist...
-            foreach (var row in spamWords.Tables["YafSpamWords"].Rows.Cast<DataRow>()
-                .Where(row => spamWordsList.Any(s => s.SpamWord == row["spamword"])))
+            foreach (DataRow row in
+                dsSpamWords.Tables["YafSpamWords"].Rows.Cast<DataRow>()
+                    .Where(row => spamWordsList.Select("spamword = '{0}'".FormatWith(row["spamword"])).Length == 0))
             {
                 // add this...
-                repository.Save(spamWordId: null, spamWord: row["spamword"].ToString());
+                repository.Save(spamWordID: null, spamWord: row["spamword"].ToString());
                 importedCount++;
             }
 

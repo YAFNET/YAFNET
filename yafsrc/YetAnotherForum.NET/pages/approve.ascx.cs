@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -120,7 +120,7 @@ namespace YAF.Pages
             this.Get<MembershipProvider>().UpdateUser(user);
 
             // now redirect to main site...
-            this.PageContext.LoadMessage.AddSession(this.GetText("EMAIL_VERIFIED"), MessageTypes.info);
+            this.PageContext.LoadMessage.AddSession(this.GetText("EMAIL_VERIFIED"), MessageTypes.Information);
 
             // default redirect -- because if may not want to redirect to login.
             YafBuildLink.Redirect(ForumPages.forum);

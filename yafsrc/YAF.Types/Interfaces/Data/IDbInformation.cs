@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -49,6 +49,11 @@ namespace YAF.Types.Interfaces.Data
         /// The full text upgrade script.
         /// </value>
         string FullTextUpgradeScript { get; }
+
+        /// <summary>
+        /// Gets Full Text Script.
+        /// </summary>
+        string FullTextScript { get; }
 
         /// <summary>
         ///     Gets the Azure Script List.

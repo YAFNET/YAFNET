@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -192,11 +192,11 @@ namespace YAF.Controls
             DataTable topicList = null;
             
             // set the page size here
-            var basePageSize = this.Get<YafBoardSettings>().MyTopicsListPageSize;
+            int basePageSize = this.Get<YafBoardSettings>().MyTopicsListPageSize;
             this.PagerTop.PageSize = basePageSize;
 
             // page index in db which is returned back  is +1 based!
-            var nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
+            int nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
 
             // now depending on mode fill the table
             switch (this.CurrentMode)
@@ -280,7 +280,7 @@ namespace YAF.Controls
 
             this.topics = topicList;
 
-            var topicsNew = topicList.Copy();
+            DataTable topicsNew = topicList.Copy();
 
             foreach (var thisTableRow in topicsNew
                 .Rows.Cast<DataRow>()
@@ -420,7 +420,7 @@ namespace YAF.Controls
                 if (previousSince.HasValue)
                 {
                     // look for value previously selected
-                    var sinceItem = this.Since.Items.FindByValue(previousSince.Value.ToString());
+                    ListItem sinceItem = this.Since.Items.FindByValue(previousSince.Value.ToString());
 
                     // and select it if found
                     if (sinceItem != null)
@@ -458,7 +458,7 @@ namespace YAF.Controls
         protected string PrintForumName([NotNull] DataRowView row)
         {
             var forumName = this.HtmlEncode(row["ForumName"]);
-            var html = string.Empty;
+            string html = string.Empty;
 
             if (forumName == this._lastForumName)
             {
@@ -515,8 +515,8 @@ namespace YAF.Controls
         /// </summary>
         private void BindFeeds()
         {
-            var accessActive = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ActiveTopicFeedAccess);
-            var accessFavorite = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().FavoriteTopicFeedAccess);
+            bool accessActive = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ActiveTopicFeedAccess);
+            bool accessFavorite = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().FavoriteTopicFeedAccess);
 
             // RSS link setup 
             if (this.Get<YafBoardSettings>().ShowRSSLink)
@@ -533,6 +533,7 @@ namespace YAF.Controls
                         this.RssFeed.Visible = false;
                         break;
                     case TopicListMode.Active:
+                        this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPACTIVE";
                         this.RssFeed.FeedType = YafRssFeeds.Active;
                         this.RssFeed.AdditionalParameters =
                             "txt={0}&d={1}".FormatWith(
@@ -542,6 +543,7 @@ namespace YAF.Controls
                         this.RssFeed.Visible = accessActive;
                         break;
                     case TopicListMode.Favorite:
+                        this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPFAVORITE";
                         this.RssFeed.FeedType = YafRssFeeds.Favorite;
                         this.RssFeed.AdditionalParameters =
                             "txt={0}&d={1}".FormatWith(
@@ -551,6 +553,51 @@ namespace YAF.Controls
                         break;
                 }
             }
+
+            // Atom link setup 
+            if (!this.Get<YafBoardSettings>().ShowAtomLink)
+            {
+                return;
+            }
+
+            switch (this.CurrentMode)
+            {
+                case TopicListMode.User:
+                    this.AtomFeed.Visible = false;
+                    break;
+                case TopicListMode.Unread:
+                    this.AtomFeed.Visible = false;
+                    break;
+                case TopicListMode.Unanswered:
+                    this.AtomFeed.Visible = false;
+                    break;
+                case TopicListMode.Active:
+                    this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPACTIVE";
+                    this.AtomFeed.FeedType = YafRssFeeds.Active;
+                    this.AtomFeed.ImageThemeTag = "ATOMFEED";
+                    this.AtomFeed.TextLocalizedTag = "ATOMFEED";
+                    this.AtomFeed.AdditionalParameters =
+                        "txt={0}&d={1}".FormatWith(
+                            this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
+                            this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+                    this.AtomFeed.Visible = accessActive;
+                    break;
+                case TopicListMode.Favorite:
+                    this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPFAVORITE";
+                    this.AtomFeed.FeedType = YafRssFeeds.Favorite;
+                    this.AtomFeed.ImageThemeTag = "ATOMFEED";
+                    this.AtomFeed.TextLocalizedTag = "ATOMFEED";
+                    this.AtomFeed.AdditionalParameters =
+                        "txt={0}&d={1}".FormatWith(
+                            this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
+                            this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
+
+                    this.AtomFeed.Visible = accessFavorite;
+                    break;
+            }
+
+            // We should set token to show a common control to handlw it as an Atom feed.
+            this.AtomFeed.IsAtomFeed = true;
         }
 
         #endregion

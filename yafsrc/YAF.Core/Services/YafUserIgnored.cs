@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,13 +29,11 @@ namespace YAF.Core.Services
   using System.Web;
 
   using YAF.Classes.Data;
-  using YAF.Core.Model;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
   using YAF.Types.Interfaces.Data;
-  using YAF.Types.Models;
   using YAF.Utils;
 
   #endregion
@@ -144,7 +142,7 @@ namespace YAF.Core.Services
     /// </param>
     public void RemoveIgnored(int ignoredUserId)
     {
-      YafContext.Current.GetRepository<IgnoreUser>().Delete(YafContext.Current.PageUserID, ignoredUserId);
+      LegacyDb.user_removeignoreduser(YafContext.Current.PageUserID, ignoredUserId);
       this.ClearIgnoreCache();
     }
 

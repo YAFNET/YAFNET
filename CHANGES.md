@@ -1,23 +1,10 @@
 YetAnotherForum.NET Changelog
 ====================
 
-# YetAnotherForum.NET v2.3.0.0
-
-## New Features:
-
-* [NEW] Added Dropdown on the moderate page to move multiple topics
-* [NEW #375] indication in the menu if post needs moderation
-* [NEW #365] now you can archive pm's from the outbox
-* [NEW #323] allow attachments in private messages
-* [NEW #367] Added Badge Topic Starter Badge
-* [NEW #379] Mark Message as Answer
-* [NEW] Old GIF Emoticons have been replaced by Unicode Emoji
-* [NEW #285] Rewritten Search Engine based on Lucene.NET
-* [NEW #92] Show similar topic titles
-
+# YetAnotherForum.NET v2.2.4.10
 
 ## Fixed Issues:
-
+* [FIXED #394]  Timezone was not correctly loaded on the Edit Profile Page
 
 # YetAnotherForum.NET v2.2.4.9
 
@@ -32,11 +19,10 @@ YetAnotherForum.NET Changelog
 * [FIXED] Issue Registering New User
 * [FIXED] Database Ugrade Issue when Fulltext is enabled
 
-
 # YetAnotherForum.NET v2.2.4.7
 
 ## Fixed Issues:
-* [FIXED #387] Stored XSS via file upload
+* [FIXED #3]Stored XSS via file upload
 * [FIXED #386] Hover Card Layout Issue
 
 
@@ -46,7 +32,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] always use forum email as sender address
 
 
-# YetAnotherForum.NET v2.2.4.5
+* # YetAnotherForum.NET v2.2.4.5
 
 ## Fixed Issues:
 * [FIXED #380] DB User Read Tracking without Session tracking
@@ -56,7 +42,6 @@ YetAnotherForum.NET Changelog
 * [FIXED] handling of old attachments
 * [FIXED] ignore ThreadAbortExceptions when adding a album image
 * Extended Logging
-
 
 # YetAnotherForum.NET v2.2.4.4
 

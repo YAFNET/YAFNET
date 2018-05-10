@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,7 +26,6 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using System.Web.Security;
@@ -58,14 +57,18 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Gets or sets the access masks list.
         /// </summary>
-        public IList<AccessMask> AccessMasksList { get; set; }
+        public DataTable AccessMasksList { get; set; }
 
         /// <summary>
         /// Handles databinding event of initial access maks dropdown control.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void BindDataAccessMaskId([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void BindData_AccessMaskID([NotNull] object sender, [NotNull] EventArgs e)
         {
             // We don't change access masks if it's a guest
             if (this.IsGuestX.Checked)
@@ -80,7 +83,7 @@ namespace YAF.Pages.Admin
             c.DataSource = this.AccessMasksList;
 
             // set value and text field names
-            c.DataValueField = "ID";
+            c.DataValueField = "AccessMaskID";
             c.DataTextField = "Name";
         }
 
@@ -93,7 +96,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // go back to roles administration
             YafBuildLink.Redirect(ForumPages.admin_groups);
@@ -108,28 +111,28 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
             // admin index
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_GROUPS", "TITLE"),
-                YafBuildLink.GetLink(ForumPages.admin_groups));
+            this.PageLinks.AddLink(this.GetText("ADMIN_GROUPS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_groups));
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITGROUP", "TITLE"), string.Empty);
 
             this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_GROUPS", "TITLE"),
-                this.GetText("ADMIN_EDITGROUP", "TITLE"));
+               this.GetText("ADMIN_ADMIN", "Administration"), 
+               this.GetText("ADMIN_GROUPS", "TITLE"), 
+               this.GetText("ADMIN_EDITGROUP", "TITLE"));
         }
 
         /// <summary>
-        /// Handles the Load event of the Page control.
+        /// Handles page load event.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // this needs to be done just once, not during postbacks
@@ -137,6 +140,12 @@ namespace YAF.Pages.Admin
             {
                 return;
             }
+
+            // create page links
+            this.CreatePageLinks();
+
+            this.Save.Text = this.GetText("COMMON", "SAVE");
+            this.Cancel.Text = this.GetText("COMMON", "CANCEL");
 
             // bind data
             this.BindData();
@@ -151,9 +160,11 @@ namespace YAF.Pages.Admin
             this.NewGroupRow.Visible = false;
 
             // get data about edited role
-            using (var dt = this.GetRepository<Group>().List(
-                boardId: this.PageContext.PageBoardID,
-                groupID: this.Request.QueryString.GetFirstOrDefaultAs<int>("i")))
+            using (
+                var dt = this.GetRepository<Group>()
+                    .List(
+                        boardId: this.PageContext.PageBoardID, 
+                        groupID: this.Request.QueryString.GetFirstOrDefaultAs<int>("i")))
             {
                 // get it as row
                 var row = dt.Rows[0];
@@ -210,57 +221,53 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Saves the click.
+        /// Handles click on save button.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!ValidationHelper.IsValidInt(this.PMLimit.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_EDITGROUP", "MSG_VALID_NUMBER"),
-                    MessageTypes.warning);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_VALID_NUMBER"));
                 return;
             }
 
             if (!ValidationHelper.IsValidInt(this.Priority.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_INTEGER"), MessageTypes.warning);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_INTEGER"));
                 return;
             }
 
             if (!ValidationHelper.IsValidInt(this.UsrAlbums.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_EDITGROUP", "MSG_ALBUM_NUMBER"),
-                    MessageTypes.warning);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_ALBUM_NUMBER"));
                 return;
             }
 
             if (!ValidationHelper.IsValidInt(this.UsrSigChars.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_EDITGROUP", "MSG_SIG_NUMBER"),
-                    MessageTypes.warning);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_SIG_NUMBER"));
                 return;
             }
 
             if (!ValidationHelper.IsValidInt(this.UsrAlbumImages.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_EDITGROUP", "MSG_TOTAL_NUMBER"),
-                    MessageTypes.warning);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_TOTAL_NUMBER"));
                 return;
             }
 
             // Role
-            long roleId = 0;
+            long roleID = 0;
 
             // get role ID from page's parameter
             if (this.Request.QueryString.GetFirstOrDefault("i") != null)
             {
-                roleId = long.Parse(this.Request.QueryString.GetFirstOrDefault("i"));
+                roleID = long.Parse(this.Request.QueryString.GetFirstOrDefault("i"));
             }
 
             // get new and old name
@@ -268,7 +275,7 @@ namespace YAF.Pages.Admin
             var oldRoleName = string.Empty;
 
             // if we are editing exising role, get it's original name
-            if (roleId != 0)
+            if (roleID != 0)
             {
                 // get the current role name in the DB
                 using (var dt = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID))
@@ -281,32 +288,31 @@ namespace YAF.Pages.Admin
             }
 
             // save role and get its ID if it's new (if it's old role, we get it anyway)
-            roleId = LegacyDb.group_save(
-                roleId,
-                this.PageContext.PageBoardID,
-                roleName,
-                this.IsAdminX.Checked,
-                this.IsGuestX.Checked,
-                this.IsStartX.Checked,
-                this.IsModeratorX.Checked,
-                this.AccessMaskID.SelectedValue,
-                this.PMLimit.Text.Trim(),
-                this.StyleTextBox.Text.Trim(),
-                this.Priority.Text.Trim(),
-                this.Description.Text,
-                this.UsrSigChars.Text,
-                this.UsrSigBBCodes.Text,
-                this.UsrSigHTMLTags.Text,
-                this.UsrAlbums.Text.Trim(),
-                this.UsrAlbumImages.Text.Trim());
+            roleID = LegacyDb.group_save(
+              roleID, 
+              this.PageContext.PageBoardID, 
+              roleName, 
+              this.IsAdminX.Checked, 
+              this.IsGuestX.Checked, 
+              this.IsStartX.Checked, 
+              this.IsModeratorX.Checked, 
+              this.AccessMaskID.SelectedValue, 
+              this.PMLimit.Text.Trim(), 
+              this.StyleTextBox.Text.Trim(), 
+              this.Priority.Text.Trim(), 
+              this.Description.Text, 
+              this.UsrSigChars.Text, 
+              this.UsrSigBBCodes.Text, 
+              this.UsrSigHTMLTags.Text, 
+              this.UsrAlbums.Text.Trim(), 
+              this.UsrAlbumImages.Text.Trim());
 
             // empty out access table(s)
             this.GetRepository<Active>().DeleteAll();
             this.GetRepository<ActiveAccess>().DeleteAll();
 
             // see if need to rename an existing role...
-            if (oldRoleName.IsSet() && roleName != oldRoleName && RoleMembershipHelper.RoleExists(oldRoleName)
-                && !RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
+            if (oldRoleName.IsSet() && roleName != oldRoleName && RoleMembershipHelper.RoleExists(oldRoleName) && !RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
             {
                 // transfer users in addition to changing the name of the role...
                 var users = this.Get<RoleProvider>().GetUsersInRole(oldRoleName);
@@ -334,21 +340,21 @@ namespace YAF.Pages.Admin
             // Access masks for a newly created or an existing role
             if (this.Request.QueryString.GetFirstOrDefault("i") != null)
             {
-                // go trhough all forums
-                for (var i = 0; i < this.AccessList.Items.Count; i++)
-                {
-                    // get current repeater item
-                    var item = this.AccessList.Items[i];
+                    // go trhough all forums
+                    for (var i = 0; i < this.AccessList.Items.Count; i++)
+                    {
+                        // get current repeater item
+                        var item = this.AccessList.Items[i];
 
-                    // get forum ID
-                    var forumId = int.Parse(item.FindControlAs<Label>("ForumID").Text);
+                        // get forum ID
+                        var forumID = int.Parse(((Label)item.FindControl("ForumID")).Text);
 
-                    // save forum access maks for this role
-                    LegacyDb.forumaccess_save(
-                        forumId,
-                        roleId,
-                        item.FindControlAs<DropDownList>("AccessmaskID").SelectedValue);
-                }
+                        // save forum access maks for this role
+                        LegacyDb.forumaccess_save(
+                            forumID,
+                            roleID,
+                            ((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
+                    }
 
                 YafBuildLink.Redirect(ForumPages.admin_groups);
             }
@@ -357,14 +363,13 @@ namespace YAF.Pages.Admin
             this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
 
             // Clearing cache with old permissions data...
-            this.Get<IDataCache>()
-                .Remove(k => k.StartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(string.Empty)));
+            this.Get<IDataCache>().Remove(k => k.StartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(string.Empty)));
 
             // Clear Styling Caching
             this.Get<IDataCache>().Remove(Constants.Cache.GroupRankStyles);
 
             // Done, redirect to role editing page
-            YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", roleId);
+            YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", roleID);
         }
 
         /// <summary>
@@ -399,11 +404,10 @@ namespace YAF.Pages.Admin
             // set datasource of access list (list of forums and role's access masks) if we are editing existing mask
             if (this.Request.QueryString.GetFirstOrDefault("i") != null)
             {
-                this.AccessList.DataSource =
-                    LegacyDb.forumaccess_group(this.Request.QueryString.GetFirstOrDefault("i"));
+                this.AccessList.DataSource = LegacyDb.forumaccess_group(this.Request.QueryString.GetFirstOrDefault("i"));
             }
 
-            this.AccessMasksList = this.GetRepository<AccessMask>().GetByBoardId();
+            this.AccessMasksList = this.GetRepository<AccessMask>().List();
 
             // bind data to controls
             this.DataBind();

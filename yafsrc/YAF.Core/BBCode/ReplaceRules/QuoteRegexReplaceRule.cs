@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -73,7 +73,7 @@ namespace YAF.Core.BBCode.ReplaceRules
             while (match.Success)
             {
                 var innerReplace = new StringBuilder(this._regExReplace);
-                var i = 0;
+                int i = 0;
 
                 if (this._truncateLength > 0)
                 {
@@ -128,20 +128,20 @@ namespace YAF.Core.BBCode.ReplaceRules
 
                 innerReplace.Replace("${quote}", quote);
 
-                foreach (var tVar in this._variables)
+                foreach (string tVar in this._variables)
                 {
-                    var varName = tVar;
-                    var handlingValue = string.Empty;
+                    string varName = tVar;
+                    string handlingValue = string.Empty;
 
                     if (varName.Contains(":"))
                     {
                         // has handling section
-                        var tmpSplit = varName.Split(':');
+                        string[] tmpSplit = varName.Split(':');
                         varName = tmpSplit[0];
                         handlingValue = tmpSplit[1];
                     }
 
-                    var tValue = match.Groups[varName].Value;
+                    string tValue = match.Groups[varName].Value;
 
                     if (this._variableDefaults != null && tValue.Length == 0)
                     {

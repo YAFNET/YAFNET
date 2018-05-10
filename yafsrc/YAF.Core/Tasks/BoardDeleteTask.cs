@@ -19,7 +19,7 @@ namespace YAF.Core.Tasks
     /// <summary>
     /// The forum delete task.
     /// </summary>
-    public class BoardDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
+    public class BoardDeleteTask : LongBackgroundTask, ICriticalBackgroundTask, IBlockableTask
     {
         #region Constants and Fields
 
@@ -103,7 +103,7 @@ namespace YAF.Core.Tasks
             {
                 this.Logger.Info("Starting Board delete task for BoardId {0} delete task.", this.BoardIdToDelete);
 
-                this.GetRepository<Board>().DeleteById(this.BoardIdToDelete);
+                this.GetRepository<Board>().DeleteByID(this.BoardIdToDelete);
                 this.Logger.Info("Board delete task for BoardId {0} delete task is completed.", this.BoardIdToDelete);
             }
             catch (Exception x)

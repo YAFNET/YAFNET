@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -61,7 +61,7 @@ namespace YAF.Core
             : base(transPage)
         {
             this.IsAdminPage = true;
-            this.Load += this.AdminPageLoad;
+            this.Load += this.AdminPage_Load;
         }
 
         #endregion
@@ -69,7 +69,7 @@ namespace YAF.Core
         #region Properties
 
         /// <summary>
-        /// Gets the Page Name.
+        /// Gets PageName.
         /// </summary>
         public override string PageName
         {
@@ -79,29 +79,21 @@ namespace YAF.Core
             }
         }
 
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-        }
-
         #endregion
 
         #region Methods
 
         /// <summary>
-        /// Handles the Load event of the AdminPage control.
+        /// The admin page_ load.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void AdminPageLoad([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void AdminPage_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.IsPostBack)
-            {
-                this.CreatePageLinks();
-            }
-            
             // not admins are forbidden
             if (!this.PageContext.IsAdmin)
             {

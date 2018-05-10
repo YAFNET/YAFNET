@@ -1,7 +1,7 @@
  /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -37,7 +37,7 @@ namespace YAF.Classes
 
     using YAF.Classes.Data;
     using YAF.Core;
-    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -74,102 +74,41 @@ namespace YAF.Classes
 
         #endregion
 
-        #region Search Functions
-
-        /// <summary>
-        /// Get similar topic titles
-        /// </summary>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="searchInput">The search input.</param>
-        /// <returns>
-        /// Returns the search Results.
-        /// </returns>
-        [WebMethod(EnableSession = true)]
-        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public SearchGridDataSet GetSimilarTitles(int userId, string searchInput)
-        {
-            var results = this.Get<ISearch>().SearchSimilar(userId, searchInput, "Topic");
-
-            return new SearchGridDataSet
-                       {
-                           PageNumber = 1,
-                           TotalRecords = results.Count,
-                           PageSize = 20,
-                           SearchResults = results
-                       };
-        }
-
-        /// <summary>
-        /// Gets the search results.
-        /// </summary>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="forumId">The forum identifier.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="searchInput">The search input.</param>
-        /// <returns>
-        /// Returns the search Results.
-        /// </returns>
-        [WebMethod(EnableSession = true)]
-        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public SearchGridDataSet GetSearchResults(int userId, int forumId, int pageSize, int pageNumber, string searchInput)
-        {
-            int totalHits;
-            var results = this.Get<ISearch>().SearchPaged(out totalHits, forumId, userId, searchInput, pageNumber, pageSize);
-
-            return new SearchGridDataSet
-                       {
-                           PageNumber = pageNumber,
-                           TotalRecords = totalHits,
-                           PageSize = pageSize,
-                           SearchResults = results
-            };
-        }
-
-        #endregion
-
-        #region Get Paged Attachments Function
-
-        /// <summary>
-        /// Gets the paged attachments.
-        /// </summary>
-        /// <param name="userID">The user identifier.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="pageNumber">The page number.</param>
-        /// <returns>Returns the Attachment List as Grid Data Set</returns>
         [WebMethod(EnableSession = true)]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public GridDataSet GetAttachments(int userID, int pageSize, int pageNumber)
         {
-            var attachments = YafContext.Current.GetRepository<Attachment>().GetPaged(
-                a => a.UserID == userID, pageIndex: pageNumber, pageSize: pageSize);
+            var attachments = YafContext.Current.GetRepository<Attachment>()
+                .List(userID: userID, pageIndex: pageNumber, pageSize: pageSize);
             
             var attachmentItems = new List<AttachmentItem>();
 
-            foreach (var attach in attachments)
+            foreach (DataRow row in attachments.Rows)
             {
-                var url = attach.FileName.IsImageName()
+                var url = row["FileName"].ToString().IsImageName()
                               ? "{0}resource.ashx?i={1}&b={2}&editor=true".FormatWith(
                                   YafForumInfo.ForumClientFileRoot,
-                                  attach.ID,
+                                  row["AttachmentID"],
                                   YafContext.Current.PageBoardID)
                               : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot);
 
-                var attachment = new AttachmentItem
+                var attachment = new AttachmentItem()
                                      {
-                                         FileName = attach.FileName,
+                                         FileName = row["FileName"].ToString(),
                                          OnClick =
-                                             "insertAttachment('{0}', '{1}')".FormatWith(attach.ID, url),
+                                             "insertAttachment('{0}', '{1}')".FormatWith(
+                                                 row["AttachmentID"],
+                                                 url),
                                          IconImage =
                                              @"<img class=""popupitemIcon"" src=""{0}"" alt=""{1}"" title=""{1}"" /><span>{1}</span>"
-                                                 .FormatWith(
-                                                     url,
-                                                     "{0} ({1} kb)".FormatWith(
-                                                         attach.FileName,
-                                                         attach.Bytes / 1024))
+                                             .FormatWith(
+                                                 url,
+                                                 "{0} ({1} kb)".FormatWith(
+                                                     row["FileName"].ToString(),
+                                                     row["Bytes"].ToType<int>() / 1024))
                                      };
 
-                if (attach.FileName.IsImageName())
+                if (row["FileName"].ToString().IsImageName())
                 {
                     attachment.DataURL = url;
                 }
@@ -181,16 +120,14 @@ namespace YAF.Classes
                        {
                            PageNumber = pageNumber,
                            TotalRecords =
-                               attachments.Any()
-                                   ? YafContext.Current.GetRepository<Attachment>().Count(
-                                       a => a.UserID == userID).ToType<int>()
+                               attachments.HasRows()
+                                   ? attachments.AsEnumerable().First().Field<int>("TotalRows")
                                    : 0,
                            PageSize = pageSize,
                            AttachmentList = attachmentItems
                        };
         }
 
-        #endregion
 
         /// <summary>
         /// Gets the topics by forum.
@@ -484,5 +421,21 @@ namespace YAF.Classes
         #endregion
 
         #endregion
+    }
+
+    public class AttachmentItem
+    {
+        public string FileName { get; set; }
+        public string OnClick { get; set; }
+        public string DataURL { get; set; }
+        public string IconImage { get; set; }
+    }
+
+    public class GridDataSet
+    {
+        public int PageNumber { get; set; }
+        public int TotalRecords { get; set; }
+        public int PageSize { get; set; }
+        public List<AttachmentItem> AttachmentList { get; set; }
     }
 }

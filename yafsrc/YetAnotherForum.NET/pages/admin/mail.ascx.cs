@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -51,10 +51,14 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// Handles the Load event of the Page control.
+        /// The page_ load.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -62,38 +66,39 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
             this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_MAIL", "TITLE"), string.Empty);
 
             this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
+                this.GetText("ADMIN_ADMIN", "Administration"), 
                 this.GetText("ADMIN_MAIL", "TITLE"));
+
+            this.Send.Text = this.GetText("ADMIN_MAIL", "SEND_MAIL");
+            this.Send.OnClientClick = "return confirm('{0}');".FormatWith(this.GetText("ADMIN_MAIL", "CONFIRM_SEND"));
+
+            this.BindData();
         }
 
         /// <summary>
-        /// Handles the Click event of the Send control.
+        /// The send_ click.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void SendClick([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Send_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            object groupId = null;
+            object groupID = null;
 
             if (this.ToList.SelectedItem.Value != "0")
             {
-                groupId = this.ToList.SelectedValue;
+                groupID = this.ToList.SelectedValue;
             }
 
-            var subject = this.Subject.Text.Trim();
+            string subject = this.Subject.Text.Trim();
 
             if (subject.IsNotSet())
             {
@@ -101,7 +106,7 @@ namespace YAF.Pages.Admin
             }
             else
             {
-                using (var dt = LegacyDb.user_emails(this.PageContext.PageBoardID, groupId))
+                using (DataTable dt = LegacyDb.user_emails(this.PageContext.PageBoardID, groupID))
                 {
                     foreach (DataRow row in dt.Rows)
                     {

@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -40,26 +40,62 @@ namespace YAF.Editors
         ///   Gets Description.
         /// </summary>
         [NotNull]
-        public override string Description => "TinyMCE (HTML)";
+        public override string Description
+        {
+            get
+            {
+                return "TinyMCE (HTML)";
+            }
+        }
 
         /// <summary>
         ///   Gets ModuleId.
         /// </summary>
-        public override string ModuleId => "7";
+        public override string ModuleId
+        {
+            get
+            {
+                // backward compatibility...
+                return "7";
+            }
+        }
 
         /// <summary>
         ///   Gets a value indicating whether UsesBBCode.
         /// </summary>
-        public override bool UsesBBCode => false;
+        public override bool UsesBBCode
+        {
+            get
+            {
+                return false;
+            }
+        }
 
         /// <summary>
         ///   Gets a value indicating whether UsesHTML.
         /// </summary>
-        public override bool UsesHTML => true;
+        public override bool UsesHTML
+        {
+            get
+            {
+                return true;
+            }
+        }
 
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// The register Smiley script.
+        /// </summary>
+        protected override void RegisterSmilieyScript()
+        {
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "InsertSmileyJs",
+                @"function insertsmiley(code,img) {tinyMCE.execCommand('mceInsertContent',false,'<img src=""' + img + '"" alt="""" />');}
+                  function insertAttachment(id,url) {tinyMCE.execCommand('mceInsertContent',false,'[attach]' + id + '[/attach]');}");
+        }
 
         /// <summary>
         /// The register tiny mce custom js.

@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -115,12 +115,15 @@ namespace YAF.Pages
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
-            YafContext.Current.PageElements.RegisterJsBlock(
+           YafContext.Current.PageElements.RegisterJsBlock(
                 "TopicsTabsJs",
-                JavaScriptBlocks.BootstrapTabsLoadJs(
+                JavaScriptBlocks.JqueryUITabsLoadJs(
                     this.TopicsTabs.ClientID,
                     this.hidLastTab.ClientID,
-                    this.Page.ClientScript.GetPostBackEventReference(this.ChangeTab, string.Empty)));
+                    this.hidLastTabId.ClientID,
+                    this.Page.ClientScript.GetPostBackEventReference(this.ChangeTab, string.Empty),
+                    false,
+                    true));
 
             base.OnPreRender(e);
         }
@@ -169,7 +172,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ChangeTabClick(object sender, EventArgs e)
         {
-            switch (this.hidLastTab.Value)
+            switch (hidLastTabId.Value)
             {
                 case "UnansweredTopicsTab":
                     this.CurrentTab = TopicListMode.Unanswered;

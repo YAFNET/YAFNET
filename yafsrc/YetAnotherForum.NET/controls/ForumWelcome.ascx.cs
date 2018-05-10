@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -46,7 +46,7 @@ namespace YAF.Controls
         /// </summary>
         public ForumWelcome()
         {
-            this.PreRender += this.ForumWelcomePreRender;
+            this.PreRender += this.ForumWelcome_PreRender;
         }
 
         #endregion
@@ -58,7 +58,7 @@ namespace YAF.Controls
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void ForumWelcomePreRender([NotNull] object sender, [NotNull] EventArgs e)
+        private void ForumWelcome_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.TimeNow.Text = this.GetTextFormatted("Current_Time", this.Get<IDateTime>().FormatTime(DateTime.UtcNow));
 

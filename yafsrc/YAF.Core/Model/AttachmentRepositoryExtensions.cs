@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,6 +24,9 @@
 namespace YAF.Core.Model
 {
     using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
 
     using YAF.Core.Data;
     using YAF.Core.Extensions;
@@ -47,14 +50,14 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="attachmentId">
+        /// <param name="attachmentID">
         /// The board id.
         /// </param>
-        public static void Delete(this IRepository<Attachment> repository, int attachmentId)
+        public static void Delete(this IRepository<Attachment> repository, int attachmentID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var attachment = repository.GetById(attachmentId);
+            var attachment = repository.ListTyped(attachmentID: attachmentID).FirstOrDefault();
 
             if (attachment != null)
             {
@@ -69,29 +72,99 @@ namespace YAF.Core.Model
                 }
             }
 
-            repository.DeleteById(attachmentId);
+            repository.DeleteByID(attachmentID);
         }
 
         /// <summary>
         /// Increments the download counter.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="attachment">The attachment.</param>
-        public static void IncrementDownloadCounter(this IRepository<Attachment> repository, Attachment attachment)
+        /// <param name="attachmentID">The attachment id.</param>
+        public static void IncrementDownloadCounter(this IRepository<Attachment> repository, int attachmentID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            attachment.Downloads = attachment.Downloads + 1;
+            repository.DbFunction.Query.attachment_download(AttachmentID: attachmentID);
+        }
 
-            repository.Update(attachment);
+        /// <summary>
+        /// Gets the Attachment list as Data Table
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="messageID">The message id.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <param name="attachmentID">The attachment id.</param>
+        /// <param name="boardId">The board Id.</param>
+        /// <param name="pageIndex">The page index.</param>
+        /// <param name="pageSize">The page size.</param>
+        /// <returns>
+        /// Returns the Attachment <see cref="DataTable" />
+        /// </returns>
+        public static DataTable List(
+            this IRepository<Attachment> repository,
+            int? messageID = null,
+            int? userID = null,
+            int? attachmentID = null,
+            int? boardId = null,
+            int? pageIndex = null,
+            int? pageSize = null)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbFunction.GetData.attachment_list(
+                MessageID: messageID,
+                userID: userID,
+                AttachmentID: attachmentID,
+                boardID: boardId,
+                PageIndex: pageIndex,
+                PageSize: pageSize);
+        }
+
+        /// <summary>
+        /// Gets the Attachment list as IList
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="messageID">The message id.</param>
+        /// <param name="userID">The user identifier.</param>
+        /// <param name="attachmentID">The attachment id.</param>
+        /// <param name="boardId">The board id.</param>
+        /// <param name="pageIndex">The page index.</param>
+        /// <param name="pageSize">The page size.</param>
+        /// <returns>
+        /// Returns the Attachment list
+        /// </returns>
+        public static IList<Attachment> ListTyped(
+            this IRepository<Attachment> repository,
+            int? messageID = null,
+            int? userID = null,
+            int? attachmentID = null,
+            int? boardId = null,
+            int? pageIndex = null,
+            int? pageSize = null)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            using (var session = repository.DbFunction.CreateSession())
+            {
+                return
+                    session.GetTyped<Attachment>(
+                        r =>
+                        r.attachment_list(
+                            MessageID: messageID,
+                            userID: userID,
+                            AttachmentID: attachmentID,
+                            boardID: boardId,
+                            PageIndex: pageIndex,
+                            PageSize: pageSize));
+            }
         }
 
         /// <summary>
         /// The save.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="messageId">The message id.</param>
-        /// <param name="userId">The user identifier.</param>
+        /// <param name="messageID">The message id.</param>
+        /// <param name="userID">The user identifier.</param>
         /// <param name="fileName">The file name.</param>
         /// <param name="bytes">The bytes.</param>
         /// <param name="contentType">The content type.</param>
@@ -99,8 +172,8 @@ namespace YAF.Core.Model
         /// <returns>Returns the new attachment identifier</returns>
         public static int Save(
             this IRepository<Attachment> repository,
-            int messageId,
-            int userId,
+            int messageID,
+            int userID,
             string fileName,
             int bytes,
             string contentType,
@@ -111,19 +184,19 @@ namespace YAF.Core.Model
             var entity =
                 new
                     {
-                        MessageID = messageId,
-                        UserID = userId,
+                        MessageID = messageID,
+                        UserID = userID,
                         FileName = fileName,
                         Bytes = bytes,
                         ContentType = contentType,
                         FileData = fileData
                     }.ToMappedEntity<Attachment>();
 
-            var newAttachmentId = repository.DbAccess.Insert(entity, selectIdentity: true).ToType<int>();
+            var attachmentID = repository.DbAccess.Insert(entity, selectIdentity: true).ToType<int>();
 
             repository.FireNew(entity);
 
-            return newAttachmentId;
+            return attachmentID;
         }
 
         #endregion

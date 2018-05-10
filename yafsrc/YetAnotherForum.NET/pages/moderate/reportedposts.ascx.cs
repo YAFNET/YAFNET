@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,7 +21,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 namespace YAF.Pages.moderate
 {
     #region Using
@@ -35,6 +34,7 @@ namespace YAF.Pages.moderate
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Services.CheckForSpam;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -221,7 +221,7 @@ namespace YAF.Pages.moderate
                 case "viewhistory":
 
                     // go to history page
-                    var ff = e.CommandArgument.ToString().Split(',');
+                    string[] ff = e.CommandArgument.ToString().Split(',');
                     YafContext.Current.Get<HttpResponseBase>().Redirect(
                       YafBuildLink.GetLinkNotEscaped(ForumPages.messagehistory, "f={0}&m={1}", ff[0], ff[1]));
                     break;
@@ -234,7 +234,7 @@ namespace YAF.Pages.moderate
                     this.BindData();
 
                     // tell user message was flagged as resolved
-                    this.PageContext.AddLoadMessage(this.GetText("RESOLVEDFEEDBACK"), MessageTypes.success);
+                    this.PageContext.AddLoadMessage(this.GetText("RESOLVEDFEEDBACK"), MessageTypes.Success);
                     break;
                 case "spam":
 
@@ -244,7 +244,7 @@ namespace YAF.Pages.moderate
             }
 
             // see if there are any items left...
-            var dt = LegacyDb.message_listreported(this.PageContext.PageForumID);
+            DataTable dt = LegacyDb.message_listreported(this.PageContext.PageForumID);
 
             if (dt.Rows.Count == 0)
             {
@@ -261,14 +261,41 @@ namespace YAF.Pages.moderate
         /// </param>
         private void ReportSpam(string comment)
         {
-            if (!this.Get<YafBoardSettings>().SpamServiceType.Equals(1))
+            if (this.Get<YafBoardSettings>().SpamServiceType.Equals(1))
             {
-                return;
+                string message = BlogSpamNet.ClassifyComment(comment, true);
+
+                this.PageContext.AddLoadMessage(message);
             }
 
-            var message = BlogSpamNet.ClassifyComment(comment, true);
+            try
+            {
+                if (!this.Get<YafBoardSettings>().SpamServiceType.Equals(2)
+                    || string.IsNullOrEmpty(this.Get<YafBoardSettings>().AkismetApiKey))
+                {
+                    return;
+                }
 
-            this.PageContext.AddLoadMessage(message);
+                var service = new AkismetSpamClient(this.Get<YafBoardSettings>().AkismetApiKey, new Uri(BaseUrlBuilder.BaseUrl));
+
+                service.SubmitSpam(new Comment(null, string.Empty) { Content = comment });
+
+                this.Logger.Log(
+                    this.PageContext.PageUserID,
+                    "Spam Message Reported",
+                    "Message '{0}' was Reported to Akismet.com by {1}".FormatWith(
+                        comment,
+                        this.Get<YafBoardSettings>().EnableDisplayName
+                            ? this.PageContext.CurrentUserData.DisplayName
+                            : this.PageContext.CurrentUserData.UserName),
+                    EventLogTypes.SpamMessageReported);
+
+                this.PageContext.AddLoadMessage(this.GetText("MODERATE_DEFAULT", "SPAM_REPORTED"));
+            }
+            catch (Exception)
+            {
+                this.PageContext.AddLoadMessage(this.GetText("MODERATE_DEFAULT", "SPAM_REPORTED_FAILED"));
+            }
         }
 
         #endregion

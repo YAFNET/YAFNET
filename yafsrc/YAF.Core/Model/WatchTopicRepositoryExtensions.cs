@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,17 +34,8 @@ namespace YAF.Core.Model
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
-    /// <summary>
-    /// The WatchTopic Repository Extensions
-    /// </summary>
     public static class WatchTopicRepositoryExtensions
     {
-        /// <summary>
-        /// Adds the specified repository.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="userID">The user identifier.</param>
-        /// <param name="topicID">The topic identifier.</param>
         public static void Add(this IRepository<WatchTopic> repository, int userID, int topicID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -59,28 +50,13 @@ namespace YAF.Core.Model
             repository.FireNew();
         }
 
-        /// <summary>
-        /// Checks the specified repository.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="topicId">The topic identifier.</param>
-        /// <returns></returns>
-        public static int? Check(this IRepository<WatchTopic> repository, int userId, int topicId)
+        public static int? Check(this IRepository<WatchTopic> repository, int userID, int topicID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var topic = repository.GetSingle(w => w.UserID == userId && w.TopicID == topicId);
-
-            return topic?.ID;
+            return (int?)repository.DbFunction.Scalar.watchtopic_check(UserID: userID, TopicID: topicID);
         }
 
-        /// <summary>
-        /// Lists the specified repository.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="userID">The user identifier.</param>
-        /// <returns></returns>
         public static DataTable List(this IRepository<WatchTopic> repository, int userID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -88,12 +64,6 @@ namespace YAF.Core.Model
             return repository.DbFunction.GetData.watchtopic_list(UserID: userID);
         }
 
-        /// <summary>
-        /// Lists the typed.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="userID">The user identifier.</param>
-        /// <returns></returns>
         public static IList<WatchTopic> ListTyped(this IRepository<WatchTopic> repository, int userID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,19 +30,10 @@ namespace YAF.Core.Extensions
 
     using YAF.Core.Data;
 
-    /// <summary>
-    /// The Inject Extensions
-    /// </summary>
     public static class InjectionExtensions
     {
         #region Public Methods and Operators
 
-        /// <summary>
-        /// To the typed.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="dataRow">The data row.</param>
-        /// <returns></returns>
         public static T ToTyped<T>(this DataRow dataRow)
             where T : new()
         {
@@ -53,12 +44,6 @@ namespace YAF.Core.Extensions
             return o;
         }
 
-        /// <summary>
-        /// To the typed.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj">The object.</param>
-        /// <returns></returns>
         public static T ToTyped<T>(this object obj)
             where T : new()
         {

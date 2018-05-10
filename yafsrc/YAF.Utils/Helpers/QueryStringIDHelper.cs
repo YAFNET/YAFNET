@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -105,7 +105,7 @@ namespace YAF.Utils.Helpers
 
       var failInvalid = new bool[idNames.Length];
 
-      for (var i = 0; i < failInvalid.Length; i++)
+      for (int i = 0; i < failInvalid.Length; i++)
       {
         failInvalid[i] = errorOnInvalid;
       }
@@ -213,7 +213,7 @@ namespace YAF.Utils.Helpers
         throw new Exception("idNames and errorOnInvalid variables must be the same array length.");
       }
 
-      for (var i = 0; i < idNames.Length; i++)
+      for (int i = 0; i < idNames.Length; i++)
       {
         if (this.Params.ContainsKey(idNames[i]))
         {

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -36,10 +36,8 @@ namespace YAF.Core.BBCode
 
     using YAF.Classes;
     using YAF.Core.BBCode.ReplaceRules;
-    using YAF.Core.Extensions;
     using YAF.Core.Services;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
@@ -331,6 +329,50 @@ namespace YAF.Core.BBCode
         #region IBBCode
 
         /// <summary>
+        /// Adds smiles replacement rules to the collection from the DB
+        /// </summary>
+        /// <param name="rules">
+        /// The rules.
+        /// </param>
+        public void AddSmiles([NotNull] IProcessReplaceRules rules)
+        {
+            CodeContracts.VerifyNotNull(rules, "rules");
+
+            var smiles = this.Get<YafDbBroker>().GetSmilies();
+            int codeOffset = 0;
+
+            foreach (var smile in smiles)
+            {
+                string code = smile.Code;
+                code = code.Replace("&", "&amp;");
+                code = code.Replace(">", "&gt;");
+                code = code.Replace("<", "&lt;");
+                code = code.Replace("\"", "&quot;");
+
+                // add new rules for smilies...
+                var lowerRule = new SimpleReplaceRule(
+                    code.ToLower(),
+                    @"<img src=""{0}"" alt=""{1}"" />".FormatWith(
+                        YafBuildLink.Smiley(smile.Icon), HttpContext.Current.Server.HtmlEncode(smile.Emoticon)));
+
+                var upperRule = new SimpleReplaceRule(
+                    code.ToUpper(),
+                    @"<img src=""{0}"" alt=""{1}"" />".FormatWith(
+                        YafBuildLink.Smiley(smile.Icon), HttpContext.Current.Server.HtmlEncode(smile.Emoticon)));
+
+                // increase the rank as we go...
+                lowerRule.RuleRank = lowerRule.RuleRank + 100 + codeOffset;
+                upperRule.RuleRank = upperRule.RuleRank + 100 + codeOffset;
+
+                rules.AddRule(lowerRule);
+                rules.AddRule(upperRule);
+
+                // add a bit more rank
+                codeOffset++;
+            }
+        }
+
+        /// <summary>
         /// Converts a message containing YafBBCode to HTML appropriate for editing in a rich text editor.
         /// </summary>
         /// <remarks>
@@ -413,17 +455,17 @@ namespace YAF.Core.BBCode
             bool useNoFollow,
             bool convertBBQuotes)
         {
-            var target = (this.Get<YafBoardSettings>().BlankLinks || targetBlankOverride)
+            string target = (this.Get<YafBoardSettings>().BlankLinks || targetBlankOverride)
                                 ? "target=\"_blank\""
                                 : string.Empty;
 
-            var nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
+            string nofollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
 
             const string ClassModal = "";
 
             // pull localized strings
-            var localQuoteStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTE");
-            var localCodeStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_CODE");
+            string localQuoteStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTE");
+            string localCodeStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_CODE");
 
             // handle font sizes -- this rule class internally handles the "size" variable
             ruleEngine.AddRule(
@@ -543,7 +585,7 @@ namespace YAF.Core.BBCode
                 var maxWidth = this.Get<YafBoardSettings>().ImageAttachmentResizeWidth;
                 var maxHeight = this.Get<YafBoardSettings>().ImageAttachmentResizeHeight;
 
-                var styleAttribute = this.Get<YafBoardSettings>().ResizePostedImages
+                string styleAttribute = this.Get<YafBoardSettings>().ResizePostedImages
                                             ? " style=\"max-width:{0}px;max-height:{1}px\"".FormatWith(
                                                 maxWidth, maxHeight)
                                             : string.Empty;
@@ -615,6 +657,9 @@ namespace YAF.Core.BBCode
 
 
             }
+
+            // add smilies
+            this.AddSmiles(ruleEngine);
 
             if (convertBBQuotes)
             {
@@ -861,6 +906,7 @@ namespace YAF.Core.BBCode
                     _Options,
                     new[] { "email" }) { RuleRank = 1 });
 
+            // TODO : this.AddSmiles(ruleEngine);
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     @"<img.*?src=""(?<inner>(.*?))"".*?alt=""(?<description>(.*?))"".*?/>",
@@ -921,18 +967,18 @@ namespace YAF.Core.BBCode
 
             var sb = new StringBuilder(strToLocalize);
 
-            var m = regExSearch.Match(strToLocalize);
+            Match m = regExSearch.Match(strToLocalize);
             while (m.Success)
             {
                 // get the localization tag...
-                var tagValue = m.Groups["tag"].Value;
-                var defaultValue = m.Groups["inner"].Value;
+                string tagValue = m.Groups["tag"].Value;
+                string defaultValue = m.Groups["inner"].Value;
 
                 // remove old code...
                 sb.Remove(m.Groups[0].Index, m.Groups[0].Length);
 
                 // insert localized value...
-                var localValue = defaultValue;
+                string localValue = defaultValue;
 
                 if (this.Get<ILocalization>().GetTextExists("BBCODEMODULE", tagValue))
                 {
@@ -1083,7 +1129,7 @@ namespace YAF.Core.BBCode
                 if (codeRow.Variables.IsSet())
                 {
                     // handle variables...
-                    var variables = codeRow.Variables.Split(';');
+                    string[] variables = codeRow.Variables.Split(';');
 
                     var rule = new VariableRegexReplaceRule(
                         codeRow.SearchRegex, codeRow.ReplaceRegex, _Options, variables) { RuleRank = 50 };

@@ -1,39 +1,29 @@
 /*
- * jQuery File Upload User Interface Plugin
+ * jQuery File Upload User Interface Plugin 9.6.0
  * https://github.com/blueimp/jQuery-File-Upload
  *
  * Copyright 2010, Sebastian Tschan
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * https://opensource.org/licenses/MIT
+ * http://www.opensource.org/licenses/MIT
  */
 
 /* jshint nomen:false */
-/* global define, require, window */
+/* global define, window */
 
-;(function (factory) {
-    'use strict';
+(function (factory) {
+    //'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
         define([
             'jquery',
-            'blueimp-tmpl',
+            'tmpl',
             './jquery.fileupload-image',
             './jquery.fileupload-audio',
             './jquery.fileupload-video',
             './jquery.fileupload-validate'
         ], factory);
-    } else if (typeof exports === 'object') {
-        // Node/CommonJS:
-        factory(
-            require('jquery'),
-            require('blueimp-tmpl'),
-            require('./jquery.fileupload-image'),
-            require('./jquery.fileupload-audio'),
-            require('./jquery.fileupload-video'),
-            require('./jquery.fileupload-validate')
-        );
     } else {
         // Browser globals:
         factory(
@@ -42,7 +32,7 @@
         );
     }
 }(function ($, tmpl) {
-    'use strict';
+    //'use strict';
 
     $.blueimp.yafFileUpload.prototype._specialOptions.push(
         'filesContainer',
@@ -72,10 +62,10 @@
             // The expected data type of the upload response, sets the dataType
             // option of the $.ajax upload requests:
             dataType: 'json',
-
+            
             // Error and info messages:
             messages: {
-                unknownError: 'Unknown error'
+                unknownError: 'Unknown error'  
             },
 
             // Function returning the current number of files,
@@ -101,7 +91,8 @@
                     return false;
                 }
                 var $this = $(this),
-                    that = $this.data('blueimp-yafFileUpload') ,
+                    that = $this.data('blueimp-yafFileUpload') ||
+                        $this.data('fileupload'),
                     options = that.options;
                 data.context = that._renderUpload(data.files)
                     .data('data', data)
@@ -144,7 +135,7 @@
                     return false;
                 }
                 var that = $(this).data('blueimp-yafFileUpload') ||
-                        $(this).data('fileupload');
+                    $(this).data('fileupload');
                 if (data.context && data.dataType &&
                         data.dataType.substr(0, 6) === 'iframe') {
                     // Iframe Transport does not support progress events.
@@ -556,7 +547,7 @@
 
         _transition: function (node) {
             var dfd = $.Deferred();
-            if ($.support.transition && node.hasClass('fade') && node.is(':visible')) {
+            if ($.support.transition && node.hasClass('fade-ui') && node.is(':visible')) {
                 node.bind(
                     $.support.transition.end,
                     function (e) {

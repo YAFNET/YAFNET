@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -116,7 +116,7 @@ namespace YAF.Pages
         protected DataTable GetAdmins()
         {
             // get a row with user lazy data...
-            var adminListDataTable = this.Get<IDataCache>()
+            DataTable adminListDataTable = this.Get<IDataCache>()
                 .GetOrSet(
                     Constants.Cache.BoardAdmins,
                     () =>
@@ -144,7 +144,7 @@ namespace YAF.Pages
 
             var modsSorted = new List<Moderator>();
 
-            foreach (var mod in moderators)
+            foreach (SimpleModerator mod in moderators)
             {
                 if (mod.IsGroup)
                 {
@@ -175,7 +175,7 @@ namespace YAF.Pages
 
                 sortedMod.ForumIDs = new ModeratorsForums[forumsCount];
 
-                for (var i = 0; i < forumsCount; i++)
+                for (int i = 0; i < forumsCount; i++)
                 {
                     var forumsId = new ModeratorsForums
                         { ForumID = modList[i].ForumID, ForumName = modList[i].ForumName };
@@ -292,8 +292,8 @@ namespace YAF.Pages
             var adminAvatar = (Image)e.Item.FindControl("AdminAvatar");
 
             var drowv = (DataRowView)e.Item.DataItem;
-            var userid = drowv.Row["UserID"].ToType<int>();
-            var displayName = this.Get<YafBoardSettings>().EnableDisplayName ? drowv.Row["DisplayName"].ToString() : drowv.Row["Name"].ToString();
+            int userid = drowv.Row["UserID"].ToType<int>();
+            string displayName = this.Get<YafBoardSettings>().EnableDisplayName ? drowv.Row["DisplayName"].ToString() : drowv.Row["Name"].ToString();
 
             adminAvatar.ImageUrl = this.GetAvatarUrlFileName(
                 drowv.Row["UserID"].ToType<int>(),
@@ -383,7 +383,7 @@ namespace YAF.Pages
 
             var modLink = (UserLink)e.Item.FindControl("ModLink");
 
-            var mod = this.completeModsList.Find(m => m.ModeratorID.Equals(modLink.UserID));
+            Moderator mod = this.completeModsList.Find(m => m.ModeratorID.Equals(modLink.UserID));
 
             foreach (var forumsItem in from forumsItem in mod.ForumIDs
                                        let forumListItem =
@@ -417,9 +417,9 @@ namespace YAF.Pages
 
             /*try
             {*/
-            var drowv = (Moderator)e.Item.DataItem;
-            var userid = drowv.ModeratorID;
-            var displayName = this.Get<YafBoardSettings>().EnableDisplayName ? drowv.DisplayName : drowv.Name;
+            Moderator drowv = (Moderator)e.Item.DataItem;
+            long userid = drowv.ModeratorID;
+            string displayName = this.Get<YafBoardSettings>().EnableDisplayName ? drowv.DisplayName : drowv.Name;
 
             var modAvatar = (Image)e.Item.FindControl("ModAvatar");
 

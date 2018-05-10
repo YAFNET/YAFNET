@@ -1,9 +1,9 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -110,7 +110,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets the Current YAF Database Version
         /// </summary>
-        public static int AppVersion => 61;
+        public static int AppVersion => 63;
 
         /// <summary>
         /// Gets the Current YAF Application Version
@@ -120,13 +120,13 @@ namespace YAF.Utils
             get
             {
                 const int Major = 2;
-                const byte Minor = 3;
-                const byte Build = 0;
-                const byte Sub = 0;
+                const byte Minor = 2;
+                const byte Build = 4;
+                const byte Sub = 10;
 
-                const ReleaseType ReleaseType = ReleaseType.BETA;
+                const ReleaseType ReleaseType = ReleaseType.Regular;
                 const byte ReleaseNumber = 0;
-
+                
                 var version = Major.ToType<long>() << 24;
                 version |= Minor.ToType<long>() << 16;
                 version |= (Build & 0x0F).ToType<long>() << 12;
@@ -149,7 +149,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets the Current YAF Build Date
         /// </summary>
-        public static DateTime AppVersionDate => new DateTime(2018, 01, 30);
+        public static DateTime AppVersionDate => new DateTime(2018, 04, 26);
 
         /// <summary>
         /// Creates a string that is the YAF Application Version from a long value

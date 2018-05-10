@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -86,6 +86,18 @@ namespace YAF.Editors
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// The register smiliey script.
+        /// </summary>
+        protected override void RegisterSmilieyScript()
+        {
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "InsertSmileyJs",
+                @"function insertsmiley(code,img) {{var ckEditor = CKEDITOR.instances.{0}; ckEditor.insertHtml( '[img]' + '{1}' + img + '[/img]' );}}
+                  function insertAttachment(id,url) {{var ckEditor = CKEDITOR.instances.{0}; ckEditor.insertHtml( '[attach]' + id + '[/attach]' );}}"
+                    .FormatWith(this._textCtl.ClientID, BaseUrlBuilder.BaseUrl));
+        }
 
         /// <summary>
         /// The register ckeditor custom js.

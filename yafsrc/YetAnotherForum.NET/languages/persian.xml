@@ -53,6 +53,9 @@
     <Resource tag="ADMIN_REPLACEWORDS_IMPORT">در حال وارد کردن لیست کلمات غیر مجاز</Resource>
     <Resource tag="ADMIN_RESTARTAPP">شروع مجدد برنامه</Resource>
     <Resource tag="ADMIN_RUNSQL">در حال اجرای دستورات بانک داده</Resource>
+    <Resource tag="ADMIN_SMILIES">در حال مشاهده خندانک ها</Resource>
+    <Resource tag="ADMIN_SMILIES_EDIT">در حال ویرایش خندانک ها</Resource>
+    <Resource tag="ADMIN_SMILIES_IMPORT">وارد کردن خندانک ها</Resource>
     <Resource tag="ADMIN_SPAMLOG">نمایش/ویرایش لاگ اسپم</Resource>
     <Resource tag="ADMIN_SPAMWORDS">نمایش لیست کلمات اسپم</Resource>
     <Resource tag="ADMIN_SPAMWORDS_EDIT">نمایش لیست کلمات اسپم</Resource>
@@ -131,6 +134,7 @@
     <Resource tag="RULES">نمایش قوانین انجمن</Resource>
     <Resource tag="SEARCH">استفاده از جستجو</Resource>
     <Resource tag="SHOUTBOX">استفاده از جعبه گفتگو</Resource>
+    <Resource tag="SHOWSMILIES">بدون داده</Resource>
     <Resource tag="TEAM">نمایش صفحه گروه</Resource>
     <Resource tag="TOPICINFORUM"> در انجمن </Resource>
     <Resource tag="TOPICS">نمایش موضوع </Resource>
@@ -216,7 +220,6 @@
     <Resource tag="REASON">دلیل:</Resource>
     <Resource tag="REASON_HELP">دلیل مسدود شدن ایمیل</Resource>
     <Resource tag="TITLE">افزودن/ویرایش ایمیل های مسدود شده</Resource>
-    <Resource tag="TITLE_EDIT">Edit Banned Email Address</Resource>
   </page>
   <page name="ADMIN_BANNEDEMAIL_IMPORT">
     <Resource tag="HEADER">درون‌ریزی لیست ایمیل</Resource>
@@ -235,7 +238,6 @@
     <Resource tag="EXPORT">برون‌بری به فایل متنی</Resource>
     <Resource tag="IMPORT_IPS">درون‌ریزی آدرس (ها)</Resource>
     <Resource tag="MASK">قالب</Resource>
-    <Resource tag="MSG_DELETE">Delete this Banned Item?</Resource>
     <Resource tag="MSG_REMOVEBAN_IP">IP Address or Mask '{0}' was successfully deleted</Resource>
     <Resource tag="REASON">دلیل</Resource>
     <Resource tag="SINCE">از</Resource>
@@ -251,7 +253,6 @@
     <Resource tag="REASON">دلیل :</Resource>
     <Resource tag="REASON_HELP">دلیل اینکه آی پی ممنوع شده</Resource>
     <Resource tag="TITLE">افزودن/ویرایش IP های ممنوعه</Resource>
-    <Resource tag="TITLE_EDIT">Edit Banned IP Address</Resource>
   </page>
   <page name="ADMIN_BANNEDIP_IMPORT">
     <Resource tag="HEADER">درون‌ریزی لیست آدرس IP</Resource>
@@ -279,7 +280,6 @@
     <Resource tag="REASON">دلیل:</Resource>
     <Resource tag="REASON_HELP">دلیل مسدود شدن این نام کاربری را وارد کنید</Resource>
     <Resource tag="TITLE">افزودن/ویرایش نام‌های مسدود شده</Resource>
-    <Resource tag="TITLE_EDIT">Edit Banned Name</Resource>
   </page>
   <page name="ADMIN_BANNEDNAME_IMPORT">
     <Resource tag="HEADER">درون‌ریزی لیست نام‌ها</Resource>
@@ -388,7 +388,6 @@
     <Resource tag="BOARD_TOPIC_DEFAULT">نحوه نمایش موضوعات</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">تابلو پیش فرض فاصله انتخاب موضوع را نمایش می دهد.</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">کلید حذف کپی رایت:</Resource>
-    <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">حذف نام و عنوان YAF از زیر انجمن موجود در لینک : &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;سایت YAF&lt;/a&gt;. </Resource>
     <Resource tag="HEADER">تنظیمات فعلی تابلو</Resource>
     <Resource tag="TITLE">تنظیمات تابلو</Resource>
@@ -698,7 +697,6 @@
     <Resource tag="SERVER">سرور:</Resource>
     <Resource tag="SERVER_HELP">این گروه در چه سروری است.</Resource>
     <Resource tag="TITLE">افزودن/ویرایش انجمن NTP</Resource>
-    <Resource tag="TITLE_EDIT">Edit NNTP Forum</Resource>
   </page>
   <page name="ADMIN_EDITNNTPSERVER">
     <Resource tag="MSG_SERVER_ADR">آدرس سرور نامفهوم است.</Resource>
@@ -714,7 +712,6 @@
     <Resource tag="NNTP_USERNAME">نام کاربری:</Resource>
     <Resource tag="NNTP_USERNAME_HELP">نام کاربری برای ورود به سرور.</Resource>
     <Resource tag="TITLE">افزودن/ویرایش سرور NNTP</Resource>
-    <Resource tag="TITLE_EDIT">Edit NNTP Server</Resource>
   </page>
   <page name="ADMIN_EDITRANK">
     <Resource tag="ALBUMS_NUMBER">تعداد آلبوم های مجاز:</Resource>
@@ -892,7 +889,6 @@
     <Resource tag="EXPORT">برون‌بری به XML</Resource>
     <Resource tag="HEADER">پسوند های مجاز فایل</Resource>
     <Resource tag="IMPORT">درون‌ریزی از XML</Resource>
-    <Resource tag="SAVE">Save Extension</Resource>
     <Resource tag="TITLE">پسوند‌های فایل</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_EDIT">
@@ -902,7 +898,6 @@
     <Resource tag="MSG_ENTER">شما باید چیزی وارد کنید.</Resource>
     <Resource tag="MSG_REMOVE">حذف تناوب از پسوند.</Resource>
     <Resource tag="TITLE">افزودن/ویرایش پسوند فایل</Resource>
-    <Resource tag="TITLE_EDIT">Edit File Extension</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_IMPORT">
     <Resource tag="HEADER">درون‌ریزی لیست پسوندها</Resource>
@@ -953,7 +948,6 @@
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">دسترسی به فید موضوعات فعال:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">محدود کردن نمایش فید موضوعات فعال.</Resource>
     <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
-    <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="AKISMET_KEY_HELP">برای استفاده از سرویس اسپم کامنت Akismet شما باید یک API Key ارایه دهید&lt;a href="https://akismet.com/signup/"&gt;از این قسمت اقدام کنید&lt;a&gt;.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">تعداد آلبوم در صفحه :</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">تعداد آلبوم ها برای نمایش در هر صفحه.</Resource>
@@ -1144,7 +1138,6 @@
     <Resource tag="GROUPS_TEMPLATE_HELP">قالب نمایش گروه‌های کاربری</Resource>
     <Resource tag="HEADER_ADVERTS">تنظیمات تبلیغات</Resource>
     <Resource tag="HEADER_ALBUM">تنظیمات آلبوم</Resource>
-    <Resource tag="HEADER_ATTACHMENTS">Attachments Settings</Resource>
     <Resource tag="HEADER_AVATARS">تنظیمات تصویر پروفایل</Resource>
     <Resource tag="HEADER_BOTSPAM">تنظیمات اسپم ربات‌ها (بررسی کاربران)</Resource>
     <Resource tag="HEADER_CACHE">تنظیمات cache</Resource>
@@ -1276,8 +1269,6 @@
     <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notifcation Dialogs on Mobile Devices.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">انقضای حافظه موقت وضعیت کاربران بر خط:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">می توانید بر اساس فعالیت سایت خود بر حسب میلی ثانیه تنظمی کنید.</Resource>
-    <Resource tag="PM_ATTACHMENTS">Allow attachments in Private Messages</Resource>
-    <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">اندازه تصویر نظر سنجی :</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">حداکثر اندازه فایل تصویر نظر سنجی به کیلو بایت.</Resource>
     <Resource tag="POLLVOTING_PERIP">نظر سنجی های مبتی بر آی پی :</Resource>
@@ -1417,6 +1408,8 @@
     <Resource tag="SHOW_RSS_LINKS_HELP">فعال/غیرفعال کردن پیوند های RSS در انجمن.</Resource>
     <Resource tag="SHOW_SHOUTBOX">نمایش کادر گفتگو:</Resource>
     <Resource tag="SHOW_SHOUTBOX_HELP">فعال یا غیرفعال گردن ماژوول چت.</Resource>
+    <Resource tag="SHOW_SHOUTBOX_SMILIES">نمایش خندانک های جعبه گفتگو:</Resource>
+    <Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">نمایش یا عدم نمایش خندانک های اتاق گفتگو (چت روم).</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
     <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">نمایش تاریخ تشکر کاربر:</Resource>
@@ -1466,6 +1459,8 @@
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">قالبی که قدردانی های شده از کاربر بر اساس آن تولید می شود.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">قالب قدردانی ها:</Resource>
     <Resource tag="THANKS_TO_TEMPLATE_HELP">قالبی که قدردانی های کاربر بر اساس آن تولید می شود.</Resource>
+    <Resource tag="TIMEAGO_INTERVAL">وقفه بازسازی زمان نسبی:</Resource>
+    <Resource tag="TIMEAGO_INTERVAL_HELP">مدت زمان بازسازی زمان نسبی "زمان قبل" را مشخص می کند.بر حسب میلی ثانیه است 60000 میلی ثانیه = 60 ثانیه = 1 دقیقه.</Resource>
     <Resource tag="TITLE">تنظیمات میزبان</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">دسترسی خوراک موضوعات:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">محدود کردن خوراک موضوعات.</Resource>
@@ -1538,7 +1533,6 @@
     <Resource tag="FORUM">انحمن</Resource>
     <Resource tag="GROUP">گروه</Resource>
     <Resource tag="NEW_FORUM">انجمن جدید</Resource>
-    <Resource tag="SAVE">Save Forum</Resource>
     <Resource tag="SERVER">سرور</Resource>
     <Resource tag="TITLE">انجمن های NNTP</Resource>
   </page>
@@ -1572,7 +1566,6 @@
     <Resource tag="DELETE_SERVER">حذف این سرور؟</Resource>
     <Resource tag="NAME">نام</Resource>
     <Resource tag="NEW_SERVER">سرور جدید</Resource>
-    <Resource tag="SAVE_SERVER">Save Server</Resource>
     <Resource tag="TITLE">سرور های NNTP</Resource>
     <Resource tag="USERNAME">نام کاربری</Resource>
   </page>
@@ -1691,7 +1684,6 @@
 
 </Resource>
     <Resource tag="TITLE">افزودن/ویرایش کلمه جایگزینی</Resource>
-    <Resource tag="TITLE_EDIT">Edit Word Replace</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_IMPORT">
     <Resource tag="HEADER">وارد کردن فهرست کلمات جایگزینی</Resource>
@@ -1716,6 +1708,46 @@
     <Resource tag="SQL_COMMAND">دستور اس کیو ال:</Resource>
     <Resource tag="TITLE">اجرای  کد اس کیو ال</Resource>
   </page>
+  <page name="ADMIN_SMILIES">
+    <Resource tag="ADD">افزودن خندانک</Resource>
+    <Resource tag="CODE">کد</Resource>
+    <Resource tag="COMANDS">احساس</Resource>
+    <Resource tag="EMOTION">احساس</Resource>
+    <Resource tag="IMPORT">وارد کردن بسته خندانک</Resource>
+    <Resource tag="MOVE_DOWN">انتقال به انتها</Resource>
+    <Resource tag="MOVE_UP">انتقال به ابتدا</Resource>
+    <Resource tag="MSG_DELETE">حذف این خندانک؟</Resource>
+    <Resource tag="ORDER">ترتیب</Resource>
+    <Resource tag="SMILEY">خندانک</Resource>
+    <Resource tag="TITLE">خندانک ها</Resource>
+  </page>
+  <page name="ADMIN_SMILIES_EDIT">
+    <Resource tag="CODE">کد:</Resource>
+    <Resource tag="EMOTION">احساس:</Resource>
+    <Resource tag="ICON">آیکون:</Resource>
+    <Resource tag="MSG_CODE_BRACK">لطفا کدی را برای استفاده از این احساس در براکت وارد کنید.</Resource>
+    <Resource tag="MSG_CODE_LONG">کدی که برای این احساس وارد شده نباید بیش از 10 علامت باشد.</Resource>
+    <Resource tag="MSG_CODE_MISSING">لطفا کدی را برای استفاده برای این حس وارد کنید.</Resource>
+    <Resource tag="MSG_CODE_SAME">Please choose a different code, this one is already in use.</Resource>
+    <Resource tag="MSG_NO_EMOTICON">لطفا احساسی را برای این آیکون وارد کنید.</Resource>
+    <Resource tag="MSG_NO_ICON">لطفا آیکونی را برای این حس انتخاب کنید.</Resource>
+    <Resource tag="MSG_SORT_NMBR">ترتیب مرتب سازی باید عددی بین 0 تا 255 باشد.</Resource>
+    <Resource tag="MSG_TOO_LONG">توضیح در مورد احساس خیلی طولانی است.</Resource>
+    <Resource tag="SELECT_SMILEY">تصویر خندانک را انتخاب کنید</Resource>
+    <Resource tag="SORT_ORDER">ترتیب:</Resource>
+    <Resource tag="TITLE">افزودن/ویرایش خندانک</Resource>
+  </page>
+  <page name="ADMIN_SMILIES_IMPORT">
+    <Resource tag="CHOOSE_PAK">یک فایل pak. انتخاب کنید:</Resource>
+    <Resource tag="CHOOSE_PAK_HELP">شما مجبور می شوید بسته خندانک را باز کنید و تک تک فایل ها را در مسیر پوشه خندانک ها بارگذاری کنید.(Boards/BoardNo/Images/Emoticons).</Resource>
+    <Resource tag="DELETE_EXISTING">حذف خندانک های موجود:</Resource>
+    <Resource tag="DELETE_EXISTING_HELP">اگر این گزینه را علامت بزنید تمام خندانک های موجود حذف خواهند شد.</Resource>
+    <Resource tag="ERROR_SELECT_FILE">شما می بایست یک فایل با پسوند pak برای وارد کردن انتخاب کنید.</Resource>
+    <Resource tag="HEADER">وارد کردن بسته خندانک</Resource>
+    <Resource tag="IMPORT">ورود</Resource>
+    <Resource tag="SELECT_FILE">انتخاب کنید(pak.*)</Resource>
+    <Resource tag="TITLE">وارد کردن خندانک</Resource>
+  </page>
   <page name="ADMIN_SPAMLOG">
     <Resource tag="TITLE">نمایش لاگ های اسپم</Resource>
   </page>
@@ -1725,7 +1757,6 @@
     <Resource tag="IMPORT">Import from XML</Resource>
     <Resource tag="MSG_DELETE">Delete this Word?</Resource>
     <Resource tag="NOTE">&lt;strong&gt;Note: &lt;/strong&gt; The Spam Words are used for the internal SPAM Detection, during Registration the Homepage the user is entering in the user profile is checked against the Spam Words. Also if a user Posts a new Message in the forum it will be checked against the Spam Words if 'Choose a SPAM Service for Automatically SPAM Checking' in the Host Settings is set to 'Internal Spam Check Words'.</Resource>
-    <Resource tag="SAVE">Save Word</Resource>
     <Resource tag="SPAM">"Spam" Word (Find) Expression</Resource>
     <Resource tag="TITLE">Spam Check Words</Resource>
   </page>
@@ -1733,8 +1764,7 @@
     <Resource tag="MSG_REGEX_SPAM">The Regular expression statement you have entered is invalid.</Resource>
     <Resource tag="SPAM">"Spam" Word (Find) Expression:</Resource>
     <Resource tag="SPAM_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. '\.').</Resource>
-    <Resource tag="TITLE">Add New Spam Word</Resource>
-    <Resource tag="TITLE_EDIT">Edit Spam Word</Resource>
+    <Resource tag="TITLE">Add/Edit Spam Word</Resource>
   </page>
   <page name="ADMIN_SPAMWORDS_IMPORT">
     <Resource tag="HEADER">Import Spam Word List</Resource>
@@ -1763,7 +1793,6 @@
     <Resource tag="DEFAULT_DESCRIPTION">وضعیت</Resource>
     <Resource tag="EXPORT">برون‌بری به XML</Resource>
     <Resource tag="HEADER">پسوند فایل‌های مجاز</Resource>
-    <Resource tag="ICON">Icon</Resource>
     <Resource tag="IMPORT">درون‌ریزی از XML</Resource>
     <Resource tag="TITLE">وضعیت موضوع</Resource>
     <Resource tag="TOPICSTATUS_NAME">نام وضعیت</Resource>
@@ -1774,7 +1803,6 @@
     <Resource tag="HEADER">افزودن/ویرایش وضعیت موضوع</Resource>
     <Resource tag="MSG_ENTER">شما باید چیزی وارد کنید.</Resource>
     <Resource tag="TITLE">افزودن/ ویرایش وضعیت موضوع</Resource>
-    <Resource tag="TITLE_EDIT">Edit Topic Status</Resource>
     <Resource tag="TOPICSTATUS_NAME">مقدار وضعیت موضوع:</Resource>
     <Resource tag="TOPICSTATUS_NAME_HELP">این مقدار (value) برای گرفتن آیکون یا متن وضعیت موضوع استفاده می شود و نیاز است که در فایل های قالب و یا زبان تعریف شده باشد</Resource>
   </page>
@@ -1875,6 +1903,7 @@
     <Resource tag="admin_replacewords">جایگزینی کلمات</Resource>
     <Resource tag="admin_restartapp">شروع مجدد برنامه</Resource>
     <Resource tag="admin_runsql">اجرای کوئری SQL</Resource>
+    <Resource tag="admin_smilies">خندانک ها</Resource>
     <Resource tag="ADMIN_SPAMLOG">لاگ اسپم</Resource>
     <Resource tag="admin_spamwords">بررسی کلمات اسپم</Resource>
     <Resource tag="admin_taskmanager">مدیریت کارها</Resource>
@@ -2114,7 +2143,6 @@
     <Resource tag="NAME">نام</Resource>
     <Resource tag="NO">خیر</Resource>
     <Resource tag="NONE">هیچ</Resource>
-    <Resource tag="NOTE">Note:</Resource>
     <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT">کاربر جدید اسپم در انجمن {0} ثبت نام کرده است</Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">you have been awarded on the {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">پیام جدید در انجمن {0} نیاز به تائید دارد</Resource>
@@ -2168,6 +2196,9 @@
     </Resource>
     <Resource tag="SHOWHIDE">نمایش/عدم نمایش</Resource>
     <Resource tag="SUBMIT">تایید</Resource>
+    <Resource tag="TIMEAGO_JS">
+      jQuery.timeago.settings.strings = { prefixAgo: null, prefixFromNow: null, suffixAgo: "پیش", suffixFromNow: "از هم اکنون", seconds: "کمتر از یک دقیقه پیش", minute: "حدود یک دقیقه", minutes: "%d دقیقه", hour: "حدود یک ساعت", hours: "حدود %d ساعت", day: "یک روز", days: "%d روز", month: "حدود یک ماه", months: "%d ماه", year: "حدود یک سال", years: "%d سال", numbers: [] };
+    </Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">اشتراک در دریافت جدیدترین مطالب  (از {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">در وسط</Resource>
     <Resource tag="TT_ALIGNLEFT">در سمت چپ</Resource>
@@ -4347,11 +4378,8 @@
     <Resource tag="LASTPOST">آخرین ارسال</Resource>
     <Resource tag="MEMBERS">اعضا</Resource>
     <Resource tag="MODERATEINDEX_TITLE">مدیریت مطالب گزارش شده و تائید نشده</Resource>
-    <Resource tag="MOVE_TO_DIFFERENT">The forum you want to move the topic(s) must be different then the current forum.</Resource>
-    <Resource tag="MOVED">Topic(s) Moved</Resource>
     <Resource tag="NO_POSTS">ارسالی موجود نمی باشد</Resource>
     <Resource tag="NOMODERATION">درحال حاضر مطلبی نیازمند تائید نمی باشد. و مطلب گزارش شده ای هم وجود دارد</Resource>
-    <Resource tag="NOTHING">You need to select atleast one topic</Resource>
     <Resource tag="REMOVE">حذف</Resource>
     <Resource tag="REPLIES">پاسخ ها</Resource>
     <Resource tag="TITLE">نظارت</Resource>
@@ -4548,6 +4576,8 @@
     <Resource tag="REPLY">ارسال پاسخ</Resource>
     <Resource tag="SAVE">ارسال</Resource>
     <Resource tag="SAVE_TITLE">ارسال/ویرایش پیام</Resource>
+    <Resource tag="SMILIES_HEADER">[b]اضافه کردن خندانک[/b]</Resource>
+    <Resource tag="SMILIES_MORE">خندانک‌های بیشتر...</Resource>
     <Resource tag="SPAM_MESSAGE">پیام شما به عنوان اسپم شناسایی شده و لذا رد شده است</Resource>
     <Resource tag="STATUS">وضعیت:</Resource>
     <Resource tag="STICKY">مهم</Resource>
@@ -4594,7 +4624,6 @@
     <Resource tag="FACEBOOK_TITLE">نمایش پروفایل فیسبوک {0}</Resource>
     <Resource tag="FACEBOOK_TOPIC">پسندیدن این موضوع</Resource>
     <Resource tag="FORUM_JUMP">رفتن به انجمن</Resource>
-    <Resource tag="GO_TO_ANSWER">Go to the topic answer</Resource>
     <Resource tag="GOOGLE">Google+</Resource>
     <Resource tag="GOOGLE_TITLE">نمایش  پروفایل Google+ {0} </Resource>
     <Resource tag="GOOGLEPLUS_TOPIC">اشتراک در Google+</Resource>
@@ -4619,12 +4648,6 @@
     <Resource tag="LINKBACK_TOPIC">آدرس بکلینک موضوع</Resource>
     <Resource tag="LINKBACK_TOPIC_PROMT">استفاده از آدرس زیر به عنوان بکلینک برای استفاده در سایت دیگر</Resource>
     <Resource tag="LOCATION">مکان</Resource>
-    <Resource tag="MARK_ANSWER">Mark As Answer</Resource>
-    <Resource tag="MARK_ANSWER_REMOVE">Remove As Answer</Resource>
-    <Resource tag="MARK_ANSWER_REMOVE_TITLE">Unmark this Message as answer</Resource>
-    <Resource tag="MARK_ANSWER_TITLE">Mark this Message as answer</Resource>
-    <Resource tag="MESSAGE_ANSWER">Answer</Resource>
-    <Resource tag="MESSAGE_ANSWER_HELP">Marked as answer</Resource>
     <Resource tag="MESSAGEDELETED_MOD">پیغام بوسیله یک ناظر حذف شده است.</Resource>
     <Resource tag="MESSAGEDELETED_USER">پیغام بوسیله کاربر حذف شده است.</Resource>
     <Resource tag="MSN">MSN</Resource>
@@ -4680,10 +4703,7 @@
     <Resource tag="TOGGLEPOST">نمايش/عدم نمايش ارسال ها</Resource>
     <Resource tag="TOGGLEUSERPOSTS_HIDE">مخفی كردن ارسال‌های كاربر</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">نمايش ارسال‌های كاربر</Resource>
-    <Resource tag="TOOLS">Tools</Resource>
     <Resource tag="TOP">رفتن به بالای صفحه</Resource>
-    <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
-    <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>
     <Resource tag="TOPICBROWSERS">کاربرانی که در حال مشاهده انجمن هستند</Resource>
     <Resource tag="TOTAL">مجموع</Resource>
     <Resource tag="TUMBLR_TOPIC">اشتراک در Tumblr </Resource>
@@ -5045,6 +5065,13 @@
     <Resource tag="SUBMIT">ارسال</Resource>
     <Resource tag="TITLE">گفتگو</Resource>
   </page>
+  <page name="SHOWSMILIES">
+    <Resource tag="CLOSE_WINDOW">بستن پنجره</Resource>
+    <Resource tag="HEADER_CODE">کد</Resource>
+    <Resource tag="HEADER_MEANING">معنی</Resource>
+    <Resource tag="HEADER_SMILE">خندانک</Resource>
+    <Resource tag="TITLE">خندانکهای موجود</Resource>
+  </page>
   <page name="TEAM">
     <Resource tag="ADMINS">مدیران</Resource>
     <Resource tag="FORUMS">انجمن ها</Resource>
@@ -5289,6 +5316,43 @@
       انجمن {forumname} را در {forumlink} ببینید.
     </Resource>
   </page>
+  <page name="TIMEZONES">
+    <Resource tag="NAME_UTC">(ساعت هماهنگ جهانی)</Resource>
+    <Resource tag="UTC0">(UTC) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</Resource>
+    <Resource tag="UTC1">(UTC+1:00) Berlin, Brussels, Kristiansund, Madrid, Paris, Rome, Warsaw</Resource>
+    <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Islands</Resource>
+    <Resource tag="UTC10">(UTC+10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</Resource>
+    <Resource tag="UTC-10">(UTC-10:00) Hawaii</Resource>
+    <Resource tag="UTC11">(UTC+11:00) Magadan, New Caledonia, Solomon Islands</Resource>
+    <Resource tag="UTC-11">(UTC-11:00) Midway Island, Samoa</Resource>
+    <Resource tag="UTC12">(UTC+12:00) Auckland, Wellington, Fiji, Marshall Island</Resource>
+    <Resource tag="UTC-12">(UTC-12:00) Eniwetok, Kwajalein</Resource>
+    <Resource tag="UTC13">(UTC+13:00) Nuku'alofa, Samoa</Resource>
+    <Resource tag="UTC2">(UTC+2:00) Jerusalem, Kaliningrad, South Africa</Resource>
+    <Resource tag="UTC-2">(UTC-2:00) Ascension</Resource>
+    <Resource tag="UTC3">(UTC+3:00) Baghdad, Riyadh, Moscow, Nairobi</Resource>
+    <Resource tag="UTC-3">(UTC-3:00) Brazil, Buenos Aires, Georgetown, Falkland Is.</Resource>
+    <Resource tag="UTC3.5">(+3:30) تهران</Resource>
+    <Resource tag="UTC-3.5">(UTC-3:30) Newfoundland</Resource>
+    <Resource tag="UTC4">(UTC+4:00) Adu Dhabi, Baku, Muscat, Tbilisi</Resource>
+    <Resource tag="UTC-4">(UTC-4:00) Atlantic Time (Canada), Caracas, La Paz</Resource>
+    <Resource tag="UTC4.5">(UTC+4:30) Kabul</Resource>
+    <Resource tag="UTC-4.5">(UTC-4:30) Caracas</Resource>
+    <Resource tag="UTC5">(UTC+5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</Resource>
+    <Resource tag="UTC-5">(UTC-5:00) Eastern Time (US &amp; Canada), Bogota, Lima, Quito</Resource>
+    <Resource tag="UTC5.5">(UTC+5:30) Bombay, Calcutta, Madras, New Delhi</Resource>
+    <Resource tag="UTC5.75">(UTC+05:45) Kathmandu</Resource>
+    <Resource tag="UTC6">(UTC+6:00) Almaty, Colomba, Dhaka</Resource>
+    <Resource tag="UTC-6">(UTC-6:00) Central Time (US &amp; Canada), Mexico City</Resource>
+    <Resource tag="UTC6.5">(UTC+06:30) Yangon (Rangoon)</Resource>
+    <Resource tag="UTC7">(UTC+7:00) Bangkok, Hanoi, Jakarta</Resource>
+    <Resource tag="UTC-7">(UTC-7:00) Arizona</Resource>
+    <Resource tag="UTC8">(UTC+8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</Resource>
+    <Resource tag="UTC-8">(UTC-8:00) Pacific Time (US &amp; Canada)</Resource>
+    <Resource tag="UTC9">(UTC+9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</Resource>
+    <Resource tag="UTC-9">(UTC-9:00) Alaska</Resource>
+    <Resource tag="UTC9.5">(UTC+9:30) Adelaide, Darwin</Resource>
+  </page>
   <page name="TOOLBAR">
     <Resource tag="ACTIVETOPICS">موضوعات فعال</Resource>
     <Resource tag="ACTIVETOPICS_TITLE">نمایش تمام موضوعات فعال</Resource>
@@ -5315,7 +5379,6 @@
     <Resource tag="MEMBERS">اعضا</Resource>
     <Resource tag="MEMBERS_TITLE">باز کردن صفحه لیست کاربران</Resource>
     <Resource tag="MODERATE">مدیریت</Resource>
-    <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">نمایش صفحه مدیر زمانی که می توانید موضوعات گزارش شده و تائید نشده را ببینید</Resource>
     <Resource tag="MYALBUMS">آلبوم‌های من</Resource>
     <Resource tag="MYALBUMS_TITLE">نمایش صفحه آلبوم ها برای نمایش تمام آلبوم ها</Resource>

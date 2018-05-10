@@ -27,17 +27,17 @@
         <ItemTemplate>
             <tr class="post">
                 <td>
-                    <%# this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval("Name") : this.Eval("DisplayName") %>
+                    <%# this.Get<YafBoardSettings>().EnableDisplayName ? Eval("DisplayName") : Eval("DisplayName") %>
                 </td>
                 <td align="center">
-                    <%# this.Eval("Accepted") %>
+                    <%# Eval("Accepted") %>
                 </td>
                 <td>
-                    <%# this.Eval("Access") %>
+                    <%# Eval("Access") %>
                 </td>
                 <td>
-                     <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# this.Eval("UserID") %>' TitleLocalizedTag="EDIT" Icon="edit" runat="server"></YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButtonRemove" CssClass="yaflittlebutton" OnLoad="DeleteUser_Load"  CommandName='remove' CommandArgument='<%#Eval("UserID") %>' TitleLocalizedTag="REMOVE" Icon="trash" runat="server"></YAF:ThemeButton>
+                     <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" CommandName='edit' CommandArgument='<%# Eval("UserID") %>' TitleLocalizedTag="EDIT" ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON" runat="server"></YAF:ThemeButton>
+                    <YAF:ThemeButton ID="ThemeButtonRemove" CssClass="yaflittlebutton" OnLoad="DeleteUser_Load"  CommandName='remove' CommandArgument='<%#Eval("UserID") %>' TitleLocalizedTag="REMOVE" ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON" runat="server"></YAF:ThemeButton>
                 </td>
             </tr>
         </ItemTemplate>
@@ -50,40 +50,6 @@
 </table>
 <br />
 </asp:PlaceHolder>
-<!-- Move Topic Button -->
-<div class="btn-toolbar pagination float-right" role="toolbar">
-    <div class="dropdown btn-group" role="group">
-        <button type="button" title="Go to Page..."
-                class="btn btn-primary dropdown-toggle"
-                data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-            <YAF:LocalizedLabel runat="server" ID="TITLE" LocalizedTag="MOVE" LocalizedPage="MOVETOPIC"></YAF:LocalizedLabel>
-        </button>
-        <div class="dropdown-menu">
-            <form class="px-4 py-3">
-                <div class="form-group">
-                    <label for='<%= this.ForumList.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="select_forum" /></label>
-                    <asp:DropDownList ID="ForumList" runat="server" DataValueField="ForumID" DataTextField="Title" CssClass="form-control" />
-                </div>
-                <div class="dropdown-divider"></div>
-                <div id="trLeaveLink" runat="server" class="form-check">
-                    <label class="form-check-label">
-                        <asp:CheckBox ID="LeavePointer" runat="server" />
-                        <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="LEAVE_POINTER" />
-                    </label>
-                </div>
-                <div class="dropdown-divider"></div>
-                <div class="form-group" id="trLeaveLinkDays" runat="server">
-                    <label for='<%= this.LinkDays.ClientID %>'><YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="POINTER_DAYS" /></label>
-                    <asp:TextBox ID="LinkDays" runat="server" CssClass="Numeric" TextMode="Number" />
-                </div>
-                <div class="dropdown-divider"></div>
-                <asp:Button ID="Move" Type="Primary" CssClass="btn-sm" runat="server" OnClick="Move_Click" />
-            </form>
-        </div>
-    </div>
-</div>
-<!-- End of Move Topic Button -->
 <YAF:ThemeButton ID="DeleteTopic" runat="server" CssClass="yafcssbigbutton rightItem"
     TextLocalizedTag="BUTTON_DELETETOPIC" TitleLocalizedTag="BUTTON_DELETETOPIC_TT"
     OnLoad="Delete_Load" OnClick="DeleteTopics_Click" />

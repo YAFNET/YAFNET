@@ -1,80 +1,53 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.boards" Codebehind="boards.ascx.cs" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
-
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
-    <div class="row">
-        <div class="col-xl-12">
-            <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_BOARDS" /></h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fa fa-globe fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_BOARDS" />
-                </div>
-                <div class="card-body">
-                    <p class="card-text">
-                        		<asp:Repeater ID="List" runat="server">
-		    <HeaderTemplate>
-		        <div class="table-responsive">
-		       <table class="table">
-                <thead>
-		        <tr>
-			<th>
-				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="ID" LocalizedPage="ADMIN_BOARDS" />
-			</th>
-			<th>
-				<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_BOARDS" />
-			</th>
-                    <th>&nbsp;</th>
+	<table cellspacing="1" cellpadding="0" width="100%" class="content">
+		<tr>
+			<td class="header1" colspan="3">
+				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_BOARDS" />
+			</td>
 		</tr>
-                    </thead>
-		    </HeaderTemplate>
+		<tr>
+			<td class="header2" style="width:15%">
+				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="ID" LocalizedPage="ADMIN_BOARDS" />
+			</td>
+			<td class="header2" colspan="2">
+				<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_BOARDS" />
+			</td>
+		</tr>
+		<asp:Repeater ID="List" runat="server">
 			<ItemTemplate>
-				<tr id="BoardRow" class='<%# this.Eval("BoardID").ToType<int>() != this.PageContext.PageBoardID ? "" : "table-success" %>' runat="server">
-					<td>
-						<%# this.Eval( "BoardID") %>
+				<tr id="BoardRow" class='<%# Convert.ToInt32(Eval( "BoardID")) != PageContext.PageBoardID ? "post" : "post_res" %>' runat="server">
+					<td class="post">
+						<%# Eval( "BoardID") %>
 					</td>
-					<td>
-						<%# this.HtmlEncode(this.Eval( "Name")) %>
+					<td class="post">
+						<%# HtmlEncode(Eval( "Name")) %>
 					</td>
-                    <td>
-                        <span class="float-right">
-					    <YAF:ThemeButton ID="ThemeButtonEdit" Type="Info" CssClass="btn-sm"
-                            CommandName='edit' CommandArgument='<%# this.Eval( "BoardID") %>'
-                            TitleLocalizedTag="EDIT"
-                            TextLocalizedTag="EDIT"
-                            Icon="edit"
+                    <td class="post" align="right">
+					    <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" 
+                            CommandName='edit' CommandArgument='<%# Eval( "BoardID") %>' 
+                            TitleLocalizedTag="EDIT" 
+                            ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON"
+                            TextLocalizedTag="EDIT" 
                             runat="server">
 					    </YAF:ThemeButton>
-                        &nbsp;
-                        <YAF:ThemeButton ID="ThemeButtonDelete" Type="Danger" CssClass="btn-sm"
-                            CommandName='delete' CommandArgument='<%# this.Eval( "BoardID") %>'
-                            TitleLocalizedTag="DELETE"
+                        <YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" 
+                            CommandName='delete' CommandArgument='<%# Eval( "BoardID") %>' 
+                            TitleLocalizedTag="DELETE" 
+                            ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON"
                             TextLocalizedTag="DELETE"
-                            Icon="trash"
-                            OnLoad="DeleteLoad"  runat="server">
-                        </YAF:ThemeButton>
-                            </span>
+                            OnLoad="Delete_Load"  runat="server">
+                        </YAF:ThemeButton>						
 					</td>
 				</tr>
 			</ItemTemplate>
-            <FooterTemplate>
-                </table></div>
-            </FooterTemplate>
 		</asp:Repeater>
-
-                    </p>
-                </div>
-                <div class="card-footer text-center">
-                    <YAF:ThemeButton ID="New" runat="server" Type="Primary" 
-                        TextLocalizedTag="NEW_BOARD"
-                        Icon="plus-square"></YAF:ThemeButton>
-                </div>
-            </div>
-        </div>
-    </div>
+		<tr class="footer1" align="center">
+			<td colspan="3">
+				<asp:Button ID="New" runat="server" CssClass="pbutton" />
+			</td>
+		</tr>
+	</table>
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,13 +34,11 @@ namespace YAF.Pages
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -289,8 +287,8 @@ namespace YAF.Pages
             // delete message...
             this.PreviewRow.Visible = true;
 
-            var tempdb = this.GetRepository<Message>().GetReplies(
-                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").ToType<int>());
+            DataTable tempdb =
+                LegacyDb.message_getRepliesList(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
 
             if (tempdb.HasRows() && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
             {
@@ -337,9 +335,9 @@ namespace YAF.Pages
             }
 
             // Create objects for easy access
-            var tmpMessageID = this._messageRow["MessageID"];
-            var tmpForumID = this._messageRow["ForumID"];
-            var tmpTopicID = this._messageRow["TopicID"];
+            object tmpMessageID = this._messageRow["MessageID"];
+            object tmpForumID = this._messageRow["ForumID"];
+            object tmpTopicID = this._messageRow["TopicID"];
 
             var deleteAllLinked = false;
 
@@ -368,7 +366,7 @@ namespace YAF.Pages
                 this.EraseMessage.Checked);
 
             // retrieve topic information.
-            var topic = LegacyDb.topic_info(tmpTopicID);
+            DataRow topic = LegacyDb.topic_info(tmpTopicID);
 
             // If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
             if (topic == null)

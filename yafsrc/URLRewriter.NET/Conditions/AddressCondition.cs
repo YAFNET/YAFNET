@@ -1,16 +1,17 @@
 // UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
+// Copyright 2007 Intelligencia
+// Copyright 2007 Seth Yates
 // 
-
-using System;
-using System.Net;
-using Intelligencia.UrlRewriter.Utilities;
 
 namespace Intelligencia.UrlRewriter.Conditions
 {
+    using System;
+    using System.Net;
+
+    using Intelligencia.UrlRewriter.Utilities;
+
     /// <summary>
     /// Matches on the current remote IP address.
     /// </summary>
@@ -27,7 +28,7 @@ namespace Intelligencia.UrlRewriter.Conditions
                 throw new ArgumentNullException("pattern");
             }
 
-            _range = IPRange.Parse(pattern);
+            this._range = IPRange.Parse(pattern);
         }
 
         /// <summary>
@@ -35,16 +36,20 @@ namespace Intelligencia.UrlRewriter.Conditions
         /// </summary>
         /// <param name="context">The rewriting context.</param>
         /// <returns>True if the condition is met.</returns>
-        public bool IsMatch(IRewriteContext context)
+        public bool IsMatch(RewriteContext context)
         {
             if (context == null)
             {
                 throw new ArgumentNullException("context");
             }
 
-            string ipAddress = context.Properties[Constants.RemoteAddressHeader];
+            var ipAddress = context.Properties[Constants.RemoteAddressHeader];
+            if (ipAddress != null)
+            {
+                return this._range.InRange(IPAddress.Parse(ipAddress));
+            }
 
-            return (ipAddress != null && _range.InRange(IPAddress.Parse(ipAddress)));
+            return false;
         }
 
         private IPRange _range;

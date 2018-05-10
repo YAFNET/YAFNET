@@ -191,7 +191,7 @@ namespace YAF.Utils.Helpers.MinifyUtils
 		/// </returns>
 		private int Get()
 		{
-			var c = this.theLookahead;
+			int c = this.theLookahead;
 			this.theLookahead = EOF;
 			if (c == EOF)
 			{
@@ -232,7 +232,7 @@ namespace YAF.Utils.Helpers.MinifyUtils
 		/// </exception>
 		private int Next()
 		{
-			var c = this.Get();
+			int c = this.Get();
 			if (c == '/')
 			{
 				switch (this.Peek())

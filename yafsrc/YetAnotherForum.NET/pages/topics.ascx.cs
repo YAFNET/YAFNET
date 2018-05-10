@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -170,7 +170,8 @@ namespace YAF.Pages
             YafBuildLink.Redirect(
                 ForumPages.search,
                 "search={0}&forum={1}",
-                this.forumSearch.Text,
+                this.forumSearch.Text.TrimWordsOverMaxLengthWordsPreserved(
+                    this.Get<YafBoardSettings>().SearchStringMaxLength),
                 this.PageContext.PageForumID);
         }
 
@@ -203,10 +204,11 @@ namespace YAF.Pages
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<IYafSession>().UnreadTopics = 0;
-
+            this.AtomFeed.AdditionalParameters =
+                "f={0}".FormatWith(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
             this.RssFeed.AdditionalParameters =
                 "f={0}".FormatWith(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
-
+            this.MarkRead.Text = this.GetText("MARKREAD");
             this.ForumJumpHolder.Visible = this.Get<YafBoardSettings>().ShowForumJump
                                            && this.PageContext.Settings.LockedForum == 0;
 
@@ -265,7 +267,7 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+            using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
             {
                 this._forum = dt.Rows[0];
             }
@@ -320,22 +322,18 @@ namespace YAF.Pages
                 return;
             }
 
-            if (this.WatchForum.Icon == "eye")
+            if (this.WatchForumID.InnerText == string.Empty)
             {
                 this.GetRepository<WatchForum>().Add(this.PageContext.PageUserID, this.PageContext.PageForumID);
 
-                this.PageContext.AddLoadMessage(this.GetText("INFO_WATCH_FORUM"), MessageTypes.success);
+                this.PageContext.AddLoadMessage(this.GetText("INFO_WATCH_FORUM"));
             }
             else
             {
-                var watch = this.GetRepository<WatchForum>().Check(this.PageContext.PageUserID, this.PageContext.PageForumID);
+                var tmpID = this.WatchForumID.InnerText.ToType<int>();
+                this.GetRepository<WatchForum>().DeleteByID(tmpID);
 
-                if (watch != null)
-                {
-                    this.GetRepository<WatchForum>().DeleteById(watch.Value);
-
-                    this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_FORUM"), MessageTypes.success);
-                }
+                this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_FORUM"));
             }
 
             this.HandleWatchForum();
@@ -346,7 +344,7 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            var ds = this.Get<YafDbBroker>().BoardLayout(
+            DataSet ds = this.Get<YafDbBroker>().BoardLayout(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID,
                 this.PageContext.PageCategoryID,
@@ -360,7 +358,7 @@ namespace YAF.Pages
             this.Pager.PageSize = this.Get<YafBoardSettings>().TopicsPerPage;
 
             // when userId is null it returns the count of all deleted messages
-            /*int? userId = null;
+            int? userId = null;
 
             // get the userID to use for the deleted posts count...
             if (!this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
@@ -370,11 +368,9 @@ namespace YAF.Pages
                 {
                     userId = this.PageContext.PageUserID;
                 }
-            }*/
+            }
 
-            int? userId = this.PageContext.PageUserID;
-
-            var dt = LegacyDb.announcements_list(
+            DataTable dt = LegacyDb.announcements_list(
                 this.PageContext.PageForumID,
                 userId,
                 null,
@@ -389,21 +385,21 @@ namespace YAF.Pages
                 dt = this.StyleTransformDataTable(dt);
             }
 
-            var baseSize = this.Get<YafBoardSettings>().TopicsPerPage;
+            int baseSize = this.Get<YafBoardSettings>().TopicsPerPage;
 
             this.Announcements.DataSource = dt;
-
             /*if (!m_bIgnoreQueryString && Request.QueryString["p"] != null)
-                        {
-                                // show specific page (p is 1 based)
-                                int tPage = (int)Security.StringToLongOrRedirect(Request.QueryString["p"]);
-            
-                                if (tPage > 0)
-                                {
-                                        Pager.CurrentPageIndex = tPage - 1;
-                                }
-                        }*/
-            var pagerCurrentPageIndex = this.Pager.CurrentPageIndex;
+            {
+                    // show specific page (p is 1 based)
+                    int tPage = (int)Security.StringToLongOrRedirect(Request.QueryString["p"]);
+
+                    if (tPage > 0)
+                    {
+                            Pager.CurrentPageIndex = tPage - 1;
+                    }
+            }*/
+
+            int nCurrentPageIndex = this.Pager.CurrentPageIndex;
 
             DataTable dtTopics;
 
@@ -414,7 +410,7 @@ namespace YAF.Pages
                     userId,
                     DateTimeHelper.SqlDbMinTime(),
                     DateTime.UtcNow,
-                    pagerCurrentPageIndex,
+                    nCurrentPageIndex,
                     baseSize,
                     this.Get<YafBoardSettings>().UseStyledNicks,
                     true,
@@ -428,14 +424,14 @@ namespace YAF.Pages
             {
                 int[] days = { 1, 2, 7, 14, 31, 2 * 31, 6 * 31, 356 };
 
-                var date = DateTime.UtcNow.AddDays(-days[this._showTopicListSelected]);
+                DateTime date = DateTime.UtcNow.AddDays(-days[this._showTopicListSelected]);
 
                 dtTopics = LegacyDb.topic_list(
                     this.PageContext.PageForumID,
                     userId,
                     date,
                     DateTime.UtcNow,
-                    pagerCurrentPageIndex,
+                    nCurrentPageIndex,
                     baseSize,
                     this.Get<YafBoardSettings>().UseStyledNicks,
                     true,
@@ -472,18 +468,17 @@ namespace YAF.Pages
 
             // check if this forum is being watched by this user
             var watchForumId = this.GetRepository<WatchForum>().Check(this.PageContext.PageUserID, this.PageContext.PageForumID);
-
             if (watchForumId.HasValue)
             {
                 // subscribed to this forum
-                this.WatchForum.TextLocalizedTag = "UNWATCHFORUM";
-                this.WatchForum.Icon = "eye-slash";
+                this.WatchForum.Text = this.GetText("unwatchforum");
+                this.WatchForumID.InnerText = watchForumId.Value.ToString();
             }
             else
             {
                 // not subscribed
-                this.WatchForum.TextLocalizedTag = "WATCHFORUM";
-                this.WatchForum.Icon = "eye";
+                this.WatchForumID.InnerText = string.Empty;
+                this.WatchForum.Text = this.GetText("watchforum");
             }
         }
 

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,14 +33,12 @@ namespace YAF.Controls
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
-    using YAF.Core.Model;
     using YAF.Editors;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -134,7 +132,7 @@ namespace YAF.Controls
         /// </summary>
         protected void BindData()
         {
-            this._sig.Text = this.GetRepository<User>().GetSignature(this.CurrentUserID);
+            this._sig.Text = LegacyDb.user_getsignature(this.CurrentUserID);
 
             this.signaturePreview.Signature = this._sig.Text;
             this.signaturePreview.DisplayUserID = this.CurrentUserID;
@@ -175,7 +173,7 @@ namespace YAF.Controls
             this._sig.BaseDir = "{0}Scripts".FormatWith(YafForumInfo.ForumClientFileRoot);
             this._sig.StyleSheet = this.Get<ITheme>().BuildThemePath("theme.css");
 
-            var sigData = LegacyDb.user_getsignaturedata(this.CurrentUserID, this.PageContext.PageBoardID);
+            DataTable sigData = LegacyDb.user_getsignaturedata(this.CurrentUserID, this.PageContext.PageBoardID);
 
             if (sigData.HasRows())
             {
@@ -191,9 +189,9 @@ namespace YAF.Controls
                 return;
             }
 
-            this.save.Text = "<i class=\"fa fa-save fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "SAVE"));
-            this.preview.Text = "<i class=\"fa fa-image fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "PREVIEW"));
-            this.cancel.Text = "<i class=\"fa fa-trash fa-fw\"></i>&nbsp;{0}".FormatWith(this.GetText("COMMON", "CANCEL"));
+            this.save.Text = this.GetText("COMMON", "SAVE");
+            this.preview.Text = this.GetText("COMMON", "PREVIEW");
+            this.cancel.Text = this.GetText("COMMON", "CANCEL");
 
             var warningMessage = new StringBuilder();
 
@@ -369,7 +367,7 @@ namespace YAF.Controls
                         }
                     }
 
-                    this.GetRepository<User>().SaveSignature(this.CurrentUserID, this.Get<IBadWordReplace>().Replace(body));
+                    LegacyDb.user_savesignature(this.CurrentUserID, this.Get<IBadWordReplace>().Replace(body));
                 }
                 else
                 {
@@ -381,7 +379,7 @@ namespace YAF.Controls
             }
             else
             {
-                this.GetRepository<User>().SaveSignature(this.CurrentUserID, null);
+                LegacyDb.user_savesignature(this.CurrentUserID, DBNull.Value);
             }
 
             // clear the cache for this user...

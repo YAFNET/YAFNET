@@ -32,23 +32,23 @@
             <table class="albumtable" style="display: inline" width='<%# YafContext.Current.BoardSettings.ImageAttachmentResizeWidth %>'>
                 <tr>
                     <td class="albumimagebox">
-                        <a href='<%# YafBuildLink.GetLink(ForumPages.album, "u={0}&a={1}", this.Eval("UserID"), this.Eval("AlbumID")) %>'
+                        <a href='<%# YafBuildLink.GetLink(ForumPages.album, "u={0}&a={1}", Eval("UserID"), Eval("AlbumID")) %>'
                             target="_parent" title='<%# this.HtmlEncode(Eval("Title"))%>'>
                             <asp:Image runat="server" ID="coverImage" ImageUrl='<%# "{0}resource.ashx?album={1}&cover={2}".FormatWith(YafForumInfo.ForumClientFileRoot, this.Eval("AlbumID"), (this.Eval("CoverImageID").ToString() == string.Empty ? "0" : this.Eval("CoverImageID"))) %>'
-                                ToolTip='<%# this.HtmlEncode(Eval("Title")) %>' runat="server" AlternateText='<%# this.Eval("AlbumID") %>' />
+                                ToolTip='<%# this.HtmlEncode(Eval("Title")) %>' runat="server" AlternateText='<%# Eval("AlbumID") %>' />
                     </td>
                 </tr>
                 <tr>
                     <td class="albumtitlebox">
                         <span runat="server" id="spnUser" visible='<%# UserID != PageContext.PageUserID %>'>
                             <%# this.HtmlEncode(Eval("Title"))%></span> <span runat="server" id="spnAlbumOwner"
-                                visible='<%# UserID == PageContext.PageUserID %>'><span class="albumtitle" id='<%# "spnTitle0" + this.Eval("AlbumID") %>'
-                                    onclick="showTexBox(this.id)" style="display: inline;"><%# this.Eval("Title").ToString() == string.Empty ? this.GetText("ALBUM_CHANGE_TITLE") : this.HtmlEncode(Eval("Title"))%></span>
-                                <input type="text" id='<%# "txtTitle0" + this.Eval("AlbumID") %>' onkeydown="checkKey(event, this,'<%#Eval("AlbumID") %>',true)"
-                                    onblur="blurTextBox(this.id, '<%# this.Eval("AlbumID")%>', true)" style="display: none;" />
+                                visible='<%# UserID == PageContext.PageUserID %>'><span class="albumtitle" id='<%# "spnTitle0" + Eval("AlbumID") %>'
+                                    onclick="showTexBox(this.id)" style="display: inline;"><%# Eval("Title").ToString() == string.Empty ? this.GetText("ALBUM_CHANGE_TITLE") : this.HtmlEncode(Eval("Title"))%></span>
+                                <input type="text" id='<%# "txtTitle0" + Eval("AlbumID") %>' onkeydown="checkKey(event, this,'<%#Eval("AlbumID") %>',true)"
+                                    onblur="blurTextBox(this.id, '<%# Eval("AlbumID")%>', true)" style="display: none;" />
                                 <asp:Button ID="Edit" CssClass="pbutton" Text='<%# this.GetText("BUTTON","EDIT") %>'
                                     Visible='<%# UserID == PageContext.PageUserID %>' runat="server" CommandName="edit"
-                                    CommandArgument='<%# this.Eval("AlbumID") %>' />
+                                    CommandArgument='<%# Eval("AlbumID") %>' />
                             </span>
                     </td>
                 </tr>

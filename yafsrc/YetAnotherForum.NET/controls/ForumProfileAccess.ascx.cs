@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -58,10 +58,10 @@ namespace YAF.Controls
 
             var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
 
-            using (var dt2 = LegacyDb.user_accessmasks(this.PageContext.PageBoardID, userID))
+            using (DataTable dt2 = LegacyDb.user_accessmasks(this.PageContext.PageBoardID, userID))
             {
                 var html = new StringBuilder();
-                var nLastForumID = 0;
+                int nLastForumID = 0;
                 foreach (DataRow row in dt2.Rows)
                 {
                     if (nLastForumID != row["ForumID"].ToType<int>())

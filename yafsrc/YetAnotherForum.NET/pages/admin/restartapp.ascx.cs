@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,8 +27,10 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.IO;
     using System.Web;
 
+    using YAF.Classes;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Types;
@@ -53,21 +55,20 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-             this.DataBind();
-        }
+            if (!this.IsPostBack)
+            {
+                this.PageLinks.AddRoot();
+                this.PageLinks.AddLink(
+                    this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.PageLinks.AddLink(this.GetText("ADMIN_RESTARTAPP", "TITLE"), string.Empty);
 
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot()
-                .AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin))
-                .AddLink(this.GetText("ADMIN_RESTARTAPP", "TITLE"));
+                this.Page.Header.Title = "{0} - {1}".FormatWith(
+                    this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_RESTARTAPP", "TITLE"));
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_RESTARTAPP", "TITLE"));
+                this.RestartApp.Text = this.GetText("ADMIN_RESTARTAPP", "TITLE");
+            }
+
+            this.DataBind();
         }
 
         /// <summary>
@@ -75,9 +76,23 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void RestartAppClick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void RestartApp_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            HttpRuntime.UnloadAppDomain();
+            if (General.GetCurrentTrustLevel() >= AspNetHostingPermissionLevel.High)
+            {
+                HttpRuntime.UnloadAppDomain();
+            }
+            else
+            {
+                try
+                {
+                    File.SetLastWriteTime(this.Server.MapPath("~/web.config"), DateTime.Now);
+                }
+                catch (Exception)
+                {
+                    this.PageContext.AddLoadMessage(this.GetText("ADMIN_RESTARTAPP", "MSG_TRUST"), MessageTypes.Error);
+                }
+            }
         }
 
         #endregion

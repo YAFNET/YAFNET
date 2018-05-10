@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -59,8 +59,8 @@ namespace YAF.Types.Interfaces
         {
             CodeContracts.VerifyNotNull(readTrackCurrentUser, "readTrackCurrentUser");
 
-            var lastRead = readTrackCurrentUser.GetTopicRead(topicId, topicReadOverride);
-            var lastReadForum = readTrackCurrentUser.GetForumRead(forumId, forumReadOverride);
+            DateTime lastRead = readTrackCurrentUser.GetTopicRead(topicId, topicReadOverride);
+            DateTime lastReadForum = readTrackCurrentUser.GetForumRead(forumId, forumReadOverride);
 
 
             if (lastReadForum > lastRead)

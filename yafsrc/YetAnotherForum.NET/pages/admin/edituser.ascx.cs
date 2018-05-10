@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -55,7 +55,7 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///   Gets user ID of edited user.
         /// </summary>
-        protected int CurrentUserId
+        protected int CurrentUserID
         {
             get
             {
@@ -70,7 +70,7 @@ namespace YAF.Pages.Admin
         {
             get
             {
-                return UserMembershipHelper.IsGuestUser(this.CurrentUserId);
+                return UserMembershipHelper.IsGuestUser(this.CurrentUserID);
             }
         }
 
@@ -100,7 +100,11 @@ namespace YAF.Pages.Admin
             // setup jQuery and Jquery Ui Tabs.
             YafContext.Current.PageElements.RegisterJsBlock(
                 "EditUserTabsJs",
-                JavaScriptBlocks.BootstrapTabsLoadJs(this.EditUserTabs.ClientID, this.hidLastTab.ClientID));
+                JavaScriptBlocks.JqueryUITabsLoadJs(
+                    this.EditUserTabs.ClientID,
+                    this.hidLastTab.ClientID,
+                    this.hidLastTabId.ClientID,
+                    false));
 
             base.OnPreRender(e);
         }
@@ -114,14 +118,14 @@ namespace YAF.Pages.Admin
         {
             this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-            var dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.CurrentUserId, null);
+            DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null);
 
             if (dt.Rows.Count != 1)
             {
                 return;
             }
 
-            var userRow = dt.Rows[0];
+            DataRow userRow = dt.Rows[0];
 
             // do admin permission check...
             if (!this.PageContext.IsHostAdmin && this.IsUserHostAdmin(userRow))
@@ -135,17 +139,19 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+
+            this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_users));
+
             var userName = this.Get<YafBoardSettings>().EnableDisplayName
                                ? userRow["DisplayName"].ToString()
                                : userRow["Name"].ToString();
 
-            var header = this.GetText("ADMIN_EDITUSER", "TITLE").FormatWith(userName);
-
-            this.Header.Text = this.Header2.Text = header;
-
             // current page label (no link)
             this.PageLinks.AddLink(
-                header,
+                this.GetText("ADMIN_EDITUSER", "TITLE").FormatWith(userName),
                 string.Empty);
 
             this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
@@ -154,7 +160,7 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_EDITUSER", "TITLE").FormatWith(userName));
 
             // do a quick user membership sync...
-            var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserId);
+            MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
 
             // update if the user is not Guest
             if (!this.IsGuestUser)
@@ -163,18 +169,6 @@ namespace YAF.Pages.Admin
             }
 
             this.EditUserTabs.DataBind();
-        }
-
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-
-            this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_users));
         }
 
         #endregion

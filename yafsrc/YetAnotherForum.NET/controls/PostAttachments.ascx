@@ -5,11 +5,11 @@
 
 <tr class="forumRowCat header2">
         <td colspan="2">
-            <YAF:CollapsibleImage ID="CollapsibleImage" runat="server" BorderWidth="0"
-                ImageAlign="Bottom" PanelID="AttachmentsHolder"
+            <YAF:CollapsibleImage ID="CollapsibleImage" runat="server" BorderWidth="0" 
+                ImageAlign="Bottom" PanelID="AttachmentsHolder" 
                 AttachedControlID="AttachmentsHolder" ToolTip='<%# this.GetText("COMMON", "SHOWHIDE") %>'
                 DefaultState="Collapsed"  />
-            <YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" LocalizedTag="BUTTON_ATTACH_TT" LocalizedPage="BUTTON" />
+            <YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" LocalizedTag="BUTTON_ATTACH_TT" LocalizedPage="BUTTON" />      
         </td>
 </tr>
 <asp:PlaceHolder ID="AttachmentsHolder" runat="server">
@@ -26,16 +26,16 @@
             </p>
         </div>
         <div id="AttachmentsListBox" class="content">
-            <div id="PostAttachmentListPlaceholder"
-                data-url='<%= YafForumInfo.ForumClientFileRoot %>'
+            <div id="PostAttachmentListPlaceholder" 
+                data-url='<%= YafForumInfo.ForumClientFileRoot %>' 
                 data-userid='<%= YAF.Core.YafContext.Current.PageUserID %>'
-                data-notext='<%= this.GetText("ATTACHMENTS", "NO_ATTACHMENTS") %>'
+                data-notext='<%= this.GetText("ATTACHMENTS", "NO_ATTACHMENTS") %>' 
                 style="clear: both;">
                 <ul class="PostAttachmentList">
                 </ul>
             </div>
             <span class="UploadNewFileLine">
-               <a class="OpenUploadDialog yaflittlebutton" data-toggle="modal" data-target=".UploadDialog">
+               <a class="OpenUploadDialog yaflittlebutton">
                    <span>
                        <YAF:LocalizedLabel ID="ThemeButton1" LocalizedTag="UPLOAD_NEW" LocalizedPage="ATTACHMENTS" runat="server" />
                    </span>

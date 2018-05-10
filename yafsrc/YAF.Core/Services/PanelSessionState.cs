@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -47,7 +47,7 @@ namespace YAF.Core.Services
       // Ederon : 7/14/2007
       get
       {
-        var sessionPanelID = "panelstate_" + panelID;
+        string sessionPanelID = "panelstate_" + panelID;
 
         // try to get panel state from session state first
         if (YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] != null)
@@ -84,7 +84,7 @@ namespace YAF.Core.Services
       // Ederon : 7/14/2007
       set
       {
-        var sessionPanelID = "panelstate_" + panelID;
+        string sessionPanelID = "panelstate_" + panelID;
 
         YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] = value;
 
@@ -109,7 +109,7 @@ namespace YAF.Core.Services
     /// </param>
     public void TogglePanelState([NotNull] string panelID, CollapsiblePanelState defaultState)
     {
-      var currentState = this[panelID];
+      CollapsiblePanelState currentState = this[panelID];
 
       if (currentState == CollapsiblePanelState.None)
       {

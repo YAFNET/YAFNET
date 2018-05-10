@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -162,6 +162,11 @@ namespace YAF.Types.Constants
             public const string Shoutbox = "Shoutbox";
 
             /// <summary>
+            ///   The smilies.
+            /// </summary>
+            public const string Smilies = "Smilies";
+
+            /// <summary>
             /// The task module.
             /// </summary>
             public const string TaskModule = "YafTaskModule";
@@ -235,7 +240,7 @@ namespace YAF.Types.Constants
             ///   The display template default.
             /// </summary>
             public const string DisplayTemplateDefault =
-              @"<yaf:avatar /><yaf:rankimage /><yaf:rank /><yaf:reputation /><yaf:medals /><yaf:groups /><yaf:joindate /><yaf:posts /><li class=""list-group-item""><yaf:gender /><yaf:countryimage /></li><yaf:location /><yaf:thanksfrom /><yaf:thanksto />";
+              @"<yaf:avatar /><div class=""section""><yaf:rankimage /><yaf:rank /></div><br /><yaf:reputation /><yaf:medals /><div class=""section""><yaf:groups /><yaf:joindate /><yaf:posts /><yaf:gender /><yaf:countryimage /><yaf:location /></div><br/ ><div class=""section""><yaf:thanksfrom /><yaf:thanksto /></div>";
 
             /// <summary>
             ///   The gender.
@@ -256,7 +261,7 @@ namespace YAF.Types.Constants
             ///   The location.
             /// </summary>
             public const string Location = @"<yaf:location\s*/>";
-            
+
             /// <summary>
             ///   The rank image.
             /// </summary>
@@ -300,16 +305,10 @@ namespace YAF.Types.Constants
             #endregion
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public struct ForumRebuild
         {
-            public static readonly string[] BlockingTaskNames = {
-                                                                    "BoardDeleteTask", "BoardCreateTask",
-                                                                    "ForumDeleteTask", "ForumSaveTask",
-                                                                    "CategoryDeleteTask", "CategorySaveTask"
-                                                                };
+            public static readonly string[] BlockingTaskNames = new[] { "BoardDeleteTask", "BoardCreateTask", "ForumDeleteTask", "ForumSaveTask", "CategoryDeleteTask", "CategorySaveTask" };
         }
+
     }
 }

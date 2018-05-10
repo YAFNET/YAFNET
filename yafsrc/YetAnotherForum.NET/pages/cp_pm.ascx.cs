@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -37,7 +37,6 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Utilities;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -51,7 +50,7 @@ namespace YAF.Pages
         /// <summary>
         ///   The _view.
         /// </summary>
-        private PmView view;
+        private PMView _view;
 
         #endregion
 
@@ -72,7 +71,13 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets View.
         /// </summary>
-        protected PmView View => this.view;
+        protected PMView View
+        {
+            get
+            {
+                return this._view;
+            }
+        }
 
         #endregion
 
@@ -89,7 +94,11 @@ namespace YAF.Pages
             // setup jQuery and Jquery Ui Tabs.
             YafContext.Current.PageElements.RegisterJsBlock(
                 "yafPmTabsJs",
-                JavaScriptBlocks.BootstrapTabsLoadJs(this.PmTabs.ClientID, this.hidLastTab.ClientID));
+                JavaScriptBlocks.JqueryUITabsLoadJs(
+                    this.PmTabs.ClientID,
+                    this.hidLastTab.ClientID,
+                    this.hidLastTabId.ClientID,
+                    false));
 
             base.OnPreRender(e);
         }
@@ -114,11 +123,17 @@ namespace YAF.Pages
 
             if (this.Request.QueryString.GetFirstOrDefault("v").IsSet())
             {
-                this.view = PmViewConverter.FromQueryString(this.Request.QueryString.GetFirstOrDefault("v"));
+                this._view = PMViewConverter.FromQueryString(this.Request.QueryString.GetFirstOrDefault("v"));
 
-                this.hidLastTab.Value = ((int)this.view).ToString();
+                this.hidLastTab.Value = ((int)this._view).ToString();
             }
 
+            // if (_view == PMView.Inbox)
+            // this.PMTabs.ActiveTab = this.InboxTab;
+            // else if (_view == PMView.Outbox)
+            // this.PMTabs.ActiveTab = this.OutboxTab;
+            // else if (_view == PMView.Archive)
+            // this.PMTabs.ActiveTab = this.ArchiveTab;
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.Get<YafBoardSettings>().EnableDisplayName
@@ -132,6 +147,13 @@ namespace YAF.Pages
             // ArchiveTab.HeaderText = GetText("ARCHIVE");
             this.NewPM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage);
             this.NewPM2.NavigateUrl = this.NewPM.NavigateUrl;
+
+            // inbox tab
+            // ScriptManager.RegisterClientScriptBlock(InboxTabUpdatePanel, typeof(UpdatePanel), "InboxTabRefresh", String.Format("function InboxTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", InboxTabUpdatePanel.ClientID, '{', '}'), true);
+            // sent tab
+            // ScriptManager.RegisterClientScriptBlock(SentTabUpdatePanel, typeof(UpdatePanel), "SentTabRefresh", String.Format("function SentTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", SentTabUpdatePanel.ClientID, '{', '}'), true);
+            // archive tab
+            // ScriptManager.RegisterClientScriptBlock(ArchiveTabUpdatePanel, typeof(UpdatePanel), "ArchiveTabRefresh", String.Format("function ArchiveTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", ArchiveTabUpdatePanel.ClientID, '{', '}'), true);
         }
 
         #endregion

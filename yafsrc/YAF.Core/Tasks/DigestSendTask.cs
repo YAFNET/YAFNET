@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -83,9 +83,6 @@ namespace YAF.Core.Tasks
         /// </summary>
         public override void RunOnce()
         {
-            //// validate DB run...
-            ////this.Get<StartupInitializeDb>().Run();
-
             this.SendDigest();
         }
 
@@ -201,12 +198,14 @@ namespace YAF.Core.Tasks
         {
             var usersSendCount = 0;
 
+            this.Get<ILogger>().Info("Start diggest");
+
             foreach (var user in usersWithDigest)
             {
                 try
                 {
                     var digestHtml = this.Get<IDigest>()
-                        .GetDigestHtml(user.ID, boardSettings);
+                        .GetDigestHtml(user.UserID, boardSettings);
 
                     if (!digestHtml.IsSet())
                     {
@@ -239,7 +238,7 @@ namespace YAF.Core.Tasks
                 }
                 catch (Exception e)
                 {
-                    this.Get<ILogger>().Error(e, "Error In Creating Digest for User {0}".FormatWith(user.ID));
+                    this.Get<ILogger>().Error(e, "Error In Creating Digest for User {0}".FormatWith(user.UserID));
                 }
             }
 

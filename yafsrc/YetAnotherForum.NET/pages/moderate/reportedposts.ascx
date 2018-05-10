@@ -22,8 +22,8 @@
             <tr class="header2">
                 <td colspan="3">
                     <YAF:LocalizedLabel ID="TopicLabel" runat="server" LocalizedTag="TOPIC" />
-                    &nbsp;<a id="TopicLink" href='<%# YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.Eval("TopicID")) %>'
-                        runat="server"><%# this.Eval("Topic") %></a>
+                    &nbsp;<a id="TopicLink" href='<%# YafBuildLink.GetLink(ForumPages.posts, "t={0}", Eval("TopicID")) %>'
+                        runat="server"><%# Eval("Topic") %></a>
                 </td>
             </tr>
             <tr class="postheader">
@@ -53,19 +53,19 @@
                 <td>
                     <YAF:ThemeButton ID="ReportAsSpamBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
                         TextLocalizedTag="REPORT_SPAM" CommandName="spam" CommandArgument='<%# FormatMessage((System.Data.DataRowView)Container.DataItem) %>'
-                        visible='<%# this.Get<YafBoardSettings>().SpamServiceType.Equals(1)%>' />
+                        visible='<%# !this.Get<YafBoardSettings>().SpamServiceType.Equals(0)%>' />
                     <YAF:ThemeButton ID="CopyOverBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
                         TextLocalizedTag="COPYOVER" CommandName="CopyOver" Visible='<%# YAF.Utils.General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'
-                        CommandArgument='<%# this.Eval("MessageID") %>' />
+                        CommandArgument='<%# Eval("MessageID") %>' />
                     <YAF:ThemeButton ID="DeleteBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
-                        TextLocalizedTag="DELETE" CommandName="Delete" CommandArgument='<%# this.Eval("MessageID") %>'
+                        TextLocalizedTag="DELETE" CommandName="Delete" CommandArgument='<%# Eval("MessageID") %>'
                         OnLoad="Delete_Load" />
                     <YAF:ThemeButton ID="ResolveBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
-                        TextLocalizedTag="RESOLVED" CommandName="Resolved" CommandArgument='<%# this.Eval("MessageID") %>' />
+                        TextLocalizedTag="RESOLVED" CommandName="Resolved" CommandArgument='<%# Eval("MessageID") %>' />
                     <YAF:ThemeButton ID="ViewBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
-                        TextLocalizedTag="VIEW" CommandName="View" CommandArgument='<%# this.Eval("MessageID") %>' />
+                        TextLocalizedTag="VIEW" CommandName="View" CommandArgument='<%# Eval("MessageID") %>' />
                     <YAF:ThemeButton ID="ViewHistoryBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
-                        TextLocalizedTag="HISTORY" CommandName="ViewHistory" CommandArgument='<%# PageContext.PageForumID + "," + this.Eval("MessageID") %>' />
+                        TextLocalizedTag="HISTORY" CommandName="ViewHistory" CommandArgument='<%# PageContext.PageForumID + "," + Eval("MessageID") %>' />
                 </td>
             </tr>
             <tr>

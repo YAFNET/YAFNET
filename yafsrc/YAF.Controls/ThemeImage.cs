@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,28 +21,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 namespace YAF.Controls
 {
   #region Using
 
-    using System;
     using System.Web;
     using System.Web.UI;
 
-    using YAF.Core;
-    using YAF.Types;
+  using YAF.Core;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces; using YAF.Types.Constants;
+    using YAF.Utils;
+  using YAF.Types;
+  using YAF.Types.Interfaces;
 
-    #endregion
+  #endregion
 
   /// <summary>
   /// Provides a image with themed src
   /// </summary>
-  [Obsolete("Replace theme image by icons")]
-  public class // Render [LASTPOSTICON]
-            ThemeImage : BaseControl
+  public class ThemeImage : BaseControl
   {
     #region Constants and Fields
 
@@ -310,8 +308,8 @@ namespace YAF.Controls
         return;
       }
 
-      var src = this.GetCurrentThemeItem();
-        var title = string.IsNullOrEmpty(this.LocalizedTitle.Trim()) ? this.GetCurrentTitleItem() : this.LocalizedTitle;
+      string src = this.GetCurrentThemeItem();
+        string title = string.IsNullOrEmpty(this.LocalizedTitle.Trim()) ? this.GetCurrentTitleItem() : this.LocalizedTitle;
 
       // might not be needed...
       if (src.IsNotSet())

@@ -1,31 +1,25 @@
 /*
- * jQuery File Upload Processing Plugin
+ * jQuery File Upload Processing Plugin 1.3.0
  * https://github.com/blueimp/jQuery-File-Upload
  *
  * Copyright 2012, Sebastian Tschan
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * https://opensource.org/licenses/MIT
+ * http://www.opensource.org/licenses/MIT
  */
 
 /* jshint nomen:false */
-/* global define, require, window */
+/* global define, window */
 
-;(function (factory) {
-    'use strict';
+(function (factory) {
+    //'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
         define([
             'jquery',
             './jquery.fileupload'
         ], factory);
-    } else if (typeof exports === 'object') {
-        // Node/CommonJS:
-        factory(
-            require('jquery'),
-            require('./jquery.fileupload')
-        );
     } else {
         // Browser globals:
         factory(
@@ -33,7 +27,7 @@
         );
     }
 }(function ($) {
-    'use strict';
+    //'use strict';
 
     var originalAdd = $.blueimp.yafFileUpload.prototype.options.add;
 
@@ -54,7 +48,7 @@
             add: function (e, data) {
                 var $this = $(this);
                 data.process(function () {
-                    return $this.fileupload('process', data);
+                    return $this.yafFileUpload('process', data);
                 });
                 originalAdd.call(this, e, data);
             }
@@ -87,7 +81,7 @@
                         settings
                     );
                 };
-                chain = chain.then(func, settings.always && func);
+                chain = chain.pipe(func, settings.always && func);
             });
             chain
                 .done(function () {
@@ -154,7 +148,7 @@
                         };
                     opts.index = index;
                     that._processing += 1;
-                    that._processingQueue = that._processingQueue.then(func, func)
+                    that._processingQueue = that._processingQueue.pipe(func, func)
                         .always(function () {
                             that._processing -= 1;
                             if (that._processing === 0) {

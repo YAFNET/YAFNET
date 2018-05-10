@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,14 +32,20 @@ namespace YAF.Controls
     using YAF.Classes;
     using YAF.Core;
     using YAF.Core.Model;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Constants;
+    using YAF.Classes.Data;
+    using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
+    using YAF.Utils;
     using YAF.Types;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
 
     #endregion
 
     /// <summary>
-    /// Displays the forum users.
+    /// Summary description for ForumUsers.
     /// </summary>
     public class ForumUsers : BaseControl
     {
@@ -48,7 +54,7 @@ namespace YAF.Controls
         /// <summary>
         ///   The _active users.
         /// </summary>
-        private readonly ActiveUsers activeUsers = new ActiveUsers();
+        private readonly ActiveUsers _activeUsers = new ActiveUsers();
 
         #endregion
 
@@ -59,8 +65,8 @@ namespace YAF.Controls
         /// </summary>
         public ForumUsers()
         {
-            this.activeUsers.ID = this.GetUniqueID("ActiveUsers");
-            this.Load += this.ForumUsersLoad;
+            this._activeUsers.ID = this.GetUniqueID("ActiveUsers");
+            this.Load += this.ForumUsers_Load;
         }
 
         #endregion
@@ -74,12 +80,12 @@ namespace YAF.Controls
         {
             get
             {
-                return this.activeUsers.TreatGuestAsHidden;
+                return this._activeUsers.TreatGuestAsHidden;
             }
 
             set
             {
-                this.activeUsers.TreatGuestAsHidden = value;
+                this._activeUsers.TreatGuestAsHidden = value;
             }
         }
 
@@ -101,21 +107,30 @@ namespace YAF.Controls
                 return;
             }
 
-            var topicId = this.PageContext.PageTopicID > 0;
+            bool bTopic = this.PageContext.PageTopicID > 0;
 
-            writer.WriteLine(@"<div class=""card"">");
-
-            writer.WriteLine(@"<h6 class=""card-header"">");
-
-            writer.WriteLine(topicId ? this.GetText("TOPICBROWSERS") : this.GetText("FORUMUSERS"));
-
-            writer.WriteLine("</h6>");
-
-            writer.WriteLine(@"<div class=""card-body"">");
+            if (bTopic)
+            {
+                writer.WriteLine(@"<tr id=""{0}"" class=""header2"">".FormatWith(this.ClientID));
+                writer.WriteLine(
+                  "<td colspan=\"3\">{0}</td>".FormatWith(this.GetText("TOPICBROWSERS")));
+                writer.WriteLine("</tr>");
+                writer.WriteLine("<tr class=\"post\">");
+                writer.WriteLine("<td colspan=\"3\">");
+            }
+            else
+            {
+                writer.WriteLine(@"<tr id=""{0}"" class=""header2"">".FormatWith(this.ClientID));
+                writer.WriteLine("<td colspan=\"6\">{0}</td>".FormatWith(this.GetText("FORUMUSERS")));
+                writer.WriteLine("</tr>");
+                writer.WriteLine("<tr class=\"post\">");
+                writer.WriteLine("<td colspan=\"6\">");
+            }
 
             base.Render(writer);
 
-            writer.WriteLine("</div></div>");
+            writer.WriteLine("</td>");
+            writer.WriteLine("</tr>");
         }
 
         /// <summary>
@@ -127,22 +142,22 @@ namespace YAF.Controls
         /// <param name="e">
         /// The e.
         /// </param>
-        private void ForumUsersLoad([NotNull] object sender, [NotNull] EventArgs e)
+        private void ForumUsers_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var inTopic = this.PageContext.PageTopicID > 0;
+            bool inTopic = this.PageContext.PageTopicID > 0;
 
-            if (this.activeUsers.ActiveUserTable == null)
+            if (this._activeUsers.ActiveUserTable == null)
             {
-                var useStyledNicks = this.Get<YafBoardSettings>().UseStyledNicks;
+                bool useStyledNicks = this.Get<YafBoardSettings>().UseStyledNicks;
 
-                this.activeUsers.ActiveUserTable =
+                this._activeUsers.ActiveUserTable =
                     inTopic
                         ? this.GetRepository<Active>().ListTopic(this.PageContext.PageTopicID, useStyledNicks)
                         : this.GetRepository<Active>().ListForum(this.PageContext.PageForumID, useStyledNicks);
             }
 
             // add it...
-            this.Controls.Add(this.activeUsers);
+            this.Controls.Add(this._activeUsers);
         }
 
         #endregion

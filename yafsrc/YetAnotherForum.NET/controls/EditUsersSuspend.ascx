@@ -1,68 +1,81 @@
 <%@ Control Language="C#" AutoEventWireup="true"
 	Inherits="YAF.Controls.EditUsersSuspend" Codebehind="EditUsersSuspend.ascx.cs" %>
-
-	<h2 runat="server" id="trHeader">
+<table class="content" width="100%" cellspacing="1" cellpadding="0">
+	<tr runat="server" id="trHeader">
+		<td class="header1" colspan="2">
 			<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_USER" />
-		</h2>
-	<hr />
+		</td>
+	</tr>
     <asp:PlaceHolder runat="server" ID="SuspendedHolder">
-
-        <h4>
+    <tr>
+        <td class="header2" colspan="2">
             <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_CURRENT" />
-        </h4>
-    <hr />
-
-        <h4>
+        </td>
+    </tr>
+    <tr>
+        <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_REASON" />
-        </h4>
-        <p>
+        </td>
+        <td class="post">
             <asp:Label runat="server" ID="CurrentSuspendedReason"></asp:Label>
-        </p>
-    <hr />
-
-        <h4>
+        </td>
+    </tr>
+    <tr>
+        <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_BY" />
-        </h4>
-        <p>
+        </td>
+        <td class="post">
             <YAF:UserLink runat="server" ID="SuspendedBy"></YAF:UserLink>
-        </p>
-    <hr />
-
-		<h4>
+        </td>
+    </tr>
+	<tr>
+		<td class="postheader">
 			<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="PROFILE" LocalizedTag="ENDS" />
-		</h4>
-		<p>
-			<%= this.GetSuspendedTo() %>
-			&nbsp;<asp:LinkButton runat="server" ID="RemoveSuspension" Type="Danger" CssClass="btn-sm" OnClick="RemoveSuspension_Click" />
-		</p>
-	<hr />
+		</td>
+		<td class="post">
+			<%= GetSuspendedTo() %>
+			&nbsp;<asp:Button runat="server" ID="RemoveSuspension" CssClass="pbutton" OnClick="RemoveSuspension_Click" />
+		</td>
+	</tr>
     </asp:PlaceHolder>
-
-        <h2>
+    <tr>
+        <td class="header2" colspan="2">
             <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_NEW" />
-        </h2>
-    <hr />
-
-        <h4>
+        </td>
+    </tr>
+    <tr>
+        <td class="postheader">
             <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_REASON" />
-        </h4>
-        <p>
-            <asp:TextBox Style="height:80px;" ID="SuspendedReason" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
-        </p>
-    <hr />
-
-		<h4>
+        </td>
+        <td class="post">
+            <asp:TextBox Style="width:99%;height:80px;" ID="SuspendedReason" runat="server" TextMode="MultiLine"></asp:TextBox>
+        </td>
+    </tr>
+	<tr>
+		<td class="postheader">
 			<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_USER" />
-		</h4>
-		<p>
-			<asp:TextBox runat="server" ID="SuspendCount" CssClass="Numeric form-control" TextMode="Number" />&nbsp;<asp:RadioButtonList
-				runat="server" ID="SuspendUnit" CssClass="form-control" />
-		</p>
-	<hr />
-            <div class="alert alert-info" role="alert">
-                    <asp:Label runat="server" ID="SuspendInfo"></asp:Label>
+		</td>
+		<td class="post">
+			<asp:TextBox runat="server" ID="SuspendCount" Style="width: 60px" CssClass="Numeric" />&nbsp;<asp:DropDownList
+				runat="server" ID="SuspendUnit" CssClass="standardSelectMenu" />
+		</td>
+	</tr>
+    <tr>
+       <td class="postheader">
+       </td> 
+        <td class="post">
+            <div class="ui-widget">
+                <div class="ui-state-highlight ui-corner-all">
+                    <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                        <asp:Label runat="server" ID="SuspendInfo"></asp:Label>
+                    </p>
+                </div>
             </div>
-
-                <div class="text-lg-center">
-            <asp:LinkButton runat="server" ID="Suspend" OnClick="Suspend_Click" Type="Primary"  />
-            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="footer1" colspan="2" align="center">
+            <asp:Button runat="server" ID="Suspend" OnClick="Suspend_Click" CssClass="pbutton"  />
+        </td>
+    </tr>
+</table>

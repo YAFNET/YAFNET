@@ -529,6 +529,26 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 	)
 GO
 
+if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Smiley]') and type in (N'U'))
+	create table [{databaseOwner}].[{objectQualifier}Smiley](
+		SmileyID		int IDENTITY (1,1) NOT NULL,
+		BoardID			int NOT NULL,
+		Code			nvarchar (10) NOT NULL,
+		Icon			nvarchar (50) NOT NULL,
+		Emoticon		nvarchar (50) NULL,
+		SortOrder		tinyint	NOT NULL default 0,
+ constraint [PK_{objectQualifier}Smiley] PRIMARY KEY CLUSTERED 
+(
+	[SmileyID] ASC
+)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF),
+ constraint [IX_{objectQualifier}Smiley] UNIQUE NONCLUSTERED 
+(
+	[BoardID] ASC,
+	[Code] ASC
+)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
+	)
+GO
+
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Topic]') and type in (N'U'))
 	create table [{databaseOwner}].[{objectQualifier}Topic](
 		TopicID			    int IDENTITY (1,1) NOT NULL,

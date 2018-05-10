@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,9 +23,11 @@
  */
 namespace YAF.Core.Model
 {
-    using YAF.Core.Extensions;
+    using System.Collections.Generic;
+    using System.Data;
+
     using YAF.Types;
-    using YAF.Types.Flags;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -37,10 +39,83 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
+        /// The delete.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="accessMaskID">The access mask id.</param>
+        /// <returns>Returns if Mask was deleted or not</returns>
+        public static bool Delete(this IRepository<AccessMask> repository, int accessMaskID)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var returnValue = repository.DbFunction.Scalar.accessmask_delete(AccessMaskID: accessMaskID).ToType<int>();
+
+            if (returnValue == 0)
+            {
+                return false;
+            }
+
+            repository.FireDeleted(accessMaskID);
+            return true;
+        }
+
+        /// <summary>
+        /// The list.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="accessMaskID">The access mask id.</param>
+        /// <param name="excludeFlags">The exclude flags.</param>
+        /// <param name="boardId">The board id.</param>
+        /// <returns>
+        /// The <see cref="DataTable" />.
+        /// </returns>
+        public static DataTable List(
+            this IRepository<AccessMask> repository,
+            int? accessMaskID = null,
+            int excludeFlags = 0,
+            int? boardId = null)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbFunction.GetData.accessmask_list(
+                BoardID: boardId ?? repository.BoardID,
+                AccessMaskID: accessMaskID,
+                ExcludeFlags: excludeFlags);
+        }
+
+        /// <summary>
+        /// Lists the typed.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="accessMaskID">The access mask identifier.</param>
+        /// <param name="excludeFlags">The exclude flags.</param>
+        /// <param name="boardId">The board identifier.</param>
+        /// <returns>Returns the AccessMask List</returns>
+        public static IList<AccessMask> ListTyped(
+            this IRepository<AccessMask> repository,
+            int? accessMaskID = null,
+            int excludeFlags = 0,
+            int? boardId = null)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            using (var session = repository.DbFunction.CreateSession())
+            {
+                return
+                    session.GetTyped<AccessMask>(
+                        r =>
+                        r.accessmask_list(
+                            BoardID: boardId ?? repository.BoardID,
+                            AccessMaskID: accessMaskID,
+                            ExcludeFlags: excludeFlags));
+            }
+        }
+
+        /// <summary>
         /// The save.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="accessMaskId">The access mask id.</param>
+        /// <param name="accessMaskID">The access mask id.</param>
         /// <param name="name">The name.</param>
         /// <param name="readAccess">The read access.</param>
         /// <param name="postAccess">The post access.</param>
@@ -57,7 +132,7 @@ namespace YAF.Core.Model
         /// <param name="boardId">The board id.</param>
         public static void Save(
             this IRepository<AccessMask> repository,
-            int? accessMaskId,
+            int? accessMaskID,
             string name,
             bool readAccess,
             bool postAccess,
@@ -75,30 +150,31 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var flags = new AccessFlags
-                            {
-                                ReadAccess = readAccess,
-                                PostAccess = postAccess,
-                                ReplyAccess = replyAccess,
-                                PriorityAccess = priorityAccess,
-                                PollAccess = pollAccess,
-                                VoteAccess = voteAccess,
-                                ModeratorAccess = moderatorAccess,
-                                EditAccess = editAccess,
-                                DeleteAccess = deleteAccess,
-                                UploadAccess = uploadAccess,
-                                DownloadAccess = downloadAccess
-                            };
+            repository.DbFunction.Query.accessmask_save(
+                AccessMaskID: accessMaskID,
+                BoardID: boardId ?? repository.BoardID,
+                Name: name,
+                ReadAccess: readAccess,
+                PostAccess: postAccess,
+                ReplyAccess: replyAccess,
+                PriorityAccess: priorityAccess,
+                PollAccess: pollAccess,
+                VoteAccess: voteAccess,
+                ModeratorAccess: moderatorAccess,
+                EditAccess: editAccess,
+                DeleteAccess: deleteAccess,
+                UploadAccess: uploadAccess,
+                DownloadAccess: downloadAccess,
+                SortOrder: sortOrder);
 
-            repository.Upsert(
-                new AccessMask
-                    {
-                        BoardID = boardId ?? repository.BoardID,
-                        ID = accessMaskId ?? 0,
-                        Name = name,
-                        Flags = flags.BitValue,
-                        SortOrder = sortOrder
-                    });
+            if (accessMaskID.HasValue)
+            {
+                repository.FireUpdated(accessMaskID);
+            }
+            else
+            {
+                repository.FireNew();
+            }
         }
 
         #endregion

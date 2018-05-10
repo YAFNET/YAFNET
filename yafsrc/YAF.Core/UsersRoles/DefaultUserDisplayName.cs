@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -120,11 +120,11 @@ namespace YAF.Core
             if (YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
             {
                 found = this.GetRepository<User>().FindUserTyped(filter: true, displayName: contains);
-                return found.ToDictionary(k => k.ID, v => v.DisplayName);
+                return found.ToDictionary(k => k.UserID, v => v.DisplayName);
             }
 
             found = this.GetRepository<User>().FindUserTyped(filter: true, userName: contains);
-            return found.ToDictionary(k => k.ID, v => v.Name);
+            return found.ToDictionary(k => k.UserID, v => v.Name);
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace YAF.Core
                         return null;
                     }
 
-                    userId = user.ID;
+                    userId = user.UserID;
                     this.UserDisplayNameCollection.AddOrUpdate(userId.Value, k => user.DisplayName, (k, v) => user.DisplayName);
                 }
                 else
@@ -178,7 +178,7 @@ namespace YAF.Core
                         return null;
                     }
 
-                    userId = user.ID;
+                    userId = user.UserID;
                     this.UserDisplayNameCollection.AddOrUpdate(userId.Value, k => user.DisplayName, (k, v) => user.DisplayName);
                 }
             }

@@ -1,14 +1,14 @@
 // UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
+// Copyright 2007 Intelligencia
+// Copyright 2007 Seth Yates
 // 
-
-using System;
 
 namespace Intelligencia.UrlRewriter.Conditions
 {
+    using System;
+
     /// <summary>
     /// Performs a negation of the given conditions.
     /// </summary>
@@ -25,7 +25,7 @@ namespace Intelligencia.UrlRewriter.Conditions
                 throw new ArgumentNullException("chainedCondition");
             }
 
-            _chainedCondition = chainedCondition;
+            this._chainedCondition = chainedCondition;
         }
 
         /// <summary>
@@ -33,14 +33,14 @@ namespace Intelligencia.UrlRewriter.Conditions
         /// </summary>
         /// <param name="context">The rewriting context.</param>
         /// <returns>True if the condition is met.</returns>
-        public bool IsMatch(IRewriteContext context)
+        public bool IsMatch(RewriteContext context)
         {
             if (context == null)
             {
                 throw new ArgumentNullException("context");
             }
 
-            return !_chainedCondition.IsMatch(context);
+            return !this._chainedCondition.IsMatch(context);
         }
 
         private IRewriteCondition _chainedCondition;

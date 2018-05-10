@@ -40,13 +40,13 @@
                 </div>
                 <div class="rightItem postedRight">
                     <YAF:ThemeButton ID="DeleteMessage" runat="server" CssClass="yaflittlebutton button-delete" CommandName="delete"
-                        CommandArgument='<%# this.Eval("UserPMessageID") %>' TextLocalizedTag="BUTTON_DELETE"
+                        CommandArgument='<%# Eval("UserPMessageID") %>' TextLocalizedTag="BUTTON_DELETE"
                         TitleLocalizedTag="BUTTON_DELETE_TT" OnLoad="ThemeButtonDelete_Load" />
                     <YAF:ThemeButton ID="ReplyMessage" runat="server" CssClass="yaflittlebutton button-reply" CommandName="reply"
-                        CommandArgument='<%# this.Eval("UserPMessageID") %>' TextLocalizedTag="BUTTON_REPLY"
+                        CommandArgument='<%# Eval("UserPMessageID") %>' TextLocalizedTag="BUTTON_REPLY"
                         TitleLocalizedTag="BUTTON_REPLY_TT" />
                     <YAF:ThemeButton ID="QuoteMessage" runat="server" CssClass="yaflittlebutton button-quote" CommandName="quote"
-                        CommandArgument='<%# this.Eval("UserPMessageID") %>' TextLocalizedTag="BUTTON_QUOTE"
+                        CommandArgument='<%# Eval("UserPMessageID") %>' TextLocalizedTag="BUTTON_QUOTE"
                         TitleLocalizedTag="BUTTON_QUOTE_TT" />
                 </div>
             </td>
@@ -57,8 +57,8 @@
             </td>
             <td class="post" valign="top">
                 <YAF:MessagePost ID="Message" runat="server" 
-                    MessageFlags='<%# new MessageFlags(this.Eval("Flags")) %>' 
-                    Message='<%# this.Eval("Body").ToType<string>()%>' />
+                                 MessageFlags='<%# new MessageFlags(this.Eval("Flags")) %>' 
+                                 Message='<%# this.Eval("Body").ToType<string>()%>' />
             </td>
         </tr>
         <tr class="postfooter">

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -83,7 +83,7 @@ namespace YAF.Controls
             var currentRow = (DataRowView)e.Item.DataItem;
 
             // make message url...
-            var messageUrl = YafBuildLink.GetLinkNotEscaped(
+            string messageUrl = YafBuildLink.GetLinkNotEscaped(
                 ForumPages.posts, "m={0}#post{0}", currentRow["LastMessageID"]);
 
             // get the controls
@@ -175,7 +175,7 @@ namespace YAF.Controls
             {
                 lastPostedDateLabel.DateTime = currentRow["LastPosted"];
 
-                var lastRead =
+                DateTime lastRead =
                     this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
                         forumId: currentRow["ForumID"].ToType<int>(),
                         topicId: currentRow["TopicID"].ToType<int>(),
@@ -198,9 +198,9 @@ namespace YAF.Controls
                     "ICONS", (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead) ? "TOPIC_NEW" : "TOPIC");
             }
 
-            forumLink.Text = this.HtmlEncode(currentRow["Forum"].ToString());
+            forumLink.Text = this.Page.HtmlEncode(currentRow["Forum"].ToString());
             forumLink.ToolTip = this.GetText("COMMON", "VIEW_FORUM");
-            forumLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}&name={1}", currentRow["ForumID"], currentRow["Forum"].ToString());
+            forumLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}", currentRow["ForumID"]);
         }
 
         /// <summary>
@@ -269,7 +269,9 @@ namespace YAF.Controls
 
             this.CollapsibleImage.ToolTip = this.GetText("COMMON", "SHOWHIDE");
 
-            this.RssFeed.Visible = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostLatestFeedAccess);
+            bool groupAccess = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostLatestFeedAccess);
+            this.AtomFeed.Visible = this.Get<YafBoardSettings>().ShowAtomLink && groupAccess;
+            this.RssFeed.Visible = this.Get<YafBoardSettings>().ShowRSSLink && groupAccess;
 
             this.lastPostToolTip = this.GetText("DEFAULT", "GO_LAST_POST");
             this.firstUnreadPostToolTip = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");

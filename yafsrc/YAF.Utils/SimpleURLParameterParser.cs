@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -49,7 +49,7 @@ namespace YAF.Utils
     /// <summary>
     ///   The _url parameters.
     /// </summary>
-    private readonly string _urlParameters;
+    private readonly string _urlParameters = string.Empty;
 
     /// <summary>
     ///   The _url anchor.
@@ -125,13 +125,11 @@ namespace YAF.Utils
     #region Indexers
 
     /// <summary>
-    /// The this.
+    ///   The this.
     /// </summary>
-    /// <value>
-    /// The <see cref="System.String"/>.
-    /// </value>
-    /// <param name="name">The name.</param>
-    /// <returns></returns>
+    /// <param name = "name">
+    ///   The name.
+    /// </param>
     public string this[string name]
     {
       get
@@ -141,13 +139,11 @@ namespace YAF.Utils
     }
 
     /// <summary>
-    /// The this.
+    ///   The this.
     /// </summary>
-    /// <value>
-    /// The <see cref="System.String"/>.
-    /// </value>
-    /// <param name="index">The index.</param>
-    /// <returns></returns>
+    /// <param name = "index">
+    ///   The index.
+    /// </param>
     public string this[int index]
     {
       get
@@ -161,11 +157,13 @@ namespace YAF.Utils
     #region Public Methods
 
     /// <summary>
-    /// Creates the query string.
+    /// The create query string.
     /// </summary>
-    /// <param name="excludeValues">The exclude values.</param>
+    /// <param name="excludeValues">
+    /// The exclude values.
+    /// </param>
     /// <returns>
-    /// Returns the created query string.
+    /// The create query string.
     /// </returns>
     [NotNull]
     public string CreateQueryString([NotNull] string[] excludeValues)
@@ -174,21 +172,20 @@ namespace YAF.Utils
 
       var queryBuilder = new StringBuilder();
 
-      foreach (string key in this._nameValues)
+      for (int i = 0; i < this._nameValues.Count; i++)
       {
-          var value = this._nameValues[key];
+        string key = this._nameValues.Keys[i].ToLower();
+        string value = this._nameValues[i];
 
-          if (excludeValues.Contains(key))
-          {
-              continue;
-          }
-
+        if (!excludeValues.Contains(key))
+        {
           if (queryBuilder.Length > 0)
           {
-              queryBuilder.Append("&");
+            queryBuilder.Append("&");
           }
 
           queryBuilder.AppendFormat("{0}={1}", key, value);
+        }
       }
 
       return queryBuilder.ToString();
@@ -199,28 +196,28 @@ namespace YAF.Utils
     #region Methods
 
     /// <summary>
-    /// Parses the URL parameters.
+    /// The parse url parameters.
     /// </summary>
     private void ParseURLParameters()
     {
-      var urlTemp = this._urlParameters;
+      string urlTemp = this._urlParameters;
 
-      // get the URL end anchor (#blah) if there is one...
+      // get the url end anchor (#blah) if there is one...
       this._urlAnchor = string.Empty;
-      var index = urlTemp.LastIndexOf('#');
+      int index = urlTemp.LastIndexOf('#');
 
       if (index > 0)
       {
         // there's an anchor
         this._urlAnchor = urlTemp.Substring(index + 1);
 
-        // remove the anchor from the URL...
+        // remove the anchor from the url...
         urlTemp = urlTemp.Remove(index);
       }
 
       this._nameValues.Clear();
 
-      var arrayPairs = urlTemp.Split('&');
+      string[] arrayPairs = urlTemp.Split('&');
 
       foreach (var nvalue in from pair in arrayPairs where pair.IsSet() select pair.Trim().Split('='))
       {

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+* Copyright (C) 2014-2017 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -74,6 +74,8 @@ namespace YAF.Pages
             {
                 return;
             }
+
+            this.CreatePageLinks();
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v").IsSet()
                 && this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ActiveUsersViewPermissions))
@@ -179,7 +181,7 @@ namespace YAF.Pages
                 "UnverifiedUserstablesorterLoadJs",
                 JavaScriptBlocks.LoadTableSorter(
                     "#ActiveUsers",
-                    "sortList: [[0,0]]",
+                    "sortList: [[3,1],[0,0]]",
                     "#ActiveUsersPager"));
 
             this.UserList.DataSource = activeUsers;
