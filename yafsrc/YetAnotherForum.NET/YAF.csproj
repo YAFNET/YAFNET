@@ -1846,26 +1846,6 @@
     <Content Include="Scripts\moment.min.js">
       <DependentUpon>moment.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\popper-utils.js" />
-    <Content Include="Scripts\popper-utils.js.map">
-      <DependentUpon>popper-utils.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\popper-utils.min.js">
-      <DependentUpon>popper-utils.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\popper-utils.min.js.map">
-      <DependentUpon>popper-utils.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\popper.js" />
-    <Content Include="Scripts\popper.js.map">
-      <DependentUpon>popper.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\popper.min.js">
-      <DependentUpon>popper.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\popper.min.js.map">
-      <DependentUpon>popper.min.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\spin.min.js">
       <DependentUpon>spin.js</DependentUpon>
     </Content>
