@@ -126,46 +126,6 @@ yafEditor.prototype.InsertSmiley = function (code) {
     replaceSelection(textObj, code);
 };
 
-function Button_Load(img) {
-    img.className = "ButtonOut";
-    img.onmouseover = function () { Button_Over(this); };
-    img.onmouseout = function () { Button_Out(this); };
-}
-
-function Button_Over(img) {
-    if (typeof (img._enabled) == "boolean" && !img._enabled)
-        img.className = "ButtonOff";
-    else
-        img.className = "ButtonOver";
-}
-
-function Button_Out(img) {
-    if (typeof (img._enabled) == "boolean" && !img._enabled)
-        img.className = "ButtonOff";
-    else if (typeof (img._selected) == "boolean" && img._selected)
-        img.className = "ButtonChecked";
-    else
-        img.className = "ButtonOut";
-}
-
-function Button_SetState(doc, name, cmd) {
-    var img = document.getElementById(name);
-    try {
-        img._selected = doc.queryCommandState(cmd);
-    }
-    catch (e) {
-        img._selected = false;
-    }
-    img._enabled = doc.queryCommandEnabled(cmd);
-
-    if (!img._enabled)
-        img.className = "ButtonOff";
-    else if (img._selected)
-        img.className = "ButtonChecked";
-    else
-        img.className = "ButtonOut";
-}
-
 function storeCaret(input) {
     if (input.createTextRange) {
         input.caretPos = document.selection.createRange().duplicate();
@@ -286,22 +246,13 @@ function toggleEmojiPicker() {
     $('.BBCodeEditor').emojiPicker('toggle');
 }
 
-function AlbumsPageSelectCallback(page_index) {
-    var albumsContent = jQuery('#AlbumsPagerHidden div.result:eq(' + page_index + ')').clone();
-    jQuery('#AlbumsPagerResult').empty().append(albumsContent);
-    return false;
-}
 jQuery(document).ready(function () {
-    if (jQuery('#AlbumsListPager').length) {
-        var albumsEntries = jQuery('#AlbumsPagerHidden div.result').length;
-        jQuery('#AlbumsListPager').pagination(albumsEntries, {
-            callback: AlbumsPageSelectCallback,
-            items_per_page: 1,
-            num_display_entries: 3,
-            num_edge_entries: 1,
-            prev_text: '&laquo;',
-            next_text: '&raquo;'
-        });
+
+    // Render Album Images DropDown
+    if (jQuery('#PostAlbumsListPlaceholder').length) {
+        var pageSize = 5;
+        var pageNumber = 0;
+        getAlbumImagesData(pageSize, pageNumber, false);
     }
 
     // Render emojipicker
