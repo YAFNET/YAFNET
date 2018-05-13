@@ -1,8 +1,8 @@
-﻿function getPaginationData(pageSize, pageNumber, isPageChange) {
-    var yafUserID = $("#PostAttachmentListPlaceholder").data("userid");
+﻿function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
+    var yafUserID = $("#PostAlbumsListPlaceholder").data("userid");
 	var defaultParameters = "{userID:" + yafUserID + ", pageSize:" + pageSize + ",pageNumber:" + pageNumber + "}";
 
-	var ajaxURL = $("#PostAttachmentListPlaceholder").data("url") + "YafAjax.asmx/GetAttachments";
+    var ajaxURL = $("#PostAlbumsListPlaceholder").data("url") + "YafAjax.asmx/GetAlbumImages";
 
 	$.ajax({
 		type: "POST",
@@ -11,19 +11,19 @@
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
 		success: (function Success(data, status) {
-			$('#PostAttachmentListPlaceholder ul').empty();
+            $('#PostAlbumsListPlaceholder ul').empty();
 
-			$("#PostAttachmentLoader").hide();
+            $("#PostAlbumsLoader").hide();
 
-			if (data.d.AttachmentList.length === 0) {
-				var list = $('#PostAttachmentListPlaceholder ul');
-				var notext = $("#PostAttachmentListPlaceholder").data("notext");
+            if (data.d.AttachmentList.length === 0) {
+                var list = $('#PostAlbumsListPlaceholder ul');
+                var notext = $("#PostAlbumsListPlaceholder").data("notext");
 
 				list.append('<li><em>' + notext + '</em></li>');
 			}
 
             $.each(data.d.AttachmentList, function (id, data) {
-                var list = $('#PostAttachmentListPlaceholder ul'),
+                var list = $('#PostAlbumsListPlaceholder ul'),
                     listItem = $('<li class="popupitem" onmouseover="mouseHover(this,true)" onmouseout="mouseHover(this,false)" style="white-space: nowrap; cursor: pointer;" />');
 
                 listItem.attr("onclick", data.OnClick);
@@ -36,42 +36,38 @@
 				listItem.append(data.IconImage);
 
 				list.append(listItem);
-            });
+			});
 
-		    setPageNumberAttach(pageSize, pageNumber, data.d.TotalRecords);
+			setPageNumberAlbums(pageSize, pageNumber, data.d.TotalRecords);
 
-		    if (isPageChange) {
+            if (isPageChange) {
                 jQuery(".attachments-toggle").dropdown('toggle');
                 jQuery('[data-toggle="tooltip"]').tooltip({
                     html: true,
                     template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
                     placement: 'top'
                 });
-			}
+            }
 		}),
 		error: (function Error(request, status, error) {
-			$("#PostAttachmentLoader").hide();
+            $("#PostAlbumsLoader").hide();
 
-			$("#PostAttachmentListPlaceholder").html(request.statusText).fadeIn(1000);
+            $("#PostAlbumsListPlaceholder").html(request.statusText).fadeIn(1000);
 		})
 	});
 }
 
-function setPageNumberAttach(pageSize, pageNumber, total) {
+function setPageNumberAlbums(pageSize, pageNumber, total) {
     var pages = Math.ceil(total / pageSize);
-    var pagerHolder = $('#AttachmentsListPager'),
+    var pagerHolder = $('#AlbumsListPager'),
         pagination = $('<ul class="pagination pagination-sm" />');
-
-
-
-    console.log('w333');
 
     pagerHolder.empty();
 
-    pagination.wrap('<nav aria-label="Attachments Page Results" />');
+    pagination.wrap('<nav aria-label="Albums Page Results" />');
 
     if (pageNumber > 0) {
-        pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
+        pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' +
             pageSize +
             ',' +
             (pageNumber - 1) +
@@ -92,7 +88,7 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
     }
 
     if (start > 0) {
-        pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
+        pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' +
             pageSize +
             ',' +
             0 +
@@ -106,7 +102,7 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
         if (i === pageNumber) {
             pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + '</span>');
         } else {
-            pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
+            pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' +
                 pageSize +
                 ',' +
                 i +
@@ -120,7 +116,7 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
 
     if (end < pages) {
         pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
-        pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
+        pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' +
             pageSize +
             ',' +
             (pages - 1) +
@@ -132,7 +128,7 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
     }
 
     if (pageNumber < pages - 1) {
-        pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
+        pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' +
             pageSize +
             ',' +
             (pageNumber + 1) +

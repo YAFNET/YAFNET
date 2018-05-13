@@ -261,22 +261,12 @@ namespace YAF.Editors
             if (this.Get<YafBoardSettings>().EnableAlbum
                 && (this.PageContext.UsrAlbums > 0 && this.PageContext.NumAlbums > 0) && !this.PageContext.CurrentForumPage.IsAdminPage)
             {
-                var albumImageList = LegacyDb.album_images_by_user(this.PageContext.PageUserID);
-
                 // add drop down for optional "extra" codes...
                 writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
                        data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
                   <i class=""fa fa-image fa-fw""></i></button>".FormatWith(this.GetText("COMMON", "ALBUMIMG_CODE")));
 
                 writer.Write("<div class=\"dropdown-menu\">");
-
-                foreach (DataRow row in albumImageList.Rows)
-                {
-                    this.popMenuAlbums.AddClientScriptItem(
-                        row["Caption"].ToString().IsSet() ? row["Caption"].ToString() : row["FileName"].ToString(),
-                        "setStyle('AlbumImgId','{0}')".FormatWith(row["ImageID"]),
-                        "{0}resource.ashx?image={1}".FormatWith(YafForumInfo.ForumClientFileRoot, row["ImageID"]));
-                }
 
                 this.popMenuAlbums.RenderControl(writer);
 

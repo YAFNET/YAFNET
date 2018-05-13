@@ -25,8 +25,6 @@ namespace YAF.Controls
 {
     #region Using
 
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Text;
     using System.Web.UI;
     using System.Web.UI.WebControls;
@@ -44,15 +42,6 @@ namespace YAF.Controls
     /// </summary>
     public class AlbumListPopMenu : BaseControl, IPostBackEventHandler
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The items.
-        /// </summary>
-        private readonly List<InternalAlbumListItem> items = new List<InternalAlbumListItem>();
-
-        #endregion
-
         #region Events
 
         /// <summary>
@@ -84,24 +73,6 @@ namespace YAF.Controls
         #region Public Methods
 
         /// <summary>
-        /// The add client script item with Icon.
-        /// </summary>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        /// <param name="clientScript">
-        /// The client script.
-        /// </param>
-        /// <param name="albumImage">
-        /// The icon.
-        /// </param>
-        public void AddClientScriptItem(
-            [NotNull] string description, [NotNull] string clientScript, [NotNull] string albumImage)
-        {
-            this.items.Add(new InternalAlbumListItem(description, null, clientScript, albumImage));
-        }
-
-        /// <summary>
         /// The attach.
         /// </summary>
         /// <param name="control">
@@ -111,33 +82,6 @@ namespace YAF.Controls
         {
             control.Attributes["onclick"] = this.ControlOnClick;
             control.Attributes["onmouseover"] = this.ControlOnMouseOver;
-        }
-
-        /// <summary>
-        /// The attach.
-        /// </summary>
-        /// <param name="userLinkControl">
-        /// The user link control.
-        /// </param>
-        public void Attach([NotNull] UserLink userLinkControl)
-        {
-            userLinkControl.OnClick = this.ControlOnClick;
-            userLinkControl.OnMouseOver = this.ControlOnMouseOver;
-        }
-
-        /// <summary>
-        /// The remove post back item.
-        /// </summary>
-        /// <param name="argument">
-        /// The argument.
-        /// </param>
-        public void RemovePostBackItem([NotNull] string argument)
-        {
-            foreach (var item in this.items.Where(item => item.PostBackArgument == argument))
-            {
-                this.items.Remove(item);
-                break;
-            }
         }
 
         #endregion
@@ -178,133 +122,35 @@ namespace YAF.Controls
 
             var sb = new StringBuilder();
             sb.AppendFormat(
-                @"<div class=""dropdown-user-albums dropdown-item"" id=""{0}"">",
+                @"<div class=""AlbumsListMenu dropdown-item"" id=""{0}"">",
                 this.ClientID);
 
             sb.Append("<div id=\"AlbumsListBox\" class=\"content\">");
+
             sb.Append("<div id=\"AlbumsListPager\"></div>");
-            sb.Append("<br style=\"clear:both;\" />");
-            sb.Append("<div id=\"AlbumsPagerResult\">");
+            sb.Append("<div id=\"PostAlbumsLoader\">");
             sb.AppendFormat(
                 "<p style=\"text-align:center\"><span>{1}</span><br /><img title=\"{1}\" src=\"{0}\" alt=\"{1}\" /></p>",
                 YafForumInfo.GetURLToContent("images/loader.gif"),
                 this.Get<ILocalization>().GetText("COMMON", "LOADING"));
             sb.Append("</div>");
-
-            sb.Append("<div id=\"AlbumsPagerHidden\" style=\"display:none;\">");
-
-            sb.Append("<div class=\"result\">");
-            sb.AppendFormat("<ul class=\"AlbumImageList\">");
-
-            var rowPanel = 0;
-
-            for (var i = 0; i < this.items.Count; i++)
-            {
-                var thisItem = this.items[i];
-
-                if (rowPanel == 3 && i < this.items.Count)
-                {
-                    sb.Append("</ul></div>");
-                    sb.Append("<div class=\"result\">");
-                    sb.Append("<ul class=\"AlbumImageList\">");
-
-                    rowPanel = 0;
-                }
-
-                rowPanel++;
-
-                var iconImage = string.Empty;
-
-                var onClick = thisItem.ClientScript.IsSet()
-                                  ? thisItem.ClientScript.Replace(
-                                      "{postbackcode}",
-                                      this.Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument))
-                                  : this.Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument);
-
-                if (thisItem.AlbumImage.IsSet())
-                {
-                    iconImage =
-                        @"<img class=""popupitemIcon"" src=""{0}"" alt=""{1}"" title=""{1}"" />&nbsp;".FormatWith(
-                            thisItem.AlbumImage, thisItem.Description);
-                }
-
-                sb.AppendFormat(
-                    @"<li class=""popupitem"" onmouseover=""mouseHover(this,true)"" onmouseout=""mouseHover(this,false)"" onclick=""{2}"" style=""white-space:nowrap"" title=""{1}"">{0}</li>",
-                    iconImage,
-                    thisItem.Description,
-                    onClick);
-            }
-
+            sb.Append("<div id=\"AlbumsListBox\" class=\"content\">");
+            sb.AppendFormat(
+                "<div id=\"PostAlbumsListPlaceholder\" data-url=\"{0}\" data-userid=\"{1}\" data-notext=\"{2}\" style=\"clear: both;\">",
+                YafForumInfo.ForumClientFileRoot,
+                YafContext.Current.PageUserID,
+                this.Get<ILocalization>().GetText("ATTACHMENTS", "NO_ATTACHMENTS"));
+            sb.Append("<ul class=\"AlbumsList\">");
             sb.Append("</ul>");
             sb.Append("</div>");
 
-            sb.AppendFormat("</ul></div></div></div>");
+            sb.Append("</div>");
+            sb.AppendFormat("</div>");
 
             writer.WriteLine(sb.ToString());
 
             base.Render(writer);
         }
-
-        #endregion
-    }
-
-    /// <summary>
-    /// The internal pop menu item.
-    /// </summary>
-    public class InternalAlbumListItem
-    {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InternalAlbumListItem"/> class.
-        /// </summary>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        /// <param name="postbackArgument">
-        /// The postback argument.
-        /// </param>
-        /// <param name="clientScript">
-        /// The client script.
-        /// </param>
-        /// <param name="albumImage">
-        /// The icon.
-        /// </param>
-        public InternalAlbumListItem(
-            [NotNull] string description,
-            [NotNull] string postbackArgument,
-            [NotNull] string clientScript,
-            [NotNull] string albumImage)
-        {
-            this.Description = description;
-            this.PostBackArgument = postbackArgument;
-            this.ClientScript = clientScript;
-            this.AlbumImage = albumImage;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets Icon.
-        /// </summary>
-        public string AlbumImage { get; set; }
-
-        /// <summary>
-        ///   Gets or sets ClientScript.
-        /// </summary>
-        public string ClientScript { get; set; }
-
-        /// <summary>
-        ///   Gets or sets Description.
-        /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
-        ///   Gets or sets PostBackArgument.
-        /// </summary>
-        public string PostBackArgument { get; set; }
 
         #endregion
     }

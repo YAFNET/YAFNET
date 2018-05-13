@@ -33410,247 +33410,6 @@ S2.define('jquery.select2',[
         return this.on({ 'mouseenter.hoverIntent': handleHover, 'mouseleave.hoverIntent': handleHover }, cfg.selector);
     };
 })(jQuery);
-/**
- * This jQuery plugin displays pagination links inside the selected elements.
- * 
- * This plugin needs at least jQuery 1.4.2
- *
- * @author Gabriel Birke (birke *at* d-scribe *dot* de)
- * @version 2.2
- * @param {int} maxentries Number of entries to paginate
- * @param {Object} opts Several options (see README for documentation)
- * @return {Object} jQuery Object
- */
- (function($){
-	/**
-	 * @class Class for calculating pagination values
-	 */
-	$.PaginationCalculator = function(maxentries, opts) {
-		this.maxentries = maxentries;
-		this.opts = opts;
-	};
-	
-	$.extend($.PaginationCalculator.prototype, {
-		/**
-		 * Calculate the maximum number of pages
-		 * @method
-		 * @returns {Number}
-		 */
-		numPages:function() {
-			return Math.ceil(this.maxentries/this.opts.items_per_page);
-		},
-		/**
-		 * Calculate start and end point of pagination links depending on 
-		 * current_page and num_display_entries.
-		 * @returns {Array}
-		 */
-		getInterval:function(current_page)  {
-			var ne_half = Math.floor(this.opts.num_display_entries/2);
-			var np = this.numPages();
-			var upper_limit = np - this.opts.num_display_entries;
-			var start = current_page > ne_half ? Math.max( Math.min(current_page - ne_half, upper_limit), 0 ) : 0;
-			var end = current_page > ne_half?Math.min(current_page+ne_half + (this.opts.num_display_entries % 2), np):Math.min(this.opts.num_display_entries, np);
-			return {start:start, end:end};
-		}
-	});
-	
-	// Initialize jQuery object container for pagination renderers
-	$.PaginationRenderers = {};
-	
-	/**
-	 * @class Default renderer for rendering pagination links
-	 */
-	$.PaginationRenderers.defaultRenderer = function(maxentries, opts) {
-		this.maxentries = maxentries;
-		this.opts = opts;
-		this.pc = new $.PaginationCalculator(maxentries, opts);
-	};
-	$.extend($.PaginationRenderers.defaultRenderer.prototype, {
-		/**
-		 * Helper function for generating a single link (or a span tag if it's the current page)
-		 * @param {Number} page_id The page id for the new item
-		 * @param {Number} current_page 
-		 * @param {Object} appendopts Options for the new item: text and classes
-		 * @returns {jQuery} jQuery object containing the link
-		 */
-		createLink:function(page_id, current_page, appendopts){
-			var lnk, np = this.pc.numPages();
-			page_id = page_id<0?0:(page_id<np?page_id:np-1); // Normalize page id to sane value
-			appendopts = $.extend({text:page_id+1, classes:""}, appendopts||{});
-			if(page_id == current_page){
-				lnk = $("<span class='current'>" + appendopts.text + "</span>");
-			}
-			else
-			{
-				lnk = $("<a>" + appendopts.text + "</a>")
-					.attr('href', this.opts.link_to.replace(/__id__/,page_id));
-			}
-			if(appendopts.classes){ lnk.addClass(appendopts.classes); }
-			if(appendopts.rel){ lnk.attr('rel', appendopts.rel); }
-			lnk.data('page_id', page_id);
-			return lnk;
-		},
-		// Generate a range of numeric links 
-		appendRange:function(container, current_page, start, end, opts) {
-			var i;
-			for(i=start; i<end; i++) {
-				this.createLink(i, current_page, opts).appendTo(container);
-			}
-		},
-		getLinks:function(current_page, eventHandler) {
-			var begin, end,
-				interval = this.pc.getInterval(current_page),
-				np = this.pc.numPages(),
-				fragment = $("<div class='pagination'></div>");
-			
-			// Generate "Previous"-Link
-			if(this.opts.prev_text && (current_page > 0 || this.opts.prev_show_always)){
-				fragment.append(this.createLink(current_page-1, current_page, {text:this.opts.prev_text, classes:"prev",rel:"prev"}));
-			}
-			// Generate starting points
-			if (interval.start > 0 && this.opts.num_edge_entries > 0)
-			{
-				end = Math.min(this.opts.num_edge_entries, interval.start);
-				this.appendRange(fragment, current_page, 0, end, {classes:'sp'});
-				if(this.opts.num_edge_entries < interval.start && this.opts.ellipse_text)
-				{
-					$("<span>"+this.opts.ellipse_text+"</span>").appendTo(fragment);
-				}
-			}
-			// Generate interval links
-			this.appendRange(fragment, current_page, interval.start, interval.end);
-			// Generate ending points
-			if (interval.end < np && this.opts.num_edge_entries > 0)
-			{
-				if(np-this.opts.num_edge_entries > interval.end && this.opts.ellipse_text)
-				{
-					$("<span>"+this.opts.ellipse_text+"</span>").appendTo(fragment);
-				}
-				begin = Math.max(np-this.opts.num_edge_entries, interval.end);
-				this.appendRange(fragment, current_page, begin, np, {classes:'ep'});
-				
-			}
-			// Generate "Next"-Link
-			if(this.opts.next_text && (current_page < np-1 || this.opts.next_show_always)){
-				fragment.append(this.createLink(current_page+1, current_page, {text:this.opts.next_text, classes:"next",rel:"next"}));
-			}
-			$('a', fragment).click(eventHandler);
-			return fragment;
-		}
-	});
-	
-	// Extend jQuery
-	$.fn.pagination = function(maxentries, opts){
-		
-		// Initialize options with default values
-		opts = $.extend({
-			items_per_page:10,
-			num_display_entries:11,
-			current_page:0,
-			num_edge_entries:0,
-			link_to:"#",
-			prev_text:"Prev",
-			next_text:"Next",
-			ellipse_text:"...",
-			prev_show_always:true,
-			next_show_always:true,
-			renderer:"defaultRenderer",
-			show_if_single_page:false,
-			load_first_page:true,
-			callback:function(){return false;}
-		},opts||{});
-		
-		var containers = this,
-			renderer, links, current_page;
-		
-		/**
-		 * This is the event handling function for the pagination links. 
-		 * @param {int} page_id The new page number
-		 */
-		function paginationClickHandler(evt){
-			var links, 
-				new_current_page = $(evt.target).data('page_id'),
-				continuePropagation = selectPage(new_current_page);
-			if (!continuePropagation) {
-				evt.stopPropagation();
-			}
-			return continuePropagation;
-		}
-		
-		/**
-		 * This is a utility function for the internal event handlers. 
-		 * It sets the new current page on the pagination container objects, 
-		 * generates a new HTMl fragment for the pagination links and calls
-		 * the callback function.
-		 */
-		function selectPage(new_current_page) {
-			// update the link display of a all containers
-			containers.data('current_page', new_current_page);
-			links = renderer.getLinks(new_current_page, paginationClickHandler);
-			containers.empty();
-			links.appendTo(containers);
-			// call the callback and propagate the event if it does not return false
-			var continuePropagation = opts.callback(new_current_page, containers);
-			return continuePropagation;
-		}
-		
-		// -----------------------------------
-		// Initialize containers
-		// -----------------------------------
-		current_page = parseInt(opts.current_page, 10);
-		containers.data('current_page', current_page);
-		// Create a sane value for maxentries and items_per_page
-		maxentries = (!maxentries || maxentries < 0)?1:maxentries;
-		opts.items_per_page = (!opts.items_per_page || opts.items_per_page < 0)?1:opts.items_per_page;
-		
-		if(!$.PaginationRenderers[opts.renderer])
-		{
-			throw new ReferenceError("Pagination renderer '" + opts.renderer + "' was not found in jQuery.PaginationRenderers object.");
-		}
-		renderer = new $.PaginationRenderers[opts.renderer](maxentries, opts);
-		
-		// Attach control events to the DOM elements
-		var pc = new $.PaginationCalculator(maxentries, opts);
-		var np = pc.numPages();
-		containers.off('setPage').on('setPage', {numPages:np}, function(evt, page_id) { 
-				if(page_id >= 0 && page_id < evt.data.numPages) {
-					selectPage(page_id); return false;
-				}
-		});
-		containers.off('prevPage').on('prevPage', function(evt){
-				var current_page = $(this).data('current_page');
-				if (current_page > 0) {
-					selectPage(current_page - 1);
-				}
-				return false;
-		});
-		containers.off('nextPage').on('nextPage', {numPages:np}, function(evt){
-				var current_page = $(this).data('current_page');
-				if(current_page < evt.data.numPages - 1) {
-					selectPage(current_page + 1);
-				}
-				return false;
-		});
-		containers.off('currentPage').on('currentPage', function(){
-				var current_page = $(this).data('current_page');
-				selectPage(current_page);
-				return false;
-		});
-		
-		// When all initialisation is done, draw the links
-		links = renderer.getLinks(current_page, paginationClickHandler);
-		containers.empty();
-		if(np > 1 || opts.show_if_single_page) {
-			links.appendTo(containers);
-		}
-		// call callback function
-		if(opts.load_first_page) {
-			opts.callback(current_page, containers);
-		}
-	}; // End of $.fn.pagination block
-	
-})(jQuery);
-
 jQuery.PageMethod = function (pagePath, fn, successFn, errorFn) {
    if (pagePath == null) {
         // Initialize the page path. (Current page if we have the
@@ -51159,6 +50918,147 @@ function doClick(buttonName, e) {
         }
     }
 }
+function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
+    var yafUserID = $("#PostAlbumsListPlaceholder").data("userid");
+	var defaultParameters = "{userID:" + yafUserID + ", pageSize:" + pageSize + ",pageNumber:" + pageNumber + "}";
+
+    var ajaxURL = $("#PostAlbumsListPlaceholder").data("url") + "YafAjax.asmx/GetAlbumImages";
+
+	$.ajax({
+		type: "POST",
+		url: ajaxURL,
+		data: defaultParameters,
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		success: (function Success(data, status) {
+            $('#PostAlbumsListPlaceholder ul').empty();
+
+            $("#PostAlbumsLoader").hide();
+
+            if (data.d.AttachmentList.length === 0) {
+                var list = $('#PostAlbumsListPlaceholder ul');
+                var notext = $("#PostAlbumsListPlaceholder").data("notext");
+
+				list.append('<li><em>' + notext + '</em></li>');
+			}
+
+            $.each(data.d.AttachmentList, function (id, data) {
+                var list = $('#PostAlbumsListPlaceholder ul'),
+                    listItem = $('<li class="popupitem" onmouseover="mouseHover(this,true)" onmouseout="mouseHover(this,false)" style="white-space: nowrap; cursor: pointer;" />');
+
+                listItem.attr("onclick", data.OnClick);
+
+                if (data.DataURL) {
+                    listItem.attr("title", "<img src=\"" + data.DataURL + "\" style=\"max-width:200px\" />");
+                    listItem.attr("data-toggle", "tooltip");
+				}
+
+				listItem.append(data.IconImage);
+
+				list.append(listItem);
+			});
+
+			setPageNumberAlbums(pageSize, pageNumber, data.d.TotalRecords);
+
+            if (isPageChange) {
+                jQuery(".attachments-toggle").dropdown('toggle');
+                jQuery('[data-toggle="tooltip"]').tooltip({
+                    html: true,
+                    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
+                    placement: 'top'
+                });
+            }
+		}),
+		error: (function Error(request, status, error) {
+            $("#PostAlbumsLoader").hide();
+
+            $("#PostAlbumsListPlaceholder").html(request.statusText).fadeIn(1000);
+		})
+	});
+}
+
+function setPageNumberAlbums(pageSize, pageNumber, total) {
+    var pages = Math.ceil(total / pageSize);
+    var pagerHolder = $('#AlbumsListPager'),
+        pagination = $('<ul class="pagination pagination-sm" />');
+
+    pagerHolder.empty();
+
+    pagination.wrap('<nav aria-label="Albums Page Results" />');
+
+    if (pageNumber > 0) {
+        pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' +
+            pageSize +
+            ',' +
+            (pageNumber - 1) +
+            ',' +
+            total +
+            ',true)" class="page-link">&laquo;</a></li>');
+    }
+
+    var start = pageNumber - 2;
+    var end = pageNumber + 3;
+
+    if (start < 0) {
+        start = 0;
+    }
+
+    if (end > pages) {
+        end = pages;
+    }
+
+    if (start > 0) {
+        pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' +
+            pageSize +
+            ',' +
+            0 +
+            ',' +
+            total +
+            ', true);" class="page-link">1</a></li>');
+        pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
+    }
+
+    for (var i = start; i < end; i++) {
+        if (i === pageNumber) {
+            pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + '</span>');
+        } else {
+            pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' +
+                pageSize +
+                ',' +
+                i +
+                ',' +
+                total +
+                ',true);" class="page-link">' +
+                (i + 1) +
+                '</a></li>');
+        }
+    }
+
+    if (end < pages) {
+        pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
+        pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' +
+            pageSize +
+            ',' +
+            (pages - 1) +
+            ',' +
+            total +
+            ',true)" class="page-link">' +
+            pages +
+            '</a></li>');
+    }
+
+    if (pageNumber < pages - 1) {
+        pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' +
+            pageSize +
+            ',' +
+            (pageNumber + 1) +
+            ',' +
+            total +
+            ',true)" class="page-link">&raquo;</a></li>');
+    }
+
+    pagerHolder.append(pagination);
+}
 function getPaginationData(pageSize, pageNumber, isPageChange) {
     var yafUserID = $("#PostAttachmentListPlaceholder").data("userid");
 	var defaultParameters = "{userID:" + yafUserID + ", pageSize:" + pageSize + ",pageNumber:" + pageNumber + "}";
@@ -51197,11 +51097,11 @@ function getPaginationData(pageSize, pageNumber, isPageChange) {
 				listItem.append(data.IconImage);
 
 				list.append(listItem);
-			});
+            });
 
-			setPageNumber(pageSize, pageNumber, data.d.TotalRecords);
+		    setPageNumberAttach(pageSize, pageNumber, data.d.TotalRecords);
 
-            if (isPageChange) {
+		    if (isPageChange) {
                 jQuery(".attachments-toggle").dropdown('toggle');
                 jQuery('[data-toggle="tooltip"]').tooltip({
                     html: true,
@@ -51218,10 +51118,14 @@ function getPaginationData(pageSize, pageNumber, isPageChange) {
 	});
 }
 
-function setPageNumber(pageSize, pageNumber, total) {
+function setPageNumberAttach(pageSize, pageNumber, total) {
     var pages = Math.ceil(total / pageSize);
     var pagerHolder = $('#AttachmentsListPager'),
         pagination = $('<ul class="pagination pagination-sm" />');
+
+
+
+    console.log('w333');
 
     pagerHolder.empty();
 
@@ -51299,12 +51203,6 @@ function setPageNumber(pageSize, pageNumber, total) {
     }
 
     pagerHolder.append(pagination);
-}
-
-function AttachmentsPageSelectCallback(page_index) {
-	var Attachments_content = jQuery('#AttachmentsPagerHidden div.result:eq(' + page_index + ')').clone();
-	jQuery('#AttachmentsPagerResult').empty().append(Attachments_content);
-	return false;
 }
 // Generic Functions
 jQuery(document).ready(function () {

@@ -38,7 +38,6 @@
       "Scripts/jquery.blueimp-gallery.js",
       "Scripts/bootstrap-image-gallery.js",
       "Scripts/jquery.hovercard.js",
-      "Scripts/jquery.pagination.js",
       "Scripts/jquery.pagemethod.js",
       "Scripts/prism.js",
       "Scripts/jquery.selectedQuoting.js",
@@ -49,6 +48,7 @@
       "Scripts/emojipicker/jquery.emojipicker.js",
       "Scripts/forum/yaf.Utilities.js",
       "Scripts/forum/yaf.MessageHistory.js",
+      "Scripts/forum/yaf.Albums.js",
       "Scripts/forum/yaf.Attachments.js",
       "Scripts/forum/yaf.SearchResults.js",
       "Scripts/forum/yaf.SimilarTitles.js",
@@ -70,7 +70,6 @@
       "Scripts/bootstrap-image-gallery.js",
       "Scripts/jquery.blockUI.js",
       "Scripts/jquery.hovercard.js",
-      "Scripts/jquery.pagination.js",
       "Scripts/jquery.pagemethod.js",
       "Scripts/prism.js",
       "Scripts/tablesorter/jquery.tablesorter.combined.js",
@@ -78,6 +77,7 @@
       "Scripts/emojipicker/jquery.emojis.js",
       "Scripts/emojipicker/jquery.emojipicker.js",
       "Scripts/forum/yaf.Utilities.js",
+      "Scripts/forum/yaf.Albums.js",
       "Scripts/forum/yaf.Attachments.js",
       "Scripts/forum/yaf.SimilarTitles.js",
       "Scripts/forum/yaf.Main.js"
@@ -94,6 +94,12 @@
     "outputFileName": "Scripts/yafEditor/yafEditor.min.js",
     "inputFiles": [
       "Scripts/yafEditor/yafEditor.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/tablesorter/extras/jquery.tablesorter.pager.min.js",
+    "inputFiles": [
+      "Scripts/tablesorter/extras/jquery.tablesorter.pager.js"
     ]
   }
 ]

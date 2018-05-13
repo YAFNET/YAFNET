@@ -152,6 +152,7 @@
     <Compile Include="Helpers\DbInformationHelper.cs" />
     <Compile Include="Model\BannedEmailRepositoryExtensions.cs" />
     <Compile Include="Model\BannedNameRepositoryExtensions.cs" />
+    <Compile Include="Model\UserAlbumImageRepositoryExtensions.cs" />
     <Compile Include="Model\RankRepositoryExtensions.cs" />
     <Compile Include="Model\MessageRepositoryExtensions.cs" />
     <Compile Include="Model\ReplaceWordsRepositoryExtensions.cs" />
