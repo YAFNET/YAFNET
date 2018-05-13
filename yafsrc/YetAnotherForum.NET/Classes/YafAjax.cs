@@ -215,6 +215,59 @@ namespace YAF.Classes
         }
 
         /// <summary>
+        /// Gets the paged album images
+        /// </summary>
+        /// <param name="userID">The user identifier.</param>
+        /// <param name="pageSize">Size of the page.</param>
+        /// <param name="pageNumber">The page number.</param>
+        /// <returns>Returns the Attachment List as Grid Data Set</returns>
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public GridDataSet GetAlbumImages(int userID, int pageSize, int pageNumber)
+        {
+            var albumImages = YafContext.Current.GetRepository<UserAlbumImage>().GetUserAlbumImagesPaged(
+                userId: userID,
+                pageIndex: pageNumber,
+                pageSize: pageSize);
+
+            var images = new List<AttachmentItem>();
+
+            foreach (var image in albumImages)
+            {
+                var url = "{0}resource.ashx?imgprv={1}".FormatWith(YafForumInfo.ForumClientFileRoot, image.ID);
+
+                var attachment = new AttachmentItem
+                {
+                    FileName = image.FileName,
+                    OnClick = "setStyle('AlbumImgId', '{0}')".FormatWith(image.ID),
+                    IconImage =
+                                             @"<img class=""popupitemIcon"" src=""{0}"" alt=""{1}"" title=""{1}"" width=""40"" height=""40"" />"
+                                                 .FormatWith(
+                                                     url,
+                                                     image.Caption.IsSet()
+                                                         ? image.Caption
+                                                         : image.FileName),
+                    DataURL = url
+                };
+
+
+                images.Add(attachment);
+            }
+
+            return new GridDataSet
+            {
+                PageNumber = pageNumber,
+                TotalRecords =
+                               albumImages.Any()
+                                   ? YafContext.Current.GetRepository<UserAlbumImage>()
+                                       .GetUserAlbumImageCount(userID)
+                                   : 0,
+                PageSize = pageSize,
+                AttachmentList = images
+            };
+        }
+
+        /// <summary>
         /// Handles the multi quote Button.
         /// </summary>
         /// <param name="buttonId">The button id.</param>

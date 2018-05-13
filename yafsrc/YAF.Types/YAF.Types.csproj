@@ -171,6 +171,8 @@
     <Compile Include="Models\Spam_Words.cs" />
     <Compile Include="Models\TopicReadTracking.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserAlbum.cs" />
+    <Compile Include="Models\UserAlbumImage.cs" />
     <Compile Include="Models\WatchForum.cs" />
     <Compile Include="Models\WatchTopic.cs" />
     <Compile Include="Objects\FacebookAccessToken.cs" />

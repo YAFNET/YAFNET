@@ -282,27 +282,15 @@ function getCurrentSelection(input) {
     }
 }
 
-function AlbumsPageSelectCallback(page_index) {
-    var Albums_content = jQuery('#AlbumsPagerHidden div.result:eq(' + page_index + ')').clone();
-    jQuery('#AlbumsPagerResult').empty().append(Albums_content);
-    return false;
-}
-jQuery(document).ready(function () {
-    if (jQuery('#AlbumsListPager').length) {
-        var Albums_entries = jQuery('#AlbumsPagerHidden div.result').length;
-        jQuery('#AlbumsListPager').pagination(Albums_entries, {
-            callback: AlbumsPageSelectCallback,
-            items_per_page: 1,
-            num_display_entries: 3,
-            num_edge_entries: 1,
-            prev_class: 'smiliesPagerPrev',
-            next_class: 'smiliesPagerNext',
-            prev_text: '&laquo;',
-            next_text: '&raquo;'
-        });
-    }
-});
 $(document).ready(function () {
+    // Render Album Images DropDown
+    if (jQuery('#PostAlbumsListPlaceholder').length) {
+        var pageSize = 5;
+        var pageNumber = 0;
+        getAlbumImagesData(pageSize, pageNumber, false);
+    }
+
+
     $('.BBCodeEditor').keydown(function (e) {
         if (e.ctrlKey && !e.altKey && (e.which == 66 || e.which == 73 || e.which == 85 || e.which == 81 || e.which == 13)) {
             if (e.which == 66) {

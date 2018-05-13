@@ -10768,16 +10768,6 @@ as
     END
     GO
 
-CREATE procedure [{databaseOwner}].[{objectQualifier}album_images_by_user](@UserID INT = null)
-as
-    BEGIN
-        SELECT      a.*
-        FROM    [{databaseOwner}].[{objectQualifier}UserAlbumImage] a
-                    INNER JOIN [{databaseOwner}].[{objectQualifier}UserAlbum] b ON b.AlbumID = a.AlbumID
-        WHERE  b.UserID = @UserID
-    END
-    GO
-
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}album_image_delete] ( @ImageID INT )
 as
     BEGIN

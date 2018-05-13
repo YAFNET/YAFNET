@@ -203,7 +203,7 @@ namespace YAF.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            if (!Visible)
+            if (!this.Visible)
             {
                 return;
             }
@@ -213,65 +213,24 @@ namespace YAF.Controls
                 @"<div class=""yafpopupmenu yafalbumlistmenu"" id=""{0}"" style=""position:absolute;z-index:100;left:0;top:0;display:none;"">",
                 ClientID);
 
-            sb.Append("<div id=\"AlbumsListBox\" class=\"content\">");
             sb.Append("<div id=\"AlbumsListPager\"></div>");
-            sb.Append("<br style=\"clear:both;\" />");
-            sb.Append("<div id=\"AlbumsPagerResult\">");
+            sb.Append("<div id=\"PostAlbumsLoader\">");
             sb.AppendFormat(
                 "<p style=\"text-align:center\"><span>{1}</span><br /><img title=\"{1}\" src=\"{0}\" alt=\"{1}\" /></p>",
                 YafForumInfo.GetURLToContent("images/loader.gif"),
                 this.Get<ILocalization>().GetText("COMMON", "LOADING"));
             sb.Append("</div>");
-
-            sb.Append("<div id=\"AlbumsPagerHidden\" style=\"display:none;\">");
-
-
-            sb.Append("<div class=\"result\">");
-            sb.AppendFormat("<ul class=\"AlbumImageList\">");
-
-            int rowPanel = 0;
-
-            for (int i = 0; i < this._items.Count; i++)
-            {
-                var thisItem = this._items[i];
-
-                if (rowPanel == 3 && i < this._items.Count)
-                {
-                    sb.Append("</ul></div>");
-                    sb.Append("<div class=\"result\">");
-                    sb.Append("<ul class=\"AlbumImageList\">");
-
-                    rowPanel = 0;
-                }
-
-                rowPanel++;
-
-                var iconImage = string.Empty;
-
-                var onClick = thisItem.ClientScript.IsSet()
-                                  ? thisItem.ClientScript.Replace(
-                                      "{postbackcode}",
-                                      this.Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument))
-                                  : this.Page.ClientScript.GetPostBackClientHyperlink(this, thisItem.PostBackArgument);
-
-                if (thisItem.AlbumImage.IsSet())
-                {
-                    iconImage =
-                        @"<img class=""popupitemIcon"" src=""{0}"" alt=""{1}"" title=""{1}"" />&nbsp;".FormatWith(
-                            thisItem.AlbumImage, thisItem.Description);
-                }
-
-                sb.AppendFormat(
-                    @"<li class=""popupitem"" onmouseover=""mouseHover(this,true)"" onmouseout=""mouseHover(this,false)"" onclick=""{2}"" style=""white-space:nowrap"" title=""{1}"">{0}</li>",
-                    iconImage,
-                    thisItem.Description,
-                    onClick);
-            }
-
+            sb.Append("<div id=\"AlbumsListBox\" class=\"content\">");
+            sb.AppendFormat(
+                "<div id=\"PostAlbumsListPlaceholder\" data-url=\"{0}\" data-userid=\"{1}\" data-notext=\"{2}\" style=\"clear: both;\">",
+                YafForumInfo.ForumClientFileRoot,
+                YafContext.Current.PageUserID,
+                this.Get<ILocalization>().GetText("ATTACHMENTS", "NO_ATTACHMENTS"));
+            sb.Append("<ul class=\"AlbumsList\">");
             sb.Append("</ul>");
             sb.Append("</div>");
 
-            sb.AppendFormat("</ul></div></div></div>");
+            sb.AppendFormat("</div></div>");
 
             writer.WriteLine(sb.ToString());
 

@@ -313,8 +313,6 @@ namespace YAF.Editors
             if (this.Get<YafBoardSettings>().EnableAlbum
                 && (this.PageContext.UsrAlbums > 0 && this.PageContext.NumAlbums > 0))
             {
-                var albumImageList = LegacyDb.album_images_by_user(this.PageContext.PageUserID);
-
                 writer.WriteLine(
                     @"<img src=""{5}"" id=""{3}"" alt=""{4}"" title=""{4}"" onclick=""{0}"" onload=""Button_Load(this)"" onmouseover=""{1}"" />"
                         .FormatWith(
@@ -324,16 +322,6 @@ namespace YAF.Editors
                             "{0}_albums_popMenu".FormatWith(this.ClientID),
                             this.GetText("COMMON", "ALBUMIMG_BBCODE"),
                             this.ResolveUrl("yafEditor/albums.gif")));
-
-                foreach (DataRow row in albumImageList.Rows)
-                {
-                    this._popMenuAlbums.AddClientScriptItem(
-                        row["Caption"].ToString().IsSet()
-                            ? row["Caption"].ToString()
-                            : row["FileName"].ToString(),
-                        "setStyle('AlbumImgId','{0}')".FormatWith(row["ImageID"]),
-                        "{0}resource.ashx?image={1}".FormatWith(YafForumInfo.ForumClientFileRoot, row["ImageID"]));
-                }
             }
 
             if (this.UserCanUpload)
