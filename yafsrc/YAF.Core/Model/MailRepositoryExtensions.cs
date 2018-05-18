@@ -30,6 +30,7 @@ namespace YAF.Core.Model
     using Omu.ValueInjecter;
 
     using YAF.Core.Data;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -255,12 +256,9 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Scalar.mail_save(
-                MailID: mailMessage.ID,
-                SendTries: mailMessage.SendTries,
-                SendAttempt: DateTime.UtcNow);
-
-            repository.FireUpdated(mailMessage.ID);
+            repository.UpdateOnly(
+                () => new Mail { SendAttempt = DateTime.UtcNow, SendTries = mailMessage.SendTries },
+                m => m.ID == mailMessage.ID);
         }
 
         #endregion

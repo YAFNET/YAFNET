@@ -27,10 +27,12 @@ namespace YAF.Core.Services
     using System.Web.Security;
 
     using YAF.Classes.Data;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
 
     /// <summary>
     /// Single Sign On User Class to handle Twitter and Facebook Logins
@@ -80,7 +82,7 @@ namespace YAF.Core.Services
         public static void LoginSuccess([NotNull] AuthService authService, [CanBeNull] string userName, [NotNull] int userID, [NotNull] bool doLogin)
         {
             // Add Flag to User that indicates with what service the user is logged in
-            LegacyDb.user_update_single_sign_on_status(userID, authService);
+            YafContext.Current.GetRepository<User>().UpdateAuthServiceStatus(userID, authService);
 
             if (!doLogin)
             {

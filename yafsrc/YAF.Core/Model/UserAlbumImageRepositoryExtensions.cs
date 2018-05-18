@@ -34,7 +34,7 @@ namespace YAF.Core.Model
     using YAF.Types.Models;
 
     /// <summary>
-    /// The ForumReadTracking Repository Extensions
+    /// The UserAlbumImage Repository Extensions
     /// </summary>
     public static class UserAlbumImageRepositoryExtensions
     {
@@ -75,9 +75,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// Returns the list of entities
         /// </returns>
-        public static int GetUserAlbumImageCount(
-            [NotNull] this IRepository<UserAlbumImage> repository,
-            int userId)
+        public static int GetUserAlbumImageCount([NotNull] this IRepository<UserAlbumImage> repository, int userId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -87,6 +85,16 @@ namespace YAF.Core.Model
                 .Where<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.UserID == userId);
 
             return repository.DbAccess.Execute(db => db.Connection.Select(expression)).Count;
+        }
+
+        /// <summary>
+        /// Increments the image's download times.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="imageId">The image identifier.</param>
+        public static void IncrementDownload(this IRepository<UserAlbumImage> repository, [NotNull] int imageId)
+        {
+            repository.UpdateAdd(() => new UserAlbumImage { Downloads = 1 }, where: u => u.ID == imageId);
         }
 
         #endregion

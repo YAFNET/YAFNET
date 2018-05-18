@@ -925,7 +925,8 @@ namespace YAF
                             context.Response.OutputStream.Write(data, 0, data.Length);
 
                             // add a download count...
-                            LegacyDb.album_image_download(context.Request.QueryString.GetFirstOrDefault("image"));
+                            this.GetRepository<UserAlbumImage>().IncrementDownload(
+                                context.Request.QueryString.GetFirstOrDefaultAs<int>("image"));
                         }
                         
                         break;
@@ -1077,7 +1078,7 @@ namespace YAF
 
 
                 this.GetRepository<Attachment>()
-                    .IncrementDownloadCounter(attachment);
+                    .IncrementDownloadCounter(attachment.ID);
 
                 if (attachment.FileData == null)
                 {
@@ -1222,7 +1223,7 @@ namespace YAF
                 {
                     // add a download count...
                     this.GetRepository<Attachment>()
-                        .IncrementDownloadCounter(attachment);
+                        .IncrementDownloadCounter(attachment.ID);
                 }
 
                 if (CheckETag(context, eTag))

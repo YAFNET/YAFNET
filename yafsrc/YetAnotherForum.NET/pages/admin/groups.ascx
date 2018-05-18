@@ -115,8 +115,7 @@
                                     CommandName='delete' CommandArgument='<%# this.Eval( "GroupID") %>'
                                     TitleLocalizedTag="DELETE"
                                     Icon="trash"
-                                    TextLocalizedTag="DELETE"
-                                    OnLoad="Delete_Load"  runat="server">
+                                    TextLocalizedTag="DELETE" runat="server">
                                 </YAF:ThemeButton>
                             </span>
 					</td>

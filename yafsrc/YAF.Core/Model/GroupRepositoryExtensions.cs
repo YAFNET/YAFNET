@@ -26,7 +26,9 @@ namespace YAF.Core.Model
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
 
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -36,30 +38,31 @@ namespace YAF.Core.Model
     {
         #region Public Methods and Operators
 
-        public static void Delete(this IRepository<Group> repository, int groupID)
+        public static void Delete(this IRepository<Group> repository, int groupId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Query.group_delete(GroupID: groupID);
+            repository.DbFunction.Query.group_delete(GroupID: groupId);
 
-            repository.FireDeleted(groupID);
+            repository.FireDeleted(groupId);
         }
 
-        public static DataTable List(this IRepository<Group> repository, int? groupID = null, int? boardId = null)
+        public static DataTable ListAsTable(this IRepository<Group> repository, int? groupId = null, int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.GetData.group_list(BoardID: boardId ?? repository.BoardID, GroupID: groupID);
+            return repository.DbFunction.GetData.group_list(BoardID: boardId ?? repository.BoardID, GroupID: groupId);
         }
 
-        public static IList<Group> ListTyped(this IRepository<Group> repository, int? groupID = null, int? boardId = null)
+
+        public static IList<Group> List (this IRepository<Group> repository, int? groupId = null, int? boardId = null)
         {
-            using (var session = repository.DbFunction.CreateSession())
-            {
-                return
-                    session.GetTyped<Group>(
-                        r => r.group_list(BoardID: boardId ?? repository.BoardID, GroupID: groupID));
-            }
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return groupId.HasValue
+                       ? repository.Get(g => g.BoardID == boardId && g.ID == groupId.Value)
+                       : repository.Get(g => g.BoardID == boardId).OrderBy(o => o.SortOrder)
+                           .ToList();
         }
 
         public static DataTable Member(this IRepository<Group> repository, int userID, int? boardId = null)

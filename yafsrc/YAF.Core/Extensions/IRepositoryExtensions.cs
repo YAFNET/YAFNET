@@ -262,6 +262,42 @@ namespace YAF.Core.Extensions
         }
 
         /// <summary>
+        /// Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
+        /// Numeric fields generates an increment sql which is useful to increment counters, etc...
+        /// avoiding concurrency conflicts
+        /// 
+        ///   db.UpdateAdd(() => new Person { Age = 5 }, where: p => p.LastName == "Hendrix");
+        ///   UPDATE "Person" SET "Age" = "Age" + 5 WHERE ("LastName" = 'Hendrix')
+        /// 
+        ///   db.UpdateAdd(() => new Person { Age = 5 });
+        ///   UPDATE "Person" SET "Age" = "Age" + 5
+        /// </summary>
+        /// <param name="repository">
+        /// The repository. 
+        /// </param>
+        /// <param name="entity">
+        /// The entity. 
+        /// </param>
+        /// <param name="transaction">
+        /// The transaction. 
+        /// </param>
+        /// <typeparam name="T">
+        /// The type parameter.
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="bool"/> . 
+        /// </returns>
+        public static int UpdateAdd<T>([NotNull] this IRepository<T> repository, Expression<Func<T>> updateFields,
+                                        Expression<Func<T, bool>> where = null,
+                                        Action<IDbCommand> commandFilter = null)
+            where T : class, IEntity, IHaveID, new()
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbAccess.UpdateAdd(updateFields, where, commandFilter);
+        }
+
+        /// <summary>
         ///  Update only fields in the specified expression that matches the where condition (if any), E.g:
         ///   
         ///   db.UpdateOnly(() => new Person { FirstName = "JJ" }, where: p => p.LastName == "Hendrix");
@@ -279,7 +315,7 @@ namespace YAF.Core.Extensions
         public static int UpdateOnly<T>([NotNull] this IRepository<T> repository, Expression<Func<T>> updateFields,
                                          Expression<Func<T, bool>> where = null,
                                          Action<IDbCommand> commandFilter = null)
-            where T : class, IEntity, IHaveID, new()
+            where T : class, IEntity, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 

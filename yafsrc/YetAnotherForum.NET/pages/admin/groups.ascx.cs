@@ -275,7 +275,7 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             // list roles of this board
-            var dt = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
+            var dt = this.GetRepository<Group>().ListAsTable(boardId: this.PageContext.PageBoardID);
 
             // set repeater datasource
             this.RoleListYaf.DataSource = dt;

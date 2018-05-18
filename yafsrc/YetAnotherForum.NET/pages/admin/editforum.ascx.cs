@@ -389,7 +389,7 @@ namespace YAF.Pages.Admin
 
             if (forumId.HasValue)
             {
-                this.AccessList.DataSource = LegacyDb.forumaccess_list(forumId.Value);
+                this.AccessList.DataSource = this.GetRepository<ForumAccess>().GetForumAccessList(forumId.Value);
                 this.AccessList.DataBind();
             }
 
@@ -611,10 +611,10 @@ namespace YAF.Pages.Admin
                 {
                     var groupId = int.Parse(item.FindControlAs<Label>("GroupID").Text);
 
-                    LegacyDb.forumaccess_save(
-                        newForumId,
+                    this.GetRepository<ForumAccess>().Save(
+                        newForumId.ToType<int>(),
                         groupId,
-                        item.FindControlAs<DropDownList>("AccessmaskID").SelectedValue);
+                        item.FindControlAs<DropDownList>("AccessmaskID").SelectedValue.ToType<int>());
                 }
             }
 

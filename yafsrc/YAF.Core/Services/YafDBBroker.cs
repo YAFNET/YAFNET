@@ -678,10 +678,10 @@ namespace YAF.Core.Services
             }
 
             // get fresh values
-            var userListDt = this.DbFunction.GetAsDataTable(cdb => cdb.user_ignoredlist(userId));
-
-            // convert to list...
-            userList = userListDt.GetColumnAsList<int>("IgnoredUserID");
+            foreach (var item in this.GetRepository<IgnoreUser>().Get(i => i.UserID == userId))
+            {
+                userList.Add(item.IgnoredUserID);
+            }
 
             // store it in the user session...
             this.HttpSessionState.Add(key, userList);

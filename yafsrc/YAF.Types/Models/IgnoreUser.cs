@@ -35,7 +35,7 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "IgnoreUser")]
-    public partial class IgnoreUser : IEntity, IHaveID
+    public partial class IgnoreUser : IEntity
     {
         partial void OnCreated();
 
@@ -48,9 +48,7 @@ namespace YAF.Types.Models
 
         public int UserID { get; set; }
 
-        [AutoIncrement]
-        [Alias("IgnoredUserID")]
-        public int ID { get; set; }
+        public int IgnoredUserID { get; set; }
 
 
         #endregion

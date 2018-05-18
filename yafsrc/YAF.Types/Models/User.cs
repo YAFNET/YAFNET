@@ -139,6 +139,8 @@ namespace YAF.Types.Models
 
         public bool? IsDirty { get; set; }
 
+        public bool IsGoogleUser { get; set; }
+
         public bool IsFacebookUser { get; set; }
 
         public bool IsTwitterUser { get; set; }

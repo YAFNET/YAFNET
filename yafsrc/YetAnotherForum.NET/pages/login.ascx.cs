@@ -36,12 +36,14 @@ namespace YAF.Pages
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -169,7 +171,7 @@ namespace YAF.Pages
         {
             this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
 
-            LegacyDb.user_update_single_sign_on_status(this.PageContext.PageUserID, AuthService.none);
+            this.GetRepository<User>().UpdateAuthServiceStatus(this.PageContext.PageUserID, AuthService.none);
         }
 
         /// <summary>

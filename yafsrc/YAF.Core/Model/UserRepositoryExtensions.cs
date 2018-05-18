@@ -27,10 +27,10 @@ namespace YAF.Core.Model
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Web.Security;
 
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -174,6 +174,44 @@ namespace YAF.Core.Model
 
             repository.UpdateOnly(
                 () => new User { Suspended = suspend, SuspendedReason = suspendReason, SuspendedBy = suspendBy },
+                where: u => u.ID == userId);
+        }
+
+        /// <summary>
+        /// Updates the authentication service status.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="authService">The authentication service.</param>
+        public static void UpdateAuthServiceStatus(
+            this IRepository<User> repository,
+            [NotNull] int userId,
+            [NotNull]AuthService authService)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            bool isFacebookUser = false, isTwitterUser = false, isGoogleUser = false;
+
+            switch (authService)
+            {
+                case AuthService.facebook:
+                    isFacebookUser = true;
+                    break;
+                case AuthService.twitter:
+                    isTwitterUser = true;
+                    break;
+                case AuthService.google:
+                    isGoogleUser = true;
+                    break;
+            }
+
+            repository.UpdateOnly(
+                () => new User
+                          {
+                              IsFacebookUser = isFacebookUser,
+                              IsTwitterUser = isTwitterUser,
+                              IsGoogleUser = isGoogleUser
+                          },
                 where: u => u.ID == userId);
         }
     }

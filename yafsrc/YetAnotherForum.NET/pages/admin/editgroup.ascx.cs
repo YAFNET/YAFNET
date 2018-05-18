@@ -151,9 +151,9 @@ namespace YAF.Pages.Admin
             this.NewGroupRow.Visible = false;
 
             // get data about edited role
-            using (var dt = this.GetRepository<Group>().List(
+            using (var dt = this.GetRepository<Group>().ListAsTable(
                 boardId: this.PageContext.PageBoardID,
-                groupID: this.Request.QueryString.GetFirstOrDefaultAs<int>("i")))
+                groupId: this.Request.QueryString.GetFirstOrDefaultAs<int>("i")))
             {
                 // get it as row
                 var row = dt.Rows[0];
@@ -271,12 +271,11 @@ namespace YAF.Pages.Admin
             if (roleId != 0)
             {
                 // get the current role name in the DB
-                using (var dt = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID))
+                var groups = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
+
+                foreach (var group in groups)
                 {
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        oldRoleName = row["Name"].ToString();
-                    }
+                    oldRoleName = group.Name;
                 }
             }
 
@@ -344,10 +343,10 @@ namespace YAF.Pages.Admin
                     var forumId = int.Parse(item.FindControlAs<Label>("ForumID").Text);
 
                     // save forum access maks for this role
-                    LegacyDb.forumaccess_save(
+                    this.GetRepository<ForumAccess>().Save(
                         forumId,
-                        roleId,
-                        item.FindControlAs<DropDownList>("AccessmaskID").SelectedValue);
+                        roleId.ToType<int>(),
+                        item.FindControlAs<DropDownList>("AccessmaskID").SelectedValue.ToType<int>());
                 }
 
                 YafBuildLink.Redirect(ForumPages.admin_groups);

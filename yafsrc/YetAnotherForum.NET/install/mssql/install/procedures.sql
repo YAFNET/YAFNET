@@ -1759,33 +1759,6 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}forumaccess_list](@ForumID int) as
-begin
-        select
-        a.*,
-        GroupName=b.Name
-    from
-        [{databaseOwner}].[{objectQualifier}ForumAccess] a
-        inner join [{databaseOwner}].[{objectQualifier}Group] b on b.GroupID=a.GroupID
-    where
-        a.ForumID = @ForumID
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}forumaccess_save](
-    @ForumID			int,
-    @GroupID			int,
-    @AccessMaskID		int
-) as
-begin
-        update [{databaseOwner}].[{objectQualifier}ForumAccess]
-        set AccessMaskID=@AccessMaskID
-    where
-        ForumID = @ForumID and
-        GroupID = @GroupID
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}group_delete](@GroupID int) as
 begin
     delete from [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] where GroupID = @GroupID
@@ -1926,21 +1899,6 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}mail_save]
-(
-    @MailID int,
-    @SendTries int,
-    @SendAttempt datetime
-)
-AS
-BEGIN
-    update [{databaseOwner}].[{objectQualifier}Mail] set
-    SendAttempt = @SendAttempt,
-    SendTries = @SendTries
-    where MailID = @MailID
-END
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}mail_createwatch]
 (
     @TopicID int,
@@ -2043,6 +2001,7 @@ create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID
     declare	@UserID		int
     declare	@ForumID	int
     declare	@TopicID	int
+
     declare	@Flags	    int
     declare @Posted		datetime
     declare	@UserName	nvarchar(255)
@@ -7938,14 +7897,6 @@ AS BEGIN
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_ignoredlist]
-    @UserID int
-AS
-BEGIN
-        SELECT * FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @UserID
-END
-GO
-
 /*****************************************************************************************************
 //  Original code by: DLESKTECH at http://www.dlesktech.com/support.aspx
 //  Modifications by: KASL Technologies at www.kasltechnologies.com
@@ -8561,15 +8512,6 @@ as
     END
     GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}album_image_download] ( @ImageID INT )
-as
-    BEGIN
-        UPDATE  [{databaseOwner}].[{objectQualifier}UserAlbumImage]
-        SET     Downloads = Downloads + 1
-        WHERE   ImageID = @ImageID
-    END
-    GO
-
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getsignaturedata] (@BoardID INT, @UserID INT)
 as
     BEGIN
@@ -9157,13 +9099,6 @@ begin
     delete from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumOldID
 end
 
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}user_update_single_sign_on_status](@UserID int,@IsFacebookUser bit,@IsTwitterUser bit,@IsGoogleUser bit) as
-begin
-
-    update [{databaseOwner}].[{objectQualifier}User] set IsFacebookUser = @IsFacebookUser , IsTwitterUser = @IsTwitterUser, IsGoogleUser = @IsGoogleUser where UserID = @UserID
-end
 GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}topic_unanswered]

@@ -297,22 +297,14 @@ namespace YAF.Pages.Admin
             this.LoadingImage.ImageUrl = YafForumInfo.GetURLToContent("images/loader.gif");
 
             // get list of user groups for filtering
-            using (var dt = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID))
-            {
-                // add empty item for no filtering
-                var newRow = dt.NewRow();
+            var groups = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
 
-                newRow["Name"] = this.GetText("FILTER_NO");
-                newRow["GroupID"] = 0;
+            groups.Insert(0, new Group { Name = this.GetText("FILTER_NO"), ID = 0 });
 
-                dt.Rows.InsertAt(newRow, 0);
+            this.group.DataTextField = "Name";
+            this.group.DataValueField = "ID";
 
-                this.group.DataSource = dt;
-                this.group.DataTextField = "Name";
-                this.group.DataValueField = "GroupID";
-
-                this.group.DataBind();
-            }
+            this.group.DataBind();
 
             // get list of user ranks for filtering
             using (var dt = LegacyDb.rank_list(this.PageContext.PageBoardID, null))

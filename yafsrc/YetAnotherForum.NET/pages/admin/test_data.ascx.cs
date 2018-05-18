@@ -766,7 +766,7 @@ namespace YAF.Pages.Admin
             {
                 long _forumID = 0;
                 this.randomGuid = Guid.NewGuid().ToString();
-                var _accessForumList = LegacyDb.forumaccess_list(_forumID);
+                var accessForumList = this.GetRepository<ForumAccess>().GetForumAccessList(_forumID.ToType<int>());
                 _forumID = LegacyDb.forum_save(
                     _forumID,
                     categoryID,
@@ -792,15 +792,18 @@ namespace YAF.Pages.Admin
                     continue;
                 }
 
-                for (var i1 = 0; i1 < _accessForumList.Rows.Count; i1++)
+                foreach (var access in accessForumList)
                 {
-                    LegacyDb.forumaccess_save(
-                        _forumID,
-                        _accessForumList.Rows[i1]["GroupID"],
-                        _accessForumList.Rows[i1]["AccessMaskID"].ToType<int>());
+                    this.GetRepository<ForumAccess>().Save(
+                        _forumID.ToType<int>(),
+                        access.GroupID,
+                        access.AccessMaskID);
                 }
 
-                LegacyDb.forumaccess_save(_forumID, this.ForumsGroups.SelectedValue, this.ForumsAdminMask.SelectedValue);
+                this.GetRepository<ForumAccess>().Save(
+                    _forumID.ToType<int>(),
+                    this.ForumsGroups.SelectedValue.ToType<int>(),
+                    this.ForumsAdminMask.SelectedValue.ToType<int>());
 
                 if (_topicsToCreate <= 0)
                 {

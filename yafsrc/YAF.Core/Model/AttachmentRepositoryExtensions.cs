@@ -76,14 +76,12 @@ namespace YAF.Core.Model
         /// Increments the download counter.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="attachment">The attachment.</param>
-        public static void IncrementDownloadCounter(this IRepository<Attachment> repository, Attachment attachment)
+        /// <param name="attachmentId">The attachment identifier.</param>
+        public static void IncrementDownloadCounter(this IRepository<Attachment> repository, int attachmentId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            attachment.Downloads = attachment.Downloads + 1;
-
-            repository.Update(attachment);
+            repository.UpdateAdd(() => new Attachment { Downloads = 1 }, where: a => a.ID == attachmentId);
         }
 
         /// <summary>

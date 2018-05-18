@@ -550,19 +550,19 @@ namespace YAF.Core.Services
         public void SendSpamBotNotificationToAdmins([NotNull] MembershipUser user, int userId)
         {
             // Get Admin Group ID
-            var adminGroupID =
+            var adminGroupId =
                 this.GetRepository<Group>()
-                    .ListTyped(boardId: YafContext.Current.PageBoardID)
+                    .List(boardId: YafContext.Current.PageBoardID)
                     .Where(@group => @group.Name.Contains("Admin"))
                     .Select(@group => @group.ID)
                     .FirstOrDefault();
 
-            if (adminGroupID <= 0)
+            if (adminGroupId <= 0)
             {
                 return;
             }
 
-            using (var dt = LegacyDb.user_emails(YafContext.Current.PageBoardID, adminGroupID))
+            using (var dt = LegacyDb.user_emails(YafContext.Current.PageBoardID, adminGroupId))
             {
                 foreach (DataRow row in dt.Rows)
                 {

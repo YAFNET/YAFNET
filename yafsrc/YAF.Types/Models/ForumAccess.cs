@@ -25,7 +25,6 @@ namespace YAF.Types.Models
 {
     using System;
 
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>

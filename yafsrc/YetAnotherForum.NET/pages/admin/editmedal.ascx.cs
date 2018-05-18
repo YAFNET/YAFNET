@@ -764,13 +764,14 @@ namespace YAF.Pages.Admin
                     this.SelectImage(this.SmallRibbonImage, this.SmallRibbonPreview, row["SmallRibbonURL"]);
                 }
 
-                using (var dt = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID))
-                {
-                    this.AvailableGroupList.DataSource = dt;
-                    this.AvailableGroupList.DataTextField = "Name";
-                    this.AvailableGroupList.DataValueField = "GroupID";
-                    this.AvailableGroupList.DataBind();
-                }
+                var groups = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
+
+                this.AvailableGroupList.DataSource = groups;
+
+                this.AvailableGroupList.DataTextField = "Name";
+                this.AvailableGroupList.DataValueField = "ID";
+
+                this.AvailableGroupList.DataBind();
             }
             else
             {

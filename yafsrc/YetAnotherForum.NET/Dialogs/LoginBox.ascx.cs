@@ -34,11 +34,14 @@ namespace YAF.Dialogs
     using YAF.Classes;
     using YAF.Classes.Data;
     using YAF.Core;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -297,7 +300,7 @@ namespace YAF.Dialogs
         {
             this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
 
-            LegacyDb.user_update_single_sign_on_status(this.PageContext.PageUserID, AuthService.none);
+            this.GetRepository<User>().UpdateAuthServiceStatus(this.PageContext.PageUserID, AuthService.none);
         }
 
         /// <summary>

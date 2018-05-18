@@ -1186,22 +1186,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// Increments the image's download times.
-        /// </summary>
-        /// <param name="imageID">
-        /// the image id.
-        /// </param>
-        public static void album_image_download([NotNull] object imageID)
-        {
-            using (var cmd = DbHelpers.GetCommand("album_image_download"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("ImageID", imageID);
-                DbAccess.ExecuteNonQuery(cmd);
-            }
-        }
-
-        /// <summary>
         /// Lists all the images associated with the AlbumID or
         ///   the image with the ImageID.
         /// </summary>
@@ -3074,48 +3058,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The forumaccess_list.
-        /// </summary>
-        /// <param name="forumID">
-        /// The forum id.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static DataTable forumaccess_list([NotNull] object forumID)
-        {
-            using (var cmd = DbHelpers.GetCommand("forumaccess_list"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("ForumID", forumID);
-                return DbAccess.GetData(cmd);
-            }
-        }
-
-        /// <summary>
-        /// The forumaccess_save.
-        /// </summary>
-        /// <param name="forumID">
-        /// The forum id.
-        /// </param>
-        /// <param name="groupID">
-        /// The group id.
-        /// </param>
-        /// <param name="accessMaskID">
-        /// The access mask id.
-        /// </param>
-        public static void forumaccess_save([NotNull] object forumID, [NotNull] object groupID, [NotNull] object accessMaskID)
-        {
-            using (var cmd = DbHelpers.GetCommand("forumaccess_save"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("ForumID", forumID);
-                cmd.AddParam("GroupID", groupID);
-                cmd.AddParam("AccessMaskID", accessMaskID);
-                DbAccess.ExecuteNonQuery(cmd);
-            }
-        }
-
-        /// <summary>
         /// The forumpage_initdb.
         /// </summary>
         /// <param name="errorString">
@@ -3197,22 +3139,6 @@ namespace YAF.Classes.Data
             }
 
             return redirect;
-        }
-
-        /// <summary>
-        /// The group_delete.
-        /// </summary>
-        /// <param name="groupID">
-        /// The group id.
-        /// </param>
-        public static void group_delete([NotNull] object groupID)
-        {
-            using (var cmd = DbHelpers.GetCommand("group_delete"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("GroupID", groupID);
-                DbAccess.ExecuteNonQuery(cmd);
-            }
         }
 
         /// <summary>
@@ -8127,41 +8053,6 @@ namespace YAF.Classes.Data
                 cmd.AddParam("AutoWatchTopics", autoWatchTopics);
                 cmd.AddParam("NotificationType", notificationType);
                 cmd.AddParam("DailyDigest", dailyDigest);
-                DbAccess.ExecuteNonQuery(cmd);
-            }
-        }
-
-        /// <summary>
-        /// Update the single Sign on Status
-        /// </summary>
-        /// <param name="userID">The user ID.</param>
-        /// <param name="authService">The AUTH service.</param>
-        public static void user_update_single_sign_on_status([NotNull] int userID, [NotNull]AuthService authService)
-        {
-            bool isFacebookUser = false, isTwitterUser = false, isGoogleUser = false;
-
-            switch (authService)
-            {
-                case AuthService.facebook:
-                    isFacebookUser = true;
-                    break;
-                case AuthService.twitter:
-                    isTwitterUser = true;
-                    break;
-                case AuthService.google:
-                    isGoogleUser = true;
-                    break;
-            }
-
-            using (var cmd = DbHelpers.GetCommand("user_update_single_sign_on_status"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.AddParam("UserID", userID);
-                cmd.AddParam("IsFacebookUser", isFacebookUser);
-                cmd.AddParam("IsTwitterUser", isTwitterUser);
-                cmd.AddParam("IsGoogleUser", isGoogleUser);
-
                 DbAccess.ExecuteNonQuery(cmd);
             }
         }
