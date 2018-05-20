@@ -36,6 +36,7 @@ namespace YAF.Pages.Admin
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -258,7 +259,7 @@ namespace YAF.Pages.Admin
                 case "delete":
 
                     // delete role
-                    LegacyDb.group_delete(e.CommandArgument);
+                    this.GetRepository<Group>().Delete(e.CommandArgument.ToType<int>());
 
                     // remove cache of forum moderators
                     this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
