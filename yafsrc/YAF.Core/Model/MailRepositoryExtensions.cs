@@ -150,17 +150,20 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Query.mail_create(
-                From: from,
-                FromName: fromName,
-                To: to,
-                ToName: toName,
-                Subject: subject,
-                Body: body,
-                BodyHtml: bodyHtml,
-                SendTries: sendTries,
-                SendAttempt: sendAttempt,
-                UTCTIMESTAMP: DateTime.UtcNow);
+            repository.Insert(
+                new Mail
+                    {
+                        FromUser = from,
+                        FromUserName = fromName,
+                        ToUser = to,
+                        ToUserName = toName,
+                        Created = DateTime.UtcNow,
+                        Subject = subject,
+                        Body = body,
+                        BodyHtml = bodyHtml,
+                        SendTries = sendTries,
+                        SendAttempt = sendAttempt
+                });
 
             repository.FireNew();
         }

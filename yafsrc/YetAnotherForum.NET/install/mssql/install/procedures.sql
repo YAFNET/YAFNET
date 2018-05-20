@@ -1877,28 +1877,6 @@ WHERE BoardID = @BoardID GROUP BY SortOrder,[Name],Style,[Description],PMLimit,U
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}mail_create]
-(
-    @From nvarchar(255),
-    @FromName nvarchar(255) = NULL,
-    @To nvarchar(255),
-    @ToName nvarchar(255) = NULL,
-    @Subject nvarchar(100),
-    @Body nvarchar(max),
-    @BodyHtml nvarchar(max) = NULL,
-	@SendTries int,
-	@SendAttempt datetime,
-    @UTCTIMESTAMP datetime
-)
-AS
-BEGIN
-        insert into [{databaseOwner}].[{objectQualifier}Mail]
-        (FromUser,FromUserName,ToUser,ToUserName,Created,Subject,Body,BodyHtml,SendTries,SendAttempt)
-    values
-        (@From,@FromName,@To,@ToName,@UTCTIMESTAMP ,@Subject,@Body,@BodyHtml,@SendTries,@SendAttempt)
-END
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}mail_createwatch]
 (
     @TopicID int,
