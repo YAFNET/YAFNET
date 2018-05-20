@@ -65,16 +65,6 @@ namespace YAF.Core.Model
             return repository.DbFunction.GetData.watchforum_list(UserID: userID);
         }
 
-        public static IList<WatchForum> ListTyped(this IRepository<WatchTopic> repository, int userID)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            using (var session = repository.DbFunction.CreateSession())
-            {
-                return session.GetTyped<WatchForum>(r => r.watchtopic_list(UserID: userID));
-            }
-        }
-
         #endregion
     }
 }

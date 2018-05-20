@@ -28,9 +28,10 @@ namespace YAF.Core.Extensions
     using System.Data;
     using System.Linq;
     using System.Linq.Expressions;
-
+    using ServiceStack;
     using ServiceStack.OrmLite;
 
+    using YAF.Classes;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -390,6 +391,31 @@ namespace YAF.Core.Extensions
             CodeContracts.VerifyNotNull(criteria, "criteria");
 
             return repository.DbAccess.Execute(db => db.Connection.Select<T>(criteria));
+        }
+
+        /// <summary>
+        /// Returns results from an arbitrary parameterized raw sql query. E.g:
+        /// <para>db.SqlList&lt;Person&gt;("EXEC GetRockstarsAged @age", new[] { db.CreateParam("age",50) })</para>
+        /// </summary>
+        /// <typeparam name="T">The type parameter.</typeparam>
+        /// <param name="repository">The repository.</param>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="anonType">Type of the anon.</param>
+        /// <returns>Returns results from an arbitrary parameterized raw sql query</returns>
+        public static List<T> SqlList<T>([NotNull] this IRepository<T> repository, string sql, object anonType)
+        {
+            return repository.DbAccess.Execute(
+                db => db.Connection.SqlList<T>(
+                    string.Format("{0}{1}", Config.DatabaseObjectQualifier, sql),
+                    cmd =>
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            foreach (var p in anonType.ToObjectDictionary())
+                            {
+                                cmd.AddParam(p.Key, p.Value);
+                            }
+                        }));
         }
 
         /// <summary>

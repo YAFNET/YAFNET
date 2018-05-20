@@ -24,7 +24,6 @@
 namespace YAF.Types.Interfaces.Data
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
 
     /// <summary>
@@ -35,7 +34,7 @@ namespace YAF.Types.Interfaces.Data
         #region Public Properties
 
         /// <summary>
-        ///     Gets or sets the current Db Transaction
+        ///     Gets  the current Db Transaction
         /// </summary>
         IDbTransaction DbTransaction { get; }
 
@@ -43,24 +42,6 @@ namespace YAF.Types.Interfaces.Data
         /// Gets the get reader.
         /// </summary>
         dynamic GetReader { get; }
-
-        #endregion
-
-        #region Public Methods and Operators
-
-        /// <summary>
-        /// The get typed.
-        /// </summary>
-        /// <param name="getFunction">
-        /// The get function. 
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="IList"/> . 
-        /// </returns>
-        IList<T> GetTyped<T>(Func<dynamic, object> getFunction)
-            where T : new();
 
         #endregion
     }

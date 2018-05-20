@@ -25,11 +25,7 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
 
-    using Omu.ValueInjecter;
-
-    using YAF.Core.Data;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
@@ -203,51 +199,22 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Gets the Mail List
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="processID">
-        /// The process id.
-        /// </param>
-        /// <returns>
-        /// Returns the Mail List as <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable List(this IRepository<Mail> repository, int? processID)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.mail_list(ProcessID: processID, UTCTIMESTAMP: DateTime.UtcNow);
-        }
-
-        /// <summary>
         /// Gets the Mail List Typed
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="processID">
+        /// <param name="processId">
         /// The process id.
         /// </param>
         /// <returns>
         ///  Returns the Mail List as Typed List
         /// </returns>
-        public static IList<Mail> ListTyped(this IRepository<Mail> repository, int? processID)
+        public static IList<Mail> List(this IRepository<Mail> repository, int? processId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var mailList = new List<Mail>();
-
-            foreach (DataRow dr in
-                repository.DbFunction.GetData.mail_list(ProcessID: processID, UTCTIMESTAMP: DateTime.UtcNow).Rows)
-            {
-                var mail = new Mail();
-                mail.InjectFrom<DataRowInjection>(dr);
-                mailList.Add(mail);
-            }
-
-            return mailList;
+            return repository.SqlList("mail_list", new { ProcessID = processId, UTCTIMESTAMP = DateTime.UtcNow });
         }
 
         /// <summary>

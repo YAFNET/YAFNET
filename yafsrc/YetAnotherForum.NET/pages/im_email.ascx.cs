@@ -36,6 +36,7 @@ namespace YAF.Pages
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
@@ -67,7 +68,7 @@ namespace YAF.Pages
         {
             get
             {
-                return Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString["u"]).ToTyped<int>();
+                return Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString["u"]).ToType<int>();
             }
         }
 

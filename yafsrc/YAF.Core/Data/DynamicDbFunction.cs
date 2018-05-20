@@ -26,13 +26,10 @@ namespace YAF.Core.Data
     #region Using
 
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Dynamic;
     using System.Linq;
-
-    using Omu.ValueInjecter;
 
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -231,37 +228,6 @@ namespace YAF.Core.Data
 
             this._dbTransaction.Dispose();
             this._dbTransaction = null;
-        }
-
-        /// <summary>
-        /// The get typed.
-        /// </summary>
-        /// <param name="getFunction">
-        /// The get function. 
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="IList"/> . 
-        /// </returns>
-        public IList<T> GetTyped<T>(Func<dynamic, object> getFunction)
-            where T : new()
-        {
-            var objectList = new List<T>();
-            
-            using (var dataReader = (IDataReader)getFunction(this.GetReader))
-            {
-                while (dataReader.Read())
-                {
-                    var o = new T();
-                    o.InjectFrom<DataRecordInjection>(dataReader);
-                    objectList.Add(o);
-                }
-
-                dataReader.Close();
-            }
-             
-            return objectList;
         }
 
         #endregion

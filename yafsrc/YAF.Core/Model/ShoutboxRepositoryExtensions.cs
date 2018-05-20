@@ -59,20 +59,6 @@ namespace YAF.Core.Model
                 StyledNicks: styledNicks);
         }
 
-        public static IList<ShoutboxMessage> GetMessagesTyped(
-            this IRepository<ShoutboxMessage> repository, int numberOfMessages, bool styledNicks, int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            using (var session = repository.DbFunction.CreateSession())
-            {
-                return
-                    session.GetTyped<ShoutboxMessage>(
-                        r =>
-                        r.shoutbox_getmessages(BoardId: boardId ?? repository.BoardID, NumberOfMessages: numberOfMessages, StyledNicks: styledNicks));
-            }
-        }
-
         public static void SaveMessage(
             this IRepository<ShoutboxMessage> repository, string message, string userName, int userID, string ip, int? boardId = null, DateTime? date = null)
         {

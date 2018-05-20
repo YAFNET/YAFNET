@@ -32,7 +32,6 @@ namespace YAF.Controls
 
     using YAF.Classes;
     using YAF.Core;
-    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -70,7 +69,9 @@ namespace YAF.Controls
         {
             set
             {
-                this.CurrentMessage = value != null ? value.ToTyped<Message>() : null;
+                this.CurrentMessage = value != null ? new Message(value) : null;
+
+                this.Get<ILogger>().Info(this.CurrentMessage.MessageText);
             }
         }
 
@@ -91,20 +92,6 @@ namespace YAF.Controls
             {
                 this.currentMessage = value ?? new Message();
                 this.MessageFlags = new MessageFlags(this.currentMessage.Flags);
-            }
-        }
-
-        /// <summary>
-        /// Sets the search result.
-        /// </summary>
-        /// <value>
-        /// The search result.
-        /// </value>
-        public SearchResult SearchResult
-        {
-            set
-            {
-                this.CurrentMessage = value != null ? value.ToTyped<Message>() : null;
             }
         }
 

@@ -31,6 +31,7 @@ namespace YAF.Core.Model
 
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
@@ -58,7 +59,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.Count(f => f.TopicID == topicId).ToTyped<int>();
+            return repository.Count(f => f.TopicID == topicId).ToType<int>();
         }
 
         /// <summary>

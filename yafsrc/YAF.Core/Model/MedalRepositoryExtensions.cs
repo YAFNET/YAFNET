@@ -26,6 +26,8 @@ namespace YAF.Core.Model
     using System.Collections.Generic;
     using System.Data;
 
+    using ServiceStack;
+
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -84,35 +86,6 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.medal_list(BoardID: boardId ?? repository.BoardID, MedalID: medalID, Category: category);
-        }
-
-        /// <summary>
-        /// A list of Medals.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="medalID">
-        /// The medal id.
-        /// </param>
-        /// <param name="category">
-        /// The category.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IList"/>.
-        /// </returns>
-        public static IList<Medal> ListTyped(this IRepository<Medal> repository, int? medalID = null, string category = null, int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            using (var functionSession = repository.DbFunction.CreateSession())
-            {
-                return functionSession.GetTyped<Medal>(
-                    r => r.medal_list(BoardID: boardId ?? repository.BoardID, MedalID: medalID, Category: category));
-            }
         }
 
         /// <summary>

@@ -24,11 +24,14 @@
 namespace YAF.Types.Models
 {
     using System;
+    using System.Data;
     using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Objects;
 
     /// <summary>
     /// A class which represents the Message table.
@@ -42,6 +45,27 @@ namespace YAF.Types.Models
         public Message()
         {
             this.OnCreated();
+        }
+
+        public Message([NotNull] DataRow row)
+        {
+            this.ID = row.Field<int?>("MessageID") ?? 0;
+            this.UserID = row.Field<int?>("UserID") ?? 0;
+            this.UserName = row.Field<string>("UserName");
+            this.MessageText = row.Field<string>("Message");
+            this.TopicID = row.Field<int?>("TopicID") ?? 0;
+            this.Topic = row.Field<string>("Topic");
+            this.Flags = row.Field<int?>("Flags") ?? 0;
+            this.Edited = row.Field<DateTime?>("Edited");
+            this.EditReason = row.Field<string>("EditReason");
+            this.Position = row.Field<int?>("Position") ?? 0;
+            this.IsModeratorChanged = row.Field<bool?>("IsModeratorChanged");
+            this.DeleteReason = row.Field<string>("DeleteReason");
+            this.BlogPostID = row.Field<string>("BlogPostID");
+            this.IP = row.Field<string>("IP");
+            this.ExternalMessageId = row.Field<string>("ExternalMessageId");
+            this.ReferenceMessageId = row.Field<string>("ReferenceMessageId");
+            this.HasAttachments = row.Field<bool?>("HasAttachments");
         }
 
         #region Properties

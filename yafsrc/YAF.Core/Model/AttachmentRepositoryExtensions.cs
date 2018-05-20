@@ -106,16 +106,15 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var entity =
-                new
-                    {
-                        MessageID = messageId,
-                        UserID = userId,
-                        FileName = fileName,
-                        Bytes = bytes,
-                        ContentType = contentType,
-                        FileData = fileData
-                    }.ToMappedEntity<Attachment>();
+            var entity = new Attachment
+                             {
+                                 MessageID = messageId,
+                                 UserID = userId,
+                                 FileName = fileName,
+                                 Bytes = bytes,
+                                 ContentType = contentType,
+                                 FileData = fileData
+                             };
 
             var newAttachmentId = repository.DbAccess.Insert(entity, selectIdentity: true).ToType<int>();
 

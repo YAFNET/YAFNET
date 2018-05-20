@@ -73,9 +73,6 @@
       <HintPath>..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.Highlighter.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Omu.ValueInjecter, Version=3.1.2.0, Culture=neutral, PublicKeyToken=5692a4ecdffbe736, processorArchitecture=MSIL">
-      <HintPath>..\packages\ValueInjecter.3.1.2\lib\net45\Omu.ValueInjecter.dll</HintPath>
-    </Reference>
     <Reference Include="ServiceStack.Common, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
       <HintPath>..\packages\ServiceStack.Common.5.1.0\lib\net45\ServiceStack.Common.dll</HintPath>
     </Reference>
@@ -128,24 +125,18 @@
     <Compile Include="Context\LoadPageRequestInformation.cs" />
     <Compile Include="Context\LoadPageVariablesFromQuery.cs" />
     <Compile Include="Context\YafContextPageProvider.cs" />
-    <Compile Include="Data\AliasInjection.cs" />
     <Compile Include="Data\DataReaderFilter.cs" />
-    <Compile Include="Data\DataRecordInjection.cs" />
-    <Compile Include="Data\DataRowInjection.cs" />
     <Compile Include="Data\DbAccessBase.cs" />
     <Compile Include="Data\DbAccessProvider.cs" />
     <Compile Include="Data\DbConnectionParam.cs" />
     <Compile Include="Data\DynamicDbFunction.cs" />
     <Compile Include="Data\Filters\StyleFilter.cs" />
     <Compile Include="Data\BasicRepository.cs" />
-    <Compile Include="Data\MappingHelper.cs" />
     <Compile Include="Data\Profiling\QueryCounter.cs" />
     <Compile Include="Data\Profiling\QueryProfile.cs" />
     <Compile Include="Data\Profiling\QueryWatcher.cs" />
-    <Compile Include="Events\AttachmentEventHandleFileDelete.cs" />
     <Compile Include="Extensions\CultureExtensions.cs" />
     <Compile Include="Extensions\HaveSortOrderExtensions.cs" />
-    <Compile Include="Extensions\InjectionExtensions.cs" />
     <Compile Include="Extensions\SqlExpressionExtensions.cs" />
     <Compile Include="Helpers\ForumEditorHelper.cs" />
     <Compile Include="Helpers\DbFunctionHelpers.cs" />

@@ -329,14 +329,14 @@ namespace YAF.Core.Services
             Thread.BeginCriticalRegion();
             try
             {
-                mailList = this.MailRepository.ListTyped(this.UniqueProcessId);
+                mailList = this.MailRepository.List(this.UniqueProcessId);
             }
             finally
             {
                 Thread.EndCriticalRegion();
             }
 
-            this.Logger.Debug("Retreived {0} Queued Messages Process Id ({1})...".FormatWith(mailList.Count(), this.UniqueProcessId));
+            this.Logger.Debug("Retreived {0} Queued Messages Process Id ({1})...".FormatWith(mailList.Count, this.UniqueProcessId));
 
             return mailList;
         }

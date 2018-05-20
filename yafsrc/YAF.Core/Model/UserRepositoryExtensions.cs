@@ -28,6 +28,9 @@ namespace YAF.Core.Model
     using System.Collections.Generic;
     using System.Data;
 
+    using ServiceStack;
+    using ServiceStack.OrmLite;
+
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -81,20 +84,18 @@ namespace YAF.Core.Model
             int? notificationType = null,
             bool? dailyDigest = null)
         {
-            using (var session = repository.DbFunction.CreateSession())
-            {
-                return
-                    session.GetTyped<User>(
-                        r =>
-                        r.user_find(
-                            BoardID: boardId ?? repository.BoardID,
-                            Filter: filter,
-                            UserName: userName,
-                            Email: email,
-                            DisplayName: displayName,
-                            NotificationType: notificationType,
-                            DailyDigest: dailyDigest));
-            }
+            return repository.SqlList(
+                "user_find",
+                new
+                    {
+                        BoardID = boardId ?? repository.BoardID,
+                        Filter = filter,
+                        UserName = userName,
+                        Email = email,
+                        DisplayName = displayName,
+                        NotificationType = notificationType,
+                        DailyDigest = dailyDigest
+                    });
         }
 
         /// <summary>

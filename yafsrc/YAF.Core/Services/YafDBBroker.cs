@@ -676,6 +676,10 @@ namespace YAF.Core.Services
             {
                 return userList;
             }
+            else
+            {
+                userList = new List<int>();
+            }
 
             // get fresh values
             foreach (var item in this.GetRepository<IgnoreUser>().Get(i => i.UserID == userId))

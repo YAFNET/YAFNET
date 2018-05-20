@@ -87,21 +87,5 @@ namespace YAF.Core.Model
 
             return repository.DbFunction.GetData.watchtopic_list(UserID: userID);
         }
-
-        /// <summary>
-        /// Lists the typed.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="userID">The user identifier.</param>
-        /// <returns></returns>
-        public static IList<WatchTopic> ListTyped(this IRepository<WatchTopic> repository, int userID)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            using (var session = repository.DbFunction.CreateSession())
-            {
-                return session.GetTyped<WatchTopic>(r => r.watchtopic_list(UserID: userID));
-            }
-        }
     }
 }

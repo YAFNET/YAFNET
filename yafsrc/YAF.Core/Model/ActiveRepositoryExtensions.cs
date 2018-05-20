@@ -27,9 +27,7 @@ namespace YAF.Core.Model
     using System.Collections.Generic;
     using System.Data;
 
-    using Omu.ValueInjecter;
-
-    using YAF.Core.Data;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
@@ -40,44 +38,6 @@ namespace YAF.Core.Model
     public static class ActiveRepositoryExtensions
     {
         #region Public Methods and Operators
-
-        /// <summary>
-        /// The list.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository. 
-        /// </param>
-        /// <param name="guests">
-        /// The guests. 
-        /// </param>
-        /// <param name="showCrawlers">
-        /// The show crawlers. 
-        /// </param>
-        /// <param name="activeTime">
-        /// The active time. 
-        /// </param>
-        /// <param name="styledNicks">
-        /// The styled nicks. 
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/> . 
-        /// </returns>
-        public static DataTable List(
-            this IRepository<Active> repository, bool guests, bool showCrawlers, int activeTime, bool styledNicks, int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.active_list(
-                BoardID: boardId ?? repository.BoardID, 
-                Guests: guests, 
-                ShowCrawlers: showCrawlers, 
-                ActiveTime: activeTime, 
-                StyledNicks: styledNicks, 
-                UTCTIMESTAMP: DateTime.UtcNow);
-        }
 
         /// <summary>
         /// Lists the forum.
@@ -112,6 +72,44 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
+        /// The list.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository. 
+        /// </param>
+        /// <param name="guests">
+        /// The guests. 
+        /// </param>
+        /// <param name="showCrawlers">
+        /// The show crawlers. 
+        /// </param>
+        /// <param name="activeTime">
+        /// The active time. 
+        /// </param>
+        /// <param name="styledNicks">
+        /// The styled nicks. 
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/> . 
+        /// </returns>
+        public static DataTable List(
+            this IRepository<Active> repository, bool guests, bool showCrawlers, int activeTime, bool styledNicks, int? boardId = null)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbFunction.GetData.active_list(
+                BoardID: boardId ?? repository.BoardID,
+                Guests: guests,
+                ShowCrawlers: showCrawlers,
+                ActiveTime: activeTime,
+                StyledNicks: styledNicks,
+                UTCTIMESTAMP: DateTime.UtcNow);
+        }
+        
+        /// <summary>
         /// The list typed.
         /// </summary>
         /// <param name="repository">
@@ -145,23 +143,17 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var activeList = new List<Active>();
-
-            foreach (DataRow dr in
-                repository.DbFunction.GetData.active_list(
-                    BoardID: boardId ?? repository.BoardID,
-                    Guests: guests,
-                    ShowCrawlers: showCrawlers,
-                    ActiveTime: activeTime,
-                    StyledNicks: styledNicks,
-                    UTCTIMESTAMP: DateTime.UtcNow).Rows)
-            {
-                var active = new Active();
-                active.InjectFrom<DataRowInjection>(dr);
-                activeList.Add(active);
-            }
-
-            return activeList;
+            return repository.SqlList(
+                "active_list",
+                new
+                    {
+                        BoardID = boardId ?? repository.BoardID,
+                        Guests = guests,
+                        ShowCrawlers = showCrawlers,
+                        ActiveTime = activeTime,
+                        StyledNicks = styledNicks,
+                        UTCTIMESTAMP = DateTime.UtcNow
+                    });
         }
 
         /// <summary>

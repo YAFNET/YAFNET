@@ -66,10 +66,12 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            using (var functionSession = repository.DbFunction.CreateSession())
-            {
-                return functionSession.GetTyped<Message>(r => r.message_list(MessageID: messageId));
-            }
+            return repository.SqlList(
+                "message_list",
+                new
+                    {
+                       MessageID = messageId
+                });
         }
 
         /// <summary>
