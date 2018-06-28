@@ -4557,6 +4557,8 @@ Spoiler Content
     <Resource tag="LINKBACK_TOPIC">URL ссылки на тему</Resource>
     <Resource tag="LINKBACK_TOPIC_PROMT">Используйте адрес URL ниже, если вы желаете оставить ссылку (LinkBack) с URL темы на другом сайте.</Resource>
     <Resource tag="LOCATION">Откуда</Resource>
+    <Resource tag="MANAGE_POST">Manage Message</Resource>
+    <Resource tag="MANAGE_TOPIC">Manage Topic</Resource>
     <Resource tag="MARK_ANSWER">Mark As Answer</Resource>
     <Resource tag="MARK_ANSWER_REMOVE">Remove As Answer</Resource>
     <Resource tag="MARK_ANSWER_REMOVE_TITLE">Unmark this Message as answer</Resource>

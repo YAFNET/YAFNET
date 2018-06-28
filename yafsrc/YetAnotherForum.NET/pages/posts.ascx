@@ -34,7 +34,8 @@
                              CssClass="dropdown-toggle"
                              Type="Danger"
                              DataToggle="dropdown"
-                             TextLocalizedTag="TOOLS"
+                             TextLocalizedTag="MANAGE_TOPIC"
+                             TextLocalizedPage="POSTS"
                              Icon="cogs" />
             <div class="dropdown-menu" aria-labelledby='<%# this.Tools1.ClientID %>'>
                 <YAF:ThemeButton ID="MoveTopic1" runat="server"

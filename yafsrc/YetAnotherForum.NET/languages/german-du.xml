@@ -4522,6 +4522,8 @@ Spoiler Content
     <Resource tag="LINKBACK_TOPIC">LinkBack Themen URL</Resource>
     <Resource tag="LINKBACK_TOPIC_PROMT">Verwenden Sie die URL unten, wenn Sie die URL von diesem Thema auf einer anderen Webseite teilen wollen.</Resource>
     <Resource tag="LOCATION">Wohnort</Resource>
+    <Resource tag="MANAGE_POST">Manage Message</Resource>
+    <Resource tag="MANAGE_TOPIC">Manage Topic</Resource>
     <Resource tag="MARK_ANSWER">Mark As Answer</Resource>
     <Resource tag="MARK_ANSWER_REMOVE">Remove As Answer</Resource>
     <Resource tag="MARK_ANSWER_REMOVE_TITLE">Unmark this Message as answer</Resource>

@@ -123,7 +123,7 @@
                                      CssClass="dropdown-toggle"
                                      Type="Link"
                                      DataToggle="dropdown"
-                                     TextLocalizedTag="MANAGE"
+                                     TextLocalizedTag="MANAGE_POST"
                                      Icon="cogs" />
                     <div class="dropdown-menu" aria-labelledby='<%# this.Manage.ClientID %>'>
                         <YAF:ThemeButton ID="Edit" runat="server"

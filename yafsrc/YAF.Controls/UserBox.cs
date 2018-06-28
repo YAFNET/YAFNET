@@ -372,7 +372,7 @@ namespace YAF.Controls
                 if (avatarUrl.IsSet())
                 {
                     filler = this.Get<YafBoardSettings>().UserBoxAvatar.FormatWith(
-                        @"<a href=""{1}"" title=""{2}""><img class=""avatarimage"" src=""{0}"" alt=""{2}"" title=""{2}""  /></a>"
+                        @"<a href=""{1}"" title=""{2}""><img class=""rounded img-fluid"" src=""{0}"" alt=""{2}"" title=""{2}""  /></a>"
                             .FormatWith(
                                 avatarUrl,
                                 YafBuildLink.GetLinkNotEscaped(
@@ -652,7 +652,7 @@ namespace YAF.Controls
                 var dt = this.Get<YafDbBroker>().UserMedals(this.UserId);
 
                 // vzrus: If user doesn't have we shouldn't render this waisting resources
-                if (dt.Rows.Count <= 0)
+                if (!dt.HasRows())
                 {
                     return rx.Replace(userBox, filler);
                 }
@@ -967,16 +967,7 @@ namespace YAF.Controls
         [NotNull]
         private string RemoveEmptyDividers([NotNull] string userBox)
         {
-            userBox = userBox.Replace("\"\"section\"\"", "\"section\"").Replace(@"""section""", "\"section\"");
-            if (userBox.IndexOf("<div class=\"section\"></div>", StringComparison.Ordinal) > 0)
-            {
-                userBox =
-                    userBox.Replace(
-                        userBox.IndexOf("<div class=\"section\"></div><br />", StringComparison.Ordinal) > 0
-                            ? "<div class=\"section\"></div><br />"
-                            : "<div class=\"section\"></div>",
-                        string.Empty);
-            }
+            userBox = userBox.Replace("<li class=\"list-group-item\"></li>", string.Empty);
 
             return userBox;
         }

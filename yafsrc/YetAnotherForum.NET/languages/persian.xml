@@ -4630,6 +4630,8 @@
     <Resource tag="LINKBACK_TOPIC">آدرس بکلینک موضوع</Resource>
     <Resource tag="LINKBACK_TOPIC_PROMT">استفاده از آدرس زیر به عنوان بکلینک برای استفاده در سایت دیگر</Resource>
     <Resource tag="LOCATION">مکان</Resource>
+    <Resource tag="MANAGE_POST">Manage Message</Resource>
+    <Resource tag="MANAGE_TOPIC">Manage Topic</Resource>
     <Resource tag="MARK_ANSWER">Mark As Answer</Resource>
     <Resource tag="MARK_ANSWER_REMOVE">Remove As Answer</Resource>
     <Resource tag="MARK_ANSWER_REMOVE_TITLE">Unmark this Message as answer</Resource>

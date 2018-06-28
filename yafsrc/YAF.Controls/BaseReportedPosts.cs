@@ -129,7 +129,7 @@ namespace YAF.Controls
 
       var reportersList = LegacyDb.message_listreporters(this.MessageID);
 
-        if (reportersList.Rows.Count <= 0)
+        if (!reportersList.HasRows())
         {
             return;
         }
@@ -144,33 +144,44 @@ namespace YAF.Controls
                 howMany = "({0})".FormatWith(reporter["ReportedNumber"]);
             }
 
-           // If the message was previously resolved we have not null string
+            // If the message was previously resolved we have not null string
             // and can add an info about last user who resolved the message
             if (this.ResolvedDate.IsSet())
             {
-                var resolvedByName =
-                    LegacyDb.user_list(this.PageContext.PageBoardID, this.ResolvedBy.ToType<int>(), true).Rows[0]["Name"].ToString();
+                var resolvedByName = LegacyDb.user_list(
+                    this.PageContext.PageBoardID,
+                    this.ResolvedBy.ToType<int>(),
+                    true).Rows[0]["Name"].ToString();
 
                 var resolvedByDisplayName =
                     UserMembershipHelper.GetDisplayNameFromID(this.ResolvedBy.ToType<long>()).IsSet()
-                        ? this.Server.HtmlEncode(this.Get<IUserDisplayName>().GetName(this.ResolvedBy.ToType<int>()))
+                        ? this.Server.HtmlEncode(
+                            this.Get<IUserDisplayName>().GetName(this.ResolvedBy.ToType<int>()))
                         : this.Server.HtmlEncode(resolvedByName);
 
                 writer.Write(
-                    @"<div class=""card-header"">{0}<a class=""YafReported_Link"" href=""{1}""> {2}</a> : {3}</div>", 
+                    @"<div class=""card-header"">{0}<a class=""YafReported_Link"" href=""{1}""> {2}</a> : {3}</div>",
                     this.GetText("RESOLVEDBY"),
-                    YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.ResolvedBy.ToType<int>(), resolvedByDisplayName), 
-                    resolvedByDisplayName, 
+                    YafBuildLink.GetLink(
+                        ForumPages.profile,
+                        "u={0}&name={1}",
+                        this.ResolvedBy.ToType<int>(),
+                        resolvedByDisplayName),
+                    resolvedByDisplayName,
                     this.Get<IDateTime>().FormatDateTimeTopic(this.ResolvedDate));
             }
 
             writer.Write(
-                @"<div class=""card-header"">{3}<a class=""YafReported_Link"" href=""{1}""> {0}{2} </a>", 
+                @"<div class=""card-header"">{3}<a class=""YafReported_Link"" href=""{1}""> {0}{2} </a>",
                 !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(reporter["UserID"].ToType<long>()))
                     ? this.Server.HtmlEncode(this.Get<IUserDisplayName>().GetName(reporter["UserID"].ToType<int>()))
                     : this.Server.HtmlEncode(reporter["UserName"].ToString()),
-                YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", reporter["UserID"].ToType<int>(), reporter["UserName"].ToString()), 
-                howMany, 
+                YafBuildLink.GetLink(
+                    ForumPages.profile,
+                    "u={0}&name={1}",
+                    reporter["UserID"].ToType<int>(),
+                    reporter["UserName"].ToString()),
+                howMany,
                 this.GetText("REPORTEDBY"));
             writer.WriteLine(@"</div>");
 
@@ -182,7 +193,7 @@ namespace YAF.Controls
             {
                 var textString = t.Split("??".ToCharArray());
                 writer.Write(
-                    @"<p class=""card-text"">{0}:</p>", 
+                    @"<p class=""card-text"">{0}:</p>",
                     this.Get<IDateTime>().FormatDateTimeTopic(textString[0]));
 
                 // Apply style if a post was previously resolved
@@ -217,12 +228,15 @@ namespace YAF.Controls
             }
 
             writer.Write(
-                @"<a class=""btn btn-primary"" href=""{1}"">{2} {0}</a>", 
+                @"<a class=""btn btn-primary"" href=""{1}"">{2} {0}</a>",
                 !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(reporter["UserID"].ToType<long>()))
                     ? this.Server.HtmlEncode(this.Get<IUserDisplayName>().GetName(reporter["UserID"].ToType<int>()))
-                    : this.Server.HtmlEncode(reporter["UserName"].ToString()), 
+                    : this.Server.HtmlEncode(reporter["UserName"].ToString()),
                 YafBuildLink.GetLink(
-                    ForumPages.pmessage, "u={0}&r={1}", reporter["UserID"].ToType<int>(), this.MessageID), 
+                    ForumPages.pmessage,
+                    "u={0}&r={1}",
+                    reporter["UserID"].ToType<int>(),
+                    this.MessageID),
                 this.GetText("REPLYTO"));
         }
 

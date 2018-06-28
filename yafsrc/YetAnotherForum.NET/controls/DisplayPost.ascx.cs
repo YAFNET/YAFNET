@@ -486,6 +486,15 @@ namespace YAF.Controls
                 this.AddReputationControls();
             }
 
+            if (this.Edit.Visible || this.Delete.Visible || this.MovePost.Visible)
+            {
+                this.Manage.Visible = true;
+            }
+            else
+            {
+                this.Manage.Visible = false;
+            }
+
             YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", "function CallFailed(res){ alert('Error Occurred'); }");
 
             this.FormatThanksRow();

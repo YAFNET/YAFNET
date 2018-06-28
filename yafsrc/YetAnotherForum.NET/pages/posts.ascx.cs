@@ -332,22 +332,19 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void LockTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.PageContext.ForumModeratorAccess)
-            {
-                // "You are not a forum moderator.
-                YafBuildLink.AccessDenied();
-            }
+              if (!this.PageContext.ForumModeratorAccess)
+              {
+                  // "You are not a forum moderator.
+                  YafBuildLink.AccessDenied();
+              }
 
-            LegacyDb.topic_lock(this.PageContext.PageTopicID, true);
-            this.BindData();
+              LegacyDb.topic_lock(this.PageContext.PageTopicID, true);
+              this.BindData();
             this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_LOCKED"));
             this.LockTopic1.Visible = !this.LockTopic1.Visible;
             this.UnlockTopic1.Visible = !this.UnlockTopic1.Visible;
             this.LockTopic2.Visible = this.LockTopic1.Visible;
             this.UnlockTopic2.Visible = this.UnlockTopic1.Visible;
-
-            /*PostReplyLink1.Visible = false;
-             PostReplyLink2.Visible = false;*/
         }
 
         /// <summary>
@@ -419,7 +416,7 @@ namespace YAF.Pages
         {
             using (var dt = LegacyDb.topic_findnext(this.PageContext.PageTopicID))
             {
-                if (dt.Rows.Count == 0)
+                if (!dt.HasRows())
                 {
                     this.PageContext.AddLoadMessage(this.GetText("INFO_NOMORETOPICS"));
                     return;
@@ -461,16 +458,16 @@ namespace YAF.Pages
             if (!this.PageContext.IsGuest)
             {
                 // The html code for "Favorite Topic" theme buttons.
-                var tagButtonHTML =
-                    "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:addFavoriteTopic(' + res.d + ');\" onclick=\"jQuery(this).blur();\" title=\"{0}\"><span>{1}</span></a>'"
-                        .FormatWith(this.GetText("BUTTON_TAGFAVORITE_TT"), this.GetText("BUTTON_TAGFAVORITE"));
-                var untagButtonHTML =
-                    "'<a class=\"yafcssbigbutton rightItem\" href=\"javascript:removeFavoriteTopic(' + res.d + ');\" onclick=\"jQuery(this).blur();\" title=\"{0}\"><span>{1}</span></a>'"
+                var tagButtonHtml =
+                    "'<a class=\"btn btn-secondary\" href=\"javascript:addFavoriteTopic(' + res.d + ');\" title=\"{0}\"><span><i class=\"fa fa-star fa-fw\"></i>&nbsp;{1}</span></a>'"
+                          .FormatWith(this.GetText("BUTTON_TAGFAVORITE_TT"), this.GetText("BUTTON_TAGFAVORITE"));
+                var untagButtonHtml =
+                    "'<a class=\"btn btn-secondary\" href=\"javascript:removeFavoriteTopic(' + res.d + ');\" title=\"{0}\"><span><i class=\"fa fa-star fa-fw\"></i>&nbsp;{1}</span></a>'"
                         .FormatWith(this.GetText("BUTTON_UNTAGFAVORITE_TT"), this.GetText("BUTTON_UNTAGFAVORITE"));
 
                 // Register the client side script for the "Favorite Topic".
-                var favoriteTopicJs = JavaScriptBlocks.AddFavoriteTopicJs(untagButtonHTML) + Environment.NewLine +
-                                      JavaScriptBlocks.RemoveFavoriteTopicJs(tagButtonHTML);
+                var favoriteTopicJs = JavaScriptBlocks.AddFavoriteTopicJs(untagButtonHtml) + Environment.NewLine +
+                                      JavaScriptBlocks.RemoveFavoriteTopicJs(tagButtonHtml);
 
                 YafContext.Current.PageElements.RegisterJsBlockStartup("favoriteTopicJs", favoriteTopicJs);
                 YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", "function CallFailed(res){ alert('Error Occurred'); }");
@@ -643,11 +640,17 @@ namespace YAF.Pages
                 {
                     this.MoveTopic1.Visible = true;
                     this.MoveTopic2.Visible = true;
+
+                    this.Tools1.Visible = true;
+                    this.Tools2.Visible = true;
                 }
                 else
                 {
                     this.MoveTopic1.Visible = false;
                     this.MoveTopic2.Visible = false;
+
+                    this.Tools1.Visible = false;
+                    this.Tools2.Visible = false;
                 }
 
                 if (!this.PageContext.ForumModeratorAccess)
@@ -734,7 +737,7 @@ namespace YAF.Pages
         {
             using (var dt = LegacyDb.topic_findprev(this.PageContext.PageTopicID))
             {
-                if (dt.Rows.Count == 0)
+                if (!dt.HasRows())
                 {
                     this.PageContext.AddLoadMessage(this.GetText("INFO_NOMORETOPICS"));
                     return;
@@ -903,7 +906,6 @@ namespace YAF.Pages
             var keywordStr = message.MessageKeywords.Where(x => x.IsSet()).ToList().ToDelimitedString(",");
 
             //// this.Tags.Text = "Tags: {0}".FormatWith(keywordStr);
-
             if (htmlMetas.Any(x => x.Name.Equals("keywords")))
             {
                 // use existing...
@@ -967,7 +969,7 @@ namespace YAF.Pages
                 this.PageContext.PageTopicID,
                 this.PageContext.PageUserID,
                 userId,
-                this.IsPostBack || PageContext.IsCrawler ? 0 : 1,
+                this.IsPostBack || this.PageContext.IsCrawler ? 0 : 1,
                 showDeleted,
                 this.Get<YafBoardSettings>().UseStyledNicks,
                 !this.PageContext.IsGuest && this.Get<YafBoardSettings>().DisplayPoints,
@@ -999,12 +1001,16 @@ namespace YAF.Pages
                             // new DataColumn("ThanksInfo", Type.GetType("System.String")),
                             // How many times has this message been thanked.
                             new DataColumn("IsThankedByUser", Type.GetType("System.Boolean")),
+
                             //// How many times has the message poster thanked others?
                             new DataColumn("MessageThanksNumber", Type.GetType("System.Int32")),
+
                             //// How many times has the message poster been thanked?
                             new DataColumn("ThanksFromUserNumber", Type.GetType("System.Int32")),
+
                             //// In how many posts has the message poster been thanked?
                             new DataColumn("ThanksToUserNumber", Type.GetType("System.Int32")),
+
                             //// In how many posts has the message poster been thanked?
                             new DataColumn("ThanksToUserPostsNumber", Type.GetType("System.Int32"))
                         });
@@ -1018,13 +1024,13 @@ namespace YAF.Pages
                 this.Get<IStyleTransform>().DecodeStyleByTable(postListDataTable, true);
             }
 
-            if (postListDataTable.Rows.Count == 0)
+            if (!postListDataTable.HasRows())
             {
                 throw new NoPostsFoundForTopicException(
                     this.PageContext.PageTopicID,
                     this.PageContext.PageUserID,
                     userId,
-                    this.IsPostBack || PageContext.IsCrawler ? 0 : 1,
+                    this.IsPostBack || this.PageContext.IsCrawler ? 0 : 1,
                     showDeleted,
                     this.Get<YafBoardSettings>().UseStyledNicks,
                     !this.PageContext.IsGuest && this.Get<YafBoardSettings>().DisplayPoints,
@@ -1066,7 +1072,6 @@ namespace YAF.Pages
                                                                             row.EndEdit();
                                                             });
             }*/
-
             var firstPost = rowList.First();
 
             // set the sorting
@@ -1079,7 +1084,7 @@ namespace YAF.Pages
                 // move to this message on load...
                 if (!this.PageContext.IsCrawler)
                 {
-                    PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageContext.PageElements.RegisterJsBlockStartup(
                         this, "GotoAnchorJs", JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(findMessageId)));
                 }
             }
@@ -1088,7 +1093,7 @@ namespace YAF.Pages
                 // move to this message on load...
                 if (!this.PageContext.IsCrawler)
                 {
-                    PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageContext.PageElements.RegisterJsBlockStartup(
                         this,
                         "GotoAnchorJs",
                         JavaScriptBlocks.LoadGotoAnchor("post{0}".FormatWith(firstPost.Field<int>(columnName: "MessageID"))));
@@ -1110,12 +1115,11 @@ namespace YAF.Pages
                 this.AddMetaData(firstMessage: pagedData.First()["Message"]);
             }
 
-            //if (pagedData.Any() && this.CurrentMessage == 0)
-            //{
-            //    // set it to the first...
-            //    // this.CurrentMessage = pagedData.First().Field<int>("MessageID");
-            //}
-
+            // if (pagedData.Any() && this.CurrentMessage == 0)
+            // {
+            // // set it to the first...
+            // // this.CurrentMessage = pagedData.First().Field<int>("MessageID");
+            // }
             this.MessageList.DataSource = pagedData;
 
             /*if (this._topic["PollID"] != DBNull.Value)
@@ -1124,7 +1128,6 @@ namespace YAF.Pages
                             _dtPoll = DB.poll_stats(this._topic["PollID"]);
                             Poll.DataSource = _dtPoll;
             }*/
-
             this.ImageLastUnreadMessageLink.Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost;
 
             this.ImageMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
@@ -1181,17 +1184,17 @@ namespace YAF.Pages
                     // temporary find=lastpost code until all last/unread post links are find=lastpost and find=unread
                     if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("find") == null)
                     {
-                        int messageID;
+                        int messageId;
                         if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null
                             && int.TryParse(
                                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"),
-                                out messageID))
+                                out messageId))
                         {
                             // we find message position always by time.
                             using (
                                 var lastPost = LegacyDb.message_findunread(
                                     topicID: this.PageContext.PageTopicID,
-                                    messageId: messageID,
+                                    messageId: messageId,
                                     lastRead: DateTimeHelper.SqlDbMinTime(),
                                     showDeleted: showDeleted,
                                     authorUserID: userId))
@@ -1330,10 +1333,10 @@ namespace YAF.Pages
         private void InitializeComponent()
         {
             // Poll.ItemCommand += Poll_ItemCommand;
-            this.PreRender += this.posts_PreRender;
-            this.ShareMenu.ItemClick += this.ShareMenu_ItemClick;
-            this.OptionsMenu.ItemClick += this.OptionsMenu_ItemClick;
-            this.ViewMenu.ItemClick += this.ViewMenu_ItemClick;
+            this.PreRender += this.PostsPreRender;
+            this.ShareMenu.ItemClick += this.ShareMenuItemClick;
+            this.OptionsMenu.ItemClick += this.OptionsMenuItemClick;
+            this.ViewMenu.ItemClick += this.ViewMenuItemClick;
         }
 
         /// <summary>
@@ -1341,7 +1344,7 @@ namespace YAF.Pages
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The Pop Event Arguments.</param>
-        private void ShareMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
+        private void ShareMenuItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
             var topicUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.PageContext.PageTopicID);
 
@@ -1400,7 +1403,7 @@ namespace YAF.Pages
                             && this.Get<IYafSession>().TwitterToken.IsSet()
                             && this.Get<IYafSession>().TwitterTokenSecret.IsSet() && this.PageContext.IsTwitterUser)
                         {
-                            var oAuth = new OAuthTwitter
+                            var auth = new OAuthTwitter
                                 {
                                     ConsumerKey = Config.TwitterConsumerKey,
                                     ConsumerSecret = Config.TwitterConsumerSecret,
@@ -1408,7 +1411,7 @@ namespace YAF.Pages
                                     TokenSecret = this.Get<IYafSession>().TwitterTokenSecret
                                 };
 
-                            var tweets = new TweetAPI(oAuth);
+                            var tweets = new TweetAPI(auth);
 
                             tweets.UpdateStatus(
                                 TweetAPI.ResponseFormat.json,
@@ -1463,7 +1466,7 @@ namespace YAF.Pages
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void OptionsMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
+        private void OptionsMenuItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
             switch (e.Item.ToLower())
             {
@@ -1500,7 +1503,7 @@ namespace YAF.Pages
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void ViewMenu_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
+        private void ViewMenuItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
             switch (e.Item.ToLower())
             {
@@ -1522,7 +1525,7 @@ namespace YAF.Pages
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void posts_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+        private void PostsPreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             var isWatched = this.HandleWatchTopic();
 

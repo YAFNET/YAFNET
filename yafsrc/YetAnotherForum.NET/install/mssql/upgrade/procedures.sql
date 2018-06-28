@@ -5969,32 +5969,6 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_info]
-(
-    @TopicID int = null,
-    @ShowDeleted bit = 0
-)
-AS
-BEGIN
-        IF @TopicID = 0 SET @TopicID = NULL
-
-    IF @TopicID IS NULL
-    BEGIN
-        IF @ShowDeleted = 1
-            SELECT * FROM [{databaseOwner}].[{objectQualifier}Topic]
-        ELSE
-            SELECT * FROM [{databaseOwner}].[{objectQualifier}Topic] WHERE IsDeleted=0
-    END
-    ELSE
-    BEGIN
-        IF @ShowDeleted = 1
-            SELECT * FROM [{databaseOwner}].[{objectQualifier}Topic] WHERE TopicID = @TopicID
-        ELSE
-            SELECT * FROM [{databaseOwner}].[{objectQualifier}Topic] WHERE TopicID = @TopicID AND IsDeleted=0
-    END
-END
-GO
-
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_findduplicate]
 (
     @TopicName nvarchar(255)
@@ -6509,14 +6483,6 @@ begin
         inner join [{databaseOwner}].[{objectQualifier}Topic] c on a.TopicID = c.TopicID
         inner join [{databaseOwner}].[{objectQualifier}Forum] d on c.ForumID = d.ForumID
     where a.TopicID = @TopicID
-end
-GO
-create procedure [{databaseOwner}].[{objectQualifier}topic_lock](@TopicID int,@Locked bit) as
-begin
-        if @Locked<>0
-        update [{databaseOwner}].[{objectQualifier}Topic] set Flags = Flags | 1 where TopicID = @TopicID
-    else
-        update [{databaseOwner}].[{objectQualifier}Topic] set Flags = Flags & ~1 where TopicID = @TopicID
 end
 GO
 
