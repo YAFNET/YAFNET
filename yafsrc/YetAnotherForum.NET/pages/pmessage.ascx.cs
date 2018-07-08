@@ -81,6 +81,32 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
+        /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        protected override void OnInit([NotNull] EventArgs e)
+        {
+            if (this.Get<YafBoardSettings>().AllowPrivateMessageAttachments)
+            {
+                this.PageContext.PageElements.RegisterJsScriptsInclude(
+                    "FileUploadScriptJs",
+#if DEBUG
+                    "jquery.fileupload.comb.js");
+#else
+                    "jquery.fileupload.comb.min.js");
+#endif
+
+#if DEBUG
+                this.PageContext.PageElements.RegisterCssIncludeContent("jquery.fileupload.comb.css");
+#else
+                this.PageContext.PageElements.RegisterCssIncludeContent("jquery.fileupload.comb.min.css");
+#endif
+            }
+
+            base.OnInit(e);
+        }
+
+        /// <summary>
         /// Send pm to all users
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -259,7 +285,7 @@ namespace YAF.Pages
 
             this.EditorLine.Controls.Add(this._editor);
 
-            this._editor.UserCanUpload = true;
+            this._editor.UserCanUpload = this.Get<YafBoardSettings>().AllowPrivateMessageAttachments;
 
             // add editor to the page
             this.EditorLine.Controls.Add(this._editor);
