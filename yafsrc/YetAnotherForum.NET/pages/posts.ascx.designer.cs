@@ -49,6 +49,15 @@ namespace YAF.Pages {
         protected global::YAF.Controls.ThemeButton TagFavorite1;
         
         /// <summary>
+        /// Tools1-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton Tools1;
+        
+        /// <summary>
         /// MoveTopic1-Steuerelement
         /// </summary>
         /// <remarks>
@@ -256,15 +265,6 @@ namespace YAF.Pages {
         protected global::System.Web.UI.WebControls.Repeater MessageList;
         
         /// <summary>
-        /// tbFeeds-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable tbFeeds;
-        
-        /// <summary>
         /// RssFeed-Steuerelement
         /// </summary>
         /// <remarks>
@@ -308,6 +308,15 @@ namespace YAF.Pages {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::YAF.Controls.ThemeButton TagFavorite2;
+        
+        /// <summary>
+        /// Tools2-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.ThemeButton Tools2;
         
         /// <summary>
         /// MoveTopic2-Steuerelement

@@ -1280,7 +1280,6 @@
     <Content Include="Dialogs\SpamWordsImport.ascx" />
     <Content Include="pages\admin\topicstatus.ascx" />
     <Content Include="Images\Categories\categoryImageSample.gif" />
-    <Content Include="Images\folder.gif" />
     <Content Include="Images\Forums\forumImageSample.gif" />
     <Content Include="Images\noavatar.gif" />
     <Content Include="Images\document.png" />
@@ -4534,7 +4533,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
