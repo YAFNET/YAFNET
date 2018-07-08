@@ -51123,10 +51123,6 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
     var pagerHolder = $('#AttachmentsListPager'),
         pagination = $('<ul class="pagination pagination-sm" />');
 
-
-
-    console.log('w333');
-
     pagerHolder.empty();
 
     pagination.wrap('<nav aria-label="Attachments Page Results" />');

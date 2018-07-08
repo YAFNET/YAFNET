@@ -1,4 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.pmessage" Codebehind="pmessage.ascx.cs" %>
+
+<%@ Register TagPrefix="YAF" TagName="AttachmentsUploadDialog" Src="../Dialogs/AttachmentsUpload.ascx" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
@@ -60,3 +63,4 @@
 <div id="DivSmartScroller">
 	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>
+<YAF:AttachmentsUploadDialog ID="UploadDialog" runat="server"></YAF:AttachmentsUploadDialog>
