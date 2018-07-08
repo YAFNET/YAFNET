@@ -21,7 +21,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-using System;
 
 namespace YAF.Types.Models
 {
@@ -29,6 +28,7 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -92,6 +92,9 @@ namespace YAF.Types.Models
         public int NumPosts { get; set; }
 
         public int Flags { get; set; }
+
+        [IgnoreAttribute]
+        public TopicFlags TopicFlags { get { return new TopicFlags(this.Flags); } }
 
         public int? AnswerMessageId { get; set; }
 

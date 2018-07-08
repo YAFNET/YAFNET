@@ -6169,27 +6169,6 @@ namespace YAF.Classes.Data
         }
 
         /// <summary>
-        /// The topic_info.
-        /// </summary>
-        /// <param name="topicID">
-        /// The topic id.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static DataRow topic_info([NotNull] object topicID)
-        {
-            using (var cmd = DbHelpers.GetCommand("topic_info"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("TopicID", topicID);
-                using (var dt = DbAccess.GetData(cmd))
-                {
-                    return dt.HasRows() ? dt.Rows[0] : null;
-                }
-            }
-        }
-
-        /// <summary>
         /// Get the Latest Topics
         /// </summary>
         /// <param name="boardID">
@@ -6370,26 +6349,6 @@ namespace YAF.Classes.Data
                 cmd.AddParam("FindLastRead", findLastRead);
 
                 return DbAccess.GetData(cmd);
-            }
-        }
-
-        /// <summary>
-        /// The topic_lock.
-        /// </summary>
-        /// <param name="topicID">
-        /// The topic id.
-        /// </param>
-        /// <param name="locked">
-        /// The locked.
-        /// </param>
-        public static void topic_lock([NotNull] object topicID, [NotNull] object locked)
-        {
-            using (var cmd = DbHelpers.GetCommand("topic_lock"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("TopicID", topicID);
-                cmd.AddParam("Locked", locked);
-                DbAccess.ExecuteNonQuery(cmd);
             }
         }
 

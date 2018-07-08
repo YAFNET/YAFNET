@@ -95,6 +95,19 @@ namespace YAF.Core.Model
             return topic?.AnswerMessageId;
         }
 
+        /// <summary>
+        /// Lock's/Unlock's the topic.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="topicId">The topic identifier.</param>
+        /// <param name="flags">The topic flags.</param>
+        public static void LockTopic(this IRepository<Topic> repository, [NotNull] int topicId, [NotNull] int flags)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            repository.UpdateOnly(() => new Topic { Flags = flags }, where: t => t.ID == topicId);
+        }
+
         #endregion
     }
 }

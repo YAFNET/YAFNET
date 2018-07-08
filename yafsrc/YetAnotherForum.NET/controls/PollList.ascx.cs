@@ -37,10 +37,12 @@ namespace YAF.Controls
   using YAF.Classes;
   using YAF.Classes.Data;
   using YAF.Core;
+  using YAF.Core.Extensions;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
+  using YAF.Types.Models;
   using YAF.Utils;
   using YAF.Utils.Helpers;
 
@@ -1257,11 +1259,13 @@ namespace YAF.Controls
         // Only if this control is in a topic we find the topic creator
         if (this.TopicId > 0)
         {
-            var dti = LegacyDb.topic_info(this.TopicId);
-            this._topicUser = dti["UserID"].ToType<int>();
-            if (!dti["PollID"].IsNullOrEmptyDBField())
+            var topic = this.GetRepository<Topic>().GetById(this.TopicId);
+            
+            this._topicUser = topic.UserID;
+
+            if (topic.PollID.HasValue)
             {
-                this.PollGroupId = dti["PollID"].ToType<int>();
+                this.PollGroupId = topic.PollID.Value;
             }
         }
 

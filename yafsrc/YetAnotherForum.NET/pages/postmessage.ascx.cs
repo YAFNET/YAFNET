@@ -427,7 +427,7 @@ namespace YAF.Pages
             this.PageContext.QueryIDs = new QueryStringIDHelper(new[] { "m", "t", "q" }, false);
 
             TypedMessageList currentMessage = null;
-            var topicInfo = LegacyDb.topic_info(this.PageContext.PageTopicID);
+            var topicInfo = this.GetRepository<Topic>().GetById(this.PageContext.PageTopicID);
 
             // we reply to a post with a quote
             if (this.QuotedMessageID != null)
@@ -1366,7 +1366,7 @@ namespace YAF.Pages
         /// <returns>
         /// Returns if user can edit post check.
         /// </returns>
-        private bool CanEditPostCheck([NotNull] TypedMessageList message, DataRow topicInfo)
+        private bool CanEditPostCheck([NotNull] TypedMessageList message, Topic topicInfo)
         {
             var postLocked = false;
 
@@ -1390,7 +1390,7 @@ namespace YAF.Pages
 
             // Ederon : 9/9/2007 - moderator can edit in locked topics
             return ((!postLocked && !forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsLocked)
-                     && !topicInfo["Flags"].BinaryAnd(TopicFlags.Flags.IsLocked)
+                     && !topicInfo.TopicFlags.IsLocked
                      && (message.UserID.ToType<int>() == this.PageContext.PageUserID))
                     || this.PageContext.ForumModeratorAccess) && this.PageContext.ForumEditAccess;
         }
@@ -1404,7 +1404,7 @@ namespace YAF.Pages
         /// <returns>
         /// The can quote post check.
         /// </returns>
-        private bool CanQuotePostCheck(DataRow topicInfo)
+        private bool CanQuotePostCheck(Topic topicInfo)
         {
             DataRow forumInfo;
 
@@ -1421,7 +1421,7 @@ namespace YAF.Pages
 
             // Ederon : 9/9/2007 - moderator can reply to locked topics
             return (!forumInfo["Flags"].BinaryAnd(ForumFlags.Flags.IsLocked)
-                    && !topicInfo["Flags"].BinaryAnd(TopicFlags.Flags.IsLocked) || this.PageContext.ForumModeratorAccess)
+                    && !topicInfo.TopicFlags.IsLocked || this.PageContext.ForumModeratorAccess)
                    && this.PageContext.ForumReplyAccess;
         }
 
@@ -1587,11 +1587,10 @@ namespace YAF.Pages
         /// </summary>
         private void InitReplyToTopic()
         {
-            var topic = LegacyDb.topic_info(this.TopicID);
-            var topicFlags = new TopicFlags(topic["Flags"].ToType<int>());
+            var topic = this.GetRepository<Topic>().GetById(this.TopicID.ToType<int>());
 
             // Ederon : 9/9/2007 - moderators can reply in locked topics
-            if (topicFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
+            if (topic.TopicFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
             {
                 this.Response.Redirect(this.Get<HttpRequestBase>().UrlReferrer.ToString());
             }
@@ -1605,7 +1604,7 @@ namespace YAF.Pages
 
             // add topic link...
             this.PageLinks.AddLink(
-                this.Server.HtmlDecode(topic["Topic"].ToString()),
+                this.Server.HtmlDecode(topic.TopicName),
                 YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.TopicID));
 
             // add "reply" text...

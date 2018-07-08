@@ -86,12 +86,7 @@ namespace YAF.Pages
         /// <summary>
         ///   The _topic.
         /// </summary>
-        private DataRow _topic;
-
-        /// <summary>
-        ///   The _topic flags.
-        /// </summary>
-        private TopicFlags _topicFlags;
+        private Topic _topic;
 
         #endregion
 
@@ -332,14 +327,21 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void LockTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-              if (!this.PageContext.ForumModeratorAccess)
-              {
-                  // "You are not a forum moderator.
-                  YafBuildLink.AccessDenied();
-              }
+            if (!this.PageContext.ForumModeratorAccess)
+            {
+                // "You are not a forum moderator.
+                YafBuildLink.AccessDenied();
+            }
 
-              LegacyDb.topic_lock(this.PageContext.PageTopicID, true);
-              this.BindData();
+            var topicFlags  = this._topic.TopicFlags;
+
+            topicFlags.IsLocked = true;
+
+            this.GetRepository<Topic>().LockTopic(
+                topicId: this.PageContext.PageTopicID,
+                flags: topicFlags.BitValue);
+
+            this.BindData();
             this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_LOCKED"));
             this.LockTopic1.Visible = !this.LockTopic1.Visible;
             this.UnlockTopic1.Visible = !this.UnlockTopic1.Visible;
@@ -504,16 +506,13 @@ namespace YAF.Pages
                 this.TagFavorite2.Visible = false;
             }
 
-            this._topic = LegacyDb.topic_info(this.PageContext.PageTopicID);
+            this._topic = this.GetRepository<Topic>().GetById(this.PageContext.PageTopicID);
 
             // in case topic is deleted or not existant
             if (this._topic == null)
             {
                 YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
             }
-
-            // get topic flags
-            this._topicFlags = new TopicFlags(this._topic["Flags"]);
 
             using (var dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
             {
@@ -574,34 +573,34 @@ namespace YAF.Pages
                     this.Get<IBadWordReplace>().Replace(this.Server.HtmlDecode(this.PageContext.PageTopicName)),
                     string.Empty);
 
-                var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic["Topic"]));
+                var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic.TopicName));
 
-                if (this._topic["Status"].ToString().IsSet() && yafBoardSettings.EnableTopicStatus)
+                if (this._topic.Status.IsSet() && yafBoardSettings.EnableTopicStatus)
                 {
-                    var topicStatusIcon = this.Get<ITheme>().GetItem("TOPIC_STATUS", this._topic["Status"].ToString());
+                    var topicStatusIcon = this.Get<ITheme>().GetItem("TOPIC_STATUS", this._topic.Status);
 
                     if (topicStatusIcon.IsSet() && !topicStatusIcon.Contains("[TOPIC_STATUS."))
                     {
                         topicSubject =
                             @"<img src=""{0}"" alt=""{1}"" title=""{1}"" class=""topicStatusIcon"" />&nbsp;{2}"
                                 .FormatWith(
-                                    this.Get<ITheme>().GetItem("TOPIC_STATUS", this._topic["Status"].ToString()),
-                                    this.GetText("TOPIC_STATUS", this._topic["Status"].ToString()),
+                                    this.Get<ITheme>().GetItem("TOPIC_STATUS", this._topic.Status),
+                                    this.GetText("TOPIC_STATUS", this._topic.Status),
                                     topicSubject);
                     }
                     else
                     {
                         topicSubject =
                             "[{0}]&nbsp;{1}".FormatWith(
-                                this.GetText("TOPIC_STATUS", this._topic["Status"].ToString()), topicSubject);
+                                this.GetText("TOPIC_STATUS", this._topic.Status), topicSubject);
                     }
                 }
 
-                if (!this._topic["Description"].IsNullOrEmptyDBField()
+                if (!this._topic.Description.IsNullOrEmptyDBField()
                     && yafBoardSettings.EnableTopicDescription)
                 {
                     this.TopicTitle.Text = "{0} - <em>{1}</em>".FormatWith(
-                        topicSubject, this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic["Description"])));
+                        topicSubject, this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic.Description)));
                 }
                 else
                 {
@@ -609,7 +608,7 @@ namespace YAF.Pages
                 }
 
                 this.TopicLink.ToolTip = this.Get<IBadWordReplace>().Replace(
-                    this.HtmlEncode(this._topic["Description"]));
+                    this.HtmlEncode(this._topic.Description));
                 this.TopicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
                 this.ViewOptions.Visible = yafBoardSettings.AllowThreaded;
@@ -628,7 +627,7 @@ namespace YAF.Pages
 
                 // Ederon : 9/9/2007 - moderators can reply in locked topics
                 if (!this.PageContext.ForumReplyAccess ||
-                    (this._topicFlags.IsLocked || this._forumFlags.IsLocked) && !this.PageContext.ForumModeratorAccess)
+                    (this._topic.TopicFlags.IsLocked || this._forumFlags.IsLocked) && !this.PageContext.ForumModeratorAccess)
                 {
                     this.PostReplyLink1.Visible = this.PostReplyLink2.Visible = false;
                     this.QuickReplyDialog.Visible = false;
@@ -664,14 +663,14 @@ namespace YAF.Pages
                 }
                 else
                 {
-                    this.LockTopic1.Visible = !this._topicFlags.IsLocked;
+                    this.LockTopic1.Visible = !this._topic.TopicFlags.IsLocked;
                     this.UnlockTopic1.Visible = !this.LockTopic1.Visible;
                     this.LockTopic2.Visible = this.LockTopic1.Visible;
                     this.UnlockTopic2.Visible = !this.LockTopic2.Visible;
                 }
 
                 if (this.PageContext.ForumReplyAccess ||
-                    ((!this._topicFlags.IsLocked || !this._forumFlags.IsLocked) && this.PageContext.ForumModeratorAccess))
+                    ((!this._topic.TopicFlags.IsLocked || !this._forumFlags.IsLocked) && this.PageContext.ForumModeratorAccess))
                 {
                     YafContext.Current.PageElements.RegisterJsBlockStartup(
                         "SelectedQuotingJs",
@@ -698,7 +697,7 @@ namespace YAF.Pages
         /// </returns>
         protected int PollGroupId()
         {
-            return !this._topic["PollID"].IsNullOrEmptyDBField() ? this._topic["PollID"].ToType<int>() : 0;
+            return this._topic.PollID.HasValue ? this._topic.PollID.Value : 0;
         }
 
         /// <summary>
@@ -714,7 +713,7 @@ namespace YAF.Pages
                 return;
             }
 
-            if (this._topicFlags.IsLocked)
+            if (this._topic.TopicFlags.IsLocked)
             {
                 this.PageContext.AddLoadMessage(this.GetText("WARN_TOPIC_LOCKED"));
                 return;
@@ -816,7 +815,14 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied(/*"You are not a forum moderator."*/);
             }
 
-            LegacyDb.topic_lock(this.PageContext.PageTopicID, false);
+            var topicFlags = this._topic.TopicFlags;
+
+            topicFlags.IsLocked = false;
+
+            this.GetRepository<Topic>().LockTopic(
+                topicId: this.PageContext.PageTopicID,
+                flags: topicFlags.BitValue);
+
             this.BindData();
             this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_UNLOCKED"));
             this.LockTopic1.Visible = !this.LockTopic1.Visible;
@@ -857,10 +863,10 @@ namespace YAF.Pages
                 string descriptionContent;
 
                 // Use Topic Description if set
-                if (!this._topic["Description"].IsNullOrEmptyDBField())
+                if (!this._topic.Description.IsNullOrEmptyDBField())
                 {
                     var topicDescription =
-                        this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic["Description"]));
+                        this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this._topic.Description));
 
                     descriptionContent = topicDescription.Length > 50
                                              ? topicDescription
@@ -1139,7 +1145,7 @@ namespace YAF.Pages
                     ForumPages.posts, "t={0}&find=unread", this.PageContext.PageTopicID);
             }
 
-            if (this._topic["LastPosted"] != DBNull.Value)
+            if (this._topic.LastPosted.HasValue)
             {
                 var lastRead =
                     this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
@@ -1358,7 +1364,7 @@ namespace YAF.Pages
                         // process message... clean html, strip html, remove bbcode, etc...
                         var tumblrMsg =
                             BBCodeHelper.StripBBCode(
-                                HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this._topic["Topic"]))).RemoveMultipleWhitespace();
+                                HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this._topic.TopicName))).RemoveMultipleWhitespace();
 
                         var meta = this.Page.Header.FindControlType<HtmlMeta>();
 
@@ -1390,7 +1396,7 @@ namespace YAF.Pages
                         // process message... clean html, strip html, remove bbcode, etc...
                         var twitterMsg =
                             BBCodeHelper.StripBBCode(
-                                HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this._topic["Topic"]))).RemoveMultipleWhitespace();
+                                HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this._topic.TopicName))).RemoveMultipleWhitespace();
 
                         var tweetUrl =
                             "http://twitter.com/share?url={0}&text={1}".FormatWith(
@@ -1430,7 +1436,7 @@ namespace YAF.Pages
                     {
                         var diggUrl =
                             "http://digg.com/submit?url={0}&title={1}".FormatWith(
-                                this.Server.UrlEncode(topicUrl), this.Server.UrlEncode((string)this._topic["Topic"]));
+                                this.Server.UrlEncode(topicUrl), this.Server.UrlEncode(this._topic.TopicName));
 
                         this.Get<HttpResponseBase>().Redirect(diggUrl);
                     }
@@ -1440,7 +1446,7 @@ namespace YAF.Pages
                     {
                         var redditUrl =
                             "http://www.reddit.com/submit?url={0}&title={1}".FormatWith(
-                                this.Server.UrlEncode(topicUrl), this.Server.UrlEncode((string)this._topic["Topic"]));
+                                this.Server.UrlEncode(topicUrl), this.Server.UrlEncode(this._topic.TopicName));
 
                         this.Get<HttpResponseBase>().Redirect(redditUrl);
                     }

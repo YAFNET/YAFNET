@@ -59,7 +59,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Table with choices
         /// </summary>
-        private DataRow _topicInfo;
+        private Topic topicInfo;
 
         /// <summary>
         /// The board id.
@@ -321,13 +321,13 @@ namespace YAF.Pages
             if (this._topicId > 0)
             {
                 this.PageLinks.AddLink(
-                    this._topicInfo["Topic"].ToString(), YafBuildLink.GetLink(ForumPages.posts, "t={0}", this._topicId));
+                    this.topicInfo.TopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", this._topicId));
             }
 
             if (this._editMessageId > 0)
             {
                 this.PageLinks.AddLink(
-                    this._topicInfo["Topic"].ToString(),
+                    this.topicInfo.TopicName,
                     YafBuildLink.GetLink(ForumPages.postmessage, "m={0}", this._editMessageId));
             }
 
@@ -651,12 +651,12 @@ namespace YAF.Pages
                 var pgidt = 0;
 
                 // If a topic poll is edited or new topic created
-                if (this._topicId > 0 && this._topicInfo != null)
+                if (this._topicId > 0 && this.topicInfo != null)
                 {
                     // topicid should not be null here 
-                    if (!this._topicInfo["PollID"].IsNullOrEmptyDBField())
+                    if (!this.topicInfo.PollID.HasValue)
                     {
-                        pgidt = (int)this._topicInfo["PollID"];
+                        pgidt = this.topicInfo.PollID.Value;
 
                         var pollGroupData = LegacyDb.pollgroup_stats(pgidt);
 
@@ -747,7 +747,7 @@ namespace YAF.Pages
             if (this.PageContext.QueryIDs.ContainsKey("t"))
             {
                 this._topicId = this.PageContext.QueryIDs["t"].ToType<int>();
-                this._topicInfo = LegacyDb.topic_info(this._topicId);
+                this.topicInfo = this.GetRepository<Topic>().GetById(this._topicId.ToType<int>());
             }
 
             if (this.PageContext.QueryIDs.ContainsKey("m"))
@@ -960,9 +960,9 @@ namespace YAF.Pages
             }
 
             int? pollGroupId = null;
-            if (!this._topicInfo["PollID"].IsNullOrEmptyDBField())
+            if (!this.topicInfo.PollID.HasValue)
             {
-                pollGroupId = this._topicInfo["PollID"].ToType<int>();
+                pollGroupId = this.topicInfo.PollID.Value;
             }
 
             if (!this.PageContext.ForumPollAccess)

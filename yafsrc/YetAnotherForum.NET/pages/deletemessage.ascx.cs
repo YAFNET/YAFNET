@@ -34,6 +34,7 @@ namespace YAF.Pages
     using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -368,7 +369,7 @@ namespace YAF.Pages
                 this.EraseMessage.Checked);
 
             // retrieve topic information.
-            var topic = LegacyDb.topic_info(tmpTopicID);
+            var topic = this.GetRepository<Topic>().GetById(tmpTopicID.ToType<int>());
 
             // If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
             if (topic == null)
