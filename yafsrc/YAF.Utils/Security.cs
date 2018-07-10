@@ -25,7 +25,6 @@
 namespace YAF.Utils
 {
     using System;
-    using System.Text.RegularExpressions;
     using System.Web;
 
     /// <summary>
@@ -57,22 +56,43 @@ namespace YAF.Utils
         }
 
         /// <summary>
-        /// The create password.
+        /// Function that verifies a string is an integer value or it redirects to invalid "info" page.
+        /// Used as a security feature against invalid values submitted to the page.
         /// </summary>
-        /// <param name="length">
-        /// The length.
+        /// <param name="intValue">
+        /// The string value to test
         /// </param>
         /// <returns>
-        /// The create password.
+        /// The converted int value
+        /// </returns>
+        public static int StringToIntOrRedirect(string intValue)
+        {
+            int value;
+
+            if (!int.TryParse(intValue, out value))
+            {
+                // it's an invalid request. Redirect to the info page on invalid requests.
+                YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Creates the password.
+        /// </summary>
+        /// <param name="length">The length.</param>
+        /// <returns>
+        /// Returns the created password
         /// </returns>
         public static string CreatePassword(int length)
         {
-            string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!#%&()@${[]}";
-            string res = string.Empty;
+            const string Valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!#%&()@${[]}";
+            var res = string.Empty;
             var rnd = new Random();
             while (0 < length--)
             {
-                res += valid[rnd.Next(valid.Length)];
+                res += Valid[rnd.Next(Valid.Length)];
             }
 
             return res;
@@ -88,7 +108,8 @@ namespace YAF.Utils
         {
             // ip with 
             // deny access if POST request comes from other server
-            if (request.HttpMethod == "POST" && request.UrlReferrer != null && request.Url.Host != null && request.UrlReferrer.Host != request.Url.Host)
+            if (request.HttpMethod == "POST" && request.UrlReferrer != null && request.Url.Host != null
+                && request.UrlReferrer.Host != request.Url.Host)
             {
                 YafBuildLink.AccessDenied();
             }

@@ -18,6 +18,30 @@ YetAnotherForum.NET Changelog
 
 ## Fixed Issues:
 
+# YetAnotherForum.NET v2.2.4.13
+
+## Fixed Issues:
+* [FIXED] not working attachments upload
+* [FIXED] yafeditor script was not automatically minified
+* [FIXED] Send Email to User
+
+
+# YetAnotherForum.NET v2.2.4.12
+
+## Fixed Issues:
+* Editor Dropdown with album images now uses sql paging
+
+# YetAnotherForum.NET v2.2.4.11
+
+## Fixed Issues:
+* [NEW #392] Security Question & Answer can be changed now
+
+
+# YetAnotherForum.NET v2.2.4.10
+
+## Fixed Issues:
+* [FIXED #394]  Timezone was not correctly loaded on the Edit Profile Page
+
 
 # YetAnotherForum.NET v2.2.4.9
 

@@ -68,7 +68,7 @@ namespace YAF.Pages
         {
             get
             {
-                return Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString["u"]).ToType<int>();
+                return Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString["u"]);
             }
         }
 
