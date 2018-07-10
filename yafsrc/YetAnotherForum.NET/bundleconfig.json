@@ -8,12 +8,7 @@
       "Scripts/bootstrap.js",
       "Scripts/bootstrap-select.js",
       "Scripts/InstallWizard.js"
-    ],
-    "minify": {
-      "enabled": true
-    },
-    "includeInProject": true,
-    "sourceMaps": false
+    ]
   },
   {
     "outputFileName": "Scripts/jquery.fileupload.comb.js",
@@ -28,12 +23,7 @@
       "Scripts/jquery.FileUpload/jquery.fileupload-validate.js",
       "Scripts/jquery.FileUpload/jquery.fileupload-ui.js",
       "Scripts/jquery.FileUpload/jquery.fileupload-jquery-ui.js"
-    ],
-    "minify": {
-      "enabled": true
-    },
-    "includeInProject": true,
-    "sourceMaps": false
+    ]
   },
   {
     "outputFileName": "Scripts/jquery.ForumExtensions.js",
@@ -55,23 +45,19 @@
       "Scripts/jquery.yafmodaldialog.js",
       "Scripts/jsdifflib.js",
       "Scripts/yaf.js"
-    ],
-    "minify": {
-      "enabled": true
-    },
-    "includeInProject": true,
-    "sourceMaps": false
+    ]
   },
   {
     "outputFileName": "Content/jquery.fileupload.comb.css",
     "inputFiles": [
       "Content/jQuery.FileUpload/css/jquery.fileupload-ui.css",
       "Content/jQuery.FileUpload/css/jquery.fileupload.css"
-    ],
-    "minify": {
-      "enabled": true
-    },
-    "includeInProject": true,
-    "sourceMaps": false
+    ]
+  },
+  {
+    "outputFileName": "Scripts/yafEditor/yafEditor.min.js",
+    "inputFiles": [
+      "Scripts/yafEditor/yafEditor.js"
+    ]
   }
 ]

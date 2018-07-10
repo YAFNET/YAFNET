@@ -24,19 +24,19 @@ yafEditor.prototype.FormatText = function (command, option) {
             break;
         case "img":
             if (getCurrentSelection(textObj)) {
-                wrapSelection(textObj, '[img]', '[/img]');
+                wrapSelection(textObj, "[img]", "[/img]");
             }
             else {
-                var imgUrl = prompt('Enter Image Url:', 'http://');
+                var imgUrl = prompt("Enter Image Url:", "http://");
 
                 // ask for the Image description text...
-                var imgDesc = prompt('Enter Image Description:', '');
+                var imgDesc = prompt("Enter Image Description:", "");
 
-                if (imgDesc !== '' && imgDesc != null) {
-                    replaceSelection(textObj, '[img=' + imgUrl + ']' + imgDesc + '[/img]');
+                if (imgDesc !== "" && imgDesc != null) {
+                    replaceSelection(textObj, "[img=" + imgUrl + "]" + imgDesc + "[/img]");
                 }
-                else if (imgUrl !== '' && imgUrl != null) {
-                    replaceSelection(textObj, '[img]' + imgUrl + '[/img]');
+                else if (imgUrl !== "" && imgUrl != null) {
+                    replaceSelection(textObj, "[img]" + imgUrl + "[/img]");
                 }
             }
             break;
@@ -61,19 +61,19 @@ yafEditor.prototype.FormatText = function (command, option) {
             }
             break;
         case "createlink":
-            var url = prompt('Enter URL:', 'http://');
+            var url = prompt("Enter URL:", "http://");
 
-            if (url != '' && url != null) {
+            if (url != "" && url != null) {
                 if (getCurrentSelection(textObj)) {
-                    wrapSelection(textObj, '[url=' + url + ']', '[/url]');
+                    wrapSelection(textObj, "[url=" + url + "]", "[/url]");
                 }
                 else {
                     // ask for the description text...
-                    var desc = prompt('Enter URL Description:', '');
-                    if (desc != '' && desc != null)
-                        replaceSelection(textObj, '[url=' + url + ']' + desc + '[/url]');
+                    var desc = prompt("Enter URL Description:", "");
+                    if (desc != "" && desc != null)
+                        replaceSelection(textObj, "[url=" + url + "]" + desc + "[/url]");
                     else
-                        replaceSelection(textObj, '[url]' + url + '[/url]');
+                        replaceSelection(textObj, "[url]" + url + "[/url]");
                 }
             }
             break;
@@ -90,10 +90,10 @@ yafEditor.prototype.FormatText = function (command, option) {
             wrapSelection(textObj, "[size=" + option + "]", "[/size]");
             break;
         case "AlbumImgId":
-            replaceSelection(textObj, '[albumimg]' + option + '[/albumimg]');
+            replaceSelection(textObj, "[albumimg]" + option + "[/albumimg]");
             break;
         case "attach":
-            replaceSelection(textObj, '[attach]' + option + '[/attach]');
+            replaceSelection(textObj, "[attach]" + option + "[/attach]");
             break;
         default:
             // make custom option
@@ -105,17 +105,17 @@ yafEditor.prototype.AddImage = function () {
 
     var textObj = document.getElementById(this.Name);
 
-    var imgUrl = prompt('Enter image URL:', 'http://');
+    var imgUrl = prompt("Enter image URL:", "http://");
 
     // ask for the Image description text...
-    var imgDesc = prompt('Enter Image Description:', '');
+    var imgDesc = prompt("Enter Image Description:", "");
 
-    if (imgDesc != '' && imgDesc != null) {
-        replaceSelection(textObj, '[img=' + imgUrl + ']' + imgDesc + '[/img]');
+    if (imgDesc != "" && imgDesc != null) {
+        replaceSelection(textObj, "[img=" + imgUrl + "]" + imgDesc + "[/img]");
     }
     else {
-        if (imgUrl != '' && imgUrl != null) {
-            replaceSelection(textObj, '[img]' + imgUrl + '[/img]');
+        if (imgUrl != "" && imgUrl != null) {
+            replaceSelection(textObj, "[img]" + imgUrl + "[/img]");
         }
     }
 
@@ -179,8 +179,8 @@ function setSelectionRange(input, selectionStart, selectionEnd) {
     } else if (input.createTextRange) {
         var range = input.createTextRange();
         range.collapse(true);
-        range.moveEnd('character', selectionEnd);
-        range.moveStart('character', selectionStart);
+        range.moveEnd("character", selectionEnd);
+        range.moveStart("character", selectionStart);
         range.select();
     }
 }
@@ -276,36 +276,38 @@ function getCurrentSelection(input) {
         return input.selectionStart != input.selectionEnd;
     } else if (document.selection) {
         var range = document.selection.createRange();
-        return range.parentElement() == input && range.text != '';
+        return range.parentElement() == input && range.text != "";
     } else {
         return false;
     }
 }
 
 $(document).ready(function () {
+
     // Render Album Images DropDown
-    if (jQuery('#PostAlbumsListPlaceholder').length) {
+    if (jQuery("#PostAlbumsListPlaceholder").length) {
         var pageSize = 5;
         var pageNumber = 0;
+
         getAlbumImagesData(pageSize, pageNumber, false);
     }
 
 
-    $('.BBCodeEditor').keydown(function (e) {
+    $(".BBCodeEditor").keydown(function (e) {
         if (e.ctrlKey && !e.altKey && (e.which == 66 || e.which == 73 || e.which == 85 || e.which == 81 || e.which == 13)) {
             if (e.which == 66) {
-                wrapSelection(this, '[b]', '[/b]');
+                wrapSelection(this, "[b]", "[/b]");
             } else if (e.which == 73) {
-                wrapSelection(this, '[i]', '[/i]');
+                wrapSelection(this, "[i]", "[/i]");
             } else if (e.which == 85) {
-                wrapSelection(this, '[u]', '[/u]');
+                wrapSelection(this, "[u]", "[/u]");
             } else if (e.which == 81) {
-                wrapSelection(this, '[quote]', '[/quote]');
+                wrapSelection(this, "[quote]", "[/quote]");
             } else if (e.which == 13) {
                 if ($('[id *= "QuickReply"]').length) {
                     $('[id *= "QuickReply"]').click();
                 } else if ($('[id *= "PostReply"]').length) {
-                    window.location.href = $('[id *= "PostReply"]').attr('href');
+                    window.location.href = $('[id *= "PostReply"]').attr("href");
                 }
             }
             return false;
