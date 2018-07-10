@@ -2,6 +2,18 @@ YetAnotherForum.NET Changelog
 ====================
 
 
+# YetAnotherForum.NET v2.2.4.13
+
+## Fixed Issues:
+* [FIXED] not working attachments upload
+* [FIXED] yafeditor script was not automatically minified
+* [FIXED] Send Email to User
+
+# YetAnotherForum.NET v2.2.4.12
+
+## Fixed Issues:
+* Editor Dropdown with album images now uses sql paging
+
 # YetAnotherForum.NET v2.2.4.11
 
 ## Fixed Issues:
