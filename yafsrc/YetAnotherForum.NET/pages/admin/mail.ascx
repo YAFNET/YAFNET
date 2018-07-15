@@ -18,7 +18,7 @@
 			  <strong><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="MAIL_TO" LocalizedPage="ADMIN_MAIL" /></strong>
             </h4>
 			<p>
-			  <asp:DropDownList ID="ToList" runat="server" DataValueField="GroupID" DataTextField="Name" CssClass="custom-select">
+			  <asp:DropDownList ID="ToList" runat="server" DataValueField="ID" DataTextField="Name" CssClass="custom-select">
                 </asp:DropDownList>
             </p>
             <hr />
