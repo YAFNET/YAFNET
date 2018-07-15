@@ -1,17 +1,23 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.cookies" Codebehind="cookies.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<table class="content" cellspacing="0" cellpadding="0" width="100%">
-	<tr>
-		<td class="header1" align="center">
-			<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" />
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<YAF:LocalizedLabel runat="server" LocalizedTag="COOKIES_TEXT" EnableBBCode="true" />
-		</td>
-	</tr>
-</table>
+
+<div class="row">
+    <div class="col-xl-12">
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" /></h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-cookie fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TITLE" />
+            </div>
+            <div class="card-body">
+                <YAF:LocalizedLabel runat="server" LocalizedTag="COOKIES_TEXT" EnableBBCode="true" />
+            </div>
+        </div>
+    </div>
+</div>
 <div id="DivSmartScroller">
 	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>
