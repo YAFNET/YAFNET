@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2017 Ingo Herbote
+ * Copyright (C) 2014-2018 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,6 +33,7 @@ namespace YAF.Pages
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
@@ -122,6 +123,13 @@ namespace YAF.Pages
             }
 
             this.PageLinks.AddRoot();
+
+            this.RulesText.Param0 = Config.GDPRControllerAddress.IsSet()
+                                        ? Config.GDPRControllerAddress
+                                        : this.Get<YafBoardSettings>().ForumEmail;
+
+            this.Accept.Visible = this.PageContext.IsGuest;
+            this.Cancel.Visible = this.PageContext.IsGuest;
 
             this.Accept.Text = this.GetText("ACCEPT");
             this.Cancel.Text = this.GetText("DECLINE");

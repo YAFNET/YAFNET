@@ -113,6 +113,8 @@ namespace YAF.Controls
                 footer.Append("<br />");
             }
 
+            this.RenderRulesLink(footer);
+
             this.RenderMobileLink(footer);
 
             this.RenderVersion(footer);
@@ -172,6 +174,18 @@ namespace YAF.Controls
 				QueryCounter.Commands);
 			footer.Append("</div>");
 #endif
+        }
+
+        /// <summary>
+        /// Renders the rules link.
+        /// </summary>
+        /// <param name="footer">The footer.</param>
+        private void RenderRulesLink([NotNull] StringBuilder footer)
+        {
+            footer.Append(
+                @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
+                    YafBuildLink.GetLink(ForumPages.rules),
+                    this.GetText("COMMON", "PRIVACY_POLICY")));
         }
 
         /// <summary>

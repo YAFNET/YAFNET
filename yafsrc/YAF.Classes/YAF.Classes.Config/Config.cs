@@ -170,6 +170,14 @@ namespace YAF.Classes
                 return GetConfigValueAsBool("YAF.CompressJSBlocks", true);
             }
         }
+        
+        /// <summary>
+        /// Gets the GDPR controller address.
+        /// </summary>
+        /// <value>
+        /// The GDPR controller address.
+        /// </value>
+        public static string GDPRControllerAddress => GetConfigValueAsString("YAF.GDPRControllerAddress") ?? string.Empty;
 
         /// <summary>
         /// Gets the name of the connection provider.

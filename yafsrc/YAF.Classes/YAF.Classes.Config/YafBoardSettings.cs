@@ -427,7 +427,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._regBoard.GetValue("DefaultNotificationSetting", UserNotificationSetting.TopicsIPostToOrSubscribeTo);
+                return this._regBoard.GetValue("DefaultNotificationSetting", UserNotificationSetting.NoNotification);
             }
 
             set
@@ -2892,6 +2892,25 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("AllowPrivateMessages", value);
+            }
+        }
+        
+        /// <summary>
+        /// Gets or sets a value indicating whether [allow private message attachments].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [allow private message attachments]; otherwise, <c>false</c>.
+        /// </value>
+        public bool AllowPrivateMessageAttachments
+        {
+            get
+            {
+                return this._reg.GetValue("AllowPrivateMessageAttachments", true);
+            }
+
+            set
+            {
+                this._reg.SetValue("AllowPrivateMessageeAttachments", value);
             }
         }
 

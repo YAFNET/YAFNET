@@ -8,7 +8,7 @@
 	</tr>
 	<tr>
 		<td>
-			<YAF:LocalizedLabel runat="server" LocalizedTag="RULES_TEXT" EnableBBCode="true" />
+			<YAF:LocalizedLabel runat="server" LocalizedTag="RULES_TEXT" EnableBBCode="true" ID="RulesText" />
 		</td>
 	</tr>
 	<tr>

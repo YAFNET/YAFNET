@@ -191,12 +191,17 @@ namespace YAF.Types.Constants
     /// <summary>
     /// The info.
     /// </summary>
-    info, 
+    info,
+
+      /// <summary>
+      /// The cookies
+      /// </summary>
+      cookies,
 
     /// <summary>
-    /// The rules.
-    /// </summary>
-    rules, 
+        /// The rules.
+        /// </summary>
+        rules, 
 
     /// <summary>
     /// The register.

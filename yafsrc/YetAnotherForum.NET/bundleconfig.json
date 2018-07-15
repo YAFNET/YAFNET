@@ -44,6 +44,7 @@
       "Scripts/jquery.timeago.js",
       "Scripts/jquery.yafmodaldialog.js",
       "Scripts/jsdifflib.js",
+      "Scripts/cookiealert-standalone.js",
       "Scripts/yaf.js"
     ]
   },

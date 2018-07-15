@@ -78,6 +78,7 @@
     <Resource tag="APPROVE">Approves</Resource>
     <Resource tag="ATTACHMENTS">Handles attachments</Resource>
     <Resource tag="AVATAR">Views avatar</Resource>
+    <Resource tag="COOKIES">Views the cookie policy page</Resource>
     <Resource tag="CP_CHANGEPASSWORD">Changes password</Resource>
     <Resource tag="CP_EDITALBUMIMAGES">Edits album images</Resource>
     <Resource tag="CP_EDITAVATAR">Edits his avatar</Resource>
@@ -2091,6 +2092,10 @@
     <Resource tag="CHANGEEMAIL_SUBJECT">Changement d'adresse email</Resource>
     <Resource tag="COMMON_WORDS">out,please,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,else,ever,every,for,from,get,got,had,has,have,he,her,hers,him,his,how,however,i,if,in,into,is,it,its,just,least,let,like,likely,may,me,might,most,must,my,neither,no,nor,not,of,off,often,on,only,or,other,our,own,rather,said,say,says,she,should,since,so,some,than,that,the,their,them,then,there,these,they,this,tis,to,too,twas,us,wants,was,we,were,what,when,where,which,while,who,whom,why,will,with,would,yet,you,your</Resource>
     <Resource tag="CONTINUE">Continue</Resource>
+    <Resource tag="COOKIE">The {0} uses cookies. By continuing to browse this site, you are agreeing to our use of cookies.</Resource>
+    <Resource tag="COOKIE_AGREE">Close</Resource>
+    <Resource tag="COOKIE_DETAILS">More Details</Resource>
+    <Resource tag="COOKIE_HEADER">Important Information:</Resource>
     <Resource tag="COPY">Copy</Resource>
     <Resource tag="CUSTOM_BBCODE">Tags supplémentaires :</Resource>
     <Resource tag="DELETE">Delete</Resource>
@@ -2147,6 +2152,7 @@
     <Resource tag="POST">Post</Resource>
     <Resource tag="POWERED_BY">Propulsé par</Resource>
     <Resource tag="PRIORITY">Priority</Resource>
+    <Resource tag="PRIVACY_POLICY">Privacy Policy</Resource>
     <Resource tag="READ">Read</Resource>
     <Resource tag="REGMAIL_SENT">Un courriel a été expédié. Vérifiez votre boîte et cliquez sur le lien.</Resource>
     <Resource tag="REGMAIL_WILL_BE_SEND">Un courriel sera expédié lors de vôtre enregistrement. Pour vous connecter, vous devrez vérifier votre boîte et cliquer sur le lien.</Resource>
@@ -2231,6 +2237,32 @@
     <Resource tag="VIEW_USRPROFILE">View profile</Resource>
     <Resource tag="VOTE">Vote</Resource>
     <Resource tag="YES">Yes</Resource>
+  </page>
+  <page name="COOKIES">
+    <Resource tag="COOKIES_TEXT">
+      Cookies are small text files that are placed on your computer by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site. Depending on your access level and actions on the site, various preference based cookies may be set to enrich your experience.
+
+      [br]
+      [b]Standard Cookies[/b][br]
+      We’re using cookies for the following purposes:
+
+      [list]
+      [*] Guest Users: Your last visit Date and Time will be saved, to indicate on your next visit which topics and message are new.
+      [*] Login: Once you login to the forum, a cookie is set containing your encrypted credentials, required to recognize you between page visits. You can disable this cookie by unchecking “Remember me” in the login form.
+      [*] Polls: Your voting options are stored as cookies. As soon as you give your voting in a poll a cookie is created.
+      [*] Session: Upon first visit of our website, the system will create a new unique session for you which will be saved using a cookie on your computer. Sessions are required to recognize users between page accesses. It is a temporary cookie which will be deleted once you close your internet browser..
+      [/list]
+
+      [b]Third Party Cookies[/b][br]
+      The site owner may set additional cookies in addition to the standard cookies above. These cookies are often used for website usage tracking, or set by embedded service providers when viewing embedded content from providers such as YouTube and Vimeo, etc.
+
+      [br]
+
+      [b]How do I change my cookie settings?[/b][br]
+      Most web browsers allow some control of most cookies through the browser settings. To find out more about cookies, including how to see what cookies have been set and how to manage and delete them, visit [url]www.aboutcookies.org[/url] or [url]www.allaboutcookies.org.[/url]
+
+    </Resource>
+    <Resource tag="TITLE">Cookie Policy</Resource>
   </page>
   <page name="COUNTRY">
     <Resource tag="AD">Andorra</Resource>
@@ -5017,18 +5049,164 @@ Spoiler Content
     <Resource tag="ACCEPT">J'accepte ces règles et ces conditions</Resource>
     <Resource tag="DECLINE">Je refuse ces règles et ces conditions</Resource>
     <Resource tag="RULES_TEXT">
-      [size=5]Il est impossible pour les propriétaires et gestionnaires de ce forum de vérifier la validité de tous les messages de ce forum. Les messages reflètent le point de vue et l'option de leur auteur, mais pas nécessairement celle des propriétaires et gesetionnaires. Si vous pensez que la présence d'un message peut-être remise en cause, vous êtes encouragé à prévenir un administrateur de ce forum immédiatement.
+     [size=7][b]Rules[/b][/size][br]
+     It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, you are encouraged to notify an administrator of this forum immediately.
 
-      Vous acceptez de ne pas écrire de message à caractère grossier, vulgaire, obscène, incitant à la haine, diffamatoire, menaçant, porté sur le sexe ou tout autre contenu pouvant violer les lois applicables. Le faire peut entrainer votre banissement permanent de ce forum. Veuillez prendre note que toutes les IP sont enregistrées et peuvent servir lors de l'application de ces conditions.
+     [br]You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.
 
-      Vous acceptez le fait que les propriétaires et gestionnaires de ce forum aient le droit de supprimer, modifier, déplacer ou fermer tout sujet à n'importe quel moment jugé opportun. En tant qu'utilisateur vous acceptez que toutes les informations que vous avez entré ci-dessus soient stockées en base de données. Bien que ces informations ne seront en aucun cas transmises à des tiers sans votre consentement, les propriétaires et gestionnaires ne peuvent pas être tenus responsable contre toute tentative de piratage pouvant conduire à la compromission des données.
+     [br]You agree that the owners and operators of this forum have the right to remove, edit, move or close any topic at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While this information will not be disclosed to any third party without your consent the owners and operators cannot be held responsible for any hacking attempt that may lead to the data being compromised.
 
-      Ce forum utilise des cookies pour stocker des informations sur votre ordinateur. Ces cookies ne contiennent aucune des informations que vous avez indiquées ci-dessus ; ils ne servent qu'à améliorer le confort d'utilisation. L'adresse email n'est utilisée que pour confirmer vos informations d'inscription et votre mot de passe (et pour envoyer tout nouveau mot de passe si vous veniez à oublier l'actuel).
+     [br]You agree not to use any automated tools for registering and/or posting on this bulletin board. By failing to obey this rule you would be granting us permission to repeatedly query your web server.
 
-      Vous acceptez de ne pas utiliser d'outil automatisé pour vous inscrire et/ou écrire sur ce forum de discussion. En refusant d'obéir à cette règle, vous nous autorisez expressément à interroger de manière répétée votre serveur web.[/size]
+     [br][size=7][b]Privacy Policy[/b][/size][br]
 
-      [center][size=6][b]En cliquant sur "J'accepte" ci-dessous, vous serez tenu de respecter ces termes et conditions d'utilisation de ce forum.[/b][/size][/center]
-    </Resource>
+     [br][size=6][b]1. An overview of data protection[/b][/size][br]
+
+     [br][size=5][b]General information[/b][/size][br]
+     The following information will provide you with an easy to navigate overview of what will happen with your personal data when you visit our website. The term “personal data” comprises all data that can be used to personally identify you. For detailed information about the subject matter of data protection, please consult our Data Protection Declaration, which we have included beneath this copy.
+
+     [br][size=5][b]Data recording on our website[/b][/size][br]
+
+     [br][b]Who is the responsible party for the recording of data on this website (i.e. the “controller”)?[/b][br]
+
+     [br]The data on this website is processed by the operator of the website, whose contact information is available under section “Information about the responsible party” on this website.
+
+     [br][b]How do we record your data?[/b][br]
+
+     [br]We collect your data as a result of your sharing of your data with us. This may, for instance be information you enter into our contact form.
+
+     [br]Our IT systems automatically record other data when you visit our website. This data comprises primarily technical information (e.g. web browser, operating system or time the site was accessed). This information is recorded automatically when you access our website.
+
+     [br][b]What are the purposes we use your data for?[/b][br]
+
+     [br]A portion of the information is generated to guarantee the error free provision of the website. Other data may be used to analyse your user patterns.
+
+     [br][b]What rights do you have as far as your information is concerned?[/b][br]
+
+     [br]You have the right to receive information about the source, recipients and purposes of your archived personal data at any time without having to pay a fee for such disclosures. You also have the right to demand that your data are rectified, blocked or eradicated. Please do not hesitate to contact us at any time under the address disclosed in section “Information about the responsible party” on this website if you have questions about this or any other data protection related issues. You also have the right to log a complaint with the competent supervising agency.
+
+     [br][br]
+
+     [br]Moreover, under certain circumstances, you have the right to demand the restriction of the processing of your personal data. For details, please consult the Data Protection Declaration under section “Right to demand processing restrictions.”
+
+     [br][size=6][b]2. General information and mandatory information[/b][/size][br]
+     [br][size=5][b]Data protection[/b][/size][br]
+     [br]The operators of this website and its pages take the protection of your personal data very seriously. Hence, we handle your personal data as confidential information and in compliance with the statutory data protection regulations and this Data Protection Declaration.
+
+     [br]Whenever you use this website, a variety of personal information will be collected. Personal data comprises data that can be used to personally identify you. This Data Protection Declaration explains which data we collect as well as the purposes we use this data for. It also explains how, and for which purpose the information is collected.
+
+     [br]We herewith advise you that the transmission of data via the Internet (i.e. through e-mail communications) may be prone to security gaps. It is not possible to completely protect data against third party access.
+
+     [br][size=5][b]Information about the responsible party (referred to as the “controller” in the GDPR)[/b][/size][br]
+     [br]The data processing controller on this website is:
+
+     [br][br]
+     {0}
+     [br][br]
+
+     [br]The controller is the natural person or legal entity that single-handedly or jointly with others makes decisions as to the purposes of and resources for the processing of personal data (e.g. names, e-mail addresses, etc.).
+
+     [br][size=5][b]Revocation of your consent to the processing of data[/b][/size][br]
+     [br]A wide range of data processing transactions are possible only subject to your express consent. You can also revoke at any time any consent you have already given us. To do so, all you are required to do is sent us an informal notification via e-mail. This shall be without prejudice to the lawfulness of any data collection that occurred prior to your revocation.
+
+     [br][size=5][b]Right to object to the collection of data in special cases; right to object to direct advertising (Art. 21 GDPR)[/b][/size][br]
+
+     [br][b]In the event that data are processed on the basis of Art. 6 Sect. 1 lit. e or f GDPR, you have the right to at any time object to the processing of your personal data based on grounds arising from your unique situation. This also applies to any profiling based on these provisions. To determine the legal basis, on which any processing of data is based, please consult this Data Protection Declaration. If you log an objection, we will no longer process your affected personal data, unless we are in a position to present compelling protection worthy grounds for the processing of your data, that outweigh your interests, rights and freedoms or if the purpose of the processing is the claiming, exercising or defence of legal entitlements (objection pursuant to Art. 21 Sect. 1 GDPR).[/b]
+     [/b]
+
+
+     [br][b]If your personal data is being processed in order to engage in direct advertising, you have the right to at any time object to the processing of your affected personal data for the purposes of such advertising. This also applies to profiling to the extent that it is affiliated with such direct advertising. If you object, your personal data will subsequently no longer be used for direct advertising purposes (objection pursuant to Art. 21 Sect. 2 GDPR).[/b]
+
+     [br][size=5][b]Right to log a complaint with the competent supervisory agency[/b][/size][br]
+     [br]In the event of violations of the GDPR, data subjects are entitled to log a complaint with a supervisory agency, in particular in the member state where they usually maintain their domicile, place of work or at the place where the alleged violation occurred. The right to log a complaint is in effect regardless of any other administrative or court proceedings available as legal recourses.
+
+     [br][size=5][b]Right to data portability[/b][/size][br]
+     [br]You have the right to demand that we hand over any data we automatically process on the basis of your consent or in order to fulfil a contract be handed over to you or a third party in a commonly used, machine readable format. If you should demand the direct transfer of the data to another controller, this will be done only if it is technically feasible.
+
+     [br][size=5][b]Information about, blockage, rectification and eradication of data[/b][/size][br]
+     [br]Within the scope of the applicable statutory provisions, you have the right to at any time demand information about your archived personal data, their source and recipients as well as the purpose of the processing of your data. You may also have a right to have your data rectified, blocked or eradicated. If you have questions about this subject matter or any other questions about personal data, please do not hesitate to contact us at any time at the address provided in section “Information about the responsible party”.
+
+     [br][size=5][b]Right to demand processing restrictions[/b][/size][br]
+     [br]You have the right to demand the imposition of restrictions as far as the processing of your personal data is concerned. To do so, you may contact us at any time at the address provided in section “Information about the responsible party”. The right to demand restriction of processing applies in the following cases:
+
+     [list]
+     [*]In the event that you should dispute the correctness of your data archived by us, we will usually need some time to verify this claim. During the time that this investigation is ongoing, you have the right to demand that we restrict the processing of your personal data.
+     [*]If the processing of your personal data was/is conducted in an unlawful manner, you have the option to demand the restriction of the processing of your data in lieu of demanding the eradication of this data.
+     [*]If we do not need your personal data any longer and you need it to exercise, defend or claim legal entitlements, you have the right to demand the restriction of the processing of your personal data instead of its eradication.
+     [*]If you have raised an objection pursuant to Art. 21 Sect. 1 GDPR, your rights and our rights will have to be weighed against each other. As long as it has not been determined whose interests prevail, you have the right to demand a restriction of the processing of your personal data.
+     [/list]
+
+     [br]If you have restricted the processing of your personal data, these data – with the exception of their archiving – may be processed only subject to your consent or to claim, exercise or defend legal entitlements or to protect the rights of other natural persons or legal entities or for important public interest reasons cited by the European Union or a member state of the EU.
+
+     [br][size=6][b]3. Recording of data on our website[/b][/size][br]
+
+     [br][size=5][b]Cookies[/b][/size][br]
+     [br]In some instances, our website and its pages use so-called cookies. Cookies do not cause any damage to your computer and do not contain viruses. The purpose of cookies is to make our website more user friendly, effective and more secure. Cookies are small text files that are placed on your computer and stored by your browser.
+     [br]
+
+     [br]Most of the cookies we use are so-called “session cookies.” They are automatically deleted after your leave our site. Other cookies will remain archived on your device until you delete them. These cookies enable us to recognise your browser the next time you visit our website.
+     [br]
+
+     [br]You can adjust the settings of your browser to make sure that you are notified every time cookies are placed and to enable you to accept cookies only in specific cases or to exclude the acceptance of cookies for specific situations or in general and to activate the automatic deletion of cookies when you close your browser. If you deactivate cookies, the functions of this website may be limited.
+
+     [br]
+     [br]Cookies that are required for the performance of the electronic communications transaction or to provide certain functions you want to use (e.g. the shopping cart function), are stored on the basis of Art. 6 Sect. 1 lit. f GDPR. The website operator has a legitimate interest in storing cookies to ensure the technically error free and optimised provision of the operator’s services. If other cookies (e.g. cookies for the analysis of your browsing patterns) should be stored, they are addressed separately in this Data Protection Declaration.
+
+     [br][size=5][b]Server log files[/b][/size][br]
+     [br]The provider of this website and its pages automatically collects and stores information in so-called server log files, which your browser communicates to us automatically. The information comprises:
+
+     [list]
+     [*]The type and version of browser used
+     [*]The used operating system
+     [*]Referrer URL
+     [*]The hostname of the accessing computer
+     [*]The time of the server inquiry
+     [*]The IP address
+     [/list]
+
+     [br]This data is not merged with other data sources.
+     [br]
+
+     [br]This data is recorded on the basis of Art. 6 Sect. 1 lit. f GDPR. The operator of the website has a legitimate interest in the technically error free depiction and the optimization of the operator’s website. In order to achieve this, server log files must be recorded.
+
+     [br][size=5][b]Registration on this board[/b][/size][br]
+     [br]You have the option to register on our website to be able to use additional website functions. We shall use the data you enter only for the purpose of using the respective offer or service you have registered for. The required information we request at the time of registration must be entered in full. Otherwise we shall reject the registration.
+     [br]
+
+     [br]To notify you of any important changes to the scope of our portfolio or in the event of technical modifications, we shall use the e-mail address provided during the registration process.
+
+     [br]The basis for the processing of data is Art. 6 Sect. 1 lit. b GDPR, which permits the processing of data for the fulfilment of a contract or for pre-contractual actions.
+
+     [br]The data recorded during the registration process shall be stored by us as long as you are registered on our website. Subsequently, such data shall be deleted. This shall be without prejudice to mandatory statutory retention obligations.
+
+     [br][size=6][b]4. Plug-ins and Tools[/b][/size][br]
+     [br][size=5][b]Google reCAPTCHA[/b][/size][br]
+     [br]We use “Google reCAPTCHA” (hereinafter referred to as “reCAPTCHA”) on our websites. The provider is Google Inc., 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA (“Google”).
+
+     [br]
+     [br]The purpose of reCAPTCHA is to determine whether data entered on our websites (e.g. information entered into a contact form) is being provided by a human user or by an automated program. To determine this, reCAPTCHA analyses the behaviour of the website visitors based on a variety of parameters. This analysis is triggered automatically as soon as the website visitor enters the site. For this analysis, reCAPTCHA evaluates a variety of data (e.g. IP address, time the website visitor spent on the site or cursor movements initiated by the user). The data tracked during such analyses are forwarded to Google.
+     [br]
+     [br]reCAPTCHA analyses run entirely in the background. Website visitors are not alerted that an analysis is underway.
+     [br]
+     [br]The data is processed on the basis of Art. 6 Sect. 1 lit. f GDPR. It is in the website operators legitimate interest, to protect the operator’s web content against misuse by automated industrial espionage systems and against SPAM.
+     [br]
+     [br]For more information about Google reCAPTCHA and to review the Data Privacy Declaration of Google, please follow these link: [url]https://policies.google.com/privacy?hl=en[/url].
+
+     [br][size=5][b]BlogSpam.net[/b][/size][br]
+     [br]This Service if enabled sends the user name and message to the service to determine if the message is spam.
+
+     [br][size=5][b]Akismet[/b][/size][br]
+     [br]This Service, if enabled sends the user name and message to the service to determine if the message is spam.
+     [br][url=https://automattic.com/privacy/]Privacy Policy[/url].
+
+     [br][size=5][b]StopForumSpam[/b][/size][br]
+     [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.
+     [br][url=https://www.stopforumspam.com/gdpr]Privacy Policy[/url].
+
+     [br][size=5][b]BotScout[/b][/size][br]
+     [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.
+     [br][url=http://botscout.com/w3c/]Privacy Policy[/url].
+   </Resource>
     <Resource tag="TITLE">Règles et conditions du forum</Resource>
   </page>
   <page name="SEARCH">

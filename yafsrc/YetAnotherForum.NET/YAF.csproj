@@ -210,6 +210,13 @@
     <Compile Include="controls\AttachmentsUploadDialog.ascx.designer.cs">
       <DependentUpon>AttachmentsUploadDialog.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\CookieConsent.ascx.cs">
+      <DependentUpon>CookieConsent.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\CookieConsent.ascx.designer.cs">
+      <DependentUpon>CookieConsent.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\DialogBox.ascx.cs">
       <DependentUpon>DialogBox.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -705,6 +712,13 @@
     </Compile>
     <Compile Include="pages\avatar.ascx.designer.cs">
       <DependentUpon>avatar.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\cookies.ascx.cs">
+      <DependentUpon>cookies.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\cookies.ascx.designer.cs">
+      <DependentUpon>cookies.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\cp_changepassword.ascx.designer.cs">
       <DependentUpon>cp_changepassword.ascx</DependentUpon>
@@ -1458,6 +1472,7 @@
     <Content Include="controls\AlbumList.ascx" />
     <Content Include="controls\AttachmentsUploadDialog.ascx" />
     <Content Include="controls\BuddyList.ascx" />
+    <Content Include="controls\CookieConsent.ascx" />
     <Content Include="controls\DialogBox.ascx" />
     <Content Include="controls\DisplayConnect.ascx" />
     <Content Include="controls\PollChoiceList.ascx" />
@@ -1722,6 +1737,7 @@
     <Content Include="pages\approve.ascx" />
     <Content Include="pages\attachments.ascx" />
     <Content Include="pages\avatar.ascx" />
+    <Content Include="pages\cookies.ascx" />
     <Content Include="pages\cp_changepassword.ascx" />
     <Content Include="pages\cp_editalbumimages.ascx" />
     <Content Include="pages\cp_editavatar.ascx" />
@@ -2186,6 +2202,7 @@
     <Content Include="Scripts\ckeditor\skins\moono-lisa\images\refresh.png" />
     <Content Include="Scripts\ckeditor\skins\moono-lisa\images\spinner.gif" />
     <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\cookiealert-standalone.js" />
     <Content Include="Scripts\i18n\ar.js" />
     <Content Include="Scripts\i18n\az.js" />
     <Content Include="Scripts\i18n\bg.js" />

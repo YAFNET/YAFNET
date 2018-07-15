@@ -511,6 +511,10 @@ namespace YAF
                 this.Controls.Add(this._footer);
             }
 
+            // Add cookie consent
+            this.Controls.Add(
+                this.LoadControl("{0}controls/CookieConsent.ascx".FormatWith(YafForumInfo.ForumServerFileRoot)));
+
             // load plugins/functionality modules
             if (this.AfterForumPageLoad != null)
             {

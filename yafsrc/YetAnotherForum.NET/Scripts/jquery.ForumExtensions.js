@@ -15360,6 +15360,30 @@ function diff(o, n) {
 
     return { o: o, n: n };
 }
+// Cookie functions stolen from w3schools
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 function ChangeReputationBarColor(value, text, selector) {
     jQuery(selector).html('<div class="ui-progressbar-value ui-widget-header ui-corner-left ReputationBarValue" style="width: ' + value + '%; "></div>');
     jQuery(selector).attr('aria-valuenow', value);
@@ -15538,6 +15562,18 @@ function mouseHover(cell, hover) {
 
 // Generic Functions
 jQuery(document).ready(function () {
+
+    // Cookie alert
+    if (!getCookie("YAF-AcceptCookies")) {
+        jQuery(".cookiealert").addClass("show");
+    }
+
+    $(".acceptcookies").click(function () {
+        setCookie("YAF-AcceptCookies", true, 60);
+        jQuery(".cookiealert").removeClass("show");
+    });
+
+
     
     /// <summary>
     /// Convert user posted image to modal images
