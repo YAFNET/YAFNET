@@ -24,6 +24,7 @@
 namespace YAF.Types.Interfaces
 {
     using System;
+    using System.Collections.Generic;
     using System.Web.Security;
 
     /// <summary>
@@ -103,6 +104,20 @@ namespace YAF.Types.Interfaces
         /// <param name="toUserId">To user id.</param>
         /// <param name="medalName">Name of the medal.</param>
         void ToUserWithNewMedal([NotNull] int toUserId, [NotNull] string medalName);
+
+        /// <summary>
+        /// Sends the role assignment notification.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="addedRoles">The added roles.</param>
+        void SendRoleAssignmentNotification([NotNull] MembershipUser user, List<string> addedRoles);
+
+        /// <summary>
+        /// Sends the role un assignment notification.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="removedRoles">The removed roles.</param>
+        void SendRoleUnAssignmentNotification([NotNull] MembershipUser user, List<string> removedRoles);
 
         /// <summary>
         /// The send registration notification email.

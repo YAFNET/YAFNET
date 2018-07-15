@@ -38,7 +38,7 @@
 		 </div>
                 <div class="card-footer text-lg-center">
                     <YAF:ThemeButton ID="Send" runat="server" OnClick="SendClick" Type="Primary"
-                                     Icon="send"
+                                     Icon="paper-plane"
                                      TextLocalizedTag="SEND_MAIL" TextLocalizedPage="ADMIN_MAIL"
                                      ReturnConfirmText='<%# this.GetText("ADMIN_MAIL", "CONFIRM_SEND") %>'></YAF:ThemeButton>
                 </div>

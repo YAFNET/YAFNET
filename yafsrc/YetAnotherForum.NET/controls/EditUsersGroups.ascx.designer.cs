@@ -22,12 +22,21 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.Repeater UserGroups;
         
         /// <summary>
+        /// SendEmail-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox SendEmail;
+        
+        /// <summary>
         /// Save-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton Save;
+        protected global::YAF.Controls.ThemeButton Save;
     }
 }

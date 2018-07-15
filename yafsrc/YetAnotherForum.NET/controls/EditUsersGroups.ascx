@@ -23,6 +23,6 @@
 	</asp:Repeater>
 	
                 <div class="text-lg-center">
-
-			<asp:LinkButton ID="Save" runat="server" Type="Primary" OnClick="Save_Click" />
-</div>
+                    <asp:CheckBox runat="server" CssClass="form-control" ID="SendEmail"/>
+                    <YAF:ThemeButton ID="Save" runat="server" Type="Primary" OnClick="Save_Click" Icon="save" TextLocalizedTag="SAVE" />
+                </div>
