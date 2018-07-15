@@ -796,6 +796,7 @@
     <Resource tag="REPORT_USER">گزارش این کاربر به‌عنوان روبات به StopForumSpam.com</Resource>
     <Resource tag="REPORT_USER_CONFIRM">گزارش نام کاربری، آدرس ایمیل و آدرس IP به عنوان روبات به StopForumSpam.com</Resource>
     <Resource tag="RESET_PASS">تنظیم مجدد کلمه عبور</Resource>
+    <Resource tag="SEND_EMAIL">Send User Notification?</Resource>
     <Resource tag="SET_POINTS">تنظیم امتیازات:</Resource>
     <Resource tag="SUSPEND_ACCOUNT_USER">معلق کردن این کاربر به مدت 5 سال</Resource>
     <Resource tag="SUSPEND_OR_DELETE_ACCOUNT">معلق کردن یا حذف این حساب کاربری?</Resource>
@@ -2152,6 +2153,7 @@
     <Resource tag="NOTIFICATION_ON_SUSPENDING_USER_SUBJECT">Suspension of your {0} Forum Account</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">کاربر جدیدی در {0} ثبت نام کرده است.</Resource>
     <Resource tag="NOTIFICATION_ON_WELCOME_USER_SUBJECT">به انجمن {0} خوش آمدید</Resource>
+    <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT">{0} Forum Account Update</Resource>
     <Resource tag="OK">تایید</Resource>
     <Resource tag="OR">یا</Resource>
     <Resource tag="PAGES">صفحات</Resource>
@@ -5257,6 +5259,32 @@
       {forumurl}
 
     </Resource>
+    <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT">
+     Hello {user},
+
+     Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):
+
+     {roles}
+
+
+     Thanks!
+     The {forumname} Team
+     {forumurl}
+
+   </Resource>
+    <Resource tag="NOTIFICATION_ROLE_UNASSIGNMENT">
+     Hello {user},
+
+     Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):
+
+     {roles}
+     a
+
+     Thanks!
+     The {forumname} Team
+     {forumurl}
+
+   </Resource>
     <Resource tag="PASSWORDRETRIEVAL_HTML">
       &lt;!DOCTYPE html&gt;
 

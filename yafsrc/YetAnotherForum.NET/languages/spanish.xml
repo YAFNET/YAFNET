@@ -798,6 +798,7 @@
     <Resource tag="REPORT_USER">Report User as BOT to StopForumSpam.com</Resource>
     <Resource tag="REPORT_USER_CONFIRM">Report User Name, Email Address and IP Address to StopForumSpam.com as BOT?</Resource>
     <Resource tag="RESET_PASS">Resetear contraseña</Resource>
+    <Resource tag="SEND_EMAIL">Send User Notification?</Resource>
     <Resource tag="SET_POINTS">Fijar puntos a:</Resource>
     <Resource tag="SUSPEND_ACCOUNT_USER">¿Suspender esta cuenta por 5 años?</Resource>
     <Resource tag="SUSPEND_OR_DELETE_ACCOUNT">Suspend or Delete this Account?</Resource>
@@ -2141,6 +2142,7 @@
     <Resource tag="NOTIFICATION_ON_SUSPENDING_USER_SUBJECT">Suspension of your {0} Forum Account</Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT">Nuevo usuario registrado en el foro {0}</Resource>
     <Resource tag="NOTIFICATION_ON_WELCOME_USER_SUBJECT">Welcome to the {0} Forum</Resource>
+    <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT">{0} Forum Account Update</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="OR">o</Resource>
     <Resource tag="PAGES">Páginas</Resource>
@@ -5597,6 +5599,32 @@ Email de usuario: {email} (Por favor, cambia tu email a tu dirección real para 
     {forumurl}
 
   </Resource>
+    <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT">
+     Hello {user},
+
+     Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):
+
+     {roles}
+
+
+     Thanks!
+     The {forumname} Team
+     {forumurl}
+
+   </Resource>
+    <Resource tag="NOTIFICATION_ROLE_UNASSIGNMENT">
+     Hello {user},
+
+     Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):
+
+     {roles}
+     a
+
+     Thanks!
+     The {forumname} Team
+     {forumurl}
+
+   </Resource>
     <Resource tag="PASSWORDRETRIEVAL_HTML">
       &lt;!DOCTYPE html&gt;
 

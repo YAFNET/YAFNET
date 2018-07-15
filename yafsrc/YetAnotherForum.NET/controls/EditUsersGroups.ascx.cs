@@ -27,6 +27,7 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.UI.WebControls;
 
@@ -116,6 +117,7 @@ namespace YAF.Controls
             }
 
             this.Save.Text = this.GetText("COMMON", "SAVE");
+            this.SendEmail.Text = this.GetText("ADMIN_EDITUSER", "SEND_EMAIL");
 
             // bind data
             this.BindData();
@@ -132,6 +134,13 @@ namespace YAF.Controls
         /// </param>
         protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
+            var addedRoles = new List<string>();
+            var removedRoles = new List<string>();
+
+            // get user's name
+            var userName = UserMembershipHelper.GetUserNameFromID(this.CurrentUserID);
+            var user = UserMembershipHelper.GetUser(userName);
+
             // go through all roles displayed on page
             for (var i = 0; i < this.UserGroups.Items.Count; i++)
             {
@@ -160,21 +169,36 @@ namespace YAF.Controls
                     continue;
                 }
 
-                // get user's name
-                var userName = UserMembershipHelper.GetUserNameFromID(this.CurrentUserID);
-
                 // add/remove user from roles in membership provider
                 if (isChecked && !RoleMembershipHelper.IsUserInRole(userName, roleName))
                 {
                     RoleMembershipHelper.AddUserToRole(userName, roleName);
+
+                    addedRoles.Add(roleName);
                 }
                 else if (!isChecked && RoleMembershipHelper.IsUserInRole(userName, roleName))
                 {
                     RoleMembershipHelper.RemoveUserFromRole(userName, roleName);
+
+                    removedRoles.Add(roleName);
                 }
 
                 // Clearing cache with old permisssions data...
                 this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(this.CurrentUserID));
+            }
+
+            if (this.SendEmail.Checked)
+            {
+                // send notification to user
+                if (addedRoles.Any())
+                {
+                    this.Get<ISendNotification>().SendRoleAssignmentNotification(user, addedRoles);
+                }
+
+                if (removedRoles.Any())
+                {
+                    this.Get<ISendNotification>().SendRoleUnAssignmentNotification(user, removedRoles);
+                }
             }
 
             // update forum moderators cache just in case something was changed...

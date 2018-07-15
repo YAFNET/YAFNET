@@ -9,10 +9,12 @@ YetAnotherForum.NET Changelog
 * [FIXED] yafeditor script was not automatically minified
 * [FIXED] Send Email to User
 
+
 # YetAnotherForum.NET v2.2.4.12
 
 ## Fixed Issues:
 * Editor Dropdown with album images now uses sql paging
+
 
 # YetAnotherForum.NET v2.2.4.11
 

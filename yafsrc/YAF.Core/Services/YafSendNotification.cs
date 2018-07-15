@@ -496,6 +496,64 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
+        /// Sends the role un assignment notification.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="removedRoles">The removed roles.</param>
+        public void SendRoleUnAssignmentNotification([NotNull] MembershipUser user, List<string> removedRoles)
+        {
+            var templateEmail = new YafTemplateEmail();
+
+            var subject =
+                this.Get<ILocalization>()
+                    .GetText("COMMON", "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT")
+                    .FormatWith(this.BoardSettings.Name);
+
+            templateEmail.TemplateParams["{user}"] = user.UserName;
+            templateEmail.TemplateParams["{roles}"] = string.Join(", ", removedRoles.ToArray());
+            templateEmail.TemplateParams["{forumname}"] = this.BoardSettings.Name;
+            templateEmail.TemplateParams["{forumurl}"] = YafForumInfo.ForumURL;
+
+            var emailBody = templateEmail.ProcessTemplate("NOTIFICATION_ROLE_UNASSIGNMENT");
+
+            this.GetRepository<Mail>()
+                .Create(
+                    user.Email,
+                    user.UserName,
+                    subject,
+                    emailBody);
+        }
+
+        /// <summary>
+        /// Sends the role assignment notification.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="addedRoles">The added roles.</param>
+        public void SendRoleAssignmentNotification([NotNull] MembershipUser user, List<string> addedRoles)
+        {
+            var templateEmail = new YafTemplateEmail();
+
+            var subject =
+                this.Get<ILocalization>()
+                    .GetText("COMMON", "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT")
+                    .FormatWith(this.BoardSettings.Name);
+
+            templateEmail.TemplateParams["{user}"] = user.UserName;
+            templateEmail.TemplateParams["{roles}"] = string.Join(", ", addedRoles.ToArray());
+            templateEmail.TemplateParams["{forumname}"] = this.BoardSettings.Name;
+            templateEmail.TemplateParams["{forumurl}"] = YafForumInfo.ForumURL;
+
+            var emailBody = templateEmail.ProcessTemplate("NOTIFICATION_ROLE_ASSIGNMENT");
+
+            this.GetRepository<Mail>()
+                .Create(
+                    user.Email,
+                    user.UserName,
+                    subject,
+                    emailBody);
+        }
+
+        /// <summary>
         /// Sends a new user notification email to all emails in the NotificationOnUserRegisterEmailList
         /// Setting
         /// </summary>

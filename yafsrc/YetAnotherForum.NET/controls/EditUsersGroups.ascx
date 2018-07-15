@@ -30,6 +30,7 @@
 	</asp:Repeater>
 	<tr>
 		<td class="footer1" colspan="2" align="center">
+		    <asp:CheckBox runat="server" CssClass="form-control" ID="SendEmail"/>
 			<asp:Button ID="Save" runat="server" CssClass="pbutton" OnClick="Save_Click" />
 		</td>
 	</tr>
