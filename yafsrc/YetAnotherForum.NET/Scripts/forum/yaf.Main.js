@@ -1,5 +1,15 @@
 // Generic Functions
 jQuery(document).ready(function () {
+    // Cookie alert
+    if (!getCookie("YAF-AcceptCookies")) {
+        jQuery(".cookiealert").addClass("show");
+    }
+
+    $(".acceptcookies").click(function () {
+        setCookie("YAF-AcceptCookies", true, 60);
+        jQuery(".cookiealert").removeClass("show");
+    });
+
     // Numeric Spinner Inputs
     jQuery("input[type='number']").TouchSpin({
         max: 2147483647

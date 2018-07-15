@@ -19,8 +19,14 @@ YetAnotherForum.NET Changelog
 ## Fixed Issues:
 
 # YetAnotherForum.NET v2.2.4.13
+## New Features:
+
+* [NEW] Send Email to user on role (un)assignment
+* [NEW] Added GDPR Cookie Consent Check and Page
+* Updated the Rule and Privacy Policy with GDPR Info
 
 ## Fixed Issues:
+
 * [FIXED] not working attachments upload
 * [FIXED] yafeditor script was not automatically minified
 * [FIXED] Send Email to User

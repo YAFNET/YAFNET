@@ -33,6 +33,7 @@ namespace YAF.Pages
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
@@ -123,8 +124,12 @@ namespace YAF.Pages
 
             this.PageLinks.AddRoot();
 
-            this.Accept.Text = this.GetText("ACCEPT");
-            this.Cancel.Text = this.GetText("DECLINE");
+            this.RulesText.Param0 = Config.GDPRControllerAddress.IsSet()
+                                        ? Config.GDPRControllerAddress
+                                        : this.Get<YafBoardSettings>().ForumEmail;
+
+            this.Accept.Visible = this.PageContext.IsGuest;
+            this.Cancel.Visible = this.PageContext.IsGuest;
         }
 
         #endregion

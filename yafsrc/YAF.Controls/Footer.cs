@@ -27,14 +27,9 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
     using System.Text;
     using System.Web;
     using System.Web.UI;
-
-    using Core.Data.Profiling;
 
     using YAF.Classes;
     using YAF.Core;
@@ -97,9 +92,11 @@ namespace YAF.Controls
 
             this.Get<IStopWatch>().Stop();
 
-            footer.Append(@"<footer class=""footer""><div class=""container text-right"">");
+            footer.Append(@"<div class=""clearfix""></div><footer class=""footer""><div class=""container text-right"">");
 
             this.RenderMobileLink(footer);
+
+            this.RenderRulesLink(footer);
 
             this.RenderVersion(footer);
 
@@ -159,6 +156,18 @@ namespace YAF.Controls
 				QueryCounter.Commands);
 			footer.Append("</div>");
 #endif
+        }
+
+        /// <summary>
+        /// Renders the rules link.
+        /// </summary>
+        /// <param name="footer">The footer.</param>
+        private void RenderRulesLink([NotNull] StringBuilder footer)
+        {
+            footer.Append(
+                @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
+                    YafBuildLink.GetLink(ForumPages.rules),
+                    this.GetText("COMMON", "PRIVACY_POLICY")));
         }
 
         /// <summary>

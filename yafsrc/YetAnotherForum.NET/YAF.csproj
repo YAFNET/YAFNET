@@ -211,6 +211,13 @@
     <Compile Include="Classes\YafWebService.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="controls\CookieConsent.ascx.cs">
+      <DependentUpon>CookieConsent.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\CookieConsent.ascx.designer.cs">
+      <DependentUpon>CookieConsent.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\QuickReply.ascx.cs">
       <DependentUpon>QuickReply.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -927,6 +934,13 @@
     <Compile Include="pages\rsstopic.ascx.designer.cs">
       <DependentUpon>rsstopic.ascx</DependentUpon>
     </Compile>
+    <Compile Include="pages\cookies.ascx.cs">
+      <DependentUpon>cookies.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\cookies.ascx.designer.cs">
+      <DependentUpon>cookies.ascx</DependentUpon>
+    </Compile>
     <Compile Include="pages\rules.ascx.designer.cs">
       <DependentUpon>rules.ascx</DependentUpon>
     </Compile>
@@ -1096,6 +1110,7 @@
     <Content Include="Content\bootstrap\_utilities.scss" />
     <Content Include="Content\bootstrap\_variables.scss" />
     <None Include="Content\forum\attachments-upload.scss" />
+    <None Include="Content\forum\cookie-alert.scss" />
     <Content Include="Content\icons\authIcons.png" />
     <Content Include="Content\images\error.png" />
     <Content Include="Content\images\error.svg" />
@@ -1143,6 +1158,7 @@
     <Content Include="Content\webfonts\fa-solid-900.svg" />
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
+    <Content Include="controls\CookieConsent.ascx" />
     <Content Include="Dialogs\QuickReply.ascx" />
     <Content Include="Dialogs\AttachmentsUpload.ascx" />
     <Content Include="controls\BuddyList.ascx" />
@@ -1430,6 +1446,7 @@
     <Content Include="pages\register.ascx" />
     <Content Include="pages\reportpost.ascx" />
     <Content Include="pages\rsstopic.ascx" />
+    <Content Include="pages\cookies.ascx" />
     <Content Include="pages\rules.ascx" />
     <Content Include="pages\search.ascx" />
     <Content Include="pages\shoutbox.ascx" />
@@ -1733,6 +1750,7 @@
     <Content Include="Scripts\ckeditor\skins\moono-lisa\images\refresh.png" />
     <Content Include="Scripts\ckeditor\skins\moono-lisa\images\spinner.gif" />
     <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\cookiealert-standalone.js" />
     <Content Include="Scripts\emojipicker\jquery.emojipicker.js" />
     <Content Include="Scripts\emojipicker\jquery.emojis.js" />
     <Content Include="Scripts\esm\popper-utils.js" />

@@ -95,15 +95,12 @@ namespace YAF.Classes
         public static string ClientFileRoot => GetConfigValueAsString("YAF.ClientFileRoot") ?? string.Empty;
 
         /// <summary>
-        ///     Gets a value indicating whether CSS Blocks should be compressed (minified)? -- default is true.
+        /// Gets the GDPR controller address.
         /// </summary>
-        public static bool CompressCSSBlocks => GetConfigValueAsBool("YAF.CompressCSSBlocks", true);
-
-        /// <summary>
-        ///     Gets a value indicating whether Java Script Blocks should be compressed (minified)
-        ///     Default is true.
-        /// </summary>
-        public static bool CompressJSBlocks => GetConfigValueAsBool("YAF.CompressJSBlocks", true);
+        /// <value>
+        /// The GDPR controller address.
+        /// </value>
+        public static string GDPRControllerAddress => GetConfigValueAsString("YAF.GDPRControllerAddress") ?? string.Empty;
 
         /// <summary>
         /// Gets the name of the connection provider.
@@ -244,7 +241,7 @@ namespace YAF.Classes
                     return AppDomain.CurrentDomain.GetAssemblies().Any(a => a.FullName.Contains("DotNetNuke"));
                 }
 
-                object obj = HttpContext.Current.Items["PortalSettings"];
+                var obj = HttpContext.Current.Items["PortalSettings"];
                 return obj != null
                        && obj.ToString().ToLower().IndexOf("dotnetnuke", StringComparison.Ordinal) >= 0;
             }
@@ -262,7 +259,7 @@ namespace YAF.Classes
                     return false;
                 }
 
-                object obj = HttpContext.Current.Items["SiteSettings"];
+                var obj = HttpContext.Current.Items["SiteSettings"];
                 return obj != null && obj.ToString().ToLower().IndexOf("mojoportal", StringComparison.Ordinal) >= 0;
             }
         }
@@ -289,7 +286,7 @@ namespace YAF.Classes
                     return false;
                 }
 
-                object obj = HttpContext.Current.Items["PortalSettings"];
+                var obj = HttpContext.Current.Items["PortalSettings"];
                 return obj != null && obj.ToString().ToLower().IndexOf("rainbow", StringComparison.Ordinal) >= 0;
             }
         }
@@ -307,7 +304,7 @@ namespace YAF.Classes
                     return "jQuery";
                 }
 
-                string jQueryAlias = GetConfigValueAsString("YAF.JQueryAlias") ?? "jQuery";
+                var jQueryAlias = GetConfigValueAsString("YAF.JQueryAlias") ?? "jQuery";
 
                 if (!jQueryAlias.Equals("jQuery") || !jQueryAlias.Equals("$"))
                 {
@@ -480,7 +477,7 @@ namespace YAF.Classes
         {
             get
             {
-                string value = GetConfigValueAsString("YAF.UseRadEditorToolsFile");
+                var value = GetConfigValueAsString("YAF.UseRadEditorToolsFile");
 
                 if (!value.IsSet())
                 {
@@ -533,7 +530,7 @@ namespace YAF.Classes
         /// <returns> Returns Boolean Value </returns>
         public static bool GetConfigValueAsBool([NotNull] string configKey, bool defaultValue)
         {
-            string value = GetConfigValueAsString(configKey);
+            var value = GetConfigValueAsString(configKey);
 
             return value.IsSet() ? value.ToLower().ToType<bool>() : defaultValue;
         }
@@ -557,7 +554,7 @@ namespace YAF.Classes
         /// <returns> Provider type string or <see langword="null" /> if none exist. </returns>
         public static string GetProvider([NotNull] string providerName)
         {
-            string key = "YAF.Provider.{0}".FormatWith(providerName);
+            var key = "YAF.Provider.{0}".FormatWith(providerName);
             return GetConfigValueAsString(key);
         }
 

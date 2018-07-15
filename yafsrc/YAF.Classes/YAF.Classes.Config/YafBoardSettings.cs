@@ -373,7 +373,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._regBoard.GetValue("DefaultNotificationSetting", UserNotificationSetting.TopicsIPostToOrSubscribeTo);
+                return this._regBoard.GetValue("DefaultNotificationSetting", UserNotificationSetting.NoNotification);
             }
 
             set

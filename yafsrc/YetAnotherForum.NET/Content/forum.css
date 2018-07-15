@@ -3146,6 +3146,27 @@ body:last-child .blueimp-gallery-playing > .play-pause {
   padding: 2px 10px 6px 5px;
   content: ''; }
 
+.cookiealert {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin: 0 !important;
+  z-index: 999;
+  opacity: 0;
+  border-radius: 0;
+  background: #212327;
+  transform: translateY(100%);
+  transition: all 500ms ease-out;
+  color: #ecf0f1; }
+  .cookiealert.show {
+    opacity: 1;
+    transform: translateY(0%);
+    transition-delay: 1000ms; }
+  .cookiealert .acceptcookies {
+    margin-left: 10px;
+    vertical-align: baseline; }
+
 #YafBody {
   margin: 0;
   padding: 5px;
