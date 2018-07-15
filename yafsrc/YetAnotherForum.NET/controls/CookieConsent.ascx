@@ -8,12 +8,10 @@
         <YAF:LocalizedLabel runat="server" LocalizedPage="COMMON" LocalizedTag="COOKIE" ID="Lable1"></YAF:LocalizedLabel>
         
         <YAF:ThemeButton runat="server" ID="MoreDetails" 
-                         Type="Info" 
+                         CssClass="yafcssbigbutton" 
                          TextLocalizedTag="COOKIE_DETAILS"></YAF:ThemeButton>
         <YAF:ThemeButton runat="server" ID="close" 
-                         CssClass="acceptcookies" 
-                         Type="Primary" 
-                         TextLocalizedTag="COOKIE_AGREE" 
-                         Icon="check-square"></YAF:ThemeButton>
+                         CssClass="yafcssbigbutton acceptcookies" 
+                         TextLocalizedTag="COOKIE_AGREE"></YAF:ThemeButton>
     </div>
 </div>
