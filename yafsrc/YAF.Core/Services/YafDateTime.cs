@@ -93,7 +93,7 @@ namespace YAF.Core.Services
         public string FormatDateLong(DateTime dateTime)
         {
             string dateFormat;
-            dateTime = TimeZoneInfo.ConvertTime(dateTime, YafContext.Current.TimeZoneInfoUser);
+            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, YafContext.Current.TimeZoneInfoUser);
 
             try
             {
@@ -125,7 +125,7 @@ namespace YAF.Core.Services
         public string FormatDateShort([NotNull] DateTime dateTime)
         {
             string dateFormat;
-            dateTime = TimeZoneInfo.ConvertTime(dateTime, YafContext.Current.TimeZoneInfoUser);
+            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, YafContext.Current.TimeZoneInfoUser);
 
             try
             {
@@ -156,7 +156,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string FormatDateTime([NotNull] DateTime dateTime)
         {
-            dateTime = TimeZoneInfo.ConvertTime(dateTime, YafContext.Current.TimeZoneInfoUser);
+            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, YafContext.Current.TimeZoneInfoUser);
 
             string dateFormat;
 
@@ -193,7 +193,7 @@ namespace YAF.Core.Services
         {
             string dateFormat;
 
-            dateTime = TimeZoneInfo.ConvertTime(dateTime, YafContext.Current.TimeZoneInfoUser);
+            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, YafContext.Current.TimeZoneInfoUser);
 
             try
             {
@@ -227,8 +227,8 @@ namespace YAF.Core.Services
         /// </returns>
         public string FormatDateTimeTopic([NotNull] DateTime dateTime)
         {
-            dateTime = TimeZoneInfo.ConvertTime(dateTime, YafContext.Current.TimeZoneInfoUser);
-            var nowDateTime = TimeZoneInfo.ConvertTime(DateTime.UtcNow, YafContext.Current.TimeZoneInfoUser);
+            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, YafContext.Current.TimeZoneInfoUser);
+            var nowDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, YafContext.Current.TimeZoneInfoUser);
 
             string dateFormat;
             try
@@ -281,7 +281,7 @@ namespace YAF.Core.Services
         {
             string dateFormat;
 
-            dateTime = TimeZoneInfo.ConvertTime(dateTime, YafContext.Current.TimeZoneInfoUser);
+            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, YafContext.Current.TimeZoneInfoUser);
 
             try
             {
@@ -308,7 +308,7 @@ namespace YAF.Core.Services
         /// <returns>Returns the user Date Time</returns>
         public DateTime GetUserDateTime(DateTime dateTime)
         {
-            return TimeZoneInfo.ConvertTime(dateTime, YafContext.Current.TimeZoneInfoUser);
+            return TimeZoneInfo.ConvertTimeFromUtc(dateTime, YafContext.Current.TimeZoneInfoUser);
         }
 
         /// <summary>
@@ -321,7 +321,7 @@ namespace YAF.Core.Services
         /// </returns>
         public DateTime GetUserDateTime(DateTime dateTime, TimeZoneInfo timeZone)
         {
-            return TimeZoneInfo.ConvertTime(dateTime, timeZone);
+            return TimeZoneInfo.ConvertTimeFromUtc(dateTime, timeZone);
         }
 
         #endregion
