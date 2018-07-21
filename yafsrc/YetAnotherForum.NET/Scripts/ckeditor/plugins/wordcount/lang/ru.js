@@ -7,6 +7,7 @@ CKEDITOR.plugins.setLang('wordcount', 'ru', {
     CharCount: 'Символов:',
     CharCountWithHTML: ' (включая HTML разметку):',
     Paragraphs: 'Параграфов:',
+    ParagraphsRemaining: 'Paragraphs remaining',
     pasteWarning: 'Контент не может быть вставлен, т.к. привышает допустимый лимит',
     Selected: 'Выделено: ',
     title: 'Статистика'

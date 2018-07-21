@@ -18,6 +18,7 @@ YetAnotherForum.NET Changelog
 
 ## Fixed Issues:
 
+
 # YetAnotherForum.NET v2.2.4.13
 ## New Features:
 
@@ -26,10 +27,11 @@ YetAnotherForum.NET Changelog
 * Updated the Rule and Privacy Policy with GDPR Info
 
 ## Fixed Issues:
-
 * [FIXED] not working attachments upload
 * [FIXED] yafeditor script was not automatically minified
 * [FIXED] Send Email to User
+* [FIXED #402] correctly display local datetime
+* Updated recommended web.configs
 
 
 # YetAnotherForum.NET v2.2.4.12

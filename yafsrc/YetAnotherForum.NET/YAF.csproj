@@ -996,7 +996,6 @@
     <Content Include="Content\css\select2.min.css">
       <DependentUpon>select2.css</DependentUpon>
     </Content>
-    <Content Include="Content\fontawesome.css" />
     <Content Include="Content\fontawesome\fontawesome.css" />
     <Content Include="Content\fontawesome\fontawesome.min.css">
       <DependentUpon>fontawesome.css</DependentUpon>

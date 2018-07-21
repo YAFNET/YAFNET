@@ -7,7 +7,7 @@
      */
     CKEDITOR.plugins.add('textselection',
     {
-        version: 1.06,
+        version: "1.08.0",
         init: function (editor) {
 
             if (editor.config.fullPage) {
@@ -100,6 +100,7 @@
                     if (editor.mode === 'wysiwyg' && editor.getData()) {
                         if (CKEDITOR.env.gecko && !editor.focusManager.hasFocus) {
                             return;
+                            
                         }
                         var sel = editor.getSelection(), range;
                         if (sel && (range = sel.getRanges()[0])) {
@@ -229,6 +230,8 @@
             var isDirty = editor.checkDirty();
 
             editor._.previousMode = editor.mode;
+            // Get cached data, which was set while detaching editable.
+            editor._.previousModeData = editor.getData();
 
             editor.fire('beforeModeUnload');
 
@@ -332,11 +335,26 @@
 
             this.startOffset = removeBookmarkText(bookmark.startNode);
             this.endOffset = removeBookmarkText(bookmark.endNode);
-            this.content = content;
-            this.updateElement();
 
-            if (editor.undoManager) {
-                editor.undoManager.unlock();
+            var savedContent = editor._.previousModeData;
+
+            if (savedContent.length > 0) {
+                var diff = content.length - savedContent.length;
+
+                this.startOffset = this.startOffset - diff;
+
+                if (diff > 0) {
+                    //this.endOffset = this.endOffset - diff;
+                }
+
+                content = editor._.previousModeData;
+
+                this.content = content;
+                this.updateElement();
+
+                if (editor.undoManager) {
+                    editor.undoManager.unlock();
+                }
             }
         },
 
@@ -346,6 +364,9 @@
         enlarge: function() {
             var htmlOpenTagRegexp = /<[a-zA-Z]+(>|.*?[^?]>)/g;
             var htmlCloseTagRegexp = /<\/[^>]+>/g;
+
+
+
             var content = this.content,
                 start = this.startOffset,
                 end = this.endOffset,
@@ -389,9 +410,10 @@
             this.endOffset = end;
         },
 
-        createBookmark: function(editor) {
+        createBookmark: function (editor) {
             // Enlarge the range to avoid tag partial selection. 
             this.enlarge();
+
             var content = this.content,
                 start = this.startOffset,
                 end = this.endOffset,
@@ -405,6 +427,7 @@
             if (editor.undoManager) {
                 editor.undoManager.lock();
             }
+
 
             this.content = content;
             this.updateElement();
