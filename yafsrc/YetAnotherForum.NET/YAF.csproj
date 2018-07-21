@@ -1095,6 +1095,7 @@
     <Content Include="Content\bootstrap\_type.scss" />
     <Content Include="Content\bootstrap\_utilities.scss" />
     <Content Include="Content\bootstrap\_variables.scss" />
+    <Content Include="Content\bootstrap\utilities\_shadows.scss" />
     <None Include="Content\forum\attachments-upload.scss" />
     <None Include="Content\forum\cookie-alert.scss" />
     <Content Include="Content\icons\authIcons.png" />
@@ -1461,6 +1462,16 @@
     </Content>
     <Content Include="Scripts\bootstrap.bundle.min.js.map">
       <DependentUpon>bootstrap.bundle.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.js.map">
+      <DependentUpon>bootstrap.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\bootstrap.min.js">
+      <DependentUpon>bootstrap.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\bootstrap.min.js.map">
+      <DependentUpon>bootstrap.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
