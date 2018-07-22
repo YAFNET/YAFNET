@@ -65,7 +65,7 @@
                                      Icon="check" TextLocalizedTag="GRANTALL" TextLocalizedPage="ADMIN_PAGEACCESSEDIT" />&nbsp;
                     <YAF:ThemeButton ID="RevokeAll" runat="server" OnClick="RevokeAllClick" CssClass="btn btn-danger"
                                      Icon="trash" TextLocalizedTag="REVOKEALL" TextLocalizedPage="ADMIN_PAGEACCESSEDIT" />&nbsp;
-				    <YAF:ThemeButton ID="Cancel" runat="server" OnClick="CancelClick" CausesValidation="false" Type="Secondary"
+				    <YAF:ThemeButton ID="Cancel" runat="server" OnClick="CancelClick" Type="Secondary"
 				                     Icon="times" TextLocalizedTag="CANCEL" TextLocalizedPage="ADMIN_PAGEACCESSEDIT" />
                 </div>
             </div>

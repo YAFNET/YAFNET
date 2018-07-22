@@ -75,7 +75,7 @@
                                      Icon="check" TextLocalizedTag="GRANTALLDELETE" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
                     <YAF:ThemeButton ID="RevokeAllDelete" runat="server" OnClick="RevokeAllDelete_Click" CssClass="btn btn-danger"
                                      Icon="trash" TextLocalizedTag="REVOKEALLDELETE" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
-				    <YAF:ThemeButton ID="Cancel" runat="server" OnClick="Cancel_Click" CausesValidation="false" Type="Secondary"
+				    <YAF:ThemeButton ID="Cancel" runat="server" OnClick="Cancel_Click" Type="Secondary"
 				                     Icon="times" TextLocalizedTag="CANCEL" TextLocalizedPage="ADMIN_EVENTLOGROUPACCESS" />
                 </div>
             </div>
