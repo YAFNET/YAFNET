@@ -68,8 +68,8 @@ function DataPanel_ExpandCollapseImage(hd, cht, cha, st, ex, cl, tc, te) {
             return new RegExp(f + "\\.swf$", "i");
         }();
         l.userAgent = navigator.userAgent;
-		b(".cee_close").off()
-		b("body").on("click",".cee_close", function () {
+		b(".cee_close").off();
+        b("body").on("click",".cee_close", function () {
             b.fn.ceebox.closebox();
             return false;
         });
@@ -193,10 +193,10 @@ function DataPanel_ExpandCollapseImage(hd, cht, cha, st, ex, cl, tc, te) {
                 b(this).css(n(o));
             }, function () {
                 b(this).css(n(p));
-            }).one("click", function (q) {
+                }).on("click", function (q) {
                 q.preventDefault();
                 (function (E, F, G) {
-                    b("#cee_prev,#cee_next").unbind().click(function () {
+                       b("#cee_prev,#cee_next").off("click", function () {
                         return false;
                     });
                     document.onkeydown = null;
@@ -204,7 +204,10 @@ function DataPanel_ExpandCollapseImage(hd, cht, cha, st, ex, cl, tc, te) {
                         H = u.length;
                     u.fadeOut(G, function () {
                         b(this).remove();
-                        this == u[H - 1] && E.eq(F).trigger("click");
+                       
+                        if (this == u[H - 1]) {
+                            E.eq(F).trigger("click");
+                        }
                     });
                 })(a, j, d.fadeOut);
             }).appendTo("#cee_box");
@@ -246,11 +249,12 @@ function DataPanel_ExpandCollapseImage(hd, cht, cha, st, ex, cl, tc, te) {
         version: "2.1.5"
     };
     b.fn.ceebox = function (c) {
+
         c = b.extend({
-            selector: b(this).selector
+            selector: ".ceebox"
         }, b.fn.ceebox.defaults, c);
         var a = this,
-            d = b(this).selector;
+            d = ".ceebox";
         c.videoJSON ? b.getJSON(c.videoJSON, function (f) {
             b.extend(b.fn.ceebox.videos, f);
             v(a, c, d);
@@ -375,7 +379,7 @@ function DataPanel_ExpandCollapseImage(hd, cht, cha, st, ex, cl, tc, te) {
             height: 30,
             type: "html"
         }, b.fn.ceebox.defaults, c);
-        b("#cee_overlay").size() === 0 && b("<div id='cee_overlay'></div>").css({
+        b("#cee_overlay").length == 0 && b("<div id='cee_overlay'></div>").css({
             opacity: c.overlayOpacity,
             position: "absolute",
             top: 0,
@@ -385,7 +389,7 @@ function DataPanel_ExpandCollapseImage(hd, cht, cha, st, ex, cl, tc, te) {
             height: b(document).height(),
             zIndex: 9995
         }).appendTo(b("body"));
-        if (b("#cee_box").size() === 0) {
+        if (b("#cee_box").length == 0) {
             var a = y(c);
             a = {
                 position: a.position,
@@ -409,7 +413,7 @@ function DataPanel_ExpandCollapseImage(hd, cht, cha, st, ex, cl, tc, te) {
             });
         }
         b("#cee_box").removeClass().addClass("cee_" + c.type);
-        b("#cee_load").size() === 0 && b(b.fn.ceebox.loader).appendTo("body");
+        b("#cee_load").length == 0 && b(b.fn.ceebox.loader).appendTo("body");
         b("#cee_load").show("fast").animate({
             opacity: 1
         }, "fast");
@@ -493,7 +497,7 @@ function DataPanel_ExpandCollapseImage(hd, cht, cha, st, ex, cl, tc, te) {
         c = c || 400;
         b("#cee_box").fadeOut(c);
         b("#cee_overlay").fadeOut(typeof c == "number" ? c * 2 : "slow", function () {
-            b("#cee_box,#cee_overlay,#cee_HideSelect,#cee_load").unbind().trigger("unload").remove();
+            b("#cee_box,#cee_overlay,#cee_HideSelect,#cee_load").off().trigger("unload").remove();
             if (t(a)) a();
             else t(l.unload) && l.unload();
             l.unload = null;
