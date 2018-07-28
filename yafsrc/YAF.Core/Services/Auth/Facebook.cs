@@ -68,7 +68,7 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         public string GetAuthorizeUrl(HttpRequest request)
         {
-            const string Scope = "email,user_birthday,publish_actions,user_location";
+            const string Scope = "email,user_birthday,user_location";
 
             var redirectUrl = GetRedirectURL(request);
 
