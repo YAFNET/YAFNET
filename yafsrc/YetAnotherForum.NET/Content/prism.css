@@ -1,12 +1,17 @@
 /* http://prismjs.com/download.html?themes=prism-funky&languages=markup+css+clike+javascript+c+aspnet+bash+cpp+csharp+css-extras+git+java+python+sql&plugins=line-numbers+autolinker */
+/* PrismJS 1.15.0
+https://prismjs.com/download.html?#themes=prism&languages=markup+css+clike+javascript+c+csharp+bash+cpp+aspnet+css-extras+git+java+sql+python&plugins=line-numbers+autolinker */
 /**
- * prism.js Funky theme
- * Based on “Polyfilling the gaps” talk slides http://lea.verou.me/polyfilling-the-gaps/
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
  * @author Lea Verou
  */
 
 code[class*="language-"],
 pre[class*="language-"] {
+    color: black;
+    background: none;
+    text-shadow: 0 1px white;
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
     text-align: left;
     white-space: pre;
@@ -23,26 +28,41 @@ pre[class*="language-"] {
     hyphens: none;
 }
 
-/* Code blocks */
-pre[class*="language-"] {
-    padding: .4em .8em;
-    margin: .5em 0;
-    overflow: auto;
-    background: url('data:image/svg+xml;charset=utf-8,<svg%20version%3D"1.1"%20xmlns%3D"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"%20width%3D"100"%20height%3D"100"%20fill%3D"rgba(0%2C0%2C0%2C.2)">%0D%0A<polygon%20points%3D"0%2C50%2050%2C0%200%2C0"%20%2F>%0D%0A<polygon%20points%3D"0%2C100%2050%2C100%20100%2C50%20100%2C0"%20%2F>%0D%0A<%2Fsvg>');
-    background-size: 1em 1em;
+    pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+    code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+        text-shadow: none;
+        background: #b3d4fc;
+    }
+
+    pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+    code[class*="language-"]::selection, code[class*="language-"] ::selection {
+        text-shadow: none;
+        background: #b3d4fc;
+    }
+
+@media print {
+    code[class*="language-"],
+    pre[class*="language-"] {
+        text-shadow: none;
+    }
 }
 
-code[class*="language-"] {
-    background: black;
-    color: white;
-    box-shadow: -.3em 0 0 .3em black, .3em 0 0 .3em black;
+/* Code blocks */
+pre[class*="language-"] {
+    padding: 1em;
+    margin: .5em 0;
+    overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+    background: #f5f2f0;
 }
 
 /* Inline code */
 :not(pre) > code[class*="language-"] {
-    padding: .2em;
+    padding: .1em;
     border-radius: .3em;
-    box-shadow: none;
     white-space: normal;
 }
 
@@ -50,7 +70,7 @@ code[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-    color: #aaa;
+    color: slategray;
 }
 
 .token.punctuation {
@@ -66,36 +86,44 @@ code[class*="language-"] {
 .token.boolean,
 .token.number,
 .token.constant,
-.token.symbol {
-    color: #0cf;
+.token.symbol,
+.token.deleted {
+    color: #905;
 }
 
 .token.selector,
 .token.attr-name,
 .token.string,
 .token.char,
-.token.builtin {
-    color: yellow;
+.token.builtin,
+.token.inserted {
+    color: #690;
 }
 
 .token.operator,
 .token.entity,
 .token.url,
 .language-css .token.string,
-.toke.variable,
-.token.inserted {
-    color: yellowgreen;
+.style .token.string {
+    color: #9a6e3a;
+    background: hsla(0, 0%, 100%, .5);
 }
 
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-    color: deeppink;
+    color: #07a;
+}
+
+.token.function,
+.token.class-name {
+    color: #DD4A68;
 }
 
 .token.regex,
-.token.important {
-    color: orange;
+.token.important,
+.token.variable {
+    color: #e90;
 }
 
 .token.important,
@@ -111,17 +139,13 @@ code[class*="language-"] {
     cursor: help;
 }
 
-.token.deleted {
-    color: red;
-}
-
-pre.line-numbers {
+pre[class*="language-"].line-numbers {
     position: relative;
     padding-left: 3.8em;
     counter-reset: linenumber;
 }
 
-    pre.line-numbers > code {
+    pre[class*="language-"].line-numbers > code {
         position: relative;
         white-space: inherit;
     }
