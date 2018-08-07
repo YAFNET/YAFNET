@@ -98,8 +98,8 @@ namespace YAF.Controls
                                             ParamText0 = this.Get<YafBoardSettings>().Name,
                                             TitleLocalizedTag = "LOGIN",
                                             TitleLocalizedPage = "TOOLBAR",
-                                            CssClass = "yafcssbigbutton"
-                                        };
+                                            CssClass = "yaflittlebutton"
+                    };
 
                     if (this.Get<YafBoardSettings>().UseLoginBox && !(this.Get<IYafSession>().UseMobileTheme ?? false))
                     {
@@ -134,7 +134,7 @@ namespace YAF.Controls
                                                TextLocalizedPage = "TOOLBAR",
                                                TitleLocalizedTag = "REGISTER",
                                                TitleLocalizedPage = "TOOLBAR",
-                                               CssClass = "yafcssbigbutton",
+                                               CssClass = "yaflittlebutton",
                                                NavigateUrl =
                                                    this.Get<YafBoardSettings>().ShowRulesForRegistration
                                                        ? YafBuildLink.GetLink(ForumPages.rules)
