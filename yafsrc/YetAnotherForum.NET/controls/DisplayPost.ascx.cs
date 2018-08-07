@@ -138,7 +138,7 @@ namespace YAF.Controls
 
                 if (sb.Length > 0)
                 {
-                    sb.Append(",&nbsp;");
+                    sb.Append(", ");
                 }
 
                 // Get the username related to this User ID
