@@ -286,6 +286,7 @@ namespace YAF.Pages
             this.EditorLine.Controls.Add(this._editor);
 
             this._editor.UserCanUpload = this.Get<YafBoardSettings>().AllowPrivateMessageAttachments;
+            this.UploadDialog.Visible = this.Get<YafBoardSettings>().AllowPrivateMessageAttachments;
 
             // add editor to the page
             this.EditorLine.Controls.Add(this._editor);
