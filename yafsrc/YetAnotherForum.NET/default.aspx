@@ -16,7 +16,7 @@
     <meta id="YafMetaKeywords" runat="server" name="keywords" content="Yet Another Forum.net, Forum, ASP.NET, BB, Bulletin Board, opensource" />
     <title></title>
 </head>
-<body id="YafBody" runat="server" style="margin: 0; padding: 5px">
+<body id="YafBody" runat="server">
     <asp:HyperLink runat="server" id="BannerLink" >
         <img src="~/forumlogo.jpg" runat="server" alt="logo" style="border: 0;" id="imgBanner" />
     </asp:HyperLink>
