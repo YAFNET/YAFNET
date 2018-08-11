@@ -365,16 +365,6 @@
         <YAF:LocalizedLabel ID="LocalizedLabel43" runat="server" LocalizedTag="HEADER_ATTACHMENTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
     </h2>
     <hr />
-
-        
-                        
-    <h4>
-        <YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="MAX_ATTACHMENTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-    </h4>
-    <p>
-        <asp:TextBox CssClass="form-control" ID="MaxNumberOfAttachments" runat="server"></asp:TextBox>
-
-    </p><hr />
         
     <h4>
         <YAF:HelpLabel ID="HelpLabel216" runat="server" LocalizedTag="PM_ATTACHMENTS" LocalizedPage="ADMIN_HOSTSETTINGS" />

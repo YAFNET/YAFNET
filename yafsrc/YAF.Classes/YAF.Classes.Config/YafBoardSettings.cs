@@ -1749,22 +1749,6 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets MaxNumberOfAttachments.
-        /// </summary>
-        public int MaxNumberOfAttachments
-        {
-            get
-            {
-                return this._reg.GetValue("MaxNumberOfAttachments", 5);
-            }
-
-            set
-            {
-                this._reg.SetValue("MaxNumberOfAttachments", value);
-            }
-        }
-
-        /// <summary>
         /// Gets or sets Picture Attachment Display Threshold.
         /// </summary>
         public int PictureAttachmentDisplayTreshold

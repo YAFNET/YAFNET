@@ -268,63 +268,7 @@ namespace YAF.Types.Interfaces.Data
             return OrmLiteConfig.DialectProvider.GetQuotedTableName(ModelDefinition<T>.Definition);
         }
 
-        /// <summary>
-        /// Insert the entity using the model provided.
-        /// </summary>
-        /// <typeparam name="T">The type parameter</typeparam>
-        /// <param name="dbAccess">The DB access.</param>
-        /// <param name="insert">The insert.</param>
-        /// <param name="transaction">The transaction.</param>
-        /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
-        /// <returns>
-        /// The <see cref="int" />.
-        /// </returns>
-        public static long Insert<T>(
-            [NotNull] this IDbAccess dbAccess,
-            [NotNull] T insert,
-            [CanBeNull] IDbTransaction transaction = null,
-            bool selectIdentity = false)
-            where T : IEntity
-        {
-            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
-
-            if (transaction != null && transaction.Connection != null)
-            {
-                using (var command = transaction.Connection.CreateCommand())
-                {
-                    OrmLiteConfig.DialectProvider.PrepareParameterizedInsertStatement<T>(command);
-                    OrmLiteConfig.DialectProvider.SetParameterValues<T>(command, insert);
-
-                    if (!selectIdentity)
-                    {
-                        return dbAccess.ExecuteNonQuery(command, transaction);
-                    }
-
-                    command.CommandText += OrmLiteConfig.DialectProvider.GetLastInsertIdSqlSuffix<T>();
-                    return command.ExecLongScalar();
-                }
-            }
-
-            // no transaction
-            using (var connection = dbAccess.CreateConnectionOpen())
-            {
-                using (var command = connection.CreateCommand())
-                {
-                    OrmLiteConfig.DialectProvider.PrepareParameterizedInsertStatement<T>(command);
-                    OrmLiteConfig.DialectProvider.SetParameterValues<T>(command, insert);
-
-
-                    if (!selectIdentity)
-                    {
-                        return dbAccess.ExecuteNonQuery(command, transaction);
-                    }
-
-                    command.CommandText += OrmLiteConfig.DialectProvider.GetLastInsertIdSqlSuffix<T>();
-                    return command.ExecLongScalar();
-                }
-            }
-        }
-
+        
         /// <summary>
         /// The run.
         /// </summary>

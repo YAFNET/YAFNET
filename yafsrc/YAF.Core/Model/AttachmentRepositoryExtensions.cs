@@ -116,7 +116,7 @@ namespace YAF.Core.Model
                                  FileData = fileData
                              };
 
-            var newAttachmentId = repository.DbAccess.Insert(entity, selectIdentity: true).ToType<int>();
+            var newAttachmentId = repository.Insert(entity);
 
             repository.FireNew(entity);
 
