@@ -310,13 +310,13 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.HelpLabel HelpLabel7;
         
         /// <summary>
-        /// MaxNumberOfAttachments-Steuerelement
+        /// AllowPrivateMessageAttachments-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox MaxNumberOfAttachments;
+        protected global::System.Web.UI.WebControls.CheckBox AllowPrivateMessageAttachments;
         
         /// <summary>
         /// HelpLabel8-Steuerelement

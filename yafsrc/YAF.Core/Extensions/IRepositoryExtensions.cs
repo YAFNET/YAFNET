@@ -192,38 +192,19 @@ namespace YAF.Core.Extensions
         /// <summary>
         /// Inserts the entity. Updates the entity with the id if successful.
         /// </summary>
-        /// <param name="repository">
-        /// The repository. 
-        /// </param>
-        /// <param name="entity">
-        /// The entity. 
-        /// </param>
-        /// <param name="transaction">
-        /// The transaction. 
-        /// </param>
-        /// <typeparam name="T">
-        /// The type parameter.
-        /// </typeparam>
+        /// <typeparam name="T">The type parameter.</typeparam>
+        /// <param name="repository">The repository.</param>
+        /// <param name="entity">The entity.</param>
         /// <returns>
-        /// The <see cref="bool"/> . 
+        /// The <see cref="bool" /> .
         /// </returns>
-        public static bool Insert<T>([NotNull] this IRepository<T> repository, [NotNull] T entity, IDbTransaction transaction = null)
+        public static int Insert<T>([NotNull] this IRepository<T> repository, [NotNull] T entity)
             where T : class, IEntity, IHaveID, new()
         {
             CodeContracts.VerifyNotNull(entity, "entity");
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var insertId = repository.DbAccess.Insert(entity, transaction, true).ToType<int>();
-
-            if (insertId <= 0)
-            {
-                return false;
-            }
-
-            entity.ID = insertId;
-            repository.FireNew(insertId, entity);
-
-            return true;
+            return repository.DbAccess.Execute(db => db.Connection.Insert(entity, true)).ToType<int>();
         }
 
         /// <summary>
@@ -242,7 +223,7 @@ namespace YAF.Core.Extensions
             CodeContracts.VerifyNotNull(entity, "entity");
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return entity.ID > 0 ? repository.Update(entity) : repository.Insert(entity);
+            return entity.ID > 0 ? repository.Update(entity) : repository.Insert(entity) > 0;
         }
 
         /// <summary>

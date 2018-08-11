@@ -15,7 +15,7 @@
         <div class="postdiv">
             <div class="ui-widget">
                 <div class="ui-state-highlight ui-corner-all" style="padding: 0 .7em;">
-                    <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;margin-top: 10px"></span><asp:PlaceHolder runat="server" ID="ConnectHolder"></asp:PlaceHolder></p>
+                    <p><span class="ui-icon ui-icon-info"></span><asp:PlaceHolder runat="server" ID="ConnectHolder"></asp:PlaceHolder></p>
                 </div>
             </div>
         </div>

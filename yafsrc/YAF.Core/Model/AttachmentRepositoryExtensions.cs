@@ -192,7 +192,7 @@ namespace YAF.Core.Model
                         FileData = fileData
                     }.ToMappedEntity<Attachment>();
 
-            var attachmentID = repository.DbAccess.Insert(entity, selectIdentity: true).ToType<int>();
+            var attachmentID = repository.Insert(entity);
 
             repository.FireNew(entity);
 

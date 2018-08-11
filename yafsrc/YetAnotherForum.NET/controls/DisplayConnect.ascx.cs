@@ -98,7 +98,7 @@ namespace YAF.Controls
                                             ParamText0 = this.Get<YafBoardSettings>().Name,
                                             TitleLocalizedTag = "LOGIN",
                                             TitleLocalizedPage = "TOOLBAR",
-                                            CssClass = "yaflittlebutton"
+                                           // CssClass = "yaflittlebutton"
                     };
 
                     if (this.Get<YafBoardSettings>().UseLoginBox && !(this.Get<IYafSession>().UseMobileTheme ?? false))
@@ -134,7 +134,7 @@ namespace YAF.Controls
                                                TextLocalizedPage = "TOOLBAR",
                                                TitleLocalizedTag = "REGISTER",
                                                TitleLocalizedPage = "TOOLBAR",
-                                               CssClass = "yaflittlebutton",
+                                              // CssClass = "yaflittlebutton",
                                                NavigateUrl =
                                                    this.Get<YafBoardSettings>().ShowRulesForRegistration
                                                        ? YafBuildLink.GetLink(ForumPages.rules)
@@ -144,6 +144,8 @@ namespace YAF.Controls
                                                                   ForumPages.register,
                                                                   true).Replace("http:", "https:"))
                                            };
+
+                    this.ConnectHolder.Controls.Add(new Literal { Text = ",&nbsp;" });
 
                     this.ConnectHolder.Controls.Add(registerLink);
 

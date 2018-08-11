@@ -98,10 +98,10 @@
 
                     <tr>
                         <td class="postheader">
-                            <YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="MAX_ATTACHMENTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            <YAF:HelpLabel ID="HelpLabel7" runat="server" LocalizedTag="PM_ATTACHMENTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </td>
                         <td class="post">
-                            <asp:TextBox Style="width:350px" ID="MaxNumberOfAttachments" runat="server"></asp:TextBox>
+                            <<asp:CheckBox ID="AllowPrivateMessageAttachments" runat="server"></asp:CheckBox>
                         </td>
                     </tr>
                     <tr>

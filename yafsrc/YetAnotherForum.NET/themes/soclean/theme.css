@@ -7,7 +7,7 @@
 
 .yafnet .EditorDiv td
 {
-    padding: 0px !important;
+    padding: 0 !important;
     border: 0 !important;
 }
 
@@ -45,14 +45,14 @@
 
 .yafnet input[type="image"]
 {
-    padding: 0px;
-    border: 0px;
+    padding: 0;
+    border: 0;
 }
 
 .yafnet input[type="checkbox"]
 {
-    border: 0px;
-    padding: 0px;
+    border: 0;
+    padding: 0;
     margin: 5px;
 }
 
@@ -111,8 +111,6 @@
 .yafnet #yafheader .outerMenuContainer
 {
     border: 1px solid #ddd;
-	line-height: 20px;
-	padding: 3px;
 	line-height: 30px;
 }
 .yafnet #yafheader ul li a
@@ -130,7 +128,7 @@
 }
 .yafnet #yafheader ul li
 {
-	padding: 0 0px 0 5px;
+	padding: 0 0 0 5px;
 	margin: 0;
 	border-left: 1px solid #ddd;
 }
@@ -185,8 +183,8 @@
     font-size: 1em;
     font-weight: bold;
     line-height: 150%;
-    margin-left: 0 auto;
-    margin-right: 0 auto;
+    margin-left: 0;
+    margin-right: 0;
     margin-bottom: 10px;
     border: 1px solid #deb7b7;
     padding: 5px 10px 5px 30px;
@@ -333,7 +331,7 @@
 	font-size: 8pt;
 	border: solid 1px #ddd;
 	color: #000;
-	padding: 0px;
+	padding: 0;
 	border-collapse: collapse;
 	background-color: #FFFFFF;	
 }
@@ -368,7 +366,7 @@
 	font-size:7.5pt;
 }
 .yafnet #RichEdit td {
-	padding: 0px;
+	padding: 0;
 }
 /* links inside content table*/
 .yafnet .content a		{ color: #C02020; text-decoration: none; }
@@ -479,7 +477,7 @@ This CSS already works on FireFox.
 /* CSS Pagelinks */
 .yafnet .yafpager {
 	color: #555555;
-	margin: 6px 0px 6px 0px;
+	margin: 6px 0 6px 0;
 }
 .yafnet a.pagelink,
 .yafnet a.pagelinkfirst,
@@ -518,7 +516,7 @@ This CSS already works on FireFox.
     float: right;
 	font-size: 9px; 
     height: 19px;
-    margin: 2px 0px 2px 2px;    
+    margin: 2px 0 2px 2px;    
     padding-right: 5px;
     text-decoration: none;
     text-transform: uppercase;
@@ -534,7 +532,7 @@ This CSS already works on FireFox.
 }
 .yafnet a.yaflittlebutton img {
 	vertical-align: middle;
-	padding: 0px 4px 2px 0px;
+	padding: 0 4px 2px 0;
 }
 .yafnet .MultiQuoteButton:hover,
 .yafnet a.yaflittlebutton:hover {
@@ -547,7 +545,7 @@ This CSS already works on FireFox.
     outline: none;
 }
 .yafnet a.yaflittlebutton:active img {
-    padding: 0px 4px 2px 0px;
+    padding: 0 4px 2px 0;
 }
 .yafnet .Checked label,
 .yafnet a.yaflittlebutton:active span{
@@ -560,7 +558,7 @@ This CSS already works on FireFox.
     display: block;
 	font-size: 10px; 
     height: 24px;
-    margin: 2px 0px 2px 2px;    
+    margin: 2px 0 2px 2px;    
     padding-right: 4px;
     text-decoration: none;
     text-transform: uppercase;
@@ -575,7 +573,7 @@ This CSS already works on FireFox.
 }
 .yafnet a.yafcssbigbutton img{
 	vertical-align: middle;
-	padding: 0px 4px 2px 0px;
+	padding: 0 4px 2px 0;
 }
 .yafnet a.yafcssbigbutton:hover {
 	color: #000000;
@@ -586,7 +584,7 @@ This CSS already works on FireFox.
     outline: none; /* hide dotted outline in Firefox */
 }
 .yafnet a.yafcssbigbutton:active img{
-    padding: 0px 4px 2px 0px;
+    padding: 0 4px 2px 0;
 }
 .yafnet a.yafcssbigbutton:active span{
     background-position: bottom left;
@@ -603,7 +601,7 @@ This CSS already works on FireFox.
     float: left;
 	font-size: 9px; 
     height: 19px;
-    margin: 2px 0px 2px 2px;
+    margin: 2px 0 2px 2px;
     padding-right: 5px;
     text-decoration: none;
     text-transform: uppercase;
@@ -618,7 +616,7 @@ This CSS already works on FireFox.
 }
 .yafnet a.yafcssimagebutton img{
 	vertical-align: top;
-	padding: 0px 4px 0px 0px;
+	padding: 0 4px 0 0;
 }
 .yafnet a.yafcssimagebutton:hover{
 	text-decoration: none;
@@ -629,7 +627,7 @@ This CSS already works on FireFox.
     outline: none; /* hide dotted outline in Firefox */
 }
 .yafnet a.yafcssimagebutton:active img{
-    padding: 0px 4px 0px 0px;
+    padding: 0 4px 0 0;
 }
 .yafnet a.yafcssimagebutton:active span{
     background-position: bottom left;
@@ -678,7 +676,7 @@ This CSS already works on FireFox.
     background:url(tab.png) no-repeat right top;
     border-color:#666;
     color:#666;
-    padding:3px 10px 2px 0px;
+    padding:3px 10px 2px 0;
 }
 .yafnet .ajax__tab_yaf .ajax__tab_hover .ajax__tab_inner 
 {
@@ -933,7 +931,7 @@ This CSS already works on FireFox.
 
 .ModalDialog input, .ModalDialog select
 {
-    padding: 0px;
+    padding: 0;
 }
 
 .ModalDialog hr

@@ -1,6 +1,14 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.2.4.14
+## Fixed Issues:
+* [FIXED] Attachments Upload on Private Message
+* [FIXED] horizontal scrollbar
+* Remove non-breaking spaces from Thanks List
+* [FIXED #400] using default prism.js theme
+* [FIXED] ceebox script for jquery 3.x
+
 
 # YetAnotherForum.NET v2.2.4.13
 ## New Features:
@@ -13,6 +21,8 @@ YetAnotherForum.NET Changelog
 * [FIXED] not working attachments upload
 * [FIXED] yafeditor script was not automatically minified
 * [FIXED] Send Email to User
+* [FIXED #402] correctly display local datetime
+* Updated recommended web.configs
 
 
 # YetAnotherForum.NET v2.2.4.12

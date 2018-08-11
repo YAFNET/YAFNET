@@ -1283,6 +1283,8 @@
     <Resource tag="NOTIFICATION_MOBILE_HELP">Opción para mostrar ventanas de notificación nativas en dispositivos móviles.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Caducidad de la caché de estado de usuarios online:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">Puedes afinarla dependiendo de la actividad de tu sitio (en milisegundos)</Resource>
+    <Resource tag="PM_ATTACHMENTS">Allow attachments in Private Messages</Resource>
+    <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Tamaño de los ficheros de imagen en encuestas:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Tamaño máximo de imágenes en encuestas en kilobytes.</Resource>
     <Resource tag="POLLVOTING_PERIP">Las votaciones de encuestan depende de la IP:</Resource>
