@@ -262,7 +262,7 @@ namespace YAF.Editors
                 && (this.PageContext.UsrAlbums > 0 && this.PageContext.NumAlbums > 0) && !this.PageContext.CurrentForumPage.IsAdminPage)
             {
                 // add drop down for optional "extra" codes...
-                writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
+                writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle albums-toggle"" title=""{0}""
                        data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
                   <i class=""fa fa-image fa-fw""></i></button>".FormatWith(this.GetText("COMMON", "ALBUMIMG_CODE")));
 

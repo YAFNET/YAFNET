@@ -41,7 +41,7 @@
 			setPageNumberAlbums(pageSize, pageNumber, data.d.TotalRecords);
 
             if (isPageChange) {
-                jQuery(".attachments-toggle").dropdown('toggle');
+                jQuery(".albums-toggle").dropdown('toggle');
                 jQuery('[data-toggle="tooltip"]').tooltip({
                     html: true,
                     template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
