@@ -1948,6 +1948,7 @@
   <page name="BBCODEMODULE">
     <Resource tag="ALBUMIMG_DESCRIPTION">شماره آلبوم را وارد کنید</Resource>
     <Resource tag="ATTACH_DESCRIPTION">شناسه فایل ضمیمه را وارد کنید</Resource>
+    <Resource tag="ATTACH_NO">You have insufficient rights to see the content.</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">آدرس را وارد کنید (http://www.dailymotion.com/video/xxxx)</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">آدرس نقشه گوگل را وارد کنید</Resource>
     <Resource tag="HIDDENMOD_DESC">محتوای این مطلب مخفی است. بعد از فشردن دکمه تشکر، صفحه را رفرش کنید تا بتوانید محتوای مطلب را ببینید</Resource>

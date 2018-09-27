@@ -1915,6 +1915,7 @@
   <page name="BBCODEMODULE">
     <Resource tag="ALBUMIMG_DESCRIPTION">Geben Sie hier die Album Nummer ein</Resource>
     <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
+    <Resource tag="ATTACH_NO">You have insufficient rights to see the content.</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">Geben Sie hier eine DailyMotion URL (http://www.dailymotion.com/video/xxxx)</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">Geben Sie hier eine Google Maps URL ein</Resource>
     <Resource tag="HIDDENMOD_DESC">Der Inhalt dieses Beitrages ist versteckt. Nachdem Sie dem Autor DANKE Gesagt haben, und die Seite neugeladen haben, können Sie den Inhalt sehen.</Resource>

@@ -1937,6 +1937,7 @@
   <page name="BBCODEMODULE">
     <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
     <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
+    <Resource tag="ATTACH_NO">You have insufficient rights to see the content.</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
     <Resource tag="HIDDENMOD_DESC">El contenido de esta publicación está oculto. Después de los agradecimientos, refresca la página para ver el contenido oculto. Necesitas agradecer la publicación actual.</Resource>

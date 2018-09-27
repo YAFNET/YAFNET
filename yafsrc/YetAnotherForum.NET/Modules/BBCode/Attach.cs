@@ -112,14 +112,12 @@ namespace YAF.Modules.BBCode
                 }
                 else
                 {
-                    var kb = (1023 + attachment.Bytes.ToType<int>()) / 1024;
-
                     // user doesn't have rights to download, don't show the image
                     writer.Write(
-                        @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""attachmentinfo"">{2}</span>",
+                        @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""badge badge-warning"" role=""alert"">{2}</div>",
                         fileIcon,
                         attachment.FileName,
-                        stats.FormatWith(kb, attachment.Downloads));
+                        this.GetText("ATTACH_NO"));
                 }
             }
             else
@@ -142,10 +140,10 @@ namespace YAF.Modules.BBCode
                 else
                 {
                     writer.Write(
-                        @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""attachmentinfo"">{2}</span>",
+                        @"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""badge badge-warning"" role=""alert"">{2}</div>",
                         fileIcon,
                         attachment.FileName,
-                        stats.FormatWith(kb, attachment.Downloads));
+                        this.GetText("ATTACH_NO"));
                 }
             }
         }

@@ -1927,6 +1927,7 @@
   <page name="BBCODEMODULE">
     <Resource tag="ALBUMIMG_DESCRIPTION">Inserisci un ID immagine album</Resource>
     <Resource tag="ATTACH_DESCRIPTION">Inserisci un ID allegato</Resource>
+    <Resource tag="ATTACH_NO">You have insufficient rights to see the content.</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">Inserisci URL DayliMotion (http://www.dailymotion.com/video/xxxx)</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">Inserisci URL Google Maps</Resource>
     <Resource tag="HIDDENMOD_DESC">Testo nascosto agli utenti che non cliccano su Grazie. Aggiorna la pagina dopo aver ringraziato.</Resource>
