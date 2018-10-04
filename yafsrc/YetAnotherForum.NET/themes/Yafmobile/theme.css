@@ -310,6 +310,12 @@
 	background-color: #fefefe;
 	border: 1px dashed #808080;
 }
+
+/*make code div not occupy higher width than mobile device width*/
+.yafnet div.code div, .yafnet div.code {
+    max-width: 85vw;
+}
+
 .yafnet .code {
 	padding-left: 16px;	
 	margin: 5px;
