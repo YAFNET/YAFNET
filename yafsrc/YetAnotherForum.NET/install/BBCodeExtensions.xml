@@ -143,13 +143,13 @@
   </YafBBCode>
   <YafBBCode>
     <Name>VIMEO</Name>
-    <Description>[VIMEO]http://www.vimeo.com/xxxxxxx[/VIMEO]</Description>
+    <Description>[VIMEO]https://www.vimeo.com/xxxxxxx[/VIMEO]</Description>
     <OnClickJS />
     <DisplayJS />
     <EditJS />
     <DisplayCSS />
-    <SearchRegex>\[vimeo\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?vimeo.com/(?&lt;vimeoId&gt;[0-9]{8}))[^[]*\[/vimeo\]</SearchRegex>
-    <ReplaceRegex>&lt;div&gt;&lt;iframe width="560" height="350" src="http://player.vimeo.com/video/${vimeoId}?show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=1&amp;amp;&amp;amp;fullscreen=1" frameborder="0"&gt;&lt;/iframe&gt;&lt;/div&gt;
+    <SearchRegex>\[vimeo\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)vimeo.com/(?&lt;vimeoId&gt;[0-9]{9}))/[^[]*\[/vimeo\]|\[vimeo\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)vimeo.com/(?&lt;vimeoId&gt;[0-9]{8}))[^[]*\[/vimeo\]</SearchRegex>
+    <ReplaceRegex>&lt;div&gt;&lt;iframe width="560" height="350" src="//player.vimeo.com/video/${vimeoId}?show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=1&amp;amp;&amp;amp;fullscreen=1" frameborder="0"&gt;&lt;/iframe&gt;&lt;/div&gt;
     </ReplaceRegex>
     <Variables>prefix;vimeoId</Variables>
     <UseModule>false</UseModule>
