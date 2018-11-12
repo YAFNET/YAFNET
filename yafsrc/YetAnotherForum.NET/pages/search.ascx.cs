@@ -669,6 +669,16 @@ namespace YAF.Pages
 #endif
                 if (newSearch && !this.IsValidSearchRequest())
                 {
+                    this.SearchRes.DataSource = null;
+                    this.SearchRes.DataBind();
+
+                    this.Pager.CurrentPageIndex = 0;
+                    this.Pager.PageSize = 0;
+                    this.Pager.Count = 0;
+
+                    this.SearchRes.Visible = false;
+                    this.NoResults.Visible = true;
+
                     return;
                 }
 
