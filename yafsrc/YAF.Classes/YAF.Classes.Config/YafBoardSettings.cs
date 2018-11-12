@@ -2501,7 +2501,7 @@ namespace YAF.Classes
         {
             get
             {
-                return this._reg.GetValue("AllowSingleSignOn", false);
+                return false; //this._reg.GetValue("AllowSingleSignOn", false);
             }
 
             set
