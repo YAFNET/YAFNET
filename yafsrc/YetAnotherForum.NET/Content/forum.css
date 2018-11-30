@@ -899,9 +899,8 @@ Test out these custom less files live
     cursor: pointer;
     background-color: #e6bf99; }
 
-/* http://prismjs.com/download.html?themes=prism-funky&languages=markup+css+clike+javascript+c+aspnet+bash+cpp+csharp+css-extras+git+java+python+sql&plugins=line-numbers+autolinker */
 /* PrismJS 1.15.0
-https://prismjs.com/download.html?#themes=prism&languages=markup+css+clike+javascript+c+csharp+bash+cpp+aspnet+css-extras+git+java+sql+python&plugins=line-numbers+autolinker */
+https://prismjs.com/download.html?#themes=prism&languages=markup+css+clike+javascript+c+csharp+bash+basic+cpp+aspnet+css-extras+git+java+sql+python+vbnet+visual-basic&plugins=line-numbers+autolinker */
 /**
  * prism.js default theme for JavaScript, CSS and HTML
  * Based on dabblet (http://dabblet.com)
@@ -1779,7 +1778,7 @@ pre[class*="language-"].line-numbers > code {
     transform: translateY(0%);
     transition-delay: 1000ms; }
   .cookiealert .acceptcookies {
-    margin-left: 10px;
+    margin-right: 10px !important;
     vertical-align: baseline; }
 
 .content {
@@ -2540,4 +2539,3 @@ a.OpenUploadDialog {
     display: inline-block;
     vertical-align: bottom;
     margin-right: .3em; }
-
