@@ -2259,7 +2259,7 @@ td.tablesorter-pager {
     transform: translateY(0%);
     transition-delay: 1000ms; }
   .cookiealert .acceptcookies {
-    margin-left: 10px;
+    margin-right: 10px !important;
     vertical-align: baseline; }
 
 .gotoPageForm {
@@ -2356,4 +2356,3 @@ td.tablesorter-pager {
 
 .dropdown-menu > li > span > a {
   color: #333; }
-

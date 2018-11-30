@@ -3164,7 +3164,7 @@ body:last-child .blueimp-gallery-playing > .play-pause {
     transform: translateY(0%);
     transition-delay: 1000ms; }
   .cookiealert .acceptcookies {
-    margin-left: 10px;
+    margin-right: 10px !important;
     vertical-align: baseline; }
 
 #YafBody {
@@ -3187,4 +3187,3 @@ body:last-child .blueimp-gallery-playing > .play-pause {
     display: inline-block;
     vertical-align: bottom;
     margin-right: .3em; }
-
