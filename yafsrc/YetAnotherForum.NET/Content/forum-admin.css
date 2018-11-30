@@ -467,7 +467,7 @@
 .tablesorter-bootstrap:not(.table-dark) > tbody > tr td.tertiary, .tablesorter-bootstrap:not(.table-dark) > tbody > tr.even td.tertiary {
   background-color: #f2f2f2; }
 
-.tablesorter-bootstrap:not(.table-dark) .caption {
+.tablesorter-bootstrap:not(.table-dark) > .caption {
   background-color: #fff; }
 
 .tablesorter-bootstrap .tablesorter-filter-row input.tablesorter-filter, .tablesorter-bootstrap .tablesorter-filter-row select.tablesorter-filter {
@@ -514,7 +514,6 @@
   border: 0;
   padding: 0;
   margin: 0;
-  /* don't use visibility: hidden because it disables tabbing */
   opacity: 0; }
 
 .tablesorter .filtered {
@@ -554,7 +553,6 @@ td.tablesorter-pager {
   display: none; }
 
 .tablesorter-pager .disabled {
-  /* visibility: hidden */
   opacity: .5;
   cursor: default; }
 
