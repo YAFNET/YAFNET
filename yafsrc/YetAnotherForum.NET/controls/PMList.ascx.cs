@@ -300,7 +300,7 @@ namespace YAF.Controls
             var messageList = this.GetMessagesForExport(null);
 
             // Return if No Messages are Available to Export
-            if (messageList.Table.Rows.Count.Equals(0))
+            if (!messageList.Table.HasRows())
             {
                 this.PageContext.AddLoadMessage(this.GetText("NO_MESSAGES"));
                 return;
@@ -338,7 +338,7 @@ namespace YAF.Controls
             var messageList = this.GetMessagesForExport(exportPmIds);
             
             // Return if No Message Selected
-            if (messageList.Table.Rows.Count.Equals(0))
+            if (!messageList.Table.HasRows())
             {
                 this.PageContext.AddLoadMessage(this.GetText("MSG_NOSELECTED"));
 

@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="YafHeader.ascx.cs" Inherits="YAF.Controls.YafHeader" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Classes" %>
-<%@ Register TagPrefix="asp" Namespace="YAF.Controls" Assembly="YAF.Controls, Version=2.3.0.0, Culture=neutral, PublicKeyToken=8b49dc47f4701f66" %>
     <asp:Panel id="GuestUserMessage" CssClass="alert alert-info alert-dismissible fade show" runat="server" Visible="false" role="alert">
        <asp:Label id="GuestMessage" runat="server"></asp:Label>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -64,12 +63,12 @@
             </ul>
             <asp:Panel ID="quickSearch" runat="server" CssClass="QuickSearch" Visible="false">
                 <YAF:ModernTextBox ID="searchInput" Type="Search" runat="server"></YAF:ModernTextBox>&nbsp;
-                <asp:ThemeButton ID="doQuickSearch" runat="server"
+                <YAF:ThemeButton ID="doQuickSearch" runat="server"
                                  CssClass="btn btn-outline-success my-2 my-sm-0"
                                  OnClick="QuickSearchClick"
                                  TextLocalizedTag="BTNSEARCH" TitleLocalizedTag="SEARCH"
                                  Icon="search">
-                </asp:ThemeButton>
+                </YAF:ThemeButton>
             </asp:Panel>
         </div>
     </nav>

@@ -817,7 +817,7 @@ namespace YAF.Pages
             {
                 var userMedalsTable = this.Get<YafDbBroker>().UserMedals(this.UserId);
 
-                if (userMedalsTable.Rows.Count <= 0)
+                if (!userMedalsTable.HasRows())
                 {
                     this.MedalsRow.Visible = false;
 

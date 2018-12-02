@@ -23,109 +23,113 @@
  */
 namespace YAF.Controls
 {
-	#region Using
+    #region Using
 
-	using System;
-	using System.Data;
-	using System.Web.UI.WebControls;
+    using System;
+    using System.Data;
+    using System.Web.UI.WebControls;
 
-	using YAF.Classes;
-	using YAF.Classes.Data;
-	using YAF.Core;
-	using YAF.Core.Services;
-	using YAF.Types;
-	using YAF.Types.Extensions;
-	using YAF.Types.Interfaces;
-	using YAF.Types.Interfaces.Data;
-	using YAF.Utils;
+    using YAF.Classes;
+    using YAF.Classes.Data;
+    using YAF.Core;
+    using YAF.Core.Services;
+    using YAF.Types;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Data;
+    using YAF.Utils;
 
-	#endregion
+    #endregion
 
-	/// <summary>
-	/// The forum category list.
-	/// </summary>
-	public partial class ForumCategoryList : BaseUserControl
-	{
-		#region Methods
+    /// <summary>
+    /// The forum category list.
+    /// </summary>
+    public partial class ForumCategoryList : BaseUserControl
+    {
+        #region Methods
 
-		/// <summary>
-		/// Column count
-		/// </summary>
-		/// <returns>
-		/// The column count.
-		/// </returns>
-		protected int ColumnCount()
-		{
-			var cnt = 5;
+        /// <summary>
+        /// Column count
+        /// </summary>
+        /// <returns>
+        /// The column count.
+        /// </returns>
+        protected int ColumnCount()
+        {
+            var cnt = 5;
 
-			if (this.Get<YafBoardSettings>().ShowModeratorList && this.Get<YafBoardSettings>().ShowModeratorListAsColumn)
-			{
-				cnt++;
-			}
+            if (this.Get<YafBoardSettings>().ShowModeratorList
+                && this.Get<YafBoardSettings>().ShowModeratorListAsColumn)
+            {
+                cnt++;
+            }
 
-			return cnt;
-		}
+            return cnt;
+        }
 
-		/// <summary>
-		/// The mark all_ click.
-		/// </summary>
-		/// <param name="sender">
-		/// The sender.
-		/// </param>
-		/// <param name="e">
-		/// The e.
-		/// </param>
-		protected void MarkAll_Click([NotNull] object sender, [NotNull] EventArgs e)
-		{
-			var markAll = (LinkButton)sender;
+        /// <summary>
+        /// The mark all_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void MarkAll_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            var markAll = (LinkButton)sender;
 
-			object categoryId = null;
+            object categoryId = null;
 
-			int icategoryId;
-			if (int.TryParse(markAll.CommandArgument, out icategoryId))
-			{
-				categoryId = icategoryId;
-			}
+            int icategoryId;
+            if (int.TryParse(markAll.CommandArgument, out icategoryId))
+            {
+                categoryId = icategoryId;
+            }
 
-			var dt = LegacyDb.forum_listread(
-				boardID: this.PageContext.PageBoardID,
-				userID: this.PageContext.PageUserID,
-				categoryID: categoryId,
-				parentID: null,
-				useStyledNicks: false,
-				findLastRead: false);
+            var dt = LegacyDb.forum_listread(
+                boardID: this.PageContext.PageBoardID,
+                userID: this.PageContext.PageUserID,
+                categoryID: categoryId,
+                parentID: null,
+                useStyledNicks: false,
+                findLastRead: false);
 
-			this.Get<IReadTrackCurrentUser>().SetForumRead(dt.AsEnumerable().Select(r => r["ForumID"].ToType<int>()));
+            this.Get<IReadTrackCurrentUser>().SetForumRead(dt.AsEnumerable().Select(r => r["ForumID"].ToType<int>()));
 
-			this.BindData();
-		}
+            this.BindData();
+        }
 
-		/// <summary>
-		/// The page_ load.
-		/// </summary>
-		/// <param name="sender">
-		/// The sender.
-		/// </param>
-		/// <param name="e">
-		/// The e.
-		/// </param>
-		protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-		{
-			this.BindData();
-		}
+        /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.BindData();
+        }
 
-		/// <summary>
-		/// Bind Data
-		/// </summary>
-		private void BindData()
-		{
-			var ds = this.Get<YafDbBroker>().BoardLayout(
-					this.PageContext.PageBoardID, this.PageContext.PageUserID, this.PageContext.PageCategoryID, null);
+        /// <summary>
+        /// Bind Data
+        /// </summary>
+        private void BindData()
+        {
+            var ds = this.Get<YafDbBroker>().BoardLayout(
+                this.PageContext.PageBoardID,
+                this.PageContext.PageUserID,
+                this.PageContext.PageCategoryID,
+                null);
 
-			this.CategoryList.DataSource = ds.Tables["Category"];
-			this.CategoryList.DataBind();
-		}
+            this.CategoryList.DataSource = ds.Tables["Category"];
+            this.CategoryList.DataBind();
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -6,7 +6,7 @@
 <asp:PlaceHolder id="SimilarTopicsHolder" runat="server" Visible="true">
     <asp:Repeater ID="Topics" runat="server" Visible="true">
         <HeaderTemplate>
-            <div class="col-xl-12">
+            <div class="col">
             <div class="card mb-3">
                 <h5 class="card-header">
                     <YAF:LocalizedLabel runat="server" LocalizedPage="POSTS" LocalizedTag="SIMILAR_TOPICS"></YAF:LocalizedLabel>

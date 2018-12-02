@@ -81,20 +81,6 @@ namespace YAF.Pages.moderate
         }
 
         /// <summary>
-        /// Handles load event for delete button, adds confirmation dialog.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var button = sender as ThemeButton;
-            if (button != null)
-            {
-                button.Attributes["onclick"] = "return confirm('{0}');".FormatWith(this.GetText("ASK_DELETE"));
-            }
-        }
-
-        /// <summary>
         /// Format message.
         /// </summary>
         /// <param name="row">
@@ -246,7 +232,7 @@ namespace YAF.Pages.moderate
             // see if there are any items left...
             var dt = LegacyDb.message_listreported(this.PageContext.PageForumID);
 
-            if (dt.Rows.Count == 0)
+            if (!dt.HasRows())
             {
                 // nope -- redirect back to the moderate main...
                 YafBuildLink.Redirect(ForumPages.moderate_index);

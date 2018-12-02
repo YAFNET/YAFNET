@@ -270,7 +270,7 @@ namespace YAF.Controls
                 return;
             }
 
-            if (topicList.Rows.Count <= 0)
+            if (topicList.HasRows())
             {
                 this.PagerTop.Count = 0;
                 this.TopicList.DataSource = null;
@@ -357,7 +357,7 @@ namespace YAF.Controls
         {
             this.BindData();
 
-            if (this.topics == null || this.topics.Rows.Count.Equals(0))
+            if (this.topics == null || !this.topics.HasRows())
             {
                 return;
             }
@@ -379,7 +379,6 @@ namespace YAF.Controls
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.lastPostImageTT = this.GetText("DEFAULT", "GO_LAST_POST");
-            this.MarkAll.Text = this.GetText("DEFAULT", "MARK_ALL_ASREAD");
 
             if (!this.IsPostBack)
             {

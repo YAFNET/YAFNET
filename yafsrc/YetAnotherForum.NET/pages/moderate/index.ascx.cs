@@ -27,7 +27,6 @@ namespace YAF.Pages.moderate
     #region Using
 
     using System;
-    using System.Data;
     using System.Web.UI.WebControls;
 
     using YAF.Classes.Data;
@@ -77,7 +76,7 @@ namespace YAF.Pages.moderate
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        protected void ForumList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        protected void ForumListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             // which command are we handling
             switch (e.CommandName.ToLower())

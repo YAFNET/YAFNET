@@ -24,61 +24,56 @@
 
 namespace YAF.Pages
 {
-  // YAF.Pages
-  #region Using
+    #region Using
 
-  using System;
-  using System.Web.Security;
+    using System;
+    using System.Web.Security;
 
-  using YAF.Core;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.EventProxies;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-
-  #endregion
-
-  /// <summary>
-  /// Summary description for logout.
-  /// </summary>
-  public partial class logout : ForumPage
-  {
-    #region Constructors and Destructors
-
-    /// <summary>
-    ///   Initializes a new instance of the <see cref = "logout" /> class.
-    /// </summary>
-    public logout()
-      : base("LOGOUT")
-    {
-      this.PageContext.Globals.IsSuspendCheckEnabled = false;
-    }
+    using YAF.Core;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.EventProxies;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
 
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// The page_ load.
+    /// The Logout function
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    public partial class logout : ForumPage
     {
-      FormsAuthentication.SignOut();
+        #region Constructors and Destructors
 
-      this.Get<IRaiseEvent>().Raise(new UserLogoutEvent(this.PageContext.PageUserID));
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "logout" /> class.
+        /// </summary>
+        public logout()
+            : base("LOGOUT")
+        {
+            this.PageContext.Globals.IsSuspendCheckEnabled = false;
+        }
 
-      this.Session.Abandon();
+        #endregion
 
-      YafBuildLink.Redirect(ForumPages.forum);
+        #region Methods
+
+        /// <summary>
+        /// Handles the Load event of the Page control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            FormsAuthentication.SignOut();
+
+            this.Get<IRaiseEvent>().Raise(new UserLogoutEvent(this.PageContext.PageUserID));
+
+            this.Session.Abandon();
+
+            YafBuildLink.Redirect(ForumPages.forum);
+        }
+
+        #endregion
     }
-
-    #endregion
-  }
 }

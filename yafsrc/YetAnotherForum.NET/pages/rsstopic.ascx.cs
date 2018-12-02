@@ -1128,7 +1128,7 @@ namespace YAF.Pages
         /// </returns>
         private DataTable TabledCleanUpByDate(DataTable dt, string fieldName, DateTime cleanToDate)
         {
-            if (dt == null || dt.Rows.Count <= 0)
+            if (dt == null || !dt.HasRows())
             {
                 return dt;
             }

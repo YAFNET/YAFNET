@@ -202,7 +202,7 @@ namespace YAF.Controls
                                      ? string.Empty
                                      : dtAlbum.Rows[0]["CoverImageID"].ToString();
 
-            if ((dtAlbumImageList == null) || (dtAlbumImageList.Rows.Count <= 0))
+            if (dtAlbumImageList == null || !dtAlbumImageList.HasRows())
             {
                 return;
             }

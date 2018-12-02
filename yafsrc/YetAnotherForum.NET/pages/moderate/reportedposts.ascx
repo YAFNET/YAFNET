@@ -1,29 +1,31 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.moderate.reportedposts"CodeBehind="reportedposts.ascx.cs" %>
-<%@ Register TagPrefix="YAF" TagName="ReportedPosts" Src="../../controls/ReportedPosts.ascx" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
-<%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+
+<%@ Register TagPrefix="YAF" TagName="ReportedPosts" Src="../../controls/ReportedPosts.ascx" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
+
+<div class="row">
+    <div class="col-xl-12">
+        <h1><%# this.PageContext.PageForumName %> - <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="REPORTED" /></h1>
+    </div>
+</div>
 <asp:Repeater ID="List" runat="server">
-    <HeaderTemplate>
-        <table class="content" width="100%">
-            <tr>
-                <td colspan="3" class="header1" align="left">
-                    <%# PageContext.PageForumName %>
-                    -
-                    <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="REPORTED" />
-                </td>
-            </tr>
-        </table>
-    </HeaderTemplate>
     <ItemTemplate>
-        <table class="content" width="100%">
+        <div class="row">
+        <div class="col-xl-12">
+        <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-file-alt fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="TopicLabel" runat="server" LocalizedTag="TOPIC" />
+            &nbsp;<a id="TopicLink" href='<%# YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.Eval("TopicID")) %>'
+                     runat="server"><%# this.Eval("Topic") %></a>
+        </div>
+        <div class="card-body text-center">
+            <table class="content" width="100%">
             <tr class="header2">
                 <td colspan="3">
-                    <YAF:LocalizedLabel ID="TopicLabel" runat="server" LocalizedTag="TOPIC" />
-                    &nbsp;<a id="TopicLink" href='<%# YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.Eval("TopicID")) %>'
-                        runat="server"><%# this.Eval("Topic") %></a>
+                    
                 </td>
             </tr>
             <tr class="postheader">
@@ -31,7 +33,7 @@
                     <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# this.Eval("UserID").ToType<int>() %>' />
                     <YAF:ThemeButton ID="AdminUserButton" runat="server" CssClass="yaflittlebutton" Visible='<%# this.PageContext.IsAdmin %>'
                     TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE" 
-                    NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", Convert.ToInt32(Eval("UserID")) ) %>'>
+                    NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", Convert.ToInt32(this.Eval("UserID")) ) %>'>
                 </YAF:ThemeButton>
                 </td>
                 <td>
@@ -52,20 +54,21 @@
                 </td>
                 <td>
                     <YAF:ThemeButton ID="ReportAsSpamBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
-                        TextLocalizedTag="REPORT_SPAM" CommandName="spam" CommandArgument='<%# FormatMessage((System.Data.DataRowView)Container.DataItem) %>'
+                        TextLocalizedTag="REPORT_SPAM" CommandName="spam" CommandArgument='<%# this.FormatMessage((System.Data.DataRowView)Container.DataItem) %>'
                         visible='<%# this.Get<YafBoardSettings>().SpamServiceType.Equals(1)%>' />
                     <YAF:ThemeButton ID="CopyOverBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
                         TextLocalizedTag="COPYOVER" CommandName="CopyOver" Visible='<%# YAF.Utils.General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'
                         CommandArgument='<%# this.Eval("MessageID") %>' />
                     <YAF:ThemeButton ID="DeleteBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
                         TextLocalizedTag="DELETE" CommandName="Delete" CommandArgument='<%# this.Eval("MessageID") %>'
-                        OnLoad="Delete_Load" />
+                        ReturnConfirmText='<%# this.GetText("ASK_DELETE") %>'
+                                     Icon="trash" Type="Danger"/>
                     <YAF:ThemeButton ID="ResolveBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
                         TextLocalizedTag="RESOLVED" CommandName="Resolved" CommandArgument='<%# this.Eval("MessageID") %>' />
                     <YAF:ThemeButton ID="ViewBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
                         TextLocalizedTag="VIEW" CommandName="View" CommandArgument='<%# this.Eval("MessageID") %>' />
                     <YAF:ThemeButton ID="ViewHistoryBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
-                        TextLocalizedTag="HISTORY" CommandName="ViewHistory" CommandArgument='<%# PageContext.PageForumID + "," + this.Eval("MessageID") %>' />
+                        TextLocalizedTag="HISTORY" CommandName="ViewHistory" CommandArgument='<%# this.PageContext.PageForumID + "," + this.Eval("MessageID") %>' />
                 </td>
             </tr>
             <tr>
@@ -74,7 +77,7 @@
                     &nbsp;
                 </td>
                 <td valign="top" class="post message" colspan="2">
-                    <%# FormatMessage((System.Data.DataRowView)Container.DataItem)%>
+                    <%# this.FormatMessage((System.Data.DataRowView)Container.DataItem)%>
                 </td>
             </tr>
             <tr class="postheader" style="vertical-align:top">
@@ -88,9 +91,10 @@
                 </td>
             </tr>
         </table>
+        </div>
+                </div>
+            </div>
+        </div>
     </ItemTemplate>
-    <SeparatorTemplate>
-        <br />
-    </SeparatorTemplate>
 </asp:Repeater>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

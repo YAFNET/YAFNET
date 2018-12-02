@@ -210,7 +210,7 @@ namespace YAF.Controls
             // set the Datatable
             var albumListDT = LegacyDb.album_list(this.UserID, null);
 
-            if ((albumListDT == null) || (albumListDT.Rows.Count <= 0))
+            if (albumListDT == null || !albumListDT.HasRows())
             {
                 return;
             }

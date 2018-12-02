@@ -199,7 +199,7 @@ namespace YAF.Controls
                 () => LegacyDb.User_ListTodaysBirthdays(this.PageContext.PageBoardID, this.Get<YafBoardSettings>().UseStyledNicks),
                 TimeSpan.FromHours(1));
 
-            if (users == null || users.Rows.Count <= 0)
+            if (users == null || !users.HasRows())
             {
                 return;
             }

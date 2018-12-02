@@ -34,8 +34,6 @@
             <tr>
                 <td class="post">
                     <YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%# CurrentUserID == Convert.ToInt32(Eval("UserID")) ? this.Eval("FromUserID") : this.Eval("UserID") %>' />
-                    <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( this.Eval("UserID") )%>'
-                        Style="vertical-align: bottom" UserID='<%# this.Eval("UserID") %>' />
                 </td>
                 <td class="post">
                     <%# this.Eval("RankName") %>

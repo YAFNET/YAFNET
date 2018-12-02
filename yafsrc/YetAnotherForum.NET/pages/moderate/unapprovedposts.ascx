@@ -1,41 +1,41 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.moderate.unapprovedposts"CodeBehind="unapprovedposts.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.moderate.unapprovedposts" CodeBehind="unapprovedposts.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
-<%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
+
+<div class="row">
+    <div class="col-xl-12">
+        <h1><YAF:LocalizedLabel runat="server" LocalizedTag="UNAPPROVED" /></h1>
+    </div>
+</div>
 <asp:Repeater ID="List" runat="server">
-    <HeaderTemplate>
-        <table class="content" cellspacing="1" cellpadding="0" width="100%">
-            <tr>
-                <td colspan="2" class="header1" align="left">
-                    <YAF:LocalizedLabel runat="server" LocalizedTag="UNAPPROVED" />
-                </td>
-            </tr>
-    </HeaderTemplate>
-    <FooterTemplate>
-        <tr>
-            <td class="postfooter" colspan="2">
-                &nbsp;
-            </td>
-        </tr>
-        </table>
-    </FooterTemplate>
     <ItemTemplate>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-file-alt fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="TopicLabel" runat="server" LocalizedTag="TOPIC" />
+            &nbsp;<a id="TopicLink" href='<%# YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.Eval("TopicID")) %>'
+                     runat="server" Visible='<%# this.Eval("MessageCount").ToType<int>() > 0 %>'><%# this.Eval("Topic") %></a>
+            <asp:Label id="TopicName" runat="server" Visible='<%# this.Eval("MessageCount").ToType<int>() == 0 %>' Text='<%# this.Eval("Topic") %>'></asp:Label>
+        </div>
+        <div class="card-body text-center">
+            <p class="card-text">
+                <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="INFO" LocalizedPage="ADMIN_RESTARTAPP" />
+            </p>
+        </div>
         <tr class="header2">
             <td colspan="2">
-                <YAF:LocalizedLabel ID="TopicLabel" runat="server" LocalizedTag="TOPIC" />
-                &nbsp;<a id="TopicLink" href='<%# YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.Eval("TopicID")) %>'
-                    runat="server" Visible='<%# this.Eval("MessageCount").ToType<int>() > 0 %>'><%# this.Eval("Topic") %></a>
-                <asp:Label id="TopicName" runat="server" Visible='<%# this.Eval("MessageCount").ToType<int>() == 0 %>' Text='<%# this.Eval("Topic") %>'></asp:Label>
+                
             </td>
         </tr>
         <tr class="postheader">
             <td>
-                <YAF:UserLink ID="UserName" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>' />
+                <YAF:UserLink ID="UserName" runat="server" UserID='<%# Convert.ToInt32(this.Eval("UserID")) %>' />
                 <YAF:ThemeButton ID="AdminUserButton" runat="server" CssClass="yaflittlebutton" Visible='<%# this.PageContext.IsAdmin %>'
                     TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE" 
-                    NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", Convert.ToInt32(Eval("UserID")) ) %>'>
+                    NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", Convert.ToInt32(this.Eval("UserID")) ) %>'>
                 </YAF:ThemeButton>
             </td>
             <td>
@@ -48,7 +48,8 @@
                 &nbsp;
             </td>
             <td valign="top" class="message">
-                <%# FormatMessage((System.Data.DataRowView)Container.DataItem)%>
+                <%#
+    this.FormatMessage((System.Data.DataRowView)Container.DataItem)%>
             </td>
         </tr>
         <tr class="postfooter">
@@ -62,16 +63,17 @@
                     TextLocalizedTag="APPROVE" CommandName="Approve" CommandArgument='<%# this.Eval("MessageID") %>' />
                 <YAF:ThemeButton ID="DeleteBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
                     TextLocalizedTag="DELETE" CommandName="Delete" CommandArgument='<%# this.Eval("MessageID") %>'
-                    OnLoad="Delete_Load" />
+                                 ReturnConfirmText='<%# this.GetText("ASK_DELETE") %>'
+                                 Icon="trash" Type="Danger" />
             </td>
         </tr>
+        <div class="card-footer text-center">
+                
+        </div>
+        </div>
+        </div>
+        </div>
     </ItemTemplate>
-    <SeparatorTemplate>
-        <tr class="postsep">
-            <td colspan="2" style="height: 7px">
-            </td>
-        </tr>
-    </SeparatorTemplate>
 </asp:Repeater>
 <div id="DivSmartScroller">
     <YAF:SmartScroller ID="SmartScroller1" runat="server" />
