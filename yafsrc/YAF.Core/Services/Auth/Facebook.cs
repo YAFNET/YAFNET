@@ -95,7 +95,7 @@ namespace YAF.Core.Services.Auth
         public string GetAccessToken(string authorizationCode, HttpRequest request)
         {
             var urlGetAccessToken =
-                "https://graph.facebook.com/v2.9/oauth/access_token?client_id={0}&client_secret={1}&redirect_uri={2}&code={3}"
+                "https://graph.facebook.com/oauth/access_token?client_id={0}&client_secret={1}&redirect_uri={2}&code={3}"
                     .FormatWith(
                         Config.FacebookAPIKey,
                         Config.FacebookSecretKey,

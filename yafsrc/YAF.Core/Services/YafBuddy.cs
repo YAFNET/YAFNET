@@ -235,7 +235,7 @@ namespace YAF.Core.Services
 
             var userBuddyList = this._dbBroker.UserBuddyList(YafContext.Current.PageUserID);
 
-            if ((userBuddyList == null) || (userBuddyList.Rows.Count <= 0))
+            if (userBuddyList == null || !userBuddyList.HasRows())
             {
                 return false;
             }

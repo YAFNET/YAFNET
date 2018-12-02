@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2018 Ingo Herbote
@@ -32,6 +32,8 @@ namespace YAF.Core.Helpers
     using System.Linq;
     using System.Web;
     using System.Xml;
+
+    using ServiceStack.OrmLite;
 
     using YAF.Classes;
     using YAF.Core.Services.Localization;
@@ -401,6 +403,17 @@ namespace YAF.Core.Helpers
         }
 
         /// <summary>
+        /// Get all time zones.
+        /// </summary>
+        /// <returns>
+        /// Returns a Data Table with all time zones.
+        /// </returns>
+        public static DataTable TimeZones()
+        {
+            return TimeZones(TimeZoneInfo.GetSystemTimeZones());
+        }
+
+        /// <summary>
         /// Gets all Time Zones
         /// </summary>
         /// <param name="getSystemTimeZones">The get system time zones.</param>
@@ -416,29 +429,13 @@ namespace YAF.Core.Helpers
 
                 foreach (var timeZoneInfo in getSystemTimeZones)
                 {
-                    var utcOffSet = timeZoneInfo.BaseUtcOffset;
-                    var timeZone = utcOffSet < TimeSpan.Zero
-                                       ? "-{0}".FormatWith(utcOffSet.ToString("hh"))
-                                       : utcOffSet.ToString("hh");
-
-                    dt.Rows.Add((timeZone.ToType<decimal>() * 60).ToType<int>(), timeZoneInfo.DisplayName);
+                    dt.Rows.Add(timeZoneInfo.Id, timeZoneInfo.DisplayName);
                 }
 
                 return dt;
             }
         }
-
-        /// <summary>
-        /// Get all time zones.
-        /// </summary>
-        /// <returns>
-        /// Returns a Data Table with all time zones.
-        /// </returns>
-        public static DataTable TimeZones()
-        {
-            return TimeZones(TimeZoneInfo.GetSystemTimeZones());
-        }
-
+        
         /// <summary>
         /// Gets all topic times.
         /// </summary>

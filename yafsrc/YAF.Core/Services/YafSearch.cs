@@ -360,7 +360,7 @@
             }
 
             var flags = doc.Get("Flags").ToType<int>();
-            
+
             var formattedMessage = this.Get<IFormatMessage>().FormatMessage(doc.Get("Message"), new MessageFlags(flags), true);
 
             var message = formattedMessage;
