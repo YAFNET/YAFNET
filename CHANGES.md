@@ -1,6 +1,14 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.2.4.15
+## Fixed Issues:
+* [FIXED] Issue when search box is empty
+* updated vimeo bb code extension
+* [FIXED] pager on album images selector
+* [FIXED] emaildigest
+* [FIXED #413] shows username instead of diplay name of deleted user
+
 # YetAnotherForum.NET v2.2.4.14
 ## Fixed Issues:
 * [FIXED] Attachments Upload on Private Message
@@ -153,7 +161,7 @@ https://github.com/YAFNET/YAFNET/commits/master
 * [FIXED] Attachments in Multi Board installations
 * [FIXED] issue with Attachments with the same name override old attachments
 * [FIXED] When creating a new Board the BBCode Extensions and other are correctly installed
-
+ch
 
 ### Full Change log here:
 https://github.com/YAFNET/YAFNET/commits/master
