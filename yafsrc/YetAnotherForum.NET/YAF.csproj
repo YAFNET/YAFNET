@@ -2324,6 +2324,7 @@
     <Content Include="Scripts\i18n\zh-CN.js" />
     <Content Include="Scripts\i18n\zh-TW.js" />
     <Content Include="Scripts\bootstrap-select.js.map" />
+    <Content Include="Scripts\ckeditor\yarn.lock" />
     <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="Scripts\ckeditor\README.md" />
     <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
@@ -4065,7 +4066,9 @@
     <Content Include="themes\cleanSlate\status_solved.png" />
     <Content Include="themes\cleanSlate\tab-line.png" />
     <Content Include="themes\cleanSlate\tab.png" />
-    <Content Include="recommended.web.config" />
+    <Content Include="recommended.web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\jquery-2.2.4.min.map" />
     <None Include="themes\cleanSlate\theme.less" />
     <Content Include="themes\cleanSlate\theme.css">
