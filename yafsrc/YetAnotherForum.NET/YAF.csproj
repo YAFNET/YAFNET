@@ -1849,6 +1849,12 @@
     <Content Include="Scripts\jquery.ForumAdminExtensions.min.js">
       <DependentUpon>jquery.ForumAdminExtensions.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\jquery.ForumExtensions.es5.js">
+      <DependentUpon>jquery.ForumExtensions.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.ForumExtensions.es5.min.js">
+      <DependentUpon>jquery.ForumExtensions.es5.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.ForumExtensions.min.js">
       <DependentUpon>jquery.ForumExtensions.js</DependentUpon>
     </Content>
