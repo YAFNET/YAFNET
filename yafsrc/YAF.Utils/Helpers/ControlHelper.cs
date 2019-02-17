@@ -455,6 +455,18 @@ namespace YAF.Utils.Helpers
         }
 
         /// <summary>
+        /// Creates a <see cref="HtmlMeta"/> control robots no-index.
+        /// </summary>
+        /// <returns><see cref="HtmlMeta"/> control</returns>
+        public static HtmlMeta MakeMetaNoIndexControl()
+        {
+
+            var meta = new HtmlMeta { Name = "robots", Content = "noindex" };
+
+            return meta;
+        }
+
+        /// <summary>
         /// Creates a <see cref="HtmlMeta"/> control for description.
         /// </summary>
         /// <param name="description">description that go inside the meta</param>

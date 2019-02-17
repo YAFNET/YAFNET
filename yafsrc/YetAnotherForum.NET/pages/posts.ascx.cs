@@ -930,6 +930,12 @@ namespace YAF.Pages
                 // add to the header...
                 this.Page.Header.Controls.Add(keywordMeta);
             }
+
+            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
+            {
+                // add no-index tag
+                this.Page.Header.Controls.Add(ControlHelper.MakeMetaNoIndexControl());
+            }
         }
 
         /// <summary>
