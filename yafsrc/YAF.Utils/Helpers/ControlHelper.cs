@@ -449,7 +449,20 @@ namespace YAF.Utils.Helpers
         /// <returns><see cref="HtmlMeta"/> control</returns>
         public static HtmlMeta MakeMetaKeywordsControl(string keywords)
         {
+
             HtmlMeta meta = new HtmlMeta { Name = "keywords", Content = keywords };
+
+            return meta;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="HtmlMeta"/> control robots no-index.
+        /// </summary>
+        /// <returns><see cref="HtmlMeta"/> control</returns>
+        public static HtmlMeta MakeMetaNoIndexControl()
+        {
+
+            var meta = new HtmlMeta { Name = "robots", Content = "noindex" };
 
             return meta;
         }
