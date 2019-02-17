@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Utils.Helpers" %>
 
 
 <div class="row">
@@ -50,8 +51,7 @@
                             <div class="card card-body mb-3 text-center">
                                 <YAF:UserLink  ID="UserProfileLink" runat="server" 
                                                UserID='<%# this.DataRow["UserID"].ToType<int>()%>'
-                                               ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName && (!this.DataRow["IsGuest"].ToType<bool>() || 
-                                                                                                                   this.DataRow["IsGuest"].ToType<bool>() && this.DataRow["DisplayName"].ToString() == this.DataRow["UserName"].ToString()) ? this.DataRow["DisplayName"] : this.DataRow["UserName"]%>'
+                                               ReplaceName='<%#  this.Get<YafBoardSettings>().EnableDisplayName  ? this.DataRow["DisplayName"] : this.DataRow["UserName"]%>'
                                                PostfixText='<%# this.DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : String.Empty %>'
                                                Style='<%# this.DataRow["Style"]%>' 
                                                EnableHoverCard="False" 
