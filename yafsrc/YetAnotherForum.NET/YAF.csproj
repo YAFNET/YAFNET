@@ -1870,9 +1870,6 @@
     <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.min.js">
       <DependentUpon>jquery.tablesorter.pager.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\tablesorter\jquery.tablesorter.combined.min.js">
-      <DependentUpon>jquery.tablesorter.combined.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\jsdifflib.js" />
     <Content Include="Scripts\jsdifflib.min.js">
       <DependentUpon>jsdifflib.js</DependentUpon>
@@ -3429,6 +3426,7 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Scripts\ckeditor\yarn.lock" />
     <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="Scripts\ckeditor\README.md" />
     <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
