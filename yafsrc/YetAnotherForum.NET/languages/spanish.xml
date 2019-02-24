@@ -1969,6 +1969,7 @@
     <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
     <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
+    <Resource tag="FACEBOOK_DESCRIPTION">Enter the Url of the post or the Embed Code of the Post you want to embed</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
     <Resource tag="HIDDENMOD_DESC">El contenido de esta publicación está oculto. Después de los agradecimientos, refresca la página para ver el contenido oculto. Necesitas agradecer la publicación actual.</Resource>
     <Resource tag="HIDDENMOD_GROUP">No tienes suficientes permisos para poder ver el contenido oculto.</Resource>
@@ -1983,6 +1984,7 @@
     <Resource tag="HIDEREPLY_DESCRIPTION">La etiqueta oculta el contenido a la gente hasta que ellos responden en el mismo hilo.</Resource>
     <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">La etiqueta oculta el contenido a la gente hasta que ellos responden en el mismo hilo o presionan el botón de agradecimiento de la publicación.</Resource>
     <Resource tag="HIDETHANKS_DESCRIPTION">La etiqueta oculta el contenido a la gente que tiene menos de X agradecimientos recibidos.</Resource>
+    <Resource tag="INSTAGRAM_DESCRIPTION">Put an Instagram Post URL in here, for example: https://www.instagram.com/p/BS2kMaZl2XO/</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">Pon tu texto "spoiler" aquí</Resource>
     <Resource tag="SPOILERMOD_HIDE">Ocultar Spoiler</Resource>
     <Resource tag="SPOILERMOD_SHOW">Mostrar Spoiler</Resource>

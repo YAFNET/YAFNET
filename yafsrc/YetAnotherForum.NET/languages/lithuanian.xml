@@ -1970,6 +1970,7 @@
     <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
     <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
+    <Resource tag="FACEBOOK_DESCRIPTION">Enter the Url of the post or the Embed Code of the Post you want to embed</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
     <Resource tag="HIDDENMOD_DESC">The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post</Resource>
     <Resource tag="HIDDENMOD_GROUP">You have insufficient rights to see the hidden content.</Resource>
@@ -1984,6 +1985,7 @@
     <Resource tag="HIDEREPLY_DESCRIPTION">The tag hides content from people until they replied in the same thread.</Resource>
     <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">The tag hides content from people until they either reply in the same thread or press the thank you button for the post.</Resource>
     <Resource tag="HIDETHANKS_DESCRIPTION">The tag hides content from people who have below then X thanks received.</Resource>
+    <Resource tag="INSTAGRAM_DESCRIPTION">Put an Instagram Post URL in here, for example: https://www.instagram.com/p/BS2kMaZl2XO/</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">Put Spoiler Text in Here</Resource>
     <Resource tag="SPOILERMOD_HIDE">Hide Spoiler</Resource>
     <Resource tag="SPOILERMOD_SHOW">Show Spoiler</Resource>

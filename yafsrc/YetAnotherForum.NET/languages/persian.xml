@@ -1980,6 +1980,7 @@
     <Resource tag="ALBUMIMG_DESCRIPTION">شماره آلبوم را وارد کنید</Resource>
     <Resource tag="ATTACH_DESCRIPTION">شناسه فایل ضمیمه را وارد کنید</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">آدرس را وارد کنید (http://www.dailymotion.com/video/xxxx)</Resource>
+    <Resource tag="FACEBOOK_DESCRIPTION">Enter the Url of the post or the Embed Code of the Post you want to embed</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">آدرس نقشه گوگل را وارد کنید</Resource>
     <Resource tag="HIDDENMOD_DESC">محتوای این مطلب مخفی است. بعد از فشردن دکمه تشکر، صفحه را رفرش کنید تا بتوانید محتوای مطلب را ببینید</Resource>
     <Resource tag="HIDDENMOD_GROUP">شما مجوز کافی برای نمایش محتوای مخفی را ندارید</Resource>
@@ -1994,6 +1995,7 @@
     <Resource tag="HIDEREPLY_DESCRIPTION">این تگ محتوا را از دید کاربران تا زمان پاسخ به مطلب مخفی نگه می دارد</Resource>
     <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">این تگ محتوا را از دید کاربران تا زمان پاسخ به مطلب یا فشردن دکمه تشکر مخفی نگه می دارد</Resource>
     <Resource tag="HIDETHANKS_DESCRIPTION">این تگ محتوا را از دید کاربرانی با کمتر از X تشکر مخفی می کند</Resource>
+    <Resource tag="INSTAGRAM_DESCRIPTION">Put an Instagram Post URL in here, for example: https://www.instagram.com/p/BS2kMaZl2XO/</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">قرار دادن متن مخفی در اينجا</Resource>
     <Resource tag="SPOILERMOD_HIDE">مخفی كردن</Resource>
     <Resource tag="SPOILERMOD_SHOW">نمايش</Resource>

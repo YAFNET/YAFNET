@@ -1947,6 +1947,7 @@
     <Resource tag="ALBUMIMG_DESCRIPTION">Geben Sie hier die Album Nummer ein</Resource>
     <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">Geben Sie hier eine DailyMotion URL (http://www.dailymotion.com/video/xxxx)</Resource>
+    <Resource tag="FACEBOOK_DESCRIPTION">Enter the Url of the post or the Embed Code of the Post you want to embed</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">Geben Sie hier eine Google Maps URL ein</Resource>
     <Resource tag="HIDDENMOD_DESC">Der Inhalt dieses Beitrages ist versteckt. Nachdem Sie dem Autor DANKE Gesagt haben, und die Seite neugeladen haben, können Sie den Inhalt sehen.</Resource>
     <Resource tag="HIDDENMOD_GROUP">Sie haben nicht die nötigen Rechte den Versteckten Inhalt sehen zu können.</Resource>
@@ -1961,6 +1962,7 @@
     <Resource tag="HIDEREPLY_DESCRIPTION">Der Inhalt wird nur angezeigt für Benutzer die in diesem Thema eine Antwort geschrieben haben.</Resource>
     <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">Der Inhalt wird nur angezeigt für Benutzer die in diesem Thema eine Antwort geschrieben haben oder sich für diesen Beitrag bedankt haben.</Resource>
     <Resource tag="HIDETHANKS_DESCRIPTION">Dieser BB Code Versteckt den Inhalt bei Personen denen weniger als x mal danke gesagt wurde.</Resource>
+    <Resource tag="INSTAGRAM_DESCRIPTION">Put an Instagram Post URL in here, for example: https://www.instagram.com/p/BS2kMaZl2XO/</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">"Spoiler"-Text hier eingeben</Resource>
     <Resource tag="SPOILERMOD_HIDE">"Spoiler"-Text verbergen</Resource>
     <Resource tag="SPOILERMOD_SHOW">"Spoiler"-Text anzeigen</Resource>

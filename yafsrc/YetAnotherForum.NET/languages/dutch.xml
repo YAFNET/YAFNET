@@ -1957,6 +1957,7 @@
     <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
     <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
+    <Resource tag="FACEBOOK_DESCRIPTION">Enter the Url of the post or the Embed Code of the Post you want to embed</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
     <Resource tag="HIDDENMOD_DESC">De inhoud van dit bericht is verborgen. Als je de auteur bedankt hebt, ververs dan de pagina om de inhoud te bekijken." title="De inhoud van dit bericht is verborgen. Als je de auteur bedankt hebt, ververs dan de pagina om de inhoud te bekijken.</Resource>
     <Resource tag="HIDDENMOD_GROUP">Je hebt onvoldoende rechten om deze inhoud te bekijken.</Resource>
@@ -1971,6 +1972,7 @@
     <Resource tag="HIDEREPLY_DESCRIPTION">Deze tag verbergt inhoud voor gebruikers totdat ze in hetzelfde topic hebben gereageerd.</Resource>
     <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">Deze tag verbergt inhoud voor gebruikers totdat ze in hetzelfde topic hebben gereageerd, of op de bedank-knop hebben geklikt.</Resource>
     <Resource tag="HIDETHANKS_DESCRIPTION">Deze tag verbergt inhoud voor gebruikers die minder dan X bedankjes hebben gekregen.</Resource>
+    <Resource tag="INSTAGRAM_DESCRIPTION">Put an Instagram Post URL in here, for example: https://www.instagram.com/p/BS2kMaZl2XO/</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">Zet hier spoiler tekst</Resource>
     <Resource tag="SPOILERMOD_HIDE">Verberg Spoiler</Resource>
     <Resource tag="SPOILERMOD_SHOW">Laat Spoiler zien</Resource>

@@ -1959,6 +1959,7 @@
     <Resource tag="ALBUMIMG_DESCRIPTION">Inserisci un ID immagine album</Resource>
     <Resource tag="ATTACH_DESCRIPTION">Inserisci un ID allegato</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">Inserisci URL DayliMotion (http://www.dailymotion.com/video/xxxx)</Resource>
+    <Resource tag="FACEBOOK_DESCRIPTION">Enter the Url of the post or the Embed Code of the Post you want to embed</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">Inserisci URL Google Maps</Resource>
     <Resource tag="HIDDENMOD_DESC">Testo nascosto agli utenti che non cliccano su Grazie. Aggiorna la pagina dopo aver ringraziato.</Resource>
     <Resource tag="HIDDENMOD_GROUP">Non godi di privilegi sufficienti per visualizzare i testo nascosto.</Resource>
@@ -1973,6 +1974,7 @@
     <Resource tag="HIDEREPLY_DESCRIPTION">Testo nascosto agli utenti che non scrivono nella discussione.</Resource>
     <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">Testo nascosto agli utenti che non scrivono nella discussione o non cliccano su Grazie.</Resource>
     <Resource tag="HIDETHANKS_DESCRIPTION">Testo nascosto agli utenti con meno di X ringraziamenti.</Resource>
+    <Resource tag="INSTAGRAM_DESCRIPTION">Put an Instagram Post URL in here, for example: https://www.instagram.com/p/BS2kMaZl2XO/</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">Inserire qui il testo a scomparsa.</Resource>
     <Resource tag="SPOILERMOD_HIDE">Nascondi il testo a scomparsa</Resource>
     <Resource tag="SPOILERMOD_SHOW">Mostra il testo a scomparsa</Resource>
