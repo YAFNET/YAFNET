@@ -289,12 +289,27 @@
     <DisplayJS></DisplayJS>
     <EditJS></EditJS>
     <DisplayCSS></DisplayCSS>
-    <SearchRegex>\[instagram\](?&lt;inner&gt;(.*?)\.instagram.com/p/(?&lt;id&gt;.+)?\/\?(.*?))\[/instagram\]</SearchRegex>
+    <SearchRegex>\[instagram\](?&lt;inner&gt;(.*?)\.instagram.com/p/(?&lt;id&gt;.+)?\/\?(.*?))\[/instagram\]|\[instagram\](?&lt;inner&gt;(.*?)\.instagram.com/p/(?&lt;id&gt;.+)?\/)\[/instagram\]</SearchRegex>
     <ReplaceRegex>&lt;iframe src="https://www.instagram.com/p/${id}/embed/captioned/" allowtransparency="true" allowfullscreen="true" height="710" frameborder="0" scrolling="no" style="background: white; max-width: 658px; width: calc(100% - 2px); display: block; margin: 0px 0px 12px; min-width: 326px; padding: 0px;"&gt;&lt;/iframe&gt;</ReplaceRegex>
     <Variables>id</Variables>
     <UseModule>false</UseModule>
     <UseToolbar>true</UseToolbar>
     <ModuleClass></ModuleClass>
     <ExecOrder>32</ExecOrder>
+  </YafBBCode>
+  <YafBBCode>
+    <Name>FACEBOOK</Name>
+    <Description>[FACEBOOK][localization=FACEBOOK_DESCRIPTION]Enter the Url of the post or the Embed Code of the Post you want to embed[/localization][/FACEBOOK]</Description>
+    <OnClickJS></OnClickJS>
+    <DisplayJS>(function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/all.js#xfbml=1"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));</DisplayJS>
+    <EditJS></EditJS>
+    <DisplayCSS></DisplayCSS>
+    <SearchRegex>\[facebook\].*?https://www.facebook.com/(?&lt;url&gt;.*?)\[/facebook\]</SearchRegex>
+    <ReplaceRegex>&lt;!-- BEGIN facebook embed --&gt;&lt;div id="fb-root"&gt;&lt;/div&gt;&lt;div class="fb-post" data-href="https://www.facebook.com/${url}" data-width="466"&gt;&lt;/div&gt;&lt;!-- END facebook embed --&gt;</ReplaceRegex>
+    <Variables>url</Variables>
+    <UseModule>false</UseModule>
+    <UseToolbar>true</UseToolbar>
+    <ModuleClass></ModuleClass>
+    <ExecOrder>33</ExecOrder>
   </YafBBCode>
 </YafBBCodeList>

@@ -1917,6 +1917,7 @@
     <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
     <Resource tag="ATTACH_NO">You have insufficient rights to see the content.</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
+    <Resource tag="FACEBOOK_DESCRIPTION">Enter the Url of the post or the Embed Code of the Post you want to embed</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
     <Resource tag="HIDDENMOD_DESC">Контент этого поста скрыт. После того, как вы поблагодарите постящего за это сообщение он будет доступен, обновите страницу для просмотра скрытого контента. You need to thank the Current Post</Resource>
     <Resource tag="HIDDENMOD_GROUP">Не хватает прав для просмотра скрытого содержимого.</Resource>
