@@ -1090,7 +1090,7 @@
             '|(Kindle/(1\\.0|2\\.[05]|3\\.0))'
     ).test(window.navigator.userAgent) ||
         // Feature detection for all other devices:
-        $('<input type="file">').prop('disabled'));
+        $('<input type="file"/>').prop('disabled'));
 
     // The FileReader API is not actually used, but works as feature detection,
     // as some Safari versions (5?) support XHR file uploads via the FormData API,
@@ -1308,6 +1308,9 @@
             // Callback for dragover events of the dropZone(s):
             // dragover: function (e) {}, // .bind('fileuploaddragover', func);
 
+            // Callback before the start of each chunk upload request (before form data initialization):
+            // chunkbeforesend: function (e, data) {}, // .bind('fileuploadchunkbeforesend', func);
+
             // Callback for the start of each chunk upload request:
             // chunksend: function (e, data) {}, // .bind('fileuploadchunksend', func);
 
@@ -1478,6 +1481,13 @@
                 options.xhr = function () {
                     return xhr;
                 };
+            }
+        },
+
+        _deinitProgressListener: function (options) {
+            var xhr = options.xhr ? options.xhr() : $.ajaxSettings.xhr();
+            if (xhr.upload) {
+                $(xhr.upload).unbind('progress');
             }
         },
 
@@ -1809,6 +1819,8 @@
                 // Expose the chunk bytes position range:
                 o.contentRange = 'bytes ' + ub + '-' +
                     (ub + o.chunkSize - 1) + '/' + fs;
+                // Trigger chunkbeforesend to allow form data to be updated for this chunk
+                that._trigger('chunkbeforesend', null, o);
                 // Process the upload data (the blob and potential form data):
                 that._initXHRData(o);
                 // Add progress listeners for this chunk upload:
@@ -1855,6 +1867,9 @@
                             o.context,
                             [jqXHR, textStatus, errorThrown]
                         );
+                    })
+                    .always(function () {
+                        that._deinitProgressListener(o);
                     });
             };
             this._enhancePromise(promise);
@@ -1956,6 +1971,7 @@
                     }).fail(function (jqXHR, textStatus, errorThrown) {
                         that._onFail(jqXHR, textStatus, errorThrown, options);
                     }).always(function (jqXHRorResult, textStatus, jqXHRorError) {
+                        that._deinitProgressListener(options);
                         that._onAlways(
                             jqXHRorResult,
                             textStatus,
@@ -2173,7 +2189,7 @@
                 dirReader = entry.createReader();
                 readEntries();
             } else {
-                // Return an empy list for file system items
+                // Return an empty list for file system items
                 // other than files or directories:
                 dfd.resolve([]);
             }
