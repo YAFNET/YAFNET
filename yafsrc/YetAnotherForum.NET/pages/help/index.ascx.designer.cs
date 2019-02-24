@@ -67,15 +67,6 @@ namespace YAF.Pages.help {
         protected global::System.Web.UI.WebControls.Label HelpContent;
         
         /// <summary>
-        /// SearchHelpTitle-Steuerelement
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel SearchHelpTitle;
-        
-        /// <summary>
         /// SearchFor-Steuerelement
         /// </summary>
         /// <remarks>
@@ -100,7 +91,7 @@ namespace YAF.Pages.help {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button DoSearch;
+        protected global::YAF.Controls.ThemeButton DoSearch;
         
         /// <summary>
         /// SmartScroller1-Steuerelement

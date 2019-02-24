@@ -40,7 +40,6 @@ namespace YAF.Pages.help
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utilities;
     using YAF.Utils;
 
     #endregion
@@ -116,8 +115,6 @@ namespace YAF.Pages.help
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("SUBTITLE"), YafBuildLink.GetLink(ForumPages.help_index));
-
-            this.DoSearch.Text = this.GetText("SEARCH", "BTNSEARCH");
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq").IsSet())
             {

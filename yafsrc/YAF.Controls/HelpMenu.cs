@@ -64,9 +64,8 @@ namespace YAF.Controls
         {
             var serializer = new XmlSerializer(typeof(List<YafHelpNavigation>));
 
-            var xmlFilePath =
-                HttpContext.Current.Server.MapPath(
-                    "{0}Resources/{1}".FormatWith(YafForumInfo.ForumServerFileRoot, "HelpMenuList.xml"));
+            var xmlFilePath = HttpContext.Current.Server.MapPath(
+                "{0}Resources/{1}".FormatWith(YafForumInfo.ForumServerFileRoot, "HelpMenuList.xml"));
 
             if (File.Exists(xmlFilePath))
             {
@@ -77,7 +76,16 @@ namespace YAF.Controls
                 reader.Close();
             }
 
-            var html = new StringBuilder(2000);
+            var html = new StringBuilder();
+            var htmlDropDown = new StringBuilder();
+
+            htmlDropDown.Append(@"<div class=""dropdown d-lg-none"">");
+
+            htmlDropDown.Append(@"<button class=""btn btn-secondary dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
+
+            htmlDropDown.AppendFormat(@"{0}</button>", this.GetText("HELP_INDEX", "INDEX"));
+
+            htmlDropDown.Append(@"<div class=""dropdown-menu"" aria-labelledby=""dropdownMenuButton"">");
 
             var faqPage = "index";
 
@@ -85,15 +93,6 @@ namespace YAF.Controls
             {
                 faqPage = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq");
             }
-
-            // Header
-            html.Append(@"<table cellspacing=""0"" cellpadding=""0"" class=""content"" id=""yafhelpmenu"">");
-
-            html.Append(@"<tr><td class=""header1"">{0}</td></tr>".FormatWith(this.GetText("HELP_INDEX", "NAVIGATION")));
-
-            html.Append(@"<tr class=""header2""><td>{0}</td></tr>".FormatWith(this.GetText("HELP_INDEX", "INDEX")));
-
-            html.AppendFormat(@"<tr><td class=""post""><ul id=""yafhelpindex"">");
 
             var selectedStyle = string.Empty;
 
@@ -103,19 +102,30 @@ namespace YAF.Controls
             }
 
             html.AppendFormat(
-                @"<li><a href=""{0}"" {2} title=""{1}"">{1}</a></li>",
+                @"<h6 class=""sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted""><span><a href=""{2}"" {3}>{0} &amp; {1}</a></span></h6>",
+                this.GetText("HELP_INDEX", "INDEX"),
+                this.GetText("BTNSEARCH"),
                 YafBuildLink.GetLink(ForumPages.help_index, "faq=index"),
-                this.GetText("HELP_INDEX", "SEARCHHELP"),
                 selectedStyle);
 
-            html.AppendFormat(@"</ul></td></tr>");
+            htmlDropDown.AppendFormat(
+                @"<a href=""{1}"" class=""dropdown-item"">{0}</a>",
+                this.GetText("BTNSEARCH"),
+                YafBuildLink.GetLink(ForumPages.help_index, "faq=index"));
+
+            html.Append("<hr />");
 
             foreach (var category in this.helpNavList)
             {
                 html.AppendFormat(
-                        @"<tr class=""header2""><td>{0}</td></tr>", this.GetText("HELP_INDEX", category.HelpCategory));
+                    @"<h6 class=""sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted""><span>{0}</span></h6>",
+                    this.GetText("HELP_INDEX", category.HelpCategory));
 
-                html.AppendFormat(@"<tr><td class=""post""><ul id=""yafhelp{0}"">", category.HelpCategory.ToLower());
+                htmlDropDown.AppendFormat(
+                    @"<h6 class=""dropdown-header"">{0}</h6>",
+                    this.GetText("HELP_INDEX", category.HelpCategory));
+
+                html.Append(@"<ul class=""nav flex-column mb-2"">");
 
                 foreach (var helpPage in category.HelpPages)
                 {
@@ -131,45 +141,67 @@ namespace YAF.Controls
                         if (!this.Get<YafBoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
                         {
                             html.AppendFormat(
-                                @"<li><a href=""{0}"" {2} title=""{1}"">{1}</a></li>",
-                                YafBuildLink.GetLink(ForumPages.help_index, "faq={0}".FormatWith(helpPage.HelpPage.ToLower())),
+                                @"<li class=""nav-item""><a href=""{0}"" {2} title=""{1}"" class=""nav-link"">{1}</a></li>",
+                                YafBuildLink.GetLink(
+                                    ForumPages.help_index,
+                                    "faq={0}".FormatWith(helpPage.HelpPage.ToLower())),
                                 this.GetText("HELP_INDEX", "{0}TITLE".FormatWith(helpPage.HelpPage)),
                                 selectedStyle);
+
+                            htmlDropDown.AppendFormat(
+                                @"<a href=""{0}"" class=""dropdown-item"">{1}</a>",
+                                YafBuildLink.GetLink(
+                                    ForumPages.help_index,
+                                    "faq={0}".FormatWith(helpPage.HelpPage.ToLower())),
+                                this.GetText("HELP_INDEX", "{0}TITLE".FormatWith(helpPage.HelpPage)));
                         }
                     }
                     else
                     {
                         html.AppendFormat(
-                       @"<li><a href=""{0}"" {2} title=""{1}"">{1}</a></li>",
-                       YafBuildLink.GetLink(ForumPages.help_index, "faq={0}".FormatWith(helpPage.HelpPage.ToLower())),
-                       this.GetText("HELP_INDEX", "{0}TITLE".FormatWith(helpPage.HelpPage)),
-                       selectedStyle);
+                            @"<li class=""nav-item""><a href=""{0}"" {2} title=""{1}"" class=""nav-link"">{1}</a></li>",
+                            YafBuildLink.GetLink(
+                                ForumPages.help_index,
+                                "faq={0}".FormatWith(helpPage.HelpPage.ToLower())),
+                            this.GetText("HELP_INDEX", "{0}TITLE".FormatWith(helpPage.HelpPage)),
+                            selectedStyle);
+
+                        htmlDropDown.AppendFormat(
+                            @"<a href=""{0}"" class=""dropdown-item"">{1}</a>",
+                            YafBuildLink.GetLink(
+                                ForumPages.help_index,
+                                "faq={0}".FormatWith(helpPage.HelpPage.ToLower())),
+                            this.GetText("HELP_INDEX", "{0}TITLE".FormatWith(helpPage.HelpPage)));
                     }
                 }
 
-                html.AppendFormat(@"</ul></td></tr>");
+                html.Append(@"</ul>");
             }
 
-            html.Append(@"</table>");
+            htmlDropDown.Append(@"</div></div>");
 
             writer.BeginRender();
+            writer.WriteLine(@"<div id=""container-fluid""><div class=""row"">");
 
             // render the contents of the help menu....
-            writer.WriteLine(@"<div id=""{0}"">".FormatWith(this.ClientID));
-            writer.WriteLine(@"<table class=""adminContainer""><tr>");
-            writer.WriteLine(@"<td class=""adminMenu"" valign=""top"">");
+            writer.WriteLine(
+                @"<div class=""col-md-2 d-none d-md-block bg-light sidebar""><div class=""sidebar-sticky"">");
 
             writer.Write(html.ToString());
 
-            writer.WriteLine(@"</td>");
+            writer.WriteLine(@"</div></div>");
 
             // contents of the help pages...
-            writer.WriteLine(@"<td class=""helpContent"">");
+            writer.WriteLine(@"<div class=""col-md-9 ml-sm-auto col-lg-10 px-4"">");
+
+            // Write Mobile Drop down
+            writer.WriteLine(htmlDropDown.ToString());
 
             this.RenderChildren(writer);
 
-            writer.WriteLine(@"</td></tr></table>");
             writer.WriteLine("</div>");
+
+            writer.WriteLine("</div></div>");
 
             writer.EndRender();
         }
@@ -177,7 +209,7 @@ namespace YAF.Controls
         #endregion
 
         /// <summary>
-        /// The Yaf Help Navigation Class
+        /// The YAF Help Navigation Class
         /// </summary>
         public class YafHelpNavigation
         {
