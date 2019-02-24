@@ -30,7 +30,6 @@ namespace YAF.Core.Services
     using System.Web;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -57,7 +56,7 @@ namespace YAF.Core.Services
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YafReadTrackCurrentUser" /> class. The yaf read track current user.
+        /// Initializes a new instance of the <see cref="YafReadTrackCurrentUser" /> class.
         /// </summary>
         /// <param name="serviceLocator">The service locator.</param>
         /// <param name="sessionState">The session State.</param>
@@ -84,7 +83,7 @@ namespace YAF.Core.Services
 
                 if (!lastRead.HasValue && this.UseDatabaseReadTracking)
                 {
-                    lastRead = this.Get<IDbFunction>().GetData.user_lastread(this.CurrentUserId);
+                    lastRead = this.Get<IDbFunction>().GetData.user_lastread(this.CurrentUserId).Rows[0]["LastAccessDate"];
                 }
                 else
                 {
