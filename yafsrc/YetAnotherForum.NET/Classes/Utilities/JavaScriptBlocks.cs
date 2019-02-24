@@ -739,30 +739,34 @@ namespace YAF.Utilities
                         twitterUrl);
         }
 
-        /// <summary>
-        /// Gets the FileUpload Java Script.
-        /// </summary>
+        /// <summary>Gets the FileUpload Java Script.</summary>
         /// <param name="acceptedFileTypes">The accepted file types.</param>
         /// <param name="maxFileSize">Maximum size of the file.</param>
         /// <param name="fileUploaderUrl">The file uploader URL.</param>
         /// <param name="forumID">The forum identifier.</param>
         /// <param name="boardID">The board identifier.</param>
-        /// <returns>
-        /// Returns the FileUpload Java Script.
-        /// </returns>
+        /// <param name="imageMaxWidth"></param>
+        /// <param name="imageMaxHeight"></param>
+        /// <returns>Returns the FileUpload Java Script.</returns>
         [NotNull]
         public static string FileUploadLoadJs(
             [NotNull] string acceptedFileTypes,
             [NotNull] int maxFileSize,
             [NotNull] string fileUploaderUrl,
             [NotNull] int forumID,
-            [NotNull] int boardID)
+            [NotNull] int boardID,
+        [NotNull] int imageMaxWidth,
+        [NotNull] int imageMaxHeight)
         {
             return @"{0}(function() {{
 
             {0}('#fileupload').yafFileUpload({{
                 url: '{3}',
                 acceptFileTypes: new RegExp('(\.|\/)(' + '{2}' + ')', 'i'),
+                imageMaxWidth: {8},
+                imageMaxHeight: {9},
+                disableImageResize: /Android(?!.*Chrome)|Opera/
+                .test(window.navigator && navigator.userAgent),
                 dataType: 'json',
                 {1}
                 start: function (e) {{
@@ -824,7 +828,9 @@ namespace YAF.Utilities
                 forumID,
                 boardID,
                 YafContext.Current.PageUserID,
-                YafBoardFolders.Current.Uploads);
+                YafBoardFolders.Current.Uploads,
+                imageMaxWidth,
+                imageMaxHeight);
         }
 
         /// <summary>
