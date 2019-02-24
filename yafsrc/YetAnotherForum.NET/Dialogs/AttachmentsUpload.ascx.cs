@@ -131,7 +131,9 @@ namespace YAF.Dialogs
                     this.Get<YafBoardSettings>().MaxFileSize,
                     "{0}YafUploader.ashx".FormatWith(YafForumInfo.ForumClientFileRoot),
                     this.PageContext.PageForumID,
-                    this.PageContext.PageBoardID));
+                    this.PageContext.PageBoardID,
+                    this.Get<YafBoardSettings>().ImageAttachmentResizeWidth,
+                    this.Get<YafBoardSettings>().ImageAttachmentResizeHeight));
         }
 
         #endregion
