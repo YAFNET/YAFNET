@@ -370,7 +370,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
-      <Version>4.9.0</Version>
+      <Version>4.9.1</Version>
     </PackageReference>
     <PackageReference Include="Farsi.Library">
       <Version>2.5.1.5</Version>
