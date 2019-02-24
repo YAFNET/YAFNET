@@ -139,12 +139,18 @@
 			&nbsp;
 		</td>
 		<td class="footer1">
-			<YAF:ThemeButton ID="Preview" runat="server" CssClass="yafcssbigbutton leftItem"
-				OnClick="Preview_Click" TitleLocalizedTag="PREVIEW_TITLE"  TextLocalizedTag="PREVIEW" />
-			<YAF:ThemeButton ID="PostReply" TitleLocalizedTag="SAVE_TITLE"  runat="server" CssClass="yafcssbigbutton leftItem"
-				OnClick="PostReply_Click" TextLocalizedTag="SAVE" />
-			<YAF:ThemeButton ID="Cancel" TitleLocalizedTag="CANCEL_TITLE"  runat="server" CssClass="yafcssbigbutton leftItem" OnClick="Cancel_Click"
-				TextLocalizedTag="CANCEL" />
+			<YAF:ThemeButton ID="Preview" runat="server"
+                             OnClick="Preview_Click" 
+                             TextLocalizedTag="PREVIEW" TitleLocalizedTag="PREVIEW_TITLE"
+                             Type="Secondary" Icon="eye" />
+			<YAF:ThemeButton ID="PostReply"  runat="server"
+                             OnClick="PostReply_Click" 
+                             TextLocalizedTag="SAVE" TitleLocalizedTag="SAVE_TITLE" 
+                             Type="Primary" Icon="save" />
+			<YAF:ThemeButton ID="Cancel" runat="server"
+                             OnClick="Cancel_Click"
+                             TextLocalizedTag="CANCEL"
+                             Type="Secondary" Icon="times" />
 		</td>
 	</tr>
 </table>

@@ -268,6 +268,8 @@ namespace YAF.Editors
                 this.popMenuAlbums.RenderControl(writer);
 
                 writer.Write("</div>");
+
+                writer.Write("</div>");
             }
 
             if (this.UserCanUpload)
