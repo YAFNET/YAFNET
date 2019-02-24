@@ -2,12 +2,17 @@ YetAnotherForum.NET Changelog
 ====================
 
 # YetAnotherForum.NET v2.2.4.15
+## New Features:
+* Added Instagram BBCode
+
 ## Fixed Issues:
 * [FIXED] Issue when search box is empty
 * updated vimeo bb code extension
 * [FIXED] pager on album images selector
 * [FIXED] emaildigest
 * [FIXED #413] shows username instead of diplay name of deleted user
+* Posts Pages with querystring "m" now contains noindex tag
+* [FIXED] unread topics
 
 # YetAnotherForum.NET v2.2.4.14
 ## Fixed Issues:
