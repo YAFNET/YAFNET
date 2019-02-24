@@ -335,6 +335,8 @@
     <Resource tag="TITLE">{0} YafBBCode Erweiterungen</Resource>
     <Resource tag="USE_MODULE">Modul verwenden:</Resource>
     <Resource tag="USE_MODULE_HELP">Verwenden Sie ein Server-Seitiges Modul (Klasse) statt den Ersetzen Regex?</Resource>
+    <Resource tag="USE_TOOLBAR">Use Toolbar:</Resource>
+    <Resource tag="USE_TOOLBAR_HELP">If enabled Show toolbar button in the Standard BBCode Editor</Resource>
   </page>
   <page name="ADMIN_BBCODE_IMPORT">
     <Resource tag="HEADER">BBCode importieren</Resource>
@@ -1931,6 +1933,7 @@
     <Resource tag="HIDEREPLY_DESCRIPTION">Der Inhalt wird nur angezeigt für Benutzer die in diesem Thema eine Antwort geschrieben haben.</Resource>
     <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">Der Inhalt wird nur angezeigt für Benutzer die in diesem Thema eine Antwort geschrieben haben oder sich für diesen Beitrag bedankt haben.</Resource>
     <Resource tag="HIDETHANKS_DESCRIPTION">Dieser BB Code Versteckt den Inhalt bei Personen denen weniger als x mal danke gesagt wurde.</Resource>
+    <Resource tag="INSTAGRAM_DESCRIPTION">Put an Instagram Post URL in here, for example: https://www.instagram.com/p/BS2kMaZl2XO/</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">"Spoiler"-Text hier eingeben</Resource>
     <Resource tag="SPOILERMOD_HIDE">"Spoiler"-Text verbergen</Resource>
     <Resource tag="SPOILERMOD_SHOW">"Spoiler"-Text anzeigen</Resource>

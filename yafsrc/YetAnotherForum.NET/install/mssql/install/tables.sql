@@ -934,6 +934,7 @@ begin
 		[ReplaceRegex] [nvarchar](max) NULL,
 		[Variables] [nvarchar](1000) NULL,
 		[UseModule] [bit] NULL,
+		[UseToolbar] [bit] NULL,
 		[ModuleClass] [nvarchar](255) NULL,		
 		[ExecOrder] [int] NOT NULL,
 		constraint [PK_{objectQualifier}BBCode] PRIMARY KEY (BBCodeID)

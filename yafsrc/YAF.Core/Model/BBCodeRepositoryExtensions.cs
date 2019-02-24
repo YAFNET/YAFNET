@@ -74,6 +74,9 @@ namespace YAF.Core.Model
         /// <param name="useModule">
         /// The use module. 
         /// </param>
+        /// <param name="useToolbar">
+        /// Thee use Toolbar
+        /// </param>
         /// <param name="moduleClass">
         /// The module class. 
         /// </param>
@@ -96,6 +99,7 @@ namespace YAF.Core.Model
             string replaceRegEx, 
             string variables, 
             bool? useModule, 
+            bool? useToolbar,
             string moduleClass, 
             int execOrder, 
             int? boardId = null)
@@ -117,6 +121,7 @@ namespace YAF.Core.Model
                         ReplaceRegex = replaceRegEx,
                         Variables = variables,
                         UseModule = useModule,
+                        UseToolbar = useToolbar,
                         ModuleClass = moduleClass,
                         ExecOrder = execOrder
                     });

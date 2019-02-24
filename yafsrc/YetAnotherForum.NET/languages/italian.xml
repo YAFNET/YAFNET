@@ -335,6 +335,8 @@
     <Resource tag="TITLE">{0} YafBBCode Extensions</Resource>
     <Resource tag="USE_MODULE">Use Module:</Resource>
     <Resource tag="USE_MODULE_HELP">Use server-side module (class) instead of replace regex?</Resource>
+    <Resource tag="USE_TOOLBAR">Use Toolbar:</Resource>
+    <Resource tag="USE_TOOLBAR_HELP">If enabled Show toolbar button in the Standard BBCode Editor</Resource>
   </page>
   <page name="ADMIN_BBCODE_IMPORT">
     <Resource tag="HEADER">Import Custom BBCode</Resource>
@@ -1943,6 +1945,7 @@
     <Resource tag="HIDEREPLY_DESCRIPTION">Testo nascosto agli utenti che non scrivono nella discussione.</Resource>
     <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">Testo nascosto agli utenti che non scrivono nella discussione o non cliccano su Grazie.</Resource>
     <Resource tag="HIDETHANKS_DESCRIPTION">Testo nascosto agli utenti con meno di X ringraziamenti.</Resource>
+    <Resource tag="INSTAGRAM_DESCRIPTION">Put an Instagram Post URL in here, for example: https://www.instagram.com/p/BS2kMaZl2XO/</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">Inserire qui il testo a scomparsa.</Resource>
     <Resource tag="SPOILERMOD_HIDE">Nascondi il testo a scomparsa</Resource>
     <Resource tag="SPOILERMOD_SHOW">Mostra il testo a scomparsa</Resource>

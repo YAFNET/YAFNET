@@ -30,7 +30,6 @@ namespace YAF.Core.Services.Import
     using System.Linq;
     using System.Net;
 
-    using YAF.Classes.Data;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
@@ -71,7 +70,7 @@ namespace YAF.Core.Services.Import
                                                      && dsBBCode.Tables["YafBBCode"].Columns["SearchRegex"] != null
                                                      && dsBBCode.Tables["YafBBCode"].Columns["ExecOrder"] != null)
             {
-                var bbcodeList = repository.GetByBoardId();
+                var bbcodeList = repository.GetByBoardId(boardId);
 
                 // import any extensions that don't exist...
                 foreach (DataRow row in dsBBCode.Tables["YafBBCode"].Rows)
@@ -95,6 +94,7 @@ namespace YAF.Core.Services.Import
                             row["ReplaceRegex"].ToString(),
                             row["Variables"].ToString(),
                             row["UseModule"].ToType<bool>(),
+                            row["UseToolbar"].ToType<bool>(),
                             row["ModuleClass"].ToString(),
                             row["ExecOrder"].ToType<int>(),
                             boardId);
@@ -114,6 +114,7 @@ namespace YAF.Core.Services.Import
                             row["ReplaceRegex"].ToString(),
                             row["Variables"].ToString(),
                             row["UseModule"].ToType<bool>(),
+                            row["UseToolbar"].ToType<bool>(),
                             row["ModuleClass"].ToString(),
                             row["ExecOrder"].ToType<int>(),
                             boardId);
@@ -214,7 +215,7 @@ namespace YAF.Core.Services.Import
                 && dsStates.Tables["YafTopicStatus"].Columns["TopicStatusName"] != null
                 && dsStates.Tables["YafTopicStatus"].Columns["DefaultDescription"] != null)
             {
-                var topicStatusList = YafContext.Current.GetRepository<TopicStatus>().GetByBoardId();
+                var topicStatusList = YafContext.Current.GetRepository<TopicStatus>().GetByBoardId(boardId);
 
                 // import any topic status that don't exist...
                 foreach (DataRow row in dsStates.Tables["YafTopicStatus"].Rows)

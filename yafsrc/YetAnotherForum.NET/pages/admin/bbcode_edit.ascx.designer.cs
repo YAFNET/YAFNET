@@ -148,6 +148,24 @@ namespace YAF.Pages.Admin {
         protected global::System.Web.UI.WebControls.TextBox txtReplaceRegEx;
         
         /// <summary>
+        /// HelpLabel14-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.HelpLabel HelpLabel14;
+        
+        /// <summary>
+        /// UseToolbar-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox UseToolbar;
+        
+        /// <summary>
         /// HelpLabel6-Steuerelement
         /// </summary>
         /// <remarks>

@@ -335,6 +335,8 @@
     <Resource tag="TITLE">{0} YafBBCode Extensions</Resource>
     <Resource tag="USE_MODULE">Use Module:</Resource>
     <Resource tag="USE_MODULE_HELP">Use server-side module (class) instead of replace regex?</Resource>
+    <Resource tag="USE_TOOLBAR">Use Toolbar:</Resource>
+    <Resource tag="USE_TOOLBAR_HELP">If enabled Show toolbar button in the Standard BBCode Editor</Resource>
   </page>
   <page name="ADMIN_BBCODE_IMPORT">
     <Resource tag="HEADER">Import Custom BBCode</Resource>
@@ -1950,6 +1952,7 @@
     <Resource tag="HIDEREPLY_DESCRIPTION">The tag hides content from people until they replied in the same thread.</Resource>
     <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">The tag hides content from people until they either reply in the same thread or press the thank you button for the post.</Resource>
     <Resource tag="HIDETHANKS_DESCRIPTION">The tag hides content from people who have below then X thanks received.</Resource>
+    <Resource tag="INSTAGRAM_DESCRIPTION">Put an Instagram Post URL in here, for example: https://www.instagram.com/p/BS2kMaZl2XO/</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">Introduceti textul Spoiler aici</Resource>
     <Resource tag="SPOILERMOD_HIDE">Ascunde Spoiler</Resource>
     <Resource tag="SPOILERMOD_SHOW">Arata Spoiler</Resource>

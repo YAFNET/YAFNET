@@ -8863,7 +8863,7 @@ begin
         DECLARE @LastForumRead datetime
         DECLARE @LastTopicRead datetime
 
-         SET @LastForumRead = (SELECT TOP 1 LastAccessDate FROM  [{databaseOwner}].[{objectQualifier}ForumReadTracking] WHERE UserID = @UserID ORDER BY LastAccessDate DESC)
+        SET @LastForumRead = (SELECT TOP 1 LastAccessDate FROM  [{databaseOwner}].[{objectQualifier}ForumReadTracking] WHERE UserID = @UserID ORDER BY LastAccessDate DESC)
         SET @LastTopicRead = (SELECT TOP 1 LastAccessDate FROM  [{databaseOwner}].[{objectQualifier}TopicReadTracking] WHERE UserID = @UserID ORDER BY LastAccessDate DESC)
 
         IF @LastForumRead is not null AND @LastTopicRead is not null

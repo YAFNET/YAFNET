@@ -71,6 +71,8 @@ namespace YAF.Types.Models
 
         public bool? UseModule { get; set; }
 
+        public bool? UseToolbar { get; set; }
+
         public string ModuleClass { get; set; }
 
         public int ExecOrder { get; set; }

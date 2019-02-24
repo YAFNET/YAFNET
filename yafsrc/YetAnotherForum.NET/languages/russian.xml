@@ -335,6 +335,8 @@
     <Resource tag="TITLE">{0} расширений YafBBCode </Resource>
     <Resource tag="USE_MODULE">Использовать модуль:</Resource>
     <Resource tag="USE_MODULE_HELP">Использовать модуль(dll) на стороне сервера вместо регулярного выражения?</Resource>
+    <Resource tag="USE_TOOLBAR">Use Toolbar:</Resource>
+    <Resource tag="USE_TOOLBAR_HELP">If enabled Show toolbar button in the Standard BBCode Editor</Resource>
   </page>
   <page name="ADMIN_BBCODE_IMPORT">
     <Resource tag="HEADER">Импортировать собственный BBCode</Resource>
@@ -1929,6 +1931,7 @@
     <Resource tag="HIDEREPLY_DESCRIPTION">Этот тег скрывает текст от пользователей, которые не ответили в данной теме.</Resource>
     <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">Этот тег скрывает текст от пользователей, которые не ответили в теме или не сказали «Спасибо».</Resource>
     <Resource tag="HIDETHANKS_DESCRIPTION">Этот тег скрывает текст от тех, кто имеет меньше X «Спасибо».</Resource>
+    <Resource tag="INSTAGRAM_DESCRIPTION">Put an Instagram Post URL in here, for example: https://www.instagram.com/p/BS2kMaZl2XO/</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">Поместите сюда текст спойлера</Resource>
     <Resource tag="SPOILERMOD_HIDE">Скрыть спойлер</Resource>
     <Resource tag="SPOILERMOD_SHOW">Открыть спойлер</Resource>

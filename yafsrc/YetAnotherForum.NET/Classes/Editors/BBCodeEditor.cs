@@ -27,14 +27,12 @@ namespace YAF.Editors
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.IO;
     using System.Linq;
     using System.Web;
     using System.Web.UI;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Classes.Editors;
     using YAF.Controls;
     using YAF.Core;
@@ -43,7 +41,6 @@ namespace YAF.Editors
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 
@@ -333,10 +330,39 @@ namespace YAF.Editors
 
             var customBbCode = this.Get<YafDbBroker>().GetCustomBBCode().ToList();
 
+            var customBbCodesWithToolbar = customBbCode.Where(code => code.UseToolbar == true);
+            var customBbCodesWithNoToolbar = customBbCode.Where(code => code.UseToolbar == false || code.UseToolbar.HasValue == false);
+
             if (customBbCode.Any())
             {
                 writer.Write("</div>");
                 writer.Write("<div class=\"btn-group\" role =\"group\">");
+
+                if (customBbCodesWithToolbar.Any())
+                {
+                    foreach (var row in customBbCodesWithToolbar)
+                    {
+                        var name = row.Name;
+
+                        /*if (row.Description.IsSet())
+                        {
+                            // use the description as the option "name"
+                            name = this.Get<IBBCode>().LocalizeCustomBBCodeElement(row.Description.Trim());
+                        }*/
+
+                        var onclickJs = row.OnClickJS.IsSet()
+                                            ? row.OnClickJS
+                                            : "setStyle('{0}','')".FormatWith(row.Name.Trim());
+
+                        //writer.WriteLine(@"<a class=""dropdown-item"" href=""#"" onclick=""{0}"">{1}</a>", onclickJs, name);sds
+                        writer.WriteLine(@"<button type=""button"" class=""btn btn-secondary btn-sm"" onload=""Button_Load(this)"" onclick=""{2}"" title=""{1}""{3}>
+                  <i class=""fab fa-{0} fa-fw""></i></button>",
+                            row.Name.ToLower(),
+                            this.Get<IBBCode>().LocalizeCustomBBCodeElement(row.Description.Trim()),
+                            onclickJs,
+                            name);
+                    }
+                }
 
                 // add drop down for optional "extra" codes...
                 writer.WriteLine(@"<div class=""btn-group"" role=""group""><button type=""button"" class=""btn btn-secondary btn-sm dropdown-toggle"" title=""{0}""
@@ -345,7 +371,7 @@ namespace YAF.Editors
 
                 writer.Write("<div class=\"dropdown-menu fill-width\">");
 
-                foreach (var row in customBbCode)
+                foreach (var row in customBbCodesWithNoToolbar)
                 {
                     var name = row.Name;
 

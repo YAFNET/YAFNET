@@ -125,6 +125,7 @@ namespace YAF.Pages.Admin
                     this.txtReplaceRegEx.Text,
                     this.txtVariables.Text,
                     this.chkUseModule.Checked,
+                    this.UseToolbar.Checked,
                     this.txtModuleClass.Text,
                     sortOrder);
 
@@ -159,6 +160,7 @@ namespace YAF.Pages.Admin
             this.txtVariables.Text = bbCode.Variables;
             this.txtModuleClass.Text = bbCode.ModuleClass;
             this.chkUseModule.Checked = bbCode.UseModule ?? false;
+            this.UseToolbar.Checked = bbCode.UseToolbar ?? false;
         }
 
         /// <summary>

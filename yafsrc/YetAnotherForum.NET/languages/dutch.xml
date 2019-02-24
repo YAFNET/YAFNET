@@ -335,6 +335,8 @@
     <Resource tag="TITLE">{0} YafBBCode Extensies</Resource>
     <Resource tag="USE_MODULE">Gebruik Module:</Resource>
     <Resource tag="USE_MODULE_HELP">Gebruik server-side module (class) in plaats van Vervang Regex?</Resource>
+    <Resource tag="USE_TOOLBAR">Use Toolbar:</Resource>
+    <Resource tag="USE_TOOLBAR_HELP">If enabled Show toolbar button in the Standard BBCode Editor</Resource>
   </page>
   <page name="ADMIN_BBCODE_IMPORT">
     <Resource tag="HEADER">Import Aangepaste BBCode</Resource>
@@ -1941,6 +1943,7 @@
     <Resource tag="HIDEREPLY_DESCRIPTION">Deze tag verbergt inhoud voor gebruikers totdat ze in hetzelfde topic hebben gereageerd.</Resource>
     <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">Deze tag verbergt inhoud voor gebruikers totdat ze in hetzelfde topic hebben gereageerd, of op de bedank-knop hebben geklikt.</Resource>
     <Resource tag="HIDETHANKS_DESCRIPTION">Deze tag verbergt inhoud voor gebruikers die minder dan X bedankjes hebben gekregen.</Resource>
+    <Resource tag="INSTAGRAM_DESCRIPTION">Put an Instagram Post URL in here, for example: https://www.instagram.com/p/BS2kMaZl2XO/</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">Zet hier spoiler tekst</Resource>
     <Resource tag="SPOILERMOD_HIDE">Verberg Spoiler</Resource>
     <Resource tag="SPOILERMOD_SHOW">Laat Spoiler zien</Resource>

@@ -10,6 +10,7 @@
     <ReplaceRegex>&lt;!-- BEGIN twitter embed --&gt;&lt;blockquote class="twitter-tweet"&gt;&lt;a href="https://twitter.com/twitterapi/status/${statusID}"&gt;&lt;/a&gt;&lt;/blockquote&gt;&lt;!-- END twitter embed --&gt;</ReplaceRegex>
     <Variables>statusID</Variables>
     <UseModule>false</UseModule>
+    <UseToolbar>true</UseToolbar>
     <ModuleClass />
     <ExecOrder>100</ExecOrder>
   </YafBBCode>
@@ -24,6 +25,7 @@
     <ReplaceRegex>&lt;div&gt;&lt;!-- BEGIN dailymotion --&gt;&lt;iframe frameborder="0" width="560" height="315" src="http://${prefix}dailymotion.com/embed/video/${id}?forcedQuality=hd720"&gt;&lt;/iframe&gt;&lt;!-- END dailymotion --&gt;&lt;/div&gt;</ReplaceRegex>
     <Variables>id;prefix</Variables>
     <UseModule>false</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass />
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
@@ -38,6 +40,7 @@
     <ReplaceRegex>&lt;!-- BEGIN youtube --&gt;&lt;div&gt;&lt;iframe width="560" height="350" src="//youtube.com/embed/${id}?hd=1" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;!-- END youtube --&gt;</ReplaceRegex>
     <Variables>id</Variables>
     <UseModule>false</UseModule>
+    <UseToolbar>true</UseToolbar>
     <ModuleClass />
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
@@ -106,6 +109,7 @@
     <ReplaceRegex />
     <Variables />
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.SpoilerBBCodeModule</ModuleClass>
     <ExecOrder>50</ExecOrder>
   </YafBBCode>
@@ -138,6 +142,7 @@
     <ReplaceRegex />
     <Variables />
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.UserLinkBBCodeModule</ModuleClass>
     <ExecOrder>75</ExecOrder>
   </YafBBCode>
@@ -153,6 +158,7 @@
     </ReplaceRegex>
     <Variables>prefix;vimeoId</Variables>
     <UseModule>false</UseModule>
+    <UseToolbar>true</UseToolbar>
     <ModuleClass />
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
@@ -167,6 +173,7 @@
     <ReplaceRegex />
     <Variables />
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.BBCode.HideBBCodeModule</ModuleClass>
     <ExecOrder>60</ExecOrder>
   </YafBBCode>
@@ -181,6 +188,7 @@
     <ReplaceRegex />
     <Variables>group</Variables>
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.BBCode.GroupHide</ModuleClass>
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
@@ -195,6 +203,7 @@
     <ReplaceRegex />
     <Variables>thanks</Variables>
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.BBCode.HideBBCodeModule</ModuleClass>
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
@@ -209,6 +218,7 @@
     <ReplaceRegex />
     <Variables />
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.BBCode.HideReplyThanksModule</ModuleClass>
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
@@ -223,6 +233,7 @@
     <ReplaceRegex />
     <Variables />
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.BBCode.HideReplyModule</ModuleClass>
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
@@ -237,6 +248,7 @@
     <ReplaceRegex />
     <Variables>posts</Variables>
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.BBCode.HideBBCodeModule</ModuleClass>
     <ExecOrder>2</ExecOrder>
   </YafBBCode>
@@ -251,6 +263,7 @@
     <ReplaceRegex />
     <Variables />
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.BBCode.AlbumImage</ModuleClass>
     <ExecOrder>30</ExecOrder>
   </YafBBCode>
@@ -265,12 +278,13 @@
     <ReplaceRegex />
     <Variables />
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.BBCode.Attach</ModuleClass>
     <ExecOrder>31</ExecOrder>
   </YafBBCode>
   <YafBBCode>
     <Name>INSTAGRAM</Name>
-    <Description>[INSTAGRAM][localization=INSTAGRAM_DESCRIPTION]Put the Instagram URL Here[/INSTAGRAM]</Description>
+    <Description>[INSTAGRAM][localization=INSTAGRAM_DESCRIPTION]Put YouTube URL Here[/localization][/INSTAGRAM]</Description>
     <OnClickJS></OnClickJS>
     <DisplayJS></DisplayJS>
     <EditJS></EditJS>
@@ -279,6 +293,7 @@
     <ReplaceRegex>&lt;iframe src="https://www.instagram.com/p/${id}/embed/captioned/" allowtransparency="true" allowfullscreen="true" height="710" frameborder="0" scrolling="no" style="background: white; max-width: 658px; width: calc(100% - 2px); display: block; margin: 0px 0px 12px; min-width: 326px; padding: 0px;"&gt;&lt;/iframe&gt;</ReplaceRegex>
     <Variables>id</Variables>
     <UseModule>false</UseModule>
+    <UseToolbar>true</UseToolbar>
     <ModuleClass></ModuleClass>
     <ExecOrder>32</ExecOrder>
   </YafBBCode>

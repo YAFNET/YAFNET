@@ -59,6 +59,13 @@
 			<p>
 				<asp:TextBox ID="txtReplaceRegEx" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
 			</p>
+            <hr />
+                    <h4>
+                        <YAF:HelpLabel ID="HelpLabel14" runat="server" LocalizedTag="USE_TOOLBAR" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
+                    </h4>
+                    <p>
+                        <asp:CheckBox ID="UseToolbar" runat="server" CssClass="form-control" />
+                    </p>
                     <hr />
 			<h4>
               <YAF:HelpLabel ID="HelpLabel6" runat="server" LocalizedTag="USE_MODULE" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />

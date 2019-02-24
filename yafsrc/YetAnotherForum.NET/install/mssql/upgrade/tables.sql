@@ -1909,6 +1909,13 @@ begin
 end
 GO
 
+-- BBCode Table
+if not exists (select top 1 1 from sys.columns where object_id=object_id(N'[{databaseOwner}].[{objectQualifier}BBCode]') and name='UseToolbar')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}BBCode] add UseToolbar bit null
+end
+GO
+
 -- Registry Table
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Registry]') and name='BoardID')
 	alter table [{databaseOwner}].[{objectQualifier}Registry] add BoardID int

@@ -335,6 +335,8 @@
     <Resource tag="TITLE">{0} افزونه های بی بی کد</Resource>
     <Resource tag="USE_MODULE">استفاده از ماژول:</Resource>
     <Resource tag="USE_MODULE_HELP">استفاده از ماژول های سمت سرور (class) بجای جایگزینی Regex?</Resource>
+    <Resource tag="USE_TOOLBAR">Use Toolbar:</Resource>
+    <Resource tag="USE_TOOLBAR_HELP">If enabled Show toolbar button in the Standard BBCode Editor</Resource>
   </page>
   <page name="ADMIN_BBCODE_IMPORT">
     <Resource tag="HEADER">درون‌ریزی BBCode های سفارشی</Resource>
@@ -1964,6 +1966,7 @@
     <Resource tag="HIDEREPLY_DESCRIPTION">این تگ محتوا را از دید کاربران تا زمان پاسخ به مطلب مخفی نگه می دارد</Resource>
     <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">این تگ محتوا را از دید کاربران تا زمان پاسخ به مطلب یا فشردن دکمه تشکر مخفی نگه می دارد</Resource>
     <Resource tag="HIDETHANKS_DESCRIPTION">این تگ محتوا را از دید کاربرانی با کمتر از X تشکر مخفی می کند</Resource>
+    <Resource tag="INSTAGRAM_DESCRIPTION">Put an Instagram Post URL in here, for example: https://www.instagram.com/p/BS2kMaZl2XO/</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">قرار دادن متن مخفی در اينجا</Resource>
     <Resource tag="SPOILERMOD_HIDE">مخفی كردن</Resource>
     <Resource tag="SPOILERMOD_SHOW">نمايش</Resource>

@@ -335,6 +335,8 @@
     <Resource tag="TITLE">{0} Extensiones BBCode de YAF</Resource>
     <Resource tag="USE_MODULE">Usar módulo:</Resource>
     <Resource tag="USE_MODULE_HELP">¿Usar un módulo de servidor (clase) en lugar de reemplazar expresiones normales?</Resource>
+    <Resource tag="USE_TOOLBAR">Use Toolbar:</Resource>
+    <Resource tag="USE_TOOLBAR_HELP">If enabled Show toolbar button in the Standard BBCode Editor</Resource>
   </page>
   <page name="ADMIN_BBCODE_IMPORT">
     <Resource tag="HEADER">Importar BBCode personalizado</Resource>
@@ -1953,6 +1955,7 @@
     <Resource tag="HIDEREPLY_DESCRIPTION">La etiqueta oculta el contenido a la gente hasta que ellos responden en el mismo hilo.</Resource>
     <Resource tag="HIDEREPLYTHANKS_DESCRIPTION">La etiqueta oculta el contenido a la gente hasta que ellos responden en el mismo hilo o presionan el botón de agradecimiento de la publicación.</Resource>
     <Resource tag="HIDETHANKS_DESCRIPTION">La etiqueta oculta el contenido a la gente que tiene menos de X agradecimientos recibidos.</Resource>
+    <Resource tag="INSTAGRAM_DESCRIPTION">Put an Instagram Post URL in here, for example: https://www.instagram.com/p/BS2kMaZl2XO/</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">Pon tu texto "spoiler" aquí</Resource>
     <Resource tag="SPOILERMOD_HIDE">Ocultar Spoiler</Resource>
     <Resource tag="SPOILERMOD_SHOW">Mostrar Spoiler</Resource>

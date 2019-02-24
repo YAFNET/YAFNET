@@ -98,6 +98,7 @@
     <Compile Include="AlbumListPopMenu.cs" />
     <Compile Include="GoToPageForm.cs" />
     <Compile Include="ModernButton.cs" />
+    <Compile Include="Alert.cs" />
     <Compile Include="ModernTextBox.cs" />
     <Compile Include="ImageListBox.cs" />
     <Compile Include="ReCAPTCHA\ReCaptchaJson.cs" />
