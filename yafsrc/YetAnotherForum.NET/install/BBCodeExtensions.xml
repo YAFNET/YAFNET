@@ -268,4 +268,18 @@
     <ModuleClass>YAF.Modules.BBCode.Attach</ModuleClass>
     <ExecOrder>31</ExecOrder>
   </YafBBCode>
+  <YafBBCode>
+    <Name>INSTAGRAM</Name>
+    <Description>[INSTAGRAM][localization=INSTAGRAM_DESCRIPTION]Put the Instagram URL Here[/INSTAGRAM]</Description>
+    <OnClickJS></OnClickJS>
+    <DisplayJS></DisplayJS>
+    <EditJS></EditJS>
+    <DisplayCSS></DisplayCSS>
+    <SearchRegex>\[instagram\](?&lt;inner&gt;(.*?)\.instagram.com/p/(?&lt;id&gt;.+)?\/\?(.*?))\[/instagram\]</SearchRegex>
+    <ReplaceRegex>&lt;iframe src="https://www.instagram.com/p/${id}/embed/captioned/" allowtransparency="true" allowfullscreen="true" height="710" frameborder="0" scrolling="no" style="background: white; max-width: 658px; width: calc(100% - 2px); display: block; margin: 0px 0px 12px; min-width: 326px; padding: 0px;"&gt;&lt;/iframe&gt;</ReplaceRegex>
+    <Variables>id</Variables>
+    <UseModule>false</UseModule>
+    <ModuleClass></ModuleClass>
+    <ExecOrder>32</ExecOrder>
+  </YafBBCode>
 </YafBBCodeList>
