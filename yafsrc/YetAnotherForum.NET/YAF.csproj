@@ -981,7 +981,6 @@
     </Compile>
     <Content Include="advanced.aspx" />
     <Content Include="auth.aspx" />
-    <Content Include="Content\fontawesome\all.css" />
     <Content Include="Content\blueimp-gallery.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-forum.css">
@@ -997,9 +996,28 @@
     <Content Include="Content\css\select2.min.css">
       <DependentUpon>select2.css</DependentUpon>
     </Content>
+    <Content Include="Content\fontawesome\brands.min.css">
+      <DependentUpon>brands.css</DependentUpon>
+    </Content>
+    <Content Include="Content\fontawesome\fontawesome-all.css" />
+    <Content Include="Content\fontawesome\fontawesome-all.min.css">
+      <DependentUpon>fontawesome-all.css</DependentUpon>
+    </Content>
     <Content Include="Content\fontawesome\fontawesome.css" />
     <Content Include="Content\fontawesome\fontawesome.min.css">
       <DependentUpon>fontawesome.css</DependentUpon>
+    </Content>
+    <Content Include="Content\fontawesome\regular.min.css">
+      <DependentUpon>regular.css</DependentUpon>
+    </Content>
+    <Content Include="Content\fontawesome\solid.min.css">
+      <DependentUpon>solid.css</DependentUpon>
+    </Content>
+    <Content Include="Content\fontawesome\svg-with-js.min.css">
+      <DependentUpon>svg-with-js.css</DependentUpon>
+    </Content>
+    <Content Include="Content\fontawesome\v4-shims.min.css">
+      <DependentUpon>v4-shims.css</DependentUpon>
     </Content>
     <Content Include="Content\forum-admin.css">
       <DependentUpon>forum-admin.scss</DependentUpon>
@@ -1145,7 +1163,6 @@
     <Content Include="Content\tablesorter\jquery.tablesorter.pager.min.css" />
     <Content Include="Content\tablesorter\theme.bootstrap_4.min.css" />
     <Content Include="Content\fontawesome\v4-shims.css" />
-    <Content Include="Content\fontawesome\v4-shims.min.css" />
     <Content Include="Content\webfonts\fa-brands-400.svg" />
     <Content Include="Content\webfonts\fa-regular-400.svg" />
     <Content Include="Content\webfonts\fa-solid-900.svg" />
@@ -4558,7 +4575,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
