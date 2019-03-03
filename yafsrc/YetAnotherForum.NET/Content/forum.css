@@ -3185,3 +3185,8 @@ body:last-child .blueimp-gallery-playing > .play-pause {
     display: inline-block;
     vertical-align: bottom;
     margin-right: .3em; }
+
+.scrollable-dropdown {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden; }

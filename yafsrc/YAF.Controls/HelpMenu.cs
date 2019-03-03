@@ -142,7 +142,7 @@ namespace YAF.Controls
                         if (!this.Get<YafBoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
                         {
                             html.AppendFormat(
-                                @"<li class=""nav-item""><a href=""{0}"" {2} title=""{1}"" class=""dropdown-item"">{1}</a></li>",
+                                @"<li class=""nav-item""><a href=""{0}"" {2} title=""{1}"" class=""nav-link"">{1}</a></li>",
                                 YafBuildLink.GetLink(
                                     ForumPages.help_index,
                                     "faq={0}".FormatWith(helpPage.HelpPage.ToLower())),
@@ -160,7 +160,7 @@ namespace YAF.Controls
                     else
                     {
                         html.AppendFormat(
-                            @"<li class=""nav-item""><a href=""{0}"" {2} title=""{1}"" class=""dropdown-item"">{1}</a></li>",
+                            @"<li class=""nav-item""><a href=""{0}"" {2} title=""{1}"" class=""nav-link"">{1}</a></li>",
                             YafBuildLink.GetLink(
                                 ForumPages.help_index,
                                 "faq={0}".FormatWith(helpPage.HelpPage.ToLower())),

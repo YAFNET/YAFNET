@@ -53,3 +53,10 @@
         margin-right: .3em;
     }
 }
+
+// Scrollable Mobile Dropdowns
+.scrollable-dropdown {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+} 
