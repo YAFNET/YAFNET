@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Arabic" code="ar">
+<Resources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="Arabic" code="ar">
   <page name="ACTIVELOCATION">
     <Resource tag="ACTIVEUSERS">عرض المستخدمين المفعلين حاليا</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">عرض أقنعة الدخول </Resource>

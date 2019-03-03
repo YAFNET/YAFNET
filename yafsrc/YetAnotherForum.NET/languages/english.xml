@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" language="English" code="en">
+<Resources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="English" code="en">
  <page name="ACTIVELOCATION">
   <Resource tag="ACTIVEUSERS">Views Active Users list</Resource>
   <Resource tag="ADMIN_ACCESSMASKS">Views access masks</Resource>

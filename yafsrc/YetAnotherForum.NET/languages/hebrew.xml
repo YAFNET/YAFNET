@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Hebrew" code="he">
+<Resources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="Hebrew" code="he">
   <page name="ACTIVE">
     <Resource tag="BY">ע"י {0}</Resource>
     <Resource tag="LAST_24">( 24 השעות האחרונות )</Resource>

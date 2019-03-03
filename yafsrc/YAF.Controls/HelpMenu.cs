@@ -38,6 +38,7 @@ namespace YAF.Controls
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Objects;
     using YAF.Utils;
 
     #endregion
@@ -85,7 +86,7 @@ namespace YAF.Controls
 
             htmlDropDown.AppendFormat(@"{0}</button>", this.GetText("HELP_INDEX", "INDEX"));
 
-            htmlDropDown.Append(@"<div class=""dropdown-menu"" aria-labelledby=""dropdownMenuButton"">");
+            htmlDropDown.Append(@"<div class=""dropdown-menu scrollable-dropdown"" aria-labelledby=""dropdownMenuButton"">");
 
             var faqPage = "index";
 
@@ -141,7 +142,7 @@ namespace YAF.Controls
                         if (!this.Get<YafBoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
                         {
                             html.AppendFormat(
-                                @"<li class=""nav-item""><a href=""{0}"" {2} title=""{1}"" class=""nav-link"">{1}</a></li>",
+                                @"<li class=""nav-item""><a href=""{0}"" {2} title=""{1}"" class=""dropdown-item"">{1}</a></li>",
                                 YafBuildLink.GetLink(
                                     ForumPages.help_index,
                                     "faq={0}".FormatWith(helpPage.HelpPage.ToLower())),
@@ -159,7 +160,7 @@ namespace YAF.Controls
                     else
                     {
                         html.AppendFormat(
-                            @"<li class=""nav-item""><a href=""{0}"" {2} title=""{1}"" class=""nav-link"">{1}</a></li>",
+                            @"<li class=""nav-item""><a href=""{0}"" {2} title=""{1}"" class=""dropdown-item"">{1}</a></li>",
                             YafBuildLink.GetLink(
                                 ForumPages.help_index,
                                 "faq={0}".FormatWith(helpPage.HelpPage.ToLower())),
@@ -207,40 +208,5 @@ namespace YAF.Controls
         }
 
         #endregion
-
-        /// <summary>
-        /// The YAF Help Navigation Class
-        /// </summary>
-        public class YafHelpNavigation
-        {
-            #region Properties
-
-            /// <summary>
-            ///   Gets or sets The Category of the Help Category
-            /// </summary>
-            public string HelpCategory { get; set; }
-
-            /// <summary>
-            ///   Gets or sets The Help pages
-            /// </summary>
-            public List<YafHelpNavigationPage> HelpPages { get; set; }
-
-            #endregion
-        }
-
-        /// <summary>
-        /// Class for the Help Pages inside a Category
-        /// </summary>
-        public class YafHelpNavigationPage
-        {
-            #region Properties
-
-            /// <summary>
-            ///   Gets or sets The Help page Name
-            /// </summary>
-            public string HelpPage { get; set; }
-
-            #endregion
-        }
     }
 }

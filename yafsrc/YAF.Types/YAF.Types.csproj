@@ -192,6 +192,7 @@
     <Compile Include="Models\UserForum.cs" />
     <Compile Include="Models\WatchForum.cs" />
     <Compile Include="Models\WatchTopic.cs" />
+    <Compile Include="Objects\YafHelpContent.cs" />
     <Compile Include="Objects\PageLink.cs" />
     <Compile Include="Objects\AttachmentItem.cs" />
     <Compile Include="Objects\FacebookAccessToken.cs" />
@@ -209,6 +210,8 @@
     <Compile Include="Objects\MessageNotification.cs" />
     <Compile Include="Objects\SettingsProfilePropertyColumn.cs" />
     <Compile Include="Objects\TypedAllThanks.cs" />
+    <Compile Include="Objects\YafHelpNavigation.cs" />
+    <Compile Include="Objects\YafHelpNavigationPage.cs" />
     <Compile Include="ThemeResources.cs" />
     <Compile Include="CodeContracts.cs" />
     <Compile Include="Constants\CollapsiblePanelState.cs" />

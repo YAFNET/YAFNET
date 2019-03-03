@@ -40,6 +40,7 @@ namespace YAF.Pages.help
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Objects;
     using YAF.Utils;
 
     #endregion
@@ -261,12 +262,9 @@ namespace YAF.Pages.help
                 return;
             }
 
-            // vzrus tip: some features can be disabled and users shouldn't normally see them in help.
-            // The list can include some limitations based on host settings when features are enabled.  
-            // tha_watcha: actually not really needed content describes that things can be disabled.
-            var helpNavigation = new List<HelpMenu.YafHelpNavigation>();
+            var helpNavigation = new List<YafHelpNavigation>();
 
-            var serializer = new XmlSerializer(typeof(List<HelpMenu.YafHelpNavigation>));
+            var serializer = new XmlSerializer(typeof(List<YafHelpNavigation>));
 
             var xmlFilePath =
                 HttpContext.Current.Server.MapPath(
@@ -276,7 +274,7 @@ namespace YAF.Pages.help
             {
                 var reader = new StreamReader(xmlFilePath);
 
-                helpNavigation = (List<HelpMenu.YafHelpNavigation>)serializer.Deserialize(reader);
+                helpNavigation = (List<YafHelpNavigation>)serializer.Deserialize(reader);
 
                 reader.Close();
             }
@@ -330,30 +328,5 @@ namespace YAF.Pages.help
         }
 
         #endregion
-
-        /// <summary>
-        /// Class that Can store the Help Content
-        /// </summary>
-        public class YafHelpContent
-        {
-            #region Properties
-
-            /// <summary>
-            ///   Gets or sets The Content of the Help page
-            /// </summary>
-            public string HelpContent { get; set; }
-
-            /// <summary>
-            ///   Gets or sets The Help page Name
-            /// </summary>
-            public string HelpPage { get; set; }
-
-            /// <summary>
-            ///   Gets or sets The Title of the Help page
-            /// </summary>
-            public string HelpTitle { get; set; }
-
-            #endregion
-        }
     }
 }

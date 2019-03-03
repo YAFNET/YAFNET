@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" language="Russian" code="ru">
+<Resources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="Russian" code="ru">
   <page name="ACTIVELOCATION">
     <Resource tag="ACTIVEUSERS">Просматривает список активных пользователей</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">Просматривает маски доступа</Resource>
