@@ -23,11 +23,12 @@
  */
 namespace YAF.Controls
 {
-  #region Using
+    #region Using
 
     using System;
     using System.Data;
     using System.Web.UI;
+
     using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Types;
@@ -36,217 +37,215 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
-  #endregion
-
-    /// <summary>
-  /// Shows a Reporters for reported posts
-  /// </summary>
-  public class BaseReportedPosts : BaseUserControl
-  {
-    #region Properties
-
-    /// <summary>
-    ///   Gets or sets MessageID.
-    /// </summary>
-    public virtual int MessageID
-    {
-      get
-      {
-          return this.ViewState["MessageID"] != null ? this.ViewState["MessageID"].ToType<int>() : 0;
-      }
-
-        set
-      {
-        this.ViewState["MessageID"] = value;
-      }
-    }
-
-    /// <summary>
-    ///   Gets or sets Resolved.
-    /// </summary>
-    [NotNull]
-    public virtual string Resolved
-    {
-      get
-      {
-        return this.ViewState["Resolved"].ToString();
-      }
-
-      set
-      {
-        this.ViewState["Resolved"] = value;
-      }
-    }
-
-    /// <summary>
-    ///   Gets or sets ResolvedBy. It returns UserID as string value
-    /// </summary>
-    [NotNull]
-    public virtual string ResolvedBy
-    {
-      get
-      {
-        return this.ViewState["ResolvedBy"].ToString();
-      }
-
-      set
-      {
-        this.ViewState["ResolvedBy"] = value;
-      }
-    }
-
-    /// <summary>
-    ///   Gets or sets ResolvedDate.
-    /// </summary>
-    [NotNull]
-    public virtual string ResolvedDate
-    {
-      get
-      {
-        return this.ViewState["ResolvedDate"].ToString();
-      }
-
-      set
-      {
-        this.ViewState["ResolvedDate"] = value;
-      }
-    }
-
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// The render.
+    /// Shows a Reporters for reported posts
     /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    public class BaseReportedPosts : BaseUserControl
     {
-      // TODO: Needs better commentting.
-      writer.WriteLine(@"<div class=""card yafReportedPosts"">");
+        #region Properties
 
-      var reportersList = LegacyDb.message_listreporters(this.MessageID);
-
-        if (!reportersList.HasRows())
+        /// <summary>
+        ///   Gets or sets MessageID.
+        /// </summary>
+        public virtual int MessageID
         {
-            return;
-        }
-
-        writer.BeginRender();
-
-        foreach (DataRow reporter in reportersList.Rows)
-        {
-            string howMany = null;
-            if (reporter["ReportedNumber"].ToType<int>() > 1)
+            get
             {
-                howMany = "({0})".FormatWith(reporter["ReportedNumber"]);
+                return this.ViewState["MessageID"] != null ? this.ViewState["MessageID"].ToType<int>() : 0;
             }
 
-            // If the message was previously resolved we have not null string
-            // and can add an info about last user who resolved the message
-            if (this.ResolvedDate.IsSet())
+            set
             {
-                var resolvedByName = LegacyDb.user_list(
-                    this.PageContext.PageBoardID,
-                    this.ResolvedBy.ToType<int>(),
-                    true).Rows[0]["Name"].ToString();
+                this.ViewState["MessageID"] = value;
+            }
+        }
 
-                var resolvedByDisplayName =
-                    UserMembershipHelper.GetDisplayNameFromID(this.ResolvedBy.ToType<long>()).IsSet()
-                        ? this.Server.HtmlEncode(
-                            this.Get<IUserDisplayName>().GetName(this.ResolvedBy.ToType<int>()))
-                        : this.Server.HtmlEncode(resolvedByName);
+        /// <summary>
+        ///   Gets or sets Resolved.
+        /// </summary>
+        [NotNull]
+        public virtual string Resolved
+        {
+            get
+            {
+                return this.ViewState["Resolved"].ToString();
+            }
+
+            set
+            {
+                this.ViewState["Resolved"] = value;
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets ResolvedBy. It returns UserID as string value
+        /// </summary>
+        [NotNull]
+        public virtual string ResolvedBy
+        {
+            get
+            {
+                return this.ViewState["ResolvedBy"].ToString();
+            }
+
+            set
+            {
+                this.ViewState["ResolvedBy"] = value;
+            }
+        }
+
+        /// <summary>
+        ///   Gets or sets ResolvedDate.
+        /// </summary>
+        [NotNull]
+        public virtual string ResolvedDate
+        {
+            get
+            {
+                return this.ViewState["ResolvedDate"].ToString();
+            }
+
+            set
+            {
+                this.ViewState["ResolvedDate"] = value;
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The render.
+        /// </summary>
+        /// <param name="writer">
+        /// The writer.
+        /// </param>
+        protected override void Render([NotNull] HtmlTextWriter writer)
+        {
+            var reportersList = LegacyDb.message_listreporters(this.MessageID);
+
+            if (!reportersList.HasRows())
+            {
+                return;
+            }
+
+            writer.BeginRender();
+
+            foreach (DataRow reporter in reportersList.Rows)
+            {
+                writer.WriteLine(@"<div class=""alert alert-secondary"" role=""alert"">");
+
+                string howMany = null;
+                if (reporter["ReportedNumber"].ToType<int>() > 1)
+                {
+                    howMany = "({0})".FormatWith(reporter["ReportedNumber"]);
+                }
+
+                // If the message was previously resolved we have not null string
+                // and can add an info about last user who resolved the message
+                if (this.ResolvedDate.IsSet())
+                {
+                    var resolvedByName = LegacyDb.user_list(
+                        this.PageContext.PageBoardID,
+                        this.ResolvedBy.ToType<int>(),
+                        true).Rows[0]["Name"].ToString();
+
+                    var resolvedByDisplayName =
+                        UserMembershipHelper.GetDisplayNameFromID(this.ResolvedBy.ToType<long>()).IsSet()
+                            ? this.Server.HtmlEncode(
+                                this.Get<IUserDisplayName>().GetName(this.ResolvedBy.ToType<int>()))
+                            : this.Server.HtmlEncode(resolvedByName);
+
+                    writer.Write(
+                        @"<span class=""font-weight-bold"">{0}</span><a href=""{1}""> {2}</a> : {3}",
+                        this.GetText("RESOLVEDBY"),
+                        YafBuildLink.GetLink(
+                            ForumPages.profile,
+                            "u={0}&name={1}",
+                            this.ResolvedBy.ToType<int>(),
+                            resolvedByDisplayName),
+                        resolvedByDisplayName,
+                        this.Get<IDateTime>().FormatDateTimeTopic(this.ResolvedDate));
+                }
 
                 writer.Write(
-                    @"<div class=""card-header"">{0}<a class=""YafReported_Link"" href=""{1}""> {2}</a> : {3}</div>",
-                    this.GetText("RESOLVEDBY"),
+                    @"<span class=""font-weight-bold"">{3}</span><a href=""{1}""> {0}{2} </a>",
+                    !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(reporter["UserID"].ToType<long>()))
+                        ? this.Server.HtmlEncode(this.Get<IUserDisplayName>().GetName(reporter["UserID"].ToType<int>()))
+                        : this.Server.HtmlEncode(reporter["UserName"].ToString()),
                     YafBuildLink.GetLink(
                         ForumPages.profile,
                         "u={0}&name={1}",
-                        this.ResolvedBy.ToType<int>(),
-                        resolvedByDisplayName),
-                    resolvedByDisplayName,
-                    this.Get<IDateTime>().FormatDateTimeTopic(this.ResolvedDate));
-            }
+                        reporter["UserID"].ToType<int>(),
+                        reporter["UserName"].ToString()),
+                    howMany,
+                    this.GetText("REPORTEDBY"));
 
-            writer.Write(
-                @"<div class=""card-header"">{3}<a class=""YafReported_Link"" href=""{1}""> {0}{2} </a>",
-                !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(reporter["UserID"].ToType<long>()))
-                    ? this.Server.HtmlEncode(this.Get<IUserDisplayName>().GetName(reporter["UserID"].ToType<int>()))
-                    : this.Server.HtmlEncode(reporter["UserName"].ToString()),
-                YafBuildLink.GetLink(
-                    ForumPages.profile,
-                    "u={0}&name={1}",
-                    reporter["UserID"].ToType<int>(),
-                    reporter["UserName"].ToString()),
-                howMany,
-                this.GetText("REPORTEDBY"));
-            writer.WriteLine(@"</div>");
-
-            writer.Write(@"<div class=""body"">");
-
-            var reportString = reporter["ReportText"].ToString().Trim().Split('|');
-
-            foreach (var t in reportString)
-            {
-                var textString = t.Split("??".ToCharArray());
                 writer.Write(
-                    @"<p class=""card-text"">{0}:</p>",
-                    this.Get<IDateTime>().FormatDateTimeTopic(textString[0]));
+                    @"<a class=""btn btn-secondary btn-sm"" href=""{1}""><i class=""fa fa-envelope fa-fw""></i>&nbsp;{2} {0}</a>",
+                    !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(reporter["UserID"].ToType<long>()))
+                        ? this.Server.HtmlEncode(this.Get<IUserDisplayName>().GetName(reporter["UserID"].ToType<int>()))
+                        : this.Server.HtmlEncode(reporter["UserName"].ToString()),
+                    YafBuildLink.GetLink(
+                        ForumPages.pmessage,
+                        "u={0}&r={1}",
+                        reporter["UserID"].ToType<int>(),
+                        this.MessageID),
+                    this.GetText("REPLYTO"));
 
-                // Apply style if a post was previously resolved
-                var resStyle = "post_res";
-                try
+                var reportString = reporter["ReportText"].ToString().Trim().Split('|');
+
+                foreach (var t in reportString)
                 {
-                    if (!(string.IsNullOrEmpty(textString[0]) && string.IsNullOrEmpty(this.ResolvedDate)))
+                    var textString = t.Split("??".ToCharArray());
+
+                    writer.Write(
+                        @"<span class=""font-weight-bold pl-1"">@</span><span class=""pl-1"">{0}</span>",
+                        this.Get<IDateTime>().FormatDateTimeTopic(textString[0]));
+
+                    // Apply style if a post was previously resolved
+                    var resStyle = "post_res";
+                    try
                     {
-                        if (Convert.ToDateTime(textString[0]) < Convert.ToDateTime(this.ResolvedDate))
+                        if (!(string.IsNullOrEmpty(textString[0]) && string.IsNullOrEmpty(this.ResolvedDate)))
                         {
-                            resStyle = "post";
+                            if (Convert.ToDateTime(textString[0]) < Convert.ToDateTime(this.ResolvedDate))
+                            {
+                                resStyle = "post";
+                            }
                         }
                     }
-                }
-                catch (Exception)
-                {
-                    resStyle = "post_res";
+                    catch (Exception)
+                    {
+                        resStyle = "post_res";
+                    }
+
+                    if (textString.Length > 2)
+                    {
+                        writer.Write(@"<p class=""card-text {0}"">", resStyle);
+                        writer.Write(textString[2]);
+                        writer.WriteLine(@"</p>");
+                    }
+                    else
+                    {
+                        writer.WriteLine(@"<p class=""card-text"">");
+                        writer.Write(t);
+                        writer.WriteLine(@"</p>");
+                    }
                 }
 
-                if (textString.Length > 2)
-                {
-                    writer.Write(@"<p class=""card-text {0}"">", resStyle);
-                    writer.Write(textString[2]);
-                    writer.WriteLine(@"</p>");
-                }
-                else
-                {
-                    writer.WriteLine(@"<p class=""card-text"">");
-                    writer.Write(t);
-                    writer.WriteLine(@"</p>");
-                }
+                writer.Write("</div>");
             }
 
-            writer.Write(
-                @"<a class=""btn btn-primary"" href=""{1}"">{2} {0}</a>",
-                !string.IsNullOrEmpty(UserMembershipHelper.GetDisplayNameFromID(reporter["UserID"].ToType<long>()))
-                    ? this.Server.HtmlEncode(this.Get<IUserDisplayName>().GetName(reporter["UserID"].ToType<int>()))
-                    : this.Server.HtmlEncode(reporter["UserName"].ToString()),
-                YafBuildLink.GetLink(
-                    ForumPages.pmessage,
-                    "u={0}&r={1}",
-                    reporter["UserID"].ToType<int>(),
-                    this.MessageID),
-                this.GetText("REPLYTO"));
+            // render controls...
+            base.Render(writer);
+
+            writer.EndRender();
         }
 
-        // render controls...
-        base.Render(writer);
-
-        writer.WriteLine("</div></div>");
-        writer.EndRender();
+        #endregion
     }
-
-    #endregion
-  }
 }

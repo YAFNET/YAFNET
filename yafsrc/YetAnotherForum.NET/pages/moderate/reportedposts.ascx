@@ -1,10 +1,11 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.moderate.reportedposts"CodeBehind="reportedposts.ascx.cs" %>
+﻿
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.moderate.reportedposts"CodeBehind="reportedposts.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 
-<%@ Register TagPrefix="YAF" TagName="ReportedPosts" Src="../../controls/ReportedPosts.ascx" %>
-
 <YAF:PageLinks runat="server" ID="PageLinks" />
+
+<%@ Register TagPrefix="YAF" TagName="ReportedPosts" Src="../../controls/ReportedPosts.ascx" %>
 
 <div class="row">
     <div class="col-xl-12">
@@ -14,87 +15,97 @@
 <asp:Repeater ID="List" runat="server">
     <ItemTemplate>
         <div class="row">
-        <div class="col-xl-12">
-        <div class="card mb-3">
-        <div class="card-header">
-            <i class="fa fa-file-alt fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="TopicLabel" runat="server" LocalizedTag="TOPIC" />
-            &nbsp;<a id="TopicLink" href='<%# YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.Eval("TopicID")) %>'
-                     runat="server"><%# this.Eval("Topic") %></a>
-        </div>
-        <div class="card-body text-center">
-            <table class="content" width="100%">
-            <tr class="header2">
-                <td colspan="3">
-                    
-                </td>
-            </tr>
-            <tr class="postheader">
-                <td class="postformheader">
-                    <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# this.Eval("UserID").ToType<int>() %>' />
-                    <YAF:ThemeButton ID="AdminUserButton" runat="server" CssClass="yaflittlebutton" Visible='<%# this.PageContext.IsAdmin %>'
-                    TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE" 
-                    NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", Convert.ToInt32(this.Eval("UserID")) ) %>'>
-                </YAF:ThemeButton>
-                </td>
-                <td>
-                    <strong>
-                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
-                    </strong>
-                    <%# this.Get<IDateTime>().FormatDateShort((DateTime) DataBinder.Eval(Container.DataItem, "[\"Posted\"]")) %>
-                    <br />
-                    <strong>
-                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NUMBERREPORTED" />
-                    </strong>
-                    <%# DataBinder.Eval(Container.DataItem, "[\"NumberOfReports\"]") %>
-                    <label id="Label1" runat="server" visible='<%# YAF.Utils.General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'>
-                        <strong>
-                            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MODIFIED" />
-                        </strong>
-                    </label>
-                </td>
-                <td>
-                    <YAF:ThemeButton ID="ReportAsSpamBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
-                        TextLocalizedTag="REPORT_SPAM" CommandName="spam" CommandArgument='<%# this.FormatMessage((System.Data.DataRowView)Container.DataItem) %>'
-                        visible='<%# this.Get<YafBoardSettings>().SpamServiceType.Equals(1)%>' />
-                    <YAF:ThemeButton ID="CopyOverBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
-                        TextLocalizedTag="COPYOVER" CommandName="CopyOver" Visible='<%# YAF.Utils.General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'
-                        CommandArgument='<%# this.Eval("MessageID") %>' />
-                    <YAF:ThemeButton ID="DeleteBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
-                        TextLocalizedTag="DELETE" CommandName="Delete" CommandArgument='<%# this.Eval("MessageID") %>'
-                        ReturnConfirmText='<%# this.GetText("ASK_DELETE") %>'
+            <div class="col-xl-12">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <i class="fa fa-file-alt fa-fw"></i>&nbsp;
+                        <span class="font-weight-bold"><YAF:LocalizedLabel ID="TopicLabel" runat="server"
+                                            LocalizedTag="TOPIC" />
+                        </span>
+                        <a id="TopicLink" 
+                           href='<%# YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.Eval("TopicID")) %>'
+                           runat="server"><%# this.Eval("Topic") %></a>
+                        <div class="float-right text-muted">
+                            <span class="font-weight-bold">
+                                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
+                            </span>
+                            <%# this.Get<IDateTime>().FormatDateShort((DateTime) DataBinder.Eval(Container.DataItem, "[\"Posted\"]")) %>
+                            <span class="font-weight-bold pl-3">
+                                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NUMBERREPORTED" />
+                            </span>
+                            <%# DataBinder.Eval(Container.DataItem, "[\"NumberOfReports\"]") %>
+                            <span class="font-weight-bold pl-3">
+                                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
+                                                    LocalizedTag="POSTEDBY" LocalizedPage="REPORTPOST" />
+                            </span>
+                            <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# this.Eval("UserID").ToType<int>() %>' />
+                            <YAF:ThemeButton ID="AdminUserButton" runat="server" 
+                                             CssClass="btn-sm" Visible='<%# this.PageContext.IsAdmin %>'
+                                             TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
+                                             NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", Convert.ToInt32(this.Eval("UserID")) ) %>'
+                                             Icon="users-cog" Type="Secondary">
+                            </YAF:ThemeButton>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="ORIGINALMESSAGE" />
+                                </h6>
+                                <span id="Label1" runat="server" 
+                                      class="badge badge-warning" 
+                                      visible='<%# YAF.Utils.General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'>
+                                    <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MODIFIED" />
+                                </span>
+                                <div class="mb-3">
+                                <%# this.FormatMessage((System.Data.DataRowView)Container.DataItem)%>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <YAF:ReportedPosts ID="ReportersList" runat="server" 
+                                                   MessageID='<%# DataBinder.Eval(Container.DataItem, "[\"MessageID\"]") %>'
+                                                   ResolvedBy='<%# DataBinder.Eval(Container.DataItem, "[\"ResolvedBy\"]") %>' 
+                                                   Resolved='<%# DataBinder.Eval(Container.DataItem, "[\"Resolved\"]") %>'
+                                                   ResolvedDate='<%# DataBinder.Eval(Container.DataItem, "[\"ResolvedDate\"]") %>' />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <YAF:ThemeButton ID="ReportAsSpamBtn" runat="server" 
+                                         TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="REPORT_SPAM" 
+                                         CommandName="spam" CommandArgument='<%# this.FormatMessage((System.Data.DataRowView)Container.DataItem) %>'
+                                         Visible='<%# this.Get<YafBoardSettings>().SpamServiceType.Equals(1)%>'
+                                         Icon="flag" Type="Secondary"/>
+                        <YAF:ThemeButton ID="CopyOverBtn" runat="server" 
+                                     TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="COPYOVER" 
+                                     CommandName="CopyOver" CommandArgument='<%# this.Eval("MessageID") %>'
+                                     Visible='<%# YAF.Utils.General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'
+                                     Icon="copy" Type="Secondary" />
+                        <YAF:ThemeButton ID="DeleteBtn" runat="server" 
+                                     TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="DELETE" 
+                                     CommandName="Delete" CommandArgument='<%# this.Eval("MessageID") %>'
+                                     ReturnConfirmText='<%# this.GetText("ASK_DELETE") %>'
                                      Icon="trash" Type="Danger"/>
-                    <YAF:ThemeButton ID="ResolveBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
-                        TextLocalizedTag="RESOLVED" CommandName="Resolved" CommandArgument='<%# this.Eval("MessageID") %>' />
-                    <YAF:ThemeButton ID="ViewBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
-                        TextLocalizedTag="VIEW" CommandName="View" CommandArgument='<%# this.Eval("MessageID") %>' />
-                    <YAF:ThemeButton ID="ViewHistoryBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM"
-                        TextLocalizedTag="HISTORY" CommandName="ViewHistory" CommandArgument='<%# this.PageContext.PageForumID + "," + this.Eval("MessageID") %>' />
-                </td>
-            </tr>
-            <tr>
-                <td valign="top" width="140" class="postformheader">
-                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="ORIGINALMESSAGE" />
-                    &nbsp;
-                </td>
-                <td valign="top" class="post message" colspan="2">
-                    <%# this.FormatMessage((System.Data.DataRowView)Container.DataItem)%>
-                </td>
-            </tr>
-            <tr class="postheader" style="vertical-align:top">
-                <td class="postformheader">
-                    <YAF:LocalizedLabel ID="ReportedByLabel" runat="server" LocalizedTag="REPORTEDBY" />
-                </td>
-                <td colspan="2">
-                    <YAF:ReportedPosts ID="ReportersList" runat="server" MessageID='<%# DataBinder.Eval(Container.DataItem, "[\"MessageID\"]") %>'
-                        ResolvedBy='<%# DataBinder.Eval(Container.DataItem, "[\"ResolvedBy\"]") %>' Resolved='<%# DataBinder.Eval(Container.DataItem, "[\"Resolved\"]") %>'
-                        ResolvedDate='<%# DataBinder.Eval(Container.DataItem, "[\"ResolvedDate\"]") %>' />
-                </td>
-            </tr>
-        </table>
-        </div>
+                        <YAF:ThemeButton ID="ResolveBtn" runat="server" 
+                                     TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="RESOLVED" 
+                                     CommandName="Resolved" CommandArgument='<%# this.Eval("MessageID") %>'
+                                     Icon="check" Type="Success" />
+                        <YAF:ThemeButton ID="ViewBtn" runat="server" 
+                                     TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="VIEW" 
+                                     CommandName="View" CommandArgument='<%# this.Eval("MessageID") %>'
+                                     Icon="eye" Type="Secondary" />
+                        <YAF:ThemeButton ID="ViewHistoryBtn" runat="server" 
+                                     TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="HISTORY" 
+                                     CommandName="ViewHistory" CommandArgument='<%# this.PageContext.PageForumID + "," + this.Eval("MessageID") %>'
+                                     Icon="history" Type="Secondary" />
+                    </div>
                 </div>
             </div>
         </div>
     </ItemTemplate>
 </asp:Repeater>
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />
