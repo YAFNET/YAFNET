@@ -78,27 +78,10 @@ namespace YAF.Controls
                                             TitleLocalizedTag = "LOGIN",
                                             TitleLocalizedPage = "TOOLBAR",
                                             Type = ButtonAction.Link,
-                                            Icon = "sign-in-alt"
+                                            Icon = "sign-in-alt",
+                                            NavigateUrl = "javascript:void(0);",
+                                            CssClass = "LoginLink"
                                         };
-
-                    if (this.Get<YafBoardSettings>().UseLoginBox && !(this.Get<IYafSession>().UseMobileTheme ?? false))
-                    {
-                        loginLink.NavigateUrl = "javascript:void(0);";
-
-                        loginLink.CssClass = "LoginLink";
-                    }
-                    else
-                    {
-                        var returnUrl = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet()
-                                            ? "ReturnUrl={0}".FormatWith(
-                                                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl"))
-                                            : string.Empty;
-
-                        loginLink.NavigateUrl = !this.Get<YafBoardSettings>().UseSSLToLogIn
-                                                    ? YafBuildLink.GetLinkNotEscaped(ForumPages.login, returnUrl)
-                                                    : YafBuildLink.GetLinkNotEscaped(ForumPages.login, true, returnUrl)
-                                                          .Replace("http:", "https:");
-                    }
 
                     this.ConnectHolder.Controls.Add(loginLink);
 

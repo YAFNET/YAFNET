@@ -408,7 +408,7 @@ namespace YAF
             }
 
             // Add the LoginBox to Control, if used and User is Guest
-            if (this.Get<YafBoardSettings>().UseLoginBox && YafContext.Current.IsGuest && !Config.IsAnyPortal
+            if (YafContext.Current.IsGuest && !Config.IsAnyPortal
                 && Config.AllowLoginAndLogoff)
             {
                 this.Controls.Add(
@@ -435,9 +435,14 @@ namespace YAF
             this.Controls.Add(
                 this.LoadControl("{0}controls/ImageGallery.ascx".FormatWith(YafForumInfo.ForumServerFileRoot)));
 
-            // Add cookie consent
-            this.Controls.Add(
-                this.LoadControl("{0}controls/CookieConsent.ascx".FormatWith(YafForumInfo.ForumServerFileRoot)));
+            var cookieName = "YAF-AcceptCookies";
+
+            if (YafContext.Current.Get<HttpRequestBase>().Cookies[cookieName] == null)
+            {
+                // Add cookie consent
+                this.Controls.Add(
+                    this.LoadControl("{0}controls/CookieConsent.ascx".FormatWith(YafForumInfo.ForumServerFileRoot)));
+            }
 
             // load plugins/functionality modules
             this.AfterForumPageLoad?.Invoke(this, new YafAfterForumPageLoad());

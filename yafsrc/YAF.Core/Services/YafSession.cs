@@ -446,27 +446,6 @@ namespace YAF.Core.Services
             }
         }
 
-        /// <summary>
-        ///   Gets or sets if the user wants to use the mobile theme.
-        /// </summary>
-        public bool? UseMobileTheme
-        {
-            get
-            {
-                if (this.SessionState["UseMobileTheme"] == null)
-                {
-                    return null;
-                }
-
-                return (bool)this.SessionState["UseMobileTheme"];
-            }
-
-            set
-            {
-                this.SessionState["UseMobileTheme"] = value;
-            }
-        }
-
         #endregion
 
         #region Implemented Interfaces

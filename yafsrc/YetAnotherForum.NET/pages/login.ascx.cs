@@ -33,7 +33,6 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
@@ -248,16 +247,16 @@ namespace YAF.Pages
             var passwordRecovery = this.Login1.FindControlAs<Button>("PasswordRecovery");
             var cancelAuthLogin = this.Login1.FindControlAs<Button>("Cancel");
 
-            var userNameRow = this.Login1.FindControlAs<HtmlTableRow>("UserNameRow");
-            var passwordRow = this.Login1.FindControlAs<HtmlTableRow>("PasswordRow");
+            var userNameRow = this.Login1.FindControlAs<PlaceHolder>("UserNameRow");
+            var passwordRow = this.Login1.FindControlAs<PlaceHolder>("PasswordRow");
 
-            var singleSignOnOptionsRow = this.Login1.FindControlAs<HtmlTableRow>("SingleSignOnOptionsRow");
+            var singleSignOnOptionsRow = this.Login1.FindControlAs<PlaceHolder>("SingleSignOnOptionsRow");
             var singleSignOnOptions = this.Login1.FindControlAs<RadioButtonList>("SingleSignOnOptions");
 
             var registerLink = this.Login1.FindControlAs<LinkButton>("RegisterLink");
             var registerLinkPlaceHolder = this.Login1.FindControlAs<PlaceHolder>("RegisterLinkPlaceHolder");
 
-            var singleSignOnRow = this.Login1.FindControlAs<HtmlTableRow>("SingleSignOnRow");
+            var singleSignOnRow = this.Login1.FindControlAs<PlaceHolder>("SingleSignOnRow");
 
             var facebookHolder = this.Login1.FindControlAs<PlaceHolder>("FacebookHolder");
             var facebookLogin = this.Login1.FindControlAs<HtmlAnchor>("FacebookLogin");

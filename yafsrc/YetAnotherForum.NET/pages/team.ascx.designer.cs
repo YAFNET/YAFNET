@@ -46,7 +46,7 @@ namespace YAF.Pages {
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable ModsTable;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ModsTable;
         
         /// <summary>
         /// LocalizedLabel1-Steuerelement

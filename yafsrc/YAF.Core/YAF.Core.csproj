@@ -79,7 +79,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BaseModules\ForumEditor.cs" />
-    <Compile Include="BaseModules\MobileThemeForumModule.cs" />
     <Compile Include="BaseModules\YafModuleScanner.cs" />
     <Compile Include="BasePages\ModerateForumPage.cs">
       <SubType>ASPXCodeBehind</SubType>

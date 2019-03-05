@@ -98,8 +98,6 @@ namespace YAF.Controls
 
             footer.Append(@"<div class=""clearfix""></div><footer class=""footer""><div class=""container text-right"">");
 
-            this.RenderMobileLink(footer);
-
             this.RenderRulesLink(footer);
 
             this.RenderVersion(footer);
@@ -172,31 +170,6 @@ namespace YAF.Controls
                 @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
                     YafBuildLink.GetLink(ForumPages.rules),
                     this.GetText("COMMON", "PRIVACY_POLICY")));
-        }
-
-        /// <summary>
-        /// The render mobile link.
-        /// </summary>
-        /// <param name="footer">
-        /// The footer.
-        /// </param>
-        private void RenderMobileLink([NotNull] StringBuilder footer)
-        {
-            if (this.Get<IYafSession>().UseMobileTheme ?? false)
-            {
-                footer.Append(
-                    @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
-                        YafBuildLink.GetLink(ForumPages.forum, "fullsite=true"),
-                        this.GetText("COMMON", "MOBILE_FULLSITE")));
-            }
-            else if (this.PageContext.Vars.ContainsKey("IsMobile") && this.PageContext.Vars["IsMobile"] != null
-                                                                   && this.PageContext.Vars["IsMobile"].ToType<bool>())
-            {
-                footer.Append(
-                    @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ".FormatWith(
-                        YafBuildLink.GetLink(ForumPages.forum, "mobilesite=true"),
-                        this.GetText("COMMON", "MOBILE_VIEWSITE")));
-            }
         }
 
         /// <summary>

@@ -352,14 +352,6 @@
                             <asp:CheckBox CssClass="form-control" ID="AllowSingleSignOn" runat="server" />
 
                     </p><hr />
-
-                         <h4>
-                            <YAF:HelpLabel ID="HelpLabel20" runat="server" LocalizedTag="MODAL_LOGIN" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="UseLoginBox" runat="server" />
-
-                    </p><hr />
                     </asp:PlaceHolder>
     <h2>
         <YAF:LocalizedLabel ID="LocalizedLabel43" runat="server" LocalizedTag="HEADER_ATTACHMENTS" LocalizedPage="ADMIN_HOSTSETTINGS" />

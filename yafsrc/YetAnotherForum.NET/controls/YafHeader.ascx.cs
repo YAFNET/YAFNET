@@ -58,23 +58,7 @@ namespace YAF.Controls
         /// </returns>
         protected string GetReturnUrl()
         {
-            var returnUrl = string.Empty;
-
-            if (this.PageContext.ForumPageType != ForumPages.login)
-            {
-                returnUrl = HttpContext.Current.Server.UrlEncode(General.GetSafeRawUrl());
-            }
-            else
-            {
-                // see if there is already one since we are on the login page
-                if (HttpContext.Current.Request.QueryString.GetFirstOrDefault("ReturnUrl").IsSet())
-                {
-                    returnUrl = HttpContext.Current.Server.UrlEncode(
-                        General.GetSafeRawUrl(HttpContext.Current.Request.QueryString.GetFirstOrDefault("ReturnUrl")));
-                }
-            }
-
-            return returnUrl;
+            return HttpContext.Current.Server.UrlEncode(General.GetSafeRawUrl());
         }
 
         /// <summary>
@@ -412,39 +396,16 @@ namespace YAF.Controls
             // Login
             if (Config.AllowLoginAndLogoff)
             {
-                if (this.Get<YafBoardSettings>().UseLoginBox && !(this.Get<IYafSession>().UseMobileTheme ?? false))
-                {
-                    RenderMenuItem(
-                        this.menuListItems,
-                        "nav-link  LoginLink",
-                        this.GetText("TOOLBAR", "LOGIN"),
-                        this.GetText("TOOLBAR", "LOGIN_TITLE"),
-                        "javascript:void(0);",
-                        true,
-                        false,
-                        null,
-                        null);
-                }
-                else
-                {
-                    var returnUrl = this.GetReturnUrl().IsSet()
-                                        ? "ReturnUrl={0}".FormatWith(this.GetReturnUrl())
-                                        : string.Empty;
-
-                    RenderMenuItem(
-                        this.menuListItems,
-                        "nav-link",
-                        this.GetText("TOOLBAR", "LOGIN"),
-                        this.GetText("TOOLBAR", "LOGIN_TITLE"),
-                        !this.Get<YafBoardSettings>().UseSSLToLogIn
-                            ? YafBuildLink.GetLinkNotEscaped(ForumPages.login, returnUrl)
-                            : YafBuildLink.GetLinkNotEscaped(ForumPages.login, true, returnUrl)
-                                .Replace("http:", "https:"),
-                        true,
-                        false,
-                        null,
-                        null);
-                }
+                RenderMenuItem(
+                    this.menuListItems,
+                    "nav-link  LoginLink",
+                    this.GetText("TOOLBAR", "LOGIN"),
+                    this.GetText("TOOLBAR", "LOGIN_TITLE"),
+                    "javascript:void(0);",
+                    true,
+                    false,
+                    null,
+                    null);
             }
 
             // Register
@@ -599,25 +560,9 @@ namespace YAF.Controls
                                         {
                                             Text = this.GetText("TOOLBAR", "LOGIN"),
                                             ToolTip = this.GetText("TOOLBAR", "LOGIN"),
-                                            CssClass = "alert-link"
-                                        };
-
-                    if (this.Get<YafBoardSettings>().UseLoginBox && !(this.Get<IYafSession>().UseMobileTheme ?? false))
-                    {
-                        loginLink.NavigateUrl = "javascript:void(0);";
-                        loginLink.CssClass = "alert-link LoginLink";
-                    }
-                    else
-                    {
-                        var returnUrl = this.GetReturnUrl().IsSet()
-                                            ? "ReturnUrl={0}".FormatWith(this.GetReturnUrl())
-                                            : string.Empty;
-
-                        loginLink.NavigateUrl = !this.Get<YafBoardSettings>().UseSSLToLogIn
-                                                    ? YafBuildLink.GetLinkNotEscaped(ForumPages.login, returnUrl)
-                                                    : YafBuildLink.GetLinkNotEscaped(ForumPages.login, true, returnUrl)
-                                                        .Replace("http:", "https:");
-                    }
+                                            NavigateUrl = "javascript:void(0);",
+                                            CssClass = "alert-link LoginLink"
+                    };
 
                     this.GuestUserMessage.Controls.Add(loginLink);
 

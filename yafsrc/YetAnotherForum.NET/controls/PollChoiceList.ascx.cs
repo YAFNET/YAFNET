@@ -352,11 +352,6 @@ namespace YAF.Controls
                     var aspect = GetImageAspect(drowv.Row["MimeType"]);
                     var imageWidth = 80;
 
-                    if (this.Get<IYafSession>().UseMobileTheme ?? false)
-                    {
-                        imageWidth = 40;
-                    }
-
                     choiceImage.Width = imageWidth;
                     choiceImage.Height = Convert.ToInt32(choiceImage.Width / aspect);
 

@@ -33,7 +33,6 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
     using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
@@ -42,9 +41,7 @@ namespace YAF.Pages
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
-    using YAF.Types.Objects;
     using YAF.Utils;
 
     #endregion
@@ -81,10 +78,10 @@ namespace YAF.Pages
         /// Go to Selected Forum, if one is Selected
         /// </summary>
         /// <param name="sender">
-        /// The Button sender.
+        /// The sender.
         /// </param>
         /// <param name="e">
-        /// The Button Eventargs.
+        /// The e.
         /// </param>
         public void GoToForum([NotNull] object sender, [NotNull] EventArgs e)
         {

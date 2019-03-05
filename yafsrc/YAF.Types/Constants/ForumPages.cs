@@ -179,11 +179,6 @@ namespace YAF.Types.Constants
         cp_changepassword,
 
         /// <summary>
-        /// The login.
-        /// </summary>
-        login,
-
-        /// <summary>
         /// The approve.
         /// </summary>
         approve,

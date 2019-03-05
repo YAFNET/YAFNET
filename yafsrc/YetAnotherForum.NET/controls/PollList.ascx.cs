@@ -1178,11 +1178,6 @@ namespace YAF.Controls
 
           questionImage.Width = 80;
 
-          if (this.Get<IYafSession>().UseMobileTheme ?? false)
-          {
-            questionImage.Width = 40;
-          }
-
           questionImage.Height = (questionImage.Width / aspect).ToType<int>();
         }
       }

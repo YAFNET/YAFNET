@@ -74,11 +74,6 @@ namespace YAF.Types.Interfaces
         int? UnansweredTopicSince { get; set; }
 
         /// <summary>
-        /// Gets or sets if the user wants to use the mobile theme.
-        /// </summary>
-        bool? UseMobileTheme { get; set; }
-
-        /// <summary>
         ///   Gets or sets FavoriteTopicSince.
         /// </summary>
         int? FavoriteTopicSince { get; set; }
