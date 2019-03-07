@@ -1,18 +1,19 @@
 <YafBBCodeList>
-  <YafBBCode>
-    <Name>TWITTER</Name>
-    <Description>[TWITTER][localization=TWITTER_DESCRIPTION]Enter the Status ID of the Tweet you want to embed[/localization][/TWITTER]</Description>
-    <OnClickJS />
-    <DisplayJS>!function(d,s,id) {var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)) {js=d.createElement(s);js.id=id;js.async=true;js.src='//platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</DisplayJS>
-    <EditJS />
-    <DisplayCSS />
-    <SearchRegex>\[twitter\](?&lt;statusID&gt;[0-9].+?)\[/twitter\]</SearchRegex>
-    <ReplaceRegex>&lt;!-- BEGIN twitter embed --&gt;&lt;blockquote class="twitter-tweet"&gt;&lt;a href="https://twitter.com/twitterapi/status/${statusID}"&gt;&lt;/a&gt;&lt;/blockquote&gt;&lt;!-- END twitter embed --&gt;</ReplaceRegex>
-    <Variables>statusID</Variables>
-    <UseModule>false</UseModule>
-    <ModuleClass />
-    <ExecOrder>100</ExecOrder>
-  </YafBBCode>
+  <Name>TWITTER</Name>
+  <Description>[TWITTER][localization=TWITTER_DESCRIPTION]Enter the Status URL of the Tweet you want to embed[/localization][/TWITTER]</Description>
+  <OnClickJS />
+  <DisplayJS></DisplayJS>
+  <EditJS />
+  <DisplayCSS />
+  <SearchRegex>\[twitter\](?&lt;statusID&gt;.+?)\[/twitter\]</SearchRegex>
+  <ReplaceRegex>
+    &lt;!-- BEGIN twitter embed --&gt;&lt;iframe border=0 frameborder=0 width=550 height="550"
+    src="https://twitframe.com/show?url=${statusID}"&gt;&lt;/iframe&gt;&lt;blockquote class="twitter-tweet"&gt;&lt;!-- END twitter embed --&gt;
+  </ReplaceRegex>
+  <Variables>statusID</Variables>
+  <UseModule>false</UseModule>
+  <ModuleClass />
+  <ExecOrder>100</ExecOrder>
   <YafBBCode>
     <Name>DAILYMOTION</Name>
     <Description>[dailymotion][localization=DAILYMOTION_DESCRIPTION]Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)[/localization][/dailymotion]</Description>
