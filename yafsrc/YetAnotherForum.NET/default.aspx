@@ -6,8 +6,8 @@
 <!doctype html>
 <html lang="en">
 <head id="YafHead" runat="server">
-     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge"><meta id="YafMetaScriptingLanguage" http-equiv="Content-Script-Type" runat="server"
         name="scriptlanguage" content="text/javascript" />
     <meta id="YafMetaStyles" http-equiv="Content-Style-Type" runat="server" name="styles"
