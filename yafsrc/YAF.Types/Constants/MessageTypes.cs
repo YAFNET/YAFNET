@@ -46,6 +46,26 @@ namespace YAF.Types.Constants
         /// <summary>
         /// Success Messages
         /// </summary>
-        success
+        success,
+
+        /// <summary>
+        /// The primary.
+        /// </summary>
+        primary,
+
+        /// <summary>
+        /// The secondary.
+        /// </summary>
+        secondary,
+
+        /// <summary>
+        /// The light.
+        /// </summary>
+        light,
+
+        /// <summary>
+        /// The dark.
+        /// </summary>
+        dark
     }
 }

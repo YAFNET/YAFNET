@@ -90,7 +90,7 @@ namespace YAF.Controls
             base.OnLoad(e);
 
             var buttonGroup = new HtmlGenericControl("div");
-            buttonGroup.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "btn-group mb-3");
+            buttonGroup.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "btn-group mb-3 d-none d-md-block");
 
             this.Controls.Add(buttonGroup);
 

@@ -652,9 +652,10 @@ namespace YAF.Utilities
                     }}
                 }}
             }},
+            width: 'style',
+            theme: 'bootstrap',
             allowClear: true,
             cache: true,
-            width: '350px',
             {3}
         }});".FormatWith(
                 Config.JQueryAlias,

@@ -24,6 +24,7 @@
 namespace YAF.Pages
 {
     // YAF.Pages
+
     #region Using
 
     using System;
@@ -101,19 +102,19 @@ namespace YAF.Pages
 
             // handle localization
             var usernameRequired =
-                (RequiredFieldValidator)this.PasswordRecovery1.UserNameTemplateContainer.FindControl("UserNameRequired");
+                this.PasswordRecovery1.UserNameTemplateContainer.FindControlAs<RequiredFieldValidator>(
+                    "UserNameRequired");
             var answerRequired =
-                (RequiredFieldValidator)this.PasswordRecovery1.QuestionTemplateContainer.FindControl("AnswerRequired");
+                this.PasswordRecovery1.QuestionTemplateContainer
+                    .FindControlAs<RequiredFieldValidator>("AnswerRequired");
 
             usernameRequired.ToolTip = usernameRequired.ErrorMessage = this.GetText("REGISTER", "NEED_USERNAME");
             answerRequired.ToolTip = answerRequired.ErrorMessage = this.GetText("REGISTER", "NEED_ANSWER");
 
-            ((Button)this.PasswordRecovery1.UserNameTemplateContainer.FindControl("SubmitButton")).Text =
+            this.PasswordRecovery1.UserNameTemplateContainer.FindControlAs<Button>("SubmitButton").Text =
                 this.GetText("SUBMIT");
-            ((Button)this.PasswordRecovery1.QuestionTemplateContainer.FindControl("SubmitButton")).Text =
+            this.PasswordRecovery1.QuestionTemplateContainer.FindControlAs<Button>("SubmitButton").Text =
                 this.GetText("SUBMIT");
-            ((Button)this.PasswordRecovery1.SuccessTemplateContainer.FindControl("SubmitButton")).Text = this.GetText(
-                "BACK");
 
             this.PasswordRecovery1.UserNameFailureText = this.GetText("USERNAME_FAILURE");
             this.PasswordRecovery1.GeneralFailureText = this.GetText("GENERAL_FAILURE");
@@ -281,9 +282,15 @@ namespace YAF.Pages
                     // re-send verification email instead of lost password...
                     var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
 
-                    var subject = this.GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
+                    var subject = this.GetTextFormatted(
+                        "VERIFICATION_EMAIL_SUBJECT",
+                        this.Get<YafBoardSettings>().Name);
 
-                    verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", checkTyped.Hash);
+                    verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
+                        ForumPages.approve,
+                        true,
+                        "k={0}",
+                        checkTyped.Hash);
                     verifyEmail.TemplateParams["{key}"] = checkTyped.Hash;
                     verifyEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
                     verifyEmail.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
@@ -291,7 +298,8 @@ namespace YAF.Pages
                     verifyEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
 
                     this.PageContext.LoadMessage.AddSession(
-                        this.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email), MessageTypes.warning);
+                        this.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email),
+                        MessageTypes.warning);
                 }
             }
             else

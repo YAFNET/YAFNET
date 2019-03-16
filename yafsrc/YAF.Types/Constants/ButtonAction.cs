@@ -45,6 +45,11 @@
         Success,
 
         /// <summary>
+        /// The outline success.
+        /// </summary>
+        OutlineSuccess,
+
+        /// <summary>
         /// The danger
         /// </summary>
         Danger,
@@ -58,6 +63,11 @@
         /// The information
         /// </summary>
         Info,
+
+        /// <summary>
+        /// The outline information
+        /// </summary>
+        OutlineInfo,
 
         /// <summary>
         /// The light

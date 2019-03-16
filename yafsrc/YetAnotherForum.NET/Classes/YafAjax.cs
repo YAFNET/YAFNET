@@ -419,28 +419,6 @@ namespace YAF.Classes
             return YafAlbum.ChangeImageCaption(imageID, newCaption);
         }
 
-        /// <summary>
-        /// The refresh shout box.
-        /// </summary>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <returns>
-        /// The refresh shout box JS.
-        /// </returns>
-        [WebMethod]
-        public int RefreshShoutBox(int boardId)
-        {
-            var messages = this.Get<IDataCache>().GetOrSet(
-                "{0}_basic".FormatWith(Constants.Cache.Shoutbox),
-                () => LegacyDb.shoutbox_getmessages(boardId, 1, false).AsEnumerable(),
-                TimeSpan.FromMilliseconds(1000));
-
-            var message = messages.FirstOrDefault();
-
-            return message != null ? message.Field<int>("ShoutBoxMessageID") : 0;
-        }
-
         #region Favorite Topic Function
 
         /// <summary>

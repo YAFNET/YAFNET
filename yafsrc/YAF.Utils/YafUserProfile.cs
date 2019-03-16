@@ -34,29 +34,11 @@ namespace YAF.Utils
   #endregion
 
   /// <summary>
-  /// The yaf user profile.
+  /// The YAF user profile.
   /// </summary>
   public class YafUserProfile : ProfileBase, IYafUserProfile
   {
     #region Properties
-
-    /// <summary>
-    /// Gets or sets AIM.
-    /// </summary>
-    [SettingsAllowAnonymous(false)]
-    [CustomProviderData("AIM;nvarchar;255")]
-    public string AIM
-    {
-      get
-      {
-        return base["AIM"] as string;
-      }
-
-      set
-      {
-        base["AIM"] = value;
-      }
-    }
 
     /// <summary>
     /// Gets or sets Birthday.
@@ -163,24 +145,6 @@ namespace YAF.Utils
       set
       {
         base["Gender"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets Google+ URL
-    /// </summary>
-    [SettingsAllowAnonymous(false)]
-    [CustomProviderData("Google;nvarchar;400")]
-    public string Google
-    {
-      get
-      {
-        return base["Google"] as string;
-      }
-
-      set
-      {
-        base["Google"] = value;
       }
     }
 
@@ -401,24 +365,6 @@ namespace YAF.Utils
     }
 
     /// <summary>
-    /// Gets or sets MSN.
-    /// </summary>
-    [SettingsAllowAnonymous(false)]
-    [CustomProviderData("MSN;nvarchar;255")]
-    public string MSN
-    {
-      get
-      {
-        return base["MSN"] as string;
-      }
-
-      set
-      {
-        base["MSN"] = value;
-      }
-    }
-
-    /// <summary>
     /// Gets or sets Occupation.
     /// </summary>
     [SettingsAllowAnonymous(false)]
@@ -487,24 +433,6 @@ namespace YAF.Utils
       set
       {
         base["XMPP"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets YIM.
-    /// </summary>
-    [SettingsAllowAnonymous(false)]
-    [CustomProviderData("YIM;nvarchar;255")]
-    public string YIM
-    {
-      get
-      {
-        return base["YIM"] as string;
-      }
-
-      set
-      {
-        base["YIM"] = value;
       }
     }
 

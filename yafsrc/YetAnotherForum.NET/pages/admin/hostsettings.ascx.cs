@@ -338,7 +338,7 @@ namespace YAF.Pages.Admin
                                         this.ReportPostPermissions, this.ProfileViewPermissions,
                                         this.MembersListViewPermissions, this.ActiveUsersViewPermissions,
                                         this.SearchPermissions, this.ShowHelpTo, this.ShowTeamTo,
-                                        this.ShowRetweetMessageTo, this.ShowShareTopicTo, this.ShoutboxViewPermissions
+                                        this.ShowRetweetMessageTo, this.ShowShareTopicTo
                                     };
 
             foreach (var ddl in dropDownLists)
@@ -371,9 +371,6 @@ namespace YAF.Pages.Admin
             this.BotHandlingOnRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_0"), "0"));
             this.BotHandlingOnRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_1"), "1"));
             this.BotHandlingOnRegister.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "BOT_MESSAGE_2"), "2"));
-
-            this.ShoutboxDefaultState.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "EXPANDED"), "0"));
-            this.ShoutboxDefaultState.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "COLLAPSED"), "1"));
 
             this.SendWelcomeNotificationAfterRegister.Items.Add(
                 new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "WELCOME_NOTIFICATION_0"), "0"));

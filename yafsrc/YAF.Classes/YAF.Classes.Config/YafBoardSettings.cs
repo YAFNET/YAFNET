@@ -1797,60 +1797,6 @@ namespace YAF.Classes
         }
 
         /// <summary>
-        /// Gets or sets ShoutboxShowMessageCount.
-        /// </summary>
-        public int ShoutboxShowMessageCount
-        {
-            get
-            {
-                return this._reg.GetValue("ShoutboxShowMessageCount", 30);
-            }
-
-            set
-            {
-                this._reg.SetValue("ShoutboxShowMessageCount", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the ShoutBox view permissions.
-        /// </summary>
-        /// <value>
-        /// The ShoutBox view permissions.
-        /// </value>
-        public int ShoutboxViewPermissions
-        {
-            get
-            {
-                return this._reg.GetValue("ShoutboxViewPermission", (int)ViewPermissions.RegisteredUsers);
-            }
-
-            set
-            {
-                this._reg.SetValue("ShoutboxViewPermission", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the default state of the ShoutBox.
-        /// </summary>
-        /// <value>
-        /// The default state of the ShoutBox.
-        /// </value>
-        public int ShoutboxDefaultState
-        {
-            get
-            {
-                return this._reg.GetValue("ShoutboxDefaultState", (int)CollapsiblePanelState.Collapsed);
-            }
-
-            set
-            {
-                this._reg.SetValue("ShoutboxDefaultState", value);
-            }
-        }
-
-        /// <summary>
         /// Gets or sets ActiveListTime.
         /// </summary>
         public int ActiveListTime
@@ -3078,22 +3024,6 @@ namespace YAF.Classes
             set
             {
                 this._reg.SetValue("ResizePostedImages", value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether Show ShoutBox.
-        /// </summary>
-        public bool ShowShoutbox
-        {
-            get
-            {
-                return this._reg.GetValue("ShowShoutbox", true);
-            }
-
-            set
-            {
-                this._reg.SetValue("ShowShoutbox", value);
             }
         }
 

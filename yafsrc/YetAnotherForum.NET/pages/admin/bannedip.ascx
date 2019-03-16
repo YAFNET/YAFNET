@@ -46,10 +46,12 @@
 
 		<asp:Repeater ID="list" runat="server" OnItemCommand="List_ItemCommand">
 		<HeaderTemplate>
-		    <div class="alert alert-info d-sm-none" role="alert">
-                            <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                        </div><div class="table-responsive">
+            <YAF:Alert runat="server" ID="Alert2" Type="info" MobileOnly="True">
+                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server"
+                                    LocalizedTag="TABLE_RESPONSIVE" 
+                                    LocalizedPage="ADMIN_COMMON" />
+                <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+            </YAF:Alert>
 				<table class="table">
                 <tr>
                         <thead>

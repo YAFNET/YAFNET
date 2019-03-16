@@ -280,11 +280,6 @@ namespace YAF.Dialogs
                 }
             }
 
-            if (row.Table.Columns.Contains("MSN") && !string.IsNullOrEmpty((string)row["MSN"]))
-            {
-                userProfile.MSN = (string)row["MSN"];
-            }
-
             if (row.Table.Columns.Contains("BlogServiceUsername")
                 && !string.IsNullOrEmpty((string)row["BlogServiceUsername"]))
             {
@@ -295,16 +290,6 @@ namespace YAF.Dialogs
                 && !string.IsNullOrEmpty((string)row["BlogServicePassword"]))
             {
                 userProfile.BlogServicePassword = (string)row["BlogServicePassword"];
-            }
-
-            if (row.Table.Columns.Contains("AIM") && !string.IsNullOrEmpty((string)row["AIM"]))
-            {
-                userProfile.AIM = (string)row["AIM"];
-            }
-
-            if (row.Table.Columns.Contains("Google") && !string.IsNullOrEmpty((string)row["Google"]))
-            {
-                userProfile.Google = (string)row["Google"];
             }
 
             if (row.Table.Columns.Contains("GoogleId") && !string.IsNullOrEmpty((string)row["GoogleId"]))
@@ -355,11 +340,6 @@ namespace YAF.Dialogs
             if (row.Table.Columns.Contains("XMPP") && !string.IsNullOrEmpty((string)row["XMPP"]))
             {
                 userProfile.XMPP = (string)row["XMPP"];
-            }
-
-            if (row.Table.Columns.Contains("YIM") && !string.IsNullOrEmpty((string)row["YIM"]))
-            {
-                userProfile.YIM = (string)row["YIM"];
             }
 
             if (row.Table.Columns.Contains("Occupation") && !string.IsNullOrEmpty((string)row["Occupation"]))

@@ -52,7 +52,6 @@ namespace YAF.Core.Data.Filters
                                                                   "active_listforum", 
                                                                   "forum_moderators", 
                                                                   "topic_latest", 
-                                                                  "shoutbox_getmessages", 
                                                                   "topic_latest", 
                                                                   "active_list_user", 
                                                                   "admin_list"
@@ -155,7 +154,7 @@ namespace YAF.Core.Data.Filters
                 return;
             }
 
-            bool colorOnly = false;
+            var colorOnly = false;
 
             if (!this.BoardSettings.UseStyledNicks)
             {

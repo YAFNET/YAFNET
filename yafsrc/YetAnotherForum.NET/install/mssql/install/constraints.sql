@@ -179,10 +179,6 @@ if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}IgnoreU
 	alter table [{databaseOwner}].[{objectQualifier}IgnoreUser] with nocheck add constraint [PK_{objectQualifier}IgnoreUser] PRIMARY KEY CLUSTERED (UserID, IgnoredUserID)
 go
 
-if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}ShoutboxMessage]'), 'TableHasPrimaryKey')) = 0
-	alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] with nocheck add constraint [PK_{objectQualifier}ShoutboxMessage] PRIMARY KEY CLUSTERED (ShoutBoxMessageID)
-go
-
 if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Thanks]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Thanks] with nocheck add constraint [PK_{objectQualifier}Thanks] PRIMARY KEY CLUSTERED (ThanksID)
 go

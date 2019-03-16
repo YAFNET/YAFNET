@@ -639,12 +639,12 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new QuoteRegexReplaceRule(
                         OpenQuoteUserIdRegex,
-                        @"<div class=""quote""><span class=""quotetitle"">${quote}</span><div class=""innerquote"">",
+                        @"<blockquote class=""blockquote""><footer class=""blockquote-footer"">${quote}</footer>",
                         _Options));
 
                 // simple open quote tag
                 var simpleOpenQuoteReplace =
-                    @"<div class=""quote""><span class=""quotetitle"">{0}</span><div class=""innerquote"">"
+                    @"<blockquote class=""blockquote""><footer class=""blockquote-footer"">{0}</footer>"
                         .FormatWith(localQuoteStr);
 
                 ruleEngine.AddRule(
@@ -652,7 +652,7 @@ namespace YAF.Core.BBCode
 
                 // and finally the closing quote tag
                 ruleEngine.AddRule(
-                    new SingleRegexReplaceRule(CloseQuoteRegex, "</div></div>", _Options) { RuleRank = 63 });
+                    new SingleRegexReplaceRule(CloseQuoteRegex, "</blockquote>", _Options) { RuleRank = 63 });
             }
 
             // post and topic rules...

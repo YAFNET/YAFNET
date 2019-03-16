@@ -51,35 +51,39 @@ namespace YAF.Controls
         /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter"/> object that receives the server control content.</param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            var html = new StringBuilder(2000);
+            var html = new StringBuilder();
 
-            html.Append(@"<table cellspacing=""0"" cellpadding=""0"" class=""content"" id=""yafprofilemenu"">");
+            html.Append(@"<div class=""dropdown"">");
+
+            html.Append(@"<button class=""btn btn-secondary dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
+            html.AppendFormat(@"<i class=""fa fa-cogs fa-fw""></i>&nbsp;{0}", this.GetText("CONTROL_PANEL"));
+            html.Append(@"</button>");
+
+            html.Append(@"<div class=""dropdown-menu scrollable-dropdown"" aria-labelledby=""dropdownMenuButton"">");
 
             // Render Mailbox Items
             if (this.Get<YafBoardSettings>().AllowPrivateMessages)
             {
-                html.AppendFormat(@"<tr class=""header2""><td>{0}</td></tr>", this.GetText("MESSENGER"));
-
-                html.AppendFormat(@"<tr><td class=""post""><ul id=""yafprofilemessenger"">");
+                html.AppendFormat(@"<h6 class=""dropdown-header"">{0}</h6>", this.GetText("MESSENGER"));
 
                 html.AppendFormat(
-                    @"<li class=""yafprofilemenu_{2}""><a href=""{0}"" title=""{3}"">{1}</a></li>",
+                    @"<a class=""dropdown-item"" href=""{0}"" title=""{3}"">{1}</a>",
                     YafBuildLink.GetLink(ForumPages.cp_pm, "v=in"),
                     this.GetText("INBOX"),
                     ForumPages.cp_pm,
                     this.GetText("TOOLBAR", "INBOX_TITLE"));
                 html.AppendFormat(
-                    @"<li class=""yafprofilemenu_{2}""><a href=""{0}"" title=""{1}"">{1}</a></li>",
+                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
                     YafBuildLink.GetLink(ForumPages.cp_pm, "v=out"),
                     this.GetText("SENTITEMS"),
                     ForumPages.cp_pm);
                 html.AppendFormat(
-                    @"<li class=""yafprofilemenu_{2}""><a href=""{0}"" title=""{1}"">{1}</a></li>",
+                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
                     YafBuildLink.GetLink(ForumPages.cp_pm, "v=arch"),
                     this.GetText("ARCHIVE"), 
                     ForumPages.cp_pm);
                 html.AppendFormat(
-                    @"<li class=""yafprofilemenu_{2}""><a href=""{0}"" title=""{1}"">{1}</a></li>",
+                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
                     YafBuildLink.GetLink(ForumPages.pmessage),
                     this.GetText("NEW_MESSAGE"),
                     ForumPages.pmessage);
@@ -88,12 +92,10 @@ namespace YAF.Controls
             }
 
             // Render Personal Profile Items
-            html.AppendFormat(@"<tr class=""header2""><td>{0}</td></tr>", this.GetText("PERSONAL_PROFILE"));
-           
-            html.AppendFormat(@"<tr><td class=""post""><ul id=""yafprofilepersonal"">");
+            html.AppendFormat(@"<h6 class=""dropdown-header"">{0}</h6>", this.GetText("PERSONAL_PROFILE"));
             
             html.AppendFormat(
-                @"<li class=""yafprofilemenu_{2}""><a href=""{0}"" title=""{1}"">{1}</a></li>",
+                @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
                 YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.PageContext.PageUserID),
                 this.GetText("VIEW_PROFILE"),
                     ForumPages.profile);
@@ -101,7 +103,7 @@ namespace YAF.Controls
             if (!Config.IsDotNetNuke)
             {
                 html.AppendFormat(
-                    @"<li class=""yafprofilemenu_{2}""><a href=""{0}"" title=""{1}"">{1}</a></li>",
+                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
                     YafBuildLink.GetLink(ForumPages.cp_editprofile),
                     this.GetText("EDIT_PROFILE"),
                     ForumPages.cp_editprofile);
@@ -110,7 +112,7 @@ namespace YAF.Controls
             if (!this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableThanksMod)
             {
                 html.AppendFormat(
-                    @"<li class=""yafprofilemenu_{2}""><a href=""{0}"" title=""{1}"">{1}</a></li>",
+                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
                     YafBuildLink.GetLink(ForumPages.viewthanks, "u={0}", this.PageContext.PageUserID),
                     this.GetText("ViewTHANKS", "TITLE"),
                     ForumPages.viewthanks);
@@ -119,7 +121,7 @@ namespace YAF.Controls
             if (!this.PageContext.IsGuest)
             {
                 html.AppendFormat(
-                    @"<li class=""yafprofilemenu_{2}""><a href=""{0}"" title=""{1}"">{1}</a></li>",
+                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
                     YafBuildLink.GetLink(ForumPages.attachments),
                     this.GetText("ATTACHMENTS", "TITLE"),
                     ForumPages.attachments);
@@ -129,7 +131,7 @@ namespace YAF.Controls
                 && this.Get<YafBoardSettings>().EnableBuddyList & this.PageContext.UserHasBuddies)
             {
                 html.AppendFormat(
-                    @"<li class=""yafprofilemenu_{2}""><a href=""{0}"" title=""{3}"">{1}</a></li>",
+                    @"<a class=""dropdown-item"" href=""{0}"" title=""{3}"">{1}</a>",
                     YafBuildLink.GetLink(ForumPages.cp_editbuddies),
                     this.GetText("EDIT_BUDDIES"),
                     ForumPages.cp_editbuddies,
@@ -140,7 +142,7 @@ namespace YAF.Controls
                 && (this.Get<YafBoardSettings>().EnableAlbum || (this.PageContext.NumAlbums > 0)))
             {
                 html.AppendFormat(
-                    @"<li class=""yafprofilemenu_{2}""><a href=""{0}"" title=""{1}"">{1}</a></li>",
+                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
                     YafBuildLink.GetLink(ForumPages.albums, "u={0}", this.PageContext.PageUserID),
                     this.GetText("EDIT_ALBUMS"),
                     ForumPages.albums);
@@ -150,7 +152,7 @@ namespace YAF.Controls
                 || this.Get<YafBoardSettings>().AvatarGallery || this.Get<YafBoardSettings>().AvatarGravatar))
             {
                 html.AppendFormat(
-                    @"<li class=""yafprofilemenu_{2}""><a href=""{0}"" title=""{1}"">{1}</a></li>",
+                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
                     YafBuildLink.GetLink(ForumPages.cp_editavatar),
                     this.GetText("EDIT_AVATAR"),
                     ForumPages.cp_editavatar);
@@ -159,14 +161,14 @@ namespace YAF.Controls
             if (this.Get<YafBoardSettings>().AllowSignatures)
             {
                 html.AppendFormat(
-                    @"<li class=""yafprofilemenu_{2}""><a href=""{0}"" title=""{1}"">{1}</a></li>",
+                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
                     YafBuildLink.GetLink(ForumPages.cp_signature),
                     this.GetText("SIGNATURE"),
                     ForumPages.cp_signature);
             }
 
             html.AppendFormat(
-                @"<li class=""yafprofilemenu_{2}""><a href=""{0}"" title=""{1}"">{1}</a></li>",
+                @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
                 YafBuildLink.GetLink(ForumPages.cp_subscriptions),
                 this.GetText("SUBSCRIPTIONS"),
                     ForumPages.cp_subscriptions);
@@ -174,14 +176,13 @@ namespace YAF.Controls
             if (!Config.IsDotNetNuke && this.Get<YafBoardSettings>().AllowPasswordChange)
             {
                 html.AppendFormat(
-                    @"<li class=""yafprofilemenu_{2}""><a href=""{0}"" title=""{1}"">{1}</a></li>",
+                    @"<a class=""dropdown-item"" href=""{0}"" title=""{1}"">{1}</a>",
                     YafBuildLink.GetLink(ForumPages.cp_changepassword),
                     this.GetText("CHANGE_PASSWORD"),
                     ForumPages.cp_changepassword);
             }
 
-            html.AppendFormat(@"</ul></td></tr>");
-            html.Append(@"</table>");
+            html.Append(@"</div></div>");
 
             writer.Write(html.ToString());
         }
@@ -189,3 +190,4 @@ namespace YAF.Controls
         #endregion
     }
 }
+ 

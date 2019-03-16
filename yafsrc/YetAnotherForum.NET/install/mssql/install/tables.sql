@@ -1074,24 +1074,5 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 	)
 GO
 
-if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and type in (N'U'))
-begin
-	CREATE TABLE [{databaseOwner}].[{objectQualifier}ShoutboxMessage](
-		[ShoutBoxMessageID] [int] IDENTITY(1,1) NOT NULL,		
-		[BoardId] [int] NOT NULL constraint [DF_{objectQualifier}ShoutboxMessage_BoardID] default (1),
-		[UserID] [int] NULL,
-		[UserName] [nvarchar](255) NOT NULL,
-		[UserDisplayName] [nvarchar](255) NOT NULL,
-		[Message] [nvarchar](max) NULL,
-		[Date] [datetime] NOT NULL,
-		[IP] [varchar](50) NOT NULL,
- constraint [PK_{objectQualifier}ShoutboxMessage] PRIMARY KEY CLUSTERED 
-(
-	[ShoutBoxMessageID] ASC
-)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
-	)
-end
-GO	
-
 exec('[{databaseOwner}].[{objectQualifier}drop_defaultconstraint_oncolumn] {objectQualifier}Board, BoardUID')
 GO

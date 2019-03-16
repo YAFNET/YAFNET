@@ -32,6 +32,7 @@ namespace YAF.Controls
 
     using YAF.Core;
     using YAF.Types;
+    using YAF.Types.Extensions;
 
     #endregion
 
@@ -109,8 +110,8 @@ namespace YAF.Controls
                 tr.Controls.Add(td);
 
                 // add the themed icons
-                var themeImage = new ThemeImage { ThemeTag = themeImageTags[i] };
-                td.Controls.Add(themeImage);
+                var icon = new Literal { Text = "<span class=\"fa-stack fa-1x\">{0}</span>".FormatWith(this.GetTopicIcon(localizedTags[i])) };
+                td.Controls.Add(icon);
 
                 // space
                 var space = new Literal { Text = " " };
@@ -119,6 +120,51 @@ namespace YAF.Controls
                 // localized text describing the image
                 var localLabel = new LocalizedLabel { LocalizedTag = localizedTags[i] };
                 td.Controls.Add(localLabel);
+            }
+        }
+
+        private string GetTopicIcon(string themeImageTag)
+        {
+            switch (themeImageTag)
+            {
+                case "POLL_NEW":
+                    return
+                        "<i class=\"fa fa-comment fa-stack-2x\" style=\"color:green\"></i><i class=\"fa fa-poll-h fa-stack-1x fa-inverse\"></i>";
+                case "STICKY_NEW":
+                    return
+                        "<i class=\"fa fa-comment fa-stack-2x\" style=\"color:green\"></i><i class=\"fa fa-sticky-note fa-stack-1x fa-inverse\"></i>";
+                case "ANNOUNCEMENT_NEW":
+                    return
+                        "<i class=\"fa fa-comment fa-stack-2x\" style=\"color:green\"></i><i class=\"fa fa-bullhorn fa-stack-1x fa-inverse\"></i>";
+                case "NEW_POSTS_LOCKED":
+                    return
+                        "<i class=\"fa fa-comment fa-stack-2x\" style=\"color:green\"></i><i class=\"fa fa-lock fa-stack-1x fa-inverse\"></i>";
+                case "HOT_NEW_POSTS":
+                    return
+                        "<i class=\"fa fa-comment fa-stack-2x\" style=\"color:green\"></i><i class=\"fa fa-fire fa-stack-1x fa-inverse\"></i>";
+                case "NEW_POSTS":
+                    return
+                        "<i class=\"fa fa-comment fa-stack-2x\" style=\"color:green\"></i><i class=\"fa fa-comment fa-stack-1x fa-inverse\"></i>";
+                case "POLL":
+                    return "<i class=\"fa fa-comment fa-stack-2x\"></i><i class=\"fa fa-poll-h fa-stack-1x fa-inverse\"></i>";
+                case "STICKY":
+                    return
+                        "<i class=\"fa fa-comment fa-stack-2x\"></i><i class=\"fa fa-sticky-note fa-stack-1x fa-inverse\"></i>";
+                case "ANNOUNCEMENT":
+                    return
+                        "<i class=\"fa fa-comment fa-stack-2x\"></i><i class=\"fa fa-bullhorn fa-stack-1x fa-inverse\"></i>";
+                case "NO_NEW_POSTS_LOCKED":
+                    return
+                        "<i class=\"fa fa-comment fa-stack-2x\"></i><i class=\"fa fa-lock fa-stack-1x fa-inverse\"></i>";
+                case "HOT_NO_NEW_POSTS":
+                    return
+                        "<i class=\"fa fa-comment fa-stack-2x\"></i><i class=\"fa fa-fire fa-stack-1x fa-inverse\"></i>";
+                case "NO_NEW_POSTS":
+                    return
+                        "<i class=\"fa fa-comment fa-stack-2x\"></i><i class=\"fa fa-comment fa-stack-1x fa-inverse\"></i>";
+                default:
+                    return
+                        "<i class=\"fa fa-comment fa-stack-2x\"></i><i class=\"fa fa-comment fa-stack-1x fa-inverse\"></i>";
             }
         }
 

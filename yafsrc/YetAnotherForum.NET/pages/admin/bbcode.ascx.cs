@@ -173,6 +173,7 @@ namespace YAF.Pages.Admin
                         new XElement("ReplaceRegex", bbCode.ReplaceRegex),
                         new XElement("Variables", bbCode.Variables),
                         new XElement("UseModule", bbCode.UseModule),
+                        new XElement("UseToolbar", bbCode.UseToolbar),
                         new XElement("ModuleClass", bbCode.ModuleClass),
                         new XElement("ExecOrder", bbCode.ExecOrder)));
 

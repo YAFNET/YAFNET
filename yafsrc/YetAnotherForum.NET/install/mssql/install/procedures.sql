@@ -757,7 +757,6 @@ begin
     delete from [{databaseOwner}].[{objectQualifier}AccessMask] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}BBCode] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}Extension] where BoardId=@BoardID
-    delete from [{databaseOwner}].[{objectQualifier}ShoutboxMessage] where BoardId=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}Medal] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}Replace_Words] where BoardId=@BoardID
 	delete from [{databaseOwner}].[{objectQualifier}Spam_Words] where BoardId=@BoardID
@@ -6543,7 +6542,6 @@ begin
         update [{databaseOwner}].[{objectQualifier}Topic] set LastUserDisplayName = @DisplayName where LastUserID = @UserID AND (LastUserDisplayName IS NULL OR LastUserDisplayName = @OldDisplayName)
         update [{databaseOwner}].[{objectQualifier}Topic] set UserDisplayName = @DisplayName where UserID = @UserID AND (UserDisplayName IS NULL OR UserDisplayName = @OldDisplayName)
         update [{databaseOwner}].[{objectQualifier}Message] set UserDisplayName = @DisplayName where UserID = @UserID AND (UserDisplayName IS NULL OR UserDisplayName = @OldDisplayName)
-        update [{databaseOwner}].[{objectQualifier}ShoutboxMessage] set UserDisplayName = @DisplayName where UserID = @UserID AND (UserDisplayName IS NULL OR UserDisplayName = @OldDisplayName)
         end
 
     end
@@ -7838,79 +7836,6 @@ AS BEGIN
         RETURN 0
     END
 
-END
-GO
-
-/*****************************************************************************************************
-//  Original code by: DLESKTECH at http://www.dlesktech.com/support.aspx
-//  Modifications by: KASL Technologies at www.kasltechnologies.com
-//  Modifications for integration into YAF/Conventions by Jaben Cargman
-*****************************************************************************************************/
-
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_getmessages]
-(
-  @BoardId int,
-  @NumberOfMessages int, @StyledNicks bit = 0
-)
-AS
-BEGIN
-
-    SELECT TOP(@NumberOfMessages)
-        sh.[ShoutBoxMessageID],
-        sh.UserName,
-        sh.UserID,
-        sh.[Message],
-        sh.[Date],
-        Style= case(@StyledNicks)
-            when 1 then  usr.UserStyle
-            else ''	 end
-
-    FROM
-        [{databaseOwner}].[{objectQualifier}ShoutboxMessage] sh
-        JOIN [{databaseOwner}].[{objectQualifier}User] usr on usr.UserID = sh.UserID
-    WHERE
-        sh.BoardId = @BoardId
-    ORDER BY sh.Date DESC
-END
-GO
-
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_savemessage](
-    @UserName		nvarchar(255)=null,
-    @BoardId		int,
-    @UserID			int,
-    @Message		ntext,
-    @Date			datetime=null,
-    @IP				varchar(39),
-    @UTCTIMESTAMP datetime
-)
-AS
-BEGIN
-DECLARE @OverrideDisplayName BIT, @ReplaceName nvarchar(255)
-        IF @Date IS NULL
-        SET @Date = @UTCTIMESTAMP
-        -- this check is for guest user only to not override replace name
-if (SELECT Name FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) != @UserName
-    begin
-    SET @OverrideDisplayName = 1
-    end
-    SET @ReplaceName = (CASE WHEN @OverrideDisplayName = 1 THEN @UserName ELSE (SELECT DisplayName FROM [{databaseOwner}].[{objectQualifier}User] WHERE UserID = @UserID) END);
-    INSERT [{databaseOwner}].[{objectQualifier}ShoutboxMessage] (UserName,UserDisplayName,BoardId, UserID, Message, Date, IP)
-    VALUES (@UserName,@ReplaceName, @BoardId, @UserID, @Message, @Date, @IP)
-END
-GO
-
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}shoutbox_clearmessages]
-(
-    @BoardId int,
-    @UTCTIMESTAMP datetime
-)
-AS
-BEGIN
-        DELETE FROM
-            [{databaseOwner}].[{objectQualifier}ShoutboxMessage]
-        WHERE
-            BoardId = @BoardId AND
-            DATEDIFF(minute, Date, @UTCTIMESTAMP ) > 1
 END
 GO
 

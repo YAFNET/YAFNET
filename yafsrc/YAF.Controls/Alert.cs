@@ -24,32 +24,33 @@
 
 namespace YAF.Controls
 {
-    using System;
     using System.ComponentModel;
     using System.Web.UI;
-    using System.Web.UI.WebControls;
 
     using YAF.Core;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
 
     /// <summary>
-    /// 
+    /// Alert Message Control
     /// </summary>
     [DefaultProperty("Message")]
-    [ToolboxData("<{0}:Alert runat=server></{0}:Altert>")]
+    [ToolboxData("<{0}:Alert runat=server></{0}:Alert>")]
     public class Alert : BaseControl
     {
-        public Alert()
-        {
-
-        }
-
-        [Bindable(true)]
+        /// <summary>
+        /// Gets or sets a value indicating whether dismissing.
+        /// </summary>
         [Category("Appearance")]
-        [DefaultValue("enter value")]
-        [Localizable(true)]
-        public string Message { get; set; } = string.Empty;
+        [DefaultValue(false)]
+        public bool Dismissing { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether dismissing.
+        /// </summary>
+        [Category("Appearance")]
+        [DefaultValue(false)]
+        public bool MobileOnly { get; set; }
 
         /// <summary>
         /// Gets or sets the type.
@@ -61,74 +62,36 @@ namespace YAF.Controls
         [DefaultValue(MessageTypes.info)]
         public MessageTypes Type { get; set; }
 
-
         /// <summary>
         /// Outputs server control content to a provided <see cref="T:System.Web.UI.HtmlTextWriter" /> object and stores tracing information about the control if tracing is enabled.
         /// </summary>
         /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the control content.</param>
         public override void RenderControl(HtmlTextWriter writer)
         {
-            /*if (this.RenderWrapper)
-            {*/ /*
-                writer.WriteBeginTag(HtmlTextWriterTag.Div.ToString());
-                writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), this.wrapperCssClass);
-                writer.Write(HtmlTextWriter.TagRightChar);
+            writer.WriteBeginTag(HtmlTextWriterTag.Div.ToString());
 
-                if (this.labelText.IsSet())
-                {
-                    this.RenderLabel(writer);
-                }
+            var cssClass = this.MobileOnly ? " d-sm-none" : string.Empty;
 
-                base.RenderControl(writer);*/
+            writer.WriteAttribute(
+                HtmlTextWriterAttribute.Class.ToString(),
+                this.Dismissing
+                    ? "alert alert-{0} alert-dismissible fade show{1}".FormatWith(this.Type.ToString(), cssClass)
+                    : "alert alert-{0}{1}".FormatWith(this.Type.ToString(), cssClass));
 
-            writer.WriteEndTag(HtmlTextWriterTag.Div.ToString());
-            /*}*/
-            /*else
-            {*/
-            base.RenderControl(writer);
-            //}
-        }
-        /*
-        /// <summary>
-        /// Adds HTML attributes and styles that need to be rendered to the specified <see cref="T:System.Web.UI.HtmlTextWriter" /> instance.
-        /// </summary>
-        /// <param name="writer">An <see cref="T:System.Web.UI.HtmlTextWriter" /> that represents the output stream to render HTML content on the client.</param>
-        protected override void AddAttributesToRender(HtmlTextWriter writer)
-        {
-            if (this.CssClass.IsNotSet())
-            {
-                this.CssClass = DEFAULTCSSCLASS;
-            }
+            writer.WriteAttribute("role", "alert");
 
-            writer.AddAttribute("placeholder", this.placeholder);
-
-            var textMode = this.Type;
-
-            switch (textMode)
-            {
-                default:
-                    writer.AddAttribute(HtmlTextWriterAttribute.Type, GetTypeAttributeValue(textMode));
-                    break;
-            }
-
-            base.AddAttributesToRender(writer);
-        }
-
-        /// <summary>
-        /// Renders the label.
-        /// </summary>
-        /// <param name="writer">The writer.</param>
-        private void RenderLabel(HtmlTextWriter writer)
-        {
-            writer.WriteBeginTag(HtmlTextWriterTag.Label.ToString());
-            writer.WriteAttribute(HtmlTextWriterAttribute.For.ToString(), this.ClientID);
             writer.Write(HtmlTextWriter.TagRightChar);
 
-            writer.Write(this.labelText);
+            base.RenderControl(writer);
 
-            writer.WriteEndTag(HtmlTextWriterTag.Label.ToString());
+            if (this.Dismissing)
+            {
+                writer.Write("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">");
+                writer.Write("<span aria-hidden=\"true\">&times;</span>");
+                writer.Write("</button>");
+            }
+
+            writer.WriteEndTag(HtmlTextWriterTag.Div.ToString());
         }
-        */
-
     }
 }

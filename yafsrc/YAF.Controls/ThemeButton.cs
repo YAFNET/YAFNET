@@ -728,12 +728,16 @@ namespace YAF.Controls
                     return "btn btn-secondary";
                 case ButtonAction.Success:
                     return "btn btn-success";
+                case ButtonAction.OutlineSuccess:
+                    return "btn btn-outline-success";
                 case ButtonAction.Danger:
                     return "btn btn-danger";
                 case ButtonAction.Warning:
                     return "btn btn-warning";
                 case ButtonAction.Info:
                     return "btn btn-info";
+                case ButtonAction.OutlineInfo:
+                    return "btn btn-outline-info";
                 case ButtonAction.Light:
                     return "btn btn-light";
                 case ButtonAction.Dark:

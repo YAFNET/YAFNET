@@ -249,44 +249,14 @@ namespace YAF.Types.Constants
         error,
 
         /// <summary>
-        /// The shoutbox.
-        /// </summary>
-        shoutbox,
-
-        /// <summary>
         /// The avatar.
         /// </summary>
         avatar,
 
         /// <summary>
-        /// The im_yim.
-        /// </summary>
-        im_yim,
-
-        /// <summary>
-        /// The im_aim.
-        /// </summary>
-        im_aim,
-
-        /// <summary>
-        /// The im_icq.
-        /// </summary>
-        im_icq,
-
-        /// <summary>
         /// The im_xmpp.
         /// </summary>
         im_xmpp,
-
-        /// <summary>
-        /// The im_skype.
-        /// </summary>
-        im_skype,
-
-        /// <summary>
-        /// The im_msn.
-        /// </summary>
-        im_msn,
 
         /// <summary>
         /// The im_email.

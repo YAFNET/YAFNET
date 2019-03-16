@@ -1429,45 +1429,6 @@
                         <p>
                             <asp:CheckBox CssClass="form-control" ID="ShowEditedMessage" runat="server"></asp:CheckBox>
 
-                    </p><hr />
-
-                        <h2>
-                            <YAF:LocalizedLabel ID="LocalizedLabel36" runat="server" LocalizedTag="HEADER_SHOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h2>
-                    <hr />
-
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel165" runat="server" LocalizedTag="SHOW_SHOUTBOX" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:CheckBox CssClass="form-control" ID="ShowShoutbox" runat="server"></asp:CheckBox>
-
-                    </p><hr />
-
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel221" runat="server" LocalizedTag="VIEWSHOUTBOX_PERMISSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:DropDownList CssClass="custom-select" ID="ShoutboxViewPermissions" runat="server">
-                            </asp:DropDownList>
-
-                    </p><hr />
-
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel222" runat="server" LocalizedTag="SHOUTBOX_DEFAULTSTATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:DropDownList CssClass="custom-select" ID="ShoutboxDefaultState" runat="server">
-                            </asp:DropDownList>
-
-                    </p><hr />
-
-                        <h4>
-                            <YAF:HelpLabel ID="HelpLabel219" runat="server" LocalizedTag="SHOUTBOX_COUNT" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                        </h4>
-                        <p>
-                            <asp:TextBox CssClass="form-control" ID="ShoutboxShowMessageCount" runat="server"></asp:TextBox>
-
                     </p>
 
 	</div>

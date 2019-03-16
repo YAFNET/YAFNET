@@ -277,7 +277,6 @@ namespace YAF.Core.Services.Auth
                 // Update profile with Google informations
                 var userProfile = YafContext.Current.Profile;
 
-                userProfile.Google = googleUser.ProfileURL;
                 userProfile.GoogleId = googleUser.UserID;
                 userProfile.Homepage = googleUser.ProfileURL;
 
@@ -440,7 +439,6 @@ namespace YAF.Core.Services.Auth
             // setup their initial profile information
             userProfile.Save();
 
-            userProfile.Google = googleUser.ProfileURL;
             userProfile.GoogleId = googleUser.UserID;
             userProfile.Homepage = googleUser.ProfileURL;
 

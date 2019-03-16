@@ -1060,25 +1060,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 	)
 GO
 
-if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and type in (N'U'))
-begin
-	CREATE TABLE [{databaseOwner}].[{objectQualifier}ShoutboxMessage](
-		[ShoutBoxMessageID] [int] IDENTITY(1,1) NOT NULL,		
-		[BoardId] [int] NOT NULL constraint [DF_{objectQualifier}ShoutboxMessage_BoardID] default (1),
-		[UserID] [int] NULL,
-		[UserName] [nvarchar](255) NOT NULL,
-		[UserDisplayName] [nvarchar](255) NOT NULL,
-		[Message] [nvarchar](max) NULL,
-		[Date] [datetime] NOT NULL,
-		[IP] [varchar](50) NOT NULL,
- constraint [PK_{objectQualifier}ShoutboxMessage] PRIMARY KEY CLUSTERED 
-(
-	[ShoutBoxMessageID] ASC
-)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
-	)
-end
-GO	
-
 exec('[{databaseOwner}].[{objectQualifier}drop_defaultconstraint_oncolumn] {objectQualifier}Board, BoardUID')
 GO
 
@@ -1888,19 +1869,6 @@ begin
 end
 GO
 
--- ShoutboxMessage Table
-if not exists (select top 1 1 from sys.columns where object_id=object_id(N'[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and name='BoardID')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] add BoardID int not null constraint [DF_{objectQualifier}ShoutboxMessage_BoardID] default (1)
-end
-GO
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and name='UserDisplayName')
-begin	
-	alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] add UserDisplayName nvarchar (255) null
-	-- alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] alter column UserDisplayName nvarchar (255) not null
-end
-GO
-
 -- BBCode Table
 if not exists (select top 1 1 from sys.columns where object_id=object_id(N'[{databaseOwner}].[{objectQualifier}BBCode]') and name='UseModule')
 begin
@@ -2657,7 +2625,6 @@ begin
        from  [{databaseOwner}].[{objectQualifier}ShoutboxMessage] d where d.UserDisplayName IS NULL OR d.UserDisplayName = d.UserName;
          
     /*  declare sbc cursor for
-        select ShoutBoxMessageID,UserID from [{databaseOwner}].[{objectQualifier}ShoutboxMessage]
         where UserDisplayName IS NULL
         FOR UPDATE     
         open sbc
@@ -2915,12 +2882,6 @@ go
 if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Medal]') and name = 'Description' and system_type_id = 99)
 begin
     alter table [{databaseOwner}].[{objectQualifier}Medal] alter column [Description] nvarchar(max)
-end
-go
-
-if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and name = 'Message' and system_type_id = 99)
-begin
-    alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] alter column [Message] nvarchar(max)
 end
 go
 

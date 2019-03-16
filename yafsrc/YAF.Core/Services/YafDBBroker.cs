@@ -485,40 +485,6 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        ///     The get shout box messages.
-        /// </summary>
-        /// <param name="boardId"> The board id. </param>
-        /// <returns> Returns the shout box messages. </returns>
-        public IEnumerable<DataRow> GetShoutBoxMessages(int boardId)
-        {
-            return this.DataCache.GetOrSet(
-                Constants.Cache.Shoutbox,
-                () =>
-                    {
-                        var messages =
-                            this.GetRepository<ShoutboxMessage>()
-                                .GetMessages(
-                                    this.BoardSettings.ShoutboxShowMessageCount,
-                                    this.BoardSettings.UseStyledNicks,
-                                    boardId);
-                        var flags = new MessageFlags { IsBBCode = true, IsHtml = false };
-
-                        foreach (var row in messages.AsEnumerable())
-                        {
-                            var formattedMessage =
-                                this.Get<IFormatMessage>().FormatMessage(row.Field<string>("Message"), flags);
-
-                            // Extra Formating not needed already done tru this.Get<IFormatMessage>().FormatMessage
-                            // formattedMessage = FormatHyperLink(formattedMessage);
-                            row["Message"] = formattedMessage;
-                        }
-
-                        return messages;
-                    },
-                TimeSpan.FromMilliseconds(30000)).AsEnumerable();
-        }
-
-        /// <summary>
         ///     Get a simple forum/topic listing.
         /// </summary>
         /// <param name="boardId"> The board Id. </param>

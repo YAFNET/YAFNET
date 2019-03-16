@@ -20,10 +20,12 @@
                     <i class="fa fa-sticky-note fa-fw"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_REPLACEWORDS" />
                 </div>
                 <div class="card-body">
-                    <div class="alert alert-info d-sm-none" role="alert">
-                            <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                        </div><div class="table-responsive">
+                <YAF:Alert runat="server" ID="Alert2" Type="info" MobileOnly="True">
+                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
+                                        LocalizedTag="TABLE_RESPONSIVE" 
+                                        LocalizedPage="ADMIN_COMMON" />
+                    <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+                </YAF:Alert><div class="table-responsive">
                         <table class="table">
                             <tr>
                             <th>

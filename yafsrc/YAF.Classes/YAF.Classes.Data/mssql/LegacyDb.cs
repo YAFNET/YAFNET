@@ -3529,6 +3529,25 @@ namespace YAF.Classes.Data
             }
         }
 
+        // <summary>
+        /// gets list of replies to message
+        /// </summary>
+        /// <param name="messageID">
+        /// The message id.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        [NotNull]
+        public static DataTable message_getRepliesList([NotNull] object messageID)
+        {
+            using (var cmd = DbHelpers.GetCommand("message_reply_list"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.AddParam("MessageID", messageID);
+                return DbAccess.GetData(cmd);
+            }
+        }
+
         /// <summary>
         /// The message_list.
         /// </summary>
@@ -5459,89 +5478,6 @@ namespace YAF.Classes.Data
                 cmd.AddParam("ForumID", forumId);
                 cmd.AddParam("TopicLimit", topicLimit);
                 return DbAccess.GetData(cmd);
-            }
-        }
-
-        /// <summary>
-        /// The shoutbox_clearmessages.
-        /// </summary>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <returns>
-        /// The shoutbox_clearmessages.
-        /// </returns>
-        public static bool shoutbox_clearmessages(int boardId)
-        {
-            using (var cmd = DbHelpers.GetCommand("shoutbox_clearmessages"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("BoardId", boardId);
-                cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
-                DbAccess.ExecuteNonQuery(cmd);
-                return true;
-            }
-        }
-
-        /// <summary>
-        /// The shoutbox_getmessages.
-        /// </summary>
-        /// <param name="boardId">
-        /// </param>
-        /// <param name="numberOfMessages">
-        /// The number of messages.
-        /// </param>
-        /// <param name="useStyledNicks">
-        /// Use style for user nicks in ShoutBox.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static DataTable shoutbox_getmessages(int boardId, int numberOfMessages, [NotNull] object useStyledNicks)
-        {
-            using (var cmd = DbHelpers.GetCommand("shoutbox_getmessages"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("NumberOfMessages", numberOfMessages);
-                cmd.AddParam("BoardId", boardId);
-                cmd.AddParam("StyledNicks", useStyledNicks);
-                return DbAccess.GetData(cmd);
-            }
-        }
-
-        /// <summary>
-        /// The shoutbox_savemessage.
-        /// </summary>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <param name="userName">
-        /// The usern name.
-        /// </param>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="ip">
-        /// The ip.
-        /// </param>
-        /// <returns>
-        /// The shoutbox_savemessage.
-        /// </returns>
-        public static bool shoutbox_savemessage(int boardId, [NotNull] string message, [NotNull] string userName, int userID, [NotNull] object ip)
-        {
-            using (var cmd = DbHelpers.GetCommand("shoutbox_savemessage"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.AddParam("BoardId", boardId);
-                cmd.AddParam("Message", message);
-                cmd.AddParam("UserName", userName);
-                cmd.AddParam("UserID", userID);
-                cmd.AddParam("IP", ip);
-                cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
-                DbAccess.ExecuteNonQuery(cmd);
-                return true;
             }
         }
 

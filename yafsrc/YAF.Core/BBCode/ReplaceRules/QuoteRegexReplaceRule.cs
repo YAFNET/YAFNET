@@ -110,7 +110,7 @@ namespace YAF.Core.BBCode.ReplaceRules
                     if (postId.IsSet())
                     {
                         quote =
-                            @"{0} <a href=""{1}""><img src=""{2}"" title=""{3}"" alt=""{3}"" /></a>".FormatWith(
+                            @"<cite>{0} <a href=""{1}""><img src=""{2}"" title=""{3}"" alt=""{3}"" /></a></cite>".FormatWith(
                                 localQuotePosted.Replace("{0}", userName),
                                 YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", postId),
                                 YafContext.Current.Get<ITheme>().GetItem("ICONS", "ICON_LATEST"),

@@ -583,20 +583,6 @@ namespace YAF.Core
                             {
                                 // copy profile data over...
                                 var userProfile = YafUserProfile.GetProfile(name);
-                                if (dataTable.Columns.Contains("AIM") && !row["AIM"].IsNullOrEmptyDBField())
-                                {
-                                    userProfile.AIM = row["AIM"].ToString();
-                                }
-
-                                if (dataTable.Columns.Contains("YIM") && !row["YIM"].IsNullOrEmptyDBField())
-                                {
-                                    userProfile.YIM = row["YIM"].ToString();
-                                }
-
-                                if (dataTable.Columns.Contains("MSN") && !row["MSN"].IsNullOrEmptyDBField())
-                                {
-                                    userProfile.MSN = row["MSN"].ToString();
-                                }
 
                                 if (dataTable.Columns.Contains("ICQ") && !row["ICQ"].IsNullOrEmptyDBField())
                                 {

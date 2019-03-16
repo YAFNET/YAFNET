@@ -40,13 +40,22 @@ namespace YAF.Pages.Admin {
         protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
         
         /// <summary>
-        /// LocalizedLabel220-Steuerelement
+        /// Alert2-Steuerelement
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel220;
+        protected global::YAF.Controls.Alert Alert2;
+        
+        /// <summary>
+        /// LocalizedLabel5-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.LocalizedLabel LocalizedLabel5;
         
         /// <summary>
         /// LocalizedLabel4-Steuerelement

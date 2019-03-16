@@ -124,7 +124,7 @@ namespace YAF.Core.Data
 
             using (var p = this._profiler.Start(command.CommandText))
             {
-                T result = default(T);
+                var result = default(T);
 
                 if (dbTransaction == null)
                 {
@@ -172,7 +172,7 @@ namespace YAF.Core.Data
         public virtual IDbCommand GetCommand(
             [NotNull] string sql, CommandType commandType = CommandType.StoredProcedure, [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null)
         {
-            DbCommand cmd = this.DbProviderFactory.CreateCommand();
+            var cmd = this.DbProviderFactory.CreateCommand();
             parameters = parameters.IfNullEmpty();
 
             cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
