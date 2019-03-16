@@ -1922,8 +1922,9 @@ pre[class*="language-"].line-numbers > code {
   border: 1px solid #666;
   margin-right: 8px; }
 
-.yafnet .code {
-  max-width: 750px; }
+.yafnet .selectionQuoteable, .yafnet div.code div, .yafnet div.code {
+  max-width: 75vw;
+  word-break: break-word; }
 
 .yafnet .adminContainer {
   width: 100%; }
