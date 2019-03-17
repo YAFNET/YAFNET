@@ -130,7 +130,6 @@
     <Compile Include="Data\TryInvokeMemberProxy.cs" />
     <Compile Include="Data\CommandTextHelpers.cs" />
     <Compile Include="Services\Cache\NewUserClearActiveLazyEvent.cs" />
-    <Compile Include="Services\Cache\ShoutboxMessageCacheInvalidate.cs" />
     <Compile Include="Extensions\ILoggerExtensions.cs" />
     <Compile Include="Extensions\IRegistrationBuilderExtension.cs" />
     <Compile Include="Model\BoardRepositoryExtensions.cs" />
